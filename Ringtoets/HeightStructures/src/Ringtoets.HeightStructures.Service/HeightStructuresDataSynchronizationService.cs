@@ -139,6 +139,11 @@ namespace Ringtoets.HeightStructures.Service
                 .ToArray();
             foreach (StructuresCalculation<HeightStructuresInput> calculation in calculationWithRemovedHeightStructure)
             {
+                foreach (var calculationWithRemovedOutput in RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(calculation))
+                {
+                    changedObservables.Add(calculationWithRemovedOutput);
+                }
+
                 calculation.InputParameters.Structure = null;
                 changedObservables.Add(calculation.InputParameters);
             }

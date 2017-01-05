@@ -320,6 +320,8 @@ namespace Ringtoets.HeightStructures.Service.Test
             HeightStructuresFailureMechanismSectionResult[] sectionResultsWithStructure = failureMechanism.SectionResults
                                                                                                           .Where(sr => calculationsWithStructure.Contains(sr.Calculation))
                                                                                                           .ToArray();
+            StructuresCalculation<HeightStructuresInput>[] calculationsWithOutput = calculationsWithStructure.Where(c => c.HasOutput)
+                                                                                                             .ToArray();
 
             int originalNumberOfSectionResultAssignments = failureMechanism.SectionResults.Count(sr => sr.Calculation != null);
             HeightStructuresFailureMechanismSectionResult[] sectionResults = failureMechanism.SectionResults
@@ -327,6 +329,7 @@ namespace Ringtoets.HeightStructures.Service.Test
                                                                                              .ToArray();
 
             // Precondition
+            CollectionAssert.IsNotEmpty(calculationsWithOutput);
             CollectionAssert.IsNotEmpty(calculationsWithStructure);
             CollectionAssert.IsNotEmpty(sectionResultsWithStructure);
 
@@ -341,18 +344,26 @@ namespace Ringtoets.HeightStructures.Service.Test
             {
                 Assert.IsNull(calculation.InputParameters.Structure);
             }
+            foreach (StructuresCalculation<HeightStructuresInput> calculation in calculationsWithOutput)
+            {
+                Assert.IsFalse(calculation.HasOutput);
+            }
             foreach (HeightStructuresFailureMechanismSectionResult sectionResult in sectionResultsWithStructure)
             {
                 Assert.IsNull(sectionResult.Calculation);
             }
 
             IObservable[] array = affectedObjects.ToArray();
-            Assert.AreEqual(1 + calculationsWithStructure.Length + sectionResultsWithStructure.Length,
+            Assert.AreEqual(1 + calculationsWithOutput.Length + calculationsWithStructure.Length + sectionResultsWithStructure.Length,
                             array.Length);
             CollectionAssert.Contains(array, failureMechanism.HeightStructures);
             foreach (StructuresCalculation<HeightStructuresInput> calculation in calculationsWithStructure)
             {
                 CollectionAssert.Contains(array, calculation.InputParameters);
+            }
+            foreach (StructuresCalculation<HeightStructuresInput> calculation in calculationsWithOutput)
+            {
+                CollectionAssert.Contains(array, calculation);
             }
             foreach (HeightStructuresFailureMechanismSectionResult result in sectionResultsWithStructure)
             {
@@ -383,7 +394,8 @@ namespace Ringtoets.HeightStructures.Service.Test
                 {
                     ForeshoreProfile = profile,
                     Structure = structure1
-                }
+                },
+                Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
             };
             StructuresCalculation<HeightStructuresInput> calculation2 = new TestHeightStructuresCalculation
             {
