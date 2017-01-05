@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.ComponentModel;
 using System.Linq;
 using Core.Common.Base.Geometry;
@@ -38,16 +39,29 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         private const int useForeshorePropertyIndex = 1;
         private const int coordinatesPropertyIndex = 2;
         private readonly IUseForeshore data;
+        private readonly IPropertyChangeHandler changeHandler;
+
+        /// <summary>
+        /// Creates a new instance of <see cref="UseForeshoreProperties"/>, in which
+        /// all the properties are read only.
+        /// </summary>
+        public UseForeshoreProperties() { }
 
         /// <summary>
         /// Creates a new instance of <see cref="UseForeshoreProperties"/>.
         /// </summary>
-        /// <param name="useForshoreData">The data to use for the properties. </param>
-        /// <remarks>If <paramref name="useForshoreData"/> is <c>null</c>, all properties will 
+        /// <param name="useForeshoreData">The data to use for the properties. </param>
+        /// <param name="handler">Optional handler that is used to handle property changes.</param>
+        /// <remarks>If <paramref name="useForeshoreData"/> is <c>null</c>, all properties will 
         /// be set to <see cref="ReadOnlyAttribute"/>.</remarks>
-        public UseForeshoreProperties(IUseForeshore useForshoreData)
+        public UseForeshoreProperties(IUseForeshore useForeshoreData, IPropertyChangeHandler handler)
         {
-            data = useForshoreData;
+            if (useForeshoreData == null)
+            {
+                throw new ArgumentNullException(nameof(useForeshoreData));
+            }
+            data = useForeshoreData;
+            changeHandler = handler;
         }
 
         [DynamicReadOnly]
@@ -63,7 +77,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             set
             {
                 data.UseForeshore = value;
-                data.NotifyObservers();
+                NotifyPropertyChanged();
             }
         }
 
@@ -90,6 +104,15 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         public override string ToString()
         {
             return string.Empty;
+        }
+
+        private void NotifyPropertyChanged()
+        {
+            if (changeHandler != null)
+            {
+                changeHandler.PropertyChanged();
+            }
+            data.NotifyObservers();
         }
     }
 }

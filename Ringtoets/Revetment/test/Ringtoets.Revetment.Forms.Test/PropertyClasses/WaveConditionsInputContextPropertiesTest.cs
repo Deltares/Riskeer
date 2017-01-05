@@ -364,6 +364,26 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
         }
 
         [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void UseBreakWater_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput(bool hasOutput)
+        {
+            SetPropertyAndVerifyNotifcationsAndOutput(
+                hasOutput,
+                properties => properties.BreakWater.UseBreakWater = new Random(21).NextBoolean());
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void UseForeshore_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput(bool hasOutput)
+        {
+            SetPropertyAndVerifyNotifcationsAndOutput(
+                hasOutput,
+                properties => properties.ForeshoreGeometry.UseForeshore = true);
+        }
+
+        [Test]
         public void SelectedHydraulicBoundaryLocation_InputNoLocation_ReturnsNull()
         {
             var input = new WaveConditionsInput();
@@ -527,6 +547,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             calculation.Attach(calculationObserver);
 
             var input = new WaveConditionsInput();
+            input.ForeshoreProfile = new TestForeshoreProfile();
             input.Attach(inputObserver);
 
             var properties = new TestWaveConditionsInputContextProperties(

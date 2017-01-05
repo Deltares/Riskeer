@@ -263,7 +263,7 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
         {
             get
             {
-                return new UseForeshoreProperties(data.WrappedData);
+                return new UseForeshoreProperties(data.WrappedData, this);
             }
         }
 

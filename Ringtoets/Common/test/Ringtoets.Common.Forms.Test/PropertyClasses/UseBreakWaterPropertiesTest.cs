@@ -53,84 +53,6 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void Constructor_UseBreakWaterDataNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate test = () => new UseBreakWaterProperties(null, null);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("useBreakWaterData", paramName);
-        }
-
-        [Test]
-        public void Constructor_WithUseBreakWaterData_ExpectedValues()
-        {
-            // Setup
-            var useBreakWaterData = new TestUseBreakWater
-            {
-                UseBreakWater = true,
-                BreakWater = new BreakWater(BreakWaterType.Caisson, 10)
-            };
-
-            // Call
-            var properties = new UseBreakWaterProperties(useBreakWaterData, null);
-
-            // Assert
-            Assert.IsTrue(properties.UseBreakWater);
-            Assert.AreEqual(BreakWaterType.Caisson, properties.BreakWaterType);
-            Assert.AreEqual(10, properties.BreakWaterHeight, properties.BreakWaterHeight.GetAccuracy());
-            Assert.AreEqual(string.Empty, properties.ToString());
-        }
-
-        [Test]
-        public void SetProperties_IndividualProperties_UpdateData()
-        {
-            // Setup
-            var breakWater = new BreakWater(BreakWaterType.Caisson, 2.2);
-            var testUseBreakWater = new TestUseBreakWater
-            {
-                BreakWater = breakWater
-            };
-            var properties = new UseBreakWaterProperties(testUseBreakWater, null);
-
-            // Call
-            properties.UseBreakWater = true;
-            properties.BreakWaterType = BreakWaterType.Dam;
-            properties.BreakWaterHeight = (RoundedDouble) 1.1;
-
-            // Assert
-            Assert.IsTrue(properties.UseBreakWater);
-            Assert.AreEqual(BreakWaterType.Dam, properties.BreakWaterType);
-            Assert.AreEqual(1.1, properties.BreakWaterHeight, properties.BreakWaterHeight.GetAccuracy());
-            Assert.AreEqual(string.Empty, properties.ToString());
-        }
-
-        [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void DikeHeight_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput(bool hasOutput)
-        {
-            SetPropertyAndVerifyNotifcationsAndHandlerCall(hasOutput, properties => properties.BreakWaterHeight = new Random(21).NextRoundedDouble());
-        }
-
-        [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void BreakWaterType_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput(bool hasOutput)
-        {
-            SetPropertyAndVerifyNotifcationsAndHandlerCall(hasOutput, properties => properties.BreakWaterType = new Random(21).NextEnumValue<BreakWaterType>());
-        }
-
-        [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void UseBreakWater_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput(bool hasOutput)
-        {
-            SetPropertyAndVerifyNotifcationsAndHandlerCall(hasOutput, properties => properties.UseBreakWater = new Random(21).NextBoolean());
-        }
-
-        [Test]
         public void DefaultConstructor_Always_ReadOnlyProperties()
         {
             // Call
@@ -166,6 +88,37 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                                                                             "Hoogte [m+NAP]",
                                                                             "De hoogte van de dam.",
                                                                             true);
+        }
+
+        [Test]
+        public void Constructor_UseBreakWaterDataNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => new UseBreakWaterProperties(null, null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("useBreakWaterData", paramName);
+        }
+
+        [Test]
+        public void Constructor_WithUseBreakWaterData_ExpectedValues()
+        {
+            // Setup
+            var useBreakWaterData = new TestUseBreakWater
+            {
+                UseBreakWater = true,
+                BreakWater = new BreakWater(BreakWaterType.Caisson, 10)
+            };
+
+            // Call
+            var properties = new UseBreakWaterProperties(useBreakWaterData, null);
+
+            // Assert
+            Assert.IsTrue(properties.UseBreakWater);
+            Assert.AreEqual(BreakWaterType.Caisson, properties.BreakWaterType);
+            Assert.AreEqual(10, properties.BreakWaterHeight, properties.BreakWaterHeight.GetAccuracy());
+            Assert.AreEqual(string.Empty, properties.ToString());
         }
 
         [Test]
@@ -211,6 +164,53 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                                                                             "Hoogte [m+NAP]",
                                                                             "De hoogte van de dam.",
                                                                             !useBreakWater);
+        }
+
+        [Test]
+        public void SetProperties_IndividualProperties_UpdateData()
+        {
+            // Setup
+            var breakWater = new BreakWater(BreakWaterType.Caisson, 2.2);
+            var testUseBreakWater = new TestUseBreakWater
+            {
+                BreakWater = breakWater
+            };
+            var properties = new UseBreakWaterProperties(testUseBreakWater, null);
+
+            // Call
+            properties.UseBreakWater = true;
+            properties.BreakWaterType = BreakWaterType.Dam;
+            properties.BreakWaterHeight = (RoundedDouble) 1.1;
+
+            // Assert
+            Assert.IsTrue(properties.UseBreakWater);
+            Assert.AreEqual(BreakWaterType.Dam, properties.BreakWaterType);
+            Assert.AreEqual(1.1, properties.BreakWaterHeight, properties.BreakWaterHeight.GetAccuracy());
+            Assert.AreEqual(string.Empty, properties.ToString());
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void DikeHeight_WithOrWithoutOutput_InputNotifiedAndPropertyChangedCalled(bool hasOutput)
+        {
+            SetPropertyAndVerifyNotifcationsAndHandlerCall(hasOutput, properties => properties.BreakWaterHeight = new Random(21).NextRoundedDouble());
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void BreakWaterType_WithOrWithoutOutput_InputNotifiedAndPropertyChangedCalled(bool hasOutput)
+        {
+            SetPropertyAndVerifyNotifcationsAndHandlerCall(hasOutput, properties => properties.BreakWaterType = new Random(21).NextEnumValue<BreakWaterType>());
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void UseBreakWater_WithOrWithoutOutput_InputNotifiedAndPropertyChangedCalled(bool hasOutput)
+        {
+            SetPropertyAndVerifyNotifcationsAndHandlerCall(hasOutput, properties => properties.UseBreakWater = new Random(21).NextBoolean());
         }
 
         private class TestUseBreakWater : Observable, IUseBreakWater

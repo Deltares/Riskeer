@@ -252,6 +252,16 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         }
 
         [Test]
+        [TestCase(true, TestName = "UseForeshore_WithOutput_InputAndCalculationNotified")]
+        [TestCase(false, TestName = "UseForeshore_WithoutOutput_InputNotified")]
+        public void UseForeshore_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput(bool hasOutput)
+        {
+            SetPropertyAndVerifyNotifcationsAndOutput(
+                hasOutput,
+                properties => properties.Foreshore.UseForeshore = true);
+        }
+
+        [Test]
         [TestCase(true, TestName = "CriticalFlowRate_WithOutput_InputAndCalculationNotified")]
         [TestCase(false, TestName = "CriticalFlowRate_WithoutOutput_InputNotified")]
         public void CriticalFlowRate_MeanChangedWithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput(bool hasOutput)

@@ -60,7 +60,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         {
             if (useBreakWaterData == null)
             {
-                throw new ArgumentNullException("useBreakWaterData");
+                throw new ArgumentNullException(nameof(useBreakWaterData));
             }
             data = useBreakWaterData;
             changeHandler = handler;

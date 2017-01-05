@@ -555,6 +555,26 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         }
 
         [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void UseBreakWater_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput(bool hasOutput)
+        {
+            SetPropertyAndVerifyNotifcationsAndOutput(
+                hasOutput,
+                properties => properties.UseBreakWater.UseBreakWater = true);
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void UseForeshore_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput(bool hasOutput)
+        {
+            SetPropertyAndVerifyNotifcationsAndOutput(
+                hasOutput,
+                properties => properties.UseForeshore.UseForeshore = true);
+        }
+
+        [Test]
         public void Structure_NullValue_AfterSettingStructureCalled()
         {
             // Setup
@@ -828,8 +848,8 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             calculation.Attach(calculationObserver);
 
             SimpleStructureInput inputParameters = calculation.InputParameters;
+            inputParameters.ForeshoreProfile = new TestForeshoreProfile();
             inputParameters.Attach(inputObserver);
-
 
             var properties = new SimpleStructuresInputProperties(new SimpleInputContext(inputParameters,
                                                                                         calculation,
