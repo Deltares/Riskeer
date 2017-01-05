@@ -234,6 +234,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
 
             // Assert
             Assert.Throws<ArgumentOutOfRangeException>(test);
+            Assert.IsTrue(changeHandler.Called);
             mockRepository.VerifyAll();
         }
 
@@ -267,6 +268,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
 
             // Assert
             Assert.AreEqual(value, failureMechanism.GeneralInput.N2A);
+            Assert.IsTrue(changeHandler.Called);
             mockRepository.VerifyAll();
         }
     }

@@ -19,7 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
@@ -45,6 +48,30 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
         private const int modelFactorCollisionLoadPropertyIndex = 7;
         private const int modelFactorLoadEffectPropertyIndex = 8;
 
+        private readonly IFailureMechanismPropertyChangeHandler<StabilityPointStructuresFailureMechanism> propertyChangeHandler;
+
+        /// <summary>
+        /// Creates a new instance of <see cref="StabilityPointStructuresFailureMechanismProperties"/>.
+        /// </summary>
+        /// <param name="data">The instance to show the properties of.</param>
+        /// <param name="handler">Handler responsible for handling effects of a property change.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
+        public StabilityPointStructuresFailureMechanismProperties(
+            StabilityPointStructuresFailureMechanism data,
+            IFailureMechanismPropertyChangeHandler<StabilityPointStructuresFailureMechanism> handler)
+        {
+            if (data == null)
+            {
+                throw new ArgumentNullException(nameof(data));
+            }
+            if (handler == null)
+            {
+                throw new ArgumentNullException(nameof(handler));
+            }
+            Data = data;
+            propertyChangeHandler = handler;
+        }
+
         #region Length effect parameters
 
         [PropertyOrder(lengthEffectPropertyIndex)]
@@ -59,8 +86,12 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
             }
             set
             {
-                data.GeneralInput.N = value;
-                data.NotifyObservers();
+                IEnumerable<IObservable> affectedObjects = propertyChangeHandler.SetPropertyValueAfterConfirmation(
+                    data,
+                    value,
+                    (f, v) => f.GeneralInput.N = v);
+
+                NotifyAffectedObjects(affectedObjects);
             }
         }
 
@@ -173,5 +204,13 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
         }
 
         #endregion
+
+        private static void NotifyAffectedObjects(IEnumerable<IObservable> affectedObjects)
+        {
+            foreach (var affectedObject in affectedObjects)
+            {
+                affectedObject.NotifyObservers();
+            }
+        }
     }
 }

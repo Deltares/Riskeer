@@ -229,6 +229,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
 
             // Assert
             Assert.Throws<ArgumentOutOfRangeException>(test);
+            Assert.IsTrue(changeHandler.Called);
             mockRepository.VerifyAll();
         }
 
@@ -264,6 +265,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
 
             // Assert
             Assert.AreEqual(newLengthEffect, failureMechanism.GeneralInput.N);
+            Assert.IsTrue(changeHandler.Called);
             mockRepository.VerifyAll();
         }
     }

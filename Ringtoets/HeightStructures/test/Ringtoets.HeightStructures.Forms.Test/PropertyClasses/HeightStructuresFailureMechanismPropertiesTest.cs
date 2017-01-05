@@ -203,6 +203,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
 
             // Assert
             Assert.Throws<ArgumentOutOfRangeException>(test);
+            Assert.IsTrue(changeHandler.Called);
             mockRepository.VerifyAll();
         }
 
@@ -235,6 +236,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
 
             // Assert
             Assert.AreEqual(value, failureMechanism.GeneralInput.N);
+            Assert.IsTrue(changeHandler.Called);
             mockRepository.VerifyAll();
         }
     }

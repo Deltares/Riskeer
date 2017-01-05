@@ -19,12 +19,15 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.ComponentModel;
 using Core.Common.Base;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Forms.PropertyClasses;
+using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityPointStructures.Forms.PropertyClasses;
 
@@ -43,27 +46,54 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         private const int modelFactorLoadEffectPropertyIndex = 7;
 
         [Test]
-        public void Constructor_ExpectedValues()
+        public void Constructor_DataIsNull_ThrowArgumentNullException()
         {
+            // Setup
+            var mocks = new MockRepository();
+            IFailureMechanismPropertyChangeHandler<StabilityPointStructuresFailureMechanism> changeHandler =
+                mocks.Stub<IFailureMechanismPropertyChangeHandler<StabilityPointStructuresFailureMechanism>>();
+            mocks.ReplayAll();
+
             // Call
-            var properties = new StabilityPointStructuresFailureMechanismProperties();
+            TestDelegate test = () => new StabilityPointStructuresFailureMechanismProperties(null, changeHandler);
 
             // Assert
-            Assert.IsInstanceOf<ObjectProperties<StabilityPointStructuresFailureMechanism>>(properties);
-            Assert.IsNull(properties.Data);
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("data", paramName);
+            mocks.VerifyAll();
         }
 
         [Test]
-        public void Data_SetNewFailureMechanismContextInstance_ReturnCorrectPropertyValues()
+        public void Constructor_ChangeHandlerIsNull_ThrowArgumentNullException()
         {
-            // Setup
-            var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            var properties = new StabilityPointStructuresFailureMechanismProperties();
-
             // Call
-            properties.Data = failureMechanism;
+            TestDelegate test = () => new StabilityPointStructuresFailureMechanismProperties(
+                new StabilityPointStructuresFailureMechanism(),
+                null);
 
             // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("handler", paramName);
+        }
+
+        [Test]
+        public void Constructor_ValidValues_ExpectedValues()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            IFailureMechanismPropertyChangeHandler<StabilityPointStructuresFailureMechanism> changeHandler =
+                mocks.Stub<IFailureMechanismPropertyChangeHandler<StabilityPointStructuresFailureMechanism>>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+
+            // Call
+            var properties = new StabilityPointStructuresFailureMechanismProperties(failureMechanism, changeHandler);
+
+            // Assert
+            Assert.IsInstanceOf<ObjectProperties<StabilityPointStructuresFailureMechanism>>(properties);
+            Assert.AreSame(failureMechanism, properties.Data);
+
             Assert.AreEqual("Kunstwerken - Sterkte en stabiliteit puntconstructies", properties.Name);
             Assert.AreEqual("STKWp", properties.Code);
 
@@ -81,41 +111,18 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void SetProperties_IndividualProperties_UpdateDataAndNotifyObservers()
-        {
-            // Setup
-            var mockRepository = new MockRepository();
-            var observerMock = mockRepository.StrictMock<IObserver>();
-            observerMock.Expect(o => o.UpdateObserver()).Repeat.Times(1);
-            mockRepository.ReplayAll();
-
-            var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            failureMechanism.Attach(observerMock);
-            var properties = new StabilityPointStructuresFailureMechanismProperties
-            {
-                Data = failureMechanism
-            };
-            const int newLengthEffect = 10;
-
-            // Call
-            properties.LengthEffect = newLengthEffect;
-
-            // Assert
-            Assert.AreEqual(newLengthEffect, failureMechanism.GeneralInput.N);
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
         public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
+            var mocks = new MockRepository();
+            IFailureMechanismPropertyChangeHandler<StabilityPointStructuresFailureMechanism> changeHandler =
+                mocks.Stub<IFailureMechanismPropertyChangeHandler<StabilityPointStructuresFailureMechanism>>();
+            mocks.ReplayAll();
+
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
             // Call
-            var properties = new StabilityPointStructuresFailureMechanismProperties
-            {
-                Data = failureMechanism
-            };
+            var properties = new StabilityPointStructuresFailureMechanismProperties(failureMechanism, changeHandler);
 
             // Assert
             var generalCategory = "Algemeen";
@@ -183,6 +190,71 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
                                                                             "Modelfactor belastingeffect [-]",
                                                                             "Modelfactor belastingeffect.",
                                                                             true);
+        }
+
+        [Test]
+        [TestCase(0)]
+        [TestCase(-1)]
+        [TestCase(-20)]
+        public void LengthEffect_InvalidValueWithConfirmation_UpdateDataAndNotifyObservers(int value)
+        {
+            // Setup
+            var mockRepository = new MockRepository();
+            var observableMock = mockRepository.StrictMock<IObservable>();
+            mockRepository.ReplayAll();
+
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+
+            var changeHandler = new FailureMechanismSetPropertyValueAfterConfirmationParameterTester<StabilityPointStructuresFailureMechanism, double>(
+                failureMechanism,
+                value,
+                new[]
+                {
+                    observableMock
+                });
+
+            var properties = new StabilityPointStructuresFailureMechanismProperties(failureMechanism, changeHandler);
+
+            // Call
+            TestDelegate test = () => properties.LengthEffect = value;
+
+            // Assert
+            Assert.Throws<ArgumentOutOfRangeException>(test);
+            Assert.IsTrue(changeHandler.Called);
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(1)]
+        [TestCase(10)]
+        [TestCase(20)]
+        public void LengthEffect_SetValidValueWithConfirmation_UpdateDataAndNotifyObservers(int value)
+        {
+            // Setup
+            var mockRepository = new MockRepository();
+            var observableMock = mockRepository.StrictMock<IObservable>();
+            observableMock.Expect(o => o.NotifyObservers());
+
+            mockRepository.ReplayAll();
+
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+            var changeHandler = new FailureMechanismSetPropertyValueAfterConfirmationParameterTester<StabilityPointStructuresFailureMechanism, double>(
+                failureMechanism,
+                value,
+                new[]
+                {
+                    observableMock
+                });
+
+            var properties = new StabilityPointStructuresFailureMechanismProperties(failureMechanism, changeHandler);
+
+            // Call
+            properties.LengthEffect = value;
+
+            // Assert
+            Assert.AreEqual(value, failureMechanism.GeneralInput.N);
+            Assert.IsTrue(changeHandler.Called);
+            mockRepository.VerifyAll();
         }
     }
 }

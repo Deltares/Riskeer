@@ -49,6 +49,7 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
 
             // Assert
             Assert.Throws<AssertionException>(test);
+            Assert.IsTrue(tester.Called);
         }
 
         [Test]
@@ -68,6 +69,7 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
 
             // Assert
             Assert.Throws<AssertionException>(test);
+            Assert.IsTrue(tester.Called);
         }
 
         [Test]
@@ -83,11 +85,12 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
                 testFailureMechanism, value, returnedAffectedObjects);
             
             // Call
-            var affectedObjetcs = tester.SetPropertyValueAfterConfirmation(testFailureMechanism, value, (m, v) => called++);
+            var affectedObjects = tester.SetPropertyValueAfterConfirmation(testFailureMechanism, value, (m, v) => called++);
 
             // Assert
             Assert.AreEqual(1, called);
-            Assert.AreSame(returnedAffectedObjects, affectedObjetcs);
+            Assert.AreSame(returnedAffectedObjects, affectedObjects);
+            Assert.IsTrue(tester.Called);
         }
 
         [Test]
@@ -108,6 +111,7 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
             // Assert
             var exception = Assert.Throws<Exception>(test);
             Assert.AreSame(expectedException, exception);
+            Assert.IsTrue(tester.Called);
         }
     }
 }
