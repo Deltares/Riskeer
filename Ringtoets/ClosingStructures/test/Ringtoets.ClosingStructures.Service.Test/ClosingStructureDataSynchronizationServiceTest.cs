@@ -318,6 +318,8 @@ namespace Ringtoets.ClosingStructures.Service.Test
             ClosingStructuresFailureMechanismSectionResult[] sectionResultsWithStructure = failureMechanism.SectionResults
                                                                                                            .Where(sr => calculationsWithStructure.Contains(sr.Calculation))
                                                                                                            .ToArray();
+            StructuresCalculation<ClosingStructuresInput>[] calculationsWithOutput = calculationsWithStructure.Where(c => c.HasOutput)
+                                                                                                             .ToArray();
 
             int originalNumberOfSectionResultAssignments = failureMechanism.SectionResults.Count(sr => sr.Calculation != null);
             ClosingStructuresFailureMechanismSectionResult[] sectionResults = failureMechanism.SectionResults
@@ -325,6 +327,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                                                                                               .ToArray();
 
             // Precondition
+            CollectionAssert.IsNotEmpty(calculationsWithOutput);
             CollectionAssert.IsNotEmpty(calculationsWithStructure);
             CollectionAssert.IsNotEmpty(sectionResultsWithStructure);
 
@@ -339,18 +342,26 @@ namespace Ringtoets.ClosingStructures.Service.Test
             {
                 Assert.IsNull(calculation.InputParameters.Structure);
             }
+            foreach (StructuresCalculation<ClosingStructuresInput> calculation in calculationsWithOutput)
+            {
+                Assert.IsFalse(calculation.HasOutput);
+            }
             foreach (ClosingStructuresFailureMechanismSectionResult sectionResult in sectionResultsWithStructure)
             {
                 Assert.IsNull(sectionResult.Calculation);
             }
 
             IObservable[] array = affectedObjects.ToArray();
-            Assert.AreEqual(1 + calculationsWithStructure.Length + sectionResultsWithStructure.Length,
+            Assert.AreEqual(1 + calculationsWithOutput.Length + calculationsWithStructure.Length + sectionResultsWithStructure.Length,
                             array.Length);
             CollectionAssert.Contains(array, failureMechanism.ClosingStructures);
             foreach (StructuresCalculation<ClosingStructuresInput> calculation in calculationsWithStructure)
             {
                 CollectionAssert.Contains(array, calculation.InputParameters);
+            }
+            foreach (StructuresCalculation<ClosingStructuresInput> calculation in calculationsWithOutput)
+            {
+                CollectionAssert.Contains(array, calculation);
             }
             foreach (ClosingStructuresFailureMechanismSectionResult result in sectionResultsWithStructure)
             {
@@ -381,7 +392,8 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 {
                     ForeshoreProfile = profile,
                     Structure = structure1
-                }
+                },
+                Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
             };
             StructuresCalculation<ClosingStructuresInput> calculation2 = new TestClosingStructuresCalculation
             {

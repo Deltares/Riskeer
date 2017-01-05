@@ -37,7 +37,6 @@ using Ringtoets.ClosingStructures.IO;
 using Ringtoets.ClosingStructures.Service;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms;
