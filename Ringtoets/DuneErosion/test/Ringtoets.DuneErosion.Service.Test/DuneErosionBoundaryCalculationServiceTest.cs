@@ -126,7 +126,7 @@ namespace Ringtoets.DuneErosion.Service.Test
                                              Assert.AreEqual(3, msgs.Length);
                                              var name = duneLocation.Name;
                                              StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", name), msgs[0]);
-                                             Assert.AreEqual("De bijdrage van dit toetsspoor is nul. Daardoor kunnen de berekeningen niet worden uitgevoerd.", msgs[1]);
+                                             Assert.AreEqual($"De berekening voor duinafslag '{duneLocation.Name}' is niet gelukt. De bijdrage van het toetsspoor moet een positief getal zijn.", msgs[1]);
                                              StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", name), msgs[2]);
                                          });
             Assert.IsTrue(exceptionThrown);

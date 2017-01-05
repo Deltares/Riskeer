@@ -121,7 +121,7 @@
     <value>Duinafslag berekening is uitgevoerd op de tijdelijke locatie '{0}'. Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden.</value>
   </data>
   <data name="DuneErosionBoundaryCalculationService_Calculate_Contribution_is_zero" xml:space="preserve">
-    <value>De bijdrage van dit toetsspoor is nul. Daardoor kunnen de berekeningen niet worden uitgevoerd.</value>
+    <value>De berekening voor duinafslag '{0}' is niet gelukt. De bijdrage van het toetsspoor moet een positief getal zijn.</value>
   </data>
   <data name="DuneErosionBoundaryCalculationService_Calculate_Error_in_dune_erosion_0_calculation_click_details_for_last_error_report_1" xml:space="preserve">
     <value>De berekening voor duinafslag '{0}' is niet gelukt. Bekijk het foutrapport door op details te klikken.

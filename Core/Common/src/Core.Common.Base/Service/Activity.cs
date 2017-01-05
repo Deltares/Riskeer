@@ -175,10 +175,7 @@ namespace Core.Common.Base.Service
 
         private void OnProgressChanged()
         {
-            if (ProgressChanged != null)
-            {
-                ProgressChanged(this, EventArgs.Empty);
-            }
+            ProgressChanged?.Invoke(this, EventArgs.Empty);
         }
 
         private void ChangeState(Action transitionAction, ActivityState stateAfter)

@@ -188,7 +188,7 @@ namespace Ringtoets.DuneErosion.Service
         {
             if (Math.Abs(failureMechanism.Contribution) < 1e-6)
             {
-                string errorMessage = Resources.DuneErosionBoundaryCalculationService_Calculate_Contribution_is_zero;
+                string errorMessage = string.Format(Resources.DuneErosionBoundaryCalculationService_Calculate_Contribution_is_zero, calculationName);
                 log.Error(errorMessage);
                 FinalizeCalculation(calculationName, false);
                 throw new ArgumentException(errorMessage);
