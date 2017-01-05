@@ -19,12 +19,15 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.ComponentModel;
 using Core.Common.Base;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Forms.PropertyClasses;
+using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Forms.PropertyClasses;
 
@@ -41,27 +44,54 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
         private const int modelFactorStorageVolumePropertyIndex = 5;
 
         [Test]
-        public void Constructor_ExpectedValues()
+        public void Constructor_DataIsNull_ThrowArgumentNullException()
         {
+            // Setup
+            var mocks = new MockRepository();
+            IFailureMechanismPropertyChangeHandler<HeightStructuresFailureMechanism> changeHandler =
+                mocks.Stub<IFailureMechanismPropertyChangeHandler<HeightStructuresFailureMechanism>>();
+            mocks.ReplayAll();
+
             // Call
-            var properties = new HeightStructuresFailureMechanismProperties();
+            TestDelegate test = () => new HeightStructuresFailureMechanismProperties(null, changeHandler);
 
             // Assert
-            Assert.IsInstanceOf<ObjectProperties<HeightStructuresFailureMechanism>>(properties);
-            Assert.IsNull(properties.Data);
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("data", paramName);
+            mocks.VerifyAll();
         }
 
         [Test]
-        public void Data_SetNewFailureMechanismContextInstance_ReturnCorrectPropertyValues()
+        public void Constructor_ChangeHandlerIsNull_ThrowArgumentNullException()
         {
-            // Setup
-            var failureMechanism = new HeightStructuresFailureMechanism();
-            var properties = new HeightStructuresFailureMechanismProperties();
-
             // Call
-            properties.Data = failureMechanism;
+            TestDelegate test = () => new HeightStructuresFailureMechanismProperties(
+                new HeightStructuresFailureMechanism(),
+                null);
 
             // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("handler", paramName);
+        }
+
+        [Test]
+        public void Constructor_ValidValues_ExpectedValues()
+        {
+            // Setup
+            MockRepository mocks = new MockRepository();
+            IFailureMechanismPropertyChangeHandler<HeightStructuresFailureMechanism> changeHandler =
+                mocks.Stub<IFailureMechanismPropertyChangeHandler<HeightStructuresFailureMechanism>>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new HeightStructuresFailureMechanism();
+
+            // Call
+            var properties = new HeightStructuresFailureMechanismProperties(failureMechanism, changeHandler);
+
+            // Assert
+            Assert.IsInstanceOf<ObjectProperties<HeightStructuresFailureMechanism>>(properties);
+            Assert.AreSame(failureMechanism, properties.Data);
+
             Assert.AreEqual("Kunstwerken - Hoogte kunstwerk", properties.Name);
             Assert.AreEqual("HTKW", properties.Code);
             Assert.AreEqual(failureMechanism.GeneralInput.N, properties.LengthEffect);
@@ -73,45 +103,23 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
 
             Assert.AreEqual(generalInput.ModelFactorStorageVolume.Mean, properties.ModelFactorStorageVolume.Mean);
             Assert.AreEqual(generalInput.ModelFactorStorageVolume.StandardDeviation, properties.ModelFactorStorageVolume.StandardDeviation);
-        }
 
-        [Test]
-        public void SetProperties_IndividualProperties_UpdateDataAndNotifyObservers()
-        {
-            // Setup
-            const int numberOfChangedProperties = 1;
-            var mockRepository = new MockRepository();
-            var observerMock = mockRepository.StrictMock<IObserver>();
-            observerMock.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChangedProperties);
-            mockRepository.ReplayAll();
-
-            var failureMechanism = new HeightStructuresFailureMechanism();
-            failureMechanism.Attach(observerMock);
-            var properties = new HeightStructuresFailureMechanismProperties
-            {
-                Data = failureMechanism
-            };
-            const int newLengthEffect = 10;
-
-            // Call
-            properties.LengthEffect = newLengthEffect;
-
-            // Assert
-            Assert.AreEqual(newLengthEffect, failureMechanism.GeneralInput.N);
-            mockRepository.VerifyAll();
+            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
-            var failureMechanism = new HeightStructuresFailureMechanism();
+            MockRepository mocks = new MockRepository();
+            IFailureMechanismPropertyChangeHandler<HeightStructuresFailureMechanism> changeHandler =
+                mocks.Stub<IFailureMechanismPropertyChangeHandler<HeightStructuresFailureMechanism>>();
+            mocks.ReplayAll();
 
             // Call
-            var properties = new HeightStructuresFailureMechanismProperties
-            {
-                Data = failureMechanism
-            };
+            var properties = new HeightStructuresFailureMechanismProperties(
+                new HeightStructuresFailureMechanism(),
+                changeHandler);
 
             // Assert
             var generalCategory = "Algemeen";
@@ -163,6 +171,71 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
                                                                             "Modelfactor kombergend vermogen [-]",
                                                                             "Modelfactor kombergend vermogen.",
                                                                             true);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(0)]
+        [TestCase(-1)]
+        [TestCase(-20)]
+        public void LengthEffect_InvalidValueWithConfirmation_UpdateDataAndNotifyObservers(int value)
+        {
+            // Setup
+            var mockRepository = new MockRepository();
+            var observableMock = mockRepository.StrictMock<IObservable>();
+            mockRepository.ReplayAll();
+
+            var failureMechanism = new HeightStructuresFailureMechanism();
+
+            var changeHandler = new FailureMechanismSetPropertyValueAfterConfirmationParameterTester<HeightStructuresFailureMechanism, double>(
+                failureMechanism,
+                value,
+                new[]
+                {
+                    observableMock
+                });
+
+            var properties = new HeightStructuresFailureMechanismProperties(failureMechanism, changeHandler);
+
+            // Call
+            TestDelegate test = () => properties.LengthEffect = value;
+
+            // Assert
+            Assert.Throws<ArgumentOutOfRangeException>(test);
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(1)]
+        [TestCase(10)]
+        [TestCase(20)]
+        public void LengthEffect_SetValidValueWithConfirmation_UpdateDataAndNotifyObservers(int value)
+        {
+            // Setup
+            var mockRepository = new MockRepository();
+            var observableMock = mockRepository.StrictMock<IObservable>();
+            observableMock.Expect(o => o.NotifyObservers());
+
+            mockRepository.ReplayAll();
+
+            var failureMechanism = new HeightStructuresFailureMechanism();
+            var changeHandler = new FailureMechanismSetPropertyValueAfterConfirmationParameterTester<HeightStructuresFailureMechanism, double>(
+                failureMechanism,
+                value,
+                new[]
+                {
+                    observableMock
+                });
+
+            var properties = new HeightStructuresFailureMechanismProperties(failureMechanism, changeHandler);
+
+            // Call
+            properties.LengthEffect = value;
+
+            // Assert
+            Assert.AreEqual(value, failureMechanism.GeneralInput.N);
+            mockRepository.VerifyAll();
         }
     }
 }

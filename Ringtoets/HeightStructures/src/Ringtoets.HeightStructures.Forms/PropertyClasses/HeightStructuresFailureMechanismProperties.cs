@@ -19,7 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
@@ -42,6 +45,30 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
         private const int modelFactorOvertoppingFlowPropertyIndex = 5;
         private const int modelFactorStorageVolumePropertyIndex = 6;
 
+        private readonly IFailureMechanismPropertyChangeHandler<HeightStructuresFailureMechanism> propertyChangeHandler;
+
+        /// <summary>
+        /// Creates a new instance of <see cref="HeightStructuresFailureMechanismProperties"/>.
+        /// </summary>
+        /// <param name="data">The instance to show the properties of.</param>
+        /// <param name="handler">Handler responsible for handling effects of a property change.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
+        public HeightStructuresFailureMechanismProperties(
+            HeightStructuresFailureMechanism data,
+            IFailureMechanismPropertyChangeHandler<HeightStructuresFailureMechanism> handler)
+        {
+            if (data == null)
+            {
+                throw new ArgumentNullException(nameof(data));
+            }
+            if (handler == null)
+            {
+                throw new ArgumentNullException(nameof(handler));
+            }
+            Data = data;
+            propertyChangeHandler = handler;
+        }
+
         #region Length effect parameters
 
         [PropertyOrder(lengthEffectPropertyIndex)]
@@ -56,8 +83,12 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
             }
             set
             {
-                data.GeneralInput.N = value;
-                data.NotifyObservers();
+                IEnumerable<IObservable> affectedObjects = propertyChangeHandler.SetPropertyValueAfterConfirmation(
+                    data,
+                    value,
+                    (f, v) => f.GeneralInput.N = v);
+
+                NotifyAffectedObjects(affectedObjects);
             }
         }
 
@@ -138,5 +169,13 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
         }
 
         #endregion
+
+        private static void NotifyAffectedObjects(IEnumerable<IObservable> affectedObjects)
+        {
+            foreach (var affectedObject in affectedObjects)
+            {
+                affectedObject.NotifyObservers();
+            }
+        }
     }
 }
