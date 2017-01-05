@@ -31,6 +31,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 
 namespace Ringtoets.HeightStructures.Plugin.Test.PropertyInfos
 {
+    [TestFixture]
     public class HeightStructuresInputContextPropertyInfoTest
     {
         private HeightStructuresPlugin plugin;

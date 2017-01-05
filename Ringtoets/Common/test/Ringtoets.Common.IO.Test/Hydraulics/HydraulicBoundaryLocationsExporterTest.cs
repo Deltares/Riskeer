@@ -32,6 +32,7 @@ using Ringtoets.Common.IO.Hydraulics;
 
 namespace Ringtoets.Common.IO.Test.Hydraulics
 {
+    [TestFixture]
     public class HydraulicBoundaryLocationsExporterTest
     {
         [Test]

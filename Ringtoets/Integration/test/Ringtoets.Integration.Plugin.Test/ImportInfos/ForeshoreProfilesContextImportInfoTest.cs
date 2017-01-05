@@ -36,6 +36,7 @@ using Ringtoets.Integration.Plugin.Properties;
 
 namespace Ringtoets.Integration.Plugin.Test.ImportInfos
 {
+    [TestFixture]
     public class ForeshoreProfilesContextImportInfoTest
     {
         [Test]

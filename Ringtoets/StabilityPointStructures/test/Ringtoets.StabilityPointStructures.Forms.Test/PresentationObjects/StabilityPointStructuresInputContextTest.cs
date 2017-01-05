@@ -29,6 +29,7 @@ using Ringtoets.StabilityPointStructures.Forms.PresentationObjects;
 
 namespace Ringtoets.StabilityPointStructures.Forms.Test.PresentationObjects
 {
+    [TestFixture]
     public class StabilityPointStructuresInputContextTest
     {
         private MockRepository mocksRepository;

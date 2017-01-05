@@ -30,6 +30,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 
 namespace Ringtoets.ClosingStructures.Plugin.Test.PropertyInfos
 {
+    [TestFixture]
     public class ClosingStructuresFailureMechanismContextPropertyInfoTest
     {
         private ClosingStructuresPlugin plugin;

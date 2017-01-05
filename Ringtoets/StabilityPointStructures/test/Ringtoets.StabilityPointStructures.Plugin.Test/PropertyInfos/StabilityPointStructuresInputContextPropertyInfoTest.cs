@@ -31,6 +31,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 
 namespace Ringtoets.StabilityPointStructures.Plugin.Test.PropertyInfos
 {
+    [TestFixture]
     public class StabilityPointStructuresInputContextPropertyInfoTest
     {
         private StabilityPointStructuresPlugin plugin;

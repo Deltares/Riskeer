@@ -28,6 +28,7 @@ using Ringtoets.Common.Data.DikeProfiles;
 
 namespace Ringtoets.Common.Data.Test.DikeProfiles
 {
+    [TestFixture]
     public class ForeshoreProfileTest
     {
         [Test]
