@@ -72,7 +72,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             var assessmentSectionChangeHandler = mockRepository.Stub<IAssessmentSectionCompositionChangeHandler>();
             mockRepository.ReplayAll();
 
-            var failureMechanismContribution = CreateFailureMechanismContribution();
+            FailureMechanismContribution failureMechanismContribution = CreateFailureMechanismContribution();
 
             // Call
             TestDelegate test = () => new FailureMechanismContributionProperties(
@@ -96,7 +96,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             var assessmentSectionChangeHandler = mockRepository.Stub<IAssessmentSectionCompositionChangeHandler>();
             mockRepository.ReplayAll();
 
-            var failureMechanismContribution = CreateFailureMechanismContribution();
+            FailureMechanismContribution failureMechanismContribution = CreateFailureMechanismContribution();
 
             // Call
             TestDelegate test = () => new FailureMechanismContributionProperties(
@@ -120,7 +120,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             var failureMechanismChangeHandler = mockRepository.Stub<IFailureMechanismContributionNormChangeHandler>();
             mockRepository.ReplayAll();
 
-            var failureMechanismContribution = CreateFailureMechanismContribution();
+            FailureMechanismContribution failureMechanismContribution = CreateFailureMechanismContribution();
 
             // Call
             TestDelegate test = () => new FailureMechanismContributionProperties(
@@ -145,7 +145,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             var assessmentSectionChangeHandler = mockRepository.Stub<IAssessmentSectionCompositionChangeHandler>();
             mockRepository.ReplayAll();
 
-            var failureMechanismContribution = CreateFailureMechanismContribution();
+            FailureMechanismContribution failureMechanismContribution = CreateFailureMechanismContribution();
 
             // Call
             var properties = new FailureMechanismContributionProperties(

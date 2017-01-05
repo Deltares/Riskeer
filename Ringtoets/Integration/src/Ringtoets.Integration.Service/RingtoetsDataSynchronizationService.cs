@@ -578,7 +578,7 @@ namespace Ringtoets.Integration.Service
             var changedObservables = new List<IObservable>();
             foreach (Tuple<ICalculation, WaveConditionsInput> input in calculationInputs.Where(input => ReferenceEquals(input.Item2.ForeshoreProfile, profile)))
             {
-                foreach (var calculationWithRemovedOutput in RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(input.Item1))
+                foreach (IObservable calculationWithRemovedOutput in RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(input.Item1))
                 {
                     changedObservables.Add(calculationWithRemovedOutput);
                 }

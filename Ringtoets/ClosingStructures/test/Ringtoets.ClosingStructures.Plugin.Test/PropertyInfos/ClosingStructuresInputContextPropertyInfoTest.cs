@@ -10,6 +10,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 
 namespace Ringtoets.ClosingStructures.Plugin.Test.PropertyInfos
 {
+    [TestFixture]
     public class ClosingStructuresInputContextPropertyInfoTest
     {
         private ClosingStructuresPlugin plugin;

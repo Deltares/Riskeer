@@ -245,13 +245,13 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         public void N2A_SetValidValueWithConfirmation_UpdateDataAndNotifyObservers(int value)
         {
             // Setup
-            var failureMechanism = new ClosingStructuresFailureMechanism();
-
             var mockRepository = new MockRepository();
             var observableMock = mockRepository.StrictMock<IObservable>();
             observableMock.Expect(o => o.NotifyObservers());
+
             mockRepository.ReplayAll();
 
+            var failureMechanism = new ClosingStructuresFailureMechanism();
             var changeHandler = new FailureMechanismSetPropertyValueAfterConfirmationParameterTester<ClosingStructuresFailureMechanism, double>(
                 failureMechanism,
                 value,

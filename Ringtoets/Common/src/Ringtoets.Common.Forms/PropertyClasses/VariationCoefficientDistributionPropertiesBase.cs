@@ -60,14 +60,14 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         {
             if (observable == null && !propertiesReadOnly.HasFlag(VariationCoefficientDistributionPropertiesReadOnly.All))
             {
-                throw new ArgumentException(@"Observable must be specified unless no property can be set.", "observable");
+                throw new ArgumentException(@"Observable must be specified unless no property can be set.", nameof(observable));
             }
 
             isMeanReadOnly = propertiesReadOnly.HasFlag(VariationCoefficientDistributionPropertiesReadOnly.Mean);
             isVariationCoefficientReadOnly = propertiesReadOnly.HasFlag(VariationCoefficientDistributionPropertiesReadOnly.CoefficientOfVariation);
 
-            meanDisplayName = TypeUtils.GetMemberName<VariationCoefficientDistributionPropertiesBase<T>>(d => d.Mean);
-            variationCoefficientDisplayName = TypeUtils.GetMemberName<VariationCoefficientDistributionPropertiesBase<T>>(d => d.CoefficientOfVariation);
+            meanDisplayName = nameof(Mean);
+            variationCoefficientDisplayName = nameof(CoefficientOfVariation);
 
             this.observable = observable;
             changeHandler = handler;
@@ -91,7 +91,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             {
                 if (isMeanReadOnly)
                 {
-                    throw new InvalidOperationException("Mean is set to be read-only.");
+                    throw new InvalidOperationException($"{nameof(Mean)} is set to be read-only.");
                 }
                 data.Mean = value;
                 NotifyPropertyChanged();
@@ -111,7 +111,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             {
                 if (isVariationCoefficientReadOnly)
                 {
-                    throw new InvalidOperationException("CoefficientOfVariation is set to be read-only.");
+                    throw new InvalidOperationException($"{nameof(CoefficientOfVariation)} is set to be read-only.");
                 }
                 data.CoefficientOfVariation = value;
                 NotifyPropertyChanged();
@@ -135,8 +135,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         public override string ToString()
         {
             return data == null ? string.Empty :
-                       string.Format("{0} ({1} = {2})",
-                                     Mean, Resources.Distribution_VariationCoefficient_DisplayName, CoefficientOfVariation);
+                       $"{Mean} ({Resources.Distribution_VariationCoefficient_DisplayName} = {CoefficientOfVariation})";
         }
 
         /// <summary>

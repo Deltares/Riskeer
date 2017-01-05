@@ -78,7 +78,7 @@ namespace Core.Common.IO.Test.Readers
             // Assert
             ArgumentException exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(
                 test, "Column \'SomeColumn\' not defined for data row.");
-            var paramName = exception.ParamName;
+            string paramName = exception.ParamName;
             Assert.AreEqual("columnName", paramName);
 
             mockRepository.VerifyAll();

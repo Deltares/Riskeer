@@ -64,7 +64,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             TestDelegate test = () => new ClosingStructuresInputContextProperties(null);
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("data", paramName);
         }
 

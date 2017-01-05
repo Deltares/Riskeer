@@ -262,7 +262,7 @@ namespace Core.Common.Geometry.Test
             TestDelegate test = () => AdvancedMath2D.FromXToXY(null, new Point2D(0, 0), 3, 2);
 
             // Assert
-            var paramName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(
+            string paramName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(
                 test,
                 "Cannot transform to coordinates without a source.").ParamName;
             Assert.AreEqual("xCoordinates", paramName);
@@ -275,7 +275,7 @@ namespace Core.Common.Geometry.Test
             TestDelegate test = () => AdvancedMath2D.FromXToXY(new double[0], null, 3, 2);
 
             // Assert
-            var paramName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(
+            string paramName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(
                 test,
                 "Cannot transform to coordinates without a reference point.").ParamName;
             Assert.AreEqual("referencePoint", paramName);

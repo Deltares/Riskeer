@@ -121,19 +121,19 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
             if (data.WrappedData.InflowModelType == StabilityPointStructureInflowModelType.FloodedCulvert ||
                 data.WrappedData.InflowModelType == StabilityPointStructureInflowModelType.LowSill)
             {
-                if (propertyName == TypeUtils.GetMemberName<StabilityPointStructuresInputContextProperties>(p => p.ModelFactorSuperCriticalFlow))
+                if (propertyName == nameof(ModelFactorSuperCriticalFlow))
                 {
                     return data.WrappedData.InflowModelType == StabilityPointStructureInflowModelType.LowSill;
                 }
-                if (propertyName == TypeUtils.GetMemberName<StabilityPointStructuresInputContextProperties>(p => p.DrainCoefficient))
+                if (propertyName == nameof(DrainCoefficient))
                 {
                     return data.WrappedData.InflowModelType == StabilityPointStructureInflowModelType.FloodedCulvert;
                 }
-                if (propertyName == TypeUtils.GetMemberName<StabilityPointStructuresInputContextProperties>(p => p.AreaFlowApertures))
+                if (propertyName == nameof(AreaFlowApertures))
                 {
                     return data.WrappedData.InflowModelType == StabilityPointStructureInflowModelType.FloodedCulvert;
                 }
-                if (propertyName == TypeUtils.GetMemberName<StabilityPointStructuresInputContextProperties>(p => p.WidthFlowApertures))
+                if (propertyName == nameof(WidthFlowApertures))
                 {
                     return data.WrappedData.InflowModelType == StabilityPointStructureInflowModelType.LowSill;
                 }
@@ -143,19 +143,19 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
             if (data.WrappedData.LoadSchematizationType == LoadSchematizationType.Linear ||
                 data.WrappedData.LoadSchematizationType == LoadSchematizationType.Quadratic)
             {
-                if (propertyName == TypeUtils.GetMemberName<StabilityPointStructuresInputContextProperties>(p => p.ConstructiveStrengthLinearLoadModel))
+                if (propertyName == nameof(ConstructiveStrengthLinearLoadModel))
                 {
                     return data.WrappedData.LoadSchematizationType == LoadSchematizationType.Linear;
                 }
-                if (propertyName == TypeUtils.GetMemberName<StabilityPointStructuresInputContextProperties>(p => p.ConstructiveStrengthQuadraticLoadModel))
+                if (propertyName == nameof(ConstructiveStrengthQuadraticLoadModel))
                 {
                     return data.WrappedData.LoadSchematizationType == LoadSchematizationType.Quadratic;
                 }
-                if (propertyName == TypeUtils.GetMemberName<StabilityPointStructuresInputContextProperties>(p => p.StabilityLinearLoadModel))
+                if (propertyName == nameof(StabilityLinearLoadModel))
                 {
                     return data.WrappedData.LoadSchematizationType == LoadSchematizationType.Linear;
                 }
-                if (propertyName == TypeUtils.GetMemberName<StabilityPointStructuresInputContextProperties>(p => p.StabilityQuadraticLoadModel))
+                if (propertyName == nameof(StabilityQuadraticLoadModel))
                 {
                     return data.WrappedData.LoadSchematizationType == LoadSchematizationType.Quadratic;
                 }

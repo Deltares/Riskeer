@@ -27,7 +27,7 @@ namespace Ringtoets.Common.Forms.Test
                 (f, v) => { });
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("failureMechanism", paramName);
         }
 
@@ -44,7 +44,7 @@ namespace Ringtoets.Common.Forms.Test
                 (f, v) => { });
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("value", paramName);
         }
 
@@ -61,7 +61,7 @@ namespace Ringtoets.Common.Forms.Test
                 null);
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("setValue", paramName);
         }
 

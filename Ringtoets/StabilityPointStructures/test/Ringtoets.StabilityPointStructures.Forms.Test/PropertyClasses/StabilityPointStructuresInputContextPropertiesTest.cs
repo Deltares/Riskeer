@@ -33,6 +33,7 @@ using Core.Common.Utils.Reflection;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
@@ -63,7 +64,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             TestDelegate test = () => new StabilityPointStructuresInputContextProperties(null);
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("data", paramName);
         }
 
@@ -873,7 +874,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             var properties = new StabilityPointStructuresInputContextProperties(inputContext);
 
             // Call
-            var availableForeshoreProfiles = properties.GetAvailableForeshoreProfiles();
+            IEnumerable<ForeshoreProfile> availableForeshoreProfiles = properties.GetAvailableForeshoreProfiles();
 
             // Assert
             Assert.AreSame(failureMechanism.ForeshoreProfiles, availableForeshoreProfiles);
@@ -902,7 +903,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             var properties = new StabilityPointStructuresInputContextProperties(inputContext);
 
             // Call
-            var availableStructures = properties.GetAvailableStructures();
+            IEnumerable<StabilityPointStructure> availableStructures = properties.GetAvailableStructures();
 
             // Assert
             Assert.AreSame(failureMechanism.StabilityPointStructures, availableStructures);

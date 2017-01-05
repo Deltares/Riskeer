@@ -818,9 +818,11 @@ namespace Ringtoets.Integration.Service.Test
             // Setup
             StabilityStoneCoverFailureMechanism failureMechanism = TestDataGenerator.GetFullyConfiguredStabilityStoneCoverFailureMechanism();
             ForeshoreProfile profile = failureMechanism.ForeshoreProfiles[0];
-            StabilityStoneCoverWaveConditionsCalculation[] calculationsWithForeshoreProfile = failureMechanism.Calculations.Cast<StabilityStoneCoverWaveConditionsCalculation>()
-                                                                                          .Where(c => ReferenceEquals(c.InputParameters.ForeshoreProfile, profile))
-                                                                                          .ToArray();
+            StabilityStoneCoverWaveConditionsCalculation[] calculationsWithForeshoreProfile =
+                failureMechanism.Calculations
+                                .Cast<StabilityStoneCoverWaveConditionsCalculation>()
+                                .Where(c => ReferenceEquals(c.InputParameters.ForeshoreProfile, profile))
+                                .ToArray();
 
             StabilityStoneCoverWaveConditionsCalculation[] calculationsWithOutput = calculationsWithForeshoreProfile.Where(c => c.HasOutput).ToArray();
 
@@ -891,9 +893,11 @@ namespace Ringtoets.Integration.Service.Test
             // Setup
             WaveImpactAsphaltCoverFailureMechanism failureMechanism = TestDataGenerator.GetFullyConfiguredWaveImpactAsphaltCoverFailureMechanism();
             ForeshoreProfile profile = failureMechanism.ForeshoreProfiles[0];
-            WaveImpactAsphaltCoverWaveConditionsCalculation[] calculationsWithForeshoreProfile = failureMechanism.Calculations.Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>()
-                                                                                             .Where(c => ReferenceEquals(c.InputParameters.ForeshoreProfile, profile))
-                                                                                             .ToArray();
+            WaveImpactAsphaltCoverWaveConditionsCalculation[] calculationsWithForeshoreProfile =
+                failureMechanism.Calculations
+                                .Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>()
+                                .Where(c => ReferenceEquals(c.InputParameters.ForeshoreProfile, profile))
+                                .ToArray();
 
             WaveImpactAsphaltCoverWaveConditionsCalculation[] calculationsWithOutput = calculationsWithForeshoreProfile.Where(c => c.HasOutput).ToArray();
 
@@ -1038,9 +1042,11 @@ namespace Ringtoets.Integration.Service.Test
             // Setup
             HeightStructuresFailureMechanism failureMechanism = TestDataGenerator.GetFullyConfiguredHeightStructuresFailureMechanism();
             ForeshoreProfile profile = failureMechanism.ForeshoreProfiles[0];
-            StructuresCalculation<HeightStructuresInput>[] calculationsWithForeshoreProfile = failureMechanism.Calculations.Cast<StructuresCalculation<HeightStructuresInput>>()
-                                                                                          .Where(c => ReferenceEquals(c.InputParameters.ForeshoreProfile, profile))
-                                                                                          .ToArray();
+            StructuresCalculation<HeightStructuresInput>[] calculationsWithForeshoreProfile =
+                failureMechanism.Calculations
+                                .Cast<StructuresCalculation<HeightStructuresInput>>()
+                                .Where(c => ReferenceEquals(c.InputParameters.ForeshoreProfile, profile))
+                                .ToArray();
 
             StructuresCalculation<HeightStructuresInput>[] calculationsWithOutput = calculationsWithForeshoreProfile.Where(c => c.HasOutput).ToArray();
 
@@ -1111,9 +1117,11 @@ namespace Ringtoets.Integration.Service.Test
             // Setup
             ClosingStructuresFailureMechanism failureMechanism = TestDataGenerator.GetFullyConfiguredClosingStructuresFailureMechanism();
             ForeshoreProfile profile = failureMechanism.ForeshoreProfiles[0];
-            StructuresCalculation<ClosingStructuresInput>[] calculationsWithForeshoreProfile = failureMechanism.Calculations.Cast<StructuresCalculation<ClosingStructuresInput>>()
-                                                                                           .Where(c => ReferenceEquals(c.InputParameters.ForeshoreProfile, profile))
-                                                                                           .ToArray();
+            StructuresCalculation<ClosingStructuresInput>[] calculationsWithForeshoreProfile =
+                failureMechanism.Calculations
+                                .Cast<StructuresCalculation<ClosingStructuresInput>>()
+                                .Where(c => ReferenceEquals(c.InputParameters.ForeshoreProfile, profile))
+                                .ToArray();
 
             StructuresCalculation<ClosingStructuresInput>[] calculationsWithOutput = calculationsWithForeshoreProfile.Where(c => c.HasOutput).ToArray();
 
@@ -1184,9 +1192,11 @@ namespace Ringtoets.Integration.Service.Test
             // Setup
             StabilityPointStructuresFailureMechanism failureMechanism = TestDataGenerator.GetFullyConfiguredStabilityPointStructuresFailureMechanism();
             ForeshoreProfile profile = failureMechanism.ForeshoreProfiles[0];
-            StructuresCalculation<StabilityPointStructuresInput>[] calculationsWithForeshoreProfile = failureMechanism.Calculations.Cast<StructuresCalculation<StabilityPointStructuresInput>>()
-                                                                                                  .Where(c => ReferenceEquals(c.InputParameters.ForeshoreProfile, profile))
-                                                                                                  .ToArray();
+            StructuresCalculation<StabilityPointStructuresInput>[] calculationsWithForeshoreProfile =
+                failureMechanism.Calculations
+                                .Cast<StructuresCalculation<StabilityPointStructuresInput>>()
+                                .Where(c => ReferenceEquals(c.InputParameters.ForeshoreProfile, profile))
+                                .ToArray();
 
             StructuresCalculation<StabilityPointStructuresInput>[] calculationsWithOutput = calculationsWithForeshoreProfile.Where(c => c.HasOutput).ToArray();
 

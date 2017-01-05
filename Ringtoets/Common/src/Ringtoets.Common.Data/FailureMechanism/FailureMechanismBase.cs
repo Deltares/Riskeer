@@ -72,7 +72,7 @@ namespace Ringtoets.Common.Data.FailureMechanism
             {
                 if (double.IsNaN(value) || value < 0 || value > 100)
                 {
-                    throw new ArgumentOutOfRangeException("value", Resources.Contribution_Value_should_be_in_interval_0_100);
+                    throw new ArgumentOutOfRangeException(nameof(value), Resources.Contribution_Value_should_be_in_interval_0_100);
                 }
                 contribution = value;
             }
@@ -104,7 +104,7 @@ namespace Ringtoets.Common.Data.FailureMechanism
         {
             if (section == null)
             {
-                throw new ArgumentNullException("section");
+                throw new ArgumentNullException(nameof(section));
             }
 
             if (!sections.Any())
@@ -127,11 +127,11 @@ namespace Ringtoets.Common.Data.FailureMechanism
             var parameterIsRequired = "Parameter is required.";
             if (string.IsNullOrEmpty(failureMechanismName))
             {
-                throw new ArgumentException(parameterIsRequired, "failureMechanismName");
+                throw new ArgumentException(parameterIsRequired, nameof(failureMechanismName));
             }
             if (string.IsNullOrEmpty(failureMechanismCode))
             {
-                throw new ArgumentException(parameterIsRequired, "failureMechanismCode");
+                throw new ArgumentException(parameterIsRequired, nameof(failureMechanismCode));
             }
         }
 
@@ -152,7 +152,7 @@ namespace Ringtoets.Common.Data.FailureMechanism
             {
                 string message = string.Format(Resources.BaseFailureMechanism_AddSection_Section_0_must_connect_to_existing_sections,
                                                sectionToInsert.Name);
-                throw new ArgumentException(message, "sectionToInsert");
+                throw new ArgumentException(message, nameof(sectionToInsert));
             }
         }
     }

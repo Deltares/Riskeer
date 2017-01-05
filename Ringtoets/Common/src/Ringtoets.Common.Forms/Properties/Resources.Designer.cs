@@ -1065,33 +1065,6 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De waarde voor de faalkans kon niet geïnterpreteerd worden als een getal..
-        /// </summary>
-        public static string FailureProbability_Could_not_parse_string_to_double_value {
-            get {
-                return ResourceManager.GetString("FailureProbability_Could_not_parse_string_to_double_value", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De waarde voor de faalkans moet ingevuld zijn..
-        /// </summary>
-        public static string FailureProbability_Value_cannot_be_null {
-            get {
-                return ResourceManager.GetString("FailureProbability_Value_cannot_be_null", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De waarde voor de faalkans is te groot of te klein..
-        /// </summary>
-        public static string FailureProbability_Value_too_large {
-            get {
-                return ResourceManager.GetString("FailureProbability_Value_too_large", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Voorlandprofiel.
         /// </summary>
         public static string Foreshore_DisplayName {
@@ -1599,6 +1572,33 @@ namespace Ringtoets.Common.Forms.Properties {
             get {
                 object obj = ResourceManager.GetObject("PointShapefileIcon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De waarde voor de faalkans kon niet geïnterpreteerd worden als een getal..
+        /// </summary>
+        public static string Probability_Could_not_parse_string_to_double_value {
+            get {
+                return ResourceManager.GetString("Probability_Could_not_parse_string_to_double_value", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De waarde voor de faalkans moet ingevuld zijn..
+        /// </summary>
+        public static string Probability_Value_cannot_be_null {
+            get {
+                return ResourceManager.GetString("Probability_Value_cannot_be_null", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De waarde voor de faalkans is te groot of te klein..
+        /// </summary>
+        public static string Probability_Value_too_large {
+            get {
+                return ResourceManager.GetString("Probability_Value_too_large", resourceCulture);
             }
         }
         
