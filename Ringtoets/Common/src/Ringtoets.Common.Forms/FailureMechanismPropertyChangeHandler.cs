@@ -58,5 +58,55 @@ namespace Ringtoets.Common.Forms
                 return Resources.FailureMechanismPropertyChangeHandler_Confirm_change_composition_and_clear_dependent_data;
             }
         }
+
+        /// <summary>
+        /// Find out whether the property can be updated with or without confirmation. If confirmation is required, 
+        /// the confirmation is obtained, after which the property is set if confirmation is given. If no confirmation
+        /// was required, then the value will be set for the property.
+        /// </summary>
+        /// <typeparam name="TValue">The type of the value that is set on a property of the failure mechanism.</typeparam>
+        /// <param name="failureMechanism">The failure mechanism for which the property is supposed to be set.</param>
+        /// <param name="value">The new value of the failure mechanism property.</param>
+        /// <param name="setValue">The operation which is performed to set the new property <paramref name="value"/>
+        /// on the <paramref name="failureMechanism"/>.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
+        /// <remarks>Let <paramref name="setValue"/> throw an <see cref="Exception"/> when the 
+        /// <see cref="FailureMechanismPropertyChangeHandler{T}"/> should not process the results of that operation.</remarks>
+        public IEnumerable<IObservable> SetPropertyValueAfterConfirmation<TValue>(
+            T failureMechanism,
+            TValue value, SetFailureMechanismPropertyValueDelegate<T, TValue> setValue)
+        {
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
+            if (value == null)
+            {
+                throw new ArgumentNullException(nameof(value));
+            }
+            if (setValue == null)
+            {
+                throw new ArgumentNullException(nameof(setValue));
+            }
+
+            var changedObjects = new List<IObservable>();
+
+            if (RequiresConfirmation(failureMechanism))
+            {
+                if (ConfirmPropertyChange())
+                {
+                    setValue(failureMechanism, value);
+                    changedObjects.AddRange(PropertyChanged(failureMechanism));
+                    changedObjects.Add(failureMechanism);
+                }
+            }
+            else
+            {
+                setValue(failureMechanism, value);
+                changedObjects.Add(failureMechanism);
+            }
+
+            return changedObjects;
+        }
     }
 }

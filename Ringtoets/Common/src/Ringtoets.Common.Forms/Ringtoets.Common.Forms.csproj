@@ -48,7 +48,6 @@
     <Compile Include="FailureMechanismPropertyChangeHandler.cs" />
     <Compile Include="GuiServices\HydraulicBoundaryLocationCalculationGuiService.cs" />
     <Compile Include="GuiServices\IHydraulicBoundaryLocationCalculationGuiService.cs" />
-    <Compile Include="Helpers\IFailureMechanismPropertyChangeHandlerExtensions.cs" />
     <Compile Include="Helpers\SelectableHydraulicBoundaryLocationHelper.cs" />
     <Compile Include="Helpers\SuspendDataGridViewColumnResizes.cs" />
     <Compile Include="Helpers\NamingHelper.cs" />

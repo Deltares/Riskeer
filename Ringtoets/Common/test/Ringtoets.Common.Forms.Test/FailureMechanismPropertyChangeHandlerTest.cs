@@ -107,6 +107,194 @@ namespace Ringtoets.Common.Forms.Test
             CollectionAssert.AreEquivalent(testCase.ExpectedAffectedCalculations, result);
         }
 
+        [Test]
+        public void SetPropertyValueAfterConfirmation_WithoutFailureMechanism_ThrowsArgumentNullException()
+        {
+            // Setup
+            var changeHandler = new FailureMechanismPropertyChangeHandler<IFailureMechanism>();
+
+            // Call
+            TestDelegate test = () => changeHandler.SetPropertyValueAfterConfirmation<int>(
+                null,
+                3,
+                (f, v) => { });
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("failureMechanism", paramName);
+        }
+
+        [Test]
+        public void SetPropertyValueAfterConfirmation_WithoutValue_ThrowsArgumentNullException()
+        {
+            // Setup
+            var changeHandler = new FailureMechanismPropertyChangeHandler<IFailureMechanism>();
+
+            // Call
+            TestDelegate test = () => changeHandler.SetPropertyValueAfterConfirmation<int?>(
+                new TestFailureMechanism(),
+                null,
+                (f, v) => { });
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("value", paramName);
+        }
+
+        [Test]
+        public void SetPropertyValueAfterConfirmation_WithoutSetProperty_ThrowsArgumentNullException()
+        {
+            // Setup
+            var changeHandler = new FailureMechanismPropertyChangeHandler<IFailureMechanism>();
+
+            // Call
+            TestDelegate test = () => changeHandler.SetPropertyValueAfterConfirmation(
+                new TestFailureMechanism(),
+                3,
+                null);
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("setValue", paramName);
+        }
+
+        [Test]
+        public void SetPropertyValueAfterConfirmation_ConfirmationRequiredAndGiven_SetValueCalledAffectedObjectsReturned()
+        {
+            // Setup
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var tester = new MessageBoxTester(wnd);
+                tester.ClickOk();
+            };
+
+            var calculationWithOutput = CreateCalculationWithOutput();
+            var calculationWithoutOutput = CreateCalculationWithoutOutput();
+
+            var testFailureMechanism = new TestFailureMechanism(
+                new []
+                {
+                    calculationWithOutput,
+                    calculationWithoutOutput
+                });
+            var propertySet = 0;
+
+            var changeHandler = new FailureMechanismPropertyChangeHandler<IFailureMechanism>();
+            
+            // Call
+            var affectedObjects = changeHandler.SetPropertyValueAfterConfirmation(
+                testFailureMechanism,
+                3,
+                (f, v) => propertySet++);
+
+            // Assert
+            Assert.AreEqual(1, propertySet);
+            CollectionAssert.AreEqual(new IObservable[] { calculationWithOutput, testFailureMechanism }, affectedObjects);
+        }
+
+        [Test]
+        public void SetPropertyValueAfterConfirmation_ConfirmationNotRequired_SetValueCalledAffectedObjectsReturned()
+        {
+            // Setup
+            var testFailureMechanism = new TestFailureMechanism();
+            var propertySet = 0;
+
+            var changeHandler = new FailureMechanismPropertyChangeHandler<IFailureMechanism>();
+
+            // Call
+            var affectedObjects = changeHandler.SetPropertyValueAfterConfirmation(
+                testFailureMechanism,
+                3,
+                (f, v) => propertySet++);
+
+            // Assert
+            Assert.AreEqual(1, propertySet);
+            CollectionAssert.AreEqual(new IObservable[] { testFailureMechanism }, affectedObjects);
+        }
+
+        [Test]
+        public void SetPropertyValueAfterConfirmation_ConfirmationRequiredButNotGiven_SetValueNotCalledNoAffectedObjectsReturned()
+        {
+            // Setup
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var tester = new MessageBoxTester(wnd);
+                tester.ClickCancel();
+            };
+
+            var calculationWithOutput = CreateCalculationWithOutput();
+            var calculationWithoutOutput = CreateCalculationWithoutOutput();
+
+            var testFailureMechanism = new TestFailureMechanism(
+                new[]
+                {
+                    calculationWithOutput,
+                    calculationWithoutOutput
+                });
+            var propertySet = 0;
+
+            var changeHandler = new FailureMechanismPropertyChangeHandler<IFailureMechanism>();
+            
+            // Call
+            var affectedObjects = changeHandler.SetPropertyValueAfterConfirmation(
+                testFailureMechanism,
+                3,
+                (f, v) => propertySet++);
+
+            // Assert
+            Assert.AreEqual(0, propertySet);
+            CollectionAssert.IsEmpty(affectedObjects);
+        }
+
+        [Test]
+        public void SetPropertyValueAfterConfirmation_ExceptionInSetValueAfterConfirmation_ExceptionBubbled()
+        {
+            // Setup
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var tester = new MessageBoxTester(wnd);
+                tester.ClickOk();
+            };
+
+            var testFailureMechanism = new TestFailureMechanism(
+                new[]
+                {
+                    CreateCalculationWithOutput(),
+                });
+
+            var changeHandler = new FailureMechanismPropertyChangeHandler<IFailureMechanism>();
+            var expectedException = new Exception();
+
+            // Call
+            TestDelegate test = () => changeHandler.SetPropertyValueAfterConfirmation(
+                testFailureMechanism,
+                3,
+                (f, v) => { throw expectedException; });
+
+            // Assert
+            var exception = Assert.Throws<Exception>(test);
+            Assert.AreSame(expectedException, exception);
+        }
+
+        [Test]
+        public void SetPropertyValueAfterConfirmation_ConfirmationNotRequiredExceptionInSetValue_ExceptionBubbled()
+        {
+            // Setup
+            var testFailureMechanism = new TestFailureMechanism();
+            var changeHandler = new FailureMechanismPropertyChangeHandler<IFailureMechanism>();
+            var expectedException = new Exception();
+
+            // Call
+            TestDelegate test = () => changeHandler.SetPropertyValueAfterConfirmation(
+                testFailureMechanism,
+                3,
+                (f, v) => { throw expectedException; });
+
+            // Assert
+            var exception = Assert.Throws<Exception>(test);
+            Assert.AreSame(expectedException, exception);
+        }
+
         public class ChangePropertyTestCase
         {
             public ChangePropertyTestCase(ICollection<TestCalculation> calculations)

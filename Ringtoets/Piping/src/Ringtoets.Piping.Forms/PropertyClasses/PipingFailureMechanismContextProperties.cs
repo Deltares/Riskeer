@@ -20,13 +20,12 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
-using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
@@ -40,7 +39,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
     /// </summary>
     public class PipingFailureMechanismContextProperties : ObjectProperties<PipingFailureMechanismContext>
     {
-        private readonly IFailureMechanismPropertyChangeHandler<IFailureMechanism> propertyChangeHandler;
+        private readonly IFailureMechanismPropertyChangeHandler<PipingFailureMechanism> propertyChangeHandler;
 
         /// <summary>
         /// Creates a new instance of <see cref="PipingFailureMechanismContextProperties"/>.
@@ -50,7 +49,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         public PipingFailureMechanismContextProperties(
             PipingFailureMechanismContext data,
-            IFailureMechanismPropertyChangeHandler<IFailureMechanism> handler)
+            IFailureMechanismPropertyChangeHandler<PipingFailureMechanism> handler)
         {
             if (data == null)
             {
@@ -118,10 +117,12 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
             set
             {
-                propertyChangeHandler.SetPropertyValueAfterConfirmation(
+                IEnumerable<IObservable> affectedObjects = propertyChangeHandler.SetPropertyValueAfterConfirmation(
                     data.WrappedData,
                     value, 
                     (f,v) => f.GeneralInput.WaterVolumetricWeight = v);
+
+                NotifyAffectedObjects(affectedObjects);
             }
         }
 
@@ -169,10 +170,12 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
             set
             {
-                propertyChangeHandler.SetPropertyValueAfterConfirmation(
+                IEnumerable<IObservable> affectedObjects = propertyChangeHandler.SetPropertyValueAfterConfirmation(
                     data.WrappedData, 
                     value, 
                     (f, v) => f.PipingProbabilityAssessmentInput.A = v);
+
+                NotifyAffectedObjects(affectedObjects);
             }
         }
 
@@ -278,5 +281,12 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
 
         #endregion
 
+        private static void NotifyAffectedObjects(IEnumerable<IObservable> affectedObjects)
+        {
+            foreach (var affectedObject in affectedObjects)
+            {
+                affectedObject.NotifyObservers();
+            }
+        }
     }
 }
