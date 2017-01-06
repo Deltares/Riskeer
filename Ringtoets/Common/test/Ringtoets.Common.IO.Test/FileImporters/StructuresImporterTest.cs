@@ -245,6 +245,82 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         }
 
         [Test]
+        public void Import_CancelOfImportWhenReadingLocations_CancelsImportAndLogs()
+        {
+            // Setup
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                         Path.Combine("Structures", "CorrectFiles", "Kunstwerken.shp"));
+
+            var referencePoints = new List<Point2D>
+            {
+                new Point2D(131144.094, 549979.893),
+                new Point2D(131538.705, 548316.752),
+                new Point2D(135878.442, 532149.859),
+                new Point2D(131225.017, 548395.948),
+                new Point2D(131270.38, 548367.462),
+                new Point2D(131507.119, 548322.951)
+            };
+            ReferenceLine referenceLine = new ReferenceLine();
+            referenceLine.SetGeometry(referencePoints);
+            var importTarget = new ObservableList<TestStructure>();
+            var testStructuresImporter = new TestStructuresImporter(importTarget, referenceLine, filePath);
+            testStructuresImporter.SetProgressChanged((description, step, steps) =>
+            {
+                if (description.Contains("Inlezen van kunstwerklocaties uit een shapebestand."))
+                {
+                    testStructuresImporter.Cancel();
+                }
+            });
+
+            bool importResult = true;
+
+            // Call
+            Action call = () => importResult = testStructuresImporter.Import();
+
+            // Assert
+            TestHelper.AssertLogMessageIsGenerated(call, "Kunstwerken importeren is afgebroken. Geen gegevens ingelezen.");
+            Assert.IsFalse(importResult);
+        }
+
+        [Test]
+        public void Import_CancelOfImportWhenReadingStructureData_ReturnsFalse()
+        {
+            // Setup
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                         Path.Combine("Structures", "CorrectFiles", "Kunstwerken.shp"));
+
+            var referencePoints = new List<Point2D>
+            {
+                new Point2D(131144.094, 549979.893),
+                new Point2D(131538.705, 548316.752),
+                new Point2D(135878.442, 532149.859),
+                new Point2D(131225.017, 548395.948),
+                new Point2D(131270.38, 548367.462),
+                new Point2D(131507.119, 548322.951)
+            };
+            ReferenceLine referenceLine = new ReferenceLine();
+            referenceLine.SetGeometry(referencePoints);
+            var importTarget = new ObservableList<TestStructure>();
+            var testStructuresImporter = new TestStructuresImporter(importTarget, referenceLine, filePath);
+            testStructuresImporter.SetProgressChanged((description, step, steps) =>
+            {
+                if (description.Contains("Inlezen van kunstwerkgegevens uit een kommagescheiden bestand."))
+                {
+                    testStructuresImporter.Cancel();
+                }
+            });
+
+            bool importResult = true;
+
+            // Call
+            Action call = () => importResult = testStructuresImporter.Import();
+
+            // Assert
+            TestHelper.AssertLogMessageIsGenerated(call, "Kunstwerken importeren is afgebroken. Geen gegevens ingelezen.");
+            Assert.IsFalse(importResult);
+        }
+
+        [Test]
         public void Import_ReuseOfCancelledImportToValidTargetWithValidFile_ReturnsTrue()
         {
             // Setup
@@ -264,12 +340,13 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             referenceLine.SetGeometry(referencePoints);
             var importTarget = new ObservableList<TestStructure>();
             var testStructuresImporter = new TestStructuresImporter(importTarget, referenceLine, filePath);
+            testStructuresImporter.SetProgressChanged((description, step, steps) => testStructuresImporter.Cancel());
 
-            testStructuresImporter.Cancel();
             bool importResult = testStructuresImporter.Import();
 
             // Precondition
             Assert.IsFalse(importResult);
+            testStructuresImporter.SetProgressChanged(null);
 
             // Call
             importResult = testStructuresImporter.Import();

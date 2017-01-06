@@ -60,12 +60,6 @@ namespace Ringtoets.HeightStructures.IO
             }
         }
 
-        protected override void HandleUserCancellingImport()
-        {
-            Log.Info(RingtoetsCommonIOResources.StructuresImporter_User_cancelled);
-            base.HandleUserCancellingImport();
-        }
-
         private IEnumerable<HeightStructure> CreateHeightStructures(IList<StructureLocation> structureLocations,
                                                                     Dictionary<string, List<StructuresParameterRow>> groupedStructureParameterRows)
         {

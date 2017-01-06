@@ -238,7 +238,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void Import_CancelImportDuringDialogInteraction_GenerateCancelledLogMessage(bool acceptRemovalOfReferenceLineDependentData)
+        public void Import_CancelImportDuringDialogInteraction_GenerateCancelledLogMessageAndReturnsFalse(bool acceptRemovalOfReferenceLineDependentData)
         {
             // Setup
             var path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "traject_10-2.shp");
@@ -257,11 +257,88 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
                    .Repeat.Never();
             mocks.ReplayAll();
 
+            bool importResult = true;
+
             // Call
-            Action call = () => importer.Import();
+            Action call = () => importResult = importer.Import();
 
             // Assert
             TestHelper.AssertLogMessageIsGenerated(call, "Referentielijn importeren afgebroken. Geen data ingelezen.", 1);
+            Assert.IsFalse(importResult);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Import_CancelImportDuringReadReferenceLine_CancelsImportAndLogs()
+        {
+            // Setup
+            var path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, Path.Combine("ReferenceLine", "traject_10-2.shp"));
+            var originalReferenceLine = new ReferenceLine();
+
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.ReferenceLine = originalReferenceLine;
+            var handler = mocks.Stub<IReferenceLineReplaceHandler>();
+            handler.Stub(h => h.ConfirmReplace())
+                   .Return(true);
+            mocks.ReplayAll();
+
+            var importer = new ReferenceLineImporter(assessmentSection, handler, path);
+            importer.SetProgressChanged((description, step, steps) =>
+            {
+                if (description.Contains("Inlezen referentielijn."))
+                {
+                    importer.Cancel();
+                }
+            });
+
+            bool importResult = true;
+
+            // Call
+            Action call = () => importResult = importer.Import();
+
+            // Assert
+            TestHelper.AssertLogMessageIsGenerated(call, "Referentielijn importeren afgebroken. Geen data ingelezen.", 1);
+            Assert.IsFalse(importResult);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Import_CancelImportDuringAddReferenceLineToData_ContinuesImportAndLogs()
+        {
+            // Setup
+            var path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, Path.Combine("ReferenceLine", "traject_10-2.shp"));
+            var originalReferenceLine = new ReferenceLine();
+
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.ReferenceLine = originalReferenceLine;
+            var handler = mocks.Stub<IReferenceLineReplaceHandler>();
+            handler.Stub(h => h.ConfirmReplace())
+                   .Return(true);
+            handler.Stub(h => h.Replace(Arg<IAssessmentSection>.Is.Same(assessmentSection),
+                                          Arg<ReferenceLine>.Is.NotNull))
+                   .Return(Enumerable.Empty<IObservable>());
+            mocks.ReplayAll();
+
+            var importer = new ReferenceLineImporter(assessmentSection, handler, path);
+            importer.SetProgressChanged((description, step, steps) =>
+            {
+                if (description.Contains("Geïmporteerde data toevoegen aan het traject."))
+                {
+                    importer.Cancel();
+                }
+            });
+
+            bool importResult = true;
+
+            // Call
+            importer.Import();
+            Action call = () => importResult = importer.Import();
+
+            // Assert
+            TestHelper.AssertLogMessageIsGenerated(call, "Huidige actie was niet meer te annuleren en is daarom voortgezet.", 1);
+            Assert.IsTrue(importResult);
             mocks.VerifyAll();
         }
 
@@ -291,10 +368,15 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
                                                   Path.Combine("ReferenceLine", "traject_10-2.shp"));
 
             var importer = new ReferenceLineImporter(assessmentSection, handler, path);
-            importer.Cancel();
+            importer.SetProgressChanged((description, step, steps) => importer.Cancel());
+
+            // Pre-condition
+            bool importSuccesful = importer.Import();
+            Assert.IsFalse(importSuccesful);
+            importer.SetProgressChanged(null);
 
             // Call
-            bool importSuccesful = importer.Import();
+            importSuccesful = importer.Import();
 
             // Assert
             Assert.IsTrue(importSuccesful);

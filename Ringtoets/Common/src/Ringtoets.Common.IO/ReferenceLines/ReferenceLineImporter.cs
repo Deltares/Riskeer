@@ -56,35 +56,31 @@ namespace Ringtoets.Common.IO.ReferenceLines
             this.replacementHandler = replacementHandler;
         }
 
-        public override bool Import()
+        protected override bool OnImport()
         {
-            Canceled = false;
             changedObservables.Clear();
 
             bool clearReferenceLineDependentData = IsClearingOfReferenceLineDependentDataRequired();
-
             if (Canceled)
             {
-                HandleUserCancellingImport();
                 return false;
             }
 
             NotifyProgress(RingtoetsCommonIOResources.ReferenceLineImporter_ProgressText_Reading_referenceline,
                            1, clearReferenceLineDependentData ? 3 : 2);
             ReadResult<ReferenceLine> readResult = ReadReferenceLine();
-            if (readResult.CriticalErrorOccurred)
+            if (readResult.CriticalErrorOccurred || Canceled)
             {
-                return false;
-            }
-
-            if (Canceled)
-            {
-                HandleUserCancellingImport();
                 return false;
             }
 
             AddReferenceLineToDataModel(readResult.ImportedItems.First(), clearReferenceLineDependentData);
             return true;
+        }
+
+        protected override void LogImportCanceledMessage()
+        {
+            log.Info(RingtoetsCommonIOResources.ReferenceLineImporter_ProgressText_Import_cancelled_no_data_read);
         }
 
         public override void DoPostImportUpdates()
@@ -109,7 +105,7 @@ namespace Ringtoets.Common.IO.ReferenceLines
             {
                 if (!replacementHandler.ConfirmReplace())
                 {
-                    Canceled = true;
+                    Cancel();
                 }
                 else
                 {
@@ -117,11 +113,6 @@ namespace Ringtoets.Common.IO.ReferenceLines
                 }
             }
             return clearReferenceLineDependentData;
-        }
-
-        private static void HandleUserCancellingImport()
-        {
-            log.Info(RingtoetsCommonIOResources.ReferenceLineImporter_ProgressText_Import_cancelled_no_data_read);
         }
 
         private ReadResult<ReferenceLine> ReadReferenceLine()

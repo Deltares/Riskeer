@@ -429,6 +429,106 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         }
 
         [Test]
+        public void Import_CancelOfImportWhenReadingFailureMechanismSections_CancelsImportAndLogs()
+        {
+            // Setup
+            var referenceLineFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                                   Path.Combine("ReferenceLine", "traject_1-1.shp"));
+            var sectionsFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                              Path.Combine("FailureMechanismSections", "traject_1-1_vakken.shp"));
+
+            ReferenceLine importReferenceLine = ImportReferenceLine(referenceLineFilePath);
+
+            var failureMechanism = new Simple();
+
+            var importer = new FailureMechanismSectionsImporter(failureMechanism, importReferenceLine, sectionsFilePath);
+            importer.SetProgressChanged((description, step, steps) =>
+            {
+                if (description.Contains("Inlezen vakindeling."))
+                {
+                    importer.Cancel();
+                }
+            });
+
+            bool importSuccessful = true;
+
+            // Call
+            Action call = () => importSuccessful = importer.Import();
+
+            // Assert
+            TestHelper.AssertLogMessageIsGenerated(call, "Vakindeling importeren afgebroken. Geen gegevens ingelezen.", 1);
+            Assert.IsFalse(importSuccessful);
+            CollectionAssert.IsEmpty(failureMechanism.Sections);
+            
+        }
+
+        [Test]
+        public void Import_CancelOfImportWhenValidatingImportedections_CancelsImportAndLogs()
+        {
+            // Setup
+            var referenceLineFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                                   Path.Combine("ReferenceLine", "traject_1-1.shp"));
+            var sectionsFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                              Path.Combine("FailureMechanismSections", "traject_1-1_vakken.shp"));
+
+            ReferenceLine importReferenceLine = ImportReferenceLine(referenceLineFilePath);
+
+            var failureMechanism = new Simple();
+
+            var importer = new FailureMechanismSectionsImporter(failureMechanism, importReferenceLine, sectionsFilePath);
+            importer.SetProgressChanged((description, step, steps) =>
+            {
+                if (description.Contains("Valideren ingelezen vakindeling."))
+                {
+                    importer.Cancel();
+                }
+            });
+
+            bool importSuccessful = true;
+
+            // Call
+            Action call = () => importSuccessful = importer.Import();
+
+            // Assert
+            TestHelper.AssertLogMessageIsGenerated(call, "Vakindeling importeren afgebroken. Geen gegevens ingelezen.", 1);
+            Assert.IsFalse(importSuccessful);
+            CollectionAssert.IsEmpty(failureMechanism.Sections);
+        }
+
+        [Test]
+        public void Import_CancelOfImportWhenAddingDataToModel_ContinuesImportAndLogs()
+        {
+            // Setup
+            var referenceLineFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                                   Path.Combine("ReferenceLine", "traject_1-1.shp"));
+            var sectionsFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                              Path.Combine("FailureMechanismSections", "traject_1-1_vakken.shp"));
+
+            ReferenceLine importReferenceLine = ImportReferenceLine(referenceLineFilePath);
+
+            var failureMechanism = new Simple();
+
+            var importer = new FailureMechanismSectionsImporter(failureMechanism, importReferenceLine, sectionsFilePath);
+            importer.SetProgressChanged((description, step, steps) =>
+            {
+                if (description.Contains("Geïmporteerde gegevens toevoegen aan het toetsspoor."))
+                {
+                    importer.Cancel();
+                }
+            });
+
+            bool importSuccessful = true;
+
+            // Call
+            Action call = () => importSuccessful = importer.Import();
+
+            // Assert
+            TestHelper.AssertLogMessageIsGenerated(call, "Huidige actie was niet meer te annuleren en is daarom voortgezet.", 1);
+            Assert.IsTrue(importSuccessful);
+            CollectionAssert.IsNotEmpty(failureMechanism.Sections);
+        }
+
+        [Test]
         public void Import_ValidFileImportBeingCancelled_CancelImportWithInfoMessage()
         {
             // Setup
@@ -442,9 +542,10 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             var failureMechanism = new Simple();
 
             var importer = new FailureMechanismSectionsImporter(failureMechanism, importReferenceLine, sectionsFilePath);
+            importer.SetProgressChanged((description, step, steps) => importer.Cancel());
 
-            importer.Cancel();
             Assert.IsFalse(importer.Import());
+            importer.SetProgressChanged(null);
 
             // Call
             var importSuccessful = importer.Import();

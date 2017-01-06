@@ -65,31 +65,19 @@ namespace Ringtoets.Common.IO.FileImporters
             this.referenceLine = referenceLine;
         }
 
-        public override bool Import()
+        protected override bool OnImport()
         {
             ReadResult<ProfileLocation> importDikeProfilesResult = ReadProfileLocations();
-            if (importDikeProfilesResult.CriticalErrorOccurred)
+            if (importDikeProfilesResult.CriticalErrorOccurred || Canceled)
             {
-                return false;
-            }
-
-            if (Canceled)
-            {
-                HandleUserCancellingImport();
                 return false;
             }
 
             string folderPath = Path.GetDirectoryName(FilePath);
             string[] acceptedIds = importDikeProfilesResult.ImportedItems.Select(dp => dp.Id).ToArray();
             ReadResult<DikeProfileData> importDikeProfileDataResult = ReadDikeProfileData(folderPath, acceptedIds);
-            if (importDikeProfileDataResult.CriticalErrorOccurred)
+            if (importDikeProfileDataResult.CriticalErrorOccurred || Canceled)
             {
-                return false;
-            }
-
-            if (Canceled)
-            {
-                HandleUserCancellingImport();
                 return false;
             }
 
@@ -134,14 +122,6 @@ namespace Ringtoets.Common.IO.FileImporters
         protected static DikeProfileData GetMatchingDikeProfileData(IEnumerable<DikeProfileData> dikeProfileDataCollection, string id)
         {
             return dikeProfileDataCollection.FirstOrDefault(d => d.Id.Equals(id));
-        }
-
-        /// <summary>
-        /// Act upon the user cancelling the import operation.
-        /// </summary>
-        protected virtual void HandleUserCancellingImport()
-        {
-            Canceled = false;
         }
 
         /// <summary>

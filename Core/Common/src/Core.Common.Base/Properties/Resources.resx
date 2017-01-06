@@ -174,4 +174,7 @@
   <data name="Error" xml:space="preserve">
     <value>Fout</value>
   </data>
+  <data name="FileImporterBase_LogUncancellableMessage_Import_cannot_be_canceled_and_continued" xml:space="preserve">
+    <value>Huidige actie was niet meer te annuleren en is daarom voortgezet.</value>
+  </data>
 </root>

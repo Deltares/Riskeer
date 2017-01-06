@@ -65,24 +65,18 @@ namespace Ringtoets.Common.IO.FileImporters
         {
             if (referenceLine == null)
             {
-                throw new ArgumentNullException("referenceLine");
+                throw new ArgumentNullException(nameof(referenceLine));
             }
 
             this.referenceLine = referenceLine;
         }
 
-        public override bool Import()
+        protected override bool OnImport()
         {
             NotifyProgress(Resources.FailureMechanismSectionsImporter_ProgressText_Reading_file, 1, 3);
             ReadResult<FailureMechanismSection> readResults = ReadFailureMechanismSections();
-            if (readResults.CriticalErrorOccurred)
+            if (readResults.CriticalErrorOccurred || Canceled)
             {
-                return false;
-            }
-
-            if (Canceled)
-            {
-                HandleUserCancellingImport();
                 return false;
             }
 
@@ -101,7 +95,6 @@ namespace Ringtoets.Common.IO.FileImporters
 
             if (Canceled)
             {
-                HandleUserCancellingImport();
                 return false;
             }
 
@@ -110,10 +103,9 @@ namespace Ringtoets.Common.IO.FileImporters
             return true;
         }
 
-        private void HandleUserCancellingImport()
+        protected override void LogImportCanceledMessage()
         {
             log.Info(Resources.FailureMechanismSectionsImporter_Import_cancelled_no_data_read);
-            Canceled = false;
         }
 
         private ReadResult<FailureMechanismSection> ReadFailureMechanismSections()

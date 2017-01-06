@@ -54,23 +54,22 @@ namespace Core.Components.Gis.IO.Importers
         public FeatureBasedMapDataImporter(MapDataCollection importTarget, string filePath)
             : base(filePath, importTarget) {}
 
-        public override bool Import()
+        protected override bool OnImport()
         {
             ReadResult<FeatureBasedMapData> readResult = ReadFeatureBasedMapData();
-            if (readResult.CriticalErrorOccurred)
+            if (readResult.CriticalErrorOccurred || Canceled)
             {
-                return false;
-            }
-
-            if (Canceled)
-            {
-                HandleUserCancellingImport();
                 return false;
             }
 
             AddFeatureBasedMapDataToMapDataCollection(readResult.ImportedItems.First());
 
             return true;
+        }
+
+        protected override void LogImportCanceledMessage()
+        {
+            log.Info(Resources.FeatureBasedMapDataImporter_HandleUserCancellingImport_Import_cancelled_no_data_read);
         }
 
         private void AddFeatureBasedMapDataToMapDataCollection(FeatureBasedMapData importedMapData)
@@ -150,11 +149,6 @@ namespace Core.Components.Gis.IO.Importers
                                              new FileReaderErrorMessageBuilder(FilePath).Build(message));
             log.Error(errorMessage);
             return new ReadResult<FeatureBasedMapData>(true);
-        }
-
-        private static void HandleUserCancellingImport()
-        {
-            log.Info(Resources.FeatureBasedMapDataImporter_HandleUserCancellingImport_Import_cancelled_no_data_read);
         }
     }
 }

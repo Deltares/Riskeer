@@ -116,7 +116,33 @@ namespace Core.Common.Base.Test.Service
         }
 
         [Test]
-        public void Cancel_WhenImporting_ImportActivityStateCancelled()
+        public void Cancel_WhenImportingAndUncancellable_ImportActivityStateExecuted()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var fileImporter = mocks.Stub<IFileImporter>();
+            fileImporter.Stub(x => x.SetProgressChanged(null)).IgnoreArguments();
+            fileImporter.Stub(i => i.Import()).Return(true);
+            mocks.ReplayAll();
+
+            var fileImportActivity = new FileImportActivity(fileImporter, "");
+            fileImportActivity.ProgressChanged += (sender, args) =>
+            {
+                if (fileImportActivity.State != ActivityState.Canceled)
+                {
+                    // Call 
+                    fileImportActivity.Cancel();
+                }
+            };
+
+            // Assert
+            fileImportActivity.Run();
+            Assert.AreEqual(ActivityState.Executed, fileImportActivity.State);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Cancel_WhenImportingAndCancellable_ImportActivityStateCancelled()
         {
             // Setup
             var fileImporter = new SimpleFileImporter<object>(new object());
@@ -195,11 +221,11 @@ namespace Core.Common.Base.Test.Service
         {
             public SimpleFileImporter(T importTarget) : base("", importTarget) {}
 
-            public override bool Import()
+            protected override bool OnImport()
             {
                 NotifyProgress("Step description", 1, 10);
 
-                return true;
+                return false;
             }
         }
     }

@@ -33,7 +33,6 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Plugin.FileImporter;
 using Ringtoets.Piping.Primitives;
-using PipingFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
 using PipingIOResources = Ringtoets.Piping.IO.Properties.Resources;
 using PipingDataResources = Ringtoets.Piping.Data.Properties.Resources;
 using PipingPluginResources = Ringtoets.Piping.Plugin.Properties.Resources;
@@ -211,7 +210,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         }
 
         [Test]
-        public void Import_CancelOfImportToValidTargetWithValidFile_CancelImportAndLog()
+        public void Import_CancelOfImportWhenReadingPipingSurfaceLines_CancelsImportAndLogs()
         {
             // Setup
             string validFilePath = Path.Combine(ioTestDataPath, "TwoValidSurfaceLines.csv");
@@ -220,12 +219,17 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var failureMechanism = new PipingFailureMechanism();
 
             var importer = new PipingSurfaceLinesCsvImporter(failureMechanism.SurfaceLines, referenceLine, validFilePath);
+            importer.SetProgressChanged(delegate(string description, int step, int steps)
+            {
+                if (description.Contains("Inlezen van het profielschematisatiesbestand."))
+                {
+                    importer.Cancel();
+                }
+            });
 
             // Precondition
             CollectionAssert.IsEmpty(failureMechanism.SurfaceLines);
             Assert.IsTrue(File.Exists(validFilePath));
-
-            importer.Cancel();
 
             bool importResult = true;
 
@@ -233,9 +237,83 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Action call = () => importResult = importer.Import();
 
             // Assert
-            TestHelper.AssertLogMessageIsGenerated(call, PipingPluginResources.PipingSurfaceLinesCsvImporter_Import_Import_cancelled, 3);
+            TestHelper.AssertLogMessageIsGenerated(call, "Profielschematisaties importeren afgebroken. Geen data ingelezen.", 3);
             Assert.IsFalse(importResult);
             CollectionAssert.IsEmpty(failureMechanism.SurfaceLines);
+        }
+
+        [Test]
+        public void Import_CancelOfImportWhenReadingCharacteristicPoints_CancelsImportAndLogs()
+        {
+            // Setup
+            string validFilePath = Path.Combine(ioTestDataPath, "TwoValidSurfaceLines.csv");
+
+            var referenceLine = new ReferenceLine();
+            var failureMechanism = new PipingFailureMechanism();
+
+            var importer = new PipingSurfaceLinesCsvImporter(failureMechanism.SurfaceLines, referenceLine, validFilePath);
+            importer.SetProgressChanged((description, step, steps) =>
+            {
+                if (description.Contains("Inlezen van het karakteristieke punten-bestand."))
+                {
+                    importer.Cancel();
+                }
+            });
+
+            // Precondition
+            CollectionAssert.IsEmpty(failureMechanism.SurfaceLines);
+            Assert.IsTrue(File.Exists(validFilePath));
+
+            bool importResult = true;
+
+            // Call
+            Action call = () => importResult = importer.Import();
+
+            // Assert
+            TestHelper.AssertLogMessageIsGenerated(call, "Profielschematisaties importeren afgebroken. Geen data ingelezen.", 4);
+            Assert.IsFalse(importResult);
+            CollectionAssert.IsEmpty(failureMechanism.SurfaceLines);
+        }
+
+        [Test]
+        public void Import_CancelOfImportWhenAddingDataToModel_ContinuesImportAndLogs()
+        {
+            // Setup
+            string validFilePath = Path.Combine(ioTestDataPath, "TwoValidSurfaceLines.csv");
+
+            var referenceLine = new ReferenceLine();
+            referenceLine.SetGeometry(new[]
+            {
+                new Point2D(3.3, -1),
+                new Point2D(3.3, 1),
+                new Point2D(94270, 427775.65),
+                new Point2D(94270, 427812.08)
+            });
+
+            var failureMechanism = new PipingFailureMechanism();
+
+            var importer = new PipingSurfaceLinesCsvImporter(failureMechanism.SurfaceLines, referenceLine, validFilePath);
+            importer.SetProgressChanged((description, step, steps) =>
+            {
+                if (description.Contains("Geïmporteerde data toevoegen aan toetsspoor."))
+                {
+                    importer.Cancel();
+                }
+            });
+
+            // Precondition
+            CollectionAssert.IsEmpty(failureMechanism.SurfaceLines);
+            Assert.IsTrue(File.Exists(validFilePath));
+
+            bool importResult = false;
+
+            // Call
+            Action call = () => importResult = importer.Import();
+
+            // Assert
+            TestHelper.AssertLogMessageIsGenerated(call, "Huidige actie was niet meer te annuleren en is daarom voortgezet.", 6);
+            Assert.IsTrue(importResult);
+            CollectionAssert.IsNotEmpty(failureMechanism.SurfaceLines);
         }
 
         [Test]
@@ -257,14 +335,15 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var failureMechanism = new PipingFailureMechanism();
 
             var importer = new PipingSurfaceLinesCsvImporter(failureMechanism.SurfaceLines, referenceLine, validFilePath);
+            importer.SetProgressChanged((description, step, steps) => importer.Cancel()); 
 
             // Precondition
             CollectionAssert.IsEmpty(failureMechanism.SurfaceLines);
             Assert.IsTrue(File.Exists(validFilePath));
 
             // Setup (second part)
-            importer.Cancel();
             var importResult = importer.Import();
+            importer.SetProgressChanged(null);
             Assert.IsFalse(importResult);
 
             // Call
@@ -655,33 +734,6 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Assert.AreEqual(0, importTargetArray.Length);
 
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(path));
-        }
-
-        [Test]
-        public void Import_CancelOfImportWithCharacteristicPointsAfterSurfaceLinesRead_CancelImportAndLog()
-        {
-            // Setup
-            string validFilePath = Path.Combine(ioTestDataPath, "TwoValidSurfaceLines.csv");
-
-            var failureMechanism = new PipingFailureMechanism();
-
-            var importer = new PipingSurfaceLinesCsvImporter(failureMechanism.SurfaceLines, new ReferenceLine(), validFilePath);
-
-            // Precondition
-            CollectionAssert.IsEmpty(failureMechanism.SurfaceLines);
-            Assert.IsTrue(File.Exists(validFilePath));
-
-            importer.Cancel();
-
-            var importResult = true;
-
-            // Call
-            Action call = () => importResult = importer.Import();
-
-            // Assert
-            TestHelper.AssertLogMessageIsGenerated(call, PipingPluginResources.PipingSurfaceLinesCsvImporter_Import_Import_cancelled, 3);
-            Assert.IsFalse(importResult);
-            CollectionAssert.IsEmpty(failureMechanism.SurfaceLines);
         }
 
         [Test]

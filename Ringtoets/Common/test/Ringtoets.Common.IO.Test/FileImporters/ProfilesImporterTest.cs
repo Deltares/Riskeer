@@ -480,15 +480,50 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         }
 
         [Test]
-        public void Import_CancelOfImportToValidTargetWithValidFile_CancelImport()
+        public void Import_CancelOfImportWhileReadingProfileLocations_CancelsImportAndLogs()
         {
             // Setup
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Plugin,
                                                          Path.Combine("DikeProfiles", "AllOkTestData", "Voorlanden 12-2.shp"));
 
             var testProfilesImporter = new TestProfilesImporter(testImportTarget, testReferenceLine, filePath);
+            testProfilesImporter.SetProgressChanged((description, step, steps) =>
+            {
+                if (description.Contains("Inlezen van profiellocaties uit een shapebestand."))
+                {
+                    testProfilesImporter.Cancel();
+                }
+            });
 
-            testProfilesImporter.Cancel();
+            // Call
+            bool importResult = testProfilesImporter.Import();
+
+            // Assert
+            Assert.IsFalse(importResult);
+        }
+
+        [Test]
+        public void Import_CancelOfImportWhileReadingDikeProfileLocations_CancelsImportAndLogs()
+        {
+            // Setup
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Plugin,
+                                                         Path.Combine("DikeProfiles", "AllOkTestData", "Voorlanden 12-2.shp"));
+
+            ReferenceLine referenceLine = new ReferenceLine();
+            referenceLine.SetGeometry(new List<Point2D>
+            {
+                new Point2D(130074.3, 543717.4),
+                new Point2D(130084.3, 543727.4)
+            });
+
+            var testProfilesImporter = new TestProfilesImporter(testImportTarget, referenceLine, filePath);
+            testProfilesImporter.SetProgressChanged((description, step, steps) =>
+            {
+                if (description.Contains("Inlezen van profielgegevens uit een prfl bestand."))
+                {
+                    testProfilesImporter.Cancel();
+                }
+            });
 
             // Call
             bool importResult = testProfilesImporter.Import();
@@ -512,12 +547,13 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             ReferenceLine referenceLine = new ReferenceLine();
             referenceLine.SetGeometry(referencePoints);
             var testProfilesImporter = new TestProfilesImporter(new ObservableList<TestProfile>(), referenceLine, filePath);
+            testProfilesImporter.SetProgressChanged((description, step, steps) => testProfilesImporter.Cancel());
 
-            testProfilesImporter.Cancel();
             bool importResult = testProfilesImporter.Import();
 
             // Precondition
             Assert.IsFalse(importResult);
+            testProfilesImporter.SetProgressChanged(null);
 
             // Call
             importResult = testProfilesImporter.Import();

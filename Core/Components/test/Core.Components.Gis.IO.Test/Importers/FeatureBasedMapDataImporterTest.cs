@@ -152,29 +152,6 @@ namespace Core.Components.Gis.IO.Test.Importers
         }
 
         [Test]
-        public void Import_ValidFileImportBeingCancelled_ReturnFalseAndNoChanges()
-        {
-            // Setup
-            var path = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO, "Single_Point_with_ID.shp");
-            var mapDataCollection = new MapDataCollection("test");
-            var importer = new FeatureBasedMapDataImporter(mapDataCollection, path);
-
-            // Precondition
-            CollectionAssert.IsEmpty(mapDataCollection.Collection);
-
-            importer.Cancel();
-
-            // Call
-            bool importSuccesful = true;
-            Action call = () => importSuccesful = importer.Import();
-
-            // Assert            
-            TestHelper.AssertLogMessageIsGenerated(call, "Kaartlaag toevoegen afgebroken. Geen data ingelezen.", 1);
-            Assert.IsFalse(importSuccesful);
-            CollectionAssert.IsEmpty(mapDataCollection.Collection);
-        }
-
-        [Test]
         public void DoPostImportUpdates_ImportSuccesful_NotifiesMapDataCollection()
         {
             // Setup

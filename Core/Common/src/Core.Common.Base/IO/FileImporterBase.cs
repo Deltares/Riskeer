@@ -22,6 +22,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base.Properties;
+using log4net;
 
 namespace Core.Common.Base.IO
 {
@@ -33,6 +35,8 @@ namespace Core.Common.Base.IO
     /// <typeparam name="T">Object type that is the target for this importer.</typeparam>
     public abstract class FileImporterBase<T> : IFileImporter
     {
+        private readonly ILog log = LogManager.GetLogger(typeof(FileImporterBase<T>));
+
         /// <summary>
         /// Initializes a new instance of the <see cref="FileImporterBase{T}"/> class.
         /// </summary>
@@ -44,12 +48,12 @@ namespace Core.Common.Base.IO
         {
             if (filePath == null)
             {
-                throw new ArgumentNullException("filePath");
+                throw new ArgumentNullException(nameof(filePath));
             }
 
             if (importTarget == null)
             {
-                throw new ArgumentNullException("importTarget");
+                throw new ArgumentNullException(nameof(importTarget));
             }
 
             FilePath = filePath;
@@ -61,7 +65,34 @@ namespace Core.Common.Base.IO
             ProgressChanged = action;
         }
 
-        public abstract bool Import();
+        public bool Import()
+        {
+            Canceled = false;
+
+            bool importResult = OnImport();
+            if (importResult)
+            {
+                if (Canceled)
+                {
+                    LogImportUncancellableMessage();
+                    Canceled = false;
+                }
+            }
+            else
+            {
+                if (AffectedNonTargetObservableInstances.Any())
+                {
+                    throw new InvalidOperationException("There should be no affected items in case of a canceled or failed import.");
+                }
+
+                if (Canceled)
+                {
+                    LogImportCanceledMessage();
+                }
+            }
+            
+            return importResult;
+        }
 
         public void Cancel()
         {
@@ -98,14 +129,14 @@ namespace Core.Common.Base.IO
         protected string FilePath { get; private set; }
 
         /// <summary>
-        /// Gets or sets value indicating if a cancel request has been made. When true, no 
+        /// Gets the value indicating if a cancel request has been made. When true, no 
         /// changes should be made to the data model unless the importer is already in progress 
         /// of changing the data model.
         /// </summary>
-        protected bool Canceled { get; set; }
+        protected bool Canceled { get; private set; }
 
         /// <summary>
-        /// Gets all objects that have been affected during the <see cref="Import"/> call
+        /// Gets all objects that have been affected during the <see cref="OnImport"/> call
         /// that implement <see cref="IObservable"/> and which are not the targeted object
         /// to import the data to.
         /// </summary>
@@ -119,6 +150,17 @@ namespace Core.Common.Base.IO
             }
         }
 
+        /// <summary>
+        /// This method logs messages when the importer is cancelled in a cancelable state.
+        /// </summary>
+        protected virtual void LogImportCanceledMessage() {}
+
+        /// <summary>
+        /// This method returns the result of the import action.
+        /// </summary>
+        /// <returns><c>True</c> if the import was succesful, <c>false</c> if otherwise.</returns>
+        protected abstract bool OnImport();
+
         protected void NotifyProgress(string currentStepName, int currentStep, int totalNumberOfSteps)
         {
             if (ProgressChanged != null)
@@ -128,5 +170,10 @@ namespace Core.Common.Base.IO
         }
 
         private OnProgressChanged ProgressChanged { get; set; }
+
+        private void LogImportUncancellableMessage()
+        {
+            log.Warn(Resources.FileImporterBase_LogUncancellableMessage_Import_cannot_be_canceled_and_continued);
+        }
     }
 }

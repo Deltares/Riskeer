@@ -31,8 +31,6 @@ using NUnit.Framework;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Plugin.FileImporter;
 using Ringtoets.Piping.Primitives;
-using PipingFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
-using RingtoetsFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using ApplicationResources = Ringtoets.Piping.Plugin.Properties.Resources;
 using RingtoetsIOResources = Ringtoets.Piping.IO.Properties.Resources;
 
@@ -212,20 +210,24 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         }
 
         [Test]
-        public void Import_CancelOfImportToValidTargetWithValidFile_CancelImportAndLog()
+        public void Import_CancelOfImportWhenReadingSoilProfiles_CancelsImportAndLogs()
         {
             // Setup
             string validFilePath = Path.Combine(testDataPath, "complete.soil");
 
             var failureMechanism = new PipingFailureMechanism();
             var importer = new PipingSoilProfilesImporter(failureMechanism.StochasticSoilModels, validFilePath);
-            importer.SetProgressChanged(IncrementProgress);
+            importer.SetProgressChanged((description, step, steps) =>
+            {
+                if (description.Contains("Inlezen van de D-Soil Model database."))
+                {
+                    importer.Cancel();
+                }
+            });
 
             // Precondition
             CollectionAssert.IsEmpty(failureMechanism.StochasticSoilModels);
             Assert.IsTrue(File.Exists(validFilePath));
-
-            importer.Cancel();
 
             var importResult = true;
 
@@ -233,10 +235,102 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Action call = () => importResult = importer.Import();
 
             // Assert
-            TestHelper.AssertLogMessageIsGenerated(call, ApplicationResources.PipingSoilProfilesImporter_Import_Import_cancelled, 1);
+            TestHelper.AssertLogMessageIsGenerated(call, "Stochastische ondergrondmodellen importeren afgebroken. Geen data ingelezen.", 1);
             Assert.IsFalse(importResult);
             CollectionAssert.IsEmpty(failureMechanism.StochasticSoilModels);
-            Assert.AreEqual(1, progress);
+        }
+
+        [Test]
+        public void Import_CancelOfImportWhenReadingStochasticSoilModels_CancelsImportAndLogs()
+        {
+            // Setup
+            string validFilePath = Path.Combine(testDataPath, "complete.soil");
+
+            var failureMechanism = new PipingFailureMechanism();
+            var importer = new PipingSoilProfilesImporter(failureMechanism.StochasticSoilModels, validFilePath);
+            importer.SetProgressChanged((description, step, steps) =>
+            {
+                if (description.Contains("Inlezen van de stochastische ondergrondmodellen."))
+                {
+                    importer.Cancel();
+                }
+            });
+
+            // Precondition
+            CollectionAssert.IsEmpty(failureMechanism.StochasticSoilModels);
+            Assert.IsTrue(File.Exists(validFilePath));
+
+            var importResult = true;
+
+            // Call
+            Action call = () => importResult = importer.Import();
+
+            // Assert
+            TestHelper.AssertLogMessageIsGenerated(call, "Stochastische ondergrondmodellen importeren afgebroken. Geen data ingelezen.", 1);
+            Assert.IsFalse(importResult);
+            CollectionAssert.IsEmpty(failureMechanism.StochasticSoilModels);
+        }
+
+        [Test]
+        public void Import_CancelOfImportWhenAddingAndCheckingSoilProfiles_CancelsImportAndLogs()
+        {
+            // Setup
+            string validFilePath = Path.Combine(testDataPath, "complete.soil");
+
+            var failureMechanism = new PipingFailureMechanism();
+            var importer = new PipingSoilProfilesImporter(failureMechanism.StochasticSoilModels, validFilePath);
+            importer.SetProgressChanged((description, step, steps) =>
+            {
+                if (description.Contains("Controleren van ondergrondschematisaties."))
+                {
+                    importer.Cancel();
+                }
+            });
+
+            // Precondition
+            CollectionAssert.IsEmpty(failureMechanism.StochasticSoilModels);
+            Assert.IsTrue(File.Exists(validFilePath));
+
+            var importResult = true;
+
+            // Call
+            Action call = () => importResult = importer.Import();
+
+            // Assert
+            TestHelper.AssertLogMessageIsGenerated(call, "Stochastische ondergrondmodellen importeren afgebroken. Geen data ingelezen.", 1);
+            Assert.IsFalse(importResult);
+            CollectionAssert.IsEmpty(failureMechanism.StochasticSoilModels);
+        }
+
+        [Test]
+        public void Import_CancelOfImportWhenAddingDataToModel_CancelsImportAndLogs()
+        {
+            // Setup
+            string validFilePath = Path.Combine(testDataPath, "complete.soil");
+
+            var failureMechanism = new PipingFailureMechanism();
+            var importer = new PipingSoilProfilesImporter(failureMechanism.StochasticSoilModels, validFilePath);
+            importer.SetProgressChanged((description, step, steps) =>
+            {
+                if (description.Contains("Geïmporteerde data toevoegen aan toetsspoor."))
+                {
+                    importer.Cancel();
+                }
+            });
+
+            // Precondition
+            CollectionAssert.IsEmpty(failureMechanism.StochasticSoilModels);
+            Assert.IsTrue(File.Exists(validFilePath));
+
+            var importResult = false;
+
+            // Call
+            Action call = () => importResult = importer.Import();
+
+            // Assert
+            TestHelper.AssertLogMessageIsGenerated(call, "Huidige actie was niet meer te annuleren en is daarom voortgezet.", 1);
+            Assert.IsTrue(importResult);
+            CollectionAssert.IsNotEmpty(failureMechanism.StochasticSoilModels);
         }
 
         [Test]
@@ -247,23 +341,23 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             var failureMechanism = new PipingFailureMechanism();
             var importer = new PipingSoilProfilesImporter(failureMechanism.StochasticSoilModels, validFilePath);
-            importer.SetProgressChanged(IncrementProgress);
+            importer.SetProgressChanged((description, step, steps) => importer.Cancel());
 
             // Precondition
             CollectionAssert.IsEmpty(failureMechanism.StochasticSoilModels);
             Assert.IsTrue(File.Exists(validFilePath));
 
             // Setup (second part)
-            importer.Cancel();
-            var importResult = importer.Import();
+            bool importResult = importer.Import();
             Assert.IsFalse(importResult);
+            importer.SetProgressChanged(null);
 
             // Call
             importResult = importer.Import();
 
             // Assert
             Assert.IsTrue(importResult);
-            Assert.AreEqual(36, progress);
+            CollectionAssert.IsNotEmpty(failureMechanism.StochasticSoilModels);
         }
 
         [Test]

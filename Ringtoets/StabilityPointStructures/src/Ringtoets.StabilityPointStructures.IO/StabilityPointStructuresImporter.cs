@@ -60,12 +60,6 @@ namespace Ringtoets.StabilityPointStructures.IO
             }
         }
 
-        protected override void HandleUserCancellingImport()
-        {
-            Log.Info(RingtoetsCommonIOResources.StructuresImporter_User_cancelled);
-            base.HandleUserCancellingImport();
-        }
-
         private IEnumerable<StabilityPointStructure> CreateStabilityPointStructures(IList<StructureLocation> structureLocations,
                                                                                     Dictionary<string, List<StructuresParameterRow>> groupedStructureParameterRows)
         {

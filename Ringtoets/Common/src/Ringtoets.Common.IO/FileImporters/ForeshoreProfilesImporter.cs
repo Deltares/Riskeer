@@ -60,10 +60,9 @@ namespace Ringtoets.Common.IO.FileImporters
             }
         }
 
-        protected override void HandleUserCancellingImport()
+        protected override void LogImportCanceledMessage()
         {
             Log.Info(Resources.ForeshoreProfilesImporter_HandleUserCancellingImport_foreshoreprofile_import_aborted);
-            base.HandleUserCancellingImport();
         }
 
         protected override bool DikeProfileDataIsValid(DikeProfileData data, string prflFilePath)

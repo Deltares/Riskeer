@@ -43,11 +43,11 @@ namespace Core.Common.Base.Service
         {
             if (fileImporter == null)
             {
-                throw new ArgumentNullException("fileImporter");
+                throw new ArgumentNullException(nameof(fileImporter));
             }
             if (name == null)
             {
-                throw new ArgumentNullException("name");
+                throw new ArgumentNullException(nameof(name));
             }
 
             this.fileImporter = fileImporter;
@@ -67,7 +67,16 @@ namespace Core.Common.Base.Service
                                              currentStep, totalSteps, currentStepName);
             });
 
-            if (!fileImporter.Import() && State != ActivityState.Canceled)
+            bool importSuccessful = fileImporter.Import();
+
+            if (State == ActivityState.Canceled)
+            {
+                if (importSuccessful)
+                {
+                    State = ActivityState.Executed;
+                }
+            }
+            else if (!importSuccessful)
             {
                 State = ActivityState.Failed;
             }

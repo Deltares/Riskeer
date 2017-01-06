@@ -315,7 +315,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         }
 
         [Test]
-        public void Import_CancelOfImportToValidTargetWithValidFile_CancelImportAndLog()
+        public void Import_CancelOfImporWhileReadingProfileLocations_CancelsImportAndLogs()
         {
             // Setup
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
@@ -328,18 +328,56 @@ namespace Ringtoets.Common.IO.Test.FileImporters
 
             var foreshoreProfiles = new ObservableList<ForeshoreProfile>();
             var foreshoreProfilesImporter = new ForeshoreProfilesImporter(foreshoreProfiles, referenceLine, filePath);
+            foreshoreProfilesImporter.SetProgressChanged((description, step, steps) =>
+            {
+                if (description.Contains("Inlezen van profiellocaties uit een shapebestand."))
+                {
+                    foreshoreProfilesImporter.Cancel();
+                }
+            });
 
-            // Precondition
-            foreshoreProfilesImporter.Cancel();
+            bool importResult = true;
 
             // Call
-            var importResult = true;
             Action call = () => importResult = foreshoreProfilesImporter.Import();
 
             // Assert
             TestHelper.AssertLogMessageIsGenerated(call, "Voorlandprofielen importeren is afgebroken. Geen gegevens ingelezen.", 1);
             Assert.IsFalse(importResult);
-            mockRepository.VerifyAll(); // 'observer' should not be notified
+            mockRepository.VerifyAll(); 
+        }
+
+        [Test]
+        public void Import_CancelOfImporWhileReadingDikeProfileData_CancelsImportAndLogs()
+        {
+            // Setup
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                         Path.Combine("DikeProfiles", "AllOkTestData", "Voorlanden 12-2.shp"));
+
+            ReferenceLine referenceLine = CreateMatchingReferenceLine();
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
+            assessmentSection.ReferenceLine = referenceLine;
+            mockRepository.ReplayAll();
+
+            var foreshoreProfiles = new ObservableList<ForeshoreProfile>();
+            var foreshoreProfilesImporter = new ForeshoreProfilesImporter(foreshoreProfiles, referenceLine, filePath);
+            foreshoreProfilesImporter.SetProgressChanged((description, step, steps) =>
+            {
+                if (description.Contains("Inlezen van profielgegevens uit een prfl bestand."))
+                {
+                    foreshoreProfilesImporter.Cancel();
+                }
+            });
+
+            bool importResult = true;
+
+            // Call
+            Action call = () => importResult = foreshoreProfilesImporter.Import();
+
+            // Assert
+            TestHelper.AssertLogMessageIsGenerated(call, "Voorlandprofielen importeren is afgebroken. Geen gegevens ingelezen.", 1);
+            Assert.IsFalse(importResult);
+            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -356,10 +394,12 @@ namespace Ringtoets.Common.IO.Test.FileImporters
 
             var foreshoreProfiles = new ObservableList<ForeshoreProfile>();
             var foreshoreProfilesImporter = new ForeshoreProfilesImporter(foreshoreProfiles, referenceLine, filePath);
+            foreshoreProfilesImporter.SetProgressChanged((description, step, steps) => foreshoreProfilesImporter.Cancel());
 
-            foreshoreProfilesImporter.Cancel();
             bool importResult = foreshoreProfilesImporter.Import();
             Assert.IsFalse(importResult);
+			CollectionAssert.IsEmpty(foreshoreProfiles);
+            foreshoreProfilesImporter.SetProgressChanged(null);
 
             // Call
             importResult = foreshoreProfilesImporter.Import();
@@ -367,7 +407,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             // Assert
             Assert.IsTrue(importResult);
             Assert.AreEqual(5, foreshoreProfiles.Count);
-            mockRepository.VerifyAll(); // 'observer' should not be notified
+            mockRepository.VerifyAll();
         }
 
         private ReferenceLine CreateMatchingReferenceLine()

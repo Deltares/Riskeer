@@ -43,7 +43,7 @@ namespace Ringtoets.Common.IO.FileImporters
     /// </summary>
     public abstract class StructuresImporter<T> : FileImporterBase<T>
     {
-        protected readonly ILog Log = LogManager.GetLogger(typeof(StructuresImporter<T>));
+        private readonly ILog Log = LogManager.GetLogger(typeof(StructuresImporter<T>));
         private readonly ReferenceLine referenceLine;
 
         /// <summary>
@@ -65,43 +65,27 @@ namespace Ringtoets.Common.IO.FileImporters
             this.referenceLine = referenceLine;
         }
 
-        public override bool Import()
+        protected override bool OnImport()
         {
             ReadResult<StructureLocation> importStructureLocationsResult = ReadStructureLocations();
-            if (importStructureLocationsResult.CriticalErrorOccurred)
+            if (importStructureLocationsResult.CriticalErrorOccurred || Canceled)
             {
-                return false;
-            }
-
-            if (Canceled)
-            {
-                HandleUserCancellingImport();
                 return false;
             }
 
             ReadResult<StructuresParameterRow> importStructureParameterRowsDataResult = ReadStructureParameterRowsData();
-            if (importStructureParameterRowsDataResult.CriticalErrorOccurred)
+            if (importStructureParameterRowsDataResult.CriticalErrorOccurred || Canceled)
             {
-                return false;
-            }
-
-            if (Canceled)
-            {
-                HandleUserCancellingImport();
                 return false;
             }
 
             CreateStructures(importStructureLocationsResult, importStructureParameterRowsDataResult);
-
             return true;
         }
 
-        /// <summary>
-        /// Act upon the user cancelling the import operation.
-        /// </summary>
-        protected virtual void HandleUserCancellingImport()
+        protected override void LogImportCanceledMessage()
         {
-            Canceled = false;
+            Log.Info(Resources.StructuresImporter_User_cancelled);
         }
 
         /// <summary>

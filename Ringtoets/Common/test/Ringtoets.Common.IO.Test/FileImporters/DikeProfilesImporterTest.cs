@@ -280,18 +280,23 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         }
 
         [Test]
-        public void Import_CancelOfImportToValidTargetWithValidFile_CancelImportAndLog()
+        public void Import_CancelOfImportWhileReadingProfileLocations_CancelImportAndLogs()
         {
             // Setup
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                          Path.Combine("DikeProfiles", "AllOkTestData", "Voorlanden 12-2.shp"));
 
             ReferenceLine referenceLine = CreateMatchingReferenceLine();
-
             var dikeProfiles = new ObservableList<DikeProfile>();
             var dikeProfilesImporter = new DikeProfilesImporter(dikeProfiles, referenceLine, filePath);
+            dikeProfilesImporter.SetProgressChanged((description, step, steps) =>
+            {
+                if (description.Contains("Inlezen van profiellocaties uit een shapebestand."))
+                {
+                    dikeProfilesImporter.Cancel();
+                }
+            });
 
-            dikeProfilesImporter.Cancel();
             bool importResult = true;
 
             // Call
@@ -300,6 +305,36 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             // Assert
             TestHelper.AssertLogMessageIsGenerated(call, "Dijkprofielen importeren is afgebroken. Geen gegevens ingelezen.", 1);
             Assert.IsFalse(importResult);
+			CollectionAssert.IsEmpty(dikeProfiles);
+        }
+
+        [Test]
+        public void Import_CancelOfImportWhileReadingDikeProfileData_CancelImportAndLogs()
+        {
+            // Setup
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                         Path.Combine("DikeProfiles", "AllOkTestData", "Voorlanden 12-2.shp"));
+
+            ReferenceLine referenceLine = CreateMatchingReferenceLine();
+            var dikeProfiles = new ObservableList<DikeProfile>();
+            var dikeProfilesImporter = new DikeProfilesImporter(dikeProfiles, referenceLine, filePath);
+            dikeProfilesImporter.SetProgressChanged((description, step, steps) =>
+            {
+                if (description.Contains("Inlezen van profielgegevens uit een prfl bestand."))
+                {
+                    dikeProfilesImporter.Cancel();
+                }
+            });
+
+            bool importResult = true;
+
+            // Call
+            Action call = () => importResult = dikeProfilesImporter.Import();
+
+            // Assert
+            TestHelper.AssertLogMessageIsGenerated(call, "Dijkprofielen importeren is afgebroken. Geen gegevens ingelezen.", 1);
+            Assert.IsFalse(importResult);
+			CollectionAssert.IsEmpty(dikeProfiles);
         }
 
         [Test]
@@ -313,10 +348,13 @@ namespace Ringtoets.Common.IO.Test.FileImporters
 
             var dikeProfiles = new ObservableList<DikeProfile>();
             var dikeProfilesImporter = new DikeProfilesImporter(dikeProfiles, referenceLine, filePath);
+            dikeProfilesImporter.SetProgressChanged((description, step, steps) => dikeProfilesImporter.Cancel());
 
-            dikeProfilesImporter.Cancel();
+			// Pre-condition
             bool importResult = dikeProfilesImporter.Import();
             Assert.IsFalse(importResult);
+			CollectionAssert.IsEmpty(dikeProfiles);
+            dikeProfilesImporter.SetProgressChanged(null);
 
             // Call
             importResult = dikeProfilesImporter.Import();
