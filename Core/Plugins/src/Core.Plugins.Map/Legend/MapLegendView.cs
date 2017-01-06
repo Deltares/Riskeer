@@ -177,14 +177,29 @@ namespace Core.Plugins.Map.Legend
 
         private StrictContextMenuItem CreateZoomToExtentsItem(FeatureBasedMapData nodeData)
         {
+            var hasFeaters = nodeData.Features.Any();
+            var enabled = nodeData.IsVisible && hasFeaters;
+            string toolTip = string.Empty;
+
+            if (enabled)
+            {
+                toolTip = MapResources.MapLegendView_CreateZoomToExtentsItem_ZoomToAll_Tooltip;
+            }            
+            else if (!nodeData.IsVisible)
+            {
+                toolTip = MapResources.MapLegendView_CreateZoomToExtentsItem_ZoomToAllDisabled_Tooltip;
+            }
+            else if (!hasFeaters)
+            {
+                toolTip = MapResources.MapLegendView_CreateZoomToExtentsItem_NoFeatures_ZoomToAllDisabled_Tooltip;
+            }
+
             return new StrictContextMenuItem($"&{MapResources.Ribbon_ZoomToAll}",
-                                             nodeData.IsVisible ?
-                                                 MapResources.MapLegendView_CreateZoomToExtentsItem_ZoomToAll_Tooltip :
-                                                 MapResources.MapLegendView_CreateZoomToExtentsItem_ZoomToAllDisabled_Tooltip,
+                                            toolTip,
                                              MapResources.ZoomToAllIcon,
                                              (sender, args) => { MapControl?.ZoomToAllVisibleLayers(nodeData); })
             {
-                Enabled = nodeData.IsVisible
+                Enabled = enabled
             };
         }
 

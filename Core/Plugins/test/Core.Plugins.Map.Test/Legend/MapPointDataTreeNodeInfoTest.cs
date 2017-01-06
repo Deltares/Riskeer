@@ -21,7 +21,7 @@
 
 using System;
 using System.Collections.Generic;
-using System.Windows.Forms;
+using System.Linq;
 using Core.Common.Base;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui.ContextMenu;
@@ -29,7 +29,9 @@ using Core.Common.Gui.TestUtil.ContextMenu;
 using Core.Common.TestUtil;
 using Core.Common.Utils.Reflection;
 using Core.Components.Gis.Data;
+using Core.Components.Gis.Features;
 using Core.Components.Gis.Forms;
+using Core.Components.Gis.Geometries;
 using Core.Plugins.Map.Legend;
 using Core.Plugins.Map.Properties;
 using NUnit.Framework;
@@ -159,7 +161,11 @@ namespace Core.Plugins.Map.Test.Legend
 
             var mapData = new MapPointData("A")
             {
-                IsVisible = true
+                IsVisible = true,
+                Features = new []
+                {
+                    new MapFeature(Enumerable.Empty<MapGeometry>())
+                }
             };
 
             // Call
@@ -193,7 +199,33 @@ namespace Core.Plugins.Map.Test.Legend
                 // Assert
                 TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuZoomToAllIndex,
                                                               "&Zoom naar alles",
-                                                              "Om het zoomniveau aan te passen moet de laag zichtbaar zijn.",
+                                                              "Om het zoomniveau aan te passen moet de kaartlaag zichtbaar zijn.",
+                                                              Resources.ZoomToAllIcon,
+                                                              false);
+            }
+        }
+
+        [Test]
+        public void ContextMenuStrip_MapDataWithoutFeatures_ZoomToAllItemDisabled()
+        {
+            // Setup
+            var builder = new CustomItemsOnlyContextMenuBuilder();
+            contextMenuBuilderProvider.Expect(p => p.Get(null, null)).IgnoreArguments().Return(builder);
+
+            mocks.ReplayAll();
+
+            var mapData = new MapPointData("A")
+            {
+                IsVisible = true
+            };
+
+            // Call
+            using (var contextMenu = info.ContextMenuStrip(mapData, null, null))
+            {
+                // Assert
+                TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuZoomToAllIndex,
+                                                              "&Zoom naar alles",
+                                                              "Om het zoomniveau aan te passen moet de kaartlaag elementen bevatten.",
                                                               Resources.ZoomToAllIcon,
                                                               false);
             }
@@ -205,7 +237,11 @@ namespace Core.Plugins.Map.Test.Legend
             // Setup
             var mapData = new MapPointData("A")
             {
-                IsVisible = true
+                IsVisible = true,
+                Features = new[]
+                {
+                    new MapFeature(Enumerable.Empty<MapGeometry>()),
+                }
             };
 
             var builder = new CustomItemsOnlyContextMenuBuilder();
