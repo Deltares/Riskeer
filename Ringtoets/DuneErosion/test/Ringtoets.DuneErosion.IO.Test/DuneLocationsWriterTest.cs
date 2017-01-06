@@ -148,6 +148,7 @@ namespace Ringtoets.DuneErosion.IO.Test
                 Assert.IsTrue(File.Exists(filePath));
                 string fileContent = File.ReadAllText(filePath);
                 Assert.AreEqual("Kv\tNr\tRp\tHs\tTp\tTm-1,0\tD50\r\n" +
+                                "*[-]\t[dam]\t[m+NAP]\t[m]\t[s]\t[s]\t[m]\r\n" +
                                 "9\t9740\t*\t*\t*\t*\t0.000196\r\n" +
                                 "10\t9770.1\t*\t*\t*\t*\t0.000196\r\n" +
                                 "11\t9771.3\t5.89\t8.53\t14.11\t*\t0.000134\r\n",

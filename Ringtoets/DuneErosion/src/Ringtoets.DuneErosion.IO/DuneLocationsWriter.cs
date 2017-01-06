@@ -60,6 +60,7 @@ namespace Ringtoets.DuneErosion.IO
             }
 
             var stringBuilder = new StringBuilder(Resources.DuneLocationsWriter_WriteDuneLocations_HeaderLine + Environment.NewLine);
+            stringBuilder.AppendLine(Resources.DuneLocationsWriter_WriteDuneLocations_UnitsLine);
 
             try
             {

@@ -98,5 +98,14 @@ namespace Ringtoets.DuneErosion.IO.Properties {
                 return ResourceManager.GetString("DuneLocationsWriter_WriteDuneLocations_HeaderLine", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to *[-]	[dam]	[m+NAP]	[m]	[s]	[s]	[m].
+        /// </summary>
+        internal static string DuneLocationsWriter_WriteDuneLocations_UnitsLine {
+            get {
+                return ResourceManager.GetString("DuneLocationsWriter_WriteDuneLocations_UnitsLine", resourceCulture);
+            }
+        }
     }
 }
