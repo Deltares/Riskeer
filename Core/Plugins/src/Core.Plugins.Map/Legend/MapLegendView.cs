@@ -175,6 +175,25 @@ namespace Core.Plugins.Map.Legend
             });
         }
 
+        private StrictContextMenuItem CreateZoomToExtentsItem(MapData nodeData, string toolTip, bool isEnabled)
+        {
+            return new StrictContextMenuItem($"&{MapResources.Ribbon_ZoomToAll}",
+                                             toolTip,
+                                             MapResources.ZoomToAllIcon,
+                                             (sender, args) => { MapControl?.ZoomToAllVisibleLayers(nodeData); })
+            {
+                Enabled = isEnabled
+            };
+        }
+
+        #region MapData
+
+        private static void MapDataOnNodeChecked(FeatureBasedMapData featureBasedMapData, object parentData)
+        {
+            featureBasedMapData.IsVisible = !featureBasedMapData.IsVisible;
+            featureBasedMapData.NotifyObservers();
+        }
+
         private StrictContextMenuItem CreateZoomToExtentsItem(FeatureBasedMapData nodeData)
         {
             var hasFeatures = nodeData.Features.Any();
@@ -184,7 +203,7 @@ namespace Core.Plugins.Map.Legend
             if (enabled)
             {
                 toolTip = MapResources.MapLegendView_CreateZoomToExtentsItem_ZoomToAll_Tooltip;
-            }            
+            }
             else if (!nodeData.IsVisible)
             {
                 toolTip = MapResources.MapLegendView_CreateZoomToExtentsItem_ZoomToAllDisabled_Tooltip;
@@ -194,13 +213,31 @@ namespace Core.Plugins.Map.Legend
                 toolTip = MapResources.MapLegendView_CreateZoomToExtentsItem_NoFeatures_ZoomToAllDisabled_Tooltip;
             }
 
-            return new StrictContextMenuItem($"&{MapResources.Ribbon_ZoomToAll}",
-                                            toolTip,
-                                             MapResources.ZoomToAllIcon,
-                                             (sender, args) => { MapControl?.ZoomToAllVisibleLayers(nodeData); })
-            {
-                Enabled = enabled
-            };
+            return CreateZoomToExtentsItem(nodeData, toolTip, enabled);
+        }
+
+        #endregion
+
+        #region MapDataCollection
+
+        private static bool MapControlCanDrop(object draggedData, object targetData)
+        {
+            return draggedData is MapData;
+        }
+
+        private static bool MapControlCanInsert(object draggedData, object targetData)
+        {
+            return draggedData is MapData;
+        }
+
+        private static void MapControlOnDrop(object droppedData, object newParentData, object oldParentData, int position, TreeViewControl control)
+        {
+            var mapData = (MapData) droppedData;
+            var target = (MapDataCollection) newParentData;
+
+            target.Remove(mapData);
+            target.Insert(target.Collection.Count() - position, mapData); // Note: target is the same as the previous parent in this case
+            target.NotifyObservers();
         }
 
         private StrictContextMenuItem CreateZoomToExtentsItem(MapDataCollection nodeData)
@@ -226,45 +263,7 @@ namespace Core.Plugins.Map.Legend
                 toolTip = MapResources.MapLegendView_CreateZoomToExtentsItem_MapDataCollection_NoFeatures_ZoomToAllDisabled_Tooltip;
             }
 
-            return new StrictContextMenuItem($"&{MapResources.Ribbon_ZoomToAll}",
-                                             toolTip,
-                                             MapResources.ZoomToAllIcon,
-                                             (sender, args) => { MapControl?.ZoomToAllVisibleLayers(nodeData); })
-            {
-                Enabled = enabled
-            };
-        }
-
-        #region MapData
-
-        private static void MapDataOnNodeChecked(FeatureBasedMapData featureBasedMapData, object parentData)
-        {
-            featureBasedMapData.IsVisible = !featureBasedMapData.IsVisible;
-            featureBasedMapData.NotifyObservers();
-        }
-
-        #endregion
-
-        #region MapDataCollection
-
-        private static bool MapControlCanDrop(object draggedData, object targetData)
-        {
-            return draggedData is MapData;
-        }
-
-        private static bool MapControlCanInsert(object draggedData, object targetData)
-        {
-            return draggedData is MapData;
-        }
-
-        private static void MapControlOnDrop(object droppedData, object newParentData, object oldParentData, int position, TreeViewControl control)
-        {
-            var mapData = (MapData) droppedData;
-            var target = (MapDataCollection) newParentData;
-
-            target.Remove(mapData);
-            target.Insert(target.Collection.Count() - position, mapData); // Note: target is the same as the previous parent in this case
-            target.NotifyObservers();
+            return CreateZoomToExtentsItem(nodeData, toolTip, enabled);
         }
 
         #endregion
