@@ -89,16 +89,14 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         {
             get
             {
-                return data != null && data.ForeshoreGeometry != null ?
-                           data.ForeshoreGeometry.ToArray() :
-                           null;
+                return data?.ForeshoreGeometry?.ToArray();
             }
         }
 
         [DynamicReadOnlyValidationMethod]
         public bool DynamicReadOnlyValidationMethod(string propertyName)
         {
-            return data == null || data.ForeshoreGeometry == null || data.ForeshoreGeometry.Count() < 2;
+            return data?.ForeshoreGeometry == null || data.ForeshoreGeometry.Count() < 2;
         }
 
         public override string ToString()
@@ -108,10 +106,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
 
         private void NotifyPropertyChanged()
         {
-            if (changeHandler != null)
-            {
-                changeHandler.PropertyChanged();
-            }
+            changeHandler?.PropertyChanged();
             data.NotifyObservers();
         }
     }

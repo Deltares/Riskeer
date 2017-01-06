@@ -92,11 +92,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         {
             get
             {
-                if (data != null && data.BreakWater != null)
-                {
-                    return data.BreakWater.Type;
-                }
-                return null;
+                return data?.BreakWater?.Type;
             }
             set
             {
@@ -117,11 +113,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         {
             get
             {
-                if (data != null && data.BreakWater != null)
-                {
-                    return data.BreakWater.Height;
-                }
-                return RoundedDouble.NaN;
+                return data?.BreakWater?.Height ?? RoundedDouble.NaN;
             }
             set
             {
@@ -145,10 +137,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
 
         private void NotifyPropertyChanged()
         {
-            if (changeHandler != null)
-            {
-                changeHandler.PropertyChanged();
-            }
+            changeHandler?.PropertyChanged();
             data.NotifyObservers();
         }
     }
