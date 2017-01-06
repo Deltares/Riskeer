@@ -274,6 +274,16 @@ namespace Core.Plugins.Map.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Om het zoomniveau aan te passen moeten alle zichtbare kaartlagen in deze kaartlagenmap elementen bevatten..
+        /// </summary>
+        public static string MapLegendView_CreateZoomToExtentsItem_MapDataCollection_NoFeatures_ZoomToAllDisabled_Tooltip {
+            get {
+                return ResourceManager.GetString("MapLegendView_CreateZoomToExtentsItem_MapDataCollection_NoFeatures_ZoomToAllDisab" +
+                        "led_Tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Zet het zoomniveau van de kaart dusdanig dat alle zichtbare elementen van deze kaartlagenmap precies in het beeld passen..
         /// </summary>
         public static string MapLegendView_CreateZoomToExtentsItem_MapDataCollection_ZoomToAll_Tooltip {

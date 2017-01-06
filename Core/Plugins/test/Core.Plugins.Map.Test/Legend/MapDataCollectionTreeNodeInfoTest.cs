@@ -31,7 +31,9 @@ using Core.Common.Gui.TestUtil.ContextMenu;
 using Core.Common.TestUtil;
 using Core.Common.Utils.Reflection;
 using Core.Components.Gis.Data;
+using Core.Components.Gis.Features;
 using Core.Components.Gis.Forms;
+using Core.Components.Gis.Geometries;
 using Core.Plugins.Map.Legend;
 using Core.Plugins.Map.Properties;
 using NUnit.Extensions.Forms;
@@ -279,7 +281,11 @@ namespace Core.Plugins.Map.Test.Legend
             // Setup
             var mapPointData = new MapPointData("test")
             {
-                IsVisible = true
+                IsVisible = true,
+                Features = new[]
+                {
+                    new MapFeature(Enumerable.Empty<MapGeometry>())
+                }
             };
             var mapDataCollection = new MapDataCollection("test data");
             mapDataCollection.Add(mapPointData);
@@ -397,11 +403,80 @@ namespace Core.Plugins.Map.Test.Legend
         }
 
         [Test]
+        public void ContextMenuStrip_FeatureBasedMapDataWithoutFeaturesInMapDataCollection_CallsContextMenuBuilderMethods()
+        {
+            // Setup
+            var pointData = new MapPointData("test data")
+            {
+                IsVisible = true
+            };
+            var mapDataCollection = new MapDataCollection("test data");
+            mapDataCollection.Add(pointData);
+
+            var applicationFeatureCommandsStub = mocks.Stub<IApplicationFeatureCommands>();
+            var importCommandHandlerMock = mocks.Stub<IImportCommandHandler>();
+            importCommandHandlerMock.Stub(ich => ich.CanImportOn(null)).IgnoreArguments().Return(true);
+            var exportCommandHandlerMock = mocks.Stub<IExportCommandHandler>();
+            var viewCommandsMock = mocks.Stub<IViewCommands>();
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                // Call
+                var builder = new ContextMenuBuilder(applicationFeatureCommandsStub,
+                                                     importCommandHandlerMock,
+                                                     exportCommandHandlerMock,
+                                                     viewCommandsMock,
+                                                     mapDataCollection,
+                                                     treeViewControl);
+
+                contextMenuBuilderProvider.Expect(cmbp => cmbp.Get(mapDataCollection, treeViewControl)).Return(builder);
+
+                mocks.ReplayAll();
+
+                // Call
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(mapDataCollection, null, treeViewControl))
+                {
+                    // Assert
+                    Assert.AreEqual(5, contextMenu.Items.Count);
+                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuAddMapLayerIndex,
+                                                                  "&Voeg kaartlaag toe...",
+                                                                  "Importeer een nieuwe kaartlaag en voeg deze toe.",
+                                                                  Resources.MapPlusIcon);
+
+                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuZoomToAllIndex,
+                                                                  "&Zoom naar alles",
+                                                                  "Om het zoomniveau aan te passen moeten alle zichtbare kaartlagen in deze kaartlagenmap elementen bevatten.",
+                                                                  Resources.ZoomToAllIcon,
+                                                                  false);
+
+                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuPropertiesIndex,
+                                                                  "Ei&genschappen",
+                                                                  "Toon de eigenschappen in het Eigenschappenpaneel.",
+                                                                  GuiResources.PropertiesHS,
+                                                                  false);
+
+                    CollectionAssert.AllItemsAreInstancesOfType(new[]
+                                                                {
+                                                                    contextMenu.Items[1],
+                                                                    contextMenu.Items[3]
+                                                                }, typeof(ToolStripSeparator));
+                }
+            }
+        }
+
+        [Test]
         public void ContextMenuStrip_MapLegendViewHasMapControlAndClickZoomToAll_DoZoomToAllVisibleLayersForMapData()
         {
             // Setup
             var mapData = new MapDataCollection("A");
-            var pointData = new MapPointData("B");
+            var pointData = new MapPointData("B")
+            {
+                IsVisible = true,
+                Features = new[]
+                {
+                    new MapFeature(Enumerable.Empty<MapGeometry>())
+                }
+            };
             mapData.Add(pointData);
 
             var builder = new CustomItemsOnlyContextMenuBuilder();

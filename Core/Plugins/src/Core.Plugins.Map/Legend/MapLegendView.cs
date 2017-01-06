@@ -177,8 +177,8 @@ namespace Core.Plugins.Map.Legend
 
         private StrictContextMenuItem CreateZoomToExtentsItem(FeatureBasedMapData nodeData)
         {
-            var hasFeaters = nodeData.Features.Any();
-            var enabled = nodeData.IsVisible && hasFeaters;
+            var hasFeatures = nodeData.Features.Any();
+            var enabled = nodeData.IsVisible && hasFeatures;
             string toolTip = string.Empty;
 
             if (enabled)
@@ -189,7 +189,7 @@ namespace Core.Plugins.Map.Legend
             {
                 toolTip = MapResources.MapLegendView_CreateZoomToExtentsItem_ZoomToAllDisabled_Tooltip;
             }
-            else if (!hasFeaters)
+            else if (!hasFeatures)
             {
                 toolTip = MapResources.MapLegendView_CreateZoomToExtentsItem_NoFeatures_ZoomToAllDisabled_Tooltip;
             }
@@ -205,12 +205,29 @@ namespace Core.Plugins.Map.Legend
 
         private StrictContextMenuItem CreateZoomToExtentsItem(MapDataCollection nodeData)
         {
-            var enabled = nodeData.GetFeatureBasedMapDataRecursively().Any(fbmd => fbmd.IsVisible);
+            FeatureBasedMapData[] featureBasedMapDatas = nodeData.GetFeatureBasedMapDataRecursively().ToArray();
+            var isVisible = featureBasedMapDatas.Any(md => md.IsVisible);
+            var hasFeatures = featureBasedMapDatas.Any(mapData => mapData.Features.Any());
+
+            var enabled = isVisible && hasFeatures;
+
+            string toolTip = string.Empty;
+
+            if (enabled)
+            {
+                toolTip = MapResources.MapLegendView_CreateZoomToExtentsItem_MapDataCollection_ZoomToAll_Tooltip;
+            }
+            else if (!isVisible)
+            {
+                toolTip = MapResources.MapLegendView_CreateZoomToExtentsItem_MapDataCollection_ZoomToAllDisabled_Tooltip;
+            }
+            else if (!hasFeatures)
+            {
+                toolTip = MapResources.MapLegendView_CreateZoomToExtentsItem_MapDataCollection_NoFeatures_ZoomToAllDisabled_Tooltip;
+            }
 
             return new StrictContextMenuItem($"&{MapResources.Ribbon_ZoomToAll}",
-                                             enabled ?
-                                                 MapResources.MapLegendView_CreateZoomToExtentsItem_MapDataCollection_ZoomToAll_Tooltip :
-                                                 MapResources.MapLegendView_CreateZoomToExtentsItem_MapDataCollection_ZoomToAllDisabled_Tooltip,
+                                             toolTip,
                                              MapResources.ZoomToAllIcon,
                                              (sender, args) => { MapControl?.ZoomToAllVisibleLayers(nodeData); })
             {
