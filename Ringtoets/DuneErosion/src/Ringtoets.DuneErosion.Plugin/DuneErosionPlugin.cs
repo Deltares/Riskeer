@@ -215,7 +215,7 @@ namespace Ringtoets.DuneErosion.Plugin
             bool locationsAvailable = context.FailureMechanism.DuneLocations.Any();
 
             string toolTip = locationsAvailable
-                                 ? RingtoetsCommonFormsResources.Calculate_all_ToolTip
+                                 ? Resources.DuneErosionPlugin_DuneLocationsContextMenuStrip_Calculate_all_ToolTip
                                  : Resources.DuneErosionPlugin_DuneLocationsContextMenuStrip_Calculate_all_ToolTip_no_locations;
 
             var calculateAllItem = new StrictContextMenuItem(

@@ -82,6 +82,15 @@ namespace Ringtoets.DuneErosion.Plugin.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Alle hydraulische randvoorwaarden berekenen..
+        /// </summary>
+        internal static string DuneErosionPlugin_DuneLocationsContextMenuStrip_Calculate_all_ToolTip {
+            get {
+                return ResourceManager.GetString("DuneErosionPlugin_DuneLocationsContextMenuStrip_Calculate_all_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Er zijn geen locaties om een berekening voor uit te voeren..
         /// </summary>
         internal static string DuneErosionPlugin_DuneLocationsContextMenuStrip_Calculate_all_ToolTip_no_locations {

@@ -232,7 +232,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
                     Assert.AreEqual(5, menu.Items.Count);
 
                     var expectedMessage = hasDuneLocations
-                                              ? "Voer alle berekeningen binnen dit toetsspoor uit."
+                                              ? "Alle hydraulische randvoorwaarden berekenen."
                                               : "Er zijn geen locaties om een berekening voor uit te voeren.";
 
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndex,
