@@ -91,13 +91,13 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                 if (!progressStarted && callCount == 0)
                 {
                     progressStarted = true;
-                    Assert.AreEqual(PipingPluginResources.PipingSurfaceLinesCsvImporter_Reading_surface_line_file, currentStepName);
+                    Assert.AreEqual("Inlezen van het profielschematisatiesbestand.", currentStepName);
                     return;
                 }
                 if (!progressCharacteristicPointsStarted && callCount == expectedNumberOfSurfaceLines + 1)
                 {
                     progressCharacteristicPointsStarted = true;
-                    Assert.AreEqual(PipingPluginResources.PipingSurfaceLinesCsvImporter_Reading_characteristic_points_file, currentStepName);
+                    Assert.AreEqual("Inlezen van het karakteristieke punten-bestand.", currentStepName);
                     return;
                 }
 
@@ -107,7 +107,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                 }
                 else if (callCount <= expectedNumberOfSurfaceLines + 1 + expectedNumberOfSurfaceLines)
                 {
-                    Assert.AreEqual(PipingPluginResources.PipingSurfaceLinesCsvImporter_Adding_imported_data_to_model, currentStepName);
+                    Assert.AreEqual("Geïmporteerde data toevoegen aan het toetsspoor.", currentStepName);
                 }
                 else
                 {
@@ -295,7 +295,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var importer = new PipingSurfaceLinesCsvImporter(failureMechanism.SurfaceLines, referenceLine, validFilePath);
             importer.SetProgressChanged((description, step, steps) =>
             {
-                if (description.Contains("Geïmporteerde data toevoegen aan toetsspoor."))
+                if (description.Contains("Geïmporteerde data toevoegen aan het toetsspoor."))
                 {
                     importer.Cancel();
                 }
@@ -1294,27 +1294,27 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                 if (!progressStarted && callCount == 0)
                 {
                     progressStarted = true;
-                    Assert.AreEqual(PipingPluginResources.PipingSurfaceLinesCsvImporter_Reading_surface_line_file, currentStepName);
+                    Assert.AreEqual("Inlezen van het profielschematisatiesbestand.", currentStepName);
                     return;
                 }
                 if (!progressCharacteristicPointsStarted && callCount == expectedNumberOfSurfaceLines + 1)
                 {
                     progressCharacteristicPointsStarted = true;
-                    Assert.AreEqual(PipingPluginResources.PipingSurfaceLinesCsvImporter_Reading_characteristic_points_file, currentStepName);
+                    Assert.AreEqual("Inlezen van het karakteristieke punten-bestand.", currentStepName);
                     return;
                 }
 
                 if (callCount <= expectedNumberOfSurfaceLines)
                 {
-                    Assert.AreEqual(string.Format(PipingPluginResources.PipingSurfaceLinesCsvImporter_Read_PipingSurfaceLines_0_, twovalidsurfacelinesCsv), currentStepName);
+                    Assert.AreEqual($"Inlezen '{twovalidsurfacelinesCsv}'", currentStepName);
                 }
                 else if (callCount <= expectedNumberOfSurfaceLines + expectedNumberOfCharacteristicPointsDefinitions + 1)
                 {
-                    Assert.AreEqual(string.Format(PipingPluginResources.PipingSurfaceLinesCsvImporter_Read_PipingCharacteristicPoints_0_, twovalidsurfacelinesCharacteristicPointsCsv), currentStepName);
+                    Assert.AreEqual($"Inlezen '{twovalidsurfacelinesCharacteristicPointsCsv}'", currentStepName);
                 }
                 else if (callCount <= expectedNumberOfSurfaceLines + expectedNumberOfCharacteristicPointsDefinitions + 2 + expectedNumberOfSurfaceLines)
                 {
-                    Assert.AreEqual(PipingPluginResources.PipingSurfaceLinesCsvImporter_Adding_imported_data_to_model, currentStepName);
+                    Assert.AreEqual("Geïmporteerde data toevoegen aan het toetsspoor.", currentStepName);
                 }
                 else
                 {

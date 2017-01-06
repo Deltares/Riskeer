@@ -533,6 +533,33 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         }
 
         [Test]
+        public void Import_CancelOfImportWhileCreateProfiles_ContinuesImportAndLogs()
+        {
+            // Setup
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Plugin,
+                                                         Path.Combine("DikeProfiles", "AllOkTestData", "Voorlanden 12-2.shp"));
+
+            ReferenceLine referenceLine = CreateMatchingReferenceLine();
+            var testProfilesImporter = new TestProfilesImporter(testImportTarget, referenceLine, filePath);
+            testProfilesImporter.SetProgressChanged((description, step, steps) =>
+            {
+                if (description.Contains("Geïmporteerde data toevoegen aan het toetsspoor."))
+                {
+                    testProfilesImporter.Cancel();
+                }
+            });
+
+            bool importResult = false;
+
+            // Call
+            Action call = () => importResult = testProfilesImporter.Import();
+
+            // Assert
+            TestHelper.AssertLogMessageIsGenerated(call, "Huidige actie was niet meer te annuleren en is daarom voortgezet.");
+            Assert.IsTrue(importResult);
+        }
+
+        [Test]
         public void Import_ReuseOfCancelledImportToValidTargetWithValidFile_True()
         {
             // Setup

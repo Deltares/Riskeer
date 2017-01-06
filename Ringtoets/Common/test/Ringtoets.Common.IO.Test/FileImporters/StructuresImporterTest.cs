@@ -283,6 +283,44 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         }
 
         [Test]
+        public void Import_CancelOfImportWhenCreatingStructures_ContinuesImportAndLogs()
+        {
+            // Setup
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                         Path.Combine("Structures", "CorrectFiles", "Kunstwerken.shp"));
+
+            var referencePoints = new List<Point2D>
+            {
+                new Point2D(131144.094, 549979.893),
+                new Point2D(131538.705, 548316.752),
+                new Point2D(135878.442, 532149.859),
+                new Point2D(131225.017, 548395.948),
+                new Point2D(131270.38, 548367.462),
+                new Point2D(131507.119, 548322.951)
+            };
+            ReferenceLine referenceLine = new ReferenceLine();
+            referenceLine.SetGeometry(referencePoints);
+            var importTarget = new ObservableList<TestStructure>();
+            var testStructuresImporter = new TestStructuresImporter(importTarget, referenceLine, filePath);
+            testStructuresImporter.SetProgressChanged((description, step, steps) =>
+            {
+                if (description.Contains("Geïmporteerde data toevoegen aan het toetsspoor."))
+                {
+                    testStructuresImporter.Cancel();
+                }
+            });
+
+            bool importResult = true;
+
+            // Call
+            Action call = () => importResult = testStructuresImporter.Import();
+
+            // Assert
+            TestHelper.AssertLogMessageIsGenerated(call, "Huidige actie was niet meer te annuleren en is daarom voortgezet.");
+            Assert.IsTrue(importResult);
+        }
+
+        [Test]
         public void Import_CancelOfImportWhenReadingStructureData_ReturnsFalse()
         {
             // Setup

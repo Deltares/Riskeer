@@ -481,16 +481,6 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Geïmporteerde gegevens toevoegen aan het toetsspoor..
-        /// </summary>
-        public static string FailureMechanismSectionsImporter_ProgressText_Adding_imported_data_to_failureMechanism {
-            get {
-                return ResourceManager.GetString("FailureMechanismSectionsImporter_ProgressText_Adding_imported_data_to_failureMech" +
-                        "anism", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Inlezen vakindeling..
         /// </summary>
         public static string FailureMechanismSectionsImporter_ProgressText_Reading_file {
@@ -694,6 +684,15 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Geïmporteerde data toevoegen aan het toetsspoor..
+        /// </summary>
+        public static string Importer_ProgressText_Adding_imported_data_to_DataModel {
+            get {
+                return ResourceManager.GetString("Importer_ProgressText_Adding_imported_data_to_DataModel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kon geen punten vinden in dit bestand..
         /// </summary>
         public static string PointShapefileReader_File_can_only_contain_points {
@@ -857,16 +856,6 @@ namespace Ringtoets.Common.IO.Properties {
             get {
                 return ResourceManager.GetString("ReferenceLineImporter_HandleCriticalFileReadError_Error_0_no_referenceline_import" +
                         "ed", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Geïmporteerde data toevoegen aan het traject..
-        /// </summary>
-        public static string ReferenceLineImporter_ProgressText_Adding_imported_referenceline_to_assessmentsection {
-            get {
-                return ResourceManager.GetString("ReferenceLineImporter_ProgressText_Adding_imported_referenceline_to_assessmentsec" +
-                        "tion", resourceCulture);
             }
         }
         

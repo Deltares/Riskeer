@@ -33,6 +33,7 @@ using Ringtoets.Piping.IO.Exceptions;
 using Ringtoets.Piping.IO.SoilProfile;
 using Ringtoets.Piping.Primitives;
 using RingtoetsPluginResources = Ringtoets.Piping.Plugin.Properties.Resources;
+using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 
 namespace Ringtoets.Piping.Plugin.FileImporter
 {
@@ -116,7 +117,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             var currentIndex = 1;
             foreach (var readStochasticSoilModel in readStochasticSoilModels)
             {
-                NotifyProgress(RingtoetsPluginResources.PipingSoilProfilesImporter_Adding_imported_data_to_model, currentIndex++, stochasticSoilModelCount);
+                NotifyProgress(RingtoetsCommonIOResources.Importer_ProgressText_Adding_imported_data_to_DataModel, currentIndex++, stochasticSoilModelCount);
                 if (!ValidateStochasticSoilModel(readStochasticSoilModel))
                 {
                     continue;

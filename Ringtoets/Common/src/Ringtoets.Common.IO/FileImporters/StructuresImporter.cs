@@ -79,6 +79,7 @@ namespace Ringtoets.Common.IO.FileImporters
                 return false;
             }
 
+            NotifyProgress(Resources.Importer_ProgressText_Adding_imported_data_to_DataModel, 1, 1);
             CreateStructures(importStructureLocationsResult, importStructureParameterRowsDataResult);
             return true;
         }

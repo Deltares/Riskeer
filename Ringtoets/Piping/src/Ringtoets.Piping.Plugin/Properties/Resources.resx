@@ -120,9 +120,6 @@
   <data name="Soil_file_name" xml:space="preserve">
     <value>D-Soil Model bestand</value>
   </data>
-  <data name="PipingSurfaceLinesCsvImporter_Adding_imported_data_to_model" xml:space="preserve">
-    <value>Geïmporteerde data toevoegen aan toetsspoor.</value>
-  </data>
   <data name="PipingSurfaceLinesCsvImporter_Import_Import_cancelled" xml:space="preserve">
     <value>Profielschematisaties importeren afgebroken. Geen data ingelezen.</value>
   </data>
@@ -136,9 +133,6 @@ Het bestand wordt overgeslagen.</value>
   <data name="PipingSurfaceLinesCsvImporter_ReadPipingSurfaceLines_ParseErrorMessage_0_SurfaceLine_skipped" xml:space="preserve">
     <value>{0} 
 Deze profielschematisatie wordt overgeslagen.</value>
-  </data>
-  <data name="PipingSoilProfilesImporter_Adding_imported_data_to_model" xml:space="preserve">
-    <value>Geïmporteerde data toevoegen aan toetsspoor.</value>
   </data>
   <data name="PipingSoilProfilesImporter_Import_Import_cancelled" xml:space="preserve">
     <value>Stochastische ondergrondmodellen importeren afgebroken. Geen data ingelezen.</value>

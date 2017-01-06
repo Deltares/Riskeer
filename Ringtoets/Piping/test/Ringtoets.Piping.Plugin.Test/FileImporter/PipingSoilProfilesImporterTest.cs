@@ -169,7 +169,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             expectedProgressMessages.Add(new ProgressNotification("Controleren van ondergrondschematisaties.", 1, 1));
             for (var i = 1; i <= expectedModels; i++)
             {
-                expectedProgressMessages.Add(new ProgressNotification("Geïmporteerde data toevoegen aan toetsspoor.", i, expectedModels));
+                expectedProgressMessages.Add(new ProgressNotification("Geïmporteerde data toevoegen aan het toetsspoor.", i, expectedModels));
             }
             Assert.AreEqual(expectedProgressMessages.Count, progressChangeNotifications.Count);
             for (var i = 0; i < expectedProgressMessages.Count; i++)
@@ -312,7 +312,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var importer = new PipingSoilProfilesImporter(failureMechanism.StochasticSoilModels, validFilePath);
             importer.SetProgressChanged((description, step, steps) =>
             {
-                if (description.Contains("Geïmporteerde data toevoegen aan toetsspoor."))
+                if (description.Contains("Geïmporteerde data toevoegen aan het toetsspoor."))
                 {
                     importer.Cancel();
                 }

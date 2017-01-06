@@ -130,9 +130,6 @@
     <value>{0} 
 Er is geen referentielijn geïmporteerd.</value>
   </data>
-  <data name="ReferenceLineImporter_ProgressText_Adding_imported_referenceline_to_assessmentsection" xml:space="preserve">
-    <value>Geïmporteerde data toevoegen aan het traject.</value>
-  </data>
   <data name="ReferenceLineImporter_ProgressText_Import_cancelled_no_data_read" xml:space="preserve">
     <value>Referentielijn importeren afgebroken. Geen data ingelezen.</value>
   </data>
@@ -367,9 +364,6 @@ Er is geen vakindeling geïmporteerd.</value>
   <data name="FailureMechanismSectionsImporter_Import_cancelled_no_data_read" xml:space="preserve">
     <value>Vakindeling importeren afgebroken. Geen gegevens ingelezen.</value>
   </data>
-  <data name="FailureMechanismSectionsImporter_ProgressText_Adding_imported_data_to_failureMechanism" xml:space="preserve">
-    <value>Geïmporteerde gegevens toevoegen aan het toetsspoor.</value>
-  </data>
   <data name="FailureMechanismSectionsImporter_ProgressText_Reading_file" xml:space="preserve">
     <value>Inlezen vakindeling.</value>
   </data>
@@ -500,5 +494,8 @@ Er is geen vakindeling geïmporteerd.</value>
   </data>
   <data name="FailureMechanismSectionsImporter_Import_Imported_sections_too_different_from_referenceline_length" xml:space="preserve">
     <value>De opgetelde lengte van de vakken moet overeenkomen met de trajectlengte.</value>
+  </data>
+  <data name="Importer_ProgressText_Adding_imported_data_to_DataModel" xml:space="preserve">
+    <value>Geïmporteerde data toevoegen aan het toetsspoor.</value>
   </data>
 </root>

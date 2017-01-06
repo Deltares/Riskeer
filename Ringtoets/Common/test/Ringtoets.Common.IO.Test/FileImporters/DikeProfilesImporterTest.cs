@@ -209,7 +209,8 @@ namespace Ringtoets.Common.IO.Test.FileImporters
                 new ProgressNotification("Inlezen van profielgegevens.", 2, 5),
                 new ProgressNotification("Inlezen van profielgegevens.", 3, 5),
                 new ProgressNotification("Inlezen van profielgegevens.", 4, 5),
-                new ProgressNotification("Inlezen van profielgegevens.", 5, 5)
+                new ProgressNotification("Inlezen van profielgegevens.", 5, 5),
+                new ProgressNotification("Geïmporteerde data toevoegen aan het toetsspoor.", 1, 1)
             };
             ValidateProgressMessages(expectedProgressMessages, progressChangeNotifications);
             Assert.AreEqual(5, dikeProfiles.Count);
@@ -273,7 +274,8 @@ namespace Ringtoets.Common.IO.Test.FileImporters
                 new ProgressNotification("Inlezen van profielgegevens.", 2, 5),
                 new ProgressNotification("Inlezen van profielgegevens.", 3, 5),
                 new ProgressNotification("Inlezen van profielgegevens.", 4, 5),
-                new ProgressNotification("Inlezen van profielgegevens.", 5, 5)
+                new ProgressNotification("Inlezen van profielgegevens.", 5, 5),
+                new ProgressNotification("Geïmporteerde data toevoegen aan het toetsspoor.", 1, 1)
             };
             ValidateProgressMessages(expectedProgressMessages, progressChangeNotifications);
             Assert.AreEqual(5, dikeProfiles.Count);
