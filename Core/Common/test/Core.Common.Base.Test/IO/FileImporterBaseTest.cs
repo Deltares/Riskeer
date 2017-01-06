@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using Core.Common.Base.IO;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -88,47 +87,14 @@ namespace Core.Common.Base.Test.IO
         }
 
         [Test]
-        public void DoPostImportUpdates_HasAffectedOtherObjects_NotifyObservers()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var observableInstance = mocks.Stub<IObservable>();
-            observableInstance.Expect(o => o.NotifyObservers());
-            mocks.ReplayAll();
-
-            var importTarget = new object();
-
-            var simpleImporter = new SimpleFileImporter<object>(importTarget)
-            {
-                AffectedNonTargetObservableInstancesOverride = new[]
-                {
-                    observableInstance
-                }
-            };
-
-            // Call
-            simpleImporter.DoPostImportUpdates();
-
-            // Assert
-            mocks.VerifyAll(); // Assert NotifyObservers is called
-        }
-
-        [Test]
         public void DoPostImportUpdates_ImportCancelled_NoNotifyObserversCalled()
         {
             // Setup
             var mocks = new MockRepository();
-            var observableInstance = mocks.StrictMock<IObservable>();
             var observableTarget = mocks.StrictMock<IObservable>();
             mocks.ReplayAll();
 
-            var simpleImporter = new SimpleFileImporter<IObservable>(observableTarget)
-            {
-                AffectedNonTargetObservableInstancesOverride = new[]
-                {
-                    observableInstance
-                }
-            };
+            var simpleImporter = new SimpleFileImporter<IObservable>(observableTarget);
             simpleImporter.Cancel();
 
             // Call
@@ -217,40 +183,6 @@ namespace Core.Common.Base.Test.IO
             Assert.IsTrue(simpleImporter.LogCanceledMessageCalled);
         }
 
-        [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void Import_UnsuccesfulAndHasAffectedNonTargetObservableInstances_ThrowsInvalidOperationException(bool isImportCancelled)
-        {
-            //  Setup
-            var mocks = new MockRepository();
-            var observableInstance = mocks.StrictMock<IObservable>();
-            var observableTarget = mocks.StrictMock<IObservable>();
-            mocks.ReplayAll();
-
-            var simpleImporter = new SimpleFileImporter<IObservable>(observableTarget)
-            {
-                AffectedNonTargetObservableInstancesOverride = new[]
-                {
-                    observableInstance
-                },
-                ImportSuccesful = false
-            };
-
-            if (isImportCancelled)
-            {
-                simpleImporter.SetProgressChanged((description, step, steps) => simpleImporter.Cancel());
-            }
-
-            // Call
-            TestDelegate call = () => simpleImporter.Import();
-
-            // Assert
-            string message = Assert.Throws<InvalidOperationException>(call).Message;
-            const string expectedMessage = "There should be no affected items in case of a canceled or failed import.";
-            Assert.AreEqual(expectedMessage, message);
-        }
-
         private class SimpleFileImporter<T> : FileImporterBase<T>
         {
             public SimpleFileImporter(T importTarget) : this("", importTarget) {}
@@ -264,19 +196,9 @@ namespace Core.Common.Base.Test.IO
 
             public bool LogCanceledMessageCalled { get; private set; }
 
-            public IObservable[] AffectedNonTargetObservableInstancesOverride { private get; set; }
-
             public void TestNotifyProgress(string currentStepName, int currentStep, int totalNumberOfSteps)
             {
                 NotifyProgress(currentStepName, currentStep, totalNumberOfSteps);
-            }
-
-            protected override IEnumerable<IObservable> AffectedNonTargetObservableInstances
-            {
-                get
-                {
-                    return AffectedNonTargetObservableInstancesOverride ?? base.AffectedNonTargetObservableInstances;
-                }
             }
 
             protected override bool OnImport()

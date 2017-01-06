@@ -436,7 +436,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
         }
 
         [Test]
-        public void DoPostImportUpdates_CancellingImport_DoNotNotifyObservers()
+        public void DoPostImportUpdates_CancellingImport_DoNotNotifyObserversAndNotDoPostReplacementUpdates()
         {
             // Setup
             var path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "traject_10-2.shp");
@@ -449,8 +449,6 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             assessmentSection.Expect(section => section.Attach(contextObserver));
 
             var handler = mocks.StrictMock<IReferenceLineReplaceHandler>();
-            handler.Expect(h => h.DoPostReplacementUpdates());
-
             var importer = new ReferenceLineImporter(assessmentSection, handler, path);
             handler.Expect(h => h.ConfirmReplace())
                    .WhenCalled(invocation => importer.Cancel())

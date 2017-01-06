@@ -20,8 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using Core.Common.Base.Properties;
 using log4net;
 
@@ -80,11 +78,6 @@ namespace Core.Common.Base.IO
             }
             else
             {
-                if (AffectedNonTargetObservableInstances.Any())
-                {
-                    throw new InvalidOperationException("There should be no affected items in case of a canceled or failed import.");
-                }
-
                 if (Canceled)
                 {
                     LogImportCanceledMessage();
@@ -111,11 +104,6 @@ namespace Core.Common.Base.IO
             {
                 observableTarget.NotifyObservers();
             }
-
-            foreach (var changedObservableObject in AffectedNonTargetObservableInstances)
-            {
-                changedObservableObject.NotifyObservers();
-            }
         }
 
         /// <summary>
@@ -134,21 +122,6 @@ namespace Core.Common.Base.IO
         /// of changing the data model.
         /// </summary>
         protected bool Canceled { get; private set; }
-
-        /// <summary>
-        /// Gets all objects that have been affected during the <see cref="OnImport"/> call
-        /// that implement <see cref="IObservable"/> and which are not the targeted object
-        /// to import the data to.
-        /// </summary>
-        /// <remarks>If no changes were made to the data model (for example during a cancel),
-        /// no elements should be returned by the implementer.</remarks>
-        protected virtual IEnumerable<IObservable> AffectedNonTargetObservableInstances
-        {
-            get
-            {
-                return Enumerable.Empty<IObservable>();
-            }
-        }
 
         /// <summary>
         /// This method logs messages when the importer is cancelled in a cancelable state.

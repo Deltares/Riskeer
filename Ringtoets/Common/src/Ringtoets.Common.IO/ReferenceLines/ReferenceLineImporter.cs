@@ -85,15 +85,18 @@ namespace Ringtoets.Common.IO.ReferenceLines
 
         public override void DoPostImportUpdates()
         {
-            replacementHandler.DoPostReplacementUpdates();
-            base.DoPostImportUpdates();
-        }
-
-        protected override IEnumerable<IObservable> AffectedNonTargetObservableInstances
-        {
-            get
+            if (Canceled)
             {
-                return changedObservables;
+                return;
+            }
+
+            replacementHandler.DoPostReplacementUpdates();
+
+            base.DoPostImportUpdates();
+
+            foreach (var changedObservable in changedObservables)
+            {
+                changedObservable.NotifyObservers();
             }
         }
 
