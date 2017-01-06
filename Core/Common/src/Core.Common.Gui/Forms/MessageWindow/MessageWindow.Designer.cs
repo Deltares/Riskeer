@@ -189,6 +189,7 @@ namespace Core.Common.Gui.Forms.MessageWindow
             this.messagesDataGridView.AllowUserToResizeColumns = false;
             this.messagesDataGridView.AllowUserToResizeRows = false;
             this.messagesDataGridView.AutoGenerateColumns = false;
+            this.messagesDataGridView.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
             this.messagesDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.messagesDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.levelColumnDataGridViewTextBoxColumn,
