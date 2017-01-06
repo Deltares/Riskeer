@@ -516,10 +516,12 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             referenceLineContext.Attach(contextObserver);
 
             var importer = new ReferenceLineImporter(assessmentSection, handler, path);
+            importer.SetProgressChanged((description, step, steps) => importer.Cancel());
 
             // Precondition
-            Assert.IsTrue(importer.Import());
-            importer.Cancel();
+            Assert.IsFalse(importer.Import());
+
+            importer.SetProgressChanged(null);
             Assert.IsTrue(importer.Import());
 
             // Call

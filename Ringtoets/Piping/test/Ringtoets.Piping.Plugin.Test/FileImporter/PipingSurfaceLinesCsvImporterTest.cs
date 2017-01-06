@@ -343,8 +343,9 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             // Setup (second part)
             var importResult = importer.Import();
-            importer.SetProgressChanged(null);
             Assert.IsFalse(importResult);
+
+            importer.SetProgressChanged(null);
 
             // Call
             importResult = importer.Import();

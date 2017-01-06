@@ -85,7 +85,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         }
 
         [Test]
-        public void ParameterdConstructor_FilePathNull_ThrowArgumentNullException()
+        public void ParameteredConstructor_FilePathNull_ThrowArgumentNullException()
         {
             // Call
             TestDelegate call = () => new ForeshoreProfilesImporter(new ObservableList<ForeshoreProfile>(), new ReferenceLine(), null);
@@ -348,7 +348,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         }
 
         [Test]
-        public void Import_CancelOfImporWhileReadingDikeProfileData_CancelsImportAndLogs()
+        public void Import_CancelOfImportWhileReadingDikeProfileData_CancelsImportAndLogs()
         {
             // Setup
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
@@ -396,9 +396,11 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             var foreshoreProfilesImporter = new ForeshoreProfilesImporter(foreshoreProfiles, referenceLine, filePath);
             foreshoreProfilesImporter.SetProgressChanged((description, step, steps) => foreshoreProfilesImporter.Cancel());
 
+            // Precondition
             bool importResult = foreshoreProfilesImporter.Import();
             Assert.IsFalse(importResult);
 			CollectionAssert.IsEmpty(foreshoreProfiles);
+
             foreshoreProfilesImporter.SetProgressChanged(null);
 
             // Call

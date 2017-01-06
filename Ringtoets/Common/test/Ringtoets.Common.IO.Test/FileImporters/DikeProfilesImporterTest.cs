@@ -354,6 +354,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             bool importResult = dikeProfilesImporter.Import();
             Assert.IsFalse(importResult);
 			CollectionAssert.IsEmpty(dikeProfiles);
+
             dikeProfilesImporter.SetProgressChanged(null);
 
             // Call
