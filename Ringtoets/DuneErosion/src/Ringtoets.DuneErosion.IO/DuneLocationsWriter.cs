@@ -29,6 +29,7 @@ using Core.Common.IO.Exceptions;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.IO.Properties;
 using CoreCommonUtilsResources = Core.Common.Utils.Properties.Resources;
+using DuneErosionDataResources = Ringtoets.DuneErosion.Data.Properties.Resources;
 
 namespace Ringtoets.DuneErosion.IO
 {
@@ -80,7 +81,7 @@ namespace Ringtoets.DuneErosion.IO
             var stringComponents = new List<string>
             {
                 location.CoastalAreaId.ToString(null, CultureInfo.InvariantCulture),
-                location.Offset.ToString(Resources.DuneLocationsWriter_CreateCsvLine_Offset_format, CultureInfo.InvariantCulture),
+                location.Offset.ToString(DuneErosionDataResources.DuneLocation_Offset_format, CultureInfo.InvariantCulture),
                 Resources.DuneLocationsWriter_CreateCsvLine_Parameter_without_value,
                 location.D50.ToString(null, CultureInfo.InvariantCulture)
             };

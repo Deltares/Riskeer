@@ -98,5 +98,14 @@ namespace Ringtoets.DuneErosion.Data.Properties {
                 return ResourceManager.GetString("DuneErosionFailureMechanism_DisplayName", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 0.#.
+        /// </summary>
+        public static string DuneLocation_Offset_format {
+            get {
+                return ResourceManager.GetString("DuneLocation_Offset_format", resourceCulture);
+            }
+        }
     }
 }

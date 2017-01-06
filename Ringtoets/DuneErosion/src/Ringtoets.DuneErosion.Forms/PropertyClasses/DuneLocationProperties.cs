@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.ComponentModel;
+using System.Globalization;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Gui.PropertyBag;
@@ -30,6 +31,7 @@ using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Forms.Properties;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using DuneErosionDataResources = Ringtoets.DuneErosion.Data.Properties.Resources;
 
 namespace Ringtoets.DuneErosion.Forms.PropertyClasses
 {
@@ -75,11 +77,11 @@ namespace Ringtoets.DuneErosion.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
         [ResourcesDisplayName(typeof(Resources), "DuneLocation_Offset_DisplayName")]
         [ResourcesDescription(typeof(Resources), "DuneLocation_Offset_Description")]
-        public RoundedDouble Offset
+        public string Offset
         {
             get
             {
-                return data.Offset;
+                return data.Offset.ToString(DuneErosionDataResources.DuneLocation_Offset_format, CultureInfo.InvariantCulture);
             }
         }
 

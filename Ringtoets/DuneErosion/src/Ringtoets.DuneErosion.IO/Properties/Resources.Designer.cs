@@ -82,15 +82,6 @@ namespace Ringtoets.DuneErosion.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 0.#.
-        /// </summary>
-        internal static string DuneLocationsWriter_CreateCsvLine_Offset_format {
-            get {
-                return ResourceManager.GetString("DuneLocationsWriter_CreateCsvLine_Offset_format", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to *.
         /// </summary>
         internal static string DuneLocationsWriter_CreateCsvLine_Parameter_without_value {

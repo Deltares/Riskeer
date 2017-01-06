@@ -21,6 +21,7 @@
 
 using System;
 using System.ComponentModel;
+using System.Globalization;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using Core.Common.Utils;
@@ -70,7 +71,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
             Assert.AreEqual(duneLocation.Id, properties.Id);
             Assert.AreEqual(duneLocation.Name, properties.Name);
             Assert.AreEqual(duneLocation.CoastalAreaId, properties.CoastalAreaId);
-            Assert.AreEqual(duneLocation.Offset, properties.Offset);
+            Assert.AreEqual(duneLocation.Offset.ToString("0.#", CultureInfo.InvariantCulture), properties.Offset);
             Assert.AreEqual(duneLocation.Location, properties.Location);
 
             Assert.IsNaN(properties.WaterLevel);
@@ -149,7 +150,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
             Assert.AreEqual(id, properties.Id);
             Assert.AreEqual(name, properties.Name);
             Assert.AreEqual(coastalAreaId, properties.CoastalAreaId);
-            Assert.AreEqual(location.Offset, properties.Offset, properties.Offset.GetAccuracy());
+            Assert.AreEqual(location.Offset.ToString("0.#", CultureInfo.InvariantCulture), properties.Offset);
             var expectedLocation = new Point2D(x, y);
             Assert.AreEqual(expectedLocation, properties.Location);
             
@@ -283,6 +284,26 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
                                                                             "Convergentie",
                                                                             "Is convergentie bereikt in de berekening voor de hydraulische randvoorwaarden van de duinlocatie?",
                                                                             true);
+        }
+
+        [Test]
+        [TestCase(3.0, "3")]
+        [TestCase(3.1, "3.1")]
+        public void Offset_Always_FormatToString(double offset, string expectedPropertyValue)
+        {
+            var location = new DuneLocation(1, "test", new Point2D(0, 0), new DuneLocation.ConstructionProperties
+                                            {
+                                                Offset = offset
+                                            });
+
+            // Call
+            var properties = new DuneLocationProperties
+            {
+                Data = location
+            };
+
+            // Assert
+            Assert.AreEqual(expectedPropertyValue, properties.Offset);
         }
     }
 }
