@@ -48,6 +48,18 @@ namespace Ringtoets.DuneErosion.Data
             WaveHeight = new RoundedDouble(2, constructionProperties.WaveHeight);
             WavePeriod = new RoundedDouble(2, constructionProperties.WavePeriod);
 
+            if (!ProbabilityHelper.IsValidProbability(constructionProperties.TargetProbability))
+            {
+                throw new ArgumentOutOfRangeException(nameof(TargetProbability), constructionProperties.TargetProbability,
+                                                      RingtoetsCommonDataResources.Probability_Must_be_in_range_zero_to_one);
+            }
+
+            if (!ProbabilityHelper.IsValidProbability(constructionProperties.CalculatedProbability))
+            {
+                throw new ArgumentOutOfRangeException(nameof(CalculatedProbability), constructionProperties.CalculatedProbability,
+                                                      RingtoetsCommonDataResources.Probability_Must_be_in_range_zero_to_one);
+            }
+
             TargetProbability = constructionProperties.TargetProbability;
             TargetReliability = new RoundedDouble(5, constructionProperties.TargetReliability);
             CalculatedProbability = constructionProperties.CalculatedProbability;
@@ -108,9 +120,6 @@ namespace Ringtoets.DuneErosion.Data
         /// </summary>
         public class ConstructionProperties
         {
-            private double calculatedProbability;
-            private double targetProbability;
-
             /// <summary>
             /// Creates a new instance of <see cref="ConstructionProperties"/>.
             /// </summary>
@@ -143,23 +152,7 @@ namespace Ringtoets.DuneErosion.Data
             /// <summary>
             /// Gets the target probability.
             /// </summary>
-            /// <exception cref="ArgumentOutOfRangeException">Thrown when the value falls outside the [0.0, 1.0] range.</exception>
-            public double TargetProbability
-            {
-                internal get
-                {
-                    return targetProbability;
-                }
-                set
-                {
-                    if (!ProbabilityHelper.IsValidProbability(value))
-                    {
-                        throw new ArgumentOutOfRangeException(nameof(TargetProbability), value,
-                                                              RingtoetsCommonDataResources.Probability_Must_be_in_range_zero_to_one);
-                    }
-                    targetProbability = value;
-                }
-            }
+            public double TargetProbability { internal get; set; }
 
             /// <summary>
             /// Gets the target beta.
@@ -169,23 +162,7 @@ namespace Ringtoets.DuneErosion.Data
             /// <summary>
             /// Gets the calculated probability.
             /// </summary>
-            /// <exception cref="ArgumentOutOfRangeException">Thrown when the value falls outside the [0.0, 1.0] range.</exception>
-            public double CalculatedProbability
-            {
-                internal get
-                {
-                    return calculatedProbability;
-                }
-                set
-                {
-                    if (!ProbabilityHelper.IsValidProbability(value))
-                    {
-                        throw new ArgumentOutOfRangeException(nameof(CalculatedProbability), value,
-                                                              RingtoetsCommonDataResources.Probability_Must_be_in_range_zero_to_one);
-                    }
-                    calculatedProbability = value;
-                }
-            }
+            public double CalculatedProbability { internal get; set; }
 
             /// <summary>
             /// Gets the calculated reliability.

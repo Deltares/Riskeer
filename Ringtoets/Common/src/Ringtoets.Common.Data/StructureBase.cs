@@ -112,23 +112,23 @@ namespace Ringtoets.Common.Data
             /// <summary>
             /// Gets or sets the name of the structure.
             /// </summary>
-            public string Name { get; set; }
+            public string Name { internal get; set; }
 
             /// <summary>
             /// Gets or sets the identifier of the structure.
             /// </summary>
-            public string Id { get; set; }
+            public string Id { internal get; set; }
 
             /// <summary>
             /// Gets or sets the location of the structure.
             /// </summary>
-            public Point2D Location { get; set; }
+            public Point2D Location { internal get; set; }
 
             /// <summary>
             /// Gets or sets the orientation of the closing structure, relative to north.
             /// [degrees]
             /// </summary>
-            public double StructureNormalOrientation { get; set; }
+            public double StructureNormalOrientation { internal get; set; }
         }
     }
 }
