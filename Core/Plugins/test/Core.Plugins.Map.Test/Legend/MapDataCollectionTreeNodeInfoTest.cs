@@ -314,7 +314,7 @@ namespace Core.Plugins.Map.Test.Legend
 
                     TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuZoomToAllIndex,
                                                                   "&Zoom naar alles",
-                                                                  "Zet het zoomniveau van de kaart dusdanig dat alle zichtbare elementen van deze laag precies in het beeld passen.",
+                                                                  "Zet het zoomniveau van de kaart dusdanig dat alle zichtbare elementen van deze kaartlagenmap precies in het beeld passen.",
                                                                   Resources.ZoomToAllIcon);
 
                     TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuPropertiesIndex,

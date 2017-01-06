@@ -174,11 +174,24 @@ namespace Core.Plugins.Map.Legend
             });
         }
 
-        private StrictContextMenuItem CreateZoomToExtentsItem(MapData nodeData)
+        private StrictContextMenuItem CreateZoomToExtentsItem(FeatureBasedMapData nodeData)
         {
             return new StrictContextMenuItem($"&{MapResources.Ribbon_ZoomToAll}",
                                              nodeData.IsVisible ?
                                                  MapResources.MapLegendView_CreateZoomToExtentsItem_ZoomToAll_Tooltip :
+                                                 MapResources.MapLegendView_CreateZoomToExtentsItem_ZoomToAllDisabled_Tooltip,
+                                             MapResources.ZoomToAllIcon,
+                                             (sender, args) => { MapControl?.ZoomToAllVisibleLayers(nodeData); })
+            {
+                Enabled = nodeData.IsVisible
+            };
+        }
+
+        private StrictContextMenuItem CreateZoomToExtentsItem(MapDataCollection nodeData)
+        {
+            return new StrictContextMenuItem($"&{MapResources.Ribbon_ZoomToAll}",
+                                             nodeData.IsVisible ?
+                                                 MapResources.MapLegendView_CreateZoomToExtentsItem_MapDataCollection_ZoomToAll_Tooltip :
                                                  MapResources.MapLegendView_CreateZoomToExtentsItem_ZoomToAllDisabled_Tooltip,
                                              MapResources.ZoomToAllIcon,
                                              (sender, args) => { MapControl?.ZoomToAllVisibleLayers(nodeData); })
