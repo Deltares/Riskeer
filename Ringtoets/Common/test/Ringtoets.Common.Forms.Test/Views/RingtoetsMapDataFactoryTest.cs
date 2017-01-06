@@ -105,6 +105,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             Assert.IsEmpty(data.Features);
             Assert.AreEqual("Dijkprofielen", data.Name);
             AssertEqualStyle(data.Style, Color.SaddleBrown, 2, DashStyle.Solid);
+            Assert.AreEqual("Naam", data.SelectedMetaDataAttribute);
         }
 
         [Test]
@@ -117,6 +118,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             Assert.IsEmpty(data.Features);
             Assert.AreEqual("Voorlandprofielen", data.Name);
             AssertEqualStyle(data.Style, Color.DarkOrange, 2, DashStyle.Solid);
+            Assert.AreEqual("Naam", data.SelectedMetaDataAttribute);
         }
 
         [Test]
@@ -129,6 +131,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             Assert.IsEmpty(data.Features);
             Assert.AreEqual("Kunstwerken", data.Name);
             AssertEqualStyle(data.Style, Color.DarkSeaGreen, 15, PointSymbol.Square);
+            Assert.AreEqual("Naam", data.SelectedMetaDataAttribute);
         }
 
         [Test]

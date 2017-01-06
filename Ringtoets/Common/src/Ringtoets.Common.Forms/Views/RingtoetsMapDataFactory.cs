@@ -125,7 +125,8 @@ namespace Ringtoets.Common.Forms.Views
         {
             return new MapLineData(Resources.DikeProfiles_DisplayName)
             {
-                Style = new LineStyle(Color.SaddleBrown, thinLineWidth, DashStyle.Solid)
+                Style = new LineStyle(Color.SaddleBrown, thinLineWidth, DashStyle.Solid),
+                SelectedMetaDataAttribute = Resources.MetaData_Name
             };
         }
 
@@ -137,7 +138,8 @@ namespace Ringtoets.Common.Forms.Views
         {
             return new MapLineData(Resources.ForeshoreProfiles_DisplayName)
             {
-                Style = new LineStyle(Color.DarkOrange, thinLineWidth, DashStyle.Solid)
+                Style = new LineStyle(Color.DarkOrange, thinLineWidth, DashStyle.Solid),
+                SelectedMetaDataAttribute = Resources.MetaData_Name
             };
         }
 
@@ -149,7 +151,8 @@ namespace Ringtoets.Common.Forms.Views
         {
             return new MapPointData(Resources.StructuresCollection_DisplayName)
             {
-                Style = new PointStyle(Color.DarkSeaGreen, largePointSize, PointSymbol.Square)
+                Style = new PointStyle(Color.DarkSeaGreen, largePointSize, PointSymbol.Square),
+                SelectedMetaDataAttribute = Resources.MetaData_Name
             };
         }
 
