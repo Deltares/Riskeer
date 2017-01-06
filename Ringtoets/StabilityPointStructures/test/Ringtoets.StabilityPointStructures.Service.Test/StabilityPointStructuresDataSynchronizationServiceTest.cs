@@ -169,7 +169,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                                                                                                                   .Where(sr => calculationsWithStructure.Contains(sr.Calculation))
                                                                                                                   .ToArray();
             StructuresCalculation<StabilityPointStructuresInput>[] calculationsWithOutput = calculationsWithStructure.Where(c => c.HasOutput)
-                                                                                                             .ToArray();
+                                                                                                                     .ToArray();
 
             int originalNumberOfSectionResultAssignments = failureMechanism.SectionResults.Count(sr => sr.Calculation != null);
             StabilityPointStructuresFailureMechanismSectionResult[] sectionResults = failureMechanism.SectionResults
