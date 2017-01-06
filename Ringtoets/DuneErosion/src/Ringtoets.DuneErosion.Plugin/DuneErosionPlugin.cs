@@ -29,6 +29,7 @@ using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms.ProgressDialog;
 using Core.Common.Gui.Plugin;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Forms;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TreeNodeInfos;
 using Ringtoets.DuneErosion.Data;
@@ -52,14 +53,12 @@ namespace Ringtoets.DuneErosion.Plugin
         {
             yield return new PropertyInfo<DuneErosionFailureMechanismContext, DuneErosionFailureMechanismProperties>
             {
-                CreateInstance = context => new DuneErosionFailureMechanismProperties
-                {
-                    Data = context.WrappedData
-                }
+                CreateInstance = context => new DuneErosionFailureMechanismProperties(context.WrappedData,
+                                                                                      new FailureMechanismPropertyChangeHandler<DuneErosionFailureMechanism>())
             };
-            yield return new PropertyInfo<DuneLocationsContext, DuneLocationsContextProperties>()
+            yield return new PropertyInfo<DuneLocationsContext, DuneLocationsContextProperties>
             {
-                CreateInstance = duneLocation => new DuneLocationsContextProperties()
+                CreateInstance = duneLocation => new DuneLocationsContextProperties
                 {
                     Data = duneLocation
                 }

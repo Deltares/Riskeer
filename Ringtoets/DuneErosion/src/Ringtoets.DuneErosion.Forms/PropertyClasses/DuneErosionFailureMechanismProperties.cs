@@ -19,9 +19,14 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using System.Collections.Generic;
+using Core.Common.Base;
+using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
+using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.DuneErosion.Data;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
@@ -32,9 +37,52 @@ namespace Ringtoets.DuneErosion.Forms.PropertyClasses
     /// </summary>
     public class DuneErosionFailureMechanismProperties : ObjectProperties<DuneErosionFailureMechanism>
     {
+        private const int namePropertyIndex = 1;
+        private const int codePropertyIndex = 2;
+        private const int lengthEffectPropertyIndex = 3;
+        private readonly IFailureMechanismPropertyChangeHandler<DuneErosionFailureMechanism> propertyChangeHandler;
+
+        /// <summary>
+        /// Creates a new instance of <see cref="DuneErosionFailureMechanismProperties"/>.
+        /// </summary>
+        /// <param name="data">The instance to show the properties of.</param>
+        /// <param name="propertyChangeHandler">Handler responsible for handling effects of a property change.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
+        public DuneErosionFailureMechanismProperties(DuneErosionFailureMechanism data,
+                                                     IFailureMechanismPropertyChangeHandler<DuneErosionFailureMechanism> propertyChangeHandler)
+        {
+            Data = data;
+            this.propertyChangeHandler = propertyChangeHandler;
+        }
+
+        #region Length effect parameters
+
+        [PropertyOrder(lengthEffectPropertyIndex)]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_LengthEffect")]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "FailureMechanism_N_DisplayName")]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "FailureMechanism_N_Description")]
+        public RoundedDouble LengthEffect
+        {
+            get
+            {
+                return data.GeneralInput.N;
+            }
+            set
+            {
+                IEnumerable<IObservable> affectedObjects = propertyChangeHandler.SetPropertyValueAfterConfirmation(
+                    data,
+                    value,
+                    (f, v) => f.GeneralInput.N = v);
+
+                NotifyAffectedObjects(affectedObjects);
+            }
+        }
+
+        #endregion
+
         #region General
 
-        [PropertyOrder(1)]
+        [PropertyOrder(namePropertyIndex)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "FailureMechanism_Name_DisplayName")]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "FailureMechanism_Name_Description")]
@@ -46,7 +94,7 @@ namespace Ringtoets.DuneErosion.Forms.PropertyClasses
             }
         }
 
-        [PropertyOrder(2)]
+        [PropertyOrder(codePropertyIndex)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "FailureMechanism_Code_DisplayName")]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "FailureMechanism_Code_Description")]
@@ -59,5 +107,13 @@ namespace Ringtoets.DuneErosion.Forms.PropertyClasses
         }
 
         #endregion
+
+        private static void NotifyAffectedObjects(IEnumerable<IObservable> affectedObjects)
+        {
+            foreach (var affectedObject in affectedObjects)
+            {
+                affectedObject.NotifyObservers();
+            }
+        }
     }
 }

@@ -19,6 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using Core.Common.Base.Data;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 
 namespace Ringtoets.DuneErosion.Data.Test
@@ -35,6 +38,41 @@ namespace Ringtoets.DuneErosion.Data.Test
             // Assert
             Assert.AreEqual(2, generalInput.N.Value);
             Assert.AreEqual(2, generalInput.N.NumberOfDecimalPlaces);
+        }
+
+        [Test]
+        [TestCase(-45.75)]
+        [TestCase(1.0-1e-6)]
+        [TestCase(20+1e-6)]
+        [TestCase(5987.234)]
+        public void N_SetOutsideValidRange_ThrowArgumentOutOfRageException(double lengthEffect)
+        {
+            // Setup
+            var generalInput = new GeneralDuneErosionInput();
+
+            // Call
+            TestDelegate call = () => generalInput.N = (RoundedDouble) lengthEffect;
+
+            // Assert
+            const string message = "De waarde voor 'N' moet in het bereik [1, 20] liggen.";
+            string paramName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, message).ParamName;
+            Assert.AreEqual("value", paramName);
+        }
+
+        [Test]
+        public void N_SetValidValue_GetNewlySetValue()
+        {
+            // Setup
+            var generalInput = new GeneralDuneErosionInput();
+
+            const double lengthEffect = 13.45678;
+
+            // Call
+            generalInput.N = (RoundedDouble)lengthEffect;
+
+            // Assert
+            Assert.AreEqual(2, generalInput.N.NumberOfDecimalPlaces);
+            Assert.AreEqual(13.46, generalInput.N.Value);
         }
     }
 }

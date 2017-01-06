@@ -20,6 +20,8 @@
 // All rights reserved.
 
 using Core.Common.Base.Data;
+using System;
+using Ringtoets.Common.Data.Properties;
 
 namespace Ringtoets.DuneErosion.Data
 {
@@ -28,7 +30,7 @@ namespace Ringtoets.DuneErosion.Data
     /// </summary>
     public class GeneralDuneErosionInput
     {
-        private readonly RoundedDouble n;
+        private RoundedDouble n;
 
         /// <summary>
         /// Creates a new instance of <see cref="GeneralDuneErosionInput"/>.
@@ -48,6 +50,14 @@ namespace Ringtoets.DuneErosion.Data
             get
             {
                 return n;
+            }
+            set
+            {
+                if (value < 1 || value > 20)
+                {
+                    throw new ArgumentOutOfRangeException(nameof(value), Resources.N_Value_should_be_in_interval_1_20);
+                }
+                n = value.ToPrecision(n.NumberOfDecimalPlaces);
             }
         }
 

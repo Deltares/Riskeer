@@ -88,7 +88,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
             {
                 if (value < 1 || value > 20)
                 {
-                    throw new ArgumentOutOfRangeException("value", Resources.N_Value_should_be_in_interval_1_20);
+                    throw new ArgumentOutOfRangeException(nameof(value), Resources.N_Value_should_be_in_interval_1_20);
                 }
                 n = value;
             }
