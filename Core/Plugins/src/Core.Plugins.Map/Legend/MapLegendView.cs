@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.TreeView;
@@ -189,14 +190,16 @@ namespace Core.Plugins.Map.Legend
 
         private StrictContextMenuItem CreateZoomToExtentsItem(MapDataCollection nodeData)
         {
+            var enabled = nodeData.GetFeatureBasedMapDataRecursively().Any(fbmd => fbmd.IsVisible);
+
             return new StrictContextMenuItem($"&{MapResources.Ribbon_ZoomToAll}",
-                                             nodeData.IsVisible ?
+                                             enabled ?
                                                  MapResources.MapLegendView_CreateZoomToExtentsItem_MapDataCollection_ZoomToAll_Tooltip :
-                                                 MapResources.MapLegendView_CreateZoomToExtentsItem_ZoomToAllDisabled_Tooltip,
+                                                 MapResources.MapLegendView_CreateZoomToExtentsItem_MapDataCollection_ZoomToAllDisabled_Tooltip,
                                              MapResources.ZoomToAllIcon,
                                              (sender, args) => { MapControl?.ZoomToAllVisibleLayers(nodeData); })
             {
-                Enabled = nodeData.IsVisible
+                Enabled = enabled
             };
         }
 

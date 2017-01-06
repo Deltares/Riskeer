@@ -246,7 +246,7 @@ namespace Core.Components.DotSpatial.Forms
 
         private void DrawInitialMapData()
         {
-            foreach (FeatureBasedMapData featureBasedMapData in GetFeatureBasedMapDataRecursively(Data))
+            foreach (FeatureBasedMapData featureBasedMapData in Data.GetFeatureBasedMapDataRecursively())
             {
                 DrawMapData(featureBasedMapData);
             }
@@ -266,7 +266,7 @@ namespace Core.Components.DotSpatial.Forms
 
         private void HandleMapDataCollectionChange()
         {
-            var mapDataThatShouldBeDrawn = GetFeatureBasedMapDataRecursively(Data).ToList();
+            var mapDataThatShouldBeDrawn = Data.GetFeatureBasedMapDataRecursively().ToList();
             var drawnMapDataLookup = drawnMapDataList.ToDictionary(dmd => dmd.FeatureBasedMapData, dmd => dmd);
 
             DrawMissingMapDataOnCollectionChange(mapDataThatShouldBeDrawn, drawnMapDataLookup);
@@ -330,25 +330,6 @@ namespace Core.Components.DotSpatial.Forms
             drawnMapDataList.Remove(drawnMapDataToRemove);
 
             map.Layers.Remove(drawnMapDataToRemove.FeatureBasedMapDataLayer);
-        }
-
-        private static IEnumerable<FeatureBasedMapData> GetFeatureBasedMapDataRecursively(MapDataCollection mapDataCollection)
-        {
-            var featureBasedMapDataList = new List<FeatureBasedMapData>();
-
-            foreach (MapData mapData in mapDataCollection.Collection)
-            {
-                var nestedMapDataCollection = mapData as MapDataCollection;
-                if (nestedMapDataCollection != null)
-                {
-                    featureBasedMapDataList.AddRange(GetFeatureBasedMapDataRecursively(nestedMapDataCollection));
-                    continue;
-                }
-
-                featureBasedMapDataList.Add((FeatureBasedMapData) mapData);
-            }
-
-            return featureBasedMapDataList;
         }
 
         private void MapFunctionActivateFunction(object sender, EventArgs e)

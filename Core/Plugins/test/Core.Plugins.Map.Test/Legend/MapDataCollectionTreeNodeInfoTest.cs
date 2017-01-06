@@ -274,13 +274,15 @@ namespace Core.Plugins.Map.Test.Legend
         }
 
         [Test]
-        public void ContextMenuStrip_VisibleMapDataCollection_CallsContextMenuBuilderMethods()
+        public void ContextMenuStrip_MapDataCollectionWithVisibleFeatureBasedmapData_CallsContextMenuBuilderMethods()
         {
             // Setup
-            var mapDataCollection = new MapDataCollection("test data")
+            var mapPointData = new MapPointData("test")
             {
                 IsVisible = true
             };
+            var mapDataCollection = new MapDataCollection("test data");
+            mapDataCollection.Add(mapPointData);
 
             var applicationFeatureCommandsStub = mocks.Stub<IApplicationFeatureCommands>();
             var importCommandHandlerMock = mocks.Stub<IImportCommandHandler>();
@@ -333,13 +335,15 @@ namespace Core.Plugins.Map.Test.Legend
         }
 
         [Test]
-        public void ContextMenuStrip_InvisibleMapDataCollection_CallsContextMenuBuilderMethods()
+        public void ContextMenuStrip_InvisibleFeatureBasedMapDataInMapDataCollection_CallsContextMenuBuilderMethods()
         {
             // Setup
-            var mapDataCollection = new MapDataCollection("test data")
+            var pointData = new MapPointData("test data")
             {
                 IsVisible = false
             };
+            var mapDataCollection = new MapDataCollection("test data");
+            mapDataCollection.Add(pointData);
 
             var applicationFeatureCommandsStub = mocks.Stub<IApplicationFeatureCommands>();
             var importCommandHandlerMock = mocks.Stub<IImportCommandHandler>();
@@ -373,7 +377,7 @@ namespace Core.Plugins.Map.Test.Legend
 
                     TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuZoomToAllIndex,
                                                                   "&Zoom naar alles",
-                                                                  "Om het zoomniveau aan te passen moet de laag zichtbaar zijn.",
+                                                                  "Om het zoomniveau aan te passen moet er minstens één kaartlaag in deze kaartlagenmap zichtbaar zijn.",
                                                                   Resources.ZoomToAllIcon,
                                                                   false);
 
@@ -396,10 +400,9 @@ namespace Core.Plugins.Map.Test.Legend
         public void ContextMenuStrip_MapLegendViewHasMapControlAndClickZoomToAll_DoZoomToAllVisibleLayersForMapData()
         {
             // Setup
-            var mapData = new MapDataCollection("A")
-            {
-                IsVisible = true
-            };
+            var mapData = new MapDataCollection("A");
+            var pointData = new MapPointData("B");
+            mapData.Add(pointData);
 
             var builder = new CustomItemsOnlyContextMenuBuilder();
             contextMenuBuilderProvider.Stub(p => p.Get(null, null)).IgnoreArguments().Return(builder);

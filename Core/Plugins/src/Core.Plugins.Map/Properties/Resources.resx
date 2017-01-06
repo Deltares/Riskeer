@@ -256,6 +256,9 @@
   <data name="MapLegendView_CreateZoomToExtentsItem_ZoomToAllDisabled_Tooltip" xml:space="preserve">
     <value>Om het zoomniveau aan te passen moet de laag zichtbaar zijn.</value>
   </data>
+  <data name="MapLegendView_CreateZoomToExtentsItem_MapDataCollection_ZoomToAllDisabled_Tooltip" xml:space="preserve">
+    <value>Om het zoomniveau aan te passen moet er minstens één kaartlaag in deze kaartlagenmap zichtbaar zijn.</value>
+  </data>
   <data name="MapLegendView_CreateZoomToExtentsItem_MapDataCollection_ZoomToAll_Tooltip" xml:space="preserve">
     <value>Zet het zoomniveau van de kaart dusdanig dat alle zichtbare elementen van deze kaartlagenmap precies in het beeld passen.</value>
   </data>
