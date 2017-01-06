@@ -114,8 +114,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test
                 Assert.AreEqual(expectedMessage, message);
             }
             Assert.AreEqual(1, propertySet);
-            var expectedAffectedObjects = new List<IObservable>(testCase.ExpectedAffectedLocations);
-            expectedAffectedObjects.AddRange(testCase.ExpectedAffectedCalculations);
+            var expectedAffectedObjects = new List<IObservable>(testCase.ExpectedAffectedCalculations);
+            if (testCase.ExpectedAffectedLocations.Any())
+            {
+                expectedAffectedObjects.Add(failureMechanism.HydraulicBoundaryLocations);
+            }
             expectedAffectedObjects.Add(failureMechanism);
             CollectionAssert.AreEqual(expectedAffectedObjects, affectedObjects);
         }

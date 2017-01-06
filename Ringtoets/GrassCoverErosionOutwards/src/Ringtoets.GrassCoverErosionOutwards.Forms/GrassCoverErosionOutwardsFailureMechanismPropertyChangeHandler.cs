@@ -31,14 +31,16 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms
 
         protected override IEnumerable<IObservable> PropertyChanged(GrassCoverErosionOutwardsFailureMechanism failureMechanism)
         {
-            if (failureMechanism == null)
-            {
-                throw new ArgumentNullException(nameof(failureMechanism));
-            }
+            var affectedObjects = new List<IObservable>(base.PropertyChanged(failureMechanism));
 
-            var affectedObjects = RingtoetsCommonDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(
+            IEnumerable<IObservable> affectedLocations = RingtoetsCommonDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(
                 failureMechanism.HydraulicBoundaryLocations);
-            return affectedObjects.Concat(base.PropertyChanged(failureMechanism));
+
+            if (affectedLocations.Any())
+            {
+                affectedObjects.Add(failureMechanism.HydraulicBoundaryLocations);
+            }
+            return affectedObjects;
         }
     }
 }
