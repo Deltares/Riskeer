@@ -156,4 +156,22 @@
   <data name="DuneLocation_WavePeriod_DisplayName" xml:space="preserve">
     <value>Tp [s]</value>
   </data>
+  <data name="MetaData_CoastalAreaId" xml:space="preserve">
+    <value>Kustvaknummer</value>
+  </data>
+  <data name="MetaData_D50" xml:space="preserve">
+    <value>Rekenwaarde D50</value>
+  </data>
+  <data name="MetaData_Offset" xml:space="preserve">
+    <value>Metrering</value>
+  </data>
+  <data name="MetaData_WaterLevel" xml:space="preserve">
+    <value>Rekenwaarde waterstand</value>
+  </data>
+  <data name="MetaData_WaveHeight" xml:space="preserve">
+    <value>Rekenwaarde Hs</value>
+  </data>
+  <data name="MetaData_WavePeriod" xml:space="preserve">
+    <value>Rekenwaarde Tp</value>
+  </data>
 </root>

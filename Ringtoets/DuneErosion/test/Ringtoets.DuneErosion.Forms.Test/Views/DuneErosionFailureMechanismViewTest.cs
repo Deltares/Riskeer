@@ -34,9 +34,9 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.DuneErosion.Data;
+using Ringtoets.DuneErosion.Data.TestUtil;
 using Ringtoets.DuneErosion.Forms.PresentationObjects;
 using Ringtoets.DuneErosion.Forms.Views;
 
@@ -49,7 +49,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
         private const int sectionsIndex = 1;
         private const int sectionsStartPointIndex = 2;
         private const int sectionsEndPointIndex = 3;
-        private const int hydraulicBoundaryLocationsIndex = 4;
+        private const int duneLocationsIndex = 4;
 
         [Test]
         public void DefaultConstructor_DefaultValues()
@@ -168,28 +168,25 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
                     new Point2D(6.0, 4.0)
                 };
 
-                var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-                {
-                    Locations =
-                    {
-                        new TestHydraulicBoundaryLocation()
-                    }
-                };
-
                 var referenceLine = new ReferenceLine();
                 referenceLine.SetGeometry(new[]
-                                          {
-                                              new Point2D(1.0, 2.0),
-                                              new Point2D(2.0, 1.0)
-                                          });
+                {
+                    new Point2D(1.0, 2.0),
+                    new Point2D(2.0, 1.0)
+                });
 
                 var assessmentSection = new TestAssessmentSection
                 {
-                    HydraulicBoundaryDatabase = hydraulicBoundaryDatabase,
                     ReferenceLine = referenceLine
                 };
 
-                var failureMechanism = new DuneErosionFailureMechanism();
+                var failureMechanism = new DuneErosionFailureMechanism
+                {
+                    DuneLocations =
+                    {
+                        new TestDuneLocation()
+                    }
+                };
                 failureMechanism.AddSection(new FailureMechanismSection("A", geometryPoints.Take(2)));
                 failureMechanism.AddSection(new FailureMechanismSection("B", geometryPoints.Skip(1).Take(2)));
                 failureMechanism.AddSection(new FailureMechanismSection("C", geometryPoints.Skip(2).Take(2)));
@@ -211,7 +208,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
                 MapDataTestHelper.AssertFailureMechanismSectionsMapData(failureMechanism.Sections, mapDataList[sectionsIndex]);
                 MapDataTestHelper.AssertFailureMechanismSectionsStartPointMapData(failureMechanism.Sections, mapDataList[sectionsStartPointIndex]);
                 MapDataTestHelper.AssertFailureMechanismSectionsEndPointMapData(failureMechanism.Sections, mapDataList[sectionsEndPointIndex]);
-                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(hydraulicBoundaryDatabase.Locations, mapDataList[hydraulicBoundaryLocationsIndex]);
+                AssertDuneLocationsMapData(failureMechanism.DuneLocations, mapDataList[duneLocationsIndex]);
             }
         }
 
@@ -223,126 +220,100 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             {
                 var map = (MapControl) view.Controls[0];
 
-                var hydraulicBoundaryDatabase1 = new HydraulicBoundaryDatabase
+                var assessmentSection = new TestAssessmentSection();
+                var duneLocation1 = new TestDuneLocation();
+
+                var failureMechanism = new DuneErosionFailureMechanism
                 {
-                    Locations =
+                    DuneLocations =
                     {
-                        new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0)
+                        duneLocation1
                     }
                 };
-                var hydraulicBoundaryDatabase2 = new HydraulicBoundaryDatabase
-                {
-                    Locations =
-                    {
-                        new HydraulicBoundaryLocation(2, "test2", 2.0, 3.0)
-                    }
-                };
-
-                var assessmentSection = new TestAssessmentSection
-                {
-                    HydraulicBoundaryDatabase = hydraulicBoundaryDatabase1
-                };
-
-                var failureMechanismContext = new DuneErosionFailureMechanismContext(new DuneErosionFailureMechanism(), assessmentSection);
+                var failureMechanismContext = new DuneErosionFailureMechanismContext(failureMechanism, assessmentSection);
 
                 view.Data = failureMechanismContext;
 
-                var hydraulicBoundaryLocationsMapData = map.Data.Collection.ElementAt(hydraulicBoundaryLocationsIndex);
+                var duneLocationsMapData = map.Data.Collection.ElementAt(duneLocationsIndex);
 
                 // Precondition
-                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(hydraulicBoundaryDatabase1.Locations, hydraulicBoundaryLocationsMapData);
+                AssertDuneLocationsMapData(failureMechanism.DuneLocations, duneLocationsMapData);
 
                 // Call
-                assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase2;
+                failureMechanism.DuneLocations.Add(new TestDuneLocation());
                 assessmentSection.NotifyObservers();
 
                 // Assert
-                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(hydraulicBoundaryDatabase2.Locations, hydraulicBoundaryLocationsMapData);
+                AssertDuneLocationsMapData(failureMechanism.DuneLocations, duneLocationsMapData);
             }
         }
 
         [Test]
-        public void UpdateObserver_HydraulicBoundaryDatabaseUpdated_MapDataUpdated()
+        public void UpdateObserver_DuneLocationsUpdated_MapDataUpdated()
         {
             // Setup
             using (var view = new DuneErosionFailureMechanismView())
             {
                 var map = (MapControl) view.Controls[0];
 
-                var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+                var assessmentSection = new TestAssessmentSection();
+                var duneLocation1 = new TestDuneLocation();
+
+                var failureMechanism = new DuneErosionFailureMechanism
                 {
-                    Locations =
+                    DuneLocations =
                     {
-                        new TestHydraulicBoundaryLocation()
+                        duneLocation1
                     }
                 };
-
-                var assessmentSection = new TestAssessmentSection
-                {
-                    HydraulicBoundaryDatabase = hydraulicBoundaryDatabase
-                };
-
-                var failureMechanismContext = new DuneErosionFailureMechanismContext(new DuneErosionFailureMechanism(), assessmentSection);
+                var failureMechanismContext = new DuneErosionFailureMechanismContext(failureMechanism, assessmentSection);
 
                 view.Data = failureMechanismContext;
 
-                var hydraulicBoundaryLocationsMapData = map.Data.Collection.ElementAt(hydraulicBoundaryLocationsIndex);
+                var duneLocationsMapData = map.Data.Collection.ElementAt(duneLocationsIndex);
 
                 // Precondition
-                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(hydraulicBoundaryDatabase.Locations, hydraulicBoundaryLocationsMapData);
+                AssertDuneLocationsMapData(failureMechanism.DuneLocations, duneLocationsMapData);
 
                 // Call
-                hydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(2, "test2", 3.0, 4.0));
-                hydraulicBoundaryDatabase.NotifyObservers();
+                failureMechanism.DuneLocations.Add(new TestDuneLocation());
+                failureMechanism.DuneLocations.NotifyObservers();
 
                 // Assert
-                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(hydraulicBoundaryDatabase.Locations, hydraulicBoundaryLocationsMapData);
+                AssertDuneLocationsMapData(failureMechanism.DuneLocations, duneLocationsMapData);
             }
         }
 
         [Test]
-        public void GivenAssessmentSectionWithHydraulicBoundaryDatabase_WhenNewDatabaseIsSetAndNotified_ThenMapDataUpdated()
+        public void GivenAssessmentSectionWithDuneLocations_WhenNewDuneLocationsAreSetAndNotified_ThenMapDataUpdated()
         {
             // Given
             using (var view = new DuneErosionFailureMechanismView())
             {
                 var map = (MapControl) view.Controls[0];
 
-                var currentHydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+                var assessmentSection = new TestAssessmentSection();
+                var failureMechanism = new DuneErosionFailureMechanism
                 {
-                    Locations =
+                    DuneLocations =
                     {
-                        new HydraulicBoundaryLocation(1, "old 1", 1, 2)
+                        new TestDuneLocation()
                     }
                 };
-                var newHydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-                {
-                    Locations =
-                    {
-                        new HydraulicBoundaryLocation(1, "new 1", 1, 2)
-                    }
-                };
+                view.Data = new DuneErosionFailureMechanismContext(failureMechanism, assessmentSection);
 
-                var assessmentSection = new TestAssessmentSection
-                {
-                    HydraulicBoundaryDatabase = currentHydraulicBoundaryDatabase
-                };
-
-                view.Data = new DuneErosionFailureMechanismContext(new DuneErosionFailureMechanism(), assessmentSection);
-
-                var hydraulicBoundaryLocationsMapData = map.Data.Collection.ElementAt(hydraulicBoundaryLocationsIndex);
+                var duneLocationsMapData = map.Data.Collection.ElementAt(duneLocationsIndex);
 
                 // Precondition
-                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(currentHydraulicBoundaryDatabase.Locations, hydraulicBoundaryLocationsMapData);
+                AssertDuneLocationsMapData(failureMechanism.DuneLocations, duneLocationsMapData);
 
                 // When
-                assessmentSection.HydraulicBoundaryDatabase = newHydraulicBoundaryDatabase;
-                assessmentSection.NotifyObservers();
-                newHydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(2, "new 2", 2, 3));
-                newHydraulicBoundaryDatabase.NotifyObservers();
+                failureMechanism.DuneLocations.Clear();
+                failureMechanism.DuneLocations.Add(new TestDuneLocation());
+                failureMechanism.DuneLocations.NotifyObservers();
 
                 // Then
-                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(newHydraulicBoundaryDatabase.Locations, hydraulicBoundaryLocationsMapData);
+                AssertDuneLocationsMapData(failureMechanism.DuneLocations, duneLocationsMapData);
             }
         }
 
@@ -409,10 +380,10 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
 
                 // Call
                 failureMechanism.AddSection(new FailureMechanismSection(string.Empty, new[]
-                                                                        {
-                                                                            new Point2D(1, 2),
-                                                                            new Point2D(1, 2)
-                                                                        }));
+                {
+                    new Point2D(1, 2),
+                    new Point2D(1, 2)
+                }));
                 failureMechanism.NotifyObservers();
 
                 // Assert
@@ -430,7 +401,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             const int updatedSectionsLayerIndex = sectionsIndex - 1;
             const int updateSectionStartLayerIndex = sectionsStartPointIndex - 1;
             const int updatedSectionEndLayerIndex = sectionsEndPointIndex - 1;
-            const int updatedHydraulicLocationsLayerIndex = hydraulicBoundaryLocationsIndex - 1;
+            const int updatedDuneLocationsLayerIndex = duneLocationsIndex - 1;
 
             using (var view = new DuneErosionFailureMechanismView())
             {
@@ -463,8 +434,8 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
                 var sectionEndsData = (MapPointData) mapDataList[updatedSectionEndLayerIndex];
                 Assert.AreEqual("Vakindeling (eindpunten)", sectionEndsData.Name);
 
-                var hydraulicLocationsData = (MapPointData) mapDataList[updatedHydraulicLocationsLayerIndex];
-                Assert.AreEqual("Hydraulische randvoorwaarden", hydraulicLocationsData.Name);
+                var duneLocationsData = (MapPointData) mapDataList[updatedDuneLocationsLayerIndex];
+                Assert.AreEqual("Hydraulische randvoorwaarden", duneLocationsData.Name);
 
                 var points = new List<Point2D>
                 {
@@ -491,8 +462,8 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
                 var actualSectionEndsData = (MapPointData) mapDataList[updatedSectionEndLayerIndex];
                 Assert.AreEqual("Vakindeling (eindpunten)", actualSectionEndsData.Name);
 
-                var actualHydraulicLocationsData = (MapPointData) mapDataList[updatedHydraulicLocationsLayerIndex];
-                Assert.AreEqual("Hydraulische randvoorwaarden", actualHydraulicLocationsData.Name);
+                var actualDuneLocationsData = (MapPointData) mapDataList[updatedDuneLocationsLayerIndex];
+                Assert.AreEqual("Hydraulische randvoorwaarden", actualDuneLocationsData.Name);
             }
         }
 
@@ -505,10 +476,10 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
 
             newAssessmentSection.ReferenceLine = new ReferenceLine();
             newAssessmentSection.ReferenceLine.SetGeometry(new[]
-                                                           {
-                                                               new Point2D(2, 4),
-                                                               new Point2D(3, 4)
-                                                           });
+            {
+                new Point2D(2, 4),
+                new Point2D(3, 4)
+            });
 
             var oldFailureMechanismContext = new DuneErosionFailureMechanismContext(new DuneErosionFailureMechanism(), oldAssessmentSection);
             var newFailureMechanismContext = new DuneErosionFailureMechanismContext(new DuneErosionFailureMechanism(), newAssessmentSection);
@@ -542,19 +513,38 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             var sectionsMapData = (MapLineData) mapDataList[sectionsIndex];
             var sectionsStartPointMapData = (MapPointData) mapDataList[sectionsStartPointIndex];
             var sectionsEndPointMapData = (MapPointData) mapDataList[sectionsEndPointIndex];
-            var hydraulicBoundaryLocationsMapData = (MapPointData) mapDataList[hydraulicBoundaryLocationsIndex];
+            var duneLocationsMapData = (MapPointData) mapDataList[duneLocationsIndex];
 
             CollectionAssert.IsEmpty(referenceLineMapData.Features);
             CollectionAssert.IsEmpty(sectionsMapData.Features);
             CollectionAssert.IsEmpty(sectionsStartPointMapData.Features);
             CollectionAssert.IsEmpty(sectionsEndPointMapData.Features);
-            CollectionAssert.IsEmpty(hydraulicBoundaryLocationsMapData.Features);
+            CollectionAssert.IsEmpty(duneLocationsMapData.Features);
 
             Assert.AreEqual("Referentielijn", referenceLineMapData.Name);
             Assert.AreEqual("Vakindeling", sectionsMapData.Name);
             Assert.AreEqual("Vakindeling (startpunten)", sectionsStartPointMapData.Name);
             Assert.AreEqual("Vakindeling (eindpunten)", sectionsEndPointMapData.Name);
-            Assert.AreEqual("Hydraulische randvoorwaarden", hydraulicBoundaryLocationsMapData.Name);
+            Assert.AreEqual("Hydraulische randvoorwaarden", duneLocationsMapData.Name);
+        }
+
+        private static void AssertDuneLocationsMapData(IEnumerable<DuneLocation> duneLocations, MapData mapData)
+        {
+            Assert.IsInstanceOf<MapPointData>(mapData);
+            MapPointData duneLocationsMapData = (MapPointData) mapData;
+            if (duneLocations == null)
+            {
+                CollectionAssert.IsEmpty(duneLocationsMapData.Features);
+            }
+            else
+            {
+                var duneLocationsArray = duneLocations.ToArray();
+
+                Assert.AreEqual(duneLocationsArray.Length, duneLocationsMapData.Features.Length);
+                CollectionAssert.AreEqual(duneLocationsArray.Select(hrp => hrp.Location),
+                                          duneLocationsMapData.Features.SelectMany(f => f.MapGeometries.First().PointCollections.First()));
+            }
+            Assert.AreEqual("Hydraulische randvoorwaarden", mapData.Name);
         }
 
         private class TestAssessmentSection : Observable, IAssessmentSection

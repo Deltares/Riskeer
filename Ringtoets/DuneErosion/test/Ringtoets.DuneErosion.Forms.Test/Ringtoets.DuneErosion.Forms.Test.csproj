@@ -65,6 +65,7 @@
     <Compile Include="PropertyClasses\DuneLocationsContextPropertiesTest.cs" />
     <Compile Include="Views\DuneErosionFailureMechanismResultViewTest.cs" />
     <Compile Include="Views\DuneErosionFailureMechanismViewTest.cs" />
+    <Compile Include="Views\DuneErosionMapDataFeaturesFactoryTest.cs" />
     <Compile Include="Views\DuneErosionSectionResultRowTest.cs" />
   </ItemGroup>
   <ItemGroup>

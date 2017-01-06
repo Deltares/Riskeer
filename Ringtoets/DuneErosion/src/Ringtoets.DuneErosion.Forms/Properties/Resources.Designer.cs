@@ -197,5 +197,59 @@ namespace Ringtoets.DuneErosion.Forms.Properties {
                 return ResourceManager.GetString("DuneLocation_WavePeriod_DisplayName", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kustvaknummer.
+        /// </summary>
+        internal static string MetaData_CoastalAreaId {
+            get {
+                return ResourceManager.GetString("MetaData_CoastalAreaId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rekenwaarde D50.
+        /// </summary>
+        internal static string MetaData_D50 {
+            get {
+                return ResourceManager.GetString("MetaData_D50", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Metrering.
+        /// </summary>
+        internal static string MetaData_Offset {
+            get {
+                return ResourceManager.GetString("MetaData_Offset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rekenwaarde waterstand.
+        /// </summary>
+        internal static string MetaData_WaterLevel {
+            get {
+                return ResourceManager.GetString("MetaData_WaterLevel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rekenwaarde Hs.
+        /// </summary>
+        internal static string MetaData_WaveHeight {
+            get {
+                return ResourceManager.GetString("MetaData_WaveHeight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rekenwaarde Tp.
+        /// </summary>
+        internal static string MetaData_WavePeriod {
+            get {
+                return ResourceManager.GetString("MetaData_WavePeriod", resourceCulture);
+            }
+        }
     }
 }
