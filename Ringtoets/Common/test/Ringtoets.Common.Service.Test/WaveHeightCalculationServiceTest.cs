@@ -255,7 +255,7 @@ namespace Ringtoets.Common.Service.Test
                                                                      norm,
                                                                      calculationMessageProviderMock);
                     }
-                    catch (HydraRingFileParserException)
+                    catch (HydraRingCalculationException)
                     {
                         exceptionThrown = true;
                     }
@@ -314,7 +314,7 @@ namespace Ringtoets.Common.Service.Test
                                                                      norm,
                                                                      calculationMessageProviderMock);
                     }
-                    catch (HydraRingFileParserException)
+                    catch (HydraRingCalculationException)
                     {
                         exceptionThrown = true;
                     }

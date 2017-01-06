@@ -1525,7 +1525,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                                                                                    failureMechanism,
                                                                                    validFilePath);
                     }
-                    catch (HydraRingFileParserException)
+                    catch (HydraRingCalculationException)
                     {
                         exceptionThrown = true;
                     }
@@ -1588,7 +1588,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                                                                                    failureMechanism,
                                                                                    validFilePath);
                     }
-                    catch (HydraRingFileParserException)
+                    catch (HydraRingCalculationException)
                     {
                         exceptionThrown = true;
                     }

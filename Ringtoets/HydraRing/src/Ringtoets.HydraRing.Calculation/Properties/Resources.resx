@@ -120,4 +120,7 @@
   <data name="Parse_Cannot_read_last_error_Filename_0_from_FolderPath_1_" xml:space="preserve">
     <value>Kan het Hydra-Ring last_error bestand {0} niet lezen uit de map {1}.</value>
   </data>
+  <data name="HydraRingActivityBase_UpdateProgressText_Step_0_of_TotalSteps_1_CurrentStepName_2" xml:space="preserve">
+    <value>Stap {0} van {1} | {2}</value>
+  </data>
 </root>

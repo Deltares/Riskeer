@@ -440,7 +440,7 @@ namespace Ringtoets.DuneErosion.Service.Test
                                                                               assessmentSection.FailureMechanismContribution.Norm,
                                                                               validFilePath);
                     }
-                    catch (HydraRingFileParserException)
+                    catch (HydraRingCalculationException)
                     {
                         exceptionThrown = true;
                     }
@@ -515,7 +515,7 @@ namespace Ringtoets.DuneErosion.Service.Test
                                                                               assessmentSection.FailureMechanismContribution.Norm,
                                                                               validFilePath);
                     }
-                    catch (HydraRingFileParserException)
+                    catch (HydraRingCalculationException)
                     {
                         exceptionThrown = true;
                     }

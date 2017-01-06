@@ -229,7 +229,7 @@ namespace Ringtoets.Revetment.Service
         /// <param name="name">The name used for logging.</param>
         /// <returns>A <see cref="WaveConditionsOutput"/> if the calculation was successful; or <c>null</c> if it was canceled.</returns>
         /// <exception cref="ArgumentException">Thrown when the <paramref name="hydraulicBoundaryDatabaseFilePath"/> 
-        /// contains invalid characters or the given <see cref="HydraRingCalculationInput"/> is not unique.</exception>
+        /// contains invalid characters.</exception>
         /// <exception cref="CriticalFileReadException">Thrown when:
         /// <list type="bullet">
         /// <item>No settings database file could be found at the location of <paramref name="hydraulicBoundaryDatabaseFilePath"/>
@@ -237,22 +237,7 @@ namespace Ringtoets.Revetment.Service
         /// <item>Unable to open settings database file.</item>
         /// <item>Unable to read required data from database file.</item>
         /// </list></exception>
-        /// <exception cref="SecurityException">Thrown when the temporary path can't be accessed due to missing permissions.</exception>
-        /// <exception cref="IOException">Thrown when the specified path is not valid or the network name is not known 
-        /// or an I/O error occurred while opening the file</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown when the directory can't be created due to missing
-        /// the required persmissions.</exception>
-        /// <exception cref="NotSupportedException">Thrown when <see cref="HydraRingCalculationInput.FailureMechanismType"/>
-        /// is not the same with already added input.</exception>
-        /// <exception cref="Win32Exception">Thrown when there was an error in opening the associated file
-        /// or the wait setting could not be accessed.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when the process object has already been disposed.</exception>
-        /// <exception cref="HydraRingFileParserException">Thrown when the HydraRing file parser 
-        /// encounters an error while parsing HydraRing output.</exception>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown when the target probability or 
-        /// calculated probability falls outside the [0.0, 1.0] range and is not <see cref="double.NaN"/>.</exception>
-        /// <exception cref="HydraRingFileParserException">Thrown when an error occurs during parsing of the Hydra-Ring output.</exception>
-        /// <exception cref="HydraRingCalculationException">Thrown when an error occurs during the calculation.</exception>
+        /// <exception cref="HydraRingCalculationException">Thrown when an error occurs while performing the calculation.</exception>
         private WaveConditionsOutput CalculateWaterLevel(RoundedDouble waterLevel,
                                                          RoundedDouble a,
                                                          RoundedDouble b,
@@ -281,7 +266,7 @@ namespace Ringtoets.Revetment.Service
                                                                               calculator.ReliabilityIndex);
                 return output;
             }
-            catch (HydraRingFileParserException)
+            catch (HydraRingCalculationException)
             {
                 if (!Canceled)
                 {

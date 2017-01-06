@@ -509,7 +509,7 @@ namespace Ringtoets.Revetment.Service.Test
                     {
                         new WaveConditionsCalculationService().PublicCalculate(a, b, c, norm, input, hcldFilePath, ringId, calculationName);
                     }
-                    catch (HydraRingFileParserException)
+                    catch (HydraRingCalculationException)
                     {
                         exceptionThrown = true;
                     }

@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using Core.Common.Base.Service;
+using Ringtoets.HydraRing.Calculation.Properties;
 
 namespace Ringtoets.HydraRing.Calculation.Activities
 {
@@ -48,7 +49,8 @@ namespace Ringtoets.HydraRing.Calculation.Activities
         /// <param name="totalSteps">The total numbers of steps.</param>
         protected void UpdateProgressText(string currentStepName, int currentStep, int totalSteps)
         {
-            ProgressText = string.Format("Stap {0} van {1} | {2}", currentStep, totalSteps, currentStepName);
+            ProgressText = string.Format(Resources.HydraRingActivityBase_UpdateProgressText_Step_0_of_TotalSteps_1_CurrentStepName_2,
+                                         currentStep, totalSteps, currentStepName);
         }
 
         /// <summary>

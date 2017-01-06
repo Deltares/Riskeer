@@ -875,7 +875,7 @@ namespace Ringtoets.HeightStructures.Service.Test
                                                                            failureMechanism,
                                                                            validFilePath);
                     }
-                    catch (HydraRingFileParserException)
+                    catch (HydraRingCalculationException)
                     {
                         exceptionThrown = true;
                     }
@@ -938,7 +938,7 @@ namespace Ringtoets.HeightStructures.Service.Test
                                                                            failureMechanism,
                                                                            validFilePath);
                     }
-                    catch (HydraRingFileParserException)
+                    catch (HydraRingCalculationException)
                     {
                         exceptionThrown = true;
                     }

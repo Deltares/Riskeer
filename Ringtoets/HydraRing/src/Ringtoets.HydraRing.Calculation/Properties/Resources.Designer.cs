@@ -82,6 +82,16 @@ namespace Ringtoets.HydraRing.Calculation.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Stap {0} van {1} | {2}.
+        /// </summary>
+        internal static string HydraRingActivityBase_UpdateProgressText_Step_0_of_TotalSteps_1_CurrentStepName_2 {
+            get {
+                return ResourceManager.GetString("HydraRingActivityBase_UpdateProgressText_Step_0_of_TotalSteps_1_CurrentStepName_2" +
+                        "", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kan het Hydra-Ring last_error bestand {0} niet lezen uit de map {1}..
         /// </summary>
         internal static string Parse_Cannot_read_last_error_Filename_0_from_FolderPath_1_ {

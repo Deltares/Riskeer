@@ -195,7 +195,7 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.Calculator
         {
             if (EndInFailure)
             {
-                throw new HydraRingFileParserException();
+                throw new HydraRingCalculationException();
             }
             ReceivedInputs.Add(input);
 
@@ -209,10 +209,7 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.Calculator
 
         private void CalculationFinished(EventArgs e)
         {
-            if (CalculationFinishedHandler != null)
-            {
-                CalculationFinishedHandler(this, e);
-            }
+            CalculationFinishedHandler?.Invoke(this, e);
         }
     }
 }

@@ -788,7 +788,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                                                                                    failureMechanism.Contribution,
                                                                                    validFile);
                     }
-                    catch (HydraRingFileParserException)
+                    catch (HydraRingCalculationException)
                     {
                         exceptionThrown = true;
                     }
@@ -858,7 +858,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                                                                                    failureMechanism.Contribution,
                                                                                    validFile);
                     }
-                    catch (HydraRingFileParserException)
+                    catch (HydraRingCalculationException)
                     {
                         exceptionThrown = true;
                     }

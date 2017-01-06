@@ -618,7 +618,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
                                                                                                failureMechanism.GeneralInput,
                                                                                                validFilePath);
                     }
-                    catch (HydraRingFileParserException)
+                    catch (HydraRingCalculationException)
                     {
                         exception = true;
                     }
@@ -680,7 +680,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
                                                                                                failureMechanism.GeneralInput,
                                                                                                validFilePath);
                     }
-                    catch (HydraRingFileParserException)
+                    catch (HydraRingCalculationException)
                     {
                         exception = true;
                     }
@@ -799,7 +799,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
                                                                                                                  validFilePath);
 
                 // Assert
-                Assert.Throws<HydraRingFileParserException>(test);
+                Assert.Throws<HydraRingCalculationException>(test);
             }
             mockRepository.VerifyAll();
         }

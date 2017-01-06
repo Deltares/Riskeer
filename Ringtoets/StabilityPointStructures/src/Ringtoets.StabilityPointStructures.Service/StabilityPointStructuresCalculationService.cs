@@ -111,20 +111,7 @@ namespace Ringtoets.StabilityPointStructures.Service
         /// <item><see cref="StabilityPointStructuresInput.InflowModelType"/> is an invalid <see cref="StabilityPointStructureInflowModelType"/>.</item>
         /// <item><see cref="StabilityPointStructuresInput.LoadSchematizationType"/> is an invalid <see cref="LoadSchematizationType"/>.</item>
         /// </list></exception>
-        /// <exception cref="SecurityException">Thrown when the temporary path can't be accessed due to missing permissions.</exception>
-        /// <exception cref="IOException">Thrown when the specified path is not valid or the network name is not known 
-        /// or an I/O error occurred while opening the file</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown when the directory can't be created due to missing
-        /// the required persmissions.</exception>
-        /// <exception cref="NotSupportedException">Thrown when <see cref="HydraRingCalculationInput.FailureMechanismType"/>
-        /// is not the same with already added input.</exception>
-        /// <exception cref="Win32Exception">Thrown when there was an error in opening the associated file
-        /// or the wait setting could not be accessed.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when the process object has already been disposed.</exception>
-        /// <exception cref="HydraRingFileParserException">Thrown when the HydraRing file parser 
-        /// encounters an error while parsing HydraRing output.</exception>
-        /// <exception cref="HydraRingFileParserException">Thrown when an error occurs during parsing of the Hydra-Ring output.</exception>
-        /// <exception cref="HydraRingCalculationException">Thrown when an error occurs during the calculation.</exception>
+        /// <exception cref="HydraRingCalculationException">Thrown when an error occurs while performing the calculation.</exception>
         public void Calculate(StructuresCalculation<StabilityPointStructuresInput> calculation,
                               IAssessmentSection assessmentSection,
                               StabilityPointStructuresFailureMechanism failureMechanism,
@@ -171,7 +158,7 @@ namespace Ringtoets.StabilityPointStructures.Service
                                                                                 calculator.ExceedanceProbabilityBeta);
                 }
             }
-            catch (HydraRingFileParserException)
+            catch (HydraRingCalculationException)
             {
                 if (!canceled)
                 {
