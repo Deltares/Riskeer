@@ -21,10 +21,8 @@
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.IO;
 using System.Linq;
-using System.Security;
 using Core.Common.IO.Exceptions;
 using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -39,7 +37,6 @@ using Ringtoets.HeightStructures.Service.Properties;
 using Ringtoets.HydraRing.Calculation.Calculator;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
 using Ringtoets.HydraRing.Calculation.Data;
-using Ringtoets.HydraRing.Calculation.Data.Input;
 using Ringtoets.HydraRing.Calculation.Data.Input.Structures;
 using Ringtoets.HydraRing.Calculation.Exceptions;
 using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
@@ -135,8 +132,8 @@ namespace Ringtoets.HeightStructures.Service
 
             var calculationName = calculation.Name;
 
-            FailureMechanismSection failureMechanismSection = StructuresHelper.FailureMechanismSectionForCalculation(failureMechanism.Sections,
-                                                                                                                     calculation);
+            FailureMechanismSection failureMechanismSection = StructuresHelper.GetFailureMechanismSectionForCalculation(failureMechanism.Sections,
+                                                                                                                        calculation);
 
             StructuresOvertoppingCalculationInput input = CreateInput(calculation, failureMechanismSection, failureMechanism.GeneralInput, hydraulicBoundaryDatabaseFilePath);
 

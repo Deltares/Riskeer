@@ -132,7 +132,7 @@ namespace Ringtoets.StabilityPointStructures.Service
 
             var calculationName = calculation.Name;
 
-            FailureMechanismSection failureMechanismSection = StructuresHelper.FailureMechanismSectionForCalculation(failureMechanism.Sections,
+            FailureMechanismSection failureMechanismSection = StructuresHelper.GetFailureMechanismSectionForCalculation(failureMechanism.Sections,
                                                                                                                      calculation);
 
             StructuresStabilityPointCalculationInput input = CreateStructuresStabilityPointCalculationInput(calculation,

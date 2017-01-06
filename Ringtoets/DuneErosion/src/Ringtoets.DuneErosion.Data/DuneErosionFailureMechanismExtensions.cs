@@ -35,12 +35,11 @@ namespace Ringtoets.DuneErosion.Data
         /// <param name="norm">The assessment section norm.</param>
         /// <returns>The value of the failure mechanism norm.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="failureMechanism"/> has no (0) contribution.</exception>
         public static double GetMechanismSpecificNorm(this DuneErosionFailureMechanism failureMechanism, double norm)
         {
             if (failureMechanism == null)
             {
-                throw new ArgumentNullException("failureMechanism");
+                throw new ArgumentNullException(nameof(failureMechanism));
             }
 
             return 2.15*(failureMechanism.Contribution/100)

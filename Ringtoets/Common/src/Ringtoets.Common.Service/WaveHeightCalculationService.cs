@@ -21,10 +21,8 @@
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.IO;
 using System.Linq;
-using System.Security;
 using Core.Common.IO.Exceptions;
 using Core.Common.Utils;
 using log4net;
@@ -34,7 +32,6 @@ using Ringtoets.Common.Service.MessageProviders;
 using Ringtoets.Common.Service.Properties;
 using Ringtoets.HydraRing.Calculation.Calculator;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
-using Ringtoets.HydraRing.Calculation.Data.Input;
 using Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics;
 using Ringtoets.HydraRing.Calculation.Exceptions;
 
@@ -206,7 +203,7 @@ namespace Ringtoets.Common.Service
         /// <param name="hydraulicBoundaryLocation">The <see cref="HydraulicBoundaryLocation"/> to create the input from.</param>
         /// <param name="norm">The norm to use during the calculation.</param>
         /// <param name="hydraulicBoundaryDatabaseFilePath">The filepath to the hydraulic boundary database.</param>
-        /// <returns></returns>
+        /// <returns>A <see cref="WaveHeightCalculationInput"/>.</returns>
         /// <exception cref="ArgumentException">Thrown when the <paramref name="hydraulicBoundaryDatabaseFilePath"/> 
         /// contains invalid characters.</exception>
         /// <exception cref="CriticalFileReadException">Thrown when:

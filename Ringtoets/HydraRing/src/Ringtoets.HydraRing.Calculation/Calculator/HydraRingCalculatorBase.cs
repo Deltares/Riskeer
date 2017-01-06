@@ -29,6 +29,7 @@ using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Data.Input;
 using Ringtoets.HydraRing.Calculation.Exceptions;
 using Ringtoets.HydraRing.Calculation.Parsers;
+using Ringtoets.HydraRing.Calculation.Properties;
 using Ringtoets.HydraRing.Calculation.Services;
 
 namespace Ringtoets.HydraRing.Calculation.Calculator
@@ -123,13 +124,13 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
                 ExecuteGenericParsers(hydraRingInitializationService, sectionId);
                 ExecuteCustomParsers(hydraRingInitializationService.TemporaryWorkingDirectory, sectionId);
             }
-            catch (Exception e) when (IsSupportedException(e))
+            catch (Exception e) when (IsSupportedCalculatedException(e))
             {
-                throw new HydraRingCalculationException("A critical error occurred while performing the calculation.", e);
+                throw new HydraRingCalculationException(Resources.HydraRingCalculatorBase_Calculate_Critical_error_during_calculation, e);
             }
         }
 
-        private static bool IsSupportedException(Exception e)
+        private static bool IsSupportedCalculatedException(Exception e)
         {
             return e is SecurityException
                    || e is IOException

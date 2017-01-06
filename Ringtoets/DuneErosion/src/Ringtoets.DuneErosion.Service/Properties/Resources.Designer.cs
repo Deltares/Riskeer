@@ -92,7 +92,7 @@ namespace Ringtoets.DuneErosion.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De berekening voor duinafslag &apos;{0}&apos; is niet gelukt. De bijdrage van het toetsspoor moet een positief getal zijn..
+        ///   Looks up a localized string similar to De berekening voor duinafslag &apos;{0}&apos; is niet gelukt. De bijdrage van het toetsspoor moet een getal boven 0 zijn..
         /// </summary>
         internal static string DuneErosionBoundaryCalculationService_Calculate_Contribution_is_zero {
             get {

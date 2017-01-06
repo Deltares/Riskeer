@@ -24,7 +24,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
-using System.Security;
 using Core.Common.IO.Exceptions;
 using log4net;
 using Ringtoets.ClosingStructures.Data;
@@ -39,7 +38,6 @@ using Ringtoets.Common.Utils;
 using Ringtoets.HydraRing.Calculation.Calculator;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
 using Ringtoets.HydraRing.Calculation.Data;
-using Ringtoets.HydraRing.Calculation.Data.Input;
 using Ringtoets.HydraRing.Calculation.Data.Input.Structures;
 using Ringtoets.HydraRing.Calculation.Exceptions;
 using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
@@ -99,10 +97,11 @@ namespace Ringtoets.ClosingStructures.Service
             {
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
-            var calculationName = calculation.Name;
 
-            FailureMechanismSection failureMechanismSection = StructuresHelper.FailureMechanismSectionForCalculation(failureMechanism.Sections,
-                                                                                                                     calculation);
+            string calculationName = calculation.Name;
+
+            FailureMechanismSection failureMechanismSection = StructuresHelper.GetFailureMechanismSectionForCalculation(failureMechanism.Sections,
+                                                                                                                        calculation);
 
             StructuresClosureCalculationInput input = CreateStructuresClosureCalculationInput(calculation,
                                                                                               failureMechanism,
@@ -214,7 +213,7 @@ namespace Ringtoets.ClosingStructures.Service
         /// and the general inputs used in the calculation.</param>
         /// <param name="failureMechanismSection">The section to use in the calcluation.</param>
         /// <param name="hydraulicBoundaryDatabaseFilePath">The filepath to the hydraulic boundary database.</param>
-        /// <returns></returns>
+        /// <returns>A <see cref="StructuresClosureCalculationInput"/>.</returns>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="ClosingStructuresInput.InflowModelType"/> is an invalid
         /// <see cref="ClosingStructureInflowModelType"/>.</exception>
         /// <exception cref="ArgumentException">Thrown when the <paramref name="hydraulicBoundaryDatabaseFilePath"/> 

@@ -19,10 +19,14 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.IO;
+using System.Security.AccessControl;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Ringtoets.HydraRing.Calculation.Exceptions;
 using Ringtoets.HydraRing.Calculation.Parsers;
+using Ringtoets.HydraRing.IO;
 
 namespace Ringtoets.HydraRing.Calculation.Test.Parsers
 {
@@ -132,6 +136,26 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
             // Assert
             Assert.IsNull(parser.Output);
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(Path.Combine(workingDirectory, outputFileName)));
+        }
+
+        [Test]
+        public void Parse_ErrorWhileReadingFile_ThrowsHydraRingFileParserExceptionWithInnerException()
+        {
+            // Setup
+            var parser = new DunesBoundaryConditionsCalculationParser();
+            var workingDirectory = Path.Combine(testDataPath, "valid");
+
+            using (new DirectoryPermissionsRevoker(testDataPath, FileSystemRights.ReadData))
+            {
+                // Call
+                TestDelegate call = () => parser.Parse(workingDirectory, 1);
+
+                // Assert
+                var exception = Assert.Throws<HydraRingFileParserException>(call);
+                var expectedMessage = "Er is een fout opgetreden bij het lezen van het uitvoerbestand.";
+                Assert.AreEqual(expectedMessage, exception.Message);
+                Assert.IsInstanceOf<UnauthorizedAccessException>(exception.InnerException);
+            }
         }
     }
 }

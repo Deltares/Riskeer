@@ -65,7 +65,7 @@ namespace Ringtoets.Common.Utils
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="sections"/> is <c>null</c></exception>
         /// <exception cref="ArgumentException">Thrown when an element in <paramref name="sections"/> is <c>null</c>.
         /// </exception>
-        public static FailureMechanismSection FailureMechanismSectionForCalculation<T>(IEnumerable<FailureMechanismSection> sections,
+        public static FailureMechanismSection GetFailureMechanismSectionForCalculation<T>(IEnumerable<FailureMechanismSection> sections,
                                                                                        StructuresCalculation<T> calculation)
             where T : IStructuresCalculationInput<StructureBase>, new()
         {

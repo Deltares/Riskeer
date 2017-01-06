@@ -103,10 +103,10 @@ namespace Ringtoets.Common.Utils.Test
         }
 
         [Test]
-        public void FailureMechanismSectionForCalculation_SectionsNull_ThrowsArgumentNullException()
+        public void GetFailureMechanismSectionForCalculation_SectionsNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => StructuresHelper.FailureMechanismSectionForCalculation(null, calculationInSectionA);
+            TestDelegate call = () => StructuresHelper.GetFailureMechanismSectionForCalculation(null, calculationInSectionA);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -114,10 +114,10 @@ namespace Ringtoets.Common.Utils.Test
         }
 
         [Test]
-        public void FailureMechanismSectionForCalculation_SectionElementsNull_ThrowsArgumentException()
+        public void GetFailureMechanismSectionForCalculation_SectionElementsNull_ThrowsArgumentException()
         {
             // Call
-            TestDelegate test = () => StructuresHelper.FailureMechanismSectionForCalculation(
+            TestDelegate test = () => StructuresHelper.GetFailureMechanismSectionForCalculation(
                 new FailureMechanismSection[]
                 {
                     null,
@@ -131,10 +131,10 @@ namespace Ringtoets.Common.Utils.Test
         }
 
         [Test]
-        public void FailureMechanismSectionForCalculation_CalculationNull_ThrowsArgumentNullException()
+        public void GetFailureMechanismSectionForCalculation_CalculationNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => StructuresHelper.FailureMechanismSectionForCalculation<TestStructuresInput>(oneSection, null);
+            TestDelegate call = () => StructuresHelper.GetFailureMechanismSectionForCalculation<TestStructuresInput>(oneSection, null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -142,21 +142,21 @@ namespace Ringtoets.Common.Utils.Test
         }
 
         [Test]
-        public void FailureMechanismSectionForCalculation_ValidSectionWithoutCalculationStructureSet_ReturnsNull()
+        public void GetFailureMechanismSectionForCalculation_ValidSectionWithoutCalculationStructureSet_ReturnsNull()
         {
             // Setup
             var calculation = new StructuresCalculation<TestStructuresInput>();
 
             // Call
             FailureMechanismSection failureMechanismSection =
-                StructuresHelper.FailureMechanismSectionForCalculation(oneSection, calculation);
+                StructuresHelper.GetFailureMechanismSectionForCalculation(oneSection, calculation);
 
             // Assert
             Assert.IsNull(failureMechanismSection);
         }
 
         [Test]
-        public void FailureMechanismSectionForCalculation_EmptySectionWithoutCalculationStructureSet_ReturnsNull()
+        public void GetFailureMechanismSectionForCalculation_EmptySectionWithoutCalculationStructureSet_ReturnsNull()
         {
             // Setup
             var emptySections = new FailureMechanismSection[0];
@@ -164,29 +164,29 @@ namespace Ringtoets.Common.Utils.Test
 
             // Call
             FailureMechanismSection failureMechanismSection =
-                StructuresHelper.FailureMechanismSectionForCalculation(emptySections, calculation);
+                StructuresHelper.GetFailureMechanismSectionForCalculation(emptySections, calculation);
 
             // Assert
             Assert.IsNull(failureMechanismSection);
         }
 
         [Test]
-        public void FailureMechanismSectionForCalculation_FirstSectionContainsCalculation_FailureMechanismSectionOfFirstSection()
+        public void GetFailureMechanismSectionForCalculation_FirstSectionContainsCalculation_FailureMechanismSectionOfFirstSection()
         {
             // Call
             FailureMechanismSection failureMechanismSection =
-                StructuresHelper.FailureMechanismSectionForCalculation(twoSections, calculationInSectionA);
+                StructuresHelper.GetFailureMechanismSectionForCalculation(twoSections, calculationInSectionA);
 
             // Assert
             Assert.AreSame(twoSections[0], failureMechanismSection);
         }
 
         [Test]
-        public void FailureMechanismSectionForCalculation_SecondSectionContainsCalculation_FailureMechanismSectionOfSecondSection()
+        public void GetFailureMechanismSectionForCalculation_SecondSectionContainsCalculation_FailureMechanismSectionOfSecondSection()
         {
             // Call
             FailureMechanismSection failureMechanismSection =
-                StructuresHelper.FailureMechanismSectionForCalculation(twoSections, calculationInSectionB);
+                StructuresHelper.GetFailureMechanismSectionForCalculation(twoSections, calculationInSectionB);
 
             // Assert
             Assert.AreSame(twoSections[1], failureMechanismSection);

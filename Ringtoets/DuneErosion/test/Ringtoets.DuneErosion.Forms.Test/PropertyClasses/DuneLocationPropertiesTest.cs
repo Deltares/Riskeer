@@ -44,7 +44,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
         private const int requiredCoastalAreaIdPropertyIndex = 2;
         private const int requiredOffSetPropertyIndex = 3;
         private const int requiredLocationPropertyIndex = 4;
-        
+
         private const int requiredWaterLevelPropertyIndex = 5;
         private const int requiredWaveHeightPropertyIndex = 6;
         private const int requiredWavePeriodPropertyIndex = 7;
@@ -153,7 +153,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
             Assert.AreEqual(location.Offset.ToString("0.#", CultureInfo.InvariantCulture), properties.Offset);
             var expectedLocation = new Point2D(x, y);
             Assert.AreEqual(expectedLocation, properties.Location);
-            
+
             Assert.AreEqual(waterLevel, properties.WaterLevel, properties.WaterLevel.GetAccuracy());
             Assert.AreEqual(waveHeight, properties.WaveHeight, properties.WaveHeight.GetAccuracy());
             Assert.AreEqual(wavePeriod, properties.WavePeriod, properties.WavePeriod.GetAccuracy());

@@ -24,6 +24,7 @@ using System.Globalization;
 using System.IO;
 using Ringtoets.HydraRing.Calculation.Data.Output;
 using Ringtoets.HydraRing.Calculation.Exceptions;
+using Ringtoets.HydraRing.Calculation.Properties;
 using Ringtoets.HydraRing.IO;
 
 namespace Ringtoets.HydraRing.Calculation.Parsers
@@ -50,16 +51,16 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
 
         public void Parse(string workingDirectory, int sectionId)
         {
-            string fileName = string.Format("{0}{1}", sectionId, HydraRingFileConstants.OutputFileSuffix);
+            string fileName = $"{sectionId}{HydraRingFileConstants.OutputFileSuffix}";
 
             try
             {
                 ReadFile(Path.Combine(workingDirectory, fileName));
                 SetOutput();
             }
-            catch
+            catch (Exception e)
             {
-                throw new HydraRingFileParserException();
+                throw new HydraRingFileParserException(Resources.DunesBoundaryConditionsCalculationParser_Parse_Error_while_parsing_output, e);
             }
         }
 

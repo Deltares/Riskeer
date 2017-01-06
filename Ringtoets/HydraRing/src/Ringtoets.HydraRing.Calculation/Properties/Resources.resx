@@ -123,4 +123,10 @@
   <data name="HydraRingActivityBase_UpdateProgressText_Step_0_of_TotalSteps_1_CurrentStepName_2" xml:space="preserve">
     <value>Stap {0} van {1} | {2}</value>
   </data>
+  <data name="HydraRingCalculatorBase_Calculate_Critical_error_during_calculation" xml:space="preserve">
+    <value>Er is een kritische fout opgetreden bij het uitvoeren van de berekening.</value>
+  </data>
+  <data name="DunesBoundaryConditionsCalculationParser_Parse_Error_while_parsing_output" xml:space="preserve">
+    <value>Er is een fout opgetreden bij het lezen van het uitvoerbestand.</value>
+  </data>
 </root>

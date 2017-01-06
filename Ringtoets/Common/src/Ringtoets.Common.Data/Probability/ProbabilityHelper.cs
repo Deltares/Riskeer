@@ -22,7 +22,7 @@
 namespace Ringtoets.Common.Data.Probability
 {
     /// <summary>
-    /// Class that holds helper methods for the probability.
+    /// Class that holds helper methods for probabilities.
     /// </summary>
     public static class ProbabilityHelper
     {

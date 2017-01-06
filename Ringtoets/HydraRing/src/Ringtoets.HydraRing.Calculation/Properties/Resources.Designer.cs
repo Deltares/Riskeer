@@ -82,12 +82,30 @@ namespace Ringtoets.HydraRing.Calculation.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Er is een fout opgetreden bij het lezen van het uitvoerbestand..
+        /// </summary>
+        internal static string DunesBoundaryConditionsCalculationParser_Parse_Error_while_parsing_output {
+            get {
+                return ResourceManager.GetString("DunesBoundaryConditionsCalculationParser_Parse_Error_while_parsing_output", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Stap {0} van {1} | {2}.
         /// </summary>
         internal static string HydraRingActivityBase_UpdateProgressText_Step_0_of_TotalSteps_1_CurrentStepName_2 {
             get {
                 return ResourceManager.GetString("HydraRingActivityBase_UpdateProgressText_Step_0_of_TotalSteps_1_CurrentStepName_2" +
                         "", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Er is een kritische fout opgetreden bij het uitvoeren van de berekening..
+        /// </summary>
+        internal static string HydraRingCalculatorBase_Calculate_Critical_error_during_calculation {
+            get {
+                return ResourceManager.GetString("HydraRingCalculatorBase_Calculate_Critical_error_during_calculation", resourceCulture);
             }
         }
         
