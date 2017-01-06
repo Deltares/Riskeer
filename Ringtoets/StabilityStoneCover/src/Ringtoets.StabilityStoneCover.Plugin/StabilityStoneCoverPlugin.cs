@@ -344,15 +344,19 @@ namespace Ringtoets.StabilityStoneCover.Plugin
 
             builder.AddCreateCalculationGroupItem(group)
                    .AddCreateCalculationItem(nodeData, AddWaveConditionsCalculation)
-                   .AddSeparator()
-                   .AddRenameItem()
-                   .AddValidateAllCalculationsInGroupItem(nodeData,
+                   .AddSeparator();
+
+            if (isNestedGroup)
+            {
+                builder.AddRenameItem();
+            }
+
+            builder.AddValidateAllCalculationsInGroupItem(nodeData,
                                                           ValidateAll,
                                                           ValidateAllDataAvailableAndGetErrorMessageForCalculationGroup)
                    .AddPerformAllCalculationsInGroupItem(group, nodeData, CalculateAll, ValidateAllDataAvailableAndGetErrorMessageForCalculationGroup)
                    .AddSeparator()
                    .AddClearAllCalculationOutputInGroupItem(group);
-
 
             if (isNestedGroup)
             {

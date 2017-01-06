@@ -72,8 +72,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
             yield return new PropertyInfo<GrassCoverErosionOutwardsFailureMechanismContext, GrassCoverErosionOutwardsFailureMechanismProperties>
             {
                 CreateInstance = context => new GrassCoverErosionOutwardsFailureMechanismProperties(
-                                                context.WrappedData,
-                                                new GrassCoverErosionOutwardsFailureMechanismPropertyChangeHandler())
+                    context.WrappedData,
+                    new GrassCoverErosionOutwardsFailureMechanismPropertyChangeHandler())
             };
             yield return new PropertyInfo<GrassCoverErosionOutwardsDesignWaterLevelLocationsContext, GrassCoverErosionOutwardsDesignWaterLevelLocationsContextProperties>
             {
@@ -247,8 +247,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                 Category = RingtoetsCommonFormsResources.Ringtoets_Category,
                 Image = RingtoetsCommonFormsResources.PointShapefileIcon,
                 CreateFileExporter = (context, filePath) =>
-                                     new HydraulicBoundaryLocationsExporter(context.WrappedData,
-                                                                            filePath, Resources.DesignWaterLevel_Description, Resources.WaveHeight_Description),
+                    new HydraulicBoundaryLocationsExporter(context.WrappedData,
+                                                           filePath, Resources.DesignWaterLevel_Description, Resources.WaveHeight_Description),
                 IsEnabled = context => context.WrappedData.Count > 0,
                 FileFilter = RingtoetsCommonIoResources.DataTypeDisplayName_shape_file_filter
             };
@@ -652,9 +652,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
 
             builder.AddCreateCalculationGroupItem(group)
                    .AddCreateCalculationItem(nodeData, AddWaveConditionsCalculation)
-                   .AddSeparator()
-                   .AddRenameItem()
-                   .AddValidateAllCalculationsInGroupItem(nodeData,
+                   .AddSeparator();
+
+            if (isNestedGroup)
+            {
+                builder.AddRenameItem();
+            }
+
+            builder.AddValidateAllCalculationsInGroupItem(nodeData,
                                                           ValidateAll,
                                                           ValidateAllDataAvailableAndGetErrorMessageForCalculationGroup)
                    .AddPerformAllCalculationsInGroupItem(group, nodeData, CalculateAll, ValidateAllDataAvailableAndGetErrorMessageForCalculationGroup)

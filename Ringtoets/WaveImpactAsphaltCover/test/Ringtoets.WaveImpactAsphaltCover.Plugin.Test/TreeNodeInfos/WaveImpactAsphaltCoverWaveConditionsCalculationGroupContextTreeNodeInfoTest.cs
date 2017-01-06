@@ -57,13 +57,13 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         private const int contextMenuAddGenerateCalculationsIndex = 2;
         private const int contextMenuAddCalculationGroupIndexRootGroup = 4;
         private const int contextMenuAddCalculationIndexRootGroup = 5;
-        private const int contextMenuValidateAllIndexRootGroup = 8;
-        private const int contextMenuCalculateAllIndexRootGroup = 9;
-        private const int contextMenuClearOutputIndexRootGroup = 11;
-        private const int contextMenuRemoveAllChildrenIndexRootGroup = 12;
-        private const int contextMenuCollapseAllIndexRootGroup = 14;
-        private const int contextMenuExpandAllIndexRootGroup = 15;
-        private const int contextMenuPropertiesIndexRootGroup = 17;
+        private const int contextMenuValidateAllIndexRootGroup = 7;
+        private const int contextMenuCalculateAllIndexRootGroup = 8;
+        private const int contextMenuClearOutputIndexRootGroup = 10;
+        private const int contextMenuRemoveAllChildrenIndexRootGroup = 11;
+        private const int contextMenuCollapseAllIndexRootGroup = 13;
+        private const int contextMenuExpandAllIndexRootGroup = 14;
+        private const int contextMenuPropertiesIndexRootGroup = 16;
 
         private const int contextMenuAddCalculationGroupIndexNestedGroup = 2;
         private const int contextMenuAddCalculationIndexNestedGroup = 3;
@@ -359,7 +359,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
                     // Assert
-                    Assert.AreEqual(18, menu.Items.Count);
+                    Assert.AreEqual(17, menu.Items.Count);
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddGenerateCalculationsIndex,
                                                                   "Genereer &berekeningen...",
                                                                   "Er is geen hydraulische randvoorwaardendatabase beschikbaar om de randvoorwaardenberekeningen te genereren.",
@@ -411,10 +411,9 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                     {
                         menu.Items[1],
                         menu.Items[3],
-                        menu.Items[6],
-                        menu.Items[10],
-                        menu.Items[13],
-                        menu.Items[16]
+                        menu.Items[9],
+                        menu.Items[12],
+                        menu.Items[15]
                     }, typeof(ToolStripSeparator));
                 }
             }
@@ -463,7 +462,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
                     // Assert
-                    Assert.AreEqual(18, menu.Items.Count);
+                    Assert.AreEqual(17, menu.Items.Count);
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddGenerateCalculationsIndex,
                                                                   "Genereer &berekeningen...",
                                                                   "Genereer randvoorwaardenberekeningen.",
@@ -516,10 +515,9 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                     {
                         menu.Items[1],
                         menu.Items[3],
-                        menu.Items[6],
-                        menu.Items[10],
-                        menu.Items[13],
-                        menu.Items[16]
+                        menu.Items[9],
+                        menu.Items[12],
+                        menu.Items[15]
                     }, typeof(ToolStripSeparator));
                 }
             }
