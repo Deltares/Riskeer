@@ -162,7 +162,7 @@ namespace Core.Plugins.Map.Test.Legend
             var mapData = new MapPointData("A")
             {
                 IsVisible = true,
-                Features = new []
+                Features = new[]
                 {
                     new MapFeature(Enumerable.Empty<MapGeometry>())
                 }

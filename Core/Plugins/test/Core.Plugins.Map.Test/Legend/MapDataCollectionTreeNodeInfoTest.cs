@@ -143,11 +143,11 @@ namespace Core.Plugins.Map.Test.Legend
 
             // Assert
             CollectionAssert.AreEqual(new[]
-                                      {
-                                          mapData3,
-                                          mapData2,
-                                          mapData1
-                                      }, objects);
+            {
+                mapData3,
+                mapData2,
+                mapData1
+            }, objects);
         }
 
         [Test]
@@ -332,10 +332,10 @@ namespace Core.Plugins.Map.Test.Legend
                                                                   false);
 
                     CollectionAssert.AllItemsAreInstancesOfType(new[]
-                                                                {
-                                                                    contextMenu.Items[1],
-                                                                    contextMenu.Items[3]
-                                                                }, typeof(ToolStripSeparator));
+                    {
+                        contextMenu.Items[1],
+                        contextMenu.Items[3]
+                    }, typeof(ToolStripSeparator));
                 }
             }
         }
@@ -394,10 +394,10 @@ namespace Core.Plugins.Map.Test.Legend
                                                                   false);
 
                     CollectionAssert.AllItemsAreInstancesOfType(new[]
-                                                                {
-                                                                    contextMenu.Items[1],
-                                                                    contextMenu.Items[3]
-                                                                }, typeof(ToolStripSeparator));
+                    {
+                        contextMenu.Items[1],
+                        contextMenu.Items[3]
+                    }, typeof(ToolStripSeparator));
                 }
             }
         }
@@ -465,10 +465,10 @@ namespace Core.Plugins.Map.Test.Legend
                                                                   false);
 
                     CollectionAssert.AllItemsAreInstancesOfType(new[]
-                                                                {
-                                                                    contextMenu.Items[1],
-                                                                    contextMenu.Items[3]
-                                                                }, typeof(ToolStripSeparator));
+                    {
+                        contextMenu.Items[1],
+                        contextMenu.Items[3]
+                    }, typeof(ToolStripSeparator));
                 }
             }
         }

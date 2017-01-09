@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.TreeView;
