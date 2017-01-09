@@ -221,6 +221,8 @@ namespace Core.Common.Base.Test.Service
         {
             public SimpleFileImporter(T importTarget) : base("", importTarget) {}
 
+            protected override void LogImportCanceledMessage() {}
+
             protected override bool OnImport()
             {
                 NotifyProgress("Step description", 1, 10);

@@ -51,7 +51,10 @@ namespace Ringtoets.Common.IO.ReferenceLines
         /// <see cref="ReferenceLine"/>.</param>
         /// <param name="filePath">The path to the file to import from.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="importTarget"/> is <c>null</c>.</exception>
-        public ReferenceLineImporter(IAssessmentSection importTarget, IReferenceLineReplaceHandler replacementHandler, string filePath) : base(filePath, importTarget)
+        public ReferenceLineImporter(IAssessmentSection importTarget,
+                                     IReferenceLineReplaceHandler replacementHandler,
+                                     string filePath)
+            : base(filePath, importTarget)
         {
             this.replacementHandler = replacementHandler;
         }

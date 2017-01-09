@@ -72,7 +72,7 @@ namespace Core.Common.Base.IO
             {
                 if (Canceled)
                 {
-                    LogImportUncancellableMessage();
+                    LogImportUncancelableMessage();
                     Canceled = false;
                 }
             }
@@ -100,16 +100,13 @@ namespace Core.Common.Base.IO
             }
 
             var observableTarget = ImportTarget as IObservable;
-            if (observableTarget != null)
-            {
-                observableTarget.NotifyObservers();
-            }
+            observableTarget?.NotifyObservers();
         }
 
         /// <summary>
         /// Gets the import target.
         /// </summary>
-        protected T ImportTarget { get; private set; }
+        protected T ImportTarget { get; }
 
         /// <summary>
         /// Gets the path to the file to import from.
@@ -124,9 +121,9 @@ namespace Core.Common.Base.IO
         protected bool Canceled { get; private set; }
 
         /// <summary>
-        /// This method logs messages when the importer is cancelled in a cancelable state.
+        /// This method logs messages when the importer is canceled in a cancelable state.
         /// </summary>
-        protected virtual void LogImportCanceledMessage() {}
+        protected abstract void LogImportCanceledMessage();
 
         /// <summary>
         /// This method returns the result of the import action.
@@ -136,17 +133,14 @@ namespace Core.Common.Base.IO
 
         protected void NotifyProgress(string currentStepName, int currentStep, int totalNumberOfSteps)
         {
-            if (ProgressChanged != null)
-            {
-                ProgressChanged(currentStepName, currentStep, totalNumberOfSteps);
-            }
+            ProgressChanged?.Invoke(currentStepName, currentStep, totalNumberOfSteps);
         }
 
         private OnProgressChanged ProgressChanged { get; set; }
 
-        private void LogImportUncancellableMessage()
+        private void LogImportUncancelableMessage()
         {
-            log.Warn(Resources.FileImporterBase_LogUncancellableMessage_Import_cannot_be_canceled_and_continued);
+            log.Warn(Resources.FileImporterBase_LogUncancelableMessage_Import_cannot_be_canceled_and_continued);
         }
     }
 }

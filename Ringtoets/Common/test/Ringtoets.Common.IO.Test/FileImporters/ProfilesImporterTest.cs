@@ -614,6 +614,8 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             {
                 return true;
             }
+
+            protected override void LogImportCanceledMessage() {}
         }
 
         private class TestProfile {}

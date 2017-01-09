@@ -30,8 +30,8 @@ using Core.Common.Utils.Builders;
 using NUnit.Framework;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Plugin.FileImporter;
+using Ringtoets.Piping.Plugin.Properties;
 using Ringtoets.Piping.Primitives;
-using ApplicationResources = Ringtoets.Piping.Plugin.Properties.Resources;
 using RingtoetsIOResources = Ringtoets.Piping.IO.Properties.Resources;
 
 namespace Ringtoets.Piping.Plugin.Test.FileImporter
@@ -94,7 +94,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             TestHelper.AssertLogMessages(call, messages =>
             {
                 string[] messageArray = messages.ToArray();
-                var message = string.Format(ApplicationResources.PipingSoilProfilesImporter_CriticalErrorMessage_0_File_Skipped, string.Empty);
+                var message = string.Format(Resources.PipingSoilProfilesImporter_CriticalErrorMessage_0_File_Skipped, string.Empty);
                 StringAssert.EndsWith(message, messageArray[0]);
             });
             Assert.IsFalse(importResult);
@@ -125,7 +125,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             TestHelper.AssertLogMessages(call, messages =>
             {
                 string[] messageArray = messages.ToArray();
-                var message = string.Format(ApplicationResources.PipingSoilProfilesImporter_CriticalErrorMessage_0_File_Skipped, string.Empty);
+                var message = string.Format(Resources.PipingSoilProfilesImporter_CriticalErrorMessage_0_File_Skipped, string.Empty);
                 StringAssert.EndsWith(message, messageArray[0]);
             });
             Assert.IsFalse(importResult);
@@ -378,7 +378,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             // Assert
             var internalErrorMessage = new FileReaderErrorMessageBuilder(corruptPath).Build(RingtoetsIOResources.PipingSoilProfileReader_Critical_Unexpected_value_on_column);
-            var expectedLogMessage = string.Format(ApplicationResources.PipingSoilProfilesImporter_CriticalErrorMessage_0_File_Skipped,
+            var expectedLogMessage = string.Format(Resources.PipingSoilProfilesImporter_CriticalErrorMessage_0_File_Skipped,
                                                    internalErrorMessage);
             TestHelper.AssertLogMessageIsGenerated(call, expectedLogMessage, 1);
             Assert.IsFalse(importResult);
@@ -408,7 +408,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                                      "IntersectionX"));
             var expectedLogMessages = new[]
             {
-                string.Format(ApplicationResources.PipingSoilProfilesImporter_ReadSoilProfiles_ParseErrorMessage_0_SoilProfile_skipped,
+                string.Format(Resources.PipingSoilProfilesImporter_ReadSoilProfiles_ParseErrorMessage_0_SoilProfile_skipped,
                               internalErrorMessage),
                 string.Format("Het stochastische ondergrondmodel '{0}' heeft een ongespecificeerde ondergrondschematisatie. Dit model wordt overgeslagen.", "Name")
             };

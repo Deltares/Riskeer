@@ -43,7 +43,7 @@ namespace Ringtoets.Common.IO.FileImporters
     /// </summary>
     public abstract class StructuresImporter<T> : FileImporterBase<T>
     {
-        private readonly ILog Log = LogManager.GetLogger(typeof(StructuresImporter<T>));
+        private readonly ILog log = LogManager.GetLogger(typeof(StructuresImporter<T>));
         private readonly ReferenceLine referenceLine;
 
         /// <summary>
@@ -59,7 +59,7 @@ namespace Ringtoets.Common.IO.FileImporters
         {
             if (referenceLine == null)
             {
-                throw new ArgumentNullException("referenceLine");
+                throw new ArgumentNullException(nameof(referenceLine));
             }
 
             this.referenceLine = referenceLine;
@@ -86,7 +86,7 @@ namespace Ringtoets.Common.IO.FileImporters
 
         protected override void LogImportCanceledMessage()
         {
-            Log.Info(Resources.StructuresImporter_User_cancelled);
+            log.Info(Resources.StructuresImporter_User_cancelled);
         }
 
         /// <summary>
@@ -101,7 +101,7 @@ namespace Ringtoets.Common.IO.FileImporters
         {
             if (structuresParameterRow.VarianceType == VarianceType.CoefficientOfVariation)
             {
-                Log.WarnFormat(Resources.StructuresImporter_GetStandardDeviation_Converting_variation_StructureName_0_StructureId_1_ParameterId_2_on_Line_3_,
+                log.WarnFormat(Resources.StructuresImporter_GetStandardDeviation_Converting_variation_StructureName_0_StructureId_1_ParameterId_2_on_Line_3_,
                                structureName, structuresParameterRow.LocationId, structuresParameterRow.ParameterId, structuresParameterRow.LineNumber);
                 return (RoundedDouble) structuresParameterRow.VarianceValue*Math.Abs(structuresParameterRow.NumericalValue);
             }
@@ -112,7 +112,7 @@ namespace Ringtoets.Common.IO.FileImporters
         {
             if (structuresParameterRow.VarianceType == VarianceType.StandardDeviation)
             {
-                Log.WarnFormat(Resources.StructuresImporter_GetCoefficientOfVariation_Converting_variation_StructureName_0_StructureId_1_ParameterId_2_on_Line_3_,
+                log.WarnFormat(Resources.StructuresImporter_GetCoefficientOfVariation_Converting_variation_StructureName_0_StructureId_1_ParameterId_2_on_Line_3_,
                                structureName, structuresParameterRow.LocationId, structuresParameterRow.ParameterId, structuresParameterRow.LineNumber);
                 return (RoundedDouble) (structuresParameterRow.VarianceValue/Math.Abs(structuresParameterRow.NumericalValue));
             }
@@ -126,7 +126,7 @@ namespace Ringtoets.Common.IO.FileImporters
                 .Build(Resources.StructuresImporter_LogValidationErrorForStructure_Click_details_for_full_message_0_);
             string messageRemainder = string.Format(Resources.StructuresImporter_LogValidationErrorForStructure_One_or_more_erors_skip_structure_ErrorMessageList_0_,
                                                     string.Join(Environment.NewLine, validationErrors.Select(msg => "* " + msg)));
-            Log.ErrorFormat(shortMessage, messageRemainder);
+            log.ErrorFormat(shortMessage, messageRemainder);
         }
 
         private string GetStructureDataCsvFilePath()
@@ -160,7 +160,7 @@ namespace Ringtoets.Common.IO.FileImporters
                 }
                 catch (CriticalFileReadException exception)
                 {
-                    Log.Error(exception.Message);
+                    log.Error(exception.Message);
                     return new ReadResult<StructuresParameterRow>(true);
                 }
 
@@ -182,12 +182,12 @@ namespace Ringtoets.Common.IO.FileImporters
                     }
                     catch (CriticalFileReadException exception)
                     {
-                        Log.Error(exception.Message);
+                        log.Error(exception.Message);
                         return new ReadResult<StructuresParameterRow>(true);
                     }
                     catch (LineParseException exception)
                     {
-                        Log.Error(exception.Message);
+                        log.Error(exception.Message);
                     }
                 }
 
@@ -210,11 +210,11 @@ namespace Ringtoets.Common.IO.FileImporters
             }
             catch (CriticalFileReadException exception)
             {
-                Log.Error(exception.Message);
+                log.Error(exception.Message);
             }
             catch (ArgumentException exception)
             {
-                Log.Error(exception.Message);
+                log.Error(exception.Message);
             }
             return new ReadResult<StructureLocation>(true);
         }
@@ -242,7 +242,7 @@ namespace Ringtoets.Common.IO.FileImporters
                         Resources.StructuresImporter_GetStructureLocationReadResult_Error_reading_Structure_LineNumber_0_Error_1_The_Structure_is_skipped,
                         i + 1,
                         exception.Message);
-                    Log.Warn(message);
+                    log.Warn(message);
                 }
             }
             return new ReadResult<StructureLocation>(false)
@@ -268,12 +268,12 @@ namespace Ringtoets.Common.IO.FileImporters
             double distanceToReferenceLine = GetDistanceToReferenceLine(structureLocation.Point);
             if (distanceToReferenceLine > 1.0)
             {
-                Log.ErrorFormat(Resources.StructuresImporter_AddNextStructureLocation_0_skipping_location_outside_referenceline, structureLocation.Id);
+                log.ErrorFormat(Resources.StructuresImporter_AddNextStructureLocation_0_skipping_location_outside_referenceline, structureLocation.Id);
                 return;
             }
             if (structureLocations.Any(dpl => dpl.Id.Equals(structureLocation.Id)))
             {
-                Log.WarnFormat(Resources.StructuresImporter_AddNextStructureLocation_Location_with_kwkident_0_already_read, structureLocation.Id);
+                log.WarnFormat(Resources.StructuresImporter_AddNextStructureLocation_Location_with_kwkident_0_already_read, structureLocation.Id);
             }
             structureLocations.Add(structureLocation);
         }
