@@ -776,6 +776,22 @@ namespace Ringtoets.Common.Forms.Test.Views
             Assert.AreEqual(foreshoreProfiles[1].Name, features[1].MetaData["Naam"]);
         }
 
+        [Test]
+        public void CreateSinglePointMapFeature_CreatesaSinglePointMapFeature()
+        {
+            // Setup
+            var point = new Point2D(0, 0);
+
+            // Call
+            var pointMapFeature = RingtoetsMapDataFeaturesFactory.CreateSinglePointMapFeature(point);
+
+            // Assert
+            Assert.AreEqual(1, pointMapFeature.MapGeometries.Count());
+            MapGeometry mapGeometry = pointMapFeature.MapGeometries.First();
+            Assert.AreEqual(1, mapGeometry.PointCollections.Count());
+            Assert.AreSame(point, mapGeometry.PointCollections.First().First());
+        }
+
         private static void AssertEqualFeatureCollections(Point2D[] points, MapFeature[] features)
         {
             Assert.AreEqual(points.Length, features.Length);

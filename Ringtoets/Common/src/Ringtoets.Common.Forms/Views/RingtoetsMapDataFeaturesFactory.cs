@@ -56,7 +56,7 @@ namespace Ringtoets.Common.Forms.Views
         {
             if (points == null)
             {
-                throw new ArgumentNullException("points");
+                throw new ArgumentNullException(nameof(points));
             }
 
             return new MapFeature(new[]
@@ -126,15 +126,15 @@ namespace Ringtoets.Common.Forms.Views
         {
             if (hydraulicBoundaryLocations == null)
             {
-                throw new ArgumentNullException("hydraulicBoundaryLocations");
+                throw new ArgumentNullException(nameof(hydraulicBoundaryLocations));
             }
             if (designWaterLevelAttributeName == null)
             {
-                throw new ArgumentNullException("designWaterLevelAttributeName");
+                throw new ArgumentNullException(nameof(designWaterLevelAttributeName));
             }
             if (waveHeightAttributeName == null)
             {
-                throw new ArgumentNullException("waveHeightAttributeName");
+                throw new ArgumentNullException(nameof(waveHeightAttributeName));
             }
 
             var features = new MapFeature[hydraulicBoundaryLocations.Length];
@@ -393,7 +393,7 @@ namespace Ringtoets.Common.Forms.Views
                 foreshoreProfile.Orientation);
         }
 
-        private static MapFeature CreateSinglePointMapFeature(Point2D point)
+        public static MapFeature CreateSinglePointMapFeature(Point2D point)
         {
             return new MapFeature(new[]
             {

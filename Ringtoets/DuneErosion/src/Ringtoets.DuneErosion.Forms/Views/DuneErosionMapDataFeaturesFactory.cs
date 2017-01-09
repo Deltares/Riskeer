@@ -21,9 +21,9 @@
 
 using System;
 using System.Globalization;
-using Core.Common.Base.Geometry;
+using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
-using Core.Components.Gis.Geometries;
+using Ringtoets.Common.Forms.Views;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Forms.Properties;
 using RingtoetsDuneErosionDataResources = Ringtoets.DuneErosion.Data.Properties.Resources;
@@ -33,7 +33,7 @@ namespace Ringtoets.DuneErosion.Forms.Views
 {
     /// <summary>
     /// Factory for creating arrays of <see cref="MapFeature"/> for the <see cref="DuneErosionFailureMechanism"/> 
-    /// to use in <see cref="Core.Components.Gis.Data.FeatureBasedMapData"/> (created via <see cref="Common.Forms.Views.RingtoetsMapDataFactory"/>).
+    /// to use in <see cref="FeatureBasedMapData"/> (created via <see cref="RingtoetsMapDataFactory"/>).
     /// </summary>
     public static class DuneErosionMapDataFeaturesFactory
     {
@@ -58,12 +58,12 @@ namespace Ringtoets.DuneErosion.Forms.Views
             {
                 DuneLocation location = duneLocations[i];
 
-                var feature = CreateSinglePointMapFeature(location.Location);
+                var feature = RingtoetsMapDataFeaturesFactory.CreateSinglePointMapFeature(location.Location);
                 feature.MetaData[RingtoetsCommonFormsResources.MetaData_ID] = location.Id;
                 feature.MetaData[RingtoetsCommonFormsResources.MetaData_Name] = location.Name;
                 feature.MetaData[Resources.MetaData_CoastalAreaId] = location.CoastalAreaId;
-                feature.MetaData[Resources.MetaData_Offset] = location.Offset.ToString(RingtoetsDuneErosionDataResources.DuneLocation_Offset_format, 
-                    CultureInfo.InvariantCulture);
+                feature.MetaData[Resources.MetaData_Offset] = location.Offset.ToString(RingtoetsDuneErosionDataResources.DuneLocation_Offset_format,
+                                                                                       CultureInfo.InvariantCulture);
                 feature.MetaData[Resources.MetaData_WaterLevel] = location.Output?.WaterLevel ?? double.NaN;
                 feature.MetaData[Resources.MetaData_WaveHeight] = location.Output?.WaveHeight ?? double.NaN;
                 feature.MetaData[Resources.MetaData_WavePeriod] = location.Output?.WavePeriod ?? double.NaN;
@@ -73,20 +73,6 @@ namespace Ringtoets.DuneErosion.Forms.Views
             }
 
             return features;
-        }
-
-        private static MapFeature CreateSinglePointMapFeature(Point2D point)
-        {
-            return new MapFeature(new[]
-            {
-                new MapGeometry(new[]
-                {
-                    new[]
-                    {
-                        point
-                    }
-                })
-            });
         }
     }
 }
