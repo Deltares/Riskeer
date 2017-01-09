@@ -51,6 +51,15 @@ namespace Ringtoets.DuneErosion.Forms.PropertyClasses
         public DuneErosionFailureMechanismProperties(DuneErosionFailureMechanism data,
                                                      IFailureMechanismPropertyChangeHandler<DuneErosionFailureMechanism> propertyChangeHandler)
         {
+            if (data == null)
+            {
+                throw new ArgumentNullException(nameof(data));
+            }
+            if (propertyChangeHandler == null)
+            {
+                throw new ArgumentNullException(nameof(propertyChangeHandler));
+            }
+
             Data = data;
             this.propertyChangeHandler = propertyChangeHandler;
         }
@@ -80,6 +89,14 @@ namespace Ringtoets.DuneErosion.Forms.PropertyClasses
 
         #endregion
 
+        private static void NotifyAffectedObjects(IEnumerable<IObservable> affectedObjects)
+        {
+            foreach (var affectedObject in affectedObjects)
+            {
+                affectedObject.NotifyObservers();
+            }
+        }
+
         #region General
 
         [PropertyOrder(namePropertyIndex)]
@@ -107,13 +124,5 @@ namespace Ringtoets.DuneErosion.Forms.PropertyClasses
         }
 
         #endregion
-
-        private static void NotifyAffectedObjects(IEnumerable<IObservable> affectedObjects)
-        {
-            foreach (var affectedObject in affectedObjects)
-            {
-                affectedObject.NotifyObservers();
-            }
-        }
     }
 }

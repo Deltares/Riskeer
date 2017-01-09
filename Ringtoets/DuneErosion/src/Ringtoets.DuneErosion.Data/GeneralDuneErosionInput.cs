@@ -19,8 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Core.Common.Base.Data;
 using System;
+using Core.Common.Base.Data;
 using Ringtoets.Common.Data.Properties;
 
 namespace Ringtoets.DuneErosion.Data
@@ -43,8 +43,10 @@ namespace Ringtoets.DuneErosion.Data
         #region Length effect parameters
 
         /// <summary>
-        /// Gets the 'N' parameter used to factor in the 'length effect'.
+        /// Gets or sets the 'N' parameter used to factor in the 'length effect'.
         /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="value"/>
+        /// is not in the [1.0, 20.0] interval.</exception>
         public RoundedDouble N
         {
             get
@@ -53,7 +55,7 @@ namespace Ringtoets.DuneErosion.Data
             }
             set
             {
-                if (value < 1 || value > 20)
+                if (double.IsNaN(value) || value < 1 || value > 20)
                 {
                     throw new ArgumentOutOfRangeException(nameof(value), Resources.N_Value_should_be_in_interval_1_20);
                 }

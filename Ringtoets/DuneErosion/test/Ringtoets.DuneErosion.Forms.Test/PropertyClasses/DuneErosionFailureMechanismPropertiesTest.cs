@@ -49,11 +49,48 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
             var changeHandler = mocks.Stub<IFailureMechanismPropertyChangeHandler<DuneErosionFailureMechanism>>();
             mocks.ReplayAll();
 
+            var failureMechanism = new DuneErosionFailureMechanism();
+
             // Call
-            var properties = new DuneErosionFailureMechanismProperties(null, changeHandler);
+            var properties = new DuneErosionFailureMechanismProperties(failureMechanism, changeHandler);
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<DuneErosionFailureMechanism>>(properties);
+            Assert.AreSame(failureMechanism, properties.Data);
+            mocks.VerifyAll();
+        }
+
+
+        [Test]
+        public void Constructor_DataIsNull_ThrownArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var changeHandler = mocks.Stub<IFailureMechanismPropertyChangeHandler<DuneErosionFailureMechanism>>();
+            mocks.ReplayAll();
+
+            // Call
+            TestDelegate call = () => new DuneErosionFailureMechanismProperties(null, changeHandler);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("data", paramName);
+            mocks.VerifyAll();
+        }
+
+
+        [Test]
+        public void Constructor_PropertyChangeHandlerNull_ThrowArgumentNullException()
+        {
+            // Setup
+            var failureMechanism = new DuneErosionFailureMechanism();
+
+            // Call
+            TestDelegate call = () => new DuneErosionFailureMechanismProperties(failureMechanism, null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("propertyChangeHandler", paramName);
         }
 
         [Test]
@@ -106,9 +143,17 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
             var changeHandler = mocks.Stub<IFailureMechanismPropertyChangeHandler<DuneErosionFailureMechanism>>();
             mocks.ReplayAll();
 
+            var originalFailureMechanism = new DuneErosionFailureMechanism
+            {
+                GeneralInput =
+                {
+                    N = (RoundedDouble)1.1
+                }
+            };
+
             var failureMechanism = new DuneErosionFailureMechanism();
 
-            var properties = new DuneErosionFailureMechanismProperties(null, changeHandler);
+            var properties = new DuneErosionFailureMechanismProperties(originalFailureMechanism, changeHandler);
 
             // Call
             properties.Data = failureMechanism;
@@ -117,6 +162,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
             Assert.AreEqual("Duinwaterkering - Duinafslag", properties.Name);
             Assert.AreEqual("DA", properties.Code);
             Assert.AreEqual(failureMechanism.GeneralInput.N, properties.LengthEffect);
+            mocks.VerifyAll();
         }
 
         [Test]

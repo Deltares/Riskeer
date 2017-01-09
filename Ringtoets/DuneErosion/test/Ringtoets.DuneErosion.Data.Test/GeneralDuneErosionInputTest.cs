@@ -42,9 +42,10 @@ namespace Ringtoets.DuneErosion.Data.Test
 
         [Test]
         [TestCase(-45.75)]
-        [TestCase(1.0-1e-6)]
-        [TestCase(20+1e-6)]
+        [TestCase(1.0 - 1e-6)]
+        [TestCase(20 + 1e-6)]
         [TestCase(5987.234)]
+        [TestCase(double.NaN)]
         public void N_SetOutsideValidRange_ThrowArgumentOutOfRageException(double lengthEffect)
         {
             // Setup
@@ -68,7 +69,7 @@ namespace Ringtoets.DuneErosion.Data.Test
             const double lengthEffect = 13.45678;
 
             // Call
-            generalInput.N = (RoundedDouble)lengthEffect;
+            generalInput.N = (RoundedDouble) lengthEffect;
 
             // Assert
             Assert.AreEqual(2, generalInput.N.NumberOfDecimalPlaces);
