@@ -274,7 +274,7 @@ namespace Core.Plugins.Map.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Om het zoomniveau aan te passen moeten alle zichtbare kaartlagen in deze kaartlagenmap elementen bevatten..
+        ///   Looks up a localized string similar to Om het zoomniveau aan te passen moet minstens één van de zichtbare kaartlagen in deze kaartlagenmap elementen bevatten..
         /// </summary>
         public static string MapLegendView_CreateZoomToExtentsItem_MapDataCollection_NoFeatures_ZoomToAllDisabled_Tooltip {
             get {

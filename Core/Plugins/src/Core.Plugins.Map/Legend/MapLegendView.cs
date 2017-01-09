@@ -198,19 +198,17 @@ namespace Core.Plugins.Map.Legend
         {
             var hasFeatures = nodeData.Features.Any();
             var enabled = nodeData.IsVisible && hasFeatures;
-            string toolTip = string.Empty;
+            string toolTip;
 
-            if (enabled)
+            if (nodeData.IsVisible)
             {
-                toolTip = MapResources.MapLegendView_CreateZoomToExtentsItem_ZoomToAll_Tooltip;
+                toolTip = hasFeatures
+                              ? MapResources.MapLegendView_CreateZoomToExtentsItem_ZoomToAll_Tooltip
+                              : MapResources.MapLegendView_CreateZoomToExtentsItem_NoFeatures_ZoomToAllDisabled_Tooltip;
             }
-            else if (!nodeData.IsVisible)
+            else
             {
                 toolTip = MapResources.MapLegendView_CreateZoomToExtentsItem_ZoomToAllDisabled_Tooltip;
-            }
-            else if (!hasFeatures)
-            {
-                toolTip = MapResources.MapLegendView_CreateZoomToExtentsItem_NoFeatures_ZoomToAllDisabled_Tooltip;
             }
 
             return CreateZoomToExtentsItem(nodeData, toolTip, enabled);
@@ -243,24 +241,35 @@ namespace Core.Plugins.Map.Legend
         private StrictContextMenuItem CreateZoomToExtentsItem(MapDataCollection nodeData)
         {
             FeatureBasedMapData[] featureBasedMapDatas = nodeData.GetFeatureBasedMapDataRecursively().ToArray();
-            var isVisible = featureBasedMapDatas.Any(md => md.IsVisible);
-            var hasFeatures = featureBasedMapDatas.Any(mapData => mapData.Features.Any());
+            var isVisible = false;
+            var hasFeatures = false;
+            foreach (var mapData in featureBasedMapDatas)
+            {
+                if (mapData.IsVisible)
+                {
+                    isVisible = true;
+
+                    if (mapData.Features.Any())
+                    {
+                        hasFeatures = true;
+                        break;
+                    }
+                }
+            }
 
             var enabled = isVisible && hasFeatures;
 
-            string toolTip = string.Empty;
+            string toolTip;
 
-            if (enabled)
+            if (isVisible)
             {
-                toolTip = MapResources.MapLegendView_CreateZoomToExtentsItem_MapDataCollection_ZoomToAll_Tooltip;
+                toolTip = hasFeatures
+                              ? MapResources.MapLegendView_CreateZoomToExtentsItem_MapDataCollection_ZoomToAll_Tooltip
+                              : MapResources.MapLegendView_CreateZoomToExtentsItem_MapDataCollection_NoFeatures_ZoomToAllDisabled_Tooltip;
             }
-            else if (!isVisible)
+            else
             {
                 toolTip = MapResources.MapLegendView_CreateZoomToExtentsItem_MapDataCollection_ZoomToAllDisabled_Tooltip;
-            }
-            else if (!hasFeatures)
-            {
-                toolTip = MapResources.MapLegendView_CreateZoomToExtentsItem_MapDataCollection_NoFeatures_ZoomToAllDisabled_Tooltip;
             }
 
             return CreateZoomToExtentsItem(nodeData, toolTip, enabled);

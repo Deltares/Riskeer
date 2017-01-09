@@ -403,15 +403,24 @@ namespace Core.Plugins.Map.Test.Legend
         }
 
         [Test]
-        public void ContextMenuStrip_FeatureBasedMapDataWithoutFeaturesInMapDataCollection_CallsContextMenuBuilderMethods()
+        public void ContextMenuStrip_VisibleFeatureBasedMapDataWithoutFeaturesInMapDataCollection_CallsContextMenuBuilderMethods()
         {
             // Setup
+            var lineData = new MapLineData("test line")
+            {
+                IsVisible = false,
+                Features = new[]
+                {
+                    new MapFeature(Enumerable.Empty<MapGeometry>())
+                }
+            };
             var pointData = new MapPointData("test data")
             {
                 IsVisible = true
             };
             var mapDataCollection = new MapDataCollection("test data");
             mapDataCollection.Add(pointData);
+            mapDataCollection.Add(lineData);
 
             var applicationFeatureCommandsStub = mocks.Stub<IApplicationFeatureCommands>();
             var importCommandHandlerMock = mocks.Stub<IImportCommandHandler>();
@@ -445,7 +454,7 @@ namespace Core.Plugins.Map.Test.Legend
 
                     TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuZoomToAllIndex,
                                                                   "&Zoom naar alles",
-                                                                  "Om het zoomniveau aan te passen moeten alle zichtbare kaartlagen in deze kaartlagenmap elementen bevatten.",
+                                                                  "Om het zoomniveau aan te passen moet minstens één van de zichtbare kaartlagen in deze kaartlagenmap elementen bevatten.",
                                                                   Resources.ZoomToAllIcon,
                                                                   false);
 
