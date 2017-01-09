@@ -175,7 +175,7 @@ namespace Core.Plugins.Map.Test.Legend
                 // Assert
                 TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuZoomToAllIndex,
                                                               "&Zoom naar alles",
-                                                              "Zet het zoomniveau van de kaart dusdanig dat alle zichtbare elementen van deze kaartlaag precies in het beeld past.",
+                                                              "Zet het zoomniveau van de kaart dusdanig dat deze kaartlaag precies in het beeld past.",
                                                               Resources.ZoomToAllIcon);
             }
         }
