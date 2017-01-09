@@ -1,0 +1,7 @@
+Executable name    : D:\Repos\Ringtoets\Ringtoets\DuneErosion\test\Ringtoets.DuneErosion.Service.Test\bin\Debug\HydraRing\MechanismComputation.exe
+Executable version : 16.3.1.7317
+=====================================================================================
+                  Considered water level =      3.50000
+              Computed local water level =      3.49999
+                    Computed wave height =      2.32674
+                    Computed wave period =     10.10509

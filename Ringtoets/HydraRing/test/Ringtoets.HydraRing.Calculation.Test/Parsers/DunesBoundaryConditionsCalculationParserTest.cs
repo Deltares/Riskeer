@@ -26,7 +26,6 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.HydraRing.Calculation.Exceptions;
 using Ringtoets.HydraRing.Calculation.Parsers;
-using Ringtoets.HydraRing.IO;
 
 namespace Ringtoets.HydraRing.Calculation.Test.Parsers
 {
@@ -143,7 +142,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
         {
             // Setup
             var parser = new DunesBoundaryConditionsCalculationParser();
-            var workingDirectory = Path.Combine(testDataPath, "valid");
+            var workingDirectory = Path.Combine(testDataPath, "NoPermissionsToRead");
 
             using (new DirectoryPermissionsRevoker(testDataPath, FileSystemRights.ReadData))
             {
