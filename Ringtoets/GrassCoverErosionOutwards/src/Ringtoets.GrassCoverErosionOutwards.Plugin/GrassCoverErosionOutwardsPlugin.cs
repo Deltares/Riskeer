@@ -54,8 +54,6 @@ using RingtoetsGrassCoverErosionOutwardsFormsResources = Ringtoets.GrassCoverEro
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using RingtoetsCommonIoResources = Ringtoets.Common.IO.Properties.Resources;
-using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
-using RingtoetsGrassCoverErosionOutwardsServiceResources = Ringtoets.GrassCoverErosionOutwards.Service.Properties.Resources;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Plugin
 {

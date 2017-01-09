@@ -31,7 +31,6 @@ using Core.Common.Gui.Plugin;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Forms;
 using Ringtoets.Common.Forms.Helpers;
