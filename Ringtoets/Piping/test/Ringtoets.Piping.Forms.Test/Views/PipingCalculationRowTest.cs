@@ -146,6 +146,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 calculation =>
                 {
                     // Assert
+                    Assert.NotNull(oldValue);
                     Assert.AreEqual(oldValue.WrappedObject, calculation.InputParameters.StochasticSoilModel);
                 });
         }
@@ -182,6 +183,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 calculation =>
                 {
                     // Assert
+                    Assert.NotNull(oldValue);
                     Assert.AreEqual(oldValue.WrappedObject, calculation.InputParameters.StochasticSoilProfile);
                 });
         }
@@ -221,6 +223,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 calculation =>
                 {
                     // Assert
+                    Assert.NotNull(oldValue);
                     Assert.AreEqual(oldValue.WrappedObject.HydraulicBoundaryLocation, calculation.InputParameters.HydraulicBoundaryLocation);
                 });
         }
@@ -229,7 +232,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void DampingFactorExitMean_AlwaysOnChange_NotifyObserverAndCalculationPropertyChanged()
         {
             // Setup
-            var newValue = new Random().Next();
+            const double newValue = 2.3;
 
             // Call
             AssertPropertyChangedOutputClearedObserverNotified(
@@ -257,6 +260,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 calculation =>
                 {
                     // Assert
+                    Assert.False(double.IsNaN(oldValue));
                     Assert.AreEqual(oldValue, calculation.InputParameters.DampingFactorExit.Mean);
                 });
         }
@@ -265,7 +269,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void PhreaticLevelExitMean_AlwaysOnChange_NotifyObserverAndCalculationPropertyChanged()
         {
             // Setup
-            var newValue = new Random().Next();
+            const double newValue = 5.1;
 
             // Call
             AssertPropertyChangedOutputClearedObserverNotified(
@@ -293,6 +297,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 calculation =>
                 {
                     // Assert
+                    Assert.False(double.IsNaN(oldValue));
                     Assert.AreEqual(oldValue, calculation.InputParameters.PhreaticLevelExit.Mean);
                 });
         }
@@ -329,6 +334,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 calculation =>
                 {
                     // Assert
+                    Assert.False(double.IsNaN(oldValue));
                     Assert.AreEqual(oldValue, calculation.InputParameters.EntryPointL);
                 });
         }
@@ -402,6 +408,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 calculation =>
                 {
                     // Assert
+                    Assert.False(double.IsNaN(oldValue));
                     Assert.AreEqual(oldValue, calculation.InputParameters.ExitPointL);
                 });
         }
