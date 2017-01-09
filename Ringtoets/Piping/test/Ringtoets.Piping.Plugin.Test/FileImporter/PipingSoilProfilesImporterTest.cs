@@ -334,7 +334,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         }
 
         [Test]
-        public void Import_ReuseOfCancelledImportToValidTargetWithValidFile_ImportSoilModelToCollection()
+        public void Import_ReuseOfCanceledImportToValidTargetWithValidFile_ImportSoilModelToCollection()
         {
             // Setup
             string validFilePath = Path.Combine(testDataPath, "complete.soil");

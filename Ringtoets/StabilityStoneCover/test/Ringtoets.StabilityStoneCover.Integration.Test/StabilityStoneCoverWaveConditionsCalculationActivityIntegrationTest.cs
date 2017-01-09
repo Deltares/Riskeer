@@ -319,7 +319,7 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
         }
 
         [Test]
-        public void Run_WhenCancelled_OutputNull()
+        public void Run_WhenCanceled_OutputNull()
         {
             // Setup
             var mockRepository = new MockRepository();

@@ -42,7 +42,7 @@ namespace Ringtoets.Integration.Test
     public class ReferenceLineImporterIntegrationTest : NUnitFormsAssertTest
     {
         [Test]
-        public void GivenAssessmentSectionWithReferenceLine_WhenCancellingReferenceLineImport_ThenKeepOriginalReferenceLine()
+        public void GivenAssessmentSectionWithReferenceLine_WhenCancelingReferenceLineImport_ThenKeepOriginalReferenceLine()
         {
             // Given
             var mocks = new MockRepository();

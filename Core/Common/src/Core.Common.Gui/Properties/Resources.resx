@@ -175,7 +175,7 @@
   <data name="saveHS" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\saveHS.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="StorageCommandHandler_OpenExistingProject_Opening_existing_project_cancelled" xml:space="preserve">
+  <data name="StorageCommandHandler_OpenExistingProject_Opening_existing_project_canceled" xml:space="preserve">
     <value>Openen van bestaand Ringtoetsproject geannuleerd.</value>
   </data>
   <data name="GuiImportHandler_GetSupportedImporterForTargetType_No_importer_available_for_this_item_0_" xml:space="preserve">
@@ -235,7 +235,7 @@
   <data name="Ribbon_Command_Open" xml:space="preserve">
     <value>Openen</value>
   </data>
-  <data name="GuiCore_ShowSplashScreen_User_has_cancelled_start_Exiting" xml:space="preserve">
+  <data name="GuiCore_ShowSplashScreen_User_has_canceled_start_Exiting" xml:space="preserve">
     <value>Gebruiker heeft het opstarten onderbroken. Het programma wordt afgesloten...</value>
   </data>
   <data name="Ribbon_About" xml:space="preserve">
@@ -490,7 +490,7 @@
   <data name="StorageCommandHandler_OpeningExistingProject_Opening_existing_project_successful" xml:space="preserve">
     <value>Bestaand Ringtoetsproject succesvol geopend.</value>
   </data>
-  <data name="StorageCommandHandler_SaveProject_Saving_project_cancelled" xml:space="preserve">
+  <data name="StorageCommandHandler_SaveProject_Saving_project_canceled" xml:space="preserve">
     <value>Opslaan van het Ringtoetsproject geannuleerd.</value>
   </data>
   <data name="StorageCommandHandler_Saving_project_failed" xml:space="preserve">
@@ -526,7 +526,7 @@
   <data name="StorageCommandHandler_ClosingProject_Title" xml:space="preserve">
     <value>Project aan het sluiten...</value>
   </data>
-  <data name="StorageCommandHandler_NewProject_Creating_new_project_cancelled" xml:space="preserve">
+  <data name="StorageCommandHandler_NewProject_Creating_new_project_canceled" xml:space="preserve">
     <value>Aanmaken van een nieuw Ringtoetsproject geannuleerd.</value>
   </data>
   <data name="FailureMechanismContributionView_GridColumn_RelevancyFilter" xml:space="preserve">

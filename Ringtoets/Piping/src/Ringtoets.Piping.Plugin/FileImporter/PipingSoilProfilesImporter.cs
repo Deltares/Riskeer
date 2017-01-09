@@ -80,7 +80,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
 
         protected override void LogImportCanceledMessage()
         {
-            log.Info(Resources.PipingSoilProfilesImporter_Import_Import_cancelled);
+            log.Info(Resources.PipingSoilProfilesImporter_Import_Import_canceled);
         }
 
         private void AddSoilProfilesToStochasticSoilModels(ICollection<PipingSoilProfile> soilProfiles, ICollection<StochasticSoilModel> stochasticSoilModels)

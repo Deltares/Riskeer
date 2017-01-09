@@ -45,7 +45,7 @@ namespace Core.Common.Base.Service
         Failed,
 
         /// <summary>
-        /// The state of an <see cref="Activity"/> that is successfully cancelled.
+        /// The state of an <see cref="Activity"/> that is successfully canceled.
         /// <seealso cref="Activity.Cancel"/>
         /// </summary>
         Canceled,

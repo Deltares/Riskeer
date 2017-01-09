@@ -95,7 +95,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
 
         protected override void LogImportCanceledMessage()
         {
-            log.Info(RingtoetsPluginResources.PipingSurfaceLinesCsvImporter_Import_Import_cancelled);
+            log.Info(RingtoetsPluginResources.PipingSurfaceLinesCsvImporter_Import_Import_canceled);
         }
 
         private ReadResult<T> HandleCriticalReadError<T>(Exception e)

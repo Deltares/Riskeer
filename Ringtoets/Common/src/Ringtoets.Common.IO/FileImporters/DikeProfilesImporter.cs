@@ -62,7 +62,7 @@ namespace Ringtoets.Common.IO.FileImporters
 
         protected override void LogImportCanceledMessage()
         {
-            Log.Info(Resources.DikeProfilesImporter_HandleUserCancellingImport_dikeprofile_import_aborted);
+            Log.Info(Resources.DikeProfilesImporter_HandleUserCancelingImport_dikeprofile_import_aborted);
         }
 
         protected override bool DikeProfileDataIsValid(DikeProfileData data, string prflFilePath)

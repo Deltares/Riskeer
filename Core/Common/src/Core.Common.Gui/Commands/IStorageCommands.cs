@@ -60,7 +60,7 @@ namespace Core.Common.Gui.Commands
         /// the read of the project data.
         /// </summary>
         /// <returns><c>true</c> if an existing <see cref="IProject"/> has been loaded, 
-        /// <c>false</c> otherwise (for example, user cancelled).</returns>
+        /// <c>false</c> otherwise (for example, user canceled).</returns>
         bool OpenExistingProject();
 
         /// <summary>

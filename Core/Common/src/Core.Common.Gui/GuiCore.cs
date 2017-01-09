@@ -433,7 +433,7 @@ namespace Core.Common.Gui
 
                 if (!runFinished) // splash screen was closed before gui started.
                 {
-                    log.Info(Resources.GuiCore_ShowSplashScreen_User_has_cancelled_start_Exiting);
+                    log.Info(Resources.GuiCore_ShowSplashScreen_User_has_canceled_start_Exiting);
                     Environment.Exit(1);
                 }
             };

@@ -93,7 +93,7 @@ namespace Core.Common.Gui.Commands
         {
             if (!HandleUnsavedChanges())
             {
-                log.Info(Resources.StorageCommandHandler_NewProject_Creating_new_project_cancelled);
+                log.Info(Resources.StorageCommandHandler_NewProject_Creating_new_project_canceled);
                 return;
             }
             log.Info(Resources.Creating_new_project);
@@ -115,7 +115,7 @@ namespace Core.Common.Gui.Commands
                 }
             }
 
-            log.Info(Resources.StorageCommandHandler_OpenExistingProject_Opening_existing_project_cancelled);
+            log.Info(Resources.StorageCommandHandler_OpenExistingProject_Opening_existing_project_canceled);
             return false;
         }
 
@@ -262,7 +262,7 @@ namespace Core.Common.Gui.Commands
             {
                 if (saveFileDialog.ShowDialog() != DialogResult.OK)
                 {
-                    log.Info(Resources.StorageCommandHandler_SaveProject_Saving_project_cancelled);
+                    log.Info(Resources.StorageCommandHandler_SaveProject_Saving_project_canceled);
                     return null;
                 }
                 return saveFileDialog.FileName;

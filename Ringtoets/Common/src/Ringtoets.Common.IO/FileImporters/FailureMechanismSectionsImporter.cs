@@ -105,7 +105,7 @@ namespace Ringtoets.Common.IO.FileImporters
 
         protected override void LogImportCanceledMessage()
         {
-            log.Info(Resources.FailureMechanismSectionsImporter_Import_cancelled_no_data_read);
+            log.Info(Resources.FailureMechanismSectionsImporter_Import_canceled_no_data_read);
         }
 
         private ReadResult<FailureMechanismSection> ReadFailureMechanismSections()

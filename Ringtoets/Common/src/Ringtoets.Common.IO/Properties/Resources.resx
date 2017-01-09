@@ -130,7 +130,7 @@
     <value>{0} 
 Er is geen referentielijn geïmporteerd.</value>
   </data>
-  <data name="ReferenceLineImporter_ProgressText_Import_cancelled_no_data_read" xml:space="preserve">
+  <data name="ReferenceLineImporter_ProgressText_Import_canceled_no_data_read" xml:space="preserve">
     <value>Referentielijn importeren afgebroken. Geen data ingelezen.</value>
   </data>
   <data name="ReferenceLineImporter_ProgressText_Reading_referenceline" xml:space="preserve">
@@ -351,7 +351,7 @@ Bovenstaande kolomtitels moeten gescheiden zijn door het karakter ';'.</value>
   <data name="DikeProfilesImporter_GetMatchingDikeProfileData_no_dikeprofiledata_for_location_0_" xml:space="preserve">
     <value>Kan geen geldige gegevens vinden voor dijkprofiellocatie met ID '{0}'.</value>
   </data>
-  <data name="DikeProfilesImporter_HandleUserCancellingImport_dikeprofile_import_aborted" xml:space="preserve">
+  <data name="DikeProfilesImporter_HandleUserCancelingImport_dikeprofile_import_aborted" xml:space="preserve">
     <value>Dijkprofielen importeren is afgebroken. Geen gegevens ingelezen.</value>
   </data>
   <data name="DikeProfilesImporter_No_dike_geometry_file_0_skipped" xml:space="preserve">
@@ -361,7 +361,7 @@ Bovenstaande kolomtitels moeten gescheiden zijn door het karakter ';'.</value>
     <value>{0} 
 Er is geen vakindeling geïmporteerd.</value>
   </data>
-  <data name="FailureMechanismSectionsImporter_Import_cancelled_no_data_read" xml:space="preserve">
+  <data name="FailureMechanismSectionsImporter_Import_canceled_no_data_read" xml:space="preserve">
     <value>Vakindeling importeren afgebroken. Geen gegevens ingelezen.</value>
   </data>
   <data name="FailureMechanismSectionsImporter_ProgressText_Reading_file" xml:space="preserve">
@@ -376,7 +376,7 @@ Er is geen vakindeling geïmporteerd.</value>
   <data name="ForeshoreProfilesImporter_GetMatchingForeshoreProfileData_no_foreshoreprofiledata_for_location_0_" xml:space="preserve">
     <value>Kan geen geldige gegevens vinden voor voorlandprofiellocatie met ID '{0}'.</value>
   </data>
-  <data name="ForeshoreProfilesImporter_HandleUserCancellingImport_foreshoreprofile_import_aborted" xml:space="preserve">
+  <data name="ForeshoreProfilesImporter_HandleUserCancelingImport_foreshoreprofile_import_aborted" xml:space="preserve">
     <value>Voorlandprofielen importeren is afgebroken. Geen gegevens ingelezen.</value>
   </data>
   <data name="ForeshoreProfilesImporter_No_dam_no_foreshore_geometry_file_0_skipped" xml:space="preserve">
@@ -418,7 +418,7 @@ Er is geen vakindeling geïmporteerd.</value>
   <data name="ProfilesImporter_ReadProfileLocations_reading_profilelocations" xml:space="preserve">
     <value>Inlezen van profiellocaties uit een shapebestand.</value>
   </data>
-  <data name="StructuresImporter_User_cancelled" xml:space="preserve">
+  <data name="StructuresImporter_User_canceled" xml:space="preserve">
     <value>Kunstwerken importeren is afgebroken. Geen gegevens ingelezen.</value>
   </data>
   <data name="StructuresParameterRowsValidator_Parameter_0_missing_or_invalid" xml:space="preserve">

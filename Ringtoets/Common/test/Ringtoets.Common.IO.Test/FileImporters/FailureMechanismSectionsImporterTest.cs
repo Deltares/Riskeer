@@ -529,7 +529,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         }
 
         [Test]
-        public void Import_ReuseOfCancelledImportToValidTargetWithValidFile_TrueAndLogMessagesAndExpectedImportedData()
+        public void Import_ReuseOfCanceledImportToValidTargetWithValidFile_TrueAndLogMessagesAndExpectedImportedData()
         {
             // Setup
             var referenceLineFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,

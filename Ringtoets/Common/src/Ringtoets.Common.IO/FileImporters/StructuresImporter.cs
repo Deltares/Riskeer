@@ -86,7 +86,7 @@ namespace Ringtoets.Common.IO.FileImporters
 
         protected override void LogImportCanceledMessage()
         {
-            log.Info(Resources.StructuresImporter_User_cancelled);
+            log.Info(Resources.StructuresImporter_User_canceled);
         }
 
         /// <summary>

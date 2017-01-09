@@ -760,9 +760,9 @@ namespace Core.Common.Gui.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Gebruiker heeft het opstarten onderbroken. Het programma wordt afgesloten....
         /// </summary>
-        public static string GuiCore_ShowSplashScreen_User_has_cancelled_start_Exiting {
+        public static string GuiCore_ShowSplashScreen_User_has_canceled_start_Exiting {
             get {
-                return ResourceManager.GetString("GuiCore_ShowSplashScreen_User_has_cancelled_start_Exiting", resourceCulture);
+                return ResourceManager.GetString("GuiCore_ShowSplashScreen_User_has_canceled_start_Exiting", resourceCulture);
             }
         }
         
@@ -1402,9 +1402,9 @@ namespace Core.Common.Gui.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Aanmaken van een nieuw Ringtoetsproject geannuleerd..
         /// </summary>
-        public static string StorageCommandHandler_NewProject_Creating_new_project_cancelled {
+        public static string StorageCommandHandler_NewProject_Creating_new_project_canceled {
             get {
-                return ResourceManager.GetString("StorageCommandHandler_NewProject_Creating_new_project_cancelled", resourceCulture);
+                return ResourceManager.GetString("StorageCommandHandler_NewProject_Creating_new_project_canceled", resourceCulture);
             }
         }
         
@@ -1420,9 +1420,9 @@ namespace Core.Common.Gui.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Openen van bestaand Ringtoetsproject geannuleerd..
         /// </summary>
-        public static string StorageCommandHandler_OpenExistingProject_Opening_existing_project_cancelled {
+        public static string StorageCommandHandler_OpenExistingProject_Opening_existing_project_canceled {
             get {
-                return ResourceManager.GetString("StorageCommandHandler_OpenExistingProject_Opening_existing_project_cancelled", resourceCulture);
+                return ResourceManager.GetString("StorageCommandHandler_OpenExistingProject_Opening_existing_project_canceled", resourceCulture);
             }
         }
         
@@ -1456,9 +1456,9 @@ namespace Core.Common.Gui.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Opslaan van het Ringtoetsproject geannuleerd..
         /// </summary>
-        public static string StorageCommandHandler_SaveProject_Saving_project_cancelled {
+        public static string StorageCommandHandler_SaveProject_Saving_project_canceled {
             get {
-                return ResourceManager.GetString("StorageCommandHandler_SaveProject_Saving_project_cancelled", resourceCulture);
+                return ResourceManager.GetString("StorageCommandHandler_SaveProject_Saving_project_canceled", resourceCulture);
             }
         }
         

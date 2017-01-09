@@ -144,9 +144,9 @@ namespace Ringtoets.Piping.Plugin.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Stochastische ondergrondmodellen importeren afgebroken. Geen data ingelezen..
         /// </summary>
-        public static string PipingSoilProfilesImporter_Import_Import_cancelled {
+        public static string PipingSoilProfilesImporter_Import_Import_canceled {
             get {
-                return ResourceManager.GetString("PipingSoilProfilesImporter_Import_Import_cancelled", resourceCulture);
+                return ResourceManager.GetString("PipingSoilProfilesImporter_Import_Import_canceled", resourceCulture);
             }
         }
         
@@ -331,9 +331,9 @@ namespace Ringtoets.Piping.Plugin.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Profielschematisaties importeren afgebroken. Geen data ingelezen..
         /// </summary>
-        public static string PipingSurfaceLinesCsvImporter_Import_Import_cancelled {
+        public static string PipingSurfaceLinesCsvImporter_Import_Import_canceled {
             get {
-                return ResourceManager.GetString("PipingSurfaceLinesCsvImporter_Import_Import_cancelled", resourceCulture);
+                return ResourceManager.GetString("PipingSurfaceLinesCsvImporter_Import_Import_canceled", resourceCulture);
             }
         }
         

@@ -248,7 +248,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void GivenReturnPeriod_WhenCancellingReturnPeriodValueChange_ThenDataSameObserversNotNotified()
+        public void GivenReturnPeriod_WhenCancelingReturnPeriodValueChange_ThenDataSameObserversNotNotified()
         {
             // Given
             AssessmentSection assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
@@ -328,7 +328,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void GivenAssessmentSectionComposition_WhenCancellingCompositionValueChange__ThenDataSameObserversNotNotified()
+        public void GivenAssessmentSectionComposition_WhenCancelingCompositionValueChange__ThenDataSameObserversNotNotified()
         {
             // Given
             const AssessmentSectionComposition originalComposition = AssessmentSectionComposition.Dike;

@@ -87,7 +87,7 @@ namespace Core.Common.Base.Test.IO
         }
 
         [Test]
-        public void DoPostImportUpdates_ImportCancelled_NoNotifyObserversCalled()
+        public void DoPostImportUpdates_ImportCanceled_NoNotifyObserversCalled()
         {
             // Setup
             var mocks = new MockRepository();

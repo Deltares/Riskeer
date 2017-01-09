@@ -30,7 +30,7 @@ namespace Core.Common.Base.Service
     /// <summary>
     /// Abstract class that can be derived for performing activities (like calculations, data imports, data exports, etc.).
     /// The regular workflow for completely performing an <see cref="Activity"/> is: <see cref="Run"/> -> <see cref="Finish"/>.
-    /// <see cref="Cancel"/> can be called for cancelling a running <see cref="Activity"/>.
+    /// <see cref="Cancel"/> can be called for canceling a running <see cref="Activity"/>.
     /// </summary>
     /// <remarks>
     /// By convention, only <see cref="Finish"/> should contain UI thread related logic.
@@ -106,7 +106,7 @@ namespace Core.Common.Base.Service
 
         /// <summary>
         /// This method cancels a running <see cref="Activity"/>.
-        /// The <see cref="State"/> of a successfully cancelled <see cref="Activity"/> will become <see cref="ActivityState.Canceled"/>.
+        /// The <see cref="State"/> of a successfully canceled <see cref="Activity"/> will become <see cref="ActivityState.Canceled"/>.
         /// When the <see cref="Activity"/> cancel action fails, the <see cref="State"/> will become <see cref="ActivityState.Failed"/>.
         /// </summary>
         public void Cancel()

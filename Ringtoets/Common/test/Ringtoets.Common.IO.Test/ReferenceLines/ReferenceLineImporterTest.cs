@@ -208,7 +208,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
         }
 
         [Test]
-        public void Import_CancellingImport_ReturnFalseAndNoChanges()
+        public void Import_CancelingImport_ReturnFalseAndNoChanges()
         {
             // Setup
             var originalReferenceLine = new ReferenceLine();
@@ -238,7 +238,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void Import_CancelImportDuringDialogInteraction_GenerateCancelledLogMessageAndReturnsFalse(bool acceptRemovalOfReferenceLineDependentData)
+        public void Import_CancelImportDuringDialogInteraction_GenerateCanceledLogMessageAndReturnsFalse(bool acceptRemovalOfReferenceLineDependentData)
         {
             // Setup
             var path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "traject_10-2.shp");
@@ -343,7 +343,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
         }
 
         [Test]
-        public void Import_ReusingCancelledImporterForContextWithoutReferenceLine_ImportReferenceLineToAssessmentSection()
+        public void Import_ReusingCanceledImporterForContextWithoutReferenceLine_ImportReferenceLineToAssessmentSection()
         {
             // Setup
             var mocks = new MockRepository();
@@ -436,7 +436,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
         }
 
         [Test]
-        public void DoPostImportUpdates_CancellingImport_DoNotNotifyObserversAndNotDoPostReplacementUpdates()
+        public void DoPostImportUpdates_CancelingImport_DoNotNotifyObserversAndNotDoPostReplacementUpdates()
         {
             // Setup
             var path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "traject_10-2.shp");

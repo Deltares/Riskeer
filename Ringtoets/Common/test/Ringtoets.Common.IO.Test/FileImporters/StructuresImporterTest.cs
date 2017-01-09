@@ -359,7 +359,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         }
 
         [Test]
-        public void Import_ReuseOfCancelledImportToValidTargetWithValidFile_ReturnsTrue()
+        public void Import_ReuseOfCanceledImportToValidTargetWithValidFile_ReturnsTrue()
         {
             // Setup
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,

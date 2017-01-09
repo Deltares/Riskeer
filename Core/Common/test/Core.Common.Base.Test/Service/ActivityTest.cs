@@ -88,7 +88,7 @@ namespace Core.Common.Base.Test.Service
         }
 
         [Test]
-        public void Cancel_ActivityWithSuccessfulCancel_StateIsChangedToCancelled()
+        public void Cancel_ActivityWithSuccessfulCancel_StateIsChangedToCanceled()
         {
             // Setup
             var activity = new SimpleActivity(false, false, false);
@@ -167,7 +167,7 @@ namespace Core.Common.Base.Test.Service
         }
 
         [Test]
-        public void Finish_CancelledActivityWithSuccessfulFinish_MessageIsSendToLogAndPreviousStateIsPreserved()
+        public void Finish_CanceledActivityWithSuccessfulFinish_MessageIsSendToLogAndPreviousStateIsPreserved()
         {
             // Setup
             var activity = new SimpleActivity(false, false, false);

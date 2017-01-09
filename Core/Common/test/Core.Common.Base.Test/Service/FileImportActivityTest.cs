@@ -116,7 +116,7 @@ namespace Core.Common.Base.Test.Service
         }
 
         [Test]
-        public void Cancel_WhenImportingAndUncancellable_ImportActivityStateExecuted()
+        public void Cancel_WhenImportingAndUncancelable_ImportActivityStateExecuted()
         {
             // Setup
             var mocks = new MockRepository();
@@ -142,7 +142,7 @@ namespace Core.Common.Base.Test.Service
         }
 
         [Test]
-        public void Cancel_WhenImportingAndCancellable_ImportActivityStateCancelled()
+        public void Cancel_WhenImportingAndCancelable_ImportActivityStateCanceled()
         {
             // Setup
             var fileImporter = new SimpleFileImporter<object>(new object());

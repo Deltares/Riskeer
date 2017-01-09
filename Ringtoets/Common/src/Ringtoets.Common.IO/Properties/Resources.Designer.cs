@@ -399,9 +399,9 @@ namespace Ringtoets.Common.IO.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Dijkprofielen importeren is afgebroken. Geen gegevens ingelezen..
         /// </summary>
-        public static string DikeProfilesImporter_HandleUserCancellingImport_dikeprofile_import_aborted {
+        public static string DikeProfilesImporter_HandleUserCancelingImport_dikeprofile_import_aborted {
             get {
-                return ResourceManager.GetString("DikeProfilesImporter_HandleUserCancellingImport_dikeprofile_import_aborted", resourceCulture);
+                return ResourceManager.GetString("DikeProfilesImporter_HandleUserCancelingImport_dikeprofile_import_aborted", resourceCulture);
             }
         }
         
@@ -454,9 +454,9 @@ namespace Ringtoets.Common.IO.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Vakindeling importeren afgebroken. Geen gegevens ingelezen..
         /// </summary>
-        public static string FailureMechanismSectionsImporter_Import_cancelled_no_data_read {
+        public static string FailureMechanismSectionsImporter_Import_canceled_no_data_read {
             get {
-                return ResourceManager.GetString("FailureMechanismSectionsImporter_Import_cancelled_no_data_read", resourceCulture);
+                return ResourceManager.GetString("FailureMechanismSectionsImporter_Import_canceled_no_data_read", resourceCulture);
             }
         }
         
@@ -520,10 +520,10 @@ namespace Ringtoets.Common.IO.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Voorlandprofielen importeren is afgebroken. Geen gegevens ingelezen..
         /// </summary>
-        public static string ForeshoreProfilesImporter_HandleUserCancellingImport_foreshoreprofile_import_aborted {
+        public static string ForeshoreProfilesImporter_HandleUserCancelingImport_foreshoreprofile_import_aborted {
             get {
-                return ResourceManager.GetString("ForeshoreProfilesImporter_HandleUserCancellingImport_foreshoreprofile_import_abor" +
-                        "ted", resourceCulture);
+                return ResourceManager.GetString("ForeshoreProfilesImporter_HandleUserCancelingImport_foreshoreprofile_import_abort" +
+                        "ed", resourceCulture);
             }
         }
         
@@ -862,9 +862,9 @@ namespace Ringtoets.Common.IO.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Referentielijn importeren afgebroken. Geen data ingelezen..
         /// </summary>
-        public static string ReferenceLineImporter_ProgressText_Import_cancelled_no_data_read {
+        public static string ReferenceLineImporter_ProgressText_Import_canceled_no_data_read {
             get {
-                return ResourceManager.GetString("ReferenceLineImporter_ProgressText_Import_cancelled_no_data_read", resourceCulture);
+                return ResourceManager.GetString("ReferenceLineImporter_ProgressText_Import_canceled_no_data_read", resourceCulture);
             }
         }
         
@@ -1197,9 +1197,9 @@ namespace Ringtoets.Common.IO.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Kunstwerken importeren is afgebroken. Geen gegevens ingelezen..
         /// </summary>
-        public static string StructuresImporter_User_cancelled {
+        public static string StructuresImporter_User_canceled {
             get {
-                return ResourceManager.GetString("StructuresImporter_User_cancelled", resourceCulture);
+                return ResourceManager.GetString("StructuresImporter_User_canceled", resourceCulture);
             }
         }
         

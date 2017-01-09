@@ -778,7 +778,7 @@ namespace Core.Common.Controls.TreeView
 
         private void TreeViewAfterLabelEdit(object sender, NodeLabelEditEventArgs e)
         {
-            // Check label for null as this indicates the node edit was cancelled
+            // Check label for null as this indicates the node edit was canceled
             if (e.Label == null)
             {
                 return;

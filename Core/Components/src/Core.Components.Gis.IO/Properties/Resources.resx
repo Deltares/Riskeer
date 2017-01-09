@@ -157,7 +157,7 @@ Er is geen kaartlaag geïmporteerd.</value>
   <data name="FeatureBasedMapDataImporter_Import_ShapeFile_Contains_Unsupported_Data" xml:space="preserve">
     <value>De data in het shapebestand wordt niet ondersteund.</value>
   </data>
-  <data name="FeatureBasedMapDataImporter_HandleUserCancellingImport_Import_cancelled_no_data_read" xml:space="preserve">
+  <data name="FeatureBasedMapDataImporter_HandleUserCancelingImport_Import_canceled_no_data_read" xml:space="preserve">
     <value>Kaartlaag toevoegen afgebroken. Geen data ingelezen.</value>
   </data>
 </root>
