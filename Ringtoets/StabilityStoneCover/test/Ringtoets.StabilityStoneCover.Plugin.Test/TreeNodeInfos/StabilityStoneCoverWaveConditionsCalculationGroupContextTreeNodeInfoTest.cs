@@ -411,6 +411,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                     {
                         menu.Items[1],
                         menu.Items[3],
+                        menu.Items[6],
                         menu.Items[9],
                         menu.Items[12],
                         menu.Items[15]
@@ -514,6 +515,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                     {
                         menu.Items[1],
                         menu.Items[3],
+                        menu.Items[6],
                         menu.Items[9],
                         menu.Items[12],
                         menu.Items[15]
