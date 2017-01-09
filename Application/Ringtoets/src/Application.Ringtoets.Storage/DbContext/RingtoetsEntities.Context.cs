@@ -45,6 +45,8 @@ namespace Application.Ringtoets.Storage.DbContext
         public virtual DbSet<ClosingStructuresSectionResultEntity> ClosingStructuresSectionResultEntities { get; set; }
         public virtual DbSet<DikeProfileEntity> DikeProfileEntities { get; set; }
         public virtual DbSet<DuneErosionSectionResultEntity> DuneErosionSectionResultEntities { get; set; }
+        public virtual DbSet<DuneLocationEntity> DuneLocationEntities { get; set; }
+        public virtual DbSet<DuneLocationOutputEntity> DuneLocationOutputEntities { get; set; }
         public virtual DbSet<FailureMechanismEntity> FailureMechanismEntities { get; set; }
         public virtual DbSet<FailureMechanismSectionEntity> FailureMechanismSectionEntities { get; set; }
         public virtual DbSet<ForeshoreProfileEntity> ForeshoreProfileEntities { get; set; }
@@ -98,7 +100,7 @@ namespace Application.Ringtoets.Storage.DbContext
         public virtual DbSet<WaveImpactAsphaltCoverSectionResultEntity> WaveImpactAsphaltCoverSectionResultEntities { get; set; }
         public virtual DbSet<WaveImpactAsphaltCoverWaveConditionsCalculationEntity> WaveImpactAsphaltCoverWaveConditionsCalculationEntities { get; set; }
         public virtual DbSet<WaveImpactAsphaltCoverWaveConditionsOutputEntity> WaveImpactAsphaltCoverWaveConditionsOutputEntities { get; set; }
-
+    
         /// <summary>
         /// This method is called in a 'code first' approach when the model for a derived <see cref="DbContext"/> has been initialized,
         /// but before the model has been locked down and used to initialize the <see cref="DbContext"/>.

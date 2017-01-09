@@ -28,20 +28,19 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-
 namespace Application.Ringtoets.Storage.DbContext
 {
+    using System;
+    using System.Collections.Generic;
+    
     public partial class WaveImpactAsphaltCoverWaveConditionsCalculationEntity
     {
-        [SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public WaveImpactAsphaltCoverWaveConditionsCalculationEntity()
         {
             WaveImpactAsphaltCoverWaveConditionsOutputEntities = new HashSet<WaveImpactAsphaltCoverWaveConditionsOutputEntity>();
         }
-
+    
         public long WaveImpactAsphaltCoverWaveConditionsCalculationEntityId { get; set; }
         public long CalculationGroupEntityId { get; set; }
         public Nullable<long> ForeshoreProfileEntityId { get; set; }
@@ -59,12 +58,11 @@ namespace Application.Ringtoets.Storage.DbContext
         public Nullable<double> UpperBoundaryWaterLevels { get; set; }
         public Nullable<double> LowerBoundaryWaterLevels { get; set; }
         public byte StepSize { get; set; }
-
+    
         public virtual CalculationGroupEntity CalculationGroupEntity { get; set; }
         public virtual ForeshoreProfileEntity ForeshoreProfileEntity { get; set; }
         public virtual HydraulicLocationEntity HydraulicLocationEntity { get; set; }
-
-        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<WaveImpactAsphaltCoverWaveConditionsOutputEntity> WaveImpactAsphaltCoverWaveConditionsOutputEntities { get; set; }
     }
 }

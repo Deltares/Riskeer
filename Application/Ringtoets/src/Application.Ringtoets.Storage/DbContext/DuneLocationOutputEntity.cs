@@ -33,12 +33,19 @@ namespace Application.Ringtoets.Storage.DbContext
     using System;
     using System.Collections.Generic;
     
-    public partial class StabilityPointStructuresFailureMechanismMetaEntity
+    public partial class DuneLocationOutputEntity
     {
-        public long StrengthStabilityPointConstructionFailureMechanismMetaEntityId { get; set; }
-        public long FailureMechanismEntityId { get; set; }
-        public int N { get; set; }
+        public long DuneLocationOutputEntityId { get; set; }
+        public long DuneLocationEntityId { get; set; }
+        public Nullable<double> WaterLevel { get; set; }
+        public Nullable<double> WaveHeight { get; set; }
+        public Nullable<double> WavePeriod { get; set; }
+        public Nullable<double> TargetProbability { get; set; }
+        public Nullable<double> TargetReliability { get; set; }
+        public Nullable<double> CalculatedProbability { get; set; }
+        public Nullable<double> CalculatedReliability { get; set; }
+        public byte CalculationConvergence { get; set; }
     
-        public virtual FailureMechanismEntity FailureMechanismEntity { get; set; }
+        public virtual DuneLocationEntity DuneLocationEntity { get; set; }
     }
 }

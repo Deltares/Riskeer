@@ -33,12 +33,28 @@ namespace Application.Ringtoets.Storage.DbContext
     using System;
     using System.Collections.Generic;
     
-    public partial class StabilityPointStructuresFailureMechanismMetaEntity
+    public partial class DuneLocationEntity
     {
-        public long StrengthStabilityPointConstructionFailureMechanismMetaEntityId { get; set; }
-        public long FailureMechanismEntityId { get; set; }
-        public int N { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public DuneLocationEntity()
+        {
+            DuneLocationOutputEntities = new HashSet<DuneLocationOutputEntity>();
+        }
     
-        public virtual FailureMechanismEntity FailureMechanismEntity { get; set; }
+        public long DuneLocationEntityId { get; set; }
+        public long AssessmentSectionEntityId { get; set; }
+        public long LocationId { get; set; }
+        public string Name { get; set; }
+        public Nullable<double> LocationX { get; set; }
+        public Nullable<double> LocationY { get; set; }
+        public int CoastalAreaId { get; set; }
+        public Nullable<double> Offset { get; set; }
+        public Nullable<double> Orientation { get; set; }
+        public Nullable<double> D50 { get; set; }
+        public int Order { get; set; }
+    
+        public virtual AssessmentSectionEntity AssessmentSectionEntity { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DuneLocationOutputEntity> DuneLocationOutputEntities { get; set; }
     }
 }
