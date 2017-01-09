@@ -941,7 +941,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 dataGridView.Rows[0].Cells[cellIndex].Value = (RoundedDouble) newValue;
 
                 // Assert
-                Assert.AreEqual(RingtoetsPipingDataResources.PipingInput_EntryPointL_greater_or_equal_to_ExitPointL, dataGridView.Rows[0].ErrorText);
+                Assert.AreEqual("Het uittredepunt moet landwaarts van het intredepunt liggen.", dataGridView.Rows[0].ErrorText);
             }
             mocks.VerifyAll(); // No observer notified
         }
@@ -1063,8 +1063,8 @@ namespace Ringtoets.Piping.Forms.Test.Views
         [TestCase(phreaticLevelExitMeanColumnIndex, 1.1, false)]
         [TestCase(entryPointLColumnIndex, 1.1, true)]
         [TestCase(entryPointLColumnIndex, 1.1, false)]
-        [TestCase(exitPointLColumnIndex, 5.5, true)]
-        [TestCase(exitPointLColumnIndex, 5.5, false)]
+        [TestCase(exitPointLColumnIndex, 8.0, true)]
+        [TestCase(exitPointLColumnIndex, 8.0, false)]
         public void PipingCalculationsView_EditingPropertyViaDataGridView_ObserversCorrectlyNotified(
             int cellIndex, 
             object newValue, 
@@ -1090,7 +1090,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 mocks.ReplayAll();
 
                 var data = (CalculationGroup) pipingCalculationView.Data;
-                var pipingCalculation = (PipingCalculationScenario) data.Children.First();
+                var pipingCalculation = (PipingCalculationScenario) data.Children[1];
 
                 if (useCalculationWithOutput)
                 {
@@ -1103,7 +1103,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
                 // Call
-                dataGridView.Rows[0].Cells[cellIndex].Value = newValue is double ? (RoundedDouble) (double) newValue : newValue;
+                dataGridView.Rows[1].Cells[cellIndex].Value = newValue is double ? (RoundedDouble) (double) newValue : newValue;
                 
                 // Assert
                 pipingCalculation.Output = null;

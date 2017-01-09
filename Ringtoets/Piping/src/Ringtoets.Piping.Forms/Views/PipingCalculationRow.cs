@@ -36,8 +36,6 @@ namespace Ringtoets.Piping.Forms.Views
     /// </summary>
     internal class PipingCalculationRow
     {
-        private readonly PipingCalculationScenario pipingCalculation;
-
         /// <summary>
         /// Creates a new instance of <see cref="PipingCalculationRow"/>.
         /// </summary>
@@ -47,22 +45,16 @@ namespace Ringtoets.Piping.Forms.Views
         {
             if (pipingCalculation == null)
             {
-                throw new ArgumentNullException("pipingCalculation");
+                throw new ArgumentNullException(nameof(pipingCalculation));
             }
 
-            this.pipingCalculation = pipingCalculation;
+            PipingCalculation = pipingCalculation;
         }
 
         /// <summary>
         /// Gets the <see cref="PipingCalculationScenario"/> this row contains.
         /// </summary>
-        public PipingCalculationScenario PipingCalculation
-        {
-            get
-            {
-                return pipingCalculation;
-            }
-        }
+        public PipingCalculationScenario PipingCalculation { get; }
 
         /// <summary>
         /// Gets or sets the name of the <see cref="PipingCalculationScenario"/>.
@@ -71,13 +63,13 @@ namespace Ringtoets.Piping.Forms.Views
         {
             get
             {
-                return pipingCalculation.Name;
+                return PipingCalculation.Name;
             }
             set
             {
-                pipingCalculation.Name = value;
+                PipingCalculation.Name = value;
 
-                pipingCalculation.NotifyObservers();
+                PipingCalculation.NotifyObservers();
             }
         }
 
@@ -88,14 +80,16 @@ namespace Ringtoets.Piping.Forms.Views
         {
             get
             {
-                return new DataGridViewComboBoxItemWrapper<StochasticSoilModel>(pipingCalculation.InputParameters.StochasticSoilModel);
+                return new DataGridViewComboBoxItemWrapper<StochasticSoilModel>(PipingCalculation.InputParameters.StochasticSoilModel);
             }
             set
             {
-                pipingCalculation.InputParameters.StochasticSoilModel = value != null
-                                                                            ? value.WrappedObject
-                                                                            : null;
-                ClearOutputAndNotifyPropertyChanged();
+                var valueToSet = value?.WrappedObject;
+                if (PipingCalculation.InputParameters.StochasticSoilModel != valueToSet)
+                {
+                    PipingCalculation.InputParameters.StochasticSoilModel = valueToSet;
+                    ClearOutputAndNotifyPropertyChanged();
+                }
             }
         }
 
@@ -106,15 +100,16 @@ namespace Ringtoets.Piping.Forms.Views
         {
             get
             {
-                return new DataGridViewComboBoxItemWrapper<StochasticSoilProfile>(pipingCalculation.InputParameters.StochasticSoilProfile);
+                return new DataGridViewComboBoxItemWrapper<StochasticSoilProfile>(PipingCalculation.InputParameters.StochasticSoilProfile);
             }
             set
             {
-                pipingCalculation.InputParameters.StochasticSoilProfile = value != null
-                                                                              ? value.WrappedObject
-                                                                              : null;
-
-                ClearOutputAndNotifyPropertyChanged();
+                var valueToSet = value?.WrappedObject;
+                if (PipingCalculation.InputParameters.StochasticSoilProfile != valueToSet)
+                {
+                    PipingCalculation.InputParameters.StochasticSoilProfile = valueToSet;
+                    ClearOutputAndNotifyPropertyChanged();
+                }
             }
         }
 
@@ -125,8 +120,8 @@ namespace Ringtoets.Piping.Forms.Views
         {
             get
             {
-                return pipingCalculation.InputParameters.StochasticSoilProfile != null
-                           ? new RoundedDouble(3, pipingCalculation.InputParameters.StochasticSoilProfile.Probability*100).Value.ToString(CultureInfo.CurrentCulture)
+                return PipingCalculation.InputParameters.StochasticSoilProfile != null
+                           ? new RoundedDouble(3, PipingCalculation.InputParameters.StochasticSoilProfile.Probability*100).Value.ToString(CultureInfo.CurrentCulture)
                            : new RoundedDouble(3).Value.ToString(CultureInfo.CurrentCulture);
             }
         }
@@ -138,24 +133,23 @@ namespace Ringtoets.Piping.Forms.Views
         {
             get
             {
-                if (pipingCalculation.InputParameters.HydraulicBoundaryLocation == null)
+                if (PipingCalculation.InputParameters.HydraulicBoundaryLocation == null)
                 {
                     return new DataGridViewComboBoxItemWrapper<SelectableHydraulicBoundaryLocation>(null);
                 }
 
                 return new DataGridViewComboBoxItemWrapper<SelectableHydraulicBoundaryLocation>(
-                    new SelectableHydraulicBoundaryLocation(pipingCalculation.InputParameters.HydraulicBoundaryLocation,
-                                                            pipingCalculation.InputParameters.SurfaceLine != null
-                                                                ? pipingCalculation.InputParameters.SurfaceLine.ReferenceLineIntersectionWorldPoint
-                                                                : null));
+                    new SelectableHydraulicBoundaryLocation(PipingCalculation.InputParameters.HydraulicBoundaryLocation,
+                                                            PipingCalculation.InputParameters.SurfaceLine?.ReferenceLineIntersectionWorldPoint));
             }
             set
             {
-                pipingCalculation.InputParameters.HydraulicBoundaryLocation = value == null || value.WrappedObject == null
-                                                                                  ? null
-                                                                                  : value.WrappedObject.HydraulicBoundaryLocation;
-
-                ClearOutputAndNotifyPropertyChanged();
+                var valueToSet = value?.WrappedObject?.HydraulicBoundaryLocation;
+                if (PipingCalculation.InputParameters.HydraulicBoundaryLocation != valueToSet)
+                {
+                    PipingCalculation.InputParameters.HydraulicBoundaryLocation = valueToSet;
+                    ClearOutputAndNotifyPropertyChanged();
+                }
             }
         }
 
@@ -166,13 +160,15 @@ namespace Ringtoets.Piping.Forms.Views
         {
             get
             {
-                return pipingCalculation.InputParameters.DampingFactorExit.Mean;
+                return PipingCalculation.InputParameters.DampingFactorExit.Mean;
             }
             set
             {
-                pipingCalculation.InputParameters.DampingFactorExit.Mean = value;
-
-                ClearOutputAndNotifyPropertyChanged();
+                if (!PipingCalculation.InputParameters.DampingFactorExit.Mean.Equals(value))
+                {
+                    PipingCalculation.InputParameters.DampingFactorExit.Mean = value;
+                    ClearOutputAndNotifyPropertyChanged();
+                }
             }
         }
 
@@ -183,13 +179,15 @@ namespace Ringtoets.Piping.Forms.Views
         {
             get
             {
-                return pipingCalculation.InputParameters.PhreaticLevelExit.Mean;
+                return PipingCalculation.InputParameters.PhreaticLevelExit.Mean;
             }
             set
             {
-                pipingCalculation.InputParameters.PhreaticLevelExit.Mean = value;
-
-                ClearOutputAndNotifyPropertyChanged();
+                if (!PipingCalculation.InputParameters.PhreaticLevelExit.Mean.Equals(value))
+                {
+                    PipingCalculation.InputParameters.PhreaticLevelExit.Mean = value;
+                    ClearOutputAndNotifyPropertyChanged();
+                }
             }
         }
 
@@ -200,13 +198,15 @@ namespace Ringtoets.Piping.Forms.Views
         {
             get
             {
-                return pipingCalculation.InputParameters.EntryPointL;
+                return PipingCalculation.InputParameters.EntryPointL;
             }
             set
             {
-                pipingCalculation.InputParameters.EntryPointL = value;
-
-                ClearOutputAndNotifyPropertyChanged();
+                if (!PipingCalculation.InputParameters.EntryPointL.Equals(value))
+                {
+                    PipingCalculation.InputParameters.EntryPointL = value;
+                    ClearOutputAndNotifyPropertyChanged();
+                }
             }
         }
 
@@ -217,23 +217,26 @@ namespace Ringtoets.Piping.Forms.Views
         {
             get
             {
-                return pipingCalculation.InputParameters.ExitPointL;
+                return PipingCalculation.InputParameters.ExitPointL;
             }
             set
             {
-                pipingCalculation.InputParameters.ExitPointL = value;
-                ClearOutputAndNotifyPropertyChanged();
+                if (!PipingCalculation.InputParameters.ExitPointL.Equals(value))
+                {
+                    PipingCalculation.InputParameters.ExitPointL = value;
+                    ClearOutputAndNotifyPropertyChanged();
+                }
             }
         }
 
         private void ClearOutputAndNotifyPropertyChanged()
         {
-            IEnumerable<IObservable> affectedCalculation = RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(pipingCalculation);
+            IEnumerable<IObservable> affectedCalculation = RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(PipingCalculation);
             foreach (var calculation in affectedCalculation)
             {
                 calculation.NotifyObservers();
             }
-            pipingCalculation.InputParameters.NotifyObservers();
+            PipingCalculation.InputParameters.NotifyObservers();
         }
     }
 }

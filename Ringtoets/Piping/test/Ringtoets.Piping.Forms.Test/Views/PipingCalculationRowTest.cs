@@ -33,7 +33,7 @@ using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.Forms.Views;
-using RingtoetsPipingDataResources = Ringtoets.Piping.Data.Properties.Resources;
+using Ringtoets.Piping.KernelWrapper.TestUtil;
 
 namespace Ringtoets.Piping.Forms.Test.Views
 {
@@ -115,146 +115,222 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void StochasticSoilModel_AlwaysOnChange_NotifyObserverAndCalculationPropertyChanged()
+        public void StochasticSoilModel_AlwaysOnChange_NotifyObserverCalculationPropertyChangedOutputCleared()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var observer = mockRepository.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mockRepository.ReplayAll();
-
             var newValue = new DataGridViewComboBoxItemWrapper<StochasticSoilModel>(new StochasticSoilModel(0, "test", "test"));
 
-            PipingCalculationScenario calculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
-            var row = new PipingCalculationRow(calculation);
+            // Call
+            AssertPropertyChangedOutputClearedObserverNotified(
+                row => row.StochasticSoilModel = newValue,
+                calculation =>
+                {
+                    // Assert
+                    Assert.AreEqual(newValue.WrappedObject, calculation.InputParameters.StochasticSoilModel);
+                });
+        }
 
-            calculation.InputParameters.Attach(observer);
+        [Test]
+        public void StochasticSoilModel_ChangeToEqualValue_NoNotificationsOutputNotCleared()
+        {
+            // Setup
+            DataGridViewComboBoxItemWrapper<StochasticSoilModel> oldValue = null;
 
             // Call
-            row.StochasticSoilModel = newValue;
-
-            // Assert
-            Assert.AreEqual(newValue.WrappedObject, calculation.InputParameters.StochasticSoilModel);
-            mockRepository.VerifyAll();
+            AssertPropertyNotChanged(
+                row =>
+                {
+                    oldValue = row.StochasticSoilModel;
+                    row.StochasticSoilModel = row.StochasticSoilModel;
+                },
+                calculation =>
+                {
+                    // Assert
+                    Assert.AreEqual(oldValue.WrappedObject, calculation.InputParameters.StochasticSoilModel);
+                });
         }
 
         [Test]
         public void StochasticSoilProfile_AlwaysOnChange_NotifyObserverAndCalculationPropertyChanged()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var observer = mockRepository.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mockRepository.ReplayAll();
-
             var newValue = new DataGridViewComboBoxItemWrapper<StochasticSoilProfile>(new StochasticSoilProfile(0, 0, 0));
 
-            PipingCalculationScenario calculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
-            var row = new PipingCalculationRow(calculation);
-            calculation.InputParameters.Attach(observer);
+            // Call
+            AssertPropertyChangedOutputClearedObserverNotified(
+                row => row.StochasticSoilProfile = newValue,
+                calculation =>
+                {
+                    // Assert
+                    Assert.AreEqual(newValue.WrappedObject, calculation.InputParameters.StochasticSoilProfile);
+                });
+        }
+
+        [Test]
+        public void StochasticSoilProfile_ChangeToEqualValue_NoNotificationsOutputNotCleared()
+        {
+            // Setup
+            DataGridViewComboBoxItemWrapper<StochasticSoilProfile> oldValue = null;
 
             // Call
-            row.StochasticSoilProfile = newValue;
-
-            // Assert
-            Assert.AreEqual(newValue.WrappedObject, calculation.InputParameters.StochasticSoilProfile);
-            mockRepository.VerifyAll();
+            AssertPropertyNotChanged(
+                row =>
+                {
+                    oldValue = row.StochasticSoilProfile;
+                    row.StochasticSoilProfile = row.StochasticSoilProfile;
+                },
+                calculation =>
+                {
+                    // Assert
+                    Assert.AreEqual(oldValue.WrappedObject, calculation.InputParameters.StochasticSoilProfile);
+                });
         }
 
         [Test]
         public void SelectableHydraulicBoundaryLocation_AlwaysOnChange_NotifyObserverAndCalculationPropertyChanged()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var observer = mockRepository.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mockRepository.ReplayAll();
-
-            var selectableHydraulicBoundaryLocation = new SelectableHydraulicBoundaryLocation(new TestHydraulicBoundaryLocation(), new Point2D(0, 0));
+            var testHydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+            var selectableHydraulicBoundaryLocation = new SelectableHydraulicBoundaryLocation(testHydraulicBoundaryLocation, new Point2D(0, 0));
             var newValue = new DataGridViewComboBoxItemWrapper<SelectableHydraulicBoundaryLocation>(selectableHydraulicBoundaryLocation);
 
-            PipingCalculationScenario calculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
-            var row = new PipingCalculationRow(calculation);
+            // Call
+            AssertPropertyChangedOutputClearedObserverNotified(
+                row => row.SelectableHydraulicBoundaryLocation = newValue, 
+                calculation =>
+                {
+                    // Assert
+                    Assert.AreSame(testHydraulicBoundaryLocation, calculation.InputParameters.HydraulicBoundaryLocation);
+                });
 
-            calculation.InputParameters.Attach(observer);
+        }
+
+        [Test]
+        public void SelectableHydraulicBoundaryLocation_ChangeToEqualValue_NoNotificationsOutputNotCleared()
+        {
+            // Setup
+            DataGridViewComboBoxItemWrapper<SelectableHydraulicBoundaryLocation> oldValue = null;
 
             // Call
-            row.SelectableHydraulicBoundaryLocation = newValue;
-
-            // Assert
-            Assert.AreSame(newValue.WrappedObject, selectableHydraulicBoundaryLocation);
-            mockRepository.VerifyAll();
+            AssertPropertyNotChanged(
+                row =>
+                {
+                    oldValue = row.SelectableHydraulicBoundaryLocation;
+                    row.SelectableHydraulicBoundaryLocation = row.SelectableHydraulicBoundaryLocation;
+                },
+                calculation =>
+                {
+                    // Assert
+                    Assert.AreEqual(oldValue.WrappedObject.HydraulicBoundaryLocation, calculation.InputParameters.HydraulicBoundaryLocation);
+                });
         }
 
         [Test]
         public void DampingFactorExitMean_AlwaysOnChange_NotifyObserverAndCalculationPropertyChanged()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var observer = mockRepository.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mockRepository.ReplayAll();
-
             var newValue = new Random().Next();
 
-            PipingCalculationScenario calculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
-            var row = new PipingCalculationRow(calculation);
-            calculation.InputParameters.Attach(observer);
+            // Call
+            AssertPropertyChangedOutputClearedObserverNotified(
+                row => row.DampingFactorExitMean = (RoundedDouble) newValue,
+                calculation =>
+                {
+                    // Assert
+                    Assert.AreEqual(new RoundedDouble(3, newValue), calculation.InputParameters.DampingFactorExit.Mean);
+                });
+        }
+
+        [Test]
+        public void DampingFactorExitMean_ChangeToEqualValue_NoNotificationsOutputNotCleared()
+        {
+            // Setup
+            var oldValue = RoundedDouble.NaN;
 
             // Call
-            row.DampingFactorExitMean = (RoundedDouble) newValue;
-
-            // Assert
-            Assert.AreEqual(new RoundedDouble(2, newValue), calculation.InputParameters.DampingFactorExit.Mean);
-            mockRepository.VerifyAll();
+            AssertPropertyNotChanged(
+                row =>
+                {
+                    oldValue = row.DampingFactorExitMean;
+                    row.DampingFactorExitMean = row.DampingFactorExitMean;
+                },
+                calculation =>
+                {
+                    // Assert
+                    Assert.AreEqual(oldValue, calculation.InputParameters.DampingFactorExit.Mean);
+                });
         }
 
         [Test]
         public void PhreaticLevelExitMean_AlwaysOnChange_NotifyObserverAndCalculationPropertyChanged()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var observer = mockRepository.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mockRepository.ReplayAll();
-
             var newValue = new Random().Next();
 
-            PipingCalculationScenario calculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
-            var row = new PipingCalculationRow(calculation);
+            // Call
+            AssertPropertyChangedOutputClearedObserverNotified(
+                row => row.PhreaticLevelExitMean = (RoundedDouble)newValue,
+                calculation =>
+                {
+                    // Assert
+                    Assert.AreEqual(new RoundedDouble(3, newValue), calculation.InputParameters.PhreaticLevelExit.Mean);
+                });
+        }
 
-            calculation.InputParameters.Attach(observer);
+        [Test]
+        public void PhreaticLevelExitMean_ChangeToEqualValue_NoNotificationsOutputNotCleared()
+        {
+            // Setup
+            var oldValue = RoundedDouble.NaN;
 
             // Call
-            row.PhreaticLevelExitMean = (RoundedDouble) newValue;
-
-            // Assert
-            Assert.AreEqual(new RoundedDouble(2, newValue), calculation.InputParameters.PhreaticLevelExit.Mean);
-            mockRepository.VerifyAll();
+            AssertPropertyNotChanged(
+                row =>
+                {
+                    oldValue = row.PhreaticLevelExitMean;
+                    row.PhreaticLevelExitMean = row.PhreaticLevelExitMean;
+                },
+                calculation =>
+                {
+                    // Assert
+                    Assert.AreEqual(oldValue, calculation.InputParameters.PhreaticLevelExit.Mean);
+                });
         }
 
         [Test]
         public void EntryPointL_OnValidChange_NotifyObserverAndCalculationPropertyChanged()
         {
             // Setup
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
-            var newValue = 0.1;
-
-            PipingCalculationScenario calculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
-            var row = new PipingCalculationRow(calculation);
-
-            calculation.InputParameters.Attach(observer);
+            const double newValue = 0.1;
 
             // Call
-            row.EntryPointL = (RoundedDouble) newValue;
+            AssertPropertyChangedOutputClearedObserverNotified(
+                row => row.EntryPointL = (RoundedDouble)newValue,
+                calculation =>
+                {
+                    // Assert
+                    Assert.AreEqual(new RoundedDouble(2, newValue), calculation.InputParameters.EntryPointL);
+                });
+        }
 
-            // Assert
-            Assert.AreEqual(new RoundedDouble(2, newValue), calculation.InputParameters.EntryPointL);
-            mocks.VerifyAll();
+        [Test]
+        public void EntryPointL_ChangeToEqualValue_NoNotificationsOutputNotCleared()
+        {
+            // Setup
+            var oldValue = RoundedDouble.NaN;
+
+            // Call
+            AssertPropertyNotChanged(
+                row =>
+                {
+                    oldValue = row.EntryPointL;
+                    row.EntryPointL = row.EntryPointL;
+                },
+                calculation =>
+                {
+                    // Assert
+                    Assert.AreEqual(oldValue, calculation.InputParameters.EntryPointL);
+                });
         }
 
         [Test]
@@ -262,71 +338,72 @@ namespace Ringtoets.Piping.Forms.Test.Views
         [TestCase(1.0)]
         public void EntryPointL_EntryPointNotBeforeExitPoint_ThrowsArgumentOutOfRangeExceptionDoesNotNotifyObservers(double newValue)
         {
-            // Setup
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            mocks.ReplayAll();
+            AssertPropertyNotChanged(
+                row =>
+                {
+                    // Call
+                    TestDelegate call = () => row.EntryPointL = (RoundedDouble)newValue;
 
-            PipingCalculationScenario calculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
-            var row = new PipingCalculationRow(calculation);
-
-            calculation.InputParameters.Attach(observer);
-
-            // Call
-            TestDelegate call = () => row.EntryPointL = (RoundedDouble) newValue;
-
-            // Assert
-            var expectedMessage = RingtoetsPipingDataResources.PipingInput_EntryPointL_greater_or_equal_to_ExitPointL;
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
-            mocks.VerifyAll(); // No observer notified
+                    // Assert
+                    var expectedMessage = "Het uittredepunt moet landwaarts van het intredepunt liggen.";
+                    TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
+                },
+                calculation => { });
         }
 
         [Test]
         public void EntryPointL_NotOnSurfaceLine_ThrowsArgumentOutOfRangeExceptionAndDoesNotNotifyObservers()
         {
             // Setup
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            mocks.ReplayAll();
+            const double newValue = -3.0;
 
-            PipingCalculationScenario calculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
-            var row = new PipingCalculationRow(calculation);
+            AssertPropertyNotChanged(
+                row =>
+                {
+                    // Call
+                    TestDelegate call = () => row.EntryPointL = (RoundedDouble)newValue;
 
-            calculation.InputParameters.Attach(observer);
-
-            var newValue = -3.0;
-
-            // Call
-            TestDelegate call = () => row.EntryPointL = (RoundedDouble) newValue;
-
-            // Assert
-            const string expectedMessage = "Het gespecificeerde punt moet op het profiel liggen (bereik [0, 1]).";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
-            mocks.VerifyAll(); // No observer notified
+                    // Assert
+                    const string expectedMessage = "Het gespecificeerde punt moet op het profiel liggen (bereik [0, 1]).";
+                    TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
+                },
+                calculation => { });
         }
 
         [Test]
         public void ExitPointL_OnValidChange_NotifyObserverAndCalculationPropertyChanged()
         {
             // Setup
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
-            var newValue = 0.3;
-
-            PipingCalculationScenario calculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
-            var row = new PipingCalculationRow(calculation);
-
-            calculation.InputParameters.Attach(observer);
+            const double newValue = 0.3;
 
             // Call
-            row.ExitPointL = (RoundedDouble) newValue;
+            AssertPropertyChangedOutputClearedObserverNotified(
+                row => row.ExitPointL = (RoundedDouble)newValue,
+                calculation =>
+                {
+                    // Assert
+                    Assert.AreEqual(new RoundedDouble(2, newValue), calculation.InputParameters.ExitPointL);
+                });
+        }
 
-            // Assert
-            Assert.AreEqual(new RoundedDouble(2, newValue), calculation.InputParameters.ExitPointL);
-            mocks.VerifyAll();
+        [Test]
+        public void ExitPointL_ChangeToEqualValue_NoNotificationsOutputNotCleared()
+        {
+            // Setup
+            var oldValue = RoundedDouble.NaN;
+
+            // Call
+            AssertPropertyNotChanged(
+                row =>
+                {
+                    oldValue = row.ExitPointL;
+                    row.ExitPointL = row.ExitPointL;
+                },
+                calculation =>
+                {
+                    // Assert
+                    Assert.AreEqual(oldValue, calculation.InputParameters.ExitPointL);
+                });
         }
 
         [Test]
@@ -334,47 +411,101 @@ namespace Ringtoets.Piping.Forms.Test.Views
         [TestCase(-0.2)]
         public void ExitPointL_ExitPointNotBeyondEntryPoint_ThrowsArgumentOutOfRangeExceptionDoesNotNotifyObservers(double newValue)
         {
-            // Setup
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            mocks.ReplayAll();
+            AssertPropertyNotChanged(
+                row =>
+                {
+                    // Call
+                    TestDelegate call = () => row.ExitPointL = (RoundedDouble)newValue;
 
-            PipingCalculationScenario calculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
-            var row = new PipingCalculationRow(calculation);
-
-            calculation.InputParameters.Attach(observer);
-
-            // Call
-            TestDelegate call = () => row.ExitPointL = (RoundedDouble) newValue;
-
-            // Assert
-            var expectedMessage = RingtoetsPipingDataResources.PipingInput_EntryPointL_greater_or_equal_to_ExitPointL;
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
-            mocks.VerifyAll(); // No observer notified
+                    // Assert
+                    var expectedMessage = "Het uittredepunt moet landwaarts van het intredepunt liggen.";
+                    TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
+                },
+                calculation => { });
         }
 
         [Test]
         public void ExitPointL_NotOnSurfaceLine_ThrowsArgumentOutOfRangeExceptionAndDoesNotNotifyObservers()
         {
             // Setup
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            mocks.ReplayAll();
+            const double newValue = 3.0;
+
+            AssertPropertyNotChanged(
+                row =>
+                {
+                    // Call
+                    TestDelegate call = () => row.ExitPointL = (RoundedDouble)newValue;
+
+                    // Assert
+                    const string expectedMessage = "Het gespecificeerde punt moet op het profiel liggen (bereik [0, 1]).";
+                    TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
+                },
+                calculation => { });
+        }
+
+        private static void AssertPropertyChangedOutputClearedObserverNotified(
+            Action<PipingCalculationRow> setProperty, 
+            Action<PipingCalculationScenario> assertions)
+        {
+            AssertPropertyChangeWithOrWithoutCalculationOutput(setProperty, assertions, true, true);
+            AssertPropertyChangeWithOrWithoutCalculationOutput(setProperty, assertions, false, true);
+        }
+
+        private static void AssertPropertyNotChanged(
+            Action<PipingCalculationRow> setProperty, 
+            Action<PipingCalculationScenario> assertions)
+        {
+            AssertPropertyChangeWithOrWithoutCalculationOutput(setProperty, assertions, true, false);
+            AssertPropertyChangeWithOrWithoutCalculationOutput(setProperty, assertions, false, false);
+        }
+
+        private static void AssertPropertyChangeWithOrWithoutCalculationOutput(
+            Action<PipingCalculationRow> setProperty,
+            Action<PipingCalculationScenario> assertions, 
+            bool hasOutput,
+            bool expectUpdates)
+        {
+            // Setup
+            var mockRepository = new MockRepository();
+            var inputObserver = mockRepository.StrictMock<IObserver>();
+            if (expectUpdates)
+            {
+                inputObserver.Expect(o => o.UpdateObserver());
+            }
+            var calculationObserver = mockRepository.StrictMock<IObserver>();
+            if (expectUpdates && hasOutput)
+            {
+                calculationObserver.Expect(o => o.UpdateObserver());
+            }
+            mockRepository.ReplayAll();
+
+            TestPipingOutput assignedOutput = null;
 
             PipingCalculationScenario calculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
+            if (hasOutput)
+            {
+                assignedOutput = new TestPipingOutput();
+            }
+            calculation.Output = assignedOutput;
+
             var row = new PipingCalculationRow(calculation);
-
-            calculation.InputParameters.Attach(observer);
-
-            var newValue = 3.0;
+            calculation.Attach(calculationObserver);
+            calculation.InputParameters.Attach(inputObserver);
 
             // Call
-            TestDelegate call = () => row.ExitPointL = (RoundedDouble) newValue;
+            setProperty(row);
 
             // Assert
-            const string expectedMessage = "Het gespecificeerde punt moet op het profiel liggen (bereik [0, 1]).";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
-            mocks.VerifyAll(); // No observer notified
+            assertions(calculation);
+            if (expectUpdates)
+            {
+                Assert.IsNull(calculation.Output);
+            }
+            else
+            {
+                Assert.AreSame(assignedOutput, calculation.Output);
+            }
+            mockRepository.VerifyAll();
         }
     }
 }
