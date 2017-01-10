@@ -27,11 +27,13 @@ using Application.Ringtoets.Storage.Read;
 using Application.Ringtoets.Storage.Serializers;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Integration.Data;
 
 namespace Application.Ringtoets.Storage.Test.Read
 {
@@ -957,6 +959,75 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.AreEqual(inputComments, section.StabilityPointStructures.InputComments.Body);
             Assert.AreEqual(outputComments, section.StabilityPointStructures.OutputComments.Body);
             Assert.AreEqual(notRelevantComments, section.StabilityPointStructures.NotRelevantComments.Body);
+        }
+
+        [Test]
+        public void Read_WithDuneErosionWithProperties_ReturnsDuneErosionWithProperties()
+        {
+            // Setup
+            AssessmentSectionEntity entity = CreateAssessmentSectionEntity();
+            const string inputComments = "Some input text";
+            const string outputComments = "Some output text";
+            const string notRelevantComments = "Really not relevant";
+            bool isRelevant = new Random().NextBoolean();
+
+            var failureMechanismEntity = new FailureMechanismEntity
+            {
+                FailureMechanismType = (int) FailureMechanismType.DuneErosion,
+                CalculationGroupEntity = new CalculationGroupEntity(),
+                IsRelevant = Convert.ToByte(isRelevant),
+                InputComments = inputComments,
+                OutputComments = outputComments,
+                NotRelevantComments = notRelevantComments,
+                DuneErosionFailureMechanismMetaEntities =
+                {
+                    new DuneErosionFailureMechanismMetaEntity
+                    {
+                        N = 3
+                    }
+                }
+            };
+            entity.FailureMechanismEntities.Add(failureMechanismEntity);
+
+            var collector = new ReadConversionCollector();
+
+            // Call
+            AssessmentSection section = entity.Read(collector);
+
+            // Assert
+            Assert.AreEqual(isRelevant, section.DuneErosion.IsRelevant);
+            Assert.AreEqual(inputComments, section.DuneErosion.InputComments.Body);
+            Assert.AreEqual(outputComments, section.DuneErosion.OutputComments.Body);
+            Assert.AreEqual(notRelevantComments, section.DuneErosion.NotRelevantComments.Body);
+        }
+
+        [Test]
+        public void Read_WithDuneErosionWithFailureMechanismSection_ReturnsDuneErosionWithFailureMechanismSections()
+        {
+            // Setup
+            var entity = CreateAssessmentSectionEntity();
+
+            var failureMechanismEntity = new FailureMechanismEntity
+            {
+                FailureMechanismType = (int) FailureMechanismType.DuneErosion,
+                FailureMechanismSectionEntities = CreateFailureMechanismSectionEntities(),
+                DuneErosionFailureMechanismMetaEntities =
+                {
+                    new DuneErosionFailureMechanismMetaEntity
+                    {
+                        N = 1
+                    }
+                }
+            };
+            entity.FailureMechanismEntities.Add(failureMechanismEntity);
+
+            var collector = new ReadConversionCollector();
+
+            // Call
+            AssessmentSection section = entity.Read(collector);
+
+            // Assert
+            Assert.AreEqual(2, section.DuneErosion.Sections.Count());
         }
 
         [Test]
