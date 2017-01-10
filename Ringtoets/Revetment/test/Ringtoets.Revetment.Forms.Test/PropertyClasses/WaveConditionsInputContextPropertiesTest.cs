@@ -82,17 +82,17 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
         {
             // Setup
             var random = new Random(21);
-            var assessmentLevel = (RoundedDouble)random.NextDouble();
-            var lowerBoundaryRevetment = (RoundedDouble)random.NextDouble();
-            var lowerBoundaryWaterLevels = (RoundedDouble)random.NextDouble();
-            var upperBoundaryRevetment = lowerBoundaryRevetment + (RoundedDouble)random.NextDouble();
-            var upperBoundaryWaterLevels = lowerBoundaryWaterLevels + (RoundedDouble)random.NextDouble();
+            var assessmentLevel = (RoundedDouble) random.NextDouble();
+            var lowerBoundaryRevetment = (RoundedDouble) random.NextDouble();
+            var lowerBoundaryWaterLevels = (RoundedDouble) random.NextDouble();
+            var upperBoundaryRevetment = lowerBoundaryRevetment + (RoundedDouble) random.NextDouble();
+            var upperBoundaryWaterLevels = lowerBoundaryWaterLevels + (RoundedDouble) random.NextDouble();
             var stepSize = WaveConditionsInputStepSize.Half;
 
-            var worldX = (RoundedDouble)random.NextDouble();
-            var worldY = (RoundedDouble)random.NextDouble();
-            var damHeight = (RoundedDouble)random.NextDouble();
-            var foreshoreProfileOrientation = (RoundedDouble)random.NextDouble();
+            var worldX = (RoundedDouble) random.NextDouble();
+            var worldY = (RoundedDouble) random.NextDouble();
+            var damHeight = (RoundedDouble) random.NextDouble();
+            var foreshoreProfileOrientation = (RoundedDouble) random.NextDouble();
 
             var foreshoreProfile = new ForeshoreProfile(
                 new Point2D(worldX, worldY),
@@ -170,9 +170,9 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
                 input.ForeshoreProfile = foreshoreProfile;
             }
             var inputContext = new TestWaveConditionsInputContext(input, new[]
-                                                                  {
-                                                                      foreshoreProfile
-                                                                  }, new HydraulicBoundaryLocation[0]);
+            {
+                foreshoreProfile
+            }, new HydraulicBoundaryLocation[0]);
 
             // Call
             var properties = new TestWaveConditionsInputContextProperties(inputContext);
@@ -180,9 +180,9 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             // Assert
             var dynamicPropertyBag = new DynamicPropertyBag(properties);
             PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties(new Attribute[]
-                                                                                              {
-                                                                                                  BrowsableAttribute.Yes
-                                                                                              });
+            {
+                BrowsableAttribute.Yes
+            });
             Assert.AreEqual(15, dynamicProperties.Count);
 
             var hydraulicParametersCategory = "Hydraulische gegevens";
@@ -304,7 +304,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
         public void SelectedHydraulicBoundaryLocation_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput(bool hasOutput)
         {
             SetPropertyAndVerifyNotifcationsAndOutput(hasOutput, properties => properties.SelectedHydraulicBoundaryLocation = new SelectableHydraulicBoundaryLocation(
-                new TestHydraulicBoundaryLocation(), new Point2D(0, 0)));
+                                                                                                                                  new TestHydraulicBoundaryLocation(), new Point2D(0, 0)));
         }
 
         [Test]
@@ -402,10 +402,106 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
         }
 
         [Test]
+        public void GetSelectableLocations_InputWithLocationsDikeProfile_CalculatesDistanceWithCorrectReferencePoint()
+        {
+            // Setup
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "A", 200643.312, 503347.25);
+            var locations = new List<HydraulicBoundaryLocation>
+            {
+                hydraulicBoundaryLocation
+            };
+
+            var input = new WaveConditionsInput
+            {
+                ForeshoreProfile = new TestForeshoreProfile(new Point2D(200620.173572981, 503401.652985217))
+            };
+            var inputContext = new TestWaveConditionsInputContext(input, new ForeshoreProfile[0], locations);
+
+            var properties = new TestWaveConditionsInputContextProperties(inputContext);
+
+            var distanceToPropertiesStructureLocation =
+                new RoundedDouble(0, hydraulicBoundaryLocation.Location.GetEuclideanDistanceTo(properties.WorldReferencePoint));
+            var distanceToForeshoreProfileReferencePoint =
+                new RoundedDouble(0, hydraulicBoundaryLocation.Location.GetEuclideanDistanceTo(input.ForeshoreProfile.WorldReferencePoint));
+
+            // Pre-condition
+            Assert.AreNotEqual(distanceToPropertiesStructureLocation, distanceToForeshoreProfileReferencePoint);
+
+            // Call 
+            IEnumerable<SelectableHydraulicBoundaryLocation> availableHydraulicBoundaryLocations =
+                properties.GetSelectableHydraulicBoundaryLocations();
+
+            // Assert
+            var hydraulicBoundaryLocationItem = availableHydraulicBoundaryLocations.ToArray()[0];
+            RoundedDouble itemDistance = hydraulicBoundaryLocationItem.Distance;
+            Assert.AreEqual(distanceToForeshoreProfileReferencePoint, itemDistance, itemDistance.GetAccuracy());
+        }
+
+        [Test]
+        public void SelectedLocation_InputWithLocationsDikeProfile_CalculatesDistanceWithCorrectReferencePoint()
+        {
+            // Setup
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "A", 200643.312, 503347.25);
+            var input = new WaveConditionsInput
+            {
+                HydraulicBoundaryLocation = hydraulicBoundaryLocation,
+                ForeshoreProfile = new TestForeshoreProfile(new Point2D(200620.173572981, 503401.652985217))
+            };
+            var inputContext = new TestWaveConditionsInputContext(input, new ForeshoreProfile[0], new HydraulicBoundaryLocation[0]);
+            var properties = new TestWaveConditionsInputContextProperties(inputContext);
+
+            var distanceToPropertiesWorldReferenceLocation =
+                new RoundedDouble(0, hydraulicBoundaryLocation.Location.GetEuclideanDistanceTo(properties.WorldReferencePoint));
+            var distanceToForeshoreProfileWorldReferencePoint =
+                new RoundedDouble(0, hydraulicBoundaryLocation.Location.GetEuclideanDistanceTo(input.ForeshoreProfile.WorldReferencePoint));
+
+            // Pre-condition
+            Assert.AreNotEqual(distanceToPropertiesWorldReferenceLocation, distanceToForeshoreProfileWorldReferencePoint);
+
+            // Call 
+            var selectedHydraulicBoundaryLocation = properties.SelectedHydraulicBoundaryLocation;
+
+            // Assert
+            RoundedDouble selectedLocationDistance = selectedHydraulicBoundaryLocation.Distance;
+            Assert.AreEqual(distanceToForeshoreProfileWorldReferencePoint, selectedLocationDistance, selectedLocationDistance.GetAccuracy());
+        }
+
+        [Test]
+        public void SelectedLocation_InputWithLocationsDikeProfile_HasSameDistanceAsSelectableBoundaryLocationsItem()
+        {
+            // Setup
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "A", 200643.312, 503347.25);
+            var locations = new List<HydraulicBoundaryLocation>
+            {
+                hydraulicBoundaryLocation
+            };
+
+            var input = new WaveConditionsInput
+            {
+                HydraulicBoundaryLocation = hydraulicBoundaryLocation,
+                ForeshoreProfile = new TestForeshoreProfile(new Point2D(200620.173572981, 503401.652985217))
+            };
+            var inputContext = new TestWaveConditionsInputContext(input, new ForeshoreProfile[0], locations);
+
+            var properties = new TestWaveConditionsInputContextProperties(inputContext);
+
+            // Call
+            IEnumerable<SelectableHydraulicBoundaryLocation> availableHydraulicBoundaryLocations =
+                properties.GetSelectableHydraulicBoundaryLocations();
+            SelectableHydraulicBoundaryLocation selectedLocation = properties.SelectedHydraulicBoundaryLocation;
+
+            // Assert
+            var hydraulicBoundaryLocationItem = availableHydraulicBoundaryLocations.ToArray()[0];
+
+            Assert.AreEqual(selectedLocation.Distance, hydraulicBoundaryLocationItem.Distance,
+                            hydraulicBoundaryLocationItem.Distance.GetAccuracy());
+        }
+
+        [Test]
         public void GetSelectableHydraulicBoundaryLocations_InputWithLocationsNoReferencePoint_ReturnsLocationsSortedById()
         {
             // Setup
-            var locations = new List<HydraulicBoundaryLocation>()
+            var locations = new List<HydraulicBoundaryLocation>
             {
                 new HydraulicBoundaryLocation(1, "A", 0, 1),
                 new HydraulicBoundaryLocation(4, "C", 0, 2),
@@ -432,7 +528,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
         public void GetSelectableHydraulicBoundaryLocations_InputWithLocationsAndReferencePoint_ReturnsLocationsSortedByDistanceThenById()
         {
             // Setup
-            var locations = new List<HydraulicBoundaryLocation>()
+            var locations = new List<HydraulicBoundaryLocation>
             {
                 new HydraulicBoundaryLocation(1, "A", 0, 10),
                 new HydraulicBoundaryLocation(4, "E", 0, 500),
@@ -442,7 +538,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
                 new HydraulicBoundaryLocation(2, "B", 0, 200)
             };
 
-            var input = new WaveConditionsInput()
+            var input = new WaveConditionsInput
             {
                 ForeshoreProfile = new TestForeshoreProfile(string.Empty)
             };
@@ -465,7 +561,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
         public void GivenLocationAndReferencePoint_WhenUpdatingForeshoreProfile_ThenUpdateSelectableBoundaryLocations()
         {
             // Given
-            var locations = new List<HydraulicBoundaryLocation>()
+            var locations = new List<HydraulicBoundaryLocation>
             {
                 new HydraulicBoundaryLocation(1, "A", 0, 10),
                 new HydraulicBoundaryLocation(3, "E", 0, 500),
@@ -475,7 +571,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
                 new HydraulicBoundaryLocation(2, "B", 0, 200)
             };
 
-            var input = new WaveConditionsInput()
+            var input = new WaveConditionsInput
             {
                 ForeshoreProfile = new TestForeshoreProfile(string.Empty)
             };
@@ -496,8 +592,8 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
 
             IEnumerable<SelectableHydraulicBoundaryLocation> expectedList =
                 locations.Select(hbl =>
-                                     new SelectableHydraulicBoundaryLocation(hbl,
-                                                                             properties.ForeshoreProfile.WorldReferencePoint))
+                                 new SelectableHydraulicBoundaryLocation(hbl,
+                                                                         properties.ForeshoreProfile.WorldReferencePoint))
                          .OrderBy(hbl => hbl.Distance)
                          .ThenBy(hbl => hbl.HydraulicBoundaryLocation.Id);
             CollectionAssert.AreEqual(expectedList, availableHydraulicBoundaryLocations);
@@ -507,7 +603,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
         public void GetAvailableForeshoreProfiles_InputWithLocations_ReturnsLocations()
         {
             // Setup
-            var locations = new List<ForeshoreProfile>()
+            var locations = new List<ForeshoreProfile>
             {
                 new TestForeshoreProfile()
             };

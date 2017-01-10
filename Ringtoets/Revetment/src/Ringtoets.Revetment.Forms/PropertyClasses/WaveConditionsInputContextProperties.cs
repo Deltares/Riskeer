@@ -300,9 +300,10 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
         {
             get
             {
+                Point2D referenceLocation = data.WrappedData.ForeshoreProfile?.WorldReferencePoint;
                 return data.WrappedData.HydraulicBoundaryLocation != null
                            ? new SelectableHydraulicBoundaryLocation(data.WrappedData.HydraulicBoundaryLocation,
-                                                                     WorldReferencePoint)
+                                                                     referenceLocation)
                            : null;
             }
             set
@@ -324,8 +325,9 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
 
         public IEnumerable<SelectableHydraulicBoundaryLocation> GetSelectableHydraulicBoundaryLocations()
         {
+            Point2D referenceLocation = data.WrappedData.ForeshoreProfile?.WorldReferencePoint;
             return SelectableHydraulicBoundaryLocationHelper.GetSortedSelectableHydraulicBoundaryLocations(
-                data.HydraulicBoundaryLocations, WorldReferencePoint);
+                data.HydraulicBoundaryLocations, referenceLocation);
         }
 
         private void ClearOutputAndNotifyPropertyChanged()

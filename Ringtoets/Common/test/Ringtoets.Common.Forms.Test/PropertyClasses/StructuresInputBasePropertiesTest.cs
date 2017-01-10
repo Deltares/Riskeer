@@ -314,7 +314,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             };
             mockRepository.ReplayAll();
 
-            var calculation = new StructuresCalculation<SimpleStructureInput>()
+            var calculation = new StructuresCalculation<SimpleStructureInput>
             {
                 InputParameters =
                 {
@@ -393,6 +393,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         [Test]
         public void SelectedLocation_InputWithLocationsDikeProfile_HasSameDistanceAsSelectableBoundaryLocationsItem()
         {
+            // Setup
             var failureMechanism = mockRepository.Stub<IFailureMechanism>();
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "A", 200643.312, 503347.25);
@@ -405,7 +406,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             };
             mockRepository.ReplayAll();
 
-            var calculation = new StructuresCalculation<SimpleStructureInput>()
+            var calculation = new StructuresCalculation<SimpleStructureInput>
             {
                 InputParameters =
                 {
@@ -498,7 +499,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             var failureMechanismStub = mockRepository.Stub<IFailureMechanism>();
             mockRepository.ReplayAll();
 
-            var calculation = new StructuresCalculation<SimpleStructureInput>()
+            var calculation = new StructuresCalculation<SimpleStructureInput>
             {
                 InputParameters =
                 {
@@ -549,7 +550,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             var failureMechanismStub = mockRepository.Stub<IFailureMechanism>();
             mockRepository.ReplayAll();
 
-            var calculation = new StructuresCalculation<SimpleStructureInput>()
+            var calculation = new StructuresCalculation<SimpleStructureInput>
             {
                 InputParameters =
                 {
