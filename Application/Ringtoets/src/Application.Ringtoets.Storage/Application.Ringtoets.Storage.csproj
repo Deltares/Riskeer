@@ -62,6 +62,9 @@
     </Compile>
     <Compile Include="Create\ClosingStructures\ClosingStructureCreateExtensions.cs" />
     <Compile Include="Create\ClosingStructures\GeneralClosingStructuresInputCreateExtensions.cs" />
+    <Compile Include="Create\DuneErosion\DuneLocationCreateExtensions.cs" />
+    <Compile Include="Create\DuneErosion\DuneLocationOutputCreateExtensions.cs" />
+    <Compile Include="Create\DuneErosion\GeneralDuneErosionInputCreateExtensions.cs" />
     <Compile Include="Create\ForeshoreProfileCreateExtensions.cs" />
     <Compile Include="Create\GrassCoverErosionInwards\DikeHeightAssessmentOutputCreateExtensions.cs" />
     <Compile Include="Create\GrassCoverErosionOutwards\GeneralGrassCoverErosionOutwardsInputCreateExtensions.cs" />

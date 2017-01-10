@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
 using Ringtoets.DuneErosion.Data;
 
@@ -42,7 +43,8 @@ namespace Application.Ringtoets.Storage.Create.DuneErosion
         {
             var entity = mechanism.Create(FailureMechanismType.DuneErosion, registry);
             AddEntitiesForSectionResults(mechanism.SectionResults, registry);
-
+            AddEntitiesForFailureMechanismMeta(mechanism.GeneralInput, entity);
+            AddEntitiesForDuneLocations(mechanism.DuneLocations.ToList(), entity, registry);
             return entity;
         }
 
@@ -55,6 +57,20 @@ namespace Application.Ringtoets.Storage.Create.DuneErosion
                 var sectionResultEntity = failureMechanismSectionResult.Create();
                 var section = registry.Get(failureMechanismSectionResult.Section);
                 section.DuneErosionSectionResultEntities.Add(sectionResultEntity);
+            }
+        }
+
+        private static void AddEntitiesForFailureMechanismMeta(GeneralDuneErosionInput generalInput, FailureMechanismEntity entity)
+        {
+            entity.DuneErosionFailureMechanismMetaEntities.Add(generalInput.Create());
+        }
+
+        private static void AddEntitiesForDuneLocations(IList<DuneLocation> locations, FailureMechanismEntity entity, PersistenceRegistry registry)
+        {
+            for (var i = 0; i < locations.Count; i++)
+            {
+                DuneLocation duneLocation = locations[i];
+                entity.DuneLocationEntities.Add(duneLocation.Create(registry, i));
             }
         }
     }

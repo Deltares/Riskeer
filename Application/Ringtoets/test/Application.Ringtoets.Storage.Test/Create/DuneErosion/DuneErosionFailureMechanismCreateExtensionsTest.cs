@@ -25,7 +25,9 @@ using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.Create.DuneErosion;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.TestUtil;
+using Core.Common.TestUtil;
 using NUnit.Framework;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.DuneErosion.Data;
 
 namespace Application.Ringtoets.Storage.Test.Create.DuneErosion
@@ -48,11 +50,10 @@ namespace Application.Ringtoets.Storage.Test.Create.DuneErosion
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void Create_WithCollectorAndPropertiesSet_ReturnsFailureMechanismEntityWithPropertiesSet(bool isRelevant)
+        public void Create_WithCollectorAndPropertiesSet_ReturnsFailureMechanismEntityWithPropertiesSet()
         {
             // Setup
+            bool isRelevant = new Random(21).NextBoolean();
             var failureMechanism = new DuneErosionFailureMechanism
             {
                 IsRelevant = isRelevant,
@@ -72,7 +73,7 @@ namespace Application.Ringtoets.Storage.Test.Create.DuneErosion
             var registry = new PersistenceRegistry();
 
             // Call
-            var entity = failureMechanism.Create(registry);
+            FailureMechanismEntity entity = failureMechanism.Create(registry);
 
             // Assert
             Assert.IsNotNull(entity);
@@ -81,6 +82,9 @@ namespace Application.Ringtoets.Storage.Test.Create.DuneErosion
             Assert.AreEqual(failureMechanism.InputComments.Body, entity.InputComments);
             Assert.AreEqual(failureMechanism.OutputComments.Body, entity.OutputComments);
             Assert.AreEqual(failureMechanism.NotRelevantComments.Body, entity.NotRelevantComments);
+
+            DuneErosionFailureMechanismMetaEntity metaEntity = entity.DuneErosionFailureMechanismMetaEntities.First();
+            Assert.AreEqual(failureMechanism.GeneralInput.N, metaEntity.N, failureMechanism.GeneralInput.N.GetAccuracy());
         }
 
         [Test]
