@@ -117,6 +117,7 @@
     <Compile Include="UITypeEditors\IHasStructureProperty.cs" />
     <Compile Include="PresentationObjects\SelectableHydraulicBoundaryLocation.cs" />
     <Compile Include="UITypeEditors\StructureEditor.cs" />
+    <Compile Include="Views\CalculatableRow.cs" />
     <Compile Include="Views\FailureMechanismView.cs">
       <SubType>UserControl</SubType>
     </Compile>
