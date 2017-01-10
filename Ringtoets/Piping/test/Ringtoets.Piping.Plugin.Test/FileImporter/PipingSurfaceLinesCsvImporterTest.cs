@@ -276,7 +276,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         }
 
         [Test]
-        public void Import_CancelOfImportWhenAddingDataToModel_ContinuesImportAndLogs()
+        public void Import_CancelOfImportDuringAddingDataToModel_CancelsImportAndLogs()
         {
             // Setup
             string validFilePath = Path.Combine(ioTestDataPath, "TwoValidSurfaceLines.csv");
@@ -295,7 +295,8 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var importer = new PipingSurfaceLinesCsvImporter(failureMechanism.SurfaceLines, referenceLine, validFilePath);
             importer.SetProgressChanged((description, step, steps) =>
             {
-                if (description.Contains("Geïmporteerde data toevoegen aan het toetsspoor."))
+                if (step < steps
+                    && description.Contains("Geïmporteerde data toevoegen aan het toetsspoor."))
                 {
                     importer.Cancel();
                 }
@@ -311,9 +312,9 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Action call = () => importResult = importer.Import();
 
             // Assert
-            TestHelper.AssertLogMessageIsGenerated(call, "Huidige actie was niet meer te annuleren en is daarom voortgezet.", 6);
-            Assert.IsTrue(importResult);
-            CollectionAssert.IsNotEmpty(failureMechanism.SurfaceLines);
+            TestHelper.AssertLogMessageIsGenerated(call, "Profielschematisaties importeren afgebroken. Geen data ingelezen.", 5);
+            Assert.IsFalse(importResult);
+            CollectionAssert.IsEmpty(failureMechanism.SurfaceLines);
         }
 
         [Test]
@@ -335,7 +336,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var failureMechanism = new PipingFailureMechanism();
 
             var importer = new PipingSurfaceLinesCsvImporter(failureMechanism.SurfaceLines, referenceLine, validFilePath);
-            importer.SetProgressChanged((description, step, steps) => importer.Cancel()); 
+            importer.SetProgressChanged((description, step, steps) => importer.Cancel());
 
             // Precondition
             CollectionAssert.IsEmpty(failureMechanism.SurfaceLines);
