@@ -218,9 +218,6 @@ Deze locatie met karakteristieke punten wordt overgeslagen.</value>
   <data name="PipingSoilProfilesImporter_CheckIfAllProfilesAreUsed_Start_checking_soil_profiles" xml:space="preserve">
     <value>Controleren van ondergrondschematisaties.</value>
   </data>
-  <data name="PipingSurfaceLinesCsvImporter_AddImportedDataToModel_Finished_adding_surface_lines" xml:space="preserve">
-    <value>Klaar met plaatsen van profielschematisaties in het toetsspoor.</value>
-  </data>
   <data name="PipingSurfaceLinesCsvImporter_AddImportedDataToModel_Start_adding_surface_lines" xml:space="preserve">
     <value>Begonnen met plaatsen van profielschematisaties in het toetsspoor.</value>
   </data>
