@@ -42,6 +42,7 @@ namespace Application.Ringtoets.Storage.DbContext
             ClosingStructuresFailureMechanismMetaEntities = new HashSet<ClosingStructuresFailureMechanismMetaEntity>();
             DikeProfileEntities = new HashSet<DikeProfileEntity>();
             DuneErosionFailureMechanismMetaEntities = new HashSet<DuneErosionFailureMechanismMetaEntity>();
+            DuneLocationEntities = new HashSet<DuneLocationEntity>();
             FailureMechanismSectionEntities = new HashSet<FailureMechanismSectionEntity>();
             ForeshoreProfileEntities = new HashSet<ForeshoreProfileEntity>();
             GrassCoverErosionInwardsFailureMechanismMetaEntities = new HashSet<GrassCoverErosionInwardsFailureMechanismMetaEntity>();
@@ -75,6 +76,8 @@ namespace Application.Ringtoets.Storage.DbContext
         public virtual ICollection<DikeProfileEntity> DikeProfileEntities { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DuneErosionFailureMechanismMetaEntity> DuneErosionFailureMechanismMetaEntities { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DuneLocationEntity> DuneLocationEntities { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<FailureMechanismSectionEntity> FailureMechanismSectionEntities { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -196,7 +196,7 @@
             <PropertyRef Name="DuneLocationEntityId" />
           </Key>
           <Property Name="DuneLocationEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="AssessmentSectionEntityId" Type="integer" Nullable="false" />
+          <Property Name="FailureMechanismEntityId" Type="integer" Nullable="false" />
           <Property Name="LocationId" Type="integer" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="260" Nullable="false" />
           <Property Name="LocationX" Type="real" />
@@ -1210,14 +1210,14 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_DuneLocationEntity_0_0">
-          <End Role="AssessmentSectionEntity" Type="Self.AssessmentSectionEntity" Multiplicity="1" />
+          <End Role="FailureMechanismEntity" Type="Self.FailureMechanismEntity" Multiplicity="1" />
           <End Role="DuneLocationEntity" Type="Self.DuneLocationEntity" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="AssessmentSectionEntity">
-              <PropertyRef Name="AssessmentSectionEntityId" />
+            <Principal Role="FailureMechanismEntity">
+              <PropertyRef Name="FailureMechanismEntityId" />
             </Principal>
             <Dependent Role="DuneLocationEntity">
-              <PropertyRef Name="AssessmentSectionEntityId" />
+              <PropertyRef Name="FailureMechanismEntityId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2225,7 +2225,7 @@
             <End Role="DuneErosionSectionResultEntity" EntitySet="DuneErosionSectionResultEntity" />
           </AssociationSet>
           <AssociationSet Name="FK_DuneLocationEntity_0_0" Association="Self.FK_DuneLocationEntity_0_0">
-            <End Role="AssessmentSectionEntity" EntitySet="AssessmentSectionEntity" />
+            <End Role="FailureMechanismEntity" EntitySet="FailureMechanismEntity" />
             <End Role="DuneLocationEntity" EntitySet="DuneLocationEntity" />
           </AssociationSet>
           <AssociationSet Name="FK_DuneLocationOutputEntity_0_0" Association="Self.FK_DuneLocationOutputEntity_0_0">
@@ -2596,10 +2596,6 @@
             <End Role="ProjectEntity" EntitySet="ProjectEntities" />
             <End Role="AssessmentSectionEntity" EntitySet="AssessmentSectionEntities" />
           </AssociationSet>
-          <AssociationSet Name="FK_DuneLocationEntity_0_0" Association="RingtoetsEntitiesModel.FK_DuneLocationEntity_0_0">
-            <End Role="AssessmentSectionEntity" EntitySet="AssessmentSectionEntities" />
-            <End Role="DuneLocationEntity" EntitySet="DuneLocationEntities" />
-          </AssociationSet>
           <AssociationSet Name="FK_FailureMechanismEntity_1_0" Association="RingtoetsEntitiesModel.FK_FailureMechanismEntity_1_0">
             <End Role="AssessmentSectionEntity" EntitySet="AssessmentSectionEntities" />
             <End Role="FailureMechanismEntity" EntitySet="FailureMechanismEntities" />
@@ -2699,6 +2695,10 @@
           <AssociationSet Name="FK_DuneErosionSectionResultEntity_0_0" Association="RingtoetsEntitiesModel.FK_DuneErosionSectionResultEntity_0_0">
             <End Role="FailureMechanismSectionEntity" EntitySet="FailureMechanismSectionEntities" />
             <End Role="DuneErosionSectionResultEntity" EntitySet="DuneErosionSectionResultEntities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DuneLocationEntity_0_0" Association="RingtoetsEntitiesModel.FK_DuneLocationEntity_0_0">
+            <End Role="FailureMechanismEntity" EntitySet="FailureMechanismEntities" />
+            <End Role="DuneLocationEntity" EntitySet="DuneLocationEntities" />
           </AssociationSet>
           <AssociationSet Name="FK_DuneLocationOutputEntity_0_0" Association="RingtoetsEntitiesModel.FK_DuneLocationOutputEntity_0_0">
             <End Role="DuneLocationEntity" EntitySet="DuneLocationEntities" />
@@ -2965,7 +2965,6 @@
           <Property Name="ReferenceLinePointXml" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="Order" Type="Int32" Nullable="false" />
           <NavigationProperty Name="ProjectEntity" Relationship="RingtoetsEntitiesModel.FK_AssessmentSectionEntity_0_0" FromRole="AssessmentSectionEntity" ToRole="ProjectEntity" />
-          <NavigationProperty Name="DuneLocationEntities" Relationship="RingtoetsEntitiesModel.FK_DuneLocationEntity_0_0" FromRole="AssessmentSectionEntity" ToRole="DuneLocationEntity" />
           <NavigationProperty Name="FailureMechanismEntities" Relationship="RingtoetsEntitiesModel.FK_FailureMechanismEntity_1_0" FromRole="AssessmentSectionEntity" ToRole="FailureMechanismEntity" />
           <NavigationProperty Name="HydraulicLocationEntities" Relationship="RingtoetsEntitiesModel.FK_HydraulicLocationEntity_0_0" FromRole="AssessmentSectionEntity" ToRole="HydraulicLocationEntity" />
         </EntityType>
@@ -3172,7 +3171,7 @@
             <PropertyRef Name="DuneLocationEntityId" />
           </Key>
           <Property Name="DuneLocationEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="AssessmentSectionEntityId" Type="Int64" Nullable="false" />
+          <Property Name="FailureMechanismEntityId" Type="Int64" Nullable="false" />
           <Property Name="LocationId" Type="Int64" Nullable="false" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="260" FixedLength="false" Unicode="false" />
           <Property Name="LocationX" Type="Double" />
@@ -3182,7 +3181,7 @@
           <Property Name="Orientation" Type="Double" />
           <Property Name="D50" Type="Double" />
           <Property Name="Order" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="AssessmentSectionEntity" Relationship="RingtoetsEntitiesModel.FK_DuneLocationEntity_0_0" FromRole="DuneLocationEntity" ToRole="AssessmentSectionEntity" />
+          <NavigationProperty Name="FailureMechanismEntity" Relationship="RingtoetsEntitiesModel.FK_DuneLocationEntity_0_0" FromRole="DuneLocationEntity" ToRole="FailureMechanismEntity" />
           <NavigationProperty Name="DuneLocationOutputEntities" Relationship="RingtoetsEntitiesModel.FK_DuneLocationOutputEntity_0_0" FromRole="DuneLocationEntity" ToRole="DuneLocationOutputEntity" />
         </EntityType>
         <EntityType Name="DuneLocationOutputEntity">
@@ -3219,6 +3218,7 @@
           <NavigationProperty Name="ClosingStructuresFailureMechanismMetaEntities" Relationship="RingtoetsEntitiesModel.FK_ClosingStructuresFailureMechanismMetaEntity_0_0" FromRole="FailureMechanismEntity" ToRole="ClosingStructuresFailureMechanismMetaEntity" />
           <NavigationProperty Name="DikeProfileEntities" Relationship="RingtoetsEntitiesModel.FK_DikeProfileEntity_0_0" FromRole="FailureMechanismEntity" ToRole="DikeProfileEntity" />
           <NavigationProperty Name="DuneErosionFailureMechanismMetaEntities" Relationship="RingtoetsEntitiesModel.FK_DuneErosionFailureMechanismMetaEntity_0_0" FromRole="FailureMechanismEntity" ToRole="DuneErosionFailureMechanismMetaEntity" />
+          <NavigationProperty Name="DuneLocationEntities" Relationship="RingtoetsEntitiesModel.FK_DuneLocationEntity_0_0" FromRole="FailureMechanismEntity" ToRole="DuneLocationEntity" />
           <NavigationProperty Name="FailureMechanismSectionEntities" Relationship="RingtoetsEntitiesModel.FK_FailureMechanismSectionEntity_0_0" FromRole="FailureMechanismEntity" ToRole="FailureMechanismSectionEntity" />
           <NavigationProperty Name="ForeshoreProfileEntities" Relationship="RingtoetsEntitiesModel.FK_ForeshoreProfileEntity_0_0" FromRole="FailureMechanismEntity" ToRole="ForeshoreProfileEntity" />
           <NavigationProperty Name="GrassCoverErosionInwardsFailureMechanismMetaEntities" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionInwardsFailureMechanismMetaEntity_0_0" FromRole="FailureMechanismEntity" ToRole="GrassCoverErosionInwardsFailureMechanismMetaEntity" />
@@ -4163,18 +4163,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_DuneLocationEntity_0_0">
-          <End Type="RingtoetsEntitiesModel.AssessmentSectionEntity" Role="AssessmentSectionEntity" Multiplicity="1" />
-          <End Type="RingtoetsEntitiesModel.DuneLocationEntity" Role="DuneLocationEntity" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AssessmentSectionEntity">
-              <PropertyRef Name="AssessmentSectionEntityId" />
-            </Principal>
-            <Dependent Role="DuneLocationEntity">
-              <PropertyRef Name="AssessmentSectionEntityId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_FailureMechanismEntity_1_0">
           <End Type="RingtoetsEntitiesModel.AssessmentSectionEntity" Role="AssessmentSectionEntity" Multiplicity="1" />
           <End Type="RingtoetsEntitiesModel.FailureMechanismEntity" Role="FailureMechanismEntity" Multiplicity="*" />
@@ -4472,6 +4460,18 @@
             </Principal>
             <Dependent Role="DuneErosionSectionResultEntity">
               <PropertyRef Name="FailureMechanismSectionEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DuneLocationEntity_0_0">
+          <End Type="RingtoetsEntitiesModel.FailureMechanismEntity" Role="FailureMechanismEntity" Multiplicity="1" />
+          <End Type="RingtoetsEntitiesModel.DuneLocationEntity" Role="DuneLocationEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FailureMechanismEntity">
+              <PropertyRef Name="FailureMechanismEntityId" />
+            </Principal>
+            <Dependent Role="DuneLocationEntity">
+              <PropertyRef Name="FailureMechanismEntityId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -5434,7 +5434,7 @@
                 <ScalarProperty Name="LocationX" ColumnName="LocationX" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="LocationId" ColumnName="LocationId" />
-                <ScalarProperty Name="AssessmentSectionEntityId" ColumnName="AssessmentSectionEntityId" />
+                <ScalarProperty Name="FailureMechanismEntityId" ColumnName="FailureMechanismEntityId" />
                 <ScalarProperty Name="DuneLocationEntityId" ColumnName="DuneLocationEntityId" />
               </MappingFragment>
             </EntityTypeMapping>

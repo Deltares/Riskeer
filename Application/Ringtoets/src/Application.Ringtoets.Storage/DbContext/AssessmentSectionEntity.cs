@@ -38,7 +38,6 @@ namespace Application.Ringtoets.Storage.DbContext
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public AssessmentSectionEntity()
         {
-            DuneLocationEntities = new HashSet<DuneLocationEntity>();
             FailureMechanismEntities = new HashSet<FailureMechanismEntity>();
             HydraulicLocationEntities = new HashSet<HydraulicLocationEntity>();
         }
@@ -56,8 +55,6 @@ namespace Application.Ringtoets.Storage.DbContext
         public int Order { get; set; }
     
         public virtual ProjectEntity ProjectEntity { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DuneLocationEntity> DuneLocationEntities { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<FailureMechanismEntity> FailureMechanismEntities { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
