@@ -88,7 +88,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
                                 locations[i].Output.WaveHeight.GetAccuracy());
                 Assert.AreEqual(locations[i].Output.WavePeriod, (double) features[i].MetaData["Rekenwaarde Tp"],
                                 locations[i].Output.WavePeriod.GetAccuracy());
-                Assert.AreEqual(locations[i].D50, (RoundedDouble) features[i].MetaData["Rekenwaarde D50"],
+                Assert.AreEqual(locations[i].D50, (RoundedDouble) features[i].MetaData["Rekenwaarde d50"],
                                 locations[i].D50.GetAccuracy());
                 Assert.AreEqual(8, features[i].MetaData.Keys.Count);
             }
@@ -121,7 +121,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
                 Assert.AreEqual(double.NaN, features[i].MetaData["Rekenwaarde waterstand"]);
                 Assert.AreEqual(double.NaN, features[i].MetaData["Rekenwaarde Hs"]);
                 Assert.AreEqual(double.NaN, features[i].MetaData["Rekenwaarde Tp"]);
-                Assert.AreEqual(locations[i].D50, (RoundedDouble) features[i].MetaData["Rekenwaarde D50"],
+                Assert.AreEqual(locations[i].D50, (RoundedDouble) features[i].MetaData["Rekenwaarde d50"],
                                 locations[i].D50.GetAccuracy());
                 Assert.AreEqual(8, features[i].MetaData.Keys.Count);
             }

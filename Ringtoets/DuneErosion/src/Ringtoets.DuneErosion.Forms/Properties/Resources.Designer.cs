@@ -208,7 +208,7 @@ namespace Ringtoets.DuneErosion.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Rekenwaarde D50.
+        ///   Looks up a localized string similar to Rekenwaarde d50.
         /// </summary>
         internal static string MetaData_D50 {
             get {
