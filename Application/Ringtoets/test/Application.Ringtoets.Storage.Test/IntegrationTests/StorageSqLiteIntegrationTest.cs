@@ -543,12 +543,13 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             CollectionAssert.AreEqual(expectedReferenceLine.Points, actualReferenceLine.Points);
         }
 
-        private static void AssertStochasticSoilModels(ObservableList<StochasticSoilModel> expectedModels,
-                                                       ObservableList<StochasticSoilModel> actualModels)
+        private static void AssertStochasticSoilModels(StochasticSoilModelCollection expectedModels,
+                                                       StochasticSoilModelCollection actualModels)
         {
             // Precondition:
             Assert.Less(0, actualModels.Count);
 
+            Assert.AreEqual(expectedModels.SourcePath, actualModels.SourcePath);
             Assert.AreEqual(expectedModels.Count, actualModels.Count);
 
             for (int i = 0; i < expectedModels.Count; i++)

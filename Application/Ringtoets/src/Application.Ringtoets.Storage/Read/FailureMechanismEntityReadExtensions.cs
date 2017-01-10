@@ -104,22 +104,21 @@ namespace Application.Ringtoets.Storage.Read
         {
             if (failureMechanism == null)
             {
-                throw new ArgumentNullException("failureMechanism");
+                throw new ArgumentNullException(nameof(failureMechanism));
             }
             if (collector == null)
             {
-                throw new ArgumentNullException("collector");
+                throw new ArgumentNullException(nameof(collector));
             }
 
             entity.ReadCommonFailureMechanismProperties(failureMechanism, collector);
 
-            if (entity.PipingFailureMechanismMetaEntities.Count > 0)
-            {
-                ReadProbabilityAssessmentInput(entity.PipingFailureMechanismMetaEntities, failureMechanism.PipingProbabilityAssessmentInput);
-                ReadGeneralPipingInput(entity.PipingFailureMechanismMetaEntities, failureMechanism.GeneralInput);
-            }
+            PipingFailureMechanismMetaEntity metaEntity = entity.PipingFailureMechanismMetaEntities.Single();
+            metaEntity.ReadProbabilityAssessmentInput(failureMechanism.PipingProbabilityAssessmentInput);
+            metaEntity.ReadGeneralPipingInput(failureMechanism.GeneralInput);
+            metaEntity.ReadStochasticSoilModelCollectionSourcePath(failureMechanism.StochasticSoilModels);
 
-            foreach (var stochasticSoilModelEntity in entity.StochasticSoilModelEntities.OrderBy(ssm => ssm.Order))
+            foreach (StochasticSoilModelEntity stochasticSoilModelEntity in entity.StochasticSoilModelEntities.OrderBy(ssm => ssm.Order))
             {
                 failureMechanism.StochasticSoilModels.Add(stochasticSoilModelEntity.Read(collector));
             }
@@ -133,22 +132,6 @@ namespace Application.Ringtoets.Storage.Read
 
             ReadPipingRootCalculationGroup(entity.CalculationGroupEntity, failureMechanism.CalculationsGroup,
                                            failureMechanism.GeneralInput, collector);
-        }
-
-        private static void ReadGeneralPipingInput(ICollection<PipingFailureMechanismMetaEntity> pipingFailureMechanismMetaEntities,
-                                                   GeneralPipingInput generalPipingInput)
-        {
-            GeneralPipingInput generalInput = pipingFailureMechanismMetaEntities.ElementAt(0).ReadGeneralPipingInput();
-
-            generalPipingInput.WaterVolumetricWeight = generalInput.WaterVolumetricWeight;
-        }
-
-        private static void ReadProbabilityAssessmentInput(ICollection<PipingFailureMechanismMetaEntity> pipingFailureMechanismMetaEntities,
-                                                           PipingProbabilityAssessmentInput pipingProbabilityAssessmentInput)
-        {
-            PipingProbabilityAssessmentInput probabilityAssessmentInput = pipingFailureMechanismMetaEntities.ElementAt(0).ReadPipingProbabilityAssessmentInput();
-
-            pipingProbabilityAssessmentInput.A = probabilityAssessmentInput.A;
         }
 
         private static void ReadPipingMechanismSectionResults(this FailureMechanismEntity entity,

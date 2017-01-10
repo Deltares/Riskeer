@@ -98,6 +98,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             var failureMechanismMetaEntity = entity.PipingFailureMechanismMetaEntities.ToArray()[0];
             Assert.AreEqual(failureMechanism.PipingProbabilityAssessmentInput.A, failureMechanismMetaEntity.A);
             Assert.AreEqual(failureMechanism.GeneralInput.WaterVolumetricWeight.Value, failureMechanismMetaEntity.WaterVolumetricWeight);
+            Assert.IsNull(failureMechanismMetaEntity.StochasticSoilModelSourcePath);
         }
 
         [Test]
@@ -148,6 +149,10 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             var failureMechanism = new PipingFailureMechanism();
             failureMechanism.StochasticSoilModels.Add(new StochasticSoilModel(-1, "name", "segmentName"));
             failureMechanism.StochasticSoilModels.Add(new StochasticSoilModel(-1, "name2", "segmentName2"));
+
+            string somePath = "some/path/to/file";
+            failureMechanism.StochasticSoilModels.SourcePath = somePath;
+
             var registry = new PersistenceRegistry();
 
             // Call
@@ -156,6 +161,8 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             // Assert
             Assert.IsNotNull(entity);
             Assert.AreEqual(2, entity.StochasticSoilModelEntities.Count);
+            Assert.AreEqual(1, entity.PipingFailureMechanismMetaEntities.Count);
+            Assert.AreEqual(somePath, entity.PipingFailureMechanismMetaEntities.First().StochasticSoilModelSourcePath);
         }
 
         [Test]

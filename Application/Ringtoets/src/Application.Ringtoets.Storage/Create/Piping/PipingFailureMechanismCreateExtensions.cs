@@ -70,7 +70,8 @@ namespace Application.Ringtoets.Storage.Create.Piping
             var metaEntity = new PipingFailureMechanismMetaEntity
             {
                 A = mechanism.PipingProbabilityAssessmentInput.A,
-                WaterVolumetricWeight = mechanism.GeneralInput.WaterVolumetricWeight
+                WaterVolumetricWeight = mechanism.GeneralInput.WaterVolumetricWeight,
+                StochasticSoilModelSourcePath = mechanism.StochasticSoilModels.SourcePath
             };
 
             entity.PipingFailureMechanismMetaEntities.Add(metaEntity);

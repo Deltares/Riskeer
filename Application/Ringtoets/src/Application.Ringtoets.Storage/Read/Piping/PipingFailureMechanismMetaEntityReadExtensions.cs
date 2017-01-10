@@ -32,29 +32,49 @@ namespace Application.Ringtoets.Storage.Read.Piping
     internal static class PipingFailureMechanismMetaEntityReadExtensions
     {
         /// <summary>
-        /// Read the <see cref="PipingFailureMechanismMetaEntity"/> and use the information to construct a <see cref="PipingProbabilityAssessmentInput"/>.
+        /// Read the <see cref="PipingFailureMechanismMetaEntity"/> and use the information to set 
+        /// <see cref="PipingProbabilityAssessmentInput.A"/>.
         /// </summary>
-        /// <param name="entity">The <see cref="PipingFailureMechanismMetaEntity"/> to create <see cref="PipingProbabilityAssessmentInput"/> for.</param>
-        /// <returns>A new <see cref="PipingProbabilityAssessmentInput"/>.</returns>
-        internal static PipingProbabilityAssessmentInput ReadPipingProbabilityAssessmentInput(this PipingFailureMechanismMetaEntity entity)
+        /// <param name="entity">The <see cref="PipingFailureMechanismMetaEntity"/> to obtain value for A from.</param>
+        /// <param name="input">The <see cref="PipingProbabilityAssessmentInput"/> to set the 
+        /// <see cref="PipingProbabilityAssessmentInput.A"/> for.</param>
+        internal static PipingProbabilityAssessmentInput ReadProbabilityAssessmentInput(
+            this PipingFailureMechanismMetaEntity entity, 
+            PipingProbabilityAssessmentInput input)
         {
-            return new PipingProbabilityAssessmentInput
-            {
-                A = entity.A,
-            };
+            input.A = entity.A;
+            return input;
         }
 
         /// <summary>
-        /// Read the <see cref="PipingFailureMechanismMetaEntity"/> and use the information to construct a <see cref="GeneralPipingInput"/>.
+        /// Read the <see cref="PipingFailureMechanismMetaEntity"/> and use the information to set
+        /// <see cref="GeneralPipingInput.WaterVolumetricWeight"/>.
         /// </summary>
-        /// <param name="entity">The <see cref="PipingFailureMechanismMetaEntity"/> to create <see cref="GeneralPipingInput"/> for.</param>
-        /// <returns>A new <see cref="GeneralPipingInput"/>.</returns>
-        internal static GeneralPipingInput ReadGeneralPipingInput(this PipingFailureMechanismMetaEntity entity)
+        /// <param name="entity">The <see cref="PipingFailureMechanismMetaEntity"/> to obtain value for
+        /// WaterVolumetricWeight from.</param>
+        /// <param name="input">The <see cref="GeneralPipingInput"/> to set the 
+        /// <see cref="GeneralPipingInput.WaterVolumetricWeight"/> for.</param>
+        internal static GeneralPipingInput ReadGeneralPipingInput(
+            this PipingFailureMechanismMetaEntity entity, 
+            GeneralPipingInput input)
         {
-            return new GeneralPipingInput
-            {
-                WaterVolumetricWeight = (RoundedDouble) entity.WaterVolumetricWeight
-            };
+            input.WaterVolumetricWeight = (RoundedDouble) entity.WaterVolumetricWeight;
+            return input;
+        }
+
+        /// <summary>
+        /// Read the <see cref="PipingFailureMechanismMetaEntity"/> and use the information to set the 
+        /// <see cref="StochasticSoilModelCollection.SourcePath"/>.
+        /// </summary>
+        /// <param name="entity">The <see cref="PipingFailureMechanismMetaEntity"/> to obtain 
+        /// the source path from.</param>
+        /// <param name="stochasticSoilModels">The object to set the <see cref="StochasticSoilModelCollection.SourcePath"/>
+        /// for.</param>
+        internal static void ReadStochasticSoilModelCollectionSourcePath(
+            this PipingFailureMechanismMetaEntity entity, 
+            StochasticSoilModelCollection stochasticSoilModels)
+        {
+            stochasticSoilModels.SourcePath = entity.StochasticSoilModelSourcePath;
         }
     }
 }

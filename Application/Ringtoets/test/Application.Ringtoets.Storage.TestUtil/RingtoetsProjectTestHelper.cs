@@ -592,6 +592,7 @@ namespace Application.Ringtoets.Storage.TestUtil
             pipingSoilLayer.Color = Color.HotPink;
             pipingSoilLayer.MaterialName = "HotPinkLayer";
 
+            pipingFailureMechanism.StochasticSoilModels.SourcePath = "some/path/to/file";
             pipingFailureMechanism.StochasticSoilModels.Add(new StochasticSoilModel(-1, "modelName", "modelSegmentName")
             {
                 Geometry =

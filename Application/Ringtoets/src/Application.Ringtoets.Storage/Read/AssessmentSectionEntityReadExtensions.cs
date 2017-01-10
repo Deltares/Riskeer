@@ -136,164 +136,115 @@ namespace Application.Ringtoets.Storage.Read
 
         private static void ReadPipingFailureMechanism(this AssessmentSectionEntity entity, AssessmentSection assessmentSection, ReadConversionCollector collector)
         {
-            var pipingFailureMechanismEntity = entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (int) FailureMechanismType.Piping);
-            if (pipingFailureMechanismEntity != null)
-            {
-                pipingFailureMechanismEntity.ReadAsPipingFailureMechanism(assessmentSection.PipingFailureMechanism, collector);
-            }
+            var pipingFailureMechanismEntity = GetFailureMechanismEntityOfType(entity, FailureMechanismType.Piping);
+            pipingFailureMechanismEntity?.ReadAsPipingFailureMechanism(assessmentSection.PipingFailureMechanism, collector);
         }
 
         private static void ReadGrassCoverErosionInwardsFailureMechanism(this AssessmentSectionEntity entity, AssessmentSection assessmentSection, ReadConversionCollector collector)
         {
-            var grassCoverErosionInwardsFailureMechanismEntity = entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (int) FailureMechanismType.GrassRevetmentTopErosionAndInwards);
-            if (grassCoverErosionInwardsFailureMechanismEntity != null)
-            {
-                grassCoverErosionInwardsFailureMechanismEntity.ReadAsGrassCoverErosionInwardsFailureMechanism(assessmentSection.GrassCoverErosionInwards, collector);
-            }
+            var grassCoverErosionInwardsFailureMechanismEntity = GetFailureMechanismEntityOfType(entity, FailureMechanismType.GrassRevetmentTopErosionAndInwards);
+            grassCoverErosionInwardsFailureMechanismEntity?.ReadAsGrassCoverErosionInwardsFailureMechanism(assessmentSection.GrassCoverErosionInwards, collector);
         }
 
         private static void ReadHeightStructuresFailureMechanism(this AssessmentSectionEntity entity, AssessmentSection assessmentSection, ReadConversionCollector collector)
         {
-            var heightStructuresFailureMechanismEntity = entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (int) FailureMechanismType.StructureHeight);
-            if (heightStructuresFailureMechanismEntity != null)
-            {
-                heightStructuresFailureMechanismEntity.ReadAsHeightStructuresFailureMechanism(assessmentSection.HeightStructures, collector);
-            }
+            var heightStructuresFailureMechanismEntity = GetFailureMechanismEntityOfType(entity, FailureMechanismType.StructureHeight);
+            heightStructuresFailureMechanismEntity?.ReadAsHeightStructuresFailureMechanism(assessmentSection.HeightStructures, collector);
         }
 
         private static void ReadStrengthStabilityLengthwiseConstructionFailureMechanism(this AssessmentSectionEntity entity, AssessmentSection assessmentSection, ReadConversionCollector collector)
         {
-            var strengthStabilityLengthwiseConstructionFailureMechanismEntity = entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (int) FailureMechanismType.StrengthAndStabilityParallelConstruction);
-            if (strengthStabilityLengthwiseConstructionFailureMechanismEntity != null)
-            {
-                strengthStabilityLengthwiseConstructionFailureMechanismEntity.ReadAsStrengthStabilityLengthwiseConstructionFailureMechanism(assessmentSection.StrengthStabilityLengthwiseConstruction, collector);
-            }
+            var strengthStabilityLengthwiseConstructionFailureMechanismEntity = GetFailureMechanismEntityOfType(entity, FailureMechanismType.StrengthAndStabilityParallelConstruction);
+            strengthStabilityLengthwiseConstructionFailureMechanismEntity?.ReadAsStrengthStabilityLengthwiseConstructionFailureMechanism(assessmentSection.StrengthStabilityLengthwiseConstruction, collector);
         }
 
         private static void ReadTechnicalInnovationFailureMechanism(this AssessmentSectionEntity entity, AssessmentSection assessmentSection, ReadConversionCollector collector)
         {
-            var technicalInnovationFailureMechanismEntity = entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (int) FailureMechanismType.TechnicalInnovations);
-            if (technicalInnovationFailureMechanismEntity != null)
-            {
-                technicalInnovationFailureMechanismEntity.ReadAsTechnicalInnovationFailureMechanism(assessmentSection.TechnicalInnovation, collector);
-            }
+            var technicalInnovationFailureMechanismEntity = GetFailureMechanismEntityOfType(entity, FailureMechanismType.TechnicalInnovations);
+            technicalInnovationFailureMechanismEntity?.ReadAsTechnicalInnovationFailureMechanism(assessmentSection.TechnicalInnovation, collector);
         }
 
         private static void ReadWaterPressureAsphaltCoverFailureMechanism(this AssessmentSectionEntity entity, AssessmentSection assessmentSection, ReadConversionCollector collector)
         {
-            var waterPressureAsphaltCoverFailureMechanismEntity = entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (int) FailureMechanismType.WaterOverpressureAsphaltRevetment);
-            if (waterPressureAsphaltCoverFailureMechanismEntity != null)
-            {
-                waterPressureAsphaltCoverFailureMechanismEntity.ReadAsWaterPressureAsphaltCoverFailureMechanism(assessmentSection.WaterPressureAsphaltCover, collector);
-            }
+            var waterPressureAsphaltCoverFailureMechanismEntity = GetFailureMechanismEntityOfType(entity, FailureMechanismType.WaterOverpressureAsphaltRevetment);
+            waterPressureAsphaltCoverFailureMechanismEntity?.ReadAsWaterPressureAsphaltCoverFailureMechanism(assessmentSection.WaterPressureAsphaltCover, collector);
         }
 
         private static void ReadClosingStructuresFailureMechanism(this AssessmentSectionEntity entity, AssessmentSection assessmentSection, ReadConversionCollector collector)
         {
-            var closingStructuresFailureMechanismEntity = entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (int) FailureMechanismType.ReliabilityClosingOfStructure);
-            if (closingStructuresFailureMechanismEntity != null)
-            {
-                closingStructuresFailureMechanismEntity.ReadAsClosingStructuresFailureMechanism(assessmentSection.ClosingStructures, collector);
-            }
+            var closingStructuresFailureMechanismEntity = GetFailureMechanismEntityOfType(entity, FailureMechanismType.ReliabilityClosingOfStructure);
+            closingStructuresFailureMechanismEntity?.ReadAsClosingStructuresFailureMechanism(assessmentSection.ClosingStructures, collector);
         }
 
         private static void ReadMacrostabilityInwardsFailureMechanism(this AssessmentSectionEntity entity, AssessmentSection assessmentSection, ReadConversionCollector collector)
         {
-            var macrostabilityInwardsFailureMechanismEntity = entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (int) FailureMechanismType.MacrostabilityInwards);
-            if (macrostabilityInwardsFailureMechanismEntity != null)
-            {
-                macrostabilityInwardsFailureMechanismEntity.ReadAsMacrostabilityInwardsFailureMechanism(assessmentSection.MacrostabilityInwards, collector);
-            }
+            var macrostabilityInwardsFailureMechanismEntity = GetFailureMechanismEntityOfType(entity, FailureMechanismType.MacrostabilityInwards);
+            macrostabilityInwardsFailureMechanismEntity?.ReadAsMacrostabilityInwardsFailureMechanism(assessmentSection.MacrostabilityInwards, collector);
         }
 
         private static void ReadMacrostabilityOutwardsFailureMechanism(this AssessmentSectionEntity entity, AssessmentSection assessmentSection, ReadConversionCollector collector)
         {
-            var macrostabilityOutwardsFailureMechanismEntity = entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (int) FailureMechanismType.MacrostabilityOutwards);
-            if (macrostabilityOutwardsFailureMechanismEntity != null)
-            {
-                macrostabilityOutwardsFailureMechanismEntity.ReadAsMacrostabilityOutwardsFailureMechanism(assessmentSection.MacrostabilityOutwards, collector);
-            }
+            var macrostabilityOutwardsFailureMechanismEntity = GetFailureMechanismEntityOfType(entity, FailureMechanismType.MacrostabilityOutwards);
+            macrostabilityOutwardsFailureMechanismEntity?.ReadAsMacrostabilityOutwardsFailureMechanism(assessmentSection.MacrostabilityOutwards, collector);
         }
 
         private static void ReadWaveImpactAsphaltCoverFailureMechanism(this AssessmentSectionEntity entity, AssessmentSection assessmentSection, ReadConversionCollector collector)
         {
-            var waveImpactAsphaltCoverFailureMechanismEntity = entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (int) FailureMechanismType.WaveImpactOnAsphaltRevetment);
-            if (waveImpactAsphaltCoverFailureMechanismEntity != null)
-            {
-                waveImpactAsphaltCoverFailureMechanismEntity.ReadAsWaveImpactAsphaltCoverFailureMechanism(assessmentSection.WaveImpactAsphaltCover, collector);
-            }
+            var waveImpactAsphaltCoverFailureMechanismEntity = GetFailureMechanismEntityOfType(entity, FailureMechanismType.WaveImpactOnAsphaltRevetment);
+            waveImpactAsphaltCoverFailureMechanismEntity?.ReadAsWaveImpactAsphaltCoverFailureMechanism(assessmentSection.WaveImpactAsphaltCover, collector);
         }
 
         private static void ReadGrassCoverErosionOutwardsFailureMechanism(this AssessmentSectionEntity entity, AssessmentSection assessmentSection, ReadConversionCollector collector)
         {
-            var grassCoverErosionOutwardsFailureMechanismEntity = entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (int) FailureMechanismType.GrassRevetmentErosionOutwards);
-            if (grassCoverErosionOutwardsFailureMechanismEntity != null)
-            {
-                grassCoverErosionOutwardsFailureMechanismEntity.ReadAsGrassCoverErosionOutwardsFailureMechanism(assessmentSection.GrassCoverErosionOutwards, collector);
-            }
+            var grassCoverErosionOutwardsFailureMechanismEntity = GetFailureMechanismEntityOfType(entity, FailureMechanismType.GrassRevetmentErosionOutwards);
+            grassCoverErosionOutwardsFailureMechanismEntity?.ReadAsGrassCoverErosionOutwardsFailureMechanism(assessmentSection.GrassCoverErosionOutwards, collector);
         }
 
         private static void ReadGrassCoverSlipOffInwardsFailureMechanism(this AssessmentSectionEntity entity, AssessmentSection assessmentSection, ReadConversionCollector collector)
         {
-            var grassCoverSlipOffInwardsFailureMechanismEntity = entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (int) FailureMechanismType.GrassRevetmentSlidingInwards);
-            if (grassCoverSlipOffInwardsFailureMechanismEntity != null)
-            {
-                grassCoverSlipOffInwardsFailureMechanismEntity.ReadAsGrassCoverSlipOffInwardsFailureMechanism(assessmentSection.GrassCoverSlipOffInwards, collector);
-            }
+            var grassCoverSlipOffInwardsFailureMechanismEntity = GetFailureMechanismEntityOfType(entity, FailureMechanismType.GrassRevetmentSlidingInwards);
+            grassCoverSlipOffInwardsFailureMechanismEntity?.ReadAsGrassCoverSlipOffInwardsFailureMechanism(assessmentSection.GrassCoverSlipOffInwards, collector);
         }
 
         private static void ReadGrassCoverSlipOffOutwardsFailureMechanism(this AssessmentSectionEntity entity, AssessmentSection assessmentSection, ReadConversionCollector collector)
         {
-            var grassCoverSlipOffOutwardsFailureMechanismEntity = entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (int) FailureMechanismType.GrassRevetmentSlidingOutwards);
-            if (grassCoverSlipOffOutwardsFailureMechanismEntity != null)
-            {
-                grassCoverSlipOffOutwardsFailureMechanismEntity.ReadAsGrassCoverSlipOffOutwardsFailureMechanism(assessmentSection.GrassCoverSlipOffOutwards, collector);
-            }
+            var grassCoverSlipOffOutwardsFailureMechanismEntity = GetFailureMechanismEntityOfType(entity, FailureMechanismType.GrassRevetmentSlidingOutwards);
+            grassCoverSlipOffOutwardsFailureMechanismEntity?.ReadAsGrassCoverSlipOffOutwardsFailureMechanism(assessmentSection.GrassCoverSlipOffOutwards, collector);
         }
 
         private static void ReadMicrostabilityFailureMechanism(this AssessmentSectionEntity entity, AssessmentSection assessmentSection, ReadConversionCollector collector)
         {
-            var microstabilityFailureMechanismEntity = entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (int) FailureMechanismType.Microstability);
-            if (microstabilityFailureMechanismEntity != null)
-            {
-                microstabilityFailureMechanismEntity.ReadAsMicrostabilityFailureMechanism(assessmentSection.Microstability, collector);
-            }
+            var microstabilityFailureMechanismEntity = GetFailureMechanismEntityOfType(entity, FailureMechanismType.Microstability);
+            microstabilityFailureMechanismEntity?.ReadAsMicrostabilityFailureMechanism(assessmentSection.Microstability, collector);
         }
 
         private static void ReadPipingStructureFailureMechanism(this AssessmentSectionEntity entity, AssessmentSection assessmentSection, ReadConversionCollector collector)
         {
-            var pipingStructureFailureMechanismEntity = entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (int) FailureMechanismType.PipingAtStructure);
-            if (pipingStructureFailureMechanismEntity != null)
-            {
-                pipingStructureFailureMechanismEntity.ReadAsPipingStructureFailureMechanism(assessmentSection.PipingStructure, collector);
-            }
+            var pipingStructureFailureMechanismEntity = GetFailureMechanismEntityOfType(entity, FailureMechanismType.PipingAtStructure);
+            pipingStructureFailureMechanismEntity?.ReadAsPipingStructureFailureMechanism(assessmentSection.PipingStructure, collector);
         }
 
         private static void ReadDuneErosionFailureMechanism(this AssessmentSectionEntity entity, AssessmentSection assessmentSection, ReadConversionCollector collector)
         {
-            var duneErosionFailureMechanismEntity = entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (int) FailureMechanismType.DuneErosion);
-            if (duneErosionFailureMechanismEntity != null)
-            {
-                duneErosionFailureMechanismEntity.ReadAsDuneErosionFailureMechanism(assessmentSection.DuneErosion, collector);
-            }
+            var duneErosionFailureMechanismEntity = GetFailureMechanismEntityOfType(entity, FailureMechanismType.DuneErosion);
+            duneErosionFailureMechanismEntity?.ReadAsDuneErosionFailureMechanism(assessmentSection.DuneErosion, collector);
         }
 
         private static void ReadStabilityStoneCoverFailureMechanism(this AssessmentSectionEntity entity, AssessmentSection assessmentSection, ReadConversionCollector collector)
         {
-            var stabilityStoneCoverFailureMechanismEntity = entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (int) FailureMechanismType.StabilityStoneRevetment);
-            if (stabilityStoneCoverFailureMechanismEntity != null)
-            {
-                stabilityStoneCoverFailureMechanismEntity.ReadAsStabilityStoneCoverFailureMechanism(assessmentSection.StabilityStoneCover, collector);
-            }
+            var stabilityStoneCoverFailureMechanismEntity = GetFailureMechanismEntityOfType(entity, FailureMechanismType.StabilityStoneRevetment);
+            stabilityStoneCoverFailureMechanismEntity?.ReadAsStabilityStoneCoverFailureMechanism(assessmentSection.StabilityStoneCover, collector);
         }
 
         private static void ReadStabilityPointStructuresFailureMechanism(this AssessmentSectionEntity entity, AssessmentSection assessmentSection, ReadConversionCollector collector)
         {
-            var stabilityPointStructuresFailureMechanismEntity = entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (int) FailureMechanismType.StabilityPointStructures);
-            if (stabilityPointStructuresFailureMechanismEntity != null)
-            {
-                stabilityPointStructuresFailureMechanismEntity.ReadAsStabilityPointStructuresFailureMechanism(assessmentSection.StabilityPointStructures, collector);
-            }
+            var stabilityPointStructuresFailureMechanismEntity = GetFailureMechanismEntityOfType(entity, FailureMechanismType.StabilityPointStructures);
+            stabilityPointStructuresFailureMechanismEntity?.ReadAsStabilityPointStructuresFailureMechanism(assessmentSection.StabilityPointStructures, collector);
+        }
+
+        private static FailureMechanismEntity GetFailureMechanismEntityOfType(AssessmentSectionEntity entity, FailureMechanismType type)
+        {
+            return entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (int) type);
         }
     }
 }

@@ -23,7 +23,6 @@ using System;
 using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Base.Data;
-using Ringtoets.Integration.Data;
 using Ringtoets.Piping.Data;
 
 namespace Application.Ringtoets.Storage.Read.Piping
@@ -39,14 +38,14 @@ namespace Application.Ringtoets.Storage.Read.Piping
         /// <param name="collector">The object keeping track of read operations.</param>
         /// <param name="generalInputParameters">The general input parameters that apply
         /// to all <see cref="PipingCalculationScenario"/> instances.</param>
-        /// <returns>A new <see cref="AssessmentSection"/>.</returns>
+        /// <returns>A new <see cref="PipingCalculationScenario"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
         internal static PipingCalculationScenario Read(this PipingCalculationEntity entity, ReadConversionCollector collector,
                                                        GeneralPipingInput generalInputParameters)
         {
             if (collector == null)
             {
-                throw new ArgumentNullException("collector");
+                throw new ArgumentNullException(nameof(collector));
             }
 
             var calculation = new PipingCalculationScenario(generalInputParameters)

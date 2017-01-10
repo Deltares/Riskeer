@@ -83,6 +83,7 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
         private static void AssertPipingFailureMechanism(AssessmentSection assessmentSection)
         {
             PipingFailureMechanism failureMechanism = assessmentSection.PipingFailureMechanism;
+            Assert.AreEqual("some/path/to/file", failureMechanism.StochasticSoilModels.SourcePath);
             Assert.AreEqual(1, failureMechanism.StochasticSoilModels.Count);
             StochasticSoilModel soilModel = failureMechanism.StochasticSoilModels[0];
             Assert.AreEqual(-1, soilModel.Id);

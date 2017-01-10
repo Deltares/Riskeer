@@ -35,14 +35,14 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             // Setup
             var entity = new PipingFailureMechanismMetaEntity
             {
-                A = 0.95,
+                A = 0.95
             };
+            var pipingProbabilityAssessmentInput = new PipingProbabilityAssessmentInput();
 
             // Call
-            PipingProbabilityAssessmentInput pipingProbabilityAssessmentInput = entity.ReadPipingProbabilityAssessmentInput();
+            entity.ReadProbabilityAssessmentInput(pipingProbabilityAssessmentInput);
 
             // Assert
-            Assert.IsNotNull(pipingProbabilityAssessmentInput);
             Assert.AreEqual(entity.A, pipingProbabilityAssessmentInput.A);
         }
 
@@ -54,13 +54,30 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             {
                 WaterVolumetricWeight = 5.39
             };
+            var generalInput = new GeneralPipingInput();
 
             // Call
-            GeneralPipingInput generalPipingInput = entity.ReadGeneralPipingInput();
+            entity.ReadGeneralPipingInput(generalInput);
 
             // Assert
-            Assert.IsNotNull(generalPipingInput);
-            Assert.AreEqual(entity.WaterVolumetricWeight, generalPipingInput.WaterVolumetricWeight.Value);
+            Assert.AreEqual(entity.WaterVolumetricWeight, generalInput.WaterVolumetricWeight.Value);
+        }
+
+        [Test]
+        public void ReadStochasticSoilModelCollectionSourcePath_Always_ReturnsPathFromEntity()
+        {
+            // Setup
+            var entity = new PipingFailureMechanismMetaEntity
+            {
+                StochasticSoilModelSourcePath = "some/path"
+            };
+            var stochasticSoilModelCollection = new StochasticSoilModelCollection();
+
+            // Call
+            entity.ReadStochasticSoilModelCollectionSourcePath(stochasticSoilModelCollection);
+
+            // Assert
+            Assert.AreEqual(entity.StochasticSoilModelSourcePath, stochasticSoilModelCollection.SourcePath);
         }
     }
 }

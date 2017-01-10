@@ -218,6 +218,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         {
             // Setup
             string emptySegmentPointsXml = new Point2DXmlSerializer().ToXml(new Point2D[0]);
+            var sourcePath = "some/Path";
             var entity = new FailureMechanismEntity
             {
                 CalculationGroupEntity = new CalculationGroupEntity(),
@@ -235,6 +236,13 @@ namespace Application.Ringtoets.Storage.Test.Read
                         Name = "B",
                         Order = 0
                     }
+                },
+                PipingFailureMechanismMetaEntities =
+                {
+                    new PipingFailureMechanismMetaEntity
+                    {
+                        StochasticSoilModelSourcePath = sourcePath
+                    }
                 }
             };
             var collector = new ReadConversionCollector();
@@ -245,6 +253,7 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             // Assert
             Assert.AreEqual(2, failureMechanism.StochasticSoilModels.Count);
+            Assert.AreEqual(sourcePath, failureMechanism.StochasticSoilModels.SourcePath);
             CollectionAssert.AreEqual(new[]
             {
                 "B",
@@ -274,6 +283,10 @@ namespace Application.Ringtoets.Storage.Test.Read
                         Name = "2",
                         Order = 0
                     }
+                },
+                PipingFailureMechanismMetaEntities =
+                {
+                    new PipingFailureMechanismMetaEntity()
                 }
             };
             var collector = new ReadConversionCollector();
@@ -307,6 +320,10 @@ namespace Application.Ringtoets.Storage.Test.Read
                 FailureMechanismSectionEntities =
                 {
                     failureMechanismSectionEntity
+                },
+                PipingFailureMechanismMetaEntities =
+                {
+                    new PipingFailureMechanismMetaEntity()
                 }
             };
             var collector = new ReadConversionCollector();
@@ -342,6 +359,10 @@ namespace Application.Ringtoets.Storage.Test.Read
                             Order = 1
                         },
                     }
+                },
+                PipingFailureMechanismMetaEntities =
+                {
+                    new PipingFailureMechanismMetaEntity()
                 }
             };
             var collector = new ReadConversionCollector();

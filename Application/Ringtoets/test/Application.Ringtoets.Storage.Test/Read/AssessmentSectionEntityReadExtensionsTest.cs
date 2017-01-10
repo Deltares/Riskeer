@@ -218,6 +218,10 @@ namespace Application.Ringtoets.Storage.Test.Read
                     {
                         StochasticSoilModelSegmentPointXml = emptySegmentPointsXml
                     }
+                },
+                PipingFailureMechanismMetaEntities =
+                {
+                    new PipingFailureMechanismMetaEntity()
                 }
             };
             entity.FailureMechanismEntities.Add(failureMechanismEntity);
@@ -252,6 +256,10 @@ namespace Application.Ringtoets.Storage.Test.Read
                     {
                         PointsXml = emptyPointsXml
                     }
+                },
+                PipingFailureMechanismMetaEntities =
+                {
+                    new PipingFailureMechanismMetaEntity()
                 }
             };
             entity.FailureMechanismEntities.Add(failureMechanismEntity);
@@ -287,6 +295,10 @@ namespace Application.Ringtoets.Storage.Test.Read
                             Order = 1
                         }
                     }
+                },
+                PipingFailureMechanismMetaEntities =
+                {
+                    new PipingFailureMechanismMetaEntity()
                 }
             };
             entity.FailureMechanismEntities.Add(failureMechanismEntity);
@@ -311,7 +323,11 @@ namespace Application.Ringtoets.Storage.Test.Read
             {
                 FailureMechanismType = (int) FailureMechanismType.Piping,
                 CalculationGroupEntity = new CalculationGroupEntity(),
-                FailureMechanismSectionEntities = CreateFailureMechanismSectionEntities()
+                FailureMechanismSectionEntities = CreateFailureMechanismSectionEntities(),
+                PipingFailureMechanismMetaEntities =
+                {
+                    new PipingFailureMechanismMetaEntity()
+                }
             };
             var sectionA = failureMechanismEntity.FailureMechanismSectionEntities.ElementAt(0);
             var sectionB = failureMechanismEntity.FailureMechanismSectionEntities.ElementAt(1);
