@@ -42,7 +42,6 @@ using Ringtoets.Piping.Forms.PropertyClasses;
 using Ringtoets.Piping.Forms.TypeConverters;
 using Ringtoets.Piping.KernelWrapper.TestUtil;
 using Ringtoets.Piping.Primitives;
-using RingtoetsPipingDataResources = Ringtoets.Piping.Data.Properties.Resources;
 
 namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 {
@@ -1493,10 +1492,60 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         }
 
         [Test]
+        public void GetSelectableLocations_InputWithLocationsDikeProfile_CalculatesDistanceWithCorrectReferencePoint()
+        {
+            // Setup
+            var mockRepository = new MockRepository();
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "A", 200643.312, 503347.25);
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
+            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                Locations =
+                {
+                    hydraulicBoundaryLocation
+                }
+            };
+            mockRepository.ReplayAll();
+
+            var failureMechanism = new PipingFailureMechanism();
+            var calculation = new PipingCalculationScenario(failureMechanism.GeneralInput)
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                }
+            };
+            var context = new PipingInputContext(calculation.InputParameters, calculation,
+                                     failureMechanism.SurfaceLines, failureMechanism.StochasticSoilModels,
+                                     failureMechanism, assessmentSection);
+
+            StochasticSoilModel soilModel = ValidStochasticSoilModel(0.0, 4.0);
+            StochasticSoilProfile soilProfile = soilModel.StochasticSoilProfiles.First();
+            var properties = new PipingInputContextProperties
+            {
+                Data = context,
+                SurfaceLine = ValidSurfaceLine(0, 4.0),
+                StochasticSoilModel = soilModel,
+                StochasticSoilProfile = soilProfile
+            };
+
+            // Call
+            IEnumerable<SelectableHydraulicBoundaryLocation> availableHydraulicBoundaryLocations =
+                properties.GetSelectableHydraulicBoundaryLocations();
+            SelectableHydraulicBoundaryLocation selectedLocation = properties.SelectedHydraulicBoundaryLocation;
+
+            // Assert
+            var hydraulicBoundaryLocationItem = availableHydraulicBoundaryLocations.ToArray()[0];
+
+            Assert.AreEqual(selectedLocation.Distance, hydraulicBoundaryLocationItem.Distance,
+                            hydraulicBoundaryLocationItem.Distance.GetAccuracy());
+        }
+
+        [Test]
         public void GetSelectableHydraulicBoundaryLocations_WithLocationsNoSurfaceLine_ReturnLocationsSortedById()
         {
             // Setup
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase()
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
                 Locations =
                 {
@@ -1538,7 +1587,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         public void GetSelectableHydraulicBoundaryLocations_WithLocationsAndSurfaceLine_ReturnLocationsSortedByDistanceThenById()
         {
             // Setup
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase()
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
                 Locations =
                 {
@@ -1587,7 +1636,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         public void GivenLocationAndReferencePoint_WhenUpdatingSurfaceLine_ThenUpdateSelectableBoundaryLocations()
         {
             // Given
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase()
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
                 Locations =
                 {
