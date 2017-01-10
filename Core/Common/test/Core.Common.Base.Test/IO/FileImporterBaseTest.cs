@@ -59,13 +59,15 @@ namespace Core.Common.Base.Test.IO
         public void Constructor_ExpectedValues()
         {
             // Setup
+            const string filePath = "C://temp";
             var importTarget = new object();
 
             // Call
-            var simpleImporter = new SimpleFileImporter<object>(importTarget);
+            var simpleImporter = new SimpleFileImporter<object>(filePath, importTarget);
 
             // Assert
             Assert.IsInstanceOf<IFileImporter>(simpleImporter);
+            Assert.AreEqual(filePath, simpleImporter.GetFilePath());
         }
 
         [Test]
@@ -210,6 +212,11 @@ namespace Core.Common.Base.Test.IO
             protected override void LogImportCanceledMessage()
             {
                 LogCanceledMessageCalled = true;
+            }
+
+            public string GetFilePath()
+            {
+                return FilePath;
             }
         }
     }
