@@ -204,8 +204,8 @@ namespace Ringtoets.Integration.TestUtils
                                                                                    "DR6.soil"))
             {
                 string filePath = Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "DR6.soil");
-                var activity = new FileImportActivity(new PipingSoilProfilesImporter(assessmentSection.PipingFailureMechanism.StochasticSoilModels, filePath),
-                                                      "PipingSoilProfilesImporter");
+                var activity = new FileImportActivity(new StochasticSoilModelImporter(assessmentSection.PipingFailureMechanism.StochasticSoilModels, filePath),
+                                                      "StochasticSoilModelImporter");
                 activity.Run();
                 activity.Finish();
             }

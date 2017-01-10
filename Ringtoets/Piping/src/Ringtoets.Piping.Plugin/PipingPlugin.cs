@@ -84,9 +84,7 @@ namespace Ringtoets.Piping.Plugin
                 Name = PipingFormsResources.PipingSurfaceLinesCollection_DisplayName,
                 Category = RingtoetsCommonFormsResources.Ringtoets_Category,
                 Image = PipingFormsResources.PipingSurfaceLineIcon,
-                FileFilter = string.Format("{0} {1}",
-                                           PipingFormsResources.PipingSurfaceLinesCollection_DisplayName,
-                                           RingtoetsCommonFormsResources.DataTypeDisplayName_csv_file_filter),
+                FileFilter = $"{PipingFormsResources.PipingSurfaceLinesCollection_DisplayName} {RingtoetsCommonFormsResources.DataTypeDisplayName_csv_file_filter}",
                 IsEnabled = context => context.AssessmentSection.ReferenceLine != null,
                 CreateFileImporter = (context, filePath) => new PipingSurfaceLinesCsvImporter(context.WrappedData,
                                                                                               context.AssessmentSection.ReferenceLine,
@@ -98,9 +96,9 @@ namespace Ringtoets.Piping.Plugin
                 Name = PipingFormsResources.StochasticSoilModelCollection_DisplayName,
                 Category = RingtoetsCommonFormsResources.Ringtoets_Category,
                 Image = PipingFormsResources.PipingSoilProfileIcon,
-                FileFilter = string.Format("{0} (*.soil)|*.soil", PipingPluginResources.Soil_file_name),
+                FileFilter = $"{PipingPluginResources.Soil_file_name} (*.soil)|*.soil",
                 IsEnabled = context => context.AssessmentSection.ReferenceLine != null,
-                CreateFileImporter = (context, filePath) => new PipingSoilProfilesImporter(context.WrappedData,
+                CreateFileImporter = (context, filePath) => new StochasticSoilModelImporter(context.WrappedData,
                                                                                            filePath)
             };
         }

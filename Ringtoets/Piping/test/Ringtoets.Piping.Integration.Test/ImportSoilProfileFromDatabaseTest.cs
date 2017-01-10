@@ -44,7 +44,7 @@ namespace Ringtoets.Piping.Integration.Test
             var pipingFailureMechanism = new PipingFailureMechanism();
 
             // When
-            var importer = new PipingSoilProfilesImporter(pipingFailureMechanism.StochasticSoilModels, databasePath);
+            var importer = new StochasticSoilModelImporter(pipingFailureMechanism.StochasticSoilModels, databasePath);
             importer.Import();
 
             // Then
@@ -81,7 +81,7 @@ namespace Ringtoets.Piping.Integration.Test
             var pipingFailureMechanism = new PipingFailureMechanism();
 
             // When
-            var importer = new PipingSoilProfilesImporter(pipingFailureMechanism.StochasticSoilModels, databasePath);
+            var importer = new StochasticSoilModelImporter(pipingFailureMechanism.StochasticSoilModels, databasePath);
             importer.Import();
 
             // Then
@@ -114,7 +114,7 @@ namespace Ringtoets.Piping.Integration.Test
             var pipingFailureMechanism = new PipingFailureMechanism();
 
             // When
-            var importer = new PipingSoilProfilesImporter(pipingFailureMechanism.StochasticSoilModels, databasePath);
+            var importer = new StochasticSoilModelImporter(pipingFailureMechanism.StochasticSoilModels, databasePath);
             importer.Import();
 
             // Then

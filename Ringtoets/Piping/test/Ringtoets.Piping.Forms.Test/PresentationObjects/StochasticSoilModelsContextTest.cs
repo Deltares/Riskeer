@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base;
 using Core.Common.Controls.PresentationObjects;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -47,7 +46,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             var context = new StochasticSoilModelsContext(failureMechanism.StochasticSoilModels, failureMechanism, assessmentSectionMock);
 
             // Assert
-            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<ObservableList<StochasticSoilModel>>>(context);
+            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<StochasticSoilModelCollection>>(context);
             Assert.AreSame(failureMechanism.StochasticSoilModels, context.WrappedData);
             Assert.AreSame(failureMechanism, context.FailureMechanism);
             Assert.AreSame(assessmentSectionMock, context.AssessmentSection);
@@ -62,7 +61,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var stochasticSoilModels = new ObservableList<StochasticSoilModel>();
+            var stochasticSoilModels = new StochasticSoilModelCollection();
 
             // Call
             TestDelegate test = () => new StochasticSoilModelsContext(stochasticSoilModels, null, assessmentSectionMock);

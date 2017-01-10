@@ -536,7 +536,7 @@ namespace Demo.Ringtoets.Commands
 
             using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(GetType().Assembly, true, "DR6.soil"))
             {
-                var soilProfilesImporter = new PipingSoilProfilesImporter(pipingFailureMechanism.StochasticSoilModels,
+                var soilProfilesImporter = new StochasticSoilModelImporter(pipingFailureMechanism.StochasticSoilModels,
                                                                           Path.Combine(embeddedResourceFileWriter.TargetFolderPath,
                                                                                        "DR6.soil"));
                 soilProfilesImporter.Import();

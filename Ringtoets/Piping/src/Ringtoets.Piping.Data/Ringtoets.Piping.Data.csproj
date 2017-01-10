@@ -66,6 +66,7 @@
     </Compile>
     <Compile Include="PipingProbabilityAssessmentInput.cs" />
     <Compile Include="StochasticSoilModel.cs" />
+    <Compile Include="StochasticSoilModelCollection.cs" />
     <Compile Include="StochasticSoilProfile.cs" />
   </ItemGroup>
   <ItemGroup>

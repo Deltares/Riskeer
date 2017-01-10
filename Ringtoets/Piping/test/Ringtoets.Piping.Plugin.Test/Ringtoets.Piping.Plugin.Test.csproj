@@ -72,7 +72,7 @@
     <Compile Include="..\..\..\..\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
-    <Compile Include="FileImporter\PipingSoilProfilesImporterTest.cs" />
+    <Compile Include="FileImporter\StochasticSoilModelImporterTest.cs" />
     <Compile Include="FileImporter\PipingSurfaceLinesCsvImporterTest.cs" />
     <Compile Include="FileImporter\RingtoetsPipingSurfaceLineExtensionsTest.cs" />
     <Compile Include="ImportInfos\RingtoetsPipingSurfaceLinesContextImportInfoTest.cs" />
