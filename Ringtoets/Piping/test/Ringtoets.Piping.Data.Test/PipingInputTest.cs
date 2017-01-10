@@ -29,7 +29,6 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Piping.Data.Properties;
 using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.KernelWrapper.SubCalculator;
 using Ringtoets.Piping.KernelWrapper.TestUtil.SubCalculator;
@@ -368,7 +367,7 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void SurfaceLine_DikeToesBeforeSetEntreePointL_ExitPointLAndEntryPointLUpdated()
+        public void SurfaceLine_DikeToesBeforeSetEntryPointL_ExitPointLAndEntryPointLUpdated()
         {
             // Given
             PipingInput input = new PipingInput(new GeneralPipingInput());

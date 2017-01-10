@@ -58,7 +58,7 @@ namespace Ringtoets.Piping.Data
         {
             if (generalInputParameters == null)
             {
-                throw new ArgumentNullException("generalInputParameters");
+                throw new ArgumentNullException(nameof(generalInputParameters));
             }
 
             this.generalInputParameters = generalInputParameters;
@@ -256,8 +256,8 @@ namespace Ringtoets.Piping.Data
 
                 if (tempExitPointL <= ExitPointL)
                 {
-                    EntryPointL = (RoundedDouble)tempEntryPointL;
-                    ExitPointL = (RoundedDouble)tempExitPointL;
+                    EntryPointL = (RoundedDouble) tempEntryPointL;
+                    ExitPointL = (RoundedDouble) tempExitPointL;
                 }
                 else
                 {
