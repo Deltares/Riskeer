@@ -129,6 +129,71 @@ namespace Ringtoets.Piping.Service.Test
         }
 
         [Test]
+        public void SetMatchingStochasticSoilModel_CurrentSoilModelNotInOverlappingMultipleSoilModels_ClearsModel()
+        {
+            // Setup
+            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            surfaceLine.SetGeometry(new[]
+            {
+                new Point3D(3.0, 5.0, 0.0),
+                new Point3D(3.0, 0.0, 1.0),
+                new Point3D(3.0, -5.0, 0.0)
+            });
+            var nonOverlappingSoilModel = new StochasticSoilModel(1, "A", "B");
+            nonOverlappingSoilModel.Geometry.AddRange(new[]
+            {
+                new Point2D(1.0, 0.0),
+                new Point2D(5.0, 0.0)
+            });
+            var pipingInput = new PipingInput(new GeneralPipingInput())
+            {
+                SurfaceLine = surfaceLine,
+                StochasticSoilModel = nonOverlappingSoilModel
+            };
+
+            var soilModel1 = new StochasticSoilModel(1, "A", "B");
+            soilModel1.Geometry.AddRange(new[]
+            {
+                new Point2D(1.0, 0.0),
+                new Point2D(5.0, 0.0)
+            });
+            soilModel1.StochasticSoilProfiles.Add(new StochasticSoilProfile(1.0, SoilProfileType.SoilProfile1D, 1)
+            {
+                SoilProfile = new PipingSoilProfile("Profile 1", -10.0, new[]
+                {
+                    new PipingSoilLayer(-5.0),
+                    new PipingSoilLayer(-2.0),
+                    new PipingSoilLayer(1.0)
+                }, SoilProfileType.SoilProfile1D, 1)
+            });
+            var soilModel2 = new StochasticSoilModel(2, "C", "D");
+            soilModel2.Geometry.AddRange(new[]
+            {
+                new Point2D(1.0, 0.0),
+                new Point2D(5.0, 0.0)
+            });
+            soilModel2.StochasticSoilProfiles.Add(new StochasticSoilProfile(1.0, SoilProfileType.SoilProfile1D, 1)
+            {
+                SoilProfile = new PipingSoilProfile("Profile 1", -10.0, new[]
+                {
+                    new PipingSoilLayer(-5.0),
+                    new PipingSoilLayer(-2.0),
+                    new PipingSoilLayer(1.0)
+                }, SoilProfileType.SoilProfile1D, 1)
+            });
+
+            // Call
+            PipingInputService.SetMatchingStochasticSoilModel(pipingInput, new[]
+            {
+                soilModel1,
+                soilModel2
+            });
+
+            // Assert
+            Assert.IsNull(pipingInput.StochasticSoilModel);
+        }
+
+        [Test]
         public void SyncStochasticSoilProfileWithStochasticSoilModel_SingleStochasticSoilProfileInStochasticSoilModel_SetsStochasticSoilProfile()
         {
             // Setup

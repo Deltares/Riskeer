@@ -39,14 +39,12 @@ namespace Ringtoets.Piping.Service
         public static void SetMatchingStochasticSoilModel(PipingInput pipingInput, IEnumerable<StochasticSoilModel> availableStochasticSoilModels)
         {
             var available = availableStochasticSoilModels.ToList();
-            switch (available.Count)
+            if (available.Count == 1)
             {
-                case 0:
-                    pipingInput.StochasticSoilModel = null;
-                    break;
-                case 1:
-                    pipingInput.StochasticSoilModel = available.First();
-                    break;
+                pipingInput.StochasticSoilModel = available.First();
+            } else if (!available.Any() || !available.Contains(pipingInput.StochasticSoilModel))
+            {
+                pipingInput.StochasticSoilModel = null;
             }
             SyncStochasticSoilProfileWithStochasticSoilModel(pipingInput);
         }
