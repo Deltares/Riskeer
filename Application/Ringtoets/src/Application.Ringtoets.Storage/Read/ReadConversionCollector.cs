@@ -28,6 +28,7 @@ using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Structures;
+using Ringtoets.DuneErosion.Data;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.Piping.Data;
@@ -59,6 +60,9 @@ namespace Application.Ringtoets.Storage.Read
 
         private readonly Dictionary<GrassCoverErosionOutwardsHydraulicLocationEntity, HydraulicBoundaryLocation> grassCoverErosionOutwardsHydraulicBoundaryLocations =
             CreateDictionary<GrassCoverErosionOutwardsHydraulicLocationEntity, HydraulicBoundaryLocation>();
+
+        private readonly Dictionary<DuneLocationEntity, DuneLocation> duneLocations =
+            CreateDictionary<DuneLocationEntity, DuneLocation>();
 
         private readonly Dictionary<FailureMechanismSectionEntity, FailureMechanismSection> failureMechanismSections =
             CreateDictionary<FailureMechanismSectionEntity, FailureMechanismSection>();
@@ -112,11 +116,11 @@ namespace Application.Ringtoets.Storage.Read
         {
             if (entity == null)
             {
-                throw new ArgumentNullException("entity");
+                throw new ArgumentNullException(nameof(entity));
             }
             if (model == null)
             {
-                throw new ArgumentNullException("model");
+                throw new ArgumentNullException(nameof(model));
             }
 
             stochasticSoilModels[entity] = model;
@@ -132,7 +136,7 @@ namespace Application.Ringtoets.Storage.Read
         {
             if (entity == null)
             {
-                throw new ArgumentNullException("entity");
+                throw new ArgumentNullException(nameof(entity));
             }
             return stochasticSoilModels.ContainsKey(entity);
         }
@@ -152,7 +156,7 @@ namespace Application.Ringtoets.Storage.Read
         {
             if (entity == null)
             {
-                throw new ArgumentNullException("entity");
+                throw new ArgumentNullException(nameof(entity));
             }
             try
             {
@@ -183,11 +187,11 @@ namespace Application.Ringtoets.Storage.Read
         {
             if (entity == null)
             {
-                throw new ArgumentNullException("entity");
+                throw new ArgumentNullException(nameof(entity));
             }
             if (model == null)
             {
-                throw new ArgumentNullException("model");
+                throw new ArgumentNullException(nameof(model));
             }
 
             stochasticSoilProfiles[entity] = model;
@@ -203,7 +207,7 @@ namespace Application.Ringtoets.Storage.Read
         {
             if (entity == null)
             {
-                throw new ArgumentNullException("entity");
+                throw new ArgumentNullException(nameof(entity));
             }
             return stochasticSoilProfiles.ContainsKey(entity);
         }
@@ -224,7 +228,7 @@ namespace Application.Ringtoets.Storage.Read
         {
             if (entity == null)
             {
-                throw new ArgumentNullException("entity");
+                throw new ArgumentNullException(nameof(entity));
             }
             try
             {
@@ -255,11 +259,11 @@ namespace Application.Ringtoets.Storage.Read
         {
             if (entity == null)
             {
-                throw new ArgumentNullException("entity");
+                throw new ArgumentNullException(nameof(entity));
             }
             if (model == null)
             {
-                throw new ArgumentNullException("model");
+                throw new ArgumentNullException(nameof(model));
             }
 
             soilProfiles[entity] = model;
@@ -275,7 +279,7 @@ namespace Application.Ringtoets.Storage.Read
         {
             if (entity == null)
             {
-                throw new ArgumentNullException("entity");
+                throw new ArgumentNullException(nameof(entity));
             }
             return soilProfiles.ContainsKey(entity);
         }
@@ -294,7 +298,7 @@ namespace Application.Ringtoets.Storage.Read
         {
             if (entity == null)
             {
-                throw new ArgumentNullException("entity");
+                throw new ArgumentNullException(nameof(entity));
             }
             try
             {
@@ -325,11 +329,11 @@ namespace Application.Ringtoets.Storage.Read
         {
             if (entity == null)
             {
-                throw new ArgumentNullException("entity");
+                throw new ArgumentNullException(nameof(entity));
             }
             if (model == null)
             {
-                throw new ArgumentNullException("model");
+                throw new ArgumentNullException(nameof(model));
             }
 
             surfaceLines[entity] = model;
@@ -345,7 +349,7 @@ namespace Application.Ringtoets.Storage.Read
         {
             if (entity == null)
             {
-                throw new ArgumentNullException("entity");
+                throw new ArgumentNullException(nameof(entity));
             }
             return surfaceLines.ContainsKey(entity);
         }
@@ -366,7 +370,7 @@ namespace Application.Ringtoets.Storage.Read
         {
             if (entity == null)
             {
-                throw new ArgumentNullException("entity");
+                throw new ArgumentNullException(nameof(entity));
             }
             try
             {
@@ -397,11 +401,11 @@ namespace Application.Ringtoets.Storage.Read
         {
             if (entity == null)
             {
-                throw new ArgumentNullException("entity");
+                throw new ArgumentNullException(nameof(entity));
             }
             if (model == null)
             {
-                throw new ArgumentNullException("model");
+                throw new ArgumentNullException(nameof(model));
             }
 
             hydraulicBoundaryLocations[entity] = model;
@@ -417,7 +421,7 @@ namespace Application.Ringtoets.Storage.Read
         {
             if (entity == null)
             {
-                throw new ArgumentNullException("entity");
+                throw new ArgumentNullException(nameof(entity));
             }
             return hydraulicBoundaryLocations.ContainsKey(entity);
         }
@@ -438,11 +442,83 @@ namespace Application.Ringtoets.Storage.Read
         {
             if (entity == null)
             {
-                throw new ArgumentNullException("entity");
+                throw new ArgumentNullException(nameof(entity));
             }
             try
             {
                 return hydraulicBoundaryLocations[entity];
+            }
+            catch (KeyNotFoundException e)
+            {
+                throw new InvalidOperationException(e.Message, e);
+            }
+        }
+
+        #endregion
+
+        #region DuneLocationEntity: Read, Contains, Get
+
+        /// <summary>
+        /// Registers a read operation for <see cref="DuneLocationEntity"/> and the
+        /// <see cref="DuneLocation"/> that was constructed with the information.
+        /// </summary>
+        /// <param name="entity">The <see cref="DuneLocationEntity"/> that was read.</param>
+        /// <param name="model">The <see cref="DuneLocation"/> that was constructed.</param>
+        /// <exception cref="ArgumentNullException">Thrown when either:
+        /// <list type="bullet">
+        /// <item><paramref name="entity"/> is <c>null</c></item>
+        /// <item><paramref name="model"/> is <c>null</c></item>
+        /// </list></exception>
+        internal void Read(DuneLocationEntity entity, DuneLocation model)
+        {
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
+            if (model == null)
+            {
+                throw new ArgumentNullException(nameof(model));
+            }
+
+            duneLocations[entity] = model;
+        }
+
+        /// <summary>
+        /// Checks whether a read operation has been registered for a given <see cref="DuneLocationEntity"/>.
+        /// </summary>
+        /// <param name="entity">The <see cref="DuneLocationEntity"/> to check for.</param>
+        /// <returns><c>true</c> if the <paramref cref="entity"/> was read before, <c>false</c> otherwise.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c>.</exception>
+        internal bool Contains(DuneLocationEntity entity)
+        {
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
+            return duneLocations.ContainsKey(entity);
+        }
+
+        /// <summary>
+        /// Obtains the <see cref="DuneLocation"/> which was read for the
+        /// given <see cref="DuneLocationEntity"/>.
+        /// </summary>
+        /// <param name="entity">The <see cref="DuneLocationEntity"/> for which a read
+        /// operation has been registered.</param>
+        /// <returns>The constructed <see cref="DuneLocation"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c>.</exception>
+        /// <exception cref="InvalidOperationException">Thrown when no read operation has
+        /// been registered for <paramref name="entity"/>.</exception>
+        /// <remarks>Use <see cref="Contains(DuneLocationEntity)"/> to find out whether a
+        /// read operation has been registered for <paramref name="entity"/>.</remarks>
+        internal DuneLocation Get(DuneLocationEntity entity)
+        {
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
+            try
+            {
+                return duneLocations[entity];
             }
             catch (KeyNotFoundException e)
             {
@@ -469,11 +545,11 @@ namespace Application.Ringtoets.Storage.Read
         {
             if (entity == null)
             {
-                throw new ArgumentNullException("entity");
+                throw new ArgumentNullException(nameof(entity));
             }
             if (model == null)
             {
-                throw new ArgumentNullException("model");
+                throw new ArgumentNullException(nameof(model));
             }
 
             failureMechanismSections[entity] = model;
@@ -489,7 +565,7 @@ namespace Application.Ringtoets.Storage.Read
         {
             if (entity == null)
             {
-                throw new ArgumentNullException("entity");
+                throw new ArgumentNullException(nameof(entity));
             }
             return failureMechanismSections.ContainsKey(entity);
         }
@@ -510,7 +586,7 @@ namespace Application.Ringtoets.Storage.Read
         {
             if (entity == null)
             {
-                throw new ArgumentNullException("entity");
+                throw new ArgumentNullException(nameof(entity));
             }
             try
             {
@@ -541,11 +617,11 @@ namespace Application.Ringtoets.Storage.Read
         {
             if (entity == null)
             {
-                throw new ArgumentNullException("entity");
+                throw new ArgumentNullException(nameof(entity));
             }
             if (model == null)
             {
-                throw new ArgumentNullException("model");
+                throw new ArgumentNullException(nameof(model));
             }
 
             dikeProfiles[entity] = model;
@@ -561,7 +637,7 @@ namespace Application.Ringtoets.Storage.Read
         {
             if (entity == null)
             {
-                throw new ArgumentNullException("entity");
+                throw new ArgumentNullException(nameof(entity));
             }
             return dikeProfiles.ContainsKey(entity);
         }
@@ -582,7 +658,7 @@ namespace Application.Ringtoets.Storage.Read
         {
             if (entity == null)
             {
-                throw new ArgumentNullException("entity");
+                throw new ArgumentNullException(nameof(entity));
             }
             try
             {
@@ -613,11 +689,11 @@ namespace Application.Ringtoets.Storage.Read
         {
             if (entity == null)
             {
-                throw new ArgumentNullException("entity");
+                throw new ArgumentNullException(nameof(entity));
             }
             if (model == null)
             {
-                throw new ArgumentNullException("model");
+                throw new ArgumentNullException(nameof(model));
             }
 
             foreshoreProfiles[entity] = model;
@@ -633,7 +709,7 @@ namespace Application.Ringtoets.Storage.Read
         {
             if (entity == null)
             {
-                throw new ArgumentNullException("entity");
+                throw new ArgumentNullException(nameof(entity));
             }
             return foreshoreProfiles.ContainsKey(entity);
         }
@@ -654,7 +730,7 @@ namespace Application.Ringtoets.Storage.Read
         {
             if (entity == null)
             {
-                throw new ArgumentNullException("entity");
+                throw new ArgumentNullException(nameof(entity));
             }
             try
             {
@@ -688,11 +764,11 @@ namespace Application.Ringtoets.Storage.Read
         {
             if (entity == null)
             {
-                throw new ArgumentNullException("entity");
+                throw new ArgumentNullException(nameof(entity));
             }
             if (model == null)
             {
-                throw new ArgumentNullException("model");
+                throw new ArgumentNullException(nameof(model));
             }
 
             grassCoverErosionInwardsCalculations[entity] = model;
@@ -708,7 +784,7 @@ namespace Application.Ringtoets.Storage.Read
         {
             if (entity == null)
             {
-                throw new ArgumentNullException("entity");
+                throw new ArgumentNullException(nameof(entity));
             }
             return grassCoverErosionInwardsCalculations.ContainsKey(entity);
         }
@@ -729,7 +805,7 @@ namespace Application.Ringtoets.Storage.Read
         {
             if (entity == null)
             {
-                throw new ArgumentNullException("entity");
+                throw new ArgumentNullException(nameof(entity));
             }
             try
             {
@@ -760,11 +836,11 @@ namespace Application.Ringtoets.Storage.Read
         {
             if (entity == null)
             {
-                throw new ArgumentNullException("entity");
+                throw new ArgumentNullException(nameof(entity));
             }
             if (model == null)
             {
-                throw new ArgumentNullException("model");
+                throw new ArgumentNullException(nameof(model));
             }
 
             grassCoverErosionOutwardsHydraulicBoundaryLocations[entity] = model;
@@ -780,7 +856,7 @@ namespace Application.Ringtoets.Storage.Read
         {
             if (entity == null)
             {
-                throw new ArgumentNullException("entity");
+                throw new ArgumentNullException(nameof(entity));
             }
             return grassCoverErosionOutwardsHydraulicBoundaryLocations.ContainsKey(entity);
         }
@@ -801,7 +877,7 @@ namespace Application.Ringtoets.Storage.Read
         {
             if (entity == null)
             {
-                throw new ArgumentNullException("entity");
+                throw new ArgumentNullException(nameof(entity));
             }
             try
             {
@@ -832,11 +908,11 @@ namespace Application.Ringtoets.Storage.Read
         {
             if (entity == null)
             {
-                throw new ArgumentNullException("entity");
+                throw new ArgumentNullException(nameof(entity));
             }
             if (model == null)
             {
-                throw new ArgumentNullException("model");
+                throw new ArgumentNullException(nameof(model));
             }
 
             heightStructures[entity] = model;
@@ -852,7 +928,7 @@ namespace Application.Ringtoets.Storage.Read
         {
             if (entity == null)
             {
-                throw new ArgumentNullException("entity");
+                throw new ArgumentNullException(nameof(entity));
             }
             return heightStructures.ContainsKey(entity);
         }
@@ -873,7 +949,7 @@ namespace Application.Ringtoets.Storage.Read
         {
             if (entity == null)
             {
-                throw new ArgumentNullException("entity");
+                throw new ArgumentNullException(nameof(entity));
             }
             try
             {
@@ -903,11 +979,11 @@ namespace Application.Ringtoets.Storage.Read
         {
             if (entity == null)
             {
-                throw new ArgumentNullException("entity");
+                throw new ArgumentNullException(nameof(entity));
             }
             if (model == null)
             {
-                throw new ArgumentNullException("model");
+                throw new ArgumentNullException(nameof(model));
             }
 
             heightStructuresCalculations[entity] = model;
@@ -923,7 +999,7 @@ namespace Application.Ringtoets.Storage.Read
         {
             if (entity == null)
             {
-                throw new ArgumentNullException("entity");
+                throw new ArgumentNullException(nameof(entity));
             }
             return heightStructuresCalculations.ContainsKey(entity);
         }
@@ -944,7 +1020,7 @@ namespace Application.Ringtoets.Storage.Read
         {
             if (entity == null)
             {
-                throw new ArgumentNullException("entity");
+                throw new ArgumentNullException(nameof(entity));
             }
             try
             {
@@ -975,11 +1051,11 @@ namespace Application.Ringtoets.Storage.Read
         {
             if (entity == null)
             {
-                throw new ArgumentNullException("entity");
+                throw new ArgumentNullException(nameof(entity));
             }
             if (model == null)
             {
-                throw new ArgumentNullException("model");
+                throw new ArgumentNullException(nameof(model));
             }
 
             closingStructures[entity] = model;
@@ -995,7 +1071,7 @@ namespace Application.Ringtoets.Storage.Read
         {
             if (entity == null)
             {
-                throw new ArgumentNullException("entity");
+                throw new ArgumentNullException(nameof(entity));
             }
             return closingStructures.ContainsKey(entity);
         }
@@ -1016,7 +1092,7 @@ namespace Application.Ringtoets.Storage.Read
         {
             if (entity == null)
             {
-                throw new ArgumentNullException("entity");
+                throw new ArgumentNullException(nameof(entity));
             }
             try
             {
@@ -1046,11 +1122,11 @@ namespace Application.Ringtoets.Storage.Read
         {
             if (entity == null)
             {
-                throw new ArgumentNullException("entity");
+                throw new ArgumentNullException(nameof(entity));
             }
             if (model == null)
             {
-                throw new ArgumentNullException("model");
+                throw new ArgumentNullException(nameof(model));
             }
 
             closingStructuresCalculations[entity] = model;
@@ -1066,7 +1142,7 @@ namespace Application.Ringtoets.Storage.Read
         {
             if (entity == null)
             {
-                throw new ArgumentNullException("entity");
+                throw new ArgumentNullException(nameof(entity));
             }
             return closingStructuresCalculations.ContainsKey(entity);
         }
@@ -1087,7 +1163,7 @@ namespace Application.Ringtoets.Storage.Read
         {
             if (entity == null)
             {
-                throw new ArgumentNullException("entity");
+                throw new ArgumentNullException(nameof(entity));
             }
             try
             {
@@ -1118,11 +1194,11 @@ namespace Application.Ringtoets.Storage.Read
         {
             if (entity == null)
             {
-                throw new ArgumentNullException("entity");
+                throw new ArgumentNullException(nameof(entity));
             }
             if (model == null)
             {
-                throw new ArgumentNullException("model");
+                throw new ArgumentNullException(nameof(model));
             }
 
             stabilityPointStructures[entity] = model;
@@ -1138,7 +1214,7 @@ namespace Application.Ringtoets.Storage.Read
         {
             if (entity == null)
             {
-                throw new ArgumentNullException("entity");
+                throw new ArgumentNullException(nameof(entity));
             }
             return stabilityPointStructures.ContainsKey(entity);
         }
@@ -1159,7 +1235,7 @@ namespace Application.Ringtoets.Storage.Read
         {
             if (entity == null)
             {
-                throw new ArgumentNullException("entity");
+                throw new ArgumentNullException(nameof(entity));
             }
             try
             {
@@ -1189,11 +1265,11 @@ namespace Application.Ringtoets.Storage.Read
         {
             if (entity == null)
             {
-                throw new ArgumentNullException("entity");
+                throw new ArgumentNullException(nameof(entity));
             }
             if (model == null)
             {
-                throw new ArgumentNullException("model");
+                throw new ArgumentNullException(nameof(model));
             }
 
             stabilityPointStructuresCalculations[entity] = model;
@@ -1209,7 +1285,7 @@ namespace Application.Ringtoets.Storage.Read
         {
             if (entity == null)
             {
-                throw new ArgumentNullException("entity");
+                throw new ArgumentNullException(nameof(entity));
             }
             return stabilityPointStructuresCalculations.ContainsKey(entity);
         }
@@ -1230,7 +1306,7 @@ namespace Application.Ringtoets.Storage.Read
         {
             if (entity == null)
             {
-                throw new ArgumentNullException("entity");
+                throw new ArgumentNullException(nameof(entity));
             }
             try
             {
