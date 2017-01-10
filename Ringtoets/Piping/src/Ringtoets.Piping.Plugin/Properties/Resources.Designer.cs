@@ -250,15 +250,6 @@ namespace Ringtoets.Piping.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Begonnen met plaatsen van profielschematisaties in het toetsspoor..
-        /// </summary>
-        public static string PipingSurfaceLinesCsvImporter_AddImportedDataToModel_Start_adding_surface_lines {
-            get {
-                return ResourceManager.GetString("PipingSurfaceLinesCsvImporter_AddImportedDataToModel_Start_adding_surface_lines", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Karakteristiek punt van profielschematisatie &apos;{0}&apos; is overgeslagen. {1}.
         /// </summary>
         public static string PipingSurfaceLinesCsvImporter_CharacteristicPoint_of_SurfaceLine_0_skipped_cause_1_ {

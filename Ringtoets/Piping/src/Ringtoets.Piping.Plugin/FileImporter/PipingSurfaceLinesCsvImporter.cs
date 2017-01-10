@@ -117,7 +117,6 @@ namespace Ringtoets.Piping.Plugin.FileImporter
                                                                                    ICollection<CharacteristicPoints> readCharacteristicPointsLocations)
         {
             NotifyProgress(RingtoetsCommonIOResources.Importer_ProgressText_Adding_imported_data_to_DataModel, 0, readSurfaceLines.Count);
-            log.Info(Resources.PipingSurfaceLinesCsvImporter_AddImportedDataToModel_Start_adding_surface_lines);
 
             List<string> readCharacteristicPointsLocationNames = readCharacteristicPointsLocations.Select(cpl => cpl.Name).ToList();
             int surfaceLineNumber = 1;
