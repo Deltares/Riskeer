@@ -118,7 +118,8 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void StochasticSoilModel_AlwaysOnChange_NotifyObserverCalculationPropertyChangedOutputCleared()
         {
             // Setup
-            var newValue = new DataGridViewComboBoxItemWrapper<StochasticSoilModel>(new StochasticSoilModel(0, "test", "test"));
+            var newModel = new StochasticSoilModel(0, "test", "test");
+            var newValue = new DataGridViewComboBoxItemWrapper<StochasticSoilModel>(newModel);
 
             // Call
             AssertPropertyChangedOutputClearedObserverNotified(
@@ -126,7 +127,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 calculation =>
                 {
                     // Assert
-                    Assert.AreEqual(newValue.WrappedObject, calculation.InputParameters.StochasticSoilModel);
+                    Assert.AreEqual(newModel, calculation.InputParameters.StochasticSoilModel);
                 });
         }
 
@@ -155,7 +156,8 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void StochasticSoilProfile_AlwaysOnChange_NotifyObserverAndCalculationPropertyChanged()
         {
             // Setup
-            var newValue = new DataGridViewComboBoxItemWrapper<StochasticSoilProfile>(new StochasticSoilProfile(0, 0, 0));
+            var newProfile = new StochasticSoilProfile(0, 0, 0);
+            var newValue = new DataGridViewComboBoxItemWrapper<StochasticSoilProfile>(newProfile);
 
             // Call
             AssertPropertyChangedOutputClearedObserverNotified(
@@ -163,7 +165,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 calculation =>
                 {
                     // Assert
-                    Assert.AreEqual(newValue.WrappedObject, calculation.InputParameters.StochasticSoilProfile);
+                    Assert.AreEqual(newProfile, calculation.InputParameters.StochasticSoilProfile);
                 });
         }
 
@@ -192,8 +194,8 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void SelectableHydraulicBoundaryLocation_AlwaysOnChange_NotifyObserverAndCalculationPropertyChanged()
         {
             // Setup
-            var testHydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
-            var selectableHydraulicBoundaryLocation = new SelectableHydraulicBoundaryLocation(testHydraulicBoundaryLocation, new Point2D(0, 0));
+            var newLocation = new TestHydraulicBoundaryLocation();
+            var selectableHydraulicBoundaryLocation = new SelectableHydraulicBoundaryLocation(newLocation, new Point2D(0, 0));
             var newValue = new DataGridViewComboBoxItemWrapper<SelectableHydraulicBoundaryLocation>(selectableHydraulicBoundaryLocation);
 
             // Call
@@ -202,7 +204,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 calculation =>
                 {
                     // Assert
-                    Assert.AreSame(testHydraulicBoundaryLocation, calculation.InputParameters.HydraulicBoundaryLocation);
+                    Assert.AreSame(newLocation, calculation.InputParameters.HydraulicBoundaryLocation);
                 });
 
         }
@@ -450,6 +452,15 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 calculation => { });
         }
 
+        /// <summary>
+        /// Asserts that the output of a <see cref="PipingCalculationScenario"/> is cleared
+        /// and the change notified when the input for that calculation has been changed
+        /// using an instance of <see cref="PipingCalculationRow"/>.
+        /// </summary>
+        /// <param name="setProperty">The function that changes a property of the <see cref="PipingCalculationRow"/>
+        /// instance. This function should not throw exceptions.</param>
+        /// <param name="assertions">The additional assertions to be performed on the <see cref="PipingCalculationScenario"/>
+        /// whose input has been changed.</param>
         private static void AssertPropertyChangedOutputClearedObserverNotified(
             Action<PipingCalculationRow> setProperty, 
             Action<PipingCalculationScenario> assertions)
@@ -458,6 +469,15 @@ namespace Ringtoets.Piping.Forms.Test.Views
             AssertPropertyChangeWithOrWithoutCalculationOutput(setProperty, assertions, false, true);
         }
 
+        /// <summary>
+        /// Asserts that the output of a <see cref="PipingCalculationScenario"/> remains
+        /// unaffected (and therefore no change notification occurring) when the input for
+        /// that calculation has been changed using an instance of <see cref="PipingCalculationRow"/>.
+        /// </summary>
+        /// <param name="setProperty">The function that changes a property of the <see cref="PipingCalculationRow"/>
+        /// instance. This function should not throw exceptions.</param>
+        /// <param name="assertions">The additional assertions to be performed on the <see cref="PipingCalculationScenario"/>
+        /// whose input has been changed.</param>
         private static void AssertPropertyNotChanged(
             Action<PipingCalculationRow> setProperty, 
             Action<PipingCalculationScenario> assertions)

@@ -25,6 +25,7 @@ using System.Globalization;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Controls.DataGrid;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Service;
 using Ringtoets.Piping.Data;
@@ -84,8 +85,8 @@ namespace Ringtoets.Piping.Forms.Views
             }
             set
             {
-                var valueToSet = value?.WrappedObject;
-                if (PipingCalculation.InputParameters.StochasticSoilModel != valueToSet)
+                StochasticSoilModel valueToSet = value?.WrappedObject;
+                if (!ReferenceEquals(PipingCalculation.InputParameters.StochasticSoilModel, valueToSet))
                 {
                     PipingCalculation.InputParameters.StochasticSoilModel = valueToSet;
                     ClearOutputAndNotifyPropertyChanged();
@@ -104,8 +105,8 @@ namespace Ringtoets.Piping.Forms.Views
             }
             set
             {
-                var valueToSet = value?.WrappedObject;
-                if (PipingCalculation.InputParameters.StochasticSoilProfile != valueToSet)
+                StochasticSoilProfile valueToSet = value?.WrappedObject;
+                if (!ReferenceEquals(PipingCalculation.InputParameters.StochasticSoilProfile, valueToSet))
                 {
                     PipingCalculation.InputParameters.StochasticSoilProfile = valueToSet;
                     ClearOutputAndNotifyPropertyChanged();
@@ -144,8 +145,8 @@ namespace Ringtoets.Piping.Forms.Views
             }
             set
             {
-                var valueToSet = value?.WrappedObject?.HydraulicBoundaryLocation;
-                if (PipingCalculation.InputParameters.HydraulicBoundaryLocation != valueToSet)
+                HydraulicBoundaryLocation valueToSet = value?.WrappedObject?.HydraulicBoundaryLocation;
+                if (!ReferenceEquals(PipingCalculation.InputParameters.HydraulicBoundaryLocation, valueToSet))
                 {
                     PipingCalculation.InputParameters.HydraulicBoundaryLocation = valueToSet;
                     ClearOutputAndNotifyPropertyChanged();
