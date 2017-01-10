@@ -254,8 +254,16 @@ namespace Ringtoets.Piping.Data
                     tempEntryPointL = localGeometry.ElementAt(entryPointIndex).X;
                 }
 
-                ExitPointL = (RoundedDouble) tempExitPointL;
-                EntryPointL = (RoundedDouble) tempEntryPointL;
+                if (tempExitPointL <= ExitPointL)
+                {
+                    EntryPointL = (RoundedDouble)tempEntryPointL;
+                    ExitPointL = (RoundedDouble)tempExitPointL;
+                }
+                else
+                {
+                    ExitPointL = (RoundedDouble) tempExitPointL;
+                    EntryPointL = (RoundedDouble) tempEntryPointL;
+                }
             }
         }
 

@@ -313,7 +313,7 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void SurfaceLine_WithDikeToes_ThenExitPointLAndEntryPointLUpdated()
+        public void SurfaceLine_WithDikeToes_ExitPointLAndEntryPointLUpdated()
         {
             // Given
             PipingInput input = new PipingInput(new GeneralPipingInput());
@@ -334,6 +334,68 @@ namespace Ringtoets.Piping.Data.Test
             // Assert
             Assert.AreEqual(new RoundedDouble(2, 1), input.EntryPointL);
             Assert.AreEqual(new RoundedDouble(2, 2), input.ExitPointL);
+        }
+
+        [Test]
+        public void SurfaceLine_DikeToesBeyondSetExitPointL_ExitPointLAndEntryPointLUpdated()
+        {
+            // Given
+            PipingInput input = new PipingInput(new GeneralPipingInput());
+
+            RingtoetsPipingSurfaceLine surfaceLine = new RingtoetsPipingSurfaceLine();
+            surfaceLine.SetGeometry(new[]
+            {
+                new Point3D(0, 0, 0),
+                new Point3D(1, 0, 2),
+                new Point3D(2, 0, 3),
+                new Point3D(3, 0, 0),
+                new Point3D(4, 0, 2),
+                new Point3D(5, 0, 3)
+            });
+            surfaceLine.SetDikeToeAtRiverAt(new Point3D(2, 0, 3));
+            surfaceLine.SetDikeToeAtPolderAt(new Point3D(3, 0, 0));
+
+            input.SurfaceLine = surfaceLine;
+            input.EntryPointL = (RoundedDouble) 0;
+            input.ExitPointL = (RoundedDouble) 1;
+
+            // Call
+            input.SurfaceLine = surfaceLine;
+
+            // Assert
+            Assert.AreEqual(new RoundedDouble(2, 2), input.EntryPointL);
+            Assert.AreEqual(new RoundedDouble(3, 3), input.ExitPointL);
+        }
+
+        [Test]
+        public void SurfaceLine_DikeToesBeforeSetEntreePointL_ExitPointLAndEntryPointLUpdated()
+        {
+            // Given
+            PipingInput input = new PipingInput(new GeneralPipingInput());
+
+            RingtoetsPipingSurfaceLine surfaceLine = new RingtoetsPipingSurfaceLine();
+            surfaceLine.SetGeometry(new[]
+            {
+                new Point3D(0, 0, 0),
+                new Point3D(1, 0, 2),
+                new Point3D(2, 0, 3),
+                new Point3D(3, 0, 0),
+                new Point3D(4, 0, 2),
+                new Point3D(5, 0, 3)
+            });
+            surfaceLine.SetDikeToeAtRiverAt(new Point3D(2, 0, 3));
+            surfaceLine.SetDikeToeAtPolderAt(new Point3D(3, 0, 0));
+
+            input.SurfaceLine = surfaceLine;
+            input.ExitPointL = (RoundedDouble) 5;
+            input.EntryPointL = (RoundedDouble) 4;
+
+            // Call
+            input.SurfaceLine = surfaceLine;
+
+            // Assert
+            Assert.AreEqual(new RoundedDouble(2, 2), input.EntryPointL);
+            Assert.AreEqual(new RoundedDouble(2, 3), input.ExitPointL);
         }
 
         [Test]
