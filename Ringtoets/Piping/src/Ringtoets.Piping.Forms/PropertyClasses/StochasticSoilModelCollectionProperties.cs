@@ -49,13 +49,13 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         }
 
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Resources), "StochasticSoilModelCollection_LastKnownFilePath_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "StochasticSoilModelCollection_LastKnownFilePath_Description")]
-        public string LastKnownFilePath
+        [ResourcesDisplayName(typeof(Resources), "StochasticSoilModelCollection_SourcePath_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "StochasticSoilModelCollection_SourcePath_Description")]
+        public string SourcePath
         {
             get
             {
-                return data.LastKnownFilePath;
+                return data.SourcePath;
             }
         }
 

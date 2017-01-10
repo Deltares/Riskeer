@@ -52,7 +52,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var someFilePath = "location/to/a/file";
             var collection = new StochasticSoilModelCollection
             {
-                LastKnownFilePath = someFilePath
+                SourcePath = someFilePath
             };
 
             // Call
@@ -61,7 +61,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             // Assert
             Assert.IsInstanceOf<ObjectProperties<StochasticSoilModelCollection>>(properties);
             Assert.AreSame(collection, properties.Data);
-            Assert.AreEqual(someFilePath, properties.LastKnownFilePath);
+            Assert.AreEqual(someFilePath, properties.SourcePath);
         }
 
         [Test]
@@ -85,8 +85,10 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             Assert.IsNotNull(stochasticSoilModelIdProperty);
             Assert.IsTrue(stochasticSoilModelIdProperty.IsReadOnly);
             Assert.AreEqual("Algemeen", stochasticSoilModelIdProperty.Category);
-            Assert.AreEqual("Bestandslocatie", stochasticSoilModelIdProperty.DisplayName);
-            Assert.AreEqual("De laatst bekende bestandslocatie.", stochasticSoilModelIdProperty.Description);
+            Assert.AreEqual("Bronlocatie", stochasticSoilModelIdProperty.DisplayName);
+            Assert.AreEqual(
+                "De locatie van het bestand waaruit de stochastische ondergrondmodellen zijn geïmporteerd.", 
+                stochasticSoilModelIdProperty.Description);
         }
     }
 }

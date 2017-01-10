@@ -132,7 +132,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         }
 
         [Test]
-        public void Import_ImportingToValidTargetWithValidFile_ImportSoilModelToCollectionLastKnownFilePathSet()
+        public void Import_ImportingToValidTargetWithValidFile_ImportSoilModelToCollectionSourcePathSet()
         {
             // Setup
             string validFilePath = Path.Combine(testDataPath, "complete.soil");
@@ -148,7 +148,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             // Assert
             Assert.IsTrue(importResult);
-            Assert.AreEqual(validFilePath, pipingFailureMechanism.StochasticSoilModels.LastKnownFilePath);
+            Assert.AreEqual(validFilePath, pipingFailureMechanism.StochasticSoilModels.SourcePath);
             var expectedProfiles = 26;
             var expectedModels = 3;
 
@@ -696,7 +696,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             StochasticSoilModelCollection actualStochasticSoilModels)
         {
             Assert.AreEqual(expectedSoilModelCount, actualStochasticSoilModels.Count);
-            Assert.AreEqual(expectedFilePath, actualStochasticSoilModels.LastKnownFilePath);
+            Assert.AreEqual(expectedFilePath, actualStochasticSoilModels.SourcePath);
             Assert.IsTrue(actualImportResult);
         }
 
@@ -705,7 +705,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             StochasticSoilModelCollection stochasticSoilModels)
         {
             Assert.IsEmpty(stochasticSoilModels);
-            Assert.IsNull(stochasticSoilModels.LastKnownFilePath);
+            Assert.IsNull(stochasticSoilModels.SourcePath);
             Assert.IsFalse(actualImportResult);
         }
 

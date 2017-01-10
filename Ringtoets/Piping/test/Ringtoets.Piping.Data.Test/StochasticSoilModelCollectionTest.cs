@@ -36,7 +36,7 @@ namespace Ringtoets.Piping.Data.Test
 
             // Assert
             Assert.IsInstanceOf<ObservableList<StochasticSoilModel>>(collection);
-            Assert.IsNull(collection.LastKnownFilePath);
+            Assert.IsNull(collection.SourcePath);
         }
     }
 }

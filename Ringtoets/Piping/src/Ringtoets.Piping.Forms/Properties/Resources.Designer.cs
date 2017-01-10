@@ -1484,20 +1484,20 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De laatst bekende bestandslocatie..
+        ///   Looks up a localized string similar to De locatie van het bestand waaruit de stochastische ondergrondmodellen zijn geïmporteerd..
         /// </summary>
-        public static string StochasticSoilModelCollection_LastKnownFilePath_Description {
+        public static string StochasticSoilModelCollection_SourcePath_Description {
             get {
-                return ResourceManager.GetString("StochasticSoilModelCollection_LastKnownFilePath_Description", resourceCulture);
+                return ResourceManager.GetString("StochasticSoilModelCollection_SourcePath_Description", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bestandslocatie.
+        ///   Looks up a localized string similar to Bronlocatie.
         /// </summary>
-        public static string StochasticSoilModelCollection_LastKnownFilePath_DisplayName {
+        public static string StochasticSoilModelCollection_SourcePath_DisplayName {
             get {
-                return ResourceManager.GetString("StochasticSoilModelCollection_LastKnownFilePath_DisplayName", resourceCulture);
+                return ResourceManager.GetString("StochasticSoilModelCollection_SourcePath_DisplayName", resourceCulture);
             }
         }
         

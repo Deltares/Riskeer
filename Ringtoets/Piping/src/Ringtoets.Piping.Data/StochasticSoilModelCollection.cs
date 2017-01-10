@@ -32,6 +32,6 @@ namespace Ringtoets.Piping.Data
         /// Gets the last known file path from which the <see cref="StochasticSoilModel"/>
         /// elements were imported.
         /// </summary>
-        public string LastKnownFilePath { get; set; }
+        public string SourcePath { get; set; }
     }
 }

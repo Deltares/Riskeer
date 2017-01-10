@@ -130,7 +130,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
                 }
                 ImportTarget.Add(readStochasticSoilModel);
             }
-            ImportTarget.LastKnownFilePath = FilePath;
+            ImportTarget.SourcePath = FilePath;
         }
 
         private bool ValidateStochasticSoilModel(StochasticSoilModel stochasticSoilModel)
