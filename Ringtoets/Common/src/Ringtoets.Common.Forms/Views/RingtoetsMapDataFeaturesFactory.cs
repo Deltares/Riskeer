@@ -104,9 +104,7 @@ namespace Ringtoets.Common.Forms.Views
         /// is <c>null</c>.</returns>
         public static MapFeature[] CreateHydraulicBoundaryDatabaseFeatures(HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
         {
-            return CreateHydraulicBoundaryLocationFeatures(hydraulicBoundaryDatabase != null
-                                                               ? hydraulicBoundaryDatabase.Locations.ToArray()
-                                                               : new HydraulicBoundaryLocation[0],
+            return CreateHydraulicBoundaryLocationFeatures(hydraulicBoundaryDatabase?.Locations.ToArray() ?? new HydraulicBoundaryLocation[0],
                                                            Resources.MetaData_DesignWaterLevel,
                                                            Resources.MetaData_WaveHeight);
         }
@@ -164,9 +162,7 @@ namespace Ringtoets.Common.Forms.Views
         /// <c>null</c> or empty.</returns>
         public static MapFeature[] CreateFailureMechanismSectionFeatures(IEnumerable<FailureMechanismSection> sections)
         {
-            return sections != null
-                       ? sections.Select(CreateFailureMechanismSectionMapFeature).ToArray()
-                       : new MapFeature[0];
+            return sections?.Select(CreateFailureMechanismSectionMapFeature).ToArray() ?? new MapFeature[0];
         }
 
         /// <summary>
@@ -331,7 +327,7 @@ namespace Ringtoets.Common.Forms.Views
                     feature.MetaData[Resources.MetaData_Name] = calculationItem.Name;
                     feature.MetaData[Resources.MetaData_Couple_distance] =
                         calculationItem.CalculationLocation.GetEuclideanDistanceTo(
-                            calculationItem.HydraulicBoundaryLocation.Location);
+                                           calculationItem.HydraulicBoundaryLocation.Location);
 
                     features[i] = feature;
                 }
@@ -339,6 +335,31 @@ namespace Ringtoets.Common.Forms.Views
             }
 
             return new MapFeature[0];
+        }
+
+        /// <summary>
+        /// Creates a map feature with one single point.
+        /// </summary>
+        /// <param name="point">The point of the map feature.</param>
+        /// <returns>The map feature with the <paramref name="point"/> as geometry.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="point"/> is <c>null</c>.</exception>
+        public static MapFeature CreateSinglePointMapFeature(Point2D point)
+        {
+            if (point == null)
+            {
+                throw new ArgumentNullException(nameof(point));
+            }
+
+            return new MapFeature(new[]
+            {
+                new MapGeometry(new[]
+                {
+                    new[]
+                    {
+                        point
+                    }
+                })
+            });
         }
 
         private static MapCalculationData CreatemapCalculationData<T, U>(StructuresCalculation<T> calculation)
@@ -391,20 +412,6 @@ namespace Ringtoets.Common.Forms.Views
                 foreshoreProfile.WorldReferencePoint,
                 -foreshoreProfile.X0,
                 foreshoreProfile.Orientation);
-        }
-
-        public static MapFeature CreateSinglePointMapFeature(Point2D point)
-        {
-            return new MapFeature(new[]
-            {
-                new MapGeometry(new[]
-                {
-                    new[]
-                    {
-                        point
-                    }
-                })
-            });
         }
     }
 }

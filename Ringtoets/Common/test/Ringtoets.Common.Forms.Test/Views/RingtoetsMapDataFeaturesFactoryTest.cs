@@ -777,7 +777,18 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         [Test]
-        public void CreateSinglePointMapFeature_CreatesaSinglePointMapFeature()
+        public void CreateSinglePointMapFeature_PointNull_ThrowArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => RingtoetsMapDataFeaturesFactory.CreateSinglePointMapFeature(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("point", exception.ParamName);
+        }
+
+        [Test]
+        public void CreateSinglePointMapFeature_WithPoint_CreatesASinglePointMapFeature()
         {
             // Setup
             var point = new Point2D(0, 0);
@@ -786,10 +797,12 @@ namespace Ringtoets.Common.Forms.Test.Views
             var pointMapFeature = RingtoetsMapDataFeaturesFactory.CreateSinglePointMapFeature(point);
 
             // Assert
-            Assert.AreEqual(1, pointMapFeature.MapGeometries.Count());
-            MapGeometry mapGeometry = pointMapFeature.MapGeometries.First();
-            Assert.AreEqual(1, mapGeometry.PointCollections.Count());
-            Assert.AreSame(point, mapGeometry.PointCollections.First().First());
+            MapGeometry[] mapGeometries = pointMapFeature.MapGeometries.ToArray();
+            Assert.AreEqual(1, mapGeometries.Length);
+            MapGeometry mapGeometry = mapGeometries.First();
+            IEnumerable<Point2D>[] geometryPointCollections = mapGeometry.PointCollections.ToArray();
+            Assert.AreEqual(1, geometryPointCollections.Length);
+            Assert.AreSame(point, geometryPointCollections.First().First());
         }
 
         private static void AssertEqualFeatureCollections(Point2D[] points, MapFeature[] features)
