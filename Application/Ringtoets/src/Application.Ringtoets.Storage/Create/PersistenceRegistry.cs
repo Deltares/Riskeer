@@ -29,6 +29,7 @@ using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Structures;
+using Ringtoets.DuneErosion.Data;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.Piping.Data;
@@ -71,6 +72,9 @@ namespace Application.Ringtoets.Storage.Create
 
         private readonly Dictionary<object, HydraulicBoundaryLocation> hydraulicLocations =
             CreateDictionary<object, HydraulicBoundaryLocation>();
+
+        private readonly Dictionary<DuneLocationEntity, DuneLocation> duneLocations =
+            CreateDictionary<DuneLocationEntity, DuneLocation>();
 
         private readonly Dictionary<HeightStructureEntity, HeightStructure> heightStructures =
             CreateDictionary<HeightStructureEntity, HeightStructure>();
@@ -123,7 +127,7 @@ namespace Application.Ringtoets.Storage.Create
         {
             if (model == null)
             {
-                throw new ArgumentNullException("model");
+                throw new ArgumentNullException(nameof(model));
             }
 
             return collection.Keys.Single(k => ReferenceEquals(collection[k], model));
@@ -227,6 +231,22 @@ namespace Application.Ringtoets.Storage.Create
         internal void Register(GrassCoverErosionOutwardsHydraulicLocationEntity entity, HydraulicBoundaryLocation model)
         {
             Register(hydraulicLocations, entity, model);
+        }
+
+        /// <summary>
+        /// Registers a create operation for <paramref name="model"/> and the <paramref name="entity"/>
+        /// that was constructed with the information.
+        /// </summary>
+        /// <param name="entity">The <see cref="DuneLocationEntity"/> to be registered.</param>
+        /// <param name="model">The <see cref="DuneLocation"/> to be registered.</param>
+        /// <exception cref="ArgumentNullException">Thrown when either:
+        /// <list type="bullet">
+        /// <item><paramref name="entity"/> is <c>null</c></item>
+        /// <item><paramref name="model"/> is <c>null</c></item>
+        /// </list></exception>
+        internal void Register(DuneLocationEntity entity, DuneLocation model)
+        {
+            Register(duneLocations, entity, model);
         }
 
         /// <summary>
@@ -429,6 +449,17 @@ namespace Application.Ringtoets.Storage.Create
         internal bool Contains(HydraulicBoundaryLocation model)
         {
             return ContainsValue(hydraulicLocations, model);
+        }
+
+        /// <summary>
+        /// Checks whether a create operations has been registered for the given <paramref name="model"/>.
+        /// </summary>
+        /// <param name="model">The <see cref="DuneLocation"/> to check for.</param>
+        /// <returns><c>true</c> if the <see cref="model"/> was registered before, <c>false</c> otherwise.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="model"/> is <c>null</c>.</exception>
+        internal bool Contains(DuneLocation model)
+        {
+            return ContainsValue(duneLocations, model);
         }
 
         /// <summary>
@@ -656,6 +687,23 @@ namespace Application.Ringtoets.Storage.Create
         internal T Get<T>(HydraulicBoundaryLocation model) where T : class
         {
             return Get(hydraulicLocations, model) as T;
+        }
+
+        /// <summary>
+        /// Obtains the <see cref="DuneLocationEntity"/> which was registered for the
+        /// given <paramref name="model"/>.
+        /// </summary>
+        /// <param name="model">The <see cref="DuneLocation"/> for which a
+        /// read operation has been registered.</param>
+        /// <returns>The constructed <see cref="DuneLocationEntity"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="model"/> is <c>null</c>.</exception>
+        /// <exception cref="InvalidOperationException">Thrown when no create operation 
+        /// has been registered for <paramref name="model"/>.</exception>
+        /// <remarks>Use <see cref="Contains(DuneLocation)"/> to find out
+        /// whether a create operation has been registered for <paramref name="model"/>.</remarks>
+        internal DuneLocationEntity Get(DuneLocation model)
+        {
+            return Get(duneLocations, model);
         }
 
         /// <summary>

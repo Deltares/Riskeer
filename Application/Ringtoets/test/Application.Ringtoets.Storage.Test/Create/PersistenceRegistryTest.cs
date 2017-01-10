@@ -32,6 +32,8 @@ using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.DuneErosion.Data;
+using Ringtoets.DuneErosion.Data.TestUtil;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Data.TestUtil;
@@ -234,6 +236,64 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             // Call
             bool result = registry.Contains(hydraulicBoundaryLocation);
+
+            // Assert
+            Assert.IsFalse(result);
+        }
+
+        [Test]
+        public void Contains_WithoutDuneLocation_ThrowsArgumentNullException()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+
+            // Call
+            TestDelegate test = () => registry.Contains((DuneLocation) null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("model", paramName);
+        }
+
+        [Test]
+        public void Contains_DuneLocationAdded_ReturnsTrue()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+            var duneLocation = new TestDuneLocation();
+            registry.Register(new DuneLocationEntity(), duneLocation);
+
+            // Call
+            bool result = registry.Contains(duneLocation);
+
+            // Assert
+            Assert.IsTrue(result);
+        }
+
+        [Test]
+        public void Contains_NoDuneLocationAdded_ReturnsFalse()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+            var duneLocation = new TestDuneLocation();
+
+            // Call
+            bool result = registry.Contains(duneLocation);
+
+            // Assert
+            Assert.IsFalse(result);
+        }
+
+        [Test]
+        public void Contains_OtherDuneLocationAdded_ReturnsFalse()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+            var duneLocation = new TestDuneLocation();
+            registry.Register(new DuneLocationEntity(), new TestDuneLocation());
+
+            // Call
+            bool result = registry.Contains(duneLocation);
 
             // Assert
             Assert.IsFalse(result);
@@ -1128,6 +1188,65 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
+        public void Get_WithoutDuneLocation_ThrowsArgumentNullException()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+
+            // Call
+            TestDelegate test = () => registry.Get<DuneLocation>(null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("model", paramName);
+        }
+
+        [Test]
+        public void Get_DuneLocationAdded_ReturnsEntity()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+            var duneLocation = new TestDuneLocation();
+            var entity = new DuneLocationEntity();
+            registry.Register(entity, duneLocation);
+
+            // Call
+            DuneLocationEntity result = registry.Get(duneLocation);
+
+            // Assert
+            Assert.AreSame(entity, result);
+        }
+
+        [Test]
+        public void Get_NoDuneLocationAdded_ThrowsInvalidOperationException()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+            var duneLocation = new TestDuneLocation();
+
+            // Call
+            TestDelegate test = () => registry.Get(duneLocation);
+
+            // Assert
+            Assert.Throws<InvalidOperationException>(test);
+        }
+
+        [Test]
+        public void Get_OtherDuneLocationAdded_ThrowsInvalidOperationException()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+            var duneLocation = new TestDuneLocation();
+            registry.Register(new DuneLocationEntity(), new TestDuneLocation());
+
+            // Call
+            TestDelegate test = () => registry.Get(duneLocation);
+
+            // Assert
+            Assert.Throws<InvalidOperationException>(test);
+        }
+
+        [Test]
         public void Get_WithoutStochasticSoilModel_ThrowsArgumentNullException()
         {
             // Setup
@@ -1946,6 +2065,34 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             // Call
             TestDelegate test = () => registry.Register(new HydraulicLocationEntity(), null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("model", paramName);
+        }
+
+        [Test]
+        public void Register_WithNullDuneLocationEntity_ThrowsArgumentNullException()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+
+            // Call
+            TestDelegate test = () => registry.Register((DuneLocationEntity) null, new TestDuneLocation());
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("entity", paramName);
+        }
+
+        [Test]
+        public void Register_WithNullDuneLocation_ThrowsArgumentNullException()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+
+            // Call
+            TestDelegate test = () => registry.Register(new DuneLocationEntity(), null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
