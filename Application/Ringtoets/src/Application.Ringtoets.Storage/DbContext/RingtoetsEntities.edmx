@@ -627,7 +627,7 @@
           <Property Name="FailureMechanismEntityId" Type="integer" Nullable="false" />
           <Property Name="A" Type="real" Nullable="false" />
           <Property Name="WaterVolumetricWeight" Type="real" Nullable="false" />
-          <Property Name="StochasticSoilModelSourcePath" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="StochasticSoilModelSourcePath" Type="nvarchar" MaxLength="2147483647" />
         </EntityType>
         <EntityType Name="PipingSectionResultEntity">
           <Key>
@@ -3707,7 +3707,7 @@
           <Property Name="FailureMechanismEntityId" Type="Int64" Nullable="false" />
           <Property Name="A" Type="Double" Nullable="false" />
           <Property Name="WaterVolumetricWeight" Type="Double" Nullable="false" />
-          <Property Name="StochasticSoilModelSourcePath" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="StochasticSoilModelSourcePath" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="FailureMechanismEntity" Relationship="RingtoetsEntitiesModel.FK_PipingFailureMechanismMetaEntity_0_0" FromRole="PipingFailureMechanismMetaEntity" ToRole="FailureMechanismEntity" />
         </EntityType>
         <EntityType Name="PipingSectionResultEntity">
