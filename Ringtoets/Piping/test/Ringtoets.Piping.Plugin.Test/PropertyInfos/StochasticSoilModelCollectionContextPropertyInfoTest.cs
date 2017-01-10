@@ -27,12 +27,11 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.PropertyClasses;
-using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.Plugin.Test.PropertyInfos
 {
     [TestFixture]
-    public class PipingInputContextPropertyInfoTest
+    public class StochasticSoilModelCollectionContextPropertyInfoTest
     {
         private PipingPlugin plugin;
         private PropertyInfo info;
@@ -41,7 +40,7 @@ namespace Ringtoets.Piping.Plugin.Test.PropertyInfos
         public void SetUp()
         {
             plugin = new PipingPlugin();
-            info = plugin.GetPropertyInfos().First(tni => tni.PropertyObjectType == typeof(PipingInputContextProperties));
+            info = plugin.GetPropertyInfos().First(tni => tni.PropertyObjectType == typeof(StochasticSoilModelCollectionProperties));
         }
 
         [TearDown]
@@ -54,8 +53,8 @@ namespace Ringtoets.Piping.Plugin.Test.PropertyInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(PipingInputContext), info.DataType);
-            Assert.AreEqual(typeof(PipingInputContextProperties), info.PropertyObjectType);
+            Assert.AreEqual(typeof(StochasticSoilModelCollectionContext), info.DataType);
+            Assert.AreEqual(typeof(StochasticSoilModelCollectionProperties), info.PropertyObjectType);
         }
 
         [Test]
@@ -66,22 +65,17 @@ namespace Ringtoets.Piping.Plugin.Test.PropertyInfos
             var assessmentSection = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var scenario = new PipingCalculationScenario(new GeneralPipingInput());
-
             var failureMechanism = new PipingFailureMechanism();
-            var context = new PipingInputContext(
-                scenario.InputParameters,
-                scenario,
-                Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                Enumerable.Empty<StochasticSoilModel>(),  
-                failureMechanism, assessmentSection);
+
+            var collection = new StochasticSoilModelCollection();
+            var context = new StochasticSoilModelCollectionContext(collection, failureMechanism, assessmentSection);
 
             // Call
             var objectProperties = info.CreateInstance(context);
 
             // Assert
-            Assert.IsInstanceOf<PipingInputContextProperties>(objectProperties);
-            Assert.AreSame(context, objectProperties.Data);
+            Assert.IsInstanceOf<StochasticSoilModelCollectionProperties>(objectProperties);
+            Assert.AreSame(collection, objectProperties.Data);
 
             mocks.VerifyAll();
         }

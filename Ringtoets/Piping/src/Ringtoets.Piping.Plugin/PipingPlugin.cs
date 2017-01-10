@@ -73,6 +73,10 @@ namespace Ringtoets.Piping.Plugin
             yield return new PropertyInfo<PipingInputContext, PipingInputContextProperties>();
             yield return new PropertyInfo<PipingOutputContext, PipingOutputContextProperties>();
             yield return new PropertyInfo<RingtoetsPipingSurfaceLine, RingtoetsPipingSurfaceLineProperties>();
+            yield return new PropertyInfo<StochasticSoilModelCollectionContext, StochasticSoilModelCollectionProperties>
+            {
+                CreateInstance = context => new StochasticSoilModelCollectionProperties(context.WrappedData)
+            };
             yield return new PropertyInfo<StochasticSoilModel, StochasticSoilModelProperties>();
             yield return new PropertyInfo<StochasticSoilProfile, StochasticSoilProfileProperties>();
         }
@@ -91,7 +95,7 @@ namespace Ringtoets.Piping.Plugin
                                                                                               filePath)
             };
 
-            yield return new ImportInfo<StochasticSoilModelsContext>
+            yield return new ImportInfo<StochasticSoilModelCollectionContext>
             {
                 Name = PipingFormsResources.StochasticSoilModelCollection_DisplayName,
                 Category = RingtoetsCommonFormsResources.Ringtoets_Category,
@@ -225,7 +229,7 @@ namespace Ringtoets.Piping.Plugin
                 OnNodeRemoved = OnSurfaceLineRemoved
             };
 
-            yield return new TreeNodeInfo<StochasticSoilModelsContext>
+            yield return new TreeNodeInfo<StochasticSoilModelCollectionContext>
             {
                 Text = stochasticSoilModelContext => PipingFormsResources.StochasticSoilModelCollection_DisplayName,
                 Image = stochasticSoilModelContext => RingtoetsCommonFormsResources.GeneralFolderIcon,
@@ -501,12 +505,12 @@ namespace Ringtoets.Piping.Plugin
 
         private bool CanRemoveStochasticSoilModel(StochasticSoilModel nodeData, object parentData)
         {
-            return parentData is StochasticSoilModelsContext;
+            return parentData is StochasticSoilModelCollectionContext;
         }
 
         private void OnStochasticSoilModelRemoved(StochasticSoilModel nodeData, object parentData)
         {
-            var context = (StochasticSoilModelsContext) parentData;
+            var context = (StochasticSoilModelCollectionContext) parentData;
             IObservable[] changedObservables = PipingDataSynchronizationService.RemoveStochasticSoilModel(context.FailureMechanism,
                                                                                                           nodeData).ToArray();
 
@@ -597,7 +601,7 @@ namespace Ringtoets.Piping.Plugin
             {
                 new FailureMechanismSectionsContext(failureMechanism, assessmentSection),
                 new RingtoetsPipingSurfaceLinesContext(failureMechanism.SurfaceLines, failureMechanism, assessmentSection),
-                new StochasticSoilModelsContext(failureMechanism.StochasticSoilModels, failureMechanism, assessmentSection),
+                new StochasticSoilModelCollectionContext(failureMechanism.StochasticSoilModels, failureMechanism, assessmentSection),
                 failureMechanism.InputComments
             };
         }

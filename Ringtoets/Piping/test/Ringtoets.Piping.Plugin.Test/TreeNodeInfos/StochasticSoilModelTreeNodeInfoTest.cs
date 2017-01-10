@@ -151,7 +151,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var failureMechanism = new PipingFailureMechanism();
-            var parentData = new StochasticSoilModelsContext(failureMechanism.StochasticSoilModels, failureMechanism, assessmentSection);
+            var parentData = new StochasticSoilModelCollectionContext(failureMechanism.StochasticSoilModels, failureMechanism, assessmentSection);
 
             // Call
             bool canRemove = info.CanRemove(null, parentData);
@@ -258,7 +258,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             };
             failureMechanism.StochasticSoilModels.Attach(observer);
 
-            var parentData = new StochasticSoilModelsContext(failureMechanism.StochasticSoilModels, failureMechanism, assessmentSection);
+            var parentData = new StochasticSoilModelCollectionContext(failureMechanism.StochasticSoilModels, failureMechanism, assessmentSection);
 
             // Call
             info.OnNodeRemoved(nodeData, parentData);

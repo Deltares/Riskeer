@@ -45,12 +45,13 @@ namespace Core.Common.Gui.TestUtil
         /// <paramref name="propertyObjectType"/>.</exception>
         public static PropertyInfo AssertPropertyInfoDefined(IEnumerable<PropertyInfo> propertyInfos, Type dataObjectType, Type propertyObjectType)
         {
-            Assert.NotNull(propertyInfos);
+            Assert.NotNull(propertyInfos, "The given collection of propertyInfos was undefined.");
             var propertyInfo = propertyInfos.FirstOrDefault(
                 tni =>
                 tni.DataType == dataObjectType &&
                 tni.PropertyObjectType == propertyObjectType);
-            Assert.NotNull(propertyInfo);
+            Assert.NotNull(propertyInfo, $"The property info object was not found for the given dataType ({dataObjectType}) " +
+                                         $"and propertyObjectType ({propertyObjectType}).");
             return propertyInfo;
         }
 

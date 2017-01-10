@@ -36,7 +36,7 @@ using PipingFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
 namespace Ringtoets.Piping.Plugin.Test.ImportInfos
 {
     [TestFixture]
-    public class StochasticSoilModelsContextImportInfoTest
+    public class StochasticSoilModelCollectionContextImportInfoTest
     {
         private ImportInfo importInfo;
         private PipingPlugin plugin;
@@ -45,7 +45,7 @@ namespace Ringtoets.Piping.Plugin.Test.ImportInfos
         public void SetUp()
         {
             plugin = new PipingPlugin();
-            importInfo = plugin.GetImportInfos().First(i => i.DataType == typeof(StochasticSoilModelsContext));
+            importInfo = plugin.GetImportInfos().First(i => i.DataType == typeof(StochasticSoilModelCollectionContext));
         }
 
         [TearDown]
@@ -95,7 +95,7 @@ namespace Ringtoets.Piping.Plugin.Test.ImportInfos
 
             var failureMechanism = new PipingFailureMechanism();
 
-            var context = new StochasticSoilModelsContext(failureMechanism.StochasticSoilModels, failureMechanism, assessmentSection);
+            var context = new StochasticSoilModelCollectionContext(failureMechanism.StochasticSoilModels, failureMechanism, assessmentSection);
 
             // Call
             bool isEnabled = importInfo.IsEnabled(context);
@@ -116,7 +116,7 @@ namespace Ringtoets.Piping.Plugin.Test.ImportInfos
 
             var failureMechanism = new PipingFailureMechanism();
 
-            var context = new StochasticSoilModelsContext(failureMechanism.StochasticSoilModels, failureMechanism, assessmentSection);
+            var context = new StochasticSoilModelCollectionContext(failureMechanism.StochasticSoilModels, failureMechanism, assessmentSection);
 
             // Call
             bool isEnabled = importInfo.IsEnabled(context);
@@ -159,7 +159,7 @@ namespace Ringtoets.Piping.Plugin.Test.ImportInfos
 
             var failureMechanism = new PipingFailureMechanism();
 
-            var importTarget = new StochasticSoilModelsContext(failureMechanism.StochasticSoilModels, failureMechanism, assessmentSection);
+            var importTarget = new StochasticSoilModelCollectionContext(failureMechanism.StochasticSoilModels, failureMechanism, assessmentSection);
 
             // Call
             IFileImporter importer = importInfo.CreateFileImporter(importTarget, filePath);

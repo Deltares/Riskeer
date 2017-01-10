@@ -66,7 +66,7 @@ namespace Ringtoets.Piping.Plugin.Test
                 PropertyInfo[] propertyInfos = plugin.GetPropertyInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(6, propertyInfos.Length);
+                Assert.AreEqual(7, propertyInfos.Length);
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
@@ -87,6 +87,11 @@ namespace Ringtoets.Piping.Plugin.Test
                     propertyInfos,
                     typeof(RingtoetsPipingSurfaceLine),
                     typeof(RingtoetsPipingSurfaceLineProperties));
+
+                PluginTestHelper.AssertPropertyInfoDefined(
+                    propertyInfos,
+                    typeof(StochasticSoilModelCollectionContext),
+                    typeof(StochasticSoilModelCollectionProperties));
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
@@ -123,7 +128,7 @@ namespace Ringtoets.Piping.Plugin.Test
                 Assert.AreEqual(13, treeNodeInfos.Length);
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(RingtoetsPipingSurfaceLinesContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(RingtoetsPipingSurfaceLine)));
-                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(StochasticSoilModelsContext)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(StochasticSoilModelCollectionContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(StochasticSoilModel)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(StochasticSoilProfile)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(PipingCalculationScenarioContext)));
@@ -187,7 +192,7 @@ namespace Ringtoets.Piping.Plugin.Test
                 // Assert
                 Assert.AreEqual(2, importInfos.Length);
                 Assert.AreEqual(1, importInfos.Count(i => i.DataType == typeof(RingtoetsPipingSurfaceLinesContext)));
-                Assert.AreEqual(1, importInfos.Count(i => i.DataType == typeof(StochasticSoilModelsContext)));
+                Assert.AreEqual(1, importInfos.Count(i => i.DataType == typeof(StochasticSoilModelCollectionContext)));
             }
             mocks.VerifyAll();
         }

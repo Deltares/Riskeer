@@ -1484,6 +1484,24 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to De laatst bekende bestandslocatie..
+        /// </summary>
+        public static string StochasticSoilModelCollection_LastKnownFilePath_Description {
+            get {
+                return ResourceManager.GetString("StochasticSoilModelCollection_LastKnownFilePath_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bestandslocatie.
+        /// </summary>
+        public static string StochasticSoilModelCollection_LastKnownFilePath_DisplayName {
+            get {
+                return ResourceManager.GetString("StochasticSoilModelCollection_LastKnownFilePath_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap StochasticSoilModelIcon {

@@ -619,4 +619,10 @@
   <data name="PipingOutputContext_UpliftEffectiveStress_DisplayName" xml:space="preserve">
     <value>Gewicht van de deklaag [kN/m²]</value>
   </data>
+  <data name="StochasticSoilModelCollection_LastKnownFilePath_Description" xml:space="preserve">
+    <value>De laatst bekende bestandslocatie.</value>
+  </data>
+  <data name="StochasticSoilModelCollection_LastKnownFilePath_DisplayName" xml:space="preserve">
+    <value>Bestandslocatie</value>
+  </data>
 </root>

@@ -64,7 +64,7 @@
     <Compile Include="PresentationObjects\PipingFailureMechanismContext.cs" />
     <Compile Include="PresentationObjects\PipingInputContext.cs" />
     <Compile Include="PresentationObjects\RingtoetsPipingSurfaceLinesContext.cs" />
-    <Compile Include="PresentationObjects\StochasticSoilModelsContext.cs" />
+    <Compile Include="PresentationObjects\StochasticSoilModelCollectionContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -74,6 +74,7 @@
     <Compile Include="PropertyClasses\PipingFailureMechanismContextProperties.cs" />
     <Compile Include="PropertyClasses\PipingInputContextProperties.cs" />
     <Compile Include="PropertyClasses\PipingOutputContextProperties.cs" />
+    <Compile Include="PropertyClasses\StochasticSoilModelCollectionProperties.cs" />
     <Compile Include="PropertyClasses\StochasticSoilProfileProperties.cs" />
     <Compile Include="PropertyClasses\RingtoetsPipingSurfaceLineProperties.cs" />
     <Compile Include="PropertyClasses\StochasticSoilModelProperties.cs" />

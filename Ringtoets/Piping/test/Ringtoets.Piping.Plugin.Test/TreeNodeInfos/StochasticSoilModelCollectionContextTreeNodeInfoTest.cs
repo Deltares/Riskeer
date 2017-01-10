@@ -38,7 +38,7 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class StochasticSoilModelsContextTreeNodeInfoTest
+    public class StochasticSoilModelCollectionContextTreeNodeInfoTest
     {
         private MockRepository mocks;
         private PipingPlugin plugin;
@@ -49,7 +49,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
         {
             mocks = new MockRepository();
             plugin = new PipingPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(StochasticSoilModelsContext));
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(StochasticSoilModelCollectionContext));
         }
 
         [TearDown]
@@ -92,7 +92,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             // Setup
             var failureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-            var stochasticSoilModelContextMock = mocks.StrictMock<StochasticSoilModelsContext>(failureMechanismMock.StochasticSoilModels, failureMechanismMock, assessmentSectionMock);
+            var stochasticSoilModelContextMock = mocks.StrictMock<StochasticSoilModelCollectionContext>(failureMechanismMock.StochasticSoilModels, failureMechanismMock, assessmentSectionMock);
             mocks.ReplayAll();
 
             // Call
@@ -108,7 +108,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             // Setup
             var failureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-            var stochasticSoilModelContextMock = mocks.StrictMock<StochasticSoilModelsContext>(failureMechanismMock.StochasticSoilModels, failureMechanismMock, assessmentSectionMock);
+            var stochasticSoilModelContextMock = mocks.StrictMock<StochasticSoilModelCollectionContext>(failureMechanismMock.StochasticSoilModels, failureMechanismMock, assessmentSectionMock);
             mocks.ReplayAll();
 
             // Call
@@ -124,7 +124,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             // Setup
             var failureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-            var stochasticSoilModelContextMock = mocks.StrictMock<StochasticSoilModelsContext>(failureMechanismMock.StochasticSoilModels, failureMechanismMock, assessmentSectionMock);
+            var stochasticSoilModelContextMock = mocks.StrictMock<StochasticSoilModelCollectionContext>(failureMechanismMock.StochasticSoilModels, failureMechanismMock, assessmentSectionMock);
             mocks.ReplayAll();
 
             // Call
@@ -140,7 +140,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             // Setup
             var failureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-            var stochasticSoilModelContextMock = mocks.StrictMock<StochasticSoilModelsContext>(failureMechanismMock.StochasticSoilModels, failureMechanismMock, assessmentSectionMock);
+            var stochasticSoilModelContextMock = mocks.StrictMock<StochasticSoilModelCollectionContext>(failureMechanismMock.StochasticSoilModels, failureMechanismMock, assessmentSectionMock);
             failureMechanismMock.StochasticSoilModels.Add(new StochasticSoilModel(0, "Name", "Name"));
             mocks.ReplayAll();
 
@@ -178,7 +178,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
 
             var failureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-            var stochasticSoilModelContextMock = mocks.StrictMock<StochasticSoilModelsContext>(failureMechanismMock.StochasticSoilModels, failureMechanismMock, assessmentSectionMock);
+            var stochasticSoilModelContextMock = mocks.StrictMock<StochasticSoilModelCollectionContext>(failureMechanismMock.StochasticSoilModels, failureMechanismMock, assessmentSectionMock);
             failureMechanismMock.StochasticSoilModels.Add(stochasticSoilModel);
 
             mocks.ReplayAll();
