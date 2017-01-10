@@ -299,6 +299,142 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         }
 
         [Test]
+        public void GetSelectableLocations_InputWithLocationsDikeProfile_CalculatesDistanceWithCorrectReferencePoint()
+        {
+            // Setup
+            var failureMechanism = mockRepository.Stub<IFailureMechanism>();
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "A", 200643.312, 503347.25);
+            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                Locations =
+                {
+                    hydraulicBoundaryLocation
+                }
+            };
+            mockRepository.ReplayAll();
+
+            var calculation = new StructuresCalculation<SimpleStructureInput>()
+            {
+                InputParameters =
+                {
+                    Structure = new SimpleStructure(new Point2D(200620.173572981, 503401.652985217))
+                }
+            };
+            var inputContext = new SimpleInputContext(calculation.InputParameters,
+                                                      calculation,
+                                                      failureMechanism,
+                                                      assessmentSection);
+
+            var properties = new SimpleStructuresInputProperties(
+                inputContext,
+                new SimpleStructuresInputProperties.ConstructionProperties());
+
+            var distanceToPropertiesStructureLocation =
+                new RoundedDouble(0, hydraulicBoundaryLocation.Location.GetEuclideanDistanceTo(properties.StructureLocation));
+            var distanceToInputStructureLocation =
+                new RoundedDouble(0, hydraulicBoundaryLocation.Location.GetEuclideanDistanceTo(calculation.InputParameters.Structure.Location));
+
+            // Pre-condition
+            Assert.AreNotEqual(distanceToPropertiesStructureLocation, distanceToInputStructureLocation);
+
+            // Call 
+            IEnumerable<SelectableHydraulicBoundaryLocation> availableHydraulicBoundaryLocations =
+                properties.GetSelectableHydraulicBoundaryLocations();
+
+            // Assert
+            var hydraulicBoundaryLocationItem = availableHydraulicBoundaryLocations.ToArray()[0];
+            RoundedDouble itemDistance = hydraulicBoundaryLocationItem.Distance;
+            Assert.AreEqual(distanceToInputStructureLocation, itemDistance, itemDistance.GetAccuracy());
+        }
+
+        [Test]
+        public void SelectedLocation_InputWithLocationsDikeProfile_CalculatesDistanceWithCorrectReferencePoint()
+        {
+            // Setup
+            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            var failureMechanismStub = mockRepository.Stub<IFailureMechanism>();
+            mockRepository.ReplayAll();
+
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "A", 200643.312, 503347.25);
+            var calculation = new StructuresCalculation<SimpleStructureInput>
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
+                    Structure = new SimpleStructure(new Point2D(200620.173572981, 503401.652985217))
+                }
+            };
+            var inputContext = new SimpleInputContext(calculation.InputParameters,
+                                                      calculation,
+                                                      failureMechanismStub,
+                                                      assessmentSectionStub);
+
+            var properties = new SimpleStructuresInputProperties(
+                inputContext,
+                new SimpleStructuresInputProperties.ConstructionProperties());
+
+            var distanceToPropertiesStructureLocation =
+                new RoundedDouble(0, hydraulicBoundaryLocation.Location.GetEuclideanDistanceTo(properties.StructureLocation));
+            var distanceToInputStructureLocation =
+                new RoundedDouble(0, hydraulicBoundaryLocation.Location.GetEuclideanDistanceTo(calculation.InputParameters.Structure.Location));
+
+            // Pre-condition
+            Assert.AreNotEqual(distanceToPropertiesStructureLocation, distanceToInputStructureLocation);
+
+            // Call 
+            var selectedHydraulicBoundaryLocation = properties.SelectedHydraulicBoundaryLocation;
+
+            // Assert
+            RoundedDouble selectedLocationDistance = selectedHydraulicBoundaryLocation.Distance;
+            Assert.AreEqual(distanceToInputStructureLocation, selectedLocationDistance, selectedLocationDistance.GetAccuracy());
+        }
+
+        [Test]
+        public void SelectedLocation_InputWithLocationsDikeProfile_HasSameDistanceAsSelectableBoundaryLocationsItem()
+        {
+            var failureMechanism = mockRepository.Stub<IFailureMechanism>();
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "A", 200643.312, 503347.25);
+            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                Locations =
+                {
+                    hydraulicBoundaryLocation
+                }
+            };
+            mockRepository.ReplayAll();
+
+            var calculation = new StructuresCalculation<SimpleStructureInput>()
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
+                    Structure = new SimpleStructure(new Point2D(200620.173572981, 503401.652985217))
+                }
+            };
+            var inputContext = new SimpleInputContext(calculation.InputParameters,
+                                                      calculation,
+                                                      failureMechanism,
+                                                      assessmentSection);
+
+            var properties = new SimpleStructuresInputProperties(
+                inputContext,
+                new SimpleStructuresInputProperties.ConstructionProperties());
+
+            // Call
+            IEnumerable<SelectableHydraulicBoundaryLocation> availableHydraulicBoundaryLocations =
+                properties.GetSelectableHydraulicBoundaryLocations();
+            SelectableHydraulicBoundaryLocation selectedLocation = properties.SelectedHydraulicBoundaryLocation;
+
+            // Assert
+            var hydraulicBoundaryLocationItem = availableHydraulicBoundaryLocations.ToArray()[0];
+
+            Assert.AreEqual(selectedLocation.Distance, hydraulicBoundaryLocationItem.Distance,
+                            hydraulicBoundaryLocationItem.Distance.GetAccuracy());
+        }
+
+        [Test]
         public void GetSelectableHydraulicBoundaryLocations_InputWithLocationsAndNoStructure_ReturnsLocationsSortedById()
         {
             // Setup
@@ -384,8 +520,8 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             IEnumerable<SelectableHydraulicBoundaryLocation> expectedList =
                 hydraulicBoundaryDatabase.Locations
                                          .Select(hbl => new SelectableHydraulicBoundaryLocation(
-                                                     hbl,
-                                                     calculation.InputParameters.Structure.Location))
+                                                            hbl,
+                                                            calculation.InputParameters.Structure.Location))
                                          .OrderBy(hbl => hbl.Distance)
                                          .ThenBy(hbl => hbl.HydraulicBoundaryLocation.Name);
             CollectionAssert.AreEqual(expectedList, availableHydraulicBoundaryLocations);
@@ -442,8 +578,8 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             IEnumerable<SelectableHydraulicBoundaryLocation> expectedList =
                 hydraulicBoundaryDatabase.Locations
                                          .Select(hbl => new SelectableHydraulicBoundaryLocation(
-                                                     hbl,
-                                                     properties.StructureLocation))
+                                                            hbl,
+                                                            properties.StructureLocation))
                                          .OrderBy(hbl => hbl.Distance)
                                          .ThenBy(hbl => hbl.HydraulicBoundaryLocation.Id);
             CollectionAssert.AreEqual(expectedList, availableHydraulicBoundaryLocations);
@@ -733,24 +869,24 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
 
             var random = new Random();
             var randomObjectLookup = new[]
-                {
-                    structureObject,
-                    structureLocationObject,
-                    structureNormalOrientationObject,
-                    flowWidthAtBottomProtectionObject,
-                    widthFlowAperturesObject,
-                    storageStructureAreaObject,
-                    allowedLevelIncreaseStorageObject,
-                    criticalOvertoppingDischargeObject,
-                    failureProbabilityStructureWithErosionObject,
-                    foreshoreProfileObject,
-                    useBreakWaterObject,
-                    useForeshoreObject,
-                    modelFactorSuperCriticalFlowObject,
-                    hydraulicBoundaryLocationObject,
-                    stormDurationObject
-                }.OrderBy(p => random.Next())
-                 .ToList();
+            {
+                structureObject,
+                structureLocationObject,
+                structureNormalOrientationObject,
+                flowWidthAtBottomProtectionObject,
+                widthFlowAperturesObject,
+                storageStructureAreaObject,
+                allowedLevelIncreaseStorageObject,
+                criticalOvertoppingDischargeObject,
+                failureProbabilityStructureWithErosionObject,
+                foreshoreProfileObject,
+                useBreakWaterObject,
+                useForeshoreObject,
+                modelFactorSuperCriticalFlowObject,
+                hydraulicBoundaryLocationObject,
+                stormDurationObject
+            }.OrderBy(p => random.Next())
+             .ToList();
 
             return new SimpleStructuresInputProperties.ConstructionProperties
             {
@@ -790,10 +926,10 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         }
 
         private class SimpleStructuresInputProperties : StructuresInputBaseProperties<
-            SimpleStructure,
-            SimpleStructureInput,
-            StructuresCalculation<SimpleStructureInput>,
-            IFailureMechanism>
+                                                            SimpleStructure,
+                                                            SimpleStructureInput,
+                                                            StructuresCalculation<SimpleStructureInput>,
+                                                            IFailureMechanism>
         {
             public SimpleStructuresInputProperties(SimpleInputContext context, ConstructionProperties constructionProperties) : base(context, constructionProperties) {}
 
@@ -821,6 +957,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             public SimpleInputContext(SimpleStructureInput wrappedData, StructuresCalculation<SimpleStructureInput> calculation, IFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
                 : base(wrappedData, calculation, failureMechanism, assessmentSection) {}
         }
+
         private void SetPropertyAndVerifyNotifcationsAndOutput(
             bool hasOutput,
             Action<SimpleStructuresInputProperties> setProperty)

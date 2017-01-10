@@ -369,8 +369,9 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         {
             get
             {
+                Point2D referenceLocation = Structure?.Location;
                 return data.WrappedData.HydraulicBoundaryLocation != null
-                           ? new SelectableHydraulicBoundaryLocation(data.WrappedData.HydraulicBoundaryLocation, StructureLocation)
+                           ? new SelectableHydraulicBoundaryLocation(data.WrappedData.HydraulicBoundaryLocation, referenceLocation)
                            : null;
             }
             set
@@ -416,8 +417,9 @@ namespace Ringtoets.Common.Forms.PropertyClasses
 
         public IEnumerable<SelectableHydraulicBoundaryLocation> GetSelectableHydraulicBoundaryLocations()
         {
+            Point2D referenceLocation = Structure?.Location;
             return SelectableHydraulicBoundaryLocationHelper.GetSortedSelectableHydraulicBoundaryLocations(
-                data.AvailableHydraulicBoundaryLocations, StructureLocation);
+                data.AvailableHydraulicBoundaryLocations, referenceLocation);
         }
 
         public void PropertyChanged()
