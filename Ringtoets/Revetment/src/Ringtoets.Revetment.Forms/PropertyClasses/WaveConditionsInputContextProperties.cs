@@ -79,7 +79,7 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
         {
             if (context == null)
             {
-                throw new ArgumentNullException("context");
+                throw new ArgumentNullException(nameof(context));
             }
             Data = context;
         }
