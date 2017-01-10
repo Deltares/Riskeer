@@ -19,30 +19,49 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Application.Ringtoets.Storage.DbContext;
-using Application.Ringtoets.Storage.Read.ClosingStructures;
+using Application.Ringtoets.Storage.Read.DuneErosion;
+using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.ClosingStructures.Data;
+using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.DuneErosion.Data;
 
-namespace Application.Ringtoets.Storage.Test.Read.ClosingStructures
+namespace Application.Ringtoets.Storage.Test.Read.DuneErosion
 {
     [TestFixture]
-    public class ClosingStructuresFailureMechanismMetaEntityReadExtensionsTest
+    public class DuneErosionFailureMechanismMetaEntityReadExtensionsTest
     {
         [Test]
-        public void Read_Always_ReturnClosingStructuresGeneralInput()
+        public void Read_InputNull_ThrowsArgumentNullException()
         {
             // Setup
-            var entity = new ClosingStructuresFailureMechanismMetaEntity
+            var entity = new DuneErosionFailureMechanismMetaEntity();
+
+            // Call
+            TestDelegate call = () => entity.Read(null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("input", paramName);
+        }
+
+        [Test]
+        public void Read_ValidInput_UpdateDuneErosionGeneralInput()
+        {
+            // Setup
+            var generalInput = new GeneralDuneErosionInput();
+            var nValue = new Random(31).GetFromRange(1, 20);
+            var entity = new DuneErosionFailureMechanismMetaEntity
             {
-                N2A = 3
+                N = nValue
             };
 
             // Call
-            GeneralClosingStructuresInput generalInput = entity.Read();
+            entity.Read(generalInput);
 
             // Assert
-            Assert.AreEqual(entity.N2A, generalInput.N2A);
+            Assert.AreEqual(nValue, generalInput.N, generalInput.N.GetAccuracy());
         }
     }
 }

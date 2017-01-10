@@ -21,31 +21,33 @@
 
 using System;
 using Application.Ringtoets.Storage.DbContext;
-using Ringtoets.GrassCoverErosionInwards.Data;
+using Core.Common.Base.Data;
+using Ringtoets.DuneErosion.Data;
 
-namespace Application.Ringtoets.Storage.Read.GrassCoverErosionInwards
+namespace Application.Ringtoets.Storage.Read.DuneErosion
 {
     /// <summary>
-    /// This class defines extension methods for read operations for a <see cref="GeneralGrassCoverErosionInwardsInput"/>
-    /// based on the <see cref="GrassCoverErosionInwardsFailureMechanismMetaEntity"/>.
+    /// This class defines extension methods for read operations for a <see cref="GeneralDuneErosionInput"/>
+    /// based on the <see cref="DuneErosionFailureMechanismMetaEntity"/>.
     /// </summary>
-    internal static class GrassCoverErosionInwardsFailureMechanismMetaEntityReadExtensions
+    internal static class DuneErosionFailureMechanismMetaEntityReadExtensions
     {
         /// <summary>
-        /// Reads the <see cref="GrassCoverErosionInwardsFailureMechanismMetaEntity"/>
-        /// and use the information to update the <paramref name="input"/>.
+        /// Read the <see cref="DuneErosionFailureMechanismMetaEntity"/> and use the information 
+        /// to update the <paramref name="input"/>.
         /// </summary>
-        /// <param name="entity">The <see cref="GrassCoverErosionInwardsFailureMechanismMetaEntity"/>
+        /// <param name="entity">The <see cref="DuneErosionFailureMechanismMetaEntity"/>
         /// to use to update the <paramref name="input"/>.</param>
-        /// <param name="input">The <see cref="GeneralGrassCoverErosionInwardsInput"/> to be updated.</param>
+        /// <param name="input">The <see cref="GeneralDuneErosionInput"/> to be updated.</param>
+        /// <returns>A new <see cref="GeneralDuneErosionInput"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="input"/> is <c>null</c>.</exception>
-        internal static void Read(this GrassCoverErosionInwardsFailureMechanismMetaEntity entity, GeneralGrassCoverErosionInwardsInput input)
+        internal static void Read(this DuneErosionFailureMechanismMetaEntity entity, GeneralDuneErosionInput input)
         {
             if (input == null)
             {
                 throw new ArgumentNullException(nameof(input));
             }
-            input.N = entity.N;
+            input.N = (RoundedDouble) entity.N;
         }
     }
 }

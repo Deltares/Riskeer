@@ -753,6 +753,13 @@ namespace Application.Ringtoets.Storage.Read
         {
             entity.ReadCommonFailureMechanismProperties(failureMechanism, collector);
             entity.ReadDuneErosionMechanismSectionResults(failureMechanism, collector);
+
+            entity.ReadGeneralDuneErosionInput(failureMechanism.GeneralInput);
+        }
+
+        private static void ReadGeneralDuneErosionInput(this FailureMechanismEntity entity, GeneralDuneErosionInput input)
+        {
+            entity.DuneErosionFailureMechanismMetaEntities.Single().Read(input);
         }
 
         private static void ReadDuneErosionMechanismSectionResults(this FailureMechanismEntity entity,

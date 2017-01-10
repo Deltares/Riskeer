@@ -31,6 +31,7 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.DuneErosion.Data;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.HeightStructures.Data;
@@ -107,6 +108,37 @@ namespace Application.Ringtoets.Storage.Test.Read
             };
             return failureMechanismSectionEntity;
         }
+        
+        #region Dune Erosion
+
+        [Test]
+        public void ReadAsDuneErosionFailureMechanism_WithMeta_ReturnFailureMechanismWithGeneralInputSet()
+        {
+            // Setup
+            const int generalInputN = 3;
+
+            var entity = new FailureMechanismEntity
+            {
+                CalculationGroupEntity = new CalculationGroupEntity(),
+                DuneErosionFailureMechanismMetaEntities =
+                {
+                    new DuneErosionFailureMechanismMetaEntity
+                    {
+                        N = generalInputN
+                    }
+                }
+            };
+            var collector = new ReadConversionCollector();
+            var failureMechanism = new DuneErosionFailureMechanism();
+
+            // Call
+            entity.ReadAsDuneErosionFailureMechanism(failureMechanism, collector);
+
+            // Assert
+            Assert.AreEqual(generalInputN, failureMechanism.GeneralInput.N, failureMechanism.GeneralInput.N.GetAccuracy());
+        }
+
+        #endregion
 
         #region Piping
 

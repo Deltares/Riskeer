@@ -161,7 +161,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             // Setup
             var entity = CreateAssessmentSectionEntity();
             var random = new Random(21);
-            var parameterA = random.NextDouble()/10;
+            var parameterA = random.NextDouble() / 10;
             const string inputComments = "Some input text";
             const string outputComments = "Some output text";
             const string notRelevantComments = "Really not relevant";
@@ -965,8 +965,6 @@ namespace Application.Ringtoets.Storage.Test.Read
                 isRelevant, FailureMechanismType.GrassRevetmentSlidingOutwards);
             FailureMechanismEntity grassRevetmentSlidingInwards = CreateFailureMechanismEntity(
                 isRelevant, FailureMechanismType.GrassRevetmentSlidingInwards);
-            FailureMechanismEntity duneErosion = CreateFailureMechanismEntity(
-                isRelevant, FailureMechanismType.DuneErosion);
             FailureMechanismEntity technicalInnovations = CreateFailureMechanismEntity(
                 isRelevant, FailureMechanismType.TechnicalInnovations);
 
@@ -977,7 +975,6 @@ namespace Application.Ringtoets.Storage.Test.Read
             entity.FailureMechanismEntities.Add(waterOverpressureAsphaltRevetment);
             entity.FailureMechanismEntities.Add(grassRevetmentSlidingOutwards);
             entity.FailureMechanismEntities.Add(grassRevetmentSlidingInwards);
-            entity.FailureMechanismEntities.Add(duneErosion);
             entity.FailureMechanismEntities.Add(technicalInnovations);
 
             var collector = new ReadConversionCollector();
@@ -1005,8 +1002,6 @@ namespace Application.Ringtoets.Storage.Test.Read
             AssertFailureMechanismEqual(isRelevant, 2, grassRevetmentSlidingOutwards.InputComments,
                                         grassRevetmentSlidingOutwards.OutputComments, grassRevetmentSlidingOutwards.NotRelevantComments,
                                         section.GrassCoverSlipOffOutwards);
-            AssertFailureMechanismEqual(isRelevant, 2, duneErosion.InputComments, duneErosion.OutputComments,
-                                        duneErosion.NotRelevantComments, section.DuneErosion);
             AssertFailureMechanismEqual(isRelevant, 2, technicalInnovations.InputComments,
                                         technicalInnovations.OutputComments, technicalInnovations.NotRelevantComments,
                                         section.TechnicalInnovation);
@@ -1016,7 +1011,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         {
             return new AssessmentSectionEntity
             {
-                Norm = 1.0/30000,
+                Norm = 1.0 / 30000,
                 Composition = Convert.ToByte(AssessmentSectionComposition.Dike)
             };
         }

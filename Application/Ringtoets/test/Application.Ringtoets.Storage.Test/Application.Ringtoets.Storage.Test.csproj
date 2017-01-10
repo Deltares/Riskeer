@@ -101,6 +101,7 @@
     <Compile Include="Read\ClosingStructures\ClosingStructureEntityReadExtensionsTest.cs" />
     <Compile Include="Read\ClosingStructures\ClosingStructuresCalculationEntityReadExtensionsTest.cs" />
     <Compile Include="Read\ClosingStructures\ClosingStructuresFailureMechanismMetaEntityReadExtensionsTest.cs" />
+    <Compile Include="Read\DuneErosion\DuneErosionFailureMechanismMetaEntityReadExtensionsTest.cs" />
     <Compile Include="Read\ForeshoreProfileReadExtensionsTest.cs" />
     <Compile Include="Create\ForeshoreProfileCreateExtensionsTest.cs" />
     <Compile Include="Read\GrassCoverErosionInwards\GrassCoverErosionInwardsDikeHeightOutputEntityReadExtensionsTest.cs" />
