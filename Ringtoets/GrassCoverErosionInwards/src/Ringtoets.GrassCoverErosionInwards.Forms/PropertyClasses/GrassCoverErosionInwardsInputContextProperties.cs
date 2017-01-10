@@ -78,7 +78,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
             {
                 data.WrappedData.DikeProfile = value;
                 GrassCoverErosionInwardsHelper.UpdateCalculationToSectionResultAssignments(
-                    data.FailureMechanism.SectionResults, 
+                    data.FailureMechanism.SectionResults,
                     data.FailureMechanism.Calculations.Cast<GrassCoverErosionInwardsCalculation>());
                 ClearOutputAndNotifyPropertyChanged();
             }
@@ -222,8 +222,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         {
             get
             {
+                Point2D referencePoint = data.WrappedData.DikeProfile?.WorldReferencePoint;
                 return data.WrappedData.HydraulicBoundaryLocation != null
-                           ? new SelectableHydraulicBoundaryLocation(data.WrappedData.HydraulicBoundaryLocation, WorldReferencePoint)
+                           ? new SelectableHydraulicBoundaryLocation(data.WrappedData.HydraulicBoundaryLocation, referencePoint)
                            : null;
             }
             set
@@ -250,7 +251,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
 
         public IEnumerable<SelectableHydraulicBoundaryLocation> GetSelectableHydraulicBoundaryLocations()
         {
-            var calculationLocation = data.WrappedData.DikeProfile != null ? data.WrappedData.DikeProfile.WorldReferencePoint : null;
+            Point2D calculationLocation = data.WrappedData.DikeProfile?.WorldReferencePoint;
 
             return SelectableHydraulicBoundaryLocationHelper.GetSortedSelectableHydraulicBoundaryLocations(
                 data.AvailableHydraulicBoundaryLocations, calculationLocation);
