@@ -55,26 +55,13 @@ namespace Ringtoets.Common.Forms.Test.Views
             var row = new TestHydraulicBoundaryLocationRow(hydraulicBoundaryLocation);
 
             // Assert
+            Assert.IsInstanceOf<CalculatableRow>(row);
             Assert.AreEqual(id, row.Id);
             Assert.AreEqual(locationname, row.Name);
             var expectedPoint2D = new Point2D(coordinateX, coordinateY);
             Assert.AreEqual(expectedPoint2D, row.Location);
             Assert.AreSame(hydraulicBoundaryLocation, row.HydraulicBoundaryLocation);
             Assert.IsFalse(row.ToCalculate);
-        }
-
-        [Test]
-        public void Constructor_Property_SetPropertyAsExpected()
-        {
-            // Setup
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "LocationName", 1.0, 2.0);
-            var row = new TestHydraulicBoundaryLocationRow(hydraulicBoundaryLocation);
-
-            // Call
-            row.ToCalculate = true;
-
-            // Assert
-            Assert.IsTrue(row.ToCalculate);
         }
 
         private class TestHydraulicBoundaryLocationRow : HydraulicBoundaryLocationRow
