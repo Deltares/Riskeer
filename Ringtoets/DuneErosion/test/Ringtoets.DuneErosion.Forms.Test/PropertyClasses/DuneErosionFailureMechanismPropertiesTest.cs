@@ -60,9 +60,8 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
             mocks.VerifyAll();
         }
 
-
         [Test]
-        public void Constructor_DataIsNull_ThrownArgumentNullException()
+        public void Constructor_DataIsNull_ThrowArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -77,7 +76,6 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
             Assert.AreEqual("data", paramName);
             mocks.VerifyAll();
         }
-
 
         [Test]
         public void Constructor_PropertyChangeHandlerNull_ThrowArgumentNullException()
@@ -147,7 +145,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
             {
                 GeneralInput =
                 {
-                    N = (RoundedDouble)1.1
+                    N = (RoundedDouble) 1.1
                 }
             };
 
