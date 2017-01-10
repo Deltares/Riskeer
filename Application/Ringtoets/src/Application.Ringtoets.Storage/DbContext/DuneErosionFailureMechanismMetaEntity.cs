@@ -37,7 +37,7 @@ namespace Application.Ringtoets.Storage.DbContext
     {
         public long DuneErosionFailureMechanismMetaEntityId { get; set; }
         public long FailureMechanismEntityId { get; set; }
-        public Nullable<double> N { get; set; }
+        public double N { get; set; }
     
         public virtual FailureMechanismEntity FailureMechanismEntity { get; set; }
     }

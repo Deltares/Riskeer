@@ -179,7 +179,7 @@
           </Key>
           <Property Name="DuneErosionFailureMechanismMetaEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FailureMechanismEntityId" Type="integer" Nullable="false" />
-          <Property Name="N" Type="real" />
+          <Property Name="N" Type="real" Nullable="false" />
         </EntityType>
         <EntityType Name="DuneErosionSectionResultEntity">
           <Key>
@@ -3153,7 +3153,7 @@
           </Key>
           <Property Name="DuneErosionFailureMechanismMetaEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FailureMechanismEntityId" Type="Int64" Nullable="false" />
-          <Property Name="N" Type="Double" />
+          <Property Name="N" Type="Double" Nullable="false" />
           <NavigationProperty Name="FailureMechanismEntity" Relationship="RingtoetsEntitiesModel.FK_DuneErosionFailureMechanismMetaEntity_0_0" FromRole="DuneErosionFailureMechanismMetaEntity" ToRole="FailureMechanismEntity" />
         </EntityType>
         <EntityType Name="DuneErosionSectionResultEntity">
