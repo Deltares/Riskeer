@@ -68,21 +68,9 @@ namespace Ringtoets.Common.Forms.Test.Views
             using (var view = new TestHydraulicBoundaryLocationsView())
             {
                 // Assert
-                Assert.IsInstanceOf<UserControl>(view);
-                Assert.IsInstanceOf<ISelectionProvider>(view);
+                Assert.IsInstanceOf<CalculatableView>(view);
                 Assert.IsNull(view.Data);
             }
-        }
-
-        [Test]
-        public void Constructor_CalculateAllButtonCorrectlyInitialized()
-        {
-            // Setup & Call
-            ShowTestHydraulicBoundaryLocationsView();
-
-            var buttonTester = new ButtonTester("CalculateForSelectedButton", testForm);
-            var button = (Button) buttonTester.TheObject;
-            Assert.IsFalse(button.Enabled);
         }
 
         [Test]
@@ -182,143 +170,6 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         [Test]
-        public void HydraulicBoundaryLocationsView_SelectingCellInRow_SelectionChangedFired()
-        {
-            // Setup
-            var view = ShowFullyConfiguredTestHydraulicBoundaryLocationsView();
-            var createdSelection = new object();
-            view.CreateForSelection = createdSelection;
-
-            var selectionChangedCount = 0;
-            view.SelectionChanged += (sender, args) => selectionChangedCount++;
-
-            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-
-            // Call
-            dataGridView.CurrentCell = dataGridView.Rows[1].Cells[locationCalculateColumnIndex];
-            EventHelper.RaiseEvent(dataGridView, "CellClick", new DataGridViewCellEventArgs(0, 0));
-
-            // Assert
-            Assert.AreEqual(1, selectionChangedCount);
-        }
-
-        [Test]
-        public void Selection_Always_ReturnsCreatedSelectionObject()
-        {
-            // Setup
-            var view = ShowFullyConfiguredTestHydraulicBoundaryLocationsView();
-            var createdSelection = new object();
-            view.CreateForSelection = createdSelection;
-
-            // Call
-            var selection = view.Selection;
-
-            // Assert
-            Assert.AreSame(createdSelection, selection);
-        }
-
-        [Test]
-        public void SelectAllButton_SelectAllButtonClicked_AllLocationsSelected()
-        {
-            // Setup
-            ShowFullyConfiguredTestHydraulicBoundaryLocationsView();
-
-            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-            var rows = dataGridView.Rows;
-            var button = new ButtonTester("SelectAllButton", testForm);
-
-            // Precondition
-            Assert.IsFalse((bool) rows[0].Cells[locationCalculateColumnIndex].Value);
-            Assert.IsFalse((bool) rows[1].Cells[locationCalculateColumnIndex].Value);
-            Assert.IsFalse((bool) rows[2].Cells[locationCalculateColumnIndex].Value);
-
-            // Call
-            button.Click();
-
-            // Assert
-            Assert.IsTrue((bool) rows[0].Cells[locationCalculateColumnIndex].Value);
-            Assert.IsTrue((bool) rows[1].Cells[locationCalculateColumnIndex].Value);
-            Assert.IsTrue((bool) rows[2].Cells[locationCalculateColumnIndex].Value);
-        }
-
-        [Test]
-        public void DeselectAllButton_AllLocationsSelectedDeselectAllButtonClicked_AllLocationsNotSelected()
-        {
-            // Setup
-            ShowFullyConfiguredTestHydraulicBoundaryLocationsView();
-
-            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-            var rows = dataGridView.Rows;
-            var button = new ButtonTester("DeselectAllButton", testForm);
-
-            foreach (DataGridViewRow row in rows)
-            {
-                row.Cells[locationCalculateColumnIndex].Value = true;
-            }
-
-            // Precondition
-            Assert.IsTrue((bool) rows[0].Cells[locationCalculateColumnIndex].Value);
-            Assert.IsTrue((bool) rows[1].Cells[locationCalculateColumnIndex].Value);
-            Assert.IsTrue((bool) rows[2].Cells[locationCalculateColumnIndex].Value);
-
-            // Call
-            button.Click();
-
-            // Assert
-            Assert.IsFalse((bool) rows[0].Cells[locationCalculateColumnIndex].Value);
-            Assert.IsFalse((bool) rows[1].Cells[locationCalculateColumnIndex].Value);
-            Assert.IsFalse((bool) rows[2].Cells[locationCalculateColumnIndex].Value);
-        }
-
-        [Test]
-        public void CalculateForSelectedButton_NoneSelected_CalculateForSelectedButtonDisabled()
-        {
-            // Setup
-            var mockRepository = new MockRepository();
-            var guiServiceMock = mockRepository.StrictMock<IHydraulicBoundaryLocationCalculationGuiService>();
-            mockRepository.ReplayAll();
-
-            TestHydraulicBoundaryLocationsView view = ShowFullyConfiguredTestHydraulicBoundaryLocationsView();
-            view.CalculationGuiService = guiServiceMock;
-            var buttonTester = new ButtonTester("CalculateForSelectedButton", testForm);
-
-            // Call
-            var button = (Button) buttonTester.TheObject;
-
-            // Assert
-            Assert.IsFalse(button.Enabled);
-            Assert.IsEmpty(view.LocationsToCalculate);
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void CalculateForSelectedButton_OneSelected_CallsCalculateHandleCalculateSelectedLocations()
-        {
-            // Setup
-            TestHydraulicBoundaryLocationsView view = ShowFullyConfiguredTestHydraulicBoundaryLocationsView();
-
-            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-            var rows = dataGridView.Rows;
-            rows[0].Cells[locationCalculateColumnIndex].Value = true;
-
-            var mockRepository = new MockRepository();
-            var guiServiceMock = mockRepository.StrictMock<IHydraulicBoundaryLocationCalculationGuiService>();
-            mockRepository.ReplayAll();
-
-            view.CalculationGuiService = guiServiceMock;
-            var buttonTester = new ButtonTester("CalculateForSelectedButton", testForm);
-
-            // Call
-            buttonTester.Click();
-
-            // Assert
-            Assert.AreEqual(1, view.LocationsToCalculate.Count());
-            HydraulicBoundaryLocation expectedLocation = ((IEnumerable<HydraulicBoundaryLocation>) view.Data).First();
-            Assert.AreEqual(expectedLocation, view.LocationsToCalculate.First());
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
         public void CalculateForSelectedButton_OneSelectedButCalculationGuiServiceNotSet_DoesNotThrowException()
         {
             // Setup
@@ -411,30 +262,22 @@ namespace Ringtoets.Common.Forms.Test.Views
 
         private sealed class TestHydraulicBoundaryLocationsView : HydraulicBoundaryLocationsView<TestHydraulicBoundaryLocationRow>
         {
-            public TestHydraulicBoundaryLocationsView()
-            {
-                LocationsToCalculate = new List<HydraulicBoundaryLocation>();
-            }
 
             public override IAssessmentSection AssessmentSection { get; set; }
-
-            public IEnumerable<HydraulicBoundaryLocation> LocationsToCalculate { get; private set; }
-
-            public object CreateForSelection { get; set; }
 
             protected override TestHydraulicBoundaryLocationRow CreateNewRow(HydraulicBoundaryLocation location)
             {
                 return new TestHydraulicBoundaryLocationRow(location);
             }
 
-            protected override object CreateSelectedItemFromCurrentRow()
-            {
-                return CreateForSelection;
-            }
-
             protected override void HandleCalculateSelectedLocations(IEnumerable<HydraulicBoundaryLocation> locations)
             {
-                LocationsToCalculate = locations;
+                throw new NotImplementedException();
+            }
+
+            protected override object CreateSelectedItemFromCurrentRow()
+            {
+                throw new NotImplementedException();
             }
         }
     }

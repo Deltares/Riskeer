@@ -19,12 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Windows.Forms;
-using Core.Common.Controls.Views;
-using Core.Common.Utils.Extensions;
+using Core.Common.Controls.DataGrid;
 using Core.Common.Utils.Reflection;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
@@ -37,23 +34,9 @@ namespace Ringtoets.Common.Forms.Views
     /// Base view for <see cref="HydraulicBoundaryLocation"/> views which should be derived in order to get a consistent look and feel.
     /// </summary>
     /// <typeparam name="T">The type of the row objects which are shown in the data table.</typeparam>
-    public abstract partial class HydraulicBoundaryLocationsView<T> : UserControl, ISelectionProvider where T : HydraulicBoundaryLocationRow
+    public abstract partial class HydraulicBoundaryLocationsView<T> : CalculatableView where T : HydraulicBoundaryLocationRow
     {
-        private const int locationCalculateColumnIndex = 0;
-        private bool updatingDataSource;
         private IEnumerable<HydraulicBoundaryLocation> locations;
-
-        public event EventHandler<EventArgs> SelectionChanged;
-
-        /// <summary>
-        /// Creates a new instance of <see cref="HydraulicBoundaryLocationsView{T}"/>.
-        /// </summary>
-        protected HydraulicBoundaryLocationsView()
-        {
-            InitializeComponent();
-            LocalizeControls();
-            InitializeEventHandlers();
-        }
 
         /// <summary>
         /// Gets or sets the <see cref="IHydraulicBoundaryLocationCalculationGuiService"/>.
@@ -65,7 +48,7 @@ namespace Ringtoets.Common.Forms.Views
         /// </summary>
         public abstract IAssessmentSection AssessmentSection { get; set; }
 
-        public virtual object Data
+        public override object Data
         {
             get
             {
@@ -78,48 +61,12 @@ namespace Ringtoets.Common.Forms.Views
             }
         }
 
-        public object Selection
-        {
-            get
-            {
-                return CreateSelectedItemFromCurrentRow();
-            }
-        }
-
-        protected override void OnLoad(EventArgs e)
-        {
-            base.OnLoad(e);
-            InitializeDataGridView();
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && (components != null))
-            {
-                components.Dispose();
-            }
-
-            base.Dispose(disposing);
-        }
-
         /// <summary>
-        /// Updates the data source of the data table based on the <see cref="Data"/>.
+        /// Initializes the <see cref="DataGridViewControl"/>.
         /// </summary>
-        protected void UpdateDataGridViewDataSource()
+        protected override void InitializeDataGridView()
         {
-            updatingDataSource = true;
-            SetDataSource();
-            updatingDataSource = false;
-            UpdateCalculateForSelectedButton();
-        }
-
-        /// <summary>
-        /// Initializes the <see cref="DataGridView"/>.
-        /// </summary>
-        protected virtual void InitializeDataGridView()
-        {
-            dataGridViewControl.AddCheckBoxColumn(TypeUtils.GetMemberName<HydraulicBoundaryLocationRow>(row => row.ToCalculate),
-                                                  RingtoetsCommonFormsResources.HydraulicBoundaryLocationsView_Calculate);
+            base.InitializeDataGridView();
             dataGridViewControl.AddTextBoxColumn(TypeUtils.GetMemberName<HydraulicBoundaryLocationRow>(row => row.Name),
                                                  RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_Location_Name_DisplayName);
             dataGridViewControl.AddTextBoxColumn(TypeUtils.GetMemberName<HydraulicBoundaryLocationRow>(row => row.Id),
@@ -136,109 +83,35 @@ namespace Ringtoets.Common.Forms.Views
         protected abstract T CreateNewRow(HydraulicBoundaryLocation location);
 
         /// <summary>
-        /// Creates a new object that is used as the object for <see cref="Selection"/> from
-        /// the currently selected row in the data table.
-        /// </summary>
-        /// <returns>The newly created object.</returns>
-        protected abstract object CreateSelectedItemFromCurrentRow();
-
-        /// <summary>
         /// Handles the calculation of the <paramref name="locations"/>.
         /// </summary>
         /// <param name="locations">The enumeration of <see cref="HydraulicBoundaryLocation"/> to use in the calculation.</param>
         protected abstract void HandleCalculateSelectedLocations(IEnumerable<HydraulicBoundaryLocation> locations);
 
-        private void LocalizeControls()
-        {
-            CalculateForSelectedButton.Text = RingtoetsCommonFormsResources.HydraulicBoundaryLocationsView_CalculateForSelectedButton_Text;
-            DeselectAllButton.Text = RingtoetsCommonFormsResources.HydraulicBoundaryLocationsView_DeselectAllButton_Text;
-            SelectAllButton.Text = RingtoetsCommonFormsResources.HydraulicBoundaryLocationsView_SelectAllButton_Text;
-            ButtonGroupBox.Text = RingtoetsCommonFormsResources.HydraulicBoundaryLocationsView_ButtonGroupBox_Text;
-        }
-
-        private IEnumerable<T> GetHydraulicBoundaryLocationContextRows()
-        {
-            return dataGridViewControl.Rows.Cast<DataGridViewRow>().Select(row => (T) row.DataBoundItem);
-        }
-
-        /// <summary>
-        /// Sets the datasource on the <see cref="DataGridView"/>.
-        /// </summary>
-        private void SetDataSource()
-        {
-            dataGridViewControl.SetDataSource(locations != null ? locations.Select(CreateNewRow).ToArray()
-                                                  : null);
-        }
-
-        private void UpdateCalculateForSelectedButton()
-        {
-            CalculateForSelectedButton.Enabled = GetHydraulicBoundaryLocationContextRows().Any(r => r.ToCalculate);
-        }
-
-        private void InitializeEventHandlers()
-        {
-            dataGridViewControl.AddCurrentCellChangedHandler(DataGridViewOnCurrentCellChangedHandler);
-            dataGridViewControl.AddCellValueChangedHandler(DataGridViewCellValueChanged);
-        }
-
-        private void OnSelectionChanged()
-        {
-            if (SelectionChanged != null)
-            {
-                SelectionChanged(this, new EventArgs());
-            }
-        }
-
-        private IEnumerable<HydraulicBoundaryLocation> GetSelectedHydraulicBoundaryLocationContext()
-        {
-            return GetHydraulicBoundaryLocationContextRows().Where(r => r.ToCalculate).Select(r => r.HydraulicBoundaryLocation);
-        }
-
-        #region Event handling
-
-        private void DataGridViewCellValueChanged(object sender, DataGridViewCellEventArgs e)
-        {
-            if (updatingDataSource || e.ColumnIndex != locationCalculateColumnIndex)
-            {
-                return;
-            }
-            UpdateCalculateForSelectedButton();
-        }
-
-        private void DataGridViewOnCurrentCellChangedHandler(object sender, EventArgs e)
-        {
-            if (updatingDataSource)
-            {
-                return;
-            }
-
-            OnSelectionChanged();
-        }
-
-        private void SelectAllButton_Click(object sender, EventArgs e)
-        {
-            GetHydraulicBoundaryLocationContextRows().ForEachElementDo(row => row.ToCalculate = true);
-            dataGridViewControl.RefreshDataGridView();
-            UpdateCalculateForSelectedButton();
-        }
-
-        private void DeselectAllButton_Click(object sender, EventArgs e)
-        {
-            GetHydraulicBoundaryLocationContextRows().ForEachElementDo(row => row.ToCalculate = false);
-            dataGridViewControl.RefreshDataGridView();
-            UpdateCalculateForSelectedButton();
-        }
-
-        private void CalculateForSelectedButton_Click(object sender, EventArgs e)
+        protected override void CalculateForSelectedRows()
         {
             if (CalculationGuiService == null)
             {
                 return;
             }
+
             var selectedLocations = GetSelectedHydraulicBoundaryLocationContext();
             HandleCalculateSelectedLocations(selectedLocations);
         }
 
-        #endregion
+        /// <summary>
+        /// Sets the datasource on the <see cref="DataGridViewControl"/>.
+        /// </summary>
+        protected override void SetDataSource()
+        {
+            dataGridViewControl.SetDataSource(locations?.Select(CreateNewRow).ToArray());
+        }
+
+        private IEnumerable<HydraulicBoundaryLocation> GetSelectedHydraulicBoundaryLocationContext()
+        {
+            return GetCalculatableRows().Where(r => r.ToCalculate)
+                                        .Cast<HydraulicBoundaryLocationRow>()
+                                        .Select(r => r.HydraulicBoundaryLocation);
+        }
     }
 }

@@ -38,8 +38,10 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\..\..\..\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
@@ -118,6 +120,12 @@
     <Compile Include="PresentationObjects\SelectableHydraulicBoundaryLocation.cs" />
     <Compile Include="UITypeEditors\StructureEditor.cs" />
     <Compile Include="Views\CalculatableRow.cs" />
+    <Compile Include="Views\CalculatableView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\CalculatableView.Designer.cs">
+      <DependentUpon>CalculatableView.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\FailureMechanismView.cs">
       <SubType>UserControl</SubType>
     </Compile>
