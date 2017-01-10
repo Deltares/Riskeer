@@ -67,6 +67,8 @@
     <Compile Include="Views\DuneErosionFailureMechanismViewTest.cs" />
     <Compile Include="Views\DuneErosionMapDataFeaturesFactoryTest.cs" />
     <Compile Include="Views\DuneErosionSectionResultRowTest.cs" />
+    <Compile Include="Views\DuneLocationRowTest.cs" />
+    <Compile Include="Views\DuneLocationsViewTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">

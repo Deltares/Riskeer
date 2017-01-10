@@ -34,8 +34,10 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\..\..\..\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
@@ -63,6 +65,13 @@
     </Compile>
     <Compile Include="Views\DuneErosionMapDataFeaturesFactory.cs" />
     <Compile Include="Views\DuneErosionSectionResultRow.cs" />
+    <Compile Include="Views\DuneLocationRow.cs" />
+    <Compile Include="Views\DuneLocationsView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\DuneLocationsView.Designer.cs">
+      <DependentUpon>DuneLocationsView.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">
