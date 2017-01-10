@@ -47,7 +47,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
     [TestFixture]
     public class DuneLocationsContextTreeNodeInfoTest
     {
-        private const int contextMenuCalculateAllIndex = 2;
+        private const int contextMenuCalculateAllIndex = 4;
 
         private MockRepository mocks;
         private DuneErosionPlugin plugin;
@@ -177,6 +177,8 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
 
                 using (mocks.Ordered())
                 {
+                    menuBuilder.Expect(mb => mb.AddOpenItem()).Return(menuBuilder);
+                    menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
                     menuBuilder.Expect(mb => mb.AddExportItem()).Return(menuBuilder);
                     menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
                     menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
@@ -229,7 +231,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
                 using (ContextMenuStrip menu = info.ContextMenuStrip(context, null, treeViewControl))
                 {
                     // Assert
-                    Assert.AreEqual(5, menu.Items.Count);
+                    Assert.AreEqual(7, menu.Items.Count);
 
                     var expectedMessage = hasDuneLocations
                                               ? "Alle hydraulische randvoorwaarden berekenen."

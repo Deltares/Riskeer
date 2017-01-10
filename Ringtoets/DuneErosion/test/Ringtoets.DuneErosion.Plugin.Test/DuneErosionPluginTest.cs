@@ -97,7 +97,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test
                 ViewInfo[] viewInfos = plugin.GetViewInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(2, viewInfos.Length);
+                Assert.AreEqual(3, viewInfos.Length);
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
@@ -109,6 +109,12 @@ namespace Ringtoets.DuneErosion.Plugin.Test
                     viewInfos,
                     typeof(DuneErosionFailureMechanismContext),
                     typeof(DuneErosionFailureMechanismView));
+
+                PluginTestHelper.AssertViewInfoDefined(
+                    viewInfos,
+                    typeof(DuneLocationsContext),
+                    typeof(IEnumerable<DuneLocation>),
+                    typeof(DuneLocationsView));
             }
         }
 

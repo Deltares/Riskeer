@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.DuneErosion.Data;
 
@@ -39,19 +40,18 @@ namespace Ringtoets.DuneErosion.Forms.Views
 
         public override object Data { get; set; }
 
+        /// <summary>
+        /// Gets or sets the assessment section.
+        /// </summary>
+        public IAssessmentSection AssessmentSection { get; set; }
+
         protected override object CreateSelectedItemFromCurrentRow()
         {
-            throw new System.NotImplementedException();
+            return new object();
         }
 
-        protected override void SetDataSource()
-        {
-            throw new System.NotImplementedException();
-        }
+        protected override void SetDataSource() {}
 
-        protected override void CalculateForSelectedRows()
-        {
-            throw new System.NotImplementedException();
-        }
+        protected override void CalculateForSelectedRows() {}
     }
 }

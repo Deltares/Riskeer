@@ -34,7 +34,7 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Forms.GuiServices;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.Views;
-using RingtoetsCommonFromsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 {
@@ -98,7 +98,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             var image = info.Image;
 
             // Assert
-            TestHelper.AssertImagesAreEqual(RingtoetsCommonFromsResources.GenericInputOutputIcon, image);
+            TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GenericInputOutputIcon, image);
         }
 
         [Test]

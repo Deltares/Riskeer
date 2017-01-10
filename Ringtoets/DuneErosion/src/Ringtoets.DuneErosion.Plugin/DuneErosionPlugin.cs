@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
@@ -114,6 +115,16 @@ namespace Ringtoets.DuneErosion.Plugin
                 Image = RingtoetsCommonFormsResources.CalculationIcon,
                 CloseForData = CloseFailureMechanismViewForData,
                 AdditionalDataCheck = context => context.WrappedData.IsRelevant
+            };
+
+            yield return new ViewInfo<DuneLocationsContext, IEnumerable<DuneLocation>, DuneLocationsView>
+            {
+                GetViewName = (view, context) => RingtoetsCommonDataResources.HydraulicBoundaryConditions_DisplayName,
+                Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
+                GetViewData = context => context.WrappedData,
+                CloseForData = CloseDuneLocationViewForData,
+                AfterCreate = (view, context) => view.AssessmentSection = context.AssessmentSection,
+                AdditionalDataCheck = context => context.WrappedData.Any()
             };
         }
 
@@ -236,6 +247,8 @@ namespace Ringtoets.DuneErosion.Plugin
             };
 
             return Gui.Get(context, treeViewControl)
+                      .AddOpenItem()
+                      .AddSeparator()
                       .AddExportItem()
                       .AddSeparator()
                       .AddCustomItem(calculateAllItem)
@@ -286,6 +299,34 @@ namespace Ringtoets.DuneErosion.Plugin
             return assessmentSection != null
                        ? ReferenceEquals(viewFailureMechanismContext.Parent, assessmentSection)
                        : ReferenceEquals(viewFailureMechanism, failureMechanism);
+        }
+
+        #endregion
+
+        #region DuneLocationsView ViewInfo
+
+        private static bool CloseDuneLocationViewForData(DuneLocationsView view, object dataToCloseFor)
+        {
+            DuneErosionFailureMechanism viewFailureMechanism = null;
+            if (view.AssessmentSection != null)
+            {
+                viewFailureMechanism = view.AssessmentSection.GetFailureMechanisms().OfType<DuneErosionFailureMechanism>().Single();
+            }
+
+            var failureMechanismContext = dataToCloseFor as DuneErosionFailureMechanismContext;
+            var assessmentSection = dataToCloseFor as IAssessmentSection;
+            var failureMechanism = dataToCloseFor as DuneErosionFailureMechanism;
+
+            if (assessmentSection != null)
+            {
+                failureMechanism = ((IAssessmentSection)dataToCloseFor).GetFailureMechanisms().OfType<DuneErosionFailureMechanism>().Single();
+            }
+
+            if (failureMechanismContext != null)
+            {
+                failureMechanism = failureMechanismContext.Parent.GetFailureMechanisms().OfType<DuneErosionFailureMechanism>().Single();
+            }
+            return failureMechanism != null && ReferenceEquals(failureMechanism, viewFailureMechanism);
         }
 
         #endregion
