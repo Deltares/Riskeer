@@ -44,6 +44,7 @@ namespace Application.Ringtoets.Storage.DbContext
         public virtual DbSet<ClosingStructuresOutputEntity> ClosingStructuresOutputEntities { get; set; }
         public virtual DbSet<ClosingStructuresSectionResultEntity> ClosingStructuresSectionResultEntities { get; set; }
         public virtual DbSet<DikeProfileEntity> DikeProfileEntities { get; set; }
+        public virtual DbSet<DuneErosionFailureMechanismMetaEntity> DuneErosionFailureMechanismMetaEntities { get; set; }
         public virtual DbSet<DuneErosionSectionResultEntity> DuneErosionSectionResultEntities { get; set; }
         public virtual DbSet<DuneLocationEntity> DuneLocationEntities { get; set; }
         public virtual DbSet<DuneLocationOutputEntity> DuneLocationOutputEntities { get; set; }
