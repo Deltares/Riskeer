@@ -161,10 +161,11 @@ namespace Core.Common.Controls.DataGrid
         /// </summary>
         /// <param name="dataPropertyName">The <see cref="DataGridViewColumn.DataPropertyName"/> of the column.</param>
         /// <param name="headerText">The <see cref="DataGridViewColumn.HeaderText"/> of the column.</param>
+        /// <param name="readOnly">Indicates whether the column is read-only or not.</param>
         /// <param name="autoSizeMode">The <see cref="DataGridViewColumn.AutoSizeMode"/> of the column.</param>
         /// <remarks><paramref name="dataPropertyName"/> is also used to create the <see cref="DataGridViewColumn.Name"/>.
         /// The format is "column_<paramref name="dataPropertyName"/>.</remarks>
-        public void AddCheckBoxColumn(string dataPropertyName, string headerText, DataGridViewAutoSizeColumnMode autoSizeMode = DataGridViewAutoSizeColumnMode.AllCells)
+        public void AddCheckBoxColumn(string dataPropertyName, string headerText, bool readOnly = false, DataGridViewAutoSizeColumnMode autoSizeMode = DataGridViewAutoSizeColumnMode.AllCells)
         {
             dataGridView.Columns.Add(new DataGridViewCheckBoxColumn
             {
@@ -173,6 +174,7 @@ namespace Core.Common.Controls.DataGrid
                 Name = string.Format(CultureInfo.InvariantCulture,
                                      "column_{0}",
                                      dataPropertyName),
+                ReadOnly = readOnly,
                 AutoSizeMode = autoSizeMode
             });
         }

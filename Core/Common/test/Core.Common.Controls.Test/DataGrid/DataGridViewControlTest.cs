@@ -251,7 +251,7 @@ namespace Core.Common.Controls.Test.DataGrid
 
                 DataGridViewTextBoxColumn columnData = (DataGridViewTextBoxColumn) dataGridView.Columns[0];
                 Assert.AreEqual(propertyName, columnData.DataPropertyName);
-                Assert.AreEqual(string.Format("column_{0}", propertyName), columnData.Name);
+                Assert.AreEqual($"column_{propertyName}", columnData.Name);
                 Assert.AreEqual(headerText, columnData.HeaderText);
                 Assert.AreEqual(readOnly, columnData.ReadOnly);
                 Assert.AreEqual(DataGridViewAutoSizeColumnMode.AllCells, columnData.AutoSizeMode);
@@ -291,7 +291,7 @@ namespace Core.Common.Controls.Test.DataGrid
 
                 DataGridViewTextBoxColumn columnData = (DataGridViewTextBoxColumn) dataGridView.Columns[0];
                 Assert.AreEqual(propertyName, columnData.DataPropertyName);
-                Assert.AreEqual(string.Format("column_{0}", propertyName), columnData.Name);
+                Assert.AreEqual($"column_{propertyName}", columnData.Name);
                 Assert.AreEqual(headerText, columnData.HeaderText);
                 Assert.AreEqual(readOnly, columnData.ReadOnly);
                 Assert.AreEqual(autoSizeMode, columnData.AutoSizeMode);
@@ -326,9 +326,46 @@ namespace Core.Common.Controls.Test.DataGrid
 
                 DataGridViewCheckBoxColumn columnData = (DataGridViewCheckBoxColumn) dataGridView.Columns[0];
                 Assert.AreEqual(propertyName, columnData.DataPropertyName);
-                Assert.AreEqual(string.Format("column_{0}", propertyName), columnData.Name);
+                Assert.AreEqual($"column_{propertyName}", columnData.Name);
                 Assert.AreEqual(headerText, columnData.HeaderText);
+                Assert.IsFalse(columnData.ReadOnly);
                 Assert.AreEqual(DataGridViewAutoSizeColumnMode.AllCells, columnData.AutoSizeMode);
+                Assert.AreEqual(DataGridViewContentAlignment.MiddleCenter, columnData.HeaderCell.Style.Alignment);
+            }
+        }
+
+        [Test]
+        public void AddCheckboxColumn_ReadOnlySet_AddsColumnToDataGridViewWithReadOnlyTrue()
+        {
+            // Setup
+            using (var form = new Form())
+            using (var control = new DataGridViewControl())
+            {
+                var propertyName = "PropertyName";
+                var headerText = "HeaderText";
+
+                form.Controls.Add(control);
+                form.Show();
+
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+
+                var autoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+
+                // Precondition
+                Assert.AreEqual(0, dataGridView.ColumnCount);
+
+                // Call
+                control.AddCheckBoxColumn(propertyName, headerText, true, autoSizeMode);
+
+                // Assert
+                Assert.AreEqual(1, dataGridView.ColumnCount);
+
+                DataGridViewCheckBoxColumn columnData = (DataGridViewCheckBoxColumn) dataGridView.Columns[0];
+                Assert.AreEqual(propertyName, columnData.DataPropertyName);
+                Assert.AreEqual($"column_{propertyName}", columnData.Name);
+                Assert.AreEqual(headerText, columnData.HeaderText);
+                Assert.IsTrue(columnData.ReadOnly);
+                Assert.AreEqual(autoSizeMode, columnData.AutoSizeMode);
                 Assert.AreEqual(DataGridViewContentAlignment.MiddleCenter, columnData.HeaderCell.Style.Alignment);
             }
         }
@@ -354,15 +391,16 @@ namespace Core.Common.Controls.Test.DataGrid
                 Assert.AreEqual(0, dataGridView.ColumnCount);
 
                 // Call
-                control.AddCheckBoxColumn(propertyName, headerText, autoSizeMode);
+                control.AddCheckBoxColumn(propertyName, headerText, false, autoSizeMode);
 
                 // Assert
                 Assert.AreEqual(1, dataGridView.ColumnCount);
 
                 DataGridViewCheckBoxColumn columnData = (DataGridViewCheckBoxColumn) dataGridView.Columns[0];
                 Assert.AreEqual(propertyName, columnData.DataPropertyName);
-                Assert.AreEqual(string.Format("column_{0}", propertyName), columnData.Name);
+                Assert.AreEqual($"column_{propertyName}", columnData.Name);
                 Assert.AreEqual(headerText, columnData.HeaderText);
+                Assert.IsFalse(columnData.ReadOnly);
                 Assert.AreEqual(autoSizeMode, columnData.AutoSizeMode);
                 Assert.AreEqual(DataGridViewContentAlignment.MiddleCenter, columnData.HeaderCell.Style.Alignment);
             }
@@ -396,7 +434,7 @@ namespace Core.Common.Controls.Test.DataGrid
                 DataGridViewComboBoxColumn columnData = (DataGridViewComboBoxColumn) dataGridView.Columns[0];
 
                 Assert.AreEqual(propertyName, columnData.DataPropertyName);
-                Assert.AreEqual(string.Format("column_{0}", propertyName), columnData.Name);
+                Assert.AreEqual($"column_{propertyName}", columnData.Name);
                 Assert.AreEqual(headerText, columnData.HeaderText);
                 Assert.IsNull(columnData.DataSource);
                 Assert.AreEqual(string.Empty, columnData.ValueMember);
@@ -432,7 +470,7 @@ namespace Core.Common.Controls.Test.DataGrid
                 DataGridViewComboBoxColumn columnData = (DataGridViewComboBoxColumn) dataGridView.Columns[0];
 
                 Assert.AreEqual(propertyName, columnData.DataPropertyName);
-                Assert.AreEqual(string.Format("column_{0}", propertyName), columnData.Name);
+                Assert.AreEqual($"column_{propertyName}", columnData.Name);
                 Assert.AreEqual(headerText, columnData.HeaderText);
                 Assert.IsNull(columnData.DataSource);
                 Assert.AreEqual(string.Empty, columnData.ValueMember);
@@ -479,7 +517,7 @@ namespace Core.Common.Controls.Test.DataGrid
                 DataGridViewComboBoxColumn columnData = (DataGridViewComboBoxColumn) dataGridView.Columns[0];
 
                 Assert.AreEqual(propertyName, columnData.DataPropertyName);
-                Assert.AreEqual(string.Format("column_{0}", propertyName), columnData.Name);
+                Assert.AreEqual($"column_{propertyName}", columnData.Name);
                 Assert.AreEqual(headerText, columnData.HeaderText);
                 Assert.AreSame(dataSource, columnData.DataSource);
                 Assert.AreEqual("Value", columnData.ValueMember);
