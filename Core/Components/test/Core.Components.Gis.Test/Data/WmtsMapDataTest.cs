@@ -55,6 +55,7 @@ namespace Core.Components.Gis.Test.Data
             Assert.AreEqual(0.0, mapData.Transparency.Value);
 
             Assert.IsTrue(mapData.IsConfigured);
+            Assert.IsTrue(mapData.IsVisible);
         }
 
         [Test]
@@ -141,6 +142,7 @@ namespace Core.Components.Gis.Test.Data
             Assert.AreEqual("brtachtergrondkaart", mapData.SelectedCapabilityName);
             Assert.AreEqual(0.0, mapData.Transparency.Value);
             Assert.IsTrue(mapData.IsConfigured);
+            Assert.IsTrue(mapData.IsVisible);
         }
 
         [Test]
@@ -155,6 +157,7 @@ namespace Core.Components.Gis.Test.Data
             Assert.IsNull(mapData.SelectedCapabilityName);
             Assert.AreEqual(0.0, mapData.Transparency.Value);
             Assert.IsFalse(mapData.IsConfigured);
+            Assert.IsFalse(mapData.IsVisible);
         }
 
         [Test]
@@ -198,6 +201,7 @@ namespace Core.Components.Gis.Test.Data
             Assert.AreEqual(url, mapData.SourceCapabilitiesUrl);
             Assert.AreEqual(selectedCapabilityName, mapData.SelectedCapabilityName);
             Assert.IsTrue(mapData.IsConfigured);
+            Assert.IsTrue(mapData.IsVisible);
         }
 
         [Test]
@@ -213,6 +217,7 @@ namespace Core.Components.Gis.Test.Data
             Assert.IsNull(mapData.SourceCapabilitiesUrl);
             Assert.IsNull(mapData.SelectedCapabilityName);
             Assert.IsFalse(mapData.IsConfigured);
+            Assert.IsFalse(mapData.IsVisible);
         }
     }
 }

@@ -54,6 +54,7 @@ namespace Core.Components.Gis.Data
         private WmtsMapData(string name) : base(name)
         {
             transparency = new RoundedDouble(2, 0.0);
+            IsVisible = false;
         }
 
         /// <summary>
@@ -136,6 +137,7 @@ namespace Core.Components.Gis.Data
             SelectedCapabilityName = selectedCapabilityName;
 
             IsConfigured = true;
+            IsVisible = true;
         }
 
         /// <summary>
@@ -147,6 +149,7 @@ namespace Core.Components.Gis.Data
             SelectedCapabilityName = null;
 
             IsConfigured = false;
+            IsVisible = false;
         }
     }
 }
