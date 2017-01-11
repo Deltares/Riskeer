@@ -165,12 +165,12 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test
                 ExpectedAffectedLocations = locations.Where(c => c.DesignWaterLevelOutput != null || c.WaveHeightOutput != null).ToArray();
             }
 
-            public ICollection<HydraulicBoundaryLocation> Locations { get; private set; }
-            public ICollection<IObservable> ExpectedAffectedLocations { get; private set; }
+            public ICollection<HydraulicBoundaryLocation> Locations { get; }
+            public ICollection<IObservable> ExpectedAffectedLocations { get; }
 
-            public ICollection<GrassCoverErosionOutwardsWaveConditionsCalculation> Calculations { get; private set; }
+            public ICollection<GrassCoverErosionOutwardsWaveConditionsCalculation> Calculations { get; }
 
-            public ICollection<IObservable> ExpectedAffectedCalculations { get; private set; }
+            public ICollection<IObservable> ExpectedAffectedCalculations { get; }
         }
 
         static IEnumerable ChangePropertyTestCases()

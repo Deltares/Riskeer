@@ -34,6 +34,7 @@ using Ringtoets.Common.Forms;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TreeNodeInfos;
 using Ringtoets.DuneErosion.Data;
+using Ringtoets.DuneErosion.Forms;
 using Ringtoets.DuneErosion.Forms.PresentationObjects;
 using Ringtoets.DuneErosion.Forms.PropertyClasses;
 using Ringtoets.DuneErosion.Forms.Views;
@@ -55,7 +56,7 @@ namespace Ringtoets.DuneErosion.Plugin
             yield return new PropertyInfo<DuneErosionFailureMechanismContext, DuneErosionFailureMechanismProperties>
             {
                 CreateInstance = context => new DuneErosionFailureMechanismProperties(context.WrappedData,
-                                                                                      new FailureMechanismPropertyChangeHandler<DuneErosionFailureMechanism>())
+                                                                                      new DuneErosionFailureMechanismPropertyChangeHandler())
             };
             yield return new PropertyInfo<DuneLocationsContext, DuneLocationsContextProperties>
             {
