@@ -67,7 +67,7 @@ namespace Ringtoets.Piping.Forms.Views
             InitializeChartControl();
 
             calculationObserver = new Observer(UpdateChartTitle);
-            calculationInputObserver = new Observer(UpdateChartData);
+            calculationInputObserver = new Observer(UpdateViewData);
 
             chartDataCollection = new ChartDataCollection(RingtoetsCommonFormsResources.Calculation_Input);
             soilProfileChartData = PipingChartDataFactory.CreateSoilProfileChartData();
@@ -106,9 +106,7 @@ namespace Ringtoets.Piping.Forms.Views
                 data = value as PipingCalculationScenario;
 
                 calculationObserver.Observable = data;
-                calculationInputObserver.Observable = data != null
-                                                          ? data.InputParameters
-                                                          : null;
+                calculationInputObserver.Observable = data?.InputParameters;
 
                 if (data == null)
                 {
@@ -122,6 +120,7 @@ namespace Ringtoets.Piping.Forms.Views
                     chartControl.Data = chartDataCollection;
                     chartControl.ChartTitle = data.Name;
                 }
+                UpdateTableData();
             }
         }
 
@@ -156,6 +155,12 @@ namespace Ringtoets.Piping.Forms.Views
             chartControl.ChartTitle = data.Name;
         }
 
+        private void UpdateViewData()
+        {
+            UpdateChartData();
+            UpdateTableData();
+        }
+
         private void UpdateChartData()
         {
             SetChartData();
@@ -171,6 +176,10 @@ namespace Ringtoets.Piping.Forms.Views
             entryPointChartData.NotifyObservers();
             soilProfileChartData.NotifyObservers();
             soilProfileChartData.Collection.ForEachElementDo(md => md.NotifyObservers());
+        }
+        private void UpdateTableData()
+        {
+            pipingSoilLayerTable.SetData(data?.InputParameters.StochasticSoilProfile?.SoilProfile?.Layers);
         }
 
         private void SetChartData()

@@ -57,6 +57,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 Assert.IsInstanceOf<IChartView>(view);
                 Assert.IsNotNull(view.Chart);
                 Assert.IsNull(view.Data);
+                Assert.AreEqual(2, view.Controls.Count);
             }
         }
 
@@ -67,12 +68,28 @@ namespace Ringtoets.Piping.Forms.Test.Views
             using (var view = new PipingInputView())
             {
                 // Assert
-                Assert.AreEqual(1, view.Controls.Count);
-                Assert.AreSame(view.Chart, view.Controls[0]);
-                Assert.AreEqual(DockStyle.Fill, ((Control) view.Chart).Dock);
-                Assert.AreEqual("Afstand [m]", view.Chart.BottomAxisTitle);
-                Assert.AreEqual("Hoogte [m+NAP]", view.Chart.LeftAxisTitle);
-                Assert.IsNull(view.Chart.Data);
+                var chartControl = view.Controls.Find("chartControl", true).First() as IChartControl;
+                Assert.IsInstanceOf<Control>(chartControl);
+                Assert.NotNull(chartControl);
+                Assert.AreSame(chartControl, chartControl);
+                Assert.AreEqual(DockStyle.Fill, ((Control)chartControl).Dock);
+                Assert.AreEqual("Afstand [m]", chartControl.BottomAxisTitle);
+                Assert.AreEqual("Hoogte [m+NAP]", chartControl.LeftAxisTitle);
+                Assert.IsNull(chartControl.Data);
+            }
+        }
+
+        [Test]
+        public void DefaultConstructor_Always_AddEmptyTableControl()
+        {
+            // Call
+            using (var view = new PipingInputView())
+            {
+                // Assert
+                var tableControl = view.Controls.Find("pipingSoilLayerTable", true).First() as PipingSoilLayerTable;
+                Assert.NotNull(tableControl);
+                Assert.AreEqual(DockStyle.Bottom, tableControl.Dock);
+                CollectionAssert.IsEmpty(tableControl.Rows);
             }
         }
 
@@ -129,18 +146,45 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void Data_EmptyGrassCoverErosionInwardsCalculation_NoMapDataSet()
+        public void Data_SetToNull_TableDataCleared()
         {
             // Setup
             using (var view = new PipingInputView())
             {
-                var calculation = new PipingCalculationScenario(new GeneralPipingInput());
+                var calculation = new PipingCalculationScenario(new GeneralPipingInput())
+                {
+                    InputParameters =
+                    {
+                        StochasticSoilProfile = new StochasticSoilProfile(0.1, SoilProfileType.SoilProfile1D, 1)
+                        {
+                            SoilProfile = new PipingSoilProfile(
+                                "profile",
+                                -1,
+                                new[]
+                                {
+                                    new PipingSoilLayer(3.0),
+                                    new PipingSoilLayer(2.0),
+                                    new PipingSoilLayer(0)
+                                },
+                                SoilProfileType.SoilProfile1D,
+                                1)
+                        }
+                    }
+                };
+
+                view.Data = calculation;
+                var tableControl = view.Controls.Find("pipingSoilLayerTable", true).First() as PipingSoilLayerTable;
+
+                // Precondition
+                Assert.NotNull(tableControl);
+                Assert.AreEqual(3, tableControl.Rows.Count);
 
                 // Call
-                view.Data = calculation;
+                view.Data = null;
 
                 // Assert
-                AssertEmptyChartData(view.Chart.Data);
+                Assert.IsNull(view.Data);
+                CollectionAssert.IsEmpty(tableControl.Rows);
             }
         }
 
@@ -181,6 +225,22 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 AssertEntryPointLPointchartData(calculation.InputParameters, surfaceLine, chartData.Collection.ElementAt(entryPointIndex));
                 AssertExitPointLPointchartData(calculation.InputParameters, surfaceLine, chartData.Collection.ElementAt(exitPointIndex));
                 AssertCharacteristicPoints(surfaceLine, chartData.Collection.ToList());
+            }
+        }
+
+        [Test]
+        public void Data_WithoutSurfaceLine_NoMapDataSet()
+        {
+            // Setup
+            using (var view = new PipingInputView())
+            {
+                var calculation = new PipingCalculationScenario(new GeneralPipingInput());
+
+                // Call
+                view.Data = calculation;
+
+                // Assert
+                AssertEmptyChartData(view.Chart.Data);
             }
         }
 
@@ -240,6 +300,44 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 var soilProfileData = (ChartDataCollection) chartData.Collection.ElementAt(soilProfileIndex);
                 CollectionAssert.IsEmpty(soilProfileData.Collection);
                 Assert.AreEqual("Ondergrondschematisatie", soilProfileData.Name);
+            }
+        }
+
+        [Test]
+        public void Data_WithoutStochasticSoilProfile_SoilLayerTableEmpty()
+        {
+            // Setup
+            using (var view = new PipingInputView())
+            {
+                var calculation = new PipingCalculationScenario(new GeneralPipingInput());
+
+                // Call
+                view.Data = calculation;
+
+                // Assert
+                AssertEmtpySoilLayerTable(view);
+            }
+        }
+
+        [Test]
+        public void Data_WithoutSoilProfile_SoilLayerTableEmpty()
+        {
+            // Setup
+            using (var view = new PipingInputView())
+            {
+                var calculation = new PipingCalculationScenario(new GeneralPipingInput())
+                {
+                    InputParameters =
+                    {
+                        StochasticSoilProfile = new StochasticSoilProfile(0.5, SoilProfileType.SoilProfile1D, 1)
+                    }
+                };
+
+                // Call
+                view.Data = calculation;
+
+                // Assert
+                AssertEmtpySoilLayerTable(view);
             }
         }
 
@@ -619,6 +717,15 @@ namespace Ringtoets.Piping.Forms.Test.Views
             };
             surfaceLine.SetGeometry(points);
             return surfaceLine;
+        }
+
+        private static void AssertEmtpySoilLayerTable(PipingInputView view)
+        {
+            var tableControl = view.Controls.Find("pipingSoilLayerTable", true).First() as PipingSoilLayerTable;
+
+            // Precondition
+            Assert.NotNull(tableControl);
+            CollectionAssert.IsEmpty(tableControl.Rows);
         }
 
         private static void AssertEmptyChartData(ChartDataCollection chartDataCollection)

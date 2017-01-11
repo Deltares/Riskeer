@@ -224,6 +224,8 @@ namespace Core.Common.Controls.DataGrid
         /// Sets the datasource on the <see cref="DataGridView"/>.
         /// </summary>
         /// <param name="dataSource">The datasource to set.</param>
+        /// <remarks>Providing a value of <c>null</c> for <paramref name="dataSource"/>
+        /// will clear the grid view.</remarks>
         public void SetDataSource(object dataSource)
         {
             dataGridView.DataSource = dataSource;

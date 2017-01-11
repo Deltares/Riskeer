@@ -80,21 +80,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void SetData_WithNullData_ThrowsArgumentNullException()
-        {
-            // Setup
-            var table = new PipingSoilLayerTable();
-
-            // Call
-            TestDelegate test = () => table.SetData(null);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("layers", paramName);
-        }
-
-        [Test]
-        public void SetData_NoDataSet_SetNewData()
+        public void SetData_NoDataAlreadySet_SetNewData()
         {
             // Setup
             var table = new PipingSoilLayerTable();
@@ -113,7 +99,27 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void SetData_WithDataSet_ClearDataAndAddNewData()
+        public void SetData_SetNullDataAfterDataAlreadySet_ClearsData()
+        {
+            // Setup
+            var table = new PipingSoilLayerTable();
+            var layers = new[]
+            {
+                new PipingSoilLayer(2.5),
+                new PipingSoilLayer(2.3),
+                new PipingSoilLayer(1.1)
+            };
+            table.SetData(layers);
+
+            // Call
+            table.SetData(null);
+
+            // Assert
+            Assert.AreEqual(0, table.Rows.Count);
+        }
+
+        [Test]
+        public void SetData_SetNewDataAfterDataAlreadySet_ClearDataAndAddNewData()
         {
             // Setup
             var table = new PipingSoilLayerTable();

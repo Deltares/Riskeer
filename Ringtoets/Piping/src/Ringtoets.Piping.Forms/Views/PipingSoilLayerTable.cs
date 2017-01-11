@@ -33,13 +33,13 @@ namespace Ringtoets.Piping.Forms.Views
             AddColumns();
         }
 
+        /// <summary>
+        /// Sets the given <paramref name="layers"/> for which the properties
+        /// are shown in the table.
+        /// </summary>
+        /// <param name="layers">The collection of layers to show.</param>
         public void SetData(IEnumerable<PipingSoilLayer> layers)
         {
-            if (layers == null)
-            {
-                throw new ArgumentNullException(nameof(layers));
-            }
-
             SetDataSource(layers);
         }
 

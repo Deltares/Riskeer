@@ -37,26 +37,44 @@ namespace Ringtoets.Piping.Forms.Views
         private void InitializeComponent()
         {
             this.chartControl = new Core.Components.OxyPlot.Forms.ChartControl();
+            this.pipingSoilLayerTable = new Ringtoets.Piping.Forms.Views.PipingSoilLayerTable();
             this.SuspendLayout();
             // 
             // chartControl
             // 
             this.chartControl.BottomAxisTitle = "";
             this.chartControl.ChartTitle = null;
+            this.chartControl.Data = null;
             this.chartControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.chartControl.LeftAxisTitle = "";
             this.chartControl.Location = new System.Drawing.Point(0, 0);
+            this.chartControl.MinimumSize = new System.Drawing.Size(100, 100);
             this.chartControl.Name = "chartControl";
-            this.chartControl.Size = new System.Drawing.Size(150, 150);
+            this.chartControl.Size = new System.Drawing.Size(333, 202);
             this.chartControl.TabIndex = 0;
             this.chartControl.Text = "chartControl";
+            // 
+            // pipingSoilLayerTable
+            // 
+            this.pipingSoilLayerTable.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.pipingSoilLayerTable.Location = new System.Drawing.Point(0, 202);
+            this.pipingSoilLayerTable.MinimumSize = new System.Drawing.Size(300, 150);
+            this.pipingSoilLayerTable.MultiSelect = true;
+            this.pipingSoilLayerTable.Name = "pipingSoilLayerTable";
+            this.pipingSoilLayerTable.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.RowHeaderSelect;
+            this.pipingSoilLayerTable.Size = new System.Drawing.Size(333, 156);
+            this.pipingSoilLayerTable.TabIndex = 1;
             // 
             // PipingInputView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScroll = true;
             this.Controls.Add(this.chartControl);
+            this.Controls.Add(this.pipingSoilLayerTable);
+            this.MinimumSize = new System.Drawing.Size(200, 300);
             this.Name = "PipingInputView";
+            this.Size = new System.Drawing.Size(333, 358);
             this.ResumeLayout(false);
 
         }
@@ -64,5 +82,6 @@ namespace Ringtoets.Piping.Forms.Views
         #endregion
 
         private Core.Components.OxyPlot.Forms.ChartControl chartControl;
+        private PipingSoilLayerTable pipingSoilLayerTable;
     }
 }
