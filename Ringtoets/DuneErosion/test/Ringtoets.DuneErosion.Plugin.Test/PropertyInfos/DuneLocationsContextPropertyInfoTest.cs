@@ -69,7 +69,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.PropertyInfos
 
                 // Assert
                 Assert.IsInstanceOf<DuneLocationsContextProperties>(objectProperties);
-                Assert.AreSame(context, objectProperties.Data);
+                Assert.AreSame(context.WrappedData, objectProperties.Data);
             }
             mockRepository.VerifyAll();
         }

@@ -56,10 +56,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
             var context = new DuneLocationsContext(failureMechanism.DuneLocations, failureMechanism, assessmentSection);
 
             // Call
-            var properties = new DuneLocationsContextProperties
-            {
-                Data = context
-            };
+            var properties = new DuneLocationsContextProperties(context.WrappedData);
 
             // Assert
             CollectionAssert.AllItemsAreInstancesOfType(properties.Locations, typeof(DuneLocationProperties));
@@ -103,10 +100,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
             var context = new DuneLocationsContext(failureMechanism.DuneLocations, failureMechanism, assessmentSection);
 
             // Call
-            var properties = new DuneLocationsContextProperties
-            {
-                Data = context
-            };
+            var properties = new DuneLocationsContextProperties(context.WrappedData);
 
             // Assert
             TypeConverter classTypeConverter = TypeDescriptor.GetConverter(properties, true);

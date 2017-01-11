@@ -19,11 +19,14 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.ComponentModel;
 using System.Linq;
+using Core.Common.Base;
 using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
+using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Forms.PresentationObjects;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
@@ -32,8 +35,22 @@ namespace Ringtoets.DuneErosion.Forms.PropertyClasses
     /// <summary>
     /// ViewModel of the <see cref="DuneLocationsContext"/> for the properties panel.
     /// </summary>
-    public class DuneLocationsContextProperties : ObjectProperties<DuneLocationsContext>
+    public class DuneLocationsContextProperties : ObjectProperties<ObservableList<DuneLocation>>
     {
+        /// <summary>
+        /// Creates a new instance of <see cref="DuneLocationsContextProperties"/>.
+        /// </summary>
+        /// <param name="locations">The locations to show the properties for.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="locations"/> is <c>null</c>.</exception>
+        public DuneLocationsContextProperties(ObservableList<DuneLocation> locations)
+        {
+            if (locations == null)
+            {
+                throw new ArgumentNullException(nameof(locations));
+            }
+            Data = locations;
+        }
+
         [TypeConverter(typeof(ExpandableArrayConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "HydraulicBoundaryDatabase_Locations_DisplayName")]
@@ -42,9 +59,9 @@ namespace Ringtoets.DuneErosion.Forms.PropertyClasses
         {
             get
             {
-                return data.WrappedData.Select(duneLocation => new DuneLocationProperties
+                return data.Select(loc => new DuneLocationProperties
                 {
-                    Data = duneLocation
+                    Data = new DuneLocationContext(data, loc)
                 }).ToArray();
             }
         }

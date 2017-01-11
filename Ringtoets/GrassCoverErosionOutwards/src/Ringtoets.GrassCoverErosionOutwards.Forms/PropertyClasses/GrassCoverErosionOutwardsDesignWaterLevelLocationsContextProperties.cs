@@ -47,7 +47,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
         {
             if (locations == null)
             {
-                throw new ArgumentNullException("locations");
+                throw new ArgumentNullException(nameof(locations));
             }
             Data = locations;
         }

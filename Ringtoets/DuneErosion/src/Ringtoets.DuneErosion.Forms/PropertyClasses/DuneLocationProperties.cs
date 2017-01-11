@@ -28,7 +28,7 @@ using Core.Common.Utils;
 using Core.Common.Utils.Attributes;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Forms.TypeConverters;
-using Ringtoets.DuneErosion.Data;
+using Ringtoets.DuneErosion.Forms.PresentationObjects;
 using Ringtoets.DuneErosion.Forms.Properties;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using DuneErosionDataResources = Ringtoets.DuneErosion.Data.Properties.Resources;
@@ -36,10 +36,10 @@ using DuneErosionDataResources = Ringtoets.DuneErosion.Data.Properties.Resources
 namespace Ringtoets.DuneErosion.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of <see cref="DuneLocation"/> for the properties panel.
+    /// ViewModel of <see cref="DuneLocationContext"/> for the properties panel.
     /// </summary>
     [TypeConverter(typeof(ExpandableObjectConverter))]
-    public class DuneLocationProperties : ObjectProperties<DuneLocation>
+    public class DuneLocationProperties : ObjectProperties<DuneLocationContext>
     {
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "HydraulicBoundaryDatabase_Location_Id_DisplayName")]
@@ -48,7 +48,7 @@ namespace Ringtoets.DuneErosion.Forms.PropertyClasses
         {
             get
             {
-                return data.Id;
+                return data.DuneLocation.Id;
             }
         }
 
@@ -59,7 +59,7 @@ namespace Ringtoets.DuneErosion.Forms.PropertyClasses
         {
             get
             {
-                return data.Name;
+                return data.DuneLocation.Name;
             }
         }
 
@@ -70,7 +70,7 @@ namespace Ringtoets.DuneErosion.Forms.PropertyClasses
         {
             get
             {
-                return data.CoastalAreaId;
+                return data.DuneLocation.CoastalAreaId;
             }
         }
 
@@ -81,7 +81,7 @@ namespace Ringtoets.DuneErosion.Forms.PropertyClasses
         {
             get
             {
-                return data.Offset.ToString(DuneErosionDataResources.DuneLocation_Offset_format, CultureInfo.InvariantCulture);
+                return data.DuneLocation.Offset.ToString(DuneErosionDataResources.DuneLocation_Offset_format, CultureInfo.InvariantCulture);
             }
         }
 
@@ -92,7 +92,7 @@ namespace Ringtoets.DuneErosion.Forms.PropertyClasses
         {
             get
             {
-                return data.Location;
+                return data.DuneLocation.Location;
             }
         }
 
@@ -104,9 +104,7 @@ namespace Ringtoets.DuneErosion.Forms.PropertyClasses
         {
             get
             {
-                return data.Output == null
-                           ? RoundedDouble.NaN
-                           : data.Output.WaterLevel;
+                return data.DuneLocation.Output?.WaterLevel ?? RoundedDouble.NaN;
             }
         }
 
@@ -118,9 +116,7 @@ namespace Ringtoets.DuneErosion.Forms.PropertyClasses
         {
             get
             {
-                return data.Output == null
-                           ? RoundedDouble.NaN
-                           : data.Output.WaveHeight;
+                return data.DuneLocation.Output?.WaveHeight ?? RoundedDouble.NaN;
             }
         }
 
@@ -132,9 +128,7 @@ namespace Ringtoets.DuneErosion.Forms.PropertyClasses
         {
             get
             {
-                return data.Output == null
-                           ? RoundedDouble.NaN
-                           : data.Output.WavePeriod;
+                return data.DuneLocation.Output?.WavePeriod ?? RoundedDouble.NaN;
             }
         }
 
@@ -146,7 +140,7 @@ namespace Ringtoets.DuneErosion.Forms.PropertyClasses
         {
             get
             {
-                return data.D50;
+                return data.DuneLocation.D50;
             }
         }
 
@@ -158,9 +152,7 @@ namespace Ringtoets.DuneErosion.Forms.PropertyClasses
         {
             get
             {
-                return data.Output == null
-                           ? double.NaN
-                           : data.Output.TargetProbability;
+                return data.DuneLocation.Output?.TargetProbability ?? double.NaN;
             }
         }
 
@@ -172,9 +164,7 @@ namespace Ringtoets.DuneErosion.Forms.PropertyClasses
         {
             get
             {
-                return data.Output == null
-                           ? RoundedDouble.NaN
-                           : data.Output.TargetReliability;
+                return data.DuneLocation.Output?.TargetReliability ?? RoundedDouble.NaN;
             }
         }
 
@@ -186,9 +176,7 @@ namespace Ringtoets.DuneErosion.Forms.PropertyClasses
         {
             get
             {
-                return data.Output == null
-                           ? double.NaN
-                           : data.Output.CalculatedProbability;
+                return data.DuneLocation.Output?.CalculatedProbability ?? double.NaN;
             }
         }
 
@@ -200,9 +188,7 @@ namespace Ringtoets.DuneErosion.Forms.PropertyClasses
         {
             get
             {
-                return data.Output == null
-                           ? RoundedDouble.NaN
-                           : data.Output.CalculatedReliability;
+                return data.DuneLocation.Output?.CalculatedReliability ?? RoundedDouble.NaN;
             }
         }
 
@@ -213,15 +199,13 @@ namespace Ringtoets.DuneErosion.Forms.PropertyClasses
         {
             get
             {
-                return new EnumDisplayWrapper<CalculationConvergence>(data.Output == null
-                                                                          ? CalculationConvergence.NotCalculated
-                                                                          : data.Output.CalculationConvergence).DisplayName;
+                return new EnumDisplayWrapper<CalculationConvergence>(data.DuneLocation.Output?.CalculationConvergence ?? CalculationConvergence.NotCalculated).DisplayName;
             }
         }
 
         public override string ToString()
         {
-            return string.Format("{0} {1}", Name, Location);
+            return $"{Name} {Location}";
         }
     }
 }

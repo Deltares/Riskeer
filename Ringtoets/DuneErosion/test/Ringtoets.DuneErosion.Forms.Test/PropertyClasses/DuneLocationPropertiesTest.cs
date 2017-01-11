@@ -22,6 +22,7 @@
 using System;
 using System.ComponentModel;
 using System.Globalization;
+using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using Core.Common.Utils;
@@ -32,6 +33,7 @@ using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Data.TestUtil;
+using Ringtoets.DuneErosion.Forms.PresentationObjects;
 using Ringtoets.DuneErosion.Forms.PropertyClasses;
 
 namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
@@ -64,7 +66,10 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
             // Call
             var properties = new DuneLocationProperties
             {
-                Data = duneLocation
+                Data = new DuneLocationContext(new ObservableList<DuneLocation>
+                                               {
+                                                   duneLocation
+                                               }, duneLocation)
             };
 
             // Assert
@@ -143,7 +148,10 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
             // Call
             var properties = new DuneLocationProperties
             {
-                Data = location
+                Data = new DuneLocationContext(new ObservableList<DuneLocation>
+                                               {
+                                                   location
+                                               }, location)
             };
 
             // Assert
@@ -177,7 +185,10 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
             // Call
             var properties = new DuneLocationProperties
             {
-                Data = duneLocation
+                Data = new DuneLocationContext(new ObservableList<DuneLocation>
+                                               {
+                                                   duneLocation
+                                               }, duneLocation)
             };
 
             // Assert
@@ -299,7 +310,10 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
             // Call
             var properties = new DuneLocationProperties
             {
-                Data = location
+                Data = new DuneLocationContext(new ObservableList<DuneLocation>
+                                               {
+                                                   location
+                                               }, location)
             };
 
             // Assert

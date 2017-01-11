@@ -57,7 +57,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test
                 PropertyInfo[] propertyInfos = plugin.GetPropertyInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(2, propertyInfos.Length);
+                Assert.AreEqual(3, propertyInfos.Length);
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
@@ -67,6 +67,10 @@ namespace Ringtoets.DuneErosion.Plugin.Test
                     propertyInfos,
                     typeof(DuneLocationsContext),
                     typeof(DuneLocationsContextProperties));
+                PluginTestHelper.AssertPropertyInfoDefined(
+                    propertyInfos,
+                    typeof(DuneLocationContext),
+                    typeof(DuneLocationProperties));
             }
         }
 
