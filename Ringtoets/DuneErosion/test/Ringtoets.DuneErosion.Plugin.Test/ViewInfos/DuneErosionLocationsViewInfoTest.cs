@@ -22,6 +22,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
+using Core.Common.Gui;
+using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -163,6 +165,9 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
             // Setup
             var mocks = new MockRepository();
             IAssessmentSection assessmentSectionStub = mocks.Stub<IAssessmentSection>();
+            IGui guiStub = mocks.Stub<IGui>();
+            IMainWindow windowsStub = mocks.Stub<IMainWindow>();
+            guiStub.Stub(gs => gs.MainWindow).Return(windowsStub);
             mocks.ReplayAll();
 
             var failureMechanism = new DuneErosionFailureMechanism();
@@ -172,6 +177,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
                 failureMechanism,
                 assessmentSectionStub);
 
+            plugin.Gui = guiStub;
             plugin.Activate();
 
             using (var view = new DuneLocationsView())

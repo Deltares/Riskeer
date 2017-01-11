@@ -244,7 +244,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
             using (new HydraRingCalculatorFactoryConfig())
             {
                 var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
-
+                
                 // Call
                 Action call = () => guiService.CalculateDesignWaterLevels(validDatabasePath,
                                                                           new List<HydraulicBoundaryLocation>

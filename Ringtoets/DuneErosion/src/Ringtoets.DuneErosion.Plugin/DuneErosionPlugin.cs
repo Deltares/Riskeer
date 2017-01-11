@@ -27,20 +27,18 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui.ContextMenu;
-using Core.Common.Gui.Forms.ProgressDialog;
 using Core.Common.Gui.Plugin;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Forms;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TreeNodeInfos;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Forms;
+using Ringtoets.DuneErosion.Forms.GuiServices;
 using Ringtoets.DuneErosion.Forms.PresentationObjects;
 using Ringtoets.DuneErosion.Forms.PropertyClasses;
 using Ringtoets.DuneErosion.Forms.Views;
 using Ringtoets.DuneErosion.IO;
 using Ringtoets.DuneErosion.Plugin.Properties;
-using Ringtoets.DuneErosion.Service;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
@@ -51,6 +49,8 @@ namespace Ringtoets.DuneErosion.Plugin
     /// </summary>
     public class DuneErosionPlugin : PluginBase
     {
+        private DuneLocationCalculationGuiService duneLocationCalculationGuiService;
+
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {
             yield return new PropertyInfo<DuneErosionFailureMechanismContext, DuneErosionFailureMechanismProperties>
@@ -136,6 +136,17 @@ namespace Ringtoets.DuneErosion.Plugin
                 IsEnabled = context => context.WrappedData.Any(dl => dl.Output != null),
                 FileFilter = Resources.DuneErosionPlugin_GetExportInfos_MorphAn_boundary_conditions_file_filter
             };
+        }
+
+        public override void Activate()
+        {
+            base.Activate();
+
+            if (Gui == null)
+            {
+                throw new InvalidOperationException("Gui cannot be null");
+            }
+            duneLocationCalculationGuiService = new DuneLocationCalculationGuiService(Gui.MainWindow);
         }
 
         #region TreeNodeInfo
@@ -235,11 +246,14 @@ namespace Ringtoets.DuneErosion.Plugin
                 RingtoetsCommonFormsResources.CalculateAllIcon,
                 (sender, args) =>
                 {
-                    ActivityProgressDialogRunner.Run(Gui.MainWindow,
-                                                     context.WrappedData
-                                                            .Select(location => new DuneErosionBoundaryCalculationActivity(location,
-                                                                                                                           context.FailureMechanism,
-                                                                                                                           context.AssessmentSection)).ToArray());
+                    if (duneLocationCalculationGuiService == null)
+                    {
+                        return;
+                    }
+
+                    duneLocationCalculationGuiService.Calculate(context.WrappedData,
+                                                                context.FailureMechanism,
+                                                                context.AssessmentSection);
                     context.NotifyObservers();
                 })
             {

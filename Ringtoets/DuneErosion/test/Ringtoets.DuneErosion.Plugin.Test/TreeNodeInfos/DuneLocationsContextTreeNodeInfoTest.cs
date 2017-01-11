@@ -308,6 +308,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
                 failureMechanism.DuneLocations.Attach(observerMock);
 
                 plugin.Gui = gui;
+                plugin.Activate();
 
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
                 using (new HydraRingCalculatorFactoryConfig())

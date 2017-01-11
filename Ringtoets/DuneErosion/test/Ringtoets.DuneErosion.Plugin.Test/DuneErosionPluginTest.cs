@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Controls.TreeView;
@@ -44,6 +45,21 @@ namespace Ringtoets.DuneErosion.Plugin.Test
             {
                 // Assert
                 Assert.IsInstanceOf<PluginBase>(plugin);
+            }
+        }
+
+        [Test]
+        public void Activate_GuiNull_ThrowInvalidOperationException()
+        {
+            // Setup
+            using (var plugin = new DuneErosionPlugin())
+            {
+                // Call
+                TestDelegate test = () => plugin.Activate();
+
+                // Assert
+                var exception = Assert.Throws<InvalidOperationException>(test);
+                Assert.AreEqual("Gui cannot be null", exception.Message);
             }
         }
 
