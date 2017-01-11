@@ -21,10 +21,12 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base;
 using Core.Common.Utils.Reflection;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.DuneErosion.Data;
+using Ringtoets.DuneErosion.Forms.PresentationObjects;
 using Ringtoets.DuneErosion.Forms.Properties;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
@@ -88,7 +90,10 @@ namespace Ringtoets.DuneErosion.Forms.Views
 
         protected override object CreateSelectedItemFromCurrentRow()
         {
-            return new object();
+            var currentRow = dataGridViewControl.CurrentRow;
+            return currentRow != null
+                       ? new DuneLocationContext((ObservableList<DuneLocation>) Data, ((DuneLocationRow) currentRow.DataBoundItem).DuneLocation)
+                       : null;
         }
 
         protected override void SetDataSource()

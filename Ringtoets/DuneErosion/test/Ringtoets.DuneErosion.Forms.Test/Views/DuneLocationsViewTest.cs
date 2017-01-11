@@ -29,6 +29,7 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.DuneErosion.Data;
+using Ringtoets.DuneErosion.Forms.PresentationObjects;
 using Ringtoets.DuneErosion.Forms.Views;
 
 namespace Ringtoets.DuneErosion.Forms.Test.Views
@@ -186,28 +187,38 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             Assert.AreEqual(1.23.ToString(CultureInfo.CurrentCulture), cells[waterLevelColumnIndex].FormattedValue);
             Assert.AreEqual(2.34.ToString(CultureInfo.CurrentCulture), cells[waveHeightColumnIndex].FormattedValue);
             Assert.AreEqual(3.45.ToString(CultureInfo.CurrentCulture), cells[wavePeriodColumnIndex].FormattedValue);
-
         }
 
-        //        [Test]
-        //        public void Selection_WithLocations_ReturnsSelectedLocationWrappedInContext()
-        //        {
-        //            // Call
-        //            using (var view = ShowFullyConfiguredDuneLocationsView())
-        //            {
-        //                var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
-        //                var selectedLocationRow = dataGridView.Rows[0];
-        //                selectedLocationRow.Cells[0].Value = true;
-        //
-        //                // Assert
-        //                var selection = view.Selection as GrassCoverErosionOutwardsDesignWaterLevelLocationContext;
-        //                var dataBoundItem = selectedLocationRow.DataBoundItem as DuneLocationRow;
-        //
-        //                Assert.NotNull(selection);
-        //                Assert.NotNull(dataBoundItem);
-        //                Assert.AreSame(dataBoundItem.DuneLocation, selection.DuneLocation);
-        //            }
-        //        }
+        [Test]
+        public void Selection_WithoutLocations_ReturnsNull()
+        {
+            // Call
+            using (var view = new DuneLocationsView())
+            {
+                // Assert
+                Assert.IsNull(view.Selection);
+            }
+        }
+
+        [Test]
+        public void Selection_WithLocations_ReturnsSelectedLocationWrappedInContext()
+        {
+            // Call
+            using (var view = ShowFullyConfiguredDuneLocationsView())
+            {
+                var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+                var selectedLocationRow = dataGridView.Rows[0];
+                selectedLocationRow.Cells[0].Value = true;
+        
+                // Assert
+                var selection = view.Selection as DuneLocationContext;
+                var dataBoundItem = selectedLocationRow.DataBoundItem as DuneLocationRow;
+        
+                Assert.NotNull(selection);
+                Assert.NotNull(dataBoundItem);
+                Assert.AreSame(dataBoundItem.DuneLocation, selection.DuneLocation);
+            }
+        }
 
         private DuneLocationsView ShowFullyConfiguredDuneLocationsView()
         {
