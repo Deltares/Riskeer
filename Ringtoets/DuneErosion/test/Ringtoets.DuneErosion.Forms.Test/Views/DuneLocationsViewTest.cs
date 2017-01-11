@@ -105,13 +105,13 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             Assert.AreEqual("Rekenwaarde waterstand [m+NAP]", waterLevelColumn.HeaderText);
 
             var waveHeightColumn = (DataGridViewTextBoxColumn)dataGridView.Columns[waveHeightColumnIndex];
-            Assert.AreEqual("Hs [m]", waveHeightColumn.HeaderText);
+            Assert.AreEqual("Rekenwaarde Hs [m]", waveHeightColumn.HeaderText);
 
             var wavePeriodColumn = (DataGridViewTextBoxColumn)dataGridView.Columns[wavePeriodColumnIndex];
-            Assert.AreEqual("Tp [s]", wavePeriodColumn.HeaderText);
+            Assert.AreEqual("Rekenwaarde Tp [s]", wavePeriodColumn.HeaderText);
 
             var d50Column = (DataGridViewTextBoxColumn)dataGridView.Columns[d50ColumnIndex];
-            Assert.AreEqual("d50 [m]", d50Column.HeaderText);
+            Assert.AreEqual("Rekenwaarde d50 [m]", d50Column.HeaderText);
 
             var buttonTester = new ButtonTester("CalculateForSelectedButton", testForm);
             var button = (Button)buttonTester.TheObject;
@@ -183,9 +183,9 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             Assert.AreEqual("60", cells[coastalAreaIdColumnIndex].FormattedValue);
             Assert.AreEqual("230", cells[offsetColumnIndex].FormattedValue);
             Assert.AreEqual(0.000123.ToString(CultureInfo.CurrentCulture), cells[d50ColumnIndex].FormattedValue);
-            Assert.AreEqual(1.00.ToString(CultureInfo.CurrentCulture), cells[waterLevelColumnIndex].FormattedValue);
-            Assert.AreEqual(2.00.ToString(CultureInfo.CurrentCulture), cells[waveHeightColumnIndex].FormattedValue);
-            Assert.AreEqual(3.00.ToString(CultureInfo.CurrentCulture), cells[wavePeriodColumnIndex].FormattedValue);
+            Assert.AreEqual(1.23.ToString(CultureInfo.CurrentCulture), cells[waterLevelColumnIndex].FormattedValue);
+            Assert.AreEqual(2.34.ToString(CultureInfo.CurrentCulture), cells[waveHeightColumnIndex].FormattedValue);
+            Assert.AreEqual(3.45.ToString(CultureInfo.CurrentCulture), cells[wavePeriodColumnIndex].FormattedValue);
 
         }
 
@@ -229,9 +229,9 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
                 {
                     Output = new DuneLocationOutput(CalculationConvergence.CalculatedConverged, new DuneLocationOutput.ConstructionProperties
                     {
-                        WaterLevel = 1.0,
-                        WaveHeight = 2.0,
-                        WavePeriod = 3.0
+                        WaterLevel = 1.23,
+                        WaveHeight = 2.34,
+                        WavePeriod = 3.45
                     })
                 }
             };

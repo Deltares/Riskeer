@@ -232,21 +232,21 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
             PropertyDescriptor waveHeightProperty = dynamicProperties[requiredWaveHeightPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(waveHeightProperty,
                                                                             "Resultaat",
-                                                                            "Hs [m]",
+                                                                            "Rekenwaarde Hs [m]",
                                                                             "Berekende rekenwaarde voor de significante golfhoogte voor het uitvoeren van een sterkteberekening voor het toetsspoor duinen.",
                                                                             true);
 
             PropertyDescriptor wavePeriodProperty = dynamicProperties[requiredWavePeriodPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(wavePeriodProperty,
                                                                             "Resultaat",
-                                                                            "Tp [s]",
+                                                                            "Rekenwaarde Tp [s]",
                                                                             "Berekende rekenwaarde voor de piekperiode van de golven voor het uitvoeren van een sterkteberekening voor het toetsspoor duinen.",
                                                                             true);
 
             PropertyDescriptor d50Property = dynamicProperties[requiredD50PropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(d50Property,
                                                                             "Resultaat",
-                                                                            "d50 [m]",
+                                                                            "Rekenwaarde d50 [m]",
                                                                             "Rekenwaarde voor de d50 voor het uitvoeren van een sterkteberekening voor het toetsspoor duinen.",
                                                                             true);
 

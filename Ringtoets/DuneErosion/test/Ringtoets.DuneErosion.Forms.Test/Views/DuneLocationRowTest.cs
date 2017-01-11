@@ -95,26 +95,12 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
         public void Constructor_WithoutOutput_ExpectedValues()
         {
             // Setup
-            const double offset = 34.1;
-            var location = new DuneLocation(1, "test location", new Point2D(3.3, 4.4), new DuneLocation.ConstructionProperties
-            {
-                CoastalAreaId = 2,
-                Offset = offset,
-                D50 = 0.000183
-            });
+            var location = new DuneLocation(1, "test location", new Point2D(3.3, 4.4), new DuneLocation.ConstructionProperties());
             
             // Call
             var row = new DuneLocationRow(location);
 
             // Assert
-            Assert.IsInstanceOf<CalculatableRow>(row);
-            Assert.AreSame(location, row.DuneLocation);
-            Assert.AreEqual(location.Id, row.Id);
-            Assert.AreEqual(location.Name, row.Name);
-            Assert.AreSame(location.Location, row.Location);
-            Assert.AreEqual(location.CoastalAreaId, row.CoastalAreaId);
-            Assert.AreEqual(offset.ToString(CultureInfo.CurrentCulture), row.Offset);
-            Assert.AreEqual(location.D50, row.D50);
             Assert.IsNaN(row.WaterLevel);
             Assert.IsNaN(row.WaveHeight);
             Assert.IsNaN(row.WavePeriod);

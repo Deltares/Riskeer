@@ -118,7 +118,7 @@ namespace Ringtoets.DuneErosion.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to d50 [m].
+        ///   Looks up a localized string similar to Rekenwaarde d50 [m].
         /// </summary>
         internal static string DuneLocation_D50_DisplayName {
             get {
@@ -172,7 +172,7 @@ namespace Ringtoets.DuneErosion.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hs [m].
+        ///   Looks up a localized string similar to Rekenwaarde Hs [m].
         /// </summary>
         internal static string DuneLocation_WaveHeight_DisplayName {
             get {
@@ -190,7 +190,7 @@ namespace Ringtoets.DuneErosion.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Tp [s].
+        ///   Looks up a localized string similar to Rekenwaarde Tp [s].
         /// </summary>
         internal static string DuneLocation_WavePeriod_DisplayName {
             get {

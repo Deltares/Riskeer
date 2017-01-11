@@ -130,7 +130,7 @@
     <value>Rekenwaarde voor de d50 voor het uitvoeren van een sterkteberekening voor het toetsspoor duinen.</value>
   </data>
   <data name="DuneLocation_D50_DisplayName" xml:space="preserve">
-    <value>d50 [m]</value>
+    <value>Rekenwaarde d50 [m]</value>
   </data>
   <data name="DuneLocation_Offset_Description" xml:space="preserve">
     <value>Metrering van de locatie binnen het kustvak waar het onderdeel van uitmaakt.</value>
@@ -148,13 +148,13 @@
     <value>Berekende rekenwaarde voor de significante golfhoogte voor het uitvoeren van een sterkteberekening voor het toetsspoor duinen.</value>
   </data>
   <data name="DuneLocation_WaveHeight_DisplayName" xml:space="preserve">
-    <value>Hs [m]</value>
+    <value>Rekenwaarde Hs [m]</value>
   </data>
   <data name="DuneLocation_WavePeriod_Description" xml:space="preserve">
     <value>Berekende rekenwaarde voor de piekperiode van de golven voor het uitvoeren van een sterkteberekening voor het toetsspoor duinen.</value>
   </data>
   <data name="DuneLocation_WavePeriod_DisplayName" xml:space="preserve">
-    <value>Tp [s]</value>
+    <value>Rekenwaarde Tp [s]</value>
   </data>
   <data name="MetaData_CoastalAreaId" xml:space="preserve">
     <value>Kustvaknummer</value>
