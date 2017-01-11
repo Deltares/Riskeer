@@ -20,10 +20,14 @@
 // All rights reserved.
 
 using System;
+using System.ComponentModel;
+using System.Globalization;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
+using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.DuneErosion.Data;
+using DuneErosionDataResources = Ringtoets.DuneErosion.Data.Properties.Resources;
 
 namespace Ringtoets.DuneErosion.Forms.Views
 {
@@ -99,17 +103,18 @@ namespace Ringtoets.DuneErosion.Forms.Views
         /// <summary>
         /// Gets the <see cref="Data.DuneLocation.Offset"/>.
         /// </summary>
-        public RoundedDouble Offset
+        public string Offset
         {
             get
             {
-                return DuneLocation.Offset;
+                return DuneLocation.Offset.ToString(DuneErosionDataResources.DuneLocation_Offset_format, CultureInfo.InvariantCulture);
             }
         }
 
         /// <summary>
         /// Gets the <see cref="DuneLocationOutput.WaterLevel"/>.
         /// </summary>
+        [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
         public RoundedDouble WaterLevel
         {
             get
@@ -121,6 +126,7 @@ namespace Ringtoets.DuneErosion.Forms.Views
         /// <summary>
         /// Gets the <see cref="DuneLocationOutput.WaveHeight"/>.
         /// </summary>
+        [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
         public RoundedDouble WaveHeight
         {
             get
@@ -132,6 +138,7 @@ namespace Ringtoets.DuneErosion.Forms.Views
         /// <summary>
         /// Gets the <see cref="DuneLocationOutput.WavePeriod"/>.
         /// </summary>
+        [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
         public RoundedDouble WavePeriod
         {
             get

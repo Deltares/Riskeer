@@ -19,10 +19,14 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Base;
+using Core.Common.Base.Geometry;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Forms.Views;
@@ -37,7 +41,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
         private const int locationIdColumnIndex = 2;
         private const int locationColumnIndex = 3;
         private const int coastalAreaIdColumnIndex = 4;
-        private const int offssetColumnIndex = 5;
+        private const int offsetColumnIndex = 5;
         private const int waterLevelColumnIndex = 6;
         private const int waveHeightColumnIndex = 7;
         private const int wavePeriodColumnIndex = 8;
@@ -94,7 +98,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             var coastalAreaIdColumn = (DataGridViewTextBoxColumn)dataGridView.Columns[coastalAreaIdColumnIndex];
             Assert.AreEqual("Kustvaknummer", coastalAreaIdColumn.HeaderText);
 
-            var offssetColumn = (DataGridViewTextBoxColumn)dataGridView.Columns[offssetColumnIndex];
+            var offssetColumn = (DataGridViewTextBoxColumn)dataGridView.Columns[offsetColumnIndex];
             Assert.AreEqual("Metrering [dam]", offssetColumn.HeaderText);
 
             var waterLevelColumn = (DataGridViewTextBoxColumn)dataGridView.Columns[waterLevelColumnIndex];
@@ -144,6 +148,95 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
                 // Assert
                 Assert.IsNull(view.Data);
             }
+        }
+
+        [Test]
+        public void DesignWaterLevelLocationsView_AssessmentSectionWithData_DataGridViewCorrectlyInitialized()
+        {
+            // Setup & Call
+            ShowFullyConfiguredDuneLocationsView();
+
+            // Assert
+            var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+            var rows = dataGridView.Rows;
+            Assert.AreEqual(2, rows.Count);
+
+            var cells = rows[0].Cells;
+            Assert.AreEqual(10, cells.Count);
+            Assert.AreEqual(false, cells[locationCalculateColumnIndex].FormattedValue);
+            Assert.AreEqual("1", cells[locationNameColumnIndex].FormattedValue);
+            Assert.AreEqual("1", cells[locationIdColumnIndex].FormattedValue);
+            Assert.AreEqual(new Point2D(1, 1).ToString(), cells[locationColumnIndex].FormattedValue);
+            Assert.AreEqual("50", cells[coastalAreaIdColumnIndex].FormattedValue);
+            Assert.AreEqual("320", cells[offsetColumnIndex].FormattedValue);
+            Assert.AreEqual("0.000837", cells[d50ColumnIndex].FormattedValue);
+            Assert.AreEqual("-", cells[waterLevelColumnIndex].FormattedValue);
+            Assert.AreEqual("-", cells[waveHeightColumnIndex].FormattedValue);
+            Assert.AreEqual("-", cells[wavePeriodColumnIndex].FormattedValue);
+
+            cells = rows[1].Cells;
+            Assert.AreEqual(10, cells.Count);
+            Assert.AreEqual(false, cells[locationCalculateColumnIndex].FormattedValue);
+            Assert.AreEqual("2", cells[locationNameColumnIndex].FormattedValue);
+            Assert.AreEqual("2", cells[locationIdColumnIndex].FormattedValue);
+            Assert.AreEqual(new Point2D(2, 2).ToString(), cells[locationColumnIndex].FormattedValue);
+            Assert.AreEqual("60", cells[coastalAreaIdColumnIndex].FormattedValue);
+            Assert.AreEqual("230", cells[offsetColumnIndex].FormattedValue);
+            Assert.AreEqual("0.000123", cells[d50ColumnIndex].FormattedValue);
+            Assert.AreEqual("1.00", cells[waterLevelColumnIndex].FormattedValue);
+            Assert.AreEqual("2.00", cells[waveHeightColumnIndex].FormattedValue);
+            Assert.AreEqual("3.00", cells[wavePeriodColumnIndex].FormattedValue);
+
+        }
+
+        //        [Test]
+        //        public void Selection_WithLocations_ReturnsSelectedLocationWrappedInContext()
+        //        {
+        //            // Call
+        //            using (var view = ShowFullyConfiguredDuneLocationsView())
+        //            {
+        //                var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+        //                var selectedLocationRow = dataGridView.Rows[0];
+        //                selectedLocationRow.Cells[0].Value = true;
+        //
+        //                // Assert
+        //                var selection = view.Selection as GrassCoverErosionOutwardsDesignWaterLevelLocationContext;
+        //                var dataBoundItem = selectedLocationRow.DataBoundItem as DuneLocationRow;
+        //
+        //                Assert.NotNull(selection);
+        //                Assert.NotNull(dataBoundItem);
+        //                Assert.AreSame(dataBoundItem.DuneLocation, selection.DuneLocation);
+        //            }
+        //        }
+
+        private DuneLocationsView ShowFullyConfiguredDuneLocationsView()
+        {
+            var view = ShowDuneLocationsView();
+            view.Data = new ObservableList<DuneLocation>
+            {
+                new DuneLocation(1, "1", new Point2D(1.0, 1.0), new DuneLocation.ConstructionProperties
+                {
+                    CoastalAreaId = 50,
+                    Offset = 320,
+                    D50 = 0.000837
+                }),
+                new DuneLocation(2, "2", new Point2D(2.0, 2.0), new DuneLocation.ConstructionProperties
+                {
+                    CoastalAreaId = 60,
+                    Offset = 230,
+                    D50 = 0.000123
+                })
+                {
+                    Output = new DuneLocationOutput(CalculationConvergence.CalculatedConverged, new DuneLocationOutput.ConstructionProperties
+                    {
+                        WaterLevel = 1.0,
+                        WaveHeight = 2.0,
+                        WavePeriod = 3.0
+                    })
+                }
+            };
+
+            return view;
         }
 
         private DuneLocationsView ShowDuneLocationsView()

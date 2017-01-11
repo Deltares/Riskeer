@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.Collections.Generic;
+using System.Linq;
 using Core.Common.Utils.Reflection;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Forms.Views;
@@ -90,7 +91,10 @@ namespace Ringtoets.DuneErosion.Forms.Views
             return new object();
         }
 
-        protected override void SetDataSource() {}
+        protected override void SetDataSource()
+        {
+            dataGridViewControl.SetDataSource(locations?.Select(l => new DuneLocationRow(l)).ToArray());
+        }
 
         protected override void CalculateForSelectedRows() {}
     }

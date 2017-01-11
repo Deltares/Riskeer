@@ -21,8 +21,10 @@
 
 using System;
 using Core.Common.Base.Geometry;
+using Core.Common.Utils.Reflection;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Forms.Views;
@@ -44,13 +46,15 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
         }
 
         [Test]
-        public void Constructor_WithOutput_ExpectedValues()
+        [TestCase(34.1, "34.1")]
+        [TestCase(34.0, "34")]
+        public void Constructor_WithOutput_ExpectedValues(double offSet, string expectedRowOffset)
         {
             // Setup
             var location = new DuneLocation(1, "test location", new Point2D(3.3, 4.4), new DuneLocation.ConstructionProperties
             {
                 CoastalAreaId = 2,
-                Offset = 34.1,
+                Offset = offSet,
                 D50 = 0.000183
             })
             {
@@ -72,11 +76,18 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             Assert.AreEqual(location.Name, row.Name);
             Assert.AreSame(location.Location, row.Location);
             Assert.AreEqual(location.CoastalAreaId, row.CoastalAreaId);
-            Assert.AreEqual(location.Offset, row.Offset);
+            Assert.AreEqual(expectedRowOffset, row.Offset);
             Assert.AreEqual(location.D50, row.D50);
             Assert.AreEqual(location.Output.WaterLevel, row.WaterLevel);
             Assert.AreEqual(location.Output.WaveHeight, row.WaveHeight);
             Assert.AreEqual(location.Output.WavePeriod, row.WavePeriod);
+
+            Assert.IsTrue(TypeUtils.HasTypeConverter<DuneLocationRow,
+                              NoValueRoundedDoubleConverter>(r => r.WaterLevel));
+            Assert.IsTrue(TypeUtils.HasTypeConverter<DuneLocationRow,
+                              NoValueRoundedDoubleConverter>(r => r.WaveHeight));
+            Assert.IsTrue(TypeUtils.HasTypeConverter<DuneLocationRow,
+                              NoValueRoundedDoubleConverter>(r => r.WavePeriod));
         }
 
         [Test]
@@ -100,7 +111,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             Assert.AreEqual(location.Name, row.Name);
             Assert.AreSame(location.Location, row.Location);
             Assert.AreEqual(location.CoastalAreaId, row.CoastalAreaId);
-            Assert.AreEqual(location.Offset, row.Offset);
+            Assert.AreEqual(location.Offset.ToString(), row.Offset);
             Assert.AreEqual(location.D50, row.D50);
             Assert.IsNaN(row.WaterLevel);
             Assert.IsNaN(row.WaveHeight);
