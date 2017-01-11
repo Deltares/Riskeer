@@ -95,10 +95,11 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
         public void Constructor_WithoutOutput_ExpectedValues()
         {
             // Setup
+            const double offset = 34.1;
             var location = new DuneLocation(1, "test location", new Point2D(3.3, 4.4), new DuneLocation.ConstructionProperties
             {
                 CoastalAreaId = 2,
-                Offset = 34.1,
+                Offset = offset,
                 D50 = 0.000183
             });
             
@@ -112,7 +113,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             Assert.AreEqual(location.Name, row.Name);
             Assert.AreSame(location.Location, row.Location);
             Assert.AreEqual(location.CoastalAreaId, row.CoastalAreaId);
-            Assert.AreEqual(location.Offset.ToString(null, CultureInfo.CurrentCulture), row.Offset);
+            Assert.AreEqual(offset.ToString(CultureInfo.CurrentCulture), row.Offset);
             Assert.AreEqual(location.D50, row.D50);
             Assert.IsNaN(row.WaterLevel);
             Assert.IsNaN(row.WaveHeight);
