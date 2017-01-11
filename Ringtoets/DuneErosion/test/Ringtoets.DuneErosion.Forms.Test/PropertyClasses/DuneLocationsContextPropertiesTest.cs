@@ -59,30 +59,30 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
             var properties = new DuneLocationsContextProperties(context.WrappedData);
 
             // Assert
-            CollectionAssert.AllItemsAreInstancesOfType(properties.Locations, typeof(DuneLocationProperties));
+            CollectionAssert.AllItemsAreInstancesOfType(properties.Locations, typeof(DuneLocationContextProperties));
             Assert.AreEqual(1, properties.Locations.Length);
             Assert.IsTrue(TypeUtils.HasTypeConverter<DuneLocationsContextProperties,
                               ExpandableArrayConverter>(p => p.Locations));
 
-            DuneLocationProperties duneLocationProperties = properties.Locations.First();
-            Assert.AreEqual(location.Id, duneLocationProperties.Id);
-            Assert.AreEqual(location.Name, duneLocationProperties.Name);
-            Assert.AreEqual(location.CoastalAreaId, duneLocationProperties.CoastalAreaId);
-            Assert.AreEqual(location.Offset.ToString("0.#", CultureInfo.InvariantCulture), duneLocationProperties.Offset);
-            Assert.AreEqual(location.Location, duneLocationProperties.Location);
+            DuneLocationContextProperties duneLocationContextProperties = properties.Locations.First();
+            Assert.AreEqual(location.Id, duneLocationContextProperties.Id);
+            Assert.AreEqual(location.Name, duneLocationContextProperties.Name);
+            Assert.AreEqual(location.CoastalAreaId, duneLocationContextProperties.CoastalAreaId);
+            Assert.AreEqual(location.Offset.ToString("0.#", CultureInfo.InvariantCulture), duneLocationContextProperties.Offset);
+            Assert.AreEqual(location.Location, duneLocationContextProperties.Location);
             
-            Assert.IsNaN(duneLocationProperties.WaterLevel);
-            Assert.IsNaN(duneLocationProperties.WaveHeight);
-            Assert.IsNaN(duneLocationProperties.WavePeriod);
-            Assert.AreEqual(location.D50, duneLocationProperties.D50);
+            Assert.IsNaN(duneLocationContextProperties.WaterLevel);
+            Assert.IsNaN(duneLocationContextProperties.WaveHeight);
+            Assert.IsNaN(duneLocationContextProperties.WavePeriod);
+            Assert.AreEqual(location.D50, duneLocationContextProperties.D50);
 
-            Assert.IsNaN(duneLocationProperties.TargetProbability);
-            Assert.IsNaN(duneLocationProperties.TargetReliability);
-            Assert.IsNaN(duneLocationProperties.CalculatedProbability);
-            Assert.IsNaN(duneLocationProperties.CalculatedReliability);
+            Assert.IsNaN(duneLocationContextProperties.TargetProbability);
+            Assert.IsNaN(duneLocationContextProperties.TargetReliability);
+            Assert.IsNaN(duneLocationContextProperties.CalculatedProbability);
+            Assert.IsNaN(duneLocationContextProperties.CalculatedReliability);
 
             string convergenceValue = new EnumDisplayWrapper<CalculationConvergence>(CalculationConvergence.NotCalculated).DisplayName;
-            Assert.AreEqual(convergenceValue, duneLocationProperties.Convergence);
+            Assert.AreEqual(convergenceValue, duneLocationContextProperties.Convergence);
 
             mockRepository.VerifyAll();
         }

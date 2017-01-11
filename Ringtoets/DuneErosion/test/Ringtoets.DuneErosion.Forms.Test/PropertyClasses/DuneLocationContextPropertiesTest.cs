@@ -39,7 +39,7 @@ using Ringtoets.DuneErosion.Forms.PropertyClasses;
 namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class DuneLocationPropertiesTest
+    public class DuneLocationContextPropertiesTest
     {
         private const int requiredIdPropertyIndex = 0;
         private const int requiredNamePropertyIndex = 1;
@@ -64,7 +64,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
             var duneLocation = new TestDuneLocation();
 
             // Call
-            var properties = new DuneLocationProperties
+            var properties = new DuneLocationContextProperties
             {
                 Data = new DuneLocationContext(new ObservableList<DuneLocation>
                                                {
@@ -84,17 +84,17 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
             Assert.IsNaN(properties.WavePeriod);
 
             Assert.IsNaN(properties.TargetProbability);
-            Assert.IsTrue(TypeUtils.HasTypeConverter<DuneLocationProperties,
+            Assert.IsTrue(TypeUtils.HasTypeConverter<DuneLocationContextProperties,
                               NoProbabilityValueDoubleConverter>(p => p.TargetProbability));
             Assert.IsNaN(properties.TargetReliability);
-            Assert.IsTrue(TypeUtils.HasTypeConverter<DuneLocationProperties,
+            Assert.IsTrue(TypeUtils.HasTypeConverter<DuneLocationContextProperties,
                               NoValueRoundedDoubleConverter>(p => p.TargetReliability));
 
             Assert.IsNaN(properties.CalculatedProbability);
-            Assert.IsTrue(TypeUtils.HasTypeConverter<DuneLocationProperties,
+            Assert.IsTrue(TypeUtils.HasTypeConverter<DuneLocationContextProperties,
                               NoProbabilityValueDoubleConverter>(p => p.CalculatedProbability));
             Assert.IsNaN(properties.CalculatedReliability);
-            Assert.IsTrue(TypeUtils.HasTypeConverter<DuneLocationProperties,
+            Assert.IsTrue(TypeUtils.HasTypeConverter<DuneLocationContextProperties,
                               NoValueRoundedDoubleConverter>(p => p.CalculatedReliability));
 
             string convergenceValue = new EnumDisplayWrapper<CalculationConvergence>(CalculationConvergence.NotCalculated).DisplayName;
@@ -146,7 +146,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
             };
 
             // Call
-            var properties = new DuneLocationProperties
+            var properties = new DuneLocationContextProperties
             {
                 Data = new DuneLocationContext(new ObservableList<DuneLocation>
                                                {
@@ -183,7 +183,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
             var duneLocation = new TestDuneLocation();
 
             // Call
-            var properties = new DuneLocationProperties
+            var properties = new DuneLocationContextProperties
             {
                 Data = new DuneLocationContext(new ObservableList<DuneLocation>
                                                {
@@ -308,7 +308,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
                                             });
 
             // Call
-            var properties = new DuneLocationProperties
+            var properties = new DuneLocationContextProperties
             {
                 Data = new DuneLocationContext(new ObservableList<DuneLocation>
                                                {

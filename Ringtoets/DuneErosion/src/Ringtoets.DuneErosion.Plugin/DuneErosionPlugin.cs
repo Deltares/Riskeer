@@ -62,7 +62,7 @@ namespace Ringtoets.DuneErosion.Plugin
                 CreateInstance = context => new DuneLocationsContextProperties(context.WrappedData)
             };
 
-            yield return new PropertyInfo<DuneLocationContext, DuneLocationProperties>();
+            yield return new PropertyInfo<DuneLocationContext, DuneLocationContextProperties>();
         }
 
         public override IEnumerable<TreeNodeInfo> GetTreeNodeInfos()

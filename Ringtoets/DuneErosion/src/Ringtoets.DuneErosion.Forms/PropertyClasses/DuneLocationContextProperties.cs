@@ -39,7 +39,7 @@ namespace Ringtoets.DuneErosion.Forms.PropertyClasses
     /// ViewModel of <see cref="DuneLocationContext"/> for the properties panel.
     /// </summary>
     [TypeConverter(typeof(ExpandableObjectConverter))]
-    public class DuneLocationProperties : ObjectProperties<DuneLocationContext>
+    public class DuneLocationContextProperties : ObjectProperties<DuneLocationContext>
     {
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "HydraulicBoundaryDatabase_Location_Id_DisplayName")]
@@ -81,7 +81,9 @@ namespace Ringtoets.DuneErosion.Forms.PropertyClasses
         {
             get
             {
-                return data.DuneLocation.Offset.ToString(DuneErosionDataResources.DuneLocation_Offset_format, CultureInfo.InvariantCulture);
+                return data.DuneLocation.Offset
+                           .ToString(DuneErosionDataResources.DuneLocation_Offset_format,
+                                     CultureInfo.InvariantCulture);
             }
         }
 

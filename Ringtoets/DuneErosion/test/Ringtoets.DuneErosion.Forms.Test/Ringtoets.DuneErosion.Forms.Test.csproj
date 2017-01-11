@@ -62,7 +62,7 @@
     <Compile Include="PresentationObjects\DuneLocationsContextTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyClasses\DuneErosionFailureMechanismPropertiesTest.cs" />
-    <Compile Include="PropertyClasses\DuneLocationPropertiesTest.cs" />
+    <Compile Include="PropertyClasses\DuneLocationContextPropertiesTest.cs" />
     <Compile Include="PropertyClasses\DuneLocationsContextPropertiesTest.cs" />
     <Compile Include="Views\DuneErosionFailureMechanismResultViewTest.cs" />
     <Compile Include="Views\DuneErosionFailureMechanismViewTest.cs" />
