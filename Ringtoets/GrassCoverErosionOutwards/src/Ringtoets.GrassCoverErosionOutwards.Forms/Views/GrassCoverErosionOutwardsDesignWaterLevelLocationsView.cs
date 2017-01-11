@@ -66,6 +66,12 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
         /// </summary>
         public GrassCoverErosionOutwardsFailureMechanism FailureMechanism { get; set; }
 
+        protected override void Dispose(bool disposing)
+        {
+            hydraulicBoundaryLocationsObserver.Dispose();
+            base.Dispose(disposing);
+        }
+
         protected override DesignWaterLevelLocationRow CreateNewRow(HydraulicBoundaryLocation location)
         {
             return new DesignWaterLevelLocationRow(location);

@@ -146,7 +146,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
         }
 
         [Test]
-        public void WaveHeightLocationsView_WithNonIObservableList_ThrowsInvalidCastException()
+        public void DesignWaterLevelLocationsView_WithNonIObservableList_ThrowsInvalidCastException()
         {
             // Setup
             var view = ShowDesignWaterLevelLocationsView();

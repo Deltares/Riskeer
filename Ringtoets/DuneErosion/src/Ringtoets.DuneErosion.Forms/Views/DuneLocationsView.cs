@@ -37,6 +37,7 @@ namespace Ringtoets.DuneErosion.Forms.Views
     /// </summary>
     public partial class DuneLocationsView : CalculatableView
     {
+        private readonly Observer duneLocationsObserver;
         private IEnumerable<DuneLocation> locations;
 
         /// <summary>
@@ -45,6 +46,8 @@ namespace Ringtoets.DuneErosion.Forms.Views
         public DuneLocationsView()
         {
             InitializeComponent();
+
+            duneLocationsObserver = new Observer(UpdateDuneLocations);
         }
 
         public override object Data
@@ -55,8 +58,10 @@ namespace Ringtoets.DuneErosion.Forms.Views
             }
             set
             {
-                locations = value as IEnumerable<DuneLocation>;
+                var data = (ObservableList<DuneLocation>) value;
+                locations = data;
                 UpdateDataGridViewDataSource();
+                duneLocationsObserver.Observable = data;
             }
         }
 
@@ -64,6 +69,12 @@ namespace Ringtoets.DuneErosion.Forms.Views
         /// Gets or sets the assessment section.
         /// </summary>
         public IAssessmentSection AssessmentSection { get; set; }
+
+        protected override void Dispose(bool disposing)
+        {
+            duneLocationsObserver.Dispose();
+            base.Dispose(disposing);
+        }
 
         protected override void InitializeDataGridView()
         {
@@ -102,5 +113,35 @@ namespace Ringtoets.DuneErosion.Forms.Views
         }
 
         protected override void CalculateForSelectedRows() {}
+
+        private void UpdateDuneLocations()
+        {
+            if (IsDataGridDataSourceChanged())
+            {
+                UpdateDataGridViewDataSource();
+            }
+            else
+            {
+                dataGridViewControl.RefreshDataGridView();
+            }
+        }
+
+        private bool IsDataGridDataSourceChanged()
+        {
+            var count = dataGridViewControl.Rows.Count;
+            if (count != locations.Count())
+            {
+                return true;
+            }
+            for (int i = 0; i < count; i++)
+            {
+                var locationFromGrid = ((DuneLocationRow) dataGridViewControl.Rows[i].DataBoundItem).DuneLocation;
+                if (!ReferenceEquals(locationFromGrid, locations.ElementAt(i)))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 }
