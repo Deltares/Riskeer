@@ -19,15 +19,19 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.TestUtil;
 
 namespace Ringtoets.Common.Forms.TestUtil.Test
 {
@@ -940,6 +944,197 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
 
             // Call
             TestDelegate test = () => MapDataTestHelper.AssertFailureMechanismSectionsEndPointMapData(sections, mapData);
+
+            // Assert
+            Assert.DoesNotThrow(test);
+        }
+
+        #endregion
+
+        #region AssertForeshoreProfiles
+
+        [Test]
+        public void AssertForeshoreProfiles_MapDataNotMapLineData_ThrowAssertionException()
+        {
+            // Setup
+            var mapData = new MapPointData("Voorlandprofielen");
+
+            // Call
+            TestDelegate test = () => MapDataTestHelper.AssertForeshoreProfiles(Enumerable.Empty<ForeshoreProfile>(), new IEnumerable<Point2D>[0], mapData);
+
+            // Assert
+            Assert.Throws<AssertionException>(test);
+        }
+
+        [Test]
+        public void AssertForeshoreProfiles_ForeshoreProfileLengthNotSameAsExpectedGeometryLength_ThrowAssertionException()
+        {
+            // Setup
+            var mapData = new MapLineData("Voorlandprofielen");
+            var foreshoreProfiles = new[]
+            {
+                new TestForeshoreProfile()
+            };
+            var expectedGeometry = new[]
+            {
+                new Point2D[0],
+                new Point2D[0]
+            };
+
+            // Call
+            TestDelegate test = () => MapDataTestHelper.AssertForeshoreProfiles(foreshoreProfiles, expectedGeometry, mapData);
+
+            // Assert
+            Assert.Throws<AssertionException>(test);
+        }
+
+        [Test]
+        public void AssertForeshoreProfiles_ForeshoreProfileLengthNotSameAsMapDataFeaturesLength_ThrowAssertionException()
+        {
+            // Setup
+            var mapData = new MapLineData("Voorlandprofielen")
+            {
+                Features = new []
+                {
+                    new MapFeature(Enumerable.Empty<MapGeometry>())
+                }
+            };
+            var foreshoreProfiles = new[]
+            {
+                new TestForeshoreProfile(),
+                new TestForeshoreProfile(), 
+            };
+            var expectedGeometry = new[]
+            {
+                new Point2D[0],
+                new Point2D[0]
+            };
+
+            // Call
+            TestDelegate test = () => MapDataTestHelper.AssertForeshoreProfiles(foreshoreProfiles, expectedGeometry, mapData);
+
+            // Assert
+            Assert.Throws<AssertionException>(test);
+        }
+
+        [Test]
+        public void AssertForeshoreProfiles_ExpectedGeometryNotSameAsFeatureGeometry_ThrowAssertionException()
+        {
+            // Setup
+            var mapData = new MapLineData("Voorlandprofielen")
+            {
+                Features = new[]
+                {
+                    new MapFeature(new[]
+                                   {
+                                       new MapGeometry(new []
+                                                       {
+                                                           new []
+                                                           {
+                                                               new Point2D(0, 0), 
+                                                               new Point2D(1, 1),
+                                                           }
+                                                       })
+                                   })
+                }
+            };
+            var foreshoreProfiles = new[]
+            {
+                new TestForeshoreProfile(),
+            };
+            var expectedGeometry = new[]
+            {
+                new[]
+                {
+                    new Point2D(0, 0),
+                    new Point2D(2, 2)
+                }
+            };
+
+            // Call
+            TestDelegate test = () => MapDataTestHelper.AssertForeshoreProfiles(foreshoreProfiles, expectedGeometry, mapData);
+
+            // Assert
+            Assert.Throws<AssertionException>(test);
+        }
+
+        [Test]
+        public void AssertForeshoreProfiles_MapDataNameNotCorrect_ThrowAssertionException()
+        {
+            // Setup
+            var mapData = new MapLineData("test")
+            {
+                Features = new[]
+                {
+                    new MapFeature(new[]
+                                   {
+                                       new MapGeometry(new []
+                                                       {
+                                                           new []
+                                                           {
+                                                               new Point2D(0, 0), 
+                                                               new Point2D(1, 1),
+                                                           }
+                                                       })
+                                   })
+                }
+            };
+            var foreshoreProfiles = new[]
+            {
+                new TestForeshoreProfile(),
+            };
+            var expectedGeometry = new[]
+            {
+                new[]
+                {
+                    new Point2D(0, 0),
+                    new Point2D(1, 1)
+                }
+            };
+
+            // Call
+            TestDelegate test = () => MapDataTestHelper.AssertForeshoreProfiles(foreshoreProfiles, expectedGeometry, mapData);
+
+            // Assert
+            Assert.Throws<AssertionException>(test);
+        }
+
+        [Test]
+        public void AssertForeshoreProfiles_DataCorrect_DoesNotThrow()
+        {
+            // Setup
+            var mapData = new MapLineData("Voorlandprofielen")
+            {
+                Features = new[]
+                {
+                    new MapFeature(new[]
+                                   {
+                                       new MapGeometry(new []
+                                                       {
+                                                           new []
+                                                           {
+                                                               new Point2D(0, 0), 
+                                                               new Point2D(1, 1)
+                                                           }
+                                                       })
+                                   })
+                }
+            };
+            var foreshoreProfiles = new[]
+            {
+                new TestForeshoreProfile(),
+            };
+            var expectedGeometry = new[]
+            {
+                new[]
+                {
+                    new Point2D(0, 0),
+                    new Point2D(1, 1)
+                }
+            };
+
+            // Call
+            TestDelegate test = () => MapDataTestHelper.AssertForeshoreProfiles(foreshoreProfiles, expectedGeometry, mapData);
 
             // Assert
             Assert.DoesNotThrow(test);

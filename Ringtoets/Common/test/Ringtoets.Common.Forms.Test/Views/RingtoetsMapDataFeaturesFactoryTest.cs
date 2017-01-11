@@ -711,7 +711,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         [Test]
-        public void CreateForeshoreProfilesFeatures_WithForeshoreProfiles_ReturnsCollectionWithForeshoreProfiles()
+        public void CreateForeshoreProfilesFeatures_WithForeshoreProfiles_ReturnsCollectionForeshoreProfilesWithGeometry()
         {
             // Setup
             var pointA = new Point2D(1.2, 2.3);
@@ -740,9 +740,13 @@ namespace Ringtoets.Common.Forms.Test.Views
                 {
                     Name = "A"
                 }),
-                new ForeshoreProfile(new Point2D(2, 1), pointsTwo, null, new ForeshoreProfile.ConstructionProperties
+                new ForeshoreProfile(new Point2D(3, 3), Enumerable.Empty<Point2D>(), null, new ForeshoreProfile.ConstructionProperties()
                 {
                     Name = "B"
+                }),
+                new ForeshoreProfile(new Point2D(2, 1), pointsTwo, null, new ForeshoreProfile.ConstructionProperties
+                {
+                    Name = "C"
                 })
             };
 
@@ -773,7 +777,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             Assert.AreEqual(expectedNumberOfMetaDataOptions, features[0].MetaData.Count);
             Assert.AreEqual(expectedNumberOfMetaDataOptions, features[1].MetaData.Count);
             Assert.AreEqual(foreshoreProfiles[0].Name, features[0].MetaData["Naam"]);
-            Assert.AreEqual(foreshoreProfiles[1].Name, features[1].MetaData["Naam"]);
+            Assert.AreEqual(foreshoreProfiles[2].Name, features[1].MetaData["Naam"]);
         }
 
         [Test]

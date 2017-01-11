@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Ringtoets.Common.Data.DikeProfiles;
@@ -48,11 +49,27 @@ namespace Ringtoets.Common.Data.TestUtil
         public TestDikeProfile(Point2D point) : this(null, point) {}
 
         /// <summary>
+        /// ///Initializes default <see cref="DikeProfile"/> at the world location.
+        /// </summary>
+        /// <param name="foreshoreProfileGeometry">The geometry of the <see cref="ForeshoreProfile"/>.</param>
+        public TestDikeProfile(IEnumerable<Point2D> foreshoreProfileGeometry) 
+            : this(null, new Point2D(0, 0), foreshoreProfileGeometry) {}
+
+        /// <summary>
         ///Initializes default <see cref="DikeProfile"/> at the world location.
         /// </summary>
         /// <param name="name">The name of the dike profile.</param>
         /// <param name="point">The world coordinate of the dike profile.</param>
-        public TestDikeProfile(string name, Point2D point) : base(point, Enumerable.Empty<RoughnessPoint>(), Enumerable.Empty<Point2D>(), null, new ConstructionProperties
+        public TestDikeProfile(string name, Point2D point) : this(name, point, Enumerable.Empty<Point2D>()) {}
+
+        /// <summary>
+        ///Initializes default <see cref="DikeProfile"/> at the world location.
+        /// </summary>
+        /// <param name="name">The name of the dike profile.</param>
+        /// <param name="point">The world coordinate of the dike profile.</param>
+        /// <param name="foreshoreProfileGeometry">The geometry of the <see cref="ForeshoreProfile"/>.</param>
+        private TestDikeProfile(string name, Point2D point, IEnumerable<Point2D> foreshoreProfileGeometry) 
+            : base(point, Enumerable.Empty<RoughnessPoint>(), foreshoreProfileGeometry, null, new ConstructionProperties
         {
             Name = name
         }) {}

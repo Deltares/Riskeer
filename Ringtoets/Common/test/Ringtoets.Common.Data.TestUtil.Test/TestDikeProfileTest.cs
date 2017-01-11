@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.DikeProfiles;
@@ -115,6 +116,34 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             Assert.AreEqual(name, testProfile.Name);
             Assert.AreEqual(0, testProfile.Orientation.Value);
             Assert.AreEqual(point, testProfile.WorldReferencePoint);
+            Assert.AreEqual(0, testProfile.X0);
+        }
+
+        [Test]
+        public void Constructor_WithForeshoreGeometry_ExpectedValues()
+        {
+            // Setup
+            IEnumerable<Point2D> foreshoreProfileGeometry = new []
+            {
+                new Point2D(0, 0), 
+                new Point2D(1, 1), 
+                new Point2D(2, 2),
+            };
+
+            // Call
+            var testProfile = new TestDikeProfile(foreshoreProfileGeometry);
+
+            // Assert
+            Assert.IsInstanceOf<DikeProfile>(testProfile);
+            Assert.IsNotNull(testProfile.ForeshoreProfile);
+            Assert.IsNull(testProfile.BreakWater);
+            CollectionAssert.IsEmpty(testProfile.DikeGeometry);
+            Assert.AreEqual(0, testProfile.DikeHeight.Value);
+            CollectionAssert.AreEqual(foreshoreProfileGeometry, testProfile.ForeshoreGeometry);
+            Assert.IsFalse(testProfile.HasBreakWater);
+            Assert.IsNull(testProfile.Name);
+            Assert.AreEqual(0, testProfile.Orientation.Value);
+            Assert.AreEqual(new Point2D(0, 0), testProfile.WorldReferencePoint);
             Assert.AreEqual(0, testProfile.X0);
         }
     }

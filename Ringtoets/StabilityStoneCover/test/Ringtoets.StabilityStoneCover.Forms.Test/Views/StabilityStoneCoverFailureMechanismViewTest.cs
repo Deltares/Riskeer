@@ -28,7 +28,6 @@ using Core.Components.Gis.Data;
 using Core.Components.Gis.Forms;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
@@ -175,10 +174,10 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
 
                 var referenceLine = new ReferenceLine();
                 referenceLine.SetGeometry(new[]
-                {
-                    new Point2D(1.0, 2.0),
-                    new Point2D(2.0, 1.0)
-                });
+                                          {
+                                              new Point2D(1.0, 2.0),
+                                              new Point2D(2.0, 1.0)
+                                          });
 
                 var assessmentSection = new ObservableTestAssessmentSectionStub
                 {
@@ -211,8 +210,16 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
                 failureMechanism.AddSection(new FailureMechanismSection("B", geometryPoints.Skip(1).Take(2)));
                 failureMechanism.AddSection(new FailureMechanismSection("C", geometryPoints.Skip(2).Take(2)));
 
-                failureMechanism.ForeshoreProfiles.Add(new TestForeshoreProfile());
-                failureMechanism.ForeshoreProfiles.Add(new TestForeshoreProfile());
+                failureMechanism.ForeshoreProfiles.Add(new TestForeshoreProfile(new[]
+                                                                                {
+                                                                                    new Point2D(0, 0),
+                                                                                    new Point2D(1, 1)
+                                                                                }));
+                failureMechanism.ForeshoreProfiles.Add(new TestForeshoreProfile(new[]
+                                                                                {
+                                                                                    new Point2D(2, 2),
+                                                                                    new Point2D(3, 3)
+                                                                                }));
                 failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationA);
                 failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationB);
 
@@ -234,7 +241,22 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
                 MapDataTestHelper.AssertFailureMechanismSectionsStartPointMapData(failureMechanism.Sections, mapDataList[sectionsStartPointIndex]);
                 MapDataTestHelper.AssertFailureMechanismSectionsEndPointMapData(failureMechanism.Sections, mapDataList[sectionsEndPointIndex]);
                 MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(hydraulicBoundaryDatabase.Locations, mapDataList[hydraulicBoundaryLocationsIndex]);
-                AssertForeshoreProfiles(failureMechanism.ForeshoreProfiles, mapDataList[foreshoreProfilesIndex]);
+
+                var expectedGeometry = new[]
+                {
+                    new[]
+                    {
+                        new Point2D(0, 0),
+                        new Point2D(0, -1)
+                    },
+                    new[]
+                    {
+                        new Point2D(0, -2),
+                        new Point2D(0, -3)
+                    }
+                };
+
+                MapDataTestHelper.AssertForeshoreProfiles(failureMechanism.ForeshoreProfiles, expectedGeometry, mapDataList[foreshoreProfilesIndex]);
                 AssertCalculationsMapData(failureMechanism.Calculations.Cast<StabilityStoneCoverWaveConditionsCalculation>(), mapDataList[calculationsIndex]);
             }
         }
@@ -387,10 +409,10 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
 
                 // Call
                 failureMechanism.AddSection(new FailureMechanismSection(string.Empty, new[]
-                {
-                    new Point2D(1, 2),
-                    new Point2D(1, 2)
-                }));
+                                                                        {
+                                                                            new Point2D(1, 2),
+                                                                            new Point2D(1, 2)
+                                                                        }));
                 failureMechanism.NotifyObservers();
 
                 // Assert
@@ -411,21 +433,50 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
                 var failureMechanism = new StabilityStoneCoverFailureMechanism();
                 var failureMechanismContext = new StabilityStoneCoverFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
 
-                failureMechanism.ForeshoreProfiles.Add(new TestForeshoreProfile());
+                failureMechanism.ForeshoreProfiles.Add(new TestForeshoreProfile(new[]
+                                                                                {
+                                                                                    new Point2D(0, 0),
+                                                                                    new Point2D(1, 1)
+                                                                                }));
 
                 view.Data = failureMechanismContext;
 
                 var foreshoreProfileData = map.Data.Collection.ElementAt(foreshoreProfilesIndex);
 
                 // Precondition
-                AssertForeshoreProfiles(failureMechanism.ForeshoreProfiles, foreshoreProfileData);
+                MapDataTestHelper.AssertForeshoreProfiles(failureMechanism.ForeshoreProfiles, new[]
+                                                          {
+                                                              new[]
+                                                              {
+                                                                  new Point2D(0, 0),
+                                                                  new Point2D(0, -1)
+                                                              }
+                                                          }, foreshoreProfileData);
 
                 // Call
-                failureMechanism.ForeshoreProfiles.Add(new TestForeshoreProfile());
+                failureMechanism.ForeshoreProfiles.Add(new TestForeshoreProfile(new[]
+                                                                                {
+                                                                                    new Point2D(2, 2),
+                                                                                    new Point2D(3, 3)
+                                                                                }));
                 failureMechanism.ForeshoreProfiles.NotifyObservers();
 
                 // Assert
-                AssertForeshoreProfiles(failureMechanism.ForeshoreProfiles, foreshoreProfileData);
+                var expectedGeometry = new[]
+                {
+                    new[]
+                    {
+                        new Point2D(0, 0),
+                        new Point2D(0, -1)
+                    },
+                    new[]
+                    {
+                        new Point2D(0, -2),
+                        new Point2D(0, -3)
+                    }
+                };
+
+                MapDataTestHelper.AssertForeshoreProfiles(failureMechanism.ForeshoreProfiles, expectedGeometry, foreshoreProfileData);
             }
         }
 
@@ -644,10 +695,10 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
 
             newAssessmentSection.ReferenceLine = new ReferenceLine();
             newAssessmentSection.ReferenceLine.SetGeometry(new[]
-            {
-                new Point2D(2, 4),
-                new Point2D(3, 4)
-            });
+                                                           {
+                                                               new Point2D(2, 4),
+                                                               new Point2D(3, 4)
+                                                           });
 
             var oldStabilityStoneCoverFailureMechanismContext = new StabilityStoneCoverFailureMechanismContext(new StabilityStoneCoverFailureMechanism(), oldAssessmentSection);
             var newStabilityStoneCoverFailureMechanismContext = new StabilityStoneCoverFailureMechanismContext(new StabilityStoneCoverFailureMechanism(), newAssessmentSection);
@@ -669,25 +720,6 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
             }
         }
 
-        private static void AssertForeshoreProfiles(IEnumerable<ForeshoreProfile> foreshoreProfiles, MapData mapData)
-        {
-            Assert.NotNull(foreshoreProfiles, "foreshoreProfiles should never be null.");
-
-            var foreshoreProfilesData = (MapLineData) mapData;
-            var foreshoreProfileArray = foreshoreProfiles.ToArray();
-
-            Assert.IsInstanceOf<MapLineData>(mapData);
-            Assert.AreEqual(foreshoreProfileArray.Length, foreshoreProfilesData.Features.Length);
-
-            for (int i = 0; i < foreshoreProfileArray.Length; i++)
-            {
-                var profileDataA = foreshoreProfilesData.Features[i].MapGeometries.First();
-                CollectionAssert.AreEquivalent(foreshoreProfileArray[0].Geometry, profileDataA.PointCollections.First());
-            }
-
-            Assert.AreEqual("Voorlandprofielen", mapData.Name);
-        }
-
         private static void AssertCalculationsMapData(IEnumerable<StabilityStoneCoverWaveConditionsCalculation> calculations, MapData mapData)
         {
             Assert.IsInstanceOf<MapLineData>(mapData);
@@ -703,10 +735,10 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
 
                 StabilityStoneCoverWaveConditionsCalculation calculation = calculationsArray[index];
                 CollectionAssert.AreEquivalent(new[]
-                {
-                    calculation.InputParameters.ForeshoreProfile.WorldReferencePoint,
-                    calculation.InputParameters.HydraulicBoundaryLocation.Location
-                }, geometries[0].PointCollections.First());
+                                               {
+                                                   calculation.InputParameters.ForeshoreProfile.WorldReferencePoint,
+                                                   calculation.InputParameters.HydraulicBoundaryLocation.Location
+                                               }, geometries[0].PointCollections.First());
             }
             Assert.AreEqual("Berekeningen", mapData.Name);
         }

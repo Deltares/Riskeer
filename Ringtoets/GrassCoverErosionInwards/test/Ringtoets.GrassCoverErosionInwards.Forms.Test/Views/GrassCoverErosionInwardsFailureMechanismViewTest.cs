@@ -212,8 +212,16 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 failureMechanism.AddSection(new FailureMechanismSection("B", geometryPoints.Skip(1).Take(2)));
                 failureMechanism.AddSection(new FailureMechanismSection("C", geometryPoints.Skip(2).Take(2)));
 
-                failureMechanism.DikeProfiles.Add(new TestDikeProfile());
-                failureMechanism.DikeProfiles.Add(new TestDikeProfile());
+                failureMechanism.DikeProfiles.Add(new TestDikeProfile(new[]
+                                                                      {
+                                                                          new Point2D(0, 0),
+                                                                          new Point2D(1, 1)
+                                                                      }));
+                failureMechanism.DikeProfiles.Add(new TestDikeProfile(new[]
+                                                                      {
+                                                                          new Point2D(2, 2),
+                                                                          new Point2D(3, 3)
+                                                                      }));
                 failureMechanism.CalculationsGroup.Children.Add(calculationA);
                 failureMechanism.CalculationsGroup.Children.Add(calculationB);
 
@@ -236,7 +244,22 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 MapDataTestHelper.AssertFailureMechanismSectionsEndPointMapData(failureMechanism.Sections, mapDataList[sectionsEndPointIndex]);
                 MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(hydraulicBoundaryDatabase.Locations, mapDataList[hydraulicBoundaryLocationsIndex]);
                 AssertDikeProfiles(failureMechanism.DikeProfiles, mapDataList[dikeProfilesIndex]);
-                AssertForeshoreProfiles(failureMechanism.DikeProfiles.Select(dp => dp.ForeshoreProfile), mapDataList[foreshoreProfilesIndex]);
+
+                var expectedGeometry = new[]
+                {
+                    new[]
+                    {
+                        new Point2D(0, 0),
+                        new Point2D(0, -1)
+                    },
+                    new []
+                    {
+                        new Point2D(0, -2),
+                        new Point2D(0, -3)
+                    }
+                };
+
+                MapDataTestHelper.AssertForeshoreProfiles(failureMechanism.DikeProfiles.Select(dp => dp.ForeshoreProfile), expectedGeometry, mapDataList[foreshoreProfilesIndex]);
                 AssertCalculationsMapData(failureMechanism.Calculations.Cast<GrassCoverErosionInwardsCalculation>(), mapDataList[calculationsIndex]);
             }
         }
@@ -493,22 +516,49 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
                 var failureMechanismContext = new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
 
-                failureMechanism.DikeProfiles.Add(new TestDikeProfile());
+                failureMechanism.DikeProfiles.Add(new TestDikeProfile(new[]
+                                                                      {
+                                                                          new Point2D(0, 0),
+                                                                          new Point2D(1, 1)
+                                                                      }));
 
                 view.Data = failureMechanismContext;
 
                 var dikeProfileData = map.Data.Collection.ElementAt(foreshoreProfilesIndex);
 
                 // Precondition
-                AssertForeshoreProfiles(failureMechanism.DikeProfiles.Select(dp => dp.ForeshoreProfile), dikeProfileData);
+                MapDataTestHelper.AssertForeshoreProfiles(failureMechanism.DikeProfiles.Select(dp => dp.ForeshoreProfile), new[]
+                                                          {
+                                                              new[]
+                                                              {
+                                                                  new Point2D(0, 0),
+                                                                  new Point2D(0, -1),
+                                                              }
+                                                          }, dikeProfileData);
 
-                failureMechanism.DikeProfiles.Add(new TestDikeProfile());
+                failureMechanism.DikeProfiles.Add(new TestDikeProfile(new[]
+                                                                      {
+                                                                          new Point2D(2, 2),
+                                                                          new Point2D(3, 3)
+                                                                      }));
 
                 // Call
                 failureMechanism.DikeProfiles.NotifyObservers();
 
                 // Assert
-                AssertForeshoreProfiles(failureMechanism.DikeProfiles.Select(dp => dp.ForeshoreProfile), dikeProfileData);
+                MapDataTestHelper.AssertForeshoreProfiles(failureMechanism.DikeProfiles.Select(dp => dp.ForeshoreProfile), new[]
+                                                          {
+                                                              new[]
+                                                              {
+                                                                  new Point2D(0, 0),
+                                                                  new Point2D(0, -1)
+                                                              },
+                                                              new[]
+                                                              {
+                                                                  new Point2D(0, -2),
+                                                                  new Point2D(0, -3)
+                                                              }
+                                                          }, dikeProfileData);
             }
         }
 
@@ -776,25 +826,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             }
 
             Assert.AreEqual("Dijkprofielen", mapData.Name);
-        }
-
-        private static void AssertForeshoreProfiles(IEnumerable<ForeshoreProfile> foreshoreProfiles, MapData mapData)
-        {
-            Assert.NotNull(foreshoreProfiles, "foreshoreProfiles should never be null.");
-
-            var foreshoreProfilesData = (MapLineData) mapData;
-            var foreshoreProfileArray = foreshoreProfiles.ToArray();
-
-            Assert.IsInstanceOf<MapLineData>(mapData);
-            Assert.AreEqual(foreshoreProfileArray.Length, foreshoreProfilesData.Features.Length);
-
-            for (int i = 0; i < foreshoreProfileArray.Length; i++)
-            {
-                var profileDataA = foreshoreProfilesData.Features[i].MapGeometries.First();
-                CollectionAssert.AreEquivalent(foreshoreProfileArray[0].Geometry, profileDataA.PointCollections.First());
-            }
-
-            Assert.AreEqual("Voorlandprofielen", mapData.Name);
         }
 
         private static void AssertCalculationsMapData(IEnumerable<GrassCoverErosionInwardsCalculation> calculations, MapData mapData)

@@ -21,11 +21,13 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base.Geometry;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
 
@@ -166,6 +168,40 @@ namespace Ringtoets.Common.Forms.TestUtil
             Assert.AreEqual(1, sectionsEndPointData.Features.Length);
             CollectionAssert.AreEqual(sections.Select(s => s.GetLast()), sectionsEndPointData.Features.First().MapGeometries.First().PointCollections.First());
             Assert.AreEqual("Vakindeling (eindpunten)", mapData.Name);
+        }
+
+        /// <summary>
+        /// Asserts whether the <see cref="MapData"/> contains the data that is representative for the <paramref name="foreshoreProfiles"/>.
+        /// </summary>
+        /// <param name="foreshoreProfiles">The foreshore profiles that contains the original data.</param>
+        /// <param name="expectedGeometry">The expected geometry of the <paramref name="mapData"/>.</param>
+        /// <param name="mapData">The <see cref="MapData"/> that needs to be asserted.</param>
+        /// <exception cref="AssertionException">Thrown when:
+        /// <list type="bullet">
+        /// <paramref name="mapData"/> is not <see cref="MapLineData"/>.s
+        /// The length of the <paramref name="foreshoreProfiles"/> is not equal to the length of the <paramref name="expectedGeometry"/>.        
+        /// The length of the <paramref name="foreshoreProfiles"/> is not equal to the amount of features in <paramref name="mapData"/>.
+        /// The geometries of the features in <paramref name="mapData"/> is not equal to <paramref name="expectedGeometry"/>.
+        /// The name of the <see cref="MapData"/> is nog <c>Voorlandprofielen</c>.
+        /// </list></exception>
+        public static void AssertForeshoreProfiles(IEnumerable<ForeshoreProfile> foreshoreProfiles, IEnumerable<IEnumerable<Point2D>> expectedGeometry, MapData mapData)
+        {
+            Assert.IsInstanceOf<MapLineData>(mapData);
+
+            var foreshoreProfilesData = (MapLineData)mapData;
+            var foreshoreProfileArray = foreshoreProfiles.ToArray();
+            var expectedGeometryArray = expectedGeometry.ToArray();
+
+            Assert.AreEqual(foreshoreProfileArray.Length, expectedGeometryArray.Length);
+            Assert.AreEqual(foreshoreProfileArray.Length, foreshoreProfilesData.Features.Length);
+
+            for (int i = 0; i < foreshoreProfileArray.Length; i++)
+            {
+                var profileDataA = foreshoreProfilesData.Features[i].MapGeometries.First();
+                CollectionAssert.AreEquivalent(expectedGeometryArray[i], profileDataA.PointCollections.First());
+            }
+
+            Assert.AreEqual("Voorlandprofielen", mapData.Name);
         }
     }
 }

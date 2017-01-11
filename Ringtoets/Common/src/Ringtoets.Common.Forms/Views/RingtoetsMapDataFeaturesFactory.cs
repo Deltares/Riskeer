@@ -236,17 +236,18 @@ namespace Ringtoets.Common.Forms.Views
         {
             if (foreshoreProfiles != null)
             {
-                int nrOfElements = foreshoreProfiles.Count();
-                var mapFeatures = new MapFeature[nrOfElements];
+                ForeshoreProfile[] foreShoreProfilesWithGeometry = foreshoreProfiles.Where(fp => fp.Geometry != null && fp.Geometry.Any()).ToArray();
 
-                int i = 0;
-                foreach (ForeshoreProfile foreshoreProfile in foreshoreProfiles)
+                int nrOfElements = foreShoreProfilesWithGeometry.Length;
+                var mapFeatures = new MapFeature[nrOfElements];
+                
+                for (int i = 0; i < foreShoreProfilesWithGeometry.Length; i++)
                 {
+                    ForeshoreProfile foreshoreProfile = foreShoreProfilesWithGeometry[i];
                     MapFeature feature = CreateSingleLineMapFeature(GetWorldPoints(foreshoreProfile));
                     feature.MetaData[Resources.MetaData_Name] = foreshoreProfile.Name;
 
                     mapFeatures[i] = feature;
-                    i++;
                 }
                 return mapFeatures;
             }

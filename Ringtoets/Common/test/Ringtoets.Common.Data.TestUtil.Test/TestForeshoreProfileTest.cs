@@ -97,5 +97,27 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             Assert.AreEqual(0.0, profile.Orientation.Value);
             Assert.AreEqual(new Point2D(0, 0), profile.WorldReferencePoint);
         }
+
+        [Test]
+        public void Constructor_WithGeometry_ReturnsForeshoreProfileWithEmptyNameAndOnePointAtOriginAndGeometry()
+        {
+            // Setup
+            var geometry = new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(1, 1)
+            };
+
+            // Call
+            ForeshoreProfile profile = new TestForeshoreProfile(geometry);
+
+            // Assert
+            CollectionAssert.AreEqual(geometry, profile.Geometry);
+            Assert.IsNull(profile.Name);
+            Assert.IsFalse(profile.HasBreakWater);
+            Assert.AreEqual(0.0, profile.X0);
+            Assert.AreEqual(0.0, profile.Orientation.Value);
+            Assert.AreEqual(new Point2D(0, 0), profile.WorldReferencePoint);
+        }
     }
 }
