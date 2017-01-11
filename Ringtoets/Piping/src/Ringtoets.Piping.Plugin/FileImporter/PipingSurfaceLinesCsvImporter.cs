@@ -31,8 +31,8 @@ using Core.Common.IO.Readers;
 using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Piping.IO.SurfaceLines;
-using Ringtoets.Piping.Primitives;
 using Ringtoets.Piping.Plugin.Properties;
+using Ringtoets.Piping.Primitives;
 using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 
 namespace Ringtoets.Piping.Plugin.FileImporter
@@ -77,20 +77,20 @@ namespace Ringtoets.Piping.Plugin.FileImporter
 
         protected override bool OnImport()
         {
-            var importSurfaceLinesResult = ReadPipingSurfaceLines();
+            ReadResult<RingtoetsPipingSurfaceLine> importSurfaceLinesResult = ReadPipingSurfaceLines();
             if (importSurfaceLinesResult.CriticalErrorOccurred || Canceled)
             {
                 return false;
             }
 
-            var importCharacteristicPointsResult = ReadCharacteristicPoints();
+            ReadResult<CharacteristicPoints> importCharacteristicPointsResult = ReadCharacteristicPoints();
             if (importCharacteristicPointsResult.CriticalErrorOccurred || Canceled)
             {
                 return false;
             }
 
-            var importResults = ProcessImportedDataToModel(importSurfaceLinesResult.ImportedItems,
-                                                           importCharacteristicPointsResult.ImportedItems).ToArray();
+            RingtoetsPipingSurfaceLine[] importResults = ProcessImportedDataToModel(importSurfaceLinesResult.ImportedItems,
+                                                                                    importCharacteristicPointsResult.ImportedItems).ToArray();
             if (Canceled)
             {
                 return false;
