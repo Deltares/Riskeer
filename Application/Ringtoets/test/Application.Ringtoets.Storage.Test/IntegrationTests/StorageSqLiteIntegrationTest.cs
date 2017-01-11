@@ -62,13 +62,18 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
     [TestFixture]
     public class StorageSqLiteIntegrationTest
     {
+        private const string tempExtension = ".temp";
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Storage, "DatabaseFiles");
-        private readonly string tempRingtoetsFile = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Storage, "DatabaseFiles"), "tempProjectFile.rtd");
 
-        [TearDown]
+        [TestFixtureTearDown]
         public void TearDownTempRingtoetsFile()
         {
-            TearDownTempRingtoetsFile(tempRingtoetsFile);
+            IEnumerable<string> filesToDelete = Directory.EnumerateFiles(testDataPath, "*.temp");
+
+            foreach (string fileToDelete in filesToDelete)
+            {
+                TearDownTempRingtoetsFile(fileToDelete);
+            }
             Dispatcher.CurrentDispatcher.InvokeShutdown();
         }
 
@@ -77,12 +82,12 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         {
             // Setup
             RingtoetsProject fullProject = RingtoetsProjectTestHelper.GetFullTestProject();
-            var tempFile = Path.Combine(testDataPath, "tempProjectAsFile.rtd");
+            string firstRingtoetsFile = GetRandomRingtoetsFile();
+            string secondRingtoetsFile = GetRandomRingtoetsFile();
 
             StorageSqLite storage = new StorageSqLite();
             storage.StageProject(fullProject);
-            TestDelegate precondition = () => storage.SaveProjectAs(tempRingtoetsFile);
-            Assert.DoesNotThrow(precondition, string.Format("Precondition: file '{0}' must be a valid Ringtoets database file.", tempRingtoetsFile));
+            storage.SaveProjectAs(firstRingtoetsFile);
 
             // Call
             RingtoetsProject firstProject = null;
@@ -90,9 +95,9 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             try
             {
                 storage.StageProject(fullProject);
-                storage.SaveProjectAs(tempFile);
-                firstProject = (RingtoetsProject) storage.LoadProject(tempRingtoetsFile);
-                secondProject = (RingtoetsProject) storage.LoadProject(tempFile);
+                storage.SaveProjectAs(secondRingtoetsFile);
+                firstProject = (RingtoetsProject) storage.LoadProject(firstRingtoetsFile);
+                secondProject = (RingtoetsProject) storage.LoadProject(secondRingtoetsFile);
             }
             catch (Exception exception)
             {
@@ -101,7 +106,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             finally
             {
                 // TearDown
-                TearDownTempRingtoetsFile(tempFile);
+                TearDownTempRingtoetsFile(secondRingtoetsFile);
             }
 
             // Assert
@@ -113,6 +118,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         {
             // Given
             RingtoetsProject fullProject = RingtoetsProjectTestHelper.GetFullTestProject();
+            string tempRingtoetsFile = GetRandomRingtoetsFile();
 
             // When
             var entityBeforeSave = fullProject.Create(new PersistenceRegistry());
@@ -137,21 +143,14 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         }
 
         [Test]
-        public void SaveProjectAs_LoadProject_ProjectAsEntitiesInNewStorage()
+        public void LoadProject_FullTestProjectSaved_ProjectAsEntitiesInNewStorage()
         {
             // Setup
             StorageSqLite storage = new StorageSqLite();
             RingtoetsProject fullProject = RingtoetsProjectTestHelper.GetFullTestProject();
             storage.StageProject(fullProject);
-            TestDelegate precondition = () => storage.SaveProjectAs(tempRingtoetsFile);
-            Assert.DoesNotThrow(precondition, string.Format("Precondition: file '{0}' must be a valid Ringtoets database file.", tempRingtoetsFile));
-
-            // Call
-            storage.StageProject(fullProject);
-            TestDelegate test = () => storage.SaveProjectAs(tempRingtoetsFile);
-
-            // Assert
-            Assert.DoesNotThrow(test, string.Format("Precondition: failed to save project to file '{0}'.", tempRingtoetsFile));
+            string tempRingtoetsFile = GetRandomRingtoetsFile();
+            storage.SaveProjectAs(tempRingtoetsFile);
 
             // Call
             RingtoetsProject loadedProject = (RingtoetsProject) storage.LoadProject(tempRingtoetsFile);
@@ -192,6 +191,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             // Given
             var projectStore = new StorageSqLite();
             RingtoetsProject fullProject = RingtoetsProjectTestHelper.GetFullTestProject();
+            string tempRingtoetsFile = GetRandomRingtoetsFile();
             var expectedProjectName = Path.GetFileNameWithoutExtension(tempRingtoetsFile);
             var expectedProjectDescription = fullProject.Description;
 
@@ -218,6 +218,12 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 Assert.IsInstanceOf<RingtoetsProject>(gui.Project);
                 AssertProjectsAreEqual(fullProject, (RingtoetsProject) gui.Project);
             }
+        }
+
+        private static string GetRandomRingtoetsFile()
+        {
+            return Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Storage, "DatabaseFiles"),
+                                string.Concat(Path.GetRandomFileName(), tempExtension));
         }
 
         private static void AssertProjectsAreEqual(RingtoetsProject expectedProject, RingtoetsProject actualProject)
@@ -450,9 +456,9 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             }
         }
 
-        private static void AssertFailureMechanismSectionResults
-            (IEnumerable<MicrostabilityFailureMechanismSectionResult> expectedSectionResults,
-             IEnumerable<MicrostabilityFailureMechanismSectionResult> actualSectionResults)
+        private static void AssertFailureMechanismSectionResults(
+            IEnumerable<MicrostabilityFailureMechanismSectionResult> expectedSectionResults,
+            IEnumerable<MicrostabilityFailureMechanismSectionResult> actualSectionResults)
         {
             var expectedSectionResultsArray = expectedSectionResults.ToArray();
             var actualSectionResultsArray = actualSectionResults.ToArray();
