@@ -736,8 +736,8 @@ namespace Application.Ringtoets.Storage.Read
         {
             entity.ReadCommonFailureMechanismProperties(failureMechanism, collector);
             entity.ReadDuneErosionMechanismSectionResults(failureMechanism, collector);
-
             entity.ReadGeneralDuneErosionInput(failureMechanism.GeneralInput);
+            entity.ReadDuneLocations(failureMechanism.DuneLocations, collector);
         }
 
         private static void ReadGeneralDuneErosionInput(this FailureMechanismEntity entity, GeneralDuneErosionInput input)
@@ -756,6 +756,17 @@ namespace Application.Ringtoets.Storage.Read
 
                 sectionResultEntity.Read(result);
             }
+        }
+
+        private static void ReadDuneLocations(this FailureMechanismEntity entity,
+                                              List<DuneLocation> locations,
+                                              ReadConversionCollector collector)
+        {
+            locations.AddRange(
+                entity
+                    .DuneLocationEntities
+                    .OrderBy(location => location.Order)
+                    .Select(location => location.Read(collector)));
         }
 
         #endregion

@@ -24,6 +24,7 @@ using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read;
 using Application.Ringtoets.Storage.Serializers;
+using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.ClosingStructures.Data;
@@ -108,7 +109,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             };
             return failureMechanismSectionEntity;
         }
-        
+
         #region Dune Erosion
 
         [Test]
@@ -136,6 +137,85 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             // Assert
             Assert.AreEqual(generalInputN, failureMechanism.GeneralInput.N, failureMechanism.GeneralInput.N.GetAccuracy());
+        }
+
+        [Test]
+        public void ReadAsDuneErosionFailureMechanism_WithSectionsSet_ReturnsNewDuneErosionFailureMechanismWithFailureMechanismSectionsAdded()
+        {
+            // Setup
+            FailureMechanismSectionEntity failureMechanismSectionEntity = CreateSimpleFailureMechanismSectionEntity();
+            var duneErosionSectionResultEntity = new DuneErosionSectionResultEntity
+            {
+                FailureMechanismSectionEntity = failureMechanismSectionEntity
+            };
+            failureMechanismSectionEntity.DuneErosionSectionResultEntities.Add(duneErosionSectionResultEntity);
+            var entity = new FailureMechanismEntity
+            {
+                FailureMechanismSectionEntities =
+                {
+                    failureMechanismSectionEntity
+                },
+                DuneErosionFailureMechanismMetaEntities =
+                {
+                    new DuneErosionFailureMechanismMetaEntity
+                    {
+                        N = 1
+                    }
+                },
+                CalculationGroupEntity = new CalculationGroupEntity()
+            };
+            var collector = new ReadConversionCollector();
+            var failureMechanism = new DuneErosionFailureMechanism();
+
+            // Call
+            entity.ReadAsDuneErosionFailureMechanism(failureMechanism, collector);
+
+            // Assert
+            Assert.AreEqual(1, failureMechanism.Sections.Count());
+        }
+
+        [Test]
+        public void ReadAsDuneErosionFailureMechanism_WithHydraulicBoundaryLocations_ReturnsNewDuneErosionFailureMechanismWithLocationsSet()
+        {
+            // Setup
+            const string locationAName = "DuneLocation A";
+            const string locationBName = "DuneLocation B";
+            var entity = new FailureMechanismEntity
+            {
+                CalculationGroupEntity = new CalculationGroupEntity(),
+                DuneErosionFailureMechanismMetaEntities =
+                {
+                    new DuneErosionFailureMechanismMetaEntity
+                    {
+                        N = 1
+                    }
+                },
+                DuneLocationEntities =
+                {
+                    new DuneLocationEntity
+                    {
+                        Order = 1,
+                        Name = locationBName
+                    },
+                    new DuneLocationEntity
+                    {
+                        Order = 0,
+                        Name = locationAName
+                    }
+                }
+            };
+            var collector = new ReadConversionCollector();
+            var failureMechanism = new DuneErosionFailureMechanism();
+
+            // Call
+            entity.ReadAsDuneErosionFailureMechanism(failureMechanism, collector);
+
+            // Assert
+            ObservableList<DuneLocation> duneLocations = failureMechanism.DuneLocations;
+            Assert.AreEqual(2, duneLocations.Count);
+
+            Assert.AreEqual(locationAName, duneLocations[0].Name);
+            Assert.AreEqual(locationBName, duneLocations[1].Name);
         }
 
         #endregion
@@ -624,7 +704,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void ReadAsGrassCoverErosionOutwardsFailureMechanism_WithWaveConditionsCalculationGroup_ReturnsNewGrassCoverErosionInwardsFailureMechanismWithCalculationGroupSet()
+        public void ReadAsGrassCoverErosionOutwardsFailureMechanism_WithWaveConditionsCalculationGroup_ReturnsNewGrassCoverErosionOutwardsFailureMechanismWithCalculationGroupSet()
         {
             // Setup
             var entity = new FailureMechanismEntity
@@ -672,7 +752,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void ReadAsGrassCoverErosionOutwardsFailureMechanism_WithHydraulicBoundaryLocations_ReturnsNewGrassCoverErosionInwardsFailureMechanismWithLocationsSet()
+        public void ReadAsGrassCoverErosionOutwardsFailureMechanism_WithHydraulicBoundaryLocations_ReturnsNewGrassCoverErosionOutwardsFailureMechanismWithLocationsSet()
         {
             // Setup
             var locationAName = "Location A";

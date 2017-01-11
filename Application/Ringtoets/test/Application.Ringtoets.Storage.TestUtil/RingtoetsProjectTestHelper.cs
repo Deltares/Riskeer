@@ -114,6 +114,11 @@ namespace Application.Ringtoets.Storage.TestUtil
             SetSectionResults(closingStructuresFailureMechanism.SectionResults,
                               (StructuresCalculation<ClosingStructuresInput>) closingStructuresFailureMechanism.Calculations.First());
 
+            DuneErosionFailureMechanism duneErosionFailureMechanism = assessmentSection.DuneErosion;
+            ConfigureDuneErosionFailureMechanism(duneErosionFailureMechanism);
+            AddSections(duneErosionFailureMechanism);
+            SetSectionResults(duneErosionFailureMechanism.SectionResults);
+
             StabilityPointStructuresFailureMechanism stabilityPointStructuresFailureMechanism = assessmentSection.StabilityPointStructures;
             AddForeshoreProfiles(stabilityPointStructuresFailureMechanism.ForeshoreProfiles);
             ConfigureStabilityPointStructuresFailureMechanism(stabilityPointStructuresFailureMechanism,
@@ -138,7 +143,6 @@ namespace Application.Ringtoets.Storage.TestUtil
             SetSectionResults(assessmentSection.StrengthStabilityLengthwiseConstruction.SectionResults);
             AddSections(assessmentSection.PipingStructure);
             SetSectionResults(assessmentSection.PipingStructure.SectionResults);
-            AddSections(assessmentSection.DuneErosion);
             SetSectionResults(assessmentSection.DuneErosion.SectionResults);
             AddSections(assessmentSection.TechnicalInnovation);
             SetSectionResults(assessmentSection.TechnicalInnovation.SectionResults);
@@ -241,17 +245,6 @@ namespace Application.Ringtoets.Storage.TestUtil
         }
 
         private static void SetSectionResults(IEnumerable<PipingStructureFailureMechanismSectionResult> sectionResults)
-        {
-            var random = new Random(21);
-            foreach (var sectionResult in sectionResults)
-            {
-                sectionResult.AssessmentLayerOne = GetAssessmentLayerOneState();
-                sectionResult.AssessmentLayerTwoA = GetAssessmentLayerTwoAResult();
-                sectionResult.AssessmentLayerThree = (RoundedDouble) random.NextDouble();
-            }
-        }
-
-        private static void SetSectionResults(IEnumerable<DuneErosionFailureMechanismSectionResult> sectionResults)
         {
             var random = new Random(21);
             foreach (var sectionResult in sectionResults)
@@ -503,6 +496,66 @@ namespace Application.Ringtoets.Storage.TestUtil
                     firstSectionResultHasCalculation = true;
                 }
             }
+        }
+
+        #endregion
+
+        #region DuneErosion FailureMechanism
+
+        private static void ConfigureDuneErosionFailureMechanism(DuneErosionFailureMechanism failureMechanism)
+        {
+            failureMechanism.GeneralInput.N = (RoundedDouble) 5.5;
+            SetDuneLocations(failureMechanism);
+        }
+
+        private static void SetSectionResults(IEnumerable<DuneErosionFailureMechanismSectionResult> sectionResults)
+        {
+            var random = new Random(21);
+            foreach (var sectionResult in sectionResults)
+            {
+                sectionResult.AssessmentLayerOne = GetAssessmentLayerOneState();
+                sectionResult.AssessmentLayerTwoA = GetAssessmentLayerTwoAResult();
+                sectionResult.AssessmentLayerThree = (RoundedDouble) random.NextDouble();
+            }
+        }
+
+        private static void SetDuneLocations(DuneErosionFailureMechanism failureMechanism)
+        {
+            var locationWithoutOutput = new DuneLocation(12, "DuneLocation without output", new Point2D(790, 456),
+                                                         new DuneLocation.ConstructionProperties());
+
+            var locationWithOutput = new DuneLocation(13, "DuneLocation with output", new Point2D(791, 456),
+                                                      new DuneLocation.ConstructionProperties())
+            {
+                Output = new DuneLocationOutput(CalculationConvergence.NotCalculated,
+                                                new DuneLocationOutput.ConstructionProperties())
+            };
+
+            var locationCalculated = new DuneLocation(14, "DuneLocation with calculated output",
+                                                      new Point2D(792, 456), new DuneLocation.ConstructionProperties
+                                                      {
+                                                          CoastalAreaId = 1,
+                                                          Offset = 2,
+                                                          Orientation = 3,
+                                                          D50 = 4
+                                                      })
+            {
+                Output = new DuneLocationOutput(CalculationConvergence.CalculatedConverged,
+                                                new DuneLocationOutput.ConstructionProperties
+                                                {
+                                                    WaterLevel = 10,
+                                                    WaveHeight = 20,
+                                                    WavePeriod = 30,
+                                                    TargetProbability = 0.4,
+                                                    TargetReliability = 50,
+                                                    CalculatedProbability = 0.6,
+                                                    CalculatedReliability = 70
+                                                })
+            };
+
+            failureMechanism.DuneLocations.Add(locationWithoutOutput);
+            failureMechanism.DuneLocations.Add(locationWithOutput);
+            failureMechanism.DuneLocations.Add(locationCalculated);
         }
 
         #endregion

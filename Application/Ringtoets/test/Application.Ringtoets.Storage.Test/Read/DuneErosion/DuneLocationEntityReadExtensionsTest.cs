@@ -109,7 +109,7 @@ namespace Application.Ringtoets.Storage.Test.Read.DuneErosion
         }
 
         [Test]
-        public void Read_WithNaNData_ReturnsDuneLocationWithPropertiesSet()
+        public void Read_WithNullData_ReturnsDuneLocationWithNaNPropertiesSet()
         {
             // Setup
             const string testName = "testName";

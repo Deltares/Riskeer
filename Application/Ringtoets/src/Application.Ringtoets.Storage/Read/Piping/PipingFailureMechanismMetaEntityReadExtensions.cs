@@ -39,7 +39,7 @@ namespace Application.Ringtoets.Storage.Read.Piping
         /// <param name="input">The <see cref="PipingProbabilityAssessmentInput"/> to set the 
         /// <see cref="PipingProbabilityAssessmentInput.A"/> for.</param>
         internal static PipingProbabilityAssessmentInput ReadProbabilityAssessmentInput(
-            this PipingFailureMechanismMetaEntity entity, 
+            this PipingFailureMechanismMetaEntity entity,
             PipingProbabilityAssessmentInput input)
         {
             input.A = entity.A;
@@ -55,7 +55,7 @@ namespace Application.Ringtoets.Storage.Read.Piping
         /// <param name="input">The <see cref="GeneralPipingInput"/> to set the 
         /// <see cref="GeneralPipingInput.WaterVolumetricWeight"/> for.</param>
         internal static GeneralPipingInput ReadGeneralPipingInput(
-            this PipingFailureMechanismMetaEntity entity, 
+            this PipingFailureMechanismMetaEntity entity,
             GeneralPipingInput input)
         {
             input.WaterVolumetricWeight = (RoundedDouble) entity.WaterVolumetricWeight;
@@ -71,7 +71,7 @@ namespace Application.Ringtoets.Storage.Read.Piping
         /// <param name="stochasticSoilModels">The object to set the <see cref="StochasticSoilModelCollection.SourcePath"/>
         /// for.</param>
         internal static void ReadStochasticSoilModelCollectionSourcePath(
-            this PipingFailureMechanismMetaEntity entity, 
+            this PipingFailureMechanismMetaEntity entity,
             StochasticSoilModelCollection stochasticSoilModels)
         {
             stochasticSoilModels.SourcePath = entity.StochasticSoilModelSourcePath;

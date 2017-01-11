@@ -55,7 +55,7 @@ namespace Application.Ringtoets.Storage.Test.Create.DuneErosion
         public void Create_WithPersistenceRegistry_ReturnsDuneLocationEntityWithPropertiesSet()
         {
             // Setup
-            var testName = "testName";
+            const string testName = "testName";
             var random = new Random(21);
             double coordinateX = random.NextDouble();
             double coordinateY = random.NextDouble();
@@ -64,17 +64,60 @@ namespace Application.Ringtoets.Storage.Test.Create.DuneErosion
             var registry = new PersistenceRegistry();
 
             var location = new DuneLocation(id, testName, new Point2D(coordinateX, coordinateY),
-                                            new DuneLocation.ConstructionProperties());
+                                            new DuneLocation.ConstructionProperties
+                                            {
+                                                CoastalAreaId = random.Next(),
+                                                Offset = random.NextDouble(),
+                                                Orientation = random.NextDouble(),
+                                                D50 = random.NextDouble()
+                                            });
 
             // Call
             DuneLocationEntity entity = location.Create(registry, order);
 
             // Assert
             Assert.IsNotNull(entity);
+            Assert.AreEqual(id, entity.LocationId);
             Assert.AreEqual(testName, entity.Name);
             Assert.AreEqual(coordinateX, entity.LocationX);
             Assert.AreEqual(coordinateY, entity.LocationY);
+            Assert.AreEqual(location.CoastalAreaId, entity.CoastalAreaId);
+            Assert.AreEqual(location.Offset, entity.Offset, location.Offset.GetAccuracy());
+            Assert.AreEqual(location.Orientation, entity.Orientation, location.Orientation.GetAccuracy());
+            Assert.AreEqual(location.D50, entity.D50, location.D50.GetAccuracy());
+            Assert.IsEmpty(entity.DuneLocationOutputEntities);
+            Assert.AreEqual(order, entity.Order);
+        }
+
+        [Test]
+        public void Create_WithNaNValues_ReturnsDuneLocationEntityWithNullPropertiesSet()
+        {
+            // Setup
+            var random = new Random(28);
+            int id = random.Next(0, 150);
+            int order = random.Next();
+            var registry = new PersistenceRegistry();
+
+            var location = new DuneLocation(id, string.Empty, new Point2D(double.NaN, double.NaN),
+                                            new DuneLocation.ConstructionProperties
+                                            {
+                                                Offset = double.NaN,
+                                                Orientation = double.NaN,
+                                                D50 = double.NaN
+                                            });
+
+            // Call
+            DuneLocationEntity entity = location.Create(registry, order);
+
+            // Assert
+            Assert.IsNotNull(entity);
             Assert.AreEqual(id, entity.LocationId);
+            Assert.IsEmpty(entity.Name);
+            Assert.IsNull(entity.LocationX);
+            Assert.IsNull(entity.LocationY);
+            Assert.IsNull(entity.Offset);
+            Assert.IsNull(entity.Orientation);
+            Assert.IsNull(entity.D50);
             Assert.IsEmpty(entity.DuneLocationOutputEntities);
             Assert.AreEqual(order, entity.Order);
         }

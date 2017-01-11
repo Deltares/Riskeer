@@ -253,6 +253,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 AssertWaveImpactAsphaltCoverFailureMechanism(expectedAssessmentSection.WaveImpactAsphaltCover, actualAssessmentSection.WaveImpactAsphaltCover);
                 AssertHeightStructuresFailureMechanism(expectedAssessmentSection.HeightStructures, actualAssessmentSection.HeightStructures);
                 AssertClosingStructuresFailureMechanism(expectedAssessmentSection.ClosingStructures, actualAssessmentSection.ClosingStructures);
+                AssertDuneErosionFailureMechanism(expectedAssessmentSection.DuneErosion, actualAssessmentSection.DuneErosion);
                 AssertStabilityPointStructuresFailureMechanism(expectedAssessmentSection.StabilityPointStructures, actualAssessmentSection.StabilityPointStructures);
 
                 IFailureMechanism[] expectedProjectFailureMechanisms = expectedAssessmentSection.GetFailureMechanisms().ToArray();
@@ -491,25 +492,6 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 PipingStructureFailureMechanismSectionResult actualSection = actualSectionResultsArray[i];
 
                 Assert.AreEqual(expectedSection.AssessmentLayerOne, actualSection.AssessmentLayerOne);
-                Assert.AreEqual(expectedSection.AssessmentLayerTwoA, actualSection.AssessmentLayerTwoA);
-                Assert.AreEqual(expectedSection.AssessmentLayerThree, actualSection.AssessmentLayerThree);
-            }
-        }
-
-        private static void AssertFailureMechanismSectionResults(
-            IEnumerable<DuneErosionFailureMechanismSectionResult> expectedSectionResults,
-            IEnumerable<DuneErosionFailureMechanismSectionResult> actualSectionResults)
-        {
-            var expectedSectionResultsArray = expectedSectionResults.ToArray();
-            var actualSectionResultsArray = actualSectionResults.ToArray();
-
-            Assert.AreEqual(expectedSectionResultsArray.Length, actualSectionResultsArray.Length);
-
-            for (var i = 0; i < expectedSectionResultsArray.Length; i++)
-            {
-                DuneErosionFailureMechanismSectionResult expectedSection = expectedSectionResultsArray[i];
-                DuneErosionFailureMechanismSectionResult actualSection = actualSectionResultsArray[i];
-
                 Assert.AreEqual(expectedSection.AssessmentLayerTwoA, actualSection.AssessmentLayerTwoA);
                 Assert.AreEqual(expectedSection.AssessmentLayerThree, actualSection.AssessmentLayerThree);
             }
@@ -1158,6 +1140,83 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             Assert.AreEqual(expectedInput.IdenticalApertures, actualInput.IdenticalApertures);
             DistributionAssert.AreEqual(expectedInput.LevelCrestStructureNotClosing, actualInput.LevelCrestStructureNotClosing);
             Assert.AreEqual(expectedInput.ProbabilityOrFrequencyOpenStructureBeforeFlooding, actualInput.ProbabilityOrFrequencyOpenStructureBeforeFlooding);
+        }
+
+        #endregion
+
+        #region DuneErosion FailureMechanism
+
+        private static void AssertDuneErosionFailureMechanism(DuneErosionFailureMechanism expectedFailureMechanism,
+                                                              DuneErosionFailureMechanism actualFailureMechanism)
+        {
+            Assert.AreEqual(expectedFailureMechanism.GeneralInput.N, actualFailureMechanism.GeneralInput.N);
+
+            AssertDuneLocations(expectedFailureMechanism.DuneLocations, actualFailureMechanism.DuneLocations);
+
+            AssertComments(expectedFailureMechanism.InputComments, actualFailureMechanism.InputComments);
+            AssertComments(expectedFailureMechanism.OutputComments, actualFailureMechanism.OutputComments);
+            AssertComments(expectedFailureMechanism.NotRelevantComments, actualFailureMechanism.NotRelevantComments);
+        }
+
+        private static void AssertFailureMechanismSectionResults(
+            IEnumerable<DuneErosionFailureMechanismSectionResult> expectedSectionResults,
+            IEnumerable<DuneErosionFailureMechanismSectionResult> actualSectionResults)
+        {
+            var expectedSectionResultsArray = expectedSectionResults.ToArray();
+            var actualSectionResultsArray = actualSectionResults.ToArray();
+
+            Assert.AreEqual(expectedSectionResultsArray.Length, actualSectionResultsArray.Length);
+
+            for (var i = 0; i < expectedSectionResultsArray.Length; i++)
+            {
+                DuneErosionFailureMechanismSectionResult expectedSection = expectedSectionResultsArray[i];
+                DuneErosionFailureMechanismSectionResult actualSection = actualSectionResultsArray[i];
+
+                Assert.AreEqual(expectedSection.AssessmentLayerTwoA, actualSection.AssessmentLayerTwoA);
+                Assert.AreEqual(expectedSection.AssessmentLayerThree, actualSection.AssessmentLayerThree);
+            }
+        }
+
+        private static void AssertDuneLocations(List<DuneLocation> expectedDuneLocations,
+                                                List<DuneLocation> actualDuneLocations)
+        {
+            Assert.AreEqual(expectedDuneLocations.Count, actualDuneLocations.Count);
+            for (var i = 0; i < expectedDuneLocations.Count; i++)
+            {
+                DuneLocation expectedLocation = expectedDuneLocations[i];
+                DuneLocation actualLocation = actualDuneLocations[i];
+
+                AssertDuneBoundaryLocation(expectedLocation, actualLocation);
+            }
+        }
+
+        private static void AssertDuneBoundaryLocation(DuneLocation expectedLocation, DuneLocation actualLocation)
+        {
+            Assert.AreEqual(expectedLocation.Id, actualLocation.Id);
+            Assert.AreEqual(expectedLocation.Name, actualLocation.Name);
+            Assert.AreEqual(expectedLocation.Location, actualLocation.Location);
+            Assert.AreEqual(expectedLocation.CoastalAreaId, actualLocation.CoastalAreaId);
+            Assert.AreEqual(expectedLocation.Offset, actualLocation.Offset);
+            Assert.AreEqual(expectedLocation.Orientation, actualLocation.Orientation);
+            Assert.AreEqual(expectedLocation.D50, actualLocation.D50);
+            AssertDuneBoundaryLocationOutput(expectedLocation.Output, actualLocation.Output);
+        }
+
+        private static void AssertDuneBoundaryLocationOutput(DuneLocationOutput expectedOutput, DuneLocationOutput actualOutput)
+        {
+            if (expectedOutput == null)
+            {
+                Assert.IsNull(actualOutput);
+                return;
+            }
+            Assert.AreEqual(expectedOutput.WaterLevel, actualOutput.WaterLevel);
+            Assert.AreEqual(expectedOutput.WaveHeight, actualOutput.WaveHeight);
+            Assert.AreEqual(expectedOutput.WavePeriod, actualOutput.WavePeriod);
+            Assert.AreEqual(expectedOutput.TargetProbability, actualOutput.TargetProbability);
+            Assert.AreEqual(expectedOutput.TargetReliability, actualOutput.TargetReliability);
+            Assert.AreEqual(expectedOutput.CalculatedProbability, actualOutput.CalculatedProbability);
+            Assert.AreEqual(expectedOutput.CalculatedReliability, actualOutput.CalculatedReliability);
+            Assert.AreEqual(expectedOutput.CalculationConvergence, actualOutput.CalculationConvergence);
         }
 
         #endregion

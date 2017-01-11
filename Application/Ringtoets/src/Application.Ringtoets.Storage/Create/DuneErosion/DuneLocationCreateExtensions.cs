@@ -56,6 +56,16 @@ namespace Application.Ringtoets.Storage.Create.DuneErosion
                 Name = location.Name.DeepClone(),
                 LocationX = location.Location.X.ToNaNAsNull(),
                 LocationY = location.Location.Y.ToNaNAsNull(),
+                CoastalAreaId = location.CoastalAreaId,
+                Offset = double.IsNaN(location.Offset)
+                             ? (double?) null
+                             : location.Offset,
+                Orientation = double.IsNaN(location.Orientation)
+                                  ? (double?) null
+                                  : location.Orientation,
+                D50 = double.IsNaN(location.D50)
+                          ? (double?) null
+                          : location.D50,
                 Order = order
             };
 

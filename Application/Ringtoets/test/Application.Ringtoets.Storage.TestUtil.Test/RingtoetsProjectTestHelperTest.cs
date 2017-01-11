@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
@@ -27,6 +28,7 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.DuneErosion.Data;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.HeightStructures.Data;
@@ -78,6 +80,8 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
             AssertClosingStructuresFailureMechanism(assessmentSection);
 
             AssertStabilityPointStructuresFailureMechanism(assessmentSection);
+
+            AssertDuneErosionFailureMechanism(assessmentSection);
         }
 
         private static void AssertPipingFailureMechanism(AssessmentSection assessmentSection)
@@ -268,6 +272,25 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
 
             ClosingStructuresFailureMechanismSectionResult firstSectionResult = failureMechanism.SectionResults.First();
             Assert.AreSame(calculationWithOutput, firstSectionResult.Calculation);
+        }
+
+        private static void AssertDuneErosionFailureMechanism(AssessmentSection assessmentSection)
+        {
+            DuneErosionFailureMechanism failureMechanism = assessmentSection.DuneErosion;
+
+            Assert.IsEmpty(failureMechanism.Calculations);
+
+            List<DuneLocation> duneLocations = failureMechanism.DuneLocations;
+
+            Assert.AreEqual(3, duneLocations.Count);
+            Assert.IsNull(duneLocations[0].Output);
+
+            Assert.IsNotNull(duneLocations[1].Output);
+            Assert.AreEqual(CalculationConvergence.NotCalculated, duneLocations[1].Output.CalculationConvergence);
+            Assert.IsNotNull(duneLocations[2].Output);
+            Assert.AreEqual(CalculationConvergence.CalculatedConverged, duneLocations[2].Output.CalculationConvergence);
+
+            Assert.AreEqual(3, failureMechanism.SectionResults.Count());
         }
 
         private static void AssertStabilityPointStructuresFailureMechanism(AssessmentSection assessmentSection)
