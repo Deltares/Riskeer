@@ -92,7 +92,7 @@ namespace Ringtoets.DuneErosion.Data
         public RoundedDouble Orientation { get; private set; }
 
         /// <summary>
-        /// Gets the D50 of the dune location.
+        /// Gets the d50 of the dune location.
         /// </summary>
         public RoundedDouble D50 { get; private set; }
 
@@ -107,22 +107,22 @@ namespace Ringtoets.DuneErosion.Data
         public class ConstructionProperties
         {
             /// <summary>
-            /// Gets the coastal area id of the dune location.
+            /// Sets the coastal area id of the dune location.
             /// </summary>
             public int CoastalAreaId { internal get; set; }
 
             /// <summary>
-            /// Gets the offset of the dune location.
+            /// Sets the offset of the dune location.
             /// </summary>
             public double Offset { internal get; set; }
 
             /// <summary>
-            /// Gets the orientation of the dune location.
+            /// Sets the orientation of the dune location.
             /// </summary>
             public double Orientation { internal get; set; }
 
             /// <summary>
-            /// Gets the D50 of the dune location.
+            /// Sets the d50 of the dune location.
             /// </summary>
             public double D50 { internal get; set; }
         }

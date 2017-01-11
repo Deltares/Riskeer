@@ -296,6 +296,8 @@
     <Compile Include="Read\ClosingStructures\ClosingStructuresCalculationEntityReadExtensions.cs" />
     <Compile Include="Read\ClosingStructures\ClosingStructuresFailureMechanismMetaEntityReadExtensions.cs" />
     <Compile Include="Read\DuneErosion\DuneErosionFailureMechanismMetaEntityReadExtensions.cs" />
+    <Compile Include="Read\DuneErosion\DuneLocationEntityReadExtensions.cs" />
+    <Compile Include="Read\DuneErosion\DuneLocationOutputEntityReadExtensions.cs" />
     <Compile Include="Read\ForeshoreProfileEntityReadExtensions.cs" />
     <Compile Include="Read\GrassCoverErosionInwards\GrassCoverErosionInwardsDikeHeightOutputEntityReadExtensions.cs" />
     <Compile Include="Read\GrassCoverErosionOutwards\GrassCoverErosionInwardsFailureMechanismMetaEntityReadExtensions.cs" />

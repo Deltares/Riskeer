@@ -38,11 +38,16 @@ namespace Application.Ringtoets.Storage.Read
         /// <param name="entity">The <see cref="HydraulicLocationEntity"/> to create <see cref="HydraulicBoundaryLocation"/> for.</param>
         /// <param name="collector">The object keeping track of read operations.</param>
         /// <returns>A new <see cref="HydraulicBoundaryLocation"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         internal static HydraulicBoundaryLocation Read(this HydraulicLocationEntity entity, ReadConversionCollector collector)
         {
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
             if (collector == null)
             {
-                throw new ArgumentNullException("collector");
+                throw new ArgumentNullException(nameof(collector));
             }
             if (collector.Contains(entity))
             {

@@ -30,15 +30,12 @@
 
 namespace Application.Ringtoets.Storage.DbContext
 {
-    using System;
-    using System.Collections.Generic;
-    
     public partial class GrassCoverErosionInwardsFailureMechanismMetaEntity
     {
         public long GrassCoverErosionInwardsFailureMechanismMetaEntityId { get; set; }
         public long FailureMechanismEntityId { get; set; }
         public int N { get; set; }
-    
+
         public virtual FailureMechanismEntity FailureMechanismEntity { get; set; }
     }
 }
