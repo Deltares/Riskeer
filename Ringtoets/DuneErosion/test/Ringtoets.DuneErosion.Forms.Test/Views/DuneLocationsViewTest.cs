@@ -151,7 +151,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
         }
 
         [Test]
-        public void DesignWaterLevelLocationsView_AssessmentSectionWithData_DataGridViewCorrectlyInitialized()
+        public void DuneLocationsView_DataSet_DataGridViewCorrectlyInitialized()
         {
             // Setup & Call
             ShowFullyConfiguredDuneLocationsView();
@@ -169,7 +169,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             Assert.AreEqual(new Point2D(1, 1).ToString(), cells[locationColumnIndex].FormattedValue);
             Assert.AreEqual("50", cells[coastalAreaIdColumnIndex].FormattedValue);
             Assert.AreEqual("320", cells[offsetColumnIndex].FormattedValue);
-            Assert.AreEqual("0.000837", cells[d50ColumnIndex].FormattedValue);
+            Assert.AreEqual("0.000837".ToString(CultureInfo.CurrentCulture), cells[d50ColumnIndex].FormattedValue);
             Assert.AreEqual("-", cells[waterLevelColumnIndex].FormattedValue);
             Assert.AreEqual("-", cells[waveHeightColumnIndex].FormattedValue);
             Assert.AreEqual("-", cells[wavePeriodColumnIndex].FormattedValue);
@@ -182,10 +182,10 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             Assert.AreEqual(new Point2D(2, 2).ToString(), cells[locationColumnIndex].FormattedValue);
             Assert.AreEqual("60", cells[coastalAreaIdColumnIndex].FormattedValue);
             Assert.AreEqual("230", cells[offsetColumnIndex].FormattedValue);
-            Assert.AreEqual("0.000123", cells[d50ColumnIndex].FormattedValue);
-            Assert.AreEqual("1.00", cells[waterLevelColumnIndex].FormattedValue);
-            Assert.AreEqual("2.00", cells[waveHeightColumnIndex].FormattedValue);
-            Assert.AreEqual("3.00", cells[wavePeriodColumnIndex].FormattedValue);
+            Assert.AreEqual("0.000123".ToString(CultureInfo.CurrentCulture), cells[d50ColumnIndex].FormattedValue);
+            Assert.AreEqual("1.00".ToString(CultureInfo.CurrentCulture), cells[waterLevelColumnIndex].FormattedValue);
+            Assert.AreEqual("2.00".ToString(CultureInfo.CurrentCulture), cells[waveHeightColumnIndex].FormattedValue);
+            Assert.AreEqual("3.00".ToString(CultureInfo.CurrentCulture), cells[wavePeriodColumnIndex].FormattedValue);
 
         }
 

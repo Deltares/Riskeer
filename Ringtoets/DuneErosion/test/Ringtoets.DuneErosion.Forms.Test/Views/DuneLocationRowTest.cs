@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Globalization;
 using Core.Common.Base.Geometry;
 using Core.Common.Utils.Reflection;
 using NUnit.Framework;
@@ -46,9 +47,9 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
         }
 
         [Test]
-        [TestCase(34.1, "34.1")]
-        [TestCase(34.0, "34")]
-        public void Constructor_WithOutput_ExpectedValues(double offSet, string expectedRowOffset)
+        [TestCase(34.1)]
+        [TestCase(34.0)]
+        public void Constructor_WithOutput_ExpectedValues(double offSet)
         {
             // Setup
             var location = new DuneLocation(1, "test location", new Point2D(3.3, 4.4), new DuneLocation.ConstructionProperties
@@ -76,7 +77,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             Assert.AreEqual(location.Name, row.Name);
             Assert.AreSame(location.Location, row.Location);
             Assert.AreEqual(location.CoastalAreaId, row.CoastalAreaId);
-            Assert.AreEqual(expectedRowOffset, row.Offset);
+            Assert.AreEqual(location.Offset.ToString("0.#", CultureInfo.InvariantCulture), row.Offset);
             Assert.AreEqual(location.D50, row.D50);
             Assert.AreEqual(location.Output.WaterLevel, row.WaterLevel);
             Assert.AreEqual(location.Output.WaveHeight, row.WaveHeight);
@@ -111,7 +112,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             Assert.AreEqual(location.Name, row.Name);
             Assert.AreSame(location.Location, row.Location);
             Assert.AreEqual(location.CoastalAreaId, row.CoastalAreaId);
-            Assert.AreEqual(location.Offset.ToString(), row.Offset);
+            Assert.AreEqual(location.Offset.ToString(null, CultureInfo.CurrentCulture), row.Offset);
             Assert.AreEqual(location.D50, row.D50);
             Assert.IsNaN(row.WaterLevel);
             Assert.IsNaN(row.WaveHeight);
