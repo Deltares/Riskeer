@@ -42,7 +42,8 @@ namespace Ringtoets.Piping.Service
             if (available.Count == 1)
             {
                 pipingInput.StochasticSoilModel = available.First();
-            } else if (!available.Any() || !available.Contains(pipingInput.StochasticSoilModel))
+            }
+            else if (!available.Any() || !available.Contains(pipingInput.StochasticSoilModel))
             {
                 pipingInput.StochasticSoilModel = null;
             }
