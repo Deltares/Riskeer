@@ -402,7 +402,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void GetSelectableLocations_InputWithLocationsDikeProfile_CalculatesDistanceWithCorrectReferencePoint()
+        public void GetSelectableHydraulicBoundaryLocations_InputWithLocationsForeshoreProfile_CalculatesDistanceWithCorrectReferencePoint()
         {
             // Setup
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "A", 200643.312, 503347.25);
@@ -419,26 +419,25 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
 
             var properties = new TestWaveConditionsInputContextProperties(inputContext);
 
-            var distanceToPropertiesStructureLocation =
-                new RoundedDouble(0, hydraulicBoundaryLocation.Location.GetEuclideanDistanceTo(properties.WorldReferencePoint));
-            var distanceToForeshoreProfileReferencePoint =
-                new RoundedDouble(0, hydraulicBoundaryLocation.Location.GetEuclideanDistanceTo(input.ForeshoreProfile.WorldReferencePoint));
-
-            // Pre-condition
-            Assert.AreNotEqual(distanceToPropertiesStructureLocation, distanceToForeshoreProfileReferencePoint);
-
             // Call 
             IEnumerable<SelectableHydraulicBoundaryLocation> availableHydraulicBoundaryLocations =
                 properties.GetSelectableHydraulicBoundaryLocations();
 
             // Assert
+            double distanceToPropertiesWorldReferencePoint =
+                hydraulicBoundaryLocation.Location.GetEuclideanDistanceTo(properties.WorldReferencePoint);
+            double distanceToForeshoreProfileReferencePoint =
+                hydraulicBoundaryLocation.Location.GetEuclideanDistanceTo(input.ForeshoreProfile.WorldReferencePoint);
+            Assert.AreEqual(59, distanceToPropertiesWorldReferencePoint, 1);
+            Assert.AreEqual(60, distanceToForeshoreProfileReferencePoint, 1);
+
             var hydraulicBoundaryLocationItem = availableHydraulicBoundaryLocations.ToArray()[0];
             RoundedDouble itemDistance = hydraulicBoundaryLocationItem.Distance;
             Assert.AreEqual(distanceToForeshoreProfileReferencePoint, itemDistance, itemDistance.GetAccuracy());
         }
 
         [Test]
-        public void SelectedLocation_InputWithLocationsDikeProfile_CalculatesDistanceWithCorrectReferencePoint()
+        public void SelectedHydraulicBoundaryLocation_InputWithLocationsForeshoreProfile_CalculatesDistanceWithCorrectReferencePoint()
         {
             // Setup
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "A", 200643.312, 503347.25);
@@ -450,26 +449,25 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             var inputContext = new TestWaveConditionsInputContext(input, new ForeshoreProfile[0], new HydraulicBoundaryLocation[0]);
             var properties = new TestWaveConditionsInputContextProperties(inputContext);
 
-            var distanceToPropertiesWorldReferenceLocation =
-                new RoundedDouble(0, hydraulicBoundaryLocation.Location.GetEuclideanDistanceTo(properties.WorldReferencePoint));
-            var distanceToForeshoreProfileWorldReferencePoint =
-                new RoundedDouble(0, hydraulicBoundaryLocation.Location.GetEuclideanDistanceTo(input.ForeshoreProfile.WorldReferencePoint));
-
-            // Pre-condition
-            Assert.AreNotEqual(distanceToPropertiesWorldReferenceLocation, distanceToForeshoreProfileWorldReferencePoint);
-
             // Call 
             var selectedHydraulicBoundaryLocation = properties.SelectedHydraulicBoundaryLocation;
 
             // Assert
+            double distanceToPropertiesWorldReferencePoint =
+                hydraulicBoundaryLocation.Location.GetEuclideanDistanceTo(properties.WorldReferencePoint);
+            double distanceToForeshoreProfileReferencePoint =
+                hydraulicBoundaryLocation.Location.GetEuclideanDistanceTo(input.ForeshoreProfile.WorldReferencePoint);
+            Assert.AreEqual(59, distanceToPropertiesWorldReferencePoint, 1);
+            Assert.AreEqual(60, distanceToForeshoreProfileReferencePoint, 1);
+
             RoundedDouble selectedLocationDistance = selectedHydraulicBoundaryLocation.Distance;
-            Assert.AreEqual(distanceToForeshoreProfileWorldReferencePoint, selectedLocationDistance, selectedLocationDistance.GetAccuracy());
+            Assert.AreEqual(distanceToForeshoreProfileReferencePoint, selectedLocationDistance, selectedLocationDistance.GetAccuracy());
         }
 
         [Test]
-        public void SelectedLocation_InputWithLocationsDikeProfile_HasSameDistanceAsSelectableBoundaryLocationsItem()
+        public void GivenPropertiesWithForeshoreProfileAndLocations_WhenSelectingLocation_ThenSelectedLocationDistanceSameAsLocationItem()
         {
-            // Setup
+            // Given
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "A", 200643.312, 503347.25);
             var locations = new List<HydraulicBoundaryLocation>
             {
@@ -485,14 +483,13 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
 
             var properties = new TestWaveConditionsInputContextProperties(inputContext);
 
-            // Call
+            // When
             IEnumerable<SelectableHydraulicBoundaryLocation> availableHydraulicBoundaryLocations =
                 properties.GetSelectableHydraulicBoundaryLocations();
             SelectableHydraulicBoundaryLocation selectedLocation = properties.SelectedHydraulicBoundaryLocation;
 
-            // Assert
+            // Then
             var hydraulicBoundaryLocationItem = availableHydraulicBoundaryLocations.ToArray()[0];
-
             Assert.AreEqual(selectedLocation.Distance, hydraulicBoundaryLocationItem.Distance,
                             hydraulicBoundaryLocationItem.Distance.GetAccuracy());
         }

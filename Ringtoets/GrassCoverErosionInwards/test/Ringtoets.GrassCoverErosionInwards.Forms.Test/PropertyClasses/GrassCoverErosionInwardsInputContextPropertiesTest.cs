@@ -302,7 +302,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void GetSelectableLocations_InputWithLocationsDikeProfile_CalculatesDistanceWithCorrectReferencePoint()
+        public void GetSelectableHydraulicBoundaryLocations_InputWithLocationsDikeProfile_CalculatesDistanceWithCorrectReferencePoint()
         {
             // Setup
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "A", 200643.312, 503347.25);
@@ -327,26 +327,27 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
                 Data = new GrassCoverErosionInwardsInputContext(input, calculation, failureMechanism, assessmentSection)
             };
 
-            var distanceToPropertiesWorldReferencePoint =
-                new RoundedDouble(0, hydraulicBoundaryLocation.Location.GetEuclideanDistanceTo(properties.WorldReferencePoint));
-            var distanceToDikeProfileWorldReferencePoint =
-                new RoundedDouble(0, hydraulicBoundaryLocation.Location.GetEuclideanDistanceTo(input.DikeProfile.WorldReferencePoint));
-
-            // Pre-condition
-            Assert.AreNotEqual(distanceToPropertiesWorldReferencePoint, distanceToDikeProfileWorldReferencePoint);
-
             // Call 
             IEnumerable<SelectableHydraulicBoundaryLocation> availableHydraulicBoundaryLocations =
                 properties.GetSelectableHydraulicBoundaryLocations();
 
             // Assert
+            double distanceToPropertiesWorldReferencePoint =
+                hydraulicBoundaryLocation.Location.GetEuclideanDistanceTo(properties.WorldReferencePoint);
+            double distanceToDikeProfileWorldReferencePoint =
+                hydraulicBoundaryLocation.Location.GetEuclideanDistanceTo(input.DikeProfile.WorldReferencePoint);
+            Assert.AreEqual(59, distanceToPropertiesWorldReferencePoint, 1);
+            Assert.AreEqual(60, distanceToDikeProfileWorldReferencePoint, 1);
+
             var hydraulicBoundaryLocationItem = availableHydraulicBoundaryLocations.ToArray()[0];
             RoundedDouble itemDistance = hydraulicBoundaryLocationItem.Distance;
             Assert.AreEqual(distanceToDikeProfileWorldReferencePoint, itemDistance, itemDistance.GetAccuracy());
+
+            mockRepository.VerifyAll();
         }
 
         [Test]
-        public void SelectedLocation_InputWithLocationsDikeProfile_CalculatesDistanceWithCorrectReferencePoint()
+        public void SelectedHydraulicBoundaryLocation_InputWithLocationsDikeProfile_CalculatesDistanceWithCorrectReferencePoint()
         {
             // Setup
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
@@ -366,24 +367,25 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
                 Data = new GrassCoverErosionInwardsInputContext(input, calculation, failureMechanism, assessmentSection)
             };
 
-            var distanceToPropertiesWorldReferencePoint =
-                new RoundedDouble(0, hydraulicBoundaryLocation.Location.GetEuclideanDistanceTo(properties.WorldReferencePoint));
-            var distanceToDikeProfileWorldReferencePoint =
-                new RoundedDouble(0, hydraulicBoundaryLocation.Location.GetEuclideanDistanceTo(input.DikeProfile.WorldReferencePoint));
-
-            // Pre-condition
-            Assert.AreNotEqual(distanceToPropertiesWorldReferencePoint, distanceToDikeProfileWorldReferencePoint);
-
             // Call 
             var selectedHydraulicBoundaryLocation = properties.SelectedHydraulicBoundaryLocation;
 
             // Assert
+            double distanceToPropertiesWorldReferencePoint =
+               hydraulicBoundaryLocation.Location.GetEuclideanDistanceTo(properties.WorldReferencePoint);
+            double distanceToDikeProfileWorldReferencePoint =
+                hydraulicBoundaryLocation.Location.GetEuclideanDistanceTo(input.DikeProfile.WorldReferencePoint);
+            Assert.AreEqual(59, distanceToPropertiesWorldReferencePoint, 1);
+            Assert.AreEqual(60, distanceToDikeProfileWorldReferencePoint, 1);
+
             RoundedDouble selectedLocationDistance = selectedHydraulicBoundaryLocation.Distance;
             Assert.AreEqual(distanceToDikeProfileWorldReferencePoint, selectedLocationDistance, selectedLocationDistance.GetAccuracy());
+
+            mockRepository.VerifyAll();
         }
 
         [Test]
-        public void SelectedLocation_InputWithLocationsDikeProfile_HasSameDistanceAsSelectableBoundaryLocationsItem()
+        public void GivenPropertiesWithDikeProfileAndLocations_WhenSelectingLocation_ThenSelectedLocationDistanceSameAsLocationItem()
         {
             // Setup
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
@@ -416,9 +418,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
 
             // Assert
             var hydraulicBoundaryLocationItem = availableHydraulicBoundaryLocations.ToArray()[0];
-
             Assert.AreEqual(selectedLocation.Distance, hydraulicBoundaryLocationItem.Distance,
                             hydraulicBoundaryLocationItem.Distance.GetAccuracy());
+
+            mockRepository.VerifyAll();
         }
 
         [Test]

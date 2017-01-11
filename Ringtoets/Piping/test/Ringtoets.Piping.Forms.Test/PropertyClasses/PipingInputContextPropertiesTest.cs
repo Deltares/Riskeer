@@ -1492,9 +1492,9 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void GetSelectableLocations_InputWithLocationsDikeProfile_CalculatesDistanceWithCorrectReferencePoint()
+        public void GivenPropertiesWithSurfaceLineAndLocations_WhenSelectingLocation_ThenSelectedLocationDistanceSameAsLocationItem()
         {
-            // Setup
+            // Given
             var mockRepository = new MockRepository();
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "A", 200643.312, 503347.25);
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
@@ -1529,16 +1529,17 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                 StochasticSoilProfile = soilProfile
             };
 
-            // Call
+            // When
             IEnumerable<SelectableHydraulicBoundaryLocation> availableHydraulicBoundaryLocations =
                 properties.GetSelectableHydraulicBoundaryLocations();
             SelectableHydraulicBoundaryLocation selectedLocation = properties.SelectedHydraulicBoundaryLocation;
 
-            // Assert
+            // Then
             var hydraulicBoundaryLocationItem = availableHydraulicBoundaryLocations.ToArray()[0];
-
             Assert.AreEqual(selectedLocation.Distance, hydraulicBoundaryLocationItem.Distance,
                             hydraulicBoundaryLocationItem.Distance.GetAccuracy());
+
+            mockRepository.VerifyAll();
         }
 
         [Test]
