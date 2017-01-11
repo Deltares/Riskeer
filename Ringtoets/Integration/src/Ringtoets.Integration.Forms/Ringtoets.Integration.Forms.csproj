@@ -48,6 +48,7 @@
     <Compile Include="Commands\AddAssessmentSectionCommand.cs" />
     <Compile Include="Commands\AssessmentSectionFromFileCommandHandler.cs" />
     <Compile Include="Commands\IAssessmentSectionFromFileCommandHandler.cs" />
+    <Compile Include="PresentationObjects\BackgroundMapDataContext.cs" />
     <Compile Include="PresentationObjects\DesignWaterLevelLocationContext.cs" />
     <Compile Include="PresentationObjects\DesignWaterLevelLocationsContext.cs" />
     <Compile Include="PresentationObjects\HydraulicBoundaryDatabaseContext.cs" />

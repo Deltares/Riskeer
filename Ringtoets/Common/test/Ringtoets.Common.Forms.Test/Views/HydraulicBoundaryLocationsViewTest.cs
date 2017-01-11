@@ -23,14 +23,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Contribution;
-using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.Views;
@@ -199,40 +195,13 @@ namespace Ringtoets.Common.Forms.Test.Views
         {
             var view = ShowTestHydraulicBoundaryLocationsView();
 
-            var assessmentSection = new TestAssessmentSection
+            var assessmentSection = new ObservableTestAssessmentSectionStub
             {
                 HydraulicBoundaryDatabase = new TestHydraulicBoundaryDatabase()
             };
 
             view.Data = assessmentSection.HydraulicBoundaryDatabase.Locations;
             return view;
-        }
-
-        private class TestAssessmentSection : Observable, IAssessmentSection
-        {
-            public Comment Comments { get; private set; }
-
-            public string Id { get; set; }
-
-            public string Name { get; set; }
-
-            public AssessmentSectionComposition Composition { get; private set; }
-
-            public ReferenceLine ReferenceLine { get; set; }
-
-            public FailureMechanismContribution FailureMechanismContribution { get; private set; }
-
-            public HydraulicBoundaryDatabase HydraulicBoundaryDatabase { get; set; }
-
-            public IEnumerable<IFailureMechanism> GetFailureMechanisms()
-            {
-                throw new NotImplementedException();
-            }
-
-            public void ChangeComposition(AssessmentSectionComposition newComposition)
-            {
-                throw new NotImplementedException();
-            }
         }
 
         private class TestHydraulicBoundaryDatabase : HydraulicBoundaryDatabase

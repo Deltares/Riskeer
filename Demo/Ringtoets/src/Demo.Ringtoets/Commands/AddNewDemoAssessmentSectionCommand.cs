@@ -29,6 +29,7 @@ using Core.Common.Controls.Commands;
 using Core.Common.Gui;
 using Core.Common.Gui.Commands;
 using Core.Common.Utils.IO;
+using Core.Components.Gis.Data;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -86,6 +87,7 @@ namespace Demo.Ringtoets.Commands
                 Id = "6-3",
                 Name = "Demo traject"
             };
+            InitializeBackgroundMapData(demoAssessmentSection);
             InitializeDemoReferenceLine(demoAssessmentSection);
             InitializeDemoHydraulicBoundaryDatabase(demoAssessmentSection);
             InitializeDemoFailureMechanismSections(demoAssessmentSection);
@@ -100,6 +102,13 @@ namespace Demo.Ringtoets.Commands
             InitializeWaveImpactAsphaltCoverData(demoAssessmentSection);
 
             return demoAssessmentSection;
+        }
+
+        private void InitializeBackgroundMapData(AssessmentSection demoAssessmentSection)
+        {
+            WmtsMapData targetConfiguration = WmtsMapData.CreateDefaultPdokMapData();
+            demoAssessmentSection.BackgroundMapData.Configure(targetConfiguration.SourceCapabilitiesUrl,
+                                                              targetConfiguration.SelectedCapabilityName);
         }
 
         private void InitializeDemoReferenceLine(AssessmentSection demoAssessmentSection)

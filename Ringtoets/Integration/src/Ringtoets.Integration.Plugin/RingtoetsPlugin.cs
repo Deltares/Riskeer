@@ -276,10 +276,10 @@ namespace Ringtoets.Integration.Plugin
             yield return new PropertyInfo<FailureMechanismContributionContext, FailureMechanismContributionProperties>()
             {
                 CreateInstance = context => new FailureMechanismContributionProperties(
-                    context.WrappedData,
-                    context.Parent, 
-                    new FailureMechanismContributionNormChangeHandler(), 
-                    new AssessmentSectionCompositionChangeHandler())
+                                                context.WrappedData,
+                                                context.Parent,
+                                                new FailureMechanismContributionNormChangeHandler(),
+                                                new AssessmentSectionCompositionChangeHandler())
             };
             yield return new PropertyInfo<FailureMechanismContext<IFailureMechanism>, StandAloneFailureMechanismContextProperties>();
             yield return new PropertyInfo<ICalculationContext<CalculationGroup, IFailureMechanism>, CalculationGroupContextProperties>();
@@ -288,13 +288,13 @@ namespace Ringtoets.Integration.Plugin
             yield return new PropertyInfo<DesignWaterLevelLocationsContext, DesignWaterLevelLocationsContextProperties>
             {
                 CreateInstance = context => new DesignWaterLevelLocationsContextProperties(
-                    context.WrappedData.HydraulicBoundaryDatabase)
+                                                context.WrappedData.HydraulicBoundaryDatabase)
             };
             yield return new PropertyInfo<DesignWaterLevelLocationContext, DesignWaterLevelLocationContextProperties>();
             yield return new PropertyInfo<WaveHeightLocationsContext, WaveHeightLocationsContextProperties>
             {
                 CreateInstance = context => new WaveHeightLocationsContextProperties(
-                    context.WrappedData.HydraulicBoundaryDatabase)
+                                                context.WrappedData.HydraulicBoundaryDatabase)
             };
             yield return new PropertyInfo<WaveHeightLocationContext, WaveHeightLocationContextProperties>();
             yield return new PropertyInfo<ForeshoreProfile, ForeshoreProfileProperties>();
@@ -514,6 +514,15 @@ namespace Ringtoets.Integration.Plugin
                 OnNodeRenamed = AssessmentSectionOnNodeRenamed,
                 CanRemove = (assessmentSection, parentNodeData) => true,
                 OnNodeRemoved = AssessmentSectionOnNodeRemoved
+            };
+
+            yield return new TreeNodeInfo<BackgroundMapDataContext>
+            {
+                Text = context => RingtoetsIntegrationPluginResources.RingtoetsPlugin_BackgroundMapDataContext_Text,
+                Image = context => RingtoetsFormsResources.Map,
+                ForeColor = context => context.WrappedData.IsConfigured ?
+                                           Color.FromKnownColor(KnownColor.ControlText) :
+                                           Color.FromKnownColor(KnownColor.GrayText)
             };
 
             yield return new TreeNodeInfo<ReferenceLineContext>
@@ -1055,6 +1064,7 @@ namespace Ringtoets.Integration.Plugin
         {
             var childNodes = new List<object>
             {
+                new BackgroundMapDataContext(nodeData.BackgroundMapData),
                 new ReferenceLineContext(nodeData),
                 new FailureMechanismContributionContext(nodeData.FailureMechanismContribution, nodeData),
                 new HydraulicBoundaryDatabaseContext(nodeData),
@@ -1466,14 +1476,14 @@ namespace Ringtoets.Integration.Plugin
                     if (!ReferenceEquals(previousHydraulicBoundaryDatabase, assessmentSection.HydraulicBoundaryDatabase))
                     {
                         HydraulicBoundaryLocation[] hydraulicBoundaryLocations = assessmentSection.HydraulicBoundaryDatabase != null
-                                                                                         ? assessmentSection.HydraulicBoundaryDatabase.Locations.ToArray()
-                                                                                         : new HydraulicBoundaryLocation[0];
+                                                                                     ? assessmentSection.HydraulicBoundaryDatabase.Locations.ToArray()
+                                                                                     : new HydraulicBoundaryLocation[0];
 
                         assessmentSection.GrassCoverErosionOutwards.SetGrassCoverErosionOutwardsHydraulicBoundaryLocations(hydraulicBoundaryLocations);
                         assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations.NotifyObservers();
 
                         var duneLocationsReader = new DuneLocationsReader();
-                        IEnumerable<ReadDuneLocation> duneLocations = duneLocationsReader.ReadDuneLocations();                        
+                        IEnumerable<ReadDuneLocation> duneLocations = duneLocationsReader.ReadDuneLocations();
 
                         DuneErosionDataSynchronizationService.SetDuneLocations(assessmentSection.DuneErosion,
                                                                                hydraulicBoundaryLocations,

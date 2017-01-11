@@ -117,53 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="FailureMechanismSectionsImporter_Import_Imported_sections_do_not_correspond_to_current_referenceline" xml:space="preserve">
-    <value>Vakindeling komt niet overeen met de huidige referentielijn.</value>
+  <data name="WmtsMapData_Transparency_Value_must_be_in_zero_to_one_range" xml:space="preserve">
+    <value>De transparantie moet in het bereik [0.0, 1.0] liggen.</value>
   </data>
-  <data name="Comment_DisplayName" xml:space="preserve">
-    <value>Opmerkingen</value>
+  <data name="WmtsMapData_Unconfigured_name" xml:space="preserve">
+    <value>&lt;niet bepaald&gt;</value>
   </data>
-  <data name="RingtoetsRibbon_GroupBox_New" xml:space="preserve">
-    <value>Nieuw</value>
-  </data>
-  <data name="ForeshoreProfilesImporter_DisplayName" xml:space="preserve">
-    <value>Voorlandprofiellocaties</value>
-  </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="Foreshore" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Foreshore.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="DikeProfilesImporter_DisplayName" xml:space="preserve">
-    <value>Dijkprofiellocaties</value>
-  </data>
-  <data name="DesignWaterLevel_Description" xml:space="preserve">
-    <value>h(norm)</value>
-  </data>
-  <data name="WaveHeight_Description" xml:space="preserve">
-    <value>Hs(norm)</value>
-  </data>
-  <data name="ReferenceLineReplacementHandler_Confirm_clear_referenceLine_dependent_data" xml:space="preserve">
-    <value>Na het importeren van een aangepaste ligging van de referentielijn zullen alle geïmporteerde en berekende gegevens van alle toetssporen worden gewist.
-
-Wilt u doorgaan?</value>
-  </data>
-  <data name="ChangeHandler_Results_of_NumberOfCalculations_0_calculations_cleared" xml:space="preserve">
-    <value>De resultaten van {0} berekeningen zijn verwijderd.</value>
-  </data>
-  <data name="FailureMechanismContributionNormChangeHandler_Waveheight_and_design_water_level_results_cleared" xml:space="preserve">
-    <value>Alle berekende resultaten voor alle hydraulische randvoorwaardenlocaties zijn verwijderd.</value>
-  </data>
-  <data name="FailureMechanismContributionNormChangeHandler_Confirm_change_norm_and_clear_dependent_data" xml:space="preserve">
-    <value>Na het aanpassen van de norm zullen alle rekenresultaten van hydraulische randvoorwaarden en faalmechanismen verwijderd worden.
-
-Wilt u doorgaan?</value>
-  </data>
-  <data name="AssessmentSectionCompositionChangeHandler_Confirm_change_composition_and_clear_dependent_data" xml:space="preserve">
-    <value>Na het aanpassen van het trajecttype zullen alle rekenresultaten van alle toetssporen gewist worden.
-
-Wilt u doorgaan?</value>
-  </data>
-  <data name="RingtoetsPlugin_BackgroundMapDataContext_Text" xml:space="preserve">
-    <value>Achtergrondlaag</value>
+  <data name="WmtsMapData_CreateDefaultPdokMapData_Name" xml:space="preserve">
+    <value>PDOK achtergrondkaart</value>
   </data>
 </root>

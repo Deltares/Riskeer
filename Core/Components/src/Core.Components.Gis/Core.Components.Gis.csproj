@@ -47,7 +47,13 @@
     <Compile Include="Data\MapPointData.cs" />
     <Compile Include="Data\MapPolygonData.cs" />
     <Compile Include="Data\FeatureBasedMapData.cs" />
+    <Compile Include="Data\WmtsMapData.cs" />
     <Compile Include="Features\MapFeature.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Style\LineStyle.cs" />
     <Compile Include="Geometries\MapGeometry.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -66,6 +72,12 @@
       <Name>Core.Common.Base</Name>
       <Private>False</Private>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

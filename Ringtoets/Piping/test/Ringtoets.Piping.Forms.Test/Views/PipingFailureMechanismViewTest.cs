@@ -19,22 +19,19 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Forms;
-using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Components.DotSpatial.Forms;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Forms;
 using NUnit.Framework;
-using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.TestUtil;
@@ -90,7 +87,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             // Setup
             using (var view = new PipingFailureMechanismView())
             {
-                var failureMechanismContext = new PipingFailureMechanismContext(new PipingFailureMechanism(), new TestAssessmentSection());
+                var failureMechanismContext = new PipingFailureMechanismContext(new PipingFailureMechanism(), new ObservableTestAssessmentSectionStub());
 
                 // Call
                 view.Data = failureMechanismContext;
@@ -122,7 +119,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             // Setup
             using (var view = new PipingFailureMechanismView())
             {
-                var failureMechanismContext = new PipingFailureMechanismContext(new PipingFailureMechanism(), new TestAssessmentSection());
+                var failureMechanismContext = new PipingFailureMechanismContext(new PipingFailureMechanism(), new ObservableTestAssessmentSectionStub());
 
                 view.Data = failureMechanismContext;
 
@@ -144,7 +141,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             // Setup
             using (var view = new PipingFailureMechanismView())
             {
-                var failureMechanismContext = new PipingFailureMechanismContext(new PipingFailureMechanism(), new TestAssessmentSection());
+                var failureMechanismContext = new PipingFailureMechanismContext(new PipingFailureMechanism(), new ObservableTestAssessmentSectionStub());
 
                 // Call
                 view.Data = failureMechanismContext;
@@ -186,7 +183,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                     new Point2D(3.0, 0.0)
                 });
 
-                var assessmentSection = new TestAssessmentSection
+                var assessmentSection = new ObservableTestAssessmentSectionStub
                 {
                     HydraulicBoundaryDatabase = hydraulicBoundaryDatabase,
                     ReferenceLine = referenceLine
@@ -285,7 +282,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                     }
                 };
 
-                var assessmentSection = new TestAssessmentSection
+                var assessmentSection = new ObservableTestAssessmentSectionStub
                 {
                     HydraulicBoundaryDatabase = hydraulicBoundaryDatabase1
                 };
@@ -325,7 +322,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                     }
                 };
 
-                var assessmentSection = new TestAssessmentSection
+                var assessmentSection = new ObservableTestAssessmentSectionStub
                 {
                     HydraulicBoundaryDatabase = hydraulicBoundaryDatabase
                 };
@@ -371,7 +368,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                     }
                 };
 
-                var assessmentSection = new TestAssessmentSection
+                var assessmentSection = new ObservableTestAssessmentSectionStub
                 {
                     HydraulicBoundaryDatabase = currentHydraulicBoundaryDatabase
                 };
@@ -414,7 +411,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                     new Point2D(4.0, 3.0)
                 };
 
-                var assessmentSection = new TestAssessmentSection
+                var assessmentSection = new ObservableTestAssessmentSectionStub
                 {
                     ReferenceLine = new ReferenceLine()
                 };
@@ -447,7 +444,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             {
                 var map = (MapControl) view.Controls[0];
                 var failureMechanism = new PipingFailureMechanism();
-                var failureMechanismContext = new PipingFailureMechanismContext(failureMechanism, new TestAssessmentSection());
+                var failureMechanismContext = new PipingFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
                 var surfaceLine = new RingtoetsPipingSurfaceLine();
 
                 var geometry1 = new Collection<Point3D>
@@ -481,7 +478,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 var map = (MapControl) view.Controls[0];
 
                 var failureMechanism = new PipingFailureMechanism();
-                var failureMechanismContext = new PipingFailureMechanismContext(failureMechanism, new TestAssessmentSection());
+                var failureMechanismContext = new PipingFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
 
                 view.Data = failureMechanismContext;
 
@@ -514,7 +511,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 var map = (MapControl) view.Controls[0];
 
                 var failureMechanism = new PipingFailureMechanism();
-                var failureMechanismContext = new PipingFailureMechanismContext(failureMechanism, new TestAssessmentSection());
+                var failureMechanismContext = new PipingFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
                 var stochasticSoilModel = new StochasticSoilModel(0, "", "");
 
                 stochasticSoilModel.Geometry.AddRange(new[]
@@ -546,7 +543,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 var map = (MapControl) view.Controls[0];
 
                 var failureMechanism = new PipingFailureMechanism();
-                var failureMechanismContext = new PipingFailureMechanismContext(failureMechanism, new TestAssessmentSection());
+                var failureMechanismContext = new PipingFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
 
                 var surfaceLineA = new RingtoetsPipingSurfaceLine();
                 surfaceLineA.SetGeometry(new[]
@@ -593,7 +590,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 var map = (MapControl) view.Controls[0];
 
                 var failureMechanism = new PipingFailureMechanism();
-                var failureMechanismContext = new PipingFailureMechanismContext(failureMechanism, new TestAssessmentSection());
+                var failureMechanismContext = new PipingFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
 
                 var surfaceLineA = new RingtoetsPipingSurfaceLine();
                 surfaceLineA.SetGeometry(new[]
@@ -637,7 +634,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 var map = (MapControl) view.Controls[0];
 
                 var failureMechanism = new PipingFailureMechanism();
-                var failureMechanismContext = new PipingFailureMechanismContext(failureMechanism, new TestAssessmentSection());
+                var failureMechanismContext = new PipingFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
 
                 var surfaceLineA = new RingtoetsPipingSurfaceLine();
                 surfaceLineA.SetGeometry(new[]
@@ -689,7 +686,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             {
                 var map = (MapControl) view.Controls[0];
 
-                var assessmentSection = new TestAssessmentSection();
+                var assessmentSection = new ObservableTestAssessmentSectionStub();
                 var failureMechanism = new PipingFailureMechanism();
                 var failureMechanismContext = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
 
@@ -771,8 +768,8 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void NotifyObservers_DataUpdatedNotifyObserversOnOldData_NoUpdateInViewData()
         {
             // Setup
-            IAssessmentSection oldAssessmentSection = new TestAssessmentSection();
-            IAssessmentSection newAssessmentSection = new TestAssessmentSection();
+            IAssessmentSection oldAssessmentSection = new ObservableTestAssessmentSectionStub();
+            IAssessmentSection newAssessmentSection = new ObservableTestAssessmentSectionStub();
 
             newAssessmentSection.ReferenceLine = new ReferenceLine();
             newAssessmentSection.ReferenceLine.SetGeometry(new[]
@@ -893,27 +890,6 @@ namespace Ringtoets.Piping.Forms.Test.Views
             Assert.AreEqual("Vakindeling (eindpunten)", sectionsEndPointMapData.Name);
             Assert.AreEqual("Hydraulische randvoorwaarden", hydraulicBoundaryLocationsMapData.Name);
             Assert.AreEqual("Berekeningen", calculationsMapData.Name);
-        }
-
-        private class TestAssessmentSection : Observable, IAssessmentSection
-        {
-            public string Id { get; set; }
-            public string Name { get; set; }
-            public Comment Comments { get; private set; }
-            public AssessmentSectionComposition Composition { get; private set; }
-            public ReferenceLine ReferenceLine { get; set; }
-            public FailureMechanismContribution FailureMechanismContribution { get; private set; }
-            public HydraulicBoundaryDatabase HydraulicBoundaryDatabase { get; set; }
-
-            public IEnumerable<IFailureMechanism> GetFailureMechanisms()
-            {
-                yield break;
-            }
-
-            public void ChangeComposition(AssessmentSectionComposition newComposition)
-            {
-                throw new NotImplementedException();
-            }
         }
     }
 }

@@ -28,10 +28,7 @@ using Core.Common.Base.Geometry;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Contribution;
-using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.GuiServices;
@@ -321,7 +318,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         {
             var view = ShowDesignWaterLevelLocationsView();
 
-            var assessmentSection = new TestAssessmentSection()
+            var assessmentSection = new ObservableTestAssessmentSectionStub()
             {
                 HydraulicBoundaryDatabase = new TestHydraulicBoundaryDatabase()
             };
@@ -345,29 +342,6 @@ namespace Ringtoets.Integration.Forms.Test.Views
                     WaveHeightOutput = new TestHydraulicBoundaryLocationOutput(2.45)
                 });
             }
-        }
-
-        private class TestAssessmentSection : Observable, IAssessmentSection
-        {
-            public TestAssessmentSection()
-            {
-                FailureMechanismContribution = new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 0, 1.0/300000);
-            }
-
-            public Comment Comments { get; private set; }
-            public string Id { get; set; }
-            public string Name { get; set; }
-            public AssessmentSectionComposition Composition { get; private set; }
-            public ReferenceLine ReferenceLine { get; set; }
-            public FailureMechanismContribution FailureMechanismContribution { get; private set; }
-            public HydraulicBoundaryDatabase HydraulicBoundaryDatabase { get; set; }
-
-            public IEnumerable<IFailureMechanism> GetFailureMechanisms()
-            {
-                yield break;
-            }
-
-            public void ChangeComposition(AssessmentSectionComposition newComposition) {}
         }
     }
 }

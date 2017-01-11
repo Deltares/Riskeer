@@ -19,20 +19,16 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Forms;
 using NUnit.Framework;
-using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Contribution;
-using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Integration.Forms.Views;
 
 namespace Ringtoets.Integration.Forms.Test.Views
@@ -77,7 +73,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             // Setup
             using (var view = new AssessmentSectionView())
             {
-                var assessmentSection = new TestAssessmentSection();
+                var assessmentSection = new ObservableTestAssessmentSectionStub();
 
                 // Call
                 view.Data = assessmentSection;
@@ -109,7 +105,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             // Setup
             using (var view = new AssessmentSectionView
             {
-                Data = new TestAssessmentSection()
+                Data = new ObservableTestAssessmentSectionStub()
             })
             {
                 // Precondition
@@ -130,7 +126,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             // Setup
             using (var view = new AssessmentSectionView())
             {
-                var assessmentSection = new TestAssessmentSection();
+                var assessmentSection = new ObservableTestAssessmentSectionStub();
 
                 // Call
                 view.Data = assessmentSection;
@@ -162,7 +158,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                     }
                 };
 
-                var assessmentSection = new TestAssessmentSection
+                var assessmentSection = new ObservableTestAssessmentSectionStub
                 {
                     HydraulicBoundaryDatabase = hydraulicBoundaryDatabase,
                     ReferenceLine = referenceLine
@@ -188,7 +184,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             // Given
             using (var view = new AssessmentSectionView())
             {
-                var assessmentSection = new TestAssessmentSection
+                var assessmentSection = new ObservableTestAssessmentSectionStub
                 {
                     HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase()
                 };
@@ -217,7 +213,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             // Given
             using (var view = new AssessmentSectionView())
             {
-                var assessmentSection = new TestAssessmentSection
+                var assessmentSection = new ObservableTestAssessmentSectionStub
                 {
                     HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase()
                 };
@@ -259,7 +255,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                     new Point2D(4.0, 3.0)
                 };
 
-                var assessmentSection = new TestAssessmentSection
+                var assessmentSection = new ObservableTestAssessmentSectionStub
                 {
                     ReferenceLine = new ReferenceLine()
                 };
@@ -286,11 +282,11 @@ namespace Ringtoets.Integration.Forms.Test.Views
             // Setup
             using (var view = new AssessmentSectionView())
             {
-                var assessmentSection = new TestAssessmentSection();
+                var assessmentSection = new ObservableTestAssessmentSectionStub();
 
                 view.Data = assessmentSection;
 
-                var assessmentSection2 = new TestAssessmentSection
+                var assessmentSection2 = new ObservableTestAssessmentSectionStub
                 {
                     HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(),
                     ReferenceLine = new ReferenceLine()
@@ -327,7 +323,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
                 hydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(1, "test", 1.0, 2.0));
 
-                var assessmentSection = new TestAssessmentSection
+                var assessmentSection = new ObservableTestAssessmentSectionStub
                 {
                     HydraulicBoundaryDatabase = hydraulicBoundaryDatabase,
                     ReferenceLine = referenceLine
@@ -395,33 +391,6 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             Assert.AreEqual("Referentielijn", referenceLineMapData.Name);
             Assert.AreEqual("Hydraulische randvoorwaarden", hydraulicBoundaryLocationsMapData.Name);
-        }
-
-        private class TestAssessmentSection : Observable, IAssessmentSection
-        {
-            public string Id { get; set; }
-
-            public string Name { get; set; }
-
-            public AssessmentSectionComposition Composition { get; private set; }
-
-            public Comment Comments { get; private set; }
-
-            public ReferenceLine ReferenceLine { get; set; }
-
-            public FailureMechanismContribution FailureMechanismContribution { get; private set; }
-
-            public HydraulicBoundaryDatabase HydraulicBoundaryDatabase { get; set; }
-
-            public IEnumerable<IFailureMechanism> GetFailureMechanisms()
-            {
-                yield break;
-            }
-
-            public void ChangeComposition(AssessmentSectionComposition newComposition)
-            {
-                throw new NotImplementedException();
-            }
         }
     }
 }

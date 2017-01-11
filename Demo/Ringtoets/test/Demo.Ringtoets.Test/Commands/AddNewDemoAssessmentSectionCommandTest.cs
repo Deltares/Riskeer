@@ -29,6 +29,7 @@ using Core.Common.Base.Geometry;
 using Core.Common.Controls.Commands;
 using Core.Common.Gui;
 using Core.Common.Gui.Commands;
+using Core.Components.Gis.Data;
 using Demo.Ringtoets.Commands;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -100,6 +101,12 @@ namespace Demo.Ringtoets.Test.Commands
             var demoAssessmentSection = project.AssessmentSections[0];
             Assert.AreEqual("Demo traject", demoAssessmentSection.Name);
             Assert.AreEqual("6-3", demoAssessmentSection.Id);
+
+            WmtsMapData expectedWmtsMapData = WmtsMapData.CreateDefaultPdokMapData();
+            Assert.IsTrue(demoAssessmentSection.BackgroundMapData.IsConfigured);
+            Assert.AreEqual(0.0, demoAssessmentSection.BackgroundMapData.Transparency.Value);
+            Assert.AreEqual(expectedWmtsMapData.SourceCapabilitiesUrl, demoAssessmentSection.BackgroundMapData.SourceCapabilitiesUrl);
+            Assert.AreEqual(expectedWmtsMapData.SelectedCapabilityName, demoAssessmentSection.BackgroundMapData.SelectedCapabilityName);
 
             AssertHydraulicBoundaryDatabase(demoAssessmentSection);
 

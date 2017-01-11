@@ -19,19 +19,15 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Components.DotSpatial.Forms;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Forms;
 using NUnit.Framework;
-using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
@@ -88,7 +84,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
             // Setup
             using (var view = new StabilityStoneCoverFailureMechanismView())
             {
-                var failureMechanismContext = new StabilityStoneCoverFailureMechanismContext(new StabilityStoneCoverFailureMechanism(), new TestAssessmentSection());
+                var failureMechanismContext = new StabilityStoneCoverFailureMechanismContext(new StabilityStoneCoverFailureMechanism(), new ObservableTestAssessmentSectionStub());
 
                 // Call
                 view.Data = failureMechanismContext;
@@ -120,7 +116,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
             // Setup
             using (var view = new StabilityStoneCoverFailureMechanismView())
             {
-                var failureMechanismContext = new StabilityStoneCoverFailureMechanismContext(new StabilityStoneCoverFailureMechanism(), new TestAssessmentSection());
+                var failureMechanismContext = new StabilityStoneCoverFailureMechanismContext(new StabilityStoneCoverFailureMechanism(), new ObservableTestAssessmentSectionStub());
 
                 view.Data = failureMechanismContext;
 
@@ -142,7 +138,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
             // Setup
             using (var view = new StabilityStoneCoverFailureMechanismView())
             {
-                var failureMechanismContext = new StabilityStoneCoverFailureMechanismContext(new StabilityStoneCoverFailureMechanism(), new TestAssessmentSection());
+                var failureMechanismContext = new StabilityStoneCoverFailureMechanismContext(new StabilityStoneCoverFailureMechanism(), new ObservableTestAssessmentSectionStub());
 
                 // Call
                 view.Data = failureMechanismContext;
@@ -184,7 +180,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
                     new Point2D(2.0, 1.0)
                 });
 
-                var assessmentSection = new TestAssessmentSection
+                var assessmentSection = new ObservableTestAssessmentSectionStub
                 {
                     HydraulicBoundaryDatabase = hydraulicBoundaryDatabase,
                     ReferenceLine = referenceLine
@@ -266,7 +262,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
                     }
                 };
 
-                var assessmentSection = new TestAssessmentSection
+                var assessmentSection = new ObservableTestAssessmentSectionStub
                 {
                     HydraulicBoundaryDatabase = hydraulicBoundaryDatabase1
                 };
@@ -305,7 +301,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
                     }
                 };
 
-                var assessmentSection = new TestAssessmentSection
+                var assessmentSection = new ObservableTestAssessmentSectionStub
                 {
                     HydraulicBoundaryDatabase = hydraulicBoundaryDatabase
                 };
@@ -348,7 +344,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
                     new Point2D(4.0, 3.0)
                 };
 
-                var assessmentSection = new TestAssessmentSection
+                var assessmentSection = new ObservableTestAssessmentSectionStub
                 {
                     ReferenceLine = new ReferenceLine()
                 };
@@ -381,7 +377,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
                 var map = (MapControl) view.Controls[0];
 
                 var failureMechanism = new StabilityStoneCoverFailureMechanism();
-                var failureMechanismContext = new StabilityStoneCoverFailureMechanismContext(failureMechanism, new TestAssessmentSection());
+                var failureMechanismContext = new StabilityStoneCoverFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
 
                 view.Data = failureMechanismContext;
 
@@ -413,7 +409,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
                 var map = (MapControl) view.Controls[0];
 
                 var failureMechanism = new StabilityStoneCoverFailureMechanism();
-                var failureMechanismContext = new StabilityStoneCoverFailureMechanismContext(failureMechanism, new TestAssessmentSection());
+                var failureMechanismContext = new StabilityStoneCoverFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
 
                 failureMechanism.ForeshoreProfiles.Add(new TestForeshoreProfile());
 
@@ -442,7 +438,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
                 var map = (MapControl) view.Controls[0];
 
                 var failureMechanism = new StabilityStoneCoverFailureMechanism();
-                var failureMechanismContext = new StabilityStoneCoverFailureMechanismContext(failureMechanism, new TestAssessmentSection());
+                var failureMechanismContext = new StabilityStoneCoverFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
 
                 var foreshoreProfileA = new TestForeshoreProfile(new Point2D(1.3, 1.3));
                 var foreshoreProfileB = new TestForeshoreProfile(new Point2D(1.5, 1.5));
@@ -488,7 +484,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
                 var map = (MapControl) view.Controls[0];
 
                 var failureMechanism = new StabilityStoneCoverFailureMechanism();
-                var failureMechanismContext = new StabilityStoneCoverFailureMechanismContext(failureMechanism, new TestAssessmentSection());
+                var failureMechanismContext = new StabilityStoneCoverFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
 
                 var foreshoreProfileA = new TestForeshoreProfile(new Point2D(1.3, 1.3));
                 var foreshoreProfileB = new TestForeshoreProfile(new Point2D(1.5, 1.5));
@@ -524,7 +520,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
                 var map = (MapControl) view.Controls[0];
 
                 var failureMechanism = new StabilityStoneCoverFailureMechanism();
-                var failureMechanismContext = new StabilityStoneCoverFailureMechanismContext(failureMechanism, new TestAssessmentSection());
+                var failureMechanismContext = new StabilityStoneCoverFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
 
                 var foreshoreProfileA = new TestForeshoreProfile(new Point2D(1.3, 1.3));
 
@@ -567,7 +563,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
             {
                 var map = (MapControl) view.Controls[0];
 
-                var assessmentSection = new TestAssessmentSection();
+                var assessmentSection = new ObservableTestAssessmentSectionStub();
                 var failureMechanism = new StabilityStoneCoverFailureMechanism();
                 var failureMechanismContext = new StabilityStoneCoverFailureMechanismContext(failureMechanism, assessmentSection);
 
@@ -643,8 +639,8 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
         public void NotifyObservers_DataUpdatedNotifyObserversOnOldData_NoUpdateInViewData()
         {
             // Setup
-            IAssessmentSection oldAssessmentSection = new TestAssessmentSection();
-            IAssessmentSection newAssessmentSection = new TestAssessmentSection();
+            IAssessmentSection oldAssessmentSection = new ObservableTestAssessmentSectionStub();
+            IAssessmentSection newAssessmentSection = new ObservableTestAssessmentSectionStub();
 
             newAssessmentSection.ReferenceLine = new ReferenceLine();
             newAssessmentSection.ReferenceLine.SetGeometry(new[]
@@ -746,27 +742,6 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
             Assert.AreEqual("Vakindeling (eindpunten)", sectionsEndPointMapData.Name);
             Assert.AreEqual("Hydraulische randvoorwaarden", hydraulicBoundaryLocationsMapData.Name);
             Assert.AreEqual("Berekeningen", calculationsMapData.Name);
-        }
-
-        private class TestAssessmentSection : Observable, IAssessmentSection
-        {
-            public string Id { get; set; }
-            public string Name { get; set; }
-            public Comment Comments { get; private set; }
-            public AssessmentSectionComposition Composition { get; private set; }
-            public ReferenceLine ReferenceLine { get; set; }
-            public FailureMechanismContribution FailureMechanismContribution { get; private set; }
-            public HydraulicBoundaryDatabase HydraulicBoundaryDatabase { get; set; }
-
-            public IEnumerable<IFailureMechanism> GetFailureMechanisms()
-            {
-                yield break;
-            }
-
-            public void ChangeComposition(AssessmentSectionComposition newComposition)
-            {
-                throw new NotImplementedException();
-            }
         }
     }
 }

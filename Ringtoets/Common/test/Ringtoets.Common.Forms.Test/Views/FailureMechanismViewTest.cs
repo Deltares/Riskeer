@@ -19,19 +19,15 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Components.DotSpatial.Forms;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Forms;
 using NUnit.Framework;
-using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
@@ -85,7 +81,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             using (var view = new FailureMechanismView<TestFailureMechanism>())
             {
                 var failureMechanism = new TestFailureMechanism();
-                var failureMechanismContext = new FailureMechanismContext<TestFailureMechanism>(failureMechanism, new TestAssessmentSection());
+                var failureMechanismContext = new FailureMechanismContext<TestFailureMechanism>(failureMechanism, new ObservableTestAssessmentSectionStub());
 
                 // Call
                 view.Data = failureMechanismContext;
@@ -118,7 +114,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             // Setup
             using (var view = new FailureMechanismView<TestFailureMechanism>())
             {
-                var failureMechanismContext = new FailureMechanismContext<TestFailureMechanism>(new TestFailureMechanism(), new TestAssessmentSection());
+                var failureMechanismContext = new FailureMechanismContext<TestFailureMechanism>(new TestFailureMechanism(), new ObservableTestAssessmentSectionStub());
 
                 view.Data = failureMechanismContext;
 
@@ -140,7 +136,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             // Setup
             using (var view = new FailureMechanismView<TestFailureMechanism>())
             {
-                var failureMechanismContext = new FailureMechanismContext<TestFailureMechanism>(new TestFailureMechanism(), new TestAssessmentSection());
+                var failureMechanismContext = new FailureMechanismContext<TestFailureMechanism>(new TestFailureMechanism(), new ObservableTestAssessmentSectionStub());
 
                 // Call
                 view.Data = failureMechanismContext;
@@ -182,7 +178,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                     new Point2D(2.0, 1.0)
                 });
 
-                var assessmentSection = new TestAssessmentSection
+                var assessmentSection = new ObservableTestAssessmentSectionStub
                 {
                     HydraulicBoundaryDatabase = hydraulicBoundaryDatabase,
                     ReferenceLine = referenceLine
@@ -237,7 +233,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                     }
                 };
 
-                var assessmentSection = new TestAssessmentSection
+                var assessmentSection = new ObservableTestAssessmentSectionStub
                 {
                     HydraulicBoundaryDatabase = hydraulicBoundaryDatabase1
                 };
@@ -276,7 +272,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                     }
                 };
 
-                var assessmentSection = new TestAssessmentSection
+                var assessmentSection = new ObservableTestAssessmentSectionStub
                 {
                     HydraulicBoundaryDatabase = hydraulicBoundaryDatabase
                 };
@@ -322,7 +318,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                     }
                 };
 
-                var assessmentSection = new TestAssessmentSection
+                var assessmentSection = new ObservableTestAssessmentSectionStub
                 {
                     HydraulicBoundaryDatabase = currentHydraulicBoundaryDatabase
                 };
@@ -365,7 +361,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                     new Point2D(4.0, 3.0)
                 };
 
-                var assessmentSection = new TestAssessmentSection
+                var assessmentSection = new ObservableTestAssessmentSectionStub
                 {
                     ReferenceLine = new ReferenceLine()
                 };
@@ -398,7 +394,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                 var map = (MapControl) view.Controls[0];
 
                 var failureMechanism = new TestFailureMechanism();
-                var failureMechanismContext = new FailureMechanismContext<TestFailureMechanism>(failureMechanism, new TestAssessmentSection());
+                var failureMechanismContext = new FailureMechanismContext<TestFailureMechanism>(failureMechanism, new ObservableTestAssessmentSectionStub());
 
                 view.Data = failureMechanismContext;
 
@@ -435,7 +431,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             {
                 var map = (MapControl) view.Controls[0];
 
-                var assessmentSection = new TestAssessmentSection();
+                var assessmentSection = new ObservableTestAssessmentSectionStub();
                 var failureMechanism = new TestFailureMechanism();
                 var failureMechanismContext = new FailureMechanismContext<TestFailureMechanism>(failureMechanism, assessmentSection);
 
@@ -499,8 +495,8 @@ namespace Ringtoets.Common.Forms.Test.Views
         public void NotifyObservers_DataUpdatedNotifyObserversOnOldData_NoUpdateInViewData()
         {
             // Setup
-            IAssessmentSection oldAssessmentSection = new TestAssessmentSection();
-            IAssessmentSection newAssessmentSection = new TestAssessmentSection();
+            IAssessmentSection oldAssessmentSection = new ObservableTestAssessmentSectionStub();
+            IAssessmentSection newAssessmentSection = new ObservableTestAssessmentSectionStub();
 
             newAssessmentSection.ReferenceLine = new ReferenceLine();
             newAssessmentSection.ReferenceLine.SetGeometry(new[]
@@ -554,27 +550,6 @@ namespace Ringtoets.Common.Forms.Test.Views
             Assert.AreEqual("Vakindeling (startpunten)", sectionsStartPointMapData.Name);
             Assert.AreEqual("Vakindeling (eindpunten)", sectionsEndPointMapData.Name);
             Assert.AreEqual("Hydraulische randvoorwaarden", hydraulicBoundaryLocationsMapData.Name);
-        }
-
-        private class TestAssessmentSection : Observable, IAssessmentSection
-        {
-            public string Id { get; set; }
-            public string Name { get; set; }
-            public Comment Comments { get; private set; }
-            public AssessmentSectionComposition Composition { get; private set; }
-            public ReferenceLine ReferenceLine { get; set; }
-            public FailureMechanismContribution FailureMechanismContribution { get; private set; }
-            public HydraulicBoundaryDatabase HydraulicBoundaryDatabase { get; set; }
-
-            public IEnumerable<IFailureMechanism> GetFailureMechanisms()
-            {
-                yield break;
-            }
-
-            public void ChangeComposition(AssessmentSectionComposition newComposition)
-            {
-                throw new NotImplementedException();
-            }
         }
     }
 }

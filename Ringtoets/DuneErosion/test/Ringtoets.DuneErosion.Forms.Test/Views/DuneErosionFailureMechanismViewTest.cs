@@ -19,21 +19,17 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Components.DotSpatial.Forms;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Forms;
 using NUnit.Framework;
-using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Data.TestUtil;
@@ -86,7 +82,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             using (var view = new DuneErosionFailureMechanismView())
             {
                 var failureMechanism = new DuneErosionFailureMechanism();
-                var failureMechanismContext = new DuneErosionFailureMechanismContext(failureMechanism, new TestAssessmentSection());
+                var failureMechanismContext = new DuneErosionFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
 
                 // Call
                 view.Data = failureMechanismContext;
@@ -119,7 +115,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             // Setup
             using (var view = new DuneErosionFailureMechanismView())
             {
-                var failureMechanismContext = new DuneErosionFailureMechanismContext(new DuneErosionFailureMechanism(), new TestAssessmentSection());
+                var failureMechanismContext = new DuneErosionFailureMechanismContext(new DuneErosionFailureMechanism(), new ObservableTestAssessmentSectionStub());
 
                 view.Data = failureMechanismContext;
 
@@ -141,7 +137,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             // Setup
             using (var view = new DuneErosionFailureMechanismView())
             {
-                var failureMechanismContext = new DuneErosionFailureMechanismContext(new DuneErosionFailureMechanism(), new TestAssessmentSection());
+                var failureMechanismContext = new DuneErosionFailureMechanismContext(new DuneErosionFailureMechanism(), new ObservableTestAssessmentSectionStub());
 
                 // Call
                 view.Data = failureMechanismContext;
@@ -175,7 +171,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
                     new Point2D(2.0, 1.0)
                 });
 
-                var assessmentSection = new TestAssessmentSection
+                var assessmentSection = new ObservableTestAssessmentSectionStub
                 {
                     ReferenceLine = referenceLine
                 };
@@ -220,7 +216,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             {
                 var map = (MapControl) view.Controls[0];
 
-                var assessmentSection = new TestAssessmentSection();
+                var assessmentSection = new ObservableTestAssessmentSectionStub();
                 var duneLocation1 = new TestDuneLocation();
 
                 var failureMechanism = new DuneErosionFailureMechanism
@@ -256,7 +252,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             {
                 var map = (MapControl) view.Controls[0];
 
-                var assessmentSection = new TestAssessmentSection();
+                var assessmentSection = new ObservableTestAssessmentSectionStub();
                 var duneLocation1 = new TestDuneLocation();
 
                 var failureMechanism = new DuneErosionFailureMechanism
@@ -292,7 +288,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             {
                 var map = (MapControl) view.Controls[0];
 
-                var assessmentSection = new TestAssessmentSection();
+                var assessmentSection = new ObservableTestAssessmentSectionStub();
                 var failureMechanism = new DuneErosionFailureMechanism
                 {
                     DuneLocations =
@@ -337,7 +333,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
                     new Point2D(4.0, 3.0)
                 };
 
-                var assessmentSection = new TestAssessmentSection
+                var assessmentSection = new ObservableTestAssessmentSectionStub
                 {
                     ReferenceLine = new ReferenceLine()
                 };
@@ -370,7 +366,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
                 var map = (MapControl) view.Controls[0];
 
                 var failureMechanism = new DuneErosionFailureMechanism();
-                var failureMechanismContext = new DuneErosionFailureMechanismContext(failureMechanism, new TestAssessmentSection());
+                var failureMechanismContext = new DuneErosionFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
 
                 view.Data = failureMechanismContext;
 
@@ -407,7 +403,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             {
                 var map = (MapControl) view.Controls[0];
 
-                var assessmentSection = new TestAssessmentSection();
+                var assessmentSection = new ObservableTestAssessmentSectionStub();
                 var failureMechanism = new DuneErosionFailureMechanism();
                 var failureMechanismContext = new DuneErosionFailureMechanismContext(failureMechanism, assessmentSection);
 
@@ -471,8 +467,8 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
         public void NotifyObservers_DataUpdatedNotifyObserversOnOldData_NoUpdateInViewData()
         {
             // Setup
-            IAssessmentSection oldAssessmentSection = new TestAssessmentSection();
-            IAssessmentSection newAssessmentSection = new TestAssessmentSection();
+            IAssessmentSection oldAssessmentSection = new ObservableTestAssessmentSectionStub();
+            IAssessmentSection newAssessmentSection = new ObservableTestAssessmentSectionStub();
 
             newAssessmentSection.ReferenceLine = new ReferenceLine();
             newAssessmentSection.ReferenceLine.SetGeometry(new[]
@@ -545,27 +541,6 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
                                           duneLocationsMapData.Features.SelectMany(f => f.MapGeometries.First().PointCollections.First()));
             }
             Assert.AreEqual("Hydraulische randvoorwaarden", mapData.Name);
-        }
-
-        private class TestAssessmentSection : Observable, IAssessmentSection
-        {
-            public string Id { get; set; }
-            public string Name { get; set; }
-            public Comment Comments { get; private set; }
-            public AssessmentSectionComposition Composition { get; private set; }
-            public ReferenceLine ReferenceLine { get; set; }
-            public FailureMechanismContribution FailureMechanismContribution { get; private set; }
-            public HydraulicBoundaryDatabase HydraulicBoundaryDatabase { get; set; }
-
-            public IEnumerable<IFailureMechanism> GetFailureMechanisms()
-            {
-                yield break;
-            }
-
-            public void ChangeComposition(AssessmentSectionComposition newComposition)
-            {
-                throw new NotImplementedException();
-            }
         }
     }
 }

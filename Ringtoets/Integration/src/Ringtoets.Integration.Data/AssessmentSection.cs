@@ -23,6 +23,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
+using Core.Components.Gis.Data;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -58,6 +59,8 @@ namespace Ringtoets.Integration.Data
         {
             Name = Resources.AssessmentSection_DisplayName;
             Comments = new Comment();
+
+            BackgroundMapData = WmtsMapData.CreateUnconnectedMapData();
 
             PipingFailureMechanism = new PipingFailureMechanism();
             GrassCoverErosionInwards = new GrassCoverErosionInwardsFailureMechanism();
@@ -201,6 +204,8 @@ namespace Ringtoets.Integration.Data
         public FailureMechanismContribution FailureMechanismContribution { get; private set; }
 
         public HydraulicBoundaryDatabase HydraulicBoundaryDatabase { get; set; }
+
+        public WmtsMapData BackgroundMapData { get; }
 
         public IEnumerable<IFailureMechanism> GetFailureMechanisms()
         {

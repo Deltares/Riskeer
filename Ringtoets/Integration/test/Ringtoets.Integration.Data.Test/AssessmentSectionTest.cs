@@ -28,7 +28,6 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
-using RingtoetsIntegrationResources = Ringtoets.Integration.Data.Properties.Resources;
 
 namespace Ringtoets.Integration.Data.Test
 {
@@ -143,6 +142,9 @@ namespace Ringtoets.Integration.Data.Test
             Assert.AreEqual(double.NaN, section.PipingFailureMechanism.PipingProbabilityAssessmentInput.SectionLength);
 
             Assert.AreEqual(sum, section.FailureMechanismContribution.Distribution.Sum(d => d.Contribution));
+
+            Assert.IsFalse(section.BackgroundMapData.IsConfigured);
+            Assert.AreEqual(0.0, section.BackgroundMapData.Transparency.Value);
         }
 
         [Test]

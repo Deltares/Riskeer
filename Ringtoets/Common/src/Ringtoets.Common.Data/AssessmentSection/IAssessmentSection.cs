@@ -21,6 +21,7 @@
 
 using System.Collections.Generic;
 using Core.Common.Base;
+using Core.Components.Gis.Data;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
@@ -67,6 +68,11 @@ namespace Ringtoets.Common.Data.AssessmentSection
         /// Gets or sets the hydraulic boundary database.
         /// </summary>
         HydraulicBoundaryDatabase HydraulicBoundaryDatabase { get; set; }
+
+        /// <summary>
+        /// The layer that represents the background for all geo-referenced data.
+        /// </summary>
+        WmtsMapData BackgroundMapData { get; }
 
         /// <summary>
         /// Gets the failure mechanisms corresponding to the assessment section.
