@@ -69,7 +69,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
                 var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
 
                 // Assert
-                Assert.IsInstanceOf<HydraulicBoundaryLocationCalculationGuiService>(guiService);
+                Assert.IsInstanceOf<IHydraulicBoundaryLocationCalculationGuiService>(guiService);
             }
         }
 

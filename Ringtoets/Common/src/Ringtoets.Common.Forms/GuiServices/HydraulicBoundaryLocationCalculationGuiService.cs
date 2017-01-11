@@ -52,7 +52,7 @@ namespace Ringtoets.Common.Forms.GuiServices
         {
             if (viewParent == null)
             {
-                throw new ArgumentNullException("viewParent");
+                throw new ArgumentNullException(nameof(viewParent));
             }
             this.viewParent = viewParent;
         }

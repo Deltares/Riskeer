@@ -140,7 +140,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
         }
 
         [Test]
-        public void Data_OtherThanDuneLocations_ThrowsInvalidCastException()
+        public void Data_OtherThanObservableListOfDuneLocations_ThrowsInvalidCastException()
         {
             // Setup
             var view = ShowDuneLocationsView();
