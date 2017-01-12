@@ -220,6 +220,18 @@ namespace Core.Common.Controls.DataGrid
             dataGridView.Columns.Add(dataGridViewComboBoxColumn);
         }
 
+        public void AddColorColumn(string dataPropertyName, string headerText, DataGridViewAutoSizeColumnMode autoSizeMode = DataGridViewAutoSizeColumnMode.AllCells)
+        {
+            var colorColumn = new DataGridViewColorColumn
+            {
+                DataPropertyName = dataPropertyName,
+                HeaderText = headerText,
+                AutoSizeMode = autoSizeMode
+            };
+
+            dataGridView.Columns.Add(colorColumn);
+        }
+
         /// <summary>
         /// Sets the datasource on the <see cref="DataGridView"/>.
         /// </summary>

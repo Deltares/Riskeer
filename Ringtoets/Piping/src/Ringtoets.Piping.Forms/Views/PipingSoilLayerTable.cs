@@ -19,15 +19,21 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
 using Core.Common.Controls.DataGrid;
 using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.Forms.Views
 {
+    /// <summary>
+    /// This class defines a table in which properties of <see cref="PipingSoilLayer"/> instances
+    /// are shown as rows.
+    /// </summary>
     public class PipingSoilLayerTable : DataGridViewControl
     {
+        /// <summary>
+        /// Creates a new instance of <see cref="PipingSoilLayerTable"/>.
+        /// </summary>
         public PipingSoilLayerTable()
         {
             AddColumns();
@@ -46,7 +52,7 @@ namespace Ringtoets.Piping.Forms.Views
         private void AddColumns()
         {
             AddTextBoxColumn(nameof(PipingSoilLayer.MaterialName), "Naam", true);
-            AddTextBoxColumn(nameof(PipingSoilLayer.Color), "Kleur", true);
+            AddColorColumn(nameof(PipingSoilLayer.Color), "Kleur");
             AddTextBoxColumn(nameof(PipingSoilLayer.Top), "Topniveau [m+NAP]", true);
             AddCheckBoxColumn(nameof(PipingSoilLayer.IsAquifer), "Is aquifer", true);
             AddTextBoxColumn(nameof(PipingSoilLayer.PermeabilityMean), "Doorlatendheid (verwachtingswaarde) [m/s]", true);

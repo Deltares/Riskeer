@@ -80,6 +80,8 @@
     </Compile>
     <Compile Include="Commands\ICommand.cs" />
     <Compile Include="DataGrid\CellStyle.cs" />
+    <Compile Include="DataGrid\DataGridViewColorCell.cs" />
+    <Compile Include="DataGrid\DataGridViewColorColumn.cs" />
     <Compile Include="DataGrid\DoubleBufferedDataGridView.cs">
       <SubType>Component</SubType>
     </Compile>

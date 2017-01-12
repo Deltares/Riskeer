@@ -57,6 +57,8 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="DataGrid\CellStyleTest.cs" />
+    <Compile Include="DataGrid\DataGridViewColorCellTest.cs" />
+    <Compile Include="DataGrid\DataGridViewColorColumnTest.cs" />
     <Compile Include="DataGrid\DataGridViewComboBoxItemWrapperTest.cs" />
     <Compile Include="DataGrid\DataGridViewControlTest.cs" />
     <Compile Include="DataGrid\DoubleBufferedDataGridViewTest.cs" />

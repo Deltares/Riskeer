@@ -416,7 +416,7 @@ namespace Core.Common.TestUtil
             {
                 for (int j = 0; j < bitmap.Width; j++)
                 {
-                    imageColors[index++] = bitmap.GetPixel(i, j);
+                    imageColors[index++] = bitmap.GetPixel(j, i);
                 }
             }
             return imageColors;
