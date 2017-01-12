@@ -22,8 +22,10 @@
 using System;
 using System.Drawing;
 using System.Windows.Forms;
+using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Piping.Forms.Views;
 using Ringtoets.Piping.Primitives;
 
@@ -164,19 +166,33 @@ namespace Ringtoets.Piping.Forms.Test.Views
             Assert.AreEqual(3, table.Rows.Count);
             for (int i = 0; i < table.Rows.Count; i++)
             {
-                DataGridViewRow tableRow = table.Rows[i];
-                Assert.NotNull(tableRow);
-                Assert.AreEqual(layers[i].MaterialName, tableRow.Cells[nameColumnIndex].Value);
-                Assert.AreEqual(layers[i].Color, tableRow.Cells[colorColumnIndex].Value);
-                Assert.AreEqual(layers[i].Top, tableRow.Cells[topColumnIndex].Value);
-                Assert.AreEqual(layers[i].IsAquifer, tableRow.Cells[isAquiferColumnIndex].Value);
-                Assert.AreEqual(layers[i].PermeabilityMean, tableRow.Cells[permeabilityMeanColumnIndex].Value);
-                Assert.AreEqual(layers[i].PermeabilityDeviation, tableRow.Cells[permeabilityDeviationColumnIndex].Value);
-                Assert.AreEqual(layers[i].DiameterD70Mean, tableRow.Cells[d70MeanColumnIndex].Value);
-                Assert.AreEqual(layers[i].DiameterD70Deviation, tableRow.Cells[d70DeviationColumnIndex].Value);
-                Assert.AreEqual(layers[i].BelowPhreaticLevelMean, tableRow.Cells[belowPhreaticLevelWeightMeanColumnIndex].Value);
-                Assert.AreEqual(layers[i].BelowPhreaticLevelDeviation, tableRow.Cells[belowPhreaticLevelWeightDeviationColumnIndex].Value);
-                Assert.AreEqual(layers[i].BelowPhreaticLevelShift, tableRow.Cells[belowPhreaticLevelWeightShiftColumnIndex].Value);
+                var pipingSoilLayer = layers[i];
+                var rowCells = table.Rows[i].Cells;
+                AssertColumnValueEqual(pipingSoilLayer.MaterialName, rowCells[nameColumnIndex].Value);
+                AssertColumnValueEqual(pipingSoilLayer.Color, rowCells[colorColumnIndex].Value);
+                AssertColumnValueEqual(pipingSoilLayer.Top, rowCells[topColumnIndex].Value);
+                AssertColumnValueEqual(pipingSoilLayer.IsAquifer, rowCells[isAquiferColumnIndex].Value);
+                AssertColumnValueEqual(pipingSoilLayer.PermeabilityMean, rowCells[permeabilityMeanColumnIndex].Value);
+                AssertColumnValueEqual(pipingSoilLayer.PermeabilityDeviation, rowCells[permeabilityDeviationColumnIndex].Value);
+                AssertColumnValueEqual(pipingSoilLayer.DiameterD70Mean, rowCells[d70MeanColumnIndex].Value);
+                AssertColumnValueEqual(pipingSoilLayer.DiameterD70Deviation, rowCells[d70DeviationColumnIndex].Value);
+                AssertColumnValueEqual(pipingSoilLayer.BelowPhreaticLevelMean, rowCells[belowPhreaticLevelWeightMeanColumnIndex].Value);
+                AssertColumnValueEqual(pipingSoilLayer.BelowPhreaticLevelDeviation, rowCells[belowPhreaticLevelWeightDeviationColumnIndex].Value);
+                AssertColumnValueEqual(pipingSoilLayer.BelowPhreaticLevelShift, rowCells[belowPhreaticLevelWeightShiftColumnIndex].Value);
+            }
+        }
+
+        private void AssertColumnValueEqual(object expectedValue, object actualValue)
+        {
+            if (expectedValue is string || expectedValue is Color)
+            {
+                Assert.AreEqual(expectedValue, actualValue);
+            }
+            if (expectedValue is RoundedDouble)
+            {
+                Assert.IsInstanceOf<RoundedDouble>(actualValue);
+                var expectedRoundedDouble = (RoundedDouble)expectedValue;
+                Assert.AreEqual(expectedRoundedDouble, (RoundedDouble)actualValue, expectedRoundedDouble.GetAccuracy());
             }
         }
 

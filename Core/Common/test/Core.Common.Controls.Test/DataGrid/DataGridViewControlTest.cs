@@ -528,6 +528,75 @@ namespace Core.Common.Controls.Test.DataGrid
         }
 
         [Test]
+        public void AddColorColumn_WithoutAutoSizeMode_AddsReadOnlyColumnToDataGridViewWithDefaultAutoSizeMode()
+        {
+            // Setup
+            using (var form = new Form())
+            using (var control = new DataGridViewControl())
+            {
+                var propertyName = "PropertyName";
+                var headerText = "HeaderText";
+
+                form.Controls.Add(control);
+                form.Show();
+
+                var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+
+                // Precondition
+                Assert.AreEqual(0, dataGridView.ColumnCount);
+
+                // Call
+                control.AddColorColumn(propertyName, headerText);
+
+                // Assert
+                Assert.AreEqual(1, dataGridView.ColumnCount);
+
+                DataGridViewColorColumn columnData = (DataGridViewColorColumn)dataGridView.Columns[0];
+                Assert.AreEqual(propertyName, columnData.DataPropertyName);
+                Assert.AreEqual($"column_{propertyName}", columnData.Name);
+                Assert.AreEqual(headerText, columnData.HeaderText);
+                Assert.IsTrue(columnData.ReadOnly);
+                Assert.AreEqual(DataGridViewAutoSizeColumnMode.AllCells, columnData.AutoSizeMode);
+                Assert.AreEqual(DataGridViewContentAlignment.MiddleCenter, columnData.HeaderCell.Style.Alignment);
+            }
+        }
+
+        [Test]
+        public void AddColorColumn_WithAutoSizeMode_AddsColumnToDataGridViewWithAutoSizeMode()
+        {
+            // Setup
+            using (var form = new Form())
+            using (var control = new DataGridViewControl())
+            {
+                var propertyName = "PropertyName";
+                var headerText = "HeaderText";
+
+                form.Controls.Add(control);
+                form.Show();
+
+                var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+
+                var autoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+
+                // Precondition
+                Assert.AreEqual(0, dataGridView.ColumnCount);
+
+                // Call
+                control.AddColorColumn(propertyName, headerText, autoSizeMode);
+
+                // Assert
+                Assert.AreEqual(1, dataGridView.ColumnCount);
+
+                DataGridViewColorColumn columnData = (DataGridViewColorColumn)dataGridView.Columns[0];
+                Assert.AreEqual(propertyName, columnData.DataPropertyName);
+                Assert.AreEqual($"column_{propertyName}", columnData.Name);
+                Assert.AreEqual(headerText, columnData.HeaderText);
+                Assert.IsTrue(columnData.ReadOnly);
+                Assert.AreEqual(autoSizeMode, columnData.AutoSizeMode);
+            }
+        }
+
+        [Test]
         public void SetDataSource_Always_SetsDataSourceOnDataGridView()
         {
             // Setup
