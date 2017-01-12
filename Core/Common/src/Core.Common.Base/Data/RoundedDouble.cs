@@ -46,9 +46,6 @@ namespace Core.Common.Base.Data
         /// <seealso cref="double.NaN"/>
         public static readonly RoundedDouble NaN = new RoundedDouble(MaximumNumberOfDecimalPlaces, double.NaN);
 
-        private readonly double value;
-        private readonly int numberOfDecimalPlaces;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="RoundedDouble"/> class with a 
         /// given value.
@@ -62,31 +59,19 @@ namespace Core.Common.Base.Data
         {
             ValidateNumberOfDecimalPlaces(numberOfDecimalPlaces);
 
-            this.numberOfDecimalPlaces = numberOfDecimalPlaces;
-            this.value = RoundDouble(value, numberOfDecimalPlaces);
+            this.NumberOfDecimalPlaces = numberOfDecimalPlaces;
+            this.Value = RoundDouble(value, numberOfDecimalPlaces);
         }
 
         /// <summary>
         /// Gets the number of decimal places use to round <see cref="Value"/> to.
         /// </summary>
-        public int NumberOfDecimalPlaces
-        {
-            get
-            {
-                return numberOfDecimalPlaces;
-            }
-        }
+        public int NumberOfDecimalPlaces { get; }
 
         /// <summary>
         /// Gets the value.
         /// </summary>
-        public double Value
-        {
-            get
-            {
-                return value;
-            }
-        }
+        public double Value { get; }
 
         public static bool operator ==(RoundedDouble left, RoundedDouble right)
         {
@@ -100,37 +85,37 @@ namespace Core.Common.Base.Data
 
         public static RoundedDouble operator -(RoundedDouble left, RoundedDouble right)
         {
-            int smallestNumberOfDecimalPlaces = Math.Min(left.numberOfDecimalPlaces, right.numberOfDecimalPlaces);
+            int smallestNumberOfDecimalPlaces = Math.Min(left.NumberOfDecimalPlaces, right.NumberOfDecimalPlaces);
             return new RoundedDouble(smallestNumberOfDecimalPlaces,
-                                     left.value - right.value);
+                                     left.Value - right.Value);
         }
 
         public static RoundedDouble operator +(RoundedDouble left, RoundedDouble right)
         {
-            int smallestNumberOfDecimalPlaces = Math.Min(left.numberOfDecimalPlaces, right.numberOfDecimalPlaces);
+            int smallestNumberOfDecimalPlaces = Math.Min(left.NumberOfDecimalPlaces, right.NumberOfDecimalPlaces);
             return new RoundedDouble(smallestNumberOfDecimalPlaces,
-                                     left.value + right.value);
+                                     left.Value + right.Value);
         }
 
         public static RoundedDouble operator *(RoundedDouble left, double right)
         {
-            return new RoundedDouble(left.numberOfDecimalPlaces, left.value*right);
+            return new RoundedDouble(left.NumberOfDecimalPlaces, left.Value * right);
         }
 
         public static RoundedDouble operator *(double left, RoundedDouble right)
         {
-            return new RoundedDouble(right.numberOfDecimalPlaces, left*right.value);
+            return new RoundedDouble(right.NumberOfDecimalPlaces, left * right.Value);
         }
 
         public static RoundedDouble operator *(RoundedDouble left, RoundedDouble right)
         {
-            int smallestNumberOfDecimalPlaces = Math.Min(left.numberOfDecimalPlaces, right.numberOfDecimalPlaces);
-            return new RoundedDouble(smallestNumberOfDecimalPlaces, left.value*right.value);
+            int smallestNumberOfDecimalPlaces = Math.Min(left.NumberOfDecimalPlaces, right.NumberOfDecimalPlaces);
+            return new RoundedDouble(smallestNumberOfDecimalPlaces, left.Value * right.Value);
         }
 
         public static implicit operator double(RoundedDouble d)
         {
-            return d.value;
+            return d.Value;
         }
 
         public static explicit operator RoundedDouble(double d)
@@ -150,7 +135,47 @@ namespace Core.Common.Base.Data
             {
                 return this;
             }
-            return new RoundedDouble(newNumberOfDecimalPlaces, value);
+            return new RoundedDouble(newNumberOfDecimalPlaces, Value);
+        }
+
+        public static bool operator <(RoundedDouble left, RoundedDouble right)
+        {
+            return left.Value < right.Value;
+        }
+
+        public static bool operator <=(RoundedDouble left, RoundedDouble right)
+        {
+            return left.Value <= right.Value;
+        }
+
+        public static bool operator >(RoundedDouble left, RoundedDouble right)
+        {
+            return left.Value > right.Value;
+        }
+
+        public static bool operator >=(RoundedDouble left, RoundedDouble right)
+        {
+            return left.Value >= right.Value;
+        }
+
+        public static bool operator <(RoundedDouble left, double right)
+        {
+            return left.Value < right;
+        }
+
+        public static bool operator <=(RoundedDouble left, double right)
+        {
+            return left.Value <= right;
+        }
+
+        public static bool operator >(RoundedDouble left, double right)
+        {
+            return left.Value > right;
+        }
+
+        public static bool operator >=(RoundedDouble left, double right)
+        {
+            return left.Value >= right;
         }
 
         public override bool Equals(object obj)
@@ -198,12 +223,12 @@ namespace Core.Common.Base.Data
 
         public int CompareTo(double other)
         {
-            return value.CompareTo(other);
+            return Value.CompareTo(other);
         }
 
         public int CompareTo(RoundedDouble other)
         {
-            return value.CompareTo(other.value);
+            return Value.CompareTo(other.Value);
         }
 
         public bool Equals(double other)
@@ -218,11 +243,11 @@ namespace Core.Common.Base.Data
 
         public string ToString(string format, IFormatProvider formatProvider)
         {
-            if (double.IsPositiveInfinity(value))
+            if (double.IsPositiveInfinity(Value))
             {
                 return Resources.RoundedDouble_ToString_PositiveInfinity;
             }
-            if (double.IsNegativeInfinity(value))
+            if (double.IsNegativeInfinity(Value))
             {
                 return Resources.RoundedDouble_ToString_NegativeInfinity;
             }

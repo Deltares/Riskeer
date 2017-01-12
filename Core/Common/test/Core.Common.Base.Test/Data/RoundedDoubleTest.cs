@@ -714,8 +714,8 @@ namespace Core.Common.Base.Test.Data
             double doubleValue = 5.67891234;
 
             // Call
-            RoundedDouble result1 = roundedDouble*doubleValue;
-            RoundedDouble result2 = doubleValue*roundedDouble;
+            RoundedDouble result1 = roundedDouble * doubleValue;
+            RoundedDouble result2 = doubleValue * roundedDouble;
 
             // Assert
             Assert.AreEqual(roundedDouble.NumberOfDecimalPlaces, result1.NumberOfDecimalPlaces);
@@ -733,7 +733,7 @@ namespace Core.Common.Base.Test.Data
             var roundedDouble2 = new RoundedDouble(5, -3.45678);
 
             // Call
-            RoundedDouble result = roundedDouble1*roundedDouble2;
+            RoundedDouble result = roundedDouble1 * roundedDouble2;
 
             // Assert
             Assert.AreEqual(2, result.NumberOfDecimalPlaces);
@@ -748,7 +748,7 @@ namespace Core.Common.Base.Test.Data
             var roundedDouble2 = new RoundedDouble(3, -9.123);
 
             // Call
-            RoundedDouble result = roundedDouble1*roundedDouble2;
+            RoundedDouble result = roundedDouble1 * roundedDouble2;
 
             // Assert
             Assert.AreEqual(3, result.NumberOfDecimalPlaces);
@@ -763,8 +763,8 @@ namespace Core.Common.Base.Test.Data
             var roundedDouble2 = new RoundedDouble(2, 2.22);
 
             // Call
-            RoundedDouble result1 = roundedDouble1*roundedDouble2;
-            RoundedDouble result2 = roundedDouble2*roundedDouble1;
+            RoundedDouble result1 = roundedDouble1 * roundedDouble2;
+            RoundedDouble result2 = roundedDouble2 * roundedDouble1;
 
             // Assert
             Assert.AreEqual(result1.NumberOfDecimalPlaces, result2.NumberOfDecimalPlaces);
@@ -833,7 +833,7 @@ namespace Core.Common.Base.Test.Data
 
             // Assert
             Assert.AreEqual(expectedRoundedDoubleIndex, roundedDoubleResult);
-            Assert.AreEqual(-1*expectedRoundedDoubleIndex, doubleResult);
+            Assert.AreEqual(-1 * expectedRoundedDoubleIndex, doubleResult);
         }
 
         [Test]
@@ -862,7 +862,7 @@ namespace Core.Common.Base.Test.Data
 
             // Assert
             Assert.AreEqual(expectedRoundedDoubleIndex, roundedDouble1Result);
-            Assert.AreEqual(-1*expectedRoundedDoubleIndex, roundedDouble2Result);
+            Assert.AreEqual(-1 * expectedRoundedDoubleIndex, roundedDouble2Result);
         }
 
         [Test]
@@ -911,6 +911,326 @@ namespace Core.Common.Base.Test.Data
             Assert.AreEqual(expectedValue, roundedDoubleResult12);
             Assert.AreEqual(expectedValue, roundedDoubleResult23);
             Assert.AreEqual(expectedValue, roundedDoubleResult13);
+        }
+
+        [Test]
+        [TestCase(11, 10, false)]
+        [TestCase(10, 11, true)]
+        [TestCase(10.05, 10, false)]
+        [TestCase(10, 10.05, true)]
+        public void OperatorLess_VaryingDouble_ReturnsExpectedValues(double roundedDoubleValue, double value,
+                                                                     bool isRoundedDoubleLess)
+        {
+            // Setup
+            var roundedDouble = new RoundedDouble(1, roundedDoubleValue);
+
+            // Call 
+            bool roundedDoubleIsLess = roundedDouble < value;
+            bool doubleIsLess = value < roundedDouble;
+
+            // Assert
+            Assert.AreEqual(isRoundedDoubleLess, roundedDoubleIsLess);
+            Assert.AreEqual(!isRoundedDoubleLess, doubleIsLess);
+        }
+
+        [Test]
+        [TestCase(10, 10)]
+        [TestCase(9.95, 10)]
+        [TestCase(10.005, 10)]
+        public void OperatorLess_RoundedDoubleEqualDouble_ReturnsFalse(double roundedDoubleValue, double value)
+        {
+            // Setup
+            var roundedDouble = new RoundedDouble(1, roundedDoubleValue);
+
+            // Call 
+            bool roundedDoubleIsLess = roundedDouble < value;
+            bool doubleIsLess = value < roundedDouble;
+
+            // Assert
+            Assert.IsFalse(roundedDoubleIsLess);
+            Assert.IsFalse(doubleIsLess);
+        }
+
+        [Test]
+        [TestCase(11, 10, false)]
+        [TestCase(10, 11, true)]
+        [TestCase(10.05, 10, false)]
+        [TestCase(10, 10.05, true)]
+        public void OperatorLess_VaryingRoundedDouble_ReturnsExpectedValues(double roundedDoubleValue1, double roundedDoubleValue2,
+                                                                            bool isRoundedDoubleOneLess)
+        {
+            // Setup
+            var roundedDoubleOne = new RoundedDouble(1, roundedDoubleValue1);
+            var roundedDoubleTwo = new RoundedDouble(1, roundedDoubleValue2);
+
+            // Call 
+            bool roundedDoubleIsLess = roundedDoubleOne < roundedDoubleTwo;
+            bool isLessDouble = roundedDoubleTwo < roundedDoubleOne;
+
+            // Assert
+            Assert.AreEqual(isRoundedDoubleOneLess, roundedDoubleIsLess);
+            Assert.AreEqual(!isRoundedDoubleOneLess, isLessDouble);
+        }
+
+        [Test]
+        [TestCase(10, 10)]
+        [TestCase(9.95, 10)]
+        [TestCase(10.04, 10)]
+        [TestCase(10, 9.95)]
+        [TestCase(10, 10.04)]
+        public void OperatorLess_RoundedDoubleEqualRoundedDouble_ReturnsFalse(double roundedDoubleValue1, double roundedDoubleValue2)
+        {
+            // Setup
+            var roundedDouble1 = new RoundedDouble(1, roundedDoubleValue1);
+            var roundedDouble2 = new RoundedDouble(1, roundedDoubleValue2);
+
+            // Call 
+            bool roundedDoubleOneIsLess = roundedDouble1 < roundedDouble2;
+            bool roundedDoubleTwoIsLess = roundedDouble2 < roundedDouble1;
+
+            // Assert
+            Assert.IsFalse(roundedDoubleOneIsLess);
+            Assert.IsFalse(roundedDoubleTwoIsLess);
+        }
+
+        [Test]
+        [TestCase(11, 10, false)]
+        [TestCase(10, 11, true)]
+        [TestCase(10.05, 10, false)]
+        [TestCase(10, 10.05, true)]
+        public void OperatorLessOrEqual_VaryingDouble_ReturnsExpectedValues(double roundedDoubleValue, double value,
+                                                                            bool isRoundedDoubleLess)
+        {
+            // Setup
+            var roundedDouble = new RoundedDouble(1, roundedDoubleValue);
+
+            // Call 
+            bool roundedDoubleIsLess = roundedDouble <= value;
+            bool doubleIsLess = value <= roundedDouble;
+
+            // Assert
+            Assert.AreEqual(isRoundedDoubleLess, roundedDoubleIsLess);
+            Assert.AreEqual(!isRoundedDoubleLess, doubleIsLess);
+        }
+
+        [Test]
+        [TestCase(10, 10)]
+        [TestCase(9.95, 10)]
+        [TestCase(10.005, 10)]
+        public void OperatorLessOrEqual_RoundedDoubleEqualDouble_ReturnsTrue(double roundedDoubleValue, double value)
+        {
+            // Setup
+            var roundedDouble = new RoundedDouble(1, roundedDoubleValue);
+
+            // Call 
+            bool roundedDoubleIsLess = roundedDouble <= value;
+            bool doubleIsLess = value <= roundedDouble;
+
+            // Assert
+            Assert.IsTrue(roundedDoubleIsLess);
+            Assert.IsTrue(doubleIsLess);
+        }
+
+        [Test]
+        [TestCase(11, 10, false)]
+        [TestCase(10, 11, true)]
+        [TestCase(10.05, 10, false)]
+        [TestCase(10, 10.05, true)]
+        public void OperatorLessOrEqual_VaryingRoundedDouble_ReturnsExpectedValues(double roundedDoubleValue1, double roundedDoubleValue2,
+                                                                                   bool isRoundedDoubleOneLess)
+        {
+            // Setup
+            var roundedDoubleOne = new RoundedDouble(1, roundedDoubleValue1);
+            var roundedDoubleTwo = new RoundedDouble(1, roundedDoubleValue2);
+
+            // Call 
+            bool roundedDoubleIsLess = roundedDoubleOne <= roundedDoubleTwo;
+            bool isLessDouble = roundedDoubleTwo <= roundedDoubleOne;
+
+            // Assert
+            Assert.AreEqual(isRoundedDoubleOneLess, roundedDoubleIsLess);
+            Assert.AreEqual(!isRoundedDoubleOneLess, isLessDouble);
+        }
+
+        [Test]
+        [TestCase(10, 10)]
+        [TestCase(9.95, 10)]
+        [TestCase(10.04, 10)]
+        [TestCase(10, 9.95)]
+        [TestCase(10, 10.04)]
+        public void OperatorLessOrEqual_RoundedDoubleEqualRoundedDouble_ReturnsTrue(double roundedDoubleValue1, double roundedDoubleValue2)
+        {
+            // Setup
+            var roundedDouble1 = new RoundedDouble(1, roundedDoubleValue1);
+            var roundedDouble2 = new RoundedDouble(1, roundedDoubleValue2);
+
+            // Call 
+            bool roundedDoubleOneIsLess = roundedDouble1 <= roundedDouble2;
+            bool roundedDoubleTwoIsLess = roundedDouble2 <= roundedDouble1;
+
+            // Assert
+            Assert.IsTrue(roundedDoubleOneIsLess);
+            Assert.IsTrue(roundedDoubleTwoIsLess);
+        }
+
+        [Test]
+        [TestCase(11, 10, true)]
+        [TestCase(10, 11, false)]
+        [TestCase(10.05, 10, true)]
+        [TestCase(10, 10.05, false)]
+        public void OperatorGreater_VaryingDouble_ReturnsExpectedValues(double roundedDoubleValue, double value,
+                                                                        bool isRoundedDoubleGreater)
+        {
+            // Setup
+            var roundedDouble = new RoundedDouble(1, roundedDoubleValue);
+
+            // Call 
+            bool roundedDoubleIsGreater = roundedDouble > value;
+            bool doubleIsGreater = value > roundedDouble;
+
+            // Assert
+            Assert.AreEqual(isRoundedDoubleGreater, roundedDoubleIsGreater);
+            Assert.AreEqual(!isRoundedDoubleGreater, doubleIsGreater);
+        }
+
+        [Test]
+        [TestCase(10, 10)]
+        [TestCase(9.95, 10)]
+        [TestCase(10.005, 10)]
+        public void OperatorGreater_RoundedDoubleEqualDouble_ReturnsFalse(double roundedDoubleValue, double value)
+        {
+            // Setup
+            var roundedDouble = new RoundedDouble(1, roundedDoubleValue);
+
+            // Call 
+            bool roundedDoubleIsLess = roundedDouble > value;
+            bool doubleIsLess = value > roundedDouble;
+
+            // Assert
+            Assert.IsFalse(roundedDoubleIsLess);
+            Assert.IsFalse(doubleIsLess);
+        }
+
+        [Test]
+        [TestCase(11, 10, true)]
+        [TestCase(10, 11, false)]
+        [TestCase(10.05, 10, true)]
+        [TestCase(10, 10.05, false)]
+        public void OperatorGreater_VaryingRoundedDouble_ReturnsExpectedValues(double roundedDoubleValue1, double roundedDoubleValue2,
+                                                                               bool isRoundedDoubleOneGreater)
+        {
+            // Setup
+            var roundedDoubleOne = new RoundedDouble(1, roundedDoubleValue1);
+            var roundedDoubleTwo = new RoundedDouble(1, roundedDoubleValue2);
+
+            // Call 
+            bool roundedDoubleOneIsGreater = roundedDoubleOne > roundedDoubleTwo;
+            bool roundedDoubleTwoIsGreater = roundedDoubleTwo > roundedDoubleOne;
+
+            // Assert
+            Assert.AreEqual(isRoundedDoubleOneGreater, roundedDoubleOneIsGreater);
+            Assert.AreEqual(!isRoundedDoubleOneGreater, roundedDoubleTwoIsGreater);
+        }
+
+        [Test]
+        [TestCase(10, 10)]
+        [TestCase(9.95, 10)]
+        [TestCase(10.04, 10)]
+        [TestCase(10, 9.95)]
+        [TestCase(10, 10.04)]
+        public void OperatorGreater_RoundedDoubleEqualRoundedDouble_ReturnsFalse(double roundedDoubleValue1, double roundedDoubleValue2)
+        {
+            // Setup
+            var roundedDouble1 = new RoundedDouble(1, roundedDoubleValue1);
+            var roundedDouble2 = new RoundedDouble(1, roundedDoubleValue2);
+
+            // Call 
+            bool roundedDoubleOneIsGreater = roundedDouble1 > roundedDouble2;
+            bool roundedDoubleTwoIsGreater = roundedDouble2 > roundedDouble1;
+
+            // Assert
+            Assert.IsFalse(roundedDoubleOneIsGreater);
+            Assert.IsFalse(roundedDoubleTwoIsGreater);
+        }
+
+        [Test]
+        [TestCase(11, 10, true)]
+        [TestCase(10, 11, false)]
+        [TestCase(10.05, 10, true)]
+        [TestCase(10, 10.05, false)]
+        public void OperatorGreaterOrEqual_VaryingDouble_ReturnsExpectedValues(double roundedDoubleValue, double value,
+                                                                               bool isRoundedDoubleGreater)
+        {
+            // Setup
+            var roundedDouble = new RoundedDouble(1, roundedDoubleValue);
+
+            // Call 
+            bool roundedDoubleIsGreater = roundedDouble >= value;
+            bool doubleIsGreater = value >= roundedDouble;
+
+            // Assert
+            Assert.AreEqual(isRoundedDoubleGreater, roundedDoubleIsGreater);
+            Assert.AreEqual(!isRoundedDoubleGreater, doubleIsGreater);
+        }
+
+        [Test]
+        [TestCase(10, 10)]
+        [TestCase(9.95, 10)]
+        [TestCase(10.005, 10)]
+        public void OperatorGreaterOrEqual_RoundedDoubleEqualDouble_ReturnsTrue(double roundedDoubleValue, double value)
+        {
+            // Setup
+            var roundedDouble = new RoundedDouble(1, roundedDoubleValue);
+
+            // Call 
+            bool roundedDoubleIsLess = roundedDouble >= value;
+            bool doubleIsLess = value >= roundedDouble;
+
+            // Assert
+            Assert.IsTrue(roundedDoubleIsLess);
+            Assert.IsTrue(doubleIsLess);
+        }
+
+        [Test]
+        [TestCase(11, 10, true)]
+        [TestCase(10, 11, false)]
+        [TestCase(10.05, 10, true)]
+        [TestCase(10, 10.05, false)]
+        public void OperatorGreaterOrEqual_VaryingRoundedDouble_ReturnsExpectedValues(double roundedDoubleValue1, double roundedDoubleValue2,
+                                                                                      bool isRoundedDoubleOneGreater)
+        {
+            // Setup
+            var roundedDoubleOne = new RoundedDouble(1, roundedDoubleValue1);
+            var roundedDoubleTwo = new RoundedDouble(1, roundedDoubleValue2);
+
+            // Call 
+            bool roundedDoubleOneIsGreater = roundedDoubleOne >= roundedDoubleTwo;
+            bool roundedDoubleTwoIsGreater = roundedDoubleTwo >= roundedDoubleOne;
+
+            // Assert
+            Assert.AreEqual(isRoundedDoubleOneGreater, roundedDoubleOneIsGreater);
+            Assert.AreEqual(!isRoundedDoubleOneGreater, roundedDoubleTwoIsGreater);
+        }
+
+        [Test]
+        [TestCase(10, 10)]
+        [TestCase(9.95, 10)]
+        [TestCase(10.04, 10)]
+        [TestCase(10, 9.95)]
+        [TestCase(10, 10.04)]
+        public void OperatorGreaterOrEqual_RoundedDoubleEqualRoundedDouble_ReturnsFalse(double roundedDoubleValue1, double roundedDoubleValue2)
+        {
+            // Setup
+            var roundedDouble1 = new RoundedDouble(1, roundedDoubleValue1);
+            var roundedDouble2 = new RoundedDouble(1, roundedDoubleValue2);
+
+            // Call 
+            bool roundedDoubleOneIsGreater = roundedDouble1 >= roundedDouble2;
+            bool roundedDoubleTwoIsGreater = roundedDouble2 >= roundedDouble1;
+
+            // Assert
+            Assert.IsTrue(roundedDoubleOneIsGreater);
+            Assert.IsTrue(roundedDoubleTwoIsGreater);
         }
     }
 }
