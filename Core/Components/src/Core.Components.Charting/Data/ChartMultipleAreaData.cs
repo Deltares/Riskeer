@@ -65,7 +65,7 @@ namespace Core.Components.Charting.Data
 
                 if (value.Any(array => array == null))
                 {
-                    throw new ArgumentException(@"The collection of point arrays cannot contain null values.", "value");
+                    throw new ArgumentException(@"The collection of point arrays cannot contain null values.", nameof(value));
                 }
 
                 areas = value;

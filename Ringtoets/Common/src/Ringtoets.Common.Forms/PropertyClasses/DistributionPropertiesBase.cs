@@ -60,7 +60,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         {
             if (observable == null && !propertiesReadOnly.HasFlag(DistributionPropertiesReadOnly.All))
             {
-                throw new ArgumentException(@"Observable must be specified unless no property can be set.", "observable");
+                throw new ArgumentException(@"Observable must be specified unless no property can be set.", nameof(observable));
             }
 
             isMeanReadOnly = propertiesReadOnly.HasFlag(DistributionPropertiesReadOnly.Mean);

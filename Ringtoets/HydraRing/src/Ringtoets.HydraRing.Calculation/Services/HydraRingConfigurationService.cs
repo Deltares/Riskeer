@@ -116,7 +116,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
         {
             if (hydraRingInputs.Any(h => h.Section.SectionId == input.Section.SectionId))
             {
-                throw new ArgumentException(@"Section id is not unique", "input");
+                throw new ArgumentException(@"Section id is not unique", nameof(input));
             }
 
             if (hydraRingInputs.Count > 0 && hydraRingInputs.First().FailureMechanismType != input.FailureMechanismType)

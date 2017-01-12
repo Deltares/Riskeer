@@ -153,7 +153,7 @@ namespace Core.Common.Gui.ContextMenu
         {
             if(string.IsNullOrWhiteSpace(text))
             {
-                throw new ArgumentException(@"Text should be set.", "text");
+                throw new ArgumentException(@"Text should be set.", nameof(text));
             }
             if (toolTip == null)
             {

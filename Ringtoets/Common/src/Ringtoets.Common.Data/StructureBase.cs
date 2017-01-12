@@ -42,11 +42,11 @@ namespace Ringtoets.Common.Data
         {
             if (string.IsNullOrWhiteSpace(constructionProperties.Name))
             {
-                throw new ArgumentException(@"Name is null, empty or consists of whitespace.", "constructionProperties");
+                throw new ArgumentException(@"Name is null, empty or consists of whitespace.", nameof(constructionProperties));
             }
             if (string.IsNullOrWhiteSpace(constructionProperties.Id))
             {
-                throw new ArgumentException(@"Id is null, empty or consists of whitespace.", "constructionProperties");
+                throw new ArgumentException(@"Id is null, empty or consists of whitespace.", nameof(constructionProperties));
             }
             if (constructionProperties.Location == null)
             {

@@ -58,7 +58,7 @@ namespace Ringtoets.Revetment.IO
 
             if (waveConditionsInput.HydraulicBoundaryLocation == null)
             {
-                throw new ArgumentException(@"HydraulicBoundaryLocation is null.", "waveConditionsInput");
+                throw new ArgumentException(@"HydraulicBoundaryLocation is null.", nameof(waveConditionsInput));
             }
 
             CalculationName = name;

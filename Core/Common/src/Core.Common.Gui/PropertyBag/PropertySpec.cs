@@ -54,7 +54,7 @@ namespace Core.Common.Gui.PropertyBag
             }
             if (propertyInfo.GetIndexParameters().Length > 0)
             {
-                throw new ArgumentException(@"Index properties are not allowed.", "propertyInfo");
+                throw new ArgumentException(@"Index properties are not allowed.", nameof(propertyInfo));
             }
 
             this.propertyInfo = propertyInfo;

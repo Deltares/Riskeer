@@ -112,11 +112,11 @@ namespace Core.Common.Utils
         {
             if (string.IsNullOrWhiteSpace(path))
             {
-                throw new ArgumentException(@"No valid value for 'path'.", "path");
+                throw new ArgumentException(@"No valid value for 'path'.", nameof(path));
             }
             if (string.IsNullOrWhiteSpace(searchPattern))
             {
-                throw new ArgumentException(@"No valid value for 'searchPattern'.", "searchPattern");
+                throw new ArgumentException(@"No valid value for 'searchPattern'.", nameof(searchPattern));
             }
             try
             {

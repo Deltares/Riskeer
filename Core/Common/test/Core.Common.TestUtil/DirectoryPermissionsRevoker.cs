@@ -48,7 +48,7 @@ namespace Core.Common.TestUtil
         {
             if (string.IsNullOrWhiteSpace(folderPath))
             {
-                throw new ArgumentException(@"folderPath must have a valid value.", "folderPath");
+                throw new ArgumentException(@"folderPath must have a valid value.", nameof(folderPath));
             }
 
             this.folderPath = folderPath;

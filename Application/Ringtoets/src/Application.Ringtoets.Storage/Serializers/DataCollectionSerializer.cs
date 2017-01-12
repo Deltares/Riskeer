@@ -80,7 +80,7 @@ namespace Application.Ringtoets.Storage.Serializers
         {
             if (string.IsNullOrEmpty(xml))
             {
-                throw new ArgumentException(@"xml cannot be empty.", "xml");
+                throw new ArgumentException(@"xml cannot be empty.", nameof(xml));
             }
 
             var stream = new MemoryStream();
