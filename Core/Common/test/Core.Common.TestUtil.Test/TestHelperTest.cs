@@ -188,10 +188,12 @@ namespace Core.Common.TestUtil.Test
         }
 
         [Test]
-        public void AssertImagesAreEqual_TwoIdenticalImages_NoAssertionErrors()
+        [TestCase(nameof(Resources.abacus))]
+        [TestCase(nameof(Resources.double_abacus))]
+        public void AssertImagesAreEqual_TwoIdenticalImages_NoAssertionErrors(string resourceName)
         {
             // Setup
-            Bitmap image = Resources.abacus;
+            Bitmap image = Resources.ResourceManager.GetObject(resourceName) as Bitmap;
 
             // Call
             TestDelegate call = () => TestHelper.AssertImagesAreEqual(image, image);

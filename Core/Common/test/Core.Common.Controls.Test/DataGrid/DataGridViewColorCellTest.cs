@@ -70,26 +70,32 @@ namespace Core.Common.Controls.Test.DataGrid
                 var cellDisplayRectangle = view.GetCellDisplayRectangle(0, 0, false);
 
                 using (Bitmap viewDrawCanvas = new Bitmap(view.Width, view.Height))
-                using (Image expectedImage = new Bitmap(cellDisplayRectangle.Width, cellDisplayRectangle.Height))
+                using (Bitmap expectedImage = CreateExpectedImage(cellDisplayRectangle, expectedColor, view.GridColor))
                 {
                     view.DrawToBitmap(viewDrawCanvas, new Rectangle(0, 0, view.Width, view.Height));
                     using (var actualImage = viewDrawCanvas.Clone(cellDisplayRectangle, viewDrawCanvas.PixelFormat))
                     {
-                        var expectedWidth = cellDisplayRectangle.Width;
-                        var expectedHeight = cellDisplayRectangle.Height;
-                        var colorRectangle = new Rectangle(3, 3, expectedWidth - 8, expectedHeight - 8);
-
-                        var expectedGraphic = Graphics.FromImage(expectedImage);
-                        expectedGraphic.FillRectangle(new SolidBrush(Color.White), new Rectangle(0, 0, expectedWidth, expectedHeight));
-                        expectedGraphic.FillRectangle(new SolidBrush(expectedColor), colorRectangle);
-                        expectedGraphic.DrawRectangle(new Pen(Color.DarkSlateGray), colorRectangle);
-                        expectedGraphic.DrawLine(new Pen(view.GridColor), expectedWidth - 1, 0, expectedWidth - 1, expectedHeight - 1);
-                        expectedGraphic.DrawLine(new Pen(view.GridColor), 0, expectedHeight - 1, expectedWidth - 1, expectedHeight - 1);
-
                         TestHelper.AssertImagesAreEqual(expectedImage, actualImage);
                     }
                 }
             });
+        }
+
+        private static Bitmap CreateExpectedImage(Rectangle cellDisplayRectangle, Color cellValueColor, Color borderColor)
+        {
+            int width = cellDisplayRectangle.Width;
+            int height = cellDisplayRectangle.Height;
+            var expectedImage = new Bitmap(width, height);
+            var colorRectangle = new Rectangle(3, 3, width - 8, height - 8);
+
+            var expectedGraphic = Graphics.FromImage(expectedImage);
+            expectedGraphic.FillRectangle(new SolidBrush(Color.White), new Rectangle(0, 0, width, height));
+            expectedGraphic.FillRectangle(new SolidBrush(cellValueColor), colorRectangle);
+            expectedGraphic.DrawRectangle(new Pen(Color.DarkSlateGray), colorRectangle);
+            expectedGraphic.DrawLine(new Pen(borderColor), width - 1, 0, width - 1, height - 1);
+            expectedGraphic.DrawLine(new Pen(borderColor), 0, height - 1, width - 1, height - 1);
+
+            return expectedImage;
         }
     }
 
