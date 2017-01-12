@@ -65,12 +65,12 @@ namespace Application.Ringtoets.Storage.Create.DuneErosion
             entity.DuneErosionFailureMechanismMetaEntities.Add(generalInput.Create());
         }
 
-        private static void AddEntitiesForDuneLocations(IList<DuneLocation> locations, FailureMechanismEntity entity, PersistenceRegistry registry)
+        private static void AddEntitiesForDuneLocations(IEnumerable<DuneLocation> locations, FailureMechanismEntity entity, PersistenceRegistry registry)
         {
-            for (var i = 0; i < locations.Count; i++)
+            var i = 0;
+            foreach (DuneLocation duneLocation in locations)
             {
-                DuneLocation duneLocation = locations[i];
-                entity.DuneLocationEntities.Add(duneLocation.Create(registry, i));
+                entity.DuneLocationEntities.Add(duneLocation.Create(registry, i++));
             }
         }
     }

@@ -44,15 +44,15 @@ namespace Application.Ringtoets.Storage.Create
             var entity = new GrassCoverErosionOutwardsWaveConditionsOutputEntity
             {
                 Order = order,
-                WaterLevel = output.WaterLevel.Value.ToNaNAsNull(),
-                WaveHeight = output.WaveHeight.Value.ToNaNAsNull(),
-                WavePeakPeriod = output.WavePeakPeriod.Value.ToNaNAsNull(),
-                WaveAngle = output.WaveAngle.Value.ToNaNAsNull(),
-                WaveDirection = output.WaveDirection.Value.ToNaNAsNull(),
+                WaterLevel = output.WaterLevel.ToNaNAsNull(),
+                WaveHeight = output.WaveHeight.ToNaNAsNull(),
+                WavePeakPeriod = output.WavePeakPeriod.ToNaNAsNull(),
+                WaveAngle = output.WaveAngle.ToNaNAsNull(),
+                WaveDirection = output.WaveDirection.ToNaNAsNull(),
                 TargetProbability = output.TargetProbability.ToNaNAsNull(),
-                TargetReliability = output.TargetReliability.Value.ToNaNAsNull(),
+                TargetReliability = output.TargetReliability.ToNaNAsNull(),
                 CalculatedProbability = output.CalculatedProbability.ToNaNAsNull(),
-                CalculatedReliability = output.CalculatedReliability.Value.ToNaNAsNull(),
+                CalculatedReliability = output.CalculatedReliability.ToNaNAsNull(),
                 CalculationConvergence = (byte) output.CalculationConvergence
             };
             return entity;
@@ -73,16 +73,16 @@ namespace Application.Ringtoets.Storage.Create
             var entity = new StabilityStoneCoverWaveConditionsOutputEntity
             {
                 Order = order,
-                WaterLevel = output.WaterLevel.Value.ToNaNAsNull(),
-                WaveHeight = output.WaveHeight.Value.ToNaNAsNull(),
-                WavePeakPeriod = output.WavePeakPeriod.Value.ToNaNAsNull(),
-                WaveAngle = output.WaveAngle.Value.ToNaNAsNull(),
+                WaterLevel = output.WaterLevel.ToNaNAsNull(),
+                WaveHeight = output.WaveHeight.ToNaNAsNull(),
+                WavePeakPeriod = output.WavePeakPeriod.ToNaNAsNull(),
+                WaveAngle = output.WaveAngle.ToNaNAsNull(),
                 OutputType = (byte) type,
-                WaveDirection = output.WaveDirection.Value.ToNaNAsNull(),
+                WaveDirection = output.WaveDirection.ToNaNAsNull(),
                 TargetProbability = output.TargetProbability.ToNaNAsNull(),
-                TargetReliability = output.TargetReliability.Value.ToNaNAsNull(),
+                TargetReliability = output.TargetReliability.ToNaNAsNull(),
                 CalculatedProbability = output.CalculatedProbability.ToNaNAsNull(),
-                CalculatedReliability = output.CalculatedReliability.Value.ToNaNAsNull(),
+                CalculatedReliability = output.CalculatedReliability.ToNaNAsNull(),
                 CalculationConvergence = (byte) output.CalculationConvergence
             };
             return entity;
@@ -102,15 +102,15 @@ namespace Application.Ringtoets.Storage.Create
             var entity = new WaveImpactAsphaltCoverWaveConditionsOutputEntity
             {
                 Order = order,
-                WaterLevel = output.WaterLevel.Value.ToNaNAsNull(),
-                WaveHeight = output.WaveHeight.Value.ToNaNAsNull(),
-                WavePeakPeriod = output.WavePeakPeriod.Value.ToNaNAsNull(),
-                WaveAngle = output.WaveAngle.Value.ToNaNAsNull(),
-                WaveDirection = output.WaveDirection.Value.ToNaNAsNull(),
+                WaterLevel = output.WaterLevel.ToNaNAsNull(),
+                WaveHeight = output.WaveHeight.ToNaNAsNull(),
+                WavePeakPeriod = output.WavePeakPeriod.ToNaNAsNull(),
+                WaveAngle = output.WaveAngle.ToNaNAsNull(),
+                WaveDirection = output.WaveDirection.ToNaNAsNull(),
                 TargetProbability = output.TargetProbability.ToNaNAsNull(),
-                TargetReliability = output.TargetReliability.Value.ToNaNAsNull(),
+                TargetReliability = output.TargetReliability.ToNaNAsNull(),
                 CalculatedProbability = output.CalculatedProbability.ToNaNAsNull(),
-                CalculatedReliability = output.CalculatedReliability.Value.ToNaNAsNull(),
+                CalculatedReliability = output.CalculatedReliability.ToNaNAsNull(),
                 CalculationConvergence = (byte) output.CalculationConvergence
             };
             return entity;

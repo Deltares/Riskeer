@@ -103,7 +103,7 @@ namespace Application.Ringtoets.Storage.Create
         {
             if (model == null)
             {
-                throw new ArgumentNullException("model");
+                throw new ArgumentNullException(nameof(model));
             }
 
             return collection.ContainsValue(model);
@@ -113,11 +113,11 @@ namespace Application.Ringtoets.Storage.Create
         {
             if (entity == null)
             {
-                throw new ArgumentNullException("entity");
+                throw new ArgumentNullException(nameof(entity));
             }
             if (model == null)
             {
-                throw new ArgumentNullException("model");
+                throw new ArgumentNullException(nameof(model));
             }
 
             collection[entity] = model;

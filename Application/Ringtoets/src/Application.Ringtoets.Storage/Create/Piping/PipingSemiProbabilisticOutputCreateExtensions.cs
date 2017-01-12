@@ -41,20 +41,20 @@ namespace Application.Ringtoets.Storage.Create.Piping
         {
             var entity = new PipingSemiProbabilisticOutputEntity
             {
-                UpliftFactorOfSafety = semiProbabilisticOutput.UpliftFactorOfSafety.Value.ToNaNAsNull(),
-                UpliftReliability = semiProbabilisticOutput.UpliftReliability.Value.ToNaNAsNull(),
+                UpliftFactorOfSafety = semiProbabilisticOutput.UpliftFactorOfSafety.ToNaNAsNull(),
+                UpliftReliability = semiProbabilisticOutput.UpliftReliability.ToNaNAsNull(),
                 UpliftProbability = semiProbabilisticOutput.UpliftProbability.ToNaNAsNull(),
-                HeaveFactorOfSafety = semiProbabilisticOutput.HeaveFactorOfSafety.Value.ToNaNAsNull(),
-                HeaveReliability = semiProbabilisticOutput.HeaveReliability.Value.ToNaNAsNull(),
+                HeaveFactorOfSafety = semiProbabilisticOutput.HeaveFactorOfSafety.ToNaNAsNull(),
+                HeaveReliability = semiProbabilisticOutput.HeaveReliability.ToNaNAsNull(),
                 HeaveProbability = semiProbabilisticOutput.HeaveProbability.ToNaNAsNull(),
-                SellmeijerFactorOfSafety = semiProbabilisticOutput.SellmeijerFactorOfSafety.Value.ToNaNAsNull(),
-                SellmeijerReliability = semiProbabilisticOutput.SellmeijerReliability.Value.ToNaNAsNull(),
+                SellmeijerFactorOfSafety = semiProbabilisticOutput.SellmeijerFactorOfSafety.ToNaNAsNull(),
+                SellmeijerReliability = semiProbabilisticOutput.SellmeijerReliability.ToNaNAsNull(),
                 SellmeijerProbability = semiProbabilisticOutput.SellmeijerProbability.ToNaNAsNull(),
                 RequiredProbability = semiProbabilisticOutput.RequiredProbability.ToNaNAsNull(),
-                RequiredReliability = semiProbabilisticOutput.RequiredReliability.Value.ToNaNAsNull(),
+                RequiredReliability = semiProbabilisticOutput.RequiredReliability.ToNaNAsNull(),
                 PipingProbability = semiProbabilisticOutput.PipingProbability.ToNaNAsNull(),
-                PipingReliability = semiProbabilisticOutput.PipingReliability.Value.ToNaNAsNull(),
-                PipingFactorOfSafety = semiProbabilisticOutput.PipingFactorOfSafety.Value.ToNaNAsNull(),
+                PipingReliability = semiProbabilisticOutput.PipingReliability.ToNaNAsNull(),
+                PipingFactorOfSafety = semiProbabilisticOutput.PipingFactorOfSafety.ToNaNAsNull(),
             };
             return entity;
         }

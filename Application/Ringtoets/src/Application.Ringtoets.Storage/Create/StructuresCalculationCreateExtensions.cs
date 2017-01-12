@@ -49,8 +49,8 @@ namespace Application.Ringtoets.Storage.Create
                 throw new ArgumentNullException("registry");
             }
 
-            entityToUpdate.StormDurationMean = input.StormDuration.Mean.Value.ToNaNAsNull();
-            entityToUpdate.StructureNormalOrientation = input.StructureNormalOrientation.Value.ToNaNAsNull();
+            entityToUpdate.StormDurationMean = input.StormDuration.Mean.ToNaNAsNull();
+            entityToUpdate.StructureNormalOrientation = input.StructureNormalOrientation.ToNaNAsNull();
             entityToUpdate.FailureProbabilityStructureWithErosion = input.FailureProbabilityStructureWithErosion;
 
             if (input.HydraulicBoundaryLocation != null)
@@ -66,24 +66,24 @@ namespace Application.Ringtoets.Storage.Create
 
             entityToUpdate.UseBreakWater = Convert.ToByte(input.UseBreakWater);
             entityToUpdate.BreakWaterType = Convert.ToByte(input.BreakWater.Type);
-            entityToUpdate.BreakWaterHeight = input.BreakWater.Height.Value.ToNaNAsNull();
+            entityToUpdate.BreakWaterHeight = input.BreakWater.Height.ToNaNAsNull();
 
-            entityToUpdate.AllowedLevelIncreaseStorageMean = input.AllowedLevelIncreaseStorage.Mean.Value.ToNaNAsNull();
-            entityToUpdate.AllowedLevelIncreaseStorageStandardDeviation = input.AllowedLevelIncreaseStorage.StandardDeviation.Value.ToNaNAsNull();
+            entityToUpdate.AllowedLevelIncreaseStorageMean = input.AllowedLevelIncreaseStorage.Mean.ToNaNAsNull();
+            entityToUpdate.AllowedLevelIncreaseStorageStandardDeviation = input.AllowedLevelIncreaseStorage.StandardDeviation.ToNaNAsNull();
 
-            entityToUpdate.StorageStructureAreaMean = input.StorageStructureArea.Mean.Value.ToNaNAsNull();
-            entityToUpdate.StorageStructureAreaCoefficientOfVariation = input.StorageStructureArea.CoefficientOfVariation.Value.ToNaNAsNull();
+            entityToUpdate.StorageStructureAreaMean = input.StorageStructureArea.Mean.ToNaNAsNull();
+            entityToUpdate.StorageStructureAreaCoefficientOfVariation = input.StorageStructureArea.CoefficientOfVariation.ToNaNAsNull();
 
-            entityToUpdate.FlowWidthAtBottomProtectionMean = input.FlowWidthAtBottomProtection.Mean.Value.ToNaNAsNull();
-            entityToUpdate.FlowWidthAtBottomProtectionStandardDeviation = input.FlowWidthAtBottomProtection.StandardDeviation.Value.ToNaNAsNull();
+            entityToUpdate.FlowWidthAtBottomProtectionMean = input.FlowWidthAtBottomProtection.Mean.ToNaNAsNull();
+            entityToUpdate.FlowWidthAtBottomProtectionStandardDeviation = input.FlowWidthAtBottomProtection.StandardDeviation.ToNaNAsNull();
 
-            entityToUpdate.CriticalOvertoppingDischargeMean = input.CriticalOvertoppingDischarge.Mean.Value.ToNaNAsNull();
-            entityToUpdate.CriticalOvertoppingDischargeCoefficientOfVariation = input.CriticalOvertoppingDischarge.CoefficientOfVariation.Value.ToNaNAsNull();
+            entityToUpdate.CriticalOvertoppingDischargeMean = input.CriticalOvertoppingDischarge.Mean.ToNaNAsNull();
+            entityToUpdate.CriticalOvertoppingDischargeCoefficientOfVariation = input.CriticalOvertoppingDischarge.CoefficientOfVariation.ToNaNAsNull();
 
-            entityToUpdate.ModelFactorSuperCriticalFlowMean = input.ModelFactorSuperCriticalFlow.Mean.Value.ToNaNAsNull();
+            entityToUpdate.ModelFactorSuperCriticalFlowMean = input.ModelFactorSuperCriticalFlow.Mean.ToNaNAsNull();
 
-            entityToUpdate.WidthFlowAperturesMean = input.WidthFlowApertures.Mean.Value.ToNaNAsNull();
-            entityToUpdate.WidthFlowAperturesCoefficientOfVariation = input.WidthFlowApertures.CoefficientOfVariation.Value.ToNaNAsNull();
+            entityToUpdate.WidthFlowAperturesMean = input.WidthFlowApertures.Mean.ToNaNAsNull();
+            entityToUpdate.WidthFlowAperturesCoefficientOfVariation = input.WidthFlowApertures.CoefficientOfVariation.ToNaNAsNull();
         }
 
         #region ClosingStructures
@@ -132,20 +132,20 @@ namespace Application.Ringtoets.Storage.Create
 
             entity.InflowModelType = Convert.ToByte(input.InflowModelType);
 
-            entity.InsideWaterLevelMean = input.InsideWaterLevel.Mean.Value.ToNaNAsNull();
-            entity.InsideWaterLevelStandardDeviation = input.InsideWaterLevel.StandardDeviation.Value.ToNaNAsNull();
+            entity.InsideWaterLevelMean = input.InsideWaterLevel.Mean.ToNaNAsNull();
+            entity.InsideWaterLevelStandardDeviation = input.InsideWaterLevel.StandardDeviation.ToNaNAsNull();
 
-            entity.DeviationWaveDirection = input.DeviationWaveDirection.Value.ToNaNAsNull();
+            entity.DeviationWaveDirection = input.DeviationWaveDirection.ToNaNAsNull();
 
-            entity.DrainCoefficientMean = input.DrainCoefficient.Mean.Value.ToNaNAsNull();
+            entity.DrainCoefficientMean = input.DrainCoefficient.Mean.ToNaNAsNull();
 
-            entity.FactorStormDurationOpenStructure = input.FactorStormDurationOpenStructure.Value.ToNaNAsNull();
+            entity.FactorStormDurationOpenStructure = input.FactorStormDurationOpenStructure.ToNaNAsNull();
 
-            entity.ThresholdHeightOpenWeirMean = input.ThresholdHeightOpenWeir.Mean.Value.ToNaNAsNull();
-            entity.ThresholdHeightOpenWeirStandardDeviation = input.ThresholdHeightOpenWeir.StandardDeviation.Value.ToNaNAsNull();
+            entity.ThresholdHeightOpenWeirMean = input.ThresholdHeightOpenWeir.Mean.ToNaNAsNull();
+            entity.ThresholdHeightOpenWeirStandardDeviation = input.ThresholdHeightOpenWeir.StandardDeviation.ToNaNAsNull();
 
-            entity.AreaFlowAperturesMean = input.AreaFlowApertures.Mean.Value.ToNaNAsNull();
-            entity.AreaFlowAperturesStandardDeviation = input.AreaFlowApertures.StandardDeviation.Value.ToNaNAsNull();
+            entity.AreaFlowAperturesMean = input.AreaFlowApertures.Mean.ToNaNAsNull();
+            entity.AreaFlowAperturesStandardDeviation = input.AreaFlowApertures.StandardDeviation.ToNaNAsNull();
 
             entity.FailureProbabilityOpenStructure = input.FailureProbabilityOpenStructure;
 
@@ -153,8 +153,8 @@ namespace Application.Ringtoets.Storage.Create
 
             entity.IdenticalApertures = input.IdenticalApertures;
 
-            entity.LevelCrestStructureNotClosingMean = input.LevelCrestStructureNotClosing.Mean.Value.ToNaNAsNull();
-            entity.LevelCrestStructureNotClosingStandardDeviation = input.LevelCrestStructureNotClosing.StandardDeviation.Value.ToNaNAsNull();
+            entity.LevelCrestStructureNotClosingMean = input.LevelCrestStructureNotClosing.Mean.ToNaNAsNull();
+            entity.LevelCrestStructureNotClosingStandardDeviation = input.LevelCrestStructureNotClosing.StandardDeviation.ToNaNAsNull();
 
             entity.ProbabilityOrFrequencyOpenStructureBeforeFlooding = input.ProbabilityOrFrequencyOpenStructureBeforeFlooding;
         }
@@ -214,10 +214,10 @@ namespace Application.Ringtoets.Storage.Create
                 entity.HeightStructureEntity = registry.Get(input.Structure);
             }
 
-            entity.LevelCrestStructureMean = input.LevelCrestStructure.Mean.Value.ToNaNAsNull();
-            entity.LevelCrestStructureStandardDeviation = input.LevelCrestStructure.StandardDeviation.Value.ToNaNAsNull();
+            entity.LevelCrestStructureMean = input.LevelCrestStructure.Mean.ToNaNAsNull();
+            entity.LevelCrestStructureStandardDeviation = input.LevelCrestStructure.StandardDeviation.ToNaNAsNull();
 
-            entity.DeviationWaveDirection = input.DeviationWaveDirection.Value.ToNaNAsNull();
+            entity.DeviationWaveDirection = input.DeviationWaveDirection.ToNaNAsNull();
         }
 
         private static void SetOutputEntity(StructuresCalculation<HeightStructuresInput> calculation,
@@ -275,63 +275,63 @@ namespace Application.Ringtoets.Storage.Create
                 entity.StabilityPointStructureEntity = registry.Get(input.Structure);
             }
 
-            entity.InsideWaterLevelMean = input.InsideWaterLevel.Mean.Value.ToNaNAsNull();
-            entity.InsideWaterLevelStandardDeviation = input.InsideWaterLevel.StandardDeviation.Value.ToNaNAsNull();
+            entity.InsideWaterLevelMean = input.InsideWaterLevel.Mean.ToNaNAsNull();
+            entity.InsideWaterLevelStandardDeviation = input.InsideWaterLevel.StandardDeviation.ToNaNAsNull();
 
-            entity.ThresholdHeightOpenWeirMean = input.ThresholdHeightOpenWeir.Mean.Value.ToNaNAsNull();
-            entity.ThresholdHeightOpenWeirStandardDeviation = input.ThresholdHeightOpenWeir.StandardDeviation.Value.ToNaNAsNull();
+            entity.ThresholdHeightOpenWeirMean = input.ThresholdHeightOpenWeir.Mean.ToNaNAsNull();
+            entity.ThresholdHeightOpenWeirStandardDeviation = input.ThresholdHeightOpenWeir.StandardDeviation.ToNaNAsNull();
 
-            entity.ConstructiveStrengthLinearLoadModelMean = input.ConstructiveStrengthLinearLoadModel.Mean.Value.ToNaNAsNull();
-            entity.ConstructiveStrengthLinearLoadModelCoefficientOfVariation = input.ConstructiveStrengthLinearLoadModel.CoefficientOfVariation.Value.ToNaNAsNull();
+            entity.ConstructiveStrengthLinearLoadModelMean = input.ConstructiveStrengthLinearLoadModel.Mean.ToNaNAsNull();
+            entity.ConstructiveStrengthLinearLoadModelCoefficientOfVariation = input.ConstructiveStrengthLinearLoadModel.CoefficientOfVariation.ToNaNAsNull();
 
-            entity.ConstructiveStrengthQuadraticLoadModelMean = input.ConstructiveStrengthQuadraticLoadModel.Mean.Value.ToNaNAsNull();
-            entity.ConstructiveStrengthQuadraticLoadModelCoefficientOfVariation = input.ConstructiveStrengthQuadraticLoadModel.CoefficientOfVariation.Value.ToNaNAsNull();
+            entity.ConstructiveStrengthQuadraticLoadModelMean = input.ConstructiveStrengthQuadraticLoadModel.Mean.ToNaNAsNull();
+            entity.ConstructiveStrengthQuadraticLoadModelCoefficientOfVariation = input.ConstructiveStrengthQuadraticLoadModel.CoefficientOfVariation.ToNaNAsNull();
 
-            entity.BankWidthMean = input.BankWidth.Mean.Value.ToNaNAsNull();
-            entity.BankWidthStandardDeviation = input.BankWidth.StandardDeviation.Value.ToNaNAsNull();
+            entity.BankWidthMean = input.BankWidth.Mean.ToNaNAsNull();
+            entity.BankWidthStandardDeviation = input.BankWidth.StandardDeviation.ToNaNAsNull();
 
-            entity.InsideWaterLevelFailureConstructionMean = input.InsideWaterLevelFailureConstruction.Mean.Value.ToNaNAsNull();
-            entity.InsideWaterLevelFailureConstructionStandardDeviation = input.InsideWaterLevelFailureConstruction.StandardDeviation.Value.ToNaNAsNull();
+            entity.InsideWaterLevelFailureConstructionMean = input.InsideWaterLevelFailureConstruction.Mean.ToNaNAsNull();
+            entity.InsideWaterLevelFailureConstructionStandardDeviation = input.InsideWaterLevelFailureConstruction.StandardDeviation.ToNaNAsNull();
 
-            entity.EvaluationLevel = input.EvaluationLevel.Value.ToNaNAsNull();
+            entity.EvaluationLevel = input.EvaluationLevel.ToNaNAsNull();
 
-            entity.LevelCrestStructureMean = input.LevelCrestStructure.Mean.Value.ToNaNAsNull();
-            entity.LevelCrestStructureStandardDeviation = input.LevelCrestStructure.StandardDeviation.Value.ToNaNAsNull();
+            entity.LevelCrestStructureMean = input.LevelCrestStructure.Mean.ToNaNAsNull();
+            entity.LevelCrestStructureStandardDeviation = input.LevelCrestStructure.StandardDeviation.ToNaNAsNull();
 
-            entity.VerticalDistance = input.VerticalDistance.Value.ToNaNAsNull();
+            entity.VerticalDistance = input.VerticalDistance.ToNaNAsNull();
 
             entity.FailureProbabilityRepairClosure = input.FailureProbabilityRepairClosure;
 
-            entity.FailureCollisionEnergyMean = input.FailureCollisionEnergy.Mean.Value.ToNaNAsNull();
-            entity.FailureCollisionEnergyCoefficientOfVariation = input.FailureCollisionEnergy.CoefficientOfVariation.Value.ToNaNAsNull();
+            entity.FailureCollisionEnergyMean = input.FailureCollisionEnergy.Mean.ToNaNAsNull();
+            entity.FailureCollisionEnergyCoefficientOfVariation = input.FailureCollisionEnergy.CoefficientOfVariation.ToNaNAsNull();
 
-            entity.ShipMassMean = input.ShipMass.Mean.Value.ToNaNAsNull();
-            entity.ShipMassCoefficientOfVariation = input.ShipMass.CoefficientOfVariation.Value.ToNaNAsNull();
+            entity.ShipMassMean = input.ShipMass.Mean.ToNaNAsNull();
+            entity.ShipMassCoefficientOfVariation = input.ShipMass.CoefficientOfVariation.ToNaNAsNull();
 
-            entity.ShipVelocityMean = input.ShipVelocity.Mean.Value.ToNaNAsNull();
-            entity.ShipVelocityCoefficientOfVariation = input.ShipVelocity.CoefficientOfVariation.Value.ToNaNAsNull();
+            entity.ShipVelocityMean = input.ShipVelocity.Mean.ToNaNAsNull();
+            entity.ShipVelocityCoefficientOfVariation = input.ShipVelocity.CoefficientOfVariation.ToNaNAsNull();
 
             entity.LevellingCount = input.LevellingCount;
 
             entity.ProbabilityCollisionSecondaryStructure = input.ProbabilityCollisionSecondaryStructure;
 
-            entity.FlowVelocityStructureClosableMean = input.FlowVelocityStructureClosable.Mean.Value.ToNaNAsNull();
-            entity.FlowVelocityStructureClosableStandardDeviation = input.FlowVelocityStructureClosable.StandardDeviation.Value.ToNaNAsNull();
+            entity.FlowVelocityStructureClosableMean = input.FlowVelocityStructureClosable.Mean.ToNaNAsNull();
+            entity.FlowVelocityStructureClosableStandardDeviation = input.FlowVelocityStructureClosable.StandardDeviation.ToNaNAsNull();
 
-            entity.StabilityLinearLoadModelMean = input.StabilityLinearLoadModel.Mean.Value.ToNaNAsNull();
-            entity.StabilityLinearLoadModelCoefficientOfVariation = input.StabilityLinearLoadModel.CoefficientOfVariation.Value.ToNaNAsNull();
+            entity.StabilityLinearLoadModelMean = input.StabilityLinearLoadModel.Mean.ToNaNAsNull();
+            entity.StabilityLinearLoadModelCoefficientOfVariation = input.StabilityLinearLoadModel.CoefficientOfVariation.ToNaNAsNull();
 
-            entity.StabilityQuadraticLoadModelMean = input.StabilityQuadraticLoadModel.Mean.Value.ToNaNAsNull();
-            entity.StabilityQuadraticLoadModelCoefficientOfVariation = input.StabilityQuadraticLoadModel.CoefficientOfVariation.Value.ToNaNAsNull();
+            entity.StabilityQuadraticLoadModelMean = input.StabilityQuadraticLoadModel.Mean.ToNaNAsNull();
+            entity.StabilityQuadraticLoadModelCoefficientOfVariation = input.StabilityQuadraticLoadModel.CoefficientOfVariation.ToNaNAsNull();
 
-            entity.AreaFlowAperturesMean = input.AreaFlowApertures.Mean.Value.ToNaNAsNull();
-            entity.AreaFlowAperturesStandardDeviation = input.AreaFlowApertures.StandardDeviation.Value.ToNaNAsNull();
+            entity.AreaFlowAperturesMean = input.AreaFlowApertures.Mean.ToNaNAsNull();
+            entity.AreaFlowAperturesStandardDeviation = input.AreaFlowApertures.StandardDeviation.ToNaNAsNull();
 
             entity.InflowModelType = Convert.ToByte(input.InflowModelType);
             entity.LoadSchematizationType = Convert.ToByte(input.LoadSchematizationType);
-            entity.VolumicWeightWater = input.VolumicWeightWater.Value.ToNaNAsNull();
-            entity.FactorStormDurationOpenStructure = input.FactorStormDurationOpenStructure.Value.ToNaNAsNull();
-            entity.DrainCoefficientMean = input.DrainCoefficient.Mean.Value.ToNaNAsNull();
+            entity.VolumicWeightWater = input.VolumicWeightWater.ToNaNAsNull();
+            entity.FactorStormDurationOpenStructure = input.FactorStormDurationOpenStructure.ToNaNAsNull();
+            entity.DrainCoefficientMean = input.DrainCoefficient.Mean.ToNaNAsNull();
         }
 
         private static void SetOutputEntity(StructuresCalculation<StabilityPointStructuresInput> calculation,

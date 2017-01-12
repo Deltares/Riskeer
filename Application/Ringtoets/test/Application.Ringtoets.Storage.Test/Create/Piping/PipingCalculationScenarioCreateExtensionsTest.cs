@@ -133,7 +133,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             Assert.AreEqual(Convert.ToByte(input.UseAssessmentLevelManualInput), entity.UseAssessmentLevelManualInput);
             if (useAssessmentLevelManualInput)
             {
-                Assert.AreEqual(input.AssessmentLevel.Value.ToNaNAsNull(), entity.AssessmentLevel);
+                Assert.AreEqual(input.AssessmentLevel.ToNaNAsNull(), entity.AssessmentLevel);
             }
             else
             {

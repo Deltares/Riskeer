@@ -50,7 +50,7 @@ namespace Application.Ringtoets.Storage.Create.Piping
             var entity = new PipingCalculationEntity
             {
                 RelevantForScenario = Convert.ToByte(calculation.IsRelevant),
-                ScenarioContribution = calculation.Contribution.Value.ToNaNAsNull(),
+                ScenarioContribution = calculation.Contribution.ToNaNAsNull(),
                 Name = calculation.Name.DeepClone(),
                 Comments = calculation.Comments.Body.DeepClone(),
                 Order = order
@@ -73,7 +73,7 @@ namespace Application.Ringtoets.Storage.Create.Piping
             entity.UseAssessmentLevelManualInput = Convert.ToByte(useAssessmentLevelManualInput);
             if (useAssessmentLevelManualInput)
             {
-                entity.AssessmentLevel = inputParameters.AssessmentLevel.Value.ToNaNAsNull();
+                entity.AssessmentLevel = inputParameters.AssessmentLevel.ToNaNAsNull();
             }
             else
             {
@@ -94,11 +94,11 @@ namespace Application.Ringtoets.Storage.Create.Piping
             double tempQualifier1 = inputParameters.EntryPointL.Value;
             entity.EntryPointL = tempQualifier1.ToNaNAsNull();
 
-            entity.PhreaticLevelExitMean = inputParameters.PhreaticLevelExit.Mean.Value.ToNaNAsNull();
-            entity.PhreaticLevelExitStandardDeviation = inputParameters.PhreaticLevelExit.StandardDeviation.Value.ToNaNAsNull();
+            entity.PhreaticLevelExitMean = inputParameters.PhreaticLevelExit.Mean.ToNaNAsNull();
+            entity.PhreaticLevelExitStandardDeviation = inputParameters.PhreaticLevelExit.StandardDeviation.ToNaNAsNull();
 
-            entity.DampingFactorExitMean = inputParameters.DampingFactorExit.Mean.Value.ToNaNAsNull();
-            entity.DampingFactorExitStandardDeviation = inputParameters.DampingFactorExit.StandardDeviation.Value.ToNaNAsNull();
+            entity.DampingFactorExitMean = inputParameters.DampingFactorExit.Mean.ToNaNAsNull();
+            entity.DampingFactorExitStandardDeviation = inputParameters.DampingFactorExit.StandardDeviation.ToNaNAsNull();
         }
 
         private static void AddEntityForPipingOutput(PipingCalculationEntity entity, PipingOutput output)

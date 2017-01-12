@@ -43,12 +43,12 @@ namespace Application.Ringtoets.Storage.Create.GrassCoverErosionInwards
             var entity = new GrassCoverErosionInwardsOutputEntity
             {
                 IsOvertoppingDominant = Convert.ToByte(output.IsOvertoppingDominant),
-                WaveHeight = output.WaveHeight.Value.ToNaNAsNull(),
+                WaveHeight = output.WaveHeight.ToNaNAsNull(),
                 RequiredProbability = output.ProbabilityAssessmentOutput.RequiredProbability.ToNaNAsNull(),
-                RequiredReliability = output.ProbabilityAssessmentOutput.RequiredReliability.Value.ToNaNAsNull(),
+                RequiredReliability = output.ProbabilityAssessmentOutput.RequiredReliability.ToNaNAsNull(),
                 Probability = output.ProbabilityAssessmentOutput.Probability.ToNaNAsNull(),
-                Reliability = output.ProbabilityAssessmentOutput.Reliability.Value.ToNaNAsNull(),
-                FactorOfSafety = output.ProbabilityAssessmentOutput.FactorOfSafety.Value.ToNaNAsNull()
+                Reliability = output.ProbabilityAssessmentOutput.Reliability.ToNaNAsNull(),
+                FactorOfSafety = output.ProbabilityAssessmentOutput.FactorOfSafety.ToNaNAsNull()
             };
 
             AddEntityForDikeHeightAssessmentOutput(entity, output.DikeHeightAssessmentOutput);

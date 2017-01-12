@@ -41,7 +41,7 @@ namespace Application.Ringtoets.Storage.Create.TechnicalInnovation
             var sectionResultEntity = new TechnicalInnovationSectionResultEntity
             {
                 LayerOne = Convert.ToByte(result.AssessmentLayerOne),
-                LayerThree = result.AssessmentLayerThree.Value.ToNaNAsNull()
+                LayerThree = result.AssessmentLayerThree.ToNaNAsNull()
             };
 
             return sectionResultEntity;

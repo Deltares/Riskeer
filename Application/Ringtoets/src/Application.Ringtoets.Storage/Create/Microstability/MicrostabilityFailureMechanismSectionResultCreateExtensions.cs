@@ -42,7 +42,7 @@ namespace Application.Ringtoets.Storage.Create.Microstability
             {
                 LayerOne = Convert.ToByte(result.AssessmentLayerOne),
                 LayerTwoA = Convert.ToByte(result.AssessmentLayerTwoA),
-                LayerThree = result.AssessmentLayerThree.Value.ToNaNAsNull()
+                LayerThree = result.AssessmentLayerThree.ToNaNAsNull()
             };
 
             return sectionResultEntity;

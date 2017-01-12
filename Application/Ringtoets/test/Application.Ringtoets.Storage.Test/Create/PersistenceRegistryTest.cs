@@ -2078,7 +2078,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             var registry = new PersistenceRegistry();
 
             // Call
-            TestDelegate test = () => registry.Register((DuneLocationEntity) null, new TestDuneLocation());
+            TestDelegate test = () => registry.Register(null, new TestDuneLocation());
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;

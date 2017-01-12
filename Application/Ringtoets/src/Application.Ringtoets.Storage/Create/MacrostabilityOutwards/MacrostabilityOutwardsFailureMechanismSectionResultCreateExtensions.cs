@@ -42,7 +42,7 @@ namespace Application.Ringtoets.Storage.Create.MacrostabilityOutwards
             {
                 LayerOne = Convert.ToByte(result.AssessmentLayerOne),
                 LayerTwoA = result.AssessmentLayerTwoA.ToNaNAsNull(),
-                LayerThree = result.AssessmentLayerThree.Value.ToNaNAsNull()
+                LayerThree = result.AssessmentLayerThree.ToNaNAsNull()
             };
 
             return sectionResultEntity;

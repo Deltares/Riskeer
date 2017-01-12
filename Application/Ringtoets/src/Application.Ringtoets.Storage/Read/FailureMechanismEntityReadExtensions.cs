@@ -763,10 +763,9 @@ namespace Application.Ringtoets.Storage.Read
                                               ReadConversionCollector collector)
         {
             locations.AddRange(
-                entity
-                    .DuneLocationEntities
-                    .OrderBy(location => location.Order)
-                    .Select(location => location.Read(collector)));
+                entity.DuneLocationEntities
+                      .OrderBy(location => location.Order)
+                      .Select(location => location.Read(collector)));
         }
 
         #endregion

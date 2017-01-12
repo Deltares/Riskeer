@@ -124,6 +124,7 @@
     <Compile Include="Read\StabilityStoneCover\StabilityStoneCoverWaveConditionsOutputEntityReadExtensionsTest.cs" />
     <Compile Include="Read\WaveImpactAsphaltCover\WaveImpactAsphaltCoverWaveConditionsCalculationEntityReadExtensionsTest.cs" />
     <Compile Include="Read\WaveImpactAsphaltCover\WaveImpactAsphaltCoverWaveConditionsOutputEntityReadExtensionsTest.cs" />
+    <Compile Include="RoundedDoubleConversionExtensionsTest.cs" />
     <Compile Include="Serializers\DataCollectionSerializerTest.cs" />
     <Compile Include="Serializers\Point2DXmlSerializerTest.cs" />
     <Compile Include="Serializers\Point3DXmlSerializerTest.cs" />

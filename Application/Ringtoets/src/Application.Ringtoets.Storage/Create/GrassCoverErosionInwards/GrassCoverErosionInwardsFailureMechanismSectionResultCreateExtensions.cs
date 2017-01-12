@@ -47,7 +47,7 @@ namespace Application.Ringtoets.Storage.Create.GrassCoverErosionInwards
             var sectionResultEntity = new GrassCoverErosionInwardsSectionResultEntity
             {
                 LayerOne = Convert.ToByte(result.AssessmentLayerOne),
-                LayerThree = result.AssessmentLayerThree.Value.ToNaNAsNull()
+                LayerThree = result.AssessmentLayerThree.ToNaNAsNull()
             };
             if (result.Calculation != null)
             {

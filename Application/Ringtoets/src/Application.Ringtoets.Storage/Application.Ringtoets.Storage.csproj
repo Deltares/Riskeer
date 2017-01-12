@@ -318,6 +318,7 @@
     <Compile Include="Read\StabilityStoneCover\StabilityStoneCoverWaveConditionsOutputEntityReadExtensions.cs" />
     <Compile Include="Read\WaveImpactAsphaltCover\WaveImpactAsphaltCoverWaveConditionsCalculationEntityReadExtensions.cs" />
     <Compile Include="Read\WaveImpactAsphaltCover\WaveImpactAsphaltCoverWaveConditionsOutputEntityReadExtensions.cs" />
+    <Compile Include="RoundedDoubleConversionExtensions.cs" />
     <Compile Include="Serializers\Point2DXmlSerializer.cs" />
     <Compile Include="Serializers\Point3DXmlSerializer.cs" />
     <Compile Include="Serializers\RoughnessPointXmlSerializer.cs" />
@@ -530,7 +531,7 @@
     <None Include="..\..\..\..\build\Copying.licenseheader">
       <Link>Copying.licenseheader</Link>
     </None>
-	<None Include="$(SolutionDir)\build\DatabaseStructure.sql">
+    <None Include="$(SolutionDir)\build\DatabaseStructure.sql">
       <Link>DbContext\DatabaseStructure</Link>
     </None>
     <None Include="App.config">

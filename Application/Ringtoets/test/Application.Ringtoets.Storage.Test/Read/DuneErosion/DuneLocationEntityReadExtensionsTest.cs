@@ -144,6 +144,8 @@ namespace Application.Ringtoets.Storage.Test.Read.DuneErosion
             Assert.IsNaN(location.Orientation);
             Assert.IsNaN(location.D50);
             Assert.IsNull(location.Output);
+
+            Assert.IsTrue(collector.Contains(entity));
         }
 
         [Test]

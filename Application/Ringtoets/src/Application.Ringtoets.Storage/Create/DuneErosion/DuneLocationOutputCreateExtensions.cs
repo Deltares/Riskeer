@@ -44,28 +44,14 @@ namespace Application.Ringtoets.Storage.Create.DuneErosion
             }
             return new DuneLocationOutputEntity
             {
-                WaterLevel = double.IsNaN(output.WaterLevel)
-                                 ? (double?) null
-                                 : output.WaterLevel,
-                WaveHeight = double.IsNaN(output.WaveHeight)
-                                 ? (double?) null
-                                 : output.WaveHeight,
-                WavePeriod = double.IsNaN(output.WavePeriod)
-                                 ? (double?) null
-                                 : output.WavePeriod,
-                TargetProbability = double.IsNaN(output.TargetProbability)
-                                        ? (double?) null
-                                        : output.TargetProbability,
-                TargetReliability = double.IsNaN(output.TargetReliability)
-                                        ? (double?) null
-                                        : output.TargetReliability,
-                CalculatedProbability = double.IsNaN(output.CalculatedProbability)
-                                            ? (double?) null
-                                            : output.CalculatedProbability,
-                CalculatedReliability = double.IsNaN(output.CalculatedReliability)
-                                            ? (double?) null
-                                            : output.CalculatedReliability,
-                CalculationConvergence = (byte) output.CalculationConvergence,
+                WaterLevel = output.WaterLevel.ToNaNAsNull(),
+                WaveHeight = output.WaveHeight.ToNaNAsNull(),
+                WavePeriod = output.WavePeriod.ToNaNAsNull(),
+                TargetProbability = output.TargetProbability.ToNaNAsNull(),
+                TargetReliability = output.TargetReliability.ToNaNAsNull(),
+                CalculatedProbability = output.CalculatedProbability.ToNaNAsNull(),
+                CalculatedReliability = output.CalculatedReliability.ToNaNAsNull(),
+                CalculationConvergence = (byte) output.CalculationConvergence
             };
         }
     }

@@ -82,14 +82,14 @@ namespace Application.Ringtoets.Storage.Create.GrassCoverErosionInwards
                 entity.HydraulicLocationEntity = registry.Get<HydraulicLocationEntity>(input.HydraulicBoundaryLocation);
             }
 
-            entity.BreakWaterHeight = input.BreakWater.Height.Value.ToNaNAsNull();
+            entity.BreakWaterHeight = input.BreakWater.Height.ToNaNAsNull();
             entity.BreakWaterType = Convert.ToByte(input.BreakWater.Type);
             entity.UseBreakWater = Convert.ToByte(input.UseBreakWater);
-            entity.CriticalFlowRateMean = input.CriticalFlowRate.Mean.Value.ToNaNAsNull();
-            entity.CriticalFlowRateStandardDeviation = input.CriticalFlowRate.StandardDeviation.Value.ToNaNAsNull();
-            entity.Orientation = input.Orientation.Value.ToNaNAsNull();
+            entity.CriticalFlowRateMean = input.CriticalFlowRate.Mean.ToNaNAsNull();
+            entity.CriticalFlowRateStandardDeviation = input.CriticalFlowRate.StandardDeviation.ToNaNAsNull();
+            entity.Orientation = input.Orientation.ToNaNAsNull();
             entity.DikeHeightCalculationType = Convert.ToByte(input.DikeHeightCalculationType);
-            entity.DikeHeight = input.DikeHeight.Value.ToNaNAsNull();
+            entity.DikeHeight = input.DikeHeight.ToNaNAsNull();
             entity.UseForeshore = Convert.ToByte(input.UseForeshore);
         }
     }

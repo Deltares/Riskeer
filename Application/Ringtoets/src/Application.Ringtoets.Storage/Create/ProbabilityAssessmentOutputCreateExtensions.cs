@@ -42,10 +42,10 @@ namespace Application.Ringtoets.Storage.Create
             return new T
             {
                 RequiredProbability = output.RequiredProbability.ToNaNAsNull(),
-                RequiredReliability = output.RequiredReliability.Value.ToNaNAsNull(),
+                RequiredReliability = output.RequiredReliability.ToNaNAsNull(),
                 Probability = output.Probability.ToNaNAsNull(),
-                Reliability = output.Reliability.Value.ToNaNAsNull(),
-                FactorOfSafety = output.FactorOfSafety.Value.ToNaNAsNull()
+                Reliability = output.Reliability.ToNaNAsNull(),
+                FactorOfSafety = output.FactorOfSafety.ToNaNAsNull()
             };
         }
     }

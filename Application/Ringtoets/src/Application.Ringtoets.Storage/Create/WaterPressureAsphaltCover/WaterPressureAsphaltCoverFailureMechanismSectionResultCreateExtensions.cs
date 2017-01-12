@@ -41,7 +41,7 @@ namespace Application.Ringtoets.Storage.Create.WaterPressureAsphaltCover
             var sectionResultEntity = new WaterPressureAsphaltCoverSectionResultEntity
             {
                 LayerOne = Convert.ToByte(result.AssessmentLayerOne),
-                LayerThree = result.AssessmentLayerThree.Value.ToNaNAsNull()
+                LayerThree = result.AssessmentLayerThree.ToNaNAsNull()
             };
 
             return sectionResultEntity;
