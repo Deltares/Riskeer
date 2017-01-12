@@ -80,7 +80,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             using (var view = new DuneLocationsView())
             {
                 // Assert
-                Assert.IsInstanceOf<CalculatableView>(view);
+                Assert.IsInstanceOf<CalculatableView<DuneLocation>>(view);
                 Assert.IsNull(view.Data);
             }
         }
@@ -226,7 +226,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
 
                 Assert.NotNull(selection);
                 Assert.NotNull(dataBoundItem);
-                Assert.AreSame(dataBoundItem.DuneLocation, selection.DuneLocation);
+                Assert.AreSame(dataBoundItem.CalculatableObject, selection.DuneLocation);
             }
         }
 

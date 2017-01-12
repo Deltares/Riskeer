@@ -99,7 +99,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
                 Assert.NotNull(selection);
                 Assert.NotNull(dataBoundItem);
-                Assert.AreSame(dataBoundItem.HydraulicBoundaryLocation, selection.HydraulicBoundaryLocation);
+                Assert.AreSame(dataBoundItem.CalculatableObject, selection.HydraulicBoundaryLocation);
             }
         }
 

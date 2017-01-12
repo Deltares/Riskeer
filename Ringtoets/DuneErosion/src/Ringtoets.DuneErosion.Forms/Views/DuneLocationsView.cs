@@ -36,7 +36,7 @@ namespace Ringtoets.DuneErosion.Forms.Views
     /// <summary>
     /// View for the <see cref="DuneLocation"/>.
     /// </summary>
-    public partial class DuneLocationsView : CalculatableView
+    public partial class DuneLocationsView : CalculatableView<DuneLocation>
     {
         private readonly Observer duneLocationsObserver;
         private IEnumerable<DuneLocation> locations;
@@ -116,7 +116,7 @@ namespace Ringtoets.DuneErosion.Forms.Views
         {
             var currentRow = dataGridViewControl.CurrentRow;
             return currentRow != null
-                       ? new DuneLocationContext((ObservableList<DuneLocation>) Data, ((DuneLocationRow) currentRow.DataBoundItem).DuneLocation)
+                       ? new DuneLocationContext((ObservableList<DuneLocation>) Data, ((DuneLocationRow) currentRow.DataBoundItem).CalculatableObject)
                        : null;
         }
 
@@ -145,13 +145,6 @@ namespace Ringtoets.DuneErosion.Forms.Views
             ((IObservable) Data).NotifyObservers();
         }
 
-        private IEnumerable<DuneLocation> GetSelectedLocations()
-        {
-            return GetCalculatableRows().Where(r => r.ToCalculate)
-                                        .Cast<DuneLocationRow>()
-                                        .Select(r => r.DuneLocation);
-        }
-
         private void UpdateDuneLocations()
         {
             if (IsDataGridDataSourceChanged())
@@ -173,7 +166,7 @@ namespace Ringtoets.DuneErosion.Forms.Views
             }
             for (int i = 0; i < count; i++)
             {
-                var locationFromGrid = ((DuneLocationRow) dataGridViewControl.Rows[i].DataBoundItem).DuneLocation;
+                var locationFromGrid = ((DuneLocationRow) dataGridViewControl.Rows[i].DataBoundItem).CalculatableObject;
                 if (!ReferenceEquals(locationFromGrid, locations.ElementAt(i)))
                 {
                     return true;

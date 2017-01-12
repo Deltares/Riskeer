@@ -34,7 +34,7 @@ namespace Ringtoets.DuneErosion.Forms.Views
     /// <summary>
     /// This class represents a row of <see cref="DuneLocation"/>.
     /// </summary>
-    public class DuneLocationRow : CalculatableRow
+    public class DuneLocationRow : CalculatableRow<DuneLocation>
     {
         /// <summary>
         /// Creates a new instance of <see cref="DuneLocationRow"/>.
@@ -42,72 +42,60 @@ namespace Ringtoets.DuneErosion.Forms.Views
         /// <param name="duneLocation">The <see cref="DuneLocation"/> to wrap.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="duneLocation"/> is <c>null</c>.</exception>
         public DuneLocationRow(DuneLocation duneLocation)
-        {
-            if (duneLocation == null)
-            {
-                throw new ArgumentNullException(nameof(duneLocation));
-            }
-
-            DuneLocation = duneLocation;
-        }
+            : base(duneLocation) {}
 
         /// <summary>
-        /// Gets the wrapped <see cref="DuneLocation"/>.
-        /// </summary>
-        public DuneLocation DuneLocation { get; }
-
-        /// <summary>
-        /// Gets the <see cref="Data.DuneLocation.Name"/>.
+        /// Gets the <see cref="DuneLocation.Name"/>.
         /// </summary>
         public string Name
         {
             get
             {
-                return DuneLocation.Name;
+                return CalculatableObject.Name;
             }
         }
 
         /// <summary>
-        /// Gets the <see cref="Data.DuneLocation.Id"/>.
+        /// Gets the <see cref="DuneLocation.Id"/>.
         /// </summary>
         public long Id
         {
             get
             {
-                return DuneLocation.Id;
+                return CalculatableObject.Id;
             }
         }
 
         /// <summary>
-        /// Gets the <see cref="Data.DuneLocation.Location"/>.
+        /// Gets the <see cref="DuneLocation.Location"/>.
         /// </summary>
         public Point2D Location
         {
             get
             {
-                return DuneLocation.Location;
+                return CalculatableObject.Location;
             }
         }
 
         /// <summary>
-        /// Gets the <see cref="Data.DuneLocation.CoastalAreaId"/>.
+        /// Gets the <see cref="DuneLocation.CoastalAreaId"/>.
         /// </summary>
         public int CoastalAreaId
         {
             get
             {
-                return DuneLocation.CoastalAreaId;
+                return CalculatableObject.CoastalAreaId;
             }
         }
 
         /// <summary>
-        /// Gets the <see cref="Data.DuneLocation.Offset"/>.
+        /// Gets the <see cref="DuneLocation.Offset"/>.
         /// </summary>
         public string Offset
         {
             get
             {
-                return DuneLocation.Offset.ToString(DuneErosionDataResources.DuneLocation_Offset_format, CultureInfo.InvariantCulture);
+                return CalculatableObject.Offset.ToString(DuneErosionDataResources.DuneLocation_Offset_format, CultureInfo.InvariantCulture);
             }
         }
 
@@ -119,7 +107,7 @@ namespace Ringtoets.DuneErosion.Forms.Views
         {
             get
             {
-                return DuneLocation.Output?.WaterLevel ?? RoundedDouble.NaN;
+                return CalculatableObject.Output?.WaterLevel ?? RoundedDouble.NaN;
             }
         }
 
@@ -131,7 +119,7 @@ namespace Ringtoets.DuneErosion.Forms.Views
         {
             get
             {
-                return DuneLocation.Output?.WaveHeight ?? RoundedDouble.NaN;
+                return CalculatableObject.Output?.WaveHeight ?? RoundedDouble.NaN;
             }
         }
 
@@ -143,18 +131,18 @@ namespace Ringtoets.DuneErosion.Forms.Views
         {
             get
             {
-                return DuneLocation.Output?.WavePeriod ?? RoundedDouble.NaN;
+                return CalculatableObject.Output?.WavePeriod ?? RoundedDouble.NaN;
             }
         }
 
         /// <summary>
-        /// Gets the <see cref="Data.DuneLocation.D50"/>.
+        /// Gets the <see cref="DuneLocation.D50"/>.
         /// </summary>
         public RoundedDouble D50
         {
             get
             {
-                return DuneLocation.D50;
+                return CalculatableObject.D50;
             }
         }
     }

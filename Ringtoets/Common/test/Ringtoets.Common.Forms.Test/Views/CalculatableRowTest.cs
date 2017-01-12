@@ -19,7 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using NUnit.Framework;
+using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.Views;
 
 namespace Ringtoets.Common.Forms.Test.Views
@@ -28,18 +31,33 @@ namespace Ringtoets.Common.Forms.Test.Views
     public class CalculatableRowTest
     {
         [Test]
-        public void Constructor_Property_SetPropertyAsExpected()
+        public void Constructor_CalculatableObjectNull_ThrowArgumentNullException()
         {
-            // Setup
-            var row = new SimpleCalculatableRow();
-
             // Call
-            row.ToCalculate = true;
+            TestDelegate test = () => new SimpleCalculatableRow(null);
 
             // Assert
-            Assert.IsTrue(row.ToCalculate);
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("calculatableObject", exception.ParamName);
         }
 
-        private class SimpleCalculatableRow : CalculatableRow {}
+        [Test]
+        public void Constructor_ExpectedValues()
+        {
+            // Setup
+            var calculatableObject = new TestHydraulicBoundaryLocation();
+
+            // Call
+            var row = new SimpleCalculatableRow(calculatableObject);
+            
+            // Assert
+            Assert.IsFalse(row.ToCalculate);
+            Assert.AreSame(calculatableObject, row.CalculatableObject);
+        }
+
+        private class SimpleCalculatableRow : CalculatableRow<HydraulicBoundaryLocation> {
+            public SimpleCalculatableRow(HydraulicBoundaryLocation calculatableObject) 
+                : base(calculatableObject) {}
+        }
     }
 }

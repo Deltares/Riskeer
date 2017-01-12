@@ -1,6 +1,6 @@
 ﻿namespace Ringtoets.Common.Forms.Views
 {
-    partial class CalculatableView
+    partial class CalculatableView<T>
     {
         /// <summary> 
         /// Required designer variable.

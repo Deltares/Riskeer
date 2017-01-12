@@ -232,15 +232,12 @@ namespace Ringtoets.Common.Forms.Test.Views
             return view;
         }
 
-        private class TestCalculatableRow : CalculatableRow
+        private class TestCalculatableRow : CalculatableRow<TestCalculatableObject>
         {
-            public TestCalculatableRow(TestCalculatableObject calculatableObject)
+            public TestCalculatableRow(TestCalculatableObject calculatableObject) : base (calculatableObject)
             {
-                CalculatableObject = calculatableObject;
                 ToCalculate = calculatableObject.IsChecked;
             }
-
-            public TestCalculatableObject CalculatableObject { get; }
         }
 
         private class TestCalculatableObject
@@ -248,7 +245,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             public bool IsChecked { get; }
         }
 
-        private class TestCalculatableView : CalculatableView
+        private class TestCalculatableView : CalculatableView<TestCalculatableObject>
         {
             private IEnumerable<TestCalculatableObject> data;
 

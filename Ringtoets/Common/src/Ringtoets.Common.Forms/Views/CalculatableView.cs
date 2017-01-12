@@ -35,14 +35,15 @@ namespace Ringtoets.Common.Forms.Views
     /// Base view for calculatable objects such as <see cref="HydraulicBoundaryLocation"/> views 
     /// which should be derived in order to get a consistent look and feel.
     /// </summary>
-    public abstract partial class CalculatableView : UserControl, ISelectionProvider
+    /// <typeparam name="T">The type of the calculatable object.</typeparam>
+    public abstract partial class CalculatableView<T> : UserControl, ISelectionProvider where T : class
     {
         private const int calculateColumnIndex = 0;
         private bool updatingDataSource;
         public event EventHandler<EventArgs> SelectionChanged;
 
         /// <summary>
-        /// Creates a new instance of <see cref="CalculatableView"/>.
+        /// Creates a new instance of <see cref="CalculatableView{T}"/>.
         /// </summary>
         protected CalculatableView()
         {
@@ -93,7 +94,7 @@ namespace Ringtoets.Common.Forms.Views
         /// </summary>
         protected virtual void InitializeDataGridView()
         {
-            dataGridViewControl.AddCheckBoxColumn(TypeUtils.GetMemberName<CalculatableRow>(row => row.ToCalculate),
+            dataGridViewControl.AddCheckBoxColumn(TypeUtils.GetMemberName<CalculatableRow<T>>(row => row.ToCalculate),
                                                   Resources.HydraulicBoundaryLocationsView_Calculate);
         }
 
@@ -114,9 +115,23 @@ namespace Ringtoets.Common.Forms.Views
         /// </summary>
         protected abstract void CalculateForSelectedRows();
 
-        protected IEnumerable<CalculatableRow> GetCalculatableRows()
+        /// <summary>
+        /// Gets all the row items from the <see cref="DataGridView"/>.
+        /// </summary>
+        /// <returns>All row items from the <see cref="DataGridView"/>.</returns>
+        protected IEnumerable<CalculatableRow<T>> GetCalculatableRows()
         {
-            return dataGridViewControl.Rows.Cast<DataGridViewRow>().Select(row => (CalculatableRow) row.DataBoundItem);
+            return dataGridViewControl.Rows.Cast<DataGridViewRow>().Select(row => (CalculatableRow<T>) row.DataBoundItem);
+        }
+
+        /// <summary>
+        /// Gets all the selected calculatable objects.
+        /// </summary>
+        /// <returns></returns>
+        protected IEnumerable<T> GetSelectedLocations()
+        {
+            return GetCalculatableRows().Where(r => r.ToCalculate)
+                                        .Select(r => r.CalculatableObject);
         }
 
         private void LocalizeControls()

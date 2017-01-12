@@ -38,7 +38,8 @@ namespace Ringtoets.Common.Forms.Views
         /// </summary>
         /// <param name="hydraulicBoundaryLocation">The <see cref="HydraulicBoundaryLocation"/> for this row.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocation"/> is <c>null</c>.</exception>
-        public WaveHeightLocationRow(HydraulicBoundaryLocation hydraulicBoundaryLocation) : base(hydraulicBoundaryLocation) {}
+        public WaveHeightLocationRow(HydraulicBoundaryLocation hydraulicBoundaryLocation)
+            : base(hydraulicBoundaryLocation) {}
 
         /// <summary>
         /// Gets the <see cref="HydraulicBoundaryLocation.WaveHeight"/>.
@@ -48,7 +49,7 @@ namespace Ringtoets.Common.Forms.Views
         {
             get
             {
-                return HydraulicBoundaryLocation.WaveHeight;
+                return CalculatableObject.WaveHeight;
             }
         }
     }

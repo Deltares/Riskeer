@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Globalization;
 using Core.Common.Base.Geometry;
 using Core.Common.Utils.Reflection;
@@ -35,17 +34,6 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
     [TestFixture]
     public class DuneLocationRowTest
     {
-        [Test]
-        public void Constructor_DuneLocationNull_ThrowArgumentNullException()
-        {
-            // Call
-            TestDelegate test = () => new DuneLocationRow(null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("duneLocation", exception.ParamName);
-        }
-
         [Test]
         [TestCase(34.1)]
         [TestCase(34.0)]
@@ -71,8 +59,8 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             var row = new DuneLocationRow(location);
 
             // Assert
-            Assert.IsInstanceOf<CalculatableRow>(row);
-            Assert.AreSame(location, row.DuneLocation);
+            Assert.IsInstanceOf<CalculatableRow<DuneLocation>>(row);
+            Assert.AreSame(location, row.CalculatableObject);
             Assert.AreEqual(location.Id, row.Id);
             Assert.AreEqual(location.Name, row.Name);
             Assert.AreSame(location.Location, row.Location);

@@ -89,13 +89,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
             var currentRow = dataGridViewControl.CurrentRow;
 
             return currentRow != null ?
-                       new GrassCoverErosionOutwardsDesignWaterLevelLocationContext((ObservableList<HydraulicBoundaryLocation>) Data, ((HydraulicBoundaryLocationRow) currentRow.DataBoundItem).HydraulicBoundaryLocation) :
+                       new GrassCoverErosionOutwardsDesignWaterLevelLocationContext((ObservableList<HydraulicBoundaryLocation>) Data,
+                                                                                    ((HydraulicBoundaryLocationRow) currentRow.DataBoundItem).CalculatableObject) :
                        null;
         }
 
         protected override void HandleCalculateSelectedLocations(IEnumerable<HydraulicBoundaryLocation> locations)
         {
-            if (AssessmentSection == null || AssessmentSection.HydraulicBoundaryDatabase == null)
+            if (AssessmentSection?.HydraulicBoundaryDatabase == null)
             {
                 return;
             }
@@ -138,7 +139,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
             }
             for (int i = 0; i < count; i++)
             {
-                var locationFromGrid = ((DesignWaterLevelLocationRow) dataGridViewControl.Rows[i].DataBoundItem).HydraulicBoundaryLocation;
+                var locationFromGrid = ((DesignWaterLevelLocationRow) dataGridViewControl.Rows[i].DataBoundItem).CalculatableObject;
                 if (!ReferenceEquals(locationFromGrid, locations[i]))
                 {
                     return true;

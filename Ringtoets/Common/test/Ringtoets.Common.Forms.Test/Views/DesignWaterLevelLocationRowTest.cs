@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using Core.Common.Utils.Reflection;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
@@ -32,17 +31,6 @@ namespace Ringtoets.Common.Forms.Test.Views
     [TestFixture]
     public class DesignWaterLevelLocationRowTest
     {
-        [Test]
-        public void Constructor_WithoutDesignWaterLevelLocationContext_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate test = () => new DesignWaterLevelLocationRow(null);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("hydraulicBoundaryLocation", paramName);
-        }
-
         [Test]
         public void Constructor_WithDesignWaterLevelLocationContext_PropertiesFromHydraulicBoundaryLocation()
         {
@@ -60,7 +48,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             Assert.AreEqual(hydraulicBoundaryLocation.Name, row.Name);
             Assert.AreEqual(designWaterLevel, row.DesignWaterLevel, hydraulicBoundaryLocation.DesignWaterLevel.GetAccuracy());
             Assert.AreEqual(hydraulicBoundaryLocation.Location, row.Location);
-            Assert.AreSame(hydraulicBoundaryLocation, row.HydraulicBoundaryLocation);
+            Assert.AreSame(hydraulicBoundaryLocation, row.CalculatableObject);
             Assert.IsFalse(row.ToCalculate);
             Assert.IsTrue(TypeUtils.HasTypeConverter<DesignWaterLevelLocationRow,
                               NoValueRoundedDoubleConverter>(r => r.DesignWaterLevel));

@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
@@ -30,17 +29,6 @@ namespace Ringtoets.Common.Forms.Test.Views
     [TestFixture]
     public class HydraulicBoundaryLocationRowTest
     {
-        [Test]
-        public void Constructor_WithoutHydraulicBoundaryLocationContext_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate test = () => new TestHydraulicBoundaryLocationRow(null);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("hydraulicBoundaryLocation", paramName);
-        }
-
         [Test]
         public void Constructor_WithHydraulicBoundaryLocationContext_PropertiesFromHydraulicBoundaryLocation()
         {
@@ -55,12 +43,12 @@ namespace Ringtoets.Common.Forms.Test.Views
             var row = new TestHydraulicBoundaryLocationRow(hydraulicBoundaryLocation);
 
             // Assert
-            Assert.IsInstanceOf<CalculatableRow>(row);
+            Assert.IsInstanceOf<CalculatableRow<HydraulicBoundaryLocation>>(row);
             Assert.AreEqual(id, row.Id);
             Assert.AreEqual(locationname, row.Name);
             var expectedPoint2D = new Point2D(coordinateX, coordinateY);
             Assert.AreEqual(expectedPoint2D, row.Location);
-            Assert.AreSame(hydraulicBoundaryLocation, row.HydraulicBoundaryLocation);
+            Assert.AreSame(hydraulicBoundaryLocation, row.CalculatableObject);
             Assert.IsFalse(row.ToCalculate);
         }
 

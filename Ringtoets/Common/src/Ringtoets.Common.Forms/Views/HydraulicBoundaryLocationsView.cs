@@ -34,7 +34,7 @@ namespace Ringtoets.Common.Forms.Views
     /// Base view for <see cref="HydraulicBoundaryLocation"/> views which should be derived in order to get a consistent look and feel.
     /// </summary>
     /// <typeparam name="T">The type of the row objects which are shown in the data table.</typeparam>
-    public abstract partial class HydraulicBoundaryLocationsView<T> : CalculatableView where T : HydraulicBoundaryLocationRow
+    public abstract partial class HydraulicBoundaryLocationsView<T> : CalculatableView<HydraulicBoundaryLocation> where T : HydraulicBoundaryLocationRow
     {
         private IEnumerable<HydraulicBoundaryLocation> locations;
 
@@ -95,7 +95,7 @@ namespace Ringtoets.Common.Forms.Views
                 return;
             }
 
-            var selectedLocations = GetSelectedHydraulicBoundaryLocationContext();
+            var selectedLocations = GetSelectedLocations();
             HandleCalculateSelectedLocations(selectedLocations);
         }
 
@@ -105,13 +105,6 @@ namespace Ringtoets.Common.Forms.Views
         protected override void SetDataSource()
         {
             dataGridViewControl.SetDataSource(locations?.Select(CreateNewRow).ToArray());
-        }
-
-        private IEnumerable<HydraulicBoundaryLocation> GetSelectedHydraulicBoundaryLocationContext()
-        {
-            return GetCalculatableRows().Where(r => r.ToCalculate)
-                                        .Cast<HydraulicBoundaryLocationRow>()
-                                        .Select(r => r.HydraulicBoundaryLocation);
         }
     }
 }

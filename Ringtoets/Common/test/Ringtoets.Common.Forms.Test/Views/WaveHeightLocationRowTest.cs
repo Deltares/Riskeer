@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Utils.Reflection;
@@ -34,17 +33,6 @@ namespace Ringtoets.Common.Forms.Test.Views
     [TestFixture]
     public class WaveHeightLocationRowTest
     {
-        [Test]
-        public void Constructor_WithoutWaveHeightLocationContext_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate test = () => new WaveHeightLocationRow(null);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("hydraulicBoundaryLocation", paramName);
-        }
-
         [Test]
         public void Constructor_WithWaveHeightLocationContext_PropertiesFromHydraulicBoundaryLocation()
         {
@@ -69,7 +57,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             Assert.AreEqual(waveHeight, row.WaveHeight, hydraulicBoundaryLocation.WaveHeight.GetAccuracy());
             var expectedPoint2D = new Point2D(coordinateX, coordinateY);
             Assert.AreEqual(expectedPoint2D, row.Location);
-            Assert.AreSame(hydraulicBoundaryLocation, row.HydraulicBoundaryLocation);
+            Assert.AreSame(hydraulicBoundaryLocation, row.CalculatableObject);
             Assert.IsFalse(row.ToCalculate);
             Assert.IsTrue(TypeUtils.HasTypeConverter<WaveHeightLocationRow,
                               NoValueRoundedDoubleConverter>(r => r.WaveHeight));

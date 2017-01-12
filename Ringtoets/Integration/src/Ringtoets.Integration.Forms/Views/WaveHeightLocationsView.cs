@@ -73,14 +73,15 @@ namespace Ringtoets.Integration.Forms.Views
         {
             var currentRow = dataGridViewControl.CurrentRow;
 
-            return currentRow != null ?
-                       new WaveHeightLocationContext(AssessmentSection.HydraulicBoundaryDatabase, ((HydraulicBoundaryLocationRow) currentRow.DataBoundItem).HydraulicBoundaryLocation) :
-                       null;
+            return currentRow != null
+                       ? new WaveHeightLocationContext(AssessmentSection.HydraulicBoundaryDatabase,
+                                                       ((HydraulicBoundaryLocationRow) currentRow.DataBoundItem).CalculatableObject)
+                       : null;
         }
 
         protected override void HandleCalculateSelectedLocations(IEnumerable<HydraulicBoundaryLocation> locations)
         {
-            if (AssessmentSection == null || AssessmentSection.HydraulicBoundaryDatabase == null)
+            if (AssessmentSection?.HydraulicBoundaryDatabase == null)
             {
                 return;
             }
@@ -118,7 +119,7 @@ namespace Ringtoets.Integration.Forms.Views
 
         private void UpdateHydraulicBoundaryDatabase()
         {
-            if (AssessmentSection == null || AssessmentSection.HydraulicBoundaryDatabase == null)
+            if (AssessmentSection?.HydraulicBoundaryDatabase == null)
             {
                 hydraulicBoundaryDatabaseObserver.Observable = null;
                 Data = null;

@@ -28,7 +28,7 @@ namespace Ringtoets.Common.Forms.Views
     /// <summary>
     /// This class represents a row of <see cref="HydraulicBoundaryLocation"/>.
     /// </summary>
-    public abstract class HydraulicBoundaryLocationRow : CalculatableRow
+    public abstract class HydraulicBoundaryLocationRow : CalculatableRow<HydraulicBoundaryLocation>
     {
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicBoundaryLocationRow"/>.
@@ -36,50 +36,38 @@ namespace Ringtoets.Common.Forms.Views
         /// <param name="hydraulicBoundaryLocation">The <see cref="HydraulicBoundaryLocation"/> for this row.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocation"/> is <c>null</c>.</exception>
         protected HydraulicBoundaryLocationRow(HydraulicBoundaryLocation hydraulicBoundaryLocation)
-        {
-            if (hydraulicBoundaryLocation == null)
-            {
-                throw new ArgumentNullException(nameof(hydraulicBoundaryLocation));
-            }
-
-            HydraulicBoundaryLocation = hydraulicBoundaryLocation;
-        }
+            : base(hydraulicBoundaryLocation) {}
 
         /// <summary>
-        /// Gets the hydraulic boundaries location.
-        /// </summary>
-        public HydraulicBoundaryLocation HydraulicBoundaryLocation { get; }
-        
-        /// <summary>
-        /// Gets the <see cref="Data.Hydraulics.HydraulicBoundaryLocation.Name"/>.
+        /// Gets the <see cref="HydraulicBoundaryLocation.Name"/>.
         /// </summary>
         public string Name
         {
             get
             {
-                return HydraulicBoundaryLocation.Name;
+                return CalculatableObject.Name;
             }
         }
 
         /// <summary>
-        /// Gets the <see cref="Data.Hydraulics.HydraulicBoundaryLocation.Id"/>.
+        /// Gets the <see cref="HydraulicBoundaryLocation.Id"/>.
         /// </summary>
         public long Id
         {
             get
             {
-                return HydraulicBoundaryLocation.Id;
+                return CalculatableObject.Id;
             }
         }
 
         /// <summary>
-        /// Gets the <see cref="Data.Hydraulics.HydraulicBoundaryLocation.Location"/>.
+        /// Gets the <see cref="HydraulicBoundaryLocation.Location"/>.
         /// </summary>
         public Point2D Location
         {
             get
             {
-                return HydraulicBoundaryLocation.Location;
+                return CalculatableObject.Location;
             }
         }
     }

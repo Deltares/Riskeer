@@ -61,7 +61,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             using (var view = new TestHydraulicBoundaryLocationsView())
             {
                 // Assert
-                Assert.IsInstanceOf<CalculatableView>(view);
+                Assert.IsInstanceOf<CalculatableView<HydraulicBoundaryLocation>>(view);
                 Assert.IsNull(view.Data);
             }
         }
