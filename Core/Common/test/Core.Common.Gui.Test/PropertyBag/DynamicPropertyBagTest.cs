@@ -25,6 +25,7 @@ using System.Drawing.Design;
 using System.Linq;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
+using Core.Common.TestUtil;
 using Core.Common.Utils.Reflection;
 using NUnit.Framework;
 using CategoryAttribute = System.ComponentModel.CategoryAttribute;
@@ -426,10 +427,7 @@ namespace Core.Common.Gui.Test.PropertyBag
             var dynamicPropertyBag = new DynamicPropertyBag(propertyObject);
 
             // Call
-            var properties = dynamicPropertyBag.GetProperties(new Attribute[]
-            {
-                BrowsableAttribute.Yes
-            });
+            PropertyDescriptorCollection properties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(propertyObject);
 
             // Assert
             Assert.Less(properties.Count, dynamicPropertyBag.Properties.Count);

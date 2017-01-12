@@ -24,6 +24,7 @@ using System.ComponentModel;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Gui.PropertyBag;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.StabilityPointStructures.Data;
@@ -215,11 +216,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             };
 
             // Assert
-            var dynamicPropertyBag = new DynamicPropertyBag(properties);
-            PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties(new Attribute[]
-            {
-                BrowsableAttribute.Yes
-            });
+            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
             Assert.AreEqual(28, dynamicProperties.Count);
 
             const string schematizationCategory = "Schematisatie";

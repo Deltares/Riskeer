@@ -178,11 +178,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             var properties = new TestWaveConditionsInputContextProperties(inputContext);
 
             // Assert
-            var dynamicPropertyBag = new DynamicPropertyBag(properties);
-            PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties(new Attribute[]
-            {
-                BrowsableAttribute.Yes
-            });
+            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
             Assert.AreEqual(15, dynamicProperties.Count);
 
             var hydraulicParametersCategory = "Hydraulische gegevens";

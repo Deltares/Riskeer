@@ -21,12 +21,11 @@
 
 using System;
 using System.ComponentModel;
-using Core.Common.Base.Geometry;
 using Core.Common.Gui.PropertyBag;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PropertyClasses;
-using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 {
@@ -74,11 +73,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var properties = new StochasticSoilModelCollectionProperties(collection);
 
             // Assert
-            var dynamicPropertyBag = new DynamicPropertyBag(properties);
-            PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties(new Attribute[]
-            {
-                BrowsableAttribute.Yes
-            });
+            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
             Assert.AreEqual(1, dynamicProperties.Count);
 
             PropertyDescriptor stochasticSoilModelIdProperty = dynamicProperties[0];
