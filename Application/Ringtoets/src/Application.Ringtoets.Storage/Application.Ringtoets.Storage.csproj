@@ -530,6 +530,9 @@
     <None Include="..\..\..\..\build\Copying.licenseheader">
       <Link>Copying.licenseheader</Link>
     </None>
+	<None Include="$(SolutionDir)\build\DatabaseStructure.sql">
+      <Link>DbContext\DatabaseStructure</Link>
+    </None>
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
@@ -562,12 +565,6 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup>
-    <None Include="DbContext\DatabaseStructure.sql">
-      <SubType>Designer</SubType>
-    </None>
-  </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>
