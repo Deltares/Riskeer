@@ -107,7 +107,7 @@ namespace Core.Common.Base.Geometry
                 string message = string.Format(CultureInfo.CurrentCulture,
                                                Resources.Point2D_AddVector_Vector_must_be_2D_but_has_Dimensionality_0_,
                                                vector.Count);
-                throw new ArgumentException(message, "vector");
+                throw new ArgumentException(message, nameof(vector));
             }
             double x = point.X + vector[0];
             double y = point.Y + vector[1];

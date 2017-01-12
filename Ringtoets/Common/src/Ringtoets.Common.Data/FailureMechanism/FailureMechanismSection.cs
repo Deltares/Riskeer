@@ -67,7 +67,7 @@ namespace Ringtoets.Common.Data.FailureMechanism
             }
             if (point2Ds.Length == 0)
             {
-                throw new ArgumentException(Resources.FailureMechanismSection_Section_must_have_at_least_1_geometry_point, "geometryPoints");
+                throw new ArgumentException(Resources.FailureMechanismSection_Section_must_have_at_least_1_geometry_point, nameof(geometryPoints));
             }
 
             Name = name;

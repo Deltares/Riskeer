@@ -91,7 +91,7 @@ namespace Ringtoets.Common.IO.ReferenceLines
 
             if (string.IsNullOrWhiteSpace(id))
             {
-                throw new ArgumentException(Resources.ReferenceLineWriter_CreateMapLineData_Traject_cannot_be_empty, "id");
+                throw new ArgumentException(Resources.ReferenceLineWriter_CreateMapLineData_Traject_cannot_be_empty, nameof(id));
             }
 
             MapGeometry referenceLineGeometry = new MapGeometry(

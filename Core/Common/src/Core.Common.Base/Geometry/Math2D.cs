@@ -54,17 +54,17 @@ namespace Core.Common.Base.Geometry
         {
             if (lengths.Any(l => l < 0))
             {
-                throw new ArgumentException(Resources.Math2D_SplitLineAtLengths_All_lengths_cannot_be_negative, "lengths");
+                throw new ArgumentException(Resources.Math2D_SplitLineAtLengths_All_lengths_cannot_be_negative, nameof(lengths));
             }
             if (linePoints.Count() <= 1)
             {
-                throw new ArgumentException(Resources.Math2D_SplitLineAtLengths_Not_enough_points_to_make_line, "linePoints");
+                throw new ArgumentException(Resources.Math2D_SplitLineAtLengths_Not_enough_points_to_make_line, nameof(linePoints));
             }
             Segment2D[] lineSegments = ConvertLinePointsToLineSegments(linePoints).ToArray();
 
             if (Math.Abs(lengths.Sum(l => l) - lineSegments.Sum(s => s.Length)) > epsilonForComparisons)
             {
-                throw new ArgumentException(Resources.Math2D_SplitLineAtLengths_Sum_of_lengths_must_equal_line_length, "lengths");
+                throw new ArgumentException(Resources.Math2D_SplitLineAtLengths_Sum_of_lengths_must_equal_line_length, nameof(lengths));
             }
 
             return SplitLineSegmentsAtLengths(lineSegments, lengths);

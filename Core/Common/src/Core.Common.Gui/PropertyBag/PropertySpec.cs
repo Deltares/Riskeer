@@ -153,12 +153,12 @@ namespace Core.Common.Gui.PropertyBag
                 var message = string.Format(CultureInfo.CurrentCulture,
                                             "Are you calling GetValue on the correct instance? Expected '{0}', but was '{1}'",
                                             propertyInfo.DeclaringType, type);
-                throw new ArgumentException(message, "instance", e);
+                throw new ArgumentException(message, nameof(instance), e);
             }
             catch (TargetInvocationException e)
             {
                 throw new ArgumentException(@"Something went wrong while getting property; Check InnerException for more information.",
-                                            "instance", e);
+                                            nameof(instance), e);
             }
         }
 

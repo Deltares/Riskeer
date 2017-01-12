@@ -158,7 +158,7 @@ namespace Core.Common.Utils.Reflection
                 var message = string.Format(CultureInfo.CurrentCulture,
                                             "Cannot find embedded resource file '{0}' in '{1}.",
                                             fileName, assembly.FullName);
-                throw new ArgumentException(message, "fileName", e);
+                throw new ArgumentException(message, nameof(fileName), e);
             }
         }
 
