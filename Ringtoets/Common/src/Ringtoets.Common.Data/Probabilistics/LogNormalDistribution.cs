@@ -55,7 +55,7 @@ namespace Ringtoets.Common.Data.Probabilistics
             if (numberOfDecimalPlaces == 0)
             {
                 // This causes the default initialization set mean to 0, which is invalid.
-                throw new ArgumentOutOfRangeException("numberOfDecimalPlaces",
+                throw new ArgumentOutOfRangeException(nameof(numberOfDecimalPlaces),
                                                       @"Value must be in range [1, 15].");
             }
             // Initialize mean, standard deviation and shift of the normal distribution which is the log of the 
@@ -104,7 +104,7 @@ namespace Ringtoets.Common.Data.Probabilistics
 
                 if (roundedValue <= 0)
                 {
-                    throw new ArgumentOutOfRangeException("value", Resources.LogNormalDistribution_Mean_must_be_greater_than_zero);
+                    throw new ArgumentOutOfRangeException(nameof(value), Resources.LogNormalDistribution_Mean_must_be_greater_than_zero);
                 }
                 if (Shift > roundedValue)
                 {
@@ -133,7 +133,7 @@ namespace Ringtoets.Common.Data.Probabilistics
 
                 if (roundedValue < 0)
                 {
-                    throw new ArgumentOutOfRangeException("value", Resources.StandardDeviation_Should_be_greater_or_equal_zero);
+                    throw new ArgumentOutOfRangeException(nameof(value), Resources.StandardDeviation_Should_be_greater_or_equal_zero);
                 }
 
                 standardDeviation = roundedValue;

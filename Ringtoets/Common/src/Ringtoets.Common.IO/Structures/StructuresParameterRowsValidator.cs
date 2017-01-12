@@ -252,7 +252,7 @@ namespace Ringtoets.Common.IO.Structures
         {
             if (structureParameterRows == null)
             {
-                throw new ArgumentNullException("structureParameterRows");
+                throw new ArgumentNullException(nameof(structureParameterRows));
             }
 
             var errorMessages = new List<string>();

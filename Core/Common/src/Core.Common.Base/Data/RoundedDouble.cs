@@ -276,7 +276,7 @@ namespace Core.Common.Base.Data
                 string message = string.Format(CultureInfo.CurrentCulture,
                                                "Value must be in range [0, {0}].",
                                                MaximumNumberOfDecimalPlaces);
-                throw new ArgumentOutOfRangeException("numberOfDecimalPlaces",
+                throw new ArgumentOutOfRangeException(nameof(numberOfDecimalPlaces),
                                                       message);
             }
         }

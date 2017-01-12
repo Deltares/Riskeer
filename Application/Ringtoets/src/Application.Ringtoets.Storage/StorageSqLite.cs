@@ -71,7 +71,7 @@ namespace Application.Ringtoets.Storage
             var ringtoetsProject = project as RingtoetsProject;
             if (ringtoetsProject == null)
             {
-                throw new ArgumentNullException("project");
+                throw new ArgumentNullException(nameof(project));
             }
             var registry = new PersistenceRegistry();
 

@@ -63,15 +63,15 @@ namespace Ringtoets.Integration.Forms.Commands
         {
             if (dialogParent == null)
             {
-                throw new ArgumentNullException("dialogParent");
+                throw new ArgumentNullException(nameof(dialogParent));
             }
             if (projectOwner == null)
             {
-                throw new ArgumentNullException("projectOwner");
+                throw new ArgumentNullException(nameof(projectOwner));
             }
             if (viewController == null)
             {
-                throw new ArgumentNullException("viewController");
+                throw new ArgumentNullException(nameof(viewController));
             }
             this.dialogParent = dialogParent;
             this.projectOwner = projectOwner;

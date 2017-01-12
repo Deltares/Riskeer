@@ -41,7 +41,7 @@ namespace Core.Plugins.ProjectExplorer.Commands
         {
             if (viewController == null)
             {
-                throw new ArgumentNullException("viewController");
+                throw new ArgumentNullException(nameof(viewController));
             }
             this.viewController = viewController;
         }

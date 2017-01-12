@@ -48,7 +48,7 @@ namespace Ringtoets.StabilityStoneCover.Service
         {
             if (calculation == null)
             {
-                throw new ArgumentNullException("calculation");
+                throw new ArgumentNullException(nameof(calculation));
             }
 
             if (calculation.HasOutput)
@@ -76,7 +76,7 @@ namespace Ringtoets.StabilityStoneCover.Service
         {
             if (failureMechanism == null)
             {
-                throw new ArgumentNullException("failureMechanism");
+                throw new ArgumentNullException(nameof(failureMechanism));
             }
 
             var affectedItems = new List<IObservable>();
@@ -102,7 +102,7 @@ namespace Ringtoets.StabilityStoneCover.Service
         {
             if (failureMechanism == null)
             {
-                throw new ArgumentNullException("failureMechanism");
+                throw new ArgumentNullException(nameof(failureMechanism));
             }
 
             return failureMechanism.Calculations
@@ -122,7 +122,7 @@ namespace Ringtoets.StabilityStoneCover.Service
         {
             if (failureMechanism == null)
             {
-                throw new ArgumentNullException("failureMechanism");
+                throw new ArgumentNullException(nameof(failureMechanism));
             }
 
             var changedObjects = new List<IObservable>();

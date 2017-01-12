@@ -55,11 +55,11 @@ namespace Ringtoets.StabilityStoneCover.Forms.PresentationObjects
         {
             if (foreshoreProfiles == null)
             {
-                throw new ArgumentNullException("foreshoreProfiles");
+                throw new ArgumentNullException(nameof(foreshoreProfiles));
             }
             if (assessmentSection == null)
             {
-                throw new ArgumentNullException("assessmentSection");
+                throw new ArgumentNullException(nameof(assessmentSection));
             }
             this.foreshoreProfiles = foreshoreProfiles;
             this.assessmentSection = assessmentSection;

@@ -43,11 +43,11 @@ namespace Ringtoets.Common.Utils
         {
             if (calculation == null)
             {
-                throw new ArgumentNullException("calculation");
+                throw new ArgumentNullException(nameof(calculation));
             }
             if (location == null)
             {
-                throw new ArgumentNullException("location");
+                throw new ArgumentNullException(nameof(location));
             }
             Calculation = calculation;
             Location = location;

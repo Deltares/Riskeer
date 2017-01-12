@@ -53,19 +53,19 @@ namespace Ringtoets.StabilityStoneCover.Service
         {
             if (calculation == null)
             {
-                throw new ArgumentNullException("calculation");
+                throw new ArgumentNullException(nameof(calculation));
             }
             if (hlcdFilePath == null)
             {
-                throw new ArgumentNullException("hlcdFilePath");
+                throw new ArgumentNullException(nameof(hlcdFilePath));
             }
             if (failureMechanism == null)
             {
-                throw new ArgumentNullException("failureMechanism");
+                throw new ArgumentNullException(nameof(failureMechanism));
             }
             if (assessmentSection == null)
             {
-                throw new ArgumentNullException("assessmentSection");
+                throw new ArgumentNullException(nameof(assessmentSection));
             }
 
             this.calculation = calculation;

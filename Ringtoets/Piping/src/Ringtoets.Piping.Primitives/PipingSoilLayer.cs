@@ -117,7 +117,7 @@ namespace Ringtoets.Piping.Primitives
             {
                 if (value == null)
                 {
-                    throw new ArgumentNullException("value");
+                    throw new ArgumentNullException(nameof(value));
                 }
                 materialName = value;
             }

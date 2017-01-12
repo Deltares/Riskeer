@@ -47,7 +47,7 @@ namespace Ringtoets.Piping.Forms
         {
             if (surfaceLines == null)
             {
-                throw new ArgumentNullException("surfaceLines");
+                throw new ArgumentNullException(nameof(surfaceLines));
             }
 
             Text = Resources.PipingSurfaceLineSelectionDialog_Select_SurfaceLines;

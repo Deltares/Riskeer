@@ -39,7 +39,7 @@ namespace Core.Components.Gis.Features
         {
             if (mapGeometries == null)
             {
-                throw new ArgumentNullException("mapGeometries", @"MapFeature cannot be created without map geometries.");
+                throw new ArgumentNullException(nameof(mapGeometries), @"MapFeature cannot be created without map geometries.");
             }
 
             MapGeometries = mapGeometries;

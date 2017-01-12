@@ -124,7 +124,7 @@ namespace Ringtoets.Piping.Primitives
         {
             if (points == null)
             {
-                throw new ArgumentNullException("points", Resources.RingtoetsPipingSurfaceLine_Collection_of_points_for_geometry_is_null);
+                throw new ArgumentNullException(nameof(points), Resources.RingtoetsPipingSurfaceLine_Collection_of_points_for_geometry_is_null);
             }
             if (points.Any(p => p == null))
             {
@@ -365,7 +365,7 @@ namespace Ringtoets.Piping.Primitives
         {
             if (point == null)
             {
-                throw new ArgumentNullException("point", @"Cannot find a point in geometry using a null point.");
+                throw new ArgumentNullException(nameof(point), @"Cannot find a point in geometry using a null point.");
             }
             return Points.FirstOrDefault(p => p.Equals(point));
         }

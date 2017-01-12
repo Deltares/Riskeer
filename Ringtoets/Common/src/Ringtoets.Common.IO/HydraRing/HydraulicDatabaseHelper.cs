@@ -107,11 +107,11 @@ namespace Ringtoets.Common.IO.HydraRing
         {
             if (database == null)
             {
-                throw new ArgumentNullException("database");
+                throw new ArgumentNullException(nameof(database));
             }
             if (pathToDatabase == null)
             {
-                throw new ArgumentNullException("pathToDatabase");
+                throw new ArgumentNullException(nameof(pathToDatabase));
             }
             return database.Version == GetVersion(pathToDatabase);
         }

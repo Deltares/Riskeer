@@ -48,7 +48,7 @@ namespace Ringtoets.Common.Forms.PresentationObjects
         {
             if (hydraulicBoundaryLocation == null)
             {
-                throw new ArgumentNullException("hydraulicBoundaryLocation");
+                throw new ArgumentNullException(nameof(hydraulicBoundaryLocation));
             }
 
             this.hydraulicBoundaryLocation = hydraulicBoundaryLocation;

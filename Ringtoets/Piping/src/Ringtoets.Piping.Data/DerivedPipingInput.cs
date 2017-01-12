@@ -48,7 +48,7 @@ namespace Ringtoets.Piping.Data
         {
             if (input == null)
             {
-                throw new ArgumentNullException("input", @"Cannot create DerivedPipingInput without PipingInput.");
+                throw new ArgumentNullException(nameof(input), @"Cannot create DerivedPipingInput without PipingInput.");
             }
             this.input = input;
         }

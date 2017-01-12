@@ -41,7 +41,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Data
         {
             if (items == null)
             {
-                throw new ArgumentNullException("items");
+                throw new ArgumentNullException(nameof(items));
             }
 
             Items = items;

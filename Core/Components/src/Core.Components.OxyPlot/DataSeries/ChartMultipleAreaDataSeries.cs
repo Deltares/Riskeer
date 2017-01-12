@@ -47,7 +47,7 @@ namespace Core.Components.OxyPlot.DataSeries
         {
             if (chartMultipleAreaData == null)
             {
-                throw new ArgumentNullException("chartMultipleAreaData");
+                throw new ArgumentNullException(nameof(chartMultipleAreaData));
             }
 
             this.chartMultipleAreaData = chartMultipleAreaData;

@@ -48,7 +48,7 @@ namespace Application.Ringtoets.Storage
         {
             if (entity == null)
             {
-                throw new ArgumentNullException("entity");
+                throw new ArgumentNullException(nameof(entity));
             }
 
             using (HashAlgorithm hashingAlgorithm = MD5.Create())

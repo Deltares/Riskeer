@@ -54,11 +54,11 @@ namespace Ringtoets.Common.IO.Hydraulics
         {
             if (designWaterLevelName == null)
             {
-                throw new ArgumentNullException("designWaterLevelName");
+                throw new ArgumentNullException(nameof(designWaterLevelName));
             }
             if (waveHeightName == null)
             {
-                throw new ArgumentNullException("waveHeightName");
+                throw new ArgumentNullException(nameof(waveHeightName));
             }
 
             this.designWaterLevelName = designWaterLevelName;
@@ -79,11 +79,11 @@ namespace Ringtoets.Common.IO.Hydraulics
         {
             if (hydraulicBoundaryLocations == null)
             {
-                throw new ArgumentNullException("hydraulicBoundaryLocations");
+                throw new ArgumentNullException(nameof(hydraulicBoundaryLocations));
             }
             if (filePath == null)
             {
-                throw new ArgumentNullException("filePath");
+                throw new ArgumentNullException(nameof(filePath));
             }
 
             var pointShapeFileWriter = new PointShapeFileWriter();
@@ -100,7 +100,7 @@ namespace Ringtoets.Common.IO.Hydraulics
         {
             if (hydraulicBoundaryLocation == null)
             {
-                throw new ArgumentNullException("hydraulicBoundaryLocation");
+                throw new ArgumentNullException(nameof(hydraulicBoundaryLocation));
             }
 
             MapGeometry hydraulicBoundaryLocationGeometry = new MapGeometry(

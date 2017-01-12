@@ -44,7 +44,7 @@ namespace Application.Ringtoets.Storage.Read.GrassCoverErosionOutwards
         {
             if (input == null)
             {
-                throw new ArgumentNullException("input");
+                throw new ArgumentNullException(nameof(input));
             }
             input.N = entity.N;
         }

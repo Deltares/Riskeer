@@ -47,7 +47,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms
         {
             if (dikeProfiles == null)
             {
-                throw new ArgumentNullException("dikeProfiles");
+                throw new ArgumentNullException(nameof(dikeProfiles));
             }
 
             Text = Resources.GrassCoverErosionInwardsDikeProfileSelectionDialog_Select_DikeProfiles;

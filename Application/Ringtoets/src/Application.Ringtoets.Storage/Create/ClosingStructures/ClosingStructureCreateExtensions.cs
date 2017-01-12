@@ -44,7 +44,7 @@ namespace Application.Ringtoets.Storage.Create.ClosingStructures
         {
             if (registry == null)
             {
-                throw new ArgumentNullException("registry");
+                throw new ArgumentNullException(nameof(registry));
             }
             if (registry.Contains(structure))
             {

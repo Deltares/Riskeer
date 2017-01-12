@@ -44,12 +44,12 @@ namespace Core.Common.Gui.ContextMenu
         {
             if (dataObject == null)
             {
-                throw new ArgumentNullException("dataObject", Resources.ContextMenuItemFactory_Can_not_create_context_menu_items_without_data);
+                throw new ArgumentNullException(nameof(dataObject), Resources.ContextMenuItemFactory_Can_not_create_context_menu_items_without_data);
             }
 
             if (treeViewControl == null)
             {
-                throw new ArgumentNullException("treeViewControl", Resources.ContextMenuItemFactory_Can_not_create_context_menu_items_without_tree_view_control);
+                throw new ArgumentNullException(nameof(treeViewControl), Resources.ContextMenuItemFactory_Can_not_create_context_menu_items_without_tree_view_control);
             }
 
             this.dataObject = dataObject;

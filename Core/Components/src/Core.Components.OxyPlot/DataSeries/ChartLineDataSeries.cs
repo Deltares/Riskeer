@@ -46,7 +46,7 @@ namespace Core.Components.OxyPlot.DataSeries
         {
             if (chartLineData == null)
             {
-                throw new ArgumentNullException("chartLineData");
+                throw new ArgumentNullException(nameof(chartLineData));
             }
 
             this.chartLineData = chartLineData;

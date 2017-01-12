@@ -40,7 +40,7 @@ namespace Application.Ringtoets.Storage
         {
             if (string.IsNullOrWhiteSpace(filePath))
             {
-                throw new ArgumentNullException("filePath", @"Cannot create a connection string without the path to the file to connect to.");
+                throw new ArgumentNullException(nameof(filePath), @"Cannot create a connection string without the path to the file to connect to.");
             }
             return new EntityConnectionStringBuilder
             {
@@ -60,7 +60,7 @@ namespace Application.Ringtoets.Storage
         {
             if (string.IsNullOrWhiteSpace(filePath))
             {
-                throw new ArgumentNullException("filePath", @"Cannot create a connection string without the path to the file to connect to.");
+                throw new ArgumentNullException(nameof(filePath), @"Cannot create a connection string without the path to the file to connect to.");
             }
             return new SQLiteConnectionStringBuilder
             {

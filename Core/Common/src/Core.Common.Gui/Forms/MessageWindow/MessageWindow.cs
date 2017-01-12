@@ -102,7 +102,7 @@ namespace Core.Common.Gui.Forms.MessageWindow
         {
             if (level == null)
             {
-                throw new ArgumentNullException("level");
+                throw new ArgumentNullException(nameof(level));
             }
 
             string shortMessage;

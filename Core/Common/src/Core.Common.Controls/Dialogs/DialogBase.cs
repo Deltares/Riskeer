@@ -89,12 +89,12 @@ namespace Core.Common.Controls.Dialogs
 
             if (dialogParent == null)
             {
-                throw new ArgumentNullException("dialogParent");
+                throw new ArgumentNullException(nameof(dialogParent));
             }
 
             if (icon == null)
             {
-                throw new ArgumentNullException("icon");
+                throw new ArgumentNullException(nameof(icon));
             }
 
             if (minWidth <= 0)

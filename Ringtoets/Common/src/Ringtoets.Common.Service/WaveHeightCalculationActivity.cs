@@ -57,12 +57,12 @@ namespace Ringtoets.Common.Service
         {
             if (hydraulicBoundaryLocation == null)
             {
-                throw new ArgumentNullException("hydraulicBoundaryLocation");
+                throw new ArgumentNullException(nameof(hydraulicBoundaryLocation));
             }
 
             if (messageProvider == null)
             {
-                throw new ArgumentNullException("messageProvider");
+                throw new ArgumentNullException(nameof(messageProvider));
             }
 
             this.hydraulicBoundaryLocation = hydraulicBoundaryLocation;

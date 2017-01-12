@@ -42,7 +42,7 @@ namespace Ringtoets.Common.Forms.PresentationObjects
         {
             if (assessmentSection == null)
             {
-                throw new ArgumentNullException("assessmentSection");
+                throw new ArgumentNullException(nameof(assessmentSection));
             }
 
             ParentAssessmentSection = assessmentSection;

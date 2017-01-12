@@ -98,7 +98,7 @@ namespace Core.Components.Gis.Data
         {
             if (featuresToValidate == null || featuresToValidate.Any(e => e == null))
             {
-                throw new ArgumentNullException("featuresToValidate", @"The array of features cannot be null or contain null.");
+                throw new ArgumentNullException(nameof(featuresToValidate), @"The array of features cannot be null or contain null.");
             }
         }
     }

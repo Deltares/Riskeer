@@ -55,7 +55,7 @@ namespace Ringtoets.Common.IO.ReferenceLines
         {
             if (filePath == null)
             {
-                throw new ArgumentNullException("filePath");
+                throw new ArgumentNullException(nameof(filePath));
             }
 
             var polyLineShapeFileWriter = new PolylineShapeFileWriter();
@@ -81,12 +81,12 @@ namespace Ringtoets.Common.IO.ReferenceLines
         {
             if (referenceLine == null)
             {
-                throw new ArgumentNullException("referenceLine");
+                throw new ArgumentNullException(nameof(referenceLine));
             }
 
             if (id == null)
             {
-                throw new ArgumentNullException("id");
+                throw new ArgumentNullException(nameof(id));
             }
 
             if (string.IsNullOrWhiteSpace(id))

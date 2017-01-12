@@ -54,19 +54,19 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
         {
             if (calculation == null)
             {
-                throw new ArgumentNullException("calculation");
+                throw new ArgumentNullException(nameof(calculation));
             }
             if (hydraulicBoundaryDatabaseFilePath == null)
             {
-                throw new ArgumentNullException("hydraulicBoundaryDatabaseFilePath");
+                throw new ArgumentNullException(nameof(hydraulicBoundaryDatabaseFilePath));
             }
             if (failureMechanism == null)
             {
-                throw new ArgumentNullException("failureMechanism");
+                throw new ArgumentNullException(nameof(failureMechanism));
             }
             if (assessmentSection == null)
             {
-                throw new ArgumentNullException("assessmentSection");
+                throw new ArgumentNullException(nameof(assessmentSection));
             }
 
             this.calculation = calculation;

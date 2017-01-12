@@ -46,11 +46,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms
         {
             if (locations == null)
             {
-                throw new ArgumentNullException("locations");
+                throw new ArgumentNullException(nameof(locations));
             }
             if (calculations == null)
             {
-                throw new ArgumentNullException("calculations");
+                throw new ArgumentNullException(nameof(calculations));
             }
             foreach (var calculation in locations.Select(location => CreateStabilityStoneCoverWaveConditionsCalculation(location, calculations)))
             {

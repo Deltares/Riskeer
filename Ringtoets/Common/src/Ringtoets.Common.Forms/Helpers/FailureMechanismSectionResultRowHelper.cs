@@ -48,7 +48,7 @@ namespace Ringtoets.Common.Forms.Helpers
         {
             if (dataGridViewCell == null)
             {
-                throw new ArgumentNullException("dataGridViewCell");
+                throw new ArgumentNullException(nameof(dataGridViewCell));
             }
 
             if (passedAssessmentLayerOne == AssessmentLayerOneState.Sufficient)

@@ -80,7 +80,7 @@ namespace Ringtoets.Common.Data.Probabilistics
 
                 if (roundedValue < 0)
                 {
-                    throw new ArgumentOutOfRangeException("value", Resources.CoefficientOfVariation_Should_be_greater_or_equal_to_zero);
+                    throw new ArgumentOutOfRangeException(nameof(value), Resources.CoefficientOfVariation_Should_be_greater_or_equal_to_zero);
                 }
 
                 coefficientOfVariation = roundedValue;

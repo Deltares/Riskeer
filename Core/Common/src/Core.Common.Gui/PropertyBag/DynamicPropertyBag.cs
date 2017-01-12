@@ -56,7 +56,7 @@ namespace Core.Common.Gui.PropertyBag
         {
             if (propertyObject == null)
             {
-                throw new ArgumentNullException("propertyObject");
+                throw new ArgumentNullException(nameof(propertyObject));
             }
 
             Properties = new HashSet<PropertySpec>();

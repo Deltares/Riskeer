@@ -59,27 +59,27 @@ namespace Core.Common.Gui.ContextMenu
         {
             if (applicationFeatureCommandHandler == null)
             {
-                throw new ArgumentNullException("applicationFeatureCommandHandler",
+                throw new ArgumentNullException(nameof(applicationFeatureCommandHandler),
                                                 Resources.GuiContextMenuItemFactory_Can_not_create_gui_context_menu_items_without_gui);
             }
             if (importCommandHandler == null)
             {
-                throw new ArgumentNullException("importCommandHandler",
+                throw new ArgumentNullException(nameof(importCommandHandler),
                                                 Resources.GuiContextMenuItemFactory_Can_not_create_gui_context_menu_items_without_import_handler);
             }
             if (exportCommandHandler == null)
             {
-                throw new ArgumentNullException("exportCommandHandler",
+                throw new ArgumentNullException(nameof(exportCommandHandler),
                                                 Resources.GuiContextMenuItemFactory_Can_not_create_gui_context_menu_items_without_export_handler);
             }
             if (viewCommandsHandler == null)
             {
-                throw new ArgumentNullException("viewCommandsHandler",
+                throw new ArgumentNullException(nameof(viewCommandsHandler),
                                                 Resources.GuiContextMenuItemFactory_Can_not_create_gui_context_menu_items_without_view_commands);
             }
             if (dataObject == null)
             {
-                throw new ArgumentNullException("dataObject",
+                throw new ArgumentNullException(nameof(dataObject),
                                                 Resources.ContextMenuItemFactory_Can_not_create_context_menu_items_without_data);
             }
             this.applicationFeatureCommandHandler = applicationFeatureCommandHandler;
@@ -157,11 +157,11 @@ namespace Core.Common.Gui.ContextMenu
             }
             if (toolTip == null)
             {
-                throw new ArgumentNullException("toolTip");
+                throw new ArgumentNullException(nameof(toolTip));
             }
             if (image == null)
             {
-                throw new ArgumentNullException("image");
+                throw new ArgumentNullException(nameof(image));
             }
             return CreateImportItem(text, toolTip, image);
         }

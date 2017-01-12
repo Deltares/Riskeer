@@ -45,11 +45,11 @@ namespace Ringtoets.Integration.Forms.Views
         {
             if (contributionItem == null)
             {
-                throw new ArgumentNullException("contributionItem");
+                throw new ArgumentNullException(nameof(contributionItem));
             }
             if (viewCommands == null)
             {
-                throw new ArgumentNullException("viewCommands");
+                throw new ArgumentNullException(nameof(viewCommands));
             }
 
             this.contributionItem = contributionItem;

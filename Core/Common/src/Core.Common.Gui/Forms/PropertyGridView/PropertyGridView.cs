@@ -58,7 +58,7 @@ namespace Core.Common.Gui.Forms.PropertyGridView
         {
             if (propertyResolver == null)
             {
-                throw new ArgumentNullException("propertyResolver");
+                throw new ArgumentNullException(nameof(propertyResolver));
             }
 
             HideTabsButton();

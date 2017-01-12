@@ -46,11 +46,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data
         {
             if (failureMechanism == null)
             {
-                throw new ArgumentNullException("failureMechanism");
+                throw new ArgumentNullException(nameof(failureMechanism));
             }
             if (hydraulicBoundaryLocations == null)
             {
-                throw new ArgumentNullException("hydraulicBoundaryLocations");
+                throw new ArgumentNullException(nameof(hydraulicBoundaryLocations));
             }
 
             failureMechanism.HydraulicBoundaryLocations.Clear();
@@ -78,7 +78,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data
         {
             if (assessmentSection == null)
             {
-                throw new ArgumentNullException("assessmentSection");
+                throw new ArgumentNullException(nameof(assessmentSection));
             }
             if (!(failureMechanism.Contribution > 0))
             {

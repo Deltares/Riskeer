@@ -43,7 +43,7 @@ namespace Core.Common.Utils.Reflection
         {
             if (assembly == null)
             {
-                throw new ArgumentNullException("assembly");
+                throw new ArgumentNullException(nameof(assembly));
             }
 
             AssemblyInfo info = new AssemblyInfo();
@@ -143,7 +143,7 @@ namespace Core.Common.Utils.Reflection
         {
             if (assembly == null)
             {
-                throw new ArgumentNullException("assembly");
+                throw new ArgumentNullException(nameof(assembly));
             }
 
             try

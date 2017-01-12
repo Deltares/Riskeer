@@ -49,15 +49,15 @@ namespace Ringtoets.Common.Data.DikeProfiles
         {
             if (worldCoordinate == null)
             {
-                throw new ArgumentNullException("worldCoordinate");
+                throw new ArgumentNullException(nameof(worldCoordinate));
             }
             if (geometry == null)
             {
-                throw new ArgumentNullException("geometry");
+                throw new ArgumentNullException(nameof(geometry));
             }
             if (properties == null)
             {
-                throw new ArgumentNullException("properties");
+                throw new ArgumentNullException(nameof(properties));
             }
 
             SetGeometry(geometry);

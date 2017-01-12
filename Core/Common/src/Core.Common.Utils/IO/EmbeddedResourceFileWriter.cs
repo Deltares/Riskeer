@@ -50,11 +50,11 @@ namespace Core.Common.Utils.IO
         {
             if (assembly == null)
             {
-                throw new ArgumentNullException("assembly");
+                throw new ArgumentNullException(nameof(assembly));
             }
             if (embeddedResourceFileNames == null)
             {
-                throw new ArgumentNullException("embeddedResourceFileNames");
+                throw new ArgumentNullException(nameof(embeddedResourceFileNames));
             }
 
             this.removeFilesOnDispose = removeFilesOnDispose;

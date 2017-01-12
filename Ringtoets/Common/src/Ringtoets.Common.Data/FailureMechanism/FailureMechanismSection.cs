@@ -54,11 +54,11 @@ namespace Ringtoets.Common.Data.FailureMechanism
         {
             if (name == null)
             {
-                throw new ArgumentNullException("name");
+                throw new ArgumentNullException(nameof(name));
             }
             if (geometryPoints == null)
             {
-                throw new ArgumentNullException("geometryPoints");
+                throw new ArgumentNullException(nameof(geometryPoints));
             }
             var point2Ds = geometryPoints.ToArray();
             if (point2Ds.Any(p => p == null))

@@ -51,15 +51,15 @@ namespace Ringtoets.DuneErosion.Service
         {
             if (duneLocation == null)
             {
-                throw new ArgumentNullException("duneLocation");
+                throw new ArgumentNullException(nameof(duneLocation));
             }
             if (failureMechanism == null)
             {
-                throw new ArgumentNullException("failureMechanism");
+                throw new ArgumentNullException(nameof(failureMechanism));
             }
             if (assessmentSection == null)
             {
-                throw new ArgumentNullException("assessmentSection");
+                throw new ArgumentNullException(nameof(assessmentSection));
             }
 
             this.duneLocation = duneLocation;

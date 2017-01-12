@@ -95,7 +95,7 @@ namespace Ringtoets.ClosingStructures.Data
             {
                 if (value < 0 || value > 40)
                 {
-                    throw new ArgumentOutOfRangeException("value", Resources.N2A_Value_should_be_in_interval_0_40);
+                    throw new ArgumentOutOfRangeException(nameof(value), Resources.N2A_Value_should_be_in_interval_0_40);
                 }
                 n2A = value;
             }

@@ -43,7 +43,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects
         {
             if (failureMechanism == null)
             {
-                throw new ArgumentNullException("failureMechanism");
+                throw new ArgumentNullException(nameof(failureMechanism));
             }
 
             ParentFailureMechanism = failureMechanism;

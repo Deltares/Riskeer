@@ -42,11 +42,11 @@ namespace Core.Common.Base.Geometry
         {
             if (first == null)
             {
-                throw new ArgumentNullException("first", Resources.Segment2D_Constructor_Segment_must_be_created_with_two_points);
+                throw new ArgumentNullException(nameof(first), Resources.Segment2D_Constructor_Segment_must_be_created_with_two_points);
             }
             if (second == null)
             {
-                throw new ArgumentNullException("second", Resources.Segment2D_Constructor_Segment_must_be_created_with_two_points);
+                throw new ArgumentNullException(nameof(second), Resources.Segment2D_Constructor_Segment_must_be_created_with_two_points);
             }
             FirstPoint = first;
             SecondPoint = second;
@@ -107,7 +107,7 @@ namespace Core.Common.Base.Geometry
         {
             if (point == null)
             {
-                throw new ArgumentNullException("point");
+                throw new ArgumentNullException(nameof(point));
             }
 
             Vector<double> segmentVector = SecondPoint - FirstPoint; // Vector from FirstPoint to SecondPoint
@@ -154,7 +154,7 @@ namespace Core.Common.Base.Geometry
         {
             if (segment == null)
             {
-                throw new ArgumentNullException("segment");
+                throw new ArgumentNullException(nameof(segment));
             }
 
             return FirstPoint.Equals(segment.FirstPoint) ||

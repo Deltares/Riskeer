@@ -56,7 +56,7 @@ namespace Ringtoets.Integration.Plugin.Handlers
         {
             if (assessmentSection == null)
             {
-                throw new ArgumentNullException("assessmentSection");
+                throw new ArgumentNullException(nameof(assessmentSection));
             }
 
             var affectedObjects = new List<IObservable>();

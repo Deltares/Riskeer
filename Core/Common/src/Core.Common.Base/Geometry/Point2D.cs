@@ -66,11 +66,11 @@ namespace Core.Common.Base.Geometry
         {
             if (p1 == null)
             {
-                throw new ArgumentNullException("p1");
+                throw new ArgumentNullException(nameof(p1));
             }
             if (p2 == null)
             {
-                throw new ArgumentNullException("p2");
+                throw new ArgumentNullException(nameof(p2));
             }
 
             var result = new DenseVector(2);
@@ -95,11 +95,11 @@ namespace Core.Common.Base.Geometry
         {
             if (point == null)
             {
-                throw new ArgumentNullException("point");
+                throw new ArgumentNullException(nameof(point));
             }
             if (vector == null)
             {
-                throw new ArgumentNullException("vector");
+                throw new ArgumentNullException(nameof(vector));
             }
 
             if (vector.Count != 2)
@@ -125,7 +125,7 @@ namespace Core.Common.Base.Geometry
         {
             if (secondPoint == null)
             {
-                throw new ArgumentNullException("secondPoint");
+                throw new ArgumentNullException(nameof(secondPoint));
             }
 
             Vector<double> vector = this - secondPoint;

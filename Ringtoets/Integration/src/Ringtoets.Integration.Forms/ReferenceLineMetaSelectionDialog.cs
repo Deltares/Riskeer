@@ -49,7 +49,7 @@ namespace Ringtoets.Integration.Forms
         {
             if (referenceLineMetas == null)
             {
-                throw new ArgumentNullException("referenceLineMetas");
+                throw new ArgumentNullException(nameof(referenceLineMetas));
             }
             InitializeComponent();
             InitializeReferenceLineMetaDataGridViewControl(referenceLineMetas);

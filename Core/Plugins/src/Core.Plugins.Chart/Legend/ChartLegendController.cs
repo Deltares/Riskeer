@@ -51,7 +51,7 @@ namespace Core.Plugins.Chart.Legend
         {
             if (viewController == null)
             {
-                throw new ArgumentNullException("viewController", @"Cannot create a ChartLegendController when the view controller is null.");
+                throw new ArgumentNullException(nameof(viewController), @"Cannot create a ChartLegendController when the view controller is null.");
             }
             this.viewController = viewController;
         }

@@ -46,7 +46,7 @@ namespace Application.Ringtoets.Storage.Create.GrassCoverErosionInwards
         {
             if (registry == null)
             {
-                throw new ArgumentNullException("registry");
+                throw new ArgumentNullException(nameof(registry));
             }
 
             var entity = new GrassCoverErosionInwardsCalculationEntity

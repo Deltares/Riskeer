@@ -44,7 +44,7 @@ namespace Ringtoets.Common.Utils
         {
             if (sections == null)
             {
-                throw new ArgumentNullException("sections");
+                throw new ArgumentNullException(nameof(sections));
             }
             return sections.Select(s => new SectionSegments(s)).ToArray();
         }
@@ -60,7 +60,7 @@ namespace Ringtoets.Common.Utils
         {
             if (sectionSegmentsCollection == null)
             {
-                throw new ArgumentNullException("sectionSegmentsCollection");
+                throw new ArgumentNullException(nameof(sectionSegmentsCollection));
             }
 
             var minimumDistance = double.PositiveInfinity;

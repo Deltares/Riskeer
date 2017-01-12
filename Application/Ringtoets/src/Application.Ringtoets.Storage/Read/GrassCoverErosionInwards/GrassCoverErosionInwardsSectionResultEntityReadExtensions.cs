@@ -46,11 +46,11 @@ namespace Application.Ringtoets.Storage.Read.GrassCoverErosionInwards
         {
             if (collector == null)
             {
-                throw new ArgumentNullException("collector");
+                throw new ArgumentNullException(nameof(collector));
             }
             if (sectionResult == null)
             {
-                throw new ArgumentNullException("sectionResult");
+                throw new ArgumentNullException(nameof(sectionResult));
             }
 
             sectionResult.AssessmentLayerOne = (AssessmentLayerOneState) entity.LayerOne;

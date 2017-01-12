@@ -40,7 +40,7 @@ namespace Ringtoets.Common.Data.DikeProfiles
         {
             if (point == null)
             {
-                throw new ArgumentNullException("point");
+                throw new ArgumentNullException(nameof(point));
             }
 
             Point = new Point2D(

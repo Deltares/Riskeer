@@ -46,7 +46,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         {
             if (database == null)
             {
-                throw new ArgumentNullException("database");
+                throw new ArgumentNullException(nameof(database));
             }
             Data = database;
         }

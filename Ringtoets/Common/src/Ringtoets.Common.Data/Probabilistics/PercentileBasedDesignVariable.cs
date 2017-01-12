@@ -61,7 +61,7 @@ namespace Ringtoets.Common.Data.Probabilistics
             {
                 if (value < 0.0 || value > 1.0)
                 {
-                    throw new ArgumentOutOfRangeException("value", Resources.DesignVariable_Percentile_must_be_in_range);
+                    throw new ArgumentOutOfRangeException(nameof(value), Resources.DesignVariable_Percentile_must_be_in_range);
                 }
                 percentile = value;
             }

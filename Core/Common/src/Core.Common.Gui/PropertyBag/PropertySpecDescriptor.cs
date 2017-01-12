@@ -129,7 +129,7 @@ namespace Core.Common.Gui.PropertyBag
         {
             if (propertySpec == null)
             {
-                throw new ArgumentNullException("propertySpec");
+                throw new ArgumentNullException(nameof(propertySpec));
             }
             return propertySpec;
         }

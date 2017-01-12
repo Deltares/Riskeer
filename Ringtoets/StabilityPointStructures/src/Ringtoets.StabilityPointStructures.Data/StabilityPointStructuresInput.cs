@@ -482,7 +482,7 @@ namespace Ringtoets.StabilityPointStructures.Data
             {
                 if (!ValidProbabilityValue(value))
                 {
-                    throw new ArgumentOutOfRangeException("value", RingtoetsDataCommonProperties.FailureProbability_Value_needs_to_be_between_0_and_1);
+                    throw new ArgumentOutOfRangeException(nameof(value), RingtoetsDataCommonProperties.FailureProbability_Value_needs_to_be_between_0_and_1);
                 }
                 failureProbabilityRepairClosure = value;
             }
@@ -561,7 +561,7 @@ namespace Ringtoets.StabilityPointStructures.Data
             {
                 if (!ValidProbabilityValue(value))
                 {
-                    throw new ArgumentOutOfRangeException("value", RingtoetsDataCommonProperties.Probability_Must_be_in_range_zero_to_one);
+                    throw new ArgumentOutOfRangeException(nameof(value), RingtoetsDataCommonProperties.Probability_Must_be_in_range_zero_to_one);
                 }
                 probabilityCollisionSecondaryStructure = value;
             }

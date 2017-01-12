@@ -40,7 +40,7 @@ namespace Core.Common.Controls.PresentationObjects
         {
             if (wrappedData == null)
             {
-                throw new ArgumentNullException("wrappedData", @"Wrapped data of context cannot be null.");
+                throw new ArgumentNullException(nameof(wrappedData), @"Wrapped data of context cannot be null.");
             }
             WrappedData = wrappedData;
         }

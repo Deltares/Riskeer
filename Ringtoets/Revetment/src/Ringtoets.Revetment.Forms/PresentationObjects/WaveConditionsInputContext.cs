@@ -45,7 +45,7 @@ namespace Ringtoets.Revetment.Forms.PresentationObjects
         {
             if (calculation == null)
             {
-                throw new ArgumentNullException("calculation");
+                throw new ArgumentNullException(nameof(calculation));
             }
             Calculation = calculation;
         }

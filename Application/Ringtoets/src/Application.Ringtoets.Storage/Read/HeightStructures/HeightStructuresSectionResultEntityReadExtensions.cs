@@ -48,11 +48,11 @@ namespace Application.Ringtoets.Storage.Read.HeightStructures
         {
             if (sectionResult == null)
             {
-                throw new ArgumentNullException("sectionResult");
+                throw new ArgumentNullException(nameof(sectionResult));
             }
             if (collector == null)
             {
-                throw new ArgumentNullException("collector");
+                throw new ArgumentNullException(nameof(collector));
             }
             sectionResult.AssessmentLayerOne = (AssessmentLayerOneState) entity.LayerOne;
             sectionResult.AssessmentLayerThree = (RoundedDouble) entity.LayerThree.ToNullAsNaN();

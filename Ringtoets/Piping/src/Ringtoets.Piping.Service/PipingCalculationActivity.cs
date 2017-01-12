@@ -51,11 +51,11 @@ namespace Ringtoets.Piping.Service
         {
             if (calculation == null)
             {
-                throw new ArgumentNullException("calculation");
+                throw new ArgumentNullException(nameof(calculation));
             }
             if (pipingProbabilityAssessmentInput == null)
             {
-                throw new ArgumentNullException("pipingProbabilityAssessmentInput");
+                throw new ArgumentNullException(nameof(pipingProbabilityAssessmentInput));
             }
 
             this.calculation = calculation;

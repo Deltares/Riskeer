@@ -60,15 +60,15 @@ namespace Ringtoets.Piping.Forms
         {
             if (surfaceLines == null)
             {
-                throw new ArgumentNullException("surfaceLines");
+                throw new ArgumentNullException(nameof(surfaceLines));
             }
             if (soilModels == null)
             {
-                throw new ArgumentNullException("soilModels");
+                throw new ArgumentNullException(nameof(soilModels));
             }
             if (generalInput == null)
             {
-                throw new ArgumentNullException("generalInput");
+                throw new ArgumentNullException(nameof(generalInput));
             }
 
             List<CalculationGroup> groups = new List<CalculationGroup>();

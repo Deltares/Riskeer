@@ -93,19 +93,19 @@ namespace Core.Common.Gui
 
             if (mainWindow == null)
             {
-                throw new ArgumentNullException("mainWindow");
+                throw new ArgumentNullException(nameof(mainWindow));
             }
             if (projectStore == null)
             {
-                throw new ArgumentNullException("projectStore");
+                throw new ArgumentNullException(nameof(projectStore));
             }
             if (projectFactory == null)
             {
-                throw new ArgumentNullException("projectFactory");
+                throw new ArgumentNullException(nameof(projectFactory));
             }
             if (fixedSettings == null)
             {
-                throw new ArgumentNullException("fixedSettings");
+                throw new ArgumentNullException(nameof(fixedSettings));
             }
 
             MainWindow = mainWindow;
@@ -611,7 +611,7 @@ namespace Core.Common.Gui
             {
                 if (value == null)
                 {
-                    throw new ArgumentNullException("value", @"There should always be a project.");
+                    throw new ArgumentNullException(nameof(value), @"There should always be a project.");
                 }
 
                 if (!ReferenceEquals(project, value))

@@ -60,7 +60,7 @@ namespace Core.Components.Charting.Data
             {
                 if (value == null)
                 {
-                    throw new ArgumentNullException("value", @"The collection of point arrays cannot be null.");
+                    throw new ArgumentNullException(nameof(value), @"The collection of point arrays cannot be null.");
                 }
 
                 if (value.Any(array => array == null))

@@ -59,15 +59,15 @@ namespace Ringtoets.Common.IO.Hydraulics
         {
             if (hydraulicBoundaryLocations == null)
             {
-                throw new ArgumentNullException("hydraulicBoundaryLocations");
+                throw new ArgumentNullException(nameof(hydraulicBoundaryLocations));
             }
             if (designWaterLevelName == null)
             {
-                throw new ArgumentNullException("designWaterLevelName");
+                throw new ArgumentNullException(nameof(designWaterLevelName));
             }
             if (waveHeightName == null)
             {
-                throw new ArgumentNullException("waveHeightName");
+                throw new ArgumentNullException(nameof(waveHeightName));
             }
 
             FileUtils.ValidateFilePath(filePath);

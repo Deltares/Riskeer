@@ -45,15 +45,15 @@ namespace Ringtoets.Revetment.IO
         {
             if (name == null)
             {
-                throw new ArgumentNullException("name");
+                throw new ArgumentNullException(nameof(name));
             }
             if (waveConditionsInput == null)
             {
-                throw new ArgumentNullException("waveConditionsInput");
+                throw new ArgumentNullException(nameof(waveConditionsInput));
             }
             if (waveConditionsOutput == null)
             {
-                throw new ArgumentNullException("waveConditionsOutput");
+                throw new ArgumentNullException(nameof(waveConditionsOutput));
             }
 
             if (waveConditionsInput.HydraulicBoundaryLocation == null)

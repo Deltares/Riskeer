@@ -51,7 +51,7 @@ namespace Ringtoets.StabilityPointStructures.Service
         {
             if (failureMechanism == null)
             {
-                throw new ArgumentNullException("failureMechanism");
+                throw new ArgumentNullException(nameof(failureMechanism));
             }
 
             return failureMechanism.Calculations
@@ -74,7 +74,7 @@ namespace Ringtoets.StabilityPointStructures.Service
         {
             if (failureMechanism == null)
             {
-                throw new ArgumentNullException("failureMechanism");
+                throw new ArgumentNullException(nameof(failureMechanism));
             }
 
             var affectedItems = new List<IObservable>();
@@ -98,7 +98,7 @@ namespace Ringtoets.StabilityPointStructures.Service
         {
             if (failureMechanism == null)
             {
-                throw new ArgumentNullException("failureMechanism");
+                throw new ArgumentNullException(nameof(failureMechanism));
             }
 
             var changedObjects = new List<IObservable>();

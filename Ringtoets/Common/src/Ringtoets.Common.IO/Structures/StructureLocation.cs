@@ -40,15 +40,15 @@ namespace Ringtoets.Common.IO.Structures
         {
             if (id == null)
             {
-                throw new ArgumentNullException("id");
+                throw new ArgumentNullException(nameof(id));
             }
             if (name == null)
             {
-                throw new ArgumentNullException("name");
+                throw new ArgumentNullException(nameof(name));
             }
             if (point == null)
             {
-                throw new ArgumentNullException("point");
+                throw new ArgumentNullException(nameof(point));
             }
             Id = id;
             Name = name;

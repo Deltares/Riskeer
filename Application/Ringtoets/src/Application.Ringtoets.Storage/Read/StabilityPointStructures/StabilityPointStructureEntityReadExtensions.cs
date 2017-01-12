@@ -45,7 +45,7 @@ namespace Application.Ringtoets.Storage.Read.StabilityPointStructures
         {
             if (collector == null)
             {
-                throw new ArgumentNullException("collector");
+                throw new ArgumentNullException(nameof(collector));
             }
             if (collector.Contains(entity))
             {

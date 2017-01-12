@@ -43,7 +43,7 @@ namespace Application.Ringtoets.Storage.Read.Piping
         {
             if (collector == null)
             {
-                throw new ArgumentNullException("collector");
+                throw new ArgumentNullException(nameof(collector));
             }
             if (collector.Contains(entity))
             {

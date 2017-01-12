@@ -50,7 +50,7 @@ namespace Application.Ringtoets.Storage.Read.StabilityStoneCover
         {
             if (collector == null)
             {
-                throw new ArgumentNullException("collector");
+                throw new ArgumentNullException(nameof(collector));
             }
 
             var calculation = new StabilityStoneCoverWaveConditionsCalculation

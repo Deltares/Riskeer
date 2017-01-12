@@ -46,7 +46,7 @@ namespace Core.Components.DotSpatial.Layer
         {
             if (mapPolygonData == null)
             {
-                throw new ArgumentNullException("mapPolygonData");
+                throw new ArgumentNullException(nameof(mapPolygonData));
             }
 
             this.mapPolygonData = mapPolygonData;

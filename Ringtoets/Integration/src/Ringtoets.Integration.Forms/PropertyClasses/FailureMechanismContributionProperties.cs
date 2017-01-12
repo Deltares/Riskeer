@@ -59,19 +59,19 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         {
             if (failureMechanismContribution == null)
             {
-                throw new ArgumentNullException("failureMechanismContribution");
+                throw new ArgumentNullException(nameof(failureMechanismContribution));
             }
             if (assessmentSection == null)
             {
-                throw new ArgumentNullException("assessmentSection");
+                throw new ArgumentNullException(nameof(assessmentSection));
             }
             if (normChangeHandler == null)
             {
-                throw new ArgumentNullException("normChangeHandler");
+                throw new ArgumentNullException(nameof(normChangeHandler));
             }
             if (compositionChangeHandler == null)
             {
-                throw new ArgumentNullException("compositionChangeHandler");
+                throw new ArgumentNullException(nameof(compositionChangeHandler));
             }
 
             Data = failureMechanismContribution;
@@ -118,7 +118,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
             {
                 if (value < 100 || value > 1000000)
                 {
-                    throw new ArgumentOutOfRangeException("value", Resources.FailureMechanismContributionContextProperties_ReturnPeriod_Value_for_ReturnPeriod_Must_be_in_range_100_to_1000000);
+                    throw new ArgumentOutOfRangeException(nameof(value), Resources.FailureMechanismContributionContextProperties_ReturnPeriod_Value_for_ReturnPeriod_Must_be_in_range_100_to_1000000);
                 }
 
                 if (value != 0 && normChangeHandler.ConfirmNormChange())

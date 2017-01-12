@@ -47,7 +47,7 @@ namespace Ringtoets.Common.Data.Contribution
         {
             if (failureMechanism == null)
             {
-                throw new ArgumentNullException("failureMechanism", Resources.FailureMechanismContributionItem_Can_not_create_contribution_item_without_failure_mechanism);
+                throw new ArgumentNullException(nameof(failureMechanism), Resources.FailureMechanismContributionItem_Can_not_create_contribution_item_without_failure_mechanism);
             }
             this.failureMechanism = failureMechanism;
 

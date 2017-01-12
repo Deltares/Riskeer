@@ -51,7 +51,7 @@ namespace Ringtoets.Common.Data.DikeProfiles
         {
             if (properties == null)
             {
-                throw new ArgumentNullException("properties");
+                throw new ArgumentNullException(nameof(properties));
             }
 
             ForeshoreProfile = new ForeshoreProfile(worldCoordinate, foreshoreGeometry, breakWater,
@@ -174,7 +174,7 @@ namespace Ringtoets.Common.Data.DikeProfiles
         {
             if (points == null)
             {
-                throw new ArgumentNullException("points", Resources.DikeProfile_SetGeometry_Collection_of_points_for_geometry_is_null);
+                throw new ArgumentNullException(nameof(points), Resources.DikeProfile_SetGeometry_Collection_of_points_for_geometry_is_null);
             }
 
             var roughnessPoints = points.ToArray();

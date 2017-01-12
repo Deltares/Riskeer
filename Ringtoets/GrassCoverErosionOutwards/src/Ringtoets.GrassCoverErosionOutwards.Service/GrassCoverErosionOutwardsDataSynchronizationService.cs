@@ -49,7 +49,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service
         {
             if (calculation == null)
             {
-                throw new ArgumentNullException("calculation");
+                throw new ArgumentNullException(nameof(calculation));
             }
 
             if (calculation.HasOutput)
@@ -77,7 +77,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service
         {
             if (failureMechanism == null)
             {
-                throw new ArgumentNullException("failureMechanism");
+                throw new ArgumentNullException(nameof(failureMechanism));
             }
 
             var affectedItems = new List<IObservable>();
@@ -104,7 +104,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service
         {
             if (failureMechanism == null)
             {
-                throw new ArgumentNullException("failureMechanism");
+                throw new ArgumentNullException(nameof(failureMechanism));
             }
 
             return failureMechanism.Calculations
@@ -124,7 +124,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service
         {
             if (failureMechanism == null)
             {
-                throw new ArgumentNullException("failureMechanism");
+                throw new ArgumentNullException(nameof(failureMechanism));
             }
 
             var changedObjects = new List<IObservable>();

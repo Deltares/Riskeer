@@ -46,11 +46,11 @@ namespace Core.Common.Utils.Drawing
         {
             if (g == null)
             {
-                throw new ArgumentNullException("g");
+                throw new ArgumentNullException(nameof(g));
             }
             if (image == null)
             {
-                throw new ArgumentNullException("image");
+                throw new ArgumentNullException(nameof(image));
             }
 
             var width = image.Width;

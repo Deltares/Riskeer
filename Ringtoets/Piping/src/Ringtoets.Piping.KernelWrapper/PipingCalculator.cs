@@ -50,11 +50,11 @@ namespace Ringtoets.Piping.KernelWrapper
         {
             if (input == null)
             {
-                throw new ArgumentNullException("input", @"PipingCalculatorInput required for creating a PipingCalculator.");
+                throw new ArgumentNullException(nameof(input), @"PipingCalculatorInput required for creating a PipingCalculator.");
             }
             if (factory == null)
             {
-                throw new ArgumentNullException("factory", @"IPipingSubCalculatorFactory required for creating a PipingCalculator.");
+                throw new ArgumentNullException(nameof(factory), @"IPipingSubCalculatorFactory required for creating a PipingCalculator.");
             }
             this.input = input;
             this.factory = factory;

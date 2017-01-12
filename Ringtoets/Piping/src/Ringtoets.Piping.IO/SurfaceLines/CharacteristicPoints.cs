@@ -39,7 +39,7 @@ namespace Ringtoets.Piping.IO.SurfaceLines
         {
             if (name == null)
             {
-                throw new ArgumentNullException("name", @"Cannot make a definition of characteristic points for an unknown location.");
+                throw new ArgumentNullException(nameof(name), @"Cannot make a definition of characteristic points for an unknown location.");
             }
             Name = name;
         }

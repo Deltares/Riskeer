@@ -46,7 +46,7 @@ namespace Application.Ringtoets.Storage.Read
         {
             if (collector == null)
             {
-                throw new ArgumentNullException("collector");
+                throw new ArgumentNullException(nameof(collector));
             }
 
             Point2D[] points = new Point2DXmlSerializer().FromXml(entity.FailureMechanismSectionPointXml);

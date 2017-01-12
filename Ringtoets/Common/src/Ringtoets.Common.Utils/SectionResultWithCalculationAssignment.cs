@@ -50,15 +50,15 @@ namespace Ringtoets.Common.Utils
         {
             if (result == null)
             {
-                throw new ArgumentNullException("result");
+                throw new ArgumentNullException(nameof(result));
             }
             if (getCalculationAction == null)
             {
-                throw new ArgumentNullException("getCalculationAction");
+                throw new ArgumentNullException(nameof(getCalculationAction));
             }
             if (setCalculationAction == null)
             {
-                throw new ArgumentNullException("setCalculationAction");
+                throw new ArgumentNullException(nameof(setCalculationAction));
             }
             Result = result;
             this.getCalculationAction = getCalculationAction;

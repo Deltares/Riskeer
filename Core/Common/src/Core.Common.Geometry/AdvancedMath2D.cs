@@ -75,11 +75,11 @@ namespace Core.Common.Geometry
         {
             if (xCoordinates == null)
             {
-                throw new ArgumentNullException("xCoordinates", @"Cannot transform to coordinates without a source.");
+                throw new ArgumentNullException(nameof(xCoordinates), @"Cannot transform to coordinates without a source.");
             }
             if (referencePoint == null)
             {
-                throw new ArgumentNullException("referencePoint", @"Cannot transform to coordinates without a reference point.");
+                throw new ArgumentNullException(nameof(referencePoint), @"Cannot transform to coordinates without a reference point.");
             }
 
             return xCoordinates.Select(coordinate =>

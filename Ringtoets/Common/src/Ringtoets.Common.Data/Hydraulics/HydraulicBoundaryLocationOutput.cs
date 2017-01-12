@@ -48,12 +48,12 @@ namespace Ringtoets.Common.Data.Hydraulics
         {
             if (!ProbabilityHelper.IsValidProbability(targetProbability))
             {
-                throw new ArgumentOutOfRangeException("targetProbability", targetProbability,
+                throw new ArgumentOutOfRangeException(nameof(targetProbability), targetProbability,
                                                       Resources.Probability_Must_be_in_range_zero_to_one);
             }
             if (!ProbabilityHelper.IsValidProbability(calculatedProbability))
             {
-                throw new ArgumentOutOfRangeException("calculatedProbability", calculatedProbability,
+                throw new ArgumentOutOfRangeException(nameof(calculatedProbability), calculatedProbability,
                                                       Resources.Probability_Must_be_in_range_zero_to_one);
             }
 

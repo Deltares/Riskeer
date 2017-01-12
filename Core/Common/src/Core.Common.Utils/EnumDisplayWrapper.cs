@@ -44,7 +44,7 @@ namespace Core.Common.Utils
         {
             if (value == null)
             {
-                throw new ArgumentNullException("value", @"An Enum type value is required.");
+                throw new ArgumentNullException(nameof(value), @"An Enum type value is required.");
             }
             if (!(typeof(Enum).IsAssignableFrom(typeof(T))))
             {

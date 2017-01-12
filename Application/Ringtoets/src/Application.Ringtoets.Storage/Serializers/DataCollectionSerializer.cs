@@ -50,7 +50,7 @@ namespace Application.Ringtoets.Storage.Serializers
         {
             if (elements == null)
             {
-                throw new ArgumentNullException("elements");
+                throw new ArgumentNullException(nameof(elements));
             }
 
             var memoryStream = new MemoryStream();

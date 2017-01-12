@@ -68,7 +68,7 @@ namespace Ringtoets.Integration.Forms.Views
         {
             if (viewCommands == null)
             {
-                throw new ArgumentNullException("viewCommands");
+                throw new ArgumentNullException(nameof(viewCommands));
             }
 
             InitializeComponent();

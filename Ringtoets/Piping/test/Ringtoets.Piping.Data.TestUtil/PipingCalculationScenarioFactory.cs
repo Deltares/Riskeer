@@ -102,7 +102,7 @@ namespace Ringtoets.Piping.Data.TestUtil
         {
             if (section == null)
             {
-                throw new ArgumentNullException("section");
+                throw new ArgumentNullException(nameof(section));
             }
             var ringtoetsPipingSurfaceLine = new RingtoetsPipingSurfaceLine();
             var p = section.Points.First();

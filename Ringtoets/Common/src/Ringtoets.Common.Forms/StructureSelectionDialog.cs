@@ -46,7 +46,7 @@ namespace Ringtoets.Common.Forms
         {
             if (structures == null)
             {
-                throw new ArgumentNullException("structures");
+                throw new ArgumentNullException(nameof(structures));
             }
 
             Text = Resources.StructureSelectionDialog_Select_Structures;

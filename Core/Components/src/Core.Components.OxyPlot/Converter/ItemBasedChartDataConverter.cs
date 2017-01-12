@@ -82,12 +82,12 @@ namespace Core.Components.OxyPlot.Converter
         {
             if (data == null)
             {
-                throw new ArgumentNullException("data", @"Null data cannot be converted into series data.");
+                throw new ArgumentNullException(nameof(data), @"Null data cannot be converted into series data.");
             }
 
             if (series == null)
             {
-                throw new ArgumentNullException("series", @"Null data cannot be used as conversion target.");
+                throw new ArgumentNullException(nameof(series), @"Null data cannot be used as conversion target.");
             }
         }
     }

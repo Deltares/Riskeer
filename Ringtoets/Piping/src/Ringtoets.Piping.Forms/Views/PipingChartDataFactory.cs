@@ -166,12 +166,12 @@ namespace Ringtoets.Piping.Forms.Views
         {
             if (soilProfile == null)
             {
-                throw new ArgumentNullException("soilProfile");
+                throw new ArgumentNullException(nameof(soilProfile));
             }
 
             if (soilLayerIndex < 0 || soilLayerIndex >= soilProfile.Layers.Count())
             {
-                throw new ArgumentOutOfRangeException("soilLayerIndex");
+                throw new ArgumentOutOfRangeException(nameof(soilLayerIndex));
             }
 
             var soilLayer = soilProfile.Layers.ElementAt(soilLayerIndex);

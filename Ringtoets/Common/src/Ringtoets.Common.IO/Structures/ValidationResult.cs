@@ -43,7 +43,7 @@ namespace Ringtoets.Common.IO.Structures
         {
             if (errorMessages == null)
             {
-                throw new ArgumentNullException("errorMessages");
+                throw new ArgumentNullException(nameof(errorMessages));
             }
             if (errorMessages.Any(string.IsNullOrWhiteSpace))
             {

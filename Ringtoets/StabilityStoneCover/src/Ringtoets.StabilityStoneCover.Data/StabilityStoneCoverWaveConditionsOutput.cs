@@ -43,12 +43,12 @@ namespace Ringtoets.StabilityStoneCover.Data
         {
             if (columnsOutput == null)
             {
-                throw new ArgumentNullException("columnsOutput");
+                throw new ArgumentNullException(nameof(columnsOutput));
             }
 
             if (blocksOutput == null)
             {
-                throw new ArgumentNullException("blocksOutput");
+                throw new ArgumentNullException(nameof(blocksOutput));
             }
 
             ColumnsOutput = columnsOutput;

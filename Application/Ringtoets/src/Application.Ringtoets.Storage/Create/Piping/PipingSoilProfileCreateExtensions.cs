@@ -43,7 +43,7 @@ namespace Application.Ringtoets.Storage.Create.Piping
         {
             if (registry == null)
             {
-                throw new ArgumentNullException("registry");
+                throw new ArgumentNullException(nameof(registry));
             }
 
             if (registry.Contains(profile))

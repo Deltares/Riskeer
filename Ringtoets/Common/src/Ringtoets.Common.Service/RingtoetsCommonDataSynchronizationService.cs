@@ -47,7 +47,7 @@ namespace Ringtoets.Common.Service
         {
             if (locations == null)
             {
-                throw new ArgumentNullException("locations");
+                throw new ArgumentNullException(nameof(locations));
             }
 
             return locations.SelectMany(ClearHydraulicBoundaryLocationOutput)
@@ -64,7 +64,7 @@ namespace Ringtoets.Common.Service
         {
             if (calculation == null)
             {
-                throw new ArgumentNullException("calculation");
+                throw new ArgumentNullException(nameof(calculation));
             }
 
             if (calculation.HasOutput)

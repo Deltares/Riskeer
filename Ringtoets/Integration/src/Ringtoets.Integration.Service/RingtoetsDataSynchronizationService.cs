@@ -69,7 +69,7 @@ namespace Ringtoets.Integration.Service
         {
             if (assessmentSection == null)
             {
-                throw new ArgumentNullException("assessmentSection");
+                throw new ArgumentNullException(nameof(assessmentSection));
             }
 
             var affectedItems = new List<IObservable>();
@@ -132,7 +132,7 @@ namespace Ringtoets.Integration.Service
         {
             if (assessmentSection == null)
             {
-                throw new ArgumentNullException("assessmentSection");
+                throw new ArgumentNullException(nameof(assessmentSection));
             }
 
             var affectedItems = new List<IObservable>();
@@ -201,15 +201,15 @@ namespace Ringtoets.Integration.Service
         {
             if (hydraulicBoundaryDatabase == null)
             {
-                throw new ArgumentNullException("hydraulicBoundaryDatabase");
+                throw new ArgumentNullException(nameof(hydraulicBoundaryDatabase));
             }
             if (grassCoverErosionOutwardsFailureMechanism == null)
             {
-                throw new ArgumentNullException("grassCoverErosionOutwardsFailureMechanism");
+                throw new ArgumentNullException(nameof(grassCoverErosionOutwardsFailureMechanism));
             }
             if (duneErosionFailureMechanism == null)
             {
-                throw new ArgumentNullException("duneErosionFailureMechanism");
+                throw new ArgumentNullException(nameof(duneErosionFailureMechanism));
             }
 
             return RingtoetsCommonDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(grassCoverErosionOutwardsFailureMechanism.HydraulicBoundaryLocations)
@@ -231,7 +231,7 @@ namespace Ringtoets.Integration.Service
         {
             if (assessmentSection == null)
             {
-                throw new ArgumentNullException("assessmentSection");
+                throw new ArgumentNullException(nameof(assessmentSection));
             }
 
             var changedObjects = new List<IObservable>();
@@ -270,11 +270,11 @@ namespace Ringtoets.Integration.Service
         {
             if (failureMechanism == null)
             {
-                throw new ArgumentNullException("failureMechanism");
+                throw new ArgumentNullException(nameof(failureMechanism));
             }
             if (profile == null)
             {
-                throw new ArgumentNullException("profile");
+                throw new ArgumentNullException(nameof(profile));
             }
 
             var changedObservables = new List<IObservable>();
@@ -301,11 +301,11 @@ namespace Ringtoets.Integration.Service
         {
             if (failureMechanism == null)
             {
-                throw new ArgumentNullException("failureMechanism");
+                throw new ArgumentNullException(nameof(failureMechanism));
             }
             if (profile == null)
             {
-                throw new ArgumentNullException("profile");
+                throw new ArgumentNullException(nameof(profile));
             }
 
             var changedObservables = new List<IObservable>();
@@ -332,11 +332,11 @@ namespace Ringtoets.Integration.Service
         {
             if (failureMechanism == null)
             {
-                throw new ArgumentNullException("failureMechanism");
+                throw new ArgumentNullException(nameof(failureMechanism));
             }
             if (profile == null)
             {
-                throw new ArgumentNullException("profile");
+                throw new ArgumentNullException(nameof(profile));
             }
 
             var changedObservables = new List<IObservable>();
@@ -363,11 +363,11 @@ namespace Ringtoets.Integration.Service
         {
             if (failureMechanism == null)
             {
-                throw new ArgumentNullException("failureMechanism");
+                throw new ArgumentNullException(nameof(failureMechanism));
             }
             if (profile == null)
             {
-                throw new ArgumentNullException("profile");
+                throw new ArgumentNullException(nameof(profile));
             }
 
             var changedObservables = new List<IObservable>();
@@ -397,11 +397,11 @@ namespace Ringtoets.Integration.Service
         {
             if (failureMechanism == null)
             {
-                throw new ArgumentNullException("failureMechanism");
+                throw new ArgumentNullException(nameof(failureMechanism));
             }
             if (profile == null)
             {
-                throw new ArgumentNullException("profile");
+                throw new ArgumentNullException(nameof(profile));
             }
 
             var changedObservables = new List<IObservable>();
@@ -431,11 +431,11 @@ namespace Ringtoets.Integration.Service
         {
             if (failureMechanism == null)
             {
-                throw new ArgumentNullException("failureMechanism");
+                throw new ArgumentNullException(nameof(failureMechanism));
             }
             if (profile == null)
             {
-                throw new ArgumentNullException("profile");
+                throw new ArgumentNullException(nameof(profile));
             }
 
             var changedObservables = new List<IObservable>();
@@ -465,11 +465,11 @@ namespace Ringtoets.Integration.Service
         {
             if (failureMechanism == null)
             {
-                throw new ArgumentNullException("failureMechanism");
+                throw new ArgumentNullException(nameof(failureMechanism));
             }
             if (profile == null)
             {
-                throw new ArgumentNullException("profile");
+                throw new ArgumentNullException(nameof(profile));
             }
 
             var changedObservables = new HashSet<IObservable>();

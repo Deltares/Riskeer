@@ -90,11 +90,11 @@ namespace Application.Ringtoets.Storage.TestUtil
         {
             if (string.IsNullOrWhiteSpace(databaseSchemaQuery))
             {
-                throw new ArgumentNullException("databaseSchemaQuery");
+                throw new ArgumentNullException(nameof(databaseSchemaQuery));
             }
             if (string.IsNullOrWhiteSpace(databaseFilePath))
             {
-                throw new ArgumentNullException("databaseFilePath");
+                throw new ArgumentNullException(nameof(databaseFilePath));
             }
 
             SQLiteConnection.CreateFile(databaseFilePath);

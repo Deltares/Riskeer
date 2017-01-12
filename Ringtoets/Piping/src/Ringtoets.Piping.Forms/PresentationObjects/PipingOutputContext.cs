@@ -41,7 +41,7 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
         {
             if (semiProbabilisticOutput == null)
             {
-                throw new ArgumentNullException("semiProbabilisticOutput");
+                throw new ArgumentNullException(nameof(semiProbabilisticOutput));
             }
             SemiProbabilisticOutput = semiProbabilisticOutput;
         }

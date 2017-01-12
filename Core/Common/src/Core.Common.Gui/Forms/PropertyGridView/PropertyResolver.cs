@@ -46,7 +46,7 @@ namespace Core.Common.Gui.Forms.PropertyGridView
         {
             if (propertyInfos == null)
             {
-                throw new ArgumentNullException("propertyInfos", Resources.PropertyResolver_PropertyResolver_Cannot_create_PropertyResolver_without_list_of_PropertyInfo);
+                throw new ArgumentNullException(nameof(propertyInfos), Resources.PropertyResolver_PropertyResolver_Cannot_create_PropertyResolver_without_list_of_PropertyInfo);
             }
             this.propertyInfos = propertyInfos.ToArray();
         }

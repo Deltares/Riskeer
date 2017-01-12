@@ -43,7 +43,7 @@ namespace Ringtoets.ClosingStructures.Forms.Views
         {
             if (sectionResult == null)
             {
-                throw new ArgumentNullException("sectionResult");
+                throw new ArgumentNullException(nameof(sectionResult));
             }
             this.sectionResult = sectionResult;
         }

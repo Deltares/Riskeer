@@ -46,7 +46,7 @@ namespace Ringtoets.Piping.IO.Builders
         {
             if (pipingSoilLayer == null)
             {
-                throw new ArgumentNullException("pipingSoilLayer");
+                throw new ArgumentNullException(nameof(pipingSoilLayer));
             }
 
             if (BelowPhreaticLevelMean.HasValue)

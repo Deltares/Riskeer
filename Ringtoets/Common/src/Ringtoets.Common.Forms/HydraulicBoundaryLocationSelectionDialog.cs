@@ -46,7 +46,7 @@ namespace Ringtoets.Common.Forms
         {
             if (hydraulicBoundaryLocations == null)
             {
-                throw new ArgumentNullException("hydraulicBoundaryLocations");
+                throw new ArgumentNullException(nameof(hydraulicBoundaryLocations));
             }
 
             Text = Resources.HydraulicBoundaryLocationSelectionDialog_Select_HydraulicBoundaryLocations;

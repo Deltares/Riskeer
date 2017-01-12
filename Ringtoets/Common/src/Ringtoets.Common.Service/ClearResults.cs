@@ -40,11 +40,11 @@ namespace Ringtoets.Common.Service
         {
             if (changedObjects == null)
             {
-                throw new ArgumentNullException("changedObjects");
+                throw new ArgumentNullException(nameof(changedObjects));
             }
             if (removedObjects == null)
             {
-                throw new ArgumentNullException("removedObjects");
+                throw new ArgumentNullException(nameof(removedObjects));
             }
 
             ChangedObjects = changedObjects;

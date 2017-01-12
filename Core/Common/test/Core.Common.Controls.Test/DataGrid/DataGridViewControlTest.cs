@@ -1235,7 +1235,7 @@ namespace Core.Common.Controls.Test.DataGrid
         {
             NoDisplayName,
 
-            [ResourcesDisplayName(typeof(Resources), "DataGridViewControlTest_DisplayNameValueDisplayName")]
+            [ResourcesDisplayName(typeof(Resources), nameof(Resources.DataGridViewControlTest_DisplayNameValueDisplayName))]
             DisplayName
         }
 

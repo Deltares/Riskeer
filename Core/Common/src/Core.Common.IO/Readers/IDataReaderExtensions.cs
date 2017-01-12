@@ -45,11 +45,11 @@ namespace Core.Common.IO.Readers
         {
             if (dataReader == null)
             {
-                throw new ArgumentNullException("dataReader");
+                throw new ArgumentNullException(nameof(dataReader));
             }
             if (columnName == null)
             {
-                throw new ArgumentNullException("columnName");
+                throw new ArgumentNullException(nameof(columnName));
             }
 
             var conversionType = typeof(T);

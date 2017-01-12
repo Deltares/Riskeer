@@ -133,7 +133,7 @@ namespace Ringtoets.Revetment.Data
                 }
                 else
                 {
-                    throw new ArgumentOutOfRangeException("value",
+                    throw new ArgumentOutOfRangeException(nameof(value),
                                                           RingtoetsCommonDataResources.Probability_Must_be_in_range_zero_to_one);
                 }
             }
@@ -165,7 +165,7 @@ namespace Ringtoets.Revetment.Data
                 }
                 else
                 {
-                    throw new ArgumentOutOfRangeException("value",
+                    throw new ArgumentOutOfRangeException(nameof(value),
                                                           RingtoetsCommonDataResources.Probability_Must_be_in_range_zero_to_one);
                 }
             }

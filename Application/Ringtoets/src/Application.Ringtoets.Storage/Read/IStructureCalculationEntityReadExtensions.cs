@@ -50,11 +50,11 @@ namespace Application.Ringtoets.Storage.Read
         {
             if (inputToUpdate == null)
             {
-                throw new ArgumentNullException("inputToUpdate");
+                throw new ArgumentNullException(nameof(inputToUpdate));
             }
             if (collector == null)
             {
-                throw new ArgumentNullException("collector");
+                throw new ArgumentNullException(nameof(collector));
             }
 
             if (entity.ForeshoreProfileEntity != null)

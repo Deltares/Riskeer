@@ -77,7 +77,7 @@ namespace Ringtoets.Common.Data.Contribution
             {
                 if (double.IsNaN(value) || value < 0.0 || value > 1.0)
                 {
-                    throw new ArgumentOutOfRangeException("value", Resources.Probability_Must_be_in_range_zero_to_one);
+                    throw new ArgumentOutOfRangeException(nameof(value), Resources.Probability_Must_be_in_range_zero_to_one);
                 }
                 norm = value;
                 distribution.ForEachElementDo(d => d.Norm = norm);
@@ -113,7 +113,7 @@ namespace Ringtoets.Common.Data.Contribution
         {
             if (newFailureMechanisms == null)
             {
-                throw new ArgumentNullException("newFailureMechanisms",
+                throw new ArgumentNullException(nameof(newFailureMechanisms),
                                                 Resources.FailureMechanismContribution_UpdateContributions_Can_not_create_FailureMechanismContribution_without_FailureMechanism_collection);
             }
 

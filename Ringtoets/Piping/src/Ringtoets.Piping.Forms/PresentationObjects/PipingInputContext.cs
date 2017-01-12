@@ -54,7 +54,7 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
         {
             if (calculation == null)
             {
-                throw new ArgumentNullException("calculation");
+                throw new ArgumentNullException(nameof(calculation));
             }
 
             PipingCalculation = calculation;

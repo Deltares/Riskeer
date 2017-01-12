@@ -45,11 +45,11 @@ namespace Ringtoets.Piping.IO.SoilProfile
         {
             if (reader == null)
             {
-                throw new ArgumentNullException("reader");
+                throw new ArgumentNullException(nameof(reader));
             }
             if (profileName == null)
             {
-                throw new ArgumentNullException("profileName");
+                throw new ArgumentNullException(nameof(profileName));
             }
 
             string readColumn = SoilProfileDatabaseColumns.IsAquifer;

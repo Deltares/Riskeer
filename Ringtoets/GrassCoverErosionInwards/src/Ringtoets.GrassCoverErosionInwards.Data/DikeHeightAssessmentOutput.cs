@@ -49,12 +49,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         {
             if (!ProbabilityHelper.IsValidProbability(targetProbability))
             {
-                throw new ArgumentOutOfRangeException("targetProbability", targetProbability,
+                throw new ArgumentOutOfRangeException(nameof(targetProbability), targetProbability,
                                                       RingtoetsCommonDataResources.Probability_Must_be_in_range_zero_to_one);
             }
             if (!ProbabilityHelper.IsValidProbability(calculatedProbability))
             {
-                throw new ArgumentOutOfRangeException("calculatedProbability", calculatedProbability,
+                throw new ArgumentOutOfRangeException(nameof(calculatedProbability), calculatedProbability,
                                                       RingtoetsCommonDataResources.Probability_Must_be_in_range_zero_to_one);
             }
 

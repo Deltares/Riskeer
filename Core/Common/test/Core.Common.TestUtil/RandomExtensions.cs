@@ -43,7 +43,7 @@ namespace Core.Common.TestUtil
         {
             if (random == null)
             {
-                throw new ArgumentNullException("random");
+                throw new ArgumentNullException(nameof(random));
             }
 
             if (lowerLimit > upperLimit)
@@ -73,7 +73,7 @@ namespace Core.Common.TestUtil
         {
             if (random == null)
             {
-                throw new ArgumentNullException("random");
+                throw new ArgumentNullException(nameof(random));
             }
 
             return Convert.ToBoolean(random.Next(0, 2));
@@ -89,7 +89,7 @@ namespace Core.Common.TestUtil
         {
             if (random == null)
             {
-                throw new ArgumentNullException("random");
+                throw new ArgumentNullException(nameof(random));
             }
 
             return (RoundedDouble)random.NextDouble();
@@ -107,7 +107,7 @@ namespace Core.Common.TestUtil
         {
             if (random == null)
             {
-                throw new ArgumentNullException("random");
+                throw new ArgumentNullException(nameof(random));
             }
 
             var enumValues = (TEnum[]) Enum.GetValues(typeof(TEnum));

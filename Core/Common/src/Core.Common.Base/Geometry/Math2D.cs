@@ -115,19 +115,19 @@ namespace Core.Common.Base.Geometry
         {
             if (line1Point1 == null)
             {
-                throw new ArgumentNullException("line1Point1");
+                throw new ArgumentNullException(nameof(line1Point1));
             }
             if (line1Point2 == null)
             {
-                throw new ArgumentNullException("line1Point2");
+                throw new ArgumentNullException(nameof(line1Point2));
             }
             if (line2Point1 == null)
             {
-                throw new ArgumentNullException("line2Point1");
+                throw new ArgumentNullException(nameof(line2Point1));
             }
             if (line2Point2 == null)
             {
-                throw new ArgumentNullException("line2Point2");
+                throw new ArgumentNullException(nameof(line2Point2));
             }
             if (line1Point1.Equals(line1Point2) || line2Point1.Equals(line2Point2))
             {
@@ -165,11 +165,11 @@ namespace Core.Common.Base.Geometry
         {
             if (point1 == null)
             {
-                throw new ArgumentNullException("point1");
+                throw new ArgumentNullException(nameof(point1));
             }
             if (point2 == null)
             {
-                throw new ArgumentNullException("point2");
+                throw new ArgumentNullException(nameof(point2));
             }
             return Math.Abs(point1.X - point2.X) < epsilonForComparisons && Math.Abs(point1.Y - point2.Y) < epsilonForComparisons;
         }
@@ -189,7 +189,7 @@ namespace Core.Common.Base.Geometry
         {
             if (segments == null)
             {
-                throw new ArgumentNullException("segments");
+                throw new ArgumentNullException(nameof(segments));
             }
 
             var intersectionPointY = new Collection<Point2D>();
@@ -217,7 +217,7 @@ namespace Core.Common.Base.Geometry
         {
             if (points == null)
             {
-                throw new ArgumentNullException("points");
+                throw new ArgumentNullException(nameof(points));
             }
 
             double length = 0;
@@ -249,11 +249,11 @@ namespace Core.Common.Base.Geometry
         {
             if (segment1 == null)
             {
-                throw new ArgumentNullException("segment1");
+                throw new ArgumentNullException(nameof(segment1));
             }
             if (segment2 == null)
             {
-                throw new ArgumentNullException("segment2");
+                throw new ArgumentNullException(nameof(segment2));
             }
 
             Vector<double> u = segment1.SecondPoint - segment1.FirstPoint;
@@ -312,12 +312,12 @@ namespace Core.Common.Base.Geometry
         {
             if (lineSegment == null)
             {
-                throw new ArgumentNullException("lineSegment");
+                throw new ArgumentNullException(nameof(lineSegment));
             }
 
             if (double.IsNaN(fraction) || fraction < 0.0 || fraction > 1.0)
             {
-                throw new ArgumentOutOfRangeException("fraction", @"Fraction needs to be defined in range [0.0, 1.0] in order to reliably interpolate.");
+                throw new ArgumentOutOfRangeException(nameof(fraction), @"Fraction needs to be defined in range [0.0, 1.0] in order to reliably interpolate.");
             }
             Vector<double> segmentVector = lineSegment.SecondPoint - lineSegment.FirstPoint;
             return lineSegment.FirstPoint + segmentVector.Multiply(fraction);

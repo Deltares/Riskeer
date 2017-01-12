@@ -41,7 +41,7 @@ namespace Core.Plugins.Map.UITypeEditors
         {
             if (metaDataAttribute == null)
             {
-                throw new ArgumentNullException("metaDataAttribute");
+                throw new ArgumentNullException(nameof(metaDataAttribute));
             }
 
             this.metaDataAttribute = metaDataAttribute;

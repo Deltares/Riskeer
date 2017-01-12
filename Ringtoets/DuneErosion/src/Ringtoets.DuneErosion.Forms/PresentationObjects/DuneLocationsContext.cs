@@ -46,11 +46,11 @@ namespace Ringtoets.DuneErosion.Forms.PresentationObjects
         {
             if (failureMechanism == null)
             {
-                throw new ArgumentNullException("failureMechanism");
+                throw new ArgumentNullException(nameof(failureMechanism));
             }
             if (assessmentSection == null)
             {
-                throw new ArgumentNullException("assessmentSection");
+                throw new ArgumentNullException(nameof(assessmentSection));
             }
             AssessmentSection = assessmentSection;
             FailureMechanism = failureMechanism;

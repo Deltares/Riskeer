@@ -39,7 +39,7 @@ namespace Ringtoets.Common.Data.FailureMechanism
         {
             if (section == null)
             {
-                throw new ArgumentNullException("section");
+                throw new ArgumentNullException(nameof(section));
             }
             Section = section;
             AssessmentLayerOne = AssessmentLayerOneState.NotAssessed;

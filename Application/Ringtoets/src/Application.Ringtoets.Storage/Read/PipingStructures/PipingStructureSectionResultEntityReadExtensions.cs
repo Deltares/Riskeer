@@ -45,7 +45,7 @@ namespace Application.Ringtoets.Storage.Read.PipingStructures
         {
             if (sectionResult == null)
             {
-                throw new ArgumentNullException("sectionResult");
+                throw new ArgumentNullException(nameof(sectionResult));
             }
 
             sectionResult.AssessmentLayerOne = (AssessmentLayerOneState) entity.LayerOne;

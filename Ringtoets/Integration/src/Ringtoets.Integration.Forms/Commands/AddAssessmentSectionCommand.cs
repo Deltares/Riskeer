@@ -40,7 +40,7 @@ namespace Ringtoets.Integration.Forms.Commands
         {
             if (assessmentSectionFromFileCommandHandler == null)
             {
-                throw new ArgumentNullException("assessmentSectionFromFileCommandHandler");
+                throw new ArgumentNullException(nameof(assessmentSectionFromFileCommandHandler));
             }
             this.assessmentSectionFromFileCommandHandler = assessmentSectionFromFileCommandHandler;
         }

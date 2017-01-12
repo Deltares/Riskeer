@@ -108,11 +108,11 @@ namespace Ringtoets.Piping.Data
         {
             if (soilProfile == null)
             {
-                throw new ArgumentNullException("soilProfile");
+                throw new ArgumentNullException(nameof(soilProfile));
             }
             if (layers == null)
             {
-                throw new ArgumentNullException("layers");
+                throw new ArgumentNullException(nameof(layers));
             }
             if (layers.Length == 0)
             {

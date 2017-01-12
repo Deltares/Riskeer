@@ -56,11 +56,11 @@ namespace Core.Plugins.ProjectExplorer
         {
             if (viewCommands == null)
             {
-                throw new ArgumentNullException("viewCommands");
+                throw new ArgumentNullException(nameof(viewCommands));
             }
             if (treeNodeInfos == null)
             {
-                throw new ArgumentNullException("treeNodeInfos");
+                throw new ArgumentNullException(nameof(treeNodeInfos));
             }
             InitializeComponent();
 

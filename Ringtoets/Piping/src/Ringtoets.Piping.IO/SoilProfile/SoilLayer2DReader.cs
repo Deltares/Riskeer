@@ -81,7 +81,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
         {
             if (geometry == null)
             {
-                throw new ArgumentNullException("geometry", Resources.SoilLayer2DReader_Geometry_is_null);
+                throw new ArgumentNullException(nameof(geometry), Resources.SoilLayer2DReader_Geometry_is_null);
             }
             try
             {

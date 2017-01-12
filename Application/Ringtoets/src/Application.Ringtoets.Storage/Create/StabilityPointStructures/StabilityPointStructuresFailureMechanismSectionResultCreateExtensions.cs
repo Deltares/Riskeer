@@ -43,7 +43,7 @@ namespace Application.Ringtoets.Storage.Create.StabilityPointStructures
         {
             if (registry == null)
             {
-                throw new ArgumentNullException("registry");
+                throw new ArgumentNullException(nameof(registry));
             }
             var sectionResultEntity = new StabilityPointStructuresSectionResultEntity
             {

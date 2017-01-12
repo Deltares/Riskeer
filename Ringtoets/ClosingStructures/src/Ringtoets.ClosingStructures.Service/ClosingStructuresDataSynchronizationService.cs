@@ -51,7 +51,7 @@ namespace Ringtoets.ClosingStructures.Service
         {
             if (failureMechanism == null)
             {
-                throw new ArgumentNullException("failureMechanism");
+                throw new ArgumentNullException(nameof(failureMechanism));
             }
 
             return failureMechanism.Calculations
@@ -73,7 +73,7 @@ namespace Ringtoets.ClosingStructures.Service
         {
             if (failureMechanism == null)
             {
-                throw new ArgumentNullException("failureMechanism");
+                throw new ArgumentNullException(nameof(failureMechanism));
             }
 
             var affectedItems = new List<IObservable>();
@@ -97,7 +97,7 @@ namespace Ringtoets.ClosingStructures.Service
         {
             if (failureMechanism == null)
             {
-                throw new ArgumentNullException("failureMechanism");
+                throw new ArgumentNullException(nameof(failureMechanism));
             }
 
             var changedObjects = new Collection<IObservable>();

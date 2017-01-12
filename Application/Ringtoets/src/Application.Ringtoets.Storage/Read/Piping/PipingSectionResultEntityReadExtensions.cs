@@ -45,7 +45,7 @@ namespace Application.Ringtoets.Storage.Read.Piping
         {
             if (sectionResult == null)
             {
-                throw new ArgumentNullException("sectionResult");
+                throw new ArgumentNullException(nameof(sectionResult));
             }
             sectionResult.AssessmentLayerOne = (AssessmentLayerOneState) entity.LayerOne;
             sectionResult.AssessmentLayerThree = (RoundedDouble) entity.LayerThree.ToNullAsNaN();

@@ -42,11 +42,11 @@ namespace Application.Ringtoets.Storage.Create
         {
             if (entityToUpdate == null)
             {
-                throw new ArgumentNullException("entityToUpdate");
+                throw new ArgumentNullException(nameof(entityToUpdate));
             }
             if (registry == null)
             {
-                throw new ArgumentNullException("registry");
+                throw new ArgumentNullException(nameof(registry));
             }
 
             entityToUpdate.StormDurationMean = input.StormDuration.Mean.ToNaNAsNull();
@@ -103,7 +103,7 @@ namespace Application.Ringtoets.Storage.Create
         {
             if (registry == null)
             {
-                throw new ArgumentNullException("registry");
+                throw new ArgumentNullException(nameof(registry));
             }
 
             var entity = new ClosingStructuresCalculationEntity
@@ -187,7 +187,7 @@ namespace Application.Ringtoets.Storage.Create
         {
             if (registry == null)
             {
-                throw new ArgumentNullException("registry");
+                throw new ArgumentNullException(nameof(registry));
             }
 
             var entity = new HeightStructuresCalculationEntity
@@ -248,7 +248,7 @@ namespace Application.Ringtoets.Storage.Create
         {
             if (registry == null)
             {
-                throw new ArgumentNullException("registry");
+                throw new ArgumentNullException(nameof(registry));
             }
 
             var entity = new StabilityPointStructuresCalculationEntity

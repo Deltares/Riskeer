@@ -62,7 +62,7 @@ namespace Core.Components.Gis.Data
         {
             if (item == null)
             {
-                throw new ArgumentNullException("item", @"An item cannot be null when adding it to the collection.");
+                throw new ArgumentNullException(nameof(item), @"An item cannot be null when adding it to the collection.");
             }
             mapDataList.Add(item);
         }
@@ -78,7 +78,7 @@ namespace Core.Components.Gis.Data
         {
             if (item == null)
             {
-                throw new ArgumentNullException("item", @"An item cannot be null when adding it to the collection.");
+                throw new ArgumentNullException(nameof(item), @"An item cannot be null when adding it to the collection.");
             }
             mapDataList.Insert(index, item);
         }

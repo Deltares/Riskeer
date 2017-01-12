@@ -57,11 +57,11 @@ namespace Application.Ringtoets.Storage.Read
         {
             if (collector == null)
             {
-                throw new ArgumentNullException("collector");
+                throw new ArgumentNullException(nameof(collector));
             }
             if (generalPipingInput == null)
             {
-                throw new ArgumentNullException("generalPipingInput");
+                throw new ArgumentNullException(nameof(generalPipingInput));
             }
 
             var group = new CalculationGroup(entity.Name, true);
@@ -97,7 +97,7 @@ namespace Application.Ringtoets.Storage.Read
         {
             if (collector == null)
             {
-                throw new ArgumentNullException("collector");
+                throw new ArgumentNullException(nameof(collector));
             }
 
             var group = new CalculationGroup(entity.Name, true);
@@ -133,7 +133,7 @@ namespace Application.Ringtoets.Storage.Read
         {
             if (collector == null)
             {
-                throw new ArgumentNullException("collector");
+                throw new ArgumentNullException(nameof(collector));
             }
 
             var group = new CalculationGroup(entity.Name, true);
@@ -169,7 +169,7 @@ namespace Application.Ringtoets.Storage.Read
         {
             if (collector == null)
             {
-                throw new ArgumentNullException("collector");
+                throw new ArgumentNullException(nameof(collector));
             }
 
             var group = new CalculationGroup(entity.Name, true);
@@ -205,7 +205,7 @@ namespace Application.Ringtoets.Storage.Read
         {
             if (collector == null)
             {
-                throw new ArgumentNullException("collector");
+                throw new ArgumentNullException(nameof(collector));
             }
 
             var group = new CalculationGroup(entity.Name, true);
@@ -241,7 +241,7 @@ namespace Application.Ringtoets.Storage.Read
         {
             if (collector == null)
             {
-                throw new ArgumentNullException("collector");
+                throw new ArgumentNullException(nameof(collector));
             }
 
             var group = new CalculationGroup(entity.Name, true);
@@ -277,7 +277,7 @@ namespace Application.Ringtoets.Storage.Read
         {
             if (collector == null)
             {
-                throw new ArgumentNullException("collector");
+                throw new ArgumentNullException(nameof(collector));
             }
 
             var group = new CalculationGroup(entity.Name, true);
@@ -313,7 +313,7 @@ namespace Application.Ringtoets.Storage.Read
         {
             if (collector == null)
             {
-                throw new ArgumentNullException("collector");
+                throw new ArgumentNullException(nameof(collector));
             }
 
             var group = new CalculationGroup(entity.Name, true);

@@ -42,7 +42,7 @@ namespace Ringtoets.Common.Forms.PresentationObjects
         {
             if (parent == null)
             {
-                throw new ArgumentNullException("parent");
+                throw new ArgumentNullException(nameof(parent));
             }
 
             Parent = parent;

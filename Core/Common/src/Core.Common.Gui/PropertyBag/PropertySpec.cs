@@ -50,7 +50,7 @@ namespace Core.Common.Gui.PropertyBag
         {
             if (propertyInfo == null)
             {
-                throw new ArgumentNullException("propertyInfo");
+                throw new ArgumentNullException(nameof(propertyInfo));
             }
             if (propertyInfo.GetIndexParameters().Length > 0)
             {

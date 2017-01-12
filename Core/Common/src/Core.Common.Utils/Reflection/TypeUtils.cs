@@ -59,7 +59,7 @@ namespace Core.Common.Utils.Reflection
         {
             if (type == null)
             {
-                throw new ArgumentNullException("type");
+                throw new ArgumentNullException(nameof(type));
             }
             return type.IsAssignableFrom(thisType);
         }
@@ -77,7 +77,7 @@ namespace Core.Common.Utils.Reflection
         {
             if (expression == null)
             {
-                throw new ArgumentNullException("expression");
+                throw new ArgumentNullException(nameof(expression));
             }
             return GetMemberName(expression, expression.Body);
         }
@@ -95,7 +95,7 @@ namespace Core.Common.Utils.Reflection
         {
             if (expression == null)
             {
-                throw new ArgumentNullException("expression");
+                throw new ArgumentNullException(nameof(expression));
             }
             return GetMemberName(expression, expression.Body);
         }
@@ -115,12 +115,12 @@ namespace Core.Common.Utils.Reflection
         {
             if (instance == null)
             {
-                throw new ArgumentNullException("instance");
+                throw new ArgumentNullException(nameof(instance));
             }
             FieldInfo fieldInfo = GetFieldInfo(instance.GetType(), fieldName);
             if (fieldInfo == null)
             {
-                throw new ArgumentOutOfRangeException("fieldName");
+                throw new ArgumentOutOfRangeException(nameof(fieldName));
             }
 
             return (T) fieldInfo.GetValue(instance);
@@ -142,13 +142,13 @@ namespace Core.Common.Utils.Reflection
         {
             if (obj == null)
             {
-                throw new ArgumentNullException("obj");
+                throw new ArgumentNullException(nameof(obj));
             }
 
             FieldInfo fieldInfo = GetFieldInfo(obj.GetType(), fieldName);
             if (fieldInfo == null)
             {
-                throw new ArgumentOutOfRangeException("fieldName");
+                throw new ArgumentOutOfRangeException(nameof(fieldName));
             }
 
             fieldInfo.SetValue(obj, newValue);
@@ -178,13 +178,13 @@ namespace Core.Common.Utils.Reflection
         {
             if (instance == null)
             {
-                throw new ArgumentNullException("instance");
+                throw new ArgumentNullException(nameof(instance));
             }
 
             var methodInfo = instance.GetType().GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Instance);
             if (methodInfo == null)
             {
-                throw new ArgumentOutOfRangeException("methodName");
+                throw new ArgumentOutOfRangeException(nameof(methodName));
             }
 
             return (T) methodInfo.Invoke(instance, arguments);
@@ -212,13 +212,13 @@ namespace Core.Common.Utils.Reflection
         {
             if (instance == null)
             {
-                throw new ArgumentNullException("instance");
+                throw new ArgumentNullException(nameof(instance));
             }
 
             var methodInfo = instance.GetType().GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Instance);
             if (methodInfo == null)
             {
-                throw new ArgumentOutOfRangeException("methodName");
+                throw new ArgumentOutOfRangeException(nameof(methodName));
             }
 
             methodInfo.Invoke(instance, arguments);
@@ -244,13 +244,13 @@ namespace Core.Common.Utils.Reflection
         {
             if (instance == null)
             {
-                throw new ArgumentNullException("instance");
+                throw new ArgumentNullException(nameof(instance));
             }
 
             var propertyInfo = instance.GetType().GetProperty(propertyName);
             if (propertyInfo == null)
             {
-                throw new ArgumentOutOfRangeException("propertyName");
+                throw new ArgumentOutOfRangeException(nameof(propertyName));
             }
 
             propertyInfo.SetValue(instance, value, null);

@@ -136,7 +136,7 @@ namespace Ringtoets.Piping.Primitives
         {
             if (collection == null)
             {
-                throw new ArgumentNullException(@"collection", string.Format(Resources.Error_Cannot_Construct_PipingSoilProfile_Without_Layers));
+                throw new ArgumentNullException(nameof(collection), string.Format(Resources.Error_Cannot_Construct_PipingSoilProfile_Without_Layers));
             }
             if (!collection.Any())
             {

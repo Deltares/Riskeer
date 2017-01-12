@@ -49,7 +49,7 @@ namespace Application.Ringtoets.Storage.Read.WaveImpactAsphaltCover
         {
             if (collector == null)
             {
-                throw new ArgumentNullException("collector");
+                throw new ArgumentNullException(nameof(collector));
             }
 
             var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation

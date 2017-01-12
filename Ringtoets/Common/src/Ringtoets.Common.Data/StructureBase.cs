@@ -50,7 +50,7 @@ namespace Ringtoets.Common.Data
             }
             if (constructionProperties.Location == null)
             {
-                throw new ArgumentNullException("constructionProperties", @"Location is null.");
+                throw new ArgumentNullException(nameof(constructionProperties), @"Location is null.");
             }
 
             Name = constructionProperties.Name;

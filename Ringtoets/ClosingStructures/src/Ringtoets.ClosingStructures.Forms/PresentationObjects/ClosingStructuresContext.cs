@@ -46,11 +46,11 @@ namespace Ringtoets.ClosingStructures.Forms.PresentationObjects
         {
             if (assessmentSection == null)
             {
-                throw new ArgumentNullException("assessmentSection");
+                throw new ArgumentNullException(nameof(assessmentSection));
             }
             if (failureMechanism == null)
             {
-                throw new ArgumentNullException("failureMechanism");
+                throw new ArgumentNullException(nameof(failureMechanism));
             }
 
             FailureMechanism = failureMechanism;

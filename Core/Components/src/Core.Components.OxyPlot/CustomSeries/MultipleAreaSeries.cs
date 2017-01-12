@@ -92,7 +92,7 @@ namespace Core.Components.OxyPlot.CustomSeries
         {
             if (renderContext == null)
             {
-                throw new ArgumentNullException("renderContext");
+                throw new ArgumentNullException(nameof(renderContext));
             }
 
             var areas = Areas;

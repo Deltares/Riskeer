@@ -54,7 +54,7 @@ namespace Ringtoets.Common.Data.AssessmentSection
         {
             if (newPoints == null)
             {
-                throw new ArgumentNullException("newPoints", RingtoetsCommonDataResources.ReferenceLine_SetGeometry_New_geometry_cannot_be_null);
+                throw new ArgumentNullException(nameof(newPoints), RingtoetsCommonDataResources.ReferenceLine_SetGeometry_New_geometry_cannot_be_null);
             }
             Point2D[] point2Ds = newPoints.ToArray();
             if (point2Ds.Any(p => p == null))

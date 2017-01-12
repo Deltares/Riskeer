@@ -51,7 +51,7 @@ namespace Ringtoets.Piping.Forms.Views
         {
             if (calculations == null)
             {
-                throw new ArgumentNullException("calculations");
+                throw new ArgumentNullException(nameof(calculations));
             }
             this.calculations = calculations;
         }

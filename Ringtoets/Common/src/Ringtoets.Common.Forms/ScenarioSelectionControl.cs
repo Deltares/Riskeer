@@ -62,15 +62,15 @@ namespace Ringtoets.Common.Forms
         {
             if (calculations == null)
             {
-                throw new ArgumentNullException("calculations");
+                throw new ArgumentNullException(nameof(calculations));
             }
             if (scenarioRows == null)
             {
-                throw new ArgumentNullException("scenarioRows");
+                throw new ArgumentNullException(nameof(scenarioRows));
             }
             if (calculationsPerSection == null)
             {
-                throw new ArgumentNullException("calculationsPerSection");
+                throw new ArgumentNullException(nameof(calculationsPerSection));
             }
 
             using (new SuspendDataGridViewColumnResizes(dataGridViewControl.GetColumnFromIndex(calculationsColumnIndex)))

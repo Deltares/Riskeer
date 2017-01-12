@@ -42,7 +42,7 @@ namespace Ringtoets.Piping.Data
         {
             if (constructionProperties == null)
             {
-                throw new ArgumentNullException("constructionProperties");
+                throw new ArgumentNullException(nameof(constructionProperties));
             }
             HeaveFactorOfSafety = constructionProperties.HeaveFactorOfSafety;
             HeaveZValue = constructionProperties.HeaveZValue;

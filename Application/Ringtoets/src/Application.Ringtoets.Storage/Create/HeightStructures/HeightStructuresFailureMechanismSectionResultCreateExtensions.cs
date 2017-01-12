@@ -42,7 +42,7 @@ namespace Application.Ringtoets.Storage.Create.HeightStructures
         {
             if (registry == null)
             {
-                throw new ArgumentNullException("registry");
+                throw new ArgumentNullException(nameof(registry));
             }
             var sectionResultEntity = new HeightStructuresSectionResultEntity
             {

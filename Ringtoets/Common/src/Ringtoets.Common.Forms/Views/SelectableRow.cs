@@ -38,11 +38,11 @@ namespace Ringtoets.Common.Forms.Views
         {
             if (item == null)
             {
-                throw new ArgumentNullException("item");
+                throw new ArgumentNullException(nameof(item));
             }
             if (name == null)
             {
-                throw new ArgumentNullException("name");
+                throw new ArgumentNullException(nameof(name));
             }
             Name = name;
             Item = item;

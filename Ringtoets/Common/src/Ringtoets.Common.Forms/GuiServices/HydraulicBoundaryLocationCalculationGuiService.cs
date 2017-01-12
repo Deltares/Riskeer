@@ -64,12 +64,12 @@ namespace Ringtoets.Common.Forms.GuiServices
         {
             if (messageProvider == null)
             {
-                throw new ArgumentNullException("messageProvider");
+                throw new ArgumentNullException(nameof(messageProvider));
             }
 
             if (locations == null)
             {
-                throw new ArgumentNullException("locations");
+                throw new ArgumentNullException(nameof(locations));
             }
             var activities = locations.Select(location => new DesignWaterLevelCalculationActivity(location,
                                                                                                   hydraulicBoundaryDatabasePath,
@@ -85,12 +85,12 @@ namespace Ringtoets.Common.Forms.GuiServices
         {
             if (messageProvider == null)
             {
-                throw new ArgumentNullException("messageProvider");
+                throw new ArgumentNullException(nameof(messageProvider));
             }
 
             if (locations == null)
             {
-                throw new ArgumentNullException("locations");
+                throw new ArgumentNullException(nameof(locations));
             }
             var activities = locations.Select(location => new WaveHeightCalculationActivity(location,
                                                                                             hydraulicBoundaryDatabasePath,

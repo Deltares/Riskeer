@@ -47,7 +47,7 @@ namespace Ringtoets.Piping.Service
         {
             if (failureMechanism == null)
             {
-                throw new ArgumentNullException("failureMechanism");
+                throw new ArgumentNullException(nameof(failureMechanism));
             }
 
             return failureMechanism.Calculations
@@ -66,7 +66,7 @@ namespace Ringtoets.Piping.Service
         {
             if (calculation == null)
             {
-                throw new ArgumentNullException("calculation");
+                throw new ArgumentNullException(nameof(calculation));
             }
 
             if (calculation.HasOutput)
@@ -90,7 +90,7 @@ namespace Ringtoets.Piping.Service
         {
             if (failureMechanism == null)
             {
-                throw new ArgumentNullException("failureMechanism");
+                throw new ArgumentNullException(nameof(failureMechanism));
             }
 
             var affectedItems = new List<IObservable>();
@@ -114,7 +114,7 @@ namespace Ringtoets.Piping.Service
         {
             if (failureMechanism == null)
             {
-                throw new ArgumentNullException("failureMechanism");
+                throw new ArgumentNullException(nameof(failureMechanism));
             }
 
             var changedObjects = new Collection<IObservable>();
@@ -154,11 +154,11 @@ namespace Ringtoets.Piping.Service
         {
             if (failureMechanism == null)
             {
-                throw new ArgumentNullException("failureMechanism");
+                throw new ArgumentNullException(nameof(failureMechanism));
             }
             if (surfaceLine == null)
             {
-                throw new ArgumentNullException("surfaceLine");
+                throw new ArgumentNullException(nameof(surfaceLine));
             }
 
             var changedObservables = new List<IObservable>();
@@ -194,11 +194,11 @@ namespace Ringtoets.Piping.Service
         {
             if (failureMechanism == null)
             {
-                throw new ArgumentNullException("failureMechanism");
+                throw new ArgumentNullException(nameof(failureMechanism));
             }
             if (soilModel == null)
             {
-                throw new ArgumentNullException("soilModel");
+                throw new ArgumentNullException(nameof(soilModel));
             }
 
             var changedObservables = new List<IObservable>();

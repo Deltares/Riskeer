@@ -70,7 +70,7 @@ namespace Ringtoets.Piping.Data
 
                 if (double.IsNaN(newValue) || newValue < 0 || newValue > 20)
                 {
-                    throw new ArgumentOutOfRangeException("value", Resources.GeneralPipingInput_WaterVolumetricWeight_must_be_in_range_zero_to_twenty);
+                    throw new ArgumentOutOfRangeException(nameof(value), Resources.GeneralPipingInput_WaterVolumetricWeight_must_be_in_range_zero_to_twenty);
                 }
 
                 waterVolumetricWeight = newValue;

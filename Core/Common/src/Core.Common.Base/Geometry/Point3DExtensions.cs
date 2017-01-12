@@ -48,15 +48,15 @@ namespace Core.Common.Base.Geometry
         {
             if (worldCoordinate == null)
             {
-                throw new ArgumentNullException("worldCoordinate");
+                throw new ArgumentNullException(nameof(worldCoordinate));
             }
             if (startWorldCoordinate == null)
             {
-                throw new ArgumentNullException("startWorldCoordinate");
+                throw new ArgumentNullException(nameof(startWorldCoordinate));
             }
             if (endWorldCoordinate == null)
             {
-                throw new ArgumentNullException("endWorldCoordinate");
+                throw new ArgumentNullException(nameof(endWorldCoordinate));
             }
 
             Point2D worldCoordinate2D = new Point2D(worldCoordinate.X, worldCoordinate.Y);

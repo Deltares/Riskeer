@@ -48,19 +48,19 @@ namespace Ringtoets.Revetment.IO
         {
             if (name == null)
             {
-                throw new ArgumentNullException("name");
+                throw new ArgumentNullException(nameof(name));
             }
             if (waveConditionsInput == null)
             {
-                throw new ArgumentNullException("waveConditionsInput");
+                throw new ArgumentNullException(nameof(waveConditionsInput));
             }
             if (columnsOutput == null)
             {
-                throw new ArgumentNullException("columnsOutput");
+                throw new ArgumentNullException(nameof(columnsOutput));
             }
             if (blocksOutput == null)
             {
-                throw new ArgumentNullException("blocksOutput");
+                throw new ArgumentNullException(nameof(blocksOutput));
             }
 
             var exportableWaveConditionsCollection = new List<ExportableWaveConditions>();
@@ -98,19 +98,19 @@ namespace Ringtoets.Revetment.IO
         {
             if (name == null)
             {
-                throw new ArgumentNullException("name");
+                throw new ArgumentNullException(nameof(name));
             }
             if (waveConditionsInput == null)
             {
-                throw new ArgumentNullException("waveConditionsInput");
+                throw new ArgumentNullException(nameof(waveConditionsInput));
             }
             if (output == null)
             {
-                throw new ArgumentNullException("output");
+                throw new ArgumentNullException(nameof(output));
             }
             if (coverType == null)
             {
-                throw new ArgumentNullException("coverType");
+                throw new ArgumentNullException(nameof(coverType));
             }
 
             return output.Select(waveConditionsOutput => new ExportableWaveConditions(name, waveConditionsInput, waveConditionsOutput, coverType));

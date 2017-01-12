@@ -39,7 +39,7 @@ namespace Core.Components.Gis.Geometries
         {
             if (pointCollections == null)
             {
-                throw new ArgumentNullException("pointCollections", @"MapGeometry cannot be created without points.");
+                throw new ArgumentNullException(nameof(pointCollections), @"MapGeometry cannot be created without points.");
             }
             PointCollections = pointCollections;
         }

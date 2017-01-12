@@ -70,7 +70,7 @@ namespace Core.Common.Gui.Forms.ProgressDialog
         {
             if (task == null)
             {
-                throw new ArgumentNullException("task");
+                throw new ArgumentNullException(nameof(task));
             }
 
             task.ContinueWith(_ => action(), CancellationToken.None, TaskContinuationOptions.None, scheduler);

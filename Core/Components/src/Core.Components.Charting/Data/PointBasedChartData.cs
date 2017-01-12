@@ -56,7 +56,7 @@ namespace Core.Components.Charting.Data
             {
                 if (value == null)
                 {
-                    throw new ArgumentNullException("value", @"The array of points cannot be null.");
+                    throw new ArgumentNullException(nameof(value), @"The array of points cannot be null.");
                 }
 
                 points = value;

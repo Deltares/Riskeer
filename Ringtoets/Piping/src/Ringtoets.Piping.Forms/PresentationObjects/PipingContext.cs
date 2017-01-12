@@ -111,19 +111,19 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
         {
             if (surfaceLines == null)
             {
-                throw new ArgumentNullException("surfaceLines");
+                throw new ArgumentNullException(nameof(surfaceLines));
             }
             if (stochasticSoilModels == null)
             {
-                throw new ArgumentNullException("stochasticSoilModels");
+                throw new ArgumentNullException(nameof(stochasticSoilModels));
             }
             if (pipingFailureMechanism == null)
             {
-                throw new ArgumentNullException("pipingFailureMechanism");
+                throw new ArgumentNullException(nameof(pipingFailureMechanism));
             }
             if (assessmentSection == null)
             {
-                throw new ArgumentNullException("assessmentSection");
+                throw new ArgumentNullException(nameof(assessmentSection));
             }
         }
     }

@@ -47,11 +47,11 @@ namespace Ringtoets.StabilityStoneCover.Forms.PresentationObjects
         {
             if (failureMechanism == null)
             {
-                throw new ArgumentNullException("failureMechanism");
+                throw new ArgumentNullException(nameof(failureMechanism));
             }
             if (assessmentSection == null)
             {
-                throw new ArgumentNullException("assessmentSection");
+                throw new ArgumentNullException(nameof(assessmentSection));
             }
 
             FailureMechanism = failureMechanism;

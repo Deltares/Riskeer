@@ -42,7 +42,7 @@ namespace Core.Common.Utils.Extensions
         {
             if (source == null)
             {
-                throw new ArgumentNullException("source");
+                throw new ArgumentNullException(nameof(source));
             }
 
             foreach (T item in source.Where(predicate).ToArray())

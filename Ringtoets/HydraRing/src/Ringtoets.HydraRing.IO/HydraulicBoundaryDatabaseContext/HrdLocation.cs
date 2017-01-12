@@ -40,7 +40,7 @@ namespace Ringtoets.HydraRing.IO.HydraulicBoundaryDatabaseContext
         {
             if (name == null)
             {
-                throw new ArgumentNullException("name");
+                throw new ArgumentNullException(nameof(name));
             }
             HrdLocationId = hrdLocationId;
             Name = name;

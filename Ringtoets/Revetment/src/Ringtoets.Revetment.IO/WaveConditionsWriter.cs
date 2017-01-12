@@ -50,11 +50,11 @@ namespace Ringtoets.Revetment.IO
         {
             if (exportableWaveConditionsCollection == null)
             {
-                throw new ArgumentNullException("exportableWaveConditionsCollection");
+                throw new ArgumentNullException(nameof(exportableWaveConditionsCollection));
             }
             if (filePath == null)
             {
-                throw new ArgumentNullException("filePath");
+                throw new ArgumentNullException(nameof(filePath));
             }
 
             var stringBuilder = new StringBuilder(Resources.WaveConditionsWriter_HeaderLine + Environment.NewLine);

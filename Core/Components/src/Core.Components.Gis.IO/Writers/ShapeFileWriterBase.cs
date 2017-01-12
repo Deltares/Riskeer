@@ -57,7 +57,7 @@ namespace Core.Components.Gis.IO.Writers
         {
             if (featureBasedMapData == null)
             {
-                throw new ArgumentNullException("featureBasedMapData");
+                throw new ArgumentNullException(nameof(featureBasedMapData));
             }
 
             if (featureBasedMapData.Features.Length != 1)
@@ -111,7 +111,7 @@ namespace Core.Components.Gis.IO.Writers
         {
             if (mapFeature == null)
             {
-                throw new ArgumentNullException("mapFeature");
+                throw new ArgumentNullException(nameof(mapFeature));
             }
 
             if (hasPropertyTable)

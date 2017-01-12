@@ -48,7 +48,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO
         {
             if (calculations == null)
             {
-                throw new ArgumentNullException("calculations");
+                throw new ArgumentNullException(nameof(calculations));
             }
 
             var exportableWaveConditions = new List<ExportableWaveConditions>();

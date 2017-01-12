@@ -43,7 +43,7 @@ namespace Ringtoets.Common.Data.Hydraulics
         {
             if (name == null)
             {
-                throw new ArgumentNullException("name");
+                throw new ArgumentNullException(nameof(name));
             }
             Id = id;
             Name = name;

@@ -54,7 +54,7 @@ namespace Ringtoets.Common.Data.Probabilistics
             {
                 if (value == null)
                 {
-                    throw new ArgumentNullException("value", Resources.DesignVariable_GetDesignValue_Distribution_must_be_set);
+                    throw new ArgumentNullException(nameof(value), Resources.DesignVariable_GetDesignValue_Distribution_must_be_set);
                 }
                 distribution = value;
             }
