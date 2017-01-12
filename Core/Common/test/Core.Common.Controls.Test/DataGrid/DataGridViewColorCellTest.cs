@@ -36,10 +36,11 @@ namespace Core.Common.Controls.Test.DataGrid
         public void DefaultConstructor_CreatesNewInstance()
         {
             // Call
-            var cell = new DataGridViewColorCell();
-
-            // Assert
-            Assert.IsInstanceOf<DataGridViewTextBoxCell>(cell);
+            using (var cell = new DataGridViewColorCell())
+            {
+                // Assert
+                Assert.IsInstanceOf<DataGridViewTextBoxCell>(cell);
+            }
         }
 
         [Test]
@@ -54,31 +55,35 @@ namespace Core.Common.Controls.Test.DataGrid
                     new ColorRow(expectedColor)
                 }
             };
-            var cell = new DataGridViewColorCell();
-            view.Columns.Add(new DataGridViewColorColumn
-                             {
-                                 CellTemplate = cell,
-                                 DataPropertyName = nameof(ColorRow.Color)
-                             });
-
-            // When
-            WindowsFormsTestHelper.ShowModal(view, f =>
+            using (var cell = new DataGridViewColorCell())
             {
-                view.ClearSelection();
+                view.Columns.Add(new DataGridViewColorColumn
+                                 {
+                                     CellTemplate = cell,
+                                     DataPropertyName = nameof(ColorRow.Color)
+                                 });
 
-                // Then
-                var cellDisplayRectangle = view.GetCellDisplayRectangle(0, 0, false);
-
-                using (Bitmap viewDrawCanvas = new Bitmap(view.Width, view.Height))
-                using (Bitmap expectedImage = CreateExpectedImage(cellDisplayRectangle, expectedColor, view.GridColor))
-                {
-                    view.DrawToBitmap(viewDrawCanvas, new Rectangle(0, 0, view.Width, view.Height));
-                    using (var actualImage = viewDrawCanvas.Clone(cellDisplayRectangle, viewDrawCanvas.PixelFormat))
+                // When
+                WindowsFormsTestHelper.ShowModal(
+                    view,
+                    f =>
                     {
-                        TestHelper.AssertImagesAreEqual(expectedImage, actualImage);
-                    }
-                }
-            });
+                        view.ClearSelection();
+
+                        // Then
+                        var cellDisplayRectangle = view.GetCellDisplayRectangle(0, 0, false);
+
+                        using (Bitmap viewDrawCanvas = new Bitmap(view.Width, view.Height))
+                        using (Bitmap expectedImage = CreateExpectedImage(cellDisplayRectangle, expectedColor, view.GridColor))
+                        {
+                            view.DrawToBitmap(viewDrawCanvas, new Rectangle(0, 0, view.Width, view.Height));
+                            using (var actualImage = viewDrawCanvas.Clone(cellDisplayRectangle, viewDrawCanvas.PixelFormat))
+                            {
+                                TestHelper.AssertImagesAreEqual(expectedImage, actualImage);
+                            }
+                        }
+                    });
+            }
         }
 
         private static Bitmap CreateExpectedImage(Rectangle cellDisplayRectangle, Color cellValueColor, Color borderColor)

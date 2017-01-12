@@ -50,135 +50,144 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void Constructor_InitializesWithColumns()
         {
             // Call
-            var table = new PipingSoilLayerTable();
+            using (var table = new PipingSoilLayerTable())
+            {
+                // Assert
+                var nameColumn = table.GetColumnFromIndex(nameColumnIndex);
+                Assert.AreEqual("Naam", nameColumn.HeaderText);
+                var colorColumn = table.GetColumnFromIndex(colorColumnIndex);
+                Assert.AreEqual("Kleur", colorColumn.HeaderText);
+                var topColumn = table.GetColumnFromIndex(topColumnIndex);
+                Assert.AreEqual("Topniveau [m+NAP]", topColumn.HeaderText);
+                var isAquiferColumn = table.GetColumnFromIndex(isAquiferColumnIndex);
+                Assert.AreEqual("Is aquifer", isAquiferColumn.HeaderText);
+                var permeabilityMeanColumn = table.GetColumnFromIndex(permeabilityMeanColumnIndex);
+                Assert.AreEqual("Doorlatendheid (verwachtingswaarde) [m/s]", permeabilityMeanColumn.HeaderText);
+                var permeabilityDeviationColumn = table.GetColumnFromIndex(permeabilityDeviationColumnIndex);
+                Assert.AreEqual("Doorlatendheid (standaardafwijking) [m/s]", permeabilityDeviationColumn.HeaderText);
+                var d70MeanColumn = table.GetColumnFromIndex(d70MeanColumnIndex);
+                Assert.AreEqual("d70 (verwachtingswaarde) [m]", d70MeanColumn.HeaderText);
+                var d70DeviationColumn = table.GetColumnFromIndex(d70DeviationColumnIndex);
+                Assert.AreEqual("d70 (standaardafwijking) [m]", d70DeviationColumn.HeaderText);
+                var belowPhreaticLevelWeightMeanColumn = table.GetColumnFromIndex(belowPhreaticLevelWeightMeanColumnIndex);
+                Assert.AreEqual("Verzadigd gewicht (verwachtingswaarde) [kn/m³]", belowPhreaticLevelWeightMeanColumn.HeaderText);
+                var belowPhreaticLevelWeightDeviationColumn = table.GetColumnFromIndex(belowPhreaticLevelWeightDeviationColumnIndex);
+                Assert.AreEqual("Verzadigd gewicht (standaardafwijking) [kn/m³]", belowPhreaticLevelWeightDeviationColumn.HeaderText);
+                var belowPhreaticLevelWeightShiftColumn = table.GetColumnFromIndex(belowPhreaticLevelWeightShiftColumnIndex);
+                Assert.AreEqual("Verzadigd gewicht (verschuiving) [kn/m³]", belowPhreaticLevelWeightShiftColumn.HeaderText);
 
-            // Assert
-            var nameColumn = table.GetColumnFromIndex(nameColumnIndex);
-            Assert.AreEqual("Naam", nameColumn.HeaderText);
-            var colorColumn = table.GetColumnFromIndex(colorColumnIndex);
-            Assert.AreEqual("Kleur", colorColumn.HeaderText);
-            var topColumn = table.GetColumnFromIndex(topColumnIndex);
-            Assert.AreEqual("Topniveau [m+NAP]", topColumn.HeaderText);
-            var isAquiferColumn = table.GetColumnFromIndex(isAquiferColumnIndex);
-            Assert.AreEqual("Is aquifer", isAquiferColumn.HeaderText);
-            var permeabilityMeanColumn = table.GetColumnFromIndex(permeabilityMeanColumnIndex);
-            Assert.AreEqual("Doorlatendheid (verwachtingswaarde) [m/s]", permeabilityMeanColumn.HeaderText);
-            var permeabilityDeviationColumn = table.GetColumnFromIndex(permeabilityDeviationColumnIndex);
-            Assert.AreEqual("Doorlatendheid (standaardafwijking) [m/s]", permeabilityDeviationColumn.HeaderText);
-            var d70MeanColumn = table.GetColumnFromIndex(d70MeanColumnIndex);
-            Assert.AreEqual("d70 (verwachtingswaarde) [m]", d70MeanColumn.HeaderText);
-            var d70DeviationColumn = table.GetColumnFromIndex(d70DeviationColumnIndex);
-            Assert.AreEqual("d70 (standaardafwijking) [m]", d70DeviationColumn.HeaderText);
-            var belowPhreaticLevelWeightMeanColumn = table.GetColumnFromIndex(belowPhreaticLevelWeightMeanColumnIndex);
-            Assert.AreEqual("Verzadigd gewicht (verwachtingswaarde) [kn/m³]", belowPhreaticLevelWeightMeanColumn.HeaderText);
-            var belowPhreaticLevelWeightDeviationColumn = table.GetColumnFromIndex(belowPhreaticLevelWeightDeviationColumnIndex);
-            Assert.AreEqual("Verzadigd gewicht (standaardafwijking) [kn/m³]", belowPhreaticLevelWeightDeviationColumn.HeaderText);
-            var belowPhreaticLevelWeightShiftColumn = table.GetColumnFromIndex(belowPhreaticLevelWeightShiftColumnIndex);
-            Assert.AreEqual("Verzadigd gewicht (verschuiving) [kn/m³]", belowPhreaticLevelWeightShiftColumn.HeaderText);
+                Assert.Throws<ArgumentOutOfRangeException>(() => table.GetColumnFromIndex(belowPhreaticLevelWeightShiftColumnIndex + 1));
 
-            Assert.Throws<ArgumentOutOfRangeException>(() => table.GetColumnFromIndex(belowPhreaticLevelWeightShiftColumnIndex+1));
-
-            Assert.IsEmpty(table.Rows);
+                Assert.IsEmpty(table.Rows);
+            }
         }
 
         [Test]
         public void SetData_NoDataAlreadySet_SetNewData()
         {
             // Setup
-            var table = new PipingSoilLayerTable();
-            var layers = new[]
+            using (var table = new PipingSoilLayerTable())
             {
-                new PipingSoilLayer(2.5),
-                new PipingSoilLayer(2.3),
-                new PipingSoilLayer(1.1)
-            };
+                var layers = new[]
+                {
+                    new PipingSoilLayer(2.5),
+                    new PipingSoilLayer(2.3),
+                    new PipingSoilLayer(1.1)
+                };
 
-            // Call
-            table.SetData(layers);
+                // Call
+                table.SetData(layers);
 
-            // Assert
-            Assert.AreEqual(3, table.Rows.Count);
+                // Assert
+                Assert.AreEqual(3, table.Rows.Count);
+            }
         }
 
         [Test]
         public void SetData_SetNullDataAfterDataAlreadySet_ClearsData()
         {
             // Setup
-            var table = new PipingSoilLayerTable();
-            var layers = new[]
+            using (var table = new PipingSoilLayerTable())
             {
-                new PipingSoilLayer(2.5),
-                new PipingSoilLayer(2.3),
-                new PipingSoilLayer(1.1)
-            };
-            table.SetData(layers);
+                var layers = new[]
+                {
+                    new PipingSoilLayer(2.5),
+                    new PipingSoilLayer(2.3),
+                    new PipingSoilLayer(1.1)
+                };
+                table.SetData(layers);
 
-            // Call
-            table.SetData(null);
+                // Call
+                table.SetData(null);
 
-            // Assert
-            Assert.AreEqual(0, table.Rows.Count);
+                // Assert
+                Assert.AreEqual(0, table.Rows.Count);
+            }
         }
 
         [Test]
         public void SetData_SetNewDataAfterDataAlreadySet_ClearDataAndAddNewData()
         {
             // Setup
-            var table = new PipingSoilLayerTable();
-            var layers = new[]
+            using (var table = new PipingSoilLayerTable())
             {
-                new PipingSoilLayer(2.5),
-                new PipingSoilLayer(2.3),
-                new PipingSoilLayer(1.1)
-            };
-            table.SetData(new[]
-                          {
-                              new PipingSoilLayer(1.0)
-                          });
+                var layers = new[]
+                {
+                    new PipingSoilLayer(2.5),
+                    new PipingSoilLayer(2.3),
+                    new PipingSoilLayer(1.1)
+                };
+                table.SetData(new[]
+                              {
+                                  new PipingSoilLayer(1.0)
+                              });
 
-            // Call
-            table.SetData(layers);
+                // Call
+                table.SetData(layers);
 
-            // Assert
-            Assert.AreEqual(3, table.Rows.Count);
+                // Assert
+                Assert.AreEqual(3, table.Rows.Count);
+            }
         }
 
         [Test]
         public void SetData_WithData_ExpectedValuesInTable()
         {
             // Setup
-            var table = new PipingSoilLayerTable();
-            var layers = new[]
+            using (var table = new PipingSoilLayerTable())
             {
-                CreatePipingSoilLayer(),
-                CreatePipingSoilLayer(),
-                CreatePipingSoilLayer()
-            };
-            table.SetData(new[]
-                          {
-                              new PipingSoilLayer(1.0)
-                          });
+                var layers = new[]
+                {
+                    CreatePipingSoilLayer(),
+                    CreatePipingSoilLayer(),
+                    CreatePipingSoilLayer()
+                };
+                table.SetData(new[]
+                              {
+                                  new PipingSoilLayer(1.0)
+                              });
 
-            // Call
-            table.SetData(layers);
+                // Call
+                table.SetData(layers);
 
-            // Assert
-            Assert.AreEqual(3, table.Rows.Count);
-            for (int i = 0; i < table.Rows.Count; i++)
-            {
-                var pipingSoilLayer = layers[i];
-                var rowCells = table.Rows[i].Cells;
-                AssertColumnValueEqual(pipingSoilLayer.MaterialName, rowCells[nameColumnIndex].Value);
-                AssertColumnValueEqual(pipingSoilLayer.Color, rowCells[colorColumnIndex].Value);
-                AssertColumnValueEqual(pipingSoilLayer.Top, rowCells[topColumnIndex].Value);
-                AssertColumnValueEqual(pipingSoilLayer.IsAquifer, rowCells[isAquiferColumnIndex].Value);
-                AssertColumnValueEqual(pipingSoilLayer.PermeabilityMean, rowCells[permeabilityMeanColumnIndex].Value);
-                AssertColumnValueEqual(pipingSoilLayer.PermeabilityDeviation, rowCells[permeabilityDeviationColumnIndex].Value);
-                AssertColumnValueEqual(pipingSoilLayer.DiameterD70Mean, rowCells[d70MeanColumnIndex].Value);
-                AssertColumnValueEqual(pipingSoilLayer.DiameterD70Deviation, rowCells[d70DeviationColumnIndex].Value);
-                AssertColumnValueEqual(pipingSoilLayer.BelowPhreaticLevelMean, rowCells[belowPhreaticLevelWeightMeanColumnIndex].Value);
-                AssertColumnValueEqual(pipingSoilLayer.BelowPhreaticLevelDeviation, rowCells[belowPhreaticLevelWeightDeviationColumnIndex].Value);
-                AssertColumnValueEqual(pipingSoilLayer.BelowPhreaticLevelShift, rowCells[belowPhreaticLevelWeightShiftColumnIndex].Value);
+                // Assert
+                Assert.AreEqual(3, table.Rows.Count);
+                for (int i = 0; i < table.Rows.Count; i++)
+                {
+                    var pipingSoilLayer = layers[i];
+                    var rowCells = table.Rows[i].Cells;
+                    AssertColumnValueEqual(pipingSoilLayer.MaterialName, rowCells[nameColumnIndex].Value);
+                    AssertColumnValueEqual(pipingSoilLayer.Color, rowCells[colorColumnIndex].Value);
+                    AssertColumnValueEqual(pipingSoilLayer.Top, rowCells[topColumnIndex].Value);
+                    AssertColumnValueEqual(pipingSoilLayer.IsAquifer, rowCells[isAquiferColumnIndex].Value);
+                    AssertColumnValueEqual(pipingSoilLayer.PermeabilityMean, rowCells[permeabilityMeanColumnIndex].Value);
+                    AssertColumnValueEqual(pipingSoilLayer.PermeabilityDeviation, rowCells[permeabilityDeviationColumnIndex].Value);
+                    AssertColumnValueEqual(pipingSoilLayer.DiameterD70Mean, rowCells[d70MeanColumnIndex].Value);
+                    AssertColumnValueEqual(pipingSoilLayer.DiameterD70Deviation, rowCells[d70DeviationColumnIndex].Value);
+                    AssertColumnValueEqual(pipingSoilLayer.BelowPhreaticLevelMean, rowCells[belowPhreaticLevelWeightMeanColumnIndex].Value);
+                    AssertColumnValueEqual(pipingSoilLayer.BelowPhreaticLevelDeviation, rowCells[belowPhreaticLevelWeightDeviationColumnIndex].Value);
+                    AssertColumnValueEqual(pipingSoilLayer.BelowPhreaticLevelShift, rowCells[belowPhreaticLevelWeightShiftColumnIndex].Value);
+                }
             }
         }
 

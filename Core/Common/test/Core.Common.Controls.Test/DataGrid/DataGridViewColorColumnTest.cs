@@ -34,41 +34,45 @@ namespace Core.Common.Controls.Test.DataGrid
         public void DefaultConstructor_CreatesColumnInstance()
         {
             // Call
-            var column = new DataGridViewColorColumn();
-
-            // Assert
-            Assert.IsInstanceOf<DataGridViewColumn>(column);
+            using (var column = new DataGridViewColorColumn())
+            {
+                // Assert
+                Assert.IsInstanceOf<DataGridViewColumn>(column);
+            }
         }
 
         [Test]
         public void CellTemplate_WithColorCell_CellTemplateSet()
         {
             // Setup
-            var column = new DataGridViewColorColumn();
-            var dataGridViewCell = new DataGridViewColorCell();
+            using (var column = new DataGridViewColorColumn())
+            {
+                var dataGridViewCell = new DataGridViewColorCell();
 
-            // Call
-            column.CellTemplate = dataGridViewCell;
+                // Call
+                column.CellTemplate = dataGridViewCell;
 
-            // Assert
-            Assert.AreSame(dataGridViewCell, column.CellTemplate);
+                // Assert
+                Assert.AreSame(dataGridViewCell, column.CellTemplate);
+            }
         }
 
         [Test]
         public void CellTemplate_WithOtherCell_ThrowsArgumentException()
         {
             // Setup
-            var column = new DataGridViewColorColumn();
-            var dataGridViewCell = new DataGridViewTextBoxCell();
+            using (var column = new DataGridViewColorColumn())
+            using (var dataGridViewCell = new DataGridViewTextBoxCell())
+            {
+                // Call
+                TestDelegate test = () => column.CellTemplate = dataGridViewCell;
 
-            // Call
-            TestDelegate test = () =>column.CellTemplate = dataGridViewCell;
-
-            // Assert
-            ArgumentException exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(
-                test,
-                $"Given template must be of type { typeof(DataGridViewColorCell) }");
-            Assert.AreEqual("value", exception.ParamName);
+                // Assert
+                ArgumentException exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(
+                    test,
+                    $"Given template must be of type {typeof(DataGridViewColorCell)}");
+                Assert.AreEqual("value", exception.ParamName);
+            }
         }
     }
 }
