@@ -32,19 +32,19 @@ namespace Ringtoets.Common.Data.DikeProfiles
         /// <summary>
         /// A wall.
         /// </summary>
-        [ResourcesDisplayName(typeof(Resources), "BreakWaterType_Wall_DisplayName")]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.BreakWaterType_Wall_DisplayName))]
         Wall = 1,
 
         /// <summary>
         /// A watertight retaining structure.
         /// </summary>
-        [ResourcesDisplayName(typeof(Resources), "BreakWaterType_Caisson_DisplayName")]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.BreakWaterType_Caisson_DisplayName))]
         Caisson = 2,
 
         /// <summary>
         /// A barrier that impounds water or underground streams.
         /// </summary>
-        [ResourcesDisplayName(typeof(Resources), "BreakWaterType_Dam_DisplayName")]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.BreakWaterType_Dam_DisplayName))]
         Dam = 3
     }
 }

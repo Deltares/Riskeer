@@ -53,9 +53,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
         }
 
         [TypeConverter(typeof(ExpandableArrayConverter))]
-        [ResourcesCategory(typeof(Resources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Resources), "HydraulicBoundaryDatabase_Locations_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "HydraulicBoundaryDatabase_Locations_Description")]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_General))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_Locations_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_Locations_Description))]
         public GrassCoverErosionOutwardsDesignWaterLevelLocationContextProperties[] Locations
         {
             get

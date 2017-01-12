@@ -41,9 +41,9 @@ namespace Ringtoets.DuneErosion.Forms.PropertyClasses
     [TypeConverter(typeof(ExpandableObjectConverter))]
     public class DuneLocationContextProperties : ObjectProperties<DuneLocationContext>
     {
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "HydraulicBoundaryDatabase_Location_Id_DisplayName")]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "HydraulicBoundaryDatabase_Location_Id_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_Location_Id_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_Location_Id_Description))]
         public long Id
         {
             get
@@ -52,9 +52,9 @@ namespace Ringtoets.DuneErosion.Forms.PropertyClasses
             }
         }
 
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "HydraulicBoundaryDatabase_Location_Name_DisplayName")]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "HydraulicBoundaryDatabase_Location_Name_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_Location_Name_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_Location_Name_Description))]
         public string Name
         {
             get
@@ -63,9 +63,9 @@ namespace Ringtoets.DuneErosion.Forms.PropertyClasses
             }
         }
 
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Resources), "DuneLocation_CoastalAreaId_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "DuneLocation_CoastalAreaId_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.DuneLocation_CoastalAreaId_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.DuneLocation_CoastalAreaId_Description))]
         public int CoastalAreaId
         {
             get
@@ -74,9 +74,9 @@ namespace Ringtoets.DuneErosion.Forms.PropertyClasses
             }
         }
 
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Resources), "DuneLocation_Offset_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "DuneLocation_Offset_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.DuneLocation_Offset_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.DuneLocation_Offset_Description))]
         public string Offset
         {
             get
@@ -87,9 +87,9 @@ namespace Ringtoets.DuneErosion.Forms.PropertyClasses
             }
         }
 
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "HydraulicBoundaryDatabase_Location_Coordinates_DisplayName")]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "HydraulicBoundaryDatabase_Location_Coordinates_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_Location_Coordinates_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_Location_Coordinates_Description))]
         public Point2D Location
         {
             get
@@ -98,9 +98,9 @@ namespace Ringtoets.DuneErosion.Forms.PropertyClasses
             }
         }
 
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Result")]
-        [ResourcesDisplayName(typeof(Resources), "DuneLocation_WaterLevel_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "DuneLocation_WaterLevel_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Result))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.DuneLocation_WaterLevel_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.DuneLocation_WaterLevel_Description))]
         [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
         public RoundedDouble WaterLevel
         {
@@ -110,9 +110,9 @@ namespace Ringtoets.DuneErosion.Forms.PropertyClasses
             }
         }
 
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Result")]
-        [ResourcesDisplayName(typeof(Resources), "DuneLocation_WaveHeight_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "DuneLocation_WaveHeight_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Result))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.DuneLocation_WaveHeight_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.DuneLocation_WaveHeight_Description))]
         [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
         public RoundedDouble WaveHeight
         {
@@ -122,9 +122,9 @@ namespace Ringtoets.DuneErosion.Forms.PropertyClasses
             }
         }
 
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Result")]
-        [ResourcesDisplayName(typeof(Resources), "DuneLocation_WavePeriod_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "DuneLocation_WavePeriod_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Result))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.DuneLocation_WavePeriod_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.DuneLocation_WavePeriod_Description))]
         [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
         public RoundedDouble WavePeriod
         {
@@ -134,9 +134,9 @@ namespace Ringtoets.DuneErosion.Forms.PropertyClasses
             }
         }
 
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Result")]
-        [ResourcesDisplayName(typeof(Resources), "DuneLocation_D50_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "DuneLocation_D50_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Result))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.DuneLocation_D50_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.DuneLocation_D50_Description))]
         [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
         public RoundedDouble D50
         {
@@ -146,9 +146,9 @@ namespace Ringtoets.DuneErosion.Forms.PropertyClasses
             }
         }
 
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Result")]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "CalculationOutput_TargetProbability_DisplayName")]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "CalculationOutput_TargetProbability_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Result))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.CalculationOutput_TargetProbability_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.CalculationOutput_TargetProbability_Description))]
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
         public double TargetProbability
         {
@@ -158,9 +158,9 @@ namespace Ringtoets.DuneErosion.Forms.PropertyClasses
             }
         }
 
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Result")]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "CalculationOutput_TargetReliability_DisplayName")]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "CalculationOutput_TargetReliability_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Result))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.CalculationOutput_TargetReliability_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.CalculationOutput_TargetReliability_Description))]
         [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
         public RoundedDouble TargetReliability
         {
@@ -170,9 +170,9 @@ namespace Ringtoets.DuneErosion.Forms.PropertyClasses
             }
         }
 
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Result")]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "CalculationOutput_CalculatedProbability_DisplayName")]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "CalculationOutput_CalculatedProbability_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Result))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.CalculationOutput_CalculatedProbability_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.CalculationOutput_CalculatedProbability_Description))]
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
         public double CalculatedProbability
         {
@@ -182,9 +182,9 @@ namespace Ringtoets.DuneErosion.Forms.PropertyClasses
             }
         }
 
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Result")]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "CalculationOutput_CalculatedReliability_DisplayName")]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "CalculationOutput_CalculatedReliability_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Result))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.CalculationOutput_CalculatedReliability_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.CalculationOutput_CalculatedReliability_Description))]
         [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
         public RoundedDouble CalculatedReliability
         {
@@ -194,9 +194,9 @@ namespace Ringtoets.DuneErosion.Forms.PropertyClasses
             }
         }
 
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Result")]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "CalculationOutput_Convergence_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "DuneLocation_Convergence_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Result))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.CalculationOutput_Convergence_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.DuneLocation_Convergence_Description))]
         public string Convergence
         {
             get

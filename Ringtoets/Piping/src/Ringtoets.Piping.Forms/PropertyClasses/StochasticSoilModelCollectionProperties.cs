@@ -48,9 +48,9 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             data = collection;
         }
 
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Resources), "StochasticSoilModelCollection_SourcePath_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "StochasticSoilModelCollection_SourcePath_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.StochasticSoilModelCollection_SourcePath_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.StochasticSoilModelCollection_SourcePath_Description))]
         public string SourcePath
         {
             get

@@ -36,8 +36,8 @@ namespace Ringtoets.Common.Forms.PropertyClasses
     public class BreakWaterProperties : ObjectProperties<ForeshoreProfile>
     {
         [PropertyOrder(1)]
-        [ResourcesDisplayName(typeof(Resources), "BreakWater_HasBreakWater_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "BreakWater_HasBreakWater_Description")]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.BreakWater_HasBreakWater_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.BreakWater_HasBreakWater_Description))]
         public bool HasBreakWater
         {
             get
@@ -48,8 +48,8 @@ namespace Ringtoets.Common.Forms.PropertyClasses
 
         [DynamicVisible]
         [PropertyOrder(2)]
-        [ResourcesDisplayName(typeof(Resources), "BreakWaterType_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "BreakWaterType_Description")]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.BreakWaterType_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.BreakWaterType_Description))]
         [TypeConverter(typeof(EnumTypeConverter))]
         public BreakWaterType BreakWaterType
         {
@@ -61,8 +61,8 @@ namespace Ringtoets.Common.Forms.PropertyClasses
 
         [DynamicVisible]
         [PropertyOrder(3)]
-        [ResourcesDisplayName(typeof(Resources), "BreakWaterHeight_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "BreakWaterHeight_Description")]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.BreakWaterHeight_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.BreakWaterHeight_Description))]
         public RoundedDouble BreakWaterHeight
         {
             get

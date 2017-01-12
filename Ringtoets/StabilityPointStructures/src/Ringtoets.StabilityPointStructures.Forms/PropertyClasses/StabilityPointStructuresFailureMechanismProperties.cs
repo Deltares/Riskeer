@@ -75,9 +75,9 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
         #region Length effect parameters
 
         [PropertyOrder(lengthEffectPropertyIndex)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_LengthEffect")]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "FailureMechanism_N_DisplayName")]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "FailureMechanism_N_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_LengthEffect))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_N_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_N_Description))]
         public int LengthEffect
         {
             get
@@ -100,9 +100,9 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
         #region General
 
         [PropertyOrder(namePropertyIndex)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "FailureMechanism_Name_DisplayName")]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "FailureMechanism_Name_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_Name_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_Name_Description))]
         public string Name
         {
             get
@@ -112,9 +112,9 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
         }
 
         [PropertyOrder(codePropertyIndex)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "FailureMechanism_Code_DisplayName")]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "FailureMechanism_Code_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_Code_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_Code_Description))]
         public string Code
         {
             get
@@ -124,9 +124,9 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
         }
 
         [PropertyOrder(gravitationalAccelerationPropertyIndex)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "GravitationalAcceleration_DisplayName")]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "GravitationalAcceleration_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.GravitationalAcceleration_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.GravitationalAcceleration_Description))]
         public RoundedDouble GravitationalAcceleration
         {
             get
@@ -141,9 +141,9 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
 
         [PropertyOrder(modelFactorStorageVolumePropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_ModelSettings")]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "StructuresInputFailureMechanismContext_ModelFactorStorageVolume_DisplayName")]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "StructuresInputFailureMechanismContext_ModelFactorStorageVolume_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_ModelSettings))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.StructuresInputFailureMechanismContext_ModelFactorStorageVolume_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.StructuresInputFailureMechanismContext_ModelFactorStorageVolume_Description))]
         public LogNormalDistributionProperties ModelFactorStorageVolume
         {
             get
@@ -157,9 +157,9 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
 
         [PropertyOrder(modelFactorSubCriticalFlowPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_ModelSettings")]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "StructuresInputFailureMechanismContext_ModelFactorSubCriticalFlow_DisplayName")]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "StructuresInputFailureMechanismContext_ModelFactorSubCriticalFlow_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_ModelSettings))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.StructuresInputFailureMechanismContext_ModelFactorSubCriticalFlow_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.StructuresInputFailureMechanismContext_ModelFactorSubCriticalFlow_Description))]
         public VariationCoefficientNormalDistributionProperties ModelFactorSubCriticalFlow
         {
             get
@@ -173,9 +173,9 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
 
         [PropertyOrder(modelFactorCollisionLoadPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_ModelSettings")]
-        [ResourcesDisplayName(typeof(Resources), "StabilityPointStructuresInputFailureMechanismContext_ModelFactorCollisionLoad_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "StabilityPointStructuresInputFailureMechanismContext_ModelFactorCollisionLoad_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_ModelSettings))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.StabilityPointStructuresInputFailureMechanismContext_ModelFactorCollisionLoad_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.StabilityPointStructuresInputFailureMechanismContext_ModelFactorCollisionLoad_Description))]
         public VariationCoefficientNormalDistributionProperties ModelFactorCollisionLoad
         {
             get
@@ -189,9 +189,9 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
 
         [PropertyOrder(modelFactorLoadEffectPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_ModelSettings")]
-        [ResourcesDisplayName(typeof(Resources), "StabilityPointStructuresInputFailureMechanismContext_ModelFactorLoadEffect_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "StabilityPointStructuresInputFailureMechanismContext_ModelFactorLoadEffect_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_ModelSettings))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.StabilityPointStructuresInputFailureMechanismContext_ModelFactorLoadEffect_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.StabilityPointStructuresInputFailureMechanismContext_ModelFactorLoadEffect_Description))]
         public NormalDistributionProperties ModelFactorLoadEffect
         {
             get

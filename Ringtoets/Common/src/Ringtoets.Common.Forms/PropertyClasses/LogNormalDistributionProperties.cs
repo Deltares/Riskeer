@@ -64,7 +64,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             }
         }
 
-        [ResourcesDescription(typeof(Resources), "LogNormalDistribution_Mean_Description")]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.LogNormalDistribution_Mean_Description))]
         public override RoundedDouble Mean
         {
             get
@@ -77,7 +77,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             }
         }
 
-        [ResourcesDescription(typeof(Resources), "LogNormalDistribution_StandardDeviation_Description")]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.LogNormalDistribution_StandardDeviation_Description))]
         public override RoundedDouble StandardDeviation
         {
             get

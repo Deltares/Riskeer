@@ -264,10 +264,10 @@ namespace Core.Common.Utils.Test
 
         private enum SimpleEnum
         {
-            [ResourcesDisplayName(typeof(Resources), "SimpleEnum_FirstValue_DisplayName")]
+            [ResourcesDisplayName(typeof(Resources), nameof(Resources.SimpleEnum_FirstValue_DisplayName))]
             FirstValue = 1,
 
-            [ResourcesDisplayName(typeof(Resources), "SimpleEnum_SecondValue_DisplayName")]
+            [ResourcesDisplayName(typeof(Resources), nameof(Resources.SimpleEnum_SecondValue_DisplayName))]
             SecondValue = 2,
 
             ThirdValue = 3

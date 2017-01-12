@@ -37,9 +37,9 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.PropertyClasses
     public class WaveImpactAsphaltCoverWaveConditionsOutputProperties : ObjectProperties<WaveImpactAsphaltCoverWaveConditionsOutput>
     {
         [TypeConverter(typeof(ExpandableArrayConverter))]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Result")]
-        [ResourcesDisplayName(typeof(Resources), "WaveImpactAsphaltCoverWaveConditionsOutputProperties_HydraulicBoundaryLocationResult_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "WaveImpactAsphaltCoverWaveConditionsOutputProperties_HydraulicBoundaryLocationResult_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Result))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.WaveImpactAsphaltCoverWaveConditionsOutputProperties_HydraulicBoundaryLocationResult_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.WaveImpactAsphaltCoverWaveConditionsOutputProperties_HydraulicBoundaryLocationResult_Description))]
         public WaveConditionsOutputProperties[] Items
         {
             get

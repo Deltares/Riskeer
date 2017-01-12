@@ -32,19 +32,19 @@ namespace Ringtoets.Common.Data.AssessmentSection
         /// <summary>
         /// The assessment section consists only out of 'dike' elements.
         /// </summary>
-        [ResourcesDisplayName(typeof(Resources), "AssessmentSectionComposition_Dike")]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssessmentSectionComposition_Dike))]
         Dike = 1,
 
         /// <summary>
         /// The assessment section consists only out of 'dune' elements.
         /// </summary>
-        [ResourcesDisplayName(typeof(Resources), "AssessmentSectionComposition_Dune")]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssessmentSectionComposition_Dune))]
         Dune = 2,
 
         /// <summary>
         /// The assessment section consists out of a combination of 'dike' and 'dune' elements.
         /// </summary>
-        [ResourcesDisplayName(typeof(Resources), "AssessmentSectionComposition_DikeAndDune")]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssessmentSectionComposition_DikeAndDune))]
         DikeAndDune = 3
     }
 }

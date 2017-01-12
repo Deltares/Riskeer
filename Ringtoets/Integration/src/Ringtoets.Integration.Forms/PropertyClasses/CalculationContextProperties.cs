@@ -31,9 +31,9 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
 {
     public class CalculationContextProperties : ObjectProperties<ICalculationContext<ICalculation, IFailureMechanism>>
     {
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Resources), "Calculation_Name_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "Calculation_Name_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.Calculation_Name_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.Calculation_Name_Description))]
         public string Name
         {
             get

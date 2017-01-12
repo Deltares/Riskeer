@@ -34,9 +34,9 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
     public class RingtoetsProjectProperties : ObjectProperties<IProject>
     {
         [PropertyOrder(1)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
-        [ResourcesDisplayName(typeof(RingtoetsIntegrationFormsResources), "RingtoetsProjectProperties_Name_DisplayName")]
-        [ResourcesDescription(typeof(RingtoetsIntegrationFormsResources), "RingtoetsProjectProperties_Name_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(RingtoetsIntegrationFormsResources), nameof(RingtoetsIntegrationFormsResources.RingtoetsProjectProperties_Name_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsIntegrationFormsResources), nameof(RingtoetsIntegrationFormsResources.RingtoetsProjectProperties_Name_Description))]
         public string Name
         {
             get
@@ -46,9 +46,9 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         }
 
         [PropertyOrder(2)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
-        [ResourcesDisplayName(typeof(RingtoetsIntegrationFormsResources), "RingtoetsProjectProperties_Description_DisplayName")]
-        [ResourcesDescription(typeof(RingtoetsIntegrationFormsResources), "RingtoetsProjectProperties_Description_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(RingtoetsIntegrationFormsResources), nameof(RingtoetsIntegrationFormsResources.RingtoetsProjectProperties_Description_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsIntegrationFormsResources), nameof(RingtoetsIntegrationFormsResources.RingtoetsProjectProperties_Description_Description))]
         public string Description
         {
             get

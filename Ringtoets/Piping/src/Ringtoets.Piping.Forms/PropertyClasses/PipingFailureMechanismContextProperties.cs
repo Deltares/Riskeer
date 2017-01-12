@@ -66,9 +66,9 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         #region Heave
 
         [PropertyOrder(31)]
-        [ResourcesCategory(typeof(Resources), "Categories_Heave")]
-        [ResourcesDisplayName(typeof(Resources), "GeneralPipingInput_CriticalHeaveGradient_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "GeneralPipingInput_CriticalHeaveGradient_Description")]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Heave))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.GeneralPipingInput_CriticalHeaveGradient_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.GeneralPipingInput_CriticalHeaveGradient_Description))]
         public double CriticalHeaveGradient
         {
             get
@@ -82,9 +82,9 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         #region General
 
         [PropertyOrder(1)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "FailureMechanism_Name_DisplayName")]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "FailureMechanism_Name_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_Name_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_Name_Description))]
         public string Name
         {
             get
@@ -94,9 +94,9 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         }
 
         [PropertyOrder(2)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "FailureMechanism_Code_DisplayName")]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "FailureMechanism_Code_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_Code_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_Code_Description))]
         public string Code
         {
             get
@@ -106,9 +106,9 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         }
 
         [PropertyOrder(3)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Resources), "GeneralPipingInput_WaterVolumetricWeight_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "GeneralPipingInput_WaterVolumetricWeight_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.GeneralPipingInput_WaterVolumetricWeight_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.GeneralPipingInput_WaterVolumetricWeight_Description))]
         public RoundedDouble WaterVolumetricWeight
         {
             get
@@ -126,9 +126,9 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         #region Semi-probabilistic parameters
 
         [PropertyOrder(21)]
-        [ResourcesCategory(typeof(Resources), "Categories_SemiProbabilisticParameters")]
-        [ResourcesDisplayName(typeof(Resources), "GeneralPipingInput_A_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "GeneralPipingInput_A_Description")]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_SemiProbabilisticParameters))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.GeneralPipingInput_A_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.GeneralPipingInput_A_Description))]
         public double A
         {
             get
@@ -142,9 +142,9 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         }
 
         [PropertyOrder(22)]
-        [ResourcesCategory(typeof(Resources), "Categories_SemiProbabilisticParameters")]
-        [ResourcesDisplayName(typeof(Resources), "GeneralPipingInput_B_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "GeneralPipingInput_B_Description")]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_SemiProbabilisticParameters))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.GeneralPipingInput_B_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.GeneralPipingInput_B_Description))]
         public double B
         {
             get
@@ -158,9 +158,9 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         #region Sellmeijer
 
         [PropertyOrder(51)]
-        [ResourcesCategory(typeof(Resources), "Categories_Sellmeijer")]
-        [ResourcesDisplayName(typeof(Resources), "GeneralPipingInput_SandParticlesVolumicWeight_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "GeneralPipingInput_SandParticlesVolumicWeight_Description")]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Sellmeijer))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.GeneralPipingInput_SandParticlesVolumicWeight_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.GeneralPipingInput_SandParticlesVolumicWeight_Description))]
         public RoundedDouble SandParticlesVolumicWeight
         {
             get
@@ -170,9 +170,9 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         }
 
         [PropertyOrder(52)]
-        [ResourcesCategory(typeof(Resources), "Categories_Sellmeijer")]
-        [ResourcesDisplayName(typeof(Resources), "GeneralPipingInput_WhitesDragCoefficient_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "GeneralPipingInput_WhitesDragCoefficient_Description")]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Sellmeijer))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.GeneralPipingInput_WhitesDragCoefficient_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.GeneralPipingInput_WhitesDragCoefficient_Description))]
         public double WhitesDragCoefficient
         {
             get
@@ -182,9 +182,9 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         }
 
         [PropertyOrder(53)]
-        [ResourcesCategory(typeof(Resources), "Categories_Sellmeijer")]
-        [ResourcesDisplayName(typeof(Resources), "GeneralPipingInput_BeddingAngle_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "GeneralPipingInput_BeddingAngle_Description")]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Sellmeijer))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.GeneralPipingInput_BeddingAngle_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.GeneralPipingInput_BeddingAngle_Description))]
         public double BeddingAngle
         {
             get
@@ -194,9 +194,9 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         }
 
         [PropertyOrder(54)]
-        [ResourcesCategory(typeof(Resources), "Categories_Sellmeijer")]
-        [ResourcesDisplayName(typeof(Resources), "GeneralPipingInput_WaterKinematicViscosity_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "GeneralPipingInput_WaterKinematicViscosity_Description")]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Sellmeijer))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.GeneralPipingInput_WaterKinematicViscosity_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.GeneralPipingInput_WaterKinematicViscosity_Description))]
         public double WaterKinematicViscosity
         {
             get
@@ -206,9 +206,9 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         }
 
         [PropertyOrder(55)]
-        [ResourcesCategory(typeof(Resources), "Categories_Sellmeijer")]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "GravitationalAcceleration_DisplayName")]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "GravitationalAcceleration_Description")]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Sellmeijer))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.GravitationalAcceleration_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.GravitationalAcceleration_Description))]
         public double Gravity
         {
             get
@@ -218,9 +218,9 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         }
 
         [PropertyOrder(56)]
-        [ResourcesCategory(typeof(Resources), "Categories_Sellmeijer")]
-        [ResourcesDisplayName(typeof(Resources), "GeneralPipingInput_MeanDiameter70_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "GeneralPipingInput_MeanDiameter70_Description")]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Sellmeijer))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.GeneralPipingInput_MeanDiameter70_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.GeneralPipingInput_MeanDiameter70_Description))]
         public double MeanDiameter70
         {
             get
@@ -230,9 +230,9 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         }
 
         [PropertyOrder(57)]
-        [ResourcesCategory(typeof(Resources), "Categories_Sellmeijer")]
-        [ResourcesDisplayName(typeof(Resources), "GeneralPipingInput_SellmeijerReductionFactor_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "GeneralPipingInput_SellmeijerReductionFactor_Description")]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Sellmeijer))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.GeneralPipingInput_SellmeijerReductionFactor_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.GeneralPipingInput_SellmeijerReductionFactor_Description))]
         public double SellmeijerReductionFactor
         {
             get
@@ -246,9 +246,9 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         #region Model factors
 
         [PropertyOrder(11)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_ModelSettings")]
-        [ResourcesDisplayName(typeof(Resources), "GeneralPipingInput_UpliftModelFactor_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "GeneralPipingInput_UpliftModelFactor_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_ModelSettings))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.GeneralPipingInput_UpliftModelFactor_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.GeneralPipingInput_UpliftModelFactor_Description))]
         public double UpliftModelFactor
         {
             get
@@ -258,9 +258,9 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         }
 
         [PropertyOrder(12)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_ModelSettings")]
-        [ResourcesDisplayName(typeof(Resources), "GeneralPipingInput_SellmeijerModelFactor_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "GeneralPipingInput_SellmeijerModelFactor_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_ModelSettings))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.GeneralPipingInput_SellmeijerModelFactor_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.GeneralPipingInput_SellmeijerModelFactor_Description))]
         public double SellmeijerModelFactor
         {
             get

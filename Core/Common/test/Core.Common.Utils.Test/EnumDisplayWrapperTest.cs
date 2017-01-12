@@ -83,7 +83,7 @@ namespace Core.Common.Utils.Test
         {
             NoDisplayName,
 
-            [ResourcesDisplayName(typeof(Resources), "EnumDisplayWrapperTest_DisplayNameValueDisplayName")]
+            [ResourcesDisplayName(typeof(Resources), nameof(Resources.EnumDisplayWrapperTest_DisplayNameValueDisplayName))]
             DisplayName
         }
     }

@@ -38,9 +38,9 @@ namespace Ringtoets.StabilityStoneCover.Forms.PropertyClasses
         #region General
 
         [PropertyOrder(1)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "FailureMechanism_Name_DisplayName")]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "FailureMechanism_Name_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_Name_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_Name_Description))]
         public string Name
         {
             get
@@ -50,9 +50,9 @@ namespace Ringtoets.StabilityStoneCover.Forms.PropertyClasses
         }
 
         [PropertyOrder(2)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "FailureMechanism_Code_DisplayName")]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "FailureMechanism_Code_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_Code_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_Code_Description))]
         public string Code
         {
             get
@@ -67,9 +67,9 @@ namespace Ringtoets.StabilityStoneCover.Forms.PropertyClasses
 
         [PropertyOrder(3)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_ModelSettings")]
-        [ResourcesDisplayName(typeof(Resources), "StabilityStoneCoverWaveConditions_Blocks_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "StabilityStoneCoverWaveConditionsFailureMechanism_Blocks_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_ModelSettings))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.StabilityStoneCoverWaveConditions_Blocks_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.StabilityStoneCoverWaveConditionsFailureMechanism_Blocks_Description))]
         public GeneralWaveConditionsInputProperties Blocks
         {
             get
@@ -83,9 +83,9 @@ namespace Ringtoets.StabilityStoneCover.Forms.PropertyClasses
 
         [PropertyOrder(4)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_ModelSettings")]
-        [ResourcesDisplayName(typeof(Resources), "StabilityStoneCoverWaveConditions_Columns_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "StabilityStoneCoverWaveConditionsFailureMechanism_Columns_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_ModelSettings))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.StabilityStoneCoverWaveConditions_Columns_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.StabilityStoneCoverWaveConditionsFailureMechanism_Columns_Description))]
         public GeneralWaveConditionsInputProperties Columns
         {
             get

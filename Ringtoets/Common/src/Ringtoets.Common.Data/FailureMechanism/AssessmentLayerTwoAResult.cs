@@ -32,21 +32,21 @@ namespace Ringtoets.Common.Data.FailureMechanism
         /// <summary>
         /// No assessment for the failure mechanism section has been performed.
         /// </summary>
-        [ResourcesDisplayName(typeof(Resources), "AssessmentLayerTwoAResult_NotCalculated")]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssessmentLayerTwoAResult_NotCalculated))]
         NotCalculated = 1,
 
         /// <summary>
         /// An assessment for the failure mechanism section was performed and the outcome is 
         /// that it failed the assessment.
         /// </summary>
-        [ResourcesDisplayName(typeof(Resources), "AssessmentLayerTwoAResult_Failed")]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssessmentLayerTwoAResult_Failed))]
         Failed = 2,
 
         /// <summary>
         /// An assessment for the failure mechanism section was performed and the outcome is 
         /// that it passed the assessment.
         /// </summary>
-        [ResourcesDisplayName(typeof(Resources), "AssessmentLayerTwoAResult_Successful")]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssessmentLayerTwoAResult_Successful))]
         Successful = 3
     }
 }

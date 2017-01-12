@@ -32,19 +32,19 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// <summary>
         /// No calculation.
         /// </summary>
-        [ResourcesDisplayName(typeof(Resources), "DikeHeightCalculationType_NoCalculation_DisplayName")]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.DikeHeightCalculationType_NoCalculation_DisplayName))]
         NoCalculation = 1,
 
         /// <summary>
         /// Calculate by using the norm on assessment section.
         /// </summary>
-        [ResourcesDisplayName(typeof(Resources), "DikeHeightCalculationType_CalculateByAssessmentSectionNorm_DisplayName")]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.DikeHeightCalculationType_CalculateByAssessmentSectionNorm_DisplayName))]
         CalculateByAssessmentSectionNorm = 2,
 
         /// <summary>
         /// Calculate using the probability of the specific profile.
         /// </summary>
-        [ResourcesDisplayName(typeof(Resources), "DikeHeightCalculationType_CalculateByProfileSpecificRequiredProbability_DisplayName")]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.DikeHeightCalculationType_CalculateByProfileSpecificRequiredProbability_DisplayName))]
         CalculateByProfileSpecificRequiredProbability = 3
     }
 }

@@ -81,9 +81,9 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         }
 
         [TypeConverter(typeof(EnumTypeConverter))]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Resources), "FailureMechanismContribution_Composition_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "FailureMechanismContribution_Composition_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismContribution_Composition_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.FailureMechanismContribution_Composition_Description))]
         public AssessmentSectionComposition AssessmentSectionComposition
         {
             get
@@ -105,9 +105,9 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
             }
         }
 
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Resources), "FailureMechanismContribution_ReturnPeriod_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "FailureMechanismContribution_ReturnPeriod_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismContribution_ReturnPeriod_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.FailureMechanismContribution_ReturnPeriod_Description))]
         public int ReturnPeriod
         {
             get

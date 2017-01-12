@@ -66,9 +66,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
         #region Length effect parameters
 
         [PropertyOrder(3)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_LengthEffect")]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "FailureMechanism_N_DisplayName")]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "FailureMechanism_N_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_LengthEffect))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_N_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_N_Description))]
         public int LengthEffect
         {
             get
@@ -91,9 +91,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
         #region General
 
         [PropertyOrder(1)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "FailureMechanism_Name_DisplayName")]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "FailureMechanism_Name_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_Name_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_Name_Description))]
         public string Name
         {
             get
@@ -103,9 +103,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
         }
 
         [PropertyOrder(2)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "FailureMechanism_Code_DisplayName")]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "FailureMechanism_Code_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_Code_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_Code_Description))]
         public string Code
         {
             get
@@ -119,9 +119,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
         #region Model settings
 
         [PropertyOrder(4)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_ModelSettings")]
-        [ResourcesDisplayName(typeof(RingtoetsRevetmentFormsResources), "GeneralWaveConditionsInput_A_DisplayName")]
-        [ResourcesDescription(typeof(RingtoetsRevetmentFormsResources), "GeneralWaveConditionsInput_A_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_ModelSettings))]
+        [ResourcesDisplayName(typeof(RingtoetsRevetmentFormsResources), nameof(RingtoetsRevetmentFormsResources.GeneralWaveConditionsInput_A_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsRevetmentFormsResources), nameof(RingtoetsRevetmentFormsResources.GeneralWaveConditionsInput_A_Description))]
         public RoundedDouble A
         {
             get
@@ -131,9 +131,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
         }
 
         [PropertyOrder(5)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_ModelSettings")]
-        [ResourcesDisplayName(typeof(RingtoetsRevetmentFormsResources), "GeneralWaveConditionsInput_B_DisplayName")]
-        [ResourcesDescription(typeof(RingtoetsRevetmentFormsResources), "GeneralWaveConditionsInput_B_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_ModelSettings))]
+        [ResourcesDisplayName(typeof(RingtoetsRevetmentFormsResources), nameof(RingtoetsRevetmentFormsResources.GeneralWaveConditionsInput_B_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsRevetmentFormsResources), nameof(RingtoetsRevetmentFormsResources.GeneralWaveConditionsInput_B_Description))]
         public RoundedDouble B
         {
             get
@@ -143,9 +143,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
         }
 
         [PropertyOrder(6)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_ModelSettings")]
-        [ResourcesDisplayName(typeof(RingtoetsRevetmentFormsResources), "GeneralWaveConditionsInput_C_DisplayName")]
-        [ResourcesDescription(typeof(RingtoetsRevetmentFormsResources), "GeneralWaveConditionsInput_C_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_ModelSettings))]
+        [ResourcesDisplayName(typeof(RingtoetsRevetmentFormsResources), nameof(RingtoetsRevetmentFormsResources.GeneralWaveConditionsInput_C_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsRevetmentFormsResources), nameof(RingtoetsRevetmentFormsResources.GeneralWaveConditionsInput_C_Description))]
         public RoundedDouble C
         {
             get

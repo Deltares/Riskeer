@@ -33,13 +33,13 @@ namespace Ringtoets.StabilityPointStructures.Data
         /// <summary>
         /// A linear schematization. 
         /// </summary>
-        [ResourcesDisplayName(typeof(Resources), "LoadSchematizationType_Linear_DisplayName")]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.LoadSchematizationType_Linear_DisplayName))]
         Linear = 1,
 
         /// <summary>
         /// A quadratic schematization.
         /// </summary>
-        [ResourcesDisplayName(typeof(Resources), "LoadSchematizationType_Quadratic_DisplayName")]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.LoadSchematizationType_Quadratic_DisplayName))]
         Quadratic = 2
     }
 }

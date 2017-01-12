@@ -49,9 +49,9 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
         private const int failureProbabilityStructureWithErosionPropertyIndex = 10;
 
         [PropertyOrder(namePropertyIndex)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "Structure_Name_DisplayName")]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "Structure_Name_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Structure_Name_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Structure_Name_Description))]
         public string Name
         {
             get
@@ -61,9 +61,9 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
         }
 
         [PropertyOrder(locationPropertyIndex)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "Structure_Location_DisplayName")]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "Structure_Location_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Structure_Location_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Structure_Location_Description))]
         public Point2D Location
         {
             get
@@ -74,9 +74,9 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
         }
 
         [PropertyOrder(structureNormalOrientationPropertyIndex)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "Structure_StructureNormalOrientation_DisplayName")]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "Structure_StructureNormalOrientation_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Structure_StructureNormalOrientation_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Structure_StructureNormalOrientation_Description))]
         public RoundedDouble StructureNormalOrientation
         {
             get
@@ -87,9 +87,9 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
 
         [PropertyOrder(flowWidthAtBottomProtectionPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "Structure_FlowWidthAtBottomProtection_DisplayName")]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "Structure_FlowWidthAtBottomProtection_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Structure_FlowWidthAtBottomProtection_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Structure_FlowWidthAtBottomProtection_Description))]
         public LogNormalDistributionProperties FlowWidthAtBottomProtection
         {
             get
@@ -103,9 +103,9 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
 
         [PropertyOrder(widthFlowAperturesPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "Structure_WidthFlowApertures_DisplayName")]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "Structure_WidthFlowApertures_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Structure_WidthFlowApertures_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Structure_WidthFlowApertures_Description))]
         public VariationCoefficientNormalDistributionProperties WidthFlowApertures
         {
             get
@@ -119,9 +119,9 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
 
         [PropertyOrder(storageStructureAreaPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "Structure_StorageStructureArea_DisplayName")]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "Structure_StorageStructureArea_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Structure_StorageStructureArea_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Structure_StorageStructureArea_Description))]
         public VariationCoefficientLogNormalDistributionProperties StorageStructureArea
         {
             get
@@ -135,9 +135,9 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
 
         [PropertyOrder(allowedLevelIncreaseStoragePropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "Structure_AllowedLevelIncreaseStorage_DisplayName")]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "Structure_AllowedLevelIncreaseStorage_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Structure_AllowedLevelIncreaseStorage_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Structure_AllowedLevelIncreaseStorage_Description))]
         public LogNormalDistributionProperties AllowedLevelIncreaseStorage
         {
             get
@@ -151,9 +151,9 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
 
         [PropertyOrder(levelCrestStructurePropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "Structure_LevelCrestStructure_DisplayName")]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "Structure_LevelCrestStructure_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Structure_LevelCrestStructure_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Structure_LevelCrestStructure_Description))]
         public NormalDistributionProperties LevelCrestStructure
         {
             get
@@ -167,9 +167,9 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
 
         [PropertyOrder(criticalOvertoppingDischargePropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "Structure_CriticalOvertoppingDischarge_DisplayName")]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "Structure_CriticalOvertoppingDischarge_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Structure_CriticalOvertoppingDischarge_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Structure_CriticalOvertoppingDischarge_Description))]
         public VariationCoefficientLogNormalDistributionProperties CriticalOvertoppingDischarge
         {
             get
@@ -182,9 +182,9 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
         }
 
         [PropertyOrder(failureProbabilityStructureWithErosionPropertyIndex)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "Structure_FailureProbabilityStructureWithErosion_DisplayName")]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "Structure_FailureProbabilityStructureWithErosion_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Structure_FailureProbabilityStructureWithErosion_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Structure_FailureProbabilityStructureWithErosion_Description))]
         public string FailureProbabilityStructureWithErosion
         {
             get

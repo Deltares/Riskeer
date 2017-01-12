@@ -79,9 +79,9 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
         #region Length effect parameters
 
         [PropertyOrder(cPropertyIndex)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_LengthEffect")]
-        [ResourcesDisplayName(typeof(Resources), "ClosingStructuresFailureMechanismContextProperties_C_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "ClosingStructuresFailureMechanismContextProperties_C_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_LengthEffect))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.ClosingStructuresFailureMechanismContextProperties_C_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.ClosingStructuresFailureMechanismContextProperties_C_Description))]
         public RoundedDouble C
         {
             get
@@ -91,9 +91,9 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
         }
 
         [PropertyOrder(n2APropertyIndex)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_LengthEffect")]
-        [ResourcesDisplayName(typeof(Resources), "ClosingStructuresFailureMechanismContextProperties_N2A_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "ClosingStructuresFailureMechanismContextProperties_N2A_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_LengthEffect))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.ClosingStructuresFailureMechanismContextProperties_N2A_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.ClosingStructuresFailureMechanismContextProperties_N2A_Description))]
         public int N2A
         {
             get
@@ -112,9 +112,9 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
         }
 
         [PropertyOrder(lengthEffectPropertyIndex)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_LengthEffect")]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "FailureMechanism_N_DisplayName")]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "FailureMechanism_N_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_LengthEffect))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_N_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_N_Description))]
         public RoundedDouble LengthEffect
         {
             get
@@ -128,9 +128,9 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
         #region General
 
         [PropertyOrder(namePropertyIndex)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "FailureMechanism_Name_DisplayName")]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "FailureMechanism_Name_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_Name_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_Name_Description))]
         public string Name
         {
             get
@@ -140,9 +140,9 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
         }
 
         [PropertyOrder(codePropertyIndex)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "FailureMechanism_Code_DisplayName")]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "FailureMechanism_Code_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_Code_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_Code_Description))]
         public string Code
         {
             get
@@ -152,9 +152,9 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
         }
 
         [PropertyOrder(gravitationalAccelerationPropertyIndex)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "GravitationalAcceleration_DisplayName")]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "GravitationalAcceleration_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.GravitationalAcceleration_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.GravitationalAcceleration_Description))]
         public RoundedDouble GravitationalAcceleration
         {
             get
@@ -169,9 +169,9 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
 
         [PropertyOrder(modelFactorOvertoppingFlowPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_ModelSettings")]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "StructuresInputFailureMechanismContext_ModelFactorOvertoppingFlow_DisplayName")]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "StructuresInputFailureMechanismContext_ModelFactorOvertoppingFlow_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_ModelSettings))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.StructuresInputFailureMechanismContext_ModelFactorOvertoppingFlow_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.StructuresInputFailureMechanismContext_ModelFactorOvertoppingFlow_Description))]
         public LogNormalDistributionProperties ModelFactorOvertoppingFlow
         {
             get
@@ -185,9 +185,9 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
 
         [PropertyOrder(modelFactorStorageVolumePropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_ModelSettings")]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "StructuresInputFailureMechanismContext_ModelFactorStorageVolume_DisplayName")]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "StructuresInputFailureMechanismContext_ModelFactorStorageVolume_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_ModelSettings))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.StructuresInputFailureMechanismContext_ModelFactorStorageVolume_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.StructuresInputFailureMechanismContext_ModelFactorStorageVolume_Description))]
         public LogNormalDistributionProperties ModelFactorStorageVolume
         {
             get
@@ -201,9 +201,9 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
 
         [PropertyOrder(modelFactorSubCriticalFlowPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_ModelSettings")]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "StructuresInputFailureMechanismContext_ModelFactorSubCriticalFlow_DisplayName")]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "StructuresInputFailureMechanismContext_ModelFactorSubCriticalFlow_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_ModelSettings))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.StructuresInputFailureMechanismContext_ModelFactorSubCriticalFlow_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.StructuresInputFailureMechanismContext_ModelFactorSubCriticalFlow_Description))]
         public VariationCoefficientNormalDistributionProperties ModelFactorSubCriticalFlow
         {
             get
@@ -216,9 +216,9 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
         }
 
         [PropertyOrder(modelFactorInflowVolumePropertyIndex)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_ModelSettings")]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "StructuresInputFailureMechanismContext_ModelFactorInflowVolume_DisplayName")]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "StructuresInputFailureMechanismContext_ModelFactorInflowVolume_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_ModelSettings))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.StructuresInputFailureMechanismContext_ModelFactorInflowVolume_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.StructuresInputFailureMechanismContext_ModelFactorInflowVolume_Description))]
         public RoundedDouble ModelFactorInflowVolume
         {
             get

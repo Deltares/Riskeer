@@ -135,9 +135,9 @@ namespace Ringtoets.Common.Forms.PropertyClasses
 
         [DynamicPropertyOrder]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(Resources), "Categories_ModelSettings")]
-        [ResourcesDisplayName(typeof(Resources), "Structure_ModelFactorSuperCriticalFlow_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "Structure_ModelFactorSuperCriticalFlow_Description")]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_ModelSettings))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_ModelFactorSuperCriticalFlow_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_ModelFactorSuperCriticalFlow_Description))]
         public virtual NormalDistributionProperties ModelFactorSuperCriticalFlow
         {
             get
@@ -155,9 +155,9 @@ namespace Ringtoets.Common.Forms.PropertyClasses
 
         [DynamicPropertyOrder]
         [Editor(typeof(StructureEditor<StructureBase>), typeof(UITypeEditor))]
-        [ResourcesCategory(typeof(Resources), "Categories_Schematization")]
-        [ResourcesDisplayName(typeof(Resources), "Structure_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "Structure_Description")]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Schematization))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_Description))]
         public TStructure Structure
         {
             get
@@ -173,9 +173,9 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         }
 
         [DynamicPropertyOrder]
-        [ResourcesCategory(typeof(Resources), "Categories_Schematization")]
-        [ResourcesDisplayName(typeof(Resources), "Structure_Location_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "Structure_Location_Description")]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Schematization))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_Location_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_Location_Description))]
         public Point2D StructureLocation
         {
             get
@@ -188,9 +188,9 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         }
 
         [DynamicPropertyOrder]
-        [ResourcesCategory(typeof(Resources), "Categories_Schematization")]
-        [ResourcesDisplayName(typeof(Resources), "Structure_StructureNormalOrientation_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "Structure_StructureNormalOrientation_Description")]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Schematization))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_StructureNormalOrientation_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_StructureNormalOrientation_Description))]
         public virtual RoundedDouble StructureNormalOrientation
         {
             get
@@ -206,9 +206,9 @@ namespace Ringtoets.Common.Forms.PropertyClasses
 
         [DynamicPropertyOrder]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(Resources), "Categories_Schematization")]
-        [ResourcesDisplayName(typeof(Resources), "Structure_FlowWidthAtBottomProtection_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "Structure_FlowWidthAtBottomProtection_Description")]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Schematization))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_FlowWidthAtBottomProtection_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_FlowWidthAtBottomProtection_Description))]
         public LogNormalDistributionProperties FlowWidthAtBottomProtection
         {
             get
@@ -222,9 +222,9 @@ namespace Ringtoets.Common.Forms.PropertyClasses
 
         [DynamicPropertyOrder]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(Resources), "Categories_Schematization")]
-        [ResourcesDisplayName(typeof(Resources), "Structure_WidthFlowApertures_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "Structure_WidthFlowApertures_Description")]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Schematization))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_WidthFlowApertures_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_WidthFlowApertures_Description))]
         public virtual VariationCoefficientNormalDistributionProperties WidthFlowApertures
         {
             get
@@ -241,9 +241,9 @@ namespace Ringtoets.Common.Forms.PropertyClasses
 
         [DynamicPropertyOrder]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(Resources), "Categories_Schematization")]
-        [ResourcesDisplayName(typeof(Resources), "Structure_StorageStructureArea_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "Structure_StorageStructureArea_Description")]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Schematization))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_StorageStructureArea_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_StorageStructureArea_Description))]
         public VariationCoefficientLogNormalDistributionProperties StorageStructureArea
         {
             get
@@ -260,9 +260,9 @@ namespace Ringtoets.Common.Forms.PropertyClasses
 
         [DynamicPropertyOrder]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(Resources), "Categories_Schematization")]
-        [ResourcesDisplayName(typeof(Resources), "Structure_AllowedLevelIncreaseStorage_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "Structure_AllowedLevelIncreaseStorage_Description")]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Schematization))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_AllowedLevelIncreaseStorage_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_AllowedLevelIncreaseStorage_Description))]
         public LogNormalDistributionProperties AllowedLevelIncreaseStorage
         {
             get
@@ -276,9 +276,9 @@ namespace Ringtoets.Common.Forms.PropertyClasses
 
         [DynamicPropertyOrder]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(Resources), "Categories_Schematization")]
-        [ResourcesDisplayName(typeof(Resources), "Structure_CriticalOvertoppingDischarge_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "Structure_CriticalOvertoppingDischarge_Description")]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Schematization))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_CriticalOvertoppingDischarge_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_CriticalOvertoppingDischarge_Description))]
         public VariationCoefficientLogNormalDistributionProperties CriticalOvertoppingDischarge
         {
             get
@@ -294,9 +294,9 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         }
 
         [DynamicPropertyOrder]
-        [ResourcesCategory(typeof(Resources), "Categories_Schematization")]
-        [ResourcesDisplayName(typeof(Resources), "Structure_FailureProbabilityStructureWithErosion_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "Structure_FailureProbabilityStructureWithErosion_Description")]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Schematization))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_FailureProbabilityStructureWithErosion_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_FailureProbabilityStructureWithErosion_Description))]
         public string FailureProbabilityStructureWithErosion
         {
             get
@@ -312,9 +312,9 @@ namespace Ringtoets.Common.Forms.PropertyClasses
 
         [DynamicPropertyOrder]
         [Editor(typeof(ForeshoreProfileEditor), typeof(UITypeEditor))]
-        [ResourcesCategory(typeof(Resources), "Categories_Schematization")]
-        [ResourcesDisplayName(typeof(Resources), "Structure_ForeshoreProfile_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "Structure_ForeshoreProfile_Description")]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Schematization))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_ForeshoreProfile_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_ForeshoreProfile_Description))]
         public ForeshoreProfile ForeshoreProfile
         {
             get
@@ -330,9 +330,9 @@ namespace Ringtoets.Common.Forms.PropertyClasses
 
         [DynamicPropertyOrder]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(Resources), "Categories_Schematization")]
-        [ResourcesDisplayName(typeof(Resources), "BreakWaterProperties_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "BreakWaterProperties_Description")]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Schematization))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.BreakWaterProperties_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.BreakWaterProperties_Description))]
         public UseBreakWaterProperties UseBreakWater
         {
             get
@@ -345,9 +345,9 @@ namespace Ringtoets.Common.Forms.PropertyClasses
 
         [DynamicPropertyOrder]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(Resources), "Categories_Schematization")]
-        [ResourcesDisplayName(typeof(Resources), "ForeshoreProperties_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "ForeshoreProperties_Description")]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Schematization))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.ForeshoreProperties_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.ForeshoreProperties_Description))]
         public UseForeshoreProperties UseForeshore
         {
             get
@@ -362,9 +362,9 @@ namespace Ringtoets.Common.Forms.PropertyClasses
 
         [DynamicPropertyOrder]
         [Editor(typeof(HydraulicBoundaryLocationEditor), typeof(UITypeEditor))]
-        [ResourcesCategory(typeof(Resources), "Categories_HydraulicData")]
-        [ResourcesDisplayName(typeof(Resources), "HydraulicBoundaryLocation_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "HydraulicBoundaryLocation_Description")]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_HydraulicData))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicBoundaryLocation_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicBoundaryLocation_Description))]
         public SelectableHydraulicBoundaryLocation SelectedHydraulicBoundaryLocation
         {
             get
@@ -383,9 +383,9 @@ namespace Ringtoets.Common.Forms.PropertyClasses
 
         [DynamicPropertyOrder]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(Resources), "Categories_HydraulicData")]
-        [ResourcesDisplayName(typeof(Resources), "Structure_StormDuration_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "Structure_StormDuration_Description")]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_HydraulicData))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_StormDuration_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_StormDuration_Description))]
         public VariationCoefficientLogNormalDistributionProperties StormDuration
         {
             get

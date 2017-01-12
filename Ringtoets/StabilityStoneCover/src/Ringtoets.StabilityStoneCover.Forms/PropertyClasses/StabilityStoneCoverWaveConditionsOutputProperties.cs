@@ -37,9 +37,9 @@ namespace Ringtoets.StabilityStoneCover.Forms.PropertyClasses
     public class StabilityStoneCoverWaveConditionsOutputProperties : ObjectProperties<StabilityStoneCoverWaveConditionsOutput>
     {
         [TypeConverter(typeof(ExpandableArrayConverter))]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Result")]
-        [ResourcesDisplayName(typeof(Resources), "StabilityStoneCoverWaveConditionsOutputProperties_Blocks_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "StabilityStoneCoverWaveConditionsOutputProperties_Blocks_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Result))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.StabilityStoneCoverWaveConditionsOutputProperties_Blocks_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.StabilityStoneCoverWaveConditionsOutputProperties_Blocks_Description))]
         public WaveConditionsOutputProperties[] Blocks
         {
             get
@@ -52,9 +52,9 @@ namespace Ringtoets.StabilityStoneCover.Forms.PropertyClasses
         }
 
         [TypeConverter(typeof(ExpandableArrayConverter))]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Result")]
-        [ResourcesDisplayName(typeof(Resources), "StabilityStoneCoverWaveConditionsOutputProperties_Columns_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "StabilityStoneCoverWaveConditionsOutputProperties_Columns_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Result))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.StabilityStoneCoverWaveConditionsOutputProperties_Columns_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.StabilityStoneCoverWaveConditionsOutputProperties_Columns_Description))]
         public WaveConditionsOutputProperties[] Columns
         {
             get

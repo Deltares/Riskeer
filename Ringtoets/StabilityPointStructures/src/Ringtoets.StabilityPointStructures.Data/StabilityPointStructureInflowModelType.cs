@@ -32,13 +32,13 @@ namespace Ringtoets.StabilityPointStructures.Data
         /// <summary>
         /// A low sill structure.
         /// </summary>
-        [ResourcesDisplayName(typeof(RingtoetsCommonDataResources), "StructureInflowModelType_LowSill_DisplayName")]
+        [ResourcesDisplayName(typeof(RingtoetsCommonDataResources), nameof(RingtoetsCommonDataResources.StructureInflowModelType_LowSill_DisplayName))]
         LowSill = 1,
 
         /// <summary>
         /// A flooded culvert structure.
         /// </summary>
-        [ResourcesDisplayName(typeof(RingtoetsCommonDataResources), "StructureInflowModelType_FloodedCulvert_DisplayName")]
+        [ResourcesDisplayName(typeof(RingtoetsCommonDataResources), nameof(RingtoetsCommonDataResources.StructureInflowModelType_FloodedCulvert_DisplayName))]
         FloodedCulvert = 2
     }
 }

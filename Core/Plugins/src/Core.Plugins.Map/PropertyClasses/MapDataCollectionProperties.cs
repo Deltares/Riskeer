@@ -31,9 +31,9 @@ namespace Core.Plugins.Map.PropertyClasses
     /// </summary>
     public class MapDataCollectionProperties : ObjectProperties<MapDataCollection>
     {
-        [ResourcesCategory(typeof(Resources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Resources), "MapData_Name_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "MapDataCollection_Name_Description")]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_General))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.MapData_Name_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.MapDataCollection_Name_Description))]
         public string Name
         {
             get

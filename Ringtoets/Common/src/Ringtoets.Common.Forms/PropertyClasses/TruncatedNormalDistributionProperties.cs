@@ -62,7 +62,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             }
         }
 
-        [ResourcesDescription(typeof(Resources), "TruncatedNormalDistribution_Mean_Description")]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.TruncatedNormalDistribution_Mean_Description))]
         public override RoundedDouble Mean
         {
             get
@@ -75,7 +75,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             }
         }
 
-        [ResourcesDescription(typeof(Resources), "TruncatedNormalDistribution_StandardDeviation_Description")]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.TruncatedNormalDistribution_StandardDeviation_Description))]
         public override RoundedDouble StandardDeviation
         {
             get
@@ -89,8 +89,8 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         }
 
         [PropertyOrder(4)]
-        [ResourcesDisplayName(typeof(Resources), "TruncatedNormalDistribution_LowerBoundary_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "TruncatedNormalDistribution_LowerBoundary_Description")]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.TruncatedNormalDistribution_LowerBoundary_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.TruncatedNormalDistribution_LowerBoundary_Description))]
         public RoundedDouble LowerBoundary
         {
             get
@@ -100,8 +100,8 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         }
 
         [PropertyOrder(5)]
-        [ResourcesDisplayName(typeof(Resources), "TruncatedNormalDistribution_UpperBoundary_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "TruncatedNormalDistribution_UpperBoundary_Description")]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.TruncatedNormalDistribution_UpperBoundary_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.TruncatedNormalDistribution_UpperBoundary_Description))]
         public RoundedDouble UpperBoundary
         {
             get

@@ -40,9 +40,9 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
     public class WaveConditionsOutputProperties : ObjectProperties<WaveConditionsOutput>
     {
         [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Resources), "WaveConditionsOutput_WaterLevel_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "WaveConditionsOutput_WaterLevel_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.WaveConditionsOutput_WaterLevel_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.WaveConditionsOutput_WaterLevel_Description))]
         public RoundedDouble WaterLevel
         {
             get
@@ -52,9 +52,9 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
         }
 
         [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Resources), "WaveConditionsOutput_WaveHeight_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "WaveConditionsOutput_WaveHeight_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.WaveConditionsOutput_WaveHeight_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.WaveConditionsOutput_WaveHeight_Description))]
         public RoundedDouble WaveHeight
         {
             get
@@ -64,9 +64,9 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
         }
 
         [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Resources), "WaveConditionsOutput_WavePeakPeriod_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "WaveConditionsOutput_WavePeakPeriod_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.WaveConditionsOutput_WavePeakPeriod_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.WaveConditionsOutput_WavePeakPeriod_Description))]
         public RoundedDouble WavePeakPeriod
         {
             get
@@ -76,9 +76,9 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
         }
 
         [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Resources), "WaveConditionsOutput_WaveDirection_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "WaveConditionsOutput_WaveDirection_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.WaveConditionsOutput_WaveDirection_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.WaveConditionsOutput_WaveDirection_Description))]
         public RoundedDouble WaveDirection
         {
             get
@@ -88,9 +88,9 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
         }
 
         [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Resources), "WaveConditionsOutput_WaveAngle_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "WaveConditionsOutput_WaveAngle_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.WaveConditionsOutput_WaveAngle_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.WaveConditionsOutput_WaveAngle_Description))]
         public RoundedDouble WaveAngle
         {
             get
@@ -99,9 +99,9 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
             }
         }
 
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Resources), "WaveConditionsOutput_TargetProbability_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "WaveConditionsOutput_TargetProbability_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.WaveConditionsOutput_TargetProbability_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.WaveConditionsOutput_TargetProbability_Description))]
         public string TargetProbability
         {
             get
@@ -110,9 +110,9 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
             }
         }
 
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Resources), "WaveConditionsOutput_TargetReliability_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "WaveConditionsOutput_TargetReliability_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.WaveConditionsOutput_TargetReliability_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.WaveConditionsOutput_TargetReliability_Description))]
         public RoundedDouble TargetReliability
         {
             get
@@ -121,9 +121,9 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
             }
         }
 
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Resources), "WaveConditionsOutput_CalculatedProbability_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "WaveConditionsOutput_CalculatedProbability_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.WaveConditionsOutput_CalculatedProbability_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.WaveConditionsOutput_CalculatedProbability_Description))]
         public string CalculatedProbability
         {
             get
@@ -132,9 +132,9 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
             }
         }
 
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Resources), "WaveConditionsOutput_CalculatedReliability_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "WaveConditionsOutput_CalculatedReliability_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.WaveConditionsOutput_CalculatedReliability_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.WaveConditionsOutput_CalculatedReliability_Description))]
         public RoundedDouble CalculatedReliability
         {
             get
@@ -143,9 +143,9 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
             }
         }
 
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Resources), "WaveConditionsOutput_Convergence_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "WaveConditionsOutput_Convergence_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.WaveConditionsOutput_Convergence_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.WaveConditionsOutput_Convergence_Description))]
         public string Convergence
         {
             get

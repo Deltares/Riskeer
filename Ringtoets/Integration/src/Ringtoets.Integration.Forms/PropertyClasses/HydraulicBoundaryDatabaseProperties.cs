@@ -33,9 +33,9 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
     /// </summary>
     public class HydraulicBoundaryDatabaseProperties : ObjectProperties<HydraulicBoundaryDatabaseContext>
     {
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Resources), "HydraulicBoundaryDatabase_FilePath_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "HydraulicBoundaryDatabase_FilePath_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_FilePath_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_FilePath_Description))]
         public string FilePath
         {
             get

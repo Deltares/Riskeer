@@ -32,8 +32,8 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
     /// </summary>
     public class GeneralWaveConditionsInputProperties : ObjectProperties<GeneralWaveConditionsInput>
     {
-        [ResourcesDisplayName(typeof(Resources), "GeneralWaveConditionsInput_A_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "GeneralWaveConditionsInput_A_Description")]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.GeneralWaveConditionsInput_A_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.GeneralWaveConditionsInput_A_Description))]
         public RoundedDouble A
         {
             get
@@ -42,8 +42,8 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
             }
         }
 
-        [ResourcesDisplayName(typeof(Resources), "GeneralWaveConditionsInput_B_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "GeneralWaveConditionsInput_B_Description")]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.GeneralWaveConditionsInput_B_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.GeneralWaveConditionsInput_B_Description))]
         public RoundedDouble B
         {
             get
@@ -52,8 +52,8 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
             }
         }
 
-        [ResourcesDisplayName(typeof(Resources), "GeneralWaveConditionsInput_C_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "GeneralWaveConditionsInput_C_Description")]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.GeneralWaveConditionsInput_C_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.GeneralWaveConditionsInput_C_Description))]
         public RoundedDouble C
         {
             get

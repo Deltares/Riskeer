@@ -106,9 +106,9 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
         [DynamicVisible]
         [PropertyOrder(insideWaterLevelPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_HydraulicData")]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "Structure_InsideWaterLevel_DisplayName")]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "Structure_InsideWaterLevel_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_HydraulicData))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Structure_InsideWaterLevel_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Structure_InsideWaterLevel_Description))]
         public NormalDistributionProperties InsideWaterLevel
         {
             get
@@ -198,9 +198,9 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
         [DynamicVisible]
         [PropertyOrder(drainCoefficientPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_ModelSettings")]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "Structure_DrainCoefficient_DisplayName")]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "Structure_DrainCoefficient_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_ModelSettings))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Structure_DrainCoefficient_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Structure_DrainCoefficient_Description))]
         public NormalDistributionProperties DrainCoefficient
         {
             get
@@ -213,9 +213,9 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
         }
 
         [PropertyOrder(factorStormDurationOpenStructurePropertyIndex)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_ModelSettings")]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "Structure_FactorStormDurationOpenStructure_DisplayName")]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "Structure_FactorStormDurationOpenStructure_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_ModelSettings))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Structure_FactorStormDurationOpenStructure_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Structure_FactorStormDurationOpenStructure_Description))]
         public RoundedDouble FactorStormDurationOpenStructure
         {
             get
@@ -257,9 +257,9 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
 
         [PropertyOrder(inflowModelTypePropertyIndex)]
         [TypeConverter(typeof(EnumTypeConverter))]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "Structure_InflowModelType_DisplayName")]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "Structure_InflowModelType_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Structure_InflowModelType_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Structure_InflowModelType_Description))]
         public ClosingStructureInflowModelType InflowModelType
         {
             get
@@ -276,9 +276,9 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
         [DynamicVisible]
         [PropertyOrder(thresholdHeightOpenWeirPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "Structure_ThresholdHeightOpenWeir_DisplayName")]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "Structure_ThresholdHeightOpenWeir_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Structure_ThresholdHeightOpenWeir_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Structure_ThresholdHeightOpenWeir_Description))]
         public NormalDistributionProperties ThresholdHeightOpenWeir
         {
             get
@@ -293,9 +293,9 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
         [DynamicVisible]
         [PropertyOrder(areaFlowAperturesPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "Structure_AreaFlowApertures_DisplayName")]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "Structure_AreaFlowApertures_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Structure_AreaFlowApertures_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Structure_AreaFlowApertures_Description))]
         public LogNormalDistributionProperties AreaFlowApertures
         {
             get
@@ -308,9 +308,9 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
         }
 
         [PropertyOrder(failureProbabilityOpenStructurePropertyIndex)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
-        [ResourcesDisplayName(typeof(Resources), "FailureProbabilityOpenStructure_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "FailureProbabilityOpenStructure_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureProbabilityOpenStructure_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.FailureProbabilityOpenStructure_Description))]
         public string FailureProbabilityOpenStructure
         {
             get
@@ -325,9 +325,9 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
         }
 
         [PropertyOrder(failureProbabilityReparationPropertyIndex)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
-        [ResourcesDisplayName(typeof(Resources), "FailureProbabilityReparation_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "FailureProbabilityReparation_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureProbabilityReparation_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.FailureProbabilityReparation_Description))]
         public string FailureProbabilityReparation
         {
             get
@@ -342,9 +342,9 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
         }
 
         [PropertyOrder(identicalAperturesPropertyIndex)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
-        [ResourcesDisplayName(typeof(Resources), "IdenticalApertures_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "IdenticalApertures_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.IdenticalApertures_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.IdenticalApertures_Description))]
         public int IdenticalApertures
         {
             get
@@ -361,9 +361,9 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
         [DynamicVisible]
         [PropertyOrder(levelCrestStructureNotClosingPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
-        [ResourcesDisplayName(typeof(Resources), "LevelCrestStructureNotClosing_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "LevelCrestStructureNotClosing_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.LevelCrestStructureNotClosing_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.LevelCrestStructureNotClosing_Description))]
         public NormalDistributionProperties LevelCrestStructureNotClosing
         {
             get
@@ -376,9 +376,9 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
         }
 
         [PropertyOrder(probabilityOrFrequencyOpenStructureBeforeFloodingPropertyIndex)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
-        [ResourcesDisplayName(typeof(Resources), "ProbabilityOrFrequencyOpenStructureBeforeFlooding_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "ProbabilityOrFrequencyOpenStructureBeforeFlooding_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.ProbabilityOrFrequencyOpenStructureBeforeFlooding_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.ProbabilityOrFrequencyOpenStructureBeforeFlooding_Description))]
         public string ProbabilityOrFrequencyOpenStructureBeforeFlooding
         {
             get

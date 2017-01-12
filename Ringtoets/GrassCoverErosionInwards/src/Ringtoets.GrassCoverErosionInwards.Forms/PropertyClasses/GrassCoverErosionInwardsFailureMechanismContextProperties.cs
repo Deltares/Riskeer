@@ -74,9 +74,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         #region Length effect parameters
 
         [PropertyOrder(lengthEffectPropertyIndex)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_LengthEffect")]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "FailureMechanism_N_DisplayName")]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "FailureMechanism_N_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_LengthEffect))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_N_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_N_Description))]
         public int LengthEffect
         {
             get
@@ -99,9 +99,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         #region General
 
         [PropertyOrder(namePropertyIndex)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "FailureMechanism_Name_DisplayName")]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "FailureMechanism_Name_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_Name_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_Name_Description))]
         public string Name
         {
             get
@@ -111,9 +111,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         }
 
         [PropertyOrder(codePropertyIndex)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "FailureMechanism_Code_DisplayName")]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "FailureMechanism_Code_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_Code_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_Code_Description))]
         public string Code
         {
             get
@@ -128,9 +128,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
 
         [PropertyOrder(frunupModelFactorPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_ModelSettings")]
-        [ResourcesDisplayName(typeof(Resources), "GrassCoverErosionInwardsInput_FrunupModelFactor_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "GrassCoverErosionInwardsInput_FrunupModelFactor_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_ModelSettings))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.GrassCoverErosionInwardsInput_FrunupModelFactor_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.GrassCoverErosionInwardsInput_FrunupModelFactor_Description))]
         public TruncatedNormalDistributionProperties FrunupModelFactor
         {
             get
@@ -144,9 +144,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
 
         [PropertyOrder(fbFactorPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_ModelSettings")]
-        [ResourcesDisplayName(typeof(Resources), "GrassCoverErosionInwardsInput_FbFactor_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "GrassCoverErosionInwardsInput_FbFactor_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_ModelSettings))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.GrassCoverErosionInwardsInput_FbFactor_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.GrassCoverErosionInwardsInput_FbFactor_Description))]
         public TruncatedNormalDistributionProperties FbFactor
         {
             get
@@ -160,9 +160,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
 
         [PropertyOrder(fnFactorPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_ModelSettings")]
-        [ResourcesDisplayName(typeof(Resources), "GrassCoverErosionInwardsInput_FnFactor_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "GrassCoverErosionInwardsInput_FnFactor_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_ModelSettings))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.GrassCoverErosionInwardsInput_FnFactor_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.GrassCoverErosionInwardsInput_FnFactor_Description))]
         public TruncatedNormalDistributionProperties FnFactor
         {
             get
@@ -176,9 +176,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
 
         [PropertyOrder(fshallowModelFactorPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_ModelSettings")]
-        [ResourcesDisplayName(typeof(Resources), "GrassCoverErosionInwardsInput_FshallowModelFactor_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "GrassCoverErosionInwardsInput_FshallowModelFactor_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_ModelSettings))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.GrassCoverErosionInwardsInput_FshallowModelFactor_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.GrassCoverErosionInwardsInput_FshallowModelFactor_Description))]
         public TruncatedNormalDistributionProperties FshallowModelFactor
         {
             get

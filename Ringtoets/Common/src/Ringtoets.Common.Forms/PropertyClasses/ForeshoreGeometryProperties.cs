@@ -38,8 +38,8 @@ namespace Ringtoets.Common.Forms.PropertyClasses
     public class ForeshoreGeometryProperties : ObjectProperties<ForeshoreProfile>
     {
         [TypeConverter(typeof(ExpandableReadOnlyArrayConverter))]
-        [ResourcesDisplayName(typeof(Resources), "Geometry_Coordinates_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "Geometry_Coordinates_Description")]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.Geometry_Coordinates_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.Geometry_Coordinates_Description))]
         public Point2D[] Coordinates
         {
             get

@@ -101,14 +101,14 @@ namespace Core.Common.Utils.Test.Attributes
 
         private enum SimpleEnum
         {
-            [ResourcesDisplayName(typeof(Resources), "EnumStringResource")]
+            [ResourcesDisplayName(typeof(Resources), nameof(Resources.EnumStringResource))]
             FirstValue
         }
 
-        [ResourcesDisplayName(typeof(Resources), "ClassStringResource")]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.ClassStringResource))]
         private class SimpleClass
         {
-            [ResourcesDisplayName(typeof(Resources), "MethodStringResource")]
+            [ResourcesDisplayName(typeof(Resources), nameof(Resources.MethodStringResource))]
             public string Name
             {
                 get

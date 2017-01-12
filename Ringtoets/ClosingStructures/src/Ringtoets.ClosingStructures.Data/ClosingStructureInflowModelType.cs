@@ -33,19 +33,19 @@ namespace Ringtoets.ClosingStructures.Data
         /// <summary>
         /// A vertical wall.
         /// </summary>
-        [ResourcesDisplayName(typeof(Resources), "ClosingStructureInflowModelType_VerticalWall_DisplayName")]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.ClosingStructureInflowModelType_VerticalWall_DisplayName))]
         VerticalWall = 1,
 
         /// <summary>
         /// A low sill structure.
         /// </summary>
-        [ResourcesDisplayName(typeof(RingtoetsCommonDataResources), "StructureInflowModelType_LowSill_DisplayName")]
+        [ResourcesDisplayName(typeof(RingtoetsCommonDataResources), nameof(RingtoetsCommonDataResources.StructureInflowModelType_LowSill_DisplayName))]
         LowSill = 2,
 
         /// <summary>
         /// A flooded culvert structure.
         /// </summary>
-        [ResourcesDisplayName(typeof(RingtoetsCommonDataResources), "StructureInflowModelType_FloodedCulvert_DisplayName")]
+        [ResourcesDisplayName(typeof(RingtoetsCommonDataResources), nameof(RingtoetsCommonDataResources.StructureInflowModelType_FloodedCulvert_DisplayName))]
         FloodedCulvert = 3
     }
 }

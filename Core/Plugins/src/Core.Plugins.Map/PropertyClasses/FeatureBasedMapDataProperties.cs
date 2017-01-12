@@ -44,9 +44,9 @@ namespace Core.Plugins.Map.PropertyClasses
         private const int selectedMetaDataAttributePropertyIndex = 4;
 
         [PropertyOrder(namePropertyIndex)]
-        [ResourcesCategory(typeof(Resources), "Categories_Layer")]
-        [ResourcesDisplayName(typeof(Resources), "MapData_Name_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "MapData_Name_Description")]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Layer))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.MapData_Name_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.MapData_Name_Description))]
         public string Name
         {
             get
@@ -56,15 +56,15 @@ namespace Core.Plugins.Map.PropertyClasses
         }
 
         [PropertyOrder(typePropertyIndex)]
-        [ResourcesCategory(typeof(Resources), "Categories_Layer")]
-        [ResourcesDisplayName(typeof(Resources), "FeatureBasedMapData_Type_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "FeatureBasedMapData_Type_Description")]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Layer))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FeatureBasedMapData_Type_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.FeatureBasedMapData_Type_Description))]
         public abstract string Type { get; }
 
         [PropertyOrder(isVisiblePropertyIndex)]
-        [ResourcesCategory(typeof(Resources), "Categories_Layer")]
-        [ResourcesDisplayName(typeof(Resources), "MapData_IsVisible_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "MapData_IsVisible_Description")]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Layer))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.MapData_IsVisible_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.MapData_IsVisible_Description))]
         public bool IsVisible
         {
             get
@@ -80,9 +80,9 @@ namespace Core.Plugins.Map.PropertyClasses
 
         [PropertyOrder(showLabelsPropertyIndex)]
         [DynamicReadOnly]
-        [ResourcesCategory(typeof(Resources), "Categories_Label")]
-        [ResourcesDisplayName(typeof(Resources), "FeatureBasedMapData_ShowLabels_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "FeatureBasedMapData_ShowLabels_Description")]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Label))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FeatureBasedMapData_ShowLabels_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.FeatureBasedMapData_ShowLabels_Description))]
         public bool ShowLabels
         {
             get
@@ -100,9 +100,9 @@ namespace Core.Plugins.Map.PropertyClasses
         [DynamicVisible]
         [DynamicReadOnly]
         [Editor(typeof(MetaDataAttributeEditor), typeof(UITypeEditor))]
-        [ResourcesCategory(typeof(Resources), "Categories_Label")]
-        [ResourcesDisplayName(typeof(Resources), "FeatureBasedMapdata_SelectedMetaDataAttribute_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "FeatureBasedMapdata_SelectedMetaDataAttribute_Description")]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Label))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FeatureBasedMapdata_SelectedMetaDataAttribute_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.FeatureBasedMapdata_SelectedMetaDataAttribute_Description))]
         public SelectableMetaDataAttribute SelectedMetaDataAttribute
         {
             get

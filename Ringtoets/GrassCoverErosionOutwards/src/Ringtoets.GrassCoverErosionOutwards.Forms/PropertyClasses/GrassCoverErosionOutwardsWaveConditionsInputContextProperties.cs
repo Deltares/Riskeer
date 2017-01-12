@@ -42,8 +42,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
         public GrassCoverErosionOutwardsWaveConditionsInputContextProperties(GrassCoverErosionOutwardsWaveConditionsInputContext context)
             : base(context) { }
 
-        [ResourcesDisplayName(typeof(Resources), "GrassCoverErosionOutwardsHydraulicBoundaryLocation_DesignWaterLevel_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "GrassCoverErosionOutwardsWaveConditionsInputContextProperties_DesignWaterLevel_Description")]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.GrassCoverErosionOutwardsHydraulicBoundaryLocation_DesignWaterLevel_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.GrassCoverErosionOutwardsWaveConditionsInputContextProperties_DesignWaterLevel_Description))]
         public override RoundedDouble AssessmentLevel
         {
             get
@@ -52,8 +52,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
             }
         }
 
-        [ResourcesDisplayName(typeof(Resources), "GrassCoverErosionOutwardsWaveConditionsInputContextProperties_UpperBoundaryDesignWaterLevel_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "GrassCoverErosionOutwardsWaveConditionsInputContextProperties_UpperBoundaryDesignWaterLevel_Description")]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.GrassCoverErosionOutwardsWaveConditionsInputContextProperties_UpperBoundaryDesignWaterLevel_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.GrassCoverErosionOutwardsWaveConditionsInputContextProperties_UpperBoundaryDesignWaterLevel_Description))]
         public override RoundedDouble UpperBoundaryDesignWaterLevel
         {
             get

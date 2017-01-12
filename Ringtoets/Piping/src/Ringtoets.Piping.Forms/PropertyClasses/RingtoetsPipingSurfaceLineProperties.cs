@@ -35,12 +35,12 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
     /// <summary>
     /// ViewModel of <see cref="RingtoetsPipingSurfaceLine"/> for properties panel.
     /// </summary>
-    [ResourcesDisplayName(typeof(Resources), "RingtoetsPipingSurfaceLine_DisplayName")]
+    [ResourcesDisplayName(typeof(Resources), nameof(Resources.RingtoetsPipingSurfaceLine_DisplayName))]
     public class RingtoetsPipingSurfaceLineProperties : ObjectProperties<RingtoetsPipingSurfaceLine>
     {
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Resources), "RingtoetsPipingSurfaceLine_Name_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "RingtoetsPipingSurfaceLine_Name_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.RingtoetsPipingSurfaceLine_Name_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.RingtoetsPipingSurfaceLine_Name_Description))]
         public string Name
         {
             get
@@ -49,9 +49,9 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
         }
 
-        [ResourcesCategory(typeof(Resources), "Categories_Characteristic_points")]
-        [ResourcesDisplayName(typeof(PipingDataResources), "CharacteristicPoint_DikeToeAtRiver")]
-        [ResourcesDescription(typeof(Resources), "RingtoetsPipingSurfaceLine_DikeToeAtRiver_Description")]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Characteristic_points))]
+        [ResourcesDisplayName(typeof(PipingDataResources), nameof(PipingDataResources.CharacteristicPoint_DikeToeAtRiver))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.RingtoetsPipingSurfaceLine_DikeToeAtRiver_Description))]
         public Point3D DikeToeAtRiver
         {
             get
@@ -60,9 +60,9 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
         }
 
-        [ResourcesCategory(typeof(Resources), "Categories_Characteristic_points")]
-        [ResourcesDisplayName(typeof(PipingDataResources), "CharacteristicPoint_DikeToeAtPolder")]
-        [ResourcesDescription(typeof(Resources), "RingtoetsPipingSurfaceLine_DikeToeAtPolder_Description")]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Characteristic_points))]
+        [ResourcesDisplayName(typeof(PipingDataResources), nameof(PipingDataResources.CharacteristicPoint_DikeToeAtPolder))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.RingtoetsPipingSurfaceLine_DikeToeAtPolder_Description))]
         public Point3D DikeToeAtPolder
         {
             get
@@ -71,9 +71,9 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
         }
 
-        [ResourcesCategory(typeof(Resources), "Categories_Characteristic_points")]
-        [ResourcesDisplayName(typeof(PipingDataResources), "CharacteristicPoint_DitchDikeSide")]
-        [ResourcesDescription(typeof(Resources), "RingtoetsPipingSurfaceLine_DitchDikeSide_Description")]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Characteristic_points))]
+        [ResourcesDisplayName(typeof(PipingDataResources), nameof(PipingDataResources.CharacteristicPoint_DitchDikeSide))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.RingtoetsPipingSurfaceLine_DitchDikeSide_Description))]
         public Point3D DitchDikeSide
         {
             get
@@ -82,9 +82,9 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
         }
 
-        [ResourcesCategory(typeof(Resources), "Categories_Characteristic_points")]
-        [ResourcesDisplayName(typeof(PipingDataResources), "CharacteristicPoint_BottomDitchDikeSide")]
-        [ResourcesDescription(typeof(Resources), "RingtoetsPipingSurfaceLine_BottomDitchDikeSide_Description")]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Characteristic_points))]
+        [ResourcesDisplayName(typeof(PipingDataResources), nameof(PipingDataResources.CharacteristicPoint_BottomDitchDikeSide))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.RingtoetsPipingSurfaceLine_BottomDitchDikeSide_Description))]
         public Point3D BottomDitchDikeSide
         {
             get
@@ -93,9 +93,9 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
         }
 
-        [ResourcesCategory(typeof(Resources), "Categories_Characteristic_points")]
-        [ResourcesDisplayName(typeof(PipingDataResources), "CharacteristicPoint_BottomDitchPolderSide")]
-        [ResourcesDescription(typeof(Resources), "RingtoetsPipingSurfaceLine_BottomDitchPolderSide_Description")]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Characteristic_points))]
+        [ResourcesDisplayName(typeof(PipingDataResources), nameof(PipingDataResources.CharacteristicPoint_BottomDitchPolderSide))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.RingtoetsPipingSurfaceLine_BottomDitchPolderSide_Description))]
         public Point3D BottomDitchPolderSide
         {
             get
@@ -104,9 +104,9 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
         }
 
-        [ResourcesCategory(typeof(Resources), "Categories_Characteristic_points")]
-        [ResourcesDisplayName(typeof(PipingDataResources), "CharacteristicPoint_DitchPolderSide")]
-        [ResourcesDescription(typeof(Resources), "RingtoetsPipingSurfaceLine_DitchPolderSide_Description")]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Characteristic_points))]
+        [ResourcesDisplayName(typeof(PipingDataResources), nameof(PipingDataResources.CharacteristicPoint_DitchPolderSide))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.RingtoetsPipingSurfaceLine_DitchPolderSide_Description))]
         public Point3D DitchPolderSide
         {
             get
@@ -116,9 +116,9 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         }
 
         [TypeConverter(typeof(ExpandableArrayConverter))]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Resources), "RingtoetsPipingSurfaceLine_Points_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "RingtoetsPipingSurfaceLine_Points_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.RingtoetsPipingSurfaceLine_Points_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.RingtoetsPipingSurfaceLine_Points_Description))]
         public Point3D[] Points
         {
             get

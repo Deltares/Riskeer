@@ -41,8 +41,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
     {
         [PropertyOrder(1)]
         [TypeConverter(typeof(ExpandableReadOnlyArrayConverter))]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "Geometry_Coordinates_DisplayName")]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "Geometry_Coordinates_Description")]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Geometry_Coordinates_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Geometry_Coordinates_Description))]
         public Point2D[] Coordinates
         {
             get
@@ -53,8 +53,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
 
         [PropertyOrder(2)]
         [TypeConverter(typeof(ExpandableReadOnlyArrayConverter))]
-        [ResourcesDisplayName(typeof(Resources), "DikeGeometry_Roughness_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "DikeGeometry_Roughness_Description")]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.DikeGeometry_Roughness_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.DikeGeometry_Roughness_Description))]
         public RoundedDouble[] Roughnesses
         {
             get

@@ -42,9 +42,9 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         private const int foreshorePropertyIndex = 5;
 
         [PropertyOrder(namePropertyIndex)]
-        [ResourcesCategory(typeof(Resources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Resources), "Profile_Name_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "ForeshoreProfile_Name_Description")]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_General))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.Profile_Name_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.ForeshoreProfile_Name_Description))]
         public string Name
         {
             get
@@ -54,9 +54,9 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         }
 
         [PropertyOrder(worldReferencePointPropertyIndex)]
-        [ResourcesCategory(typeof(Resources), "Categories_Schematization")]
-        [ResourcesDisplayName(typeof(Resources), "WorldReferencePoint_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "WorldReferencePoint_ForeshoreProfile_Description")]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Schematization))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.WorldReferencePoint_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.WorldReferencePoint_ForeshoreProfile_Description))]
         public Point2D WorldReferencePoint
         {
             get
@@ -68,9 +68,9 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         }
 
         [PropertyOrder(orientationPropertyIndex)]
-        [ResourcesCategory(typeof(Resources), "Categories_Schematization")]
-        [ResourcesDisplayName(typeof(Resources), "Orientation_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "Orientation_ForeshoreProfile_Description")]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Schematization))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.Orientation_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.Orientation_ForeshoreProfile_Description))]
         public RoundedDouble Orientation
         {
             get
@@ -81,9 +81,9 @@ namespace Ringtoets.Common.Forms.PropertyClasses
 
         [PropertyOrder(breakWaterPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(Resources), "Categories_Schematization")]
-        [ResourcesDisplayName(typeof(Resources), "BreakWaterProperties_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "BreakWaterProperties_Description")]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Schematization))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.BreakWaterProperties_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.BreakWaterProperties_Description))]
         public BreakWaterProperties BreakWater
         {
             get
@@ -97,9 +97,9 @@ namespace Ringtoets.Common.Forms.PropertyClasses
 
         [PropertyOrder(foreshorePropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(Resources), "Categories_Schematization")]
-        [ResourcesDisplayName(typeof(Resources), "ForeshoreProperties_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "ForeshoreProperties_Description")]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Schematization))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.ForeshoreProperties_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.ForeshoreProperties_Description))]
         public ForeshoreGeometryProperties Foreshore
         {
             get

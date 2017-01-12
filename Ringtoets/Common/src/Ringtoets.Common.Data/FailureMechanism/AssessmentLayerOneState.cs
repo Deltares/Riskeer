@@ -32,19 +32,19 @@ namespace Ringtoets.Common.Data.FailureMechanism
         /// <summary>
         /// The failure mechanism section was not assessed.
         /// </summary>
-        [ResourcesDisplayName(typeof(Resources), "AssessmentLayerOneState_NotAssessed")]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssessmentLayerOneState_NotAssessed))]
         NotAssessed = 1,
 
         /// <summary>
         /// The assessment of the failure mechanism section was sufficient or not relevant.
         /// </summary>
-        [ResourcesDisplayName(typeof(Resources), "AssessmentLayerOneState_Sufficient")]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssessmentLayerOneState_Sufficient))]
         Sufficient = 2,
 
         /// <summary>
         /// The assessment of the failure mechanism section has not reached a verdict yet.
         /// </summary>
-        [ResourcesDisplayName(typeof(Resources), "AssessmentLayerOneState_NoVerdict")]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssessmentLayerOneState_NoVerdict))]
         NoVerdict = 3
     }
 }

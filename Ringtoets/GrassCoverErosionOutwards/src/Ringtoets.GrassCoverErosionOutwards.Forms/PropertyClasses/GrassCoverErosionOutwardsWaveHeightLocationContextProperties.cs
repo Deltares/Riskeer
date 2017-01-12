@@ -68,9 +68,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
 
         [PropertyOrder(4)]
         [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Result")]
-        [ResourcesDisplayName(typeof(Resources), "GrassCoverErosionOutwardsHydraulicBoundaryLocation_WaveHeight_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "GrassCoverErosionOutwardsHydraulicBoundaryLocation_WaveHeight_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Result))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.GrassCoverErosionOutwardsHydraulicBoundaryLocation_WaveHeight_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.GrassCoverErosionOutwardsHydraulicBoundaryLocation_WaveHeight_Description))]
         public RoundedDouble WaveHeight
         {
             get
@@ -80,9 +80,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
         }
 
         [PropertyOrder(5)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Result")]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "CalculationOutput_TargetProbability_DisplayName")]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "CalculationOutput_TargetProbability_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Result))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.CalculationOutput_TargetProbability_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.CalculationOutput_TargetProbability_Description))]
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
         public double TargetProbability
         {
@@ -94,9 +94,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
         }
 
         [PropertyOrder(6)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Result")]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "CalculationOutput_TargetReliability_DisplayName")]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "CalculationOutput_TargetReliability_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Result))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.CalculationOutput_TargetReliability_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.CalculationOutput_TargetReliability_Description))]
         [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
         public RoundedDouble TargetReliability
         {
@@ -108,9 +108,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
         }
 
         [PropertyOrder(7)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Result")]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "CalculationOutput_CalculatedProbability_DisplayName")]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "CalculationOutput_CalculatedProbability_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Result))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.CalculationOutput_CalculatedProbability_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.CalculationOutput_CalculatedProbability_Description))]
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
         public double CalculatedProbability
         {
@@ -122,9 +122,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
         }
 
         [PropertyOrder(8)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Result")]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "CalculationOutput_CalculatedReliability_DisplayName")]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "CalculationOutput_CalculatedReliability_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Result))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.CalculationOutput_CalculatedReliability_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.CalculationOutput_CalculatedReliability_Description))]
         [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
         public RoundedDouble CalculatedReliability
         {
@@ -136,9 +136,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
         }
 
         [PropertyOrder(9)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Result")]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "CalculationOutput_Convergence_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "GrassCoverErosionOutwardsHydraulicBoundaryLocation_Convergence_WaveHeight_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Result))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.CalculationOutput_Convergence_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.GrassCoverErosionOutwardsHydraulicBoundaryLocation_Convergence_WaveHeight_Description))]
         public string Convergence
         {
             get

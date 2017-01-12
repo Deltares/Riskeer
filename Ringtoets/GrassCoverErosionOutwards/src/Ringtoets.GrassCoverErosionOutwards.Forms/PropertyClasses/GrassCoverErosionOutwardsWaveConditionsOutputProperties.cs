@@ -37,9 +37,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
     public class GrassCoverErosionOutwardsWaveConditionsOutputProperties : ObjectProperties<GrassCoverErosionOutwardsWaveConditionsOutput>
     {
         [TypeConverter(typeof(ExpandableArrayConverter))]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Result")]
-        [ResourcesDisplayName(typeof(Resources), "GrassCoverErosionOutwardsWaveConditionsOutputProperties_HydraulicBoundaryLocationResult_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "GrassCoverErosionOutwardsWaveConditionsOutputProperties_HydraulicBoundaryLocationResult_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Result))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.GrassCoverErosionOutwardsWaveConditionsOutputProperties_HydraulicBoundaryLocationResult_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.GrassCoverErosionOutwardsWaveConditionsOutputProperties_HydraulicBoundaryLocationResult_Description))]
         public WaveConditionsOutputProperties[] Items
         {
             get

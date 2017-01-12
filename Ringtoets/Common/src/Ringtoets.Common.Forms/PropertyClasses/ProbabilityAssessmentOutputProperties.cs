@@ -36,9 +36,9 @@ namespace Ringtoets.Common.Forms.PropertyClasses
     public class ProbabilityAssessmentOutputProperties : ObjectProperties<ProbabilityAssessmentOutput>
     {
         [PropertyOrder(1)]
-        [ResourcesCategory(typeof(Resources), "Categories_Result")]
-        [ResourcesDisplayName(typeof(Resources), "ProbabilityAssessmentOutput_RequiredProbability_Displayname")]
-        [ResourcesDescription(typeof(Resources), "ProbabilityAssessmentOutput_RequiredProbability_Description")]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Result))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.ProbabilityAssessmentOutput_RequiredProbability_Displayname))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.ProbabilityAssessmentOutput_RequiredProbability_Description))]
         public string RequiredProbability
         {
             get
@@ -48,9 +48,9 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         }
 
         [PropertyOrder(2)]
-        [ResourcesCategory(typeof(Resources), "Categories_Result")]
-        [ResourcesDisplayName(typeof(Resources), "ProbabilityAssessmentOutput_RequiredReliability_Displayname")]
-        [ResourcesDescription(typeof(Resources), "ProbabilityAssessmentOutput_RequiredReliability_Description")]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Result))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.ProbabilityAssessmentOutput_RequiredReliability_Displayname))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.ProbabilityAssessmentOutput_RequiredReliability_Description))]
         public RoundedDouble RequiredReliability
         {
             get
@@ -60,9 +60,9 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         }
 
         [PropertyOrder(3)]
-        [ResourcesCategory(typeof(Resources), "Categories_Result")]
-        [ResourcesDisplayName(typeof(Resources), "ProbabilityAssessmentOutput_Probability_Displayname")]
-        [ResourcesDescription(typeof(Resources), "ProbabilityAssessmentOutput_Probability_Description")]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Result))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.ProbabilityAssessmentOutput_Probability_Displayname))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.ProbabilityAssessmentOutput_Probability_Description))]
         public string Probability
         {
             get
@@ -72,9 +72,9 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         }
 
         [PropertyOrder(4)]
-        [ResourcesCategory(typeof(Resources), "Categories_Result")]
-        [ResourcesDisplayName(typeof(Resources), "ProbabilityAssessmentOutput_Reliability_Displayname")]
-        [ResourcesDescription(typeof(Resources), "ProbabilityAssessmentOutput_Reliability_Description")]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Result))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.ProbabilityAssessmentOutput_Reliability_Displayname))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.ProbabilityAssessmentOutput_Reliability_Description))]
         public RoundedDouble Reliability
         {
             get
@@ -84,9 +84,9 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         }
 
         [PropertyOrder(5)]
-        [ResourcesCategory(typeof(Resources), "Categories_Result")]
-        [ResourcesDisplayName(typeof(Resources), "ProbabilityAssessmentOutput_FactorOfSafety_Displayname")]
-        [ResourcesDescription(typeof(Resources), "ProbabilityAssessmentOutput_FactorOfSafety_Description")]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Result))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.ProbabilityAssessmentOutput_FactorOfSafety_Displayname))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.ProbabilityAssessmentOutput_FactorOfSafety_Description))]
         public RoundedDouble FactorOfSafety
         {
             get

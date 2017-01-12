@@ -33,13 +33,13 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
     /// <summary>
     /// Object properties class for <see cref="CalculationGroup"/>.
     /// </summary>
-    [ResourcesDisplayName(typeof(Resources), "CalculationGroupContextProperties_DisplayName")]
+    [ResourcesDisplayName(typeof(Resources), nameof(Resources.CalculationGroupContextProperties_DisplayName))]
     public class CalculationGroupContextProperties : ObjectProperties<ICalculationContext<CalculationGroup, IFailureMechanism>>
     {
         [DynamicReadOnly]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Resources), "CalculationGroup_Name_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "CalculationGroup_Name_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.CalculationGroup_Name_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.CalculationGroup_Name_Description))]
         public string Name
         {
             get

@@ -37,14 +37,14 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
     /// <summary>
     /// ViewModel of <see cref="StochasticSoilProfile"/> for properties panel.
     /// </summary>
-    [ResourcesDisplayName(typeof(Resources), "StochasticSoilProfileProperties_DisplayName")]
+    [ResourcesDisplayName(typeof(Resources), nameof(Resources.StochasticSoilProfileProperties_DisplayName))]
     [TypeConverter(typeof(ExpandableObjectConverter))]
     public class StochasticSoilProfileProperties : ObjectProperties<StochasticSoilProfile>
     {
         [PropertyOrder(1)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Resources), "StochasticSoilProfile_Name_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "StochasticSoilProfile_Name_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.StochasticSoilProfile_Name_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.StochasticSoilProfile_Name_Description))]
         public string Name
         {
             get
@@ -54,9 +54,9 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         }
 
         [PropertyOrder(2)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Resources), "StochasticSoilProfile_Probability_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "StochasticSoilProfile_Probability_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.StochasticSoilProfile_Probability_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.StochasticSoilProfile_Probability_Description))]
         public string Probability
         {
             get
@@ -67,9 +67,9 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
 
         [PropertyOrder(3)]
         [TypeConverter(typeof(ExpandableReadOnlyArrayConverter))]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Resources), "StochasticSoilProfile_Tops_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "StochasticSoilProfile_Tops_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.StochasticSoilProfile_Tops_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.StochasticSoilProfile_Tops_Description))]
         public double[] TopLevels
         {
             get
@@ -79,9 +79,9 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         }
 
         [PropertyOrder(4)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Resources), "StochasticSoilProfile_Bottom_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "StochasticSoilProfile_Bottom_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.StochasticSoilProfile_Bottom_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.StochasticSoilProfile_Bottom_Description))]
         public double Bottom
         {
             get
@@ -91,9 +91,9 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         }
 
         [PropertyOrder(5)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Resources), "StochasticSoilProfile_Type_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "StochasticSoilProfile_Type_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.StochasticSoilProfile_Type_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.StochasticSoilProfile_Type_Description))]
         public string Type
         {
             get

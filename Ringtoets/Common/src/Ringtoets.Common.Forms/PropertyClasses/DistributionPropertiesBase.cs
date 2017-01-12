@@ -74,13 +74,13 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         }
 
         [PropertyOrder(1)]
-        [ResourcesDisplayName(typeof(Resources), "Distribution_DistributionType_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "Distribution_DistributionType_Description")]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.Distribution_DistributionType_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.Distribution_DistributionType_Description))]
         public abstract string DistributionType { get; }
 
         [PropertyOrder(2)]
         [DynamicReadOnly]
-        [ResourcesDisplayName(typeof(Resources), "NormalDistribution_Mean_DisplayName")]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.NormalDistribution_Mean_DisplayName))]
         public virtual RoundedDouble Mean
         {
             get
@@ -100,7 +100,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
 
         [PropertyOrder(3)]
         [DynamicReadOnly]
-        [ResourcesDisplayName(typeof(Resources), "NormalDistribution_StandardDeviation_DisplayName")]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.NormalDistribution_StandardDeviation_DisplayName))]
         public virtual RoundedDouble StandardDeviation
         {
             get

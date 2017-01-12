@@ -41,8 +41,8 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
 
         [DynamicReadOnly]
         [PropertyOrder(useForeshorePropertyIndex)]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "Foreshore_UseForeshore_DisplayName")]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "Foreshore_UseForeshore_Description")]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Foreshore_UseForeshore_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Foreshore_UseForeshore_Description))]
         public bool UseForeshore
         {
             get
@@ -58,8 +58,8 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
 
         [PropertyOrder(coordinatesPropertyIndex)]
         [TypeConverter(typeof(ExpandableReadOnlyArrayConverter))]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "Geometry_Coordinates_DisplayName")]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "Geometry_Coordinates_Description")]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Geometry_Coordinates_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Geometry_Coordinates_Description))]
         public Point2D[] Coordinates
         {
             get

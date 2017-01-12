@@ -32,19 +32,19 @@ namespace Ringtoets.Common.Data.Hydraulics
         /// <summary>
         /// The calculation has not been performed.
         /// </summary>
-        [ResourcesDisplayName(typeof(Resources), "CalculationConvergence_NotCalculated")]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.CalculationConvergence_NotCalculated))]
         NotCalculated = 1,
 
         /// <summary>
         /// The calculation has not converged.
         /// </summary>
-        [ResourcesDisplayName(typeof(Resources), "CalculationConvergence_CalculatedNotConverged")]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.CalculationConvergence_CalculatedNotConverged))]
         CalculatedNotConverged = 2,
 
         /// <summary>
         /// The calculation has converged.
         /// </summary>
-        [ResourcesDisplayName(typeof(Resources), "CalculationConvergence_CalculatedConverged")]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.CalculationConvergence_CalculatedConverged))]
         CalculatedConverged = 3
     }
 }
