@@ -26,6 +26,7 @@ using Core.Common.Utils.Reflection;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.DuneErosion.Data;
+using Ringtoets.DuneErosion.Forms.GuiServices;
 using Ringtoets.DuneErosion.Forms.PresentationObjects;
 using Ringtoets.DuneErosion.Forms.Properties;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -70,6 +71,18 @@ namespace Ringtoets.DuneErosion.Forms.Views
         /// </summary>
         public IAssessmentSection AssessmentSection { get; set; }
 
+        /// <summary>
+        /// Gets or sets the <see cref="DuneErosionFailureMechanism"/> for which the
+        /// locations are shown.
+        /// </summary>
+        public DuneErosionFailureMechanism FailureMechanism { get; set; }
+
+        /// <summary>
+        /// Gets or sets the <see cref="DuneLocationCalculationGuiService"/> 
+        /// to perform calculations with.
+        /// </summary>
+        public DuneLocationCalculationGuiService CalculationGuiService { get; set; }
+
         protected override void Dispose(bool disposing)
         {
             duneLocationsObserver.Dispose();
@@ -112,7 +125,32 @@ namespace Ringtoets.DuneErosion.Forms.Views
             dataGridViewControl.SetDataSource(locations?.Select(l => new DuneLocationRow(l)).ToArray());
         }
 
-        protected override void CalculateForSelectedRows() {}
+        protected override void CalculateForSelectedRows()
+        {
+            if (CalculationGuiService == null)
+            {
+                return;
+            }
+
+            var selectedLocations = GetSelectedLocations();
+            HandleCalculateSelectedLocations(selectedLocations);
+        }
+
+        private void HandleCalculateSelectedLocations(IEnumerable<DuneLocation> locations)
+        {
+            CalculationGuiService.Calculate(locations,
+                                            FailureMechanism,
+                                            AssessmentSection);
+
+            ((IObservable) Data).NotifyObservers();
+        }
+
+        private IEnumerable<DuneLocation> GetSelectedLocations()
+        {
+            return GetCalculatableRows().Where(r => r.ToCalculate)
+                                        .Cast<DuneLocationRow>()
+                                        .Select(r => r.DuneLocation);
+        }
 
         private void UpdateDuneLocations()
         {

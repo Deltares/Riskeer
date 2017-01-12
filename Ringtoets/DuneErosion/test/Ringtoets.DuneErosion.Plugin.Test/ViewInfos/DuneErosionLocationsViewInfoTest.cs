@@ -31,6 +31,7 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Data.TestUtil;
+using Ringtoets.DuneErosion.Forms.GuiServices;
 using Ringtoets.DuneErosion.Forms.PresentationObjects;
 using Ringtoets.DuneErosion.Forms.Views;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -187,6 +188,8 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
 
                 // Assert
                 Assert.AreSame(assessmentSectionStub, view.AssessmentSection);
+                Assert.AreSame(failureMechanism, view.FailureMechanism);
+                Assert.IsInstanceOf<DuneLocationCalculationGuiService>(view.CalculationGuiService);
             }
             mocks.VerifyAll();
         }

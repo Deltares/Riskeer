@@ -20,21 +20,27 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
+using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
+using Rhino.Mocks;
+using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Contribution;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.DuneErosion.Data;
+using Ringtoets.DuneErosion.Forms.GuiServices;
 using Ringtoets.DuneErosion.Forms.PresentationObjects;
 using Ringtoets.DuneErosion.Forms.Views;
-using System.Collections.Generic;
-using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.DuneErosion.Data.TestUtil;
+using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 
 namespace Ringtoets.DuneErosion.Forms.Test.Views
 {
@@ -51,6 +57,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
         private const int waveHeightColumnIndex = 7;
         private const int wavePeriodColumnIndex = 8;
         private const int d50ColumnIndex = 9;
+        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "HydraulicBoundaryDatabaseImporter");
 
         private Form testForm;
 
@@ -85,41 +92,41 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             ShowDuneLocationsView();
 
             // Assert
-            var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
             Assert.AreEqual(10, dataGridView.ColumnCount);
 
-            var locationCalculateColumn = (DataGridViewCheckBoxColumn)dataGridView.Columns[locationCalculateColumnIndex];
+            var locationCalculateColumn = (DataGridViewCheckBoxColumn) dataGridView.Columns[locationCalculateColumnIndex];
             Assert.AreEqual("Berekenen", locationCalculateColumn.HeaderText);
 
-            var locationNameColumn = (DataGridViewTextBoxColumn)dataGridView.Columns[locationNameColumnIndex];
+            var locationNameColumn = (DataGridViewTextBoxColumn) dataGridView.Columns[locationNameColumnIndex];
             Assert.AreEqual("Naam", locationNameColumn.HeaderText);
 
-            var locationIdColumn = (DataGridViewTextBoxColumn)dataGridView.Columns[locationIdColumnIndex];
+            var locationIdColumn = (DataGridViewTextBoxColumn) dataGridView.Columns[locationIdColumnIndex];
             Assert.AreEqual("ID", locationIdColumn.HeaderText);
 
-            var locationColumn = (DataGridViewTextBoxColumn)dataGridView.Columns[locationColumnIndex];
+            var locationColumn = (DataGridViewTextBoxColumn) dataGridView.Columns[locationColumnIndex];
             Assert.AreEqual("Coördinaten [m]", locationColumn.HeaderText);
 
-            var coastalAreaIdColumn = (DataGridViewTextBoxColumn)dataGridView.Columns[coastalAreaIdColumnIndex];
+            var coastalAreaIdColumn = (DataGridViewTextBoxColumn) dataGridView.Columns[coastalAreaIdColumnIndex];
             Assert.AreEqual("Kustvaknummer", coastalAreaIdColumn.HeaderText);
 
-            var offssetColumn = (DataGridViewTextBoxColumn)dataGridView.Columns[offsetColumnIndex];
+            var offssetColumn = (DataGridViewTextBoxColumn) dataGridView.Columns[offsetColumnIndex];
             Assert.AreEqual("Metrering [dam]", offssetColumn.HeaderText);
 
-            var waterLevelColumn = (DataGridViewTextBoxColumn)dataGridView.Columns[waterLevelColumnIndex];
+            var waterLevelColumn = (DataGridViewTextBoxColumn) dataGridView.Columns[waterLevelColumnIndex];
             Assert.AreEqual("Rekenwaarde waterstand [m+NAP]", waterLevelColumn.HeaderText);
 
-            var waveHeightColumn = (DataGridViewTextBoxColumn)dataGridView.Columns[waveHeightColumnIndex];
+            var waveHeightColumn = (DataGridViewTextBoxColumn) dataGridView.Columns[waveHeightColumnIndex];
             Assert.AreEqual("Rekenwaarde Hs [m]", waveHeightColumn.HeaderText);
 
-            var wavePeriodColumn = (DataGridViewTextBoxColumn)dataGridView.Columns[wavePeriodColumnIndex];
+            var wavePeriodColumn = (DataGridViewTextBoxColumn) dataGridView.Columns[wavePeriodColumnIndex];
             Assert.AreEqual("Rekenwaarde Tp [s]", wavePeriodColumn.HeaderText);
 
-            var d50Column = (DataGridViewTextBoxColumn)dataGridView.Columns[d50ColumnIndex];
+            var d50Column = (DataGridViewTextBoxColumn) dataGridView.Columns[d50ColumnIndex];
             Assert.AreEqual("Rekenwaarde d50 [m]", d50Column.HeaderText);
 
             var buttonTester = new ButtonTester("CalculateForSelectedButton", testForm);
-            var button = (Button)buttonTester.TheObject;
+            var button = (Button) buttonTester.TheObject;
             Assert.IsFalse(button.Enabled);
         }
 
@@ -161,7 +168,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             ShowFullyConfiguredDuneLocationsView();
 
             // Assert
-            var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
             var rows = dataGridView.Rows;
             Assert.AreEqual(2, rows.Count);
 
@@ -209,14 +216,14 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             // Call
             using (var view = ShowFullyConfiguredDuneLocationsView())
             {
-                var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
                 var selectedLocationRow = dataGridView.Rows[0];
                 selectedLocationRow.Cells[0].Value = true;
-        
+
                 // Assert
                 var selection = view.Selection as DuneLocationContext;
                 var dataBoundItem = selectedLocationRow.DataBoundItem as DuneLocationRow;
-        
+
                 Assert.NotNull(selection);
                 Assert.NotNull(dataBoundItem);
                 Assert.AreSame(dataBoundItem.DuneLocation, selection.DuneLocation);
@@ -228,21 +235,21 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
         {
             // Setup
             DuneLocationsView view = ShowFullyConfiguredDuneLocationsView();
-            ObservableList<DuneLocation> locations = (ObservableList<DuneLocation>)view.Data;
+            ObservableList<DuneLocation> locations = (ObservableList<DuneLocation>) view.Data;
 
             // Precondition
-            var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
             var dataGridViewSource = dataGridView.DataSource;
             var rows = dataGridView.Rows;
             rows[0].Cells[locationCalculateColumnIndex].Value = true;
             Assert.AreEqual(2, rows.Count);
 
             var duneLocation = new DuneLocation(10, "10", new Point2D(10.0, 10.0), new DuneLocation.ConstructionProperties
-                                                             {
-                                                                 CoastalAreaId = 3,
-                                                                 Offset = 80,
-                                                                 D50 = 0.000321
-                                                             })
+                                                {
+                                                    CoastalAreaId = 3,
+                                                    Offset = 80,
+                                                    D50 = 0.000321
+                                                })
             {
                 Output = new DuneLocationOutput(CalculationConvergence.CalculatedConverged, new DuneLocationOutput.ConstructionProperties
                                                 {
@@ -281,10 +288,10 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
         {
             // Setup
             DuneLocationsView view = ShowFullyConfiguredDuneLocationsView();
-            ObservableList<DuneLocation> locations = (ObservableList<DuneLocation>)view.Data;
+            ObservableList<DuneLocation> locations = (ObservableList<DuneLocation>) view.Data;
 
             // Precondition
-            var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
             var rows = dataGridView.Rows;
             Assert.AreEqual(2, rows.Count);
             DataGridViewRow firstRow = rows[0];
@@ -292,7 +299,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
 
             Assert.AreEqual("-", firstRow.Cells[waterLevelColumnIndex].FormattedValue);
             Assert.AreEqual("-", firstRow.Cells[waveHeightColumnIndex].FormattedValue);
-            Assert.AreEqual("-", firstRow.Cells[wavePeriodColumnIndex].FormattedValue);            
+            Assert.AreEqual("-", firstRow.Cells[wavePeriodColumnIndex].FormattedValue);
             Assert.AreEqual(1.23.ToString(CultureInfo.CurrentCulture), secondRow.Cells[waterLevelColumnIndex].FormattedValue);
             Assert.AreEqual(2.34.ToString(CultureInfo.CurrentCulture), secondRow.Cells[waveHeightColumnIndex].FormattedValue);
             Assert.AreEqual(3.45.ToString(CultureInfo.CurrentCulture), secondRow.Cells[wavePeriodColumnIndex].FormattedValue);
@@ -300,11 +307,11 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             locations.ForEach(loc =>
                               {
                                   loc.Output = null;
-                                  
+
                                   // Call
                                   loc.NotifyObservers();
                               });
-            
+
             // Assert
             Assert.AreEqual(2, rows.Count);
             Assert.AreEqual("-", firstRow.Cells[waterLevelColumnIndex].FormattedValue);
@@ -315,30 +322,111 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             Assert.AreEqual("-", secondRow.Cells[wavePeriodColumnIndex].FormattedValue);
         }
 
+        [Test]
+        public void CalculateForSelectedButton_OneSelected_CallsCalculateSelectionNotChanged()
+        {
+            // Setup
+            DuneLocationsView view = ShowFullyConfiguredDuneLocationsView();
+            ObservableList<DuneLocation> locations = (ObservableList<DuneLocation>) view.Data;
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+            var dataGridViewSource = dataGridView.DataSource;
+            var rows = dataGridView.Rows;
+            rows[0].Cells[locationCalculateColumnIndex].Value = true;
+
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.Id).Return("1");
+            assessmentSection.Stub(ass => ass.FailureMechanismContribution)
+                             .Return(new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 1, 1));
+            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                FilePath = Path.Combine(testDataPath, "complete.sqlite")
+            };
+            mocks.ReplayAll();
+
+            locations.Attach(observer);
+
+            view.AssessmentSection = assessmentSection;
+            view.FailureMechanism = new DuneErosionFailureMechanism
+            {
+                Contribution = 10
+            };
+            var buttonTester = new ButtonTester("CalculateForSelectedButton", testForm);
+
+            using (var viewParent = new Form())
+            using (new HydraRingCalculatorFactoryConfig())
+            {
+                view.CalculationGuiService = new DuneLocationCalculationGuiService(viewParent);
+
+                // Call
+                TestHelper.AssertLogMessages(() => buttonTester.Click(),
+                                             messages =>
+                                             {
+                                                 var messageList = messages.ToList();
+
+                                                 // Assert
+                                                 Assert.AreEqual(5, messageList.Count);
+                                                 StringAssert.StartsWith("Berekening van '1' gestart om: ", messageList[0]);
+                                                 Assert.AreEqual("Duinafslag berekening voor locatie '1' is niet geconvergeerd.", messageList[1]);
+                                                 StringAssert.StartsWith("Duinafslag berekening is uitgevoerd op de tijdelijke locatie", messageList[2]);
+                                                 StringAssert.StartsWith("Berekening van '1' beëindigd om: ", messageList[3]);
+                                                 Assert.AreEqual("Uitvoeren van '1' is gelukt.", messageList[4]);
+                                             });
+            }
+
+            // Assert
+            Assert.AreSame(dataGridViewSource, dataGridView.DataSource);
+            Assert.IsTrue((bool) rows[0].Cells[locationCalculateColumnIndex].Value);
+            Assert.IsFalse((bool) rows[1].Cells[locationCalculateColumnIndex].Value);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CalculateForSelectedButton_OneSelectedButCalculationGuiServiceNotSet_DoesNotThrowException()
+        {
+            // Setup
+            ShowFullyConfiguredDuneLocationsView();
+
+            var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+            var rows = dataGridView.Rows;
+            rows[0].Cells[locationCalculateColumnIndex].Value = true;
+
+            var button = new ButtonTester("CalculateForSelectedButton", testForm);
+
+            // Call
+            TestDelegate test = () => button.Click();
+
+            // Assert
+            Assert.DoesNotThrow(test);
+        }
+
         private DuneLocationsView ShowFullyConfiguredDuneLocationsView()
         {
             var view = ShowDuneLocationsView();
             view.Data = new ObservableList<DuneLocation>
             {
                 new DuneLocation(1, "1", new Point2D(1.0, 1.0), new DuneLocation.ConstructionProperties
-                {
-                    CoastalAreaId = 50,
-                    Offset = 320,
-                    D50 = 0.000837
-                }),
+                                 {
+                                     CoastalAreaId = 50,
+                                     Offset = 320,
+                                     D50 = 0.000837
+                                 }),
                 new DuneLocation(2, "2", new Point2D(2.0, 2.0), new DuneLocation.ConstructionProperties
-                {
-                    CoastalAreaId = 60,
-                    Offset = 230,
-                    D50 = 0.000123
-                })
+                                 {
+                                     CoastalAreaId = 60,
+                                     Offset = 230,
+                                     D50 = 0.000123
+                                 })
                 {
                     Output = new DuneLocationOutput(CalculationConvergence.CalculatedConverged, new DuneLocationOutput.ConstructionProperties
-                    {
-                        WaterLevel = 1.23,
-                        WaveHeight = 2.34,
-                        WavePeriod = 3.45
-                    })
+                                                    {
+                                                        WaterLevel = 1.23,
+                                                        WaveHeight = 2.34,
+                                                        WavePeriod = 3.45
+                                                    })
                 }
             };
 

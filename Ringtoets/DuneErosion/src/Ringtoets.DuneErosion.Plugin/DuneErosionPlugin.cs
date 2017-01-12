@@ -123,7 +123,12 @@ namespace Ringtoets.DuneErosion.Plugin
                 Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
                 GetViewData = context => context.WrappedData,
                 CloseForData = CloseDuneLocationViewForData,
-                AfterCreate = (view, context) => view.AssessmentSection = context.AssessmentSection,
+                AfterCreate = (view, context) =>
+                {
+                    view.AssessmentSection = context.AssessmentSection;
+                    view.FailureMechanism = context.FailureMechanism;
+                    view.CalculationGuiService = duneLocationCalculationGuiService;
+                },
                 AdditionalDataCheck = context => context.WrappedData.Any()
             };
         }

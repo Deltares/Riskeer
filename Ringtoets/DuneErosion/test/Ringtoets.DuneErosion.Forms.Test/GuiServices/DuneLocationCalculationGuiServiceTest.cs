@@ -123,77 +123,76 @@ namespace Ringtoets.DuneErosion.Forms.Test.GuiServices
             // Setup
             string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
 
-                var failureMechanism = new DuneErosionFailureMechanism
-                {
-                    Contribution = 10
-                };
-                failureMechanism.DuneLocations.AddRange(new[]
-                                                        {
-                                                            new DuneLocation(1300001, "A", new Point2D(0, 0), new DuneLocation.ConstructionProperties
-                                                                             {
-                                                                                 CoastalAreaId = 0,
-                                                                                 Offset = 0,
-                                                                                 Orientation = 0,
-                                                                                 D50 = 0.000007
-                                                                             }),
-                                                            new DuneLocation(1300002, "B", new Point2D(0, 0), new DuneLocation.ConstructionProperties
-                                                                             {
-                                                                                 CoastalAreaId = 0,
-                                                                                 Offset = 0,
-                                                                                 Orientation = 0,
-                                                                                 D50 = 0.000007
-                                                                             })
-                                                        });
+            var failureMechanism = new DuneErosionFailureMechanism
+            {
+                Contribution = 10
+            };
+            failureMechanism.DuneLocations.AddRange(new[]
+                                                    {
+                                                        new DuneLocation(1300001, "A", new Point2D(0, 0), new DuneLocation.ConstructionProperties
+                                                                         {
+                                                                             CoastalAreaId = 0,
+                                                                             Offset = 0,
+                                                                             Orientation = 0,
+                                                                             D50 = 0.000007
+                                                                         }),
+                                                        new DuneLocation(1300002, "B", new Point2D(0, 0), new DuneLocation.ConstructionProperties
+                                                                         {
+                                                                             CoastalAreaId = 0,
+                                                                             Offset = 0,
+                                                                             Orientation = 0,
+                                                                             D50 = 0.000007
+                                                                         })
+                                                    });
 
-                var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-                {
-                    FilePath = validFilePath
-                };
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                FilePath = validFilePath
+            };
 
             var mocks = new MockRepository();
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
-                assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
-                assessmentSection.Stub(a => a.Id).Return("13-1");
-                assessmentSection.Stub(a => a.GetFailureMechanisms()).Return(new[]
-                                                                             {
-                                                                                 failureMechanism
-                                                                             });
-                assessmentSection.Stub(a => a.FailureMechanismContribution)
-                                 .Return(new FailureMechanismContribution(new[]
-                                                                          {
-                                                                              failureMechanism
-                                                                          }, 1, 1.0 / 200));
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
+            assessmentSection.Stub(a => a.Id).Return("13-1");
+            assessmentSection.Stub(a => a.GetFailureMechanisms()).Return(new[]
+                                                                         {
+                                                                             failureMechanism
+                                                                         });
+            assessmentSection.Stub(a => a.FailureMechanismContribution)
+                             .Return(new FailureMechanismContribution(new[]
+                                                                      {
+                                                                          failureMechanism
+                                                                      }, 1, 1.0/200));
 
-               mocks.ReplayAll();
-
+            mocks.ReplayAll();
 
             using (var viewParent = new Form())
             using (new HydraRingCalculatorFactoryConfig())
-                {
+            {
                 var guiService = new DuneLocationCalculationGuiService(viewParent);
 
                 // Call
-                    TestHelper.AssertLogMessages(() => guiService.Calculate(failureMechanism.DuneLocations,
-                                                                            failureMechanism,
-                                                                            assessmentSection),
-                                                 messages =>
-                                                 {
-                                                     var messageList = messages.ToList();
+                TestHelper.AssertLogMessages(() => guiService.Calculate(failureMechanism.DuneLocations,
+                                                                        failureMechanism,
+                                                                        assessmentSection),
+                                             messages =>
+                                             {
+                                                 var messageList = messages.ToList();
 
-                                                     // Assert
-                                                     Assert.AreEqual(10, messageList.Count);
-                                                     StringAssert.StartsWith("Berekening van 'A' gestart om: ", messageList[0]);
-                                                     Assert.AreEqual("Duinafslag berekening voor locatie 'A' is niet geconvergeerd.", messageList[1]);
-                                                     StringAssert.StartsWith("Duinafslag berekening is uitgevoerd op de tijdelijke locatie", messageList[2]);
-                                                     StringAssert.StartsWith("Berekening van 'A' beëindigd om: ", messageList[3]);
-                                                     StringAssert.StartsWith("Berekening van 'B' gestart om: ", messageList[4]);
-                                                     Assert.AreEqual("Duinafslag berekening voor locatie 'B' is niet geconvergeerd.", messageList[5]);
-                                                     StringAssert.StartsWith("Duinafslag berekening is uitgevoerd op de tijdelijke locatie", messageList[6]);
-                                                     StringAssert.StartsWith("Berekening van 'B' beëindigd om: ", messageList[7]);
-                                                     Assert.AreEqual("Uitvoeren van 'A' is gelukt.", messageList[8]);
-                                                     Assert.AreEqual("Uitvoeren van 'B' is gelukt.", messageList[9]);
-                                                 });
-                }
+                                                 // Assert
+                                                 Assert.AreEqual(10, messageList.Count);
+                                                 StringAssert.StartsWith("Berekening van 'A' gestart om: ", messageList[0]);
+                                                 Assert.AreEqual("Duinafslag berekening voor locatie 'A' is niet geconvergeerd.", messageList[1]);
+                                                 StringAssert.StartsWith("Duinafslag berekening is uitgevoerd op de tijdelijke locatie", messageList[2]);
+                                                 StringAssert.StartsWith("Berekening van 'A' beëindigd om: ", messageList[3]);
+                                                 StringAssert.StartsWith("Berekening van 'B' gestart om: ", messageList[4]);
+                                                 Assert.AreEqual("Duinafslag berekening voor locatie 'B' is niet geconvergeerd.", messageList[5]);
+                                                 StringAssert.StartsWith("Duinafslag berekening is uitgevoerd op de tijdelijke locatie", messageList[6]);
+                                                 StringAssert.StartsWith("Berekening van 'B' beëindigd om: ", messageList[7]);
+                                                 Assert.AreEqual("Uitvoeren van 'A' is gelukt.", messageList[8]);
+                                                 Assert.AreEqual("Uitvoeren van 'B' is gelukt.", messageList[9]);
+                                             });
             }
         }
+    }
 }
