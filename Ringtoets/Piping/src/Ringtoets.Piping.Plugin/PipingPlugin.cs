@@ -118,16 +118,16 @@ namespace Ringtoets.Piping.Plugin
             };
 
             yield return new ViewInfo<
-                    FailureMechanismSectionResultContext<PipingFailureMechanismSectionResult>,
-                    IEnumerable<PipingFailureMechanismSectionResult>,
-                    PipingFailureMechanismResultView>
-                {
-                    GetViewName = (view, results) => RingtoetsCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
-                    Image = RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
-                    CloseForData = CloseFailureMechanismResultViewForData,
-                    GetViewData = context => context.WrappedData,
-                    AfterCreate = (view, context) => view.FailureMechanism = context.FailureMechanism
-                };
+                FailureMechanismSectionResultContext<PipingFailureMechanismSectionResult>,
+                IEnumerable<PipingFailureMechanismSectionResult>,
+                PipingFailureMechanismResultView>
+            {
+                GetViewName = (view, results) => RingtoetsCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
+                Image = RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
+                CloseForData = CloseFailureMechanismResultViewForData,
+                GetViewData = context => context.WrappedData,
+                AfterCreate = (view, context) => view.FailureMechanism = context.FailureMechanism
+            };
 
             yield return new ViewInfo<PipingCalculationGroupContext, CalculationGroup, PipingCalculationsView>
             {

@@ -217,12 +217,12 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var failureMechanism = new PipingFailureMechanism();
             var importer = new StochasticSoilModelImporter(failureMechanism.StochasticSoilModels, validFilePath);
             importer.SetProgressChanged((description, step, steps) =>
-                                        {
-                                            if (description.Contains("Inlezen van de D-Soil Model database."))
-                                            {
-                                                importer.Cancel();
-                                            }
-                                        });
+            {
+                if (description.Contains("Inlezen van de D-Soil Model database."))
+                {
+                    importer.Cancel();
+                }
+            });
 
             // Precondition
             CollectionAssert.IsEmpty(failureMechanism.StochasticSoilModels);
@@ -247,12 +247,12 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var failureMechanism = new PipingFailureMechanism();
             var importer = new StochasticSoilModelImporter(failureMechanism.StochasticSoilModels, validFilePath);
             importer.SetProgressChanged((description, step, steps) =>
-                                        {
-                                            if (description.Contains("Inlezen van de stochastische ondergrondmodellen."))
-                                            {
-                                                importer.Cancel();
-                                            }
-                                        });
+            {
+                if (description.Contains("Inlezen van de stochastische ondergrondmodellen."))
+                {
+                    importer.Cancel();
+                }
+            });
 
             // Precondition
             CollectionAssert.IsEmpty(failureMechanism.StochasticSoilModels);
@@ -277,12 +277,12 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var failureMechanism = new PipingFailureMechanism();
             var importer = new StochasticSoilModelImporter(failureMechanism.StochasticSoilModels, validFilePath);
             importer.SetProgressChanged((description, step, steps) =>
-                                        {
-                                            if (description.Contains("Controleren van ondergrondschematisaties."))
-                                            {
-                                                importer.Cancel();
-                                            }
-                                        });
+            {
+                if (description.Contains("Controleren van ondergrondschematisaties."))
+                {
+                    importer.Cancel();
+                }
+            });
 
             // Precondition
             CollectionAssert.IsEmpty(failureMechanism.StochasticSoilModels);
@@ -307,12 +307,12 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var failureMechanism = new PipingFailureMechanism();
             var importer = new StochasticSoilModelImporter(failureMechanism.StochasticSoilModels, validFilePath);
             importer.SetProgressChanged((description, step, steps) =>
-                                        {
-                                            if (description.Contains("Geïmporteerde data toevoegen aan het toetsspoor."))
-                                            {
-                                                importer.Cancel();
-                                            }
-                                        });
+            {
+                if (description.Contains("Geïmporteerde data toevoegen aan het toetsspoor."))
+                {
+                    importer.Cancel();
+                }
+            });
 
             // Precondition
             CollectionAssert.IsEmpty(failureMechanism.StochasticSoilModels);

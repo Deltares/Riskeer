@@ -94,13 +94,13 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var stochasticSoilModelContextMock = new StochasticSoilModelCollectionContext(
+            var stochasticSoilModelCollectionContext = new StochasticSoilModelCollectionContext(
                 failureMechanism.StochasticSoilModels,
                 failureMechanism,
                 assessmentSection);
 
             // Call
-            var text = info.Text(stochasticSoilModelContextMock);
+            var text = info.Text(stochasticSoilModelCollectionContext);
 
             // Assert
             Assert.AreEqual(Resources.StochasticSoilModelCollection_DisplayName, text);
@@ -114,13 +114,13 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var stochasticSoilModelContextMock = new StochasticSoilModelCollectionContext(
-                failureMechanism.StochasticSoilModels, 
+            var stochasticSoilModelCollectionContext = new StochasticSoilModelCollectionContext(
+                failureMechanism.StochasticSoilModels,
                 failureMechanism,
                 assessmentSection);
-            
+
             // Call
-            var image = info.Image(stochasticSoilModelContextMock);
+            var image = info.Image(stochasticSoilModelCollectionContext);
 
             // Assert
             TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GeneralFolderIcon, image);
@@ -134,13 +134,13 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var stochasticSoilModelContextMock = new StochasticSoilModelCollectionContext(
+            var stochasticSoilModelCollectionContext = new StochasticSoilModelCollectionContext(
                 failureMechanism.StochasticSoilModels,
                 failureMechanism,
                 assessmentSection);
 
             // Call
-            var foreColor = info.ForeColor(stochasticSoilModelContextMock);
+            var foreColor = info.ForeColor(stochasticSoilModelCollectionContext);
 
             // Assert
             Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), foreColor);
@@ -155,13 +155,13 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             failureMechanism.StochasticSoilModels.Add(new StochasticSoilModel(0, "Name", "Name"));
             mocks.ReplayAll();
 
-            var stochasticSoilModelContextMock = new StochasticSoilModelCollectionContext(
+            var stochasticSoilModelCollectionContext = new StochasticSoilModelCollectionContext(
                 failureMechanism.StochasticSoilModels,
                 failureMechanism,
                 assessmentSection);
 
             // Call
-            var foreColor = info.ForeColor(stochasticSoilModelContextMock);
+            var foreColor = info.ForeColor(stochasticSoilModelCollectionContext);
 
             // Assert
             Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), foreColor);
@@ -194,7 +194,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
 
             var failureMechanism = mocks.Stub<PipingFailureMechanism>();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var stochasticSoilModelContextMock = new StochasticSoilModelCollectionContext(
+            var stochasticSoilModelCollectionContext = new StochasticSoilModelCollectionContext(
                 failureMechanism.StochasticSoilModels,
                 failureMechanism,
                 assessmentSection);
@@ -203,7 +203,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             // Call
-            var objects = info.ChildNodeObjects(stochasticSoilModelContextMock);
+            var objects = info.ChildNodeObjects(stochasticSoilModelCollectionContext);
 
             // Assert
             CollectionAssert.AreEqual(new[]

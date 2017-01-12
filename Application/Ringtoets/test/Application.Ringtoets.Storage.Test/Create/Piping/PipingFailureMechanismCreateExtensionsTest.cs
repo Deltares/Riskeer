@@ -141,9 +141,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void Create_WithStochasticSoilModels_ReturnsFailureMechanismEntityWithStochasticSoilModelEntities(bool isRelevant)
+        public void Create_WithStochasticSoilModels_ReturnsFailureMechanismEntityWithStochasticSoilModelEntities()
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
@@ -166,9 +164,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void Create_WithSections_ReturnsWithFailureMechanismSectionEntitiesAndPipingResultEntities(bool isRelevant)
+        public void Create_WithSections_ReturnsWithFailureMechanismSectionEntitiesAndPipingResultEntities()
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
@@ -186,9 +182,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void Create_WithSurfaceLines_ReturnFailureMechanismEntityWithSurfaceLineEntities(bool isRelevant)
+        public void Create_WithSurfaceLines_ReturnFailureMechanismEntityWithSurfaceLineEntities()
         {
             // Setup
             var random = new Random();
