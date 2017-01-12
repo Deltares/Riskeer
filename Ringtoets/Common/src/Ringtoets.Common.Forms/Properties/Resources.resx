@@ -622,7 +622,7 @@
   <data name="HydraulicBoundaryLocationsView_ButtonGroupBox_Text" xml:space="preserve">
     <value>Berekenen</value>
   </data>
-  <data name="HydraulicBoundaryLocationsView_Calculate" xml:space="preserve">
+  <data name="CalculatableView_Calculate" xml:space="preserve">
     <value>Berekenen</value>
   </data>
   <data name="HydraulicBoundaryLocationsView_CalculateForSelectedButton_Text" xml:space="preserve">

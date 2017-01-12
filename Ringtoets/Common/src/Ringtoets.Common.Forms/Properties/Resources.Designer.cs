@@ -200,6 +200,15 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Berekenen.
+        /// </summary>
+        public static string CalculatableView_Calculate {
+            get {
+                return ResourceManager.GetString("CalculatableView_Calculate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Be&amp;rekenen.
         /// </summary>
         public static string Calculate {
@@ -1335,15 +1344,6 @@ namespace Ringtoets.Common.Forms.Properties {
         public static string HydraulicBoundaryLocationsView_ButtonGroupBox_Text {
             get {
                 return ResourceManager.GetString("HydraulicBoundaryLocationsView_ButtonGroupBox_Text", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Berekenen.
-        /// </summary>
-        public static string HydraulicBoundaryLocationsView_Calculate {
-            get {
-                return ResourceManager.GetString("HydraulicBoundaryLocationsView_Calculate", resourceCulture);
             }
         }
         
