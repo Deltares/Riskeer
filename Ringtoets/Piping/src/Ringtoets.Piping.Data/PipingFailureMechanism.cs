@@ -62,25 +62,25 @@ namespace Ringtoets.Piping.Data
         /// <summary>
         /// Gets the available <see cref="RingtoetsPipingSurfaceLine"/> within the scope of the piping failure mechanism.
         /// </summary>
-        public ObservableList<RingtoetsPipingSurfaceLine> SurfaceLines { get; private set; }
+        public ObservableList<RingtoetsPipingSurfaceLine> SurfaceLines { get; }
 
         /// <summary>
         /// Gets the available stochastic soil models within the scope of the piping failure mechanism.
         /// </summary>
-        public StochasticSoilModelCollection StochasticSoilModels { get; private set; }
+        public StochasticSoilModelCollection StochasticSoilModels { get; }
 
         /// <summary>
         /// Gets the general piping calculation input parameters that apply to each piping calculation.
         /// </summary>
-        public GeneralPipingInput GeneralInput { get; private set; }
+        public GeneralPipingInput GeneralInput { get; }
 
         /// <summary>
         /// Gets the general probabilistic assessment input parameters that apply to each calculation 
         /// in a semi-probabilistic assessment.
         /// </summary>
-        public PipingProbabilityAssessmentInput PipingProbabilityAssessmentInput { get; private set; }
+        public PipingProbabilityAssessmentInput PipingProbabilityAssessmentInput { get; }
 
-        public CalculationGroup CalculationsGroup { get; private set; }
+        public CalculationGroup CalculationsGroup { get; }
 
         public IEnumerable<PipingFailureMechanismSectionResult> SectionResults
         {

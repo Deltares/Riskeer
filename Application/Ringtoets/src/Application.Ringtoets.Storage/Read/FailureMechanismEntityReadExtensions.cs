@@ -98,6 +98,7 @@ namespace Application.Ringtoets.Storage.Read
         /// <item><paramref name="failureMechanism"/> is <c>null</c></item>
         /// <item><paramref name="collector"/> is <c>null</c></item>
         /// </list></exception>
+        /// <exception cref="InvalidOperationException">Thrown when expected table entries cannot be found.</exception>
         internal static void ReadAsPipingFailureMechanism(this FailureMechanismEntity entity,
                                                           PipingFailureMechanism failureMechanism,
                                                           ReadConversionCollector collector)

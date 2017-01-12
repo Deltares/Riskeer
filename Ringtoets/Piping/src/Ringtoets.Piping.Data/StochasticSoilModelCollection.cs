@@ -29,7 +29,7 @@ namespace Ringtoets.Piping.Data
     public class StochasticSoilModelCollection : ObservableList<StochasticSoilModel>
     {
         /// <summary>
-        /// Gets the last known file path from which the <see cref="StochasticSoilModel"/>
+        /// Gets or sets the last known file path from which the <see cref="StochasticSoilModel"/>
         /// elements were imported.
         /// </summary>
         public string SourcePath { get; set; }

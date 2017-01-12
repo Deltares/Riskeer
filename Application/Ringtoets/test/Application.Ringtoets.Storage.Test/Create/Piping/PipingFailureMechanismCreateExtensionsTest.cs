@@ -206,9 +206,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void Create_WithCalculationGroup_ReturnFailureMechanismEntityWithCalculationGroupEntities(bool isRelevant)
+        public void Create_WithCalculationGroup_ReturnFailureMechanismEntityWithCalculationGroupEntities()
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();

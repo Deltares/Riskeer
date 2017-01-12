@@ -407,42 +407,42 @@ namespace Demo.Ringtoets.Commands
         private static HeightStructure CreateDemoHeightStructure()
         {
             return new HeightStructure(new HeightStructure.ConstructionProperties
-            {
-                Id = "KUNST1", Name = "KUNST1",
-                Location = new Point2D(12345.56789, 9876.54321),
-                StructureNormalOrientation = 10.0,
-                LevelCrestStructure =
-                {
-                    Mean = (RoundedDouble) 4.95,
-                    StandardDeviation = (RoundedDouble) 0.05
-                },
-                FlowWidthAtBottomProtection =
-                {
-                    Mean = (RoundedDouble) 25.0,
-                    StandardDeviation = (RoundedDouble) 0.05
-                },
-                CriticalOvertoppingDischarge =
-                {
-                    Mean = (RoundedDouble) 0.1,
-                    CoefficientOfVariation = (RoundedDouble) 0.15
-                },
-                WidthFlowApertures =
-                {
-                    Mean = (RoundedDouble) 21.0,
-                    CoefficientOfVariation = (RoundedDouble) 0.05
-                },
-                FailureProbabilityStructureWithErosion = 1.0,
-                StorageStructureArea =
-                {
-                    Mean = (RoundedDouble) 20000.0,
-                    CoefficientOfVariation = (RoundedDouble) 0.1
-                },
-                AllowedLevelIncreaseStorage =
-                {
-                    Mean = (RoundedDouble) 0.2,
-                    StandardDeviation = (RoundedDouble) 0.1
-                }
-            });
+                                       {
+                                           Id = "KUNST1", Name = "KUNST1",
+                                           Location = new Point2D(12345.56789, 9876.54321),
+                                           StructureNormalOrientation = 10.0,
+                                           LevelCrestStructure =
+                                           {
+                                               Mean = (RoundedDouble) 4.95,
+                                               StandardDeviation = (RoundedDouble) 0.05
+                                           },
+                                           FlowWidthAtBottomProtection =
+                                           {
+                                               Mean = (RoundedDouble) 25.0,
+                                               StandardDeviation = (RoundedDouble) 0.05
+                                           },
+                                           CriticalOvertoppingDischarge =
+                                           {
+                                               Mean = (RoundedDouble) 0.1,
+                                               CoefficientOfVariation = (RoundedDouble) 0.15
+                                           },
+                                           WidthFlowApertures =
+                                           {
+                                               Mean = (RoundedDouble) 21.0,
+                                               CoefficientOfVariation = (RoundedDouble) 0.05
+                                           },
+                                           FailureProbabilityStructureWithErosion = 1.0,
+                                           StorageStructureArea =
+                                           {
+                                               Mean = (RoundedDouble) 20000.0,
+                                               CoefficientOfVariation = (RoundedDouble) 0.1
+                                           },
+                                           AllowedLevelIncreaseStorage =
+                                           {
+                                               Mean = (RoundedDouble) 0.2,
+                                               StandardDeviation = (RoundedDouble) 0.1
+                                           }
+                                       });
         }
 
         #endregion
@@ -546,8 +546,8 @@ namespace Demo.Ringtoets.Commands
             using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(GetType().Assembly, true, "DR6.soil"))
             {
                 var soilProfilesImporter = new StochasticSoilModelImporter(pipingFailureMechanism.StochasticSoilModels,
-                                                                          Path.Combine(embeddedResourceFileWriter.TargetFolderPath,
-                                                                                       "DR6.soil"));
+                                                                           Path.Combine(embeddedResourceFileWriter.TargetFolderPath,
+                                                                                        "DR6.soil"));
                 soilProfilesImporter.Import();
             }
 

@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base;
 using Core.Common.Controls.PresentationObjects;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Piping.Data;
@@ -40,8 +39,8 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
         /// <param name="assessmentSection">The assessment section.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
         public StochasticSoilModelCollectionContext(StochasticSoilModelCollection wrappedStochasticSoilModels,
-                                           PipingFailureMechanism failureMechanism,
-                                           IAssessmentSection assessmentSection)
+                                                    PipingFailureMechanism failureMechanism,
+                                                    IAssessmentSection assessmentSection)
             : base(wrappedStochasticSoilModels)
         {
             if (failureMechanism == null)

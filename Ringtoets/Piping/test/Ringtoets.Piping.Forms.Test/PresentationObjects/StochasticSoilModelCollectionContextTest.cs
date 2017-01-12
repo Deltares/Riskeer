@@ -37,19 +37,19 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var failureMechanism = new PipingFailureMechanism();
 
             // Call
-            var context = new StochasticSoilModelCollectionContext(failureMechanism.StochasticSoilModels, failureMechanism, assessmentSectionMock);
+            var context = new StochasticSoilModelCollectionContext(failureMechanism.StochasticSoilModels, failureMechanism, assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<ObservableWrappedObjectContextBase<StochasticSoilModelCollection>>(context);
             Assert.AreSame(failureMechanism.StochasticSoilModels, context.WrappedData);
             Assert.AreSame(failureMechanism, context.FailureMechanism);
-            Assert.AreSame(assessmentSectionMock, context.AssessmentSection);
+            Assert.AreSame(assessmentSection, context.AssessmentSection);
             mocks.VerifyAll();
         }
 
@@ -58,13 +58,13 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var stochasticSoilModels = new StochasticSoilModelCollection();
 
             // Call
-            TestDelegate test = () => new StochasticSoilModelCollectionContext(stochasticSoilModels, null, assessmentSectionMock);
+            TestDelegate test = () => new StochasticSoilModelCollectionContext(stochasticSoilModels, null, assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);

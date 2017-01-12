@@ -38,12 +38,9 @@ namespace Application.Ringtoets.Storage.Read.Piping
         /// <param name="entity">The <see cref="PipingFailureMechanismMetaEntity"/> to obtain value for A from.</param>
         /// <param name="input">The <see cref="PipingProbabilityAssessmentInput"/> to set the 
         /// <see cref="PipingProbabilityAssessmentInput.A"/> for.</param>
-        internal static PipingProbabilityAssessmentInput ReadProbabilityAssessmentInput(
-            this PipingFailureMechanismMetaEntity entity,
-            PipingProbabilityAssessmentInput input)
+        internal static void ReadProbabilityAssessmentInput(this PipingFailureMechanismMetaEntity entity, PipingProbabilityAssessmentInput input)
         {
             input.A = entity.A;
-            return input;
         }
 
         /// <summary>
@@ -54,12 +51,9 @@ namespace Application.Ringtoets.Storage.Read.Piping
         /// WaterVolumetricWeight from.</param>
         /// <param name="input">The <see cref="GeneralPipingInput"/> to set the 
         /// <see cref="GeneralPipingInput.WaterVolumetricWeight"/> for.</param>
-        internal static GeneralPipingInput ReadGeneralPipingInput(
-            this PipingFailureMechanismMetaEntity entity,
-            GeneralPipingInput input)
+        internal static void ReadGeneralPipingInput(this PipingFailureMechanismMetaEntity entity, GeneralPipingInput input)
         {
             input.WaterVolumetricWeight = (RoundedDouble) entity.WaterVolumetricWeight;
-            return input;
         }
 
         /// <summary>

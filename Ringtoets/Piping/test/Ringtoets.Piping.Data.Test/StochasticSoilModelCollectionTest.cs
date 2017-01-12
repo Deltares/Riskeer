@@ -27,7 +27,6 @@ namespace Ringtoets.Piping.Data.Test
     [TestFixture]
     public class StochasticSoilModelCollectionTest
     {
-
         [Test]
         public void DefaultConstructor_ReturnObservableStochasticSoilModelCollection()
         {

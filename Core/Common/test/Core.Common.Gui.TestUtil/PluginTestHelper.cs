@@ -41,7 +41,7 @@ namespace Core.Common.Gui.TestUtil
         /// <param name="propertyObjectType">The type of the object which shows the data object properties.</param>
         /// <returns>The found property info.</returns>
         /// <exception cref="AssertionException">Thrown when the <paramref name="propertyInfos"/> is <c>null</c>
-        /// or does not contain a defintion for the combination of <paramref name="dataObjectType"/> and 
+        /// or does not contain a definition for the combination of <paramref name="dataObjectType"/> and 
         /// <paramref name="propertyObjectType"/>.</exception>
         public static PropertyInfo AssertPropertyInfoDefined(IEnumerable<PropertyInfo> propertyInfos, Type dataObjectType, Type propertyObjectType)
         {
