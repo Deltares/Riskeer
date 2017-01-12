@@ -131,14 +131,9 @@
       <Name>Ringtoets.DuneErosion.Forms</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\DuneErosion\src\Ringtoets.DuneErosion.IO\Ringtoets.DuneErosion.IO.csproj">
-      <Project>{EDDC30E9-D793-478A-AD37-9F257CE23A22}</Project>
-      <Name>Ringtoets.DuneErosion.IO</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\DuneErosion\src\Ringtoets.DuneErosion.Service\Ringtoets.DuneErosion.Service.csproj">
-      <Project>{FDEE3429-0BB1-4AD2-813A-06FAD425EA6F}</Project>
-      <Name>Ringtoets.DuneErosion.Service</Name>
+    <ProjectReference Include="..\..\..\DuneErosion\src\Ringtoets.DuneErosion.Plugin\Ringtoets.DuneErosion.Plugin.csproj">
+      <Project>{83885FB9-A87B-4D43-AF27-43EA44A84E42}</Project>
+      <Name>Ringtoets.DuneErosion.Plugin</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\StabilityPointStructures\src\Ringtoets.StabilityPointStructures.Data\Ringtoets.StabilityPointStructures.Data.csproj">

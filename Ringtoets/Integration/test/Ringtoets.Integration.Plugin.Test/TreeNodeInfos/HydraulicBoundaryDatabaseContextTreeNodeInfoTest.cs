@@ -27,6 +27,7 @@ using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
+using Core.Common.Gui.Commands;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.TestUtil.ContextMenu;
 using Core.Common.TestUtil;
@@ -283,7 +284,9 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             using (TreeViewControl treeViewControl = new TreeViewControl())
             using (RingtoetsPlugin plugin = new RingtoetsPlugin())
             {
+                var viewCommands = mocks.Stub<IViewCommands>();
                 IGui gui = mocks.DynamicMock<IGui>();
+                gui.Stub(g => g.ViewCommands).Return(viewCommands);
                 gui.Expect(cmp => cmp.Get(hydraulicBoundaryDatabaseContext, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
                 mocks.ReplayAll();
 

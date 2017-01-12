@@ -58,8 +58,7 @@ using Ringtoets.Common.IO.Hydraulics;
 using Ringtoets.Common.IO.ReferenceLines;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Forms.PresentationObjects;
-using Ringtoets.DuneErosion.IO;
-using Ringtoets.DuneErosion.Service;
+using Ringtoets.DuneErosion.Plugin.Handlers;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionOutwards.Data;
@@ -318,14 +317,7 @@ namespace Ringtoets.Integration.Plugin
             yield return new ViewInfo<DesignWaterLevelLocationsContext, IEnumerable<HydraulicBoundaryLocation>, DesignWaterLevelLocationsView>
             {
                 GetViewName = (view, context) => RingtoetsFormsResources.DesignWaterLevelLocationsContext_DisplayName,
-                GetViewData = context =>
-                {
-                    if (context.WrappedData.HydraulicBoundaryDatabase == null)
-                    {
-                        return null;
-                    }
-                    return context.WrappedData.HydraulicBoundaryDatabase.Locations;
-                },
+                GetViewData = context => context.WrappedData.HydraulicBoundaryDatabase?.Locations,
                 Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
                 CloseForData = CloseDesignWaterLevelLocationsViewForData,
                 AfterCreate = (view, context) =>
@@ -338,14 +330,7 @@ namespace Ringtoets.Integration.Plugin
             yield return new ViewInfo<WaveHeightLocationsContext, IEnumerable<HydraulicBoundaryLocation>, WaveHeightLocationsView>
             {
                 GetViewName = (view, context) => RingtoetsFormsResources.WaveHeightLocationsContext_DisplayName,
-                GetViewData = context =>
-                {
-                    if (context.WrappedData.HydraulicBoundaryDatabase == null)
-                    {
-                        return null;
-                    }
-                    return context.WrappedData.HydraulicBoundaryDatabase.Locations;
-                },
+                GetViewData = context => context.WrappedData.HydraulicBoundaryDatabase?.Locations,
                 Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
                 CloseForData = CloseWaveHeightLocationsViewForData,
                 AfterCreate = (view, context) =>
@@ -998,13 +983,10 @@ namespace Ringtoets.Integration.Plugin
             }
 
             var calculationContext = o as ICalculationContext<ICalculationBase, IFailureMechanism>;
-            if (calculationContext != null)
+            var calculation = calculationContext?.WrappedData as ICalculation;
+            if (calculation != null)
             {
-                var calculation = calculationContext.WrappedData as ICalculation;
-                if (calculation != null)
-                {
-                    return ReferenceEquals(commentView.Data, calculation.Comments);
-                }
+                return ReferenceEquals(commentView.Data, calculation.Comments);
             }
 
             var failureMechanism = o as IFailureMechanism;
@@ -1291,7 +1273,7 @@ namespace Ringtoets.Integration.Plugin
                 case TreeFolderCategory.Output:
                     return RingtoetsCommonFormsResources.OutputFolderIcon;
                 default:
-                    throw new InvalidEnumArgumentException("category",
+                    throw new InvalidEnumArgumentException(nameof(category),
                                                            (int) category,
                                                            typeof(TreeFolderCategory));
             }
@@ -1450,7 +1432,7 @@ namespace Ringtoets.Integration.Plugin
         /// <see cref="HydraulicBoundaryDatabase"/> will be assigned.</param>
         /// <exception cref="CriticalFileReadException">Thrown when importing from the <paramref name="databaseFile"/>
         /// failed.</exception>
-        private static void ImportHydraulicBoundaryDatabase(string databaseFile, AssessmentSection assessmentSection)
+        private void ImportHydraulicBoundaryDatabase(string databaseFile, AssessmentSection assessmentSection)
         {
             var hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
 
@@ -1475,19 +1457,16 @@ namespace Ringtoets.Integration.Plugin
 
                     if (!ReferenceEquals(previousHydraulicBoundaryDatabase, assessmentSection.HydraulicBoundaryDatabase))
                     {
-                        HydraulicBoundaryLocation[] hydraulicBoundaryLocations = assessmentSection.HydraulicBoundaryDatabase != null
-                                                                                     ? assessmentSection.HydraulicBoundaryDatabase.Locations.ToArray()
-                                                                                     : new HydraulicBoundaryLocation[0];
+                        HydraulicBoundaryLocation[] hydraulicBoundaryLocations = assessmentSection.HydraulicBoundaryDatabase?.Locations.ToArray()
+                                                                                 ?? new HydraulicBoundaryLocation[0];
 
                         assessmentSection.GrassCoverErosionOutwards.SetGrassCoverErosionOutwardsHydraulicBoundaryLocations(hydraulicBoundaryLocations);
                         assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations.NotifyObservers();
 
-                        var duneLocationsReader = new DuneLocationsReader();
-                        IEnumerable<ReadDuneLocation> duneLocations = duneLocationsReader.ReadDuneLocations();
+                        var duneLocationsReplacementHandler = new DuneLocationsReplacementHandler(Gui.ViewCommands, assessmentSection.DuneErosion);
+                        duneLocationsReplacementHandler.Replace(hydraulicBoundaryLocations);
+                        duneLocationsReplacementHandler.DoPostReplacementUpdates();
 
-                        DuneErosionDataSynchronizationService.SetDuneLocations(assessmentSection.DuneErosion,
-                                                                               hydraulicBoundaryLocations,
-                                                                               duneLocations.ToArray());
                         assessmentSection.DuneErosion.DuneLocations.NotifyObservers();
                     }
                     log.InfoFormat(RingtoetsFormsResources.RingtoetsPlugin_SetBoundaryDatabaseFilePath_Database_on_path_0_linked,

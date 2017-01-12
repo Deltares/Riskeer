@@ -51,7 +51,7 @@ namespace Ringtoets.Integration.Plugin.Handlers
         {
             if (viewCommands == null)
             {
-                throw new ArgumentNullException("viewCommands");
+                throw new ArgumentNullException(nameof(viewCommands));
             }
             this.viewCommands = viewCommands;
         }
@@ -69,9 +69,9 @@ namespace Ringtoets.Integration.Plugin.Handlers
             removedObjects.Clear();
 
             ClearResults results = RingtoetsDataSynchronizationService.ClearReferenceLine(section);
-            foreach (object deletedObject in results.RemovedObjects)
+            foreach (object removedObject in results.RemovedObjects)
             {
-                removedObjects.Enqueue(deletedObject);
+                removedObjects.Enqueue(removedObject);
             }
             
             section.ReferenceLine = newReferenceLine;
