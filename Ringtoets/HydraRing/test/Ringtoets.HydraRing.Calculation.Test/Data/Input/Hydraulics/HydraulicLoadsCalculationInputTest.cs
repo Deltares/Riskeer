@@ -41,8 +41,8 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Hydraulics
             // Setup
             const double norm = 1.0/10000;
             const int hydraulicBoundaryLocationId = 1000;
-            HydraRingSection section = new HydraRingSection(1, double.NaN, double.NaN);
 
+            const double sectionNormal = 19.9;
             const double modelFactorCriticalOvertopping = 1.1;
             const double factorFbMean = 2.2;
             const double factorFbStandardDeviation = 3.3;
@@ -73,7 +73,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Hydraulics
             var expectedRingBreakWater = new HydraRingBreakWater(2, 3.3);
 
             // Call
-            var input = new HydraulicLoadsCalculationInputImplementation(hydraulicBoundaryLocationId, norm, section,
+            var input = new HydraulicLoadsCalculationInputImplementation(hydraulicBoundaryLocationId, norm, sectionNormal,
                                                                          expectedRingProfilePoints, expectedRingForelandPoints, expectedRingBreakWater,
                                                                          modelFactorCriticalOvertopping,
                                                                          factorFbMean, factorFbStandardDeviation,
@@ -98,7 +98,11 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Hydraulics
             CollectionAssert.AreEqual(expectedRingForelandPoints, input.ForelandsPoints);
             Assert.AreEqual(expectedRingBreakWater, input.BreakWater);
             Assert.AreEqual(expectedBeta, input.Beta);
-            Assert.AreSame(section, input.Section);
+
+            HydraRingSection hydraRingSection = input.Section;
+            Assert.AreEqual(1, hydraRingSection.SectionId);
+            Assert.IsNaN(hydraRingSection.SectionLength);
+            Assert.AreEqual(sectionNormal, hydraRingSection.CrossSectionNormal);
         }
 
         [Test]
@@ -108,11 +112,8 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Hydraulics
         [TestCase(104, null)]
         public void GetSubMechanismModelId_Always_ReturnsExpectedValues(int subMechanismModelId, int? expectedSubMechanismModelId)
         {
-            // Setup 
-            HydraRingSection section = new HydraRingSection(1, double.NaN, double.NaN);
-
             // Call
-            var input = new HydraulicLoadsCalculationInputImplementation(1, 1.0/1000, section,
+            var input = new HydraulicLoadsCalculationInputImplementation(1, 1.0/1000, double.NaN,
                                                                          new List<HydraRingRoughnessProfilePoint>(),
                                                                          new List<HydraRingForelandPoint>(),
                                                                          new HydraRingBreakWater(0, 1.1),
@@ -136,7 +137,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Hydraulics
         private class HydraulicLoadsCalculationInputImplementation : HydraulicLoadsCalculationInput
         {
             public HydraulicLoadsCalculationInputImplementation(long hydraulicBoundaryLocationId, double norm,
-                                                                HydraRingSection section,
+                                                                double sectionNormal,
                                                                 IEnumerable<HydraRingRoughnessProfilePoint> profilePoints,
                                                                 IEnumerable<HydraRingForelandPoint> forelandPoints,
                                                                 HydraRingBreakWater breakWater,
@@ -151,7 +152,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Hydraulics
                                                                 double exponentModelFactorShallowMean, double exponentModelFactorShallowStandardDeviation,
                                                                 double exponentModelFactorShallowLowerBoundary, double exponentModelFactorShallowUpperBoundary)
                 : base(hydraulicBoundaryLocationId, norm,
-                       section,
+                       sectionNormal,
                        profilePoints,
                        forelandPoints,
                        breakWater,
@@ -166,13 +167,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Hydraulics
                        exponentModelFactorShallowMean, exponentModelFactorShallowStandardDeviation,
                        exponentModelFactorShallowLowerBoundary, exponentModelFactorShallowUpperBoundary) {}
 
-            public override int VariableId
-            {
-                get
-                {
-                    return -1;
-                }
-            }
+            public override int VariableId { get; } = -1;
         }
     }
 }

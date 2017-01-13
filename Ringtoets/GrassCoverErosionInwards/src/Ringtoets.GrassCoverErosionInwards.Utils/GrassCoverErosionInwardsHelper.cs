@@ -55,30 +55,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils
         }
 
         /// <summary>
-        /// Obtains the <see cref="FailureMechanismSection"/> which intersects with the <see cref="GrassCoverErosionInwardsInput.DikeProfile"/> defined on
-        /// <paramref name="calculation"/>.
-        /// </summary>
-        /// <param name="sections">The <see cref="IEnumerable{T}"/> of <see cref="FailureMechanismSection"/> to iterate over when trying to find a match
-        /// with the location of <paramref name="calculation"/>.</param>
-        /// <param name="calculation">The <see cref="GrassCoverErosionInwardsCalculation"/> which's location is used to match to the location of the
-        /// <see cref="FailureMechanismSection"/>.</param>
-        /// <returns>Returns the closest <see cref="FailureMechanismSection"/> to <paramref name="calculation"/> or <c>null</c> if the 
-        /// <paramref name="calculation"/> has no location.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="sections"/> is <c>null</c></exception>
-        /// <exception cref="ArgumentException">Thrown when an element in <paramref name="sections"/> is <c>null</c>.
-        /// </exception>
-        public static FailureMechanismSection FailureMechanismSectionForCalculation(IEnumerable<FailureMechanismSection> sections,
-                                                                                    GrassCoverErosionInwardsCalculation calculation)
-        {
-            CalculationWithLocation calculationWithLocation = AsCalculationWithLocation(calculation);
-            if (calculationWithLocation != null)
-            {
-                return AssignUnassignCalculations.FailureMechanismSectionForCalculation(sections, calculationWithLocation);
-            }
-            return null;
-        }
-
-        /// <summary>
         /// Updates the <see cref="GrassCoverErosionInwardsFailureMechanismSectionResult.Calculation"/> for each element of <see cref="sectionResults"/> that have the
         /// <paramref name="calculation"/> assigned, or should have the <paramref name="calculation"/> assigned.
         /// </summary>

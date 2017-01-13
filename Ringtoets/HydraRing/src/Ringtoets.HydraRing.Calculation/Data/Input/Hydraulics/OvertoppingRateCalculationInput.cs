@@ -38,7 +38,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics
         /// </summary>
         /// <param name="hydraulicBoundaryLocationId">The id of the hydraulic boundary location.</param>
         /// <param name="norm">The norm.</param>
-        /// <param name="section">The section.</param>
+        /// <param name="sectionNormal">The normal of the section.</param>
         /// <param name="profilePoints">The profile points.</param>
         /// <param name="forelandPoints">The foreland points.</param>
         /// <param name="breakWater">The break water.</param>
@@ -62,7 +62,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics
         /// <param name="exponentModelFactorShallowLowerBoundary">The lower boundary of the exponent model factor shallow.</param>
         /// <param name="exponentModelFactorShallowUpperBoundary">The upper boundary of the exponent model factor shallow.</param>
         public OvertoppingRateCalculationInput(long hydraulicBoundaryLocationId, double norm,
-                                               HydraRingSection section,
+                                               double sectionNormal,
                                                IEnumerable<HydraRingRoughnessProfilePoint> profilePoints,
                                                IEnumerable<HydraRingForelandPoint> forelandPoints,
                                                HydraRingBreakWater breakWater,
@@ -78,7 +78,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics
                                                double exponentModelFactorShallowMean, double exponentModelFactorShallowStandardDeviation,
                                                double exponentModelFactorShallowLowerBoundary, double exponentModelFactorShallowUpperBoundary)
             : base(hydraulicBoundaryLocationId, norm,
-                   section,
+                   sectionNormal,
                    profilePoints,
                    forelandPoints,
                    breakWater,
@@ -96,13 +96,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics
             this.dikeHeight = dikeHeight;
         }
 
-        public override int VariableId
-        {
-            get
-            {
-                return 17;
-            }
-        }
+        public override int VariableId { get; } = 17;
 
         public override IEnumerable<HydraRingVariable> Variables
         {

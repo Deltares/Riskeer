@@ -59,7 +59,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Overtopping
         /// Creates a new instance of the <see cref="OvertoppingCalculationInput"/> class.
         /// </summary>
         /// <param name="hydraulicBoundaryLocationId">The id of the hydraulic boundary location.</param>
-        /// <param name="section">The section.</param>
+        /// <param name="sectionNormal">The normal of the section.</param>
         /// <param name="profilePoints">The profile points.</param>
         /// <param name="forelandPoints">The foreland points.</param>
         /// <param name="breakWater">The break water.</param>
@@ -84,7 +84,8 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Overtopping
         /// <param name="exponentModelFactorShallowStandardDeviation">The standard deviation of the exponent model factor shallow.</param>
         /// <param name="exponentModelFactorShallowLowerBoundary">The lower boundary of the exponent model factor shallow.</param>
         /// <param name="exponentModelFactorShallowUpperBoundary">The upper boundary of the exponent model factor shallow.</param>
-        public OvertoppingCalculationInput(long hydraulicBoundaryLocationId, HydraRingSection section,
+        public OvertoppingCalculationInput(long hydraulicBoundaryLocationId,
+                                           double sectionNormal,
                                            IEnumerable<HydraRingRoughnessProfilePoint> profilePoints,
                                            IEnumerable<HydraRingForelandPoint> forelandPoints,
                                            HydraRingBreakWater breakWater,
@@ -102,7 +103,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Overtopping
                                            double exponentModelFactorShallowLowerBoundary, double exponentModelFactorShallowUpperBoundary)
             : base(hydraulicBoundaryLocationId)
         {
-            this.section = section;
+            section = new HydraRingSection(1, double.NaN, sectionNormal);
             this.profilePoints = profilePoints;
             this.forelandPoints = forelandPoints;
             this.breakWater = breakWater;
@@ -129,21 +130,9 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Overtopping
             this.exponentModelFactorShallowUpperBoundary = exponentModelFactorShallowUpperBoundary;
         }
 
-        public override HydraRingFailureMechanismType FailureMechanismType
-        {
-            get
-            {
-                return HydraRingFailureMechanismType.DikesOvertopping;
-            }
-        }
+        public override HydraRingFailureMechanismType FailureMechanismType { get; } = HydraRingFailureMechanismType.DikesOvertopping;
 
-        public override int VariableId
-        {
-            get
-            {
-                return 1;
-            }
-        }
+        public override int VariableId { get; } = 1;
 
         public override HydraRingSection Section
         {

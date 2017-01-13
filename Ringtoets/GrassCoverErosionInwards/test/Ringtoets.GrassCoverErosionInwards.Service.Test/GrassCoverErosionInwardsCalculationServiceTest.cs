@@ -29,7 +29,6 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.TestUtil;
@@ -78,9 +77,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             {
                 var msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", name), msgs[0]);
+                StringAssert.StartsWith($"Validatie van '{name}' gestart om: ", msgs[0]);
                 StringAssert.StartsWith("Validatie mislukt: Er is geen hydraulische randvoorwaardenlocatie geselecteerd.", msgs[1]);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs[2]);
+                StringAssert.StartsWith($"Validatie van '{name}' beëindigd om: ", msgs[2]);
             });
             Assert.IsFalse(isValid);
 
@@ -122,9 +121,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             {
                 var msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", name), msgs[0]);
+                StringAssert.StartsWith($"Validatie van '{name}' gestart om: ", msgs[0]);
                 StringAssert.StartsWith("Validatie mislukt: Fout bij het lezen van bestand", msgs[1]);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs[2]);
+                StringAssert.StartsWith($"Validatie van '{name}' beëindigd om: ", msgs[2]);
             });
             Assert.IsFalse(isValid);
 
@@ -166,9 +165,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             {
                 var msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", name), msgs[0]);
+                StringAssert.StartsWith($"Validatie van '{name}' gestart om: ", msgs[0]);
                 StringAssert.StartsWith("Validatie mislukt: Fout bij het lezen van bestand", msgs[1]);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs[2]);
+                StringAssert.StartsWith($"Validatie van '{name}' beëindigd om: ", msgs[2]);
             });
             Assert.IsFalse(isValid);
 
@@ -208,9 +207,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             {
                 var msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", name), msgs[0]);
+                StringAssert.StartsWith($"Validatie van '{name}' gestart om: ", msgs[0]);
                 StringAssert.StartsWith("Validatie mislukt: Er is geen dijkprofiel geselecteerd.", msgs[1]);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs[2]);
+                StringAssert.StartsWith($"Validatie van '{name}' beëindigd om: ", msgs[2]);
             });
             Assert.IsFalse(isValid);
 
@@ -246,9 +245,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             {
                 var msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", name), msgs[0]);
+                StringAssert.StartsWith($"Validatie van '{name}' gestart om: ", msgs[0]);
                 Assert.AreEqual("Validatie mislukt: Er is geen geldige damhoogte ingevoerd.", msgs[1]);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs[2]);
+                StringAssert.StartsWith($"Validatie van '{name}' beëindigd om: ", msgs[2]);
             });
             Assert.IsFalse(isValid);
 
@@ -292,9 +291,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             {
                 var msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", name), msgs[0]);
+                StringAssert.StartsWith($"Validatie van '{name}' gestart om: ", msgs[0]);
                 Assert.AreEqual("Validatie mislukt: Er is geen concreet getal ingevoerd voor 'oriëntatie'.", msgs[1]);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs[2]);
+                StringAssert.StartsWith($"Validatie van '{name}' beëindigd om: ", msgs[2]);
             });
             Assert.IsFalse(isValid);
 
@@ -332,8 +331,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             {
                 var msgs = messages.ToArray();
                 Assert.AreEqual(2, msgs.Length);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", name), msgs[0]);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs[1]);
+                StringAssert.StartsWith($"Validatie van '{name}' gestart om: ", msgs[0]);
+                StringAssert.StartsWith($"Validatie van '{name}' beëindigd om: ", msgs[1]);
             });
             Assert.IsTrue(isValid);
 
@@ -373,8 +372,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             {
                 var msgs = messages.ToArray();
                 Assert.AreEqual(2, msgs.Length);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", name), msgs[0]);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs[1]);
+                StringAssert.StartsWith($"Validatie van '{name}' gestart om: ", msgs[0]);
+                StringAssert.StartsWith($"Validatie van '{name}' beëindigd om: ", msgs[1]);
             });
             Assert.IsTrue(isValid);
 
@@ -389,7 +388,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
         {
             // Setup
             GrassCoverErosionInwardsFailureMechanism failureMechanism = CreateGrassCoverErosionInwardsFailureMechanism();
-            AddSectionToFailureMechanism(failureMechanism);
 
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
@@ -410,14 +408,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 }
             };
 
-            var failureMechanismSection = failureMechanism.Sections.First();
-
             using (new HydraRingCalculatorFactoryConfig())
             {
                 // Call
                 new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
                                                                            assessmentSectionStub,
-                                                                           failureMechanismSection,
                                                                            failureMechanism.GeneralInput,
                                                                            failureMechanism.Contribution,
                                                                            validFile);
@@ -459,7 +454,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
         {
             // Setup
             GrassCoverErosionInwardsFailureMechanism failureMechanism = CreateGrassCoverErosionInwardsFailureMechanism();
-            AddSectionToFailureMechanism(failureMechanism);
 
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
@@ -479,7 +473,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 }
             };
 
-            var failureMechanismSection = failureMechanism.Sections.First();
             bool expectedExceptionThrown = false;
 
             // Call
@@ -493,7 +486,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                         calculator.EndInFailure = true;
                         new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
                                                                                    assessmentSectionStub,
-                                                                                   failureMechanismSection,
                                                                                    failureMechanism.GeneralInput,
                                                                                    failureMechanism.Contribution,
                                                                                    validFile);
@@ -510,11 +502,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             {
                 var msgs = messages.ToArray();
                 Assert.AreEqual(5, msgs.Length);
-                StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[0]);
+                StringAssert.StartsWith($"Berekening van '{calculation.Name}' gestart om: ", msgs[0]);
                 StringAssert.StartsWith("Overloop berekening is uitgevoerd op de tijdelijke locatie", msgs[1]);
-                StringAssert.StartsWith(string.Format("De HBN berekening voor grasbekleding erosie kruin en binnentalud '{0}' is niet gelukt.", calculation.Name), msgs[2]);
+                StringAssert.StartsWith($"De HBN berekening voor grasbekleding erosie kruin en binnentalud '{calculation.Name}' is niet gelukt.", msgs[2]);
                 StringAssert.StartsWith("Dijkhoogte berekening is uitgevoerd op de tijdelijke locatie", msgs[3]);
-                StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[4]);
+                StringAssert.StartsWith($"Berekening van '{calculation.Name}' beëindigd om: ", msgs[4]);
             });
             Assert.IsFalse(expectedExceptionThrown);
             Assert.IsNotNull(calculation.Output);
@@ -527,7 +519,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
         {
             // Setup
             var grassCoverErosionInwardsFailureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            AddSectionToFailureMechanism(grassCoverErosionInwardsFailureMechanism);
 
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(grassCoverErosionInwardsFailureMechanism,
@@ -547,7 +538,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 }
             };
 
-            var failureMechanismSection = grassCoverErosionInwardsFailureMechanism.Sections.First();
             var service = new GrassCoverErosionInwardsCalculationService();
 
             using (new HydraRingCalculatorFactoryConfig())
@@ -558,7 +548,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 // Call
                 service.Calculate(calculation,
                                   assessmentSectionStub,
-                                  failureMechanismSection,
                                   grassCoverErosionInwardsFailureMechanism.GeneralInput,
                                   grassCoverErosionInwardsFailureMechanism.Contribution,
                                   validFile);
@@ -577,7 +566,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
         {
             // Setup
             GrassCoverErosionInwardsFailureMechanism failureMechanism = CreateGrassCoverErosionInwardsFailureMechanism();
-            AddSectionToFailureMechanism(failureMechanism);
 
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
@@ -598,7 +586,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 }
             };
 
-            var failureMechanismSection = failureMechanism.Sections.First();
             var service = new GrassCoverErosionInwardsCalculationService();
 
             // Call
@@ -620,7 +607,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 // Call
                 service.Calculate(calculation,
                                   assessmentSectionStub,
-                                  failureMechanismSection,
                                   failureMechanism.GeneralInput,
                                   failureMechanism.Contribution,
                                   validFile);
@@ -651,7 +637,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
         {
             // Setup
             GrassCoverErosionInwardsFailureMechanism failureMechanism = CreateGrassCoverErosionInwardsFailureMechanism();
-            AddSectionToFailureMechanism(failureMechanism);
 
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
@@ -670,8 +655,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                     DikeHeightCalculationType = dikeHeightCalculationType
                 }
             };
-
-            var failureMechanismSection = failureMechanism.Sections.First();
 
             using (new HydraRingCalculatorFactoryConfig())
             {
@@ -688,7 +671,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                     {
                         new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
                                                                                    assessmentSectionStub,
-                                                                                   failureMechanismSection,
                                                                                    failureMechanism.GeneralInput,
                                                                                    failureMechanism.Contribution,
                                                                                    validFile);
@@ -704,10 +686,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 {
                     var msgs = messages.ToArray();
                     Assert.AreEqual(4, msgs.Length);
-                    StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[0]);
-                    StringAssert.StartsWith(string.Format("De berekening voor grasbekleding erosie kruin en binnentalud '{0}' is niet gelukt. Bekijk het foutrapport door op details te klikken.", calculation.Name), msgs[1]);
+                    StringAssert.StartsWith($"Berekening van '{calculation.Name}' gestart om: ", msgs[0]);
+                    StringAssert.StartsWith($"De berekening voor grasbekleding erosie kruin en binnentalud '{calculation.Name}' is niet gelukt. Bekijk het foutrapport door op details te klikken.", msgs[1]);
                     StringAssert.StartsWith("Overloop berekening is uitgevoerd op de tijdelijke locatie", msgs[2]);
-                    StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[3]);
+                    StringAssert.StartsWith($"Berekening van '{calculation.Name}' beëindigd om: ", msgs[3]);
                 });
                 Assert.IsNull(calculation.Output);
                 Assert.IsTrue(exceptionThrown);
@@ -722,7 +704,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
         {
             // Setup
             GrassCoverErosionInwardsFailureMechanism failureMechanism = CreateGrassCoverErosionInwardsFailureMechanism();
-            AddSectionToFailureMechanism(failureMechanism);
 
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
@@ -741,8 +722,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                     DikeHeightCalculationType = dikeHeightCalculationType
                 }
             };
-
-            var failureMechanismSection = failureMechanism.Sections.First();
 
             using (new HydraRingCalculatorFactoryConfig())
             {
@@ -758,7 +737,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                     {
                         new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
                                                                                    assessmentSectionStub,
-                                                                                   failureMechanismSection,
                                                                                    failureMechanism.GeneralInput,
                                                                                    failureMechanism.Contribution,
                                                                                    validFile);
@@ -774,10 +752,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 {
                     var msgs = messages.ToArray();
                     Assert.AreEqual(4, msgs.Length);
-                    StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[0]);
-                    StringAssert.StartsWith(string.Format("De berekening voor grasbekleding erosie kruin en binnentalud '{0}' is niet gelukt. Er is geen foutrapport beschikbaar.", calculation.Name), msgs[1]);
+                    StringAssert.StartsWith($"Berekening van '{calculation.Name}' gestart om: ", msgs[0]);
+                    StringAssert.StartsWith($"De berekening voor grasbekleding erosie kruin en binnentalud '{calculation.Name}' is niet gelukt. Er is geen foutrapport beschikbaar.", msgs[1]);
                     StringAssert.StartsWith("Overloop berekening is uitgevoerd op de tijdelijke locatie", msgs[2]);
-                    StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[3]);
+                    StringAssert.StartsWith($"Berekening van '{calculation.Name}' beëindigd om: ", msgs[3]);
                 });
                 Assert.IsTrue(exceptionThrown);
                 Assert.IsNull(calculation.Output);
@@ -792,7 +770,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
         {
             // Setup
             GrassCoverErosionInwardsFailureMechanism failureMechanism = CreateGrassCoverErosionInwardsFailureMechanism();
-            AddSectionToFailureMechanism(failureMechanism);
 
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
@@ -811,8 +788,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                     DikeHeightCalculationType = dikeHeightCalculationType
                 }
             };
-
-            var failureMechanismSection = failureMechanism.Sections.First();
 
             using (new HydraRingCalculatorFactoryConfig())
             {
@@ -830,7 +805,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                     {
                         new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
                                                                                    assessmentSectionStub,
-                                                                                   failureMechanismSection,
                                                                                    failureMechanism.GeneralInput,
                                                                                    failureMechanism.Contribution,
                                                                                    validFile);
@@ -847,11 +821,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 {
                     var msgs = messages.ToArray();
                     Assert.AreEqual(4, msgs.Length);
-                    StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[0]);
-                    StringAssert.StartsWith(string.Format("De berekening voor grasbekleding erosie kruin en binnentalud '{0}' is niet gelukt. Bekijk het foutrapport door op details te klikken.",
-                                                          calculation.Name), msgs[1]);
+                    StringAssert.StartsWith($"Berekening van '{calculation.Name}' gestart om: ", msgs[0]);
+                    StringAssert.StartsWith($"De berekening voor grasbekleding erosie kruin en binnentalud '{calculation.Name}' is niet gelukt. Bekijk het foutrapport door op details te klikken.", msgs[1]);
                     StringAssert.StartsWith("Overloop berekening is uitgevoerd op de tijdelijke locatie", msgs[2]);
-                    StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[3]);
+                    StringAssert.StartsWith($"Berekening van '{calculation.Name}' beëindigd om: ", msgs[3]);
                 });
                 Assert.IsTrue(exceptionThrown);
                 Assert.AreEqual(calculator.LastErrorFileContent, exceptionMessage);
@@ -866,7 +839,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
         {
             // Setup
             GrassCoverErosionInwardsFailureMechanism failureMechanism = CreateGrassCoverErosionInwardsFailureMechanism();
-            AddSectionToFailureMechanism(failureMechanism);
 
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
@@ -886,8 +858,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 }
             };
 
-            var failureMechanismSection = failureMechanism.Sections.First();
-
             using (new HydraRingCalculatorFactoryConfig())
             {
                 var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).DikeHeightCalculator;
@@ -902,7 +872,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                     {
                         new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
                                                                                    assessmentSectionStub,
-                                                                                   failureMechanismSection,
                                                                                    failureMechanism.GeneralInput,
                                                                                    failureMechanism.Contribution,
                                                                                    validFile);
@@ -918,11 +887,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 {
                     var msgs = messages.ToArray();
                     Assert.AreEqual(5, msgs.Length);
-                    StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[0]);
+                    StringAssert.StartsWith($"Berekening van '{calculation.Name}' gestart om: ", msgs[0]);
                     StringAssert.StartsWith("Overloop berekening is uitgevoerd op de tijdelijke locatie", msgs[1]);
-                    StringAssert.StartsWith(string.Format("De HBN berekening voor grasbekleding erosie kruin en binnentalud '{0}' is niet gelukt. Bekijk het foutrapport door op details te klikken.", calculation.Name), msgs[2]);
+                    StringAssert.StartsWith($"De HBN berekening voor grasbekleding erosie kruin en binnentalud '{calculation.Name}' is niet gelukt. Bekijk het foutrapport door op details te klikken.", msgs[2]);
                     StringAssert.StartsWith("Dijkhoogte berekening is uitgevoerd op de tijdelijke locatie", msgs[3]);
-                    StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[4]);
+                    StringAssert.StartsWith($"Berekening van '{calculation.Name}' beëindigd om: ", msgs[4]);
                 });
                 Assert.IsNotNull(calculation.Output);
                 Assert.IsFalse(exceptionThrown);
@@ -936,7 +905,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
         {
             // Setup
             GrassCoverErosionInwardsFailureMechanism failureMechanism = CreateGrassCoverErosionInwardsFailureMechanism();
-            AddSectionToFailureMechanism(failureMechanism);
 
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mockRepository,
@@ -955,8 +923,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 }
             };
 
-            var failureMechanismSection = failureMechanism.Sections.First();
-
             using (new HydraRingCalculatorFactoryConfig())
             {
                 var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).DikeHeightCalculator;
@@ -970,7 +936,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                     {
                         new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
                                                                                    assessmentSectionStub,
-                                                                                   failureMechanismSection,
                                                                                    failureMechanism.GeneralInput,
                                                                                    failureMechanism.Contribution,
                                                                                    validFile);
@@ -986,11 +951,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 {
                     var msgs = messages.ToArray();
                     Assert.AreEqual(5, msgs.Length);
-                    StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[0]);
+                    StringAssert.StartsWith($"Berekening van '{calculation.Name}' gestart om: ", msgs[0]);
                     StringAssert.StartsWith("Overloop berekening is uitgevoerd op de tijdelijke locatie", msgs[1]);
-                    StringAssert.StartsWith(string.Format("De HBN berekening voor grasbekleding erosie kruin en binnentalud '{0}' is niet gelukt. Er is geen foutrapport beschikbaar.", calculation.Name), msgs[2]);
+                    StringAssert.StartsWith($"De HBN berekening voor grasbekleding erosie kruin en binnentalud '{calculation.Name}' is niet gelukt. Er is geen foutrapport beschikbaar.", msgs[2]);
                     StringAssert.StartsWith("Dijkhoogte berekening is uitgevoerd op de tijdelijke locatie", msgs[3]);
-                    StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[4]);
+                    StringAssert.StartsWith($"Berekening van '{calculation.Name}' beëindigd om: ", msgs[4]);
                 });
                 Assert.IsNotNull(calculation.Output);
                 Assert.IsFalse(exceptionThrown);
@@ -1004,7 +969,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
         {
             // Setup
             GrassCoverErosionInwardsFailureMechanism failureMechanism = CreateGrassCoverErosionInwardsFailureMechanism();
-            AddSectionToFailureMechanism(failureMechanism);
 
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
@@ -1024,8 +988,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 }
             };
 
-            var failureMechanismSection = failureMechanism.Sections.First();
-
             using (new HydraRingCalculatorFactoryConfig())
             {
                 var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).DikeHeightCalculator;
@@ -1040,7 +1002,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                     {
                         new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
                                                                                    assessmentSectionStub,
-                                                                                   failureMechanismSection,
                                                                                    failureMechanism.GeneralInput,
                                                                                    failureMechanism.Contribution,
                                                                                    validFile);
@@ -1055,11 +1016,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 TestHelper.AssertLogMessages(call, messages =>
                 {
                     var msgs = messages.ToArray();
-                    StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[0]);
+                    StringAssert.StartsWith($"Berekening van '{calculation.Name}' gestart om: ", msgs[0]);
                     StringAssert.StartsWith("Overloop berekening is uitgevoerd op de tijdelijke locatie", msgs[1]);
-                    StringAssert.StartsWith(string.Format("De HBN berekening voor grasbekleding erosie kruin en binnentalud '{0}' is niet gelukt. Bekijk het foutrapport door op details te klikken.", calculation.Name), msgs[2]);
+                    StringAssert.StartsWith($"De HBN berekening voor grasbekleding erosie kruin en binnentalud '{calculation.Name}' is niet gelukt. Bekijk het foutrapport door op details te klikken.", msgs[2]);
                     StringAssert.StartsWith("Dijkhoogte berekening is uitgevoerd op de tijdelijke locatie", msgs[3]);
-                    StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[4]);
+                    StringAssert.StartsWith($"Berekening van '{calculation.Name}' beëindigd om: ", msgs[4]);
                     Assert.AreEqual(5, msgs.Length);
                 });
                 Assert.IsNotNull(calculation.Output);
@@ -1073,15 +1034,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             {
                 Contribution = 10
             };
-        }
-
-        private static void AddSectionToFailureMechanism(GrassCoverErosionInwardsFailureMechanism failureMechanism)
-        {
-            failureMechanism.AddSection(new FailureMechanismSection("test section", new[]
-            {
-                new Point2D(0, 0),
-                new Point2D(1, 1)
-            }));
         }
 
         private static DikeProfile GetDikeProfile()

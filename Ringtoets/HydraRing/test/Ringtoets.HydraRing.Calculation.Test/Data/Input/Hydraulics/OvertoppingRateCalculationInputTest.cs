@@ -40,8 +40,8 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Hydraulics
             // Setup
             const double norm = 1.0/10000;
             const int hydraulicBoundaryLocationId = 1000;
-            HydraRingSection section = new HydraRingSection(1, double.NaN, double.NaN);
 
+            const double sectionNormal = 20.0;
             const double dikeHeight = 1.1;
             const double modelFactorCriticalOvertopping = 2.2;
             const double factorFbMean = 3.3;
@@ -73,7 +73,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Hydraulics
             var expectedRingBreakWater = new HydraRingBreakWater(2, 3.3);
 
             // Call
-            var input = new OvertoppingRateCalculationInput(hydraulicBoundaryLocationId, norm, section,
+            var input = new OvertoppingRateCalculationInput(hydraulicBoundaryLocationId, norm, sectionNormal,
                                                             expectedRingProfilePoints, expectedRingForelandPoints, expectedRingBreakWater,
                                                             dikeHeight,
                                                             modelFactorCriticalOvertopping,
@@ -100,7 +100,11 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Hydraulics
             CollectionAssert.AreEqual(expectedRingForelandPoints, input.ForelandsPoints);
             Assert.AreEqual(expectedRingBreakWater, input.BreakWater);
             Assert.AreEqual(expectedBeta, input.Beta);
-            Assert.AreSame(section, input.Section);
+
+            HydraRingSection hydraRingSection = input.Section;
+            Assert.AreEqual(1, hydraRingSection.SectionId);
+            Assert.IsNaN(hydraRingSection.SectionLength);
+            Assert.AreEqual(sectionNormal, hydraRingSection.CrossSectionNormal);
         }
 
         [Test]
@@ -110,11 +114,8 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Hydraulics
         [TestCase(104, null)]
         public void GetSubMechanismModelId_Always_ReturnsExpectedValues(int subMechanismModelId, int? expectedSubMechanismModelId)
         {
-            // Setup 
-            HydraRingSection section = new HydraRingSection(1, double.NaN, double.NaN);
-
             // Call
-            var input = new OvertoppingRateCalculationInput(1, 1000, section,
+            var input = new OvertoppingRateCalculationInput(1, 1000, double.NaN,
                                                             new List<HydraRingRoughnessProfilePoint>(),
                                                             new List<HydraRingForelandPoint>(),
                                                             new HydraRingBreakWater(0, 1.1),

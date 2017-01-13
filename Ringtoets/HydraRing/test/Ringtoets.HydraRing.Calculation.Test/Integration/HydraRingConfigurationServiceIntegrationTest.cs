@@ -217,7 +217,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
             var hydraRingConfigurationService = new HydraRingConfigurationService("34-1", HydraRingUncertaintiesType.All);
             const int hydraulicBoundaryLocationId = 700004;
 
-            var section = new HydraRingSection(1, 2.2, 3.3);
+            const double sectionNormal = 3.3;
             const double dikeHeight = 4.4;
             const double modelFactorCriticalOvertopping = 5.5;
             const double factorFbMean = 6.6;
@@ -252,7 +252,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
 
             hydraRingConfigurationService.AddHydraRingCalculationInput(
                 new OvertoppingCalculationInput(
-                    hydraulicBoundaryLocationId, section,
+                    hydraulicBoundaryLocationId, sectionNormal,
                     profilePoints, forelandPoints, breakWater,
                     dikeHeight,
                     modelFactorCriticalOvertopping,
@@ -284,7 +284,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                             "INSERT INTO [HydraulicModels] VALUES (1, 1, 'WTI 2017');" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [Sections];" + Environment.NewLine +
-                                            "INSERT INTO [Sections] VALUES (1, 1, 1, 1, 1, 0, 0, 0, 0, 700004, 700004, 100, 3.3, 2.2);" + Environment.NewLine +
+                                            "INSERT INTO [Sections] VALUES (1, 1, 1, 1, 1, 0, 0, 0, 0, 700004, 700004, 100, 3.3, 0);" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [SectionCalculationSchemes];" + Environment.NewLine +
                                             "INSERT INTO [SectionCalculationSchemes] VALUES (1, 101, 1);" + Environment.NewLine +
@@ -369,7 +369,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
             var hydraRingConfigurationService = new HydraRingConfigurationService("34-1", HydraRingUncertaintiesType.All);
             const int hydraulicBoundaryLocationId = 700004;
 
-            var section = new HydraRingSection(1, 2.2, 3.3);
+            const double sectionNormal = 3.3;
             const double norm = 1.0/1000;
             const double modelFactorCriticalOvertopping = 4.4;
             const double factorFbMean = 5.5;
@@ -404,7 +404,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
             var numericsSetting = new NumericsSetting(1, 9, 150, 0.15, 0.01, 0.01, 0.01, 2, 3000, 10000, 0.1, -6, 6, 25);
 
             hydraRingConfigurationService.AddHydraRingCalculationInput(
-                new DikeHeightCalculationInput(hydraulicBoundaryLocationId, norm, section,
+                new DikeHeightCalculationInput(hydraulicBoundaryLocationId, norm, sectionNormal,
                                                profilePoints, forelandPoints, breakWater,
                                                modelFactorCriticalOvertopping,
                                                factorFbMean, factorFbStandardDeviation,
@@ -435,7 +435,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                          "INSERT INTO [HydraulicModels] VALUES (1, 1, 'WTI 2017');" + Environment.NewLine +
                                          Environment.NewLine +
                                          "DELETE FROM [Sections];" + Environment.NewLine +
-                                         "INSERT INTO [Sections] VALUES (1, 1, 1, 1, 1, 0, 0, 0, 0, 700004, 700004, 100, 3.3, 2.2);" + Environment.NewLine +
+                                         "INSERT INTO [Sections] VALUES (1, 1, 1, 1, 1, 0, 0, 0, 0, 700004, 700004, 100, 3.3, 0);" + Environment.NewLine +
                                          Environment.NewLine +
                                          "DELETE FROM [SectionCalculationSchemes];" + Environment.NewLine +
                                          "INSERT INTO [SectionCalculationSchemes] VALUES (1, 101, 1);" + Environment.NewLine +
@@ -520,7 +520,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
             var hydraRingConfigurationService = new HydraRingConfigurationService("34-1", HydraRingUncertaintiesType.All);
             const int hydraulicBoundaryLocationId = 700004;
 
-            var section = new HydraRingSection(1, 2.2, 3.3);
+            const double sectionNormal = 3.3;
             const double norm = 1.0/1000;
             const double dikeHeight = 4.4;
             const double modelFactorCriticalOvertopping = 5.5;
@@ -554,7 +554,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
             var numericsSetting = new NumericsSetting(1, 9, 150, 0.15, 0.01, 0.01, 0.01, 2, 3000, 10000, 0.1, -6, 6, 25);
 
             hydraRingConfigurationService.AddHydraRingCalculationInput(
-                new OvertoppingRateCalculationInput(hydraulicBoundaryLocationId, norm, section,
+                new OvertoppingRateCalculationInput(hydraulicBoundaryLocationId, norm, sectionNormal,
                                                     profilePoints, forelandPoints, breakWater,
                                                     dikeHeight,
                                                     modelFactorCriticalOvertopping,
@@ -585,7 +585,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                          "INSERT INTO [HydraulicModels] VALUES (1, 1, 'WTI 2017');" + Environment.NewLine +
                                          Environment.NewLine +
                                          "DELETE FROM [Sections];" + Environment.NewLine +
-                                         "INSERT INTO [Sections] VALUES (1, 1, 1, 1, 1, 0, 0, 0, 0, 700004, 700004, 100, 3.3, 2.2);" + Environment.NewLine +
+                                         "INSERT INTO [Sections] VALUES (1, 1, 1, 1, 1, 0, 0, 0, 0, 700004, 700004, 100, 3.3, 0);" + Environment.NewLine +
                                          Environment.NewLine +
                                          "DELETE FROM [SectionCalculationSchemes];" + Environment.NewLine +
                                          "INSERT INTO [SectionCalculationSchemes] VALUES (1, 101, 1);" + Environment.NewLine +
