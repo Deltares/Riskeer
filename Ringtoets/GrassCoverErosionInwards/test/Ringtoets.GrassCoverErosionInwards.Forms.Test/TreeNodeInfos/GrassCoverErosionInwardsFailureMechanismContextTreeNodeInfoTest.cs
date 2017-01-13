@@ -22,7 +22,6 @@
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using Core.Common.Base.Geometry;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.Commands;
@@ -44,10 +43,7 @@ using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.Plugin;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
-using GrassCoverErosionInwardsFormsResources = Ringtoets.GrassCoverErosionInwards.Forms.Properties.Resources;
-using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
-using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
 
 namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
 {
@@ -410,54 +406,16 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_NoSections_ContextMenuItemCalculateAllDisabledAndTooltipSet()
+        public void ContextMenuStrip_NoDatabase_ContextMenuItemCalculateAllDisabledAndTooltipSet()
         {
             // Setup
             var guiMock = mocksRepository.StrictMock<IGui>();
+
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation());
-            var assessmentSectionMock = mocksRepository.StrictMock<IAssessmentSection>();
 
-            var nodeData = new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, assessmentSectionMock);
-
-            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-
-            using (var treeViewControl = new TreeViewControl())
-            {
-                guiMock.Expect(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
-
-                mocksRepository.ReplayAll();
-
-                plugin.Gui = guiMock;
-
-                // Call
-                using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewControl))
-                {
-                    // Assert
-                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndex,
-                                                                  RingtoetsCommonFormsResources.Calculate_all,
-                                                                  RingtoetsCommonFormsResources.Plugin_AllDataAvailable_No_failure_mechanism_sections_imported,
-                                                                  RingtoetsCommonFormsResources.CalculateAllIcon,
-                                                                  false);
-                }
-            }
-        }
-
-        [Test]
-        public void ContextMenuStrip_SectionsSetNoDatabase_ContextMenuItemCalculateAllDisabledAndTooltipSet()
-        {
-            // Setup
-            var guiMock = mocksRepository.StrictMock<IGui>();
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("test", new[]
-            {
-                new Point2D(0, 0)
-            }));
-            failureMechanism.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation());
-
-            var assessmentSectionMock = mocksRepository.Stub<IAssessmentSection>();
-
-            var nodeData = new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, assessmentSectionMock);
+            var assessmentSectionStub = mocksRepository.Stub<IAssessmentSection>();
+            var nodeData = new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, assessmentSectionStub);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
             using (var treeViewControl = new TreeViewControl())
@@ -482,15 +440,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_SectionsSetDatabaseNotValid_ContextMenuItemCalculateAllDisabledAndTooltipSet()
+        public void ContextMenuStrip_SetDatabaseNotValid_ContextMenuItemCalculateAllDisabledAndTooltipSet()
         {
             // Setup
             var guiMock = mocksRepository.StrictMock<IGui>();
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("test", new[]
-            {
-                new Point2D(0, 0)
-            }));
             failureMechanism.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation());
 
             var assessmentSectionMock = mocksRepository.StrictMock<IAssessmentSection>();
@@ -513,8 +467,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                     // Assert
                     ToolStripItem contextMenuItem = contextMenu.Items[contextMenuCalculateAllIndex];
 
-                    Assert.AreEqual(RingtoetsCommonFormsResources.Calculate_all, contextMenuItem.Text);
-                    StringAssert.Contains(string.Format(RingtoetsCommonServiceResources.Hydraulic_boundary_database_connection_failed_0_, ""), contextMenuItem.ToolTipText);
+                    Assert.AreEqual("Alles be&rekenen", contextMenuItem.Text);
+                    StringAssert.Contains("Herstellen van de verbinding met de hydraulische randvoorwaardendatabase is mislukt.", contextMenuItem.ToolTipText);
                     TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.CalculateAllIcon, contextMenuItem.Image);
                     Assert.IsFalse(contextMenuItem.Enabled);
                 }
@@ -527,10 +481,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             // Setup
             var guiMock = mocksRepository.StrictMock<IGui>();
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("test", new[]
-            {
-                new Point2D(0, 0)
-            }));
             failureMechanism.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation());
 
             string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
@@ -560,56 +510,19 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                 {
                     // Assert
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndex,
-                                                                  RingtoetsCommonFormsResources.Calculate_all,
-                                                                  RingtoetsCommonFormsResources.Calculate_all_ToolTip,
+                                                                  "Alles be&rekenen",
+                                                                  "Voer alle berekeningen binnen dit toetsspoor uit.",
                                                                   RingtoetsCommonFormsResources.CalculateAllIcon);
                 }
             }
         }
 
         [Test]
-        public void ContextMenuStrip_NoSections_ContextMenuItemValidateAllDisabledAndTooltipSet()
+        public void ContextMenuStrip_NoDatabase_ContextMenuItemValidateAllDisabledAndTooltipSet()
         {
             // Setup
             var guiMock = mocksRepository.StrictMock<IGui>();
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            failureMechanism.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation());
-            var assessmentSectionMock = mocksRepository.StrictMock<IAssessmentSection>();
-
-            var nodeData = new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, assessmentSectionMock);
-            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-
-            using (var treeViewControl = new TreeViewControl())
-            {
-                guiMock.Expect(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
-
-                mocksRepository.ReplayAll();
-
-                plugin.Gui = guiMock;
-
-                // Call
-                using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewControl))
-                {
-                    // Assert
-                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateAllIndex,
-                                                                  RingtoetsCommonFormsResources.Validate_all,
-                                                                  RingtoetsCommonFormsResources.Plugin_AllDataAvailable_No_failure_mechanism_sections_imported,
-                                                                  RingtoetsCommonFormsResources.ValidateAllIcon,
-                                                                  false);
-                }
-            }
-        }
-
-        [Test]
-        public void ContextMenuStrip_SectionsSetNoDatabase_ContextMenuItemValidateAllDisabledAndTooltipSet()
-        {
-            // Setup
-            var guiMock = mocksRepository.StrictMock<IGui>();
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("test", new[]
-            {
-                new Point2D(0, 0)
-            }));
             failureMechanism.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation());
 
             var assessmentSectionMock = mocksRepository.Stub<IAssessmentSection>();
@@ -639,15 +552,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_SectionsSetDatabaseNotValid_ContextMenuItemValidateAllDisabledAndTooltipSet()
+        public void ContextMenuStrip_DatabaseNotValid_ContextMenuItemValidateAllDisabledAndTooltipSet()
         {
             // Setup
             var guiMock = mocksRepository.StrictMock<IGui>();
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("test", new[]
-            {
-                new Point2D(0, 0)
-            }));
             failureMechanism.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation());
 
             var assessmentSectionMock = mocksRepository.StrictMock<IAssessmentSection>();
@@ -670,8 +579,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                     // Assert
                     ToolStripItem contextMenuItem = contextMenu.Items[contextMenuValidateAllIndex];
 
-                    Assert.AreEqual(RingtoetsCommonFormsResources.Validate_all, contextMenuItem.Text);
-                    StringAssert.Contains(string.Format(RingtoetsCommonServiceResources.Hydraulic_boundary_database_connection_failed_0_, ""), contextMenuItem.ToolTipText);
+                    Assert.AreEqual("Alles &valideren", contextMenuItem.Text);
+                    StringAssert.Contains("Herstellen van de verbinding met de hydraulische randvoorwaardendatabase is mislukt.", contextMenuItem.ToolTipText);
                     TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.ValidateAllIcon, contextMenuItem.Image);
                     Assert.IsFalse(contextMenuItem.Enabled);
                 }
@@ -679,15 +588,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_SectionsAndDatabaseSet_ContextMenuItemValidateAllEnabled()
+        public void ContextMenuStrip_DatabaseSet_ContextMenuItemValidateAllEnabled()
         {
             // Setup
             var guiMock = mocksRepository.StrictMock<IGui>();
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("test", new[]
-            {
-                new Point2D(0, 0)
-            }));
             failureMechanism.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation());
 
             string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
@@ -717,8 +622,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                 {
                     // Assert
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateAllIndex,
-                                                                  RingtoetsCommonFormsResources.Validate_all,
-                                                                  RingtoetsCommonFormsResources.FailureMechanism_Validate_all_ToolTip,
+                                                                  "Alles &valideren",
+                                                                  "Valideer alle berekeningen binnen dit toetsspoor.",
                                                                   RingtoetsCommonFormsResources.ValidateAllIcon);
                 }
             }
@@ -733,14 +638,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-
-            var section = new FailureMechanismSection("A", new[]
-            {
-                new Point2D(0, 0),
-                new Point2D(1.0, 1.0)
-            });
-            failureMechanism.AddSection(section);
-
             failureMechanism.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation
             {
                 Name = "A",
@@ -821,13 +718,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-
-            var section = new FailureMechanismSection("A", new[]
-            {
-                new Point2D(0, 0)
-            });
-            failureMechanism.AddSection(section);
-
             failureMechanism.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation
             {
                 Name = "A",
