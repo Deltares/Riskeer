@@ -325,14 +325,14 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
                     ToolStripItem calculateContextMenuItem = contextMenu.Items[contextMenuCalculateIndex];
 
                     Assert.AreEqual("Be&rekenen", calculateContextMenuItem.Text);
-                    StringAssert.Contains($"Herstellen van de verbinding met de hydraulische randvoorwaardendatabase is mislukt.", calculateContextMenuItem.ToolTipText);
+                    StringAssert.Contains("Herstellen van de verbinding met de hydraulische randvoorwaardendatabase is mislukt.", calculateContextMenuItem.ToolTipText);
                     TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.CalculateIcon, calculateContextMenuItem.Image);
                     Assert.IsFalse(calculateContextMenuItem.Enabled);
 
                     ToolStripItem validateContextMenuItem = contextMenu.Items[contextMenuValidateIndex];
 
                     Assert.AreEqual("&Valideren", validateContextMenuItem.Text);
-                    StringAssert.Contains($"Herstellen van de verbinding met de hydraulische randvoorwaardendatabase is mislukt.", validateContextMenuItem.ToolTipText);
+                    StringAssert.Contains("Herstellen van de verbinding met de hydraulische randvoorwaardendatabase is mislukt.", validateContextMenuItem.ToolTipText);
                     TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.ValidateIcon, validateContextMenuItem.Image);
                     Assert.IsFalse(validateContextMenuItem.Enabled);
                 }
@@ -447,12 +447,13 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
                     {
                         var msgs = messages.ToArray();
                         Assert.AreEqual(6, msgs.Length);
-                        StringAssert.StartsWith($"Validatie van '{calculation.Name}' gestart om: ", msgs[0]);
-                        StringAssert.StartsWith($"Validatie van '{calculation.Name}' beëindigd om: ", msgs[1]);
-                        StringAssert.StartsWith($"Berekening van '{calculation.Name}' gestart om: ", msgs[2]);
+                        string calculationName = calculation.Name;
+                        StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", calculationName), msgs[0]);
+                        StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", calculationName), msgs[1]);
+                        StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculationName), msgs[2]);
                         StringAssert.StartsWith("Betrouwbaarheid sluiting kunstwerk berekening is uitgevoerd op de tijdelijke locatie", msgs[3]);
-                        StringAssert.StartsWith($"Berekening van '{calculation.Name}' beëindigd om: ", msgs[4]);
-                        StringAssert.StartsWith($"Uitvoeren van '{calculation.Name}' is gelukt.", msgs[5]);
+                        StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculationName), msgs[4]);
+                        StringAssert.StartsWith(string.Format("Uitvoeren van '{0}' is gelukt.", calculationName), msgs[5]);
                     });
 
                     Assert.AreNotSame(initialOutput, calculation.Output);
@@ -509,8 +510,9 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
                     {
                         var msgs = messages.ToArray();
                         Assert.AreEqual(2, msgs.Length);
-                        StringAssert.StartsWith($"Validatie van '{calculation.Name}' gestart om: ", msgs[0]);
-                        StringAssert.StartsWith($"Validatie van '{calculation.Name}' beëindigd om: ", msgs[1]);
+                        string calculationName = calculation.Name;
+                        StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", calculationName), msgs[0]);
+                        StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", calculationName), msgs[1]);
                     });
                 }
             }
