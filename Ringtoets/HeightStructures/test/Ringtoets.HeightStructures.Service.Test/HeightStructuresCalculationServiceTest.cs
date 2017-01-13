@@ -998,10 +998,10 @@ namespace Ringtoets.HeightStructures.Service.Test
                 yield return new TestCaseData(double.NaN, 1, 2, "stormduur");
                 yield return new TestCaseData(double.PositiveInfinity, 1, 2, "stormduur");
 
-                yield return new TestCaseData(1, double.NaN, 2, 3, "kombergend oppervlak");
+                yield return new TestCaseData(1, double.NaN, 2, "kombergend oppervlak");
                 yield return new TestCaseData(1, double.PositiveInfinity, 2, "kombergend oppervlak");
 
-                yield return new TestCaseData(1, 2, double.NaN, 3, "kritiek instromend debiet");
+                yield return new TestCaseData(1, 2, double.NaN, "kritiek instromend debiet");
                 yield return new TestCaseData(1, 2, double.PositiveInfinity, "kritiek instromend debiet");
             }
         }
