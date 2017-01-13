@@ -183,7 +183,7 @@ namespace Ringtoets.Common.Forms.TestUtil
         /// <item>The amount of features in <paramref name="mapData"/> is not equal to the length of the <paramref name="foreshoreProfiles"/>.</item>
         /// <item>The geometries of the features in <paramref name="mapData"/> is not equal to the expected geometry of the <paramref name="foreshoreProfiles"/>.</item>
         /// </list></exception>
-        public static void AssertForeshoreProfiles(IEnumerable<ForeshoreProfile> foreshoreProfiles, MapData mapData)
+        public static void AssertForeshoreProfilesMapData(IEnumerable<ForeshoreProfile> foreshoreProfiles, MapData mapData)
         {
             Assert.IsInstanceOf<MapLineData>(mapData);
             Assert.AreEqual("Voorlandprofielen", mapData.Name);

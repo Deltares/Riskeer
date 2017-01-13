@@ -949,23 +949,23 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
 
         #endregion
 
-        #region AssertForeshoreProfiles
+        #region AssertForeshoreProfilesMapData
 
         [Test]
-        public void AssertForeshoreProfiles_MapDataNotMapLineData_ThrowAssertionException()
+        public void AssertForeshoreProfilesMapData_MapDataNotMapLineData_ThrowAssertionException()
         {
             // Setup
             var mapData = new MapPointData("Voorlandprofielen");
 
             // Call
-            TestDelegate test = () => MapDataTestHelper.AssertForeshoreProfiles(Enumerable.Empty<ForeshoreProfile>(), mapData);
+            TestDelegate test = () => MapDataTestHelper.AssertForeshoreProfilesMapData(Enumerable.Empty<ForeshoreProfile>(), mapData);
 
             // Assert
             Assert.Throws<AssertionException>(test);
         }
 
         [Test]
-        public void AssertForeshoreProfiles_ForeshoreProfileLengthNotSameAsMapDataFeaturesLength_ThrowAssertionException()
+        public void AssertForeshoreProfilesMapData_ForeshoreProfileLengthNotSameAsMapDataFeaturesLength_ThrowAssertionException()
         {
             // Setup
             var mapData = new MapLineData("Voorlandprofielen")
@@ -982,14 +982,14 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
             };
 
             // Call
-            TestDelegate test = () => MapDataTestHelper.AssertForeshoreProfiles(foreshoreProfiles, mapData);
+            TestDelegate test = () => MapDataTestHelper.AssertForeshoreProfilesMapData(foreshoreProfiles, mapData);
 
             // Assert
             Assert.Throws<AssertionException>(test);
         }
 
         [Test]
-        public void AssertForeshoreProfiles_FeatureGeometryNotSameAsExpectedGeometry_ThrowAssertionException()
+        public void AssertForeshoreProfilesMapData_FeatureGeometryNotSameAsExpectedGeometry_ThrowAssertionException()
         {
             // Setup
             var mapData = new MapLineData("Voorlandprofielen")
@@ -1019,14 +1019,14 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
             };
 
             // Call
-            TestDelegate test = () => MapDataTestHelper.AssertForeshoreProfiles(foreshoreProfiles, mapData);
+            TestDelegate test = () => MapDataTestHelper.AssertForeshoreProfilesMapData(foreshoreProfiles, mapData);
 
             // Assert
             Assert.Throws<AssertionException>(test);
         }
 
         [Test]
-        public void AssertForeshoreProfiles_MapDataNameNotCorrect_ThrowAssertionException()
+        public void AssertForeshoreProfilesMapData_MapDataNameNotCorrect_ThrowAssertionException()
         {
             // Setup
             var mapData = new MapLineData("test")
@@ -1056,14 +1056,14 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
             };
 
             // Call
-            TestDelegate test = () => MapDataTestHelper.AssertForeshoreProfiles(foreshoreProfiles, mapData);
+            TestDelegate test = () => MapDataTestHelper.AssertForeshoreProfilesMapData(foreshoreProfiles, mapData);
 
             // Assert
             Assert.Throws<AssertionException>(test);
         }
 
         [Test]
-        public void AssertForeshoreProfiles_DataCorrect_DoesNotThrow()
+        public void AssertForeshoreProfilesMapData_DataCorrect_DoesNotThrow()
         {
             // Setup
             var mapData = new MapLineData("Voorlandprofielen")
@@ -1093,7 +1093,7 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
             };
 
             // Call
-            TestDelegate test = () => MapDataTestHelper.AssertForeshoreProfiles(foreshoreProfiles, mapData);
+            TestDelegate test = () => MapDataTestHelper.AssertForeshoreProfilesMapData(foreshoreProfiles, mapData);
 
             // Assert
             Assert.DoesNotThrow(test);

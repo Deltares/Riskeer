@@ -241,7 +241,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
                 MapDataTestHelper.AssertFailureMechanismSectionsStartPointMapData(failureMechanism.Sections, mapDataList[sectionsStartPointIndex]);
                 MapDataTestHelper.AssertFailureMechanismSectionsEndPointMapData(failureMechanism.Sections, mapDataList[sectionsEndPointIndex]);
                 MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(hydraulicBoundaryDatabase.Locations, mapDataList[hydraulicBoundaryLocationsIndex]);
-                MapDataTestHelper.AssertForeshoreProfiles(failureMechanism.ForeshoreProfiles, mapDataList[foreshoreProfilesIndex]);
+                MapDataTestHelper.AssertForeshoreProfilesMapData(failureMechanism.ForeshoreProfiles, mapDataList[foreshoreProfilesIndex]);
                 AssertCalculationsMapData(failureMechanism.Calculations.Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>(),
                                           mapDataList[calculationsIndex]);
             }
@@ -430,7 +430,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
                 var foreshoreProfileData = map.Data.Collection.ElementAt(foreshoreProfilesIndex);
 
                 // Precondition
-                MapDataTestHelper.AssertForeshoreProfiles(failureMechanism.ForeshoreProfiles, foreshoreProfileData);
+                MapDataTestHelper.AssertForeshoreProfilesMapData(failureMechanism.ForeshoreProfiles, foreshoreProfileData);
 
                 // Call
                 failureMechanism.ForeshoreProfiles.Add(new TestForeshoreProfile(new[]
@@ -441,7 +441,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
                 failureMechanism.ForeshoreProfiles.NotifyObservers();
 
                 // Assert
-                MapDataTestHelper.AssertForeshoreProfiles(failureMechanism.ForeshoreProfiles, foreshoreProfileData);
+                MapDataTestHelper.AssertForeshoreProfilesMapData(failureMechanism.ForeshoreProfiles, foreshoreProfileData);
             }
         }
 
