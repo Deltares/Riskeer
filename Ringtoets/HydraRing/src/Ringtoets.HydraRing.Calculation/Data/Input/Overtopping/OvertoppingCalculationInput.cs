@@ -130,9 +130,21 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Overtopping
             this.exponentModelFactorShallowUpperBoundary = exponentModelFactorShallowUpperBoundary;
         }
 
-        public override HydraRingFailureMechanismType FailureMechanismType { get; } = HydraRingFailureMechanismType.DikesOvertopping;
+        public override HydraRingFailureMechanismType FailureMechanismType
+        {
+            get
+            {
+                return HydraRingFailureMechanismType.DikesOvertopping;
+            }
+        }
 
-        public override int VariableId { get; } = 1;
+        public override int VariableId
+        {
+            get
+            {
+                return 1;
+            }
+        }
 
         public override HydraRingSection Section
         {

@@ -99,7 +99,13 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics
             this.criticalOvertoppingStandardDeviation = criticalOvertoppingStandardDeviation;
         }
 
-        public override int VariableId { get; } = 1;
+        public override int VariableId
+        {
+            get
+            {
+                return 1;
+            }
+        }
 
         public override IEnumerable<HydraRingVariable> Variables
         {

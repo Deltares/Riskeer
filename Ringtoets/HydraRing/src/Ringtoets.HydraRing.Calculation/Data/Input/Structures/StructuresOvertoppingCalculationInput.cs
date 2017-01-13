@@ -141,9 +141,21 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
             this.stormDurationVariation = stormDurationVariation;
         }
 
-        public override HydraRingFailureMechanismType FailureMechanismType { get; } = HydraRingFailureMechanismType.StructuresOvertopping;
+        public override HydraRingFailureMechanismType FailureMechanismType
+        {
+            get
+            {
+                return HydraRingFailureMechanismType.StructuresOvertopping;
+            }
+        }
 
-        public override int VariableId { get; } = 60;
+        public override int VariableId
+        {
+            get
+            {
+                return 60;
+            }
+        }
 
         public override HydraRingSection Section
         {

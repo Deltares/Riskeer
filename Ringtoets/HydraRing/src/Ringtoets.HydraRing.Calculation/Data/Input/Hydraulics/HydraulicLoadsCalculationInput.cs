@@ -121,7 +121,13 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics
             this.breakWater = breakWater;
         }
 
-        public override HydraRingFailureMechanismType FailureMechanismType { get; } = HydraRingFailureMechanismType.HydraulicLoads;
+        public override HydraRingFailureMechanismType FailureMechanismType
+        {
+            get
+            {
+                return HydraRingFailureMechanismType.HydraulicLoads;
+            }
+        }
 
         public override HydraRingSection Section
         {

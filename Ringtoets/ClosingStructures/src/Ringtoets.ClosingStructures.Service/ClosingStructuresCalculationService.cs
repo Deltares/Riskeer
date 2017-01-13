@@ -141,8 +141,11 @@ namespace Ringtoets.ClosingStructures.Service
         /// </summary>
         public void Cancel()
         {
-            calculator?.Cancel();
-
+            if (calculator != null)
+            {
+                calculator.Cancel();
+            }
+            
             canceled = true;
         }
 

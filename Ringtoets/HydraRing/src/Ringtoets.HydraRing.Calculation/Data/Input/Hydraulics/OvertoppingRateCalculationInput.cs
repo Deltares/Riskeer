@@ -96,7 +96,13 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics
             this.dikeHeight = dikeHeight;
         }
 
-        public override int VariableId { get; } = 17;
+        public override int VariableId
+        {
+            get
+            {
+                return 17;
+            }
+        }
 
         public override IEnumerable<HydraRingVariable> Variables
         {

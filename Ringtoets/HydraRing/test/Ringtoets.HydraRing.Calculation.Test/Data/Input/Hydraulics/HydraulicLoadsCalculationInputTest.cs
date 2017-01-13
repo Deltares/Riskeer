@@ -167,7 +167,13 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Hydraulics
                        exponentModelFactorShallowMean, exponentModelFactorShallowStandardDeviation,
                        exponentModelFactorShallowLowerBoundary, exponentModelFactorShallowUpperBoundary) {}
 
-            public override int VariableId { get; } = -1;
+            public override int VariableId
+            {
+                get
+                {
+                    return -1;
+                }
+            }
         }
     }
 }

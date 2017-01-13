@@ -78,8 +78,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
         /// </summary>
         public void Cancel()
         {
-            overtoppingCalculator?.Cancel();
-            dikeHeightCalculator?.Cancel();
+            if (overtoppingCalculator != null)
+            {
+                overtoppingCalculator.Cancel();
+            }
+            if (dikeHeightCalculator != null)
+            {
+                dikeHeightCalculator.Cancel();
+            }
             canceled = true;
         }
 
@@ -198,7 +204,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
 
         private void NotifyProgress(string stepName, int currentStepNumber, int totalStepNumber)
         {
-            OnProgress?.Invoke(stepName, currentStepNumber, totalStepNumber);
+            if (OnProgress != null)
+            {
+                OnProgress.Invoke(stepName, currentStepNumber, totalStepNumber);
+            }
         }
 
         private void CalculateOvertopping(OvertoppingCalculationInput overtoppingCalculationInput, string calculationName)

@@ -143,7 +143,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
         /// <param name="modificationFactorWavesSlowlyVaryingPressureComponent">The modification factor waves slowly-varying pressure component.</param>
         /// <param name="modificationFactorDynamicOrImpulsivePressureComponent">The modification factor dynamic or impulsive pressure component.</param>
         protected StructuresStabilityPointCalculationInput(long hydraulicBoundaryLocationId,
-            double sectionNormal,
+                                                           double sectionNormal,
                                                            IEnumerable<HydraRingForelandPoint> forelandPoints,
                                                            HydraRingBreakWater breakWater,
                                                            double volumicWeightWater,
@@ -236,9 +236,21 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
             this.modificationFactorDynamicOrImpulsivePressureComponent = modificationFactorDynamicOrImpulsivePressureComponent;
         }
 
-        public override HydraRingFailureMechanismType FailureMechanismType { get; } = HydraRingFailureMechanismType.StructuresStructuralFailure;
+        public override HydraRingFailureMechanismType FailureMechanismType
+        {
+            get
+            {
+                return HydraRingFailureMechanismType.StructuresStructuralFailure;
+            }
+        }
 
-        public override int VariableId { get; } = 58;
+        public override int VariableId
+        {
+            get
+            {
+                return 58;
+            }
+        }
 
         public override HydraRingSection Section
         {

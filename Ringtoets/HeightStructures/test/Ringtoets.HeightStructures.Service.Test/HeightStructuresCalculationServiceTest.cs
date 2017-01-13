@@ -231,7 +231,7 @@ namespace Ringtoets.HeightStructures.Service.Test
         }
 
         [Test]
-        [TestCaseSource(nameof(NormalDistributionsWithInvalidMean))]
+        [TestCaseSource("NormalDistributionsWithInvalidMean")]
         public void Validate_NormalDistributionMeanInvalid_LogsErrorAndReturnsFalse(double meanOne, double meanTwo, double meanThree, string parameterName)
         {
             // Setup
@@ -277,7 +277,7 @@ namespace Ringtoets.HeightStructures.Service.Test
         }
 
         [Test]
-        [TestCaseSource(nameof(LogNormalDistributionsWithInvalidMean))]
+        [TestCaseSource("LogNormalDistributionsWithInvalidMean")]
         public void Validate_LogNormalDistributionMeanInvalid_LogsErrorAndReturnsFalse(double meanOne, double meanTwo, double meanThree,
                                                                                        double meanFour, double meanFive, string parameterName)
         {
@@ -325,7 +325,7 @@ namespace Ringtoets.HeightStructures.Service.Test
         }
 
         [Test]
-        [TestCaseSource(nameof(DistributionsWithInvalidDeviation))]
+        [TestCaseSource("DistributionsWithInvalidDeviation")]
         public void Validate_DistributionStandardDeviationInvalid_LogsErrorAndReturnsFalse(double deviationOne, double deviationTwo,
                                                                                            double deviationThree, double deviationFour,
                                                                                            double deviationFive, string parameterName)
@@ -374,7 +374,7 @@ namespace Ringtoets.HeightStructures.Service.Test
         }
 
         [Test]
-        [TestCaseSource(nameof(DistributionsWithInvalidCoefficient))]
+        [TestCaseSource("DistributionsWithInvalidCoefficient")]
         public void Validate_DistributionVariationCoefficientInvalid_LogsErrorAndReturnsFalse(
             double coefficientOne, double coefficientTwo, double coefficientThree, string parameterName)
         {

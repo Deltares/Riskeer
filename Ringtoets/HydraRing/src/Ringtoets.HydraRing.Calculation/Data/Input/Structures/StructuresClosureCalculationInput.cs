@@ -125,9 +125,21 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
             this.probabilityOrFrequencyOpenStructureBeforeFlooding = probabilityOrFrequencyOpenStructureBeforeFlooding;
         }
 
-        public override HydraRingFailureMechanismType FailureMechanismType { get; } = HydraRingFailureMechanismType.StructuresClosure;
+        public override HydraRingFailureMechanismType FailureMechanismType
+        {
+            get
+            {
+                return HydraRingFailureMechanismType.StructuresClosure;
+            }
+        }
 
-        public override int VariableId { get; } = 58;
+        public override int VariableId
+        {
+            get
+            {
+                return 58;
+            }
+        }
 
         public override HydraRingSection Section
         {
