@@ -96,12 +96,8 @@ namespace Ringtoets.StabilityPointStructures.Service
         {
             var calculationName = calculation.Name;
 
-            FailureMechanismSection failureMechanismSection = StructuresHelper.FailureMechanismSectionForCalculation(failureMechanism.Sections,
-                                                                                                                     calculation);
-
             StructuresStabilityPointCalculationInput input = CreateStructuresStabilityPointCalculationInput(calculation,
                                                                                                             failureMechanism,
-                                                                                                            failureMechanismSection,
                                                                                                             hydraulicBoundaryDatabaseFilePath);
 
             string hlcdDirectory = Path.GetDirectoryName(hydraulicBoundaryDatabaseFilePath);
@@ -167,18 +163,13 @@ namespace Ringtoets.StabilityPointStructures.Service
         /// </summary>
         public void Cancel()
         {
-            if (calculator != null)
-            {
-                calculator.Cancel();
-            }
-
+            calculator?.Cancel();
             canceled = true;
         }
 
         private StructuresStabilityPointCalculationInput CreateStructuresStabilityPointCalculationInput(
             StructuresCalculation<StabilityPointStructuresInput> calculation,
             StabilityPointStructuresFailureMechanism failureMechanism,
-            FailureMechanismSection failureMechanismSection,
             string hydraulicBoundaryDatabaseFilePath)
         {
             StructuresStabilityPointCalculationInput input;
@@ -190,16 +181,12 @@ namespace Ringtoets.StabilityPointStructures.Service
                         case LoadSchematizationType.Linear:
                             input = CreateLowSillLinearCalculationInput(
                                 calculation,
-                                failureMechanismSection,
-                                failureMechanism.GeneralInput,
-                                hydraulicBoundaryDatabaseFilePath);
+                                failureMechanism.GeneralInput);
                             break;
                         case LoadSchematizationType.Quadratic:
                             input = CreateLowSillQuadraticCalculationInput(
                                 calculation,
-                                failureMechanismSection,
-                                failureMechanism.GeneralInput,
-                                hydraulicBoundaryDatabaseFilePath);
+                                failureMechanism.GeneralInput);
                             break;
                         default:
                             throw new InvalidEnumArgumentException("calculation",
@@ -213,16 +200,12 @@ namespace Ringtoets.StabilityPointStructures.Service
                         case LoadSchematizationType.Linear:
                             input = CreateFloodedCulvertLinearCalculationInput(
                                 calculation,
-                                failureMechanismSection,
-                                failureMechanism.GeneralInput,
-                                hydraulicBoundaryDatabaseFilePath);
+                                failureMechanism.GeneralInput);
                             break;
                         case LoadSchematizationType.Quadratic:
                             input = CreateFloodedCulvertQuadraticCalculationInput(
                                 calculation,
-                                failureMechanismSection,
-                                failureMechanism.GeneralInput,
-                                hydraulicBoundaryDatabaseFilePath);
+                                failureMechanism.GeneralInput);
                             break;
                         default:
                             throw new InvalidEnumArgumentException("calculation",
@@ -236,17 +219,17 @@ namespace Ringtoets.StabilityPointStructures.Service
                                                            typeof(StabilityPointStructureInflowModelType));
             }
 
+            HydraRingSettingsDatabaseHelper.AssignSettingsFromDatabase(input, hydraulicBoundaryDatabaseFilePath);
+
             return input;
         }
 
         private StructuresStabilityPointLowSillLinearCalculationInput CreateLowSillLinearCalculationInput(StructuresCalculation<StabilityPointStructuresInput> calculation,
-                                                                                                          FailureMechanismSection failureMechanismSection,
-                                                                                                          GeneralStabilityPointStructuresInput generalInput,
-                                                                                                          string hydraulicBoundaryDatabaseFilePath)
+                                                                                                          GeneralStabilityPointStructuresInput generalInput)
         {
             var structuresStabilityPointLowSillLinearCalculationInput = new StructuresStabilityPointLowSillLinearCalculationInput(
                 calculation.InputParameters.HydraulicBoundaryLocation.Id,
-                new HydraRingSection(1, failureMechanismSection.GetSectionLength(), calculation.InputParameters.StructureNormalOrientation),
+                calculation.InputParameters.StructureNormalOrientation,
                 HydraRingInputParser.ParseForeshore(calculation.InputParameters),
                 HydraRingInputParser.ParseBreakWater(calculation.InputParameters),
                 calculation.InputParameters.VolumicWeightWater,
@@ -309,20 +292,16 @@ namespace Ringtoets.StabilityPointStructures.Service
                 calculation.InputParameters.WidthFlowApertures.Mean,
                 calculation.InputParameters.WidthFlowApertures.CoefficientOfVariation);
 
-            HydraRingSettingsDatabaseHelper.AssignSettingsFromDatabase(structuresStabilityPointLowSillLinearCalculationInput, hydraulicBoundaryDatabaseFilePath);
-
             return structuresStabilityPointLowSillLinearCalculationInput;
         }
 
         private StructuresStabilityPointLowSillQuadraticCalculationInput CreateLowSillQuadraticCalculationInput(
             StructuresCalculation<StabilityPointStructuresInput> calculation,
-            FailureMechanismSection failureMechanismSection,
-            GeneralStabilityPointStructuresInput generalInput,
-            string hydraulicBoundaryDatabaseFilePath)
+            GeneralStabilityPointStructuresInput generalInput)
         {
             var structuresStabilityPointLowSillQuadraticCalculationInput = new StructuresStabilityPointLowSillQuadraticCalculationInput(
                 calculation.InputParameters.HydraulicBoundaryLocation.Id,
-                new HydraRingSection(1, failureMechanismSection.GetSectionLength(), calculation.InputParameters.StructureNormalOrientation),
+                calculation.InputParameters.StructureNormalOrientation,
                 HydraRingInputParser.ParseForeshore(calculation.InputParameters),
                 HydraRingInputParser.ParseBreakWater(calculation.InputParameters),
                 calculation.InputParameters.VolumicWeightWater,
@@ -385,20 +364,16 @@ namespace Ringtoets.StabilityPointStructures.Service
                 calculation.InputParameters.WidthFlowApertures.Mean,
                 calculation.InputParameters.WidthFlowApertures.CoefficientOfVariation);
 
-            HydraRingSettingsDatabaseHelper.AssignSettingsFromDatabase(structuresStabilityPointLowSillQuadraticCalculationInput, hydraulicBoundaryDatabaseFilePath);
-
             return structuresStabilityPointLowSillQuadraticCalculationInput;
         }
 
         private StructuresStabilityPointFloodedCulvertLinearCalculationInput CreateFloodedCulvertLinearCalculationInput(
             StructuresCalculation<StabilityPointStructuresInput> calculation,
-            FailureMechanismSection failureMechanismSection,
-            GeneralStabilityPointStructuresInput generalInput,
-            string hydraulicBoundaryDatabaseFilePath)
+            GeneralStabilityPointStructuresInput generalInput)
         {
             var structuresStabilityPointFloodedCulvertLinearCalculationInput = new StructuresStabilityPointFloodedCulvertLinearCalculationInput(
                 calculation.InputParameters.HydraulicBoundaryLocation.Id,
-                new HydraRingSection(1, failureMechanismSection.GetSectionLength(), calculation.InputParameters.StructureNormalOrientation),
+                calculation.InputParameters.StructureNormalOrientation,
                 HydraRingInputParser.ParseForeshore(calculation.InputParameters),
                 HydraRingInputParser.ParseBreakWater(calculation.InputParameters),
                 calculation.InputParameters.VolumicWeightWater,
@@ -461,20 +436,16 @@ namespace Ringtoets.StabilityPointStructures.Service
                 calculation.InputParameters.StabilityLinearLoadModel.Mean,
                 calculation.InputParameters.StabilityLinearLoadModel.CoefficientOfVariation);
 
-            HydraRingSettingsDatabaseHelper.AssignSettingsFromDatabase(structuresStabilityPointFloodedCulvertLinearCalculationInput, hydraulicBoundaryDatabaseFilePath);
-
             return structuresStabilityPointFloodedCulvertLinearCalculationInput;
         }
 
         private StructuresStabilityPointFloodedCulvertQuadraticCalculationInput CreateFloodedCulvertQuadraticCalculationInput(
             StructuresCalculation<StabilityPointStructuresInput> calculation,
-            FailureMechanismSection failureMechanismSection,
-            GeneralStabilityPointStructuresInput generalInput,
-            string hydraulicBoundaryDatabaseFilePath)
+            GeneralStabilityPointStructuresInput generalInput)
         {
             var structuresStabilityPointFloodedCulvertQuadraticCalculationInput = new StructuresStabilityPointFloodedCulvertQuadraticCalculationInput(
                 calculation.InputParameters.HydraulicBoundaryLocation.Id,
-                new HydraRingSection(1, failureMechanismSection.GetSectionLength(), calculation.InputParameters.StructureNormalOrientation),
+                calculation.InputParameters.StructureNormalOrientation,
                 HydraRingInputParser.ParseForeshore(calculation.InputParameters),
                 HydraRingInputParser.ParseBreakWater(calculation.InputParameters),
                 calculation.InputParameters.VolumicWeightWater,
@@ -536,8 +507,6 @@ namespace Ringtoets.StabilityPointStructures.Service
                 calculation.InputParameters.ConstructiveStrengthQuadraticLoadModel.CoefficientOfVariation,
                 calculation.InputParameters.StabilityQuadraticLoadModel.Mean,
                 calculation.InputParameters.StabilityQuadraticLoadModel.CoefficientOfVariation);
-
-            HydraRingSettingsDatabaseHelper.AssignSettingsFromDatabase(structuresStabilityPointFloodedCulvertQuadraticCalculationInput, hydraulicBoundaryDatabaseFilePath);
 
             return structuresStabilityPointFloodedCulvertQuadraticCalculationInput;
         }

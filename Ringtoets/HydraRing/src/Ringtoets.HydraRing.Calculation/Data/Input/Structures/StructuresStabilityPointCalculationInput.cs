@@ -88,7 +88,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
         /// Creates a new instance of <see cref="StructuresStabilityPointCalculationInput"/>.
         /// </summary>
         /// <param name="hydraulicBoundaryLocationId">The id of the hydraulic boundary location.</param>
-        /// <param name="section">The section.</param>
+        /// <param name="sectionNormal">The normal of the section.</param>
         /// <param name="forelandPoints">The foreland points.</param>
         /// <param name="breakWater">The break water.</param>
         /// <param name="volumicWeightWater">The volumic weight of water.</param>
@@ -142,7 +142,8 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
         /// <param name="verticalDistance">The vertical distance.</param>
         /// <param name="modificationFactorWavesSlowlyVaryingPressureComponent">The modification factor waves slowly-varying pressure component.</param>
         /// <param name="modificationFactorDynamicOrImpulsivePressureComponent">The modification factor dynamic or impulsive pressure component.</param>
-        protected StructuresStabilityPointCalculationInput(long hydraulicBoundaryLocationId, HydraRingSection section,
+        protected StructuresStabilityPointCalculationInput(long hydraulicBoundaryLocationId,
+            double sectionNormal,
                                                            IEnumerable<HydraRingForelandPoint> forelandPoints,
                                                            HydraRingBreakWater breakWater,
                                                            double volumicWeightWater,
@@ -179,7 +180,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
                                                            double modificationFactorDynamicOrImpulsivePressureComponent)
             : base(hydraulicBoundaryLocationId)
         {
-            this.section = section;
+            section = new HydraRingSection(1, double.NaN, sectionNormal);
             this.forelandPoints = forelandPoints;
             this.breakWater = breakWater;
             this.volumicWeightWater = volumicWeightWater;
@@ -235,21 +236,9 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
             this.modificationFactorDynamicOrImpulsivePressureComponent = modificationFactorDynamicOrImpulsivePressureComponent;
         }
 
-        public override HydraRingFailureMechanismType FailureMechanismType
-        {
-            get
-            {
-                return HydraRingFailureMechanismType.StructuresStructuralFailure;
-            }
-        }
+        public override HydraRingFailureMechanismType FailureMechanismType { get; } = HydraRingFailureMechanismType.StructuresStructuralFailure;
 
-        public override int VariableId
-        {
-            get
-            {
-                return 58;
-            }
-        }
+        public override int VariableId { get; } = 58;
 
         public override HydraRingSection Section
         {

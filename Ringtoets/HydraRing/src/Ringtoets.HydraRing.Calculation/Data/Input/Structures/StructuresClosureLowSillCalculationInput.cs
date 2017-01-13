@@ -45,7 +45,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
         /// Creates a new instance of <see cref="StructuresClosureLowSillCalculationInput"/>.
         /// </summary>
         /// <param name="hydraulicBoundaryLocationId">The id of the hydraulic boundary location.</param>
-        /// <param name="section">The section.</param>
+        /// <param name="sectionNormal">The normal of the section.</param>
         /// <param name="forelandPoints">The foreland points.</param>
         /// <param name="breakWater">The break water.</param>
         /// <param name="gravitationalAcceleration">The gravitational acceleration.</param>
@@ -78,7 +78,8 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
         /// <param name="insideWaterLevelStandardDeviation">The standard deviation of the inside water level.</param>
         /// <param name="widthFlowAperturesMean">The mean of the width flow apertures.</param>
         /// <param name="widthFlowAperturesVariation">The variation of the width flow apertures.</param>
-        public StructuresClosureLowSillCalculationInput(long hydraulicBoundaryLocationId, HydraRingSection section,
+        public StructuresClosureLowSillCalculationInput(long hydraulicBoundaryLocationId,
+                                                        double sectionNormal,
                                                         IEnumerable<HydraRingForelandPoint> forelandPoints,
                                                         HydraRingBreakWater breakWater,
                                                         double gravitationalAcceleration,
@@ -100,7 +101,8 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
                                                         double thresholdHeightOpenWeirMean, double thresholdHeightOpenWeirStandardDeviation,
                                                         double insideWaterLevelMean, double insideWaterLevelStandardDeviation,
                                                         double widthFlowAperturesMean, double widthFlowAperturesVariation)
-            : base(hydraulicBoundaryLocationId, section,
+            : base(hydraulicBoundaryLocationId,
+                   sectionNormal,
                    forelandPoints, breakWater,
                    gravitationalAcceleration,
                    factorStormDurationOpenStructure,

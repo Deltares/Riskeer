@@ -517,12 +517,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
         {
             // Setup
             var closingStructuresFailureMechanism = new ClosingStructuresFailureMechanism();
-            closingStructuresFailureMechanism.AddSection(new FailureMechanismSection("test section", new[]
-            {
-                new Point2D(0, 0),
-                new Point2D(1, 1)
-            }));
-
+            
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(closingStructuresFailureMechanism,
                                                                                                            mockRepository);
@@ -540,8 +535,6 @@ namespace Ringtoets.ClosingStructures.Service.Test
             {
                 calculation.InputParameters.ForeshoreProfile = new TestForeshoreProfile(useBreakWater);
             }
-
-            FailureMechanismSection failureMechanismSection = closingStructuresFailureMechanism.Sections.First();
 
             using (new HydraRingCalculatorFactoryConfig())
             {
@@ -563,7 +556,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 ClosingStructuresInput input = calculation.InputParameters;
                 var expectedInput = new StructuresClosureVerticalWallCalculationInput(
                     1300001,
-                    new HydraRingSection(1, failureMechanismSection.GetSectionLength(), input.StructureNormalOrientation),
+                    input.StructureNormalOrientation,
                     useForeshore ? input.ForeshoreGeometry.Select(c => new HydraRingForelandPoint(c.X, c.Y)) : new HydraRingForelandPoint[0],
                     useBreakWater ? new HydraRingBreakWater((int) input.BreakWater.Type, input.BreakWater.Height) : null,
                     generalInput.GravitationalAcceleration,
@@ -602,11 +595,6 @@ namespace Ringtoets.ClosingStructures.Service.Test
         {
             // Setup
             var closingStructuresFailureMechanism = new ClosingStructuresFailureMechanism();
-            closingStructuresFailureMechanism.AddSection(new FailureMechanismSection("test section", new[]
-            {
-                new Point2D(0, 0),
-                new Point2D(1, 1)
-            }));
 
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(closingStructuresFailureMechanism,
@@ -626,8 +614,6 @@ namespace Ringtoets.ClosingStructures.Service.Test
             {
                 calculation.InputParameters.ForeshoreProfile = new TestForeshoreProfile(useBreakWater);
             }
-
-            FailureMechanismSection failureMechanismSection = closingStructuresFailureMechanism.Sections.First();
 
             using (new HydraRingCalculatorFactoryConfig())
             {
@@ -649,7 +635,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 ClosingStructuresInput input = calculation.InputParameters;
                 var expectedInput = new StructuresClosureLowSillCalculationInput(
                     1300001,
-                    new HydraRingSection(1, failureMechanismSection.GetSectionLength(), input.StructureNormalOrientation),
+                    input.StructureNormalOrientation,
                     useForeshore ? input.ForeshoreGeometry.Select(c => new HydraRingForelandPoint(c.X, c.Y)) : new HydraRingForelandPoint[0],
                     useBreakWater ? new HydraRingBreakWater((int) input.BreakWater.Type, input.BreakWater.Height) : null,
                     generalInput.GravitationalAcceleration,
@@ -687,11 +673,6 @@ namespace Ringtoets.ClosingStructures.Service.Test
         {
             // Setup
             var closingStructuresFailureMechanism = new ClosingStructuresFailureMechanism();
-            closingStructuresFailureMechanism.AddSection(new FailureMechanismSection("test section", new[]
-            {
-                new Point2D(0, 0),
-                new Point2D(1, 1)
-            }));
 
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(closingStructuresFailureMechanism,
@@ -711,8 +692,6 @@ namespace Ringtoets.ClosingStructures.Service.Test
             {
                 calculation.InputParameters.ForeshoreProfile = new TestForeshoreProfile(useBreakWater);
             }
-
-            FailureMechanismSection failureMechanismSection = closingStructuresFailureMechanism.Sections.First();
 
             using (new HydraRingCalculatorFactoryConfig())
             {
@@ -734,7 +713,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 ClosingStructuresInput input = calculation.InputParameters;
                 var expectedInput = new StructuresClosureFloodedCulvertCalculationInput(
                     1300001,
-                    new HydraRingSection(1, failureMechanismSection.GetSectionLength(), input.StructureNormalOrientation),
+                    input.StructureNormalOrientation,
                     useForeshore ? input.ForeshoreGeometry.Select(c => new HydraRingForelandPoint(c.X, c.Y)) : new HydraRingForelandPoint[0],
                     useBreakWater ? new HydraRingBreakWater((int) input.BreakWater.Type, input.BreakWater.Height) : null,
                     generalInput.GravitationalAcceleration,

@@ -55,27 +55,6 @@ namespace Ringtoets.Common.Utils
         }
 
         /// <summary>
-        /// Determine which <see cref="FailureMechanismSection"/> geometrically contains the <see cref="StructuresCalculation{T}"/>.
-        /// </summary>
-        /// <param name="sections">The <see cref="FailureMechanismSection"/> objects 
-        /// whose <see cref="FailureMechanismSection"/> are considered.</param>
-        /// <param name="calculation">The <see cref="StructuresCalculation{T}"/>.</param>
-        /// <returns>The containing <see cref="FailureMechanismSection"/>, or <c>null</c> if none found.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="sections"/> is <c>null</c></exception>
-        /// <exception cref="ArgumentException">Thrown when an element in <paramref name="sections"/> is <c>null</c>.
-        /// </exception>
-        public static FailureMechanismSection FailureMechanismSectionForCalculation<T>(IEnumerable<FailureMechanismSection> sections,
-                                                                                       StructuresCalculation<T> calculation) where T : IStructuresCalculationInput<StructureBase>, new()
-        {
-            CalculationWithLocation calculationWithLocation = AsCalculationWithLocation(calculation);
-            if (calculationWithLocation != null)
-            {
-                return AssignUnassignCalculations.FailureMechanismSectionForCalculation(sections, calculationWithLocation);
-            }
-            return null;
-        }
-
-        /// <summary>
         /// Updates the <see cref="StructuresFailureMechanismSectionResult{T}.Calculation"/> for each element of <see cref="sectionResults"/> that have the
         /// <paramref name="calculation"/> assigned, or should have the <paramref name="calculation"/> assigned.
         /// </summary>

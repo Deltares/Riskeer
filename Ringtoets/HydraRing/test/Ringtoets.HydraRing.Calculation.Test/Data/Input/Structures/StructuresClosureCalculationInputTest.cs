@@ -39,10 +39,10 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
         {
             // Setup
             const int hydraulicBoundaryLocationId = 1000;
-            var section = new HydraRingSection(1, double.NaN, double.NaN);
             var forelandPoints = Enumerable.Empty<HydraRingForelandPoint>();
             var breakWater = new HydraRingBreakWater(1, 1.1);
 
+            const double sectionNormal = 21.1;
             const double gravitationalAcceleration = 1.1;
             const double factorStormDurationOpenStructure = 2.2;
             const double failureProbabilityOpenStructure = 3.3;
@@ -65,7 +65,8 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
             const double probabilityOrFrequencyOpenStructureBeforeFlooding = 20.0;
 
             // Call
-            var input = new TestStructuresClosureCalculationInput(hydraulicBoundaryLocationId, section,
+            var input = new TestStructuresClosureCalculationInput(hydraulicBoundaryLocationId,
+                sectionNormal,
                                                                   forelandPoints, breakWater,
                                                                   gravitationalAcceleration,
                                                                   factorStormDurationOpenStructure,
@@ -88,7 +89,11 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
             Assert.AreEqual(1, input.CalculationTypeId);
             Assert.AreEqual(58, input.VariableId);
             Assert.AreEqual(HydraRingFailureMechanismType.StructuresClosure, input.FailureMechanismType);
-            Assert.AreSame(section, input.Section);
+
+            HydraRingSection section = input.Section;
+            Assert.AreEqual(1, section.SectionId);
+            Assert.IsNaN(section.SectionLength);
+            Assert.AreEqual(sectionNormal, section.CrossSectionNormal);
             Assert.AreSame(forelandPoints, input.ForelandsPoints);
             Assert.AreSame(breakWater, input.BreakWater);
             HydraRingDataEqualityHelper.AreEqual(GetDefaultVariables().ToArray(), input.Variables.ToArray());
@@ -114,7 +119,8 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
 
         private class TestStructuresClosureCalculationInput : StructuresClosureCalculationInput
         {
-            public TestStructuresClosureCalculationInput(long hydraulicBoundaryLocationId, HydraRingSection section,
+            public TestStructuresClosureCalculationInput(long hydraulicBoundaryLocationId,
+                                                         double sectionNormal,
                                                          IEnumerable<HydraRingForelandPoint> forelandPoints,
                                                          HydraRingBreakWater breakWater,
                                                          double gravitationalAcceleration,
@@ -131,7 +137,8 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
                                                          double failureProbabilityStructureWithErosion,
                                                          double stormDurationMean, double stormDurationVariation,
                                                          double probabilityOrFrequencyOpenStructureBeforeFlooding)
-                : base(hydraulicBoundaryLocationId, section,
+                : base(hydraulicBoundaryLocationId,
+                       sectionNormal,
                        forelandPoints, breakWater,
                        gravitationalAcceleration,
                        factorStormDurationOpenStructure,
