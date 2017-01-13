@@ -79,6 +79,7 @@
     <EmbeddedResource Include="EmbeddedResources\traject_6-3_vakken.prj" />
     <EmbeddedResource Include="EmbeddedResources\traject_6-3_vakken.shp" />
     <EmbeddedResource Include="EmbeddedResources\traject_6-3_vakken.shx" />
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
