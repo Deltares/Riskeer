@@ -53,7 +53,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
         private readonly double criticalOvertoppingDischargeVariation;
         private readonly double failureProbabilityStructureWithErosion;
         private readonly double widthFlowAperturesMean;
-        private readonly double widthFlowAperturesVariation;
+        private readonly double widthFlowAperturesStandardDeviation;
         private readonly double deviationWaveDirection;
         private readonly double stormDurationMean;
         private readonly double stormDurationVariation;
@@ -86,7 +86,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
         /// <param name="criticalOvertoppingDischargeVariation">The variation of the critical overtopping discharge.</param>
         /// <param name="failureProbabilityStructureWithErosion">The failure probability structure with erosion.</param>
         /// <param name="widthFlowAperturesMean">The mean of the width flow apertures.</param>
-        /// <param name="widthFlowAperturesVariation">The variation of the width flow apertures.</param>
+        /// <param name="widthFlowAperturesStandardDeviation">The standard deviation of the width flow apertures.</param>
         /// <param name="deviationWaveDirection">The deviation of the wave direction.</param>
         /// <param name="stormDurationMean">The mean of the storm duration.</param>
         /// <param name="stormDurationVariation">The variation of the storm duration.</param>
@@ -106,7 +106,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
                                                      double flowWidthAtBottomProtectionMean, double flowWidthAtBottomProtectionStandardDeviation,
                                                      double criticalOvertoppingDischargeMean, double criticalOvertoppingDischargeVariation,
                                                      double failureProbabilityStructureWithErosion,
-                                                     double widthFlowAperturesMean, double widthFlowAperturesVariation,
+                                                     double widthFlowAperturesMean, double widthFlowAperturesStandardDeviation,
                                                      double deviationWaveDirection,
                                                      double stormDurationMean, double stormDurationVariation)
             : base(hydraulicBoundaryLocationId)
@@ -135,7 +135,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
             this.criticalOvertoppingDischargeVariation = criticalOvertoppingDischargeVariation;
             this.failureProbabilityStructureWithErosion = failureProbabilityStructureWithErosion;
             this.widthFlowAperturesMean = widthFlowAperturesMean;
-            this.widthFlowAperturesVariation = widthFlowAperturesVariation;
+            this.widthFlowAperturesStandardDeviation = widthFlowAperturesStandardDeviation;
             this.deviationWaveDirection = deviationWaveDirection;
             this.stormDurationMean = stormDurationMean;
             this.stormDurationVariation = stormDurationVariation;
@@ -181,7 +181,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
                 yield return new LogNormalHydraRingVariable(103, HydraRingDeviationType.Standard, flowWidthAtBottomProtectionMean, flowWidthAtBottomProtectionStandardDeviation);
                 yield return new LogNormalHydraRingVariable(104, HydraRingDeviationType.Variation, criticalOvertoppingDischargeMean, criticalOvertoppingDischargeVariation);
                 yield return new DeterministicHydraRingVariable(105, failureProbabilityStructureWithErosion);
-                yield return new NormalHydraRingVariable(106, HydraRingDeviationType.Variation, widthFlowAperturesMean, widthFlowAperturesVariation);
+                yield return new NormalHydraRingVariable(106, HydraRingDeviationType.Variation, widthFlowAperturesMean, widthFlowAperturesStandardDeviation);
                 yield return new DeterministicHydraRingVariable(107, deviationWaveDirection);
                 yield return new LogNormalHydraRingVariable(108, HydraRingDeviationType.Variation, stormDurationMean, stormDurationVariation);
             }
