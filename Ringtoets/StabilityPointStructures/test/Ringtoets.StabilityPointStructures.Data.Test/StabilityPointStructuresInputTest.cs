@@ -58,7 +58,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             var flowVelocityStructureClosable = new VariationCoefficientNormalDistribution(2)
             {
                 Mean = RoundedDouble.NaN,
-                CoefficientOfVariation = (RoundedDouble) 1
+                CoefficientOfVariation = (RoundedDouble) 0.2
             };
 
             var levelCrestStructure = new NormalDistribution(2)
