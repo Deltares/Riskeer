@@ -1194,6 +1194,105 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Verzadigd gewicht (standaardafwijking) [kn/m³].
+        /// </summary>
+        public static string PipingSoilLayerTable_ColumnHeader_BelowPhreaticLevelDeviation {
+            get {
+                return ResourceManager.GetString("PipingSoilLayerTable_ColumnHeader_BelowPhreaticLevelDeviation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Verzadigd gewicht (verwachtingswaarde) [kn/m³].
+        /// </summary>
+        public static string PipingSoilLayerTable_ColumnHeader_BelowPhreaticLevelMean {
+            get {
+                return ResourceManager.GetString("PipingSoilLayerTable_ColumnHeader_BelowPhreaticLevelMean", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Verzadigd gewicht (verschuiving) [kn/m³].
+        /// </summary>
+        public static string PipingSoilLayerTable_ColumnHeader_BelowPhreaticLevelShift {
+            get {
+                return ResourceManager.GetString("PipingSoilLayerTable_ColumnHeader_BelowPhreaticLevelShift", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kleur.
+        /// </summary>
+        public static string PipingSoilLayerTable_ColumnHeader_Color {
+            get {
+                return ResourceManager.GetString("PipingSoilLayerTable_ColumnHeader_Color", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to d70 (standaardafwijking) [m].
+        /// </summary>
+        public static string PipingSoilLayerTable_ColumnHeader_DiameterD70Deviation {
+            get {
+                return ResourceManager.GetString("PipingSoilLayerTable_ColumnHeader_DiameterD70Deviation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to d70 (verwachtingswaarde) [m].
+        /// </summary>
+        public static string PipingSoilLayerTable_ColumnHeader_DiameterD70Mean {
+            get {
+                return ResourceManager.GetString("PipingSoilLayerTable_ColumnHeader_DiameterD70Mean", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Is aquifer.
+        /// </summary>
+        public static string PipingSoilLayerTable_ColumnHeader_IsAquifer {
+            get {
+                return ResourceManager.GetString("PipingSoilLayerTable_ColumnHeader_IsAquifer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Naam.
+        /// </summary>
+        public static string PipingSoilLayerTable_ColumnHeader_MaterialName {
+            get {
+                return ResourceManager.GetString("PipingSoilLayerTable_ColumnHeader_MaterialName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Doorlatendheid (standaardafwijking) [m/s].
+        /// </summary>
+        public static string PipingSoilLayerTable_ColumnHeader_PermeabilityDeviation {
+            get {
+                return ResourceManager.GetString("PipingSoilLayerTable_ColumnHeader_PermeabilityDeviation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Doorlatendheid (verwachtingswaarde) [m/s].
+        /// </summary>
+        public static string PipingSoilLayerTable_ColumnHeader_PermeabilityMean {
+            get {
+                return ResourceManager.GetString("PipingSoilLayerTable_ColumnHeader_PermeabilityMean", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Topniveau [m+NAP].
+        /// </summary>
+        public static string PipingSoilLayerTable_ColumnHeader_Top {
+            get {
+                return ResourceManager.GetString("PipingSoilLayerTable_ColumnHeader_Top", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap PipingSoilProfileIcon {

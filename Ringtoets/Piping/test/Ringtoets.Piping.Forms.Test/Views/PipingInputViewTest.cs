@@ -68,9 +68,8 @@ namespace Ringtoets.Piping.Forms.Test.Views
             using (var view = new PipingInputView())
             {
                 // Assert
-                var chartControl = view.Controls.Find("chartControl", true).First() as IChartControl;
+                var chartControl = (IChartControl) view.Controls.Find("chartControl", true).First();
                 Assert.IsInstanceOf<Control>(chartControl);
-                Assert.NotNull(chartControl);
                 Assert.AreSame(chartControl, chartControl);
                 Assert.AreEqual(DockStyle.Fill, ((Control)chartControl).Dock);
                 Assert.AreEqual("Afstand [m]", chartControl.BottomAxisTitle);
@@ -86,7 +85,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             using (var view = new PipingInputView())
             {
                 // Assert
-                var tableControl = view.Controls.Find("pipingSoilLayerTable", true).First() as PipingSoilLayerTable;
+                var tableControl = (PipingSoilLayerTable) view.Controls.Find("pipingSoilLayerTable", true).First();
                 Assert.NotNull(tableControl);
                 Assert.AreEqual(DockStyle.Bottom, tableControl.Dock);
                 CollectionAssert.IsEmpty(tableControl.Rows);

@@ -39,6 +39,9 @@ namespace Core.Common.Controls.Test.DataGrid
     [TestFixture]
     public class DataGridViewControlTest
     {
+        const string propertyName = "PropertyName";
+        const string headerText = "HeaderText";
+
         [Test]
         public void Constructor_DefaultValues()
         {
@@ -232,9 +235,6 @@ namespace Core.Common.Controls.Test.DataGrid
             using (var form = new Form())
             using (var control = new DataGridViewControl())
             {
-                var propertyName = "PropertyName";
-                var headerText = "HeaderText";
-
                 form.Controls.Add(control);
                 form.Show();
 
@@ -265,20 +265,17 @@ namespace Core.Common.Controls.Test.DataGrid
         public void AddTextBoxColumn_AllParametersSet_AddsColumnToDataGridViewWithAutoSizeModeAndMinimumWidthAndFormat(bool readOnly)
         {
             // Setup
+            const DataGridViewAutoSizeColumnMode autoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+            const int minimumWidth = 100;
+            const string format = "1/#,#";
+
             using (var form = new Form())
             using (var control = new DataGridViewControl())
             {
-                var propertyName = "PropertyName";
-                var headerText = "HeaderText";
-
                 form.Controls.Add(control);
                 form.Show();
 
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-
-                var autoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
-                var minimumWidth = 100;
-                var format = "1/#,#";
 
                 // Precondition
                 Assert.AreEqual(0, dataGridView.ColumnCount);
@@ -307,9 +304,6 @@ namespace Core.Common.Controls.Test.DataGrid
             using (var form = new Form())
             using (var control = new DataGridViewControl())
             {
-                var propertyName = "PropertyName";
-                var headerText = "HeaderText";
-
                 form.Controls.Add(control);
                 form.Show();
 
@@ -338,18 +332,15 @@ namespace Core.Common.Controls.Test.DataGrid
         public void AddCheckboxColumn_ReadOnlySet_AddsColumnToDataGridViewWithReadOnlyTrue()
         {
             // Setup
+            const DataGridViewAutoSizeColumnMode autoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+
             using (var form = new Form())
             using (var control = new DataGridViewControl())
             {
-                var propertyName = "PropertyName";
-                var headerText = "HeaderText";
-
                 form.Controls.Add(control);
                 form.Show();
 
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-
-                var autoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
 
                 // Precondition
                 Assert.AreEqual(0, dataGridView.ColumnCount);
@@ -374,18 +365,15 @@ namespace Core.Common.Controls.Test.DataGrid
         public void AddCheckboxColumn_AutoSizeModeSet_AddsColumnToDataGridViewWithAutoSizeMode()
         {
             // Setup
+            const DataGridViewAutoSizeColumnMode autoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+
             using (var form = new Form())
             using (var control = new DataGridViewControl())
             {
-                var propertyName = "PropertyName";
-                var headerText = "HeaderText";
-
                 form.Controls.Add(control);
                 form.Show();
 
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-
-                var autoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
 
                 // Precondition
                 Assert.AreEqual(0, dataGridView.ColumnCount);
@@ -409,12 +397,11 @@ namespace Core.Common.Controls.Test.DataGrid
         [Test]
         public void AddComboBoxColumn_AutoSizeModeSet_AddsColumnToDataGridViewWithAutoSizeMode()
         {
+            const DataGridViewAutoSizeColumnMode autoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+
             using (var form = new Form())
             using (var control = new DataGridViewControl())
             {
-                var propertyName = "PropertyName";
-                var headerText = "HeaderText";
-
                 form.Controls.Add(control);
                 form.Show();
 
@@ -422,8 +409,6 @@ namespace Core.Common.Controls.Test.DataGrid
 
                 // Precondition
                 Assert.AreEqual(0, dataGridView.ColumnCount);
-
-                var autoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
 
                 // Call
                 control.AddComboBoxColumn<object>(propertyName, headerText, null, null, null, autoSizeMode);
@@ -450,9 +435,6 @@ namespace Core.Common.Controls.Test.DataGrid
             using (var form = new Form())
             using (var control = new DataGridViewControl())
             {
-                var propertyName = "PropertyName";
-                var headerText = "HeaderText";
-
                 form.Controls.Add(control);
                 form.Show();
 
@@ -486,9 +468,6 @@ namespace Core.Common.Controls.Test.DataGrid
             using (var form = new Form())
             using (var control = new DataGridViewControl())
             {
-                var propertyName = "PropertyName";
-                var headerText = "HeaderText";
-
                 form.Controls.Add(control);
                 form.Show();
 
@@ -534,9 +513,6 @@ namespace Core.Common.Controls.Test.DataGrid
             using (var form = new Form())
             using (var control = new DataGridViewControl())
             {
-                var propertyName = "PropertyName";
-                var headerText = "HeaderText";
-
                 form.Controls.Add(control);
                 form.Show();
 
@@ -565,18 +541,15 @@ namespace Core.Common.Controls.Test.DataGrid
         public void AddColorColumn_WithAutoSizeMode_AddsColumnToDataGridViewWithAutoSizeMode()
         {
             // Setup
+            const DataGridViewAutoSizeColumnMode autoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+
             using (var form = new Form())
             using (var control = new DataGridViewControl())
             {
-                var propertyName = "PropertyName";
-                var headerText = "HeaderText";
-
                 form.Controls.Add(control);
                 form.Show();
 
                 var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
-
-                var autoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
 
                 // Precondition
                 Assert.AreEqual(0, dataGridView.ColumnCount);

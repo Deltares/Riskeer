@@ -25,7 +25,7 @@ using System.Windows.Forms;
 namespace Core.Common.Controls.DataGrid
 {
     /// <summary>
-    /// This class defines cells for a data grid view in which a color is shown based
+    /// This class define a cell for a data grid view in which a color is shown based
     /// on the value of that cell.
     /// </summary>
     public class DataGridViewColorCell : DataGridViewTextBoxCell

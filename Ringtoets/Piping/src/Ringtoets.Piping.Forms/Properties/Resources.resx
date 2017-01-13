@@ -625,4 +625,37 @@
   <data name="StochasticSoilModelCollection_SourcePath_DisplayName" xml:space="preserve">
     <value>Bronlocatie</value>
   </data>
+  <data name="PipingSoilLayerTable_ColumnHeader_MaterialName" xml:space="preserve">
+    <value>Naam</value>
+  </data>
+  <data name="PipingSoilLayerTable_ColumnHeader_Color" xml:space="preserve">
+    <value>Kleur</value>
+  </data>
+  <data name="PipingSoilLayerTable_ColumnHeader_Top" xml:space="preserve">
+    <value>Topniveau [m+NAP]</value>
+  </data>
+  <data name="PipingSoilLayerTable_ColumnHeader_IsAquifer" xml:space="preserve">
+    <value>Is aquifer</value>
+  </data>
+  <data name="PipingSoilLayerTable_ColumnHeader_PermeabilityMean" xml:space="preserve">
+    <value>Doorlatendheid (verwachtingswaarde) [m/s]</value>
+  </data>
+  <data name="PipingSoilLayerTable_ColumnHeader_PermeabilityDeviation" xml:space="preserve">
+    <value>Doorlatendheid (standaardafwijking) [m/s]</value>
+  </data>
+  <data name="PipingSoilLayerTable_ColumnHeader_DiameterD70Mean" xml:space="preserve">
+    <value>d70 (verwachtingswaarde) [m]</value>
+  </data>
+  <data name="PipingSoilLayerTable_ColumnHeader_DiameterD70Deviation" xml:space="preserve">
+    <value>d70 (standaardafwijking) [m]</value>
+  </data>
+  <data name="PipingSoilLayerTable_ColumnHeader_BelowPhreaticLevelMean" xml:space="preserve">
+    <value>Verzadigd gewicht (verwachtingswaarde) [kn/m³]</value>
+  </data>
+  <data name="PipingSoilLayerTable_ColumnHeader_BelowPhreaticLevelDeviation" xml:space="preserve">
+    <value>Verzadigd gewicht (standaardafwijking) [kn/m³]</value>
+  </data>
+  <data name="PipingSoilLayerTable_ColumnHeader_BelowPhreaticLevelShift" xml:space="preserve">
+    <value>Verzadigd gewicht (verschuiving) [kn/m³]</value>
+  </data>
 </root>

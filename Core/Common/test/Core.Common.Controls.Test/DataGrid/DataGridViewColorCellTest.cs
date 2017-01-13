@@ -71,13 +71,13 @@ namespace Core.Common.Controls.Test.DataGrid
                         view.ClearSelection();
 
                         // Then
-                        var cellDisplayRectangle = view.GetCellDisplayRectangle(0, 0, false);
+                        Rectangle cellDisplayRectangle = view.GetCellDisplayRectangle(0, 0, false);
 
                         using (Bitmap viewDrawCanvas = new Bitmap(view.Width, view.Height))
                         using (Bitmap expectedImage = CreateExpectedImage(cellDisplayRectangle, expectedColor, view.GridColor))
                         {
                             view.DrawToBitmap(viewDrawCanvas, new Rectangle(0, 0, view.Width, view.Height));
-                            using (var actualImage = viewDrawCanvas.Clone(cellDisplayRectangle, viewDrawCanvas.PixelFormat))
+                            using (Bitmap actualImage = viewDrawCanvas.Clone(cellDisplayRectangle, viewDrawCanvas.PixelFormat))
                             {
                                 TestHelper.AssertImagesAreEqual(expectedImage, actualImage);
                             }
@@ -93,7 +93,7 @@ namespace Core.Common.Controls.Test.DataGrid
             var expectedImage = new Bitmap(width, height);
             var colorRectangle = new Rectangle(3, 3, width - 8, height - 8);
 
-            var expectedGraphic = Graphics.FromImage(expectedImage);
+            Graphics expectedGraphic = Graphics.FromImage(expectedImage);
             expectedGraphic.FillRectangle(new SolidBrush(Color.White), new Rectangle(0, 0, width, height));
             expectedGraphic.FillRectangle(new SolidBrush(cellValueColor), colorRectangle);
             expectedGraphic.DrawRectangle(new Pen(Color.DarkSlateGray), colorRectangle);

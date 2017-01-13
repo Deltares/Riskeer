@@ -25,6 +25,7 @@ using System.Drawing;
 using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Controls.DataGrid;
+using Ringtoets.Piping.Forms.Properties;
 using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.Forms.Views
@@ -55,17 +56,17 @@ namespace Ringtoets.Piping.Forms.Views
 
         private void AddColumns()
         {
-            AddTextBoxColumn(nameof(FormattedPipingSoilLayerRow.MaterialName), "Naam", true);
-            AddColorColumn(nameof(FormattedPipingSoilLayerRow.Color), "Kleur");
-            AddTextBoxColumn(nameof(FormattedPipingSoilLayerRow.Top), "Topniveau [m+NAP]", true);
-            AddCheckBoxColumn(nameof(FormattedPipingSoilLayerRow.IsAquifer), "Is aquifer", true);
-            AddTextBoxColumn(nameof(FormattedPipingSoilLayerRow.PermeabilityMean), "Doorlatendheid (verwachtingswaarde) [m/s]", true);
-            AddTextBoxColumn(nameof(FormattedPipingSoilLayerRow.PermeabilityDeviation), "Doorlatendheid (standaardafwijking) [m/s]", true);
-            AddTextBoxColumn(nameof(FormattedPipingSoilLayerRow.DiameterD70Mean), "d70 (verwachtingswaarde) [m]", true);
-            AddTextBoxColumn(nameof(FormattedPipingSoilLayerRow.DiameterD70Deviation), "d70 (standaardafwijking) [m]", true);
-            AddTextBoxColumn(nameof(FormattedPipingSoilLayerRow.BelowPhreaticLevelMean), "Verzadigd gewicht (verwachtingswaarde) [kn/m³]", true);
-            AddTextBoxColumn(nameof(FormattedPipingSoilLayerRow.BelowPhreaticLevelDeviation), "Verzadigd gewicht (standaardafwijking) [kn/m³]", true);
-            AddTextBoxColumn(nameof(FormattedPipingSoilLayerRow.BelowPhreaticLevelShift), "Verzadigd gewicht (verschuiving) [kn/m³]", true);
+            AddTextBoxColumn(nameof(FormattedPipingSoilLayerRow.MaterialName), Resources.PipingSoilLayerTable_ColumnHeader_MaterialName, true);
+            AddColorColumn(nameof(FormattedPipingSoilLayerRow.Color), Resources.PipingSoilLayerTable_ColumnHeader_Color);
+            AddTextBoxColumn(nameof(FormattedPipingSoilLayerRow.Top), Resources.PipingSoilLayerTable_ColumnHeader_Top, true);
+            AddCheckBoxColumn(nameof(FormattedPipingSoilLayerRow.IsAquifer), Resources.PipingSoilLayerTable_ColumnHeader_IsAquifer, true);
+            AddTextBoxColumn(nameof(FormattedPipingSoilLayerRow.PermeabilityMean), Resources.PipingSoilLayerTable_ColumnHeader_PermeabilityMean, true);
+            AddTextBoxColumn(nameof(FormattedPipingSoilLayerRow.PermeabilityDeviation), Resources.PipingSoilLayerTable_ColumnHeader_PermeabilityDeviation, true);
+            AddTextBoxColumn(nameof(FormattedPipingSoilLayerRow.DiameterD70Mean), Resources.PipingSoilLayerTable_ColumnHeader_DiameterD70Mean, true);
+            AddTextBoxColumn(nameof(FormattedPipingSoilLayerRow.DiameterD70Deviation), Resources.PipingSoilLayerTable_ColumnHeader_DiameterD70Deviation, true);
+            AddTextBoxColumn(nameof(FormattedPipingSoilLayerRow.BelowPhreaticLevelMean), Resources.PipingSoilLayerTable_ColumnHeader_BelowPhreaticLevelMean, true);
+            AddTextBoxColumn(nameof(FormattedPipingSoilLayerRow.BelowPhreaticLevelDeviation), Resources.PipingSoilLayerTable_ColumnHeader_BelowPhreaticLevelDeviation, true);
+            AddTextBoxColumn(nameof(FormattedPipingSoilLayerRow.BelowPhreaticLevelShift), Resources.PipingSoilLayerTable_ColumnHeader_BelowPhreaticLevelShift, true);
         }
 
         private class FormattedPipingSoilLayerRow
