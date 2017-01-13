@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
 using Ringtoets.DuneErosion.Data;
 
@@ -44,7 +43,7 @@ namespace Application.Ringtoets.Storage.Create.DuneErosion
             var entity = mechanism.Create(FailureMechanismType.DuneErosion, registry);
             AddEntitiesForSectionResults(mechanism.SectionResults, registry);
             AddEntitiesForFailureMechanismMeta(mechanism.GeneralInput, entity);
-            AddEntitiesForDuneLocations(mechanism.DuneLocations.ToList(), entity, registry);
+            AddEntitiesForDuneLocations(mechanism.DuneLocations, entity, registry);
             return entity;
         }
 
