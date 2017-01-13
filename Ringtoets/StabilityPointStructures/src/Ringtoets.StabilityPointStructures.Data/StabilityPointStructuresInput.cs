@@ -88,7 +88,7 @@ namespace Ringtoets.StabilityPointStructures.Data
             flowVelocityStructureClosable = new VariationCoefficientNormalDistribution(2)
             {
                 Mean = RoundedDouble.NaN,
-                CoefficientOfVariation = (RoundedDouble) 1
+                CoefficientOfVariation = (RoundedDouble) 0.2
             };
 
             levelCrestStructure = new NormalDistribution(2)
@@ -305,7 +305,6 @@ namespace Ringtoets.StabilityPointStructures.Data
             set
             {
                 flowVelocityStructureClosable.Mean = value.Mean;
-                flowVelocityStructureClosable.CoefficientOfVariation = value.CoefficientOfVariation;
             }
         }
 

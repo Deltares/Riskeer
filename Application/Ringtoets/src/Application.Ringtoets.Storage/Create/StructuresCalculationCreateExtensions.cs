@@ -316,7 +316,6 @@ namespace Application.Ringtoets.Storage.Create
             entity.ProbabilityCollisionSecondaryStructure = input.ProbabilityCollisionSecondaryStructure;
 
             entity.FlowVelocityStructureClosableMean = input.FlowVelocityStructureClosable.Mean.Value.ToNaNAsNull();
-            entity.FlowVelocityStructureClosableStandardDeviation = input.FlowVelocityStructureClosable.CoefficientOfVariation.Value.ToNaNAsNull();
 
             entity.StabilityLinearLoadModelMean = input.StabilityLinearLoadModel.Mean.Value.ToNaNAsNull();
             entity.StabilityLinearLoadModelCoefficientOfVariation = input.StabilityLinearLoadModel.CoefficientOfVariation.Value.ToNaNAsNull();

@@ -319,7 +319,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             var expectedDistribution = new VariationCoefficientNormalDistribution(2)
             {
                 Mean = mean,
-                CoefficientOfVariation = coefficientOfVariation
+                CoefficientOfVariation = input.FlowVelocityStructureClosable.CoefficientOfVariation
             };
             var distributionToSet = new VariationCoefficientNormalDistribution(5)
             {
