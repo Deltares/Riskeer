@@ -22,11 +22,8 @@
 using System;
 using Core.Common.Base.Service;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.GrassCoverErosionInwards.Data;
-using Ringtoets.GrassCoverErosionInwards.Utils;
 using Ringtoets.HydraRing.Calculation.Activities;
-using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
 
 namespace Ringtoets.GrassCoverErosionInwards.Service
 {
@@ -90,14 +87,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
         protected override void PerformCalculation()
         {
             GrassCoverErosionInwardsDataSynchronizationService.ClearCalculationOutput(calculation);
-
-            FailureMechanismSection failureMechanismSection =
-                GrassCoverErosionInwardsHelper.FailureMechanismSectionForCalculation(failureMechanism.Sections, calculation);
-
+            
             calculationService.Calculate(
                 calculation,
                 assessmentSection,
-                failureMechanismSection,
                 failureMechanism.GeneralInput,
                 failureMechanism.Contribution,
                 hydraulicBoundaryDatabaseFilePath);

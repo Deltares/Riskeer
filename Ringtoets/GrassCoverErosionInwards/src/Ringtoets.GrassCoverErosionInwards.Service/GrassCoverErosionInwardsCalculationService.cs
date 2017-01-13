@@ -31,7 +31,6 @@ using Core.Common.Utils;
 using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.IO.HydraRing;
 using Ringtoets.Common.Service;
@@ -39,7 +38,6 @@ using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Service.Properties;
 using Ringtoets.HydraRing.Calculation.Calculator;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
-using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Data.Input;
 using Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics;
 using Ringtoets.HydraRing.Calculation.Data.Input.Overtopping;
@@ -97,7 +95,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
         /// </summary>
         /// <param name="calculation">The <see cref="GrassCoverErosionInwardsCalculation"/> that holds all the information required to perform the calculation.</param>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> that holds information about the norm used in the calculation.</param>
-        /// <param name="failureMechanismSection">The <see cref="FailureMechanismSection"/> to create input with.</param>
         /// <param name="generalInput">Calculation input parameters that apply to all <see cref="GrassCoverErosionInwardsCalculation"/> instances.</param>
         /// <param name="failureMechanismContribution">The amount of contribution for this failure mechanism in the assessment section.</param>
         /// <param name="hydraulicBoundaryDatabaseFilePath">The path which points to the hydraulic boundary database file.</param>
@@ -135,7 +132,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
         /// <exception cref="HydraRingCalculationException">Thrown when an error occurs during the calculation.</exception>
         internal void Calculate(GrassCoverErosionInwardsCalculation calculation,
                                 IAssessmentSection assessmentSection,
-                                FailureMechanismSection failureMechanismSection,
                                 GeneralGrassCoverErosionInwardsInput generalInput,
                                 double failureMechanismContribution,
                                 string hydraulicBoundaryDatabaseFilePath)
@@ -147,10 +143,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
             if (assessmentSection == null)
             {
                 throw new ArgumentNullException(nameof(assessmentSection));
-            }
-            if (failureMechanismSection == null)
-            {
-                throw new ArgumentNullException(nameof(failureMechanismSection));
             }
             if (generalInput == null)
             {
@@ -166,7 +158,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
             CalculationServiceHelper.LogCalculationBeginTime(calculationName);
 
             overtoppingCalculator = HydraRingCalculatorFactory.Instance.CreateOvertoppingCalculator(hlcdDirectory, assessmentSection.Id);
-            var overtoppingCalculationInput = CreateOvertoppingInput(calculation, failureMechanismSection, generalInput, hydraulicBoundaryDatabaseFilePath);
+            var overtoppingCalculationInput = CreateOvertoppingInput(calculation, generalInput, hydraulicBoundaryDatabaseFilePath);
             DikeHeightAssessmentOutput dikeHeight = null;
 
             try
@@ -188,7 +180,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                                                    generalInput, failureMechanismContribution,
                                                    calculation.InputParameters.DikeHeightCalculationType);
                     var dikeHeightCalculationInput = CreateDikeHeightInput(calculation, norm,
-                                                                           failureMechanismSection,
                                                                            generalInput,
                                                                            hydraulicBoundaryDatabaseFilePath);
                     bool dikeHeightCalculated = CalculateDikeHeight(dikeHeightCalculationInput, calculationName);
@@ -386,12 +377,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
         /// </list>
         /// </exception>
         private static OvertoppingCalculationInput CreateOvertoppingInput(GrassCoverErosionInwardsCalculation calculation,
-                                                                          FailureMechanismSection failureMechanismSection,
                                                                           GeneralGrassCoverErosionInwardsInput generalInput,
                                                                           string hydraulicBoundaryDatabaseFilePath)
         {
             var overtoppingCalculationInput = new OvertoppingCalculationInput(calculation.InputParameters.HydraulicBoundaryLocation.Id,
-                                                                              new HydraRingSection(1, failureMechanismSection.GetSectionLength(), calculation.InputParameters.Orientation),
+                                                                              calculation.InputParameters.Orientation,
                                                                               ParseProfilePoints(calculation.InputParameters.DikeGeometry),
                                                                               HydraRingInputParser.ParseForeshore(calculation.InputParameters),
                                                                               HydraRingInputParser.ParseBreakWater(calculation.InputParameters),
@@ -443,13 +433,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
         /// </exception>
         private static DikeHeightCalculationInput CreateDikeHeightInput(GrassCoverErosionInwardsCalculation calculation,
                                                                         double norm,
-                                                                        FailureMechanismSection failureMechanismSection,
                                                                         GeneralGrassCoverErosionInwardsInput generalInput,
                                                                         string hydraulicBoundaryDatabaseFilePath)
         {
             var dikeHeightCalculationInput = new DikeHeightCalculationInput(calculation.InputParameters.HydraulicBoundaryLocation.Id,
                                                                             norm,
-                                                                            new HydraRingSection(1, failureMechanismSection.GetSectionLength(), calculation.InputParameters.Orientation),
+                                                                            calculation.InputParameters.Orientation,
                                                                             ParseProfilePoints(calculation.InputParameters.DikeGeometry),
                                                                             HydraRingInputParser.ParseForeshore(calculation.InputParameters),
                                                                             HydraRingInputParser.ParseBreakWater(calculation.InputParameters),

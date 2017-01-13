@@ -37,10 +37,10 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
         {
             // Setup
             const int hydraulicBoundaryLocationId = 1000;
-            var section = new HydraRingSection(1, double.NaN, double.NaN);
             var forelandPoints = Enumerable.Empty<HydraRingForelandPoint>();
             var breakWater = new HydraRingBreakWater(1, 1.1);
 
+            const double sectionNormal = 60.0;
             const double volumicWeightWater = 1.1;
             const double gravitationalAcceleration = 2.2;
             const double levelCrestStructureMean = 3.3;
@@ -102,7 +102,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
             const double widthFlowAperturesVariation = 59.9;
 
             // Call
-            var input = new StructuresStabilityPointLowSillQuadraticCalculationInput(hydraulicBoundaryLocationId, section,
+            var input = new StructuresStabilityPointLowSillQuadraticCalculationInput(hydraulicBoundaryLocationId, sectionNormal,
                                                                                      forelandPoints, breakWater,
                                                                                      volumicWeightWater,
                                                                                      gravitationalAcceleration,
@@ -147,7 +147,11 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
             Assert.AreEqual(1, input.CalculationTypeId);
             Assert.AreEqual(58, input.VariableId);
             Assert.AreEqual(HydraRingFailureMechanismType.StructuresStructuralFailure, input.FailureMechanismType);
-            Assert.AreSame(section, input.Section);
+
+            HydraRingSection section = input.Section;
+            Assert.AreEqual(1, section.SectionId);
+            Assert.IsNaN(section.SectionLength);
+            Assert.AreEqual(sectionNormal, section.CrossSectionNormal);
             Assert.AreSame(forelandPoints, input.ForelandsPoints);
             Assert.AreSame(breakWater, input.BreakWater);
             HydraRingDataEqualityHelper.AreEqual(GetDefaultVariables().ToArray(), input.Variables.ToArray());
@@ -163,7 +167,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
         public void GetSubMechanismModelId_Always_ReturnsExpectedValues(int subMechanismModelId, int? expectedSubMechanismModelId)
         {
             // Setup
-            var input = new StructuresStabilityPointLowSillQuadraticCalculationInput(111, new HydraRingSection(1, double.NaN, double.NaN),
+            var input = new StructuresStabilityPointLowSillQuadraticCalculationInput(111, double.NaN,
                                                                                      Enumerable.Empty<HydraRingForelandPoint>(),
                                                                                      new HydraRingBreakWater(1, 1.1),
                                                                                      1.1, 2.2, 3.3, 4.4, 5.5, 6.6, 7.7, 8.8, 9.9, 10.10,

@@ -43,7 +43,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
         /// Creates a new instance of <see cref="StructuresStabilityPointFloodedCulvertQuadraticCalculationInput"/>.
         /// </summary>
         /// <param name="hydraulicBoundaryLocationId">The id of the hydraulic boundary location.</param>
-        /// <param name="section">The section.</param>
+        /// <param name="sectionNormal">The normal of the section.</param>
         /// <param name="forelandPoints">The foreland points.</param>
         /// <param name="breakWater">The break water.</param>
         /// <param name="volumicWeightWater">The volumic weight of water.</param>
@@ -105,7 +105,8 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
         /// <param name="constructiveStrengthQuadraticLoadModelVariation">The variation of the constructive strength quadratic load model.</param>
         /// <param name="stabilityQuadraticLoadModelMean">The mean of the stability quadratic load model.</param>
         /// <param name="stabilityQuadraticLoadModelVariation">The variation of the stability quadratic load model.</param>
-        public StructuresStabilityPointFloodedCulvertQuadraticCalculationInput(long hydraulicBoundaryLocationId, HydraRingSection section,
+        public StructuresStabilityPointFloodedCulvertQuadraticCalculationInput(long hydraulicBoundaryLocationId,
+                                                                               double sectionNormal,
                                                                                IEnumerable<HydraRingForelandPoint> forelandPoints,
                                                                                HydraRingBreakWater breakWater,
                                                                                double volumicWeightWater,
@@ -144,7 +145,8 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
                                                                                double areaFlowAperturesMean, double areaFlowAperturesStandardDeviation,
                                                                                double constructiveStrengthQuadraticLoadModelMean, double constructiveStrengthQuadraticLoadModelVariation,
                                                                                double stabilityQuadraticLoadModelMean, double stabilityQuadraticLoadModelVariation)
-            : base(hydraulicBoundaryLocationId, section,
+            : base(hydraulicBoundaryLocationId,
+                   sectionNormal,
                    forelandPoints, breakWater,
                    volumicWeightWater,
                    gravitationalAcceleration,

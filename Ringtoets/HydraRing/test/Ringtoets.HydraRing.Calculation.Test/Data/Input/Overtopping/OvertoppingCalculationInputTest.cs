@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
@@ -38,8 +39,8 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Overtopping
         {
             // Setup
             int hydraulicBoundaryLocationId = 1000;
-            HydraRingSection expectedHydraRingSection = new HydraRingSection(1, double.NaN, double.NaN);
 
+            const double sectionNormal = 22.2;
             const double dikeHeight = 1.1;
             const double modelFactorCriticalOvertopping = 2.2;
             const double factorFbMean = 3.3;
@@ -74,7 +75,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Overtopping
 
             // Call
 
-            OvertoppingCalculationInput overtoppingCalculationInput = new OvertoppingCalculationInput(hydraulicBoundaryLocationId, expectedHydraRingSection,
+            OvertoppingCalculationInput overtoppingCalculationInput = new OvertoppingCalculationInput(hydraulicBoundaryLocationId, sectionNormal,
                                                                                                       expectedRingProfilePoints, expectedRingForelandPoints, expectedRingBreakWater,
                                                                                                       dikeHeight,
                                                                                                       modelFactorCriticalOvertopping,
@@ -96,16 +97,17 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Overtopping
             Assert.AreEqual(expectedCalculationTypeId, overtoppingCalculationInput.CalculationTypeId);
             Assert.AreEqual(hydraulicBoundaryLocationId, overtoppingCalculationInput.HydraulicBoundaryLocationId);
             Assert.AreEqual(HydraRingFailureMechanismType.DikesOvertopping, overtoppingCalculationInput.FailureMechanismType);
-            Assert.AreEqual(expectedVariableId, overtoppingCalculationInput.VariableId);
-            Assert.IsNotNull(overtoppingCalculationInput.Section);
+            Assert.AreEqual(expectedVariableId, overtoppingCalculationInput.VariableId);            
             HydraRingDataEqualityHelper.AreEqual(GetDefaultOvertoppingVariables().ToArray(), overtoppingCalculationInput.Variables.ToArray());
             CollectionAssert.AreEqual(expectedRingProfilePoints, overtoppingCalculationInput.ProfilePoints);
             CollectionAssert.AreEqual(expectedRingForelandPoints, overtoppingCalculationInput.ForelandsPoints);
             Assert.AreEqual(expectedRingBreakWater, overtoppingCalculationInput.BreakWater);
             Assert.IsNaN(overtoppingCalculationInput.Beta);
 
-            var section = overtoppingCalculationInput.Section;
-            Assert.AreEqual(expectedHydraRingSection, section);
+            HydraRingSection hydraRingSection = overtoppingCalculationInput.Section;
+            Assert.AreEqual(1, hydraRingSection.SectionId);
+            Assert.IsNaN(hydraRingSection.SectionLength);
+            Assert.AreEqual(sectionNormal, hydraRingSection.CrossSectionNormal);
         }
 
         [Test]
@@ -115,11 +117,8 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Overtopping
         [TestCase(104, null)]
         public void GetSubMechanismModelId_Always_ReturnsExpectedValues(int subMechanismModelId, int? expectedSubMechanismModelId)
         {
-            // Setup 
-            HydraRingSection section = new HydraRingSection(1, double.NaN, double.NaN);
-
             // Call
-            OvertoppingCalculationInput overtoppingCalculationInput = new OvertoppingCalculationInput(1, section,
+            OvertoppingCalculationInput overtoppingCalculationInput = new OvertoppingCalculationInput(1, double.NaN,
                                                                                                       new List<HydraRingRoughnessProfilePoint>(),
                                                                                                       new List<HydraRingForelandPoint>(),
                                                                                                       new HydraRingBreakWater(0, 1.1),

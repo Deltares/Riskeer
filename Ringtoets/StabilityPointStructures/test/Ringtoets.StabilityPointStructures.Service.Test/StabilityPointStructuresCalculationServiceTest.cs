@@ -876,11 +876,6 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
         {
             // Setup
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("test section", new[]
-                                                                    {
-                                                                        new Point2D(0, 0),
-                                                                        new Point2D(1, 1)
-                                                                    }));
 
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mockRepository);
@@ -900,8 +895,6 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             {
                 calculation.InputParameters.ForeshoreProfile = new TestForeshoreProfile(useBreakWater);
             }
-
-            FailureMechanismSection failureMechanismSection = failureMechanism.Sections.First();
 
             using (new HydraRingCalculatorFactoryConfig())
             {
@@ -923,7 +916,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                 StabilityPointStructuresInput input = calculation.InputParameters;
                 var expectedInput = new StructuresStabilityPointLowSillLinearCalculationInput(
                     1300001,
-                    new HydraRingSection(1, failureMechanismSection.GetSectionLength(), input.StructureNormalOrientation),
+                    input.StructureNormalOrientation,
                     useForeshore ? input.ForeshoreGeometry.Select(c => new HydraRingForelandPoint(c.X, c.Y)) : new HydraRingForelandPoint[0],
                     useBreakWater ? new HydraRingBreakWater((int) input.BreakWater.Type, input.BreakWater.Height) : null,
                     input.VolumicWeightWater,
@@ -1001,11 +994,6 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
         {
             // Setup
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("test section", new[]
-                                                                    {
-                                                                        new Point2D(0, 0),
-                                                                        new Point2D(1, 1)
-                                                                    }));
 
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mockRepository);
@@ -1025,8 +1013,6 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             {
                 calculation.InputParameters.ForeshoreProfile = new TestForeshoreProfile(useBreakWater);
             }
-
-            FailureMechanismSection failureMechanismSection = failureMechanism.Sections.First();
 
             using (new HydraRingCalculatorFactoryConfig())
             {
@@ -1048,7 +1034,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                 StabilityPointStructuresInput input = calculation.InputParameters;
                 var expectedInput = new StructuresStabilityPointLowSillQuadraticCalculationInput(
                     1300001,
-                    new HydraRingSection(1, failureMechanismSection.GetSectionLength(), input.StructureNormalOrientation),
+                    input.StructureNormalOrientation,
                     useForeshore ? input.ForeshoreGeometry.Select(c => new HydraRingForelandPoint(c.X, c.Y)) : new HydraRingForelandPoint[0],
                     useBreakWater ? new HydraRingBreakWater((int) input.BreakWater.Type, input.BreakWater.Height) : null,
                     input.VolumicWeightWater,
@@ -1126,11 +1112,6 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
         {
             // Setup
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("test section", new[]
-                                                                    {
-                                                                        new Point2D(0, 0),
-                                                                        new Point2D(1, 1)
-                                                                    }));
 
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mockRepository);
@@ -1150,8 +1131,6 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             {
                 calculation.InputParameters.ForeshoreProfile = new TestForeshoreProfile(useBreakWater);
             }
-
-            FailureMechanismSection failureMechanismSection = failureMechanism.Sections.First();
 
             using (new HydraRingCalculatorFactoryConfig())
             {
@@ -1173,7 +1152,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                 StabilityPointStructuresInput input = calculation.InputParameters;
                 var expectedInput = new StructuresStabilityPointFloodedCulvertLinearCalculationInput(
                     1300001,
-                    new HydraRingSection(1, failureMechanismSection.GetSectionLength(), input.StructureNormalOrientation),
+                    input.StructureNormalOrientation,
                     useForeshore ? input.ForeshoreGeometry.Select(c => new HydraRingForelandPoint(c.X, c.Y)) : new HydraRingForelandPoint[0],
                     useBreakWater ? new HydraRingBreakWater((int) input.BreakWater.Type, input.BreakWater.Height) : null,
                     input.VolumicWeightWater,
@@ -1251,11 +1230,6 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
         {
             // Setup
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("test section", new[]
-                                                                    {
-                                                                        new Point2D(0, 0),
-                                                                        new Point2D(1, 1)
-                                                                    }));
 
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mockRepository);
@@ -1276,7 +1250,6 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                 calculation.InputParameters.ForeshoreProfile = new TestForeshoreProfile(useBreakWater);
             }
 
-            FailureMechanismSection failureMechanismSection = failureMechanism.Sections.First();
 
             using (new HydraRingCalculatorFactoryConfig())
             {
@@ -1298,7 +1271,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                 StabilityPointStructuresInput input = calculation.InputParameters;
                 var expectedInput = new StructuresStabilityPointFloodedCulvertQuadraticCalculationInput(
                     1300001,
-                    new HydraRingSection(1, failureMechanismSection.GetSectionLength(), input.StructureNormalOrientation),
+                    input.StructureNormalOrientation,
                     useForeshore ? input.ForeshoreGeometry.Select(c => new HydraRingForelandPoint(c.X, c.Y)) : new HydraRingForelandPoint[0],
                     useBreakWater ? new HydraRingBreakWater((int) input.BreakWater.Type, input.BreakWater.Height) : null,
                     input.VolumicWeightWater,

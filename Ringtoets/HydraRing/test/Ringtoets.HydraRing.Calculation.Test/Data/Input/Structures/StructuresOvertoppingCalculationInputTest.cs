@@ -39,10 +39,10 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
             // Setup
             const int hydraulicBoundaryLocationId = 1000;
 
-            HydraRingSection section = new HydraRingSection(1, double.NaN, double.NaN);
             var forelandPoints = Enumerable.Empty<HydraRingForelandPoint>();
             var breakWater = new HydraRingBreakWater(1, 1.1);
 
+            const double sectionNormal = 26.6;
             const double gravitationalAcceleration = 1.1;
             const double modelFactorOvertoppingFlowMean = 2.2;
             const double modelFactorOvertoppingFlowStandardDeviation = 3.3;
@@ -70,7 +70,8 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
             const double stormDurationVariation = 25.5;
 
             // Call
-            var input = new StructuresOvertoppingCalculationInput(hydraulicBoundaryLocationId, section,
+            var input = new StructuresOvertoppingCalculationInput(hydraulicBoundaryLocationId,
+                                                                  sectionNormal,
                                                                   forelandPoints, breakWater,
                                                                   gravitationalAcceleration,
                                                                   modelFactorOvertoppingFlowMean, modelFactorOvertoppingFlowStandardDeviation,
@@ -96,7 +97,11 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
             Assert.AreEqual(hydraulicBoundaryLocationId, input.HydraulicBoundaryLocationId);
             Assert.AreEqual(HydraRingFailureMechanismType.StructuresOvertopping, input.FailureMechanismType);
             Assert.AreEqual(variableId, input.VariableId);
-            Assert.AreEqual(section, input.Section);
+
+            HydraRingSection section = input.Section;
+            Assert.AreEqual(1, section.SectionId);
+            Assert.IsNaN(section.SectionLength);
+            Assert.AreEqual(sectionNormal, section.CrossSectionNormal);
             Assert.AreSame(forelandPoints, input.ForelandsPoints);
             Assert.AreSame(breakWater, input.BreakWater);
             HydraRingDataEqualityHelper.AreEqual(GetDefaultOvertoppingVariables().ToArray(), input.Variables.ToArray());

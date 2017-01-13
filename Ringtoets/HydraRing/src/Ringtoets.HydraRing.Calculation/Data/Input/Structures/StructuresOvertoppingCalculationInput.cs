@@ -62,7 +62,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
         /// Creates a new instance of the <see cref="StructuresOvertoppingCalculationInput"/> class.
         /// </summary>
         /// <param name="hydraulicBoundaryLocationId">The id of the hydraulic boundary location.</param>
-        /// <param name="section">The section.</param>
+        /// <param name="sectionNormal">The normal of the section.</param>
         /// <param name="forelandPoints">The foreland points.</param>
         /// <param name="breakWater">The break water.</param>
         /// <param name="gravitationalAcceleration">The gravitational acceleration.</param>
@@ -90,7 +90,8 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
         /// <param name="deviationWaveDirection">The deviation of the wave direction.</param>
         /// <param name="stormDurationMean">The mean of the storm duration.</param>
         /// <param name="stormDurationVariation">The variation of the storm duration.</param>
-        public StructuresOvertoppingCalculationInput(long hydraulicBoundaryLocationId, HydraRingSection section,
+        public StructuresOvertoppingCalculationInput(long hydraulicBoundaryLocationId,
+                                                     double sectionNormal,
                                                      IEnumerable<HydraRingForelandPoint> forelandPoints,
                                                      HydraRingBreakWater breakWater,
                                                      double gravitationalAcceleration,
@@ -110,7 +111,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
                                                      double stormDurationMean, double stormDurationVariation)
             : base(hydraulicBoundaryLocationId)
         {
-            this.section = section;
+            section = new HydraRingSection(1, double.NaN, sectionNormal);
             this.forelandPoints = forelandPoints;
             this.breakWater = breakWater;
             this.gravitationalAcceleration = gravitationalAcceleration;
@@ -140,21 +141,9 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
             this.stormDurationVariation = stormDurationVariation;
         }
 
-        public override HydraRingFailureMechanismType FailureMechanismType
-        {
-            get
-            {
-                return HydraRingFailureMechanismType.StructuresOvertopping;
-            }
-        }
+        public override HydraRingFailureMechanismType FailureMechanismType { get; } = HydraRingFailureMechanismType.StructuresOvertopping;
 
-        public override int VariableId
-        {
-            get
-            {
-                return 60;
-            }
-        }
+        public override int VariableId { get; } = 60;
 
         public override HydraRingSection Section
         {

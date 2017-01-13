@@ -720,11 +720,6 @@ namespace Ringtoets.HeightStructures.Service.Test
         {
             // Setup
             var heightStructuresFailureMechanism = new HeightStructuresFailureMechanism();
-            heightStructuresFailureMechanism.AddSection(new FailureMechanismSection("test section", new[]
-            {
-                new Point2D(0, 0),
-                new Point2D(1, 1)
-            }));
 
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(heightStructuresFailureMechanism, mockRepository);
@@ -742,8 +737,6 @@ namespace Ringtoets.HeightStructures.Service.Test
             {
                 calculation.InputParameters.ForeshoreProfile = new TestForeshoreProfile(useBreakWater);
             }
-
-            FailureMechanismSection failureMechanismSection = heightStructuresFailureMechanism.Sections.First();
 
             using (new HydraRingCalculatorFactoryConfig())
             {
@@ -765,7 +758,7 @@ namespace Ringtoets.HeightStructures.Service.Test
                 HeightStructuresInput input = calculation.InputParameters;
                 var expectedInput = new StructuresOvertoppingCalculationInput(
                     1300001,
-                    new HydraRingSection(1, failureMechanismSection.GetSectionLength(), input.StructureNormalOrientation),
+                    input.StructureNormalOrientation,
                     useForeshore ? input.ForeshoreGeometry.Select(c => new HydraRingForelandPoint(c.X, c.Y)) : new HydraRingForelandPoint[0],
                     useBreakWater ? new HydraRingBreakWater((int) input.BreakWater.Type, input.BreakWater.Height) : null,
                     generalInput.GravitationalAcceleration,
