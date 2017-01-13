@@ -120,12 +120,12 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             // Setup
             var group = new CalculationGroup();
             var failureMechanism = new HeightStructuresFailureMechanism();
-            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var groupContext = new HeightStructuresCalculationGroupContext(group,
                                                                            failureMechanism,
-                                                                           assessmentSectionStub);
+                                                                           assessmentSection);
 
             // Call
             var children = info.ChildNodeObjects(groupContext);
@@ -138,8 +138,8 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
         public void ChildNodeObjects_GroupWithMixedContents_ReturnChildren()
         {
             // Setup
-            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
-            var calculationItemMock = mocks.Stub<ICalculationBase>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var calculationItem = mocks.Stub<ICalculationBase>();
             mocks.ReplayAll();
 
             var failureMechanism = new HeightStructuresFailureMechanism();
@@ -148,12 +148,12 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             var childCalculation = new StructuresCalculation<HeightStructuresInput>();
 
             group.Children.Add(childGroup);
-            group.Children.Add(calculationItemMock);
+            group.Children.Add(calculationItem);
             group.Children.Add(childCalculation);
 
             var groupContext = new HeightStructuresCalculationGroupContext(group,
                                                                            failureMechanism,
-                                                                           assessmentSectionStub);
+                                                                           assessmentSection);
 
             // Call
             var children = info.ChildNodeObjects(groupContext).ToArray();
@@ -163,11 +163,11 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             var calculationGroupContext = (HeightStructuresCalculationGroupContext) children[0];
             Assert.AreSame(childGroup, calculationGroupContext.WrappedData);
             Assert.AreSame(failureMechanism, calculationGroupContext.FailureMechanism);
-            Assert.AreSame(assessmentSectionStub, calculationGroupContext.AssessmentSection);
-            Assert.AreSame(calculationItemMock, children[1]);
+            Assert.AreSame(assessmentSection, calculationGroupContext.AssessmentSection);
+            Assert.AreSame(calculationItem, children[1]);
             var calculationContext = (HeightStructuresCalculationContext) children[2];
             Assert.AreSame(childCalculation, calculationContext.WrappedData);
-            Assert.AreSame(assessmentSectionStub, calculationContext.AssessmentSection);
+            Assert.AreSame(assessmentSection, calculationContext.AssessmentSection);
         }
 
         [Test]
@@ -176,10 +176,10 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             // Setup
             var group = new CalculationGroup();
             var failureMechanism = new HeightStructuresFailureMechanism();
-            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             var groupContext = new HeightStructuresCalculationGroupContext(group,
                                                                            failureMechanism,
-                                                                           assessmentSectionStub);
+                                                                           assessmentSection);
             var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
 
             menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
@@ -219,10 +219,10 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             // Setup
             var group = new CalculationGroup();
             var failureMechanism = new HeightStructuresFailureMechanism();
-            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             var groupContext = new HeightStructuresCalculationGroupContext(group,
                                                                            failureMechanism,
-                                                                           assessmentSectionStub);
+                                                                           assessmentSection);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
             using (var treeViewControl = new TreeViewControl())
@@ -278,11 +278,11 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             var group = new CalculationGroup();
             var failureMechanism = new HeightStructuresFailureMechanism();
             failureMechanism.HeightStructures.Add(new TestHeightStructure());
-            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
-            assessmentSectionStub.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
             var groupContext = new HeightStructuresCalculationGroupContext(group,
                                                                            failureMechanism,
-                                                                           assessmentSectionStub);
+                                                                           assessmentSection);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
             using (var treeViewControl = new TreeViewControl())
@@ -313,13 +313,13 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             var group = new CalculationGroup();
             var parentGroup = new CalculationGroup();
             var failureMechanism = new HeightStructuresFailureMechanism();
-            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             var groupContext = new HeightStructuresCalculationGroupContext(group,
                                                                            failureMechanism,
-                                                                           assessmentSectionStub);
+                                                                           assessmentSection);
             var parentGroupContext = new HeightStructuresCalculationGroupContext(parentGroup,
                                                                                  failureMechanism,
-                                                                                 assessmentSectionStub);
+                                                                                 assessmentSection);
             var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
 
             menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
@@ -358,13 +358,13 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             var group = new CalculationGroup();
             var parentGroup = new CalculationGroup();
             var failureMechanism = new HeightStructuresFailureMechanism();
-            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             var groupContext = new HeightStructuresCalculationGroupContext(group,
                                                                            failureMechanism,
-                                                                           assessmentSectionStub);
+                                                                           assessmentSection);
             var parentGroupContext = new HeightStructuresCalculationGroupContext(parentGroup,
                                                                                  failureMechanism,
-                                                                                 assessmentSectionStub);
+                                                                                 assessmentSection);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
             mocks.ReplayAll();
@@ -408,48 +408,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_NoFailureMechanismSections_ContextMenuItemCalculateAllDisabledAndTooltipSet()
-        {
-            // Setup
-            var failureMechanism = new HeightStructuresFailureMechanism();
-            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
-
-            var group = new CalculationGroup
-            {
-                Children =
-                {
-                    new StructuresCalculation<HeightStructuresInput>()
-                }
-            };
-
-            var nodeData = new HeightStructuresCalculationGroupContext(group,
-                                                                       failureMechanism,
-                                                                       assessmentSectionStub);
-
-            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-
-            using (var treeViewControl = new TreeViewControl())
-            {
-                guiStub.Expect(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                guiStub.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
-
-                mocks.ReplayAll();
-
-                // Call
-                using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewControl))
-                {
-                    // Assert
-                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndexRootGroup,
-                                                                  "Alles be&rekenen",
-                                                                  "Er is geen vakindeling geïmporteerd.",
-                                                                  RingtoetsCommonFormsResources.CalculateAllIcon,
-                                                                  false);
-                }
-            }
-        }
-
-        [Test]
-        public void ContextMenuStrip_FailureMechanismSectionsSetNoHydraulicBoundaryDatabase_ContextMenuItemCalculateAllDisabledAndTooltipSet()
+        public void ContextMenuStrip_NoHydraulicBoundaryDatabase_ContextMenuItemCalculateAllDisabledAndTooltipSet()
         {
             // Setup
             var group = new CalculationGroup
@@ -461,17 +420,12 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             };
 
             var failureMechanism = new HeightStructuresFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("test", new[]
-            {
-                new Point2D(0, 0)
-            }));
             failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<HeightStructuresInput>());
 
-            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
-
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             var nodeData = new HeightStructuresCalculationGroupContext(group,
                                                                        failureMechanism,
-                                                                       assessmentSectionStub);
+                                                                       assessmentSection);
 
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -496,7 +450,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_FailureMechanismSectionsSetHydraulicBoundaryDatabaseNotValid_ContextMenuItemCalculateAllDisabledAndTooltipSet()
+        public void ContextMenuStrip_HydraulicBoundaryDatabaseNotValid_ContextMenuItemCalculateAllDisabledAndTooltipSet()
         {
             // Setup
             var group = new CalculationGroup
@@ -508,16 +462,12 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             };
 
             var failureMechanism = new HeightStructuresFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("test", new[]
-            {
-                new Point2D(0, 0)
-            }));
             failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<HeightStructuresInput>());
 
-            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             var nodeData = new HeightStructuresCalculationGroupContext(group,
                                                                        failureMechanism,
-                                                                       assessmentSectionStub);
+                                                                       assessmentSection);
 
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -528,7 +478,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
 
                 mocks.ReplayAll();
 
-                assessmentSectionStub.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+                assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
 
                 // Call
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
@@ -545,7 +495,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_FailureMechanismSectionsAndHydraulicDatabaseSet_ContextMenuItemCalculateAllEnabled()
+        public void ContextMenuStrip_HydraulicDatabaseSet_ContextMenuItemCalculateAllEnabled()
         {
             // Setup
             var group = new CalculationGroup
@@ -565,16 +515,12 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             };
 
             var failureMechanism = new HeightStructuresFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("test", new[]
-            {
-                new Point2D(0, 0)
-            }));
             failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<HeightStructuresInput>());
 
-            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             var nodeData = new HeightStructuresCalculationGroupContext(group,
                                                                        failureMechanism,
-                                                                       assessmentSectionStub);
+                                                                       assessmentSection);
 
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -585,7 +531,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
 
                 mocks.ReplayAll();
 
-                assessmentSectionStub.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
+                assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
 
                 // Call
                 using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewControl))
@@ -600,48 +546,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_NoFailureMechanismSections_ContextMenuItemValidateAllDisabledAndTooltipSet()
-        {
-            // Setup
-            var failureMechanism = new HeightStructuresFailureMechanism();
-            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
-
-            var group = new CalculationGroup
-            {
-                Children =
-                {
-                    new StructuresCalculation<HeightStructuresInput>()
-                }
-            };
-
-            var nodeData = new HeightStructuresCalculationGroupContext(group,
-                                                                       failureMechanism,
-                                                                       assessmentSectionStub);
-
-            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-
-            using (var treeViewControl = new TreeViewControl())
-            {
-                guiStub.Expect(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                guiStub.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
-
-                mocks.ReplayAll();
-
-                // Call
-                using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewControl))
-                {
-                    // Assert
-                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateAllIndexRootGroup,
-                                                                  "Alles &valideren",
-                                                                  "Er is geen vakindeling geïmporteerd.",
-                                                                  RingtoetsCommonFormsResources.ValidateAllIcon,
-                                                                  false);
-                }
-            }
-        }
-
-        [Test]
-        public void ContextMenuStrip_FailureMechanismSectionsSetNoHydraulicBoundaryDatabase_ContextMenuItemValidateAllDisabledAndTooltipSet()
+        public void ContextMenuStrip_NoHydraulicBoundaryDatabase_ContextMenuItemValidateAllDisabledAndTooltipSet()
         {
             // Setup
             var group = new CalculationGroup
@@ -653,17 +558,13 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             };
 
             var failureMechanism = new HeightStructuresFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("test", new[]
-            {
-                new Point2D(0, 0)
-            }));
             failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<HeightStructuresInput>());
 
-            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
 
             var nodeData = new HeightStructuresCalculationGroupContext(group,
                                                                        failureMechanism,
-                                                                       assessmentSectionStub);
+                                                                       assessmentSection);
 
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -688,7 +589,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_FailureMechanismSectionsSetHydraulicBoundaryDatabaseNotValid_ContextMenuItemValidateAllDisabledAndTooltipSet()
+        public void ContextMenuStrip_HydraulicBoundaryDatabaseNotValid_ContextMenuItemValidateAllDisabledAndTooltipSet()
         {
             // Setup
             var group = new CalculationGroup
@@ -700,16 +601,13 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             };
 
             var failureMechanism = new HeightStructuresFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("test", new[]
-            {
-                new Point2D(0, 0)
-            }));
             failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<HeightStructuresInput>());
 
-            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
             var nodeData = new HeightStructuresCalculationGroupContext(group,
                                                                        failureMechanism,
-                                                                       assessmentSectionStub);
+                                                                       assessmentSection);
 
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -720,8 +618,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
 
                 mocks.ReplayAll();
 
-                assessmentSectionStub.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-
+               
                 // Call
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
@@ -737,7 +634,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_FailureMechanismSectionsAndHydraulicDatabaseSet_ContextMenuItemValidateAllEnabled()
+        public void ContextMenuStrip_HydraulicDatabaseSet_ContextMenuItemValidateAllEnabled()
         {
             // Setup
             var group = new CalculationGroup
@@ -757,16 +654,14 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             };
 
             var failureMechanism = new HeightStructuresFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("test", new[]
-            {
-                new Point2D(0, 0)
-            }));
             failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<HeightStructuresInput>());
 
-            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
+
             var nodeData = new HeightStructuresCalculationGroupContext(group,
                                                                        failureMechanism,
-                                                                       assessmentSectionStub);
+                                                                       assessmentSection);
 
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -777,8 +672,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
 
                 mocks.ReplayAll();
 
-                assessmentSectionStub.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
-
+                
                 // Call
                 using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
@@ -799,13 +693,6 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
             var failureMechanism = new HeightStructuresFailureMechanism();
-
-            failureMechanism.AddSection(new FailureMechanismSection("A", new[]
-            {
-                new Point2D(0, 0),
-                new Point2D(2, 2)
-            }));
-
             failureMechanism.CalculationsGroup.Children.Add(new TestHeightStructuresCalculation
             {
                 Name = "A",
@@ -826,16 +713,17 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
 
             string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
 
-            var hydraulicBoundaryDatabaseStub = mocks.Stub<HydraulicBoundaryDatabase>();
-            hydraulicBoundaryDatabaseStub.FilePath = validFilePath;
+            var hydraulicBoundaryDatabase = mocks.Stub<HydraulicBoundaryDatabase>();
+            hydraulicBoundaryDatabase.FilePath = validFilePath;
 
-            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
-            assessmentSectionStub.Stub(a => a.Id).Return(string.Empty);
-            assessmentSectionStub.Stub(a => a.FailureMechanismContribution).Return(new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 1, 1));
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
+            assessmentSection.Stub(a => a.Id).Return(string.Empty);
+            assessmentSection.Stub(a => a.FailureMechanismContribution).Return(new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 1, 1));
 
             var groupContext = new HeightStructuresCalculationGroupContext(failureMechanism.CalculationsGroup,
                                                                            failureMechanism,
-                                                                           assessmentSectionStub);
+                                                                           assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -844,8 +732,6 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
                 guiStub.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
 
                 mocks.ReplayAll();
-
-                assessmentSectionStub.HydraulicBoundaryDatabase = hydraulicBoundaryDatabaseStub;
 
                 plugin.Gui = guiStub;
 
@@ -888,12 +774,6 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
             var failureMechanism = new HeightStructuresFailureMechanism();
-
-            failureMechanism.AddSection(new FailureMechanismSection("A", new[]
-            {
-                new Point2D(0, 0)
-            }));
-
             failureMechanism.CalculationsGroup.Children.Add(new TestHeightStructuresCalculation
             {
                 Name = "A",
@@ -914,13 +794,15 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
 
             string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
 
-            var hydraulicBoundaryDatabaseStub = mocks.Stub<HydraulicBoundaryDatabase>();
-            hydraulicBoundaryDatabaseStub.FilePath = validFilePath;
+            var hydraulicBoundaryDatabase = mocks.Stub<HydraulicBoundaryDatabase>();
+            hydraulicBoundaryDatabase.FilePath = validFilePath;
 
-            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
+
             var groupContext = new HeightStructuresCalculationGroupContext(failureMechanism.CalculationsGroup,
                                                                            failureMechanism,
-                                                                           assessmentSectionStub);
+                                                                           assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -928,8 +810,6 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
                 guiStub.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
 
                 mocks.ReplayAll();
-
-                assessmentSectionStub.HydraulicBoundaryDatabase = hydraulicBoundaryDatabaseStub;
 
                 plugin.Gui = guiStub;
 
@@ -958,17 +838,17 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
             var group = new CalculationGroup();
             var failureMechanism = new HeightStructuresFailureMechanism();
-            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             var nodeData = new HeightStructuresCalculationGroupContext(group,
                                                                        failureMechanism,
-                                                                       assessmentSectionStub);
+                                                                       assessmentSection);
             var calculationGroup = new CalculationGroup
             {
                 Name = "Nieuwe map"
             };
 
-            var observerMock = mocks.StrictMock<IObserver>();
-            observerMock.Expect(o => o.UpdateObserver());
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -978,7 +858,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
                 mocks.ReplayAll();
 
                 group.Children.Add(calculationGroup);
-                nodeData.Attach(observerMock);
+                nodeData.Attach(observer);
 
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
@@ -1005,16 +885,16 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
             var group = new CalculationGroup();
             var failureMechanism = new HeightStructuresFailureMechanism();
-            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             var nodeData = new HeightStructuresCalculationGroupContext(group,
                                                                        failureMechanism,
-                                                                       assessmentSectionStub);
+                                                                       assessmentSection);
             var calculation = new StructuresCalculation<HeightStructuresInput>
             {
                 Name = "Nieuwe berekening"
             };
-            var observerMock = mocks.StrictMock<IObserver>();
-            observerMock.Expect(o => o.UpdateObserver());
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -1024,7 +904,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
                 mocks.ReplayAll();
 
                 group.Children.Add(calculation);
-                nodeData.Attach(observerMock);
+                nodeData.Attach(observer);
 
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
@@ -1050,7 +930,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             // Given
             using (var treeViewControl = new TreeViewControl())
             {
-                var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+                var assessmentSection = mocks.Stub<IAssessmentSection>();
 
                 HeightStructure structure1 = new TestHeightStructure("Structure 1");
                 HeightStructure structure2 = new TestHeightStructure("Structure 2");
@@ -1066,7 +946,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
 
                 var nodeData = new HeightStructuresCalculationGroupContext(failureMechanism.CalculationsGroup,
                                                                            failureMechanism,
-                                                                           assessmentSectionMock);
+                                                                           assessmentSection);
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
                 var mainWindow = mocks.Stub<IMainWindow>();
@@ -1108,7 +988,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             // Given
             using (var treeViewControl = new TreeViewControl())
             {
-                var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+                var assessmentSection = mocks.Stub<IAssessmentSection>();
 
                 HeightStructure structure1 = new TestHeightStructure("Structure 1");
                 HeightStructure structure2 = new TestHeightStructure("Structure 2");
@@ -1124,7 +1004,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
 
                 var nodeData = new HeightStructuresCalculationGroupContext(failureMechanism.CalculationsGroup,
                                                                            failureMechanism,
-                                                                           assessmentSectionMock);
+                                                                           assessmentSection);
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
                 var mainWindow = mocks.Stub<IMainWindow>();
@@ -1164,7 +1044,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             // Given
             using (var treeViewControl = new TreeViewControl())
             {
-                var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+                var assessmentSection = mocks.Stub<IAssessmentSection>();
 
                 var existingCalculationName = "Height structure";
                 HeightStructure heightStructure = new TestHeightStructure(existingCalculationName);
@@ -1189,7 +1069,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
 
                 var nodeData = new HeightStructuresCalculationGroupContext(failureMechanism.CalculationsGroup,
                                                                            failureMechanism,
-                                                                           assessmentSectionMock);
+                                                                           assessmentSection);
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
                 var mainWindow = mocks.Stub<IMainWindow>();
@@ -1231,24 +1111,24 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
         public void OnNodeRemoved_NestedCalculationGroup_RemoveGroupAndNotifyObservers()
         {
             // Setup
-            var observerMock = mocks.StrictMock<IObserver>();
+            var observer = mocks.StrictMock<IObserver>();
             var failureMechanism = new HeightStructuresFailureMechanism();
-            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             var group = new CalculationGroup();
             var parentGroup = new CalculationGroup();
             var nodeData = new HeightStructuresCalculationGroupContext(group,
                                                                        failureMechanism,
-                                                                       assessmentSectionStub);
+                                                                       assessmentSection);
             var parentNodeData = new HeightStructuresCalculationGroupContext(parentGroup,
                                                                              failureMechanism,
-                                                                             assessmentSectionStub);
+                                                                             assessmentSection);
 
-            observerMock.Expect(o => o.UpdateObserver());
+            observer.Expect(o => o.UpdateObserver());
 
             mocks.ReplayAll();
 
             parentGroup.Children.Add(group);
-            parentNodeData.Attach(observerMock);
+            parentNodeData.Attach(observer);
 
             // Precondition
             Assert.IsTrue(info.CanRemove(nodeData, parentNodeData));
@@ -1265,24 +1145,24 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
         {
             // Setup
             var failureMechanism = new HeightStructuresFailureMechanism();
-            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
-            var group = new CalculationGroup();
-            var parentGroup = new CalculationGroup();
-            var nodeData = new HeightStructuresCalculationGroupContext(group,
-                                                                       failureMechanism,
-                                                                       assessmentSectionStub);
-            var parentNodeData = new HeightStructuresCalculationGroupContext(parentGroup,
-                                                                             failureMechanism,
-                                                                             assessmentSectionStub);
-
-            mocks.ReplayAll();
-
-            parentGroup.Children.Add(group);
-
             failureMechanism.AddSection(new FailureMechanismSection("section", new[]
             {
                 new Point2D(0, 0)
             }));
+
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var group = new CalculationGroup();
+            var parentGroup = new CalculationGroup();
+            var nodeData = new HeightStructuresCalculationGroupContext(group,
+                                                                       failureMechanism,
+                                                                       assessmentSection);
+            var parentNodeData = new HeightStructuresCalculationGroupContext(parentGroup,
+                                                                             failureMechanism,
+                                                                             assessmentSection);
+
+            mocks.ReplayAll();
+
+            parentGroup.Children.Add(group);
 
             var calculation = new StructuresCalculation<HeightStructuresInput>();
             group.Children.Add(calculation);
@@ -1301,26 +1181,26 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
         public void OnNodeRemoved_NestedCalculationGroupContainingCalculations_RemoveGroupAndCalculationsAndNotifyObservers()
         {
             // Setup
-            var observerMock = mocks.StrictMock<IObserver>();
-            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
+            var observer = mocks.StrictMock<IObserver>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             var failureMechanism = new HeightStructuresFailureMechanism();
             var group = new CalculationGroup();
             var parentGroup = new CalculationGroup();
             var nodeData = new HeightStructuresCalculationGroupContext(group,
                                                                        failureMechanism,
-                                                                       assessmentSectionStub);
+                                                                       assessmentSection);
             var parentNodeData = new HeightStructuresCalculationGroupContext(parentGroup,
                                                                              failureMechanism,
-                                                                             assessmentSectionStub);
+                                                                             assessmentSection);
             var calculation = new StructuresCalculation<HeightStructuresInput>();
 
-            observerMock.Expect(o => o.UpdateObserver());
+            observer.Expect(o => o.UpdateObserver());
 
             mocks.ReplayAll();
 
             group.Children.Add(calculation);
             parentGroup.Children.Add(group);
-            parentNodeData.Attach(observerMock);
+            parentNodeData.Attach(observer);
 
             // Precondition
             Assert.IsTrue(info.CanRemove(nodeData, parentNodeData));

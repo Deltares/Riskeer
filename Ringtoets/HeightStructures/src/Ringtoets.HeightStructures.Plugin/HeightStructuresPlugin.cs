@@ -47,7 +47,6 @@ using Ringtoets.HeightStructures.IO;
 using Ringtoets.HeightStructures.Service;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
-using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
 using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 
 namespace Ringtoets.HeightStructures.Plugin
@@ -214,14 +213,8 @@ namespace Ringtoets.HeightStructures.Plugin
             }
         }
 
-        private static string ValidateAllDataAvailableAndGetErrorMessage(IAssessmentSection assessmentSection,
-                                                                         HeightStructuresFailureMechanism failureMechanism)
+        private static string ValidateAllDataAvailableAndGetErrorMessage(IAssessmentSection assessmentSection)
         {
-            if (!failureMechanism.Sections.Any())
-            {
-                return RingtoetsCommonFormsResources.Plugin_AllDataAvailable_No_failure_mechanism_sections_imported;
-            }
-
             return HydraulicBoundaryDatabaseConnectionValidator.Validate(assessmentSection.HydraulicBoundaryDatabase);
         }
 
@@ -403,7 +396,7 @@ namespace Ringtoets.HeightStructures.Plugin
 
         private static string ValidateAllDataAvailableAndGetErrorMessageForCalculationsInFailureMechanism(HeightStructuresFailureMechanismContext context)
         {
-            return ValidateAllDataAvailableAndGetErrorMessage(context.Parent, context.WrappedData);
+            return ValidateAllDataAvailableAndGetErrorMessage(context.Parent);
         }
 
         private static void ValidateAll(HeightStructuresFailureMechanismContext context)
@@ -574,7 +567,7 @@ namespace Ringtoets.HeightStructures.Plugin
 
         private static string ValidateAllDataAvailableAndGetErrorMessageForCalculationsInGroup(HeightStructuresCalculationGroupContext context)
         {
-            return ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection, context.FailureMechanism);
+            return ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection);
         }
 
         private static void ValidateAll(HeightStructuresCalculationGroupContext context)
@@ -639,7 +632,7 @@ namespace Ringtoets.HeightStructures.Plugin
 
         private static string ValidateAllDataAvailableAndGetErrorMessageForCalculation(HeightStructuresCalculationContext context)
         {
-            return ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection, context.FailureMechanism);
+            return ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection);
         }
 
         private static void Validate(HeightStructuresCalculationContext context)
