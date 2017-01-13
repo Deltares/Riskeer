@@ -509,15 +509,6 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kritieke waarden.
-        /// </summary>
-        public static string Categories_CriticalValues {
-            get {
-                return ResourceManager.GetString("Categories_CriticalValues", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Algemeen.
         /// </summary>
         public static string Categories_General {

@@ -42,32 +42,32 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
     /// ViewModel of <see cref="StabilityPointStructuresInputContext"/> for properties panel.
     /// </summary>
     public class StabilityPointStructuresInputContextProperties : StructuresInputBaseProperties<StabilityPointStructure,
-                                                                      StabilityPointStructuresInput,
-                                                                      StructuresCalculation<StabilityPointStructuresInput>,
-                                                                      StabilityPointStructuresFailureMechanism>
+        StabilityPointStructuresInput,
+        StructuresCalculation<StabilityPointStructuresInput>,
+        StabilityPointStructuresFailureMechanism>
     {
         private const int hydraulicBoundaryLocationPropertyIndex = 1;
         private const int volumicWeightWaterPropertyIndex = 2;
         private const int stormDurationPropertyIndex = 3;
         private const int insideWaterLevelPropertyIndex = 4;
         private const int insideWaterLevelFailureConstructionPropertyIndex = 5;
-        private const int flowVelocityStructureClosablePropertyIndex = 6;
-        private const int modelFactorSuperCriticalFlowPropertyIndex = 7;
-        private const int drainCoefficientPropertyIndex = 8;
-        private const int factorStormDurationOpenStructurePropertyIndex = 9;
-        private const int structurePropertyIndex = 10;
-        private const int structureLocationPropertyIndex = 11;
-        private const int structureNormalOrientationPropertyIndex = 12;
-        private const int inflowModelTypePropertyIndex = 13;
-        private const int loadSchematizationTypePropertyIndex = 14;
-        private const int widthFlowAperturesPropertyIndex = 15;
-        private const int areaFlowAperturesPropertyIndex = 16;
-        private const int flowWidthAtBottomProtectionPropertyIndex = 17;
-        private const int storageStructureAreaPropertyIndex = 18;
-        private const int allowedLevelIncreaseStoragePropertyIndex = 19;
-        private const int levelCrestStructurePropertyIndex = 20;
-        private const int thresholdHeightOpenWeirPropertyIndex = 21;
-        private const int criticalOvertoppingDischargePropertyIndex = 22;
+        private const int modelFactorSuperCriticalFlowPropertyIndex = 6;
+        private const int drainCoefficientPropertyIndex = 7;
+        private const int factorStormDurationOpenStructurePropertyIndex = 8;
+        private const int structurePropertyIndex = 9;
+        private const int structureLocationPropertyIndex = 10;
+        private const int structureNormalOrientationPropertyIndex = 11;
+        private const int inflowModelTypePropertyIndex = 12;
+        private const int loadSchematizationTypePropertyIndex = 13;
+        private const int widthFlowAperturesPropertyIndex = 14;
+        private const int areaFlowAperturesPropertyIndex = 15;
+        private const int flowWidthAtBottomProtectionPropertyIndex = 16;
+        private const int storageStructureAreaPropertyIndex = 17;
+        private const int allowedLevelIncreaseStoragePropertyIndex = 18;
+        private const int levelCrestStructurePropertyIndex = 19;
+        private const int thresholdHeightOpenWeirPropertyIndex = 20;
+        private const int criticalOvertoppingDischargePropertyIndex = 21;
+        private const int flowVelocityStructureClosablePropertyIndex = 22;
         private const int constructiveStrengthLinearLoadModelPropertyIndex = 23;
         private const int constructiveStrengthQuadraticLoadModelPropertyIndex = 24;
         private const int bankWidthPropertyIndex = 25;
@@ -272,23 +272,6 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
             }
         }
 
-        [PropertyOrder(flowVelocityStructureClosablePropertyIndex)]
-        [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_CriticalValues")]
-        [ResourcesDisplayName(typeof(Resources), "Structure_FlowVelocityStructureClosable_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "Structure_FlowVelocityStructureClosable_Description")]
-        public VariationCoefficientNormalDistributionProperties FlowVelocityStructureClosable
-        {
-            get
-            {
-                return new VariationCoefficientNormalDistributionProperties(VariationCoefficientDistributionPropertiesReadOnly.CoefficientOfVariation, 
-                    data.WrappedData)
-                {
-                    Data = data.WrappedData.FlowVelocityStructureClosable
-                };
-            }
-        }
-
         #endregion
 
         #region Schematization
@@ -366,6 +349,23 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
                 return new NormalDistributionProperties(DistributionPropertiesReadOnly.None, data.WrappedData)
                 {
                     Data = data.WrappedData.ThresholdHeightOpenWeir
+                };
+            }
+        }
+
+        [PropertyOrder(flowVelocityStructureClosablePropertyIndex)]
+        [TypeConverter(typeof(ExpandableObjectConverter))]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
+        [ResourcesDisplayName(typeof(Resources), "Structure_FlowVelocityStructureClosable_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "Structure_FlowVelocityStructureClosable_Description")]
+        public VariationCoefficientNormalDistributionProperties FlowVelocityStructureClosable
+        {
+            get
+            {
+                return new VariationCoefficientNormalDistributionProperties(VariationCoefficientDistributionPropertiesReadOnly.CoefficientOfVariation,
+                                                                            data.WrappedData)
+                {
+                    Data = data.WrappedData.FlowVelocityStructureClosable
                 };
             }
         }

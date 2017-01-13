@@ -467,7 +467,6 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             const string schematizationCategory = "Schematisatie";
             const string hydraulicDataCategory = "Hydraulische gegevens";
             const string modelSettingsCategory = "Modelinstellingen";
-            const string criticalValuesCategory = "Kritieke waarden";
 
             var dynamicPropertyBag = new DynamicPropertyBag(properties);
             PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties(new Attribute[]
@@ -496,7 +495,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
 
             PropertyDescriptor flowVelocityStructureClosableProperty = dynamicProperties[linearLowSillFlowVelocityStructureClosablePropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(flowVelocityStructureClosableProperty.Converter);
-            Assert.AreEqual(criticalValuesCategory, flowVelocityStructureClosableProperty.Category);
+            Assert.AreEqual(schematizationCategory, flowVelocityStructureClosableProperty.Category);
             Assert.AreEqual("Kritieke stroomsnelheid sluiting eerste keermiddel [m/s]", flowVelocityStructureClosableProperty.DisplayName);
             Assert.AreEqual("Stroomsnelheid waarbij na aanvaring het eerste keermiddel nog net kan worden gesloten.", flowVelocityStructureClosableProperty.Description);
 
@@ -647,7 +646,6 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             const string schematizationCategory = "Schematisatie";
             const string hydraulicDataCategory = "Hydraulische gegevens";
             const string modelSettingsCategory = "Modelinstellingen";
-            const string criticalValuesCategory = "Kritieke waarden";
 
             var dynamicPropertyBag = new DynamicPropertyBag(properties);
             PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties(new Attribute[]
@@ -676,7 +674,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
 
             PropertyDescriptor flowVelocityStructureClosableProperty = dynamicProperties[quadraticLowSillFlowVelocityStructureClosablePropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(flowVelocityStructureClosableProperty.Converter);
-            Assert.AreEqual(criticalValuesCategory, flowVelocityStructureClosableProperty.Category);
+            Assert.AreEqual(schematizationCategory, flowVelocityStructureClosableProperty.Category);
             Assert.AreEqual("Kritieke stroomsnelheid sluiting eerste keermiddel [m/s]", flowVelocityStructureClosableProperty.DisplayName);
             Assert.AreEqual("Stroomsnelheid waarbij na aanvaring het eerste keermiddel nog net kan worden gesloten.", flowVelocityStructureClosableProperty.Description);
 
@@ -827,7 +825,6 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             const string schematizationCategory = "Schematisatie";
             const string hydraulicDataCategory = "Hydraulische gegevens";
             const string modelSettingsCategory = "Modelinstellingen";
-            const string criticalValuesCategory = "Kritieke waarden";
 
             var dynamicPropertyBag = new DynamicPropertyBag(properties);
             PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties(new Attribute[]
@@ -856,7 +853,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
 
             PropertyDescriptor flowVelocityStructureClosableProperty = dynamicProperties[linearFloodedCulvertFlowVelocityStructureClosablePropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(flowVelocityStructureClosableProperty.Converter);
-            Assert.AreEqual(criticalValuesCategory, flowVelocityStructureClosableProperty.Category);
+            Assert.AreEqual(schematizationCategory, flowVelocityStructureClosableProperty.Category);
             Assert.AreEqual("Kritieke stroomsnelheid sluiting eerste keermiddel [m/s]", flowVelocityStructureClosableProperty.DisplayName);
             Assert.AreEqual("Stroomsnelheid waarbij na aanvaring het eerste keermiddel nog net kan worden gesloten.", flowVelocityStructureClosableProperty.Description);
 
@@ -1017,7 +1014,6 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             const string schematizationCategory = "Schematisatie";
             const string hydraulicDataCategory = "Hydraulische gegevens";
             const string modelSettingsCategory = "Modelinstellingen";
-            const string criticalValuesCategory = "Kritieke waarden";
 
             var dynamicPropertyBag = new DynamicPropertyBag(properties);
             PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties(new Attribute[]
@@ -1046,7 +1042,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
 
             PropertyDescriptor flowVelocityStructureClosableProperty = dynamicProperties[quadraticFloodedCulvertFlowVelocityStructureClosablePropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(flowVelocityStructureClosableProperty.Converter);
-            Assert.AreEqual(criticalValuesCategory, flowVelocityStructureClosableProperty.Category);
+            Assert.AreEqual(schematizationCategory, flowVelocityStructureClosableProperty.Category);
             Assert.AreEqual("Kritieke stroomsnelheid sluiting eerste keermiddel [m/s]", flowVelocityStructureClosableProperty.DisplayName);
             Assert.AreEqual("Stroomsnelheid waarbij na aanvaring het eerste keermiddel nog net kan worden gesloten.", flowVelocityStructureClosableProperty.Description);
 
@@ -1391,21 +1387,21 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         private const int linearLowSillStormDurationPropertyIndex = 2;
         private const int linearLowSillInsideWaterLevelPropertyIndex = 3;
         private const int linearLowSillInsideWaterLevelFailureConstructionPropertyIndex = 4;
-        private const int linearLowSillFlowVelocityStructureClosablePropertyIndex = 5;
-        private const int linearLowSillModelFactorSuperCriticalFlowPropertyIndex = 6;
-        private const int linearLowSillFactorStormDurationOpenStructurePropertyIndex = 7;
-        private const int linearLowSillStructurePropertyIndex = 8;
-        private const int linearLowSillStructureLocationPropertyIndex = 9;
-        private const int linearLowSillStructureNormalOrientationPropertyIndex = 10;
-        private const int linearLowSillInflowModelTypePropertyIndex = 11;
-        private const int linearLowSillLoadSchematizationTypePropertyIndex = 12;
-        private const int linearLowSillWidthFlowAperturesPropertyIndex = 13;
-        private const int linearLowSillFlowWidthAtBottomProtectionPropertyIndex = 14;
-        private const int linearLowSillStorageStructureAreaPropertyIndex = 15;
-        private const int linearLowSillAllowedLevelIncreaseStoragePropertyIndex = 16;
-        private const int linearLowSillLevelCrestStructurePropertyIndex = 17;
-        private const int linearLowSillThresholdHeightOpenWeirPropertyIndex = 18;
-        private const int linearLowSillCriticalOvertoppingDischargePropertyIndex = 19;
+        private const int linearLowSillModelFactorSuperCriticalFlowPropertyIndex = 5;
+        private const int linearLowSillFactorStormDurationOpenStructurePropertyIndex = 6;
+        private const int linearLowSillStructurePropertyIndex = 7;
+        private const int linearLowSillStructureLocationPropertyIndex = 8;
+        private const int linearLowSillStructureNormalOrientationPropertyIndex = 9;
+        private const int linearLowSillInflowModelTypePropertyIndex = 10;
+        private const int linearLowSillLoadSchematizationTypePropertyIndex = 11;
+        private const int linearLowSillWidthFlowAperturesPropertyIndex = 12;
+        private const int linearLowSillFlowWidthAtBottomProtectionPropertyIndex = 13;
+        private const int linearLowSillStorageStructureAreaPropertyIndex = 14;
+        private const int linearLowSillAllowedLevelIncreaseStoragePropertyIndex = 15;
+        private const int linearLowSillLevelCrestStructurePropertyIndex = 16;
+        private const int linearLowSillThresholdHeightOpenWeirPropertyIndex = 17;
+        private const int linearLowSillCriticalOvertoppingDischargePropertyIndex = 18;
+        private const int linearLowSillFlowVelocityStructureClosablePropertyIndex = 19;
         private const int linearLowSillConstructiveStrengthLinearLoadModelPropertyIndex = 20;
         private const int linearLowSillBankWidthPropertyIndex = 21;
         private const int linearLowSillEvaluationLevelPropertyIndex = 22;
@@ -1431,21 +1427,21 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         private const int linearFloodedCulvertStormDurationPropertyIndex = 2;
         private const int linearFloodedCulvertInsideWaterLevelPropertyIndex = 3;
         private const int linearFloodedCulvertInsideWaterLevelFailureConstructionPropertyIndex = 4;
-        private const int linearFloodedCulvertFlowVelocityStructureClosablePropertyIndex = 5;
-        private const int linearFloodedCulvertDrainCoefficientPropertyIndex = 6;
-        private const int linearFloodedCulvertFactorStormDurationOpenStructurePropertyIndex = 7;
-        private const int linearFloodedCulvertStructurePropertyIndex = 8;
-        private const int linearFloodedCulvertStructureLocationPropertyIndex = 9;
-        private const int linearFloodedCulvertStructureNormalOrientationPropertyIndex = 10;
-        private const int linearFloodedCulvertInflowModelTypePropertyIndex = 11;
-        private const int linearFloodedCulvertLoadSchematizationTypePropertyIndex = 12;
-        private const int linearFloodedCulvertAreaFlowAperturesPropertyIndex = 13;
-        private const int linearFloodedCulvertFlowWidthAtBottomProtectionPropertyIndex = 14;
-        private const int linearFloodedCulvertStorageStructureAreaPropertyIndex = 15;
-        private const int linearFloodedCulvertAllowedLevelIncreaseStoragePropertyIndex = 16;
-        private const int linearFloodedCulvertLevelCrestStructurePropertyIndex = 17;
-        private const int linearFloodedCulvertThresholdHeightOpenWeirPropertyIndex = 18;
-        private const int linearFloodedCulvertCriticalOvertoppingDischargePropertyIndex = 19;
+        private const int linearFloodedCulvertDrainCoefficientPropertyIndex = 5;
+        private const int linearFloodedCulvertFactorStormDurationOpenStructurePropertyIndex = 6;
+        private const int linearFloodedCulvertStructurePropertyIndex = 7;
+        private const int linearFloodedCulvertStructureLocationPropertyIndex = 8;
+        private const int linearFloodedCulvertStructureNormalOrientationPropertyIndex = 9;
+        private const int linearFloodedCulvertInflowModelTypePropertyIndex = 10;
+        private const int linearFloodedCulvertLoadSchematizationTypePropertyIndex = 11;
+        private const int linearFloodedCulvertAreaFlowAperturesPropertyIndex = 12;
+        private const int linearFloodedCulvertFlowWidthAtBottomProtectionPropertyIndex = 13;
+        private const int linearFloodedCulvertStorageStructureAreaPropertyIndex = 14;
+        private const int linearFloodedCulvertAllowedLevelIncreaseStoragePropertyIndex = 15;
+        private const int linearFloodedCulvertLevelCrestStructurePropertyIndex = 16;
+        private const int linearFloodedCulvertThresholdHeightOpenWeirPropertyIndex = 17;
+        private const int linearFloodedCulvertCriticalOvertoppingDischargePropertyIndex = 18;
+        private const int linearFloodedCulvertFlowVelocityStructureClosablePropertyIndex = 19;
         private const int linearFloodedCulvertConstructiveStrengthLinearLoadModelPropertyIndex = 20;
         private const int linearFloodedCulvertBankWidthPropertyIndex = 21;
         private const int linearFloodedCulvertEvaluationLevelPropertyIndex = 22;
@@ -1471,21 +1467,21 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         private const int quadraticLowSillStormDurationPropertyIndex = 2;
         private const int quadraticLowSillInsideWaterLevelPropertyIndex = 3;
         private const int quadraticLowSillInsideWaterLevelFailureConstructionPropertyIndex = 4;
-        private const int quadraticLowSillFlowVelocityStructureClosablePropertyIndex = 5;
-        private const int quadraticLowSillModelFactorSuperCriticalFlowPropertyIndex = 6;
-        private const int quadraticLowSillFactorStormDurationOpenStructurePropertyIndex = 7;
-        private const int quadraticLowSillStructurePropertyIndex = 8;
-        private const int quadraticLowSillStructureLocationPropertyIndex = 9;
-        private const int quadraticLowSillStructureNormalOrientationPropertyIndex = 10;
-        private const int quadraticLowSillInflowModelTypePropertyIndex = 11;
-        private const int quadraticLowSillLoadSchematizationTypePropertyIndex = 12;
-        private const int quadraticLowSillWidthFlowAperturesPropertyIndex = 13;
-        private const int quadraticLowSillFlowWidthAtBottomProtectionPropertyIndex = 14;
-        private const int quadraticLowSillStorageStructureAreaPropertyIndex = 15;
-        private const int quadraticLowSillAllowedLevelIncreaseStoragePropertyIndex = 16;
-        private const int quadraticLowSillLevelCrestStructurePropertyIndex = 17;
-        private const int quadraticLowSillThresholdHeightOpenWeirPropertyIndex = 18;
-        private const int quadraticLowSillCriticalOvertoppingDischargePropertyIndex = 19;
+        private const int quadraticLowSillModelFactorSuperCriticalFlowPropertyIndex = 5;
+        private const int quadraticLowSillFactorStormDurationOpenStructurePropertyIndex = 6;
+        private const int quadraticLowSillStructurePropertyIndex = 7;
+        private const int quadraticLowSillStructureLocationPropertyIndex = 8;
+        private const int quadraticLowSillStructureNormalOrientationPropertyIndex = 9;
+        private const int quadraticLowSillInflowModelTypePropertyIndex = 10;
+        private const int quadraticLowSillLoadSchematizationTypePropertyIndex = 11;
+        private const int quadraticLowSillWidthFlowAperturesPropertyIndex = 12;
+        private const int quadraticLowSillFlowWidthAtBottomProtectionPropertyIndex = 13;
+        private const int quadraticLowSillStorageStructureAreaPropertyIndex = 14;
+        private const int quadraticLowSillAllowedLevelIncreaseStoragePropertyIndex = 15;
+        private const int quadraticLowSillLevelCrestStructurePropertyIndex = 16;
+        private const int quadraticLowSillThresholdHeightOpenWeirPropertyIndex = 17;
+        private const int quadraticLowSillCriticalOvertoppingDischargePropertyIndex = 18;
+        private const int quadraticLowSillFlowVelocityStructureClosablePropertyIndex = 19;
         private const int quadraticLowSillConstructiveStrengthQuadraticLoadModelPropertyIndex = 20;
         private const int quadraticLowSillBankWidthPropertyIndex = 21;
         private const int quadraticLowSillEvaluationLevelPropertyIndex = 22;
@@ -1511,21 +1507,21 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         private const int quadraticFloodedCulvertStormDurationPropertyIndex = 2;
         private const int quadraticFloodedCulvertInsideWaterLevelPropertyIndex = 3;
         private const int quadraticFloodedCulvertInsideWaterLevelFailureConstructionPropertyIndex = 4;
-        private const int quadraticFloodedCulvertFlowVelocityStructureClosablePropertyIndex = 5;
-        private const int quadraticFloodedCulvertDrainCoefficientPropertyIndex = 6;
-        private const int quadraticFloodedCulvertFactorStormDurationOpenStructurePropertyIndex = 7;
-        private const int quadraticFloodedCulvertStructurePropertyIndex = 8;
-        private const int quadraticFloodedCulvertStructureLocationPropertyIndex = 9;
-        private const int quadraticFloodedCulvertStructureNormalOrientationPropertyIndex = 10;
-        private const int quadraticFloodedCulvertInflowModelTypePropertyIndex = 11;
-        private const int quadraticFloodedCulvertLoadSchematizationTypePropertyIndex = 12;
-        private const int quadraticFloodedCulvertAreaFlowAperturesPropertyIndex = 13;
-        private const int quadraticFloodedCulvertFlowWidthAtBottomProtectionPropertyIndex = 14;
-        private const int quadraticFloodedCulvertStorageStructureAreaPropertyIndex = 15;
-        private const int quadraticFloodedCulvertAllowedLevelIncreaseStoragePropertyIndex = 16;
-        private const int quadraticFloodedCulvertLevelCrestStructurePropertyIndex = 17;
-        private const int quadraticFloodedCulvertThresholdHeightOpenWeirPropertyIndex = 18;
-        private const int quadraticFloodedCulvertCriticalOvertoppingDischargePropertyIndex = 19;
+        private const int quadraticFloodedCulvertDrainCoefficientPropertyIndex = 5;
+        private const int quadraticFloodedCulvertFactorStormDurationOpenStructurePropertyIndex = 6;
+        private const int quadraticFloodedCulvertStructurePropertyIndex = 7;
+        private const int quadraticFloodedCulvertStructureLocationPropertyIndex = 8;
+        private const int quadraticFloodedCulvertStructureNormalOrientationPropertyIndex = 9;
+        private const int quadraticFloodedCulvertInflowModelTypePropertyIndex = 10;
+        private const int quadraticFloodedCulvertLoadSchematizationTypePropertyIndex = 11;
+        private const int quadraticFloodedCulvertAreaFlowAperturesPropertyIndex = 12;
+        private const int quadraticFloodedCulvertFlowWidthAtBottomProtectionPropertyIndex = 13;
+        private const int quadraticFloodedCulvertStorageStructureAreaPropertyIndex = 14;
+        private const int quadraticFloodedCulvertAllowedLevelIncreaseStoragePropertyIndex = 15;
+        private const int quadraticFloodedCulvertLevelCrestStructurePropertyIndex = 16;
+        private const int quadraticFloodedCulvertThresholdHeightOpenWeirPropertyIndex = 17;
+        private const int quadraticFloodedCulvertCriticalOvertoppingDischargePropertyIndex = 18;
+        private const int quadraticFloodedCulvertFlowVelocityStructureClosablePropertyIndex = 19;
         private const int quadraticFloodedCulvertConstructiveStrengthQuadraticLoadModelPropertyIndex = 20;
         private const int quadraticFloodedCulvertBankWidthPropertyIndex = 21;
         private const int quadraticFloodedCulvertEvaluationLevelPropertyIndex = 22;

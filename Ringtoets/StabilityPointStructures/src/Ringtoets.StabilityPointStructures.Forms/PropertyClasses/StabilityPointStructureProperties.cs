@@ -43,17 +43,17 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
         private const int locationPropertyIndex = 2;
         private const int insideWaterLevelPropertyIndex = 3;
         private const int insideWaterLevelFailureConstructionPropertyIndex = 4;
-        private const int flowVelocityStructureClosablePropertyIndex = 5;
-        private const int structureNormalOrientationPropertyIndex = 6;
-        private const int stabilityPointStructureInflowModelTypePropertyIndex = 7;
-        private const int widthFlowAperturesPropertyIndex = 8;
-        private const int areaFlowAperturesPropertyIndex = 9;
-        private const int flowWidthAtBottomProtectionPropertyIndex = 10;
-        private const int storageStructureAreaPropertyIndex = 11;
-        private const int allowedLevelIncreaseStoragePropertyIndex = 12;
-        private const int levelCrestStructurePropertyIndex = 13;
-        private const int thresholdHeightOpenWeirPropertyIndex = 14;
-        private const int criticalOvertoppingDischargePropertyIndex = 15;
+        private const int structureNormalOrientationPropertyIndex = 5;
+        private const int stabilityPointStructureInflowModelTypePropertyIndex = 6;
+        private const int widthFlowAperturesPropertyIndex = 7;
+        private const int areaFlowAperturesPropertyIndex = 8;
+        private const int flowWidthAtBottomProtectionPropertyIndex = 9;
+        private const int storageStructureAreaPropertyIndex = 10;
+        private const int allowedLevelIncreaseStoragePropertyIndex = 11;
+        private const int levelCrestStructurePropertyIndex = 12;
+        private const int thresholdHeightOpenWeirPropertyIndex = 13;
+        private const int criticalOvertoppingDischargePropertyIndex = 14;
+        private const int flowVelocityStructureClosablePropertyIndex = 15;
         private const int constructiveStrengthLinearLoadModelPropertyIndex = 16;
         private const int constructiveStrengthQuadraticLoadModelPropertyIndex = 17;
         private const int bankWidthPropertyIndex = 18;
@@ -67,26 +67,6 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
         private const int probabilityCollisionSecondaryStructurePropertyIndex = 26;
         private const int stabilityLinearLoadModelPropertyIndex = 27;
         private const int stabilityQuadraticLoadModelPropertyIndex = 28;
-
-        #region Critical values
-
-        [PropertyOrder(flowVelocityStructureClosablePropertyIndex)]
-        [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_CriticalValues")]
-        [ResourcesDisplayName(typeof(Resources), "Structure_FlowVelocityStructureClosable_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "Structure_FlowVelocityStructureClosable_Description")]
-        public VariationCoefficientNormalDistributionProperties FlowVelocityStructureClosable
-        {
-            get
-            {
-                return new VariationCoefficientNormalDistributionProperties
-                {
-                    Data = data.FlowVelocityStructureClosable
-                };
-            }
-        }
-
-        #endregion
 
         #region General
 
@@ -304,6 +284,22 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
                 return new VariationCoefficientLogNormalDistributionProperties
                 {
                     Data = data.CriticalOvertoppingDischarge
+                };
+            }
+        }
+
+        [PropertyOrder(flowVelocityStructureClosablePropertyIndex)]
+        [TypeConverter(typeof(ExpandableObjectConverter))]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
+        [ResourcesDisplayName(typeof(Resources), "Structure_FlowVelocityStructureClosable_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "Structure_FlowVelocityStructureClosable_Description")]
+        public VariationCoefficientNormalDistributionProperties FlowVelocityStructureClosable
+        {
+            get
+            {
+                return new VariationCoefficientNormalDistributionProperties
+                {
+                    Data = data.FlowVelocityStructureClosable
                 };
             }
         }
