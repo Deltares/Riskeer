@@ -25,7 +25,7 @@ Namespace;Identificatie;Versie;Kunstwerken.identificatie;Parameter.code;Paramete
 12;KUNST1;1;KW_STERSTAB1;1;1;1;1;1;1;;;1;;;;;1;0.01;0;
 12;KUNST1;1;KW_STERSTAB2;2;2;2;2;2;2;;;2;;;;;2;1;1;
 12;KUNST1;1;KW_STERSTAB3;3;3;3;3;3;3;;;3;;;;;2;1;0;
-12;KUNST1;1;KW_STERSTAB4;4;4;4;4;4;4;;;4;;;;;2;2;1;
+12;KUNST1;1;KW_STERSTAB4;4;4;4;4;4;4;;;4;;;;;2;2;0;
 12;KUNST1;1;KW_STERSTAB5;5;5;5;5;5;5;;;5;;;;;2;2;0;
 12;KUNST1;1;KW_STERSTAB6;6;6;6;6;6;6;;;6;;;;;2;3;0;
 12;KUNST1;1;KW_STERSTAB7;7;7;7;7;7;7;;;7;;;;;2;3;1;

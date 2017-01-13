@@ -124,7 +124,7 @@ namespace Application.Ringtoets.Storage.Test.Read.HeightStructures
             AssertRoundedDouble(entity.CriticalOvertoppingDischargeCoefficientOfVariation, input.CriticalOvertoppingDischarge.CoefficientOfVariation);
             Assert.AreEqual(entity.FailureProbabilityStructureWithErosion, input.FailureProbabilityStructureWithErosion);
             AssertRoundedDouble(entity.WidthFlowAperturesMean, input.WidthFlowApertures.Mean);
-            AssertRoundedDouble(entity.WidthFlowAperturesCoefficientOfVariation, input.WidthFlowApertures.CoefficientOfVariation);
+            AssertRoundedDouble(entity.WidthFlowAperturesCoefficientOfVariation, input.WidthFlowApertures.StandardDeviation);
             AssertRoundedDouble(entity.StormDurationMean, input.StormDuration.Mean);
             AssertRoundedDouble(entity.LevelCrestStructureMean, input.LevelCrestStructure.Mean);
             AssertRoundedDouble(entity.LevelCrestStructureStandardDeviation, input.LevelCrestStructure.StandardDeviation);

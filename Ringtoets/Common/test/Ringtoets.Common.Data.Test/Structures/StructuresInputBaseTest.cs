@@ -71,10 +71,10 @@ namespace Ringtoets.Common.Data.Test.Structures
                 CoefficientOfVariation = (RoundedDouble) 0.15
             };
 
-            var widthFlowApertures = new VariationCoefficientNormalDistribution(2)
+            var widthFlowApertures = new NormalDistribution(2)
             {
                 Mean = RoundedDouble.NaN,
-                CoefficientOfVariation = (RoundedDouble) 0.05
+                StandardDeviation = (RoundedDouble) 0.05
             };
 
             var stormDuration = new VariationCoefficientLogNormalDistribution(2)
@@ -397,16 +397,16 @@ namespace Ringtoets.Common.Data.Test.Structures
             var random = new Random(22);
             var input = new SimpleStructuresInput();
             var mean = (RoundedDouble) (0.01 + random.NextDouble());
-            var variation = (RoundedDouble) (0.01 + random.NextDouble());
-            var expectedDistribution = new VariationCoefficientNormalDistribution(2)
+            var standardDeviation = (RoundedDouble) (0.01 + random.NextDouble());
+            var expectedDistribution = new NormalDistribution(2)
             {
                 Mean = mean,
-                CoefficientOfVariation = variation
+                StandardDeviation = standardDeviation
             };
-            var distributionToSet = new VariationCoefficientNormalDistribution(5)
+            var distributionToSet = new NormalDistribution(5)
             {
                 Mean = mean,
-                CoefficientOfVariation = variation
+                StandardDeviation = standardDeviation
             };
 
             // Call

@@ -58,7 +58,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
                     WidthFlowApertures =
                     {
                         Mean = (RoundedDouble) 456.789,
-                        CoefficientOfVariation = (RoundedDouble) 0.456
+                        StandardDeviation = (RoundedDouble) 0.456
                     },
                     LevelCrestStructureNotClosing =
                     {
@@ -119,11 +119,11 @@ namespace Ringtoets.ClosingStructures.Data.Test
             Assert.AreEqual(2, allowedLevelIncreaseStorage.StandardDeviation.NumberOfDecimalPlaces);
             Assert.AreEqual(0.23, allowedLevelIncreaseStorage.StandardDeviation, allowedLevelIncreaseStorage.StandardDeviation.GetAccuracy());
 
-            VariationCoefficientNormalDistribution widthFlowApertures = structure.WidthFlowApertures;
+            NormalDistribution widthFlowApertures = structure.WidthFlowApertures;
             Assert.AreEqual(2, widthFlowApertures.Mean.NumberOfDecimalPlaces);
             Assert.AreEqual(456.79, widthFlowApertures.Mean, widthFlowApertures.Mean.GetAccuracy());
-            Assert.AreEqual(2, widthFlowApertures.CoefficientOfVariation.NumberOfDecimalPlaces);
-            Assert.AreEqual(0.46, widthFlowApertures.CoefficientOfVariation, widthFlowApertures.CoefficientOfVariation.GetAccuracy());
+            Assert.AreEqual(2, widthFlowApertures.StandardDeviation.NumberOfDecimalPlaces);
+            Assert.AreEqual(0.46, widthFlowApertures.StandardDeviation, widthFlowApertures.StandardDeviation.GetAccuracy());
 
             NormalDistribution levelCrestStructureNotClosing = structure.LevelCrestStructureNotClosing;
             Assert.AreEqual(2, levelCrestStructureNotClosing.Mean.NumberOfDecimalPlaces);

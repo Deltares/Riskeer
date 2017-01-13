@@ -287,10 +287,8 @@
   </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent>IF EXIST "%25VS120COMNTOOLS%25vsvars32.bat" CALL “%25VS120COMNTOOLS%25vsvars32.bat” &amp;&amp; GOTO endvsvars
-IF EXIST "%25VS110COMNTOOLS%25vsvars32.bat" CALL “%25VS110COMNTOOLS%25vsvars32.bat” &amp;&amp; GOTO endvsvars
-:endvsvars
-editbin /LARGEADDRESSAWARE $(TargetFileName)</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <PreBuildEvent>

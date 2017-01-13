@@ -105,7 +105,7 @@ namespace Application.Ringtoets.Storage.Test.Create
                     WidthFlowApertures =
                     {
                         Mean = (RoundedDouble) random.GetFromRange(-9999.9999, 9999.9999),
-                        CoefficientOfVariation = (RoundedDouble) random.GetFromRange(1e-6, 9999.9999)
+                        StandardDeviation = (RoundedDouble) random.GetFromRange(1e-6, 9999.9999)
                     },
                     StormDuration =
                     {
@@ -152,7 +152,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.AreEqual(input.CriticalOvertoppingDischarge.CoefficientOfVariation.Value, entity.CriticalOvertoppingDischargeCoefficientOfVariation);
             Assert.AreEqual(input.FailureProbabilityStructureWithErosion, entity.FailureProbabilityStructureWithErosion);
             Assert.AreEqual(input.WidthFlowApertures.Mean.Value, entity.WidthFlowAperturesMean);
-            Assert.AreEqual(input.WidthFlowApertures.CoefficientOfVariation.Value, entity.WidthFlowAperturesCoefficientOfVariation);
+            Assert.AreEqual(input.WidthFlowApertures.StandardDeviation.Value, entity.WidthFlowAperturesCoefficientOfVariation);
             Assert.AreEqual(input.StormDuration.Mean.Value, entity.StormDurationMean);
 
             Assert.AreEqual(input.LevelCrestStructure.Mean.Value, entity.LevelCrestStructureMean);
@@ -208,7 +208,7 @@ namespace Application.Ringtoets.Storage.Test.Create
                     WidthFlowApertures =
                     {
                         Mean = RoundedDouble.NaN,
-                        CoefficientOfVariation = RoundedDouble.NaN
+                        StandardDeviation = RoundedDouble.NaN
                     },
                     StormDuration =
                     {
@@ -448,7 +448,7 @@ namespace Application.Ringtoets.Storage.Test.Create
                     WidthFlowApertures =
                     {
                         Mean = (RoundedDouble) random.NextDouble(),
-                        CoefficientOfVariation = (RoundedDouble) random.NextDouble()
+                        StandardDeviation = (RoundedDouble) random.NextDouble()
                     },
                     InflowModelType = ClosingStructureInflowModelType.VerticalWall,
                     InsideWaterLevel =
@@ -516,7 +516,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.AreEqual(inputParameters.CriticalOvertoppingDischarge.CoefficientOfVariation.Value, entity.CriticalOvertoppingDischargeCoefficientOfVariation);
             Assert.AreEqual(inputParameters.ModelFactorSuperCriticalFlow.Mean.Value, entity.ModelFactorSuperCriticalFlowMean);
             Assert.AreEqual(inputParameters.WidthFlowApertures.Mean.Value, entity.WidthFlowAperturesMean);
-            Assert.AreEqual(inputParameters.WidthFlowApertures.CoefficientOfVariation.Value, entity.WidthFlowAperturesCoefficientOfVariation);
+            Assert.AreEqual(inputParameters.WidthFlowApertures.StandardDeviation.Value, entity.WidthFlowAperturesCoefficientOfVariation);
             Assert.AreEqual(Convert.ToByte(inputParameters.InflowModelType), entity.InflowModelType);
             Assert.AreEqual(inputParameters.InsideWaterLevel.Mean.Value, entity.InsideWaterLevelMean);
             Assert.AreEqual(inputParameters.InsideWaterLevel.StandardDeviation.Value, entity.InsideWaterLevelStandardDeviation);
@@ -582,7 +582,7 @@ namespace Application.Ringtoets.Storage.Test.Create
                     WidthFlowApertures =
                     {
                         Mean = RoundedDouble.NaN,
-                        CoefficientOfVariation = RoundedDouble.NaN
+                        StandardDeviation = RoundedDouble.NaN
                     },
                     InsideWaterLevel =
                     {
@@ -813,7 +813,7 @@ namespace Application.Ringtoets.Storage.Test.Create
                     WidthFlowApertures =
                     {
                         Mean = (RoundedDouble) random.NextDouble(),
-                        CoefficientOfVariation = (RoundedDouble) random.NextDouble()
+                        StandardDeviation = (RoundedDouble) random.NextDouble()
                     },
                     InsideWaterLevel =
                     {
@@ -933,7 +933,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.AreEqual(inputParameters.CriticalOvertoppingDischarge.CoefficientOfVariation.Value, entity.CriticalOvertoppingDischargeCoefficientOfVariation);
             Assert.AreEqual(inputParameters.ModelFactorSuperCriticalFlow.Mean.Value, entity.ModelFactorSuperCriticalFlowMean);
             Assert.AreEqual(inputParameters.WidthFlowApertures.Mean.Value, entity.WidthFlowAperturesMean);
-            Assert.AreEqual(inputParameters.WidthFlowApertures.CoefficientOfVariation.Value, entity.WidthFlowAperturesCoefficientOfVariation);
+            Assert.AreEqual(inputParameters.WidthFlowApertures.StandardDeviation.Value, entity.WidthFlowAperturesCoefficientOfVariation);
 
             Assert.AreEqual(inputParameters.InsideWaterLevel.Mean.Value, entity.InsideWaterLevelMean);
             Assert.AreEqual(inputParameters.InsideWaterLevel.StandardDeviation.Value, entity.InsideWaterLevelStandardDeviation);
@@ -1023,7 +1023,7 @@ namespace Application.Ringtoets.Storage.Test.Create
                     WidthFlowApertures =
                     {
                         Mean = RoundedDouble.NaN,
-                        CoefficientOfVariation = RoundedDouble.NaN
+                        StandardDeviation = RoundedDouble.NaN
                     },
                     InsideWaterLevel =
                     {

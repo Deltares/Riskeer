@@ -110,7 +110,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             Assert.AreEqual("Normaal", properties.WidthFlowApertures.DistributionType);
             Assert.AreEqual(structure.WidthFlowApertures, properties.WidthFlowApertures.Data);
             Assert.IsTrue(properties.WidthFlowApertures.DynamicReadOnlyValidationMethod("Mean"));
-            Assert.IsTrue(properties.WidthFlowApertures.DynamicReadOnlyValidationMethod("CoefficientOfVariation"));
+            Assert.IsTrue(properties.WidthFlowApertures.DynamicReadOnlyValidationMethod("StandardDeviation"));
 
             Assert.AreEqual("Lognormaal", properties.AreaFlowApertures.DistributionType);
             Assert.AreEqual(structure.AreaFlowApertures, properties.AreaFlowApertures.Data);

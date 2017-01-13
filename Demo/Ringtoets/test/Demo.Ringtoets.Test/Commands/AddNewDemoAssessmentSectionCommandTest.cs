@@ -301,7 +301,7 @@ namespace Demo.Ringtoets.Test.Commands
             Assert.AreEqual(0.1, heightStructure.CriticalOvertoppingDischarge.Mean.Value);
             Assert.AreEqual(0.15, heightStructure.CriticalOvertoppingDischarge.CoefficientOfVariation.Value);
             Assert.AreEqual(21.0, heightStructure.WidthFlowApertures.Mean.Value);
-            Assert.AreEqual(0.05, heightStructure.WidthFlowApertures.CoefficientOfVariation.Value);
+            Assert.AreEqual(0.05, heightStructure.WidthFlowApertures.StandardDeviation.Value);
             Assert.AreEqual(1.0, heightStructure.FailureProbabilityStructureWithErosion);
             Assert.AreEqual(20000.0, heightStructure.StorageStructureArea.Mean.Value);
             Assert.AreEqual(0.1, heightStructure.StorageStructureArea.CoefficientOfVariation.Value);
@@ -343,7 +343,7 @@ namespace Demo.Ringtoets.Test.Commands
             Assert.AreEqual(0.1, closingStructure.AllowedLevelIncreaseStorage.StandardDeviation.Value);
             Assert.AreEqual(10.0, closingStructure.StructureNormalOrientation.Value);
             Assert.AreEqual(21.0, closingStructure.WidthFlowApertures.Mean.Value);
-            Assert.AreEqual(0.05, closingStructure.WidthFlowApertures.CoefficientOfVariation.Value);
+            Assert.AreEqual(0.05, closingStructure.WidthFlowApertures.StandardDeviation.Value);
             Assert.AreEqual(4.95, closingStructure.LevelCrestStructureNotClosing.Mean.Value);
             Assert.AreEqual(0.05, closingStructure.LevelCrestStructureNotClosing.StandardDeviation.Value);
             Assert.AreEqual(0.5, closingStructure.InsideWaterLevel.Mean.Value);
@@ -491,7 +491,7 @@ namespace Demo.Ringtoets.Test.Commands
             Assert.AreEqual(0.1, structure.AllowedLevelIncreaseStorage.StandardDeviation,
                             structure.AllowedLevelIncreaseStorage.StandardDeviation.GetAccuracy());
             Assert.AreEqual(21, structure.WidthFlowApertures.Mean, structure.WidthFlowApertures.Mean.GetAccuracy());
-            Assert.AreEqual(0.05, structure.WidthFlowApertures.CoefficientOfVariation, structure.WidthFlowApertures.CoefficientOfVariation.GetAccuracy());
+            Assert.AreEqual(0.05, structure.WidthFlowApertures.StandardDeviation, structure.WidthFlowApertures.StandardDeviation.GetAccuracy());
             Assert.AreEqual(0.5, structure.InsideWaterLevel.Mean, structure.InsideWaterLevel.Mean.GetAccuracy());
             Assert.AreEqual(0.1, structure.InsideWaterLevel.StandardDeviation, structure.InsideWaterLevel.StandardDeviation.GetAccuracy());
             Assert.AreEqual(4.95, structure.ThresholdHeightOpenWeir.Mean, structure.ThresholdHeightOpenWeir.Mean.GetAccuracy());

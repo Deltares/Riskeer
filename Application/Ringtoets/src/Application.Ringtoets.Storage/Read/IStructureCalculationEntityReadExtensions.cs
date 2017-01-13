@@ -78,7 +78,7 @@ namespace Application.Ringtoets.Storage.Read
             inputToUpdate.CriticalOvertoppingDischarge.CoefficientOfVariation = (RoundedDouble) entity.CriticalOvertoppingDischargeCoefficientOfVariation.ToNullAsNaN();
             inputToUpdate.FailureProbabilityStructureWithErosion = entity.FailureProbabilityStructureWithErosion;
             inputToUpdate.WidthFlowApertures.Mean = (RoundedDouble) entity.WidthFlowAperturesMean.ToNullAsNaN();
-            inputToUpdate.WidthFlowApertures.CoefficientOfVariation = (RoundedDouble) entity.WidthFlowAperturesCoefficientOfVariation.ToNullAsNaN();
+            inputToUpdate.WidthFlowApertures.StandardDeviation = (RoundedDouble) entity.WidthFlowAperturesCoefficientOfVariation.ToNullAsNaN();
             inputToUpdate.StormDuration.Mean = (RoundedDouble) entity.StormDurationMean.ToNullAsNaN();
 
             inputToUpdate.UseBreakWater = Convert.ToBoolean(entity.UseBreakWater);

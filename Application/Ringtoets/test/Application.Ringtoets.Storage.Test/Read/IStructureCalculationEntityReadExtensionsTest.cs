@@ -120,7 +120,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             AssertRoundedDouble(entity.CriticalOvertoppingDischargeCoefficientOfVariation, inputToUpdate.CriticalOvertoppingDischarge.CoefficientOfVariation);
             Assert.AreEqual(entity.FailureProbabilityStructureWithErosion, inputToUpdate.FailureProbabilityStructureWithErosion);
             AssertRoundedDouble(entity.WidthFlowAperturesMean, inputToUpdate.WidthFlowApertures.Mean);
-            AssertRoundedDouble(entity.WidthFlowAperturesCoefficientOfVariation, inputToUpdate.WidthFlowApertures.CoefficientOfVariation);
+            AssertRoundedDouble(entity.WidthFlowAperturesCoefficientOfVariation, inputToUpdate.WidthFlowApertures.StandardDeviation);
             AssertRoundedDouble(entity.StormDurationMean, inputToUpdate.StormDuration.Mean);
 
             Assert.IsEmpty(inputToUpdate.ForeshoreGeometry);
@@ -165,7 +165,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.IsNaN(inputToUpdate.CriticalOvertoppingDischarge.Mean);
             Assert.IsNaN(inputToUpdate.CriticalOvertoppingDischarge.CoefficientOfVariation);
             Assert.IsNaN(inputToUpdate.WidthFlowApertures.Mean);
-            Assert.IsNaN(inputToUpdate.WidthFlowApertures.CoefficientOfVariation);
+            Assert.IsNaN(inputToUpdate.WidthFlowApertures.StandardDeviation);
             Assert.IsNaN(inputToUpdate.StormDuration.Mean);
             mocks.VerifyAll();
         }

@@ -216,7 +216,7 @@ namespace Ringtoets.ClosingStructures.Service
                 calculation.InputParameters.StructureNormalOrientation,
                 calculation.InputParameters.ModelFactorSuperCriticalFlow.Mean, calculation.InputParameters.ModelFactorSuperCriticalFlow.StandardDeviation,
                 calculation.InputParameters.LevelCrestStructureNotClosing.Mean, calculation.InputParameters.LevelCrestStructureNotClosing.StandardDeviation,
-                calculation.InputParameters.WidthFlowApertures.Mean, calculation.InputParameters.WidthFlowApertures.CoefficientOfVariation,
+                calculation.InputParameters.WidthFlowApertures.Mean, calculation.InputParameters.WidthFlowApertures.StandardDeviation,
                 calculation.InputParameters.DeviationWaveDirection);
 
             HydraRingSettingsDatabaseHelper.AssignSettingsFromDatabase(structuresClosureVerticalWallCalculationInput, hydraulicBoundaryDatabaseFilePath);
@@ -252,7 +252,7 @@ namespace Ringtoets.ClosingStructures.Service
                 generalInput.ModelFactorSubCriticalFlow.Mean, generalInput.ModelFactorSubCriticalFlow.CoefficientOfVariation,
                 calculation.InputParameters.ThresholdHeightOpenWeir.Mean, calculation.InputParameters.ThresholdHeightOpenWeir.StandardDeviation,
                 calculation.InputParameters.InsideWaterLevel.Mean, calculation.InputParameters.InsideWaterLevel.StandardDeviation,
-                calculation.InputParameters.WidthFlowApertures.Mean, calculation.InputParameters.WidthFlowApertures.CoefficientOfVariation);
+                calculation.InputParameters.WidthFlowApertures.Mean, calculation.InputParameters.WidthFlowApertures.StandardDeviation);
 
             HydraRingSettingsDatabaseHelper.AssignSettingsFromDatabase(structuresClosureLowSillCalculationInput, hydraulicBoundaryDatabaseFilePath);
 
@@ -359,7 +359,7 @@ namespace Ringtoets.ClosingStructures.Service
                                            ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_ModelFactorSuperCriticalFlow_DisplayName)),
                 new NumericInputRule(input.FactorStormDurationOpenStructure,
                                      ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_FactorStormDurationOpenStructure_DisplayName)),
-                new VariationCoefficientNormalDistributionRule(input.WidthFlowApertures,
+                new NormalDistributionRule(input.WidthFlowApertures,
                                                                ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_WidthFlowApertures_DisplayName)),
                 new NumericInputRule(input.StructureNormalOrientation,
                                      ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_StructureNormalOrientation_DisplayName)),
@@ -389,7 +389,7 @@ namespace Ringtoets.ClosingStructures.Service
                                            ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_ModelFactorSuperCriticalFlow_DisplayName)),
                 new NumericInputRule(input.FactorStormDurationOpenStructure,
                                      ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_FactorStormDurationOpenStructure_DisplayName)),
-                new VariationCoefficientNormalDistributionRule(input.WidthFlowApertures,
+                new NormalDistributionRule(input.WidthFlowApertures,
                                                                ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_WidthFlowApertures_DisplayName)),
                 new LogNormalDistributionRule(input.FlowWidthAtBottomProtection,
                                               ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_FlowWidthAtBottomProtection_DisplayName)),

@@ -106,11 +106,11 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "Structure_WidthFlowApertures_DisplayName")]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "Structure_WidthFlowApertures_Description")]
-        public VariationCoefficientNormalDistributionProperties WidthFlowApertures
+        public NormalDistributionProperties WidthFlowApertures
         {
             get
             {
-                return new VariationCoefficientNormalDistributionProperties
+                return new NormalDistributionProperties
                 {
                     Data = data.WidthFlowApertures
                 };

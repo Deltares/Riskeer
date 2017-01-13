@@ -293,7 +293,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
         #region Schematization
 
         [DynamicVisible]
-        public override VariationCoefficientNormalDistributionProperties WidthFlowApertures
+        public override NormalDistributionProperties WidthFlowApertures
         {
             get
             {

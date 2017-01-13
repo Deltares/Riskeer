@@ -114,7 +114,7 @@ namespace Application.Ringtoets.Storage.Test.Read.HeightStructures
             Assert.AreEqual(entity.CriticalOvertoppingDischargeMean, structure.CriticalOvertoppingDischarge.Mean.Value);
             Assert.AreEqual(entity.CriticalOvertoppingDischargeCoefficientOfVariation, structure.CriticalOvertoppingDischarge.CoefficientOfVariation.Value);
             Assert.AreEqual(entity.WidthFlowAperturesMean, structure.WidthFlowApertures.Mean.Value);
-            Assert.AreEqual(entity.WidthFlowAperturesCoefficientOfVariation, structure.WidthFlowApertures.CoefficientOfVariation.Value);
+            Assert.AreEqual(entity.WidthFlowAperturesCoefficientOfVariation, structure.WidthFlowApertures.StandardDeviation.Value);
             Assert.AreEqual(entity.FailureProbabilityStructureWithErosion, structure.FailureProbabilityStructureWithErosion);
             Assert.AreEqual(entity.StorageStructureAreaMean, structure.StorageStructureArea.Mean.Value);
             Assert.AreEqual(entity.StorageStructureAreaCoefficientOfVariation, structure.StorageStructureArea.CoefficientOfVariation.Value);
@@ -165,7 +165,7 @@ namespace Application.Ringtoets.Storage.Test.Read.HeightStructures
             Assert.IsNaN(structure.CriticalOvertoppingDischarge.Mean.Value);
             Assert.IsNaN(structure.CriticalOvertoppingDischarge.CoefficientOfVariation.Value);
             Assert.IsNaN(structure.WidthFlowApertures.Mean.Value);
-            Assert.IsNaN(structure.WidthFlowApertures.CoefficientOfVariation.Value);
+            Assert.IsNaN(structure.WidthFlowApertures.StandardDeviation.Value);
             Assert.IsNaN(structure.FailureProbabilityStructureWithErosion);
             Assert.IsNaN(structure.StorageStructureArea.Mean.Value);
             Assert.IsNaN(structure.StorageStructureArea.CoefficientOfVariation.Value);

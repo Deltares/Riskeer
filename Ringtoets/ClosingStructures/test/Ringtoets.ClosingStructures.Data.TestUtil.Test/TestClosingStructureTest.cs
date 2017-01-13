@@ -101,7 +101,7 @@ namespace Ringtoets.ClosingStructures.Data.TestUtil.Test
             Assert.AreEqual(0.1, structure.AllowedLevelIncreaseStorage.StandardDeviation.Value);
 
             Assert.AreEqual(21, structure.WidthFlowApertures.Mean.Value);
-            Assert.AreEqual(0.05, structure.WidthFlowApertures.CoefficientOfVariation.Value);
+            Assert.AreEqual(0.05, structure.WidthFlowApertures.StandardDeviation.Value);
 
             Assert.AreEqual(4.95, structure.LevelCrestStructureNotClosing.Mean.Value);
             Assert.AreEqual(0.05, structure.LevelCrestStructureNotClosing.StandardDeviation.Value);

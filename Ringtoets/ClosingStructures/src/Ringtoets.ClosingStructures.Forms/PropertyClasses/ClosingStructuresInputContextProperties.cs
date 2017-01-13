@@ -239,7 +239,7 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
         }
 
         [DynamicVisible]
-        public override VariationCoefficientNormalDistributionProperties WidthFlowApertures
+        public override NormalDistributionProperties WidthFlowApertures
         {
             get
             {

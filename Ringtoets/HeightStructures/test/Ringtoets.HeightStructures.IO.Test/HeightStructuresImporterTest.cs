@@ -130,11 +130,11 @@ namespace Ringtoets.HeightStructures.IO.Test
             // Assert
             string[] expectedMessages =
             {
-                "De variatie voor parameter 'KW_HOOGTE4' van kunstwerk 'Coupure Den Oever (90k1)' (KUNST1) wordt omgerekend in een variatiecoëfficiënt (regel 5).",
-                "De variatie voor parameter 'KW_HOOGTE5' van kunstwerk 'Coupure Den Oever (90k1)' (KUNST1) wordt omgerekend in een variatiecoëfficiënt (regel 6).",
-                "De variatie voor parameter 'KW_HOOGTE7' van kunstwerk 'Coupure Den Oever (90k1)' (KUNST1) wordt omgerekend in een variatiecoëfficiënt (regel 8).",
                 "De variatie voor parameter 'KW_HOOGTE2' van kunstwerk 'Coupure Den Oever (90k1)' (KUNST1) wordt omgerekend in een standaardafwijking (regel 3).",
                 "De variatie voor parameter 'KW_HOOGTE3' van kunstwerk 'Coupure Den Oever (90k1)' (KUNST1) wordt omgerekend in een standaardafwijking (regel 4).",
+                "De variatie voor parameter 'KW_HOOGTE4' van kunstwerk 'Coupure Den Oever (90k1)' (KUNST1) wordt omgerekend in een variatiecoëfficiënt (regel 5).",
+                "De variatie voor parameter 'KW_HOOGTE5' van kunstwerk 'Coupure Den Oever (90k1)' (KUNST1) wordt omgerekend in een standaardafwijking (regel 6).",
+                "De variatie voor parameter 'KW_HOOGTE7' van kunstwerk 'Coupure Den Oever (90k1)' (KUNST1) wordt omgerekend in een variatiecoëfficiënt (regel 8).",
                 "De variatie voor parameter 'KW_HOOGTE8' van kunstwerk 'Coupure Den Oever (90k1)' (KUNST1) wordt omgerekend in een standaardafwijking (regel 9)."
             };
             TestHelper.AssertLogMessagesAreGenerated(call, expectedMessages);
@@ -144,7 +144,7 @@ namespace Ringtoets.HeightStructures.IO.Test
             Assert.AreEqual(0.12, structure.LevelCrestStructure.StandardDeviation.Value);
             Assert.AreEqual(0.24, structure.FlowWidthAtBottomProtection.StandardDeviation.Value);
             Assert.AreEqual(1.0, structure.CriticalOvertoppingDischarge.CoefficientOfVariation.Value);
-            Assert.AreEqual(0.5, structure.WidthFlowApertures.CoefficientOfVariation.Value);
+            Assert.AreEqual(0.97, structure.WidthFlowApertures.StandardDeviation.Value);
             Assert.AreEqual(1.84, structure.StorageStructureArea.CoefficientOfVariation.Value);
             Assert.AreEqual(2.18, structure.AllowedLevelIncreaseStorage.StandardDeviation.Value);
         }

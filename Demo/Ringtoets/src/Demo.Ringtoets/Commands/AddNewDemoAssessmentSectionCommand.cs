@@ -417,7 +417,7 @@ namespace Demo.Ringtoets.Commands
                 WidthFlowApertures =
                 {
                     Mean = (RoundedDouble) 21.0,
-                    CoefficientOfVariation = (RoundedDouble) 0.05
+                    StandardDeviation = (RoundedDouble) 0.05
                 },
                 FailureProbabilityStructureWithErosion = 1.0,
                 StorageStructureArea =
@@ -471,7 +471,7 @@ namespace Demo.Ringtoets.Commands
                     WidthFlowApertures =
                     {
                         Mean = (RoundedDouble) 21,
-                        CoefficientOfVariation = (RoundedDouble) 0.05
+                        StandardDeviation = (RoundedDouble) 0.05
                     },
                     LevelCrestStructureNotClosing =
                     {
@@ -592,7 +592,7 @@ namespace Demo.Ringtoets.Commands
                     WidthFlowApertures =
                     {
                         Mean = (RoundedDouble) 21.0,
-                        CoefficientOfVariation = (RoundedDouble) 0.05
+                        StandardDeviation = (RoundedDouble) 0.05
                     },
                     InsideWaterLevel =
                     {

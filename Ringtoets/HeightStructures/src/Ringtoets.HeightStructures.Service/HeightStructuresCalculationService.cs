@@ -94,7 +94,7 @@ namespace Ringtoets.HeightStructures.Service
                                 string hydraulicBoundaryDatabaseFilePath)
         {
             var calculationName = calculation.Name;
-            
+
             StructuresOvertoppingCalculationInput input = CreateInput(calculation, failureMechanism.GeneralInput, hydraulicBoundaryDatabaseFilePath);
 
             string hlcdDirectory = Path.GetDirectoryName(hydraulicBoundaryDatabaseFilePath);
@@ -178,7 +178,7 @@ namespace Ringtoets.HeightStructures.Service
                 calculation.InputParameters.FlowWidthAtBottomProtection.Mean, calculation.InputParameters.FlowWidthAtBottomProtection.StandardDeviation,
                 calculation.InputParameters.CriticalOvertoppingDischarge.Mean, calculation.InputParameters.CriticalOvertoppingDischarge.CoefficientOfVariation,
                 calculation.InputParameters.FailureProbabilityStructureWithErosion,
-                calculation.InputParameters.WidthFlowApertures.Mean, calculation.InputParameters.WidthFlowApertures.CoefficientOfVariation,
+                calculation.InputParameters.WidthFlowApertures.Mean, calculation.InputParameters.WidthFlowApertures.StandardDeviation,
                 calculation.InputParameters.DeviationWaveDirection,
                 calculation.InputParameters.StormDuration.Mean, calculation.InputParameters.StormDuration.CoefficientOfVariation);
 
@@ -232,8 +232,8 @@ namespace Ringtoets.HeightStructures.Service
                                      ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Orientation_DisplayName)),
                 new LogNormalDistributionRule(input.FlowWidthAtBottomProtection,
                                               ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_FlowWidthAtBottomProtection_DisplayName)),
-                new VariationCoefficientNormalDistributionRule(input.WidthFlowApertures,
-                                                               ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_WidthFlowApertures_DisplayName)),
+                new NormalDistributionRule(input.WidthFlowApertures,
+                                           ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_WidthFlowApertures_DisplayName)),
                 new VariationCoefficientLogNormalDistributionRule(input.StorageStructureArea,
                                                                   ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_StorageStructureArea_DisplayName)),
                 new LogNormalDistributionRule(input.AllowedLevelIncreaseStorage,

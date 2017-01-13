@@ -50,10 +50,10 @@ namespace Ringtoets.ClosingStructures.Data
                 Mean = constructionProperties.AllowedLevelIncreaseStorage.Mean,
                 StandardDeviation = constructionProperties.AllowedLevelIncreaseStorage.StandardDeviation
             };
-            WidthFlowApertures = new VariationCoefficientNormalDistribution(2)
+            WidthFlowApertures = new NormalDistribution(2)
             {
                 Mean = constructionProperties.WidthFlowApertures.Mean,
-                CoefficientOfVariation = constructionProperties.WidthFlowApertures.CoefficientOfVariation
+                StandardDeviation = constructionProperties.WidthFlowApertures.StandardDeviation
             };
             LevelCrestStructureNotClosing = new NormalDistribution(2)
             {
@@ -108,7 +108,7 @@ namespace Ringtoets.ClosingStructures.Data
         /// Gets the width of the flow apertures of the closing structure.
         /// [m]
         /// </summary>
-        public VariationCoefficientNormalDistribution WidthFlowApertures { get; private set; }
+        public NormalDistribution WidthFlowApertures { get; private set; }
 
         /// <summary>
         /// Gets the crest level of the opened closing structure.
@@ -189,7 +189,7 @@ namespace Ringtoets.ClosingStructures.Data
             {
                 StorageStructureArea = new VariationCoefficientLogNormalDistribution(2);
                 AllowedLevelIncreaseStorage = new LogNormalDistribution(2);
-                WidthFlowApertures = new VariationCoefficientNormalDistribution(2);
+                WidthFlowApertures = new NormalDistribution(2);
                 LevelCrestStructureNotClosing = new NormalDistribution(2);
                 InsideWaterLevel = new NormalDistribution(2);
                 ThresholdHeightOpenWeir = new NormalDistribution(2);
@@ -214,7 +214,7 @@ namespace Ringtoets.ClosingStructures.Data
             /// Gets the width of the flow apertures of the closing structure.
             /// [m]
             /// </summary>
-            public VariationCoefficientNormalDistribution WidthFlowApertures { get; private set; }
+            public NormalDistribution WidthFlowApertures { get; private set; }
 
             /// <summary>
             /// Gets the crest level of the opened closing structure.

@@ -55,10 +55,10 @@ namespace Ringtoets.HeightStructures.Data
                 Mean = constructionProperties.CriticalOvertoppingDischarge.Mean,
                 CoefficientOfVariation = constructionProperties.CriticalOvertoppingDischarge.CoefficientOfVariation
             };
-            WidthFlowApertures = new VariationCoefficientNormalDistribution(2)
+            WidthFlowApertures = new NormalDistribution(2)
             {
                 Mean = constructionProperties.WidthFlowApertures.Mean,
-                CoefficientOfVariation = constructionProperties.WidthFlowApertures.CoefficientOfVariation
+                StandardDeviation = constructionProperties.WidthFlowApertures.StandardDeviation
             };
             FailureProbabilityStructureWithErosion = constructionProperties.FailureProbabilityStructureWithErosion;
             StorageStructureArea = new VariationCoefficientLogNormalDistribution(2)
@@ -95,7 +95,7 @@ namespace Ringtoets.HeightStructures.Data
         /// Gets the flow apertures width of the height structure.
         /// [m]
         /// </summary>
-        public VariationCoefficientNormalDistribution WidthFlowApertures { get; private set; }
+        public NormalDistribution WidthFlowApertures { get; private set; }
 
         /// <summary>
         /// Gets the failure probability of the height structure, given erosion.
@@ -128,7 +128,7 @@ namespace Ringtoets.HeightStructures.Data
                 LevelCrestStructure = new NormalDistribution(2);
                 FlowWidthAtBottomProtection = new LogNormalDistribution(2);
                 CriticalOvertoppingDischarge = new VariationCoefficientLogNormalDistribution(2);
-                WidthFlowApertures = new VariationCoefficientNormalDistribution(2);
+                WidthFlowApertures = new NormalDistribution(2);
                 StorageStructureArea = new VariationCoefficientLogNormalDistribution(2);
                 AllowedLevelIncreaseStorage = new LogNormalDistribution(2);
             }
@@ -155,7 +155,7 @@ namespace Ringtoets.HeightStructures.Data
             /// Gets the flow apertures width of the height structure.
             /// [m]
             /// </summary>
-            public VariationCoefficientNormalDistribution WidthFlowApertures { get; private set; }
+            public NormalDistribution WidthFlowApertures { get; private set; }
 
             /// <summary>
             /// Gets or sets the failure probability of the height structure, given erosion.

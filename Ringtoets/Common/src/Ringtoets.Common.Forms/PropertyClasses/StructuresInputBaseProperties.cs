@@ -378,11 +378,11 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         [ResourcesCategory(typeof(Resources), "Categories_Schematization")]
         [ResourcesDisplayName(typeof(Resources), "Structure_WidthFlowApertures_DisplayName")]
         [ResourcesDescription(typeof(Resources), "Structure_WidthFlowApertures_Description")]
-        public virtual VariationCoefficientNormalDistributionProperties WidthFlowApertures
+        public virtual NormalDistributionProperties WidthFlowApertures
         {
             get
             {
-                return new VariationCoefficientNormalDistributionProperties(VariationCoefficientDistributionPropertiesReadOnly.None, data.WrappedData)
+                return new NormalDistributionProperties(DistributionPropertiesReadOnly.None, data.WrappedData)
                 {
                     Data = data.WrappedData.WidthFlowApertures
                 };

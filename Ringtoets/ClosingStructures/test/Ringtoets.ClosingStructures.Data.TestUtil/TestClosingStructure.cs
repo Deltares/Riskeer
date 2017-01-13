@@ -57,7 +57,7 @@ namespace Ringtoets.ClosingStructures.Data.TestUtil
                 WidthFlowApertures =
                 {
                     Mean = (RoundedDouble) 21,
-                    CoefficientOfVariation = (RoundedDouble) 0.05
+                    StandardDeviation = (RoundedDouble) 0.05
                 },
                 LevelCrestStructureNotClosing =
                 {

@@ -308,7 +308,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                 Assert.AreEqual(string.Format("Validatie mislukt: Er is geen concreet getal ingevoerd voor '{0}'.", factorStormDurationOpenStructureParameterName), msgs[12]);
                 Assert.AreEqual(string.Format("Validatie mislukt: Er is geen concreet getal ingevoerd voor '{0}'.", structureNormalOrientationParameterName), msgs[13]);
                 Assert.AreEqual(string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een concreet getal zijn.", widthFlowAperturesParameterName), msgs[14]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De variatiecoëfficiënt voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", widthFlowAperturesParameterName), msgs[15]);
+                Assert.AreEqual(string.Format("Validatie mislukt: De standaardafwijking voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", widthFlowAperturesParameterName), msgs[15]);
                 Assert.AreEqual(string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een positief getal zijn.", flowWidthAtBottomProtectionParameterName), msgs[16]);
                 Assert.AreEqual(string.Format("Validatie mislukt: De standaardafwijking voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", flowWidthAtBottomProtectionParameterName), msgs[17]);
                 Assert.AreEqual(string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een positief getal zijn.", storageStructureAreaParameterName), msgs[18]);
@@ -393,7 +393,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                 Assert.AreEqual(string.Format("Validatie mislukt: Er is geen concreet getal ingevoerd voor '{0}'.", factorStormDurationOpenStructureParameterName), msgs[12]);
                 Assert.AreEqual(string.Format("Validatie mislukt: Er is geen concreet getal ingevoerd voor '{0}'.", structureNormalOrientationParameterName), msgs[13]);
                 Assert.AreEqual(string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een concreet getal zijn.", widthFlowAperturesParameterName), msgs[14]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De variatiecoëfficiënt voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", widthFlowAperturesParameterName), msgs[15]);
+                Assert.AreEqual(string.Format("Validatie mislukt: De standaardafwijking voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", widthFlowAperturesParameterName), msgs[15]);
                 Assert.AreEqual(string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een positief getal zijn.", flowWidthAtBottomProtectionParameterName), msgs[16]);
                 Assert.AreEqual(string.Format("Validatie mislukt: De standaardafwijking voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", flowWidthAtBottomProtectionParameterName), msgs[17]);
                 Assert.AreEqual(string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een positief getal zijn.", storageStructureAreaParameterName), msgs[18]);
@@ -884,7 +884,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                     input.StabilityLinearLoadModel.Mean,
                     input.StabilityLinearLoadModel.CoefficientOfVariation,
                     input.WidthFlowApertures.Mean,
-                    input.WidthFlowApertures.CoefficientOfVariation);
+                    input.WidthFlowApertures.StandardDeviation);
 
                 StructuresStabilityPointLowSillLinearCalculationInput actualInput = (StructuresStabilityPointLowSillLinearCalculationInput) calculationInputs[0];
                 HydraRingDataEqualityHelper.AreEqual(expectedInput, actualInput);
@@ -1002,7 +1002,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                     input.StabilityQuadraticLoadModel.Mean,
                     input.StabilityQuadraticLoadModel.CoefficientOfVariation,
                     input.WidthFlowApertures.Mean,
-                    input.WidthFlowApertures.CoefficientOfVariation);
+                    input.WidthFlowApertures.StandardDeviation);
 
                 StructuresStabilityPointLowSillQuadraticCalculationInput actualInput = (StructuresStabilityPointLowSillQuadraticCalculationInput) calculationInputs[0];
                 HydraRingDataEqualityHelper.AreEqual(expectedInput, actualInput);
@@ -1156,7 +1156,6 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             {
                 calculation.InputParameters.ForeshoreProfile = new TestForeshoreProfile(useBreakWater);
             }
-
 
             using (new HydraRingCalculatorFactoryConfig())
             {
@@ -1606,7 +1605,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                 input.StorageStructureArea.CoefficientOfVariation = RoundedDouble.NaN;
                 input.FlowWidthAtBottomProtection.StandardDeviation = RoundedDouble.NaN;
                 input.CriticalOvertoppingDischarge.CoefficientOfVariation = RoundedDouble.NaN;
-                input.WidthFlowApertures.CoefficientOfVariation = RoundedDouble.NaN;
+                input.WidthFlowApertures.StandardDeviation = RoundedDouble.NaN;
                 input.BankWidth.StandardDeviation = RoundedDouble.NaN;
 
                 input.StormDuration.Mean = RoundedDouble.NaN;
@@ -1650,7 +1649,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                 input.StorageStructureArea.CoefficientOfVariation = value;
                 input.FlowWidthAtBottomProtection.StandardDeviation = value;
                 input.CriticalOvertoppingDischarge.CoefficientOfVariation = value;
-                input.WidthFlowApertures.CoefficientOfVariation = value;
+                input.WidthFlowApertures.StandardDeviation = value;
                 input.BankWidth.StandardDeviation = value;
 
                 input.StormDuration.Mean = value;

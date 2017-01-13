@@ -231,7 +231,7 @@ namespace Ringtoets.HeightStructures.Service.Test
         }
 
         [Test]
-        [TestCaseSource("NormalDistributionsWithInvalidMean")]
+        [TestCaseSource(nameof(NormalDistributionsWithInvalidMean))]
         public void Validate_NormalDistributionMeanInvalid_LogsErrorAndReturnsFalse(double meanOne, double meanTwo, double meanThree, string parameterName)
         {
             // Setup
@@ -277,7 +277,7 @@ namespace Ringtoets.HeightStructures.Service.Test
         }
 
         [Test]
-        [TestCaseSource("LogNormalDistributionsWithInvalidMean")]
+        [TestCaseSource(nameof(LogNormalDistributionsWithInvalidMean))]
         public void Validate_LogNormalDistributionMeanInvalid_LogsErrorAndReturnsFalse(double meanOne, double meanTwo, double meanThree,
                                                                                        double meanFour, double meanFive, string parameterName)
         {
@@ -325,9 +325,10 @@ namespace Ringtoets.HeightStructures.Service.Test
         }
 
         [Test]
-        [TestCaseSource("DistributionsWithInvalidDeviation")]
+        [TestCaseSource(nameof(DistributionsWithInvalidDeviation))]
         public void Validate_DistributionStandardDeviationInvalid_LogsErrorAndReturnsFalse(double deviationOne, double deviationTwo,
-                                                                                           double deviationThree, double deviationFour, string parameterName)
+                                                                                           double deviationThree, double deviationFour,
+                                                                                           double deviationFive, string parameterName)
         {
             // Setup
             var mockRepository = new MockRepository();
@@ -352,6 +353,7 @@ namespace Ringtoets.HeightStructures.Service.Test
             calculation.InputParameters.LevelCrestStructure.StandardDeviation = (RoundedDouble) deviationTwo;
             calculation.InputParameters.AllowedLevelIncreaseStorage.StandardDeviation = (RoundedDouble) deviationThree;
             calculation.InputParameters.FlowWidthAtBottomProtection.StandardDeviation = (RoundedDouble) deviationFour;
+            calculation.InputParameters.WidthFlowApertures.StandardDeviation = (RoundedDouble) deviationFive;
 
             // Call
             bool isValid = false;
@@ -372,9 +374,9 @@ namespace Ringtoets.HeightStructures.Service.Test
         }
 
         [Test]
-        [TestCaseSource("DistributionsWithInvalidCoefficient")]
+        [TestCaseSource(nameof(DistributionsWithInvalidCoefficient))]
         public void Validate_DistributionVariationCoefficientInvalid_LogsErrorAndReturnsFalse(
-            double coefficientOne, double coefficientTwo, double coefficientThree, double coefficientFour, string parameterName)
+            double coefficientOne, double coefficientTwo, double coefficientThree, string parameterName)
         {
             // Setup
             var mockRepository = new MockRepository();
@@ -398,7 +400,6 @@ namespace Ringtoets.HeightStructures.Service.Test
             calculation.InputParameters.StormDuration.CoefficientOfVariation = (RoundedDouble) coefficientOne;
             calculation.InputParameters.StorageStructureArea.CoefficientOfVariation = (RoundedDouble) coefficientTwo;
             calculation.InputParameters.CriticalOvertoppingDischarge.CoefficientOfVariation = (RoundedDouble) coefficientThree;
-            calculation.InputParameters.WidthFlowApertures.CoefficientOfVariation = (RoundedDouble) coefficientFour;
 
             // Call
             bool isValid = false;
@@ -680,7 +681,7 @@ namespace Ringtoets.HeightStructures.Service.Test
                     input.FlowWidthAtBottomProtection.Mean, input.FlowWidthAtBottomProtection.StandardDeviation,
                     input.CriticalOvertoppingDischarge.Mean, input.CriticalOvertoppingDischarge.CoefficientOfVariation,
                     input.FailureProbabilityStructureWithErosion,
-                    input.WidthFlowApertures.Mean, input.WidthFlowApertures.CoefficientOfVariation,
+                    input.WidthFlowApertures.Mean, input.WidthFlowApertures.StandardDeviation,
                     input.DeviationWaveDirection,
                     input.StormDuration.Mean, input.StormDuration.CoefficientOfVariation);
 
@@ -973,17 +974,20 @@ namespace Ringtoets.HeightStructures.Service.Test
         {
             get
             {
-                yield return new TestCaseData(double.NaN, 1, 2, 3, "modelfactor overloopdebiet volkomen overlaat");
-                yield return new TestCaseData(double.PositiveInfinity, 1, 2, 3, "modelfactor overloopdebiet volkomen overlaat");
+                yield return new TestCaseData(double.NaN, 1, 2, 3, 4, "modelfactor overloopdebiet volkomen overlaat");
+                yield return new TestCaseData(double.PositiveInfinity, 1, 2, 3, 4, "modelfactor overloopdebiet volkomen overlaat");
 
-                yield return new TestCaseData(1, double.NaN, 2, 3, "kerende hoogte");
-                yield return new TestCaseData(1, double.PositiveInfinity, 2, 3, "kerende hoogte");
+                yield return new TestCaseData(1, double.NaN, 2, 3, 4, "kerende hoogte");
+                yield return new TestCaseData(1, double.PositiveInfinity, 2, 3, 4, "kerende hoogte");
 
-                yield return new TestCaseData(1, 2, double.NaN, 3, "toegestane peilverhoging komberging");
-                yield return new TestCaseData(1, 2, double.PositiveInfinity, 3, "toegestane peilverhoging komberging");
+                yield return new TestCaseData(1, 2, double.NaN, 3, 4, "toegestane peilverhoging komberging");
+                yield return new TestCaseData(1, 2, double.PositiveInfinity, 3, 4, "toegestane peilverhoging komberging");
 
-                yield return new TestCaseData(1, 2, 3, double.NaN, "stroomvoerende breedte bodembescherming");
-                yield return new TestCaseData(1, 2, 3, double.PositiveInfinity, "stroomvoerende breedte bodembescherming");
+                yield return new TestCaseData(1, 2, 3, double.NaN, 4, "stroomvoerende breedte bodembescherming");
+                yield return new TestCaseData(1, 2, 3, double.PositiveInfinity, 4, "stroomvoerende breedte bodembescherming");
+
+                yield return new TestCaseData(1, 2, 3, 4, double.NaN, "breedte van doorstroomopening");
+                yield return new TestCaseData(1, 2, 3, 4, double.PositiveInfinity, "breedte van doorstroomopening");
             }
         }
 
@@ -991,17 +995,14 @@ namespace Ringtoets.HeightStructures.Service.Test
         {
             get
             {
-                yield return new TestCaseData(double.NaN, 1, 2, 3, "stormduur");
-                yield return new TestCaseData(double.PositiveInfinity, 1, 2, 3, "stormduur");
+                yield return new TestCaseData(double.NaN, 1, 2, "stormduur");
+                yield return new TestCaseData(double.PositiveInfinity, 1, 2, "stormduur");
 
                 yield return new TestCaseData(1, double.NaN, 2, 3, "kombergend oppervlak");
-                yield return new TestCaseData(1, double.PositiveInfinity, 2, 3, "kombergend oppervlak");
+                yield return new TestCaseData(1, double.PositiveInfinity, 2, "kombergend oppervlak");
 
                 yield return new TestCaseData(1, 2, double.NaN, 3, "kritiek instromend debiet");
-                yield return new TestCaseData(1, 2, double.PositiveInfinity, 3, "kritiek instromend debiet");
-
-                yield return new TestCaseData(1, 2, 3, double.NaN, "breedte van doorstroomopening");
-                yield return new TestCaseData(1, 2, 3, double.PositiveInfinity, "breedte van doorstroomopening");
+                yield return new TestCaseData(1, 2, double.PositiveInfinity, "kritiek instromend debiet");
             }
         }
 
