@@ -46,7 +46,7 @@ namespace Ringtoets.StabilityPointStructures.Data
         private readonly VariationCoefficientNormalDistribution shipMass;
         private readonly VariationCoefficientNormalDistribution shipVelocity;
         private readonly NormalDistribution bankWidth;
-        private readonly NormalDistribution flowVelocityStructureClosable;
+        private readonly VariationCoefficientNormalDistribution flowVelocityStructureClosable;
         private RoundedDouble volumicWeightWater;
         private RoundedDouble factorStormDurationOpenStructure;
         private RoundedDouble evaluationLevel;
@@ -85,10 +85,10 @@ namespace Ringtoets.StabilityPointStructures.Data
                 StandardDeviation = (RoundedDouble) 0.2
             };
 
-            flowVelocityStructureClosable = new NormalDistribution(2)
+            flowVelocityStructureClosable = new VariationCoefficientNormalDistribution(2)
             {
                 Mean = RoundedDouble.NaN,
-                StandardDeviation = (RoundedDouble) 1
+                CoefficientOfVariation = (RoundedDouble) 1
             };
 
             levelCrestStructure = new NormalDistribution(2)
@@ -296,7 +296,7 @@ namespace Ringtoets.StabilityPointStructures.Data
         /// Gets or sets the flow velocity structure closable.
         /// [m/s]
         /// </summary>
-        public NormalDistribution FlowVelocityStructureClosable
+        public VariationCoefficientNormalDistribution FlowVelocityStructureClosable
         {
             get
             {
@@ -305,7 +305,7 @@ namespace Ringtoets.StabilityPointStructures.Data
             set
             {
                 flowVelocityStructureClosable.Mean = value.Mean;
-                flowVelocityStructureClosable.StandardDeviation = value.StandardDeviation;
+                flowVelocityStructureClosable.CoefficientOfVariation = value.CoefficientOfVariation;
             }
         }
 

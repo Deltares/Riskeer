@@ -163,7 +163,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test
                 "De variatie voor parameter 'KW_STERSTAB17' van kunstwerk 'Coupure Den Oever (90k1)' (KUNST1) wordt omgerekend in een variatiecoëfficiënt (regel 41).",
                 "De variatie voor parameter 'KW_STERSTAB18' van kunstwerk 'Coupure Den Oever (90k1)' (KUNST1) wordt omgerekend in een variatiecoëfficiënt (regel 42).",
                 "De variatie voor parameter 'KW_STERSTAB19' van kunstwerk 'Coupure Den Oever (90k1)' (KUNST1) wordt omgerekend in een variatiecoëfficiënt (regel 43).",
-                "De variatie voor parameter 'KW_STERSTAB22' van kunstwerk 'Coupure Den Oever (90k1)' (KUNST1) wordt omgerekend in een standaardafwijking (regel 46).",
+                "De variatie voor parameter 'KW_STERSTAB22' van kunstwerk 'Coupure Den Oever (90k1)' (KUNST1) wordt omgerekend in een variatiecoëfficiënt (regel 46).",
                 "De variatie voor parameter 'KW_STERSTAB23' van kunstwerk 'Coupure Den Oever (90k1)' (KUNST1) wordt omgerekend in een variatiecoëfficiënt (regel 47).",
                 "De variatie voor parameter 'KW_STERSTAB24' van kunstwerk 'Coupure Den Oever (90k1)' (KUNST1) wordt omgerekend in een variatiecoëfficiënt (regel 48).",
                 "De variatie voor parameter 'KW_STERSTAB25' van kunstwerk 'Coupure Den Oever (90k1)' (KUNST1) wordt omgerekend in een standaardafwijking (regel 49)."
@@ -188,7 +188,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test
             Assert.AreEqual(3.5, structure.FailureCollisionEnergy.CoefficientOfVariation.Value);
             Assert.AreEqual(4, structure.ShipMass.CoefficientOfVariation.Value);
             Assert.AreEqual(4.5, structure.ShipVelocity.CoefficientOfVariation.Value);
-            Assert.AreEqual(18, structure.FlowVelocityStructureClosable.StandardDeviation.Value);
+            Assert.AreEqual(4.5, structure.FlowVelocityStructureClosable.CoefficientOfVariation.Value);
             Assert.AreEqual(5, structure.StabilityLinearLoadModel.CoefficientOfVariation.Value);
             Assert.AreEqual(5.5, structure.StabilityQuadraticLoadModel.CoefficientOfVariation.Value);
             Assert.AreEqual(22, structure.AreaFlowApertures.StandardDeviation.Value);

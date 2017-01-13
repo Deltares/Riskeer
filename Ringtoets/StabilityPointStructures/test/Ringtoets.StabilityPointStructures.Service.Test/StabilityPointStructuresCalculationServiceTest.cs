@@ -302,7 +302,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                 Assert.AreEqual(string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een concreet getal zijn.", insideWaterLevelFailureConstructionParameterName), msgs[6]);
                 Assert.AreEqual(string.Format("Validatie mislukt: De standaardafwijking voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", insideWaterLevelFailureConstructionParameterName), msgs[7]);
                 Assert.AreEqual(string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een concreet getal zijn.", flowVelocityStructureClosableParameterName), msgs[8]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De standaardafwijking voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", flowVelocityStructureClosableParameterName), msgs[9]);
+                Assert.AreEqual(string.Format("Validatie mislukt: De variatiecoëfficiënt voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", flowVelocityStructureClosableParameterName), msgs[9]);
                 Assert.AreEqual(string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een concreet getal zijn.", modelFactorSuperCriticalFlowParameterName), msgs[10]);
                 Assert.AreEqual(string.Format("Validatie mislukt: De standaardafwijking voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", modelFactorSuperCriticalFlowParameterName), msgs[11]);
                 Assert.AreEqual(string.Format("Validatie mislukt: Er is geen concreet getal ingevoerd voor '{0}'.", factorStormDurationOpenStructureParameterName), msgs[12]);
@@ -387,7 +387,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                 Assert.AreEqual(string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een concreet getal zijn.", insideWaterLevelFailureConstructionParameterName), msgs[6]);
                 Assert.AreEqual(string.Format("Validatie mislukt: De standaardafwijking voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", insideWaterLevelFailureConstructionParameterName), msgs[7]);
                 Assert.AreEqual(string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een concreet getal zijn.", flowVelocityStructureClosableParameterName), msgs[8]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De standaardafwijking voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", flowVelocityStructureClosableParameterName), msgs[9]);
+                Assert.AreEqual(string.Format("Validatie mislukt: De variatiecoëfficiënt voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", flowVelocityStructureClosableParameterName), msgs[9]);
                 Assert.AreEqual(string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een concreet getal zijn.", modelFactorSuperCriticalFlowParameterName), msgs[10]);
                 Assert.AreEqual(string.Format("Validatie mislukt: De standaardafwijking voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", modelFactorSuperCriticalFlowParameterName), msgs[11]);
                 Assert.AreEqual(string.Format("Validatie mislukt: Er is geen concreet getal ingevoerd voor '{0}'.", factorStormDurationOpenStructureParameterName), msgs[12]);
@@ -472,7 +472,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                 Assert.AreEqual(string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een concreet getal zijn.", insideWaterLevelFailureConstructionParameterName), msgs[6]);
                 Assert.AreEqual(string.Format("Validatie mislukt: De standaardafwijking voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", insideWaterLevelFailureConstructionParameterName), msgs[7]);
                 Assert.AreEqual(string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een concreet getal zijn.", flowVelocityStructureClosableParameterName), msgs[8]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De standaardafwijking voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", flowVelocityStructureClosableParameterName), msgs[9]);
+                Assert.AreEqual(string.Format("Validatie mislukt: De variatiecoëfficiënt voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", flowVelocityStructureClosableParameterName), msgs[9]);
                 Assert.AreEqual(string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een concreet getal zijn.", drainCoefficientParameterName), msgs[10]);
                 Assert.AreEqual(string.Format("Validatie mislukt: De standaardafwijking voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", drainCoefficientParameterName), msgs[11]);
                 Assert.AreEqual(string.Format("Validatie mislukt: Er is geen concreet getal ingevoerd voor '{0}'.", factorStormDurationOpenStructureParameterName), msgs[12]);
@@ -557,7 +557,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                 Assert.AreEqual(string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een concreet getal zijn.", insideWaterLevelFailureConstructionParameterName), msgs[6]);
                 Assert.AreEqual(string.Format("Validatie mislukt: De standaardafwijking voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", insideWaterLevelFailureConstructionParameterName), msgs[7]);
                 Assert.AreEqual(string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een concreet getal zijn.", flowVelocityStructureClosableParameterName), msgs[8]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De standaardafwijking voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", flowVelocityStructureClosableParameterName), msgs[9]);
+                Assert.AreEqual(string.Format("Validatie mislukt: De variatiecoëfficiënt voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", flowVelocityStructureClosableParameterName), msgs[9]);
                 Assert.AreEqual(string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een concreet getal zijn.", drainCoefficientParameterName), msgs[10]);
                 Assert.AreEqual(string.Format("Validatie mislukt: De standaardafwijking voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", drainCoefficientParameterName), msgs[11]);
                 Assert.AreEqual(string.Format("Validatie mislukt: Er is geen concreet getal ingevoerd voor '{0}'.", factorStormDurationOpenStructureParameterName), msgs[12]);
@@ -850,7 +850,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                     input.LevellingCount,
                     input.ProbabilityCollisionSecondaryStructure,
                     input.FlowVelocityStructureClosable.Mean,
-                    input.FlowVelocityStructureClosable.StandardDeviation,
+                    input.FlowVelocityStructureClosable.CoefficientOfVariation,
                     input.InsideWaterLevel.Mean,
                     input.InsideWaterLevel.StandardDeviation,
                     input.AllowedLevelIncreaseStorage.Mean,
@@ -968,7 +968,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                     input.LevellingCount,
                     input.ProbabilityCollisionSecondaryStructure,
                     input.FlowVelocityStructureClosable.Mean,
-                    input.FlowVelocityStructureClosable.StandardDeviation,
+                    input.FlowVelocityStructureClosable.CoefficientOfVariation,
                     input.InsideWaterLevel.Mean,
                     input.InsideWaterLevel.StandardDeviation,
                     input.AllowedLevelIncreaseStorage.Mean,
@@ -1086,7 +1086,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                     input.LevellingCount,
                     input.ProbabilityCollisionSecondaryStructure,
                     input.FlowVelocityStructureClosable.Mean,
-                    input.FlowVelocityStructureClosable.StandardDeviation,
+                    input.FlowVelocityStructureClosable.CoefficientOfVariation,
                     input.InsideWaterLevel.Mean,
                     input.InsideWaterLevel.StandardDeviation,
                     input.AllowedLevelIncreaseStorage.Mean,
@@ -1204,7 +1204,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                     input.LevellingCount,
                     input.ProbabilityCollisionSecondaryStructure,
                     input.FlowVelocityStructureClosable.Mean,
-                    input.FlowVelocityStructureClosable.StandardDeviation,
+                    input.FlowVelocityStructureClosable.CoefficientOfVariation,
                     input.InsideWaterLevel.Mean,
                     input.InsideWaterLevel.StandardDeviation,
                     input.AllowedLevelIncreaseStorage.Mean,
@@ -1589,7 +1589,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                 input.InsideWaterLevel.StandardDeviation = RoundedDouble.NaN;
                 input.StormDuration.CoefficientOfVariation = RoundedDouble.NaN;
                 input.ModelFactorSuperCriticalFlow.StandardDeviation = RoundedDouble.NaN;
-                input.FlowVelocityStructureClosable.StandardDeviation = RoundedDouble.NaN;
+                input.FlowVelocityStructureClosable.CoefficientOfVariation = RoundedDouble.NaN;
                 input.DrainCoefficient.StandardDeviation = RoundedDouble.NaN;
                 input.LevelCrestStructure.StandardDeviation = RoundedDouble.NaN;
                 input.ThresholdHeightOpenWeir.StandardDeviation = RoundedDouble.NaN;
@@ -1633,7 +1633,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                 input.InsideWaterLevel.StandardDeviation = value;
                 input.StormDuration.CoefficientOfVariation = value;
                 input.ModelFactorSuperCriticalFlow.StandardDeviation = value;
-                input.FlowVelocityStructureClosable.StandardDeviation = value;
+                input.FlowVelocityStructureClosable.CoefficientOfVariation = value;
                 input.DrainCoefficient.StandardDeviation = value;
                 input.LevelCrestStructure.StandardDeviation = value;
                 input.ThresholdHeightOpenWeir.StandardDeviation = value;

@@ -662,7 +662,7 @@ namespace Demo.Ringtoets.Commands
                     FlowVelocityStructureClosable =
                     {
                         Mean = (RoundedDouble) 1,
-                        StandardDeviation = (RoundedDouble) 1
+                        CoefficientOfVariation = (RoundedDouble) 1
                     },
                     StabilityLinearLoadModel =
                     {

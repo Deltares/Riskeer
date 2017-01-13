@@ -121,10 +121,10 @@ namespace Ringtoets.StabilityPointStructures.Data
             };
             LevellingCount = constructionProperties.LevellingCount;
             ProbabilityCollisionSecondaryStructure = constructionProperties.ProbabilityCollisionSecondaryStructure;
-            FlowVelocityStructureClosable = new NormalDistribution(2)
+            FlowVelocityStructureClosable = new VariationCoefficientNormalDistribution(2)
             {
                 Mean = constructionProperties.FlowVelocityStructureClosable.Mean,
-                StandardDeviation = constructionProperties.FlowVelocityStructureClosable.StandardDeviation
+                CoefficientOfVariation = constructionProperties.FlowVelocityStructureClosable.CoefficientOfVariation
             };
             StabilityLinearLoadModel = new VariationCoefficientLogNormalDistribution(2)
             {
@@ -268,7 +268,7 @@ namespace Ringtoets.StabilityPointStructures.Data
         /// Gets the maximum flow velocity at which the structure is closable.
         /// [m/s]
         /// </summary>
-        public NormalDistribution FlowVelocityStructureClosable { get; private set; }
+        public VariationCoefficientNormalDistribution FlowVelocityStructureClosable { get; private set; }
 
         /// <summary>
         /// Gets the stability properties of the linear load model of the stability point structure.
@@ -318,7 +318,7 @@ namespace Ringtoets.StabilityPointStructures.Data
                 FailureCollisionEnergy = new VariationCoefficientLogNormalDistribution(2);
                 ShipMass = new VariationCoefficientNormalDistribution(2);
                 ShipVelocity = new VariationCoefficientNormalDistribution(2);
-                FlowVelocityStructureClosable = new NormalDistribution(2);
+                FlowVelocityStructureClosable = new VariationCoefficientNormalDistribution(2);
                 StabilityLinearLoadModel = new VariationCoefficientLogNormalDistribution(2);
                 StabilityQuadraticLoadModel = new VariationCoefficientLogNormalDistribution(2);
                 AreaFlowApertures = new LogNormalDistribution(2);
@@ -448,7 +448,7 @@ namespace Ringtoets.StabilityPointStructures.Data
             /// Gets the maximum flow velocity at which the structure is closable.
             /// [m/s]
             /// </summary>
-            public NormalDistribution FlowVelocityStructureClosable { get; private set; }
+            public VariationCoefficientNormalDistribution FlowVelocityStructureClosable { get; private set; }
 
             /// <summary>
             /// Gets the stability properties of the linear load model of the stability point structure.

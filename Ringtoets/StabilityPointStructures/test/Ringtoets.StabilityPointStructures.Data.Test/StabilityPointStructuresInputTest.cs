@@ -55,10 +55,10 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
                 StandardDeviation = (RoundedDouble) 0.2
             };
 
-            var flowVelocityStructureClosable = new NormalDistribution(2)
+            var flowVelocityStructureClosable = new VariationCoefficientNormalDistribution(2)
             {
                 Mean = RoundedDouble.NaN,
-                StandardDeviation = (RoundedDouble) 1
+                CoefficientOfVariation = (RoundedDouble) 1
             };
 
             var levelCrestStructure = new NormalDistribution(2)
@@ -315,16 +315,16 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             var random = new Random(22);
             var input = new StabilityPointStructuresInput();
             var mean = (RoundedDouble) (0.01 + random.NextDouble());
-            var standardDeviation = (RoundedDouble) (0.01 + random.NextDouble());
-            var expectedDistribution = new NormalDistribution(2)
+            var coefficientOfVariation = (RoundedDouble) (0.01 + random.NextDouble());
+            var expectedDistribution = new VariationCoefficientNormalDistribution(2)
             {
                 Mean = mean,
-                StandardDeviation = standardDeviation
+                CoefficientOfVariation = coefficientOfVariation
             };
-            var distributionToSet = new NormalDistribution(5)
+            var distributionToSet = new VariationCoefficientNormalDistribution(5)
             {
                 Mean = mean,
-                StandardDeviation = standardDeviation
+                CoefficientOfVariation = coefficientOfVariation
             };
 
             // Call

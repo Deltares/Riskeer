@@ -189,7 +189,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             Assert.AreEqual("Normaal", properties.FlowVelocityStructureClosable.DistributionType);
             Assert.AreEqual(structure.FlowVelocityStructureClosable, properties.FlowVelocityStructureClosable.Data);
             Assert.IsTrue(properties.FlowVelocityStructureClosable.DynamicReadOnlyValidationMethod("Mean"));
-            Assert.IsTrue(properties.FlowVelocityStructureClosable.DynamicReadOnlyValidationMethod("StandardDeviation"));
+            Assert.IsTrue(properties.FlowVelocityStructureClosable.DynamicReadOnlyValidationMethod("CoefficientOfVariation"));
 
             Assert.AreEqual("Lognormaal", properties.StabilityLinearLoadModel.DistributionType);
             Assert.AreEqual(structure.StabilityLinearLoadModel, properties.StabilityLinearLoadModel.Data);

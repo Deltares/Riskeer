@@ -122,7 +122,7 @@ namespace Ringtoets.StabilityPointStructures.Data.TestUtil
                 FlowVelocityStructureClosable =
                 {
                     Mean = (RoundedDouble) 678.901,
-                    StandardDeviation = (RoundedDouble) 0.678
+                    CoefficientOfVariation = (RoundedDouble) 0.678
                 },
                 StabilityLinearLoadModel =
                 {

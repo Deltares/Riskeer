@@ -105,7 +105,7 @@ namespace Application.Ringtoets.Storage.Test.Create.StabilityPointStructures
             Assert.AreEqual(structure.LevellingCount, entity.LevellingCount);
             Assert.AreEqual(structure.ProbabilityCollisionSecondaryStructure, entity.ProbabilityCollisionSecondaryStructure);
             Assert.AreEqual(structure.FlowVelocityStructureClosable.Mean.Value, entity.FlowVelocityStructureClosableMean);
-            Assert.AreEqual(structure.FlowVelocityStructureClosable.StandardDeviation.Value, entity.FlowVelocityStructureClosableStandardDeviation);
+            Assert.AreEqual(structure.FlowVelocityStructureClosable.CoefficientOfVariation.Value, entity.FlowVelocityStructureClosableStandardDeviation);
             Assert.AreEqual(structure.StabilityLinearLoadModel.Mean.Value, entity.StabilityLinearLoadModelMean);
             Assert.AreEqual(structure.StabilityLinearLoadModel.CoefficientOfVariation.Value, entity.StabilityLinearLoadModelCoefficientOfVariation);
             Assert.AreEqual(structure.StabilityQuadraticLoadModel.Mean.Value, entity.StabilityQuadraticLoadModelMean);
@@ -210,7 +210,7 @@ namespace Application.Ringtoets.Storage.Test.Create.StabilityPointStructures
                 FlowVelocityStructureClosable =
                 {
                     Mean = RoundedDouble.NaN,
-                    StandardDeviation = RoundedDouble.NaN
+                    CoefficientOfVariation = RoundedDouble.NaN
                 },
                 StabilityLinearLoadModel =
                 {

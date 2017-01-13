@@ -95,7 +95,7 @@ namespace Application.Ringtoets.Storage.Create.StabilityPointStructures
                 LevellingCount = structure.LevellingCount,
                 ProbabilityCollisionSecondaryStructure = structure.ProbabilityCollisionSecondaryStructure.ToNaNAsNull(),
                 FlowVelocityStructureClosableMean = structure.FlowVelocityStructureClosable.Mean.Value.ToNaNAsNull(),
-                FlowVelocityStructureClosableStandardDeviation = structure.FlowVelocityStructureClosable.StandardDeviation.Value.ToNaNAsNull(),
+                FlowVelocityStructureClosableStandardDeviation = structure.FlowVelocityStructureClosable.CoefficientOfVariation.Value.ToNaNAsNull(),
                 StabilityLinearLoadModelMean = structure.StabilityLinearLoadModel.Mean.Value.ToNaNAsNull(),
                 StabilityLinearLoadModelCoefficientOfVariation = structure.StabilityLinearLoadModel.CoefficientOfVariation.Value.ToNaNAsNull(),
                 StabilityQuadraticLoadModelMean = structure.StabilityQuadraticLoadModel.Mean.Value.ToNaNAsNull(),
