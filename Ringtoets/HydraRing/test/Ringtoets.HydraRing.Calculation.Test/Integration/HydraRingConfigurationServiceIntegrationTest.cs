@@ -2050,7 +2050,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
             // Setup
             var hydraRingConfigurationService = new HydraRingConfigurationService("34-1", HydraRingUncertaintiesType.All);
 
-            hydraRingConfigurationService.AddHydraRingCalculationInput(new DunesBoundaryConditionsCalculationInput(1, 700004, 1.0/10000, 360)
+            hydraRingConfigurationService.AddHydraRingCalculationInput(new DunesBoundaryConditionsCalculationInput(1, 700004, 1.0/10000)
             {
                 DesignTablesSetting = new DesignTablesSetting(1.1, 2.2),
                 NumericsSettings = new Dictionary<int, NumericsSetting>
@@ -2066,7 +2066,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                             "INSERT INTO [HydraulicModels] VALUES (1, 1, 'WTI 2017');" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [Sections];" + Environment.NewLine +
-                                            "INSERT INTO [Sections] VALUES (1, 1, 1, 1, 1, 0, 0, 0, 0, 700004, 700004, 100, 360, 0);" + Environment.NewLine +
+                                            "INSERT INTO [Sections] VALUES (1, 1, 1, 1, 1, 0, 0, 0, 0, 700004, 700004, 100, 0, 0);" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [SectionCalculationSchemes];" + Environment.NewLine +
                                             "INSERT INTO [SectionCalculationSchemes] VALUES (1, 1, 1);" + Environment.NewLine +

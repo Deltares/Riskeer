@@ -38,10 +38,9 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Hydraulics
             const double norm = 1.0/10000;
             const int sectionId = 1;
             const long hydraulicBoundaryLocationId = 1234;
-            const double orientation = 100;
 
             // Call
-            var dunesBoundaryConditionsCalculationInput = new DunesBoundaryConditionsCalculationInput(sectionId, hydraulicBoundaryLocationId, norm, orientation);
+            var dunesBoundaryConditionsCalculationInput = new DunesBoundaryConditionsCalculationInput(sectionId, hydraulicBoundaryLocationId, norm);
 
             // Assert
             double expectedBeta = StatisticsConverter.ProbabilityToReliability(norm);
@@ -56,10 +55,10 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Hydraulics
             Assert.IsNull(dunesBoundaryConditionsCalculationInput.BreakWater);
             Assert.AreEqual(expectedBeta, dunesBoundaryConditionsCalculationInput.Beta);
 
-            var section = dunesBoundaryConditionsCalculationInput.Section;
+            HydraRingSection section = dunesBoundaryConditionsCalculationInput.Section;
             Assert.AreEqual(sectionId, section.SectionId);
             Assert.IsNaN(section.SectionLength);
-            Assert.AreEqual(orientation, section.CrossSectionNormal);
+            Assert.IsNaN(section.CrossSectionNormal);
 
             HydraRingVariable[] hydraRingVariables = dunesBoundaryConditionsCalculationInput.Variables.ToArray();
             Assert.AreEqual(1, hydraRingVariables.Length);
@@ -73,7 +72,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Hydraulics
         public void GetSubMechanismModelId_ReturnsExpectedValues()
         {
             // Call
-            var dunesBoundaryConditionsCalculationInput = new DunesBoundaryConditionsCalculationInput(1, 1, 2.2, 3.3);
+            var dunesBoundaryConditionsCalculationInput = new DunesBoundaryConditionsCalculationInput(1, 1, 2.2);
 
             // Assert
             Assert.IsNull(dunesBoundaryConditionsCalculationInput.GetSubMechanismModelId(1));

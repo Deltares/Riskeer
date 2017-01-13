@@ -20,9 +20,7 @@
 // All rights reserved.
 
 using System;
-using System.ComponentModel;
 using System.IO;
-using System.Security;
 using Core.Common.IO.Exceptions;
 using Core.Common.Utils;
 using log4net;
@@ -32,7 +30,6 @@ using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Service.Properties;
 using Ringtoets.HydraRing.Calculation.Calculator;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
-using Ringtoets.HydraRing.Calculation.Data.Input;
 using Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics;
 using Ringtoets.HydraRing.Calculation.Exceptions;
 
@@ -154,11 +151,7 @@ namespace Ringtoets.DuneErosion.Service
         /// </summary>
         public void Cancel()
         {
-            if (calculator != null)
-            {
-                calculator.Cancel();
-            }
-
+            calculator?.Cancel();
             canceled = true;
         }
 
@@ -250,7 +243,7 @@ namespace Ringtoets.DuneErosion.Service
                                                                            double norm,
                                                                            string hydraulicBoundaryDatabaseFilePath)
         {
-            var dunesBoundaryConditionsCalculationInput = new DunesBoundaryConditionsCalculationInput(1, duneLocation.Id, norm, duneLocation.Orientation);
+            var dunesBoundaryConditionsCalculationInput = new DunesBoundaryConditionsCalculationInput(1, duneLocation.Id, norm);
             HydraRingSettingsDatabaseHelper.AssignSettingsFromDatabase(dunesBoundaryConditionsCalculationInput, hydraulicBoundaryDatabaseFilePath);
             return dunesBoundaryConditionsCalculationInput;
         }

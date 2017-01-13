@@ -125,9 +125,9 @@ namespace Ringtoets.DuneErosion.Service.Test
                                              var msgs = messages.ToArray();
                                              Assert.AreEqual(3, msgs.Length);
                                              var name = duneLocation.Name;
-                                             StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", name), msgs[0]);
+                                             StringAssert.StartsWith($"Berekening van '{name}' gestart om: ", msgs[0]);
                                              Assert.AreEqual($"De berekening voor duinafslag '{duneLocation.Name}' is niet gelukt. De bijdrage van het toetsspoor moet een getal boven 0 zijn.", msgs[1]);
-                                             StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", name), msgs[2]);
+                                             StringAssert.StartsWith($"Berekening van '{name}' beëindigd om: ", msgs[2]);
                                          });
             Assert.IsTrue(exceptionThrown);
             mocks.VerifyAll();
@@ -626,7 +626,7 @@ namespace Ringtoets.DuneErosion.Service.Test
 
         private static DunesBoundaryConditionsCalculationInput CreateInput(DuneLocation duneLocation, double norm)
         {
-            return new DunesBoundaryConditionsCalculationInput(1, duneLocation.Id, norm, duneLocation.Orientation);
+            return new DunesBoundaryConditionsCalculationInput(1, duneLocation.Id, norm);
         }
     }
 }
