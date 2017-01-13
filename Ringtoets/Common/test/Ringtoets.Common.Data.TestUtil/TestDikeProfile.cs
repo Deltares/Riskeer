@@ -49,21 +49,23 @@ namespace Ringtoets.Common.Data.TestUtil
         public TestDikeProfile(Point2D point) : this(null, point) {}
 
         /// <summary>
-        /// ///Initializes default <see cref="DikeProfile"/> at the world location.
+        /// Initializes default <see cref="DikeProfile"/> at the world origin with 
+        /// a specified foreshore profile geometry.
         /// </summary>
         /// <param name="foreshoreProfileGeometry">The geometry of the <see cref="ForeshoreProfile"/>.</param>
         public TestDikeProfile(IEnumerable<Point2D> foreshoreProfileGeometry) 
             : this(null, new Point2D(0, 0), foreshoreProfileGeometry) {}
 
         /// <summary>
-        ///Initializes default <see cref="DikeProfile"/> at the world location.
+        /// Initializes default <see cref="DikeProfile"/> at the world location.
         /// </summary>
         /// <param name="name">The name of the dike profile.</param>
         /// <param name="point">The world coordinate of the dike profile.</param>
         public TestDikeProfile(string name, Point2D point) : this(name, point, Enumerable.Empty<Point2D>()) {}
 
         /// <summary>
-        ///Initializes default <see cref="DikeProfile"/> at the world location.
+        /// Initializes default <see cref="DikeProfile"/>at the world location with 
+        /// a specified foreshore profile geometry.
         /// </summary>
         /// <param name="name">The name of the dike profile.</param>
         /// <param name="point">The world coordinate of the dike profile.</param>

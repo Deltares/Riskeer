@@ -22,6 +22,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
+using Core.Common.Geometry;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
@@ -46,13 +47,14 @@ namespace Ringtoets.Common.Forms.TestUtil
         /// <exception cref="AssertionException">Thrown when:
         /// <list type="bullet">
         /// <item><paramref name="mapData"/> is not <see cref="MapLineData"/>.</item>
-        /// <item>The number of sections and features in <see cref="MapData"/> are not the same.</item>
-        /// <item>The points of a section and the geometry of a corresponding feature are not the same.</item>
         /// <item>The name of the <see cref="MapData"/> is not <c>"Vakindeling"</c>.</item>
+        /// <item>The number of sections and features in <see cref="MapData"/> are not the same.</item>
+        /// <item>The points of a section and the geometry of a corresponding feature are not the same.</item>        
         /// </list></exception>
         public static void AssertFailureMechanismSectionsMapData(IEnumerable<FailureMechanismSection> sections, MapData mapData)
         {
             Assert.IsInstanceOf<MapLineData>(mapData);
+            Assert.AreEqual("Vakindeling", mapData.Name);
             MapLineData sectionsMapLinesData = (MapLineData) mapData;
             MapFeature[] sectionMapLinesFeatures = sectionsMapLinesData.Features.ToArray();
             FailureMechanismSection[] sectionsArray = sections.ToArray();
@@ -64,7 +66,6 @@ namespace Ringtoets.Common.Forms.TestUtil
                 FailureMechanismSection failureMechanismSection = sectionsArray[index];
                 CollectionAssert.AreEquivalent(failureMechanismSection.Points, geometry.PointCollections.First());
             }
-            Assert.AreEqual("Vakindeling", mapData.Name);
         }
 
         /// <summary>
@@ -75,14 +76,15 @@ namespace Ringtoets.Common.Forms.TestUtil
         /// <exception cref="AssertionException">Thrown when:
         /// <list type="bullet">
         /// <item><paramref name="mapData"/> is not <see cref="MapPointData"/>.</item>
+        /// <item>The name of the <see cref="MapData"/> is not <c>"Hydraulische randvoorwaarden"</c>.</item>
         /// <item><paramref name="mapData"/> has features when <paramref name="hydraulicBoundaryLocations"/> is <c>null</c>.</item>
         /// <item>The number of hydraulic boundary locations and features in <see cref="MapData"/> are not the same.</item>
-        /// <item>The point of a hydraulic boundary location and the geometry of a corresponding feature are not the same.</item>
-        /// <item>The name of the <see cref="MapData"/> is not <c>"Hydraulische randvoorwaarden"</c>.</item>
+        /// <item>The point of a hydraulic boundary location and the geometry of a corresponding feature are not the same.</item>        
         /// </list></exception>
         public static void AssertHydraulicBoundaryLocationsMapData(IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations, MapData mapData)
         {
             Assert.IsInstanceOf<MapPointData>(mapData);
+            Assert.AreEqual("Hydraulische randvoorwaarden", mapData.Name);
             MapPointData hydraulicLocationsMapData = (MapPointData) mapData;
             if (hydraulicBoundaryLocations == null)
             {
@@ -96,7 +98,6 @@ namespace Ringtoets.Common.Forms.TestUtil
                 CollectionAssert.AreEqual(hydraulicBoundaryLocationsArray.Select(hrp => hrp.Location),
                                           hydraulicLocationsMapData.Features.SelectMany(f => f.MapGeometries.First().PointCollections.First()));
             }
-            Assert.AreEqual("Hydraulische randvoorwaarden", mapData.Name);
         }
 
         /// <summary>
@@ -107,14 +108,15 @@ namespace Ringtoets.Common.Forms.TestUtil
         /// <exception cref="AssertionException">Thrown when:
         /// <list type="bullet">
         /// <item><paramref name="mapData"/> is not <see cref="MapLineData"/>.</item>
+        /// <item>The name of the <see cref="MapData"/> is not <c>"Referentielijn"</c>.</item>
         /// <item><paramref name="mapData"/> has features when <paramref name="referenceLine"/> is <c>null</c>.</item>
         /// <item><paramref name="mapData"/> has more than one feature.</item>
         /// <item>The points of the reference line and the geometry of the first feature are not the same.</item>
-        /// <item>The name of the <see cref="MapData"/> is not <c>"Referentielijn"</c>.</item>
         /// </list></exception>
         public static void AssertReferenceLineMapData(ReferenceLine referenceLine, MapData mapData)
         {
             Assert.IsInstanceOf<MapLineData>(mapData);
+            Assert.AreEqual("Referentielijn", mapData.Name);
             var referenceLineData = (MapLineData)mapData;
             if (referenceLine == null)
             {
@@ -125,7 +127,6 @@ namespace Ringtoets.Common.Forms.TestUtil
                 Assert.AreEqual(1, referenceLineData.Features.Length);
                 CollectionAssert.AreEqual(referenceLine.Points, referenceLineData.Features.First().MapGeometries.First().PointCollections.First());
             }
-            Assert.AreEqual("Referentielijn", mapData.Name);
         }
 
         /// <summary>
@@ -136,17 +137,17 @@ namespace Ringtoets.Common.Forms.TestUtil
         /// <exception cref="AssertionException">Thrown when:
         /// <list type="bullet">
         /// <item><paramref name="mapData"/> is not <see cref="MapPointData"/>.</item>
+        /// <item>The name of the <see cref="MapData"/> is not <c>"Vakindeling (startpunten)"</c>.</item>
         /// <item><paramref name="mapData"/> has more than one feature.</item>
         /// <item>The start points of the sections and the geometry of the first feature are not the same.</item>
-        /// <item>The name of the <see cref="MapData"/> is not <c>"Vakindeling (startpunten)"</c>.</item>
         /// </list></exception>
         public static void AssertFailureMechanismSectionsStartPointMapData(IEnumerable<FailureMechanismSection> sections, MapData mapData)
         {
             Assert.IsInstanceOf<MapPointData>(mapData);
+            Assert.AreEqual("Vakindeling (startpunten)", mapData.Name);
             var sectionsStartPointData = (MapPointData)mapData;
             Assert.AreEqual(1, sectionsStartPointData.Features.Length);
-            CollectionAssert.AreEqual(sections.Select(s => s.GetStart()), sectionsStartPointData.Features.First().MapGeometries.First().PointCollections.First());
-            Assert.AreEqual("Vakindeling (startpunten)", mapData.Name);
+            CollectionAssert.AreEqual(sections.Select(s => s.GetStart()), sectionsStartPointData.Features.First().MapGeometries.First().PointCollections.First());            
         }
 
         /// <summary>
@@ -157,51 +158,56 @@ namespace Ringtoets.Common.Forms.TestUtil
         /// <exception cref="AssertionException">Thrown when:
         /// <list type="bullet">
         /// <item><paramref name="mapData"/> is not <see cref="MapPointData"/>.</item>
+        /// <item>The name of the <see cref="MapData"/> is not <c>"Vakindeling (eindpunten)"</c>.</item>
         /// <item><paramref name="mapData"/> has more than one feature.</item>
         /// <item>The end points of the sections and the geometry of the first feature are not the same.</item>
-        /// <item>The name of the <see cref="MapData"/> is not <c>"Vakindeling (eindpunten)"</c>.</item>
         /// </list></exception>
         public static void AssertFailureMechanismSectionsEndPointMapData(IEnumerable<FailureMechanismSection> sections, MapData mapData)
         {
             Assert.IsInstanceOf<MapPointData>(mapData);
+            Assert.AreEqual("Vakindeling (eindpunten)", mapData.Name);
             var sectionsEndPointData = (MapPointData)mapData;
             Assert.AreEqual(1, sectionsEndPointData.Features.Length);
             CollectionAssert.AreEqual(sections.Select(s => s.GetLast()), sectionsEndPointData.Features.First().MapGeometries.First().PointCollections.First());
-            Assert.AreEqual("Vakindeling (eindpunten)", mapData.Name);
         }
 
         /// <summary>
         /// Asserts whether the <see cref="MapData"/> contains the data that is representative for the <paramref name="foreshoreProfiles"/>.
         /// </summary>
         /// <param name="foreshoreProfiles">The foreshore profiles that contains the original data.</param>
-        /// <param name="expectedGeometry">The expected geometry of the <paramref name="mapData"/>.</param>
         /// <param name="mapData">The <see cref="MapData"/> that needs to be asserted.</param>
         /// <exception cref="AssertionException">Thrown when:
         /// <list type="bullet">
-        /// <paramref name="mapData"/> is not <see cref="MapLineData"/>.s
-        /// The length of the <paramref name="foreshoreProfiles"/> is not equal to the length of the <paramref name="expectedGeometry"/>.        
-        /// The length of the <paramref name="foreshoreProfiles"/> is not equal to the amount of features in <paramref name="mapData"/>.
-        /// The geometries of the features in <paramref name="mapData"/> is not equal to <paramref name="expectedGeometry"/>.
-        /// The name of the <see cref="MapData"/> is nog <c>Voorlandprofielen</c>.
+        /// <item><paramref name="mapData"/> is not <see cref="MapLineData"/>.</item>
+        /// <item>The name of the <see cref="MapData"/> is not <c>Voorlandprofielen</c>.</item>
+        /// <item>The amount of features in <paramref name="mapData"/> is not equal to the length of the <paramref name="foreshoreProfiles"/>.</item>
+        /// <item>The geometries of the features in <paramref name="mapData"/> is not equal to the expected geometry of the <paramref name="foreshoreProfiles"/>.</item>
         /// </list></exception>
-        public static void AssertForeshoreProfiles(IEnumerable<ForeshoreProfile> foreshoreProfiles, IEnumerable<IEnumerable<Point2D>> expectedGeometry, MapData mapData)
+        public static void AssertForeshoreProfiles(IEnumerable<ForeshoreProfile> foreshoreProfiles, MapData mapData)
         {
             Assert.IsInstanceOf<MapLineData>(mapData);
+            Assert.AreEqual("Voorlandprofielen", mapData.Name);
 
-            var foreshoreProfilesData = (MapLineData)mapData;
-            var foreshoreProfileArray = foreshoreProfiles.ToArray();
-            var expectedGeometryArray = expectedGeometry.ToArray();
+            MapLineData foreshoreProfilesData = (MapLineData)mapData;
+            ForeshoreProfile[] foreshoreProfileArray = foreshoreProfiles.ToArray();
 
-            Assert.AreEqual(foreshoreProfileArray.Length, expectedGeometryArray.Length);
             Assert.AreEqual(foreshoreProfileArray.Length, foreshoreProfilesData.Features.Length);
 
             for (int i = 0; i < foreshoreProfileArray.Length; i++)
             {
-                var profileDataA = foreshoreProfilesData.Features[i].MapGeometries.First();
-                CollectionAssert.AreEquivalent(expectedGeometryArray[i], profileDataA.PointCollections.First());
+                Point2D[] expectedGeometry = GetWorldPoints(foreshoreProfileArray[i]);
+                MapGeometry profileDataA = foreshoreProfilesData.Features[i].MapGeometries.First();
+                CollectionAssert.AreEquivalent(expectedGeometry, profileDataA.PointCollections.First());
             }
+        }
 
-            Assert.AreEqual("Voorlandprofielen", mapData.Name);
+        private static Point2D[] GetWorldPoints(ForeshoreProfile foreshoreProfile)
+        {
+            return AdvancedMath2D.FromXToXY(
+                foreshoreProfile.Geometry.Select(p => -p.X).ToArray(),
+                foreshoreProfile.WorldReferencePoint,
+                -foreshoreProfile.X0,
+                foreshoreProfile.Orientation);
         }
     }
 }

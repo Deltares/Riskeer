@@ -249,22 +249,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
                 MapDataTestHelper.AssertFailureMechanismSectionsStartPointMapData(failureMechanism.Sections, mapDataList[sectionsStartPointIndex]);
                 MapDataTestHelper.AssertFailureMechanismSectionsEndPointMapData(failureMechanism.Sections, mapDataList[sectionsEndPointIndex]);
                 MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(hydraulicBoundaryDatabase.Locations, mapDataList[hydraulicBoundaryLocationsIndex]);
-
-                var expectedGeometry = new[]
-                {
-                    new[]
-                    {
-                        new Point2D(0, 0),
-                        new Point2D(0, -1)
-                    },
-                    new[]
-                    {
-                        new Point2D(0, -2),
-                        new Point2D(0, -3)
-                    }
-                };
-
-                MapDataTestHelper.AssertForeshoreProfiles(failureMechanism.ForeshoreProfiles, expectedGeometry, mapDataList[foreshoreProfilesIndex]);
+                MapDataTestHelper.AssertForeshoreProfiles(failureMechanism.ForeshoreProfiles, mapDataList[foreshoreProfilesIndex]);
 
                 AssertCalculationsMapData(
                     failureMechanism.Calculations.Cast<StructuresCalculation<StabilityPointStructuresInput>>(),
@@ -501,14 +486,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
                 var foreshoreProfileData = map.Data.Collection.ElementAt(foreshoreProfilesIndex);
 
                 // Precondition
-                MapDataTestHelper.AssertForeshoreProfiles(failureMechanism.ForeshoreProfiles, new[]
-                                                          {
-                                                              new[]
-                                                              {
-                                                                  new Point2D(0, 0),
-                                                                  new Point2D(0, -1)
-                                                              }
-                                                          }, foreshoreProfileData);
+                MapDataTestHelper.AssertForeshoreProfiles(failureMechanism.ForeshoreProfiles, foreshoreProfileData);
 
                 // Call
                 failureMechanism.ForeshoreProfiles.Add(new TestForeshoreProfile(new[]
@@ -519,21 +497,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
                 failureMechanism.ForeshoreProfiles.NotifyObservers();
 
                 // Assert
-                var expectedGeometry = new[]
-                {
-                    new[]
-                    {
-                        new Point2D(0, 0),
-                        new Point2D(0, -1)
-                    },
-                    new[]
-                    {
-                        new Point2D(0, -2),
-                        new Point2D(0, -3)
-                    }
-                };
-
-                MapDataTestHelper.AssertForeshoreProfiles(failureMechanism.ForeshoreProfiles, expectedGeometry, foreshoreProfileData);
+                MapDataTestHelper.AssertForeshoreProfiles(failureMechanism.ForeshoreProfiles, foreshoreProfileData);
             }
         }
 

@@ -68,6 +68,10 @@
       <Project>{3bbfd65b-b277-4e50-ae6d-bd24c3434609}</Project>
       <Name>Core.Common.Base</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Geometry\Core.Common.Geometry.csproj">
+      <Project>{88665510-CE20-4EF5-BE4A-39800720AA2C}</Project>
+      <Name>Core.Common.Geometry</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Gis\Core.Components.Gis.csproj">
       <Project>{318BA582-88C9-4816-A54A-A7E431461DE3}</Project>
       <Name>Core.Components.Gis</Name>

@@ -19,9 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Collections.Generic;
 using System.Linq;
-using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
@@ -960,29 +958,7 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
             var mapData = new MapPointData("Voorlandprofielen");
 
             // Call
-            TestDelegate test = () => MapDataTestHelper.AssertForeshoreProfiles(Enumerable.Empty<ForeshoreProfile>(), new IEnumerable<Point2D>[0], mapData);
-
-            // Assert
-            Assert.Throws<AssertionException>(test);
-        }
-
-        [Test]
-        public void AssertForeshoreProfiles_ForeshoreProfileLengthNotSameAsExpectedGeometryLength_ThrowAssertionException()
-        {
-            // Setup
-            var mapData = new MapLineData("Voorlandprofielen");
-            var foreshoreProfiles = new[]
-            {
-                new TestForeshoreProfile()
-            };
-            var expectedGeometry = new[]
-            {
-                new Point2D[0],
-                new Point2D[0]
-            };
-
-            // Call
-            TestDelegate test = () => MapDataTestHelper.AssertForeshoreProfiles(foreshoreProfiles, expectedGeometry, mapData);
+            TestDelegate test = () => MapDataTestHelper.AssertForeshoreProfiles(Enumerable.Empty<ForeshoreProfile>(), mapData);
 
             // Assert
             Assert.Throws<AssertionException>(test);
@@ -1002,23 +978,18 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
             var foreshoreProfiles = new[]
             {
                 new TestForeshoreProfile(),
-                new TestForeshoreProfile(), 
-            };
-            var expectedGeometry = new[]
-            {
-                new Point2D[0],
-                new Point2D[0]
+                new TestForeshoreProfile()
             };
 
             // Call
-            TestDelegate test = () => MapDataTestHelper.AssertForeshoreProfiles(foreshoreProfiles, expectedGeometry, mapData);
+            TestDelegate test = () => MapDataTestHelper.AssertForeshoreProfiles(foreshoreProfiles, mapData);
 
             // Assert
             Assert.Throws<AssertionException>(test);
         }
 
         [Test]
-        public void AssertForeshoreProfiles_ExpectedGeometryNotSameAsFeatureGeometry_ThrowAssertionException()
+        public void AssertForeshoreProfiles_FeatureGeometryNotSameAsExpectedGeometry_ThrowAssertionException()
         {
             // Setup
             var mapData = new MapLineData("Voorlandprofielen")
@@ -1031,8 +1002,8 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
                                                        {
                                                            new []
                                                            {
-                                                               new Point2D(0, 0), 
-                                                               new Point2D(1, 1),
+                                                               new Point2D(0, 1), 
+                                                               new Point2D(0, -2)
                                                            }
                                                        })
                                    })
@@ -1040,19 +1011,15 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
             };
             var foreshoreProfiles = new[]
             {
-                new TestForeshoreProfile(),
-            };
-            var expectedGeometry = new[]
-            {
-                new[]
-                {
-                    new Point2D(0, 0),
-                    new Point2D(2, 2)
-                }
+                new TestForeshoreProfile(new []
+                                         {
+                                             new Point2D(0, 0), 
+                                             new Point2D(1, 1)
+                                         })
             };
 
             // Call
-            TestDelegate test = () => MapDataTestHelper.AssertForeshoreProfiles(foreshoreProfiles, expectedGeometry, mapData);
+            TestDelegate test = () => MapDataTestHelper.AssertForeshoreProfiles(foreshoreProfiles, mapData);
 
             // Assert
             Assert.Throws<AssertionException>(test);
@@ -1072,8 +1039,8 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
                                                        {
                                                            new []
                                                            {
-                                                               new Point2D(0, 0), 
-                                                               new Point2D(1, 1),
+                                                               new Point2D(0, 0),
+                                                               new Point2D(0, -1)
                                                            }
                                                        })
                                    })
@@ -1081,19 +1048,15 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
             };
             var foreshoreProfiles = new[]
             {
-                new TestForeshoreProfile(),
-            };
-            var expectedGeometry = new[]
-            {
-                new[]
-                {
-                    new Point2D(0, 0),
-                    new Point2D(1, 1)
-                }
+                new TestForeshoreProfile(new []
+                                         {
+                                             new Point2D(0, 0),
+                                             new Point2D(1, 1)
+                                         })
             };
 
             // Call
-            TestDelegate test = () => MapDataTestHelper.AssertForeshoreProfiles(foreshoreProfiles, expectedGeometry, mapData);
+            TestDelegate test = () => MapDataTestHelper.AssertForeshoreProfiles(foreshoreProfiles, mapData);
 
             // Assert
             Assert.Throws<AssertionException>(test);
@@ -1114,7 +1077,7 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
                                                            new []
                                                            {
                                                                new Point2D(0, 0), 
-                                                               new Point2D(1, 1)
+                                                               new Point2D(0, -1)
                                                            }
                                                        })
                                    })
@@ -1122,19 +1085,15 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
             };
             var foreshoreProfiles = new[]
             {
-                new TestForeshoreProfile(),
-            };
-            var expectedGeometry = new[]
-            {
-                new[]
-                {
-                    new Point2D(0, 0),
-                    new Point2D(1, 1)
-                }
+                new TestForeshoreProfile(new []
+                                         {
+                                             new Point2D(0, 0),
+                                             new Point2D(1, 1)
+                                         })
             };
 
             // Call
-            TestDelegate test = () => MapDataTestHelper.AssertForeshoreProfiles(foreshoreProfiles, expectedGeometry, mapData);
+            TestDelegate test = () => MapDataTestHelper.AssertForeshoreProfiles(foreshoreProfiles, mapData);
 
             // Assert
             Assert.DoesNotThrow(test);

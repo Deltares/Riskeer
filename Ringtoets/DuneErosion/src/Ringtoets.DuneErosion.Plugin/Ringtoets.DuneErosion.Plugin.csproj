@@ -91,11 +91,6 @@
       <Name>Ringtoets.Common.Forms</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.IO\Ringtoets.Common.IO.csproj">
-      <Project>{52BA7627-CBAB-4209-BE77-3B5F31378277}</Project>
-      <Name>Ringtoets.Common.IO</Name>
-      <Private>False</Private>
-    </ProjectReference>
     <ProjectReference Include="..\Ringtoets.DuneErosion.Data\Ringtoets.DuneErosion.Data.csproj">
       <Project>{D1068432-C172-4AA6-847B-D9DEB4C6DE26}</Project>
       <Name>Ringtoets.DuneErosion.Data</Name>

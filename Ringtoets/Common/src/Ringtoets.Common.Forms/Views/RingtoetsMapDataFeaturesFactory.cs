@@ -241,7 +241,7 @@ namespace Ringtoets.Common.Forms.Views
                 int nrOfElements = foreShoreProfilesWithGeometry.Length;
                 var mapFeatures = new MapFeature[nrOfElements];
                 
-                for (int i = 0; i < foreShoreProfilesWithGeometry.Length; i++)
+                for (int i = 0; i < nrOfElements; i++)
                 {
                     ForeshoreProfile foreshoreProfile = foreShoreProfilesWithGeometry[i];
                     MapFeature feature = CreateSingleLineMapFeature(GetWorldPoints(foreshoreProfile));
