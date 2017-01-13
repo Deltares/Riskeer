@@ -64,6 +64,8 @@ namespace Application.Ringtoets.Storage.DbContext
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HeightStructuresSectionResultEntity> HeightStructuresSectionResultEntities { get; set; }
 
+        public Nullable<double> WidthFlowAperturesStandardDeviation { get; set; }
+
         public Nullable<double> ModelFactorSuperCriticalFlowMean { get; set; }
         public Nullable<double> StructureNormalOrientation { get; set; }
         public Nullable<double> AllowedLevelIncreaseStorageMean { get; set; }
@@ -76,7 +78,6 @@ namespace Application.Ringtoets.Storage.DbContext
         public Nullable<double> CriticalOvertoppingDischargeCoefficientOfVariation { get; set; }
         public double FailureProbabilityStructureWithErosion { get; set; }
         public Nullable<double> WidthFlowAperturesMean { get; set; }
-        public Nullable<double> WidthFlowAperturesCoefficientOfVariation { get; set; }
         public Nullable<double> StormDurationMean { get; set; }
         public byte UseBreakWater { get; set; }
         public byte UseForeshore { get; set; }

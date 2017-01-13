@@ -55,7 +55,7 @@ namespace Application.Ringtoets.Storage.DbContext
         public Nullable<double> AllowedLevelIncreaseStorageMean { get; set; }
         public Nullable<double> AllowedLevelIncreaseStorageStandardDeviation { get; set; }
         public Nullable<double> WidthFlowAperturesMean { get; set; }
-        public Nullable<double> WidthFlowAperturesCoefficientOfVariation { get; set; }
+        public Nullable<double> WidthFlowAperturesStandardDeviation { get; set; }
         public Nullable<double> InsideWaterLevelMean { get; set; }
         public Nullable<double> InsideWaterLevelStandardDeviation { get; set; }
         public Nullable<double> ThresholdHeightOpenWeirMean { get; set; }
@@ -86,7 +86,6 @@ namespace Application.Ringtoets.Storage.DbContext
         public int LevellingCount { get; set; }
         public Nullable<double> ProbabilityCollisionSecondaryStructure { get; set; }
         public Nullable<double> FlowVelocityStructureClosableMean { get; set; }
-        public Nullable<double> FlowVelocityStructureClosableStandardDeviation { get; set; }
         public Nullable<double> StabilityLinearLoadModelMean { get; set; }
         public Nullable<double> StabilityLinearLoadModelCoefficientOfVariation { get; set; }
         public Nullable<double> StabilityQuadraticLoadModelMean { get; set; }

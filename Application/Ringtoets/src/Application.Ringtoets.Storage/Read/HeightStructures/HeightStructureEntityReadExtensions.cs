@@ -76,7 +76,7 @@ namespace Application.Ringtoets.Storage.Read.HeightStructures
                 WidthFlowApertures =
                 {
                     Mean = (RoundedDouble) entity.WidthFlowAperturesMean.ToNullAsNaN(),
-                    StandardDeviation = (RoundedDouble) entity.WidthFlowAperturesCoefficientOfVariation.ToNullAsNaN()
+                    StandardDeviation = (RoundedDouble) entity.WidthFlowAperturesStandardDeviation.ToNullAsNaN()
                 },
                 FailureProbabilityStructureWithErosion = entity.FailureProbabilityStructureWithErosion.ToNullAsNaN(),
                 StorageStructureArea =

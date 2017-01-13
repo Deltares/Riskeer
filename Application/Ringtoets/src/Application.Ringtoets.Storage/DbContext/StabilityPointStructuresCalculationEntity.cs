@@ -77,7 +77,6 @@ namespace Application.Ringtoets.Storage.DbContext
         public int LevellingCount { get; set; }
         public double ProbabilityCollisionSecondaryStructure { get; set; }
         public Nullable<double> FlowVelocityStructureClosableMean { get; set; }
-        public Nullable<double> FlowVelocityStructureClosableStandardDeviation { get; set; }
         public Nullable<double> StabilityLinearLoadModelMean { get; set; }
         public Nullable<double> StabilityLinearLoadModelCoefficientOfVariation { get; set; }
         public Nullable<double> StabilityQuadraticLoadModelMean { get; set; }
@@ -99,6 +98,8 @@ namespace Application.Ringtoets.Storage.DbContext
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<StabilityPointStructuresSectionResultEntity> StabilityPointStructuresSectionResultEntities { get; set; }
 
+        public Nullable<double> WidthFlowAperturesStandardDeviation { get; set; }
+
         public byte UseBreakWater { get; set; }
         public byte BreakWaterType { get; set; }
         public Nullable<double> BreakWaterHeight { get; set; }
@@ -109,7 +110,6 @@ namespace Application.Ringtoets.Storage.DbContext
         public Nullable<double> AllowedLevelIncreaseStorageMean { get; set; }
         public Nullable<double> AllowedLevelIncreaseStorageStandardDeviation { get; set; }
         public Nullable<double> WidthFlowAperturesMean { get; set; }
-        public Nullable<double> WidthFlowAperturesCoefficientOfVariation { get; set; }
         public Nullable<double> CriticalOvertoppingDischargeMean { get; set; }
         public Nullable<double> CriticalOvertoppingDischargeCoefficientOfVariation { get; set; }
         public Nullable<double> FlowWidthAtBottomProtectionMean { get; set; }

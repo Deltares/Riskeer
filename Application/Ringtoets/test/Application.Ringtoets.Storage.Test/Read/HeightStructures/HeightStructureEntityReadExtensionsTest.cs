@@ -87,7 +87,7 @@ namespace Application.Ringtoets.Storage.Test.Read.HeightStructures
                 CriticalOvertoppingDischargeMean = 8.8,
                 CriticalOvertoppingDischargeCoefficientOfVariation = 9.9,
                 WidthFlowAperturesMean = 10.10,
-                WidthFlowAperturesCoefficientOfVariation = 11.11,
+                WidthFlowAperturesStandardDeviation = 11.11,
                 FailureProbabilityStructureWithErosion = 12.12,
                 StorageStructureAreaMean = 13.13,
                 StorageStructureAreaCoefficientOfVariation = 14.14,
@@ -114,7 +114,7 @@ namespace Application.Ringtoets.Storage.Test.Read.HeightStructures
             Assert.AreEqual(entity.CriticalOvertoppingDischargeMean, structure.CriticalOvertoppingDischarge.Mean.Value);
             Assert.AreEqual(entity.CriticalOvertoppingDischargeCoefficientOfVariation, structure.CriticalOvertoppingDischarge.CoefficientOfVariation.Value);
             Assert.AreEqual(entity.WidthFlowAperturesMean, structure.WidthFlowApertures.Mean.Value);
-            Assert.AreEqual(entity.WidthFlowAperturesCoefficientOfVariation, structure.WidthFlowApertures.StandardDeviation.Value);
+            Assert.AreEqual(entity.WidthFlowAperturesStandardDeviation, structure.WidthFlowApertures.StandardDeviation.Value);
             Assert.AreEqual(entity.FailureProbabilityStructureWithErosion, structure.FailureProbabilityStructureWithErosion);
             Assert.AreEqual(entity.StorageStructureAreaMean, structure.StorageStructureArea.Mean.Value);
             Assert.AreEqual(entity.StorageStructureAreaCoefficientOfVariation, structure.StorageStructureArea.CoefficientOfVariation.Value);
@@ -140,7 +140,7 @@ namespace Application.Ringtoets.Storage.Test.Read.HeightStructures
                 CriticalOvertoppingDischargeMean = null,
                 CriticalOvertoppingDischargeCoefficientOfVariation = null,
                 WidthFlowAperturesMean = null,
-                WidthFlowAperturesCoefficientOfVariation = null,
+                WidthFlowAperturesStandardDeviation = null,
                 FailureProbabilityStructureWithErosion = null,
                 StorageStructureAreaMean = null,
                 StorageStructureAreaCoefficientOfVariation = null,

@@ -57,7 +57,7 @@ namespace Application.Ringtoets.Storage.DbContext
         public Nullable<double> CriticalOvertoppingDischargeMean { get; set; }
         public Nullable<double> CriticalOvertoppingDischargeCoefficientOfVariation { get; set; }
         public Nullable<double> WidthFlowAperturesMean { get; set; }
-        public Nullable<double> WidthFlowAperturesCoefficientOfVariation { get; set; }
+        public Nullable<double> WidthFlowAperturesStandardDeviation { get; set; }
         public Nullable<double> FailureProbabilityStructureWithErosion { get; set; }
         public Nullable<double> StorageStructureAreaMean { get; set; }
         public Nullable<double> StorageStructureAreaCoefficientOfVariation { get; set; }

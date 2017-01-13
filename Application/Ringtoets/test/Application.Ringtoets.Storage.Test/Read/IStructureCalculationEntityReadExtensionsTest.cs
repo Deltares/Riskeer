@@ -94,7 +94,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             entity.CriticalOvertoppingDischargeCoefficientOfVariation = random.GetFromRange(1e-6, 9999.9999);
             entity.FailureProbabilityStructureWithErosion = random.NextDouble();
             entity.WidthFlowAperturesMean = random.GetFromRange(1e-6, 9999.9999);
-            entity.WidthFlowAperturesCoefficientOfVariation = random.GetFromRange(1e-6, 9999.9999);
+            entity.WidthFlowAperturesStandardDeviation = random.GetFromRange(1e-6, 9999.9999);
             entity.StormDurationMean = random.GetFromRange(1e-6, 9999.9999);
             entity.UseForeshore = 1;
             entity.UseBreakWater = 1;
@@ -120,7 +120,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             AssertRoundedDouble(entity.CriticalOvertoppingDischargeCoefficientOfVariation, inputToUpdate.CriticalOvertoppingDischarge.CoefficientOfVariation);
             Assert.AreEqual(entity.FailureProbabilityStructureWithErosion, inputToUpdate.FailureProbabilityStructureWithErosion);
             AssertRoundedDouble(entity.WidthFlowAperturesMean, inputToUpdate.WidthFlowApertures.Mean);
-            AssertRoundedDouble(entity.WidthFlowAperturesCoefficientOfVariation, inputToUpdate.WidthFlowApertures.StandardDeviation);
+            AssertRoundedDouble(entity.WidthFlowAperturesStandardDeviation, inputToUpdate.WidthFlowApertures.StandardDeviation);
             AssertRoundedDouble(entity.StormDurationMean, inputToUpdate.StormDuration.Mean);
 
             Assert.IsEmpty(inputToUpdate.ForeshoreGeometry);
@@ -145,7 +145,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             entity.CriticalOvertoppingDischargeMean = null;
             entity.CriticalOvertoppingDischargeCoefficientOfVariation = null;
             entity.WidthFlowAperturesMean = null;
-            entity.WidthFlowAperturesCoefficientOfVariation = null;
+            entity.WidthFlowAperturesStandardDeviation = null;
             entity.StormDurationMean = null;
             mocks.ReplayAll();
 

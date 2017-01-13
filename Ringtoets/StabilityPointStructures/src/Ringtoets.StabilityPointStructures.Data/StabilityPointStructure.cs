@@ -124,7 +124,7 @@ namespace Ringtoets.StabilityPointStructures.Data
             FlowVelocityStructureClosable = new VariationCoefficientNormalDistribution(2)
             {
                 Mean = constructionProperties.FlowVelocityStructureClosable.Mean,
-                CoefficientOfVariation = constructionProperties.FlowVelocityStructureClosable.CoefficientOfVariation
+                CoefficientOfVariation = (RoundedDouble) 0.2
             };
             StabilityLinearLoadModel = new VariationCoefficientLogNormalDistribution(2)
             {

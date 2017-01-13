@@ -71,7 +71,7 @@ namespace Application.Ringtoets.Storage.Read.ClosingStructures
                 WidthFlowApertures =
                 {
                     Mean = (RoundedDouble) entity.WidthFlowAperturesMean.ToNullAsNaN(),
-                    StandardDeviation = (RoundedDouble) entity.WidthFlowAperturesCoefficientOfVariation.ToNullAsNaN()
+                    StandardDeviation = (RoundedDouble) entity.WidthFlowAperturesStandardDeviation.ToNullAsNaN()
                 },
                 LevelCrestStructureNotClosing =
                 {

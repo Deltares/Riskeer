@@ -85,7 +85,7 @@ namespace Application.Ringtoets.Storage.Test.Read.StabilityPointStructures
                 AllowedLevelIncreaseStorageMean = 6.6,
                 AllowedLevelIncreaseStorageStandardDeviation = 7.7,
                 WidthFlowAperturesMean = 8.8,
-                WidthFlowAperturesCoefficientOfVariation = 9.9,
+                WidthFlowAperturesStandardDeviation = 9.9,
                 InsideWaterLevelMean = 10.10,
                 InsideWaterLevelStandardDeviation = 11.11,
                 ThresholdHeightOpenWeirMean = 12.12,
@@ -116,7 +116,6 @@ namespace Application.Ringtoets.Storage.Test.Read.StabilityPointStructures
                 LevellingCount = 37,
                 ProbabilityCollisionSecondaryStructure = 38.38,
                 FlowVelocityStructureClosableMean = 39.39,
-                FlowVelocityStructureClosableStandardDeviation = 40.40,
                 StabilityLinearLoadModelMean = 41.41,
                 StabilityLinearLoadModelCoefficientOfVariation = 42.42,
                 StabilityQuadraticLoadModelMean = 43.43,
@@ -143,7 +142,7 @@ namespace Application.Ringtoets.Storage.Test.Read.StabilityPointStructures
             Assert.AreEqual(entity.AllowedLevelIncreaseStorageMean, structure.AllowedLevelIncreaseStorage.Mean.Value);
             Assert.AreEqual(entity.AllowedLevelIncreaseStorageStandardDeviation, structure.AllowedLevelIncreaseStorage.StandardDeviation.Value);
             Assert.AreEqual(entity.WidthFlowAperturesMean, structure.WidthFlowApertures.Mean.Value);
-            Assert.AreEqual(entity.WidthFlowAperturesCoefficientOfVariation, structure.WidthFlowApertures.StandardDeviation.Value);
+            Assert.AreEqual(entity.WidthFlowAperturesStandardDeviation, structure.WidthFlowApertures.StandardDeviation.Value);
             Assert.AreEqual(entity.InsideWaterLevelMean, structure.InsideWaterLevel.Mean.Value);
             Assert.AreEqual(entity.InsideWaterLevelStandardDeviation, structure.InsideWaterLevel.StandardDeviation.Value);
             Assert.AreEqual(entity.ThresholdHeightOpenWeirMean, structure.ThresholdHeightOpenWeir.Mean.Value);
@@ -174,7 +173,6 @@ namespace Application.Ringtoets.Storage.Test.Read.StabilityPointStructures
             Assert.AreEqual(entity.LevellingCount, structure.LevellingCount);
             Assert.AreEqual(entity.ProbabilityCollisionSecondaryStructure, structure.ProbabilityCollisionSecondaryStructure);
             Assert.AreEqual(entity.FlowVelocityStructureClosableMean, structure.FlowVelocityStructureClosable.Mean.Value);
-            Assert.AreEqual(entity.FlowVelocityStructureClosableStandardDeviation, structure.FlowVelocityStructureClosable.CoefficientOfVariation.Value);
             Assert.AreEqual(entity.StabilityLinearLoadModelMean, structure.StabilityLinearLoadModel.Mean.Value);
             Assert.AreEqual(entity.StabilityLinearLoadModelCoefficientOfVariation, structure.StabilityLinearLoadModel.CoefficientOfVariation.Value);
             Assert.AreEqual(entity.StabilityQuadraticLoadModelMean, structure.StabilityQuadraticLoadModel.Mean.Value);
@@ -200,7 +198,7 @@ namespace Application.Ringtoets.Storage.Test.Read.StabilityPointStructures
                 AllowedLevelIncreaseStorageMean = null,
                 AllowedLevelIncreaseStorageStandardDeviation = null,
                 WidthFlowAperturesMean = null,
-                WidthFlowAperturesCoefficientOfVariation = null,
+                WidthFlowAperturesStandardDeviation = null,
                 InsideWaterLevelMean = null,
                 InsideWaterLevelStandardDeviation = null,
                 ThresholdHeightOpenWeirMean = null,
@@ -230,7 +228,6 @@ namespace Application.Ringtoets.Storage.Test.Read.StabilityPointStructures
                 ShipVelocityCoefficientOfVariation = null,
                 ProbabilityCollisionSecondaryStructure = null,
                 FlowVelocityStructureClosableMean = null,
-                FlowVelocityStructureClosableStandardDeviation = null,
                 StabilityLinearLoadModelMean = null,
                 StabilityLinearLoadModelCoefficientOfVariation = null,
                 AreaFlowAperturesMean = null,
@@ -282,7 +279,6 @@ namespace Application.Ringtoets.Storage.Test.Read.StabilityPointStructures
             Assert.IsNaN(structure.ShipVelocity.CoefficientOfVariation);
             Assert.IsNaN(structure.ProbabilityCollisionSecondaryStructure);
             Assert.IsNaN(structure.FlowVelocityStructureClosable.Mean);
-            Assert.IsNaN(structure.FlowVelocityStructureClosable.CoefficientOfVariation);
             Assert.IsNaN(structure.StabilityLinearLoadModel.Mean);
             Assert.IsNaN(structure.StabilityLinearLoadModel.CoefficientOfVariation);
             Assert.IsNaN(structure.StabilityQuadraticLoadModel.Mean);

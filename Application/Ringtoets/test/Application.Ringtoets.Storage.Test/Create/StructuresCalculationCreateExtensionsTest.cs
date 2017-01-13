@@ -152,7 +152,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.AreEqual(input.CriticalOvertoppingDischarge.CoefficientOfVariation.Value, entity.CriticalOvertoppingDischargeCoefficientOfVariation);
             Assert.AreEqual(input.FailureProbabilityStructureWithErosion, entity.FailureProbabilityStructureWithErosion);
             Assert.AreEqual(input.WidthFlowApertures.Mean.Value, entity.WidthFlowAperturesMean);
-            Assert.AreEqual(input.WidthFlowApertures.StandardDeviation.Value, entity.WidthFlowAperturesCoefficientOfVariation);
+            Assert.AreEqual(input.WidthFlowApertures.StandardDeviation.Value, entity.WidthFlowAperturesStandardDeviation);
             Assert.AreEqual(input.StormDuration.Mean.Value, entity.StormDurationMean);
 
             Assert.AreEqual(input.LevelCrestStructure.Mean.Value, entity.LevelCrestStructureMean);
@@ -244,7 +244,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.IsNull(entity.CriticalOvertoppingDischargeMean);
             Assert.IsNull(entity.CriticalOvertoppingDischargeCoefficientOfVariation);
             Assert.IsNull(entity.WidthFlowAperturesMean);
-            Assert.IsNull(entity.WidthFlowAperturesCoefficientOfVariation);
+            Assert.IsNull(entity.WidthFlowAperturesStandardDeviation);
             Assert.IsNull(entity.StormDurationMean);
             Assert.IsNull(entity.DeviationWaveDirection);
             Assert.IsNull(entity.LevelCrestStructureMean);
@@ -516,7 +516,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.AreEqual(inputParameters.CriticalOvertoppingDischarge.CoefficientOfVariation.Value, entity.CriticalOvertoppingDischargeCoefficientOfVariation);
             Assert.AreEqual(inputParameters.ModelFactorSuperCriticalFlow.Mean.Value, entity.ModelFactorSuperCriticalFlowMean);
             Assert.AreEqual(inputParameters.WidthFlowApertures.Mean.Value, entity.WidthFlowAperturesMean);
-            Assert.AreEqual(inputParameters.WidthFlowApertures.StandardDeviation.Value, entity.WidthFlowAperturesCoefficientOfVariation);
+            Assert.AreEqual(inputParameters.WidthFlowApertures.StandardDeviation.Value, entity.WidthFlowAperturesStandardDeviation);
             Assert.AreEqual(Convert.ToByte(inputParameters.InflowModelType), entity.InflowModelType);
             Assert.AreEqual(inputParameters.InsideWaterLevel.Mean.Value, entity.InsideWaterLevelMean);
             Assert.AreEqual(inputParameters.InsideWaterLevel.StandardDeviation.Value, entity.InsideWaterLevelStandardDeviation);
@@ -634,7 +634,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.IsNull(entity.CriticalOvertoppingDischargeCoefficientOfVariation);
             Assert.IsNull(entity.ModelFactorSuperCriticalFlowMean);
             Assert.IsNull(entity.WidthFlowAperturesMean);
-            Assert.IsNull(entity.WidthFlowAperturesCoefficientOfVariation);
+            Assert.IsNull(entity.WidthFlowAperturesStandardDeviation);
             Assert.IsNull(entity.InsideWaterLevelMean);
             Assert.IsNull(entity.InsideWaterLevelStandardDeviation);
             Assert.IsNull(entity.DeviationWaveDirection);
@@ -933,7 +933,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.AreEqual(inputParameters.CriticalOvertoppingDischarge.CoefficientOfVariation.Value, entity.CriticalOvertoppingDischargeCoefficientOfVariation);
             Assert.AreEqual(inputParameters.ModelFactorSuperCriticalFlow.Mean.Value, entity.ModelFactorSuperCriticalFlowMean);
             Assert.AreEqual(inputParameters.WidthFlowApertures.Mean.Value, entity.WidthFlowAperturesMean);
-            Assert.AreEqual(inputParameters.WidthFlowApertures.StandardDeviation.Value, entity.WidthFlowAperturesCoefficientOfVariation);
+            Assert.AreEqual(inputParameters.WidthFlowApertures.StandardDeviation.Value, entity.WidthFlowAperturesStandardDeviation);
 
             Assert.AreEqual(inputParameters.InsideWaterLevel.Mean.Value, entity.InsideWaterLevelMean);
             Assert.AreEqual(inputParameters.InsideWaterLevel.StandardDeviation.Value, entity.InsideWaterLevelStandardDeviation);
@@ -1126,7 +1126,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.IsNull(entity.CriticalOvertoppingDischargeCoefficientOfVariation);
             Assert.IsNull(entity.ModelFactorSuperCriticalFlowMean);
             Assert.IsNull(entity.WidthFlowAperturesMean);
-            Assert.IsNull(entity.WidthFlowAperturesCoefficientOfVariation);
+            Assert.IsNull(entity.WidthFlowAperturesStandardDeviation);
 
             Assert.IsNull(entity.InsideWaterLevelMean);
             Assert.IsNull(entity.InsideWaterLevelStandardDeviation);
@@ -1151,7 +1151,6 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.IsNull(entity.ShipVelocityMean);
             Assert.IsNull(entity.ShipVelocityCoefficientOfVariation);
             Assert.IsNull(entity.FlowVelocityStructureClosableMean);
-            Assert.IsNull(entity.FlowVelocityStructureClosableStandardDeviation);
             Assert.IsNull(entity.StabilityLinearLoadModelMean);
             Assert.IsNull(entity.StabilityLinearLoadModelCoefficientOfVariation);
             Assert.IsNull(entity.StabilityQuadraticLoadModelMean);

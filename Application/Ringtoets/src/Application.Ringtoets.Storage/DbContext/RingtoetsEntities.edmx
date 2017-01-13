@@ -58,7 +58,7 @@
           <Property Name="AllowedLevelIncreaseStorageMean" Type="real" />
           <Property Name="AllowedLevelIncreaseStorageStandardDeviation" Type="real" />
           <Property Name="WidthFlowAperturesMean" Type="real" />
-          <Property Name="WidthFlowAperturesCoefficientOfVariation" Type="real" />
+          <Property Name="WidthFlowAperturesStandardDeviation" Type="real" />
           <Property Name="LevelCrestStructureNotClosingMean" Type="real" />
           <Property Name="LevelCrestStructureNotClosingStandardDeviation" Type="real" />
           <Property Name="InsideWaterLevelMean" Type="real" />
@@ -108,7 +108,7 @@
           <Property Name="AllowedLevelIncreaseStorageMean" Type="real" />
           <Property Name="AllowedLevelIncreaseStorageStandardDeviation" Type="real" />
           <Property Name="WidthFlowAperturesMean" Type="real" />
-          <Property Name="WidthFlowAperturesCoefficientOfVariation" Type="real" />
+          <Property Name="WidthFlowAperturesStandardDeviation" Type="real" />
           <Property Name="LevelCrestStructureNotClosingMean" Type="real" />
           <Property Name="LevelCrestStructureNotClosingStandardDeviation" Type="real" />
           <Property Name="InsideWaterLevelMean" Type="real" />
@@ -411,7 +411,7 @@
           <Property Name="CriticalOvertoppingDischargeMean" Type="real" />
           <Property Name="CriticalOvertoppingDischargeCoefficientOfVariation" Type="real" />
           <Property Name="WidthFlowAperturesMean" Type="real" />
-          <Property Name="WidthFlowAperturesCoefficientOfVariation" Type="real" />
+          <Property Name="WidthFlowAperturesStandardDeviation" Type="real" />
           <Property Name="FailureProbabilityStructureWithErosion" Type="real" />
           <Property Name="StorageStructureAreaMean" Type="real" />
           <Property Name="StorageStructureAreaCoefficientOfVariation" Type="real" />
@@ -442,7 +442,7 @@
           <Property Name="CriticalOvertoppingDischargeCoefficientOfVariation" Type="real" />
           <Property Name="FailureProbabilityStructureWithErosion" Type="real" Nullable="false" />
           <Property Name="WidthFlowAperturesMean" Type="real" />
-          <Property Name="WidthFlowAperturesCoefficientOfVariation" Type="real" />
+          <Property Name="WidthFlowAperturesStandardDeviation" Type="real" />
           <Property Name="StormDurationMean" Type="real" />
           <Property Name="LevelCrestStructureMean" Type="real" />
           <Property Name="LevelCrestStructureStandardDeviation" Type="real" />
@@ -681,7 +681,7 @@
           <Property Name="AllowedLevelIncreaseStorageMean" Type="real" />
           <Property Name="AllowedLevelIncreaseStorageStandardDeviation" Type="real" />
           <Property Name="WidthFlowAperturesMean" Type="real" />
-          <Property Name="WidthFlowAperturesCoefficientOfVariation" Type="real" />
+          <Property Name="WidthFlowAperturesStandardDeviation" Type="real" />
           <Property Name="InsideWaterLevelMean" Type="real" />
           <Property Name="InsideWaterLevelStandardDeviation" Type="real" />
           <Property Name="ThresholdHeightOpenWeirMean" Type="real" />
@@ -712,7 +712,6 @@
           <Property Name="LevellingCount" Type="int" Nullable="false" />
           <Property Name="ProbabilityCollisionSecondaryStructure" Type="real" />
           <Property Name="FlowVelocityStructureClosableMean" Type="real" />
-          <Property Name="FlowVelocityStructureClosableStandardDeviation" Type="real" />
           <Property Name="StabilityLinearLoadModelMean" Type="real" />
           <Property Name="StabilityLinearLoadModelCoefficientOfVariation" Type="real" />
           <Property Name="StabilityQuadraticLoadModelMean" Type="real" />
@@ -743,7 +742,7 @@
           <Property Name="AllowedLevelIncreaseStorageMean" Type="real" />
           <Property Name="AllowedLevelIncreaseStorageStandardDeviation" Type="real" />
           <Property Name="WidthFlowAperturesMean" Type="real" />
-          <Property Name="WidthFlowAperturesCoefficientOfVariation" Type="real" />
+          <Property Name="WidthFlowAperturesStandardDeviation" Type="real" />
           <Property Name="InsideWaterLevelMean" Type="real" />
           <Property Name="InsideWaterLevelStandardDeviation" Type="real" />
           <Property Name="ThresholdHeightOpenWeirMean" Type="real" />
@@ -774,7 +773,6 @@
           <Property Name="LevellingCount" Type="int" Nullable="false" />
           <Property Name="ProbabilityCollisionSecondaryStructure" Type="real" Nullable="false" />
           <Property Name="FlowVelocityStructureClosableMean" Type="real" />
-          <Property Name="FlowVelocityStructureClosableStandardDeviation" Type="real" />
           <Property Name="StabilityLinearLoadModelMean" Type="real" />
           <Property Name="StabilityLinearLoadModelCoefficientOfVariation" Type="real" />
           <Property Name="StabilityQuadraticLoadModelMean" Type="real" />
@@ -2912,7 +2910,7 @@
           <Property Name="AllowedLevelIncreaseStorageMean" Type="Double" />
           <Property Name="AllowedLevelIncreaseStorageStandardDeviation" Type="Double" />
           <Property Name="WidthFlowAperturesMean" Type="Double" />
-          <Property Name="WidthFlowAperturesCoefficientOfVariation" Type="Double" />
+          <Property Name="WidthFlowAperturesStandardDeviation" Type="Double" />
           <Property Name="LevelCrestStructureNotClosingMean" Type="Double" />
           <Property Name="LevelCrestStructureNotClosingStandardDeviation" Type="Double" />
           <Property Name="InsideWaterLevelMean" Type="Double" />
@@ -2965,7 +2963,7 @@
           <Property Name="AllowedLevelIncreaseStorageMean" Type="Double" />
           <Property Name="AllowedLevelIncreaseStorageStandardDeviation" Type="Double" />
           <Property Name="WidthFlowAperturesMean" Type="Double" />
-          <Property Name="WidthFlowAperturesCoefficientOfVariation" Type="Double" />
+          <Property Name="WidthFlowAperturesStandardDeviation" Type="Double" />
           <Property Name="LevelCrestStructureNotClosingMean" Type="Double" />
           <Property Name="LevelCrestStructureNotClosingStandardDeviation" Type="Double" />
           <Property Name="InsideWaterLevelMean" Type="Double" />
@@ -3347,7 +3345,7 @@
           <Property Name="CriticalOvertoppingDischargeMean" Type="Double" />
           <Property Name="CriticalOvertoppingDischargeCoefficientOfVariation" Type="Double" />
           <Property Name="WidthFlowAperturesMean" Type="Double" />
-          <Property Name="WidthFlowAperturesCoefficientOfVariation" Type="Double" />
+          <Property Name="WidthFlowAperturesStandardDeviation" Type="Double" />
           <Property Name="FailureProbabilityStructureWithErosion" Type="Double" />
           <Property Name="StorageStructureAreaMean" Type="Double" />
           <Property Name="StorageStructureAreaCoefficientOfVariation" Type="Double" />
@@ -3380,7 +3378,7 @@
           <Property Name="CriticalOvertoppingDischargeCoefficientOfVariation" Type="Double" />
           <Property Name="FailureProbabilityStructureWithErosion" Type="Double" Nullable="false" />
           <Property Name="WidthFlowAperturesMean" Type="Double" />
-          <Property Name="WidthFlowAperturesCoefficientOfVariation" Type="Double" />
+          <Property Name="WidthFlowAperturesStandardDeviation" Type="Double" />
           <Property Name="StormDurationMean" Type="Double" />
           <Property Name="LevelCrestStructureMean" Type="Double" />
           <Property Name="LevelCrestStructureStandardDeviation" Type="Double" />
@@ -3657,7 +3655,7 @@
           <Property Name="AllowedLevelIncreaseStorageMean" Type="Double" />
           <Property Name="AllowedLevelIncreaseStorageStandardDeviation" Type="Double" />
           <Property Name="WidthFlowAperturesMean" Type="Double" />
-          <Property Name="WidthFlowAperturesCoefficientOfVariation" Type="Double" />
+          <Property Name="WidthFlowAperturesStandardDeviation" Type="Double" />
           <Property Name="InsideWaterLevelMean" Type="Double" />
           <Property Name="InsideWaterLevelStandardDeviation" Type="Double" />
           <Property Name="ThresholdHeightOpenWeirMean" Type="Double" />
@@ -3688,7 +3686,6 @@
           <Property Name="LevellingCount" Type="Int32" Nullable="false" />
           <Property Name="ProbabilityCollisionSecondaryStructure" Type="Double" />
           <Property Name="FlowVelocityStructureClosableMean" Type="Double" />
-          <Property Name="FlowVelocityStructureClosableStandardDeviation" Type="Double" />
           <Property Name="StabilityLinearLoadModelMean" Type="Double" />
           <Property Name="StabilityLinearLoadModelCoefficientOfVariation" Type="Double" />
           <Property Name="StabilityQuadraticLoadModelMean" Type="Double" />
@@ -3721,7 +3718,7 @@
           <Property Name="AllowedLevelIncreaseStorageMean" Type="Double" />
           <Property Name="AllowedLevelIncreaseStorageStandardDeviation" Type="Double" />
           <Property Name="WidthFlowAperturesMean" Type="Double" />
-          <Property Name="WidthFlowAperturesCoefficientOfVariation" Type="Double" />
+          <Property Name="WidthFlowAperturesStandardDeviation" Type="Double" />
           <Property Name="InsideWaterLevelMean" Type="Double" />
           <Property Name="InsideWaterLevelStandardDeviation" Type="Double" />
           <Property Name="ThresholdHeightOpenWeirMean" Type="Double" />
@@ -3752,7 +3749,6 @@
           <Property Name="LevellingCount" Type="Int32" Nullable="false" />
           <Property Name="ProbabilityCollisionSecondaryStructure" Type="Double" Nullable="false" />
           <Property Name="FlowVelocityStructureClosableMean" Type="Double" />
-          <Property Name="FlowVelocityStructureClosableStandardDeviation" Type="Double" />
           <Property Name="StabilityLinearLoadModelMean" Type="Double" />
           <Property Name="StabilityLinearLoadModelCoefficientOfVariation" Type="Double" />
           <Property Name="StabilityQuadraticLoadModelMean" Type="Double" />
@@ -5098,7 +5094,7 @@
                 <ScalarProperty Name="InsideWaterLevelMean" ColumnName="InsideWaterLevelMean" />
                 <ScalarProperty Name="LevelCrestStructureNotClosingStandardDeviation" ColumnName="LevelCrestStructureNotClosingStandardDeviation" />
                 <ScalarProperty Name="LevelCrestStructureNotClosingMean" ColumnName="LevelCrestStructureNotClosingMean" />
-                <ScalarProperty Name="WidthFlowAperturesCoefficientOfVariation" ColumnName="WidthFlowAperturesCoefficientOfVariation" />
+                <ScalarProperty Name="WidthFlowAperturesStandardDeviation" ColumnName="WidthFlowAperturesStandardDeviation" />
                 <ScalarProperty Name="WidthFlowAperturesMean" ColumnName="WidthFlowAperturesMean" />
                 <ScalarProperty Name="AllowedLevelIncreaseStorageStandardDeviation" ColumnName="AllowedLevelIncreaseStorageStandardDeviation" />
                 <ScalarProperty Name="AllowedLevelIncreaseStorageMean" ColumnName="AllowedLevelIncreaseStorageMean" />
@@ -5150,7 +5146,7 @@
                 <ScalarProperty Name="InsideWaterLevelMean" ColumnName="InsideWaterLevelMean" />
                 <ScalarProperty Name="LevelCrestStructureNotClosingStandardDeviation" ColumnName="LevelCrestStructureNotClosingStandardDeviation" />
                 <ScalarProperty Name="LevelCrestStructureNotClosingMean" ColumnName="LevelCrestStructureNotClosingMean" />
-                <ScalarProperty Name="WidthFlowAperturesCoefficientOfVariation" ColumnName="WidthFlowAperturesCoefficientOfVariation" />
+                <ScalarProperty Name="WidthFlowAperturesStandardDeviation" ColumnName="WidthFlowAperturesStandardDeviation" />
                 <ScalarProperty Name="WidthFlowAperturesMean" ColumnName="WidthFlowAperturesMean" />
                 <ScalarProperty Name="AllowedLevelIncreaseStorageStandardDeviation" ColumnName="AllowedLevelIncreaseStorageStandardDeviation" />
                 <ScalarProperty Name="AllowedLevelIncreaseStorageMean" ColumnName="AllowedLevelIncreaseStorageMean" />
@@ -5460,7 +5456,7 @@
                 <ScalarProperty Name="StorageStructureAreaCoefficientOfVariation" ColumnName="StorageStructureAreaCoefficientOfVariation" />
                 <ScalarProperty Name="StorageStructureAreaMean" ColumnName="StorageStructureAreaMean" />
                 <ScalarProperty Name="FailureProbabilityStructureWithErosion" ColumnName="FailureProbabilityStructureWithErosion" />
-                <ScalarProperty Name="WidthFlowAperturesCoefficientOfVariation" ColumnName="WidthFlowAperturesCoefficientOfVariation" />
+                <ScalarProperty Name="WidthFlowAperturesStandardDeviation" ColumnName="WidthFlowAperturesStandardDeviation" />
                 <ScalarProperty Name="WidthFlowAperturesMean" ColumnName="WidthFlowAperturesMean" />
                 <ScalarProperty Name="CriticalOvertoppingDischargeCoefficientOfVariation" ColumnName="CriticalOvertoppingDischargeCoefficientOfVariation" />
                 <ScalarProperty Name="CriticalOvertoppingDischargeMean" ColumnName="CriticalOvertoppingDischargeMean" />
@@ -5490,7 +5486,7 @@
                 <ScalarProperty Name="LevelCrestStructureStandardDeviation" ColumnName="LevelCrestStructureStandardDeviation" />
                 <ScalarProperty Name="LevelCrestStructureMean" ColumnName="LevelCrestStructureMean" />
                 <ScalarProperty Name="StormDurationMean" ColumnName="StormDurationMean" />
-                <ScalarProperty Name="WidthFlowAperturesCoefficientOfVariation" ColumnName="WidthFlowAperturesCoefficientOfVariation" />
+                <ScalarProperty Name="WidthFlowAperturesStandardDeviation" ColumnName="WidthFlowAperturesStandardDeviation" />
                 <ScalarProperty Name="WidthFlowAperturesMean" ColumnName="WidthFlowAperturesMean" />
                 <ScalarProperty Name="FailureProbabilityStructureWithErosion" ColumnName="FailureProbabilityStructureWithErosion" />
                 <ScalarProperty Name="CriticalOvertoppingDischargeCoefficientOfVariation" ColumnName="CriticalOvertoppingDischargeCoefficientOfVariation" />
@@ -5753,7 +5749,6 @@
                 <ScalarProperty Name="StabilityQuadraticLoadModelMean" ColumnName="StabilityQuadraticLoadModelMean" />
                 <ScalarProperty Name="StabilityLinearLoadModelCoefficientOfVariation" ColumnName="StabilityLinearLoadModelCoefficientOfVariation" />
                 <ScalarProperty Name="StabilityLinearLoadModelMean" ColumnName="StabilityLinearLoadModelMean" />
-                <ScalarProperty Name="FlowVelocityStructureClosableStandardDeviation" ColumnName="FlowVelocityStructureClosableStandardDeviation" />
                 <ScalarProperty Name="FlowVelocityStructureClosableMean" ColumnName="FlowVelocityStructureClosableMean" />
                 <ScalarProperty Name="ProbabilityCollisionSecondaryStructure" ColumnName="ProbabilityCollisionSecondaryStructure" />
                 <ScalarProperty Name="LevellingCount" ColumnName="LevellingCount" />
@@ -5784,7 +5779,7 @@
                 <ScalarProperty Name="ThresholdHeightOpenWeirMean" ColumnName="ThresholdHeightOpenWeirMean" />
                 <ScalarProperty Name="InsideWaterLevelStandardDeviation" ColumnName="InsideWaterLevelStandardDeviation" />
                 <ScalarProperty Name="InsideWaterLevelMean" ColumnName="InsideWaterLevelMean" />
-                <ScalarProperty Name="WidthFlowAperturesCoefficientOfVariation" ColumnName="WidthFlowAperturesCoefficientOfVariation" />
+                <ScalarProperty Name="WidthFlowAperturesStandardDeviation" ColumnName="WidthFlowAperturesStandardDeviation" />
                 <ScalarProperty Name="WidthFlowAperturesMean" ColumnName="WidthFlowAperturesMean" />
                 <ScalarProperty Name="AllowedLevelIncreaseStorageStandardDeviation" ColumnName="AllowedLevelIncreaseStorageStandardDeviation" />
                 <ScalarProperty Name="AllowedLevelIncreaseStorageMean" ColumnName="AllowedLevelIncreaseStorageMean" />
@@ -5818,7 +5813,6 @@
                 <ScalarProperty Name="StabilityQuadraticLoadModelMean" ColumnName="StabilityQuadraticLoadModelMean" />
                 <ScalarProperty Name="StabilityLinearLoadModelCoefficientOfVariation" ColumnName="StabilityLinearLoadModelCoefficientOfVariation" />
                 <ScalarProperty Name="StabilityLinearLoadModelMean" ColumnName="StabilityLinearLoadModelMean" />
-                <ScalarProperty Name="FlowVelocityStructureClosableStandardDeviation" ColumnName="FlowVelocityStructureClosableStandardDeviation" />
                 <ScalarProperty Name="FlowVelocityStructureClosableMean" ColumnName="FlowVelocityStructureClosableMean" />
                 <ScalarProperty Name="ProbabilityCollisionSecondaryStructure" ColumnName="ProbabilityCollisionSecondaryStructure" />
                 <ScalarProperty Name="LevellingCount" ColumnName="LevellingCount" />
@@ -5849,7 +5843,7 @@
                 <ScalarProperty Name="ThresholdHeightOpenWeirMean" ColumnName="ThresholdHeightOpenWeirMean" />
                 <ScalarProperty Name="InsideWaterLevelStandardDeviation" ColumnName="InsideWaterLevelStandardDeviation" />
                 <ScalarProperty Name="InsideWaterLevelMean" ColumnName="InsideWaterLevelMean" />
-                <ScalarProperty Name="WidthFlowAperturesCoefficientOfVariation" ColumnName="WidthFlowAperturesCoefficientOfVariation" />
+                <ScalarProperty Name="WidthFlowAperturesStandardDeviation" ColumnName="WidthFlowAperturesStandardDeviation" />
                 <ScalarProperty Name="WidthFlowAperturesMean" ColumnName="WidthFlowAperturesMean" />
                 <ScalarProperty Name="AllowedLevelIncreaseStorageStandardDeviation" ColumnName="AllowedLevelIncreaseStorageStandardDeviation" />
                 <ScalarProperty Name="AllowedLevelIncreaseStorageMean" ColumnName="AllowedLevelIncreaseStorageMean" />

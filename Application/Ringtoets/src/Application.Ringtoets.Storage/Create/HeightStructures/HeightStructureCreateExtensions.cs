@@ -70,7 +70,7 @@ namespace Application.Ringtoets.Storage.Create.HeightStructures
                 StorageStructureAreaMean = structure.StorageStructureArea.Mean.Value.ToNaNAsNull(),
                 StorageStructureAreaCoefficientOfVariation = structure.StorageStructureArea.CoefficientOfVariation.Value.ToNaNAsNull(),
                 WidthFlowAperturesMean = structure.WidthFlowApertures.Mean.Value.ToNaNAsNull(),
-                WidthFlowAperturesCoefficientOfVariation = structure.WidthFlowApertures.StandardDeviation.Value.ToNaNAsNull(),
+                WidthFlowAperturesStandardDeviation = structure.WidthFlowApertures.StandardDeviation.Value.ToNaNAsNull(),
                 Order = order
             };
 
