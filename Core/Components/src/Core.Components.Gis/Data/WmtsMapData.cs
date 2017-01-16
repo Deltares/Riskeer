@@ -35,15 +35,22 @@ namespace Core.Components.Gis.Data
         /// <summary>
         /// Creates a new instance of <see cref="WmtsMapData"/>.
         /// </summary>
-        /// <param name="name">The name of the source.</param>
+        /// <param name="displayName">The name of the source (for visualization purposes only).</param>
         /// <param name="sourceCapabilitiesUrl">The URL to the capabilities of the WMTS.</param>
         /// <param name="selectedCapabilityName">The name of the capability to use.</param>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="name"/> is <c>null</c> or only whitespace.</exception>
+        /// <param name="preferredFormat">The type of image format. It should for formatted
+        /// in MIME.</param>
+        /// <exception cref="ArgumentException">Thrown when 
+        /// <list type="bullet">
+        /// <item><paramref name="displayName"/> is <c>null</c> or only whitespace.</item>
+        /// <item><paramref name="preferredFormat"/> is not stated as a MIME-type.</item>
+        /// </list></exception>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="sourceCapabilitiesUrl"/> 
         /// or <paramref name="selectedCapabilityName"/> is <c>null</c>.</exception>
-        public WmtsMapData(string name, string sourceCapabilitiesUrl, string selectedCapabilityName) : this(name)
+        public WmtsMapData(string displayName, string sourceCapabilitiesUrl, string selectedCapabilityName,
+                           string preferredFormat) : this(displayName)
         {
-            Configure(sourceCapabilitiesUrl, selectedCapabilityName);
+            Configure(sourceCapabilitiesUrl, selectedCapabilityName, preferredFormat);
         }
 
         /// <summary>
@@ -66,7 +73,7 @@ namespace Core.Components.Gis.Data
         /// Gets the name of the specific capability that is exposed by <see cref="SourceCapabilitiesUrl"/>
         /// that has been connected to for this map data.
         /// </summary>
-        public string SelectedCapabilityName { get; private set; }
+        public string SelectedCapabilityIdentifier { get; private set; }
 
         /// <summary>
         /// Gets or sets the transparency of the map data.
@@ -96,20 +103,25 @@ namespace Core.Components.Gis.Data
         public bool IsConfigured { get; private set; }
 
         /// <summary>
+        /// Gets the MIME-type specification of the preferred tile image format.
+        /// </summary>
+        public string PreferredFormat { get; private set; }
+
+        /// <summary>
         /// Creates a new instance of <see cref="WmtsMapData"/> configured to the 'brtachtergrondkaart'
         /// of PDOK.
         /// </summary>
         public static WmtsMapData CreateDefaultPdokMapData()
         {
             return new WmtsMapData(Resources.WmtsMapData_CreateDefaultPdokMapData_Name,
-                                   "https://geodata.nationaalgeoregister.nl/tiles/service/wmts/bgtachtergrond?request=GetCapabilities",
-                                   "brtachtergrondkaart");
+                                   "https://geodata.nationaalgeoregister.nl/wmts/top10nlv2?VERSION=1.0.0&request=GetCapabilities",
+                                   "brtachtergrondkaart",
+                                   "image/png");
         }
 
         /// <summary>
         /// Creates a new instance of <see cref="WmtsMapData"/> that hasn't been configured.
         /// </summary>
-        /// <returns></returns>
         public static WmtsMapData CreateUnconnectedMapData()
         {
             return new WmtsMapData(Resources.WmtsMapData_Unconfigured_name);
@@ -120,9 +132,13 @@ namespace Core.Components.Gis.Data
         /// </summary>
         /// <param name="sourceCapabilitiesUrl">The URL to the capabilities of the WMTS.</param>
         /// <param name="selectedCapabilityName">The name of the capability to use.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="sourceCapabilitiesUrl"/> 
-        /// or <paramref name="selectedCapabilityName"/> is <c>null</c>.</exception>
-        public void Configure(string sourceCapabilitiesUrl, string selectedCapabilityName)
+        /// <param name="preferredFormat">The type of image format. It should for formatted
+        /// in MIME.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="preferredFormat"/>
+        /// is not stated as a MIME-type.</exception>
+        public void Configure(string sourceCapabilitiesUrl, string selectedCapabilityName,
+                              string preferredFormat)
         {
             if (sourceCapabilitiesUrl == null)
             {
@@ -132,9 +148,18 @@ namespace Core.Components.Gis.Data
             {
                 throw new ArgumentNullException(nameof(selectedCapabilityName));
             }
+            if (preferredFormat == null)
+            {
+                throw new ArgumentNullException(nameof(preferredFormat));
+            }
+            if (!preferredFormat.StartsWith("image/"))
+            {
+                throw new ArgumentException("Specified image format is not a MIME type.", nameof(preferredFormat));
+            }
 
             SourceCapabilitiesUrl = sourceCapabilitiesUrl;
-            SelectedCapabilityName = selectedCapabilityName;
+            SelectedCapabilityIdentifier = selectedCapabilityName;
+            PreferredFormat = preferredFormat;
 
             IsConfigured = true;
             IsVisible = true;
@@ -146,7 +171,8 @@ namespace Core.Components.Gis.Data
         public void RemoveConfiguration()
         {
             SourceCapabilitiesUrl = null;
-            SelectedCapabilityName = null;
+            SelectedCapabilityIdentifier = null;
+            PreferredFormat = null;
 
             IsConfigured = false;
             IsVisible = false;

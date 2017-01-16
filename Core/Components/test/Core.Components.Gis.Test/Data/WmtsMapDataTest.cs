@@ -31,7 +31,8 @@ namespace Core.Components.Gis.Test.Data
     public class WmtsMapDataTest
     {
         private const string url = "https://geodata.nationaalgeoregister.nl/wmts/top10nlv2?VERSION=1.0.0&request=GetCapabilities";
-        private const string selectedCapabilityName = "brtachtergrondkaart";
+        private const string capabilityIdentifier = "brtachtergrondkaart";
+        private const string imageFormat = "image/png";
 
         [Test]
         public void Constructor_ValidArguments_ExpectedValues()
@@ -40,7 +41,7 @@ namespace Core.Components.Gis.Test.Data
             const string name = "A";
 
             // Call
-            var mapData = new WmtsMapData(name, url, selectedCapabilityName);
+            var mapData = new WmtsMapData(name, url, capabilityIdentifier, imageFormat);
 
             // Assert
             Assert.IsInstanceOf<MapData>(mapData);
@@ -49,7 +50,8 @@ namespace Core.Components.Gis.Test.Data
             Assert.IsTrue(mapData.IsVisible);
 
             Assert.AreEqual(url, mapData.SourceCapabilitiesUrl);
-            Assert.AreEqual(selectedCapabilityName, mapData.SelectedCapabilityName);
+            Assert.AreEqual(capabilityIdentifier, mapData.SelectedCapabilityIdentifier);
+            Assert.AreEqual(imageFormat, mapData.PreferredFormat);
 
             Assert.AreEqual(2, mapData.Transparency.NumberOfDecimalPlaces);
             Assert.AreEqual(0.0, mapData.Transparency.Value);
@@ -65,7 +67,7 @@ namespace Core.Components.Gis.Test.Data
         public void Constructor_NameInvalid_ThrowArgumentException(string invalidName)
         {
             // Call
-            TestDelegate call = () => new WmtsMapData(invalidName, url, selectedCapabilityName);
+            TestDelegate call = () => new WmtsMapData(invalidName, url, capabilityIdentifier, imageFormat);
 
             // Assert
             string paramName = Assert.Throws<ArgumentException>(call).ParamName;
@@ -76,7 +78,7 @@ namespace Core.Components.Gis.Test.Data
         public void Constructor_UrlNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new WmtsMapData("A", null, selectedCapabilityName);
+            TestDelegate call = () => new WmtsMapData("A", null, capabilityIdentifier, imageFormat);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -86,10 +88,8 @@ namespace Core.Components.Gis.Test.Data
         [Test]
         public void Constructor_CapabilityNameNull_ThrowArgumentNullException()
         {
-            // Setup
-
             // Call
-            TestDelegate call = () => new WmtsMapData("A", url, null);
+            TestDelegate call = () => new WmtsMapData("A", url, null, imageFormat);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -97,18 +97,41 @@ namespace Core.Components.Gis.Test.Data
         }
 
         [Test]
+        public void Constructor_PreferredImageFormatNull_ThrowArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => new WmtsMapData("A", url, capabilityIdentifier, null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("preferredFormat", paramName);
+        }
+
+        [Test]
+        public void Constructor_PreferredImageFormatNotInMime_ThrowArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => new WmtsMapData("A", url, capabilityIdentifier, "png");
+
+            // Assert
+            const string message = "Specified image format is not a MIME type.";
+            string paramName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, message).ParamName;
+            Assert.AreEqual("preferredFormat", paramName);
+        }
+
+        [Test]
         [TestCase(-123.56)]
-        [TestCase(0.0-1e-2)]
-        [TestCase(1.0+1e-2)]
+        [TestCase(0.0 - 1e-2)]
+        [TestCase(1.0 + 1e-2)]
         [TestCase(456.876)]
         [TestCase(double.NaN)]
         public void Transparency_SetInvalidValue_ThrowArgumentOutOfRangeException(double invalidTransparency)
         {
             // Setup
-            var mapData= new WmtsMapData("A", url, selectedCapabilityName);
+            var mapData = new WmtsMapData("A", url, capabilityIdentifier, imageFormat);
 
             // Call
-            TestDelegate call = () => mapData.Transparency = (RoundedDouble)invalidTransparency;
+            TestDelegate call = () => mapData.Transparency = (RoundedDouble) invalidTransparency;
 
             // Assert
             var message = "De transparantie moet in het bereik [0.0, 1.0] liggen.";
@@ -120,7 +143,7 @@ namespace Core.Components.Gis.Test.Data
         public void Transparency_SetNewValue_GetNewlySetValueRounded()
         {
             // Setup
-            var mapData = new WmtsMapData("A", url, selectedCapabilityName);
+            var mapData = new WmtsMapData("A", url, capabilityIdentifier, imageFormat);
 
             // Call
             mapData.Transparency = (RoundedDouble) 0.5678;
@@ -129,7 +152,7 @@ namespace Core.Components.Gis.Test.Data
             Assert.AreEqual(2, mapData.Transparency.NumberOfDecimalPlaces);
             Assert.AreEqual(0.57, mapData.Transparency.Value);
         }
-        
+
         [Test]
         public void CreateDefaultPdokMapData_ReturnsInitializedWmtsMapData()
         {
@@ -138,8 +161,9 @@ namespace Core.Components.Gis.Test.Data
 
             // Assert
             Assert.AreEqual("PDOK achtergrondkaart", mapData.Name);
-            Assert.AreEqual("https://geodata.nationaalgeoregister.nl/tiles/service/wmts/bgtachtergrond?request=GetCapabilities", mapData.SourceCapabilitiesUrl);
-            Assert.AreEqual("brtachtergrondkaart", mapData.SelectedCapabilityName);
+            Assert.AreEqual("https://geodata.nationaalgeoregister.nl/wmts/top10nlv2?VERSION=1.0.0&request=GetCapabilities", mapData.SourceCapabilitiesUrl);
+            Assert.AreEqual("brtachtergrondkaart", mapData.SelectedCapabilityIdentifier);
+            Assert.AreEqual("image/png", mapData.PreferredFormat);
             Assert.AreEqual(0.0, mapData.Transparency.Value);
             Assert.IsTrue(mapData.IsConfigured);
             Assert.IsTrue(mapData.IsVisible);
@@ -154,7 +178,8 @@ namespace Core.Components.Gis.Test.Data
             // Assert
             Assert.AreEqual("<niet bepaald>", mapData.Name);
             Assert.IsNull(mapData.SourceCapabilitiesUrl);
-            Assert.IsNull(mapData.SelectedCapabilityName);
+            Assert.IsNull(mapData.SelectedCapabilityIdentifier);
+            Assert.IsNull(mapData.PreferredFormat);
             Assert.AreEqual(0.0, mapData.Transparency.Value);
             Assert.IsFalse(mapData.IsConfigured);
             Assert.IsFalse(mapData.IsVisible);
@@ -167,7 +192,7 @@ namespace Core.Components.Gis.Test.Data
             WmtsMapData mapData = WmtsMapData.CreateUnconnectedMapData();
 
             // Call
-            TestDelegate call = () => mapData.Configure(null, selectedCapabilityName);
+            TestDelegate call = () => mapData.Configure(null, capabilityIdentifier, imageFormat);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -181,11 +206,40 @@ namespace Core.Components.Gis.Test.Data
             WmtsMapData mapData = WmtsMapData.CreateUnconnectedMapData();
 
             // Call
-            TestDelegate call = () => mapData.Configure(url, null);
+            TestDelegate call = () => mapData.Configure(url, null, imageFormat);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
             Assert.AreEqual("selectedCapabilityName", paramName);
+        }
+
+        [Test]
+        public void Configure_PreferredImageFormatNull_ThrowArgumentNullException()
+        {
+            // Setup
+            WmtsMapData mapData = WmtsMapData.CreateUnconnectedMapData();
+
+            // Call
+            TestDelegate call = () => mapData.Configure(url, capabilityIdentifier, null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("preferredFormat", paramName);
+        }
+
+        [Test]
+        public void Configure_PreferredImageFormatNotMime_ThrowArgumentException()
+        {
+            // Setup
+            WmtsMapData mapData = WmtsMapData.CreateUnconnectedMapData();
+
+            // Call
+            TestDelegate call = () => mapData.Configure(url, capabilityIdentifier, "png");
+
+            // Assert
+            string message = "Specified image format is not a MIME type.";
+            string paramName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, message).ParamName;
+            Assert.AreEqual("preferredFormat", paramName);
         }
 
         [Test]
@@ -195,11 +249,11 @@ namespace Core.Components.Gis.Test.Data
             WmtsMapData mapData = WmtsMapData.CreateUnconnectedMapData();
 
             // Call
-            mapData.Configure(url, selectedCapabilityName);
+            mapData.Configure(url, capabilityIdentifier, imageFormat);
 
             // Assert
             Assert.AreEqual(url, mapData.SourceCapabilitiesUrl);
-            Assert.AreEqual(selectedCapabilityName, mapData.SelectedCapabilityName);
+            Assert.AreEqual(capabilityIdentifier, mapData.SelectedCapabilityIdentifier);
             Assert.IsTrue(mapData.IsConfigured);
             Assert.IsTrue(mapData.IsVisible);
         }
@@ -215,7 +269,7 @@ namespace Core.Components.Gis.Test.Data
 
             // Assert
             Assert.IsNull(mapData.SourceCapabilitiesUrl);
-            Assert.IsNull(mapData.SelectedCapabilityName);
+            Assert.IsNull(mapData.SelectedCapabilityIdentifier);
             Assert.IsFalse(mapData.IsConfigured);
             Assert.IsFalse(mapData.IsVisible);
         }

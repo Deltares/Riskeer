@@ -105,8 +105,10 @@ namespace Demo.Ringtoets.Test.Commands
             WmtsMapData expectedWmtsMapData = WmtsMapData.CreateDefaultPdokMapData();
             Assert.IsTrue(demoAssessmentSection.BackgroundMapData.IsConfigured);
             Assert.AreEqual(0.0, demoAssessmentSection.BackgroundMapData.Transparency.Value);
+            Assert.AreEqual(expectedWmtsMapData.Name, demoAssessmentSection.BackgroundMapData.Name);
             Assert.AreEqual(expectedWmtsMapData.SourceCapabilitiesUrl, demoAssessmentSection.BackgroundMapData.SourceCapabilitiesUrl);
-            Assert.AreEqual(expectedWmtsMapData.SelectedCapabilityName, demoAssessmentSection.BackgroundMapData.SelectedCapabilityName);
+            Assert.AreEqual(expectedWmtsMapData.SelectedCapabilityIdentifier, demoAssessmentSection.BackgroundMapData.SelectedCapabilityIdentifier);
+            Assert.AreEqual(expectedWmtsMapData.PreferredFormat, demoAssessmentSection.BackgroundMapData.PreferredFormat);
 
             AssertHydraulicBoundaryDatabase(demoAssessmentSection);
 

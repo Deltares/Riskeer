@@ -107,8 +107,10 @@ namespace Demo.Ringtoets.Commands
         private void InitializeBackgroundMapData(AssessmentSection demoAssessmentSection)
         {
             WmtsMapData targetConfiguration = WmtsMapData.CreateDefaultPdokMapData();
+            demoAssessmentSection.BackgroundMapData.Name = targetConfiguration.Name;
             demoAssessmentSection.BackgroundMapData.Configure(targetConfiguration.SourceCapabilitiesUrl,
-                                                              targetConfiguration.SelectedCapabilityName);
+                                                              targetConfiguration.SelectedCapabilityIdentifier,
+                                                              targetConfiguration.PreferredFormat);
         }
 
         private void InitializeDemoReferenceLine(AssessmentSection demoAssessmentSection)
