@@ -95,7 +95,7 @@ namespace Ringtoets.StabilityPointStructures.Data.TestUtil.Test
             Assert.AreEqual(0.55, structure.ProbabilityCollisionSecondaryStructure);
 
             AssertAreEqual(678.901, structure.FlowVelocityStructureClosable.Mean);
-            AssertAreEqual(0.678, structure.FlowVelocityStructureClosable.CoefficientOfVariation);
+            AssertAreEqual(0.2, structure.FlowVelocityStructureClosable.CoefficientOfVariation);
 
             AssertAreEqual(789.012, structure.StabilityLinearLoadModel.Mean);
             AssertAreEqual(0.789, structure.StabilityLinearLoadModel.CoefficientOfVariation);
@@ -178,7 +178,7 @@ namespace Ringtoets.StabilityPointStructures.Data.TestUtil.Test
             Assert.AreEqual(0.55, structure.ProbabilityCollisionSecondaryStructure);
 
             AssertAreEqual(678.901, structure.FlowVelocityStructureClosable.Mean);
-            AssertAreEqual(0.678, structure.FlowVelocityStructureClosable.CoefficientOfVariation);
+            AssertAreEqual(0.2, structure.FlowVelocityStructureClosable.CoefficientOfVariation);
 
             AssertAreEqual(789.012, structure.StabilityLinearLoadModel.Mean);
             AssertAreEqual(0.789, structure.StabilityLinearLoadModel.CoefficientOfVariation);
@@ -261,7 +261,7 @@ namespace Ringtoets.StabilityPointStructures.Data.TestUtil.Test
             Assert.AreEqual(0.55, structure.ProbabilityCollisionSecondaryStructure);
 
             AssertAreEqual(678.901, structure.FlowVelocityStructureClosable.Mean);
-            AssertAreEqual(0.678, structure.FlowVelocityStructureClosable.CoefficientOfVariation);
+            AssertAreEqual(0.2, structure.FlowVelocityStructureClosable.CoefficientOfVariation);
 
             AssertAreEqual(789.012, structure.StabilityLinearLoadModel.Mean);
             AssertAreEqual(0.789, structure.StabilityLinearLoadModel.CoefficientOfVariation);

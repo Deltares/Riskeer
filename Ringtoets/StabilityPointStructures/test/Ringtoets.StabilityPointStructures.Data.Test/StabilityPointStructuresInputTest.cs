@@ -66,7 +66,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             var expectedFlowVelocityStructureClosable = new VariationCoefficientNormalDistribution(2)
             {
                 Mean = RoundedDouble.NaN,
-                CoefficientOfVariation = RoundedDouble.NaN
+                CoefficientOfVariation = (RoundedDouble) 0.2
             };
 
             var expectedLevelCrestStructure = new NormalDistribution(2)
@@ -289,7 +289,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             var expectedFlowVelocityStructureClosable = new VariationCoefficientNormalDistribution(2)
             {
                 Mean = RoundedDouble.NaN,
-                CoefficientOfVariation = RoundedDouble.NaN
+                CoefficientOfVariation = (RoundedDouble) 0.2
             };
 
             DistributionAssert.AreEqual(expectedLevelCrestStructure, input.LevelCrestStructure);
@@ -459,7 +459,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             var expectedDistribution = new VariationCoefficientNormalDistribution(2)
             {
                 Mean = mean,
-                CoefficientOfVariation = coefficientOfVariation
+                CoefficientOfVariation = input.FlowVelocityStructureClosable.CoefficientOfVariation
             };
             var distributionToSet = new VariationCoefficientNormalDistribution(5)
             {

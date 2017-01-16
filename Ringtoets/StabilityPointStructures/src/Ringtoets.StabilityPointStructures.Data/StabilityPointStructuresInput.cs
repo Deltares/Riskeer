@@ -220,9 +220,9 @@ namespace Ringtoets.StabilityPointStructures.Data
 
             FlowVelocityStructureClosable = new VariationCoefficientNormalDistribution
             {
-                Mean = RoundedDouble.NaN,
-                CoefficientOfVariation = RoundedDouble.NaN
+                Mean = RoundedDouble.NaN
             };
+            flowVelocityStructureClosable.CoefficientOfVariation = (RoundedDouble) 0.2;
         }
 
         #region Structure / calculation
@@ -339,7 +339,6 @@ namespace Ringtoets.StabilityPointStructures.Data
             set
             {
                 flowVelocityStructureClosable.Mean = value.Mean;
-                flowVelocityStructureClosable.CoefficientOfVariation = value.CoefficientOfVariation;
             }
         }
 

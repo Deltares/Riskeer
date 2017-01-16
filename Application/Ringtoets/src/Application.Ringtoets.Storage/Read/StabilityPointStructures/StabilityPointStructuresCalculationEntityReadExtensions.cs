@@ -105,7 +105,6 @@ namespace Application.Ringtoets.Storage.Read.StabilityPointStructures
             inputParameters.LevellingCount = entity.LevellingCount;
             inputParameters.ProbabilityCollisionSecondaryStructure = entity.ProbabilityCollisionSecondaryStructure;
             inputParameters.FlowVelocityStructureClosable.Mean = (RoundedDouble) entity.FlowVelocityStructureClosableMean.ToNullAsNaN();
-            inputParameters.FlowVelocityStructureClosable.CoefficientOfVariation = (RoundedDouble) entity.FlowVelocityStructureClosableStandardDeviation.ToNullAsNaN();
             inputParameters.StabilityLinearLoadModel.Mean = (RoundedDouble) entity.StabilityLinearLoadModelMean.ToNullAsNaN();
             inputParameters.StabilityLinearLoadModel.CoefficientOfVariation = (RoundedDouble) entity.StabilityLinearLoadModelCoefficientOfVariation.ToNullAsNaN();
             inputParameters.StabilityQuadraticLoadModel.Mean = (RoundedDouble) entity.StabilityQuadraticLoadModelMean.ToNullAsNaN();
