@@ -752,7 +752,6 @@
           <Property Name="LevellingCount" Type="int" Nullable="false" />
           <Property Name="ProbabilityCollisionSecondaryStructure" Type="real" />
           <Property Name="FlowVelocityStructureClosableMean" Type="real" />
-          <Property Name="FlowVelocityStructureClosableStandardDeviation" Type="real" />
           <Property Name="StabilityLinearLoadModelMean" Type="real" />
           <Property Name="StabilityLinearLoadModelCoefficientOfVariation" Type="real" />
           <Property Name="StabilityQuadraticLoadModelMean" Type="real" />
@@ -814,7 +813,6 @@
           <Property Name="LevellingCount" Type="int" Nullable="false" />
           <Property Name="ProbabilityCollisionSecondaryStructure" Type="real" Nullable="false" />
           <Property Name="FlowVelocityStructureClosableMean" Type="real" />
-          <Property Name="FlowVelocityStructureClosableStandardDeviation" Type="real" />
           <Property Name="StabilityLinearLoadModelMean" Type="real" />
           <Property Name="StabilityLinearLoadModelCoefficientOfVariation" Type="real" />
           <Property Name="StabilityQuadraticLoadModelMean" Type="real" />
@@ -3840,7 +3838,6 @@
           <Property Name="LevellingCount" Type="Int32" Nullable="false" />
           <Property Name="ProbabilityCollisionSecondaryStructure" Type="Double" />
           <Property Name="FlowVelocityStructureClosableMean" Type="Double" />
-          <Property Name="FlowVelocityStructureClosableStandardDeviation" Type="Double" />
           <Property Name="StabilityLinearLoadModelMean" Type="Double" />
           <Property Name="StabilityLinearLoadModelCoefficientOfVariation" Type="Double" />
           <Property Name="StabilityQuadraticLoadModelMean" Type="Double" />
@@ -3904,7 +3901,6 @@
           <Property Name="LevellingCount" Type="Int32" Nullable="false" />
           <Property Name="ProbabilityCollisionSecondaryStructure" Type="Double" Nullable="false" />
           <Property Name="FlowVelocityStructureClosableMean" Type="Double" />
-          <Property Name="FlowVelocityStructureClosableStandardDeviation" Type="Double" />
           <Property Name="StabilityLinearLoadModelMean" Type="Double" />
           <Property Name="StabilityLinearLoadModelCoefficientOfVariation" Type="Double" />
           <Property Name="StabilityQuadraticLoadModelMean" Type="Double" />
@@ -5984,7 +5980,6 @@
                 <ScalarProperty Name="StabilityQuadraticLoadModelMean" ColumnName="StabilityQuadraticLoadModelMean" />
                 <ScalarProperty Name="StabilityLinearLoadModelCoefficientOfVariation" ColumnName="StabilityLinearLoadModelCoefficientOfVariation" />
                 <ScalarProperty Name="StabilityLinearLoadModelMean" ColumnName="StabilityLinearLoadModelMean" />
-                <ScalarProperty Name="FlowVelocityStructureClosableStandardDeviation" ColumnName="FlowVelocityStructureClosableStandardDeviation" />
                 <ScalarProperty Name="FlowVelocityStructureClosableMean" ColumnName="FlowVelocityStructureClosableMean" />
                 <ScalarProperty Name="ProbabilityCollisionSecondaryStructure" ColumnName="ProbabilityCollisionSecondaryStructure" />
                 <ScalarProperty Name="LevellingCount" ColumnName="LevellingCount" />
@@ -6049,7 +6044,6 @@
                 <ScalarProperty Name="StabilityQuadraticLoadModelMean" ColumnName="StabilityQuadraticLoadModelMean" />
                 <ScalarProperty Name="StabilityLinearLoadModelCoefficientOfVariation" ColumnName="StabilityLinearLoadModelCoefficientOfVariation" />
                 <ScalarProperty Name="StabilityLinearLoadModelMean" ColumnName="StabilityLinearLoadModelMean" />
-                <ScalarProperty Name="FlowVelocityStructureClosableStandardDeviation" ColumnName="FlowVelocityStructureClosableStandardDeviation" />
                 <ScalarProperty Name="FlowVelocityStructureClosableMean" ColumnName="FlowVelocityStructureClosableMean" />
                 <ScalarProperty Name="ProbabilityCollisionSecondaryStructure" ColumnName="ProbabilityCollisionSecondaryStructure" />
                 <ScalarProperty Name="LevellingCount" ColumnName="LevellingCount" />

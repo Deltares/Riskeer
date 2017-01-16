@@ -40,19 +40,18 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
 
         private const int insideWaterLevelPropertyIndex = 2;
         private const int insideWaterLevelFailureConstructionPropertyIndex = 3;
-
-        private const int flowVelocityStructureClosablePropertyIndex = 4;
-
-        private const int structureNormalOrientationPropertyIndex = 5;
-        private const int stabilityPointStructureInflowModelTypePropertyIndex = 6;
-        private const int widthFlowAperturesPropertyIndex = 7;
-        private const int areaFlowAperturesPropertyIndex = 8;
-        private const int flowWidthAtBottomProtectionPropertyIndex = 9;
-        private const int storageStructureAreaPropertyIndex = 10;
-        private const int allowedLevelIncreaseStoragePropertyIndex = 11;
-        private const int levelCrestStructurePropertyIndex = 12;
-        private const int thresholdHeightOpenWeirPropertyIndex = 13;
-        private const int criticalOvertoppingDischargePropertyIndex = 14;
+        
+        private const int structureNormalOrientationPropertyIndex = 4;
+        private const int stabilityPointStructureInflowModelTypePropertyIndex = 5;
+        private const int widthFlowAperturesPropertyIndex = 6;
+        private const int areaFlowAperturesPropertyIndex = 7;
+        private const int flowWidthAtBottomProtectionPropertyIndex = 8;
+        private const int storageStructureAreaPropertyIndex = 9;
+        private const int allowedLevelIncreaseStoragePropertyIndex = 10;
+        private const int levelCrestStructurePropertyIndex = 11;
+        private const int thresholdHeightOpenWeirPropertyIndex = 12;
+        private const int criticalOvertoppingDischargePropertyIndex = 13;
+        private const int flowVelocityStructureClosablePropertyIndex = 14;
         private const int constructiveStrengthLinearLoadModelPropertyIndex = 15;
         private const int constructiveStrengthQuadraticLoadModelPropertyIndex = 16;
         private const int bankWidthPropertyIndex = 17;
@@ -221,7 +220,6 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             const string schematizationCategory = "Schematisatie";
             const string hydraulicDataCategory = "Hydraulische gegevens";
             const string generalCategory = "Algemeen";
-            const string criticalValuesCategory = "Kritieke waarden";
 
             PropertyDescriptor nameProperty = dynamicProperties[namePropertyIndex];
             Assert.IsTrue(nameProperty.IsReadOnly);
@@ -246,12 +244,6 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             Assert.AreEqual(hydraulicDataCategory, insideWaterLevelFailureConstructionProperty.Category);
             Assert.AreEqual("Binnenwaterstand bij constructief falen [m+NAP]", insideWaterLevelFailureConstructionProperty.DisplayName);
             Assert.AreEqual("Binnenwaterstand bij constructief falen.", insideWaterLevelFailureConstructionProperty.Description);
-
-            PropertyDescriptor flowVelocityStructureClosableProperty = dynamicProperties[flowVelocityStructureClosablePropertyIndex];
-            Assert.IsInstanceOf<ExpandableObjectConverter>(flowVelocityStructureClosableProperty.Converter);
-            Assert.AreEqual(criticalValuesCategory, flowVelocityStructureClosableProperty.Category);
-            Assert.AreEqual("Kritieke stroomsnelheid sluiting eerste keermiddel [m/s]", flowVelocityStructureClosableProperty.DisplayName);
-            Assert.AreEqual("Stroomsnelheid waarbij na aanvaring het eerste keermiddel nog net kan worden gesloten.", flowVelocityStructureClosableProperty.Description);
 
             PropertyDescriptor structureNormalOrientationProperty = dynamicProperties[structureNormalOrientationPropertyIndex];
             Assert.IsTrue(structureNormalOrientationProperty.IsReadOnly);
@@ -312,6 +304,12 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             Assert.AreEqual(schematizationCategory, criticalOvertoppingDischargeProperty.Category);
             Assert.AreEqual("Kritiek instromend debiet [m³/s/m]", criticalOvertoppingDischargeProperty.DisplayName);
             Assert.AreEqual("Kritiek instromend debiet directe invoer per strekkende meter.", criticalOvertoppingDischargeProperty.Description);
+
+            PropertyDescriptor flowVelocityStructureClosableProperty = dynamicProperties[flowVelocityStructureClosablePropertyIndex];
+            Assert.IsInstanceOf<ExpandableObjectConverter>(flowVelocityStructureClosableProperty.Converter);
+            Assert.AreEqual(schematizationCategory, flowVelocityStructureClosableProperty.Category);
+            Assert.AreEqual("Kritieke stroomsnelheid sluiting eerste keermiddel [m/s]", flowVelocityStructureClosableProperty.DisplayName);
+            Assert.AreEqual("Stroomsnelheid waarbij na aanvaring het eerste keermiddel nog net kan worden gesloten.", flowVelocityStructureClosableProperty.Description);
 
             PropertyDescriptor constructiveStrengthLinearLoadModelProperty = dynamicProperties[constructiveStrengthLinearLoadModelPropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(constructiveStrengthLinearLoadModelProperty.Converter);

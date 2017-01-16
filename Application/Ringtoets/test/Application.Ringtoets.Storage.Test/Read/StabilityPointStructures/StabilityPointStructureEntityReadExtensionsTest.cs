@@ -116,7 +116,6 @@ namespace Application.Ringtoets.Storage.Test.Read.StabilityPointStructures
                 LevellingCount = 37,
                 ProbabilityCollisionSecondaryStructure = 38.38,
                 FlowVelocityStructureClosableMean = 39.39,
-                FlowVelocityStructureClosableStandardDeviation = 40.40,
                 StabilityLinearLoadModelMean = 41.41,
                 StabilityLinearLoadModelCoefficientOfVariation = 42.42,
                 StabilityQuadraticLoadModelMean = 43.43,
@@ -174,7 +173,6 @@ namespace Application.Ringtoets.Storage.Test.Read.StabilityPointStructures
             Assert.AreEqual(entity.LevellingCount, structure.LevellingCount);
             Assert.AreEqual(entity.ProbabilityCollisionSecondaryStructure, structure.ProbabilityCollisionSecondaryStructure);
             Assert.AreEqual(entity.FlowVelocityStructureClosableMean, structure.FlowVelocityStructureClosable.Mean.Value);
-            Assert.AreEqual(entity.FlowVelocityStructureClosableStandardDeviation, structure.FlowVelocityStructureClosable.CoefficientOfVariation.Value);
             Assert.AreEqual(entity.StabilityLinearLoadModelMean, structure.StabilityLinearLoadModel.Mean.Value);
             Assert.AreEqual(entity.StabilityLinearLoadModelCoefficientOfVariation, structure.StabilityLinearLoadModel.CoefficientOfVariation.Value);
             Assert.AreEqual(entity.StabilityQuadraticLoadModelMean, structure.StabilityQuadraticLoadModel.Mean.Value);
@@ -230,7 +228,6 @@ namespace Application.Ringtoets.Storage.Test.Read.StabilityPointStructures
                 ShipVelocityCoefficientOfVariation = null,
                 ProbabilityCollisionSecondaryStructure = null,
                 FlowVelocityStructureClosableMean = null,
-                FlowVelocityStructureClosableStandardDeviation = null,
                 StabilityLinearLoadModelMean = null,
                 StabilityLinearLoadModelCoefficientOfVariation = null,
                 AreaFlowAperturesMean = null,
@@ -282,7 +279,6 @@ namespace Application.Ringtoets.Storage.Test.Read.StabilityPointStructures
             Assert.IsNaN(structure.ShipVelocity.CoefficientOfVariation);
             Assert.IsNaN(structure.ProbabilityCollisionSecondaryStructure);
             Assert.IsNaN(structure.FlowVelocityStructureClosable.Mean);
-            Assert.IsNaN(structure.FlowVelocityStructureClosable.CoefficientOfVariation);
             Assert.IsNaN(structure.StabilityLinearLoadModel.Mean);
             Assert.IsNaN(structure.StabilityLinearLoadModel.CoefficientOfVariation);
             Assert.IsNaN(structure.StabilityQuadraticLoadModel.Mean);

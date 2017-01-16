@@ -1151,7 +1151,6 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.IsNull(entity.ShipVelocityMean);
             Assert.IsNull(entity.ShipVelocityCoefficientOfVariation);
             Assert.IsNull(entity.FlowVelocityStructureClosableMean);
-            Assert.IsNull(entity.FlowVelocityStructureClosableStandardDeviation);
             Assert.IsNull(entity.StabilityLinearLoadModelMean);
             Assert.IsNull(entity.StabilityLinearLoadModelCoefficientOfVariation);
             Assert.IsNull(entity.StabilityQuadraticLoadModelMean);

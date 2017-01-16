@@ -140,8 +140,7 @@ namespace Application.Ringtoets.Storage.Read.StabilityPointStructures
                 ProbabilityCollisionSecondaryStructure = entity.ProbabilityCollisionSecondaryStructure.ToNullAsNaN(),
                 FlowVelocityStructureClosable =
                 {
-                    Mean = (RoundedDouble) entity.FlowVelocityStructureClosableMean.ToNullAsNaN(),
-                    CoefficientOfVariation = (RoundedDouble) entity.FlowVelocityStructureClosableStandardDeviation.ToNullAsNaN()
+                    Mean = (RoundedDouble) entity.FlowVelocityStructureClosableMean.ToNullAsNaN()
                 },
                 StabilityLinearLoadModel =
                 {

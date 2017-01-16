@@ -540,8 +540,6 @@ namespace Demo.Ringtoets.Test.Commands
             Assert.AreEqual(0, structure.LevellingCount);
             Assert.AreEqual(0, structure.ProbabilityCollisionSecondaryStructure);
             Assert.AreEqual(1, structure.FlowVelocityStructureClosable.Mean, structure.FlowVelocityStructureClosable.Mean.GetAccuracy());
-            Assert.AreEqual(1, structure.FlowVelocityStructureClosable.CoefficientOfVariation,
-                            structure.FlowVelocityStructureClosable.CoefficientOfVariation.GetAccuracy());
             Assert.AreEqual(15, structure.StabilityLinearLoadModel.Mean, structure.StabilityLinearLoadModel.Mean.GetAccuracy());
             Assert.AreEqual(0.1, structure.StabilityLinearLoadModel.CoefficientOfVariation,
                             structure.StabilityLinearLoadModel.CoefficientOfVariation.GetAccuracy());

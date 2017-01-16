@@ -104,7 +104,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
         /// <param name="stabilityQuadraticLoadModelMean">The mean of the stability quadratic load model.</param>
         /// <param name="stabilityQuadraticLoadModelVariation">The variation of the stability quadratic load model.</param>
         /// <param name="widthFlowAperturesMean">The mean of the width flow apertures.</param>
-        /// <param name="WidthFlowAperturesStandardDeviation">The standard deviation of the width flow apertures.</param>
+        /// <param name="widthFlowAperturesStandardDeviation">The standard deviation of the width flow apertures.</param>
         public StructuresStabilityPointLowSillQuadraticCalculationInput(long hydraulicBoundaryLocationId,
                                                                         double sectionNormal,
                                                                         IEnumerable<HydraRingForelandPoint> forelandPoints,
@@ -144,7 +144,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
                                                                         double modelFactorSuperCriticalFlowMean, double modelFactorSuperCriticalFlowStandardDeviation,
                                                                         double constructiveStrengthQuadraticLoadModelMean, double constructiveStrengthQuadraticLoadModelVariation,
                                                                         double stabilityQuadraticLoadModelMean, double stabilityQuadraticLoadModelVariation,
-                                                                        double widthFlowAperturesMean, double WidthFlowAperturesStandardDeviation)
+                                                                        double widthFlowAperturesMean, double widthFlowAperturesStandardDeviation)
             : base(hydraulicBoundaryLocationId,
                    sectionNormal,
                    forelandPoints, breakWater,
@@ -188,7 +188,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
             this.stabilityQuadraticLoadModelMean = stabilityQuadraticLoadModelMean;
             this.stabilityQuadraticLoadModelVariation = stabilityQuadraticLoadModelVariation;
             this.widthFlowAperturesMean = widthFlowAperturesMean;
-            this.widthFlowAperturesStandardDeviation = WidthFlowAperturesStandardDeviation;
+            this.widthFlowAperturesStandardDeviation = widthFlowAperturesStandardDeviation;
         }
 
         public override IEnumerable<HydraRingVariable> Variables
@@ -224,7 +224,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
             yield return new NormalHydraRingVariable(62, HydraRingDeviationType.Standard, modelFactorSuperCriticalFlowMean, modelFactorSuperCriticalFlowStandardDeviation);
             yield return new LogNormalHydraRingVariable(81, HydraRingDeviationType.Variation, constructiveStrengthQuadraticLoadModelMean, constructiveStrengthQuadraticLoadModelVariation);
             yield return new LogNormalHydraRingVariable(84, HydraRingDeviationType.Variation, stabilityQuadraticLoadModelMean, stabilityQuadraticLoadModelVariation);
-            yield return new NormalHydraRingVariable(106, HydraRingDeviationType.Variation, widthFlowAperturesMean, widthFlowAperturesStandardDeviation);
+            yield return new NormalHydraRingVariable(106, HydraRingDeviationType.Standard, widthFlowAperturesMean, widthFlowAperturesStandardDeviation);
         }
     }
 }

@@ -105,7 +105,6 @@ namespace Application.Ringtoets.Storage.Test.Create.StabilityPointStructures
             Assert.AreEqual(structure.LevellingCount, entity.LevellingCount);
             Assert.AreEqual(structure.ProbabilityCollisionSecondaryStructure, entity.ProbabilityCollisionSecondaryStructure);
             Assert.AreEqual(structure.FlowVelocityStructureClosable.Mean.Value, entity.FlowVelocityStructureClosableMean);
-            Assert.AreEqual(structure.FlowVelocityStructureClosable.CoefficientOfVariation.Value, entity.FlowVelocityStructureClosableStandardDeviation);
             Assert.AreEqual(structure.StabilityLinearLoadModel.Mean.Value, entity.StabilityLinearLoadModelMean);
             Assert.AreEqual(structure.StabilityLinearLoadModel.CoefficientOfVariation.Value, entity.StabilityLinearLoadModelCoefficientOfVariation);
             Assert.AreEqual(structure.StabilityQuadraticLoadModel.Mean.Value, entity.StabilityQuadraticLoadModelMean);
@@ -273,7 +272,6 @@ namespace Application.Ringtoets.Storage.Test.Create.StabilityPointStructures
             Assert.IsNull(entity.ShipVelocityCoefficientOfVariation);
             Assert.IsNull(entity.ProbabilityCollisionSecondaryStructure);
             Assert.IsNull(entity.FlowVelocityStructureClosableMean);
-            Assert.IsNull(entity.FlowVelocityStructureClosableStandardDeviation);
             Assert.IsNull(entity.StabilityLinearLoadModelMean);
             Assert.IsNull(entity.StabilityLinearLoadModelCoefficientOfVariation);
             Assert.IsNull(entity.StabilityQuadraticLoadModelMean);
