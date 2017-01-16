@@ -178,7 +178,6 @@ namespace Ringtoets.StabilityPointStructures.IO
                     FlowVelocityStructureClosable =
                     {
                         Mean = (RoundedDouble) rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword22].NumericalValue,
-                        CoefficientOfVariation = GetCoefficientOfVariation(rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword22], structureName)
                     },
                     StabilityLinearLoadModel =
                     {

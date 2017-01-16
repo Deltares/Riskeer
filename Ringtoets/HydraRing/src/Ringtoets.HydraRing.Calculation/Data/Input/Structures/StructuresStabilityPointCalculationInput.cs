@@ -143,7 +143,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
         /// <param name="modificationFactorWavesSlowlyVaryingPressureComponent">The modification factor waves slowly-varying pressure component.</param>
         /// <param name="modificationFactorDynamicOrImpulsivePressureComponent">The modification factor dynamic or impulsive pressure component.</param>
         protected StructuresStabilityPointCalculationInput(long hydraulicBoundaryLocationId,
-            double sectionNormal,
+                                                           double sectionNormal,
                                                            IEnumerable<HydraRingForelandPoint> forelandPoints,
                                                            HydraRingBreakWater breakWater,
                                                            double volumicWeightWater,
