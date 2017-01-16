@@ -65,7 +65,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
             const int levellingCount = 22;
             const double probabilityCollisionSecondaryStructure = 23.3;
             const double flowVelocityStructureClosableMean = 24.4;
-            const double flowVelocityStructureClosableStandardDeviation = 25.5;
+            const double flowVelocityStructureClosableVariation = 25.5;
             const double insideWaterLevelMean = 26.6;
             const double insideWaterLevelStandardDeviation = 27.7;
             const double allowedLevelIncreaseStorageMean = 28.8;
@@ -99,7 +99,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
             const double stabilityLinearLoadModelMean = 56.6;
             const double stabilityLinearLoadModelVariation = 57.7;
             const double widthFlowAperturesMean = 58.8;
-            const double widthFlowAperturesVariation = 59.9;
+            const double widthFlowAperturesStandardDeviation = 59.9;
 
             // Call
             var input = new StructuresStabilityPointLowSillLinearCalculationInput(hydraulicBoundaryLocationId, sectionNormal,
@@ -119,7 +119,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
                                                                                   shipVelocityMean, shipVelocityVariation,
                                                                                   levellingCount,
                                                                                   probabilityCollisionSecondaryStructure,
-                                                                                  flowVelocityStructureClosableMean, flowVelocityStructureClosableStandardDeviation,
+                                                                                  flowVelocityStructureClosableMean, flowVelocityStructureClosableVariation,
                                                                                   insideWaterLevelMean, insideWaterLevelStandardDeviation,
                                                                                   allowedLevelIncreaseStorageMean, allowedLevelIncreaseStorageStandardDeviation,
                                                                                   modelFactorStorageVolumeMean, modelFactorStorageVolumeStandardDeviation,
@@ -139,7 +139,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
                                                                                   modelFactorSuperCriticalFlowMean, modelFactorSuperCriticalFlowStandardDeviation,
                                                                                   constructiveStrengthLinearLoadModelMean, constructiveStrengthLinearLoadModelVariation,
                                                                                   stabilityLinearLoadModelMean, stabilityLinearLoadModelVariation,
-                                                                                  widthFlowAperturesMean, widthFlowAperturesVariation);
+                                                                                  widthFlowAperturesMean, widthFlowAperturesStandardDeviation);
 
             // Assert
             Assert.IsInstanceOf<StructuresStabilityPointCalculationInput>(input);

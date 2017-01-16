@@ -70,7 +70,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
             const double insideWaterLevelMean = 27.7;
             const double insideWaterLevelStandardDeviation = 28.8;
             const double widthFlowAperturesMean = 29.9;
-            const double widthFlowAperturesVariation = 30.0;
+            const double widthFlowAperturesStandardDeviation = 30.0;
 
             // Call
             var input = new StructuresClosureLowSillCalculationInput(hydraulicBoundaryLocationId,
@@ -94,7 +94,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
                                                                      modelFactorSubCriticalFlowMean, modelFactorSubCriticalFlowVariation,
                                                                      thresholdHeightOpenWeirMean, thresholdHeightOpenWeirStandardDeviation,
                                                                      insideWaterLevelMean, insideWaterLevelStandardDeviation,
-                                                                     widthFlowAperturesMean, widthFlowAperturesVariation);
+                                                                     widthFlowAperturesMean, widthFlowAperturesStandardDeviation);
 
             // Assert
             Assert.IsInstanceOf<StructuresClosureCalculationInput>(input);

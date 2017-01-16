@@ -56,7 +56,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
         private readonly int levellingCount;
         private readonly double probabilityCollisionSecondaryStructure;
         private readonly double flowVelocityStructureClosableMean;
-        private readonly double flowVelocityStructureClosableStandardDeviation;
+        private readonly double flowVelocityStructureClosableVariation;
         private readonly double insideWaterLevelMean;
         private readonly double insideWaterLevelStandardDeviation;
         private readonly double allowedLevelIncreaseStorageMean;
@@ -115,7 +115,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
         /// <param name="levellingCount">The levelling count.</param>
         /// <param name="probabilityCollisionSecondaryStructure">The probability of collision of the secondary structure.</param>
         /// <param name="flowVelocityStructureClosableMean">The mean of the flow velocity structure closable.</param>
-        /// <param name="flowVelocityStructureClosableStandardDeviation">The standard deviation of the flow velocity structure closable.</param>
+        /// <param name="flowVelocityStructureClosableVariation">The variation of the flow velocity structure closable.</param>
         /// <param name="insideWaterLevelMean">The mean of the inside water level.</param>
         /// <param name="insideWaterLevelStandardDeviation">The standard deviation of the inside water level.</param>
         /// <param name="allowedLevelIncreaseStorageMean">The mean of the allowed level of increase for storage.</param>
@@ -161,7 +161,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
                                                            double shipVelocityMean, double shipVelocityVariation,
                                                            int levellingCount,
                                                            double probabilityCollisionSecondaryStructure,
-                                                           double flowVelocityStructureClosableMean, double flowVelocityStructureClosableStandardDeviation,
+                                                           double flowVelocityStructureClosableMean, double flowVelocityStructureClosableVariation,
                                                            double insideWaterLevelMean, double insideWaterLevelStandardDeviation,
                                                            double allowedLevelIncreaseStorageMean, double allowedLevelIncreaseStorageStandardDeviation,
                                                            double modelFactorStorageVolumeMean, double modelFactorStorageVolumeStandardDeviation,
@@ -207,7 +207,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
             this.levellingCount = levellingCount;
             this.probabilityCollisionSecondaryStructure = probabilityCollisionSecondaryStructure;
             this.flowVelocityStructureClosableMean = flowVelocityStructureClosableMean;
-            this.flowVelocityStructureClosableStandardDeviation = flowVelocityStructureClosableStandardDeviation;
+            this.flowVelocityStructureClosableVariation = flowVelocityStructureClosableVariation;
             this.insideWaterLevelMean = insideWaterLevelMean;
             this.insideWaterLevelStandardDeviation = insideWaterLevelStandardDeviation;
             this.allowedLevelIncreaseStorageMean = allowedLevelIncreaseStorageMean;
@@ -267,7 +267,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
                 yield return new NormalHydraRingVariable(89, HydraRingDeviationType.Variation, shipVelocityMean, shipVelocityVariation);
                 yield return new DeterministicHydraRingVariable(90, levellingCount);
                 yield return new DeterministicHydraRingVariable(91, probabilityCollisionSecondaryStructure);
-                yield return new NormalHydraRingVariable(92, HydraRingDeviationType.Standard, flowVelocityStructureClosableMean, flowVelocityStructureClosableStandardDeviation);
+                yield return new NormalHydraRingVariable(92, HydraRingDeviationType.Standard, flowVelocityStructureClosableMean, flowVelocityStructureClosableVariation);
                 yield return new NormalHydraRingVariable(93, HydraRingDeviationType.Standard, insideWaterLevelMean, insideWaterLevelStandardDeviation);
                 yield return new LogNormalHydraRingVariable(94, HydraRingDeviationType.Standard, allowedLevelIncreaseStorageMean, allowedLevelIncreaseStorageStandardDeviation);
                 yield return new LogNormalHydraRingVariable(95, HydraRingDeviationType.Standard, modelFactorStorageVolumeMean, modelFactorStorageVolumeStandardDeviation);

@@ -70,7 +70,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
         /// <param name="levellingCount">The levelling count.</param>
         /// <param name="probabilityCollisionSecondaryStructure">The probability of collision of the secondary structure.</param>
         /// <param name="flowVelocityStructureClosableMean">The mean of the flow velocity structure closable.</param>
-        /// <param name="flowVelocityStructureClosableStandardDeviation">The standard deviation of the flow velocity structure closable.</param>
+        /// <param name="flowVelocityStructureClosableVariation">The variation of the flow velocity structure closable.</param>
         /// <param name="insideWaterLevelMean">The mean of the inside water level.</param>
         /// <param name="insideWaterLevelStandardDeviation">The standard deviation of the inside water level.</param>
         /// <param name="allowedLevelIncreaseStorageMean">The mean of the allowed level of increase for storage.</param>
@@ -124,7 +124,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
                                                                                double shipVelocityMean, double shipVelocityVariation,
                                                                                int levellingCount,
                                                                                double probabilityCollisionSecondaryStructure,
-                                                                               double flowVelocityStructureClosableMean, double flowVelocityStructureClosableStandardDeviation,
+                                                                               double flowVelocityStructureClosableMean, double flowVelocityStructureClosableVariation,
                                                                                double insideWaterLevelMean, double insideWaterLevelStandardDeviation,
                                                                                double allowedLevelIncreaseStorageMean, double allowedLevelIncreaseStorageStandardDeviation,
                                                                                double modelFactorStorageVolumeMean, double modelFactorStorageVolumeStandardDeviation,
@@ -163,7 +163,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
                    shipVelocityMean, shipVelocityVariation,
                    levellingCount,
                    probabilityCollisionSecondaryStructure,
-                   flowVelocityStructureClosableMean, flowVelocityStructureClosableStandardDeviation,
+                   flowVelocityStructureClosableMean, flowVelocityStructureClosableVariation,
                    insideWaterLevelMean, insideWaterLevelStandardDeviation,
                    allowedLevelIncreaseStorageMean, allowedLevelIncreaseStorageStandardDeviation,
                    modelFactorStorageVolumeMean, modelFactorStorageVolumeStandardDeviation,

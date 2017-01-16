@@ -38,7 +38,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
         private readonly double levelCrestStructureNotClosingMean;
         private readonly double levelCrestStructureNotClosingStandardDeviation;
         private readonly double widthFlowAperturesMean;
-        private readonly double widthFlowAperturesVariation;
+        private readonly double widthFlowAperturesStandardDeviation;
         private readonly double deviationWaveDirection;
 
         /// <summary>
@@ -76,7 +76,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
         /// <param name="levelCrestStructureNotClosingMean">The mean of the crest level of the structure when not closing.</param>
         /// <param name="levelCrestStructureNotClosingStandardDeviation">The standard deviation of the crest level of the structure when not closing.</param>
         /// <param name="widthFlowAperturesMean">The mean of the width flow apertures.</param>
-        /// <param name="widthFlowAperturesVariation">The variation of the width flow apertures.</param>
+        /// <param name="widthFlowAperturesStandardDeviation">The standard deviation of the width flow apertures.</param>
         /// <param name="deviationWaveDirection">The deviation of the wave direction.</param>
         public StructuresClosureVerticalWallCalculationInput(long hydraulicBoundaryLocationId,
                                                              double sectionNormal,
@@ -100,7 +100,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
                                                              double structureNormalOrientation,
                                                              double modelFactorSuperCriticalFlowMean, double modelFactorSuperCriticalFlowStandardDeviation,
                                                              double levelCrestStructureNotClosingMean, double levelCrestStructureNotClosingStandardDeviation,
-                                                             double widthFlowAperturesMean, double widthFlowAperturesVariation,
+                                                             double widthFlowAperturesMean, double widthFlowAperturesStandardDeviation,
                                                              double deviationWaveDirection)
             : base(hydraulicBoundaryLocationId,
                    sectionNormal,
@@ -128,7 +128,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
             this.levelCrestStructureNotClosingMean = levelCrestStructureNotClosingMean;
             this.levelCrestStructureNotClosingStandardDeviation = levelCrestStructureNotClosingStandardDeviation;
             this.widthFlowAperturesMean = widthFlowAperturesMean;
-            this.widthFlowAperturesVariation = widthFlowAperturesVariation;
+            this.widthFlowAperturesStandardDeviation = widthFlowAperturesStandardDeviation;
             this.deviationWaveDirection = deviationWaveDirection;
         }
 
@@ -162,7 +162,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
             yield return new DeterministicHydraRingVariable(61, structureNormalOrientation);
             yield return new NormalHydraRingVariable(62, HydraRingDeviationType.Standard, modelFactorSuperCriticalFlowMean, modelFactorSuperCriticalFlowStandardDeviation);
             yield return new NormalHydraRingVariable(72, HydraRingDeviationType.Standard, levelCrestStructureNotClosingMean, levelCrestStructureNotClosingStandardDeviation);
-            yield return new NormalHydraRingVariable(106, HydraRingDeviationType.Variation, widthFlowAperturesMean, widthFlowAperturesVariation);
+            yield return new NormalHydraRingVariable(106, HydraRingDeviationType.Variation, widthFlowAperturesMean, widthFlowAperturesStandardDeviation);
             yield return new DeterministicHydraRingVariable(107, deviationWaveDirection);
         }
     }

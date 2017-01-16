@@ -69,7 +69,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
             const double levelCrestStructureNotClosingMean = 26.6;
             const double levelCrestStructureNotClosingStandardDeviation = 27.7;
             const double widthFlowAperturesMean = 28.8;
-            const double widthFlowAperturesVariation = 29.9;
+            const double widthFlowAperturesStandardDeviation = 29.9;
             const double deviationWaveDirection = 30.0;
 
             // Call
@@ -94,7 +94,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
                                                                           structureNormalOrientation,
                                                                           modelFactorSuperCriticalFlowMean, modelFactorSuperCriticalFlowStandardDeviation,
                                                                           levelCrestStructureNotClosingMean, levelCrestStructureNotClosingStandardDeviation,
-                                                                          widthFlowAperturesMean, widthFlowAperturesVariation,
+                                                                          widthFlowAperturesMean, widthFlowAperturesStandardDeviation,
                                                                           deviationWaveDirection);
 
             // Assert

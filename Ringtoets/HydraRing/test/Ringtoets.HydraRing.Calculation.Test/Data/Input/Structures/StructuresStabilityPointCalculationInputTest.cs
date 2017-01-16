@@ -67,7 +67,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
             const int levellingCount = 22;
             const double probabilityCollisionSecondaryStructure = 23.3;
             const double flowVelocityStructureClosableMean = 24.4;
-            const double flowVelocityStructureClosableStandardDeviation = 25.5;
+            const double flowVelocityStructureClosableVariation = 25.5;
             const double insideWaterLevelMean = 26.6;
             const double insideWaterLevelStandardDeviation = 27.7;
             const double allowedLevelIncreaseStorageMean = 28.8;
@@ -113,7 +113,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
                                                                          shipVelocityMean, shipVelocityVariation,
                                                                          levellingCount,
                                                                          probabilityCollisionSecondaryStructure,
-                                                                         flowVelocityStructureClosableMean, flowVelocityStructureClosableStandardDeviation,
+                                                                         flowVelocityStructureClosableMean, flowVelocityStructureClosableVariation,
                                                                          insideWaterLevelMean, insideWaterLevelStandardDeviation,
                                                                          allowedLevelIncreaseStorageMean, allowedLevelIncreaseStorageStandardDeviation,
                                                                          modelFactorStorageVolumeMean, modelFactorStorageVolumeStandardDeviation,
@@ -203,7 +203,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
                                                                 double shipVelocityMean, double shipVelocityVariation,
                                                                 int levellingCount,
                                                                 double probabilityCollisionSecondaryStructure,
-                                                                double flowVelocityStructureClosableMean, double flowVelocityStructureClosableStandardDeviation,
+                                                                double flowVelocityStructureClosableMean, double flowVelocityStructureClosableVariation,
                                                                 double insideWaterLevelMean, double insideWaterLevelStandardDeviation,
                                                                 double allowedLevelIncreaseStorageMean, double allowedLevelIncreaseStorageStandardDeviation,
                                                                 double modelFactorStorageVolumeMean, double modelFactorStorageVolumeStandardDeviation,
@@ -238,7 +238,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
                        shipVelocityMean, shipVelocityVariation,
                        levellingCount,
                        probabilityCollisionSecondaryStructure,
-                       flowVelocityStructureClosableMean, flowVelocityStructureClosableStandardDeviation,
+                       flowVelocityStructureClosableMean, flowVelocityStructureClosableVariation,
                        insideWaterLevelMean, insideWaterLevelStandardDeviation,
                        allowedLevelIncreaseStorageMean, allowedLevelIncreaseStorageStandardDeviation,
                        modelFactorStorageVolumeMean, modelFactorStorageVolumeStandardDeviation,
