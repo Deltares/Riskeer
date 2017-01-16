@@ -162,7 +162,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
             yield return new DeterministicHydraRingVariable(61, structureNormalOrientation);
             yield return new NormalHydraRingVariable(62, HydraRingDeviationType.Standard, modelFactorSuperCriticalFlowMean, modelFactorSuperCriticalFlowStandardDeviation);
             yield return new NormalHydraRingVariable(72, HydraRingDeviationType.Standard, levelCrestStructureNotClosingMean, levelCrestStructureNotClosingStandardDeviation);
-            yield return new NormalHydraRingVariable(106, HydraRingDeviationType.Variation, widthFlowAperturesMean, widthFlowAperturesStandardDeviation);
+            yield return new NormalHydraRingVariable(106, HydraRingDeviationType.Standard, widthFlowAperturesMean, widthFlowAperturesStandardDeviation);
             yield return new DeterministicHydraRingVariable(107, deviationWaveDirection);
         }
     }

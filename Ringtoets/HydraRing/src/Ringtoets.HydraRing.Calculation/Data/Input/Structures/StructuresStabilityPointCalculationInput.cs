@@ -279,7 +279,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
                 yield return new NormalHydraRingVariable(89, HydraRingDeviationType.Variation, shipVelocityMean, shipVelocityVariation);
                 yield return new DeterministicHydraRingVariable(90, levellingCount);
                 yield return new DeterministicHydraRingVariable(91, probabilityCollisionSecondaryStructure);
-                yield return new NormalHydraRingVariable(92, HydraRingDeviationType.Standard, flowVelocityStructureClosableMean, flowVelocityStructureClosableVariation);
+                yield return new NormalHydraRingVariable(92, HydraRingDeviationType.Variation, flowVelocityStructureClosableMean, flowVelocityStructureClosableVariation);
                 yield return new NormalHydraRingVariable(93, HydraRingDeviationType.Standard, insideWaterLevelMean, insideWaterLevelStandardDeviation);
                 yield return new LogNormalHydraRingVariable(94, HydraRingDeviationType.Standard, allowedLevelIncreaseStorageMean, allowedLevelIncreaseStorageStandardDeviation);
                 yield return new LogNormalHydraRingVariable(95, HydraRingDeviationType.Standard, modelFactorStorageVolumeMean, modelFactorStorageVolumeStandardDeviation);

@@ -70,7 +70,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
             const double insideWaterLevelMean = 27.7;
             const double insideWaterLevelStandardDeviation = 28.8;
             const double widthFlowAperturesMean = 29.9;
-            const double widthFlowAperturesVariation = 30.0;
+            const double widthFlowAperturesStandardDeviation = 30.0;
 
             // Call
             var input = new StructuresClosureLowSillCalculationInput(hydraulicBoundaryLocationId,
@@ -94,7 +94,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
                                                                      modelFactorSubCriticalFlowMean, modelFactorSubCriticalFlowVariation,
                                                                      thresholdHeightOpenWeirMean, thresholdHeightOpenWeirStandardDeviation,
                                                                      insideWaterLevelMean, insideWaterLevelStandardDeviation,
-                                                                     widthFlowAperturesMean, widthFlowAperturesVariation);
+                                                                     widthFlowAperturesMean, widthFlowAperturesStandardDeviation);
 
             // Assert
             Assert.IsInstanceOf<StructuresClosureCalculationInput>(input);
@@ -152,7 +152,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
             yield return new LogNormalHydraRingVariable(103, HydraRingDeviationType.Standard, 13.3, 14.4);
             yield return new LogNormalHydraRingVariable(104, HydraRingDeviationType.Variation, 15.5, 16.6);
             yield return new DeterministicHydraRingVariable(105, 17.7);
-            yield return new NormalHydraRingVariable(106, HydraRingDeviationType.Variation, 29.9, 30.0);
+            yield return new NormalHydraRingVariable(106, HydraRingDeviationType.Standard, 29.9, 30.0);
             yield return new LogNormalHydraRingVariable(108, HydraRingDeviationType.Variation, 18.8, 19.9);
             yield return new DeterministicHydraRingVariable(129, 20.0);
         }
