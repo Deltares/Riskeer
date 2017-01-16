@@ -87,7 +87,7 @@ namespace Ringtoets.StabilityStoneCover.Service
 
             var ringId = assessmentSection.Id;
             var norm = assessmentSection.FailureMechanismContribution.Norm;
-            TotalWaterLevelCalculations = calculation.InputParameters.WaterLevels.Count()*2;
+            TotalWaterLevelCalculations = calculation.InputParameters.WaterLevels.Count() * 2;
 
             try
             {

@@ -471,7 +471,7 @@ namespace Core.Common.Controls.Test.DataGrid
                     dataSource,
                     TypeUtils.GetMemberName<EnumDisplayWrapper<TestEnum>>(ds => ds.Value),
                     TypeUtils.GetMemberName<EnumDisplayWrapper<TestEnum>>(ds => ds.DisplayName)
-                    );
+                );
 
                 // Assert
                 Assert.AreEqual(1, dataGridView.ColumnCount);

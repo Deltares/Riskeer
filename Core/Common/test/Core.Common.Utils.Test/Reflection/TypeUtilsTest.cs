@@ -612,7 +612,7 @@ namespace Core.Common.Utils.Test.Reflection
             /// </summary>
             private int PrivateMethod(int i)
             {
-                return i*2;
+                return i * 2;
             }
         }
 

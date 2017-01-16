@@ -714,8 +714,8 @@ namespace Core.Common.Base.Test.Data
             double doubleValue = 5.67891234;
 
             // Call
-            RoundedDouble result1 = roundedDouble*doubleValue;
-            RoundedDouble result2 = doubleValue*roundedDouble;
+            RoundedDouble result1 = roundedDouble * doubleValue;
+            RoundedDouble result2 = doubleValue * roundedDouble;
 
             // Assert
             Assert.AreEqual(roundedDouble.NumberOfDecimalPlaces, result1.NumberOfDecimalPlaces);
@@ -733,7 +733,7 @@ namespace Core.Common.Base.Test.Data
             var roundedDouble2 = new RoundedDouble(5, -3.45678);
 
             // Call
-            RoundedDouble result = roundedDouble1*roundedDouble2;
+            RoundedDouble result = roundedDouble1 * roundedDouble2;
 
             // Assert
             Assert.AreEqual(2, result.NumberOfDecimalPlaces);
@@ -748,7 +748,7 @@ namespace Core.Common.Base.Test.Data
             var roundedDouble2 = new RoundedDouble(3, -9.123);
 
             // Call
-            RoundedDouble result = roundedDouble1*roundedDouble2;
+            RoundedDouble result = roundedDouble1 * roundedDouble2;
 
             // Assert
             Assert.AreEqual(3, result.NumberOfDecimalPlaces);
@@ -763,8 +763,8 @@ namespace Core.Common.Base.Test.Data
             var roundedDouble2 = new RoundedDouble(2, 2.22);
 
             // Call
-            RoundedDouble result1 = roundedDouble1*roundedDouble2;
-            RoundedDouble result2 = roundedDouble2*roundedDouble1;
+            RoundedDouble result1 = roundedDouble1 * roundedDouble2;
+            RoundedDouble result2 = roundedDouble2 * roundedDouble1;
 
             // Assert
             Assert.AreEqual(result1.NumberOfDecimalPlaces, result2.NumberOfDecimalPlaces);
@@ -833,7 +833,7 @@ namespace Core.Common.Base.Test.Data
 
             // Assert
             Assert.AreEqual(expectedRoundedDoubleIndex, roundedDoubleResult);
-            Assert.AreEqual(-1*expectedRoundedDoubleIndex, doubleResult);
+            Assert.AreEqual(-1 * expectedRoundedDoubleIndex, doubleResult);
         }
 
         [Test]
@@ -862,7 +862,7 @@ namespace Core.Common.Base.Test.Data
 
             // Assert
             Assert.AreEqual(expectedRoundedDoubleIndex, roundedDouble1Result);
-            Assert.AreEqual(-1*expectedRoundedDoubleIndex, roundedDouble2Result);
+            Assert.AreEqual(-1 * expectedRoundedDoubleIndex, roundedDouble2Result);
         }
 
         [Test]

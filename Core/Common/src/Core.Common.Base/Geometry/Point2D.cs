@@ -154,7 +154,7 @@ namespace Core.Common.Base.Geometry
             unchecked
             {
                 var hashCode = X.GetHashCode();
-                hashCode = (hashCode*397) ^ Y.GetHashCode();
+                hashCode = (hashCode * 397) ^ Y.GetHashCode();
                 return hashCode;
             }
         }

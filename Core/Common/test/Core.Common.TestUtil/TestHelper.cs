@@ -312,10 +312,10 @@ namespace Core.Common.TestUtil
             var userMessage = string.IsNullOrEmpty(message) ? "" : message + ". ";
             if (!rank.Equals(1.0f))
             {
-                Assert.IsTrue(rank*actualMillisecond < maxMilliseconds, userMessage + "Maximum of {0} milliseconds exceeded. Actual was {1}, machine performance weighted actual was {2}",
-                              maxMilliseconds, actualMillisecond, actualMillisecond*rank);
+                Assert.IsTrue(rank * actualMillisecond < maxMilliseconds, userMessage + "Maximum of {0} milliseconds exceeded. Actual was {1}, machine performance weighted actual was {2}",
+                              maxMilliseconds, actualMillisecond, actualMillisecond * rank);
                 Console.WriteLine(userMessage + string.Format("Test took {1} milliseconds (machine performance weighted {2}). Maximum was {0}",
-                                                              maxMilliseconds, actualMillisecond, actualMillisecond*rank));
+                                                              maxMilliseconds, actualMillisecond, actualMillisecond * rank));
             }
             else
             {
@@ -411,7 +411,7 @@ namespace Core.Common.TestUtil
             var bitmap = new Bitmap(image).Clone(new Rectangle(0, 0, image.Size.Width, image.Size.Height), PixelFormat.Format32bppArgb);
 
             var index = 0;
-            var imageColors = new Color[image.Size.Width*image.Size.Height];
+            var imageColors = new Color[image.Size.Width * image.Size.Height];
             for (int i = 0; i < bitmap.Height; i++)
             {
                 for (int j = 0; j < bitmap.Width; j++)

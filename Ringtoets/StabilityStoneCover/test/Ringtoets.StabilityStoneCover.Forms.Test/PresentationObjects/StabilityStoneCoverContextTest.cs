@@ -116,7 +116,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PresentationObjects
             public SimpleStabilityStoneCoverContext(IObservable wrappedData,
                                                     StabilityStoneCoverFailureMechanism failureMechanism,
                                                     IAssessmentSection assessmentSection) :
-                                                        base(wrappedData, failureMechanism, assessmentSection) {}
+                base(wrappedData, failureMechanism, assessmentSection) {}
         }
     }
 }

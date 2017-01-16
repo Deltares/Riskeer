@@ -87,10 +87,7 @@ namespace Core.Common.Gui.Test.Plugin
             PropertyInfo propertyInfo = new PropertyInfo<int, TestIntProperties>
             {
                 GetObjectPropertiesData = i => alternativeIntegerValue,
-                AfterCreate = (intProperties, data) =>
-                {
-                    Assert.AreEqual(alternativeIntegerValue, intProperties.Data);
-                }
+                AfterCreate = (intProperties, data) => { Assert.AreEqual(alternativeIntegerValue, intProperties.Data); }
             };
 
             const int integerValue = 22;

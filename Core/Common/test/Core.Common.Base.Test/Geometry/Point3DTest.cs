@@ -118,7 +118,7 @@ namespace Core.Common.Base.Test.Geometry
                 x + deltaX,
                 y + deltaY,
                 z + deltaZ
-                );
+            );
 
             // Call
             var result = point.Equals(otherPoint);

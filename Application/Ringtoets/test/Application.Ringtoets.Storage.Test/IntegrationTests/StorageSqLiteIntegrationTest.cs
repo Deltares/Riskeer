@@ -450,8 +450,8 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         }
 
         private static void AssertFailureMechanismSectionResults
-            (IEnumerable<MicrostabilityFailureMechanismSectionResult> expectedSectionResults,
-             IEnumerable<MicrostabilityFailureMechanismSectionResult> actualSectionResults)
+        (IEnumerable<MicrostabilityFailureMechanismSectionResult> expectedSectionResults,
+         IEnumerable<MicrostabilityFailureMechanismSectionResult> actualSectionResults)
         {
             var expectedSectionResultsArray = expectedSectionResults.ToArray();
             var actualSectionResultsArray = actualSectionResults.ToArray();

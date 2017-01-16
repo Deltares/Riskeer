@@ -149,6 +149,11 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
             }, firedEvents);
         }
 
+        private class TestView : UserControl, IView
+        {
+            public object Data { get; set; }
+        }
+
         #region Document views
 
         [Test]
@@ -973,10 +978,5 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
         }
 
         #endregion
-
-        private class TestView : UserControl, IView
-        {
-            public object Data { get; set; }
-        }
     }
 }

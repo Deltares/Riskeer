@@ -118,7 +118,7 @@ namespace Core.Common.Gui.Forms.ProgressDialog
                     progressReporter.ReportProgress(() =>
                     {
                         // Update the progress bar
-                        progressBar.Value = (int) Math.Round(100.0/activityCount*stepNumberForProgressNotification);
+                        progressBar.Value = (int) Math.Round(100.0 / activityCount * stepNumberForProgressNotification);
                     });
                 }
             }, cancellationToken);

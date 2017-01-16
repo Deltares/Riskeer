@@ -163,7 +163,10 @@ namespace Core.Common.Base.Test.Geometry
             Point2D second = new Point2D(0, 0);
 
             // Call
-            TestDelegate call = () => { Vector<double> result = first - second; };
+            TestDelegate call = () =>
+            {
+                Vector<double> result = first - second;
+            };
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -178,7 +181,10 @@ namespace Core.Common.Base.Test.Geometry
             Point2D second = null;
 
             // Call
-            TestDelegate call = () => { Vector<double> result = first - second; };
+            TestDelegate call = () =>
+            {
+                Vector<double> result = first - second;
+            };
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -209,7 +215,10 @@ namespace Core.Common.Base.Test.Geometry
             Vector<double> vector = new DenseVector(2);
 
             // Call
-            TestDelegate call = () => { Point2D result = point + vector; };
+            TestDelegate call = () =>
+            {
+                Point2D result = point + vector;
+            };
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -224,7 +233,10 @@ namespace Core.Common.Base.Test.Geometry
             Vector<double> vector = null;
 
             // Call
-            TestDelegate call = () => { Point2D result = point + vector; };
+            TestDelegate call = () =>
+            {
+                Point2D result = point + vector;
+            };
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -295,7 +307,10 @@ namespace Core.Common.Base.Test.Geometry
             });
 
             // Call
-            TestDelegate call = () => { Point2D result = originalPoint + vector3D; };
+            TestDelegate call = () =>
+            {
+                Point2D result = originalPoint + vector3D;
+            };
 
             // Assert
             const string expectedMessage = "Vector moet 2 dimensies hebben, maar heeft er 3.";

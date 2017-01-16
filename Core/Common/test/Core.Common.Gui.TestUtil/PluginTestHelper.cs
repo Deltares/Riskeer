@@ -48,8 +48,8 @@ namespace Core.Common.Gui.TestUtil
             Assert.NotNull(propertyInfos);
             var propertyInfo = propertyInfos.FirstOrDefault(
                 tni =>
-                tni.DataType == dataObjectType &&
-                tni.PropertyObjectType == propertyObjectType);
+                    tni.DataType == dataObjectType &&
+                    tni.PropertyObjectType == propertyObjectType);
             Assert.NotNull(propertyInfo);
             return propertyInfo;
         }

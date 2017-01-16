@@ -39,7 +39,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionOutwards
             [Values(AssessmentLayerTwoAResult.NotCalculated, AssessmentLayerTwoAResult.Failed,
                 AssessmentLayerTwoAResult.Successful)] AssessmentLayerTwoAResult assessmentLayerTwoAResult,
             [Values(3.2, 4.5)] double assessmentLayerThreeResult
-            )
+        )
         {
             // Setup
             var sectionResult = new GrassCoverErosionOutwardsFailureMechanismSectionResult(new TestFailureMechanismSection())

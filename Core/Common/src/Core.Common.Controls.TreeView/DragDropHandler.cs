@@ -259,7 +259,7 @@ namespace Core.Common.Controls.TreeView
         private static void ScrollIntoView(Point point, TreeNode nodeOver, FormsTreeView treeView)
         {
             int delta = treeView.Height - point.Y;
-            double halfTreeViewHeight = treeView.Height/2.0;
+            double halfTreeViewHeight = treeView.Height / 2.0;
 
             if (delta < halfTreeViewHeight && delta > 0)
             {
@@ -285,7 +285,7 @@ namespace Core.Common.Controls.TreeView
             var placeholderLocation = PlaceholderLocation.None;
             int offsetY = treeView.PointToClient(Cursor.Position).Y - nodeOver.Bounds.Top;
 
-            if (offsetY < nodeOver.Bounds.Height/3 && nodeDragging.NextNode != nodeOver)
+            if (offsetY < nodeOver.Bounds.Height / 3 && nodeDragging.NextNode != nodeOver)
             {
                 if (nodeOver.Parent != null)
                 {
@@ -311,7 +311,7 @@ namespace Core.Common.Controls.TreeView
                 }
             }
             else if (nodeOver.Parent != null &&
-                     offsetY > nodeOver.Bounds.Height - nodeOver.Bounds.Height/3 &&
+                     offsetY > nodeOver.Bounds.Height - nodeOver.Bounds.Height / 3 &&
                      nodeDragging.PrevNode != nodeOver)
             {
                 TreeNodeInfo treeNodeInfo = getTreeNodeInfoForData(nodeOver.Parent.Tag);
@@ -331,8 +331,8 @@ namespace Core.Common.Controls.TreeView
                 }
             }
             else if (nodeDragging != nodeOver &&
-                     offsetY < nodeOver.Bounds.Height - nodeOver.Bounds.Height/4 &&
-                     offsetY > nodeOver.Bounds.Height/4)
+                     offsetY < nodeOver.Bounds.Height - nodeOver.Bounds.Height / 4 &&
+                     offsetY > nodeOver.Bounds.Height / 4)
             {
                 nodeDropTarget = nodeOver;
                 dropAtLocation = 0;
@@ -392,7 +392,7 @@ namespace Core.Common.Controls.TreeView
                     yPos = bounds.Bottom;
                     break;
                 case PlaceholderLocation.Middle:
-                    yPos = bounds.Top + bounds.Height/2;
+                    yPos = bounds.Top + bounds.Height / 2;
                     break;
                 default:
                     throw new InvalidEnumArgumentException("location",
@@ -416,7 +416,7 @@ namespace Core.Common.Controls.TreeView
                     return new[]
                     {
                         new Point(bounds.Left, bounds.Top),
-                        new Point(bounds.Right, bounds.Top + bounds.Height/2),
+                        new Point(bounds.Right, bounds.Top + bounds.Height / 2),
                         new Point(bounds.Left, bounds.Top + bounds.Height),
                         new Point(bounds.Left, bounds.Top)
                     };
@@ -424,7 +424,7 @@ namespace Core.Common.Controls.TreeView
                     return new[]
                     {
                         new Point(bounds.Right, bounds.Top),
-                        new Point(bounds.Left, bounds.Top + bounds.Height/2),
+                        new Point(bounds.Left, bounds.Top + bounds.Height / 2),
                         new Point(bounds.Right, bounds.Top + bounds.Height),
                         new Point(bounds.Right, bounds.Top)
                     };

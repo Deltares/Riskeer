@@ -377,7 +377,7 @@ namespace Core.Components.DotSpatial.Forms.Test
                 Extent expectedExtent = mapView.GetMaxExtent();
 
                 var smallest = expectedExtent.Height < expectedExtent.Width ? expectedExtent.Height : expectedExtent.Width;
-                expectedExtent.ExpandBy(smallest*padding);
+                expectedExtent.ExpandBy(smallest * padding);
                 Assert.AreEqual(expectedExtent, mapView.ViewExtents);
             }
         }
@@ -394,7 +394,7 @@ namespace Core.Components.DotSpatial.Forms.Test
 
                 var expectedExtent = new Extent(0.0, 0.5, 1.6, 2.1);
                 var smallest = expectedExtent.Height < expectedExtent.Width ? expectedExtent.Height : expectedExtent.Width;
-                expectedExtent.ExpandBy(smallest*padding);
+                expectedExtent.ExpandBy(smallest * padding);
 
                 // Precondition
                 Assert.AreEqual(3, mapView.Layers.Count, "Precondition failed: mapView.Layers != 3");
@@ -413,7 +413,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         [TestCase(5.0, 5.0)]
         [TestCase(5.0, 1.0)]
         [TestCase(1.0, 5.0)]
-        [TestCase(double.MaxValue*0.96, double.MaxValue*0.96)]
+        [TestCase(double.MaxValue * 0.96, double.MaxValue * 0.96)]
         [TestCase(double.MaxValue, double.MaxValue)]
         public void ZoomToAllVisibleLayers_LayersOfVariousDimensions_ZoomToVisibleLayersExtent(double xMax, double yMax)
         {
@@ -445,7 +445,7 @@ namespace Core.Components.DotSpatial.Forms.Test
 
                 var expectedExtent = new Extent(0.0, 0.0, xMax, yMax);
                 var smallest = expectedExtent.Height < expectedExtent.Width ? expectedExtent.Height : expectedExtent.Width;
-                expectedExtent.ExpandBy(smallest*padding);
+                expectedExtent.ExpandBy(smallest * padding);
 
                 // Call
                 map.ZoomToAllVisibleLayers();

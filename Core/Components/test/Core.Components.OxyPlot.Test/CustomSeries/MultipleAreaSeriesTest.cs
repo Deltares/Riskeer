@@ -115,13 +115,13 @@ namespace Core.Components.OxyPlot.Test.CustomSeries
             renderContext.Stub(rc => rc.SetClip(OxyRect.Create(0, 0, 0, 0))).Return(true);
             renderContext.Stub(rc => rc.ResetClip());
             renderContext.Expect(rc => rc.DrawPolygon(
-                Arg<ScreenPoint[]>.Matches(sp => sp.Length == pointCount),
-                Arg<OxyColor>.Is.Equal(series.ActualFill),
-                Arg<OxyColor>.Is.Equal(series.ActualColor),
-                Arg<double>.Is.Equal(series.StrokeThickness),
-                Arg<double[]>.Is.Anything,
-                Arg<LineJoin>.Is.Anything,
-                Arg<bool>.Is.Anything));
+                                     Arg<ScreenPoint[]>.Matches(sp => sp.Length == pointCount),
+                                     Arg<OxyColor>.Is.Equal(series.ActualFill),
+                                     Arg<OxyColor>.Is.Equal(series.ActualColor),
+                                     Arg<double>.Is.Equal(series.StrokeThickness),
+                                     Arg<double[]>.Is.Anything,
+                                     Arg<LineJoin>.Is.Anything,
+                                     Arg<bool>.Is.Anything));
 
             mocks.ReplayAll();
             var area = new DataPoint[pointCount];
@@ -156,13 +156,13 @@ namespace Core.Components.OxyPlot.Test.CustomSeries
             renderContext.Stub(rc => rc.SetClip(OxyRect.Create(0, 0, 0, 0))).Return(true);
             renderContext.Stub(rc => rc.ResetClip());
             renderContext.Expect(rc => rc.DrawPolygon(
-                Arg<ScreenPoint[]>.Matches(sp => sp.Length > 0),
-                Arg<OxyColor>.Is.Equal(series.ActualFill),
-                Arg<OxyColor>.Is.Equal(series.ActualColor),
-                Arg<double>.Is.Equal(series.StrokeThickness),
-                Arg<double[]>.Is.Anything,
-                Arg<LineJoin>.Is.Anything,
-                Arg<bool>.Is.Anything)).Repeat.Times(areaCount);
+                                     Arg<ScreenPoint[]>.Matches(sp => sp.Length > 0),
+                                     Arg<OxyColor>.Is.Equal(series.ActualFill),
+                                     Arg<OxyColor>.Is.Equal(series.ActualColor),
+                                     Arg<double>.Is.Equal(series.StrokeThickness),
+                                     Arg<double[]>.Is.Anything,
+                                     Arg<LineJoin>.Is.Anything,
+                                     Arg<bool>.Is.Anything)).Repeat.Times(areaCount);
 
             mocks.ReplayAll();
 

@@ -70,8 +70,8 @@ namespace Application.Ringtoets.Storage.Test.Read
 
         [Test]
         public void Read_NaNParameters_ReturnsHydraulicBoundaryLocationOutputWithNaN(
-            [Values(CalculationConvergence.CalculatedNotConverged, CalculationConvergence.CalculatedConverged,
-                CalculationConvergence.NotCalculated)] CalculationConvergence convergence)
+        [Values(CalculationConvergence.CalculatedNotConverged, CalculationConvergence.CalculatedConverged,
+            CalculationConvergence.NotCalculated)] CalculationConvergence convergence)
         {
             // Setup
             var entity = new TestHydraulicLocationOutputEntity

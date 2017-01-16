@@ -120,7 +120,7 @@ namespace Core.Common.Base.Test.Geometry
             var result = Math2D.LineIntersectionWithLine(new Point2D(start, y1), new Point2D(start + 1, y2), new Point2D(start + 0.5, 0), new Point2D(start + 0.5, 1));
 
             // Assert
-            Assert.AreEqual((y1 + y2)/2, result.Y, 1e-6);
+            Assert.AreEqual((y1 + y2) / 2, result.Y, 1e-6);
         }
 
         [Test]
@@ -490,7 +490,7 @@ namespace Core.Common.Base.Test.Geometry
             double dx)
         {
             // Setup
-            Func<double, double> getY = x => 1.1*x + 2.2;
+            Func<double, double> getY = x => 1.1 * x + 2.2;
             const double x1 = 1.1;
             const double x2 = 3.3;
             var segment1 = new Segment2D(new Point2D(x1, getY(x1)), new Point2D(x2, getY(x2)));
@@ -590,9 +590,9 @@ namespace Core.Common.Base.Test.Geometry
             // Assert
             Assert.AreEqual(Intersection2DType.Intersects, result.IntersectionType);
             CollectionAssert.AreEqual(new[]
-            {
-                segmentCommonPoint
-            }, result.IntersectionPoints,
+                                      {
+                                          segmentCommonPoint
+                                      }, result.IntersectionPoints,
                                       new Point2DComparerWithTolerance(1e-6));
         }
 
@@ -605,7 +605,7 @@ namespace Core.Common.Base.Test.Geometry
             int configurationNumber)
         {
             // Setup
-            Func<double, double> getY = x => 3.3*x + 4.4;
+            Func<double, double> getY = x => 3.3 * x + 4.4;
 
             const double x1 = 5.5;
             const double x2 = 6.6;
@@ -791,7 +791,7 @@ namespace Core.Common.Base.Test.Geometry
         public void GetIntersectionBetweenSegments_CollinearSegmentsWithFullOverlap_ReturnOverlap()
         {
             // Setup
-            Func<double, double> getY = x => -12.34*x + 45.67;
+            Func<double, double> getY = x => -12.34 * x + 45.67;
             const double x1 = 1.1;
             const double x2 = 2.2;
             const double x3 = -3.3;
@@ -885,7 +885,7 @@ namespace Core.Common.Base.Test.Geometry
             bool firstSegmentIsPointDegenerate)
         {
             // Setup
-            Func<double, double> getY = x => 1.2*x + 3.4;
+            Func<double, double> getY = x => 1.2 * x + 3.4;
 
             const double x1 = 1.1;
             const double x2 = 5.5;
@@ -959,7 +959,7 @@ namespace Core.Common.Base.Test.Geometry
             bool firstSegmentIsPointDegenerate)
         {
             // Setup
-            Func<double, double> getY = x => -5.6*x + 7.8;
+            Func<double, double> getY = x => -5.6 * x + 7.8;
 
             const double x1 = 1.1;
             const double x2 = 5.5;
@@ -1146,7 +1146,7 @@ namespace Core.Common.Base.Test.Geometry
             Point2D result = Math2D.GetInterpolatedPointAtFraction(segment, fraction);
 
             // Assert
-            Assert.AreEqual(new Point2D(2.8, (5.02 - 2.2)*fraction), result);
+            Assert.AreEqual(new Point2D(2.8, (5.02 - 2.2) * fraction), result);
         }
 
         [Test]
@@ -1215,7 +1215,7 @@ namespace Core.Common.Base.Test.Geometry
         private static double[] GetLengthsBasedOnRelative(double[] relativeLengths, IEnumerable<Point2D> lineGeometryPoints)
         {
             var lineLength = Math2D.ConvertLinePointsToLineSegments(lineGeometryPoints).Sum(s => s.Length);
-            return relativeLengths.Select(l => lineLength*l).ToArray();
+            return relativeLengths.Select(l => lineLength * l).ToArray();
         }
 
         #region testcases

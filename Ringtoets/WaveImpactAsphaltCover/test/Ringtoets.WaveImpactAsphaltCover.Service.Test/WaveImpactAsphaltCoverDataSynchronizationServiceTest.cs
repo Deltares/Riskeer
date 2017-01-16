@@ -92,7 +92,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
         {
             // Call
             TestDelegate call = () =>
-                                WaveImpactAsphaltCoverDataSynchronizationService.ClearAllWaveConditionsCalculationOutputAndHydraulicBoundaryLocations(null);
+                WaveImpactAsphaltCoverDataSynchronizationService.ClearAllWaveConditionsCalculationOutputAndHydraulicBoundaryLocations(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

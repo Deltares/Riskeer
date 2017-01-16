@@ -161,7 +161,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             // Setup
             var entity = CreateAssessmentSectionEntity();
             var random = new Random(21);
-            var parameterA = random.NextDouble()/10;
+            var parameterA = random.NextDouble() / 10;
             const string inputComments = "Some input text";
             const string outputComments = "Some output text";
             const string notRelevantComments = "Really not relevant";
@@ -1016,7 +1016,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         {
             return new AssessmentSectionEntity
             {
-                Norm = 1.0/30000,
+                Norm = 1.0 / 30000,
                 Composition = Convert.ToByte(AssessmentSectionComposition.Dike)
             };
         }

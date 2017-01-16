@@ -66,7 +66,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
 
             Assert.IsTrue(TypeUtils.HasTypeConverter<StabilityStoneCoverSectionResultRow,
                               NoValueRoundedDoubleConverter>(
-                                  r => r.AssessmentLayerThree));
+                              r => r.AssessmentLayerThree));
         }
 
         [Test]

@@ -114,18 +114,18 @@ namespace Core.Common.Base.Data
 
         public static RoundedDouble operator *(RoundedDouble left, double right)
         {
-            return new RoundedDouble(left.numberOfDecimalPlaces, left.value*right);
+            return new RoundedDouble(left.numberOfDecimalPlaces, left.value * right);
         }
 
         public static RoundedDouble operator *(double left, RoundedDouble right)
         {
-            return new RoundedDouble(right.numberOfDecimalPlaces, left*right.value);
+            return new RoundedDouble(right.numberOfDecimalPlaces, left * right.value);
         }
 
         public static RoundedDouble operator *(RoundedDouble left, RoundedDouble right)
         {
             int smallestNumberOfDecimalPlaces = Math.Min(left.numberOfDecimalPlaces, right.numberOfDecimalPlaces);
-            return new RoundedDouble(smallestNumberOfDecimalPlaces, left.value*right.value);
+            return new RoundedDouble(smallestNumberOfDecimalPlaces, left.value * right.value);
         }
 
         public static implicit operator double(RoundedDouble d)

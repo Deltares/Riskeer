@@ -399,13 +399,13 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
             {
                 var waterLevels = calculation.InputParameters.WaterLevels.ToArray();
                 int currentStep = 1;
-                var totalSteps = waterLevels.Length*2;
+                var totalSteps = waterLevels.Length * 2;
 
                 var stabilityStoneCoverWaveConditionsCalculationService = new StabilityStoneCoverWaveConditionsCalculationService();
                 stabilityStoneCoverWaveConditionsCalculationService.OnProgress += (description, step, steps) =>
                 {
                     // Assert
-                    var text = string.Format("Waterstand '{0}' berekenen.", waterLevels[(step - 1)%waterLevels.Length]);
+                    var text = string.Format("Waterstand '{0}' berekenen.", waterLevels[(step - 1) % waterLevels.Length]);
                     Assert.AreEqual(text, description);
                     Assert.AreEqual(currentStep++, step);
                     Assert.AreEqual(totalSteps, steps);
@@ -450,7 +450,7 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
                 Assert.AreEqual(assessmentSectionStub.Id, testWaveConditionsCosineCalculator.RingId);
 
                 int waterLevelIndex = 0;
-                for (int i = 0; i < testWaveConditionsInputs.Length/2; i++)
+                for (int i = 0; i < testWaveConditionsInputs.Length / 2; i++)
                 {
                     var expectedInput = new WaveConditionsCosineCalculationInput(1,
                                                                                  input.Orientation,
@@ -467,7 +467,7 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
                 }
 
                 waterLevelIndex = 0;
-                for (int i = testWaveConditionsInputs.Length/2; i < testWaveConditionsInputs.Length; i++)
+                for (int i = testWaveConditionsInputs.Length / 2; i < testWaveConditionsInputs.Length; i++)
                 {
                     var expectedInput = new WaveConditionsCosineCalculationInput(1,
                                                                                  input.Orientation,
