@@ -421,10 +421,10 @@ namespace Ringtoets.Common.IO.Structures
         {
             var messages = new List<string>();
 
-            var numericalValueColumn1 = StructureFilesKeywords.NumericalValueColumnName;
+            string numericalValueColumn = StructureFilesKeywords.NumericalValueColumnName;
             messages.AddRange(meanMustBeGreaterThanZero ?
-                                  ValidateGreaterThanZeroDoubleParameter(row, numericalValueColumn1) :
-                                  ValidateDoubleParameter(row, numericalValueColumn1));
+                                  ValidateGreaterThanZeroDoubleParameter(row, numericalValueColumn) :
+                                  ValidateDoubleParameter(row, numericalValueColumn));
             return messages;
         }
 
