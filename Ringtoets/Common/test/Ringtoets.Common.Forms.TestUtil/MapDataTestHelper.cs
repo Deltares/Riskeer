@@ -55,6 +55,7 @@ namespace Ringtoets.Common.Forms.TestUtil
         {
             Assert.IsInstanceOf<MapLineData>(mapData);
             Assert.AreEqual("Vakindeling", mapData.Name);
+
             MapLineData sectionsMapLinesData = (MapLineData) mapData;
             MapFeature[] sectionMapLinesFeatures = sectionsMapLinesData.Features.ToArray();
             FailureMechanismSection[] sectionsArray = sections.ToArray();
@@ -85,6 +86,7 @@ namespace Ringtoets.Common.Forms.TestUtil
         {
             Assert.IsInstanceOf<MapPointData>(mapData);
             Assert.AreEqual("Hydraulische randvoorwaarden", mapData.Name);
+
             MapPointData hydraulicLocationsMapData = (MapPointData) mapData;
             if (hydraulicBoundaryLocations == null)
             {
@@ -117,7 +119,8 @@ namespace Ringtoets.Common.Forms.TestUtil
         {
             Assert.IsInstanceOf<MapLineData>(mapData);
             Assert.AreEqual("Referentielijn", mapData.Name);
-            var referenceLineData = (MapLineData)mapData;
+
+            var referenceLineData = (MapLineData) mapData;
             if (referenceLine == null)
             {
                 CollectionAssert.IsEmpty(referenceLineData.Features);
@@ -145,9 +148,10 @@ namespace Ringtoets.Common.Forms.TestUtil
         {
             Assert.IsInstanceOf<MapPointData>(mapData);
             Assert.AreEqual("Vakindeling (startpunten)", mapData.Name);
-            var sectionsStartPointData = (MapPointData)mapData;
+
+            var sectionsStartPointData = (MapPointData) mapData;
             Assert.AreEqual(1, sectionsStartPointData.Features.Length);
-            CollectionAssert.AreEqual(sections.Select(s => s.GetStart()), sectionsStartPointData.Features.First().MapGeometries.First().PointCollections.First());            
+            CollectionAssert.AreEqual(sections.Select(s => s.GetStart()), sectionsStartPointData.Features.First().MapGeometries.First().PointCollections.First());
         }
 
         /// <summary>
@@ -166,7 +170,8 @@ namespace Ringtoets.Common.Forms.TestUtil
         {
             Assert.IsInstanceOf<MapPointData>(mapData);
             Assert.AreEqual("Vakindeling (eindpunten)", mapData.Name);
-            var sectionsEndPointData = (MapPointData)mapData;
+
+            var sectionsEndPointData = (MapPointData) mapData;
             Assert.AreEqual(1, sectionsEndPointData.Features.Length);
             CollectionAssert.AreEqual(sections.Select(s => s.GetLast()), sectionsEndPointData.Features.First().MapGeometries.First().PointCollections.First());
         }
@@ -181,14 +186,14 @@ namespace Ringtoets.Common.Forms.TestUtil
         /// <item><paramref name="mapData"/> is not <see cref="MapLineData"/>.</item>
         /// <item>The name of the <see cref="MapData"/> is not <c>Voorlandprofielen</c>.</item>
         /// <item>The amount of features in <paramref name="mapData"/> is not equal to the length of the <paramref name="foreshoreProfiles"/>.</item>
-        /// <item>The geometries of the features in <paramref name="mapData"/> is not equal to the expected geometry of the <paramref name="foreshoreProfiles"/>.</item>
+        /// <item>The geometries of the features in <paramref name="mapData"/> are not equal to the expected geometry of the <paramref name="foreshoreProfiles"/>.</item>
         /// </list></exception>
         public static void AssertForeshoreProfilesMapData(IEnumerable<ForeshoreProfile> foreshoreProfiles, MapData mapData)
         {
             Assert.IsInstanceOf<MapLineData>(mapData);
             Assert.AreEqual("Voorlandprofielen", mapData.Name);
 
-            MapLineData foreshoreProfilesData = (MapLineData)mapData;
+            MapLineData foreshoreProfilesData = (MapLineData) mapData;
             ForeshoreProfile[] foreshoreProfileArray = foreshoreProfiles.ToArray();
 
             Assert.AreEqual(foreshoreProfileArray.Length, foreshoreProfilesData.Features.Length);

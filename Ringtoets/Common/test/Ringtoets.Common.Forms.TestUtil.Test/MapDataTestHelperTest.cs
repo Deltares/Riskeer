@@ -965,7 +965,7 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
         }
 
         [Test]
-        public void AssertForeshoreProfilesMapData_ForeshoreProfileLengthNotSameAsMapDataFeaturesLength_ThrowAssertionException()
+        public void AssertForeshoreProfilesMapData_MapDataFeaturesLengthNotSameAsExpectedForeshoreProfilesLength_ThrowsAssertionException()
         {
             // Setup
             var mapData = new MapLineData("Voorlandprofielen")
