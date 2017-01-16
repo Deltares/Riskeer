@@ -1557,15 +1557,6 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Er is geen vakindeling geïmporteerd..
-        /// </summary>
-        public static string Plugin_AllDataAvailable_No_failure_mechanism_sections_imported {
-            get {
-                return ResourceManager.GetString("Plugin_AllDataAvailable_No_failure_mechanism_sections_imported", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap PointShapefileIcon {

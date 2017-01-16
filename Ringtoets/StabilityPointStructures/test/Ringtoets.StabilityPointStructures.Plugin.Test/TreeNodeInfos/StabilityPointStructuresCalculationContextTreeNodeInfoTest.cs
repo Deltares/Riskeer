@@ -113,12 +113,12 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
         [Test]
         public void ChildNodeObjects_CalculationWithoutOutput_ReturnCollectionWithEmptyOutputObject()
         {
-            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            var calculationContext = new StabilityPointStructuresCalculationContext(calculation, failureMechanism, assessmentSectionStub);
+            var calculationContext = new StabilityPointStructuresCalculationContext(calculation, failureMechanism, assessmentSection);
 
             // Call
             var children = info.ChildNodeObjects(calculationContext).ToArray();
@@ -140,7 +140,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
         [Test]
         public void ChildNodeObjects_CalculationWithOutput_ReturnCollectionWithOutputObject()
         {
-            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var calculation = new StructuresCalculation<StabilityPointStructuresInput>
@@ -148,7 +148,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
             };
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            var calculationContext = new StabilityPointStructuresCalculationContext(calculation, failureMechanism, assessmentSectionStub);
+            var calculationContext = new StabilityPointStructuresCalculationContext(calculation, failureMechanism, assessmentSection);
 
             // Call
             var children = info.ChildNodeObjects(calculationContext).ToArray();
@@ -173,9 +173,9 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             // Setup
             var guiMock = mocks.StrictMock<IGui>();
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
-            var nodeData = new StabilityPointStructuresCalculationContext(calculation, failureMechanism, assessmentSectionStub);
+            var nodeData = new StabilityPointStructuresCalculationContext(calculation, failureMechanism, assessmentSection);
             var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
             using (mocks.Ordered())
             {
@@ -192,7 +192,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 menuBuilderMock.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.Build()).Return(null);
             }
-            
+
             using (var treeViewControl = new TreeViewControl())
             {
                 guiMock.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilderMock);
@@ -214,16 +214,16 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             // Setup
             var guiMock = mocks.StrictMock<IGui>();
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
             var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
-            var nodeData = new StabilityPointStructuresCalculationContext(calculation, failureMechanism, assessmentSectionMock);
+            var nodeData = new StabilityPointStructuresCalculationContext(calculation, failureMechanism, assessmentSection);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
             string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
 
             using (var treeViewControl = new TreeViewControl())
             {
                 guiMock.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                assessmentSectionMock.Stub(asm => asm.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase
+                assessmentSection.Stub(asm => asm.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase
                 {
                     FilePath = validFilePath,
                     Version = "random"
@@ -238,7 +238,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 }));
 
                 // Call
-                using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSectionMock, treeViewControl))
+                using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewControl))
                 {
                     // Assert
                     Assert.AreEqual(11, menu.Items.Count);
@@ -263,43 +263,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_NoFailureMechanismSections_ContextMenuItemPerformCalculationAndValidationDisabledAndTooltipSet()
-        {
-            // Setup
-            var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
-            var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
-            var nodeData = new StabilityPointStructuresCalculationContext(calculation, failureMechanism, assessmentSectionStub);
-            var guiMock = mocks.StrictMock<IGui>();
-
-            using (var treeViewControl = new TreeViewControl())
-            {
-                guiMock.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                mocks.ReplayAll();
-
-                plugin.Gui = guiMock;
-
-                // Call
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
-                {
-                    // Assert
-                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuCalculateIndex,
-                                                                  "Be&rekenen",
-                                                                  "Er is geen vakindeling geïmporteerd.",
-                                                                  RingtoetsCommonFormsResources.CalculateIcon,
-                                                                  false);
-
-                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuValidateIndex,
-                                                                  "&Valideren",
-                                                                  "Er is geen vakindeling geïmporteerd.",
-                                                                  RingtoetsCommonFormsResources.ValidateIcon,
-                                                                  false);
-                }
-            }
-        }
-
-        [Test]
-        public void ContextMenuStrip_FailureMechanismSectionsSetNoHydraulicBoundaryDatabase_ContextMenuItemPerformCalculationAndValidationDisabledAndTooltipSet()
+        public void ContextMenuStrip_NoHydraulicBoundaryDatabase_ContextMenuItemPerformCalculationAndValidationDisabledAndTooltipSet()
         {
             // Setup
             var guiMock = mocks.StrictMock<IGui>();
@@ -309,9 +273,9 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 new Point2D(0, 0)
             }));
 
-            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
-            var nodeData = new StabilityPointStructuresCalculationContext(calculation, failureMechanism, assessmentSectionStub);
+            var nodeData = new StabilityPointStructuresCalculationContext(calculation, failureMechanism, assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -345,16 +309,12 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             // Setup
             var guiMock = mocks.StrictMock<IGui>();
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("test", new[]
-            {
-                new Point2D(0, 0)
-            }));
 
-            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
-            assessmentSectionStub.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
 
             var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
-            var nodeData = new StabilityPointStructuresCalculationContext(calculation, failureMechanism, assessmentSectionStub);
+            var nodeData = new StabilityPointStructuresCalculationContext(calculation, failureMechanism, assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -385,7 +345,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_FailureMechanismSectionsAndHydraulicBoundaryDatabaseSet_ContextMenuItemPerformCalculationAndValidationEnabled()
+        public void ContextMenuStrip_HydraulicBoundaryDatabaseSet_ContextMenuItemPerformCalculationAndValidationEnabled()
         {
             // Setup
             var guiMock = mocks.StrictMock<IGui>();
@@ -402,11 +362,11 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 new Point2D(0, 0)
             }));
 
-            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
-            assessmentSectionStub.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
 
             var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
-            var nodeData = new StabilityPointStructuresCalculationContext(calculation, failureMechanism, assessmentSectionStub);
+            var nodeData = new StabilityPointStructuresCalculationContext(calculation, failureMechanism, assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -439,17 +399,8 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             // Given
             var guiMock = mocks.StrictMock<IGui>();
             var mainWindow = mocks.Stub<IMainWindow>();
-            var observerMock = mocks.StrictMock<IObserver>();
-            observerMock.Expect(o => o.UpdateObserver());
-
-            var section = new FailureMechanismSection("A", new[]
-            {
-                new Point2D(1, 2),
-                new Point2D(3, 4)
-            });
-
-            var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            failureMechanism.AddSection(section);
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
 
             string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
 
@@ -461,9 +412,10 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             };
             hydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);
 
-            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
-            assessmentSectionStub.Stub(a => a.Id).Return(string.Empty);
-            assessmentSectionStub.Stub(a => a.FailureMechanismContribution).Return(new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 1, 1));
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
+            assessmentSection.Stub(a => a.Id).Return(string.Empty);
+            assessmentSection.Stub(a => a.FailureMechanismContribution).Return(new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 1, 1));
 
             var initialOutput = new ProbabilityAssessmentOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN);
             var calculation = new TestStabilityPointStructuresCalculation
@@ -476,8 +428,10 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                     LoadSchematizationType = LoadSchematizationType.Linear
                 }
             };
+            calculation.Attach(observer);
 
-            var calculationContext = new StabilityPointStructuresCalculationContext(calculation, failureMechanism, assessmentSectionStub);
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+            var calculationContext = new StabilityPointStructuresCalculationContext(calculation, failureMechanism, assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -487,9 +441,6 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 mocks.ReplayAll();
 
                 plugin.Gui = guiMock;
-
-                assessmentSectionStub.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
-                calculation.Attach(observerMock);
 
                 DialogBoxHandler = (name, wnd) =>
                 {
@@ -524,16 +475,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
         public void GivenCalculationWithNonExistingFilePath_WhenValidatingFromContextMenu_ThenLogMessagesAdded()
         {
             // Given
-            var observerMock = mocks.StrictMock<IObserver>();
-
-            var section = new FailureMechanismSection("A", new[]
-            {
-                new Point2D(1, 2),
-                new Point2D(3, 4)
-            });
-
-            var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            failureMechanism.AddSection(section);
+            var observer = mocks.StrictMock<IObserver>();
 
             string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
 
@@ -557,7 +499,9 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                     LoadSchematizationType = LoadSchematizationType.Linear
                 }
             };
+            calculation.Attach(observer);
 
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
             var calculationContext = new StabilityPointStructuresCalculationContext(calculation, failureMechanism, assessmentSectionStub);
 
             using (var treeViewControl = new TreeViewControl())
@@ -568,8 +512,6 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 mocks.ReplayAll();
 
                 plugin.Gui = guiMock;
-
-                calculation.Attach(observerMock);
 
                 using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(calculationContext, null, treeViewControl))
                 {
@@ -595,22 +537,22 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             var group = new CalculationGroup();
             var elementToBeRemoved = new StructuresCalculation<StabilityPointStructuresInput>();
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            var observerMock = mocks.StrictMock<IObserver>();
-            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
+            var observer = mocks.StrictMock<IObserver>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             var calculationContext = new StabilityPointStructuresCalculationContext(elementToBeRemoved,
                                                                                     failureMechanism,
-                                                                                    assessmentSectionStub);
+                                                                                    assessmentSection);
             var groupContext = new StabilityPointStructuresCalculationGroupContext(group,
                                                                                    failureMechanism,
-                                                                                   assessmentSectionStub);
+                                                                                   assessmentSection);
 
-            observerMock.Expect(o => o.UpdateObserver());
+            observer.Expect(o => o.UpdateObserver());
 
             mocks.ReplayAll();
 
             group.Children.Add(elementToBeRemoved);
             group.Children.Add(new StructuresCalculation<StabilityPointStructuresInput>());
-            group.Attach(observerMock);
+            group.Attach(observer);
 
             // Precondition
             Assert.IsTrue(info.CanRemove(calculationContext, groupContext));
@@ -631,13 +573,13 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             var group = new CalculationGroup();
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             var elementToBeRemoved = new StructuresCalculation<StabilityPointStructuresInput>();
-            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             var calculationContext = new StabilityPointStructuresCalculationContext(elementToBeRemoved,
                                                                                     failureMechanism,
-                                                                                    assessmentSectionStub);
+                                                                                    assessmentSection);
             var groupContext = new StabilityPointStructuresCalculationGroupContext(group,
                                                                                    failureMechanism,
-                                                                                   assessmentSectionStub);
+                                                                                   assessmentSection);
 
             mocks.ReplayAll();
 
