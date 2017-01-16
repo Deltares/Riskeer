@@ -48,7 +48,7 @@ namespace Ringtoets.StabilityPointStructures.Data.TestUtil.Test
             AssertAreEqual(0.35, structure.AllowedLevelIncreaseStorage.StandardDeviation);
 
             AssertAreEqual(456.789, structure.WidthFlowApertures.Mean);
-            AssertAreEqual(0.456, structure.WidthFlowApertures.CoefficientOfVariation);
+            AssertAreEqual(0.456, structure.WidthFlowApertures.StandardDeviation);
 
             AssertAreEqual(567.890, structure.InsideWaterLevel.Mean);
             AssertAreEqual(0.567, structure.InsideWaterLevel.StandardDeviation);
@@ -131,7 +131,7 @@ namespace Ringtoets.StabilityPointStructures.Data.TestUtil.Test
             AssertAreEqual(0.35, structure.AllowedLevelIncreaseStorage.StandardDeviation);
 
             AssertAreEqual(456.789, structure.WidthFlowApertures.Mean);
-            AssertAreEqual(0.456, structure.WidthFlowApertures.CoefficientOfVariation);
+            AssertAreEqual(0.456, structure.WidthFlowApertures.StandardDeviation);
 
             AssertAreEqual(567.890, structure.InsideWaterLevel.Mean);
             AssertAreEqual(0.567, structure.InsideWaterLevel.StandardDeviation);
@@ -214,7 +214,7 @@ namespace Ringtoets.StabilityPointStructures.Data.TestUtil.Test
             AssertAreEqual(0.35, structure.AllowedLevelIncreaseStorage.StandardDeviation);
 
             AssertAreEqual(456.789, structure.WidthFlowApertures.Mean);
-            AssertAreEqual(0.456, structure.WidthFlowApertures.CoefficientOfVariation);
+            AssertAreEqual(0.456, structure.WidthFlowApertures.StandardDeviation);
 
             AssertAreEqual(567.890, structure.InsideWaterLevel.Mean);
             AssertAreEqual(0.567, structure.InsideWaterLevel.StandardDeviation);

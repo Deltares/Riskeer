@@ -156,9 +156,9 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
 
             var dynamicPropertyBag = new DynamicPropertyBag(properties);
             PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties(new Attribute[]
-                                                                                              {
-                                                                                                  new BrowsableAttribute(true)
-                                                                                              });
+            {
+                new BrowsableAttribute(true)
+            });
             Assert.AreEqual(35, dynamicProperties.Count);
 
             PropertyDescriptor volumicWeightWaterProperty = dynamicProperties[linearLowSillVolumicWeightWaterPropertyIndex];
@@ -333,9 +333,9 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
 
             var dynamicPropertyBag = new DynamicPropertyBag(properties);
             PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties(new Attribute[]
-                                                                                              {
-                                                                                                  new BrowsableAttribute(true)
-                                                                                              });
+            {
+                new BrowsableAttribute(true)
+            });
             Assert.AreEqual(35, dynamicProperties.Count);
 
             PropertyDescriptor volumicWeightWaterProperty = dynamicProperties[quadraticLowSillVolumicWeightWaterPropertyIndex];
@@ -510,9 +510,9 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
 
             var dynamicPropertyBag = new DynamicPropertyBag(properties);
             PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties(new Attribute[]
-                                                                                              {
-                                                                                                  new BrowsableAttribute(true)
-                                                                                              });
+            {
+                new BrowsableAttribute(true)
+            });
             Assert.AreEqual(35, dynamicProperties.Count);
 
             PropertyDescriptor volumicWeightWaterProperty = dynamicProperties[linearFloodedCulvertVolumicWeightWaterPropertyIndex];
@@ -697,9 +697,9 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
 
             var dynamicPropertyBag = new DynamicPropertyBag(properties);
             PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties(new Attribute[]
-                                                                                              {
-                                                                                                  new BrowsableAttribute(true)
-                                                                                              });
+            {
+                new BrowsableAttribute(true)
+            });
             Assert.AreEqual(35, dynamicProperties.Count);
 
             PropertyDescriptor volumicWeightWaterProperty = dynamicProperties[quadraticFloodedCulvertVolumicWeightWaterPropertyIndex];
@@ -1416,6 +1416,51 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(null));
         }
 
+        private void SetPropertyAndVerifyNotifcationsAndOutput(
+            bool hasOutput,
+            Action<StabilityPointStructuresInputContextProperties> setProperty)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+
+            var calculationObserver = mocks.StrictMock<IObserver>();
+            int numberOfChangedProperties = hasOutput ? 1 : 0;
+            calculationObserver.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChangedProperties);
+
+            var inputObserver = mocks.StrictMock<IObserver>();
+            inputObserver.Expect(o => o.UpdateObserver());
+
+            mocks.ReplayAll();
+
+            var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
+
+            if (hasOutput)
+            {
+                calculation.Output = new TestStructuresOutput();
+            }
+            calculation.Attach(calculationObserver);
+
+            StabilityPointStructuresInput inputParameters = calculation.InputParameters;
+            inputParameters.Attach(inputObserver);
+
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+
+            var properties = new StabilityPointStructuresInputContextProperties(new StabilityPointStructuresInputContext(inputParameters,
+                                                                                                                         calculation,
+                                                                                                                         failureMechanism,
+                                                                                                                         assessmentSection)
+            );
+
+            // Call
+            setProperty(properties);
+
+            // Assert
+            Assert.IsFalse(calculation.HasOutput);
+
+            mocks.VerifyAll();
+        }
+
         #region LowSill + Linear Model property Indices
 
         private const int linearLowSillHydraulicBoundaryLocationPropertyIndex = 0;
@@ -1575,50 +1620,5 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         private const int quadraticFloodedCulvertUseForeshorePropertyIndex = 34;
 
         #endregion
-
-        private void SetPropertyAndVerifyNotifcationsAndOutput(
-            bool hasOutput,
-            Action<StabilityPointStructuresInputContextProperties> setProperty)
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-
-            var calculationObserver = mocks.StrictMock<IObserver>();
-            int numberOfChangedProperties = hasOutput ? 1 : 0;
-            calculationObserver.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChangedProperties);
-
-            var inputObserver = mocks.StrictMock<IObserver>();
-            inputObserver.Expect(o => o.UpdateObserver());
-
-            mocks.ReplayAll();
-
-            var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
-
-            if (hasOutput)
-            {
-                calculation.Output = new TestStructuresOutput();
-            }
-            calculation.Attach(calculationObserver);
-
-            StabilityPointStructuresInput inputParameters = calculation.InputParameters;
-            inputParameters.Attach(inputObserver);
-
-            var failureMechanism = new StabilityPointStructuresFailureMechanism();
-
-            var properties = new StabilityPointStructuresInputContextProperties(new StabilityPointStructuresInputContext(inputParameters,
-                                              calculation,
-                                              failureMechanism,
-                                              assessmentSection)
-            );
-
-            // Call
-            setProperty(properties);
-
-            // Assert
-            Assert.IsFalse(calculation.HasOutput);
-
-            mocks.VerifyAll();
-        }
     }
 }

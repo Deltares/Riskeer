@@ -185,11 +185,11 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Structure_WidthFlowApertures_DisplayName))]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Structure_WidthFlowApertures_Description))]
-        public VariationCoefficientNormalDistributionProperties WidthFlowApertures
+        public NormalDistributionProperties WidthFlowApertures
         {
             get
             {
-                return new VariationCoefficientNormalDistributionProperties
+                return new NormalDistributionProperties
                 {
                     Data = data.WidthFlowApertures
                 };

@@ -79,7 +79,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             Assert.AreEqual("Normaal", properties.WidthFlowApertures.DistributionType);
             Assert.AreEqual(structure.WidthFlowApertures, properties.WidthFlowApertures.Data);
             Assert.IsTrue(properties.WidthFlowApertures.DynamicReadOnlyValidationMethod("Mean"));
-            Assert.IsTrue(properties.WidthFlowApertures.DynamicReadOnlyValidationMethod("CoefficientOfVariation"));
+            Assert.IsTrue(properties.WidthFlowApertures.DynamicReadOnlyValidationMethod("StandardDeviation"));
 
             Assert.AreEqual("Lognormaal", properties.StorageStructureArea.DistributionType);
             Assert.AreEqual(structure.StorageStructureArea, properties.StorageStructureArea.Data);

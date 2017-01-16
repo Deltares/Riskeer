@@ -139,7 +139,7 @@ namespace Ringtoets.ClosingStructures.IO.Test
             {
                 "De variatie voor parameter 'KW_BETSLUIT1' van kunstwerk 'Coupure Den Oever (90k1)' (KUNST1) wordt omgerekend in een variatiecoëfficiënt (regel 10).",
                 "De variatie voor parameter 'KW_BETSLUIT2' van kunstwerk 'Coupure Den Oever (90k1)' (KUNST1) wordt omgerekend in een standaardafwijking (regel 11).",
-                "De variatie voor parameter 'KW_BETSLUIT4' van kunstwerk 'Coupure Den Oever (90k1)' (KUNST1) wordt omgerekend in een variatiecoëfficiënt (regel 13).",
+                "De variatie voor parameter 'KW_BETSLUIT4' van kunstwerk 'Coupure Den Oever (90k1)' (KUNST1) wordt omgerekend in een standaardafwijking (regel 13).",
                 "De variatie voor parameter 'KW_BETSLUIT5' van kunstwerk 'Coupure Den Oever (90k1)' (KUNST1) wordt omgerekend in een standaardafwijking (regel 14).",
                 "De variatie voor parameter 'KW_BETSLUIT6' van kunstwerk 'Coupure Den Oever (90k1)' (KUNST1) wordt omgerekend in een standaardafwijking (regel 15).",
                 "De variatie voor parameter 'KW_BETSLUIT7' van kunstwerk 'Coupure Den Oever (90k1)' (KUNST1) wordt omgerekend in een standaardafwijking (regel 16).",
@@ -154,7 +154,7 @@ namespace Ringtoets.ClosingStructures.IO.Test
             ClosingStructure structure = importTarget[0];
             Assert.AreEqual(0.2, structure.StorageStructureArea.CoefficientOfVariation.Value);
             Assert.AreEqual(20, structure.AllowedLevelIncreaseStorage.StandardDeviation.Value);
-            Assert.AreEqual(0.5, structure.WidthFlowApertures.CoefficientOfVariation.Value);
+            Assert.AreEqual(50, structure.WidthFlowApertures.StandardDeviation.Value);
             Assert.AreEqual(2.2, structure.LevelCrestStructureNotClosing.StandardDeviation.Value);
             Assert.AreEqual(3.3, structure.InsideWaterLevel.StandardDeviation.Value);
             Assert.AreEqual(4.4, structure.ThresholdHeightOpenWeir.StandardDeviation.Value);

@@ -56,7 +56,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
                     WidthFlowApertures =
                     {
                         Mean = (RoundedDouble) 456.789,
-                        CoefficientOfVariation = (RoundedDouble) 0.456
+                        StandardDeviation = (RoundedDouble) 0.456
                     },
                     InsideWaterLevel =
                     {
@@ -161,11 +161,11 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             Assert.AreEqual(2, allowedLevelIncreaseStorage.StandardDeviation.NumberOfDecimalPlaces);
             Assert.AreEqual(0.35, allowedLevelIncreaseStorage.StandardDeviation, allowedLevelIncreaseStorage.StandardDeviation.GetAccuracy());
 
-            VariationCoefficientNormalDistribution widthFlowApertures = structure.WidthFlowApertures;
+            NormalDistribution widthFlowApertures = structure.WidthFlowApertures;
             Assert.AreEqual(2, widthFlowApertures.Mean.NumberOfDecimalPlaces);
             Assert.AreEqual(456.79, widthFlowApertures.Mean, widthFlowApertures.Mean.GetAccuracy());
-            Assert.AreEqual(2, widthFlowApertures.CoefficientOfVariation.NumberOfDecimalPlaces);
-            Assert.AreEqual(0.46, widthFlowApertures.CoefficientOfVariation, widthFlowApertures.CoefficientOfVariation.GetAccuracy());
+            Assert.AreEqual(2, widthFlowApertures.StandardDeviation.NumberOfDecimalPlaces);
+            Assert.AreEqual(0.46, widthFlowApertures.StandardDeviation, widthFlowApertures.StandardDeviation.GetAccuracy());
 
             NormalDistribution insideWaterLevel = structure.InsideWaterLevel;
             Assert.AreEqual(2, insideWaterLevel.Mean.NumberOfDecimalPlaces);

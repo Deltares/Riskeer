@@ -91,7 +91,7 @@ namespace Application.Ringtoets.Storage.Read.StabilityPointStructures
                 WidthFlowApertures =
                 {
                     Mean = (RoundedDouble) entity.WidthFlowAperturesMean.ToNullAsNaN(),
-                    CoefficientOfVariation = (RoundedDouble) entity.WidthFlowAperturesCoefficientOfVariation.ToNullAsNaN()
+                    StandardDeviation = (RoundedDouble) entity.WidthFlowAperturesStandardDeviation.ToNullAsNaN()
                 },
                 ConstructiveStrengthLinearLoadModel =
                 {

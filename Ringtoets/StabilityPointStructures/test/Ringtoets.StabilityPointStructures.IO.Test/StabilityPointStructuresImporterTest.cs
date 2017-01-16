@@ -150,7 +150,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test
             {
                 "De variatie voor parameter 'KW_STERSTAB2' van kunstwerk 'Coupure Den Oever (90k1)' (KUNST1) wordt omgerekend in een variatiecoëfficiënt (regel 26).",
                 "De variatie voor parameter 'KW_STERSTAB3' van kunstwerk 'Coupure Den Oever (90k1)' (KUNST1) wordt omgerekend in een standaardafwijking (regel 27).",
-                "De variatie voor parameter 'KW_STERSTAB4' van kunstwerk 'Coupure Den Oever (90k1)' (KUNST1) wordt omgerekend in een variatiecoëfficiënt (regel 28).",
+                "De variatie voor parameter 'KW_STERSTAB4' van kunstwerk 'Coupure Den Oever (90k1)' (KUNST1) wordt omgerekend in een standaardafwijking (regel 28).",
                 "De variatie voor parameter 'KW_STERSTAB5' van kunstwerk 'Coupure Den Oever (90k1)' (KUNST1) wordt omgerekend in een standaardafwijking (regel 29).",
                 "De variatie voor parameter 'KW_STERSTAB6' van kunstwerk 'Coupure Den Oever (90k1)' (KUNST1) wordt omgerekend in een standaardafwijking (regel 30).",
                 "De variatie voor parameter 'KW_STERSTAB7' van kunstwerk 'Coupure Den Oever (90k1)' (KUNST1) wordt omgerekend in een variatiecoëfficiënt (regel 31).",
@@ -175,7 +175,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test
             StabilityPointStructure structure = importTarget[0];
             Assert.AreEqual(0.5, structure.StorageStructureArea.CoefficientOfVariation.Value);
             Assert.AreEqual(2, structure.AllowedLevelIncreaseStorage.StandardDeviation.Value);
-            Assert.AreEqual(1, structure.WidthFlowApertures.CoefficientOfVariation.Value);
+            Assert.AreEqual(4, structure.WidthFlowApertures.StandardDeviation.Value);
             Assert.AreEqual(4, structure.InsideWaterLevel.StandardDeviation.Value);
             Assert.AreEqual(6, structure.ThresholdHeightOpenWeir.StandardDeviation.Value);
             Assert.AreEqual(1.5, structure.CriticalOvertoppingDischarge.CoefficientOfVariation.Value);

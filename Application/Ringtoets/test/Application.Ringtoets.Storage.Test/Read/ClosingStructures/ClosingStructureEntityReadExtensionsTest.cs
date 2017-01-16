@@ -85,7 +85,7 @@ namespace Application.Ringtoets.Storage.Test.Read.ClosingStructures
                 AllowedLevelIncreaseStorageMean = 6.6,
                 AllowedLevelIncreaseStorageStandardDeviation = 7.7,
                 WidthFlowAperturesMean = 8.8,
-                WidthFlowAperturesCoefficientOfVariation = 9.9,
+                WidthFlowAperturesStandardDeviation = 9.9,
                 LevelCrestStructureNotClosingMean = 10.10,
                 LevelCrestStructureNotClosingStandardDeviation = 11.11,
                 InsideWaterLevelMean = 12.12,
@@ -121,7 +121,7 @@ namespace Application.Ringtoets.Storage.Test.Read.ClosingStructures
             Assert.AreEqual(entity.AllowedLevelIncreaseStorageMean, structure.AllowedLevelIncreaseStorage.Mean.Value);
             Assert.AreEqual(entity.AllowedLevelIncreaseStorageStandardDeviation, structure.AllowedLevelIncreaseStorage.StandardDeviation.Value);
             Assert.AreEqual(entity.WidthFlowAperturesMean, structure.WidthFlowApertures.Mean.Value);
-            Assert.AreEqual(entity.WidthFlowAperturesCoefficientOfVariation, structure.WidthFlowApertures.CoefficientOfVariation.Value);
+            Assert.AreEqual(entity.WidthFlowAperturesStandardDeviation, structure.WidthFlowApertures.StandardDeviation.Value);
             Assert.AreEqual(entity.LevelCrestStructureNotClosingMean, structure.LevelCrestStructureNotClosing.Mean.Value);
             Assert.AreEqual(entity.LevelCrestStructureNotClosingStandardDeviation, structure.LevelCrestStructureNotClosing.StandardDeviation.Value);
             Assert.AreEqual(entity.InsideWaterLevelMean, structure.InsideWaterLevel.Mean.Value);
@@ -159,7 +159,7 @@ namespace Application.Ringtoets.Storage.Test.Read.ClosingStructures
                 AllowedLevelIncreaseStorageMean = null,
                 AllowedLevelIncreaseStorageStandardDeviation = null,
                 WidthFlowAperturesMean = null,
-                WidthFlowAperturesCoefficientOfVariation = null,
+                WidthFlowAperturesStandardDeviation = null,
                 LevelCrestStructureNotClosingMean = null,
                 LevelCrestStructureNotClosingStandardDeviation = null,
                 InsideWaterLevelMean = null,
@@ -191,7 +191,7 @@ namespace Application.Ringtoets.Storage.Test.Read.ClosingStructures
             Assert.IsNaN(structure.AllowedLevelIncreaseStorage.Mean);
             Assert.IsNaN(structure.AllowedLevelIncreaseStorage.StandardDeviation);
             Assert.IsNaN(structure.WidthFlowApertures.Mean);
-            Assert.IsNaN(structure.WidthFlowApertures.CoefficientOfVariation);
+            Assert.IsNaN(structure.WidthFlowApertures.StandardDeviation);
             Assert.IsNaN(structure.LevelCrestStructureNotClosing.Mean);
             Assert.IsNaN(structure.LevelCrestStructureNotClosing.StandardDeviation);
             Assert.IsNaN(structure.InsideWaterLevel.Mean);

@@ -89,7 +89,7 @@ namespace Application.Ringtoets.Storage.Test.Read.StabilityPointStructures
                 CriticalOvertoppingDischargeCoefficientOfVariation = 10.10,
                 FailureProbabilityStructureWithErosion = 0.11,
                 WidthFlowAperturesMean = 12.12,
-                WidthFlowAperturesCoefficientOfVariation = 13.13,
+                WidthFlowAperturesStandardDeviation = 13.13,
                 StormDurationMean = 14.14,
                 UseBreakWater = Convert.ToByte(true),
                 BreakWaterType = Convert.ToByte(BreakWaterType.Wall),
@@ -159,7 +159,7 @@ namespace Application.Ringtoets.Storage.Test.Read.StabilityPointStructures
             Assert.AreEqual(entity.CriticalOvertoppingDischargeCoefficientOfVariation, inputParameters.CriticalOvertoppingDischarge.CoefficientOfVariation.Value);
             Assert.AreEqual(entity.FailureProbabilityStructureWithErosion, inputParameters.FailureProbabilityStructureWithErosion);
             Assert.AreEqual(entity.WidthFlowAperturesMean, inputParameters.WidthFlowApertures.Mean.Value);
-            Assert.AreEqual(entity.WidthFlowAperturesCoefficientOfVariation, inputParameters.WidthFlowApertures.CoefficientOfVariation.Value);
+            Assert.AreEqual(entity.WidthFlowAperturesStandardDeviation, inputParameters.WidthFlowApertures.StandardDeviation.Value);
             Assert.AreEqual(entity.StormDurationMean, inputParameters.StormDuration.Mean.Value);
             Assert.AreEqual(Convert.ToBoolean(entity.UseBreakWater), inputParameters.UseBreakWater);
             Assert.AreEqual((BreakWaterType) entity.BreakWaterType, inputParameters.BreakWater.Type);
@@ -224,7 +224,7 @@ namespace Application.Ringtoets.Storage.Test.Read.StabilityPointStructures
                 CriticalOvertoppingDischargeMean = null,
                 CriticalOvertoppingDischargeCoefficientOfVariation = null,
                 WidthFlowAperturesMean = null,
-                WidthFlowAperturesCoefficientOfVariation = null,
+                WidthFlowAperturesStandardDeviation = null,
                 StormDurationMean = null,
                 BreakWaterHeight = null,
                 InsideWaterLevelMean = null,
@@ -279,7 +279,7 @@ namespace Application.Ringtoets.Storage.Test.Read.StabilityPointStructures
             Assert.IsNaN(inputParameters.CriticalOvertoppingDischarge.Mean);
             Assert.IsNaN(inputParameters.CriticalOvertoppingDischarge.CoefficientOfVariation);
             Assert.IsNaN(inputParameters.WidthFlowApertures.Mean);
-            Assert.IsNaN(inputParameters.WidthFlowApertures.CoefficientOfVariation);
+            Assert.IsNaN(inputParameters.WidthFlowApertures.StandardDeviation);
             Assert.IsNaN(inputParameters.StormDuration.Mean);
             Assert.IsNaN(inputParameters.BreakWater.Height);
 

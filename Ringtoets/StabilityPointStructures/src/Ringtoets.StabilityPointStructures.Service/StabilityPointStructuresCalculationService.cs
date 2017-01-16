@@ -24,19 +24,15 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
-using System.Security;
 using Core.Common.IO.Exceptions;
 using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.IO.HydraRing;
 using Ringtoets.Common.Service;
 using Ringtoets.Common.Service.ValidationRules;
-using Ringtoets.Common.Utils;
 using Ringtoets.HydraRing.Calculation.Calculator;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
-using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Data.Input;
 using Ringtoets.HydraRing.Calculation.Data.Input.Structures;
 using Ringtoets.HydraRing.Calculation.Exceptions;
@@ -347,7 +343,7 @@ namespace Ringtoets.StabilityPointStructures.Service
                 calculation.InputParameters.StabilityLinearLoadModel.Mean,
                 calculation.InputParameters.StabilityLinearLoadModel.CoefficientOfVariation,
                 calculation.InputParameters.WidthFlowApertures.Mean,
-                calculation.InputParameters.WidthFlowApertures.CoefficientOfVariation);
+                calculation.InputParameters.WidthFlowApertures.StandardDeviation);
 
             return structuresStabilityPointLowSillLinearCalculationInput;
         }
@@ -419,7 +415,7 @@ namespace Ringtoets.StabilityPointStructures.Service
                 calculation.InputParameters.StabilityQuadraticLoadModel.Mean,
                 calculation.InputParameters.StabilityQuadraticLoadModel.CoefficientOfVariation,
                 calculation.InputParameters.WidthFlowApertures.Mean,
-                calculation.InputParameters.WidthFlowApertures.CoefficientOfVariation);
+                calculation.InputParameters.WidthFlowApertures.StandardDeviation);
         }
 
         private StructuresStabilityPointFloodedCulvertLinearCalculationInput CreateFloodedCulvertLinearCalculationInput(
@@ -652,8 +648,8 @@ namespace Ringtoets.StabilityPointStructures.Service
                                      ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_FactorStormDurationOpenStructure_DisplayName)),
                 new NumericInputRule(input.StructureNormalOrientation,
                                      ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_StructureNormalOrientation_DisplayName)),
-                new VariationCoefficientNormalDistributionRule(input.WidthFlowApertures,
-                                                               ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_WidthFlowApertures_DisplayName)),
+                new NormalDistributionRule(input.WidthFlowApertures,
+                                           ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_WidthFlowApertures_DisplayName)),
                 new LogNormalDistributionRule(input.FlowWidthAtBottomProtection,
                                               ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_FlowWidthAtBottomProtection_DisplayName)),
                 new VariationCoefficientLogNormalDistributionRule(input.StorageStructureArea,
@@ -706,8 +702,8 @@ namespace Ringtoets.StabilityPointStructures.Service
                                      ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_FactorStormDurationOpenStructure_DisplayName)),
                 new NumericInputRule(input.StructureNormalOrientation,
                                      ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_StructureNormalOrientation_DisplayName)),
-                new VariationCoefficientNormalDistributionRule(input.WidthFlowApertures,
-                                                               ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_WidthFlowApertures_DisplayName)),
+                new NormalDistributionRule(input.WidthFlowApertures,
+                                           ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_WidthFlowApertures_DisplayName)),
                 new LogNormalDistributionRule(input.FlowWidthAtBottomProtection,
                                               ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_FlowWidthAtBottomProtection_DisplayName)),
                 new VariationCoefficientLogNormalDistributionRule(input.StorageStructureArea,

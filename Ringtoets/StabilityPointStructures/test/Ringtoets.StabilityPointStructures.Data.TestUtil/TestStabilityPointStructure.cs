@@ -52,7 +52,7 @@ namespace Ringtoets.StabilityPointStructures.Data.TestUtil
                 WidthFlowApertures =
                 {
                     Mean = (RoundedDouble) 456.789,
-                    CoefficientOfVariation = (RoundedDouble) 0.456
+                    StandardDeviation = (RoundedDouble) 0.456
                 },
                 InsideWaterLevel =
                 {

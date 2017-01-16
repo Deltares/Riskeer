@@ -42,7 +42,7 @@ namespace Ringtoets.Common.Data.Structures
         private readonly VariationCoefficientLogNormalDistribution storageStructureArea;
         private readonly LogNormalDistribution flowWidthAtBottomProtection;
         private readonly VariationCoefficientLogNormalDistribution criticalOvertoppingDischarge;
-        private readonly VariationCoefficientNormalDistribution widthFlowApertures;
+        private readonly NormalDistribution widthFlowApertures;
         private readonly VariationCoefficientLogNormalDistribution stormDuration;
 
         private T structure;
@@ -75,7 +75,7 @@ namespace Ringtoets.Common.Data.Structures
             flowWidthAtBottomProtection = new LogNormalDistribution(2);
             criticalOvertoppingDischarge = new VariationCoefficientLogNormalDistribution(2);
             failureProbabilityStructureWithErosion = 1.0;
-            widthFlowApertures = new VariationCoefficientNormalDistribution(2);
+            widthFlowApertures = new NormalDistribution(2);
 
             SetDefaultCommonStructureSchematizationProperties();
             UpdateProfileParameters();
@@ -165,10 +165,10 @@ namespace Ringtoets.Common.Data.Structures
                 CoefficientOfVariation = RoundedDouble.NaN
             };
 
-            WidthFlowApertures = new VariationCoefficientNormalDistribution
+            WidthFlowApertures = new NormalDistribution
             {
                 Mean = RoundedDouble.NaN,
-                CoefficientOfVariation = RoundedDouble.NaN
+                StandardDeviation = RoundedDouble.NaN
             };
         }
 
@@ -317,7 +317,7 @@ namespace Ringtoets.Common.Data.Structures
         /// Gets or sets the width of flow apertures.
         /// [m]
         /// </summary>
-        public VariationCoefficientNormalDistribution WidthFlowApertures
+        public NormalDistribution WidthFlowApertures
         {
             get
             {
@@ -326,7 +326,7 @@ namespace Ringtoets.Common.Data.Structures
             set
             {
                 widthFlowApertures.Mean = value.Mean;
-                widthFlowApertures.CoefficientOfVariation = value.CoefficientOfVariation;
+                widthFlowApertures.StandardDeviation = value.StandardDeviation;
             }
         }
 

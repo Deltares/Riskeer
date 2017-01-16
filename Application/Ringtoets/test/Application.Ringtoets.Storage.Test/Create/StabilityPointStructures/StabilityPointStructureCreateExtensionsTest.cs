@@ -74,7 +74,7 @@ namespace Application.Ringtoets.Storage.Test.Create.StabilityPointStructures
             Assert.AreEqual(structure.AllowedLevelIncreaseStorage.Mean.Value, entity.AllowedLevelIncreaseStorageMean);
             Assert.AreEqual(structure.AllowedLevelIncreaseStorage.StandardDeviation.Value, entity.AllowedLevelIncreaseStorageStandardDeviation);
             Assert.AreEqual(structure.WidthFlowApertures.Mean.Value, entity.WidthFlowAperturesMean);
-            Assert.AreEqual(structure.WidthFlowApertures.CoefficientOfVariation.Value, entity.WidthFlowAperturesCoefficientOfVariation);
+            Assert.AreEqual(structure.WidthFlowApertures.StandardDeviation.Value, entity.WidthFlowAperturesStandardDeviation);
             Assert.AreEqual(structure.InsideWaterLevel.Mean.Value, entity.InsideWaterLevelMean);
             Assert.AreEqual(structure.InsideWaterLevel.StandardDeviation.Value, entity.InsideWaterLevelStandardDeviation);
             Assert.AreEqual(structure.ThresholdHeightOpenWeir.Mean.Value, entity.ThresholdHeightOpenWeirMean);
@@ -141,7 +141,7 @@ namespace Application.Ringtoets.Storage.Test.Create.StabilityPointStructures
                 WidthFlowApertures =
                 {
                     Mean = RoundedDouble.NaN,
-                    CoefficientOfVariation = RoundedDouble.NaN
+                    StandardDeviation = RoundedDouble.NaN
                 },
                 InsideWaterLevel =
                 {
@@ -243,7 +243,7 @@ namespace Application.Ringtoets.Storage.Test.Create.StabilityPointStructures
             Assert.IsNull(entity.AllowedLevelIncreaseStorageMean);
             Assert.IsNull(entity.AllowedLevelIncreaseStorageStandardDeviation);
             Assert.IsNull(entity.WidthFlowAperturesMean);
-            Assert.IsNull(entity.WidthFlowAperturesCoefficientOfVariation);
+            Assert.IsNull(entity.WidthFlowAperturesStandardDeviation);
             Assert.IsNull(entity.InsideWaterLevelMean);
             Assert.IsNull(entity.InsideWaterLevelStandardDeviation);
             Assert.IsNull(entity.ThresholdHeightOpenWeirMean);

@@ -38,7 +38,7 @@ namespace Application.Ringtoets.Storage.DbContext
         double? CriticalOvertoppingDischargeCoefficientOfVariation { get; set; }
         double FailureProbabilityStructureWithErosion { get; set; }
         double? WidthFlowAperturesMean { get; set; }
-        double? WidthFlowAperturesCoefficientOfVariation { get; set; }
+        double? WidthFlowAperturesStandardDeviation { get; set; }
         double? StormDurationMean { get; set; }
         byte UseBreakWater { get; set; }
         byte UseForeshore { get; set; }

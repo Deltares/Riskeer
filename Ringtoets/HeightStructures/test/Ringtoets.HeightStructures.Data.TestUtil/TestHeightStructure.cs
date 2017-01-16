@@ -60,7 +60,7 @@ namespace Ringtoets.HeightStructures.Data.TestUtil
                 WidthFlowApertures =
                 {
                     Mean = (RoundedDouble) 567.890,
-                    CoefficientOfVariation = (RoundedDouble) 0.56789
+                    StandardDeviation = (RoundedDouble) 0.56789
                 },
                 FailureProbabilityStructureWithErosion = 0.67890,
                 StorageStructureArea =

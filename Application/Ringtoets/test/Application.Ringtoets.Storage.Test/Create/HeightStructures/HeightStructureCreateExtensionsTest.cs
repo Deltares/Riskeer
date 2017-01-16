@@ -80,7 +80,7 @@ namespace Application.Ringtoets.Storage.Test.Create.HeightStructures
             Assert.AreEqual(structure.StorageStructureArea.Mean.Value, entity.StorageStructureAreaMean);
             Assert.AreEqual(structure.StorageStructureArea.CoefficientOfVariation.Value, entity.StorageStructureAreaCoefficientOfVariation);
             Assert.AreEqual(structure.WidthFlowApertures.Mean.Value, entity.WidthFlowAperturesMean);
-            Assert.AreEqual(structure.WidthFlowApertures.CoefficientOfVariation.Value, entity.WidthFlowAperturesCoefficientOfVariation);
+            Assert.AreEqual(structure.WidthFlowApertures.StandardDeviation.Value, entity.WidthFlowAperturesStandardDeviation);
             Assert.AreEqual(order, entity.Order);
 
             Assert.IsTrue(registry.Contains(structure));
@@ -125,7 +125,7 @@ namespace Application.Ringtoets.Storage.Test.Create.HeightStructures
                 WidthFlowApertures =
                 {
                     Mean = RoundedDouble.NaN,
-                    CoefficientOfVariation = RoundedDouble.NaN
+                    StandardDeviation = RoundedDouble.NaN
                 }
             });
             var registry = new PersistenceRegistry();
@@ -149,7 +149,7 @@ namespace Application.Ringtoets.Storage.Test.Create.HeightStructures
             Assert.IsNull(entity.StorageStructureAreaMean);
             Assert.IsNull(entity.StorageStructureAreaCoefficientOfVariation);
             Assert.IsNull(entity.WidthFlowAperturesMean);
-            Assert.IsNull(entity.WidthFlowAperturesCoefficientOfVariation);
+            Assert.IsNull(entity.WidthFlowAperturesStandardDeviation);
         }
 
         [Test]

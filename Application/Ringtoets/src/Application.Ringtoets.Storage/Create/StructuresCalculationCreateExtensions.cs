@@ -83,7 +83,7 @@ namespace Application.Ringtoets.Storage.Create
             entityToUpdate.ModelFactorSuperCriticalFlowMean = input.ModelFactorSuperCriticalFlow.Mean.ToNaNAsNull();
 
             entityToUpdate.WidthFlowAperturesMean = input.WidthFlowApertures.Mean.ToNaNAsNull();
-            entityToUpdate.WidthFlowAperturesCoefficientOfVariation = input.WidthFlowApertures.CoefficientOfVariation.ToNaNAsNull();
+            entityToUpdate.WidthFlowAperturesStandardDeviation = input.WidthFlowApertures.StandardDeviation.ToNaNAsNull();
         }
 
         #region ClosingStructures

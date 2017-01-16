@@ -108,7 +108,7 @@ namespace Ringtoets.StabilityPointStructures.IO
                     WidthFlowApertures =
                     {
                         Mean = (RoundedDouble) rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword4].NumericalValue,
-                        CoefficientOfVariation = GetCoefficientOfVariation(rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword4], structureName)
+                        StandardDeviation = GetStandardDeviation(rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword4], structureName)
                     },
                     InsideWaterLevel =
                     {

@@ -85,7 +85,7 @@ namespace Application.Ringtoets.Storage.Test.Read.StabilityPointStructures
                 AllowedLevelIncreaseStorageMean = 6.6,
                 AllowedLevelIncreaseStorageStandardDeviation = 7.7,
                 WidthFlowAperturesMean = 8.8,
-                WidthFlowAperturesCoefficientOfVariation = 9.9,
+                WidthFlowAperturesStandardDeviation = 9.9,
                 InsideWaterLevelMean = 10.10,
                 InsideWaterLevelStandardDeviation = 11.11,
                 ThresholdHeightOpenWeirMean = 12.12,
@@ -143,7 +143,7 @@ namespace Application.Ringtoets.Storage.Test.Read.StabilityPointStructures
             Assert.AreEqual(entity.AllowedLevelIncreaseStorageMean, structure.AllowedLevelIncreaseStorage.Mean.Value);
             Assert.AreEqual(entity.AllowedLevelIncreaseStorageStandardDeviation, structure.AllowedLevelIncreaseStorage.StandardDeviation.Value);
             Assert.AreEqual(entity.WidthFlowAperturesMean, structure.WidthFlowApertures.Mean.Value);
-            Assert.AreEqual(entity.WidthFlowAperturesCoefficientOfVariation, structure.WidthFlowApertures.CoefficientOfVariation.Value);
+            Assert.AreEqual(entity.WidthFlowAperturesStandardDeviation, structure.WidthFlowApertures.StandardDeviation.Value);
             Assert.AreEqual(entity.InsideWaterLevelMean, structure.InsideWaterLevel.Mean.Value);
             Assert.AreEqual(entity.InsideWaterLevelStandardDeviation, structure.InsideWaterLevel.StandardDeviation.Value);
             Assert.AreEqual(entity.ThresholdHeightOpenWeirMean, structure.ThresholdHeightOpenWeir.Mean.Value);
@@ -200,7 +200,7 @@ namespace Application.Ringtoets.Storage.Test.Read.StabilityPointStructures
                 AllowedLevelIncreaseStorageMean = null,
                 AllowedLevelIncreaseStorageStandardDeviation = null,
                 WidthFlowAperturesMean = null,
-                WidthFlowAperturesCoefficientOfVariation = null,
+                WidthFlowAperturesStandardDeviation = null,
                 InsideWaterLevelMean = null,
                 InsideWaterLevelStandardDeviation = null,
                 ThresholdHeightOpenWeirMean = null,
@@ -252,7 +252,7 @@ namespace Application.Ringtoets.Storage.Test.Read.StabilityPointStructures
             Assert.IsNaN(structure.AllowedLevelIncreaseStorage.Mean);
             Assert.IsNaN(structure.AllowedLevelIncreaseStorage.StandardDeviation);
             Assert.IsNaN(structure.WidthFlowApertures.Mean);
-            Assert.IsNaN(structure.WidthFlowApertures.CoefficientOfVariation);
+            Assert.IsNaN(structure.WidthFlowApertures.StandardDeviation);
             Assert.IsNaN(structure.InsideWaterLevel.Mean);
             Assert.IsNaN(structure.InsideWaterLevel.StandardDeviation);
             Assert.IsNaN(structure.ThresholdHeightOpenWeir.Mean);

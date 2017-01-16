@@ -266,7 +266,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 Assert.AreEqual($"Validatie mislukt: De standaardafwijking voor '{modelFactorSuperCriticalFlow}' moet groter zijn dan of gelijk zijn aan 0.", msgs[4]);
                 Assert.AreEqual($"Validatie mislukt: Er is geen concreet getal ingevoerd voor '{factorStormDurationOpenStructure}'.", msgs[5]);
                 Assert.AreEqual($"Validatie mislukt: De verwachtingswaarde voor '{widthFlowApertures}' moet een concreet getal zijn.", msgs[6]);
-                Assert.AreEqual($"Validatie mislukt: De variatiecoëfficiënt voor '{widthFlowApertures}' moet groter zijn dan of gelijk zijn aan 0.", msgs[7]);
+                Assert.AreEqual($"Validatie mislukt: De standaardafwijking voor '{widthFlowApertures}' moet groter zijn dan of gelijk zijn aan 0.", msgs[7]);
                 Assert.AreEqual($"Validatie mislukt: Er is geen concreet getal ingevoerd voor '{structureNormalOrientation}'.", msgs[8]);
                 Assert.AreEqual($"Validatie mislukt: De verwachtingswaarde voor '{flowWidthAtBottomProtection}' moet een positief getal zijn.", msgs[9]);
                 Assert.AreEqual($"Validatie mislukt: De standaardafwijking voor '{flowWidthAtBottomProtection}' moet groter zijn dan of gelijk zijn aan 0.", msgs[10]);
@@ -330,7 +330,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 Assert.AreEqual($"Validatie mislukt: De standaardafwijking voor '{modelFactorSuperCriticalFlow}' moet groter zijn dan of gelijk zijn aan 0.", msgs[6]);
                 Assert.AreEqual($"Validatie mislukt: Er is geen concreet getal ingevoerd voor '{factorStormDurationOpenStructure}'.", msgs[7]);
                 Assert.AreEqual($"Validatie mislukt: De verwachtingswaarde voor '{widthFlowApertures}' moet een concreet getal zijn.", msgs[8]);
-                Assert.AreEqual($"Validatie mislukt: De variatiecoëfficiënt voor '{widthFlowApertures}' moet groter zijn dan of gelijk zijn aan 0.", msgs[9]);
+                Assert.AreEqual($"Validatie mislukt: De standaardafwijking voor '{widthFlowApertures}' moet groter zijn dan of gelijk zijn aan 0.", msgs[9]);
                 Assert.AreEqual($"Validatie mislukt: De verwachtingswaarde voor '{flowWidthAtBottomProtection}' moet een positief getal zijn.", msgs[10]);
                 Assert.AreEqual($"Validatie mislukt: De standaardafwijking voor '{flowWidthAtBottomProtection}' moet groter zijn dan of gelijk zijn aan 0.", msgs[11]);
                 Assert.AreEqual($"Validatie mislukt: De verwachtingswaarde voor '{storageStructureArea}' moet een positief getal zijn.", msgs[12]);
@@ -497,7 +497,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
             var mocks = new MockRepository();
             var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
-            
+
             // Call
             TestDelegate test = () => new ClosingStructuresCalculationService().Calculate(null, assessmentSectionStub, new ClosingStructuresFailureMechanism(), string.Empty);
 
@@ -596,7 +596,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
         {
             // Setup
             var closingStructuresFailureMechanism = new ClosingStructuresFailureMechanism();
-            
+
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(closingStructuresFailureMechanism,
                                                                                                            mockRepository);
@@ -656,7 +656,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                     input.StructureNormalOrientation,
                     input.ModelFactorSuperCriticalFlow.Mean, input.ModelFactorSuperCriticalFlow.StandardDeviation,
                     input.LevelCrestStructureNotClosing.Mean, input.LevelCrestStructureNotClosing.StandardDeviation,
-                    input.WidthFlowApertures.Mean, input.WidthFlowApertures.CoefficientOfVariation,
+                    input.WidthFlowApertures.Mean, input.WidthFlowApertures.StandardDeviation,
                     input.DeviationWaveDirection);
 
                 StructuresClosureVerticalWallCalculationInput actualInput = (StructuresClosureVerticalWallCalculationInput) calculationInputs[0];
@@ -735,7 +735,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                     generalInput.ModelFactorSubCriticalFlow.Mean, generalInput.ModelFactorSubCriticalFlow.CoefficientOfVariation,
                     input.ThresholdHeightOpenWeir.Mean, input.ThresholdHeightOpenWeir.StandardDeviation,
                     input.InsideWaterLevel.Mean, input.InsideWaterLevel.StandardDeviation,
-                    input.WidthFlowApertures.Mean, input.WidthFlowApertures.CoefficientOfVariation);
+                    input.WidthFlowApertures.Mean, input.WidthFlowApertures.StandardDeviation);
 
                 StructuresClosureLowSillCalculationInput actualInput = (StructuresClosureLowSillCalculationInput) calculationInputs[0];
                 HydraRingDataEqualityHelper.AreEqual(expectedInput, actualInput);
@@ -1164,7 +1164,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 input.StormDuration.Mean = RoundedDouble.NaN;
                 input.StormDuration.CoefficientOfVariation = RoundedDouble.NaN;
                 input.ThresholdHeightOpenWeir.StandardDeviation = RoundedDouble.NaN;
-                input.WidthFlowApertures.CoefficientOfVariation = RoundedDouble.NaN;
+                input.WidthFlowApertures.StandardDeviation = RoundedDouble.NaN;
             }
             else
             {
@@ -1185,7 +1185,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 input.StormDuration.Mean = value;
                 input.StormDuration.CoefficientOfVariation = value;
                 input.ThresholdHeightOpenWeir.StandardDeviation = value;
-                input.WidthFlowApertures.CoefficientOfVariation = value;
+                input.WidthFlowApertures.StandardDeviation = value;
             }
         }
 

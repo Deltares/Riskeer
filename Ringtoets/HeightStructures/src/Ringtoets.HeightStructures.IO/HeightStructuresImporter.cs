@@ -113,7 +113,7 @@ namespace Ringtoets.HeightStructures.IO
                 WidthFlowApertures =
                 {
                     Mean = (RoundedDouble) rowData[StructureFilesKeywords.HeightStructureParameterKeyword5].NumericalValue,
-                    CoefficientOfVariation = GetCoefficientOfVariation(rowData[StructureFilesKeywords.HeightStructureParameterKeyword5], structureName)
+                    StandardDeviation = GetStandardDeviation(rowData[StructureFilesKeywords.HeightStructureParameterKeyword5], structureName)
                 },
                 FailureProbabilityStructureWithErosion = rowData[StructureFilesKeywords.HeightStructureParameterKeyword6].NumericalValue,
                 StorageStructureArea =

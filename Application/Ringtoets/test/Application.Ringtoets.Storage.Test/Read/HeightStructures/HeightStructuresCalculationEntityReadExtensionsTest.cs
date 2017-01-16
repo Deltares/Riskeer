@@ -94,7 +94,7 @@ namespace Application.Ringtoets.Storage.Test.Read.HeightStructures
                 CriticalOvertoppingDischargeCoefficientOfVariation = random.GetFromRange(1e-6, 9999.9999),
                 FailureProbabilityStructureWithErosion = random.NextDouble(),
                 WidthFlowAperturesMean = random.GetFromRange(1e-6, 9999.9999),
-                WidthFlowAperturesCoefficientOfVariation = random.GetFromRange(1e-6, 9999.9999),
+                WidthFlowAperturesStandardDeviation = random.GetFromRange(1e-6, 9999.9999),
                 StormDurationMean = random.GetFromRange(1e-6, 9999.9999),
                 LevelCrestStructureMean = random.GetFromRange(1e-6, 9999.9999),
                 LevelCrestStructureStandardDeviation = random.GetFromRange(1e-6, 9999.9999),
@@ -124,7 +124,7 @@ namespace Application.Ringtoets.Storage.Test.Read.HeightStructures
             AssertRoundedDouble(entity.CriticalOvertoppingDischargeCoefficientOfVariation, input.CriticalOvertoppingDischarge.CoefficientOfVariation);
             Assert.AreEqual(entity.FailureProbabilityStructureWithErosion, input.FailureProbabilityStructureWithErosion);
             AssertRoundedDouble(entity.WidthFlowAperturesMean, input.WidthFlowApertures.Mean);
-            AssertRoundedDouble(entity.WidthFlowAperturesCoefficientOfVariation, input.WidthFlowApertures.CoefficientOfVariation);
+            AssertRoundedDouble(entity.WidthFlowAperturesStandardDeviation, input.WidthFlowApertures.StandardDeviation);
             AssertRoundedDouble(entity.StormDurationMean, input.StormDuration.Mean);
             AssertRoundedDouble(entity.LevelCrestStructureMean, input.LevelCrestStructure.Mean);
             AssertRoundedDouble(entity.LevelCrestStructureStandardDeviation, input.LevelCrestStructure.StandardDeviation);

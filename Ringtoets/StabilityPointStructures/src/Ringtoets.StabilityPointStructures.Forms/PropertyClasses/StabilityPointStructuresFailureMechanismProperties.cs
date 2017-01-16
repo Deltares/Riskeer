@@ -97,6 +97,14 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
 
         #endregion
 
+        private static void NotifyAffectedObjects(IEnumerable<IObservable> affectedObjects)
+        {
+            foreach (var affectedObject in affectedObjects)
+            {
+                affectedObject.NotifyObservers();
+            }
+        }
+
         #region General
 
         [PropertyOrder(namePropertyIndex)]
@@ -204,13 +212,5 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
         }
 
         #endregion
-
-        private static void NotifyAffectedObjects(IEnumerable<IObservable> affectedObjects)
-        {
-            foreach (var affectedObject in affectedObjects)
-            {
-                affectedObject.NotifyObservers();
-            }
-        }
     }
 }

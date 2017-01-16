@@ -109,7 +109,7 @@ namespace Ringtoets.ClosingStructures.IO
                     WidthFlowApertures =
                     {
                         Mean = (RoundedDouble) rowData[StructureFilesKeywords.ClosingStructureParameterKeyword4].NumericalValue,
-                        CoefficientOfVariation = GetCoefficientOfVariation(rowData[StructureFilesKeywords.ClosingStructureParameterKeyword4], structureName)
+                        StandardDeviation = GetStandardDeviation(rowData[StructureFilesKeywords.ClosingStructureParameterKeyword4], structureName)
                     },
                     LevelCrestStructureNotClosing =
                     {

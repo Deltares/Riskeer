@@ -65,8 +65,8 @@ namespace Ringtoets.Common.Data.Test.Structures
 
             var expectedModelFactorSuperCriticalFlow = new NormalDistribution(2)
             {
-                Mean = (RoundedDouble)1.1,
-                StandardDeviation = (RoundedDouble)0.03
+                Mean = (RoundedDouble) 1.1,
+                StandardDeviation = (RoundedDouble) 0.03
             };
 
             var expectedAllowedLevelIncreaseStorage = new LogNormalDistribution(2)
@@ -93,16 +93,16 @@ namespace Ringtoets.Common.Data.Test.Structures
                 CoefficientOfVariation = RoundedDouble.NaN
             };
 
-            var expectedWidthFlowApertures = new VariationCoefficientNormalDistribution(2)
+            var expectedWidthFlowApertures = new NormalDistribution(2)
             {
                 Mean = RoundedDouble.NaN,
-                CoefficientOfVariation = RoundedDouble.NaN
+                StandardDeviation = RoundedDouble.NaN
             };
 
             var expectedStormDuration = new VariationCoefficientLogNormalDistribution(2)
             {
-                Mean = (RoundedDouble)6.0,
-                CoefficientOfVariation = (RoundedDouble)0.25
+                Mean = (RoundedDouble) 6.0,
+                CoefficientOfVariation = (RoundedDouble) 0.25
             };
 
             DistributionAssert.AreEqual(expectedModelFactorSuperCriticalFlow, input.ModelFactorSuperCriticalFlow);
@@ -198,10 +198,10 @@ namespace Ringtoets.Common.Data.Test.Structures
                 CoefficientOfVariation = RoundedDouble.NaN
             };
 
-            var expectedWidthFlowApertures = new VariationCoefficientNormalDistribution(2)
+            var expectedWidthFlowApertures = new NormalDistribution(2)
             {
                 Mean = RoundedDouble.NaN,
-                CoefficientOfVariation = RoundedDouble.NaN
+                StandardDeviation = RoundedDouble.NaN
             };
 
             DistributionAssert.AreEqual(expectedAllowedLevelIncreaseStorage, input.AllowedLevelIncreaseStorage);
@@ -469,21 +469,21 @@ namespace Ringtoets.Common.Data.Test.Structures
             var random = new Random(22);
             var input = new SimpleStructuresInput();
             var mean = (RoundedDouble) (0.01 + random.NextDouble());
-            var variation = (RoundedDouble) (0.01 + random.NextDouble());
-            var distributionToSet = new VariationCoefficientNormalDistribution(5)
+            var standardDeviation = (RoundedDouble) (0.01 + random.NextDouble());
+            var distributionToSet = new NormalDistribution(5)
             {
                 Mean = mean,
-                CoefficientOfVariation = variation
+                StandardDeviation = standardDeviation
             };
 
             // Call
             input.WidthFlowApertures = distributionToSet;
 
             // Assert
-            var expectedDistribution = new VariationCoefficientNormalDistribution(2)
+            var expectedDistribution = new NormalDistribution(2)
             {
                 Mean = mean,
-                CoefficientOfVariation = variation
+                StandardDeviation = standardDeviation
             };
             AssertDistributionCorrectlySet(input.WidthFlowApertures, distributionToSet, expectedDistribution);
         }

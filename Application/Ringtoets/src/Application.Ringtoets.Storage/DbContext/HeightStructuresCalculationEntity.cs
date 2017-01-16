@@ -76,7 +76,7 @@ namespace Application.Ringtoets.Storage.DbContext
         public Nullable<double> CriticalOvertoppingDischargeCoefficientOfVariation { get; set; }
         public double FailureProbabilityStructureWithErosion { get; set; }
         public Nullable<double> WidthFlowAperturesMean { get; set; }
-        public Nullable<double> WidthFlowAperturesCoefficientOfVariation { get; set; }
+        public Nullable<double> WidthFlowAperturesStandardDeviation { get; set; }
         public Nullable<double> StormDurationMean { get; set; }
         public byte UseBreakWater { get; set; }
         public byte UseForeshore { get; set; }

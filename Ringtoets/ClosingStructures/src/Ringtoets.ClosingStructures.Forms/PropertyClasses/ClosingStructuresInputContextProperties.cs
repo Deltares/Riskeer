@@ -83,23 +83,23 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="data"/> is <c>null</c>.</exception>
         public ClosingStructuresInputContextProperties(ClosingStructuresInputContext data) :
             base(data, new ConstructionProperties
-                 {
-                     StructurePropertyIndex = structurePropertyIndex,
-                     StructureLocationPropertyIndex = structureLocationPropertyIndex,
-                     StructureNormalOrientationPropertyIndex = structureNormalOrientationPropertyIndex,
-                     FlowWidthAtBottomProtectionPropertyIndex = flowWidthAtBottomProtectionPropertyIndex,
-                     WidthFlowAperturesPropertyIndex = widthFlowAperturesPropertyIndex,
-                     StorageStructureAreaPropertyIndex = storageStructureAreaPropertyIndex,
-                     AllowedLevelIncreaseStoragePropertyIndex = allowedLevelIncreaseStoragePropertyIndex,
-                     CriticalOvertoppingDischargePropertyIndex = criticalOvertoppingDischargePropertyIndex,
-                     FailureProbabilityStructureWithErosionPropertyIndex = failureProbabilityStructureWithErosionPropertyIndex,
-                     ForeshoreProfilePropertyIndex = foreshoreProfilePropertyIndex,
-                     UseBreakWaterPropertyIndex = useBreakWaterPropertyIndex,
-                     UseForeshorePropertyIndex = useForeshorePropertyIndex,
-                     ModelFactorSuperCriticalFlowPropertyIndex = modelFactorSuperCriticalFlowPropertyIndex,
-                     HydraulicBoundaryLocationPropertyIndex = hydraulicBoundaryLocationPropertyIndex,
-                     StormDurationPropertyIndex = stormDurationPropertyIndex
-                 }) {}
+            {
+                StructurePropertyIndex = structurePropertyIndex,
+                StructureLocationPropertyIndex = structureLocationPropertyIndex,
+                StructureNormalOrientationPropertyIndex = structureNormalOrientationPropertyIndex,
+                FlowWidthAtBottomProtectionPropertyIndex = flowWidthAtBottomProtectionPropertyIndex,
+                WidthFlowAperturesPropertyIndex = widthFlowAperturesPropertyIndex,
+                StorageStructureAreaPropertyIndex = storageStructureAreaPropertyIndex,
+                AllowedLevelIncreaseStoragePropertyIndex = allowedLevelIncreaseStoragePropertyIndex,
+                CriticalOvertoppingDischargePropertyIndex = criticalOvertoppingDischargePropertyIndex,
+                FailureProbabilityStructureWithErosionPropertyIndex = failureProbabilityStructureWithErosionPropertyIndex,
+                ForeshoreProfilePropertyIndex = foreshoreProfilePropertyIndex,
+                UseBreakWaterPropertyIndex = useBreakWaterPropertyIndex,
+                UseForeshorePropertyIndex = useForeshorePropertyIndex,
+                ModelFactorSuperCriticalFlowPropertyIndex = modelFactorSuperCriticalFlowPropertyIndex,
+                HydraulicBoundaryLocationPropertyIndex = hydraulicBoundaryLocationPropertyIndex,
+                StormDurationPropertyIndex = stormDurationPropertyIndex
+            }) {}
 
         #region Hydraulic data
 
@@ -180,7 +180,7 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
         protected override void AfterSettingStructure()
         {
             StructuresHelper.UpdateCalculationToSectionResultAssignments(
-                data.FailureMechanism.SectionResults, 
+                data.FailureMechanism.SectionResults,
                 data.FailureMechanism.Calculations.Cast<StructuresCalculation<ClosingStructuresInput>>());
         }
 
@@ -247,7 +247,7 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
         }
 
         [DynamicVisible]
-        public override VariationCoefficientNormalDistributionProperties WidthFlowApertures
+        public override NormalDistributionProperties WidthFlowApertures
         {
             get
             {

@@ -63,7 +63,7 @@ namespace Application.Ringtoets.Storage.Create.ClosingStructures
                 AllowedLevelIncreaseStorageMean = structure.AllowedLevelIncreaseStorage.Mean.ToNaNAsNull(),
                 AllowedLevelIncreaseStorageStandardDeviation = structure.AllowedLevelIncreaseStorage.StandardDeviation.ToNaNAsNull(),
                 WidthFlowAperturesMean = structure.WidthFlowApertures.Mean.ToNaNAsNull(),
-                WidthFlowAperturesCoefficientOfVariation = structure.WidthFlowApertures.CoefficientOfVariation.ToNaNAsNull(),
+                WidthFlowAperturesStandardDeviation = structure.WidthFlowApertures.StandardDeviation.ToNaNAsNull(),
                 LevelCrestStructureNotClosingMean = structure.LevelCrestStructureNotClosing.Mean.ToNaNAsNull(),
                 LevelCrestStructureNotClosingStandardDeviation = structure.LevelCrestStructureNotClosing.StandardDeviation.ToNaNAsNull(),
                 InsideWaterLevelMean = structure.InsideWaterLevel.Mean.ToNaNAsNull(),

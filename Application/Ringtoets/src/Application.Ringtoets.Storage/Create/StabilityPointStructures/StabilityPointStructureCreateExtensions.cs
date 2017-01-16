@@ -64,7 +64,7 @@ namespace Application.Ringtoets.Storage.Create.StabilityPointStructures
                 AllowedLevelIncreaseStorageMean = structure.AllowedLevelIncreaseStorage.Mean.ToNaNAsNull(),
                 AllowedLevelIncreaseStorageStandardDeviation = structure.AllowedLevelIncreaseStorage.StandardDeviation.ToNaNAsNull(),
                 WidthFlowAperturesMean = structure.WidthFlowApertures.Mean.ToNaNAsNull(),
-                WidthFlowAperturesCoefficientOfVariation = structure.WidthFlowApertures.CoefficientOfVariation.ToNaNAsNull(),
+                WidthFlowAperturesStandardDeviation = structure.WidthFlowApertures.StandardDeviation.ToNaNAsNull(),
                 InsideWaterLevelMean = structure.InsideWaterLevel.Mean.ToNaNAsNull(),
                 InsideWaterLevelStandardDeviation = structure.InsideWaterLevel.StandardDeviation.ToNaNAsNull(),
                 ThresholdHeightOpenWeirMean = structure.ThresholdHeightOpenWeir.Mean.ToNaNAsNull(),

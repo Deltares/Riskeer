@@ -114,11 +114,11 @@ namespace Ringtoets.HeightStructures.Data.TestUtil.Test
             Assert.AreEqual(2, criticalOvertoppingDischarge.CoefficientOfVariation.NumberOfDecimalPlaces);
             Assert.AreEqual(0.46, criticalOvertoppingDischarge.CoefficientOfVariation.Value);
 
-            VariationCoefficientNormalDistribution widthFlowApertures = heightStructure.WidthFlowApertures;
+            NormalDistribution widthFlowApertures = heightStructure.WidthFlowApertures;
             Assert.AreEqual(2, widthFlowApertures.Mean.NumberOfDecimalPlaces);
             Assert.AreEqual(567.89, widthFlowApertures.Mean.Value);
-            Assert.AreEqual(2, widthFlowApertures.CoefficientOfVariation.NumberOfDecimalPlaces);
-            Assert.AreEqual(0.57, widthFlowApertures.CoefficientOfVariation.Value);
+            Assert.AreEqual(2, widthFlowApertures.StandardDeviation.NumberOfDecimalPlaces);
+            Assert.AreEqual(0.57, widthFlowApertures.StandardDeviation.Value);
 
             Assert.AreEqual(0.67890, heightStructure.FailureProbabilityStructureWithErosion);
 
