@@ -198,7 +198,7 @@ namespace Ringtoets.Common.IO.Structures
                     StructureFilesKeywords.StabilityPointStructureParameterKeyword21, ProbabilityRule
                 },
                 {
-                    StructureFilesKeywords.StabilityPointStructureParameterKeyword22, NormalDistributionRule
+                    StructureFilesKeywords.StabilityPointStructureParameterKeyword22, NormalDistributionMeanRule
                 },
                 {
                     StructureFilesKeywords.StabilityPointStructureParameterKeyword23, VariationCoefficientLogNormalDistributionRule
@@ -377,15 +377,14 @@ namespace Ringtoets.Common.IO.Structures
             return ValidateStochasticVariableParameters(row, true, false);
         }
 
+        private static List<string> NormalDistributionMeanRule(StructuresParameterRow row)
+        {
+            return ValidateStochasticVariableMeanParameter(row, false);
+        }
+
         private static List<string> ValidateStochasticVariableParameters(StructuresParameterRow row, bool meanMustBeGreaterThanZero, bool variationAsStandardDeviation)
         {
-            var messages = new List<string>();
-
-            double mean = row.NumericalValue;
-            var numericalValueColumn1 = StructureFilesKeywords.NumericalValueColumnName;
-            messages.AddRange(meanMustBeGreaterThanZero ?
-                                  ValidateGreaterThanZeroDoubleParameter(row, numericalValueColumn1) :
-                                  ValidateDoubleParameter(row, numericalValueColumn1));
+            List<string> messages = ValidateStochasticVariableMeanParameter(row, meanMustBeGreaterThanZero);
 
             VarianceType type = row.VarianceType;
             if (type != VarianceType.StandardDeviation && type != VarianceType.CoefficientOfVariation)
@@ -396,6 +395,7 @@ namespace Ringtoets.Common.IO.Structures
 
             messages.AddRange(ValidatePositiveDoubleParameter(row, StructureFilesKeywords.VariationValueColumnName));
 
+            double mean = row.NumericalValue;
             double absoluteMean = Math.Abs(mean);
             if (variationAsStandardDeviation)
             {
@@ -414,6 +414,17 @@ namespace Ringtoets.Common.IO.Structures
                 }
             }
 
+            return messages;
+        }
+
+        private static List<string> ValidateStochasticVariableMeanParameter(StructuresParameterRow row, bool meanMustBeGreaterThanZero)
+        {
+            var messages = new List<string>();
+
+            var numericalValueColumn1 = StructureFilesKeywords.NumericalValueColumnName;
+            messages.AddRange(meanMustBeGreaterThanZero ?
+                                  ValidateGreaterThanZeroDoubleParameter(row, numericalValueColumn1) :
+                                  ValidateDoubleParameter(row, numericalValueColumn1));
             return messages;
         }
 
@@ -445,7 +456,7 @@ namespace Ringtoets.Common.IO.Structures
 
         private static bool IsValueWholeNumber(double value)
         {
-            return (value%1) < double.Epsilon;
+            return (value % 1) < double.Epsilon;
         }
 
         private static List<string> ClosingStructureInflowModelTypeRule(StructuresParameterRow row)
