@@ -141,7 +141,7 @@ namespace Application.Ringtoets.Storage.Read.StabilityPointStructures
                 FlowVelocityStructureClosable =
                 {
                     Mean = (RoundedDouble) entity.FlowVelocityStructureClosableMean.ToNullAsNaN(),
-                    StandardDeviation = (RoundedDouble) entity.FlowVelocityStructureClosableStandardDeviation.ToNullAsNaN()
+                    CoefficientOfVariation = (RoundedDouble) entity.FlowVelocityStructureClosableStandardDeviation.ToNullAsNaN()
                 },
                 StabilityLinearLoadModel =
                 {

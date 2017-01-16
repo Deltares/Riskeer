@@ -126,7 +126,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
                     FlowVelocityStructureClosable =
                     {
                         Mean = (RoundedDouble) 678.901,
-                        StandardDeviation = (RoundedDouble) 0.678
+                        CoefficientOfVariation = (RoundedDouble) 0.678
                     },
                     StabilityLinearLoadModel =
                     {
@@ -253,11 +253,11 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
 
             Assert.AreEqual(0.55, structure.ProbabilityCollisionSecondaryStructure);
 
-            NormalDistribution flowVelocityStructureClosable = structure.FlowVelocityStructureClosable;
+            VariationCoefficientNormalDistribution flowVelocityStructureClosable = structure.FlowVelocityStructureClosable;
             Assert.AreEqual(2, flowVelocityStructureClosable.Mean.NumberOfDecimalPlaces);
             Assert.AreEqual(678.90, flowVelocityStructureClosable.Mean, flowVelocityStructureClosable.Mean.GetAccuracy());
-            Assert.AreEqual(2, flowVelocityStructureClosable.StandardDeviation.NumberOfDecimalPlaces);
-            Assert.AreEqual(0.68, flowVelocityStructureClosable.StandardDeviation, flowVelocityStructureClosable.StandardDeviation.GetAccuracy());
+            Assert.AreEqual(2, flowVelocityStructureClosable.CoefficientOfVariation.NumberOfDecimalPlaces);
+            Assert.AreEqual(0.68, flowVelocityStructureClosable.CoefficientOfVariation, flowVelocityStructureClosable.CoefficientOfVariation.GetAccuracy());
 
             VariationCoefficientLogNormalDistribution stabilityLinearLoadModel = structure.StabilityLinearLoadModel;
             Assert.AreEqual(2, stabilityLinearLoadModel.Mean.NumberOfDecimalPlaces);

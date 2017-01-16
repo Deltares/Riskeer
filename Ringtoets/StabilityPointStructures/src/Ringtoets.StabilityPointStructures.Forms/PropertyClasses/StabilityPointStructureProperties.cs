@@ -75,11 +75,11 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_CriticalValues))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_FlowVelocityStructureClosable_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_FlowVelocityStructureClosable_Description))]
-        public NormalDistributionProperties FlowVelocityStructureClosable
+        public VariationCoefficientNormalDistributionProperties FlowVelocityStructureClosable
         {
             get
             {
-                return new NormalDistributionProperties
+                return new VariationCoefficientNormalDistributionProperties
                 {
                     Data = data.FlowVelocityStructureClosable
                 };

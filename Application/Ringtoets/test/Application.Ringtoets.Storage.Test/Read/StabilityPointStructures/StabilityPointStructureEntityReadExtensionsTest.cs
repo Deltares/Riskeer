@@ -174,7 +174,7 @@ namespace Application.Ringtoets.Storage.Test.Read.StabilityPointStructures
             Assert.AreEqual(entity.LevellingCount, structure.LevellingCount);
             Assert.AreEqual(entity.ProbabilityCollisionSecondaryStructure, structure.ProbabilityCollisionSecondaryStructure);
             Assert.AreEqual(entity.FlowVelocityStructureClosableMean, structure.FlowVelocityStructureClosable.Mean.Value);
-            Assert.AreEqual(entity.FlowVelocityStructureClosableStandardDeviation, structure.FlowVelocityStructureClosable.StandardDeviation.Value);
+            Assert.AreEqual(entity.FlowVelocityStructureClosableStandardDeviation, structure.FlowVelocityStructureClosable.CoefficientOfVariation.Value);
             Assert.AreEqual(entity.StabilityLinearLoadModelMean, structure.StabilityLinearLoadModel.Mean.Value);
             Assert.AreEqual(entity.StabilityLinearLoadModelCoefficientOfVariation, structure.StabilityLinearLoadModel.CoefficientOfVariation.Value);
             Assert.AreEqual(entity.StabilityQuadraticLoadModelMean, structure.StabilityQuadraticLoadModel.Mean.Value);
@@ -282,7 +282,7 @@ namespace Application.Ringtoets.Storage.Test.Read.StabilityPointStructures
             Assert.IsNaN(structure.ShipVelocity.CoefficientOfVariation);
             Assert.IsNaN(structure.ProbabilityCollisionSecondaryStructure);
             Assert.IsNaN(structure.FlowVelocityStructureClosable.Mean);
-            Assert.IsNaN(structure.FlowVelocityStructureClosable.StandardDeviation);
+            Assert.IsNaN(structure.FlowVelocityStructureClosable.CoefficientOfVariation);
             Assert.IsNaN(structure.StabilityLinearLoadModel.Mean);
             Assert.IsNaN(structure.StabilityLinearLoadModel.CoefficientOfVariation);
             Assert.IsNaN(structure.StabilityQuadraticLoadModel.Mean);

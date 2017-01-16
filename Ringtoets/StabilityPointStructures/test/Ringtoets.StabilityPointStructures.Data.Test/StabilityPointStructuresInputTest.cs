@@ -63,10 +63,10 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
                 StandardDeviation = (RoundedDouble) 0.2
             };
 
-            var expectedFlowVelocityStructureClosable = new NormalDistribution(2)
+            var expectedFlowVelocityStructureClosable = new VariationCoefficientNormalDistribution(2)
             {
                 Mean = RoundedDouble.NaN,
-                StandardDeviation = RoundedDouble.NaN
+                CoefficientOfVariation = RoundedDouble.NaN
             };
 
             var expectedLevelCrestStructure = new NormalDistribution(2)
@@ -286,10 +286,10 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
                 StandardDeviation = RoundedDouble.NaN
             };
 
-            var expectedFlowVelocityStructureClosable = new NormalDistribution(2)
+            var expectedFlowVelocityStructureClosable = new VariationCoefficientNormalDistribution(2)
             {
                 Mean = RoundedDouble.NaN,
-                StandardDeviation = RoundedDouble.NaN
+                CoefficientOfVariation = RoundedDouble.NaN
             };
 
             DistributionAssert.AreEqual(expectedLevelCrestStructure, input.LevelCrestStructure);
@@ -455,22 +455,22 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             var random = new Random(22);
             var input = new StabilityPointStructuresInput();
             var mean = (RoundedDouble) (0.01 + random.NextDouble());
-            var standardDeviation = (RoundedDouble) (0.01 + random.NextDouble());
-            var distributionToSet = new NormalDistribution(5)
+            var coefficientOfVariation = (RoundedDouble) (0.01 + random.NextDouble());
+            var expectedDistribution = new VariationCoefficientNormalDistribution(2)
             {
                 Mean = mean,
-                StandardDeviation = standardDeviation
+                CoefficientOfVariation = coefficientOfVariation
+            };
+            var distributionToSet = new VariationCoefficientNormalDistribution(5)
+            {
+                Mean = mean,
+                CoefficientOfVariation = coefficientOfVariation
             };
 
             // Call
             input.FlowVelocityStructureClosable = distributionToSet;
 
             // Assert
-            var expectedDistribution = new NormalDistribution(2)
-            {
-                Mean = mean,
-                StandardDeviation = standardDeviation
-            };
             AssertDistributionCorrectlySet(input.FlowVelocityStructureClosable, distributionToSet, expectedDistribution);
         }
 
