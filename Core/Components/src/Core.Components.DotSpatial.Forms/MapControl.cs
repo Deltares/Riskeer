@@ -149,7 +149,7 @@ namespace Core.Components.DotSpatial.Forms
 
         private static void AddPadding(Extent extent)
         {
-            var padding = Math.Min(extent.Height, extent.Width)*0.05;
+            var padding = Math.Min(extent.Height, extent.Width) * 0.05;
             if (Math.Max(extent.Height, extent.Width) + padding <= double.MaxValue)
             {
                 extent.ExpandBy(padding);

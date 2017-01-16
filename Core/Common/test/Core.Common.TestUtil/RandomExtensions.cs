@@ -52,7 +52,7 @@ namespace Core.Common.TestUtil
             }
 
             double difference = upperLimit - lowerLimit;
-            double randomValue = lowerLimit + random.NextDouble()*difference;
+            double randomValue = lowerLimit + random.NextDouble() * difference;
             if (double.IsInfinity(randomValue) || double.IsNaN(randomValue))
             {
                 string message = string.Format("Creating a new random value with lower limit {0} " +

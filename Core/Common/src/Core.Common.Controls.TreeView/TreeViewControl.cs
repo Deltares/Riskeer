@@ -686,7 +686,7 @@ namespace Core.Common.Controls.TreeView
             {
                 Size glyphSize = CheckBoxRenderer.GetGlyphSize(g, state);
 
-                CheckBoxRenderer.DrawCheckBox(g, new Point((result.Width - glyphSize.Width)/2, (result.Height - glyphSize.Height)/2), state);
+                CheckBoxRenderer.DrawCheckBox(g, new Point((result.Width - glyphSize.Width) / 2, (result.Height - glyphSize.Height) / 2), state);
             }
 
             return result;

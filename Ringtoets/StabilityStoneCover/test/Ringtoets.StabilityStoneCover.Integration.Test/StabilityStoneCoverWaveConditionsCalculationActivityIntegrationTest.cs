@@ -128,10 +128,10 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
 
                 // Assert
                 var waterLevels = calculation.InputParameters.WaterLevels.ToArray();
-                var totalSteps = waterLevels.Length*2;
+                var totalSteps = waterLevels.Length * 2;
                 for (var i = 0; i < totalSteps; i++)
                 {
-                    var text = string.Format("Stap {0} van {1} | Waterstand '{2}' berekenen.", i + 1, totalSteps, waterLevels[i%waterLevels.Length]);
+                    var text = string.Format("Stap {0} van {1} | Waterstand '{2}' berekenen.", i + 1, totalSteps, waterLevels[i % waterLevels.Length]);
                     Assert.AreEqual(text, progessTexts[i]);
                 }
             }
@@ -173,7 +173,7 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
                 Assert.AreEqual(assessmentSectionStub.Id, testWaveConditionsCosineCalculator.RingId);
 
                 int waterLevelIndex = 0;
-                for (int i = 0; i < testWaveConditionsInputs.Length/2; i++)
+                for (int i = 0; i < testWaveConditionsInputs.Length / 2; i++)
                 {
                     var expectedInput = new WaveConditionsCosineCalculationInput(1,
                                                                                  input.Orientation,
@@ -190,7 +190,7 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
                 }
 
                 waterLevelIndex = 0;
-                for (int i = testWaveConditionsInputs.Length/2; i < testWaveConditionsInputs.Length; i++)
+                for (int i = testWaveConditionsInputs.Length / 2; i < testWaveConditionsInputs.Length; i++)
                 {
                     var expectedInput = new WaveConditionsCosineCalculationInput(1,
                                                                                  input.Orientation,

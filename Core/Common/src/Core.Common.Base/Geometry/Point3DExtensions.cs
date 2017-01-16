@@ -73,8 +73,8 @@ namespace Core.Common.Base.Geometry
             }
 
             // Project vector onto the 'spanning vector' to determine its X-coordinate in local coordinates:
-            double projectOnSpanningVectorFactor = vectorToPoint.DotProduct(spanningVector)/spanningVectorDotProduct;
-            double localCoordinateX = projectOnSpanningVectorFactor*length;
+            double projectOnSpanningVectorFactor = vectorToPoint.DotProduct(spanningVector) / spanningVectorDotProduct;
+            double localCoordinateX = projectOnSpanningVectorFactor * length;
 
             return new Point2D(localCoordinateX, worldCoordinate.Z);
         }

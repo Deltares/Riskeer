@@ -994,7 +994,6 @@ namespace Ringtoets.Common.IO.Test.Structures
                 "De waarde voor parameter 'KW_STERSTAB20' op regel 20, kolom 'Numeriekewaarde', moet een positief getal zijn.",
                 "De waarde voor parameter 'KW_STERSTAB21' op regel 21, kolom 'Numeriekewaarde', moet in het bereik [0, 1] liggen.",
                 "De waarde voor parameter 'KW_STERSTAB22' op regel 22, kolom 'Numeriekewaarde', is geen getal.",
-                "De waarde voor parameter 'KW_STERSTAB22' op regel 22, kolom 'Boolean', moet '0' (variatiecoëfficiënt) of '1' (standaardafwijking) zijn.",
                 "De waarde voor parameter 'KW_STERSTAB23' op regel 23, kolom 'Numeriekewaarde', is te dicht op 0 waardoor een betrouwbare conversie tussen standaardafwijking en variatiecoëfficiënt niet mogelijk is.",
                 "De waarde voor parameter 'KW_STERSTAB24' op regel 24, kolom 'Numeriekewaarde', is te dicht op 0 waardoor een betrouwbare conversie tussen standaardafwijking en variatiecoëfficiënt niet mogelijk is.",
                 "De waarde voor parameter 'KW_STERSTAB25' op regel 25, kolom 'Numeriekewaarde', moet een getal zijn groter dan 0.",
@@ -1073,7 +1072,7 @@ namespace Ringtoets.Common.IO.Test.Structures
                     ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword22,
                     NumericalValue = 1,
                     VarianceValue = 1,
-                    VarianceType = VarianceType.CoefficientOfVariation // Expected Standard Deviation for normal distribution
+                    VarianceType = VarianceType.CoefficientOfVariation // Type is irrelevant
                 },
 
                 #region Remaining valid parameters irrelevant to test:

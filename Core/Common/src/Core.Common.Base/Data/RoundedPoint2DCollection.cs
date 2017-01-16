@@ -57,9 +57,9 @@ namespace Core.Common.Base.Data
             }
 
             points = originalPoints.Select(p =>
-                                           new Point2D(
-                                               new RoundedDouble(numberOfDecimalPlaces, p.X),
-                                               new RoundedDouble(numberOfDecimalPlaces, p.Y)));
+                                               new Point2D(
+                                                   new RoundedDouble(numberOfDecimalPlaces, p.X),
+                                                   new RoundedDouble(numberOfDecimalPlaces, p.Y)));
 
             this.numberOfDecimalPlaces = numberOfDecimalPlaces;
         }

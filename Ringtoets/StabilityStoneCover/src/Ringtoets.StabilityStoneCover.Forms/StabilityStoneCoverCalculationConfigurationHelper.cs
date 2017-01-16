@@ -44,7 +44,7 @@ namespace Ringtoets.StabilityStoneCover.Forms
         public static void AddCalculationsFromLocations(
             IEnumerable<HydraulicBoundaryLocation> locations,
             IList<ICalculationBase> calculations
-            )
+        )
         {
             if (locations == null)
             {

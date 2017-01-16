@@ -131,9 +131,9 @@ namespace Core.Common.Base.Test.Geometry
             Point2D convertedPoint = pointToConvert.ProjectIntoLocalCoordinates(startPoint, endPoint);
 
             // Assert
-            var length = Math.Sqrt(2*2 + 3*3);
-            const double pointToConvertCoordinateFactor = (2.0*1.0 + 3.0*2.0)/(2.0*2.0 + 3.0*3.0);
-            double expectedX = pointToConvertCoordinateFactor*length;
+            var length = Math.Sqrt(2 * 2 + 3 * 3);
+            const double pointToConvertCoordinateFactor = (2.0 * 1.0 + 3.0 * 2.0) / (2.0 * 2.0 + 3.0 * 3.0);
+            double expectedX = pointToConvertCoordinateFactor * length;
 
             Assert.AreEqual(new Point2D(expectedX, pointToConvert.Z), convertedPoint);
         }

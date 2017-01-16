@@ -134,9 +134,9 @@ namespace Core.Common.Base.Geometry
 
             // 'point' falls within the perpendicular area defined by the segment (zone B).
             // 3. Use remainder of vector projection to determine point on segment for perpendicular line:
-            double projectionFactor = dotProductOrientationVector/dotProductSegmentVector;
-            double perpendicularOnSegmentX = FirstPoint.X + projectionFactor*segmentVector[0];
-            double perpendicularOnSegmentY = FirstPoint.Y + projectionFactor*segmentVector[1];
+            double projectionFactor = dotProductOrientationVector / dotProductSegmentVector;
+            double perpendicularOnSegmentX = FirstPoint.X + projectionFactor * segmentVector[0];
+            double perpendicularOnSegmentY = FirstPoint.Y + projectionFactor * segmentVector[1];
             var perpendicularLineIntersectionPoint = new Point2D(perpendicularOnSegmentX, perpendicularOnSegmentY);
 
             return point.GetEuclideanDistanceTo(perpendicularLineIntersectionPoint);
@@ -184,7 +184,7 @@ namespace Core.Common.Base.Geometry
         {
             unchecked
             {
-                return ((FirstPoint.X + SecondPoint.X).GetHashCode()*397) ^ (FirstPoint.Y + SecondPoint.Y).GetHashCode();
+                return ((FirstPoint.X + SecondPoint.X).GetHashCode() * 397) ^ (FirstPoint.Y + SecondPoint.Y).GetHashCode();
             }
         }
 
