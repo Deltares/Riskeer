@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Threading;
 using System.Windows.Forms;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
@@ -313,7 +314,7 @@ namespace Application.Ringtoets.Test
         }
 
         [Test]
-        [RequiresSTA] // Don't remove: test will hang otherwise due to copy to clipboard
+        [Apartment(ApartmentState.STA)] // Don't remove: test will hang otherwise due to copy to clipboard
         public void ShowDialog_ExceptionDialog_CopyToClipboardClickCopiesExceptionTextToClipboard()
         {
             // Setup

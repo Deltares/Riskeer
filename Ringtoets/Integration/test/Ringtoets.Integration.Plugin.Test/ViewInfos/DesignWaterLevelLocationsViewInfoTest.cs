@@ -21,6 +21,7 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using Core.Common.Gui;
 using Core.Common.Gui.Commands;
 using Core.Common.Gui.Forms.MainWindow;
@@ -121,7 +122,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         }
 
         [Test]
-        [RequiresSTA]
+        [Apartment(ApartmentState.STA)]
         public void AfterCreate_WithGuiSet_SetsSpecificPropertiesToView()
         {
             // Setup

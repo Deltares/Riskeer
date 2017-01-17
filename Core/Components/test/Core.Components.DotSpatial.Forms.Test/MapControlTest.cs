@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Windows.Forms;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
@@ -60,7 +61,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         }
 
         [Test]
-        [RequiresSTA]
+        [Apartment(ApartmentState.STA)]
         public void DefaultConstructor_MapFunctionsCorrectlyInitialized()
         {
             using (var form = new Form())
@@ -302,7 +303,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         }
 
         [Test]
-        [RequiresSTA]
+        [Apartment(ApartmentState.STA)]
         public void ZoomToAllVisibleLayers_MapInFormWithEmptyDataSet_ViewInvalidatedLayersSame()
         {
             // Setup
@@ -332,7 +333,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         }
 
         [Test]
-        [RequiresSTA]
+        [Apartment(ApartmentState.STA)]
         public void ZoomToAllVisibleLayers_MapInForm_ViewInvalidatedLayersSame()
         {
             // Setup
@@ -466,6 +467,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         }
 
         [Test]
+        [Apartment(ApartmentState.STA)]
         public void ZoomToAllVisibleLayers_WithNonChildMapData_ThrowArgumentException()
         {
             // Setup
@@ -488,7 +490,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         }
 
         [Test]
-        [RequiresSTA]
+        [Apartment(ApartmentState.STA)]
         public void ZoomToAllVisibleLayers_MapInFormWithEmptyDataSetAndForChildMapData_ViewInvalidatedLayersSame()
         {
             // Setup
@@ -518,7 +520,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         }
 
         [Test]
-        [RequiresSTA]
+        [Apartment(ApartmentState.STA)]
         public void ZoomToAllVisibleLayers_MapInFormForChildMapData_ViewInvalidatedLayersSame()
         {
             // Setup
@@ -684,7 +686,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         }
 
         [Test]
-        [RequiresSTA]
+        [Apartment(ApartmentState.STA)]
         public void SelectionZoom_MouseUp_DefaultCursorSet()
         {
             using (var form = new Form())
@@ -708,7 +710,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         }
 
         [Test]
-        [RequiresSTA]
+        [Apartment(ApartmentState.STA)]
         public void SelectionZoom_LeftMouseDown_SizeNWSECursorSet()
         {
             using (var form = new Form())
@@ -732,7 +734,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         }
 
         [Test]
-        [RequiresSTA]
+        [Apartment(ApartmentState.STA)]
         [TestCase(MouseButtons.Right)]
         [TestCase(MouseButtons.Middle)]
         public void SelectionZoom_OtherThanMouseLeftDownAndMapNotBusy_DefaultCursorSet(MouseButtons mouseButton)
@@ -758,7 +760,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         }
 
         [Test]
-        [RequiresSTA]
+        [Apartment(ApartmentState.STA)]
         public void SelectionZoom_Activated_DefaultCursorSet()
         {
             using (var form = new Form())
@@ -782,7 +784,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         }
 
         [Test]
-        [RequiresSTA]
+        [Apartment(ApartmentState.STA)]
         public void Panning_MouseUp_DefaultCursorSet()
         {
             using (var form = new Form())
@@ -806,7 +808,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         }
 
         [Test]
-        [RequiresSTA]
+        [Apartment(ApartmentState.STA)]
         public void Panning_Activated_DefaultCursorSet()
         {
             using (var form = new Form())
@@ -830,7 +832,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         }
 
         [Test]
-        [RequiresSTA]
+        [Apartment(ApartmentState.STA)]
         public void Panning_LeftMouseDown_HandCursorSet()
         {
             using (var form = new Form())
@@ -854,7 +856,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         }
 
         [Test]
-        [RequiresSTA]
+        [Apartment(ApartmentState.STA)]
         public void Panning_MiddleMouseDown_HandCursorSet()
         {
             using (var form = new Form())
@@ -878,7 +880,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         }
 
         [Test]
-        [RequiresSTA]
+        [Apartment(ApartmentState.STA)]
         public void Panning_RightMouseDown_DefaultCursorSet()
         {
             using (var form = new Form())
@@ -902,7 +904,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         }
 
         [Test]
-        [RequiresSTA]
+        [Apartment(ApartmentState.STA)]
         public void ToggleRectangleZooming_Always_CorrectlySetsMapFunctions()
         {
             using (var form = new Form())
@@ -927,7 +929,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         }
 
         [Test]
-        [RequiresSTA]
+        [Apartment(ApartmentState.STA)]
         public void TogglePanning_Always_CorrectlySetsMapFunctions()
         {
             using (var form = new Form())
@@ -954,7 +956,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         }
 
         [Test]
-        [RequiresSTA]
+        [Apartment(ApartmentState.STA)]
         [TestCase(MouseButtons.Right)]
         [TestCase(MouseButtons.Middle)]
         public void SelectionZoom_OtherThanMouseLeftDownAndMapBusy_SizeNWSECursorSet(MouseButtons mouseButton)

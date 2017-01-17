@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls.Primitives;
 using Core.Common.Controls.Commands;
@@ -33,7 +34,7 @@ namespace Core.Plugins.ProjectExplorer.Test
     public class RibbonTest
     {
         [Test]
-        [RequiresSTA]
+        [Apartment(ApartmentState.STA)]
         public void ValidateItems_ShowProjectExplorerCommandNotSet_ThrowsNullReferenceException()
         {
             // Setup
@@ -47,7 +48,7 @@ namespace Core.Plugins.ProjectExplorer.Test
         }
 
         [Test]
-        [RequiresSTA]
+        [Apartment(ApartmentState.STA)]
         [TestCase(true)]
         [TestCase(false)]
         public void ValidateItems_ShowProjectExplorerCommandSet_ShowProjectButtonIsCheckedEqualToCommandChecked(bool isChecked)
@@ -77,7 +78,7 @@ namespace Core.Plugins.ProjectExplorer.Test
         }
 
         [Test]
-        [RequiresSTA]
+        [Apartment(ApartmentState.STA)]
         public void ToggleExplorerCommand_ButtonShowProjectExplorerToolWindowOnClick_ExecutesCommandAndUpdatesButtonState()
         {
             // Setup

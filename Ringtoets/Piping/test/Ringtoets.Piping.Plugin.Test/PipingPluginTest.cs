@@ -21,6 +21,7 @@
 
 using System;
 using System.Linq;
+using System.Threading;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.Commands;
@@ -41,7 +42,7 @@ namespace Ringtoets.Piping.Plugin.Test
     public class PipingPluginTest
     {
         [Test]
-        [STAThread] // For creation of XAML UI component (PipingRibbon)
+        [Apartment(ApartmentState.STA)] // For creation of XAML UI component (PipingRibbon)
         public void DefaultConstructor_ExpectedValues()
         {
             // Call

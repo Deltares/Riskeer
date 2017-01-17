@@ -22,6 +22,7 @@
 using System;
 using System.ComponentModel;
 using System.Linq;
+using System.Threading;
 using System.Windows;
 using Core.Common.Base.Data;
 using Core.Common.Base.Storage;
@@ -57,7 +58,7 @@ namespace Core.Common.Gui.Test.Forms.MainWindow
         }
 
         [Test]
-        [STAThread]
+        [Apartment(ApartmentState.STA)]
         public void DefaultConstructor_ExpectedValues()
         {
             // Call
@@ -85,7 +86,7 @@ namespace Core.Common.Gui.Test.Forms.MainWindow
         }
 
         [Test]
-        [STAThread]
+        [Apartment(ApartmentState.STA)]
         public void Dispose_SetIsWindowDisposedTrue()
         {
             // Setup
@@ -102,7 +103,7 @@ namespace Core.Common.Gui.Test.Forms.MainWindow
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        [STAThread]
+        [Apartment(ApartmentState.STA)]
         public void Visible_SettingValueWithoutHavingSetGui_ThrowInvalidOperationException(bool newVisibleValue)
         {
             // Setup
@@ -117,7 +118,7 @@ namespace Core.Common.Gui.Test.Forms.MainWindow
         }
 
         [Test]
-        [STAThread]
+        [Apartment(ApartmentState.STA)]
         public void Visible_SetToTrue_ShowMainForm()
         {
             // Setup
@@ -148,7 +149,7 @@ namespace Core.Common.Gui.Test.Forms.MainWindow
         }
 
         [Test]
-        [STAThread]
+        [Apartment(ApartmentState.STA)]
         public void Visible_SetToFalse_HideMainForm()
         {
             // Setup
@@ -180,7 +181,7 @@ namespace Core.Common.Gui.Test.Forms.MainWindow
         }
 
         [Test]
-        [STAThread]
+        [Apartment(ApartmentState.STA)]
         public void SubscribeToGui_NoGuiSet_DoNothing()
         {
             // Setup
@@ -195,7 +196,7 @@ namespace Core.Common.Gui.Test.Forms.MainWindow
         }
 
         [Test]
-        [STAThread]
+        [Apartment(ApartmentState.STA)]
         public void SubscribeToGui_GuiSet_AttachEvents()
         {
             // Setup
@@ -221,7 +222,7 @@ namespace Core.Common.Gui.Test.Forms.MainWindow
         }
 
         [Test]
-        [STAThread]
+        [Apartment(ApartmentState.STA)]
         public void UnsubscribeFromGui_NoGuiSet_DoNothing()
         {
             // Setup
@@ -236,7 +237,7 @@ namespace Core.Common.Gui.Test.Forms.MainWindow
         }
 
         [Test]
-        [STAThread]
+        [Apartment(ApartmentState.STA)]
         public void UnsubscribeFromGui_GuiSetAndSubscribed_DetachEvents()
         {
             // Setup
@@ -266,7 +267,7 @@ namespace Core.Common.Gui.Test.Forms.MainWindow
         }
 
         [Test]
-        [STAThread]
+        [Apartment(ApartmentState.STA)]
         public void InitPropertiesWindowAndActivate_GuiNotSet_ThrowInvalidOperationException()
         {
             // Setup
@@ -281,7 +282,7 @@ namespace Core.Common.Gui.Test.Forms.MainWindow
         }
 
         [Test]
-        [STAThread]
+        [Apartment(ApartmentState.STA)]
         public void InitPropertiesWindowAndActivate_GuiSet_InitializePropertyGrid()
         {
             // Setup
@@ -319,7 +320,7 @@ namespace Core.Common.Gui.Test.Forms.MainWindow
         }
 
         [Test]
-        [STAThread]
+        [Apartment(ApartmentState.STA)]
         public void InitPropertiesWindowAndActivate_GuiSetAndCalledTwice_PropertyGridViewInstanceNotUpdatedRedundantly()
         {
             // Setup
@@ -360,7 +361,7 @@ namespace Core.Common.Gui.Test.Forms.MainWindow
         }
 
         [Test]
-        [STAThread]
+        [Apartment(ApartmentState.STA)]
         public void InitializeToolWindows_GuiNotSet_ThrowInvalidOperationException()
         {
             // Setup
@@ -375,7 +376,7 @@ namespace Core.Common.Gui.Test.Forms.MainWindow
         }
 
         [Test]
-        [STAThread]
+        [Apartment(ApartmentState.STA)]
         public void InitializeToolWindows_GuiSet_InitializePropertyGridAndMessageWindowAndMakeActive()
         {
             // Setup
@@ -415,7 +416,7 @@ namespace Core.Common.Gui.Test.Forms.MainWindow
         }
 
         [Test]
-        [STAThread]
+        [Apartment(ApartmentState.STA)]
         public void GivenGuiWithPropertyGrid_ClosingPropertyGrid_PropertyGridPropertySetToNull()
         {
             // Setup
@@ -446,7 +447,7 @@ namespace Core.Common.Gui.Test.Forms.MainWindow
         }
 
         [Test]
-        [STAThread]
+        [Apartment(ApartmentState.STA)]
         public void GivenGuiWithMessageWindow_ClosingMessageWindow_MessageWindowPropertySetToNull()
         {
             // Setup

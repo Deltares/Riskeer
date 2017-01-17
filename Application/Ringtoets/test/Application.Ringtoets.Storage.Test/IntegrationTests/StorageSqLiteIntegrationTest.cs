@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Windows.Threading;
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.DbContext;
@@ -160,7 +161,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         }
 
         [Test]
-        [STAThread]
+        [Apartment(ApartmentState.STA)]
         [TestCase(null)]
         [TestCase("")]
         [TestCase("  ")]
@@ -185,7 +186,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         }
 
         [Test]
-        [STAThread]
+        [Apartment(ApartmentState.STA)]
         public void GivenRingtoetsGuiWithStorageSql_WhenRunWithValidFile_ProjectSet()
         {
             // Given

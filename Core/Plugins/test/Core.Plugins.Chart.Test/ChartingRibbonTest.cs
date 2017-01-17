@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -36,7 +37,7 @@ namespace Core.Plugins.Chart.Test
     public class ChartingRibbonTest
     {
         [Test]
-        [RequiresSTA]
+        [Apartment(ApartmentState.STA)]
         public void DefaultConstructor_Always_CreatesControl()
         {
             // Setup
@@ -47,7 +48,7 @@ namespace Core.Plugins.Chart.Test
         }
 
         [Test]
-        [RequiresSTA]
+        [Apartment(ApartmentState.STA)]
         public void TogglePanning_OnClick_TogglePanning()
         {
             // Setup
@@ -74,7 +75,7 @@ namespace Core.Plugins.Chart.Test
         }
 
         [Test]
-        [RequiresSTA]
+        [Apartment(ApartmentState.STA)]
         public void ToggleRectangleZooming_OnClick_ToggleRectangleZooming()
         {
             // Setup
@@ -101,7 +102,7 @@ namespace Core.Plugins.Chart.Test
         }
 
         [Test]
-        [RequiresSTA]
+        [Apartment(ApartmentState.STA)]
         public void ToggleLegendViewButton_OnClick_ExecutesToggleLegendViewCommand()
         {
             // Setup
@@ -128,7 +129,7 @@ namespace Core.Plugins.Chart.Test
         }
 
         [Test]
-        [RequiresSTA]
+        [Apartment(ApartmentState.STA)]
         public void ZoomToAll_OnClick_ExecutesChartZoomToAll()
         {
             // Setup
@@ -157,7 +158,7 @@ namespace Core.Plugins.Chart.Test
         }
 
         [Test]
-        [RequiresSTA]
+        [Apartment(ApartmentState.STA)]
         [TestCase(true)]
         [TestCase(false)]
         public void Chart_Always_AttachesToChartAndUpdatesChartingCommands(bool buttonChecked)
@@ -189,7 +190,7 @@ namespace Core.Plugins.Chart.Test
         }
 
         [Test]
-        [RequiresSTA]
+        [Apartment(ApartmentState.STA)]
         [TestCase(true)]
         [TestCase(false)]
         public void Chart_WithOrWithoutChart_UpdatesChartingContextualVisibility(bool chartVisible)
@@ -216,7 +217,7 @@ namespace Core.Plugins.Chart.Test
         }
 
         [Test]
-        [RequiresSTA]
+        [Apartment(ApartmentState.STA)]
         [TestCase(true)]
         [TestCase(false)]
         public void ValidateItems_Always_ToggleLegendViewIsCheckedEqualToCommandChecked(bool commandChecked)
@@ -247,7 +248,7 @@ namespace Core.Plugins.Chart.Test
         }
 
         [Test]
-        [RequiresSTA]
+        [Apartment(ApartmentState.STA)]
         [TestCase(true)]
         [TestCase(false)]
         public void ValidateItems_Always_TogglePanningIsCheckedEqualToChartIsPanning(bool buttonChecked)

@@ -21,6 +21,7 @@
 
 using System;
 using System.Linq;
+using System.Threading;
 using System.Windows.Forms;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.TreeView;
@@ -194,6 +195,7 @@ namespace Core.Plugins.Map.Test.Legend
         }
 
         [Test]
+        [Apartment(ApartmentState.STA)]
         public void MapControl_MapControlHasMapWithData_DataReturnsMapDataOfMap()
         {
             // Setup
@@ -236,7 +238,7 @@ namespace Core.Plugins.Map.Test.Legend
         }
 
         [Test]
-        [RequiresSTA]
+        [Apartment(ApartmentState.STA)]
         public void Selection_Always_ReturnsSelectedNodeData()
         {
             // Setup
@@ -265,7 +267,7 @@ namespace Core.Plugins.Map.Test.Legend
         }
 
         [Test]
-        [RequiresSTA]
+        [Apartment(ApartmentState.STA)]
         public void TreeViewSelectedNodeChanged_Always_SelectionChangedFired()
         {
             // Setup

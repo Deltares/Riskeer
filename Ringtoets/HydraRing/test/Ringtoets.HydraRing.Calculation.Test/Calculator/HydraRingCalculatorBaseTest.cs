@@ -64,7 +64,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Calculator
             calculator.PublicCalculate();
 
             // Assert
-            Assert.IsNotNullOrEmpty(calculator.OutputDirectory);
+            Assert.That(!string.IsNullOrEmpty(calculator.OutputDirectory));
             Assert.IsTrue(calculator.Output);
         }
     }

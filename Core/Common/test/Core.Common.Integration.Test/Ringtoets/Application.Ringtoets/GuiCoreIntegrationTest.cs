@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Threading;
 using System.Windows.Controls;
 using System.Windows.Threading;
 using Core.Common.Base.Data;
@@ -50,7 +51,7 @@ namespace Core.Common.Integration.Test.Ringtoets.Application.Ringtoets
         }
 
         [Test]
-        [RequiresSTA]
+        [Apartment(ApartmentState.STA)]
         public void Run_GuiWithRingtoetsPlugin_DoesNotCrash()
         {
             var mocks = new MockRepository();
@@ -68,14 +69,14 @@ namespace Core.Common.Integration.Test.Ringtoets.Application.Ringtoets
         }
 
         [Test]
-        [RequiresSTA]
+        [Apartment(ApartmentState.STA)]
         public void Run_StartWithCommonPlugins_RunsFasterThanThreshold()
         {
             TestHelper.AssertIsFasterThan(7500, StartWithCommonPlugins);
         }
 
         [Test]
-        [RequiresSTA]
+        [Apartment(ApartmentState.STA)]
         public void FormActionIsRunForMainWindow()
         {
             //testing testhelper + visible changed event of mainwindow.

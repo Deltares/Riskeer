@@ -21,6 +21,7 @@
 
 using System;
 using System.Linq;
+using System.Threading;
 using System.Windows;
 using System.Windows.Threading;
 using Core.Common.Base.Data;
@@ -57,7 +58,7 @@ namespace Core.Plugins.Map.Test
         }
 
         [Test]
-        [RequiresSTA]
+        [Apartment(ApartmentState.STA)]
         public void Activate_WithoutGui_ThrowsArgumentNullException()
         {
             // Setup
@@ -73,7 +74,7 @@ namespace Core.Plugins.Map.Test
         }
 
         [Test]
-        [RequiresSTA]
+        [Apartment(ApartmentState.STA)]
         public void Activate_WithGui_AddsMapLegendView()
         {
             // Setup
@@ -159,7 +160,7 @@ namespace Core.Plugins.Map.Test
         }
 
         [Test]
-        [RequiresSTA]
+        [Apartment(ApartmentState.STA)]
         [TestCase(true)]
         [TestCase(false)]
         public void GivenConfiguredGui_WhenActiveDocumentViewChangesToViewWithMap_ThenRibbonSetVisibility(bool visible)
@@ -193,7 +194,7 @@ namespace Core.Plugins.Map.Test
         }
 
         [Test]
-        [RequiresSTA]
+        [Apartment(ApartmentState.STA)]
         public void GivenConfiguredGui_WhenMapViewOpened_ThenMapZoomedToExtents()
         {
             // Given

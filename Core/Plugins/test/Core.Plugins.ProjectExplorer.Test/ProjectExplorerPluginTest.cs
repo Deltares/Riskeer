@@ -21,6 +21,7 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using Core.Common.Base.Data;
 using Core.Common.Controls.TreeView;
 using Core.Common.Controls.Views;
@@ -68,7 +69,7 @@ namespace Core.Plugins.ProjectExplorer.Test
         }
 
         [Test]
-        [RequiresSTA]
+        [Apartment(ApartmentState.STA)]
         public void Activate_WithGui_SubscribesToProjectEvents()
         {
             // Setup
@@ -101,7 +102,7 @@ namespace Core.Plugins.ProjectExplorer.Test
         }
 
         [Test]
-        [RequiresSTA]
+        [Apartment(ApartmentState.STA)]
         public void Activate_AlreadyActivated_ThrowsPluginActivationException()
         {
             // Setup
@@ -139,7 +140,7 @@ namespace Core.Plugins.ProjectExplorer.Test
         }
 
         [Test]
-        [RequiresSTA]
+        [Apartment(ApartmentState.STA)]
         public void Deactivate_WhenActive_DesubscribesToProjectEvents()
         {
             // Setup
@@ -175,7 +176,7 @@ namespace Core.Plugins.ProjectExplorer.Test
         }
 
         [Test]
-        [RequiresSTA]
+        [Apartment(ApartmentState.STA)]
         public void Deactivate_AlwaysWhenNotActive_DoesNotThrow()
         {
             // Setup
@@ -190,7 +191,7 @@ namespace Core.Plugins.ProjectExplorer.Test
         }
 
         [Test]
-        [RequiresSTA]
+        [Apartment(ApartmentState.STA)]
         public void Dispose_AlwaysWhenNotActive_DoesNotThrow()
         {
             // Setup
@@ -218,7 +219,7 @@ namespace Core.Plugins.ProjectExplorer.Test
         }
 
         [Test]
-        [RequiresSTA]
+        [Apartment(ApartmentState.STA)]
         public void ProjectOpened_PluginActivated_UpdateProjectExplorer()
         {
             // Setup

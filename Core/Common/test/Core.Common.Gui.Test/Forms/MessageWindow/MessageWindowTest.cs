@@ -21,6 +21,7 @@
 
 using System;
 using System.Data;
+using System.Threading;
 using System.Windows.Forms;
 using log4net.Core;
 using NUnit.Extensions.Forms;
@@ -445,7 +446,7 @@ namespace Core.Common.Gui.Test.Forms.MessageWindow
         }
 
         [Test]
-        [STAThread]
+        [Apartment(ApartmentState.STA)]
         public void ButtonCopy_Click_CopiesContentToClipboard()
         {
             // Setup

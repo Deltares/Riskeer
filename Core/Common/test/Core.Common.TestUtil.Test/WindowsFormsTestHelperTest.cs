@@ -124,14 +124,17 @@ namespace Core.Common.TestUtil.Test
         }
 
         [Test]
-        [ExpectedException(typeof(GuiTestHelper.UnhandledException))]
-        public void ExceptionIsCatchedWhenFromShownEvent()
+        public void ShowModal_ShownFails_ThrowsUnhandledException()
         {
+            // Setup
             var form = new Form();
-
             form.Shown += delegate { Assert.Fail(); };
 
-            WindowsFormsTestHelper.ShowModal(form);
+            // Call
+            TestDelegate call = () => WindowsFormsTestHelper.ShowModal(form);
+
+            // Assert
+            Assert.Throws<GuiTestHelper.UnhandledException>(call);
         }
 
         private void MethodWithException(Form obj)

@@ -31,6 +31,7 @@ using log4net.Appender;
 using log4net.Config;
 using log4net.Core;
 using NUnit.Framework;
+using NUnit.Framework.Internal;
 
 namespace Core.Common.TestUtil
 {
@@ -364,7 +365,8 @@ namespace Core.Common.TestUtil
             const string solutionName = "Ringtoets.sln";
             //get the current directory and scope up
             //TODO find a faster safer method 
-            string curDir = ".";
+            var testContext = new TestContext(TestExecutionContext.CurrentContext);
+            string curDir = testContext.TestDirectory;
             while (Directory.Exists(curDir) && !File.Exists(curDir + @"\" + solutionName))
             {
                 curDir += "/../";
@@ -372,7 +374,9 @@ namespace Core.Common.TestUtil
 
             if (!File.Exists(Path.Combine(curDir, solutionName)))
             {
-                throw new InvalidOperationException("Solution file not found.");
+                throw new InvalidOperationException(string.Format("Solution file '{0}' not found in any folder of '{1}'.",
+                                                                  solutionName, 
+                                                                  Directory.GetCurrentDirectory()));
             }
 
             return Path.GetFullPath(curDir);

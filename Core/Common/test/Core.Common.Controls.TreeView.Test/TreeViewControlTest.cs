@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Threading;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls.TreeView.Properties;
@@ -254,7 +255,7 @@ namespace Core.Common.Controls.TreeView.Test
         }
 
         [Test]
-        [RequiresSTA]
+        [Apartment(ApartmentState.STA)]
         public void TryRenameNodeForData_NotRenameable_ShowsDialog()
         {
             // Setup
@@ -288,7 +289,7 @@ namespace Core.Common.Controls.TreeView.Test
         }
 
         [Test]
-        [RequiresSTA]
+        [Apartment(ApartmentState.STA)]
         public void TryRenameNodeForData_Renameable_BeginEdit()
         {
             // Setup
@@ -396,7 +397,7 @@ namespace Core.Common.Controls.TreeView.Test
         }
 
         [Test]
-        [RequiresSTA]
+        [Apartment(ApartmentState.STA)]
         public void TryRemoveNodeForData_NotRemoveable_ShowsDialog()
         {
             // Setup
@@ -437,7 +438,7 @@ namespace Core.Common.Controls.TreeView.Test
         }
 
         [Test]
-        [RequiresSTA]
+        [Apartment(ApartmentState.STA)]
         public void TryRemoveNodeForData_Removeable_OnNodeRemovedAndDataDeletedCalled()
         {
             // Setup
@@ -487,7 +488,7 @@ namespace Core.Common.Controls.TreeView.Test
         }
 
         [Test]
-        [RequiresSTA]
+        [Apartment(ApartmentState.STA)]
         public void TryRemoveChildNodesOfData_CancelClicked_OnNodeRemovedOnChildrenNotCalled()
         {
             // Setup
@@ -543,7 +544,7 @@ namespace Core.Common.Controls.TreeView.Test
         }
 
         [Test]
-        [RequiresSTA]
+        [Apartment(ApartmentState.STA)]
         public void TryRemoveChildNodesOfData_OkClicked_OnNodeRemovedAndDataDeletedOnChildrenCalled()
         {
             // Setup
@@ -603,7 +604,7 @@ namespace Core.Common.Controls.TreeView.Test
         }
 
         [Test]
-        [RequiresSTA]
+        [Apartment(ApartmentState.STA)]
         public void CanRemoveChildNodesOfData_NoChildren_ReturnsFalse()
         {
             // Setup
@@ -635,7 +636,7 @@ namespace Core.Common.Controls.TreeView.Test
         }
 
         [Test]
-        [RequiresSTA]
+        [Apartment(ApartmentState.STA)]
         public void CanRemoveChildNodesOfData_NoRemovableChildren_ReturnsFalse()
         {
             // Setup
@@ -677,7 +678,7 @@ namespace Core.Common.Controls.TreeView.Test
         }
 
         [Test]
-        [RequiresSTA]
+        [Apartment(ApartmentState.STA)]
         public void CanRemoveChildNodesOfData_OneRemovableChild_ReturnsTrue()
         {
             // Setup
@@ -727,7 +728,7 @@ namespace Core.Common.Controls.TreeView.Test
         }
 
         [Test]
-        [RequiresSTA]
+        [Apartment(ApartmentState.STA)]
         public void TryRemoveNodeForData_RemoveableCancelClicked_OnNodeRemovedNotCalled()
         {
             // Setup
@@ -1248,7 +1249,7 @@ namespace Core.Common.Controls.TreeView.Test
         }
 
         [Test]
-        [RequiresSTA]
+        [Apartment(ApartmentState.STA)]
         public void SelectedDataChanged_ListenerNotSet_DoesNotThrow()
         {
             // Setup
@@ -1291,7 +1292,7 @@ namespace Core.Common.Controls.TreeView.Test
         }
 
         [Test]
-        [RequiresSTA]
+        [Apartment(ApartmentState.STA)]
         public void SelectedDataChanged_ListenerSetOnInitAndDataSetToNull_SelectedDataChangedInvokedOnce()
         {
             // Setup
@@ -1334,7 +1335,7 @@ namespace Core.Common.Controls.TreeView.Test
         }
 
         [Test]
-        [RequiresSTA]
+        [Apartment(ApartmentState.STA)]
         public void SelectedDataChanged_ListenerSetOnInitAndDataSetToObject_SelectedDataChangedInvokedOnce()
         {
             // Setup
@@ -1378,7 +1379,7 @@ namespace Core.Common.Controls.TreeView.Test
         }
 
         [Test]
-        [RequiresSTA]
+        [Apartment(ApartmentState.STA)]
         public void SelectedDataChanged_ListenerSetOnSelectChild_SelectedDataChangedInvokedOnce()
         {
             // Setup
@@ -1423,7 +1424,7 @@ namespace Core.Common.Controls.TreeView.Test
         }
 
         [Test]
-        [RequiresSTA]
+        [Apartment(ApartmentState.STA)]
         public void DataDoubleClick_ListenerSetOnNodeDoubleClick_DataDoubleClickInvoked()
         {
             // Setup
@@ -1455,7 +1456,7 @@ namespace Core.Common.Controls.TreeView.Test
         }
 
         [Test]
-        [RequiresSTA]
+        [Apartment(ApartmentState.STA)]
         public void DataDoubleClick_ListenerNotSetOnNodeDoubleClick_DoesNotThrow()
         {
             // Setup
@@ -1485,7 +1486,7 @@ namespace Core.Common.Controls.TreeView.Test
         }
 
         [Test]
-        [RequiresSTA]
+        [Apartment(ApartmentState.STA)]
         public void BeforeLabelEdit_Always_CanRenameInvoked()
         {
             // Setup
@@ -1527,7 +1528,7 @@ namespace Core.Common.Controls.TreeView.Test
         }
 
         [Test]
-        [RequiresSTA]
+        [Apartment(ApartmentState.STA)]
         [TestCase(true)]
         [TestCase(false)]
         public void AfterLabelEdit_DependingOnNewLabel_OnNodeRenamedInvoked(bool newLabel)
@@ -1568,7 +1569,7 @@ namespace Core.Common.Controls.TreeView.Test
         }
 
         [Test]
-        [RequiresSTA]
+        [Apartment(ApartmentState.STA)]
         public void OnNodeChecked_Always_InvokesOnNodeChecked()
         {
             // Setup
@@ -1637,7 +1638,7 @@ namespace Core.Common.Controls.TreeView.Test
         }
 
         [Test]
-        [RequiresSTA]
+        [Apartment(ApartmentState.STA)]
         [TestCase(MouseButtons.Left, false)]
         [TestCase(MouseButtons.Right, true)]
         [TestCase(MouseButtons.Middle, false)]
@@ -1696,7 +1697,7 @@ namespace Core.Common.Controls.TreeView.Test
         }
 
         [Test]
-        [RequiresSTA]
+        [Apartment(ApartmentState.STA)]
         [TestCase(true)]
         [TestCase(false)]
         public void GivenTreeViewControl_WhenTreeViewItemDragOnNode_SelectThatNode(

@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Windows.Forms;
 using Core.Common.Base.Data;
 using Core.Common.Controls.TreeView;
@@ -152,7 +153,7 @@ namespace Core.Plugins.ProjectExplorer.Test
         }
 
         [Test]
-        [RequiresSTA]
+        [Apartment(ApartmentState.STA)]
         public void TreeViewSelectedNodeChanged_Always_SelectionChangedFired()
         {
             // Setup
@@ -206,7 +207,7 @@ namespace Core.Plugins.ProjectExplorer.Test
         }
 
         [Test]
-        [RequiresSTA]
+        [Apartment(ApartmentState.STA)]
         public void TreeViewEnterPress_Always_OpenViewForSelection()
         {
             // Setup
@@ -260,7 +261,7 @@ namespace Core.Plugins.ProjectExplorer.Test
         }
 
         [Test]
-        [RequiresSTA]
+        [Apartment(ApartmentState.STA)]
         public void Selection_Always_ReturnsSelectedNodeData()
         {
             // Setup

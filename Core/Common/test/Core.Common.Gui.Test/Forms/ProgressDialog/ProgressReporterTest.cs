@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Threading;
 using System.Windows.Forms;
 using Core.Common.Gui.Forms.ProgressDialog;
 using NUnit.Framework;
@@ -30,7 +31,7 @@ namespace Core.Common.Gui.Test.Forms.ProgressDialog
     public class ProgressReporterTest
     {
         [Test]
-        [STAThread]
+        [Apartment(ApartmentState.STA)]
         public void Constructor_InvalidSynchronizationContext_ThrowsInvalidOperationException()
         {
             // Call

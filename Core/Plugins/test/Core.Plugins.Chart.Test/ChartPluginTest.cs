@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Threading;
 using System.Windows;
 using System.Windows.Threading;
 using Core.Common.Base.Data;
@@ -53,7 +54,7 @@ namespace Core.Plugins.Chart.Test
         }
 
         [Test]
-        [RequiresSTA]
+        [Apartment(ApartmentState.STA)]
         public void Activate_WithoutGui_ThrowsArgumentNullException()
         {
             // Setup
@@ -68,7 +69,7 @@ namespace Core.Plugins.Chart.Test
         }
 
         [Test]
-        [RequiresSTA]
+        [Apartment(ApartmentState.STA)]
         public void Activate_WithGui_AddsChartLegendView()
         {
             // Setup
@@ -104,7 +105,7 @@ namespace Core.Plugins.Chart.Test
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        [RequiresSTA]
+        [Apartment(ApartmentState.STA)]
         public void GivenConfiguredGui_WhenActiveDocumentViewChangesToViewWithChart_ThenRibbonSetVisibility(bool visible)
         {
             // Given

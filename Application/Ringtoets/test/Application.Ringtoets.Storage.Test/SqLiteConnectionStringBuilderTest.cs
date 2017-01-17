@@ -49,7 +49,7 @@ namespace Application.Ringtoets.Storage.Test
             var connectionString = SqLiteConnectionStringBuilder.BuildSqLiteEntityConnectionString(pathToSqLiteFile);
 
             // Assert
-            Assert.IsNotNullOrEmpty(connectionString);
+            Assert.That(!string.IsNullOrEmpty(connectionString));
             StringAssert.Contains(string.Format("metadata=res://*/{0}.csdl|res://*/{0}.ssdl|res://*/{0}.msl;", "DbContext.RingtoetsEntities"), connectionString);
             StringAssert.Contains("provider=System.Data.SQLite.EF6", connectionString);
             StringAssert.Contains("failifmissing=True", connectionString);
@@ -70,7 +70,7 @@ namespace Application.Ringtoets.Storage.Test
             var connectionString = SqLiteConnectionStringBuilder.BuildSqLiteEntityConnectionString(uncPathToSqlFile);
 
             // Assert
-            Assert.IsNotNullOrEmpty(connectionString);
+            Assert.That(!string.IsNullOrEmpty(connectionString));
             StringAssert.Contains(string.Format("metadata=res://*/{0}.csdl|res://*/{0}.ssdl|res://*/{0}.msl;", "DbContext.RingtoetsEntities"), connectionString);
             StringAssert.Contains("provider=System.Data.SQLite.EF6", connectionString);
             StringAssert.Contains("failifmissing=True", connectionString);
@@ -101,7 +101,7 @@ namespace Application.Ringtoets.Storage.Test
             var connectionString = SqLiteConnectionStringBuilder.BuildSqLiteConnectionString(pathToSqLiteFile);
 
             // Assert
-            Assert.IsNotNullOrEmpty(connectionString);
+            Assert.That(!string.IsNullOrEmpty(connectionString));
             StringAssert.Contains(pathToSqLiteFile, connectionString);
             StringAssert.DoesNotContain("metadata=", connectionString);
             StringAssert.DoesNotContain("System.Data.SQLite.EF6", connectionString);
@@ -123,7 +123,7 @@ namespace Application.Ringtoets.Storage.Test
             var connectionString = SqLiteConnectionStringBuilder.BuildSqLiteConnectionString(uncPathToSqlFile);
 
             // Assert
-            Assert.IsNotNullOrEmpty(connectionString);
+            Assert.That(!string.IsNullOrEmpty(connectionString));
             StringAssert.DoesNotContain("metadata=", connectionString);
             StringAssert.DoesNotContain("System.Data.SQLite.EF6", connectionString);
             StringAssert.Contains("failifmissing=True", connectionString);

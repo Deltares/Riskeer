@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Windows.Threading;
 using Core.Common.Base.Data;
 using Core.Common.Base.Storage;
@@ -65,7 +66,7 @@ namespace Ringtoets.Integration.Plugin.Test
     public class RingtoetsPluginTest : NUnitFormTest
     {
         [Test]
-        [STAThread] // For creation of XAML UI component
+        [Apartment(ApartmentState.STA)] // For creation of XAML UI component
         public void DefaultConstructor_ExpectedValues()
         {
             // Call
@@ -78,7 +79,7 @@ namespace Ringtoets.Integration.Plugin.Test
         }
 
         [Test]
-        [STAThread] // For creation of XAML UI component
+        [Apartment(ApartmentState.STA)] // For creation of XAML UI component
         public void GivenPluginWithGuiSet_WhenProjectOnGuiChangesToProjectWithoutHydraulicBoundaryDatabase_ThenNoWarning()
         {
             // Given
@@ -106,7 +107,7 @@ namespace Ringtoets.Integration.Plugin.Test
         }
 
         [Test]
-        [STAThread] // For creation of XAML UI component
+        [Apartment(ApartmentState.STA)] // For creation of XAML UI component
         public void GivenPluginWithGuiSet_WhenProjectOnGuiChangesToProjectWithHydraulicBoundaryDatabaseWithExistingLocation_ThenNoWarning()
         {
             // Given
@@ -147,7 +148,7 @@ namespace Ringtoets.Integration.Plugin.Test
         }
 
         [Test]
-        [STAThread] // For creation of XAML UI component
+        [Apartment(ApartmentState.STA)] // For creation of XAML UI component
         public void GivenPluginWithGuiSet_WhenProjectOnGuiChangesToProjectWithHydraulicBoundaryDatabaseWithNonExistingLocation_ThenWarning()
         {
             // Given
@@ -521,7 +522,7 @@ namespace Ringtoets.Integration.Plugin.Test
         }
 
         [Test]
-        [STAThread] // Due to creating fluent Ribbon
+        [Apartment(ApartmentState.STA)] // Due to creating fluent Ribbon
         public void Activate_WithGui_DoesNotThrowException()
         {
             // Setup

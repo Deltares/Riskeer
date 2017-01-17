@@ -21,6 +21,7 @@
 
 using System.Linq;
 using Core.Common.Gui;
+using System.Threading;
 using Core.Common.Gui.Forms;
 using Core.Common.Gui.Plugin;
 using Core.Components.Charting.Data;
@@ -36,7 +37,7 @@ namespace Demo.Ringtoets.Test.GUIs
     public class DemoProjectPluginTest
     {
         [Test]
-        [RequiresSTA]
+        [Apartment(ApartmentState.STA)]
         public void DefaultConstructor_DefaultValues()
         {
             // Setup

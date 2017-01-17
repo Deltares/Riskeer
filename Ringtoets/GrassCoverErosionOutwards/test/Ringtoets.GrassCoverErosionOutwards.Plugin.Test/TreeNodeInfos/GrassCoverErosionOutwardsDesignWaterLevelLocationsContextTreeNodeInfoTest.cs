@@ -23,6 +23,7 @@ using System;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.Data;
@@ -386,7 +387,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        [RequiresSTA]
+        [Apartment(ApartmentState.STA)]
         public void GivenHydraulicBoundaryDatabaseWithNonExistingFilePath_WhenCalculatingDesignWaterLevelFromContextMenu_ThenLogMessagesAddedPreviousOutputNotAffected()
         {
             // Given
@@ -451,7 +452,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        [RequiresSTA]
+        [Apartment(ApartmentState.STA)]
         public void GivenHydraulicBoundaryLocationSucceeds_CalculatingDesignWaterLevelFromContextMenu_ThenLogMessagesAddedOutputSet()
         {
             // Given
@@ -563,8 +564,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                         var testDesignWaterLevelCalculator = testFactory.DesignWaterLevelCalculator;
                         Assert.IsEmpty(testDesignWaterLevelCalculator.ReceivedInputs);
 
-                        Assert.IsNullOrEmpty(testDesignWaterLevelCalculator.HydraulicBoundaryDatabaseDirectory);
-                        Assert.IsNullOrEmpty(testDesignWaterLevelCalculator.RingId);
+                        Assert.That(string.IsNullOrEmpty(testDesignWaterLevelCalculator.HydraulicBoundaryDatabaseDirectory));
+                        Assert.That(string.IsNullOrEmpty(testDesignWaterLevelCalculator.RingId));
                     }
                 }
             }

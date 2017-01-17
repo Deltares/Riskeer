@@ -36,8 +36,8 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
             HydraulicBoundaryDatabase hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
 
             // Assert
-            Assert.IsNullOrEmpty(null, hydraulicBoundaryDatabase.FilePath);
-            Assert.IsNullOrEmpty(null, hydraulicBoundaryDatabase.Version);
+            Assert.That(string.IsNullOrEmpty(hydraulicBoundaryDatabase.FilePath));
+            Assert.That(string.IsNullOrEmpty(hydraulicBoundaryDatabase.Version));
             Assert.IsInstanceOf<ICollection<HydraulicBoundaryLocation>>(hydraulicBoundaryDatabase.Locations);
             Assert.IsInstanceOf<Observable>(hydraulicBoundaryDatabase);
             CollectionAssert.IsEmpty(hydraulicBoundaryDatabase.Locations);

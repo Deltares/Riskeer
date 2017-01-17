@@ -33,13 +33,13 @@ namespace Application.Ringtoets.Storage.Test
     {
         private readonly string testWorkDir = Path.Combine(".", "SafeOverwriteFileHelperTest");
 
-        [TestFixtureSetUp]
+        [OneTimeSetUp]
         public void SetUpFixture()
         {
             Directory.CreateDirectory(testWorkDir);
         }
 
-        [TestFixtureTearDown]
+        [OneTimeTearDown]
         public void TearDownFixture()
         {
             Directory.Delete(testWorkDir);

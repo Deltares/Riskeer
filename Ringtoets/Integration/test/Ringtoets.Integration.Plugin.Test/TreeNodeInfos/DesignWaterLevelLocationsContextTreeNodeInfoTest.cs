@@ -23,6 +23,7 @@ using System;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Windows.Forms;
 using Core.Common.Base.Data;
 using Core.Common.Controls.TreeView;
@@ -243,7 +244,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        [RequiresSTA]
+        [Apartment(ApartmentState.STA)]
         public void GivenHydraulicBoundaryDatabaseWithNonExistingFilePath_WhenCalculatingAssessmentLevelFromContextMenu_ThenLogMessagesAddedPreviousOutputNotAffected()
         {
             // Given
@@ -308,7 +309,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        [RequiresSTA]
+        [Apartment(ApartmentState.STA)]
         public void GivenHydraulicBoundaryLocationThatSucceeds_CalculatingAssessmentLevelFromContextMenu_ThenLogMessagesAddedOutputSet()
         {
             // Given

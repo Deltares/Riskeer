@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
+using System.Threading;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Forms.Integration;
@@ -39,7 +40,7 @@ using Xceed.Wpf.AvalonDock.Layout;
 namespace Core.Common.Gui.Test.Forms.ViewHost
 {
     [TestFixture]
-    [RequiresSTA]
+    [Apartment(ApartmentState.STA)]
     public class AvalonDockViewHostTest
     {
         [Test]

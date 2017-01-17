@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Threading;
 using System.Windows.Forms;
 using DotSpatial.Data;
 using NUnit.Extensions.Forms;
@@ -30,7 +31,7 @@ namespace Core.Components.DotSpatial.Forms.Test
     public class DotSpatialMapTest
     {
         [Test]
-        [RequiresSTA]
+        [Apartment(ApartmentState.STA)]
         [TestCase(1e-5)]
         [TestCase(1e-6)]
         [TestCase(1e-7)]

@@ -23,6 +23,7 @@ using System;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls.TreeView;
@@ -312,7 +313,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        [RequiresSTA]
+        [Apartment(ApartmentState.STA)]
         public void GivenHydraulicBoundaryLocationThatFails_CalculatingWaveHeightFromContextMenu_ThenLogMessagesAddedPreviousOutputNotAffected()
         {
             // Given

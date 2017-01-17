@@ -31,7 +31,7 @@ using NUnit.Framework;
 namespace Application.Ringtoets.Integration.Test
 {
     [TestFixture]
-    [Explicit]
+    [Explicit("Ignored because the test is too expensive to run on every commit.")]
     public class ResourcesTest
     {
         private string outputFilePath;

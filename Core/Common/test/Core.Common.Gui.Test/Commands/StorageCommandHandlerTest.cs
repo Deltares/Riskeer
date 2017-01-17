@@ -21,6 +21,7 @@
 
 using System;
 using System.IO;
+using System.Threading;
 using System.Windows.Forms;
 using Core.Common.Base.Data;
 using Core.Common.Base.Storage;
@@ -92,41 +93,41 @@ namespace Core.Common.Gui.Test.Commands
             string someValidFilePath = TestHelper.GetTestDataPath(TestDataPath.Core.Common.Gui, Path.GetRandomFileName());
             using (new FileDisposeHelper(someValidFilePath))
             {
-                var projectStub = mocks.Stub<IProject>();
-                var projectFactory = mocks.Stub<IProjectFactory>();
+            var projectStub = mocks.Stub<IProject>();
+            var projectFactory = mocks.Stub<IProjectFactory>();
 
-                const string exceptionMessage = "<some descriptive exception message>";
+            const string exceptionMessage = "<some descriptive exception message>";
 
-                var projectStorage = mocks.StrictMock<IStoreProject>();
-                projectStorage.Expect(ps => ps.HasStagedProject).Return(false);
-                projectStorage.Expect(ps => ps.StageProject(projectStub));
-                projectStorage.Expect(ps => ps.SaveProjectAs(someValidFilePath)).
-                               Throw(new StorageException(exceptionMessage, new Exception("l33t h4xor!")));
+            var projectStorage = mocks.StrictMock<IStoreProject>();
+            projectStorage.Expect(ps => ps.HasStagedProject).Return(false);
+            projectStorage.Expect(ps => ps.StageProject(projectStub));
+            projectStorage.Expect(ps => ps.SaveProjectAs(someValidFilePath)).
+                           Throw(new StorageException(exceptionMessage, new Exception("l33t h4xor!")));
 
-                var mainWindowController = mocks.StrictMock<IWin32Window>();
-                var projectOwner = mocks.Stub<IProjectOwner>();
-                projectOwner.Stub(po => po.Project).Return(projectStub);
-                projectOwner.Stub(po => po.ProjectFilePath).Return(someValidFilePath);
-                mocks.ReplayAll();
+            var mainWindowController = mocks.StrictMock<IWin32Window>();
+            var projectOwner = mocks.Stub<IProjectOwner>();
+            projectOwner.Stub(po => po.Project).Return(projectStub);
+            projectOwner.Stub(po => po.ProjectFilePath).Return(someValidFilePath);
+            mocks.ReplayAll();
 
-                var storageCommandHandler = new StorageCommandHandler(
-                    projectStorage,
-                    projectFactory,
-                    projectOwner,
-                    mainWindowController);
+            var storageCommandHandler = new StorageCommandHandler(
+                projectStorage,
+                projectFactory,
+                projectOwner,
+                mainWindowController);
 
-                // Call
-                bool result = true;
-                Action call = () => result = storageCommandHandler.SaveProject();
+            // Call
+            bool result = true;
+            Action call = () => result = storageCommandHandler.SaveProject();
 
-                // Assert
-                var expectedMessages = new[]
-                {
-                    exceptionMessage,
-                    "Het is niet gelukt om het Ringtoetsproject op te slaan."
-                };
-                TestHelper.AssertLogMessagesAreGenerated(call, expectedMessages, 2);
-                Assert.IsFalse(result);
+            // Assert
+            var expectedMessages = new[]
+            {
+                exceptionMessage,
+                "Het is niet gelukt om het Ringtoetsproject op te slaan."
+            };
+            TestHelper.AssertLogMessagesAreGenerated(call, expectedMessages, 2);
+            Assert.IsFalse(result);
             }
             mocks.VerifyAll();
         }
@@ -138,35 +139,35 @@ namespace Core.Common.Gui.Test.Commands
             string someValidFilePath = TestHelper.GetTestDataPath(TestDataPath.Core.Common.Gui, Path.GetRandomFileName());
             using (new FileDisposeHelper(someValidFilePath))
             {
-                var projectStub = mocks.Stub<IProject>();
-                var projectFactory = mocks.Stub<IProjectFactory>();
+            var projectStub = mocks.Stub<IProject>();
+            var projectFactory = mocks.Stub<IProjectFactory>();
 
-                var projectStorage = mocks.Stub<IStoreProject>();
-                projectStorage.Expect(ps => ps.StageProject(projectStub));
-                projectStorage.Expect(ps => ps.HasStagedProject).Return(false);
-                projectStorage.Expect(ps => ps.SaveProjectAs(someValidFilePath));
+            var projectStorage = mocks.Stub<IStoreProject>();
+            projectStorage.Expect(ps => ps.StageProject(projectStub));
+            projectStorage.Expect(ps => ps.HasStagedProject).Return(false);
+            projectStorage.Expect(ps => ps.SaveProjectAs(someValidFilePath));
 
-                var mainWindowController = mocks.StrictMock<IWin32Window>();
-                var projectOwner = mocks.Stub<IProjectOwner>();
-                projectOwner.Stub(po => po.Project).Return(projectStub);
-                projectOwner.Stub(po => po.ProjectFilePath).Return(someValidFilePath);
-                mocks.ReplayAll();
+            var mainWindowController = mocks.StrictMock<IWin32Window>();
+            var projectOwner = mocks.Stub<IProjectOwner>();
+            projectOwner.Stub(po => po.Project).Return(projectStub);
+            projectOwner.Stub(po => po.ProjectFilePath).Return(someValidFilePath);
+            mocks.ReplayAll();
 
-                var storageCommandHandler = new StorageCommandHandler(
-                    projectStorage,
-                    projectFactory,
-                    projectOwner,
-                    mainWindowController);
+            var storageCommandHandler = new StorageCommandHandler(
+                projectStorage,
+                projectFactory,
+                projectOwner,
+                mainWindowController);
 
-                // Call
-                bool result = false;
-                Action call = () => result = storageCommandHandler.SaveProject();
+            // Call
+            bool result = false;
+            Action call = () => result = storageCommandHandler.SaveProject();
 
-                // Assert
-                var expectedMessage = string.Format("Het Ringtoetsproject '{0}' is succesvol opgeslagen.",
-                                                    projectStub.Name);
-                TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
-                Assert.IsTrue(result);
+            // Assert
+            var expectedMessage = string.Format("Het Ringtoetsproject '{0}' is succesvol opgeslagen.",
+                                                projectStub.Name);
+            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
+            Assert.IsTrue(result);
             }
             mocks.VerifyAll();
         }
@@ -372,7 +373,7 @@ namespace Core.Common.Gui.Test.Commands
         }
 
         [Test]
-        [RequiresSTA]
+        [Apartment(ApartmentState.STA)]
         public void AskConfirmationUnsavedChanges_ProjectSetWithChangeCancelPressed_ReturnsFalse()
         {
             // Setup
@@ -421,7 +422,7 @@ namespace Core.Common.Gui.Test.Commands
         }
 
         [Test]
-        [RequiresSTA]
+        [Apartment(ApartmentState.STA)]
         public void AskConfirmationUnsavedChanges_ProjectSetWithChangeNoPressed_ReturnsTrue()
         {
             // Setup
@@ -470,7 +471,7 @@ namespace Core.Common.Gui.Test.Commands
         }
 
         [Test]
-        [RequiresSTA]
+        [Apartment(ApartmentState.STA)]
         public void AskConfirmationUnsavedChanges_ProjectSetWithChangeYesPressed_ReturnsTrue()
         {
             // Setup
@@ -479,42 +480,42 @@ namespace Core.Common.Gui.Test.Commands
             string someValidFilePath = TestHelper.GetTestDataPath(TestDataPath.Core.Common.Gui, Path.GetRandomFileName());
             using (new FileDisposeHelper(someValidFilePath))
             {
-                var mainWindowController = mocks.Stub<IWin32Window>();
+            var mainWindowController = mocks.Stub<IWin32Window>();
                 var projectFactory = mocks.Stub<IProjectFactory>();
 
-                var project = mocks.Stub<IProject>();
-                project.Name = projectName;
+            var project = mocks.Stub<IProject>();
+            project.Name = projectName;
 
-                var projectStorageMock = mocks.StrictMock<IStoreProject>();
-                projectStorageMock.Expect(ps => ps.StageProject(project));
-                projectStorageMock.Expect(ps => ps.HasStagedProject).Return(true).Repeat.Twice();
-                projectStorageMock.Expect(ps => ps.HasStagedProjectChanges(null)).IgnoreArguments().Return(true);
-                projectStorageMock.Expect(ps => ps.UnstageProject());
+            var projectStorageMock = mocks.StrictMock<IStoreProject>();
+            projectStorageMock.Expect(ps => ps.StageProject(project));
+            projectStorageMock.Expect(ps => ps.HasStagedProject).Return(true).Repeat.Twice();
+            projectStorageMock.Expect(ps => ps.HasStagedProjectChanges(null)).IgnoreArguments().Return(true);
+            projectStorageMock.Expect(ps => ps.UnstageProject());
                 projectStorageMock.Expect(p => p.SaveProjectAs(someValidFilePath));
 
-                var projectOwnerStub = mocks.Stub<IProjectOwner>();
-                projectOwnerStub.Stub(po => po.Project).Return(project);
+            var projectOwnerStub = mocks.Stub<IProjectOwner>();
+            projectOwnerStub.Stub(po => po.Project).Return(project);
                 projectOwnerStub.Stub(po => po.ProjectFilePath).Return(someValidFilePath);
-                mocks.ReplayAll();
+            mocks.ReplayAll();
 
-                var storageCommandHandler = new StorageCommandHandler(
-                    projectStorageMock,
-                    projectFactory,
-                    projectOwnerStub,
-                    mainWindowController);
+            var storageCommandHandler = new StorageCommandHandler(
+                projectStorageMock,
+                projectFactory,
+                projectOwnerStub,
+                mainWindowController);
 
-                DialogBoxHandler = (name, wnd) =>
-                {
-                    var helper = new MessageBoxTester(wnd);
-                    messageBoxText = helper.Text;
-                    helper.SendCommand(MessageBoxTester.Command.Yes);
-                };
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var helper = new MessageBoxTester(wnd);
+                messageBoxText = helper.Text;
+                helper.SendCommand(MessageBoxTester.Command.Yes);
+            };
 
-                // Call
-                bool changesHandled = storageCommandHandler.HandleUnsavedChanges();
+            // Call
+            bool changesHandled = storageCommandHandler.HandleUnsavedChanges();
 
-                // Assert
-                Assert.IsTrue(changesHandled);
+            // Assert
+            Assert.IsTrue(changesHandled);
             }
 
             mocks.VerifyAll();
@@ -523,7 +524,7 @@ namespace Core.Common.Gui.Test.Commands
         }
 
         [Test]
-        [RequiresSTA]
+        [Apartment(ApartmentState.STA)]
         public void AskConfirmationUnsavedChanges_ProjectSetWithChangeYesFileDoesNotExist_ReturnsTrue()
         {
             // Setup

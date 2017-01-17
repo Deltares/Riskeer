@@ -278,7 +278,7 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
             string query = SqLiteDatabaseHelper.GetCorruptSchema();
 
             // Assert
-            Assert.IsNotNullOrEmpty(query);
+            Assert.That(!string.IsNullOrEmpty(query));
             Assert.IsTrue(query.Contains(expectedCreateVersionTable));
             Assert.IsFalse(query.Contains(notExpectedCreateProjectEntityTable));
         }

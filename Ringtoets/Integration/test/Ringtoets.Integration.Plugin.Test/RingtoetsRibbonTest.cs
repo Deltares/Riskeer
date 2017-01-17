@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls.Primitives;
 using Core.Common.Controls.Commands;
@@ -33,7 +34,7 @@ namespace Ringtoets.Integration.Plugin.Test
     public class RingtoetsRibbonTest
     {
         [Test]
-        [STAThread] // Due to creating fluent Ribbon
+        [Apartment(ApartmentState.STA)] // Due to creating fluent Ribbon
         public void GetRibbonControl_Always_ReturnRibbon()
         {
             // Setup
@@ -47,7 +48,7 @@ namespace Ringtoets.Integration.Plugin.Test
         }
 
         [Test]
-        [STAThread] // Due to creating fluent Ribbon
+        [Apartment(ApartmentState.STA)] // Due to creating fluent Ribbon
         public void AddAssessmentSectionButtonCommand_AddAssessmentSectionButtonClicked_ExecutesCommand()
         {
             // Setup

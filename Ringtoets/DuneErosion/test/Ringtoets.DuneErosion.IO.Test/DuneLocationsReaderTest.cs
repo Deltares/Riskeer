@@ -41,7 +41,7 @@ namespace Ringtoets.DuneErosion.IO.Test
             Assert.AreEqual(3431, locations.Count());
             foreach (ReadDuneLocation duneLocation in locations)
             {
-                Assert.IsNotNullOrEmpty(duneLocation.Name);
+                Assert.That(!string.IsNullOrEmpty(duneLocation.Name));
                 Assert.IsNotNull(duneLocation.Location);
                 Assert.IsNotNull(duneLocation.Location.X);
                 Assert.IsNotNull(duneLocation.Location.Y);

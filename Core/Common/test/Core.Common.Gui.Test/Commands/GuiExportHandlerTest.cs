@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading;
 using System.Windows.Forms;
 using Core.Common.Base.IO;
 using Core.Common.Gui.Commands;
@@ -113,7 +114,7 @@ namespace Core.Common.Gui.Test.Commands
         }
 
         [Test]
-        [RequiresSTA]
+        [Apartment(ApartmentState.STA)]
         public void ExportFrom_SupportedExporterAvailableCancelClicked_AbortsExport()
         {
             // Setup
@@ -144,7 +145,7 @@ namespace Core.Common.Gui.Test.Commands
         }
 
         [Test]
-        [RequiresSTA]
+        [Apartment(ApartmentState.STA)]
         public void ExportFrom_SupportedExporterAvailableWhichRunsSuccessfulSaveClicked_CallsExportAndLogsMessages()
         {
             // Setup
@@ -192,7 +193,7 @@ namespace Core.Common.Gui.Test.Commands
         }
 
         [Test]
-        [RequiresSTA]
+        [Apartment(ApartmentState.STA)]
         public void ExportFrom_SupportedExporterAvailableWhichFailsSaveClicked_CallsExportAndLogsMessages()
         {
             // Setup
@@ -232,7 +233,7 @@ namespace Core.Common.Gui.Test.Commands
         }
 
         [Test]
-        [RequiresSTA]
+        [Apartment(ApartmentState.STA)]
         public void ExportFrom_MultipleSupportedExportersAvailable_GivesSelectionDialog()
         {
             // Setup

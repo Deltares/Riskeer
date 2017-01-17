@@ -40,10 +40,10 @@ namespace Core.Common.Gui.Test.Plugin
             Assert.IsNull(info.DataType);
             Assert.IsNull(info.CreateFileImporter);
             Assert.IsNull(info.IsEnabled);
-            Assert.IsNullOrEmpty(info.Name);
-            Assert.IsNullOrEmpty(info.Category);
+            Assert.That(string.IsNullOrEmpty(info.Name));
+            Assert.That(string.IsNullOrEmpty(info.Category));
             Assert.IsNull(info.Image);
-            Assert.IsNullOrEmpty(info.FileFilter);
+            Assert.That(string.IsNullOrEmpty(info.FileFilter));
         }
 
         [Test]
@@ -56,10 +56,10 @@ namespace Core.Common.Gui.Test.Plugin
             Assert.AreEqual(typeof(int), info.DataType);
             Assert.IsNull(info.CreateFileImporter);
             Assert.IsNull(info.IsEnabled);
-            Assert.IsNullOrEmpty(info.Name);
-            Assert.IsNullOrEmpty(info.Category);
+            Assert.That(string.IsNullOrEmpty(info.Name));
+            Assert.That(string.IsNullOrEmpty(info.Category));
             Assert.IsNull(info.Image);
-            Assert.IsNullOrEmpty(info.FileFilter);
+            Assert.That(string.IsNullOrEmpty(info.FileFilter));
         }
 
         [Test]
@@ -125,10 +125,10 @@ namespace Core.Common.Gui.Test.Plugin
             Assert.IsNull(convertedInfo.CreateFileImporter(new object(), ""));
             Assert.IsNotNull(convertedInfo.IsEnabled);
             Assert.IsTrue(convertedInfo.IsEnabled(new object()));
-            Assert.IsNullOrEmpty(info.Name);
-            Assert.IsNullOrEmpty(info.Category);
+            Assert.That(string.IsNullOrEmpty(info.Name));
+            Assert.That(string.IsNullOrEmpty(info.Category));
             Assert.IsNull(info.Image);
-            Assert.IsNullOrEmpty(info.FileFilter);
+            Assert.That(string.IsNullOrEmpty(info.FileFilter));
         }
     }
 }

@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -35,7 +36,7 @@ namespace Demo.Ringtoets.Test.Ribbons
     public class RingtoetsDemoProjectRibbonTest
     {
         [Test]
-        [RequiresSTA]
+        [Apartment(ApartmentState.STA)]
         public void DefaultConstructor_Always_CreatesControl()
         {
             // Setup
@@ -54,7 +55,7 @@ namespace Demo.Ringtoets.Test.Ribbons
         }
 
         [Test]
-        [RequiresSTA]
+        [Apartment(ApartmentState.STA)]
         public void OpenChartViewButton_OnClick_ExecutesOpenChartViewCommand()
         {
             // Setup
@@ -79,7 +80,7 @@ namespace Demo.Ringtoets.Test.Ribbons
         }
 
         [Test]
-        [RequiresSTA]
+        [Apartment(ApartmentState.STA)]
         public void OpenMapViewButton_OnClick_OpensView()
         {
             // Setup

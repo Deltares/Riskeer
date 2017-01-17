@@ -33,22 +33,6 @@ namespace Core.Common.Gui.Test.Appenders
     {
         private Action<string> originalAppendMessageLineAction;
 
-        [TestFixtureSetUp]
-        public void TestFixtureSetUp()
-        {
-            if (RenderedMessageLogAppender.Instance != null)
-            {
-                originalAppendMessageLineAction = RenderedMessageLogAppender.Instance.AppendMessageLineAction;
-                RenderedMessageLogAppender.Instance.AppendMessageLineAction = null;
-            }
-        }
-
-        [TestFixtureTearDown]
-        public void TestFixtureTearDown()
-        {
-            RenderedMessageLogAppender.Instance.AppendMessageLineAction = originalAppendMessageLineAction;
-        }
-
         [Test]
         public void DefaultConstructor_ExpectedValues()
         {
@@ -158,6 +142,22 @@ namespace Core.Common.Gui.Test.Appenders
 
             // Assert
             Assert.IsNull(appender.AppendMessageLineAction);
+        }
+
+        [OneTimeSetUp]
+        public void TestFixtureSetUp()
+        {
+            if (RenderedMessageLogAppender.Instance != null)
+            {
+                originalAppendMessageLineAction = RenderedMessageLogAppender.Instance.AppendMessageLineAction;
+                RenderedMessageLogAppender.Instance.AppendMessageLineAction = null;
+            }
+        }
+
+        [OneTimeTearDown]
+        public void TestFixtureTearDown()
+        {
+            RenderedMessageLogAppender.Instance.AppendMessageLineAction = originalAppendMessageLineAction;
         }
     }
 }

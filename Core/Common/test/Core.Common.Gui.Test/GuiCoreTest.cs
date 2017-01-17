@@ -21,6 +21,7 @@
 
 using System;
 using System.Linq;
+using System.Threading;
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
 using System.Windows.Threading;
@@ -69,7 +70,7 @@ namespace Core.Common.Gui.Test
         }
 
         [Test]
-        [STAThread]
+        [Apartment(ApartmentState.STA)]
         public void ParameteredConstructor_ValidArguments_ExpectedValues()
         {
             // Setup
@@ -128,7 +129,7 @@ namespace Core.Common.Gui.Test
         }
 
         [Test]
-        [STAThread]
+        [Apartment(ApartmentState.STA)]
         [TestCase(0)]
         [TestCase(1)]
         [TestCase(2)]
@@ -157,8 +158,7 @@ namespace Core.Common.Gui.Test
         }
 
         [Test]
-        [STAThread]
-        [ExpectedException(typeof(InvalidOperationException))]
+        [Apartment(ApartmentState.STA)]
         public void Constructor_ConstructedAfterAnotherInstanceHasBeenCreated_ThrowsInvalidOperationException()
         {
             // Setup
@@ -173,16 +173,20 @@ namespace Core.Common.Gui.Test
             using (new GuiCore(mainWindow, projectStore, projectFactory, guiCoreSettings))
             {
                 // Call
-                using (new GuiCore(mainWindow, projectStore, projectFactory, guiCoreSettings)) {}
-            }
+                TestDelegate call = () =>
+                {
+                    using (new GuiCore(mainWindow, projectStore, projectFactory, guiCoreSettings)) {}
+                };
 
-            // Assert
+                // Assert
+                Assert.Throws<InvalidOperationException>(call);
+            }
+            
             mocks.VerifyAll();
-            Assert.Fail("Expected an InvalidOperationException to be thrown.");
         }
 
         [Test]
-        [STAThread]
+        [Apartment(ApartmentState.STA)]
         public void SetProject_SetNull_ThrowsArgumentNullException()
         {
             var mocks = new MockRepository();
@@ -207,7 +211,7 @@ namespace Core.Common.Gui.Test
         }
 
         [Test]
-        [STAThread]
+        [Apartment(ApartmentState.STA)]
         public void Dispose_PluginsAdded_PluginsDisabledAndRemovedAndDisposed()
         {
             // Setup
@@ -231,7 +235,7 @@ namespace Core.Common.Gui.Test
         }
 
         [Test]
-        [STAThread]
+        [Apartment(ApartmentState.STA)]
         public void Dispose_PluginAddedButThrowsExceptionDuringDeactivation_LogErrorAndStillDisposeAndRemove()
         {
             // Setup
@@ -256,7 +260,7 @@ namespace Core.Common.Gui.Test
         }
 
         [Test]
-        [STAThread]
+        [Apartment(ApartmentState.STA)]
         public void Dispose_HasSelection_ClearSelection()
         {
             // Setup
@@ -279,7 +283,7 @@ namespace Core.Common.Gui.Test
         }
 
         [Test]
-        [STAThread]
+        [Apartment(ApartmentState.STA)]
         public void Dispose_HasMainWindow_DiposeOfMainWindow()
         {
             // Setup
@@ -303,7 +307,7 @@ namespace Core.Common.Gui.Test
         }
 
         [Test]
-        [STAThread]
+        [Apartment(ApartmentState.STA)]
         public void Dispose_HasInitializedMessageWindowForLogAppender_ClearMessageWindow()
         {
             // Setup
@@ -344,7 +348,7 @@ namespace Core.Common.Gui.Test
         }
 
         [Test]
-        [STAThread]
+        [Apartment(ApartmentState.STA)]
         public void Dispose_HasOpenedToolView_ToolViewsClearedAndViewsDisposed()
         {
             // Setup
@@ -371,7 +375,7 @@ namespace Core.Common.Gui.Test
         }
 
         [Test]
-        [STAThread]
+        [Apartment(ApartmentState.STA)]
         public void Dispose_HasOpenedDocumentView_DocumentViewsClearedAndViewsDisposed()
         {
             // Setup
@@ -399,7 +403,7 @@ namespace Core.Common.Gui.Test
         }
 
         [Test]
-        [STAThread]
+        [Apartment(ApartmentState.STA)]
         public void Run_NoMessageWindowLogAppender_AddNewLogAppender()
         {
             // Setup
@@ -441,7 +445,7 @@ namespace Core.Common.Gui.Test
         }
 
         [Test]
-        [STAThread]
+        [Apartment(ApartmentState.STA)]
         public void Run_AlreadyHasMessageWindowLogAppender_NoChangesToLogAppenders()
         {
             // Setup
@@ -486,7 +490,7 @@ namespace Core.Common.Gui.Test
         }
 
         [Test]
-        [STAThread]
+        [Apartment(ApartmentState.STA)]
         public void Run_WithFile_LoadProjectFromFile()
         {
             // Setup
@@ -531,7 +535,7 @@ namespace Core.Common.Gui.Test
         }
 
         [Test]
-        [STAThread]
+        [Apartment(ApartmentState.STA)]
         public void Run_LoadingFromFileThrowsStorageException_LogErrorAndLoadDefaultProjectInstead()
         {
             // Setup
@@ -583,7 +587,7 @@ namespace Core.Common.Gui.Test
         [TestCase("")]
         [TestCase("     ")]
         [TestCase(null)]
-        [STAThread]
+        [Apartment(ApartmentState.STA)]
         public void Run_WithoutFile_DefaultProjectStillSet(string path)
         {
             // Setup
@@ -619,7 +623,7 @@ namespace Core.Common.Gui.Test
         }
 
         [Test]
-        [STAThread]
+        [Apartment(ApartmentState.STA)]
         public void Run_WithPlugins_SetGuiAndActivatePlugins()
         {
             var mocks = new MockRepository();
@@ -648,7 +652,7 @@ namespace Core.Common.Gui.Test
         }
 
         [Test]
-        [STAThread]
+        [Apartment(ApartmentState.STA)]
         public void Run_WithPluginThatThrowsExceptionWhenActivated_DeactivateAndDisposePlugin()
         {
             var mocks = new MockRepository();
@@ -675,7 +679,7 @@ namespace Core.Common.Gui.Test
         }
 
         [Test]
-        [STAThread]
+        [Apartment(ApartmentState.STA)]
         public void Run_WithPluginThatThrowsExceptionWhenActivatedAndDeactivated_LogErrorForDeactivatingThenDispose()
         {
             var mocks = new MockRepository();
@@ -705,7 +709,7 @@ namespace Core.Common.Gui.Test
         }
 
         [Test]
-        [STAThread]
+        [Apartment(ApartmentState.STA)]
         public void Run_InitializesViewController()
         {
             // Setup
@@ -734,7 +738,7 @@ namespace Core.Common.Gui.Test
         }
 
         [Test]
-        [STAThread]
+        [Apartment(ApartmentState.STA)]
         public void GetAllDataWithViewDefinitionsRecursively_DataHasNoViewDefinitions_ReturnEmpty()
         {
             // Setup
@@ -757,7 +761,7 @@ namespace Core.Common.Gui.Test
         }
 
         [Test]
-        [STAThread]
+        [Apartment(ApartmentState.STA)]
         public void GetAllDataWithViewDefinitionsRecursively_MultiplePluginsHaveViewDefinitionsForRoot_ReturnRootObject()
         {
             // Setup
@@ -802,7 +806,7 @@ namespace Core.Common.Gui.Test
         }
 
         [Test]
-        [STAThread]
+        [Apartment(ApartmentState.STA)]
         public void GetAllDataWithViewDefinitionsRecursively_MultiplePluginsHaveViewDefinitionsForRootAndChild_ReturnRootAndChild()
         {
             // Setup
@@ -858,7 +862,7 @@ namespace Core.Common.Gui.Test
         }
 
         [Test]
-        [RequiresSTA]
+        [Apartment(ApartmentState.STA)]
         public void GetTreeNodeInfos_NoPluginsConfigured_EmptyList()
         {
             // Setup
@@ -880,7 +884,7 @@ namespace Core.Common.Gui.Test
         }
 
         [Test]
-        [RequiresSTA]
+        [Apartment(ApartmentState.STA)]
         public void GetTreeNodeInfos_MultiplePluginsConfigured_RetrievesTreeNodeInfosFromPlugins()
         {
             // Setup
@@ -936,7 +940,7 @@ namespace Core.Common.Gui.Test
         }
 
         [Test]
-        [STAThread]
+        [Apartment(ApartmentState.STA)]
         public void Get_GuiHasNotRunYet_ThrowsInvalidOperationException()
         {
             // Setup
@@ -959,7 +963,7 @@ namespace Core.Common.Gui.Test
         }
 
         [Test]
-        [STAThread]
+        [Apartment(ApartmentState.STA)]
         public void Get_GuiIsRunning_ReturnsContextMenuBuilder()
         {
             // Setup
@@ -993,7 +997,7 @@ namespace Core.Common.Gui.Test
         }
 
         [Test]
-        [STAThread]
+        [Apartment(ApartmentState.STA)]
         public void SetProject_SetNewValue_FireProjectOpenedEvents()
         {
             // Setup
@@ -1031,7 +1035,7 @@ namespace Core.Common.Gui.Test
         }
 
         [Test]
-        [STAThread]
+        [Apartment(ApartmentState.STA)]
         public void GivenGuiWithoutSelection_WhenSelectionProviderAdded_ThenSelectionSynced()
         {
             // Given
@@ -1059,7 +1063,7 @@ namespace Core.Common.Gui.Test
         }
 
         [Test]
-        [STAThread]
+        [Apartment(ApartmentState.STA)]
         public void GivenGuiWithRandomSelection_WhenSelectionProviderAdded_ThenSelectionSynced()
         {
             // Given
@@ -1086,7 +1090,7 @@ namespace Core.Common.Gui.Test
         }
 
         [Test]
-        [STAThread]
+        [Apartment(ApartmentState.STA)]
         public void GivenGuiWithRandomSelection_WhenNonSelectionProviderAdded_ThenSelectionPreserved()
         {
             // Given
@@ -1113,7 +1117,7 @@ namespace Core.Common.Gui.Test
         }
 
         [Test]
-        [STAThread]
+        [Apartment(ApartmentState.STA)]
         public void GivenGuiWithRandomSelection_WhenSelectionChangedOnAddedSelectionProvider_ThenSelectionSynced()
         {
             // Given
@@ -1141,7 +1145,7 @@ namespace Core.Common.Gui.Test
         }
 
         [Test]
-        [STAThread]
+        [Apartment(ApartmentState.STA)]
         public void GivenGuiWithRandomSelection_WhenSelectionChangedOnRemovedSelectionProvider_ThenSelectionNoLongerSynced()
         {
             // Given
@@ -1171,7 +1175,7 @@ namespace Core.Common.Gui.Test
         }
 
         [Test]
-        [STAThread]
+        [Apartment(ApartmentState.STA)]
         public void GivenGuiWithRandomSelection_WhenSelectionProviderBecomesActiveView_ThenSelectionSynced()
         {
             // Given
@@ -1200,7 +1204,7 @@ namespace Core.Common.Gui.Test
         }
 
         [Test]
-        [STAThread]
+        [Apartment(ApartmentState.STA)]
         public void GivenGuiWithRandomSelection_WhenNonSelectionProviderBecomesActiveView_ThenSelectionPreserved()
         {
             // Given
@@ -1229,7 +1233,7 @@ namespace Core.Common.Gui.Test
         }
 
         [Test]
-        [STAThread]
+        [Apartment(ApartmentState.STA)]
         public void GivenGuiWithRandomSelection_WhenSelectionProviderRemoved_ThenSelectionPreserved()
         {
             // Given
@@ -1258,7 +1262,7 @@ namespace Core.Common.Gui.Test
         }
 
         [Test]
-        [STAThread]
+        [Apartment(ApartmentState.STA)]
         public void GivenGuiWithSelectionFromSelectionProvider_WhenSelectionProviderRemoved_ThenSelectionCleared()
         {
             // Given
@@ -1287,7 +1291,7 @@ namespace Core.Common.Gui.Test
         }
 
         [Test]
-        [STAThread]
+        [Apartment(ApartmentState.STA)]
         public void GivenGuiWithRandomSelection_WhenGuiDisposed_ThenSelectionNoLongerSynced()
         {
             // Given

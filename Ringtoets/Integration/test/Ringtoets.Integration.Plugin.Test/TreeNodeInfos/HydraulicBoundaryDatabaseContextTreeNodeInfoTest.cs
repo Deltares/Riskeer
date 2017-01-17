@@ -23,6 +23,7 @@ using System;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls.TreeView;
@@ -264,7 +265,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        [RequiresSTA]
+        [Apartment(ApartmentState.STA)]
         public void GivenNoFilePathIsSet_WhenOpeningValidFileFromContextMenu_ThenPathWillBeSetAndNotifiesObserverAndLogMessageAdded()
         {
             // Given
@@ -324,7 +325,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        [RequiresSTA]
+        [Apartment(ApartmentState.STA)]
         public void GivenNoFilePathIsSet_WhenOpeneningInvalidFileFromContextMenu_ThenPathWillNotBeSetAndLogMessageAdded()
         {
             // Given
@@ -368,7 +369,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        [RequiresSTA]
+        [Apartment(ApartmentState.STA)]
         public void GivenNoFilePathIsSet_WhenOpeneningValidFileWithoutHLCDFromContextMenu_ThenPathWillNotBeSetAndLogMessageAdded()
         {
             // Given
@@ -413,7 +414,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        [RequiresSTA]
+        [Apartment(ApartmentState.STA)]
         public void GivenNoFilePathIsSet_WhenOpeneningValidFileWithoutSettingsDatabaseFromContextMenu_ThenPathWillNotBeSetAndLogMessageAdded()
         {
             // Given
@@ -459,7 +460,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        [RequiresSTA]
+        [Apartment(ApartmentState.STA)]
         public void GivenNoFilePathIsSet_WhenOpeneningValidFileWithInvalidSettingsDatabaseFromContextMenu_ThenPathWillNotBeSetAndLogMessageAdded()
         {
             // Given
@@ -504,7 +505,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        [RequiresSTA]
+        [Apartment(ApartmentState.STA)]
         public void GivenFilePathIsSet_WhenOpeningSameFileFromContextMenu_ThenCalculationsWillNotBeClearedAndNoNotifyObservers()
         {
             // Given

@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -30,7 +31,7 @@ namespace Core.Common.Gui.Test.Forms.SplashScreen
     public class SplashScreenTest
     {
         [Test]
-        [RequiresSTA]
+        [Apartment(ApartmentState.STA)]
         public void Shutdown_SplashScreenShown_ShouldBeClosed()
         {
             // Setup
@@ -48,7 +49,7 @@ namespace Core.Common.Gui.Test.Forms.SplashScreen
         }
 
         [Test]
-        [RequiresSTA]
+        [Apartment(ApartmentState.STA)]
         public void ViewProperties_SetNewValues_ShouldSetLabelTextOfUserInterfaceElements()
         {
             // Setup
@@ -79,7 +80,7 @@ namespace Core.Common.Gui.Test.Forms.SplashScreen
         [TestCase(true, false, false)]
         [TestCase(false, true, false)]
         [TestCase(false, false, false)]
-        [RequiresSTA]
+        [Apartment(ApartmentState.STA)]
         public void ViewPropertiesVisibility_SupportValuesSet_SupportValuesShouldBeVisible(
             bool emailVisible, bool phoneVisible,
             bool supportUiElementsShouldBeVisible)

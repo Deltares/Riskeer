@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -36,7 +37,7 @@ namespace Core.Plugins.Map.Test
     public class MapRibbonTest
     {
         [Test]
-        [RequiresSTA]
+        [Apartment(ApartmentState.STA)]
         public void DefaultContstructor_Always_CreatesControl()
         {
             // Setup
@@ -47,7 +48,7 @@ namespace Core.Plugins.Map.Test
         }
 
         [Test]
-        [RequiresSTA]
+        [Apartment(ApartmentState.STA)]
         [TestCase(true)]
         [TestCase(false)]
         public void ValidateItems_WithOrWithoutMap_UpdatesMapContextualVisiblity(bool mapVisible)
@@ -73,7 +74,7 @@ namespace Core.Plugins.Map.Test
         }
 
         [Test]
-        [RequiresSTA]
+        [Apartment(ApartmentState.STA)]
         [TestCase(true)]
         [TestCase(false)]
         public void ValidateItems_Always_ToggleLegendViewIsCheckedEqualToCommandChecked(bool commandChecked)
@@ -104,7 +105,7 @@ namespace Core.Plugins.Map.Test
         }
 
         [Test]
-        [RequiresSTA]
+        [Apartment(ApartmentState.STA)]
         [TestCase(true)]
         [TestCase(false)]
         public void ValidateItems_Always_TogglePanningButtonIsCheckedEqualToPanningChecked(bool panningChecked)
@@ -134,7 +135,7 @@ namespace Core.Plugins.Map.Test
         }
 
         [Test]
-        [RequiresSTA]
+        [Apartment(ApartmentState.STA)]
         [TestCase(true)]
         [TestCase(false)]
         public void ValidateItems_Always_ToggleRectangleZoomingButtonIsCheckedEqualToRectangleZoomChecked(bool rectangleZoomChecked)
@@ -164,7 +165,7 @@ namespace Core.Plugins.Map.Test
         }
 
         [Test]
-        [RequiresSTA]
+        [Apartment(ApartmentState.STA)]
         [TestCase(true)]
         [TestCase(false)]
         public void ValidateItems_Always_ToggleMouseCoordinatesButtonIsCheckedEqualToMouseCoordinatesChecked(bool mouseCoordinatesChecked)
@@ -194,7 +195,7 @@ namespace Core.Plugins.Map.Test
         }
 
         [Test]
-        [RequiresSTA]
+        [Apartment(ApartmentState.STA)]
         public void ToggleLegendViewButton_OnClick_ExecutesToggleLegendViewCommand()
         {
             // Setup
@@ -221,7 +222,7 @@ namespace Core.Plugins.Map.Test
         }
 
         [Test]
-        [RequiresSTA]
+        [Apartment(ApartmentState.STA)]
         public void TogglePanning_OnClick_TogglePanning()
         {
             // Setup
@@ -248,7 +249,7 @@ namespace Core.Plugins.Map.Test
         }
 
         [Test]
-        [RequiresSTA]
+        [Apartment(ApartmentState.STA)]
         public void ToggleRectangleZooming_OnClick_ToggleRectangleZooming()
         {
             // Setup
@@ -275,7 +276,7 @@ namespace Core.Plugins.Map.Test
         }
 
         [Test]
-        [RequiresSTA]
+        [Apartment(ApartmentState.STA)]
         public void ZoomToAll_OnClick_ZoomToAll()
         {
             // Setup
@@ -302,7 +303,7 @@ namespace Core.Plugins.Map.Test
         }
 
         [Test]
-        [RequiresSTA]
+        [Apartment(ApartmentState.STA)]
         public void ToggleMouseCoordinatesVisibility_OnClick_ToggleMouseCoordinates()
         {
             // Setup
