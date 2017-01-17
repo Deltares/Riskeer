@@ -191,7 +191,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             return view;
         }
 
-        private TestHydraulicBoundaryLocationsView ShowFullyConfiguredTestHydraulicBoundaryLocationsView()
+        private void ShowFullyConfiguredTestHydraulicBoundaryLocationsView()
         {
             var view = ShowTestHydraulicBoundaryLocationsView();
 
@@ -201,7 +201,6 @@ namespace Ringtoets.Common.Forms.Test.Views
             };
 
             view.Data = assessmentSection.HydraulicBoundaryDatabase.Locations;
-            return view;
         }
 
         private class TestHydraulicBoundaryDatabase : HydraulicBoundaryDatabase
@@ -228,7 +227,6 @@ namespace Ringtoets.Common.Forms.Test.Views
 
         private sealed class TestHydraulicBoundaryLocationsView : HydraulicBoundaryLocationsView<TestHydraulicBoundaryLocationRow>
         {
-
             public override IAssessmentSection AssessmentSection { get; set; }
 
             protected override TestHydraulicBoundaryLocationRow CreateNewRow(HydraulicBoundaryLocation location)

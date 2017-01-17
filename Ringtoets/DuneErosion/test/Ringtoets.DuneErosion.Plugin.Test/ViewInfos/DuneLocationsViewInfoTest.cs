@@ -19,7 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Gui;
@@ -39,7 +41,7 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
 {
     [TestFixture]
-    public class DuneErosionLocationsViewInfoTest
+    public class DuneLocationsViewInfoTest
     {
         private DuneErosionPlugin plugin;
         private ViewInfo info;
@@ -64,7 +66,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
             using (var view = new DuneLocationsView())
             {
                 // Call
-                var viewName = info.GetViewName(view, Enumerable.Empty<DuneLocation>());
+                string viewName = info.GetViewName(view, Enumerable.Empty<DuneLocation>());
 
                 // Assert
                 Assert.AreEqual("Hydraulische randvoorwaarden", viewName);
@@ -75,7 +77,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
         public void ViewDataType_Always_ReturnsViewDataType()
         {
             // Call
-            var viewDataType = info.ViewDataType;
+            Type viewDataType = info.ViewDataType;
 
             // Assert
             Assert.AreEqual(typeof(IEnumerable<DuneLocation>), viewDataType);
@@ -85,7 +87,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
         public void DataType_Always_ReturnsDataType()
         {
             // Call
-            var dataType = info.DataType;
+            Type dataType = info.DataType;
 
             // Assert
             Assert.AreEqual(typeof(DuneLocationsContext), dataType);
@@ -95,7 +97,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
         public void Image_Always_ReturnsGenericInputOutputIcon()
         {
             // Call
-            var image = info.Image;
+            Image image = info.Image;
 
             // Assert
             TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GenericInputOutputIcon, image);
@@ -114,7 +116,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
             var context = new DuneLocationsContext(failureMechanism.DuneLocations, failureMechanism, assessmentSection);
 
             // Call
-            var viewData = info.GetViewData(context);
+            object viewData = info.GetViewData(context);
 
             // Assert
             Assert.AreSame(failureMechanism.DuneLocations, viewData);
@@ -134,7 +136,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
             var context = new DuneLocationsContext(failureMechanism.DuneLocations, failureMechanism, assessmentSection);
 
             // Call
-            var additionalDataCheck = info.AdditionalDataCheck(context);
+            bool additionalDataCheck = info.AdditionalDataCheck(context);
             
             // Assert
             Assert.IsFalse(additionalDataCheck);
@@ -154,7 +156,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
             var context = new DuneLocationsContext(failureMechanism.DuneLocations, failureMechanism, assessmentSection);
 
             // Call
-            var additionalDataCheck = info.AdditionalDataCheck(context);
+            bool additionalDataCheck = info.AdditionalDataCheck(context);
             
             // Assert
             Assert.IsTrue(additionalDataCheck);
@@ -166,8 +168,8 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
             // Setup
             var mocks = new MockRepository();
             IAssessmentSection assessmentSectionStub = mocks.Stub<IAssessmentSection>();
-            IGui guiStub = mocks.Stub<IGui>();
             IMainWindow windowsStub = mocks.Stub<IMainWindow>();
+            IGui guiStub = mocks.Stub<IGui>();
             guiStub.Stub(gs => gs.MainWindow).Return(windowsStub);
             mocks.ReplayAll();
 
@@ -211,7 +213,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
                 view.AssessmentSection = assessmentSection;
 
                 // Call
-                var closeForData = info.CloseForData(view, assessmentSection);
+                bool closeForData = info.CloseForData(view, assessmentSection);
 
                 // Assert
                 Assert.IsTrue(closeForData);
@@ -244,7 +246,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
                 view.AssessmentSection = assessmentSectionA;
 
                 // Call
-                var closeForData = info.CloseForData(view, assessmentSectionB);
+                bool closeForData = info.CloseForData(view, assessmentSectionB);
 
                 // Assert
                 Assert.IsFalse(closeForData);
@@ -273,7 +275,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
                 view.AssessmentSection = assessmentSection;
 
                 // Call
-                var closeForData = info.CloseForData(view, duneErosionFailureMechanismContext);
+                bool closeForData = info.CloseForData(view, duneErosionFailureMechanismContext);
 
                 // Assert
                 Assert.IsTrue(closeForData);
@@ -309,7 +311,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
                 view.AssessmentSection = assessmentSectionA;
 
                 // Call
-                var closeForData = info.CloseForData(view, duneErosionFailureMechanismContext);
+                bool closeForData = info.CloseForData(view, duneErosionFailureMechanismContext);
 
                 // Assert
                 Assert.IsFalse(closeForData);
@@ -334,7 +336,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
                 view.AssessmentSection = assessmentSectionA;
 
                 // Call
-                var closeForData = info.CloseForData(view, new object());
+                bool closeForData = info.CloseForData(view, new object());
 
                 // Assert
                 Assert.IsFalse(closeForData);
@@ -349,7 +351,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
             using (var view = new DuneLocationsView())
             {
                 // Call
-                var closeForData = info.CloseForData(view, new object());
+                bool closeForData = info.CloseForData(view, new object());
 
                 // Assert
                 Assert.IsFalse(closeForData);

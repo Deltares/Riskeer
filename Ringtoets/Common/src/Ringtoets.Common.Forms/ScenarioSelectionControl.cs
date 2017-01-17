@@ -75,7 +75,7 @@ namespace Ringtoets.Common.Forms
 
             using (new SuspendDataGridViewColumnResizes(dataGridViewControl.GetColumnFromIndex(calculationsColumnIndex)))
             {
-                dataGridViewControl.SetDataSource(scenarioRows);
+                dataGridViewControl.SetDataSource(scenarioRows.ToArray());
 
                 var columnItems = ((DataGridViewComboBoxColumn) dataGridViewControl.GetColumnFromIndex(calculationsColumnIndex)).Items;
                 var items = calculations.Select(c => new DataGridViewComboBoxItemWrapper<ICalculation>(c));

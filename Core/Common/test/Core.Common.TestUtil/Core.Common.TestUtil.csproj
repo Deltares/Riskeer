@@ -92,6 +92,7 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="ControlsTestHelper.cs" />
+    <Compile Include="DataGridViewTestHelper.cs" />
     <Compile Include="DoubleWithToleranceComparer.cs" />
     <Compile Include="FileDisposeHelper.cs" />
     <Compile Include="DirectoryPermissionsRevoker.cs" />

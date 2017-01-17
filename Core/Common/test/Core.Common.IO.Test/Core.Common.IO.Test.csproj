@@ -65,7 +65,6 @@
     <Compile Include="Readers\IDataReaderExtensionsTest.cs" />
     <Compile Include="Readers\StreamReaderHelperTest.cs" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.Lesser.licenseheader">
       <Link>Copying.Lesser.licenseheader</Link>

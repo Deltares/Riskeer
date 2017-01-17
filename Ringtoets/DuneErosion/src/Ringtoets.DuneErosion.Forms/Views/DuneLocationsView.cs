@@ -21,6 +21,7 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Utils.Reflection;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -39,7 +40,7 @@ namespace Ringtoets.DuneErosion.Forms.Views
     public partial class DuneLocationsView : CalculatableView<DuneLocation>
     {
         private readonly Observer duneLocationsObserver;
-        private IEnumerable<DuneLocation> locations;
+        private ObservableList<DuneLocation> locations;
 
         /// <summary>
         /// Creates a new instance of <see cref="DuneLocationsView"/>.
@@ -114,7 +115,7 @@ namespace Ringtoets.DuneErosion.Forms.Views
 
         protected override object CreateSelectedItemFromCurrentRow()
         {
-            var currentRow = dataGridViewControl.CurrentRow;
+            DataGridViewRow currentRow = dataGridViewControl.CurrentRow;
             return currentRow != null
                        ? new DuneLocationContext((ObservableList<DuneLocation>) Data, ((DuneLocationRow) currentRow.DataBoundItem).CalculatableObject)
                        : null;
@@ -127,18 +128,16 @@ namespace Ringtoets.DuneErosion.Forms.Views
 
         protected override void CalculateForSelectedRows()
         {
-            if (CalculationGuiService == null)
+            if (CalculationGuiService != null)
             {
-                return;
+                IEnumerable<DuneLocation> selectedLocations = GetSelectedCalculatableObjects();
+                HandleCalculateSelectedLocations(selectedLocations);
             }
-
-            var selectedLocations = GetSelectedLocations();
-            HandleCalculateSelectedLocations(selectedLocations);
         }
 
-        private void HandleCalculateSelectedLocations(IEnumerable<DuneLocation> locations)
+        private void HandleCalculateSelectedLocations(IEnumerable<DuneLocation> locationsToCalculate)
         {
-            CalculationGuiService.Calculate(locations,
+            CalculationGuiService.Calculate(locationsToCalculate,
                                             FailureMechanism,
                                             AssessmentSection);
 
@@ -159,15 +158,16 @@ namespace Ringtoets.DuneErosion.Forms.Views
 
         private bool IsDataGridDataSourceChanged()
         {
-            var count = dataGridViewControl.Rows.Count;
-            if (count != locations.Count())
+            DataGridViewRowCollection rows = dataGridViewControl.Rows;
+            int rowCount = rows.Count;
+            if (rowCount != locations.Count)
             {
                 return true;
             }
-            for (int i = 0; i < count; i++)
+            for (int i = 0; i < rowCount; i++)
             {
-                var locationFromGrid = ((DuneLocationRow) dataGridViewControl.Rows[i].DataBoundItem).CalculatableObject;
-                if (!ReferenceEquals(locationFromGrid, locations.ElementAt(i)))
+                var locationFromGrid = ((DuneLocationRow) rows[i].DataBoundItem).CalculatableObject;
+                if (!ReferenceEquals(locationFromGrid, locations[i]))
                 {
                     return true;
                 }

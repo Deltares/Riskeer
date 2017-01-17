@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
@@ -62,7 +63,7 @@ namespace Ringtoets.Common.Forms
         /// <summary>
         /// Sets the datasource on the <see cref="DataGridView"/>.
         /// </summary>
-        protected void SetDataSource(object data)
+        protected void SetDataSource(IList data)
         {
             DataGridViewControl.SetDataSource(data);
         }

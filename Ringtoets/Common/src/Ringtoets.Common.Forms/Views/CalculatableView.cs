@@ -26,14 +26,12 @@ using System.Windows.Forms;
 using Core.Common.Controls.Views;
 using Core.Common.Utils.Extensions;
 using Core.Common.Utils.Reflection;
-using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Forms.Properties;
 
 namespace Ringtoets.Common.Forms.Views
 {
     /// <summary>
-    /// Base view for calculatable objects such as <see cref="HydraulicBoundaryLocation"/> views 
-    /// which should be derived in order to get a consistent look and feel.
+    /// Base view for selecting calculatable objects and starting calculation for said objects.
     /// </summary>
     /// <typeparam name="T">The type of the calculatable object.</typeparam>
     public abstract partial class CalculatableView<T> : UserControl, ISelectionProvider where T : class
@@ -94,7 +92,7 @@ namespace Ringtoets.Common.Forms.Views
         /// </summary>
         protected virtual void InitializeDataGridView()
         {
-            dataGridViewControl.AddCheckBoxColumn(TypeUtils.GetMemberName<CalculatableRow<T>>(row => row.ToCalculate),
+            dataGridViewControl.AddCheckBoxColumn(TypeUtils.GetMemberName<CalculatableRow<T>>(row => row.ShouldCalculate),
                                                   Resources.CalculatableView_Calculate);
         }
 
@@ -118,33 +116,33 @@ namespace Ringtoets.Common.Forms.Views
         /// <summary>
         /// Gets all the row items from the <see cref="DataGridView"/>.
         /// </summary>
-        /// <returns>All row items from the <see cref="DataGridView"/>.</returns>
         protected IEnumerable<CalculatableRow<T>> GetCalculatableRows()
         {
-            return dataGridViewControl.Rows.Cast<DataGridViewRow>().Select(row => (CalculatableRow<T>) row.DataBoundItem);
+            return dataGridViewControl.Rows
+                                      .Cast<DataGridViewRow>()
+                                      .Select(row => (CalculatableRow<T>) row.DataBoundItem);
         }
 
         /// <summary>
         /// Gets all the selected calculatable objects.
         /// </summary>
-        /// <returns></returns>
-        protected IEnumerable<T> GetSelectedLocations()
+        protected IEnumerable<T> GetSelectedCalculatableObjects()
         {
-            return GetCalculatableRows().Where(r => r.ToCalculate)
+            return GetCalculatableRows().Where(r => r.ShouldCalculate)
                                         .Select(r => r.CalculatableObject);
         }
 
         private void LocalizeControls()
         {
-            CalculateForSelectedButton.Text = Resources.HydraulicBoundaryLocationsView_CalculateForSelectedButton_Text;
-            DeselectAllButton.Text = Resources.HydraulicBoundaryLocationsView_DeselectAllButton_Text;
-            SelectAllButton.Text = Resources.HydraulicBoundaryLocationsView_SelectAllButton_Text;
-            ButtonGroupBox.Text = Resources.HydraulicBoundaryLocationsView_ButtonGroupBox_Text;
+            CalculateForSelectedButton.Text = Resources.CalculatableView_CalculateForSelectedButton_Text;
+            DeselectAllButton.Text = Resources.CalculatableView_DeselectAllButton_Text;
+            SelectAllButton.Text = Resources.CalculatableView_SelectAllButton_Text;
+            ButtonGroupBox.Text = Resources.CalculatableView_ButtonGroupBox_Text;
         }
 
         private void UpdateCalculateForSelectedButton()
         {
-            CalculateForSelectedButton.Enabled = GetCalculatableRows().Any(r => r.ToCalculate);
+            CalculateForSelectedButton.Enabled = GetCalculatableRows().Any(r => r.ShouldCalculate);
         }
 
         private void InitializeEventHandlers()
@@ -162,11 +160,10 @@ namespace Ringtoets.Common.Forms.Views
 
         private void DataGridViewCellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
-            if (updatingDataSource || e.ColumnIndex != calculateColumnIndex)
+            if (!updatingDataSource && e.ColumnIndex == calculateColumnIndex)
             {
-                return;
+                UpdateCalculateForSelectedButton();
             }
-            UpdateCalculateForSelectedButton();
         }
 
         private void DataGridViewOnCurrentCellChangedHandler(object sender, EventArgs e)
@@ -181,14 +178,17 @@ namespace Ringtoets.Common.Forms.Views
 
         private void SelectAllButton_Click(object sender, EventArgs e)
         {
-            GetCalculatableRows().ForEachElementDo(row => row.ToCalculate = true);
-            dataGridViewControl.RefreshDataGridView();
-            UpdateCalculateForSelectedButton();
+            SetShouldCalculateForAllRowsAndRefresh(true);
         }
 
         private void DeselectAllButton_Click(object sender, EventArgs e)
         {
-            GetCalculatableRows().ForEachElementDo(row => row.ToCalculate = false);
+            SetShouldCalculateForAllRowsAndRefresh(false);
+        }
+
+        private void SetShouldCalculateForAllRowsAndRefresh(bool newShouldCalculateValue)
+        {
+            GetCalculatableRows().ForEachElementDo(row => row.ShouldCalculate = newShouldCalculateValue);
             dataGridViewControl.RefreshDataGridView();
             UpdateCalculateForSelectedButton();
         }

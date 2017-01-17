@@ -49,7 +49,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             var expectedPoint2D = new Point2D(coordinateX, coordinateY);
             Assert.AreEqual(expectedPoint2D, row.Location);
             Assert.AreSame(hydraulicBoundaryLocation, row.CalculatableObject);
-            Assert.IsFalse(row.ToCalculate);
+            Assert.IsFalse(row.ShouldCalculate);
         }
 
         private class TestHydraulicBoundaryLocationRow : HydraulicBoundaryLocationRow

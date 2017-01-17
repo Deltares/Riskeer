@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
@@ -250,7 +251,7 @@ namespace Core.Common.Controls.DataGrid
         /// <param name="dataSource">The datasource to set.</param>
         /// <remarks>Providing a value of <c>null</c> for <paramref name="dataSource"/>
         /// will clear the grid view.</remarks>
-        public void SetDataSource(object dataSource)
+        public void SetDataSource(IList dataSource)
         {
             dataGridView.DataSource = dataSource;
         }

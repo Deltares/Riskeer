@@ -61,9 +61,6 @@ namespace Ringtoets.Common.Forms.Views
             }
         }
 
-        /// <summary>
-        /// Initializes the <see cref="DataGridViewControl"/>.
-        /// </summary>
         protected override void InitializeDataGridView()
         {
             base.InitializeDataGridView();
@@ -95,13 +92,10 @@ namespace Ringtoets.Common.Forms.Views
                 return;
             }
 
-            var selectedLocations = GetSelectedLocations();
+            var selectedLocations = GetSelectedCalculatableObjects();
             HandleCalculateSelectedLocations(selectedLocations);
         }
 
-        /// <summary>
-        /// Sets the datasource on the <see cref="DataGridViewControl"/>.
-        /// </summary>
         protected override void SetDataSource()
         {
             dataGridViewControl.SetDataSource(locations?.Select(CreateNewRow).ToArray());

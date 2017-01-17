@@ -51,7 +51,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             var row = new SimpleCalculatableRow(calculatableObject);
             
             // Assert
-            Assert.IsFalse(row.ToCalculate);
+            Assert.IsFalse(row.ShouldCalculate);
             Assert.AreSame(calculatableObject, row.CalculatableObject);
         }
 

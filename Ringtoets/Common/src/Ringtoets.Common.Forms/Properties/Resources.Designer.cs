@@ -202,9 +202,45 @@ namespace Ringtoets.Common.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Berekenen.
         /// </summary>
+        public static string CalculatableView_ButtonGroupBox_Text {
+            get {
+                return ResourceManager.GetString("CalculatableView_ButtonGroupBox_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Berekenen.
+        /// </summary>
         public static string CalculatableView_Calculate {
             get {
                 return ResourceManager.GetString("CalculatableView_Calculate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bereken voor geselecteerde locaties.
+        /// </summary>
+        public static string CalculatableView_CalculateForSelectedButton_Text {
+            get {
+                return ResourceManager.GetString("CalculatableView_CalculateForSelectedButton_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Deselecteer alles.
+        /// </summary>
+        public static string CalculatableView_DeselectAllButton_Text {
+            get {
+                return ResourceManager.GetString("CalculatableView_DeselectAllButton_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Selecteer alles.
+        /// </summary>
+        public static string CalculatableView_SelectAllButton_Text {
+            get {
+                return ResourceManager.GetString("CalculatableView_SelectAllButton_Text", resourceCulture);
             }
         }
         
@@ -1326,42 +1362,6 @@ namespace Ringtoets.Common.Forms.Properties {
         public static string HydraulicBoundaryLocationsExporter_DisplayName {
             get {
                 return ResourceManager.GetString("HydraulicBoundaryLocationsExporter_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Berekenen.
-        /// </summary>
-        public static string HydraulicBoundaryLocationsView_ButtonGroupBox_Text {
-            get {
-                return ResourceManager.GetString("HydraulicBoundaryLocationsView_ButtonGroupBox_Text", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Bereken voor geselecteerde locaties.
-        /// </summary>
-        public static string HydraulicBoundaryLocationsView_CalculateForSelectedButton_Text {
-            get {
-                return ResourceManager.GetString("HydraulicBoundaryLocationsView_CalculateForSelectedButton_Text", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Deselecteer alles.
-        /// </summary>
-        public static string HydraulicBoundaryLocationsView_DeselectAllButton_Text {
-            get {
-                return ResourceManager.GetString("HydraulicBoundaryLocationsView_DeselectAllButton_Text", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Selecteer alles.
-        /// </summary>
-        public static string HydraulicBoundaryLocationsView_SelectAllButton_Text {
-            get {
-                return ResourceManager.GetString("HydraulicBoundaryLocationsView_SelectAllButton_Text", resourceCulture);
             }
         }
         

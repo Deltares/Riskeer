@@ -65,50 +65,50 @@ namespace Ringtoets.Common.Forms.Test.Views
         public void Constructor_CalculateAllButtonCorrectlyInitialized()
         {
             // Setup & Call
-            ShowTestCalculatableView();
-
-            var buttonTester = new ButtonTester("CalculateForSelectedButton", testForm);
-            var button = (Button)buttonTester.TheObject;
-            Assert.IsFalse(button.Enabled);
-        }
-
-        [Test]
-        public void Constructor_DataGridViewCorrectlyInitialized()
-        {
-            // Setup & Call
-            ShowTestCalculatableView();
+            TestCalculatableView view = ShowTestCalculatableView();
 
             // Assert
-            var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
-            Assert.AreEqual(1, dataGridView.ColumnCount);
-
-            var calculateColumn = (DataGridViewCheckBoxColumn)dataGridView.Columns[calculateColumnIndex];
-            const string expectedLocationCalculateHeaderText = "Berekenen";
-            Assert.AreEqual(expectedLocationCalculateHeaderText, calculateColumn.HeaderText);
-
-            var buttonTester = new ButtonTester("CalculateForSelectedButton", testForm);
-            var button = (Button)buttonTester.TheObject;
+            var button = (Button) view.Controls.Find("CalculateForSelectedButton", true)[0];
             Assert.IsFalse(button.Enabled);
         }
 
         [Test]
-        public void CalculatableView_SelectingCellInRow_SelectionChangedFired()
+        public void OnLoad_DataGridViewCorrectlyInitialized()
         {
-            // Setup
-            var view = ShowFullyConfiguredTestCalculatableView();
+            // Setup & Call
+            TestCalculatableView view = ShowTestCalculatableView();
+
+            // Assert
+            var dataGridView = (DataGridView) view.Controls.Find("dataGridView", true)[0];
+            Assert.AreEqual(1, dataGridView.ColumnCount);
+
+            var calculateColumn = (DataGridViewCheckBoxColumn) dataGridView.Columns[calculateColumnIndex];
+            const string expectedCalculateHeaderText = "Berekenen";
+            Assert.AreEqual(expectedCalculateHeaderText, calculateColumn.HeaderText);
+
+            var button = (Button) view.Controls.Find("CalculateForSelectedButton", true)[0];
+            Assert.IsFalse(button.Enabled);
+        }
+
+        [Test]
+        public void GivenFullyConfiguredView_WhenSelectingCellInRow_ThenSelectionChangedFired()
+        {
+            // Given
+            TestCalculatableView view = ShowFullyConfiguredTestCalculatableView();
+
             var createdSelection = new object();
             view.CreateForSelection = createdSelection;
 
             var selectionChangedCount = 0;
             view.SelectionChanged += (sender, args) => selectionChangedCount++;
 
-            var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+            var dataGridView = (DataGridView) view.Controls.Find("dataGridView", true)[0];
 
-            // Call
+            // When
             dataGridView.CurrentCell = dataGridView.Rows[1].Cells[calculateColumnIndex];
             EventHelper.RaiseEvent(dataGridView, "CellClick", new DataGridViewCellEventArgs(0, 0));
 
-            // Assert
+            // Then
             Assert.AreEqual(1, selectionChangedCount);
         }
 
@@ -116,89 +116,88 @@ namespace Ringtoets.Common.Forms.Test.Views
         public void Selection_Always_ReturnsCreatedSelectionObject()
         {
             // Setup
-            var view = ShowFullyConfiguredTestCalculatableView();
+            TestCalculatableView view = ShowFullyConfiguredTestCalculatableView();
+
             var createdSelection = new object();
             view.CreateForSelection = createdSelection;
 
             // Call
-            var selection = view.Selection;
+            object selection = view.Selection;
 
             // Assert
             Assert.AreSame(createdSelection, selection);
         }
 
         [Test]
-        public void SelectAllButton_SelectAllButtonClicked_AllLocationsSelected()
+        public void SelectAllButton_SelectAllButtonClicked_AllCalculatableItemsSelected()
         {
             // Setup
-            ShowFullyConfiguredTestCalculatableView();
+            TestCalculatableView view = ShowFullyConfiguredTestCalculatableView();
 
-            var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
-            var rows = dataGridView.Rows;
+            var dataGridView = (DataGridView) view.Controls.Find("dataGridView", true)[0];
+            DataGridViewRowCollection rows = dataGridView.Rows;
             var button = new ButtonTester("SelectAllButton", testForm);
 
             // Precondition
-            Assert.IsFalse((bool)rows[0].Cells[calculateColumnIndex].Value);
-            Assert.IsFalse((bool)rows[1].Cells[calculateColumnIndex].Value);
+            Assert.IsFalse((bool) rows[0].Cells[calculateColumnIndex].Value);
+            Assert.IsFalse((bool) rows[1].Cells[calculateColumnIndex].Value);
 
             // Call
             button.Click();
 
             // Assert
-            Assert.IsTrue((bool)rows[0].Cells[calculateColumnIndex].Value);
-            Assert.IsTrue((bool)rows[1].Cells[calculateColumnIndex].Value);
+            Assert.IsTrue((bool) rows[0].Cells[calculateColumnIndex].Value);
+            Assert.IsTrue((bool) rows[1].Cells[calculateColumnIndex].Value);
         }
 
         [Test]
-        public void DeselectAllButton_AllLocationsSelectedDeselectAllButtonClicked_AllLocationsNotSelected()
+        public void DeselectAllButton_AllCalculatableItemsSelectedDeselectAllButtonClicked_AllCalculatableItemsNotSelected()
         {
             // Setup
-            ShowFullyConfiguredTestCalculatableView();
+            TestCalculatableView view = ShowFullyConfiguredTestCalculatableView();
 
-            var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
-            var rows = dataGridView.Rows;
+            var dataGridView = (DataGridView) view.Controls.Find("dataGridView", true)[0];
             var button = new ButtonTester("DeselectAllButton", testForm);
 
+            DataGridViewRowCollection rows = dataGridView.Rows;
             foreach (DataGridViewRow row in rows)
             {
                 row.Cells[calculateColumnIndex].Value = true;
             }
 
             // Precondition
-            Assert.IsTrue((bool)rows[0].Cells[calculateColumnIndex].Value);
-            Assert.IsTrue((bool)rows[1].Cells[calculateColumnIndex].Value);
+            Assert.IsTrue((bool) rows[0].Cells[calculateColumnIndex].Value);
+            Assert.IsTrue((bool) rows[1].Cells[calculateColumnIndex].Value);
 
             // Call
             button.Click();
 
             // Assert
-            Assert.IsFalse((bool)rows[0].Cells[calculateColumnIndex].Value);
-            Assert.IsFalse((bool)rows[1].Cells[calculateColumnIndex].Value);
+            Assert.IsFalse((bool) rows[0].Cells[calculateColumnIndex].Value);
+            Assert.IsFalse((bool) rows[1].Cells[calculateColumnIndex].Value);
         }
 
         [Test]
-        public void CalculateForSelectedButton_NoneSelected_CalculateForSelectedButtonDisabled()
+        public void GivenFullyConfiguredView_WhenNoRowsSelected_ThenCalculateForSelectedButtonDisabled()
         {
-            // Setup
+            // Given & When
             TestCalculatableView view = ShowFullyConfiguredTestCalculatableView();
-            var buttonTester = new ButtonTester("CalculateForSelectedButton", testForm);
 
-            // Call
-            var button = (Button)buttonTester.TheObject;
-
-            // Assert
+            // Then
+            var button = (Button) view.Controls.Find("CalculateForSelectedButton", true)[0];
             Assert.IsFalse(button.Enabled);
-            Assert.IsEmpty(view.LocationsToCalculate);
+            Assert.IsEmpty(view.ObjectsToCalculate);
         }
 
         [Test]
-        public void CalculateForSelectedButton_OneSelected_CallsCalculateHandleCalculateSelectedLocations()
+        public void CalculateForSelectedButton_OneSelected_CallsCalculateHandleCalculateSelectedObjects()
         {
             // Setup
             TestCalculatableView view = ShowFullyConfiguredTestCalculatableView();
 
-            var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
-            var rows = dataGridView.Rows;
+            var dataGridView = (DataGridView) view.Controls.Find("dataGridView", true)[0];
+
+            DataGridViewRowCollection rows = dataGridView.Rows;
             rows[0].Cells[calculateColumnIndex].Value = true;
 
             var buttonTester = new ButtonTester("CalculateForSelectedButton", testForm);
@@ -207,9 +206,9 @@ namespace Ringtoets.Common.Forms.Test.Views
             buttonTester.Click();
 
             // Assert
-            Assert.AreEqual(1, view.LocationsToCalculate.Count());
-            TestCalculatableObject expectedObject = ((IEnumerable<TestCalculatableObject>)view.Data).First();
-            Assert.AreEqual(expectedObject, view.LocationsToCalculate.First());
+            Assert.AreEqual(1, view.ObjectsToCalculate.Count());
+            TestCalculatableObject expectedObject = ((IEnumerable<TestCalculatableObject>) view.Data).First();
+            Assert.AreEqual(expectedObject, view.ObjectsToCalculate.First());
         }
 
         private TestCalculatableView ShowTestCalculatableView()
@@ -234,9 +233,9 @@ namespace Ringtoets.Common.Forms.Test.Views
 
         private class TestCalculatableRow : CalculatableRow<TestCalculatableObject>
         {
-            public TestCalculatableRow(TestCalculatableObject calculatableObject) : base (calculatableObject)
+            public TestCalculatableRow(TestCalculatableObject calculatableObject) : base(calculatableObject)
             {
-                ToCalculate = calculatableObject.IsChecked;
+                ShouldCalculate = calculatableObject.IsChecked;
             }
         }
 
@@ -251,7 +250,7 @@ namespace Ringtoets.Common.Forms.Test.Views
 
             public TestCalculatableView()
             {
-                LocationsToCalculate = new List<TestCalculatableObject>();
+                ObjectsToCalculate = new List<TestCalculatableObject>();
             }
 
             public override object Data
@@ -269,7 +268,7 @@ namespace Ringtoets.Common.Forms.Test.Views
 
             public object CreateForSelection { private get; set; }
 
-            public IEnumerable<TestCalculatableObject> LocationsToCalculate { get; private set; }
+            public IEnumerable<TestCalculatableObject> ObjectsToCalculate { get; private set; }
 
             protected override object CreateSelectedItemFromCurrentRow()
             {
@@ -283,8 +282,8 @@ namespace Ringtoets.Common.Forms.Test.Views
 
             protected override void CalculateForSelectedRows()
             {
-                LocationsToCalculate = GetCalculatableRows()
-                    .Where(r => r.ToCalculate)
+                ObjectsToCalculate = GetCalculatableRows()
+                    .Where(r => r.ShouldCalculate)
                     .Cast<TestCalculatableRow>()
                     .Select(row => row.CalculatableObject);
             }

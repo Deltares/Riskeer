@@ -72,7 +72,7 @@
     <Compile Include="TreeNodeInfos\DuneLocationsContextTreeNodeInfoTest.cs" />
     <Compile Include="ViewInfos\DuneErosionFailureMechanismResultViewInfoTest.cs" />
     <Compile Include="ViewInfos\DuneErosionFailureMechanismViewInfoTest.cs" />
-    <Compile Include="ViewInfos\DuneErosionLocationsViewInfoTest.cs" />
+    <Compile Include="ViewInfos\DuneLocationsViewInfoTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">

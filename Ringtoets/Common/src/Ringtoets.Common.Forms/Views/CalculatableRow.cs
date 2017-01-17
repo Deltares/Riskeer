@@ -47,7 +47,7 @@ namespace Ringtoets.Common.Forms.Views
         /// <summary>
         /// Gets or sets whether the <see cref="CalculatableRow{T}"/> is set to be calculated.
         /// </summary>
-        public bool ToCalculate { get; set; }
+        public bool ShouldCalculate { get; set; }
 
         /// <summary>
         /// Gets the wrapped calculatable object.

@@ -49,7 +49,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             Assert.AreEqual(designWaterLevel, row.DesignWaterLevel, hydraulicBoundaryLocation.DesignWaterLevel.GetAccuracy());
             Assert.AreEqual(hydraulicBoundaryLocation.Location, row.Location);
             Assert.AreSame(hydraulicBoundaryLocation, row.CalculatableObject);
-            Assert.IsFalse(row.ToCalculate);
+            Assert.IsFalse(row.ShouldCalculate);
             Assert.IsTrue(TypeUtils.HasTypeConverter<DesignWaterLevelLocationRow,
                               NoValueRoundedDoubleConverter>(r => r.DesignWaterLevel));
         }
@@ -62,10 +62,10 @@ namespace Ringtoets.Common.Forms.Test.Views
             var row = new DesignWaterLevelLocationRow(hydraulicBoundaryLocation);
 
             // Call
-            row.ToCalculate = true;
+            row.ShouldCalculate = true;
 
             // Assert
-            Assert.IsTrue(row.ToCalculate);
+            Assert.IsTrue(row.ShouldCalculate);
         }
     }
 }

@@ -161,11 +161,6 @@ namespace Ringtoets.DuneErosion.Plugin.Test.Handlers
         public void DoPostReplacementUpdates_NoDuneLocationsAdded_DoNothing()
         {
             // Setup
-            var mocks = new MockRepository();
-            var viewCommands = mocks.Stub<IViewCommands>();
-            viewCommands.Expect(vc => vc.RemoveAllViewsForItem(Arg<object>.Is.NotNull));
-            mocks.ReplayAll();
-
             var failureMechanism = new DuneErosionFailureMechanism
             {
                 DuneLocations =
@@ -174,6 +169,12 @@ namespace Ringtoets.DuneErosion.Plugin.Test.Handlers
                     new TestDuneLocation()
                 }
             };
+
+            var mocks = new MockRepository();
+            var viewCommands = mocks.StrictMock<IViewCommands>();
+            viewCommands.Expect(vc => vc.RemoveAllViewsForItem(failureMechanism.DuneLocations));
+            mocks.ReplayAll();
+
             var handler = new DuneLocationsReplacementHandler(viewCommands, failureMechanism);
 
             handler.Replace(new HydraulicBoundaryLocation[]
@@ -196,7 +197,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.Handlers
         {
             // Setup
             var mocks = new MockRepository();
-            var viewCommands = mocks.Stub<IViewCommands>();
+            var viewCommands = mocks.StrictMock<IViewCommands>();
             mocks.ReplayAll();
 
             var failureMechanism = new DuneErosionFailureMechanism

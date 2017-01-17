@@ -60,6 +60,7 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="ControlsTestHelperTest.cs" />
+    <Compile Include="DataGridViewTestHelperTest.cs" />
     <Compile Include="DoubleWithToleranceComparerTest.cs" />
     <Compile Include="FileDisposeHelperTest.cs" />
     <Compile Include="DirectoryPermissionsRevokerTest.cs" />
