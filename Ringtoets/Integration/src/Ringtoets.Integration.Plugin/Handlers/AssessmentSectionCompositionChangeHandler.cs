@@ -96,7 +96,7 @@ namespace Ringtoets.Integration.Plugin.Handlers
                 grassCoverErosionOutwardsFailureMechanism, duneErosionFailureMechanism);
             if (hydraulicBoundaryLocationAffected.Any())
             {
-                log.Info(Resources.FailureMechanismContributionNormChangeHandler_Waveheight_and_design_water_level_results_cleared);
+                log.Info(Resources.AssessmentSectionCompositionChangeHandler_Waveheight_and_design_water_level_results_cleared);
                 return new IObservable[]
                 {
                     grassCoverErosionOutwardsFailureMechanism.HydraulicBoundaryLocations,

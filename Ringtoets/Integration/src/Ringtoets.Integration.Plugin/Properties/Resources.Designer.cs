@@ -94,6 +94,16 @@ namespace Ringtoets.Integration.Plugin.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Alle berekende resultaten voor alle hydraulische randvoorwaardenlocaties van grasbekleding erosie binnentalud en duinen zijn verwijderd..
+        /// </summary>
+        public static string AssessmentSectionCompositionChangeHandler_Waveheight_and_design_water_level_results_cleared {
+            get {
+                return ResourceManager.GetString("AssessmentSectionCompositionChangeHandler_Waveheight_and_design_water_level_resul" +
+                        "ts_cleared", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to De resultaten van {0} berekeningen zijn verwijderd..
         /// </summary>
         public static string ChangeHandler_Results_of_NumberOfCalculations_0_calculations_cleared {
