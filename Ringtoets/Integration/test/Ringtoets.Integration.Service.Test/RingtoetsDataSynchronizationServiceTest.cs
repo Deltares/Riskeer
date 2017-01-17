@@ -53,64 +53,6 @@ namespace Ringtoets.Integration.Service.Test
     [TestFixture]
     public class RingtoetsDataSynchronizationServiceTest
     {
-        #region TestData
-
-        private static IEnumerable<TestCaseData> GrassAndDuneLocations
-        {
-            get
-            {
-                TestDuneLocation duneLocationOutput;
-                TestHydraulicBoundaryLocation grassBoundaryLocationOutput;
-
-                yield return new TestCaseData(
-                    new TestHydraulicBoundaryLocation(),
-                    new TestDuneLocation(),
-                    new IObservable[0]
-                    ).SetName("GrassAndDuneLocationNoOutput");
-                yield return new TestCaseData(
-                    grassBoundaryLocationOutput = new TestHydraulicBoundaryLocation
-                    {
-                        DesignWaterLevelOutput = new TestHydraulicBoundaryLocationOutput(0.5),
-                        WaveHeightOutput = new TestHydraulicBoundaryLocationOutput(0.6)
-                    },
-                    new TestDuneLocation(),
-                    new IObservable[]
-                    {
-                        grassBoundaryLocationOutput
-                    }
-                    ).SetName("GrassLocationWithOutput");
-                yield return new TestCaseData(
-                    new TestHydraulicBoundaryLocation(),
-                    duneLocationOutput = new TestDuneLocation
-                    {
-                        Output = new TestDuneLocationOutput()
-                    },
-                    new IObservable[]
-                    {
-                        duneLocationOutput
-                    }
-                    ).SetName("DuneLocationWithOutput");
-                yield return new TestCaseData(
-                    grassBoundaryLocationOutput = new TestHydraulicBoundaryLocation
-                    {
-                        DesignWaterLevelOutput = new TestHydraulicBoundaryLocationOutput(0.5),
-                        WaveHeightOutput = new TestHydraulicBoundaryLocationOutput(0.6)
-                    },
-                    duneLocationOutput = new TestDuneLocation
-                    {
-                        Output = new TestDuneLocationOutput()
-                    },
-                    new IObservable[]
-                    {
-                        grassBoundaryLocationOutput,
-                        duneLocationOutput
-                    }
-                    ).SetName("GrassAndDuneLocationWithOutput");
-            }
-        }
-
-        #endregion
-
         [Test]
         public void ClearFailureMechanismCalculationOutputs_WithoutAssessmentSection_ThrowsArgumentNullException()
         {
@@ -327,48 +269,6 @@ namespace Ringtoets.Integration.Service.Test
         }
 
         [Test]
-        [TestCase(1.0, 3.0)]
-        [TestCase(3.8, double.NaN)]
-        [TestCase(double.NaN, 6.9)]
-        public void ClearHydraulicBoundaryLocationOutput_LocationWithData_ClearsDataAndReturnsAffectedHydraulicBoundaryLocations(
-            double waveHeight, double designWaterLevel)
-        {
-            // Setup
-            var mockRepository = new MockRepository();
-            var grassCoverErosionOutwardsFailureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            var duneErosionFailureMechanism = new DuneErosionFailureMechanism();
-            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(
-                grassCoverErosionOutwardsFailureMechanism, mockRepository);
-            mockRepository.ReplayAll();
-
-            HydraulicBoundaryLocation hydraulicBoundaryLocation = assessmentSectionStub.HydraulicBoundaryDatabase.Locations[0];
-            hydraulicBoundaryLocation.DesignWaterLevelOutput = new TestHydraulicBoundaryLocationOutput(designWaterLevel);
-            hydraulicBoundaryLocation.WaveHeightOutput = new TestHydraulicBoundaryLocationOutput(waveHeight);
-
-            // Call
-            IEnumerable<IObservable> affectedObjects = RingtoetsDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(
-                assessmentSectionStub.HydraulicBoundaryDatabase,
-                grassCoverErosionOutwardsFailureMechanism,
-                duneErosionFailureMechanism);
-
-            // Assert
-            // Note: To make sure the clear is performed regardless of what is done with
-            // the return result, no ToArray() should be called before these assertions:
-            Assert.IsNull(hydraulicBoundaryLocation.DesignWaterLevelOutput);
-            Assert.IsNull(hydraulicBoundaryLocation.WaveHeightOutput);
-            Assert.IsNaN(hydraulicBoundaryLocation.DesignWaterLevel);
-            Assert.IsNaN(hydraulicBoundaryLocation.WaveHeight);
-            Assert.AreEqual(CalculationConvergence.NotCalculated, hydraulicBoundaryLocation.DesignWaterLevelCalculationConvergence);
-            Assert.AreEqual(CalculationConvergence.NotCalculated, hydraulicBoundaryLocation.WaveHeightCalculationConvergence);
-
-            CollectionAssert.AreEqual(new[]
-            {
-                hydraulicBoundaryLocation
-            }, affectedObjects);
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
         public void ClearHydraulicBoundaryLocationOutput_HydraulicBoundaryDatabaseWithoutLocations_DoNothing()
         {
             // Setup
@@ -388,182 +288,58 @@ namespace Ringtoets.Integration.Service.Test
         }
 
         [Test]
-        public void ClearHydraulicBoundaryLocationOutput_LocationWithoutWaveHeightAndDesignWaterLevel_DoNothing()
+        public void ClearHydraulicBoundaryLocationOutputGrassCoverErosionOutwardsANdDunesWithoutLocations_DoNothing()
         {
-            // Setup
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
-            {
-                HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase()
-            };
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test", 0, 0);
-            assessmentSection.HydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);
-
             // Call
             IEnumerable<IObservable> affectedObjects = RingtoetsDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(
-                assessmentSection.HydraulicBoundaryDatabase,
-                assessmentSection.GrassCoverErosionOutwards,
-                assessmentSection.DuneErosion);
+                new GrassCoverErosionOutwardsFailureMechanism(), 
+                new DuneErosionFailureMechanism());
 
             // Assert
             CollectionAssert.IsEmpty(affectedObjects);
         }
 
         [Test]
-        [TestCase(3.5, double.NaN, TestName = "ClearHydraulicBoundaryLocationOutput_LocationWithoutDataAndGrassOutwardLocationWithData_ClearDataAndReturnAffectedData(3.5, NaN)")]
-        [TestCase(double.NaN, 8.3, TestName = "ClearHydraulicBoundaryLocationOutput_LocationWithoutDataAndGrassOutwardLocationWithData_ClearDataAndReturnAffectedData(NaN, 8.3)")]
-        public void ClearHydraulicBoundaryLocationOutput_LocationWithoutDataAndGrassCoverErosionOutwardsLocationWithData_ClearDataAndReturnAffectedHydraulicBoundaryLocations(
-            double designWaterLevel, double waveHeight)
-        {
-            // Setup
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test", 0, 0);
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-            {
-                Locations =
-                {
-                    hydraulicBoundaryLocation
-                }
-            };
-
-            var grassCoverErosionOutwardsHydraulicBoundaryLocation = hydraulicBoundaryLocation;
-            grassCoverErosionOutwardsHydraulicBoundaryLocation.DesignWaterLevelOutput = new TestHydraulicBoundaryLocationOutput(
-                designWaterLevel, CalculationConvergence.CalculatedConverged);
-            grassCoverErosionOutwardsHydraulicBoundaryLocation.WaveHeightOutput = new TestHydraulicBoundaryLocationOutput(
-                waveHeight, CalculationConvergence.CalculatedConverged);
-
-            var grassCoverErosionOutwardsFailureMechanism = new GrassCoverErosionOutwardsFailureMechanism
-            {
-                HydraulicBoundaryLocations =
-                {
-                    grassCoverErosionOutwardsHydraulicBoundaryLocation
-                }
-            };
-            var duneErosionFailureMechanism = new DuneErosionFailureMechanism();
-
-            // Call
-            IEnumerable<IObservable> affectedObjects = RingtoetsDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(
-                hydraulicBoundaryDatabase,
-                grassCoverErosionOutwardsFailureMechanism,
-                duneErosionFailureMechanism);
-
-            // Assert
-            // Note: To make sure the clear is performed regardless of what is done with
-            // the return result, no ToArray() should be called before these assertions:
-            Assert.IsNull(grassCoverErosionOutwardsHydraulicBoundaryLocation.DesignWaterLevelOutput);
-            Assert.IsNull(grassCoverErosionOutwardsHydraulicBoundaryLocation.WaveHeightOutput);
-            Assert.IsNaN(grassCoverErosionOutwardsHydraulicBoundaryLocation.DesignWaterLevel);
-            Assert.IsNaN(grassCoverErosionOutwardsHydraulicBoundaryLocation.WaveHeight);
-            Assert.AreEqual(CalculationConvergence.NotCalculated, grassCoverErosionOutwardsHydraulicBoundaryLocation.DesignWaterLevelCalculationConvergence);
-            Assert.AreEqual(CalculationConvergence.NotCalculated, grassCoverErosionOutwardsHydraulicBoundaryLocation.WaveHeightCalculationConvergence);
-
-            CollectionAssert.AreEqual(new[]
-            {
-                grassCoverErosionOutwardsHydraulicBoundaryLocation
-            }, affectedObjects);
-        }
-
-        [Test]
-        public void ClearHydraulicBoundaryLocationOutput_LocationWithoutDataAndGrassCoverErosionOutwardsLocationWithoutData_DoNothing()
-        {
-            // Setup
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test", 0, 0);
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-            {
-                Locations =
-                {
-                    hydraulicBoundaryLocation
-                }
-            };
-
-            var grassCoverErosionOutwardsFailureMechanism = new GrassCoverErosionOutwardsFailureMechanism
-            {
-                HydraulicBoundaryLocations =
-                {
-                    hydraulicBoundaryLocation
-                }
-            };
-            var duneErosionFailureMechanism = new DuneErosionFailureMechanism
-            {
-                DuneLocations =
-                {
-                    new TestDuneLocation()
-                }
-            };
-
-            // Call
-            IEnumerable<IObservable> affected = RingtoetsDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(
-                hydraulicBoundaryDatabase,
-                grassCoverErosionOutwardsFailureMechanism,
-                duneErosionFailureMechanism);
-
-            // Assert
-            CollectionAssert.IsEmpty(affected);
-        }
-
-        [Test]
-        [TestCase(3.5, double.NaN, TestName = "ClearHydraulicBoundaryLocationOutput_LocationWithDataAndGrassOutwardLocationWithData_ClearDataAndReturnAffectedData(3.5, NaN)")]
-        [TestCase(double.NaN, 8.3, TestName = "ClearHydraulicBoundaryLocationOutput_LocationWithDataAndGrassOutwardLocationWithData_ClearDataAndReturnAffectedData(NaN, 8.3)")]
-        public void ClearHydraulicBoundaryLocationOutput_LocationWithDataAndGrassCoverErosionOutwardsLocationWithData_ClearDataAndReturnAffectedHydraulicBoundaryLocations(
-            double designWaterLevel, double waveHeight)
+        [TestCaseSource(nameof(HydraulicBoundaryLocationAndGrassAndDuneLocations))]
+        public void ClearHydraulicBoundaryLocationOutput_HydraulicBoundaryGrassCoverErosionOutwardsAndDuneLocations_ClearDataAndReturnAffectedLocations(HydraulicBoundaryLocation hydraulicBoundaryLocation,
+                                                                                                                                                        HydraulicBoundaryLocation grassBoundaryLocation,
+                                                                                                                                                        DuneLocation duneLocation,
+                                                                                                                                                        IEnumerable<IObservable> expectedAffectedItems)
         {
             // Setup
             var grassCoverErosionOutwardsFailureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+
             var duneErosionFailureMechanism = new DuneErosionFailureMechanism();
+            duneErosionFailureMechanism.DuneLocations.Add(duneLocation);
+
+            grassCoverErosionOutwardsFailureMechanism.HydraulicBoundaryLocations.Add(grassBoundaryLocation);
 
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(
                 grassCoverErosionOutwardsFailureMechanism, mockRepository);
             mockRepository.ReplayAll();
 
-            HydraulicBoundaryLocation hydraulicBoundaryLocation = assessmentSectionStub.HydraulicBoundaryDatabase.Locations[0];
-            hydraulicBoundaryLocation.DesignWaterLevelOutput = new TestHydraulicBoundaryLocationOutput(designWaterLevel);
-            hydraulicBoundaryLocation.WaveHeightOutput = new TestHydraulicBoundaryLocationOutput(waveHeight);
-
-            var grassCoverErosionOutwardsHydraulicBoundaryLocation = new TestHydraulicBoundaryLocation
-            {
-                DesignWaterLevelOutput = new TestHydraulicBoundaryLocationOutput(hydraulicBoundaryLocation.DesignWaterLevel),
-                WaveHeightOutput = new TestHydraulicBoundaryLocationOutput(hydraulicBoundaryLocation.WaveHeight)
-            };
-
-            grassCoverErosionOutwardsFailureMechanism.HydraulicBoundaryLocations.Add(grassCoverErosionOutwardsHydraulicBoundaryLocation);
+            assessmentSectionStub.HydraulicBoundaryDatabase.Locations[0] = hydraulicBoundaryLocation;
 
             // Call
-            IEnumerable<IObservable> affectedObjects = RingtoetsDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(
-                assessmentSectionStub.HydraulicBoundaryDatabase,
-                grassCoverErosionOutwardsFailureMechanism,
-                duneErosionFailureMechanism);
+            IEnumerable<IObservable> affectedObjects = RingtoetsDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(assessmentSectionStub.HydraulicBoundaryDatabase,
+                                                                                                                                grassCoverErosionOutwardsFailureMechanism,
+                                                                                                                                duneErosionFailureMechanism);
 
             // Assert
             // Note: To make sure the clear is performed regardless of what is done with
             // the return result, no ToArray() should be called before these assertions:
-            Assert.IsNull(hydraulicBoundaryLocation.DesignWaterLevelOutput);
-            Assert.IsNull(hydraulicBoundaryLocation.WaveHeightOutput);
-            Assert.IsNaN(hydraulicBoundaryLocation.DesignWaterLevel);
-            Assert.IsNaN(hydraulicBoundaryLocation.WaveHeight);
-            Assert.AreEqual(CalculationConvergence.NotCalculated, hydraulicBoundaryLocation.DesignWaterLevelCalculationConvergence);
-            Assert.AreEqual(CalculationConvergence.NotCalculated, hydraulicBoundaryLocation.WaveHeightCalculationConvergence);
-
-            // Note: To make sure the clear is performed regardless of what is done with
-            // the return result, no ToArray() should be called before these assertions:
-            Assert.IsNull(grassCoverErosionOutwardsHydraulicBoundaryLocation.DesignWaterLevelOutput);
-            Assert.IsNull(grassCoverErosionOutwardsHydraulicBoundaryLocation.WaveHeightOutput);
-            Assert.IsNaN(grassCoverErosionOutwardsHydraulicBoundaryLocation.DesignWaterLevel);
-            Assert.IsNaN(grassCoverErosionOutwardsHydraulicBoundaryLocation.WaveHeight);
-            Assert.AreEqual(CalculationConvergence.NotCalculated, grassCoverErosionOutwardsHydraulicBoundaryLocation.DesignWaterLevelCalculationConvergence);
-            Assert.AreEqual(CalculationConvergence.NotCalculated, grassCoverErosionOutwardsHydraulicBoundaryLocation.WaveHeightCalculationConvergence);
-
-            CollectionAssert.AreEquivalent(new[]
-            {
-                grassCoverErosionOutwardsHydraulicBoundaryLocation,
-                hydraulicBoundaryLocation
-            }, affectedObjects);
-            mockRepository.VerifyAll();
+            CollectionAssert.AreEquivalent(expectedAffectedItems, affectedObjects);
+            Assert.IsNull(duneLocation.Output);
+            Assert.IsNull(grassBoundaryLocation.DesignWaterLevelOutput);
+            Assert.IsNull(grassBoundaryLocation.WaveHeightOutput);
         }
 
         [Test]
         [TestCaseSource(nameof(GrassAndDuneLocations))]
-        public void ClearHydraulicBoundaryLocationOutput_GrassCoverErosionOutwardsAndDuneLocations_ClearDataAndReturnAffectedHydraulicBoundaryLocations(HydraulicBoundaryLocation grassBoundaryLocation,
-                                                                                                                                                        DuneLocation duneLocation,
-                                                                                                                                                        IEnumerable<IObservable> expectedAffectedItems)
+        public void ClearHydraulicBoundaryLocationOutput_GrassCoverErosionOutwardsAndDuneLocations_ClearDataAndReturnAffectedLocations(HydraulicBoundaryLocation grassBoundaryLocation,
+                                                                                                                                       DuneLocation duneLocation,
+                                                                                                                                       IEnumerable<IObservable> expectedAffectedItems)
         {
             // Setup
             var grassCoverErosionOutwardsFailureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
@@ -1611,5 +1387,146 @@ namespace Ringtoets.Integration.Service.Test
                 yield return sectionResult;
             }
         }
+
+        #region TestData
+
+        private static IEnumerable<TestCaseData> GrassAndDuneLocations
+        {
+            get
+            {
+                TestDuneLocation duneLocationWithOutput;
+                TestHydraulicBoundaryLocation grassBoundaryLocationWithOutput;
+
+                yield return new TestCaseData(
+                    new TestHydraulicBoundaryLocation(),
+                    new TestDuneLocation(),
+                    new IObservable[0]
+                    ).SetName("GrassAndDuneLocationNoOutput");
+                yield return new TestCaseData(
+                    grassBoundaryLocationWithOutput = TestHydraulicBoundaryLocation.CreateFullyCalculated(),
+                    new TestDuneLocation(),
+                    new IObservable[]
+                    {
+                        grassBoundaryLocationWithOutput
+                    }
+                    ).SetName("GrassLocationWithOutput");
+                yield return new TestCaseData(
+                    new TestHydraulicBoundaryLocation(),
+                    duneLocationWithOutput = new TestDuneLocation
+                    {
+                        Output = new TestDuneLocationOutput()
+                    },
+                    new IObservable[]
+                    {
+                        duneLocationWithOutput
+                    }
+                    ).SetName("DuneLocationWithOutput");
+                yield return new TestCaseData(
+                    grassBoundaryLocationWithOutput = TestHydraulicBoundaryLocation.CreateFullyCalculated(),
+                    duneLocationWithOutput = new TestDuneLocation
+                    {
+                        Output = new TestDuneLocationOutput()
+                    },
+                    new IObservable[]
+                    {
+                        grassBoundaryLocationWithOutput,
+                        duneLocationWithOutput
+                    }
+                    ).SetName("GrassAndDuneLocationWithOutput");
+            }
+        }
+
+        private static IEnumerable<TestCaseData> HydraulicBoundaryLocationAndGrassAndDuneLocations
+        {
+            get
+            {
+                TestHydraulicBoundaryLocation boundaryLocationWithOutput;
+                TestHydraulicBoundaryLocation grassBoundaryLocationWithOutput;
+                TestDuneLocation duneLocationWithOutput;
+
+                yield return new TestCaseData(
+                    boundaryLocationWithOutput = TestHydraulicBoundaryLocation.CreateFullyCalculated(),
+                    new TestHydraulicBoundaryLocation(),
+                    duneLocationWithOutput = new TestDuneLocation
+                    {
+                        Output = new TestDuneLocationOutput()
+                    },
+                    new IObservable[]
+                    {
+                        boundaryLocationWithOutput,
+                        duneLocationWithOutput
+                    }).SetName("HydraulicBoundaryAndDuneLocationWithOutput");
+                yield return new TestCaseData(
+                    boundaryLocationWithOutput = TestHydraulicBoundaryLocation.CreateFullyCalculated(),
+                    new TestHydraulicBoundaryLocation(),
+                    new TestDuneLocation(),
+                    new IObservable[]
+                    {
+                        boundaryLocationWithOutput
+                    }).SetName("HydraulicBoundaryLocationWithOutput");
+                yield return new TestCaseData(
+                    boundaryLocationWithOutput = TestHydraulicBoundaryLocation.CreateFullyCalculated(),
+                    grassBoundaryLocationWithOutput = TestHydraulicBoundaryLocation.CreateFullyCalculated(),
+                    duneLocationWithOutput = new TestDuneLocation
+                    {
+                        Output = new TestDuneLocationOutput()
+                    },
+                    new IObservable[]
+                    {
+                        boundaryLocationWithOutput,
+                        grassBoundaryLocationWithOutput,
+                        duneLocationWithOutput
+                    }).SetName("AllTypesWithOutput");
+                yield return new TestCaseData(
+                    boundaryLocationWithOutput = TestHydraulicBoundaryLocation.CreateFullyCalculated(),
+                    grassBoundaryLocationWithOutput = TestHydraulicBoundaryLocation.CreateFullyCalculated(),
+                    new TestDuneLocation(),
+                    new IObservable[]
+                    {
+                        boundaryLocationWithOutput,
+                        grassBoundaryLocationWithOutput
+                    }).SetName("HydraulicBoundaryAndGrassLocationWithOutput");
+
+                yield return new TestCaseData(
+                    new TestHydraulicBoundaryLocation(),
+                    new TestHydraulicBoundaryLocation(),
+                    duneLocationWithOutput = new TestDuneLocation
+                    {
+                        Output = new TestDuneLocationOutput()
+                    },
+                    new IObservable[]
+                    {
+                        duneLocationWithOutput
+                    }).SetName("DuneLocationWithOutput");
+                yield return new TestCaseData(
+                    new TestHydraulicBoundaryLocation(),
+                    new TestHydraulicBoundaryLocation(),
+                    new TestDuneLocation(),
+                    new IObservable[0]
+                    ).SetName("AllTypesNoOutput");
+                yield return new TestCaseData(
+                    new TestHydraulicBoundaryLocation(),
+                    grassBoundaryLocationWithOutput = TestHydraulicBoundaryLocation.CreateFullyCalculated(),
+                    duneLocationWithOutput = new TestDuneLocation
+                    {
+                        Output = new TestDuneLocationOutput()
+                    },
+                    new IObservable[]
+                    {
+                        grassBoundaryLocationWithOutput,
+                        duneLocationWithOutput
+                    }).SetName("GrassAndDuneLocationWithOutput");
+                yield return new TestCaseData(
+                    new TestHydraulicBoundaryLocation(),
+                    grassBoundaryLocationWithOutput = TestHydraulicBoundaryLocation.CreateFullyCalculated(),
+                    new TestDuneLocation(),
+                    new IObservable[]
+                    {
+                        grassBoundaryLocationWithOutput
+                    }).SetName("GrassLocationWithOutput");
+            }
+        }
+
+        #endregion
     }
 }
