@@ -1194,7 +1194,7 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Verzadigd gewicht (standaardafwijking) [kn/m³].
+        ///   Looks up a localized string similar to Verzadigd gewicht (standaardafwijking) [kN/m³].
         /// </summary>
         public static string PipingSoilLayerTable_ColumnHeader_BelowPhreaticLevelDeviation {
             get {
@@ -1203,7 +1203,7 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Verzadigd gewicht (verwachtingswaarde) [kn/m³].
+        ///   Looks up a localized string similar to Verzadigd gewicht (verwachtingswaarde) [kN/m³].
         /// </summary>
         public static string PipingSoilLayerTable_ColumnHeader_BelowPhreaticLevelMean {
             get {
@@ -1212,7 +1212,7 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Verzadigd gewicht (verschuiving) [kn/m³].
+        ///   Looks up a localized string similar to Verzadigd gewicht (verschuiving) [kN/m³].
         /// </summary>
         public static string PipingSoilLayerTable_ColumnHeader_BelowPhreaticLevelShift {
             get {

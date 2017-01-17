@@ -650,12 +650,12 @@
     <value>d70 (standaardafwijking) [m]</value>
   </data>
   <data name="PipingSoilLayerTable_ColumnHeader_BelowPhreaticLevelMean" xml:space="preserve">
-    <value>Verzadigd gewicht (verwachtingswaarde) [kn/m³]</value>
+    <value>Verzadigd gewicht (verwachtingswaarde) [kN/m³]</value>
   </data>
   <data name="PipingSoilLayerTable_ColumnHeader_BelowPhreaticLevelDeviation" xml:space="preserve">
-    <value>Verzadigd gewicht (standaardafwijking) [kn/m³]</value>
+    <value>Verzadigd gewicht (standaardafwijking) [kN/m³]</value>
   </data>
   <data name="PipingSoilLayerTable_ColumnHeader_BelowPhreaticLevelShift" xml:space="preserve">
-    <value>Verzadigd gewicht (verschuiving) [kn/m³]</value>
+    <value>Verzadigd gewicht (verschuiving) [kN/m³]</value>
   </data>
 </root>

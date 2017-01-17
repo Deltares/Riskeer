@@ -70,11 +70,11 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 var d70DeviationColumn = table.GetColumnFromIndex(d70DeviationColumnIndex);
                 Assert.AreEqual("d70 (standaardafwijking) [m]", d70DeviationColumn.HeaderText);
                 var belowPhreaticLevelWeightMeanColumn = table.GetColumnFromIndex(belowPhreaticLevelWeightMeanColumnIndex);
-                Assert.AreEqual("Verzadigd gewicht (verwachtingswaarde) [kn/m³]", belowPhreaticLevelWeightMeanColumn.HeaderText);
+                Assert.AreEqual("Verzadigd gewicht (verwachtingswaarde) [kN/m³]", belowPhreaticLevelWeightMeanColumn.HeaderText);
                 var belowPhreaticLevelWeightDeviationColumn = table.GetColumnFromIndex(belowPhreaticLevelWeightDeviationColumnIndex);
-                Assert.AreEqual("Verzadigd gewicht (standaardafwijking) [kn/m³]", belowPhreaticLevelWeightDeviationColumn.HeaderText);
+                Assert.AreEqual("Verzadigd gewicht (standaardafwijking) [kN/m³]", belowPhreaticLevelWeightDeviationColumn.HeaderText);
                 var belowPhreaticLevelWeightShiftColumn = table.GetColumnFromIndex(belowPhreaticLevelWeightShiftColumnIndex);
-                Assert.AreEqual("Verzadigd gewicht (verschuiving) [kn/m³]", belowPhreaticLevelWeightShiftColumn.HeaderText);
+                Assert.AreEqual("Verzadigd gewicht (verschuiving) [kN/m³]", belowPhreaticLevelWeightShiftColumn.HeaderText);
 
                 Assert.Throws<ArgumentOutOfRangeException>(() => table.GetColumnFromIndex(belowPhreaticLevelWeightShiftColumnIndex + 1));
 
