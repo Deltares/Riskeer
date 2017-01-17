@@ -19,10 +19,28 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Migration.Console
+using System;
+using System.Data.SQLite;
+
+namespace Migration.Core.Storage
 {
-    public class Application
+    internal class SourceFile : IDisposable
     {
-        static void Main(string[] args) {}
+        private readonly SQLiteConnection connection;
+
+        public SourceFile(string filePath)
+        {
+            FilePath = filePath;
+
+            connection = new SQLiteConnection(SqLiteConnectionStringBuilder.BuildSqLiteConnectionString(FilePath));
+            connection.Open();
+        }
+
+        public string FilePath { get; }
+
+        public void Dispose()
+        {
+            connection?.Close();
+        }
     }
 }

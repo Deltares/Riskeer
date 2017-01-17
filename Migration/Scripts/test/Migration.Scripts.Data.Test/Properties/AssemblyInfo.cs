@@ -19,10 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Migration.Console
-{
-    public class Application
-    {
-        static void Main(string[] args) {}
-    }
-}
+using System.Reflection;
+using System.Runtime.InteropServices;
+
+[assembly: AssemblyTitle("Migration.Scripts.Data.Test")]
+[assembly: AssemblyProduct("Migration.Scripts.Data.Test")]
+[assembly: Guid("a60f35b7-7538-4516-94bb-09b19fe22faa")]

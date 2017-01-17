@@ -19,10 +19,27 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Migration.Console
+namespace Migration.Core.Storage
 {
-    public class Application
+    public static class MigrationService
     {
-        static void Main(string[] args) {}
+        public static void Execute(string sourceFile, string targetFile)
+        {
+            using (var source = new SourceFile(sourceFile))
+            using (var target = new TargetFile(targetFile))
+            {
+                target.OpenDatabaseConnection();
+                target.CreateStructure();
+                Migrate(source, target);
+            }
+        }
+
+        private static void Migrate(SourceFile source, TargetFile target)
+        {
+//            var script = MigrationScriptTable.Get("");
+//            var sourceFilePath = source.FilePath;
+//            var sql = string.Format(script, sourceFilePath);
+//            target.Execute(sql);
+        }
     }
 }
