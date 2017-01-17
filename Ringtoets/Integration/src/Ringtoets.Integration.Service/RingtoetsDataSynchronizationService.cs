@@ -187,14 +187,13 @@ namespace Ringtoets.Integration.Service
 
         /// <summary>
         /// Clears the output of the hydraulic boundary locations within the <paramref name="hydraulicBoundaryDatabase"/>
-        /// and <paramref name="grassCoverErosionOutwardsFailureMechanism"/>.
+        /// <paramref name="grassCoverErosionOutwardsFailureMechanism"/> and <paramref name="duneErosionFailureMechanism"/>.
         /// </summary>
         /// <param name="hydraulicBoundaryDatabase">The <see cref="HydraulicBoundaryDatabase"/> wich contains the locations.</param>
         /// <param name="grassCoverErosionOutwardsFailureMechanism">The <see cref="GrassCoverErosionOutwardsFailureMechanism"/> which contains the locations.</param>
         /// <param name="duneErosionFailureMechanism">The <see cref="DuneErosionFailureMechanism"/> which contains locations.</param>
         /// <returns>All objects affected by the operation.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryDatabase"/> 
-        /// or <paramref name="grassCoverErosionOutwardsFailureMechanism"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public static IEnumerable<IObservable> ClearHydraulicBoundaryLocationOutput(HydraulicBoundaryDatabase hydraulicBoundaryDatabase,
                                                                                     GrassCoverErosionOutwardsFailureMechanism grassCoverErosionOutwardsFailureMechanism,
                                                                                     DuneErosionFailureMechanism duneErosionFailureMechanism)
@@ -203,6 +202,25 @@ namespace Ringtoets.Integration.Service
             {
                 throw new ArgumentNullException(nameof(hydraulicBoundaryDatabase));
             }
+
+            IEnumerable<IObservable> affectedLocations = ClearHydraulicBoundaryLocationOutput(grassCoverErosionOutwardsFailureMechanism, duneErosionFailureMechanism);
+
+            return RingtoetsCommonDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(hydraulicBoundaryDatabase.Locations)
+                                                            .Concat(affectedLocations)
+                                                            .ToArray();
+        }
+
+        /// <summary>
+        /// Clears the output of the hydraulic boundary locations within the <paramref name="grassCoverErosionOutwardsFailureMechanism"/> 
+        /// and <paramref name="duneErosionFailureMechanism"/>.
+        /// </summary>
+        /// <param name="grassCoverErosionOutwardsFailureMechanism">The <see cref="GrassCoverErosionOutwardsFailureMechanism"/> which contains the locations.</param>
+        /// <param name="duneErosionFailureMechanism">The <see cref="DuneErosionFailureMechanism"/> which contains the locations.</param>
+        /// <returns>All objects affected by the operation.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public static IEnumerable<IObservable> ClearHydraulicBoundaryLocationOutput(GrassCoverErosionOutwardsFailureMechanism grassCoverErosionOutwardsFailureMechanism,
+                                                                                    DuneErosionFailureMechanism duneErosionFailureMechanism)
+        {
             if (grassCoverErosionOutwardsFailureMechanism == null)
             {
                 throw new ArgumentNullException(nameof(grassCoverErosionOutwardsFailureMechanism));
@@ -213,10 +231,7 @@ namespace Ringtoets.Integration.Service
             }
 
             return RingtoetsCommonDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(grassCoverErosionOutwardsFailureMechanism.HydraulicBoundaryLocations)
-                                                            .Concat(RingtoetsCommonDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(
-                                                                hydraulicBoundaryDatabase.Locations))
-                                                            .Concat(DuneErosionDataSynchronizationService.ClearDuneLocationOutput(
-                                                                duneErosionFailureMechanism.DuneLocations))
+                                                            .Concat(DuneErosionDataSynchronizationService.ClearDuneLocationOutput(duneErosionFailureMechanism.DuneLocations))
                                                             .ToArray();
         }
 

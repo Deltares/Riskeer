@@ -286,7 +286,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
                                                                       .Concat(section.GetFailureMechanisms())
                                                                       .Concat(new IObservable[]
                                                                       {
-                                                                          section.FailureMechanismContribution,
+                                                                          section.FailureMechanismContribution
                                                                       });
             CollectionAssert.AreEquivalent(expectedAffectedObjects, affectedObjects);
         }

@@ -28,6 +28,9 @@ using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.DuneErosion.Data;
+using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Plugin.Handlers;
 using Ringtoets.Integration.Service;
@@ -127,6 +130,16 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
                                                                      .Where(c => c.HasOutput)
                                                                      .ToArray();
 
+            DuneLocation[] duneLocationWithOutput = assessmentSection.GetFailureMechanisms().OfType<DuneErosionFailureMechanism>()
+                                                                     .SelectMany(f => f.DuneLocations)
+                                                                     .Where(loc => loc.Output != null)
+                                                                     .ToArray();
+
+            HydraulicBoundaryLocation[] hblWithOutput = assessmentSection.GetFailureMechanisms().OfType<GrassCoverErosionOutwardsFailureMechanism>()
+                                                                         .SelectMany(f => f.HydraulicBoundaryLocations)
+                                                                         .Where(loc => loc.DesignWaterLevelOutput != null || loc.WaveHeightOutput != null)
+                                                                         .ToArray();
+
             var handler = new AssessmentSectionCompositionChangeHandler();
 
             // Call
@@ -135,6 +148,9 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             // Assert
             Assert.True(calculationsWithOutput.All(c => c.HasOutput),
                         "All calculations that had output still have them.");
+
+            Assert.True(duneLocationWithOutput.All(loc => loc.Output != null));
+            Assert.True(hblWithOutput.All(loc => loc.DesignWaterLevelOutput != null || loc.WaveHeightOutput != null));
 
             CollectionAssert.IsEmpty(affectedObjects);
         }
@@ -148,6 +164,131 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
 
             // Precondition
             Assert.AreNotEqual(assessmentSection.Composition, newComposition);
+
+            GrassCoverErosionOutwardsFailureMechanism grassCoverErosionOutwardsFailureMechanism = assessmentSection.GetFailureMechanisms()
+                                                                                                                   .OfType<GrassCoverErosionOutwardsFailureMechanism>()
+                                                                                                                   .First();
+
+            DuneErosionFailureMechanism duneErosionFailureMechanism = assessmentSection.GetFailureMechanisms()
+                                                                                       .OfType<DuneErosionFailureMechanism>()
+                                                                                       .First();
+
+            IObservable[] expectedAffectedObjects = assessmentSection.GetFailureMechanisms().Cast<IObservable>()
+                                                                     .Concat(assessmentSection.GetFailureMechanisms().SelectMany(fm => fm.Calculations).Where(c => c.HasOutput))
+                                                                     .Concat(new[]
+                                                                     {
+                                                                         assessmentSection
+                                                                     })
+                                                                     .Concat(new IObservable[]
+                                                                     {
+                                                                         grassCoverErosionOutwardsFailureMechanism.HydraulicBoundaryLocations,
+                                                                         duneErosionFailureMechanism.DuneLocations
+                                                                     })
+                                                                     .ToArray();
+
+            var handler = new AssessmentSectionCompositionChangeHandler();
+
+            // Call
+            IEnumerable<IObservable> affectedObjects = null;
+            Action call = () => affectedObjects = handler.ChangeComposition(assessmentSection, newComposition);
+
+            // Assert
+            string[] expectedMessage =
+            {
+                "De resultaten van 32 berekeningen zijn verwijderd.",
+                "Alle berekende resultaten voor alle hydraulische randvoorwaardenlocaties zijn verwijderd."
+            };
+            TestHelper.AssertLogMessagesAreGenerated(call, expectedMessage, 2);
+
+            Assert.AreEqual(newComposition, assessmentSection.Composition);
+            Assert.True(assessmentSection.GetFailureMechanisms().SelectMany(fm => fm.Calculations).All(c => !c.HasOutput));
+            CollectionAssert.AreEquivalent(expectedAffectedObjects, affectedObjects);
+
+            foreach (HydraulicBoundaryLocation location in assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations)
+            {
+                Assert.IsNaN(location.DesignWaterLevel);
+                Assert.IsNaN(location.WaveHeight);
+                Assert.AreEqual(CalculationConvergence.NotCalculated, location.DesignWaterLevelCalculationConvergence);
+                Assert.AreEqual(CalculationConvergence.NotCalculated, location.WaveHeightCalculationConvergence);
+            }
+            foreach (DuneLocation duneLocation in assessmentSection.DuneErosion.DuneLocations)
+            {
+                Assert.IsNull(duneLocation.Output);
+            }
+        }
+
+        [Test]
+        public void ChangeComposition_ChangeToDifferentValueAndNoCalculationsWithOutput_ChangeCompositionAndReturnsAllAffectedObjects()
+        {
+            // Setup
+            AssessmentSection assessmentSection = TestDataGenerator.GetFullyConfiguredAssessmentSection();
+            RingtoetsDataSynchronizationService.ClearFailureMechanismCalculationOutputs(assessmentSection);
+            var newComposition = AssessmentSectionComposition.Dune;
+
+            // Precondition
+            Assert.AreNotEqual(assessmentSection.Composition, newComposition);
+            CollectionAssert.IsEmpty(assessmentSection.GetFailureMechanisms().SelectMany(fm => fm.Calculations).Where(c => c.HasOutput));
+
+            GrassCoverErosionOutwardsFailureMechanism grassCoverErosionOutwardsFailureMechanism = assessmentSection.GetFailureMechanisms()
+                                                                                                                   .OfType<GrassCoverErosionOutwardsFailureMechanism>()
+                                                                                                                   .First();
+
+            DuneErosionFailureMechanism duneErosionFailureMechanism = assessmentSection.GetFailureMechanisms()
+                                                                                       .OfType<DuneErosionFailureMechanism>()
+                                                                                       .First();
+
+            IObservable[] expectedAffectedObjects = assessmentSection.GetFailureMechanisms().Cast<IObservable>()
+                                                                     .Concat(new[]
+                                                                     {
+                                                                         assessmentSection
+                                                                     })
+                                                                     .Concat(new IObservable[]
+                                                                     {
+                                                                         grassCoverErosionOutwardsFailureMechanism.HydraulicBoundaryLocations,
+                                                                         duneErosionFailureMechanism.DuneLocations
+                                                                     })
+                                                                     .ToArray();
+
+            var handler = new AssessmentSectionCompositionChangeHandler();
+
+            // Call
+            IEnumerable<IObservable> affectedObjects = null;
+            Action call = () => affectedObjects = handler.ChangeComposition(assessmentSection, newComposition);
+
+            // Assert
+            TestHelper.AssertLogMessageIsGenerated(call, "Alle berekende resultaten voor alle hydraulische randvoorwaardenlocaties zijn verwijderd.", 1);
+
+            Assert.AreEqual(newComposition, assessmentSection.Composition);
+            Assert.True(assessmentSection.GetFailureMechanisms().SelectMany(fm => fm.Calculations).All(c => !c.HasOutput));
+            CollectionAssert.AreEquivalent(expectedAffectedObjects, affectedObjects);
+
+            foreach (HydraulicBoundaryLocation location in assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations)
+            {
+                Assert.IsNaN(location.DesignWaterLevel);
+                Assert.IsNaN(location.WaveHeight);
+                Assert.AreEqual(CalculationConvergence.NotCalculated, location.DesignWaterLevelCalculationConvergence);
+                Assert.AreEqual(CalculationConvergence.NotCalculated, location.WaveHeightCalculationConvergence);
+            }
+            foreach (DuneLocation duneLocation in assessmentSection.DuneErosion.DuneLocations)
+            {
+                Assert.IsNull(duneLocation.Output);
+            }
+        }
+
+        [Test]
+        public void ChangeComposition_ChangeToDifferentValueAndNoHydraulicBoudaryLocationsWithOutput_ChangeCompositionAndReturnsAllAffectedObjects()
+        {
+            // Setup
+            AssessmentSection assessmentSection = TestDataGenerator.GetFullyConfiguredAssessmentSection();
+            RingtoetsDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(assessmentSection.GrassCoverErosionOutwards,
+                                                                                     assessmentSection.DuneErosion);
+            var newComposition = AssessmentSectionComposition.Dune;
+
+            // Precondition
+            Assert.AreNotEqual(assessmentSection.Composition, newComposition);
+            CollectionAssert.IsEmpty(assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations.Where(loc => loc.DesignWaterLevelOutput != null
+                                                                                                                         || loc.WaveHeightOutput != null));
+            CollectionAssert.IsEmpty(assessmentSection.DuneErosion.DuneLocations.Where(dl => dl.Output != null));
 
             IObservable[] expectedAffectedObjects = assessmentSection.GetFailureMechanisms().Cast<IObservable>()
                                                                      .Concat(assessmentSection.GetFailureMechanisms().SelectMany(fm => fm.Calculations).Where(c => c.HasOutput))
@@ -164,41 +305,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             Action call = () => affectedObjects = handler.ChangeComposition(assessmentSection, newComposition);
 
             // Assert
-            string expectedMessage = "De resultaten van 32 berekeningen zijn verwijderd.";
-            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
-
-            Assert.AreEqual(newComposition, assessmentSection.Composition);
-            Assert.True(assessmentSection.GetFailureMechanisms().SelectMany(fm => fm.Calculations).All(c => !c.HasOutput));
-            CollectionAssert.AreEquivalent(expectedAffectedObjects, affectedObjects);
-        }
-
-        [Test]
-        public void ChangeComposition_ChangeToDifferentValueAndNoCalculationsWithOutput_ChangeCompositionAndReturnsAllAffectedObjects()
-        {
-            // Setup
-            AssessmentSection assessmentSection = TestDataGenerator.GetFullyConfiguredAssessmentSection();
-            RingtoetsDataSynchronizationService.ClearFailureMechanismCalculationOutputs(assessmentSection);
-            var newComposition = AssessmentSectionComposition.Dune;
-
-            // Precondition
-            Assert.AreNotEqual(assessmentSection.Composition, newComposition);
-            CollectionAssert.IsEmpty(assessmentSection.GetFailureMechanisms().SelectMany(fm => fm.Calculations).Where(c => c.HasOutput));
-
-            IObservable[] expectedAffectedObjects = assessmentSection.GetFailureMechanisms().Cast<IObservable>()
-                                                                     .Concat(new[]
-                                                                     {
-                                                                         assessmentSection
-                                                                     })
-                                                                     .ToArray();
-
-            var handler = new AssessmentSectionCompositionChangeHandler();
-
-            // Call
-            IEnumerable<IObservable> affectedObjects = null;
-            Action call = () => affectedObjects = handler.ChangeComposition(assessmentSection, newComposition);
-
-            // Assert
-            TestHelper.AssertLogMessagesCount(call, 0);
+            TestHelper.AssertLogMessageIsGenerated(call, "De resultaten van 32 berekeningen zijn verwijderd.", 1);
 
             Assert.AreEqual(newComposition, assessmentSection.Composition);
             Assert.True(assessmentSection.GetFailureMechanisms().SelectMany(fm => fm.Calculations).All(c => !c.HasOutput));

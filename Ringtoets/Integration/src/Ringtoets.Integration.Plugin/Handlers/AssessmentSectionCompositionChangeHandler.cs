@@ -27,6 +27,8 @@ using Core.Common.Base;
 using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.DuneErosion.Data;
+using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.PropertyClasses;
 using Ringtoets.Integration.Forms.Views;
@@ -74,8 +76,34 @@ namespace Ringtoets.Integration.Plugin.Handlers
                     log.InfoFormat(Resources.ChangeHandler_Results_of_NumberOfCalculations_0_calculations_cleared,
                                    affectedObjects.OfType<ICalculation>().Count());
                 }
+
+                affectedObjects.AddRange(ClearHydraulicBoundaryLocationOutput(assessmentSection));
             }
             return affectedObjects;
+        }
+
+        private IEnumerable<IObservable> ClearHydraulicBoundaryLocationOutput(IAssessmentSection assessmentSection)
+        {
+            GrassCoverErosionOutwardsFailureMechanism grassCoverErosionOutwardsFailureMechanism = assessmentSection.GetFailureMechanisms()
+                                                                                                                   .OfType<GrassCoverErosionOutwardsFailureMechanism>()
+                                                                                                                   .First();
+
+            DuneErosionFailureMechanism duneErosionFailureMechanism = assessmentSection.GetFailureMechanisms()
+                                                                                       .OfType<DuneErosionFailureMechanism>()
+                                                                                       .First();
+
+            IEnumerable<IObservable> hydraulicBoundaryLocationAffected = RingtoetsDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(
+                grassCoverErosionOutwardsFailureMechanism, duneErosionFailureMechanism);
+            if (hydraulicBoundaryLocationAffected.Any())
+            {
+                log.Info(Resources.FailureMechanismContributionNormChangeHandler_Waveheight_and_design_water_level_results_cleared);
+                return new IObservable[]
+                {
+                    grassCoverErosionOutwardsFailureMechanism.HydraulicBoundaryLocations,
+                    duneErosionFailureMechanism.DuneLocations
+                };
+            }
+            return Enumerable.Empty<IObservable>();
         }
     }
 }
