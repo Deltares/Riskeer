@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("Migration.Ringtoets.Service.Test")]

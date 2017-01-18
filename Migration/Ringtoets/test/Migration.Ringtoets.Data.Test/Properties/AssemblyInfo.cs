@@ -20,9 +20,8 @@
 // All rights reserved.
 
 using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("Migration.Ringtoets.Data.Test")]
-[assembly: AssemblyCopyright("Copyright © Microsoft 2017")]
+[assembly: AssemblyProduct("Migration.Ringtoets.Data.Test")]
 [assembly: Guid("a1091dff-25fe-494a-8b96-56bb16d22aa2")]
