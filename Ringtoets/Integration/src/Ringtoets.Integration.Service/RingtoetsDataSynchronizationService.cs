@@ -186,24 +186,26 @@ namespace Ringtoets.Integration.Service
         }
 
         /// <summary>
-        /// Clears the output of the hydraulic boundary locations within the <paramref name="hydraulicBoundaryDatabase"/>,
-        /// <paramref name="grassCoverErosionOutwardsFailureMechanism"/> and <paramref name="duneErosionFailureMechanism"/>.
+        /// Clears the output of the hydraulic boundary locations within the <paramref name="hydraulicBoundaryDatabase"/> and the 
+        /// hydraulic boundary locations that are contained within specific failure mechanisms of the <paramref name="assessmentSection"/>.
         /// </summary>
         /// <param name="hydraulicBoundaryDatabase">The <see cref="HydraulicBoundaryDatabase"/> wich contains the locations.</param>
-        /// <param name="grassCoverErosionOutwardsFailureMechanism">The <see cref="GrassCoverErosionOutwardsFailureMechanism"/> which contains the locations.</param>
-        /// <param name="duneErosionFailureMechanism">The <see cref="DuneErosionFailureMechanism"/> which contains locations.</param>
+        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> which contains the failure mechanisms.</param>
         /// <returns>All objects affected by the operation.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public static IEnumerable<IObservable> ClearHydraulicBoundaryLocationOutput(HydraulicBoundaryDatabase hydraulicBoundaryDatabase,
-                                                                                    GrassCoverErosionOutwardsFailureMechanism grassCoverErosionOutwardsFailureMechanism,
-                                                                                    DuneErosionFailureMechanism duneErosionFailureMechanism)
+        public static IEnumerable<IObservable> ClearHydraulicBoundaryLocationOutput(HydraulicBoundaryDatabase hydraulicBoundaryDatabase, IAssessmentSection assessmentSection)
         {
             if (hydraulicBoundaryDatabase == null)
             {
                 throw new ArgumentNullException(nameof(hydraulicBoundaryDatabase));
             }
 
-            IEnumerable<IObservable> affectedLocations = ClearHydraulicBoundaryLocationOutput(grassCoverErosionOutwardsFailureMechanism, duneErosionFailureMechanism);
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
+            IEnumerable<IObservable> affectedLocations = ClearHydraulicBoundaryLocationOutputOfFailureMechanisms(assessmentSection);
 
             return RingtoetsCommonDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(hydraulicBoundaryDatabase.Locations)
                                                             .Concat(affectedLocations)
@@ -211,28 +213,70 @@ namespace Ringtoets.Integration.Service
         }
 
         /// <summary>
-        /// Clears the output of the hydraulic boundary locations within the <paramref name="grassCoverErosionOutwardsFailureMechanism"/> 
-        /// and <paramref name="duneErosionFailureMechanism"/>.
+        /// Clears the output of the hydraulic boundary locations that are contained within specific failure mechanisms 
+        /// of the <paramref name="assessmentSection"/>.
         /// </summary>
-        /// <param name="grassCoverErosionOutwardsFailureMechanism">The <see cref="GrassCoverErosionOutwardsFailureMechanism"/> which contains the locations.</param>
-        /// <param name="duneErosionFailureMechanism">The <see cref="DuneErosionFailureMechanism"/> which contains the locations.</param>
+        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> which contains the failure mechanisms.</param>
         /// <returns>All objects affected by the operation.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public static IEnumerable<IObservable> ClearHydraulicBoundaryLocationOutput(GrassCoverErosionOutwardsFailureMechanism grassCoverErosionOutwardsFailureMechanism,
-                                                                                    DuneErosionFailureMechanism duneErosionFailureMechanism)
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/> is <c>null</c>.</exception>
+        public static IEnumerable<IObservable> ClearHydraulicBoundaryLocationOutputOfFailureMechanisms(IAssessmentSection assessmentSection)
         {
-            if (grassCoverErosionOutwardsFailureMechanism == null)
+            if (assessmentSection == null)
             {
-                throw new ArgumentNullException(nameof(grassCoverErosionOutwardsFailureMechanism));
-            }
-            if (duneErosionFailureMechanism == null)
-            {
-                throw new ArgumentNullException(nameof(duneErosionFailureMechanism));
+                throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            return RingtoetsCommonDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(grassCoverErosionOutwardsFailureMechanism.HydraulicBoundaryLocations)
-                                                            .Concat(DuneErosionDataSynchronizationService.ClearDuneLocationOutput(duneErosionFailureMechanism.DuneLocations))
-                                                            .ToArray();
+            List<IObservable> affectedItems = new List<IObservable>();
+            foreach (IFailureMechanism failureMechanism in assessmentSection.GetFailureMechanisms())
+            {
+                var grassCoverErosionOutwardsFailureMechanism = failureMechanism as GrassCoverErosionOutwardsFailureMechanism;
+                var duneErosionFailureMechanism = failureMechanism as DuneErosionFailureMechanism;
+
+                if (grassCoverErosionOutwardsFailureMechanism != null)
+                {
+                    affectedItems.AddRange(RingtoetsCommonDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(grassCoverErosionOutwardsFailureMechanism.HydraulicBoundaryLocations));
+                }
+
+                if (duneErosionFailureMechanism != null)
+                {
+                    affectedItems.AddRange(DuneErosionDataSynchronizationService.ClearDuneLocationOutput(duneErosionFailureMechanism.DuneLocations));
+                }
+            }
+
+            return affectedItems;
+        }
+
+        /// <summary>
+        /// Returns the hydraulic boundary location collections within the failure mechanisms of the <paramref name="assessmentSection"/>.
+        /// </summary>
+        /// <param name="assessmentSection"></param>
+        /// <returns>All collections that contain hydraulic boundary locations.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/>is <c>null</c>.</exception>
+        public static IEnumerable<IObservable> GetHydraulicBoundaryLocationCollectionsOfFailureMechanisms(IAssessmentSection assessmentSection)
+        {
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
+            List<IObservable> hydraulicBoundaryLocationCollections = new List<IObservable>();
+            foreach (IFailureMechanism failureMechanism in assessmentSection.GetFailureMechanisms())
+            {
+                var grassCoverErosionOutwardsFailureMechanism = failureMechanism as GrassCoverErosionOutwardsFailureMechanism;
+                var duneErosionFailureMechanism = failureMechanism as DuneErosionFailureMechanism;
+
+                if (grassCoverErosionOutwardsFailureMechanism != null)
+                {
+                    hydraulicBoundaryLocationCollections.Add(grassCoverErosionOutwardsFailureMechanism.HydraulicBoundaryLocations);
+                }
+
+                if (duneErosionFailureMechanism != null)
+                {
+                    hydraulicBoundaryLocationCollections.Add(duneErosionFailureMechanism.DuneLocations);
+                }
+            }
+
+            return hydraulicBoundaryLocationCollections;
         }
 
         /// <summary>
@@ -387,9 +431,9 @@ namespace Ringtoets.Integration.Service
 
             var changedObservables = new List<IObservable>();
             Tuple<ICalculation, WaveConditionsInput>[] calculationsWithInput = failureMechanism.Calculations
-                                                                      .Cast<StabilityStoneCoverWaveConditionsCalculation>()
-                                                                      .Select(c => Tuple.Create<ICalculation, WaveConditionsInput>(c, c.InputParameters))
-                                                                      .ToArray();
+                                                                                               .Cast<StabilityStoneCoverWaveConditionsCalculation>()
+                                                                                               .Select(c => Tuple.Create<ICalculation, WaveConditionsInput>(c, c.InputParameters))
+                                                                                               .ToArray();
             changedObservables.AddRange(OnWaveConditionsInputForeshoreProfileRemoved(profile, calculationsWithInput));
 
             failureMechanism.ForeshoreProfiles.Remove(profile);
@@ -421,9 +465,9 @@ namespace Ringtoets.Integration.Service
 
             var changedObservables = new List<IObservable>();
             Tuple<ICalculation, WaveConditionsInput>[] calculationsWithInput = failureMechanism.Calculations
-                                                                      .Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>()
-                                                                      .Select(c => Tuple.Create<ICalculation, WaveConditionsInput>(c, c.InputParameters))
-                                                                      .ToArray();
+                                                                                               .Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>()
+                                                                                               .Select(c => Tuple.Create<ICalculation, WaveConditionsInput>(c, c.InputParameters))
+                                                                                               .ToArray();
             changedObservables.AddRange(OnWaveConditionsInputForeshoreProfileRemoved(profile, calculationsWithInput));
 
             failureMechanism.ForeshoreProfiles.Remove(profile);
@@ -455,9 +499,9 @@ namespace Ringtoets.Integration.Service
 
             var changedObservables = new List<IObservable>();
             Tuple<ICalculation, WaveConditionsInput>[] calculationsWithInput = failureMechanism.Calculations
-                                                                      .Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>()
-                                                                      .Select(c => Tuple.Create<ICalculation, WaveConditionsInput>(c, c.InputParameters))
-                                                                      .ToArray();
+                                                                                               .Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>()
+                                                                                               .Select(c => Tuple.Create<ICalculation, WaveConditionsInput>(c, c.InputParameters))
+                                                                                               .ToArray();
             changedObservables.AddRange(OnWaveConditionsInputForeshoreProfileRemoved(profile, calculationsWithInput));
 
             failureMechanism.ForeshoreProfiles.Remove(profile);

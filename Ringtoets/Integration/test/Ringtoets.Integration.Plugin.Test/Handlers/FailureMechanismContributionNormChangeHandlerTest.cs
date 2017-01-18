@@ -253,9 +253,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
         {
             // Setup
             AssessmentSection section = TestDataGenerator.GetFullyConfiguredAssessmentSection();
-            RingtoetsDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(section.HydraulicBoundaryDatabase,
-                                                                                     section.GrassCoverErosionOutwards,
-                                                                                     section.DuneErosion);
+            RingtoetsDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(section.HydraulicBoundaryDatabase, section);
 
             // Precondition
             CollectionAssert.IsEmpty(section.HydraulicBoundaryDatabase.Locations.Where(HasCalculatedHydraulicBoundaryLocationValues));
