@@ -92,6 +92,10 @@
       <Project>{F49BD8B2-332A-4C91-A196-8CCE0A2C7D98}</Project>
       <Name>Core.Common.Utils</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\Ringtoets\src\Migration.Ringtoets.Data\Migration.Ringtoets.Data.csproj">
+      <Project>{EED7826A-5397-4EEB-A1F8-A7550078459E}</Project>
+      <Name>Migration.Ringtoets.Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\Scripts\src\Migration.Scripts.Data\Migration.Scripts.Data.csproj">
       <Project>{d08db9e2-6861-44c8-a725-71a70274cc77}</Project>
       <Name>Migration.Scripts.Data</Name>

@@ -1342,6 +1342,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Migration.Ringtoets.Service
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Migration.Scripts.Service", "Migration\Scripts\src\Migration.Scripts.Service\Migration.Scripts.Service.csproj", "{1EA671F9-1F34-480C-B232-FF9A2A06AF8F}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Migration.Scripts.Service.Test", "Migration\Scripts\test\Migration.Scripts.Service.Test\Migration.Scripts.Service.Test.csproj", "{E3C605BE-2EA5-4877-9BC7-71EA499CD21C}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		CreateInstaller|x86 = CreateInstaller|x86
@@ -3341,6 +3351,24 @@ Global
 		{997FE5B1-F7E1-47A2-A354-EC97E59155A2}.Release|x86.Build.0 = Release|x86
 		{997FE5B1-F7E1-47A2-A354-EC97E59155A2}.ReleaseForCodeCoverage|x86.ActiveCfg = ReleaseForCodeCoverage|x86
 		{997FE5B1-F7E1-47A2-A354-EC97E59155A2}.ReleaseForCodeCoverage|x86.Build.0 = ReleaseForCodeCoverage|x86
+		{1EA671F9-1F34-480C-B232-FF9A2A06AF8F}.CreateInstaller|x86.ActiveCfg = Release|x86
+		{1EA671F9-1F34-480C-B232-FF9A2A06AF8F}.CreateInstaller|x86.Build.0 = Release|x86
+		{1EA671F9-1F34-480C-B232-FF9A2A06AF8F}.CreateInstallerWithDemoProject|x86.ActiveCfg = Release|x86
+		{1EA671F9-1F34-480C-B232-FF9A2A06AF8F}.CreateInstallerWithDemoProject|x86.Build.0 = Release|x86
+		{1EA671F9-1F34-480C-B232-FF9A2A06AF8F}.Debug|x86.ActiveCfg = Debug|x86
+		{1EA671F9-1F34-480C-B232-FF9A2A06AF8F}.Debug|x86.Build.0 = Debug|x86
+		{1EA671F9-1F34-480C-B232-FF9A2A06AF8F}.Release|x86.ActiveCfg = Release|x86
+		{1EA671F9-1F34-480C-B232-FF9A2A06AF8F}.Release|x86.Build.0 = Release|x86
+		{1EA671F9-1F34-480C-B232-FF9A2A06AF8F}.ReleaseForCodeCoverage|x86.ActiveCfg = ReleaseForCodeCoverage|x86
+		{1EA671F9-1F34-480C-B232-FF9A2A06AF8F}.ReleaseForCodeCoverage|x86.Build.0 = ReleaseForCodeCoverage|x86
+		{E3C605BE-2EA5-4877-9BC7-71EA499CD21C}.CreateInstaller|x86.ActiveCfg = Release|x86
+		{E3C605BE-2EA5-4877-9BC7-71EA499CD21C}.CreateInstallerWithDemoProject|x86.ActiveCfg = Release|x86
+		{E3C605BE-2EA5-4877-9BC7-71EA499CD21C}.Debug|x86.ActiveCfg = Debug|x86
+		{E3C605BE-2EA5-4877-9BC7-71EA499CD21C}.Debug|x86.Build.0 = Debug|x86
+		{E3C605BE-2EA5-4877-9BC7-71EA499CD21C}.Release|x86.ActiveCfg = Release|x86
+		{E3C605BE-2EA5-4877-9BC7-71EA499CD21C}.Release|x86.Build.0 = Release|x86
+		{E3C605BE-2EA5-4877-9BC7-71EA499CD21C}.ReleaseForCodeCoverage|x86.ActiveCfg = ReleaseForCodeCoverage|x86
+		{E3C605BE-2EA5-4877-9BC7-71EA499CD21C}.ReleaseForCodeCoverage|x86.Build.0 = ReleaseForCodeCoverage|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -3638,6 +3666,8 @@ Global
 		{EED7826A-5397-4EEB-A1F8-A7550078459E} = {ECD6276C-D7AC-41F8-A202-384C6CB96450}
 		{A1091DFF-25FE-494A-8B96-56BB16D22AA2} = {49F87ABC-EC9F-4993-8E33-37C5C883C543}
 		{997FE5B1-F7E1-47A2-A354-EC97E59155A2} = {49F87ABC-EC9F-4993-8E33-37C5C883C543}
+		{1EA671F9-1F34-480C-B232-FF9A2A06AF8F} = {19834E97-BB19-4755-A652-814E48BA433E}
+		{E3C605BE-2EA5-4877-9BC7-71EA499CD21C} = {FA7A737E-D2DB-4AD4-94CC-E3EFF242C485}
 	EndGlobalSection
 	GlobalSection(TextTemplating) = postSolution
 		TextTemplating = 1
