@@ -47,6 +47,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.IO\Core.Common.IO.csproj">
+      <Project>{e344867e-9ac9-44c8-88a5-8185681679a9}</Project>
+      <Name>Core.Common.IO</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\Core\src\Migration.Core.Storage\Migration.Core.Storage.csproj">
       <Project>{EFD7E662-5B69-4B71-A448-565B64E9C033}</Project>
       <Name>Migration.Core.Storage</Name>
