@@ -214,5 +214,59 @@ namespace Core.Common.Utils.Test
                 Assert.IsFalse(File.Exists(filePath));
             }
         }
+
+        [Test]
+        [TestCase("")]
+        [TestCase("   ")]
+        [TestCase(null)]
+        public void ValidateFilePathIsWritable_FilePatNullOrWhiteSpace_ThrowsArgumentException(string filePath)
+        {
+            // Call
+            TestDelegate call = () => FileUtils.ValidateFilePathIsWritable(filePath);
+
+            // Assert
+            ArgumentException exception = Assert.Throws<ArgumentException>(call);
+            Assert.AreEqual($"Fout bij het lezen van bestand '{filePath}': bestandspad mag niet leeg of ongedefinieerd zijn.", exception.Message);
+        }
+
+        [Test]
+        public void ValidateFilePathIsWritable_FileNotWritable_ThrowsArgumentException()
+        {
+            // Setup
+            string filename = Path.GetRandomFileName();
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Core.Common.Utils, filename);
+
+            using (new FileDisposeHelper(filePath))
+            {
+                FileAttributes attributes = File.GetAttributes(filePath);
+                File.SetAttributes(filePath, attributes | FileAttributes.ReadOnly);
+
+                // Call
+                TestDelegate call = () => FileUtils.ValidateFilePathIsWritable(filePath);
+
+                // Assert
+                string message = Assert.Throws<ArgumentException>(call).Message;
+                Assert.AreEqual($"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{filePath}'.", message);
+
+                File.SetAttributes(filePath, attributes);
+            }
+        }
+
+        [Test]
+        public void ValidateFilePathIsWritable_FileWritable_DoesNotThrowException()
+        {
+            // Setup
+            string filename = Path.GetRandomFileName();
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Core.Common.Utils, filename);
+
+            using (new FileDisposeHelper(filePath))
+            {
+                // Call
+                TestDelegate call = () => FileUtils.ValidateFilePathIsWritable(filePath);
+
+                // Assert
+                Assert.DoesNotThrow(call);
+            }
+        }
     }
 }

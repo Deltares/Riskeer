@@ -138,5 +138,26 @@ namespace Core.Common.Utils
                 throw;
             }
         }
+
+        public static void ValidateFilePathIsWritable(string filePath)
+        {
+            ValidateFilePath(filePath);
+
+            var canWrite = false;
+            try
+            {
+                using (var fs = new FileStream(filePath, FileMode.OpenOrCreate, FileAccess.Write))
+                {
+                    canWrite = fs.CanWrite;
+                }
+            }
+            finally
+            {
+                if (!canWrite)
+                {
+                    throw new ArgumentException(string.Format(Resources.Error_General_output_error_0, filePath));
+                }
+            }
+        }
     }
 }

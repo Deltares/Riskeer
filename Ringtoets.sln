@@ -1307,8 +1307,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Migration.Core.Storage.Test
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Migration.Scripts.Data", "Migration\Scripts\src\Migration.Scripts.Data\Migration.Scripts.Data.csproj", "{D08DB9E2-6861-44C8-A725-71A70274CC77}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Migration.Scripts.Data.Test", "Migration\Scripts\test\Migration.Scripts.Data.Test\Migration.Scripts.Data.Test.csproj", "{A60F35B7-7538-4516-94BB-09B19FE22FAA}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

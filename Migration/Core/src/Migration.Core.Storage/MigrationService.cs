@@ -19,27 +19,64 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using ScriptsDataPropertiesResources = Migration.Scripts.Data.Properties.Resources;
+
 namespace Migration.Core.Storage
 {
+    /// <summary>
+    /// Class responsible for performing migrations.
+    /// </summary>
     public static class MigrationService
     {
+        /// <summary>
+        /// Executes the migration from <paramref name="sourceFile"/> to <paramref name="targetFile"/>.
+        /// </summary>
+        /// <param name="sourceFile">The source file that needs to be migrated.</param>
+        /// <param name="targetFile">The target file that will contain the migrated data from <paramref name="sourceFile"/>.</param>
+        /// <exception cref="ArgumentException">Thrown when:
+        /// <list type="bullet">
+        /// <item><paramref name="sourceFile"/> is the same file as <paramref name="targetFile"/>.</item>
+        /// </list></exception>
         public static void Execute(string sourceFile, string targetFile)
         {
-            using (var source = new SourceFile(sourceFile))
-            using (var target = new TargetFile(targetFile))
+            if (sourceFile == targetFile)
+            {
+                throw new ArgumentException($"{sourceFile} cannot be the same location as {targetFile}");
+            }
+
+            using (var source = new MigrationDatabaseSourceFile(sourceFile))
+            using (var target = new MigrationDatabaseTargetFile(targetFile))
             {
                 target.OpenDatabaseConnection();
-                target.CreateStructure();
-                Migrate(source, target);
+
+                string version = source.GetVersion();
+                switch (version)
+                {
+                    case "4":
+                        MigrateVersion4To171(source, target);
+                        break;
+                    case "17.1":
+                        // throw exception?
+                        break;
+                    default:
+                        throw new InvalidOperationException($"Version {version} cannot be upgraded.");
+                }
             }
         }
 
-        private static void Migrate(SourceFile source, TargetFile target)
+        private static void MigrateVersion4To171(MigrationDatabaseSourceFile source, MigrationDatabaseTargetFile target)
         {
-//            var script = MigrationScriptTable.Get("");
-//            var sourceFilePath = source.FilePath;
-//            var sql = string.Format(script, sourceFilePath);
-//            target.Execute(sql);
+            target.CreateStructure(ScriptsDataPropertiesResources.DatabaseStructure17_1);
+
+            var query = GetMigrationQuery(ScriptsDataPropertiesResources.Migration4_17_1, source.Path);
+
+            target.ExecuteMigration(query);
+        }
+
+        private static string GetMigrationQuery(string migrationScript, string sourceFilePath)
+        {
+            return string.Format(migrationScript, sourceFilePath);
         }
     }
 }
