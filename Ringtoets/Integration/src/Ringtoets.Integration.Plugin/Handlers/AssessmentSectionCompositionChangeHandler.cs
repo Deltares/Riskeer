@@ -31,7 +31,6 @@ using Ringtoets.DuneErosion.Data;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.PropertyClasses;
-using Ringtoets.Integration.Forms.Views;
 using Ringtoets.Integration.Plugin.Properties;
 using Ringtoets.Integration.Service;
 using CoreCommonBaseResources = Core.Common.Base.Properties.Resources;
@@ -77,7 +76,10 @@ namespace Ringtoets.Integration.Plugin.Handlers
                                    affectedObjects.OfType<ICalculation>().Count());
                 }
 
-                affectedObjects.AddRange(ClearHydraulicBoundaryLocationOutput(assessmentSection));
+                if (assessmentSection.HydraulicBoundaryDatabase != null)
+                {
+                    affectedObjects.AddRange(ClearHydraulicBoundaryLocationOutput(assessmentSection));
+                }
             }
             return affectedObjects;
         }

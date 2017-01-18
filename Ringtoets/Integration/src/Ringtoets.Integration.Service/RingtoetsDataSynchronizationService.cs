@@ -186,7 +186,7 @@ namespace Ringtoets.Integration.Service
         }
 
         /// <summary>
-        /// Clears the output of the hydraulic boundary locations within the <paramref name="hydraulicBoundaryDatabase"/>
+        /// Clears the output of the hydraulic boundary locations within the <paramref name="hydraulicBoundaryDatabase"/>,
         /// <paramref name="grassCoverErosionOutwardsFailureMechanism"/> and <paramref name="duneErosionFailureMechanism"/>.
         /// </summary>
         /// <param name="hydraulicBoundaryDatabase">The <see cref="HydraulicBoundaryDatabase"/> wich contains the locations.</param>
