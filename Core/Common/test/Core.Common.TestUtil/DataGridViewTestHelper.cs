@@ -22,6 +22,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Windows.Forms;
 using Core.Common.Utils.Reflection;
 using NUnit.Framework;
@@ -86,6 +87,41 @@ namespace Core.Common.TestUtil
                 DataGridViewCell cell = rowCells[i];
                 Assert.AreEqual(expectedFormattedValues[i], cell.FormattedValue);
             }
+        }
+
+        /// <summary>
+        /// Asserts whether a <see cref="DataGridViewCell"/> is in a disabled state.
+        /// </summary>
+        /// <param name="dataGridViewCell">The cell that needs to be asserted.</param>
+        /// <exception cref="AssertionException">Thrown when:
+        /// <list type="bullet">
+        /// <item>The readonly property of the cell is <c>false</c>.</item>
+        /// <item>The <see cref="DataGridViewCellStyle.ForeColor"/> is not <see cref="KnownColor.GrayText"/>.</item>
+        /// <item>The <see cref="DataGridViewCellStyle.BackColor"/> is not <see cref="KnownColor.DarkGray"/>.</item>
+        /// </list></exception>
+        public static void AssertCellIsDisabled(DataGridViewCell dataGridViewCell)
+        {
+            Assert.AreEqual(true, dataGridViewCell.ReadOnly);
+            Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), dataGridViewCell.Style.ForeColor);
+            Assert.AreEqual(Color.FromKnownColor(KnownColor.DarkGray), dataGridViewCell.Style.BackColor);
+        }
+
+        /// <summary>
+        /// Asserts whether a <see cref="DataGridViewCell"/> is in an enabled state.
+        /// </summary>
+        /// <param name="dataGridViewCell">The cell that needs to be asserted.</param>
+        /// <param name="isReadOnly">Flag indicating whether the cell is readonly</param>
+        /// <exception cref="AssertionException">Thrown when:
+        /// <list type="bullet">
+        /// <item>The readonly property of the cell does not match with <paramref name="isReadOnly"/>.</item>
+        /// <item>The <see cref="DataGridViewCellStyle.ForeColor"/> is not <see cref="KnownColor.ControlText"/>.</item>
+        /// <item>The <see cref="DataGridViewCellStyle.BackColor"/> is not <see cref="KnownColor.White"/>.</item>
+        /// </list></exception>
+        public static void AssertCellIsEnabled(DataGridViewCell dataGridViewCell, bool isReadOnly = false)
+        {
+            Assert.AreEqual(isReadOnly, dataGridViewCell.ReadOnly);
+            Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), dataGridViewCell.Style.ForeColor);
+            Assert.AreEqual(Color.FromKnownColor(KnownColor.White), dataGridViewCell.Style.BackColor);
         }
     }
 }

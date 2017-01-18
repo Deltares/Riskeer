@@ -25,10 +25,10 @@ using System.Windows.Forms;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.Views;
+using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.Forms.Views;
@@ -204,15 +204,15 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
                 if (assessmentLayerOneState == AssessmentLayerOneState.Sufficient)
                 {
-                    DataGridViewCellTestHelper.AssertCellIsDisabled(cellAssessmentLayerTwoA);
-                    DataGridViewCellTestHelper.AssertCellIsDisabled(cellAssessmentLayerThree);
+                    DataGridViewTestHelper.AssertCellIsDisabled(cellAssessmentLayerTwoA);
+                    DataGridViewTestHelper.AssertCellIsDisabled(cellAssessmentLayerThree);
 
                     Assert.IsTrue(cellAssessmentLayerThree.ReadOnly);
                 }
                 else
                 {
-                    DataGridViewCellTestHelper.AssertCellIsEnabled(cellAssessmentLayerTwoA, true);
-                    DataGridViewCellTestHelper.AssertCellIsEnabled(cellAssessmentLayerThree);
+                    DataGridViewTestHelper.AssertCellIsEnabled(cellAssessmentLayerTwoA, true);
+                    DataGridViewTestHelper.AssertCellIsEnabled(cellAssessmentLayerThree);
 
                     Assert.IsFalse(cellAssessmentLayerThree.ReadOnly);
                 }

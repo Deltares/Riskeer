@@ -23,12 +23,12 @@ using System;
 using System.Windows.Forms;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
+using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.Helpers;
-using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 using Ringtoets.Integration.Forms.Views.SectionResultViews;
 
@@ -134,8 +134,8 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
                 Assert.AreEqual(expectedAssessmentLayer2AString1, cells[assessmentLayerTwoAIndex].FormattedValue);
                 Assert.AreEqual(result1.AssessmentLayerThree.ToString(), cells[assessmentLayerThreeIndex].FormattedValue);
 
-                DataGridViewCellTestHelper.AssertCellIsDisabled(cells[assessmentLayerTwoAIndex]);
-                DataGridViewCellTestHelper.AssertCellIsDisabled(cells[assessmentLayerThreeIndex]);
+                DataGridViewTestHelper.AssertCellIsDisabled(cells[assessmentLayerTwoAIndex]);
+                DataGridViewTestHelper.AssertCellIsDisabled(cells[assessmentLayerThreeIndex]);
 
                 cells = rows[1].Cells;
                 Assert.AreEqual(4, cells.Count);
@@ -153,8 +153,8 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
                 Assert.AreEqual(expectedAssessmentLayer2AString3, cells[assessmentLayerTwoAIndex].FormattedValue);
                 Assert.AreEqual(result3.AssessmentLayerThree.ToString(), cells[assessmentLayerThreeIndex].FormattedValue);
 
-                DataGridViewCellTestHelper.AssertCellIsEnabled(cells[assessmentLayerTwoAIndex]);
-                DataGridViewCellTestHelper.AssertCellIsEnabled(cells[assessmentLayerThreeIndex]);
+                DataGridViewTestHelper.AssertCellIsEnabled(cells[assessmentLayerTwoAIndex]);
+                DataGridViewTestHelper.AssertCellIsEnabled(cells[assessmentLayerThreeIndex]);
             }
         }
 
@@ -199,8 +199,8 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
                 var cells = rows[0].Cells;
                 Assert.AreEqual(4, cells.Count);
 
-                DataGridViewCellTestHelper.AssertCellIsDisabled(cells[assessmentLayerTwoAIndex]);
-                DataGridViewCellTestHelper.AssertCellIsDisabled(cells[assessmentLayerThreeIndex]);
+                DataGridViewTestHelper.AssertCellIsDisabled(cells[assessmentLayerTwoAIndex]);
+                DataGridViewTestHelper.AssertCellIsDisabled(cells[assessmentLayerThreeIndex]);
             }
         }
 

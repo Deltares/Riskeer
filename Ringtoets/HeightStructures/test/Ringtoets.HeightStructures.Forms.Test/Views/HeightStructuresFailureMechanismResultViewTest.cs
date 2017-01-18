@@ -25,13 +25,13 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
+using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms.Helpers;
-using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Forms.Views;
@@ -209,15 +209,15 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
 
                 if (assessmentLayerOneState == AssessmentLayerOneState.Sufficient)
                 {
-                    DataGridViewCellTestHelper.AssertCellIsDisabled(cellAssessmentLayerTwoA);
-                    DataGridViewCellTestHelper.AssertCellIsDisabled(cellAssessmentLayerThree);
+                    DataGridViewTestHelper.AssertCellIsDisabled(cellAssessmentLayerTwoA);
+                    DataGridViewTestHelper.AssertCellIsDisabled(cellAssessmentLayerThree);
 
                     Assert.IsTrue(cellAssessmentLayerThree.ReadOnly);
                 }
                 else
                 {
-                    DataGridViewCellTestHelper.AssertCellIsEnabled(cellAssessmentLayerTwoA, true);
-                    DataGridViewCellTestHelper.AssertCellIsEnabled(cellAssessmentLayerThree);
+                    DataGridViewTestHelper.AssertCellIsEnabled(cellAssessmentLayerTwoA, true);
+                    DataGridViewTestHelper.AssertCellIsEnabled(cellAssessmentLayerThree);
 
                     Assert.IsFalse(cellAssessmentLayerThree.ReadOnly);
                 }
