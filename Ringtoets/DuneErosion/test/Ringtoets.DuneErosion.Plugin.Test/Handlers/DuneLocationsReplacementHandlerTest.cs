@@ -222,7 +222,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.Handlers
             handler.DoPostReplacementUpdates();
 
             // Assert
-            mocks.VerifyAll(); // Expect not calls in 'viewCommands'
+            mocks.VerifyAll(); // Expect no calls in 'viewCommands'
         }
     }
 }

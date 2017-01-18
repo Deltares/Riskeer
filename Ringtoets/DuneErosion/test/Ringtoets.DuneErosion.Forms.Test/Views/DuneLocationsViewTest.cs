@@ -48,15 +48,10 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
     public class DuneLocationsViewTest
     {
         private const int locationCalculateColumnIndex = 0;
-        private const int locationNameColumnIndex = 1;
-        private const int locationIdColumnIndex = 2;
-        private const int locationColumnIndex = 3;
-        private const int coastalAreaIdColumnIndex = 4;
-        private const int offsetColumnIndex = 5;
         private const int waterLevelColumnIndex = 6;
         private const int waveHeightColumnIndex = 7;
         private const int wavePeriodColumnIndex = 8;
-        private const int d50ColumnIndex = 9;
+
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "HydraulicBoundaryDatabaseImporter");
 
         private Form testForm;
