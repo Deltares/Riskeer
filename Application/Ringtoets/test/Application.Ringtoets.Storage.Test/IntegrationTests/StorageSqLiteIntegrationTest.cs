@@ -66,7 +66,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         private const string tempExtension = ".temp";
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Storage, "DatabaseFiles");
 
-        [TestFixtureTearDown]
+        [OneTimeTearDown]
         public void TearDownTempRingtoetsFile()
         {
             IEnumerable<string> filesToDelete = Directory.EnumerateFiles(testDataPath, "*.temp");
