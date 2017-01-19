@@ -28,6 +28,7 @@ namespace Core.Components.Gis.Data
 {
     /// <summary>
     /// Base class for <see cref="MapData"/> which is based on an array of features.
+    /// The features are defined in the RD-new coordinate system.
     /// </summary>
     public abstract class FeatureBasedMapData : MapData
     {
@@ -46,10 +47,11 @@ namespace Core.Components.Gis.Data
         }
 
         /// <summary>
-        /// Gets or sets an array of features.
+        /// Gets or sets an array of features defined in the RD-new coordinate system.
         /// </summary>
-        /// <remarks>Calls <see cref="ValidateFeatures"/> and so can throw all corresponding exceptions.
-        /// This collection will not contain <c>null</c> elements.</remarks>
+        /// <remarks>Calls <see cref="ValidateFeatures"/> when setting a new array and so
+        /// can throw all corresponding exceptions. This collection will not contain <c>null</c>
+        /// elements.</remarks>
         public MapFeature[] Features
         {
             get

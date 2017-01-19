@@ -26,14 +26,15 @@ using Core.Common.Base.Geometry;
 namespace Core.Components.Gis.Geometries
 {
     /// <summary>
-    /// The geometry containing the points.
+    /// The geometry containing the points defined in the RD-new coordinate system.
     /// </summary>
     public class MapGeometry
     {
         /// <summary>
         /// Creates a new instance of <see cref="MapGeometry"/>.
         /// </summary>
-        /// <param name="pointCollections">A sequence of <see cref="Point2D"/>-sequences.</param>
+        /// <param name="pointCollections">A sequence of <see cref="Point2D"/>-sequences
+        /// that define the geometry in the RD-new coordinate system.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="pointCollections"/> is <c>null</c>.</exception>
         public MapGeometry(IEnumerable<IEnumerable<Point2D>> pointCollections)
         {
@@ -45,7 +46,8 @@ namespace Core.Components.Gis.Geometries
         }
 
         /// <summary>
-        /// Gets the points associated with the <see cref="MapGeometry"/>.
+        /// Gets the points associated with the <see cref="MapGeometry"/> defined in the
+        /// RD-new coordinate system.
         /// </summary>
         public IEnumerable<IEnumerable<Point2D>> PointCollections { get; private set; }
     }

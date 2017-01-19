@@ -26,14 +26,16 @@ using Core.Components.Gis.Geometries;
 namespace Core.Components.Gis.Features
 {
     /// <summary>
-    /// Features containing an <see cref="IEnumerable{T}"/> of <see cref="MapGeometry"/>.
+    /// Features containing an <see cref="IEnumerable{T}"/> of <see cref="MapGeometry"/>
+    /// defined in the RD-new coordinate system.
     /// </summary>
     public class MapFeature
     {
         /// <summary>
         /// Creates a new instance of <see cref="MapFeature"/>.
         /// </summary>
-        /// <param name="mapGeometries">An <see cref="IEnumerable{T}"/> of <see cref="MapGeometry"/>.</param>
+        /// <param name="mapGeometries">An <see cref="IEnumerable{T}"/> of <see cref="MapGeometry"/>
+        /// defined in the RD-new coordinate system.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="mapGeometries"/> is <c>null</c>.</exception>
         public MapFeature(IEnumerable<MapGeometry> mapGeometries)
         {
@@ -47,7 +49,7 @@ namespace Core.Components.Gis.Features
         }
 
         /// <summary>
-        /// Gets the geometries associated with this feature.
+        /// Gets the geometries defined in the RD-new coordinate system associated with this feature.
         /// </summary>
         public IEnumerable<MapGeometry> MapGeometries { get; private set; }
 

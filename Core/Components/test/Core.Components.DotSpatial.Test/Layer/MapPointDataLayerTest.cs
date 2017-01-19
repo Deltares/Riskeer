@@ -29,6 +29,7 @@ using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
 using Core.Components.Gis.Style;
 using DotSpatial.Controls;
+using DotSpatial.Projections;
 using DotSpatial.Symbology;
 using NUnit.Framework;
 
@@ -63,6 +64,7 @@ namespace Core.Components.DotSpatial.Test.Layer
             Assert.IsInstanceOf<MapPointLayer>(mapPointDataLayer);
             Assert.IsInstanceOf<IFeatureBasedMapDataLayer>(mapPointDataLayer);
             AssertMapPointDataLayerTestProperties(mapPointDataLayer);
+            Assert.AreEqual(KnownCoordinateSystems.Projected.NationalGrids.Rijksdriehoekstelsel, mapPointDataLayer.Projection);
         }
 
         [Test]

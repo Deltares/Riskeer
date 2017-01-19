@@ -222,7 +222,8 @@ namespace Core.Components.DotSpatial.Forms
             {
                 ProjectionModeDefine = ActionMode.Never,
                 Dock = DockStyle.Fill,
-                ZoomOutFartherThanMaxExtent = true
+                ZoomOutFartherThanMaxExtent = true,
+                Projection = MapDataConstants.FeatureBasedMapDataCoordinateSystem
             };
 
             // Configure the map pan function
@@ -306,7 +307,7 @@ namespace Core.Components.DotSpatial.Forms
 
         private void DrawMapData(FeatureBasedMapData featureBasedMapData)
         {
-            var featureBasedMapDataLayer = FeatureBasedMapDataLayerFactory.Create(featureBasedMapData);
+            IFeatureBasedMapDataLayer featureBasedMapDataLayer = FeatureBasedMapDataLayerFactory.Create(featureBasedMapData);
 
             var drawnMapData = new DrawnMapData
             {
@@ -321,6 +322,10 @@ namespace Core.Components.DotSpatial.Forms
 
             drawnMapDataList.Add(drawnMapData);
 
+            if (!map.Projection.Equals(featureBasedMapDataLayer.Projection))
+            {
+                featureBasedMapDataLayer.Reproject(map.Projection);
+            }
             map.Layers.Add(featureBasedMapDataLayer);
         }
 

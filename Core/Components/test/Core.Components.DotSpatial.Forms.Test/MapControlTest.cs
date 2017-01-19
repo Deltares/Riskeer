@@ -62,7 +62,7 @@ namespace Core.Components.DotSpatial.Forms.Test
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void DefaultConstructor_MapFunctionsCorrectlyInitialized()
+        public void DefaultConstructor_MapCorrectlyInitialized()
         {
             using (var form = new Form())
             {
@@ -71,9 +71,12 @@ namespace Core.Components.DotSpatial.Forms.Test
                 form.Controls.Add(mapControl);
                 form.Show();
 
-                var map = (Map) new ControlTester("Map").TheObject;
+                var map = (Map) form.Controls.Find("Map", true)[0];
 
                 // Assert
+                Assert.AreEqual(MapDataConstants.FeatureBasedMapDataCoordinateSystem, map.Projection);
+                Assert.AreEqual(ActionMode.Never, map.ProjectionModeDefine);
+
                 Assert.AreEqual(9, map.MapFunctions.Count);
                 Assert.AreEqual(1, map.MapFunctions.OfType<MapFunctionPan>().Count());
                 Assert.AreEqual(1, map.MapFunctions.OfType<MapFunctionSelectionZoom>().Count());

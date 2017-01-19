@@ -29,6 +29,7 @@ using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
 using DotSpatial.Controls;
+using DotSpatial.Projections;
 using DotSpatial.Symbology;
 using NUnit.Framework;
 using LineStyle = Core.Components.Gis.Style.LineStyle;
@@ -64,6 +65,7 @@ namespace Core.Components.DotSpatial.Test.Layer
             Assert.IsInstanceOf<MapLineLayer>(mapLineDataLayer);
             Assert.IsInstanceOf<IFeatureBasedMapDataLayer>(mapLineDataLayer);
             AssertMapLineDataLayerTestProperties(mapLineDataLayer);
+            Assert.AreEqual(KnownCoordinateSystems.Projected.NationalGrids.Rijksdriehoekstelsel, mapLineDataLayer.Projection);
         }
 
         [Test]

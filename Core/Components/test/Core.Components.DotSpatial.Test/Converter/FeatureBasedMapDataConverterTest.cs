@@ -31,6 +31,7 @@ using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
 using DotSpatial.Controls;
 using DotSpatial.Data;
+using DotSpatial.Projections;
 using DotSpatial.Symbology;
 using NUnit.Framework;
 using Point = DotSpatial.Topology.Point;
@@ -164,6 +165,118 @@ namespace Core.Components.DotSpatial.Test.Converter
             Assert.AreEqual("Feature 2", dataRowCollection[1][1]);
             Assert.AreEqual(string.Empty, dataRowCollection[1][2].ToString());
             Assert.AreEqual("Feature 2 extra", dataRowCollection[1][3]);
+        }
+
+        [Test]
+        public void ConvertLayerFeatures_LayerInSameCoordinateSystemAsMapData_CreatedPointIsNotReprojected()
+        {
+            // Setup
+            var testConverter = new TestFeatureBasedMapDataConverter();
+            var mapLayer = new TestFeatureLayer
+            {
+                Projection = MapDataConstants.FeatureBasedMapDataCoordinateSystem
+            };
+            var mapData = new TestFeatureBasedMapData("test")
+            {
+                Features = new[]
+                {
+                    new MapFeature(Enumerable.Empty<MapGeometry>()) // TestFeatureBasedMapDataConverter will generate a Point feature at (1.1, 2.2)
+                }
+            };
+
+            // Call
+            testConverter.ConvertLayerFeatures(mapData, mapLayer);
+
+            // Assert
+            Assert.AreEqual(1, mapLayer.FeatureSet.Features.Count);
+            Assert.AreEqual(1.1, mapLayer.FeatureSet.Features[0].BasicGeometry.Coordinates[0].X);
+            Assert.AreEqual(2.2, mapLayer.FeatureSet.Features[0].BasicGeometry.Coordinates[0].Y);
+            Assert.AreEqual(MapDataConstants.FeatureBasedMapDataCoordinateSystem, mapLayer.Projection);
+        }
+
+        [Test]
+        public void ConvertLayerFeatures_LayerWithoutCoordinateSystem_CreatePointFeatureInMapDataCoordinateSystem()
+        {
+            // Setup
+            var testConverter = new TestFeatureBasedMapDataConverter();
+            var mapLayer = new TestFeatureLayer
+            {
+                Projection = null
+            };
+            var mapData = new TestFeatureBasedMapData("test")
+            {
+                Features = new[]
+                {
+                    new MapFeature(Enumerable.Empty<MapGeometry>()) // TestFeatureBasedMapDataConverter will generate a Point feature at (1.1, 2.2)
+                }
+            };
+
+            // Call
+            testConverter.ConvertLayerFeatures(mapData, mapLayer);
+
+            // Assert
+            Assert.AreEqual(1, mapLayer.FeatureSet.Features.Count);
+            Assert.AreEqual(1.1, mapLayer.FeatureSet.Features[0].BasicGeometry.Coordinates[0].X);
+            Assert.AreEqual(2.2, mapLayer.FeatureSet.Features[0].BasicGeometry.Coordinates[0].Y);
+            Assert.AreEqual(MapDataConstants.FeatureBasedMapDataCoordinateSystem, mapLayer.Projection);
+        }
+
+        [Test]
+        public void ConvertLayerFeatures_LayerInDifferentSystemAsMapData_CreatedPointIsReprojected()
+        {
+            // Setup
+            var testConverter = new TestFeatureBasedMapDataConverter();
+            var coordinateSystem = KnownCoordinateSystems.Geographic.World.WGS1984;
+            var mapLayer = new TestFeatureLayer
+            {
+                Projection = coordinateSystem
+            };
+            var mapData = new TestFeatureBasedMapData("test")
+            {
+                Features = new[]
+                {
+                    new MapFeature(Enumerable.Empty<MapGeometry>()) // TestFeatureBasedMapDataConverter will generate a Point feature at (1.1, 2.2)
+                }
+            };
+
+            // Call
+            testConverter.ConvertLayerFeatures(mapData, mapLayer);
+
+            // Assert
+            Assert.AreEqual(1, mapLayer.FeatureSet.Features.Count);
+            Assert.AreEqual(3.3135717854013329, mapLayer.FeatureSet.Features[0].BasicGeometry.Coordinates[0].X);
+            Assert.AreEqual(47.974786294874853, mapLayer.FeatureSet.Features[0].BasicGeometry.Coordinates[0].Y);
+            Assert.AreEqual(coordinateSystem, mapLayer.Projection);
+        }
+
+        [Test]
+        public void ConvertLayerFeatures_LayerWithDataInDifferentCoodinateSystem_CreatedPointIsNotReprojected()
+        {
+            // Setup
+            var testConverter = new TestFeatureBasedMapDataConverter();
+            var mapLayer = new TestFeatureLayer
+            {
+                Projection = KnownCoordinateSystems.Geographic.World.WGS1984
+            };
+            var mapData = new TestFeatureBasedMapData("test")
+            {
+                Features = new[]
+                {
+                    new MapFeature(Enumerable.Empty<MapGeometry>()) // TestFeatureBasedMapDataConverter will generate a Point feature at (1.1, 2.2)
+                }
+            };
+
+            testConverter.ConvertLayerFeatures(mapData, mapLayer);
+            mapLayer.Projection = MapDataConstants.FeatureBasedMapDataCoordinateSystem;
+
+            // Call
+            testConverter.ConvertLayerFeatures(mapData, mapLayer);
+
+            // Assert
+            Assert.AreEqual(1, mapLayer.FeatureSet.Features.Count);
+            Assert.AreEqual(1.1, mapLayer.FeatureSet.Features[0].BasicGeometry.Coordinates[0].X);
+            Assert.AreEqual(2.2, mapLayer.FeatureSet.Features[0].BasicGeometry.Coordinates[0].Y);
+            Assert.AreEqual(MapDataConstants.FeatureBasedMapDataCoordinateSystem, mapLayer.Projection);
         }
 
         [Test]
@@ -395,7 +508,10 @@ namespace Core.Components.DotSpatial.Test.Converter
 
         private class TestFeatureLayer : MapPointLayer
         {
-            public TestFeatureLayer() : base(new FeatureSet()) {}
+            public TestFeatureLayer() : base(new FeatureSet())
+            {
+                Projection = MapDataConstants.FeatureBasedMapDataCoordinateSystem;
+            }
         }
 
         private class TestFeatureBasedMapDataConverter : FeatureBasedMapDataConverter<TestFeatureBasedMapData, TestFeatureLayer>

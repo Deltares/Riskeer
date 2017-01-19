@@ -29,6 +29,7 @@ using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
 using DotSpatial.Controls;
 using DotSpatial.Data;
+using DotSpatial.Projections;
 using DotSpatial.Symbology;
 using DotSpatial.Topology;
 
@@ -56,8 +57,13 @@ namespace Core.Components.DotSpatial.Converter
             ClearLayerData(layer);
             SetDataTableColumns(data.MetaData, layer);
 
-            var attributeMapping = GetAttributeMapping(data);
+            ProjectionInfo originalLayerProjection = layer.Projection;
+            if (originalLayerProjection == null || !originalLayerProjection.Equals(MapDataConstants.FeatureBasedMapDataCoordinateSystem))
+            {
+                layer.Projection = MapDataConstants.FeatureBasedMapDataCoordinateSystem;
+            }
 
+            Dictionary<string, int> attributeMapping = GetAttributeMapping(data);
             foreach (MapFeature mapFeature in data.Features)
             {
                 IEnumerable<IFeature> features = CreateFeatures(mapFeature);
@@ -67,9 +73,14 @@ namespace Core.Components.DotSpatial.Converter
                     AddFeatureToLayer(layer, feature, mapFeature, attributeMapping);
                 }
             }
-
             layer.DataSet.InitializeVertices();
             layer.DataSet.UpdateExtent();
+
+            if (originalLayerProjection != null && !originalLayerProjection.Equals(MapDataConstants.FeatureBasedMapDataCoordinateSystem))
+            {
+                layer.Reproject(originalLayerProjection);
+            }
+
             layer.AssignFastDrawnStates();
         }
 
@@ -92,7 +103,9 @@ namespace Core.Components.DotSpatial.Converter
         }
 
         /// <summary>
-        /// Creates an <see cref="IEnumerable{T}"/> of <see cref="IFeature"/> based on <paramref name="mapFeature"/>.
+        /// Creates an <see cref="IEnumerable{T}"/> of <see cref="IFeature"/> based on
+        /// <paramref name="mapFeature"/> that have been defined in the coordinate system
+        /// given by <see cref="MapDataConstants.FeatureBasedMapDataCoordinateSystem"/>.
         /// </summary>
         /// <param name="mapFeature">The <see cref="MapFeature"/> to create features for.</param>
         /// <returns>An <see cref="IEnumerable{T}"/> of <see cref="IFeature"/>.</returns>

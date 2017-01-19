@@ -50,6 +50,7 @@ namespace Core.Components.DotSpatial.Layer
             }
 
             this.mapPolygonData = mapPolygonData;
+            Projection = MapDataConstants.FeatureBasedMapDataCoordinateSystem;
 
             Update();
         }

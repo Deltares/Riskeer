@@ -55,7 +55,7 @@ namespace Core.Components.DotSpatial.Layer
                 return new MapPolygonDataLayer(mapPolygonData);
             }
 
-            throw new NotSupportedException(string.Format("FeatureBasedMapData of type {0} is not supported.", data.GetType().Name));
+            throw new NotSupportedException($"FeatureBasedMapData of type {data.GetType().Name} is not supported.");
         }
     }
 }
