@@ -72,7 +72,7 @@ namespace Ringtoets.Integration.Service
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            var affectedItems = new List<IObservable>();
+            var changedObservables = new List<IObservable>();
 
             foreach (var failureMechanism in assessmentSection.GetFailureMechanisms())
             {
@@ -87,39 +87,39 @@ namespace Ringtoets.Integration.Service
 
                 if (pipingFailureMechanism != null)
                 {
-                    affectedItems.AddRange(PipingDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(pipingFailureMechanism));
+                    changedObservables.AddRange(PipingDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(pipingFailureMechanism));
                 }
                 if (grassCoverErosionInwardsFailureMechanism != null)
                 {
-                    affectedItems.AddRange(GrassCoverErosionInwardsDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(grassCoverErosionInwardsFailureMechanism));
+                    changedObservables.AddRange(GrassCoverErosionInwardsDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(grassCoverErosionInwardsFailureMechanism));
                 }
                 if (stabilityStoneCoverFailureMechanism != null)
                 {
-                    affectedItems.AddRange(StabilityStoneCoverDataSynchronizationService.ClearAllWaveConditionsCalculationOutputAndHydraulicBoundaryLocations(stabilityStoneCoverFailureMechanism));
+                    changedObservables.AddRange(StabilityStoneCoverDataSynchronizationService.ClearAllWaveConditionsCalculationOutputAndHydraulicBoundaryLocations(stabilityStoneCoverFailureMechanism));
                 }
                 if (waveImpactAsphaltCoverFailureMechanism != null)
                 {
-                    affectedItems.AddRange(WaveImpactAsphaltCoverDataSynchronizationService.ClearAllWaveConditionsCalculationOutputAndHydraulicBoundaryLocations(waveImpactAsphaltCoverFailureMechanism));
+                    changedObservables.AddRange(WaveImpactAsphaltCoverDataSynchronizationService.ClearAllWaveConditionsCalculationOutputAndHydraulicBoundaryLocations(waveImpactAsphaltCoverFailureMechanism));
                 }
                 if (grassCoverErosionOutwardsFailureMechanism != null)
                 {
-                    affectedItems.AddRange(GrassCoverErosionOutwardsDataSynchronizationService.ClearAllWaveConditionsCalculationOutputAndHydraulicBoundaryLocations(grassCoverErosionOutwardsFailureMechanism));
+                    changedObservables.AddRange(GrassCoverErosionOutwardsDataSynchronizationService.ClearAllWaveConditionsCalculationOutputAndHydraulicBoundaryLocations(grassCoverErosionOutwardsFailureMechanism));
                 }
                 if (heightStructuresFailureMechanism != null)
                 {
-                    affectedItems.AddRange(HeightStructuresDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(heightStructuresFailureMechanism));
+                    changedObservables.AddRange(HeightStructuresDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(heightStructuresFailureMechanism));
                 }
                 if (closingStructuresFailureMechanism != null)
                 {
-                    affectedItems.AddRange(ClosingStructuresDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(closingStructuresFailureMechanism));
+                    changedObservables.AddRange(ClosingStructuresDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(closingStructuresFailureMechanism));
                 }
                 if (stabilityPointStructuresFailureMechanism != null)
                 {
-                    affectedItems.AddRange(StabilityPointStructuresDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(stabilityPointStructuresFailureMechanism));
+                    changedObservables.AddRange(StabilityPointStructuresDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(stabilityPointStructuresFailureMechanism));
                 }
             }
 
-            return affectedItems;
+            return changedObservables;
         }
 
         /// <summary>
@@ -135,7 +135,7 @@ namespace Ringtoets.Integration.Service
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            var affectedItems = new List<IObservable>();
+            var changedObservables = new List<IObservable>();
 
             foreach (var failureMechanism in assessmentSection.GetFailureMechanisms())
             {
@@ -150,39 +150,39 @@ namespace Ringtoets.Integration.Service
 
                 if (pipingFailureMechanism != null)
                 {
-                    affectedItems.AddRange(PipingDataSynchronizationService.ClearAllCalculationOutput(pipingFailureMechanism));
+                    changedObservables.AddRange(PipingDataSynchronizationService.ClearAllCalculationOutput(pipingFailureMechanism));
                 }
                 if (grassCoverErosionInwardsFailureMechanism != null)
                 {
-                    affectedItems.AddRange(GrassCoverErosionInwardsDataSynchronizationService.ClearAllCalculationOutput(grassCoverErosionInwardsFailureMechanism));
+                    changedObservables.AddRange(GrassCoverErosionInwardsDataSynchronizationService.ClearAllCalculationOutput(grassCoverErosionInwardsFailureMechanism));
                 }
                 if (stabilityStoneCoverFailureMechanism != null)
                 {
-                    affectedItems.AddRange(StabilityStoneCoverDataSynchronizationService.ClearAllWaveConditionsCalculationOutput(stabilityStoneCoverFailureMechanism));
+                    changedObservables.AddRange(StabilityStoneCoverDataSynchronizationService.ClearAllWaveConditionsCalculationOutput(stabilityStoneCoverFailureMechanism));
                 }
                 if (waveImpactAsphaltCoverFailureMechanism != null)
                 {
-                    affectedItems.AddRange(WaveImpactAsphaltCoverDataSynchronizationService.ClearAllWaveConditionsCalculationOutput(waveImpactAsphaltCoverFailureMechanism));
+                    changedObservables.AddRange(WaveImpactAsphaltCoverDataSynchronizationService.ClearAllWaveConditionsCalculationOutput(waveImpactAsphaltCoverFailureMechanism));
                 }
                 if (grassCoverErosionOutwardsFailureMechanism != null)
                 {
-                    affectedItems.AddRange(GrassCoverErosionOutwardsDataSynchronizationService.ClearAllWaveConditionsCalculationOutput(grassCoverErosionOutwardsFailureMechanism));
+                    changedObservables.AddRange(GrassCoverErosionOutwardsDataSynchronizationService.ClearAllWaveConditionsCalculationOutput(grassCoverErosionOutwardsFailureMechanism));
                 }
                 if (heightStructuresFailureMechanism != null)
                 {
-                    affectedItems.AddRange(HeightStructuresDataSynchronizationService.ClearAllCalculationOutput(heightStructuresFailureMechanism));
+                    changedObservables.AddRange(HeightStructuresDataSynchronizationService.ClearAllCalculationOutput(heightStructuresFailureMechanism));
                 }
                 if (closingStructuresFailureMechanism != null)
                 {
-                    affectedItems.AddRange(ClosingStructuresDataSynchronizationService.ClearAllCalculationOutput(closingStructuresFailureMechanism));
+                    changedObservables.AddRange(ClosingStructuresDataSynchronizationService.ClearAllCalculationOutput(closingStructuresFailureMechanism));
                 }
                 if (stabilityPointStructuresFailureMechanism != null)
                 {
-                    affectedItems.AddRange(StabilityPointStructuresDataSynchronizationService.ClearAllCalculationOutput(stabilityPointStructuresFailureMechanism));
+                    changedObservables.AddRange(StabilityPointStructuresDataSynchronizationService.ClearAllCalculationOutput(stabilityPointStructuresFailureMechanism));
                 }
             }
 
-            return affectedItems;
+            return changedObservables;
         }
 
         /// <summary>
@@ -226,7 +226,7 @@ namespace Ringtoets.Integration.Service
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            List<IObservable> affectedItems = new List<IObservable>();
+            var changedObservables = new List<IObservable>();
             foreach (IFailureMechanism failureMechanism in assessmentSection.GetFailureMechanisms())
             {
                 var grassCoverErosionOutwardsFailureMechanism = failureMechanism as GrassCoverErosionOutwardsFailureMechanism;
@@ -234,22 +234,23 @@ namespace Ringtoets.Integration.Service
 
                 if (grassCoverErosionOutwardsFailureMechanism != null)
                 {
-                    affectedItems.AddRange(RingtoetsCommonDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(grassCoverErosionOutwardsFailureMechanism.HydraulicBoundaryLocations));
+                    changedObservables.AddRange(RingtoetsCommonDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(grassCoverErosionOutwardsFailureMechanism.HydraulicBoundaryLocations));
                 }
 
                 if (duneErosionFailureMechanism != null)
                 {
-                    affectedItems.AddRange(DuneErosionDataSynchronizationService.ClearDuneLocationOutput(duneErosionFailureMechanism.DuneLocations));
+                    changedObservables.AddRange(DuneErosionDataSynchronizationService.ClearDuneLocationOutput(duneErosionFailureMechanism.DuneLocations));
                 }
             }
 
-            return affectedItems;
+            return changedObservables;
         }
 
         /// <summary>
         /// Returns the hydraulic boundary location collections within the failure mechanisms of the <paramref name="assessmentSection"/>.
         /// </summary>
-        /// <param name="assessmentSection"></param>
+        /// <param name="assessmentSection">The assessment section that contains failure
+        /// mechanisms with hydraulic boundary location collections.</param>
         /// <returns>All collections that contain hydraulic boundary locations.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/>is <c>null</c>.</exception>
         public static IEnumerable<IObservable> GetHydraulicBoundaryLocationCollectionsOfFailureMechanisms(IAssessmentSection assessmentSection)
@@ -259,7 +260,7 @@ namespace Ringtoets.Integration.Service
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            List<IObservable> hydraulicBoundaryLocationCollections = new List<IObservable>();
+            var changedObservables = new List<IObservable>();
             foreach (IFailureMechanism failureMechanism in assessmentSection.GetFailureMechanisms())
             {
                 var grassCoverErosionOutwardsFailureMechanism = failureMechanism as GrassCoverErosionOutwardsFailureMechanism;
@@ -267,16 +268,16 @@ namespace Ringtoets.Integration.Service
 
                 if (grassCoverErosionOutwardsFailureMechanism != null)
                 {
-                    hydraulicBoundaryLocationCollections.Add(grassCoverErosionOutwardsFailureMechanism.HydraulicBoundaryLocations);
+                    changedObservables.Add(grassCoverErosionOutwardsFailureMechanism.HydraulicBoundaryLocations);
                 }
 
                 if (duneErosionFailureMechanism != null)
                 {
-                    hydraulicBoundaryLocationCollections.Add(duneErosionFailureMechanism.DuneLocations);
+                    changedObservables.Add(duneErosionFailureMechanism.DuneLocations);
                 }
             }
 
-            return hydraulicBoundaryLocationCollections;
+            return changedObservables;
         }
 
         /// <summary>
