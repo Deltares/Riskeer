@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.IO;
 using Core.Common.TestUtil;
 using Migration.Scripts.Data;
 using NUnit.Framework;
@@ -97,6 +98,31 @@ namespace Migration.Core.Storage.Test
 
             // Assert
             Assert.IsFalse(needsMigrade);
+        }
+
+        [Test]
+        public void Migrate_ValidFiles_SavesFileAtNewLocation()
+        {
+            // Setup
+            string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Migration.Core.Storage, "Demo164.rtd");
+            var fromVersionedFile = new VersionedFile(sourceFilePath);
+
+            string targetFilePath = TestHelper.GetTestDataPath(TestDataPath.Migration.Core.Storage, Path.GetRandomFileName());
+
+            var migrator = new VersionedFileMigrator();
+
+            // Call
+            migrator.Migrate(fromVersionedFile, "17.1", targetFilePath);
+
+            // Assert
+            if (File.Exists(targetFilePath))
+            {
+                using (new FileDisposeHelper(targetFilePath)) {}
+            }
+            else
+            {
+                Assert.Fail($"File was not created at location '{targetFilePath}'");
+            }
         }
     }
 }

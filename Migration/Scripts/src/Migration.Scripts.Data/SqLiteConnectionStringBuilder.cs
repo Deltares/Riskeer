@@ -37,7 +37,7 @@ namespace Migration.Scripts.Data
         /// read-only access and writing will be disabled.</param>
         /// <returns>A new connection string.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="filePath"/> is <c>null</c> or empty (only whitespaces).</exception>
-        public static string BuildSqLiteConnectionString(string filePath, bool readOnly = true)
+        public static string BuildSqLiteConnectionString(string filePath, bool readOnly = false)
         {
             if (string.IsNullOrWhiteSpace(filePath))
             {
@@ -45,7 +45,7 @@ namespace Migration.Scripts.Data
             }
             return new SQLiteConnectionStringBuilder
             {
-                FailIfMissing = true,
+                FailIfMissing = false,
                 DataSource = filePath,
                 ReadOnly = readOnly,
                 ForeignKeys = true,

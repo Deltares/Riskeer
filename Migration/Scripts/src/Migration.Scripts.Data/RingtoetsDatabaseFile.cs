@@ -30,10 +30,9 @@ namespace Migration.Scripts.Data
     /// </summary>
     public class RingtoetsDatabaseFile : IDisposable
     {
+        private readonly string filePath;
         private SQLiteConnection connection;
         private bool disposed;
-
-        private readonly string filePath;
 
         /// <summary>
         /// Creates a new instance of the <see cref="RingtoetsDatabaseFile"/> class.
@@ -59,8 +58,7 @@ namespace Migration.Scripts.Data
         /// <remarks>Creates the file if it does not exist.</remarks>
         public void OpenDatabaseConnection()
         {
-            SQLiteConnection.CreateFile(filePath);
-            connection = new SQLiteConnection(SqLiteConnectionStringBuilder.BuildSqLiteConnectionString(filePath, false));
+            connection = new SQLiteConnection(SqLiteConnectionStringBuilder.BuildSqLiteConnectionString(filePath));
             connection.Open();
         }
 
@@ -100,9 +98,11 @@ namespace Migration.Scripts.Data
             {
                 throw new ArgumentException(@"Parameter must be a valid database script.", nameof(query));
             }
-            using (var command = connection.CreateCommand())
+            using (var command = new SQLiteCommand(connection)
             {
-                command.CommandText = query;
+                CommandText = query
+            })
+            {
                 command.ExecuteNonQuery();
             }
         }
@@ -116,7 +116,9 @@ namespace Migration.Scripts.Data
 
             if (disposing)
             {
+                connection?.Close();
                 connection?.Dispose();
+                connection = null;
             }
             disposed = true;
         }
