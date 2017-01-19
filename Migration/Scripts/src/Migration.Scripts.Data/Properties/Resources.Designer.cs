@@ -111,6 +111,22 @@ namespace Migration.Scripts.Data.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to CREATE TABLE &apos;InvalidVersionScriptCalled&apos;
+        ///(
+        ///	&apos;VersionId&apos; INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+        ///	&apos;Version&apos; INTEGER NOT NULL
+        ///)
+        ///;
+        ///
+        ///INSERT INTO &apos;InvalidVersionScriptCalled&apos; SET &apos;Version&apos; = &quot;17.0&quot;;.
+        /// </summary>
+        public static string Migration_4_17_0 {
+            get {
+                return ResourceManager.GetString("Migration_4_17_0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ATTACH [{0}] AS SOURCEPROJECT;
         ///
         ///INSERT INTO VersionEntity (
@@ -140,9 +156,9 @@ namespace Migration.Scripts.Data.Properties {
         ///  [Composition],
         ///  [Referen [rest of string was truncated]&quot;;.
         /// </summary>
-        public static string Migration4_17_1 {
+        public static string Migration_4_171 {
             get {
-                return ResourceManager.GetString("Migration4_17_1", resourceCulture);
+                return ResourceManager.GetString("Migration_4_171", resourceCulture);
             }
         }
     }

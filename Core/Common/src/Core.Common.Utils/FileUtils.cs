@@ -139,14 +139,27 @@ namespace Core.Common.Utils
             }
         }
 
-        public static void ValidateFilePathIsWritable(string filePath)
+        /// <summary>
+        /// Validates if the file path is writable.
+        /// </summary>
+        /// <param name="path">The file path to be validated.</param>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="path"/> is invalid.</exception>
+        /// <remarks>A valid path:
+        /// <list type="bullet">
+        /// <item>is not empty or <c>null</c>,</item>
+        /// <item>does not consist out of only whitespace characters,</item>
+        /// <item>does not contain an invalid character,</item>
+        /// <item>does not end with a directory or path separator (empty file name),</item>
+        /// <item>is writable.</item>
+        /// </list></remarks>
+        public static void ValidateFilePathIsWritable(string path)
         {
-            ValidateFilePath(filePath);
+            ValidateFilePath(path);
 
             var canWrite = false;
             try
             {
-                using (var fs = new FileStream(filePath, FileMode.OpenOrCreate, FileAccess.Write))
+                using (var fs = new FileStream(path, FileMode.OpenOrCreate, FileAccess.Write))
                 {
                     canWrite = fs.CanWrite;
                 }
@@ -155,7 +168,7 @@ namespace Core.Common.Utils
             {
                 if (!canWrite)
                 {
-                    throw new ArgumentException(string.Format(Resources.Error_General_output_error_0, filePath));
+                    throw new ArgumentException(string.Format(Resources.Error_General_output_error_0, path), nameof(path));
                 }
             }
         }

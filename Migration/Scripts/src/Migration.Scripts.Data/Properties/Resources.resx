@@ -121,7 +121,10 @@
   <data name="DatabaseStructure17_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\DatabaseStructure17.1.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
-  <data name="Migration4_17_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="Migration_4_171" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Migration_4_17.1.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="Migration_4_17_0" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Migration_4_17.0.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
 </root>

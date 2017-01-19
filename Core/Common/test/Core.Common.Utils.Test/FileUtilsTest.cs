@@ -245,9 +245,8 @@ namespace Core.Common.Utils.Test
                 TestDelegate call = () => FileUtils.ValidateFilePathIsWritable(filePath);
 
                 // Assert
-                string message = Assert.Throws<ArgumentException>(call).Message;
-                Assert.AreEqual($"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{filePath}'.", message);
-
+                string expectedMessage = $"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{filePath}'.";
+                TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
                 File.SetAttributes(filePath, attributes);
             }
         }
