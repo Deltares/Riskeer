@@ -77,7 +77,6 @@ namespace Migration.Core.Storage.Test
             // Setup
             string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Migration.Core.Storage, "Demo164.rtd");
             VersionedFile versionedFile = new VersionedFile(sourceFilePath);
-            var migrator = new VersionedFileMigrator();
 
             // Call
             bool needsMigrade = VersionedFileMigrator.NeedsMigrade(versionedFile, "17.1");
@@ -92,7 +91,6 @@ namespace Migration.Core.Storage.Test
             // Setup
             string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Migration.Core.Storage, "Demo164.rtd");
             VersionedFile versionedFile = new VersionedFile(sourceFilePath);
-            var migrator = new VersionedFileMigrator();
 
             // Call
             bool needsMigrade = VersionedFileMigrator.NeedsMigrade(versionedFile, "4");
