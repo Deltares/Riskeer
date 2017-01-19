@@ -94,7 +94,7 @@ namespace Ringtoets.Integration.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Alle berekende resultaten voor alle hydraulische randvoorwaardenlocaties van grasbekleding erosie binnentalud en duinen zijn verwijderd..
+        ///   Looks up a localized string similar to Alle berekende hydraulische randvoorwaarden van de relevante toetssporen zijn verwijderd..
         /// </summary>
         public static string AssessmentSectionCompositionChangeHandler_Waveheight_and_design_water_level_results_cleared {
             get {

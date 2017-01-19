@@ -233,10 +233,11 @@ namespace Ringtoets.Integration.Service.Test
         public void ClearHydraulicBoundaryLocationOutput_HydraulicBoundaryDatabaseWithoutLocations_DoNothing()
         {
             // Setup
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
-            {
-                HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase()
-            };
+            var mockRepository = new MockRepository();
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
+            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+            assessmentSection.Stub(section => section.GetFailureMechanisms()).Return(new IFailureMechanism[0]);
+            mockRepository.ReplayAll();
 
             // Call
             IEnumerable<IObservable> affectedObjects = RingtoetsDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(
@@ -244,19 +245,30 @@ namespace Ringtoets.Integration.Service.Test
 
             // Assert
             CollectionAssert.IsEmpty(affectedObjects);
+
+            mockRepository.VerifyAll();
         }
 
         [Test]
         public void ClearHydraulicBoundaryLocationOutput_GrassCoverErosionOutwardsAndDunesWithoutLocations_DoNothing()
         {
             // Setup
-            IAssessmentSection assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var mockRepository = new MockRepository();
+            IAssessmentSection assessmentSection = mockRepository.Stub<IAssessmentSection>();
+            assessmentSection.Stub(section => section.GetFailureMechanisms()).Return(new IFailureMechanism[]
+            {
+                new GrassCoverErosionOutwardsFailureMechanism(), 
+                new DuneErosionFailureMechanism()
+            });
+            mockRepository.ReplayAll();
 
             // Call
             IEnumerable<IObservable> affectedObjects = RingtoetsDataSynchronizationService.ClearHydraulicBoundaryLocationOutputOfFailureMechanisms(assessmentSection);
 
             // Assert
             CollectionAssert.IsEmpty(affectedObjects);
+
+            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -267,7 +279,7 @@ namespace Ringtoets.Integration.Service.Test
                                                                                                                                                         IEnumerable<IObservable> expectedAffectedItems)
         {
             // Setup
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase()
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
                 Locations =
                 {

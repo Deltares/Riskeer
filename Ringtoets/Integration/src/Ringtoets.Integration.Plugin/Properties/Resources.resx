@@ -167,6 +167,6 @@ Wilt u doorgaan?</value>
     <value>Achtergrondlaag</value>
   </data>
   <data name="AssessmentSectionCompositionChangeHandler_Waveheight_and_design_water_level_results_cleared" xml:space="preserve">
-    <value>Alle berekende resultaten voor alle hydraulische randvoorwaardenlocaties van grasbekleding erosie binnentalud en duinen zijn verwijderd.</value>
+    <value>Alle berekende hydraulische randvoorwaarden van de relevante toetssporen zijn verwijderd.</value>
   </data>
 </root>

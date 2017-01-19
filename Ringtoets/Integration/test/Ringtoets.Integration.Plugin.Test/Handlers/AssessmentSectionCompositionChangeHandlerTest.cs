@@ -196,7 +196,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             string[] expectedMessage =
             {
                 "De resultaten van 32 berekeningen zijn verwijderd.",
-                "Alle berekende resultaten voor alle hydraulische randvoorwaardenlocaties van grasbekleding erosie binnentalud en duinen zijn verwijderd."
+                "Alle berekende hydraulische randvoorwaarden van de relevante toetssporen zijn verwijderd."
             };
             TestHelper.AssertLogMessagesAreGenerated(call, expectedMessage, 2);
 
@@ -256,7 +256,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             Action call = () => affectedObjects = handler.ChangeComposition(assessmentSection, newComposition);
 
             // Assert
-            TestHelper.AssertLogMessageIsGenerated(call, "Alle berekende resultaten voor alle hydraulische randvoorwaardenlocaties van grasbekleding erosie binnentalud en duinen zijn verwijderd.", 1);
+            TestHelper.AssertLogMessageIsGenerated(call, "Alle berekende hydraulische randvoorwaarden van de relevante toetssporen zijn verwijderd.", 1);
 
             Assert.AreEqual(newComposition, assessmentSection.Composition);
             Assert.True(assessmentSection.GetFailureMechanisms().SelectMany(fm => fm.Calculations).All(c => !c.HasOutput));
