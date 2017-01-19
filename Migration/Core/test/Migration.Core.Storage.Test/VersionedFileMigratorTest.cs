@@ -104,25 +104,25 @@ namespace Migration.Core.Storage.Test
         public void Migrate_ValidFiles_SavesFileAtNewLocation()
         {
             // Setup
+            const string newVersion = "17.1";
             string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Migration.Core.Storage, "Demo164.rtd");
             var fromVersionedFile = new VersionedFile(sourceFilePath);
 
             string targetFilePath = TestHelper.GetTestDataPath(TestDataPath.Migration.Core.Storage, Path.GetRandomFileName());
-
             var migrator = new VersionedFileMigrator();
 
             // Call
-            migrator.Migrate(fromVersionedFile, "17.1", targetFilePath);
+            migrator.Migrate(fromVersionedFile, newVersion, targetFilePath);
 
             // Assert
-            if (File.Exists(targetFilePath))
-            {
-                using (new FileDisposeHelper(targetFilePath)) {}
-            }
-            else
+            if (!File.Exists(targetFilePath))
             {
                 Assert.Fail($"File was not created at location '{targetFilePath}'");
             }
+
+            var toVersionedFile = new VersionedFile(targetFilePath);
+            Assert.AreEqual(newVersion, toVersionedFile.GetVersion());
+            using (new FileDisposeHelper(targetFilePath)) {}
         }
     }
 }
