@@ -22,7 +22,7 @@
 using System;
 using System.Runtime.Serialization;
 
-namespace Migration.Core.Storage.Exceptions
+namespace Migration.Scripts.Data.Exceptions
 {
     [Serializable]
     public class CriticalDatabaseMigrationException : Exception

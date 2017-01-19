@@ -69,7 +69,7 @@ namespace Migration.Core.Storage
         {
             target.CreateStructure(ScriptsDataPropertiesResources.DatabaseStructure17_1);
 
-            var query = GetMigrationQuery(ScriptsDataPropertiesResources.Migration4_17_1, source.Path);
+            var query = GetMigrationQuery(ScriptsDataPropertiesResources.Migration_4_171, source.Path);
 
             target.ExecuteMigration(query);
         }

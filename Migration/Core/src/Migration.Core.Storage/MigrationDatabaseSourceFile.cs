@@ -24,7 +24,7 @@ using System.Data;
 using Core.Common.Base.Storage;
 using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
-using Migration.Ringtoets.Data;
+using Migration.Scripts.Data;
 
 namespace Migration.Core.Storage
 {
