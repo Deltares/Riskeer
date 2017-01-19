@@ -44,7 +44,7 @@
     </Reference>
     <Reference Include="DotSpatial.Projections, Version=1.8.0.0, Culture=neutral, PublicKeyToken=272632bddd08a38b, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\Clean_WTI2017\lib\DotSpatial.1.8\DotSpatial.Projections.dll</HintPath>
+      <HintPath>..\..\..\..\lib\DotSpatial.1.8\DotSpatial.Projections.dll</HintPath>
     </Reference>
     <Reference Include="DotSpatial.Symbology, Version=1.8.0.0, Culture=neutral, PublicKeyToken=6178c08da7998387, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
