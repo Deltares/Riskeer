@@ -34,14 +34,14 @@ namespace Migration.Scripts.Data.Exceptions
         /// <summary>
         /// Initializes a new instance of the <see cref="CriticalDatabaseMigrationException"/> class.
         /// </summary>
-        public CriticalDatabaseMigrationException() { }
+        public CriticalDatabaseMigrationException() {}
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CriticalDatabaseMigrationException"/> class
         /// with a specified error message.
         /// </summary>
         /// <param name="message">The error message that explains the reason for the exception.</param>
-        public CriticalDatabaseMigrationException(string message) : base(message) { }
+        public CriticalDatabaseMigrationException(string message) : base(message) {}
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CriticalDatabaseMigrationException"/> class
@@ -51,8 +51,8 @@ namespace Migration.Scripts.Data.Exceptions
         /// <param name="message">The error message that explains the reason for the exception.</param>
         /// <param name="inner">The exception that is the cause of the current exception, 
         /// or a <c>null</c> reference if no inner exception is specified.</param>
-        public CriticalDatabaseMigrationException(string message, Exception inner) : base(message, inner) { }
+        public CriticalDatabaseMigrationException(string message, Exception inner) : base(message, inner) {}
 
-        protected CriticalDatabaseMigrationException(SerializationInfo info, StreamingContext context) : base(info, context) { }
+        protected CriticalDatabaseMigrationException(SerializationInfo info, StreamingContext context) : base(info, context) {}
     }
 }

@@ -157,7 +157,10 @@ namespace Migration.Scripts.Data.Test
             TestDelegate call = () => upgradeScript.Upgrade(sourceVersionedFile, targetVersionedFile);
 
             // Assert
-            Assert.Throws<SQLiteException>(call);
+            using (new FileDisposeHelper(filePath))
+            {
+                Assert.Throws<SQLiteException>(call);
+            }
         }
 
         [Test]
