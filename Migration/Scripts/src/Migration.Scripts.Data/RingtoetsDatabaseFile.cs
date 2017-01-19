@@ -33,11 +33,13 @@ namespace Migration.Scripts.Data
         private SQLiteConnection connection;
         private bool disposed;
 
+        private readonly string filePath;
+
         /// <summary>
         /// Creates a new instance of the <see cref="RingtoetsDatabaseFile"/> class.
         /// </summary>
-        /// <param name="filePath">The path to the target file.</param>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/>:
+        /// <param name="path">The path to the target file.</param>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="path"/>:
         /// <list type="bullet">
         /// <item>is not empty or <c>null</c>,</item>
         /// <item>does not consist out of only whitespace characters,</item>
@@ -45,11 +47,10 @@ namespace Migration.Scripts.Data
         /// <item>does not end with a directory or path separator (empty file name),</item>
         /// <item>is not writable.</item>
         /// </list></exception>
-        public RingtoetsDatabaseFile(string filePath)
+        public RingtoetsDatabaseFile(string path)
         {
-            FileUtils.ValidateFilePathIsWritable(filePath);
-
-            FilePath = filePath;
+            FileUtils.ValidateFilePathIsWritable(path);
+            filePath = path;
         }
 
         /// <summary>
@@ -58,8 +59,8 @@ namespace Migration.Scripts.Data
         /// <remarks>Creates the file if it does not exist.</remarks>
         public void OpenDatabaseConnection()
         {
-            SQLiteConnection.CreateFile(FilePath);
-            connection = new SQLiteConnection(SqLiteConnectionStringBuilder.BuildSqLiteConnectionString(FilePath, false));
+            SQLiteConnection.CreateFile(filePath);
+            connection = new SQLiteConnection(SqLiteConnectionStringBuilder.BuildSqLiteConnectionString(filePath, false));
             connection.Open();
         }
 
@@ -92,9 +93,6 @@ namespace Migration.Scripts.Data
             Dispose(true);
             GC.SuppressFinalize(this);
         }
-
-        
-        private string FilePath { get; }
 
         private void PerformExecuteQuery(string query)
         {

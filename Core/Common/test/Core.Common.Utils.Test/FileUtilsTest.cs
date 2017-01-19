@@ -219,7 +219,7 @@ namespace Core.Common.Utils.Test
         [TestCase("")]
         [TestCase("   ")]
         [TestCase(null)]
-        public void ValidateFilePathIsWritable_FilePatNullOrWhiteSpace_ThrowsArgumentException(string filePath)
+        public void ValidateFilePathIsWritable_FilePathNullOrWhiteSpace_ThrowsArgumentException(string filePath)
         {
             // Call
             TestDelegate call = () => FileUtils.ValidateFilePathIsWritable(filePath);
