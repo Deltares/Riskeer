@@ -57,6 +57,7 @@
     </Compile>
     <Compile Include="CreateScriptTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UpgradeScriptTest.cs" />
     <Compile Include="VersionedFileTest.cs" />
   </ItemGroup>
   <ItemGroup>
