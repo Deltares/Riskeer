@@ -117,11 +117,12 @@ namespace Application.Ringtoets.Storage.Read
             PipingFailureMechanismMetaEntity metaEntity = entity.PipingFailureMechanismMetaEntities.Single();
             metaEntity.ReadProbabilityAssessmentInput(failureMechanism.PipingProbabilityAssessmentInput);
             metaEntity.ReadGeneralPipingInput(failureMechanism.GeneralInput);
-            metaEntity.ReadStochasticSoilModelCollectionSourcePath(failureMechanism.StochasticSoilModels);
-
-            foreach (StochasticSoilModelEntity stochasticSoilModelEntity in entity.StochasticSoilModelEntities.OrderBy(ssm => ssm.Order))
+            if (entity.StochasticSoilModelEntities.Any())
             {
-                failureMechanism.StochasticSoilModels.Add(stochasticSoilModelEntity.Read(collector));
+                failureMechanism.StochasticSoilModels.AddRange(entity.StochasticSoilModelEntities
+                                                                     .OrderBy(ssm => ssm.Order)
+                                                                     .Select(e => e.Read(collector)),
+                                                               metaEntity.StochasticSoilModelSourcePath);
             }
 
             foreach (SurfaceLineEntity surfaceLineEntity in entity.SurfaceLineEntities.OrderBy(sl => sl.Order))

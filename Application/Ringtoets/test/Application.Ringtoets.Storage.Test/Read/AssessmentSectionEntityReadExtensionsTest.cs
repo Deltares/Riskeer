@@ -206,6 +206,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var entity = CreateAssessmentSectionEntity();
 
             string emptySegmentPointsXml = new Point2DXmlSerializer().ToXml(new Point2D[0]);
+            const string stochasticSoilModelSourcePath = "path";
             var failureMechanismEntity = new FailureMechanismEntity
             {
                 FailureMechanismType = (int) FailureMechanismType.Piping,
@@ -223,7 +224,10 @@ namespace Application.Ringtoets.Storage.Test.Read
                 },
                 PipingFailureMechanismMetaEntities =
                 {
-                    new PipingFailureMechanismMetaEntity()
+                    new PipingFailureMechanismMetaEntity
+                    {
+                        StochasticSoilModelSourcePath = stochasticSoilModelSourcePath
+                    }
                 }
             };
             entity.FailureMechanismEntities.Add(failureMechanismEntity);
@@ -235,6 +239,7 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             // Assert
             Assert.AreEqual(2, section.PipingFailureMechanism.StochasticSoilModels.Count);
+            Assert.AreEqual(stochasticSoilModelSourcePath, section.PipingFailureMechanism.StochasticSoilModels.SourcePath);
         }
 
         [Test]

@@ -1320,18 +1320,18 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 SurfaceLines =
                 {
                     surfaceLine
-                },
-                StochasticSoilModels =
-                {
-                    new TestStochasticSoilModel
-                    {
-                        Geometry =
-                        {
-                            new Point2D(0.0, 0.0), new Point2D(5.0, 0.0)
-                        }
-                    }
                 }
             };
+            failureMechanism.StochasticSoilModels.AddRange(new[]
+            {
+                new TestStochasticSoilModel
+                {
+                    Geometry =
+                    {
+                        new Point2D(0.0, 0.0), new Point2D(5.0, 0.0)
+                    }
+                }
+            }, "path");
 
             failureMechanism.AddSection(new FailureMechanismSection("Section", new List<Point2D>
             {

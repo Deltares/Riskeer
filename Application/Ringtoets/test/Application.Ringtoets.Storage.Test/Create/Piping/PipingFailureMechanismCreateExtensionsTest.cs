@@ -145,11 +145,12 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
-            failureMechanism.StochasticSoilModels.Add(new StochasticSoilModel(-1, "name", "segmentName"));
-            failureMechanism.StochasticSoilModels.Add(new StochasticSoilModel(-1, "name2", "segmentName2"));
-
             string somePath = "some/path/to/file";
-            failureMechanism.StochasticSoilModels.SourcePath = somePath;
+            failureMechanism.StochasticSoilModels.AddRange(new[]
+            {
+                new StochasticSoilModel(-1, "name", "segmentName"),
+                new StochasticSoilModel(-1, "name2", "segmentName2")
+            }, somePath);
 
             var registry = new PersistenceRegistry();
 

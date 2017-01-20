@@ -152,7 +152,10 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             // Setup
             var failureMechanism = mocks.Stub<PipingFailureMechanism>();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            failureMechanism.StochasticSoilModels.Add(new StochasticSoilModel(0, "Name", "Name"));
+            failureMechanism.StochasticSoilModels.AddRange(new[]
+            {
+                new StochasticSoilModel(0, "Name", "Name")
+            }, "path");
             mocks.ReplayAll();
 
             var stochasticSoilModelCollectionContext = new StochasticSoilModelCollectionContext(
@@ -198,7 +201,10 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 failureMechanism.StochasticSoilModels,
                 failureMechanism,
                 assessmentSection);
-            failureMechanism.StochasticSoilModels.Add(stochasticSoilModel);
+            failureMechanism.StochasticSoilModels.AddRange(new[]
+            {
+                stochasticSoilModel
+            }, "path");
 
             mocks.ReplayAll();
 

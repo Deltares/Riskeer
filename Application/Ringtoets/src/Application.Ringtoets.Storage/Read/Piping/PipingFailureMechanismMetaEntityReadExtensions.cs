@@ -55,20 +55,5 @@ namespace Application.Ringtoets.Storage.Read.Piping
         {
             input.WaterVolumetricWeight = (RoundedDouble) entity.WaterVolumetricWeight;
         }
-
-        /// <summary>
-        /// Read the <see cref="PipingFailureMechanismMetaEntity"/> and use the information to set the 
-        /// <see cref="StochasticSoilModelCollection.SourcePath"/>.
-        /// </summary>
-        /// <param name="entity">The <see cref="PipingFailureMechanismMetaEntity"/> to obtain 
-        /// the source path from.</param>
-        /// <param name="stochasticSoilModels">The object to set the <see cref="StochasticSoilModelCollection.SourcePath"/>
-        /// for.</param>
-        internal static void ReadStochasticSoilModelCollectionSourcePath(
-            this PipingFailureMechanismMetaEntity entity,
-            StochasticSoilModelCollection stochasticSoilModels)
-        {
-            stochasticSoilModels.SourcePath = entity.StochasticSoilModelSourcePath;
-        }
     }
 }

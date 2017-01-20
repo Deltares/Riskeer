@@ -21,6 +21,7 @@
 
 using System;
 using System.ComponentModel;
+using System.Linq;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -32,7 +33,6 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
     [TestFixture]
     public class StochasticSoilModelCollectionPropertiesTest
     {
-
         [Test]
         public void Constructor_WithoutColleciton_ThrowsArgumentNullException()
         {
@@ -49,10 +49,8 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         {
             // Setup
             var someFilePath = "location/to/a/file";
-            var collection = new StochasticSoilModelCollection
-            {
-                SourcePath = someFilePath
-            };
+            var collection = new StochasticSoilModelCollection();
+            collection.AddRange(Enumerable.Empty<StochasticSoilModel>(), someFilePath);
 
             // Call
             var properties = new StochasticSoilModelCollectionProperties(collection);
@@ -82,7 +80,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             Assert.AreEqual("Algemeen", stochasticSoilModelIdProperty.Category);
             Assert.AreEqual("Bronlocatie", stochasticSoilModelIdProperty.DisplayName);
             Assert.AreEqual(
-                "De locatie van het bestand waaruit de stochastische ondergrondmodellen zijn geïmporteerd.", 
+                "De locatie van het bestand waaruit de stochastische ondergrondmodellen zijn geïmporteerd.",
                 stochasticSoilModelIdProperty.Description);
         }
     }

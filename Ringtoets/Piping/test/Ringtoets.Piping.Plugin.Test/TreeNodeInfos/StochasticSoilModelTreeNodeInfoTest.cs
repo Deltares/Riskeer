@@ -235,11 +235,6 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
 
             var failureMechanism = new PipingFailureMechanism
             {
-                StochasticSoilModels =
-                {
-                    nodeData,
-                    otherModel
-                },
                 CalculationsGroup =
                 {
                     Children =
@@ -256,6 +251,11 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                     }
                 }
             };
+            failureMechanism.StochasticSoilModels.AddRange(new[]
+            {
+                nodeData,
+                otherModel
+            }, "path");
             failureMechanism.StochasticSoilModels.Attach(observer);
 
             var parentData = new StochasticSoilModelCollectionContext(failureMechanism.StochasticSoilModels, failureMechanism, assessmentSection);

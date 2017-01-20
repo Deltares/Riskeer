@@ -22,9 +22,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using Core.Common.Base;
+using Core.Common.Utils;
 
 namespace Ringtoets.Piping.Data
 {
@@ -32,13 +32,12 @@ namespace Ringtoets.Piping.Data
     /// A collection to store the <see cref="StochasticSoilModel"/> and the source path
     /// they were imported from.
     /// </summary>
-    public class StochasticSoilModelCollection : IObservable, IEnumerable<StochasticSoilModel>
+    public class StochasticSoilModelCollection : Observable, IEnumerable<StochasticSoilModel>
     {
         private readonly List<StochasticSoilModel> stochasticSoilModels = new List<StochasticSoilModel>();
-        private readonly ICollection<IObserver> observers = new Collection<IObserver>();
 
         /// <summary>
-        /// Gets or sets the element at index <paramref name="i"/> in the collection.
+        /// Gets the element at index <paramref name="i"/> in the collection.
         /// </summary>
         /// <param name="i">The index.</param>
         /// <returns>The element at index <paramref name="i"/> in the collection.</returns>
@@ -50,40 +49,6 @@ namespace Ringtoets.Piping.Data
             {
                 return stochasticSoilModels[i];
             }
-            set
-            {
-                stochasticSoilModels[i] = value;
-            }
-        }
-
-        /// <summary>
-        /// Removes the first occurence of <paramref name="model"/> in the collection.
-        /// </summary>
-        /// <param name="model">The <see cref="StochasticSoilModel"/> to be removed.</param>
-        /// <returns><c>True</c> if the <paramref name="model"/> was successfully removed from the collection;
-        /// <c>False</c> if otherwise or if the <paramref name="model"/> was not found in the collection. </returns>
-        public bool Remove(StochasticSoilModel model)
-        {
-            return stochasticSoilModels.Remove(model);
-        }
-
-        /// <summary>
-        /// Clears the imported items in the collection and 
-        /// the <see cref="SourcePath"/>.
-        /// </summary>
-        public void Clear()
-        {
-            SourcePath = null;
-            stochasticSoilModels.Clear();
-        }
-
-        /// <summary>
-        /// Adds a <see cref="StochasticSoilModel"/> item to the end of the collection.
-        /// </summary>
-        /// <param name="model">The <see cref="StochasticSoilModel"/> to be added.</param>
-        public void Add(StochasticSoilModel model)
-        {
-            stochasticSoilModels.Add(model);
         }
 
         /// <summary>
@@ -98,34 +63,71 @@ namespace Ringtoets.Piping.Data
         }
 
         /// <summary>
-        /// Gets or sets the last known file path from which the <see cref="StochasticSoilModel"/>
+        /// Gets the last known file path from which the <see cref="StochasticSoilModel"/>
         /// elements were imported.
         /// </summary>
-        public string SourcePath { get; set; }
+        /// <returns>The path where the <see cref="StochasticSoilModel"/> elements originate
+        /// from, or <c>null</c> if the collection is cleared.</returns>
+        public string SourcePath { get; private set; }
 
-        public void Attach(IObserver observer)
+        /// <summary>
+        /// Removes the first occurrence of <paramref name="model"/> in the collection.
+        /// </summary>
+        /// <param name="model">The <see cref="StochasticSoilModel"/> to be removed.</param>
+        /// <returns><c>True</c> if the <paramref name="model"/> was successfully removed from the collection;
+        /// <c>False</c> if otherwise or if the <paramref name="model"/> was not found in the collection. </returns>
+        public bool Remove(StochasticSoilModel model)
         {
-            observers.Add(observer);
-        }
-
-        public void Detach(IObserver observer)
-        {
-            observers.Remove(observer);
-        }
-
-        public void NotifyObservers()
-        {
-            // Iterate through a copy of the list of observers; an update of one observer might result in detaching another observer (which will result in a "list modified" exception over here otherwise)
-            foreach (var observer in observers.ToArray())
+            bool remove = stochasticSoilModels.Remove(model);
+            if (remove && Count == 0)
             {
-                // Ensure the observer is still part of the original list of observers
-                if (!observers.Contains(observer))
-                {
-                    continue;
-                }
-
-                observer.UpdateObserver();
+                SourcePath = null;
             }
+            return remove;
+        }
+
+        /// <summary>
+        /// Clears the imported items in the collection and the <see cref="SourcePath"/>.
+        /// </summary>
+        public void Clear()
+        {
+            SourcePath = null;
+            stochasticSoilModels.Clear();
+        }
+
+        /// <summary>
+        /// Adds all <see cref="StochasticSoilModel"/> elements originating from a source file.
+        /// </summary>
+        /// <param name="soilModels">The <see cref="StochasticSoilModel"/></param>
+        /// <param name="filePath">The path to the source file.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when:
+        /// <list type="bullet">
+        /// <item><paramref name="soilModels"/> contains <c>null</c>.</item>
+        /// <item><paramref name="filePath"/> is not a valid file path.</item>
+        /// </list>
+        /// </exception>
+        public void AddRange(IEnumerable<StochasticSoilModel> soilModels, string filePath)
+        {
+            if (soilModels == null)
+            {
+                throw new ArgumentNullException(nameof(soilModels));
+            }
+            if (soilModels.Contains(null))
+            {
+                throw new ArgumentException("Collection cannot contain null.", nameof(soilModels));
+            }
+            if (filePath == null)
+            {
+                throw new ArgumentNullException(nameof(filePath));
+            }
+            if (!FileUtils.IsValidFilePath(filePath))
+            {
+                throw new ArgumentException($"'{filePath}' is not a valid filepath.", nameof(filePath));
+            }
+
+            SourcePath = filePath;
+            stochasticSoilModels.AddRange(soilModels);
         }
 
         public IEnumerator<StochasticSoilModel> GetEnumerator()

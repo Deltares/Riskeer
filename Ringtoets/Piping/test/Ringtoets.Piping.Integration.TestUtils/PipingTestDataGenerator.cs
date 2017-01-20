@@ -105,8 +105,11 @@ namespace Ringtoets.Piping.Integration.TestUtils
                 }
             };
 
-            failureMechanism.StochasticSoilModels.Add(stochasticSoilModel1);
-            failureMechanism.StochasticSoilModels.Add(stochasticSoilModel2);
+            failureMechanism.StochasticSoilModels.AddRange(new[]
+            {
+                stochasticSoilModel1,
+                stochasticSoilModel2
+            }, "path");
 
             var calculation = new PipingCalculationScenario(new GeneralPipingInput());
             var calculationWithOutput = new PipingCalculationScenario(new GeneralPipingInput())

@@ -62,22 +62,5 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             // Assert
             Assert.AreEqual(entity.WaterVolumetricWeight, generalInput.WaterVolumetricWeight.Value);
         }
-
-        [Test]
-        public void ReadStochasticSoilModelCollectionSourcePath_Always_ReturnsPathFromEntity()
-        {
-            // Setup
-            var entity = new PipingFailureMechanismMetaEntity
-            {
-                StochasticSoilModelSourcePath = "some/path"
-            };
-            var stochasticSoilModelCollection = new StochasticSoilModelCollection();
-
-            // Call
-            entity.ReadStochasticSoilModelCollectionSourcePath(stochasticSoilModelCollection);
-
-            // Assert
-            Assert.AreEqual(entity.StochasticSoilModelSourcePath, stochasticSoilModelCollection.SourcePath);
-        }
     }
 }

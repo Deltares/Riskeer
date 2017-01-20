@@ -23,7 +23,6 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using Core.Common.Base;
 using Core.Common.Base.IO;
 using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
@@ -31,8 +30,8 @@ using log4net;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.IO.Exceptions;
 using Ringtoets.Piping.IO.SoilProfile;
-using Ringtoets.Piping.Primitives;
 using Ringtoets.Piping.Plugin.Properties;
+using Ringtoets.Piping.Primitives;
 using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 
 namespace Ringtoets.Piping.Plugin.FileImporter
@@ -116,7 +115,8 @@ namespace Ringtoets.Piping.Plugin.FileImporter
         {
             var stochasticSoilModelCount = readStochasticSoilModels.Count;
             var currentIndex = 1;
-            foreach (var readStochasticSoilModel in readStochasticSoilModels)
+            var modelsToAdd = new List<StochasticSoilModel>(readStochasticSoilModels.Count);
+            foreach (StochasticSoilModel readStochasticSoilModel in readStochasticSoilModels)
             {
                 NotifyProgress(RingtoetsCommonIOResources.Importer_ProgressText_Adding_imported_data_to_DataModel, currentIndex++, stochasticSoilModelCount);
                 if (!ValidateStochasticSoilModel(readStochasticSoilModel))
@@ -128,9 +128,9 @@ namespace Ringtoets.Piping.Plugin.FileImporter
                 {
                     log.WarnFormat(Resources.PipingSoilProfilesImporter_AddImportedDataToModel_Stochastisch_soil_model_0_already_exists, stochasticSoilModel.Name);
                 }
-                ImportTarget.Add(readStochasticSoilModel);
+                modelsToAdd.Add(readStochasticSoilModel);
             }
-            ImportTarget.SourcePath = FilePath;
+            ImportTarget.AddRange(modelsToAdd, FilePath);
         }
 
         private bool ValidateStochasticSoilModel(StochasticSoilModel stochasticSoilModel)

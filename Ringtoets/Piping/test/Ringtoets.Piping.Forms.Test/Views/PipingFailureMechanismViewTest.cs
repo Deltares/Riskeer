@@ -246,8 +246,11 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 failureMechanism.AddSection(new FailureMechanismSection("A", geometryPoints.Take(2)));
                 failureMechanism.AddSection(new FailureMechanismSection("B", geometryPoints.Skip(1).Take(2)));
                 failureMechanism.AddSection(new FailureMechanismSection("C", geometryPoints.Skip(2).Take(2)));
-                failureMechanism.StochasticSoilModels.Add(stochasticSoilModel1);
-                failureMechanism.StochasticSoilModels.Add(stochasticSoilModel2);
+                failureMechanism.StochasticSoilModels.AddRange(new[]
+                {
+                    stochasticSoilModel1,
+                    stochasticSoilModel2
+                }, "path");
 
                 var calculationA = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
                 calculationA.InputParameters.SurfaceLine = surfaceLineA;
@@ -548,7 +551,10 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
                 var stochasticSoilModelMapData = (MapLineData) map.Data.Collection.ElementAt(stochasticSoilModelsIndex);
 
-                failureMechanism.StochasticSoilModels.Add(stochasticSoilModel);
+                failureMechanism.StochasticSoilModels.AddRange(new[]
+                {
+                    stochasticSoilModel
+                }, "path");
 
                 // Call
                 failureMechanism.StochasticSoilModels.NotifyObservers();
@@ -871,10 +877,10 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
                 PipingCalculationScenario calculation = calculationsArray[index];
                 CollectionAssert.AreEquivalent(new[]
-                {
-                    calculation.InputParameters.SurfaceLine.ReferenceLineIntersectionWorldPoint,
-                    calculation.InputParameters.HydraulicBoundaryLocation.Location
-                },
+                                               {
+                                                   calculation.InputParameters.SurfaceLine.ReferenceLineIntersectionWorldPoint,
+                                                   calculation.InputParameters.HydraulicBoundaryLocation.Location
+                                               },
                                                geometries[0].PointCollections.First());
             }
             Assert.AreEqual("Berekeningen", mapData.Name);

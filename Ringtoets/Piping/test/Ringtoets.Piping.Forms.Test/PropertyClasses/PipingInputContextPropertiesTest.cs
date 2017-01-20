@@ -476,7 +476,6 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         [TestCase(false)]
         public void StochasticSoilModel_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput(bool hasOutput)
         {
-
             SetPropertyAndVerifyNotifcationsAndOutput(hasOutput, properties => properties.StochasticSoilModel = ValidStochasticSoilModel(0.0, 4.0));
         }
 
@@ -511,7 +510,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         public void DampingFactorExit_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput(bool hasOutput)
         {
             SetPropertyAndVerifyNotifcationsAndOutput(
-                hasOutput, 
+                hasOutput,
                 properties => properties.DampingFactorExit = new LogNormalDistributionDesignVariable(new LogNormalDistribution(3)));
         }
 
@@ -521,7 +520,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         public void PhreaticLevelExit_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput(bool hasOutput)
         {
             SetPropertyAndVerifyNotifcationsAndOutput(
-                hasOutput, 
+                hasOutput,
                 properties => properties.PhreaticLevelExit = new NormalDistributionDesignVariable(new NormalDistribution(3)));
         }
 
@@ -1311,48 +1310,47 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                 new Point3D(0, 0, 0),
                 new Point3D(10, 0, 0)
             });
-            var failureMechanism = new PipingFailureMechanism
+            var failureMechanism = new PipingFailureMechanism();
+            var soilModels = new[]
             {
-                StochasticSoilModels =
+                new StochasticSoilModel(1, "A", "B")
                 {
-                    new StochasticSoilModel(1, "A", "B")
+                    Geometry =
                     {
-                        Geometry =
-                        {
-                            new Point2D(2, -1),
-                            new Point2D(2, 1)
-                        },
-                        StochasticSoilProfiles =
-                        {
-                            new StochasticSoilProfile(0.2, SoilProfileType.SoilProfile1D, 1)
-                        }
+                        new Point2D(2, -1),
+                        new Point2D(2, 1)
                     },
-                    new StochasticSoilModel(2, "C", "D")
+                    StochasticSoilProfiles =
                     {
-                        Geometry =
-                        {
-                            new Point2D(-2, -1),
-                            new Point2D(-2, 1)
-                        },
-                        StochasticSoilProfiles =
-                        {
-                            new StochasticSoilProfile(0.3, SoilProfileType.SoilProfile1D, 2)
-                        }
+                        new StochasticSoilProfile(0.2, SoilProfileType.SoilProfile1D, 1)
+                    }
+                },
+                new StochasticSoilModel(2, "C", "D")
+                {
+                    Geometry =
+                    {
+                        new Point2D(-2, -1),
+                        new Point2D(-2, 1)
                     },
-                    new StochasticSoilModel(3, "E", "F")
+                    StochasticSoilProfiles =
                     {
-                        Geometry =
-                        {
-                            new Point2D(6, -1),
-                            new Point2D(6, 1)
-                        },
-                        StochasticSoilProfiles =
-                        {
-                            new StochasticSoilProfile(0.3, SoilProfileType.SoilProfile1D, 3)
-                        }
+                        new StochasticSoilProfile(0.3, SoilProfileType.SoilProfile1D, 2)
+                    }
+                },
+                new StochasticSoilModel(3, "E", "F")
+                {
+                    Geometry =
+                    {
+                        new Point2D(6, -1),
+                        new Point2D(6, 1)
+                    },
+                    StochasticSoilProfiles =
+                    {
+                        new StochasticSoilProfile(0.3, SoilProfileType.SoilProfile1D, 3)
                     }
                 }
             };
+            failureMechanism.StochasticSoilModels.AddRange(soilModels, "path");
             var calculation = new PipingCalculationScenario(failureMechanism.GeneralInput)
             {
                 InputParameters =
@@ -1372,14 +1370,14 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             Assert.IsNotNull(calculation.InputParameters.SurfaceLine);
 
             // Call
-            IEnumerable<StochasticSoilModel> soilModels = properties.GetAvailableStochasticSoilModels();
+            IEnumerable<StochasticSoilModel> availableStochasticSoilModels = properties.GetAvailableStochasticSoilModels();
 
             // Assert
             CollectionAssert.AreEqual(new[]
             {
                 failureMechanism.StochasticSoilModels[0],
                 failureMechanism.StochasticSoilModels[2]
-            }, soilModels);
+            }, availableStochasticSoilModels);
             mocks.VerifyAll();
         }
 
@@ -1508,8 +1506,8 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                 }
             };
             var context = new PipingInputContext(calculation.InputParameters, calculation,
-                                     failureMechanism.SurfaceLines, failureMechanism.StochasticSoilModels,
-                                     failureMechanism, assessmentSection);
+                                                 failureMechanism.SurfaceLines, failureMechanism.StochasticSoilModels,
+                                                 failureMechanism, assessmentSection);
 
             StochasticSoilModel soilModel = ValidStochasticSoilModel(0.0, 4.0);
             StochasticSoilProfile soilProfile = soilModel.StochasticSoilProfiles.First();
@@ -1618,7 +1616,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             // Assert
             IEnumerable<SelectableHydraulicBoundaryLocation> expectedList =
                 hydraulicBoundaryDatabase.Locations.Select(hbl => new SelectableHydraulicBoundaryLocation(
-                                                                      hbl, surfaceLine.ReferenceLineIntersectionWorldPoint))
+                                                               hbl, surfaceLine.ReferenceLineIntersectionWorldPoint))
                                          .OrderBy(hbl => hbl.Distance)
                                          .ThenBy(hbl => hbl.HydraulicBoundaryLocation.Id);
             CollectionAssert.AreEqual(expectedList, selectableHydraulicBoundaryLocations);
@@ -1677,8 +1675,8 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             IEnumerable<SelectableHydraulicBoundaryLocation> expectedList =
                 hydraulicBoundaryDatabase.Locations
                                          .Select(hbl =>
-                                                 new SelectableHydraulicBoundaryLocation(hbl,
-                                                                                         properties.SurfaceLine.ReferenceLineIntersectionWorldPoint))
+                                                     new SelectableHydraulicBoundaryLocation(hbl,
+                                                                                             properties.SurfaceLine.ReferenceLineIntersectionWorldPoint))
                                          .OrderBy(hbl => hbl.Distance)
                                          .ThenBy(hbl => hbl.HydraulicBoundaryLocation.Id);
             CollectionAssert.AreEqual(expectedList, availableHydraulicBoundaryLocations);
@@ -1714,7 +1712,6 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             {
                 Data = context
             };
-
 
             // Call
             var result = properties.DynamicReadOnlyValidationMethod("AssessmentLevel");
@@ -1766,7 +1763,6 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                 Data = context
             };
 
-
             // Call
             var result = properties.DynamicVisibleValidationMethod("SelectedHydraulicBoundaryLocation");
 
@@ -1797,7 +1793,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
         private void SetPropertyAndVerifyNotifcationsAndOutputForCalculation(
             bool hasOutput,
-            Action<PipingInputContextProperties> setProperty, 
+            Action<PipingInputContextProperties> setProperty,
             PipingCalculationScenario calculation)
         {
             // Setup
