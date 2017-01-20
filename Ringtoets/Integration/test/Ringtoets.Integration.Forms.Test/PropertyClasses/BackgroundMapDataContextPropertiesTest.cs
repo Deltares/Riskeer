@@ -79,7 +79,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             mockRepository.ReplayAll();
 
             var random = new Random(21);
-            var newTransparency = (RoundedDouble)random.NextDouble();
+            var newTransparency = (RoundedDouble) random.NextDouble();
             var newVisibility = random.NextBoolean();
 
             WmtsMapData mapData = WmtsMapData.CreateDefaultPdokMapData();
@@ -105,7 +105,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
-            WmtsMapData mapData = WmtsMapData.CreateDefaultPdokMapData();
+            WmtsMapData mapData = WmtsMapData.CreateUnconnectedMapData();
 
             // Call
             var properties = new BackgroundMapDataContextProperties
@@ -135,13 +135,55 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(transparencyPropertyIndex,
                                                                             "Algemeen",
                                                                             "Transparantie",
-                                                                            "Transparantie waarmee de achtergrondlaag wordt weergegeven.");
+                                                                            "Transparantie waarmee de achtergrondlaag wordt weergegeven.",
+                                                                            true);
 
             PropertyDescriptor visibilityProperty = dynamicProperties[requiredVisibilityPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(visibilityProperty,
                                                                             "Algemeen",
                                                                             "Achtergrondlaag tonen",
-                                                                            "Geeft aan of de geselecteerde achtergrondlaag in alle kaarten wordt weergegeven.");
+                                                                            "Geeft aan of de geselecteerde achtergrondlaag in alle kaarten wordt weergegeven.",
+                                                                            true);
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void GetProperties_UseConfiguredMapData_ReturnsExpectedAttributeValues(bool isMapConfigured)
+        {
+            // Setup
+            WmtsMapData mapData = WmtsMapData.CreateUnconnectedMapData();
+
+            if (isMapConfigured)
+            {
+                mapData.Configure("https://geodata.nationaalgeoregister.nl/wmts/top10nlv2?VERSION=1.0.0&request=GetCapabilities",
+                                  "brtachtergrondkaart",
+                                  "image/png");
+            }
+
+            // Call
+            var properties = new BackgroundMapDataContextProperties
+            {
+                Data = new BackgroundMapDataContext(mapData)
+            };
+
+            // Assert
+            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
+            Assert.AreEqual(4, dynamicProperties.Count);
+
+            PropertyDescriptor transparencyPropertyIndex = dynamicProperties[requiredTransparencyPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(transparencyPropertyIndex,
+                                                                            "Algemeen",
+                                                                            "Transparantie",
+                                                                            "Transparantie waarmee de achtergrondlaag wordt weergegeven.",
+                                                                            !isMapConfigured);
+
+            PropertyDescriptor visibilityProperty = dynamicProperties[requiredVisibilityPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(visibilityProperty,
+                                                                            "Algemeen",
+                                                                            "Achtergrondlaag tonen",
+                                                                            "Geeft aan of de geselecteerde achtergrondlaag in alle kaarten wordt weergegeven.",
+                                                                            !isMapConfigured);
         }
     }
 }

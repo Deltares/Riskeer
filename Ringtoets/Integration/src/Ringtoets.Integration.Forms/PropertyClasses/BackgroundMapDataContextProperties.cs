@@ -20,8 +20,10 @@
 // All rights reserved.
 
 using Core.Common.Base.Data;
+using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
+using Core.Common.Utils.Reflection;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.Properties;
 using RingtoetsCommonForms = Ringtoets.Common.Forms.Properties.Resources;
@@ -55,6 +57,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
             }
         }
 
+        [DynamicReadOnly]
         [ResourcesCategory(typeof(RingtoetsCommonForms), nameof(RingtoetsCommonForms.Categories_General))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.BackgroundMapDataContextProperties_Transparency_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.BackgroundMapDataContextProperties_Transparency_Description))]
@@ -71,6 +74,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
             }
         }
 
+        [DynamicReadOnly]
         [ResourcesCategory(typeof(RingtoetsCommonForms), nameof(RingtoetsCommonForms.Categories_General))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.BackgroundMapDataContextProperties_IsVisible_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.BackgroundMapDataContextProperties_IsVisible_Description))]
@@ -85,6 +89,21 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
                 data.WrappedData.IsVisible = value;
                 data.WrappedData.NotifyObservers();
             }
+        }
+
+        [DynamicReadOnlyValidationMethod]
+        public bool DynamicReadOnlyValidationMethod(string propertyName)
+        {
+            if (propertyName == TypeUtils.GetMemberName<BackgroundMapDataContextProperties>(p => p.Transparency))
+            {
+                return !data.WrappedData.IsConfigured;
+            }
+            if (propertyName == TypeUtils.GetMemberName<BackgroundMapDataContextProperties>(p => p.IsVisible))
+            {
+                return !data.WrappedData.IsConfigured;
+            }
+
+            return true;
         }
     }
 }
