@@ -21,9 +21,12 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Security;
 using Core.Common.Base.IO;
+using Core.Common.IO.Exceptions;
 using Core.Common.Utils;
 using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -35,6 +38,7 @@ using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Service.Properties;
 using Ringtoets.HydraRing.Calculation.Calculator;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
+using Ringtoets.HydraRing.Calculation.Data.Input;
 using Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics;
 using Ringtoets.HydraRing.Calculation.Data.Input.Overtopping;
 using Ringtoets.HydraRing.Calculation.Exceptions;
@@ -98,7 +102,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
         /// <list type="bullet">
         /// <item><paramref name="calculation"/></item>
         /// <item><paramref name="assessmentSection"/></item>
-        /// <item><paramref name="failureMechanismSection"/></item>
         /// <item><paramref name="generalInput"/></item>
         /// </list></exception>
         /// <exception cref="ArgumentException">Thrown when:
@@ -358,7 +361,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
         /// Creates the input for an overtopping calculation.
         /// </summary>
         /// <param name="calculation">The <see cref="GrassCoverErosionInwardsCalculation"/> that holds all the information required to perform the calculation.</param>
-        /// <param name="failureMechanismSection">The <see cref="FailureMechanismSection"/> to create input with.</param>
         /// <param name="generalInput">Calculation input parameters that apply to all <see cref="GrassCoverErosionInwardsCalculation"/> instances.</param>
         /// <param name="hydraulicBoundaryDatabaseFilePath">The path to the hydraulic boundary database file.</param>
         /// <returns>An <see cref="OvertoppingCalculationInput"/>.</returns>
@@ -413,7 +415,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
         /// </summary>
         /// <param name="calculation">The <see cref="GrassCoverErosionInwardsCalculation"/> that holds all the information required to perform the calculation.</param>
         /// <param name="norm">The norm to use in the calculation.</param>
-        /// <param name="failureMechanismSection">The <see cref="FailureMechanismSection"/> to create input with.</param>
         /// <param name="generalInput">Calculation input parameters that apply to all <see cref="GrassCoverErosionInwardsCalculation"/> instances.</param>
         /// <param name="hydraulicBoundaryDatabaseFilePath">The path to the hydraulic boundary database file.</param>
         /// <returns>A <see cref="DikeHeightCalculationInput"/>.</returns>
