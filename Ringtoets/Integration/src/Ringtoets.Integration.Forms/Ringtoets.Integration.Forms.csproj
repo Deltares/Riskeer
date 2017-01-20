@@ -55,6 +55,7 @@
     <Compile Include="PresentationObjects\HydraulicBoundaryLocationContext.cs" />
     <Compile Include="PresentationObjects\WaveHeightLocationContext.cs" />
     <Compile Include="PresentationObjects\WaveHeightLocationsContext.cs" />
+    <Compile Include="PropertyClasses\BackgroundMapDataContextProperties.cs" />
     <Compile Include="PropertyClasses\CalculationContextProperties.cs" />
     <Compile Include="PropertyClasses\CalculationGroupContextProperties.cs" />
     <Compile Include="PropertyClasses\DesignWaterLevelLocationsContextProperties.cs" />
