@@ -23,7 +23,7 @@ using System;
 using System.IO;
 using SystemConsole = System.Console;
 
-namespace Migration.Console.Test
+namespace Migration.Console.TestUtil
 {
     /// <summary>
     /// This class captures the output that is sent to <see cref="SystemConsole"/>.

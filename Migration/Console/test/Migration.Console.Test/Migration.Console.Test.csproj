@@ -56,8 +56,6 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="ConsoleHelperTest.cs" />
-    <Compile Include="ConsoleOutput.cs" />
-    <Compile Include="ConsoleOutputTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -70,6 +68,10 @@
     <ProjectReference Include="..\..\src\Migration.Console\Migration.Console.csproj">
       <Project>{2E2C9B96-E72A-4C10-AA54-A5381FE30B0D}</Project>
       <Name>Migration.Console</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Migration.Console.TestUtil\Migration.Console.TestUtil.csproj">
+      <Project>{679D3CE6-0820-49CF-9D56-D1CF7F1B853A}</Project>
+      <Name>Migration.Console.TestUtil</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

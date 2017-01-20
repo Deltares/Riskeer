@@ -24,7 +24,7 @@ using System.IO;
 using NUnit.Framework;
 using SystemConsole = System.Console;
 
-namespace Migration.Console.Test
+namespace Migration.Console.TestUtil.Test
 {
     [TestFixture]
     public class ConsoleOutputTest

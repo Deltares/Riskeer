@@ -25,13 +25,13 @@ using SystemConsole = System.Console;
 
 namespace Migration.Console
 {
-    public class Application
+    public static class RingtoetsMigrationTool
     {
         private const string commandMigrate = "--migrate";
         private const string commandVersionSupported = "--supported";
         private const string commandHelp = "--help";
 
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
             string command = args.FirstOrDefault() ?? commandHelp;
             switch (command)
