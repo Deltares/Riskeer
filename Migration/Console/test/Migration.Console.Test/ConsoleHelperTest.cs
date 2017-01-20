@@ -28,6 +28,12 @@ namespace Migration.Console.Test
     [TestFixture]
     public class ConsoleHelperTest
     {
+        [TearDown]
+        public void TearDown()
+        {
+            SystemConsole.ForegroundColor = ConsoleColor.Gray;
+        }
+
         [Test]
         public void WriteErrorLine_StringNull_ThrowsArgumentNullException()
         {
