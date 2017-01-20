@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Migration.Console.TestUtil;
 using NUnit.Framework;
 using SystemConsole = System.Console;
 
@@ -31,7 +32,7 @@ namespace Migration.Console.Test
         [TearDown]
         public void TearDown()
         {
-            SystemConsole.ForegroundColor = ConsoleColor.Gray;
+            SystemConsole.ResetColor();
         }
 
         [Test]

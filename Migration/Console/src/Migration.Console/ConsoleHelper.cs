@@ -65,6 +65,14 @@ namespace Migration.Console
         /// <seealso cref="SystemConsole.WriteLine(string, object[])"/>
         public static void WriteInfoLine(string format, params object[] args)
         {
+            if (format == null)
+            {
+                throw new ArgumentNullException(nameof(format));
+            }
+            if (args == null)
+            {
+                throw new ArgumentNullException(nameof(args));
+            }
             SystemConsole.ForegroundColor = ConsoleColor.White;
             SystemConsole.WriteLine(format, args);
             SystemConsole.ResetColor();
