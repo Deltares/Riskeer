@@ -120,8 +120,8 @@ namespace Ringtoets.Piping.Service.Test
                 Assert.AreEqual("Validatie mislukt: Er is geen hydraulische randvoorwaardenlocatie geselecteerd.", msgs[1]);
                 Assert.AreEqual("Validatie mislukt: Er is geen profielschematisatie geselecteerd.", msgs[2]);
                 Assert.AreEqual("Validatie mislukt: Er is geen ondergrondschematisatie geselecteerd.", msgs[3]);
-                Assert.AreEqual("Validatie mislukt: Er is geen concreet getal ingevoerd voor 'Uittredepunt'.", msgs[4]);
-                Assert.AreEqual("Validatie mislukt: Er is geen concreet getal ingevoerd voor 'Intredepunt'.", msgs[5]);
+                Assert.AreEqual("Validatie mislukt: De waarde voor 'uittredepunt' moet een concreet getal zijn.", msgs[4]);
+                Assert.AreEqual("Validatie mislukt: De waarde voor 'intredepunt' moet een concreet getal zijn.", msgs[5]);
                 StringAssert.StartsWith($"Validatie van '{name}' beëindigd om: ", msgs.Last());
             });
             Assert.IsFalse(isValid);
@@ -203,7 +203,7 @@ namespace Ringtoets.Piping.Service.Test
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
                 StringAssert.StartsWith($"Validatie van '{name}' gestart om: ", msgs.First());
-                Assert.AreEqual("Validatie mislukt: Er is geen concreet getal ingevoerd voor 'Intredepunt'.", msgs[1]);
+                Assert.AreEqual("Validatie mislukt: De waarde voor 'intredepunt' moet een concreet getal zijn.", msgs[1]);
                 StringAssert.StartsWith($"Validatie van '{name}' beëindigd om: ", msgs.Last());
             });
             Assert.IsFalse(isValid);
@@ -228,7 +228,7 @@ namespace Ringtoets.Piping.Service.Test
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
                 StringAssert.StartsWith($"Validatie van '{name}' gestart om: ", msgs.First());
-                Assert.AreEqual("Validatie mislukt: Er is geen concreet getal ingevoerd voor 'Uittredepunt'.", msgs[1]);
+                Assert.AreEqual("Validatie mislukt: De waarde voor 'uittredepunt' moet een concreet getal zijn.", msgs[1]);
                 StringAssert.StartsWith($"Validatie van '{name}' beëindigd om: ", msgs.Last());
             });
             Assert.IsFalse(isValid);

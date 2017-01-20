@@ -273,7 +273,7 @@ namespace Ringtoets.Common.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Er is geen geldige damhoogte ingevoerd..
+        ///   Looks up a localized string similar to De waarde voor &apos;hoogte&apos; van de dam moet een concreet getal zijn..
         /// </summary>
         public static string Validation_Invalid_BreakWaterHeight_value {
             get {

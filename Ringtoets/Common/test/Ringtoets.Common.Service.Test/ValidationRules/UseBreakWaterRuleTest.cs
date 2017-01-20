@@ -104,7 +104,7 @@ namespace Ringtoets.Common.Service.Test.ValidationRules
 
             // Assert
             Assert.AreEqual(1, validationMessages.Length);
-            const string expectedMessage = "Er is geen geldige damhoogte ingevoerd.";
+            const string expectedMessage = "De waarde voor 'hoogte' van de dam moet een concreet getal zijn.";
             StringAssert.StartsWith(expectedMessage, validationMessages[0]);
             mockRepository.VerifyAll();
         }

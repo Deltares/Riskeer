@@ -266,7 +266,7 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
                     Assert.AreEqual(3, msgs.Length);
 
                     StringAssert.StartsWith($"Validatie van '{calculation.Name}' gestart om: ", msgs[0]);
-                    Assert.AreEqual("Validatie mislukt: Er is geen geldige damhoogte ingevoerd.", msgs[1]);
+                    Assert.AreEqual("Validatie mislukt: De waarde voor 'hoogte' van de dam moet een concreet getal zijn.", msgs[1]);
                     StringAssert.StartsWith($"Validatie van '{calculation.Name}' beëindigd om: ", msgs[2]);
                 });
                 Assert.IsFalse(isValid);
