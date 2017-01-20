@@ -507,28 +507,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
             }
             else
             {
-                if (double.IsNaN(inputParameters.Orientation))
-                {
-                    string message = string.Format(RingtoetsCommonServiceResources.Validation_ValidateInput_No_concrete_value_entered_for_ParameterName_0_,
-                                                   ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonForms.Orientation_DisplayName));
-                    validationResult.Add(message);
-                }
-                if (IsInconcreteValue(inputParameters.DikeHeight))
-                {
-                    string message = string.Format(RingtoetsCommonServiceResources.Validation_ValidateInput_No_concrete_value_entered_for_ParameterName_0_,
-                                                   ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonForms.DikeHeight_DisplayName));
-                    validationResult.Add(message);
-                }
+                validationResult.AddRange(new NumericInputRule(inputParameters.Orientation, ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonForms.Orientation_DisplayName)).Validate());
+                validationResult.AddRange(new NumericInputRule(inputParameters.DikeHeight, ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonForms.DikeHeight_DisplayName)).Validate());
             }
 
             validationResult.AddRange(new UseBreakWaterRule(inputParameters).Validate());
 
             return validationResult.ToArray();
-        }
-
-        private static bool IsInconcreteValue(double parameter)
-        {
-            return double.IsNaN(parameter) || double.IsInfinity(parameter);
         }
     }
 }

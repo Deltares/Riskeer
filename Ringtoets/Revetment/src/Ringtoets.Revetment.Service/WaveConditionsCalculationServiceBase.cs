@@ -374,12 +374,7 @@ namespace Ringtoets.Revetment.Service
                 }
 
                 messages.AddRange(new UseBreakWaterRule(input).Validate());
-
-                if (double.IsNaN(input.Orientation))
-                {
-                    messages.Add(string.Format(RingtoetsCommonServiceResources.Validation_ValidateInput_No_concrete_value_entered_for_ParameterName_0_,
-                                         ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Orientation_DisplayName)));
-                }
+                messages.AddRange(new NumericInputRule(input.Orientation, ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Orientation_DisplayName)).Validate());
             }
 
             return messages;

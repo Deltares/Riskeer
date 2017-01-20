@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Data;
 using Ringtoets.Common.Service;
+using Ringtoets.Common.Service.ValidationRules;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.KernelWrapper;
 using Ringtoets.Piping.KernelWrapper.SubCalculator;
@@ -153,7 +154,7 @@ namespace Ringtoets.Piping.Service
             {
                 validationResults.AddRange(ValidateAssessmentLevel(inputParameters));
 
-                if (IsInconcreteValue(inputParameters.PiezometricHeadExit))
+                if (double.IsNaN(inputParameters.PiezometricHeadExit) || double.IsInfinity(inputParameters.PiezometricHeadExit))
                 {
                     validationResults.Add(Resources.PipingCalculationService_ValidateInput_Cannot_determine_PiezometricHeadExit);
                 }
@@ -168,11 +169,7 @@ namespace Ringtoets.Piping.Service
 
             if (inputParameters.UseAssessmentLevelManualInput)
             {
-                if (IsInconcreteValue(inputParameters.AssessmentLevel))
-                {
-                    validationResult.Add(string.Format(RingtoetsCommonServiceResources.Validation_ValidateInput_No_concrete_value_entered_for_ParameterName_0_,
-                                                       ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.AssessmentLevel_DisplayName)));
-                }
+                validationResult.AddRange(new NumericInputRule(inputParameters.AssessmentLevel, ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.AssessmentLevel_DisplayName)).Validate());
             }
             else
             {
@@ -183,11 +180,6 @@ namespace Ringtoets.Piping.Service
             }
 
             return validationResult;
-        }
-
-        private static bool IsInconcreteValue(RoundedDouble parameter)
-        {
-            return double.IsNaN(parameter) || double.IsInfinity(parameter);
         }
 
         private static IEnumerable<string> ValidateCoreSurfaceLineAndSoilProfileProperties(PipingInput inputParameters)
