@@ -401,7 +401,7 @@ namespace Ringtoets.Revetment.Service.Test
                 var msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
                 StringAssert.StartsWith($"Validatie van '{name}' gestart om: ", msgs[0]);
-                Assert.AreEqual("Validatie mislukt: Er is geen concreet getal ingevoerd voor 'oriëntatie'.", msgs[1]);
+                Assert.AreEqual("Validatie mislukt: De waarde voor 'oriëntatie' moet een concreet getal zijn.", msgs[1]);
                 StringAssert.StartsWith($"Validatie van '{name}' beëindigd om: ", msgs[2]);
             });
 

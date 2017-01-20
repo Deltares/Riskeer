@@ -49,8 +49,7 @@ namespace Ringtoets.Common.Service.ValidationRules
         {
             if (IsNotConcreteNumber(numericInput))
             {
-                yield return string.Format(Resources.Validation_ValidateInput_No_concrete_value_entered_for_ParameterName_0_,
-                                           parameterName);
+                yield return string.Format(Resources.NumericInputRule_Value_of_0_must_be_a_valid_number, parameterName);
             }
         }
     }

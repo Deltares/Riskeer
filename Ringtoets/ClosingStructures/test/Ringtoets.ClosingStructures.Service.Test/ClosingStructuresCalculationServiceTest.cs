@@ -264,10 +264,10 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 Assert.AreEqual($"Validatie mislukt: De variatiecoëfficiënt voor '{stormDuration}' moet groter zijn dan of gelijk zijn aan 0.", msgs[2]);
                 Assert.AreEqual($"Validatie mislukt: De verwachtingswaarde voor '{modelFactorSuperCriticalFlow}' moet een concreet getal zijn.", msgs[3]);
                 Assert.AreEqual($"Validatie mislukt: De standaardafwijking voor '{modelFactorSuperCriticalFlow}' moet groter zijn dan of gelijk zijn aan 0.", msgs[4]);
-                Assert.AreEqual($"Validatie mislukt: Er is geen concreet getal ingevoerd voor '{factorStormDurationOpenStructure}'.", msgs[5]);
+                Assert.AreEqual($"Validatie mislukt: De waarde voor '{factorStormDurationOpenStructure}' moet een concreet getal zijn.", msgs[5]);
                 Assert.AreEqual($"Validatie mislukt: De verwachtingswaarde voor '{widthFlowApertures}' moet een concreet getal zijn.", msgs[6]);
                 Assert.AreEqual($"Validatie mislukt: De standaardafwijking voor '{widthFlowApertures}' moet groter zijn dan of gelijk zijn aan 0.", msgs[7]);
-                Assert.AreEqual($"Validatie mislukt: Er is geen concreet getal ingevoerd voor '{structureNormalOrientation}'.", msgs[8]);
+                Assert.AreEqual($"Validatie mislukt: De waarde voor '{structureNormalOrientation}' moet een concreet getal zijn.", msgs[8]);
                 Assert.AreEqual($"Validatie mislukt: De verwachtingswaarde voor '{flowWidthAtBottomProtection}' moet een positief getal zijn.", msgs[9]);
                 Assert.AreEqual($"Validatie mislukt: De standaardafwijking voor '{flowWidthAtBottomProtection}' moet groter zijn dan of gelijk zijn aan 0.", msgs[10]);
                 Assert.AreEqual($"Validatie mislukt: De verwachtingswaarde voor '{storageStructureArea}' moet een positief getal zijn.", msgs[11]);
@@ -328,7 +328,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 Assert.AreEqual($"Validatie mislukt: De standaardafwijking voor '{insideWaterLevel}' moet groter zijn dan of gelijk zijn aan 0.", msgs[4]);
                 Assert.AreEqual($"Validatie mislukt: De verwachtingswaarde voor '{modelFactorSuperCriticalFlow}' moet een concreet getal zijn.", msgs[5]);
                 Assert.AreEqual($"Validatie mislukt: De standaardafwijking voor '{modelFactorSuperCriticalFlow}' moet groter zijn dan of gelijk zijn aan 0.", msgs[6]);
-                Assert.AreEqual($"Validatie mislukt: Er is geen concreet getal ingevoerd voor '{factorStormDurationOpenStructure}'.", msgs[7]);
+                Assert.AreEqual($"Validatie mislukt: De waarde voor '{factorStormDurationOpenStructure}' moet een concreet getal zijn.", msgs[7]);
                 Assert.AreEqual($"Validatie mislukt: De verwachtingswaarde voor '{widthFlowApertures}' moet een concreet getal zijn.", msgs[8]);
                 Assert.AreEqual($"Validatie mislukt: De standaardafwijking voor '{widthFlowApertures}' moet groter zijn dan of gelijk zijn aan 0.", msgs[9]);
                 Assert.AreEqual($"Validatie mislukt: De verwachtingswaarde voor '{flowWidthAtBottomProtection}' moet een positief getal zijn.", msgs[10]);
@@ -391,7 +391,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 Assert.AreEqual($"Validatie mislukt: De standaardafwijking voor '{insideWaterLevel}' moet groter zijn dan of gelijk zijn aan 0.", msgs[4]);
                 Assert.AreEqual($"Validatie mislukt: De verwachtingswaarde voor '{drainCoefficient}' moet een concreet getal zijn.", msgs[5]);
                 Assert.AreEqual($"Validatie mislukt: De standaardafwijking voor '{drainCoefficient}' moet groter zijn dan of gelijk zijn aan 0.", msgs[6]);
-                Assert.AreEqual($"Validatie mislukt: Er is geen concreet getal ingevoerd voor '{factorStormDurationOpenStructure}'.", msgs[7]);
+                Assert.AreEqual($"Validatie mislukt: De waarde voor '{factorStormDurationOpenStructure}' moet een concreet getal zijn.", msgs[7]);
                 Assert.AreEqual($"Validatie mislukt: De verwachtingswaarde voor '{areaFlowApertures}' moet een positief getal zijn.", msgs[8]);
                 Assert.AreEqual($"Validatie mislukt: De standaardafwijking voor '{areaFlowApertures}' moet groter zijn dan of gelijk zijn aan 0.", msgs[9]);
                 Assert.AreEqual($"Validatie mislukt: De verwachtingswaarde voor '{flowWidthAtBottomProtection}' moet een positief getal zijn.", msgs[10]);

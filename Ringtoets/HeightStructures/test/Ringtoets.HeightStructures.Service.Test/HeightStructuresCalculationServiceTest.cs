@@ -229,7 +229,7 @@ namespace Ringtoets.HeightStructures.Service.Test
             assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = validFilePath;
 
             const string name = "<very nice name>";
-            string expectedValidationMessage = "Validatie mislukt: Er is geen concreet getal ingevoerd voor 'oriëntatie'.";
+            string expectedValidationMessage = "Validatie mislukt: De waarde voor 'oriëntatie' moet een concreet getal zijn.";
 
             var calculation = new TestHeightStructuresCalculation
             {

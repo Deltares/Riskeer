@@ -197,6 +197,15 @@ namespace Ringtoets.Common.Service.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to De waarde voor &apos;{0}&apos; moet een concreet getal zijn..
+        /// </summary>
+        public static string NumericInputRule_Value_of_0_must_be_a_valid_number {
+            get {
+                return ResourceManager.GetString("NumericInputRule_Value_of_0_must_be_a_valid_number", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to De verwachtingswaarde voor &apos;{0}&apos; moet een concreet getal zijn..
         /// </summary>
         public static string ProbabilisticDistributionValidationRule_Mean_of_0_must_be_a_valid_number {
@@ -287,15 +296,6 @@ namespace Ringtoets.Common.Service.Properties {
         public static string Validation_Subject_0_started_Time_1_ {
             get {
                 return ResourceManager.GetString("Validation_Subject_0_started_Time_1_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Er is geen concreet getal ingevoerd voor &apos;{0}&apos;..
-        /// </summary>
-        public static string Validation_ValidateInput_No_concrete_value_entered_for_ParameterName_0_ {
-            get {
-                return ResourceManager.GetString("Validation_ValidateInput_No_concrete_value_entered_for_ParameterName_0_", resourceCulture);
             }
         }
         

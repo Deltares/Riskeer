@@ -177,7 +177,7 @@ namespace Ringtoets.Piping.Service.Test
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(4, msgs.Length);
                 StringAssert.StartsWith($"Validatie van '{name}' gestart om: ", msgs.First());
-                Assert.AreEqual("Validatie mislukt: Er is geen concreet getal ingevoerd voor 'toetspeil'.", msgs[1]);
+                Assert.AreEqual("Validatie mislukt: De waarde voor 'toetspeil' moet een concreet getal zijn.", msgs[1]);
                 Assert.AreEqual("Validatie mislukt: Kan de stijghoogte bij het uittredepunt niet afleiden op basis van de invoer.", msgs[2]);
                 StringAssert.StartsWith($"Validatie van '{name}' beëindigd om: ", msgs.Last());
             });
