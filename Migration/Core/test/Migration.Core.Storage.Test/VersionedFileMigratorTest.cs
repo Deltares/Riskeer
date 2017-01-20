@@ -119,7 +119,7 @@ namespace Migration.Core.Storage.Test
             {
                 Assert.Fail($"File was not created at location '{targetFilePath}'");
             }
-
+ 
             var toVersionedFile = new VersionedFile(targetFilePath);
             Assert.AreEqual(newVersion, toVersionedFile.GetVersion());
             using (new FileDisposeHelper(targetFilePath)) {}
