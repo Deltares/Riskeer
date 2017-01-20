@@ -27,6 +27,7 @@ using Core.Components.DotSpatial.Forms;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Forms;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
@@ -82,7 +83,12 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             using (var view = new DuneErosionFailureMechanismView())
             {
                 var failureMechanism = new DuneErosionFailureMechanism();
-                var failureMechanismContext = new DuneErosionFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
+
+                var mockRepository = new MockRepository();
+                var assessmentSection = mockRepository.Stub<IAssessmentSection>();
+                mockRepository.ReplayAll();
+
+                var failureMechanismContext = new DuneErosionFailureMechanismContext(failureMechanism, assessmentSection);
 
                 // Call
                 view.Data = failureMechanismContext;
@@ -90,6 +96,8 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
                 // Assert
                 Assert.AreEqual(failureMechanism.Name, view.Map.Data.Name);
                 Assert.AreSame(failureMechanismContext, view.Data);
+
+                mockRepository.VerifyAll();
             }
         }
 
@@ -115,7 +123,11 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             // Setup
             using (var view = new DuneErosionFailureMechanismView())
             {
-                var failureMechanismContext = new DuneErosionFailureMechanismContext(new DuneErosionFailureMechanism(), new ObservableTestAssessmentSectionStub());
+                var mockRepository = new MockRepository();
+                var assessmentSection = mockRepository.Stub<IAssessmentSection>();
+                mockRepository.ReplayAll();
+
+                var failureMechanismContext = new DuneErosionFailureMechanismContext(new DuneErosionFailureMechanism(), assessmentSection);
 
                 view.Data = failureMechanismContext;
 
@@ -128,6 +140,8 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
                 // Assert
                 Assert.IsNull(view.Data);
                 Assert.IsNull(view.Map.Data);
+
+                mockRepository.VerifyAll();
             }
         }
 
@@ -137,7 +151,11 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             // Setup
             using (var view = new DuneErosionFailureMechanismView())
             {
-                var failureMechanismContext = new DuneErosionFailureMechanismContext(new DuneErosionFailureMechanism(), new ObservableTestAssessmentSectionStub());
+                var mockRepository = new MockRepository();
+                var assessmentSection = mockRepository.Stub<IAssessmentSection>();
+                mockRepository.ReplayAll();
+
+                var failureMechanismContext = new DuneErosionFailureMechanismContext(new DuneErosionFailureMechanism(), assessmentSection);
 
                 // Call
                 view.Data = failureMechanismContext;
@@ -145,6 +163,8 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
                 // Assert
                 Assert.AreSame(failureMechanismContext, view.Data);
                 AssertEmptyMapData(view.Map.Data);
+
+                mockRepository.VerifyAll();
             }
         }
 
@@ -171,10 +191,10 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
                     new Point2D(2.0, 1.0)
                 });
 
-                var assessmentSection = new ObservableTestAssessmentSectionStub
-                {
-                    ReferenceLine = referenceLine
-                };
+                var mockRepository = new MockRepository();
+                var assessmentSection = mockRepository.Stub<IAssessmentSection>();
+                assessmentSection.ReferenceLine = referenceLine;
+                mockRepository.ReplayAll();
 
                 var failureMechanism = new DuneErosionFailureMechanism
                 {
@@ -205,6 +225,8 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
                 MapDataTestHelper.AssertFailureMechanismSectionsStartPointMapData(failureMechanism.Sections, mapDataList[sectionsStartPointIndex]);
                 MapDataTestHelper.AssertFailureMechanismSectionsEndPointMapData(failureMechanism.Sections, mapDataList[sectionsEndPointIndex]);
                 AssertDuneLocationsMapData(failureMechanism.DuneLocations, mapDataList[duneLocationsIndex]);
+
+                mockRepository.VerifyAll();
             }
         }
 

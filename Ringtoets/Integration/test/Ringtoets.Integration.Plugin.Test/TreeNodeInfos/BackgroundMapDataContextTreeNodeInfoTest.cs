@@ -39,7 +39,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             // Setup
             using (var plugin = new RingtoetsPlugin())
             {
-                var info = GetInfo(plugin);
+                TreeNodeInfo info = GetInfo(plugin);
 
                 // Assert
                 Assert.IsNotNull(info.Text);
@@ -75,7 +75,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 TreeNodeInfo info = GetInfo(plugin);
 
                 // Call
-                var text = info.Text(context);
+                string text = info.Text(context);
 
                 // Assert
                 Assert.AreEqual("Achtergrondlaag", text);
@@ -94,7 +94,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 TreeNodeInfo info = GetInfo(plugin);
 
                 // Call
-                var image = info.Image(context);
+                Image image = info.Image(context);
 
                 // Assert
                 TestHelper.AssertImagesAreEqual(Resources.Map, image);
@@ -112,7 +112,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 TreeNodeInfo info = GetInfo(plugin);
 
                 // Call
-                var image = info.ForeColor(context);
+                Color image = info.ForeColor(context);
 
                 // Assert
                 Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), image);
@@ -130,7 +130,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 TreeNodeInfo info = GetInfo(plugin);
 
                 // Call
-                var image = info.ForeColor(context);
+                Color image = info.ForeColor(context);
 
                 // Assert
                 Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), image);

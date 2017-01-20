@@ -104,7 +104,7 @@ namespace Demo.Ringtoets.Commands
             return demoAssessmentSection;
         }
 
-        private void InitializeBackgroundMapData(AssessmentSection demoAssessmentSection)
+        private static void InitializeBackgroundMapData(AssessmentSection demoAssessmentSection)
         {
             WmtsMapData targetConfiguration = WmtsMapData.CreateDefaultPdokMapData();
             demoAssessmentSection.BackgroundMapData.Name = targetConfiguration.Name;

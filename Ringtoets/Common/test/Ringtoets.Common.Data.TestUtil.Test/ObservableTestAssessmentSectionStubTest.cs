@@ -70,5 +70,20 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             // Assert
             CollectionAssert.IsEmpty(failureMechanism);
         }
+
+        [Test]
+        public void ChangeComposition_Call_ThrowsNotImplementedException()
+        {
+            // Setup
+            var assessmentSection = new ObservableTestAssessmentSectionStub();
+
+            // Call
+            TestDelegate call = () => assessmentSection.ChangeComposition(AssessmentSectionComposition.Dike);
+
+            // Assert
+            string message = Assert.Throws<NotImplementedException>(call).Message;
+            var expectedMessage = "Stub only verifies Observable and basic behaviour, use a proper stub when this function is necessary.";
+            Assert.AreEqual(expectedMessage, message);
+        }
     }
 }

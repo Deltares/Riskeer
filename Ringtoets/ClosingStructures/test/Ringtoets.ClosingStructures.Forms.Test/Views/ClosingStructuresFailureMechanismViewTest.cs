@@ -28,6 +28,7 @@ using Core.Components.Gis.Data;
 using Core.Components.Gis.Forms;
 using Core.Components.Gis.Geometries;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.ClosingStructures.Data.TestUtil;
 using Ringtoets.ClosingStructures.Forms.PresentationObjects;
@@ -88,14 +89,20 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             // Setup
             using (var view = new ClosingStructuresFailureMechanismView())
             {
+                var mockRepository = new MockRepository();
+                IAssessmentSection assessmentSection = mockRepository.Stub<IAssessmentSection>();
+                mockRepository.ReplayAll();
+
                 var failureMechanismContext = new ClosingStructuresFailureMechanismContext(
-                    new ClosingStructuresFailureMechanism(), new ObservableTestAssessmentSectionStub());
+                    new ClosingStructuresFailureMechanism(), assessmentSection);
 
                 // Call
                 view.Data = failureMechanismContext;
 
                 // Assert
                 Assert.AreSame(failureMechanismContext, view.Data);
+
+                mockRepository.VerifyAll();
             }
         }
 
@@ -121,9 +128,13 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             // Setup
             using (var view = new ClosingStructuresFailureMechanismView())
             {
+                var mockRepository = new MockRepository();
+                IAssessmentSection assessmentSection = mockRepository.Stub<IAssessmentSection>();
+                mockRepository.ReplayAll();
+                
                 var failureMechanismContext = new ClosingStructuresFailureMechanismContext(
                     new ClosingStructuresFailureMechanism(),
-                    new ObservableTestAssessmentSectionStub());
+                    assessmentSection);
 
                 view.Data = failureMechanismContext;
 
@@ -136,6 +147,8 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                 // Assert
                 Assert.IsNull(view.Data);
                 Assert.IsNull(view.Map.Data);
+
+                mockRepository.VerifyAll();
             }
         }
 
@@ -145,9 +158,13 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             // Setup
             using (var view = new ClosingStructuresFailureMechanismView())
             {
+                var mockRepository = new MockRepository();
+                IAssessmentSection assessmentSection = mockRepository.Stub<IAssessmentSection>();
+                mockRepository.ReplayAll();
+
                 var failureMechanismContext = new ClosingStructuresFailureMechanismContext(
                     new ClosingStructuresFailureMechanism(),
-                    new ObservableTestAssessmentSectionStub());
+                    assessmentSection);
 
                 // Call
                 view.Data = failureMechanismContext;
@@ -155,6 +172,8 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                 // Assert
                 Assert.AreSame(failureMechanismContext, view.Data);
                 AssertEmptyMapData(view.Map.Data);
+
+                mockRepository.VerifyAll();
             }
         }
 
@@ -189,11 +208,12 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                                               new Point2D(2.0, 1.0)
                                           });
 
-                var assessmentSection = new ObservableTestAssessmentSectionStub
-                {
-                    HydraulicBoundaryDatabase = hydraulicBoundaryDatabase,
-                    ReferenceLine = referenceLine
-                };
+
+                var mockRepository = new MockRepository();
+                IAssessmentSection assessmentSection = mockRepository.Stub<IAssessmentSection>();
+                assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
+                assessmentSection.ReferenceLine = referenceLine;
+                mockRepository.ReplayAll();
 
                 var calculationLocationA = new Point2D(1.2, 2.3);
                 var calculationLocationB = new Point2D(2.7, 2.0);
@@ -260,6 +280,8 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                 AssertCalculationsMapData(
                     failureMechanism.Calculations.Cast<StructuresCalculation<ClosingStructuresInput>>(),
                     mapDataList[calculationsIndex]);
+
+                mockRepository.VerifyAll();
             }
         }
 

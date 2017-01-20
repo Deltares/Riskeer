@@ -104,6 +104,7 @@ namespace Demo.Ringtoets.Test.Commands
 
             WmtsMapData expectedWmtsMapData = WmtsMapData.CreateDefaultPdokMapData();
             Assert.IsTrue(demoAssessmentSection.BackgroundMapData.IsConfigured);
+            Assert.IsTrue(demoAssessmentSection.BackgroundMapData.IsVisible);
             Assert.AreEqual(0.0, demoAssessmentSection.BackgroundMapData.Transparency.Value);
             Assert.AreEqual(expectedWmtsMapData.Name, demoAssessmentSection.BackgroundMapData.Name);
             Assert.AreEqual(expectedWmtsMapData.SourceCapabilitiesUrl, demoAssessmentSection.BackgroundMapData.SourceCapabilitiesUrl);

@@ -38,15 +38,15 @@ namespace Core.Components.Gis.Data
         /// <param name="displayName">The name of the source (for visualization purposes only).</param>
         /// <param name="sourceCapabilitiesUrl">The URL to the capabilities of the WMTS.</param>
         /// <param name="selectedCapabilityName">The name of the capability to use.</param>
-        /// <param name="preferredFormat">The type of image format. It should for formatted
+        /// <param name="preferredFormat">The type of image format. It should be for formatted
         /// in MIME.</param>
         /// <exception cref="ArgumentException">Thrown when 
         /// <list type="bullet">
         /// <item><paramref name="displayName"/> is <c>null</c> or only whitespace.</item>
         /// <item><paramref name="preferredFormat"/> is not stated as a MIME-type.</item>
         /// </list></exception>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="sourceCapabilitiesUrl"/> 
-        /// or <paramref name="selectedCapabilityName"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="sourceCapabilitiesUrl"/>, 
+        /// <paramref name="selectedCapabilityName"/> or <paramref name="preferredFormat"/> is <c>null</c>.</exception>
         public WmtsMapData(string displayName, string sourceCapabilitiesUrl, string selectedCapabilityName,
                            string preferredFormat) : this(displayName)
         {
@@ -132,7 +132,7 @@ namespace Core.Components.Gis.Data
         /// </summary>
         /// <param name="sourceCapabilitiesUrl">The URL to the capabilities of the WMTS.</param>
         /// <param name="selectedCapabilityName">The name of the capability to use.</param>
-        /// <param name="preferredFormat">The type of image format. It should for formatted
+        /// <param name="preferredFormat">The type of image format. It should be for formatted
         /// in MIME.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="preferredFormat"/>

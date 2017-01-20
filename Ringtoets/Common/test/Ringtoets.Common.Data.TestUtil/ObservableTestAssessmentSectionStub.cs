@@ -58,7 +58,7 @@ namespace Ringtoets.Common.Data.TestUtil
 
         public void ChangeComposition(AssessmentSectionComposition newComposition)
         {
-            throw new NotImplementedException();
+            throw new NotImplementedException("Stub only verifies Observable and basic behaviour, use a proper stub when this function is necessary.");
         }
     }
 }

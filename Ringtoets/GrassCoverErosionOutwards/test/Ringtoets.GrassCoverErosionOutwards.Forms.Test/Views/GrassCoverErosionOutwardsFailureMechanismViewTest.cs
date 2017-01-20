@@ -27,6 +27,7 @@ using Core.Components.DotSpatial.Forms;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Forms;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
@@ -83,13 +84,19 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             // Setup
             using (var view = new GrassCoverErosionOutwardsFailureMechanismView())
             {
-                var failureMechanismContext = new GrassCoverErosionOutwardsFailureMechanismContext(new GrassCoverErosionOutwardsFailureMechanism(), new ObservableTestAssessmentSectionStub());
+                var mockRepository = new MockRepository();
+                var assessmentSection = mockRepository.Stub<IAssessmentSection>();
+                mockRepository.ReplayAll();
+
+                var failureMechanismContext = new GrassCoverErosionOutwardsFailureMechanismContext(new GrassCoverErosionOutwardsFailureMechanism(), assessmentSection);
 
                 // Call
                 view.Data = failureMechanismContext;
 
                 // Assert
                 Assert.AreSame(failureMechanismContext, view.Data);
+
+                mockRepository.VerifyAll();
             }
         }
 
@@ -115,8 +122,12 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             // Setup
             using (var view = new GrassCoverErosionOutwardsFailureMechanismView())
             {
+                var mockRepository = new MockRepository();
+                var assessmentSection = mockRepository.Stub<IAssessmentSection>();
+                mockRepository.ReplayAll();
+
                 var failureMechanismContext = new GrassCoverErosionOutwardsFailureMechanismContext(
-                    new GrassCoverErosionOutwardsFailureMechanism(), new ObservableTestAssessmentSectionStub());
+                    new GrassCoverErosionOutwardsFailureMechanism(), assessmentSection);
 
                 view.Data = failureMechanismContext;
 
@@ -129,6 +140,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
                 // Assert
                 Assert.IsNull(view.Data);
                 Assert.IsNull(view.Map.Data);
+
+                mockRepository.VerifyAll();
             }
         }
 
@@ -138,8 +151,12 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             // Setup
             using (var view = new GrassCoverErosionOutwardsFailureMechanismView())
             {
+                var mockRepository = new MockRepository();
+                var assessmentSection = mockRepository.Stub<IAssessmentSection>();
+                mockRepository.ReplayAll();
+
                 var failureMechanismContext = new GrassCoverErosionOutwardsFailureMechanismContext(
-                    new GrassCoverErosionOutwardsFailureMechanism(), new ObservableTestAssessmentSectionStub());
+                    new GrassCoverErosionOutwardsFailureMechanism(), assessmentSection);
 
                 // Call
                 view.Data = failureMechanismContext;
@@ -147,6 +164,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
                 // Assert
                 Assert.AreSame(failureMechanismContext, view.Data);
                 AssertEmptyMapData(view.Map.Data);
+
+                mockRepository.VerifyAll();
             }
         }
 
@@ -173,11 +192,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
                                               new Point2D(2.0, 1.0)
                                           });
 
-                var assessmentSection = new ObservableTestAssessmentSectionStub
-                {
-                    ReferenceLine = referenceLine
-                };
-
+                var mockRepository = new MockRepository();
+                var assessmentSection = mockRepository.Stub<IAssessmentSection>();
+                assessmentSection.ReferenceLine = referenceLine;
+                mockRepository.ReplayAll();
+               
                 var foreshoreProfileA = new TestForeshoreProfile(new Point2D(1.3, 1.3));
                 var foreshoreProfileB = new TestForeshoreProfile(new Point2D(1.5, 1.5));
 
@@ -238,6 +257,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
                 MapDataTestHelper.AssertForeshoreProfilesMapData(failureMechanism.ForeshoreProfiles, mapDataList[foreshoreProfilesIndex]);
                 AssertCalculationsMapData(failureMechanism.Calculations.Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>(),
                                           mapDataList[calculationsIndex]);
+
+                mockRepository.VerifyAll();
             }
         }
 

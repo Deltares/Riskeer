@@ -143,6 +143,7 @@ namespace Ringtoets.Integration.Data.Test
 
             Assert.AreEqual(sum, section.FailureMechanismContribution.Distribution.Sum(d => d.Contribution));
 
+            Assert.IsFalse(section.BackgroundMapData.IsVisible);
             Assert.IsFalse(section.BackgroundMapData.IsConfigured);
             Assert.AreEqual(0.0, section.BackgroundMapData.Transparency.Value);
         }
