@@ -34,6 +34,7 @@ using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.IO.HydraRing;
 using Ringtoets.Common.Service;
+using Ringtoets.Common.Service.ValidationRules;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Service.Properties;
 using Ringtoets.HydraRing.Calculation.Calculator;
@@ -520,13 +521,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                 }
             }
 
-            if (inputParameters.UseBreakWater)
-            {
-                if (double.IsNaN(inputParameters.BreakWater.Height) || double.IsInfinity(inputParameters.BreakWater.Height))
-                {
-                    validationResult.Add(RingtoetsCommonServiceResources.Validation_Invalid_BreakWaterHeight_value);
-                }
-            }
+            validationResult.AddRange(new UseBreakWaterRule(inputParameters).Validate());
 
             return validationResult.ToArray();
         }

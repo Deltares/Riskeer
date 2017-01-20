@@ -21,20 +21,18 @@
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Security;
 using Core.Common.Base.Data;
 using Core.Common.Base.IO;
 using Core.Common.IO.Exceptions;
 using log4net;
 using Ringtoets.Common.IO.HydraRing;
 using Ringtoets.Common.Service;
+using Ringtoets.Common.Service.ValidationRules;
 using Ringtoets.HydraRing.Calculation.Calculator;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
-using Ringtoets.HydraRing.Calculation.Data.Input;
 using Ringtoets.HydraRing.Calculation.Data.Input.WaveConditions;
 using Ringtoets.HydraRing.Calculation.Exceptions;
 using Ringtoets.Revetment.Data;
@@ -199,11 +197,7 @@ namespace Ringtoets.Revetment.Service
             }
             else
             {
-                string message = ValidateWaveConditionsInput(input, designWaterLevelName);
-                if (!string.IsNullOrEmpty(message))
-                {
-                    validationResults.Add(message);
-                }
+                validationResults.AddRange(ValidateWaveConditionsInput(input, designWaterLevelName));
             }
 
             return validationResults.ToArray();
@@ -360,38 +354,35 @@ namespace Ringtoets.Revetment.Service
             return waveConditionsCosineCalculationInput;
         }
 
-        private static string ValidateWaveConditionsInput(WaveConditionsInput input, string designWaterLevelName)
+        private static IEnumerable<string> ValidateWaveConditionsInput(WaveConditionsInput input, string designWaterLevelName)
         {
+            var messages = new List<string>();
+
             if (input.HydraulicBoundaryLocation == null)
             {
-                return Resources.WaveConditionsCalculationService_ValidateInput_No_HydraulicBoundaryLocation_selected;
+                messages.Add(Resources.WaveConditionsCalculationService_ValidateInput_No_HydraulicBoundaryLocation_selected);
             }
-
-            if (double.IsNaN(input.HydraulicBoundaryLocation.DesignWaterLevel))
+            else if (double.IsNaN(input.HydraulicBoundaryLocation.DesignWaterLevel))
             {
-                return string.Format(Resources.WaveConditionsCalculationService_ValidateInput_No_0_DesignWaterLevel_calculated, designWaterLevelName);
+                messages.Add(string.Format(Resources.WaveConditionsCalculationService_ValidateInput_No_0_DesignWaterLevel_calculated, designWaterLevelName));
             }
-
-            if (!input.WaterLevels.Any())
+            else
             {
-                return Resources.WaveConditionsCalculationService_ValidateInput_No_derived_WaterLevels;
-            }
-
-            if (input.UseBreakWater)
-            {
-                if (double.IsInfinity(input.BreakWater.Height) || double.IsNaN(input.BreakWater.Height))
+                if (!input.WaterLevels.Any())
                 {
-                    return RingtoetsCommonServiceResources.Validation_Invalid_BreakWaterHeight_value;
+                    messages.Add(Resources.WaveConditionsCalculationService_ValidateInput_No_derived_WaterLevels);
+                }
+
+                messages.AddRange(new UseBreakWaterRule(input).Validate());
+
+                if (double.IsNaN(input.Orientation))
+                {
+                    messages.Add(string.Format(RingtoetsCommonServiceResources.Validation_ValidateInput_No_concrete_value_entered_for_ParameterName_0_,
+                                         ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Orientation_DisplayName)));
                 }
             }
 
-            if (double.IsNaN(input.Orientation))
-            {
-                return string.Format(RingtoetsCommonServiceResources.Validation_ValidateInput_No_concrete_value_entered_for_ParameterName_0_,
-                                     ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Orientation_DisplayName));
-            }
-
-            return null;
+            return messages;
         }
     }
 }

@@ -230,9 +230,10 @@ namespace Ringtoets.Revetment.Service.Test
 
             var dbFilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
 
-            var input = new WaveConditionsInput()
+            var input = new WaveConditionsInput
             {
                 HydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(designWaterLevel),
+                Orientation = (RoundedDouble) 0,
                 LowerBoundaryRevetment = (RoundedDouble) lowerBoundaryRevetments,
                 UpperBoundaryRevetment = (RoundedDouble) upperBoundaryRevetments,
                 StepSize = WaveConditionsInputStepSize.One,
