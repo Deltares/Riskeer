@@ -49,8 +49,6 @@ using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Forms.Views;
-using Ringtoets.DuneErosion.Data;
-using Ringtoets.DuneErosion.Forms.Views;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
@@ -201,7 +199,7 @@ namespace Ringtoets.Integration.Plugin.Test
                 PropertyInfo[] propertyInfos = plugin.GetPropertyInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(13, propertyInfos.Length);
+                Assert.AreEqual(14, propertyInfos.Length);
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
@@ -212,6 +210,11 @@ namespace Ringtoets.Integration.Plugin.Test
                     propertyInfos,
                     typeof(IAssessmentSection),
                     typeof(AssessmentSectionProperties));
+
+                PluginTestHelper.AssertPropertyInfoDefined(
+                    propertyInfos,
+                    typeof(BackgroundMapDataContext),
+                    typeof(BackgroundMapDataContextProperties));
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
