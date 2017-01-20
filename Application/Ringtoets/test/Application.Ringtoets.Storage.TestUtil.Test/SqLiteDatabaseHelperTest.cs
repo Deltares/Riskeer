@@ -290,7 +290,7 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
         public void AddVersionEntity_InvalidPath_ThrowsArgumentNullException(string invalidFilePath)
         {
             // Call
-            TestDelegate call = () => SqLiteDatabaseHelper.AddVersionEntity(invalidFilePath, 1);
+            TestDelegate call = () => SqLiteDatabaseHelper.AddVersionEntity(invalidFilePath, "4");
 
             // Assert
             Assert.Throws<ArgumentNullException>(call);

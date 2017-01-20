@@ -41,7 +41,7 @@ namespace Application.Ringtoets.Storage.TestUtil
         public static void CreateCorruptDatabaseFile(string databaseFilePath)
         {
             CreateDatabaseFile(databaseFilePath, GetCorruptSchema());
-            AddVersionEntity(databaseFilePath, 1);
+            AddVersionEntity(databaseFilePath, "4");
         }
 
         /// <summary>
@@ -53,7 +53,7 @@ namespace Application.Ringtoets.Storage.TestUtil
         public static void CreateCompleteDatabaseFileWithoutProjectData(string databaseFilePath)
         {
             CreateCompleteDatabaseFileEmpty(databaseFilePath);
-            AddVersionEntity(databaseFilePath, 1);
+            AddVersionEntity(databaseFilePath, "4");
         }
 
         /// <summary>
@@ -72,7 +72,7 @@ namespace Application.Ringtoets.Storage.TestUtil
         /// <param name="databaseVersion">The database version.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="databaseFilePath"/> 
         /// is <c>null</c> or whitespace.</exception>
-        public static void AddVersionEntity(string databaseFilePath, int databaseVersion)
+        public static void AddVersionEntity(string databaseFilePath, string databaseVersion)
         {
             string addVersionRowCommand = GetAddVersionRowCommandText(databaseVersion);
             PerformCommandOnDatabase(databaseFilePath, addVersionRowCommand);
@@ -132,7 +132,7 @@ namespace Application.Ringtoets.Storage.TestUtil
         {
             return "DROP TABLE IF EXISTS 'VersionEntity'; " +
                    "CREATE TABLE 'VersionEntity' ('VersionId' INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT," +
-                   "'Version' INTEGER NOT NULL,'Timestamp' DATETIME NOT NULL, 'FingerPrint' BLOB NOT NULL);";
+                   "'Version' VARCHAR(20) NOT NULL,'Timestamp' DATETIME NOT NULL, 'FingerPrint' BLOB NOT NULL);";
         }
 
         private static string GetCompleteSchema()
@@ -168,11 +168,10 @@ namespace Application.Ringtoets.Storage.TestUtil
             }
         }
 
-        private static string GetAddVersionRowCommandText(int databaseVersion)
+        private static string GetAddVersionRowCommandText(string databaseVersion)
         {
-            return string.Format("INSERT INTO VersionEntity (Version, Timestamp, FingerPrint) " +
-                                 "VALUES ({0}, '2016-08-10 10:55:48', 'QWERTY')",
-                                 databaseVersion);
+            return "INSERT INTO VersionEntity (Version, Timestamp, FingerPrint) "
+                   + $"VALUES ({databaseVersion}, '2016-08-10 10:55:48', 'QWERTY')";
         }
     }
 }

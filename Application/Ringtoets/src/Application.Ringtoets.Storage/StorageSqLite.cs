@@ -45,7 +45,6 @@ namespace Application.Ringtoets.Storage
     /// </summary>
     public class StorageSqLite : IStoreProject
     {
-        private const int currentDatabaseVersion = 5;
         private static readonly ILog log = LogManager.GetLogger(typeof(StorageSqLite));
 
         private StagedProject stagedProject;
@@ -184,7 +183,7 @@ namespace Application.Ringtoets.Storage
                 {
                     dbContext.VersionEntities.Add(new VersionEntity
                     {
-                        Version = currentDatabaseVersion,
+                        Version = VersionHelper.GetCurrentDatabaseVersion(),
                         Timestamp = DateTime.Now,
                         FingerPrint = FingerprintHelper.Get(stagedProject.Entity)
                     });
@@ -215,8 +214,8 @@ namespace Application.Ringtoets.Storage
         {
             try
             {
-                long databaseVersion = ringtoetsEntities.VersionEntities.Select(v => v.Version).Single();
-                if (databaseVersion <= 0)
+                string databaseVersion = ringtoetsEntities.VersionEntities.Select(v => v.Version).Single();
+                if (!VersionHelper.IsValidVersion(databaseVersion))
                 {
                     string m = string.Format(Resources.StorageSqLite_ValidateDatabaseVersion_DatabaseVersion_0_is_invalid,
                                              databaseVersion);
@@ -224,10 +223,10 @@ namespace Application.Ringtoets.Storage
                     throw new StorageValidationException(message);
                 }
 
-                if (databaseVersion > currentDatabaseVersion)
+                if (VersionHelper.IsNewerThanCurrent(databaseVersion))
                 {
                     string m = string.Format(Resources.StorageSqLite_ValidateDatabaseVersion_DatabaseVersion_0_higher_then_current_DatabaseVersion_1_,
-                                             databaseVersion, currentDatabaseVersion);
+                                             databaseVersion, VersionHelper.GetCurrentDatabaseVersion());
                     var message = new FileReaderErrorMessageBuilder(databaseFilePath).Build(m);
                     throw new StorageValidationException(message);
                 }
