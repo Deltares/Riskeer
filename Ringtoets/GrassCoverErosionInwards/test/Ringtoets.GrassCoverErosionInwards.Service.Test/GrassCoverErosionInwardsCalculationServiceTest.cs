@@ -46,7 +46,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
         private static readonly string validFile = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
 
         [Test]
-        public void Validate_NoHydraulicBoundaryLocation_LogsErrorAndReturnsFalse()
+        public void Validate_NoHydraulicBoundaryLocation_LogsMessageAndReturnFalse()
         {
             // Setup
             var grassCoverErosionInwardsFailureMechanism = new GrassCoverErosionInwardsFailureMechanism();
@@ -87,7 +87,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
         }
 
         [Test]
-        public void Validate_InvalidHydraulicBoundaryDatabase_ReturnsFalse()
+        public void Validate_InvalidHydraulicBoundaryDatabase_LogsMessageAndReturnFalse()
         {
             // Setup
             var grassCoverErosionInwardsFailureMechanism = new GrassCoverErosionInwardsFailureMechanism();
@@ -131,7 +131,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
         }
 
         [Test]
-        public void Validate_ValidHydraulicBoundaryDatabaseWithoutSettings_LogsValidationMessageAndReturnFalse()
+        public void Validate_ValidHydraulicBoundaryDatabaseWithoutSettings_LogsMessageAndReturnFalse()
         {
             // Setup
             var grassCoverErosionInwardsFailureMechanism = new GrassCoverErosionInwardsFailureMechanism();
@@ -175,7 +175,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
         }
 
         [Test]
-        public void Validate_NoDikeProfile_ReturnsTrue()
+        public void Validate_NoDikeProfile_LogsMessageAndReturnFalse()
         {
             // Setup
             var grassCoverErosionInwardsFailureMechanism = new GrassCoverErosionInwardsFailureMechanism();
@@ -220,7 +220,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
         [TestCase(double.NaN)]
         [TestCase(double.NegativeInfinity)]
         [TestCase(double.PositiveInfinity)]
-        public void Validate_ValidInputAndValidateBreakWaterHeight_ReturnsFalse(double breakWaterHeight)
+        public void Validate_ValidInputAndInvalidBreakWaterHeight_LogsMessageAndReturnFalse(double breakWaterHeight)
         {
             // Setup
             var grassCoverErosionInwardsFailureMechanism = new GrassCoverErosionInwardsFailureMechanism();
@@ -255,7 +255,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
         }
 
         [Test]
-        public void Validate_ValidInputAndInvalidOrientation_ReturnsFalse()
+        public void Validate_ValidInputAndInvalidOrientation_LogsMessageAndReturnFalse()
         {
             // Setup
             var grassCoverErosionInwardsFailureMechanism = new GrassCoverErosionInwardsFailureMechanism();
@@ -301,12 +301,61 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
         }
 
         [Test]
+        [TestCase(double.NaN)]
+        [TestCase(double.PositiveInfinity)]
+        [TestCase(double.NegativeInfinity)]
+        public void Validate_ValidInputAndInvalidDikeHeight_LogsMessageAndReturnFalse(double dikeHeight)
+        {
+            // Setup
+            var grassCoverErosionInwardsFailureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+
+            var mockRepository = new MockRepository();
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(grassCoverErosionInwardsFailureMechanism,
+                                                                                                           mockRepository,
+                                                                                                           validFile);
+            mockRepository.ReplayAll();
+
+            const string name = "<very nice name>";
+
+            GrassCoverErosionInwardsCalculation calculation = new GrassCoverErosionInwardsCalculation
+            {
+                Name = name,
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2),
+                    DikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0],
+                                                  null, new DikeProfile.ConstructionProperties
+                                                  {
+                                                      DikeHeight = dikeHeight
+                                                  })
+                }
+            };
+
+            // Call
+            bool isValid = false;
+            Action call = () => isValid = GrassCoverErosionInwardsCalculationService.Validate(calculation, assessmentSectionStub);
+
+            // Assert
+            TestHelper.AssertLogMessages(call, messages =>
+            {
+                var msgs = messages.ToArray();
+                Assert.AreEqual(3, msgs.Length);
+                StringAssert.StartsWith($"Validatie van '{name}' gestart om: ", msgs[0]);
+                Assert.AreEqual("Validatie mislukt: Er is geen concreet getal ingevoerd voor 'dijkhoogte'.", msgs[1]);
+                StringAssert.StartsWith($"Validatie van '{name}' beëindigd om: ", msgs[2]);
+            });
+            Assert.IsFalse(isValid);
+
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
         [TestCase(true, 10.0)]
         [TestCase(false, 10.0)]
         [TestCase(false, double.NaN)]
         [TestCase(false, double.PositiveInfinity)]
         [TestCase(false, double.NegativeInfinity)]
-        public void Validate_ValidInputAndValidateBreakWaterHeight_ReturnsTrue(bool useBreakWater, double breakWaterHeight)
+        public void Validate_ValidInputAndValidBreakWaterHeight_ReturnsTrue(bool useBreakWater, double breakWaterHeight)
         {
             // Setup
             var grassCoverErosionInwardsFailureMechanism = new GrassCoverErosionInwardsFailureMechanism();
