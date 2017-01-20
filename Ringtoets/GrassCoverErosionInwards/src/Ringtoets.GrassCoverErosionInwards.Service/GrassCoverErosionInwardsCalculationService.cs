@@ -21,12 +21,9 @@
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.IO;
 using System.Linq;
-using System.Security;
 using Core.Common.Base.IO;
-using Core.Common.IO.Exceptions;
 using Core.Common.Utils;
 using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -38,7 +35,6 @@ using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Service.Properties;
 using Ringtoets.HydraRing.Calculation.Calculator;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
-using Ringtoets.HydraRing.Calculation.Data.Input;
 using Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics;
 using Ringtoets.HydraRing.Calculation.Data.Input.Overtopping;
 using Ringtoets.HydraRing.Calculation.Exceptions;
@@ -515,6 +511,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                                                    ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonForms.Orientation_DisplayName));
                     validationResult.Add(message);
                 }
+                if (IsInconcreteValue(inputParameters.DikeHeight))
+                {
+                    string message = string.Format(RingtoetsCommonServiceResources.Validation_ValidateInput_No_concrete_value_entered_for_ParameterName_0_,
+                                                   ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonForms.DikeHeight_DisplayName));
+                    validationResult.Add(message);
+                }
             }
 
             if (inputParameters.UseBreakWater)
@@ -526,6 +528,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
             }
 
             return validationResult.ToArray();
+        }
+
+        private static bool IsInconcreteValue(double parameter)
+        {
+            return double.IsNaN(parameter) || double.IsInfinity(parameter);
         }
     }
 }

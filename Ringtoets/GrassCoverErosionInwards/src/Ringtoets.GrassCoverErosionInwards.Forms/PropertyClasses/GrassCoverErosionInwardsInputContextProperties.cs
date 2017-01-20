@@ -164,7 +164,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         [DynamicReadOnly]
         [PropertyOrder(dikeHeightPropertyIndex)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.DikeHeight_DisplayName))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.DikeHeight_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.DikeHeight_Description))]
         public RoundedDouble DikeHeight
         {

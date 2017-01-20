@@ -172,15 +172,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dijkhoogte [m+NAP].
-        /// </summary>
-        public static string DikeHeight_DisplayName {
-            get {
-                return ResourceManager.GetString("DikeHeight_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Is convergentie bereikt in de HBN berekening?.
         /// </summary>
         public static string DikeHeightAssessmentOutput_Convergence_Description {

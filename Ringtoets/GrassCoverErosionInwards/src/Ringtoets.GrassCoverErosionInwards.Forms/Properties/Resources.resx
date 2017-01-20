@@ -135,9 +135,6 @@
   <data name="DikeHeight_Description" xml:space="preserve">
     <value>De hoogte van de dijk.</value>
   </data>
-  <data name="DikeHeight_DisplayName" xml:space="preserve">
-    <value>Dijkhoogte [m+NAP]</value>
-  </data>
   <data name="DikeProfile_Name_Description" xml:space="preserve">
     <value>Naam van het dijkprofiel.</value>
   </data>

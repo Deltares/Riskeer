@@ -523,6 +523,9 @@
   <data name="Orientation_ForeshoreProfile_Description" xml:space="preserve">
     <value>Oriëntatie van de dijknormaal ten opzichte van het noorden.</value>
   </data>
+  <data name="DikeHeight_DisplayName" xml:space="preserve">
+    <value>Dijkhoogte [m+NAP]</value>
+  </data>
   <data name="Profile_Name_DisplayName" xml:space="preserve">
     <value>Naam</value>
   </data>
