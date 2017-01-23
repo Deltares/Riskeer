@@ -19,9 +19,12 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Piping.KernelWrapper.TestUtil;
+using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.Data.Test
 {
@@ -89,6 +92,75 @@ namespace Ringtoets.Piping.Data.Test
             Assert.AreEqual(1, stochasticSoilModelSegment.StochasticSoilProfiles.Count);
             Assert.AreEqual(stochasticSoilProfileProbabilityMock, stochasticSoilModelSegment.StochasticSoilProfiles[0]);
             mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void Update_WithNullModel_ThrowsArgumentNullException()
+        {
+            // Setup
+            var model = new StochasticSoilModel(1234, "name", "segment");
+
+            // Call
+            TestDelegate test = () => model.Update(null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("fromModel", paramName);
+        }
+
+        [Test]
+        public void Update_WithOtherModel_PropertiesUpdated()
+        {
+            // Setup
+            var equalProfileName = "nameA";
+            var model = new StochasticSoilModel(1234, "name", "segment");
+            model.Geometry.Add(new Point2D(6, 2));
+            model.Geometry.Add(new Point2D(4, 3));
+
+            var stochasticProfileA = new StochasticSoilProfile(0.5, SoilProfileType.SoilProfile1D, -11)
+            {
+                SoilProfile = new TestPipingSoilProfile(equalProfileName)
+            };
+            var stochasticProfileB = new StochasticSoilProfile(0.5, SoilProfileType.SoilProfile1D, -52)
+            {
+                SoilProfile = new TestPipingSoilProfile("nameB")
+            };
+            model.StochasticSoilProfiles.Add(stochasticProfileA);
+            model.StochasticSoilProfiles.Add(stochasticProfileB);
+
+            var otherName = "other name";
+            var otherSegmentName = "other segment";
+            var otherModel = new StochasticSoilModel(41, otherName, otherSegmentName);
+
+            var otherPointA = new Point2D(2,0);
+            var otherPointB = new Point2D(3,0);
+            otherModel.Geometry.Add(otherPointA);
+            otherModel.Geometry.Add(otherPointB);
+
+            var otherStochasticProfileA = new StochasticSoilProfile(0.7, SoilProfileType.SoilProfile1D, -1)
+            {
+                SoilProfile = new TestPipingSoilProfile(equalProfileName)
+            };
+            var otherStochasticProfileB = new StochasticSoilProfile(0.3, SoilProfileType.SoilProfile1D, -2)
+            {
+                SoilProfile = new TestPipingSoilProfile("other profile name")
+            };
+            otherModel.StochasticSoilProfiles.Add(otherStochasticProfileA);
+            otherModel.StochasticSoilProfiles.Add(otherStochasticProfileB);
+
+            // Call
+            model.Update(otherModel);
+
+            // Assert
+            Assert.AreEqual(otherName, model.Name);
+            Assert.AreEqual(otherSegmentName, model.SegmentName);
+            Assert.AreSame(otherPointA, model.Geometry[0]);
+            Assert.AreSame(otherPointB, model.Geometry[1]);
+            Assert.AreEqual(2, model.StochasticSoilProfiles.Count);
+            Assert.AreSame(stochasticProfileA, model.StochasticSoilProfiles[0]);
+            Assert.AreSame(otherStochasticProfileA.SoilProfile, model.StochasticSoilProfiles[0].SoilProfile);
+            Assert.AreNotSame(stochasticProfileB, model.StochasticSoilProfiles[1]);
+            Assert.AreSame(otherStochasticProfileB.SoilProfile, model.StochasticSoilProfiles[1].SoilProfile);
         }
 
         [Test]

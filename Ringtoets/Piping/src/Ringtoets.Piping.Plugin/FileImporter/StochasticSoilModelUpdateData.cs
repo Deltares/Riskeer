@@ -31,8 +31,10 @@ namespace Ringtoets.Piping.Plugin.FileImporter
     /// <summary>
     /// Strategy for updating the current stochastic soil models with the imported stochastic soil models.
     /// </summary>
-    public class StochasticSoilModelUpdateData : StochasticSoilModelUpdateStrategyBase
+    public class StochasticSoilModelUpdateData : IStochasticSoilModelUpdateStrategy
     {
+        private readonly ILog log = LogManager.GetLogger(typeof(StochasticSoilModelUpdateData));
+
         /// <summary>
         /// Updates the <paramref name="targetCollection"/>. 
         /// Updates stochastic soil models in <paramref name="targetCollection"/> that are part of
@@ -47,32 +49,34 @@ namespace Ringtoets.Piping.Plugin.FileImporter
         /// were imported.</param>
         /// <param name="targetCollection">The current collection of <see cref="StochasticSoilModel"/>.</param>
         /// <param name="notifyProgress">An action to be used to notify progress changes.</param>
-        public override void UpdateModelWithImportedData(
-            ICollection<StochasticSoilModel> readStochasticSoilModels,
+        /// <exception cref="InvalidOperationException">Thrown when <paramref name="targetCollection"/>
+        /// contains multiple <see cref="StochasticSoilModel"/> with the same <see cref="StochasticSoilModel.Name"/>,
+        /// and <paramref name="readStochasticSoilModels"/> also contains a <see cref="StochasticSoilModel"/> with
+        /// the same name.
+        /// </exception>
+        public void UpdateModelWithImportedData(
+            IEnumerable<StochasticSoilModel> readStochasticSoilModels,
             string sourceFilePath,
             StochasticSoilModelCollection targetCollection,
             Action<string, int, int> notifyProgress)
         {
-            var log = LogManager.GetLogger(typeof(StochasticSoilModelImporter));
+            var updatedModels = new List<StochasticSoilModel>();
 
-            var stochasticSoilModelCount = readStochasticSoilModels.Count;
-            var currentIndex = 1;
-            var modelsToAdd = new List<StochasticSoilModel>(readStochasticSoilModels.Count);
-            foreach (StochasticSoilModel readStochasticSoilModel in readStochasticSoilModels)
+            foreach (var readModel in readStochasticSoilModels)
             {
-                notifyProgress(Resources.Importer_ProgressText_Adding_imported_data_to_DataModel, currentIndex++, stochasticSoilModelCount);
-                if (!ValidateStochasticSoilModel(readStochasticSoilModel))
+                var existingModel = targetCollection.SingleOrDefault(existing => existing.Name.Equals(readModel.Name));
+                if (existingModel != null)
                 {
-                    continue;
+                    existingModel.Update(readModel);
+                    updatedModels.Add(existingModel);
                 }
-                var stochasticSoilModel = targetCollection.FirstOrDefault(ssm => ssm.Id == readStochasticSoilModel.Id);
-                if (stochasticSoilModel != null)
+                else
                 {
-                    log.WarnFormat(Properties.Resources.PipingSoilProfilesImporter_AddImportedDataToModel_Stochastisch_soil_model_0_already_exists, stochasticSoilModel.Name);
+                    updatedModels.Add(readModel);
                 }
-                modelsToAdd.Add(readStochasticSoilModel);
             }
-            targetCollection.AddRange(modelsToAdd, sourceFilePath);
+            targetCollection.Clear();
+            targetCollection.AddRange(updatedModels, sourceFilePath);
         }
     }
 }

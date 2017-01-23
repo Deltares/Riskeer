@@ -74,10 +74,8 @@
     <Compile Include="Exceptions\StochasticSoilProfileReadExceptionTest.cs" />
     <Compile Include="SoilProfile\LayerPropertiesTest.cs" />
     <Compile Include="SoilProfile\SoilLayerColorConversionHelperTest.cs" />
-    <Compile Include="SoilProfile\StochasticSoilModelTest.cs" />
     <Compile Include="SoilProfile\StochasticSoilModelReaderTest.cs" />
     <Compile Include="SoilProfile\StochasticSoilProfileReaderTest.cs" />
-    <Compile Include="SoilProfile\StochasticSoilProfileProbabilityTest.cs" />
     <Compile Include="SoilProfile\SoilDatabaseVersionReaderTest.cs" />
     <Compile Include="SurfaceLines\CharacteristicPointsCsvReaderTest.cs" />
     <Compile Include="SurfaceLines\CharacteristicPointsTest.cs" />

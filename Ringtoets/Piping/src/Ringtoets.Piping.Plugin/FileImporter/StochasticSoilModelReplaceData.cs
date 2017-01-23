@@ -23,7 +23,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using log4net;
-using Ringtoets.Common.IO.Properties;
 using Ringtoets.Piping.Data;
 
 namespace Ringtoets.Piping.Plugin.FileImporter
@@ -31,8 +30,10 @@ namespace Ringtoets.Piping.Plugin.FileImporter
     /// <summary>
     /// Strategy for replacing the stochastic soil models with the imported stochastic soil models. 
     /// </summary>
-    public class StochasticSoilModelReplaceData : StochasticSoilModelUpdateStrategyBase
+    public class StochasticSoilModelReplaceData : IStochasticSoilModelUpdateStrategy
     {
+        private readonly ILog log = LogManager.GetLogger(typeof(StochasticSoilModelReplaceData));
+
         /// <summary>
         /// Adds the <paramref name="readStochasticSoilModels"/> to the <paramref name="targetCollection"/>.
         /// </summary>
@@ -41,24 +42,15 @@ namespace Ringtoets.Piping.Plugin.FileImporter
         /// were imported.</param>
         /// <param name="targetCollection">The current collection of <see cref="StochasticSoilModel"/>.</param>
         /// <param name="notifyProgress">An action to be used to notify progress changes.</param>
-        public override void UpdateModelWithImportedData(
-            ICollection<StochasticSoilModel> readStochasticSoilModels,
+        public void UpdateModelWithImportedData(
+            IEnumerable<StochasticSoilModel> readStochasticSoilModels,
             string sourceFilePath,
             StochasticSoilModelCollection targetCollection,
             Action<string, int, int> notifyProgress)
         {
-            var log = LogManager.GetLogger(typeof(StochasticSoilModelImporter));
-
-            var stochasticSoilModelCount = readStochasticSoilModels.Count;
-            var currentIndex = 1;
-            var modelsToAdd = new List<StochasticSoilModel>(readStochasticSoilModels.Count);
+            var modelsToAdd = new List<StochasticSoilModel>();
             foreach (StochasticSoilModel readStochasticSoilModel in readStochasticSoilModels)
             {
-                notifyProgress(Resources.Importer_ProgressText_Adding_imported_data_to_DataModel, currentIndex++, stochasticSoilModelCount);
-                if (!ValidateStochasticSoilModel(readStochasticSoilModel))
-                {
-                    continue;
-                }
                 var stochasticSoilModel = targetCollection.FirstOrDefault(ssm => ssm.Id == readStochasticSoilModel.Id);
                 if (stochasticSoilModel != null)
                 {

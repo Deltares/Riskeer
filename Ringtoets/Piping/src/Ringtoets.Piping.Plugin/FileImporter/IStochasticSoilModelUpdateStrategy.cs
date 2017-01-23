@@ -40,7 +40,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
         /// is added.</param>
         /// <param name="notifyProgress">An action to be used to notify progress changes.</param>
         void UpdateModelWithImportedData(
-            ICollection<StochasticSoilModel> readStochasticSoilModels,
+            IEnumerable<StochasticSoilModel> readStochasticSoilModels,
             string sourceFilePath,
             StochasticSoilModelCollection targetCollection,
             Action<string, int, int> notifyProgress);

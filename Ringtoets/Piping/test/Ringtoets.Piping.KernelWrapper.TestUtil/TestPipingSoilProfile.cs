@@ -28,7 +28,7 @@ namespace Ringtoets.Piping.KernelWrapper.TestUtil
     /// A <see cref="PipingSoilProfile"/> configured to be usable immediately for testing
     /// purposes.
     /// </summary>
-    /// <seealso cref="Ringtoets.Piping.Primitives.PipingSoilProfile" />
+    /// <seealso cref="PipingSoilProfile" />
     public class TestPipingSoilProfile : PipingSoilProfile
     {
         /// <summary>
@@ -41,7 +41,20 @@ namespace Ringtoets.Piping.KernelWrapper.TestUtil
         /// with <see cref="PipingSoilLayer.Top"/> set to <c>0.0</c>.</item>
         /// </list>
         /// </summary>
-        public TestPipingSoilProfile() : base("", 0.0, new Collection<PipingSoilLayer>
+        public TestPipingSoilProfile() : this("") {}
+
+        /// <summary>
+        /// Creates a new instance of <see cref="TestPipingSoilProfile"/>, which is a <see cref="PipingSoilProfile"/>
+        /// which has:
+        /// <list type="bullet">
+        /// <item><see cref="PipingSoilProfile.Name"/> set to <paramref name="name"/></item>
+        /// <item><see cref="PipingSoilProfile.Bottom"/> set to <c>0.0</c></item>
+        /// <item><see cref="PipingSoilProfile.Layers"/> set to a collection with a single <see cref="PipingSoilLayer"/>
+        /// with <see cref="PipingSoilLayer.Top"/> set to <c>0.0</c>.</item>
+        /// </list>
+        /// </summary>
+        /// <param name="name">The name for the profile.</param>
+        public TestPipingSoilProfile(string name) : base(name, 0.0, new Collection<PipingSoilLayer> 
         {
             new PipingSoilLayer(0.0)
             {

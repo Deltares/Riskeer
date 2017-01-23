@@ -26,19 +26,21 @@ namespace Ringtoets.Piping.Data.TestUtil
 {
     public class TestStochasticSoilModel : StochasticSoilModel
     {
-        public TestStochasticSoilModel() : base(0, string.Empty, string.Empty)
+        public TestStochasticSoilModel(string name) : base(0, name, string.Empty)
         {
             StochasticSoilProfiles.AddRange(new[]
             {
                 new StochasticSoilProfile(0.5, SoilProfileType.SoilProfile1D, 0)
                 {
-                    SoilProfile = new TestPipingSoilProfile()
+                    SoilProfile = new TestPipingSoilProfile("A")
                 },
                 new StochasticSoilProfile(0.5, SoilProfileType.SoilProfile1D, 0)
                 {
-                    SoilProfile = new TestPipingSoilProfile()
+                    SoilProfile = new TestPipingSoilProfile("B")
                 }
             });
         }
+        public TestStochasticSoilModel() : this(string.Empty)
+        { }
     }
 }

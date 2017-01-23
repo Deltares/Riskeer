@@ -32,6 +32,7 @@ using Ringtoets.Piping.IO.Exceptions;
 using Ringtoets.Piping.IO.SoilProfile;
 using Ringtoets.Piping.Plugin.Properties;
 using Ringtoets.Piping.Primitives;
+using RingtoestCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 
 namespace Ringtoets.Piping.Plugin.FileImporter
 {
@@ -83,8 +84,65 @@ namespace Ringtoets.Piping.Plugin.FileImporter
                 return false;
             }
 
-            modelUpdateStrategy.UpdateModelWithImportedData(importStochasticSoilModelResult.ImportedItems, FilePath, ImportTarget, NotifyProgress);
+            modelUpdateStrategy.UpdateModelWithImportedData(
+                GetValidStochasticSoilModels(importStochasticSoilModelResult),
+                FilePath, 
+                ImportTarget, 
+                NotifyProgress);
+
             return true;
+        }
+
+        private IEnumerable<StochasticSoilModel> GetValidStochasticSoilModels(ReadResult<StochasticSoilModel> importStochasticSoilModelResult)
+        {
+            var currentStep = 1;
+            var importedModels = importStochasticSoilModelResult.ImportedItems.ToArray();
+            foreach (var importedModel in importedModels)
+            {
+                NotifyProgress(RingtoestCommonIOResources.Importer_ProgressText_Adding_imported_data_to_DataModel, currentStep, importedModels.Length);
+                if (ValidateStochasticSoilModel(importedModel))
+                {
+                    yield return importedModel;
+                }
+                currentStep++;
+            }
+        }
+
+        /// <summary>
+        /// Validate the definition of a <see cref="StochasticSoilModel"/>.
+        /// </summary>
+        /// <param name="stochasticSoilModel">The <see cref="StochasticSoilModel"/> to validate.</param>
+        /// <returns><c>false</c> when the stochastic soil model does not contain any stochastic soil profiles
+        /// or when a stochastic soil profile does not have a definition for a soil profile; <c>true</c>
+        /// otherwise.</returns>
+        protected bool ValidateStochasticSoilModel(StochasticSoilModel stochasticSoilModel)
+        {
+            if (!stochasticSoilModel.StochasticSoilProfiles.Any())
+            {
+                log.WarnFormat(Resources.PipingSoilProfilesImporter_ValidateStochasticSoilModel_No_profiles_found_in_stochastic_soil_model_0,
+                               stochasticSoilModel.Name);
+                return false;
+            }
+            if (stochasticSoilModel.StochasticSoilProfiles.Any(ssp => ssp.SoilProfile == null))
+            {
+                log.WarnFormat(Resources.PipingSoilProfilesImporter_ValidateStochasticSoilModel_SoilModel_0_with_stochastic_soil_profile_without_profile,
+                               stochasticSoilModel.Name);
+                return false;
+            }
+            if (!IsSumOfAllProbabilitiesEqualToOne(stochasticSoilModel))
+            {
+                log.WarnFormat(Resources.PipingSoilProfilesImporter_ValidateStochasticSoilModel_Sum_of_probabilities_of_stochastic_soil_model_0_is_not_correct,
+                               stochasticSoilModel.Name);
+            }
+            return true;
+        }
+
+        private static bool IsSumOfAllProbabilitiesEqualToOne(StochasticSoilModel stochasticSoilModel)
+        {
+            double sumOfAllScenarioProbabilities = stochasticSoilModel.StochasticSoilProfiles
+                                                                      .Where(s => s.SoilProfile != null)
+                                                                      .Sum(s => s.Probability);
+            return Math.Abs(sumOfAllScenarioProbabilities - 1.0) < 1e-6;
         }
 
         protected override void LogImportCanceledMessage()
@@ -123,7 +181,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
 
         private void HandleException(Exception e)
         {
-            var message = string.Format(Resources.PipingSoilProfilesImporter_CriticalErrorMessage_0_File_Skipped,
+            var message = String.Format(Resources.PipingSoilProfilesImporter_CriticalErrorMessage_0_File_Skipped,
                                         e.Message);
             log.Error(message);
         }
@@ -166,7 +224,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
                 }
                 catch (StochasticSoilProfileReadException e)
                 {
-                    var message = string.Format(Resources.PipingSoilProfilesImporter_GetStochasticSoilModelReadResult_Error_0_stochastic_soil_model_skipped, e.Message);
+                    var message = String.Format(Resources.PipingSoilProfilesImporter_GetStochasticSoilModelReadResult_Error_0_stochastic_soil_model_skipped, e.Message);
                     log.Error(message);
                 }
             }

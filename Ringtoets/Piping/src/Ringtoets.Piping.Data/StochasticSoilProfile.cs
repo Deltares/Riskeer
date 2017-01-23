@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.Data
@@ -60,6 +61,24 @@ namespace Ringtoets.Piping.Data
         /// Gets the <see cref="PipingSoilProfile"/>.
         /// </summary>
         public PipingSoilProfile SoilProfile { get; set; }
+
+        /// <summary>
+        /// Updates the <see cref="StochasticSoilProfile"/> with the properties
+        /// from <paramref name="fromProfile"/>.
+        /// </summary>
+        /// <param name="fromProfile">The <see cref="StochasticSoilProfile"/> to
+        /// obtain the property values from.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="fromProfile"/>
+        /// is <c>null</c>.</exception>
+        public void Update(StochasticSoilProfile fromProfile)
+        {
+            if (fromProfile == null)
+            {
+                throw new ArgumentNullException(nameof(fromProfile));
+            }
+            SoilProfile = fromProfile.SoilProfile;
+            Probability = fromProfile.Probability;
+        }
 
         public override string ToString()
         {

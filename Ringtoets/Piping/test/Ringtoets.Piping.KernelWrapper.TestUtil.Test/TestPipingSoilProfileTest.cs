@@ -19,28 +19,41 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Linq;
 using NUnit.Framework;
-using Ringtoets.Piping.Data;
-using Ringtoets.Piping.Primitives;
 
-namespace Ringtoets.Piping.IO.Test.SoilProfile
+namespace Ringtoets.Piping.KernelWrapper.TestUtil.Test
 {
     [TestFixture]
-    public class StochasticSoilProfileProbabilityTest
+    public class TestPipingSoilProfileTest
     {
         [Test]
-        [TestCase(1.0, SoilProfileType.SoilProfile1D, 123L)]
-        [TestCase(2.0, SoilProfileType.SoilProfile2D, 123L)]
-        public void Constructor_Always_ExpectedValues(double probability, SoilProfileType soilProfileType, long soilProfileId)
+        public void DefaultConstructor_ExpectedPropertiesSet()
         {
             // Call
-            StochasticSoilProfile stochasticSoilProfileProbability = new StochasticSoilProfile(probability, soilProfileType, soilProfileId);
+            var profile = new TestPipingSoilProfile();
 
             // Assert
-            Assert.IsInstanceOf<StochasticSoilProfile>(stochasticSoilProfileProbability);
-            Assert.AreEqual(probability, stochasticSoilProfileProbability.Probability);
-            Assert.AreEqual(soilProfileType, stochasticSoilProfileProbability.SoilProfileType);
-            Assert.AreEqual(soilProfileId, stochasticSoilProfileProbability.SoilProfileId);
+            Assert.IsEmpty(profile.Name);
+            Assert.AreEqual(0.0, profile.Bottom);
+            CollectionAssert.AreEquivalent(new[] { true }, profile.Layers.Select(l => l.IsAquifer));
+            CollectionAssert.AreEquivalent(new[] { 0.0 }, profile.Layers.Select(l => l.Top));
+        }
+
+        [Test]
+        public void Constructor_WitValidName_ExpectedPropertiesSet()
+        {
+            // Setup
+            var name = "some name";
+
+            // Call
+            var profile = new TestPipingSoilProfile(name);
+
+            // Assert
+            Assert.AreEqual(name, profile.Name);
+            Assert.AreEqual(0.0, profile.Bottom);
+            CollectionAssert.AreEquivalent(new[] { true }, profile.Layers.Select(l => l.IsAquifer));
+            CollectionAssert.AreEquivalent(new[] { 0.0 }, profile.Layers.Select(l => l.Top));
         }
     }
 }

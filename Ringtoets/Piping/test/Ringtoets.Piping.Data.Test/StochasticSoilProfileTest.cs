@@ -19,7 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using NUnit.Framework;
+using Ringtoets.Piping.KernelWrapper.TestUtil;
 using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.Data.Test
@@ -40,6 +42,41 @@ namespace Ringtoets.Piping.Data.Test
             Assert.AreEqual(probability, stochasticSoilProfileProbability.Probability);
             Assert.AreEqual(soilProfileType, stochasticSoilProfileProbability.SoilProfileType);
             Assert.AreEqual(soilProfileId, stochasticSoilProfileProbability.SoilProfileId);
+        }
+
+        [Test]
+        public void Update_WithNullProfile_ThrowsArgumentNullException()
+        {
+            // Setup
+            var stochasticProfile = new StochasticSoilProfile(0.0, SoilProfileType.SoilProfile1D, 0);
+
+            // Call
+            TestDelegate test = () => stochasticProfile.Update(null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("fromProfile", paramName);
+        }
+
+        [Test]
+        public void Update_WithValidProfile_UpdatesProperties()
+        {
+            // Setup
+            var newProbability = 1.0;
+            var newProfile = new TestPipingSoilProfile();
+            var otherStochasticProfile = new StochasticSoilProfile(newProbability, SoilProfileType.SoilProfile1D, 0)
+            {
+                SoilProfile = newProfile
+            };
+
+            var stochasticProfile = new StochasticSoilProfile(0.0, SoilProfileType.SoilProfile1D, 0);
+
+            // Call
+            stochasticProfile.Update(otherStochasticProfile);
+
+            // Assert
+            Assert.AreEqual(newProbability, stochasticProfile.Probability);
+            Assert.AreSame(newProfile, stochasticProfile.SoilProfile);
         }
 
         [Test]

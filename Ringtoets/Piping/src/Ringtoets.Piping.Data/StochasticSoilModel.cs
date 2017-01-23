@@ -19,8 +19,11 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using Core.Common.Base.Geometry;
+using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.Data
 {
@@ -69,6 +72,50 @@ namespace Ringtoets.Piping.Data
         /// Gets the list of <see cref="StochasticSoilProfile"/>.
         /// </summary>
         public List<StochasticSoilProfile> StochasticSoilProfiles { get; private set; }
+
+        /// <summary>
+        /// Updates the <see cref="StochasticSoilModel"/> with the properties
+        /// from <paramref name="fromModel"/>.
+        /// </summary>
+        /// <param name="fromModel">The <see cref="StochasticSoilModel"/> to
+        /// obtain the property values from.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="fromModel"/>
+        /// is <c>null</c>.</exception>
+        /// <exception cref="InvalidOperationException">Thrown when <see cref="StochasticSoilProfiles"/>
+        /// contains multiple <see cref="PipingSoilProfile"/> with the same 
+        /// <see cref="PipingSoilProfile.Name"/>, and <paramref name="fromModel"/> also contains a 
+        /// <see cref="StochasticSoilProfile"/> with the same name.
+        /// </exception>
+        public void Update(StochasticSoilModel fromModel)
+        {
+            if (fromModel == null)
+            {
+                throw new ArgumentNullException(nameof(fromModel));
+            }
+
+            Name = fromModel.Name;
+            SegmentName = fromModel.SegmentName;
+            Geometry.Clear();
+            foreach (var point in fromModel.Geometry)
+            {
+                Geometry.Add(point);
+            }
+            List<string> newNames = new List<string>();
+            foreach (var fromProfile in fromModel.StochasticSoilProfiles)
+            {
+                var sameProfile = StochasticSoilProfiles.SingleOrDefault(sp => sp.SoilProfile.Name.Equals(fromProfile.SoilProfile.Name));
+                if (sameProfile != null)
+                {
+                    sameProfile.Update(fromProfile);
+                }
+                else
+                {
+                    StochasticSoilProfiles.Add(fromProfile);    
+                }
+                newNames.Add(fromProfile.SoilProfile.Name);
+            }
+            StochasticSoilProfiles.RemoveAll(sp => !newNames.Contains(sp.SoilProfile.Name));
+        }
 
         public override string ToString()
         {
