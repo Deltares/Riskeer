@@ -769,20 +769,17 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void AssessmentSection_WithOrWithoutValidHydraulicBoundaryDatabase_CalculationItemEnabledOrDisabled(bool validPath)
+        public void GivenAssessmentSectionWithInvalidHydraulicBoundaryDatabase_ThenCalculationItemDisabled()
         {
-            // Setup
+            // Given
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-            if (validPath)
+            failureMechanism.AddSection(new FailureMechanismSection("A", new[]
             {
-                hydraulicBoundaryDatabase.FilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                                                Path.Combine("HydraulicBoundaryDatabaseImporter", "complete.sqlite"));
-            }
-            assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
+                new Point2D(0, 0),
+                new Point2D(1, 1)
+            }));
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
 
             var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation
             {
@@ -815,15 +812,71 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
                 {
                     // Then
-                    var expectedTooltip = validPath
-                                              ? "Voer deze berekening uit."
-                                              : "Herstellen van de verbinding met de hydraulische randvoorwaardendatabase is mislukt. Fout bij het lezen van bestand '': bestandspad mag niet leeg of ongedefinieerd zijn.";
                     TestHelper.AssertContextMenuStripContainsItem(contextMenu,
                                                                   calculateMenuItemIndex,
                                                                   "Be&rekenen",
-                                                                  expectedTooltip,
+                                                                  "Herstellen van de verbinding met de hydraulische randvoorwaardendatabase is mislukt. Fout bij het lezen van bestand '': bestandspad mag niet leeg of ongedefinieerd zijn.",
                                                                   RingtoetsCommonFormsResources.CalculateIcon,
-                                                                  validPath);
+                                                                  false);
+                }
+            }
+        }
+
+        [Test]
+        public void GivenAssessmentSectionWithValidInput_ThenCalculationItemEnabled()
+        {
+            // Given
+            string validHydroDatabasePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                                       Path.Combine("HydraulicBoundaryDatabaseImporter", "complete.sqlite"));
+
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
+            failureMechanism.AddSection(new FailureMechanismSection("A", new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(1, 1)
+            }));
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                FilePath = validHydroDatabasePath
+            };
+
+            var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation
+            {
+                Name = "A"
+            };
+            var context = new WaveImpactAsphaltCoverWaveConditionsCalculationContext(calculation,
+                                                                                     failureMechanism,
+                                                                                     assessmentSection);
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var appFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
+                var importHandler = mocks.Stub<IImportCommandHandler>();
+                var exportHandler = mocks.Stub<IExportCommandHandler>();
+                var viewCommands = mocks.Stub<IViewCommands>();
+                var menuBuilderMock = new ContextMenuBuilder(appFeatureCommandHandler,
+                                                             importHandler,
+                                                             exportHandler,
+                                                             viewCommands,
+                                                             context,
+                                                             treeViewControl);
+
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilderMock);
+
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
+                {
+                    // Then
+                    TestHelper.AssertContextMenuStripContainsItem(contextMenu,
+                                                                  calculateMenuItemIndex,
+                                                                  "Be&rekenen",
+                                                                  "Voer deze berekening uit.",
+                                                                  RingtoetsCommonFormsResources.CalculateIcon);
                 }
             }
         }
