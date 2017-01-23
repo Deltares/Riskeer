@@ -276,7 +276,7 @@ namespace Ringtoets.Integration.Data
                     FailureMechanismContribution.UpdateContributions(GetContributingFailureMechanisms(), 20);
                     break;
                 default:
-                    throw new InvalidEnumArgumentException("newComposition",
+                    throw new InvalidEnumArgumentException(nameof(newComposition),
                                                            (int) newComposition,
                                                            typeof(AssessmentSectionComposition));
             }

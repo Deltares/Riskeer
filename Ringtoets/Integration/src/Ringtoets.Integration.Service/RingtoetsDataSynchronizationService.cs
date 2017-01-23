@@ -135,9 +135,25 @@ namespace Ringtoets.Integration.Service
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
+            return ClearFailureMechanismCalculationOutputs(assessmentSection.GetFailureMechanisms());
+        }
+
+        /// <summary>
+        /// Clears the output of all calculations of the given <paramref name="failureMechanisms"/>.
+        /// </summary>
+        /// <param name="failureMechanisms">The failure mechanisms that contains the calculations.</param>
+        /// <returns>An <see cref="IEnumerable{T}"/> of calculations that are affected by clearing the output.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanisms"/> is <c>null</c>.</exception>
+        public static IEnumerable<IObservable> ClearFailureMechanismCalculationOutputs(IEnumerable<IFailureMechanism> failureMechanisms)
+        {
+            if (failureMechanisms == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanisms));
+            }
+
             var changedObservables = new List<IObservable>();
 
-            foreach (var failureMechanism in assessmentSection.GetFailureMechanisms())
+            foreach (var failureMechanism in failureMechanisms)
             {
                 var pipingFailureMechanism = failureMechanism as PipingFailureMechanism;
                 var grassCoverErosionInwardsFailureMechanism = failureMechanism as GrassCoverErosionInwardsFailureMechanism;

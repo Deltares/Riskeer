@@ -57,7 +57,7 @@ namespace Ringtoets.Integration.Service.Test
         public void ClearFailureMechanismCalculationOutputs_WithoutAssessmentSection_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => RingtoetsDataSynchronizationService.ClearFailureMechanismCalculationOutputs(null);
+            TestDelegate test = () => RingtoetsDataSynchronizationService.ClearFailureMechanismCalculationOutputs((IAssessmentSection)null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -83,6 +83,49 @@ namespace Ringtoets.Integration.Service.Test
             CollectionAssert.IsEmpty(assessmentSection.GetFailureMechanisms()
                                                       .SelectMany(f => f.Calculations)
                                                       .Where(c => c.HasOutput));
+
+            CollectionAssert.AreEquivalent(expectedAffectedItems, affectedItems);
+        }
+
+        [Test]
+        public void ClearFailureMechanismCalculationOutputs_WithouFailureMechanisms_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => RingtoetsDataSynchronizationService.ClearFailureMechanismCalculationOutputs((IEnumerable<IFailureMechanism>)null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("failureMechanisms", exception.ParamName);
+        }
+
+        [Test]
+        public void ClearFailureMechanismCalculationOutputs_WithFailureMechanisms_ClearsFailureMechanismCalculationsOutputAndReturnsAffectedCalculations()
+        {
+            // Setup
+            var pipingFailureMechanism = new PipingFailureMechanism();
+            pipingFailureMechanism.CalculationsGroup.Children.Add(new PipingCalculationScenario(new GeneralPipingInput()));
+
+            List<IFailureMechanism> failureMechanisms = new List<IFailureMechanism>
+            {
+                TestDataGenerator.GetFullyConfiguredClosingStructuresFailureMechanism(),
+                TestDataGenerator.GetFullyConfiguredGrassCoverErosionInwardsFailureMechanism(),
+                pipingFailureMechanism
+            };
+
+            IEnumerable<ICalculation> expectedAffectedItems = failureMechanisms
+                .SelectMany(f => f.Calculations)
+                .Where(c => c.HasOutput)
+                .ToList();
+
+            // Call
+            IEnumerable<IObservable> affectedItems = RingtoetsDataSynchronizationService.ClearFailureMechanismCalculationOutputs(failureMechanisms);
+
+            // Assert
+            // Note: To make sure the clear is performed regardless of what is done with
+            // the return result, no ToArray() should be called before these assertions:
+            CollectionAssert.IsEmpty(failureMechanisms
+                                         .SelectMany(f => f.Calculations)
+                                         .Where(c => c.HasOutput));
 
             CollectionAssert.AreEquivalent(expectedAffectedItems, affectedItems);
         }
