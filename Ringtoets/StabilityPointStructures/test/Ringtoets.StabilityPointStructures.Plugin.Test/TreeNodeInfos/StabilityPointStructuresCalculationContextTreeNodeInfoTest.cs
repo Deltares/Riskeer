@@ -345,7 +345,58 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_HydraulicBoundaryDatabaseSet_ContextMenuItemPerformCalculationAndValidationEnabled()
+        public void ContextMenuStrip_FailureMechanismContributionZero_ContextMenuItemPerformCalculationAndValidationDisabledAndTooltipSet()
+        {
+            // Setup
+            var guiMock = mocks.StrictMock<IGui>();
+            string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                FilePath = validFilePath,
+                Version = "1.0"
+            };
+
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+            failureMechanism.AddSection(new FailureMechanismSection("test", new[]
+            {
+                new Point2D(0, 0)
+            }));
+
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
+
+            var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
+            var nodeData = new StabilityPointStructuresCalculationContext(calculation, failureMechanism, assessmentSection);
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                guiMock.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+
+                mocks.ReplayAll();
+
+                plugin.Gui = guiMock;
+
+                // Call
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                {
+                    // Assert
+                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuCalculateIndex,
+                                                                  "Be&rekenen",
+                                                                  "De bijdrage van dit toetsspoor is nul.",
+                                                                  RingtoetsCommonFormsResources.CalculateIcon,
+                                                                  false);
+
+                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuValidateIndex,
+                                                                  "&Valideren",
+                                                                  "De bijdrage van dit toetsspoor is nul.",
+                                                                  RingtoetsCommonFormsResources.ValidateIcon,
+                                                                  false);
+                }
+            }
+        }
+
+        [Test]
+        public void ContextMenuStrip_AllRequiredInputSet_ContextMenuItemPerformCalculationAndValidationEnabled()
         {
             // Setup
             var guiMock = mocks.StrictMock<IGui>();
