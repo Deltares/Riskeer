@@ -450,7 +450,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_FailureMechanismSectionsSetNoHydraulicBoundaryDatabase_ContextMenuItemCalculateAndValidateAllDisabledAndTooltipSet()
+        public void ContextMenuStrip_NoHydraulicBoundaryDatabase_ContextMenuItemCalculateAndValidateAllDisabledAndTooltipSet()
         {
             // Setup
             var guiMock = mocksRepository.StrictMock<IGui>();
