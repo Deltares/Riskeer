@@ -65,7 +65,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("modelUpdateStratagy", paramName);
+            Assert.AreEqual("modelUpdateStrategy", paramName);
         }
 
         [Test]
