@@ -103,7 +103,8 @@ namespace Ringtoets.Piping.Plugin
                 FileFilter = $"{PipingPluginResources.Soil_file_name} (*.soil)|*.soil",
                 IsEnabled = context => context.AssessmentSection.ReferenceLine != null,
                 CreateFileImporter = (context, filePath) => new StochasticSoilModelImporter(context.WrappedData,
-                                                                                            filePath)
+                                                                                            filePath,
+                                                                                            new StochasticSoilModelReplaceData())
             };
         }
 
