@@ -248,6 +248,7 @@ namespace Migration.Console.Test
             string targetFilePath = TestHelper.GetTestDataPath(TestDataPath.Migration.Core.Storage, Path.GetRandomFileName());
 
             string consoleText;
+            using (new FileDisposeHelper(targetFilePath))
             using (File.Create(targetFilePath))
             using (var consoleOutput = new ConsoleOutput())
             {
