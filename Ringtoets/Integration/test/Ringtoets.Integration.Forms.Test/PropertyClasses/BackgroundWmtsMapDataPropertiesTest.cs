@@ -29,13 +29,12 @@ using Core.Components.Gis.Data;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.PropertyClasses;
 
 namespace Ringtoets.Integration.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class BackgroundMapDataContextPropertiesTest
+    public class BackgroundWmtsMapDataPropertiesTest
     {
         private const int requiredNamePropertyIndex = 0;
         private const int requiredUrlPropertyIndex = 1;
@@ -43,22 +42,29 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         private const int requiredVisibilityPropertyIndex = 3;
 
         [Test]
+        public void Constructor_DataNull_ThrowArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => new BackgroundWmtsMapDataProperties(null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("data", paramName);
+        }
+
+        [Test]
         public void GetProperties_ValidData_ReturnsExpectedValues()
         {
             // Setup
             WmtsMapData mapData = WmtsMapData.CreateDefaultPdokMapData();
-            var mapDataContext = new BackgroundMapDataContext(mapData);
 
             // Call
-            var properties = new BackgroundMapDataContextProperties
-            {
-                Data = mapDataContext
-            };
+            var properties = new BackgroundWmtsMapDataProperties(mapData);
 
             // Assert
-            Assert.IsInstanceOf<ObjectProperties<BackgroundMapDataContext>>(properties);
+            Assert.IsInstanceOf<ObjectProperties<WmtsMapData>>(properties);
 
-            Assert.AreSame(mapDataContext, properties.Data);
+            Assert.AreSame(mapData, properties.Data);
 
             Assert.AreEqual(mapData.Name, properties.Name);
             Assert.AreEqual(mapData.SourceCapabilitiesUrl, properties.Url);
@@ -85,10 +91,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             WmtsMapData mapData = WmtsMapData.CreateDefaultPdokMapData();
             mapData.Attach(observer);
 
-            var properties = new BackgroundMapDataContextProperties
-            {
-                Data = new BackgroundMapDataContext(mapData)
-            };
+            var properties = new BackgroundWmtsMapDataProperties(mapData);
 
             // Call
             properties.IsVisible = newVisibility;
@@ -108,10 +111,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             WmtsMapData mapData = WmtsMapData.CreateUnconnectedMapData();
 
             // Call
-            var properties = new BackgroundMapDataContextProperties
-            {
-                Data = new BackgroundMapDataContext(mapData)
-            };
+            var properties = new BackgroundWmtsMapDataProperties(mapData);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -127,8 +127,8 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             PropertyDescriptor urlProperty = dynamicProperties[requiredUrlPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(urlProperty,
                                                                             "Algemeen",
-                                                                            "URL naar de wms / wmts service",
-                                                                            "Volledige URL naar de wms of wmts service die als achtergrond kaartlaag gebruikt wordt.",
+                                                                            "WMTS URL",
+                                                                            "Volledige URL naar de Web Map Tile Service (WMTS) die als achtergrond kaartlaag gebruikt wordt.",
                                                                             true);
 
             PropertyDescriptor transparencyPropertyIndex = dynamicProperties[requiredTransparencyPropertyIndex];
@@ -152,20 +152,12 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         public void GetProperties_UseConfiguredMapData_ReturnsExpectedAttributeValues(bool isMapConfigured)
         {
             // Setup
-            WmtsMapData mapData = WmtsMapData.CreateUnconnectedMapData();
-
-            if (isMapConfigured)
-            {
-                mapData.Configure("https://geodata.nationaalgeoregister.nl/wmts/top10nlv2?VERSION=1.0.0&request=GetCapabilities",
-                                  "brtachtergrondkaart",
-                                  "image/png");
-            }
+            WmtsMapData mapData = isMapConfigured ?
+                                      WmtsMapData.CreateDefaultPdokMapData() :
+                                      WmtsMapData.CreateUnconnectedMapData();
 
             // Call
-            var properties = new BackgroundMapDataContextProperties
-            {
-                Data = new BackgroundMapDataContext(mapData)
-            };
+            var properties = new BackgroundWmtsMapDataProperties(mapData);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -184,6 +176,39 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
                                                                             "Achtergrondlaag tonen",
                                                                             "Geeft aan of de geselecteerde achtergrondlaag in alle kaarten wordt weergegeven.",
                                                                             !isMapConfigured);
+        }
+
+        [Test]
+        [TestCase(nameof(BackgroundWmtsMapDataProperties.Transparency), true)]
+        [TestCase(nameof(BackgroundWmtsMapDataProperties.IsVisible), true)]
+        public void DynamicReadOnlyValidationMethod_VariousPropertyNames_ReturnExpectedValue(string propertyName, bool isConfigured)
+        {
+            // Setup
+            WmtsMapData mapData = isConfigured ?
+                                      WmtsMapData.CreateDefaultPdokMapData() :
+                                      WmtsMapData.CreateUnconnectedMapData();
+
+            var properties = new BackgroundWmtsMapDataProperties(mapData);
+
+            // Call
+            bool result = properties.DynamicReadOnlyValidationMethod(propertyName);
+
+            // Assert
+            Assert.AreEqual(!isConfigured, result);
+        }
+
+        [Test]
+        public void DynamicReadOnlyValidationMethod_OtherPropertyNames_ReturnsTrue()
+        {
+            // Setup
+            var mapData = WmtsMapData.CreateUnconnectedMapData();
+            var properties = new BackgroundWmtsMapDataProperties(mapData);
+
+            // Call
+            bool result = properties.DynamicReadOnlyValidationMethod("");
+
+            // Assert
+            Assert.IsFalse(result);
         }
     }
 }

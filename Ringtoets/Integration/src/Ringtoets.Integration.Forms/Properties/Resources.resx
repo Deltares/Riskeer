@@ -316,9 +316,9 @@ Weet u zeker dat u wilt doorgaan?</value>
     <value>Transparantie</value>
   </data>
   <data name="BackgroundMapDataContextProperties_Url_Description" xml:space="preserve">
-    <value>Volledige URL naar de wms of wmts service die als achtergrond kaartlaag gebruikt wordt.</value>
+    <value>Volledige URL naar de Web Map Tile Service (WMTS) die als achtergrond kaartlaag gebruikt wordt.</value>
   </data>
   <data name="BackgroundMapDataContextProperties_Url_DisplayName" xml:space="preserve">
-    <value>URL naar de wms / wmts service</value>
+    <value>WMTS URL</value>
   </data>
 </root>

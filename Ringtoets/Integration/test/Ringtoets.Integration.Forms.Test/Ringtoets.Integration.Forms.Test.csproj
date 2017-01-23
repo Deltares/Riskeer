@@ -67,7 +67,7 @@
     <Compile Include="Commands\AddAssessmentSectionCommandTest.cs" />
     <Compile Include="Commands\AssessmentSectionFromFileCommandHandlerTest.cs" />
     <Compile Include="PresentationObjects\BackgroundMapDataContextTest.cs" />
-    <Compile Include="PropertyClasses\BackgroundMapDataContextPropertiesTest.cs" />
+    <Compile Include="PropertyClasses\BackgroundWmtsMapDataPropertiesTest.cs" />
     <Compile Include="PropertyClasses\FailureMechanismContributionPropertiesIntegrationTest.cs" />
     <Compile Include="PresentationObjects\DesignWaterLevelLocationContextTest.cs" />
     <Compile Include="PresentationObjects\DesignWaterLevelLocationsContextTest.cs" />

@@ -214,7 +214,7 @@ namespace Ringtoets.Integration.Plugin.Test
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(BackgroundMapDataContext),
-                    typeof(BackgroundMapDataContextProperties));
+                    typeof(BackgroundWmtsMapDataProperties));
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,

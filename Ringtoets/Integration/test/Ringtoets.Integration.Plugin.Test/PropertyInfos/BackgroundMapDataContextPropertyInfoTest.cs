@@ -39,7 +39,7 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
         public void SetUp()
         {
             plugin = new RingtoetsPlugin();
-            info = plugin.GetPropertyInfos().First(tni => tni.PropertyObjectType == typeof(BackgroundMapDataContextProperties));
+            info = plugin.GetPropertyInfos().First(tni => tni.PropertyObjectType == typeof(BackgroundWmtsMapDataProperties));
         }
 
         [TearDown]
@@ -53,7 +53,7 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
         {
             // Assert
             Assert.AreEqual(typeof(BackgroundMapDataContext), info.DataType);
-            Assert.AreEqual(typeof(BackgroundMapDataContextProperties), info.PropertyObjectType);
+            Assert.AreEqual(typeof(BackgroundWmtsMapDataProperties), info.PropertyObjectType);
         }
 
         [Test]
@@ -67,7 +67,7 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
             IObjectProperties objectProperties = info.CreateInstance(context);
 
             // Assert
-            Assert.IsInstanceOf<BackgroundMapDataContextProperties>(objectProperties);
+            Assert.IsInstanceOf<BackgroundWmtsMapDataProperties>(objectProperties);
             Assert.AreSame(context, objectProperties.Data);
         }
     }

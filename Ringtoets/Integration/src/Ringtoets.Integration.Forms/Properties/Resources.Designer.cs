@@ -269,7 +269,7 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Volledige URL naar de wms of wmts service die als achtergrond kaartlaag gebruikt wordt..
+        ///   Looks up a localized string similar to Volledige URL naar de Web Map Tile Service (WMTS) die als achtergrond kaartlaag gebruikt wordt..
         /// </summary>
         public static string BackgroundMapDataContextProperties_Url_Description {
             get {
@@ -278,7 +278,7 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to URL naar de wms / wmts service.
+        ///   Looks up a localized string similar to WMTS URL.
         /// </summary>
         public static string BackgroundMapDataContextProperties_Url_DisplayName {
             get {

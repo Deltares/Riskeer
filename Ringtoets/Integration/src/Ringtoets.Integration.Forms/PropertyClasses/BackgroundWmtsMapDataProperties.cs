@@ -19,22 +19,36 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
-using Core.Common.Utils.Reflection;
-using Ringtoets.Integration.Forms.PresentationObjects;
+using Core.Components.Gis.Data;
 using Ringtoets.Integration.Forms.Properties;
 using RingtoetsCommonForms = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of the <see cref="BackgroundMapDataContext"/> for properties panel.
+    /// ViewModel of the <see cref="WmtsMapData"/> for properties panel.
     /// </summary>
-    public class BackgroundMapDataContextProperties : ObjectProperties<BackgroundMapDataContext>
+    public class BackgroundWmtsMapDataProperties : ObjectProperties<WmtsMapData>
     {
+        /// <summary>
+        /// Creates a new instance of <see cref="BackgroundWmtsMapDataProperties"/>.
+        /// </summary>
+        /// <param name="data">The data for which the properties are shown.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="data"/> is <c>null</c>.</exception>
+        public BackgroundWmtsMapDataProperties(WmtsMapData data)
+        {
+            if (data == null)
+            {
+                throw new ArgumentNullException(nameof(data));
+            }
+            Data = data;
+        }
+
         [ResourcesCategory(typeof(RingtoetsCommonForms), nameof(RingtoetsCommonForms.Categories_General))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.BackgroundMapDataContextProperties_Name_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.BackgroundMapDataContextProperties_Name_Description))]
@@ -42,7 +56,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         {
             get
             {
-                return data.WrappedData.Name;
+                return data.Name;
             }
         }
 
@@ -53,7 +67,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         {
             get
             {
-                return data.WrappedData.SourceCapabilitiesUrl;
+                return data.SourceCapabilitiesUrl;
             }
         }
 
@@ -65,12 +79,12 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         {
             get
             {
-                return data.WrappedData.Transparency;
+                return data.Transparency;
             }
             set
             {
-                data.WrappedData.Transparency = value.ToPrecision(data.WrappedData.Transparency.NumberOfDecimalPlaces);
-                data.WrappedData.NotifyObservers();
+                data.Transparency = value;
+                data.NotifyObservers();
             }
         }
 
@@ -82,28 +96,28 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         {
             get
             {
-                return data.WrappedData.IsVisible;
+                return data.IsVisible;
             }
             set
             {
-                data.WrappedData.IsVisible = value;
-                data.WrappedData.NotifyObservers();
+                data.IsVisible = value;
+                data.NotifyObservers();
             }
         }
 
         [DynamicReadOnlyValidationMethod]
         public bool DynamicReadOnlyValidationMethod(string propertyName)
         {
-            if (propertyName == TypeUtils.GetMemberName<BackgroundMapDataContextProperties>(p => p.Transparency))
+            if (propertyName == nameof(Transparency))
             {
-                return !data.WrappedData.IsConfigured;
+                return !data.IsConfigured;
             }
-            if (propertyName == TypeUtils.GetMemberName<BackgroundMapDataContextProperties>(p => p.IsVisible))
+            if (propertyName == nameof(IsVisible))
             {
-                return !data.WrappedData.IsConfigured;
+                return !data.IsConfigured;
             }
 
-            return true;
+            return false;
         }
     }
 }

@@ -271,7 +271,10 @@ namespace Ringtoets.Integration.Plugin
         {
             yield return new PropertyInfo<IProject, RingtoetsProjectProperties>();
             yield return new PropertyInfo<IAssessmentSection, AssessmentSectionProperties>();
-            yield return new PropertyInfo<BackgroundMapDataContext, BackgroundMapDataContextProperties>();
+            yield return new PropertyInfo<BackgroundMapDataContext, BackgroundWmtsMapDataProperties>
+            {
+                CreateInstance = context => new BackgroundWmtsMapDataProperties(context.WrappedData)
+            };
             yield return new PropertyInfo<HydraulicBoundaryDatabaseContext, HydraulicBoundaryDatabaseProperties>();
             yield return new PropertyInfo<FailureMechanismContributionContext, FailureMechanismContributionProperties>
             {
