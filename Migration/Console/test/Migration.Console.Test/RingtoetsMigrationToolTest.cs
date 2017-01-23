@@ -265,8 +265,8 @@ namespace Migration.Console.Test
             }
 
             // Result
-            Assert.AreEqual("Er is een onverwachte fout opgetreden tijdens het verplaatsen van het gemigreerde bestand."
-                            + Environment.NewLine, consoleText);
+            Assert.That(consoleText.StartsWith("Er is een onverwachte fout opgetreden tijdens het verplaatsen van het gemigreerde bestand "));
+            Assert.That(consoleText.EndsWith($" naar '{targetFilePath}'." + Environment.NewLine));
             Assert.AreEqual(22, environmentControl.ErrorCodeCalled);
         }
     }

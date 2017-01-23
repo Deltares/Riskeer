@@ -25,6 +25,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
+using Migration.Core.Storage.Properties;
 using Migration.Scripts.Data;
 using Migration.Scripts.Data.Exceptions;
 using MigrationScriptsDataResources = Migration.Scripts.Data.Properties.Resources;
@@ -78,7 +79,9 @@ namespace Migration.Core.Storage
         /// </summary>
         /// <param name="fromVersionedFile">The source versioned file to migrate from.</param>
         /// <param name="toVersion">The version to upgrade to.</param>
-        /// <param name="newFileLocation"></param>
+        /// <param name="newFileLocation">The location where the migrated file needs to be saved.</param>
+        /// <exception cref="CriticalDatabaseMigrationException">Thrown when moving the migrated file 
+        /// from a temporary environment to <paramref name="newFileLocation"/>.</exception>
         public void Migrate(VersionedFile fromVersionedFile, string toVersion, string newFileLocation)
         {
             var supportedMigrationScripts = migrationScripts
@@ -106,7 +109,9 @@ namespace Migration.Core.Storage
                 }
                 catch (IOException exception)
                 {
-                    throw new CriticalDatabaseMigrationException("Er is een onverwachte fout opgetreden tijdens het verplaatsen van het gemigreerde bestand.", exception);
+                    var message = string.Format(Resources.Migrate_Unable_To_Move_From_Location_0_To_Location_1,
+                                                upgradedVersionFile.Location, newFileLocation);
+                    throw new CriticalDatabaseMigrationException(message, exception);
                 }
             }
         }

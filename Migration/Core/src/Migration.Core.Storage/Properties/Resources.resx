@@ -121,4 +121,7 @@
   <data name="DatabaseStructure" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\..\..\..\..\build\databasestructure.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
+  <data name="Migrate_Unable_To_Move_From_Location_0_To_Location_1" xml:space="preserve">
+    <value>Er is een onverwachte fout opgetreden tijdens het verplaatsen van het gemigreerde bestand '{0}' naar '{1}'.</value>
+  </data>
 </root>
