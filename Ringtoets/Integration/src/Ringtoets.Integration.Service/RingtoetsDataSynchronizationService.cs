@@ -242,8 +242,24 @@ namespace Ringtoets.Integration.Service
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
+            return ClearHydraulicBoundaryLocationOutputOfFailureMechanisms(assessmentSection.GetFailureMechanisms());
+        }
+
+        /// <summary>
+        /// Clears the output of the hydraulic boundary locations that are contained within specific <paramref name="failureMechanisms"/>.
+        /// </summary>
+        /// <param name="failureMechanisms">The failure mechanisms to clear the hydraulic boundary locations for.</param>
+        /// <returns>All objects affected by the operation.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanisms"/> is <c>null</c>.</exception>
+        public static IEnumerable<IObservable> ClearHydraulicBoundaryLocationOutputOfFailureMechanisms(IEnumerable<IFailureMechanism> failureMechanisms)
+        {
+            if (failureMechanisms == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanisms));
+            }
+
             var changedObservables = new List<IObservable>();
-            foreach (IFailureMechanism failureMechanism in assessmentSection.GetFailureMechanisms())
+            foreach (IFailureMechanism failureMechanism in failureMechanisms)
             {
                 var grassCoverErosionOutwardsFailureMechanism = failureMechanism as GrassCoverErosionOutwardsFailureMechanism;
                 var duneErosionFailureMechanism = failureMechanism as DuneErosionFailureMechanism;
@@ -276,8 +292,24 @@ namespace Ringtoets.Integration.Service
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
+            return GetHydraulicBoundaryLocationCollectionsOfFailureMechanisms(assessmentSection.GetFailureMechanisms());
+        }
+
+        /// <summary>
+        /// Returns the hydraulic boundary location collections within the <paramref name="failureMechanisms"/>.
+        /// </summary>
+        /// <param name="failureMechanisms">The failure mechanisms with hydraulic boundary location collections.</param>
+        /// <returns>All collections that contain hydraulic boundary locations.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanisms"/>is <c>null</c>.</exception>
+        public static IEnumerable<IObservable> GetHydraulicBoundaryLocationCollectionsOfFailureMechanisms(IEnumerable<IFailureMechanism> failureMechanisms)
+        {
+            if (failureMechanisms == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanisms));
+            }
+
             var changedObservables = new List<IObservable>();
-            foreach (IFailureMechanism failureMechanism in assessmentSection.GetFailureMechanisms())
+            foreach (IFailureMechanism failureMechanism in failureMechanisms)
             {
                 var grassCoverErosionOutwardsFailureMechanism = failureMechanism as GrassCoverErosionOutwardsFailureMechanism;
                 var duneErosionFailureMechanism = failureMechanism as DuneErosionFailureMechanism;

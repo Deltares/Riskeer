@@ -51,7 +51,7 @@ namespace Ringtoets.Integration.TestUtils
         /// <summary>
         /// Gets a fully configured <see cref="AssessmentSection"/>.
         /// </summary>
-        public static AssessmentSection GetFullyConfiguredAssessmentSection()
+        public static AssessmentSection GetFullyConfiguredAssessmentSection(AssessmentSectionComposition composition = AssessmentSectionComposition.Dike)
         {
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0)
             {
@@ -61,7 +61,7 @@ namespace Ringtoets.Integration.TestUtils
                     2.2, double.NaN, double.NaN, double.NaN, double.NaN, CalculationConvergence.CalculatedConverged)
             };
 
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
+            var assessmentSection = new AssessmentSection(composition)
             {
                 ReferenceLine = new ReferenceLine(),
                 HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase

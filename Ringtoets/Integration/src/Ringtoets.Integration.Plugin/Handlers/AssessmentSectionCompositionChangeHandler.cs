@@ -27,16 +27,19 @@ using Core.Common.Base;
 using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Integration.Data;
+using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.DuneErosion.Data;
 using Ringtoets.Integration.Forms.PropertyClasses;
 using Ringtoets.Integration.Plugin.Properties;
 using Ringtoets.Integration.Service;
+using Ringtoets.StabilityStoneCover.Data;
+using Ringtoets.WaveImpactAsphaltCover.Data;
 using CoreCommonBaseResources = Core.Common.Base.Properties.Resources;
 
 namespace Ringtoets.Integration.Plugin.Handlers
 {
     /// <summary>
-    /// Class responsible for changing the <see cref="AssessmentSection.Composition"/>
+    /// Class responsible for changing the <see cref="IAssessmentSection.Composition"/>
     /// value clearing all data dependent on the original composition value.
     /// </summary>
     public class AssessmentSectionCompositionChangeHandler : IAssessmentSectionCompositionChangeHandler
@@ -58,6 +61,8 @@ namespace Ringtoets.Integration.Plugin.Handlers
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
+            var oldFailureMechanismContributions = assessmentSection.GetFailureMechanisms().ToDictionary(f => f, f => f.Contribution);
+
             var affectedObjects = new List<IObservable>();
             if (assessmentSection.Composition != newComposition)
             {
@@ -66,29 +71,51 @@ namespace Ringtoets.Integration.Plugin.Handlers
                 affectedObjects.Add(assessmentSection);
                 affectedObjects.AddRange(assessmentSection.GetFailureMechanisms());
 
-                IObservable[] affectedCalculations = RingtoetsDataSynchronizationService.ClearFailureMechanismCalculationOutputs(assessmentSection).ToArray();
+                var failureMechanismsToClearOutputFor = new List<IFailureMechanism>();
+
+                foreach (IFailureMechanism failureMechanism in assessmentSection.GetFailureMechanisms())
+                { 
+                    foreach (KeyValuePair<IFailureMechanism, double> oldFailureMechanismContribution in oldFailureMechanismContributions)
+                    {
+                        if (failureMechanism is StabilityStoneCoverFailureMechanism || failureMechanism is WaveImpactAsphaltCoverFailureMechanism)
+                        {
+                            continue;
+                        }
+
+                        if (failureMechanism is DuneErosionFailureMechanism
+                            || oldFailureMechanismContribution.Key.Equals(failureMechanism)
+                            && Math.Abs(oldFailureMechanismContribution.Value) > 1e-6
+                            && Math.Abs(oldFailureMechanismContribution.Value - failureMechanism.Contribution) > 1e-6)
+                        {
+                            failureMechanismsToClearOutputFor.Add(failureMechanism);
+                            break;
+                        }
+                    }
+                }
+
+                IObservable[] affectedCalculations = RingtoetsDataSynchronizationService.ClearFailureMechanismCalculationOutputs(failureMechanismsToClearOutputFor).ToArray();
+
                 if (affectedCalculations.Length > 0)
                 {
                     affectedObjects.AddRange(affectedCalculations);
                     log.InfoFormat(Resources.ChangeHandler_Results_of_NumberOfCalculations_0_calculations_cleared,
                                    affectedObjects.OfType<ICalculation>().Count());
                 }
-
-                if (assessmentSection.HydraulicBoundaryDatabase != null)
-                {
-                    affectedObjects.AddRange(ClearHydraulicBoundaryLocationOutput(assessmentSection));
-                }
+                
+                affectedObjects.AddRange(ClearHydraulicBoundaryLocationOutput(failureMechanismsToClearOutputFor));
+                
             }
             return affectedObjects;
         }
 
-        private IEnumerable<IObservable> ClearHydraulicBoundaryLocationOutput(IAssessmentSection assessmentSection)
+        private IEnumerable<IObservable> ClearHydraulicBoundaryLocationOutput(IEnumerable<IFailureMechanism> failureMechanismsToClearOutputFor)
         {
-            IEnumerable<IObservable> affectedObjects = RingtoetsDataSynchronizationService.ClearHydraulicBoundaryLocationOutputOfFailureMechanisms(assessmentSection);
+            IEnumerable<IObservable> affectedObjects =
+                RingtoetsDataSynchronizationService.ClearHydraulicBoundaryLocationOutputOfFailureMechanisms(failureMechanismsToClearOutputFor);
             if (affectedObjects.Any())
             {
                 log.Info(Resources.AssessmentSectionCompositionChangeHandler_Waveheight_and_design_water_level_results_cleared);
-                return RingtoetsDataSynchronizationService.GetHydraulicBoundaryLocationCollectionsOfFailureMechanisms(assessmentSection);
+                return RingtoetsDataSynchronizationService.GetHydraulicBoundaryLocationCollectionsOfFailureMechanisms(failureMechanismsToClearOutputFor);
             }
             return Enumerable.Empty<IObservable>();
         }
