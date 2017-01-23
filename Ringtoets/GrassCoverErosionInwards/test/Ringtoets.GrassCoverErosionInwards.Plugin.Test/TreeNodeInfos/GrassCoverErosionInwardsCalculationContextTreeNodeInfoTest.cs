@@ -236,10 +236,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                 mocks.ReplayAll();
 
                 plugin.Gui = guiMock;
-                failureMechanism.AddSection(new FailureMechanismSection("test", new[]
-                {
-                    new Point2D(0, 0)
-                }));
 
                 // Call
                 using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSectionMock, treeViewControl))
