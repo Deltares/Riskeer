@@ -161,7 +161,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_NoHydraulicBoundaryDatabaseSet_ContextMenuItemBerekenenDisabled()
+        public void ContextMenuStrip_NoHydraulicBoundaryDatabase_ContextMenuItemCalculateAllDisabled()
         {
             // Setup
             var guiMock = mockRepository.StrictMock<IGui>();
@@ -200,7 +200,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_HydraulicBoundaryDatabaseSet_ContextMenuItemBerekenenEnabled()
+        public void ContextMenuStrip_AllRequiredInputSet_ContextMenuItemCalculateAllEnabled()
         {
             // Setup
             var assessmentSectionMock = mockRepository.Stub<IAssessmentSection>();

@@ -267,7 +267,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_NoDatabase_ContextMenuItemPerformCalculationDisabledAndTooltipSet()
+        public void ContextMenuStrip_NoHydraulicBoundaryDatabase_ContextMenuItemPerformCalculationDisabledAndTooltipSet()
         {
             // Setup
             var guiMock = mocks.StrictMock<IGui>();
@@ -299,7 +299,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_DatabaseNotValid_ContextMenuItemPerformCalculationDisabledAndTooltipSet()
+        public void ContextMenuStrip_HydraulicBoundaryDatabaseNotValid_ContextMenuItemPerformCalculationDisabledAndTooltipSet()
         {
             // Setup
             var guiMock = mocks.StrictMock<IGui>();
@@ -334,7 +334,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_DatabaseSet_ContextMenuItemPerformCalculationEnabled()
+        public void ContextMenuStrip_AllRequiredInputSet_ContextMenuItemPerformCalculationEnabled()
         {
             // Setup
             var guiMock = mocks.StrictMock<IGui>();
@@ -375,7 +375,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_SectionsSetNoDatabase_ContextMenuItemValidateCalculationDisabledAndTooltipSet()
+        public void ContextMenuStrip_NoHydraulicBoundaryDatabase_ContextMenuItemValidateCalculationDisabledAndTooltipSet()
         {
             // Setup
             var guiMock = mocks.StrictMock<IGui>();
@@ -407,7 +407,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_SectionsSetDatabaseNotValid_ContextMenuItemValidateCalculationDisabledAndTooltipSet()
+        public void ContextMenuStrip_HydraulicBoundaryDatabaseNotValid_ContextMenuItemValidateCalculationDisabledAndTooltipSet()
         {
             // Setup
             var guiMock = mocks.StrictMock<IGui>();
@@ -442,7 +442,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_SectionsAndDatabaseSet_ContextMenuItemValidateCalculationEnabled()
+        public void ContextMenuStrip_AllRequiredInputSet_ContextMenuItemValidateCalculationEnabled()
         {
             // Setup
             var guiMock = mocks.StrictMock<IGui>();
