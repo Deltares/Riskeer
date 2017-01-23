@@ -413,7 +413,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_FailureMechanismSectionsSetNoHydraulicBoundaryDatabase_ContextMenuItemCalculateAllDisabledAndTooltipSet()
+        public void ContextMenuStrip_NoHydraulicBoundaryDatabase_ContextMenuItemCalculateAllDisabledAndTooltipSet()
         {
             // Setup
             var group = new CalculationGroup
@@ -500,7 +500,59 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_HydraulicDatabaseSet_ContextMenuItemCalculateAllEnabled()
+        public void ContextMenuStrip_FailureMechanismContributionZero_ContextMenuItemCalculateAllDisabledAndTooltipSet()
+        {
+            // Setup
+            var group = new CalculationGroup
+            {
+                Children =
+                {
+                    new StructuresCalculation<HeightStructuresInput>()
+                }
+            };
+
+            string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
+
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                FilePath = validFilePath,
+                Version = "1.0"
+            };
+
+            var failureMechanism = new HeightStructuresFailureMechanism();
+            failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<HeightStructuresInput>());
+
+            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
+            var nodeData = new HeightStructuresCalculationGroupContext(group,
+                                                                       failureMechanism,
+                                                                       assessmentSectionStub);
+
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                guiStub.Expect(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                guiStub.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
+
+                mocks.ReplayAll();
+
+                assessmentSectionStub.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
+
+                // Call
+                using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                {
+                    // Assert
+                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndexRootGroup,
+                                                                  "Alles be&rekenen",
+                                                                  "De bijdrage van dit toetsspoor is nul.",
+                                                                  RingtoetsCommonFormsResources.CalculateAllIcon,
+                                                                  false);
+                }
+            }
+        }
+
+        [Test]
+        public void ContextMenuStrip_AllRequiredInputSet_ContextMenuItemCalculateAllEnabled()
         {
             // Setup
             var group = new CalculationGroup
@@ -594,7 +646,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_FailureMechanismSectionsSetHydraulicBoundaryDatabaseNotValid_ContextMenuItemValidateAllDisabledAndTooltipSet()
+        public void ContextMenuStrip_HydraulicBoundaryDatabaseNotValid_ContextMenuItemValidateAllDisabledAndTooltipSet()
         {
             // Setup
             var group = new CalculationGroup
@@ -638,7 +690,59 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_HydraulicDatabaseSet_ContextMenuItemValidateAllEnabled()
+        public void ContextMenuStrip_FailureMechanismContributionZero_ContextMenuItemValidateAllDisabledAndTooltipSet()
+        {
+            // Setup
+            var group = new CalculationGroup
+            {
+                Children =
+                {
+                    new StructuresCalculation<HeightStructuresInput>()
+                }
+            };
+
+            string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
+
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                FilePath = validFilePath,
+                Version = "1.0"
+            };
+
+            var failureMechanism = new HeightStructuresFailureMechanism();
+            failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<HeightStructuresInput>());
+
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
+
+            var nodeData = new HeightStructuresCalculationGroupContext(group,
+                                                                       failureMechanism,
+                                                                       assessmentSection);
+
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                guiStub.Expect(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                guiStub.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
+
+                mocks.ReplayAll();
+
+                // Call
+                using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                {
+                    // Assert
+                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateAllIndexRootGroup,
+                                                                  "Alles &valideren",
+                                                                  "De bijdrage van dit toetsspoor is nul.",
+                                                                  RingtoetsCommonFormsResources.ValidateAllIcon,
+                                                                  false);
+                }
+            }
+        }
+
+        [Test]
+        public void ContextMenuStrip_AllRequiredInputSet_ContextMenuItemValidateAllEnabled()
         {
             // Setup
             var group = new CalculationGroup
