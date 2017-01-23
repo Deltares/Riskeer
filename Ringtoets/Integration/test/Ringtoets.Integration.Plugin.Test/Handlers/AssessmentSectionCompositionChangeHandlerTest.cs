@@ -183,27 +183,18 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             // Precondition
             Assert.AreNotEqual(assessmentSection.Composition, newComposition);
 
-
             IEnumerable<ICalculation> notAffectedObjects = GetDuneIrrelevantFailureMechanisms(assessmentSection)
                 .SelectMany(fm => fm.Calculations)
                 .Where(calc => calc.HasOutput);
 
-            // Note: with the current implementation, all the failure mechanisms themselves also get added in the 
-            // list of affected objects. Not sure if this should be done, so change this concat accordingly with the design.
-            IObservable[] expectedAffectedObjects = assessmentSection.GetFailureMechanisms().Cast<IObservable>()
-                                                                     .Concat(GetDuneRelevantFailureMechanisms(assessmentSection)
-                                                                                 .SelectMany(fm => fm.Calculations)
-                                                                                 .Where(calc => calc.HasOutput))
-                                                                     .Concat(new[]
-                                                                     {
-                                                                         assessmentSection
-                                                                     })
-                                                                     .Concat(new IObservable[]
-                                                                     {
-                                                                         grassCoverErosionOutwardsFailureMechanism.HydraulicBoundaryLocations,
-                                                                         duneErosionFailureMechanism.DuneLocations
-                                                                     })
-                                                                     .ToArray();
+            IObservable[] expectedAffectedObjects = new IObservable[]
+            {
+                grassCoverErosionOutwardsFailureMechanism.HydraulicBoundaryLocations,
+                duneErosionFailureMechanism.DuneLocations,
+                assessmentSection
+            }.Concat(GetDuneRelevantFailureMechanisms(assessmentSection)
+                         .SelectMany(fm => fm.Calculations)
+                         .Where(calc => calc.HasOutput)).ToArray();
 
             var handler = new AssessmentSectionCompositionChangeHandler();
 
@@ -228,7 +219,6 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             // - Calculation output related stability stone cover
             Assert.IsTrue(GetDuneRelevantFailureMechanisms(assessmentSection).SelectMany(fm => fm.Calculations)
                                                                              .All(calc => !calc.HasOutput));
-
 
             CollectionAssert.AreEquivalent(notAffectedObjects, GetDuneIrrelevantFailureMechanisms(assessmentSection)
                                                .SelectMany(fm => fm.Calculations)
@@ -270,18 +260,11 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
                                                               .SelectMany(fm => fm.Calculations)
                                                               .Where(calc => calc.HasOutput);
 
-            // Note: with the current implementation, all the failure mechanisms themselves also get added in the 
-            // list of affected objects. Not sure if this should be done, so change this concat accordingly with the design.
-            IObservable[] expectedAffectedObjects = assessmentSection.GetFailureMechanisms().Cast<IObservable>()
-                                                                     .Concat(new[]
-                                                                     {
-                                                                         assessmentSection
-                                                                     })
-                                                                     .Concat(new IObservable[]
-                                                                     {
-                                                                         duneErosionFailureMechanism.DuneLocations
-                                                                     })
-                                                                     .ToArray();
+            IObservable[] expectedAffectedObjects = new IObservable[]
+            {
+                assessmentSection,
+                duneErosionFailureMechanism.DuneLocations
+            }.ToArray();
 
             var handler = new AssessmentSectionCompositionChangeHandler();
 
@@ -342,19 +325,12 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
                                                                                        .OfType<DuneErosionFailureMechanism>()
                                                                                        .First();
 
-            // Note: with the current implementation, all the failure mechanisms themselves also get added in the 
-            // list of affected objects. Not sure if this should be done, so change this concat accordingly with the design.
-            IObservable[] expectedAffectedObjects = assessmentSection.GetFailureMechanisms().Cast<IObservable>()
-                                                                     .Concat(new[]
-                                                                     {
-                                                                         assessmentSection
-                                                                     })
-                                                                     .Concat(new IObservable[]
-                                                                     {
-                                                                         grassCoverErosionOutwardsFailureMechanism.HydraulicBoundaryLocations,
-                                                                         duneErosionFailureMechanism.DuneLocations
-                                                                     })
-                                                                     .ToArray();
+            IObservable[] expectedAffectedObjects = new IObservable[]
+            {
+                assessmentSection,
+                grassCoverErosionOutwardsFailureMechanism.HydraulicBoundaryLocations,
+                duneErosionFailureMechanism.DuneLocations
+            }.ToArray();
 
             var handler = new AssessmentSectionCompositionChangeHandler();
 
@@ -398,18 +374,11 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
                                                                                        .OfType<DuneErosionFailureMechanism>()
                                                                                        .First();
 
-            // Note: with the current implementation, all the failure mechanisms themselves also get added in the 
-            // list of affected objects. Not sure if this should be done, so change this concat accordingly with the design.
-            IObservable[] expectedAffectedObjects = assessmentSection.GetFailureMechanisms().Cast<IObservable>()
-                                                                     .Concat(new[]
-                                                                     {
-                                                                         assessmentSection
-                                                                     })
-                                                                     .Concat(new IObservable[]
-                                                                     {
-                                                                         duneErosionFailureMechanism.DuneLocations
-                                                                     })
-                                                                     .ToArray();
+            IObservable[] expectedAffectedObjects = new IObservable[]
+            {
+                assessmentSection,
+                duneErosionFailureMechanism.DuneLocations
+            }.ToArray();
 
             var handler = new AssessmentSectionCompositionChangeHandler();
 
@@ -455,17 +424,12 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
                 .SelectMany(fm => fm.Calculations)
                 .Where(calc => calc.HasOutput);
 
-            // Note: with the current implementation, all the failure mechanisms themselves also get added in the 
-            // list of affected objects. Change this concat accordingly with the design.
-            IObservable[] expectedAffectedObjects = assessmentSection.GetFailureMechanisms().Cast<IObservable>()
-                                                                     .Concat(GetDuneRelevantFailureMechanisms(assessmentSection)
-                                                                                 .SelectMany(fm => fm.Calculations)
-                                                                                 .Where(c => c.HasOutput))
-                                                                     .Concat(new[]
-                                                                     {
-                                                                         assessmentSection
-                                                                     })
-                                                                     .ToArray();
+            IObservable[] expectedAffectedObjects = new IObservable[]
+            {
+                assessmentSection
+            }.Concat(GetDuneRelevantFailureMechanisms(assessmentSection)
+                         .SelectMany(fm => fm.Calculations)
+                         .Where(c => c.HasOutput)).ToArray();
 
             var handler = new AssessmentSectionCompositionChangeHandler();
 
@@ -486,7 +450,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             Assert.IsTrue(GetDuneRelevantFailureMechanisms(assessmentSection).SelectMany(fm => fm.Calculations)
                                                                              .All(calc => !calc.HasOutput));
             CollectionAssert.AreEquivalent(notAffectedObjects, GetDuneIrrelevantFailureMechanisms(assessmentSection).SelectMany(fm => fm.Calculations)
-                                                                                          .Where(calc => calc.HasOutput));
+                                                                                                                    .Where(calc => calc.HasOutput));
 
             CollectionAssert.AreEquivalent(expectedAffectedObjects, affectedObjects);
         }
@@ -513,14 +477,10 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
                                                               .SelectMany(fm => fm.Calculations)
                                                               .Where(calc => calc.HasOutput);
 
-            // Note: with the current implementation, all the failure mechanisms themselves also get added in the 
-            // list of affected objects. Change this concat accordingly with the design.
-            IObservable[] expectedAffectedObjects = assessmentSection.GetFailureMechanisms().Cast<IObservable>()
-                                                                     .Concat(new[]
-                                                                     {
-                                                                         assessmentSection
-                                                                     })
-                                                                     .ToArray();
+            IObservable[] expectedAffectedObjects = new[]
+            {
+                assessmentSection
+            }.ToArray();
 
             var handler = new AssessmentSectionCompositionChangeHandler();
 
@@ -532,8 +492,8 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
 
             // The calculations within the failure mechanisms should not have been deleted in this scenario,
             CollectionAssert.AreEquivalent(expectedNotAffectedObjects, assessmentSection.GetFailureMechanisms()
-                                                                                     .SelectMany(fm => fm.Calculations)
-                                                                                     .Where(calc => calc.HasOutput));
+                                                                                        .SelectMany(fm => fm.Calculations)
+                                                                                        .Where(calc => calc.HasOutput));
 
             CollectionAssert.AreEquivalent(expectedAffectedObjects, affectedObjects);
         }

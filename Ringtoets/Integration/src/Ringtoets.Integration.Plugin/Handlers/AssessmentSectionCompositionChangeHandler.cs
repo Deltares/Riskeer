@@ -69,7 +69,6 @@ namespace Ringtoets.Integration.Plugin.Handlers
                 assessmentSection.ChangeComposition(newComposition);
 
                 affectedObjects.Add(assessmentSection);
-                affectedObjects.AddRange(assessmentSection.GetFailureMechanisms());
 
                 var failureMechanismsToClearOutputFor = new List<IFailureMechanism>();
 
