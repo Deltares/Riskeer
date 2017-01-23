@@ -70,7 +70,7 @@ namespace Ringtoets.Common.IO.Hydraulics
                 throw new ArgumentNullException(nameof(waveHeightName));
             }
 
-            FileUtils.ValidateFilePath(filePath);
+            IOUtils.ValidateFilePath(filePath);
 
             this.hydraulicBoundaryLocations = hydraulicBoundaryLocations;
             this.filePath = filePath;

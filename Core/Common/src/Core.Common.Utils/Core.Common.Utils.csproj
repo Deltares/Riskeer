@@ -91,6 +91,7 @@
     <Compile Include="Attributes\ResourcesCategoryAttribute.cs" />
     <Compile Include="Attributes\ResourcesDescriptionAttribute.cs" />
     <Compile Include="Attributes\ResourcesDisplayNameAttribute.cs" />
+    <Compile Include="Builders\DirectoryWriterErrorMessageBuilder.cs" />
     <Compile Include="Builders\FileReaderErrorMessageBuilder.cs" />
     <Compile Include="Builders\FileWriterErrorMessageBuilder.cs" />
     <Compile Include="Drawing\GraphicsExtensions.cs" />
@@ -102,7 +103,7 @@
     <Compile Include="Extensions\ComparableExtensions.cs" />
     <Compile Include="Extensions\EnumerableExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
-    <Compile Include="FileUtils.cs" />
+    <Compile Include="IOUtils.cs" />
     <Compile Include="IO\EmbeddedResourceFileWriter.cs" />
     <Compile Include="NullableEnumTypeConverter.cs" />
     <Compile Include="Properties\Resources.Designer.cs">

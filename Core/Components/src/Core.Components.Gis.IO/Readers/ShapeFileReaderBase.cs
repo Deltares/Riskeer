@@ -52,7 +52,7 @@ namespace Core.Components.Gis.IO.Readers
         /// points to a file that doesn't exist. </exception>
         protected ShapeFileReaderBase(string filePath)
         {
-            FileUtils.ValidateFilePath(filePath);
+            IOUtils.ValidateFilePath(filePath);
             if (!File.Exists(filePath))
             {
                 string message = new FileReaderErrorMessageBuilder(filePath)

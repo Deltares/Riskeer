@@ -206,7 +206,7 @@ namespace Core.Components.DotSpatial.Layer.BruTile.TileFetching
         private void GetTileOnThread(object[] parameters)
         {
             var tileInfo = (TileInfo) parameters[0];
-            var tileRetrievedEvent = (AutoResetEvent) parameters[1];
+            var tileRetrievedEvent = !AsyncMode ? (AutoResetEvent) parameters[1] : null;
 
             GetTileOnThreadCore(tileInfo, tileRetrievedEvent);
         }

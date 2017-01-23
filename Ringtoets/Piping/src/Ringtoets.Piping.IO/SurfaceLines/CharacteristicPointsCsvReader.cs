@@ -72,7 +72,7 @@ namespace Ringtoets.Piping.IO.SurfaceLines
         /// <exception cref="ArgumentException">Thrown when <paramref name="path"/> is invalid.</exception>
         public CharacteristicPointsCsvReader(string path)
         {
-            FileUtils.ValidateFilePath(path);
+            IOUtils.ValidateFilePath(path);
 
             filePath = path;
         }

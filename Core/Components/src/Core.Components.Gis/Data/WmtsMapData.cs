@@ -109,13 +109,25 @@ namespace Core.Components.Gis.Data
 
         /// <summary>
         /// Creates a new instance of <see cref="WmtsMapData"/> configured to the 'brtachtergrondkaart'
-        /// of PDOK.
+        /// of PDOK in RD-new coordinate system.
         /// </summary>
         public static WmtsMapData CreateDefaultPdokMapData()
         {
             return new WmtsMapData(Resources.WmtsMapData_CreateDefaultPdokMapData_Name,
                                    "https://geodata.nationaalgeoregister.nl/wmts/top10nlv2?VERSION=1.0.0&request=GetCapabilities",
-                                   "brtachtergrondkaart",
+                                   "brtachtergrondkaart(EPSG:28992)",
+                                   "image/png");
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="WmtsMapData"/> configured to the 'brtachtergrondkaart'
+        /// of PDOK in a ETRS89 / UTM zone 31 N coordinate system.
+        /// </summary>
+        public static WmtsMapData CreateAlternativePdokMapData()
+        {
+            return new WmtsMapData(Resources.WmtsMapData_CreateDefaultPdokMapData_Name,
+                                   "https://geodata.nationaalgeoregister.nl/wmts/top10nlv2?VERSION=1.0.0&request=GetCapabilities",
+                                   "brtachtergrondkaart(EPSG:25831:RWS)",
                                    "image/png");
         }
 

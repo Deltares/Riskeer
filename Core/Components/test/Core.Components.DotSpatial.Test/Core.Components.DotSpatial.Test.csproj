@@ -87,6 +87,7 @@
     <Compile Include="Converter\MapLineDataConverterTest.cs" />
     <Compile Include="Converter\MapPolygonDataConverterTest.cs" />
     <Compile Include="Converter\FeatureBasedMapDataConverterTest.cs" />
+    <Compile Include="Layer\BruTile\Configurations\TileSourceFactoryTest.cs" />
     <Compile Include="Layer\FeatureBasedMapDataLayerFactoryTest.cs" />
     <Compile Include="Converter\MapPointDataConverterTest.cs" />
     <Compile Include="Layer\MapLineDataLayerTest.cs" />

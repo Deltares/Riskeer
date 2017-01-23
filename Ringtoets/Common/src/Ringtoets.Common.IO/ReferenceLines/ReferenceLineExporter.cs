@@ -49,7 +49,7 @@ namespace Ringtoets.Common.IO.ReferenceLines
         /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>
         public ReferenceLineExporter(ReferenceLine referenceLine, string id, string filePath)
         {
-            FileUtils.ValidateFilePath(filePath);
+            IOUtils.ValidateFilePath(filePath);
 
             this.referenceLine = referenceLine;
             this.filePath = filePath;

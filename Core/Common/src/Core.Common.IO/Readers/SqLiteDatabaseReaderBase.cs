@@ -51,7 +51,7 @@ namespace Core.Common.IO.Readers
         {
             try
             {
-                FileUtils.ValidateFilePath(databaseFilePath);
+                IOUtils.ValidateFilePath(databaseFilePath);
                 Path = databaseFilePath;
 
                 if (!File.Exists(databaseFilePath))

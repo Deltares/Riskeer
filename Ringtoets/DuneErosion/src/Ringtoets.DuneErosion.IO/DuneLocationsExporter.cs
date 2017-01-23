@@ -54,7 +54,7 @@ namespace Ringtoets.DuneErosion.IO
                 throw new ArgumentNullException(nameof(duneLocations));
             }
 
-            FileUtils.ValidateFilePath(filePath);
+            IOUtils.ValidateFilePath(filePath);
 
             this.duneLocations = duneLocations;
             this.filePath = filePath;

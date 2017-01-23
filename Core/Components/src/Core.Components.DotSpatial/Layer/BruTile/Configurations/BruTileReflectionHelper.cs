@@ -44,12 +44,14 @@ namespace Core.Components.DotSpatial.Layer.BruTile.Configurations
         internal static ITileProvider GetProviderFromTileSource(ITileSource source)
         {
             FieldInfo fi = null;
-            Type sourceType = source.GetType();
-            if (sourceType == typeof(HttpTileSource))
+            // Note: This implementation respects inheritance. Cannot use 'source.GetType()'
+            // as that only grant access to fields declared in that type. Therefore the _provider
+            // field would be inaccessible if 'source' would be an extended type of those below.
+            if (source is HttpTileSource)
             {
                 fi = typeof(HttpTileSource).GetField("_provider", BindingFlags.Instance | BindingFlags.NonPublic);
             }
-            else if (sourceType == typeof(TileSource))
+            else if (source is TileSource)
             {
                 fi = typeof(TileSource).GetField("_provider", BindingFlags.Instance | BindingFlags.NonPublic);
             }

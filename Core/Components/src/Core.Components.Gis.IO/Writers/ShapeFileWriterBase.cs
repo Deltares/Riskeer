@@ -79,7 +79,7 @@ namespace Core.Components.Gis.IO.Writers
         /// <exception cref="CriticalFileWriteException">Thrown when the shapefile cannot be written.</exception>
         public void SaveAs(string filePath)
         {
-            FileUtils.ValidateFilePath(filePath);
+            IOUtils.ValidateFilePath(filePath);
 
             try
             {

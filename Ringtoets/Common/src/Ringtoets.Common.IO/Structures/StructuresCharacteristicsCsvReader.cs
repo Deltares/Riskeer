@@ -66,7 +66,7 @@ namespace Ringtoets.Common.IO.Structures
         /// <exception cref="ArgumentException">Thrown when <paramref name="path"/> is invalid.</exception>
         public StructuresCharacteristicsCsvReader(string path)
         {
-            FileUtils.ValidateFilePath(path);
+            IOUtils.ValidateFilePath(path);
 
             filePath = path;
         }

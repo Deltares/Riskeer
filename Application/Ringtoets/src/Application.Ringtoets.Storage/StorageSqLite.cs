@@ -250,7 +250,7 @@ namespace Application.Ringtoets.Storage
         /// </exception>
         private static string GetConnectionToExistingFile(string databaseFilePath)
         {
-            FileUtils.ValidateFilePath(databaseFilePath);
+            IOUtils.ValidateFilePath(databaseFilePath);
             return GetConnectionToFile(databaseFilePath);
         }
 
@@ -269,7 +269,7 @@ namespace Application.Ringtoets.Storage
         /// </exception>
         private static string GetConnectionToNewFile(string databaseFilePath)
         {
-            FileUtils.ValidateFilePath(databaseFilePath);
+            IOUtils.ValidateFilePath(databaseFilePath);
             StorageSqliteCreator.CreateDatabaseStructure(databaseFilePath);
             return GetConnectionToFile(databaseFilePath);
         }

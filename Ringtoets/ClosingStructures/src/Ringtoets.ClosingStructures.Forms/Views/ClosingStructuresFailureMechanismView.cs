@@ -21,6 +21,7 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mime;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Components.Gis.Data;
@@ -147,7 +148,7 @@ namespace Ringtoets.ClosingStructures.Forms.Views
 
                     SetMapDataFeatures();
 
-                    mapControl.Data = mapDataCollection;
+                    Map.Data = mapDataCollection;
                 }
             }
         }

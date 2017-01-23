@@ -20,37 +20,38 @@
 // All rights reserved.
 
 using System.Globalization;
+using Core.Common.Utils.Extensions;
 using Core.Common.Utils.Properties;
 
 namespace Core.Common.Utils.Builders
 {
     /// <summary>
-    /// Class to help create consistent file writer error messages.
+    /// Class to help create consistent folder writer error messages.
     /// </summary>
-    public class FileWriterErrorMessageBuilder
+    public class DirectoryWriterErrorMessageBuilder
     {
-        private readonly string filePath;
+        private readonly string folderPath;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="FileWriterErrorMessageBuilder"/> class.
+        /// Initializes a new instance of <see cref="DirectoryWriterErrorMessageBuilder"/> class.
         /// </summary>
-        /// <param name="filePath">The file path to the file where the error occurred.</param>
-        public FileWriterErrorMessageBuilder(string filePath)
+        /// <param name="folderPath">The file path to the directory where the error occurred.</param>
+        public DirectoryWriterErrorMessageBuilder(string folderPath)
         {
-            this.filePath = filePath;
+            this.folderPath = folderPath;
         }
 
         /// <summary>
         /// Builds the specified error message.
         /// </summary>
-        /// <param name="errorMessage">The message about the error that has occurred.</param>
+        /// <param name="errorMessage">The message about the error that occurred.</param>
         /// <returns>The full error message.</returns>
         public string Build(string errorMessage)
         {
             return string.Format(CultureInfo.CurrentCulture,
-                                 Resources.Error_Writing_to_File_0_CustomMessage_1_,
-                                 filePath,
-                                 errorMessage);
+                                 Resources.Error_Writing_to_Directory_0_CustomMessage_1_,
+                                 folderPath,
+                                 errorMessage.FirstToLower());
         }
     }
 }

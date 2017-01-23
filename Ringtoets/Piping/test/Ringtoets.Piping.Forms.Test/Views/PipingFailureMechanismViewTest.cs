@@ -23,6 +23,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Components.DotSpatial.Forms;
 using Core.Components.Gis.Data;
@@ -154,12 +155,17 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void Data_EmptyPipingFailureMechanismContext_NoMapDataSet()
         {
             // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var backgroundMapData = WmtsMapData.CreateUnconnectedMapData();
+            assessmentSection.Stub(s => s.BackgroundMapData).Return(backgroundMapData);
+            assessmentSection.Stub(s => s.Id).Return("A");
+            assessmentSection.Stub(s => s.Attach(Arg<IObserver>.Is.NotNull));
+            assessmentSection.Stub(s => s.Detach(Arg<IObserver>.Is.NotNull));
+            mocks.ReplayAll();
+
             using (var view = new PipingFailureMechanismView())
             {
-                var mockRepository = new MockRepository();
-                var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-                mockRepository.ReplayAll();
-
                 var failureMechanismContext = new PipingFailureMechanismContext(
                     new PipingFailureMechanism(), assessmentSection);
 
@@ -169,9 +175,69 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 // Assert
                 Assert.AreSame(failureMechanismContext, view.Data);
                 AssertEmptyMapData(view.Map.Data);
-
-                mockRepository.VerifyAll();
+                Assert.AreSame(backgroundMapData, view.Map.BackgroundMapData);
             }
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Data_AssessmentSectionWithBackgroundMapData_BackgroundMapDataSet(bool isConfigured)
+        {
+            WmtsMapData backgroundMapData = isConfigured ? WmtsMapData.CreateAlternativePdokMapData() : WmtsMapData.CreateUnconnectedMapData();
+
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(s => s.BackgroundMapData).Return(backgroundMapData);
+            assessmentSection.Stub(s => s.Id).Return("A");
+            assessmentSection.Stub(s => s.Attach(Arg<IObserver>.Is.NotNull));
+            assessmentSection.Stub(s => s.Detach(Arg<IObserver>.Is.NotNull));
+            mocks.ReplayAll();
+
+            // Setup
+            using (var view = new PipingFailureMechanismView())
+            {
+                var failureMechanismContext = new PipingFailureMechanismContext(new PipingFailureMechanism(), assessmentSection);
+
+                // Call
+                view.Data = failureMechanismContext;
+
+                // Assert
+                Assert.AreSame(backgroundMapData, view.Map.BackgroundMapData);
+            }
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Data_SetToNull_ClearMapDataProperties()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(s => s.BackgroundMapData).Return(WmtsMapData.CreateUnconnectedMapData());
+            assessmentSection.Stub(s => s.Id).Return("A");
+            assessmentSection.Stub(s => s.Attach(Arg<IObserver>.Is.NotNull));
+            assessmentSection.Stub(s => s.Detach(Arg<IObserver>.Is.NotNull));
+            mocks.ReplayAll();
+
+            using (var view = new PipingFailureMechanismView())
+            {
+                view.Data = new PipingFailureMechanismContext(
+                    new PipingFailureMechanism(), assessmentSection);
+
+                // Precondition
+                Assert.IsNotNull(view.Map.Data);
+                Assert.IsNotNull(view.Map.BackgroundMapData);
+
+                // Call
+                view.Data = null;
+
+                // Assert
+                Assert.IsNull(view.Map.Data);
+                Assert.IsNull(view.Map.BackgroundMapData);
+            }
+            mocks.VerifyAll();
         }
 
         [Test]

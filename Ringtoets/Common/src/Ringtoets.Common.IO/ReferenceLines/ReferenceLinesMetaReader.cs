@@ -100,7 +100,7 @@ namespace Ringtoets.Common.IO.ReferenceLines
         /// <exception cref="CriticalFileReadException">Thrown when <paramref name="shapeFilePath"/> does not exist.</exception>
         private static void ValidateFilePath(string shapeFilePath)
         {
-            FileUtils.ValidateFilePath(shapeFilePath);
+            IOUtils.ValidateFilePath(shapeFilePath);
             if (!File.Exists(shapeFilePath))
             {
                 string message = new FileReaderErrorMessageBuilder(shapeFilePath)

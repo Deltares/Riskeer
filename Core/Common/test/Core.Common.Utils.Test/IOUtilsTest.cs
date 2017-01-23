@@ -21,6 +21,7 @@
 
 using System;
 using System.IO;
+using System.Text;
 using System.Threading;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -28,16 +29,137 @@ using NUnit.Framework;
 namespace Core.Common.Utils.Test
 {
     [TestFixture]
-    public class FileUtilsTest
+    public class IOUtilsTest
     {
+        [Test]
+        [TestCase(null)]
+        [TestCase("")]
+        [TestCase("   ")]
+        public void IsValidFolderPath_InvalidEmptyPath_ReturnFalse(string invalidPath)
+        {
+            // Call
+            bool isFolderPathValid = IOUtils.IsValidFolderPath(invalidPath);
+
+            // Assert
+            Assert.IsFalse(isFolderPathValid);
+        }
+
+        [Test]
+        public void IsValidFolderPath_PathTooLong_ReturnFalse()
+        {
+            // Setup
+            var stringBuilder = new StringBuilder();
+            stringBuilder.Append(@"C:\");
+            for (int i = 0; i < 300; i++)
+            {
+                stringBuilder.Append("A");
+            }
+            stringBuilder.Append(Path.DirectorySeparatorChar);
+            string tooLongFolderPath = stringBuilder.ToString();
+
+            // Call
+            bool isFolderPathValid = IOUtils.IsValidFolderPath(tooLongFolderPath);
+
+            // Assert
+            Assert.IsFalse(isFolderPathValid);
+        }
+
+        [Test]
+        public void IsValidFolderPath_InvalidColonCharacterInPath_ReturnFalse()
+        {
+            // Setup
+            string pathWithInvalidColonCharacter = @"C:\Left:Right";
+
+            // Call
+            bool isFolderPathValid = IOUtils.IsValidFolderPath(pathWithInvalidColonCharacter);
+
+            // Assert
+            Assert.IsFalse(isFolderPathValid);
+        }
+
+        [Test]
+        public void IsValidFolderPath_ValidPath_ReturnTrue()
+        {
+            // Setup
+            string path = TestHelper.GetTestDataPath(TestDataPath.Core.Common.Utils);
+
+            // Call
+            bool isFolderPathValid = IOUtils.IsValidFilePath(path);
+
+            // Assert
+            Assert.IsTrue(isFolderPathValid);
+        }
+
+        [Test]
+        [TestCase(null)]
+        [TestCase("")]
+        [TestCase("   ")]
+        public void ValidateFolderPath_InvalidEmptyPath_ThrowsArgumentException(string invalidPath)
+        {
+            // Call
+            TestDelegate call = () => IOUtils.ValidateFolderPath(invalidPath);
+
+            // Assert
+            string message = $"Fout bij het schrijven naar bestandsmap '{invalidPath}': pad naar bestandsmap mag niet leeg of ongedefinieerd zijn.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, message);
+        }
+
+        [Test]
+        public void ValidateFolderPath_PathTooLong_ThrowsArgumentException()
+        {
+            // Setup
+            var stringBuilder = new StringBuilder();
+            stringBuilder.Append(@"C:\");
+            for (int i = 0; i < 300; i++)
+            {
+                stringBuilder.Append("A");
+            }
+            stringBuilder.Append(Path.DirectorySeparatorChar);
+            string tooLongFolderPath = stringBuilder.ToString();
+
+            // Call
+            TestDelegate call = () => IOUtils.ValidateFolderPath(tooLongFolderPath);
+
+            // Assert
+            string message = $"Fout bij het schrijven naar bestandsmap '{tooLongFolderPath}': het pad naar bestandsmap is te lang.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, message);
+        }
+
+        [Test]
+        public void ValidateFolderPath_InvalidColonCharacterInPath_ThrowsArgumentException()
+        {
+            // Setup
+            string folderWithInvalidColonCharacter = @"C:\Left:Right";
+
+            // Call
+            TestDelegate call = () => IOUtils.ValidateFolderPath(folderWithInvalidColonCharacter);
+
+            // Assert
+            string message = $"Fout bij het schrijven naar bestandsmap '{folderWithInvalidColonCharacter}': het pad naar bestandsmap bevat een ':' op een ongeldige plek.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, message);
+        }
+
+        [Test]
+        public void ValidateFolderPath_ValidPath_DoesNotThrow()
+        {
+            // Setup
+            string path = TestHelper.GetTestDataPath(TestDataPath.Core.Common.Utils);
+
+            // Call
+            TestDelegate call = () => IOUtils.ValidateFolderPath(path);
+
+            // Assert
+            Assert.DoesNotThrow(call);
+        }
+
         [Test]
         public void ValidateFilePath_ValidPath_DoesNotThrowAnyExceptions()
         {
             // Setup
-            var path = TestHelper.GetTestDataPath(TestDataPath.Core.Common.Utils, "validFile.txt");
+            string path = TestHelper.GetTestDataPath(TestDataPath.Core.Common.Utils, "validFile.txt");
 
             // Call
-            TestDelegate call = () => FileUtils.ValidateFilePath(path);
+            TestDelegate call = () => IOUtils.ValidateFilePath(path);
 
             // Assert
             Assert.DoesNotThrow(call);
@@ -50,7 +172,7 @@ namespace Core.Common.Utils.Test
         public void ValidateFilePath_InvalidEmptyPath_ThrowsArgumentException(string invalidPath)
         {
             // Call
-            TestDelegate call = () => FileUtils.ValidateFilePath(invalidPath);
+            TestDelegate call = () => IOUtils.ValidateFilePath(invalidPath);
 
             // Assert
             var exception = Assert.Throws<ArgumentException>(call);
@@ -62,12 +184,12 @@ namespace Core.Common.Utils.Test
         public void ValidateFilePath_PathContainingInvalidFileCharacters_ThrowsArgumentException()
         {
             // Setup
-            var path = TestHelper.GetTestDataPath(TestDataPath.Core.Common.Utils, "validFile.txt");
-            var invalidFileNameChars = Path.GetInvalidFileNameChars();
-            var invalidPath = path.Replace('d', invalidFileNameChars[0]);
+            string path = TestHelper.GetTestDataPath(TestDataPath.Core.Common.Utils, "validFile.txt");
+            char[] invalidFileNameChars = Path.GetInvalidFileNameChars();
+            string invalidPath = path.Replace('d', invalidFileNameChars[0]);
 
             // Call
-            TestDelegate call = () => FileUtils.ValidateFilePath(invalidPath);
+            TestDelegate call = () => IOUtils.ValidateFilePath(invalidPath);
 
             // Assert
             var exception = Assert.Throws<ArgumentException>(call);
@@ -80,10 +202,10 @@ namespace Core.Common.Utils.Test
         public void ValidateFilePath_PathEndsWithEmptyFileName_ThrowsArgumentException()
         {
             // Setup
-            var folderPath = TestHelper.GetTestDataPath(TestDataPath.Core.Common.Utils) + Path.DirectorySeparatorChar;
+            string folderPath = TestHelper.GetTestDataPath(TestDataPath.Core.Common.Utils) + Path.DirectorySeparatorChar;
 
             // Call
-            TestDelegate call = () => FileUtils.ValidateFilePath(folderPath);
+            TestDelegate call = () => IOUtils.ValidateFilePath(folderPath);
 
             // Assert
             var exception = Assert.Throws<ArgumentException>(call);
@@ -95,10 +217,10 @@ namespace Core.Common.Utils.Test
         public void IsValidFilePath_ValidPath_ReturnsTrue()
         {
             // Setup
-            var path = TestHelper.GetTestDataPath(TestDataPath.Core.Common.Utils, "validFile.txt");
+            string path = TestHelper.GetTestDataPath(TestDataPath.Core.Common.Utils, "validFile.txt");
 
             // Call
-            var valid = FileUtils.IsValidFilePath(path);
+            var valid = IOUtils.IsValidFilePath(path);
 
             // Assert
             Assert.IsTrue(valid);
@@ -111,7 +233,7 @@ namespace Core.Common.Utils.Test
         public void IsValidFilePath_InvalidEmptyPath_ReturnsFalse(string invalidPath)
         {
             // Call
-            var valid = FileUtils.IsValidFilePath(invalidPath);
+            bool valid = IOUtils.IsValidFilePath(invalidPath);
 
             // Assert
             Assert.IsFalse(valid);
@@ -121,12 +243,12 @@ namespace Core.Common.Utils.Test
         public void IsValidFilePath_PathContainingInvalidFileCharacters_ReturnsFalse()
         {
             // Setup
-            var path = TestHelper.GetTestDataPath(TestDataPath.Core.Common.Utils, "validFile.txt");
-            var invalidFileNameChars = Path.GetInvalidFileNameChars();
-            var invalidPath = path.Replace('d', invalidFileNameChars[0]);
+            string path = TestHelper.GetTestDataPath(TestDataPath.Core.Common.Utils, "validFile.txt");
+            char[] invalidFileNameChars = Path.GetInvalidFileNameChars();
+            string invalidPath = path.Replace('d', invalidFileNameChars[0]);
 
             // Call
-            var valid = FileUtils.IsValidFilePath(invalidPath);
+            bool valid = IOUtils.IsValidFilePath(invalidPath);
 
             // Assert
             Assert.IsFalse(valid);
@@ -136,10 +258,10 @@ namespace Core.Common.Utils.Test
         public void IsValidFilePath_PathIsActuallyFolder_ReturnsFalse()
         {
             // Setup
-            var folderPath = TestHelper.GetTestDataPath(TestDataPath.Core.Common.Utils) + Path.DirectorySeparatorChar;
+            string folderPath = TestHelper.GetTestDataPath(TestDataPath.Core.Common.Utils) + Path.DirectorySeparatorChar;
 
             // Call
-            var valid = FileUtils.IsValidFilePath(folderPath);
+            bool valid = IOUtils.IsValidFilePath(folderPath);
 
             // Assert
             Assert.IsFalse(valid);
@@ -152,7 +274,7 @@ namespace Core.Common.Utils.Test
         public void DeleteOldFiles_InvalidEmptyPath_ThrowsArgumentException(string invalidPath)
         {
             // Call
-            TestDelegate call = () => FileUtils.DeleteOldFiles(invalidPath, "", 0);
+            TestDelegate call = () => IOUtils.DeleteOldFiles(invalidPath, "", 0);
 
             // Assert
             string invalidParameterName = Assert.Throws<ArgumentException>(call).ParamName;
@@ -166,10 +288,10 @@ namespace Core.Common.Utils.Test
         public void DeleteOldFiles_InvalidSearchPattern_ThrowsArgumentException(string invalidSearchPattern)
         {
             // Setup
-            var path = TestHelper.GetTestDataPath(TestDataPath.Core.Common.Utils);
+            string path = TestHelper.GetTestDataPath(TestDataPath.Core.Common.Utils);
 
             // Call
-            TestDelegate call = () => FileUtils.DeleteOldFiles(path, invalidSearchPattern, 0);
+            TestDelegate call = () => IOUtils.DeleteOldFiles(path, invalidSearchPattern, 0);
 
             // Assert
             string invalidParameterName = Assert.Throws<ArgumentException>(call).ParamName;
@@ -180,13 +302,13 @@ namespace Core.Common.Utils.Test
         public void DeleteOldFiles_PathDoesNotExist_ThrowsIOException()
         {
             // Setup
-            var path = TestHelper.GetTestDataPath(TestDataPath.Core.Common.Utils, "doesNotExist");
+            string path = TestHelper.GetTestDataPath(TestDataPath.Core.Common.Utils, "doesNotExist");
 
             // Precondition
             Assert.IsFalse(Directory.Exists(path));
 
             // Call
-            TestDelegate call = () => FileUtils.DeleteOldFiles(path, "*.log", 0);
+            TestDelegate call = () => IOUtils.DeleteOldFiles(path, "*.log", 0);
 
             // Assert
             IOException exception = Assert.Throws<IOException>(call);
@@ -199,18 +321,18 @@ namespace Core.Common.Utils.Test
         public void DeleteOldFiles_ValidPathWithFile_DeletesFile()
         {
             // Setup
-            var path = TestHelper.GetTestDataPath(TestDataPath.Core.Common.Utils);
-            var filePath = Path.Combine(path, "fileToDelete.log");
+            string path = TestHelper.GetTestDataPath(TestDataPath.Core.Common.Utils);
+            string filePath = Path.Combine(path, "fileToDelete.log");
 
             using (new FileDisposeHelper(filePath))
             {
-                Thread.Sleep(1); // Sleep 1 ms to make sure File.Create has had enough time to create the file.
+                Thread.Sleep(1); // Sleep 1 ms to make sure File. Create has had enough time to create the file.
 
                 // Call
-                FileUtils.DeleteOldFiles(path, "*.log", 0);
+                IOUtils.DeleteOldFiles(path, "*.log", 0);
 
                 // Assert
-                Thread.Sleep(1); // Sleep 1 ms to make sure File.Delete has had enough time to remove the file.
+                Thread.Sleep(1); // Sleep 1 ms to make sure File. Delete has had enough time to remove the file.
                 Assert.IsFalse(File.Exists(filePath));
             }
         }
@@ -222,7 +344,7 @@ namespace Core.Common.Utils.Test
         public void ValidateFilePathIsWritable_FilePathNullOrWhiteSpace_ThrowsArgumentException(string filePath)
         {
             // Call
-            TestDelegate call = () => FileUtils.ValidateFilePathIsWritable(filePath);
+            TestDelegate call = () => IOUtils.ValidateFilePathIsWritable(filePath);
 
             // Assert
             ArgumentException exception = Assert.Throws<ArgumentException>(call);
@@ -242,11 +364,12 @@ namespace Core.Common.Utils.Test
                 File.SetAttributes(filePath, attributes | FileAttributes.ReadOnly);
 
                 // Call
-                TestDelegate call = () => FileUtils.ValidateFilePathIsWritable(filePath);
+                TestDelegate call = () => IOUtils.ValidateFilePathIsWritable(filePath);
 
                 // Assert
                 string expectedMessage = $"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{filePath}'.";
                 TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
+
                 File.SetAttributes(filePath, attributes);
             }
         }
@@ -261,7 +384,7 @@ namespace Core.Common.Utils.Test
             using (new FileDisposeHelper(filePath))
             {
                 // Call
-                TestDelegate call = () => FileUtils.ValidateFilePathIsWritable(filePath);
+                TestDelegate call = () => IOUtils.ValidateFilePathIsWritable(filePath);
 
                 // Assert
                 Assert.DoesNotThrow(call);

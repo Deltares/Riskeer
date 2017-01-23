@@ -23,16 +23,85 @@ using System;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Security;
 using Core.Common.Utils.Builders;
 using Core.Common.Utils.Properties;
 
 namespace Core.Common.Utils
 {
     /// <summary>
-    /// Class with reusable File related utility methods.
+    /// Class with reusable file and folder related utility methods.
     /// </summary>
-    public static class FileUtils
+    public static class IOUtils
     {
+        /// <summary>
+        /// Validates the folder path.
+        /// </summary>
+        /// <param name="path">The folder path to be validated.</param>
+        /// <returns><c>true</c> if the folder path is valid; <c>false</c> otherwise.</returns>
+        /// <remarks>A valid folder path:
+        /// <list type="bullet">
+        /// <item>is not empty nor contains only whitespaces.</item>
+        /// <item>has no access rights to that location.</item>
+        /// <item>isn't too long.</item>
+        /// <item>does not contain an invalid ':' character.</item>
+        /// </list></remarks>
+        public static bool IsValidFolderPath(string path)
+        {
+            try
+            {
+                ValidateFolderPath(path);
+            }
+            catch (ArgumentException)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// Validates the folder path.
+        /// </summary>
+        /// <param name="path">The folder path to be validated.</param>
+        /// <exception cref="ArgumentException">Thrown when:
+        /// <list type="bullet">
+        /// <item>The folder path is empty or contains only whitespaces.</item>
+        /// <item>Caller has no access rights to the folder path.</item>
+        /// <item>The folder path is too long.</item>
+        /// <item>The folder path contains an invalid ':' character.</item>
+        /// </list></exception>
+        public static void ValidateFolderPath(string path)
+        {
+            if (string.IsNullOrWhiteSpace(path))
+            {
+                var message = new DirectoryWriterErrorMessageBuilder(path)
+                    .Build(Resources.FileUtils_ValidateFolderPath_Path_cannot_be_empty);
+                throw new ArgumentException(message);
+            }
+            try
+            {
+                string fullPath = Path.GetFullPath(path);
+            }
+            catch (SecurityException e)
+            {
+                var message = new DirectoryWriterErrorMessageBuilder(path)
+                    .Build(Resources.FileUtils_ValidateFolderPath_No_access_rights_to_folder);
+                throw new ArgumentException(message, e);
+            }
+            catch (PathTooLongException e)
+            {
+                var message = new DirectoryWriterErrorMessageBuilder(path)
+                    .Build(Resources.FileUtils_ValidateFolderPath_Folder_path_too_long);
+                throw new ArgumentException(message, e);
+            }
+            catch (NotSupportedException e)
+            {
+                var message = new DirectoryWriterErrorMessageBuilder(path)
+                    .Build(Resources.FileUtils_ValidateFolderPath_Folder_path_contains_invalid_character);
+                throw new ArgumentException(message, e);
+            }
+        }
+
         /// <summary>
         /// Validates the file path.
         /// </summary>

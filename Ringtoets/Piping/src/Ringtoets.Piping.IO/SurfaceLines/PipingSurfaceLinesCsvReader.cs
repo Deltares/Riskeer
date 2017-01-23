@@ -76,7 +76,7 @@ namespace Ringtoets.Piping.IO.SurfaceLines
         /// <exception cref="ArgumentException"><paramref name="path"/> is invalid.</exception>
         public PipingSurfaceLinesCsvReader(string path)
         {
-            FileUtils.ValidateFilePath(path);
+            IOUtils.ValidateFilePath(path);
 
             filePath = path;
         }

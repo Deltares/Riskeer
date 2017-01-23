@@ -25,6 +25,8 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Components.DotSpatial.Layer;
+using Core.Components.DotSpatial.Layer.BruTile;
+using Core.Components.DotSpatial.Layer.BruTile.Configurations;
 using Core.Components.DotSpatial.MapFunctions;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Forms;
@@ -41,6 +43,7 @@ namespace Core.Components.DotSpatial.Forms
     {
         private readonly Cursor defaultCursor = Cursors.Default;
         private readonly RecursiveObserver<MapDataCollection, MapDataCollection> mapDataCollectionObserver;
+        private readonly Observer backGroundMapDataObserver;
         private readonly IList<DrawnMapData> drawnMapDataList = new List<DrawnMapData>();
 
         private Map map;
@@ -48,6 +51,13 @@ namespace Core.Components.DotSpatial.Forms
         private MapFunctionSelectionZoom mapFunctionSelectionZoom;
         private MouseCoordinatesMapExtension mouseCoordinatesMapExtension;
         private MapDataCollection data;
+
+        private BruTileLayer backgroundLayer;
+        private WmtsMapData backgroundMapData;
+
+        private string layerSourceCapabilitiesUrl;
+        private string layerSelectedCapabilityId;
+        private string layerPreferredFormat;
 
         /// <summary>
         /// Creates a new instance of <see cref="MapControl"/>.
@@ -58,6 +68,7 @@ namespace Core.Components.DotSpatial.Forms
             TogglePanning();
 
             mapDataCollectionObserver = new RecursiveObserver<MapDataCollection, MapDataCollection>(HandleMapDataCollectionChange, mdc => mdc.Collection);
+            backGroundMapDataObserver = new Observer(HandleBackgroundMapDataChange);
         }
 
         public bool IsPanningEnabled { get; private set; }
@@ -74,16 +85,44 @@ namespace Core.Components.DotSpatial.Forms
             }
             set
             {
-                if (data != null)
+                if (HasMapData)
                 {
-                    ClearMapData();
+                    ClearAllMapData();
                 }
 
                 data = value;
 
                 mapDataCollectionObserver.Observable = data;
 
-                if (data != null)
+                if (HasMapData)
+                {
+                    DrawInitialMapData();
+                }
+            }
+        }
+
+        public WmtsMapData BackgroundMapData
+        {
+            get
+            {
+                return backgroundMapData;
+            }
+            set
+            {
+                if (HasMapData)
+                {
+                    ClearAllMapData();
+
+                    layerSourceCapabilitiesUrl = null;
+                    layerSelectedCapabilityId = null;
+                    layerPreferredFormat = null;
+                }
+
+                backgroundMapData = value;
+
+                backGroundMapDataObserver.Observable = value;
+
+                if (HasMapData)
                 {
                     DrawInitialMapData();
                 }
@@ -143,8 +182,96 @@ namespace Core.Components.DotSpatial.Forms
             map.Dispose();
             mouseCoordinatesMapExtension.Dispose();
             mapDataCollectionObserver.Dispose();
+            backGroundMapDataObserver.Dispose();
 
             base.Dispose(disposing);
+        }
+
+        private bool HasMapData
+        {
+            get
+            {
+                return backgroundMapData != null || data != null;
+            }
+        }
+
+        private void HandleBackgroundMapDataChange()
+        {
+            if (backgroundLayer != null)
+            {
+                if (HasBackgroundMapDataConfigurationChanged())
+                {
+                    map.Layers.Remove(backgroundLayer);
+                    backgroundLayer.Dispose();
+
+                    InsertBackgroundLayer();
+                }
+                backgroundLayer.IsVisible = backgroundMapData.IsVisible;
+                backgroundLayer.Transparency = Convert.ToSingle(backgroundMapData.Transparency);
+            }
+            else
+            {
+                InsertBackgroundLayer();
+            }
+        }
+
+        private bool HasBackgroundMapDataConfigurationChanged()
+        {
+            return !Equals(backgroundMapData.SourceCapabilitiesUrl, layerSourceCapabilitiesUrl)
+                   || !Equals(backgroundMapData.SelectedCapabilityIdentifier, layerSelectedCapabilityId)
+                   || !Equals(backgroundMapData.PreferredFormat, layerPreferredFormat);
+        }
+
+        private void InsertBackgroundLayer()
+        {
+            if (backgroundMapData.IsConfigured)
+            {
+                InitializeBackgroundLayer();
+
+                InsertBackgroundLayerAndReprojectExistingLayers();
+            }
+            else
+            {
+                map.Projection = MapDataConstants.FeatureBasedMapDataCoordinateSystem;
+                ReprojectLayers(map.Layers);
+            }
+        }
+
+        private void InitializeBackgroundLayer()
+        {
+            WmtsLayerConfiguration configuration = WmtsLayerConfiguration.CreateInitializedConfiguration(backgroundMapData.SourceCapabilitiesUrl,
+                                                                                                         backgroundMapData.SelectedCapabilityIdentifier,
+                                                                                                         backgroundMapData.PreferredFormat);
+            backgroundLayer = new BruTileLayer(configuration)
+            {
+                IsVisible = backgroundMapData.IsVisible,
+                Transparency = Convert.ToSingle(backgroundMapData.Transparency)
+            };
+
+            layerSourceCapabilitiesUrl = backgroundMapData.SourceCapabilitiesUrl;
+            layerSelectedCapabilityId = backgroundMapData.SelectedCapabilityIdentifier;
+            layerPreferredFormat = backgroundMapData.PreferredFormat;
+        }
+
+        private void InsertBackgroundLayerAndReprojectExistingLayers()
+        {
+            IMapLayer[] existingMapLayers = map.Layers.ToArray();
+
+            map.Projection = backgroundLayer.Projection;
+            map.Layers.Insert(0, backgroundLayer);
+
+            ReprojectLayers(existingMapLayers);
+        }
+
+        private void ReprojectLayers(IEnumerable<IMapLayer> layersToReproject)
+        {
+            foreach (IMapLayer mapLayer in layersToReproject)
+            {
+                if (!mapLayer.Projection.Equals(map.Projection))
+                {
+                    mapLayer.Reproject(map.Projection);
+                }
+            }
         }
 
         private static void AddPadding(Extent extent)
@@ -247,13 +374,29 @@ namespace Core.Components.DotSpatial.Forms
 
         private void DrawInitialMapData()
         {
-            foreach (FeatureBasedMapData featureBasedMapData in Data.GetFeatureBasedMapDataRecursively())
+            if (BackgroundMapData != null && BackgroundMapData.IsConfigured)
             {
-                DrawMapData(featureBasedMapData);
+                InitializeBackgroundLayer();
+                map.Projection = backgroundLayer.Projection;
+                map.Layers.Add(backgroundLayer);
+            }
+            else
+            {
+                layerSourceCapabilitiesUrl = null;
+                layerSelectedCapabilityId = null;
+                layerPreferredFormat = null;
+            }
+
+            if (Data != null)
+            {
+                foreach (FeatureBasedMapData featureBasedMapData in Data.GetFeatureBasedMapDataRecursively())
+                {
+                    DrawMapData(featureBasedMapData);
+                }
             }
         }
 
-        private void ClearMapData()
+        private void ClearAllMapData()
         {
             foreach (DrawnMapData drawnMapData in drawnMapDataList)
             {
@@ -263,6 +406,7 @@ namespace Core.Components.DotSpatial.Forms
             drawnMapDataList.Clear();
 
             map.ClearLayers();
+            map.Projection = MapDataConstants.FeatureBasedMapDataCoordinateSystem;
         }
 
         private void HandleMapDataCollectionChange()

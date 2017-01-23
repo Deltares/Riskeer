@@ -47,7 +47,7 @@ namespace Application.Ringtoets.Storage
         /// <exception cref="StorageException">Thrown when executing <c>DatabaseStructure</c> script fails.</exception>
         public static void CreateDatabaseStructure(string databaseFilePath)
         {
-            FileUtils.ValidateFilePath(databaseFilePath);
+            IOUtils.ValidateFilePath(databaseFilePath);
 
             if (File.Exists(databaseFilePath))
             {

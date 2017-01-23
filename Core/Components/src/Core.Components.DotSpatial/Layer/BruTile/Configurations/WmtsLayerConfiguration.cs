@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using BruTile;
@@ -38,52 +39,52 @@ namespace Core.Components.DotSpatial.Layer.BruTile.Configurations
     /// </remarks>
     public class WmtsLayerConfiguration : PersistentCacheConfiguration, IConfiguration
     {
-        private readonly string persistentCacheDirectoryPath;
-
-        private readonly Uri capabilitiesUri;
-        private readonly string capabilityName;
+        private readonly string capabilitiesUri;
+        private readonly string capabilityIdentifier;
+        private readonly string preferredFormat;
 
         /// <summary>
         /// Creates an instance of <see cref="WmtsLayerConfiguration"/>.
         /// </summary>
         /// <param name="wmtsCapabilitiesUrl">The capabilities url of the WMTS.</param>
-        /// <param name="capabilityName">The capability name to get tiles from.</param>
+        /// <param name="capabilityIdentifier">The capability name to get tiles from.</param>
+        /// <param name="preferredFormat">The preferred tile image format, as MIME-type.</param>
         /// <param name="persistentCacheDirectoryPath">The directory path to the persistent tile cache.</param>
-        public WmtsLayerConfiguration(string wmtsCapabilitiesUrl, string capabilityName, string persistentCacheDirectoryPath)
-            : base(persistentCacheDirectoryPath)
+        /// <exception cref="ArgumentException">Thrown when <paramref name="persistentCacheDirectoryPath"/>
+        /// is an invalid folder path</exception>
+        public WmtsLayerConfiguration(string wmtsCapabilitiesUrl, string capabilityIdentifier, string preferredFormat,
+                                      string persistentCacheDirectoryPath) : base(persistentCacheDirectoryPath)
         {
-            capabilitiesUri = new Uri(wmtsCapabilitiesUrl);
-            this.capabilityName = capabilityName;
-            LegendText = capabilityName;
+            ValidateConfigurationParameters(wmtsCapabilitiesUrl, capabilityIdentifier, preferredFormat);
 
-            this.persistentCacheDirectoryPath = persistentCacheDirectoryPath;
+            capabilitiesUri = wmtsCapabilitiesUrl;
+            this.capabilityIdentifier = capabilityIdentifier;
+            this.preferredFormat = preferredFormat;
+            LegendText = capabilityIdentifier;
 
             Initialized = false;
         }
 
         /// <summary>
-        /// 
+        /// Creates a new initialized instance of <see cref="WmtsLayerConfiguration"/>.
         /// </summary>
-        /// <param name="persistentCacheDirectoryPath"></param>
-        /// <param name="name"></param>
-        /// <param name="tileSource"></param>
+        /// <param name="wmtsCapabilitiesUrl">The capabilities url of the WMTS.</param>
+        /// <param name="tileSource">The tile source.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="tileSource"/>
         /// is <c>null</c>.</exception>
         /// <exception cref="CannotCreateTileCacheException">Thrown when creating the file
-        /// cache at <paramref name="persistentCacheDirectoryPath"/> failed.</exception>
-        [Obsolete("Do not use due to being unable to retrieve the 'Capabilities' URL. This means instances created with this constructor do not support Clone().")]
-        public WmtsLayerConfiguration(string persistentCacheDirectoryPath, string name, ITileSource tileSource)
-            : base(persistentCacheDirectoryPath)
+        /// cache failed.</exception>
+        private WmtsLayerConfiguration(string wmtsCapabilitiesUrl, ITileSource tileSource)
+            : base(SuggestTileCachePath(tileSource))
         {
-            this.persistentCacheDirectoryPath = persistentCacheDirectoryPath;
-
-            LegendText = name;
-            capabilityName = name;
-
             if (tileSource == null)
             {
                 throw new ArgumentNullException(nameof(tileSource));
             }
+
+            capabilitiesUri = wmtsCapabilitiesUrl;
+            capabilityIdentifier = ((WmtsTileSchema) tileSource.Schema).Identifier;
+            preferredFormat = tileSource.Schema.Format;
 
             InitializeFromTileSource(tileSource);
         }
@@ -98,9 +99,15 @@ namespace Core.Components.DotSpatial.Layer.BruTile.Configurations
 
         public TileFetcher TileFetcher { get; private set; }
 
+        public static WmtsLayerConfiguration CreateInitializedConfiguration(string capabilitiesUrl, string capabilityIdentifier, string preferredFormat)
+        {
+            ITileSource tileSource = GetConfiguredTileSource(capabilitiesUrl, capabilityIdentifier, preferredFormat);
+            return new WmtsLayerConfiguration(capabilitiesUrl, tileSource);
+        }
+
         public IConfiguration Clone()
         {
-            return new WmtsLayerConfiguration(capabilitiesUri.AbsolutePath, capabilityName, persistentCacheDirectoryPath);
+            return new WmtsLayerConfiguration(capabilitiesUri, capabilityIdentifier, persistentCacheDirectoryPath, preferredFormat);
         }
 
         public void Initialize()
@@ -110,55 +117,90 @@ namespace Core.Components.DotSpatial.Layer.BruTile.Configurations
                 return;
             }
 
-            ITileSource tileSource = GetConfiguredTileSource();
+            ITileSource tileSource = GetConfiguredTileSource(capabilitiesUri, capabilityIdentifier, preferredFormat);
 
             InitializeFromTileSource(tileSource);
         }
 
         /// <summary>
+        /// Validate the configuration parameters.
+        /// </summary>
+        /// <param name="wmtsCapabilitiesUrl">The capabilities url of the WMTS.</param>
+        /// <param name="capabilityIdentifier">The capability name to get tiles from.</param>
+        /// <param name="preferredFormat">The preferred tile image format, as MIME-type.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="preferredFormat"/>
+        /// is not specified as a MIME-type.</exception>
+        private static void ValidateConfigurationParameters(string wmtsCapabilitiesUrl, string capabilityIdentifier, string preferredFormat)
+        {
+            if (wmtsCapabilitiesUrl == null)
+            {
+                throw new ArgumentNullException(nameof(wmtsCapabilitiesUrl));
+            }
+            if (capabilityIdentifier == null)
+            {
+                throw new ArgumentNullException(nameof(capabilityIdentifier));
+            }
+            if (preferredFormat == null)
+            {
+                throw new ArgumentNullException(nameof(preferredFormat));
+            }
+            if (!preferredFormat.StartsWith("image/"))
+            {
+                throw new ArgumentException("Specified image format is not a MIME type.", nameof(preferredFormat));
+            }
+        }
+
+        /// <summary>
         /// Connects to the WMTS to retrieve the configured tile source.
         /// </summary>
+        /// <param name="capabilitiesUri">The URL of the tile source server.</param>
+        /// <param name="capabilityIdentifier">The identifier of the tile source.</param>
+        /// <param name="preferredFormat">The preferred tile image format, as MIME-type.</param>
         /// <returns>The tile source, or null if no matching tile source could be found.</returns>
         /// <exception cref="CannotFindTileSourceException">Thrown when unable to retrieve
         /// the configured tile source.</exception>
-        private ITileSource GetConfiguredTileSource()
+        private static ITileSource GetConfiguredTileSource(string capabilitiesUri, string capabilityIdentifier, string preferredFormat)
         {
-            IEnumerable<ITileSource> tileSources = GetTileSources(capabilitiesUri);
-            ITileSource tileSource = tileSources.FirstOrDefault(ts => ts.Name.Equals(capabilityName, StringComparison.InvariantCulture));
+            IEnumerable<ITileSource> tileSources = TileSourceFactory.Instance.GetWmtsTileSources(capabilitiesUri);
+            ITileSource tileSource = tileSources.FirstOrDefault(ts => IsMatch(ts, capabilityIdentifier, preferredFormat));
             if (tileSource == null)
             {
                 string message = string.Format("Niet in staat om de databron met naam '{0}' te kunnen vinden bij de WTMS url '{1}'.",
-                                               capabilitiesUri, capabilityName);
+                                               capabilitiesUri, capabilityIdentifier);
                 throw new CannotFindTileSourceException(message);
             }
             return tileSource;
         }
 
-        /// <summary>
-        /// Connects to the WMTS and retrieves all available tile sources.
-        /// </summary>
-        /// <param name="capabilitiesUrl">The capabilities URL.</param>
-        /// <returns>All available tile sources.</returns>
-        /// <exception cref="CannotFindTileSourceException">Thrown when an exception occurs
-        /// while retrieving the available tile sources.</exception>
-        private static IEnumerable<ITileSource> GetTileSources(Uri capabilitiesUrl)
+        private static bool IsMatch(ITileSource wmtsTileSource, string capabilityIdentifier, string preferredFormat)
         {
-            try
+            var schema = (WmtsTileSchema) wmtsTileSource.Schema;
+            return schema.Identifier.Equals(capabilityIdentifier)
+                   && schema.Format.Equals(preferredFormat);
+        }
+
+        private static string SuggestTileCachePath(ITileSource tileSource)
+        {
+            var tileSchema = (WmtsTileSchema) tileSource.Schema;
+            string host = tileSchema.Title;
+            string format = tileSchema.Format.Split('/')[1];
+            string layerStyle = tileSchema.Identifier;
+            if (!string.IsNullOrEmpty(tileSchema.Style))
             {
-                var req = WebRequest.Create(capabilitiesUrl);
-                using (var resp = req.GetResponse())
-                {
-                    using (var s = resp.GetResponseStream())
-                    {
-                        return WmtsParser.Parse(s);
-                    }
-                }
+                layerStyle += "_" + tileSchema.Style;
             }
-            catch (Exception e)
+
+            foreach (var c in Path.GetInvalidFileNameChars())
             {
-                string message = string.Format("Niet in staat om de databronnen op te halen bij de WTMS url '{0}'.", capabilitiesUrl);
-                throw new CannotFindTileSourceException(message, e);
+                host = host.Replace(c, '$');
             }
+            foreach (var c in Path.GetInvalidFileNameChars())
+            {
+                layerStyle = layerStyle.Replace(c, '$');
+            }
+
+            return Path.Combine(BruTileSettings.PersistentCacheDirectoryRoot, "Wmts", host, layerStyle, format);
         }
 
         /// <summary>

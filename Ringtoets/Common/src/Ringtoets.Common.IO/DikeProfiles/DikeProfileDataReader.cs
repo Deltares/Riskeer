@@ -98,7 +98,7 @@ namespace Ringtoets.Common.IO.DikeProfiles
         /// <exception cref="CriticalFileValidationException">Thrown when the read id is not an accepted id.</exception>
         public DikeProfileData ReadDikeProfileData(string filePath)
         {
-            FileUtils.ValidateFilePath(filePath);
+            IOUtils.ValidateFilePath(filePath);
             if (!File.Exists(filePath))
             {
                 string message = new FileReaderErrorMessageBuilder(filePath)

@@ -186,7 +186,7 @@ namespace Application.Ringtoets
             {
                 try
                 {
-                    FileUtils.ValidateFilePath(potentialPath);
+                    IOUtils.ValidateFilePath(potentialPath);
                     fileToOpen = potentialPath;
                     return true;
                 }
@@ -204,7 +204,7 @@ namespace Application.Ringtoets
         {
             try
             {
-                FileUtils.DeleteOldFiles(GetLogFileDirectory(), "*.log", numberOfDaysToKeepLogFiles);
+                IOUtils.DeleteOldFiles(GetLogFileDirectory(), "*.log", numberOfDaysToKeepLogFiles);
             }
             catch (Exception e)
             {

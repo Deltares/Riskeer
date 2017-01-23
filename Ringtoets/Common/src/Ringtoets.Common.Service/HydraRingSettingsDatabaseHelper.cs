@@ -51,7 +51,7 @@ namespace Ringtoets.Common.Service
         /// </exception>
         public static void AssignSettingsFromDatabase(HydraRingCalculationInput calculationInput, string hydraulicBoundaryDatabaseFilePath)
         {
-            FileUtils.ValidateFilePath(hydraulicBoundaryDatabaseFilePath);
+            IOUtils.ValidateFilePath(hydraulicBoundaryDatabaseFilePath);
 
             var locationId = calculationInput.HydraulicBoundaryLocationId;
             var settingsDatabaseFileName = HydraulicDatabaseHelper.GetHydraulicBoundarySettingsDatabase(hydraulicBoundaryDatabaseFilePath);

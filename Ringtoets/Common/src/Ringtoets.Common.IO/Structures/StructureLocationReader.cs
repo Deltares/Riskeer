@@ -55,7 +55,7 @@ namespace Ringtoets.Common.IO.Structures
         /// </list></exception>
         public StructureLocationReader(string shapeFilePath)
         {
-            FileUtils.ValidateFilePath(shapeFilePath);
+            IOUtils.ValidateFilePath(shapeFilePath);
             if (!File.Exists(shapeFilePath))
             {
                 string message = new FileReaderErrorMessageBuilder(shapeFilePath)

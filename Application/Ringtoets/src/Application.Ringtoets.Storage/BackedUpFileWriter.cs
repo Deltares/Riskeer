@@ -45,7 +45,7 @@ namespace Application.Ringtoets.Storage
         /// <exception cref="ArgumentException"><paramref name="targetFilePath"/> is not a valid path.</exception>
         public BackedUpFileWriter(string targetFilePath)
         {
-            FileUtils.ValidateFilePath(targetFilePath);
+            IOUtils.ValidateFilePath(targetFilePath);
 
             this.targetFilePath = targetFilePath;
             temporaryFilePath = targetFilePath + temporarySuffix;

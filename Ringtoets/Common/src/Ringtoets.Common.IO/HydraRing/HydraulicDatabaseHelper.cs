@@ -50,7 +50,7 @@ namespace Ringtoets.Common.IO.HydraRing
         {
             try
             {
-                FileUtils.ValidateFilePath(filePath);
+                IOUtils.ValidateFilePath(filePath);
             }
             catch (ArgumentException e)
             {

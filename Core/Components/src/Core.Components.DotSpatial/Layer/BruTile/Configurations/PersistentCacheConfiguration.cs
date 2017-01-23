@@ -24,6 +24,7 @@ using System.ComponentModel;
 using System.Data.SQLite;
 using System.IO;
 using BruTile.Cache;
+using Core.Common.Utils;
 
 namespace Core.Components.DotSpatial.Layer.BruTile.Configurations
 {
@@ -35,15 +36,21 @@ namespace Core.Components.DotSpatial.Layer.BruTile.Configurations
     /// </remarks>
     public abstract class PersistentCacheConfiguration
     {
-        private readonly string persistentCacheDirectoryPath;
+        protected readonly string persistentCacheDirectoryPath;
 
         /// <summary>
         /// Initialized a new instance of <see cref="PersistentCacheConfiguration"/>.
         /// </summary>
         /// <param name="persistentCacheDirectoryPath">The path to the directory for this
         /// cache to keep its data.</param>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="persistentCacheDirectoryPath"/>
+        /// is invalid.</exception>
         protected PersistentCacheConfiguration(string persistentCacheDirectoryPath)
         {
+            if (!IOUtils.IsValidFolderPath(persistentCacheDirectoryPath))
+            {
+                throw new ArgumentException("Invalid folder path", nameof(persistentCacheDirectoryPath));
+            }
             this.persistentCacheDirectoryPath = persistentCacheDirectoryPath;
         }
 

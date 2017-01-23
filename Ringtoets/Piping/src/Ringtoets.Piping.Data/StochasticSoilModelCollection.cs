@@ -121,7 +121,7 @@ namespace Ringtoets.Piping.Data
             {
                 throw new ArgumentNullException(nameof(filePath));
             }
-            if (!FileUtils.IsValidFilePath(filePath))
+            if (!IOUtils.IsValidFilePath(filePath))
             {
                 throw new ArgumentException($"'{filePath}' is not a valid filepath.", nameof(filePath));
             }

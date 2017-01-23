@@ -162,7 +162,23 @@ namespace Core.Components.Gis.Test.Data
             // Assert
             Assert.AreEqual("PDOK achtergrondkaart", mapData.Name);
             Assert.AreEqual("https://geodata.nationaalgeoregister.nl/wmts/top10nlv2?VERSION=1.0.0&request=GetCapabilities", mapData.SourceCapabilitiesUrl);
-            Assert.AreEqual("brtachtergrondkaart", mapData.SelectedCapabilityIdentifier);
+            Assert.AreEqual("brtachtergrondkaart(EPSG:28992)", mapData.SelectedCapabilityIdentifier);
+            Assert.AreEqual("image/png", mapData.PreferredFormat);
+            Assert.AreEqual(0.0, mapData.Transparency.Value);
+            Assert.IsTrue(mapData.IsConfigured);
+            Assert.IsTrue(mapData.IsVisible);
+        }
+
+        [Test]
+        public void CreateAlternativePdokMapData_ReturnsInitializedWmtsMapData()
+        {
+            // Call
+            WmtsMapData mapData = WmtsMapData.CreateAlternativePdokMapData();
+
+            // Assert
+            Assert.AreEqual("PDOK achtergrondkaart", mapData.Name);
+            Assert.AreEqual("https://geodata.nationaalgeoregister.nl/wmts/top10nlv2?VERSION=1.0.0&request=GetCapabilities", mapData.SourceCapabilitiesUrl);
+            Assert.AreEqual("brtachtergrondkaart(EPSG:25831:RWS)", mapData.SelectedCapabilityIdentifier);
             Assert.AreEqual("image/png", mapData.PreferredFormat);
             Assert.AreEqual(0.0, mapData.Transparency.Value);
             Assert.IsTrue(mapData.IsConfigured);

@@ -57,7 +57,7 @@ namespace Ringtoets.Common.IO.ReferenceLines
         /// </exception>
         public ReferenceLine ReadReferenceLine(string shapeFilePath)
         {
-            FileUtils.ValidateFilePath(shapeFilePath);
+            IOUtils.ValidateFilePath(shapeFilePath);
             if (!File.Exists(shapeFilePath))
             {
                 string message = new FileReaderErrorMessageBuilder(shapeFilePath)

@@ -56,7 +56,7 @@ namespace Ringtoets.Common.IO.DikeProfiles
         /// </list></exception>
         public ProfileLocationReader(string shapeFilePath)
         {
-            FileUtils.ValidateFilePath(shapeFilePath);
+            IOUtils.ValidateFilePath(shapeFilePath);
             if (!File.Exists(shapeFilePath))
             {
                 string message = new FileReaderErrorMessageBuilder(shapeFilePath)

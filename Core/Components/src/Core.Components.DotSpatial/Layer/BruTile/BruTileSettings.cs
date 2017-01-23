@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using System.IO;
 using BruTile.Cache;
 using Core.Components.DotSpatial.Layer.BruTile.Configurations;
 
@@ -67,5 +69,11 @@ namespace Core.Components.DotSpatial.Layer.BruTile
         /// Gets the <see cref="MemoryCache{T}.MaxTiles"/> value
         /// </summary>
         public static int MemoryCacheMaximum { get; } = 200;
+
+        /// <summary>
+        /// Gets the root directory path for the persistent cache.
+        /// </summary>
+        public static string PersistentCacheDirectoryRoot { get; } = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+                                                                                  "WTI", "Ringtoets", "tilecaches");
     }
 }

@@ -59,7 +59,7 @@ namespace Ringtoets.Common.IO
         /// </exception>
         public FailureMechanismSectionReader(string shapeFilePath)
         {
-            FileUtils.ValidateFilePath(shapeFilePath);
+            IOUtils.ValidateFilePath(shapeFilePath);
             filePath = shapeFilePath;
             polylineShapeFileReader = new PolylineShapeFileReader(filePath);
         }

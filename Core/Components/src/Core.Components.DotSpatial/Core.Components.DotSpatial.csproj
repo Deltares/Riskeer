@@ -95,9 +95,11 @@
     <Compile Include="Layer\BruTile\Configurations\CannotCreateTileCacheException.cs" />
     <Compile Include="Layer\BruTile\Configurations\CannotFindTileSourceException.cs" />
     <Compile Include="Layer\BruTile\Configurations\IConfiguration.cs" />
+    <Compile Include="Layer\BruTile\Configurations\ITileSourceFactory.cs" />
     <Compile Include="Layer\BruTile\Configurations\PersistentCacheConfiguration.cs" />
     <Compile Include="Layer\BruTile\Configurations\PersistentCacheStrategy.cs" />
     <Compile Include="Layer\BruTile\Configurations\BruTileReflectionHelper.cs" />
+    <Compile Include="Layer\BruTile\Configurations\TileSourceFactory.cs" />
     <Compile Include="Layer\BruTile\Configurations\WmtsLayerConfiguration.cs" />
     <Compile Include="Layer\BruTile\Projections\ReprojectExtensions.cs" />
     <Compile Include="Layer\BruTile\Projections\TileReprojector.cs" />
@@ -123,6 +125,11 @@
     <ProjectReference Include="..\..\..\Common\src\Core.Common.Base\Core.Common.Base.csproj">
       <Project>{3bbfd65b-b277-4e50-ae6d-bd24c3434609}</Project>
       <Name>Core.Common.Base</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\src\Core.Common.Utils\Core.Common.Utils.csproj">
+      <Project>{f49bd8b2-332a-4c91-a196-8cce0a2c7d98}</Project>
+      <Name>Core.Common.Utils</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\Core.Components.Gis\Core.Components.Gis.csproj">

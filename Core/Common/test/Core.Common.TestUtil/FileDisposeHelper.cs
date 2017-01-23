@@ -108,7 +108,7 @@ namespace Core.Common.TestUtil
         /// </exception>
         private static void CreateFile(string filePath)
         {
-            if (FileUtils.IsValidFilePath(filePath))
+            if (IOUtils.IsValidFilePath(filePath))
             {
                 try
                 {
@@ -146,7 +146,7 @@ namespace Core.Common.TestUtil
         /// </exception>
         private static void DeleteFile(string filePath)
         {
-            if (FileUtils.IsValidFilePath(filePath))
+            if (IOUtils.IsValidFilePath(filePath))
             {
                 try
                 {
