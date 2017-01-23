@@ -306,7 +306,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_HasCalculationWithOutput_ReturnsContextMenuWithCommonItems()
         {
             // Setup
-            var failureMechanism = new PipingFailureMechanism();
+            var failureMechanism = new TestPipingFailureMechanism();
             failureMechanism.AddSection(new FailureMechanismSection("test", new[]
             {
                 new Point2D(0, 0)
@@ -565,7 +565,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             // Setup
             using (var treeViewControl = new TreeViewControl())
             {
-                var failureMechanism = new PipingFailureMechanism();
+                var failureMechanism = new TestPipingFailureMechanism();
                 failureMechanism.CalculationsGroup.Children.Clear();
 
                 PipingCalculationScenario validCalculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
@@ -615,7 +615,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             // Setup
             using (var treeViewControl = new TreeViewControl())
             {
-                var failureMechanism = new PipingFailureMechanism();
+                var failureMechanism = new TestPipingFailureMechanism();
                 failureMechanism.AddSection(new FailureMechanismSection("test", new[]
                 {
                     new Point2D(0, 0)

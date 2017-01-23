@@ -50,6 +50,7 @@
     <Compile Include="PipingCalculationScenarioFactory.cs" />
     <Compile Include="Segment2DLoopCollectionHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestPipingFailureMechanism.cs" />
     <Compile Include="TestPipingSemiProbabilisticOutput.cs" />
     <Compile Include="TestStochasticSoilModel.cs" />
   </ItemGroup>

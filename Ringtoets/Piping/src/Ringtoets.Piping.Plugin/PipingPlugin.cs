@@ -32,6 +32,7 @@ using Core.Common.Gui.Forms.ProgressDialog;
 using Core.Common.Gui.Plugin;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PresentationObjects;
@@ -266,7 +267,7 @@ namespace Ringtoets.Piping.Plugin
 
             yield return new TreeNodeInfo<StochasticSoilProfile>
             {
-                Text = pipingSoilProfile => (pipingSoilProfile.SoilProfile != null) ? pipingSoilProfile.SoilProfile.Name : "Profile",
+                Text = pipingSoilProfile => pipingSoilProfile.SoilProfile != null ? pipingSoilProfile.SoilProfile.Name : "Profile",
                 Image = pipingSoilProfile => PipingFormsResources.PipingSoilProfileIcon,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddPropertiesItem()
@@ -482,14 +483,24 @@ namespace Ringtoets.Piping.Plugin
                     .ToList());
         }
 
+        private static string ValidateAllDataAvailableAndGetErrorMessage(IFailureMechanism failureMechanism)
+        {
+            if (failureMechanism.Contribution <= 0.0)
+            {
+                return RingtoetsCommonFormsResources.Contribution_of_failure_mechanism_zero;
+            }
+
+            return null;
+        }
+
         #region RingtoetsPipingSurfaceLine TreeNodeInfo
 
-        private bool CanRemoveSurfaceLine(RingtoetsPipingSurfaceLine nodeData, object parentData)
+        private static bool CanRemoveSurfaceLine(RingtoetsPipingSurfaceLine nodeData, object parentData)
         {
             return parentData is RingtoetsPipingSurfaceLinesContext;
         }
 
-        private void OnSurfaceLineRemoved(RingtoetsPipingSurfaceLine nodeData, object parentData)
+        private static void OnSurfaceLineRemoved(RingtoetsPipingSurfaceLine nodeData, object parentData)
         {
             var context = (RingtoetsPipingSurfaceLinesContext) parentData;
             IObservable[] changedObservables = PipingDataSynchronizationService.RemoveSurfaceLine(context.FailureMechanism, nodeData).ToArray();
@@ -504,12 +515,12 @@ namespace Ringtoets.Piping.Plugin
 
         #region StochasticSoilModel TreeNodeInfo
 
-        private bool CanRemoveStochasticSoilModel(StochasticSoilModel nodeData, object parentData)
+        private static bool CanRemoveStochasticSoilModel(StochasticSoilModel nodeData, object parentData)
         {
             return parentData is StochasticSoilModelCollectionContext;
         }
 
-        private void OnStochasticSoilModelRemoved(StochasticSoilModel nodeData, object parentData)
+        private static void OnStochasticSoilModelRemoved(StochasticSoilModel nodeData, object parentData)
         {
             var context = (StochasticSoilModelCollectionContext) parentData;
             IObservable[] changedObservables = PipingDataSynchronizationService.RemoveStochasticSoilModel(context.FailureMechanism,
@@ -523,7 +534,7 @@ namespace Ringtoets.Piping.Plugin
 
         #endregion
 
-        #region Piping TreeNodeInfo
+        #region PipingFailureMechanismContext TreeNodeInfo
 
         private ContextMenuStrip FailureMechanismEnabledContextMenuStrip(PipingFailureMechanismContext pipingFailureMechanismContext,
                                                                          object parentData,
@@ -537,8 +548,12 @@ namespace Ringtoets.Piping.Plugin
                           .AddSeparator()
                           .AddValidateAllCalculationsInFailureMechanismItem(
                               pipingFailureMechanismContext,
-                              ValidateAll)
-                          .AddPerformAllCalculationsInFailureMechanismItem(pipingFailureMechanismContext, CalculateAll)
+                              ValidateAll,
+                              ValidateAllDataAvailableAndGetErrorMessage)
+                          .AddPerformAllCalculationsInFailureMechanismItem(
+                              pipingFailureMechanismContext,
+                              CalculateAll,
+                              ValidateAllDataAvailableAndGetErrorMessage)
                           .AddSeparator()
                           .AddClearAllCalculationOutputInFailureMechanismItem(pipingFailureMechanismContext.WrappedData)
                           .AddSeparator()
@@ -570,6 +585,11 @@ namespace Ringtoets.Piping.Plugin
                           .AddCollapseAllItem()
                           .AddExpandAllItem()
                           .Build();
+        }
+
+        private static string ValidateAllDataAvailableAndGetErrorMessage(PipingFailureMechanismContext context)
+        {
+            return ValidateAllDataAvailableAndGetErrorMessage(context.WrappedData);
         }
 
         private static IEnumerable<PipingCalculation> GetAllPipingCalculations(PipingFailureMechanism failureMechanism)
@@ -629,8 +649,15 @@ namespace Ringtoets.Piping.Plugin
             PipingCalculation calculation = nodeData.WrappedData;
 
             return builder.AddRenameItem()
-                          .AddValidateCalculationItem(nodeData, Validate)
-                          .AddPerformCalculationItem(calculation, nodeData, PerformCalculation)
+                          .AddValidateCalculationItem(
+                              nodeData,
+                              Validate,
+                              ValidateAllDataAvailableAndGetErrorMessage)
+                          .AddPerformCalculationItem(
+                              calculation,
+                              nodeData,
+                              PerformCalculation,
+                              ValidateAllDataAvailableAndGetErrorMessage)
                           .AddSeparator()
                           .AddClearCalculationOutputItem(calculation)
                           .AddDeleteItem()
@@ -687,6 +714,11 @@ namespace Ringtoets.Piping.Plugin
         private static void Validate(PipingCalculationScenarioContext context)
         {
             PipingCalculationService.Validate(context.WrappedData);
+        }
+
+        private static string ValidateAllDataAvailableAndGetErrorMessage(PipingCalculationScenarioContext context)
+        {
+            return ValidateAllDataAvailableAndGetErrorMessage(context.FailureMechanism);
         }
 
         private void PerformCalculation(PipingCalculation calculation, PipingCalculationScenarioContext context)
@@ -761,8 +793,15 @@ namespace Ringtoets.Piping.Plugin
                 builder.AddRenameItem();
             }
 
-            builder.AddValidateAllCalculationsInGroupItem(nodeData, ValidateAll)
-                   .AddPerformAllCalculationsInGroupItem(group, nodeData, CalculateAll)
+            builder.AddValidateAllCalculationsInGroupItem(
+                       nodeData,
+                       ValidateAll,
+                       ValidateAllDataAvailableAndGetErrorMessage)
+                   .AddPerformAllCalculationsInGroupItem(
+                       group,
+                       nodeData,
+                       CalculateAll,
+                       ValidateAllDataAvailableAndGetErrorMessage)
                    .AddSeparator()
                    .AddClearAllCalculationOutputInGroupItem(group);
 
@@ -815,6 +854,11 @@ namespace Ringtoets.Piping.Plugin
                 Enabled = surfaceLineAvailable
             };
             return generateCalculationsItem;
+        }
+
+        private static string ValidateAllDataAvailableAndGetErrorMessage(PipingCalculationGroupContext context)
+        {
+            return ValidateAllDataAvailableAndGetErrorMessage(context.FailureMechanism);
         }
 
         private void ShowSurfaceLineSelectionDialog(PipingCalculationGroupContext nodeData)

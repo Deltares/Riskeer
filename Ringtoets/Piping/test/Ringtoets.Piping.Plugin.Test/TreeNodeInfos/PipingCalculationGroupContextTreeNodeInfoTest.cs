@@ -188,7 +188,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 SemiProbabilisticOutput = new TestPipingSemiProbabilisticOutput()
             });
 
-            var pipingFailureMechanism = new PipingFailureMechanism();
+            var pipingFailureMechanism = new TestPipingFailureMechanism();
             pipingFailureMechanism.AddSection(new FailureMechanismSection("A", new[]
             {
                 new Point2D(0, 0)
@@ -303,7 +303,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 SemiProbabilisticOutput = new TestPipingSemiProbabilisticOutput()
             });
 
-            var pipingFailureMechanism = new PipingFailureMechanism();
+            var pipingFailureMechanism = new TestPipingFailureMechanism();
             pipingFailureMechanism.AddSection(new FailureMechanismSection("A", new[]
             {
                 new Point2D(0, 0)
@@ -705,7 +705,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 group.Children.Add(emptyChildGroup);
                 group.Children.Add(invalidCalculation);
 
-                var pipingFailureMechanism = new PipingFailureMechanism();
+                var pipingFailureMechanism = new TestPipingFailureMechanism();
                 var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
 
                 var nodeData = new PipingCalculationGroupContext(group,
@@ -738,12 +738,12 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                     {
                         var msgs = messages.ToArray();
                         Assert.AreEqual(9, msgs.Length);
-                        StringAssert.StartsWith(String.Format("Validatie van '{0}' gestart om: ", validCalculation.Name), msgs[0]);
-                        StringAssert.StartsWith(String.Format("Validatie van '{0}' beëindigd om: ", validCalculation.Name), msgs[1]);
+                        StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", validCalculation.Name), msgs[0]);
+                        StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", validCalculation.Name), msgs[1]);
 
-                        StringAssert.StartsWith(String.Format("Validatie van '{0}' gestart om: ", invalidCalculation.Name), msgs[2]);
+                        StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", invalidCalculation.Name), msgs[2]);
                         // Some validation error from validation service
-                        StringAssert.StartsWith(String.Format("Validatie van '{0}' beëindigd om: ", invalidCalculation.Name), msgs[8]);
+                        StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", invalidCalculation.Name), msgs[8]);
                     });
                 }
             }
@@ -774,7 +774,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 group.Children.Add(emptyChildGroup);
                 group.Children.Add(invalidCalculation);
 
-                var pipingFailureMechanism = new PipingFailureMechanism();
+                var pipingFailureMechanism = new TestPipingFailureMechanism();
                 pipingFailureMechanism.AddSection(new FailureMechanismSection("A", new[]
                 {
                     new Point2D(0, 0)

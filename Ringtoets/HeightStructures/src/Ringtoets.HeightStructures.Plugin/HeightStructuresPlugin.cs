@@ -376,8 +376,11 @@ namespace Ringtoets.HeightStructures.Plugin
                           .AddValidateAllCalculationsInFailureMechanismItem(
                               context,
                               ValidateAll,
-                              ValidateAllDataAvailableAndGetErrorMessageForCalculationsInFailureMechanism)
-                          .AddPerformAllCalculationsInFailureMechanismItem(context, CalculateAll, ValidateAllDataAvailableAndGetErrorMessageForCalculationsInFailureMechanism)
+                              ValidateAllDataAvailableAndGetErrorMessage)
+                          .AddPerformAllCalculationsInFailureMechanismItem(
+                              context,
+                              CalculateAll,
+                              ValidateAllDataAvailableAndGetErrorMessage)
                           .AddSeparator()
                           .AddClearAllCalculationOutputInFailureMechanismItem(context.WrappedData)
                           .AddSeparator()
@@ -406,7 +409,7 @@ namespace Ringtoets.HeightStructures.Plugin
                           .Build();
         }
 
-        private static string ValidateAllDataAvailableAndGetErrorMessageForCalculationsInFailureMechanism(HeightStructuresFailureMechanismContext context)
+        private static string ValidateAllDataAvailableAndGetErrorMessage(HeightStructuresFailureMechanismContext context)
         {
             return ValidateAllDataAvailableAndGetErrorMessage(context.Parent, context.WrappedData);
         }
@@ -480,8 +483,12 @@ namespace Ringtoets.HeightStructures.Plugin
             builder.AddValidateAllCalculationsInGroupItem(
                        context,
                        ValidateAll,
-                       ValidateAllDataAvailableAndGetErrorMessageForCalculationsInGroup)
-                   .AddPerformAllCalculationsInGroupItem(group, context, CalculateAll, ValidateAllDataAvailableAndGetErrorMessageForCalculationsInGroup)
+                       ValidateAllDataAvailableAndGetErrorMessage)
+                   .AddPerformAllCalculationsInGroupItem(
+                       group,
+                       context,
+                       CalculateAll,
+                       ValidateAllDataAvailableAndGetErrorMessage)
                    .AddSeparator()
                    .AddClearAllCalculationOutputInGroupItem(group);
 
@@ -579,7 +586,7 @@ namespace Ringtoets.HeightStructures.Plugin
             context.WrappedData.NotifyObservers();
         }
 
-        private static string ValidateAllDataAvailableAndGetErrorMessageForCalculationsInGroup(HeightStructuresCalculationGroupContext context)
+        private static string ValidateAllDataAvailableAndGetErrorMessage(HeightStructuresCalculationGroupContext context)
         {
             return ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection, context.FailureMechanism);
         }
@@ -631,8 +638,12 @@ namespace Ringtoets.HeightStructures.Plugin
                           .AddValidateCalculationItem(
                               context,
                               Validate,
-                              ValidateAllDataAvailableAndGetErrorMessageForCalculation)
-                          .AddPerformCalculationItem(calculation, context, Calculate, ValidateAllDataAvailableAndGetErrorMessageForCalculation)
+                              ValidateAllDataAvailableAndGetErrorMessage)
+                          .AddPerformCalculationItem(
+                              calculation,
+                              context,
+                              Calculate,
+                              ValidateAllDataAvailableAndGetErrorMessage)
                           .AddSeparator()
                           .AddClearCalculationOutputItem(calculation)
                           .AddDeleteItem()
@@ -644,7 +655,7 @@ namespace Ringtoets.HeightStructures.Plugin
                           .Build();
         }
 
-        private static string ValidateAllDataAvailableAndGetErrorMessageForCalculation(HeightStructuresCalculationContext context)
+        private static string ValidateAllDataAvailableAndGetErrorMessage(HeightStructuresCalculationContext context)
         {
             return ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection, context.FailureMechanism);
         }

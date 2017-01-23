@@ -191,7 +191,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 var calculation = new PipingCalculationScenario(new GeneralPipingInput());
-                var pipingFailureMechanism = new PipingFailureMechanism();
+                var pipingFailureMechanism = new TestPipingFailureMechanism();
                 pipingFailureMechanism.AddSection(new FailureMechanismSection("A", new[]
                 {
                     new Point2D(0, 0)
@@ -233,7 +233,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                     Output = new TestPipingOutput(),
                     SemiProbabilisticOutput = new TestPipingSemiProbabilisticOutput()
                 };
-                var pipingFailureMechanism = new PipingFailureMechanism();
+                var pipingFailureMechanism = new TestPipingFailureMechanism();
                 pipingFailureMechanism.AddSection(new FailureMechanismSection("A", new[]
                 {
                     new Point2D(0, 0)
@@ -415,7 +415,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 var calculation = new PipingCalculationScenario(new GeneralPipingInput());
-                var pipingFailureMechanism = new PipingFailureMechanism();
+                var pipingFailureMechanism = new TestPipingFailureMechanism();
                 pipingFailureMechanism.AddSection(new FailureMechanismSection("A", new[]
                 {
                     new Point2D(0, 0)
@@ -481,7 +481,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 var calculation = new PipingCalculationScenario(new GeneralPipingInput());
-                var pipingFailureMechanism = new PipingFailureMechanism();
+                var pipingFailureMechanism = new TestPipingFailureMechanism();
                 var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
 
                 var pipingCalculationContext = new PipingCalculationScenarioContext(calculation,
@@ -523,7 +523,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 PipingCalculationScenario calculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
-                var pipingFailureMechanism = new PipingFailureMechanism();
+                var pipingFailureMechanism = new TestPipingFailureMechanism();
                 pipingFailureMechanism.AddSection(new FailureMechanismSection("A", new[]
                 {
                     new Point2D(0, 0)
