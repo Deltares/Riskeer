@@ -31,6 +31,7 @@ using Core.Common.Gui.Plugin;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Forms;
 using Ringtoets.Common.Forms.Helpers;
@@ -200,14 +201,19 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                                         assessmentSection)).ToArray());
         }
 
-        private static string ValidateAllDataAvailableAndGetErrorMessage(IAssessmentSection assessmentSection)
+        private static string ValidateAllDataAvailableAndGetErrorMessage(IAssessmentSection assessmentSection, IFailureMechanism failureMechanism)
         {
+            if (failureMechanism.Contribution <= 0.0)
+            {
+                return RingtoetsCommonFormsResources.Contribution_of_failure_mechanism_zero;
+            }
+
             return HydraulicBoundaryDatabaseConnectionValidator.Validate(assessmentSection.HydraulicBoundaryDatabase);
         }
 
         #region GrassCoverErosionInwardsFailureMechanismView ViewInfo
 
-        private bool CloseGrassCoverErosionInwardsFailureMechanismViewForData(GrassCoverErosionInwardsFailureMechanismView view, object o)
+        private static bool CloseGrassCoverErosionInwardsFailureMechanismViewForData(GrassCoverErosionInwardsFailureMechanismView view, object o)
         {
             var assessmentSection = o as IAssessmentSection;
             var failureMechanism = o as GrassCoverErosionInwardsFailureMechanism;
@@ -385,11 +391,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                 .AddValidateAllCalculationsInFailureMechanismItem(
                     grassCoverErosionInwardsFailureMechanismContext,
                     ValidateAll,
-                    ValidateAllDataAvailableAndGetErrorMessageForCalculationsInFailureMechanism)
+                    ValidateAllDataAvailableAndGetErrorMessage)
                 .AddPerformAllCalculationsInFailureMechanismItem(
                     grassCoverErosionInwardsFailureMechanismContext,
                     CalculateAll,
-                    ValidateAllDataAvailableAndGetErrorMessageForCalculationsInFailureMechanism)
+                    ValidateAllDataAvailableAndGetErrorMessage)
                 .AddSeparator()
                 .AddClearAllCalculationOutputInFailureMechanismItem(grassCoverErosionInwardsFailureMechanismContext.WrappedData)
                 .AddSeparator()
@@ -419,9 +425,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                           .Build();
         }
 
-        private static string ValidateAllDataAvailableAndGetErrorMessageForCalculationsInFailureMechanism(GrassCoverErosionInwardsFailureMechanismContext context)
+        private static string ValidateAllDataAvailableAndGetErrorMessage(GrassCoverErosionInwardsFailureMechanismContext context)
         {
-            return ValidateAllDataAvailableAndGetErrorMessage(context.Parent);
+            return ValidateAllDataAvailableAndGetErrorMessage(context.Parent, context.WrappedData);
         }
 
         private static void ValidateAll(GrassCoverErosionInwardsFailureMechanismContext context)
@@ -492,10 +498,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             }
 
             builder.AddValidateAllCalculationsInGroupItem(
-                context,
-                ValidateAll,
-                ValidateAllDataAvailableAndGetErrorMessageForCalculationsInGroup)
-                   .AddPerformAllCalculationsInGroupItem(group, context, CalculateAll, ValidateAllDataAvailableAndGetErrorMessageForCalculationsInGroup)
+                       context,
+                       ValidateAll,
+                       ValidateAllDataAvailableAndGetErrorMessage)
+                   .AddPerformAllCalculationsInGroupItem(
+                       group,
+                       context,
+                       CalculateAll,
+                       ValidateAllDataAvailableAndGetErrorMessage)
                    .AddSeparator()
                    .AddClearAllCalculationOutputInGroupItem(group);
 
@@ -587,9 +597,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             context.WrappedData.NotifyObservers();
         }
 
-        private static string ValidateAllDataAvailableAndGetErrorMessageForCalculationsInGroup(GrassCoverErosionInwardsCalculationGroupContext context)
+        private static string ValidateAllDataAvailableAndGetErrorMessage(GrassCoverErosionInwardsCalculationGroupContext context)
         {
-            return ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection);
+            return ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection, context.FailureMechanism);
         }
 
         private static void ValidateAll(GrassCoverErosionInwardsCalculationGroupContext context)
@@ -639,8 +649,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                           .AddValidateCalculationItem(
                               context,
                               Validate,
-                              ValidateAllDataAvailableAndGetErrorMessageForCalculation)
-                          .AddPerformCalculationItem(calculation, context, Calculate, ValidateAllDataAvailableAndGetErrorMessageForCalculation)
+                              ValidateAllDataAvailableAndGetErrorMessage)
+                          .AddPerformCalculationItem(
+                              calculation,
+                              context,
+                              Calculate,
+                              ValidateAllDataAvailableAndGetErrorMessage)
                           .AddSeparator()
                           .AddClearCalculationOutputItem(calculation)
                           .AddDeleteItem()
@@ -652,9 +666,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                           .Build();
         }
 
-        private static string ValidateAllDataAvailableAndGetErrorMessageForCalculation(GrassCoverErosionInwardsCalculationContext context)
+        private static string ValidateAllDataAvailableAndGetErrorMessage(GrassCoverErosionInwardsCalculationContext context)
         {
-            return ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection);
+            return ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection, context.FailureMechanism);
         }
 
         private static void Validate(GrassCoverErosionInwardsCalculationContext context)

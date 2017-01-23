@@ -217,7 +217,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var guiMock = mocks.StrictMock<IGui>();
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var failureMechanism = new TestGrassCoverErosionInwardsFailureMechanism();
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
             var calculation = new GrassCoverErosionInwardsCalculation();
             var nodeData = new GrassCoverErosionInwardsCalculationContext(calculation, failureMechanism, assessmentSectionMock);
@@ -274,7 +274,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
 
             var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
             var calculation = new GrassCoverErosionInwardsCalculation();
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var failureMechanism = new TestGrassCoverErosionInwardsFailureMechanism();
             var nodeData = new GrassCoverErosionInwardsCalculationContext(calculation, failureMechanism, assessmentSectionStub);
 
             using (var treeViewControl = new TreeViewControl())
@@ -308,7 +308,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             assessmentSectionMock.Stub(asm => asm.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase());
 
             var calculation = new GrassCoverErosionInwardsCalculation();
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var failureMechanism = new TestGrassCoverErosionInwardsFailureMechanism();
             var nodeData = new GrassCoverErosionInwardsCalculationContext(calculation, failureMechanism, assessmentSectionMock);
 
             using (var treeViewControl = new TreeViewControl())
@@ -351,7 +351,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             assessmentSectionMock.Stub(asm => asm.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
 
             var calculation = new GrassCoverErosionInwardsCalculation();
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var failureMechanism = new TestGrassCoverErosionInwardsFailureMechanism();
             var nodeData = new GrassCoverErosionInwardsCalculationContext(calculation, failureMechanism, assessmentSectionMock);
 
             using (var treeViewControl = new TreeViewControl())
@@ -382,7 +382,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
 
             var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
             var calculation = new GrassCoverErosionInwardsCalculation();
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var failureMechanism = new TestGrassCoverErosionInwardsFailureMechanism();
             var nodeData = new GrassCoverErosionInwardsCalculationContext(calculation, failureMechanism, assessmentSectionStub);
 
             using (var treeViewControl = new TreeViewControl())
@@ -416,7 +416,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             assessmentSectionMock.Stub(asm => asm.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase());
 
             var calculation = new GrassCoverErosionInwardsCalculation();
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var failureMechanism = new TestGrassCoverErosionInwardsFailureMechanism();
             var nodeData = new GrassCoverErosionInwardsCalculationContext(calculation, failureMechanism, assessmentSectionMock);
 
             using (var treeViewControl = new TreeViewControl())
@@ -459,7 +459,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             assessmentSectionMock.Stub(asm => asm.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
 
             var calculation = new GrassCoverErosionInwardsCalculation();
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var failureMechanism = new TestGrassCoverErosionInwardsFailureMechanism();
             var nodeData = new GrassCoverErosionInwardsCalculationContext(calculation, failureMechanism, assessmentSectionMock);
 
             using (var treeViewControl = new TreeViewControl())
@@ -491,7 +491,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             var observerMock = mocks.StrictMock<IObserver>();
             observerMock.Expect(o => o.UpdateObserver());
 
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var failureMechanism = new TestGrassCoverErosionInwardsFailureMechanism();
 
             string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
 
@@ -570,7 +570,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             var gui = mocks.StrictMock<IGui>();
             var observerMock = mocks.StrictMock<IObserver>();
 
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var failureMechanism = new TestGrassCoverErosionInwardsFailureMechanism();
 
             string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
 

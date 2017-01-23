@@ -52,6 +52,7 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestDikeHeightAssessmentOutputTest.cs" />
+    <Compile Include="TestGrassCoverErosionInwardsFailureMechanismTest.cs" />
     <Compile Include="TestGrassCoverErosionInwardsOutputTest.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -44,6 +44,7 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.GrassCoverErosionInwards.Data;
+using Ringtoets.GrassCoverErosionInwards.Data.TestUtil;
 using Ringtoets.GrassCoverErosionInwards.Forms;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
@@ -386,7 +387,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                 }
             };
 
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var failureMechanism = new TestGrassCoverErosionInwardsFailureMechanism();
 
             failureMechanism.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation());
 
@@ -439,7 +440,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                 }
             };
 
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var failureMechanism = new TestGrassCoverErosionInwardsFailureMechanism();
 
             failureMechanism.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation());
 
@@ -500,7 +501,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                 Version = "1.0"
             };
 
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var failureMechanism = new TestGrassCoverErosionInwardsFailureMechanism();
 
             failureMechanism.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation());
 
@@ -544,7 +545,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                 }
             };
 
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var failureMechanism = new TestGrassCoverErosionInwardsFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation());
 
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
@@ -596,7 +597,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                 }
             };
 
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var failureMechanism = new TestGrassCoverErosionInwardsFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation());
 
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
@@ -657,7 +658,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                 Version = "1.0"
             };
 
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var failureMechanism = new TestGrassCoverErosionInwardsFailureMechanism();
             failureMechanism.AddSection(new FailureMechanismSection("test", new[]
             {
                 new Point2D(0, 0)
@@ -766,7 +767,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             // Setup
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var failureMechanism = new TestGrassCoverErosionInwardsFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation
             {
                 Name = "A",
@@ -833,7 +834,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             var mainWindowStub = mocks.Stub<IMainWindow>();
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var failureMechanism = new TestGrassCoverErosionInwardsFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation
             {
                 Name = "A",

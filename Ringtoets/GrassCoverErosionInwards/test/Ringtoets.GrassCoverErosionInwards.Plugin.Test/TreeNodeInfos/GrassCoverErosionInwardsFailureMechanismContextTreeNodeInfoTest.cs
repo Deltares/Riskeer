@@ -41,6 +41,7 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.Data;
+using Ringtoets.GrassCoverErosionInwards.Data.TestUtil;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -419,7 +420,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var guiMock = mocksRepository.StrictMock<IGui>();
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var failureMechanism = new TestGrassCoverErosionInwardsFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation());
 
             var assessmentSectionMock = mocksRepository.Stub<IAssessmentSection>();
@@ -453,7 +454,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var guiMock = mocksRepository.StrictMock<IGui>();
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var failureMechanism = new TestGrassCoverErosionInwardsFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation());
 
             var assessmentSectionMock = mocksRepository.StrictMock<IAssessmentSection>();
@@ -489,7 +490,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var guiMock = mocksRepository.StrictMock<IGui>();
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var failureMechanism = new TestGrassCoverErosionInwardsFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation());
 
             string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
@@ -531,7 +532,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var guiMock = mocksRepository.StrictMock<IGui>();
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var failureMechanism = new TestGrassCoverErosionInwardsFailureMechanism();
             failureMechanism.AddSection(new FailureMechanismSection("test", new[]
             {
                 new Point2D(0, 0)
@@ -569,7 +570,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var guiMock = mocksRepository.StrictMock<IGui>();
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var failureMechanism = new TestGrassCoverErosionInwardsFailureMechanism();
             failureMechanism.AddSection(new FailureMechanismSection("test", new[]
             {
                 new Point2D(0, 0)
@@ -609,7 +610,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var guiMock = mocksRepository.StrictMock<IGui>();
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var failureMechanism = new TestGrassCoverErosionInwardsFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation());
 
             string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
@@ -654,7 +655,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             var mainWindowStub = mocksRepository.Stub<IMainWindow>();
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var failureMechanism = new TestGrassCoverErosionInwardsFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation
             {
                 Name = "A",
@@ -734,7 +735,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             var guiMock = mocksRepository.StrictMock<IGui>();
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var failureMechanism = new TestGrassCoverErosionInwardsFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation
             {
                 Name = "A",
