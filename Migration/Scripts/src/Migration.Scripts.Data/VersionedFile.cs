@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Base.Storage;
 using Core.Common.IO.Exceptions;
 using Core.Common.Utils;
 
@@ -63,6 +64,7 @@ namespace Migration.Scripts.Data
         /// <item>Unable to open file at <see cref="Location"/>.</item>
         /// </list>
         /// </exception>
+        /// <exception cref="StorageValidationException">Thrown when is not a valid file.</exception>
         public string GetVersion()
         {
             using (var sourceFile = new RingtoetsDatabaseSourceFile(Location))

@@ -24,6 +24,7 @@ using System.Data;
 using Core.Common.Base.Storage;
 using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
+using Migration.Scripts.Data.Properties;
 
 namespace Migration.Scripts.Data
 {
@@ -67,7 +68,7 @@ namespace Migration.Scripts.Data
             }
             catch (SystemException exception)
             {
-                throw new StorageValidationException("$Het bestand '{FilePath}' is geen geldig Ringtoets database bestand.", exception);
+                throw new StorageValidationException(string.Format(Resources.RingtoetsDatabaseSourceFile_Invalid_Ringtoets_File_Path_0, Path), exception);
             }
         }
     }

@@ -106,7 +106,7 @@ namespace Migration.Scripts.Data.Test
 
             // Assert
             CriticalDatabaseMigrationException exception = Assert.Throws<CriticalDatabaseMigrationException>(call);
-            Assert.AreEqual("Migratie is niet gelukt.", exception.Message);
+            Assert.AreEqual("Het migreren van de data is mislukt.", exception.Message);
             Assert.IsInstanceOf<SQLiteException>(exception.InnerException);
         }
 
@@ -124,10 +124,8 @@ namespace Migration.Scripts.Data.Test
 
             // Assert
             Assert.IsNotNull(upgradedFile);
-            using (new FileDisposeHelper(upgradedFile.Location))
-            {
-                Assert.IsTrue(File.Exists(upgradedFile.Location));
-            }
+            Assert.IsTrue(File.Exists(upgradedFile.Location));
+            using (new FileDisposeHelper(upgradedFile.Location)) {}
         }
 
         [Test]

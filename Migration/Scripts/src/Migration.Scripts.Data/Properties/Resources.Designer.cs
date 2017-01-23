@@ -111,6 +111,15 @@ namespace Migration.Scripts.Data.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Het migreren van de data is mislukt..
+        /// </summary>
+        public static string Migrate_failed {
+            get {
+                return ResourceManager.GetString("Migrate_failed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to CREATE TABLE &apos;InvalidVersionScriptCalled&apos;
         ///(
         ///	&apos;VersionId&apos; INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
@@ -127,38 +136,28 @@ namespace Migration.Scripts.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ATTACH [{0}] AS SOURCEPROJECT;
+        ///   Looks up a localized string similar to PRAGMA foreign_keys = OFF;
         ///
-        ///INSERT INTO VersionEntity (
-        ///  [VersionId],
-        ///  [Version],
-        ///  [Timestamp],
-        ///  [FingerPrint])
-        ///SELECT
-        ///  [VersionId],
-        ///  &quot;17.1&quot;,
-        ///  [Timestamp],
-        ///  [FingerPrint]
-        ///FROM [SOURCEPROJECT].VersionEntity;
+        ///ATTACH DATABASE [{0}] AS SOURCEPROJECT;
         ///
-        ///INSERT INTO ProjectEntity
-        ///SELECT * FROM [SOURCEPROJECT].ProjectEntity;
-        ///
-        ///INSERT INTO AssessmentSectionEntity (
-        ///  [AssessmentSectionEntityId],
-        ///  [ProjectEntityId],
-        ///  [Id],
-        ///  [Name],
-        ///  [Comments],
-        ///  [Norm],
-        ///  [HydraulicDatabaseVersion],
-        ///  [HydraulicDatabaseLocation],
-        ///  [Composition],
-        ///  [Referen [rest of string was truncated]&quot;;.
+        ///INSERT INTO AssessmentSectionEntity SELECT * FROM [SOURCEPROJECT].AssessmentSectionEntity;
+        ///INSERT INTO CalculationGroupEntity SELECT * FROM [SOURCEPROJECT].CalculationGroupEntity;
+        ///INSERT INTO CharacteristicPointEntity SELECT * FROM [SOURCEPROJECT].CharacteristicPointEntity;
+        ///INSERT INTO ClosingStructureEntity SELECT * FROM [SOURCEPROJECT].ClosingStructureEntity;
+        ///INSERT INTO ClosingStructuresFailureMechanismMetaEntity SELECT * FROM [ [rest of string was truncated]&quot;;.
         /// </summary>
         public static string Migration_4_171 {
             get {
                 return ResourceManager.GetString("Migration_4_171", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het bestand &apos;{0}&apos; is moet een geldig Ringtoets database bestand zijn..
+        /// </summary>
+        public static string RingtoetsDatabaseSourceFile_Invalid_Ringtoets_File_Path_0 {
+            get {
+                return ResourceManager.GetString("RingtoetsDatabaseSourceFile_Invalid_Ringtoets_File_Path_0", resourceCulture);
             }
         }
     }

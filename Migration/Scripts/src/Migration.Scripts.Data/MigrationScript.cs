@@ -23,6 +23,7 @@ using System;
 using System.Data.SQLite;
 using System.IO;
 using Migration.Scripts.Data.Exceptions;
+using Migration.Scripts.Data.Properties;
 
 namespace Migration.Scripts.Data
 {
@@ -95,7 +96,7 @@ namespace Migration.Scripts.Data
             }
             catch (SQLiteException exception)
             {
-                throw new CriticalDatabaseMigrationException("Migratie is niet gelukt.", exception);
+                throw new CriticalDatabaseMigrationException(Resources.Migrate_failed, exception);
             }
         }
     }
