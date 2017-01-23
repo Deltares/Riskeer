@@ -185,7 +185,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_PipingCalculationWithoutOutput_ContextMenuItemClearOutputDisabled()
+        public void ContextMenuStrip_PipingCalculationWithoutOutput_ContextMenuItemClearOutputDisabledAndTooltipSet()
         {
             // Setup
             using (var treeViewControl = new TreeViewControl())
@@ -215,9 +215,12 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
                     // Assert
-                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuValidateIndex, RingtoetsCommonFormsResources.Validate, RingtoetsCommonFormsResources.Validate_ToolTip, RingtoetsCommonFormsResources.ValidateIcon);
-                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuCalculateIndex, RingtoetsCommonFormsResources.Calculate, RingtoetsCommonFormsResources.Calculate_ToolTip, RingtoetsCommonFormsResources.CalculateIcon);
-                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuClearIndex, RingtoetsCommonFormsResources.Clear_output, RingtoetsCommonFormsResources.ClearOutput_No_output_to_clear, RingtoetsCommonFormsResources.ClearIcon, false);
+                    TestHelper.AssertContextMenuStripContainsItem(contextMenu,
+                                                                  contextMenuClearIndex,
+                                                                  RingtoetsCommonFormsResources.Clear_output,
+                                                                  RingtoetsCommonFormsResources.ClearOutput_No_output_to_clear,
+                                                                  RingtoetsCommonFormsResources.ClearIcon,
+                                                                  false);
                 }
             }
         }
@@ -257,9 +260,105 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
                     // Assert
-                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuValidateIndex, RingtoetsCommonFormsResources.Validate, RingtoetsCommonFormsResources.Validate_ToolTip, RingtoetsCommonFormsResources.ValidateIcon);
-                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuCalculateIndex, RingtoetsCommonFormsResources.Calculate, RingtoetsCommonFormsResources.Calculate_ToolTip, RingtoetsCommonFormsResources.CalculateIcon);
-                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuClearIndex, RingtoetsCommonFormsResources.Clear_output, RingtoetsCommonFormsResources.Clear_output_ToolTip, RingtoetsCommonFormsResources.ClearIcon);
+                    TestHelper.AssertContextMenuStripContainsItem(contextMenu,
+                                                                  contextMenuClearIndex,
+                                                                  RingtoetsCommonFormsResources.Clear_output,
+                                                                  RingtoetsCommonFormsResources.Clear_output_ToolTip,
+                                                                  RingtoetsCommonFormsResources.ClearIcon);
+                }
+            }
+        }
+
+        [Test]
+        public void ContextMenuStrip_FailureMechanismContributionZero_ContextMenuItemCalculateAndValidateDisabledAndTooltipSet()
+        {
+            // Setup
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var calculation = new PipingCalculationScenario(new GeneralPipingInput());
+                var pipingFailureMechanism = new PipingFailureMechanism();
+                pipingFailureMechanism.AddSection(new FailureMechanismSection("A", new[]
+                {
+                    new Point2D(0, 0)
+                }));
+                var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+
+                var nodeData = new PipingCalculationScenarioContext(calculation,
+                                                                    Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                    Enumerable.Empty<StochasticSoilModel>(),
+                                                                    pipingFailureMechanism,
+                                                                    assessmentSectionMock);
+
+                var gui = mocks.StrictMock<IGui>();
+                gui.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                // Call
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                {
+                    // Assert
+                    TestHelper.AssertContextMenuStripContainsItem(contextMenu,
+                                                                  contextMenuCalculateIndex,
+                                                                  "Be&rekenen",
+                                                                  "De bijdrage van dit toetsspoor is nul.",
+                                                                  RingtoetsCommonFormsResources.CalculateIcon,
+                                                                  false);
+
+                    TestHelper.AssertContextMenuStripContainsItem(contextMenu,
+                                                                  contextMenuValidateIndex,
+                                                                  "&Valideren",
+                                                                  "De bijdrage van dit toetsspoor is nul.",
+                                                                  RingtoetsCommonFormsResources.ValidateIcon,
+                                                                  false);
+                }
+            }
+        }
+
+        [Test]
+        public void ContextMenuStrip_AllRequiredInputSet_ContextMenuItemCalculateAndValidateEnabled()
+        {
+            // Setup
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var calculation = new PipingCalculationScenario(new GeneralPipingInput());
+                var pipingFailureMechanism = new TestPipingFailureMechanism();
+                pipingFailureMechanism.AddSection(new FailureMechanismSection("A", new[]
+                {
+                    new Point2D(0, 0)
+                }));
+                var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+
+                var nodeData = new PipingCalculationScenarioContext(calculation,
+                                                                    Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                    Enumerable.Empty<StochasticSoilModel>(),
+                                                                    pipingFailureMechanism,
+                                                                    assessmentSectionMock);
+
+                var gui = mocks.StrictMock<IGui>();
+                gui.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                // Call
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                {
+                    // Assert
+                    TestHelper.AssertContextMenuStripContainsItem(contextMenu,
+                                                                  contextMenuCalculateIndex,
+                                                                  "Be&rekenen",
+                                                                  "Voer deze berekening uit.",
+                                                                  RingtoetsCommonFormsResources.CalculateIcon);
+
+                    TestHelper.AssertContextMenuStripContainsItem(contextMenu,
+                                                                  contextMenuValidateIndex,
+                                                                  "&Valideren",
+                                                                  "Valideer de invoer voor deze berekening.",
+                                                                  RingtoetsCommonFormsResources.ValidateIcon);
                 }
             }
         }
