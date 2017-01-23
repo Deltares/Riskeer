@@ -19,11 +19,21 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Reflection;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
+namespace Migration.Console.TestUtil
+{
+    /// <summary>
+    /// Environment that can be used during test to assert the exit code.
+    /// </summary>
+    public class TestEnvironmentControl : EnvironmentControl
+    {
+        /// <summary>
+        /// Gets the error code that was used when <see cref="Exit"/> was called;
+        /// </summary>
+        public int ErrorCodeCalled { get; private set; }
 
-[assembly: AssemblyTitle("RingtoetsMigrationTool")]
-[assembly: AssemblyProduct("RingtoetsMigrationTool")]
-[assembly: Guid("2e2c9b96-e72a-4c10-aa54-a5381fe30b0d")]
-[assembly: InternalsVisibleTo("Migration.Console.Test")]
+        public override void Exit(int exitCode)
+        {
+            ErrorCodeCalled = exitCode;
+        }
+    }
+}

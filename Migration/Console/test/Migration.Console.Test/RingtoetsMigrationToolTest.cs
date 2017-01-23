@@ -19,7 +19,11 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using System.IO;
+using Core.Common.TestUtil;
 using Migration.Console.TestUtil;
+using Migration.Scripts.Data;
 using NUnit.Framework;
 
 namespace Migration.Console.Test
@@ -27,6 +31,20 @@ namespace Migration.Console.Test
     [TestFixture]
     public class RingtoetsMigrationToolTest
     {
+        private TestEnvironmentControl environmentControl;
+
+        [SetUp]
+        public void SetUp()
+        {
+            environmentControl = new TestEnvironmentControl();
+            EnvironmentControl.Instance = environmentControl;
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            EnvironmentControl.ResetToDefault();
+        }
 
         [Test]
         public void Main_NoArguments_WritesHelpToConsole()
@@ -37,15 +55,218 @@ namespace Migration.Console.Test
             // Call
             using (var consoleOutput = new ConsoleOutput())
             {
-                RingtoetsMigrationTool.Main(new string[] { });
+                RingtoetsMigrationTool.Main(new string[]
+                                                {});
 
                 consoleText = consoleOutput.GetConsoleOutput();
             }
-            
+
             // Assert
-            Assert.AreEqual(string.Concat("--help\tGeef het hulp menu weer." +
-                                          "\r\n" +
-                                          "--migrate RINGTOETSBESTANDSPAD NIEUWEVERSIE UITVOERPAD\tR"), consoleText);
+            Assert.AreEqual("--help\tGeef het hulp menu weer."
+                            + Environment.NewLine
+                            + "--migrate RINGTOETSBESTANDSPAD NIEUWEVERSIE UITVOERPAD"
+                            + "\t"
+                            + "RINGTOETSBESTANDSPAD is het bestandspad naar het Ringtoetsdatabase bestand dat gemigreerd moet worden. "
+                            + "NIEUWEVERSIE is de versie naar waar gemigreerd moet worden. "
+                            + "UITVOERPAD is het pad waar de het gemigreerde Ringtoetsbestand opgeslagen zal worden."
+                            + Environment.NewLine
+                            + "--supported RINGTOETSBESTANDSPAD\t"
+                            + "RINGTOETSBESTANDSPAD is het bestandspad naar het Ringtoetsdatabase bestand waarvan de versie gevalideerd moet worden."
+                            + Environment.NewLine
+                            , consoleText);
+            Assert.AreEqual(0, environmentControl.ErrorCodeCalled);
+        }
+
+        [Test]
+        public void Main_InvalidArguments_WritesHelpToConsoleWithErrorCode()
+        {
+            // Setup
+            const string invalidCommand = "ThisIsNoCommand";
+            string consoleText;
+
+            // Call
+            using (var consoleOutput = new ConsoleOutput())
+            {
+                RingtoetsMigrationTool.Main(new[]
+                {
+                    invalidCommand
+                });
+
+                consoleText = consoleOutput.GetConsoleOutput();
+            }
+
+            // Assert
+            Assert.AreEqual($"{invalidCommand} is geen geldige opdracht."
+                            + Environment.NewLine + Environment.NewLine
+                            + "--help\tGeef het hulp menu weer."
+                            + Environment.NewLine
+                            + "--migrate RINGTOETSBESTANDSPAD NIEUWEVERSIE UITVOERPAD"
+                            + "\t"
+                            + "RINGTOETSBESTANDSPAD is het bestandspad naar het Ringtoetsdatabase bestand dat gemigreerd moet worden. "
+                            + "NIEUWEVERSIE is de versie naar waar gemigreerd moet worden. "
+                            + "UITVOERPAD is het pad waar de het gemigreerde Ringtoetsbestand opgeslagen zal worden."
+                            + Environment.NewLine
+                            + "--supported RINGTOETSBESTANDSPAD\t"
+                            + "RINGTOETSBESTANDSPAD is het bestandspad naar het Ringtoetsdatabase bestand waarvan de versie gevalideerd moet worden."
+                            + Environment.NewLine
+                            , consoleText);
+            Assert.AreEqual(22, environmentControl.ErrorCodeCalled);
+        }
+
+        [Test]
+        [TestCase(1)]
+        [TestCase(3)]
+        public void GivenConsole_WhenSupportedCalledWithInvalidArguments_ExitWitErrorCode(int numberOfArguments)
+        {
+            const string supportedCommand = "--supported";
+            string[] arguments = new string[numberOfArguments];
+            arguments[0] = supportedCommand;
+
+            string consoleText;
+            using (var consoleOutput = new ConsoleOutput())
+            {
+                // Event
+                RingtoetsMigrationTool.Main(new[]
+                {
+                    supportedCommand
+                });
+
+                consoleText = consoleOutput.GetConsoleOutput();
+            }
+
+            // Result
+            Assert.AreEqual($"Er is een verkeerd aantal parameters opgegeven voor de opdracht '{supportedCommand}'"
+                            + Environment.NewLine + Environment.NewLine
+                            + $"{supportedCommand} RINGTOETSBESTANDSPAD\t"
+                            + "RINGTOETSBESTANDSPAD is het bestandspad naar het Ringtoetsdatabase bestand waarvan de versie gevalideerd moet worden."
+                            + Environment.NewLine
+                            , consoleText);
+            Assert.AreEqual(160, environmentControl.ErrorCodeCalled);
+        }
+
+        [Test]
+        [TestCase("4", true)]
+        [TestCase("3", false)]
+        public void GivenConsole_WhenVersionSupportedCall_ThenReturnedIfSupported(string version, bool isSupported)
+        {
+            // Scenario
+            string consoleText;
+            using (var consoleOutput = new ConsoleOutput())
+            {
+                // Event
+                RingtoetsMigrationTool.Main(new[]
+                {
+                    "--supported",
+                    version
+                });
+
+                consoleText = consoleOutput.GetConsoleOutput();
+            }
+
+            // Result
+            Assert.AreEqual(isSupported
+                                ? $"Version '{version}' is supported." + Environment.NewLine
+                                : $"Version '{version}' is not supported." + Environment.NewLine,
+                            consoleText);
+            Assert.AreEqual(0, environmentControl.ErrorCodeCalled);
+        }
+
+        [Test]
+        [TestCase(1)]
+        [TestCase(2)]
+        [TestCase(3)]
+        [TestCase(5)]
+        public void GivenConsole_WhenMigrateCalledWithInvalidArguments_ExitWitErrorCode(int numberOfArguments)
+        {
+            // Scenario
+            const string migrateCommand = "--migrate";
+            string[] arguments = new string[numberOfArguments];
+            arguments[0] = migrateCommand;
+
+            string consoleText;
+            using (var consoleOutput = new ConsoleOutput())
+            {
+                // Event
+                RingtoetsMigrationTool.Main(arguments);
+
+                consoleText = consoleOutput.GetConsoleOutput();
+            }
+
+            // Result
+            Assert.AreEqual($"Er is een verkeerd aantal parameters opgegeven voor de opdracht '{migrateCommand}'"
+                            + Environment.NewLine + Environment.NewLine
+                            + $"{migrateCommand} RINGTOETSBESTANDSPAD NIEUWEVERSIE UITVOERPAD\t"
+                            + "RINGTOETSBESTANDSPAD is het bestandspad naar het Ringtoetsdatabase bestand dat gemigreerd moet worden. "
+                            + "NIEUWEVERSIE is de versie naar waar gemigreerd moet worden. "
+                            + "UITVOERPAD is het pad waar de het gemigreerde Ringtoetsbestand opgeslagen zal worden."
+                            + Environment.NewLine
+                            , consoleText);
+            Assert.AreEqual(160, environmentControl.ErrorCodeCalled);
+        }
+
+        [Test]
+        public void GivenConsole_WhenMigrateCalledWithArguments_MigratesToNewVersion()
+        {
+            // Scenario
+            const string migrateCommand = "--migrate";
+
+            const string newVersion = "17.1";
+            string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Migration.Core.Storage, "Demo164.rtd");
+            string targetFilePath = TestHelper.GetTestDataPath(TestDataPath.Migration.Core.Storage, Path.GetRandomFileName());
+
+            string consoleText;
+            using (var consoleOutput = new ConsoleOutput())
+            {
+                // Event
+                RingtoetsMigrationTool.Main(new[]
+                {
+                    migrateCommand,
+                    sourceFilePath,
+                    newVersion,
+                    targetFilePath
+                });
+
+                consoleText = consoleOutput.GetConsoleOutput();
+            }
+
+            // Result
+            Assert.AreEqual(string.Empty, consoleText);
+            var toVersionedFile = new VersionedFile(targetFilePath);
+            Assert.AreEqual(newVersion, toVersionedFile.GetVersion());
+            using (new FileDisposeHelper(targetFilePath)) {}
+            Assert.AreEqual(0, environmentControl.ErrorCodeCalled);
+        }
+
+        [Test]
+        public void GivenConsole_WhenMigrateCalledUnableToSaveTarget_ThenExitWithErrorCode()
+        {
+            // Scenario
+            const string migrateCommand = "--migrate";
+
+            const string newVersion = "17.1";
+            string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Migration.Core.Storage, "Demo164.rtd");
+            string targetFilePath = TestHelper.GetTestDataPath(TestDataPath.Migration.Core.Storage, Path.GetRandomFileName());
+
+            string consoleText;
+            using (File.Create(targetFilePath))
+            using (var consoleOutput = new ConsoleOutput())
+            {
+                // Event
+                RingtoetsMigrationTool.Main(new[]
+                {
+                    migrateCommand,
+                    sourceFilePath,
+                    newVersion,
+                    targetFilePath
+                });
+
+                consoleText = consoleOutput.GetConsoleOutput();
+            }
+
+            // Result
+            Assert.AreEqual("Er is een onverwachte fout opgetreden tijdens het verplaatsen van het gemigreerde bestand."
+                            + Environment.NewLine, consoleText);
+            Assert.AreEqual(22, environmentControl.ErrorCodeCalled);
         }
     }
 }

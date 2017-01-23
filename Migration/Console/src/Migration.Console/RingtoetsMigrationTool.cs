@@ -19,19 +19,47 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Linq;
 using Migration.Console.Properties;
+using Migration.Core.Storage;
+using Migration.Scripts.Data;
 using SystemConsole = System.Console;
 
 namespace Migration.Console
 {
+    /// <summary>
+    /// Console application that can migrate a Ringtoets database file to a newer version.
+    /// </summary>
     public static class RingtoetsMigrationTool
     {
         private const string commandMigrate = "--migrate";
         private const string commandVersionSupported = "--supported";
         private const string commandHelp = "--help";
 
+        /// <summary>
+        /// Main Ringtoets migration application.
+        /// </summary>
+        /// <param name="args">Arguments </param>
+        /// <remarks>Accepted commands:<list type="bullet">
+        /// <item>--help Shows help menu,</item>
+        /// <item>--supported Returns if the database file is supported,</item>
+        /// <item>--migrate Migrates the database file to a newer version.</item>
+        /// </list></remarks>
         public static void Main(string[] args)
+        {
+            try
+            {
+                ExecuteCommand(args);
+            }
+            catch (ArgumentException exception)
+            {
+                ConsoleHelper.WriteErrorLine(exception.Message);
+                Exit(ErrorCode.ErrorBadArguments);
+            }
+        }
+
+        private static void ExecuteCommand(string[] args)
         {
             string command = args.FirstOrDefault() ?? commandHelp;
             switch (command)
@@ -46,12 +74,16 @@ namespace Migration.Console
                     DisplayAllCommands();
                     break;
                 default:
-                {
                     InvalidCommand(command);
                     DisplayAllCommands();
+                    Exit(ErrorCode.ErrorBadCommand);
                     break;
-                }
             }
+        }
+
+        private static void Exit(ErrorCode errorCode)
+        {
+            EnvironmentControl.Instance.Exit((int) errorCode);
         }
 
         private static void DisplayAllCommands()
@@ -82,8 +114,17 @@ namespace Migration.Console
                 ConsoleHelper.WriteErrorLine(Resources.Command_0_Incorrect_number_of_parameters, commandVersionSupported);
                 SystemConsole.WriteLine("");
                 ShowSupportedCommand();
+                Exit(ErrorCode.ErrorBadArguments);
                 return;
             }
+
+            string version = args[1];
+
+            var migrator = new VersionedFileMigrator();
+            bool isSupported = migrator.IsVersionSupported(version);
+            SystemConsole.WriteLine(isSupported
+                                        ? "Version '{0}' is supported."
+                                        : "Version '{0}' is not supported.", version);
         }
 
         private static void ShowSupportedCommand()
@@ -99,12 +140,36 @@ namespace Migration.Console
 
         private static void MigrateCommand(string[] args)
         {
-            if (args.Length != 3)
+            if (args.Length != 4)
             {
                 ConsoleHelper.WriteErrorLine(Resources.Command_0_Incorrect_number_of_parameters, commandMigrate);
                 SystemConsole.WriteLine("");
                 ShowMigrateCommand();
+                Exit(ErrorCode.ErrorBadArguments);
                 return;
+            }
+
+            var migrator = new VersionedFileMigrator();
+
+            string filepath = args[1];
+            string toVersion = args[2];
+            string toFilepath = args[3];
+
+            var sourceFile = new VersionedFile(filepath);
+
+            try
+            {
+                migrator.Migrate(sourceFile, toVersion, toFilepath);
+            }
+            catch (Exception exception)
+            {
+                ConsoleHelper.WriteErrorLine(exception.Message);
+                if (exception is ArgumentException)
+                {
+                    Exit(ErrorCode.ErrorBadArguments);
+                    return;
+                }
+                Exit(ErrorCode.ErrorBadCommand);
             }
         }
 

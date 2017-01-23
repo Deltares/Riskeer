@@ -45,6 +45,9 @@
     <Compile Include="..\..\..\..\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
+    <Compile Include="DefaultEnvironmentControl.cs" />
+    <Compile Include="EnvironmentControl.cs" />
+    <Compile Include="ErrorCode.cs" />
     <Compile Include="RingtoetsMigrationTool.cs" />
     <Compile Include="ConsoleHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -65,6 +68,20 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.IO\Core.Common.IO.csproj">
+      <Project>{e344867e-9ac9-44c8-88a5-8185681679a9}</Project>
+      <Name>Core.Common.IO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Core\src\Migration.Core.Storage\Migration.Core.Storage.csproj">
+      <Project>{EFD7E662-5B69-4B71-A448-565B64E9C033}</Project>
+      <Name>Migration.Core.Storage</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Scripts\src\Migration.Scripts.Data\Migration.Scripts.Data.csproj">
+      <Project>{D08DB9E2-6861-44C8-A725-71A70274CC77}</Project>
+      <Name>Migration.Scripts.Data</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -19,11 +19,21 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Reflection;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
+namespace Migration.Console
+{
+    /// <summary>
+    /// Enumeration that defines the possible exit codes of an application.
+    /// </summary>
+    public enum ErrorCode
+    {
+        /// <summary>
+        /// Exit because the command provide failed.
+        /// </summary>
+        ErrorBadCommand = 22,
 
-[assembly: AssemblyTitle("RingtoetsMigrationTool")]
-[assembly: AssemblyProduct("RingtoetsMigrationTool")]
-[assembly: Guid("2e2c9b96-e72a-4c10-aa54-a5381fe30b0d")]
-[assembly: InternalsVisibleTo("Migration.Console.Test")]
+        /// <summary>
+        /// Exit because bad arguments were provided.
+        /// </summary>
+        ErrorBadArguments = 160
+    }
+}

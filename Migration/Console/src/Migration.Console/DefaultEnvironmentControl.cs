@@ -19,11 +19,31 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Reflection;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
+using System;
 
-[assembly: AssemblyTitle("RingtoetsMigrationTool")]
-[assembly: AssemblyProduct("RingtoetsMigrationTool")]
-[assembly: Guid("2e2c9b96-e72a-4c10-aa54-a5381fe30b0d")]
-[assembly: InternalsVisibleTo("Migration.Console.Test")]
+namespace Migration.Console
+{
+    /// <summary>
+    /// Default control class for <see cref="EnvironmentControl"/>.
+    /// </summary>
+    internal class DefaultEnvironmentControl : EnvironmentControl
+    {
+        private static readonly DefaultEnvironmentControl currentInstance = new DefaultEnvironmentControl();
+
+        public override void Exit(int exitCode)
+        {
+            Environment.Exit(exitCode);
+        }
+
+        /// <summary>
+        /// Gets the current instance of <see cref="DefaultEnvironmentControl"/>.
+        /// </summary>
+        public static DefaultEnvironmentControl CurrentInstance
+        {
+            get
+            {
+                return currentInstance;
+            }
+        }
+    }
+}

@@ -19,11 +19,21 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Reflection;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
+using NUnit.Framework;
 
-[assembly: AssemblyTitle("RingtoetsMigrationTool")]
-[assembly: AssemblyProduct("RingtoetsMigrationTool")]
-[assembly: Guid("2e2c9b96-e72a-4c10-aa54-a5381fe30b0d")]
-[assembly: InternalsVisibleTo("Migration.Console.Test")]
+namespace Migration.Console.Test
+{
+    [TestFixture]
+    public class DefaultEnvironmentControlTest
+    {
+        [Test]
+        public void CurrentInstance_ExpectedProperties()
+        {
+            // Call
+            DefaultEnvironmentControl instance = DefaultEnvironmentControl.CurrentInstance;
+
+            // Assert
+            Assert.IsInstanceOf<EnvironmentControl>(instance);
+        }
+    }
+}
