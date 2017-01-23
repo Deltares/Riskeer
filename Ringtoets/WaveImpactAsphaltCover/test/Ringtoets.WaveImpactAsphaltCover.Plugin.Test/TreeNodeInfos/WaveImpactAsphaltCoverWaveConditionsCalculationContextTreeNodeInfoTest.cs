@@ -462,7 +462,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void GivenAssessmentSectionWithoutHydroDatabase_ThenValidationItemDisabled()
+        public void GivenAssessmentSectionWithoutHydraulicBoundaryDatabase_ThenValidationItemDisabled()
         {
             // Given
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
@@ -515,7 +515,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void GivenAssessmentSectionWithoutValidPathForCalculation_ThenValidationItemDisabled()
+        public void GivenAssessmentSectionWithInvalidHydraulicBoundaryDatabase_ThenValidationItemDisabled()
         {
             // Given
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
@@ -569,7 +569,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void GivenAssessmentSectionWithValidPathForCalculation_ThenValidationItemEnabled()
+        public void GivenAssessmentSectionWithValidInput_ThenValidationItemEnabled()
         {
             // Given
             string validHydroDatabasePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
@@ -721,7 +721,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void GivenAssessmentSectionWithoutHydroDatabase_ThenCalculationItemDisabled()
+        public void GivenAssessmentSectionWithoutHydraulicBoundaryDatabase_ThenCalculationItemDisabled()
         {
             // Given
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
@@ -771,7 +771,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void AssessmentSection_WithOrWithoutValidPath_CalculationItemEnabledOrDisabled(bool validPath)
+        public void AssessmentSection_WithOrWithoutValidHydraulicBoundaryDatabase_CalculationItemEnabledOrDisabled(bool validPath)
         {
             // Setup
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
