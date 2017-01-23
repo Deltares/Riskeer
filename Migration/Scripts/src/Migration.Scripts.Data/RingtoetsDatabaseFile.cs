@@ -48,7 +48,7 @@ namespace Migration.Scripts.Data
         /// </list></exception>
         public RingtoetsDatabaseFile(string path)
         {
-            FileUtils.ValidateFilePathIsWritable(path);
+            IOUtils.ValidateFilePathIsWritable(path);
             filePath = path;
         }
 

@@ -44,7 +44,7 @@ namespace Migration.Scripts.Data
         /// </list></remarks>
         public VersionedFile(string path)
         {
-            FileUtils.ValidateFilePath(path);
+            IOUtils.ValidateFilePath(path);
             Location = path;
         }
 

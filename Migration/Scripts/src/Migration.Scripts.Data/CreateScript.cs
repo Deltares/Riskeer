@@ -74,7 +74,7 @@ namespace Migration.Scripts.Data
         /// 
         public VersionedFile CreateEmptyVersionedFile(string location)
         {
-            FileUtils.ValidateFilePathIsWritable(location);
+            IOUtils.ValidateFilePathIsWritable(location);
 
             using (var databaseFile = new RingtoetsDatabaseFile(location))
             {
