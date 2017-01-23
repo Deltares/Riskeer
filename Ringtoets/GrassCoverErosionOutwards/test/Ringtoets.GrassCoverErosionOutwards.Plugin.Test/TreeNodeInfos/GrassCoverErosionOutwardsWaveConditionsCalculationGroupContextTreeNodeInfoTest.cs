@@ -572,7 +572,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             // Setup
             using (var treeViewControl = new TreeViewControl())
             {
-                var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+                var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
+                {
+                    Contribution = 5
+                };
                 var group = new CalculationGroup();
                 group.Children.Add(new GrassCoverErosionOutwardsWaveConditionsCalculation());
                 failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
@@ -613,7 +616,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             // Setup
             using (var treeViewControl = new TreeViewControl())
             {
-                var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+                var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
+                {
+                    Contribution = 5
+                };
                 var group = new CalculationGroup();
                 group.Children.Add(new GrassCoverErosionOutwardsWaveConditionsCalculation());
                 failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
@@ -692,7 +698,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             group.Children.Add(calculationA);
             group.Children.Add(calculationB);
 
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
+            {
+                Contribution = 5
+            };
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
 
             IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(

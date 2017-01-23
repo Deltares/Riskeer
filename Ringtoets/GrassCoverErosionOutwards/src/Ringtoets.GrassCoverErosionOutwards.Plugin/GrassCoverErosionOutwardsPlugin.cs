@@ -33,6 +33,7 @@ using Core.Common.Gui.Plugin;
 using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Forms;
 using Ringtoets.Common.Forms.GuiServices;
@@ -302,7 +303,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
 
         #region GrassCoverErosionOutwardsFailureMechanismView ViewInfo
 
-        private bool CloseGrassCoverErosionOutwardsFailureMechanismViewForData(GrassCoverErosionOutwardsFailureMechanismView view, object data)
+        private static bool CloseGrassCoverErosionOutwardsFailureMechanismViewForData(GrassCoverErosionOutwardsFailureMechanismView view, object data)
         {
             var assessmentSection = data as IAssessmentSection;
             var failureMechanism = data as GrassCoverErosionOutwardsFailureMechanism;
@@ -657,10 +658,15 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                 builder.AddRenameItem();
             }
 
-            builder.AddValidateAllCalculationsInGroupItem(nodeData,
-                                                          ValidateAll,
-                                                          ValidateAllDataAvailableAndGetErrorMessageForCalculationGroup)
-                   .AddPerformAllCalculationsInGroupItem(group, nodeData, CalculateAll, ValidateAllDataAvailableAndGetErrorMessageForCalculationGroup)
+            builder.AddValidateAllCalculationsInGroupItem(
+                       nodeData,
+                       ValidateAll,
+                       ValidateAllDataAvailableAndGetErrorMessage)
+                   .AddPerformAllCalculationsInGroupItem(
+                       group,
+                       nodeData,
+                       CalculateAll,
+                       ValidateAllDataAvailableAndGetErrorMessage)
                    .AddSeparator()
                    .AddClearAllCalculationOutputInGroupItem(group);
 
@@ -747,13 +753,18 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                         context.AssessmentSection.HydraulicBoundaryDatabase);
         }
 
-        private static string ValidateAllDataAvailableAndGetErrorMessageForCalculationGroup(GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext context)
+        private static string ValidateAllDataAvailableAndGetErrorMessage(GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext context)
         {
-            return ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection);
+            return ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection, context.FailureMechanism);
         }
 
-        private static string ValidateAllDataAvailableAndGetErrorMessage(IAssessmentSection assessmentSection)
+        private static string ValidateAllDataAvailableAndGetErrorMessage(IAssessmentSection assessmentSection, IFailureMechanism failureMechanism)
         {
+            if (failureMechanism.Contribution <= 0.0)
+            {
+                return RingtoetsCommonFormsResources.Contribution_of_failure_mechanism_zero;
+            }
+
             return HydraulicBoundaryDatabaseConnectionValidator.Validate(assessmentSection.HydraulicBoundaryDatabase);
         }
 
@@ -831,10 +842,15 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                 .AddExportItem()
                 .AddSeparator()
                 .AddRenameItem()
-                .AddValidateCalculationItem(nodeData,
-                                            Validate,
-                                            ValidateAllDataAvailableAndGetErrorMessageForCalculation)
-                .AddPerformCalculationItem(calculation, nodeData, PerformCalculation, ValidateAllDataAvailableAndGetErrorMessageForCalculation)
+                .AddValidateCalculationItem(
+                    nodeData,
+                    Validate,
+                    ValidateAllDataAvailableAndGetErrorMessage)
+                .AddPerformCalculationItem(
+                    calculation,
+                    nodeData,
+                    PerformCalculation,
+                    ValidateAllDataAvailableAndGetErrorMessage)
                 .AddSeparator()
                 .AddClearCalculationOutputItem(calculation)
                 .AddDeleteItem()
@@ -846,9 +862,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                 .Build();
         }
 
-        private static string ValidateAllDataAvailableAndGetErrorMessageForCalculation(GrassCoverErosionOutwardsWaveConditionsCalculationContext context)
+        private static string ValidateAllDataAvailableAndGetErrorMessage(GrassCoverErosionOutwardsWaveConditionsCalculationContext context)
         {
-            return ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection);
+            return ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection, context.FailureMechanism);
         }
 
         private static void Validate(GrassCoverErosionOutwardsWaveConditionsCalculationContext context)
