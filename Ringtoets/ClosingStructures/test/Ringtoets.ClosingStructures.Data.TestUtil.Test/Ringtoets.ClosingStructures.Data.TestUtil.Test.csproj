@@ -51,6 +51,7 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestClosingStructureCalculationTest.cs" />
+    <Compile Include="TestClosingStructuresFailureMechanismTest.cs" />
     <Compile Include="TestClosingStructureTest.cs" />
   </ItemGroup>
   <ItemGroup>

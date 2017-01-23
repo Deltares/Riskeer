@@ -225,15 +225,21 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_Always_AddCustomItems()
         {
             // Setup
-            var failureMechanism = new ClosingStructuresFailureMechanism();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var failureMechanism = new TestClosingStructuresFailureMechanism();
+            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
             var calculation = new StructuresCalculation<ClosingStructuresInput>();
             var nodeData = new ClosingStructuresCalculationContext(calculation, failureMechanism, assessmentSection);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+            string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
 
             using (var treeViewControl = new TreeViewControl())
             {
                 guiMock.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                assessmentSection.Stub(asm => asm.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase
+                {
+                    FilePath = validFilePath,
+                    Version = "random"
+                });
 
                 mocks.ReplayAll();
 
@@ -247,15 +253,13 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
 
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateIndex,
                                                                   "&Valideren",
-                                                                  "Er is geen hydraulische randvoorwaardendatabase geïmporteerd.",
-                                                                  RingtoetsCommonFormsResources.ValidateIcon,
-                                                                  false);
+                                                                  "Valideer de invoer voor deze berekening.",
+                                                                  RingtoetsCommonFormsResources.ValidateIcon);
 
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateIndex,
                                                                   "Be&rekenen",
-                                                                  "Er is geen hydraulische randvoorwaardendatabase geïmporteerd.",
-                                                                  RingtoetsCommonFormsResources.CalculateIcon,
-                                                                  false);
+                                                                  "Voer deze berekening uit.",
+                                                                  RingtoetsCommonFormsResources.CalculateIcon);
 
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuClearIndex,
                                                                   "&Wis uitvoer...",
@@ -272,7 +276,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             // Setup
             var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
             var calculation = new StructuresCalculation<ClosingStructuresInput>();
-            var failureMechanism = new ClosingStructuresFailureMechanism();
+            var failureMechanism = new TestClosingStructuresFailureMechanism();
             var nodeData = new ClosingStructuresCalculationContext(calculation, failureMechanism, assessmentSectionStub);
 
             using (var treeViewControl = new TreeViewControl())
@@ -310,7 +314,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             assessmentSectionStub.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
 
             var calculation = new StructuresCalculation<ClosingStructuresInput>();
-            var failureMechanism = new ClosingStructuresFailureMechanism();
+            var failureMechanism = new TestClosingStructuresFailureMechanism();
             var nodeData = new ClosingStructuresCalculationContext(calculation, failureMechanism, assessmentSectionStub);
 
             using (var treeViewControl = new TreeViewControl())
@@ -358,7 +362,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             assessmentSectionStub.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
 
             var calculation = new StructuresCalculation<ClosingStructuresInput>();
-            var failureMechanism = new ClosingStructuresFailureMechanism();
+            var failureMechanism = new TestClosingStructuresFailureMechanism();
             var nodeData = new ClosingStructuresCalculationContext(calculation, failureMechanism, assessmentSectionStub);
 
             using (var treeViewControl = new TreeViewControl())
@@ -400,7 +404,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
                 new Point2D(3, 4)
             });
 
-            var failureMechanism = new ClosingStructuresFailureMechanism();
+            var failureMechanism = new TestClosingStructuresFailureMechanism();
             failureMechanism.AddSection(section);
 
             string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
@@ -498,7 +502,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             var observer = mocks.StrictMock<IObserver>();
             calculation.Attach(observer);
 
-            var failureMechanism = new ClosingStructuresFailureMechanism();
+            var failureMechanism = new TestClosingStructuresFailureMechanism();
             var calculationContext = new ClosingStructuresCalculationContext(calculation, failureMechanism, assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())

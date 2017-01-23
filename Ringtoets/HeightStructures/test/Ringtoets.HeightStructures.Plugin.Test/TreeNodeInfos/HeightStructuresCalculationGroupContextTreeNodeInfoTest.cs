@@ -424,7 +424,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
                 }
             };
 
-            var failureMechanism = new HeightStructuresFailureMechanism();
+            var failureMechanism = new TestHeightStructuresFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<HeightStructuresInput>());
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -466,7 +466,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
                 }
             };
 
-            var failureMechanism = new HeightStructuresFailureMechanism();
+            var failureMechanism = new TestHeightStructuresFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<HeightStructuresInput>());
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -519,7 +519,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
                 Version = "1.0"
             };
 
-            var failureMechanism = new HeightStructuresFailureMechanism();
+            var failureMechanism = new TestHeightStructuresFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<HeightStructuresInput>());
 
             var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
@@ -562,7 +562,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
                 }
             };
 
-            var failureMechanism = new HeightStructuresFailureMechanism();
+            var failureMechanism = new TestHeightStructuresFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<HeightStructuresInput>());
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -605,7 +605,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
                 }
             };
 
-            var failureMechanism = new HeightStructuresFailureMechanism();
+            var failureMechanism = new TestHeightStructuresFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<HeightStructuresInput>());
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -657,7 +657,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
                 Version = "1.0"
             };
 
-            var failureMechanism = new HeightStructuresFailureMechanism();
+            var failureMechanism = new TestHeightStructuresFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<HeightStructuresInput>());
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -695,7 +695,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
             var mainWindowStub = mocks.Stub<IMainWindow>();
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-            var failureMechanism = new HeightStructuresFailureMechanism();
+            var failureMechanism = new TestHeightStructuresFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(new TestHeightStructuresCalculation
             {
                 Name = "A",
@@ -777,7 +777,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
             // Setup
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-            var failureMechanism = new HeightStructuresFailureMechanism();
+            var failureMechanism = new TestHeightStructuresFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(new TestHeightStructuresCalculation
             {
                 Name = "A",

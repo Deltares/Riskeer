@@ -424,7 +424,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var guiMock = mocksRepository.StrictMock<IGui>();
-            var failureMechanism = new HeightStructuresFailureMechanism();
+            var failureMechanism = new TestHeightStructuresFailureMechanism();
 
             failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<HeightStructuresInput>());
 
@@ -459,7 +459,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var guiMock = mocksRepository.StrictMock<IGui>();
-            var failureMechanism = new HeightStructuresFailureMechanism();
+            var failureMechanism = new TestHeightStructuresFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<HeightStructuresInput>());
 
             var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
@@ -495,7 +495,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var guiMock = mocksRepository.StrictMock<IGui>();
-            var failureMechanism = new HeightStructuresFailureMechanism();
+            var failureMechanism = new TestHeightStructuresFailureMechanism();
             failureMechanism.AddSection(new FailureMechanismSection("test", new[]
             {
                 new Point2D(0, 0)
@@ -541,7 +541,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var guiMock = mocksRepository.StrictMock<IGui>();
-            var failureMechanism = new HeightStructuresFailureMechanism();
+            var failureMechanism = new TestHeightStructuresFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<HeightStructuresInput>());
 
             var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
@@ -575,7 +575,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var guiMock = mocksRepository.StrictMock<IGui>();
-            var failureMechanism = new HeightStructuresFailureMechanism();
+            var failureMechanism = new TestHeightStructuresFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<HeightStructuresInput>());
 
             var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
@@ -611,7 +611,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var guiMock = mocksRepository.StrictMock<IGui>();
-            var failureMechanism = new HeightStructuresFailureMechanism();
+            var failureMechanism = new TestHeightStructuresFailureMechanism();
             failureMechanism.AddSection(new FailureMechanismSection("test", new[]
             {
                 new Point2D(0, 0)
@@ -660,7 +660,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
             var mainWindow = mocksRepository.Stub<IMainWindow>();
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-            var failureMechanism = new HeightStructuresFailureMechanism();
+            var failureMechanism = new TestHeightStructuresFailureMechanism();
 
             var section = new FailureMechanismSection("A", new[]
             {
@@ -743,7 +743,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_ClickOnValidateAllItem_ValidateAllChildCalculations()
         {
             // Setup
-            var failureMechanism = new HeightStructuresFailureMechanism();
+            var failureMechanism = new TestHeightStructuresFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(new TestHeightStructuresCalculation
             {
                 Name = "A",

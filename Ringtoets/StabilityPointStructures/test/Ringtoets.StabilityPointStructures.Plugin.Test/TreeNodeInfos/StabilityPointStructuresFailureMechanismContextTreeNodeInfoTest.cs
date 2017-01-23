@@ -454,7 +454,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var guiMock = mocksRepository.StrictMock<IGui>();
-            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+            var failureMechanism = new TestStabilityPointStructuresFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<StabilityPointStructuresInput>());
 
             var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
@@ -495,7 +495,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var guiMock = mocksRepository.StrictMock<IGui>();
-            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+            var failureMechanism = new TestStabilityPointStructuresFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<StabilityPointStructuresInput>());
 
             var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
@@ -539,7 +539,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var guiMock = mocksRepository.StrictMock<IGui>();
-            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+            var failureMechanism = new TestStabilityPointStructuresFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<StabilityPointStructuresInput>());
 
             string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
@@ -590,7 +590,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             var mainWindow = mocksRepository.Stub<IMainWindow>();
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+            var failureMechanism = new TestStabilityPointStructuresFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(new TestStabilityPointStructuresCalculation
             {
                 Name = "A",
@@ -673,7 +673,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_ClickOnValidateAllItem_ValidateAllChildCalculations()
         {
             // Setup
-            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+            var failureMechanism = new TestStabilityPointStructuresFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(new TestStabilityPointStructuresCalculation
             {
                 Name = "A",

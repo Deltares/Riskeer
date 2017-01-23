@@ -213,7 +213,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var guiMock = mocks.StrictMock<IGui>();
-            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+            var failureMechanism = new TestStabilityPointStructuresFailureMechanism();
             var assessmentSection = mocks.StrictMock<IAssessmentSection>();
             var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
             var nodeData = new StabilityPointStructuresCalculationContext(calculation, failureMechanism, assessmentSection);
@@ -267,7 +267,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var guiMock = mocks.StrictMock<IGui>();
-            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+            var failureMechanism = new TestStabilityPointStructuresFailureMechanism();
             failureMechanism.AddSection(new FailureMechanismSection("test", new[]
             {
                 new Point2D(0, 0)
@@ -308,7 +308,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var guiMock = mocks.StrictMock<IGui>();
-            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+            var failureMechanism = new TestStabilityPointStructuresFailureMechanism();
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
@@ -356,7 +356,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 Version = "1.0"
             };
 
-            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+            var failureMechanism = new TestStabilityPointStructuresFailureMechanism();
             failureMechanism.AddSection(new FailureMechanismSection("test", new[]
             {
                 new Point2D(0, 0)
@@ -430,7 +430,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             };
             calculation.Attach(observer);
 
-            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+            var failureMechanism = new TestStabilityPointStructuresFailureMechanism();
             var calculationContext = new StabilityPointStructuresCalculationContext(calculation, failureMechanism, assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
@@ -501,7 +501,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             };
             calculation.Attach(observer);
 
-            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+            var failureMechanism = new TestStabilityPointStructuresFailureMechanism();
             var calculationContext = new StabilityPointStructuresCalculationContext(calculation, failureMechanism, assessmentSectionStub);
 
             using (var treeViewControl = new TreeViewControl())

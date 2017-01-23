@@ -30,6 +30,7 @@ using Core.Common.Gui.Forms.ProgressDialog;
 using Core.Common.Gui.Plugin;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms;
@@ -198,7 +199,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin
 
         #region StabilityPointStructuresFailureMechanismView ViewInfo
 
-        private bool CloseStabilityPointStructuresFailureMechanismViewForData(StabilityPointStructuresFailureMechanismView view, object o)
+        private static bool CloseStabilityPointStructuresFailureMechanismViewForData(StabilityPointStructuresFailureMechanismView view, object o)
         {
             var assessmentSection = o as IAssessmentSection;
             var failureMechanism = o as StabilityPointStructuresFailureMechanism;
@@ -265,8 +266,13 @@ namespace Ringtoets.StabilityPointStructures.Plugin
 
         #region Validation and Calculation
 
-        private static string ValidateAllDataAvailableAndGetErrorMessage(IAssessmentSection assessmentSection)
+        private static string ValidateAllDataAvailableAndGetErrorMessage(IAssessmentSection assessmentSection, IFailureMechanism failureMechanism)
         {
+            if (failureMechanism.Contribution <= 0.0)
+            {
+                return RingtoetsCommonFormsResources.Contribution_of_failure_mechanism_zero;
+            }
+
             return HydraulicBoundaryDatabaseConnectionValidator.Validate(assessmentSection.HydraulicBoundaryDatabase);
         }
 
@@ -296,12 +302,12 @@ namespace Ringtoets.StabilityPointStructures.Plugin
 
         #region StabilityPointStructure TreeNodeInfo
 
-        private bool CanRemoveStabilityPointStructure(StabilityPointStructure nodeData, object parentData)
+        private static bool CanRemoveStabilityPointStructure(StabilityPointStructure nodeData, object parentData)
         {
             return parentData is StabilityPointStructuresContext;
         }
 
-        private void OnStabilityPointStructureRemoved(StabilityPointStructure nodeData, object parentData)
+        private static void OnStabilityPointStructureRemoved(StabilityPointStructure nodeData, object parentData)
         {
             var parentContext = (StabilityPointStructuresContext) parentData;
             IEnumerable<IObservable> changedObservables = StabilityPointStructuresDataSynchronizationService.RemoveStructure(parentContext.FailureMechanism,
@@ -409,7 +415,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin
 
         private static string ValidateAllDataAvailableAndGetErrorMessageForCalculationsInFailureMechanism(StabilityPointStructuresFailureMechanismContext context)
         {
-            return ValidateAllDataAvailableAndGetErrorMessage(context.Parent);
+            return ValidateAllDataAvailableAndGetErrorMessage(context.Parent, context.WrappedData);
         }
 
         private static void ValidateAll(StabilityPointStructuresFailureMechanismContext context)
@@ -583,7 +589,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin
 
         private static string ValidateAllDataAvailableAndGetErrorMessageForCalculationsInGroup(StabilityPointStructuresCalculationGroupContext context)
         {
-            return ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection);
+            return ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection, context.FailureMechanism);
         }
 
         private static void ValidateAll(StabilityPointStructuresCalculationGroupContext context)
@@ -646,7 +652,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin
 
         private static string ValidateAllDataAvailableAndGetErrorMessageForCalculation(StabilityPointStructuresCalculationContext context)
         {
-            return ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection);
+            return ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection, context.FailureMechanism);
         }
 
         private void Calculate(StructuresCalculation<StabilityPointStructuresInput> calculation, StabilityPointStructuresCalculationContext context)

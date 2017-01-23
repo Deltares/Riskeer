@@ -434,7 +434,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
                 }
             };
 
-            var failureMechanism = new ClosingStructuresFailureMechanism();
+            var failureMechanism = new TestClosingStructuresFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<ClosingStructuresInput>());
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -484,7 +484,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
                 }
             };
 
-            var failureMechanism = new ClosingStructuresFailureMechanism();
+            var failureMechanism = new TestClosingStructuresFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<ClosingStructuresInput>());
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -544,7 +544,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
                 Version = "1.0"
             };
 
-            var failureMechanism = new ClosingStructuresFailureMechanism();
+            var failureMechanism = new TestClosingStructuresFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<ClosingStructuresInput>());
 
             var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
@@ -582,7 +582,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             var mainWindow = mocks.Stub<IMainWindow>();
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-            var failureMechanism = new ClosingStructuresFailureMechanism();
+            var failureMechanism = new TestClosingStructuresFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(new TestClosingStructuresCalculation
             {
                 Name = "A",
@@ -663,7 +663,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             // Setup
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-            var failureMechanism = new ClosingStructuresFailureMechanism();
+            var failureMechanism = new TestClosingStructuresFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(new TestClosingStructuresCalculation
             {
                 Name = "A",

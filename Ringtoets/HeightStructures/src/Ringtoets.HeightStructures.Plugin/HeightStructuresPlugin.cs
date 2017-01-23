@@ -31,6 +31,7 @@ using Core.Common.Gui.Forms.ProgressDialog;
 using Core.Common.Gui.Plugin;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms;
@@ -218,8 +219,13 @@ namespace Ringtoets.HeightStructures.Plugin
             }
         }
 
-        private static string ValidateAllDataAvailableAndGetErrorMessage(IAssessmentSection assessmentSection)
+        private static string ValidateAllDataAvailableAndGetErrorMessage(IAssessmentSection assessmentSection, IFailureMechanism failureMechanism)
         {
+            if (failureMechanism.Contribution <= 0.0)
+            {
+                return RingtoetsCommonFormsResources.Contribution_of_failure_mechanism_zero;
+            }
+
             return HydraulicBoundaryDatabaseConnectionValidator.Validate(assessmentSection.HydraulicBoundaryDatabase);
         }
 
@@ -227,7 +233,7 @@ namespace Ringtoets.HeightStructures.Plugin
 
         #region HeightStructuresFailureMechanismView ViewInfo
 
-        private bool CloseHeightStructuresFailureMechanismViewForData(HeightStructuresFailureMechanismView view, object data)
+        private static bool CloseHeightStructuresFailureMechanismViewForData(HeightStructuresFailureMechanismView view, object data)
         {
             var assessmentSection = data as IAssessmentSection;
             var failureMechanism = data as HeightStructuresFailureMechanism;
@@ -296,12 +302,12 @@ namespace Ringtoets.HeightStructures.Plugin
 
         #region HeightStructure TreeNodeInfo
 
-        private bool CanRemoveHeightStructure(HeightStructure nodeData, object parentData)
+        private static bool CanRemoveHeightStructure(HeightStructure nodeData, object parentData)
         {
             return parentData is HeightStructuresContext;
         }
 
-        private void OnHeightStructureRemoved(HeightStructure nodeData, object parentData)
+        private static void OnHeightStructureRemoved(HeightStructure nodeData, object parentData)
         {
             var parentContext = (HeightStructuresContext) parentData;
             var changedObservables = HeightStructuresDataSynchronizationService.RemoveStructure(parentContext.FailureMechanism,
@@ -402,7 +408,7 @@ namespace Ringtoets.HeightStructures.Plugin
 
         private static string ValidateAllDataAvailableAndGetErrorMessageForCalculationsInFailureMechanism(HeightStructuresFailureMechanismContext context)
         {
-            return ValidateAllDataAvailableAndGetErrorMessage(context.Parent);
+            return ValidateAllDataAvailableAndGetErrorMessage(context.Parent, context.WrappedData);
         }
 
         private static void ValidateAll(HeightStructuresFailureMechanismContext context)
@@ -575,7 +581,7 @@ namespace Ringtoets.HeightStructures.Plugin
 
         private static string ValidateAllDataAvailableAndGetErrorMessageForCalculationsInGroup(HeightStructuresCalculationGroupContext context)
         {
-            return ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection);
+            return ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection, context.FailureMechanism);
         }
 
         private static void ValidateAll(HeightStructuresCalculationGroupContext context)
@@ -640,7 +646,7 @@ namespace Ringtoets.HeightStructures.Plugin
 
         private static string ValidateAllDataAvailableAndGetErrorMessageForCalculation(HeightStructuresCalculationContext context)
         {
-            return ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection);
+            return ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection, context.FailureMechanism);
         }
 
         private static void Validate(HeightStructuresCalculationContext context)

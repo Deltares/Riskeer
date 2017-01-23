@@ -897,4 +897,7 @@
 
 Weet u zeker dat u wilt doorgaan?</value>
   </data>
+  <data name="Contribution_of_failure_mechanism_zero" xml:space="preserve">
+    <value>De bijdrage van dit toetsspoor is nul.</value>
+  </data>
 </root>

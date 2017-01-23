@@ -683,6 +683,15 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to De bijdrage van dit toetsspoor is nul..
+        /// </summary>
+        public static string Contribution_of_failure_mechanism_zero {
+            get {
+                return ResourceManager.GetString("Contribution_of_failure_mechanism_zero", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap DatabaseIcon {

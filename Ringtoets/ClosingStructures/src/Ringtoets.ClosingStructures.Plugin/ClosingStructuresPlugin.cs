@@ -37,6 +37,7 @@ using Ringtoets.ClosingStructures.IO;
 using Ringtoets.ClosingStructures.Service;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms;
@@ -193,8 +194,13 @@ namespace Ringtoets.ClosingStructures.Plugin
             };
         }
 
-        private static string ValidateAllDataAvailableAndGetErrorMessage(IAssessmentSection assessmentSection)
+        private static string ValidateAllDataAvailableAndGetErrorMessage(IAssessmentSection assessmentSection, IFailureMechanism failureMechanism)
         {
+            if (failureMechanism.Contribution <= 0.0)
+            {
+                return RingtoetsCommonFormsResources.Contribution_of_failure_mechanism_zero;
+            }
+
             return HydraulicBoundaryDatabaseConnectionValidator.Validate(assessmentSection.HydraulicBoundaryDatabase);
         }
 
@@ -213,7 +219,7 @@ namespace Ringtoets.ClosingStructures.Plugin
 
         #region ClosingStructuresFailureMechanismView ViewInfo
 
-        private bool CloseClosingStructuresFailureMechanismViewForData(ClosingStructuresFailureMechanismView view, object data)
+        private static bool CloseClosingStructuresFailureMechanismViewForData(ClosingStructuresFailureMechanismView view, object data)
         {
             var assessmentSection = data as IAssessmentSection;
             var failureMechanism = data as ClosingStructuresFailureMechanism;
@@ -385,7 +391,7 @@ namespace Ringtoets.ClosingStructures.Plugin
 
         private static string ValidateAllDataAvailableAndGetErrorMessageForCalculationsInFailureMechanism(ClosingStructuresFailureMechanismContext context)
         {
-            return ValidateAllDataAvailableAndGetErrorMessage(context.Parent);
+            return ValidateAllDataAvailableAndGetErrorMessage(context.Parent, context.WrappedData);
         }
 
         private void CalculateAll(ClosingStructuresFailureMechanismContext context)
@@ -530,7 +536,7 @@ namespace Ringtoets.ClosingStructures.Plugin
 
         private static string ValidateAllDataAvailableAndGetErrorMessage(ClosingStructuresCalculationGroupContext context)
         {
-            return ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection);
+            return ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection, context.FailureMechanism);
         }
 
         private void CalculateAll(CalculationGroup group, ClosingStructuresCalculationGroupContext context)
@@ -628,7 +634,7 @@ namespace Ringtoets.ClosingStructures.Plugin
 
         private static string ValidateAllDataAvailableAndGetErrorMessageForCalculation(ClosingStructuresCalculationContext context)
         {
-            return ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection);
+            return ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection, context.FailureMechanism);
         }
 
         private static void CalculationContextOnNodeRemoved(ClosingStructuresCalculationContext context, object parentData)
@@ -647,12 +653,12 @@ namespace Ringtoets.ClosingStructures.Plugin
 
         #region ClosingStructure TreeNodeInfo
 
-        private bool CanRemoveClosingStructure(ClosingStructure nodeData, object parentData)
+        private static bool CanRemoveClosingStructure(ClosingStructure nodeData, object parentData)
         {
             return parentData is ClosingStructuresContext;
         }
 
-        private void OnClosingStructureRemoved(ClosingStructure nodeData, object parentData)
+        private static void OnClosingStructureRemoved(ClosingStructure nodeData, object parentData)
         {
             var parentContext = (ClosingStructuresContext) parentData;
             IEnumerable<IObservable> changedObservables = ClosingStructuresDataSynchronizationService.RemoveStructure(parentContext.FailureMechanism,

@@ -427,7 +427,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var guiMock = mocksRepository.StrictMock<IGui>();
-            var failureMechanism = new ClosingStructuresFailureMechanism();
+            var failureMechanism = new TestClosingStructuresFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<ClosingStructuresInput>());
 
             var assessmentSectionMock = mocksRepository.Stub<IAssessmentSection>();
@@ -467,7 +467,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var guiMock = mocksRepository.StrictMock<IGui>();
-            var failureMechanism = new ClosingStructuresFailureMechanism();
+            var failureMechanism = new TestClosingStructuresFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<ClosingStructuresInput>());
 
             var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
@@ -510,7 +510,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var guiMock = mocksRepository.StrictMock<IGui>();
-            var failureMechanism = new ClosingStructuresFailureMechanism();
+            var failureMechanism = new TestClosingStructuresFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<ClosingStructuresInput>());
 
             string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
@@ -560,7 +560,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             var mainWindowStub = mocksRepository.Stub<IMainWindow>();
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-            var failureMechanism = new ClosingStructuresFailureMechanism();
+            var failureMechanism = new TestClosingStructuresFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(new TestClosingStructuresCalculation
             {
                 Name = "A",
@@ -635,7 +635,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_ClickOnValidateAllItem_ValidateAllChildCalculations()
         {
             // Setup
-            var failureMechanism = new ClosingStructuresFailureMechanism();
+            var failureMechanism = new TestClosingStructuresFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(new TestClosingStructuresCalculation
             {
                 Name = "A",
