@@ -133,6 +133,7 @@ namespace Ringtoets.HeightStructures.Forms.Views
                     calculationObserver.Observable = null;
 
                     Map.Data = null;
+                    Map.BackgroundMapData = null;
                 }
                 else
                 {
@@ -149,6 +150,7 @@ namespace Ringtoets.HeightStructures.Forms.Views
                     SetMapDataFeatures();
 
                     Map.Data = mapDataCollection;
+                    Map.BackgroundMapData = data.Parent.BackgroundMapData;
                 }
             }
         }

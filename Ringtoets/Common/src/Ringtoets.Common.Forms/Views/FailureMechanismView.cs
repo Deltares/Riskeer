@@ -103,6 +103,7 @@ namespace Ringtoets.Common.Forms.Views
                     mapDataCollection.Name = defaultMapDataCollectionName;
 
                     Map.Data = null;
+                    Map.BackgroundMapData = null;
                 }
                 else
                 {
@@ -115,6 +116,7 @@ namespace Ringtoets.Common.Forms.Views
                     SetMapDataFeatures();
 
                     Map.Data = mapDataCollection;
+                    Map.BackgroundMapData = data.Parent.BackgroundMapData;
                 }
             }
         }

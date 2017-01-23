@@ -24,6 +24,7 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base.Geometry;
 using Core.Components.DotSpatial.Forms;
+using Core.Components.DotSpatial.TestUtil;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Forms;
 using Core.Components.Gis.Geometries;
@@ -107,6 +108,31 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
         }
 
         [Test]
+        public void Data_AssessmentSectionWithBackgroundMapData_BackgroundMapDataSet()
+        {
+            // Setup
+            WmtsMapData backgroundMapData = WmtsMapData.CreateDefaultPdokMapData();
+
+            IAssessmentSection assessmentSection = new ObservableTestAssessmentSectionStub
+            {
+                BackgroundMapData = backgroundMapData
+            };
+
+            using(new UseCustomTileSourceFactoryConfig(backgroundMapData))
+            using (var view = new ClosingStructuresFailureMechanismView())
+            {
+                var failureMechanismContext = new ClosingStructuresFailureMechanismContext(
+                    new ClosingStructuresFailureMechanism(), assessmentSection);
+
+                // Call
+                view.Data = failureMechanismContext;
+
+                // Assert
+                Assert.AreSame(backgroundMapData, view.Map.BackgroundMapData);
+            }
+        }
+
+        [Test]
         public void Data_OtherThanClosingStructuresFailureMechanismContext_DataNull()
         {
             // Setup
@@ -131,7 +157,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                 var mockRepository = new MockRepository();
                 IAssessmentSection assessmentSection = mockRepository.Stub<IAssessmentSection>();
                 mockRepository.ReplayAll();
-                
+
                 var failureMechanismContext = new ClosingStructuresFailureMechanismContext(
                     new ClosingStructuresFailureMechanism(),
                     assessmentSection);
@@ -147,6 +173,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                 // Assert
                 Assert.IsNull(view.Data);
                 Assert.IsNull(view.Map.Data);
+                Assert.IsNull(view.Map.BackgroundMapData);
 
                 mockRepository.VerifyAll();
             }
@@ -203,11 +230,10 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
 
                 var referenceLine = new ReferenceLine();
                 referenceLine.SetGeometry(new[]
-                                          {
-                                              new Point2D(1.0, 2.0),
-                                              new Point2D(2.0, 1.0)
-                                          });
-
+                {
+                    new Point2D(1.0, 2.0),
+                    new Point2D(2.0, 1.0)
+                });
 
                 var mockRepository = new MockRepository();
                 IAssessmentSection assessmentSection = mockRepository.Stub<IAssessmentSection>();
@@ -245,15 +271,15 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                 failureMechanism.AddSection(new FailureMechanismSection("C", geometryPoints.Skip(2).Take(2)));
 
                 failureMechanism.ForeshoreProfiles.Add(new TestForeshoreProfile(new[]
-                                                                                {
-                                                                                    new Point2D(0, 0),
-                                                                                    new Point2D(1, 1)
-                                                                                }));
+                {
+                    new Point2D(0, 0),
+                    new Point2D(1, 1)
+                }));
                 failureMechanism.ForeshoreProfiles.Add(new TestForeshoreProfile(new[]
-                                                                                {
-                                                                                    new Point2D(2, 2),
-                                                                                    new Point2D(3, 3)
-                                                                                }));
+                {
+                    new Point2D(2, 2),
+                    new Point2D(3, 3)
+                }));
                 failureMechanism.CalculationsGroup.Children.Add(calculationA);
                 failureMechanism.CalculationsGroup.Children.Add(calculationB);
 
@@ -479,10 +505,10 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
 
                 // Call
                 failureMechanism.AddSection(new FailureMechanismSection(string.Empty, new[]
-                                                                        {
-                                                                            new Point2D(1, 2),
-                                                                            new Point2D(1, 2)
-                                                                        }));
+                {
+                    new Point2D(1, 2),
+                    new Point2D(1, 2)
+                }));
                 failureMechanism.NotifyObservers();
 
                 // Assert
@@ -504,10 +530,10 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                 var failureMechanismContext = new ClosingStructuresFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
 
                 failureMechanism.ForeshoreProfiles.Add(new TestForeshoreProfile(new[]
-                                                                                {
-                                                                                    new Point2D(0, 0),
-                                                                                    new Point2D(1, 1)
-                                                                                }));
+                {
+                    new Point2D(0, 0),
+                    new Point2D(1, 1)
+                }));
 
                 view.Data = failureMechanismContext;
 
@@ -518,10 +544,10 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
 
                 // Call
                 failureMechanism.ForeshoreProfiles.Add(new TestForeshoreProfile(new[]
-                                                                                {
-                                                                                    new Point2D(2, 2),
-                                                                                    new Point2D(3, 3)
-                                                                                }));
+                {
+                    new Point2D(2, 2),
+                    new Point2D(3, 3)
+                }));
                 failureMechanism.ForeshoreProfiles.NotifyObservers();
 
                 // Assert
@@ -790,10 +816,10 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
 
             newAssessmentSection.ReferenceLine = new ReferenceLine();
             newAssessmentSection.ReferenceLine.SetGeometry(new[]
-                                                           {
-                                                               new Point2D(2, 4),
-                                                               new Point2D(3, 4)
-                                                           });
+            {
+                new Point2D(2, 4),
+                new Point2D(3, 4)
+            });
 
             var oldClosingStructuresFailureMechanismContext = new ClosingStructuresFailureMechanismContext(new ClosingStructuresFailureMechanism(), oldAssessmentSection);
             var newClosingStructuresFailureMechanismContext = new ClosingStructuresFailureMechanismContext(new ClosingStructuresFailureMechanism(), newAssessmentSection);
@@ -848,10 +874,10 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
 
                 StructuresCalculation<ClosingStructuresInput> calculation = calculationsArray[index];
                 CollectionAssert.AreEquivalent(new[]
-                                               {
-                                                   calculation.InputParameters.Structure.Location,
-                                                   calculation.InputParameters.HydraulicBoundaryLocation.Location
-                                               }, geometries[0].PointCollections.First());
+                {
+                    calculation.InputParameters.Structure.Location,
+                    calculation.InputParameters.HydraulicBoundaryLocation.Location
+                }, geometries[0].PointCollections.First());
             }
             Assert.AreEqual("Berekeningen", mapData.Name);
         }

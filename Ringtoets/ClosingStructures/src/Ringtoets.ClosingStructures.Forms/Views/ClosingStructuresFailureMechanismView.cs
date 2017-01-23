@@ -21,7 +21,6 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Mime;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Components.Gis.Data;
@@ -134,6 +133,7 @@ namespace Ringtoets.ClosingStructures.Forms.Views
                     calculationObserver.Observable = null;
 
                     Map.Data = null;
+                    Map.BackgroundMapData = null;
                 }
                 else
                 {
@@ -149,6 +149,7 @@ namespace Ringtoets.ClosingStructures.Forms.Views
                     SetMapDataFeatures();
 
                     Map.Data = mapDataCollection;
+                    Map.BackgroundMapData = data.Parent.BackgroundMapData;
                 }
             }
         }

@@ -24,6 +24,7 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base.Geometry;
 using Core.Components.DotSpatial.Forms;
+using Core.Components.DotSpatial.TestUtil;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Forms;
 using NUnit.Framework;
@@ -93,6 +94,31 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         [Test]
+        public void Data_AssessmentSectionWithBackgroundMapData_BackgroundMapDataSet()
+        {
+            // Setup
+            WmtsMapData backgroundMapData = WmtsMapData.CreateDefaultPdokMapData();
+
+            IAssessmentSection assessmentSection = new ObservableTestAssessmentSectionStub
+            {
+                BackgroundMapData = backgroundMapData
+            };
+
+            using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
+            using (var view = new FailureMechanismView<TestFailureMechanism>())
+            {
+                var failureMechanism = new TestFailureMechanism();
+                var failureMechanismContext = new FailureMechanismContext<TestFailureMechanism>(failureMechanism, assessmentSection);
+
+                // Call
+                view.Data = failureMechanismContext;
+
+                // Assert
+                Assert.AreSame(backgroundMapData, view.Map.BackgroundMapData);
+            }
+        }
+
+        [Test]
         public void Data_OtherThanFailureMechanismContext_DataNull()
         {
             // Setup
@@ -105,6 +131,7 @@ namespace Ringtoets.Common.Forms.Test.Views
 
                 // Assert
                 Assert.IsNull(view.Data);
+                Assert.IsNull(view.Map.BackgroundMapData);
             }
         }
 

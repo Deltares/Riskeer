@@ -85,12 +85,14 @@ namespace Ringtoets.Integration.Forms.Views
                 if (data == null)
                 {
                     Map.Data = null;
+                    Map.BackgroundMapData = null;
                 }
                 else
                 {
                     SetMapDataFeatures();
 
                     Map.Data = mapDataCollection;
+                    Map.BackgroundMapData = data.BackgroundMapData;
                 }
             }
         }

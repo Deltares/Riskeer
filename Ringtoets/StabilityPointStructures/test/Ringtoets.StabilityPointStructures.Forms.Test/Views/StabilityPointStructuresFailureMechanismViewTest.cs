@@ -24,6 +24,7 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base.Geometry;
 using Core.Components.DotSpatial.Forms;
+using Core.Components.DotSpatial.TestUtil;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Forms;
 using NUnit.Framework;
@@ -122,6 +123,31 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
         }
 
         [Test]
+        public void Data_AssessmentSectionWithBackgroundMapData_BackgroundMapDataSet()
+        {
+            // Setup
+            WmtsMapData backgroundMapData = WmtsMapData.CreateDefaultPdokMapData();
+
+            IAssessmentSection assessmentSection = new ObservableTestAssessmentSectionStub
+            {
+                BackgroundMapData = backgroundMapData
+            };
+
+            using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
+            using (var view = new StabilityPointStructuresFailureMechanismView())
+            {
+                var failureMechanismContext = new StabilityPointStructuresFailureMechanismContext(
+                    new StabilityPointStructuresFailureMechanism(), assessmentSection);
+
+                // Call
+                view.Data = failureMechanismContext;
+
+                // Assert
+                Assert.AreSame(backgroundMapData, view.Map.BackgroundMapData);
+            }
+        }
+
+        [Test]
         public void Data_SetToNull_MapDataCleared()
         {
             // Setup
@@ -145,6 +171,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
                 // Assert
                 Assert.IsNull(view.Data);
                 Assert.IsNull(view.Map.Data);
+                Assert.IsNull(view.Map.BackgroundMapData);
 
                 mockRepository.VerifyAll();
             }

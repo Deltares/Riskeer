@@ -23,9 +23,9 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Forms;
-using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Components.DotSpatial.Forms;
+using Core.Components.DotSpatial.TestUtil;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Forms;
 using NUnit.Framework;
@@ -155,14 +155,12 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void Data_EmptyPipingFailureMechanismContext_NoMapDataSet()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
             var backgroundMapData = WmtsMapData.CreateUnconnectedMapData();
-            assessmentSection.Stub(s => s.BackgroundMapData).Return(backgroundMapData);
-            assessmentSection.Stub(s => s.Id).Return("A");
-            assessmentSection.Stub(s => s.Attach(Arg<IObserver>.Is.NotNull));
-            assessmentSection.Stub(s => s.Detach(Arg<IObserver>.Is.NotNull));
-            mocks.ReplayAll();
+
+            var assessmentSection = new ObservableTestAssessmentSectionStub
+            {
+                BackgroundMapData = backgroundMapData
+            };
 
             using (var view = new PipingFailureMechanismView())
             {
@@ -177,7 +175,6 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 AssertEmptyMapData(view.Map.Data);
                 Assert.AreSame(backgroundMapData, view.Map.BackgroundMapData);
             }
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -188,14 +185,13 @@ namespace Ringtoets.Piping.Forms.Test.Views
             WmtsMapData backgroundMapData = isConfigured ? WmtsMapData.CreateAlternativePdokMapData() : WmtsMapData.CreateUnconnectedMapData();
 
             var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(s => s.BackgroundMapData).Return(backgroundMapData);
-            assessmentSection.Stub(s => s.Id).Return("A");
-            assessmentSection.Stub(s => s.Attach(Arg<IObserver>.Is.NotNull));
-            assessmentSection.Stub(s => s.Detach(Arg<IObserver>.Is.NotNull));
-            mocks.ReplayAll();
+            var assessmentSection = new ObservableTestAssessmentSectionStub
+            {
+                BackgroundMapData = backgroundMapData
+            };
 
             // Setup
+            using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
             using (var view = new PipingFailureMechanismView())
             {
                 var failureMechanismContext = new PipingFailureMechanismContext(new PipingFailureMechanism(), assessmentSection);
@@ -213,14 +209,13 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void Data_SetToNull_ClearMapDataProperties()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(s => s.BackgroundMapData).Return(WmtsMapData.CreateUnconnectedMapData());
-            assessmentSection.Stub(s => s.Id).Return("A");
-            assessmentSection.Stub(s => s.Attach(Arg<IObserver>.Is.NotNull));
-            assessmentSection.Stub(s => s.Detach(Arg<IObserver>.Is.NotNull));
-            mocks.ReplayAll();
+            WmtsMapData backgroundMapData = WmtsMapData.CreateDefaultPdokMapData();
+            var assessmentSection = new ObservableTestAssessmentSectionStub
+            {
+                BackgroundMapData = backgroundMapData
+            };
 
+            using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
             using (var view = new PipingFailureMechanismView())
             {
                 view.Data = new PipingFailureMechanismContext(
@@ -237,7 +232,6 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 Assert.IsNull(view.Map.Data);
                 Assert.IsNull(view.Map.BackgroundMapData);
             }
-            mocks.VerifyAll();
         }
 
         [Test]
