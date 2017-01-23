@@ -444,14 +444,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
 
-            var section = new FailureMechanismSection("A", new[]
-            {
-                new Point2D(1, 2),
-                new Point2D(3, 4)
-            });
-
             var failureMechanism = new TestClosingStructuresFailureMechanism();
-            failureMechanism.AddSection(section);
 
             string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
 

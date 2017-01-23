@@ -232,10 +232,6 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 mocks.ReplayAll();
 
                 plugin.Gui = guiMock;
-                failureMechanism.AddSection(new FailureMechanismSection("test", new[]
-                {
-                    new Point2D(0, 0)
-                }));
 
                 // Call
                 using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewControl))
@@ -268,11 +264,6 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             // Setup
             var guiMock = mocks.StrictMock<IGui>();
             var failureMechanism = new TestStabilityPointStructuresFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("test", new[]
-            {
-                new Point2D(0, 0)
-            }));
-
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
             var nodeData = new StabilityPointStructuresCalculationContext(calculation, failureMechanism, assessmentSection);
@@ -357,11 +348,6 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             };
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("test", new[]
-            {
-                new Point2D(0, 0)
-            }));
-
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
 
@@ -408,11 +394,6 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             };
 
             var failureMechanism = new TestStabilityPointStructuresFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("test", new[]
-            {
-                new Point2D(0, 0)
-            }));
-
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
 

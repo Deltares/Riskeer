@@ -572,15 +572,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
 
-            var section = new FailureMechanismSection("A", new[]
-            {
-                new Point2D(1, 2),
-                new Point2D(3, 4)
-            });
-
             var failureMechanism = new TestHeightStructuresFailureMechanism();
-            failureMechanism.AddSection(section);
-
             string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0.0, 1.1);
