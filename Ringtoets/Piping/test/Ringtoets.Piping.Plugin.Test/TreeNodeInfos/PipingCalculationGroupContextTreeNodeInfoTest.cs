@@ -189,13 +189,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             });
 
             var pipingFailureMechanism = new TestPipingFailureMechanism();
-            pipingFailureMechanism.AddSection(new FailureMechanismSection("A", new[]
-            {
-                new Point2D(0, 0)
-            }));
-
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-
             var nodeData = new PipingCalculationGroupContext(group,
                                                              Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                                              Enumerable.Empty<StochasticSoilModel>(),
@@ -304,12 +298,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             });
 
             var pipingFailureMechanism = new TestPipingFailureMechanism();
-            pipingFailureMechanism.AddSection(new FailureMechanismSection("A", new[]
-            {
-                new Point2D(0, 0)
-            }));
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-
             var nodeData = new PipingCalculationGroupContext(group,
                                                              Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                                              Enumerable.Empty<StochasticSoilModel>(),
@@ -826,14 +815,8 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 group.Children.Add(invalidCalculation);
 
                 var pipingFailureMechanism = new TestPipingFailureMechanism();
-                pipingFailureMechanism.AddSection(new FailureMechanismSection("A", new[]
-                {
-                    new Point2D(0, 0)
-                }));
-
                 IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
                     pipingFailureMechanism, mocks);
-
                 var nodeData = new PipingCalculationGroupContext(group,
                                                                  Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                                                  Enumerable.Empty<StochasticSoilModel>(),

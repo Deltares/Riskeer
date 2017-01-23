@@ -261,7 +261,6 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
 
                 plugin.Gui = gui;
 
-                failureMechanism.CalculationsGroup.Children.Clear();
                 failureMechanism.CalculationsGroup.Children.Add(pipingCalculation1);
                 failureMechanism.CalculationsGroup.Children.Add(pipingCalculation2);
                 failureMechanism.CalculationsGroup.Children.ElementAt(0).Attach(observer);
@@ -307,10 +306,6 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var failureMechanism = new TestPipingFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("test", new[]
-            {
-                new Point2D(0, 0)
-            }));
             var pipingCalculation = new PipingCalculationScenario(failureMechanism.GeneralInput)
             {
                 Output = new TestPipingOutput(),
@@ -624,8 +619,6 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 var failureMechanism = new TestPipingFailureMechanism();
-                failureMechanism.CalculationsGroup.Children.Clear();
-
                 PipingCalculationScenario validCalculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
                 validCalculation.Name = "A";
                 PipingCalculationScenario invalidCalculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithInvalidInput();
@@ -672,12 +665,6 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 var failureMechanism = new TestPipingFailureMechanism();
-                failureMechanism.AddSection(new FailureMechanismSection("test", new[]
-                {
-                    new Point2D(0, 0)
-                }));
-                failureMechanism.CalculationsGroup.Children.Clear();
-
                 PipingCalculationScenario validCalculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
                 validCalculation.Name = "A";
                 PipingCalculationScenario invalidCalculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithInvalidInput();

@@ -192,12 +192,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             {
                 var calculation = new PipingCalculationScenario(new GeneralPipingInput());
                 var pipingFailureMechanism = new TestPipingFailureMechanism();
-                pipingFailureMechanism.AddSection(new FailureMechanismSection("A", new[]
-                {
-                    new Point2D(0, 0)
-                }));
                 var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-
                 var nodeData = new PipingCalculationScenarioContext(calculation,
                                                                     Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                                                     Enumerable.Empty<StochasticSoilModel>(),
@@ -237,12 +232,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                     SemiProbabilisticOutput = new TestPipingSemiProbabilisticOutput()
                 };
                 var pipingFailureMechanism = new TestPipingFailureMechanism();
-                pipingFailureMechanism.AddSection(new FailureMechanismSection("A", new[]
-                {
-                    new Point2D(0, 0)
-                }));
                 var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-
                 var nodeData = new PipingCalculationScenarioContext(calculation,
                                                                     Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                                                     Enumerable.Empty<StochasticSoilModel>(),
@@ -277,12 +267,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             {
                 var calculation = new PipingCalculationScenario(new GeneralPipingInput());
                 var pipingFailureMechanism = new PipingFailureMechanism();
-                pipingFailureMechanism.AddSection(new FailureMechanismSection("A", new[]
-                {
-                    new Point2D(0, 0)
-                }));
                 var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-
                 var nodeData = new PipingCalculationScenarioContext(calculation,
                                                                     Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                                                     Enumerable.Empty<StochasticSoilModel>(),
@@ -325,12 +310,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             {
                 var calculation = new PipingCalculationScenario(new GeneralPipingInput());
                 var pipingFailureMechanism = new TestPipingFailureMechanism();
-                pipingFailureMechanism.AddSection(new FailureMechanismSection("A", new[]
-                {
-                    new Point2D(0, 0)
-                }));
                 var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-
                 var nodeData = new PipingCalculationScenarioContext(calculation,
                                                                     Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                                                     Enumerable.Empty<StochasticSoilModel>(),
