@@ -70,29 +70,10 @@ namespace Ringtoets.Integration.Plugin.Handlers
 
                 affectedObjects.Add(assessmentSection);
 
-                var failureMechanismsToClearOutputFor = new List<IFailureMechanism>();
-
-                foreach (IFailureMechanism failureMechanism in assessmentSection.GetFailureMechanisms())
-                { 
-                    foreach (KeyValuePair<IFailureMechanism, double> oldFailureMechanismContribution in oldFailureMechanismContributions)
-                    {
-                        if (failureMechanism is StabilityStoneCoverFailureMechanism || failureMechanism is WaveImpactAsphaltCoverFailureMechanism)
-                        {
-                            continue;
-                        }
-
-                        if (failureMechanism is DuneErosionFailureMechanism
-                            || oldFailureMechanismContribution.Key.Equals(failureMechanism)
-                            && Math.Abs(oldFailureMechanismContribution.Value) > 1e-6
-                            && Math.Abs(oldFailureMechanismContribution.Value - failureMechanism.Contribution) > 1e-6)
-                        {
-                            failureMechanismsToClearOutputFor.Add(failureMechanism);
-                            break;
-                        }
-                    }
-                }
-
-                IObservable[] affectedCalculations = RingtoetsDataSynchronizationService.ClearFailureMechanismCalculationOutputs(failureMechanismsToClearOutputFor).ToArray();
+                IObservable[] affectedCalculations =
+                    RingtoetsDataSynchronizationService.ClearFailureMechanismCalculationOutputs(
+                                                           GetFailureMechanismsToUpdate(assessmentSection, oldFailureMechanismContributions))
+                                                       .ToArray();
 
                 if (affectedCalculations.Length > 0)
                 {
@@ -100,11 +81,37 @@ namespace Ringtoets.Integration.Plugin.Handlers
                     log.InfoFormat(Resources.ChangeHandler_Results_of_NumberOfCalculations_0_calculations_cleared,
                                    affectedObjects.OfType<ICalculation>().Count());
                 }
-                
-                affectedObjects.AddRange(ClearHydraulicBoundaryLocationOutput(failureMechanismsToClearOutputFor));
-                
+
+                affectedObjects.AddRange(ClearHydraulicBoundaryLocationOutput(GetFailureMechanismsToUpdate(assessmentSection, oldFailureMechanismContributions)));
             }
             return affectedObjects;
+        }
+
+        private static IFailureMechanism[] GetFailureMechanismsToUpdate(IAssessmentSection assessmentSection,
+                                                                        Dictionary<IFailureMechanism, double> oldFailureMechanismContributions)
+        {
+            var failureMechanismsToClearOutputFor = new List<IFailureMechanism>();
+            foreach (IFailureMechanism failureMechanism in assessmentSection.GetFailureMechanisms())
+            {
+                foreach (KeyValuePair<IFailureMechanism, double> oldFailureMechanismContribution in oldFailureMechanismContributions)
+                {
+                    if (failureMechanism is StabilityStoneCoverFailureMechanism || failureMechanism is WaveImpactAsphaltCoverFailureMechanism)
+                    {
+                        continue;
+                    }
+
+                    if (failureMechanism is DuneErosionFailureMechanism
+                        || oldFailureMechanismContribution.Key.Equals(failureMechanism)
+                        && Math.Abs(oldFailureMechanismContribution.Value) > 1e-6
+                        && Math.Abs(oldFailureMechanismContribution.Value - failureMechanism.Contribution) > 1e-6)
+                    {
+                        failureMechanismsToClearOutputFor.Add(failureMechanism);
+                        break;
+                    }
+                }
+            }
+
+            return failureMechanismsToClearOutputFor.ToArray();
         }
 
         private IEnumerable<IObservable> ClearHydraulicBoundaryLocationOutput(IEnumerable<IFailureMechanism> failureMechanismsToClearOutputFor)
