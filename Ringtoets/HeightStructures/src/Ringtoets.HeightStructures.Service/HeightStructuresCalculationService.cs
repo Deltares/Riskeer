@@ -194,7 +194,6 @@ namespace Ringtoets.HeightStructures.Service
         /// Creates the input for a structures overtopping calculation.
         /// </summary>
         /// <param name="calculation">The calculation to create the input for.</param>
-        /// <param name="failureMechanismSection">The failure mechanism section to use in the calculation.</param>
         /// <param name="generalInput">The general input to use in the calculation.</param>
         /// <param name="hydraulicBoundaryDatabaseFilePath">The path to the hydraulic boundary database file.</param>
         /// <returns>A <see cref="StructuresOvertoppingCalculationInput"/>.</returns>
@@ -293,7 +292,7 @@ namespace Ringtoets.HeightStructures.Service
                 new NormalDistributionRule(input.LevelCrestStructure,
                                            ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_LevelCrestStructure_DisplayName)),
                 new VariationCoefficientLogNormalDistributionRule(input.CriticalOvertoppingDischarge,
-                                                                  ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_CriticalOvertoppingDischarge_DisplayName)),
+                                                                  ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_CriticalOvertoppingDischarge_DisplayName))
             };
 
             return validationRules;

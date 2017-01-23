@@ -203,7 +203,6 @@ namespace Ringtoets.StabilityPointStructures.Service
         /// Creates the input for a structures stability point calculation.
         /// </summary>
         /// <param name="calculation">The calculation to create the input for.</param>
-        /// <param name="failureMechanismSection">The failure mechanism section to use in the calculation.</param>
         /// <param name="failureMechanism">The failure mechanism that contains input to use in the calculation.</param>
         /// <param name="hydraulicBoundaryDatabaseFilePath">The path to the hydraulic boundary database file.</param>
         /// <returns>A <see cref="StructuresStabilityPointCalculationInput"/>.</returns>
@@ -677,7 +676,7 @@ namespace Ringtoets.StabilityPointStructures.Service
                 new VariationCoefficientNormalDistributionRule(input.ShipVelocity,
                                                                ParameterNameExtractor.GetFromDisplayName(RingtoetsStabilityPointStructuresFormsResources.Structure_ShipVelocity_DisplayName)),
                 new VariationCoefficientLogNormalDistributionRule(input.StabilityLinearLoadModel,
-                                                                  ParameterNameExtractor.GetFromDisplayName(RingtoetsStabilityPointStructuresFormsResources.Structure_StabilityLinearLoadModel_DisplayName)),
+                                                                  ParameterNameExtractor.GetFromDisplayName(RingtoetsStabilityPointStructuresFormsResources.Structure_StabilityLinearLoadModel_DisplayName))
             };
         }
 
@@ -785,7 +784,7 @@ namespace Ringtoets.StabilityPointStructures.Service
                 new VariationCoefficientNormalDistributionRule(input.ShipVelocity,
                                                                ParameterNameExtractor.GetFromDisplayName(RingtoetsStabilityPointStructuresFormsResources.Structure_ShipVelocity_DisplayName)),
                 new VariationCoefficientLogNormalDistributionRule(input.StabilityLinearLoadModel,
-                                                                  ParameterNameExtractor.GetFromDisplayName(RingtoetsStabilityPointStructuresFormsResources.Structure_StabilityLinearLoadModel_DisplayName)),
+                                                                  ParameterNameExtractor.GetFromDisplayName(RingtoetsStabilityPointStructuresFormsResources.Structure_StabilityLinearLoadModel_DisplayName))
             };
         }
 
@@ -839,7 +838,7 @@ namespace Ringtoets.StabilityPointStructures.Service
                 new VariationCoefficientNormalDistributionRule(input.ShipVelocity,
                                                                ParameterNameExtractor.GetFromDisplayName(RingtoetsStabilityPointStructuresFormsResources.Structure_ShipVelocity_DisplayName)),
                 new VariationCoefficientLogNormalDistributionRule(input.StabilityQuadraticLoadModel,
-                                                                  ParameterNameExtractor.GetFromDisplayName(RingtoetsStabilityPointStructuresFormsResources.Structure_StabilityQuadraticLoadModel_DisplayName)),
+                                                                  ParameterNameExtractor.GetFromDisplayName(RingtoetsStabilityPointStructuresFormsResources.Structure_StabilityQuadraticLoadModel_DisplayName))
             };
         }
     }

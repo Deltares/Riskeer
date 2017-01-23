@@ -205,7 +205,6 @@ namespace Ringtoets.ClosingStructures.Service
         /// <param name="calculation">The <see cref="StructuresCalculation{T}"/> to create the input for.</param>
         /// <param name="failureMechanism">The <see cref="ClosingStructuresFailureMechanism"/> that holds the information about the contribution 
         /// and the general inputs used in the calculation.</param>
-        /// <param name="failureMechanismSection">The section to use in the calcluation.</param>
         /// <param name="hydraulicBoundaryDatabaseFilePath">The filepath to the hydraulic boundary database.</param>
         /// <returns>A <see cref="StructuresClosureCalculationInput"/>.</returns>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="ClosingStructuresInput.InflowModelType"/> is an invalid
