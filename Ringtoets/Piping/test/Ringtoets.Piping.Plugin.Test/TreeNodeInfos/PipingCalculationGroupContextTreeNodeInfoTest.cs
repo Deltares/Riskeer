@@ -175,7 +175,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_NestedCalculationGroupWithCalculationOutput_ReturnContextWithItems()
+        public void ContextMenuStrip_NestedCalculationGroupWithCalculationOutput_ReturnContextMenuWithItems()
         {
             // Setup
             var gui = mocks.StrictMock<IGui>();
@@ -392,7 +392,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_WithoutParentNodeDefaultBehaviorAndWithoutAvailableSurfaceLines_GenerateCalculationsDisabled()
+        public void ContextMenuStrip_WithoutParentNodeDefaultBehaviorAndWithoutAvailableSurfaceLines_ContextMenuItemGenerateCalculationsDisabled()
         {
             // Setup
             using (var treeViewControl = new TreeViewControl())
@@ -435,7 +435,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_WithoutParentNodeDefaultBehaviorAndWithoutAvailableSoilModels_GenerateCalculationsDisabled()
+        public void ContextMenuStrip_WithoutParentNodeDefaultBehaviorAndWithoutAvailableSoilModels_ContextMenuItemGenerateCalculationsDisabled()
         {
             // Setup
             using (var treeViewControl = new TreeViewControl())
@@ -478,7 +478,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_WithoutParentNodeDefaultBehaviorAndWithAvailableSurfaceLinesAndSoilModels_GenerateCalculationsEnabled()
+        public void ContextMenuStrip_WithoutParentNodeDefaultBehaviorAndWithAvailableSurfaceLinesAndSoilModels_ContextMenuItemGenerateCalculationsEnabled()
         {
             // Setup
             using (var treeViewControl = new TreeViewControl())
@@ -523,26 +523,26 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_NestedCalculationGroupWithNoCalculations_ValidateAndCalculateAllDisabled()
+        public void ContextMenuStrip_FailureMechanismContributionZero_ContextMenuItemCalculateAllAndValidateAllDisabledAndTooltipSet()
         {
             // Setup
             using (var treeViewControl = new TreeViewControl())
             {
-                var group = new CalculationGroup();
-                var parentGroup = new CalculationGroup();
-
                 var pipingFailureMechanism = new PipingFailureMechanism();
                 var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+                var group = new CalculationGroup
+                {
+                    Children =
+                    {
+                        PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput()
+                    }
+                };
+
                 var nodeData = new PipingCalculationGroupContext(group,
                                                                  Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                                                  Enumerable.Empty<StochasticSoilModel>(),
                                                                  pipingFailureMechanism,
                                                                  assessmentSectionMock);
-                var parentNodeData = new PipingCalculationGroupContext(parentGroup,
-                                                                       Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                                       Enumerable.Empty<StochasticSoilModel>(),
-                                                                       pipingFailureMechanism,
-                                                                       assessmentSectionMock);
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -554,15 +554,68 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 plugin.Gui = gui;
 
                 // Call
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, pipingFailureMechanism, treeViewControl))
                 {
                     // Assert
-                    ToolStripItem validateItem = contextMenu.Items[contextMenuValidateAllIndexNestedGroup];
-                    ToolStripItem calculateItem = contextMenu.Items[contextMenuCalculateAllIndexNestedGroup];
-                    Assert.IsFalse(validateItem.Enabled);
-                    Assert.IsFalse(calculateItem.Enabled);
-                    Assert.AreEqual(RingtoetsCommonFormsResources.FailureMechanism_CreateCalculateAllItem_No_calculations_to_run, calculateItem.ToolTipText);
-                    Assert.AreEqual(RingtoetsCommonFormsResources.FailureMechanism_CreateValidateAllItem_No_calculations_to_validate, validateItem.ToolTipText);
+                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuCalculateAllIndexRootGroup,
+                                              "Alles be&rekenen",
+                                              "De bijdrage van dit toetsspoor is nul.",
+                                              RingtoetsCommonFormsResources.CalculateAllIcon,
+                                              false);
+
+                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuValidateAllIndexRootGroup,
+                                              "Alles &valideren",
+                                              "De bijdrage van dit toetsspoor is nul.",
+                                              RingtoetsCommonFormsResources.ValidateAllIcon,
+                                              false);
+                }
+            }
+        }
+
+        [Test]
+        public void ContextMenuStrip_AllRequiredInputSet_ContextMenuItemCalculateAllAndValidateAllEnabled()
+        {
+            // Setup
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var pipingFailureMechanism = new TestPipingFailureMechanism();
+                var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+                var group = new CalculationGroup
+                {
+                    Children =
+                    {
+                        PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput()
+                    }
+                };
+
+                var nodeData = new PipingCalculationGroupContext(group,
+                                                                 Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                 Enumerable.Empty<StochasticSoilModel>(),
+                                                                 pipingFailureMechanism,
+                                                                 assessmentSectionMock);
+
+                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+                var gui = mocks.StrictMock<IGui>();
+                gui.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
+
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                // Call
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, pipingFailureMechanism, treeViewControl))
+                {
+                    // Assert
+                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuCalculateAllIndexRootGroup,
+                                              "Alles be&rekenen",
+                                              "Voer alle berekeningen binnen deze berekeningsmap uit.",
+                                              RingtoetsCommonFormsResources.CalculateAllIcon);
+
+                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuValidateAllIndexRootGroup,
+                                              "Alles &valideren",
+                                              "Valideer alle berekeningen binnen deze berekeningsmap.",
+                                              RingtoetsCommonFormsResources.ValidateAllIcon);
                 }
             }
         }
@@ -740,9 +793,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                         Assert.AreEqual(9, msgs.Length);
                         StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", validCalculation.Name), msgs[0]);
                         StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", validCalculation.Name), msgs[1]);
-
                         StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", invalidCalculation.Name), msgs[2]);
-                        // Some validation error from validation service
                         StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", invalidCalculation.Name), msgs[8]);
                     });
                 }
