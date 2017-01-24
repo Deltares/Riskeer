@@ -155,8 +155,8 @@ namespace Ringtoets.Common.Forms.Test.ChangeHandlers
                 tester.ClickCancel();
             };
 
-            var calculationWithOutput = CreateCalculationWithOutput();
-            var calculationWithoutOutput = CreateCalculationWithoutOutput();
+            var calculationWithOutput = CalculationTestHelper.CreateCalculationWithOutput();
+            var calculationWithoutOutput = CalculationTestHelper.CreateCalculationWithoutOutput();
 
             var testFailureMechanism = new TestFailureMechanism(
                 new[]
@@ -192,7 +192,7 @@ namespace Ringtoets.Common.Forms.Test.ChangeHandlers
             var testFailureMechanism = new TestFailureMechanism(
                 new[]
                 {
-                    CreateCalculationWithOutput(),
+                    CalculationTestHelper.CreateCalculationWithOutput(),
                 });
 
             var changeHandler = new FailureMechanismPropertyChangeHandler<IFailureMechanism>();
@@ -250,62 +250,49 @@ namespace Ringtoets.Common.Forms.Test.ChangeHandlers
             yield return new TestCaseData(
                 new ChangePropertyTestCase(new[]
                              {
-                                 CreateCalculationWithOutput()
+                                 CalculationTestHelper.CreateCalculationWithOutput()
                              })
             ).SetName("SetPropertyValueAfterConfirmation Single calculation with output");
 
             yield return new TestCaseData(
                 new ChangePropertyTestCase(new[]
                              {
-                                 CreateCalculationWithoutOutput()
+                                 CalculationTestHelper.CreateCalculationWithoutOutput()
                              })
             ).SetName("SetPropertyValueAfterConfirmation Single calculation without output");
 
             yield return new TestCaseData(
                 new ChangePropertyTestCase(new[]
                              {
-                                 CreateCalculationWithoutOutput(),
-                                 CreateCalculationWithoutOutput()
+                                 CalculationTestHelper.CreateCalculationWithoutOutput(),
+                                 CalculationTestHelper.CreateCalculationWithoutOutput()
                              })
             ).SetName("SetPropertyValueAfterConfirmation Two calculations without output");
 
             yield return new TestCaseData(
                 new ChangePropertyTestCase(new[]
                              {
-                                 CreateCalculationWithOutput(),
-                                 CreateCalculationWithoutOutput()
+                                 CalculationTestHelper.CreateCalculationWithOutput(),
+                                 CalculationTestHelper.CreateCalculationWithoutOutput()
                              })
             ).SetName("SetPropertyValueAfterConfirmation Calculation without and calculation with output");
 
             yield return new TestCaseData(
                 new ChangePropertyTestCase(new[]
                              {
-                                 CreateCalculationWithOutput(),
-                                 CreateCalculationWithOutput()
+                                 CalculationTestHelper.CreateCalculationWithOutput(),
+                                 CalculationTestHelper.CreateCalculationWithOutput()
                              })
             ).SetName("SetPropertyValueAfterConfirmation Two calculations with output");
 
             yield return new TestCaseData(
                 new ChangePropertyTestCase(new[]
                              {
-                                 CreateCalculationWithOutput(),
-                                 CreateCalculationWithOutput(),
-                                 CreateCalculationWithoutOutput()
+                                 CalculationTestHelper.CreateCalculationWithOutput(),
+                                 CalculationTestHelper.CreateCalculationWithOutput(),
+                                 CalculationTestHelper.CreateCalculationWithoutOutput()
                              })
             ).SetName("SetPropertyValueAfterConfirmation Two calculations with and one calculation without output");
-        }
-
-        private static TestCalculation CreateCalculationWithoutOutput()
-        {
-            return new TestCalculation();
-        }
-
-        private static TestCalculation CreateCalculationWithOutput()
-        {
-            return new TestCalculation
-            {
-                Output = new object()
-            };
         }
     }
 }
