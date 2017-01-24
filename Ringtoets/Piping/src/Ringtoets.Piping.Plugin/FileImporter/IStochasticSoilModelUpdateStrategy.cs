@@ -19,8 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
+using Core.Common.Base;
 using Ringtoets.Piping.Data;
 
 namespace Ringtoets.Piping.Plugin.FileImporter
@@ -38,11 +38,10 @@ namespace Ringtoets.Piping.Plugin.FileImporter
         /// <param name="sourceFilePath">The path to the source file from which the soil models were imported.</param>
         /// <param name="targetCollection">The <see cref="StochasticSoilModelCollection"/> to which the imported data
         /// is added.</param>
-        /// <param name="notifyProgress">An action to be used to notify progress changes.</param>
-        void UpdateModelWithImportedData(
+        /// <returns>List of updated instances.</returns>
+        IEnumerable<IObservable> UpdateModelWithImportedData(
             IEnumerable<StochasticSoilModel> readStochasticSoilModels,
             string sourceFilePath,
-            StochasticSoilModelCollection targetCollection,
-            Action<string, int, int> notifyProgress);
+            StochasticSoilModelCollection targetCollection);
     }
 }

@@ -19,13 +19,16 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
+using Core.Common.Base.Service;
 using Core.Common.Controls.TreeView;
+using Core.Common.Controls.TreeView.Properties;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms;
 using Core.Common.Gui.Forms.ProgressDialog;
@@ -239,14 +242,7 @@ namespace Ringtoets.Piping.Plugin
                 ForeColor = stochasticSoilModelContext => stochasticSoilModelContext.WrappedData.Any() ?
                                                               Color.FromKnownColor(KnownColor.ControlText) : Color.FromKnownColor(KnownColor.GrayText),
                 ChildNodeObjects = stochasticSoilModelContext => stochasticSoilModelContext.WrappedData.Cast<object>().ToArray(),
-                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
-                                                                                 .AddImportItem()
-                                                                                 .AddSeparator()
-                                                                                 .AddDeleteChildrenItem()
-                                                                                 .AddSeparator()
-                                                                                 .AddCollapseAllItem()
-                                                                                 .AddExpandAllItem()
-                                                                                 .Build()
+                ContextMenuStrip = StochasticSoilModelCollectionContextContextMenuStrip()
             };
 
             yield return new TreeNodeInfo<StochasticSoilModel>
@@ -493,6 +489,43 @@ namespace Ringtoets.Piping.Plugin
 
             return null;
         }
+
+        #region StochasticSoilModelCollectionContext TreeNodeInfo
+
+        private Func<StochasticSoilModelCollectionContext, object, TreeViewControl, ContextMenuStrip> StochasticSoilModelCollectionContextContextMenuStrip()
+        {
+            return (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
+                                                                 .AddImportItem()
+                                                                 .AddCustomItem(
+                                                                     CreateUpdateStochasticSoilModelsItem(nodeData.WrappedData))
+                                                                 .AddSeparator()
+                                                                 .AddDeleteChildrenItem()
+                                                                 .AddSeparator()
+                                                                 .AddCollapseAllItem()
+                                                                 .AddExpandAllItem()
+                                                                 .Build();
+        }
+
+        private StrictContextMenuItem CreateUpdateStochasticSoilModelsItem(StochasticSoilModelCollection nodeDataWrappedData)
+        {
+            return new StrictContextMenuItem(
+                "&Bijwerken...",
+                "Werk de reeds bekende lijst van stochastische ondergrondmodellen bij.",
+                PipingPluginResources.RefreshIcon,
+                (sender, args) =>
+                {
+                    var importer = new StochasticSoilModelImporter(nodeDataWrappedData,
+                                                    nodeDataWrappedData.SourcePath,
+                                                    new StochasticSoilModelUpdateData());
+                    var activity = new FileImportActivity(importer, "Bijwerken van stochastische ondergrondmodellen.");
+                    ActivityProgressDialogRunner.Run(Gui.MainWindow, activity);
+                })
+            {
+                Enabled = nodeDataWrappedData.SourcePath != null
+            };
+        }
+
+        #endregion
 
         #region RingtoetsPipingSurfaceLine TreeNodeInfo
 

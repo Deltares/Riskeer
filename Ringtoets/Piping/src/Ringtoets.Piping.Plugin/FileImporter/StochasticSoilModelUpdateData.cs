@@ -22,8 +22,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base;
 using log4net;
-using Ringtoets.Common.IO.Properties;
 using Ringtoets.Piping.Data;
 
 namespace Ringtoets.Piping.Plugin.FileImporter
@@ -48,18 +48,27 @@ namespace Ringtoets.Piping.Plugin.FileImporter
         /// <param name="sourceFilePath">The file path from which the <paramref name="readStochasticSoilModels"/>
         /// were imported.</param>
         /// <param name="targetCollection">The current collection of <see cref="StochasticSoilModel"/>.</param>
-        /// <param name="notifyProgress">An action to be used to notify progress changes.</param>
         /// <exception cref="InvalidOperationException">Thrown when <paramref name="targetCollection"/>
         /// contains multiple <see cref="StochasticSoilModel"/> with the same <see cref="StochasticSoilModel.Name"/>,
         /// and <paramref name="readStochasticSoilModels"/> also contains a <see cref="StochasticSoilModel"/> with
         /// the same name.
         /// </exception>
-        public void UpdateModelWithImportedData(
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <returns>List of updated instances.</returns>
+        public IEnumerable<IObservable> UpdateModelWithImportedData(
             IEnumerable<StochasticSoilModel> readStochasticSoilModels,
             string sourceFilePath,
-            StochasticSoilModelCollection targetCollection,
-            Action<string, int, int> notifyProgress)
+            StochasticSoilModelCollection targetCollection)
         {
+            if (readStochasticSoilModels == null)
+            {
+                throw new ArgumentNullException(nameof(readStochasticSoilModels));
+            }
+            if (targetCollection == null)
+            {
+                throw new ArgumentNullException(nameof(targetCollection));
+            }
+
             var updatedModels = new List<StochasticSoilModel>();
 
             foreach (var readModel in readStochasticSoilModels)
@@ -77,6 +86,8 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             }
             targetCollection.Clear();
             targetCollection.AddRange(updatedModels, sourceFilePath);
+
+            return new IObservable[] { targetCollection }.Union(updatedModels);
         }
     }
 }

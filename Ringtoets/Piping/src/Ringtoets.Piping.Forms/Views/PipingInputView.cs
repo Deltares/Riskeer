@@ -39,6 +39,7 @@ namespace Ringtoets.Piping.Forms.Views
     {
         private readonly Observer calculationObserver;
         private readonly Observer calculationInputObserver;
+        private readonly Observer stochasticSoilModelObserver;
 
         private readonly ChartDataCollection soilProfileChartData;
         private readonly ChartLineData surfaceLineChartData;
@@ -68,6 +69,7 @@ namespace Ringtoets.Piping.Forms.Views
 
             calculationObserver = new Observer(UpdateChartTitle);
             calculationInputObserver = new Observer(UpdateViewData);
+            stochasticSoilModelObserver = new Observer(UpdateViewData);
 
             chartDataCollection = new ChartDataCollection(RingtoetsCommonFormsResources.Calculation_Input);
             soilProfileChartData = PipingChartDataFactory.CreateSoilProfileChartData();
@@ -107,6 +109,7 @@ namespace Ringtoets.Piping.Forms.Views
 
                 calculationObserver.Observable = data;
                 calculationInputObserver.Observable = data?.InputParameters;
+                stochasticSoilModelObserver.Observable = data?.InputParameters.StochasticSoilModel;
 
                 if (data == null)
                 {

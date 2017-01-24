@@ -19,9 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base;
 using log4net;
 using Ringtoets.Piping.Data;
 
@@ -41,12 +41,11 @@ namespace Ringtoets.Piping.Plugin.FileImporter
         /// <param name="sourceFilePath">The file path from which the <paramref name="readStochasticSoilModels"/>
         /// were imported.</param>
         /// <param name="targetCollection">The current collection of <see cref="StochasticSoilModel"/>.</param>
-        /// <param name="notifyProgress">An action to be used to notify progress changes.</param>
-        public void UpdateModelWithImportedData(
+        /// <returns>List of updated instances.</returns>
+        public IEnumerable<IObservable> UpdateModelWithImportedData(
             IEnumerable<StochasticSoilModel> readStochasticSoilModels,
             string sourceFilePath,
-            StochasticSoilModelCollection targetCollection,
-            Action<string, int, int> notifyProgress)
+            StochasticSoilModelCollection targetCollection)
         {
             var modelsToAdd = new List<StochasticSoilModel>();
             foreach (StochasticSoilModel readStochasticSoilModel in readStochasticSoilModels)
@@ -59,6 +58,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
                 modelsToAdd.Add(readStochasticSoilModel);
             }
             targetCollection.AddRange(modelsToAdd, sourceFilePath);
+            return new [] { targetCollection };
         }
     }
 }

@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using Core.Common.Base;
 using Core.Common.Base.IO;
 using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
@@ -84,14 +85,15 @@ namespace Ringtoets.Piping.Plugin.FileImporter
                 return false;
             }
 
-            modelUpdateStrategy.UpdateModelWithImportedData(
+            UpdatedInstances = modelUpdateStrategy.UpdateModelWithImportedData(
                 GetValidStochasticSoilModels(importStochasticSoilModelResult),
                 FilePath, 
-                ImportTarget, 
-                NotifyProgress);
+                ImportTarget);
 
             return true;
         }
+
+        private IEnumerable<IObservable> UpdatedInstances { get; set; }
 
         private IEnumerable<StochasticSoilModel> GetValidStochasticSoilModels(ReadResult<StochasticSoilModel> importStochasticSoilModelResult)
         {
@@ -293,5 +295,18 @@ namespace Ringtoets.Piping.Plugin.FileImporter
         }
 
         #endregion
+
+        public override void DoPostImportUpdates()
+        {
+            if (Canceled)
+            {
+                return;
+            }
+
+            foreach (var observable in UpdatedInstances)
+            {
+                observable.NotifyObservers();
+            }
+        }
     }
 }

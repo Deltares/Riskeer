@@ -43,6 +43,48 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         }
 
         [Test]
+        public void UpdateModelWithImportedData_ReadStochasticSoilModelsNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var strategy = new StochasticSoilModelUpdateData();
+
+            // Call
+            TestDelegate test = () => strategy.UpdateModelWithImportedData(null, string.Empty, new StochasticSoilModelCollection());
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("readStochasticSoilModels", paramName);
+        }
+
+        [Test]
+        public void UpdateModelWithImportedData_SourceFilePathNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var strategy = new StochasticSoilModelUpdateData();
+
+            // Call
+            TestDelegate test = () => strategy.UpdateModelWithImportedData(new List<StochasticSoilModel>(), null, new StochasticSoilModelCollection());
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("filePath", paramName);
+        }
+
+        [Test]
+        public void UpdateModelWithImportedData_TargetCollectionNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var strategy = new StochasticSoilModelUpdateData();
+
+            // Call
+            TestDelegate test = () => strategy.UpdateModelWithImportedData(new List<StochasticSoilModel>(), string.Empty, null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("targetCollection", paramName);
+        }
+
+        [Test]
         public void UpdateModelWithImportedData_MultipleCurrentModelsWithSameNameAndImportedDataContainsModelWithSameName_ThrowsInvalidOperationException()
         {
             // Setup
@@ -63,7 +105,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             };
 
             // Call
-            TestDelegate test = () => strategy.UpdateModelWithImportedData(importedStochasticSoilModels, sourceFilePath, targetCollection, NotifyProgress);
+            TestDelegate test = () => strategy.UpdateModelWithImportedData(importedStochasticSoilModels, sourceFilePath, targetCollection);
 
             // Assert
             Assert.Throws<InvalidOperationException>(test);
@@ -82,7 +124,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var targetCollection = new StochasticSoilModelCollection();
 
             // Call
-            strategy.UpdateModelWithImportedData(importedStochasticSoilModels, "path", targetCollection, NotifyProgress);
+            strategy.UpdateModelWithImportedData(importedStochasticSoilModels, "path", targetCollection);
 
             // Assert
             CollectionAssert.AreEquivalent(importedStochasticSoilModels, targetCollection);
@@ -103,7 +145,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var strategy = new StochasticSoilModelUpdateData();
 
             // Call
-            strategy.UpdateModelWithImportedData(new List<StochasticSoilModel>(), sourceFilePath, targetCollection, NotifyProgress);
+            strategy.UpdateModelWithImportedData(new List<StochasticSoilModel>(), sourceFilePath, targetCollection);
 
             // Assert
             CollectionAssert.IsEmpty(targetCollection);
@@ -126,7 +168,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var strategy = new StochasticSoilModelUpdateData();
 
             // Call
-            strategy.UpdateModelWithImportedData(new[] { readModel }, sourceFilePath, targetCollection, NotifyProgress);
+            strategy.UpdateModelWithImportedData(new[] { readModel }, sourceFilePath, targetCollection);
 
             // Assert
             Assert.AreSame(readModel, targetCollection.First());
@@ -150,7 +192,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var strategy = new StochasticSoilModelUpdateData();
 
             // Call
-            strategy.UpdateModelWithImportedData(new[] { readModel }, sourceFilePath, targetCollection, NotifyProgress);
+            strategy.UpdateModelWithImportedData(new[] { readModel }, sourceFilePath, targetCollection);
 
             // Assert
             Assert.AreSame(existingModel, targetCollection.First());

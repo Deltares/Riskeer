@@ -370,16 +370,6 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap ImportIcon {
-            get {
-                object obj = ResourceManager.GetObject("ImportIcon", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Lognormale verdeling.
         /// </summary>
         public static string LogNormalDistribution_DisplayName {
