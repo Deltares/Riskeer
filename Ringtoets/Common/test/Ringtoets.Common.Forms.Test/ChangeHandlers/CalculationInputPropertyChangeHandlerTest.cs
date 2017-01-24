@@ -20,6 +20,10 @@
 // All rights reserved.
 
 using System;
+using System.Collections;
+using System.Collections.Generic;
+using Core.Common.Base;
+using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Forms.ChangeHandlers;
@@ -29,7 +33,7 @@ using Ringtoets.Common.Forms.TestUtil;
 namespace Ringtoets.Common.Forms.Test.ChangeHandlers
 {
     [TestFixture]
-    public class CalculationInputPropertyChangeHandlerTest
+    public class CalculationInputPropertyChangeHandlerTest : NUnitFormTest
     {
         [Test]
         public void Constructor_Expectedvalues()
@@ -101,6 +105,162 @@ namespace Ringtoets.Common.Forms.Test.ChangeHandlers
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
             Assert.AreEqual("setValue", exception.ParamName);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(ChangePropertyTestCases))]
+        public void SetPropertyValueAfterConfirmation_IfConfirmationRequiredThenGiven_SetValueCalledAffectedObjectsReturned(ChangePropertyTestCase testCase)
+        {
+            // Setup
+            var dialogBoxWillBeShown = testCase.Calculation.HasOutput;
+
+            string title = "";
+            string message = "";
+            if (dialogBoxWillBeShown)
+            {
+                DialogBoxHandler = (name, wnd) =>
+                {
+                    var tester = new MessageBoxTester(wnd);
+                    title = tester.Title;
+                    message = tester.Text;
+
+                    tester.ClickOk();
+                };
+            }
+
+            var calculationInput = new TestCalculationInput();
+            var propertySet = 0;
+
+            var changeHandler = new CalculationInputPropertyChangeHandler<ICalculationInput, ICalculation>();
+
+            // Precondition
+            Assert.AreEqual(dialogBoxWillBeShown, testCase.Calculation.HasOutput);
+
+            // Call
+            var affectedObjects = changeHandler.SetPropertyValueAfterConfirmation(
+                calculationInput,
+                testCase.Calculation,
+                3,
+                (f, v) => propertySet++);
+
+            // Assert
+            var expectedAffectedObjects = new List<IObservable>();
+
+            if (dialogBoxWillBeShown)
+            {
+                Assert.AreEqual("Bevestigen", title);
+                string expectedMessage = "Als u een parameter in deze berekening wijzigt, zal de uitvoer van deze berekening verwijderd worden." + Environment.NewLine +
+                                         Environment.NewLine +
+                                         "Weet u zeker dat u wilt doorgaan?";
+                Assert.AreEqual(expectedMessage, message);
+
+                expectedAffectedObjects.Add(testCase.Calculation);
+            }
+            expectedAffectedObjects.Add(calculationInput);
+            CollectionAssert.AreEquivalent(expectedAffectedObjects, affectedObjects);
+            Assert.AreEqual(1, propertySet);
+            Assert.IsFalse(testCase.Calculation.HasOutput);
+        }
+
+        [Test]
+        public void SetPropertyValueAfterConfirmation_ConfirmationRequiredButNotGiven_SetValueNotCalledNoAffectedObjectsReturned()
+        {
+            // Setup
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var tester = new MessageBoxTester(wnd);
+                tester.ClickCancel();
+            };
+
+            var calculation = CalculationTestHelper.CreateCalculationWithOutput();
+
+            var propertySet = 0;
+
+            var changeHandler = new CalculationInputPropertyChangeHandler<ICalculationInput, ICalculation>();
+
+            // Precondition
+            Assert.IsTrue(calculation.HasOutput);
+
+            // Call
+            var affectedObjects = changeHandler.SetPropertyValueAfterConfirmation(
+                new TestCalculationInput(),
+                calculation,
+                3,
+                (f, v) => propertySet++);
+
+            // Assert
+            Assert.AreEqual(0, propertySet);
+            CollectionAssert.IsEmpty(affectedObjects);
+            Assert.IsTrue(calculation.HasOutput);
+        }
+
+        [Test]
+        public void SetPropertyValueAfterConfirmation_ConfirmationRequiredAndGivenExceptionInSetValue_ExceptionBubbled()
+        {
+            // Setup
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var tester = new MessageBoxTester(wnd);
+                tester.ClickOk();
+            };
+
+            var calculation = CalculationTestHelper.CreateCalculationWithOutput();
+
+            var changeHandler = new CalculationInputPropertyChangeHandler<ICalculationInput, ICalculation>();
+            var expectedException = new Exception();
+
+            // Call
+            TestDelegate test = () => changeHandler.SetPropertyValueAfterConfirmation(
+                new TestCalculationInput(),
+                calculation,
+                3,
+                (f, v) => { throw expectedException; });
+
+            // Assert
+            var exception = Assert.Throws<Exception>(test);
+            Assert.AreSame(expectedException, exception);
+        }
+
+        [Test]
+        public void SetPropertyValueAfterConfirmation_ConfirmationNotRequiredExceptionInSetValue_ExceptionBubbled()
+        {
+            // Setup
+            var calculation = CalculationTestHelper.CreateCalculationWithoutOutput();
+
+            var changeHandler = new CalculationInputPropertyChangeHandler<ICalculationInput, ICalculation>();
+            var expectedException = new Exception();
+
+            // Call
+            TestDelegate test = () => changeHandler.SetPropertyValueAfterConfirmation(
+                new TestCalculationInput(),
+                calculation,
+                3,
+                (f, v) => { throw expectedException; });
+
+            // Assert
+            var exception = Assert.Throws<Exception>(test);
+            Assert.AreSame(expectedException, exception);
+        }
+
+        public class ChangePropertyTestCase
+        {
+            public ChangePropertyTestCase(TestCalculation calculation)
+            {
+                Calculation = calculation;
+            }
+
+            public TestCalculation Calculation { get; }
+        }
+
+        private static IEnumerable ChangePropertyTestCases()
+        {
+            yield return new TestCaseData(
+                new ChangePropertyTestCase(CalculationTestHelper.CreateCalculationWithOutput())
+            ).SetName("SetPropertyValueAfterConfirmation calculation with output");
+
+            yield return new TestCaseData(
+                new ChangePropertyTestCase(CalculationTestHelper.CreateCalculationWithoutOutput())
+            ).SetName("SetPropertyValueAfterConfirmation calculation without output");
         }
     }
 }

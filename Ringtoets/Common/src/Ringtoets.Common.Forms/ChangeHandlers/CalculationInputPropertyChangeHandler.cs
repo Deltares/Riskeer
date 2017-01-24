@@ -21,9 +21,11 @@
 
 using System;
 using System.Collections.Generic;
+using System.Windows.Forms;
 using Core.Common.Base;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Forms.PropertyClasses;
+using CoreCommonBaseResources = Core.Common.Base.Properties.Resources;
 
 namespace Ringtoets.Common.Forms.ChangeHandlers
 {
@@ -61,7 +63,45 @@ namespace Ringtoets.Common.Forms.ChangeHandlers
                 throw new ArgumentNullException(nameof(setValue));
             }
 
-            return null;
+            var changedObjects = new List<IObservable>();
+
+            if (RequiresConfirmation(calculation))
+            {
+                if (ConfirmPropertyChange())
+                {
+                    setValue(calculationInput, value);
+                    PropertyChanged(calculation);
+                    changedObjects.Add(calculation);
+                    changedObjects.Add(calculationInput);
+                }
+            }
+            else
+            {
+                setValue(calculationInput, value);
+                changedObjects.Add(calculationInput);
+            }
+
+            return changedObjects;
+        }
+
+        private static void PropertyChanged(TCalculation calculation)
+        {
+            calculation.ClearOutput();
+        }
+
+        private static bool RequiresConfirmation(TCalculation calculation)
+        {
+            return calculation.HasOutput;
+        }
+
+        private static bool ConfirmPropertyChange()
+        {
+            DialogResult result = MessageBox.Show("Als u een parameter in deze berekening wijzigt, zal de uitvoer van deze berekening verwijderd worden." + Environment.NewLine +
+                                                  Environment.NewLine +
+                                                  "Weet u zeker dat u wilt doorgaan?",
+                                                  CoreCommonBaseResources.Confirm,
+                                                  MessageBoxButtons.OKCancel);
+            return result == DialogResult.OK;
         }
     }
 }

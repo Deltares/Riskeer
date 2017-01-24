@@ -124,6 +124,9 @@ namespace Ringtoets.Common.Forms.Test.ChangeHandlers
 
             var changeHandler = new FailureMechanismPropertyChangeHandler<IFailureMechanism>();
             
+            // Precondition
+            Assert.IsTrue(testCase.ExpectedAffectedCalculations.All(c => c.HasOutput));
+
             // Call
             var affectedObjects = changeHandler.SetPropertyValueAfterConfirmation(
                 testFailureMechanism,
@@ -143,6 +146,7 @@ namespace Ringtoets.Common.Forms.Test.ChangeHandlers
             var expectedAffectedObjects = new List<IObservable>(testCase.ExpectedAffectedCalculations);
             expectedAffectedObjects.Add(testFailureMechanism);
             CollectionAssert.AreEqual(expectedAffectedObjects, affectedObjects);
+            Assert.IsTrue(testCase.Calculations.All(c => !c.HasOutput));
         }
 
         [Test]
@@ -167,7 +171,7 @@ namespace Ringtoets.Common.Forms.Test.ChangeHandlers
             var propertySet = 0;
 
             var changeHandler = new FailureMechanismPropertyChangeHandler<IFailureMechanism>();
-            
+
             // Call
             var affectedObjects = changeHandler.SetPropertyValueAfterConfirmation(
                 testFailureMechanism,
@@ -177,6 +181,7 @@ namespace Ringtoets.Common.Forms.Test.ChangeHandlers
             // Assert
             Assert.AreEqual(0, propertySet);
             CollectionAssert.IsEmpty(affectedObjects);
+            Assert.IsTrue(calculationWithOutput.HasOutput);
         }
 
         [Test]
@@ -240,7 +245,7 @@ namespace Ringtoets.Common.Forms.Test.ChangeHandlers
             public ICollection<TestCalculation> ExpectedAffectedCalculations { get; }
         }
 
-        static IEnumerable ChangePropertyTestCases()
+        private static IEnumerable ChangePropertyTestCases()
         {
             yield return new TestCaseData(
                 new ChangePropertyTestCase(new TestCalculation[0])
