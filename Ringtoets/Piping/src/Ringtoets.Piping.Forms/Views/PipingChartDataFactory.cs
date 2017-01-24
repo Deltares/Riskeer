@@ -196,20 +196,20 @@ namespace Ringtoets.Piping.Forms.Views
         }
 
         /// <summary>
-        /// Updates the name of <paramref name="chartData"/> based on <paramref name="stochasticSoilProfile"/>.
+        /// Updates the name of <paramref name="chartData"/> based on <paramref name="soilProfile"/>.
         /// </summary>
         /// <param name="chartData">The <see cref="ChartDataCollection"/> to update the name for.</param>
-        /// <param name="stochasticSoilProfile">The <see cref="StochasticSoilProfile"/> used for obtaining the name.</param>
+        /// <param name="soilProfile">The <see cref="StochasticSoilProfile"/> used for obtaining the name.</param>
         /// <remarks>A default name is set (the same as in <see cref="CreateSoilProfileChartData"/>) when:
         /// <list type="bullet">
-        /// <item><paramref name="stochasticSoilProfile"/> is <c>null</c>;</item>
-        /// <item>the <see cref="PipingSoilProfile"/> in <paramref name="stochasticSoilProfile"/> is <c>null</c>.</item>
+        /// <item><paramref name="soilProfile"/> is <c>null</c>;</item>
+        /// <item>the <see cref="PipingSoilProfile"/> in <paramref name="soilProfile"/> is <c>null</c>.</item>
         /// </list>
         /// </remarks>
-        public static void UpdateSoilProfileChartDataName(ChartDataCollection chartData, StochasticSoilProfile stochasticSoilProfile)
+        public static void UpdateSoilProfileChartDataName(ChartDataCollection chartData, PipingSoilProfile soilProfile)
         {
-            chartData.Name = stochasticSoilProfile != null && stochasticSoilProfile.SoilProfile != null
-                                 ? stochasticSoilProfile.SoilProfile.Name
+            chartData.Name = soilProfile != null
+                                 ? soilProfile.Name
                                  : Resources.StochasticSoilProfileProperties_DisplayName;
         }
 

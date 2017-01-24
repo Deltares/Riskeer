@@ -57,7 +57,7 @@ namespace Ringtoets.Piping.Forms.Views
 
         private PipingCalculationScenario data;
 
-        private StochasticSoilProfile currentStochasticSoilProfile;
+        private PipingSoilProfile currentSoilProfile;
 
         /// <summary>
         /// Creates a new instance of <see cref="PipingInputView"/>.
@@ -207,23 +207,23 @@ namespace Ringtoets.Piping.Forms.Views
 
         private void SetSoilProfileChartData()
         {
-            var stochasticSoilProfile = data.InputParameters.StochasticSoilProfile;
+            var soilProfile = data.InputParameters.StochasticSoilProfile?.SoilProfile;
 
             // If necessary, regenerate all soil layer chart data
-            if (!ReferenceEquals(currentStochasticSoilProfile, stochasticSoilProfile))
+            if (!ReferenceEquals(currentSoilProfile, soilProfile))
             {
-                currentStochasticSoilProfile = stochasticSoilProfile;
+                currentSoilProfile = soilProfile;
 
                 soilProfileChartData.Clear();
                 soilLayerChartDataLookup.Clear();
-                GetSoilLayers().Select((layer, layerIndex) => PipingChartDataFactory.CreateSoilLayerChartData(layerIndex, stochasticSoilProfile.SoilProfile))
+                GetSoilLayers().Select((layer, layerIndex) => PipingChartDataFactory.CreateSoilLayerChartData(layerIndex, currentSoilProfile))
                                .ForEachElementDo(sl =>
                                {
                                    soilProfileChartData.Insert(0, sl);
                                    soilLayerChartDataLookup.Add(sl);
                                });
 
-                PipingChartDataFactory.UpdateSoilProfileChartDataName(soilProfileChartData, stochasticSoilProfile);
+                PipingChartDataFactory.UpdateSoilProfileChartDataName(soilProfileChartData, currentSoilProfile);
             }
 
             // Update the areas of all soil layer chart data
@@ -233,7 +233,7 @@ namespace Ringtoets.Piping.Forms.Views
             {
                 var soilLayerData = soilLayerChartDataLookup[i];
 
-                soilLayerData.Areas = PipingChartDataPointsFactory.CreateSoilLayerAreas(soilLayers[i], stochasticSoilProfile.SoilProfile, data.InputParameters.SurfaceLine);
+                soilLayerData.Areas = PipingChartDataPointsFactory.CreateSoilLayerAreas(soilLayers[i], currentSoilProfile, data.InputParameters.SurfaceLine);
             }
         }
 

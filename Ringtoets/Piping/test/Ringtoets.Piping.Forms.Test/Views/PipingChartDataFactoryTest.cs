@@ -234,7 +234,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void UpdateSoilProfileChartDataName_StochasticSoilProfileNull_NameSetToDefaultSoilProfileName()
+        public void UpdateSoilProfileChartDataName_WithoutSoilProfile_NameSetToDefaultSoilProfileName()
         {
             // Setup
             var chartData = new ChartDataCollection("test name");
@@ -247,34 +247,17 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void UpdateSoilProfileChartDataName_SoilProfileNull_NameSetToDefaultSoilProfileName()
+        public void UpdateSoilProfileChartDataName_WithSoilProfile_NameSetToSoilProfileName()
         {
             // Setup
             var chartData = new ChartDataCollection("test name");
-            var stochasticSoilProfile = new StochasticSoilProfile(0.1, SoilProfileType.SoilProfile1D, 1);
+            var soilProfile = new PipingSoilProfile("soil profile name", 2.0, new[]
+                                                    {
+                                                        new PipingSoilLayer(3.2)
+                                                    }, SoilProfileType.SoilProfile1D, 0);
 
             // Call
-            PipingChartDataFactory.UpdateSoilProfileChartDataName(chartData, stochasticSoilProfile);
-
-            // Assert
-            Assert.AreEqual(Resources.StochasticSoilProfileProperties_DisplayName, chartData.Name);
-        }
-
-        [Test]
-        public void UpdateSoilProfileChartDataName_StochasticSoilProfileWithSoilProfile_NameSetToSoilProfileName()
-        {
-            // Setup
-            var chartData = new ChartDataCollection("test name");
-            var stochasticSoilProfile = new StochasticSoilProfile(0.1, SoilProfileType.SoilProfile1D, 1)
-            {
-                SoilProfile = new PipingSoilProfile("soil profile name", 2.0, new[]
-                {
-                    new PipingSoilLayer(3.2)
-                }, SoilProfileType.SoilProfile1D, 0)
-            };
-
-            // Call
-            PipingChartDataFactory.UpdateSoilProfileChartDataName(chartData, stochasticSoilProfile);
+            PipingChartDataFactory.UpdateSoilProfileChartDataName(chartData, soilProfile);
 
             // Assert
             Assert.AreEqual("soil profile name", chartData.Name);
