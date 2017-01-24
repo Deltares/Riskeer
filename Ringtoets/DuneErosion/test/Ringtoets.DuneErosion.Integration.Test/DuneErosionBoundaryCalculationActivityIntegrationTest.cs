@@ -81,42 +81,6 @@ namespace Ringtoets.DuneErosion.Integration.Test
         }
 
         [Test]
-        public void Run_FailureMechanismContributionNull_LogMessageAndActivityStateFailed()
-        {
-            // Setup
-            var failureMechanism = new DuneErosionFailureMechanism();
-            var duneLocation = new DuneLocation(1300001, "test", new Point2D(0, 0), new DuneLocation.ConstructionProperties
-                                                {
-                                                    CoastalAreaId = 3,
-                                                    Offset = 0,
-                                                    Orientation = 0,
-                                                    D50 = 0.000007
-                                                });
-            var activity = new DuneErosionBoundaryCalculationActivity(duneLocation,
-                                                                      failureMechanism,
-                                                                      validFilePath,
-                                                                      "13-1",
-                                                                      1.0 / 30000);
-
-            using (new HydraRingCalculatorFactoryConfig())
-            {
-                // Call
-                Action call = () => activity.Run();
-
-                // Assert
-                TestHelper.AssertLogMessages(call, messages =>
-                                             {
-                                                 var msgs = messages.ToArray();
-                                                 Assert.AreEqual(3, msgs.Length);
-                                                 StringAssert.StartsWith($"Berekening van '{duneLocation.Name}' gestart om: ", msgs[0]);
-                                                 Assert.AreEqual($"De berekening voor duinafslag '{duneLocation.Name}' is niet gelukt. De bijdrage van het toetsspoor moet een getal boven 0 zijn.", msgs[1]);
-                                                 StringAssert.StartsWith($"Berekening van '{duneLocation.Name}' beëindigd om: ", msgs[2]);
-                                             });
-                Assert.AreEqual(ActivityState.Failed, activity.State);
-            }
-        }
-
-        [Test]
         [TestCase(true, "An error occurred")]
         [TestCase(true, null)]
         [TestCase(false, "An error occurred")]

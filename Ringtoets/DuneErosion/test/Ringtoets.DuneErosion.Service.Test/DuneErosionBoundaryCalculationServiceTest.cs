@@ -76,88 +76,16 @@ namespace Ringtoets.DuneErosion.Service.Test
         }
 
         [Test]
-        public void Calculate_WithZeroContributionForFailureMechanism_LogErrorAndThrowException()
-        {
-            // Setup
-            var failureMechanism = new DuneErosionFailureMechanism
-            {
-                Contribution = 0
-            };
-
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.Id).Return("1");
-            assessmentSection.Stub(a => a.GetFailureMechanisms())
-                             .Return(new[]
-                                     {
-                                         failureMechanism
-                                     });
-            assessmentSection.Stub(a => a.FailureMechanismContribution)
-                             .Return(new FailureMechanismContribution(new[]
-                                                                      {
-                                                                          failureMechanism
-                                                                      }, 1, 1.0/300));
-            mocks.ReplayAll();
-
-            var duneLocation = new TestDuneLocation();
-            bool exceptionThrown = false;
-
-            // Call
-            Action call = () =>
-            {
-                try
-                {
-                    new DuneErosionBoundaryCalculationService().Calculate(duneLocation,
-                                                                          failureMechanism,
-                                                                          assessmentSection.Id,
-                                                                          assessmentSection.FailureMechanismContribution.Norm,
-                                                                          validFilePath);
-                }
-                catch (ArgumentException)
-                {
-                    exceptionThrown = true;
-                }
-            };
-
-            // Assert
-            TestHelper.AssertLogMessages(call, messages =>
-                                         {
-                                             var msgs = messages.ToArray();
-                                             Assert.AreEqual(3, msgs.Length);
-                                             var name = duneLocation.Name;
-                                             StringAssert.StartsWith($"Berekening van '{name}' gestart om: ", msgs[0]);
-                                             Assert.AreEqual($"De berekening voor duinafslag '{duneLocation.Name}' is niet gelukt. De bijdrage van het toetsspoor moet een getal boven 0 zijn.", msgs[1]);
-                                             StringAssert.StartsWith($"Berekening van '{name}' beëindigd om: ", msgs[2]);
-                                         });
-            Assert.IsTrue(exceptionThrown);
-            mocks.VerifyAll();
-        }
-
-        [Test]
         public void Calculate_ValidData_CalculationStartedWithRightParameters()
         {
             // Setup
-            const double norm = 1.0/200;
-            const double contribution = 10;
-            const string ringId = "1";
             var failureMechanism = new DuneErosionFailureMechanism
             {
-                Contribution = contribution
+                Contribution = 10
             };
+            var mechanismSpecificNorm = failureMechanism.GetMechanismSpecificNorm(1.0/200);
 
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.Id).Return(ringId);
-            assessmentSection.Stub(a => a.GetFailureMechanisms()).Return(new[]
-                                                                         {
-                                                                             failureMechanism
-                                                                         });
-            assessmentSection.Stub(a => a.FailureMechanismContribution)
-                             .Return(new FailureMechanismContribution(new[]
-                                                                      {
-                                                                          failureMechanism
-                                                                      }, 1, norm));
-            mocks.ReplayAll();
+            const string ringId = "1";
 
             var duneLocation = new DuneLocation(1300001, "test", new Point2D(0, 0), new DuneLocation.ConstructionProperties
                                                 {
@@ -175,49 +103,29 @@ namespace Ringtoets.DuneErosion.Service.Test
                 // Call
                 new DuneErosionBoundaryCalculationService().Calculate(duneLocation,
                                                                       failureMechanism,
-                                                                      assessmentSection.Id,
-                                                                      assessmentSection.FailureMechanismContribution.Norm,
+                                                                      "1",
+                                                                      mechanismSpecificNorm,
                                                                       validFilePath);
 
                 // Assert
                 Assert.AreEqual(testDataPath, testCalculator.HydraulicBoundaryDatabaseDirectory);
                 Assert.AreEqual(ringId, testCalculator.RingId);
 
-                DunesBoundaryConditionsCalculationInput expectedInput = 
-                    CreateInput(duneLocation, failureMechanism.GetMechanismSpecificNorm(assessmentSection.FailureMechanismContribution.Norm));
+                DunesBoundaryConditionsCalculationInput expectedInput = CreateInput(duneLocation, mechanismSpecificNorm);
                 AssertInput(expectedInput, testCalculator.ReceivedInputs.First());
                 Assert.IsFalse(testCalculator.IsCanceled);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Calculate_CalculationRan_SetOutput()
         {
             // Setup
-            const double norm = 1.0/200;
-            const double contribution = 10;
-            const string ringId = "1";
             var failureMechanism = new DuneErosionFailureMechanism
             {
-                Contribution = contribution
+                Contribution = 10
             };
-
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.Id).Return(ringId);
-            assessmentSection.Stub(a => a.GetFailureMechanisms())
-                             .Return(new[]
-                                     {
-                                         failureMechanism
-                                     });
-            assessmentSection.Stub(a => a.FailureMechanismContribution)
-                             .Return(new FailureMechanismContribution(new[]
-                                                                      {
-                                                                          failureMechanism
-                                                                      }, 1, norm));
-            mocks.ReplayAll();
+            double mechanismSpecificNorm = failureMechanism.GetMechanismSpecificNorm(1.0 / 200);
 
             var duneLocation = new DuneLocation(1300001, "test", new Point2D(0, 0), new DuneLocation.ConstructionProperties
                                                 {
@@ -242,8 +150,8 @@ namespace Ringtoets.DuneErosion.Service.Test
                 // Call
                 Action test = () => new DuneErosionBoundaryCalculationService().Calculate(duneLocation,
                                                                                           failureMechanism,
-                                                                                          assessmentSection.Id,
-                                                                                          assessmentSection.FailureMechanismContribution.Norm,
+                                                                                          "1",
+                                                                                          mechanismSpecificNorm,
                                                                                           validFilePath);
 
                 // Assert
@@ -255,7 +163,6 @@ namespace Ringtoets.DuneErosion.Service.Test
                                                  StringAssert.StartsWith("Duinafslag berekening is uitgevoerd op de tijdelijke locatie", msgs[1]);
                                                  StringAssert.StartsWith($"Berekening van '{duneLocation.Name}' beëindigd om: ", msgs[2]);
                                              });
-                double mechanismSpecificNorm = failureMechanism.GetMechanismSpecificNorm(assessmentSection.FailureMechanismContribution.Norm);
                 double targetReliability = StatisticsConverter.ProbabilityToReliability(mechanismSpecificNorm);
                 double calculatedProbability = StatisticsConverter.ReliabilityToProbability(testCalculator.ReliabilityIndex);
 

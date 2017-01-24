@@ -260,7 +260,7 @@ namespace Ringtoets.DuneErosion.Plugin
                                                                 context.FailureMechanism,
                                                                 context.AssessmentSection.HydraulicBoundaryDatabase.FilePath,
                                                                 context.AssessmentSection.Id,
-                                                                context.AssessmentSection.FailureMechanismContribution.Norm);
+                                                                context.FailureMechanism.GetMechanismSpecificNorm(context.AssessmentSection.FailureMechanismContribution.Norm));
                     context.NotifyObservers();
                 })
             {

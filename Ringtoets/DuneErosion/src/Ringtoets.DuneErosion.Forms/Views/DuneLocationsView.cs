@@ -141,7 +141,7 @@ namespace Ringtoets.DuneErosion.Forms.Views
                                             FailureMechanism,
                                             AssessmentSection.HydraulicBoundaryDatabase.FilePath,
                                             AssessmentSection.Id,
-                                            AssessmentSection.FailureMechanismContribution.Norm);
+                                            FailureMechanism.GetMechanismSpecificNorm(AssessmentSection.FailureMechanismContribution.Norm));
 
             ((IObservable) Data).NotifyObservers();
         }

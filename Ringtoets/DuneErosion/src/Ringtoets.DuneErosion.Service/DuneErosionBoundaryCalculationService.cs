@@ -94,17 +94,15 @@ namespace Ringtoets.DuneErosion.Service
 
             CalculationServiceHelper.LogCalculationBeginTime(calculationName);
 
-            var mechanismSpecificNorm = GetFailureMechanismSpecificNorm(failureMechanism, norm, calculationName);
-
             var exceptionThrown = false;
             try
             {
-                DunesBoundaryConditionsCalculationInput calculationInput = CreateInput(duneLocation, mechanismSpecificNorm, hydraulicBoundaryDatabaseFilePath);
+                DunesBoundaryConditionsCalculationInput calculationInput = CreateInput(duneLocation, norm, hydraulicBoundaryDatabaseFilePath);
                 calculator.Calculate(calculationInput);
 
                 if (string.IsNullOrEmpty(calculator.LastErrorFileContent))
                 {
-                    duneLocation.Output = CreateDuneLocationOutput(duneLocation.Name, calculationInput.Beta, mechanismSpecificNorm);
+                    duneLocation.Output = CreateDuneLocationOutput(duneLocation.Name, calculationInput.Beta, norm);
                 }
             }
             catch (HydraRingCalculationException)
@@ -153,29 +151,6 @@ namespace Ringtoets.DuneErosion.Service
         {
             calculator?.Cancel();
             canceled = true;
-        }
-
-        /// <summary>
-        /// Get the specific norm of the <see cref="DuneErosionFailureMechanism"/>.
-        /// </summary>
-        /// <param name="failureMechanism">The failure mechanism to get the norm for.</param>
-        /// <param name="assessmentSectionNorm">The assessment section norm.</param>
-        /// <param name="calculationName">The name of the calculation.</param>
-        /// <returns>The failure mechanism specific norm.</returns>
-        /// <exception cref="ArgumentException">Thrown when the contribution of the failure mechanism is zero.</exception>
-        private double GetFailureMechanismSpecificNorm(DuneErosionFailureMechanism failureMechanism,
-                                                       double assessmentSectionNorm,
-                                                       string calculationName)
-        {
-            if (Math.Abs(failureMechanism.Contribution) < 1e-6)
-            {
-                string errorMessage = string.Format(Resources.DuneErosionBoundaryCalculationService_Calculate_Contribution_is_zero, calculationName);
-                log.Error(errorMessage);
-                FinalizeCalculation(calculationName, false);
-                throw new ArgumentException(errorMessage);
-            }
-
-            return failureMechanism.GetMechanismSpecificNorm(assessmentSectionNorm);
         }
 
         private void FinalizeCalculation(string calculationName, bool calculationExecuted)
