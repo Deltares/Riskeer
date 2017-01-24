@@ -612,7 +612,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void GivenAssessmentSectionWithValidInput_ThenValidationItemEnabled()
+        public void GivenValidInput_ThenValidationItemEnabled()
         {
             // Given
             string validHydroDatabasePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
@@ -848,7 +848,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void GivenAssessmentSectionWithValidInput_ThenCalculationItemEnabled()
+        public void GivenValidInput_ThenCalculationItemEnabled()
         {
             // Given
             string validHydroDatabasePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,

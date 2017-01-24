@@ -579,7 +579,65 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void GivenAssessmentSectionWithValidInput_ThenValidationItemEnabled()
+        public void GivenFailureMechanismContributionZero_ThenValidationItemDisabled()
+        {
+            // Given
+            string validHydroDatabasePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                                       Path.Combine("HydraulicBoundaryDatabaseImporter", "complete.sqlite"));
+
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
+            {
+                Contribution = 0
+            };
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                FilePath = validHydroDatabasePath
+            };
+
+            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
+            {
+                Name = "A"
+            };
+            var context = new GrassCoverErosionOutwardsWaveConditionsCalculationContext(calculation,
+                                                                                        failureMechanism,
+                                                                                        assessmentSection);
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var appFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
+                var importHandler = mocks.Stub<IImportCommandHandler>();
+                var exportHandler = mocks.Stub<IExportCommandHandler>();
+                var viewCommands = mocks.Stub<IViewCommands>();
+                var menuBuilderMock = new ContextMenuBuilder(appFeatureCommandHandler,
+                                                             importHandler,
+                                                             exportHandler,
+                                                             viewCommands,
+                                                             context,
+                                                             treeViewControl);
+
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilderMock);
+
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
+                {
+                    // Then
+                    TestHelper.AssertContextMenuStripContainsItem(contextMenu,
+                                                                  validateMenuItemIndex,
+                                                                  "&Valideren",
+                                                                  "De bijdrage van dit toetsspoor is nul.",
+                                                                  RingtoetsCommonFormsResources.ValidateIcon,
+                                                                  false);
+                }
+            }
+        }
+
+        [Test]
+        public void GivenValidInput_ThenValidationItemEnabled()
         {
             // Given
             string validHydroDatabasePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
@@ -827,7 +885,65 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void GivenAssessmentSectionWithValidInput_ThenCalculationItemEnabled()
+        public void GivenFailureMechanismContributionZero_ThenCalculationItemDisabled()
+        {
+            // Given
+            string validHydroDatabasePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                                       Path.Combine("HydraulicBoundaryDatabaseImporter", "complete.sqlite"));
+
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
+            {
+                Contribution = 0
+            };
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                FilePath = validHydroDatabasePath
+            };
+
+            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
+            {
+                Name = "A"
+            };
+            var context = new GrassCoverErosionOutwardsWaveConditionsCalculationContext(calculation,
+                                                                                        failureMechanism,
+                                                                                        assessmentSection);
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var appFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
+                var importHandler = mocks.Stub<IImportCommandHandler>();
+                var exportHandler = mocks.Stub<IExportCommandHandler>();
+                var viewCommands = mocks.Stub<IViewCommands>();
+                var menuBuilderMock = new ContextMenuBuilder(appFeatureCommandHandler,
+                                                             importHandler,
+                                                             exportHandler,
+                                                             viewCommands,
+                                                             context,
+                                                             treeViewControl);
+
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilderMock);
+
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
+                {
+                    // Then
+                    TestHelper.AssertContextMenuStripContainsItem(contextMenu,
+                                                                  calculateMenuItemIndex,
+                                                                  "Be&rekenen",
+                                                                  "De bijdrage van dit toetsspoor is nul.",
+                                                                  RingtoetsCommonFormsResources.CalculateIcon,
+                                                                  false);
+                }
+            }
+        }
+
+        [Test]
+        public void GivenValidInput_ThenCalculationItemEnabled()
         {
             // Given
             string validHydroDatabasePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,

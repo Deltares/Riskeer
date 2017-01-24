@@ -660,6 +660,109 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
+        public void ContextMenuStrip_FailureMechanismContributionZero_CalculateAllAndValidateAllDisabled()
+        {
+            // Setup
+            string validHydroDatabasePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                           Path.Combine("HydraulicBoundaryDatabaseImporter", "complete.sqlite"));
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
+                {
+                    Contribution = 0
+                };
+                var group = new CalculationGroup();
+                group.Children.Add(new GrassCoverErosionOutwardsWaveConditionsCalculation());
+                failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
+                var assessmentSection = mocks.Stub<IAssessmentSection>();
+                assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+                {
+                    FilePath = validHydroDatabasePath
+                };
+                var nodeData = new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(group,
+                                                                                                  failureMechanism,
+                                                                                                  assessmentSection);
+                var parentNodeData = new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
+                                                                                                        failureMechanism,
+                                                                                                        assessmentSection);
+
+                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
+
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                // Call
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
+                {
+                    // Assert
+                    ToolStripItem validateItem = contextMenu.Items[contextMenuValidateAllIndexNestedGroup];
+                    ToolStripItem calculateItem = contextMenu.Items[contextMenuCalculateAllIndexNestedGroup];
+                    Assert.IsFalse(validateItem.Enabled);
+                    Assert.IsFalse(calculateItem.Enabled);
+                    var message = "De bijdrage van dit toetsspoor is nul.";
+                    Assert.AreEqual(message, calculateItem.ToolTipText);
+                    Assert.AreEqual(message, validateItem.ToolTipText);
+                }
+            }
+        }
+
+        [Test]
+        public void ContextMenuStrip_AllRequiredInputSet_CalculateAllAndValidateAllEnabled()
+        {
+            // Setup
+            string validHydroDatabasePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                           Path.Combine("HydraulicBoundaryDatabaseImporter", "complete.sqlite"));
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
+                {
+                    Contribution = 5
+                };
+                var group = new CalculationGroup();
+                group.Children.Add(new GrassCoverErosionOutwardsWaveConditionsCalculation());
+                failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
+                var assessmentSection = mocks.Stub<IAssessmentSection>();
+                assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+                {
+                    FilePath = validHydroDatabasePath
+                };
+                var nodeData = new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(group,
+                                                                                                  failureMechanism,
+                                                                                                  assessmentSection);
+                var parentNodeData = new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
+                                                                                                        failureMechanism,
+                                                                                                        assessmentSection);
+
+                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
+
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                // Call
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
+                {
+                    // Assert
+                    ToolStripItem validateItem = contextMenu.Items[contextMenuValidateAllIndexNestedGroup];
+                    ToolStripItem calculateItem = contextMenu.Items[contextMenuCalculateAllIndexNestedGroup];
+                    Assert.IsTrue(validateItem.Enabled);
+                    Assert.IsTrue(calculateItem.Enabled);
+                    Assert.AreEqual("Voer alle berekeningen binnen deze berekeningsmap uit.", calculateItem.ToolTipText);
+                    Assert.AreEqual("Valideer alle berekeningen binnen deze berekeningsmap.", validateItem.ToolTipText);
+                }
+            }
+        }
+
+        [Test]
         public void ContextMenuStrip_TwoCalculationsClickOnValidateAllInGroup_ValidationMessagesLogged()
         {
             // Setup

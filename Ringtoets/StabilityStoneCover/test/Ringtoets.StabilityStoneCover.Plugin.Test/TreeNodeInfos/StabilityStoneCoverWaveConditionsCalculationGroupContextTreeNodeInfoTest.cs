@@ -652,6 +652,54 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
+        public void ContextMenuStrip_AllRequiredInputSet_CalculateAllAndValidateAllEnabled()
+        {
+            // Setup
+            string validHydroDatabasePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                   Path.Combine("HydraulicBoundaryDatabaseImporter", "complete.sqlite"));
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var failureMechanism = new StabilityStoneCoverFailureMechanism();
+                var group = new CalculationGroup();
+                group.Children.Add(new StabilityStoneCoverWaveConditionsCalculation());
+                failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
+                var assessmentSection = mocks.Stub<IAssessmentSection>();
+                assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+                {
+                    FilePath = validHydroDatabasePath
+                };
+                var nodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(group,
+                                                                                            failureMechanism,
+                                                                                            assessmentSection);
+                var parentNodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
+                                                                                                  failureMechanism,
+                                                                                                  assessmentSection);
+
+                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
+
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                // Call
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
+                {
+                    // Assert
+                    ToolStripItem validateItem = contextMenu.Items[contextMenuValidateAllIndexNestedGroup];
+                    ToolStripItem calculateItem = contextMenu.Items[contextMenuCalculateAllIndexNestedGroup];
+                    Assert.IsTrue(validateItem.Enabled);
+                    Assert.IsTrue(calculateItem.Enabled);
+                    Assert.AreEqual("Voer alle berekeningen binnen deze berekeningsmap uit.", calculateItem.ToolTipText);
+                    Assert.AreEqual("Valideer alle berekeningen binnen deze berekeningsmap.", validateItem.ToolTipText);
+                }
+            }
+        }
+
+        [Test]
         public void ContextMenuStrip_TwoCalculationsClickOnValidateAllInGroup_ValidationMessagesLogged()
         {
             // Setup
