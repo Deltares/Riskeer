@@ -41,6 +41,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
     /// Interface for an object that can properly handle data model changes due to a change of a
     /// failure mechanism property.
     /// </summary>
+    /// <typeparam name="T">The type of the failure mechanism.</typeparam>
     public interface IFailureMechanismPropertyChangeHandler<T> where T : IFailureMechanism
     {
         /// <summary>

@@ -54,6 +54,7 @@
     <Compile Include="FailureMechanismSetPropertyValueAfterConfirmationParameterTesterTest.cs" />
     <Compile Include="MapDataTestHelperTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestCalculationInputTest.cs" />
     <Compile Include="TestCalculationTest.cs" />
   </ItemGroup>
   <ItemGroup>

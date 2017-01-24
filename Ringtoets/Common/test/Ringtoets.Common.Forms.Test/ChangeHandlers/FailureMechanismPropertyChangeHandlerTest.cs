@@ -29,6 +29,7 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.ChangeHandlers;
+using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Forms.TestUtil;
 
 namespace Ringtoets.Common.Forms.Test.ChangeHandlers
@@ -36,6 +37,16 @@ namespace Ringtoets.Common.Forms.Test.ChangeHandlers
     [TestFixture]
     public class FailureMechanismPropertyChangeHandlerTest : NUnitFormTest
     {
+        [Test]
+        public void Constructor_Expectedvalues()
+        {
+            // Call
+            var changeHandler = new FailureMechanismPropertyChangeHandler<IFailureMechanism>();
+
+            // Assert
+            Assert.IsInstanceOf<IFailureMechanismPropertyChangeHandler<IFailureMechanism>>(changeHandler);
+        }
+
         [Test]
         public void SetPropertyValueAfterConfirmation_WithoutFailureMechanism_ThrowsArgumentNullException()
         {
@@ -225,8 +236,8 @@ namespace Ringtoets.Common.Forms.Test.ChangeHandlers
                 ExpectedAffectedCalculations = calculations.Where(c => c.HasOutput).ToArray();
             }
 
-            public ICollection<TestCalculation> Calculations { get; private set; }
-            public ICollection<TestCalculation> ExpectedAffectedCalculations { get; private set; }
+            public ICollection<TestCalculation> Calculations { get; }
+            public ICollection<TestCalculation> ExpectedAffectedCalculations { get; }
         }
 
         static IEnumerable ChangePropertyTestCases()
