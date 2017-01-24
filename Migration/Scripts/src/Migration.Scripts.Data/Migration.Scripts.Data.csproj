@@ -56,7 +56,6 @@
     <Compile Include="RingtoetsDatabaseFile.cs" />
     <Compile Include="RingtoetsDatabaseQueryBuilder.cs" />
     <Compile Include="RingtoetsDatabaseSourceFile.cs" />
-    <Compile Include="SqLiteConnectionStringBuilder.cs" />
     <Compile Include="UpgradeScript.cs" />
     <Compile Include="VersionedFile.cs" />
     <Compile Include="VersionTableDefinitions.cs" />

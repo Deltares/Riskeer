@@ -24,6 +24,7 @@ using System.Data.SQLite;
 using System.IO;
 using Application.Ringtoets.Storage.Properties;
 using Core.Common.Base.Storage;
+using Core.Common.IO;
 using Core.Common.Utils;
 using Core.Common.Utils.Builders;
 
@@ -56,7 +57,7 @@ namespace Application.Ringtoets.Storage
             }
 
             SQLiteConnection.CreateFile(databaseFilePath);
-            var connectionString = SqLiteConnectionStringBuilder.BuildSqLiteConnectionString(databaseFilePath);
+            var connectionString = SqLiteConnectionStringBuilder.BuildSqLiteConnectionString(databaseFilePath, false);
             try
             {
                 using (var dbContext = new SQLiteConnection(connectionString, true))

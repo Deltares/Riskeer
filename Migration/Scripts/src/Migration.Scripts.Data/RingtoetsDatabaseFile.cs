@@ -21,6 +21,8 @@
 
 using System;
 using System.Data.SQLite;
+using System.IO;
+using Core.Common.IO;
 using Core.Common.Utils;
 
 namespace Migration.Scripts.Data
@@ -58,7 +60,11 @@ namespace Migration.Scripts.Data
         /// <remarks>Creates the file if it does not exist.</remarks>
         public void OpenDatabaseConnection()
         {
-            connection = new SQLiteConnection(SqLiteConnectionStringBuilder.BuildSqLiteConnectionString(filePath));
+            if (!File.Exists(filePath))
+            {
+                SQLiteConnection.CreateFile(filePath);
+            }
+            connection = new SQLiteConnection(SqLiteConnectionStringBuilder.BuildSqLiteConnectionString(filePath, false));
             connection.Open();
         }
 

@@ -64,6 +64,7 @@
     <Compile Include="Readers\ReadResultTest.cs" />
     <Compile Include="Readers\IDataReaderExtensionsTest.cs" />
     <Compile Include="Readers\StreamReaderHelperTest.cs" />
+    <Compile Include="SqLiteConnectionStringBuilderTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.Lesser.licenseheader">

@@ -298,7 +298,7 @@ namespace Application.Ringtoets.Storage
         /// <exception cref="StorageValidationException">Thrown when the database does not contain the table <c>version</c>.</exception>
         private static string GetConnectionToStorage(string databaseFilePath)
         {
-            var connectionString = SqLiteConnectionStringBuilder.BuildSqLiteEntityConnectionString(databaseFilePath);
+            var connectionString = SqLiteEntityConnectionStringBuilder.BuildSqLiteEntityConnectionString(databaseFilePath);
 
             using (var dbContext = new RingtoetsEntities(connectionString))
             {

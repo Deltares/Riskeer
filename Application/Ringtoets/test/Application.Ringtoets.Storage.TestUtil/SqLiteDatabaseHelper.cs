@@ -22,6 +22,7 @@
 using System;
 using System.Data.SQLite;
 using Application.Ringtoets.Storage.Properties;
+using Core.Common.IO;
 using NUnit.Framework;
 using Ringtoets.Integration.Data;
 
@@ -148,7 +149,7 @@ namespace Application.Ringtoets.Storage.TestUtil
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="databaseFilePath"/> is <c>null</c> or whitespace.</exception>
         private static void PerformCommandOnDatabase(string databaseFilePath, string commandText)
         {
-            var connectionString = SqLiteConnectionStringBuilder.BuildSqLiteConnectionString(databaseFilePath);
+            var connectionString = SqLiteConnectionStringBuilder.BuildSqLiteConnectionString(databaseFilePath, false);
             using (var dbContext = new SQLiteConnection(connectionString, true))
             {
                 dbContext.Open();
