@@ -24,7 +24,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Gui.Forms.ProgressDialog;
-using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Service;
 
@@ -57,12 +56,15 @@ namespace Ringtoets.DuneErosion.Forms.GuiServices
         /// <param name="locations">The <see cref="DuneLocation"/> objects to perform the calculation for.</param>
         /// <param name="failureMechanism">The <see cref="DuneErosionFailureMechanism"/>
         ///  that holds information about the contribution and the general inputs used in the calculation.</param>
-        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> that hold information about 
-        /// the norm used in the calculation.</param>
+        /// <param name="hydraulicBoundaryDatabaseFilePath">The HLCD file that should be used for performing the calculation.</param>
+        /// <param name="ringId">The id of the ring to perform the calculation for.</param>
+        /// <param name="norm">The norm to use during the calculation.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public void Calculate(IEnumerable<DuneLocation> locations,
                               DuneErosionFailureMechanism failureMechanism,
-                              IAssessmentSection assessmentSection)
+                              string hydraulicBoundaryDatabaseFilePath,
+                              string ringId,
+                              double norm)
         {
             if (locations == null)
             {
@@ -72,17 +74,13 @@ namespace Ringtoets.DuneErosion.Forms.GuiServices
             {
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
-            if (assessmentSection == null)
-            {
-                throw new ArgumentNullException(nameof(assessmentSection));
-            }
 
             ActivityProgressDialogRunner.Run(viewParent, locations
                                                  .Select(l => new DuneErosionBoundaryCalculationActivity(l,
                                                                                                          failureMechanism,
-                                                                                                         assessmentSection.HydraulicBoundaryDatabase.FilePath,
-                                                                                                         assessmentSection.Id,
-                                                                                                         assessmentSection.FailureMechanismContribution.Norm)).ToArray());
+                                                                                                         hydraulicBoundaryDatabaseFilePath,
+                                                                                                         ringId,
+                                                                                                         norm)).ToArray());
         }
     }
 }

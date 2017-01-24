@@ -35,7 +35,7 @@ namespace Ringtoets.Common.Forms.GuiServices
         /// <summary>
         /// Performs the <see cref="HydraulicBoundaryLocation.DesignWaterLevel"/> calculation for all <paramref name="locations"/>.
         /// </summary>
-        /// <param name="hydraulicBoundaryDatabasePath">The path to the hydraulic boundaries database.</param>
+        /// <param name="hydraulicBoundaryDatabaseFilePath">The HLCD file that should be used for performing the calculation.</param>
         /// <param name="locations">The <see cref="HydraulicBoundaryLocation"/> objects to calculate 
         ///     the <see cref="HydraulicBoundaryLocation.DesignWaterLevel"/> for.</param>
         /// <param name="ringId">The id of the ring to perform the calculation for.</param>
@@ -44,7 +44,7 @@ namespace Ringtoets.Common.Forms.GuiServices
         /// <returns>True if the observers should be notified; false if otherwise</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="messageProvider"/> 
         /// or <paramref name="locations"/> is <c>null</c>.</exception>
-        bool CalculateDesignWaterLevels(string hydraulicBoundaryDatabasePath,
+        bool CalculateDesignWaterLevels(string hydraulicBoundaryDatabaseFilePath,
                                         IEnumerable<HydraulicBoundaryLocation> locations,
                                         string ringId,
                                         double norm,
@@ -53,7 +53,7 @@ namespace Ringtoets.Common.Forms.GuiServices
         /// <summary>
         /// Performs the <see cref="HydraulicBoundaryLocation.WaveHeight"/> calculation for all <paramref name="locations"/>.
         /// </summary>
-        /// <param name="hydraulicBoundaryDatabasePath">The path to the hydraulic boundaries database.</param>
+        /// <param name="hydraulicBoundaryDatabaseFilePath">The HLCD file that should be used for performing the calculation.</param>
         /// <param name="locations">The <see cref="HydraulicBoundaryLocation"/> objects to calculate 
         ///     the <see cref="HydraulicBoundaryLocation.DesignWaterLevel"/> for.</param>
         /// <param name="ringId">The id of the ring to perform the calculation for.</param>
@@ -62,7 +62,7 @@ namespace Ringtoets.Common.Forms.GuiServices
         /// <returns>True if the observers should be notified; false if otherwise</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="messageProvider"/> 
         /// or <paramref name="locations"/> is <c>null</c>.</exception>
-        bool CalculateWaveHeights(string hydraulicBoundaryDatabasePath,
+        bool CalculateWaveHeights(string hydraulicBoundaryDatabaseFilePath,
                                   IEnumerable<HydraulicBoundaryLocation> locations,
                                   string ringId,
                                   double norm,

@@ -26,10 +26,6 @@ using System.Windows.Forms;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Rhino.Mocks;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Contribution;
-using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Forms.GuiServices;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
@@ -56,10 +52,6 @@ namespace Ringtoets.DuneErosion.Forms.Test.GuiServices
         public void Calculate_LocationsNull_ThrowArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
             var failureMechanism = new DuneErosionFailureMechanism();
 
             using (var viewParent = new Form())
@@ -67,53 +59,36 @@ namespace Ringtoets.DuneErosion.Forms.Test.GuiServices
                 var guiService = new DuneLocationCalculationGuiService(viewParent);
 
                 // Call
-                TestDelegate test = () => guiService.Calculate(null, failureMechanism, assessmentSection);
+                TestDelegate test = () => guiService.Calculate(null,
+                                                               failureMechanism,
+                                                               "path",
+                                                               "id",
+                                                               1.0 / 30000);
 
                 // Assert
                 var exception = Assert.Throws<ArgumentNullException>(test);
                 Assert.AreEqual("locations", exception.ParamName);
             }
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Calculate_FailureMechanismNull_ThrowArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
             using (var viewParent = new Form())
             {
                 var guiService = new DuneLocationCalculationGuiService(viewParent);
 
                 // Call
-                TestDelegate test = () => guiService.Calculate(Enumerable.Empty<DuneLocation>(), null, assessmentSection);
+                TestDelegate test = () => guiService.Calculate(Enumerable.Empty<DuneLocation>(),
+                                                               null,
+                                                               "path",
+                                                               "id",
+                                                               1.0 / 30000);
 
                 // Assert
                 var exception = Assert.Throws<ArgumentNullException>(test);
                 Assert.AreEqual("failureMechanism", exception.ParamName);
-            }
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Calculate_AssessmentSectionNull_ThrowArgumentNullException()
-        {
-            // Setup
-            var failureMechanism = new DuneErosionFailureMechanism();
-
-            using (var viewParent = new Form())
-            {
-                var guiService = new DuneLocationCalculationGuiService(viewParent);
-
-                // Call
-                TestDelegate test = () => guiService.Calculate(Enumerable.Empty<DuneLocation>(), failureMechanism, null);
-
-                // Assert
-                var exception = Assert.Throws<ArgumentNullException>(test);
-                Assert.AreEqual("assessmentSection", exception.ParamName);
             }
         }
 
@@ -145,27 +120,6 @@ namespace Ringtoets.DuneErosion.Forms.Test.GuiServices
                                                                          })
                                                     });
 
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-            {
-                FilePath = validFilePath
-            };
-
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
-            assessmentSection.Stub(a => a.Id).Return("13-1");
-            assessmentSection.Stub(a => a.GetFailureMechanisms()).Return(new[]
-                                                                         {
-                                                                             failureMechanism
-                                                                         });
-            assessmentSection.Stub(a => a.FailureMechanismContribution)
-                             .Return(new FailureMechanismContribution(new[]
-                                                                      {
-                                                                          failureMechanism
-                                                                      }, 1, 1.0/200));
-
-            mocks.ReplayAll();
-
             using (var viewParent = new Form())
             using (new HydraRingCalculatorFactoryConfig())
             {
@@ -174,7 +128,9 @@ namespace Ringtoets.DuneErosion.Forms.Test.GuiServices
                 // Call
                 TestHelper.AssertLogMessages(() => guiService.Calculate(failureMechanism.DuneLocations,
                                                                         failureMechanism,
-                                                                        assessmentSection),
+                                                                        validFilePath,
+                                                                        "13-1",
+                                                                        1.0 / 200),
                                              messages =>
                                              {
                                                  var messageList = messages.ToList();

@@ -57,9 +57,10 @@ namespace Ringtoets.Common.Forms.GuiServices
             this.viewParent = viewParent;
         }
 
-        public bool CalculateDesignWaterLevels(string hydraulicBoundaryDatabasePath,
+        public bool CalculateDesignWaterLevels(string hydraulicBoundaryDatabaseFilePath,
                                                IEnumerable<HydraulicBoundaryLocation> locations,
-                                               string ringId, double norm,
+                                               string ringId,
+                                               double norm,
                                                ICalculationMessageProvider messageProvider)
         {
             if (messageProvider == null)
@@ -71,16 +72,19 @@ namespace Ringtoets.Common.Forms.GuiServices
             {
                 throw new ArgumentNullException(nameof(locations));
             }
-            var activities = locations.Select(location => new DesignWaterLevelCalculationActivity(location,
-                                                                                                  hydraulicBoundaryDatabasePath,
-                                                                                                  ringId,
-                                                                                                  norm, messageProvider)).ToArray();
-            return RunActivities(hydraulicBoundaryDatabasePath, activities);
+
+            return RunActivities(hydraulicBoundaryDatabaseFilePath,
+                                 locations.Select(location => new DesignWaterLevelCalculationActivity(location,
+                                                                                                      hydraulicBoundaryDatabaseFilePath,
+                                                                                                      ringId,
+                                                                                                      norm,
+                                                                                                      messageProvider)).ToArray());
         }
 
-        public bool CalculateWaveHeights(string hydraulicBoundaryDatabasePath,
+        public bool CalculateWaveHeights(string hydraulicBoundaryDatabaseFilePath,
                                          IEnumerable<HydraulicBoundaryLocation> locations,
-                                         string ringId, double norm,
+                                         string ringId,
+                                         double norm,
                                          ICalculationMessageProvider messageProvider)
         {
             if (messageProvider == null)
@@ -92,11 +96,13 @@ namespace Ringtoets.Common.Forms.GuiServices
             {
                 throw new ArgumentNullException(nameof(locations));
             }
-            var activities = locations.Select(location => new WaveHeightCalculationActivity(location,
-                                                                                            hydraulicBoundaryDatabasePath,
-                                                                                            ringId,
-                                                                                            norm, messageProvider)).ToArray();
-            return RunActivities(hydraulicBoundaryDatabasePath, activities);
+
+            return RunActivities(hydraulicBoundaryDatabaseFilePath,
+                                 locations.Select(location => new WaveHeightCalculationActivity(location,
+                                                                                                hydraulicBoundaryDatabaseFilePath,
+                                                                                                ringId,
+                                                                                                norm,
+                                                                                                messageProvider)).ToArray());
         }
 
         private bool RunActivities<TActivity>(string hydraulicBoundaryDatabasePath, IList<TActivity> activities) where TActivity : Activity
