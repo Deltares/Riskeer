@@ -26,14 +26,11 @@ using Core.Common.Base.Geometry;
 using Core.Common.Base.Service;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Data.TestUtil;
 using Ringtoets.DuneErosion.Service;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
-using Ringtoets.Integration.Data;
 
 namespace Ringtoets.DuneErosion.Integration.Test
 {
@@ -47,16 +44,6 @@ namespace Ringtoets.DuneErosion.Integration.Test
         public void Run_ValidCalculation_PerformCalculationAndLogStartAndEnd()
         {
             // Setup
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
-            {
-                Id = "13-1"
-            };
-
-            using (var importer = new HydraulicBoundaryDatabaseImporter())
-            {
-                importer.Import(assessmentSection, validFilePath);
-            }
-
             var failureMechanism = new DuneErosionFailureMechanism
             {
                 Contribution = 10
@@ -68,8 +55,12 @@ namespace Ringtoets.DuneErosion.Integration.Test
                                                     Orientation = 0,
                                                     D50 = 0.000007
                                                 });
+            var activity = new DuneErosionBoundaryCalculationActivity(duneLocation,
+                                                                      failureMechanism,
+                                                                      validFilePath,
+                                                                      "13-1",
+                                                                      1.0 / 30000);
 
-            var activity = new DuneErosionBoundaryCalculationActivity(duneLocation, failureMechanism, assessmentSection);
             using (new HydraRingCalculatorFactoryConfig())
             {
                 // Call
@@ -93,16 +84,6 @@ namespace Ringtoets.DuneErosion.Integration.Test
         public void Run_FailureMechanismContributionNull_LogMessageAndActivityStateFailed()
         {
             // Setup
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
-            {
-                Id = "13-1"
-            };
-
-            using (var importer = new HydraulicBoundaryDatabaseImporter())
-            {
-                importer.Import(assessmentSection, validFilePath);
-            }
-
             var failureMechanism = new DuneErosionFailureMechanism();
             var duneLocation = new DuneLocation(1300001, "test", new Point2D(0, 0), new DuneLocation.ConstructionProperties
                                                 {
@@ -111,8 +92,12 @@ namespace Ringtoets.DuneErosion.Integration.Test
                                                     Orientation = 0,
                                                     D50 = 0.000007
                                                 });
+            var activity = new DuneErosionBoundaryCalculationActivity(duneLocation,
+                                                                      failureMechanism,
+                                                                      validFilePath,
+                                                                      "13-1",
+                                                                      1.0 / 30000);
 
-            var activity = new DuneErosionBoundaryCalculationActivity(duneLocation, failureMechanism, assessmentSection);
             using (new HydraRingCalculatorFactoryConfig())
             {
                 // Call
@@ -138,16 +123,6 @@ namespace Ringtoets.DuneErosion.Integration.Test
         public void Run_InvalidCalculationAndRan_PerformCalculationAndActivityStateFailed(bool endInFailure, string lastErrorFileContent)
         {
             // Setup
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
-            {
-                Id = "13-1"
-            };
-
-            using (var importer = new HydraulicBoundaryDatabaseImporter())
-            {
-                importer.Import(assessmentSection, validFilePath);
-            }
-
             var failureMechanism = new DuneErosionFailureMechanism();
             var duneLocation = new DuneLocation(1300001, "test", new Point2D(0, 0), new DuneLocation.ConstructionProperties
                                                 {
@@ -156,8 +131,12 @@ namespace Ringtoets.DuneErosion.Integration.Test
                                                     Orientation = 0,
                                                     D50 = 0.000007
                                                 });
+            var activity = new DuneErosionBoundaryCalculationActivity(duneLocation,
+                                                                      failureMechanism,
+                                                                      validFilePath,
+                                                                      "13-1",
+                                                                      1.0 / 30000);
 
-            var activity = new DuneErosionBoundaryCalculationActivity(duneLocation, failureMechanism, assessmentSection);
             using (new HydraRingCalculatorFactoryConfig())
             {
                 TestDunesBoundaryConditionsCalculator calculator =
@@ -177,16 +156,6 @@ namespace Ringtoets.DuneErosion.Integration.Test
         public void Run_CalculationAlreadyPerformed_CalculationNotPerformedAndActivityStateSkipped()
         {
             // Setup
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
-            {
-                Id = "13-1"
-            };
-
-            using (var importer = new HydraulicBoundaryDatabaseImporter())
-            {
-                importer.Import(assessmentSection, validFilePath);
-            }
-
             var failureMechanism = new DuneErosionFailureMechanism
             {
                 Contribution = 10
@@ -196,8 +165,12 @@ namespace Ringtoets.DuneErosion.Integration.Test
             {
                 Output = initialOutput
             };
+            var activity = new DuneErosionBoundaryCalculationActivity(duneLocation,
+                                                                      failureMechanism,
+                                                                      validFilePath,
+                                                                      "13-1",
+                                                                      1.0 / 30000);
 
-            var activity = new DuneErosionBoundaryCalculationActivity(duneLocation, failureMechanism, assessmentSection);
             using (new HydraRingCalculatorFactoryConfig())
             {
                 // Call

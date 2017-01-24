@@ -80,7 +80,9 @@ namespace Ringtoets.DuneErosion.Forms.GuiServices
             ActivityProgressDialogRunner.Run(viewParent, locations
                                                  .Select(l => new DuneErosionBoundaryCalculationActivity(l,
                                                                                                          failureMechanism,
-                                                                                                         assessmentSection)).ToArray());
+                                                                                                         assessmentSection.HydraulicBoundaryDatabase.FilePath,
+                                                                                                         assessmentSection.Id,
+                                                                                                         assessmentSection.FailureMechanismContribution.Norm)).ToArray());
         }
     }
 }

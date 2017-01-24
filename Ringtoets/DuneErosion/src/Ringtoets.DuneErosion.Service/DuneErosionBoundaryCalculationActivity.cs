@@ -21,7 +21,6 @@
 
 using System;
 using Core.Common.Base.Service;
-using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.HydraRing.Calculation.Activities;
 
@@ -34,7 +33,9 @@ namespace Ringtoets.DuneErosion.Service
     {
         private readonly DuneLocation duneLocation;
         private readonly DuneErosionFailureMechanism failureMechanism;
-        private readonly IAssessmentSection assessmentSection;
+        private readonly string hydraulicBoundaryDatabaseFilePath;
+        private readonly string ringId;
+        private readonly double norm;
         private readonly DuneErosionBoundaryCalculationService calculationService;
 
         /// <summary>
@@ -43,11 +44,15 @@ namespace Ringtoets.DuneErosion.Service
         /// <param name="duneLocation">The <see cref="DuneLocation"/> to perform the calculation for.</param>
         /// <param name="failureMechanism">The <see cref="DuneErosionFailureMechanism"/> that holds information about the contribution and
         /// the general inputs used in the calculation.</param>
-        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> that hold information about the norm used in the calculation.</param>
+        /// <param name="hydraulicBoundaryDatabaseFilePath">The HLCD file that should be used for performing the calculation.</param>
+        /// <param name="ringId">The id of the ring to perform the calculation for.</param>
+        /// <param name="norm">The norm to use during the calculation.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public DuneErosionBoundaryCalculationActivity(DuneLocation duneLocation,
                                                       DuneErosionFailureMechanism failureMechanism,
-                                                      IAssessmentSection assessmentSection)
+                                                      string hydraulicBoundaryDatabaseFilePath,
+                                                      string ringId,
+                                                      double norm)
         {
             if (duneLocation == null)
             {
@@ -57,14 +62,12 @@ namespace Ringtoets.DuneErosion.Service
             {
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
-            if (assessmentSection == null)
-            {
-                throw new ArgumentNullException(nameof(assessmentSection));
-            }
 
             this.duneLocation = duneLocation;
             this.failureMechanism = failureMechanism;
-            this.assessmentSection = assessmentSection;
+            this.hydraulicBoundaryDatabaseFilePath = hydraulicBoundaryDatabaseFilePath;
+            this.ringId = ringId;
+            this.norm = norm;
 
             calculationService = new DuneErosionBoundaryCalculationService();
 
@@ -81,9 +84,9 @@ namespace Ringtoets.DuneErosion.Service
 
             calculationService.Calculate(duneLocation,
                                          failureMechanism,
-                                         assessmentSection.Id,
-                                         assessmentSection.FailureMechanismContribution.Norm,
-                                         assessmentSection.HydraulicBoundaryDatabase.FilePath);
+                                         ringId,
+                                         norm,
+                                         hydraulicBoundaryDatabaseFilePath);
         }
 
         protected override void OnCancel()

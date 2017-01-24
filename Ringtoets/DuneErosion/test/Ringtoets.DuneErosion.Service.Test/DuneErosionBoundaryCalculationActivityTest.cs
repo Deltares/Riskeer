@@ -22,8 +22,6 @@
 using System;
 using Core.Common.Base.Service;
 using NUnit.Framework;
-using Rhino.Mocks;
-using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Data.TestUtil;
 using Ringtoets.HydraRing.Calculation.Activities;
@@ -37,75 +35,57 @@ namespace Ringtoets.DuneErosion.Service.Test
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
             var duneLocation = new TestDuneLocation();
             var failureMechanism = new DuneErosionFailureMechanism();
 
             // Call
-            var activity = new DuneErosionBoundaryCalculationActivity(duneLocation, failureMechanism, assessmentSection);
+            var activity = new DuneErosionBoundaryCalculationActivity(duneLocation,
+                                                                      failureMechanism,
+                                                                      "path",
+                                                                      "id",
+                                                                      1.0 / 30000);
 
             // Assert
             Assert.IsInstanceOf<HydraRingActivityBase>(activity);
             Assert.AreEqual(duneLocation.Name, activity.Name);
             Assert.IsNull(activity.ProgressText);
             Assert.AreEqual(ActivityState.None, activity.State);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_DuneLocationNull_ThrowArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
             var failureMechanism = new DuneErosionFailureMechanism();
 
             // Call
-            TestDelegate test = () => new DuneErosionBoundaryCalculationActivity(null, failureMechanism, assessmentSection);
+            TestDelegate test = () => new DuneErosionBoundaryCalculationActivity(null,
+                                                                                 failureMechanism,
+                                                                                 "path",
+                                                                                 "id",
+                                                                                 1.0 / 30000);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
             Assert.AreEqual("duneLocation", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_FailureMechanismNull_ThrowArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
             var duneLocation = new TestDuneLocation();
 
             // Call
-            TestDelegate test = () => new DuneErosionBoundaryCalculationActivity(duneLocation, null, assessmentSection);
+            TestDelegate test = () => new DuneErosionBoundaryCalculationActivity(duneLocation,
+                                                                                 null,
+                                                                                 "path",
+                                                                                 "id",
+                                                                                 1.0 / 30000);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
             Assert.AreEqual("failureMechanism", exception.ParamName);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Constructor_AssessmentSectionNull_ThrowArgumentNullException()
-        {
-            // Setup
-            var duneLocation = new TestDuneLocation();
-            var failureMechanism = new DuneErosionFailureMechanism();
-
-            // Call
-            TestDelegate test = () => new DuneErosionBoundaryCalculationActivity(duneLocation, failureMechanism, null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("assessmentSection", exception.ParamName);
         }
     }
 }
