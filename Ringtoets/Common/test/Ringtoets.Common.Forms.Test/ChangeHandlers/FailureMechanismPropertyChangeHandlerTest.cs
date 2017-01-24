@@ -28,9 +28,10 @@ using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Forms.ChangeHandlers;
 using Ringtoets.Common.Forms.TestUtil;
 
-namespace Ringtoets.Common.Forms.Test
+namespace Ringtoets.Common.Forms.Test.ChangeHandlers
 {
     [TestFixture]
     public class FailureMechanismPropertyChangeHandlerTest : NUnitFormTest
@@ -296,5 +297,4 @@ namespace Ringtoets.Common.Forms.Test
             };
         }
     }
-
 }

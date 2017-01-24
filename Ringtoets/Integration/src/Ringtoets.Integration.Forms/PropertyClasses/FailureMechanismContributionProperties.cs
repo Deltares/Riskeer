@@ -23,7 +23,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using Core.Common.Base;
-using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils;
 using Core.Common.Utils.Attributes;
@@ -39,9 +38,9 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
     /// </summary>
     public class FailureMechanismContributionProperties : ObjectProperties<FailureMechanismContribution>
     {
-        private IFailureMechanismContributionNormChangeHandler normChangeHandler;
-        private IAssessmentSectionCompositionChangeHandler compositionChangeHandler;
-        private IAssessmentSection assessmentSection;
+        private readonly IFailureMechanismContributionNormChangeHandler normChangeHandler;
+        private readonly IAssessmentSectionCompositionChangeHandler compositionChangeHandler;
+        private readonly IAssessmentSection assessmentSection;
 
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismContributionProperties"/>.
