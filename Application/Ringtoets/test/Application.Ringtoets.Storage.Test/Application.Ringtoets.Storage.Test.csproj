@@ -98,6 +98,7 @@
     <Compile Include="Create\WaveImpactAsphaltCover\WaveImpactAsphaltCoverWaveConditionsCalculationCreateExtensionsTest.cs" />
     <Compile Include="Create\WaveImpactAsphaltCover\WaveImpactAsphaltCoverWaveConditionsOutputCreateExtensionsTest.cs" />
     <Compile Include="DbContext\RingtoetsEntitiesTest.cs" />
+    <Compile Include="IntegrationTests\StorageMigrationIntegrationTest.cs" />
     <Compile Include="Read\ClosingStructures\ClosingStructureEntityReadExtensionsTest.cs" />
     <Compile Include="Read\ClosingStructures\ClosingStructuresCalculationEntityReadExtensionsTest.cs" />
     <Compile Include="Read\ClosingStructures\ClosingStructuresFailureMechanismMetaEntityReadExtensionsTest.cs" />
@@ -253,6 +254,14 @@
     <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj">
       <Project>{D749EE4C-CE50-4C17-BF01-9A953028C126}</Project>
       <Name>Core.Common.TestUtil</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Migration\Core\src\Migration.Core.Storage\Migration.Core.Storage.csproj">
+      <Project>{EFD7E662-5B69-4B71-A448-565B64E9C033}</Project>
+      <Name>Migration.Core.Storage</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Migration\Scripts\src\Migration.Scripts.Data\Migration.Scripts.Data.csproj">
+      <Project>{D08DB9E2-6861-44C8-A725-71A70274CC77}</Project>
+      <Name>Migration.Scripts.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Ringtoets\ClosingStructures\src\Ringtoets.ClosingStructures.Data\Ringtoets.ClosingStructures.Data.csproj">
       <Project>{C6309704-D67B-434C-BC98-9F8910BC1D10}</Project>

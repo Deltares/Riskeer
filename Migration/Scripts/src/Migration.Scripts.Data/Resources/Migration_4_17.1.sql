@@ -50,7 +50,7 @@ SELECT [PipingFailureMechanismMetaEntityId],
 	[FailureMechanismEntityId],
 	[A],
 	[WaterVolumetricWeight], 
-	NULL FROM [SOURCEPROJECT].PipingFailureMechanismMetaEntity;
+	"Onbekend" FROM [SOURCEPROJECT].PipingFailureMechanismMetaEntity;
 INSERT INTO PipingSectionResultEntity SELECT * FROM [SOURCEPROJECT].PipingSectionResultEntity;
 INSERT INTO PipingSemiProbabilisticOutputEntity SELECT * FROM [SOURCEPROJECT].PipingSemiProbabilisticOutputEntity;
 INSERT INTO PipingStructureSectionResultEntity SELECT * FROM [SOURCEPROJECT].PipingStructureSectionResultEntity;
