@@ -111,11 +111,29 @@ namespace Migration.Core.Storage.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Het is niet mogelijk om versie {0} te migreren naar versie {1}.
+        /// </summary>
+        internal static string Migrate_From_Version_0_To_Version_1_Not_Supported {
+            get {
+                return ResourceManager.GetString("Migrate_From_Version_0_To_Version_1_Not_Supported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Er is een onverwachte fout opgetreden tijdens het verplaatsen van het gemigreerde bestand &apos;{0}&apos; naar &apos;{1}&apos;..
         /// </summary>
         internal static string Migrate_Unable_To_Move_From_Location_0_To_Location_1 {
             get {
                 return ResourceManager.GetString("Migrate_Unable_To_Move_From_Location_0_To_Location_1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het upgraden van versie {0} is niet ondersteund..
+        /// </summary>
+        internal static string Upgrade_Version_0_Not_Supported {
+            get {
+                return ResourceManager.GetString("Upgrade_Version_0_Not_Supported", resourceCulture);
             }
         }
     }

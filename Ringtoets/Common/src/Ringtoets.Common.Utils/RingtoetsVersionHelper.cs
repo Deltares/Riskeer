@@ -19,9 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
-using System.Linq;
-
 namespace Ringtoets.Common.Utils
 {
     /// <summary>
@@ -31,7 +28,6 @@ namespace Ringtoets.Common.Utils
     {
         private const string validDatabaseversion = "4";
         private const string currentDatabaseVersion = "17.1";
-        private const string versionSeparator = ".";
 
         /// <summary>
         /// Gets the current database version.
@@ -50,7 +46,8 @@ namespace Ringtoets.Common.Utils
         /// database version, <c>false</c> otherwise.</returns>
         public static bool IsNewerThanCurrent(string version)
         {
-            return CompareToVersion(version, currentDatabaseVersion) > 0;
+            var versionComparer = new RingtoetsVersionComparer();
+            return versionComparer.Compare(version, currentDatabaseVersion) > 0;
         }
 
         /// <summary>
@@ -61,43 +58,8 @@ namespace Ringtoets.Common.Utils
         /// <c>false</c> otherwise.</returns>
         public static bool IsValidVersion(string version)
         {
-            return CompareToVersion(version, validDatabaseversion) >= 0;
-        }
-
-        public static int CompareToVersion(string versionString, string compareString)
-        {
-            var separatorArray = versionSeparator.ToCharArray();
-            string[] versionArray = versionString.Split(separatorArray, StringSplitOptions.RemoveEmptyEntries);
-            string[] currentVersionArray = compareString.Split(separatorArray, StringSplitOptions.RemoveEmptyEntries);
-
-            if (versionArray.Length < 1)
-            {
-                return -1;
-            }
-
-            if (currentVersionArray.Length < 1)
-            {
-                return 1;
-            }
-
-            int version;
-            int.TryParse(versionArray[0], out version);
-
-            int currentVersion;
-            int.TryParse(currentVersionArray[0], out currentVersion);
-
-            var compareTo = version.CompareTo(currentVersion);
-            if (compareTo > 0)
-            {
-                return compareTo;
-            }
-            if (compareTo == 0 && versionArray.Length > 1)
-            {
-                var newVersionString = string.Join(versionSeparator, versionArray.Skip(1).ToArray());
-                var newCurrentVersionString = string.Join(versionSeparator, currentVersionArray.Skip(1).ToArray());
-                return CompareToVersion(newVersionString, newCurrentVersionString);
-            }
-            return compareTo;
+            var versionComparer = new RingtoetsVersionComparer();
+            return versionComparer.Compare(version, validDatabaseversion) >= 0;
         }
     }
 }

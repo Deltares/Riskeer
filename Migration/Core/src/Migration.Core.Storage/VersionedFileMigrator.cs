@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -28,6 +27,7 @@ using System.Text.RegularExpressions;
 using Migration.Core.Storage.Properties;
 using Migration.Scripts.Data;
 using Migration.Scripts.Data.Exceptions;
+using Ringtoets.Common.Utils;
 using MigrationScriptsDataResources = Migration.Scripts.Data.Properties.Resources;
 
 namespace Migration.Core.Storage
@@ -39,6 +39,7 @@ namespace Migration.Core.Storage
     {
         private readonly IOrderedEnumerable<MigrationScript> migrationScripts;
         private readonly Assembly scriptResource;
+        private readonly RingtoetsVersionComparer ringtoetsVersionComparer;
 
         /// <summary>
         /// Creates a new instance of the <see cref="VersionedFile"/> class.
@@ -49,6 +50,7 @@ namespace Migration.Core.Storage
             migrationScripts = GetAvailableMigrations()
                 .OrderBy(ms => ms.SupportedVersion())
                 .ThenByDescending(ms => ms.TargetVersion());
+            ringtoetsVersionComparer = new RingtoetsVersionComparer();
         }
 
         /// <summary>
@@ -69,9 +71,9 @@ namespace Migration.Core.Storage
         /// <param name="toVersion">The version to upgrade to.</param>
         /// <returns><c>true</c> if <paramref name="versionedFile"/> needs to be upgraded to <paramref name="toVersion"/>, 
         /// <c>false</c> otherwise.</returns>
-        public static bool NeedsMigrade(VersionedFile versionedFile, string toVersion)
+        public bool NeedsMigrade(VersionedFile versionedFile, string toVersion)
         {
-            return string.Compare(versionedFile.GetVersion(), toVersion, StringComparison.InvariantCulture) > 0;
+            return ringtoetsVersionComparer.Compare(versionedFile.GetVersion(), toVersion) < 0;
         }
 
         /// <summary>
@@ -80,21 +82,23 @@ namespace Migration.Core.Storage
         /// <param name="fromVersionedFile">The source versioned file to migrate from.</param>
         /// <param name="toVersion">The version to upgrade to.</param>
         /// <param name="newFileLocation">The location where the migrated file needs to be saved.</param>
-        /// <exception cref="CriticalDatabaseMigrationException">Thrown when moving the migrated file 
-        /// from a temporary environment to <paramref name="newFileLocation"/>.</exception>
+        /// <exception cref="CriticalDatabaseMigrationException">Thrown when migrating <paramref name="fromVersionedFile"/> 
+        /// to a new version on location <paramref name="newFileLocation"/> failed.</exception>
         public void Migrate(VersionedFile fromVersionedFile, string toVersion, string newFileLocation)
         {
-            var supportedMigrationScripts = migrationScripts
-                .Where(ms => ms.SupportedVersion()
-                               .Equals(fromVersionedFile.GetVersion()));
-
-            if (!supportedMigrationScripts.Any())
+            string fromVersion = fromVersionedFile.GetVersion();
+            if (!IsVersionSupported(fromVersion))
             {
-                return;
+                throw new CriticalDatabaseMigrationException(string.Format(Resources.Upgrade_Version_0_Not_Supported,
+                                                                           fromVersion));
             }
 
-            MigrationScript migrationScript = supportedMigrationScripts.FirstOrDefault(ms => ms.TargetVersion().Equals(toVersion))
-                                              ?? supportedMigrationScripts.First();
+            MigrationScript migrationScript = GetMigrationScript(fromVersion, toVersion);
+            if (migrationScript == null)
+            {
+                throw new CriticalDatabaseMigrationException(string.Format(Resources.Migrate_From_Version_0_To_Version_1_Not_Supported,
+                                                                           fromVersion, toVersion));
+            }
 
             var upgradedVersionFile = migrationScript.Upgrade(fromVersionedFile);
             if (!upgradedVersionFile.GetVersion().Equals(toVersion))
@@ -114,6 +118,20 @@ namespace Migration.Core.Storage
                     throw new CriticalDatabaseMigrationException(message, exception);
                 }
             }
+        }
+
+        private MigrationScript GetMigrationScript(string fromVersion, string toVersion)
+        {
+            var supportedMigrationScripts = migrationScripts.Where(ms => ms.SupportedVersion()
+                                                                           .Equals(fromVersion));
+
+            if (!supportedMigrationScripts.Any())
+            {
+                return null;
+            }
+
+            return supportedMigrationScripts.FirstOrDefault(ms => ms.TargetVersion().Equals(toVersion))
+                   ?? supportedMigrationScripts.FirstOrDefault(ms => ringtoetsVersionComparer.Compare(toVersion, ms.TargetVersion()) > 0);
         }
 
         private IEnumerable<MigrationScript> GetAvailableMigrations()

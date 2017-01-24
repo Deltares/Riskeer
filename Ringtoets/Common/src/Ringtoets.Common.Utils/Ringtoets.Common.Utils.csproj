@@ -41,6 +41,7 @@
     </Compile>
     <Compile Include="AssignUnassignCalculations.cs" />
     <Compile Include="CalculationWithLocation.cs" />
+    <Compile Include="RingtoetsVersionComparer.cs" />
     <Compile Include="StructuresHelper.cs" />
     <Compile Include="SectionResultWithCalculationAssignment.cs" />
     <Compile Include="SectionSegments.cs" />

@@ -78,9 +78,10 @@ namespace Migration.Core.Storage.Test
             // Setup
             string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Migration.Core.Storage, "Demo164.rtd");
             VersionedFile versionedFile = new VersionedFile(sourceFilePath);
+            var migrator = new VersionedFileMigrator();
 
             // Call
-            bool needsMigrade = VersionedFileMigrator.NeedsMigrade(versionedFile, "17.1");
+            bool needsMigrade = migrator.NeedsMigrade(versionedFile, "17.1");
 
             // Assert
             Assert.IsTrue(needsMigrade);
@@ -92,9 +93,10 @@ namespace Migration.Core.Storage.Test
             // Setup
             string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Migration.Core.Storage, "Demo164.rtd");
             VersionedFile versionedFile = new VersionedFile(sourceFilePath);
+            var migrator = new VersionedFileMigrator();
 
             // Call
-            bool needsMigrade = VersionedFileMigrator.NeedsMigrade(versionedFile, "4");
+            bool needsMigrade = migrator.NeedsMigrade(versionedFile, "4");
 
             // Assert
             Assert.IsFalse(needsMigrade);
@@ -119,7 +121,7 @@ namespace Migration.Core.Storage.Test
             {
                 Assert.Fail($"File was not created at location '{targetFilePath}'");
             }
- 
+
             var toVersionedFile = new VersionedFile(targetFilePath);
             Assert.AreEqual(newVersion, toVersionedFile.GetVersion());
             using (new FileDisposeHelper(targetFilePath)) {}

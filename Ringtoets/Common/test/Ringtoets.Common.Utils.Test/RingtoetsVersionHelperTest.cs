@@ -90,6 +90,7 @@ namespace Ringtoets.Common.Utils.Test
         [TestCase("17")]
         public void IsValidVersion_ValidVersion_ReturnsTrue(string validVersion)
         {
+            // Call
             bool isNewer = RingtoetsVersionHelper.IsValidVersion(validVersion);
 
             // Assert
@@ -101,6 +102,7 @@ namespace Ringtoets.Common.Utils.Test
         [TestCase("..")]
         public void IsValidVersion_InvalidVersion_ReturnsFalse(string invalidVersion)
         {
+            // Call
             bool isNewer = RingtoetsVersionHelper.IsValidVersion(invalidVersion);
 
             // Assert
