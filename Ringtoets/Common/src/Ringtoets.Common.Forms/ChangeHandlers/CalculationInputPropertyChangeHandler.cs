@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Forms.Properties;
 using Ringtoets.Common.Forms.PropertyClasses;
 using CoreCommonBaseResources = Core.Common.Base.Properties.Resources;
 
@@ -96,11 +97,11 @@ namespace Ringtoets.Common.Forms.ChangeHandlers
 
         private static bool ConfirmPropertyChange()
         {
-            DialogResult result = MessageBox.Show("Als u een parameter in deze berekening wijzigt, zal de uitvoer van deze berekening verwijderd worden." + Environment.NewLine +
-                                                  Environment.NewLine +
-                                                  "Weet u zeker dat u wilt doorgaan?",
-                                                  CoreCommonBaseResources.Confirm,
-                                                  MessageBoxButtons.OKCancel);
+            DialogResult result = MessageBox.Show(
+                Resources.CalculationInputPropertyChangeHandler_ConfirmPropertyChange_Confirm_change_input_parameter_and_clear_calculation_output,
+                CoreCommonBaseResources.Confirm,
+                MessageBoxButtons.OKCancel);
+
             return result == DialogResult.OK;
         }
     }
