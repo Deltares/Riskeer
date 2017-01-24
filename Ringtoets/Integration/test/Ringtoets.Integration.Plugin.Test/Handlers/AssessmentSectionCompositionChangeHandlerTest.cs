@@ -456,10 +456,10 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
         }
 
         [Test]
-        [TestCase(AssessmentSectionComposition.Dike, AssessmentSectionComposition.DikeAndDune)]
-        [TestCase(AssessmentSectionComposition.DikeAndDune, AssessmentSectionComposition.Dike)]
-        [TestCase(AssessmentSectionComposition.Dune, AssessmentSectionComposition.Dike)]
-        [TestCase(AssessmentSectionComposition.Dune, AssessmentSectionComposition.DikeAndDune)]
+        [TestCase(AssessmentSectionComposition.Dike, AssessmentSectionComposition.DikeAndDune, TestName = "ChangeComposition_ChangeToNonDuneNoLocationsWithOutput_ChangeCompositionReturnsAffectedObjects(Dike,DikeDune)")]
+        [TestCase(AssessmentSectionComposition.DikeAndDune, AssessmentSectionComposition.Dike, TestName = "ChangeComposition_ChangeToNonDuneNoLocationsWithOutput_ChangeCompositionReturnsAffectedObjects(DikeDune,Dike)")]
+        [TestCase(AssessmentSectionComposition.Dune, AssessmentSectionComposition.Dike, TestName = "ChangeComposition_ChangeToNonDuneNoLocationsWithOutput_ChangeCompositionReturnsAffectedObjects(Dune,Dike)")]
+        [TestCase(AssessmentSectionComposition.Dune, AssessmentSectionComposition.DikeAndDune, TestName = "ChangeComposition_ChangeToNonDuneNoLocationsWithOutput_ChangeCompositionReturnsAffectedObjects(Dune,DikeDune)")]
         public void ChangeComposition_ChangeToNonDuneAndNoHydraulicBoudaryLocationsWithOutput_ChangeCompositionAndReturnsAllAffectedObjects(AssessmentSectionComposition oldComposition,
                                                                                                                                             AssessmentSectionComposition newComposition)
         {
