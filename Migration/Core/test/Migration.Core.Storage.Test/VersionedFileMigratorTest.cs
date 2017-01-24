@@ -22,6 +22,7 @@
 using System.IO;
 using Core.Common.TestUtil;
 using Migration.Scripts.Data;
+using Migration.Scripts.Data.Exceptions;
 using NUnit.Framework;
 
 namespace Migration.Core.Storage.Test
@@ -125,6 +126,67 @@ namespace Migration.Core.Storage.Test
             var toVersionedFile = new VersionedFile(targetFilePath);
             Assert.AreEqual(newVersion, toVersionedFile.GetVersion());
             using (new FileDisposeHelper(targetFilePath)) {}
+        }
+
+        [Test]
+        public void Migrate_TargetFileInUse_ThrowsCriticalDatabaseMigrationException()
+        {
+            // Setup
+            const string newVersion = "17.1";
+            string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Migration.Core.Storage, "Demo164.rtd");
+            var fromVersionedFile = new VersionedFile(sourceFilePath);
+
+            string targetFilePath = TestHelper.GetTestDataPath(TestDataPath.Migration.Core.Storage, Path.GetRandomFileName());
+            var migrator = new VersionedFileMigrator();
+
+            using (new FileDisposeHelper(targetFilePath))
+            using (File.Create(targetFilePath))
+            {
+                // Call
+                TestDelegate call = () => migrator.Migrate(fromVersionedFile, newVersion, targetFilePath);
+
+                // Assert
+                string message = Assert.Throws<CriticalDatabaseMigrationException>(call).Message;
+                Assert.That(message.StartsWith("Er is een onverwachte fout opgetreden tijdens het verplaatsen van het gemigreerde bestand '"));
+                Assert.That(message.EndsWith($"' naar '{targetFilePath}'."));
+            }
+        }
+
+        [Test]
+        public void Migrate_InvalidToVersion_ThrowsCriticalDatabaseMigrationException()
+        {
+            // Setup
+            const string newVersion = "6";
+            string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Migration.Core.Storage, "Demo164.rtd");
+            var fromVersionedFile = new VersionedFile(sourceFilePath);
+
+            string targetFilePath = TestHelper.GetTestDataPath(TestDataPath.Migration.Core.Storage, Path.GetRandomFileName());
+            var migrator = new VersionedFileMigrator();
+
+            // Call
+            TestDelegate call = () => migrator.Migrate(fromVersionedFile, newVersion, targetFilePath);
+
+            // Assert
+            string message = Assert.Throws<CriticalDatabaseMigrationException>(call).Message;
+            Assert.AreEqual($"Het is niet mogelijk om versie 4 te migreren naar versie {newVersion}", message);
+        }
+
+        [Test]
+        public void Migrate_UnsupportedVersion_ThrowsCriticalDatabaseMigrationException()
+        {
+            // Setup
+            string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Migration.Core.Storage, "UnsupportedVersion8.rtd");
+            var fromVersionedFile = new VersionedFile(sourceFilePath);
+
+            string targetFilePath = TestHelper.GetTestDataPath(TestDataPath.Migration.Core.Storage, Path.GetRandomFileName());
+            var migrator = new VersionedFileMigrator();
+
+            // Call
+            TestDelegate call = () => migrator.Migrate(fromVersionedFile, "17.1", targetFilePath);
+
+            // Assert
+            string message = Assert.Throws<CriticalDatabaseMigrationException>(call).Message;
+            Assert.AreEqual("Het upgraden van versie 8 is niet ondersteund.", message);
         }
     }
 }

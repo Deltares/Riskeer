@@ -278,8 +278,8 @@ namespace Migration.Console.Test
             }
 
             // Result
-            Assert.That(consoleText.StartsWith("Er is een onverwachte fout opgetreden tijdens het verplaatsen van het gemigreerde bestand "));
-            Assert.That(consoleText.EndsWith($" naar '{targetFilePath}'." + Environment.NewLine + Environment.NewLine
+            Assert.That(consoleText.StartsWith("Er is een onverwachte fout opgetreden tijdens het verplaatsen van het gemigreerde bestand '"));
+            Assert.That(consoleText.EndsWith($"' naar '{targetFilePath}'." + Environment.NewLine + Environment.NewLine
                                              + "--help\tGeef het hulp menu weer."
                                              + Environment.NewLine
                                              + "--migrate RINGTOETSBESTANDSPAD NIEUWEVERSIE UITVOERPAD"
