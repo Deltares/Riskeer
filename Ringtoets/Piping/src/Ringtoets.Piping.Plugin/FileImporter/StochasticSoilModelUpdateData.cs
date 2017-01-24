@@ -93,8 +93,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
                 var existingModel = targetCollection.SingleOrDefault(existing => existing.Name.Equals(readModel.Name));
                 if (existingModel != null)
                 {
-                    StochasticSoilModelProfileDifference difference = existingModel.Update(readModel);
-                    RemoveStochasticSoilProfilesFromInputs(difference, affectedObjects);
+                    affectedObjects.AddRange(UpdateStochasticSoilModel(existingModel, readModel));
 
                     removedModels.Remove(existingModel);
                     updatedOrAddedModels.Add(existingModel);
@@ -107,7 +106,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             }
             foreach (var model in removedModels)
             {
-                RemoveStochasticSoilModel(model, affectedObjects);
+                affectedObjects.AddRange(RemoveStochasticSoilModel(model));
             }
             targetCollection.Clear();
             targetCollection.AddRange(updatedOrAddedModels, sourceFilePath);
@@ -115,17 +114,28 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             return affectedObjects;
         }
 
-        private void RemoveStochasticSoilModel(StochasticSoilModel removedModel, List<IObservable> affectedObjects)
+        private IEnumerable<IObservable> RemoveStochasticSoilModel(StochasticSoilModel removedModel)
         {
-            affectedObjects.AddRange(PipingDataSynchronizationService.RemoveStochasticSoilModel(failureMechanism, removedModel));
+            return PipingDataSynchronizationService.RemoveStochasticSoilModel(failureMechanism, removedModel);
         }
 
-        private void RemoveStochasticSoilProfilesFromInputs(StochasticSoilModelProfileDifference difference, List<IObservable> affectedObjects)
+        private IEnumerable<IObservable> UpdateStochasticSoilModel(StochasticSoilModel existingModel, StochasticSoilModel readModel)
         {
+            StochasticSoilModelProfileDifference difference = existingModel.Update(readModel);
+
+            var affectedObjects = new List<IObservable>();
             foreach (StochasticSoilProfile removedProfile in difference.RemovedProfiles)
             {
                 affectedObjects.AddRange(PipingDataSynchronizationService.RemoveStochasticSoilProfileFromInput(failureMechanism, removedProfile));
             }
+            foreach (StochasticSoilProfile updatedProfile in difference.UpdatedProfiles)
+            {
+                affectedObjects.AddRange(failureMechanism.Calculations
+                                                         .Cast<PipingCalculation>()
+                                                         .Select(c => c.InputParameters)
+                                                         .Where(i => ReferenceEquals(i.StochasticSoilProfile, updatedProfile)));
+            }
+            return affectedObjects;
         }
     }
 }
