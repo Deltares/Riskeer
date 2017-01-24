@@ -22,12 +22,12 @@
 using System;
 using System.Linq;
 
-namespace Application.Ringtoets.Storage
+namespace Ringtoets.Common.Utils
 {
     /// <summary>
     /// This class is capable of comparing Ringtoets database versions.
     /// </summary>
-    public static class VersionHelper
+    public static class RingtoetsVersionHelper
     {
         private const string validDatabaseversion = "4";
         private const string currentDatabaseVersion = "17.1";
@@ -64,7 +64,7 @@ namespace Application.Ringtoets.Storage
             return CompareToVersion(version, validDatabaseversion) >= 0;
         }
 
-        private static int CompareToVersion(string versionString, string compareString)
+        public static int CompareToVersion(string versionString, string compareString)
         {
             var separatorArray = versionSeparator.ToCharArray();
             string[] versionArray = versionString.Split(separatorArray, StringSplitOptions.RemoveEmptyEntries);

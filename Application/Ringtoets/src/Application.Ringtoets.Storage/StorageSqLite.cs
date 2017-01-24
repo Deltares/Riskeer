@@ -35,6 +35,7 @@ using Core.Common.Base.Storage;
 using Core.Common.Utils;
 using Core.Common.Utils.Builders;
 using log4net;
+using Ringtoets.Common.Utils;
 using Ringtoets.Integration.Data;
 using UtilsResources = Core.Common.Utils.Properties.Resources;
 
@@ -183,7 +184,7 @@ namespace Application.Ringtoets.Storage
                 {
                     dbContext.VersionEntities.Add(new VersionEntity
                     {
-                        Version = VersionHelper.GetCurrentDatabaseVersion(),
+                        Version = RingtoetsVersionHelper.GetCurrentDatabaseVersion(),
                         Timestamp = DateTime.Now,
                         FingerPrint = FingerprintHelper.Get(stagedProject.Entity)
                     });
@@ -215,7 +216,7 @@ namespace Application.Ringtoets.Storage
             try
             {
                 string databaseVersion = ringtoetsEntities.VersionEntities.Select(v => v.Version).Single();
-                if (!VersionHelper.IsValidVersion(databaseVersion))
+                if (!RingtoetsVersionHelper.IsValidVersion(databaseVersion))
                 {
                     string m = string.Format(Resources.StorageSqLite_ValidateDatabaseVersion_DatabaseVersion_0_is_invalid,
                                              databaseVersion);
@@ -223,10 +224,10 @@ namespace Application.Ringtoets.Storage
                     throw new StorageValidationException(message);
                 }
 
-                if (VersionHelper.IsNewerThanCurrent(databaseVersion))
+                if (RingtoetsVersionHelper.IsNewerThanCurrent(databaseVersion))
                 {
                     string m = string.Format(Resources.StorageSqLite_ValidateDatabaseVersion_DatabaseVersion_0_higher_then_current_DatabaseVersion_1_,
-                                             databaseVersion, VersionHelper.GetCurrentDatabaseVersion());
+                                             databaseVersion, RingtoetsVersionHelper.GetCurrentDatabaseVersion());
                     var message = new FileReaderErrorMessageBuilder(databaseFilePath).Build(m);
                     throw new StorageValidationException(message);
                 }

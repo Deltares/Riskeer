@@ -236,7 +236,6 @@
     <Compile Include="SqLiteConnectionStringBuilderTest.cs" />
     <Compile Include="StorageSqliteCreatorTest.cs" />
     <Compile Include="StorageSqLiteTest.cs" />
-    <Compile Include="VersionHelperTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj">
@@ -262,6 +261,10 @@
     <ProjectReference Include="..\..\..\..\Ringtoets\ClosingStructures\test\Ringtoets.ClosingStructures.Data.TestUtil\Ringtoets.ClosingStructures.Data.TestUtil.csproj">
       <Project>{f5b43c29-6169-4e9a-859e-09090330b94e}</Project>
       <Name>Ringtoets.ClosingStructures.Data.TestUtil</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Ringtoets\Common\src\Ringtoets.Common.Utils\Ringtoets.Common.Utils.csproj">
+      <Project>{6A074D65-A81C-4C1C-8E24-F36C916E4ED7}</Project>
+      <Name>Ringtoets.Common.Utils</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Ringtoets\DuneErosion\src\Ringtoets.DuneErosion.Data\Ringtoets.DuneErosion.Data.csproj">
       <Project>{D1068432-C172-4AA6-847B-D9DEB4C6DE26}</Project>

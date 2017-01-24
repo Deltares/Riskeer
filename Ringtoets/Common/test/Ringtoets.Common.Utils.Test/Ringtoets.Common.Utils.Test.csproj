@@ -61,6 +61,7 @@
     <Compile Include="SectionResultWithCalculationAssignmentTest.cs" />
     <Compile Include="SectionSegmentsHelperTest.cs" />
     <Compile Include="SectionSegmentsTest.cs" />
+    <Compile Include="RingtoetsVersionHelperTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">

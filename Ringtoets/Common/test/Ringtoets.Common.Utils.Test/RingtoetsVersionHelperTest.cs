@@ -21,16 +21,16 @@
 
 using NUnit.Framework;
 
-namespace Application.Ringtoets.Storage.Test
+namespace Ringtoets.Common.Utils.Test
 {
     [TestFixture]
-    public class VersionHelperTest
+    public class RingtoetsVersionHelperTest
     {
         [Test]
         public void GetCurrentDatabaseversion_ReturnsExpectedValue()
         {
             // Call
-            string currentVersion = VersionHelper.GetCurrentDatabaseVersion();
+            string currentVersion = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
 
             // Assert
             Assert.AreEqual("17.1", currentVersion);
@@ -42,7 +42,7 @@ namespace Application.Ringtoets.Storage.Test
         public void IsNewerThanCurrentString_NewerVersion_ReturnsTrue(string newerVersion)
         {
             // Call
-            bool isNewer = VersionHelper.IsNewerThanCurrent(newerVersion);
+            bool isNewer = RingtoetsVersionHelper.IsNewerThanCurrent(newerVersion);
 
             // Assert
             Assert.IsTrue(isNewer);
@@ -52,10 +52,10 @@ namespace Application.Ringtoets.Storage.Test
         public void IsNewerThanCurrentString_SameVersion_ReturnsFalse()
         {
             // Setup
-            string currentVersion = VersionHelper.GetCurrentDatabaseVersion();
+            string currentVersion = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
 
             // Call
-            bool isNewer = VersionHelper.IsNewerThanCurrent(currentVersion);
+            bool isNewer = RingtoetsVersionHelper.IsNewerThanCurrent(currentVersion);
 
             // Assert
             Assert.IsFalse(isNewer);
@@ -67,7 +67,7 @@ namespace Application.Ringtoets.Storage.Test
         public void IsNewerThanCurrentString_OlderVersion_ReturnsFalse(string olderVersion)
         {
             // Call
-            bool isNewer = VersionHelper.IsNewerThanCurrent(olderVersion);
+            bool isNewer = RingtoetsVersionHelper.IsNewerThanCurrent(olderVersion);
 
             // Assert
             Assert.IsFalse(isNewer);
@@ -79,7 +79,7 @@ namespace Application.Ringtoets.Storage.Test
         public void IsNewerThanCurrentString_InvalidVersion_ReturnsFalse(string invalidVersion)
         {
             // Call
-            bool isNewer = VersionHelper.IsNewerThanCurrent(invalidVersion);
+            bool isNewer = RingtoetsVersionHelper.IsNewerThanCurrent(invalidVersion);
 
             // Assert
             Assert.IsFalse(isNewer);
@@ -90,7 +90,7 @@ namespace Application.Ringtoets.Storage.Test
         [TestCase("17")]
         public void IsValidVersion_ValidVersion_ReturnsTrue(string validVersion)
         {
-            bool isNewer = VersionHelper.IsValidVersion(validVersion);
+            bool isNewer = RingtoetsVersionHelper.IsValidVersion(validVersion);
 
             // Assert
             Assert.IsTrue(isNewer);
@@ -101,7 +101,7 @@ namespace Application.Ringtoets.Storage.Test
         [TestCase("..")]
         public void IsValidVersion_InvalidVersion_ReturnsFalse(string invalidVersion)
         {
-            bool isNewer = VersionHelper.IsValidVersion(invalidVersion);
+            bool isNewer = RingtoetsVersionHelper.IsValidVersion(invalidVersion);
 
             // Assert
             Assert.IsFalse(isNewer);

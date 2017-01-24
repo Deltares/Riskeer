@@ -83,6 +83,10 @@
       <Project>{F49BD8B2-332A-4C91-A196-8CCE0A2C7D98}</Project>
       <Name>Core.Common.Utils</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Ringtoets\Common\src\Ringtoets.Common.Utils\Ringtoets.Common.Utils.csproj">
+      <Project>{6A074D65-A81C-4C1C-8E24-F36C916E4ED7}</Project>
+      <Name>Ringtoets.Common.Utils</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\Ringtoets\src\Migration.Ringtoets.Data\Migration.Ringtoets.Data.csproj">
       <Project>{EED7826A-5397-4EEB-A1F8-A7550078459E}</Project>
       <Name>Migration.Ringtoets.Data</Name>

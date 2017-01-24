@@ -29,6 +29,7 @@ using Core.Common.Base.Storage;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Utils;
 using Ringtoets.Integration.Data;
 
 namespace Application.Ringtoets.Storage.Test
@@ -196,7 +197,7 @@ namespace Application.Ringtoets.Storage.Test
         {
             // Setup
             string expectedMessage = $@"Fout bij het lezen van bestand '{tempRingtoetsFile}': {"database moet één rij in de VersionEntity tabel hebben."}";
-            string currentDatabaseVersion = VersionHelper.GetCurrentDatabaseVersion();
+            string currentDatabaseVersion = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
             FileDisposeHelper fileDisposeHelper = new FileDisposeHelper(tempRingtoetsFile);
             try
             {
@@ -230,7 +231,7 @@ namespace Application.Ringtoets.Storage.Test
         public void LoadProject_DatabaseFromFutureVersion_ThrowStorageValidationException(int additionalVersionNumber)
         {
             // Setup
-            string currentDatabaseVersion = VersionHelper.GetCurrentDatabaseVersion();
+            string currentDatabaseVersion = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
             var versionCode = additionalVersionNumber + currentDatabaseVersion;
             string subMessage = $"ringtoets bestand versie '{versionCode}' is hoger dan de huidig ondersteunde versie ('{currentDatabaseVersion}'). Update Ringtoets naar een nieuwere versie.";
             string expectedMessage = $@"Fout bij het lezen van bestand '{tempRingtoetsFile}': {subMessage}";
