@@ -25,16 +25,17 @@ using System.Threading;
 using Amib.Threading;
 using BruTile;
 using BruTile.Cache;
+using Core.Components.DotSpatial.Properties;
 
 namespace Core.Components.DotSpatial.Layer.BruTile.TileFetching
 {
     /// <summary>
-    /// Class responsible for fetching map tiles from a <see cref="ITileProvider"/>.
+    /// Class responsible for fetching map tiles asynchronously from a <see cref="ITileProvider"/>.
     /// </summary>
     /// <remarks>
     /// Original source: https://github.com/FObermaier/DotSpatial.Plugins/blob/master/DotSpatial.Plugins.BruTileLayer/TileFetcher.cs
     /// </remarks>
-    public class TileFetcher : IDisposable
+    public class AsyncTileFetcher : IDisposable
     {
         private readonly ConcurrentDictionary<TileIndex, int> activeTileRequests = new ConcurrentDictionary<TileIndex, int>();
         private readonly ConcurrentDictionary<TileIndex, int> openTileRequests = new ConcurrentDictionary<TileIndex, int>();
@@ -44,73 +45,64 @@ namespace Core.Components.DotSpatial.Layer.BruTile.TileFetching
         private SmartThreadPool threadPool;
 
         /// <summary>
-        /// Event raised when <see cref="AsyncMode"/> is <c>true</c> and the tile fetcher
-        /// has received a tile.
+        /// Event raised when the tile fetcher has received a tile.
         /// </summary>
         public event EventHandler<TileReceivedEventArgs> TileReceived;
 
         /// <summary>
-        /// Event raised when <see cref="AsyncMode"/> is <c>true</c> and the tile request queue is empty
+        /// Event raised when the tile request queue is empty
         /// </summary>
         public event EventHandler QueueEmpty;
 
         /// <summary>
-        /// Creates an instance of <see cref="TileFetcher"/>.
+        /// Creates an instance of <see cref="AsyncTileFetcher"/>.
         /// </summary>
         /// <param name="provider">The tile provider.</param>
         /// <param name="minTiles">Minimum number of tiles in memory cache.</param>
         /// <param name="maxTiles">Maximum number of tiles in memory cache.</param>
-        /// <param name="permaCache">Optional: the persistent cache.</param>
+        /// <param name="permaCache">Optional: the persistent cache. When null, no tiles
+        /// will be cached outside of the volatile memory cache.</param>
         /// <exception cref="ArgumentNullException">Throw when <paramref name="provider"/>
         /// is <c>null</c>.</exception>
-        public TileFetcher(ITileProvider provider, int minTiles, int maxTiles, ITileCache<byte[]> permaCache)
-            : this(provider, minTiles, maxTiles, BruTileSettings.MaximumNumberOfThreads, permaCache) {}
-
-        /// <summary>
-        /// Creates an instance of this class
-        /// </summary>
-        /// <param name="provider">The tile provider.</param>
-        /// <param name="minTiles">Minimum number of tiles in memory cache.</param>
-        /// <param name="maxTiles">Maximum number of tiles in memory cache.</param>
-        /// <param name="maxNumberOfThreads">The maximum number of threads used to get tiles.</param>
-        /// <param name="permaCache">Optional: the persistent cache.</param>
-        /// <exception cref="ArgumentNullException">Throw when <paramref name="provider"/>
-        /// is <c>null</c>.</exception>
-        public TileFetcher(ITileProvider provider, int minTiles, int maxTiles, int maxNumberOfThreads, ITileCache<byte[]> permaCache = null)
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when either <paramref name="minTiles"/>
+        /// or <paramref name="maxTiles"/> is negative.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="minTiles"/>
+        /// is not smaller than <paramref name="maxTiles"/>.</exception>
+        public AsyncTileFetcher(ITileProvider provider, int minTiles, int maxTiles, ITileCache<byte[]> permaCache = null)
         {
             if (provider == null)
             {
                 throw new ArgumentNullException(nameof(provider));
             }
+            if (minTiles < 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(minTiles), Resources.AsyncTileFetcher_Number_of_tiles_for_memory_cache_cannot_be_negative);
+            }
+            if (maxTiles < 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(maxTiles), Resources.AsyncTileFetcher_Number_of_tiles_for_memory_cache_cannot_be_negative);
+            }
+            if (minTiles >= maxTiles)
+            {
+                throw new ArgumentException(Resources.AsyncTileFetcher_Minimum_number_of_tiles_in_memory_cache_must_be_less_than_maximum);
+            }
 
             this.provider = provider;
             volatileCache = new MemoryCache<byte[]>(minTiles, maxTiles);
             persistentCache = permaCache ?? NoopTileCache.Instance;
-            threadPool = new SmartThreadPool(10000, maxNumberOfThreads);
-            AsyncMode = BruTileSettings.FetchTilesAsyncByDefault;
+            threadPool = new SmartThreadPool(10000, BruTileSettings.MaximumNumberOfThreads);
         }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether the tile fetcher should work asynchronously
-        /// (tile receive notifications will be broadcast using <see cref="TileReceived"/>
-        /// and <see cref="QueueEmpty"/>) or not (An <see cref="AutoResetEvent"/> argument
-        /// can be used to be notified on a successful tile-fetch).
-        /// </summary>
-        public bool AsyncMode { get; set; }
 
         /// <summary>
         /// Gets the tile from cache or queues a fetch request.
         /// </summary>
         /// <param name="tileInfo">The tile info.</param>
-        /// <param name="tileRetrievedEvent">Optional: The event object that notifies when
-        /// the tile request has been served. Only used when <see cref="AsyncMode"/>
-        /// is <c>true</c>.</param>
         /// <returns>The tile data if a match can be found in the cache, otherwise <c>null</c>
         /// is returned.</returns>
         /// <remarks>If no tile can be returned, you can use <see cref="TileReceived"/> and
         /// <see cref="QueueEmpty"/> events for handling tile retrieval once the queued
         /// request has been served.</remarks>
-        public byte[] GetTile(TileInfo tileInfo, AutoResetEvent tileRetrievedEvent = null)
+        public byte[] GetTile(TileInfo tileInfo)
         {
             byte[] res = GetTileFromCache(tileInfo);
             if (res != null)
@@ -118,7 +110,7 @@ namespace Core.Components.DotSpatial.Layer.BruTile.TileFetching
                 return res;
             }
 
-            ScheduleTileRequest(tileInfo, tileRetrievedEvent);
+            ScheduleTileRequest(tileInfo);
             return null;
         }
 
@@ -173,21 +165,15 @@ namespace Core.Components.DotSpatial.Layer.BruTile.TileFetching
             return volatileCache.Find(index) ?? persistentCache.Find(index);
         }
 
-        private void ScheduleTileRequest(TileInfo tileInfo, AutoResetEvent tileRetrievedEvent)
+        private void ScheduleTileRequest(TileInfo tileInfo)
         {
             if (!HasTileAlreadyBeenRequested(tileInfo.Index))
             {
                 activeTileRequests.TryAdd(tileInfo.Index, 1);
-                object[] threadArguments = AsyncMode ?
-                                               new object[]
-                                               {
-                                                   tileInfo
-                                               } :
-                                               new object[]
-                                               {
-                                                   tileInfo,
-                                                   tileRetrievedEvent ?? new AutoResetEvent(false)
-                                               };
+                var threadArguments = new object[]
+                {
+                    tileInfo
+                };
                 threadPool.QueueWorkItem(GetTileOnThread, threadArguments);
             }
         }
@@ -201,23 +187,20 @@ namespace Core.Components.DotSpatial.Layer.BruTile.TileFetching
         /// Method to actually get the tile from the <see cref="provider"/>.
         /// </summary>
         /// <param name="parameters">The thread parameters. The first argument is the <see cref="TileInfo"/>
-        /// for the file to be fetched. A second argument should be provided when <see cref="AsyncMode"/>
-        /// is false, which should be an <see cref="AutoResetEvent"/>.</param>
+        /// for the file to be fetched.</param>
         private void GetTileOnThread(object[] parameters)
         {
             var tileInfo = (TileInfo) parameters[0];
-            var tileRetrievedEvent = !AsyncMode ? (AutoResetEvent) parameters[1] : null;
-
-            GetTileOnThreadCore(tileInfo, tileRetrievedEvent);
+            GetTileOnThreadCore(tileInfo);
         }
 
-        private void GetTileOnThreadCore(TileInfo tileInfo, AutoResetEvent tileRetrievedEvent)
+        private void GetTileOnThreadCore(TileInfo tileInfo)
         {
             if (!Thread.CurrentThread.IsAlive)
             {
                 return;
             }
-            byte[] result = TryRequestTileData(tileInfo, tileRetrievedEvent);
+            byte[] result = TryRequestTileData(tileInfo);
 
             MarkTileRequestHandled(tileInfo);
 
@@ -226,11 +209,11 @@ namespace Core.Components.DotSpatial.Layer.BruTile.TileFetching
                 volatileCache.Add(tileInfo.Index, result);
                 persistentCache.Add(tileInfo.Index, result);
 
-                NotifyReceivedTile(tileInfo, tileRetrievedEvent, result);
+                OnTileReceived(new TileReceivedEventArgs(tileInfo, result));
             }
         }
 
-        private byte[] TryRequestTileData(TileInfo tileInfo, AutoResetEvent autoResetEvent)
+        private byte[] TryRequestTileData(TileInfo tileInfo)
         {
             byte[] result = null;
             try
@@ -247,13 +230,7 @@ namespace Core.Components.DotSpatial.Layer.BruTile.TileFetching
                 {
                     result = provider.GetTile(tileInfo);
                 }
-                catch
-                {
-                    if (!AsyncMode)
-                    {
-                        autoResetEvent.Set();
-                    }
-                }
+                catch {}
             }
             return result;
         }
@@ -273,26 +250,8 @@ namespace Core.Components.DotSpatial.Layer.BruTile.TileFetching
             }
         }
 
-        private void NotifyReceivedTile(TileInfo tileInfo, AutoResetEvent tileRetrievedEvent, byte[] result)
-        {
-            if (AsyncMode)
-            {
-                OnTileReceived(new TileReceivedEventArgs(tileInfo, result));
-            }
-            else
-            {
-                tileRetrievedEvent.Set();
-            }
-        }
-
         private void OnTileReceived(TileReceivedEventArgs tileReceivedEventArgs)
         {
-            // Only raise events if we are in async mode!
-            if (!AsyncMode)
-            {
-                return;
-            }
-
             TileReceived?.Invoke(this, tileReceivedEventArgs);
 
             if (IsReady())
@@ -303,12 +262,6 @@ namespace Core.Components.DotSpatial.Layer.BruTile.TileFetching
 
         private void OnQueueEmpty(EventArgs eventArgs)
         {
-            // Only raise events if we are in async mode!
-            if (!AsyncMode)
-            {
-                return;
-            }
-
             QueueEmpty?.Invoke(this, eventArgs);
         }
     }

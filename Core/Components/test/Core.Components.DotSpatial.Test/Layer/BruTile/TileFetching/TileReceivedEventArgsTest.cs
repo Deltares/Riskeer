@@ -19,11 +19,28 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Reflection;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
+using BruTile;
+using Core.Components.DotSpatial.Layer.BruTile.TileFetching;
+using NUnit.Framework;
 
-[assembly: AssemblyTitle("Core.Components.DotSpatial")]
-[assembly: AssemblyProduct("Core.Components.DotSpatial")]
-[assembly: Guid("AA47E858-A2A7-470E-8B2D-C76AE8ED9CCD")]
-[assembly: InternalsVisibleTo("Core.Components.DotSpatial.Test")]
+namespace Core.Components.DotSpatial.Test.Layer.BruTile.TileFetching
+{
+    [TestFixture]
+    public class TileReceivedEventArgsTest
+    {
+        [Test]
+        public void Constructor_ValidArguments_ExpectedValues()
+        {
+            // Setup
+            var tileInfo = new TileInfo();
+            var tileData = new byte[0];
+
+            // Call
+            var eventArgs = new TileReceivedEventArgs(tileInfo, tileData);
+
+            // Assert
+            Assert.AreSame(tileInfo, eventArgs.TileInfo);
+            Assert.AreSame(tileData, eventArgs.Tile);
+        }
+    }
+}

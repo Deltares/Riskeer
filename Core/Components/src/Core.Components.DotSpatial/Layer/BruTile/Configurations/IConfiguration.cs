@@ -45,7 +45,7 @@ namespace Core.Components.DotSpatial.Layer.BruTile.Configurations
         /// <summary>
         /// Gets the <see cref="TileFetcher"/>.
         /// </summary>
-        TileFetcher TileFetcher { get; }
+        AsyncTileFetcher TileFetcher { get; }
 
         /// <summary>
         /// Gets a deep copy of the configuration.

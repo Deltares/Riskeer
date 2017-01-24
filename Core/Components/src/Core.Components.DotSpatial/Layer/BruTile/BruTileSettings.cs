@@ -41,11 +41,6 @@ namespace Core.Components.DotSpatial.Layer.BruTile
         public static int MaximumNumberOfThreads { get; } = 4;
 
         /// <summary>
-        /// Gets a value indicating if fetching map tiles should be performed asynchronously.
-        /// </summary>
-        public static bool FetchTilesAsyncByDefault { get; } = true;
-
-        /// <summary>
         /// Gets a value indicating which format should be used to store the tiles.
         /// </summary>
         public static string PersistentCacheFormat { get; } = "png";

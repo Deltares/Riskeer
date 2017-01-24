@@ -97,7 +97,7 @@ namespace Core.Components.DotSpatial.Layer.BruTile.Configurations
 
         public ITileSource TileSource { get; private set; }
 
-        public TileFetcher TileFetcher { get; private set; }
+        public AsyncTileFetcher TileFetcher { get; private set; }
 
         public static WmtsLayerConfiguration CreateInitializedConfiguration(string capabilitiesUrl, string capabilityIdentifier, string preferredFormat)
         {
@@ -214,7 +214,7 @@ namespace Core.Components.DotSpatial.Layer.BruTile.Configurations
             TileSource = tileSource;
             TileCache = CreateTileCache();
             ITileProvider provider = BruTileReflectionHelper.GetProviderFromTileSource(tileSource);
-            TileFetcher = new TileFetcher(provider,
+            TileFetcher = new AsyncTileFetcher(provider,
                                           BruTileSettings.MemoryCacheMinimum,
                                           BruTileSettings.MemoryCacheMaximum,
                                           TileCache);

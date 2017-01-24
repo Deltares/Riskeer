@@ -57,7 +57,7 @@ namespace Core.Components.DotSpatial.Layer.BruTile
         private const string webMercatorEpsgIdentifier = "EPSG:3857";
         private readonly IConfiguration configuration;
 
-        private readonly TileFetcher tileFetcher;
+        private readonly AsyncTileFetcher tileFetcher;
 
         private readonly Stopwatch stopwatch = new Stopwatch();
 
@@ -248,7 +248,6 @@ namespace Core.Components.DotSpatial.Layer.BruTile
 
             tileFetcher.DropAllPendingTileRequests();
             var tiles = new List<TileInfo>(Sort(schema.GetTileInfos(extent, level), geoExtent.Center));
-            var waitHandles = new List<WaitHandle>();
             var tilesNotImmediatelyDrawn = new List<TileInfo>();
 
             // Set up Tile reprojector
@@ -259,32 +258,20 @@ namespace Core.Components.DotSpatial.Layer.BruTile
             Resolution resolution = schema.Resolutions[level];
             foreach (TileInfo info in tiles)
             {
-                AutoResetEvent autoResetEvent = tileFetcher.AsyncMode ? null : new AutoResetEvent(false);
-                byte[] imageData = tileFetcher.GetTile(info, autoResetEvent);
+                byte[] imageData = tileFetcher.GetTile(info);
                 if (imageData != null)
                 {
                     DrawTile(args, info, resolution, imageData, reprojector);
                     continue;
                 }
-                if (autoResetEvent == null)
-                {
-                    continue;
-                }
 
-                waitHandles.Add(autoResetEvent);
                 tilesNotImmediatelyDrawn.Add(info);
-            }
-
-            // Wait for tiles
-            foreach (var handle in waitHandles)
-            {
-                handle.WaitOne();
             }
 
             // Draw the tiles that were not present at the moment requested
             foreach (var tileInfo in tilesNotImmediatelyDrawn)
             {
-                DrawTile(args, tileInfo, resolution, tileFetcher.GetTile(tileInfo, null), reprojector);
+                DrawTile(args, tileInfo, resolution, tileFetcher.GetTile(tileInfo), reprojector);
             }
 
             // Restore the transform
