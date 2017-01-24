@@ -199,13 +199,9 @@ namespace Ringtoets.Piping.Forms.Views
         /// Updates the name of <paramref name="chartData"/> based on <paramref name="soilProfile"/>.
         /// </summary>
         /// <param name="chartData">The <see cref="ChartDataCollection"/> to update the name for.</param>
-        /// <param name="soilProfile">The <see cref="StochasticSoilProfile"/> used for obtaining the name.</param>
-        /// <remarks>A default name is set (the same as in <see cref="CreateSoilProfileChartData"/>) when:
-        /// <list type="bullet">
-        /// <item><paramref name="soilProfile"/> is <c>null</c>;</item>
-        /// <item>the <see cref="PipingSoilProfile"/> in <paramref name="soilProfile"/> is <c>null</c>.</item>
-        /// </list>
-        /// </remarks>
+        /// <param name="soilProfile">The <see cref="PipingSoilProfile"/> used for obtaining the name.</param>
+        /// <remarks>A default name is set (the same as in <see cref="CreateSoilProfileChartData"/>) when
+        /// <paramref name="soilProfile"/> is <c>null</c>.</remarks>
         public static void UpdateSoilProfileChartDataName(ChartDataCollection chartData, PipingSoilProfile soilProfile)
         {
             chartData.Name = soilProfile != null
