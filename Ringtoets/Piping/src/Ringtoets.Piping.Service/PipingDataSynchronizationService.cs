@@ -220,6 +220,43 @@ namespace Ringtoets.Piping.Service
             return changedObservables;
         }
 
+        /// <summary>
+        /// Removes a given <see cref="StochasticSoilProfile"/> from calculations in the <see cref="PipingFailureMechanism"/>
+        /// and clears all data that depends on it, either directly or indirectly.
+        /// </summary>
+        /// <param name="failureMechanism">The failure mechanism containing <paramref name="soilProfile"/>.</param>
+        /// <param name="soilProfile">The soil profile residing in <paramref name="failureMechanism"/>
+        /// that should be removed.</param>
+        /// <returns>All observable objects affected by this method.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
+        /// or <paramref name="soilProfile"/> is <c>null</c>.</exception>
+        public static IEnumerable<IObservable> RemoveStochasticSoilProfileFromInput(PipingFailureMechanism failureMechanism, StochasticSoilProfile soilProfile)
+        {
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
+            if (soilProfile == null)
+            {
+                throw new ArgumentNullException(nameof(soilProfile));
+            }
+
+            var changedObservables = new List<IObservable>();
+
+            IEnumerable<PipingCalculation> pipingCalculationScenarios =
+                failureMechanism.Calculations
+                                .Cast<PipingCalculation>()
+                                .Where(pcs => ReferenceEquals(pcs.InputParameters.StochasticSoilProfile, soilProfile));
+
+            foreach (PipingCalculation pipingCalculationScenario in pipingCalculationScenarios)
+            {
+                changedObservables.AddRange(RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(pipingCalculationScenario));
+                changedObservables.AddRange(ClearStochasticSoilProfile(pipingCalculationScenario.InputParameters));
+            }
+
+            return changedObservables;
+        }
+
         private static IEnumerable<IObservable> ClearSurfaceLine(PipingInput input)
         {
             input.SurfaceLine = null;
@@ -232,6 +269,16 @@ namespace Ringtoets.Piping.Service
         private static IEnumerable<IObservable> ClearStochasticSoilModel(PipingInput input)
         {
             input.StochasticSoilModel = null;
+            input.StochasticSoilProfile = null;
+
+            return new[]
+            {
+                input
+            };
+        }
+
+        private static IEnumerable<IObservable> ClearStochasticSoilProfile(PipingInput input)
+        {
             input.StochasticSoilProfile = null;
 
             return new[]

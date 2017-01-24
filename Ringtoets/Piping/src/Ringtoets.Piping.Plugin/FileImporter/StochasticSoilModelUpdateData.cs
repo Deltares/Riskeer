@@ -25,6 +25,7 @@ using System.Linq;
 using Core.Common.Base;
 using log4net;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Service;
 
 namespace Ringtoets.Piping.Plugin.FileImporter
 {
@@ -34,6 +35,20 @@ namespace Ringtoets.Piping.Plugin.FileImporter
     public class StochasticSoilModelUpdateData : IStochasticSoilModelUpdateStrategy
     {
         private readonly ILog log = LogManager.GetLogger(typeof(StochasticSoilModelUpdateData));
+        private readonly PipingFailureMechanism failureMechanism;
+
+        /// <summary>
+        /// Creates a new instance of <see cref="StochasticSoilModelUpdateData"/>.
+        /// </summary>
+        /// <param name="failureMechanism">The failure mechanism in which the models are updated.</param>
+        public StochasticSoilModelUpdateData(PipingFailureMechanism failureMechanism)
+        {
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
+            this.failureMechanism = failureMechanism;
+        }
 
         /// <summary>
         /// Updates the <paramref name="targetCollection"/>. 
@@ -69,25 +84,48 @@ namespace Ringtoets.Piping.Plugin.FileImporter
                 throw new ArgumentNullException(nameof(targetCollection));
             }
 
-            var updatedModels = new List<StochasticSoilModel>();
+            var removedModels = targetCollection.ToList();
+            var updatedOrAddedModels = new List<StochasticSoilModel>();
+            var affectedObjects = new List<IObservable> { targetCollection };
 
             foreach (var readModel in readStochasticSoilModels)
             {
                 var existingModel = targetCollection.SingleOrDefault(existing => existing.Name.Equals(readModel.Name));
                 if (existingModel != null)
                 {
-                    existingModel.Update(readModel);
-                    updatedModels.Add(existingModel);
+                    StochasticSoilModelProfileDifference difference = existingModel.Update(readModel);
+                    RemoveStochasticSoilProfilesFromInputs(difference, affectedObjects);
+
+                    removedModels.Remove(existingModel);
+                    updatedOrAddedModels.Add(existingModel);
                 }
                 else
                 {
-                    updatedModels.Add(readModel);
+                    removedModels.Remove(readModel);
+                    updatedOrAddedModels.Add(readModel);
                 }
             }
+            foreach (var model in removedModels)
+            {
+                RemoveStochasticSoilModel(model, affectedObjects);
+            }
             targetCollection.Clear();
-            targetCollection.AddRange(updatedModels, sourceFilePath);
+            targetCollection.AddRange(updatedOrAddedModels, sourceFilePath);
 
-            return new IObservable[] { targetCollection }.Union(updatedModels);
+            return affectedObjects;
+        }
+
+        private void RemoveStochasticSoilModel(StochasticSoilModel removedModel, List<IObservable> affectedObjects)
+        {
+            affectedObjects.AddRange(PipingDataSynchronizationService.RemoveStochasticSoilModel(failureMechanism, removedModel));
+        }
+
+        private void RemoveStochasticSoilProfilesFromInputs(StochasticSoilModelProfileDifference difference, List<IObservable> affectedObjects)
+        {
+            foreach (StochasticSoilProfile removedProfile in difference.RemovedProfiles)
+            {
+                affectedObjects.AddRange(PipingDataSynchronizationService.RemoveStochasticSoilProfileFromInput(failureMechanism, removedProfile));
+            }
         }
     }
 }

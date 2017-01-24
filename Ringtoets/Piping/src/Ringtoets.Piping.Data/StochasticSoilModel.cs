@@ -22,9 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Core.Common.Base;
 using Core.Common.Base.Geometry;
-using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.Data
 {
@@ -32,7 +30,7 @@ namespace Ringtoets.Piping.Data
     /// This class represents a stochastic soil model which consists out of a collection of <see cref="StochasticSoilProfile"/>. 
     /// A stochastic soil model contains a segment for which the model applies.
     /// </summary>
-    public class StochasticSoilModel : Observable
+    public class StochasticSoilModel
     {
         /// <summary>
         /// Creates a new instance of <see cref="StochasticSoilModel"/>.
@@ -83,11 +81,10 @@ namespace Ringtoets.Piping.Data
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="fromModel"/>
         /// is <c>null</c>.</exception>
         /// <exception cref="InvalidOperationException">Thrown when <see cref="StochasticSoilProfiles"/>
-        /// contains multiple <see cref="PipingSoilProfile"/> with the same 
-        /// <see cref="PipingSoilProfile.Name"/>, and <paramref name="fromModel"/> also contains a 
-        /// <see cref="StochasticSoilProfile"/> with the same name.
+        /// contains multiple profiles with the same name, and <paramref name="fromModel"/> also contains a 
+        /// profile with the same name.
         /// </exception>
-        public void Update(StochasticSoilModel fromModel)
+        public StochasticSoilModelProfileDifference Update(StochasticSoilModel fromModel)
         {
             if (fromModel == null)
             {
@@ -101,21 +98,35 @@ namespace Ringtoets.Piping.Data
             {
                 Geometry.Add(point);
             }
-            List<string> newNames = new List<string>();
+
+            var newNames = new List<string>();
+            var updatedProfiles = new List<StochasticSoilProfile>();
+            var addedProfiles = new List<StochasticSoilProfile>();
+            var removedProfiles = new List<StochasticSoilProfile>();
+
             foreach (var fromProfile in fromModel.StochasticSoilProfiles)
             {
                 var sameProfile = StochasticSoilProfiles.SingleOrDefault(sp => sp.SoilProfile.Name.Equals(fromProfile.SoilProfile.Name));
                 if (sameProfile != null)
                 {
                     sameProfile.Update(fromProfile);
+                    updatedProfiles.Add(sameProfile);
                 }
                 else
                 {
-                    StochasticSoilProfiles.Add(fromProfile);    
+                    StochasticSoilProfiles.Add(fromProfile);
+                    addedProfiles.Add(fromProfile);
                 }
                 newNames.Add(fromProfile.SoilProfile.Name);
             }
-            StochasticSoilProfiles.RemoveAll(sp => !newNames.Contains(sp.SoilProfile.Name));
+
+            foreach (var profileToRemove in StochasticSoilProfiles.Where(sp => !newNames.Contains(sp.SoilProfile.Name)).ToList())
+            {
+                StochasticSoilProfiles.Remove(profileToRemove);
+                removedProfiles.Add(profileToRemove);
+            }
+
+            return new StochasticSoilModelProfileDifference(addedProfiles, updatedProfiles, removedProfiles);
         }
 
         public override string ToString()

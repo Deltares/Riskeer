@@ -497,7 +497,9 @@ namespace Ringtoets.Piping.Plugin
             return (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                  .AddImportItem()
                                                                  .AddCustomItem(
-                                                                     CreateUpdateStochasticSoilModelsItem(nodeData.WrappedData))
+                                                                     CreateUpdateStochasticSoilModelsItem(
+                                                                         nodeData.WrappedData,
+                                                                         nodeData.FailureMechanism))
                                                                  .AddSeparator()
                                                                  .AddDeleteChildrenItem()
                                                                  .AddSeparator()
@@ -506,7 +508,7 @@ namespace Ringtoets.Piping.Plugin
                                                                  .Build();
         }
 
-        private StrictContextMenuItem CreateUpdateStochasticSoilModelsItem(StochasticSoilModelCollection nodeDataWrappedData)
+        private StrictContextMenuItem CreateUpdateStochasticSoilModelsItem(StochasticSoilModelCollection soilModelCollection, PipingFailureMechanism failureMechanism)
         {
             return new StrictContextMenuItem(
                 "&Bijwerken...",
@@ -514,14 +516,14 @@ namespace Ringtoets.Piping.Plugin
                 PipingPluginResources.RefreshIcon,
                 (sender, args) =>
                 {
-                    var importer = new StochasticSoilModelImporter(nodeDataWrappedData,
-                                                    nodeDataWrappedData.SourcePath,
-                                                    new StochasticSoilModelUpdateData());
+                    var importer = new StochasticSoilModelImporter(soilModelCollection,
+                                                    soilModelCollection.SourcePath,
+                                                    new StochasticSoilModelUpdateData(failureMechanism));
                     var activity = new FileImportActivity(importer, "Bijwerken van stochastische ondergrondmodellen.");
                     ActivityProgressDialogRunner.Run(Gui.MainWindow, activity);
                 })
             {
-                Enabled = nodeDataWrappedData.SourcePath != null
+                Enabled = soilModelCollection.SourcePath != null
             };
         }
 
