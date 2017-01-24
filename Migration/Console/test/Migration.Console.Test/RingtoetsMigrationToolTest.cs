@@ -137,7 +137,15 @@ namespace Migration.Console.Test
             // Result
             Assert.AreEqual($"Er is een verkeerd aantal parameters opgegeven voor de opdracht '{supportedCommand}'"
                             + Environment.NewLine + Environment.NewLine
-                            + $"{supportedCommand} RINGTOETSBESTANDSPAD\t"
+                            + "--help\tGeef het hulp menu weer."
+                            + Environment.NewLine
+                            + "--migrate RINGTOETSBESTANDSPAD NIEUWEVERSIE UITVOERPAD"
+                            + "\t"
+                            + "RINGTOETSBESTANDSPAD is het bestandspad naar het Ringtoetsdatabase bestand dat gemigreerd moet worden. "
+                            + "NIEUWEVERSIE is de versie naar waar gemigreerd moet worden. "
+                            + "UITVOERPAD is het pad waar de het gemigreerde Ringtoetsbestand opgeslagen zal worden."
+                            + Environment.NewLine
+                            + "--supported RINGTOETSBESTANDSPAD\t"
                             + "RINGTOETSBESTANDSPAD is het bestandspad naar het Ringtoetsdatabase bestand waarvan de versie gevalideerd moet worden."
                             + Environment.NewLine
                             , consoleText);
@@ -195,12 +203,17 @@ namespace Migration.Console.Test
             // Result
             Assert.AreEqual($"Er is een verkeerd aantal parameters opgegeven voor de opdracht '{migrateCommand}'"
                             + Environment.NewLine + Environment.NewLine
-                            + $"{migrateCommand} RINGTOETSBESTANDSPAD NIEUWEVERSIE UITVOERPAD\t"
+                            + "--help\tGeef het hulp menu weer."
+                            + Environment.NewLine
+                            + "--migrate RINGTOETSBESTANDSPAD NIEUWEVERSIE UITVOERPAD"
+                            + "\t"
                             + "RINGTOETSBESTANDSPAD is het bestandspad naar het Ringtoetsdatabase bestand dat gemigreerd moet worden. "
                             + "NIEUWEVERSIE is de versie naar waar gemigreerd moet worden. "
                             + "UITVOERPAD is het pad waar de het gemigreerde Ringtoetsbestand opgeslagen zal worden."
                             + Environment.NewLine
-                            , consoleText);
+                            + "--supported RINGTOETSBESTANDSPAD\t"
+                            + "RINGTOETSBESTANDSPAD is het bestandspad naar het Ringtoetsdatabase bestand waarvan de versie gevalideerd moet worden."
+                            + Environment.NewLine, consoleText);
             Assert.AreEqual(160, environmentControl.ErrorCodeCalled);
         }
 
@@ -266,7 +279,18 @@ namespace Migration.Console.Test
 
             // Result
             Assert.That(consoleText.StartsWith("Er is een onverwachte fout opgetreden tijdens het verplaatsen van het gemigreerde bestand "));
-            Assert.That(consoleText.EndsWith($" naar '{targetFilePath}'." + Environment.NewLine));
+            Assert.That(consoleText.EndsWith($" naar '{targetFilePath}'." + Environment.NewLine + Environment.NewLine
+                                             + "--help\tGeef het hulp menu weer."
+                                             + Environment.NewLine
+                                             + "--migrate RINGTOETSBESTANDSPAD NIEUWEVERSIE UITVOERPAD"
+                                             + "\t"
+                                             + "RINGTOETSBESTANDSPAD is het bestandspad naar het Ringtoetsdatabase bestand dat gemigreerd moet worden. "
+                                             + "NIEUWEVERSIE is de versie naar waar gemigreerd moet worden. "
+                                             + "UITVOERPAD is het pad waar de het gemigreerde Ringtoetsbestand opgeslagen zal worden."
+                                             + Environment.NewLine
+                                             + "--supported RINGTOETSBESTANDSPAD\t"
+                                             + "RINGTOETSBESTANDSPAD is het bestandspad naar het Ringtoetsdatabase bestand waarvan de versie gevalideerd moet worden."
+                                             + Environment.NewLine));
             Assert.AreEqual(22, environmentControl.ErrorCodeCalled);
         }
     }

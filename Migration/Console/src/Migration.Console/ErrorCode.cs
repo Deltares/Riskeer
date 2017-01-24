@@ -27,13 +27,18 @@ namespace Migration.Console
     public enum ErrorCode
     {
         /// <summary>
+        /// Exit successfully.
+        /// </summary>
+        ErrorSuccess = 0,
+
+        /// <summary>
         /// Exit because the command provide failed.
         /// </summary>
         ErrorBadCommand = 22,
 
         /// <summary>
-        /// Exit because bad arguments were provided.
+        /// Exit because invalid command line arguments were provided.
         /// </summary>
-        ErrorBadArguments = 160
+        ErrorInvalidCommandLine = 160
     }
 }

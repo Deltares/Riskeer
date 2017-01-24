@@ -24,6 +24,7 @@ using System.Linq;
 using Migration.Console.Properties;
 using Migration.Core.Storage;
 using Migration.Scripts.Data;
+using Migration.Scripts.Data.Exceptions;
 using SystemConsole = System.Console;
 
 namespace Migration.Console
@@ -52,11 +53,22 @@ namespace Migration.Console
             {
                 ExecuteCommand(args);
             }
-            catch (ArgumentException exception)
+            catch (Exception exception)
             {
                 ConsoleHelper.WriteErrorLine(exception.Message);
-                Exit(ErrorCode.ErrorBadArguments);
+                ConsoleHelper.WriteErrorLine("");
+                DisplayAllCommands();
+
+                if (exception is CriticalDatabaseMigrationException || exception is NotSupportedException)
+                {
+                    Exit(ErrorCode.ErrorBadCommand);
+                    return;
+                }
+                Exit(ErrorCode.ErrorInvalidCommandLine);
+                return;
             }
+
+            Exit(ErrorCode.ErrorSuccess);
         }
 
         private static void ExecuteCommand(string[] args)
@@ -75,8 +87,6 @@ namespace Migration.Console
                     break;
                 default:
                     InvalidCommand(command);
-                    DisplayAllCommands();
-                    Exit(ErrorCode.ErrorBadCommand);
                     break;
             }
         }
@@ -99,8 +109,7 @@ namespace Migration.Console
 
         private static void InvalidCommand(string command)
         {
-            ConsoleHelper.WriteErrorLine(Resources.CommandInvalid_Command_0_Is_not_valid, command);
-            SystemConsole.WriteLine("");
+            throw new NotSupportedException(string.Format(Resources.CommandInvalid_Command_0_Is_not_valid, command));
         }
 
         #endregion
@@ -111,11 +120,8 @@ namespace Migration.Console
         {
             if (args.Length != 2)
             {
-                ConsoleHelper.WriteErrorLine(Resources.Command_0_Incorrect_number_of_parameters, commandVersionSupported);
-                SystemConsole.WriteLine("");
-                ShowSupportedCommand();
-                Exit(ErrorCode.ErrorBadArguments);
-                return;
+                throw new InvalidOperationException(string.Format(Resources.Command_0_Incorrect_number_of_parameters,
+                                                                  commandVersionSupported));
             }
 
             string version = args[1];
@@ -142,13 +148,9 @@ namespace Migration.Console
         {
             if (args.Length != 4)
             {
-                ConsoleHelper.WriteErrorLine(Resources.Command_0_Incorrect_number_of_parameters, commandMigrate);
-                SystemConsole.WriteLine("");
-                ShowMigrateCommand();
-                Exit(ErrorCode.ErrorBadArguments);
-                return;
+                throw new InvalidOperationException(string.Format(Resources.Command_0_Incorrect_number_of_parameters,
+                                                                  commandMigrate));
             }
-
             var migrator = new VersionedFileMigrator();
 
             string filepath = args[1];
@@ -157,20 +159,7 @@ namespace Migration.Console
 
             var sourceFile = new VersionedFile(filepath);
 
-            try
-            {
-                migrator.Migrate(sourceFile, toVersion, toFilepath);
-            }
-            catch (Exception exception)
-            {
-                ConsoleHelper.WriteErrorLine(exception.Message);
-                if (exception is ArgumentException)
-                {
-                    Exit(ErrorCode.ErrorBadArguments);
-                    return;
-                }
-                Exit(ErrorCode.ErrorBadCommand);
-            }
+            migrator.Migrate(sourceFile, toVersion, toFilepath);
         }
 
         private static void ShowMigrateCommand()
