@@ -68,7 +68,7 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
 
             // Assert
             Assert.IsInstanceOf<BackgroundWmtsMapDataProperties>(objectProperties);
-            Assert.AreSame(context, objectProperties.Data);
+            Assert.AreSame(mapData, objectProperties.Data);
         }
     }
 }
