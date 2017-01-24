@@ -22,6 +22,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 
 namespace Ringtoets.Common.Utils
@@ -35,7 +36,7 @@ namespace Ringtoets.Common.Utils
 
         public int Compare(object x, object y)
         {
-            return Compare(x.ToString(), y.ToString());
+            return Compare(GetFormattableString(x), GetFormattableString(y));
         }
 
         public int Compare(string x, string y)
@@ -80,6 +81,12 @@ namespace Ringtoets.Common.Utils
                 return Compare(newVersionString, newCurrentVersionString);
             }
             return compareTo;
+        }
+
+        private static string GetFormattableString(object formattableObject)
+        {
+            var formattable = formattableObject as IFormattable;
+            return formattable?.ToString(null, CultureInfo.InvariantCulture) ?? formattableObject.ToString();
         }
     }
 }
