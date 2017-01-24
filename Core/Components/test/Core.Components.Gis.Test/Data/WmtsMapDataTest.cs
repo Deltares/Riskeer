@@ -288,6 +288,7 @@ namespace Core.Components.Gis.Test.Data
             Assert.IsNull(mapData.SelectedCapabilityIdentifier);
             Assert.IsFalse(mapData.IsConfigured);
             Assert.IsFalse(mapData.IsVisible);
+            Assert.AreEqual("<niet bepaald>", mapData.Name);
         }
     }
 }

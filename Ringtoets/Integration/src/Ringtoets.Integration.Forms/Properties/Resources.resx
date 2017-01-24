@@ -298,19 +298,19 @@ Weet u zeker dat u wilt doorgaan?</value>
     <value>Trajecttype: {0}</value>
   </data>
   <data name="BackgroundMapDataContextProperties_IsVisible_Description" xml:space="preserve">
-    <value>Geeft aan of de geselecteerde achtergrondlaag in alle kaarten wordt weergegeven.</value>
+    <value>Geeft aan of de geselecteerde achtergrond kaartlaag in alle kaarten van dit traject wordt weergegeven.</value>
   </data>
   <data name="BackgroundMapDataContextProperties_IsVisible_DisplayName" xml:space="preserve">
-    <value>Achtergrondlaag tonen</value>
+    <value>Weergeven</value>
   </data>
   <data name="BackgroundMapDataContextProperties_Name_Description" xml:space="preserve">
-    <value>Naam van de achtergrond kaartlaag.</value>
+    <value>Omschrijving van de achtergrond kaartlaag.</value>
   </data>
   <data name="BackgroundMapDataContextProperties_Name_DisplayName" xml:space="preserve">
-    <value>Naam van de kaartlaag</value>
+    <value>Omschrijving</value>
   </data>
   <data name="BackgroundMapDataContextProperties_Transparency_Description" xml:space="preserve">
-    <value>Transparantie waarmee de achtergrondlaag wordt weergegeven.</value>
+    <value>Transparantie waarmee de achtergrond kaartlaag wordt weergegeven.</value>
   </data>
   <data name="BackgroundMapDataContextProperties_Transparency_DisplayName" xml:space="preserve">
     <value>Transparantie</value>
@@ -319,6 +319,6 @@ Weet u zeker dat u wilt doorgaan?</value>
     <value>Volledige URL naar de Web Map Tile Service (WMTS) die als achtergrond kaartlaag gebruikt wordt.</value>
   </data>
   <data name="BackgroundMapDataContextProperties_Url_DisplayName" xml:space="preserve">
-    <value>WMTS URL</value>
+    <value>URL</value>
   </data>
 </root>

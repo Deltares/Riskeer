@@ -215,7 +215,7 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Geeft aan of de geselecteerde achtergrondlaag in alle kaarten wordt weergegeven..
+        ///   Looks up a localized string similar to Geeft aan of de geselecteerde achtergrond kaartlaag in alle kaarten van dit traject wordt weergegeven..
         /// </summary>
         public static string BackgroundMapDataContextProperties_IsVisible_Description {
             get {
@@ -224,7 +224,7 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Achtergrondlaag tonen.
+        ///   Looks up a localized string similar to Weergeven.
         /// </summary>
         public static string BackgroundMapDataContextProperties_IsVisible_DisplayName {
             get {
@@ -233,7 +233,7 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Naam van de achtergrond kaartlaag..
+        ///   Looks up a localized string similar to Omschrijving van de achtergrond kaartlaag..
         /// </summary>
         public static string BackgroundMapDataContextProperties_Name_Description {
             get {
@@ -242,7 +242,7 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Naam van de kaartlaag.
+        ///   Looks up a localized string similar to Omschrijving.
         /// </summary>
         public static string BackgroundMapDataContextProperties_Name_DisplayName {
             get {
@@ -251,7 +251,7 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Transparantie waarmee de achtergrondlaag wordt weergegeven..
+        ///   Looks up a localized string similar to Transparantie waarmee de achtergrond kaartlaag wordt weergegeven..
         /// </summary>
         public static string BackgroundMapDataContextProperties_Transparency_Description {
             get {
@@ -278,7 +278,7 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to WMTS URL.
+        ///   Looks up a localized string similar to URL.
         /// </summary>
         public static string BackgroundMapDataContextProperties_Url_DisplayName {
             get {

@@ -78,7 +78,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 string text = info.Text(context);
 
                 // Assert
-                Assert.AreEqual("Achtergrondlaag", text);
+                Assert.AreEqual("Achtergrondkaart", text);
             }
         }
 

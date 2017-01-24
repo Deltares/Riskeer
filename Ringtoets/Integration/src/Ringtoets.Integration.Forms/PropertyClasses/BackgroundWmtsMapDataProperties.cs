@@ -56,7 +56,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         {
             get
             {
-                return data.Name;
+                return data.IsConfigured ? data.Name : string.Empty;
             }
         }
 

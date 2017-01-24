@@ -164,7 +164,7 @@ Wilt u doorgaan?</value>
 Wilt u doorgaan?</value>
   </data>
   <data name="RingtoetsPlugin_BackgroundMapDataContext_Text" xml:space="preserve">
-    <value>Achtergrondlaag</value>
+    <value>Achtergrondkaart</value>
   </data>
   <data name="AssessmentSectionCompositionChangeHandler_Waveheight_and_design_water_level_results_cleared" xml:space="preserve">
     <value>Alle berekende hydraulische randvoorwaarden van de relevante toetssporen zijn verwijderd.</value>

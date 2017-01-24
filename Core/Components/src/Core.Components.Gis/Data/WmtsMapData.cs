@@ -188,6 +188,8 @@ namespace Core.Components.Gis.Data
 
             IsConfigured = false;
             IsVisible = false;
+
+            Name = Resources.WmtsMapData_Unconfigured_name;
         }
     }
 }

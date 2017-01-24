@@ -202,7 +202,7 @@ namespace Ringtoets.Integration.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Achtergrondlaag.
+        ///   Looks up a localized string similar to Achtergrondkaart.
         /// </summary>
         public static string RingtoetsPlugin_BackgroundMapDataContext_Text {
             get {

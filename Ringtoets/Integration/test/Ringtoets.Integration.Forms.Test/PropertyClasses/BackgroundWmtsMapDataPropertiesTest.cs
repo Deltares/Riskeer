@@ -53,7 +53,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void GetProperties_ValidData_ReturnsExpectedValues()
+        public void GetProperties_ConfiguredMapData_ReturnsExpectedValues()
         {
             // Setup
             WmtsMapData mapData = WmtsMapData.CreateDefaultPdokMapData();
@@ -67,6 +67,28 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             Assert.AreSame(mapData, properties.Data);
 
             Assert.AreEqual(mapData.Name, properties.Name);
+            Assert.AreEqual(mapData.SourceCapabilitiesUrl, properties.Url);
+
+            Assert.AreEqual(2, properties.Transparency.NumberOfDecimalPlaces);
+            Assert.AreEqual(mapData.Transparency, properties.Transparency);
+            Assert.AreEqual(mapData.IsVisible, properties.IsVisible);
+        }
+
+        [Test]
+        public void GetProperties_UnconfiguredMapData_ReturnsExpectedValues()
+        {
+            // Setup
+            WmtsMapData mapData = WmtsMapData.CreateUnconnectedMapData();
+
+            // Call
+            var properties = new BackgroundWmtsMapDataProperties(mapData);
+
+            // Assert
+            Assert.IsInstanceOf<ObjectProperties<WmtsMapData>>(properties);
+
+            Assert.AreSame(mapData, properties.Data);
+
+            Assert.AreEqual(string.Empty, properties.Name);
             Assert.AreEqual(mapData.SourceCapabilitiesUrl, properties.Url);
 
             Assert.AreEqual(2, properties.Transparency.NumberOfDecimalPlaces);
@@ -120,14 +142,14 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             PropertyDescriptor nameProperty = dynamicProperties[requiredNamePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
                                                                             "Algemeen",
-                                                                            "Naam van de kaartlaag",
-                                                                            "Naam van de achtergrond kaartlaag.",
+                                                                            "Omschrijving",
+                                                                            "Omschrijving van de achtergrond kaartlaag.",
                                                                             true);
 
             PropertyDescriptor urlProperty = dynamicProperties[requiredUrlPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(urlProperty,
                                                                             "Algemeen",
-                                                                            "WMTS URL",
+                                                                            "URL",
                                                                             "Volledige URL naar de Web Map Tile Service (WMTS) die als achtergrond kaartlaag gebruikt wordt.",
                                                                             true);
 
@@ -135,14 +157,14 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(transparencyPropertyIndex,
                                                                             "Algemeen",
                                                                             "Transparantie",
-                                                                            "Transparantie waarmee de achtergrondlaag wordt weergegeven.",
+                                                                            "Transparantie waarmee de achtergrond kaartlaag wordt weergegeven.",
                                                                             true);
 
             PropertyDescriptor visibilityProperty = dynamicProperties[requiredVisibilityPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(visibilityProperty,
                                                                             "Algemeen",
-                                                                            "Achtergrondlaag tonen",
-                                                                            "Geeft aan of de geselecteerde achtergrondlaag in alle kaarten wordt weergegeven.",
+                                                                            "Weergeven",
+                                                                            "Geeft aan of de geselecteerde achtergrond kaartlaag in alle kaarten van dit traject wordt weergegeven.",
                                                                             true);
         }
 
@@ -167,14 +189,14 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(transparencyPropertyIndex,
                                                                             "Algemeen",
                                                                             "Transparantie",
-                                                                            "Transparantie waarmee de achtergrondlaag wordt weergegeven.",
+                                                                            "Transparantie waarmee de achtergrond kaartlaag wordt weergegeven.",
                                                                             !isMapConfigured);
 
             PropertyDescriptor visibilityProperty = dynamicProperties[requiredVisibilityPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(visibilityProperty,
                                                                             "Algemeen",
-                                                                            "Achtergrondlaag tonen",
-                                                                            "Geeft aan of de geselecteerde achtergrondlaag in alle kaarten wordt weergegeven.",
+                                                                            "Weergeven",
+                                                                            "Geeft aan of de geselecteerde achtergrond kaartlaag in alle kaarten van dit traject wordt weergegeven.",
                                                                             !isMapConfigured);
         }
 
