@@ -245,6 +245,15 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Er zijn geen berekeningen geselecteerd..
+        /// </summary>
+        public static string CalculatableViews_No_calculations_selected {
+            get {
+                return ResourceManager.GetString("CalculatableViews_No_calculations_selected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Be&amp;rekenen.
         /// </summary>
         public static string Calculate {

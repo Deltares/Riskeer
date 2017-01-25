@@ -132,6 +132,20 @@ namespace Ringtoets.Common.Forms.Views
                                         .Select(r => r.CalculatableObject);
         }
 
+        /// <summary>
+        /// Validates the calculatable objects.
+        /// </summary>
+        /// <returns>A validation message in case no calculations can be performed, <c>null</c> otherwise.</returns>
+        protected virtual string ValidateCalculatableObjects()
+        {
+            if (!GetCalculatableRows().Any(r => r.ShouldCalculate))
+            {
+                return Resources.CalculatableViews_No_calculations_selected;
+            }
+
+            return null;
+        }
+
         private void LocalizeControls()
         {
             CalculateForSelectedButton.Text = Resources.CalculatableView_CalculateForSelectedButton_Text;
@@ -142,7 +156,17 @@ namespace Ringtoets.Common.Forms.Views
 
         private void UpdateCalculateForSelectedButton()
         {
-            CalculateForSelectedButton.Enabled = GetCalculatableRows().Any(r => r.ShouldCalculate);
+            var validationText = ValidateCalculatableObjects();
+            if (!string.IsNullOrEmpty(validationText))
+            {
+                CalculateForSelectedButton.Enabled = false;
+                CalculateForSelectedButtonErrorProvider.SetError(CalculateForSelectedButton, validationText);
+            }
+            else
+            {
+                CalculateForSelectedButton.Enabled = true;
+                CalculateForSelectedButtonErrorProvider.Clear();
+            }
         }
 
         private void InitializeEventHandlers()

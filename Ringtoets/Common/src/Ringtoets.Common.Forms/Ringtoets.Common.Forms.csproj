@@ -175,6 +175,9 @@
     <EmbeddedResource Include="ScenarioSelectionControl.resx">
       <DependentUpon>ScenarioSelectionControl.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\CalculatableView.resx">
+      <DependentUpon>CalculatableView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\FailureMechanismView.resx">
       <DependentUpon>FailureMechanismView.cs</DependentUpon>
     </EmbeddedResource>

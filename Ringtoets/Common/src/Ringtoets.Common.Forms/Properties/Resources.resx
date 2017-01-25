@@ -905,4 +905,7 @@ Weet u zeker dat u wilt doorgaan?</value>
 
 Weet u zeker dat u wilt doorgaan?</value>
   </data>
+  <data name="CalculatableViews_No_calculations_selected" xml:space="preserve">
+    <value>Er zijn geen berekeningen geselecteerd.</value>
+  </data>
 </root>

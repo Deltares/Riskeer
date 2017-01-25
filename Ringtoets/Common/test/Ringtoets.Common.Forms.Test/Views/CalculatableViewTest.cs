@@ -23,6 +23,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.Views;
+using Core.Common.Utils.Reflection;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Ringtoets.Common.Forms.Views;
@@ -178,7 +179,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         [Test]
-        public void GivenFullyConfiguredView_WhenNoRowsSelected_ThenCalculateForSelectedButtonDisabled()
+        public void GivenFullyConfiguredView_WhenNoRowsSelected_ThenCalculateForSelectedButtonDisabledAndErrorMessageProvided()
         {
             // Given & When
             TestCalculatableView view = ShowFullyConfiguredTestCalculatableView();
@@ -186,7 +187,28 @@ namespace Ringtoets.Common.Forms.Test.Views
             // Then
             var button = (Button) view.Controls.Find("CalculateForSelectedButton", true)[0];
             Assert.IsFalse(button.Enabled);
-            Assert.IsEmpty(view.ObjectsToCalculate);
+
+            var errorProvider = TypeUtils.GetField<ErrorProvider>(view, "CalculateForSelectedButtonErrorProvider");
+            Assert.AreEqual("Er zijn geen berekeningen geselecteerd.", errorProvider.GetError(button));
+        }
+
+        [Test]
+        public void GivenFullyConfiguredView_WhenRowsSelected_ThenCalculateForSelectedButtonEnabledAndNoErrorMessageProvided()
+        {
+            // Given & When
+            TestCalculatableView view = ShowFullyConfiguredTestCalculatableView();
+
+            var dataGridView = (DataGridView) view.Controls.Find("dataGridView", true)[0];
+
+            DataGridViewRowCollection rows = dataGridView.Rows;
+            rows[0].Cells[calculateColumnIndex].Value = true;
+
+            // Then
+            var button = (Button) view.Controls.Find("CalculateForSelectedButton", true)[0];
+            Assert.IsTrue(button.Enabled);
+
+            var errorProvider = TypeUtils.GetField<ErrorProvider>(view, "CalculateForSelectedButtonErrorProvider");
+            Assert.AreEqual("", errorProvider.GetError(button));
         }
 
         [Test]

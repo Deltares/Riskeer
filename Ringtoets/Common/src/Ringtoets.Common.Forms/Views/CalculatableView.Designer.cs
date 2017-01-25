@@ -36,12 +36,15 @@ namespace Ringtoets.Common.Forms.Views
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.dataGridViewControl = new Core.Common.Controls.DataGrid.DataGridViewControl();
             this.CalculateForSelectedButton = new System.Windows.Forms.Button();
             this.DeselectAllButton = new System.Windows.Forms.Button();
             this.SelectAllButton = new System.Windows.Forms.Button();
             this.ButtonGroupBox = new System.Windows.Forms.GroupBox();
+            this.CalculateForSelectedButtonErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.ButtonGroupBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.CalculateForSelectedButtonErrorProvider)).BeginInit();
             this.SuspendLayout();
             // 
             // dataGridViewControl
@@ -96,7 +99,12 @@ namespace Ringtoets.Common.Forms.Views
             this.ButtonGroupBox.TabIndex = 3;
             this.ButtonGroupBox.TabStop = false;
             // 
-            // HydraulicBoundaryLocationsView
+            // CalculateForSelectedButtonErrorProvider
+            // 
+            this.CalculateForSelectedButtonErrorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
+            this.CalculateForSelectedButtonErrorProvider.ContainerControl = this;
+            // 
+            // CalculatableView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -104,9 +112,10 @@ namespace Ringtoets.Common.Forms.Views
             this.AutoScrollMinSize = new System.Drawing.Size(516, 85);
             this.Controls.Add(this.dataGridViewControl);
             this.Controls.Add(this.ButtonGroupBox);
-            this.Name = "HydraulicBoundaryLocationsView";
+            this.Name = "CalculatableView";
             this.Size = new System.Drawing.Size(533, 146);
             this.ButtonGroupBox.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.CalculateForSelectedButtonErrorProvider)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -118,5 +127,6 @@ namespace Ringtoets.Common.Forms.Views
         private System.Windows.Forms.Button DeselectAllButton;
         private System.Windows.Forms.Button SelectAllButton;
         protected System.Windows.Forms.GroupBox ButtonGroupBox;
+        private System.Windows.Forms.ErrorProvider CalculateForSelectedButtonErrorProvider;
     }
 }
