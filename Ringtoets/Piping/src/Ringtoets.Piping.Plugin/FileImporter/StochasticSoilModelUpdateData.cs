@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using log4net;
+using Ringtoets.Common.Service;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Service;
 
@@ -130,10 +131,14 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             }
             foreach (StochasticSoilProfile updatedProfile in difference.UpdatedProfiles)
             {
-                affectedObjects.AddRange(failureMechanism.Calculations
-                                                         .Cast<PipingCalculation>()
-                                                         .Select(c => c.InputParameters)
-                                                         .Where(i => ReferenceEquals(i.StochasticSoilProfile, updatedProfile)));
+                IEnumerable<PipingCalculation> pipingInputs = failureMechanism.Calculations
+                                                                              .Cast<PipingCalculation>()
+                                                                              .Where(c => ReferenceEquals(c.InputParameters.StochasticSoilProfile, updatedProfile));
+                foreach (PipingCalculation calculation in pipingInputs)
+                {
+                    affectedObjects.AddRange(RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(calculation));
+                    affectedObjects.Add(calculation.InputParameters);
+                }
             }
             return affectedObjects;
         }
