@@ -237,4 +237,19 @@ Deze locatie met karakteristieke punten wordt overgeslagen.</value>
   <data name="RefreshIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\table_refresh.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="PipingPlugin_RunUpdateStochasticSoilModel_Update_StochasticSoilModels" xml:space="preserve">
+    <value>Bijwerken van stochastische ondergrondmodellen.</value>
+  </data>
+  <data name="PipingPlugin_UpdateStochasticSoilModels_Update_of_StochasticSoilModels_from_File_0_canceled_by_user" xml:space="preserve">
+    <value>Bijwerken van ondergrondschematisaties in '{0}' is door de gebruiker geannuleerd.</value>
+  </data>
+  <data name="PipingPlugin_UpdateStochasticSoilModelsMenuItem_Text" xml:space="preserve">
+    <value>&amp;Bijwerken...</value>
+  </data>
+  <data name="PipingPlugin_UpdateStochasticSoilModelsMenuItem_ToolTip" xml:space="preserve">
+    <value>Werk de reeds bekende lijst van stochastische ondergrondmodellen bij.</value>
+  </data>
+  <data name="PipingPlugin_UpdateStochasticSoilModelsFileDialog_Title" xml:space="preserve">
+    <value>Selecteer de nieuwe locatie van het geïmporteerde bestand</value>
+  </data>
 </root>

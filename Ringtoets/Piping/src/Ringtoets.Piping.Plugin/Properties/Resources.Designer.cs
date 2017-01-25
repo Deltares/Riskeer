@@ -82,6 +82,52 @@ namespace Ringtoets.Piping.Plugin.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bijwerken van stochastische ondergrondmodellen..
+        /// </summary>
+        public static string PipingPlugin_RunUpdateStochasticSoilModel_Update_StochasticSoilModels {
+            get {
+                return ResourceManager.GetString("PipingPlugin_RunUpdateStochasticSoilModel_Update_StochasticSoilModels", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bijwerken van ondergrondschematisaties in &apos;{0}&apos; is door de gebruiker geannuleerd..
+        /// </summary>
+        public static string PipingPlugin_UpdateStochasticSoilModels_Update_of_StochasticSoilModels_from_File_0_canceled_by_user {
+            get {
+                return ResourceManager.GetString("PipingPlugin_UpdateStochasticSoilModels_Update_of_StochasticSoilModels_from_File_" +
+                        "0_canceled_by_user", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Selecteer de nieuwe locatie van het geïmporteerde bestand.
+        /// </summary>
+        public static string PipingPlugin_UpdateStochasticSoilModelsFileDialog_Title {
+            get {
+                return ResourceManager.GetString("PipingPlugin_UpdateStochasticSoilModelsFileDialog_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &amp;Bijwerken....
+        /// </summary>
+        public static string PipingPlugin_UpdateStochasticSoilModelsMenuItem_Text {
+            get {
+                return ResourceManager.GetString("PipingPlugin_UpdateStochasticSoilModelsMenuItem_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Werk de reeds bekende lijst van stochastische ondergrondmodellen bij..
+        /// </summary>
+        public static string PipingPlugin_UpdateStochasticSoilModelsMenuItem_ToolTip {
+            get {
+                return ResourceManager.GetString("PipingPlugin_UpdateStochasticSoilModelsMenuItem_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Het stochastische ondergrondmodel &apos;{0}&apos; bestaat al in het toetsspoor..
         /// </summary>
         public static string PipingSoilProfilesImporter_AddImportedDataToModel_Stochastisch_soil_model_0_already_exists {

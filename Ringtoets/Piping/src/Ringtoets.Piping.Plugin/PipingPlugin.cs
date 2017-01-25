@@ -23,6 +23,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
@@ -33,6 +34,7 @@ using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms;
 using Core.Common.Gui.Forms.ProgressDialog;
 using Core.Common.Gui.Plugin;
+using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -61,6 +63,8 @@ namespace Ringtoets.Piping.Plugin
     /// </summary>
     public class PipingPlugin : PluginBase
     {
+        private readonly ILog log = LogManager.GetLogger(typeof(PipingPlugin));
+
         public override IRibbonCommandHandler RibbonCommandHandler
         {
             get
@@ -515,20 +519,58 @@ namespace Ringtoets.Piping.Plugin
         private StrictContextMenuItem CreateUpdateStochasticSoilModelsItem(StochasticSoilModelCollection soilModelCollection, PipingFailureMechanism failureMechanism)
         {
             return new StrictContextMenuItem(
-                "&Bijwerken...",
-                "Werk de reeds bekende lijst van stochastische ondergrondmodellen bij.",
+                PipingPluginResources.PipingPlugin_UpdateStochasticSoilModelsMenuItem_Text,
+                PipingPluginResources.PipingPlugin_UpdateStochasticSoilModelsMenuItem_ToolTip,
                 PipingPluginResources.RefreshIcon,
-                (sender, args) =>
-                {
-                    var importer = new StochasticSoilModelImporter(soilModelCollection,
-                                                    soilModelCollection.SourcePath,
-                                                    new StochasticSoilModelUpdateData(failureMechanism));
-                    var activity = new FileImportActivity(importer, "Bijwerken van stochastische ondergrondmodellen.");
-                    ActivityProgressDialogRunner.Run(Gui.MainWindow, activity);
-                })
+                (sender, args) => UpdateStochasticSoilModelFromKnownSourceFile(soilModelCollection, failureMechanism))
             {
                 Enabled = soilModelCollection.SourcePath != null
             };
+        }
+
+        private void UpdateStochasticSoilModelFromKnownSourceFile(StochasticSoilModelCollection soilModelCollection, PipingFailureMechanism failureMechanism)
+        {
+            string updateFromPath = soilModelCollection.SourcePath;
+            if (!File.Exists(updateFromPath))
+            {
+                updateFromPath = InquireUserForNewPath();
+            }
+
+            if (updateFromPath != null)
+            {
+                RunUpdateStochasticSoilModel(soilModelCollection, failureMechanism, updateFromPath);
+            }
+            else
+            {
+                log.Info(string.Format(
+                    PipingPluginResources.PipingPlugin_UpdateStochasticSoilModels_Update_of_StochasticSoilModels_from_File_0_canceled_by_user, 
+                    soilModelCollection.SourcePath));
+            }
+        }
+
+        private string InquireUserForNewPath()
+        {
+            var openFileDialog = new OpenFileDialog
+            {
+                Multiselect = false,
+                Title = PipingPluginResources.PipingPlugin_UpdateStochasticSoilModelsFileDialog_Title,
+                Filter = $"{PipingPluginResources.Soil_file_name} (*.soil)|*.soil"
+            };
+            if (openFileDialog.ShowDialog(Gui.MainWindow) == DialogResult.OK)
+            {
+                return openFileDialog.FileName;
+            }
+            return null;
+        }
+
+        private void RunUpdateStochasticSoilModel(StochasticSoilModelCollection soilModelCollection, PipingFailureMechanism failureMechanism, string sourceFilePath)
+        {
+            var importer = new StochasticSoilModelImporter(soilModelCollection,
+                                                           sourceFilePath,
+                                                           new StochasticSoilModelUpdateData(failureMechanism));
+
+            var activity = new FileImportActivity(importer, PipingPluginResources.PipingPlugin_RunUpdateStochasticSoilModel_Update_StochasticSoilModels);
+            ActivityProgressDialogRunner.Run(Gui.MainWindow, activity);
         }
 
         #endregion
