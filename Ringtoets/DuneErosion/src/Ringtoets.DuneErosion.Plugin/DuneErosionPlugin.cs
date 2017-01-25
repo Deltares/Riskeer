@@ -31,6 +31,7 @@ using Core.Common.Gui.Plugin;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TreeNodeInfos;
+using Ringtoets.Common.Service;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Forms;
 using Ringtoets.DuneErosion.Forms.GuiServices;
@@ -237,17 +238,26 @@ namespace Ringtoets.DuneErosion.Plugin
 
         #region DuneLocationsContext TreeNodeInfo
 
+        private static string ValidateAllDataAvailableAndGetErrorMessage(IAssessmentSection assessmentSection, DuneErosionFailureMechanism failureMechanism)
+        {
+            if (!failureMechanism.DuneLocations.Any())
+            {
+                return Resources.DuneErosionPlugin_DuneLocationsContextMenuStrip_Calculate_all_ToolTip_no_locations;
+            }
+
+            if (failureMechanism.Contribution <= 0.0)
+            {
+                return RingtoetsCommonFormsResources.Contribution_of_failure_mechanism_zero;
+            }
+
+            return HydraulicBoundaryDatabaseConnectionValidator.Validate(assessmentSection.HydraulicBoundaryDatabase);
+        }
+
         private ContextMenuStrip DuneLocationsContextMenuStrip(DuneLocationsContext context, object parent, TreeViewControl treeViewControl)
         {
-            bool locationsAvailable = context.FailureMechanism.DuneLocations.Any();
-
-            string toolTip = locationsAvailable
-                                 ? Resources.DuneErosionPlugin_DuneLocationsContextMenuStrip_Calculate_all_ToolTip
-                                 : Resources.DuneErosionPlugin_DuneLocationsContextMenuStrip_Calculate_all_ToolTip_no_locations;
-
             var calculateAllItem = new StrictContextMenuItem(
                 RingtoetsCommonFormsResources.Calculate_all,
-                toolTip,
+                Resources.DuneErosionPlugin_DuneLocationsContextMenuStrip_Calculate_all_ToolTip,
                 RingtoetsCommonFormsResources.CalculateAllIcon,
                 (sender, args) =>
                 {
@@ -262,10 +272,14 @@ namespace Ringtoets.DuneErosion.Plugin
                                                                 context.AssessmentSection.Id,
                                                                 context.FailureMechanism.GetMechanismSpecificNorm(context.AssessmentSection.FailureMechanismContribution.Norm));
                     context.NotifyObservers();
-                })
+                });
+
+            var validationText = ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection, context.FailureMechanism);
+            if (!string.IsNullOrEmpty(validationText))
             {
-                Enabled = locationsAvailable
-            };
+                calculateAllItem.Enabled = false;
+                calculateAllItem.ToolTipText = validationText;
+            }
 
             return Gui.Get(context, treeViewControl)
                       .AddOpenItem()

@@ -203,14 +203,104 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void ContextMenuStrip_Always_AddCustomItem(bool hasDuneLocations)
+        public void ContextMenuStrip_HydraulicBoundaryDatabaseNotValid_ContextMenuItemCalculateAllDisabledAndTooltipSet()
         {
             // Setup
             using (var treeViewControl = new TreeViewControl())
             {
+                var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+
                 var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+                assessmentSectionMock.Stub(asm => asm.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
+                var failureMechanism = new DuneErosionFailureMechanism
+                {
+                    Contribution = 10
+                };
+                var context = new DuneLocationsContext(failureMechanism.DuneLocations, failureMechanism, assessmentSectionMock);
+
+                var builder = new CustomItemsOnlyContextMenuBuilder();
+
+                var gui = mocks.StrictMock<IGui>();
+                gui.Expect(cmp => cmp.Get(context, treeViewControl)).Return(builder);
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                failureMechanism.DuneLocations.Add(new TestDuneLocation());
+
+                // Call
+                using (ContextMenuStrip menu = info.ContextMenuStrip(context, null, treeViewControl))
+                {
+                    // Assert
+                    ToolStripItem contextMenuItem = menu.Items[contextMenuCalculateAllIndex];
+
+                    Assert.AreEqual("Alles be&rekenen", contextMenuItem.Text);
+                    StringAssert.Contains("Herstellen van de verbinding met de hydraulische randvoorwaardendatabase is mislukt.", contextMenuItem.ToolTipText);
+                    TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.CalculateAllIcon, contextMenuItem.Image);
+                    Assert.IsFalse(contextMenuItem.Enabled);
+                }
+            }
+        }
+
+        [Test]
+        public void ContextMenuStrip_NoDuneLocations_ContextMenuItemCalculateAllDisabledAndTooltipSet()
+        {
+            // Setup
+            string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+                {
+                    FilePath = validFilePath,
+                    Version = "1.0"
+                };
+
+                var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+                assessmentSectionMock.Stub(asm => asm.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
+                var failureMechanism = new DuneErosionFailureMechanism
+                {
+                    Contribution = 10
+                };
+                var context = new DuneLocationsContext(failureMechanism.DuneLocations, failureMechanism, assessmentSectionMock);
+
+                var builder = new CustomItemsOnlyContextMenuBuilder();
+
+                var gui = mocks.StrictMock<IGui>();
+                gui.Expect(cmp => cmp.Get(context, treeViewControl)).Return(builder);
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                // Call
+                using (ContextMenuStrip menu = info.ContextMenuStrip(context, null, treeViewControl))
+                {
+                    // Assert
+                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndex,
+                                                                  "Alles be&rekenen",
+                                                                  "Er zijn geen locaties om een berekening voor uit te voeren.",
+                                                                  RingtoetsCommonFormsResources.CalculateAllIcon,
+                                                                  false);
+                }
+            }
+        }
+
+        [Test]
+        public void ContextMenuStrip_FailureMechanismContributionZero_ContextMenuItemCalculateAllDisabledAndTooltipSet()
+        {
+            // Setup
+            string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+                {
+                    FilePath = validFilePath,
+                    Version = "1.0"
+                };
+
+                var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+                assessmentSectionMock.Stub(asm => asm.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
                 var failureMechanism = new DuneErosionFailureMechanism();
                 var context = new DuneLocationsContext(failureMechanism.DuneLocations, failureMechanism, assessmentSectionMock);
 
@@ -222,26 +312,61 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
 
                 plugin.Gui = gui;
 
-                if (hasDuneLocations)
-                {
-                    failureMechanism.DuneLocations.Add(new TestDuneLocation());
-                }
+                failureMechanism.DuneLocations.Add(new TestDuneLocation());
 
                 // Call
                 using (ContextMenuStrip menu = info.ContextMenuStrip(context, null, treeViewControl))
                 {
                     // Assert
-                    Assert.AreEqual(7, menu.Items.Count);
-
-                    var expectedMessage = hasDuneLocations
-                                              ? "Alle hydraulische randvoorwaarden berekenen."
-                                              : "Er zijn geen locaties om een berekening voor uit te voeren.";
-
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndex,
                                                                   "Alles be&rekenen",
-                                                                  expectedMessage,
+                                                                  "De bijdrage van dit toetsspoor is nul.",
                                                                   RingtoetsCommonFormsResources.CalculateAllIcon,
-                                                                  hasDuneLocations);
+                                                                  false);
+                }
+            }
+        }
+
+        [Test]
+        public void ContextMenuStrip_AllRequiredInputSet_ContextMenuItemCalculateAllEnabled()
+        {
+            // Setup
+            string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+                {
+                    FilePath = validFilePath,
+                    Version = "1.0"
+                };
+
+                var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+                assessmentSectionMock.Stub(asm => asm.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
+                var failureMechanism = new DuneErosionFailureMechanism
+                {
+                    Contribution = 10
+                };
+                var context = new DuneLocationsContext(failureMechanism.DuneLocations, failureMechanism, assessmentSectionMock);
+
+                var builder = new CustomItemsOnlyContextMenuBuilder();
+
+                var gui = mocks.StrictMock<IGui>();
+                gui.Expect(cmp => cmp.Get(context, treeViewControl)).Return(builder);
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                failureMechanism.DuneLocations.Add(new TestDuneLocation());
+
+                // Call
+                using (ContextMenuStrip menu = info.ContextMenuStrip(context, null, treeViewControl))
+                {
+                    // Assert
+                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndex,
+                                                                  "Alles be&rekenen",
+                                                                  "Alle hydraulische randvoorwaarden berekenen.",
+                                                                  RingtoetsCommonFormsResources.CalculateAllIcon);
                 }
             }
         }
