@@ -28,11 +28,13 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Probabilistics;
+using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.PropertyClasses;
 using Ringtoets.Piping.Forms.TypeConverters;
 using Ringtoets.Piping.Primitives;
+using Ringtoets.Common.Forms.ChangeHandlers;
 
 namespace Ringtoets.Piping.Forms.Test.TypeConverters
 {
@@ -224,10 +226,9 @@ namespace Ringtoets.Piping.Forms.Test.TypeConverters
                                                                 Enumerable.Empty<StochasticSoilModel>(),
                                                                 failureMechanism,
                                                                 assessmentSectionMock);
-            var inputParameterContextProperties = new PipingInputContextProperties
-            {
-                Data = inputParametersContext
-            };
+
+            var handler = new CalculationInputPropertyChangeHandler<PipingInput, PipingCalculationScenario>();
+            var inputParameterContextProperties = new PipingInputContextProperties(inputParametersContext, handler);
 
             PropertyDescriptor propertyDescriptor = TypeDescriptor.GetProperties(inputParameterContextProperties).Find("PhreaticLevelExit", false);
             var dynamicPropertyBag = new DynamicPropertyBag(inputParameterContextProperties);

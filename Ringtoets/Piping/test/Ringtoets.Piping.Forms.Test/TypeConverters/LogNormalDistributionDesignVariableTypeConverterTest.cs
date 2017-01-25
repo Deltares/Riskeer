@@ -28,6 +28,8 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Probabilistics;
+using Ringtoets.Common.Forms.ChangeHandlers;
+using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.PropertyClasses;
@@ -79,8 +81,7 @@ namespace Ringtoets.Piping.Forms.Test.TypeConverters
             var result = converter.ConvertTo(designVariable, typeof(string));
 
             // Assert
-            var expectedText = string.Format("{0} (Verwachtingswaarde = {1}, Standaardafwijking = {2})",
-                                             designVariable.GetDesignValue(), distribution.Mean, distribution.StandardDeviation);
+            var expectedText = $"{designVariable.GetDesignValue()} (Verwachtingswaarde = {distribution.Mean}, Standaardafwijking = {distribution.StandardDeviation})";
             Assert.AreEqual(expectedText, result);
         }
 
@@ -226,10 +227,9 @@ namespace Ringtoets.Piping.Forms.Test.TypeConverters
                                                                 failureMechanism,
                                                                 assessmentSectionMock);
 
-            var inputParameterContextProperties = new PipingInputContextProperties
-            {
-                Data = inputParametersContext
-            };
+            var handler = new CalculationInputPropertyChangeHandler<PipingInput, PipingCalculationScenario>();
+
+            var inputParameterContextProperties = new PipingInputContextProperties(inputParametersContext, handler);
             PropertyDescriptor propertyDescriptor = TypeDescriptor.GetProperties(inputParameterContextProperties).Find("DampingFactorExit", false);
             var dynamicPropertyBag = new DynamicPropertyBag(inputParameterContextProperties);
 

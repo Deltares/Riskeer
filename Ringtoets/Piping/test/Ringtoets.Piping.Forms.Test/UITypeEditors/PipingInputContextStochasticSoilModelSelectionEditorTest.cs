@@ -28,6 +28,7 @@ using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.Forms.PresentationObjects;
@@ -50,6 +51,7 @@ namespace Ringtoets.Piping.Forms.Test.UITypeEditors
             var service = mockRepository.DynamicMock<IWindowsFormsEditorService>();
             var context = mockRepository.DynamicMock<ITypeDescriptorContext>();
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
+            var handler = mockRepository.Stub<ICalculationInputPropertyChangeHandler<PipingInput, PipingCalculationScenario>>();
 
             var calculationItem = new PipingCalculationScenario(new GeneralPipingInput());
             var failureMechanism = new PipingFailureMechanism();
@@ -68,10 +70,7 @@ namespace Ringtoets.Piping.Forms.Test.UITypeEditors
                                                             failureMechanism,
                                                             assessmentSectionMock);
 
-            var properties = new PipingInputContextProperties
-            {
-                Data = pipingInputContext
-            };
+            var properties = new PipingInputContextProperties(pipingInputContext, handler);
 
             var editor = new PipingInputContextStochasticSoilModelSelectionEditor();
             var someValue = new object();
@@ -101,6 +100,7 @@ namespace Ringtoets.Piping.Forms.Test.UITypeEditors
             var service = mockRepository.DynamicMock<IWindowsFormsEditorService>();
             var context = mockRepository.DynamicMock<ITypeDescriptorContext>();
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
+            var handler = mockRepository.Stub<ICalculationInputPropertyChangeHandler<PipingInput, PipingCalculationScenario>>();
 
             var stochasticSoilProfile = new StochasticSoilProfile(1.0, SoilProfileType.SoilProfile1D, 0)
             {
@@ -144,10 +144,7 @@ namespace Ringtoets.Piping.Forms.Test.UITypeEditors
                                                                 failureMechanism,
                                                                 assessmentSectionMock);
 
-            var properties = new PipingInputContextProperties
-            {
-                Data = inputParametersContext
-            };
+            var properties = new PipingInputContextProperties(inputParametersContext, handler);
 
             var editor = new PipingInputContextStochasticSoilModelSelectionEditor();
             var someValue = new object();

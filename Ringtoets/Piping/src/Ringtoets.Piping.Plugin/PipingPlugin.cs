@@ -75,7 +75,10 @@ namespace Ringtoets.Piping.Plugin
             {
                 CreateInstance = context => new PipingFailureMechanismContextProperties(context, new FailureMechanismPropertyChangeHandler<PipingFailureMechanism>())
             };
-            yield return new PropertyInfo<PipingInputContext, PipingInputContextProperties>();
+            yield return new PropertyInfo<PipingInputContext, PipingInputContextProperties>
+            {
+                CreateInstance = context => new PipingInputContextProperties(context, new CalculationInputPropertyChangeHandler<PipingInput, PipingCalculationScenario>())
+            };
             yield return new PropertyInfo<PipingOutputContext, PipingOutputContextProperties>();
             yield return new PropertyInfo<RingtoetsPipingSurfaceLine, RingtoetsPipingSurfaceLineProperties>();
             yield return new PropertyInfo<StochasticSoilModelCollectionContext, StochasticSoilModelCollectionProperties>

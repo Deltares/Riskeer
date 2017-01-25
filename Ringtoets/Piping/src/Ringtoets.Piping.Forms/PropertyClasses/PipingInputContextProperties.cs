@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing.Design;
@@ -32,8 +33,8 @@ using Core.Common.Utils.Reflection;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PresentationObjects;
+using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Forms.UITypeEditors;
-using Ringtoets.Common.Service;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.Properties;
@@ -69,6 +70,30 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         private const int darcyPermeabilityPropertyIndex = 16;
         private const int diameter70PropertyIndex = 17;
         private const int saturatedVolumicWeightOfCoverageLayerPropertyIndex = 18;
+
+        private readonly ICalculationInputPropertyChangeHandler<PipingInput, PipingCalculationScenario> propertyChangeHandler;
+
+        /// <summary>
+        /// Creates a new instance of <see cref="PipingInputContextProperties"/>.
+        /// </summary>
+        /// <param name="data">The instance to show the properties for.</param>
+        /// <param name="handler">The handler responsible for handling effects of a property change.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public PipingInputContextProperties(PipingInputContext data,
+            ICalculationInputPropertyChangeHandler<PipingInput, PipingCalculationScenario> handler)
+        {
+            if (data == null)
+            {
+                throw new ArgumentNullException(nameof(data));
+            }
+            if (handler == null)
+            {
+                throw new ArgumentNullException(nameof(handler));
+            }
+
+            Data = data;
+            propertyChangeHandler = handler;
+        }
 
         /// <summary>
         /// Gets the available surface lines on <see cref="PipingCalculationScenarioContext"/>.
@@ -125,9 +150,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         /// </summary>
         public IEnumerable<SelectableHydraulicBoundaryLocation> GetSelectableHydraulicBoundaryLocations()
         {
-            Point2D referencePoint = SurfaceLine == null || SurfaceLine.ReferenceLineIntersectionWorldPoint == null
-                                         ? null
-                                         : SurfaceLine.ReferenceLineIntersectionWorldPoint;
+            Point2D referencePoint = SurfaceLine?.ReferenceLineIntersectionWorldPoint;
             return SelectableHydraulicBoundaryLocationHelper.GetSortedSelectableHydraulicBoundaryLocations(
                 data.AvailableHydraulicBoundaryLocations, referencePoint);
         }
@@ -144,7 +167,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         {
             get
             {
-                Point2D referencePoint = SurfaceLine != null ? SurfaceLine.ReferenceLineIntersectionWorldPoint : null;
+                Point2D referencePoint = SurfaceLine?.ReferenceLineIntersectionWorldPoint;
 
                 return data.WrappedData.HydraulicBoundaryLocation != null
                            ? new SelectableHydraulicBoundaryLocation(data.WrappedData.HydraulicBoundaryLocation,
@@ -153,8 +176,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
             set
             {
-                data.WrappedData.HydraulicBoundaryLocation = value.HydraulicBoundaryLocation;
-                ClearOutputAndNotifyPropertyChanged();
+                ChangePropertyValueAndNotifyAffectedObjects((input, v) => input.HydraulicBoundaryLocation = v, value.HydraulicBoundaryLocation);
             }
         }
 
@@ -171,8 +193,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
             set
             {
-                data.WrappedData.AssessmentLevel = value;
-                ClearOutputAndNotifyPropertyChanged();
+                ChangePropertyValueAndNotifyAffectedObjects((input, v) => input.AssessmentLevel = v, value);
             }
         }
 
@@ -188,8 +209,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
             set
             {
-                data.WrappedData.UseAssessmentLevelManualInput = value;
-                ClearOutputAndNotifyPropertyChanged();
+                ChangePropertyValueAndNotifyAffectedObjects((input, v) => input.UseAssessmentLevelManualInput = v, value);
             }
         }
 
@@ -206,8 +226,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
             set
             {
-                data.WrappedData.DampingFactorExit = value.Distribution;
-                ClearOutputAndNotifyPropertyChanged();
+                ChangePropertyValueAndNotifyAffectedObjects((input, v) => input.DampingFactorExit = v, value.Distribution);
             }
         }
 
@@ -224,8 +243,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
             set
             {
-                data.WrappedData.PhreaticLevelExit = value.Distribution;
-                ClearOutputAndNotifyPropertyChanged();
+                ChangePropertyValueAndNotifyAffectedObjects((input, v) => input.PhreaticLevelExit = v, value.Distribution);
             }
         }
 
@@ -260,9 +278,11 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             {
                 if (!ReferenceEquals(value, data.WrappedData.SurfaceLine))
                 {
-                    data.WrappedData.SurfaceLine = value;
-                    PipingInputService.SetMatchingStochasticSoilModel(data.WrappedData, GetAvailableStochasticSoilModels());
-                    ClearOutputAndNotifyPropertyChanged();
+                    ChangePropertyValueAndNotifyAffectedObjects((input, v) =>
+                    {
+                        input.SurfaceLine = v;
+                        PipingInputService.SetMatchingStochasticSoilModel(input, GetAvailableStochasticSoilModels());
+                    }, value);
                 }
             }
         }
@@ -282,9 +302,11 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             {
                 if (!ReferenceEquals(value, data.WrappedData.StochasticSoilModel))
                 {
-                    data.WrappedData.StochasticSoilModel = value;
-                    PipingInputService.SyncStochasticSoilProfileWithStochasticSoilModel(data.WrappedData);
-                    ClearOutputAndNotifyPropertyChanged();
+                    ChangePropertyValueAndNotifyAffectedObjects((input, v) =>
+                    {
+                        input.StochasticSoilModel = v;
+                        PipingInputService.SyncStochasticSoilProfileWithStochasticSoilModel(input);
+                    }, value);
                 }
             }
         }
@@ -304,8 +326,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             {
                 if (!ReferenceEquals(value, data.WrappedData.StochasticSoilProfile))
                 {
-                    data.WrappedData.StochasticSoilProfile = value;
-                    ClearOutputAndNotifyPropertyChanged();
+                    ChangePropertyValueAndNotifyAffectedObjects((input, v) => input.StochasticSoilProfile = v, value);
                 }
             }
         }
@@ -322,8 +343,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
             set
             {
-                data.WrappedData.EntryPointL = value;
-                ClearOutputAndNotifyPropertyChanged();
+                ChangePropertyValueAndNotifyAffectedObjects((input, v) => input.EntryPointL = v, value);
             }
         }
 
@@ -339,8 +359,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
             set
             {
-                data.WrappedData.ExitPointL = value;
-                ClearOutputAndNotifyPropertyChanged();
+                ChangePropertyValueAndNotifyAffectedObjects((input, v) => input.ExitPointL = v, value);
             }
         }
 
@@ -437,14 +456,26 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
 
         #endregion
 
-        private void ClearOutputAndNotifyPropertyChanged()
+
+        private void ChangePropertyValueAndNotifyAffectedObjects<TValue>(
+            SetCalculationInputPropertyValueDelegate<PipingInput, TValue> setPropertyValue,
+            TValue value)
         {
-            IEnumerable<IObservable> affectedCalculation = RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(data.PipingCalculation);
-            foreach (var calculation in affectedCalculation)
+            IEnumerable<IObservable> affectedObjects = propertyChangeHandler.SetPropertyValueAfterConfirmation(
+                data.WrappedData,
+                data.PipingCalculation,
+                value,
+                setPropertyValue);
+
+            NotifyAffectedObjects(affectedObjects);
+        }
+
+        private static void NotifyAffectedObjects(IEnumerable<IObservable> affectedObjects)
+        {
+            foreach (var affectedObject in affectedObjects)
             {
-                calculation.NotifyObservers();
+                affectedObject.NotifyObservers();
             }
-            data.WrappedData.NotifyObservers();
         }
     }
 }

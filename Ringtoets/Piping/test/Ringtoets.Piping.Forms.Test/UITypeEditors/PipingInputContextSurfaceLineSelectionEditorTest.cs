@@ -28,6 +28,7 @@ using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.PropertyClasses;
@@ -48,6 +49,7 @@ namespace Ringtoets.Piping.Forms.Test.UITypeEditors
             var service = mockRepository.DynamicMock<IWindowsFormsEditorService>();
             var context = mockRepository.DynamicMock<ITypeDescriptorContext>();
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
+            var handler = mockRepository.Stub<ICalculationInputPropertyChangeHandler<PipingInput, PipingCalculationScenario>>();
 
             var calculationItem = new PipingCalculationScenario(new GeneralPipingInput());
             var failureMechanism = new PipingFailureMechanism();
@@ -66,10 +68,7 @@ namespace Ringtoets.Piping.Forms.Test.UITypeEditors
                                                                 failureMechanism,
                                                                 assessmentSectionMock);
 
-            var properties = new PipingInputContextProperties
-            {
-                Data = inputParametersContext
-            };
+            var properties = new PipingInputContextProperties(inputParametersContext, handler);
 
             var editor = new PipingInputContextSurfaceLineSelectionEditor();
             var someValue = new object();
@@ -99,6 +98,7 @@ namespace Ringtoets.Piping.Forms.Test.UITypeEditors
             var service = mockRepository.DynamicMock<IWindowsFormsEditorService>();
             var context = mockRepository.DynamicMock<ITypeDescriptorContext>();
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
+            var handler = mockRepository.Stub<ICalculationInputPropertyChangeHandler<PipingInput, PipingCalculationScenario>>();
 
             var surfaceLine = new RingtoetsPipingSurfaceLine();
             surfaceLine.SetGeometry(new[]
@@ -123,10 +123,7 @@ namespace Ringtoets.Piping.Forms.Test.UITypeEditors
                                                                 failureMechanism,
                                                                 assessmentSectionMock);
 
-            var properties = new PipingInputContextProperties
-            {
-                Data = inputParametersContext
-            };
+            var properties = new PipingInputContextProperties(inputParametersContext, handler);
 
             var editor = new PipingInputContextSurfaceLineSelectionEditor();
             var someValue = new object();
