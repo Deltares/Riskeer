@@ -30,7 +30,6 @@ using Core.Common.Controls.TreeView;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms.ProgressDialog;
 using Core.Common.Gui.Plugin;
-using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -63,7 +62,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
     /// </summary>
     public class GrassCoverErosionOutwardsPlugin : PluginBase
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(GrassCoverErosionOutwardsPlugin));
         private IHydraulicBoundaryLocationCalculationGuiService hydraulicBoundaryLocationCalculationGuiService;
 
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
@@ -506,21 +504,18 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                     IAssessmentSection assessmentSection = nodeData.AssessmentSection;
                     GrassCoverErosionOutwardsFailureMechanism failureMechanism = nodeData.FailureMechanism;
 
-                    var mechanismSpecificNorm = GetMechanismSpecificNorm(failureMechanism, assessmentSection);
+                    var mechanismSpecificNorm = failureMechanism.GetMechanismSpecificNorm(assessmentSection);
 
-                    if (!double.IsNaN(mechanismSpecificNorm))
+                    bool successfulCalculation = hydraulicBoundaryLocationCalculationGuiService.CalculateDesignWaterLevels(
+                        assessmentSection.HydraulicBoundaryDatabase.FilePath,
+                        nodeData.WrappedData,
+                        assessmentSection.Id,
+                        mechanismSpecificNorm,
+                        new GrassCoverErosionOutwardsDesignWaterLevelCalculationMessageProvider());
+
+                    if (successfulCalculation)
                     {
-                        bool successfulCalculation = hydraulicBoundaryLocationCalculationGuiService.CalculateDesignWaterLevels(
-                            assessmentSection.HydraulicBoundaryDatabase.FilePath,
-                            nodeData.WrappedData,
-                            assessmentSection.Id,
-                            mechanismSpecificNorm,
-                            new GrassCoverErosionOutwardsDesignWaterLevelCalculationMessageProvider());
-
-                        if (successfulCalculation)
-                        {
-                            nodeData.WrappedData.NotifyObservers();
-                        }
+                        nodeData.WrappedData.NotifyObservers();
                     }
                 });
 
@@ -564,21 +559,18 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                         return;
                     }
 
-                    var mechanismSpecificNorm = GetMechanismSpecificNorm(failureMechanism, assessmentSection);
+                    var mechanismSpecificNorm = failureMechanism.GetMechanismSpecificNorm(assessmentSection);
 
-                    if (!double.IsNaN(mechanismSpecificNorm))
+                    bool successfulCalculation = hydraulicBoundaryLocationCalculationGuiService.CalculateWaveHeights(
+                        assessmentSection.HydraulicBoundaryDatabase.FilePath,
+                        nodeData.WrappedData,
+                        assessmentSection.Id,
+                        mechanismSpecificNorm,
+                        new GrassCoverErosionOutwardsWaveHeightCalculationMessageProvider());
+
+                    if (successfulCalculation)
                     {
-                        bool successfulCalculation = hydraulicBoundaryLocationCalculationGuiService.CalculateWaveHeights(
-                            assessmentSection.HydraulicBoundaryDatabase.FilePath,
-                            nodeData.WrappedData,
-                            assessmentSection.Id,
-                            mechanismSpecificNorm,
-                            new GrassCoverErosionOutwardsWaveHeightCalculationMessageProvider());
-
-                        if (successfulCalculation)
-                        {
-                            nodeData.WrappedData.NotifyObservers();
-                        }
+                        nodeData.WrappedData.NotifyObservers();
                     }
                 });
 
@@ -898,20 +890,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
         }
 
         #endregion
-
-        private static double GetMechanismSpecificNorm(GrassCoverErosionOutwardsFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
-        {
-            var mechanismSpecificNorm = double.NaN;
-            try
-            {
-                mechanismSpecificNorm = failureMechanism.GetMechanismSpecificNorm(assessmentSection);
-            }
-            catch (ArgumentException e)
-            {
-                log.ErrorFormat(e.Message);
-            }
-            return mechanismSpecificNorm;
-        }
 
         #endregion
     }

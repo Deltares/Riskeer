@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -239,7 +238,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                         CollectionAssert.AllItemsAreInstancesOfType(new[]
                         {
                             menu.Items[1],
-                            menu.Items[3],
+                            menu.Items[3]
                         }, typeof(ToolStripSeparator));
                     }
                 }
@@ -304,7 +303,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                         CollectionAssert.AllItemsAreInstancesOfType(new[]
                         {
                             menu.Items[1],
-                            menu.Items[3],
+                            menu.Items[3]
                         }, typeof(ToolStripSeparator));
                     }
                 }
@@ -414,54 +413,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                                                   *(failureMechanism.Contribution/100)
                                                   /failureMechanism.GeneralInput.N;
                         Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(expectedProbability), waveHeightCalculationInput.Beta);
-                    }
-                }
-            }
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void CalculateWaveHeightsFromContextMenu_ContributionZero_DoesNotCalculateAndLog()
-        {
-            // Setup
-            var guiMock = mockRepository.DynamicMock<IGui>();
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
-            {
-                Contribution = 0
-            };
-            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(
-                failureMechanism, mockRepository, Path.Combine(testDataPath, "HRD ijsselmeer.sqlite"));
-
-            var grassCoverErosionOutwardsHydraulicBoundaryLocation = assessmentSectionStub.HydraulicBoundaryDatabase.Locations[0];
-            var context = new GrassCoverErosionOutwardsWaveHeightLocationsContext(new ObservableList<HydraulicBoundaryLocation>
-            {
-                grassCoverErosionOutwardsHydraulicBoundaryLocation
-            }, assessmentSectionStub, new GrassCoverErosionOutwardsFailureMechanism());
-
-            var contextObserverMock = mockRepository.StrictMock<IObserver>();
-            context.Attach(contextObserverMock);
-
-            using (var treeViewControl = new TreeViewControl())
-            {
-                guiMock.Expect(g => g.Get(context, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                guiMock.Expect(g => g.MainWindow).Return(mockRepository.Stub<IMainWindow>());
-                mockRepository.ReplayAll();
-
-                using (var plugin = new GrassCoverErosionOutwardsPlugin())
-                {
-                    TreeNodeInfo info = GetInfo(plugin);
-                    plugin.Gui = guiMock;
-                    plugin.Activate();
-
-                    using (ContextMenuStrip contextMenuAdapter = info.ContextMenuStrip(context, null, treeViewControl))
-                    using (new HydraRingCalculatorFactoryConfig())
-                    {
-                        // Call
-                        Action action = () => contextMenuAdapter.Items[contextMenuRunWaveHeightCalculationsIndex].PerformClick();
-
-                        // Assert
-                        TestHelper.AssertLogMessageIsGenerated(action, "De bijdrage van dit toetsspoor is nul. Daardoor is de doorsnede-eis onbepaald en kunnen de berekeningen niet worden uitgevoerd.");
-                        Assert.IsNaN(grassCoverErosionOutwardsHydraulicBoundaryLocation.WaveHeight);
                     }
                 }
             }

@@ -19,11 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
 using Core.Common.Base;
 using Core.Common.Utils.Reflection;
-using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Forms.Views;
@@ -36,7 +34,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
 {
     public class GrassCoverErosionOutwardsDesignWaterLevelLocationsView : HydraulicBoundaryLocationsView<DesignWaterLevelLocationRow>
     {
-        private readonly ILog log = LogManager.GetLogger(typeof(GrassCoverErosionOutwardsDesignWaterLevelLocationsView));
         private readonly Observer hydraulicBoundaryLocationsObserver;
 
         public GrassCoverErosionOutwardsDesignWaterLevelLocationsView()
@@ -101,19 +98,16 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
                 return;
             }
 
-            var mechanismSpecificNorm = GetMechanismSpecificNorm();
+            var mechanismSpecificNorm = FailureMechanism.GetMechanismSpecificNorm(AssessmentSection);
 
-            if (!double.IsNaN(mechanismSpecificNorm))
+            bool successfulCalculation = CalculationGuiService.CalculateDesignWaterLevels(AssessmentSection.HydraulicBoundaryDatabase.FilePath,
+                                                                                          locations,
+                                                                                          AssessmentSection.Id,
+                                                                                          mechanismSpecificNorm,
+                                                                                          new GrassCoverErosionOutwardsDesignWaterLevelCalculationMessageProvider());
+            if (successfulCalculation)
             {
-                bool successfulCalculation = CalculationGuiService.CalculateDesignWaterLevels(AssessmentSection.HydraulicBoundaryDatabase.FilePath,
-                                                                                              locations,
-                                                                                              AssessmentSection.Id,
-                                                                                              mechanismSpecificNorm,
-                                                                                              new GrassCoverErosionOutwardsDesignWaterLevelCalculationMessageProvider());
-                if (successfulCalculation)
-                {
-                    ((IObservable) Data).NotifyObservers();
-                }
+                ((IObservable) Data).NotifyObservers();
             }
         }
 
@@ -146,20 +140,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
                 }
             }
             return false;
-        }
-
-        private double GetMechanismSpecificNorm()
-        {
-            var mechanismSpecificNorm = double.NaN;
-            try
-            {
-                mechanismSpecificNorm = FailureMechanism.GetMechanismSpecificNorm(AssessmentSection);
-            }
-            catch (ArgumentException e)
-            {
-                log.ErrorFormat(e.Message);
-            }
-            return mechanismSpecificNorm;
         }
     }
 }

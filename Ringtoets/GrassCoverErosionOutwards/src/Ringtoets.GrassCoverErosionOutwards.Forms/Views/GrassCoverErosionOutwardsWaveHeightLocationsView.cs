@@ -19,11 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
 using Core.Common.Base;
 using Core.Common.Utils.Reflection;
-using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Forms.Views;
@@ -39,7 +37,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
     /// for the <see cref="GrassCoverErosionOutwardsFailureMechanism"/></summary>
     public class GrassCoverErosionOutwardsWaveHeightLocationsView : HydraulicBoundaryLocationsView<WaveHeightLocationRow>
     {
-        private readonly ILog log = LogManager.GetLogger(typeof(GrassCoverErosionOutwardsWaveHeightLocationsView));
         private readonly Observer hydraulicBoundaryLocationObserver;
 
         /// <summary>
@@ -94,20 +91,17 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
                 return;
             }
 
-            var mechanismSpecificNorm = GetMechanismSpecificNorm();
+            var mechanismSpecificNorm = FailureMechanism.GetMechanismSpecificNorm(AssessmentSection);
 
-            if (!double.IsNaN(mechanismSpecificNorm))
+            bool successFullCalculation = CalculationGuiService.CalculateWaveHeights(AssessmentSection.HydraulicBoundaryDatabase.FilePath,
+                                                                                     locations,
+                                                                                     AssessmentSection.Id,
+                                                                                     mechanismSpecificNorm,
+                                                                                     new GrassCoverErosionOutwardsWaveHeightCalculationMessageProvider());
+
+            if (successFullCalculation)
             {
-                bool successFullCalculation = CalculationGuiService.CalculateWaveHeights(AssessmentSection.HydraulicBoundaryDatabase.FilePath,
-                                                                                         locations,
-                                                                                         AssessmentSection.Id,
-                                                                                         mechanismSpecificNorm,
-                                                                                         new GrassCoverErosionOutwardsWaveHeightCalculationMessageProvider());
-
-                if (successFullCalculation)
-                {
-                    ((IObservable) Data).NotifyObservers();
-                }
+                ((IObservable) Data).NotifyObservers();
             }
         }
 
@@ -153,20 +147,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
                 }
             }
             return false;
-        }
-
-        private double GetMechanismSpecificNorm()
-        {
-            var mechanismSpecificNorm = double.NaN;
-            try
-            {
-                mechanismSpecificNorm = FailureMechanism.GetMechanismSpecificNorm(AssessmentSection);
-            }
-            catch (ArgumentException e)
-            {
-                log.ErrorFormat(e.Message);
-            }
-            return mechanismSpecificNorm;
         }
     }
 }

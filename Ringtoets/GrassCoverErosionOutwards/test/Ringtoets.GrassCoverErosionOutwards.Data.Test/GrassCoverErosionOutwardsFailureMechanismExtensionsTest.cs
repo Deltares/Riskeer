@@ -21,7 +21,6 @@
 
 using System;
 using System.Linq;
-using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -125,11 +124,12 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
         }
 
         [Test]
-        public void GetMechanismSpecificNorm_WithAssessmentSection_ReturnMechanismSpecificNorm()
+        [TestCase(0, 0)]
+        [TestCase(10, 0.00025)]
+        public void GetMechanismSpecificNorm_WithAssessmentSection_ReturnMechanismSpecificNorm(double contribution, double expectedMechanismSpecificNorm)
         {
             // Setup
             const double norm = 1.0/200;
-            const double contribution = 10;
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
             {
                 Contribution = contribution
@@ -151,36 +151,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
             double mechanismSpecificNorm = failureMechanism.GetMechanismSpecificNorm(assessmentSection);
 
             // Assert
-            Assert.AreEqual(0.00025, mechanismSpecificNorm);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void GetMechanismSpecificNorm_WithZeroContributionForFailureMechanism_ThrowsArgumentException()
-        {
-            // Setup
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
-            {
-                Contribution = 0
-            };
-
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
-            assessmentSection.Stub(a => a.GetFailureMechanisms()).Return(new[]
-            {
-                failureMechanism
-            });
-            assessmentSection.Stub(a => a.FailureMechanismContribution).Return(new FailureMechanismContribution(new[]
-            {
-                failureMechanism
-            }, 1, 1.0/300));
-            mocks.ReplayAll();
-
-            // Call
-            TestDelegate action = () => failureMechanism.GetMechanismSpecificNorm(assessmentSection);
-
-            // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(action, "De bijdrage van dit toetsspoor is nul. Daardoor is de doorsnede-eis onbepaald en kunnen de berekeningen niet worden uitgevoerd.");
+            Assert.AreEqual(expectedMechanismSpecificNorm, mechanismSpecificNorm);
             mocks.VerifyAll();
         }
     }

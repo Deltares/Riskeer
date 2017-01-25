@@ -98,15 +98,5 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Properties {
                 return ResourceManager.GetString("GrassCoverErosionOutwardsFailureMechanism_DisplayName", resourceCulture);
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De bijdrage van dit toetsspoor is nul. Daardoor is de doorsnede-eis onbepaald en kunnen de berekeningen niet worden uitgevoerd..
-        /// </summary>
-        public static string GrassCoverErosionOutwardsFailureMechanismExtensions_GetMechanismSpecificNorm_Contribution_is_zero {
-            get {
-                return ResourceManager.GetString("GrassCoverErosionOutwardsFailureMechanismExtensions_GetMechanismSpecificNorm_Cont" +
-                        "ribution_is_zero", resourceCulture);
-            }
-        }
     }
 }
