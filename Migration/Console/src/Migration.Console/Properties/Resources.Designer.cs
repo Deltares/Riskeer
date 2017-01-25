@@ -143,5 +143,14 @@ namespace Migration.Console.Properties {
                 return ResourceManager.GetString("CommandSupported_Detailed", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het besturingssysteem geeft de volgende melding: {0}.
+        /// </summary>
+        internal static string Message_Inner_Exception_0 {
+            get {
+                return ResourceManager.GetString("Message_Inner_Exception_0", resourceCulture);
+            }
+        }
     }
 }

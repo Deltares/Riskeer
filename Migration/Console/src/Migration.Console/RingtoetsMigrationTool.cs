@@ -55,8 +55,7 @@ namespace Migration.Console
             }
             catch (Exception exception)
             {
-                ConsoleHelper.WriteErrorLine(exception.Message);
-                ConsoleHelper.WriteErrorLine("");
+                DisplayException(exception);
                 DisplayAllCommands();
 
                 if (exception is CriticalDatabaseMigrationException || exception is NotSupportedException)
@@ -69,6 +68,17 @@ namespace Migration.Console
             }
 
             Exit(ErrorCode.ErrorSuccess);
+        }
+
+        private static void DisplayException(Exception exception)
+        {
+            ConsoleHelper.WriteErrorLine(exception.Message);
+            if (exception.InnerException != null)
+            {
+                ConsoleHelper.WriteErrorLine(Resources.Message_Inner_Exception_0,
+                                             exception.InnerException.Message);
+            }
+            ConsoleHelper.WriteErrorLine("");
         }
 
         private static void ExecuteCommand(string[] args)

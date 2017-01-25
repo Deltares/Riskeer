@@ -119,4 +119,7 @@
   <data name="CommandSupported_Command_0_Brief" xml:space="preserve">
     <value>{0} RINGTOETSBESTANDSPAD</value>
   </data>
+  <data name="Message_Inner_Exception_0" xml:space="preserve">
+    <value>Het besturingssysteem geeft de volgende melding: {0}</value>
+  </data>
 </root>
