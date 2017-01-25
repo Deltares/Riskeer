@@ -130,4 +130,7 @@
   <data name="Migrate_From_Version_0_To_Version_1_Not_Supported" xml:space="preserve">
     <value>Het is niet mogelijk om versie {0} te migreren naar versie {1}</value>
   </data>
+  <data name="Migrate_Target_File_Path_Must_Differ_From_Source_File_Path" xml:space="preserve">
+    <value>Het bestandspad van het uitvoerbestand moet anders zijn dan het bestandspad van het bronbestand.</value>
+  </data>
 </root>

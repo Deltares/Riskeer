@@ -127,6 +127,15 @@ namespace Migration.Console.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Het bestand &apos;{0}&apos; is succesvol gemigreerd naar versie {1} op locatie &apos;{2}&apos;..
+        /// </summary>
+        internal static string CommandMigrate_Successful_Migration_From_Location_0_To_Version_1_At_Location_2 {
+            get {
+                return ResourceManager.GetString("CommandMigrate_Successful_Migration_From_Location_0_To_Version_1_At_Location_2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} RINGTOETSBESTANDSPAD.
         /// </summary>
         internal static string CommandSupported_Command_0_Brief {

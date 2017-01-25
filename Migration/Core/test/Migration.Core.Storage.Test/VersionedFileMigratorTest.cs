@@ -75,7 +75,7 @@ namespace Migration.Core.Storage.Test
         }
 
         [Test]
-        public void NeedsMigrade_NeedsMigrade_ReturnsTrue()
+        public void NeedsMigrate_NeedsMigrate_ReturnsTrue()
         {
             // Setup
             string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Migration.Core.Storage, "Demo164.rtd");
@@ -83,14 +83,14 @@ namespace Migration.Core.Storage.Test
             var migrator = new VersionedFileMigrator();
 
             // Call
-            bool needsMigrade = migrator.NeedsMigrade(versionedFile, "17.1");
+            bool needsMigrate = migrator.NeedsMigrate(versionedFile, "17.1");
 
             // Assert
-            Assert.IsTrue(needsMigrade);
+            Assert.IsTrue(needsMigrate);
         }
 
         [Test]
-        public void NeedsMigrade_DoesNotNeedMigration_ReturnsFalse()
+        public void NeedsMigrate_DoesNotNeedMigration_ReturnsFalse()
         {
             // Setup
             string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Migration.Core.Storage, "Demo164.rtd");
@@ -98,10 +98,10 @@ namespace Migration.Core.Storage.Test
             var migrator = new VersionedFileMigrator();
 
             // Call
-            bool needsMigrade = migrator.NeedsMigrade(versionedFile, "4");
+            bool needsMigrate = migrator.NeedsMigrate(versionedFile, "4");
 
             // Assert
-            Assert.IsFalse(needsMigrade);
+            Assert.IsFalse(needsMigrate);
         }
 
         [Test]
@@ -149,6 +149,24 @@ namespace Migration.Core.Storage.Test
                 Assert.That(exception.Message.EndsWith($"' naar '{targetFilePath}'."));
                 Assert.IsInstanceOf<IOException>(exception.InnerException);
             }
+        }
+
+        [Test]
+        public void Migrate_TargetFilePathEqualsSourcePath_ThrowsCriticalDatabaseMigrationException()
+        {
+            // Setup
+            const string newVersion = "17.1";
+            string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Migration.Core.Storage, "Demo164.rtd");
+            var fromVersionedFile = new VersionedFile(sourceFilePath);
+            var migrator = new VersionedFileMigrator();
+
+            // Call
+            TestDelegate call = () => migrator.Migrate(fromVersionedFile, newVersion, sourceFilePath);
+
+            // Assert
+            CriticalDatabaseMigrationException exception = Assert.Throws<CriticalDatabaseMigrationException>(call);
+            Assert.AreEqual("Het bestandspad van het uitvoerbestand moet anders zijn dan het bestandspad van het bronbestand.",
+                            exception.Message);
         }
 
         [Test]

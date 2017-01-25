@@ -245,7 +245,9 @@ namespace Migration.Console.Test
                 }
 
                 // Result
-                Assert.AreEqual(string.Empty, consoleText);
+                Assert.AreEqual($"Het bestand '{sourceFilePath}' is succesvol gemigreerd naar versie"
+                                + $" {newVersion} op locatie '{targetFilePath}'." + Environment.NewLine,
+                                consoleText);
                 var toVersionedFile = new VersionedFile(targetFilePath);
                 Assert.AreEqual(newVersion, toVersionedFile.GetVersion());
             }

@@ -122,4 +122,7 @@
   <data name="Message_Inner_Exception_0" xml:space="preserve">
     <value>Het besturingssysteem geeft de volgende melding: {0}</value>
   </data>
+  <data name="CommandMigrate_Successful_Migration_From_Location_0_To_Version_1_At_Location_2" xml:space="preserve">
+    <value>Het bestand '{0}' is succesvol gemigreerd naar versie {1} op locatie '{2}'.</value>
+  </data>
 </root>

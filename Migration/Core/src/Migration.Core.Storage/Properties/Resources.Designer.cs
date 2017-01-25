@@ -120,6 +120,15 @@ namespace Migration.Core.Storage.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Het bestandspad van het uitvoerbestand moet anders zijn dan het bestandspad van het bronbestand..
+        /// </summary>
+        internal static string Migrate_Target_File_Path_Must_Differ_From_Source_File_Path {
+            get {
+                return ResourceManager.GetString("Migrate_Target_File_Path_Must_Differ_From_Source_File_Path", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Er is een onverwachte fout opgetreden tijdens het verplaatsen van het gemigreerde bestand &apos;{0}&apos; naar &apos;{1}&apos;..
         /// </summary>
         internal static string Migrate_Unable_To_Move_From_Location_0_To_Location_1 {

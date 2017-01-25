@@ -170,6 +170,8 @@ namespace Migration.Console
             var sourceFile = new VersionedFile(filepath);
 
             migrator.Migrate(sourceFile, toVersion, toFilepath);
+            SystemConsole.WriteLine(Resources.CommandMigrate_Successful_Migration_From_Location_0_To_Version_1_At_Location_2,
+                                    filepath, toVersion, toFilepath);
         }
 
         private static void ShowMigrateCommand()
