@@ -31,7 +31,6 @@ using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.Views;
 using Ringtoets.Piping.Primitives;
-using PipingFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Piping.Plugin.Test.ViewInfos
@@ -283,6 +282,16 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
 
             // Assert
             mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CreateInstance_Always_NewViewWithHandler()
+        {
+            // Call
+            var view = info.CreateInstance();
+
+            // Assert
+            Assert.IsInstanceOf<PipingCalculationsView>(view);
         }
     }
 }

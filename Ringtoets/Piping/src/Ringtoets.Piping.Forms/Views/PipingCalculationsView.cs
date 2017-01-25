@@ -34,12 +34,12 @@ using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PresentationObjects;
+using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.Properties;
 using Ringtoets.Piping.Primitives;
 using Ringtoets.Piping.Service;
-using CoreCommonControlsResources = Core.Common.Controls.Properties.Resources;
 
 namespace Ringtoets.Piping.Forms.Views
 {
@@ -51,6 +51,8 @@ namespace Ringtoets.Piping.Forms.Views
         private const int stochasticSoilModelColumnIndex = 1;
         private const int stochasticSoilProfileColumnIndex = 2;
         private const int selectableHydraulicBoundaryLocationColumnIndex = 4;
+
+        private readonly ICalculationInputPropertyChangeHandler<PipingInput, PipingCalculationScenario> propertyChangeHandler;
         private readonly Observer assessmentSectionObserver;
         private readonly RecursiveObserver<CalculationGroup, PipingInput> pipingInputObserver;
         private readonly RecursiveObserver<CalculationGroup, CalculationGroup> pipingCalculationGroupObserver;
@@ -84,6 +86,21 @@ namespace Ringtoets.Piping.Forms.Views
         }
 
         /// <summary>
+        /// Creates a new instance of <see cref="PipingCalculationsView"/>.
+        /// </summary>
+        /// <param name="handler">The handler responsible for handling effects of a property change.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="handler"/> is <c>null</c>.</exception>
+        public PipingCalculationsView(ICalculationInputPropertyChangeHandler<PipingInput, PipingCalculationScenario> handler) : this()
+        {
+            if (handler == null)
+            {
+                throw new ArgumentNullException(nameof(handler));
+            }
+
+            propertyChangeHandler = handler;
+        }
+
+        /// <summary>
         /// Gets or sets the piping failure mechanism.
         /// </summary>
         public PipingFailureMechanism PipingFailureMechanism
@@ -95,7 +112,7 @@ namespace Ringtoets.Piping.Forms.Views
             set
             {
                 pipingFailureMechanism = value;
-                pipingStochasticSoilModelsObserver.Observable = pipingFailureMechanism != null ? pipingFailureMechanism.StochasticSoilModels : null;
+                pipingStochasticSoilModelsObserver.Observable = pipingFailureMechanism?.StochasticSoilModels;
                 pipingFailureMechanismObserver.Observable = pipingFailureMechanism;
 
                 UpdateStochasticSoilModelColumn();
@@ -225,14 +242,14 @@ namespace Ringtoets.Piping.Forms.Views
 
             dataGridViewControl.AddTextBoxColumn(
                 TypeUtils.GetMemberName<PipingCalculationRow>(row => row.DampingFactorExitMean),
-                string.Format("{0} {1}", Resources.Probabilistics_Mean_Symbol, dampingFactorExitHeader));
+                $"{Resources.Probabilistics_Mean_Symbol} {dampingFactorExitHeader}");
 
             var phreaticLevelExitHeader = Resources.PipingInput_PhreaticLevelExit_DisplayName;
             phreaticLevelExitHeader = char.ToLowerInvariant(phreaticLevelExitHeader[0]) + phreaticLevelExitHeader.Substring(1);
 
             dataGridViewControl.AddTextBoxColumn(
                 TypeUtils.GetMemberName<PipingCalculationRow>(row => row.PhreaticLevelExitMean),
-                string.Format("{0} {1}", Resources.Probabilistics_Mean_Symbol, phreaticLevelExitHeader));
+                $"{Resources.Probabilistics_Mean_Symbol} {phreaticLevelExitHeader}");
 
             dataGridViewControl.AddTextBoxColumn(
                 TypeUtils.GetMemberName<PipingCalculationRow>(pcs => pcs.EntryPointL),
@@ -270,9 +287,7 @@ namespace Ringtoets.Piping.Forms.Views
         {
             var currentRow = dataGridViewControl.CurrentRow;
 
-            var pipingCalculationRow = currentRow != null
-                                           ? (PipingCalculationRow) currentRow.DataBoundItem
-                                           : null;
+            var pipingCalculationRow = (PipingCalculationRow) currentRow?.DataBoundItem;
 
             PipingInputContext selection = null;
             if (pipingCalculationRow != null)
@@ -291,9 +306,7 @@ namespace Ringtoets.Piping.Forms.Views
         private static IEnumerable<SelectableHydraulicBoundaryLocation> GetSelectableHydraulicBoundaryLocations(
             IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations, RingtoetsPipingSurfaceLine surfaceLine)
         {
-            Point2D referencePoint = surfaceLine == null || surfaceLine.ReferenceLineIntersectionWorldPoint == null
-                                         ? null
-                                         : surfaceLine.ReferenceLineIntersectionWorldPoint;
+            Point2D referencePoint = surfaceLine?.ReferenceLineIntersectionWorldPoint;
             return SelectableHydraulicBoundaryLocationHelper.GetSortedSelectableHydraulicBoundaryLocations(
                 hydraulicBoundaryLocations, referencePoint);
         }
@@ -435,7 +448,7 @@ namespace Ringtoets.Piping.Forms.Views
 
         private IEnumerable<SelectableHydraulicBoundaryLocation> GetSelectableHydraulicBoundaryLocationsForCalculation(PipingCalculation pipingCalculation)
         {
-            if (assessmentSection == null || assessmentSection.HydraulicBoundaryDatabase == null || pipingCalculation.InputParameters.UseAssessmentLevelManualInput)
+            if (assessmentSection?.HydraulicBoundaryDatabase == null || pipingCalculation.InputParameters.UseAssessmentLevelManualInput)
             {
                 return Enumerable.Empty<SelectableHydraulicBoundaryLocation>();
             }
@@ -548,7 +561,7 @@ namespace Ringtoets.Piping.Forms.Views
 
         private IEnumerable<SelectableHydraulicBoundaryLocation> GetSelectableHydraulicBoundaryLocationsFromFailureMechanism()
         {
-            if (assessmentSection == null || assessmentSection.HydraulicBoundaryDatabase == null)
+            if (assessmentSection?.HydraulicBoundaryDatabase == null)
             {
                 return null;
             }
@@ -570,10 +583,10 @@ namespace Ringtoets.Piping.Forms.Views
 
         private StochasticSoilProfile[] GetPipingStochasticSoilProfilesFromStochasticSoilModels()
         {
-            return pipingFailureMechanism != null ? pipingFailureMechanism.StochasticSoilModels
-                                                                          .SelectMany(ssm => ssm.StochasticSoilProfiles)
-                                                                          .Distinct()
-                                                                          .ToArray() : null;
+            return pipingFailureMechanism?.StochasticSoilModels
+                                         .SelectMany(ssm => ssm.StochasticSoilProfiles)
+                                         .Distinct()
+                                         .ToArray();
         }
 
         #endregion
@@ -642,10 +655,7 @@ namespace Ringtoets.Piping.Forms.Views
 
         private void OnSelectionChanged()
         {
-            if (SelectionChanged != null)
-            {
-                SelectionChanged(this, new EventArgs());
-            }
+            SelectionChanged?.Invoke(this, new EventArgs());
         }
 
         private void OnCellFormatting(object sender, DataGridViewCellFormattingEventArgs eventArgs)
