@@ -244,16 +244,6 @@ namespace Ringtoets.Common.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De bijdrage van dit toetsspoor is nul of negatief. Daardoor is de doorsnede-eis onbepaald en kan de berekening niet worden uitgevoerd..
-        /// </summary>
-        public static string RingtoetsCommonDataCalculationService_ProfileSpecificRequiredProbability_Contribution_is_zero_or_negative {
-            get {
-                return ResourceManager.GetString("RingtoetsCommonDataCalculationService_ProfileSpecificRequiredProbability_Contribu" +
-                        "tion_is_zero_or_negative", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to De N-waarde van dit toetsspoor is nul. Daardoor is de doorsnede-eis onbepaald en kan de berekening niet worden uitgevoerd..
         /// </summary>
         public static string RingtoetsCommonDataCalculationService_ProfileSpecificRequiredProbability_N_is_zero {

@@ -59,38 +59,19 @@ namespace Ringtoets.Common.Service.Test
         }
 
         [Test]
-        public void ProfileSpecificRequiredProbability_WithValidParameters_ReturnSpecificProbability()
+        [TestCase(0, 0)]
+        [TestCase(10, 0.00025)]
+        public void ProfileSpecificRequiredProbability_WithValidParameters_ReturnSpecificProbability(double contribution, double expectedProfileSpecificRequiredProbability)
         {
             // Setup
             const double norm = 1.0/200;
-            const double contribution = 10;
             const int n = 2;
 
             // Call
             double probability = RingtoetsCommonDataCalculationService.ProfileSpecificRequiredProbability(norm, contribution, n);
 
             // Assert
-            Assert.AreEqual(0.00025, probability);
-        }
-
-        [Test]
-        [TestCase(-1.0)]
-        [TestCase(0.0)]
-        public void ProfileSpecificRequiredProbability_WithZeroContribution_ThrowsArgumentException(double contribution)
-        {
-            // Setup
-            const double norm = 1.0/200;
-            const int n = 2;
-
-            // Call
-            TestDelegate action = () => RingtoetsCommonDataCalculationService.ProfileSpecificRequiredProbability(norm, contribution, n);
-
-            // Assert
-            ArgumentOutOfRangeException exception = Assert.Throws<ArgumentOutOfRangeException>(action);
-            Assert.AreEqual(contribution, exception.ActualValue);
-            Assert.AreEqual("failureMechanismContribution", exception.ParamName);
-            StringAssert.StartsWith("De bijdrage van dit toetsspoor is nul of negatief. Daardoor is de doorsnede-eis onbepaald en kan de berekening niet worden uitgevoerd." +
-                                    Environment.NewLine, exception.Message);
+            Assert.AreEqual(expectedProfileSpecificRequiredProbability, probability);
         }
 
         [Test]

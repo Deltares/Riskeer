@@ -197,9 +197,6 @@
   <data name="HydraulicBoundaryDatabaseConnectionValidator_No_hydraulic_boundary_database_imported" xml:space="preserve">
     <value>Er is geen hydraulische randvoorwaardendatabase geïmporteerd.</value>
   </data>
-  <data name="RingtoetsCommonDataCalculationService_ProfileSpecificRequiredProbability_Contribution_is_zero_or_negative" xml:space="preserve">
-    <value>De bijdrage van dit toetsspoor is nul of negatief. Daardoor is de doorsnede-eis onbepaald en kan de berekening niet worden uitgevoerd.</value>
-  </data>
   <data name="RingtoetsCommonDataCalculationService_ProfileSpecificRequiredProbability_N_is_zero" xml:space="preserve">
     <value>De N-waarde van dit toetsspoor is nul. Daardoor is de doorsnede-eis onbepaald en kan de berekening niet worden uitgevoerd.</value>
   </data>
