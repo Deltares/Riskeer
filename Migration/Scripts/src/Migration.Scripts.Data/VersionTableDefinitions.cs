@@ -37,11 +37,6 @@ namespace Migration.Scripts.Data
         public const string Version = "Version";
 
         /// <summary>
-        /// Gets the name of the fingerprint column.
-        /// </summary>
-        public const string Fingerprint = "FingerPrint";
-
-        /// <summary>
         /// Gets the name of the timestamp column.
         /// </summary>
         public const string Timestamp = "Timestamp";

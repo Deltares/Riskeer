@@ -37,15 +37,5 @@ namespace Migration.Scripts.Data
                    + $"Order by {VersionTableDefinitions.Timestamp} DESC "
                    + "LIMIT 1";
         }
-
-        /// <summary>
-        /// Returns the query to set the fingerprint in the Ringtoets database.
-        /// </summary>
-        /// <returns>The query to set the fingerprint in the Ringtoets database.</returns>
-        public static string GetUpdateFingerprintQuery()
-        {
-            return $"UPDATE {VersionTableDefinitions.TableName} "
-                   + $"SET {VersionTableDefinitions.Fingerprint}=@{VersionTableDefinitions.Fingerprint}";
-        }
     }
 }
