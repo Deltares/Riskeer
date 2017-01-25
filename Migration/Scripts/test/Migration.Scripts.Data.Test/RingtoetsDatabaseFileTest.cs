@@ -58,17 +58,22 @@ namespace Migration.Scripts.Data.Test
             {
                 FileAttributes attributes = File.GetAttributes(filePath);
                 File.SetAttributes(filePath, attributes | FileAttributes.ReadOnly);
-
-                // Call
-                TestDelegate call = () =>
+                try
                 {
-                    using (new RingtoetsDatabaseFile(filePath)) {}
-                };
+                    // Call
+                    TestDelegate call = () =>
+                    {
+                        using (new RingtoetsDatabaseFile(filePath)) {}
+                    };
 
-                // Assert
-                string expectedMessage = $"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{filePath}'.";
-                TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
-                File.SetAttributes(filePath, attributes);
+                    // Assert
+                    string expectedMessage = $"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{filePath}'.";
+                    TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
+                }
+                finally
+                {
+                    File.SetAttributes(filePath, attributes);
+                }
             }
         }
 

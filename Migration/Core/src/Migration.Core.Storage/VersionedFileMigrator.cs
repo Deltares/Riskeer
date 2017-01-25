@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -112,7 +113,7 @@ namespace Migration.Core.Storage
                     File.Copy(upgradedVersionFile.Location, newFileLocation, true);
                     File.Delete(upgradedVersionFile.Location);
                 }
-                catch (IOException exception)
+                catch (Exception exception) when (exception is IOException || exception is UnauthorizedAccessException)
                 {
                     var message = string.Format(Resources.Migrate_Unable_To_Move_From_Location_0_To_Location_1,
                                                 upgradedVersionFile.Location, newFileLocation);

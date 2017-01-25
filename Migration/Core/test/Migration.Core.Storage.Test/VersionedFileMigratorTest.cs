@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.IO;
 using Core.Common.TestUtil;
 using Migration.Scripts.Data;
@@ -143,9 +144,44 @@ namespace Migration.Core.Storage.Test
                 TestDelegate call = () => migrator.Migrate(fromVersionedFile, newVersion, targetFilePath);
 
                 // Assert
-                string message = Assert.Throws<CriticalDatabaseMigrationException>(call).Message;
-                Assert.That(message.StartsWith("Er is een onverwachte fout opgetreden tijdens het verplaatsen van het gemigreerde bestand '"));
-                Assert.That(message.EndsWith($"' naar '{targetFilePath}'."));
+                CriticalDatabaseMigrationException exception = Assert.Throws<CriticalDatabaseMigrationException>(call);
+                Assert.That(exception.Message.StartsWith("Er is een onverwachte fout opgetreden tijdens het verplaatsen van het gemigreerde bestand '"));
+                Assert.That(exception.Message.EndsWith($"' naar '{targetFilePath}'."));
+                Assert.IsInstanceOf<IOException>(exception.InnerException);
+            }
+        }
+
+        [Test]
+        public void Migrate_TargetFileNotWritable_ThrowsCriticalDatabaseMigrationException()
+        {
+            // Setup
+            const string newVersion = "17.1";
+            string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Migration.Core.Storage, "Demo164.rtd");
+            var fromVersionedFile = new VersionedFile(sourceFilePath);
+
+            string targetFilePath = TestHelper.GetTestDataPath(TestDataPath.Migration.Core.Storage, Path.GetRandomFileName());
+            var migrator = new VersionedFileMigrator();
+
+            using (new FileDisposeHelper(targetFilePath))
+            {
+                FileAttributes attributes = File.GetAttributes(targetFilePath);
+                File.SetAttributes(targetFilePath, attributes | FileAttributes.ReadOnly);
+
+                try
+                {
+                    // Call
+                    TestDelegate call = () => migrator.Migrate(fromVersionedFile, newVersion, targetFilePath);
+
+                    // Assert
+                    CriticalDatabaseMigrationException exception = Assert.Throws<CriticalDatabaseMigrationException>(call);
+                    Assert.That(exception.Message.StartsWith("Er is een onverwachte fout opgetreden tijdens het verplaatsen van het gemigreerde bestand '"));
+                    Assert.That(exception.Message.EndsWith($"' naar '{targetFilePath}'."));
+                    Assert.IsInstanceOf<UnauthorizedAccessException>(exception.InnerException);
+                }
+                finally
+                {
+                    File.SetAttributes(targetFilePath, attributes);
+                }
             }
         }
 

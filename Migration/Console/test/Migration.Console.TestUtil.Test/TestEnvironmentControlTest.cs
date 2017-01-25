@@ -20,8 +20,8 @@
 // All rights reserved.
 
 using System;
-using NUnit.Framework;
 using Core.Common.TestUtil;
+using NUnit.Framework;
 
 namespace Migration.Console.TestUtil.Test
 {
