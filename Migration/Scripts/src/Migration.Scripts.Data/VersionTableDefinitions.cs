@@ -26,8 +26,24 @@ namespace Migration.Scripts.Data
     /// </summary>
     public static class VersionTableDefinitions
     {
+        /// <summary>
+        /// Gets the name of the table.
+        /// </summary>
         public const string TableName = "VersionEntity";
+
+        /// <summary>
+        /// Gets the name of the version column.
+        /// </summary>
         public const string Version = "Version";
+
+        /// <summary>
+        /// Gets the name of the fingerprint column.
+        /// </summary>
+        public const string Fingerprint = "FingerPrint";
+
+        /// <summary>
+        /// Gets the name of the timestamp column.
+        /// </summary>
         public const string Timestamp = "Timestamp";
     }
 }

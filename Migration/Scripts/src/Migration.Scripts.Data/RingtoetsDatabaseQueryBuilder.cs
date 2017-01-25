@@ -32,10 +32,20 @@ namespace Migration.Scripts.Data
         /// <returns>The query to get the version from the Ringtoets database.</returns>
         public static string GetVersionQuery()
         {
-            return $"SELECT {VersionTableDefinitions.Version} " +
-                   $"FROM {VersionTableDefinitions.TableName} " +
-                   $"Order by {VersionTableDefinitions.Timestamp} DESC " +
-                   "LIMIT 1";
+            return $"SELECT {VersionTableDefinitions.Version} "
+                   + $"FROM {VersionTableDefinitions.TableName} "
+                   + $"Order by {VersionTableDefinitions.Timestamp} DESC "
+                   + "LIMIT 1";
+        }
+
+        /// <summary>
+        /// Returns the query to set the fingerprint in the Ringtoets database.
+        /// </summary>
+        /// <returns>The query to set the fingerprint in the Ringtoets database.</returns>
+        public static string GetUpdateFingerprintQuery()
+        {
+            return $"UPDATE {VersionTableDefinitions.TableName} "
+                   + $"SET {VersionTableDefinitions.Fingerprint}=@{VersionTableDefinitions.Fingerprint}";
         }
     }
 }

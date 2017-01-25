@@ -36,5 +36,15 @@ namespace Migration.Scripts.Data.Test
             Assert.AreEqual("SELECT Version FROM VersionEntity Order by Timestamp DESC LIMIT 1",
                             getVersionQuery);
         }
+
+        [Test]
+        public void GetUpdateFingerprintQuery_ReturnsExpectedQuery()
+        {
+            // Call
+            string updateFingerprintQuery = RingtoetsDatabaseQueryBuilder.GetUpdateFingerprintQuery();
+
+            // Assert
+            Assert.AreEqual("UPDATE VersionEntity SET FingerPrint=@FingerPrint", updateFingerprintQuery);
+        }
     }
 }
