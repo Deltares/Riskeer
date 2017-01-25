@@ -3,11 +3,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
-    <ProjectGuid>{FC777320-4550-45DF-B31B-C33BA4505AC4}</ProjectGuid>
+    <ProjectGuid>{1D3C098B-1EED-488C-900D-B71155C2D6AB}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Migration.Console.Test</RootNamespace>
-    <AssemblyName>Migration.Console.Test</AssemblyName>
+    <RootNamespace>Application.Ringtoets.MigrationConsole.Test</RootNamespace>
+    <AssemblyName>Application.Ringtoets.MigrationConsole.Test</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -35,55 +35,19 @@
     <DebugType>none</DebugType>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="nunit.framework, Version=3.6.0.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\packages\NUnit.3.6.0\lib\net40\nunit.framework.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Rhino.Mocks, Version=3.6.0.0, Culture=neutral, PublicKeyToken=0b3305902db7183f, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\packages\RhinoMocks.3.6.1\lib\net\Rhino.Mocks.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\..\..\..\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
-    <Compile Include="ConsoleHelperTest.cs" />
-    <Compile Include="DefaultEnvironmentControlTest.cs" />
-    <Compile Include="EnvironmentControlTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RingtoetsMigrationToolTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">
       <Link>Copying.licenseheader</Link>
     </None>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj">
-      <Project>{D749EE4C-CE50-4C17-BF01-9A953028C126}</Project>
-      <Name>Core.Common.TestUtil</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Scripts\src\Migration.Scripts.Data\Migration.Scripts.Data.csproj">
-      <Project>{D08DB9E2-6861-44C8-A725-71A70274CC77}</Project>
-      <Name>Migration.Scripts.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\Migration.Console\Migration.Console.csproj">
-      <Project>{2E2C9B96-E72A-4C10-AA54-A5381FE30B0D}</Project>
-      <Name>Migration.Console</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Migration.Console.TestUtil\Migration.Console.TestUtil.csproj">
-      <Project>{679D3CE6-0820-49CF-9D56-D1CF7F1B853A}</Project>
-      <Name>Migration.Console.TestUtil</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
