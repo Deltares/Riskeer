@@ -227,26 +227,28 @@ namespace Migration.Console.Test
             string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Migration.Core.Storage, "Demo164.rtd");
             string targetFilePath = TestHelper.GetTestDataPath(TestDataPath.Migration.Core.Storage, Path.GetRandomFileName());
 
-            string consoleText;
-            using (var consoleOutput = new ConsoleOutput())
+            using (new FileDisposeHelper(targetFilePath))
             {
-                // Event
-                RingtoetsMigrationTool.Main(new[]
+                string consoleText;
+                using (var consoleOutput = new ConsoleOutput())
                 {
-                    migrateCommand,
-                    sourceFilePath,
-                    newVersion,
-                    targetFilePath
-                });
+                    // Event
+                    RingtoetsMigrationTool.Main(new[]
+                    {
+                        migrateCommand,
+                        sourceFilePath,
+                        newVersion,
+                        targetFilePath
+                    });
 
-                consoleText = consoleOutput.GetConsoleOutput();
+                    consoleText = consoleOutput.GetConsoleOutput();
+                }
+
+                // Result
+                Assert.AreEqual(string.Empty, consoleText);
+                var toVersionedFile = new VersionedFile(targetFilePath);
+                Assert.AreEqual(newVersion, toVersionedFile.GetVersion());
             }
-
-            // Result
-            Assert.AreEqual(string.Empty, consoleText);
-            var toVersionedFile = new VersionedFile(targetFilePath);
-            Assert.AreEqual(newVersion, toVersionedFile.GetVersion());
-            using (new FileDisposeHelper(targetFilePath)) {}
             Assert.AreEqual(0, environmentControl.ErrorCodeCalled);
         }
 

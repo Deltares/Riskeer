@@ -114,18 +114,15 @@ namespace Migration.Core.Storage.Test
             string targetFilePath = TestHelper.GetTestDataPath(TestDataPath.Migration.Core.Storage, Path.GetRandomFileName());
             var migrator = new VersionedFileMigrator();
 
-            // Call
-            migrator.Migrate(fromVersionedFile, newVersion, targetFilePath);
-
-            // Assert
-            if (!File.Exists(targetFilePath))
+            using (new FileDisposeHelper(targetFilePath))
             {
-                Assert.Fail($"File was not created at location '{targetFilePath}'");
-            }
+                // Call
+                migrator.Migrate(fromVersionedFile, newVersion, targetFilePath);
 
-            var toVersionedFile = new VersionedFile(targetFilePath);
-            Assert.AreEqual(newVersion, toVersionedFile.GetVersion());
-            using (new FileDisposeHelper(targetFilePath)) {}
+                // Assert
+                var toVersionedFile = new VersionedFile(targetFilePath);
+                Assert.AreEqual(newVersion, toVersionedFile.GetVersion());
+            }
         }
 
         [Test]

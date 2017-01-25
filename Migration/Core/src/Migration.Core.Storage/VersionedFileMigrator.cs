@@ -109,7 +109,8 @@ namespace Migration.Core.Storage
             {
                 try
                 {
-                    File.Move(upgradedVersionFile.Location, newFileLocation);
+                    File.Copy(upgradedVersionFile.Location, newFileLocation, true);
+                    File.Delete(upgradedVersionFile.Location);
                 }
                 catch (IOException exception)
                 {
