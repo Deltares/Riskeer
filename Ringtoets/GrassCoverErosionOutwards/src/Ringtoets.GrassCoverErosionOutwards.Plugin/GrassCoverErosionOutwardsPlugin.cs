@@ -519,9 +519,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                     }
                 });
 
-            if (nodeData.AssessmentSection.HydraulicBoundaryDatabase == null)
+            var validationText = ValidateAllDataAvailableAndGetErrorMessage(nodeData.AssessmentSection, nodeData.FailureMechanism);
+            if (!string.IsNullOrEmpty(validationText))
             {
                 designWaterLevelItem.Enabled = false;
+                designWaterLevelItem.ToolTipText = validationText;
             }
 
             return Gui.Get(nodeData, treeViewControl)
@@ -574,9 +576,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                     }
                 });
 
-            if (nodeData.AssessmentSection.HydraulicBoundaryDatabase == null)
+            var validationText = ValidateAllDataAvailableAndGetErrorMessage(nodeData.AssessmentSection, nodeData.FailureMechanism);
+            if (!string.IsNullOrEmpty(validationText))
             {
                 waveHeightItem.Enabled = false;
+                waveHeightItem.ToolTipText = validationText;
             }
 
             return Gui.Get(nodeData, treeViewControl)
