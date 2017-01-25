@@ -243,18 +243,54 @@ namespace Ringtoets.Piping.Service
 
             var changedObservables = new List<IObservable>();
 
-            IEnumerable<PipingCalculation> pipingCalculationScenarios =
-                failureMechanism.Calculations
-                                .Cast<PipingCalculation>()
-                                .Where(pcs => ReferenceEquals(pcs.InputParameters.StochasticSoilProfile, soilProfile));
-
-            foreach (PipingCalculation pipingCalculationScenario in pipingCalculationScenarios)
+            foreach (PipingCalculation pipingCalculationScenario in GetCalculationsWithSoilProfileAssigned(failureMechanism, soilProfile))
             {
                 changedObservables.AddRange(RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(pipingCalculationScenario));
                 changedObservables.AddRange(ClearStochasticSoilProfile(pipingCalculationScenario.InputParameters));
             }
 
             return changedObservables;
+        }
+
+        /// <summary>
+        /// Clears data dependent on a given <see cref="StochasticSoilProfile"/>, either directly or indirectly,
+        /// from calculations in the <see cref="PipingFailureMechanism"/>.
+        /// </summary>
+        /// <param name="failureMechanism">The failure mechanism containing <paramref name="soilProfile"/>.</param>
+        /// <param name="soilProfile">The soil profile residing in <paramref name="failureMechanism"/>
+        /// that should be removed.</param>
+        /// <returns>All observable objects affected by this method.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
+        /// or <paramref name="soilProfile"/> is <c>null</c>.</exception>
+        public static IEnumerable<IObservable> UpdateStochasticSoilProfileForInput(PipingFailureMechanism failureMechanism, StochasticSoilProfile soilProfile)
+        {
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
+            if (soilProfile == null)
+            {
+                throw new ArgumentNullException(nameof(soilProfile));
+            }
+
+            var changedObservables = new List<IObservable>();
+
+            foreach (PipingCalculation calculation in GetCalculationsWithSoilProfileAssigned(failureMechanism, soilProfile))
+            {
+                changedObservables.AddRange(RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(calculation));
+                changedObservables.Add(calculation.InputParameters);
+            }
+
+            return changedObservables;
+        }
+
+        private static IEnumerable<PipingCalculation> GetCalculationsWithSoilProfileAssigned(PipingFailureMechanism failureMechanism, StochasticSoilProfile soilProfile)
+        {
+            IEnumerable<PipingCalculation> pipingCalculationScenarios =
+                failureMechanism.Calculations
+                                .Cast<PipingCalculation>()
+                                .Where(pcs => ReferenceEquals(pcs.InputParameters.StochasticSoilProfile, soilProfile));
+            return pipingCalculationScenarios;
         }
 
         private static IEnumerable<IObservable> ClearSurfaceLine(PipingInput input)

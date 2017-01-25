@@ -101,7 +101,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         }
 
         [Test]
-        public void UpdateModelWithImportedData_CurrentModelsWithSameNameAndImportedModelWithSameName_ThrowsInvalidOperationException()
+        public void UpdateModelWithImportedData_WithCurrentModelsAndImportedMultipleModelsWithSameName_ThrowsInvalidOperationException()
         {
             // Setup
             var nonUniqueName = "non-unique name";
@@ -109,13 +109,13 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var targetCollection = new StochasticSoilModelCollection();
             targetCollection.AddRange(new[]
                                       {
-                                          new TestStochasticSoilModel(nonUniqueName),
                                           new TestStochasticSoilModel(nonUniqueName)
                                       }, sourceFilePath);
 
             var strategy = new StochasticSoilModelUpdateData(new PipingFailureMechanism());
             var importedStochasticSoilModels = new[]
             {
+                new TestStochasticSoilModel(nonUniqueName),
                 new TestStochasticSoilModel(nonUniqueName)
             };
 
@@ -132,8 +132,8 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             // Setup
             var importedStochasticSoilModels = new[]
             {
-                new TestStochasticSoilModel(),
-                new TestStochasticSoilModel()
+                new TestStochasticSoilModel("A"),
+                new TestStochasticSoilModel("B")
             };
             var strategy = new StochasticSoilModelUpdateData(new PipingFailureMechanism());
             var targetCollection = new StochasticSoilModelCollection();

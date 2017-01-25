@@ -23,8 +23,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
-using log4net;
-using Ringtoets.Common.Service;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Service;
 
@@ -35,7 +33,6 @@ namespace Ringtoets.Piping.Plugin.FileImporter
     /// </summary>
     public class StochasticSoilModelUpdateData : IStochasticSoilModelUpdateStrategy
     {
-        private readonly ILog log = LogManager.GetLogger(typeof(StochasticSoilModelUpdateData));
         private readonly PipingFailureMechanism failureMechanism;
 
         /// <summary>
@@ -85,37 +82,68 @@ namespace Ringtoets.Piping.Plugin.FileImporter
                 throw new ArgumentNullException(nameof(targetCollection));
             }
 
-            var removedModels = targetCollection.ToList();
-            var updatedOrAddedModels = new List<StochasticSoilModel>();
-            var affectedObjects = new List<IObservable> { targetCollection };
+            return ModifyModelCollection(readStochasticSoilModels, targetCollection, sourceFilePath);
+        }
 
-            foreach (var readModel in readStochasticSoilModels)
+        private IEnumerable<IObservable> ModifyModelCollection(IEnumerable<StochasticSoilModel> readStochasticSoilModels, StochasticSoilModelCollection targetCollection, string sourceFilePath)
+        {
+            var affectedObjects = new List<IObservable>
             {
-                var existingModel = targetCollection.SingleOrDefault(existing => existing.Name.Equals(readModel.Name));
-                if (existingModel != null)
-                {
-                    affectedObjects.AddRange(UpdateStochasticSoilModel(existingModel, readModel));
+                targetCollection
+            };
 
-                    removedModels.Remove(existingModel);
-                    updatedOrAddedModels.Add(existingModel);
-                }
-                else
-                {
-                    removedModels.Remove(readModel);
-                    updatedOrAddedModels.Add(readModel);
-                }
-            }
-            foreach (var model in removedModels)
-            {
-                affectedObjects.AddRange(RemoveStochasticSoilModel(model));
-            }
+            var readModelList = readStochasticSoilModels.ToList();
+            var addedModels = GetAddedReadModels(targetCollection, readModelList).ToList();
+            var updatedModels = GetUpdatedExistingModels(targetCollection, readModelList).ToList();
+            var removedModels = GetRemovedExistingModels(targetCollection, readModelList).ToList();
+
+            affectedObjects.AddRange(UpdateModels(updatedModels, readModelList));
+            affectedObjects.AddRange(RemoveModels(removedModels));
+
             targetCollection.Clear();
-            targetCollection.AddRange(updatedOrAddedModels, sourceFilePath);
+            targetCollection.AddRange(addedModels.Union(updatedModels), sourceFilePath);
 
             return affectedObjects;
         }
 
-        private IEnumerable<IObservable> RemoveStochasticSoilModel(StochasticSoilModel removedModel)
+        private static IEnumerable<StochasticSoilModel> GetAddedReadModels(IEnumerable<StochasticSoilModel> existingCollection, IEnumerable<StochasticSoilModel> readStochasticSoilModels)
+        {
+            return readStochasticSoilModels.Except(existingCollection, new SoilModelNameEqualityComparer());
+        }
+
+        private static IEnumerable<StochasticSoilModel> GetUpdatedExistingModels(IEnumerable<StochasticSoilModel> existingCollection, IEnumerable<StochasticSoilModel> readStochasticSoilModels)
+        {
+            return existingCollection.Intersect(readStochasticSoilModels, new SoilModelNameEqualityComparer());
+        }
+
+        private static IEnumerable<StochasticSoilModel> GetRemovedExistingModels(IEnumerable<StochasticSoilModel> existingCollection, IEnumerable<StochasticSoilModel> readStochasticSoilModels)
+        {
+            return existingCollection.Except(readStochasticSoilModels, new SoilModelNameEqualityComparer());
+        }
+
+        private IEnumerable<IObservable> RemoveModels(IEnumerable<StochasticSoilModel> removedModels)
+        {
+            var affectedObjects = new List<IObservable>();
+
+            foreach (var model in removedModels)
+            {
+                affectedObjects.AddRange(ClearStochasticSoilModelDependentData(model));
+            }
+            return affectedObjects;
+        }
+
+        private IEnumerable<IObservable> UpdateModels(IList<StochasticSoilModel> updatedModels, IList<StochasticSoilModel> readModels)
+        {
+            var affectedObjects = new List<IObservable>();
+            foreach (StochasticSoilModel updatedModel in updatedModels)
+            {
+                StochasticSoilModel readModel = readModels.Single(r => r.Name.Equals(updatedModel.Name));
+                affectedObjects.AddRange(UpdateStochasticSoilModel(updatedModel, readModel));
+            }
+            return affectedObjects;
+        }
+
+        private IEnumerable<IObservable> ClearStochasticSoilModelDependentData(StochasticSoilModel removedModel)
         {
             return PipingDataSynchronizationService.RemoveStochasticSoilModel(failureMechanism, removedModel);
         }
@@ -131,16 +159,25 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             }
             foreach (StochasticSoilProfile updatedProfile in difference.UpdatedProfiles)
             {
-                IEnumerable<PipingCalculation> pipingInputs = failureMechanism.Calculations
-                                                                              .Cast<PipingCalculation>()
-                                                                              .Where(c => ReferenceEquals(c.InputParameters.StochasticSoilProfile, updatedProfile));
-                foreach (PipingCalculation calculation in pipingInputs)
-                {
-                    affectedObjects.AddRange(RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(calculation));
-                    affectedObjects.Add(calculation.InputParameters);
-                }
+                affectedObjects.AddRange(PipingDataSynchronizationService.UpdateStochasticSoilProfileForInput(failureMechanism, updatedProfile));
             }
             return affectedObjects;
+        }
+
+        /// <summary>
+        /// Class for comparing <see cref="StochasticSoilModel"/> by just the name.
+        /// </summary>
+        private class SoilModelNameEqualityComparer : IEqualityComparer<StochasticSoilModel>
+        {
+            public bool Equals(StochasticSoilModel x, StochasticSoilModel y)
+            {
+                return x.Name == y.Name;
+            }
+
+            public int GetHashCode(StochasticSoilModel obj)
+            {
+                return obj.Name.GetHashCode();
+            }
         }
     }
 }
