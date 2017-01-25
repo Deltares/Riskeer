@@ -53,29 +53,5 @@ namespace Migration.Console
             SystemConsole.WriteLine(format, args);
             SystemConsole.ResetColor();
         }
-
-        /// <summary>
-        /// Writes <paramref name="format"/> as an info text to the <see cref="SystemConsole"/>.
-        /// </summary>
-        /// <param name="format">A composite format string.</param>
-        /// <param name="args">An array of objects to write using <paramref name="format"/>.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any of the input parameters is <c>null</c>.</exception>
-        /// <exception cref="IOException">Thrown when an I/O error occurred.</exception>
-        /// <exception cref="FormatException">Thrown when the format specification in <paramref name="format"/> is invalid.</exception>
-        /// <seealso cref="SystemConsole.WriteLine(string, object[])"/>
-        public static void WriteInfoLine(string format, params object[] args)
-        {
-            if (format == null)
-            {
-                throw new ArgumentNullException(nameof(format));
-            }
-            if (args == null)
-            {
-                throw new ArgumentNullException(nameof(args));
-            }
-            SystemConsole.ForegroundColor = ConsoleColor.White;
-            SystemConsole.WriteLine(format, args);
-            SystemConsole.ResetColor();
-        }
     }
 }

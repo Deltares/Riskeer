@@ -98,9 +98,9 @@ namespace Migration.Console
 
         private static void DisplayAllCommands()
         {
-            ConsoleHelper.WriteInfoLine(commandHelp
-                                        + "\t"
-                                        + Resources.CommandHelp_Command_0_Detailed, commandHelp);
+            SystemConsole.WriteLine(commandHelp
+                                    + "\t"
+                                    + Resources.CommandHelp_Command_0_Detailed, commandHelp);
             ShowMigrateCommand();
             ShowSupportedCommand();
         }
@@ -135,9 +135,9 @@ namespace Migration.Console
 
         private static void ShowSupportedCommand()
         {
-            ConsoleHelper.WriteInfoLine(Resources.CommandSupported_Command_0_Brief
-                                        + "\t"
-                                        + Resources.CommandSupported_Detailed, commandVersionSupported);
+            SystemConsole.WriteLine(Resources.CommandSupported_Command_0_Brief
+                                    + "\t"
+                                    + Resources.CommandSupported_Detailed, commandVersionSupported);
         }
 
         #endregion
@@ -164,9 +164,9 @@ namespace Migration.Console
 
         private static void ShowMigrateCommand()
         {
-            ConsoleHelper.WriteInfoLine(Resources.CommandMigrate_Command_0_Brief
-                                        + "\t"
-                                        + Resources.CommandMigrate_Detailed, commandMigrate);
+            SystemConsole.WriteLine(Resources.CommandMigrate_Command_0_Brief
+                                    + "\t"
+                                    + Resources.CommandMigrate_Detailed, commandMigrate);
         }
 
         #endregion
