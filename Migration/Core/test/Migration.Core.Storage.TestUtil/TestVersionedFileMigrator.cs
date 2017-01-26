@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Migration.Scripts.Data;
@@ -30,6 +31,8 @@ namespace Migration.Core.Storage.TestUtil
     /// </summary>
     public class TestVersionedFileMigrator : VersionedFileMigrator
     {
+        public TestVersionedFileMigrator(IComparer comparer) : base(comparer) {}
+
         protected override IEnumerable<UpgradeScript> GetAvailableUpgradeScripts()
         {
             return Enumerable.Empty<UpgradeScript>();

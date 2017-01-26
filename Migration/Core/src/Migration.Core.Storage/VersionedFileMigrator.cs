@@ -20,13 +20,13 @@
 // All rights reserved.
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Migration.Core.Storage.Properties;
 using Migration.Scripts.Data;
 using Migration.Scripts.Data.Exceptions;
-using Ringtoets.Common.Utils;
 
 namespace Migration.Core.Storage
 {
@@ -36,17 +36,17 @@ namespace Migration.Core.Storage
     public abstract class VersionedFileMigrator
     {
         private readonly IOrderedEnumerable<FileMigrationScript> fileMigrationScripts;
-        private readonly RingtoetsVersionComparer ringtoetsVersionComparer;
+        private readonly IComparer versionedFileComparer;
 
         /// <summary>
         /// Creates a new instance of the <see cref="IVersionedFile"/> class.
         /// </summary>
-        protected VersionedFileMigrator()
+        protected VersionedFileMigrator(IComparer comparer)
         {
             fileMigrationScripts = GetAvailableMigrations()
                 .OrderBy(ms => ms.SupportedVersion())
                 .ThenByDescending(ms => ms.TargetVersion());
-            ringtoetsVersionComparer = new RingtoetsVersionComparer();
+            versionedFileComparer = comparer;
         }
 
         /// <summary>
@@ -69,7 +69,7 @@ namespace Migration.Core.Storage
         /// <c>false</c> otherwise.</returns>
         public bool NeedsMigrate(IVersionedFile versionedFile, string toVersion)
         {
-            return ringtoetsVersionComparer.Compare(versionedFile.GetVersion(), toVersion) < 0;
+            return versionedFileComparer.Compare(versionedFile.GetVersion(), toVersion) < 0;
         }
 
         /// <summary>
@@ -90,14 +90,14 @@ namespace Migration.Core.Storage
             if (!IsVersionSupported(fromVersion))
             {
                 throw new CriticalMigrationException(string.Format(Resources.Upgrade_Version_0_Not_Supported,
-                                                                           fromVersion));
+                                                                   fromVersion));
             }
 
             FileMigrationScript migrationScript = GetMigrationScript(fromVersion, toVersion);
             if (migrationScript == null)
             {
                 throw new CriticalMigrationException(string.Format(Resources.Migrate_From_Version_0_To_Version_1_Not_Supported,
-                                                                           fromVersion, toVersion));
+                                                                   fromVersion, toVersion));
             }
 
             IVersionedFile upgradedVersionFile = migrationScript.Upgrade(fromVersionedFile);
@@ -128,7 +128,7 @@ namespace Migration.Core.Storage
         private FileMigrationScript GetMigrationScript(string fromVersion, string toVersion)
         {
             var supportedMigrationScripts = fileMigrationScripts.Where(ms => ms.SupportedVersion()
-                                                                           .Equals(fromVersion));
+                                                                               .Equals(fromVersion));
 
             if (!supportedMigrationScripts.Any())
             {
@@ -136,7 +136,7 @@ namespace Migration.Core.Storage
             }
 
             return supportedMigrationScripts.FirstOrDefault(ms => ms.TargetVersion().Equals(toVersion))
-                   ?? supportedMigrationScripts.FirstOrDefault(ms => ringtoetsVersionComparer.Compare(toVersion, ms.TargetVersion()) > 0);
+                   ?? supportedMigrationScripts.FirstOrDefault(ms => versionedFileComparer.Compare(toVersion, ms.TargetVersion()) > 0);
         }
 
         private IEnumerable<FileMigrationScript> GetAvailableMigrations()

@@ -27,6 +27,7 @@ using System.Text.RegularExpressions;
 using Application.Ringtoets.Migration.Properties;
 using Migration.Core.Storage;
 using Migration.Scripts.Data;
+using Ringtoets.Common.Utils;
 
 namespace Application.Ringtoets.Migration
 {
@@ -40,7 +41,7 @@ namespace Application.Ringtoets.Migration
         /// <summary>
         /// Creates a new instance of the <see cref="RingtoetsSqLiteDatabaseFileMigrator"/> class.
         /// </summary>
-        public RingtoetsSqLiteDatabaseFileMigrator()
+        public RingtoetsSqLiteDatabaseFileMigrator() : base(new RingtoetsVersionComparer())
         {
             scriptResource = typeof(Resources).Assembly;
         }

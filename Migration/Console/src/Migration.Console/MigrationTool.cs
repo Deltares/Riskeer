@@ -19,10 +19,12 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Migration.Scripts.Data;
+
 namespace Migration.Console
 {
     /// <summary>
-    /// Console application that can migrate a Ringtoets database file to a newer version.
+    /// Console application that can migrate an <see cref="IVersionedFile"/> to a newer version.
     /// </summary>
     public static class MigrationTool
     {

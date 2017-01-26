@@ -19,8 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections;
 using Migration.Core.Storage.TestUtil;
 using NUnit.Framework;
+using Rhino.Mocks;
 
 namespace Migration.Core.Storage.Test
 {
@@ -33,13 +35,17 @@ namespace Migration.Core.Storage.Test
         public void IsVersionSupported_ToVersionIsNullOrWhiteSpace_ReturnsFalse(string toVersion)
         {
             // Setup
-            var migrator = new TestVersionedFileMigrator();
+            var mockRepository = new MockRepository();
+            var comparer = mockRepository.Stub<IComparer>();
+            mockRepository.ReplayAll();
+            var migrator = new TestVersionedFileMigrator(comparer);
 
             // Call
             bool isSupported = migrator.IsVersionSupported(toVersion);
 
             // Assert
             Assert.IsFalse(isSupported);
+            mockRepository.VerifyAll();
         }
     }
 }
