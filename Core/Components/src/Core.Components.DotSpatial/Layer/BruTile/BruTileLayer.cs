@@ -19,6 +19,33 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+// ********************************************************************************************************
+// Product Name: DotSpatial.Plugins.BruTileLayer
+// Description:  Adds BruTile functionality to DotSpatial
+// ********************************************************************************************************
+// The contents of this file are subject to the GNU Library General Public License (LGPL). 
+// You may not use this file except in compliance with the License. You may obtain a copy of the License at 
+// http://dotspatial.codeplex.com/license
+//
+// Software distributed under the License is distributed on an "AS IS" basis, WITHOUT WARRANTY OF 
+// ANY KIND, either expressed or implied. See the License for the specific language governing rights and 
+// limitations under the License. 
+//
+// The Initial Developer of this Original Code is Felix Obermaier. Created 2011.01.05 
+// 
+// Contributor(s): (Open source contributors should list themselves and their modifications here). 
+// |      Name            |    Date     |                                Comments
+// |----------------------|-------------|-----------------------------------------------------------------
+// | Felix Obermaier      |  2011.01.05 | Initial commit
+// | Felix Obermaier      |  2013.02.15 | All sorts of configuration code and user interfaces,
+// |                      |             | making BruTileLayer work in sync- or async mode
+// | Felix Obermaier      |  2013.09.19 | Making deserialization work by adding AssemblyResolve event,
+// |                      |             | handler
+// -------------------------------------------------------------------------------------------------------
+// Changes upon original work have been implemented to suit functional requirements for Ringtoets.
+// These changes have been implemented as of 13 Januari 2017.
+// ********************************************************************************************************
+
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -51,6 +78,7 @@ namespace Core.Components.DotSpatial.Layer.BruTile
     /// </summary>
     /// <remarks>
     /// Original source: https://github.com/FObermaier/DotSpatial.Plugins/blob/master/DotSpatial.Plugins.BruTileLayer/BruTileLayer.cs
+    /// Original license: http://www.apache.org/licenses/LICENSE-2.0.html
     /// </remarks>
     public class BruTileLayer : DotSpatialLayer, IMapLayer
     {
@@ -482,8 +510,8 @@ namespace Core.Components.DotSpatial.Layer.BruTile
                     return;
                 }
 
-                Point lt = args.ProjToPixel(outWorldFile.ToGround(0, 0));
-                Point rb = args.ProjToPixel(outWorldFile.ToGround(outBitmap.Width, outBitmap.Height));
+                Point lt = args.ProjToPixel(outWorldFile.ToWorldCoordinates(0, 0));
+                Point rb = args.ProjToPixel(outWorldFile.ToWorldCoordinates(outBitmap.Width, outBitmap.Height));
                 var rect = new Rectangle(lt, Size.Subtract(new Size(rb), new Size(lt)));
 
                 args.Device.DrawImage(outBitmap, rect, 0, 0, outBitmap.Width, outBitmap.Height,

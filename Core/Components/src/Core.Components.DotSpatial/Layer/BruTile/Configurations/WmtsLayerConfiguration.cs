@@ -36,6 +36,7 @@ namespace Core.Components.DotSpatial.Layer.BruTile.Configurations
     /// </summary>
     /// <remarks>
     /// Original source: https://github.com/FObermaier/DotSpatial.Plugins/blob/master/DotSpatial.Plugins.BruTileLayer/Configuration/WmtsLayerConfiguration.cs
+    /// Original license: http://www.apache.org/licenses/LICENSE-2.0.html
     /// </remarks>
     public class WmtsLayerConfiguration : PersistentCacheConfiguration, IConfiguration
     {

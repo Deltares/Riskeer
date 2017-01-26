@@ -21,10 +21,9 @@
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Imaging;
-using System.Runtime.InteropServices;
+using Core.Common.Utils.Drawing;
 using DotSpatial.Controls;
 using DotSpatial.Data;
 using DotSpatial.Projections;
@@ -40,6 +39,7 @@ namespace Core.Components.DotSpatial.Layer.BruTile.Projections
     /// </summary>
     /// <remarks>
     /// Original source: https://github.com/FObermaier/DotSpatial.Plugins/blob/master/DotSpatial.Plugins.BruTileLayer/Reprojection/TileReprojector.cs
+    /// Original license: http://www.apache.org/licenses/LICENSE-2.0.html
     /// </remarks>
     internal class TileReprojector
     {
@@ -84,24 +84,24 @@ namespace Core.Components.DotSpatial.Layer.BruTile.Projections
                 return;
             }
 
-            Rectangle ptRect = GetSourceExtentInPixelCoordinates(sourceReference, sourceTile);
+            Rectangle targetTileExtentInPixelCoordinates = GetTargetExtentInPixelCoordinates(sourceReference, sourceTile);
 
             // Get the intersection with the current viewport
-            ptRect.Intersect(mapArgs.ImageRectangle);
+            targetTileExtentInPixelCoordinates.Intersect(mapArgs.ImageRectangle);
 
             // Is it empty, don't return anything
-            if (ptRect.Width == 0 || ptRect.Height == 0)
+            if (targetTileExtentInPixelCoordinates.Width == 0 || targetTileExtentInPixelCoordinates.Height == 0)
             {
                 targetTile = null;
                 targetReference = null;
                 return;
             }
 
-            int offsetX = ptRect.X;
-            int offsetY = ptRect.Y;
+            int offsetX = targetTileExtentInPixelCoordinates.X;
+            int offsetY = targetTileExtentInPixelCoordinates.Y;
 
             // Prepare the result tile
-            targetTile = new Bitmap(ptRect.Size.Width, ptRect.Size.Height,
+            targetTile = new Bitmap(targetTileExtentInPixelCoordinates.Size.Width, targetTileExtentInPixelCoordinates.Size.Height,
                                     PixelFormat.Format32bppArgb);
             using (var g = Graphics.FromImage(targetTile))
             {
@@ -123,37 +123,29 @@ namespace Core.Components.DotSpatial.Layer.BruTile.Projections
                 }
             }
             // Copy to output tile
-            SetBitmapBuffer(targetTile, targetTileColorAccess.Buffer);
+            targetTileColorAccess.SetBufferToImageAtOriginalLocation(targetTile);
 
             // Compute the reference
-            Extent outExtent = mapArgs.PixelToProj(ptRect);
+            Extent outExtent = mapArgs.PixelToProj(targetTileExtentInPixelCoordinates);
             targetReference = new WorldFile(
-                outExtent.Width/ptRect.Width, 0,
-                0, -outExtent.Height/ptRect.Height,
+                outExtent.Width / targetTileExtentInPixelCoordinates.Width, 0,
+                0, -outExtent.Height / targetTileExtentInPixelCoordinates.Height,
                 outExtent.X, outExtent.Y);
         }
 
-        private Rectangle GetSourceExtentInPixelCoordinates(WorldFile sourceReference, Bitmap sourceTile)
+        private Rectangle GetTargetExtentInPixelCoordinates(WorldFile sourceReference, Bitmap sourceTile)
         {
-            // Bounding polygon on the ground
-            IPolygon ps = sourceReference.ToGroundBounds(sourceTile.Width, sourceTile.Height);
-
-            // Bounding polygon on the ground in target projection
-            ILinearRing pt = ps.Shell.Reproject(source, target);
-
-            // The target extent
-            Extent ptExtent = pt.EnvelopeInternal.ToExtent();
-
-            // The target extent projected to the current viewport
-            Rectangle ptRect = mapArgs.ProjToPixel(ptExtent);
-            return ptRect;
+            IPolygon sourceTileCircumference = sourceReference.BoundingOrdinatesToWorldCoordinates(sourceTile.Width, sourceTile.Height);
+            ILinearRing targetTileCircumference = sourceTileCircumference.Shell.Reproject(source, target);
+            Extent targetTileExtent = targetTileCircumference.EnvelopeInternal.ToExtent();
+            return mapArgs.ProjToPixel(targetTileExtent);
         }
 
         private IEnumerable<Tuple<Point, Point>> GetValidPoints(int y, int offsetY, int x1, int x2,
                                                                 WorldFile sourceReference, Size sourceTileSize)
         {
-            int len = (x2 - x1);
-            double[] xy = new double[len*2];
+            int len = x2 - x1;
+            double[] xy = new double[len * 2];
             int i = 0;
             for (int x = x1; x < x2; x++)
             {
@@ -169,21 +161,13 @@ namespace Core.Components.DotSpatial.Layer.BruTile.Projections
             for (var x = 0; x < len; x++)
             {
                 Coordinate coord = new Coordinate(xy[i++], xy[i++]);
-                Point sourcePixelLocation = sourceReference.ToRaster(coord);
+                Point sourcePixelLocation = sourceReference.ToScreenCoordinates(coord);
 
                 if (IsSourcePointInsideArea(sourceTileSize, sourcePixelLocation))
                 {
                     yield return Tuple.Create(sourcePixelLocation, new Point(x, y));
                 }
             }
-        }
-
-        private static void SetBitmapBuffer(Bitmap bitmap, byte[] buffer)
-        {
-            Rectangle rect = new Rectangle(0, 0, bitmap.Width, bitmap.Height);
-            BitmapData bitmapData = bitmap.LockBits(rect, ImageLockMode.WriteOnly, bitmap.PixelFormat);
-            Marshal.Copy(buffer, 0, bitmapData.Scan0, buffer.Length);
-            bitmap.UnlockBits(bitmapData);
         }
 
         private static bool IsSourcePointInsideArea(Size area, Point sourcePixelLocation)
@@ -200,156 +184,6 @@ namespace Core.Components.DotSpatial.Layer.BruTile.Projections
                 }
             }
             return false;
-        }
-
-        /// <summary>
-        /// Facade class for easy access to the color data of a <see cref="Bitmap"/>.
-        /// </summary>
-        private class ColorAccess
-        {
-            private static readonly byte[] bitMask;
-
-            static ColorAccess()
-            {
-                bitMask = new[]
-                {
-                    (byte) 1,
-                    (byte) 2,
-                    (byte) 4,
-                    (byte) 8,
-                    (byte) 16,
-                    (byte) 32,
-                    (byte) 64,
-                    (byte) 128
-                };
-            }
-
-            private readonly int stride;
-
-            private readonly PixelFormat format;
-            private readonly int bitsPerPixel;
-
-            private readonly ColorPalette palette;
-
-            private ColorAccess(BitmapData data, ColorPalette palette)
-            {
-                stride = data.Stride;
-
-                Buffer = new byte[stride*data.Height];
-                Marshal.Copy(data.Scan0, Buffer, 0, Buffer.Length);
-                format = data.PixelFormat;
-                bitsPerPixel = GetPixelSize(format);
-                this.palette = palette;
-            }
-
-            public Color this[int x, int y]
-            {
-                get
-                {
-                    int mod;
-                    int pIndex;
-                    var index = GetIndex(x, y, out mod);
-                    switch (format)
-                    {
-                        case PixelFormat.Format1bppIndexed:
-                            return palette.Entries[(Buffer[index] & bitMask[mod]) == 0 ? 0 : 1];
-
-                        case PixelFormat.Format4bppIndexed:
-                            pIndex = Buffer[index];
-                            mod /= 4;
-                            if (mod != 0)
-                            {
-                                pIndex >>= 4;
-                            }
-                            return palette.Entries[pIndex & 0x7];
-
-                        case PixelFormat.Format8bppIndexed:
-                            pIndex = Buffer[index];
-                            return palette.Entries[pIndex];
-
-                        case PixelFormat.Format24bppRgb:
-                            return Color.FromArgb(Buffer[index + 2], Buffer[index + 1],
-                                                  Buffer[index]);
-
-                        case PixelFormat.Format32bppRgb:
-                            return Color.FromArgb(Buffer[index + 3], Buffer[index + 2],
-                                                  Buffer[index + 1], Buffer[index]);
-                    }
-                    return Color.Transparent;
-                }
-
-                set
-                {
-                    if (format != PixelFormat.Format32bppArgb)
-                    {
-                        throw new NotSupportedException();
-                    }
-
-                    int mod;
-                    int index = GetIndex(x, y, out mod);
-                    Buffer[index++] = value.B;
-                    Buffer[index++] = value.G;
-                    Buffer[index++] = value.R;
-                    Buffer[index] = value.A;
-                }
-            }
-
-            public byte[] Buffer { get; }
-
-            public static ColorAccess Create(Bitmap bitmap, Rectangle? rect = null)
-            {
-                if (rect == null)
-                {
-                    rect = new Rectangle(0, 0, bitmap.Width, bitmap.Height);
-                }
-                BitmapData bmData = bitmap.LockBits(rect.Value, ImageLockMode.ReadOnly, bitmap.PixelFormat);
-                ColorAccess res = new ColorAccess(bmData, bitmap.Palette);
-                bitmap.UnlockBits(bmData);
-
-                return res;
-            }
-
-            private int GetIndex(int x, int y, out int mod)
-            {
-                int offsetRow = y*stride;
-                int offsetColBits = x*bitsPerPixel;
-                int offsetCol = offsetColBits/8;
-                mod = offsetColBits - offsetCol*8;
-
-                return offsetRow + offsetCol;
-            }
-
-            private static int GetPixelSize(PixelFormat pixelFormat)
-            {
-                switch (pixelFormat)
-                {
-                    case PixelFormat.Format8bppIndexed:
-                        return 8;
-                    case PixelFormat.Format16bppArgb1555:
-                    case PixelFormat.Format16bppGrayScale:
-                    case PixelFormat.Format16bppRgb555:
-                    case PixelFormat.Format16bppRgb565:
-                        return 16;
-                    case PixelFormat.Format24bppRgb:
-                        return 24;
-                    case PixelFormat.Format32bppArgb:
-                    case PixelFormat.Format32bppPArgb:
-                    case PixelFormat.Format32bppRgb:
-                        return 32;
-                    case PixelFormat.Format48bppRgb:
-                        return 48;
-                    case PixelFormat.Format64bppArgb:
-                    case PixelFormat.Format64bppPArgb:
-                        return 64;
-                    case PixelFormat.Format4bppIndexed:
-                        return 4;
-                    case PixelFormat.Format1bppIndexed:
-                        return 1;
-
-                    default:
-                        throw new InvalidEnumArgumentException(nameof(pixelFormat), (int) pixelFormat, typeof(PixelFormat));
-                }
-            }
         }
     }
 }

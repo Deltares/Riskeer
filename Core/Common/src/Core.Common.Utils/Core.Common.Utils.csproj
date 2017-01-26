@@ -94,6 +94,7 @@
     <Compile Include="Builders\DirectoryWriterErrorMessageBuilder.cs" />
     <Compile Include="Builders\FileReaderErrorMessageBuilder.cs" />
     <Compile Include="Builders\FileWriterErrorMessageBuilder.cs" />
+    <Compile Include="Drawing\ColorAccess.cs" />
     <Compile Include="Drawing\GraphicsExtensions.cs" />
     <Compile Include="EnumDisplayWrapper.cs" />
     <Compile Include="EnumTypeConverter.cs" />

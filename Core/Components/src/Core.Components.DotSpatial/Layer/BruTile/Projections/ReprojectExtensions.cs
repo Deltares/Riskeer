@@ -33,6 +33,7 @@ namespace Core.Components.DotSpatial.Layer.BruTile.Projections
     /// </summary>
     /// <remarks>
     /// Original source: https://github.com/FObermaier/DotSpatial.Plugins/blob/master/DotSpatial.Plugins.BruTileLayer/Reprojection/ReprojectExtensions.cs
+    /// Original license: http://www.apache.org/licenses/LICENSE-2.0.html
     /// </remarks>
     internal static class ReprojectExtensions
     {
@@ -46,9 +47,30 @@ namespace Core.Components.DotSpatial.Layer.BruTile.Projections
         /// <remarks>The returned object is specified in a higher resolution than <paramref name="ring"/>.
         /// This is done as a straight edge in <paramref name="source"/> can lead to a curved
         /// edge in <paramref name="target"/>.</remarks>
+        /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="ring"/> has less
+        /// than 3 coordinates.</exception>
         public static ILinearRing Reproject(this ILinearRing ring, ProjectionInfo source, ProjectionInfo target)
         {
-            var seq = Reproject(ring.Coordinates.Densify(36), source, target);
+            if (ring == null)
+            {
+                throw new ArgumentNullException(nameof(ring));
+            }
+            if (source == null)
+            {
+                throw new ArgumentNullException(nameof(source));
+            }
+            if (target == null)
+            {
+                throw new ArgumentNullException(nameof(target));
+            }
+            if (ring.Coordinates.Count < 3)
+            {
+                throw new ArgumentException("Ring must contain at least 3 coordinates.",
+                                            nameof(ring));
+            }
+
+            IList<Coordinate> seq = Reproject(ring.Coordinates.Densify(36), source, target);
             return ring.Factory.CreateLinearRing(seq);
         }
 
@@ -56,18 +78,32 @@ namespace Core.Components.DotSpatial.Layer.BruTile.Projections
         /// Reprojects a <see cref="Extent"/>.
         /// </summary>
         /// <param name="extent">The object to be reprojected.</param>
-        /// <param name="source">The coordinate system corresponding to <paramref name="ring"/>.</param>
+        /// <param name="source">The coordinate system corresponding to <paramref name="extent"/>.</param>
         /// <param name="target">The target coordinate system.</param>
         /// <returns>The reprojected <see cref="Extent"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
         public static Extent Reproject(this Extent extent, ProjectionInfo source, ProjectionInfo target)
         {
+            if (extent == null)
+            {
+                throw new ArgumentNullException(nameof(extent));
+            }
+            if (source == null)
+            {
+                throw new ArgumentNullException(nameof(source));
+            }
+            if (target == null)
+            {
+                throw new ArgumentNullException(nameof(target));
+            }
+
             if (target.Transform == null)
             {
                 return extent;
             }
 
             double[] xy = ToSequence(extent);
-            DotSpatialReproject.ReprojectPoints(xy, null, source, target, 0, xy.Length/2);
+            DotSpatialReproject.ReprojectPoints(xy, null, source, target, 0, xy.Length / 2);
             return ToExtent(xy);
         }
 
@@ -78,99 +114,99 @@ namespace Core.Components.DotSpatial.Layer.BruTile.Projections
                 return coordinates;
             }
 
-            var ords = new double[coordinates.Count*2];
+            var xy = new double[coordinates.Count * 2];
             var z = new double[coordinates.Count];
             var j = 0;
             for (var i = 0; i < coordinates.Count; i++)
             {
                 Coordinate c = coordinates[i];
-                ords[j++] = c.X;
-                ords[j++] = c.Y;
+                xy[j++] = c.X;
+                xy[j++] = c.Y;
                 z[i] = double.IsNaN(c.Z) ? 0 : c.Z;
             }
 
-            DotSpatialReproject.ReprojectPoints(ords, z, source, target, 0, coordinates.Count);
+            DotSpatialReproject.ReprojectPoints(xy, z, source, target, 0, coordinates.Count);
 
-            var lst = new List<Coordinate>(coordinates.Count);
+            var result = new List<Coordinate>(coordinates.Count);
             j = 0;
             for (var i = 0; i < coordinates.Count; i++)
             {
-                lst.Add(new Coordinate(ords[j++], ords[j++]));
+                result.Add(new Coordinate(xy[j++], xy[j++]));
             }
-            return lst;
+            return result;
         }
 
         /// <summary>
         /// Returns a collection of <see cref="Coordinate"/> that has the same shape as
         /// the target, but with more points set 'edge' (effectively increasing its resolution).
         /// </summary>
-        /// <param name="self">The original collection of <see cref="Coordinate"/>.</param>
+        /// <param name="original">The original collection of <see cref="Coordinate"/>.</param>
         /// <param name="intervals">The number of segments each 'edge' should be subdivided in.</param>
-        /// <returns></returns>
+        /// <returns>Return the densified version based on <paramref name="original"/>.</returns>
         /// <remarks>A value of 4 of <paramref name="intervals"/> means that 3 equally spaced
         /// points are introduced along the line between two <see cref="Coordinate"/> instances
-        /// in <see cref="self"/>.</remarks>
-        private static IList<Coordinate> Densify(this IList<Coordinate> self, int intervals)
+        /// in <paramref name="original"/>.</remarks>
+        private static IList<Coordinate> Densify(this IList<Coordinate> original, int intervals)
         {
-            if (self.Count < 2)
-            {
-                return self;
-            }
-
-            var res = new List<Coordinate>(intervals*(self.Count - 1) + 1);
-            Coordinate start = self[0];
-
-            for (var i = 1; i < self.Count; i++)
-            {
-                res.Add(start);
-                Coordinate end = self[i];
-
-                double dx = (end.X - start.X)/intervals;
-                double dy = (end.Y - start.Y)/intervals;
-
-                for (var j = 0; j < intervals - 1; j++)
-                {
-                    start = new Coordinate(start.X + dx, start.Y + dy);
-                    res.Add(start);
-                }
-                res.Add(end);
-                start = end;
-            }
-            return res;
+            return GetDensifiedCoordinates(original, intervals - 1);
         }
 
-        /// <summary>
-        /// Transforms the coordinates of an <see cref="Extent"/> to a sequence of xy pairs.
-        /// </summary>
-        /// <param name="extent">The extent.</param>
-        /// <returns>The xy sequence.</returns>
-        /// <remarks>The resolution of the edges of <paramref name="extent"/> are increased
-        /// as a straight edge in the source coordinate system can lead to a curved edge in
-        /// the target coordinate system.</remarks>
-        private static double[] ToSequence(Extent extent)
+        private static IList<Coordinate> GetDensifiedCoordinates(IList<Coordinate> original, int numberOfAdditionalPoints)
         {
-            const int horizontal = 72;
-            const int vertical = 36;
-            var result = new double[horizontal*vertical*2];
-
-            double dx = extent.Width/(horizontal - 1);
-            double dy = extent.Height/(vertical - 1);
-
-            double minY = extent.MinY;
-            var k = 0;
-            for (var i = 0; i < vertical; i++)
+            int numberOfEdges = original.Count - 1;
+            var resultList = new List<Coordinate>(numberOfEdges * (numberOfAdditionalPoints + 1) + 1);
+            resultList.Add(original[0]);
+            for (int i = 1; i <= numberOfEdges; i++)
             {
-                double minX = extent.MinX;
-                for (var j = 0; j < horizontal; j++)
-                {
-                    result[k++] = minX;
-                    result[k++] = minY;
-                    minX += dx;
-                }
-                minY += dy;
+                resultList.AddRange(GetEdgePointsExcludingStart(original[i - 1], original[i], numberOfAdditionalPoints));
+            }
+            return resultList;
+        }
+
+        private static IEnumerable<Coordinate> GetEdgePointsExcludingStart(Coordinate start, Coordinate end, int numberOfAdditionalPoints)
+        {
+            if (numberOfAdditionalPoints < 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(numberOfAdditionalPoints),
+                                                      "Number of additional points cannot be negative.");
             }
 
-            return result;
+            double dx = (end.X - start.X) / (numberOfAdditionalPoints + 1);
+            double dy = (end.Y - start.Y) / (numberOfAdditionalPoints + 1);
+
+            for (int i = 1; i <= numberOfAdditionalPoints; i++)
+            {
+                yield return new Coordinate(start.X + i * dx, start.Y + i * dy);
+            }
+            yield return end;
+        }
+
+        private static double[] ToSequence(Extent extent)
+        {
+            const int horizontalResolution = 72;
+            const int verticalResolution = 36;
+            var xy = new double[horizontalResolution * verticalResolution * 2];
+
+            double dx = extent.Width / (horizontalResolution - 1);
+            double dy = extent.Height / (verticalResolution - 1);
+
+            // Define a lattice of points, because there exist coordinate transformations
+            // that place original center-points to edge-point in the target coordinate system:
+            double y = extent.MinY;
+            var k = 0;
+            for (var i = 0; i < verticalResolution; i++)
+            {
+                double x = extent.MinX;
+                for (var j = 0; j < horizontalResolution; j++)
+                {
+                    xy[k++] = x;
+                    xy[k++] = y;
+                    x += dx;
+                }
+                y += dy;
+            }
+
+            return xy;
         }
 
         private static Extent ToExtent(double[] xyOrdinates)
@@ -181,31 +217,19 @@ namespace Core.Components.DotSpatial.Layer.BruTile.Projections
             var i = 0;
             while (i < xyOrdinates.Length)
             {
-                double xyOrdinate = xyOrdinates[i];
-                if (!double.IsNaN(xyOrdinate) &&
-                    (double.MinValue < xyOrdinate && xyOrdinate < double.MaxValue))
+                double x = xyOrdinates[i];
+                if (!double.IsNaN(x) && double.MinValue < x && x < double.MaxValue)
                 {
-                    if (minX > xyOrdinate)
-                    {
-                        minX = xyOrdinate;
-                    }
-                    if (maxX < xyOrdinate)
-                    {
-                        maxX = xyOrdinate;
-                    }
+                    minX = Math.Min(minX, x);
+                    maxX = Math.Max(maxX, x);
                 }
                 i += 1;
-                if (!double.IsNaN(xyOrdinate) &&
-                    (double.MinValue < xyOrdinate && xyOrdinate < double.MaxValue))
+
+                double y = xyOrdinates[i];
+                if (!double.IsNaN(y) && double.MinValue < y && y < double.MaxValue)
                 {
-                    if (minY > xyOrdinate)
-                    {
-                        minY = xyOrdinate;
-                    }
-                    if (maxY < xyOrdinate)
-                    {
-                        maxY = xyOrdinate;
-                    }
+                    minY = Math.Min(minY, y);
+                    maxY = Math.Max(maxY, y);
                 }
                 i += 1;
             }

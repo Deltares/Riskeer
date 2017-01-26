@@ -1,5 +1,0 @@
-﻿Code in the Core.Components.DotSpatial.Layer.BruTile namespace is based on the DotSpatial.Plugins
-library. This library can be found on GitHub at https://github.com/FObermaier/DotSpatial.Plugins.
-DotSpatial.Plugins has been released under Apache 2.0 (http://www.apache.org/licenses/LICENSE-2.0.html).
-
-All files in this namespace have been given attribution where required. All files have been modified.
