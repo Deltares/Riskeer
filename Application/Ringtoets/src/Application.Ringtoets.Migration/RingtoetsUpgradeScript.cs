@@ -59,7 +59,7 @@ namespace Application.Ringtoets.Migration
             using (var databaseFile = new RingtoetsDatabaseFile(target.Location))
             {
                 databaseFile.OpenDatabaseConnection();
-                databaseFile.ExecuteMigration(query);
+                databaseFile.ExecuteQuery(query);
             }
         }
     }

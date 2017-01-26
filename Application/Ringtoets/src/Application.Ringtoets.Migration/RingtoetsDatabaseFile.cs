@@ -69,36 +69,13 @@ namespace Application.Ringtoets.Migration
         }
 
         /// <summary>
-        /// Executes the <paramref name="query"/> that will create the database structure.
+        /// Executes the <paramref name="query"/> that will on the database.
         /// </summary>
         /// <param name="query">Create structure query to execute.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="query"/> is <c>null</c> 
         /// or consist out of only whitespace characters.</exception>
         /// <exception cref="SQLiteException">Thrown when executing <paramref name="query"/> failed.</exception>
-        public void CreateStructure(string query)
-        {
-            PerformExecuteQuery(query);
-        }
-
-        /// <summary>
-        /// Executes the <paramref name="query"/> that will migrate the data.
-        /// </summary>
-        /// <param name="query">Migration query to execute.</param>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="query"/> is <c>null</c> 
-        /// or consist out of only whitespace characters.</exception>
-        /// <exception cref="SQLiteException">Thrown when executing <paramref name="query"/> failed.</exception>
-        public void ExecuteMigration(string query)
-        {
-            PerformExecuteQuery(query);
-        }
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        private void PerformExecuteQuery(string query)
+        public void ExecuteQuery(string query)
         {
             if (string.IsNullOrWhiteSpace(query))
             {
@@ -111,6 +88,12 @@ namespace Application.Ringtoets.Migration
             {
                 command.ExecuteNonQuery();
             }
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
 
         private void Dispose(bool disposing)

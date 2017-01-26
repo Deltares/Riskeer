@@ -81,7 +81,7 @@ namespace Application.Ringtoets.Migration.Test
         [TestCase("")]
         [TestCase("   ")]
         [TestCase(null)]
-        public void CreateStructure_QueryIsNullOrWhiteSpace_ThrowsArgumentException(string query)
+        public void ExecuteQuery_QueryIsNullOrWhiteSpace_ThrowsArgumentException(string query)
         {
             // Setup
             string filename = Path.GetRandomFileName();
@@ -93,7 +93,7 @@ namespace Application.Ringtoets.Migration.Test
                 databaseFile.OpenDatabaseConnection();
 
                 // Call
-                TestDelegate call = () => databaseFile.CreateStructure(query);
+                TestDelegate call = () => databaseFile.ExecuteQuery(query);
 
                 // Assert
                 string paramName = Assert.Throws<ArgumentException>(call).ParamName;
@@ -102,7 +102,7 @@ namespace Application.Ringtoets.Migration.Test
         }
 
         [Test]
-        public void CreateStructure_InvalidQuery_ThrowsSQLiteException()
+        public void ExecuteQuery_InvalidQuery_ThrowsSQLiteException()
         {
             // Setup
             string filename = Path.GetRandomFileName();
@@ -114,7 +114,7 @@ namespace Application.Ringtoets.Migration.Test
                 databaseFile.OpenDatabaseConnection();
 
                 // Call
-                TestDelegate call = () => databaseFile.CreateStructure("THIS WILL FAIL");
+                TestDelegate call = () => databaseFile.ExecuteQuery("THIS WILL FAIL");
 
                 // Assert
                 Assert.Throws<SQLiteException>(call);
@@ -122,7 +122,7 @@ namespace Application.Ringtoets.Migration.Test
         }
 
         [Test]
-        public void CreateStructure_ValidQuery_CreatesFile()
+        public void ExecuteQuery_ValidQuery_CreatesFile()
         {
             // Setup
             string filename = Path.GetRandomFileName();
@@ -133,72 +133,7 @@ namespace Application.Ringtoets.Migration.Test
                 databaseFile.OpenDatabaseConnection();
 
                 // Call
-                databaseFile.CreateStructure(";");
-
-                // Assert
-                Assert.IsTrue(File.Exists(filePath));
-            }
-
-            using (new FileDisposeHelper(filePath)) {}
-        }
-
-        [Test]
-        [TestCase("")]
-        [TestCase("   ")]
-        [TestCase(null)]
-        public void ExecuteMigration_QueryIsNullOrWhiteSpace_ThrowsArgumentException(string query)
-        {
-            // Setup
-            string filename = Path.GetRandomFileName();
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Migration.Core.Storage, filename);
-
-            using (new FileDisposeHelper(filePath))
-            using (var databaseFile = new RingtoetsDatabaseFile(filePath))
-            {
-                databaseFile.OpenDatabaseConnection();
-
-                // Call
-                TestDelegate call = () => databaseFile.ExecuteMigration(query);
-
-                // Assert
-                string paramName = Assert.Throws<ArgumentException>(call).ParamName;
-                Assert.AreEqual("query", paramName);
-            }
-        }
-
-        [Test]
-        public void ExecuteMigration_InvalidQuery_ThrowsSQLiteException()
-        {
-            // Setup
-            string filename = Path.GetRandomFileName();
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Migration.Core.Storage, filename);
-
-            using (new FileDisposeHelper(filePath))
-            using (var databaseFile = new RingtoetsDatabaseFile(filePath))
-            {
-                databaseFile.OpenDatabaseConnection();
-
-                // Call
-                TestDelegate call = () => databaseFile.ExecuteMigration("THIS WILL FAIL");
-
-                // Assert
-                Assert.Throws<SQLiteException>(call);
-            }
-        }
-
-        [Test]
-        public void ExecuteMigration_ValidQuery_CreatesFile()
-        {
-            // Setup
-            string filename = Path.GetRandomFileName();
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Migration.Core.Storage, filename);
-
-            using (var databaseFile = new RingtoetsDatabaseFile(filePath))
-            {
-                databaseFile.OpenDatabaseConnection();
-
-                // Call
-                databaseFile.ExecuteMigration(";");
+                databaseFile.ExecuteQuery(";");
 
                 // Assert
                 Assert.IsTrue(File.Exists(filePath));

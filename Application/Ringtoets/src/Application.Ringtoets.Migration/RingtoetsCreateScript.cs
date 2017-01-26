@@ -46,7 +46,7 @@ namespace Application.Ringtoets.Migration
             using (var databaseFile = new RingtoetsDatabaseFile(location))
             {
                 databaseFile.OpenDatabaseConnection();
-                databaseFile.CreateStructure(CreateQuery);
+                databaseFile.ExecuteQuery(CreateQuery);
             }
 
             return new RingtoetsVersionedFile(location);

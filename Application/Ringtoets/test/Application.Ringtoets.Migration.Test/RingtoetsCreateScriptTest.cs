@@ -94,7 +94,7 @@ namespace Application.Ringtoets.Migration.Test
 
             // Assert
             Assert.IsTrue(File.Exists(versionedFile.Location));
-            using (new FileDisposeHelper(filePath)) { }
+            using (new FileDisposeHelper(filePath)) {}
         }
 
         [Test]
