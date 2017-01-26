@@ -314,7 +314,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                         string[] msgs = messages.ToArray();
                         Assert.AreEqual(2, msgs.Length);
                         Assert.AreEqual("De hydraulische randvoorwaardenlocaties zijn ingelezen.", msgs[0]);
-                        Assert.AreEqual(string.Format("Database op pad '{0}' gekoppeld.", testFile), msgs[1]);
+                        Assert.AreEqual($"Database op pad '{testFile}' gekoppeld.", msgs[1]);
                     });
 
                     Assert.IsNotNull(assessmentSection.HydraulicBoundaryDatabase);
@@ -358,8 +358,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                     Action action = () => contextMenuStrip.Items[contextMenuImportHydraulicBoundaryDatabaseIndex].PerformClick();
 
                     // Then
-                    string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': kon geen locaties verkrijgen van de database. Het bestand wordt overgeslagen.",
-                                                           testFile);
+                    string expectedMessage = $"Fout bij het lezen van bestand '{testFile}': kon geen locaties verkrijgen van de database. Het bestand wordt overgeslagen.";
                     TestHelper.AssertLogMessageIsGenerated(action, expectedMessage);
 
                     Assert.IsNull(assessmentSection.HydraulicBoundaryDatabase);
@@ -403,8 +402,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
                     // Then
                     string expectedMessage =
-                        string.Format("Fout bij het lezen van bestand '{0}': het bijbehorende HLCD bestand is niet gevonden in dezelfde map als het HRD bestand.",
-                                      testFile);
+                        $"Fout bij het lezen van bestand '{testFile}': het bijbehorende HLCD bestand is niet gevonden in dezelfde map als het HRD bestand.";
                     TestHelper.AssertLogMessageIsGenerated(action, expectedMessage);
 
                     Assert.IsNull(assessmentSection.HydraulicBoundaryDatabase);
@@ -448,9 +446,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
                     // Then
                     string expectedMessage =
-                        string.Format("Fout bij het lezen van bestand '{0}': kon het rekeninstellingen bestand niet openen. Fout bij het lezen van bestand '{1}': het bestand bestaat niet.",
-                                      testFile,
-                                      HydraulicDatabaseHelper.GetHydraulicBoundarySettingsDatabase(testFile));
+                        $"Fout bij het lezen van bestand '{testFile}': kon het rekeninstellingen bestand niet openen. Fout bij het lezen van bestand '{HydraulicDatabaseHelper.GetHydraulicBoundarySettingsDatabase(testFile)}': het bestand bestaat niet.";
                     TestHelper.AssertLogMessageIsGenerated(action, expectedMessage);
 
                     Assert.IsNull(assessmentSection.HydraulicBoundaryDatabase);
@@ -494,8 +490,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
                     // Then
                     string expectedMessage =
-                        string.Format("Fout bij het lezen van bestand '{0}': kon het rekeninstellingen bestand niet openen. De rekeninstellingen database heeft niet het juiste schema.",
-                                      testFile);
+                        $"Fout bij het lezen van bestand '{testFile}': kon het rekeninstellingen bestand niet openen. De rekeninstellingen database heeft niet het juiste schema.";
                     TestHelper.AssertLogMessageIsGenerated(action, expectedMessage);
 
                     Assert.IsNull(assessmentSection.HydraulicBoundaryDatabase);
@@ -571,7 +566,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                     Action action = () => contextMenuAdapter.Items[contextMenuImportHydraulicBoundaryDatabaseIndex].PerformClick();
 
                     // Then
-                    string expectedMessage = string.Format("Database op pad '{0}' gekoppeld.", validFile);
+                    string expectedMessage = $"Database op pad '{validFile}' gekoppeld.";
                     TestHelper.AssertLogMessageIsGenerated(action, expectedMessage);
 
                     Assert.IsNotNull(assessmentSection.HydraulicBoundaryDatabase);

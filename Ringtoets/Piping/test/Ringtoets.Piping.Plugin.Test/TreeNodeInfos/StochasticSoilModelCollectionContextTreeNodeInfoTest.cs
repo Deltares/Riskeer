@@ -64,10 +64,12 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
         }
 
         [TearDown]
-        public void TearDown()
+        public override void TearDown()
         {
             plugin.Dispose();
             mocks.VerifyAll();
+
+            base.TearDown();
         }
 
         [Test]
@@ -359,61 +361,6 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                     TestHelper.AssertLogMessageIsGenerated(
                         test, 
                         $"Bijwerken van ondergrondschematisaties in '{somePath}' is door de gebruiker geannuleerd.");
-                }
-            }
-        }
-
-        [Test]
-        [Apartment(ApartmentState.STA)]
-        public void ContextMenuStrip_ClickOnUpdateStochasticSoilModelsWithNonExistingSourceFilePathItemOkClicked_OpenFileDialogShownSuccessMessageLogged()
-        {
-            // Setup
-            const string somePath = "some path";
-            string testDirectory = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO, "StochasticSoilModelDatabaseReader");
-            string existingFilePath = Path.Combine(testDirectory, "emptyschema.soil");
-
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var pipingFailureMechanism = new PipingFailureMechanism();
-                var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-                var stochasticSoilModelCollection = new StochasticSoilModelCollection();
-                stochasticSoilModelCollection.AddRange(Enumerable.Empty<StochasticSoilModel>(), somePath);
-
-                var nodeData = new StochasticSoilModelCollectionContext(stochasticSoilModelCollection,
-                                                                 pipingFailureMechanism,
-                                                                 assessmentSectionMock);
-
-                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-
-                var gui = mocks.StrictMock<IGui>();
-                gui.Expect(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                gui.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
-
-                var mainWindow = mocks.Stub<IMainWindow>();
-                gui.Stub(g => g.MainWindow).Return(mainWindow);
-
-                mocks.ReplayAll();
-
-                plugin.Gui = gui;
-
-                DialogBoxHandler = (name, wnd) =>
-                {
-                    var window = new OpenFileDialogTester(wnd);
-                    DialogBoxHandler = (s, hWnd) =>
-                    {
-                    };
-                    window.OpenFile(existingFilePath);
-                };
-
-                using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewControl))
-                {
-                    // Call
-                    Action test = () => menu.Items[updateStochasticSoilModelsItemIndex].PerformClick();
-
-                    // Assert
-                    TestHelper.AssertLogMessageIsGenerated(
-                        test,
-                        "Uitvoeren van 'Bijwerken van stochastische ondergrondmodellen.' is gelukt.");
                 }
             }
         }
