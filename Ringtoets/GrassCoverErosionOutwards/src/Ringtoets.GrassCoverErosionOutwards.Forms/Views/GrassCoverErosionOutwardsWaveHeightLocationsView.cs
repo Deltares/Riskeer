@@ -29,6 +29,7 @@ using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionOutwards.Forms.Properties;
 using Ringtoets.GrassCoverErosionOutwards.Service.MessageProviders;
+using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
 {
@@ -37,14 +38,19 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
     /// for the <see cref="GrassCoverErosionOutwardsFailureMechanism"/></summary>
     public class GrassCoverErosionOutwardsWaveHeightLocationsView : HydraulicBoundaryLocationsView<WaveHeightLocationRow>
     {
-        private readonly Observer hydraulicBoundaryLocationObserver;
+        private readonly Observer assessmentSectionObserver;
+        private readonly Observer hydraulicBoundaryLocationsObserver;
+
+        private IAssessmentSection assessmentSection;
+        private GrassCoverErosionOutwardsFailureMechanism failureMechanism;
 
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionOutwardsWaveHeightLocationsView"/>
         /// </summary>
         public GrassCoverErosionOutwardsWaveHeightLocationsView()
         {
-            hydraulicBoundaryLocationObserver = new Observer(UpdateHydraulicBoundaryLocations);
+            assessmentSectionObserver = new Observer(UpdateCalculateForSelectedButton);
+            hydraulicBoundaryLocationsObserver = new Observer(UpdateHydraulicBoundaryLocations);
         }
 
         public override object Data
@@ -57,17 +63,39 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
             {
                 var data = (ObservableList<HydraulicBoundaryLocation>) value;
                 base.Data = data;
-                hydraulicBoundaryLocationObserver.Observable = data;
+                hydraulicBoundaryLocationsObserver.Observable = data;
             }
         }
 
-        public override IAssessmentSection AssessmentSection { get; set; }
+        public override IAssessmentSection AssessmentSection
+        {
+            get
+            {
+                return assessmentSection;
+            }
+            set
+            {
+                assessmentSection = value;
+                assessmentSectionObserver.Observable = assessmentSection;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the <see cref="GrassCoverErosionOutwardsFailureMechanism"/> for which the
         /// hydraulic boundary locations are shown.
         /// </summary>
-        public GrassCoverErosionOutwardsFailureMechanism FailureMechanism { get; set; }
+        public GrassCoverErosionOutwardsFailureMechanism FailureMechanism
+        {
+            get
+            {
+                return failureMechanism;
+            }
+            set
+            {
+                failureMechanism = value;
+                UpdateCalculateForSelectedButton();
+            }
+        }
 
         protected override WaveHeightLocationRow CreateNewRow(HydraulicBoundaryLocation location)
         {
@@ -114,8 +142,19 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
 
         protected override void Dispose(bool disposing)
         {
-            hydraulicBoundaryLocationObserver.Dispose();
+            assessmentSectionObserver.Dispose();
+            hydraulicBoundaryLocationsObserver.Dispose();
             base.Dispose(disposing);
+        }
+
+        protected override string ValidateCalculatableObjects()
+        {
+            if (FailureMechanism != null && FailureMechanism.Contribution <= 0)
+            {
+                return RingtoetsCommonFormsResources.Contribution_of_failure_mechanism_zero;
+            }
+
+            return base.ValidateCalculatableObjects();
         }
 
         private void UpdateHydraulicBoundaryLocations()
