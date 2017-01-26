@@ -118,21 +118,5 @@ namespace Migration.Scripts.Data.Test
                 Assert.AreEqual(string.Empty, version);
             }
         }
-
-        [Test]
-        public void GetVersion_ValidRingtoetsDatabaseFile_ReturnsVersion()
-        {
-            // Setup
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Migration.Core.Storage, "Demo164.rtd");
-
-            using (var file = new RingtoetsDatabaseSourceFile(filePath))
-            {
-                // Call
-                string version = file.GetVersion();
-
-                // Assert
-                Assert.AreEqual("4", version);
-            }
-        }
     }
 }

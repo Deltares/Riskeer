@@ -57,7 +57,7 @@ namespace Application.Ringtoets.MigrationConsole.Test
             using (var consoleOutput = new ConsoleOutput())
             {
                 RingtoetsMigrationTool.Main(new string[]
-                                       {});
+                                                {});
 
                 consoleText = consoleOutput.GetConsoleOutput();
             }
@@ -225,8 +225,8 @@ namespace Application.Ringtoets.MigrationConsole.Test
             const string migrateCommand = "--migrate";
 
             const string newVersion = "17.1";
-            string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Migration.Core.Storage, "Demo164.rtd");
-            string targetFilePath = TestHelper.GetTestDataPath(TestDataPath.Migration.Core.Storage, Path.GetRandomFileName());
+            string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration, "Demo164.rtd");
+            string targetFilePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration, Path.GetRandomFileName());
 
             using (new FileDisposeHelper(targetFilePath))
             {
@@ -262,8 +262,8 @@ namespace Application.Ringtoets.MigrationConsole.Test
             const string migrateCommand = "--migrate";
 
             const string newVersion = "17.1";
-            string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Migration.Core.Storage, "Demo164.rtd");
-            string targetFilePath = TestHelper.GetTestDataPath(TestDataPath.Migration.Core.Storage, Path.GetRandomFileName());
+            string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration, "Demo164.rtd");
+            string targetFilePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration, Path.GetRandomFileName());
 
             string consoleText;
             using (new FileDisposeHelper(targetFilePath))

@@ -39,14 +39,14 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
     public class StorageMigrationIntegrationTest
     {
         private const string tempExtension = ".temp";
-        private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Migration.Core.Storage);
+        private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration);
 
         [Test]
         [Apartment(ApartmentState.STA)]
         public void GivenRingtoetsGuiWithStorageSql_WhenRunWithMigratedFile_MigratedProjectSet()
         {
             string targetFilePath = GetRandomRingtoetsFile();
-            string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Migration.Core.Storage, "FullTestProject164.rtd");
+            string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration, "FullTestProject164.rtd");
             MigrateFile(sourceFilePath, targetFilePath);
 
             // Given

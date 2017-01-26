@@ -40,6 +40,7 @@ namespace Core.Common.TestUtil
         {
             public static class Ringtoets
             {
+                public static readonly TestDataPath Migration = System.IO.Path.Combine("Application", "Ringtoets", "test", "Application.Ringtoets.Migration.Test");
                 public static readonly TestDataPath Storage = System.IO.Path.Combine("Application", "Ringtoets", "test", "Application.Ringtoets.Storage.Test");
             }
         }

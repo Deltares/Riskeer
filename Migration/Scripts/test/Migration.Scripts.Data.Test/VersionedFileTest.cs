@@ -95,20 +95,5 @@ namespace Migration.Scripts.Data.Test
                 Assert.Throws<CriticalFileReadException>(call);
             }
         }
-
-        [TestCase("Demo164.rtd", "4")]
-        [TestCase("Demo171.rtd", "17.1")]
-        public void GetVersion_ParameteredConstructor_ExptectedProperties(string file, string expectedVersion)
-        {
-            // Setup
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Migration.Core.Storage, file);
-            var sourceFile = new VersionedFile(filePath);
-
-            // Call
-            var version = sourceFile.GetVersion();
-
-            // Assert
-            Assert.AreEqual(expectedVersion, version);
-        }
     }
 }

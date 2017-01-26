@@ -24,9 +24,9 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
+using Application.Ringtoets.Migration.Properties;
 using Migration.Core.Storage;
 using Migration.Scripts.Data;
-using MigrationScriptsDataResources = Migration.Scripts.Data.Properties.Resources;
 
 namespace Application.Ringtoets.Migration
 {
@@ -42,7 +42,7 @@ namespace Application.Ringtoets.Migration
         /// </summary>
         public RingtoetsSqLiteDatabaseFileMigrator()
         {
-            scriptResource = typeof(MigrationScriptsDataResources).Assembly;
+            scriptResource = typeof(Resources).Assembly;
         }
 
         private static string GetStringOfStream(Stream stream)

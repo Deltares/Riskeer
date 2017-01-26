@@ -62,7 +62,7 @@ namespace Application.Ringtoets.Migration.Test
         {
             // Setup
             string file = Path.GetRandomFileName();
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Migration.Core.Storage, file);
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration, file);
 
             var sourceFile = new RingtoetsVersionedFile(filePath);
 
@@ -81,7 +81,7 @@ namespace Application.Ringtoets.Migration.Test
         {
             // Setup
             string file = Path.GetRandomFileName();
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Migration.Core.Storage, file);
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration, file);
 
             var sourceFile = new RingtoetsVersionedFile(filePath);
 
@@ -101,7 +101,7 @@ namespace Application.Ringtoets.Migration.Test
         public void GetVersion_ParameteredConstructor_ExptectedProperties(string file, string expectedVersion)
         {
             // Setup
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Migration.Core.Storage, file);
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration, file);
             var sourceFile = new RingtoetsVersionedFile(filePath);
 
             // Call
