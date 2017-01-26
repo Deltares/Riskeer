@@ -21,10 +21,10 @@
 
 using System;
 using System.Data;
+using Application.Ringtoets.Migration.Properties;
 using Core.Common.Base.Storage;
 using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
-using Migration.Scripts.Data.Properties;
 
 namespace Application.Ringtoets.Migration
 {

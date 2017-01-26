@@ -138,10 +138,4 @@
   <data name="CommandSupported_Detailed" xml:space="preserve">
     <value>RINGTOETSBESTANDSPAD is het bestandspad naar het Ringtoetsdatabase bestand waarvan de versie gevalideerd moet worden.</value>
   </data>
-  <data name="Command_0_Incorrect_number_of_parameters" xml:space="preserve">
-    <value>Er is een verkeerd aantal parameters opgegeven voor de opdracht '{0}'</value>
-  </data>
-  <data name="Message_Inner_Exception_0" xml:space="preserve">
-    <value>Het besturingssysteem geeft de volgende melding: {0}</value>
-  </data>
 </root>

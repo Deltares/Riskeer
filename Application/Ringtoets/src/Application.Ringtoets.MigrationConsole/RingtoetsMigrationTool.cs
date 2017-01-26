@@ -25,6 +25,7 @@ using Application.Ringtoets.Migration;
 using Application.Ringtoets.MigrationConsole.Properties;
 using Migration.Console;
 using Migration.Scripts.Data.Exceptions;
+using MigrationConsoleResources = Migration.Console.Properties.Resources;
 
 namespace Application.Ringtoets.MigrationConsole
 {
@@ -71,7 +72,7 @@ namespace Application.Ringtoets.MigrationConsole
 
         private static void Exit(ErrorCode errorCode)
         {
-            EnvironmentControl.Instance.Exit((int)errorCode);
+            EnvironmentControl.Instance.Exit((int) errorCode);
         }
 
         private static void DisplayException(Exception exception)
@@ -79,7 +80,7 @@ namespace Application.Ringtoets.MigrationConsole
             ConsoleHelper.WriteErrorLine(exception.Message);
             if (exception.InnerException != null)
             {
-                ConsoleHelper.WriteErrorLine(Resources.Message_Inner_Exception_0,
+                ConsoleHelper.WriteErrorLine(MigrationConsoleResources.Message_Inner_Exception_0,
                                              exception.InnerException.Message);
             }
             ConsoleHelper.WriteErrorLine("");
@@ -108,12 +109,11 @@ namespace Application.Ringtoets.MigrationConsole
         private static void DisplayAllCommands()
         {
             Console.WriteLine(commandHelp
-                                    + "\t"
-                                    + Resources.CommandHelp_Command_0_Detailed, commandHelp);
+                              + "\t"
+                              + Resources.CommandHelp_Command_0_Detailed, commandHelp);
             ShowMigrateCommand();
             ShowSupportedCommand();
         }
-
 
         #region Invalid Command
 
@@ -130,7 +130,7 @@ namespace Application.Ringtoets.MigrationConsole
         {
             if (args.Length != 2)
             {
-                throw new InvalidOperationException(string.Format(Resources.Command_0_Incorrect_number_of_parameters,
+                throw new InvalidOperationException(string.Format(MigrationConsoleResources.Command_0_Incorrect_number_of_parameters,
                                                                   commandVersionSupported));
             }
 
@@ -139,15 +139,15 @@ namespace Application.Ringtoets.MigrationConsole
             var migrator = new RingtoetsSqLiteDatabaseFileMigrator();
             bool isSupported = migrator.IsVersionSupported(version);
             Console.WriteLine(isSupported
-                                        ? "Version '{0}' is supported."
-                                        : "Version '{0}' is not supported.", version);
+                                  ? "Version '{0}' is supported."
+                                  : "Version '{0}' is not supported.", version);
         }
 
         private static void ShowSupportedCommand()
         {
             Console.WriteLine(Resources.CommandSupported_Command_0_Brief
-                                    + "\t"
-                                    + Resources.CommandSupported_Detailed, commandVersionSupported);
+                              + "\t"
+                              + Resources.CommandSupported_Detailed, commandVersionSupported);
         }
 
         #endregion
@@ -158,7 +158,7 @@ namespace Application.Ringtoets.MigrationConsole
         {
             if (args.Length != 4)
             {
-                throw new InvalidOperationException(string.Format(Resources.Command_0_Incorrect_number_of_parameters,
+                throw new InvalidOperationException(string.Format(MigrationConsoleResources.Command_0_Incorrect_number_of_parameters,
                                                                   commandMigrate));
             }
             var migrator = new RingtoetsSqLiteDatabaseFileMigrator();
@@ -171,14 +171,14 @@ namespace Application.Ringtoets.MigrationConsole
 
             migrator.Migrate(sourceFile, toVersion, toFilepath);
             Console.WriteLine(Resources.CommandMigrate_Successful_Migration_From_Location_0_To_Version_1_At_Location_2,
-                                    filepath, toVersion, toFilepath);
+                              filepath, toVersion, toFilepath);
         }
 
         private static void ShowMigrateCommand()
         {
             Console.WriteLine(Resources.CommandMigrate_Command_0_Brief
-                                    + "\t"
-                                    + Resources.CommandMigrate_Detailed, commandMigrate);
+                              + "\t"
+                              + Resources.CommandMigrate_Detailed, commandMigrate);
         }
 
         #endregion

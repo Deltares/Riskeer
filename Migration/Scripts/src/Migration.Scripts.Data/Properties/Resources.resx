@@ -120,7 +120,4 @@
   <data name="Migrate_failed" xml:space="preserve">
     <value>Het migreren van de data is mislukt.</value>
   </data>
-  <data name="RingtoetsDatabaseSourceFile_Invalid_Ringtoets_File_Path_0" xml:space="preserve">
-    <value>Het bestand '{0}' is moet een geldig Ringtoets database bestand zijn.</value>
-  </data>
 </root>

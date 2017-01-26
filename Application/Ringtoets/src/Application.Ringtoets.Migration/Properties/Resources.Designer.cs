@@ -183,5 +183,14 @@ namespace Application.Ringtoets.Migration.Properties {
                 return ResourceManager.GetString("Migration_4_171", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het bestand &apos;{0}&apos; is moet een geldig Ringtoets database bestand zijn..
+        /// </summary>
+        public static string RingtoetsDatabaseSourceFile_Invalid_Ringtoets_File_Path_0 {
+            get {
+                return ResourceManager.GetString("RingtoetsDatabaseSourceFile_Invalid_Ringtoets_File_Path_0", resourceCulture);
+            }
+        }
     }
 }

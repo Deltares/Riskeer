@@ -130,4 +130,7 @@
   <data name="Migration_4_17_0" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Migration_4_17.0.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
+  <data name="RingtoetsDatabaseSourceFile_Invalid_Ringtoets_File_Path_0" xml:space="preserve">
+    <value>Het bestand '{0}' is moet een geldig Ringtoets database bestand zijn.</value>
+  </data>
 </root>

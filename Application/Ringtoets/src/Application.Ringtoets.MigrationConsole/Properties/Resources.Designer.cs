@@ -82,15 +82,6 @@ namespace Application.Ringtoets.MigrationConsole.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Er is een verkeerd aantal parameters opgegeven voor de opdracht &apos;{0}&apos;.
-        /// </summary>
-        internal static string Command_0_Incorrect_number_of_parameters {
-            get {
-                return ResourceManager.GetString("Command_0_Incorrect_number_of_parameters", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Geef het hulp menu weer..
         /// </summary>
         internal static string CommandHelp_Command_0_Detailed {
@@ -150,15 +141,6 @@ namespace Application.Ringtoets.MigrationConsole.Properties {
         internal static string CommandSupported_Detailed {
             get {
                 return ResourceManager.GetString("CommandSupported_Detailed", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Het besturingssysteem geeft de volgende melding: {0}.
-        /// </summary>
-        internal static string Message_Inner_Exception_0 {
-            get {
-                return ResourceManager.GetString("Message_Inner_Exception_0", resourceCulture);
             }
         }
     }

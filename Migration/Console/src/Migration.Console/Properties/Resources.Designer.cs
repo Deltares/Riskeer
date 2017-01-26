@@ -43,7 +43,7 @@ namespace Migration.Console.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -57,7 +57,7 @@ namespace Migration.Console.Properties {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Migration.Console.Properties.Resources", typeof(Resources).Assembly);
@@ -72,7 +72,7 @@ namespace Migration.Console.Properties {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -84,79 +84,16 @@ namespace Migration.Console.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Er is een verkeerd aantal parameters opgegeven voor de opdracht &apos;{0}&apos;.
         /// </summary>
-        internal static string Command_0_Incorrect_number_of_parameters {
+        public static string Command_0_Incorrect_number_of_parameters {
             get {
                 return ResourceManager.GetString("Command_0_Incorrect_number_of_parameters", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Geef het hulp menu weer..
-        /// </summary>
-        internal static string CommandHelp_Command_0_Detailed {
-            get {
-                return ResourceManager.GetString("CommandHelp_Command_0_Detailed", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0} is geen geldige opdracht..
-        /// </summary>
-        internal static string CommandInvalid_Command_0_Is_not_valid {
-            get {
-                return ResourceManager.GetString("CommandInvalid_Command_0_Is_not_valid", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0} RINGTOETSBESTANDSPAD NIEUWEVERSIE UITVOERPAD.
-        /// </summary>
-        internal static string CommandMigrate_Command_0_Brief {
-            get {
-                return ResourceManager.GetString("CommandMigrate_Command_0_Brief", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to RINGTOETSBESTANDSPAD is het bestandspad naar het Ringtoetsdatabase bestand dat gemigreerd moet worden. NIEUWEVERSIE is de versie naar waar gemigreerd moet worden. UITVOERPAD is het pad waar de het gemigreerde Ringtoetsbestand opgeslagen zal worden..
-        /// </summary>
-        internal static string CommandMigrate_Detailed {
-            get {
-                return ResourceManager.GetString("CommandMigrate_Detailed", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Het bestand &apos;{0}&apos; is succesvol gemigreerd naar versie {1} op locatie &apos;{2}&apos;..
-        /// </summary>
-        internal static string CommandMigrate_Successful_Migration_From_Location_0_To_Version_1_At_Location_2 {
-            get {
-                return ResourceManager.GetString("CommandMigrate_Successful_Migration_From_Location_0_To_Version_1_At_Location_2", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0} RINGTOETSBESTANDSPAD.
-        /// </summary>
-        internal static string CommandSupported_Command_0_Brief {
-            get {
-                return ResourceManager.GetString("CommandSupported_Command_0_Brief", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to RINGTOETSBESTANDSPAD is het bestandspad naar het Ringtoetsdatabase bestand waarvan de versie gevalideerd moet worden..
-        /// </summary>
-        internal static string CommandSupported_Detailed {
-            get {
-                return ResourceManager.GetString("CommandSupported_Detailed", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Het besturingssysteem geeft de volgende melding: {0}.
         /// </summary>
-        internal static string Message_Inner_Exception_0 {
+        public static string Message_Inner_Exception_0 {
             get {
                 return ResourceManager.GetString("Message_Inner_Exception_0", resourceCulture);
             }
