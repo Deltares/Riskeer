@@ -88,7 +88,7 @@ namespace Migration.Scripts.Data.Test
             var createScript = new CreateScript(version, query);
 
             // Call
-            VersionedFile versionedFile = createScript.CreateEmptyVersionedFile(filePath);
+            IVersionedFile versionedFile = createScript.CreateEmptyVersionedFile(filePath);
 
             // Assert
             Assert.IsTrue(File.Exists(versionedFile.Location));

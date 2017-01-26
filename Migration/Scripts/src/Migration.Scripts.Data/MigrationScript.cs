@@ -74,13 +74,13 @@ namespace Migration.Scripts.Data
         }
 
         /// <summary>
-        /// Uses <paramref name="sourceVersionedFile"/> to upgrade to a new <see cref="VersionedFile"/>.
+        /// Uses <paramref name="sourceVersionedFile"/> to upgrade to a new <see cref="IVersionedFile"/>.
         /// </summary>
         /// <param name="sourceVersionedFile"></param>
-        /// <returns>The upgraded <see cref="VersionedFile"/>.</returns>
+        /// <returns>The upgraded <see cref="IVersionedFile"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="sourceVersionedFile"/> is <c>null</c>.</exception>
         /// <exception cref="CriticalDatabaseMigrationException">Thrown when migration failed.</exception>
-        public VersionedFile Upgrade(VersionedFile sourceVersionedFile)
+        public IVersionedFile Upgrade(IVersionedFile sourceVersionedFile)
         {
             if (sourceVersionedFile == null)
             {
@@ -90,7 +90,7 @@ namespace Migration.Scripts.Data
 
             try
             {
-                VersionedFile newVersionedFile = createScript.CreateEmptyVersionedFile(newLocation);
+                IVersionedFile newVersionedFile = createScript.CreateEmptyVersionedFile(newLocation);
                 upgradeScript.Upgrade(sourceVersionedFile, newVersionedFile);
                 return newVersionedFile;
             }

@@ -29,7 +29,7 @@ namespace Migration.Scripts.Data
     /// <summary>
     /// Class that defines a file that has a version.
     /// </summary>
-    public class VersionedFile
+    public class VersionedFile : IVersionedFile
     {
         /// <summary>
         /// Creates a new instance of the <see cref="VersionedFile"/> class.
@@ -49,22 +49,8 @@ namespace Migration.Scripts.Data
             Location = path;
         }
 
-        /// <summary>
-        /// Gets the location of the versioned file.
-        /// </summary>
         public string Location { get; }
 
-        /// <summary>
-        /// Gets the version of the <see cref="VersionedFile"/>.
-        /// </summary>
-        /// <returns>The version.</returns>
-        /// <exception cref="CriticalFileReadException">Thrown when:
-        /// <list type="bullet">
-        /// <item>No file could be found at <see cref="Location"/>.</item>
-        /// <item>Unable to open file at <see cref="Location"/>.</item>
-        /// </list>
-        /// </exception>
-        /// <exception cref="StorageValidationException">Thrown when is not a valid file.</exception>
         public string GetVersion()
         {
             using (var sourceFile = new RingtoetsDatabaseSourceFile(Location))

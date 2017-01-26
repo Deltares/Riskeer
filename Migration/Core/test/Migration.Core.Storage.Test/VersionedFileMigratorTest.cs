@@ -79,7 +79,7 @@ namespace Migration.Core.Storage.Test
         {
             // Setup
             string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Migration.Core.Storage, "Demo164.rtd");
-            VersionedFile versionedFile = new VersionedFile(sourceFilePath);
+            var versionedFile = new VersionedFile(sourceFilePath);
             var migrator = new VersionedFileMigrator();
 
             // Call
@@ -94,7 +94,7 @@ namespace Migration.Core.Storage.Test
         {
             // Setup
             string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Migration.Core.Storage, "Demo164.rtd");
-            VersionedFile versionedFile = new VersionedFile(sourceFilePath);
+            var versionedFile = new VersionedFile(sourceFilePath);
             var migrator = new VersionedFileMigrator();
 
             // Call

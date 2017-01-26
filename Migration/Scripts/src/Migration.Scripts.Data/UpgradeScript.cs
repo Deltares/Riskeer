@@ -93,7 +93,7 @@ namespace Migration.Scripts.Data
         /// <item><paramref name="target"/> is <c>null</c>.</item>
         /// </list></exception>
         /// <exception cref="SQLiteException">Thrown when executing query failed.</exception>
-        public void Upgrade(VersionedFile source, VersionedFile target)
+        public void Upgrade(IVersionedFile source, IVersionedFile target)
         {
             if (source == null)
             {

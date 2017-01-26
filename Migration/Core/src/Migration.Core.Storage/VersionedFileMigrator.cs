@@ -72,7 +72,7 @@ namespace Migration.Core.Storage
         /// <param name="toVersion">The version to upgrade to.</param>
         /// <returns><c>true</c> if <paramref name="versionedFile"/> needs to be upgraded to <paramref name="toVersion"/>, 
         /// <c>false</c> otherwise.</returns>
-        public bool NeedsMigrate(VersionedFile versionedFile, string toVersion)
+        public bool NeedsMigrate(IVersionedFile versionedFile, string toVersion)
         {
             return ringtoetsVersionComparer.Compare(versionedFile.GetVersion(), toVersion) < 0;
         }
@@ -85,7 +85,7 @@ namespace Migration.Core.Storage
         /// <param name="newFileLocation">The location where the migrated file needs to be saved.</param>
         /// <exception cref="CriticalDatabaseMigrationException">Thrown when migrating <paramref name="fromVersionedFile"/> 
         /// to a new version on location <paramref name="newFileLocation"/> failed.</exception>
-        public void Migrate(VersionedFile fromVersionedFile, string toVersion, string newFileLocation)
+        public void Migrate(IVersionedFile fromVersionedFile, string toVersion, string newFileLocation)
         {
             if (Path.GetFullPath(fromVersionedFile.Location).Equals(Path.GetFullPath(newFileLocation)))
             {
@@ -105,7 +105,7 @@ namespace Migration.Core.Storage
                                                                            fromVersion, toVersion));
             }
 
-            var upgradedVersionFile = migrationScript.Upgrade(fromVersionedFile);
+            IVersionedFile upgradedVersionFile = migrationScript.Upgrade(fromVersionedFile);
             if (!upgradedVersionFile.GetVersion().Equals(toVersion))
             {
                 Migrate(upgradedVersionFile, toVersion, newFileLocation);

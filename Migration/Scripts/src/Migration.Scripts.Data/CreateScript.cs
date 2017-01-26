@@ -72,7 +72,7 @@ namespace Migration.Scripts.Data
         /// </list></exception>
         /// <exception cref="SQLiteException">Thrown when executing query failed.</exception>
         /// 
-        public VersionedFile CreateEmptyVersionedFile(string location)
+        public IVersionedFile CreateEmptyVersionedFile(string location)
         {
             IOUtils.ValidateFilePathIsWritable(location);
 

@@ -120,7 +120,7 @@ namespace Migration.Scripts.Data.Test
             var versionedFile = new VersionedFile("c:\\file.ext");
 
             // Call
-            VersionedFile upgradedFile = migrationScript.Upgrade(versionedFile);
+            IVersionedFile upgradedFile = migrationScript.Upgrade(versionedFile);
 
             // Assert
             Assert.IsNotNull(upgradedFile);
@@ -138,7 +138,7 @@ namespace Migration.Scripts.Data.Test
             var versionedFile = new VersionedFile("c:\\file.ext");
 
             // Call
-            VersionedFile upgradedFile = migrationScript.Upgrade(versionedFile);
+            IVersionedFile upgradedFile = migrationScript.Upgrade(versionedFile);
 
             // Assert
             Assert.IsNotNull(upgradedFile);
