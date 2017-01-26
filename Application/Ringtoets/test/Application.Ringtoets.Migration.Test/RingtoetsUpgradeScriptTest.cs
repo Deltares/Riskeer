@@ -102,50 +102,6 @@ namespace Application.Ringtoets.Migration.Test
         }
 
         [Test]
-        public void Upgrade_SourceNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var mockRepository = new MockRepository();
-            var targetVersionedFile = mockRepository.Stub<IVersionedFile>();
-            mockRepository.ReplayAll();
-
-            const string fromVersion = "fromVersion";
-            const string toVersion = "toVersion";
-            const string query = ";";
-            var upgradeScript = new RingtoetsUpgradeScript(fromVersion, toVersion, query);
-
-            // Call
-            TestDelegate call = () => upgradeScript.Upgrade(null, targetVersionedFile);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("source", paramName);
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void Upgrade_TargetNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var mockRepository = new MockRepository();
-            var sourceVersionedFile = mockRepository.Stub<IVersionedFile>();
-            mockRepository.ReplayAll();
-
-            const string fromVersion = "fromVersion";
-            const string toVersion = "toVersion";
-            const string query = ";";
-            var upgradeScript = new RingtoetsUpgradeScript(fromVersion, toVersion, query);
-
-            // Call
-            TestDelegate call = () => upgradeScript.Upgrade(sourceVersionedFile, null);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("target", paramName);
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
         public void Upgrade_UpgradeFails_ThrowsSQLiteException()
         {
             // Setup

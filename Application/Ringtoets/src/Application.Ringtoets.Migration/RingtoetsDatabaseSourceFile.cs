@@ -26,7 +26,7 @@ using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
 using Migration.Scripts.Data.Properties;
 
-namespace Migration.Scripts.Data
+namespace Application.Ringtoets.Migration
 {
     /// <summary>
     /// Class that provides methods for the migration database source file.

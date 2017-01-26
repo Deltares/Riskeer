@@ -26,7 +26,7 @@ using Core.Common.IO.Readers;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 
-namespace Migration.Scripts.Data.Test
+namespace Application.Ringtoets.Migration.Test
 {
     [TestFixture]
     public class RingtoetsDatabaseSourceFileTest

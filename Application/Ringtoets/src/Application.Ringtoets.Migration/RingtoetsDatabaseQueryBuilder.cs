@@ -19,22 +19,23 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using NUnit.Framework;
-
-namespace Migration.Scripts.Data.Test
+namespace Application.Ringtoets.Migration
 {
-    [TestFixture]
-    public class RingtoetsDatabaseQueryBuilderTest
+    /// <summary>
+    /// Defines queries to execute on a Ringtoets database.
+    /// </summary>
+    public static class RingtoetsDatabaseQueryBuilder
     {
-        [Test]
-        public void GetVersionQuery_ReturnsExpectedQuery()
+        /// <summary>
+        /// Returns the query to get the version from the Ringtoets database.
+        /// </summary>
+        /// <returns>The query to get the version from the Ringtoets database.</returns>
+        public static string GetVersionQuery()
         {
-            // Call
-            string getVersionQuery = RingtoetsDatabaseQueryBuilder.GetVersionQuery();
-
-            // Assert
-            Assert.AreEqual("SELECT Version FROM VersionEntity Order by Timestamp DESC LIMIT 1",
-                            getVersionQuery);
+            return $"SELECT {VersionTableDefinitions.Version} "
+                   + $"FROM {VersionTableDefinitions.TableName} "
+                   + $"Order by {VersionTableDefinitions.Timestamp} DESC "
+                   + "LIMIT 1";
         }
     }
 }

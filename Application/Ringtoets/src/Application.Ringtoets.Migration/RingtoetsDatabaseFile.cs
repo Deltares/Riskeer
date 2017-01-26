@@ -25,7 +25,7 @@ using System.IO;
 using Core.Common.IO;
 using Core.Common.Utils;
 
-namespace Migration.Scripts.Data
+namespace Application.Ringtoets.Migration
 {
     /// <summary>
     /// Class that provides methods for the migration database target file.

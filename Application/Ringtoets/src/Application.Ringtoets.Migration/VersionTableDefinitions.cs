@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Migration.Scripts.Data
+namespace Application.Ringtoets.Migration
 {
     /// <summary>
     /// Defines the table and column names of the table 'VersionEntity' in the Ringtoets database.
