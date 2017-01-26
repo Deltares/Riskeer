@@ -42,7 +42,7 @@ namespace Migration.Console
                 return instance ?? (instance = DefaultEnvironmentControl.CurrentInstance);
             }
 
-            internal set
+            set
             {
                 if (value == null)
                 {

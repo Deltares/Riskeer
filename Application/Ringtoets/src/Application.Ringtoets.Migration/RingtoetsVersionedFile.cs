@@ -31,7 +31,7 @@ namespace Application.Ringtoets.Migration
     public class RingtoetsVersionedFile : IVersionedFile
     {
         /// <summary>
-        /// Creates a new instance of the <see cref="VersionedFile"/> class.
+        /// Creates a new instance of the <see cref="RingtoetsVersionedFile"/> class.
         /// </summary>
         /// <param name="path">Path to the versioned file.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="path"/> is invalid.</exception>

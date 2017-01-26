@@ -29,7 +29,6 @@ using Core.Common.Gui;
 using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.Settings;
 using Core.Common.TestUtil;
-using Migration.Scripts.Data;
 using NUnit.Framework;
 using Ringtoets.Common.Utils;
 using Ringtoets.Integration.Data;
@@ -98,7 +97,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         private static void MigrateFile(string sourceFilePath, string targetFilePath)
         {
             string newVersion = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
-            var fromVersionedFile = new VersionedFile(sourceFilePath);
+            var fromVersionedFile = new RingtoetsVersionedFile(sourceFilePath);
             var migrator = new RingtoetsSqLiteDatabaseFileMigrator();
 
             migrator.Migrate(fromVersionedFile, newVersion, targetFilePath);

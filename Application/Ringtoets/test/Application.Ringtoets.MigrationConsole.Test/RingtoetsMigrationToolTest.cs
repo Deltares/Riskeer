@@ -21,12 +21,13 @@
 
 using System;
 using System.IO;
+using Application.Ringtoets.Migration;
 using Core.Common.TestUtil;
+using Migration.Console;
 using Migration.Console.TestUtil;
-using Migration.Scripts.Data;
 using NUnit.Framework;
 
-namespace Migration.Console.Test
+namespace Application.Ringtoets.MigrationConsole.Test
 {
     [TestFixture]
     public class RingtoetsMigrationToolTest
@@ -56,7 +57,7 @@ namespace Migration.Console.Test
             using (var consoleOutput = new ConsoleOutput())
             {
                 RingtoetsMigrationTool.Main(new string[]
-                                                {});
+                                       {});
 
                 consoleText = consoleOutput.GetConsoleOutput();
             }
@@ -248,7 +249,7 @@ namespace Migration.Console.Test
                 Assert.AreEqual($"Het bestand '{sourceFilePath}' is succesvol gemigreerd naar versie"
                                 + $" {newVersion} op locatie '{targetFilePath}'." + Environment.NewLine,
                                 consoleText);
-                var toVersionedFile = new VersionedFile(targetFilePath);
+                var toVersionedFile = new RingtoetsVersionedFile(targetFilePath);
                 Assert.AreEqual(newVersion, toVersionedFile.GetVersion());
             }
             Assert.AreEqual(0, environmentControl.ErrorCodeCalled);
