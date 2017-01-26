@@ -356,7 +356,7 @@ namespace Ringtoets.Integration.Service.Test
         }
 
         [Test]
-        [TestCaseSource(nameof(GrassAndDuneLocations))]
+        [TestCaseSource(nameof(GrassAndDuneLocations2))]
         public void ClearHydraulicBoundaryLocationOutputForFailureMechanisms_FailureMechanismsGrassCoverErosionOutwardsAndDuneLocations_ClearDataAndReturnAffectedLocations(HydraulicBoundaryLocation grassCoverErosionLocation,
                                                                                                                                                            DuneLocation duneLocation,
                                                                                                                                                            IEnumerable<IObservable> expectedAffectedItems)
@@ -475,7 +475,7 @@ namespace Ringtoets.Integration.Service.Test
         }
 
         [Test]
-        [TestCaseSource(nameof(FailureMechanisms))]
+        [TestCaseSource(nameof(FailureMechanisms2))]
         public void GetHydraulicBoundaryLocationCollectionsOfFailureMechanisms_FailureMechanismsGrassCoverOutwardsAndDuneLocations_ReturnsExpectedAffectedCollections(IEnumerable<IFailureMechanism> availableFailureMechanisms,
                                                                                                                                                      IEnumerable<IObservable> expectedCollections)
         {
@@ -1532,7 +1532,7 @@ namespace Ringtoets.Integration.Service.Test
                     {
                         grassBoundaryLocationWithOutput
                     }
-                    ).SetName("GrassLocationWithOutput");
+                    ).SetName("DuneLocationWithoutOutputGrassLocationWithOutput");
                 yield return new TestCaseData(
                     new TestHydraulicBoundaryLocation(),
                     duneLocationWithOutput = new TestDuneLocation
@@ -1543,7 +1543,7 @@ namespace Ringtoets.Integration.Service.Test
                     {
                         duneLocationWithOutput
                     }
-                    ).SetName("DuneLocationWithOutput");
+                    ).SetName("GrassLocationWithoutOutputDuneLocationWithOutput");
                 yield return new TestCaseData(
                     grassBoundaryLocationWithOutput = TestHydraulicBoundaryLocation.CreateFullyCalculated(),
                     duneLocationWithOutput = new TestDuneLocation
@@ -1556,6 +1556,52 @@ namespace Ringtoets.Integration.Service.Test
                         duneLocationWithOutput
                     }
                     ).SetName("GrassAndDuneLocationWithOutput");
+            }
+        }
+
+        private static IEnumerable<TestCaseData> GrassAndDuneLocations2
+        {
+            get
+            {
+                TestDuneLocation duneLocationWithOutput;
+                TestHydraulicBoundaryLocation grassBoundaryLocationWithOutput;
+
+                yield return new TestCaseData(
+                    new TestHydraulicBoundaryLocation(),
+                    new TestDuneLocation(),
+                    new IObservable[0]
+                    ).SetName("GrassAndDuneLocationNoOutput2");
+                yield return new TestCaseData(
+                    grassBoundaryLocationWithOutput = TestHydraulicBoundaryLocation.CreateFullyCalculated(),
+                    new TestDuneLocation(),
+                    new IObservable[]
+                    {
+                        grassBoundaryLocationWithOutput
+                    }
+                    ).SetName("GrassLocationWithOutput2");
+                yield return new TestCaseData(
+                    new TestHydraulicBoundaryLocation(),
+                    duneLocationWithOutput = new TestDuneLocation
+                    {
+                        Output = new TestDuneLocationOutput()
+                    },
+                    new IObservable[]
+                    {
+                        duneLocationWithOutput
+                    }
+                    ).SetName("DuneLocationWithOutput2");
+                yield return new TestCaseData(
+                    grassBoundaryLocationWithOutput = TestHydraulicBoundaryLocation.CreateFullyCalculated(),
+                    duneLocationWithOutput = new TestDuneLocation
+                    {
+                        Output = new TestDuneLocationOutput()
+                    },
+                    new IObservable[]
+                    {
+                        grassBoundaryLocationWithOutput,
+                        duneLocationWithOutput
+                    }
+                    ).SetName("GrassAndDuneLocationWithOutput2");
             }
         }
 
@@ -1620,7 +1666,7 @@ namespace Ringtoets.Integration.Service.Test
                     new IObservable[]
                     {
                         duneLocationWithOutput
-                    }).SetName("DuneLocationWithOutput");
+                    }).SetName("HydraulicBoundaryLocationWithoutOutputDuneLocationWithOutput");
                 yield return new TestCaseData(
                     new TestHydraulicBoundaryLocation(),
                     new TestHydraulicBoundaryLocation(),
@@ -1638,7 +1684,7 @@ namespace Ringtoets.Integration.Service.Test
                     {
                         grassCoverErosionOutwardsLocation,
                         duneLocationWithOutput
-                    }).SetName("GrassAndDuneLocationWithOutput");
+                    }).SetName("HydraulicBoundaryLocationWithoutOutputGrassAndDuneLocationWithOutput");
                 yield return new TestCaseData(
                     new TestHydraulicBoundaryLocation(),
                     grassCoverErosionOutwardsLocation = TestHydraulicBoundaryLocation.CreateFullyCalculated(),
@@ -1695,6 +1741,54 @@ namespace Ringtoets.Integration.Service.Test
                     {
                         grassCoverErosionOutwardsFailureMechanism.HydraulicBoundaryLocations
                     }).SetName("GrassFailureMechanism");
+            }
+        }
+
+        private static IEnumerable<TestCaseData> FailureMechanisms2
+        {
+            get
+            {
+                DuneErosionFailureMechanism duneErosionFailureMechanism;
+                GrassCoverErosionOutwardsFailureMechanism grassCoverErosionOutwardsFailureMechanism;
+
+                yield return new TestCaseData(
+                    new IFailureMechanism[]
+                    {
+                        new TestFailureMechanism(),
+                        duneErosionFailureMechanism = new DuneErosionFailureMechanism(),
+                        grassCoverErosionOutwardsFailureMechanism = new GrassCoverErosionOutwardsFailureMechanism()
+                    },
+                    new IObservable[]
+                    {
+                        grassCoverErosionOutwardsFailureMechanism.HydraulicBoundaryLocations,
+                        duneErosionFailureMechanism.DuneLocations
+                    }).SetName("DuneAndGrassFailureMechanism2");
+                yield return new TestCaseData(
+                    new IFailureMechanism[]
+                    {
+                        new TestFailureMechanism()
+                    },
+                    new IObservable[0]).SetName("NoRelevantFailureMechanism2");
+                yield return new TestCaseData(
+                    new IFailureMechanism[]
+                    {
+                        new TestFailureMechanism(),
+                        duneErosionFailureMechanism = new DuneErosionFailureMechanism(),
+                    },
+                    new IObservable[]
+                    {
+                        duneErosionFailureMechanism.DuneLocations
+                    }).SetName("DuneFailureMechanism2");
+                yield return new TestCaseData(
+                    new IFailureMechanism[]
+                    {
+                        new TestFailureMechanism(),
+                        grassCoverErosionOutwardsFailureMechanism = new GrassCoverErosionOutwardsFailureMechanism()
+                    },
+                    new IObservable[]
+                    {
+                        grassCoverErosionOutwardsFailureMechanism.HydraulicBoundaryLocations
+                    }).SetName("GrassFailureMechanism2");
             }
         }
 

@@ -371,10 +371,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
         }
 
         [Test]
-        [TestCase(false, false, "De bijdrage van dit toetsspoor is nul.")]
-        [TestCase(true, false, "De bijdrage van dit toetsspoor is nul.")]
-        [TestCase(false, true, "Er zijn geen berekeningen geselecteerd.")]
-        [TestCase(true, true, "")]
+        [TestCase(false, false, "De bijdrage van dit toetsspoor is nul.", TestName = "CalculateButton_RowSelectionContributionSet_SyncedAccordingly(false, false, message)")]
+        [TestCase(true, false, "De bijdrage van dit toetsspoor is nul.", TestName = "CalculateButton_RowSelectionContributionSet_SyncedAccordingly(true, false, message)")]
+        [TestCase(false, true, "Er zijn geen berekeningen geselecteerd.", TestName = "CalculateButton_RowSelectionContributionSet_SyncedAccordingly(false, true, message)")]
+        [TestCase(true, true, "", TestName = "CalculateButton_RowSelectionContributionSet_SyncedAccordingly(true, true, message)")]
         public void CalculateForSelectedButton_SpecificCombinationOfRowSelectionAndFailureMechanismContributionSet_ButtonAndErrorMessageSyncedAccordingly(bool rowSelected, bool contributionNotZero, string expectedErrorMessage)
         {
             // Setup & Call
