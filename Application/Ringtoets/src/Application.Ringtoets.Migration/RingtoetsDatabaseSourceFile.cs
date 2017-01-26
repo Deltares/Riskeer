@@ -68,7 +68,8 @@ namespace Application.Ringtoets.Migration
             }
             catch (SystemException exception)
             {
-                throw new StorageValidationException(string.Format(Resources.RingtoetsDatabaseSourceFile_Invalid_Ringtoets_File_Path_0, Path), exception);
+                throw new StorageValidationException(string.Format(Resources.RingtoetsDatabaseSourceFile_Invalid_Ringtoets_File_Path_0, Path), 
+                    exception);
             }
         }
     }
