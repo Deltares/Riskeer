@@ -21,13 +21,14 @@
 
 using System;
 using Core.Common.Utils;
+using Migration.Scripts.Data;
 
-namespace Migration.Scripts.Data
+namespace Application.Ringtoets.Migration
 {
     /// <summary>
-    /// Class that defines a file that has a version.
+    /// Class that defines a Ringtoets database file that has a version.
     /// </summary>
-    public class VersionedFile : IVersionedFile
+    public class RingtoetsVersionedFile : IVersionedFile
     {
         /// <summary>
         /// Creates a new instance of the <see cref="VersionedFile"/> class.
@@ -41,7 +42,7 @@ namespace Migration.Scripts.Data
         /// <item>does not contain an invalid character,</item>
         /// <item>does not end with a directory or path separator (empty file name).</item>
         /// </list></remarks>
-        public VersionedFile(string path)
+        public RingtoetsVersionedFile(string path)
         {
             IOUtils.ValidateFilePath(path);
             Location = path;

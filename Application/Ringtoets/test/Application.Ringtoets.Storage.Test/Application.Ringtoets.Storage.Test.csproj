@@ -259,6 +259,10 @@
       <Project>{EFD7E662-5B69-4B71-A448-565B64E9C033}</Project>
       <Name>Migration.Core.Storage</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Migration\Core\test\Migration.Core.Storage.TestUtil\Migration.Core.Storage.TestUtil.csproj">
+      <Project>{92CFD164-3E35-440A-85A7-A7F5A43B1B12}</Project>
+      <Name>Migration.Core.Storage.TestUtil</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Migration\Scripts\src\Migration.Scripts.Data\Migration.Scripts.Data.csproj">
       <Project>{D08DB9E2-6861-44C8-A725-71A70274CC77}</Project>
       <Name>Migration.Scripts.Data</Name>
@@ -354,6 +358,10 @@
     <ProjectReference Include="..\..\..\..\Ringtoets\StabilityStoneCover\src\Ringtoets.StabilityStoneCover.Data\Ringtoets.StabilityStoneCover.Data.csproj">
       <Project>{b479e3af-7c34-488c-bb73-d324100d36c9}</Project>
       <Name>Ringtoets.StabilityStoneCover.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Application.Ringtoets.Migration\Application.Ringtoets.Migration.csproj">
+      <Project>{FAC55B92-E259-43D6-B9A1-5BDA6C834359}</Project>
+      <Name>Application.Ringtoets.Migration</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Application.Ringtoets.Storage\Application.Ringtoets.Storage.csproj">
       <Project>{50963f12-448c-41ba-a62c-cdb0ab8d21e0}</Project>

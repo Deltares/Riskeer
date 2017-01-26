@@ -64,6 +64,11 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Application\Ringtoets\src\Application.Ringtoets.Migration\Application.Ringtoets.Migration.csproj">
+      <Project>{FAC55B92-E259-43D6-B9A1-5BDA6C834359}</Project>
+      <Name>Application.Ringtoets.Migration</Name>
+      <Private>False</Private>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\Core\src\Migration.Core.Storage\Migration.Core.Storage.csproj">
       <Project>{EFD7E662-5B69-4B71-A448-565B64E9C033}</Project>
       <Name>Migration.Core.Storage</Name>

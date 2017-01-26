@@ -20,12 +20,8 @@
 // All rights reserved.
 
 using System;
-using System.Data;
-using System.Data.SQLite;
 using System.IO;
-using Core.Common.IO.Readers;
 using Core.Common.TestUtil;
-using Migration.Scripts.Data.Exceptions;
 using NUnit.Framework;
 
 namespace Migration.Scripts.Data.Test
@@ -51,7 +47,7 @@ namespace Migration.Scripts.Data.Test
         public void Constructor_UpgradeScriptNull_ThrowsArgumentNullException()
         {
             // Setup
-            var createScript = new CreateScript("1", ";");
+            var createScript = new TestCreateScript("1", ";");
 
             // Call
             TestDelegate call = () => new MigrationScript(createScript, null);
@@ -65,7 +61,7 @@ namespace Migration.Scripts.Data.Test
         public void Constructor_ValidParameters_ExpectedProperties()
         {
             // Setup
-            var createScript = new CreateScript("2", ";");
+            var createScript = new TestCreateScript("2", ";");
             var upgradeScript = new UpgradeScript("1", "2", ";");
 
             // Call
@@ -80,7 +76,7 @@ namespace Migration.Scripts.Data.Test
         public void Upgrade_VersionedFileNull_ThrowsArgumentNullException()
         {
             // Setup
-            var createScript = new CreateScript("2", ";");
+            var createScript = new TestCreateScript("2", ";");
             var upgradeScript = new UpgradeScript("1", "2", ";");
             var migrationScript = new MigrationScript(createScript, upgradeScript);
 
@@ -93,28 +89,10 @@ namespace Migration.Scripts.Data.Test
         }
 
         [Test]
-        public void Upgrade_UpgradeFails_ThrowsCriticalDatabaseMigrationException()
-        {
-            // Setup
-            var createScript = new CreateScript("2", "THIS WILL FAIL");
-            var upgradeScript = new UpgradeScript("1", "2", ";");
-            var migrationScript = new MigrationScript(createScript, upgradeScript);
-            var versionedFile = new VersionedFile("c:\\file.ext");
-
-            // Call
-            TestDelegate call = () => migrationScript.Upgrade(versionedFile);
-
-            // Assert
-            CriticalDatabaseMigrationException exception = Assert.Throws<CriticalDatabaseMigrationException>(call);
-            Assert.AreEqual("Het migreren van de data is mislukt.", exception.Message);
-            Assert.IsInstanceOf<SQLiteException>(exception.InnerException);
-        }
-
-        [Test]
         public void Upgrade_ValidParameters_ExpectedProperties()
         {
             // Setup
-            var createScript = new CreateScript("2", ";");
+            var createScript = new TestCreateScript("2", ";");
             var upgradeScript = new UpgradeScript("1", "2", ";");
             var migrationScript = new MigrationScript(createScript, upgradeScript);
             var versionedFile = new VersionedFile("c:\\file.ext");
@@ -126,55 +104,6 @@ namespace Migration.Scripts.Data.Test
             Assert.IsNotNull(upgradedFile);
             Assert.IsTrue(File.Exists(upgradedFile.Location));
             using (new FileDisposeHelper(upgradedFile.Location)) {}
-        }
-
-        [Test]
-        public void Upgrade_ActualQueries_ExpectedProperties()
-        {
-            // Setup
-            var createScript = new CreateScript("2", "CREATE TABLE 'MigrationScript' ('Field' TEXT NOT NULL);");
-            var upgradeScript = new UpgradeScript("1", "2", "INSERT INTO 'MigrationScript' SELECT '{0}';");
-            var migrationScript = new MigrationScript(createScript, upgradeScript);
-            var versionedFile = new VersionedFile("c:\\file.ext");
-
-            // Call
-            IVersionedFile upgradedFile = migrationScript.Upgrade(versionedFile);
-
-            // Assert
-            Assert.IsNotNull(upgradedFile);
-
-            Assert.IsTrue(File.Exists(upgradedFile.Location));
-            using (var msdr = new MigrationScriptDatabaseReader(upgradedFile.Location))
-            {
-                Assert.IsTrue(msdr.IsValueInserted(versionedFile.Location));
-            }
-            using (new FileDisposeHelper(upgradedFile.Location)) {}
-        }
-
-        private class MigrationScriptDatabaseReader : SqLiteDatabaseReaderBase
-        {
-            public MigrationScriptDatabaseReader(string filePath) : base(filePath) {}
-
-            public bool IsValueInserted(string value)
-            {
-                const string query = "SELECT FIELD FROM 'MigrationScript';";
-                try
-                {
-                    using (IDataReader dataReader = CreateDataReader(query, null))
-                    {
-                        if (!dataReader.Read())
-                        {
-                            return false;
-                        }
-
-                        return dataReader.Read<string>("Field").Equals(value);
-                    }
-                }
-                catch
-                {
-                    return false;
-                }
-            }
         }
     }
 }

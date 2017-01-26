@@ -19,27 +19,18 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Migration.Core.Storage.TestUtil;
-using NUnit.Framework;
+using System.IO;
 
-namespace Migration.Core.Storage.Test
+namespace Migration.Scripts.Data.Test
 {
-    [TestFixture]
-    public class VersionedFileMigratorTest
+    public class TestCreateScript : CreateScript
     {
-        [Test]
-        [TestCase("")]
-        [TestCase(null)]
-        public void IsVersionSupported_ToVersionIsNullOrWhiteSpace_ReturnsFalse(string toVersion)
+        public TestCreateScript(string version, string query) : base(version, query) {}
+
+        protected override IVersionedFile GetEmptyVersionedFile(string location)
         {
-            // Setup
-            var migrator = new TestVersionedFileMigrator();
-
-            // Call
-            bool isSupported = migrator.IsVersionSupported(toVersion);
-
-            // Assert
-            Assert.IsFalse(isSupported);
+            using (File.Create(location)) {}
+            return new VersionedFile(location);
         }
     }
 }

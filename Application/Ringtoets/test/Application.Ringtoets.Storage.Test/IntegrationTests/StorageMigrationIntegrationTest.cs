@@ -24,11 +24,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Windows.Threading;
+using Application.Ringtoets.Migration;
 using Core.Common.Gui;
 using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.Settings;
 using Core.Common.TestUtil;
-using Migration.Core.Storage;
 using Migration.Scripts.Data;
 using NUnit.Framework;
 using Ringtoets.Common.Utils;
@@ -99,7 +99,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         {
             string newVersion = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
             var fromVersionedFile = new VersionedFile(sourceFilePath);
-            var migrator = new VersionedFileMigrator();
+            var migrator = new RingtoetsSqLiteDatabaseFileMigrator();
 
             migrator.Migrate(fromVersionedFile, newVersion, targetFilePath);
         }

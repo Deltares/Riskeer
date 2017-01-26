@@ -21,8 +21,8 @@
 
 using System;
 using System.Linq;
+using Application.Ringtoets.Migration;
 using Migration.Console.Properties;
-using Migration.Core.Storage;
 using Migration.Scripts.Data;
 using Migration.Scripts.Data.Exceptions;
 using SystemConsole = System.Console;
@@ -136,7 +136,7 @@ namespace Migration.Console
 
             string version = args[1];
 
-            var migrator = new VersionedFileMigrator();
+            var migrator = new RingtoetsSqLiteDatabaseFileMigrator();
             bool isSupported = migrator.IsVersionSupported(version);
             SystemConsole.WriteLine(isSupported
                                         ? "Version '{0}' is supported."
@@ -161,7 +161,7 @@ namespace Migration.Console
                 throw new InvalidOperationException(string.Format(Resources.Command_0_Incorrect_number_of_parameters,
                                                                   commandMigrate));
             }
-            var migrator = new VersionedFileMigrator();
+            var migrator = new RingtoetsSqLiteDatabaseFileMigrator();
 
             string filepath = args[1];
             string toVersion = args[2];

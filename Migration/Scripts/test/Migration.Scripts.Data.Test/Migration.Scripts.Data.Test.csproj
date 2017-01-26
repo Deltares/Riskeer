@@ -62,6 +62,7 @@
     <Compile Include="RingtoetsDatabaseFileTest.cs" />
     <Compile Include="RingtoetsDatabaseQueryBuilderTest.cs" />
     <Compile Include="RingtoetsDatabaseSourceFileTest.cs" />
+    <Compile Include="TestCreateScript.cs" />
     <Compile Include="UpgradeScriptTest.cs" />
     <Compile Include="VersionedFileTest.cs" />
   </ItemGroup>

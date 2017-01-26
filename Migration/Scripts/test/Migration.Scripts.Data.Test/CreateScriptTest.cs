@@ -38,7 +38,7 @@ namespace Migration.Scripts.Data.Test
             const string query = "Valid query";
 
             // Call
-            TestDelegate call = () => new CreateScript(version, query);
+            TestDelegate call = () => new TestCreateScript(version, query);
 
             // Assert
             string paramName = Assert.Throws<ArgumentException>(call).ParamName;
@@ -55,7 +55,7 @@ namespace Migration.Scripts.Data.Test
             const string version = "Valid version";
 
             // Call
-            TestDelegate call = () => new CreateScript(version, query);
+            TestDelegate call = () => new TestCreateScript(version, query);
 
             // Assert
             string paramName = Assert.Throws<ArgumentException>(call).ParamName;
@@ -70,7 +70,7 @@ namespace Migration.Scripts.Data.Test
             const string version = "Valid version";
 
             // Call
-            var createScript = new CreateScript(version, query);
+            var createScript = new TestCreateScript(version, query);
 
             // Assert
             Assert.AreEqual(version, createScript.Version());
@@ -85,7 +85,7 @@ namespace Migration.Scripts.Data.Test
 
             string targetFilename = Path.GetRandomFileName();
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Migration.Core.Storage, targetFilename);
-            var createScript = new CreateScript(version, query);
+            var createScript = new TestCreateScript(version, query);
 
             // Call
             IVersionedFile versionedFile = createScript.CreateEmptyVersionedFile(filePath);
@@ -104,7 +104,7 @@ namespace Migration.Scripts.Data.Test
             // Setup
             const string query = ";";
             const string version = "Valid version";
-            var createScript = new CreateScript(version, query);
+            var createScript = new TestCreateScript(version, query);
 
             // Call
             TestDelegate call = () => createScript.CreateEmptyVersionedFile(filePath);
@@ -123,7 +123,7 @@ namespace Migration.Scripts.Data.Test
 
             string filename = Path.GetRandomFileName();
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Migration.Core.Storage, filename);
-            var createScript = new CreateScript(version, query);
+            var createScript = new TestCreateScript(version, query);
 
             using (new FileDisposeHelper(filePath))
             {

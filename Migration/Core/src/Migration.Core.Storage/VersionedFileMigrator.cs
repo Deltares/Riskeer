@@ -23,31 +23,26 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Reflection;
-using System.Text.RegularExpressions;
 using Migration.Core.Storage.Properties;
 using Migration.Scripts.Data;
 using Migration.Scripts.Data.Exceptions;
 using Ringtoets.Common.Utils;
-using MigrationScriptsDataResources = Migration.Scripts.Data.Properties.Resources;
 
 namespace Migration.Core.Storage
 {
     /// <summary>
     /// Class that provides methods for migrating a <see cref="VersionedFile"/>.
     /// </summary>
-    public class VersionedFileMigrator
+    public abstract class VersionedFileMigrator
     {
         private readonly IOrderedEnumerable<MigrationScript> migrationScripts;
-        private readonly Assembly scriptResource;
         private readonly RingtoetsVersionComparer ringtoetsVersionComparer;
 
         /// <summary>
         /// Creates a new instance of the <see cref="VersionedFile"/> class.
         /// </summary>
-        public VersionedFileMigrator()
+        protected VersionedFileMigrator()
         {
-            scriptResource = typeof(MigrationScriptsDataResources).Assembly;
             migrationScripts = GetAvailableMigrations()
                 .OrderBy(ms => ms.SupportedVersion())
                 .ThenByDescending(ms => ms.TargetVersion());
@@ -126,6 +121,10 @@ namespace Migration.Core.Storage
             }
         }
 
+        protected abstract IEnumerable<UpgradeScript> GetAvailableUpgradeScripts();
+
+        protected abstract IEnumerable<CreateScript> GetAvailableCreateScripts();
+
         private MigrationScript GetMigrationScript(string fromVersion, string toVersion)
         {
             var supportedMigrationScripts = migrationScripts.Where(ms => ms.SupportedVersion()
@@ -154,70 +153,5 @@ namespace Migration.Core.Storage
                 }
             }
         }
-
-        private static string GetStringOfStream(Stream stream)
-        {
-            using (var reader = new StreamReader(stream))
-            {
-                return reader.ReadToEnd();
-            }
-        }
-
-        #region UpgradeScript
-
-        private IEnumerable<UpgradeScript> GetAvailableUpgradeScripts()
-        {
-            return scriptResource.GetManifestResourceNames().Where(r => r.Contains("Migration_"))
-                                 .Select(CreateNewUpgradeScript);
-        }
-
-        private static string GetMigrationScriptFromVersion(string filename)
-        {
-            Match match = Regex.Match(filename, @"(Migration_)(.*)(_.*\.sql)$", RegexOptions.IgnoreCase);
-            return match.Success ? match.Groups[2].Value : null;
-        }
-
-        private static string GetMigrationScriptToVersion(string filename)
-        {
-            Match match = Regex.Match(filename, @"(Migration_.*_)(.*)(\.sql)$", RegexOptions.IgnoreCase);
-            return match.Success ? match.Groups[2].Value : null;
-        }
-
-        private UpgradeScript CreateNewUpgradeScript(string resourceName)
-        {
-            string fromVersion = GetMigrationScriptFromVersion(resourceName);
-            string toVersion = GetMigrationScriptToVersion(resourceName);
-            Stream upgradeStream = scriptResource.GetManifestResourceStream(resourceName);
-
-            var upgradeQuery = GetStringOfStream(upgradeStream);
-
-            return new UpgradeScript(fromVersion, toVersion, upgradeQuery);
-        }
-
-        #endregion
-
-        #region CreateScript
-
-        private IEnumerable<CreateScript> GetAvailableCreateScripts()
-        {
-            return scriptResource.GetManifestResourceNames().Where(r => r.Contains("DatabaseStructure"))
-                                 .Select(CreateNewCreateScript);
-        }
-
-        private static string GetCreateScriptVersion(string filename)
-        {
-            Match match = Regex.Match(filename, @"(DatabaseStructure)(.*)(\.sql)$", RegexOptions.IgnoreCase);
-            return match.Success ? match.Groups[2].Value : null;
-        }
-
-        private CreateScript CreateNewCreateScript(string resourceName)
-        {
-            string version = GetCreateScriptVersion(resourceName);
-            Stream createStream = scriptResource.GetManifestResourceStream(resourceName);
-            string query = GetStringOfStream(createStream);
-            return new CreateScript(version, query);
-        }
-
-        #endregion
     }
 }

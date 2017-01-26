@@ -28,9 +28,9 @@ namespace Migration.Scripts.Data
     /// <summary>
     /// Class that provides methods for the creating a <see cref="VersionedFile"/> for a specific version.
     /// </summary>
-    public class CreateScript
+    public abstract class CreateScript
     {
-        private readonly string createQuery;
+        protected readonly string CreateQuery;
         private readonly string version;
 
         /// <summary>
@@ -43,7 +43,7 @@ namespace Migration.Scripts.Data
         /// <item><paramref name="version"/> is empty or <c>null</c>,</item>
         /// <item><paramref name="query"/> is empty, <c>null</c>, or consist out of only whitespace characters.</item>
         /// </list></exception>
-        public CreateScript(string version, string query)
+        protected CreateScript(string version, string query)
         {
             if (string.IsNullOrEmpty(version))
             {
@@ -54,14 +54,14 @@ namespace Migration.Scripts.Data
                 throw new ArgumentException(@"Query must have a value.", nameof(query));
             }
             this.version = version;
-            createQuery = query;
+            CreateQuery = query;
         }
 
         /// <summary>
-        /// Creates a new <see cref="VersionedFile"/> at <paramref name="location"/>.
+        /// Creates a new <see cref="IVersionedFile"/> at <paramref name="location"/>.
         /// </summary>
-        /// <param name="location">The location to store the <see cref="VersionedFile"/>.</param>
-        /// <returns>A new <see cref="VersionedFile"/>.</returns>
+        /// <param name="location">The location to store the <see cref="IVersionedFile"/>.</param>
+        /// <returns>A new <see cref="IVersionedFile"/>.</returns>
         /// <exception cref="ArgumentException">Thrown when <paramref name="location"/>:
         /// <list type="bullet">
         /// <item>is empty or <c>null</c>,</item>
@@ -71,18 +71,10 @@ namespace Migration.Scripts.Data
         /// <item>is not writable.</item>
         /// </list></exception>
         /// <exception cref="SQLiteException">Thrown when executing query failed.</exception>
-        /// 
         public IVersionedFile CreateEmptyVersionedFile(string location)
         {
             IOUtils.ValidateFilePathIsWritable(location);
-
-            using (var databaseFile = new RingtoetsDatabaseFile(location))
-            {
-                databaseFile.OpenDatabaseConnection();
-                databaseFile.CreateStructure(createQuery);
-            }
-
-            return new VersionedFile(location);
+            return GetEmptyVersionedFile(location);
         }
 
         /// <summary>
@@ -93,5 +85,13 @@ namespace Migration.Scripts.Data
         {
             return version;
         }
+
+        /// <summary>
+        /// Creates a new <see cref="IVersionedFile"/> at <paramref name="location"/>.
+        /// </summary>
+        /// <param name="location">The location to store the <see cref="IVersionedFile"/>.</param>
+        /// <returns>A new <see cref="IVersionedFile"/>.</returns>
+        /// <remarks>The <paramref name="location"/> has been verified in <see cref="CreateEmptyVersionedFile"/>.</remarks>
+        protected abstract IVersionedFile GetEmptyVersionedFile(string location);
     }
 }
