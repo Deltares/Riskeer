@@ -26,7 +26,7 @@ using Core.Common.Utils;
 namespace Migration.Scripts.Data
 {
     /// <summary>
-    /// Class that provides methods for the creating a <see cref="VersionedFile"/> for a specific version.
+    /// Class that provides methods for the creating an <see cref="IVersionedFile"/> for a specific version.
     /// </summary>
     public abstract class CreateScript
     {

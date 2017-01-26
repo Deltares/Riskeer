@@ -47,6 +47,7 @@
     </Compile>
     <Compile Include="RingtoetsCreateScript.cs" />
     <Compile Include="RingtoetsSqLiteDatabaseFileMigrator.cs" />
+    <Compile Include="RingtoetsUpgradeScript.cs" />
     <Compile Include="RingtoetsVersionedFile.cs" />
   </ItemGroup>
   <ItemGroup>

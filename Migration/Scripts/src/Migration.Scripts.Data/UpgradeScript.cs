@@ -20,32 +20,29 @@
 // All rights reserved.
 
 using System;
-using System.Data.SQLite;
+using Migration.Scripts.Data.Exceptions;
 
 namespace Migration.Scripts.Data
 {
     /// <summary>
-    /// Class that provides methods for the upgrading a <see cref="UpgradeScript"/> for a specific version.
+    /// Class that provides methods for the upgrading a <see cref="IVersionedFile"/> for a specific version.
     /// </summary>
-    public class UpgradeScript
+    public abstract class UpgradeScript
     {
         private readonly string fromVersion;
         private readonly string toVersion;
-        private readonly string upgradeQuery;
 
         /// <summary>
         /// Creates a new instance of the <see cref="UpgradeScript"/> class.
         /// </summary>
-        /// <param name="fromVersion">The source version <paramref name="query"/> was designed for.</param>
-        /// <param name="toVersion">The target version <paramref name="query"/> was designed for.</param>
-        /// <param name="query">The SQL query to upgrade from <paramref name="fromVersion"/> to <paramref name="toVersion"/>.</param>
+        /// <param name="fromVersion">The source version.</param>
+        /// <param name="toVersion">The target version.</param>
         /// <exception cref="ArgumentException">Thrown when:
         /// <list type="bullet">
         /// <item><paramref name="fromVersion"/> is empty or <c>null</c>,</item>
         /// <item><paramref name="toVersion"/> is empty or <c>null</c>,</item>
-        /// <item><paramref name="query"/> is empty, <c>null</c>, or consists out of only whitespace characters.</item>
         /// </list></exception>
-        public UpgradeScript(string fromVersion, string toVersion, string query)
+        protected UpgradeScript(string fromVersion, string toVersion)
         {
             if (string.IsNullOrEmpty(fromVersion))
             {
@@ -55,13 +52,9 @@ namespace Migration.Scripts.Data
             {
                 throw new ArgumentException(@"ToVersion must have a value.", nameof(toVersion));
             }
-            if (string.IsNullOrWhiteSpace(query))
-            {
-                throw new ArgumentException(@"Query must have a value.", nameof(query));
-            }
+
             this.fromVersion = fromVersion;
             this.toVersion = toVersion;
-            upgradeQuery = query;
         }
 
         /// <summary>
@@ -92,7 +85,7 @@ namespace Migration.Scripts.Data
         /// <item><paramref name="source"/> is <c>null</c>,</item>
         /// <item><paramref name="target"/> is <c>null</c>.</item>
         /// </list></exception>
-        /// <exception cref="SQLiteException">Thrown when executing query failed.</exception>
+        /// <exception cref="CriticalDatabaseMigrationException">Thrown when executing query failed.</exception>
         public void Upgrade(IVersionedFile source, IVersionedFile target)
         {
             if (source == null)
@@ -103,13 +96,9 @@ namespace Migration.Scripts.Data
             {
                 throw new ArgumentNullException(nameof(target));
             }
-            var query = string.Format(upgradeQuery, source.Location);
-
-            using (var databaseFile = new RingtoetsDatabaseFile(target.Location))
-            {
-                databaseFile.OpenDatabaseConnection();
-                databaseFile.ExecuteMigration(query);
-            }
+            PerformUpgrade(source, target);
         }
+
+        protected abstract void PerformUpgrade(IVersionedFile source, IVersionedFile target);
     }
 }

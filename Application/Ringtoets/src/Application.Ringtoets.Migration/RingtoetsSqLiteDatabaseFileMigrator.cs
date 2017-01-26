@@ -81,7 +81,7 @@ namespace Application.Ringtoets.Migration
 
             var upgradeQuery = GetStringOfStream(upgradeStream);
 
-            return new UpgradeScript(fromVersion, toVersion, upgradeQuery);
+            return new RingtoetsUpgradeScript(fromVersion, toVersion, upgradeQuery);
         }
 
         #endregion

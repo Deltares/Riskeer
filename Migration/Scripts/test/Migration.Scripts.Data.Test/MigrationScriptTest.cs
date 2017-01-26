@@ -34,7 +34,7 @@ namespace Migration.Scripts.Data.Test
         public void Constructor_CreateScriptNull_ThrowsArgumentNullException()
         {
             // Setup
-            var upgradeScript = new UpgradeScript("1", "2", ";");
+            var upgradeScript = new TestUpgradeScript("1", "2");
 
             // Call
             TestDelegate call = () => new MigrationScript(null, upgradeScript);
@@ -63,7 +63,7 @@ namespace Migration.Scripts.Data.Test
         {
             // Setup
             var createScript = new TestCreateScript("2", ";");
-            var upgradeScript = new UpgradeScript("1", "2", ";");
+            var upgradeScript = new TestUpgradeScript("1", "2");
 
             // Call
             var migrationScript = new MigrationScript(createScript, upgradeScript);
@@ -78,7 +78,7 @@ namespace Migration.Scripts.Data.Test
         {
             // Setup
             var createScript = new TestCreateScript("2", ";");
-            var upgradeScript = new UpgradeScript("1", "2", ";");
+            var upgradeScript = new TestUpgradeScript("1", "2");
             var migrationScript = new MigrationScript(createScript, upgradeScript);
 
             // Call
@@ -95,11 +95,10 @@ namespace Migration.Scripts.Data.Test
             // Setup
             var mockRepository = new MockRepository();
             var versionedFile = mockRepository.Stub<IVersionedFile>();
-            versionedFile.Expect(vf => vf.Location).Return("c:\\file.ext");
             mockRepository.ReplayAll();
 
             var createScript = new TestCreateScript("2", ";");
-            var upgradeScript = new UpgradeScript("1", "2", ";");
+            var upgradeScript = new TestUpgradeScript("1", "2");
             var migrationScript = new MigrationScript(createScript, upgradeScript);
 
             // Call
@@ -107,8 +106,6 @@ namespace Migration.Scripts.Data.Test
 
             // Assert
             Assert.IsNotNull(upgradedFile);
-            Assert.IsTrue(File.Exists(upgradedFile.Location));
-            using (new FileDisposeHelper(upgradedFile.Location)) {}
             mockRepository.VerifyAll();
         }
     }

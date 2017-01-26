@@ -20,15 +20,17 @@
 // All rights reserved.
 
 using System;
+using System.Data.SQLite;
 using System.IO;
 using Core.Common.TestUtil;
+using Migration.Scripts.Data;
 using NUnit.Framework;
 using Rhino.Mocks;
 
-namespace Migration.Scripts.Data.Test
+namespace Application.Ringtoets.Migration.Test
 {
     [TestFixture]
-    public class UpgradeScriptTest
+    public class RingtoetsUpgradeScriptTest
     {
         [Test]
         [TestCase("")]
@@ -36,10 +38,11 @@ namespace Migration.Scripts.Data.Test
         public void Constructor_InvalidFromVersion_ThrowsArgumentException(string fromVersion)
         {
             // Setup
+            const string query = "Valid query";
             const string toVersion = "toVersion";
 
             // Call
-            TestDelegate call = () => new TestUpgradeScript(fromVersion, toVersion);
+            TestDelegate call = () => new RingtoetsUpgradeScript(fromVersion, toVersion, query);
 
             // Assert
             string paramName = Assert.Throws<ArgumentException>(call).ParamName;
@@ -53,13 +56,32 @@ namespace Migration.Scripts.Data.Test
         {
             // Setup
             const string fromVersion = "fromVersion";
+            const string query = "Valid query";
 
             // Call
-            TestDelegate call = () => new TestUpgradeScript(fromVersion, toVersion);
+            TestDelegate call = () => new RingtoetsUpgradeScript(fromVersion, toVersion, query);
 
             // Assert
             string paramName = Assert.Throws<ArgumentException>(call).ParamName;
             Assert.AreEqual("toVersion", paramName);
+        }
+
+        [Test]
+        [TestCase("")]
+        [TestCase("   ")]
+        [TestCase(null)]
+        public void Constructor_InvalidQuery_ThrowsArgumentException(string query)
+        {
+            // Setup
+            const string fromVersion = "fromVersion";
+            const string toVersion = "toVersion";
+
+            // Call
+            TestDelegate call = () => new RingtoetsUpgradeScript(fromVersion, toVersion, query);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentException>(call).ParamName;
+            Assert.AreEqual("query", paramName);
         }
 
         [Test]
@@ -68,11 +90,13 @@ namespace Migration.Scripts.Data.Test
             // Setup
             const string fromVersion = "fromVersion";
             const string toVersion = "toVersion";
+            const string query = ";";
 
             // Call
-            var upgradeScript = new TestUpgradeScript(fromVersion, toVersion);
+            var upgradeScript = new RingtoetsUpgradeScript(fromVersion, toVersion, query);
 
             // Assert
+            Assert.IsInstanceOf<UpgradeScript>(upgradeScript);
             Assert.AreEqual(fromVersion, upgradeScript.FromVersion());
             Assert.AreEqual(toVersion, upgradeScript.ToVersion());
         }
@@ -87,7 +111,8 @@ namespace Migration.Scripts.Data.Test
 
             const string fromVersion = "fromVersion";
             const string toVersion = "toVersion";
-            var upgradeScript = new TestUpgradeScript(fromVersion, toVersion);
+            const string query = ";";
+            var upgradeScript = new RingtoetsUpgradeScript(fromVersion, toVersion, query);
 
             // Call
             TestDelegate call = () => upgradeScript.Upgrade(null, targetVersionedFile);
@@ -108,7 +133,8 @@ namespace Migration.Scripts.Data.Test
 
             const string fromVersion = "fromVersion";
             const string toVersion = "toVersion";
-            var upgradeScript = new TestUpgradeScript(fromVersion, toVersion);
+            const string query = ";";
+            var upgradeScript = new RingtoetsUpgradeScript(fromVersion, toVersion, query);
 
             // Call
             TestDelegate call = () => upgradeScript.Upgrade(sourceVersionedFile, null);
@@ -116,6 +142,61 @@ namespace Migration.Scripts.Data.Test
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
             Assert.AreEqual("target", paramName);
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void Upgrade_UpgradeFails_ThrowsSQLiteException()
+        {
+            // Setup
+            string filename = Path.GetRandomFileName();
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration, filename);
+
+            var mockRepository = new MockRepository();
+            var sourceVersionedFile = mockRepository.Stub<IVersionedFile>();
+            sourceVersionedFile.Expect(tvf => tvf.Location).Return("c:\\file.ext");
+            var targetVersionedFile = mockRepository.Stub<IVersionedFile>();
+            targetVersionedFile.Expect(tvf => tvf.Location).Return(filePath);
+            mockRepository.ReplayAll();
+
+            var upgradeScript = new RingtoetsUpgradeScript("1", "2", "THIS WILL FAIL");
+
+            // Call
+            TestDelegate call = () => upgradeScript.Upgrade(sourceVersionedFile, targetVersionedFile);
+
+            // Assert
+            using (new FileDisposeHelper(filePath))
+            {
+                Assert.Throws<SQLiteException>(call);
+            }
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void Upgrade_ValidParameters_ExpectedProperties()
+        {
+            // Setup
+            string filename = Path.GetRandomFileName();
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Migration.Core.Storage, filename);
+
+            var mockRepository = new MockRepository();
+            var sourceVersionedFile = mockRepository.Stub<IVersionedFile>();
+            sourceVersionedFile.Expect(tvf => tvf.Location).Return("c:\\file.ext");
+            var targetVersionedFile = mockRepository.Stub<IVersionedFile>();
+            targetVersionedFile.Expect(tvf => tvf.Location).Return(filePath);
+            mockRepository.ReplayAll();
+
+            var upgradeScript = new RingtoetsUpgradeScript("1", "2", ";");
+
+            // Call
+            upgradeScript.Upgrade(sourceVersionedFile, targetVersionedFile);
+
+            // Assert
+            Assert.IsNotNull(targetVersionedFile);
+            using (new FileDisposeHelper(filePath))
+            {
+                Assert.IsTrue(File.Exists(filePath));
+            }
             mockRepository.VerifyAll();
         }
     }
