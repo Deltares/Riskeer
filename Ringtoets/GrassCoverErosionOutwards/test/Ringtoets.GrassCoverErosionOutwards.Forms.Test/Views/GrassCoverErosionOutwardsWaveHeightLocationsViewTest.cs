@@ -26,6 +26,7 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
+using Core.Common.Utils.Reflection;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -97,7 +98,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
         public void Selection_WithLocations_ReturnsSelectedLocationWrappedInContext()
         {
             // Call
-            using (var view = ShowFullyConfiguredWaveHeightLocationsView())
+            using (GrassCoverErosionOutwardsWaveHeightLocationsView view = ShowFullyConfiguredWaveHeightLocationsView())
             {
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
                 var selectedLocationRow = dataGridView.Rows[0];
@@ -145,10 +146,27 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
         }
 
         [Test]
+        public void WaveHeightLocationsView_AssessmentSection_CorrectlyAttachedAndDetached()
+        {
+            // Setup
+            GrassCoverErosionOutwardsWaveHeightLocationsView view = ShowFullyConfiguredWaveHeightLocationsView();
+            var assessmentSection = mockRepository.StrictMock<IAssessmentSection>();
+            assessmentSection.Expect(a => a.Attach(null)).IgnoreArguments();
+            assessmentSection.Expect(a => a.Detach(null)).IgnoreArguments();
+            mockRepository.ReplayAll();
+
+            // Call
+            view.AssessmentSection = assessmentSection;
+
+            // Assert
+            // Assertions based on mock expectancies
+        }
+
+        [Test]
         public void WaveHeightLocationsView_WithNonIObservableList_ThrowsInvalidCastException()
         {
             // Setup
-            var view = ShowWaveHeightLocationsView();
+            GrassCoverErosionOutwardsWaveHeightLocationsView view = ShowWaveHeightLocationsView();
 
             var locations = new List<HydraulicBoundaryLocation>
             {
@@ -352,6 +370,37 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             Assert.DoesNotThrow(test);
         }
 
+        [Test]
+        [TestCase(false, false, "De bijdrage van dit toetsspoor is nul.")]
+        [TestCase(true, false, "De bijdrage van dit toetsspoor is nul.")]
+        [TestCase(false, true, "Er zijn geen berekeningen geselecteerd.")]
+        [TestCase(true, true, "")]
+        public void CalculateForSelectedButton_SpecificCombinationOfRowSelectionAndFailureMechanismContributionSet_ButtonAndErrorMessageSyncedAccordingly(bool rowSelected, bool contributionNotZero, string expectedErrorMessage)
+        {
+            // Setup & Call
+            GrassCoverErosionOutwardsWaveHeightLocationsView view = ShowFullyConfiguredWaveHeightLocationsView();
+
+            if (rowSelected)
+            {
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+                var rows = dataGridView.Rows;
+                rows[0].Cells[locationCalculateColumnIndex].Value = true;
+            }
+
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            if (contributionNotZero)
+            {
+                failureMechanism.Contribution = 5;
+            }
+            view.FailureMechanism = failureMechanism;
+
+            // Assert
+            var button = (Button) view.Controls.Find("CalculateForSelectedButton", true)[0];
+            Assert.AreEqual(rowSelected && contributionNotZero, button.Enabled);
+            var errorProvider = TypeUtils.GetField<ErrorProvider>(view, "CalculateForSelectedButtonErrorProvider");
+            Assert.AreEqual(expectedErrorMessage, errorProvider.GetError(button));
+        }
+
         private GrassCoverErosionOutwardsWaveHeightLocationsView ShowWaveHeightLocationsView()
         {
             var view = new GrassCoverErosionOutwardsWaveHeightLocationsView();
@@ -364,7 +413,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 
         private GrassCoverErosionOutwardsWaveHeightLocationsView ShowFullyConfiguredWaveHeightLocationsView()
         {
-            var view = ShowWaveHeightLocationsView();
+            GrassCoverErosionOutwardsWaveHeightLocationsView view = ShowWaveHeightLocationsView();
 
             ObservableList<HydraulicBoundaryLocation> locations = new ObservableList<HydraulicBoundaryLocation>
             {

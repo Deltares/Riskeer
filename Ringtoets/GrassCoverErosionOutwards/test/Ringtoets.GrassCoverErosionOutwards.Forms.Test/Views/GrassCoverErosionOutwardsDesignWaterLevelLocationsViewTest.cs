@@ -170,7 +170,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
         public void DesignWaterLevelLocationsView_WithNonIObservableList_ThrowsInvalidCastException()
         {
             // Setup
-            var view = ShowDesignWaterLevelLocationsView();
+            GrassCoverErosionOutwardsDesignWaterLevelLocationsView view = ShowDesignWaterLevelLocationsView();
 
             var locations = new List<HydraulicBoundaryLocation>
             {
