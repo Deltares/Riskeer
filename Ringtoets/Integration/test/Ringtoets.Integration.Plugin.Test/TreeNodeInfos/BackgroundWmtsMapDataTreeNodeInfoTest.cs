@@ -31,7 +31,7 @@ using Ringtoets.Integration.Forms.Properties;
 namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class BackgroundMapDataContextTreeNodeInfoTest
+    public class BackgroundWmtsMapDataTreeNodeInfoTest
     {
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()

@@ -30,7 +30,7 @@ using Ringtoets.Integration.Forms.PropertyClasses;
 namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
 {
     [TestFixture]
-    public class BackgroundMapDataContextPropertyInfoTest
+    public class BackgroundWmtsMapDataPropertyInfoTest
     {
         private RingtoetsPlugin plugin;
         private PropertyInfo info;
