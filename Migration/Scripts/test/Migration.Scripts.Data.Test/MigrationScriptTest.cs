@@ -23,6 +23,7 @@ using System;
 using System.IO;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Rhino.Mocks;
 
 namespace Migration.Scripts.Data.Test
 {
@@ -92,10 +93,14 @@ namespace Migration.Scripts.Data.Test
         public void Upgrade_ValidParameters_ExpectedProperties()
         {
             // Setup
+            var mockRepository = new MockRepository();
+            var versionedFile = mockRepository.Stub<IVersionedFile>();
+            versionedFile.Expect(vf => vf.Location).Return("c:\\file.ext");
+            mockRepository.ReplayAll();
+
             var createScript = new TestCreateScript("2", ";");
             var upgradeScript = new UpgradeScript("1", "2", ";");
             var migrationScript = new MigrationScript(createScript, upgradeScript);
-            var versionedFile = new VersionedFile("c:\\file.ext");
 
             // Call
             IVersionedFile upgradedFile = migrationScript.Upgrade(versionedFile);
@@ -104,6 +109,7 @@ namespace Migration.Scripts.Data.Test
             Assert.IsNotNull(upgradedFile);
             Assert.IsTrue(File.Exists(upgradedFile.Location));
             using (new FileDisposeHelper(upgradedFile.Location)) {}
+            mockRepository.VerifyAll();
         }
     }
 }

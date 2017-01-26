@@ -24,6 +24,7 @@ using System.Data.SQLite;
 using System.IO;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Rhino.Mocks;
 
 namespace Migration.Scripts.Data.Test
 {
@@ -102,15 +103,14 @@ namespace Migration.Scripts.Data.Test
         public void Upgrade_SourceNull_ThrowsArgumentNullException()
         {
             // Setup
+            var mockRepository = new MockRepository();
+            var targetVersionedFile = mockRepository.Stub<IVersionedFile>();
+            mockRepository.ReplayAll();
+
             const string fromVersion = "fromVersion";
             const string toVersion = "toVersion";
             const string query = ";";
             var upgradeScript = new UpgradeScript(fromVersion, toVersion, query);
-
-            string filename = Path.GetRandomFileName();
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Migration.Core.Storage, filename);
-
-            var targetVersionedFile = new VersionedFile(filePath);
 
             // Call
             TestDelegate call = () => upgradeScript.Upgrade(null, targetVersionedFile);
@@ -118,21 +118,21 @@ namespace Migration.Scripts.Data.Test
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
             Assert.AreEqual("source", paramName);
+            mockRepository.VerifyAll();
         }
 
         [Test]
         public void Upgrade_TargetNull_ThrowsArgumentNullException()
         {
             // Setup
+            var mockRepository = new MockRepository();
+            var sourceVersionedFile = mockRepository.Stub<IVersionedFile>();
+            mockRepository.ReplayAll();
+
             const string fromVersion = "fromVersion";
             const string toVersion = "toVersion";
             const string query = ";";
             var upgradeScript = new UpgradeScript(fromVersion, toVersion, query);
-
-            string filename = Path.GetRandomFileName();
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Migration.Core.Storage, filename);
-
-            var sourceVersionedFile = new VersionedFile(filePath);
 
             // Call
             TestDelegate call = () => upgradeScript.Upgrade(sourceVersionedFile, null);
@@ -140,18 +140,24 @@ namespace Migration.Scripts.Data.Test
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
             Assert.AreEqual("target", paramName);
+            mockRepository.VerifyAll();
         }
 
         [Test]
         public void Upgrade_UpgradeFails_ThrowsSQLiteException()
         {
             // Setup
-            var upgradeScript = new UpgradeScript("1", "2", "THIS WILL FAIL");
-            var sourceVersionedFile = new VersionedFile("c:\\file.ext");
-
             string filename = Path.GetRandomFileName();
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Migration.Core.Storage, filename);
-            var targetVersionedFile = new VersionedFile(filePath);
+
+            var mockRepository = new MockRepository();
+            var sourceVersionedFile = mockRepository.Stub<IVersionedFile>();
+            sourceVersionedFile.Expect(tvf => tvf.Location).Return("c:\\file.ext");
+            var targetVersionedFile = mockRepository.Stub<IVersionedFile>();
+            targetVersionedFile.Expect(tvf => tvf.Location).Return(filePath);
+            mockRepository.ReplayAll();
+
+            var upgradeScript = new UpgradeScript("1", "2", "THIS WILL FAIL");
 
             // Call
             TestDelegate call = () => upgradeScript.Upgrade(sourceVersionedFile, targetVersionedFile);
@@ -161,28 +167,35 @@ namespace Migration.Scripts.Data.Test
             {
                 Assert.Throws<SQLiteException>(call);
             }
+            mockRepository.VerifyAll();
         }
 
         [Test]
         public void Upgrade_ValidParameters_ExpectedProperties()
         {
             // Setup
-            var upgradeScript = new UpgradeScript("1", "2", ";");
-            var sourceVersionedFile = new VersionedFile("c:\\file.ext");
-
             string filename = Path.GetRandomFileName();
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Migration.Core.Storage, filename);
-            var targetVersionedFile = new VersionedFile(filePath);
+
+            var mockRepository = new MockRepository();
+            var sourceVersionedFile = mockRepository.Stub<IVersionedFile>();
+            sourceVersionedFile.Expect(tvf => tvf.Location).Return("c:\\file.ext");
+            var targetVersionedFile = mockRepository.Stub<IVersionedFile>();
+            targetVersionedFile.Expect(tvf => tvf.Location).Return(filePath);
+            mockRepository.ReplayAll();
+
+            var upgradeScript = new UpgradeScript("1", "2", ";");
 
             // Call
             upgradeScript.Upgrade(sourceVersionedFile, targetVersionedFile);
 
             // Assert
             Assert.IsNotNull(targetVersionedFile);
-            using (new FileDisposeHelper(targetVersionedFile.Location))
+            using (new FileDisposeHelper(filePath))
             {
-                Assert.IsTrue(File.Exists(targetVersionedFile.Location));
+                Assert.IsTrue(File.Exists(filePath));
             }
+            mockRepository.VerifyAll();
         }
     }
 }

@@ -58,7 +58,6 @@
     <Compile Include="RingtoetsDatabaseQueryBuilder.cs" />
     <Compile Include="RingtoetsDatabaseSourceFile.cs" />
     <Compile Include="UpgradeScript.cs" />
-    <Compile Include="VersionedFile.cs" />
     <Compile Include="VersionTableDefinitions.cs" />
   </ItemGroup>
   <ItemGroup>
