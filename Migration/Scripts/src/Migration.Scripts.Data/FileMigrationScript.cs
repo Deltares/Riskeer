@@ -28,20 +28,20 @@ using Migration.Scripts.Data.Properties;
 namespace Migration.Scripts.Data
 {
     /// <summary>
-    /// Class that provides methods for migration a <see cref="VersionedFile"/>.
+    /// Class that provides methods for migration a <see cref="IVersionedFile"/>.
     /// </summary>
-    public class MigrationScript
+    public class FileMigrationScript
     {
         private readonly CreateScript createScript;
         private readonly UpgradeScript upgradeScript;
 
         /// <summary>
-        /// Creates a new instance of <see cref="MigrationScript"/>.
+        /// Creates a new instance of <see cref="FileMigrationScript"/>.
         /// </summary>
         /// <param name="createScript">The create script to use for migrating.</param>
         /// <param name="upgradeScript">The upgrade script to use for migrating.</param>
         /// <exception cref="ArgumentNullException">Thrown when any of the input parameters is <c>null</c>.</exception>
-        public MigrationScript(CreateScript createScript, UpgradeScript upgradeScript)
+        public FileMigrationScript(CreateScript createScript, UpgradeScript upgradeScript)
         {
             if (createScript == null)
             {
@@ -79,7 +79,7 @@ namespace Migration.Scripts.Data
         /// <param name="sourceVersionedFile"></param>
         /// <returns>The upgraded <see cref="IVersionedFile"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="sourceVersionedFile"/> is <c>null</c>.</exception>
-        /// <exception cref="CriticalDatabaseMigrationException">Thrown when migration failed.</exception>
+        /// <exception cref="CriticalMigrationException">Thrown when migration failed.</exception>
         public IVersionedFile Upgrade(IVersionedFile sourceVersionedFile)
         {
             if (sourceVersionedFile == null)
@@ -96,7 +96,7 @@ namespace Migration.Scripts.Data
             }
             catch (SQLiteException exception)
             {
-                throw new CriticalDatabaseMigrationException(Resources.Migrate_failed, exception);
+                throw new CriticalMigrationException(Resources.Migrate_failed, exception);
             }
         }
     }

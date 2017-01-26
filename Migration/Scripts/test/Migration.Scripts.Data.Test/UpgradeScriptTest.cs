@@ -20,8 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.IO;
-using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 

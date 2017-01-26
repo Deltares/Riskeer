@@ -20,15 +20,13 @@
 // All rights reserved.
 
 using System;
-using System.IO;
-using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 
 namespace Migration.Scripts.Data.Test
 {
     [TestFixture]
-    public class MigrationScriptTest
+    public class FileMigrationScriptTest
     {
         [Test]
         public void Constructor_CreateScriptNull_ThrowsArgumentNullException()
@@ -37,7 +35,7 @@ namespace Migration.Scripts.Data.Test
             var upgradeScript = new TestUpgradeScript("1", "2");
 
             // Call
-            TestDelegate call = () => new MigrationScript(null, upgradeScript);
+            TestDelegate call = () => new FileMigrationScript(null, upgradeScript);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -51,7 +49,7 @@ namespace Migration.Scripts.Data.Test
             var createScript = new TestCreateScript("1", ";");
 
             // Call
-            TestDelegate call = () => new MigrationScript(createScript, null);
+            TestDelegate call = () => new FileMigrationScript(createScript, null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -66,7 +64,7 @@ namespace Migration.Scripts.Data.Test
             var upgradeScript = new TestUpgradeScript("1", "2");
 
             // Call
-            var migrationScript = new MigrationScript(createScript, upgradeScript);
+            var migrationScript = new FileMigrationScript(createScript, upgradeScript);
 
             // Assert
             Assert.AreEqual(upgradeScript.FromVersion(), migrationScript.SupportedVersion());
@@ -79,7 +77,7 @@ namespace Migration.Scripts.Data.Test
             // Setup
             var createScript = new TestCreateScript("2", ";");
             var upgradeScript = new TestUpgradeScript("1", "2");
-            var migrationScript = new MigrationScript(createScript, upgradeScript);
+            var migrationScript = new FileMigrationScript(createScript, upgradeScript);
 
             // Call
             TestDelegate call = () => migrationScript.Upgrade(null);
@@ -99,7 +97,7 @@ namespace Migration.Scripts.Data.Test
 
             var createScript = new TestCreateScript("2", ";");
             var upgradeScript = new TestUpgradeScript("1", "2");
-            var migrationScript = new MigrationScript(createScript, upgradeScript);
+            var migrationScript = new FileMigrationScript(createScript, upgradeScript);
 
             // Call
             IVersionedFile upgradedFile = migrationScript.Upgrade(versionedFile);

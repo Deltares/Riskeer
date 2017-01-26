@@ -27,14 +27,14 @@ using NUnit.Framework;
 namespace Migration.Scripts.Data.Test.Exceptions
 {
     [TestFixture]
-    public class CriticalDatabaseMigrationExceptionTest
+    public class CriticalMigrationExceptionTest
     {
         [Test]
         [SetCulture("en-US")]
         public void DefaultConstructor_ExpectedValues()
         {
             // Call
-            var exception = new CriticalDatabaseMigrationException();
+            var exception = new CriticalMigrationException();
 
             // Assert
             Assert.IsInstanceOf<Exception>(exception);
@@ -55,7 +55,7 @@ namespace Migration.Scripts.Data.Test.Exceptions
             const string messageText = "<insert exception message>";
 
             // Call
-            var exception = new CriticalDatabaseMigrationException(messageText);
+            var exception = new CriticalMigrationException(messageText);
 
             // Assert
             Assert.IsInstanceOf<Exception>(exception);
@@ -76,7 +76,7 @@ namespace Migration.Scripts.Data.Test.Exceptions
             const string messageText = "<insert exception message>";
 
             // Call
-            var exception = new CriticalDatabaseMigrationException(messageText, innerException);
+            var exception = new CriticalMigrationException(messageText, innerException);
 
             // Assert
             Assert.IsInstanceOf<Exception>(exception);
@@ -94,14 +94,15 @@ namespace Migration.Scripts.Data.Test.Exceptions
         {
             // Setup
             var originalInnerException = new Exception("inner");
-            var originalException = new CriticalDatabaseMigrationException("outer", originalInnerException);
+            var originalException = new CriticalMigrationException("outer", originalInnerException);
 
             // Precondition
             Assert.IsNotNull(originalException.InnerException);
             Assert.IsNull(originalException.InnerException.InnerException);
 
             // Call
-            CriticalDatabaseMigrationException persistedException = SerializationTestHelper.SerializeAndDeserializeException(originalException);
+            CriticalMigrationException persistedException = SerializationTestHelper.SerializeAndDeserializeException(
+                originalException);
 
             // Assert
             Assert.AreEqual(originalException.Message, persistedException.Message);

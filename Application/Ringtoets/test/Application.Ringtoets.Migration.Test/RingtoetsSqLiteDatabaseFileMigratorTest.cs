@@ -139,7 +139,7 @@ namespace Application.Ringtoets.Migration.Test
                 TestDelegate call = () => migrator.Migrate(fromVersionedFile, newVersion, targetFilePath);
 
                 // Assert
-                CriticalDatabaseMigrationException exception = Assert.Throws<CriticalDatabaseMigrationException>(call);
+                CriticalMigrationException exception = Assert.Throws<CriticalMigrationException>(call);
                 Assert.That(exception.Message.StartsWith("Er is een onverwachte fout opgetreden tijdens het verplaatsen van het gemigreerde bestand '"));
                 Assert.That(exception.Message.EndsWith($"' naar '{targetFilePath}'."));
                 Assert.IsInstanceOf<IOException>(exception.InnerException);
@@ -159,7 +159,7 @@ namespace Application.Ringtoets.Migration.Test
             TestDelegate call = () => migrator.Migrate(fromVersionedFile, newVersion, sourceFilePath);
 
             // Assert
-            CriticalDatabaseMigrationException exception = Assert.Throws<CriticalDatabaseMigrationException>(call);
+            CriticalMigrationException exception = Assert.Throws<CriticalMigrationException>(call);
             Assert.AreEqual("Het bestandspad van het uitvoerbestand moet anders zijn dan het bestandspad van het bronbestand.",
                             exception.Message);
         }
@@ -186,7 +186,7 @@ namespace Application.Ringtoets.Migration.Test
                     TestDelegate call = () => migrator.Migrate(fromVersionedFile, newVersion, targetFilePath);
 
                     // Assert
-                    CriticalDatabaseMigrationException exception = Assert.Throws<CriticalDatabaseMigrationException>(call);
+                    CriticalMigrationException exception = Assert.Throws<CriticalMigrationException>(call);
                     Assert.That(exception.Message.StartsWith("Er is een onverwachte fout opgetreden tijdens het verplaatsen van het gemigreerde bestand '"));
                     Assert.That(exception.Message.EndsWith($"' naar '{targetFilePath}'."));
                     Assert.IsInstanceOf<UnauthorizedAccessException>(exception.InnerException);
@@ -213,7 +213,7 @@ namespace Application.Ringtoets.Migration.Test
             TestDelegate call = () => migrator.Migrate(fromVersionedFile, newVersion, targetFilePath);
 
             // Assert
-            string message = Assert.Throws<CriticalDatabaseMigrationException>(call).Message;
+            string message = Assert.Throws<CriticalMigrationException>(call).Message;
             Assert.AreEqual($"Het is niet mogelijk om versie 4 te migreren naar versie {newVersion}", message);
         }
 
@@ -231,7 +231,7 @@ namespace Application.Ringtoets.Migration.Test
             TestDelegate call = () => migrator.Migrate(fromVersionedFile, "17.1", targetFilePath);
 
             // Assert
-            string message = Assert.Throws<CriticalDatabaseMigrationException>(call).Message;
+            string message = Assert.Throws<CriticalMigrationException>(call).Message;
             Assert.AreEqual("Het upgraden van versie 8 is niet ondersteund.", message);
         }
     }

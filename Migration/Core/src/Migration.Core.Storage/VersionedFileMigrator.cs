@@ -31,19 +31,19 @@ using Ringtoets.Common.Utils;
 namespace Migration.Core.Storage
 {
     /// <summary>
-    /// Class that provides methods for migrating a <see cref="VersionedFile"/>.
+    /// Class that provides methods for migrating a <see cref="IVersionedFile"/>.
     /// </summary>
     public abstract class VersionedFileMigrator
     {
-        private readonly IOrderedEnumerable<MigrationScript> migrationScripts;
+        private readonly IOrderedEnumerable<FileMigrationScript> fileMigrationScripts;
         private readonly RingtoetsVersionComparer ringtoetsVersionComparer;
 
         /// <summary>
-        /// Creates a new instance of the <see cref="VersionedFile"/> class.
+        /// Creates a new instance of the <see cref="IVersionedFile"/> class.
         /// </summary>
         protected VersionedFileMigrator()
         {
-            migrationScripts = GetAvailableMigrations()
+            fileMigrationScripts = GetAvailableMigrations()
                 .OrderBy(ms => ms.SupportedVersion())
                 .ThenByDescending(ms => ms.TargetVersion());
             ringtoetsVersionComparer = new RingtoetsVersionComparer();
@@ -56,7 +56,7 @@ namespace Migration.Core.Storage
         /// <returns><c>true</c> if <paramref name="fromVersion"/> is supported, <c>false</c> otherwise.</returns>
         public bool IsVersionSupported(string fromVersion)
         {
-            return !string.IsNullOrWhiteSpace(fromVersion) && migrationScripts.Any(ms => ms.SupportedVersion().Equals(fromVersion));
+            return !string.IsNullOrWhiteSpace(fromVersion) && fileMigrationScripts.Any(ms => ms.SupportedVersion().Equals(fromVersion));
         }
 
         /// <summary>
@@ -78,25 +78,25 @@ namespace Migration.Core.Storage
         /// <param name="fromVersionedFile">The source versioned file to migrate from.</param>
         /// <param name="toVersion">The version to upgrade to.</param>
         /// <param name="newFileLocation">The location where the migrated file needs to be saved.</param>
-        /// <exception cref="CriticalDatabaseMigrationException">Thrown when migrating <paramref name="fromVersionedFile"/> 
+        /// <exception cref="CriticalMigrationException">Thrown when migrating <paramref name="fromVersionedFile"/> 
         /// to a new version on location <paramref name="newFileLocation"/> failed.</exception>
         public void Migrate(IVersionedFile fromVersionedFile, string toVersion, string newFileLocation)
         {
             if (Path.GetFullPath(fromVersionedFile.Location).Equals(Path.GetFullPath(newFileLocation)))
             {
-                throw new CriticalDatabaseMigrationException(Resources.Migrate_Target_File_Path_Must_Differ_From_Source_File_Path);
+                throw new CriticalMigrationException(Resources.Migrate_Target_File_Path_Must_Differ_From_Source_File_Path);
             }
             string fromVersion = fromVersionedFile.GetVersion();
             if (!IsVersionSupported(fromVersion))
             {
-                throw new CriticalDatabaseMigrationException(string.Format(Resources.Upgrade_Version_0_Not_Supported,
+                throw new CriticalMigrationException(string.Format(Resources.Upgrade_Version_0_Not_Supported,
                                                                            fromVersion));
             }
 
-            MigrationScript migrationScript = GetMigrationScript(fromVersion, toVersion);
+            FileMigrationScript migrationScript = GetMigrationScript(fromVersion, toVersion);
             if (migrationScript == null)
             {
-                throw new CriticalDatabaseMigrationException(string.Format(Resources.Migrate_From_Version_0_To_Version_1_Not_Supported,
+                throw new CriticalMigrationException(string.Format(Resources.Migrate_From_Version_0_To_Version_1_Not_Supported,
                                                                            fromVersion, toVersion));
             }
 
@@ -116,7 +116,7 @@ namespace Migration.Core.Storage
                 {
                     var message = string.Format(Resources.Migrate_Unable_To_Move_From_Location_0_To_Location_1,
                                                 upgradedVersionFile.Location, newFileLocation);
-                    throw new CriticalDatabaseMigrationException(message, exception);
+                    throw new CriticalMigrationException(message, exception);
                 }
             }
         }
@@ -125,9 +125,9 @@ namespace Migration.Core.Storage
 
         protected abstract IEnumerable<CreateScript> GetAvailableCreateScripts();
 
-        private MigrationScript GetMigrationScript(string fromVersion, string toVersion)
+        private FileMigrationScript GetMigrationScript(string fromVersion, string toVersion)
         {
-            var supportedMigrationScripts = migrationScripts.Where(ms => ms.SupportedVersion()
+            var supportedMigrationScripts = fileMigrationScripts.Where(ms => ms.SupportedVersion()
                                                                            .Equals(fromVersion));
 
             if (!supportedMigrationScripts.Any())
@@ -139,7 +139,7 @@ namespace Migration.Core.Storage
                    ?? supportedMigrationScripts.FirstOrDefault(ms => ringtoetsVersionComparer.Compare(toVersion, ms.TargetVersion()) > 0);
         }
 
-        private IEnumerable<MigrationScript> GetAvailableMigrations()
+        private IEnumerable<FileMigrationScript> GetAvailableMigrations()
         {
             IEnumerable<UpgradeScript> migrationStreams = GetAvailableUpgradeScripts();
             IEnumerable<CreateScript> createScripts = GetAvailableCreateScripts();
@@ -149,7 +149,7 @@ namespace Migration.Core.Storage
                 CreateScript createScript = createScripts.FirstOrDefault(cs => cs.Version().Equals(migrationScript.ToVersion()));
                 if (createScript != null)
                 {
-                    yield return new MigrationScript(createScript, migrationScript);
+                    yield return new FileMigrationScript(createScript, migrationScript);
                 }
             }
         }

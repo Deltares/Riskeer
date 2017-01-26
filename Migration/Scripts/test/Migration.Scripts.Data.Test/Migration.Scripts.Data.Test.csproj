@@ -55,8 +55,8 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="CreateScriptTest.cs" />
-    <Compile Include="Exceptions\CriticalDatabaseMigrationExceptionTest.cs" />
-    <Compile Include="MigrationScriptTest.cs" />
+    <Compile Include="Exceptions\CriticalMigrationExceptionTest.cs" />
+    <Compile Include="FileMigrationScriptTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestCreateScript.cs" />
     <Compile Include="TestUpgradeScript.cs" />

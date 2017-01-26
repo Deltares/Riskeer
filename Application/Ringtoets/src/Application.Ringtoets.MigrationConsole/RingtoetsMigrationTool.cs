@@ -57,7 +57,7 @@ namespace Application.Ringtoets.MigrationConsole
                 DisplayException(exception);
                 DisplayAllCommands();
 
-                if (exception is CriticalDatabaseMigrationException || exception is NotSupportedException)
+                if (exception is CriticalMigrationException || exception is NotSupportedException)
                 {
                     Exit(ErrorCode.ErrorBadCommand);
                     return;

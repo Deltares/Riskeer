@@ -80,12 +80,12 @@ namespace Migration.Scripts.Data
         /// </summary>
         /// <param name="source">The source file to upgrade from.</param>
         /// <param name="target">The target file to upgrade to.</param>
-        /// <exception cref="ArgumentException">Thrown when:
+        /// <exception cref="ArgumentNullException">Thrown when:
         /// <list type="bullet">
         /// <item><paramref name="source"/> is <c>null</c>,</item>
         /// <item><paramref name="target"/> is <c>null</c>.</item>
         /// </list></exception>
-        /// <exception cref="CriticalDatabaseMigrationException">Thrown when executing query failed.</exception>
+        /// <exception cref="CriticalMigrationException">Thrown when executing query failed.</exception>
         public void Upgrade(IVersionedFile source, IVersionedFile target)
         {
             if (source == null)
