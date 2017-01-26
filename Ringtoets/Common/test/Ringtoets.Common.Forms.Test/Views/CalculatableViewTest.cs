@@ -187,7 +187,6 @@ namespace Ringtoets.Common.Forms.Test.Views
             // Then
             var button = (Button) view.Controls.Find("CalculateForSelectedButton", true)[0];
             Assert.IsFalse(button.Enabled);
-
             var errorProvider = TypeUtils.GetField<ErrorProvider>(view, "CalculateForSelectedButtonErrorProvider");
             Assert.AreEqual("Er zijn geen berekeningen geselecteerd.", errorProvider.GetError(button));
         }
@@ -206,7 +205,6 @@ namespace Ringtoets.Common.Forms.Test.Views
             // Then
             var button = (Button) view.Controls.Find("CalculateForSelectedButton", true)[0];
             Assert.IsTrue(button.Enabled);
-
             var errorProvider = TypeUtils.GetField<ErrorProvider>(view, "CalculateForSelectedButtonErrorProvider");
             Assert.AreEqual("", errorProvider.GetError(button));
         }
