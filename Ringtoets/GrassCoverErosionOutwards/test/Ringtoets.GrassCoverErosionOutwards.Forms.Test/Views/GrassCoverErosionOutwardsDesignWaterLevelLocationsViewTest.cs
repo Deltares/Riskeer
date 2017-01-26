@@ -52,18 +52,22 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
         private const int locationIdColumnIndex = 2;
         private const int locationColumnIndex = 3;
         private const int locationDesignWaterlevelColumnIndex = 4;
+
         private Form testForm;
+        private MockRepository mockRepository;
 
         [SetUp]
         public void Setup()
         {
             testForm = new Form();
+            mockRepository = new MockRepository();
         }
 
         [TearDown]
         public void TearDown()
         {
             testForm.Dispose();
+            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -284,7 +288,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             var rows = dataGridView.Rows;
             rows[0].Cells[locationCalculateColumnIndex].Value = true;
 
-            var mockRepository = new MockRepository();
             var guiServiceMock = mockRepository.StrictMock<IHydraulicBoundaryLocationCalculationGuiService>();
 
             var observer = mockRepository.StrictMock<IObserver>();
@@ -309,7 +312,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             assessmentSectionStub.Stub(ass => ass.Id).Return(string.Empty);
             assessmentSectionStub.Stub(ass => ass.FailureMechanismContribution)
                                  .Return(new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 1, 1));
-
+            assessmentSectionStub.Stub(a => a.Attach(null)).IgnoreArguments();
+            assessmentSectionStub.Stub(a => a.Detach(null)).IgnoreArguments();
             mockRepository.ReplayAll();
 
             view.AssessmentSection = assessmentSectionStub;
@@ -332,8 +336,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             Assert.IsTrue((bool) rows[0].Cells[locationCalculateColumnIndex].Value);
             Assert.IsFalse((bool) rows[1].Cells[locationCalculateColumnIndex].Value);
             Assert.IsFalse((bool) rows[2].Cells[locationCalculateColumnIndex].Value);
-
-            mockRepository.VerifyAll();
         }
 
         [Test]

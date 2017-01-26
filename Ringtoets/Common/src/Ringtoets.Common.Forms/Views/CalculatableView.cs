@@ -146,15 +146,10 @@ namespace Ringtoets.Common.Forms.Views
             return null;
         }
 
-        private void LocalizeControls()
-        {
-            CalculateForSelectedButton.Text = Resources.CalculatableView_CalculateForSelectedButton_Text;
-            DeselectAllButton.Text = Resources.CalculatableView_DeselectAllButton_Text;
-            SelectAllButton.Text = Resources.CalculatableView_SelectAllButton_Text;
-            ButtonGroupBox.Text = Resources.CalculatableView_ButtonGroupBox_Text;
-        }
-
-        private void UpdateCalculateForSelectedButton()
+        /// <summary>
+        /// Updates the state of the calculation button and the corresponding error provider.
+        /// </summary>
+        protected void UpdateCalculateForSelectedButton()
         {
             var validationText = ValidateCalculatableObjects();
             if (!string.IsNullOrEmpty(validationText))
@@ -167,6 +162,14 @@ namespace Ringtoets.Common.Forms.Views
                 CalculateForSelectedButton.Enabled = true;
                 CalculateForSelectedButtonErrorProvider.Clear();
             }
+        }
+
+        private void LocalizeControls()
+        {
+            CalculateForSelectedButton.Text = Resources.CalculatableView_CalculateForSelectedButton_Text;
+            DeselectAllButton.Text = Resources.CalculatableView_DeselectAllButton_Text;
+            SelectAllButton.Text = Resources.CalculatableView_SelectAllButton_Text;
+            ButtonGroupBox.Text = Resources.CalculatableView_ButtonGroupBox_Text;
         }
 
         private void InitializeEventHandlers()

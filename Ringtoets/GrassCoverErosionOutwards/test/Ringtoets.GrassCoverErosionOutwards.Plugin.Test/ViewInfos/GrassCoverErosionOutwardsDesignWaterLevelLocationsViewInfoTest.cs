@@ -136,6 +136,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
             {
                 new GrassCoverErosionOutwardsFailureMechanism()
             });
+            assessmentSection.Stub(a => a.Attach(null)).IgnoreArguments();
+            assessmentSection.Stub(a => a.Detach(null)).IgnoreArguments();
             mocks.ReplayAll();
 
             using (var view = new GrassCoverErosionOutwardsDesignWaterLevelLocationsView())
@@ -160,17 +162,16 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
             var mocks = new MockRepository();
             var assessmentSectionA = mocks.Stub<IAssessmentSection>();
             var assessmentSectionB = mocks.Stub<IAssessmentSection>();
-
             assessmentSectionA.Stub(a => a.GetFailureMechanisms()).Return(new[]
             {
                 new GrassCoverErosionOutwardsFailureMechanism()
             });
-
+            assessmentSectionA.Stub(a => a.Attach(null)).IgnoreArguments();
+            assessmentSectionA.Stub(a => a.Detach(null)).IgnoreArguments();
             assessmentSectionB.Stub(a => a.GetFailureMechanisms()).Return(new[]
             {
                 new GrassCoverErosionOutwardsFailureMechanism()
             });
-
             mocks.ReplayAll();
 
             using (var view = new GrassCoverErosionOutwardsDesignWaterLevelLocationsView())
@@ -198,6 +199,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
             {
                 new GrassCoverErosionOutwardsFailureMechanism()
             });
+            assessmentSection.Stub(a => a.Attach(null)).IgnoreArguments();
+            assessmentSection.Stub(a => a.Detach(null)).IgnoreArguments();
             mocks.ReplayAll();
 
             var grassCoverErosionOutwardsFailureMechanismContext = new GrassCoverErosionOutwardsFailureMechanismContext(
@@ -226,12 +229,12 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
             var mocks = new MockRepository();
             var assessmentSectionA = mocks.Stub<IAssessmentSection>();
             var assessmentSectionB = mocks.Stub<IAssessmentSection>();
-
             assessmentSectionA.Stub(a => a.GetFailureMechanisms()).Return(new[]
             {
                 new GrassCoverErosionOutwardsFailureMechanism()
             });
-
+            assessmentSectionA.Stub(a => a.Attach(null)).IgnoreArguments();
+            assessmentSectionA.Stub(a => a.Detach(null)).IgnoreArguments();
             assessmentSectionB.Stub(a => a.GetFailureMechanisms()).Return(new[]
             {
                 new GrassCoverErosionOutwardsFailureMechanism()
@@ -262,18 +265,20 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSectionA = mocks.Stub<IAssessmentSection>();
-            assessmentSectionA.Stub(a => a.GetFailureMechanisms()).Return(new[]
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.GetFailureMechanisms()).Return(new[]
             {
                 new GrassCoverErosionOutwardsFailureMechanism()
             });
+            assessmentSection.Stub(a => a.Attach(null)).IgnoreArguments();
+            assessmentSection.Stub(a => a.Detach(null)).IgnoreArguments();
             mocks.ReplayAll();
 
             using (var view = new GrassCoverErosionOutwardsDesignWaterLevelLocationsView())
             using (var plugin = new GrassCoverErosionOutwardsPlugin())
             {
                 var info = GetInfo(plugin);
-                view.AssessmentSection = assessmentSectionA;
+                view.AssessmentSection = assessmentSection;
 
                 // Call
                 var closeForData = info.CloseForData(view, new object());
@@ -301,7 +306,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
             }
         }
 
-        private ViewInfo GetInfo(PluginBase plugin)
+        private static ViewInfo GetInfo(PluginBase plugin)
         {
             return plugin.GetViewInfos().FirstOrDefault(vi => vi.ViewType == typeof(GrassCoverErosionOutwardsDesignWaterLevelLocationsView));
         }
