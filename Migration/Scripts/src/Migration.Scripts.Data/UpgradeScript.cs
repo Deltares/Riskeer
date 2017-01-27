@@ -40,7 +40,7 @@ namespace Migration.Scripts.Data
         /// <exception cref="ArgumentException">Thrown when:
         /// <list type="bullet">
         /// <item><paramref name="fromVersion"/> is empty or <c>null</c>,</item>
-        /// <item><paramref name="toVersion"/> is empty or <c>null</c>,</item>
+        /// <item><paramref name="toVersion"/> is empty or <c>null</c>.</item>
         /// </list></exception>
         protected UpgradeScript(string fromVersion, string toVersion)
         {

@@ -35,7 +35,7 @@ namespace Application.Ringtoets.Migration
         private readonly string upgradeQuery;
 
         /// <summary>
-        /// Creates a new instance of the <see cref="UpgradeScript"/> class.
+        /// Creates a new instance of the <see cref="RingtoetsUpgradeScript"/> class.
         /// </summary>
         /// <param name="fromVersion">The source version <paramref name="query"/> was designed for.</param>
         /// <param name="toVersion">The target version <paramref name="query"/> was designed for.</param>

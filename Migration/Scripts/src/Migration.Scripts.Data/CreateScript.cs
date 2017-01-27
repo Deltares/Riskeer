@@ -69,10 +69,10 @@ namespace Migration.Scripts.Data
         }
 
         /// <summary>
-        /// Gets the version <see cref="CreateScript"/> was created for.
+        /// Returns the version <see cref="CreateScript"/> was created for.
         /// </summary>
         /// <returns>The version.</returns>
-        public string Version()
+        public string GetVersion()
         {
             return version;
         }

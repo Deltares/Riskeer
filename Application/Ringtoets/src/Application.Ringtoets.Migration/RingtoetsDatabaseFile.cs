@@ -28,7 +28,7 @@ using Core.Common.Utils;
 namespace Application.Ringtoets.Migration
 {
     /// <summary>
-    /// Class that provides methods for the migration database target file.
+    /// Class that provides methods for the migration a Ringtoets database target file.
     /// </summary>
     public class RingtoetsDatabaseFile : IDisposable
     {
@@ -56,7 +56,7 @@ namespace Application.Ringtoets.Migration
         }
 
         /// <summary>
-        /// Opens the connection to the file.
+        /// Opens the connection to the Ringtoets database file.
         /// </summary>
         public void OpenDatabaseConnection()
         {
@@ -65,7 +65,7 @@ namespace Application.Ringtoets.Migration
         }
 
         /// <summary>
-        /// Executes the <paramref name="query"/> that will on the database.
+        /// Executes the <paramref name="query"/> on the Ringtoets database file.
         /// </summary>
         /// <param name="query">Create structure query to execute.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="query"/> is <c>null</c> 

@@ -153,7 +153,7 @@ namespace Migration.Core.Storage
 
             foreach (var migrationScript in migrationStreams)
             {
-                CreateScript createScript = createScripts.FirstOrDefault(cs => cs.Version().Equals(migrationScript.ToVersion()));
+                CreateScript createScript = createScripts.FirstOrDefault(cs => cs.GetVersion().Equals(migrationScript.ToVersion()));
                 if (createScript != null)
                 {
                     yield return new FileMigrationScript(createScript, migrationScript);

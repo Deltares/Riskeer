@@ -77,7 +77,7 @@ namespace Application.Ringtoets.Migration.Test
 
             // Assert
             Assert.IsInstanceOf<CreateScript>(createScript);
-            Assert.AreEqual(version, createScript.Version());
+            Assert.AreEqual(version, createScript.GetVersion());
         }
 
         [Test]

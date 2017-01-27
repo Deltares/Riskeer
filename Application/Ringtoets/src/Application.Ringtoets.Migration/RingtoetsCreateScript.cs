@@ -67,7 +67,7 @@ namespace Application.Ringtoets.Migration
             catch (SQLiteException exception)
             {
                 throw new CriticalMigrationException(string.Format(Resources.RingtoetsCreateScript_Creating_Version_0_Failed,
-                                                                   Version()), exception);
+                                                                   GetVersion()), exception);
             }
         }
     }

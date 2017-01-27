@@ -26,7 +26,7 @@ using SystemConsole = System.Console;
 namespace Migration.Console.TestUtil
 {
     /// <summary>
-    /// This class captures the output that is sent to <see cref="SystemConsole"/>.
+    /// This class captures the output sent to <see cref="SystemConsole"/>.
     /// </summary>
     public class ConsoleOutput : IDisposable
     {

@@ -33,7 +33,7 @@ namespace Application.Ringtoets.Migration
         /// <summary>
         /// Creates a new instance of the <see cref="RingtoetsVersionedFile"/> class.
         /// </summary>
-        /// <param name="path">Path to the versioned file.</param>
+        /// <param name="path">Path to the Ringtoets versioned file.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="path"/> is invalid.</exception>
         /// <remarks>A valid path:
         /// <list type="bullet">

@@ -74,7 +74,7 @@ namespace Migration.Scripts.Data
         /// <summary>
         /// Uses <paramref name="sourceVersionedFile"/> to upgrade to a new <see cref="IVersionedFile"/>.
         /// </summary>
-        /// <param name="sourceVersionedFile"></param>
+        /// <param name="sourceVersionedFile">The <see cref="IVersionedFile"/> used to upgrade.</param>
         /// <returns>The upgraded <see cref="IVersionedFile"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="sourceVersionedFile"/> is <c>null</c>.</exception>
         /// <exception cref="CriticalMigrationException">Thrown when migration failed.</exception>

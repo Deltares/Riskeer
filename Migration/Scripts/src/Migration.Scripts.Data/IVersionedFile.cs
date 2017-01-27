@@ -35,7 +35,7 @@ namespace Migration.Scripts.Data
         string Location { get; }
 
         /// <summary>
-        /// Gets the version of the <see cref="IVersionedFile"/>.
+        /// Returns the version of the <see cref="IVersionedFile"/>.
         /// </summary>
         /// <returns>The version.</returns>
         /// <exception cref="CriticalFileReadException">Thrown when:

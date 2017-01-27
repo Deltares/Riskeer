@@ -53,7 +53,7 @@ namespace Migration.Scripts.Data.Test
             var createScript = new TestCreateScript(version);
 
             // Assert
-            Assert.AreEqual(version, createScript.Version());
+            Assert.AreEqual(version, createScript.GetVersion());
         }
 
         [Test]

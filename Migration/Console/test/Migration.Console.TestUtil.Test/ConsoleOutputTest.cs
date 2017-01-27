@@ -53,7 +53,6 @@ namespace Migration.Console.TestUtil.Test
             // Setup
             const string lineOne = "first line.";
             const string lineTwo = "second line.";
-            const string lineThree = "third line.";
             SystemConsole.WriteLine(@"Before");
             string capturedText;
 
@@ -64,8 +63,6 @@ namespace Migration.Console.TestUtil.Test
                 SystemConsole.WriteLine(lineTwo);
 
                 capturedText = consoleOutput.GetConsoleOutput();
-
-                SystemConsole.WriteLine(lineThree);
             }
 
             // Assert
@@ -74,6 +71,22 @@ namespace Migration.Console.TestUtil.Test
                                 lineOne, Environment.NewLine,
                                 lineTwo, Environment.NewLine
                             ), capturedText);
+        }
+
+        [Test]
+        public void Dispose_AlreadyDisposed_DoesNotThrowException()
+        {
+            // Call
+            TestDelegate call = () =>
+            {
+                using (var consoleOutput = new ConsoleOutput())
+                {
+                    consoleOutput.Dispose();
+                }
+            };
+
+            // Assert
+            Assert.DoesNotThrow(call);
         }
     }
 }
