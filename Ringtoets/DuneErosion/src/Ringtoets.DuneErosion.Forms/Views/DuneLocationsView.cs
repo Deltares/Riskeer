@@ -40,6 +40,10 @@ namespace Ringtoets.DuneErosion.Forms.Views
     public partial class DuneLocationsView : CalculatableView<DuneLocation>
     {
         private readonly Observer duneLocationsObserver;
+        private readonly Observer assessmentSectionObserver;
+
+        private IAssessmentSection assessmentSection;
+        private DuneErosionFailureMechanism failureMechanism;
         private ObservableList<DuneLocation> locations;
 
         /// <summary>
@@ -50,6 +54,7 @@ namespace Ringtoets.DuneErosion.Forms.Views
             InitializeComponent();
 
             duneLocationsObserver = new Observer(UpdateDuneLocations);
+            assessmentSectionObserver = new Observer(UpdateCalculateForSelectedButton);
         }
 
         public override object Data
@@ -70,13 +75,35 @@ namespace Ringtoets.DuneErosion.Forms.Views
         /// <summary>
         /// Gets or sets the assessment section.
         /// </summary>
-        public IAssessmentSection AssessmentSection { get; set; }
+        public IAssessmentSection AssessmentSection
+        {
+            get
+            {
+                return assessmentSection;
+            }
+            set
+            {
+                assessmentSection = value;
+                assessmentSectionObserver.Observable = assessmentSection;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the <see cref="DuneErosionFailureMechanism"/> for which the
         /// locations are shown.
         /// </summary>
-        public DuneErosionFailureMechanism FailureMechanism { get; set; }
+        public DuneErosionFailureMechanism FailureMechanism
+        {
+            get
+            {
+                return failureMechanism;
+            }
+            set
+            {
+                failureMechanism = value;
+                UpdateCalculateForSelectedButton();
+            }
+        }
 
         /// <summary>
         /// Gets or sets the <see cref="DuneLocationCalculationGuiService"/> 
@@ -87,6 +114,7 @@ namespace Ringtoets.DuneErosion.Forms.Views
         protected override void Dispose(bool disposing)
         {
             duneLocationsObserver.Dispose();
+            assessmentSectionObserver.Dispose();
             base.Dispose(disposing);
         }
 
@@ -133,6 +161,16 @@ namespace Ringtoets.DuneErosion.Forms.Views
                 IEnumerable<DuneLocation> selectedLocations = GetSelectedCalculatableObjects();
                 HandleCalculateSelectedLocations(selectedLocations);
             }
+        }
+
+        protected override string ValidateCalculatableObjects()
+        {
+            if (FailureMechanism != null && FailureMechanism.Contribution <= 0)
+            {
+                return RingtoetsCommonFormsResources.Contribution_of_failure_mechanism_zero;
+            }
+
+            return base.ValidateCalculatableObjects();
         }
 
         private void HandleCalculateSelectedLocations(IEnumerable<DuneLocation> locationsToCalculate)

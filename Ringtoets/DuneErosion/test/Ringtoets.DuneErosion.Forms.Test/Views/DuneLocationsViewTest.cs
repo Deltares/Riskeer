@@ -55,17 +55,20 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "HydraulicBoundaryDatabaseImporter");
 
         private Form testForm;
+        private MockRepository mocks;
 
         [SetUp]
         public void Setup()
         {
             testForm = new Form();
+            mocks = new MockRepository();
         }
 
         [TearDown]
         public void TearDown()
         {
             testForm.Dispose();
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -330,7 +333,6 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             DataGridViewRowCollection rows = dataGridView.Rows;
             rows[0].Cells[locationCalculateColumnIndex].Value = true;
 
-            var mocks = new MockRepository();
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
 
@@ -342,6 +344,8 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             {
                 FilePath = Path.Combine(testDataPath, "complete.sqlite")
             };
+            assessmentSection.Stub(a => a.Attach(null)).IgnoreArguments();
+            assessmentSection.Stub(a => a.Detach(null)).IgnoreArguments();
             mocks.ReplayAll();
 
             locations.Attach(observer);
@@ -381,8 +385,6 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
                 Assert.IsTrue((bool) rows[0].Cells[locationCalculateColumnIndex].Value);
                 Assert.IsFalse((bool) rows[1].Cells[locationCalculateColumnIndex].Value);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]

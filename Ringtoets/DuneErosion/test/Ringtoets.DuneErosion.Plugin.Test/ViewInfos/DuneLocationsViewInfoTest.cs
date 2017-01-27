@@ -206,6 +206,8 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
             {
                 new DuneErosionFailureMechanism()
             });
+            assessmentSection.Stub(a => a.Attach(null)).IgnoreArguments();
+            assessmentSection.Stub(a => a.Detach(null)).IgnoreArguments();
             mocks.ReplayAll();
 
             using (var view = new DuneLocationsView())
@@ -228,17 +230,16 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
             var mocks = new MockRepository();
             var assessmentSectionA = mocks.Stub<IAssessmentSection>();
             var assessmentSectionB = mocks.Stub<IAssessmentSection>();
-
             assessmentSectionA.Stub(a => a.GetFailureMechanisms()).Return(new[]
             {
                 new DuneErosionFailureMechanism()
             });
-
+            assessmentSectionA.Stub(a => a.Attach(null)).IgnoreArguments();
+            assessmentSectionA.Stub(a => a.Detach(null)).IgnoreArguments();
             assessmentSectionB.Stub(a => a.GetFailureMechanisms()).Return(new[]
             {
                 new DuneErosionFailureMechanism()
             });
-
             mocks.ReplayAll();
 
             using (var view = new DuneLocationsView())
@@ -264,6 +265,8 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
             {
                 new DuneErosionFailureMechanism()
             });
+            assessmentSection.Stub(a => a.Attach(null)).IgnoreArguments();
+            assessmentSection.Stub(a => a.Detach(null)).IgnoreArguments();
             mocks.ReplayAll();
 
             var duneErosionFailureMechanismContext = new DuneErosionFailureMechanismContext(
@@ -290,12 +293,12 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
             var mocks = new MockRepository();
             var assessmentSectionA = mocks.Stub<IAssessmentSection>();
             var assessmentSectionB = mocks.Stub<IAssessmentSection>();
-
             assessmentSectionA.Stub(a => a.GetFailureMechanisms()).Return(new[]
             {
                 new DuneErosionFailureMechanism()
             });
-
+            assessmentSectionA.Stub(a => a.Attach(null)).IgnoreArguments();
+            assessmentSectionA.Stub(a => a.Detach(null)).IgnoreArguments();
             assessmentSectionB.Stub(a => a.GetFailureMechanisms()).Return(new[]
             {
                 new DuneErosionFailureMechanism()
@@ -324,16 +327,18 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSectionA = mocks.Stub<IAssessmentSection>();
-            assessmentSectionA.Stub(a => a.GetFailureMechanisms()).Return(new[]
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.GetFailureMechanisms()).Return(new[]
             {
                 new DuneErosionFailureMechanism()
             });
+            assessmentSection.Stub(a => a.Attach(null)).IgnoreArguments();
+            assessmentSection.Stub(a => a.Detach(null)).IgnoreArguments();
             mocks.ReplayAll();
 
             using (var view = new DuneLocationsView())
             {
-                view.AssessmentSection = assessmentSectionA;
+                view.AssessmentSection = assessmentSection;
 
                 // Call
                 bool closeForData = info.CloseForData(view, new object());
