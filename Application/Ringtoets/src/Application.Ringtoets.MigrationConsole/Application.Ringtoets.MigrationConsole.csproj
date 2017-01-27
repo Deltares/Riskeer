@@ -6,7 +6,7 @@
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Application.Ringtoets.MigrationConsole</RootNamespace>
-    <AssemblyName>Application.Ringtoets.MigrationConsole</AssemblyName>
+    <AssemblyName>Ringtoets Migrator</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

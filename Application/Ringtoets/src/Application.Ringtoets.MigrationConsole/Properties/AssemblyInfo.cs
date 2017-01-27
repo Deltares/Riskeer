@@ -22,6 +22,6 @@
 using System.Reflection;
 using System.Runtime.InteropServices;
 
-[assembly: AssemblyTitle("Application.Ringtoets.MigrationConsole")]
-[assembly: AssemblyProduct("Application.Ringtoets.MigrationConsole")]
+[assembly: AssemblyTitle("Ringtoets Migrator")]
+[assembly: AssemblyProduct("Ringtoets Migrator")]
 [assembly: Guid("23c45bfd-0a07-400f-b216-df0c74cc99a1")]
