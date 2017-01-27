@@ -78,24 +78,6 @@ namespace Application.Ringtoets.Migration.Test
         }
 
         [Test]
-        public void OpenDatabaseConnection_FileDoesNotExist_CreatesFile()
-        {
-            // Setup
-            string filename = Path.GetRandomFileName();
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Migration.Core.Storage, filename);
-
-            using (var databaseFile = new RingtoetsDatabaseFile(filePath))
-            {
-                // Call
-                databaseFile.OpenDatabaseConnection();
-            }
-
-            // Assert
-            Assert.IsTrue(File.Exists(filePath));
-            using (new FileDisposeHelper(filePath)) {}
-        }
-
-        [Test]
         [TestCase("")]
         [TestCase("   ")]
         [TestCase(null)]

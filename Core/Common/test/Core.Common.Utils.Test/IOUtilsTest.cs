@@ -341,10 +341,10 @@ namespace Core.Common.Utils.Test
         [TestCase("")]
         [TestCase("   ")]
         [TestCase(null)]
-        public void ValidateFilePathIsWritable_FilePathNullOrWhiteSpace_ThrowsArgumentException(string filePath)
+        public void CreateFileIfNotExists_FilePathNullOrWhiteSpace_ThrowsArgumentException(string filePath)
         {
             // Call
-            TestDelegate call = () => IOUtils.ValidateFilePathIsWritable(filePath);
+            TestDelegate call = () => IOUtils.CreateFileIfNotExists(filePath);
 
             // Assert
             ArgumentException exception = Assert.Throws<ArgumentException>(call);
@@ -352,7 +352,7 @@ namespace Core.Common.Utils.Test
         }
 
         [Test]
-        public void ValidateFilePathIsWritable_FileNotWritable_ThrowsArgumentException()
+        public void CreateFileIfNotExists_FileNotWritable_ThrowsArgumentException()
         {
             // Setup
             string filename = Path.GetRandomFileName();
@@ -364,7 +364,7 @@ namespace Core.Common.Utils.Test
                 File.SetAttributes(filePath, attributes | FileAttributes.ReadOnly);
 
                 // Call
-                TestDelegate call = () => IOUtils.ValidateFilePathIsWritable(filePath);
+                TestDelegate call = () => IOUtils.CreateFileIfNotExists(filePath);
 
                 // Assert
                 string expectedMessage = $"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{filePath}'.";
@@ -375,7 +375,7 @@ namespace Core.Common.Utils.Test
         }
 
         [Test]
-        public void ValidateFilePathIsWritable_FileWritable_DoesNotThrowException()
+        public void CreateFileIfNotExists_FileWritable_DoesNotThrowException()
         {
             // Setup
             string filename = Path.GetRandomFileName();
@@ -384,7 +384,7 @@ namespace Core.Common.Utils.Test
             using (new FileDisposeHelper(filePath))
             {
                 // Call
-                TestDelegate call = () => IOUtils.ValidateFilePathIsWritable(filePath);
+                TestDelegate call = () => IOUtils.CreateFileIfNotExists(filePath);
 
                 // Assert
                 Assert.DoesNotThrow(call);

@@ -48,22 +48,18 @@ namespace Application.Ringtoets.Migration
         /// <item>does not end with a directory or path separator (empty file name),</item>
         /// <item>is not writable.</item>
         /// </list></exception>
+        /// <remarks>Creates the file if it does not exist.</remarks>
         public RingtoetsDatabaseFile(string path)
         {
-            IOUtils.ValidateFilePathIsWritable(path);
+            IOUtils.CreateFileIfNotExists(path);
             filePath = path;
         }
 
         /// <summary>
         /// Opens the connection to the file.
         /// </summary>
-        /// <remarks>Creates the file if it does not exist.</remarks>
         public void OpenDatabaseConnection()
         {
-            if (!File.Exists(filePath))
-            {
-                SQLiteConnection.CreateFile(filePath);
-            }
             connection = new SQLiteConnection(SqLiteConnectionStringBuilder.BuildSqLiteConnectionString(filePath, false));
             connection.Open();
         }

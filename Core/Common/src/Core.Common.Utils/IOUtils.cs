@@ -209,19 +209,18 @@ namespace Core.Common.Utils
         }
 
         /// <summary>
-        /// Validates if the file path is writable.
+        /// Creates a file at <paramref name="path"/> if it does not exist already.
         /// </summary>
-        /// <param name="path">The file path to be validated.</param>
+        /// <param name="path">The file path to be created.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="path"/> is invalid.</exception>
         /// <remarks>A valid path:
         /// <list type="bullet">
         /// <item>is not empty or <c>null</c>,</item>
         /// <item>does not consist out of only whitespace characters,</item>
         /// <item>does not contain an invalid character,</item>
-        /// <item>does not end with a directory or path separator (empty file name),</item>
-        /// <item>is writable.</item>
+        /// <item>does not end with a directory or path separator (empty file name).</item>
         /// </list></remarks>
-        public static void ValidateFilePathIsWritable(string path)
+        public static void CreateFileIfNotExists(string path)
         {
             ValidateFilePath(path);
 
