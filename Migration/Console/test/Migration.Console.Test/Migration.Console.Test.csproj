@@ -50,7 +50,6 @@
     <Compile Include="DefaultEnvironmentControlTest.cs" />
     <Compile Include="EnvironmentControlTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="MigrationToolTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">

@@ -185,11 +185,29 @@ namespace Application.Ringtoets.Migration.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Het aanmaken van het Ringtoets bestand versie {0} is mislukt..
+        /// </summary>
+        public static string RingtoetsCreateScript_Creating_Version_0_Failed {
+            get {
+                return ResourceManager.GetString("RingtoetsCreateScript_Creating_Version_0_Failed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Het bestand &apos;{0}&apos; is moet een geldig Ringtoets database bestand zijn..
         /// </summary>
         public static string RingtoetsDatabaseSourceFile_Invalid_Ringtoets_File_Path_0 {
             get {
                 return ResourceManager.GetString("RingtoetsDatabaseSourceFile_Invalid_Ringtoets_File_Path_0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het upgraden van het Ringtoets bestand versie {0} naar {1} is mislukt..
+        /// </summary>
+        public static string RingtoetsUpgradeScript_Upgrading_Version_0_To_Version_1_Failed {
+            get {
+                return ResourceManager.GetString("RingtoetsUpgradeScript_Upgrading_Version_0_To_Version_1_Failed", resourceCulture);
             }
         }
     }

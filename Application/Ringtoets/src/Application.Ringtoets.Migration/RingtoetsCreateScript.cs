@@ -20,7 +20,10 @@
 // All rights reserved.
 
 using System;
+using System.Data.SQLite;
+using Application.Ringtoets.Migration.Properties;
 using Migration.Scripts.Data;
+using Migration.Scripts.Data.Exceptions;
 
 namespace Application.Ringtoets.Migration
 {
@@ -43,13 +46,20 @@ namespace Application.Ringtoets.Migration
 
         protected override IVersionedFile GetEmptyVersionedFile(string location)
         {
-            using (var databaseFile = new RingtoetsDatabaseFile(location))
+            try
             {
-                databaseFile.OpenDatabaseConnection();
-                databaseFile.ExecuteQuery(CreateQuery);
+                using (var databaseFile = new RingtoetsDatabaseFile(location))
+                {
+                    databaseFile.OpenDatabaseConnection();
+                    databaseFile.ExecuteQuery(CreateQuery);
+                }
+                return new RingtoetsVersionedFile(location);
             }
-
-            return new RingtoetsVersionedFile(location);
+            catch (SQLiteException exception)
+            {
+                throw new CriticalMigrationException(string.Format(Resources.RingtoetsCreateScript_Creating_Version_0_Failed,
+                                                                   Version()), exception);
+            }
         }
     }
 }

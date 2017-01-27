@@ -20,9 +20,11 @@
 // All rights reserved.
 
 using System;
+using System.Data.SQLite;
 using System.IO;
 using Core.Common.TestUtil;
 using Migration.Scripts.Data;
+using Migration.Scripts.Data.Exceptions;
 using NUnit.Framework;
 
 namespace Application.Ringtoets.Migration.Test
@@ -120,6 +122,30 @@ namespace Application.Ringtoets.Migration.Test
                 ArgumentException exception = Assert.Throws<ArgumentException>(call);
                 Assert.AreEqual("path", exception.ParamName);
                 File.SetAttributes(filePath, attributes);
+            }
+        }
+
+        [Test]
+        public void CreateEmptyVersionedFile_QueryFails_ThrowsCriticalMigrationException()
+        {
+            // Setup
+            const string query = "THIS WILL FAIL";
+            const string version = "Valid version";
+
+            string targetFilename = Path.GetRandomFileName();
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration, targetFilename);
+            var createScript = new RingtoetsCreateScript(version, query);
+
+            // Call
+            TestDelegate call = () => createScript.CreateEmptyVersionedFile(filePath);
+
+            // Assert
+            using (new FileDisposeHelper(filePath))
+            {
+                CriticalMigrationException exception = Assert.Throws<CriticalMigrationException>(call);
+                Assert.AreEqual($"Het aanmaken van het Ringtoets bestand versie {version} is mislukt.",
+                                exception.Message);
+                Assert.IsInstanceOf<SQLiteException>(exception.InnerException);
             }
         }
     }

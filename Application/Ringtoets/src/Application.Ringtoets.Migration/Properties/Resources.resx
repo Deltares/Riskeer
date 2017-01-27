@@ -133,4 +133,10 @@
   <data name="RingtoetsDatabaseSourceFile_Invalid_Ringtoets_File_Path_0" xml:space="preserve">
     <value>Het bestand '{0}' is moet een geldig Ringtoets database bestand zijn.</value>
   </data>
+  <data name="RingtoetsCreateScript_Creating_Version_0_Failed" xml:space="preserve">
+    <value>Het aanmaken van het Ringtoets bestand versie {0} is mislukt.</value>
+  </data>
+  <data name="RingtoetsUpgradeScript_Upgrading_Version_0_To_Version_1_Failed" xml:space="preserve">
+    <value>Het upgraden van het Ringtoets bestand versie {0} naar {1} is mislukt.</value>
+  </data>
 </root>

@@ -20,7 +20,10 @@
 // All rights reserved.
 
 using System;
+using System.Data.SQLite;
+using Application.Ringtoets.Migration.Properties;
 using Migration.Scripts.Data;
+using Migration.Scripts.Data.Exceptions;
 
 namespace Application.Ringtoets.Migration
 {
@@ -55,11 +58,19 @@ namespace Application.Ringtoets.Migration
 
         protected override void PerformUpgrade(IVersionedFile source, IVersionedFile target)
         {
-            var query = string.Format(upgradeQuery, source.Location);
-            using (var databaseFile = new RingtoetsDatabaseFile(target.Location))
+            try
             {
-                databaseFile.OpenDatabaseConnection();
-                databaseFile.ExecuteQuery(query);
+                var query = string.Format(upgradeQuery, source.Location);
+                using (var databaseFile = new RingtoetsDatabaseFile(target.Location))
+                {
+                    databaseFile.OpenDatabaseConnection();
+                    databaseFile.ExecuteQuery(query);
+                }
+            }
+            catch (SQLiteException exception)
+            {
+                throw new CriticalMigrationException(string.Format(Resources.RingtoetsUpgradeScript_Upgrading_Version_0_To_Version_1_Failed,
+                                                                   FromVersion(), ToVersion()), exception);
             }
         }
     }

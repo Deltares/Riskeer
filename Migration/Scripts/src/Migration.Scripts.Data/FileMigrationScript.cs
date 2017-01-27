@@ -20,10 +20,8 @@
 // All rights reserved.
 
 using System;
-using System.Data.SQLite;
 using System.IO;
 using Migration.Scripts.Data.Exceptions;
-using Migration.Scripts.Data.Properties;
 
 namespace Migration.Scripts.Data
 {
@@ -88,16 +86,9 @@ namespace Migration.Scripts.Data
             }
             var newLocation = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
 
-            try
-            {
-                IVersionedFile newVersionedFile = createScript.CreateEmptyVersionedFile(newLocation);
-                upgradeScript.Upgrade(sourceVersionedFile, newVersionedFile);
-                return newVersionedFile;
-            }
-            catch (SQLiteException exception)
-            {
-                throw new CriticalMigrationException(Resources.Migrate_failed, exception);
-            }
+            IVersionedFile newVersionedFile = createScript.CreateEmptyVersionedFile(newLocation);
+            upgradeScript.Upgrade(sourceVersionedFile, newVersionedFile);
+            return newVersionedFile;
         }
     }
 }

@@ -20,8 +20,8 @@
 // All rights reserved.
 
 using System;
-using System.Data.SQLite;
 using Core.Common.Utils;
+using Migration.Scripts.Data.Exceptions;
 
 namespace Migration.Scripts.Data
 {
@@ -70,7 +70,8 @@ namespace Migration.Scripts.Data
         /// <item>ends with a directory or path separator (empty file name),</item>
         /// <item>is not writable.</item>
         /// </list></exception>
-        /// <exception cref="SQLiteException">Thrown when executing query failed.</exception>
+        /// <exception cref="CriticalMigrationException">Thrown when creating <see cref="IVersionedFile"/> 
+        /// failed.</exception>
         public IVersionedFile CreateEmptyVersionedFile(string location)
         {
             IOUtils.ValidateFilePathIsWritable(location);
@@ -92,6 +93,8 @@ namespace Migration.Scripts.Data
         /// <param name="location">The location to store the <see cref="IVersionedFile"/>.</param>
         /// <returns>A new <see cref="IVersionedFile"/>.</returns>
         /// <remarks>The <paramref name="location"/> has been verified in <see cref="CreateEmptyVersionedFile"/>.</remarks>
+        /// <exception cref="CriticalMigrationException">Thrown when creating <see cref="IVersionedFile"/> 
+        /// failed.</exception>
         protected abstract IVersionedFile GetEmptyVersionedFile(string location);
     }
 }

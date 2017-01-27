@@ -85,7 +85,7 @@ namespace Migration.Scripts.Data
         /// <item><paramref name="source"/> is <c>null</c>,</item>
         /// <item><paramref name="target"/> is <c>null</c>.</item>
         /// </list></exception>
-        /// <exception cref="CriticalMigrationException">Thrown when executing query failed.</exception>
+        /// <exception cref="CriticalMigrationException">Thrown when upgrading failed.</exception>
         public void Upgrade(IVersionedFile source, IVersionedFile target)
         {
             if (source == null)
@@ -99,6 +99,13 @@ namespace Migration.Scripts.Data
             PerformUpgrade(source, target);
         }
 
+        /// <summary>
+        /// Performs the upgrade on <paramref name="target"/>.
+        /// </summary>
+        /// <param name="source">The source file to upgrade from.</param>
+        /// <param name="target">The target file to upgrade to.</param>
+        /// <remarks>The <paramref name="source"/> and <paramref name="target"/> has been verified in <see cref="Upgrade"/>.</remarks>
+        /// <exception cref="CriticalMigrationException">Thrown when upgrading failed.</exception>
         protected abstract void PerformUpgrade(IVersionedFile source, IVersionedFile target);
     }
 }

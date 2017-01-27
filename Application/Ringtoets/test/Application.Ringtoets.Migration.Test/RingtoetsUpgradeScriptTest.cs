@@ -26,6 +26,7 @@ using System.IO;
 using Core.Common.IO.Readers;
 using Core.Common.TestUtil;
 using Migration.Scripts.Data;
+using Migration.Scripts.Data.Exceptions;
 using NUnit.Framework;
 using Rhino.Mocks;
 
@@ -127,7 +128,7 @@ namespace Application.Ringtoets.Migration.Test
         }
 
         [Test]
-        public void Upgrade_UpgradeFails_ThrowsSQLiteException()
+        public void Upgrade_UpgradeFails_ThrowsCriticalMigrationException()
         {
             // Setup
             string filename = Path.GetRandomFileName();
@@ -143,7 +144,10 @@ namespace Application.Ringtoets.Migration.Test
             // Assert
             using (new FileDisposeHelper(filePath))
             {
-                Assert.Throws<SQLiteException>(call);
+                CriticalMigrationException exception = Assert.Throws<CriticalMigrationException>(call);
+                Assert.AreEqual("Het upgraden van het Ringtoets bestand versie 1 naar 2 is mislukt.",
+                                exception.Message);
+                Assert.IsInstanceOf<SQLiteException>(exception.InnerException);
             }
         }
 
