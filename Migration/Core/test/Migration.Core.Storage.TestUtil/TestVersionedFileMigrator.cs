@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,6 +32,12 @@ namespace Migration.Core.Storage.TestUtil
     /// </summary>
     public class TestVersionedFileMigrator : VersionedFileMigrator
     {
+        /// <summary>
+        /// Creates a new instance of the <see cref="TestVersionedFileMigrator"/> class.
+        /// </summary>
+        /// <param name="comparer">The comparer to use to compare versions.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="comparer"/> is 
+        /// <c>null</c>.</exception>
         public TestVersionedFileMigrator(IComparer comparer) : base(comparer) {}
 
         protected override IEnumerable<UpgradeScript> GetAvailableUpgradeScripts()

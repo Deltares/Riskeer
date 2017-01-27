@@ -47,5 +47,18 @@ namespace Migration.Scripts.Data.TestUtil
                 Location = location
             };
         }
+
+        /// <summary>
+        /// Test class for <see cref="IVersionedFile"/>.
+        /// </summary>
+        private class TestVersionedFile : IVersionedFile
+        {
+            public string Location { get; set; }
+
+            public string GetVersion()
+            {
+                return string.Empty;
+            }
+        }
     }
 }

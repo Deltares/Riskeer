@@ -37,6 +37,10 @@
       <HintPath>..\..\..\..\packages\NUnit.3.6.0\lib\net40\nunit.framework.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Rhino.Mocks, Version=3.6.0.0, Culture=neutral, PublicKeyToken=0b3305902db7183f, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\packages\RhinoMocks.3.6.1\lib\net\Rhino.Mocks.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
   </ItemGroup>
@@ -52,6 +56,16 @@
       <Link>Copying.licenseheader</Link>
     </None>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Migration.Core.Storage\Migration.Core.Storage.csproj">
+      <Project>{EFD7E662-5B69-4B71-A448-565B64E9C033}</Project>
+      <Name>Migration.Core.Storage</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Migration.Core.Storage.TestUtil\Migration.Core.Storage.TestUtil.csproj">
+      <Project>{92CFD164-3E35-440A-85A7-A7F5A43B1B12}</Project>
+      <Name>Migration.Core.Storage.TestUtil</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

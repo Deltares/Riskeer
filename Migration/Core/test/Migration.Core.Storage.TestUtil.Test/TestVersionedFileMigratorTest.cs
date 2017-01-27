@@ -19,7 +19,41 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using System.Collections;
+using NUnit.Framework;
+using Rhino.Mocks;
+
 namespace Migration.Core.Storage.TestUtil.Test
 {
-    public class TestVersionedFileMigratorTest {}
+    [TestFixture]
+    public class TestVersionedFileMigratorTest
+    {
+        [Test]
+        public void Constructor_ComparerNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => new TestVersionedFileMigrator(null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("comparer", paramName);
+        }
+
+        [Test]
+        public void Constructor_ValidComparer_ExpectedProperties()
+        {
+            // Setup
+            var mockRepository = new MockRepository();
+            var comparer = mockRepository.Stub<IComparer>();
+            mockRepository.ReplayAll();
+
+            // Call
+            var migrator = new TestVersionedFileMigrator(comparer);
+
+            // Assert
+            Assert.IsInstanceOf<VersionedFileMigrator>(migrator);
+            mockRepository.VerifyAll();
+        }
+    }
 }

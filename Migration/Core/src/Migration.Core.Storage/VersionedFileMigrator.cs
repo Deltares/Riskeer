@@ -39,10 +39,17 @@ namespace Migration.Core.Storage
         private readonly IComparer versionedFileComparer;
 
         /// <summary>
-        /// Creates a new instance of the <see cref="IVersionedFile"/> class.
+        /// Creates a new instance of the <see cref="VersionedFileMigrator"/> class.
         /// </summary>
+        /// <param name="comparer">The comparer to use to compare versions.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="comparer"/> is 
+        /// <c>null</c>.</exception>
         protected VersionedFileMigrator(IComparer comparer)
         {
+            if (comparer == null)
+            {
+                throw new ArgumentNullException(nameof(comparer));
+            }
             fileMigrationScripts = GetAvailableMigrations()
                 .OrderBy(ms => ms.SupportedVersion())
                 .ThenByDescending(ms => ms.TargetVersion());
