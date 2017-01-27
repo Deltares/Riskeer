@@ -28,6 +28,7 @@ using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
+using Core.Common.Utils.Reflection;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -196,6 +197,23 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
                 0.000123.ToString(CultureInfo.CurrentCulture)
             };
             DataGridViewTestHelper.AssertExpectedRowFormattedValues(expectedRow1Values, rows[1]);
+        }
+
+        [Test]
+        public void DuneLocationsView_AssessmentSection_CorrectlyAttachedAndDetached()
+        {
+            // Setup
+            DuneLocationsView view = ShowFullyConfiguredDuneLocationsView();
+            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
+            assessmentSection.Expect(a => a.Attach(null)).IgnoreArguments();
+            assessmentSection.Expect(a => a.Detach(null)).IgnoreArguments();
+            mocks.ReplayAll();
+
+            // Call
+            view.AssessmentSection = assessmentSection;
+
+            // Assert
+            // Assertions based on mock expectancies
         }
 
         [Test]
@@ -404,6 +422,37 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
 
             // Assert
             Assert.DoesNotThrow(test);
+        }
+
+        [Test]
+        [TestCase(false, false, "De bijdrage van dit toetsspoor is nul.", TestName = "CalculateButton_RowSelectionContributionSet_SyncedAccordingly(false, false, message)")]
+        [TestCase(true, false, "De bijdrage van dit toetsspoor is nul.", TestName = "CalculateButton_RowSelectionContributionSet_SyncedAccordingly(true, false, message)")]
+        [TestCase(false, true, "Er zijn geen berekeningen geselecteerd.", TestName = "CalculateButton_RowSelectionContributionSet_SyncedAccordingly(false, true, message)")]
+        [TestCase(true, true, "", TestName = "CalculateButton_RowSelectionContributionSet_SyncedAccordingly(true, true, message)")]
+        public void CalculateForSelectedButton_SpecificCombinationOfRowSelectionAndFailureMechanismContributionSet_ButtonAndErrorMessageSyncedAccordingly(bool rowSelected, bool contributionNotZero, string expectedErrorMessage)
+        {
+            // Setup & Call
+            DuneLocationsView view = ShowFullyConfiguredDuneLocationsView();
+
+            if (rowSelected)
+            {
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+                var rows = dataGridView.Rows;
+                rows[0].Cells[locationCalculateColumnIndex].Value = true;
+            }
+
+            var failureMechanism = new DuneErosionFailureMechanism();
+            if (contributionNotZero)
+            {
+                failureMechanism.Contribution = 5;
+            }
+            view.FailureMechanism = failureMechanism;
+
+            // Assert
+            var button = (Button) view.Controls.Find("CalculateForSelectedButton", true)[0];
+            Assert.AreEqual(rowSelected && contributionNotZero, button.Enabled);
+            var errorProvider = TypeUtils.GetField<ErrorProvider>(view, "CalculateForSelectedButtonErrorProvider");
+            Assert.AreEqual(expectedErrorMessage, errorProvider.GetError(button));
         }
 
         private DuneLocationsView ShowFullyConfiguredDuneLocationsView()
