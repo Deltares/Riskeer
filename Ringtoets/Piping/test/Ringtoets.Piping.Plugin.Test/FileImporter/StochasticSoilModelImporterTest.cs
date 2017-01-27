@@ -104,7 +104,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                                          messages =>
                                          {
                                              string[] messageArray = messages.ToArray();
-                                             var message = string.Format(Resources.PipingSoilProfilesImporter_CriticalErrorMessage_0_File_Skipped, string.Empty);
+                                             var message = $"{string.Empty} \r\nHet bestand wordt overgeslagen.";
                                              StringAssert.EndsWith(message, messageArray[0]);
                                          });
             Assert.AreEqual(1, progress);
@@ -135,7 +135,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                                          messages =>
                                          {
                                              string[] messageArray = messages.ToArray();
-                                             var message = string.Format(Resources.PipingSoilProfilesImporter_CriticalErrorMessage_0_File_Skipped, string.Empty);
+                                             var message = $"{string.Empty} \r\nHet bestand wordt overgeslagen.";
                                              StringAssert.EndsWith(message, messageArray[0]);
                                          });
             Assert.AreEqual(1, progress);
@@ -566,6 +566,32 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             TestHelper.AssertLogMessageIsGenerated(call, expectedLogMessage, 1);
 
             AssertSuccessfulImport(0, validFilePath, importResult, failureMechanism.StochasticSoilModels);
+        }
+
+        [Test]
+        public void Import_ModelWithTwoStochasticSoilProfileForSameProfile_ProbabilitiesAddedAndLog()
+        {
+            // Setup
+            string pathToFile = Path.Combine(testDataPath, "multipleStochasticSoilProfileForSameProfile.soil");
+
+            var failureMechanism = new PipingFailureMechanism();
+            var importer = new StochasticSoilModelImporter(failureMechanism.StochasticSoilModels, pathToFile, new StochasticSoilModelReplaceData());
+            importer.SetProgressChanged(IncrementProgress);
+
+            var importResult = false;
+
+            // Call
+            Action importAction = () => importResult = importer.Import();
+
+            // Assert
+            TestHelper.AssertLogMessageIsGenerated(importAction, "Ondergrondschematisatie 'Profile' is meerdere keren gevonden in ondergrondmodel 'StochasticSoilModelName'. Kansen van voorkomen worden opgeteld.", 1);
+            Assert.IsTrue(importResult);
+            StochasticSoilModelCollection importedModels = failureMechanism.StochasticSoilModels;
+            Assert.AreEqual(pathToFile, importedModels.SourcePath);
+            Assert.AreEqual(1, importedModels.Count);
+            var firstModel = importedModels.First();
+            Assert.AreEqual(1, firstModel.StochasticSoilProfiles.Count);
+            Assert.AreEqual(1.0, firstModel.StochasticSoilProfiles[0].Probability);
         }
 
         [Test]

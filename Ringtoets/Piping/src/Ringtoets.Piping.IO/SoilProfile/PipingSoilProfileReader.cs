@@ -320,7 +320,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
                 "sp1d.SP1D_ID AS {20} " +
                 "FROM Mechanism AS m " +
                 "JOIN Segment AS segment USING(ME_ID) " +
-                "JOIN StochasticSoilProfile ssp USING(SSM_ID) " +
+                "JOIN (SELECT SSM_ID, SP1D_ID, SP2D_ID FROM StochasticSoilProfile GROUP BY SSM_ID, SP1D_ID, SP2D_ID) ssp USING(SSM_ID) " +
                 "JOIN SoilProfile1D sp1d USING (SP1D_ID) " +
                 "JOIN (" +
                 subQueryGetNumberOfLayerProfile1D +
@@ -381,7 +381,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
                 "sp2d.SP2D_ID as {20} " +
                 "FROM Mechanism AS m " +
                 "JOIN Segment AS segment USING(ME_ID) " +
-                "JOIN StochasticSoilProfile ssp USING(SSM_ID) " +
+                "JOIN (SELECT SSM_ID, SP1D_ID, SP2D_ID FROM StochasticSoilProfile GROUP BY SSM_ID, SP1D_ID, SP2D_ID) ssp USING(SSM_ID) " +
                 "JOIN SoilProfile2D sp2d USING (SP2D_ID) " +
                 "JOIN (" +
                 subQueryGetNumberOfLayerProfile2D +

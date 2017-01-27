@@ -134,21 +134,21 @@ Het bestand wordt overgeslagen.</value>
     <value>{0} 
 Deze profielschematisatie wordt overgeslagen.</value>
   </data>
-  <data name="PipingSoilProfilesImporter_Import_Import_canceled" xml:space="preserve">
+  <data name="StochasticSoilModelImporter_Import_Import_canceled" xml:space="preserve">
     <value>Stochastische ondergrondmodellen importeren afgebroken. Geen data ingelezen.</value>
   </data>
-  <data name="PipingSoilProfilesImporter_Reading_database" xml:space="preserve">
+  <data name="StochasticSoilModelImporter_Reading_database" xml:space="preserve">
     <value>Inlezen van de D-Soil Model database.</value>
   </data>
-  <data name="PipingSoilProfilesImporter_CriticalErrorMessage_0_File_Skipped" xml:space="preserve">
+  <data name="StochasticSoilModelImporter_CriticalErrorMessage_0_File_Skipped" xml:space="preserve">
     <value>{0} 
 Het bestand wordt overgeslagen.</value>
   </data>
-  <data name="PipingSoilProfilesImporter_ReadSoilProfiles_ParseErrorMessage_0_SoilProfile_skipped" xml:space="preserve">
+  <data name="StochasticSoilModelImporter_ReadSoilProfiles_ParseErrorMessage_0_SoilProfile_skipped" xml:space="preserve">
     <value>{0} 
 Deze ondergrondschematisatie wordt overgeslagen.</value>
   </data>
-  <data name="PipingSoilProfilesImporter_ReadingSoilProfiles" xml:space="preserve">
+  <data name="StochasticSoilModelImporter_ReadingSoilProfiles" xml:space="preserve">
     <value>Inlezen van de ondergrondschematisatie uit de D-Soil Model database.</value>
   </data>
   <data name="PipingSurfaceLinesCsvImporter_SurfaceLine_0_has_multiple_duplicate_geometry_points_and_is_ignored" xml:space="preserve">
@@ -197,25 +197,25 @@ Deze locatie met karakteristieke punten wordt overgeslagen.</value>
   <data name="PipingSurfaceLinesCsvImporter_Reading_surface_line_file" xml:space="preserve">
     <value>Inlezen van het profielschematisatiesbestand.</value>
   </data>
-  <data name="PipingSoilProfilesImporter_AddImportedDataToModel_Stochastisch_soil_model_0_already_exists" xml:space="preserve">
+  <data name="StochasticSoilModelImporter_AddImportedDataToModel_Stochastisch_soil_model_0_already_exists" xml:space="preserve">
     <value>Het stochastische ondergrondmodel '{0}' bestaat al in het toetsspoor.</value>
   </data>
-  <data name="PipingSoilProfilesImporter_CheckIfAllProfilesAreUsed_SoilProfile_0_is_not_used_in_any_stochastic_soil_model" xml:space="preserve">
+  <data name="StochasticSoilModelImporter_CheckIfAllProfilesAreUsed_SoilProfile_0_is_not_used_in_any_stochastic_soil_model" xml:space="preserve">
     <value>De uitgelezen ondergrondschematisatie '{0}' wordt niet gebruikt in een van de stochastische ondergrondmodellen.</value>
   </data>
-  <data name="PipingSoilProfilesImporter_ValidateStochasticSoilModel_No_profiles_found_in_stochastic_soil_model_0" xml:space="preserve">
+  <data name="StochasticSoilModelImporter_ValidateStochasticSoilModel_No_profiles_found_in_stochastic_soil_model_0" xml:space="preserve">
     <value>Er zijn geen ondergrondschematisaties gevonden in het stochastische ondergrondmodel '{0}'. Dit model wordt overgeslagen.</value>
   </data>
-  <data name="PipingSoilProfilesImporter_GetStochasticSoilModelReadResult_Reading_stochastic_soil_models_from_database" xml:space="preserve">
+  <data name="StochasticSoilModelImporter_GetStochasticSoilModelReadResult_Reading_stochastic_soil_models_from_database" xml:space="preserve">
     <value>Inlezen van de stochastische ondergrondmodellen.</value>
   </data>
-  <data name="PipingSoilProfilesImporter_ValidateStochasticSoilModel_Sum_of_probabilities_of_stochastic_soil_model_0_is_not_correct" xml:space="preserve">
+  <data name="StochasticSoilModelImporter_ValidateStochasticSoilModel_Sum_of_probabilities_of_stochastic_soil_model_0_is_not_correct" xml:space="preserve">
     <value>De som van de kansen van voorkomen in het stochastich ondergrondmodel '{0}' is niet gelijk aan 100%.</value>
   </data>
-  <data name="PipingSoilProfilesImporter_GetStochasticSoilModelReadResult_Error_0_stochastic_soil_model_skipped" xml:space="preserve">
+  <data name="StochasticSoilModelImporter_GetStochasticSoilModelReadResult_Error_0_stochastic_soil_model_skipped" xml:space="preserve">
     <value>{0} Dit stochastische ondergrondmodel wordt overgeslagen.</value>
   </data>
-  <data name="PipingSoilProfilesImporter_CheckIfAllProfilesAreUsed_Start_checking_soil_profiles" xml:space="preserve">
+  <data name="StochasticSoilModelImporter_CheckIfAllProfilesAreUsed_Start_checking_soil_profiles" xml:space="preserve">
     <value>Controleren van ondergrondschematisaties.</value>
   </data>
   <data name="PipingSurfaceLinesCsvImporter_ReadSurfaceLines_Start_reading_surface_lines_from_File_0_" xml:space="preserve">
@@ -227,7 +227,7 @@ Deze locatie met karakteristieke punten wordt overgeslagen.</value>
   <data name="PipingSurfaceLinesCsvImporter_ReadCharacteristicPoints_Finished_reading_characteristic_points_from_File_0_" xml:space="preserve">
     <value>Klaar met het inlezen van karakteristieke punten uit bestand '{0}'.</value>
   </data>
-  <data name="PipingSoilProfilesImporter_ValidateStochasticSoilModel_SoilModel_0_with_stochastic_soil_profile_without_profile" xml:space="preserve">
+  <data name="StochasticSoilModelImporter_ValidateStochasticSoilModel_SoilModel_0_with_stochastic_soil_profile_without_profile" xml:space="preserve">
     <value>Het stochastische ondergrondmodel '{0}' heeft een ongespecificeerde ondergrondschematisatie. Dit model wordt overgeslagen.</value>
   </data>
   <data name="PipingSurfaceLinesCsvImporter_CheckCharacteristicPoints_EntryPointL_greater_or_equal_to_ExitPointL_for_0_" xml:space="preserve">
@@ -251,5 +251,8 @@ Deze locatie met karakteristieke punten wordt overgeslagen.</value>
   </data>
   <data name="PipingPlugin_UpdateStochasticSoilModelsFileDialog_Title" xml:space="preserve">
     <value>Selecteer de nieuwe locatie van het geïmporteerde bestand</value>
+  </data>
+  <data name="StochasticSoilModelImporter_MergeStochasticSoilProfiles_Multiple_SoilProfile_0_used_in_StochasticSoilModel_1_Probabilities_added." xml:space="preserve">
+    <value>Ondergrondschematisatie '{0}' is meerdere keren gevonden in ondergrondmodel '{1}'. Kansen van voorkomen worden opgeteld.</value>
   </data>
 </root>

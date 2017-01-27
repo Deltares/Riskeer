@@ -63,6 +63,17 @@ namespace Ringtoets.Piping.Data
         public PipingSoilProfile SoilProfile { get; set; }
 
         /// <summary>
+        /// Updates the probability of the <see cref="StochasticSoilProfile"/> 
+        /// by adding <paramref name="probability"/>.
+        /// </summary>
+        /// <param name="probability">The amount to increase the <see cref="Probability"/>
+        /// with.</param>
+        public void AddProbability(double probability)
+        {
+            Probability += probability;
+        }
+
+        /// <summary>
         /// Updates the <see cref="StochasticSoilProfile"/> with the properties
         /// from <paramref name="fromProfile"/>.
         /// </summary>

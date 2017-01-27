@@ -45,6 +45,26 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
+        [TestCase(0)]
+        [TestCase(2.3)]
+        [TestCase(0.55)]
+        [TestCase(double.NaN)]
+        [TestCase(double.MaxValue)]
+        [TestCase(double.MinValue)]
+        public void AddProbability_DifferentValues_ProbabilityIncreasedAsExpected(double probabilityToAdd)
+        {
+            // Setup
+            var startProbability = new Random(21).NextDouble();
+            var profile = new StochasticSoilProfile(startProbability, SoilProfileType.SoilProfile1D, -1);
+            
+            // Call
+            profile.AddProbability(probabilityToAdd);
+
+            // Assert
+            Assert.AreEqual(startProbability + probabilityToAdd, profile.Probability);
+        }
+
+        [Test]
         public void Update_WithNullProfile_ThrowsArgumentNullException()
         {
             // Setup

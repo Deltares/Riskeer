@@ -198,7 +198,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
         private StochasticSoilProfile ReadStochasticSoilProfileProbability()
         {
             var valueProbability = dataReader[StochasticSoilProfileDatabaseColumns.Probability];
-            var probability = (valueProbability.Equals(DBNull.Value)) ? 0 : Convert.ToDouble(valueProbability);
+            var probability = valueProbability.Equals(DBNull.Value) ? 0 : Convert.ToDouble(valueProbability);
 
             var soilProfile1DId = ReadSoilProfile1DId(probability);
             if (soilProfile1DId != null)

@@ -53,7 +53,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
                 var stochasticSoilModel = targetCollection.FirstOrDefault(ssm => ssm.Id == readStochasticSoilModel.Id);
                 if (stochasticSoilModel != null)
                 {
-                    log.WarnFormat(Properties.Resources.PipingSoilProfilesImporter_AddImportedDataToModel_Stochastisch_soil_model_0_already_exists, stochasticSoilModel.Name);
+                    log.WarnFormat(Properties.Resources.StochasticSoilModelImporter_AddImportedDataToModel_Stochastisch_soil_model_0_already_exists, stochasticSoilModel.Name);
                 }
                 modelsToAdd.Add(readStochasticSoilModel);
             }
