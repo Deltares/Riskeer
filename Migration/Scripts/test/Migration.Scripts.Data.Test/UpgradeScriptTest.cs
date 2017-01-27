@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Migration.Scripts.Data.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 

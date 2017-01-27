@@ -19,18 +19,35 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Migration.Scripts.Data.Test
+using System;
+using NUnit.Framework;
+
+namespace Migration.Scripts.Data.TestUtil.Test
 {
-    public class TestVersionedFile : IVersionedFile
+    [TestFixture]
+    public class TestCreateScriptTest
     {
-        public TestVersionedFile(string location)
+        [Test]
+        [TestCase("")]
+        [TestCase(null)]
+        public void Constructor_VersionEmptyOrNull_ThrowsException(string version)
         {
-            Location = location;
+            // Call
+            TestDelegate call = () => new TestCreateScript(version, "query");
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentException>(call).ParamName;
+            Assert.AreEqual("version", paramName);
         }
-        public string Location { get; }
-        public string GetVersion()
+
+        [Test]
+        public void Constructor_ValidParameters_ExpectedProperties()
         {
-            return string.Empty;
+            // Call
+            var createScript = new TestCreateScript("version", "query");
+
+            // Assert
+            Assert.IsInstanceOf<CreateScript>(createScript);
         }
     }
 }

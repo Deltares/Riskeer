@@ -19,12 +19,18 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Migration.Scripts.Data.Test
+namespace Migration.Scripts.Data.TestUtil
 {
-    public class TestUpgradeScript : UpgradeScript
+    /// <summary>
+    /// Test class for <see cref="IVersionedFile"/>.
+    /// </summary>
+    public class TestVersionedFile : IVersionedFile
     {
-        public TestUpgradeScript(string fromVersion, string toVersion) 
-            : base(fromVersion, toVersion) {}
-        protected override void PerformUpgrade(IVersionedFile source, IVersionedFile target) {}
+        public string Location { get; set; }
+
+        public string GetVersion()
+        {
+            return string.Empty;
+        }
     }
 }

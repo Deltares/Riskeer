@@ -22,6 +22,7 @@
 using System;
 using System.IO;
 using Core.Common.TestUtil;
+using Migration.Scripts.Data.TestUtil;
 using NUnit.Framework;
 
 namespace Migration.Scripts.Data.Test

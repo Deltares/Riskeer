@@ -19,18 +19,28 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.IO;
+using System;
 
-namespace Migration.Scripts.Data.Test
+namespace Migration.Scripts.Data.TestUtil
 {
-    public class TestCreateScript : CreateScript
+    /// <summary>
+    /// Test class for <see cref="UpgradeScript"/>.
+    /// </summary>
+    public class TestUpgradeScript : UpgradeScript
     {
-        public TestCreateScript(string version, string query) : base(version, query) {}
+        /// <summary>
+        /// Creates a new instance of <see cref="TestUpgradeScript"/>.
+        /// </summary>
+        /// <param name="fromVersion">The source version.</param>
+        /// <param name="toVersion">The target version.</param>
+        /// <exception cref="ArgumentException">Thrown when:
+        /// <list type="bullet">
+        /// <item><paramref name="fromVersion"/> is empty or <c>null</c>,</item>
+        /// <item><paramref name="toVersion"/> is empty or <c>null</c>,</item>
+        /// </list></exception>
+        public TestUpgradeScript(string fromVersion, string toVersion) 
+            : base(fromVersion, toVersion) {}
 
-        protected override IVersionedFile GetEmptyVersionedFile(string location)
-        {
-            using (File.Create(location)) {}
-            return new TestVersionedFile(location);
-        }
+        protected override void PerformUpgrade(IVersionedFile source, IVersionedFile target) {}
     }
 }
