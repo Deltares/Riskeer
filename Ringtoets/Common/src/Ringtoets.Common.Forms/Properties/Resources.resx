@@ -908,4 +908,7 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="CalculatableViews_No_calculations_selected" xml:space="preserve">
     <value>Er zijn geen berekeningen geselecteerd.</value>
   </data>
+  <data name="warning" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\warning.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

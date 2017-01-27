@@ -282,6 +282,7 @@
     <None Include="Resources\table_delete.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\warning.ico" />
     <None Include="Resources\cards.png" />
     <None Include="Resources\application_form.png" />
     <None Include="Resources\DikeProfile.png" />

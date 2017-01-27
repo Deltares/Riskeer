@@ -156,6 +156,7 @@ namespace Ringtoets.Common.Forms.Views
             {
                 CalculateForSelectedButton.Enabled = false;
                 CalculateForSelectedButtonErrorProvider.SetError(CalculateForSelectedButton, validationText);
+                CalculateForSelectedButtonErrorProvider.SetIconPadding(CalculateForSelectedButton, 2);
             }
             else
             {
