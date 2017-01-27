@@ -74,23 +74,6 @@ namespace Ringtoets.Common.Forms.Test.ChangeHandlers
         }
 
         [Test]
-        public void SetPropertyValueAfterConfirmation_ValueNull_ThrowArgumentNullException()
-        {
-            // Setup
-            var changeHandler = new CalculationInputPropertyChangeHandler<ICalculationInput, ICalculation>();
-
-            // Call
-            TestDelegate test = () => changeHandler.SetPropertyValueAfterConfirmation<double?>(new TestCalculationInput(),
-                                                                                               new TestCalculation(),
-                                                                                               null,
-                                                                                               (input, value) => { });
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("value", exception.ParamName);
-        }
-
-        [Test]
         public void SetPropertyValueAfterConfirmation_SetValueNull_ThrowArgumentNullException()
         {
             // Setup

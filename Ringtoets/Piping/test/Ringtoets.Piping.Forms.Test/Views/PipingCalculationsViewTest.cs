@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Threading;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.Data;
@@ -36,7 +37,9 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Forms.ChangeHandlers;
 using Ringtoets.Common.Forms.PropertyClasses;
+using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.Forms.PresentationObjects;
@@ -79,8 +82,13 @@ namespace Ringtoets.Piping.Forms.Test.Views
         [Test]
         public void Constructor_DefaultValues()
         {
+            // Setup
+            var mocks = new MockRepository();
+            var handler = mocks.Stub<ICalculationInputPropertyChangeHandler<PipingInput, PipingCalculationScenario>>();
+            mocks.ReplayAll();
+
             // Call
-            using (var pipingCalculationsView = new PipingCalculationsView())
+            using (var pipingCalculationsView = new PipingCalculationsView(handler))
             {
                 // Assert
                 Assert.IsInstanceOf<UserControl>(pipingCalculationsView);
@@ -89,13 +97,19 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 Assert.IsNull(pipingCalculationsView.PipingFailureMechanism);
                 Assert.IsNull(pipingCalculationsView.AssessmentSection);
             }
+            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_DataGridViewCorrectlyInitialized()
         {
-            // Setup & Call
-            using (ShowPipingCalculationsView())
+            // Setup
+            var mocks = new MockRepository();
+            var handler = mocks.Stub<ICalculationInputPropertyChangeHandler<PipingInput, PipingCalculationScenario>>();
+            mocks.ReplayAll();
+
+            // Call
+            using (ShowPipingCalculationsView(handler))
             {
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
@@ -117,19 +131,26 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 var hydraulicBoundaryLocationComboboxItems = hydraulicBoundaryLocationCombobox.Items;
                 Assert.AreEqual(0, hydraulicBoundaryLocationComboboxItems.Count); // Row dependent
             }
+            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_ListBoxCorrectlyInitialized()
         {
-            // Setup & Call
-            using (ShowPipingCalculationsView())
+            // Setup
+            var mocks = new MockRepository();
+            var handler = mocks.Stub<ICalculationInputPropertyChangeHandler<PipingInput, PipingCalculationScenario>>();
+            mocks.ReplayAll();
+
+            // Call
+            using (ShowPipingCalculationsView(handler))
             {
                 var listBox = (ListBox) new ControlTester("listBox").TheObject;
 
                 // Assert
                 Assert.AreEqual(0, listBox.Items.Count);
             }
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -184,7 +205,11 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void Data_SetToNull_DoesNotThrow()
         {
             // Setup
-            using (PipingCalculationsView pipingCalculationsView = ShowPipingCalculationsView())
+            var mocks = new MockRepository();
+            var handler = mocks.Stub<ICalculationInputPropertyChangeHandler<PipingInput, PipingCalculationScenario>>();
+            mocks.ReplayAll();
+
+            using (PipingCalculationsView pipingCalculationsView = ShowPipingCalculationsView(handler))
             {
                 // Call
                 var testDelegate = new TestDelegate(() => pipingCalculationsView.Data = null);
@@ -192,6 +217,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 // Assert
                 Assert.DoesNotThrow(testDelegate);
             }
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -200,11 +226,12 @@ namespace Ringtoets.Piping.Forms.Test.Views
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            using (PipingCalculationsView pipingCalculationsView = ShowSimplePipingCalculationsViewWithoutSurfaceLines(
-                assessmentSection, mocks.StrictMock<HydraulicBoundaryDatabase>()))
-            {
-                mocks.ReplayAll();
+            var handler = mocks.Stub<ICalculationInputPropertyChangeHandler<PipingInput, PipingCalculationScenario>>();
+            mocks.ReplayAll();
 
+            using (PipingCalculationsView pipingCalculationsView = ShowSimplePipingCalculationsViewWithoutSurfaceLines(
+                assessmentSection, new HydraulicBoundaryDatabase(), handler))
+            {
                 // Call
                 pipingCalculationsView.AssessmentSection = assessmentSection;
 
@@ -226,11 +253,12 @@ namespace Ringtoets.Piping.Forms.Test.Views
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            using (PipingCalculationsView pipingCalculationsView = ShowSimplePipingCalculationsViewWithSurfaceLines(
-                assessmentSection))
-            {
-                mocks.ReplayAll();
+            var handler = mocks.Stub<ICalculationInputPropertyChangeHandler<PipingInput, PipingCalculationScenario>>();
+            mocks.ReplayAll();
 
+            using (PipingCalculationsView pipingCalculationsView = ShowSimplePipingCalculationsViewWithSurfaceLines(
+                assessmentSection, handler))
+            {
                 // Call
                 pipingCalculationsView.AssessmentSection = assessmentSection;
 
@@ -250,13 +278,12 @@ namespace Ringtoets.Piping.Forms.Test.Views
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var hydraulicBoundaryDatabase = mocks.StrictMock<HydraulicBoundaryDatabase>();
+            var handler = mocks.Stub<ICalculationInputPropertyChangeHandler<PipingInput, PipingCalculationScenario>>();
+            mocks.ReplayAll();
 
             using (PipingCalculationsView pipingCalculationsView = ShowFullyConfiguredPipingCalculationsView(
-                assessmentSection, hydraulicBoundaryDatabase))
+                assessmentSection, handler))
             {
-                mocks.ReplayAll();
-
                 // Call
                 pipingCalculationsView.AssessmentSection = assessmentSection;
 
@@ -280,6 +307,10 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void PipingFailureMechanism_PipingFailureMechanismWithSections_SectionsListBoxCorrectlyInitialized()
         {
             // Setup
+            var mocks = new MockRepository();
+            var handler = mocks.Stub<ICalculationInputPropertyChangeHandler<PipingInput, PipingCalculationScenario>>();
+            mocks.ReplayAll();
+
             var pipingFailureMechanism = new PipingFailureMechanism();
             var failureMechanismSection1 = new FailureMechanismSection("Section 1", new List<Point2D>
             {
@@ -301,7 +332,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             pipingFailureMechanism.AddSection(failureMechanismSection2);
             pipingFailureMechanism.AddSection(failureMechanismSection3);
 
-            using (PipingCalculationsView pipingCalculationsView = ShowPipingCalculationsView())
+            using (PipingCalculationsView pipingCalculationsView = ShowPipingCalculationsView(handler))
             {
                 // Call
                 pipingCalculationsView.PipingFailureMechanism = pipingFailureMechanism;
@@ -313,6 +344,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 Assert.AreSame(failureMechanismSection2, listBox.Items[1]);
                 Assert.AreSame(failureMechanismSection3, listBox.Items[2]);
             }
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -321,11 +353,11 @@ namespace Ringtoets.Piping.Forms.Test.Views
             // Setup & Call
             MockRepository mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var hydraulicBoundaryDatabase = mocks.StrictMock<HydraulicBoundaryDatabase>();
-            using (ShowFullyConfiguredPipingCalculationsView(assessmentSection, hydraulicBoundaryDatabase))
-            {
-                mocks.ReplayAll();
+            var handler = mocks.Stub<ICalculationInputPropertyChangeHandler<PipingInput, PipingCalculationScenario>>();
+            mocks.ReplayAll();
 
+            using (ShowFullyConfiguredPipingCalculationsView(assessmentSection, handler))
+            {
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
                 // Assert
@@ -348,11 +380,11 @@ namespace Ringtoets.Piping.Forms.Test.Views
             // Setup & Call
             MockRepository mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var hydraulicBoundaryDatabase = mocks.StrictMock<HydraulicBoundaryDatabase>();
-            using (ShowFullyConfiguredPipingCalculationsView(assessmentSection, hydraulicBoundaryDatabase))
-            {
-                mocks.ReplayAll();
+            var handler = mocks.Stub<ICalculationInputPropertyChangeHandler<PipingInput, PipingCalculationScenario>>();
+            mocks.ReplayAll();
 
+            using (ShowFullyConfiguredPipingCalculationsView(assessmentSection, handler))
+            {
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
                 // Assert
@@ -375,11 +407,11 @@ namespace Ringtoets.Piping.Forms.Test.Views
             // Setup & Call
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var hydraulicBoundaryDatabase = mocks.StrictMock<HydraulicBoundaryDatabase>();
-            using (ShowFullyConfiguredPipingCalculationsView(assessmentSection, hydraulicBoundaryDatabase))
-            {
-                mocks.ReplayAll();
+            var handler = mocks.Stub<ICalculationInputPropertyChangeHandler<PipingInput, PipingCalculationScenario>>();
+            mocks.ReplayAll();
 
+            using (ShowFullyConfiguredPipingCalculationsView(assessmentSection, handler))
+            {
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
                 // Assert
@@ -419,23 +451,24 @@ namespace Ringtoets.Piping.Forms.Test.Views
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var hydraulicBoundaryDatabase = mocks.StrictMock<HydraulicBoundaryDatabase>();
-
-            PipingCalculationsView pipingCalculationsView = ShowFullyConfiguredPipingCalculationsView(
-                assessmentSection, hydraulicBoundaryDatabase);
+            var handler = mocks.Stub<ICalculationInputPropertyChangeHandler<PipingInput, PipingCalculationScenario>>();
             mocks.ReplayAll();
 
+            PipingCalculationsView pipingCalculationsView = ShowFullyConfiguredPipingCalculationsView(
+                assessmentSection, handler);
+            
             var selectionChangedCount = 0;
             pipingCalculationsView.SelectionChanged += (sender, args) => selectionChangedCount++;
 
-            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+            var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+            dataGridView.CurrentCell = dataGridView.Rows[0].Cells[0];
 
-            // Call
-            dataGridView.CurrentCell = dataGridView.Rows[1].Cells[0];
+            // Call                
             EventHelper.RaiseEvent(dataGridView, "CellClick", new DataGridViewCellEventArgs(1, 0));
 
             // Assert
             Assert.AreEqual(1, selectionChangedCount);
+
             mocks.VerifyAll();
         }
 
@@ -445,13 +478,12 @@ namespace Ringtoets.Piping.Forms.Test.Views
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var hydraulicBoundaryDatabase = mocks.StrictMock<HydraulicBoundaryDatabase>();
+            var handler = mocks.Stub<ICalculationInputPropertyChangeHandler<PipingInput, PipingCalculationScenario>>();
+            mocks.ReplayAll();
 
             using (PipingCalculationsView pipingCalculationsView = ShowFullyConfiguredPipingCalculationsView(
-                assessmentSection, hydraulicBoundaryDatabase))
+                assessmentSection, handler))
             {
-                mocks.ReplayAll();
-
                 var selectionChangedCount = 0;
                 pipingCalculationsView.SelectionChanged += (sender, args) => selectionChangedCount++;
 
@@ -488,11 +520,11 @@ namespace Ringtoets.Piping.Forms.Test.Views
             // Setup
             MockRepository mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var hydraulicBoundaryDatabase = mocks.StrictMock<HydraulicBoundaryDatabase>();
-            using (ShowFullyConfiguredPipingCalculationsView(assessmentSection, hydraulicBoundaryDatabase))
-            {
-                mocks.ReplayAll();
+            var handler = mocks.Stub<ICalculationInputPropertyChangeHandler<PipingInput, PipingCalculationScenario>>();
+            mocks.ReplayAll();
 
+            using (ShowFullyConfiguredPipingCalculationsView(assessmentSection, handler))
+            {
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
                 // Call
@@ -524,15 +556,30 @@ namespace Ringtoets.Piping.Forms.Test.Views
             // Setup
             MockRepository mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var hydraulicBoundaryDatabase = mocks.StrictMock<HydraulicBoundaryDatabase>();
-            using (ShowFullyConfiguredPipingCalculationsView(assessmentSection, hydraulicBoundaryDatabase))
+            mocks.ReplayAll();
+
+            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            var failureMechanism = ConfigureFailuremechanism();
+            var calculationGroup = ConfigureCalculationGroup(assessmentSection, failureMechanism);
+
+            PipingCalculationScenario calculation = (PipingCalculationScenario) calculationGroup.Children.First();
+
+            RoundedDouble newRoundedvalue = (RoundedDouble) newValue;
+
+            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<PipingInput, PipingCalculationScenario, RoundedDouble>(
+                calculation.InputParameters,
+                calculation,
+                newRoundedvalue,
+                new IObservable[0]);
+
+            using (ShowFullyConfiguredPipingCalculationsView(assessmentSection, failureMechanism, calculationGroup, handler))
             {
                 mocks.ReplayAll();
 
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
                 // Call
-                dataGridView.Rows[0].Cells[cellIndex].Value = (RoundedDouble) newValue;
+                dataGridView.Rows[0].Cells[cellIndex].Value = newRoundedvalue;
 
                 // Assert
                 Assert.IsEmpty(dataGridView.Rows[0].ErrorText);
@@ -544,13 +591,17 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void ButtonGenerateScenarios_WithoutSurfaceLines_ButtonDisabled()
         {
             // Setup
+            var mocks = new MockRepository();
+            var handler = mocks.Stub<ICalculationInputPropertyChangeHandler<PipingInput, PipingCalculationScenario>>();
+            mocks.ReplayAll();
+
             var pipingFailureMechanism = new PipingFailureMechanism();
             pipingFailureMechanism.StochasticSoilModels.AddRange(new[]
             {
                 new TestStochasticSoilModel()
             }, "path");
 
-            using (PipingCalculationsView pipingCalculationsView = ShowPipingCalculationsView())
+            using (PipingCalculationsView pipingCalculationsView = ShowPipingCalculationsView(handler))
             {
                 pipingCalculationsView.PipingFailureMechanism = pipingFailureMechanism;
                 var button = (Button) pipingCalculationsView.Controls.Find("buttonGenerateScenarios", true)[0];
@@ -561,13 +612,18 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 // Assert
                 Assert.IsFalse(state);
             }
+            mocks.VerifyAll();
         }
 
         [Test]
         public void ButtonGenerateScenarios_WithoutSoilModels_ButtonDisabled()
         {
             // Setup
-            using (PipingCalculationsView pipingCalculationsView = ShowPipingCalculationsView())
+            var mocks = new MockRepository();
+            var handler = mocks.Stub<ICalculationInputPropertyChangeHandler<PipingInput, PipingCalculationScenario>>();
+            mocks.ReplayAll();
+
+            using (PipingCalculationsView pipingCalculationsView = ShowPipingCalculationsView(handler))
             {
                 pipingCalculationsView.PipingFailureMechanism = new PipingFailureMechanism
                 {
@@ -584,12 +640,17 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 // Assert
                 Assert.IsFalse(state);
             }
+            mocks.VerifyAll();
         }
 
         [Test]
         public void ButtonGenerateScenarios_WithSurfaceLinesAndSoilModels_ButtonEnabled()
         {
             // Setup
+            var mocks = new MockRepository();
+            var handler = mocks.Stub<ICalculationInputPropertyChangeHandler<PipingInput, PipingCalculationScenario>>();
+            mocks.ReplayAll();
+
             var pipingFailureMechanism = new PipingFailureMechanism
             {
                 SurfaceLines =
@@ -602,7 +663,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 new TestStochasticSoilModel()
             }, "path");
 
-            using (PipingCalculationsView pipingCalculationsView = ShowPipingCalculationsView())
+            using (PipingCalculationsView pipingCalculationsView = ShowPipingCalculationsView(handler))
             {
                 pipingCalculationsView.PipingFailureMechanism = pipingFailureMechanism;
 
@@ -614,12 +675,17 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 // Assert
                 Assert.IsTrue(state);
             }
+            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenPipingCalculationsViewWithPipingFailureMechanism_WhenSectionsAddedAndPipingFailureMechanismNotified_ThenSectionsListBoxCorrectlyUpdated()
         {
             // Given
+            var mocks = new MockRepository();
+            var handler = mocks.Stub<ICalculationInputPropertyChangeHandler<PipingInput, PipingCalculationScenario>>();
+            mocks.ReplayAll();
+
             var pipingFailureMechanismWithSections = new PipingFailureMechanism();
             var failureMechanismSection1 = new FailureMechanismSection("Section 1", new List<Point2D>
             {
@@ -637,7 +703,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 new Point2D(15.0, 0.0)
             });
 
-            using (var pipingCalculationsView = ShowPipingCalculationsView())
+            using (var pipingCalculationsView = ShowPipingCalculationsView(handler))
             {
                 pipingCalculationsView.PipingFailureMechanism = pipingFailureMechanismWithSections;
 
@@ -659,12 +725,17 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 Assert.AreSame(failureMechanismSection2, listBox.Items[1]);
                 Assert.AreSame(failureMechanismSection3, listBox.Items[2]);
             }
+            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenPipingCalculationsView_WhenGenerateScenariosButtonClicked_ThenShowViewWithSurfaceLines()
         {
             // Given
+            var mocks = new MockRepository();
+            var handler = mocks.Stub<ICalculationInputPropertyChangeHandler<PipingInput, PipingCalculationScenario>>();
+            mocks.ReplayAll();
+
             var pipingFailureMechanism = new PipingFailureMechanism
             {
                 SurfaceLines =
@@ -678,7 +749,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 new TestStochasticSoilModel()
             }, "path");
 
-            using (PipingCalculationsView pipingCalculationsView = ShowPipingCalculationsView())
+            using (PipingCalculationsView pipingCalculationsView = ShowPipingCalculationsView(handler))
             {
                 pipingCalculationsView.PipingFailureMechanism = pipingFailureMechanism;
                 pipingCalculationsView.Data = pipingFailureMechanism.CalculationsGroup;
@@ -702,6 +773,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 Assert.NotNull(grid);
                 Assert.AreEqual(2, grid.Rows.Count);
             }
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -710,6 +782,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             // Given
             var mocks = new MockRepository();
             var observer = mocks.StrictMock<IObserver>();
+            var handler = mocks.Stub<ICalculationInputPropertyChangeHandler<PipingInput, PipingCalculationScenario>>();            
             mocks.ReplayAll();
 
             var pipingFailureMechanism = new PipingFailureMechanism
@@ -726,7 +799,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             }, "path");
             pipingFailureMechanism.CalculationsGroup.Attach(observer);
 
-            using (PipingCalculationsView pipingCalculationsView = ShowPipingCalculationsView())
+            using (PipingCalculationsView pipingCalculationsView = ShowPipingCalculationsView(handler))
             {
                 pipingCalculationsView.PipingFailureMechanism = pipingFailureMechanism;
 
@@ -749,6 +822,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var mocks = new MockRepository();
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
+            var handler = mocks.Stub<ICalculationInputPropertyChangeHandler<PipingInput, PipingCalculationScenario>>();            
             mocks.ReplayAll();
 
             var pipingFailureMechanism = new PipingFailureMechanism
@@ -765,7 +839,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             }, "path");
             pipingFailureMechanism.CalculationsGroup.Attach(observer);
 
-            using (PipingCalculationsView pipingCalculationsView = ShowPipingCalculationsView())
+            using (PipingCalculationsView pipingCalculationsView = ShowPipingCalculationsView(handler))
             {
                 pipingCalculationsView.PipingFailureMechanism = pipingFailureMechanism;
                 pipingCalculationsView.Data = pipingFailureMechanism.CalculationsGroup;
@@ -792,9 +866,13 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void GivenPipingCalculationsViewGenerateScenariosButtonClicked_WhenSurfaceLineSelectedAndDialogClosed_ThenUpdateSectionResultScenarios()
         {
             // Given
-            using (PipingCalculationsView pipingCalculationsView = ShowPipingCalculationsView())
+            var mocks = new MockRepository();
+            var handler = mocks.Stub<ICalculationInputPropertyChangeHandler<PipingInput, PipingCalculationScenario>>();
+            mocks.ReplayAll();
+
+            using (PipingCalculationsView pipingCalculationsView = ShowPipingCalculationsView(handler))
             {
-                var pipingFailureMechanism = GetFailureMechanism();
+                var pipingFailureMechanism = ConfigureSimpleFailureMechanism();
 
                 pipingCalculationsView.PipingFailureMechanism = pipingFailureMechanism;
                 pipingCalculationsView.Data = pipingFailureMechanism.CalculationsGroup;
@@ -828,15 +906,20 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
                 CollectionAssert.IsEmpty(failureMechanismSectionResult2.GetCalculationScenarios(pipingCalculationScenarios));
             }
+            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenPipingCalculationsViewGenerateScenariosCancelButtonClicked_WhenDialogClosed_CalculationsNotUpdated()
         {
             // Given
-            using (PipingCalculationsView pipingCalculationsView = ShowPipingCalculationsView())
+            var mocks = new MockRepository();
+            var handler = mocks.Stub<ICalculationInputPropertyChangeHandler<PipingInput, PipingCalculationScenario>>();
+            mocks.ReplayAll();
+
+            using (PipingCalculationsView pipingCalculationsView = ShowPipingCalculationsView(handler))
             {
-                var pipingFailureMechanism = GetFailureMechanism();
+                var pipingFailureMechanism = ConfigureSimpleFailureMechanism();
 
                 pipingCalculationsView.PipingFailureMechanism = pipingFailureMechanism;
                 pipingCalculationsView.Data = pipingFailureMechanism.CalculationsGroup;
@@ -858,13 +941,18 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 // Then
                 Assert.IsEmpty(pipingCalculationsView.PipingFailureMechanism.Calculations);
             }
+            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenFailureMechanismWithoutSurfaceLinesAndSoilModels_WhenAddSoilModelAndNotify_ThenButtonDisabled()
         {
             // Given
-            using (PipingCalculationsView pipingCalculationsView = ShowPipingCalculationsView())
+            var mocks = new MockRepository();
+            var handler = mocks.Stub<ICalculationInputPropertyChangeHandler<PipingInput, PipingCalculationScenario>>();
+            mocks.ReplayAll();
+
+            using (PipingCalculationsView pipingCalculationsView = ShowPipingCalculationsView(handler))
             {
                 var pipingFailureMechanism = new PipingFailureMechanism();
                 pipingCalculationsView.PipingFailureMechanism = pipingFailureMechanism;
@@ -880,13 +968,18 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 var button = (Button) pipingCalculationsView.Controls.Find("buttonGenerateScenarios", true)[0];
                 Assert.IsFalse(button.Enabled);
             }
+            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenFailureMechanismWithoutSurfaceLinesAndSoilModels_WhenAddSurfaceLineAndNotify_ThenButtonDisabled()
         {
             // Given
-            using (PipingCalculationsView pipingCalculationsView = ShowPipingCalculationsView())
+            var mocks = new MockRepository();
+            var handler = mocks.Stub<ICalculationInputPropertyChangeHandler<PipingInput, PipingCalculationScenario>>();
+            mocks.ReplayAll();
+
+            using (PipingCalculationsView pipingCalculationsView = ShowPipingCalculationsView(handler))
             {
                 var pipingFailureMechanism = new PipingFailureMechanism();
                 pipingCalculationsView.PipingFailureMechanism = pipingFailureMechanism;
@@ -899,13 +992,18 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 var button = (Button) pipingCalculationsView.Controls.Find("buttonGenerateScenarios", true)[0];
                 Assert.IsFalse(button.Enabled);
             }
+            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenFailureMechanismWithoutSurfaceLinesAndSoilModels_WhenAddSurfaceLineAndSoilModelAndDoNotNotifyObservers_ThenButtonDisabled()
         {
             // Given
-            using (PipingCalculationsView pipingCalculationsView = ShowPipingCalculationsView())
+            var mocks = new MockRepository();
+            var handler = mocks.Stub<ICalculationInputPropertyChangeHandler<PipingInput, PipingCalculationScenario>>();
+            mocks.ReplayAll();
+
+            using (PipingCalculationsView pipingCalculationsView = ShowPipingCalculationsView(handler))
             {
                 var pipingFailureMechanism = new PipingFailureMechanism();
                 pipingCalculationsView.PipingFailureMechanism = pipingFailureMechanism;
@@ -922,13 +1020,18 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 var button = (Button) pipingCalculationsView.Controls.Find("buttonGenerateScenarios", true)[0];
                 Assert.IsFalse(button.Enabled);
             }
+            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenFailureMechanismWithoutSurfaceLinesAndSoilModels_WhenAddSurfaceLineAndSoilModelAndNotifyObservers_ThenButtonEnabled()
         {
             // Given
-            using (PipingCalculationsView pipingCalculationsView = ShowPipingCalculationsView())
+            var mocks = new MockRepository();
+            var handler = mocks.Stub<ICalculationInputPropertyChangeHandler<PipingInput, PipingCalculationScenario>>();
+            mocks.ReplayAll();
+
+            using (PipingCalculationsView pipingCalculationsView = ShowPipingCalculationsView(handler))
             {
                 var pipingFailureMechanism = new PipingFailureMechanism();
                 pipingCalculationsView.PipingFailureMechanism = pipingFailureMechanism;
@@ -945,13 +1048,18 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 var button = (Button) pipingCalculationsView.Controls.Find("buttonGenerateScenarios", true)[0];
                 Assert.IsTrue(button.Enabled);
             }
+            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenFailureMechanismWithSurfaceLinesAndSoilModels_WhenSurfaceLinesAndSoilModelsClearedAndNotifyObservers_ThenButtonDisabled()
         {
             // Given
-            using (PipingCalculationsView pipingCalculationsView = ShowPipingCalculationsView())
+            var mocks = new MockRepository();
+            var handler = mocks.Stub<ICalculationInputPropertyChangeHandler<PipingInput, PipingCalculationScenario>>();
+            mocks.ReplayAll();
+
+            using (PipingCalculationsView pipingCalculationsView = ShowPipingCalculationsView(handler))
             {
                 var pipingFailureMechanism = new PipingFailureMechanism
                 {
@@ -975,6 +1083,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 var button = (Button) pipingCalculationsView.Controls.Find("buttonGenerateScenarios", true)[0];
                 Assert.IsFalse(button.Enabled);
             }
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -989,12 +1098,28 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var pipingCalculationObserver = mocks.StrictMock<IObserver>();
             var pipingCalculationInputObserver = mocks.StrictMock<IObserver>();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var hydraulicBoundaryDatabase = mocks.StrictMock<HydraulicBoundaryDatabase>();
-            using (PipingCalculationsView pipingCalculationView = ShowFullyConfiguredPipingCalculationsView(
-                assessmentSection, hydraulicBoundaryDatabase))
-            {
-                mocks.ReplayAll();
+            mocks.ReplayAll();
 
+            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            var failureMechanism = ConfigureFailuremechanism();
+            var calculationGroup = ConfigureCalculationGroup(assessmentSection, failureMechanism);
+            PipingCalculationScenario calculation = (PipingCalculationScenario) calculationGroup.Children.First();
+
+            RoundedDouble value = (RoundedDouble) newValue;
+
+            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<PipingInput, PipingCalculationScenario, RoundedDouble>(
+                calculation.InputParameters,
+                calculation,
+                value,
+                new Observable[]
+                {
+                    calculation.InputParameters,
+                    calculation
+                });
+
+            using (PipingCalculationsView pipingCalculationView = ShowFullyConfiguredPipingCalculationsView(
+                assessmentSection, failureMechanism, calculationGroup, handler))
+            {
                 var data = (CalculationGroup) pipingCalculationView.Data;
                 var pipingCalculation = (PipingCalculationScenario) data.Children.First();
 
@@ -1004,7 +1129,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
                 // Call
-                dataGridView.Rows[0].Cells[cellIndex].Value = (RoundedDouble) newValue;
+                dataGridView.Rows[0].Cells[cellIndex].Value = value;
 
                 // Assert
                 Assert.AreEqual("Het uittredepunt moet landwaarts van het intredepunt liggen.", dataGridView.Rows[0].ErrorText);
@@ -1024,12 +1149,28 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var pipingCalculationObserver = mocks.StrictMock<IObserver>();
             var pipingCalculationInputObserver = mocks.StrictMock<IObserver>();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var hydraulicBoundaryDatabase = mocks.StrictMock<HydraulicBoundaryDatabase>();
-            using (PipingCalculationsView pipingCalculationView = ShowFullyConfiguredPipingCalculationsView(
-                assessmentSection, hydraulicBoundaryDatabase))
-            {
-                mocks.ReplayAll();
+            mocks.ReplayAll();
 
+            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            var failureMechanism = ConfigureFailuremechanism();
+            var calculationGroup = ConfigureCalculationGroup(assessmentSection, failureMechanism);
+            PipingCalculationScenario calculation = (PipingCalculationScenario)calculationGroup.Children.First();
+
+            RoundedDouble value = (RoundedDouble)newValue;
+
+            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<PipingInput, PipingCalculationScenario, RoundedDouble>(
+                calculation.InputParameters,
+                calculation,
+                value,
+                new Observable[]
+                {
+                    calculation.InputParameters,
+                    calculation
+                });
+
+            using (PipingCalculationsView pipingCalculationView = ShowFullyConfiguredPipingCalculationsView(
+                assessmentSection, failureMechanism, calculationGroup, handler))
+            {
                 var data = (CalculationGroup) pipingCalculationView.Data;
                 var pipingCalculation = (PipingCalculationScenario) data.Children.First();
 
@@ -1056,12 +1197,12 @@ namespace Ringtoets.Piping.Forms.Test.Views
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var hydraulicBoundaryDatabase = mocks.StrictMock<HydraulicBoundaryDatabase>();
-            using (PipingCalculationsView pipingCalculationView = ShowFullyConfiguredPipingCalculationsView(
-                assessmentSection, hydraulicBoundaryDatabase))
-            {
-                mocks.ReplayAll();
+            var handler = mocks.Stub<ICalculationInputPropertyChangeHandler<PipingInput, PipingCalculationScenario>>();
+            mocks.ReplayAll();
 
+            using (PipingCalculationsView pipingCalculationView = ShowFullyConfiguredPipingCalculationsView(
+                assessmentSection, handler))
+            {
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
                 dataGridView.CurrentCell = dataGridView.Rows[selectedRow].Cells[0];
@@ -1090,12 +1231,12 @@ namespace Ringtoets.Piping.Forms.Test.Views
             pipingCalculationObserver.Expect(o => o.UpdateObserver());
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var hydraulicBoundaryDatabase = mocks.StrictMock<HydraulicBoundaryDatabase>();
-            using (PipingCalculationsView pipingCalculationView = ShowFullyConfiguredPipingCalculationsView(
-                assessmentSection, hydraulicBoundaryDatabase))
-            {
-                mocks.ReplayAll();
+            var handler = mocks.Stub<ICalculationInputPropertyChangeHandler<PipingInput, PipingCalculationScenario>>();
+            mocks.ReplayAll();
 
+            using (PipingCalculationsView pipingCalculationView = ShowFullyConfiguredPipingCalculationsView(
+                assessmentSection, handler))
+            {
                 var data = (CalculationGroup) pipingCalculationView.Data;
                 var pipingCalculation = (PipingCalculationScenario) data.Children.First();
 
@@ -1143,15 +1284,26 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             if (useCalculationWithOutput)
             {
+                DialogBoxHandler = (name, wnd) =>
+                {
+                    var tester = new MessageBoxTester(wnd);
+                    tester.ClickOk();
+                };
+
                 pipingCalculationObserver.Expect(o => o.UpdateObserver());
             }
 
             pipingCalculationInputObserver.Expect(o => o.UpdateObserver());
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var hydraulicBoundaryDatabase = mocks.StrictMock<HydraulicBoundaryDatabase>();
+            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            var failureMechanism = ConfigureFailuremechanism();
+            var calculationGroup = ConfigureCalculationGroup(assessmentSection, failureMechanism);
+
+            var handler = new CalculationInputPropertyChangeHandler<PipingInput, PipingCalculationScenario>();
+
             using (PipingCalculationsView pipingCalculationView = ShowFullyConfiguredPipingCalculationsView(
-                assessmentSection, hydraulicBoundaryDatabase))
+                assessmentSection, failureMechanism, calculationGroup, handler))
             {
                 mocks.ReplayAll();
 
@@ -1183,12 +1335,12 @@ namespace Ringtoets.Piping.Forms.Test.Views
             // Given
             MockRepository mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var hydraulicBoundaryDatabase = mocks.StrictMock<HydraulicBoundaryDatabase>();
-            using (PipingCalculationsView pipingCalculationView = ShowFullyConfiguredPipingCalculationsView(
-                assessmentSection, hydraulicBoundaryDatabase))
-            {
-                mocks.ReplayAll();
+            var handler = mocks.Stub<ICalculationInputPropertyChangeHandler<PipingInput, PipingCalculationScenario>>();
+            mocks.ReplayAll();
 
+            using (PipingCalculationsView pipingCalculationView = ShowFullyConfiguredPipingCalculationsView(
+                assessmentSection, handler))
+            {
                 var data = (CalculationGroup) pipingCalculationView.Data;
                 var pipingCalculation = (PipingCalculationScenario) data.Children.First();
 
@@ -1213,8 +1365,122 @@ namespace Ringtoets.Piping.Forms.Test.Views
             mocks.VerifyAll();
         }
 
+        private PipingCalculationsView ShowFullyConfiguredPipingCalculationsView(
+            IAssessmentSection assessmentSection,
+            ICalculationInputPropertyChangeHandler<PipingInput, PipingCalculationScenario> handler)
+        {
+            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+
+            var failureMechanism = ConfigureFailuremechanism();
+
+            return ShowFullyConfiguredPipingCalculationsView(assessmentSection,
+                                                             failureMechanism,
+                                                             ConfigureCalculationGroup(assessmentSection, failureMechanism),
+                                                             handler);
+        }
+
         private PipingCalculationsView ShowFullyConfiguredPipingCalculationsView(IAssessmentSection assessmentSection,
-                                                                                 HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
+                                                                                 PipingFailureMechanism failureMechanism,
+                                                                                 CalculationGroup calculationGroup,
+                                                                                 ICalculationInputPropertyChangeHandler<PipingInput, PipingCalculationScenario> handler)
+        {
+            var view = ShowPipingCalculationsView(handler);
+            view.Data = calculationGroup;
+            view.AssessmentSection = assessmentSection;
+            view.PipingFailureMechanism = failureMechanism;
+
+            return view;
+        }
+
+        private static void ConfigureHydraulicBoundaryDatabase(IAssessmentSection assessmentSection)
+        {
+            var hydraulicBoundaryLocation1 = new HydraulicBoundaryLocation(1, "Location 1", 1.1, 2.2);
+            var hydraulicBoundaryLocation2 = new HydraulicBoundaryLocation(2, "Location 2", 3.3, 4.4);
+
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+            hydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation1);
+            hydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation2);
+            assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
+        }
+
+        private PipingCalculationsView ShowSimplePipingCalculationsViewWithSurfaceLines(IAssessmentSection assessmentSection,
+            ICalculationInputPropertyChangeHandler<PipingInput, PipingCalculationScenario> handler)
+        {
+            var surfaceLine1 = new RingtoetsPipingSurfaceLine
+            {
+                Name = "Surface line 1",
+                ReferenceLineIntersectionWorldPoint = new Point2D(0.0, 0.0)
+            };
+
+            surfaceLine1.SetGeometry(new[]
+            {
+                new Point3D(0.0, 5.0, 0.0),
+                new Point3D(0.0, 0.0, 1.0),
+                new Point3D(0.0, -5.0, 0.0)
+            });
+
+            var surfaceLine2 = new RingtoetsPipingSurfaceLine
+            {
+                Name = "Surface line 2",
+                ReferenceLineIntersectionWorldPoint = new Point2D(5.0, 0.0)
+            };
+
+            surfaceLine2.SetGeometry(new[]
+            {
+                new Point3D(5.0, 5.0, 0.0),
+                new Point3D(5.0, 0.0, 1.0),
+                new Point3D(5.0, -5.0, 0.0)
+            });
+
+            var pipingFailureMechanism = new PipingFailureMechanism();
+            pipingFailureMechanism.SurfaceLines.Add(surfaceLine1);
+            pipingFailureMechanism.SurfaceLines.Add(surfaceLine2);
+            pipingFailureMechanism.AddSection(new FailureMechanismSection("Section 1", new List<Point2D>
+            {
+                new Point2D(0.0, 0.0),
+                new Point2D(5.0, 0.0)
+            }));
+
+            pipingFailureMechanism.AddSection(new FailureMechanismSection("Section 2", new List<Point2D>
+            {
+                new Point2D(5.0, 0.0),
+                new Point2D(10.0, 0.0)
+            }));
+
+            var pipingCalculationsView = ShowPipingCalculationsView(handler);
+
+            pipingCalculationsView.Data = new CalculationGroup("Group", true)
+            {
+                Children =
+                {
+                    new PipingCalculationScenario(new GeneralPipingInput())
+                    {
+                        Name = "Calculation 1",
+                        InputParameters =
+                        {
+                            SurfaceLine = surfaceLine1
+                        }
+                    },
+                    new PipingCalculationScenario(new GeneralPipingInput())
+                    {
+                        Name = "Calculation 2",
+                        InputParameters =
+                        {
+                            SurfaceLine = surfaceLine2
+                        }
+                    }
+                }
+            };
+
+            pipingCalculationsView.AssessmentSection = assessmentSection;
+            pipingCalculationsView.PipingFailureMechanism = pipingFailureMechanism;
+
+            return pipingCalculationsView;
+        }
+
+        private PipingCalculationsView ShowSimplePipingCalculationsViewWithoutSurfaceLines(IAssessmentSection assessmentSection,
+                                                                                           HydraulicBoundaryDatabase hydraulicBoundaryDatabase,
+                                                                                           ICalculationInputPropertyChangeHandler<PipingInput, PipingCalculationScenario> handler)
         {
             var hydraulicBoundaryLocation1 = new HydraulicBoundaryLocation(1, "Location 1", 1.1, 2.2);
             var hydraulicBoundaryLocation2 = new HydraulicBoundaryLocation(2, "Location 2", 3.3, 4.4);
@@ -1223,6 +1489,166 @@ namespace Ringtoets.Piping.Forms.Test.Views
             hydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation1);
             hydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation2);
 
+            var pipingFailureMechanism = new PipingFailureMechanism();
+            pipingFailureMechanism.AddSection(new FailureMechanismSection("Section 1", new List<Point2D>
+            {
+                new Point2D(0.0, 0.0),
+                new Point2D(5.0, 0.0)
+            }));
+
+            pipingFailureMechanism.AddSection(new FailureMechanismSection("Section 2", new List<Point2D>
+            {
+                new Point2D(5.0, 0.0),
+                new Point2D(10.0, 0.0)
+            }));
+
+            var pipingCalculationsView = ShowPipingCalculationsView(handler);
+
+            pipingCalculationsView.Data = new CalculationGroup("Group", true)
+            {
+                Children =
+                {
+                    new PipingCalculationScenario(new GeneralPipingInput())
+                    {
+                        Name = "Calculation 1",
+                        InputParameters =
+                        {
+                            HydraulicBoundaryLocation = hydraulicBoundaryLocation1
+                        }
+                    },
+                    new PipingCalculationScenario(new GeneralPipingInput())
+                    {
+                        Name = "Calculation 2",
+                        InputParameters =
+                        {
+                            HydraulicBoundaryLocation = hydraulicBoundaryLocation2
+                        }
+                    }
+                }
+            };
+
+            pipingCalculationsView.AssessmentSection = assessmentSection;
+            pipingCalculationsView.PipingFailureMechanism = pipingFailureMechanism;
+
+            return pipingCalculationsView;
+        }
+
+        private static PipingFailureMechanism ConfigureSimpleFailureMechanism()
+        {
+            var surfaceLine1 = new RingtoetsPipingSurfaceLine
+            {
+                Name = "Surface line 1",
+                ReferenceLineIntersectionWorldPoint = new Point2D(0.0, 0.0)
+            };
+
+            surfaceLine1.SetGeometry(new[]
+            {
+                new Point3D(0.0, 5.0, 0.0),
+                new Point3D(0.0, 0.0, 1.0),
+                new Point3D(0.0, -5.0, 0.0)
+            });
+
+            var surfaceLine2 = new RingtoetsPipingSurfaceLine
+            {
+                Name = "Surface line 2",
+                ReferenceLineIntersectionWorldPoint = new Point2D(5.0, 0.0)
+            };
+
+            surfaceLine2.SetGeometry(new[]
+            {
+                new Point3D(5.0, 5.0, 0.0),
+                new Point3D(5.0, 0.0, 1.0),
+                new Point3D(5.0, -5.0, 0.0)
+            });
+
+            var pipingFailureMechanism = new PipingFailureMechanism
+            {
+                SurfaceLines =
+                {
+                    surfaceLine1,
+                    surfaceLine2
+                }
+            };
+            pipingFailureMechanism.StochasticSoilModels.AddRange(new[]
+            {
+                new TestStochasticSoilModel
+                {
+                    Geometry =
+                    {
+                        new Point2D(0.0, 0.0), new Point2D(5.0, 0.0)
+                    }
+                }
+            }, "path");
+
+            pipingFailureMechanism.AddSection(new FailureMechanismSection("Section 1", new List<Point2D>
+            {
+                new Point2D(0.0, 0.0),
+                new Point2D(5.0, 0.0)
+            }));
+
+            pipingFailureMechanism.AddSection(new FailureMechanismSection("Section 2", new List<Point2D>
+            {
+                new Point2D(5.0, 0.0),
+                new Point2D(10.0, 0.0)
+            }));
+
+            return pipingFailureMechanism;
+        }
+
+        private static CalculationGroup ConfigureCalculationGroup(IAssessmentSection assessmentSection, PipingFailureMechanism failureMechanism)
+        {
+            StochasticSoilModel stochasticSoilModelForCalculation2 = failureMechanism.StochasticSoilModels.Last();
+            return new CalculationGroup("Group", true)
+            {
+                Children =
+                {
+                    new PipingCalculationScenario(new GeneralPipingInput())
+                    {
+                        Name = "Calculation 1",
+                        InputParameters =
+                        {
+                            SurfaceLine = failureMechanism.SurfaceLines.First(),
+                            StochasticSoilModel = failureMechanism.StochasticSoilModels.First(),
+                            HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(),
+                            DampingFactorExit =
+                            {
+                                Mean = (RoundedDouble) 1.1111
+                            },
+                            PhreaticLevelExit =
+                            {
+                                Mean = (RoundedDouble) 2.2222
+                            },
+                            EntryPointL = (RoundedDouble) 3.3333,
+                            ExitPointL = (RoundedDouble) 4.4444
+                        }
+                    },
+                    new PipingCalculationScenario(new GeneralPipingInput())
+                    {
+                        Name = "Calculation 2",
+                        InputParameters =
+                        {
+                            SurfaceLine = failureMechanism.SurfaceLines.Last(),
+                            StochasticSoilModel = stochasticSoilModelForCalculation2,
+                            StochasticSoilProfile = stochasticSoilModelForCalculation2.StochasticSoilProfiles.First(),
+                            HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.Last(),
+                            DampingFactorExit =
+                            {
+                                Mean = (RoundedDouble) 5.5555
+                            },
+                            PhreaticLevelExit =
+                            {
+                                Mean = (RoundedDouble) 6.6666
+                            },
+                            EntryPointL = (RoundedDouble) 7.7777,
+                            ExitPointL = (RoundedDouble) 8.8888
+                        }
+                    }
+                }
+            };
+        }
+
+        private static PipingFailureMechanism ConfigureFailuremechanism()
+        {
             var surfaceLine1 = new RingtoetsPipingSurfaceLine
             {
                 Name = "Surface line 1",
@@ -1350,256 +1776,12 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 },
                 stochasticSoilModelE
             }, "path");
-
-            var pipingCalculationsView = ShowPipingCalculationsView();
-
-            pipingCalculationsView.Data = new CalculationGroup("Group", true)
-            {
-                Children =
-                {
-                    new PipingCalculationScenario(new GeneralPipingInput())
-                    {
-                        Name = "Calculation 1",
-                        InputParameters =
-                        {
-                            SurfaceLine = surfaceLine1,
-                            StochasticSoilModel = stochasticSoilModelA,
-                            HydraulicBoundaryLocation = hydraulicBoundaryLocation1,
-                            DampingFactorExit =
-                            {
-                                Mean = (RoundedDouble) 1.1111
-                            },
-                            PhreaticLevelExit =
-                            {
-                                Mean = (RoundedDouble) 2.2222
-                            },
-                            EntryPointL = (RoundedDouble) 3.3333,
-                            ExitPointL = (RoundedDouble) 4.4444
-                        }
-                    },
-                    new PipingCalculationScenario(new GeneralPipingInput())
-                    {
-                        Name = "Calculation 2",
-                        InputParameters =
-                        {
-                            SurfaceLine = surfaceLine2,
-                            StochasticSoilModel = stochasticSoilModelE,
-                            StochasticSoilProfile = stochasticSoilProfile5,
-                            HydraulicBoundaryLocation = hydraulicBoundaryLocation2,
-                            DampingFactorExit =
-                            {
-                                Mean = (RoundedDouble) 5.5555
-                            },
-                            PhreaticLevelExit =
-                            {
-                                Mean = (RoundedDouble) 6.6666
-                            },
-                            EntryPointL = (RoundedDouble) 7.7777,
-                            ExitPointL = (RoundedDouble) 8.8888
-                        }
-                    }
-                }
-            };
-
-            pipingCalculationsView.AssessmentSection = assessmentSection;
-            pipingCalculationsView.PipingFailureMechanism = pipingFailureMechanism;
-
-            return pipingCalculationsView;
-        }
-
-        private PipingCalculationsView ShowSimplePipingCalculationsViewWithSurfaceLines(IAssessmentSection assessmentSection)
-        {
-            var surfaceLine1 = new RingtoetsPipingSurfaceLine
-            {
-                Name = "Surface line 1",
-                ReferenceLineIntersectionWorldPoint = new Point2D(0.0, 0.0)
-            };
-
-            surfaceLine1.SetGeometry(new[]
-            {
-                new Point3D(0.0, 5.0, 0.0),
-                new Point3D(0.0, 0.0, 1.0),
-                new Point3D(0.0, -5.0, 0.0)
-            });
-
-            var surfaceLine2 = new RingtoetsPipingSurfaceLine
-            {
-                Name = "Surface line 2",
-                ReferenceLineIntersectionWorldPoint = new Point2D(5.0, 0.0)
-            };
-
-            surfaceLine2.SetGeometry(new[]
-            {
-                new Point3D(5.0, 5.0, 0.0),
-                new Point3D(5.0, 0.0, 1.0),
-                new Point3D(5.0, -5.0, 0.0)
-            });
-
-            var pipingFailureMechanism = new PipingFailureMechanism();
-            pipingFailureMechanism.SurfaceLines.Add(surfaceLine1);
-            pipingFailureMechanism.SurfaceLines.Add(surfaceLine2);
-            pipingFailureMechanism.AddSection(new FailureMechanismSection("Section 1", new List<Point2D>
-            {
-                new Point2D(0.0, 0.0),
-                new Point2D(5.0, 0.0)
-            }));
-
-            pipingFailureMechanism.AddSection(new FailureMechanismSection("Section 2", new List<Point2D>
-            {
-                new Point2D(5.0, 0.0),
-                new Point2D(10.0, 0.0)
-            }));
-
-            var pipingCalculationsView = ShowPipingCalculationsView();
-
-            pipingCalculationsView.Data = new CalculationGroup("Group", true)
-            {
-                Children =
-                {
-                    new PipingCalculationScenario(new GeneralPipingInput())
-                    {
-                        Name = "Calculation 1",
-                        InputParameters =
-                        {
-                            SurfaceLine = surfaceLine1
-                        }
-                    },
-                    new PipingCalculationScenario(new GeneralPipingInput())
-                    {
-                        Name = "Calculation 2",
-                        InputParameters =
-                        {
-                            SurfaceLine = surfaceLine2
-                        }
-                    }
-                }
-            };
-
-            pipingCalculationsView.AssessmentSection = assessmentSection;
-            pipingCalculationsView.PipingFailureMechanism = pipingFailureMechanism;
-
-            return pipingCalculationsView;
-        }
-
-        private PipingCalculationsView ShowSimplePipingCalculationsViewWithoutSurfaceLines(IAssessmentSection assessmentSection,
-                                                                                           HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
-        {
-            var hydraulicBoundaryLocation1 = new HydraulicBoundaryLocation(1, "Location 1", 1.1, 2.2);
-            var hydraulicBoundaryLocation2 = new HydraulicBoundaryLocation(2, "Location 2", 3.3, 4.4);
-
-            assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
-            hydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation1);
-            hydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation2);
-
-            var pipingFailureMechanism = new PipingFailureMechanism();
-            pipingFailureMechanism.AddSection(new FailureMechanismSection("Section 1", new List<Point2D>
-            {
-                new Point2D(0.0, 0.0),
-                new Point2D(5.0, 0.0)
-            }));
-
-            pipingFailureMechanism.AddSection(new FailureMechanismSection("Section 2", new List<Point2D>
-            {
-                new Point2D(5.0, 0.0),
-                new Point2D(10.0, 0.0)
-            }));
-
-            var pipingCalculationsView = ShowPipingCalculationsView();
-
-            pipingCalculationsView.Data = new CalculationGroup("Group", true)
-            {
-                Children =
-                {
-                    new PipingCalculationScenario(new GeneralPipingInput())
-                    {
-                        Name = "Calculation 1",
-                        InputParameters =
-                        {
-                            HydraulicBoundaryLocation = hydraulicBoundaryLocation1
-                        }
-                    },
-                    new PipingCalculationScenario(new GeneralPipingInput())
-                    {
-                        Name = "Calculation 2",
-                        InputParameters =
-                        {
-                            HydraulicBoundaryLocation = hydraulicBoundaryLocation2
-                        }
-                    }
-                }
-            };
-
-            pipingCalculationsView.AssessmentSection = assessmentSection;
-            pipingCalculationsView.PipingFailureMechanism = pipingFailureMechanism;
-
-            return pipingCalculationsView;
-        }
-
-        private static PipingFailureMechanism GetFailureMechanism()
-        {
-            var surfaceLine1 = new RingtoetsPipingSurfaceLine
-            {
-                Name = "Surface line 1",
-                ReferenceLineIntersectionWorldPoint = new Point2D(0.0, 0.0)
-            };
-
-            surfaceLine1.SetGeometry(new[]
-            {
-                new Point3D(0.0, 5.0, 0.0),
-                new Point3D(0.0, 0.0, 1.0),
-                new Point3D(0.0, -5.0, 0.0)
-            });
-
-            var surfaceLine2 = new RingtoetsPipingSurfaceLine
-            {
-                Name = "Surface line 2",
-                ReferenceLineIntersectionWorldPoint = new Point2D(5.0, 0.0)
-            };
-
-            surfaceLine2.SetGeometry(new[]
-            {
-                new Point3D(5.0, 5.0, 0.0),
-                new Point3D(5.0, 0.0, 1.0),
-                new Point3D(5.0, -5.0, 0.0)
-            });
-
-            var pipingFailureMechanism = new PipingFailureMechanism
-            {
-                SurfaceLines =
-                {
-                    surfaceLine1,
-                    surfaceLine2
-                }
-            };
-            pipingFailureMechanism.StochasticSoilModels.AddRange(new[]
-            {
-                new TestStochasticSoilModel
-                {
-                    Geometry =
-                    {
-                        new Point2D(0.0, 0.0), new Point2D(5.0, 0.0)
-                    }
-                }
-            }, "path");
-
-            pipingFailureMechanism.AddSection(new FailureMechanismSection("Section 1", new List<Point2D>
-            {
-                new Point2D(0.0, 0.0),
-                new Point2D(5.0, 0.0)
-            }));
-
-            pipingFailureMechanism.AddSection(new FailureMechanismSection("Section 2", new List<Point2D>
-            {
-                new Point2D(5.0, 0.0),
-                new Point2D(10.0, 0.0)
-            }));
-
             return pipingFailureMechanism;
         }
 
-        private PipingCalculationsView ShowPipingCalculationsView()
+        private PipingCalculationsView ShowPipingCalculationsView(ICalculationInputPropertyChangeHandler<PipingInput, PipingCalculationScenario> handler)
         {
-            var pipingCalculationsView = new PipingCalculationsView();
+            var pipingCalculationsView = new PipingCalculationsView(handler);
 
             testForm.Controls.Add(pipingCalculationsView);
             testForm.Show();

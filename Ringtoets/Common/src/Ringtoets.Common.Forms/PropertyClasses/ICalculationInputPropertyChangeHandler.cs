@@ -59,7 +59,8 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         /// <param name="setValue">The operation which is performed to set the new property <paramref name="value"/>
         /// on the <paramref name="calculationInput"/>.</param>
         /// <returns>All objects that are affected by setting the calculation input property.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculationInput"/>, <paramref name="calculation"/>
+        /// or <paramref name="setValue"/> is <c>null</c>.</exception>
         /// <exception cref="Exception">Thrown when calling <paramref name="setValue"/> results in an exception being
         /// thrown.</exception>
         IEnumerable<IObservable> SetPropertyValueAfterConfirmation<TValue>(

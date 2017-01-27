@@ -68,10 +68,19 @@ namespace Ringtoets.Piping.Forms.Views
         public event EventHandler<EventArgs> SelectionChanged;
 
         /// <summary>
-        /// Creates a new instance of the <see cref="PipingCalculationsView"/> class.
+        /// Creates a new instance of <see cref="PipingCalculationsView"/>.
         /// </summary>
-        public PipingCalculationsView()
+        /// <param name="handler">The handler responsible for handling effects of a property change.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="handler"/> is <c>null</c>.</exception>
+        public PipingCalculationsView(ICalculationInputPropertyChangeHandler<PipingInput, PipingCalculationScenario> handler)
         {
+            if (handler == null)
+            {
+                throw new ArgumentNullException(nameof(handler));
+            }
+                
+            propertyChangeHandler = handler;
+
             InitializeComponent();
             InitializeDataGridView();
             InitializeListBox();
@@ -83,21 +92,6 @@ namespace Ringtoets.Piping.Forms.Views
             pipingInputObserver = new RecursiveObserver<CalculationGroup, PipingInput>(UpdateDataGridViewDataSource, pcg => pcg.Children.Concat<object>(pcg.Children.OfType<PipingCalculationScenario>().Select(pc => pc.InputParameters)));
             pipingCalculationGroupObserver = new RecursiveObserver<CalculationGroup, CalculationGroup>(UpdateDataGridViewDataSource, pcg => pcg.Children);
             pipingCalculationObserver = new RecursiveObserver<CalculationGroup, PipingCalculationScenario>(dataGridViewControl.RefreshDataGridView, pcg => pcg.Children);
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="PipingCalculationsView"/>.
-        /// </summary>
-        /// <param name="handler">The handler responsible for handling effects of a property change.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="handler"/> is <c>null</c>.</exception>
-        public PipingCalculationsView(ICalculationInputPropertyChangeHandler<PipingInput, PipingCalculationScenario> handler) : this()
-        {
-            if (handler == null)
-            {
-                throw new ArgumentNullException(nameof(handler));
-            }
-
-            propertyChangeHandler = handler;
         }
 
         /// <summary>
@@ -345,7 +339,7 @@ namespace Ringtoets.Piping.Forms.Views
 
             PrefillComboBoxListItemsAtColumnLevel();
 
-            var dataSource = pipingCalculations.Select(pc => new PipingCalculationRow(pc)).ToList();
+            var dataSource = pipingCalculations.Select(pc => new PipingCalculationRow(pc, propertyChangeHandler)).ToList();
             dataGridViewControl.SetDataSource(dataSource);
             dataGridViewControl.ClearCurrentCell();
 
@@ -595,12 +589,10 @@ namespace Ringtoets.Piping.Forms.Views
 
         private void DataGridViewOnCurrentCellChanged(object sender, EventArgs e)
         {
-            if (updatingDataSource)
+            if (!updatingDataSource)
             {
-                return;
+                OnSelectionChanged();
             }
-
-            OnSelectionChanged();
         }
 
         private void ListBoxOnSelectedValueChanged(object sender, EventArgs e)

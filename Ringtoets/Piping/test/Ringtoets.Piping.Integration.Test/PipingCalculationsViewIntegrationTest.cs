@@ -28,6 +28,8 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Forms.ChangeHandlers;
+using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.TestUtils;
 using Ringtoets.Piping.Data;
@@ -47,10 +49,13 @@ namespace Ringtoets.Piping.Integration.Test
         [Test]
         public void PipingCalculationsView_DataImportedOrChanged_ChangesCorrectlyObservedAndSynced()
         {
+            // Setup
             using (var form = new Form())
             {
+                var handler = new CalculationInputPropertyChangeHandler<PipingInput, PipingCalculationScenario>();
+
                 // Show the view
-                var pipingCalculationsView = new PipingCalculationsView();
+                var pipingCalculationsView = new PipingCalculationsView(handler);
                 form.Controls.Add(pipingCalculationsView);
                 form.Show();
 
