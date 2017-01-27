@@ -156,7 +156,7 @@ namespace Application.Ringtoets.Migration.Test
         {
             // Setup
             string filename = Path.GetRandomFileName();
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Migration.Core.Storage, filename);
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration, filename);
 
             var mockRepository = new MockRepository();
             var sourceVersionedFile = mockRepository.Stub<IVersionedFile>();

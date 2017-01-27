@@ -73,7 +73,7 @@ namespace Application.Ringtoets.Migration.Test
         public void NeedsMigrate_NeedsMigrate_ReturnsTrue()
         {
             // Setup
-            string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration, "Demo164.rtd");
+            string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration, "FullTestProject164.rtd");
             var versionedFile = new RingtoetsVersionedFile(sourceFilePath);
             var migrator = new RingtoetsSqLiteDatabaseFileMigrator();
 
@@ -88,7 +88,7 @@ namespace Application.Ringtoets.Migration.Test
         public void NeedsMigrate_DoesNotNeedMigration_ReturnsFalse()
         {
             // Setup
-            string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration, "Demo164.rtd");
+            string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration, "FullTestProject164.rtd");
             var versionedFile = new RingtoetsVersionedFile(sourceFilePath);
             var migrator = new RingtoetsSqLiteDatabaseFileMigrator();
 
@@ -104,7 +104,7 @@ namespace Application.Ringtoets.Migration.Test
         {
             // Setup
             const string newVersion = "17.1";
-            string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration, "Demo164.rtd");
+            string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration, "FullTestProject164.rtd");
             var fromVersionedFile = new RingtoetsVersionedFile(sourceFilePath);
 
             string targetFilePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration, Path.GetRandomFileName());
@@ -126,7 +126,7 @@ namespace Application.Ringtoets.Migration.Test
         {
             // Setup
             const string newVersion = "17.1";
-            string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration, "Demo164.rtd");
+            string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration, "FullTestProject164.rtd");
             var fromVersionedFile = new RingtoetsVersionedFile(sourceFilePath);
 
             string targetFilePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration, Path.GetRandomFileName());
@@ -151,7 +151,7 @@ namespace Application.Ringtoets.Migration.Test
         {
             // Setup
             const string newVersion = "17.1";
-            string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration, "Demo164.rtd");
+            string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration, "FullTestProject164.rtd");
             var fromVersionedFile = new RingtoetsVersionedFile(sourceFilePath);
             var migrator = new RingtoetsSqLiteDatabaseFileMigrator();
 
@@ -169,7 +169,7 @@ namespace Application.Ringtoets.Migration.Test
         {
             // Setup
             const string newVersion = "17.1";
-            string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration, "Demo164.rtd");
+            string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration, "FullTestProject164.rtd");
             var fromVersionedFile = new RingtoetsVersionedFile(sourceFilePath);
 
             string targetFilePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration, Path.GetRandomFileName());
@@ -203,7 +203,7 @@ namespace Application.Ringtoets.Migration.Test
         {
             // Setup
             const string newVersion = "6";
-            string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration, "Demo164.rtd");
+            string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration, "FullTestProject164.rtd");
             var fromVersionedFile = new RingtoetsVersionedFile(sourceFilePath);
 
             string targetFilePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration, Path.GetRandomFileName());

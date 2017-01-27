@@ -225,7 +225,7 @@ namespace Application.Ringtoets.MigrationConsole.Test
             const string migrateCommand = "--migrate";
 
             const string newVersion = "17.1";
-            string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration, "Demo164.rtd");
+            string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration, "FullTestProject164.rtd");
             string targetFilePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration, Path.GetRandomFileName());
 
             using (new FileDisposeHelper(targetFilePath))
@@ -262,7 +262,7 @@ namespace Application.Ringtoets.MigrationConsole.Test
             const string migrateCommand = "--migrate";
 
             const string newVersion = "17.1";
-            string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration, "Demo164.rtd");
+            string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration, "FullTestProject164.rtd");
             string targetFilePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration, Path.GetRandomFileName());
 
             string consoleText;

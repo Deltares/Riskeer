@@ -96,8 +96,8 @@ namespace Application.Ringtoets.Migration.Test
             }
         }
 
-        [TestCase("Demo164.rtd", "4")]
-        [TestCase("Demo171.rtd", "17.1")]
+        [TestCase("FullTestProject164.rtd", "4")]
+        [TestCase("FullTestProject171.rtd", "17.1")]
         public void GetVersion_ParameteredConstructor_ExptectedProperties(string file, string expectedVersion)
         {
             // Setup
