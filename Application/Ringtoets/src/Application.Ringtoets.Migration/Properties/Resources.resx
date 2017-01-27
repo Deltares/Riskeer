@@ -118,17 +118,11 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="DatabaseStructure17_0" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\DatabaseStructure17.0.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
-  </data>
   <data name="DatabaseStructure17_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\DatabaseStructure17.1.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;iso-8859-1</value>
   </data>
   <data name="Migration_4_171" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Migration_4_17.1.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
-  </data>
-  <data name="Migration_4_17_0" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Migration_4_17.0.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
   <data name="RingtoetsDatabaseSourceFile_Invalid_Ringtoets_File_Path_0" xml:space="preserve">
     <value>Het bestand '{0}' is moet een geldig Ringtoets database bestand zijn.</value>

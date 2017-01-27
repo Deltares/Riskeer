@@ -104,13 +104,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\DatabaseStructure17.0.sql" />
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Resources\DatabaseStructure17.1.sql" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\Migration_4_17.0.sql" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Migration_4_17.1.sql" />

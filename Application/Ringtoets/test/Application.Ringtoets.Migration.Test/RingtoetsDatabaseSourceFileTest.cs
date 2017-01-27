@@ -36,7 +36,7 @@ namespace Application.Ringtoets.Migration.Test
         {
             // Setup
             string filename = Path.GetRandomFileName();
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Migration.Core.Storage, filename);
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration, filename);
 
             // Call
             TestDelegate test = () =>
@@ -72,7 +72,7 @@ namespace Application.Ringtoets.Migration.Test
         {
             // Setup
             string filename = Path.GetRandomFileName();
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Migration.Core.Storage, filename);
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration, filename);
 
             // Call
             using (new FileDisposeHelper(filePath))
@@ -88,7 +88,7 @@ namespace Application.Ringtoets.Migration.Test
         {
             // Setup
             string filename = Path.GetRandomFileName();
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Migration.Core.Storage, filename);
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration, filename);
 
             using (new FileDisposeHelper(filePath))
             using (var file = new RingtoetsDatabaseSourceFile(filePath))
@@ -107,7 +107,7 @@ namespace Application.Ringtoets.Migration.Test
         public void GetVersion_EmptyRingtoetsDatabaseFile_ReturnsEmpty()
         {
             // Setup
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Migration.Core.Storage, "EmptyDatabase.rtd");
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration, "EmptyDatabase.rtd");
 
             using (var file = new RingtoetsDatabaseSourceFile(filePath))
             {
