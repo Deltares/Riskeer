@@ -28,10 +28,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System;
-
 namespace Application.Ringtoets.Storage.DbContext
 {
+    using System;
+    using System.Collections.Generic;
+    
     public partial class DuneLocationOutputEntity
     {
         public long DuneLocationOutputEntityId { get; set; }
@@ -44,7 +45,7 @@ namespace Application.Ringtoets.Storage.DbContext
         public Nullable<double> CalculatedProbability { get; set; }
         public Nullable<double> CalculatedReliability { get; set; }
         public byte CalculationConvergence { get; set; }
-
+    
         public virtual DuneLocationEntity DuneLocationEntity { get; set; }
     }
 }

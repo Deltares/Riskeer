@@ -292,6 +292,9 @@
     <Compile Include="DbContext\WaveImpactAsphaltCoverWaveConditionsOutputEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="DbContext\WmtsMapDataEntity.cs">
+      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Read\ClosingStructures\ClosingStructureEntityReadExtensions.cs" />
     <Compile Include="Read\ClosingStructures\ClosingStructuresCalculationEntityReadExtensions.cs" />
     <Compile Include="Read\ClosingStructures\ClosingStructuresFailureMechanismMetaEntityReadExtensions.cs" />

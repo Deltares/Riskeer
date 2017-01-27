@@ -28,21 +28,20 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-
 namespace Application.Ringtoets.Storage.DbContext
 {
+    using System;
+    using System.Collections.Generic;
+    
     public partial class StabilityPointStructuresCalculationEntity
     {
-        [SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public StabilityPointStructuresCalculationEntity()
         {
             StabilityPointStructuresOutputEntities = new HashSet<StabilityPointStructuresOutputEntity>();
             StabilityPointStructuresSectionResultEntities = new HashSet<StabilityPointStructuresSectionResultEntity>();
         }
-
+    
         public long StabilityPointStructuresCalculationEntityId { get; set; }
         public long CalculationGroupEntityId { get; set; }
         public Nullable<long> ForeshoreProfileEntityId { get; set; }
@@ -51,10 +50,25 @@ namespace Application.Ringtoets.Storage.DbContext
         public int Order { get; set; }
         public string Name { get; set; }
         public string Comments { get; set; }
+        public byte UseBreakWater { get; set; }
+        public byte BreakWaterType { get; set; }
+        public Nullable<double> BreakWaterHeight { get; set; }
+        public byte UseForeshore { get; set; }
+        public Nullable<double> StructureNormalOrientation { get; set; }
+        public Nullable<double> StorageStructureAreaMean { get; set; }
+        public Nullable<double> StorageStructureAreaCoefficientOfVariation { get; set; }
+        public Nullable<double> AllowedLevelIncreaseStorageMean { get; set; }
+        public Nullable<double> AllowedLevelIncreaseStorageStandardDeviation { get; set; }
+        public Nullable<double> WidthFlowAperturesMean { get; set; }
+        public Nullable<double> WidthFlowAperturesStandardDeviation { get; set; }
         public Nullable<double> InsideWaterLevelMean { get; set; }
         public Nullable<double> InsideWaterLevelStandardDeviation { get; set; }
         public Nullable<double> ThresholdHeightOpenWeirMean { get; set; }
         public Nullable<double> ThresholdHeightOpenWeirStandardDeviation { get; set; }
+        public Nullable<double> CriticalOvertoppingDischargeMean { get; set; }
+        public Nullable<double> CriticalOvertoppingDischargeCoefficientOfVariation { get; set; }
+        public Nullable<double> FlowWidthAtBottomProtectionMean { get; set; }
+        public Nullable<double> FlowWidthAtBottomProtectionStandardDeviation { get; set; }
         public Nullable<double> ConstructiveStrengthLinearLoadModelMean { get; set; }
         public Nullable<double> ConstructiveStrengthLinearLoadModelCoefficientOfVariation { get; set; }
         public Nullable<double> ConstructiveStrengthQuadraticLoadModelMean { get; set; }
@@ -77,7 +91,6 @@ namespace Application.Ringtoets.Storage.DbContext
         public int LevellingCount { get; set; }
         public double ProbabilityCollisionSecondaryStructure { get; set; }
         public Nullable<double> FlowVelocityStructureClosableMean { get; set; }
-        public Nullable<double> FlowVelocityStructureClosableStandardDeviation { get; set; }
         public Nullable<double> StabilityLinearLoadModelMean { get; set; }
         public Nullable<double> StabilityLinearLoadModelCoefficientOfVariation { get; set; }
         public Nullable<double> StabilityQuadraticLoadModelMean { get; set; }
@@ -87,37 +100,19 @@ namespace Application.Ringtoets.Storage.DbContext
         public byte InflowModelType { get; set; }
         public byte LoadSchematizationType { get; set; }
         public Nullable<double> VolumicWeightWater { get; set; }
-        public Nullable<double> FactorStormDurationOpenStructure { get; set; }
-        public Nullable<double> DrainCoefficientMean { get; set; }
-
-        public virtual CalculationGroupEntity CalculationGroupEntity { get; set; }
-        public virtual StabilityPointStructureEntity StabilityPointStructureEntity { get; set; }
-
-        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<StabilityPointStructuresOutputEntity> StabilityPointStructuresOutputEntities { get; set; }
-
-        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<StabilityPointStructuresSectionResultEntity> StabilityPointStructuresSectionResultEntities { get; set; }
-
-        public byte UseBreakWater { get; set; }
-        public byte BreakWaterType { get; set; }
-        public Nullable<double> BreakWaterHeight { get; set; }
-        public byte UseForeshore { get; set; }
-        public Nullable<double> StructureNormalOrientation { get; set; }
-        public Nullable<double> StorageStructureAreaMean { get; set; }
-        public Nullable<double> StorageStructureAreaCoefficientOfVariation { get; set; }
-        public Nullable<double> AllowedLevelIncreaseStorageMean { get; set; }
-        public Nullable<double> AllowedLevelIncreaseStorageStandardDeviation { get; set; }
-        public Nullable<double> WidthFlowAperturesMean { get; set; }
-        public Nullable<double> WidthFlowAperturesStandardDeviation { get; set; }
-        public Nullable<double> CriticalOvertoppingDischargeMean { get; set; }
-        public Nullable<double> CriticalOvertoppingDischargeCoefficientOfVariation { get; set; }
-        public Nullable<double> FlowWidthAtBottomProtectionMean { get; set; }
-        public Nullable<double> FlowWidthAtBottomProtectionStandardDeviation { get; set; }
         public Nullable<double> StormDurationMean { get; set; }
         public Nullable<double> ModelFactorSuperCriticalFlowMean { get; set; }
+        public Nullable<double> FactorStormDurationOpenStructure { get; set; }
+        public Nullable<double> DrainCoefficientMean { get; set; }
         public double FailureProbabilityStructureWithErosion { get; set; }
+    
+        public virtual CalculationGroupEntity CalculationGroupEntity { get; set; }
         public virtual ForeshoreProfileEntity ForeshoreProfileEntity { get; set; }
         public virtual HydraulicLocationEntity HydraulicLocationEntity { get; set; }
+        public virtual StabilityPointStructureEntity StabilityPointStructureEntity { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<StabilityPointStructuresOutputEntity> StabilityPointStructuresOutputEntities { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<StabilityPointStructuresSectionResultEntity> StabilityPointStructuresSectionResultEntities { get; set; }
     }
 }

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="RingtoetsEntitiesModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=D:\Projects\WTI\trunk\Application\Ringtoets\src\Application.Ringtoets.Storage\Ringtoets.rtd" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="RingtoetsEntitiesModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=D:\Repos\Ringtoets\Application\Ringtoets\src\Application.Ringtoets.Storage\Ringtoets.rtd" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AssessmentSectionEntity">
           <Key>
             <PropertyRef Name="AssessmentSectionEntityId" />
@@ -1027,6 +1027,18 @@
           <Property Name="CalculatedProbability" Type="real" />
           <Property Name="CalculatedReliability" Type="real" />
           <Property Name="CalculationConvergence" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="WmtsMapDataEntity">
+          <Key>
+            <PropertyRef Name="WmtsMapDataEntityId" />
+          </Key>
+          <Property Name="WmtsMapDataEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AssessmentSectionEntityId" Type="integer" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="SourceCapabilitiesUrl" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="SelectedCapabilityName" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="IsVisible" Type="tinyint" Nullable="false" />
+          <Property Name="Transparency" Type="real" Nullable="false" />
         </EntityType>
         <Association Name="FK_AssessmentSectionEntity_0_0">
           <End Role="ProjectEntity" Type="Self.ProjectEntity" Multiplicity="1" />
@@ -2096,6 +2108,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_WmtsMapDataEntity_0_0">
+          <End Role="AssessmentSectionEntity" Type="Self.AssessmentSectionEntity" Multiplicity="1" />
+          <End Role="WmtsMapDataEntity" Type="Self.WmtsMapDataEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AssessmentSectionEntity">
+              <PropertyRef Name="AssessmentSectionEntityId" />
+            </Principal>
+            <Dependent Role="WmtsMapDataEntity">
+              <PropertyRef Name="AssessmentSectionEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="RingtoetsEntitiesModelStoreContainer">
           <EntitySet Name="AssessmentSectionEntity" EntityType="Self.AssessmentSectionEntity" store:Type="Tables" />
           <EntitySet Name="CalculationGroupEntity" EntityType="Self.CalculationGroupEntity" store:Type="Tables" />
@@ -2163,6 +2187,7 @@
           <EntitySet Name="WaveImpactAsphaltCoverSectionResultEntity" EntityType="Self.WaveImpactAsphaltCoverSectionResultEntity" store:Type="Tables" />
           <EntitySet Name="WaveImpactAsphaltCoverWaveConditionsCalculationEntity" EntityType="Self.WaveImpactAsphaltCoverWaveConditionsCalculationEntity" store:Type="Tables" />
           <EntitySet Name="WaveImpactAsphaltCoverWaveConditionsOutputEntity" EntityType="Self.WaveImpactAsphaltCoverWaveConditionsOutputEntity" store:Type="Tables" />
+          <EntitySet Name="WmtsMapDataEntity" EntityType="Self.WmtsMapDataEntity" store:Type="Tables" />
           <AssociationSet Name="FK_AssessmentSectionEntity_0_0" Association="Self.FK_AssessmentSectionEntity_0_0">
             <End Role="ProjectEntity" EntitySet="ProjectEntity" />
             <End Role="AssessmentSectionEntity" EntitySet="AssessmentSectionEntity" />
@@ -2519,6 +2544,10 @@
             <End Role="WaveImpactAsphaltCoverWaveConditionsCalculationEntity" EntitySet="WaveImpactAsphaltCoverWaveConditionsCalculationEntity" />
             <End Role="WaveImpactAsphaltCoverWaveConditionsOutputEntity" EntitySet="WaveImpactAsphaltCoverWaveConditionsOutputEntity" />
           </AssociationSet>
+          <AssociationSet Name="FK_WmtsMapDataEntity_0_0" Association="Self.FK_WmtsMapDataEntity_0_0">
+            <End Role="AssessmentSectionEntity" EntitySet="AssessmentSectionEntity" />
+            <End Role="WmtsMapDataEntity" EntitySet="WmtsMapDataEntity" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -2591,6 +2620,7 @@
           <EntitySet Name="WaveImpactAsphaltCoverSectionResultEntities" EntityType="RingtoetsEntitiesModel.WaveImpactAsphaltCoverSectionResultEntity" />
           <EntitySet Name="WaveImpactAsphaltCoverWaveConditionsCalculationEntities" EntityType="RingtoetsEntitiesModel.WaveImpactAsphaltCoverWaveConditionsCalculationEntity" />
           <EntitySet Name="WaveImpactAsphaltCoverWaveConditionsOutputEntities" EntityType="RingtoetsEntitiesModel.WaveImpactAsphaltCoverWaveConditionsOutputEntity" />
+          <EntitySet Name="WmtsMapDataEntities" EntityType="RingtoetsEntitiesModel.WmtsMapDataEntity" />
           <AssociationSet Name="FK_AssessmentSectionEntity_0_0" Association="RingtoetsEntitiesModel.FK_AssessmentSectionEntity_0_0">
             <End Role="ProjectEntity" EntitySet="ProjectEntities" />
             <End Role="AssessmentSectionEntity" EntitySet="AssessmentSectionEntities" />
@@ -2602,6 +2632,10 @@
           <AssociationSet Name="FK_HydraulicLocationEntity_0_0" Association="RingtoetsEntitiesModel.FK_HydraulicLocationEntity_0_0">
             <End Role="AssessmentSectionEntity" EntitySet="AssessmentSectionEntities" />
             <End Role="HydraulicLocationEntity" EntitySet="HydraulicLocationEntities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WmtsMapDataEntity_0_0" Association="RingtoetsEntitiesModel.FK_WmtsMapDataEntity_0_0">
+            <End Role="AssessmentSectionEntity" EntitySet="AssessmentSectionEntities" />
+            <End Role="WmtsMapDataEntity" EntitySet="WmtsMapDataEntities" />
           </AssociationSet>
           <AssociationSet Name="FK_CalculationGroupEntity_0_0" Association="RingtoetsEntitiesModel.FK_CalculationGroupEntity_0_0">
             <End Role="CalculationGroupEntity" EntitySet="CalculationGroupEntities" />
@@ -2966,6 +3000,7 @@
           <NavigationProperty Name="ProjectEntity" Relationship="RingtoetsEntitiesModel.FK_AssessmentSectionEntity_0_0" FromRole="AssessmentSectionEntity" ToRole="ProjectEntity" />
           <NavigationProperty Name="FailureMechanismEntities" Relationship="RingtoetsEntitiesModel.FK_FailureMechanismEntity_1_0" FromRole="AssessmentSectionEntity" ToRole="FailureMechanismEntity" />
           <NavigationProperty Name="HydraulicLocationEntities" Relationship="RingtoetsEntitiesModel.FK_HydraulicLocationEntity_0_0" FromRole="AssessmentSectionEntity" ToRole="HydraulicLocationEntity" />
+          <NavigationProperty Name="WmtsMapDataEntities" Relationship="RingtoetsEntitiesModel.FK_WmtsMapDataEntity_0_0" FromRole="AssessmentSectionEntity" ToRole="WmtsMapDataEntity" />
         </EntityType>
         <EntityType Name="CalculationGroupEntity">
           <Key>
@@ -4149,6 +4184,19 @@
           <Property Name="CalculationConvergence" Type="Byte" Nullable="false" />
           <NavigationProperty Name="WaveImpactAsphaltCoverWaveConditionsCalculationEntity" Relationship="RingtoetsEntitiesModel.FK_WaveImpactAsphaltCoverWaveConditionsOutputEntity_0_0" FromRole="WaveImpactAsphaltCoverWaveConditionsOutputEntity" ToRole="WaveImpactAsphaltCoverWaveConditionsCalculationEntity" />
         </EntityType>
+        <EntityType Name="WmtsMapDataEntity">
+          <Key>
+            <PropertyRef Name="WmtsMapDataEntityId" />
+          </Key>
+          <Property Name="WmtsMapDataEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AssessmentSectionEntityId" Type="Int64" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="SourceCapabilitiesUrl" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="SelectedCapabilityName" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="IsVisible" Type="Byte" Nullable="false" />
+          <Property Name="Transparency" Type="Double" Nullable="false" />
+          <NavigationProperty Name="AssessmentSectionEntity" Relationship="RingtoetsEntitiesModel.FK_WmtsMapDataEntity_0_0" FromRole="WmtsMapDataEntity" ToRole="AssessmentSectionEntity" />
+        </EntityType>
         <Association Name="FK_AssessmentSectionEntity_0_0">
           <End Type="RingtoetsEntitiesModel.ProjectEntity" Role="ProjectEntity" Multiplicity="1" />
           <End Type="RingtoetsEntitiesModel.AssessmentSectionEntity" Role="AssessmentSectionEntity" Multiplicity="*" />
@@ -4181,6 +4229,18 @@
               <PropertyRef Name="AssessmentSectionEntityId" />
             </Principal>
             <Dependent Role="HydraulicLocationEntity">
+              <PropertyRef Name="AssessmentSectionEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WmtsMapDataEntity_0_0">
+          <End Type="RingtoetsEntitiesModel.AssessmentSectionEntity" Role="AssessmentSectionEntity" Multiplicity="1" />
+          <End Type="RingtoetsEntitiesModel.WmtsMapDataEntity" Role="WmtsMapDataEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AssessmentSectionEntity">
+              <PropertyRef Name="AssessmentSectionEntityId" />
+            </Principal>
+            <Dependent Role="WmtsMapDataEntity">
               <PropertyRef Name="AssessmentSectionEntityId" />
             </Dependent>
           </ReferentialConstraint>
@@ -6309,6 +6369,19 @@
                 <ScalarProperty Name="Order" ColumnName="Order" />
                 <ScalarProperty Name="WaveImpactAsphaltCoverWaveConditionsCalculationEntityId" ColumnName="WaveImpactAsphaltCoverWaveConditionsCalculationEntityId" />
                 <ScalarProperty Name="WaveImpactAsphaltCoverWaveConditionsOutputEntityId" ColumnName="WaveImpactAsphaltCoverWaveConditionsOutputEntityId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WmtsMapDataEntities">
+            <EntityTypeMapping TypeName="RingtoetsEntitiesModel.WmtsMapDataEntity">
+              <MappingFragment StoreEntitySet="WmtsMapDataEntity">
+                <ScalarProperty Name="Transparency" ColumnName="Transparency" />
+                <ScalarProperty Name="IsVisible" ColumnName="IsVisible" />
+                <ScalarProperty Name="SelectedCapabilityName" ColumnName="SelectedCapabilityName" />
+                <ScalarProperty Name="SourceCapabilitiesUrl" ColumnName="SourceCapabilitiesUrl" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="AssessmentSectionEntityId" ColumnName="AssessmentSectionEntityId" />
+                <ScalarProperty Name="WmtsMapDataEntityId" ColumnName="WmtsMapDataEntityId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
