@@ -47,7 +47,7 @@ namespace Migration.Scripts.Data.Test
         public void Constructor_UpgradeScriptNull_ThrowsArgumentNullException()
         {
             // Setup
-            var createScript = new TestCreateScript("1", ";");
+            var createScript = new TestCreateScript("1");
 
             // Call
             TestDelegate call = () => new FileMigrationScript(createScript, null);
@@ -61,7 +61,7 @@ namespace Migration.Scripts.Data.Test
         public void Constructor_ValidParameters_ExpectedProperties()
         {
             // Setup
-            var createScript = new TestCreateScript("2", ";");
+            var createScript = new TestCreateScript("2");
             var upgradeScript = new TestUpgradeScript("1", "2");
 
             // Call
@@ -76,7 +76,7 @@ namespace Migration.Scripts.Data.Test
         public void Upgrade_VersionedFileNull_ThrowsArgumentNullException()
         {
             // Setup
-            var createScript = new TestCreateScript("2", ";");
+            var createScript = new TestCreateScript("2");
             var upgradeScript = new TestUpgradeScript("1", "2");
             var migrationScript = new FileMigrationScript(createScript, upgradeScript);
 
@@ -96,7 +96,7 @@ namespace Migration.Scripts.Data.Test
             var versionedFile = mockRepository.Stub<IVersionedFile>();
             mockRepository.ReplayAll();
 
-            var createScript = new TestCreateScript("2", ";");
+            var createScript = new TestCreateScript("2");
             var upgradeScript = new TestUpgradeScript("1", "2");
             var migrationScript = new FileMigrationScript(createScript, upgradeScript);
 

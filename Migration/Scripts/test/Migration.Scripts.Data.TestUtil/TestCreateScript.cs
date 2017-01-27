@@ -31,14 +31,10 @@ namespace Migration.Scripts.Data.TestUtil
         /// <summary>
         /// Creates a new instance of <see cref="TestCreateScript"/>.
         /// </summary>
-        /// <param name="version">The version <paramref name="query"/> was designed for.</param>
-        /// <param name="query">The SQL query that belongs to <paramref name="version"/>.</param>
-        /// <exception cref="ArgumentException">Thrown when:
-        /// <list type="bullet">
-        /// <item><paramref name="version"/> is empty or <c>null</c>,</item>
-        /// <item><paramref name="query"/> is empty, <c>null</c>, or consist out of only whitespace characters.</item>
-        /// </list></exception>
-        public TestCreateScript(string version, string query) : base(version, query) {}
+        /// <param name="version">The version for this <see cref="TestCreateScript"/>.</param>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="version"/> is empty 
+        /// or <c>null</c>.</exception>
+        public TestCreateScript(string version) : base(version) {}
 
         protected override IVersionedFile GetEmptyVersionedFile(string location)
         {

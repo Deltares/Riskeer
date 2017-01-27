@@ -30,31 +30,21 @@ namespace Migration.Scripts.Data
     /// </summary>
     public abstract class CreateScript
     {
-        protected readonly string CreateQuery;
         private readonly string version;
 
         /// <summary>
         /// Creates a new instance of the <see cref="CreateScript"/> class.
         /// </summary>
-        /// <param name="version">The version <paramref name="query"/> was designed for.</param>
-        /// <param name="query">The SQL query that belongs to <paramref name="version"/>.</param>
-        /// <exception cref="ArgumentException">Thrown when:
-        /// <list type="bullet">
-        /// <item><paramref name="version"/> is empty or <c>null</c>,</item>
-        /// <item><paramref name="query"/> is empty, <c>null</c>, or consist out of only whitespace characters.</item>
-        /// </list></exception>
-        protected CreateScript(string version, string query)
+        /// <param name="version">The version for this <see cref="CreateScript"/>.</param>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="version"/> is empty 
+        /// or <c>null</c>.</exception>
+        protected CreateScript(string version)
         {
             if (string.IsNullOrEmpty(version))
             {
                 throw new ArgumentException(@"Version must have a value.", nameof(version));
             }
-            if (string.IsNullOrWhiteSpace(query))
-            {
-                throw new ArgumentException(@"Query must have a value.", nameof(query));
-            }
             this.version = version;
-            CreateQuery = query;
         }
 
         /// <summary>

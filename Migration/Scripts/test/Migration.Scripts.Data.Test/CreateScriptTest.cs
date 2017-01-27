@@ -35,11 +35,8 @@ namespace Migration.Scripts.Data.Test
         [TestCase(null)]
         public void Constructor_InvalidVersion_ThrowsArgumentException(string version)
         {
-            // Setup
-            const string query = "Valid query";
-
             // Call
-            TestDelegate call = () => new TestCreateScript(version, query);
+            TestDelegate call = () => new TestCreateScript(version);
 
             // Assert
             string paramName = Assert.Throws<ArgumentException>(call).ParamName;
@@ -47,31 +44,13 @@ namespace Migration.Scripts.Data.Test
         }
 
         [Test]
-        [TestCase("")]
-        [TestCase("   ")]
-        [TestCase(null)]
-        public void Constructor_InvalidQuery_ThrowsArgumentException(string query)
-        {
-            // Setup
-            const string version = "Valid version";
-
-            // Call
-            TestDelegate call = () => new TestCreateScript(version, query);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentException>(call).ParamName;
-            Assert.AreEqual("query", paramName);
-        }
-
-        [Test]
         public void Constructor_ValidParameters_ExpectedValues()
         {
             // Setup
-            const string query = "Valid query";
             const string version = "Valid version";
 
             // Call
-            var createScript = new TestCreateScript(version, query);
+            var createScript = new TestCreateScript(version);
 
             // Assert
             Assert.AreEqual(version, createScript.Version());
@@ -81,12 +60,11 @@ namespace Migration.Scripts.Data.Test
         public void CreateEmptyVersionedFile_FileDoesNotExist_ReturnsVersionedFile()
         {
             // Setup
-            const string query = ";";
             const string version = "Valid version";
 
             string targetFilename = Path.GetRandomFileName();
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Migration.Core.Storage, targetFilename);
-            var createScript = new TestCreateScript(version, query);
+            var createScript = new TestCreateScript(version);
 
             // Call
             IVersionedFile versionedFile = createScript.CreateEmptyVersionedFile(filePath);
@@ -103,9 +81,8 @@ namespace Migration.Scripts.Data.Test
         public void CreateEmptyVersionedFile_InvalidPath_ThrowsArgumentException(string filePath)
         {
             // Setup
-            const string query = ";";
             const string version = "Valid version";
-            var createScript = new TestCreateScript(version, query);
+            var createScript = new TestCreateScript(version);
 
             // Call
             TestDelegate call = () => createScript.CreateEmptyVersionedFile(filePath);
@@ -119,12 +96,11 @@ namespace Migration.Scripts.Data.Test
         public void CreateEmptyVersionedFile_FileExistsButNotWritable_ThrowsArgumentException()
         {
             // Setup
-            const string query = ";";
             const string version = "Valid version";
 
             string filename = Path.GetRandomFileName();
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Migration.Core.Storage, filename);
-            var createScript = new TestCreateScript(version, query);
+            var createScript = new TestCreateScript(version);
 
             using (new FileDisposeHelper(filePath))
             {

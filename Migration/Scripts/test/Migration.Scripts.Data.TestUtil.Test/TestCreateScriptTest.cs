@@ -33,7 +33,7 @@ namespace Migration.Scripts.Data.TestUtil.Test
         public void Constructor_VersionEmptyOrNull_ThrowsException(string version)
         {
             // Call
-            TestDelegate call = () => new TestCreateScript(version, "query");
+            TestDelegate call = () => new TestCreateScript(version);
 
             // Assert
             string paramName = Assert.Throws<ArgumentException>(call).ParamName;
@@ -44,7 +44,7 @@ namespace Migration.Scripts.Data.TestUtil.Test
         public void Constructor_ValidParameters_ExpectedProperties()
         {
             // Call
-            var createScript = new TestCreateScript("version", "query");
+            var createScript = new TestCreateScript("version");
 
             // Assert
             Assert.IsInstanceOf<CreateScript>(createScript);

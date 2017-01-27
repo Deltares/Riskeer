@@ -32,6 +32,8 @@ namespace Application.Ringtoets.Migration
     /// </summary>
     public class RingtoetsCreateScript : CreateScript
     {
+        private readonly string createQuery;
+
         /// <summary>
         /// Creates a new instance of the <see cref="RingtoetsCreateScript"/> class.
         /// </summary>
@@ -42,7 +44,14 @@ namespace Application.Ringtoets.Migration
         /// <item><paramref name="version"/> is empty or <c>null</c>,</item>
         /// <item><paramref name="query"/> is empty, <c>null</c>, or consist out of only whitespace characters.</item>
         /// </list></exception>
-        public RingtoetsCreateScript(string version, string query) : base(version, query) {}
+        public RingtoetsCreateScript(string version, string query) : base(version)
+        {
+            if (string.IsNullOrWhiteSpace(query))
+            {
+                throw new ArgumentException(@"Query must have a value.", nameof(query));
+            }
+            createQuery = query;
+        }
 
         protected override IVersionedFile GetEmptyVersionedFile(string location)
         {
@@ -51,7 +60,7 @@ namespace Application.Ringtoets.Migration
                 using (var databaseFile = new RingtoetsDatabaseFile(location))
                 {
                     databaseFile.OpenDatabaseConnection();
-                    databaseFile.ExecuteQuery(CreateQuery);
+                    databaseFile.ExecuteQuery(createQuery);
                 }
                 return new RingtoetsVersionedFile(location);
             }
