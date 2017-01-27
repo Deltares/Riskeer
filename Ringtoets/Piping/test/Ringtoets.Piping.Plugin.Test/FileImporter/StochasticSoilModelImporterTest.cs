@@ -595,6 +595,32 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         }
 
         [Test]
+        public void Import_ModelWithTwoStochasticSoilProfileForProfilesWithSameNameButDifferentTypes_ProbabilitiesNotAdded()
+        {
+            // Setup
+            string pathToFile = Path.Combine(testDataPath, "combined1d2d.soil");
+
+            var failureMechanism = new PipingFailureMechanism();
+            var importer = new StochasticSoilModelImporter(failureMechanism.StochasticSoilModels, pathToFile, new StochasticSoilModelReplaceData());
+            importer.SetProgressChanged(IncrementProgress);
+
+            var importResult = false;
+
+            // Call
+            Action importAction = () => importResult = importer.Import();
+
+            // Assert
+            TestHelper.AssertLogMessagesCount(importAction, 0);
+            Assert.IsTrue(importResult);
+            StochasticSoilModelCollection importedModels = failureMechanism.StochasticSoilModels;
+            Assert.AreEqual(pathToFile, importedModels.SourcePath);
+            Assert.AreEqual(1, importedModels.Count);
+            var firstModel = importedModels.First();
+            Assert.AreEqual(2, firstModel.StochasticSoilProfiles.Count);
+            Assert.AreEqual(firstModel.StochasticSoilProfiles[0].SoilProfile.Name, firstModel.StochasticSoilProfiles[1].SoilProfile.Name);
+        }
+
+        [Test]
         public void Import_ModelWithOneStochasticSoilProfile2DWithoutLayerPropertiesSet_ImportModelToCollection()
         {
             // Setup
