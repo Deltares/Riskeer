@@ -576,9 +576,6 @@ namespace Ringtoets.Integration.Plugin
             {
                 Text = designWaterLevel => RingtoetsFormsResources.DesignWaterLevelLocationsContext_DisplayName,
                 Image = designWaterLevel => RingtoetsCommonFormsResources.GenericInputOutputIcon,
-                ForeColor = context => context.WrappedData.HydraulicBoundaryDatabase == null ?
-                                           Color.FromKnownColor(KnownColor.GrayText) :
-                                           Color.FromKnownColor(KnownColor.ControlText),
                 ContextMenuStrip = DesignWaterLevelLocationsContextMenuStrip
             };
 
@@ -586,9 +583,6 @@ namespace Ringtoets.Integration.Plugin
             {
                 Text = waveHeight => RingtoetsFormsResources.WaveHeightLocationsContext_DisplayName,
                 Image = waveHeight => RingtoetsCommonFormsResources.GenericInputOutputIcon,
-                ForeColor = context => context.WrappedData.HydraulicBoundaryDatabase == null ?
-                                           Color.FromKnownColor(KnownColor.GrayText) :
-                                           Color.FromKnownColor(KnownColor.ControlText),
                 ContextMenuStrip = WaveHeightLocationsContextMenuStrip
             };
 
@@ -765,7 +759,7 @@ namespace Ringtoets.Integration.Plugin
 
         #region FailureMechanismView ViewInfo
 
-        private bool CloseFailureMechanismViewForData(FailureMechanismView<IFailureMechanism> view, object o)
+        private static bool CloseFailureMechanismViewForData(FailureMechanismView<IFailureMechanism> view, object o)
         {
             var assessmentSection = o as IAssessmentSection;
             var failureMechanism = o as IFailureMechanism;
@@ -879,7 +873,7 @@ namespace Ringtoets.Integration.Plugin
 
         #region ForeshoreProfile TreeNodeInfo
 
-        private bool CanRemoveForeshoreProfile(ForeshoreProfile nodeData, object parentNodeData)
+        private static bool CanRemoveForeshoreProfile(ForeshoreProfile nodeData, object parentNodeData)
         {
             var parentContext = (ForeshoreProfilesContext) parentNodeData;
             IFailureMechanism failureMechanism = parentContext.ParentFailureMechanism;
@@ -891,7 +885,7 @@ namespace Ringtoets.Integration.Plugin
                    failureMechanism is StabilityPointStructuresFailureMechanism;
         }
 
-        private void OnForeshoreProfileRemoved(ForeshoreProfile nodeData, object parentNodeData)
+        private static void OnForeshoreProfileRemoved(ForeshoreProfile nodeData, object parentNodeData)
         {
             var parentContext = (ForeshoreProfilesContext) parentNodeData;
             IFailureMechanism failureMechanism = parentContext.ParentFailureMechanism;
@@ -956,12 +950,12 @@ namespace Ringtoets.Integration.Plugin
 
         #region DikeProfile TreeNodeInfo
 
-        private bool CanRemoveDikeProfile(DikeProfile nodeData, object parentData)
+        private static bool CanRemoveDikeProfile(DikeProfile nodeData, object parentData)
         {
             return parentData is DikeProfilesContext;
         }
 
-        private void OnDikeProfileRemoved(DikeProfile nodeData, object parentData)
+        private static void OnDikeProfileRemoved(DikeProfile nodeData, object parentData)
         {
             var parentContext = (DikeProfilesContext) parentData;
             var changedObservables = RingtoetsDataSynchronizationService.RemoveDikeProfile(parentContext.ParentFailureMechanism,
@@ -1486,7 +1480,7 @@ namespace Ringtoets.Integration.Plugin
                 BaseResources.Confirm,
                 MessageBoxButtons.OKCancel);
 
-            return (confirmation == DialogResult.OK);
+            return confirmation == DialogResult.OK;
         }
 
         private static void ClearCalculations(IAssessmentSection nodeData)

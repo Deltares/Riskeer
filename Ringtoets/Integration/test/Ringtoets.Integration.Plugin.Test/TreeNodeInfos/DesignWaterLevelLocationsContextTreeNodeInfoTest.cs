@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Threading;
@@ -69,7 +68,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
                 // Assert
                 Assert.IsNotNull(info.Text);
-                Assert.IsNotNull(info.ForeColor);
+                Assert.IsNull(info.ForeColor);
                 Assert.IsNotNull(info.Image);
                 Assert.IsNotNull(info.ContextMenuStrip);
                 Assert.IsNull(info.EnsureVisibleOnCreate);
@@ -371,51 +370,6 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                         Assert.AreEqual(CalculationConvergence.CalculatedNotConverged, location.DesignWaterLevelCalculationConvergence);
                     }
                 }
-            }
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void ForeColor_ContextHasNoHydraulicBoundaryDatabase_ReturnDisabledColor()
-        {
-            // Setup
-            var assessmentSectionMock = mockRepository.Stub<IAssessmentSection>();
-            mockRepository.ReplayAll();
-
-            var context = new DesignWaterLevelLocationsContext(assessmentSectionMock);
-
-            using (var plugin = new RingtoetsPlugin())
-            {
-                TreeNodeInfo info = GetInfo(plugin);
-
-                // Call
-                Color color = info.ForeColor(context);
-
-                // Assert
-                Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), color);
-            }
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void ForeColor_ContextHasHydraulicBoundaryDatabase_ReturnControlColor()
-        {
-            // Setup
-            var assessmentSectionMock = mockRepository.Stub<IAssessmentSection>();
-            assessmentSectionMock.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-            mockRepository.ReplayAll();
-
-            var context = new DesignWaterLevelLocationsContext(assessmentSectionMock);
-
-            using (var plugin = new RingtoetsPlugin())
-            {
-                TreeNodeInfo info = GetInfo(plugin);
-
-                // Call
-                Color color = info.ForeColor(context);
-
-                // Assert
-                Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), color);
             }
             mockRepository.VerifyAll();
         }
