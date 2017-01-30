@@ -370,15 +370,6 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Er is geen hydraulische randvoorwaardendatabase beschikbaar om de toetspeilen te berekenen..
-        /// </summary>
-        public static string DesignWaterLevel_No_HRD_To_Calculate {
-            get {
-                return ResourceManager.GetString("DesignWaterLevel_No_HRD_To_Calculate", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Toetspeilen.
         /// </summary>
         public static string DesignWaterLevelLocationsContext_DisplayName {
@@ -676,15 +667,6 @@ namespace Ringtoets.Integration.Forms.Properties {
         public static string WaveHeight_Calculate_All_ToolTip {
             get {
                 return ResourceManager.GetString("WaveHeight_Calculate_All_ToolTip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Er is geen hydraulische randvoorwaardendatabase beschikbaar om de golfhoogtes te berekenen..
-        /// </summary>
-        public static string WaveHeight_No_HRD_To_Calculate {
-            get {
-                return ResourceManager.GetString("WaveHeight_No_HRD_To_Calculate", resourceCulture);
             }
         }
         

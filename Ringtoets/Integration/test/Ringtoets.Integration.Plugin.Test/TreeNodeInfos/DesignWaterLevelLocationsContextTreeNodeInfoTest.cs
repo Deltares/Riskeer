@@ -24,7 +24,6 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
-using Core.Common.Base.Data;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
@@ -160,19 +159,24 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_NoHydraulicBoundaryDatabase_ContextMenuItemCalculateAllDisabled()
+        public void ContextMenuStrip_HydraulicBoundaryDatabaseNotValid_ContextMenuItemCalculateAllDisabledAndTooltipSet()
         {
             // Setup
-            var guiMock = mockRepository.StrictMock<IGui>();
             var assessmentSectionMock = mockRepository.Stub<IAssessmentSection>();
 
-            var nodeData = new DesignWaterLevelLocationsContext(assessmentSectionMock);
-
-            guiMock.Stub(g => g.ProjectOpened += null).IgnoreArguments();
-            guiMock.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
+            var nodeData = new DesignWaterLevelLocationsContext(assessmentSectionMock)
+            {
+                WrappedData =
+                {
+                    HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase()
+                }
+            };
 
             using (var treeViewControl = new TreeViewControl())
             {
+                var guiMock = mockRepository.StrictMock<IGui>();
+                guiMock.Stub(g => g.ProjectOpened += null).IgnoreArguments();
+                guiMock.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
                 guiMock.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
                 mockRepository.ReplayAll();
 
@@ -186,11 +190,12 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                     using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
                     {
                         // Assert
-                        const string expectedItemText = "Alles be&rekenen";
-                        const string expectedItemTooltip = "Er is geen hydraulische randvoorwaardendatabase beschikbaar om de toetspeilen te berekenen.";
+                        ToolStripItem contextMenuItem = contextMenu.Items[contextMenuRunAssessmentLevelCalculationsIndex];
 
-                        TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuRunAssessmentLevelCalculationsIndex,
-                                                                      expectedItemText, expectedItemTooltip, RingtoetsCommonFormsResources.CalculateAllIcon, false);
+                        Assert.AreEqual("Alles be&rekenen", contextMenuItem.Text);
+                        StringAssert.Contains("Herstellen van de verbinding met de hydraulische randvoorwaardendatabase is mislukt.", contextMenuItem.ToolTipText);
+                        TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.CalculateAllIcon, contextMenuItem.Image);
+                        Assert.IsFalse(contextMenuItem.Enabled);
                     }
                 }
             }
@@ -208,7 +213,10 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             {
                 WrappedData =
                 {
-                    HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase()
+                    HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+                    {
+                        FilePath = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "HydraulicBoundaryDatabaseImporter"), "complete.sqlite")
+                    }
                 }
             };
 
@@ -240,71 +248,6 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             }
 
             mockRepository.VerifyAll(); // Expect no calls on arguments
-        }
-
-        [Test]
-        [Apartment(ApartmentState.STA)]
-        public void GivenHydraulicBoundaryDatabaseWithNonExistingFilePath_WhenCalculatingAssessmentLevelFromContextMenu_ThenLogMessagesAddedPreviousOutputNotAffected()
-        {
-            // Given
-            var guiMock = mockRepository.DynamicMock<IGui>();
-            RoundedDouble designWaterLevel = (RoundedDouble) 4.2;
-
-            var hydraulicBoundaryLocation1 = new HydraulicBoundaryLocation(100001, "", 1.1, 2.2);
-            var hydraulicBoundaryLocation2 = new HydraulicBoundaryLocation(100002, "", 3.3, 4.4)
-            {
-                DesignWaterLevelOutput = new TestHydraulicBoundaryLocationOutput(designWaterLevel)
-            };
-
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-            {
-                Locations =
-                {
-                    hydraulicBoundaryLocation1,
-                    hydraulicBoundaryLocation2
-                },
-                FilePath = "D:/nonExistingDirectory/nonExistingFile",
-                Version = "random"
-            };
-
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
-            {
-                HydraulicBoundaryDatabase = hydraulicBoundaryDatabase
-            };
-            var context = new DesignWaterLevelLocationsContext(assessmentSection);
-
-            using (var treeViewControl = new TreeViewControl())
-            {
-                guiMock.Expect(g => g.Get(context, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                guiMock.Expect(g => g.MainWindow).Return(mockRepository.Stub<IMainWindow>());
-                guiMock.Expect(g => g.DocumentViewController).Return(mockRepository.Stub<IDocumentViewController>());
-
-                mockRepository.ReplayAll();
-
-                using (var plugin = new RingtoetsPlugin())
-                {
-                    TreeNodeInfo info = GetInfo(plugin);
-                    plugin.Gui = guiMock;
-                    plugin.Activate();
-
-                    using (ContextMenuStrip contextMenuAdapter = info.ContextMenuStrip(context, null, treeViewControl))
-                    {
-                        // When
-                        Action action = () => contextMenuAdapter.Items[contextMenuRunAssessmentLevelCalculationsIndex].PerformClick();
-
-                        // Then
-                        string message = string.Format("Berekeningen konden niet worden gestart. Fout bij het lezen van bestand '{0}': het bestand bestaat niet.",
-                                                       hydraulicBoundaryDatabase.FilePath);
-                        TestHelper.AssertLogMessageWithLevelIsGenerated(action, new Tuple<string, LogLevelConstant>(message, LogLevelConstant.Error));
-
-                        Assert.IsNaN(hydraulicBoundaryLocation1.DesignWaterLevel); // No result set
-
-                        // Previous result not cleared
-                        Assert.AreEqual(designWaterLevel, hydraulicBoundaryLocation2.DesignWaterLevel, hydraulicBoundaryLocation2.DesignWaterLevel.GetAccuracy());
-                    }
-                }
-            }
-            mockRepository.VerifyAll();
         }
 
         [Test]

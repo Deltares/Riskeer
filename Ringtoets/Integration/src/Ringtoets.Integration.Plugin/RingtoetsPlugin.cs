@@ -56,6 +56,7 @@ using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.Common.IO.HydraRing;
 using Ringtoets.Common.IO.Hydraulics;
 using Ringtoets.Common.IO.ReferenceLines;
+using Ringtoets.Common.Service;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Forms.PresentationObjects;
 using Ringtoets.DuneErosion.Plugin.Handlers;
@@ -111,111 +112,111 @@ namespace Ringtoets.Integration.Plugin
             new FailureMechanismContextAssociation(
                 typeof(PipingFailureMechanism),
                 (mechanism, assessmentSection) => new PipingFailureMechanismContext(
-                                                      (PipingFailureMechanism) mechanism,
-                                                      assessmentSection)
-                ),
+                    (PipingFailureMechanism) mechanism,
+                    assessmentSection)
+            ),
             new FailureMechanismContextAssociation(
                 typeof(GrassCoverErosionInwardsFailureMechanism),
                 (mechanism, assessmentSection) => new GrassCoverErosionInwardsFailureMechanismContext(
-                                                      (GrassCoverErosionInwardsFailureMechanism) mechanism,
-                                                      assessmentSection)
-                ),
+                    (GrassCoverErosionInwardsFailureMechanism) mechanism,
+                    assessmentSection)
+            ),
             new FailureMechanismContextAssociation(
                 typeof(HeightStructuresFailureMechanism),
                 (mechanism, assessmentSection) => new HeightStructuresFailureMechanismContext(
-                                                      (HeightStructuresFailureMechanism) mechanism,
-                                                      assessmentSection)
-                ),
+                    (HeightStructuresFailureMechanism) mechanism,
+                    assessmentSection)
+            ),
             new FailureMechanismContextAssociation(
                 typeof(DuneErosionFailureMechanism),
                 (mechanism, assessmentSection) => new DuneErosionFailureMechanismContext(
-                                                      (DuneErosionFailureMechanism) mechanism,
-                                                      assessmentSection)
-                ),
+                    (DuneErosionFailureMechanism) mechanism,
+                    assessmentSection)
+            ),
             new FailureMechanismContextAssociation(
                 typeof(GrassCoverErosionOutwardsFailureMechanism),
                 (mechanism, assessmentSection) => new GrassCoverErosionOutwardsFailureMechanismContext(
-                                                      (GrassCoverErosionOutwardsFailureMechanism) mechanism,
-                                                      assessmentSection)
-                ),
+                    (GrassCoverErosionOutwardsFailureMechanism) mechanism,
+                    assessmentSection)
+            ),
             new FailureMechanismContextAssociation(
                 typeof(GrassCoverSlipOffInwardsFailureMechanism),
                 (mechanism, assessmentSection) => new FailureMechanismContext<IFailureMechanism>(
-                                                      mechanism,
-                                                      assessmentSection)
-                ),
+                    mechanism,
+                    assessmentSection)
+            ),
             new FailureMechanismContextAssociation(
                 typeof(GrassCoverSlipOffOutwardsFailureMechanism),
                 (mechanism, assessmentSection) => new FailureMechanismContext<IFailureMechanism>(
-                                                      mechanism,
-                                                      assessmentSection)
-                ),
+                    mechanism,
+                    assessmentSection)
+            ),
             new FailureMechanismContextAssociation(
                 typeof(MicrostabilityFailureMechanism),
                 (mechanism, assessmentSection) => new FailureMechanismContext<IFailureMechanism>(
-                                                      mechanism,
-                                                      assessmentSection)
-                ),
+                    mechanism,
+                    assessmentSection)
+            ),
             new FailureMechanismContextAssociation(
                 typeof(PipingStructureFailureMechanism),
                 (mechanism, assessmentSection) => new FailureMechanismContext<IFailureMechanism>(
-                                                      mechanism,
-                                                      assessmentSection)
-                ),
+                    mechanism,
+                    assessmentSection)
+            ),
             new FailureMechanismContextAssociation(
                 typeof(StabilityStoneCoverFailureMechanism),
                 (mechanism, assessmentSection) => new StabilityStoneCoverFailureMechanismContext(
-                                                      (StabilityStoneCoverFailureMechanism) mechanism,
-                                                      assessmentSection)
-                ),
+                    (StabilityStoneCoverFailureMechanism) mechanism,
+                    assessmentSection)
+            ),
             new FailureMechanismContextAssociation(
                 typeof(TechnicalInnovationFailureMechanism),
                 (mechanism, assessmentSection) => new FailureMechanismContext<IFailureMechanism>(
-                                                      mechanism,
-                                                      assessmentSection)
-                ),
+                    mechanism,
+                    assessmentSection)
+            ),
             new FailureMechanismContextAssociation(
                 typeof(StrengthStabilityLengthwiseConstructionFailureMechanism),
                 (mechanism, assessmentSection) => new FailureMechanismContext<IFailureMechanism>(
-                                                      mechanism,
-                                                      assessmentSection)
-                ),
+                    mechanism,
+                    assessmentSection)
+            ),
             new FailureMechanismContextAssociation(
                 typeof(WaveImpactAsphaltCoverFailureMechanism),
                 (mechanism, assessmentSection) => new WaveImpactAsphaltCoverFailureMechanismContext(
-                                                      (WaveImpactAsphaltCoverFailureMechanism) mechanism,
-                                                      assessmentSection)
-                ),
+                    (WaveImpactAsphaltCoverFailureMechanism) mechanism,
+                    assessmentSection)
+            ),
             new FailureMechanismContextAssociation(
                 typeof(WaterPressureAsphaltCoverFailureMechanism),
                 (mechanism, assessmentSection) => new FailureMechanismContext<IFailureMechanism>(
-                                                      mechanism,
-                                                      assessmentSection)
-                ),
+                    mechanism,
+                    assessmentSection)
+            ),
             new FailureMechanismContextAssociation(
                 typeof(ClosingStructuresFailureMechanism),
                 (mechanism, assessmentSection) => new ClosingStructuresFailureMechanismContext(
-                                                      (ClosingStructuresFailureMechanism) mechanism,
-                                                      assessmentSection)
-                ),
+                    (ClosingStructuresFailureMechanism) mechanism,
+                    assessmentSection)
+            ),
             new FailureMechanismContextAssociation(
                 typeof(MacrostabilityInwardsFailureMechanism),
                 (mechanism, assessmentSection) => new FailureMechanismContext<IFailureMechanism>(
-                                                      mechanism,
-                                                      assessmentSection)
-                ),
+                    mechanism,
+                    assessmentSection)
+            ),
             new FailureMechanismContextAssociation(
                 typeof(MacrostabilityOutwardsFailureMechanism),
                 (mechanism, assessmentSection) => new FailureMechanismContext<IFailureMechanism>(
-                                                      mechanism,
-                                                      assessmentSection)
-                ),
+                    mechanism,
+                    assessmentSection)
+            ),
             new FailureMechanismContextAssociation(
                 typeof(StabilityPointStructuresFailureMechanism),
                 (mechanism, assessmentSection) => new StabilityPointStructuresFailureMechanismContext(
-                                                      (StabilityPointStructuresFailureMechanism) mechanism,
-                                                      assessmentSection)
-                )
+                    (StabilityPointStructuresFailureMechanism) mechanism,
+                    assessmentSection)
+            )
         };
 
         #endregion
@@ -279,10 +280,10 @@ namespace Ringtoets.Integration.Plugin
             yield return new PropertyInfo<FailureMechanismContributionContext, FailureMechanismContributionProperties>
             {
                 CreateInstance = context => new FailureMechanismContributionProperties(
-                                                context.WrappedData,
-                                                context.Parent,
-                                                new FailureMechanismContributionNormChangeHandler(),
-                                                new AssessmentSectionCompositionChangeHandler())
+                    context.WrappedData,
+                    context.Parent,
+                    new FailureMechanismContributionNormChangeHandler(),
+                    new AssessmentSectionCompositionChangeHandler())
             };
             yield return new PropertyInfo<FailureMechanismContext<IFailureMechanism>, StandAloneFailureMechanismContextProperties>();
             yield return new PropertyInfo<ICalculationContext<CalculationGroup, IFailureMechanism>, CalculationGroupContextProperties>();
@@ -291,13 +292,13 @@ namespace Ringtoets.Integration.Plugin
             yield return new PropertyInfo<DesignWaterLevelLocationsContext, DesignWaterLevelLocationsContextProperties>
             {
                 CreateInstance = context => new DesignWaterLevelLocationsContextProperties(
-                                                context.WrappedData.HydraulicBoundaryDatabase)
+                    context.WrappedData.HydraulicBoundaryDatabase)
             };
             yield return new PropertyInfo<DesignWaterLevelLocationContext, DesignWaterLevelLocationContextProperties>();
             yield return new PropertyInfo<WaveHeightLocationsContext, WaveHeightLocationsContextProperties>
             {
                 CreateInstance = context => new WaveHeightLocationsContextProperties(
-                                                context.WrappedData.HydraulicBoundaryDatabase)
+                    context.WrappedData.HydraulicBoundaryDatabase)
             };
             yield return new PropertyInfo<WaveHeightLocationContext, WaveHeightLocationContextProperties>();
             yield return new PropertyInfo<ForeshoreProfile, ForeshoreProfileProperties>();
@@ -456,8 +457,8 @@ namespace Ringtoets.Integration.Plugin
             yield return new ExportInfo<HydraulicBoundaryDatabaseContext>
             {
                 CreateFileExporter = (context, filePath) => new HydraulicBoundaryLocationsExporter(
-                                                                context.WrappedData.HydraulicBoundaryDatabase.Locations, filePath,
-                                                                RingtoetsIntegrationPluginResources.DesignWaterLevel_Description, RingtoetsIntegrationPluginResources.WaveHeight_Description),
+                    context.WrappedData.HydraulicBoundaryDatabase.Locations, filePath,
+                    RingtoetsIntegrationPluginResources.DesignWaterLevel_Description, RingtoetsIntegrationPluginResources.WaveHeight_Description),
                 IsEnabled = context => context.WrappedData.HydraulicBoundaryDatabase != null,
                 FileFilter = RingtoetsCommonIoResources.DataTypeDisplayName_shape_file_filter
             };
@@ -522,10 +523,10 @@ namespace Ringtoets.Integration.Plugin
                                            Color.FromKnownColor(KnownColor.GrayText) :
                                            Color.FromKnownColor(KnownColor.ControlText),
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) =>
-                                   Gui.Get(nodeData, treeViewControl)
-                                      .AddImportItem()
-                                      .AddExportItem()
-                                      .Build()
+                    Gui.Get(nodeData, treeViewControl)
+                       .AddImportItem()
+                       .AddExportItem()
+                       .Build()
             };
 
             yield return RingtoetsTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<FailureMechanismContext<IFailureMechanism>>(
@@ -1062,8 +1063,8 @@ namespace Ringtoets.Integration.Plugin
             return assessmentSection
                 .GetFailureMechanisms()
                 .Select(failureMechanism => failureMechanismAssociations
-                                                .First(a => a.Match(failureMechanism))
-                                                .Create(failureMechanism, assessmentSection)
+                            .First(a => a.Match(failureMechanism))
+                            .Create(failureMechanism, assessmentSection)
                 );
         }
 
@@ -1327,11 +1328,7 @@ namespace Ringtoets.Integration.Plugin
                     }
                 });
 
-            if (nodeData.WrappedData.HydraulicBoundaryDatabase == null)
-            {
-                designWaterLevelItem.Enabled = false;
-                designWaterLevelItem.ToolTipText = RingtoetsFormsResources.DesignWaterLevel_No_HRD_To_Calculate;
-            }
+            SetHydraulicsMenuItemEnabledStateAndTooltip(nodeData.WrappedData, designWaterLevelItem);
 
             return Gui.Get(nodeData, treeViewControl)
                       .AddOpenItem()
@@ -1366,11 +1363,7 @@ namespace Ringtoets.Integration.Plugin
                     }
                 });
 
-            if (nodeData.WrappedData.HydraulicBoundaryDatabase == null)
-            {
-                waveHeightItem.Enabled = false;
-                waveHeightItem.ToolTipText = RingtoetsFormsResources.WaveHeight_No_HRD_To_Calculate;
-            }
+            SetHydraulicsMenuItemEnabledStateAndTooltip(nodeData.WrappedData, waveHeightItem);
 
             return Gui.Get(nodeData, treeViewControl)
                       .AddOpenItem()
@@ -1379,6 +1372,16 @@ namespace Ringtoets.Integration.Plugin
                       .AddSeparator()
                       .AddPropertiesItem()
                       .Build();
+        }
+
+        private static void SetHydraulicsMenuItemEnabledStateAndTooltip(IAssessmentSection assessmentSection, StrictContextMenuItem menuItem)
+        {
+            var validationText = HydraulicBoundaryDatabaseConnectionValidator.Validate(assessmentSection.HydraulicBoundaryDatabase);
+            if (!string.IsNullOrEmpty(validationText))
+            {
+                menuItem.Enabled = false;
+                menuItem.ToolTipText = validationText;
+            }
         }
 
         private ContextMenuStrip HydraulicBoundaryDatabaseContextMenuStrip(HydraulicBoundaryDatabaseContext nodeData, object parentData, TreeViewControl treeViewControl)
