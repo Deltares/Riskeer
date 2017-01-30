@@ -70,6 +70,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.AreEqual(name, entity.Name);
             Assert.AreEqual(sourceCapabilitiesUrl, entity.SourceCapabilitiesUrl);
             Assert.AreEqual(selectedCapabilityName, entity.SelectedCapabilityName);
+            Assert.AreEqual(preferredFormat, entity.PreferredFormat);
             Assert.AreEqual(Convert.ToByte(isVisible), entity.IsVisible);
             Assert.AreEqual(transparancy, entity.Transparency);
         }

@@ -50,6 +50,7 @@ namespace Application.Ringtoets.Storage.Create
                 IsVisible = Convert.ToByte(mapData.IsVisible),
                 SelectedCapabilityName = mapData.SelectedCapabilityIdentifier.DeepClone(),
                 SourceCapabilitiesUrl = mapData.SourceCapabilitiesUrl.DeepClone(),
+                PreferredFormat = mapData.PreferredFormat.DeepClone(),
                 Transparency = mapData.Transparency
             };
         }

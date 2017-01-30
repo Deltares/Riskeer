@@ -52,7 +52,7 @@ namespace Application.Ringtoets.Storage.Read
             return new WmtsMapData(entity.Name,
                                           entity.SourceCapabilitiesUrl,
                                           entity.SelectedCapabilityName,
-                                          "image/png")
+                                          entity.PreferredFormat)
             {
                 IsVisible = Convert.ToBoolean(entity.IsVisible),
                 Transparency = (RoundedDouble) entity.Transparency.ToNaNAsNull()

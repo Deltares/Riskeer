@@ -51,6 +51,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             const string name = "map data";
             const string url = "//url";
             const string capabilityName = "capability name";
+            const string preferredFormat = "image/jpeg";
             const bool isVisible = false;
             const double transparancy = 0.4;
 
@@ -59,6 +60,7 @@ namespace Application.Ringtoets.Storage.Test.Read
                 Name = name,
                 SourceCapabilitiesUrl = url,
                 SelectedCapabilityName = capabilityName,
+                PreferredFormat = preferredFormat,
                 IsVisible = Convert.ToByte(isVisible),
                 Transparency = transparancy
             };
@@ -72,7 +74,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.AreEqual(capabilityName, mapData.SelectedCapabilityIdentifier);
             Assert.AreEqual(isVisible, mapData.IsVisible);
             Assert.AreEqual(transparancy, mapData.Transparency.Value);
-            Assert.AreEqual("image/png", mapData.PreferredFormat);
+            Assert.AreEqual(preferredFormat, mapData.PreferredFormat);
         }
     }
 }
