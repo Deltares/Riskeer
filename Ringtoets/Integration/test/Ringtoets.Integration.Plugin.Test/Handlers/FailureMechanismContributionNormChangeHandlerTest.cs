@@ -27,6 +27,7 @@ using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.Integration.Data;
@@ -121,7 +122,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
         {
             // Setup
             var handler = new FailureMechanismContributionNormChangeHandler();
-            const double norm = 1.0/1000;
+            const double norm = 1.0 / 1000;
 
             // Call
             TestDelegate call = () => handler.ChangeNorm(null, norm);
@@ -159,7 +160,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             var handler = new FailureMechanismContributionNormChangeHandler();
 
             IEnumerable<IObservable> affectedObjects = null;
-            const double norm = 1.0/1000;
+            const double norm = 1.0 / 1000;
 
             // Call
             Action call = () => affectedObjects = handler.ChangeNorm(section, norm);
@@ -179,6 +180,9 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
 
             var expectedAffectedObjects = expectedAffectedCalculations.Cast<IObservable>()
                                                                       .Concat(section.GetFailureMechanisms())
+                                                                      .Concat(section.GrassCoverErosionOutwards.HydraulicBoundaryLocations)
+                                                                      .Concat(section.HydraulicBoundaryDatabase.Locations)
+                                                                      .Concat(section.DuneErosion.DuneLocations)
                                                                       .Concat(new IObservable[]
                                                                       {
                                                                           section.FailureMechanismContribution,
@@ -189,10 +193,8 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             foreach (HydraulicBoundaryLocation location in section.HydraulicBoundaryDatabase.Locations
                                                                   .Concat(section.GrassCoverErosionOutwards.HydraulicBoundaryLocations))
             {
-                Assert.IsNaN(location.DesignWaterLevel);
-                Assert.IsNaN(location.WaveHeight);
-                Assert.AreEqual(CalculationConvergence.NotCalculated, location.DesignWaterLevelCalculationConvergence);
-                Assert.AreEqual(CalculationConvergence.NotCalculated, location.WaveHeightCalculationConvergence);
+                Assert.IsNull(location.WaveHeightOutput);
+                Assert.IsNull(location.DesignWaterLevelOutput);
             }
             foreach (DuneLocation duneLocation in section.DuneErosion.DuneLocations)
             {
@@ -225,7 +227,10 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
 
             Assert.AreEqual(newNormValue, section.FailureMechanismContribution.Norm);
 
-            var expectedAffectedObjects = section.GetFailureMechanisms()
+            var expectedAffectedObjects = section.GetFailureMechanisms().Cast<IObservable>()
+                                                 .Concat(section.GrassCoverErosionOutwards.HydraulicBoundaryLocations)
+                                                 .Concat(section.HydraulicBoundaryDatabase.Locations)
+                                                 .Concat(section.DuneErosion.DuneLocations)
                                                  .Concat(new IObservable[]
                                                  {
                                                      section.FailureMechanismContribution,
@@ -236,10 +241,8 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             foreach (HydraulicBoundaryLocation location in section.HydraulicBoundaryDatabase.Locations
                                                                   .Concat(section.GrassCoverErosionOutwards.HydraulicBoundaryLocations))
             {
-                Assert.IsNaN(location.DesignWaterLevel);
-                Assert.IsNaN(location.WaveHeight);
-                Assert.AreEqual(CalculationConvergence.NotCalculated, location.DesignWaterLevelCalculationConvergence);
-                Assert.AreEqual(CalculationConvergence.NotCalculated, location.WaveHeightCalculationConvergence);
+                Assert.IsNull(location.DesignWaterLevelOutput);
+                Assert.IsNull(location.WaveHeightOutput);
             }
             foreach (DuneLocation duneLocation in section.DuneErosion.DuneLocations)
             {
@@ -267,7 +270,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             var handler = new FailureMechanismContributionNormChangeHandler();
 
             IEnumerable<IObservable> affectedObjects = null;
-            const double norm = 1.0/1000;
+            const double norm = 1.0 / 1000;
 
             // Call
             Action call = () => affectedObjects = handler.ChangeNorm(section, norm);

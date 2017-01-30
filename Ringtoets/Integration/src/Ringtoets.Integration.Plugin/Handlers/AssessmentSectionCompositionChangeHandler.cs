@@ -121,7 +121,7 @@ namespace Ringtoets.Integration.Plugin.Handlers
             if (affectedObjects.Any())
             {
                 log.Info(Resources.AssessmentSectionCompositionChangeHandler_Waveheight_and_design_water_level_results_cleared);
-                return RingtoetsDataSynchronizationService.GetHydraulicBoundaryLocationCollectionsOfFailureMechanisms(failureMechanismsToClearOutputFor);
+                return affectedObjects;
             }
             return Enumerable.Empty<IObservable>();
         }

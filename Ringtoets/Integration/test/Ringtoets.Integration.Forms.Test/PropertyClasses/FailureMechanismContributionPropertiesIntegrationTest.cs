@@ -91,11 +91,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
                 Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
             };
 
-            var grassCoverErosionOutwardsHydraulicBoundaryLocation = hydraulicBoundaryLocation;
-            grassCoverErosionOutwardsHydraulicBoundaryLocation.WaveHeightOutput = new TestHydraulicBoundaryLocationOutput(
-                hydraulicBoundaryLocation.WaveHeight);
-            grassCoverErosionOutwardsHydraulicBoundaryLocation.DesignWaterLevelOutput = new TestHydraulicBoundaryLocationOutput(
-                hydraulicBoundaryLocation.DesignWaterLevel);
+            var grassCoverErosionOutwardsHydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateFullyCalculated();
 
             assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations.Add(grassCoverErosionOutwardsHydraulicBoundaryLocation);
 
@@ -150,10 +146,10 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             // Precondition
             int originalReturnPeriodValue = Convert.ToInt32(1.0/failureMechanismContribution.Norm);
             Assert.AreEqual(originalReturnPeriodValue, properties.ReturnPeriod);
-            Assert.IsFalse(double.IsNaN(hydraulicBoundaryLocation.WaveHeight));
-            Assert.IsFalse(double.IsNaN(hydraulicBoundaryLocation.DesignWaterLevel));
-            Assert.IsFalse(double.IsNaN(grassCoverErosionOutwardsHydraulicBoundaryLocation.WaveHeight));
-            Assert.IsFalse(double.IsNaN(grassCoverErosionOutwardsHydraulicBoundaryLocation.DesignWaterLevel));
+            Assert.IsNotNull(hydraulicBoundaryLocation.WaveHeightOutput);
+            Assert.IsNotNull(hydraulicBoundaryLocation.DesignWaterLevelOutput);
+            Assert.IsNotNull(grassCoverErosionOutwardsHydraulicBoundaryLocation.WaveHeightOutput);
+            Assert.IsNotNull(grassCoverErosionOutwardsHydraulicBoundaryLocation.DesignWaterLevelOutput);
             Assert.IsNotNull(pipingCalculation.Output);
             Assert.IsNotNull(pipingCalculation.SemiProbabilisticOutput);
             Assert.IsNotNull(grassCoverErosionInwardsCalculation.Output);
@@ -176,10 +172,10 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
                 Assert.AreEqual(messageAllHydraulicBoundaryLocationOutputCleared, messages[1]);
             });
             Assert.AreEqual(1.0/newReturnPeriod, failureMechanismContribution.Norm);
-            Assert.IsNaN(hydraulicBoundaryLocation.WaveHeight);
-            Assert.IsNaN(hydraulicBoundaryLocation.DesignWaterLevel);
-            Assert.IsNaN(grassCoverErosionOutwardsHydraulicBoundaryLocation.WaveHeight);
-            Assert.IsNaN(grassCoverErosionOutwardsHydraulicBoundaryLocation.DesignWaterLevel);
+            Assert.IsNull(hydraulicBoundaryLocation.WaveHeightOutput);
+            Assert.IsNull(hydraulicBoundaryLocation.DesignWaterLevelOutput);
+            Assert.IsNull(grassCoverErosionOutwardsHydraulicBoundaryLocation.WaveHeightOutput);
+            Assert.IsNull(grassCoverErosionOutwardsHydraulicBoundaryLocation.DesignWaterLevelOutput);
             Assert.IsNull(pipingCalculation.Output);
             Assert.IsNull(pipingCalculation.SemiProbabilisticOutput);
             Assert.IsNull(grassCoverErosionInwardsCalculation.Output);

@@ -188,14 +188,18 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
                 .Where(calc => calc.HasOutput)
                 .ToList();
 
-            IObservable[] expectedAffectedObjects = new IObservable[]
-            {
-                grassCoverErosionOutwardsFailureMechanism.HydraulicBoundaryLocations,
-                duneErosionFailureMechanism.DuneLocations,
-                assessmentSection
-            }.Concat(GetDuneRelevantFailureMechanisms(assessmentSection)
-                         .SelectMany(fm => fm.Calculations)
-                         .Where(calc => calc.HasOutput)).ToArray();
+            IEnumerable<IObservable> expectedAffectedObjects = duneErosionFailureMechanism.DuneLocations.Cast<IObservable>()
+                                                                                          .Concat(grassCoverErosionOutwardsFailureMechanism.HydraulicBoundaryLocations)
+                                                                                          .Concat(new IObservable[]
+                                                                                          {
+                                                                                              grassCoverErosionOutwardsFailureMechanism.HydraulicBoundaryLocations,
+                                                                                              duneErosionFailureMechanism.DuneLocations,
+                                                                                              assessmentSection
+                                                                                          })
+                                                                                          .Concat(GetDuneRelevantFailureMechanisms(assessmentSection)
+                                                                                                      .SelectMany(fm => fm.Calculations)
+                                                                                                      .Where(calc => calc.HasOutput))
+                                                                                          .ToList();
 
             var handler = new AssessmentSectionCompositionChangeHandler();
 
@@ -251,11 +255,13 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
                                                              .Where(calc => calc.HasOutput)
                                                              .ToList();
 
-            IObservable[] expectedAffectedObjects = new IObservable[]
-            {
-                assessmentSection,
-                duneErosionFailureMechanism.DuneLocations
-            }.ToArray();
+            IEnumerable<IObservable> expectedAffectedObjects = duneErosionFailureMechanism.DuneLocations
+                                                                                          .Concat(new IObservable[]
+                                                                                          {
+                                                                                              assessmentSection,
+                                                                                              duneErosionFailureMechanism.DuneLocations
+                                                                                          })
+                                                                                          .ToList();
 
             var handler = new AssessmentSectionCompositionChangeHandler();
 
@@ -309,12 +315,18 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
                                                                                        .OfType<DuneErosionFailureMechanism>()
                                                                                        .First();
 
-            IObservable[] expectedAffectedObjects = new IObservable[]
-            {
-                assessmentSection,
-                grassCoverErosionOutwardsFailureMechanism.HydraulicBoundaryLocations,
-                duneErosionFailureMechanism.DuneLocations
-            }.ToArray();
+            IEnumerable<IObservable> expectedAffectedObjects = duneErosionFailureMechanism.DuneLocations.Cast<IObservable>()
+                                                                                          .Concat(grassCoverErosionOutwardsFailureMechanism.HydraulicBoundaryLocations)
+                                                                                          .Concat(new IObservable[]
+                                                                                          {
+                                                                                              grassCoverErosionOutwardsFailureMechanism.HydraulicBoundaryLocations,
+                                                                                              duneErosionFailureMechanism.DuneLocations,
+                                                                                              assessmentSection
+                                                                                          })
+                                                                                          .Concat(GetDuneRelevantFailureMechanisms(assessmentSection)
+                                                                                                      .SelectMany(fm => fm.Calculations)
+                                                                                                      .Where(calc => calc.HasOutput))
+                                                                                          .ToList();
 
             var handler = new AssessmentSectionCompositionChangeHandler();
 
@@ -358,11 +370,13 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
                                                                                        .OfType<DuneErosionFailureMechanism>()
                                                                                        .First();
 
-            IObservable[] expectedAffectedObjects = new IObservable[]
-            {
-                assessmentSection,
-                duneErosionFailureMechanism.DuneLocations
-            }.ToArray();
+            IEnumerable<IObservable> expectedAffectedObjects = duneErosionFailureMechanism.DuneLocations
+                                                                                         .Concat(new IObservable[]
+                                                                                         {
+                                                                                              assessmentSection,
+                                                                                              duneErosionFailureMechanism.DuneLocations
+                                                                                         })
+                                                                                         .ToList();
 
             var handler = new AssessmentSectionCompositionChangeHandler();
 
@@ -455,10 +469,10 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
                                                              .Where(calc => calc.HasOutput)
                                                              .ToList();
 
-            IObservable[] expectedAffectedObjects = new[]
+            IObservable[] expectedAffectedObjects = 
             {
                 assessmentSection
-            }.ToArray();
+            };
 
             var handler = new AssessmentSectionCompositionChangeHandler();
 

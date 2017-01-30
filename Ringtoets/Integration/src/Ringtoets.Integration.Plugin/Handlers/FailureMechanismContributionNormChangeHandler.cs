@@ -89,19 +89,14 @@ namespace Ringtoets.Integration.Plugin.Handlers
 
         private IEnumerable<IObservable> ClearAllHydraulicBoundaryLocationOutput(IAssessmentSection assessmentSection)
         {
-            IEnumerable<IObservable> hydraulicBoundaryLocationAffected = RingtoetsDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(
+            IEnumerable<IObservable> affectedObjects = RingtoetsDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(
                 assessmentSection.HydraulicBoundaryDatabase, assessmentSection);
-            if (hydraulicBoundaryLocationAffected.Any())
+
+            if (affectedObjects.Any())
             {
                 log.Info(Resources.FailureMechanismContributionNormChangeHandler_Waveheight_and_design_water_level_results_cleared);
-
-                var affectedCollections = new List<IObservable>
-                {
-                    assessmentSection.HydraulicBoundaryDatabase
-                };
-                affectedCollections.AddRange(RingtoetsDataSynchronizationService.GetHydraulicBoundaryLocationCollectionsOfFailureMechanisms(assessmentSection));
                 
-                return affectedCollections;
+                return affectedObjects;
             }
             return Enumerable.Empty<IObservable>();
         }
