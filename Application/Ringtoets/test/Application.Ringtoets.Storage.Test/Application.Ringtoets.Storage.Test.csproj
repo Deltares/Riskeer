@@ -78,6 +78,7 @@
     <Compile Include="..\..\..\..\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
+    <Compile Include="Create\BackgroundWmtsMapDataCreateExtensionsTest.cs" />
     <Compile Include="Create\ClosingStructures\ClosingStructureCreateExtensionsTest.cs" />
     <Compile Include="Create\ClosingStructures\GeneralClosingStructuresInputCreateExtensionsTest.cs" />
     <Compile Include="Create\DuneErosion\DuneLocationCreateExtensionsTest.cs" />
@@ -125,6 +126,7 @@
     <Compile Include="Read\StabilityStoneCover\StabilityStoneCoverWaveConditionsOutputEntityReadExtensionsTest.cs" />
     <Compile Include="Read\WaveImpactAsphaltCover\WaveImpactAsphaltCoverWaveConditionsCalculationEntityReadExtensionsTest.cs" />
     <Compile Include="Read\WaveImpactAsphaltCover\WaveImpactAsphaltCoverWaveConditionsOutputEntityReadExtensionsTest.cs" />
+    <Compile Include="Read\WmtsMapDataEntityReadExtensionsTest.cs" />
     <Compile Include="RoundedDoubleConversionExtensionsTest.cs" />
     <Compile Include="Serializers\DataCollectionSerializerTest.cs" />
     <Compile Include="Serializers\Point2DXmlSerializerTest.cs" />
@@ -254,6 +256,10 @@
     <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj">
       <Project>{D749EE4C-CE50-4C17-BF01-9A953028C126}</Project>
       <Name>Core.Common.TestUtil</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Gis\Core.Components.Gis.csproj">
+      <Project>{318BA582-88C9-4816-A54A-A7E431461DE3}</Project>
+      <Name>Core.Components.Gis</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Migration\Core\src\Migration.Core.Storage\Migration.Core.Storage.csproj">
       <Project>{EFD7E662-5B69-4B71-A448-565B64E9C033}</Project>
