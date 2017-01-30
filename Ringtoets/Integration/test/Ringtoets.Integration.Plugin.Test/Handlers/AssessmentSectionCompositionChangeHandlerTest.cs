@@ -180,9 +180,6 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
                                                                                        .OfType<DuneErosionFailureMechanism>()
                                                                                        .First();
 
-            // Precondition
-            Assert.AreNotEqual(assessmentSection.Composition, newComposition);
-
             IEnumerable<ICalculation> unaffectedObjects = GetDuneIrrelevantFailureMechanisms(assessmentSection)
                 .SelectMany(fm => fm.Calculations)
                 .Where(calc => calc.HasOutput)
@@ -233,11 +230,11 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
         }
 
         [Test]
-        [TestCase(AssessmentSectionComposition.Dike, AssessmentSectionComposition.DikeAndDune, TestName = "ChangeComposition_ChangeToNonDuneComposition_ChangeCompositionClearAllOutputReturnsAllAffectedObjects(Dike,DikeDune)")]
-        [TestCase(AssessmentSectionComposition.DikeAndDune, AssessmentSectionComposition.Dike, TestName = "ChangeComposition_ChangeToNonDuneComposition_ChangeCompositionClearAllOutputReturnsAllAffectedObjects(DikeDune,Dike)")]
-        [TestCase(AssessmentSectionComposition.Dune, AssessmentSectionComposition.Dike, TestName = "ChangeComposition_ChangeToNonDuneComposition_ChangeCompositionClearAllOutputReturnsAllAffectedObjects(Dune,Dike)")]
-        [TestCase(AssessmentSectionComposition.Dune, AssessmentSectionComposition.DikeAndDune, TestName = "ChangeComposition_ChangeToNonDuneComposition_ChangeCompositionClearAllOutputReturnsAllAffectedObjects(Dune,DikeDune)")]
-        public void ChangeComposition_ChangeToNonDuneComposition_ChangeCompositionAndClearAllCalculationOutputAndReturnsAllAffectedObjects(AssessmentSectionComposition oldComposition,
+        [TestCase(AssessmentSectionComposition.Dike, AssessmentSectionComposition.DikeAndDune, TestName = "ChangeComposition_ChangeToNonDuneComposition_ChangeCompositionClearRelevantOutputReturnsAllAffectedObjects(Dike,DikeDune)")]
+        [TestCase(AssessmentSectionComposition.DikeAndDune, AssessmentSectionComposition.Dike, TestName = "ChangeComposition_ChangeToNonDuneComposition_ChangeCompositionClearRelevantOutputReturnsAllAffectedObjects(DikeDune,Dike)")]
+        [TestCase(AssessmentSectionComposition.Dune, AssessmentSectionComposition.Dike, TestName = "ChangeComposition_ChangeToNonDuneComposition_ChangeCompositionClearRelevantOutputReturnsAllAffectedObjects(Dune,Dike)")]
+        [TestCase(AssessmentSectionComposition.Dune, AssessmentSectionComposition.DikeAndDune, TestName = "ChangeComposition_ChangeToNonDuneComposition_ChangeCompositionClearRelevantOutputReturnsAllAffectedObjects(Dune,DikeDune)")]
+        public void ChangeComposition_ChangeToNonDuneComposition_ChangeCompositionAndClearAllLocationOutputAndReturnsAllAffectedObjects(AssessmentSectionComposition oldComposition,
                                                                                                                                            AssessmentSectionComposition newComposition)
         {
             // Setup
@@ -246,9 +243,6 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             DuneErosionFailureMechanism duneErosionFailureMechanism = assessmentSection.GetFailureMechanisms()
                                                                                        .OfType<DuneErosionFailureMechanism>()
                                                                                        .First();
-
-            // Precondition
-            Assert.AreNotEqual(assessmentSection.Composition, newComposition);
 
             var expectedUnaffectedObjects = assessmentSection.GetFailureMechanisms()
                                                              .SelectMany(fm => fm.Calculations)
@@ -304,7 +298,6 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             RingtoetsDataSynchronizationService.ClearFailureMechanismCalculationOutputs(assessmentSection);
 
             // Precondition
-            Assert.AreNotEqual(assessmentSection.Composition, newComposition);
             CollectionAssert.IsEmpty(assessmentSection.GetFailureMechanisms().SelectMany(fm => fm.Calculations).Where(c => c.HasOutput));
 
             GrassCoverErosionOutwardsFailureMechanism grassCoverErosionOutwardsFailureMechanism = assessmentSection.GetFailureMechanisms()
@@ -363,7 +356,6 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             RingtoetsDataSynchronizationService.ClearFailureMechanismCalculationOutputs(assessmentSection);
 
             // Precondition
-            Assert.AreNotEqual(assessmentSection.Composition, newComposition);
             CollectionAssert.IsEmpty(assessmentSection.GetFailureMechanisms().SelectMany(fm => fm.Calculations).Where(c => c.HasOutput));
 
             DuneErosionFailureMechanism duneErosionFailureMechanism = assessmentSection.GetFailureMechanisms()
@@ -413,7 +405,6 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             RingtoetsDataSynchronizationService.ClearHydraulicBoundaryLocationOutputOfFailureMechanisms(assessmentSection);
 
             // Precondition
-            Assert.AreNotEqual(assessmentSection.Composition, newComposition);
             CollectionAssert.IsEmpty(assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations.Where(loc => loc.DesignWaterLevelOutput != null
                                                                                                                          || loc.WaveHeightOutput != null));
             CollectionAssert.IsEmpty(assessmentSection.DuneErosion.DuneLocations.Where(dl => dl.Output != null));
@@ -459,7 +450,6 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             RingtoetsDataSynchronizationService.ClearHydraulicBoundaryLocationOutputOfFailureMechanisms(assessmentSection);
 
             // Precondition
-            Assert.AreNotEqual(assessmentSection.Composition, newComposition);
             CollectionAssert.IsEmpty(assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations.Where(loc => loc.DesignWaterLevelOutput != null
                                                                                                                          || loc.WaveHeightOutput != null));
             CollectionAssert.IsEmpty(assessmentSection.DuneErosion.DuneLocations.Where(dl => dl.Output != null));

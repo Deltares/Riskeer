@@ -51,7 +51,18 @@ namespace Ringtoets.Integration.TestUtils
         /// <summary>
         /// Gets a fully configured <see cref="AssessmentSection"/>.
         /// </summary>
-        public static AssessmentSection GetFullyConfiguredAssessmentSection(AssessmentSectionComposition composition = AssessmentSectionComposition.Dike)
+        /// <returns>A fully configured <see cref="AssessmentSection"/>.</returns>
+        public static AssessmentSection GetFullyConfiguredAssessmentSection()
+        {
+            return GetFullyConfiguredAssessmentSection(AssessmentSectionComposition.Dike);
+        }
+
+        /// <summary>
+        /// Gets a fully configured <see cref="AssessmentSection"/> with a desired <see cref="AssessmentSectionComposition"/>.
+        /// </summary>
+        /// <param name="composition">The desired <see cref="AssessmentSectionComposition"/> to initialize the <see cref="AssessmentSection"/> with.</param>
+        /// <returns>A fully configured <see cref="AssessmentSection"/>.</returns>
+        public static AssessmentSection GetFullyConfiguredAssessmentSection(AssessmentSectionComposition composition)
         {
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0)
             {
