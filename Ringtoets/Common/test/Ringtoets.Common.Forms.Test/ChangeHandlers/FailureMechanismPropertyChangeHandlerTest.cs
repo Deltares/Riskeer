@@ -123,7 +123,7 @@ namespace Ringtoets.Common.Forms.Test.ChangeHandlers
             var propertySet = 0;
 
             var changeHandler = new FailureMechanismPropertyChangeHandler<IFailureMechanism>();
-            
+
             // Precondition
             Assert.IsTrue(testCase.ExpectedAffectedCalculations.All(c => c.HasOutput));
 
@@ -137,8 +137,8 @@ namespace Ringtoets.Common.Forms.Test.ChangeHandlers
             if (dialogBoxWillBeShown)
             {
                 Assert.AreEqual("Bevestigen", title);
-                string expectedMessage = "Als u een parameter in een toetsspoor wijzigt, zal de uitvoer van alle berekeningen in dit toetsspoor verwijderd worden." + Environment.NewLine +
-                                         Environment.NewLine +
+                string expectedMessage = "Als u een parameter in een toetsspoor wijzigt, zal de uitvoer van alle berekeningen in dit toetsspoor verwijderd worden."
+                                         + Environment.NewLine + Environment.NewLine +
                                          "Weet u zeker dat u wilt doorgaan?";
                 Assert.AreEqual(expectedMessage, message);
             }
@@ -159,8 +159,8 @@ namespace Ringtoets.Common.Forms.Test.ChangeHandlers
                 tester.ClickCancel();
             };
 
-            var calculationWithOutput = CalculationTestHelper.CreateCalculationWithOutput();
-            var calculationWithoutOutput = CalculationTestHelper.CreateCalculationWithoutOutput();
+            TestCalculation calculationWithOutput = CalculationTestHelper.CreateCalculationWithOutput();
+            TestCalculation calculationWithoutOutput = CalculationTestHelper.CreateCalculationWithoutOutput();
 
             var testFailureMechanism = new TestFailureMechanism(
                 new[]
@@ -249,54 +249,53 @@ namespace Ringtoets.Common.Forms.Test.ChangeHandlers
         {
             yield return new TestCaseData(
                 new ChangePropertyTestCase(new TestCalculation[0])
-
             ).SetName("SetPropertyValueAfterConfirmation No calculations");
 
             yield return new TestCaseData(
                 new ChangePropertyTestCase(new[]
-                             {
-                                 CalculationTestHelper.CreateCalculationWithOutput()
-                             })
+                {
+                    CalculationTestHelper.CreateCalculationWithOutput()
+                })
             ).SetName("SetPropertyValueAfterConfirmation Single calculation with output");
 
             yield return new TestCaseData(
                 new ChangePropertyTestCase(new[]
-                             {
-                                 CalculationTestHelper.CreateCalculationWithoutOutput()
-                             })
+                {
+                    CalculationTestHelper.CreateCalculationWithoutOutput()
+                })
             ).SetName("SetPropertyValueAfterConfirmation Single calculation without output");
 
             yield return new TestCaseData(
                 new ChangePropertyTestCase(new[]
-                             {
-                                 CalculationTestHelper.CreateCalculationWithoutOutput(),
-                                 CalculationTestHelper.CreateCalculationWithoutOutput()
-                             })
+                {
+                    CalculationTestHelper.CreateCalculationWithoutOutput(),
+                    CalculationTestHelper.CreateCalculationWithoutOutput()
+                })
             ).SetName("SetPropertyValueAfterConfirmation Two calculations without output");
 
             yield return new TestCaseData(
                 new ChangePropertyTestCase(new[]
-                             {
-                                 CalculationTestHelper.CreateCalculationWithOutput(),
-                                 CalculationTestHelper.CreateCalculationWithoutOutput()
-                             })
+                {
+                    CalculationTestHelper.CreateCalculationWithOutput(),
+                    CalculationTestHelper.CreateCalculationWithoutOutput()
+                })
             ).SetName("SetPropertyValueAfterConfirmation Calculation without and calculation with output");
 
             yield return new TestCaseData(
                 new ChangePropertyTestCase(new[]
-                             {
-                                 CalculationTestHelper.CreateCalculationWithOutput(),
-                                 CalculationTestHelper.CreateCalculationWithOutput()
-                             })
+                {
+                    CalculationTestHelper.CreateCalculationWithOutput(),
+                    CalculationTestHelper.CreateCalculationWithOutput()
+                })
             ).SetName("SetPropertyValueAfterConfirmation Two calculations with output");
 
             yield return new TestCaseData(
                 new ChangePropertyTestCase(new[]
-                             {
-                                 CalculationTestHelper.CreateCalculationWithOutput(),
-                                 CalculationTestHelper.CreateCalculationWithOutput(),
-                                 CalculationTestHelper.CreateCalculationWithoutOutput()
-                             })
+                {
+                    CalculationTestHelper.CreateCalculationWithOutput(),
+                    CalculationTestHelper.CreateCalculationWithOutput(),
+                    CalculationTestHelper.CreateCalculationWithoutOutput()
+                })
             ).SetName("SetPropertyValueAfterConfirmation Two calculations with and one calculation without output");
         }
     }

@@ -34,7 +34,7 @@ namespace Ringtoets.Common.Forms.TestUtil
     /// </summary>
     /// <typeparam name="TCalculationInput">The type of the calculation input that is expected to be passed to the method.</typeparam>
     /// <typeparam name="TCalculation">The type of  the calculation that is expected to be passed to the method.</typeparam>
-    /// <typeparam name="TExpectedValue">The type of the value that is epected to be passed to the method.</typeparam>    
+    /// <typeparam name="TExpectedValue">The type of the value that is expected to be passed to the method.</typeparam>    
     public class CalculationInputSetPropertyValueAfterConfirmationParameterTester<TCalculationInput, TCalculation, TExpectedValue>
         : ICalculationInputPropertyChangeHandler<TCalculationInput, TCalculation>
         where TCalculationInput : ICalculationInput

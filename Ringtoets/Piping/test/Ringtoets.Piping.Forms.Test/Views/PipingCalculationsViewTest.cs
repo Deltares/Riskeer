@@ -559,8 +559,8 @@ namespace Ringtoets.Piping.Forms.Test.Views
             mocks.ReplayAll();
 
             ConfigureHydraulicBoundaryDatabase(assessmentSection);
-            var failureMechanism = ConfigureFailuremechanism();
-            var calculationGroup = ConfigureCalculationGroup(assessmentSection, failureMechanism);
+            PipingFailureMechanism failureMechanism = ConfigureFailuremechanism();
+            CalculationGroup calculationGroup = ConfigureCalculationGroup(assessmentSection, failureMechanism);
 
             PipingCalculationScenario calculation = (PipingCalculationScenario) calculationGroup.Children.First();
 
@@ -1101,8 +1101,8 @@ namespace Ringtoets.Piping.Forms.Test.Views
             mocks.ReplayAll();
 
             ConfigureHydraulicBoundaryDatabase(assessmentSection);
-            var failureMechanism = ConfigureFailuremechanism();
-            var calculationGroup = ConfigureCalculationGroup(assessmentSection, failureMechanism);
+            PipingFailureMechanism failureMechanism = ConfigureFailuremechanism();
+            CalculationGroup calculationGroup = ConfigureCalculationGroup(assessmentSection, failureMechanism);
             PipingCalculationScenario calculation = (PipingCalculationScenario) calculationGroup.Children.First();
 
             RoundedDouble value = (RoundedDouble) newValue;
@@ -1152,8 +1152,8 @@ namespace Ringtoets.Piping.Forms.Test.Views
             mocks.ReplayAll();
 
             ConfigureHydraulicBoundaryDatabase(assessmentSection);
-            var failureMechanism = ConfigureFailuremechanism();
-            var calculationGroup = ConfigureCalculationGroup(assessmentSection, failureMechanism);
+            PipingFailureMechanism failureMechanism = ConfigureFailuremechanism();
+            CalculationGroup calculationGroup = ConfigureCalculationGroup(assessmentSection, failureMechanism);
             PipingCalculationScenario calculation = (PipingCalculationScenario)calculationGroup.Children.First();
 
             RoundedDouble value = (RoundedDouble)newValue;
@@ -1297,8 +1297,8 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             ConfigureHydraulicBoundaryDatabase(assessmentSection);
-            var failureMechanism = ConfigureFailuremechanism();
-            var calculationGroup = ConfigureCalculationGroup(assessmentSection, failureMechanism);
+            PipingFailureMechanism failureMechanism = ConfigureFailuremechanism();
+            CalculationGroup calculationGroup = ConfigureCalculationGroup(assessmentSection, failureMechanism);
 
             var handler = new CalculationInputPropertyChangeHandler<PipingInput, PipingCalculationScenario>();
 
@@ -1447,7 +1447,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 new Point2D(10.0, 0.0)
             }));
 
-            var pipingCalculationsView = ShowPipingCalculationsView(handler);
+            PipingCalculationsView pipingCalculationsView = ShowPipingCalculationsView(handler);
 
             pipingCalculationsView.Data = new CalculationGroup("Group", true)
             {

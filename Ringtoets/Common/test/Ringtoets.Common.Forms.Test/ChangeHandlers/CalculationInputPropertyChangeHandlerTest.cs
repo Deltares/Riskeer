@@ -95,7 +95,7 @@ namespace Ringtoets.Common.Forms.Test.ChangeHandlers
         public void SetPropertyValueAfterConfirmation_IfConfirmationRequiredThenGiven_SetValueCalledAffectedObjectsReturned(ChangePropertyTestCase testCase)
         {
             // Setup
-            var dialogBoxWillBeShown = testCase.Calculation.HasOutput;
+            bool dialogBoxWillBeShown = testCase.Calculation.HasOutput;
 
             string title = "";
             string message = "";
@@ -132,8 +132,8 @@ namespace Ringtoets.Common.Forms.Test.ChangeHandlers
             if (dialogBoxWillBeShown)
             {
                 Assert.AreEqual("Bevestigen", title);
-                string expectedMessage = "Als u een parameter in deze berekening wijzigt, zal de uitvoer van deze berekening verwijderd worden." + Environment.NewLine +
-                                         Environment.NewLine +
+                string expectedMessage = "Als u een parameter in deze berekening wijzigt, zal de uitvoer van deze berekening verwijderd worden."
+                                         + Environment.NewLine + Environment.NewLine +
                                          "Weet u zeker dat u wilt doorgaan?";
                 Assert.AreEqual(expectedMessage, message);
 
@@ -155,7 +155,7 @@ namespace Ringtoets.Common.Forms.Test.ChangeHandlers
                 tester.ClickCancel();
             };
 
-            var calculation = CalculationTestHelper.CreateCalculationWithOutput();
+            TestCalculation calculation = CalculationTestHelper.CreateCalculationWithOutput();
 
             var propertySet = 0;
 
@@ -187,7 +187,7 @@ namespace Ringtoets.Common.Forms.Test.ChangeHandlers
                 tester.ClickOk();
             };
 
-            var calculation = CalculationTestHelper.CreateCalculationWithOutput();
+            TestCalculation calculation = CalculationTestHelper.CreateCalculationWithOutput();
 
             var changeHandler = new CalculationInputPropertyChangeHandler<ICalculationInput, ICalculation>();
             var expectedException = new Exception();
@@ -208,7 +208,7 @@ namespace Ringtoets.Common.Forms.Test.ChangeHandlers
         public void SetPropertyValueAfterConfirmation_ConfirmationNotRequiredExceptionInSetValue_ExceptionBubbled()
         {
             // Setup
-            var calculation = CalculationTestHelper.CreateCalculationWithoutOutput();
+            TestCalculation calculation = CalculationTestHelper.CreateCalculationWithoutOutput();
 
             var changeHandler = new CalculationInputPropertyChangeHandler<ICalculationInput, ICalculation>();
             var expectedException = new Exception();

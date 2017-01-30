@@ -43,14 +43,14 @@ namespace Ringtoets.Common.Forms.PropertyClasses
     /// </summary>
     /// <typeparam name="TCalculationInput">The type of the calculation input.</typeparam>
     /// <typeparam name="TCalculation">The type of the calculation.</typeparam>
-    public interface ICalculationInputPropertyChangeHandler<TCalculationInput, TCalculation>
+    public interface ICalculationInputPropertyChangeHandler<TCalculationInput, in TCalculation>
         where TCalculationInput : ICalculationInput
         where TCalculation : ICalculation
     {
         /// <summary>
         /// Find out whether the property can be updated with or without confirmation. If confirmation is required,
-        /// the confirmation is obtained, afther which the property is set if confirmationg is given. If no confirmation
-        /// was required, then the value will be set for the property.
+        /// the confirmation is obtained, after which the property is set if confirmation is given. If no confirmation
+        /// was required, the value will be set for the property.
         /// </summary>
         /// <typeparam name="TValue">The type of the value that is set on a property of the calculation input.</typeparam>
         /// <param name="calculationInput">The calculation input for which the property is supposed to be set.</param>
