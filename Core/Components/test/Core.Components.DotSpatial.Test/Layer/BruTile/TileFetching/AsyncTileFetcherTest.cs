@@ -384,13 +384,13 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile.TileFetching
 
             using (var blockingEvent = new ManualResetEvent(false))
             {
-                var tileProvider = new TileProviderStub(blockingEvent)
+                var blockingTileProvider = new TileProviderStub(blockingEvent)
                 {
                     TileDataToReturn = data
                 };
                 
                 using (var fetcherIsDoneEvent = new ManualResetEvent(false))
-                using (var fetcher = new AsyncTileFetcher(tileProvider, 100, 200))
+                using (var fetcher = new AsyncTileFetcher(blockingTileProvider, 100, 200))
                 {
                     fetcher.TileReceived += (sender, args) =>
                     {
@@ -408,7 +408,6 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile.TileFetching
 
                     // Call
                     fetcher.DropAllPendingTileRequests();
-                    blockingEvent.Set();
 
                     Assert.IsFalse(fetcherIsDoneEvent.WaitOne(allowedTileFetchTime),
                                    "TileFetcher should have dropped request.");
