@@ -124,7 +124,7 @@
     <Compile Include="Layer\MapPointDataLayerTest.cs" />
     <Compile Include="Layer\MapPolygonDataLayerTest.cs" />
     <Compile Include="MapFunctions\MapFunctionSelectionZoomTest.cs" />
-    <Compile Include="MouseCoordinatesMapExtensionTest.cs" />
+    <Compile Include="RdNewMouseCoordinatesMapExtensionTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>

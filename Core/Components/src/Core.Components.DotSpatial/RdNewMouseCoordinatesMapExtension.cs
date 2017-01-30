@@ -22,25 +22,29 @@
 using System;
 using System.Windows.Forms;
 using DotSpatial.Controls;
+using DotSpatial.Projections;
 
 namespace Core.Components.DotSpatial
 {
     /// <summary>
-    /// An extension for the <see cref="Map"/> which shows the map coordinates of the mouse.
+    /// An extension for the <see cref="Map"/> which shows the map coordinates of the mouse
+    /// in RD-new coordinate system.
     /// </summary>
-    public class MouseCoordinatesMapExtension : Extension, IDisposable
+    public class RdNewMouseCoordinatesMapExtension : Extension, IDisposable
     {
         private readonly Map map;
         private readonly TableLayoutPanel panel;
         private readonly Label xLabel;
         private readonly Label yLabel;
 
+        private readonly ProjectionInfo targetProjection = KnownCoordinateSystems.Projected.NationalGrids.Rijksdriehoekstelsel;
+
         /// <summary>
-        /// Creates a new instance of <see cref="MouseCoordinatesMapExtension"/>.
+        /// Creates a new instance of <see cref="RdNewMouseCoordinatesMapExtension"/>.
         /// </summary>
-        /// <param name="map">The <see cref="Map"/> wich the extension applies to.</param>
+        /// <param name="map">The <see cref="Map"/> to which the extension applies to.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="map"/> is <c>null</c>.</exception>
-        public MouseCoordinatesMapExtension(Map map)
+        public RdNewMouseCoordinatesMapExtension(Map map)
         {
             if (map == null)
             {
@@ -105,8 +109,25 @@ namespace Core.Components.DotSpatial
 
         private void OnMouseMove(object sender, GeoMouseArgs e)
         {
-            xLabel.Text = string.Format("X: {0:0.#####}", e.GeographicLocation.X);
-            yLabel.Text = string.Format("Y: {0:0.#####}", e.GeographicLocation.Y);
+            double x = e.GeographicLocation.X;
+            double y = e.GeographicLocation.Y;
+
+            if (!targetProjection.Equals(map.Projection))
+            {
+                var xy = new[]
+                {
+                    x,
+                    y
+                };
+                Reproject.ReprojectPoints(xy, new[]
+                {
+                    0.0
+                }, map.Projection, targetProjection, 0, 1);
+                x = xy[0];
+                y = xy[1];
+            }
+            xLabel.Text = $@"X: {x:0.#####}";
+            yLabel.Text = $@"Y: {y:0.#####}";
         }
     }
 }

@@ -146,18 +146,27 @@ namespace Core.Components.DotSpatial.Layer.BruTile.TileFetching
 
         public void Dispose()
         {
-            if (volatileCache == null)
+            if (IsDisposed)
             {
                 return;
             }
 
             volatileCache.Clear();
-            volatileCache = null;
-            provider = null;
-            persistentCache = null;
 
             threadPool.Dispose();
             threadPool = null;
+
+            volatileCache = null;
+            provider = null;
+            persistentCache = null;
+        }
+
+        private bool IsDisposed
+        {
+            get
+            {
+                return threadPool == null;
+            }
         }
 
         private byte[] GetTileFromCache(TileInfo tileInfo)

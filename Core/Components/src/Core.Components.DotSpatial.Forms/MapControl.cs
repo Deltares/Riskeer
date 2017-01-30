@@ -49,7 +49,7 @@ namespace Core.Components.DotSpatial.Forms
         private Map map;
         private MapFunctionPan mapFunctionPan;
         private MapFunctionSelectionZoom mapFunctionSelectionZoom;
-        private MouseCoordinatesMapExtension mouseCoordinatesMapExtension;
+        private RdNewMouseCoordinatesMapExtension mouseCoordinatesMapExtension;
         private MapDataCollection data;
 
         private BruTileLayer backgroundLayer;
@@ -366,7 +366,7 @@ namespace Core.Components.DotSpatial.Forms
             mapFunctionSelectionZoom.MouseDown += MapFunctionSelectionZoomOnMouseDown;
             mapFunctionSelectionZoom.MouseUp += MapFunctionOnMouseUp;
 
-            mouseCoordinatesMapExtension = new MouseCoordinatesMapExtension(map);
+            mouseCoordinatesMapExtension = new RdNewMouseCoordinatesMapExtension(map);
             ToggleMouseCoordinatesVisibility();
 
             Controls.Add(map);

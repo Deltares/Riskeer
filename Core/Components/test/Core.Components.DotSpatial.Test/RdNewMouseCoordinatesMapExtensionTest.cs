@@ -27,7 +27,7 @@ using NUnit.Framework;
 namespace Core.Components.DotSpatial.Test
 {
     [TestFixture]
-    public class MouseCoordinatesMapExtensionTest
+    public class RdNewMouseCoordinatesMapExtensionTest
     {
         [Test]
         public void Constructor_WithMap_ExpectedValues()
@@ -36,7 +36,7 @@ namespace Core.Components.DotSpatial.Test
             var map = new Map();
 
             // Call
-            using (var extension = new MouseCoordinatesMapExtension(map))
+            using (var extension = new RdNewMouseCoordinatesMapExtension(map))
             {
                 // Assert
                 Assert.IsInstanceOf<Extension>(extension);
@@ -47,7 +47,7 @@ namespace Core.Components.DotSpatial.Test
         public void Constructor_WithoutMap_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new MouseCoordinatesMapExtension(null);
+            TestDelegate call = () => new RdNewMouseCoordinatesMapExtension(null);
 
             // Assert
             const string expectedMessage = "An extension cannot be initialized without map.";
@@ -59,7 +59,7 @@ namespace Core.Components.DotSpatial.Test
         {
             // Setup
             using (var map = new Map())
-            using (var extension = new MouseCoordinatesMapExtension(map))
+            using (var extension = new RdNewMouseCoordinatesMapExtension(map))
             {
                 // Call
                 extension.Activate();
@@ -74,7 +74,7 @@ namespace Core.Components.DotSpatial.Test
         {
             // Setup
             using (var map = new Map())
-            using (var extension = new MouseCoordinatesMapExtension(map))
+            using (var extension = new RdNewMouseCoordinatesMapExtension(map))
             {
                 extension.Activate();
 
