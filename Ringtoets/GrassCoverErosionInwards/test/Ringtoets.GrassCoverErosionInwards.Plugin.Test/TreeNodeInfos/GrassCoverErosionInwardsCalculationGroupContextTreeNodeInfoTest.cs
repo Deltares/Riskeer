@@ -204,7 +204,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                 menuBuilderMock.Expect(mb => mb.Build()).Return(null);
             }
 
-
             using (var treeViewControl = new TreeViewControl())
             {
                 guiMock.Expect(cmp => cmp.Get(groupContext, treeViewControl)).Return(menuBuilderMock);

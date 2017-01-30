@@ -664,7 +664,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         {
             // Setup
             string validHydroDatabasePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                           Path.Combine("HydraulicBoundaryDatabaseImporter", "complete.sqlite"));
+                                                                       Path.Combine("HydraulicBoundaryDatabaseImporter", "complete.sqlite"));
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -716,7 +716,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         {
             // Setup
             string validHydroDatabasePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                           Path.Combine("HydraulicBoundaryDatabaseImporter", "complete.sqlite"));
+                                                                       Path.Combine("HydraulicBoundaryDatabaseImporter", "complete.sqlite"));
 
             using (var treeViewControl = new TreeViewControl())
             {

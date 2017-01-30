@@ -656,7 +656,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
         {
             // Setup
             string validHydroDatabasePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                   Path.Combine("HydraulicBoundaryDatabaseImporter", "complete.sqlite"));
+                                                                       Path.Combine("HydraulicBoundaryDatabaseImporter", "complete.sqlite"));
 
             using (var treeViewControl = new TreeViewControl())
             {

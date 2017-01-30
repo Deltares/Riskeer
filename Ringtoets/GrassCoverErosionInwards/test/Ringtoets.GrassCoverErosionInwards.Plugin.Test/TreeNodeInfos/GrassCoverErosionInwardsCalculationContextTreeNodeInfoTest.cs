@@ -470,7 +470,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                 {
                     // Assert
                     ToolStripItem contextMenuItem = contextMenu.Items[contextMenuValidateIndex];
-                    
+
                     Assert.AreEqual("&Valideren", contextMenuItem.Text);
                     StringAssert.Contains("Herstellen van de verbinding met de hydraulische randvoorwaardendatabase is mislukt.", contextMenuItem.ToolTipText);
                     TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.ValidateIcon, contextMenuItem.Image);

@@ -23,7 +23,6 @@ using System;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
-using Core.Common.Base.Geometry;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.Commands;
@@ -37,7 +36,6 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Piping.Data;
@@ -473,16 +471,16 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 {
                     // Assert
                     TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuCalculateAllIndex,
-                                              "Alles be&rekenen",
-                                              "De bijdrage van dit toetsspoor is nul.",
-                                              RingtoetsCommonFormsResources.CalculateAllIcon,
-                                              false);
+                                                                  "Alles be&rekenen",
+                                                                  "De bijdrage van dit toetsspoor is nul.",
+                                                                  RingtoetsCommonFormsResources.CalculateAllIcon,
+                                                                  false);
 
                     TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuValidateAllIndex,
-                                              "Alles &valideren",
-                                              "De bijdrage van dit toetsspoor is nul.",
-                                              RingtoetsCommonFormsResources.ValidateAllIcon,
-                                              false);
+                                                                  "Alles &valideren",
+                                                                  "De bijdrage van dit toetsspoor is nul.",
+                                                                  RingtoetsCommonFormsResources.ValidateAllIcon,
+                                                                  false);
                 }
             }
         }
@@ -521,14 +519,14 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 {
                     // Assert
                     TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuCalculateAllIndex,
-                                              "Alles be&rekenen",
-                                              "Voer alle berekeningen binnen dit toetsspoor uit.",
-                                              RingtoetsCommonFormsResources.CalculateAllIcon);
+                                                                  "Alles be&rekenen",
+                                                                  "Voer alle berekeningen binnen dit toetsspoor uit.",
+                                                                  RingtoetsCommonFormsResources.CalculateAllIcon);
 
                     TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuValidateAllIndex,
-                                              "Alles &valideren",
-                                              "Valideer alle berekeningen binnen dit toetsspoor.",
-                                              RingtoetsCommonFormsResources.ValidateAllIcon);
+                                                                  "Alles &valideren",
+                                                                  "Valideer alle berekeningen binnen dit toetsspoor.",
+                                                                  RingtoetsCommonFormsResources.ValidateAllIcon);
                 }
             }
         }

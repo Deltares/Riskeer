@@ -405,7 +405,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
 
                         Assert.AreEqual(grassCoverErosionOutwardsHydraulicBoundaryLocation.Id, designWaterLevelCalculationInput.HydraulicBoundaryLocationId);
                         var expectedProbability = assessmentSectionStub.FailureMechanismContribution.Norm
-                                                  *(failureMechanism.Contribution/100)/
+                                                  * (failureMechanism.Contribution / 100) /
                                                   failureMechanism.GeneralInput.N;
                         Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(expectedProbability), designWaterLevelCalculationInput.Beta);
                     }

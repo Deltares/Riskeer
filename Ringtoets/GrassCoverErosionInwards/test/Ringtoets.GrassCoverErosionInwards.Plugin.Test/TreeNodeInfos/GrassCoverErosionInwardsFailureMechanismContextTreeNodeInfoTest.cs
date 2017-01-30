@@ -22,7 +22,6 @@
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using Core.Common.Base.Geometry;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.Commands;
@@ -203,7 +202,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                 menuBuilderMock.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.Build()).Return(null);
             }
-
 
             using (var treeViewControl = new TreeViewControl())
             {

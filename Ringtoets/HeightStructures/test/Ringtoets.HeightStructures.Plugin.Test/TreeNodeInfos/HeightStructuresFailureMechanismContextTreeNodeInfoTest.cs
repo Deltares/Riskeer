@@ -23,7 +23,6 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using Core.Common.Base.Geometry;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.Commands;

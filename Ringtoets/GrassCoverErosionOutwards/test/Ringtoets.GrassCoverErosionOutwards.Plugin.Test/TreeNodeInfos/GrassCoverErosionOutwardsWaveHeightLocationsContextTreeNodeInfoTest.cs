@@ -453,8 +453,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
 
                         Assert.AreEqual(grassCoverErosionOutwardsHydraulicBoundaryLocation.Id, waveHeightCalculationInput.HydraulicBoundaryLocationId);
                         var expectedProbability = assessmentSectionStub.FailureMechanismContribution.Norm
-                                                  *(failureMechanism.Contribution/100)
-                                                  /failureMechanism.GeneralInput.N;
+                                                  * (failureMechanism.Contribution / 100)
+                                                  / failureMechanism.GeneralInput.N;
                         Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(expectedProbability), waveHeightCalculationInput.Beta);
                     }
                 }

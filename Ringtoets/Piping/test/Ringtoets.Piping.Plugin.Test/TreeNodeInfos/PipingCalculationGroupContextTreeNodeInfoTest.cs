@@ -547,16 +547,16 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 {
                     // Assert
                     TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuCalculateAllIndexRootGroup,
-                                              "Alles be&rekenen",
-                                              "De bijdrage van dit toetsspoor is nul.",
-                                              RingtoetsCommonFormsResources.CalculateAllIcon,
-                                              false);
+                                                                  "Alles be&rekenen",
+                                                                  "De bijdrage van dit toetsspoor is nul.",
+                                                                  RingtoetsCommonFormsResources.CalculateAllIcon,
+                                                                  false);
 
                     TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuValidateAllIndexRootGroup,
-                                              "Alles &valideren",
-                                              "De bijdrage van dit toetsspoor is nul.",
-                                              RingtoetsCommonFormsResources.ValidateAllIcon,
-                                              false);
+                                                                  "Alles &valideren",
+                                                                  "De bijdrage van dit toetsspoor is nul.",
+                                                                  RingtoetsCommonFormsResources.ValidateAllIcon,
+                                                                  false);
                 }
             }
         }
@@ -597,14 +597,14 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 {
                     // Assert
                     TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuCalculateAllIndexRootGroup,
-                                              "Alles be&rekenen",
-                                              "Voer alle berekeningen binnen deze berekeningsmap uit.",
-                                              RingtoetsCommonFormsResources.CalculateAllIcon);
+                                                                  "Alles be&rekenen",
+                                                                  "Voer alle berekeningen binnen deze berekeningsmap uit.",
+                                                                  RingtoetsCommonFormsResources.CalculateAllIcon);
 
                     TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuValidateAllIndexRootGroup,
-                                              "Alles &valideren",
-                                              "Valideer alle berekeningen binnen deze berekeningsmap.",
-                                              RingtoetsCommonFormsResources.ValidateAllIcon);
+                                                                  "Alles &valideren",
+                                                                  "Valideer alle berekeningen binnen deze berekeningsmap.",
+                                                                  RingtoetsCommonFormsResources.ValidateAllIcon);
                 }
             }
         }
