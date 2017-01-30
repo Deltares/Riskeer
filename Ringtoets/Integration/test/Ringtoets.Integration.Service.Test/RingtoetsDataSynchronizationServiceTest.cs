@@ -57,7 +57,7 @@ namespace Ringtoets.Integration.Service.Test
         public void ClearFailureMechanismCalculationOutputs_WithoutAssessmentSection_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => RingtoetsDataSynchronizationService.ClearFailureMechanismCalculationOutputs((IAssessmentSection)null);
+            TestDelegate test = () => RingtoetsDataSynchronizationService.ClearFailureMechanismCalculationOutputs((IAssessmentSection) null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -88,10 +88,10 @@ namespace Ringtoets.Integration.Service.Test
         }
 
         [Test]
-        public void ClearFailureMechanismCalculationOutputs_WithouFailureMechanisms_ThrowsArgumentNullException()
+        public void ClearFailureMechanismCalculationOutputs_WithoutFailureMechanisms_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => RingtoetsDataSynchronizationService.ClearFailureMechanismCalculationOutputs((IEnumerable<IFailureMechanism>)null);
+            TestDelegate test = () => RingtoetsDataSynchronizationService.ClearFailureMechanismCalculationOutputs((IEnumerable<IFailureMechanism>) null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -265,7 +265,7 @@ namespace Ringtoets.Integration.Service.Test
         public void ClearHydraulicBoundaryLocationOutputOfFailureMechanisms_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => RingtoetsDataSynchronizationService.ClearHydraulicBoundaryLocationOutputOfFailureMechanisms((IAssessmentSection)null);
+            TestDelegate test = () => RingtoetsDataSynchronizationService.ClearHydraulicBoundaryLocationOutputOfFailureMechanisms((IAssessmentSection) null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -280,7 +280,7 @@ namespace Ringtoets.Integration.Service.Test
             IAssessmentSection assessmentSection = mockRepository.Stub<IAssessmentSection>();
             assessmentSection.Stub(section => section.GetFailureMechanisms()).Return(new IFailureMechanism[]
             {
-                new GrassCoverErosionOutwardsFailureMechanism(), 
+                new GrassCoverErosionOutwardsFailureMechanism(),
                 new DuneErosionFailureMechanism()
             });
             mockRepository.ReplayAll();
@@ -334,7 +334,7 @@ namespace Ringtoets.Integration.Service.Test
         public void ClearHydraulicBoundaryLocationOutputOfFailureMechanisms_FailureMechanismsNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => RingtoetsDataSynchronizationService.ClearHydraulicBoundaryLocationOutputOfFailureMechanisms((IEnumerable<IFailureMechanism>)null);
+            TestDelegate test = () => RingtoetsDataSynchronizationService.ClearHydraulicBoundaryLocationOutputOfFailureMechanisms((IEnumerable<IFailureMechanism>) null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -358,8 +358,8 @@ namespace Ringtoets.Integration.Service.Test
         [Test]
         [TestCaseSource(nameof(GrassAndDuneLocations2))]
         public void ClearHydraulicBoundaryLocationOutputForFailureMechanisms_FailureMechanismsGrassCoverErosionOutwardsAndDuneLocations_ClearDataAndReturnAffectedLocations(HydraulicBoundaryLocation grassCoverErosionLocation,
-                                                                                                                                                           DuneLocation duneLocation,
-                                                                                                                                                           IEnumerable<IObservable> expectedAffectedItems)
+                                                                                                                                                                            DuneLocation duneLocation,
+                                                                                                                                                                            IEnumerable<IObservable> expectedAffectedItems)
         {
             // Setup
             var grassCoverErosionOutwardsFailureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
@@ -436,7 +436,7 @@ namespace Ringtoets.Integration.Service.Test
         public void GetHydraulicBoundaryLocationCollectionsOfFailureMechanisms_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => RingtoetsDataSynchronizationService.GetHydraulicBoundaryLocationCollectionsOfFailureMechanisms((IAssessmentSection)null);
+            TestDelegate test = () => RingtoetsDataSynchronizationService.GetHydraulicBoundaryLocationCollectionsOfFailureMechanisms((IAssessmentSection) null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -467,7 +467,7 @@ namespace Ringtoets.Integration.Service.Test
         public void GetHydraulicBoundaryLocationCollectionsOfFailureMechanisms_FailureMechanismsNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => RingtoetsDataSynchronizationService.GetHydraulicBoundaryLocationCollectionsOfFailureMechanisms((IEnumerable<IFailureMechanism>)null);
+            TestDelegate test = () => RingtoetsDataSynchronizationService.GetHydraulicBoundaryLocationCollectionsOfFailureMechanisms((IEnumerable<IFailureMechanism>) null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -477,13 +477,13 @@ namespace Ringtoets.Integration.Service.Test
         [Test]
         [TestCaseSource(nameof(FailureMechanisms2))]
         public void GetHydraulicBoundaryLocationCollectionsOfFailureMechanisms_FailureMechanismsGrassCoverOutwardsAndDuneLocations_ReturnsExpectedAffectedCollections(IEnumerable<IFailureMechanism> availableFailureMechanisms,
-                                                                                                                                                     IEnumerable<IObservable> expectedCollections)
+                                                                                                                                                                      IEnumerable<IObservable> expectedCollections)
         {
             // Call
-            IEnumerable<IObservable> affectedCollections = RingtoetsDataSynchronizationService.GetHydraulicBoundaryLocationCollectionsOfFailureMechanisms(availableFailureMechanisms);
+            IEnumerable<IObservable> affectedObjects = RingtoetsDataSynchronizationService.GetHydraulicBoundaryLocationCollectionsOfFailureMechanisms(availableFailureMechanisms);
 
             // Assert
-            CollectionAssert.AreEquivalent(expectedCollections, affectedCollections);
+            CollectionAssert.AreEquivalent(expectedCollections, affectedObjects);
         }
 
         [Test]
@@ -1311,7 +1311,7 @@ namespace Ringtoets.Integration.Service.Test
             }
 
             IObservable[] array = observables.ToArray();
-            Assert.AreEqual(1 + (calculations.Length*2) + sectionResults.Length, array.Length);
+            Assert.AreEqual(1 + (calculations.Length * 2) + sectionResults.Length, array.Length);
             CollectionAssert.Contains(array, failureMechanism.DikeProfiles);
             foreach (GrassCoverErosionInwardsCalculation calculation in calculations)
             {
@@ -1524,7 +1524,7 @@ namespace Ringtoets.Integration.Service.Test
                     new TestHydraulicBoundaryLocation(),
                     new TestDuneLocation(),
                     new IObservable[0]
-                    ).SetName("GrassAndDuneLocationNoOutput");
+                ).SetName("GrassAndDuneLocationNoOutput");
                 yield return new TestCaseData(
                     grassBoundaryLocationWithOutput = TestHydraulicBoundaryLocation.CreateFullyCalculated(),
                     new TestDuneLocation(),
@@ -1532,7 +1532,7 @@ namespace Ringtoets.Integration.Service.Test
                     {
                         grassBoundaryLocationWithOutput
                     }
-                    ).SetName("DuneLocationWithoutOutputGrassLocationWithOutput");
+                ).SetName("DuneLocationWithoutOutputGrassLocationWithOutput");
                 yield return new TestCaseData(
                     new TestHydraulicBoundaryLocation(),
                     duneLocationWithOutput = new TestDuneLocation
@@ -1543,7 +1543,7 @@ namespace Ringtoets.Integration.Service.Test
                     {
                         duneLocationWithOutput
                     }
-                    ).SetName("GrassLocationWithoutOutputDuneLocationWithOutput");
+                ).SetName("GrassLocationWithoutOutputDuneLocationWithOutput");
                 yield return new TestCaseData(
                     grassBoundaryLocationWithOutput = TestHydraulicBoundaryLocation.CreateFullyCalculated(),
                     duneLocationWithOutput = new TestDuneLocation
@@ -1555,7 +1555,7 @@ namespace Ringtoets.Integration.Service.Test
                         grassBoundaryLocationWithOutput,
                         duneLocationWithOutput
                     }
-                    ).SetName("GrassAndDuneLocationWithOutput");
+                ).SetName("GrassAndDuneLocationWithOutput");
             }
         }
 
@@ -1570,7 +1570,7 @@ namespace Ringtoets.Integration.Service.Test
                     new TestHydraulicBoundaryLocation(),
                     new TestDuneLocation(),
                     new IObservable[0]
-                    ).SetName("GrassAndDuneLocationNoOutput2");
+                ).SetName("GrassAndDuneLocationNoOutput2");
                 yield return new TestCaseData(
                     grassBoundaryLocationWithOutput = TestHydraulicBoundaryLocation.CreateFullyCalculated(),
                     new TestDuneLocation(),
@@ -1578,7 +1578,7 @@ namespace Ringtoets.Integration.Service.Test
                     {
                         grassBoundaryLocationWithOutput
                     }
-                    ).SetName("GrassLocationWithOutput2");
+                ).SetName("GrassLocationWithOutput2");
                 yield return new TestCaseData(
                     new TestHydraulicBoundaryLocation(),
                     duneLocationWithOutput = new TestDuneLocation
@@ -1589,7 +1589,7 @@ namespace Ringtoets.Integration.Service.Test
                     {
                         duneLocationWithOutput
                     }
-                    ).SetName("DuneLocationWithOutput2");
+                ).SetName("DuneLocationWithOutput2");
                 yield return new TestCaseData(
                     grassBoundaryLocationWithOutput = TestHydraulicBoundaryLocation.CreateFullyCalculated(),
                     duneLocationWithOutput = new TestDuneLocation
@@ -1601,7 +1601,7 @@ namespace Ringtoets.Integration.Service.Test
                         grassBoundaryLocationWithOutput,
                         duneLocationWithOutput
                     }
-                    ).SetName("GrassAndDuneLocationWithOutput2");
+                ).SetName("GrassAndDuneLocationWithOutput2");
             }
         }
 
@@ -1672,7 +1672,7 @@ namespace Ringtoets.Integration.Service.Test
                     new TestHydraulicBoundaryLocation(),
                     new TestDuneLocation(),
                     new IObservable[0]
-                    ).SetName("AllTypesNoOutput");
+                ).SetName("AllTypesNoOutput");
                 yield return new TestCaseData(
                     new TestHydraulicBoundaryLocation(),
                     grassCoverErosionOutwardsLocation = TestHydraulicBoundaryLocation.CreateFullyCalculated(),
