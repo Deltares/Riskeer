@@ -40,6 +40,7 @@ namespace Application.Ringtoets.Storage.DbContext
         public string Name { get; set; }
         public string SourceCapabilitiesUrl { get; set; }
         public string SelectedCapabilityName { get; set; }
+        public string PreferredFormat { get; set; }
         public byte IsVisible { get; set; }
         public double Transparency { get; set; }
     

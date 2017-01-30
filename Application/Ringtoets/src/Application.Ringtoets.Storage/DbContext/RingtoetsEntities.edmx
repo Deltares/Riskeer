@@ -1037,6 +1037,7 @@
           <Property Name="Name" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
           <Property Name="SourceCapabilitiesUrl" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
           <Property Name="SelectedCapabilityName" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="PreferredFormat" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="IsVisible" Type="tinyint" Nullable="false" />
           <Property Name="Transparency" Type="real" Nullable="false" />
         </EntityType>
@@ -4193,6 +4194,7 @@
           <Property Name="Name" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="SourceCapabilitiesUrl" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="SelectedCapabilityName" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="PreferredFormat" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="IsVisible" Type="Byte" Nullable="false" />
           <Property Name="Transparency" Type="Double" Nullable="false" />
           <NavigationProperty Name="AssessmentSectionEntity" Relationship="RingtoetsEntitiesModel.FK_WmtsMapDataEntity_0_0" FromRole="WmtsMapDataEntity" ToRole="AssessmentSectionEntity" />
@@ -6377,6 +6379,7 @@
               <MappingFragment StoreEntitySet="WmtsMapDataEntity">
                 <ScalarProperty Name="Transparency" ColumnName="Transparency" />
                 <ScalarProperty Name="IsVisible" ColumnName="IsVisible" />
+                <ScalarProperty Name="PreferredFormat" ColumnName="PreferredFormat" />
                 <ScalarProperty Name="SelectedCapabilityName" ColumnName="SelectedCapabilityName" />
                 <ScalarProperty Name="SourceCapabilitiesUrl" ColumnName="SourceCapabilitiesUrl" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
