@@ -40,10 +40,19 @@ namespace Core.Components.DotSpatial.Layer.BruTile.Configurations
         /// </summary>
         /// <param name="source">The tile source.</param>
         /// <returns>The tile provider.</returns>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="source"/> does
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="source"/>
+        /// is <c>null</c>.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <paramref name="source"/> does
         /// not have the expected field to get the <see cref="ITileProvider"/> from.</exception>
+        /// <exception cref="FieldAccessException">Thrown when caller does not have permission
+        /// to access the expected field that holds the <see cref="ITileProvider"/> instance.</exception>
         internal static ITileProvider GetProviderFromTileSource(ITileSource source)
         {
+            if (source == null)
+            {
+                throw new ArgumentNullException(nameof(source));
+            }
+
             FieldInfo fi = null;
             // Note: This implementation respects inheritance. Cannot use 'source.GetType()'
             // as that only grant access to fields declared in that type. Therefore the _provider
@@ -59,7 +68,7 @@ namespace Core.Components.DotSpatial.Layer.BruTile.Configurations
 
             if (fi == null)
             {
-                throw new ArgumentException("Tile source does not have a private field '_provider'", nameof(source));
+                throw new NotSupportedException($"Unable to find a {typeof(ITileProvider).Name} field for type {source.GetType().Name}.");
             }
 
             return (ITileProvider) fi.GetValue(source);

@@ -52,11 +52,6 @@ namespace Core.Components.DotSpatial.Layer.BruTile
         public static int PersistentCacheExpireInDays { get; } = 14;
 
         /// <summary>
-        /// Gets the type of the perma cache.
-        /// </summary>
-        public static PersistentCacheStrategy DefaultPersistentCacheType { get; } = PersistentCacheStrategy.Default;
-
-        /// <summary>
         /// Gets the <see cref="MemoryCache{T}.MinTiles"/> value
         /// </summary>
         public static int MemoryCacheMinimum { get; } = 100;

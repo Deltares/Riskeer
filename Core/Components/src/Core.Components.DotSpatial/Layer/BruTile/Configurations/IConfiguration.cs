@@ -49,6 +49,14 @@ namespace Core.Components.DotSpatial.Layer.BruTile.Configurations
         AsyncTileFetcher TileFetcher { get; }
 
         /// <summary>
+        /// Gets a value indicating whether the configuration has been fully initialized
+        /// or not.
+        /// </summary>
+        /// <remarks><see cref="Initialize"/> can be used to initialize the configuration
+        /// if needed.</remarks>
+        bool Initialized { get; }
+
+        /// <summary>
         /// Gets a deep copy of the configuration.
         /// </summary>
         /// <returns>The cloned configuration.</returns>
@@ -61,6 +69,8 @@ namespace Core.Components.DotSpatial.Layer.BruTile.Configurations
         /// <see cref="ITileSource"/> cannot be found.</exception>
         /// <exception cref="CannotCreateTileCacheException">Thrown when the configured
         /// tile cache cannot be created.</exception>
+        /// <exception cref="CannotReceiveTilesException">Thrown when <see cref="TileSource"/>
+        /// doesn't allow for tiles to be received.</exception>
         void Initialize();
     }
 }

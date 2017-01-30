@@ -27,7 +27,8 @@ namespace Core.Components.DotSpatial.Layer.BruTile.Configurations
     /// <summary>
     /// The exception that is thrown when the creation of a tile cache failed.
     /// </summary>
-    public class CannotCreateTileCacheException : SystemException
+    [Serializable]
+    public class CannotCreateTileCacheException : Exception
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="CannotCreateTileCacheException"/> class.

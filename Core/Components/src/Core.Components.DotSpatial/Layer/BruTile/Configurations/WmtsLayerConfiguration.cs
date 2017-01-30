@@ -23,11 +23,11 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Net;
 using BruTile;
 using BruTile.Cache;
 using BruTile.Wmts;
 using Core.Components.DotSpatial.Layer.BruTile.TileFetching;
+using Core.Components.DotSpatial.Properties;
 
 namespace Core.Components.DotSpatial.Layer.BruTile.Configurations
 {
@@ -53,8 +53,9 @@ namespace Core.Components.DotSpatial.Layer.BruTile.Configurations
         /// <param name="persistentCacheDirectoryPath">The directory path to the persistent tile cache.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="persistentCacheDirectoryPath"/>
         /// is an invalid folder path</exception>
-        public WmtsLayerConfiguration(string wmtsCapabilitiesUrl, string capabilityIdentifier, string preferredFormat,
-                                      string persistentCacheDirectoryPath) : base(persistentCacheDirectoryPath)
+        /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
+        private WmtsLayerConfiguration(string wmtsCapabilitiesUrl, string capabilityIdentifier, string preferredFormat,
+                                       string persistentCacheDirectoryPath) : base(persistentCacheDirectoryPath)
         {
             ValidateConfigurationParameters(wmtsCapabilitiesUrl, capabilityIdentifier, preferredFormat);
 
@@ -71,26 +72,19 @@ namespace Core.Components.DotSpatial.Layer.BruTile.Configurations
         /// </summary>
         /// <param name="wmtsCapabilitiesUrl">The capabilities url of the WMTS.</param>
         /// <param name="tileSource">The tile source.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="tileSource"/>
-        /// is <c>null</c>.</exception>
         /// <exception cref="CannotCreateTileCacheException">Thrown when creating the file
         /// cache failed.</exception>
+        /// <exception cref="CannotReceiveTilesException">Thrown when <paramref name="tileSource"/>
+        /// doesn't allow for tiles to be received.</exception>
         private WmtsLayerConfiguration(string wmtsCapabilitiesUrl, ITileSource tileSource)
-            : base(SuggestTileCachePath(tileSource))
+            : base(SuggestTileCachePath(ValidateTileSource(tileSource)))
         {
-            if (tileSource == null)
-            {
-                throw new ArgumentNullException(nameof(tileSource));
-            }
-
             capabilitiesUri = wmtsCapabilitiesUrl;
             capabilityIdentifier = ((WmtsTileSchema) tileSource.Schema).Identifier;
             preferredFormat = tileSource.Schema.Format;
 
             InitializeFromTileSource(tileSource);
         }
-
-        public ITileCache<byte[]> TileCache { get; private set; }
 
         public bool Initialized { get; private set; }
 
@@ -100,10 +94,22 @@ namespace Core.Components.DotSpatial.Layer.BruTile.Configurations
 
         public AsyncTileFetcher TileFetcher { get; private set; }
 
-        public static WmtsLayerConfiguration CreateInitializedConfiguration(string capabilitiesUrl, string capabilityIdentifier, string preferredFormat)
+        /// <summary>
+        /// Creates a fully initialized instance of <see cref="WmtsLayerConfiguration"/>.
+        /// </summary>
+        /// <param name="wmtsCapabilitiesUrl">The capabilities url of the WMTS.</param>
+        /// <param name="capabilityIdentifier">The capability name to get tiles from.</param>
+        /// <param name="preferredFormat">The preferred tile image format, as MIME-type.</param>
+        /// <returns>The new <see cref="WmtsLayerConfiguration"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="preferredFormat"/>
+        /// is not an image MIME-type.</exception>
+        public static WmtsLayerConfiguration CreateInitializedConfiguration(string wmtsCapabilitiesUrl, string capabilityIdentifier, string preferredFormat)
         {
-            ITileSource tileSource = GetConfiguredTileSource(capabilitiesUrl, capabilityIdentifier, preferredFormat);
-            return new WmtsLayerConfiguration(capabilitiesUrl, tileSource);
+            ValidateConfigurationParameters(wmtsCapabilitiesUrl, capabilityIdentifier, preferredFormat);
+
+            ITileSource tileSource = GetConfiguredTileSource(wmtsCapabilitiesUrl, capabilityIdentifier, preferredFormat);
+            return new WmtsLayerConfiguration(wmtsCapabilitiesUrl, tileSource);
         }
 
         public IConfiguration Clone()
@@ -121,6 +127,24 @@ namespace Core.Components.DotSpatial.Layer.BruTile.Configurations
             ITileSource tileSource = GetConfiguredTileSource(capabilitiesUri, capabilityIdentifier, preferredFormat);
 
             InitializeFromTileSource(tileSource);
+        }
+
+        private ITileCache<byte[]> TileCache { get; set; }
+
+        /// <summary>
+        /// Validates a <see cref="ITileSource"/>.
+        /// </summary>
+        /// <param name="tileSource">The source to be validated.</param>
+        /// <returns>Returns <paramref name="tileSource"/>.</returns>
+        /// <exception cref="CannotCreateTileCacheException">Thrown when <paramref name="tileSource"/>
+        /// doesn't contain a <see cref="WmtsTileSchema"/>.</exception>
+        private static ITileSource ValidateTileSource(ITileSource tileSource)
+        {
+            if (!(tileSource.Schema is WmtsTileSchema))
+            {
+                throw new CannotCreateTileCacheException(Resources.WmtsLayerConfiguration_ValidateTileSource_TileSource_must_have_WmtsTileSchema);
+            }
+            return tileSource;
         }
 
         /// <summary>
@@ -148,7 +172,8 @@ namespace Core.Components.DotSpatial.Layer.BruTile.Configurations
             }
             if (!preferredFormat.StartsWith("image/"))
             {
-                throw new ArgumentException("Specified image format is not a MIME type.", nameof(preferredFormat));
+                throw new ArgumentException(Resources.WmtsLayerConfiguration_ValidateConfigurationParameters_PreferredFormat_must_be_mimetype,
+                                            nameof(preferredFormat));
             }
         }
 
@@ -158,7 +183,7 @@ namespace Core.Components.DotSpatial.Layer.BruTile.Configurations
         /// <param name="capabilitiesUri">The URL of the tile source server.</param>
         /// <param name="capabilityIdentifier">The identifier of the tile source.</param>
         /// <param name="preferredFormat">The preferred tile image format, as MIME-type.</param>
-        /// <returns>The tile source, or null if no matching tile source could be found.</returns>
+        /// <returns>The tile source.</returns>
         /// <exception cref="CannotFindTileSourceException">Thrown when unable to retrieve
         /// the configured tile source.</exception>
         private static ITileSource GetConfiguredTileSource(string capabilitiesUri, string capabilityIdentifier, string preferredFormat)
@@ -167,8 +192,8 @@ namespace Core.Components.DotSpatial.Layer.BruTile.Configurations
             ITileSource tileSource = tileSources.FirstOrDefault(ts => IsMatch(ts, capabilityIdentifier, preferredFormat));
             if (tileSource == null)
             {
-                string message = string.Format("Niet in staat om de databron met naam '{0}' te kunnen vinden bij de WTMS url '{1}'.",
-                                               capabilitiesUri, capabilityIdentifier);
+                string message = string.Format(Resources.WmtsLayerConfiguration_GetConfiguredTileSource_Cannot_find_LayerId_0_at_WmtsUrl_1_,
+                                               capabilityIdentifier, capabilitiesUri);
                 throw new CannotFindTileSourceException(message);
             }
             return tileSource;
@@ -210,15 +235,24 @@ namespace Core.Components.DotSpatial.Layer.BruTile.Configurations
         /// <param name="tileSource">The tile source to initialize for.</param>
         /// <exception cref="CannotCreateTileCacheException">Thrown when a critical error
         /// occurs when creating the tile cache.</exception>
+        /// <exception cref="CannotReceiveTilesException">Thrown when <paramref name="tileSource"/>
+        /// does not allow for tiles to be retrieved.</exception>
         private void InitializeFromTileSource(ITileSource tileSource)
         {
             TileSource = tileSource;
             TileCache = CreateTileCache();
-            ITileProvider provider = BruTileReflectionHelper.GetProviderFromTileSource(tileSource);
-            TileFetcher = new AsyncTileFetcher(provider,
-                                          BruTileSettings.MemoryCacheMinimum,
-                                          BruTileSettings.MemoryCacheMaximum,
-                                          TileCache);
+            try
+            {
+                ITileProvider provider = BruTileReflectionHelper.GetProviderFromTileSource(tileSource);
+                TileFetcher = new AsyncTileFetcher(provider,
+                                                   BruTileSettings.MemoryCacheMinimum,
+                                                   BruTileSettings.MemoryCacheMaximum,
+                                                   TileCache);
+            }
+            catch (Exception e) when (e is NotSupportedException || e is ArgumentException)
+            {
+                throw new CannotReceiveTilesException(Resources.WmtsLayerConfiguration_InitializeFromTileSource_TileSource_does_not_allow_access_to_provider, e);
+            }
             Initialized = true;
         }
     }

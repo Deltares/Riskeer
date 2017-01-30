@@ -86,7 +86,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
                 var message = new FileReaderErrorMessageBuilder(path)
                     .WithSubject(string.Format(Resources.PipingSoilProfileReader_SoilProfileName_0_, profileName))
                     .Build(e.Message);
-                throw new PipingSoilProfileReadException(profileName, message, e);
+                throw new PipingSoilProfileReadException(message, profileName, e);
             }
         }
 
@@ -124,7 +124,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
             var message = new FileReaderErrorMessageBuilder(filePath)
                 .WithSubject(string.Format(Resources.PipingSoilProfileReader_SoilProfileName_0_, profileName))
                 .Build(errorMessage);
-            return new PipingSoilProfileReadException(profileName, message, innerException);
+            return new PipingSoilProfileReadException(message, profileName, innerException);
         }
 
         private static PipingSoilProfileReadException CreatePipingSoilProfileReadException(string filePath, string profileName, Exception innerException)
@@ -132,7 +132,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
             var message = new FileReaderErrorMessageBuilder(filePath)
                 .WithSubject(string.Format(Resources.PipingSoilProfileReader_SoilProfileName_0_, profileName))
                 .Build(innerException.Message);
-            return new PipingSoilProfileReadException(profileName, message, innerException);
+            return new PipingSoilProfileReadException(message, profileName, innerException);
         }
 
         private class Layer1DProperties : LayerProperties
@@ -192,7 +192,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
                     var message = new FileReaderErrorMessageBuilder(reader.Path)
                         .WithSubject(string.Format(Resources.PipingSoilProfileReader_SoilProfileName_0_, profileName))
                         .Build(string.Format(Resources.PipingSoilProfileReader_Profile_has_invalid_value_on_Column_0_, readColumn));
-                    throw new PipingSoilProfileReadException(profileName, message, e);
+                    throw new PipingSoilProfileReadException(message, profileName, e);
                 }
             }
         }

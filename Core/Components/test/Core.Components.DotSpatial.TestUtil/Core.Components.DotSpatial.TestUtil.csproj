@@ -60,6 +60,7 @@
     <Compile Include="TestTileSourceFactory.cs" />
     <Compile Include="TestWmtsTileSource.cs" />
     <Compile Include="UseCustomTileSourceFactoryConfig.cs" />
+    <Compile Include="TileSchemaFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\Common\src\Core.Common.Base\Core.Common.Base.csproj">

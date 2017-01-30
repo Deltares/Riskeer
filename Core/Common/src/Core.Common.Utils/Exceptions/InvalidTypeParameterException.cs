@@ -31,7 +31,7 @@ namespace Core.Common.Utils.Exceptions
     [Serializable]
     public class InvalidTypeParameterException : Exception
     {
-        private const string typeParamNameKey = "TypeParamName";
+        private const string typeParamNameKey = nameof(TypeParamName);
 
         /// <summary>
         /// Initializes a new instance of the <see cref="InvalidTypeParameterException"/> class.
@@ -42,19 +42,16 @@ namespace Core.Common.Utils.Exceptions
         /// Initializes a new instance of the <see cref="InvalidTypeParameterException"/> class
         /// with a specified error message.
         /// </summary>
-        /// <param name="typeParamName">The name of the type parameter that caused the exception.</param>
-        public InvalidTypeParameterException(string typeParamName)
-        {
-            TypeParamName = typeParamName;
-        }
+        /// <param name="message">The error message that explains the reason for the exception.</param>
+        public InvalidTypeParameterException(string message) : base(message) { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="InvalidTypeParameterException"/> class
-        /// with a specified error message.
+        /// with a specified error message and type rapameter name.
         /// </summary>
-        /// <param name="typeParamName">The name of the type parameter that caused the exception.</param>
         /// <param name="message">The error message that explains the reason for the exception.</param>
-        public InvalidTypeParameterException(string typeParamName, string message)
+        /// <param name="typeParamName">The name of the type parameter that caused the exception.</param>
+        public InvalidTypeParameterException(string message, string typeParamName)
             : base(message)
         {
             TypeParamName = typeParamName;
@@ -75,11 +72,11 @@ namespace Core.Common.Utils.Exceptions
         /// with a specified error message and a reference to the inner exception that is
         /// the cause of this exception.
         /// </summary>
-        /// <param name="typeParamName">The name of the type parameter that caused the exception.</param>
         /// <param name="message">The error message that explains the reason for the exception.</param>
+        /// <param name="typeParamName">The name of the type parameter that caused the exception.</param>
         /// <param name="inner">The exception that is the cause of the current exception, 
-        /// or a null reference if no inner exception is specified.</param>
-        public InvalidTypeParameterException(string typeParamName, string message, Exception inner) : base(message, inner)
+        ///     or a null reference if no inner exception is specified.</param>
+        public InvalidTypeParameterException(string message, string typeParamName, Exception inner) : base(message, inner)
         {
             TypeParamName = typeParamName;
         }

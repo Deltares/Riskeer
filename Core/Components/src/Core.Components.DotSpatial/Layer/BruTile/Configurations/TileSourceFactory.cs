@@ -22,16 +22,25 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net;
 using BruTile;
 using BruTile.Wmts;
+using Core.Components.DotSpatial.Properties;
 
 namespace Core.Components.DotSpatial.Layer.BruTile.Configurations
 {
+    /// <summary>
+    /// Class responsible for creating <see cref="ITileSource"/> instances for a given
+    /// source.
+    /// </summary>
     public class TileSourceFactory : ITileSourceFactory
     {
         private static ITileSourceFactory instance;
 
+        /// <summary>
+        /// The singleton instance.
+        /// </summary>
         public static ITileSourceFactory Instance
         {
             get
@@ -46,6 +55,16 @@ namespace Core.Components.DotSpatial.Layer.BruTile.Configurations
 
         public IEnumerable<ITileSource> GetWmtsTileSources(string capabilitiesUrl)
         {
+            ITileSource[] wmtsTileSources = ParseWmtsTileSources(capabilitiesUrl).ToArray();
+            if(wmtsTileSources.Any(ts => !(ts.Schema is WmtsTileSchema)))
+            {
+                throw new CannotFindTileSourceException(Resources.TileSourceFactory_GetWmtsTileSources_TileSource_without_WmtsTileSchema_error);
+            }
+            return wmtsTileSources;
+        }
+
+        private static IEnumerable<ITileSource> ParseWmtsTileSources(string capabilitiesUrl)
+        {
             try
             {
                 WebRequest req = WebRequest.Create(capabilitiesUrl);
@@ -59,7 +78,8 @@ namespace Core.Components.DotSpatial.Layer.BruTile.Configurations
             }
             catch (Exception e)
             {
-                string message = string.Format("Niet in staat om de databronnen op te halen bij de WTMS url '{0}'.", capabilitiesUrl);
+                string message = string.Format(Resources.TileSourceFactory_ParseWmtsTileSources_Cannot_connect_to_WMTS_0_,
+                                               capabilitiesUrl);
                 throw new CannotFindTileSourceException(message, e);
             }
         }

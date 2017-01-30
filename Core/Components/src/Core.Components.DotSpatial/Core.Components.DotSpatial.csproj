@@ -94,10 +94,10 @@
     <Compile Include="Layer\BruTile\BruTileSettings.cs" />
     <Compile Include="Layer\BruTile\Configurations\CannotCreateTileCacheException.cs" />
     <Compile Include="Layer\BruTile\Configurations\CannotFindTileSourceException.cs" />
+    <Compile Include="Layer\BruTile\Configurations\CannotReceiveTilesException.cs" />
     <Compile Include="Layer\BruTile\Configurations\IConfiguration.cs" />
     <Compile Include="Layer\BruTile\Configurations\ITileSourceFactory.cs" />
     <Compile Include="Layer\BruTile\Configurations\PersistentCacheConfiguration.cs" />
-    <Compile Include="Layer\BruTile\Configurations\PersistentCacheStrategy.cs" />
     <Compile Include="Layer\BruTile\Configurations\BruTileReflectionHelper.cs" />
     <Compile Include="Layer\BruTile\Configurations\TileSourceFactory.cs" />
     <Compile Include="Layer\BruTile\Configurations\WmtsLayerConfiguration.cs" />

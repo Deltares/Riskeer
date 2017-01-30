@@ -101,6 +101,82 @@ namespace Core.Components.DotSpatial.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Een kritieke fout is opgetreden bij het aanmaken van de cache..
+        /// </summary>
+        internal static string PersistentCacheConfiguration_CreateTileCache_Critical_error_while_creating_tile_cache {
+            get {
+                return ResourceManager.GetString("PersistentCacheConfiguration_CreateTileCache_Critical_error_while_creating_tile_c" +
+                        "ache", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het pad naar bestandsmap &apos;{0}&apos; is niet geschikt om de kaart tegels in op te slaan..
+        /// </summary>
+        internal static string PersistentCacheConfiguration_Invalid_path_for_persistent_cache {
+            get {
+                return ResourceManager.GetString("PersistentCacheConfiguration_Invalid_path_for_persistent_cache", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Een databron is niet volgens het WMTS protocol aangeleverd..
+        /// </summary>
+        internal static string TileSourceFactory_GetWmtsTileSources_TileSource_without_WmtsTileSchema_error {
+            get {
+                return ResourceManager.GetString("TileSourceFactory_GetWmtsTileSources_TileSource_without_WmtsTileSchema_error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Niet in staat om de databronnen op te halen bij de WMTS url &apos;{0}&apos;..
+        /// </summary>
+        internal static string TileSourceFactory_ParseWmtsTileSources_Cannot_connect_to_WMTS_0_ {
+            get {
+                return ResourceManager.GetString("TileSourceFactory_ParseWmtsTileSources_Cannot_connect_to_WMTS_0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Niet in staat om de databron met naam &apos;{0}&apos; te kunnen vinden bij de WMTS url &apos;{1}&apos;..
+        /// </summary>
+        internal static string WmtsLayerConfiguration_GetConfiguredTileSource_Cannot_find_LayerId_0_at_WmtsUrl_1_ {
+            get {
+                return ResourceManager.GetString("WmtsLayerConfiguration_GetConfiguredTileSource_Cannot_find_LayerId_0_at_WmtsUrl_1" +
+                        "_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bron staat het niet toe om toegang te krijgen tot de kaart tegels..
+        /// </summary>
+        internal static string WmtsLayerConfiguration_InitializeFromTileSource_TileSource_does_not_allow_access_to_provider {
+            get {
+                return ResourceManager.GetString("WmtsLayerConfiguration_InitializeFromTileSource_TileSource_does_not_allow_access_" +
+                        "to_provider", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Afbeelding formaat moet opgegeven worden als MIME-type..
+        /// </summary>
+        internal static string WmtsLayerConfiguration_ValidateConfigurationParameters_PreferredFormat_must_be_mimetype {
+            get {
+                return ResourceManager.GetString("WmtsLayerConfiguration_ValidateConfigurationParameters_PreferredFormat_must_be_mi" +
+                        "metype", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bron bevat geen WMTS schema..
+        /// </summary>
+        internal static string WmtsLayerConfiguration_ValidateTileSource_TileSource_must_have_WmtsTileSchema {
+            get {
+                return ResourceManager.GetString("WmtsLayerConfiguration_ValidateTileSource_TileSource_must_have_WmtsTileSchema", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ongeldige transformatie parameters: transformatie moet omkeerbaar zijn..
         /// </summary>
         internal static string WorldFile_Not_invertable_transformation_arguments_error {

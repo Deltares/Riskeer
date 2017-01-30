@@ -32,38 +32,51 @@ namespace Ringtoets.Piping.IO.Exceptions
     [Serializable]
     public sealed class PipingSoilProfileReadException : Exception
     {
-        private const string profileNameKey = "ProfileName";
+        private const string profileNameKey = nameof(ProfileName);
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PipingSoilProfileReadException"/> class.
         /// </summary>
-        /// <param name="profileName">The name of the profile for which this exception was thrown.</param>
-        public PipingSoilProfileReadException(string profileName)
-        {
-            ProfileName = profileName;
-        }
+        public PipingSoilProfileReadException() {}
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PipingSoilProfileReadException"/> class
+        /// with a specified error message.
+        /// </summary>
+        /// <param name="message">The error message that explains the reason for the exception.</param>
+        public PipingSoilProfileReadException(string message) : base(message) {}
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PipingSoilProfileReadException"/> class 
         /// with a specified error message.
         /// </summary>
-        /// <param name="profileName">The name of the profile for which this exception was thrown.</param>
         /// <param name="message">The message that describes the error.</param>
-        public PipingSoilProfileReadException(string profileName, string message)
+        /// <param name="profileName">The name of the profile for which this exception was thrown.</param>
+        public PipingSoilProfileReadException(string message, string profileName)
             : base(message)
         {
             ProfileName = profileName;
         }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="PipingSoilProfileReadException"/> class
+        /// with a specified error message.
+        /// </summary>
+        /// <param name="message">The error message that explains the reason for the exception.</param>
+        /// <param name="inner">The exception that is the cause of the current exception, 
+        /// or a null reference if no inner exception is specified.</param>
+        public PipingSoilProfileReadException(string message, Exception inner)
+            : base(message, inner) {}
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="PipingSoilProfileReadException"/> class with a specified error message 
         /// and a reference to the inner exception that is the cause of this exception.
         /// </summary>
-        /// <param name="profileName">The name of the profile for which this exception was thrown.</param>
         /// <param name="message">The error message that explains the reason for the exception.</param>
+        /// <param name="profileName">The name of the profile for which this exception was thrown.</param>
         /// <param name="innerException">The exception that is the cause of the current exception, or a 
-        /// null reference if no inner exception is specified.</param>
-        public PipingSoilProfileReadException(string profileName, string message, Exception innerException)
+        ///     null reference if no inner exception is specified.</param>
+        public PipingSoilProfileReadException(string message, string profileName, Exception innerException)
             : base(message, innerException)
         {
             ProfileName = profileName;

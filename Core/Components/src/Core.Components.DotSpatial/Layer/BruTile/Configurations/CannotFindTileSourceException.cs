@@ -30,7 +30,7 @@ namespace Core.Components.DotSpatial.Layer.BruTile.Configurations
     /// the specified <see cref="ITileSource"/>.
     /// </summary>
     [Serializable]
-    public class CannotFindTileSourceException : SystemException
+    public class CannotFindTileSourceException : Exception
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="CannotFindTileSourceException"/> class.

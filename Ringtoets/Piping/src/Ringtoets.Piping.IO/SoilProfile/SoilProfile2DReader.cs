@@ -155,7 +155,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
             var message = new FileReaderErrorMessageBuilder(filePath)
                 .WithSubject(string.Format(Resources.PipingSoilProfileReader_SoilProfileName_0_, profileName))
                 .Build(errorMessage);
-            return new PipingSoilProfileReadException(profileName, message, innerException);
+            return new PipingSoilProfileReadException(message, profileName, innerException);
         }
 
         private static PipingSoilProfileReadException CreatePipingSoilProfileReadException(string filePath, string profileName, Exception innerException)
@@ -163,7 +163,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
             var message = new FileReaderErrorMessageBuilder(filePath)
                 .WithSubject(string.Format(Resources.PipingSoilProfileReader_SoilProfileName_0_, profileName))
                 .Build(innerException.Message);
-            return new PipingSoilProfileReadException(profileName, message, innerException);
+            return new PipingSoilProfileReadException(message, profileName, innerException);
         }
 
         private class RequiredProfileProperties

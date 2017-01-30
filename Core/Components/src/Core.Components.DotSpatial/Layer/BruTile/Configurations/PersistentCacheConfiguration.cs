@@ -20,11 +20,10 @@
 // All rights reserved.
 
 using System;
-using System.ComponentModel;
-using System.Data.SQLite;
 using System.IO;
 using BruTile.Cache;
 using Core.Common.Utils;
+using Core.Components.DotSpatial.Properties;
 
 namespace Core.Components.DotSpatial.Layer.BruTile.Configurations
 {
@@ -50,7 +49,9 @@ namespace Core.Components.DotSpatial.Layer.BruTile.Configurations
         {
             if (!IOUtils.IsValidFolderPath(persistentCacheDirectoryPath))
             {
-                throw new ArgumentException("Invalid folder path", nameof(persistentCacheDirectoryPath));
+                throw new ArgumentException(string.Format(Resources.PersistentCacheConfiguration_Invalid_path_for_persistent_cache,
+                                                          persistentCacheDirectoryPath),
+                                            nameof(persistentCacheDirectoryPath));
             }
             this.persistentCacheDirectoryPath = persistentCacheDirectoryPath;
         }
@@ -71,37 +72,21 @@ namespace Core.Components.DotSpatial.Layer.BruTile.Configurations
                 }
                 catch (Exception e) when (SupportedCreateDirectoryExceptions(e))
                 {
-                    string message = "Een kritieke fout is opgetreden bij het aanmaken van de cache.";
+                    string message = Resources.PersistentCacheConfiguration_CreateTileCache_Critical_error_while_creating_tile_cache;
                     throw new CannotCreateTileCacheException(message, e);
                 }
             }
 
-            switch (BruTileSettings.DefaultPersistentCacheType)
-            {
-                case PersistentCacheStrategy.FileCache:
-                    return new FileCache(persistentCacheDirectoryPath, BruTileSettings.PersistentCacheFormat,
-                                         TimeSpan.FromDays(BruTileSettings.PersistentCacheExpireInDays));
-                case PersistentCacheStrategy.DbCache:
-                    return CreateDbCache(persistentCacheDirectoryPath);
-                default:
-                    throw new InvalidEnumArgumentException(nameof(BruTileSettings.DefaultPersistentCacheType),
-                                                           (int) BruTileSettings.DefaultPersistentCacheType,
-                                                           typeof(PersistentCacheStrategy));
-            }
+            return new FileCache(persistentCacheDirectoryPath, BruTileSettings.PersistentCacheFormat,
+                                 TimeSpan.FromDays(BruTileSettings.PersistentCacheExpireInDays));
         }
 
-        private bool SupportedCreateDirectoryExceptions(Exception exception)
+        private static bool SupportedCreateDirectoryExceptions(Exception exception)
         {
             return exception is IOException
                    || exception is UnauthorizedAccessException
                    || exception is ArgumentException
                    || exception is NotSupportedException;
-        }
-
-        private static DbCache<SQLiteConnection> CreateDbCache(string path)
-        {
-            var conn = new SQLiteConnection($"Data Source={path};");
-            return new DbCache<SQLiteConnection>(conn);
         }
     }
 }

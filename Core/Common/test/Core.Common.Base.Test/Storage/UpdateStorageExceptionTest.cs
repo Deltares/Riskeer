@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using Core.Common.Base.Storage;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -27,72 +26,6 @@ using NUnit.Framework;
 namespace Core.Common.Base.Test.Storage
 {
     [TestFixture]
-    public class UpdateStorageExceptionTest
-    {
-        [Test]
-        public void DefaultConstructor_InnerExceptionNullAndMessageDefault()
-        {
-            // Setup
-            string expectedMessage = string.Format("Exception of type '{0}' was thrown.", typeof(UpdateStorageException).FullName);
-
-            // Call
-            UpdateStorageException exception = new UpdateStorageException();
-
-            // Assert
-            Assert.IsInstanceOf<Exception>(exception);
-            Assert.IsNull(exception.InnerException);
-            Assert.AreEqual(expectedMessage, exception.Message);
-        }
-
-        [Test]
-        public void Constructor_WithCustomMessage_InnerExceptionNullAndMessageSetToCustom()
-        {
-            // Setup
-            const string expectedMessage = "Some exception message";
-
-            // Call
-            UpdateStorageException exception = new UpdateStorageException(expectedMessage);
-
-            // Assert
-            Assert.IsNull(exception.InnerException);
-            Assert.AreEqual(expectedMessage, exception.Message);
-        }
-
-        [Test]
-        public void Constructor_WithCustomMessageAndInnerException_InnerExceptionSetAndMessageSetToCustom()
-        {
-            // Setup
-            const string expectedMessage = "Some exception message";
-            Exception expectedInnerException = new Exception();
-
-            // Call
-            UpdateStorageException exception = new UpdateStorageException(expectedMessage, expectedInnerException);
-
-            // Assert
-            Assert.AreSame(expectedInnerException, exception.InnerException);
-            Assert.AreEqual(expectedMessage, exception.Message);
-        }
-
-        [Test]
-        public void Constructor_SerializationRoundTrip_ExceptionProperlyInitialized()
-        {
-            // Setup
-            var originalInnerException = new Exception("inner");
-            var originalException = new UpdateStorageException("outer", originalInnerException);
-
-            // Precondition
-            Assert.IsNotNull(originalException.InnerException);
-            Assert.IsNull(originalException.InnerException.InnerException);
-
-            // Call
-            UpdateStorageException persistedException = SerializationTestHelper.SerializeAndDeserializeException(originalException);
-
-            // Assert
-            Assert.AreEqual(originalException.Message, persistedException.Message);
-            Assert.IsNotNull(persistedException.InnerException);
-            Assert.AreEqual(originalException.InnerException.GetType(), persistedException.InnerException.GetType());
-            Assert.AreEqual(originalException.InnerException.Message, persistedException.InnerException.Message);
-            Assert.IsNull(persistedException.InnerException.InnerException);
-        }
-    }
+    public class UpdateStorageExceptionTest :
+        CustomExceptionDesignGuidelinesTestFixture<UpdateStorageException, StorageException> {}
 }

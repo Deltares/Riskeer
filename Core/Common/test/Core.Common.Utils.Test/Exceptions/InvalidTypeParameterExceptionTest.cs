@@ -27,50 +27,9 @@ using NUnit.Framework;
 namespace Core.Common.Utils.Test.Exceptions
 {
     [TestFixture]
-    public class InvalidTypeParameterExceptionTest
+    public class InvalidTypeParameterExceptionTest :
+        CustomExceptionDesignGuidelinesTestFixture<InvalidTypeParameterException, Exception>
     {
-        [Test]
-        public void DefaultConstructor_ExpectedValues()
-        {
-            // Call
-            var exception = new InvalidTypeParameterException();
-
-            // Assert
-            Assert.IsInstanceOf<Exception>(exception);
-            var expectedMessage = string.Format("Exception of type '{0}' was thrown.", typeof(InvalidTypeParameterException).FullName);
-            Assert.AreEqual(expectedMessage, exception.Message);
-            CollectionAssert.IsEmpty(exception.Data);
-            Assert.IsNull(exception.TypeParamName);
-            Assert.IsNull(exception.HelpLink);
-            Assert.IsNull(exception.InnerException);
-            Assert.IsNull(exception.Source);
-            Assert.IsNull(exception.StackTrace);
-            Assert.IsNull(exception.TargetSite);
-        }
-
-        [Test]
-        public void TypeParameterConstructor_ExpectedValues()
-        {
-            // Setup
-            string typeParamName = "T";
-
-            // Call
-            var exception = new InvalidTypeParameterException(typeParamName);
-
-            // Assert
-            Assert.IsInstanceOf<Exception>(exception);
-            var expectedMessage = string.Format("Exception of type '{0}' was thrown.", exception.GetType());
-            Assert.AreEqual(expectedMessage, exception.Message);
-            Assert.AreEqual(typeParamName, exception.TypeParamName);
-            Assert.AreEqual(1, exception.Data.Count);
-            Assert.AreEqual(exception.TypeParamName, exception.Data["TypeParamName"]);
-            Assert.IsNull(exception.HelpLink);
-            Assert.IsNull(exception.InnerException);
-            Assert.IsNull(exception.Source);
-            Assert.IsNull(exception.StackTrace);
-            Assert.IsNull(exception.TargetSite);
-        }
-
         [Test]
         public void TypeParameterAndMessageConstructor_ExpectedValues()
         {
@@ -79,42 +38,13 @@ namespace Core.Common.Utils.Test.Exceptions
             const string messageText = "<insert exception message>";
 
             // Call
-            var exception = new InvalidTypeParameterException(typeParamName, messageText);
+            var exception = new InvalidTypeParameterException(messageText, typeParamName);
 
             // Assert
-            Assert.IsInstanceOf<Exception>(exception);
-            Assert.AreEqual(messageText, exception.Message);
+            base.AssertMessageConstructedInstance(exception, messageText, false);
             Assert.AreEqual(typeParamName, exception.TypeParamName);
             Assert.AreEqual(1, exception.Data.Count);
-            Assert.AreEqual(exception.TypeParamName, exception.Data["TypeParamName"]);
-            Assert.IsNull(exception.HelpLink);
-            Assert.IsNull(exception.InnerException);
-            Assert.IsNull(exception.Source);
-            Assert.IsNull(exception.StackTrace);
-            Assert.IsNull(exception.TargetSite);
-        }
-
-        [Test]
-        public void MessageAndInnerExceptionConstructor_ExpectedValues()
-        {
-            // Setup
-            var innerException = new Exception();
-            const string messageText = "<insert exception message>";
-
-            // Call
-            var exception = new InvalidTypeParameterException(messageText, innerException);
-
-            // Assert
-            Assert.IsInstanceOf<Exception>(exception);
-            Assert.AreEqual(messageText, exception.Message);
-            Assert.IsNull(exception.TypeParamName);
-            Assert.AreEqual(0, exception.Data.Count);
-            Assert.AreEqual(exception.TypeParamName, exception.Data["TypeParamName"]);
-            Assert.IsNull(exception.HelpLink);
-            Assert.AreEqual(innerException, exception.InnerException);
-            Assert.IsNull(exception.Source);
-            Assert.IsNull(exception.StackTrace);
-            Assert.IsNull(exception.TargetSite);
+            Assert.AreEqual(exception.TypeParamName, exception.Data[nameof(exception.TypeParamName)]);
         }
 
         [Test]
@@ -126,42 +56,52 @@ namespace Core.Common.Utils.Test.Exceptions
             const string messageText = "<insert exception message>";
 
             // Call
-            var exception = new InvalidTypeParameterException(typeParamName, messageText, innerException);
+            var exception = new InvalidTypeParameterException(messageText, typeParamName, innerException);
 
             // Assert
-            Assert.IsInstanceOf<Exception>(exception);
-            Assert.AreEqual(messageText, exception.Message);
+            AssertMessageAndInnerExceptionConstructedInstance(exception, messageText, innerException, false);
             Assert.AreEqual(typeParamName, exception.TypeParamName);
             Assert.AreEqual(1, exception.Data.Count);
-            Assert.AreEqual(exception.TypeParamName, exception.Data["TypeParamName"]);
-            Assert.IsNull(exception.HelpLink);
-            Assert.AreEqual(innerException, exception.InnerException);
-            Assert.IsNull(exception.Source);
-            Assert.IsNull(exception.StackTrace);
-            Assert.IsNull(exception.TargetSite);
+            Assert.AreEqual(exception.TypeParamName, exception.Data[nameof(exception.TypeParamName)]);
         }
 
-        [Test]
-        public void Constructor_SerializationRoundTrip_ExceptionProperlyInitialized()
+        protected override void AssertDefaultConstructedInstance(InvalidTypeParameterException exception)
         {
-            // Setup
+            base.AssertDefaultConstructedInstance(exception);
+            CollectionAssert.IsEmpty(exception.Data);
+            Assert.IsNull(exception.TypeParamName);
+        }
+
+        protected override void AssertMessageConstructedInstance(InvalidTypeParameterException exception, string messageText,
+                                                                 bool assertData = true)
+        {
+            base.AssertMessageConstructedInstance(exception, messageText, assertData);
+            if (assertData)
+            {
+                Assert.IsNull(exception.TypeParamName);
+            }
+        }
+
+        protected override void AssertMessageAndInnerExceptionConstructedInstance(InvalidTypeParameterException exception, string messageText,
+                                                                                  Exception innerException, bool assertData = true)
+        {
+            base.AssertMessageAndInnerExceptionConstructedInstance(exception, messageText, innerException, assertData);
+            if (assertData)
+            {
+                Assert.IsNull(exception.TypeParamName);
+            }
+        }
+
+        protected override InvalidTypeParameterException CreateFullyConfiguredException()
+        {
             var originalInnerException = new Exception("inner");
-            var originalException = new InvalidTypeParameterException("<parameter>", "<message>", originalInnerException);
+            return new InvalidTypeParameterException("<message>", "<parameter>", originalInnerException);
+        }
 
-            // Precondition
-            Assert.IsNotNull(originalException.InnerException);
-            Assert.IsNull(originalException.InnerException.InnerException);
-
-            // Call
-            InvalidTypeParameterException persistedException = SerializationTestHelper.SerializeAndDeserializeException(originalException);
-
-            // Assert
-            Assert.AreEqual(originalException.Message, persistedException.Message);
+        protected override void AssertRoundTripResult(InvalidTypeParameterException originalException, InvalidTypeParameterException persistedException)
+        {
+            base.AssertRoundTripResult(originalException, persistedException);
             Assert.AreEqual(originalException.TypeParamName, persistedException.TypeParamName);
-            Assert.IsNotNull(persistedException.InnerException);
-            Assert.AreEqual(originalException.InnerException.GetType(), persistedException.InnerException.GetType());
-            Assert.AreEqual(originalException.InnerException.Message, persistedException.InnerException.Message);
-            Assert.IsNull(persistedException.InnerException.InnerException);
         }
     }
 }

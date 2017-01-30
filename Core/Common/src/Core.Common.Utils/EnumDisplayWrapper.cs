@@ -48,7 +48,7 @@ namespace Core.Common.Utils
             }
             if (!(typeof(Enum).IsAssignableFrom(typeof(T))))
             {
-                throw new InvalidTypeParameterException("T", @"The type parameter has to be an Enum type.");
+                throw new InvalidTypeParameterException(@"The type parameter has to be an Enum type.", "T");
             }
             Value = value;
             SetDisplayName(value);

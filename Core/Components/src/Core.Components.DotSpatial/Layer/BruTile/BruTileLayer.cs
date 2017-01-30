@@ -114,6 +114,12 @@ namespace Core.Components.DotSpatial.Layer.BruTile
         /// <param name="configuration">The tile source configuration.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="configuration"/>
         /// is <c>null</c>.</exception>
+        /// <exception cref="CannotFindTileSourceException">Thrown when no tile source
+        /// can be found based on <paramref name="configuration"/>.</exception>
+        /// <exception cref="CannotCreateTileCacheException">Thrown when a critical error
+        /// prevents the creation of the persistent tile cache.</exception>
+        /// <exception cref="CannotReceiveTilesException">Thrown when it no tiles can be
+        /// received from the tile source.</exception>
         public BruTileLayer(IConfiguration configuration)
         {
             if (configuration == null)
@@ -121,8 +127,10 @@ namespace Core.Components.DotSpatial.Layer.BruTile
                 throw new ArgumentNullException(nameof(configuration));
             }
 
-            // Initialize the configuration prior to usage
-            configuration.Initialize();
+            if (!configuration.Initialized)
+            {
+                configuration.Initialize();
+            }
             this.configuration = configuration;
 
             ITileSchema tileSchema = configuration.TileSource.Schema;

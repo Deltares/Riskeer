@@ -20,13 +20,13 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base.Storage;
 using Core.Common.TestUtil;
+using Core.Components.DotSpatial.Layer.BruTile.Configurations;
 using NUnit.Framework;
 
-namespace Core.Common.Base.Test.Storage
+namespace Core.Components.DotSpatial.Test.Layer.BruTile.Configurations
 {
     [TestFixture]
-    public class StorageExceptionTest :
-        CustomExceptionDesignGuidelinesTestFixture<StorageException, Exception> {}
+    public class CannotCreateTileCacheExceptionTest :
+        CustomExceptionDesignGuidelinesTestFixture<CannotCreateTileCacheException, Exception> {}
 }

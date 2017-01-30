@@ -20,57 +20,12 @@
 // All rights reserved.
 
 using System;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 
 namespace Core.Common.Geometry.Test
 {
     [TestFixture]
-    public class InvalidPolygonExceptionTest
-    {
-        [Test]
-        public void DefaultConstructor_InnerExceptionNullAndMessageDefault()
-        {
-            // Setup
-            string expectedMessage = string.Format("Exception of type '{0}' was thrown.", typeof(InvalidPolygonException).FullName);
-
-            // Call
-            InvalidPolygonException exception = new InvalidPolygonException();
-
-            // Assert
-            Assert.IsInstanceOf<Exception>(exception);
-            Assert.IsNull(exception.InnerException);
-            Assert.AreEqual(expectedMessage, exception.Message);
-        }
-
-        [Test]
-        public void Constructor_WithCustomMessage_InnerExceptionNullAndMessageSetToCustom()
-        {
-            // Setup
-            const string expectedMessage = "Some exception message";
-
-            // Call
-            InvalidPolygonException exception = new InvalidPolygonException(expectedMessage);
-
-            // Assert
-            Assert.IsInstanceOf<Exception>(exception);
-            Assert.IsNull(exception.InnerException);
-            Assert.AreEqual(expectedMessage, exception.Message);
-        }
-
-        [Test]
-        public void Constructor_WithCustomMessageAndInnerException_InnerExceptionSetAndMessageSetToCustom()
-        {
-            // Setup
-            const string expectedMessage = "Some exception message";
-            Exception expectedInnerException = new Exception();
-
-            // Call
-            InvalidPolygonException exception = new InvalidPolygonException(expectedMessage, expectedInnerException);
-
-            // Assert
-            Assert.IsInstanceOf<Exception>(exception);
-            Assert.AreSame(expectedInnerException, exception.InnerException);
-            Assert.AreEqual(expectedMessage, exception.Message);
-        }
-    }
+    public class InvalidPolygonExceptionTest :
+        CustomExceptionDesignGuidelinesTestFixture<InvalidPolygonException, Exception> {}
 }

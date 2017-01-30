@@ -35,7 +35,8 @@ namespace Core.Components.DotSpatial.Layer.BruTile.Configurations
         /// Returns all tile sources based on the capabilities of a Web Map Tile Service.
         /// </summary>
         /// <param name="capabilitiesUrl">The URL to the 'GetCapabilities' part of the service.</param>
-        /// <returns>The tile sources.</returns>
+        /// <returns>The tile sources with <see cref="ITileSource.Schema"/> initialized
+        /// with an instance of <see cref="WmtsTileSchema"/>.</returns>
         /// <exception cref="CannotFindTileSourceException">Thrown when unable to retrieve
         /// tile sources from the given service.</exception>
         IEnumerable<ITileSource> GetWmtsTileSources(string capabilitiesUrl);

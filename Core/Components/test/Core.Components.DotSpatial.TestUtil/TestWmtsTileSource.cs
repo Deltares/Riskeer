@@ -57,31 +57,7 @@ namespace Core.Components.DotSpatial.TestUtil
 
         private static WmtsTileSchema CreateWmtsTileSchema(WmtsMapData backgroundMapData)
         {
-            WmtsTileSchema schema = ConstructWmtsTileSchema();
-            schema.Title = backgroundMapData.Name;
-            schema.Format = backgroundMapData.PreferredFormat;
-            
-            schema.Resolutions["1"] = new Resolution("1", 1);
-
-            var regex1 = new Regex(@"(?<Layer>.+)\((?<TileMatrixSet>.+)\)");
-            Match match = regex1.Match(backgroundMapData.SelectedCapabilityIdentifier);
-            schema.Layer = match.Groups["Layer"].Value;
-            schema.TileMatrixSet = match.Groups["TileMatrixSet"].Value;
-
-            var regex2 = new Regex(@"EPSG:(?<SrsNumber>\d+)");
-            Match potentialMatch = regex2.Match(schema.TileMatrixSet);
-            schema.Srs = potentialMatch.Success ?
-                             $"EPSG:{potentialMatch.Groups["SrsNumber"]}" :
-                             "EPSG:3857";
-
-            return schema;
-        }
-
-        private static WmtsTileSchema ConstructWmtsTileSchema()
-        {
-            return (WmtsTileSchema) typeof(WmtsTileSchema)
-                .GetConstructor(BindingFlags.NonPublic | BindingFlags.Instance, null, Type.EmptyTypes, null)
-                .Invoke(null);
+            return TileSchemaFactory.CreateWmtsTileSchema(backgroundMapData);
         }
 
         private static byte[] GetStubTile(Uri arg)

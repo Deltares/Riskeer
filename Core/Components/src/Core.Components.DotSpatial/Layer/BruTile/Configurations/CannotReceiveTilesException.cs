@@ -22,36 +22,36 @@
 using System;
 using System.Runtime.Serialization;
 
-namespace Core.Common.Geometry
+namespace Core.Components.DotSpatial.Layer.BruTile.Configurations
 {
     /// <summary>
-    /// This exception can be used for when a polygon is not correctly defined.
+    /// The exception that is thrown when receiving tiles has become impossible or fails.
     /// </summary>
     [Serializable]
-    public class InvalidPolygonException : Exception
+    public class CannotReceiveTilesException : Exception
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="InvalidPolygonException"/> class.
+        /// Initializes a new instance of the <see cref="CannotReceiveTilesException"/> class.
         /// </summary>
-        public InvalidPolygonException() {}
+        public CannotReceiveTilesException() { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="InvalidPolygonException"/> class
+        /// Initializes a new instance of the <see cref="CannotReceiveTilesException"/> class
         /// with a specified error message.
         /// </summary>
         /// <param name="message">The error message that explains the reason for the exception.</param>
-        public InvalidPolygonException(string message) : base(message) {}
+        public CannotReceiveTilesException(string message) : base(message) { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="InvalidPolygonException"/> class
+        /// Initializes a new instance of the <see cref="CannotReceiveTilesException"/> class
         /// with a specified error message and a reference to the inner exception that is
         /// the cause of this exception.
         /// </summary>
         /// <param name="message">The error message that explains the reason for the exception.</param>
         /// <param name="inner">The exception that is the cause of the current exception, 
         /// or a null reference if no inner exception is specified.</param>
-        public InvalidPolygonException(string message, Exception inner) : base(message, inner) {}
+        public CannotReceiveTilesException(string message, Exception inner) : base(message, inner) { }
 
-        protected InvalidPolygonException(SerializationInfo info, StreamingContext context) : base(info, context) { }
+        protected CannotReceiveTilesException(SerializationInfo info, StreamingContext context) : base(info, context) { }
     }
 }

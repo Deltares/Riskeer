@@ -27,79 +27,81 @@ using Ringtoets.Piping.IO.Exceptions;
 namespace Ringtoets.Piping.IO.Test.Exceptions
 {
     [TestFixture]
-    public class PipingSoilProfileReadExceptionTest
+    public class PipingSoilProfileReadExceptionTest :
+        CustomExceptionDesignGuidelinesTestFixture<PipingSoilProfileReadException, Exception>
     {
         [Test]
-        public void Constructor_WithProfileName_InnerExceptionNullMessageDefaultAndProfileNameSet()
+        public void TypeParameterAndMessageConstructor_ExpectedValues()
         {
             // Setup
-            var profileName = "name";
-            var expectedMessage = string.Format("Exception of type '{0}' was thrown.",
-                                                typeof(PipingSoilProfileReadException).FullName);
+            string profileName = "<Name of profile>";
+            const string messageText = "<insert exception message>";
 
             // Call
-            var exception = new PipingSoilProfileReadException(profileName);
+            var exception = new PipingSoilProfileReadException(messageText, profileName);
 
             // Assert
-            Assert.IsNull(exception.InnerException);
+            base.AssertMessageConstructedInstance(exception, messageText, false);
             Assert.AreEqual(profileName, exception.ProfileName);
-            Assert.AreEqual(expectedMessage, exception.Message);
+            Assert.AreEqual(1, exception.Data.Count);
+            Assert.AreEqual(exception.ProfileName, exception.Data[nameof(exception.ProfileName)]);
         }
 
         [Test]
-        public void Constructor_WithCustomMessage_InnerExceptionNullAndMessageSetToCustom()
+        public void TypeParameterAndMessageAndInnerExceptionConstructor_ExpectedValues()
         {
             // Setup
-            var profileName = "name";
-            var expectedMessage = "Some exception message";
+            var innerException = new Exception();
+            string profileName = "<Name of profile>";
+            const string messageText = "<insert exception message>";
 
             // Call
-            var exception = new PipingSoilProfileReadException(profileName, expectedMessage);
+            var exception = new PipingSoilProfileReadException(messageText, profileName, innerException);
 
             // Assert
-            Assert.IsNull(exception.InnerException);
+            AssertMessageAndInnerExceptionConstructedInstance(exception, messageText, innerException, false);
             Assert.AreEqual(profileName, exception.ProfileName);
-            Assert.AreEqual(expectedMessage, exception.Message);
+            Assert.AreEqual(1, exception.Data.Count);
+            Assert.AreEqual(exception.ProfileName, exception.Data[nameof(exception.ProfileName)]);
         }
 
-        [Test]
-        public void Constructor_WithCustomMessageAndInnerException_InnerExceptionSetAndMessageSetToCustom()
+        protected override void AssertDefaultConstructedInstance(PipingSoilProfileReadException exception)
         {
-            // Setup
-            var profileName = "name";
-            var expectedMessage = "Some exception message";
-            var expectedInnerException = new Exception();
-
-            // Call
-            var exception = new PipingSoilProfileReadException(profileName, expectedMessage, expectedInnerException);
-
-            // Assert
-            Assert.AreSame(expectedInnerException, exception.InnerException);
-            Assert.AreEqual(profileName, exception.ProfileName);
-            Assert.AreEqual(expectedMessage, exception.Message);
+            base.AssertDefaultConstructedInstance(exception);
+            CollectionAssert.IsEmpty(exception.Data);
+            Assert.IsNull(exception.ProfileName);
         }
 
-        [Test]
-        public void Constructor_SerializationRoundTrip_ExceptionProperlyInitialized()
+        protected override void AssertMessageConstructedInstance(PipingSoilProfileReadException exception, string messageText,
+                                                                 bool assertData = true)
         {
-            // Setup
+            base.AssertMessageConstructedInstance(exception, messageText, assertData);
+            if (assertData)
+            {
+                Assert.IsNull(exception.ProfileName);
+            }
+        }
+
+        protected override void AssertMessageAndInnerExceptionConstructedInstance(PipingSoilProfileReadException exception, string messageText,
+                                                                                  Exception innerException, bool assertData = true)
+        {
+            base.AssertMessageAndInnerExceptionConstructedInstance(exception, messageText, innerException, assertData);
+            if (assertData)
+            {
+                Assert.IsNull(exception.ProfileName);
+            }
+        }
+
+        protected override PipingSoilProfileReadException CreateFullyConfiguredException()
+        {
             var originalInnerException = new Exception("inner");
-            var originalException = new PipingSoilProfileReadException("<Profile name>", "outer", originalInnerException);
+            return new PipingSoilProfileReadException("<message>", "<parameter>", originalInnerException);
+        }
 
-            // Precondition
-            Assert.IsNotNull(originalException.InnerException);
-            Assert.IsNull(originalException.InnerException.InnerException);
-
-            // Call
-            PipingSoilProfileReadException persistedException = SerializationTestHelper.SerializeAndDeserializeException(originalException);
-
-            // Assert
-            Assert.AreEqual(originalException.Message, persistedException.Message);
+        protected override void AssertRoundTripResult(PipingSoilProfileReadException originalException, PipingSoilProfileReadException persistedException)
+        {
+            base.AssertRoundTripResult(originalException, persistedException);
             Assert.AreEqual(originalException.ProfileName, persistedException.ProfileName);
-            Assert.IsNotNull(persistedException.InnerException);
-            Assert.AreEqual(originalException.InnerException.GetType(), persistedException.InnerException.GetType());
-            Assert.AreEqual(originalException.InnerException.Message, persistedException.InnerException.Message);
-            Assert.IsNull(persistedException.InnerException.InnerException);
         }
     }
 }

@@ -19,30 +19,14 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Core.Components.DotSpatial.Layer.BruTile.Configurations
+using System;
+using Core.Common.TestUtil;
+using Core.Components.DotSpatial.Layer.BruTile.Configurations;
+using NUnit.Framework;
+
+namespace Core.Components.DotSpatial.Test.Layer.BruTile.Configurations
 {
-    /// <summary>
-    /// Type specifying the various supported tile caching strategies.
-    /// </summary>
-    /// <remarks>
-    /// Original source: https://github.com/FObermaier/DotSpatial.Plugins/blob/master/DotSpatial.Plugins.BruTileLayer/Configuration/PermaCacheType.cs
-    /// Original license: http://www.apache.org/licenses/LICENSE-2.0.html
-    /// </remarks>
-    public enum PersistentCacheStrategy
-    {
-        /// <summary>
-        /// The default caching strategy.
-        /// </summary>
-        Default = 0,
-
-        /// <summary>
-        /// Use a file cache.
-        /// </summary>
-        FileCache = Default,
-
-        /// <summary>
-        /// Use a SQLite database cache.
-        /// </summary>
-        DbCache = 1
-    }
+    [TestFixture]
+    public class CannotReceiveTilesExceptionTest :
+        CustomExceptionDesignGuidelinesTestFixture<CannotReceiveTilesException, Exception> {}
 }

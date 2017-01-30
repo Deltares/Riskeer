@@ -29,7 +29,7 @@ namespace Core.Common.Base.Storage
     /// parsing a row/line during the read.
     /// </summary>
     [Serializable]
-    public class UpdateStorageException : Exception
+    public class UpdateStorageException : StorageException
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="UpdateStorageException"/> class.
