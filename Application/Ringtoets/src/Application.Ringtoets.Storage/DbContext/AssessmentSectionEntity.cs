@@ -28,20 +28,21 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-
 namespace Application.Ringtoets.Storage.DbContext
 {
+    using System;
+    using System.Collections.Generic;
+    
     public partial class AssessmentSectionEntity
     {
-        [SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public AssessmentSectionEntity()
         {
             FailureMechanismEntities = new HashSet<FailureMechanismEntity>();
             HydraulicLocationEntities = new HashSet<HydraulicLocationEntity>();
+            WmtsMapDataEntities = new HashSet<WmtsMapDataEntity>();
         }
-
+    
         public long AssessmentSectionEntityId { get; set; }
         public long ProjectEntityId { get; set; }
         public string Id { get; set; }
@@ -53,19 +54,13 @@ namespace Application.Ringtoets.Storage.DbContext
         public byte Composition { get; set; }
         public string ReferenceLinePointXml { get; set; }
         public int Order { get; set; }
-        public string WmtsName { get; set; }
-        public string SourceCapabilitesUrl { get; set; }
-        public string SelectedCapabilityName { get; set; }
-        public string PreferredFormat { get; set; }
-        public byte BackgroundMapDataIsVisible { get; set; }
-        public double BackgroundMapDataTransparency { get; set; }
-
+    
         public virtual ProjectEntity ProjectEntity { get; set; }
-
-        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<FailureMechanismEntity> FailureMechanismEntities { get; set; }
-
-        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HydraulicLocationEntity> HydraulicLocationEntities { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<WmtsMapDataEntity> WmtsMapDataEntities { get; set; }
     }
 }

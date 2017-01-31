@@ -33,12 +33,17 @@ namespace Application.Ringtoets.Storage.DbContext
     using System;
     using System.Collections.Generic;
     
-    public partial class StabilityPointStructuresFailureMechanismMetaEntity
+    public partial class WmtsMapDataEntity
     {
-        public long StrengthStabilityPointConstructionFailureMechanismMetaEntityId { get; set; }
-        public long FailureMechanismEntityId { get; set; }
-        public int N { get; set; }
+        public long WmtsMapDataEntityId { get; set; }
+        public long AssessmentSectionEntityId { get; set; }
+        public string Name { get; set; }
+        public string SourceCapabilitiesUrl { get; set; }
+        public string SelectedCapabilityName { get; set; }
+        public string PreferredFormat { get; set; }
+        public byte IsVisible { get; set; }
+        public double Transparency { get; set; }
     
-        public virtual FailureMechanismEntity FailureMechanismEntity { get; set; }
+        public virtual AssessmentSectionEntity AssessmentSectionEntity { get; set; }
     }
 }

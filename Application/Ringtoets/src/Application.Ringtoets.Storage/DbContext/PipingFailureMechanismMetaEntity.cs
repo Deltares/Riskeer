@@ -30,6 +30,9 @@
 
 namespace Application.Ringtoets.Storage.DbContext
 {
+    using System;
+    using System.Collections.Generic;
+    
     public partial class PipingFailureMechanismMetaEntity
     {
         public long PipingFailureMechanismMetaEntityId { get; set; }
@@ -37,7 +40,7 @@ namespace Application.Ringtoets.Storage.DbContext
         public double A { get; set; }
         public double WaterVolumetricWeight { get; set; }
         public string StochasticSoilModelSourcePath { get; set; }
-
+    
         public virtual FailureMechanismEntity FailureMechanismEntity { get; set; }
     }
 }
