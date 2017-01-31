@@ -157,80 +157,13 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(transparencyPropertyIndex,
                                                                             "Algemeen",
                                                                             "Transparantie",
-                                                                            "Transparantie waarmee de achtergrond kaartlaag wordt weergegeven.",
-                                                                            true);
+                                                                            "Transparantie waarmee de achtergrond kaartlaag wordt weergegeven.");
 
             PropertyDescriptor visibilityProperty = dynamicProperties[requiredVisibilityPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(visibilityProperty,
                                                                             "Algemeen",
                                                                             "Weergeven",
-                                                                            "Geeft aan of de geselecteerde achtergrond kaartlaag in alle kaarten van dit traject wordt weergegeven.",
-                                                                            true);
-        }
-
-        [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void GetProperties_UseConfiguredMapData_ReturnsExpectedAttributeValues(bool isMapConfigured)
-        {
-            // Setup
-            WmtsMapData mapData = isMapConfigured ?
-                                      WmtsMapData.CreateDefaultPdokMapData() :
-                                      WmtsMapData.CreateUnconnectedMapData();
-
-            // Call
-            var properties = new BackgroundWmtsMapDataProperties(mapData);
-
-            // Assert
-            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(4, dynamicProperties.Count);
-
-            PropertyDescriptor transparencyPropertyIndex = dynamicProperties[requiredTransparencyPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(transparencyPropertyIndex,
-                                                                            "Algemeen",
-                                                                            "Transparantie",
-                                                                            "Transparantie waarmee de achtergrond kaartlaag wordt weergegeven.",
-                                                                            !isMapConfigured);
-
-            PropertyDescriptor visibilityProperty = dynamicProperties[requiredVisibilityPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(visibilityProperty,
-                                                                            "Algemeen",
-                                                                            "Weergeven",
-                                                                            "Geeft aan of de geselecteerde achtergrond kaartlaag in alle kaarten van dit traject wordt weergegeven.",
-                                                                            !isMapConfigured);
-        }
-
-        [Test]
-        [TestCase(nameof(BackgroundWmtsMapDataProperties.Transparency), true)]
-        [TestCase(nameof(BackgroundWmtsMapDataProperties.IsVisible), true)]
-        public void DynamicReadOnlyValidationMethod_VariousPropertyNames_ReturnExpectedValue(string propertyName, bool isConfigured)
-        {
-            // Setup
-            WmtsMapData mapData = isConfigured ?
-                                      WmtsMapData.CreateDefaultPdokMapData() :
-                                      WmtsMapData.CreateUnconnectedMapData();
-
-            var properties = new BackgroundWmtsMapDataProperties(mapData);
-
-            // Call
-            bool result = properties.DynamicReadOnlyValidationMethod(propertyName);
-
-            // Assert
-            Assert.AreEqual(!isConfigured, result);
-        }
-
-        [Test]
-        public void DynamicReadOnlyValidationMethod_OtherPropertyNames_ReturnsTrue()
-        {
-            // Setup
-            var mapData = WmtsMapData.CreateUnconnectedMapData();
-            var properties = new BackgroundWmtsMapDataProperties(mapData);
-
-            // Call
-            bool result = properties.DynamicReadOnlyValidationMethod("");
-
-            // Assert
-            Assert.IsFalse(result);
+                                                                            "Geeft aan of de geselecteerde achtergrond kaartlaag in alle kaarten van dit traject wordt weergegeven.");
         }
     }
 }

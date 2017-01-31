@@ -71,7 +71,6 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
             }
         }
 
-        [DynamicReadOnly]
         [ResourcesCategory(typeof(RingtoetsCommonForms), nameof(RingtoetsCommonForms.Categories_General))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.BackgroundMapDataContextProperties_Transparency_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.BackgroundMapDataContextProperties_Transparency_Description))]
@@ -88,7 +87,6 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
             }
         }
 
-        [DynamicReadOnly]
         [ResourcesCategory(typeof(RingtoetsCommonForms), nameof(RingtoetsCommonForms.Categories_General))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.BackgroundMapDataContextProperties_IsVisible_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.BackgroundMapDataContextProperties_IsVisible_Description))]
@@ -103,21 +101,6 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
                 data.IsVisible = value;
                 data.NotifyObservers();
             }
-        }
-
-        [DynamicReadOnlyValidationMethod]
-        public bool DynamicReadOnlyValidationMethod(string propertyName)
-        {
-            if (propertyName == nameof(Transparency))
-            {
-                return !data.IsConfigured;
-            }
-            if (propertyName == nameof(IsVisible))
-            {
-                return !data.IsConfigured;
-            }
-
-            return false;
         }
     }
 }
