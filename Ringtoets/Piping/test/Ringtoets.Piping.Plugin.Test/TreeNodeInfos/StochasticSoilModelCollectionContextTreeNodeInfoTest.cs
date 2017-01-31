@@ -307,9 +307,13 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
                     // Assert
+                    var expectedToolTip = sourcePathSet
+                        ? RingtoetsPipingPluginResources.PipingPlugin_UpdateStochasticSoilModelsMenuItem_ToolTip
+                        : RingtoetsPipingPluginResources.PipingPlugin_UpdateStochasticSoilModelsMenuItem_ToolTip_No_SourcePath_set;
+
                     TestHelper.AssertContextMenuStripContainsItem(menu, updateStochasticSoilModelsItemIndex,
                                                                   RingtoetsPipingPluginResources.PipingPlugin_UpdateStochasticSoilModelsMenuItem_Text,
-                                                                  RingtoetsPipingPluginResources.PipingPlugin_UpdateStochasticSoilModelsMenuItem_ToolTip,
+                                                                  expectedToolTip,
                                                                   RingtoetsPipingPluginResources.RefreshIcon,
                                                                   sourcePathSet);
                 }

@@ -128,6 +128,15 @@ namespace Ringtoets.Piping.Plugin.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Geen bronbestand bekend om vanaf bij te werken..
+        /// </summary>
+        public static string PipingPlugin_UpdateStochasticSoilModelsMenuItem_ToolTip_No_SourcePath_set {
+            get {
+                return ResourceManager.GetString("PipingPlugin_UpdateStochasticSoilModelsMenuItem_ToolTip_No_SourcePath_set", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Karakteristieke punten gevonden zonder bijbehorende profielschematisatie voor locatie &apos;{0}&apos;..
         /// </summary>
         public static string PipingSurfaceLinesCsvImporter_AddImportedDataToModel_Characteristic_points_found_for_unknown_SurfaceLine_0_ {

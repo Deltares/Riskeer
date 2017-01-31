@@ -258,4 +258,7 @@ Deze locatie met karakteristieke punten wordt overgeslagen.</value>
   <data name="StochasticSoilModelUpdateDataStrategy_UpdateModelWithImportedData_Update_of_StochasticSoilModel_failed" xml:space="preserve">
     <value>Het bijwerken van de stochastische ondrgrondmodellen is mislukt.</value>
   </data>
+  <data name="PipingPlugin_UpdateStochasticSoilModelsMenuItem_ToolTip_No_SourcePath_set" xml:space="preserve">
+    <value>Geen bronbestand bekend om vanaf bij te werken.</value>
+  </data>
 </root>

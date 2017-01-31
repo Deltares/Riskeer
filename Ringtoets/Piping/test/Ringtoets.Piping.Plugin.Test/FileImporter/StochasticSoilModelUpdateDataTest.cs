@@ -104,7 +104,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         public void UpdateModelWithImportedData_WithCurrentModelsAndImportedMultipleModelsWithSameName_ThrowsInvalidOperationException()
         {
             // Setup
-            var nonUniqueName = "non-unique name";
+            const string nonUniqueName = "non-unique name";
 
             var targetCollection = new StochasticSoilModelCollection();
             targetCollection.AddRange(new[]
@@ -123,7 +123,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             TestDelegate test = () => strategy.UpdateModelWithImportedData(targetCollection, importedStochasticSoilModels, sourceFilePath);
 
             // Assert
-            var exception = Assert.Throws<StochasticSoilModelUpdateException>(test);
+            StochasticSoilModelUpdateException exception = Assert.Throws<StochasticSoilModelUpdateException>(test);
             Assert.AreEqual("Het bijwerken van de stochastische ondrgrondmodellen is mislukt.", exception.Message);
             Assert.IsInstanceOf<InvalidOperationException>(exception.InnerException);
         }
@@ -186,7 +186,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             strategy.UpdateModelWithImportedData(targetCollection, new[] { readModel }, sourceFilePath);
 
             // Assert
-            Assert.AreSame(readModel, targetCollection.First());
+            Assert.AreSame(readModel, targetCollection[0]);
         }
 
         [Test]
@@ -210,7 +210,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             // Assert
             Assert.AreEqual(1, targetCollection.Count);
-            Assert.AreSame(existingModel, targetCollection.First());
+            Assert.AreSame(existingModel, targetCollection[0]);
         }
 
         [Test]
@@ -227,14 +227,14 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                                       }, sourceFilePath);
 
             var strategy = new StochasticSoilModelUpdateDataStrategy(new PipingFailureMechanism());
-            var readModel = CreateSimpleModel(modelsName, "new profile A", "new profile B");
+            StochasticSoilModel readModel = CreateSimpleModel(modelsName, "new profile A", "new profile B");
 
             // Call
             strategy.UpdateModelWithImportedData(targetCollection, new[] { readModel }, sourceFilePath);
 
             // Assert
-            Assert.AreSame(existingModel, targetCollection.First());
-            Assert.AreEqual(2, targetCollection.First().StochasticSoilProfiles.Count);
+            Assert.AreSame(existingModel, targetCollection[0]);
+            Assert.AreEqual(2, targetCollection[0].StochasticSoilProfiles.Count);
         }
 
         [Test]
@@ -250,8 +250,8 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                                           existingModel,
                                       }, sourceFilePath);
 
-            var firstExistingProfile = existingModel.StochasticSoilProfiles.First();
-            var readModel = CreateSimpleModel(modelsName, firstExistingProfile.SoilProfile.Name);
+            StochasticSoilProfile firstExistingProfile = existingModel.StochasticSoilProfiles[0];
+            StochasticSoilModel readModel = CreateSimpleModel(modelsName, firstExistingProfile.SoilProfile.Name);
 
             var calculationWithUpdatedProfile = new PipingCalculationScenario(new GeneralPipingInput());
             calculationWithUpdatedProfile.InputParameters.StochasticSoilModel = existingModel;
@@ -273,10 +273,10 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             IEnumerable<IObservable> affectedObjects = strategy.UpdateModelWithImportedData(targetCollection, new[] { readModel }, sourceFilePath).ToArray();
 
             // Assert
-            var firstSoilModel = targetCollection.First();
+            var firstSoilModel = targetCollection[0];
             Assert.AreSame(existingModel, firstSoilModel);
             Assert.AreEqual(1, firstSoilModel.StochasticSoilProfiles.Count);
-            Assert.AreSame(firstExistingProfile, firstSoilModel.StochasticSoilProfiles.First());
+            Assert.AreSame(firstExistingProfile, firstSoilModel.StochasticSoilProfiles[0]);
 
             Assert.IsFalse(calculationWithUpdatedProfile.HasOutput);
             CollectionAssert.Contains(affectedObjects, calculationWithUpdatedProfile);
@@ -296,7 +296,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var existingModel = new TestStochasticSoilModel();
             var calculation = new PipingCalculationScenario(new GeneralPipingInput());
             calculation.InputParameters.StochasticSoilModel = existingModel;
-            calculation.InputParameters.StochasticSoilProfile = existingModel.StochasticSoilProfiles.First();
+            calculation.InputParameters.StochasticSoilProfile = existingModel.StochasticSoilProfiles[0];
             calculation.Output = new PipingOutput(new PipingOutput.ConstructionProperties());
 
             var failureMechanism = new PipingFailureMechanism();

@@ -250,7 +250,7 @@ namespace Ringtoets.Piping.Plugin
                 ForeColor = stochasticSoilModelContext => stochasticSoilModelContext.WrappedData.Any() ?
                                                               Color.FromKnownColor(KnownColor.ControlText) : Color.FromKnownColor(KnownColor.GrayText),
                 ChildNodeObjects = stochasticSoilModelContext => stochasticSoilModelContext.WrappedData.Cast<object>().ToArray(),
-                ContextMenuStrip = StochasticSoilModelCollectionContextContextMenuStrip()
+                ContextMenuStrip = StochasticSoilModelCollectionContextContextMenuStrip
             };
 
             yield return new TreeNodeInfo<StochasticSoilModel>
@@ -500,31 +500,33 @@ namespace Ringtoets.Piping.Plugin
 
         #region StochasticSoilModelCollectionContext TreeNodeInfo
 
-        private Func<StochasticSoilModelCollectionContext, object, TreeViewControl, ContextMenuStrip> StochasticSoilModelCollectionContextContextMenuStrip()
+        private ContextMenuStrip StochasticSoilModelCollectionContextContextMenuStrip(StochasticSoilModelCollectionContext nodeData, object parentData, TreeViewControl treeViewControl)
         {
-            return (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
-                                                                 .AddImportItem()
-                                                                 .AddCustomItem(
-                                                                     CreateUpdateStochasticSoilModelsItem(
-                                                                         nodeData.WrappedData,
-                                                                         nodeData.FailureMechanism))
-                                                                 .AddSeparator()
-                                                                 .AddDeleteChildrenItem()
-                                                                 .AddSeparator()
-                                                                 .AddCollapseAllItem()
-                                                                 .AddExpandAllItem()
-                                                                 .Build();
+            return Gui.Get(nodeData, treeViewControl)
+                      .AddImportItem()
+                      .AddCustomItem(
+                          CreateUpdateStochasticSoilModelsItem(
+                              nodeData.WrappedData,
+                              nodeData.FailureMechanism))
+                      .AddSeparator()
+                      .AddDeleteChildrenItem()
+                      .AddSeparator()
+                      .AddCollapseAllItem()
+                      .AddExpandAllItem()
+                      .Build();
         }
 
         private StrictContextMenuItem CreateUpdateStochasticSoilModelsItem(StochasticSoilModelCollection soilModelCollection, PipingFailureMechanism failureMechanism)
         {
+            var enabled = soilModelCollection.SourcePath != null;
+
             return new StrictContextMenuItem(
                 PipingPluginResources.PipingPlugin_UpdateStochasticSoilModelsMenuItem_Text,
-                PipingPluginResources.PipingPlugin_UpdateStochasticSoilModelsMenuItem_ToolTip,
+                enabled ? PipingPluginResources.PipingPlugin_UpdateStochasticSoilModelsMenuItem_ToolTip : PipingPluginResources.PipingPlugin_UpdateStochasticSoilModelsMenuItem_ToolTip_No_SourcePath_set,
                 PipingPluginResources.RefreshIcon,
                 (sender, args) => UpdateStochasticSoilModelFromKnownSourceFile(soilModelCollection, failureMechanism))
             {
-                Enabled = soilModelCollection.SourcePath != null
+                Enabled = enabled
             };
         }
 

@@ -226,7 +226,7 @@ namespace Ringtoets.Piping.Service
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism containing <paramref name="soilProfile"/>.</param>
         /// <param name="soilProfile">The soil profile residing in <paramref name="failureMechanism"/>
-        /// that should be removed.</param>
+        /// that has beeen removed.</param>
         /// <returns>All observable objects affected by this method.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
         /// or <paramref name="soilProfile"/> is <c>null</c>.</exception>
@@ -258,11 +258,11 @@ namespace Ringtoets.Piping.Service
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism containing <paramref name="soilProfile"/>.</param>
         /// <param name="soilProfile">The soil profile residing in <paramref name="failureMechanism"/>
-        /// that should be removed.</param>
+        /// that has been updated.</param>
         /// <returns>All observable objects affected by this method.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
         /// or <paramref name="soilProfile"/> is <c>null</c>.</exception>
-        public static IEnumerable<IObservable> UpdateStochasticSoilProfileForInput(PipingFailureMechanism failureMechanism, StochasticSoilProfile soilProfile)
+        public static IEnumerable<IObservable> ClearStochasticSoilProfileDependentData(PipingFailureMechanism failureMechanism, StochasticSoilProfile soilProfile)
         {
             if (failureMechanism == null)
             {

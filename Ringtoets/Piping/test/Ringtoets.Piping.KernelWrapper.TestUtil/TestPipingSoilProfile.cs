@@ -28,7 +28,6 @@ namespace Ringtoets.Piping.KernelWrapper.TestUtil
     /// A <see cref="PipingSoilProfile"/> configured to be usable immediately for testing
     /// purposes.
     /// </summary>
-    /// <seealso cref="PipingSoilProfile" />
     public class TestPipingSoilProfile : PipingSoilProfile
     {
         /// <summary>

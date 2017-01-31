@@ -97,16 +97,16 @@ namespace Ringtoets.Piping.Plugin.FileImporter
 
         private IEnumerable<IObservable> ModifyModelCollection(IEnumerable<StochasticSoilModel> readStochasticSoilModels, StochasticSoilModelCollection targetCollection, string sourceFilePath)
         {
+
+            List<StochasticSoilModel> readModelList = readStochasticSoilModels.ToList();
+            List<StochasticSoilModel> addedModels = GetAddedReadModels(targetCollection, readModelList).ToList();
+            List<StochasticSoilModel> updatedModels = GetUpdatedExistingModels(targetCollection, readModelList).ToList();
+            List<StochasticSoilModel> removedModels = GetRemovedExistingModels(targetCollection, readModelList).ToList();
+
             var affectedObjects = new List<IObservable>
             {
                 targetCollection
             };
-
-            var readModelList = readStochasticSoilModels.ToList();
-            var addedModels = GetAddedReadModels(targetCollection, readModelList).ToList();
-            var updatedModels = GetUpdatedExistingModels(targetCollection, readModelList).ToList();
-            var removedModels = GetRemovedExistingModels(targetCollection, readModelList).ToList();
-
             affectedObjects.AddRange(UpdateModels(updatedModels, readModelList));
             affectedObjects.AddRange(RemoveModels(removedModels));
 
@@ -169,7 +169,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             }
             foreach (StochasticSoilProfile updatedProfile in difference.UpdatedProfiles)
             {
-                affectedObjects.AddRange(PipingDataSynchronizationService.UpdateStochasticSoilProfileForInput(failureMechanism, updatedProfile));
+                affectedObjects.AddRange(PipingDataSynchronizationService.ClearStochasticSoilProfileDependentData(failureMechanism, updatedProfile));
             }
             return affectedObjects;
         }

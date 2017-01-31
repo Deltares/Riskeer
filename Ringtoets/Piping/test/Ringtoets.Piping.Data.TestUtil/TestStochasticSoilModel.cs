@@ -40,6 +40,7 @@ namespace Ringtoets.Piping.Data.TestUtil
                 }
             });
         }
+
         public TestStochasticSoilModel() : this(string.Empty)
         { }
     }
