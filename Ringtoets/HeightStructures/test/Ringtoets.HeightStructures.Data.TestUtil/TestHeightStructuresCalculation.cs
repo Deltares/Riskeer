@@ -24,8 +24,14 @@ using Ringtoets.Common.Data.Structures;
 
 namespace Ringtoets.HeightStructures.Data.TestUtil
 {
+    /// <summary>
+    /// Height structures calculation for testing purposes.
+    /// </summary>
     public class TestHeightStructuresCalculation : StructuresCalculation<HeightStructuresInput>
     {
+        /// <summary>
+        /// Creates a new instance of <see cref="TestHeightStructuresCalculation"/>.
+        /// </summary>
         public TestHeightStructuresCalculation()
         {
             InputParameters.Structure = new TestHeightStructure();

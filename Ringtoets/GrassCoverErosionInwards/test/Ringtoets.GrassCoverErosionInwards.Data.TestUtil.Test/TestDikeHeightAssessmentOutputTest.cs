@@ -41,6 +41,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.TestUtil.Test
             var output = new TestDikeHeightAssessmentOutput(dikeHeight);
 
             // Assert
+            Assert.IsInstanceOf<DikeHeightAssessmentOutput>(output);
             Assert.AreEqual(dikeHeight, output.DikeHeight, output.DikeHeight.GetAccuracy());
             Assert.IsNaN(output.TargetProbability);
             Assert.IsNaN(output.TargetReliability);
@@ -61,6 +62,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.TestUtil.Test
             var output = new TestDikeHeightAssessmentOutput(dikeHeight, convergence);
 
             // Assert
+            Assert.IsInstanceOf<DikeHeightAssessmentOutput>(output);
             Assert.AreEqual(dikeHeight, output.DikeHeight, output.DikeHeight.GetAccuracy());
             Assert.IsNaN(output.TargetProbability);
             Assert.IsNaN(output.TargetReliability);

@@ -85,8 +85,9 @@ namespace Ringtoets.HeightStructures.Data.TestUtil.Test
             AssertTestHeightStructure(heightStructure, customName, customLocation);
         }
 
-        private static void AssertTestHeightStructure(HeightStructure heightStructure, string expectedName, Point2D expectedLocation)
+        private static void AssertTestHeightStructure(TestHeightStructure heightStructure, string expectedName, Point2D expectedLocation)
         {
+            Assert.IsInstanceOf<HeightStructure>(heightStructure);
             Assert.AreEqual(expectedName, heightStructure.Name);
             Assert.AreEqual("Id", heightStructure.Id);
             Assert.AreEqual(expectedLocation.X, heightStructure.Location.X);

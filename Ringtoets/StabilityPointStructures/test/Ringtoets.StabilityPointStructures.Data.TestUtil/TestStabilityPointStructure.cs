@@ -24,20 +24,39 @@ using Core.Common.Base.Geometry;
 
 namespace Ringtoets.StabilityPointStructures.Data.TestUtil
 {
+    /// <summary>
+    /// <see cref="StabilityPointStructure"/> used for testing purposes.
+    /// </summary>
     public class TestStabilityPointStructure : StabilityPointStructure
     {
+        /// <summary>
+        /// Creates a new instance of <see cref="TestStabilityPointStructure"/>.
+        /// </summary>
         public TestStabilityPointStructure() : this("aName", new Point2D(1.234, 2.3456)) {}
 
-        public TestStabilityPointStructure(Point2D point) : this("aName", point) {}
-
+        /// <summary>
+        /// Creates a new instance of <see cref="TestStabilityPointStructure"/>.
+        /// </summary>
+        /// <param name="name">The name of the structure.</param>
         public TestStabilityPointStructure(string name) : this(name, new Point2D(1.234, 2.3456)) {}
 
-        private TestStabilityPointStructure(string name, Point2D point)
+        /// <summary>
+        /// Creates a new instance of <see cref="TestStabilityPointStructure"/>.
+        /// </summary>
+        /// <param name="location">The location of the structure.</param>
+        public TestStabilityPointStructure(Point2D location) : this("aName", location) {}
+
+        /// <summary>
+        /// Creates a new instance of <see cref="TestStabilityPointStructure"/>.
+        /// </summary>
+        /// <param name="name">The name of the structure.</param>
+        /// <param name="location">The location of the structure.</param>
+        private TestStabilityPointStructure(string name, Point2D location)
             : base(new ConstructionProperties
             {
                 Name = name,
                 Id = "anId",
-                Location = point,
+                Location = location,
                 StructureNormalOrientation = 123.456,
                 StorageStructureArea =
                 {

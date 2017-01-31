@@ -25,8 +25,14 @@ using Ringtoets.Common.Data.Structures;
 
 namespace Ringtoets.ClosingStructures.Data.TestUtil
 {
+    /// <summary>
+    /// Closing structures calculation used for testing purposes.
+    /// </summary>
     public class TestClosingStructuresCalculation : StructuresCalculation<ClosingStructuresInput>
     {
+        /// <summary>
+        /// Creates a new instance of <see cref="TestClosingStructuresCalculation"/>.
+        /// </summary>
         public TestClosingStructuresCalculation()
         {
             InputParameters.Structure = new TestClosingStructure();

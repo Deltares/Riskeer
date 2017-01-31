@@ -24,19 +24,43 @@ using Core.Common.Base.Geometry;
 
 namespace Ringtoets.ClosingStructures.Data.TestUtil
 {
+    /// <summary>
+    /// <see cref="ClosingStructure"/> used for testing purposes.
+    /// </summary>
     public class TestClosingStructure : ClosingStructure
     {
+        /// <summary>
+        /// Creates a new instance of <see cref="TestClosingStructure"/>.
+        /// </summary>
         public TestClosingStructure()
             : this("test") {}
 
+        /// <summary>
+        /// Creates a new instance of <see cref="TestClosingStructure"/>.
+        /// </summary>
+        /// <param name="name">The name of the structure.</param>
         public TestClosingStructure(string name)
             : this(name, new Point2D(12345.56789, 9876.54321), ClosingStructureInflowModelType.VerticalWall) {}
 
+        /// <summary>
+        /// Creates a new instance of <see cref="TestClosingStructure"/>.
+        /// </summary>
+        /// <param name="location">The location of the structure.</param>
         public TestClosingStructure(Point2D location) : this("test", location, ClosingStructureInflowModelType.VerticalWall) {}
 
+        /// <summary>
+        /// Creates a new instance of <see cref="TestClosingStructure"/>.
+        /// </summary>
+        /// <param name="type">The inflow model type of the structure.</param>
         public TestClosingStructure(ClosingStructureInflowModelType type)
             : this("test", new Point2D(12345.56789, 9876.54321), type) {}
 
+        /// <summary>
+        /// Creates a new instance of <see cref="TestClosingStructure"/>.
+        /// </summary>
+        /// <param name="name">The name of the structure.</param>
+        /// <param name="location">The location of the structure.</param>
+        /// <param name="type">The inflow model type of the structure.</param>
         private TestClosingStructure(string name, Point2D location, ClosingStructureInflowModelType type)
             : base(new ConstructionProperties
             {

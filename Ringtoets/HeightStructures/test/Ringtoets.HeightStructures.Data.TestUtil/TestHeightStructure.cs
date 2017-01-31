@@ -24,17 +24,36 @@ using Core.Common.Base.Geometry;
 
 namespace Ringtoets.HeightStructures.Data.TestUtil
 {
+    /// <summary>
+    /// <see cref="HeightStructure"/> for testing purposes.
+    /// </summary>
     public class TestHeightStructure : HeightStructure
     {
+        /// <summary>
+        /// Creates a new instance of <see cref="TestHeightStructure"/>.
+        /// </summary>
         public TestHeightStructure()
             : this("Test") {}
 
-        public TestHeightStructure(Point2D location)
-            : this("Test", location) {}
-
+        /// <summary>
+        /// Creates a new instance of <see cref="TestHeightStructure"/>.
+        /// </summary>
+        /// <param name="name">The name of the structure.</param>
         public TestHeightStructure(string name)
             : this(name, new Point2D(0.0, 0.0)) {}
 
+        /// <summary>
+        /// Creates a new instance of <see cref="TestHeightStructure"/>.
+        /// </summary>
+        /// <param name="location">The location of the structure.</param>
+        public TestHeightStructure(Point2D location)
+            : this("Test", location) {}
+
+        /// <summary>
+        /// Creates a new instance of <see cref="TestHeightStructure"/>.
+        /// </summary>
+        /// <param name="name">The name of the structure.</param>
+        /// <param name="location">The location of the structure.</param>
         public TestHeightStructure(string name, Point2D location)
             : base(new ConstructionProperties
             {

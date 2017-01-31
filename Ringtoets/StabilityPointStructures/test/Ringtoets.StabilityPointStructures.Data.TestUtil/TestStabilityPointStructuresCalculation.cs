@@ -25,8 +25,14 @@ using Ringtoets.Common.Data.Structures;
 
 namespace Ringtoets.StabilityPointStructures.Data.TestUtil
 {
+    /// <summary>
+    /// Stability point structures calculation used for testing purposes.
+    /// </summary>
     public class TestStabilityPointStructuresCalculation : StructuresCalculation<StabilityPointStructuresInput>
     {
+        /// <summary>
+        /// Creates a new instance of <see cref="TestStabilityPointStructuresCalculation"/>.
+        /// </summary>
         public TestStabilityPointStructuresCalculation()
         {
             InputParameters.Structure = new TestStabilityPointStructure();
