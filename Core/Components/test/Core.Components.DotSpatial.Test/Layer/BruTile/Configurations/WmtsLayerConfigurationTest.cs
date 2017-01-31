@@ -22,10 +22,11 @@
 using System;
 using System.Linq;
 using BruTile;
-using BruTile.Wmts;
+using BruTile.Web;
 using Core.Common.TestUtil;
 using Core.Components.DotSpatial.Layer.BruTile.Configurations;
 using Core.Components.DotSpatial.TestUtil;
+using Core.Components.Gis.Data;
 using NUnit.Framework;
 using Rhino.Mocks;
 
@@ -96,11 +97,122 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile.Configurations
             {
                 // Call
                 TestDelegate call = () => WmtsLayerConfiguration.CreateInitializedConfiguration(url, id, validPreferredFormat);
-                
+
                 // Assert
-                string message= Assert.Throws<CannotFindTileSourceException>(call).Message;
+                string message = Assert.Throws<CannotFindTileSourceException>(call).Message;
                 string expectedMessage = $"Niet in staat om de databron met naam '{id}' te kunnen vinden bij de WMTS url '{url}'.";
                 Assert.AreEqual(expectedMessage, message);
+            }
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CreateInitializedConfiguration_MatchingLayerAvailable_ReturnConfiguration()
+        {
+            // Setup
+            var targetMapData = WmtsMapData.CreateAlternativePdokMapData();
+
+            IRequest nullRequest = null;
+            var fileSource1 = new HttpTileSource(TileSchemaFactory.CreateWmtsTileSchema(WmtsMapData.CreateDefaultPdokMapData()),
+                                                 nullRequest);
+            var tileSource2 = new HttpTileSource(TileSchemaFactory.CreateWmtsTileSchema(targetMapData),
+                                                 nullRequest);
+            var tileSources = new ITileSource[]
+            {
+                fileSource1,
+                tileSource2
+            };
+
+            var mocks = new MockRepository();
+            var factory = mocks.Stub<ITileSourceFactory>();
+            factory.Stub(f => f.GetWmtsTileSources(targetMapData.SourceCapabilitiesUrl)).Return(tileSources);
+            mocks.ReplayAll();
+
+            using (new UseCustomTileSourceFactoryConfig(factory))
+            {
+                // Call
+                WmtsLayerConfiguration configuration = WmtsLayerConfiguration.CreateInitializedConfiguration(targetMapData.SourceCapabilitiesUrl, targetMapData.SelectedCapabilityIdentifier, targetMapData.PreferredFormat);
+
+                // Assert
+                Assert.IsTrue(configuration.Initialized);
+                Assert.AreEqual(targetMapData.SelectedCapabilityIdentifier, configuration.LegendText);
+                Assert.IsTrue(configuration.TileFetcher.IsReady());
+                Assert.AreSame(tileSource2, configuration.TileSource);
+            }
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Clone_FromFullyInitializedConfiguration_CreateNewUninitializedInstance()
+        {
+            // Setup
+            var targetMapData = WmtsMapData.CreateAlternativePdokMapData();
+
+            IRequest nullRequest = null;
+            var tileSource = new HttpTileSource(TileSchemaFactory.CreateWmtsTileSchema(targetMapData),
+                                                nullRequest);
+            var tileSources = new ITileSource[]
+            {
+                tileSource
+            };
+
+            var mocks = new MockRepository();
+            var factory = mocks.Stub<ITileSourceFactory>();
+            factory.Stub(f => f.GetWmtsTileSources(targetMapData.SourceCapabilitiesUrl)).Return(tileSources);
+            mocks.ReplayAll();
+
+            using (new UseCustomTileSourceFactoryConfig(factory))
+            {
+                WmtsLayerConfiguration configuration = WmtsLayerConfiguration.CreateInitializedConfiguration(targetMapData.SourceCapabilitiesUrl, targetMapData.SelectedCapabilityIdentifier, targetMapData.PreferredFormat);
+
+                // Call
+                IConfiguration clone = configuration.Clone();
+
+                // Assert
+                Assert.IsInstanceOf<WmtsLayerConfiguration>(clone);
+                Assert.AreNotSame(configuration, clone);
+
+                Assert.IsFalse(clone.Initialized);
+                Assert.AreEqual(targetMapData.SelectedCapabilityIdentifier, clone.LegendText);
+                Assert.IsNull(clone.TileFetcher, "TileFetcher should be null because the clone hasn't been initialized yet.");
+                Assert.IsNull(clone.TileSource, "FileSource should be null because the clone hasn't been initialized yet.");
+            }
+            mocks.VerifyAll();
+        }
+
+
+        [Test]
+        public void GivenFullyInitializedConfiguration_WhenClonedAndInitialized_ConfigurationAreEqual()
+        {
+            // Given
+            var targetMapData = WmtsMapData.CreateAlternativePdokMapData();
+
+            IRequest nullRequest = null;
+            var tileSource = new HttpTileSource(TileSchemaFactory.CreateWmtsTileSchema(targetMapData),
+                                                nullRequest);
+            var tileSources = new ITileSource[]
+            {
+                tileSource
+            };
+
+            var mocks = new MockRepository();
+            var factory = mocks.Stub<ITileSourceFactory>();
+            factory.Stub(f => f.GetWmtsTileSources(targetMapData.SourceCapabilitiesUrl)).Return(tileSources);
+            mocks.ReplayAll();
+
+            using (new UseCustomTileSourceFactoryConfig(factory))
+            {
+                WmtsLayerConfiguration configuration = WmtsLayerConfiguration.CreateInitializedConfiguration(targetMapData.SourceCapabilitiesUrl, targetMapData.SelectedCapabilityIdentifier, targetMapData.PreferredFormat);
+
+                // When
+                IConfiguration clone = configuration.Clone();
+                clone.Initialize();
+
+                // Assert
+                Assert.IsTrue(clone.Initialized);
+                Assert.AreEqual(targetMapData.SelectedCapabilityIdentifier, clone.LegendText);
+                Assert.IsTrue(clone.TileFetcher.IsReady());
+                Assert.AreSame(configuration.TileSource, clone.TileSource);
             }
             mocks.VerifyAll();
         }

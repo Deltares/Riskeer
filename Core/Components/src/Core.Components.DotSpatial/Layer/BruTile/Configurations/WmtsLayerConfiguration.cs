@@ -43,6 +43,7 @@ namespace Core.Components.DotSpatial.Layer.BruTile.Configurations
         private readonly string capabilitiesUri;
         private readonly string capabilityIdentifier;
         private readonly string preferredFormat;
+        private ITileCache<byte[]> tileCache;
 
         /// <summary>
         /// Creates an instance of <see cref="WmtsLayerConfiguration"/>.
@@ -82,6 +83,7 @@ namespace Core.Components.DotSpatial.Layer.BruTile.Configurations
             capabilitiesUri = wmtsCapabilitiesUrl;
             capabilityIdentifier = ((WmtsTileSchema) tileSource.Schema).Identifier;
             preferredFormat = tileSource.Schema.Format;
+            LegendText = capabilityIdentifier;
 
             InitializeFromTileSource(tileSource);
         }
@@ -114,7 +116,7 @@ namespace Core.Components.DotSpatial.Layer.BruTile.Configurations
 
         public IConfiguration Clone()
         {
-            return new WmtsLayerConfiguration(capabilitiesUri, capabilityIdentifier, persistentCacheDirectoryPath, preferredFormat);
+            return new WmtsLayerConfiguration(capabilitiesUri, capabilityIdentifier, preferredFormat, persistentCacheDirectoryPath);
         }
 
         public void Initialize()
@@ -128,8 +130,6 @@ namespace Core.Components.DotSpatial.Layer.BruTile.Configurations
 
             InitializeFromTileSource(tileSource);
         }
-
-        private ITileCache<byte[]> TileCache { get; set; }
 
         /// <summary>
         /// Validates a <see cref="ITileSource"/>.
@@ -240,14 +240,14 @@ namespace Core.Components.DotSpatial.Layer.BruTile.Configurations
         private void InitializeFromTileSource(ITileSource tileSource)
         {
             TileSource = tileSource;
-            TileCache = CreateTileCache();
+            tileCache = CreateTileCache();
             try
             {
                 ITileProvider provider = BruTileReflectionHelper.GetProviderFromTileSource(tileSource);
                 TileFetcher = new AsyncTileFetcher(provider,
                                                    BruTileSettings.MemoryCacheMinimum,
                                                    BruTileSettings.MemoryCacheMaximum,
-                                                   TileCache);
+                                                   tileCache);
             }
             catch (Exception e) when (e is NotSupportedException || e is ArgumentException)
             {
