@@ -154,19 +154,19 @@ Wilt u doorgaan?</value>
     <value>Alle berekende resultaten voor alle hydraulische randvoorwaardenlocaties zijn verwijderd.</value>
   </data>
   <data name="FailureMechanismContributionNormChangeHandler_Confirm_change_norm_and_clear_dependent_data" xml:space="preserve">
-    <value>Na het aanpassen van de norm zullen alle rekenresultaten van hydraulische randvoorwaarden en faalmechanismen verwijderd worden.
+    <value>Als u de norm aanpast, dan worden alle rekenresultaten van alle hydraulische randvoorwaarden en toetssporen verwijderd.
 
-Wilt u doorgaan?</value>
-  </data>
-  <data name="AssessmentSectionCompositionChangeHandler_Confirm_change_composition_and_clear_dependent_data" xml:space="preserve">
-    <value>Na het aanpassen van het trajecttype zullen alle rekenresultaten van alle toetssporen gewist worden.
-
-Wilt u doorgaan?</value>
+Weet u zeker dat u wilt doorgaan?</value>
   </data>
   <data name="RingtoetsPlugin_BackgroundMapDataContext_Text" xml:space="preserve">
     <value>Achtergrondkaart</value>
   </data>
   <data name="AssessmentSectionCompositionChangeHandler_Waveheight_and_design_water_level_results_cleared" xml:space="preserve">
     <value>Alle berekende hydraulische randvoorwaarden van de relevante toetssporen zijn verwijderd.</value>
+  </data>
+  <data name="AssessmentSectionCompositionChangeHandler_Confirm_change_composition_and_clear_dependent_data" xml:space="preserve">
+    <value>Als u het trajecttype aanpast, dan worden alle rekenresultaten van alle relevante toetssporen verwijderd.
+
+Weet u zeker dat u wilt doorgaan?</value>
   </data>
 </root>

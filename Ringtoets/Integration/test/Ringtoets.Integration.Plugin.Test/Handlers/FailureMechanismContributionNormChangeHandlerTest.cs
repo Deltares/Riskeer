@@ -27,7 +27,6 @@ using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.Integration.Data;
@@ -72,10 +71,10 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
 
             // Assert
             Assert.AreEqual("Bevestigen", title);
-            string expectedMessage = "Na het aanpassen van de norm zullen alle rekenresultaten van hydraulische randvoorwaarden en faalmechanismen verwijderd worden."
+            string expectedMessage = "Als u de norm aanpast, dan worden alle rekenresultaten van alle hydraulische randvoorwaarden en toetssporen verwijderd."
                                      + Environment.NewLine
                                      + Environment.NewLine +
-                                     "Wilt u doorgaan?";
+                                     "Weet u zeker dat u wilt doorgaan?";
             Assert.AreEqual(expectedMessage, message);
         }
 

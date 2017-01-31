@@ -71,9 +71,10 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
 
             // Assert
             Assert.AreEqual("Bevestigen", title);
-            string expectedMessage = "Na het aanpassen van het trajecttype zullen alle rekenresultaten van alle toetssporen gewist worden." + Environment.NewLine +
-                                     Environment.NewLine +
-                                     "Wilt u doorgaan?";
+            string expectedMessage = "Als u het trajecttype aanpast, dan worden alle rekenresultaten van alle relevante toetssporen verwijderd."
+                                     + Environment.NewLine
+                                     + Environment.NewLine +
+                                     "Weet u zeker dat u wilt doorgaan?";
             Assert.AreEqual(expectedMessage, message);
         }
 
@@ -213,8 +214,6 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             TestHelper.AssertLogMessagesAreGenerated(call, expectedMessage, 2);
 
             Assert.AreEqual(newComposition, assessmentSection.Composition);
-
-            // Assert 
             AssertCorrectOutputClearedWhenCompositionDune(unaffectedObjects, assessmentSection);
             CollectionAssert.AreEquivalent(expectedAffectedObjects, affectedObjects);
 
@@ -235,7 +234,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
         [TestCase(AssessmentSectionComposition.Dune, AssessmentSectionComposition.Dike, TestName = "ChangeComposition_ChangeToNonDuneComposition_ChangeCompositionClearRelevantOutputReturnsAllAffectedObjects(Dune,Dike)")]
         [TestCase(AssessmentSectionComposition.Dune, AssessmentSectionComposition.DikeAndDune, TestName = "ChangeComposition_ChangeToNonDuneComposition_ChangeCompositionClearRelevantOutputReturnsAllAffectedObjects(Dune,DikeDune)")]
         public void ChangeComposition_ChangeToNonDuneComposition_ChangeCompositionAndClearAllLocationOutputAndReturnsAllAffectedObjects(AssessmentSectionComposition oldComposition,
-                                                                                                                                           AssessmentSectionComposition newComposition)
+                                                                                                                                        AssessmentSectionComposition newComposition)
         {
             // Setup
             AssessmentSection assessmentSection = TestDataGenerator.GetFullyConfiguredAssessmentSection(oldComposition);
@@ -264,11 +263,8 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             Action call = () => affectedObjects = handler.ChangeComposition(assessmentSection, newComposition);
 
             // Assert
-            string[] expectedMessage =
-            {
-                "Alle berekende hydraulische randvoorwaarden van de relevante toetssporen zijn verwijderd."
-            };
-            TestHelper.AssertLogMessagesAreGenerated(call, expectedMessage, 1);
+            string expectedMessage = "Alle berekende hydraulische randvoorwaarden van de relevante toetssporen zijn verwijderd.";
+            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
 
             Assert.AreEqual(newComposition, assessmentSection.Composition);
 
@@ -363,12 +359,12 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
                                                                                        .First();
 
             IEnumerable<IObservable> expectedAffectedObjects = duneErosionFailureMechanism.DuneLocations
-                                                                                         .Concat(new IObservable[]
-                                                                                         {
+                                                                                          .Concat(new IObservable[]
+                                                                                          {
                                                                                               assessmentSection,
                                                                                               duneErosionFailureMechanism.DuneLocations
-                                                                                         })
-                                                                                         .ToList();
+                                                                                          })
+                                                                                          .ToList();
 
             var handler = new AssessmentSectionCompositionChangeHandler();
 
@@ -429,7 +425,6 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
 
             // Assert
             TestHelper.AssertLogMessageIsGenerated(call, "De resultaten van 24 berekeningen zijn verwijderd.", 1);
-
             Assert.AreEqual(newComposition, assessmentSection.Composition);
 
             // Assert 
@@ -459,7 +454,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
                                                              .Where(calc => calc.HasOutput)
                                                              .ToList();
 
-            IObservable[] expectedAffectedObjects = 
+            IObservable[] expectedAffectedObjects =
             {
                 assessmentSection
             };

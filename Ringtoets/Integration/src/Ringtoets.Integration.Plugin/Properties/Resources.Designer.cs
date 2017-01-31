@@ -82,9 +82,9 @@ namespace Ringtoets.Integration.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Na het aanpassen van het trajecttype zullen alle rekenresultaten van alle toetssporen gewist worden.
+        ///   Looks up a localized string similar to Als u het trajecttype aanpast, dan worden alle rekenresultaten van alle relevante toetssporen verwijderd.
         ///
-        ///Wilt u doorgaan?.
+        ///Weet u zeker dat u wilt doorgaan?.
         /// </summary>
         public static string AssessmentSectionCompositionChangeHandler_Confirm_change_composition_and_clear_dependent_data {
             get {
@@ -140,9 +140,9 @@ namespace Ringtoets.Integration.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Na het aanpassen van de norm zullen alle rekenresultaten van hydraulische randvoorwaarden en faalmechanismen verwijderd worden.
+        ///   Looks up a localized string similar to Als u de norm aanpast, dan worden alle rekenresultaten van alle hydraulische randvoorwaarden en toetssporen verwijderd.
         ///
-        ///Wilt u doorgaan?.
+        ///Weet u zeker dat u wilt doorgaan?.
         /// </summary>
         public static string FailureMechanismContributionNormChangeHandler_Confirm_change_norm_and_clear_dependent_data {
             get {
