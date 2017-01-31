@@ -28,23 +28,24 @@ using Ringtoets.Integration.Data;
 namespace Application.Ringtoets.Storage.Create
 {
     /// <summary>
-    /// Extensions methods for <see cref="AssessmentSection.BackgroundMapData"/> related to creating a <see cref="WmtsMapDataEntity"/>.
+    /// Extensions methods for <see cref="AssessmentSection.BackgroundMapData"/> related to 
+    /// creating a <see cref="BackgroundMapDataEntity"/>.
     /// </summary>
-    internal static class BackgroundWmtsMapDataCreateExtensions
+    internal static class BackgroundMapDataCreateExtensions
     {
         /// <summary>
-        /// Creates a <see cref="WmtsMapDataEntity"/> based on the information of the <see cref="WmtsMapData"/>
+        /// Creates a <see cref="BackgroundMapDataEntity"/> based on the information of the <see cref="WmtsMapData"/>
         /// </summary>
         /// <param name="mapData"></param>
         /// <returns></returns>
-        internal static WmtsMapDataEntity Create(this WmtsMapData mapData)
+        internal static BackgroundMapDataEntity Create(this WmtsMapData mapData)
         {
             if (mapData == null)
             {
                 throw new ArgumentNullException(nameof(mapData));
             }
 
-            return new WmtsMapDataEntity
+            return new BackgroundMapDataEntity
             {
                 Name = mapData.Name.DeepClone(),
                 IsVisible = Convert.ToByte(mapData.IsVisible),

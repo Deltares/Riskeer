@@ -29,7 +29,7 @@ using NUnit.Framework;
 namespace Application.Ringtoets.Storage.Test.Create
 {
     [TestFixture]
-    public class BackgroundWmtsMapDataCreateExtensionsTest
+    public class BackgroundMapDataCreateExtensionsTest
     {
         [Test]
         public void Create_WmtsMapDataNull_ThrowArgumentNullException()
@@ -66,7 +66,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             var entity = mapData.Create();
 
             // Assert
-            Assert.IsInstanceOf<WmtsMapDataEntity>(entity);
+            Assert.IsInstanceOf<BackgroundMapDataEntity>(entity);
             Assert.AreEqual(name, entity.Name);
             Assert.AreEqual(sourceCapabilitiesUrl, entity.SourceCapabilitiesUrl);
             Assert.AreEqual(selectedCapabilityName, entity.SelectedCapabilityName);

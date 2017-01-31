@@ -30,12 +30,9 @@
 
 namespace Application.Ringtoets.Storage.DbContext
 {
-    using System;
-    using System.Collections.Generic;
-    
-    public partial class WmtsMapDataEntity
+    public partial class BackgroundMapDataEntity
     {
-        public long WmtsMapDataEntityId { get; set; }
+        public long BackgroundMapDataEntityId { get; set; }
         public long AssessmentSectionEntityId { get; set; }
         public string Name { get; set; }
         public string SourceCapabilitiesUrl { get; set; }
@@ -43,7 +40,7 @@ namespace Application.Ringtoets.Storage.DbContext
         public string PreferredFormat { get; set; }
         public byte IsVisible { get; set; }
         public double Transparency { get; set; }
-    
+
         public virtual AssessmentSectionEntity AssessmentSectionEntity { get; set; }
     }
 }

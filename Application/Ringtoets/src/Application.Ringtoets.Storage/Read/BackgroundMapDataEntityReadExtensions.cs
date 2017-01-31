@@ -29,20 +29,20 @@ namespace Application.Ringtoets.Storage.Read
 {
     /// <summary>
     /// Extension methods for read operations for <see cref="AssessmentSection.BackgroundMapData"/>
-    /// based on the <see cref="WmtsMapDataEntity"/>.
+    /// based on the <see cref="BackgroundMapDataEntity"/>.
     /// </summary>
-    internal static class WmtsMapDataEntityReadExtensions
+    internal static class BackgroundMapDataEntityReadExtensions
     {
         /// <summary>
-        /// Read the <see cref="WmtsMapDataEntity"/> and use the information
+        /// Read the <see cref="BackgroundMapDataEntity"/> and use the information
         /// to construct a <see cref="WmtsMapData"/>.
         /// </summary>
-        /// <param name="entity">The <see cref="WmtsMapDataEntity"/>
+        /// <param name="entity">The <see cref="BackgroundMapDataEntity"/>
         /// to create <see cref="WmtsMapData"/> for.</param>
         /// <returns>A new <see cref="WmtsMapData"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when
         /// <paramref name="entity"/> is <c>null</c>.</exception>
-        internal static WmtsMapData Read(this WmtsMapDataEntity entity)
+        internal static WmtsMapData Read(this BackgroundMapDataEntity entity)
         {
             if (entity == null)
             {

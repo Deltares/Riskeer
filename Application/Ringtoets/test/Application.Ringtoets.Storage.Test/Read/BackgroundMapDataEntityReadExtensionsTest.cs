@@ -28,13 +28,13 @@ using NUnit.Framework;
 namespace Application.Ringtoets.Storage.Test.Read
 {
     [TestFixture]
-    public class WmtsMapDataEntityReadExtensionsTest
+    public class BackgroundMapDataEntityReadExtensionsTest
     {
         [Test]
         public void Read_EntityNull_ThrowArgumentNullException()
         {
             // Setup
-            WmtsMapDataEntity entity = null;
+            BackgroundMapDataEntity entity = null;
 
             // Call
             TestDelegate test = () => entity.Read();
@@ -55,7 +55,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             const bool isVisible = false;
             const double transparancy = 0.4;
 
-            var entity = new WmtsMapDataEntity
+            var entity = new BackgroundMapDataEntity
             {
                 Name = name,
                 SourceCapabilitiesUrl = url,
