@@ -70,10 +70,10 @@ namespace Ringtoets.Integration.Plugin.Handlers
 
                 affectedObjects.Add(assessmentSection);
 
+                IFailureMechanism[] failureMechanismsToClearOutputFor = GetFailureMechanismsToUpdate(assessmentSection, oldFailureMechanismContributions).ToArray();
+
                 IObservable[] affectedCalculations =
-                    RingtoetsDataSynchronizationService.ClearFailureMechanismCalculationOutputs(
-                                                           GetFailureMechanismsToUpdate(assessmentSection, oldFailureMechanismContributions))
-                                                       .ToArray();
+                    RingtoetsDataSynchronizationService.ClearFailureMechanismCalculationOutputs(failureMechanismsToClearOutputFor).ToArray();
 
                 if (affectedCalculations.Length > 0)
                 {
@@ -82,36 +82,38 @@ namespace Ringtoets.Integration.Plugin.Handlers
                                    affectedObjects.OfType<ICalculation>().Count());
                 }
 
-                affectedObjects.AddRange(ClearHydraulicBoundaryLocationOutput(GetFailureMechanismsToUpdate(assessmentSection, oldFailureMechanismContributions)));
+                affectedObjects.AddRange(ClearHydraulicBoundaryLocationOutput(failureMechanismsToClearOutputFor));
             }
             return affectedObjects;
         }
 
-        private static IFailureMechanism[] GetFailureMechanismsToUpdate(IAssessmentSection assessmentSection,
-                                                                        Dictionary<IFailureMechanism, double> oldFailureMechanismContributions)
+        private static IEnumerable<IFailureMechanism> GetFailureMechanismsToUpdate(IAssessmentSection assessmentSection,
+                                                                                   Dictionary<IFailureMechanism, double> oldFailureMechanismContributions)
         {
             var failureMechanismsToClearOutputFor = new List<IFailureMechanism>();
             foreach (IFailureMechanism failureMechanism in assessmentSection.GetFailureMechanisms())
             {
-                foreach (KeyValuePair<IFailureMechanism, double> oldFailureMechanismContribution in oldFailureMechanismContributions)
+                if (failureMechanism is StabilityStoneCoverFailureMechanism || failureMechanism is WaveImpactAsphaltCoverFailureMechanism)
                 {
-                    if (failureMechanism is StabilityStoneCoverFailureMechanism || failureMechanism is WaveImpactAsphaltCoverFailureMechanism)
-                    {
-                        continue;
-                    }
+                    continue;
+                }
 
-                    if (failureMechanism is DuneErosionFailureMechanism
-                        || oldFailureMechanismContribution.Key.Equals(failureMechanism)
-                        && Math.Abs(oldFailureMechanismContribution.Value) > 1e-6
-                        && Math.Abs(oldFailureMechanismContribution.Value - failureMechanism.Contribution) > 1e-6)
+                if (failureMechanism is DuneErosionFailureMechanism)
+                {
+                    failureMechanismsToClearOutputFor.Add(failureMechanism);
+                }
+
+                if (oldFailureMechanismContributions.ContainsKey(failureMechanism))
+                {
+                    double oldContribution = oldFailureMechanismContributions[failureMechanism];
+                    if (Math.Abs(oldContribution) > 1e-6 && Math.Abs(oldContribution - failureMechanism.Contribution) > 1e-6)
                     {
                         failureMechanismsToClearOutputFor.Add(failureMechanism);
-                        break;
                     }
                 }
             }
 
-            return failureMechanismsToClearOutputFor.ToArray();
+            return failureMechanismsToClearOutputFor;
         }
 
         private IEnumerable<IObservable> ClearHydraulicBoundaryLocationOutput(IEnumerable<IFailureMechanism> failureMechanismsToClearOutputFor)
