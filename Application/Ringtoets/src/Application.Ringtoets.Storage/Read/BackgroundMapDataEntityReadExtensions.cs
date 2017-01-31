@@ -50,12 +50,12 @@ namespace Application.Ringtoets.Storage.Read
             }
 
             return new WmtsMapData(entity.Name,
-                                          entity.SourceCapabilitiesUrl,
-                                          entity.SelectedCapabilityName,
-                                          entity.PreferredFormat)
+                                   entity.SourceCapabilitiesUrl,
+                                   entity.SelectedCapabilityName,
+                                   entity.PreferredFormat)
             {
                 IsVisible = Convert.ToBoolean(entity.IsVisible),
-                Transparency = (RoundedDouble) entity.Transparency.ToNaNAsNull()
+                Transparency = (RoundedDouble) entity.Transparency
             };
         }
     }

@@ -36,8 +36,11 @@ namespace Application.Ringtoets.Storage.Create
         /// <summary>
         /// Creates a <see cref="BackgroundMapDataEntity"/> based on the information of the <see cref="WmtsMapData"/>
         /// </summary>
-        /// <param name="mapData"></param>
-        /// <returns></returns>
+        /// <param name="mapData">The <see cref="WmtsMapData"/> to create a 
+        /// <see cref="BackgroundMapDataEntity"/> for.</param>
+        /// <returns>A configured <see cref="BackgroundMapDataEntity"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="mapData"/>
+        /// is <c>null</c>.</exception>
         internal static BackgroundMapDataEntity Create(this WmtsMapData mapData)
         {
             if (mapData == null)
@@ -45,15 +48,21 @@ namespace Application.Ringtoets.Storage.Create
                 throw new ArgumentNullException(nameof(mapData));
             }
 
-            return new BackgroundMapDataEntity
+            var entity = new BackgroundMapDataEntity
             {
                 Name = mapData.Name.DeepClone(),
                 IsVisible = Convert.ToByte(mapData.IsVisible),
-                SelectedCapabilityName = mapData.SelectedCapabilityIdentifier.DeepClone(),
-                SourceCapabilitiesUrl = mapData.SourceCapabilitiesUrl.DeepClone(),
-                PreferredFormat = mapData.PreferredFormat.DeepClone(),
                 Transparency = mapData.Transparency
             };
+
+            if (mapData.IsConfigured)
+            {
+                entity.SelectedCapabilityName = mapData.SelectedCapabilityIdentifier.DeepClone();
+                entity.SourceCapabilitiesUrl = mapData.SourceCapabilitiesUrl.DeepClone();
+                entity.PreferredFormat = mapData.PreferredFormat.DeepClone();
+            }
+
+            return entity;
         }
     }
 }

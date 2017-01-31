@@ -46,7 +46,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void Create_ValidData_ReturnWmtsMapDataEntity()
+        public void Create_ConfiguredWmtsMapData_ReturnWmtsMapDataEntity()
         {
             // Setup
             const string name = "background";
@@ -73,6 +73,25 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.AreEqual(preferredFormat, entity.PreferredFormat);
             Assert.AreEqual(Convert.ToByte(isVisible), entity.IsVisible);
             Assert.AreEqual(transparancy, entity.Transparency);
+        }
+
+        [Test]
+        public void Create_UnconfiguredWmtsMapData_ReturnWmtsMapDataEntity()
+        {
+            // Setup
+            var mapData = WmtsMapData.CreateUnconnectedMapData();
+
+            // Call
+            var entity = mapData.Create();
+
+            // Assert
+            Assert.IsInstanceOf<BackgroundMapDataEntity>(entity);
+            Assert.AreEqual(mapData.Name, entity.Name);
+            Assert.IsNull(entity.SourceCapabilitiesUrl);
+            Assert.IsNull(entity.SelectedCapabilityName);
+            Assert.IsNull(entity.PreferredFormat);
+            Assert.AreEqual(Convert.ToByte(mapData.IsVisible), entity.IsVisible);
+            Assert.AreEqual(mapData.Transparency, entity.Transparency);
         }
     }
 }
