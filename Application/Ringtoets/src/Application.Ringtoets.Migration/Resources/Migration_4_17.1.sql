@@ -122,7 +122,12 @@ Remove Outputs
 /*
 Insert new data
 */
-INSERT INTO DuneErosionFailureMechanismMetaEntity ([FailureMechanismEntityId], [N]) VALUES(17, 2.0);
+INSERT INTO DuneErosionFailureMechanismMetaEntity (
+		[FailureMechanismEntityId], 
+		[N])
+Select FailureMechanismEntityId,
+		2.0 
+		FROM FailureMechanismEntity WHERE FailureMechanismType = 8 LIMIT 1;
 
 DETACH SOURCEPROJECT;
 PRAGMA foreign_keys = ON;
