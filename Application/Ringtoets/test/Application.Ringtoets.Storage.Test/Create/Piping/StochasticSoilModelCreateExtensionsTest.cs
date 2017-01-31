@@ -98,11 +98,11 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
         {
             // Setup
             var stochasticSoilModel = new StochasticSoilModel(-1, "testName", "testSegmentName");
-            stochasticSoilModel.StochasticSoilProfiles.Add(new StochasticSoilProfile(50, SoilProfileType.SoilProfile1D, -1)
+            stochasticSoilModel.StochasticSoilProfiles.Add(new StochasticSoilProfile(0.5, SoilProfileType.SoilProfile1D, -1)
             {
                 SoilProfile = new TestPipingSoilProfile()
             });
-            stochasticSoilModel.StochasticSoilProfiles.Add(new StochasticSoilProfile(50, SoilProfileType.SoilProfile1D, -1)
+            stochasticSoilModel.StochasticSoilProfiles.Add(new StochasticSoilProfile(0.5, SoilProfileType.SoilProfile1D, -1)
             {
                 SoilProfile = new TestPipingSoilProfile()
             });

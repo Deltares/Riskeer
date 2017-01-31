@@ -169,7 +169,7 @@ namespace Core.Components.Gis.IO.Test.Importers
             Assert.IsTrue(importer.Import());
 
             // Call
-            importer.DoPostImportUpdates();
+            importer.DoPostImport();
 
             // Assert
             mocks.VerifyAll();

@@ -81,7 +81,7 @@ namespace Ringtoets.Integration.TestUtils
         /// <para>This will import 283 failure mechanism sections.</para>
         /// <para>Imports using <see cref="FileImportActivity"/>.</para>
         /// </remarks>
-        /// <seealso cref="ImportFailureMechanismSections(AssessmentSection, System.Collections.Generic.IEnumerable{Ringtoets.Common.Data.FailureMechanism.IFailureMechanism})"/>
+        /// <seealso cref="ImportFailureMechanismSections(AssessmentSection, IEnumerable{IFailureMechanism})"/>
         public static void ImportFailureMechanismSections(AssessmentSection assessmentSection, IFailureMechanism failureMechanism)
         {
             using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(typeof(DataImportHelper).Assembly,
@@ -207,7 +207,7 @@ namespace Ringtoets.Integration.TestUtils
                 var activity = new FileImportActivity(new StochasticSoilModelImporter(
                                                           assessmentSection.PipingFailureMechanism.StochasticSoilModels,
                                                           filePath,
-                                                          new StochasticSoilModelReplaceData()),
+                                                          new StochasticSoilModelReplaceDataStrategy()),
                                                       "StochasticSoilModelImporter");
                 activity.Run();
                 activity.Finish();

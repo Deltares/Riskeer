@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Plugin.Properties;
 using Ringtoets.Piping.Service;
 
 namespace Ringtoets.Piping.Plugin.FileImporter
@@ -31,15 +32,15 @@ namespace Ringtoets.Piping.Plugin.FileImporter
     /// <summary>
     /// Strategy for updating the current stochastic soil models with the imported stochastic soil models.
     /// </summary>
-    public class StochasticSoilModelUpdateData : IStochasticSoilModelUpdateStrategy
+    public class StochasticSoilModelUpdateDataStrategy : IStochasticSoilModelUpdateStrategy
     {
         private readonly PipingFailureMechanism failureMechanism;
 
         /// <summary>
-        /// Creates a new instance of <see cref="StochasticSoilModelUpdateData"/>.
+        /// Creates a new instance of <see cref="StochasticSoilModelUpdateDataStrategy"/>.
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism in which the models are updated.</param>
-        public StochasticSoilModelUpdateData(PipingFailureMechanism failureMechanism)
+        public StochasticSoilModelUpdateDataStrategy(PipingFailureMechanism failureMechanism)
         {
             if (failureMechanism == null)
             {
@@ -57,21 +58,18 @@ namespace Ringtoets.Piping.Plugin.FileImporter
         /// Removes stochastic soil models that are in <paramref name="targetCollection"/>, but are not part 
         /// of <paramref name="readStochasticSoilModels"/>.
         /// </summary>
+        /// <param name="targetCollection">The current collection of <see cref="StochasticSoilModel"/>.</param>
         /// <param name="readStochasticSoilModels">The imported stochastic soil models.</param>
         /// <param name="sourceFilePath">The file path from which the <paramref name="readStochasticSoilModels"/>
         /// were imported.</param>
-        /// <param name="targetCollection">The current collection of <see cref="StochasticSoilModel"/>.</param>
-        /// <exception cref="InvalidOperationException">Thrown when <paramref name="targetCollection"/>
+        /// <exception cref="StochasticSoilModelUpdateException">Thrown when <paramref name="targetCollection"/>
         /// contains multiple <see cref="StochasticSoilModel"/> with the same <see cref="StochasticSoilModel.Name"/>,
         /// and <paramref name="readStochasticSoilModels"/> also contains a <see cref="StochasticSoilModel"/> with
         /// the same name.
         /// </exception>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <returns>List of updated instances.</returns>
-        public IEnumerable<IObservable> UpdateModelWithImportedData(
-            IEnumerable<StochasticSoilModel> readStochasticSoilModels,
-            string sourceFilePath,
-            StochasticSoilModelCollection targetCollection)
+        public IEnumerable<IObservable> UpdateModelWithImportedData(StochasticSoilModelCollection targetCollection, IEnumerable<StochasticSoilModel> readStochasticSoilModels, string sourceFilePath)
         {
             if (readStochasticSoilModels == null)
             {
@@ -81,8 +79,20 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             {
                 throw new ArgumentNullException(nameof(targetCollection));
             }
+            if (sourceFilePath == null)
+            {
+                throw new ArgumentNullException(nameof(sourceFilePath));
+            }
 
-            return ModifyModelCollection(readStochasticSoilModels, targetCollection, sourceFilePath);
+            try
+            {
+                return ModifyModelCollection(readStochasticSoilModels, targetCollection, sourceFilePath);
+            }
+            catch (InvalidOperationException e)
+            {
+                var message = Resources.StochasticSoilModelUpdateDataStrategy_UpdateModelWithImportedData_Update_of_StochasticSoilModel_failed;
+                throw new StochasticSoilModelUpdateException(message, e);
+            }
         }
 
         private IEnumerable<IObservable> ModifyModelCollection(IEnumerable<StochasticSoilModel> readStochasticSoilModels, StochasticSoilModelCollection targetCollection, string sourceFilePath)

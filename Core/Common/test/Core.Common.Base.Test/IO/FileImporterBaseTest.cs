@@ -82,7 +82,7 @@ namespace Core.Common.Base.Test.IO
             var simpleImporter = new SimpleFileImporter<IObservable>(observableInstance);
 
             // Call
-            simpleImporter.DoPostImportUpdates();
+            simpleImporter.DoPostImport();
 
             // Assert
             mocks.VerifyAll(); // Assert NotifyObservers is called
@@ -100,7 +100,7 @@ namespace Core.Common.Base.Test.IO
             simpleImporter.Cancel();
 
             // Call
-            simpleImporter.DoPostImportUpdates();
+            simpleImporter.DoPostImport();
 
             // Assert
             mocks.VerifyAll(); // Assert no NotifyObservers were called

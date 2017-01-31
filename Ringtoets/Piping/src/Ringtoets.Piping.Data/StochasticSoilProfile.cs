@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Ringtoets.Piping.Data.Properties;
 using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.Data
@@ -29,6 +30,8 @@ namespace Ringtoets.Piping.Data
     /// </summary>
     public class StochasticSoilProfile
     {
+        private double probability;
+
         /// <summary>
         /// Creates a new instance of <see cref="StochasticSoilProfile"/>.
         /// </summary>
@@ -53,24 +56,40 @@ namespace Ringtoets.Piping.Data
         public long SoilProfileId { get; private set; }
 
         /// <summary>
-        /// Gets the probability of the stochastic soil profile.
-        /// </summary>
-        public double Probability { get; private set; }
-
-        /// <summary>
         /// Gets the <see cref="PipingSoilProfile"/>.
         /// </summary>
         public PipingSoilProfile SoilProfile { get; set; }
 
         /// <summary>
-        /// Updates the probability of the <see cref="StochasticSoilProfile"/> 
-        /// by adding <paramref name="probability"/>.
+        /// Gets the probability of the stochastic soil profile.
         /// </summary>
-        /// <param name="probability">The amount to increase the <see cref="Probability"/>
-        /// with.</param>
-        public void AddProbability(double probability)
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when the <paramref name="value"/> is outside the range
+        /// [0, 1].</exception>
+        public double Probability
         {
-            Probability += probability;
+            get
+            {
+                return probability;
+            }
+            private set
+            {
+                if (!double.IsNaN(value) && (value < 0 || value > 1))
+                {
+                    throw new ArgumentOutOfRangeException(nameof(value), Resources.StochasticSoilProfile_Probability_Should_be_in_range_0_1);
+                }
+                probability = value;
+            }
+        }
+
+        /// <summary>
+        /// Updates the probability of the <see cref="StochasticSoilProfile"/> 
+        /// by adding <paramref name="probabilityToAdd"/>.
+        /// </summary>
+        /// <param name="probabilityToAdd">The amount to increase the <see cref="Probability"/>
+        /// with.</param>
+        public void AddProbability(double probabilityToAdd)
+        {
+            Probability += probabilityToAdd;
         }
 
         /// <summary>

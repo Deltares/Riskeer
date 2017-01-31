@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using Core.Common.Base;
 using Ringtoets.Piping.Data;
@@ -26,7 +27,7 @@ using Ringtoets.Piping.Data;
 namespace Ringtoets.Piping.Plugin.FileImporter
 {
     /// <summary>
-    /// Interface describing the different methods of updating the data model after new stochastic soil models
+    /// Interface describing the method of updating the data model after new stochastic soil models
     /// have been imported.
     /// </summary>
     public interface IStochasticSoilModelUpdateStrategy
@@ -34,14 +35,18 @@ namespace Ringtoets.Piping.Plugin.FileImporter
         /// <summary>
         /// Adds the imported data to the <paramref name="targetCollection"/>.
         /// </summary>
-        /// <param name="readStochasticSoilModels">The stochastic soil models which were imported.</param>
-        /// <param name="sourceFilePath">The path to the source file from which the soil models were imported.</param>
         /// <param name="targetCollection">The <see cref="StochasticSoilModelCollection"/> to which the imported data
         /// is added.</param>
-        /// <returns>List of updated instances.</returns>
+        /// <param name="readStochasticSoilModels">The stochastic soil models which were imported.</param>
+        /// <param name="sourceFilePath">The path to the source file from which the soil models were imported.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <exception cref="StochasticSoilModelUpdateException">Thrown when applying the strategy failed.
+        /// <see cref="StochasticSoilModelUpdateException.InnerException"/> is set with the more detailed
+        /// exception.</exception>
+        /// <returns><see cref="IEnumerable{T}"/> of updated instances.</returns>
         IEnumerable<IObservable> UpdateModelWithImportedData(
-            IEnumerable<StochasticSoilModel> readStochasticSoilModels,
-            string sourceFilePath,
-            StochasticSoilModelCollection targetCollection);
+            StochasticSoilModelCollection targetCollection, 
+            IEnumerable<StochasticSoilModel> readStochasticSoilModels, 
+            string sourceFilePath);
     }
 }

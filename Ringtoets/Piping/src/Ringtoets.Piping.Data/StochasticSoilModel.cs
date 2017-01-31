@@ -106,7 +106,7 @@ namespace Ringtoets.Piping.Data
 
             foreach (var fromProfile in fromModel.StochasticSoilProfiles)
             {
-                var sameProfile = StochasticSoilProfiles.SingleOrDefault(sp => sp.SoilProfile.Name.Equals(fromProfile.SoilProfile.Name));
+                StochasticSoilProfile sameProfile = StochasticSoilProfiles.SingleOrDefault(sp => sp.SoilProfile.Name.Equals(fromProfile.SoilProfile.Name));
                 if (sameProfile != null)
                 {
                     sameProfile.Update(fromProfile);
@@ -120,7 +120,7 @@ namespace Ringtoets.Piping.Data
                 newNames.Add(fromProfile.SoilProfile.Name);
             }
 
-            foreach (var profileToRemove in StochasticSoilProfiles.Where(sp => !newNames.Contains(sp.SoilProfile.Name)).ToList())
+            foreach (StochasticSoilProfile profileToRemove in StochasticSoilProfiles.Where(sp => !newNames.Contains(sp.SoilProfile.Name)).ToArray())
             {
                 StochasticSoilProfiles.Remove(profileToRemove);
                 removedProfiles.Add(profileToRemove);

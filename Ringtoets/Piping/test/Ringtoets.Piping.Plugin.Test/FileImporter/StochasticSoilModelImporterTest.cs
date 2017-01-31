@@ -29,7 +29,6 @@ using Core.Common.Utils.Builders;
 using NUnit.Framework;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Plugin.FileImporter;
-using Ringtoets.Piping.Plugin.Properties;
 using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.Plugin.Test.FileImporter
@@ -50,7 +49,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         public void Constructor_ObservableListNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new StochasticSoilModelImporter(null, "", new StochasticSoilModelReplaceData());
+            TestDelegate call = () => new StochasticSoilModelImporter(null, "", new StochasticSoilModelReplaceDataStrategy());
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -74,7 +73,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var list = new StochasticSoilModelCollection();
 
             // Call
-            var importer = new StochasticSoilModelImporter(list, "", new StochasticSoilModelReplaceData());
+            var importer = new StochasticSoilModelImporter(list, "", new StochasticSoilModelReplaceDataStrategy());
 
             // Assert
             Assert.IsInstanceOf<FileImporterBase<StochasticSoilModelCollection>>(importer);
@@ -88,7 +87,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             string validFilePath = Path.Combine(testDataPath, file);
 
             var failureMechanism = new PipingFailureMechanism();
-            var importer = new StochasticSoilModelImporter(failureMechanism.StochasticSoilModels, validFilePath, new StochasticSoilModelReplaceData());
+            var importer = new StochasticSoilModelImporter(failureMechanism.StochasticSoilModels, validFilePath, new StochasticSoilModelReplaceDataStrategy());
             importer.SetProgressChanged(IncrementProgress);
 
             // Precondition
@@ -119,7 +118,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             string invalidFilePath = Path.Combine(testDataPath, file);
 
             var failureMechanism = new PipingFailureMechanism();
-            var importer = new StochasticSoilModelImporter(failureMechanism.StochasticSoilModels, invalidFilePath, new StochasticSoilModelReplaceData());
+            var importer = new StochasticSoilModelImporter(failureMechanism.StochasticSoilModels, invalidFilePath, new StochasticSoilModelReplaceDataStrategy());
             importer.SetProgressChanged(IncrementProgress);
 
             // Precondition
@@ -151,7 +150,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var pipingFailureMechanism = new PipingFailureMechanism();
 
             var progressChangeNotifications = new List<ProgressNotification>();
-            var importer = new StochasticSoilModelImporter(pipingFailureMechanism.StochasticSoilModels, validFilePath, new StochasticSoilModelReplaceData());
+            var importer = new StochasticSoilModelImporter(pipingFailureMechanism.StochasticSoilModels, validFilePath, new StochasticSoilModelReplaceDataStrategy());
             importer.SetProgressChanged((description, step, steps) => progressChangeNotifications.Add(new ProgressNotification(description, step, steps)));
 
             // Call
@@ -199,7 +198,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             string validFilePath = Path.Combine(testDataPath, "complete.soil");
 
             var failureMechanism = new PipingFailureMechanism();
-            var importer = new StochasticSoilModelImporter(failureMechanism.StochasticSoilModels, validFilePath, new StochasticSoilModelReplaceData());
+            var importer = new StochasticSoilModelImporter(failureMechanism.StochasticSoilModels, validFilePath, new StochasticSoilModelReplaceDataStrategy());
             importer.SetProgressChanged(IncrementProgress);
 
             var importResult = false;
@@ -226,7 +225,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             string validFilePath = Path.Combine(testDataPath, "complete.soil");
 
             var failureMechanism = new PipingFailureMechanism();
-            var importer = new StochasticSoilModelImporter(failureMechanism.StochasticSoilModels, validFilePath, new StochasticSoilModelReplaceData());
+            var importer = new StochasticSoilModelImporter(failureMechanism.StochasticSoilModels, validFilePath, new StochasticSoilModelReplaceDataStrategy());
             importer.SetProgressChanged((description, step, steps) =>
             {
                 if (description.Contains("Inlezen van de D-Soil Model database."))
@@ -256,7 +255,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             string validFilePath = Path.Combine(testDataPath, "complete.soil");
 
             var failureMechanism = new PipingFailureMechanism();
-            var importer = new StochasticSoilModelImporter(failureMechanism.StochasticSoilModels, validFilePath, new StochasticSoilModelReplaceData());
+            var importer = new StochasticSoilModelImporter(failureMechanism.StochasticSoilModels, validFilePath, new StochasticSoilModelReplaceDataStrategy());
             importer.SetProgressChanged((description, step, steps) =>
             {
                 if (description.Contains("Inlezen van de stochastische ondergrondmodellen."))
@@ -286,7 +285,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             string validFilePath = Path.Combine(testDataPath, "complete.soil");
 
             var failureMechanism = new PipingFailureMechanism();
-            var importer = new StochasticSoilModelImporter(failureMechanism.StochasticSoilModels, validFilePath, new StochasticSoilModelReplaceData());
+            var importer = new StochasticSoilModelImporter(failureMechanism.StochasticSoilModels, validFilePath, new StochasticSoilModelReplaceDataStrategy());
             importer.SetProgressChanged((description, step, steps) =>
             {
                 if (description.Contains("Controleren van ondergrondschematisaties."))
@@ -316,7 +315,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             string validFilePath = Path.Combine(testDataPath, "complete.soil");
 
             var failureMechanism = new PipingFailureMechanism();
-            var importer = new StochasticSoilModelImporter(failureMechanism.StochasticSoilModels, validFilePath, new StochasticSoilModelReplaceData());
+            var importer = new StochasticSoilModelImporter(failureMechanism.StochasticSoilModels, validFilePath, new StochasticSoilModelReplaceDataStrategy());
             importer.SetProgressChanged((description, step, steps) =>
             {
                 if (description.Contains("Geïmporteerde data toevoegen aan het toetsspoor."))
@@ -346,7 +345,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             string validFilePath = Path.Combine(testDataPath, "complete.soil");
 
             var failureMechanism = new PipingFailureMechanism();
-            var importer = new StochasticSoilModelImporter(failureMechanism.StochasticSoilModels, validFilePath, new StochasticSoilModelReplaceData());
+            var importer = new StochasticSoilModelImporter(failureMechanism.StochasticSoilModels, validFilePath, new StochasticSoilModelReplaceDataStrategy());
             importer.SetProgressChanged((description, step, steps) => importer.Cancel());
 
             // Precondition
@@ -373,7 +372,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             string pathToCorruptFile = Path.Combine(testDataPath, "empty.soil");
 
             var failureMechanism = new PipingFailureMechanism();
-            var importer = new StochasticSoilModelImporter(failureMechanism.StochasticSoilModels, pathToCorruptFile, new StochasticSoilModelReplaceData());
+            var importer = new StochasticSoilModelImporter(failureMechanism.StochasticSoilModels, pathToCorruptFile, new StochasticSoilModelReplaceDataStrategy());
             importer.SetProgressChanged(IncrementProgress);
 
             var importResult = true;
@@ -397,7 +396,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             string pathToCorruptFile = Path.Combine(testDataPath, "invalidAtX2dProperty.soil");
 
             var failureMechanism = new PipingFailureMechanism();
-            var importer = new StochasticSoilModelImporter(failureMechanism.StochasticSoilModels, pathToCorruptFile, new StochasticSoilModelReplaceData());
+            var importer = new StochasticSoilModelImporter(failureMechanism.StochasticSoilModels, pathToCorruptFile, new StochasticSoilModelReplaceDataStrategy());
             importer.SetProgressChanged(IncrementProgress);
 
             var importResult = false;
@@ -427,7 +426,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             string pathToCorruptFile = Path.Combine(testDataPath, "incorrectValue2dProperty.soil");
 
             var failureMechanism = new PipingFailureMechanism();
-            var importer = new StochasticSoilModelImporter(failureMechanism.StochasticSoilModels, pathToCorruptFile, new StochasticSoilModelReplaceData());
+            var importer = new StochasticSoilModelImporter(failureMechanism.StochasticSoilModels, pathToCorruptFile, new StochasticSoilModelReplaceDataStrategy());
             importer.SetProgressChanged(IncrementProgress);
 
             // Call
@@ -444,7 +443,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             string pathToCorruptFile = Path.Combine(testDataPath, "invalidStochasticSoilProfiles.soil");
 
             var failureMechanism = new PipingFailureMechanism();
-            var importer = new StochasticSoilModelImporter(failureMechanism.StochasticSoilModels, pathToCorruptFile, new StochasticSoilModelReplaceData());
+            var importer = new StochasticSoilModelImporter(failureMechanism.StochasticSoilModels, pathToCorruptFile, new StochasticSoilModelReplaceDataStrategy());
             importer.SetProgressChanged(IncrementProgress);
 
             var importResult = false;
@@ -467,7 +466,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             string pathToCorruptFile = Path.Combine(testDataPath, "incorrectProbability.soil");
 
             var failureMechanism = new PipingFailureMechanism();
-            var importer = new StochasticSoilModelImporter(failureMechanism.StochasticSoilModels, pathToCorruptFile, new StochasticSoilModelReplaceData());
+            var importer = new StochasticSoilModelImporter(failureMechanism.StochasticSoilModels, pathToCorruptFile, new StochasticSoilModelReplaceDataStrategy());
             importer.SetProgressChanged(IncrementProgress);
 
             var importResult = false;
@@ -488,7 +487,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             string validFilePath = Path.Combine(testDataPath, "reusedSoilProfile1D.soil");
 
             var pipingFailureMechanism = new PipingFailureMechanism();
-            var importer = new StochasticSoilModelImporter(pipingFailureMechanism.StochasticSoilModels, validFilePath, new StochasticSoilModelReplaceData());
+            var importer = new StochasticSoilModelImporter(pipingFailureMechanism.StochasticSoilModels, validFilePath, new StochasticSoilModelReplaceDataStrategy());
 
             // Call
             var importResult = importer.Import();
@@ -521,7 +520,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             string validFilePath = Path.Combine(testDataPath, "reusedSoilProfile2D.soil");
 
             var pipingFailureMechanism = new PipingFailureMechanism();
-            var importer = new StochasticSoilModelImporter(pipingFailureMechanism.StochasticSoilModels, validFilePath, new StochasticSoilModelReplaceData());
+            var importer = new StochasticSoilModelImporter(pipingFailureMechanism.StochasticSoilModels, validFilePath, new StochasticSoilModelReplaceDataStrategy());
 
             // Call
             var importResult = importer.Import();
@@ -554,7 +553,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             string validFilePath = Path.Combine(testDataPath, "EmptySoilModel.soil");
 
             var failureMechanism = new PipingFailureMechanism();
-            var importer = new StochasticSoilModelImporter(failureMechanism.StochasticSoilModels, validFilePath, new StochasticSoilModelReplaceData());
+            var importer = new StochasticSoilModelImporter(failureMechanism.StochasticSoilModels, validFilePath, new StochasticSoilModelReplaceDataStrategy());
 
             var importResult = false;
 
@@ -575,7 +574,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             string pathToFile = Path.Combine(testDataPath, "multipleStochasticSoilProfileForSameProfile.soil");
 
             var failureMechanism = new PipingFailureMechanism();
-            var importer = new StochasticSoilModelImporter(failureMechanism.StochasticSoilModels, pathToFile, new StochasticSoilModelReplaceData());
+            var importer = new StochasticSoilModelImporter(failureMechanism.StochasticSoilModels, pathToFile, new StochasticSoilModelReplaceDataStrategy());
             importer.SetProgressChanged(IncrementProgress);
 
             var importResult = false;
@@ -601,7 +600,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             string pathToFile = Path.Combine(testDataPath, "combined1d2d.soil");
 
             var failureMechanism = new PipingFailureMechanism();
-            var importer = new StochasticSoilModelImporter(failureMechanism.StochasticSoilModels, pathToFile, new StochasticSoilModelReplaceData());
+            var importer = new StochasticSoilModelImporter(failureMechanism.StochasticSoilModels, pathToFile, new StochasticSoilModelReplaceDataStrategy());
             importer.SetProgressChanged(IncrementProgress);
 
             var importResult = false;
@@ -627,7 +626,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             string validFilePath = Path.Combine(testDataPath, "SingleSoilProfile2D_noLayerProperties.soil");
 
             var failureMechanism = new PipingFailureMechanism();
-            var importer = new StochasticSoilModelImporter(failureMechanism.StochasticSoilModels, validFilePath, new StochasticSoilModelReplaceData());
+            var importer = new StochasticSoilModelImporter(failureMechanism.StochasticSoilModels, validFilePath, new StochasticSoilModelReplaceDataStrategy());
             importer.SetProgressChanged(IncrementProgress);
 
             // Precondition
@@ -645,7 +644,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Assert.AreEqual(1, soilModel.StochasticSoilProfiles.Count);
 
             StochasticSoilProfile stochasticProfile = soilModel.StochasticSoilProfiles[0];
-            Assert.AreEqual(100.0, stochasticProfile.Probability);
+            Assert.AreEqual(1.0, stochasticProfile.Probability);
             Assert.AreEqual(SoilProfileType.SoilProfile2D, stochasticProfile.SoilProfileType);
 
             PipingSoilProfile profile = stochasticProfile.SoilProfile;
@@ -681,7 +680,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             string validFilePath = Path.Combine(testDataPath, "SingleSoilProfile2D_withLayerProperties.soil");
 
             var failureMechanism = new PipingFailureMechanism();
-            var importer = new StochasticSoilModelImporter(failureMechanism.StochasticSoilModels, validFilePath, new StochasticSoilModelReplaceData());
+            var importer = new StochasticSoilModelImporter(failureMechanism.StochasticSoilModels, validFilePath, new StochasticSoilModelReplaceDataStrategy());
             importer.SetProgressChanged(IncrementProgress);
 
             // Precondition
@@ -699,7 +698,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Assert.AreEqual(1, soilModel.StochasticSoilProfiles.Count);
 
             StochasticSoilProfile stochasticProfile = soilModel.StochasticSoilProfiles[0];
-            Assert.AreEqual(100.0, stochasticProfile.Probability);
+            Assert.AreEqual(1.0, stochasticProfile.Probability);
             Assert.AreEqual(SoilProfileType.SoilProfile2D, stochasticProfile.SoilProfileType);
 
             PipingSoilProfile profile = stochasticProfile.SoilProfile;

@@ -49,6 +49,6 @@ namespace Core.Common.Base.IO
         /// </summary>
         /// <remarks>This method should be called by caller who calls <see cref="Cancel"/>
         /// on this importer.</remarks>
-        void DoPostImportUpdates();
+        void DoPostImport();
     }
 }

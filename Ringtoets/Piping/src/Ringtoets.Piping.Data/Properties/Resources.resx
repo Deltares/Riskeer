@@ -156,4 +156,7 @@
   <data name="GeneralPipingInput_WaterVolumetricWeight_must_be_in_range_zero_to_twenty" xml:space="preserve">
     <value>De waarde moet binnen het bereik [0, 20] liggen.</value>
   </data>
+  <data name="StochasticSoilProfile_Probability_Should_be_in_range_0_1" xml:space="preserve">
+    <value>Het aandeel van de ondergrondschematisatie in het stochastische ondergrondmodel moet in het bereik [0,1] liggen.</value>
+  </data>
 </root>

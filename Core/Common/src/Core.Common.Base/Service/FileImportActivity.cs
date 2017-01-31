@@ -89,7 +89,7 @@ namespace Core.Common.Base.Service
 
         protected override void OnFinish()
         {
-            fileImporter.DoPostImportUpdates();
+            fileImporter.DoPostImport();
         }
     }
 }

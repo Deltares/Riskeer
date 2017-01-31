@@ -47,7 +47,7 @@ namespace Ringtoets.Piping.Integration.Test
             var importer = new StochasticSoilModelImporter(
                 pipingFailureMechanism.StochasticSoilModels,
                 databasePath,
-                new StochasticSoilModelReplaceData());
+                new StochasticSoilModelReplaceDataStrategy());
             importer.Import();
 
             // Then
@@ -87,7 +87,7 @@ namespace Ringtoets.Piping.Integration.Test
             var importer = new StochasticSoilModelImporter(
                 pipingFailureMechanism.StochasticSoilModels,
                 databasePath,
-                new StochasticSoilModelReplaceData());
+                new StochasticSoilModelReplaceDataStrategy());
             importer.Import();
 
             // Then
@@ -123,7 +123,7 @@ namespace Ringtoets.Piping.Integration.Test
             var importer = new StochasticSoilModelImporter(
                 pipingFailureMechanism.StochasticSoilModels,
                 databasePath,
-                new StochasticSoilModelReplaceData());
+                new StochasticSoilModelReplaceDataStrategy());
             importer.Import();
 
             // Then

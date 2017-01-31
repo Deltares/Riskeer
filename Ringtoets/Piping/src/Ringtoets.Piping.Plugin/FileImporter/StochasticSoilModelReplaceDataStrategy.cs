@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
@@ -30,23 +31,25 @@ namespace Ringtoets.Piping.Plugin.FileImporter
     /// <summary>
     /// Strategy for replacing the stochastic soil models with the imported stochastic soil models. 
     /// </summary>
-    public class StochasticSoilModelReplaceData : IStochasticSoilModelUpdateStrategy
+    public class StochasticSoilModelReplaceDataStrategy : IStochasticSoilModelUpdateStrategy
     {
-        private readonly ILog log = LogManager.GetLogger(typeof(StochasticSoilModelReplaceData));
+        private readonly ILog log = LogManager.GetLogger(typeof(StochasticSoilModelReplaceDataStrategy));
 
-        /// <summary>
-        /// Adds the <paramref name="readStochasticSoilModels"/> to the <paramref name="targetCollection"/>.
-        /// </summary>
-        /// <param name="readStochasticSoilModels">The imported stochastic soil models.</param>
-        /// <param name="sourceFilePath">The file path from which the <paramref name="readStochasticSoilModels"/>
-        /// were imported.</param>
-        /// <param name="targetCollection">The current collection of <see cref="StochasticSoilModel"/>.</param>
-        /// <returns>List of updated instances.</returns>
-        public IEnumerable<IObservable> UpdateModelWithImportedData(
-            IEnumerable<StochasticSoilModel> readStochasticSoilModels,
-            string sourceFilePath,
-            StochasticSoilModelCollection targetCollection)
+        public IEnumerable<IObservable> UpdateModelWithImportedData(StochasticSoilModelCollection targetCollection, IEnumerable<StochasticSoilModel> readStochasticSoilModels, string sourceFilePath)
         {
+            if (targetCollection == null)
+            {
+                throw new ArgumentNullException(nameof(targetCollection));
+            }
+            if (readStochasticSoilModels == null)
+            {
+                throw new ArgumentNullException(nameof(readStochasticSoilModels));
+            }
+            if (sourceFilePath == null)
+            {
+                throw new ArgumentNullException(nameof(sourceFilePath));
+            }
+
             var modelsToAdd = new List<StochasticSoilModel>();
             foreach (StochasticSoilModel readStochasticSoilModel in readStochasticSoilModels)
             {

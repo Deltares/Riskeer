@@ -36,9 +36,9 @@ namespace Ringtoets.Piping.Data
         /// <param name="updatedProfiles">Profiles that were updated.</param>
         /// <param name="removedProfiles">Profiles that were removed from the model.</param>
         public StochasticSoilModelProfileDifference(
-            ICollection<StochasticSoilProfile> addedProfiles,
-            ICollection<StochasticSoilProfile> updatedProfiles,
-            ICollection<StochasticSoilProfile> removedProfiles)
+            IEnumerable<StochasticSoilProfile> addedProfiles,
+            IEnumerable<StochasticSoilProfile> updatedProfiles,
+            IEnumerable<StochasticSoilProfile> removedProfiles)
         {
             AddedProfiles = addedProfiles;
             UpdatedProfiles = updatedProfiles;
@@ -48,16 +48,16 @@ namespace Ringtoets.Piping.Data
         /// <summary>
         /// Gets the profiles that were updated.
         /// </summary>
-        public ICollection<StochasticSoilProfile> UpdatedProfiles { get; }
+        public IEnumerable<StochasticSoilProfile> UpdatedProfiles { get; }
 
         /// <summary>
         /// Gets the profiles that were removed from the model.
         /// </summary>
-        public ICollection<StochasticSoilProfile> RemovedProfiles { get; }
+        public IEnumerable<StochasticSoilProfile> RemovedProfiles { get; }
 
         /// <summary>
         /// Gets the profiles that were added to the model.
         /// </summary>
-        public ICollection<StochasticSoilProfile> AddedProfiles { get; }
+        public IEnumerable<StochasticSoilProfile> AddedProfiles { get; }
     }
 }

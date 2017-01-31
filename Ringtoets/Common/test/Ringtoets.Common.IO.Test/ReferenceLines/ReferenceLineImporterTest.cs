@@ -429,7 +429,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             Assert.IsTrue(importer.Import());
 
             // Call
-            importer.DoPostImportUpdates();
+            importer.DoPostImport();
 
             // Assert
             mocks.VerifyAll(); // Expect NotifyObservers on cleared calculations and context
@@ -466,7 +466,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             Assert.IsFalse(importer.Import());
 
             // Call
-            importer.DoPostImportUpdates();
+            importer.DoPostImport();
 
             // Assert
             mocks.VerifyAll(); // Expect no NotifyObserver calls
@@ -523,7 +523,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             Assert.IsTrue(importer.Import());
 
             // Call
-            importer.DoPostImportUpdates();
+            importer.DoPostImport();
 
             // Assert
             mocks.VerifyAll(); // Expect NotifyObservers on cleared calculations and context

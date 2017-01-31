@@ -510,5 +510,15 @@ namespace Ringtoets.Piping.Plugin.Properties {
                         "tochastic_soil_model_0_is_not_correct", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het bijwerken van de stochastische ondrgrondmodellen is mislukt..
+        /// </summary>
+        public static string StochasticSoilModelUpdateDataStrategy_UpdateModelWithImportedData_Update_of_StochasticSoilModel_failed {
+            get {
+                return ResourceManager.GetString("StochasticSoilModelUpdateDataStrategy_UpdateModelWithImportedData_Update_of_Stoch" +
+                        "asticSoilModel_failed", resourceCulture);
+            }
+        }
     }
 }

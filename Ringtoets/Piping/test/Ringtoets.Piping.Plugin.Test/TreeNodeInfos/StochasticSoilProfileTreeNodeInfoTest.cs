@@ -91,7 +91,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             {
                 pipingSoilLayer
             }, SoilProfileType.SoilProfile2D, 0);
-            var stochasticSoilProfile = mocks.StrictMock<StochasticSoilProfile>(10.0, SoilProfileType.SoilProfile1D, 1234L);
+            var stochasticSoilProfile = mocks.StrictMock<StochasticSoilProfile>(0.1, SoilProfileType.SoilProfile1D, 1234L);
             stochasticSoilProfile.SoilProfile = pipingSoilProfile;
             mocks.ReplayAll();
 
@@ -111,7 +111,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             {
                 pipingSoilLayer
             }, SoilProfileType.SoilProfile1D, 0);
-            var stochasticSoilProfile = mocks.StrictMock<StochasticSoilProfile>(10.0, SoilProfileType.SoilProfile1D, 1234L);
+            var stochasticSoilProfile = mocks.StrictMock<StochasticSoilProfile>(0.1, SoilProfileType.SoilProfile1D, 1234L);
             stochasticSoilProfile.SoilProfile = pipingSoilProfile;
             mocks.ReplayAll();
 

@@ -41,7 +41,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         public void Constructor_WithoutCalculations_CreatesNewInstance()
         {
             // Call
-            TestDelegate test = () => new StochasticSoilModelUpdateData(null);
+            TestDelegate test = () => new StochasticSoilModelUpdateDataStrategy(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -52,7 +52,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         public void Constructor_WithCalculations_CreatesNewInstance()
         {
             // Call
-            var strategy = new StochasticSoilModelUpdateData(new PipingFailureMechanism());
+            var strategy = new StochasticSoilModelUpdateDataStrategy(new PipingFailureMechanism());
 
             // Assert
             Assert.IsInstanceOf<IStochasticSoilModelUpdateStrategy>(strategy);
@@ -62,10 +62,10 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         public void UpdateModelWithImportedData_ReadStochasticSoilModelsNull_ThrowsArgumentNullException()
         {
             // Setup
-            var strategy = new StochasticSoilModelUpdateData(new PipingFailureMechanism());
+            var strategy = new StochasticSoilModelUpdateDataStrategy(new PipingFailureMechanism());
 
             // Call
-            TestDelegate test = () => strategy.UpdateModelWithImportedData(null, string.Empty, new StochasticSoilModelCollection());
+            TestDelegate test = () => strategy.UpdateModelWithImportedData(new StochasticSoilModelCollection(), null, string.Empty);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -76,24 +76,24 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         public void UpdateModelWithImportedData_SourceFilePathNull_ThrowsArgumentNullException()
         {
             // Setup
-            var strategy = new StochasticSoilModelUpdateData(new PipingFailureMechanism());
+            var strategy = new StochasticSoilModelUpdateDataStrategy(new PipingFailureMechanism());
 
             // Call
-            TestDelegate test = () => strategy.UpdateModelWithImportedData(new List<StochasticSoilModel>(), null, new StochasticSoilModelCollection());
+            TestDelegate test = () => strategy.UpdateModelWithImportedData(new StochasticSoilModelCollection(), new List<StochasticSoilModel>(), null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("filePath", paramName);
+            Assert.AreEqual("sourceFilePath", paramName);
         }
 
         [Test]
         public void UpdateModelWithImportedData_TargetCollectionNull_ThrowsArgumentNullException()
         {
             // Setup
-            var strategy = new StochasticSoilModelUpdateData(new PipingFailureMechanism());
+            var strategy = new StochasticSoilModelUpdateDataStrategy(new PipingFailureMechanism());
 
             // Call
-            TestDelegate test = () => strategy.UpdateModelWithImportedData(new List<StochasticSoilModel>(), string.Empty, null);
+            TestDelegate test = () => strategy.UpdateModelWithImportedData(null, new List<StochasticSoilModel>(), string.Empty);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -112,7 +112,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                                           new TestStochasticSoilModel(nonUniqueName)
                                       }, sourceFilePath);
 
-            var strategy = new StochasticSoilModelUpdateData(new PipingFailureMechanism());
+            var strategy = new StochasticSoilModelUpdateDataStrategy(new PipingFailureMechanism());
             var importedStochasticSoilModels = new[]
             {
                 new TestStochasticSoilModel(nonUniqueName),
@@ -120,10 +120,12 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             };
 
             // Call
-            TestDelegate test = () => strategy.UpdateModelWithImportedData(importedStochasticSoilModels, sourceFilePath, targetCollection);
+            TestDelegate test = () => strategy.UpdateModelWithImportedData(targetCollection, importedStochasticSoilModels, sourceFilePath);
 
             // Assert
-            Assert.Throws<InvalidOperationException>(test);
+            var exception = Assert.Throws<StochasticSoilModelUpdateException>(test);
+            Assert.AreEqual("Het bijwerken van de stochastische ondrgrondmodellen is mislukt.", exception.Message);
+            Assert.IsInstanceOf<InvalidOperationException>(exception.InnerException);
         }
 
         [Test]
@@ -135,11 +137,11 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                 new TestStochasticSoilModel("A"),
                 new TestStochasticSoilModel("B")
             };
-            var strategy = new StochasticSoilModelUpdateData(new PipingFailureMechanism());
+            var strategy = new StochasticSoilModelUpdateDataStrategy(new PipingFailureMechanism());
             var targetCollection = new StochasticSoilModelCollection();
 
             // Call
-            strategy.UpdateModelWithImportedData(importedStochasticSoilModels, "path", targetCollection);
+            strategy.UpdateModelWithImportedData(targetCollection, importedStochasticSoilModels, "path");
 
             // Assert
             CollectionAssert.AreEquivalent(importedStochasticSoilModels, targetCollection);
@@ -156,10 +158,10 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                                           new TestStochasticSoilModel()
                                       }, sourceFilePath);
 
-            var strategy = new StochasticSoilModelUpdateData(new PipingFailureMechanism());
+            var strategy = new StochasticSoilModelUpdateDataStrategy(new PipingFailureMechanism());
 
             // Call
-            strategy.UpdateModelWithImportedData(new List<StochasticSoilModel>(), sourceFilePath, targetCollection);
+            strategy.UpdateModelWithImportedData(targetCollection, new List<StochasticSoilModel>(), sourceFilePath);
 
             // Assert
             CollectionAssert.IsEmpty(targetCollection);
@@ -177,11 +179,11 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                                           existingModel,
                                       }, sourceFilePath);
 
-            var strategy = new StochasticSoilModelUpdateData(new PipingFailureMechanism());
+            var strategy = new StochasticSoilModelUpdateDataStrategy(new PipingFailureMechanism());
             var readModel = new TestStochasticSoilModel("read");
 
             // Call
-            strategy.UpdateModelWithImportedData(new[] { readModel }, sourceFilePath, targetCollection);
+            strategy.UpdateModelWithImportedData(targetCollection, new[] { readModel }, sourceFilePath);
 
             // Assert
             Assert.AreSame(readModel, targetCollection.First());
@@ -200,11 +202,11 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                                           existingModel,
                                       }, sourceFilePath);
 
-            var strategy = new StochasticSoilModelUpdateData(new PipingFailureMechanism());
+            var strategy = new StochasticSoilModelUpdateDataStrategy(new PipingFailureMechanism());
             var readModel = new TestStochasticSoilModel(modelsName);
 
             // Call
-            strategy.UpdateModelWithImportedData(new[] { readModel }, sourceFilePath, targetCollection);
+            strategy.UpdateModelWithImportedData(targetCollection, new[] { readModel }, sourceFilePath);
 
             // Assert
             Assert.AreEqual(1, targetCollection.Count);
@@ -224,11 +226,11 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                                           existingModel,
                                       }, sourceFilePath);
 
-            var strategy = new StochasticSoilModelUpdateData(new PipingFailureMechanism());
+            var strategy = new StochasticSoilModelUpdateDataStrategy(new PipingFailureMechanism());
             var readModel = CreateSimpleModel(modelsName, "new profile A", "new profile B");
 
             // Call
-            strategy.UpdateModelWithImportedData(new[] { readModel }, sourceFilePath, targetCollection);
+            strategy.UpdateModelWithImportedData(targetCollection, new[] { readModel }, sourceFilePath);
 
             // Assert
             Assert.AreSame(existingModel, targetCollection.First());
@@ -265,13 +267,10 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             failureMechanism.CalculationsGroup.Children.Add(calculationWithDeletedProfile);
             failureMechanism.CalculationsGroup.Children.Add(calculationWithUpdatedProfile);
 
-            var strategy = new StochasticSoilModelUpdateData(failureMechanism);
+            var strategy = new StochasticSoilModelUpdateDataStrategy(failureMechanism);
 
             // Call
-            IEnumerable<IObservable> affectedObjects = strategy.UpdateModelWithImportedData(
-                new[] { readModel }, 
-                sourceFilePath, 
-                targetCollection).ToArray();
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateModelWithImportedData(targetCollection, new[] { readModel }, sourceFilePath).ToArray();
 
             // Assert
             var firstSoilModel = targetCollection.First();
@@ -303,7 +302,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var failureMechanism = new PipingFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculation);
 
-            var strategy = new StochasticSoilModelUpdateData(failureMechanism);
+            var strategy = new StochasticSoilModelUpdateDataStrategy(failureMechanism);
 
             var targetCollection = new StochasticSoilModelCollection();
             targetCollection.AddRange(new[]
@@ -312,10 +311,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                                       }, sourceFilePath);
 
             // Call
-            IEnumerable<IObservable> affectedObjects = strategy.UpdateModelWithImportedData(
-                new List<StochasticSoilModel>(),
-                sourceFilePath,
-                targetCollection).ToArray();
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateModelWithImportedData(targetCollection, new List<StochasticSoilModel>(), sourceFilePath).ToArray();
 
             // Assert
             Assert.IsFalse(calculation.HasOutput);

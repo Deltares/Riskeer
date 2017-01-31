@@ -37,7 +37,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
         public void Create_WithoutPersistenceRegistry_ThrowsArgumentNullException()
         {
             // Setup
-            var stochasticSoilProfile = new StochasticSoilProfile(40, SoilProfileType.SoilProfile1D, -1);
+            var stochasticSoilProfile = new StochasticSoilProfile(0.4, SoilProfileType.SoilProfile1D, -1);
 
             // Call
             TestDelegate test = () => stochasticSoilProfile.Create(null, 0);

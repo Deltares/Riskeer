@@ -117,7 +117,7 @@ namespace Ringtoets.Piping.Service.Test
             soilModel.StochasticSoilProfiles.AddRange(new[]
             {
                 new StochasticSoilProfile(0.0, SoilProfileType.SoilProfile1D, 1),
-                new StochasticSoilProfile(1.1, SoilProfileType.SoilProfile1D, 2)
+                new StochasticSoilProfile(1.0, SoilProfileType.SoilProfile1D, 2)
             });
             var pipingInput = new PipingInput(new GeneralPipingInput())
             {

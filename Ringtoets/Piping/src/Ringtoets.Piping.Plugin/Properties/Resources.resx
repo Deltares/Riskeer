@@ -255,4 +255,7 @@ Deze locatie met karakteristieke punten wordt overgeslagen.</value>
   <data name="StochasticSoilModelImporter_MergeStochasticSoilProfiles_Multiple_SoilProfile_0_used_in_StochasticSoilModel_1_Probabilities_added." xml:space="preserve">
     <value>Ondergrondschematisatie '{0}' is meerdere keren gevonden in ondergrondmodel '{1}'. Kansen van voorkomen worden opgeteld.</value>
   </data>
+  <data name="StochasticSoilModelUpdateDataStrategy_UpdateModelWithImportedData_Update_of_StochasticSoilModel_failed" xml:space="preserve">
+    <value>Het bijwerken van de stochastische ondrgrondmodellen is mislukt.</value>
+  </data>
 </root>

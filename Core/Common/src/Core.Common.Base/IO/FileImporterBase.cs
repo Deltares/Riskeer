@@ -58,6 +58,12 @@ namespace Core.Common.Base.IO
             ImportTarget = importTarget;
         }
 
+        protected virtual void DoPostImportUpdates()
+        {
+            var observableTarget = ImportTarget as IObservable;
+            observableTarget?.NotifyObservers();
+        }
+
         public void SetProgressChanged(OnProgressChanged action)
         {
             ProgressChanged = action;
@@ -83,7 +89,7 @@ namespace Core.Common.Base.IO
                     LogImportCanceledMessage();
                 }
             }
-            
+
             return importResult;
         }
 
@@ -92,15 +98,14 @@ namespace Core.Common.Base.IO
             Canceled = true;
         }
 
-        public virtual void DoPostImportUpdates()
+        public void DoPostImport()
         {
             if (Canceled)
             {
                 return;
             }
 
-            var observableTarget = ImportTarget as IObservable;
-            observableTarget?.NotifyObservers();
+            DoPostImportUpdates();
         }
 
         /// <summary>

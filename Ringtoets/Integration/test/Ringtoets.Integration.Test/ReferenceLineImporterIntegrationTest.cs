@@ -138,7 +138,7 @@ namespace Ringtoets.Integration.Test
 
             // When
             bool importSuccesful = importer.Import();
-            importer.DoPostImportUpdates();
+            importer.DoPostImport();
 
             // Then
             Assert.IsTrue(importSuccesful);

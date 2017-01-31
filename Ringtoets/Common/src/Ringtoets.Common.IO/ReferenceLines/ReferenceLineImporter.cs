@@ -86,13 +86,8 @@ namespace Ringtoets.Common.IO.ReferenceLines
             log.Info(RingtoetsCommonIOResources.ReferenceLineImporter_ProgressText_Import_canceled_no_data_read);
         }
 
-        public override void DoPostImportUpdates()
+        protected override void DoPostImportUpdates()
         {
-            if (Canceled)
-            {
-                return;
-            }
-
             replacementHandler.DoPostReplacementUpdates();
 
             base.DoPostImportUpdates();

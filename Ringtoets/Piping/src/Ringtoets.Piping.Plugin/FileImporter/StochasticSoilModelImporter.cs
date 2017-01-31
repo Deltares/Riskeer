@@ -64,13 +64,8 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             this.modelUpdateStrategy = modelUpdateStrategy;
         }
 
-        public override void DoPostImportUpdates()
+        protected override void DoPostImportUpdates()
         {
-            if (Canceled)
-            {
-                return;
-            }
-
             foreach (var observable in UpdatedInstances)
             {
                 observable.NotifyObservers();
@@ -99,13 +94,17 @@ namespace Ringtoets.Piping.Plugin.FileImporter
                 return false;
             }
 
-            UpdatedInstances = modelUpdateStrategy.UpdateModelWithImportedData(
-                GetValidStochasticSoilModels(importStochasticSoilModelResult),
-                FilePath,
-                ImportTarget);
+            UpdatedInstances = modelUpdateStrategy.UpdateModelWithImportedData(ImportTarget, GetValidStochasticSoilModels(importStochasticSoilModelResult), FilePath);
 
             return true;
         }
+
+        protected override void LogImportCanceledMessage()
+        {
+            log.Info(Resources.StochasticSoilModelImporter_Import_Import_canceled);
+        }
+
+        private IEnumerable<IObservable> UpdatedInstances { get; set; }
 
         /// <summary>
         /// Validate the definition of a <see cref="StochasticSoilModel"/>.
@@ -136,18 +135,11 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             return true;
         }
 
-        protected override void LogImportCanceledMessage()
-        {
-            log.Info(Resources.StochasticSoilModelImporter_Import_Import_canceled);
-        }
-
-        private IEnumerable<IObservable> UpdatedInstances { get; set; }
-
         private IEnumerable<StochasticSoilModel> GetValidStochasticSoilModels(ReadResult<StochasticSoilModel> importStochasticSoilModelResult)
         {
             var currentStep = 1;
             var importedModels = importStochasticSoilModelResult.ImportedItems.ToArray();
-            foreach (var importedModel in importedModels)
+            foreach (StochasticSoilModel importedModel in importedModels)
             {
                 NotifyProgress(RingtoestCommonIOResources.Importer_ProgressText_Adding_imported_data_to_DataModel, currentStep, importedModels.Length);
                 if (ValidateStochasticSoilModel(importedModel))
@@ -188,14 +180,14 @@ namespace Ringtoets.Piping.Plugin.FileImporter
                 var profiles = stochasticSoilModel.StochasticSoilProfiles.OrderBy(sp => sp.SoilProfileId).ToArray();
                 for (int i = 1; i < profiles.Length; i++)
                 {
-                    var previousProfile = profiles[i - 1];
-                    var currentProfile = profiles[i];
+                    StochasticSoilProfile previousProfile = profiles[i - 1];
+                    StochasticSoilProfile currentProfile = profiles[i];
                     if (currentProfile.SoilProfileId == previousProfile.SoilProfileId &&
                         currentProfile.SoilProfileType == previousProfile.SoilProfileType)
                     {
                         log.Warn(string.Format(Resources.StochasticSoilModelImporter_MergeStochasticSoilProfiles_Multiple_SoilProfile_0_used_in_StochasticSoilModel_1_Probabilities_added_,
-                            previousProfile.SoilProfile.Name,
-                            stochasticSoilModel.Name));
+                                               previousProfile.SoilProfile.Name,
+                                               stochasticSoilModel.Name));
 
                         previousProfile.AddProbability(currentProfile.Probability);
                         stochasticSoilModel.StochasticSoilProfiles.Remove(currentProfile);
@@ -215,7 +207,10 @@ namespace Ringtoets.Piping.Plugin.FileImporter
 
         private static bool PipingSoilProfileIsUsed(PipingSoilProfile soilProfile, ICollection<StochasticSoilModel> stochasticSoilModels)
         {
-            return stochasticSoilModels.Any(stochasticSoilModel => stochasticSoilModel.StochasticSoilProfiles.Any(stochasticSoilProfile => stochasticSoilProfile.SoilProfile == soilProfile));
+            return stochasticSoilModels.Any(
+                stochasticSoilModel => stochasticSoilModel
+                    .StochasticSoilProfiles
+                    .Any(stochasticSoilProfile => ReferenceEquals(stochasticSoilProfile.SoilProfile, soilProfile)));
         }
 
         private void HandleException(Exception e)

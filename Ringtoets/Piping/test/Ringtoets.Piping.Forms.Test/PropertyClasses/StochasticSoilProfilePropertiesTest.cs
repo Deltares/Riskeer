@@ -44,8 +44,8 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         }
 
         [Test]
-        [TestCase(0.14, "14")]
-        [TestCase(1.0051, "100,51")]
+        [TestCase(0.142, "14,2")]
+        [TestCase(1.0, "100")]
         [TestCase(0.5 + 1e-6, "50")]
         [SetCulture("nl-NL")]
         public void GetProperties_WithDataAndDutchLocale_ReturnExpectedValues(double probability, string expectedProbability)
@@ -54,8 +54,8 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         }
 
         [Test]
-        [TestCase(0.14, "14")]
-        [TestCase(1.0051, "100.51")]
+        [TestCase(0.142, "14.2")]
+        [TestCase(1.0, "100")]
         [TestCase(0.5 + 1e-6, "50")]
         [SetCulture("en-US")]
         public void GetProperties_WithDataAndEnglishLocale_ReturnExpectedValues(double probability, string expectedProbability)
