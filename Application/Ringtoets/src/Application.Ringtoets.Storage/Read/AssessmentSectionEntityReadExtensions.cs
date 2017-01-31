@@ -65,6 +65,8 @@ namespace Application.Ringtoets.Storage.Read
                 }
             };
 
+            entity.ReadBackgroundMapData(assessmentSection);
+
             entity.ReadHydraulicDatabase(assessmentSection, collector);
             entity.ReadReferenceLine(assessmentSection);
 
@@ -102,6 +104,23 @@ namespace Application.Ringtoets.Storage.Read
             GC.Collect();
             GC.WaitForPendingFinalizers();
             GC.Collect();
+        }
+
+        private static void ReadBackgroundMapData(this AssessmentSectionEntity entity, IAssessmentSection assessmentSection)
+        {
+            var backgroundMapData = entity.BackgroundMapDataEntities.Single().Read();
+
+            assessmentSection.BackgroundMapData.Name = backgroundMapData.Name;
+
+            if (backgroundMapData.IsConfigured)
+            {
+                assessmentSection.BackgroundMapData.Configure(backgroundMapData.SourceCapabilitiesUrl,
+                                                              backgroundMapData.SelectedCapabilityIdentifier,
+                                                              backgroundMapData.PreferredFormat);
+            }
+
+            assessmentSection.BackgroundMapData.IsVisible = backgroundMapData.IsVisible;
+            assessmentSection.BackgroundMapData.Transparency = backgroundMapData.Transparency;
         }
 
         private static void ReadReferenceLine(this AssessmentSectionEntity entity, IAssessmentSection assessmentSection)

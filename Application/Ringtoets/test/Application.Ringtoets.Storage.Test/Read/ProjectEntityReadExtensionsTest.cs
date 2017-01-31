@@ -78,14 +78,32 @@ namespace Application.Ringtoets.Storage.Test.Read
                         Norm = norm,
                         Name = "A",
                         Order = 56,
-                        Composition = Convert.ToByte(AssessmentSectionComposition.Dike)
+                        Composition = Convert.ToByte(AssessmentSectionComposition.Dike),
+                        BackgroundMapDataEntities = new[]
+                        {
+                            new BackgroundMapDataEntity
+                            {
+                                Name = "Background A",
+                                Transparency = 0.0,
+                                IsVisible = 1
+                            }
+                        }
                     },
                     new AssessmentSectionEntity
                     {
                         Norm = norm,
                         Name = "B",
                         Order = 0,
-                        Composition = Convert.ToByte(AssessmentSectionComposition.Dike)
+                        Composition = Convert.ToByte(AssessmentSectionComposition.Dike),
+                        BackgroundMapDataEntities = new[]
+                        {
+                            new BackgroundMapDataEntity
+                            {
+                                Name = "Background B",
+                                Transparency = 0.0,
+                                IsVisible = 1
+                            }
+                        }
                     }
                 }
             };

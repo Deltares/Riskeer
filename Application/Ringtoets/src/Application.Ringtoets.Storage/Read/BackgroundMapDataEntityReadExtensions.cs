@@ -49,14 +49,18 @@ namespace Application.Ringtoets.Storage.Read
                 throw new ArgumentNullException(nameof(entity));
             }
 
-            return new WmtsMapData(entity.Name,
-                                   entity.SourceCapabilitiesUrl,
-                                   entity.SelectedCapabilityName,
-                                   entity.PreferredFormat)
+            var mapData = WmtsMapData.CreateUnconnectedMapData();
+            mapData.Name = entity.Name;
+
+            if (entity.SourceCapabilitiesUrl != null && entity.SelectedCapabilityName != null && entity.PreferredFormat != null)
             {
-                IsVisible = Convert.ToBoolean(entity.IsVisible),
-                Transparency = (RoundedDouble) entity.Transparency
-            };
+                mapData.Configure(entity.SourceCapabilitiesUrl, entity.SelectedCapabilityName, entity.PreferredFormat);
+            }
+
+            mapData.IsVisible = Convert.ToBoolean(entity.IsVisible);
+            mapData.Transparency = (RoundedDouble)entity.Transparency;
+
+            return mapData;
         }
     }
 }

@@ -24,6 +24,7 @@ using System.Linq;
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Serializers;
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -64,6 +65,10 @@ namespace Application.Ringtoets.Storage.Test.Create
             const string comments = "Some text";
             const double norm = 0.05;
             int order = new Random(65).Next();
+
+            const string mapDataName = "map data name";
+            const double transparency = 0.3;
+            const bool isVisible = true;
             var assessmentSection = new AssessmentSection(assessmentSectionComposition)
             {
                 Id = testId,
@@ -75,6 +80,12 @@ namespace Application.Ringtoets.Storage.Test.Create
                 FailureMechanismContribution =
                 {
                     Norm = norm
+                },
+                BackgroundMapData =
+                {
+                    Name = mapDataName,
+                    Transparency = (RoundedDouble) transparency,
+                    IsVisible = isVisible
                 }
             };
             var registry = new PersistenceRegistry();
@@ -115,6 +126,16 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.IsEmpty(entity.HydraulicLocationEntities);
 
             Assert.IsNull(entity.ReferenceLinePointXml);
+
+            Assert.AreEqual(1, entity.BackgroundMapDataEntities.Count);
+            var backgroundMapDataEntity = entity.BackgroundMapDataEntities.Single();
+            Assert.IsNotNull(backgroundMapDataEntity);
+            Assert.AreEqual(mapDataName, backgroundMapDataEntity.Name);
+            Assert.AreEqual(transparency, backgroundMapDataEntity.Transparency);
+            Assert.AreEqual(Convert.ToByte(isVisible), backgroundMapDataEntity.IsVisible);
+            Assert.IsNull(backgroundMapDataEntity.SelectedCapabilityName);
+            Assert.IsNull(backgroundMapDataEntity.SourceCapabilitiesUrl);
+            Assert.IsNull(backgroundMapDataEntity.PreferredFormat);
         }
 
         [Test]

@@ -75,6 +75,35 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.AreEqual(isVisible, mapData.IsVisible);
             Assert.AreEqual(transparancy, mapData.Transparency.Value);
             Assert.AreEqual(preferredFormat, mapData.PreferredFormat);
+            Assert.IsTrue(mapData.IsConfigured);
+        }
+
+        [Test]
+        public void Read_ConfigurableColumnsNull_ReturnUnConfiguredMapData()
+        {
+            // Setup
+            const string name = "map data";
+            const bool isVisible = false;
+            const double transparancy = 0.4;
+
+            var entity = new BackgroundMapDataEntity
+            {
+                Name = name,
+                IsVisible = Convert.ToByte(isVisible),
+                Transparency = transparancy
+            };
+
+            // Call
+            WmtsMapData mapData = entity.Read();
+
+            // Assert
+            Assert.AreEqual(name, mapData.Name);
+            Assert.IsNull(mapData.SourceCapabilitiesUrl);
+            Assert.IsNull(mapData.SelectedCapabilityIdentifier);
+            Assert.AreEqual(isVisible, mapData.IsVisible);
+            Assert.AreEqual(transparancy, mapData.Transparency.Value);
+            Assert.IsNull(mapData.PreferredFormat);
+            Assert.IsFalse(mapData.IsConfigured);
         }
     }
 }

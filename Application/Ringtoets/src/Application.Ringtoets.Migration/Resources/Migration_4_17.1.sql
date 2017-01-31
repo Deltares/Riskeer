@@ -96,9 +96,19 @@ Insert new data
 INSERT INTO DuneErosionFailureMechanismMetaEntity (
 		[FailureMechanismEntityId], 
 		[N])
-Select FailureMechanismEntityId,
+SELECT FailureMechanismEntityId,
 		2.0 
 		FROM FailureMechanismEntity WHERE FailureMechanismType = 8 LIMIT 1;
+INSERT INTO BackgroundMapDataEntity (
+		[AssessmentSectionEntityId],
+		[Name],
+		[IsVisible],
+		[Transparency])
+SELECT AssessmentSectionEntityId,
+		"<niet bepaald>",
+		0,
+		0.0
+		FROM AssessmentSectionEntity;
 
 DETACH SOURCEPROJECT;
 PRAGMA foreign_keys = ON;
