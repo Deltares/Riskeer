@@ -87,7 +87,7 @@ namespace Migration.Scripts.Data
             var newLocation = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
 
             IVersionedFile newVersionedFile = createScript.CreateEmptyVersionedFile(newLocation);
-            upgradeScript.Upgrade(sourceVersionedFile, newVersionedFile);
+            upgradeScript.Upgrade(sourceVersionedFile.Location, newVersionedFile.Location);
             return newVersionedFile;
         }
     }

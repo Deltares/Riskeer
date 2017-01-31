@@ -38,9 +38,9 @@ namespace Migration.Scripts.Data.TestUtil
         /// <item><paramref name="fromVersion"/> is empty or <c>null</c>,</item>
         /// <item><paramref name="toVersion"/> is empty or <c>null</c>,</item>
         /// </list></exception>
-        public TestUpgradeScript(string fromVersion, string toVersion) 
+        public TestUpgradeScript(string fromVersion, string toVersion)
             : base(fromVersion, toVersion) {}
 
-        protected override void PerformUpgrade(IVersionedFile source, IVersionedFile target) {}
+        protected override void PerformUpgrade(string sourceLocation, string targetLocation) {}
     }
 }

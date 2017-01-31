@@ -134,12 +134,10 @@ namespace Application.Ringtoets.Migration.Test
             string filename = Path.GetRandomFileName();
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration, filename);
 
-            var sourceVersionedFile = new RingtoetsVersionedFile("c:\\file.ext");
-            var targetVersionedFile = new RingtoetsVersionedFile("c:\\file.ext");
             var upgradeScript = new RingtoetsUpgradeScript("1", "2", "THIS WILL FAIL");
 
             // Call
-            TestDelegate call = () => upgradeScript.Upgrade(sourceVersionedFile, targetVersionedFile);
+            TestDelegate call = () => upgradeScript.Upgrade("c:\\file.ext", "c:\\file.ext");
 
             // Assert
             using (new FileDisposeHelper(filePath))
@@ -158,25 +156,16 @@ namespace Application.Ringtoets.Migration.Test
             string filename = Path.GetRandomFileName();
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration, filename);
 
-            var mockRepository = new MockRepository();
-            var sourceVersionedFile = mockRepository.Stub<IVersionedFile>();
-            sourceVersionedFile.Expect(tvf => tvf.Location).Return("c:\\file.ext");
-            var targetVersionedFile = mockRepository.Stub<IVersionedFile>();
-            targetVersionedFile.Expect(tvf => tvf.Location).Return(filePath);
-            mockRepository.ReplayAll();
-
             var upgradeScript = new RingtoetsUpgradeScript("1", "2", ";");
 
             // Call
-            upgradeScript.Upgrade(sourceVersionedFile, targetVersionedFile);
+            upgradeScript.Upgrade("c:\\file.ext", filePath);
 
             // Assert
-            Assert.IsNotNull(targetVersionedFile);
             using (new FileDisposeHelper(filePath))
             {
                 Assert.IsTrue(File.Exists(filePath));
             }
-            mockRepository.VerifyAll();
         }
 
         private class MigrationScriptDatabaseReader : SqLiteDatabaseReaderBase

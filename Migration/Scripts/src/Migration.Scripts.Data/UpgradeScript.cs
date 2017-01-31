@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Utils;
 using Migration.Scripts.Data.Exceptions;
 
 namespace Migration.Scripts.Data
@@ -76,36 +77,34 @@ namespace Migration.Scripts.Data
         }
 
         /// <summary>
-        /// Uses <paramref name="source"/> to upgrade to <paramref name="target"/>.
+        /// Uses <paramref name="sourceLocation"/> to upgrade to <paramref name="targetLocation"/>.
         /// </summary>
-        /// <param name="source">The source file to upgrade from.</param>
-        /// <param name="target">The target file to upgrade to.</param>
-        /// <exception cref="ArgumentNullException">Thrown when:
+        /// <param name="sourceLocation">The source file to upgrade from.</param>
+        /// <param name="targetLocation">The target file to upgrade to.</param>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="sourceLocation"/> or 
+        /// <paramref name="targetLocation"/> is invalid.</exception>
+        /// <remarks>A valid path:
         /// <list type="bullet">
-        /// <item><paramref name="source"/> is <c>null</c>,</item>
-        /// <item><paramref name="target"/> is <c>null</c>.</item>
-        /// </list></exception>
+        /// <item>is not empty or <c>null</c>,</item>
+        /// <item>does not consist out of only whitespace characters,</item>
+        /// <item>does not contain an invalid character,</item>
+        /// <item>does not end with a directory or path separator (empty file name).</item>
+        /// </list></remarks>
         /// <exception cref="CriticalMigrationException">Thrown when upgrading failed.</exception>
-        public void Upgrade(IVersionedFile source, IVersionedFile target)
+        public void Upgrade(string sourceLocation, string targetLocation)
         {
-            if (source == null)
-            {
-                throw new ArgumentNullException(nameof(source));
-            }
-            if (target == null)
-            {
-                throw new ArgumentNullException(nameof(target));
-            }
-            PerformUpgrade(source, target);
+            IOUtils.ValidateFilePath(sourceLocation);
+            IOUtils.ValidateFilePath(targetLocation);
+            PerformUpgrade(sourceLocation, targetLocation);
         }
 
         /// <summary>
-        /// Performs the upgrade on <paramref name="target"/>.
+        /// Performs the upgrade on <paramref name="targetLocation"/>.
         /// </summary>
-        /// <param name="source">The source file to upgrade from.</param>
-        /// <param name="target">The target file to upgrade to.</param>
-        /// <remarks>The <paramref name="source"/> and <paramref name="target"/> has been verified in <see cref="Upgrade"/>.</remarks>
+        /// <param name="sourceLocation">The source file to upgrade from.</param>
+        /// <param name="targetLocation">The target file to upgrade to.</param>
+        /// <remarks>The <paramref name="sourceLocation"/> and <paramref name="targetLocation"/> has been verified in <see cref="Upgrade"/>.</remarks>
         /// <exception cref="CriticalMigrationException">Thrown when upgrading failed.</exception>
-        protected abstract void PerformUpgrade(IVersionedFile source, IVersionedFile target);
+        protected abstract void PerformUpgrade(string sourceLocation, string targetLocation);
     }
 }

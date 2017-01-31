@@ -22,7 +22,6 @@
 using System;
 using Migration.Scripts.Data.TestUtil;
 using NUnit.Framework;
-using Rhino.Mocks;
 
 namespace Migration.Scripts.Data.Test
 {
@@ -77,45 +76,39 @@ namespace Migration.Scripts.Data.Test
         }
 
         [Test]
-        public void Upgrade_SourceNull_ThrowsArgumentNullException()
+        [TestCase("")]
+        [TestCase("   ")]
+        [TestCase(null)]
+        public void Upgrade_SourceNull_ThrowsArgumentException(string sourceFilePath)
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var targetVersionedFile = mockRepository.Stub<IVersionedFile>();
-            mockRepository.ReplayAll();
-
             const string fromVersion = "fromVersion";
             const string toVersion = "toVersion";
             var upgradeScript = new TestUpgradeScript(fromVersion, toVersion);
 
             // Call
-            TestDelegate call = () => upgradeScript.Upgrade(null, targetVersionedFile);
+            TestDelegate call = () => upgradeScript.Upgrade(sourceFilePath, "Filepath.ext");
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("source", paramName);
-            mockRepository.VerifyAll();
+            Assert.Throws<ArgumentException>(call);
         }
 
         [Test]
-        public void Upgrade_TargetNull_ThrowsArgumentNullException()
+        [TestCase("")]
+        [TestCase("   ")]
+        [TestCase(null)]
+        public void Upgrade_TargetNull_ThrowsArgumentException(string targetFilePath)
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var sourceVersionedFile = mockRepository.Stub<IVersionedFile>();
-            mockRepository.ReplayAll();
-
             const string fromVersion = "fromVersion";
             const string toVersion = "toVersion";
             var upgradeScript = new TestUpgradeScript(fromVersion, toVersion);
 
             // Call
-            TestDelegate call = () => upgradeScript.Upgrade(sourceVersionedFile, null);
+            TestDelegate call = () => upgradeScript.Upgrade("Filepath.ext", targetFilePath);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("target", paramName);
-            mockRepository.VerifyAll();
+            Assert.Throws<ArgumentException>(call);
         }
     }
 }

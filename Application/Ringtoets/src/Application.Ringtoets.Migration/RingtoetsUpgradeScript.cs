@@ -56,12 +56,12 @@ namespace Application.Ringtoets.Migration
             upgradeQuery = query;
         }
 
-        protected override void PerformUpgrade(IVersionedFile source, IVersionedFile target)
+        protected override void PerformUpgrade(string sourceLocation, string targetLocation)
         {
             try
             {
-                var query = string.Format(upgradeQuery, source.Location);
-                using (var databaseFile = new RingtoetsDatabaseFile(target.Location))
+                var query = string.Format(upgradeQuery, sourceLocation);
+                using (var databaseFile = new RingtoetsDatabaseFile(targetLocation))
                 {
                     databaseFile.OpenDatabaseConnection();
                     databaseFile.ExecuteQuery(query);

@@ -20,6 +20,8 @@
 // All rights reserved.
 
 using System;
+using System.IO;
+using Core.Common.TestUtil;
 using Migration.Scripts.Data.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -92,8 +94,12 @@ namespace Migration.Scripts.Data.Test
         public void Upgrade_ValidParameters_ExpectedProperties()
         {
             // Setup
+            string targetFilename = Path.GetRandomFileName();
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Migration.Core.Storage, targetFilename);
+
             var mockRepository = new MockRepository();
             var versionedFile = mockRepository.Stub<IVersionedFile>();
+            versionedFile.Expect(vf => vf.Location).Return(filePath);
             mockRepository.ReplayAll();
 
             var createScript = new TestCreateScript("2");
