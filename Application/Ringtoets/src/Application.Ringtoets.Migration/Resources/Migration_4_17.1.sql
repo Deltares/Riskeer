@@ -2,7 +2,36 @@ PRAGMA foreign_keys = OFF;
 
 ATTACH DATABASE [{0}] AS SOURCEPROJECT;
 
-INSERT INTO AssessmentSectionEntity SELECT * FROM [SOURCEPROJECT].AssessmentSectionEntity;
+INSERT INTO AssessmentSectionEntity(
+[AssessmentSectionEntityId],
+[ProjectEntityId],
+[Id],
+[Name],
+[Comments],
+[Norm],
+[HydraulicDatabaseVersion],
+[HydraulicDatabaseLocation],
+[Composition],
+[ReferenceLinePointXml],
+[Order],
+[WmtsName],
+[BackgroundMapDataIsVisible],
+[BackgroundMapDataTransparency]
+) SELECT
+[AssessmentSectionEntityId],
+[ProjectEntityId],
+[Id],
+[Name],
+[Comments],
+[Norm],
+[HydraulicDatabaseVersion],
+[HydraulicDatabaseLocation],
+[Composition],
+[ReferenceLinePointXml],
+[Order],
+"&lt;niet bepaald&gt",
+1,
+1.0 FROM [SOURCEPROJECT].AssessmentSectionEntity;
 INSERT INTO CalculationGroupEntity SELECT * FROM [SOURCEPROJECT].CalculationGroupEntity;
 INSERT INTO CharacteristicPointEntity SELECT * FROM [SOURCEPROJECT].CharacteristicPointEntity;
 INSERT INTO ClosingStructureEntity SELECT * FROM [SOURCEPROJECT].ClosingStructureEntity;

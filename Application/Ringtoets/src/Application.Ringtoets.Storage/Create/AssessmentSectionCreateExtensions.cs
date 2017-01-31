@@ -72,7 +72,10 @@ namespace Application.Ringtoets.Storage.Create
                 Composition = (byte) section.Composition,
                 Comments = section.Comments.Body.DeepClone(),
                 Norm = section.FailureMechanismContribution.Norm,
-                Order = order
+                Order = order,
+                WmtsName = "",
+                BackgroundMapDataIsVisible = Convert.ToByte(true),
+                BackgroundMapDataTransparency = 1.0
             };
 
             AddEntityForHydraulicDatabase(section, entity, registry);

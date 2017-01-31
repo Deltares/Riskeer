@@ -28,11 +28,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System;
+
 namespace Application.Ringtoets.Storage.DbContext
 {
-    using System;
-    using System.Collections.Generic;
-    
     public partial class SoilLayerEntity
     {
         public long SoilLayerEntityId { get; set; }
@@ -49,7 +48,7 @@ namespace Application.Ringtoets.Storage.DbContext
         public Nullable<double> PermeabilityMean { get; set; }
         public Nullable<double> PermeabilityDeviation { get; set; }
         public int Order { get; set; }
-    
+
         public virtual SoilProfileEntity SoilProfileEntity { get; set; }
     }
 }
