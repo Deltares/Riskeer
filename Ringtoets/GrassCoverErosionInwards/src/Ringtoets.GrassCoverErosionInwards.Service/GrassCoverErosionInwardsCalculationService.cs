@@ -374,21 +374,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
 
         private static IEnumerable<HydraRingRoughnessProfilePoint> ParseProfilePoints(RoughnessPoint[] roughnessProfilePoints)
         {
-            for (var i = 0; i < roughnessProfilePoints.Length; i++)
-            {
-                var roughnessProfilePoint = roughnessProfilePoints[i];
-
-                if (i == 0)
-                {
-                    yield return new HydraRingRoughnessProfilePoint(roughnessProfilePoint.Point.X, roughnessProfilePoint.Point.Y, 1.0);
-                }
-                else
-                {
-                    var precedingRoughnessProfilePoint = roughnessProfilePoints[i - 1];
-
-                    yield return new HydraRingRoughnessProfilePoint(roughnessProfilePoint.Point.X, roughnessProfilePoint.Point.Y, precedingRoughnessProfilePoint.Roughness);
-                }
-            }
+            return roughnessProfilePoints.Select(roughnessPoint => new HydraRingRoughnessProfilePoint(roughnessPoint.Point.X, roughnessPoint.Point.Y, roughnessPoint.Roughness));
         }
 
         private static string[] ValidateInput(GrassCoverErosionInwardsInput inputParameters, IAssessmentSection assessmentSection)
