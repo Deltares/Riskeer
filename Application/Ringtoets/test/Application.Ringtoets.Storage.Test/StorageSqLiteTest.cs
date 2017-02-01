@@ -37,8 +37,7 @@ namespace Application.Ringtoets.Storage.Test
     [TestFixture]
     public class StorageSqLiteTest
     {
-        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Storage, "DatabaseFiles");
-        private readonly string tempRingtoetsFile = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Storage, "DatabaseFiles"), "tempProjectFile.rtd");
+        private readonly string testPath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Storage, "DatabaseFiles");
 
         [Test]
         public void DefaultConstructor_ExpectedValues()
@@ -57,16 +56,14 @@ namespace Application.Ringtoets.Storage.Test
         [TestCase("  ")]
         public void LoadProject_InvalidPath_ThrowsArgumentException(string invalidPath)
         {
-            // Setup
-            string expectedMessage = $"Fout bij het lezen van bestand '{invalidPath}': {"bestandspad mag niet leeg of ongedefinieerd zijn."}";
-
             // Call
             TestDelegate test = () => new StorageSqLite().LoadProject(invalidPath);
 
             // Assert
             ArgumentException exception = Assert.Throws<ArgumentException>(test);
             Assert.IsInstanceOf<Exception>(exception);
-            Assert.AreEqual(expectedMessage, exception.Message);
+            Assert.AreEqual($"Fout bij het lezen van bestand '{invalidPath}': bestandspad mag niet leeg of ongedefinieerd zijn.",
+                            exception.Message);
         }
 
         [Test]
@@ -74,7 +71,6 @@ namespace Application.Ringtoets.Storage.Test
         {
             // Setup
             string nonExistingPath = "fileDoesNotExist";
-            string expectedMessage = $@"Fout bij het lezen van bestand '{nonExistingPath}': {"het bestand bestaat niet."}";
 
             // Call
             TestDelegate test = () => new StorageSqLite().LoadProject(nonExistingPath);
@@ -82,7 +78,8 @@ namespace Application.Ringtoets.Storage.Test
             // Assert
             StorageException exception = Assert.Throws<CouldNotConnectException>(test);
 
-            Assert.AreEqual(expectedMessage, exception.Message);
+            Assert.AreEqual($@"Fout bij het lezen van bestand '{nonExistingPath}': {"het bestand bestaat niet."}",
+                            exception.Message);
         }
 
         [Test]
@@ -90,21 +87,22 @@ namespace Application.Ringtoets.Storage.Test
         {
             // Setup
             string validPath = "empty.rtd";
-            var tempFile = Path.Combine(testDataPath, validPath);
-            string expectedMessage = $@"Fout bij het lezen van bestand '{tempFile}': {"het bestand is geen geldig Ringtoets bestand."}";
+            var tempFile = Path.Combine(testPath, validPath);
 
             // Call
             TestDelegate test = () => new StorageSqLite().LoadProject(tempFile);
 
             // Assert
             StorageException exception = Assert.Throws<StorageValidationException>(test);
-            Assert.AreEqual(expectedMessage, exception.Message);
+            Assert.AreEqual($@"Fout bij het lezen van bestand '{tempFile}': het bestand is geen geldig Ringtoets bestand.",
+                            exception.Message);
         }
 
         [Test]
         public void LoadProject_RingtoetsFileWithTwoProjects_ThrowsStorageExceptionAndStorageValidationException()
         {
             // Setup
+            string tempRingtoetsFile = Path.Combine(testPath, Path.GetRandomFileName());
             FileDisposeHelper fileDisposeHelper = new FileDisposeHelper(tempRingtoetsFile);
             try
             {
@@ -115,7 +113,7 @@ namespace Application.Ringtoets.Storage.Test
                 TestDelegate test = () => new StorageSqLite().LoadProject(tempRingtoetsFile);
 
                 // Assert
-                var expectedMessage = $@"Fout bij het lezen van bestand '{tempRingtoetsFile}': {"het bestand is geen geldig Ringtoets bestand."}";
+                var expectedMessage = $@"Fout bij het lezen van bestand '{tempRingtoetsFile}': het bestand is geen geldig Ringtoets bestand.";
 
                 StorageException exception = Assert.Throws<StorageException>(test);
                 Assert.IsInstanceOf<Exception>(exception);
@@ -132,11 +130,7 @@ namespace Application.Ringtoets.Storage.Test
         public void LoadProject_CorruptRingtoetsFileThatPassesValidation_ThrowsStorageExceptionWithFullStackTrace()
         {
             // Setup
-            string expectedMessage = $@"Fout bij het lezen van bestand '{tempRingtoetsFile}': {"het bestand is geen geldig Ringtoets bestand."}";
-            var expectedInnerExceptionMessage = "An error occurred while executing the command definition. See the inner exception for details.";
-            var expectedInnerExceptionInnerExceptionMessage = "SQL logic error or missing database" + Environment.NewLine +
-                                                              "no such table: ProjectEntity";
-
+            string tempRingtoetsFile = Path.Combine(testPath, Path.GetRandomFileName());
             FileDisposeHelper fileDisposeHelper = new FileDisposeHelper(tempRingtoetsFile);
             try
             {
@@ -149,13 +143,16 @@ namespace Application.Ringtoets.Storage.Test
                 // Assert
                 StorageException exception = Assert.Throws<StorageException>(test);
                 Assert.IsInstanceOf<Exception>(exception);
-                Assert.AreEqual(expectedMessage, exception.Message);
+                Assert.AreEqual($@"Fout bij het lezen van bestand '{tempRingtoetsFile}': het bestand is geen geldig Ringtoets bestand.",
+                                exception.Message);
 
                 Assert.IsInstanceOf<DataException>(exception.InnerException);
-                Assert.AreEqual(expectedInnerExceptionMessage, exception.InnerException.Message);
+                Assert.AreEqual("An error occurred while executing the command definition. See the inner exception for details.",
+                                exception.InnerException.Message);
 
                 Assert.IsInstanceOf<SQLiteException>(exception.InnerException.InnerException);
-                Assert.AreEqual(expectedInnerExceptionInnerExceptionMessage, exception.InnerException.InnerException.Message);
+                Assert.AreEqual("SQL logic error or missing database" + Environment.NewLine
+                                + "no such table: ProjectEntity", exception.InnerException.InnerException.Message);
             }
             finally
             {
@@ -168,8 +165,7 @@ namespace Application.Ringtoets.Storage.Test
         public void LoadProject_DatabaseWithoutVersionEntities_ThrowStorageValidationException()
         {
             // Setup
-            string expectedMessage = $@"Fout bij het lezen van bestand '{tempRingtoetsFile}': {"database moet één rij in de VersionEntity tabel hebben."}";
-
+            string tempRingtoetsFile = Path.Combine(testPath, Path.GetRandomFileName());
             FileDisposeHelper fileDisposeHelper = new FileDisposeHelper(tempRingtoetsFile);
             try
             {
@@ -182,7 +178,8 @@ namespace Application.Ringtoets.Storage.Test
                 // Assert
                 StorageException exception = Assert.Throws<StorageValidationException>(test);
                 Assert.IsInstanceOf<Exception>(exception);
-                Assert.AreEqual(expectedMessage, exception.Message);
+                Assert.AreEqual($@"Fout bij het lezen van bestand '{tempRingtoetsFile}': database moet één rij in de VersionEntity tabel hebben.",
+                                exception.Message);
                 Assert.IsInstanceOf<InvalidOperationException>(exception.InnerException);
             }
             finally
@@ -196,7 +193,7 @@ namespace Application.Ringtoets.Storage.Test
         public void LoadProject_DatabaseWithMultipleVersionEntities_ThrowStorageValidationException()
         {
             // Setup
-            string expectedMessage = $@"Fout bij het lezen van bestand '{tempRingtoetsFile}': {"database moet één rij in de VersionEntity tabel hebben."}";
+            string tempRingtoetsFile = Path.Combine(testPath, Path.GetRandomFileName());
             string currentDatabaseVersion = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
             FileDisposeHelper fileDisposeHelper = new FileDisposeHelper(tempRingtoetsFile);
             try
@@ -215,7 +212,8 @@ namespace Application.Ringtoets.Storage.Test
                 // Assert
                 StorageException exception = Assert.Throws<StorageValidationException>(test);
                 Assert.IsInstanceOf<Exception>(exception);
-                Assert.AreEqual(expectedMessage, exception.Message);
+                Assert.AreEqual($@"Fout bij het lezen van bestand '{tempRingtoetsFile}': database moet één rij in de VersionEntity tabel hebben.",
+                                exception.Message);
                 Assert.IsInstanceOf<InvalidOperationException>(exception.InnerException);
             }
             finally
@@ -231,10 +229,9 @@ namespace Application.Ringtoets.Storage.Test
         public void LoadProject_DatabaseFromFutureVersion_ThrowStorageValidationException(int additionalVersionNumber)
         {
             // Setup
+            string tempRingtoetsFile = Path.Combine(testPath, Path.GetRandomFileName());
             string currentDatabaseVersion = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
             var versionCode = additionalVersionNumber + currentDatabaseVersion;
-            string subMessage = $"ringtoets bestand versie '{versionCode}' is hoger dan de huidig ondersteunde versie ('{currentDatabaseVersion}'). Update Ringtoets naar een nieuwere versie.";
-            string expectedMessage = $@"Fout bij het lezen van bestand '{tempRingtoetsFile}': {subMessage}";
 
             FileDisposeHelper fileDisposeHelper = new FileDisposeHelper(tempRingtoetsFile);
             try
@@ -252,7 +249,10 @@ namespace Application.Ringtoets.Storage.Test
                 // Assert
                 StorageException exception = Assert.Throws<StorageValidationException>(test);
                 Assert.IsInstanceOf<Exception>(exception);
-                Assert.AreEqual(expectedMessage, exception.Message);
+                Assert.AreEqual($@"Fout bij het lezen van bestand '{tempRingtoetsFile}': ringtoets "
+                                + $"bestand versie '{versionCode}' is hoger dan de huidig ondersteunde versie "
+                                + $"('{currentDatabaseVersion}'). Update Ringtoets naar een nieuwere versie.",
+                                exception.Message);
             }
             finally
             {
@@ -267,8 +267,7 @@ namespace Application.Ringtoets.Storage.Test
         public void LoadProject_DatabaseWithInvalidVersionCode_ThrowStorageValidationException(string versionCode)
         {
             // Setup
-            string subMessage = $"ringtoets bestand versie '{versionCode}' is niet valide. Ringtoets bestand versie dient '16.4' of hoger te zijn.";
-            string expectedMessage = $@"Fout bij het lezen van bestand '{tempRingtoetsFile}': {subMessage}";
+            string tempRingtoetsFile = Path.Combine(testPath, Path.GetRandomFileName());
 
             FileDisposeHelper fileDisposeHelper = new FileDisposeHelper(tempRingtoetsFile);
             try
@@ -286,7 +285,9 @@ namespace Application.Ringtoets.Storage.Test
                 // Assert
                 StorageException exception = Assert.Throws<StorageValidationException>(test);
                 Assert.IsInstanceOf<Exception>(exception);
-                Assert.AreEqual(expectedMessage, exception.Message);
+                Assert.AreEqual($@"Fout bij het lezen van bestand '{tempRingtoetsFile}': ringtoets "
+                                + $"bestand versie '{versionCode}' is niet valide. Ringtoets bestand "
+                                + "versie dient '16.4' of hoger te zijn.", exception.Message);
             }
             finally
             {
@@ -299,6 +300,7 @@ namespace Application.Ringtoets.Storage.Test
         public void LoadProject_ValidDatabase_ReturnsProject()
         {
             // Setup
+            string tempRingtoetsFile = Path.Combine(testPath, Path.GetRandomFileName());
             var projectName = Path.GetFileNameWithoutExtension(tempRingtoetsFile);
             var storage = new StorageSqLite();
             var mockRepository = new MockRepository();
@@ -347,7 +349,6 @@ namespace Application.Ringtoets.Storage.Test
         {
             // Setup
             RingtoetsProject project = new RingtoetsProject();
-            var expectedMessage = $"Fout bij het lezen van bestand '{invalidPath}': {"bestandspad mag niet leeg of ongedefinieerd zijn."}";
 
             var storage = new StorageSqLite();
             storage.StageProject(project);
@@ -357,13 +358,15 @@ namespace Application.Ringtoets.Storage.Test
 
             // Assert
             ArgumentException exception = Assert.Throws<ArgumentException>(test);
-            Assert.AreEqual(expectedMessage, exception.Message);
+            Assert.AreEqual($"Fout bij het lezen van bestand '{invalidPath}': bestandspad mag niet "
+                            + " leeg of ongedefinieerd zijn.", exception.Message);
         }
 
         [Test]
         public void SaveProjectAs_ValidPathToNonExistingFile_DoesNotThrowException()
         {
             // Setup
+            string tempRingtoetsFile = Path.Combine(testPath, Path.GetRandomFileName());
             var project = new RingtoetsProject();
             var storage = new StorageSqLite();
             storage.StageProject(project);
@@ -390,6 +393,7 @@ namespace Application.Ringtoets.Storage.Test
         public void SaveProjectAs_ValidPathToExistingFile_DoesNotThrowException()
         {
             // Setup
+            string tempRingtoetsFile = Path.Combine(testPath, Path.GetRandomFileName());
             var project = new RingtoetsProject();
             var storage = new StorageSqLite();
             storage.StageProject(project);
@@ -417,7 +421,7 @@ namespace Application.Ringtoets.Storage.Test
         public void SaveProjectAs_ValidPathToLockedFile_ThrowsUpdateStorageException()
         {
             // Setup
-            var expectedMessage = $@"Kan geen tijdelijk bestand maken van het originele bestand ({tempRingtoetsFile}).";
+            string tempRingtoetsFile = Path.Combine(testPath, Path.GetRandomFileName());
             var project = new RingtoetsProject();
             var storage = new StorageSqLite();
             storage.StageProject(project);
@@ -438,7 +442,8 @@ namespace Application.Ringtoets.Storage.Test
                 Assert.IsInstanceOf<Exception>(exception);
                 Assert.IsInstanceOf<IOException>(exception.InnerException);
                 Assert.IsInstanceOf<Exception>(exception);
-                Assert.AreEqual(expectedMessage, exception.Message);
+                Assert.AreEqual($@"Kan geen tijdelijk bestand maken van het originele bestand ({tempRingtoetsFile}).",
+                                exception.Message);
             }
             finally
             {
@@ -451,6 +456,7 @@ namespace Application.Ringtoets.Storage.Test
         public void SaveProjectAs_NoStagedProject_ThrowInvalidOperationException()
         {
             // Setup
+            string tempRingtoetsFile = Path.Combine(testPath, Path.GetRandomFileName());
             var storage = new StorageSqLite();
 
             // Precondition
@@ -471,7 +477,7 @@ namespace Application.Ringtoets.Storage.Test
             var storage = new StorageSqLite();
             storage.StageProject(new RingtoetsProject());
 
-            string path = Path.Combine(testDataPath, "ValidCharacteristics.csv");
+            string path = Path.Combine(testPath, "ValidCharacteristics.csv");
             char[] invalidCharacters = Path.GetInvalidPathChars();
             string corruptPath = path.Replace('V', invalidCharacters[0]);
 
@@ -519,6 +525,7 @@ namespace Application.Ringtoets.Storage.Test
             // Setup
             StorageSqLite storageSqLite = new StorageSqLite();
             RingtoetsProject storedProject = new RingtoetsProject();
+            string tempRingtoetsFile = Path.Combine(testPath, Path.GetRandomFileName());
 
             FileDisposeHelper fileDisposeHelper = new FileDisposeHelper(tempRingtoetsFile);
             try
@@ -547,6 +554,7 @@ namespace Application.Ringtoets.Storage.Test
             StorageSqLite storageSqLite = new StorageSqLite();
             RingtoetsProject storedProject = new RingtoetsProject();
             var changedName = "some name";
+            string tempRingtoetsFile = Path.Combine(testPath, Path.GetRandomFileName());
 
             FileDisposeHelper fileDisposeHelper = new FileDisposeHelper(tempRingtoetsFile);
             try
@@ -576,6 +584,7 @@ namespace Application.Ringtoets.Storage.Test
             StorageSqLite storageSqLite = new StorageSqLite();
             RingtoetsProject storedProject = RingtoetsProjectTestHelper.GetFullTestProject();
             var changedDescription = "some description";
+            string tempRingtoetsFile = Path.Combine(testPath, Path.GetRandomFileName());
 
             FileDisposeHelper fileDisposeHelper = new FileDisposeHelper(tempRingtoetsFile);
             try
@@ -607,6 +616,7 @@ namespace Application.Ringtoets.Storage.Test
             var projectMock = mockRepository.StrictMock<RingtoetsProject>();
             mockRepository.ReplayAll();
             var storage = new StorageSqLite();
+            string tempRingtoetsFile = Path.Combine(testPath, Path.GetRandomFileName());
 
             FileDisposeHelper fileDisposeHelper = new FileDisposeHelper(tempRingtoetsFile);
             try
