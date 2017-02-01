@@ -39,7 +39,7 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil
         private const double accuracy = 1e-6;
 
         /// <summary>
-        /// Asserts whether or not <paramref name="expectedInput"/> and <paramref name="actualInput"/> are equal to eachother.
+        /// Asserts whether or not <paramref name="expectedInput"/> and <paramref name="actualInput"/> are equal to each other.
         /// </summary>
         /// <param name="expectedInput">The expected calculation input.</param>
         /// <param name="actualInput">The actual calculation input.</param>
@@ -62,7 +62,7 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil
         }
 
         /// <summary>
-        /// Asserts whether or not <paramref name="expectedInput"/> and <paramref name="actualInput"/> are equal to eachother.
+        /// Asserts whether or not <paramref name="expectedInput"/> and <paramref name="actualInput"/> are equal to each other.
         /// </summary>
         /// <param name="expectedInput">The expected calculation input.</param>
         /// <param name="actualInput">The actual calculation input.</param>
@@ -85,7 +85,7 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil
         }
 
         /// <summary>
-        /// Asserts whether or not <paramref name="expectedInput"/> and <paramref name="actualInput"/> are equal to eachother.
+        /// Asserts whether or not <paramref name="expectedInput"/> and <paramref name="actualInput"/> are equal to each other.
         /// </summary>
         /// <param name="expectedInput">The expected calculation input.</param>
         /// <param name="actualInput">The actual calculation input.</param>
@@ -107,7 +107,7 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil
         }
 
         /// <summary>
-        /// Asserts whether or not <paramref name="expectedInput"/> and <paramref name="actualInput"/> are equal to eachother.
+        /// Asserts whether or not <paramref name="expectedInput"/> and <paramref name="actualInput"/> are equal to each other.
         /// </summary>
         /// <param name="expectedInput">The expected calculation input.</param>
         /// <param name="actualInput">The actual calculation input.</param>
@@ -129,7 +129,7 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil
         }
 
         /// <summary>
-        /// Asserts whether or not <paramref name="expectedInput"/> and <paramref name="actualInput"/> are equal to eachother.
+        /// Asserts whether or not <paramref name="expectedInput"/> and <paramref name="actualInput"/> are equal to each other.
         /// </summary>
         /// <param name="expectedInput">The expected calculation input.</param>
         /// <param name="actualInput">The actual calculation input.</param>
@@ -151,7 +151,7 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil
         }
 
         /// <summary>
-        /// Asserts whether or not <paramref name="expectedInput"/> and <paramref name="actualInput"/> are equal to eachother.
+        /// Asserts whether or not <paramref name="expectedInput"/> and <paramref name="actualInput"/> are equal to each other.
         /// </summary>
         /// <param name="expectedInput">The expected calculation input.</param>
         /// <param name="actualInput">The actual calculation input.</param>
@@ -173,7 +173,7 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil
         }
 
         /// <summary>
-        /// Asserts whether or not <paramref name="expected"/> and <paramref name="actual"/> are equal to eachother.
+        /// Asserts whether or not <paramref name="expected"/> and <paramref name="actual"/> are equal to each other.
         /// </summary>
         /// <param name="expected">The array of expected <see cref="HydraRingVariable"/>.</param>
         /// <param name="actual">The array of actual <see cref="HydraRingVariable"/>.</param>
