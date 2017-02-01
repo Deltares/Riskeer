@@ -33,7 +33,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
     /// <summary>
     /// Strategy for updating the current stochastic soil models with the imported stochastic soil models.
     /// </summary>
-    public class StochasticSoilModelUpdateDataStrategy : IStochasticSoilModelUpdateStrategy
+    public class StochasticSoilModelUpdateDataStrategy : IStochasticSoilModelUpdateModelStrategy
     {
         private readonly PipingFailureMechanism failureMechanism;
 

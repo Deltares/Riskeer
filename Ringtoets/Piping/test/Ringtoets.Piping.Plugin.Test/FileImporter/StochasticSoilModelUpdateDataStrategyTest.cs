@@ -34,7 +34,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var strategy = new StochasticSoilModelUpdateDataStrategy(new PipingFailureMechanism());
 
             // Assert
-            Assert.IsInstanceOf<IStochasticSoilModelUpdateStrategy>(strategy);
+            Assert.IsInstanceOf<IStochasticSoilModelUpdateModelStrategy>(strategy);
         }
 
         [Test]

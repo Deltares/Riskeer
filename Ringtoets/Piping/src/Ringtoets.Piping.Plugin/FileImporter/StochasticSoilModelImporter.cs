@@ -43,18 +43,18 @@ namespace Ringtoets.Piping.Plugin.FileImporter
     public class StochasticSoilModelImporter : FileImporterBase<StochasticSoilModelCollection>
     {
         private readonly ILog log = LogManager.GetLogger(typeof(StochasticSoilModelImporter));
-        private readonly IStochasticSoilModelUpdateStrategy modelUpdateStrategy;
+        private readonly IStochasticSoilModelUpdateModelStrategy modelUpdateStrategy;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="StochasticSoilModelImporter"/> class.
         /// </summary>
         /// <param name="importTarget">The collection to update.</param>
         /// <param name="filePath">The path to the file to import from.</param>
-        /// <param name="modelUpdateStrategy">The <see cref="IStochasticSoilModelUpdateStrategy"/> to use
+        /// <param name="modelUpdateStrategy">The <see cref="IStochasticSoilModelUpdateModelStrategy"/> to use
         /// when updating the <paramref name="importTarget"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="importTarget"/> or
         /// <paramref name="modelUpdateStrategy"/> is <c>null</c>.</exception>
-        public StochasticSoilModelImporter(StochasticSoilModelCollection importTarget, string filePath, IStochasticSoilModelUpdateStrategy modelUpdateStrategy)
+        public StochasticSoilModelImporter(StochasticSoilModelCollection importTarget, string filePath, IStochasticSoilModelUpdateModelStrategy modelUpdateStrategy)
             : base(filePath, importTarget)
         {
             if (modelUpdateStrategy == null)

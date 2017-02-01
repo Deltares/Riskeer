@@ -30,7 +30,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
     /// Interface describing the method of updating the data model after new stochastic soil models
     /// have been imported.
     /// </summary>
-    public interface IStochasticSoilModelUpdateStrategy
+    public interface IStochasticSoilModelUpdateModelStrategy
     {
         /// <summary>
         /// Adds the imported data to the <paramref name="targetCollection"/>.

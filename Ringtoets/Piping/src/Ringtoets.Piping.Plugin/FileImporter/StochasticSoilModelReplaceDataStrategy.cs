@@ -31,7 +31,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
     /// <summary>
     /// Strategy for replacing the stochastic soil models with the imported stochastic soil models. 
     /// </summary>
-    public class StochasticSoilModelReplaceDataStrategy : IStochasticSoilModelUpdateStrategy
+    public class StochasticSoilModelReplaceDataStrategy : IStochasticSoilModelUpdateModelStrategy
     {
         private readonly ILog log = LogManager.GetLogger(typeof(StochasticSoilModelReplaceDataStrategy));
 
