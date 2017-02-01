@@ -47,7 +47,6 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="ConsoleHelperTest.cs" />
-    <Compile Include="DefaultEnvironmentControlTest.cs" />
     <Compile Include="EnvironmentControlTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

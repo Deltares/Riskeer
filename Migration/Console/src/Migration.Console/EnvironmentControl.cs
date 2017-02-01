@@ -27,7 +27,7 @@ namespace Migration.Console
     /// <summary>
     /// Controls class for <see cref="Environment"/>.
     /// </summary>
-    public abstract class EnvironmentControl
+    public class EnvironmentControl
     {
         private static EnvironmentControl instance;
 
@@ -39,7 +39,7 @@ namespace Migration.Console
         {
             get
             {
-                return instance ?? (instance = DefaultEnvironmentControl.CurrentInstance);
+                return instance ?? (instance = new EnvironmentControl());
             }
 
             set
@@ -58,14 +58,9 @@ namespace Migration.Console
         /// </summary>
         /// <param name="exitCode">Exit code to be given to the operating system.</param>
         /// <exception cref="SecurityException">The caller does not have sufficient security permission to perform this function.</exception>
-        public abstract void Exit(int exitCode);
-
-        /// <summary>
-        /// Resets the environment to the default.
-        /// </summary>
-        public static void ResetToDefault()
+        public virtual void Exit(int exitCode)
         {
-            instance = DefaultEnvironmentControl.CurrentInstance;
+            Environment.Exit(exitCode);
         }
     }
 }

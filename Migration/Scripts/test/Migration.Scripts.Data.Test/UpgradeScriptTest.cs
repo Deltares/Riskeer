@@ -33,11 +33,8 @@ namespace Migration.Scripts.Data.Test
         [TestCase(null)]
         public void Constructor_InvalidFromVersion_ThrowsArgumentException(string fromVersion)
         {
-            // Setup
-            const string toVersion = "toVersion";
-
             // Call
-            TestDelegate call = () => new TestUpgradeScript(fromVersion, toVersion);
+            TestDelegate call = () => new TestUpgradeScript(fromVersion, "toVersion");
 
             // Assert
             string paramName = Assert.Throws<ArgumentException>(call).ParamName;
@@ -49,11 +46,8 @@ namespace Migration.Scripts.Data.Test
         [TestCase(null)]
         public void Constructor_InvalidToVersion_ThrowsArgumentException(string toVersion)
         {
-            // Setup
-            const string fromVersion = "fromVersion";
-
             // Call
-            TestDelegate call = () => new TestUpgradeScript(fromVersion, toVersion);
+            TestDelegate call = () => new TestUpgradeScript("fromVersion", toVersion);
 
             // Assert
             string paramName = Assert.Throws<ArgumentException>(call).ParamName;

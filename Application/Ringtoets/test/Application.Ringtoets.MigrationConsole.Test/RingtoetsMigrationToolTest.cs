@@ -42,12 +42,6 @@ namespace Application.Ringtoets.MigrationConsole.Test
             EnvironmentControl.Instance = environmentControl;
         }
 
-        [TearDown]
-        public void TearDown()
-        {
-            EnvironmentControl.ResetToDefault();
-        }
-
         [Test]
         public void Main_NoArguments_WritesHelpToConsole()
         {

@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using Migration.Console.TestUtil;
 using NUnit.Framework;
 
 namespace Migration.Console.Test
@@ -35,7 +34,7 @@ namespace Migration.Console.Test
             EnvironmentControl instance = EnvironmentControl.Instance;
 
             // Assert
-            Assert.IsInstanceOf<DefaultEnvironmentControl>(instance);
+            Assert.IsInstanceOf<EnvironmentControl>(instance);
         }
 
         [Test]
@@ -46,35 +45,6 @@ namespace Migration.Console.Test
 
             // Assert
             Assert.Throws<ArgumentNullException>(call);
-        }
-
-        [Test]
-        public void ResetToDefault_InstanceReplaced_SetsDefaultInstance()
-        {
-            // Setup
-            EnvironmentControl.Instance = new TestEnvironmentControl();
-
-            // Call
-            EnvironmentControl.ResetToDefault();
-
-            // Assert
-            Assert.IsInstanceOf<DefaultEnvironmentControl>(EnvironmentControl.Instance);
-        }
-
-        [Test]
-        public void Exit_WithErrorCode_SetsDefaultInstance()
-        {
-            // Setup
-            var testEnvironmentControl = new TestEnvironmentControl();
-            EnvironmentControl.Instance = testEnvironmentControl;
-            const int exitCode = 100;
-
-            // Call
-            EnvironmentControl.Instance.Exit(exitCode);
-
-            // Assert
-            int errorCodeCalled = testEnvironmentControl.ErrorCodeCalled;
-            Assert.AreEqual(exitCode, errorCodeCalled);
         }
     }
 }
