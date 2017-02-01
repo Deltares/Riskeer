@@ -102,12 +102,12 @@ namespace Application.Ringtoets.MigrationConsole.Test
         [TestCase("UnsupportedVersion8.rtd", false)]
         public void GivenConsole_WhenVersionSupportedCall_ThenReturnedIfSupported(string file, bool isSupported)
         {
-            // Scenario
+            // Given
             string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration, file);
             string consoleText;
             using (var consoleOutput = new ConsoleOutput())
             {
-                // Event
+                // When
                 RingtoetsMigrationTool.Main(new[]
                 {
                     sourceFilePath
@@ -116,18 +116,16 @@ namespace Application.Ringtoets.MigrationConsole.Test
                 consoleText = consoleOutput.GetConsoleOutput();
             }
 
-            // Result
-            Assert.AreEqual(isSupported
-                                ? @"Het projectbestand is ondersteund." + Environment.NewLine
-                                : @"Het projectbestand is niet ondersteund." + Environment.NewLine,
-                            consoleText);
+            // Then
+            Assert.AreEqual($@"Het projectbestand is {(isSupported ? "" : "niet ")}ondersteund."
+                            + Environment.NewLine, consoleText);
             Assert.AreEqual(0, environmentControl.ErrorCodeCalled);
         }
 
         [Test]
         public void GivenConsole_WhenMigrateCalledWithArguments_MigratesToNewVersion()
         {
-            // Scenario
+            // Given
             string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration, "FullTestProject164.rtd");
             string targetFilePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration, Path.GetRandomFileName());
 
@@ -136,7 +134,7 @@ namespace Application.Ringtoets.MigrationConsole.Test
                 string consoleText;
                 using (var consoleOutput = new ConsoleOutput())
                 {
-                    // Event
+                    // When
                     RingtoetsMigrationTool.Main(new[]
                     {
                         sourceFilePath,
@@ -146,7 +144,7 @@ namespace Application.Ringtoets.MigrationConsole.Test
                     consoleText = consoleOutput.GetConsoleOutput();
                 }
 
-                // Result
+                // Then
                 var expected = $"Het bestand '{sourceFilePath}' is succesvol gemigreerd naar '{targetFilePath}'."
                                + Environment.NewLine;
                 Assert.AreEqual(expected, consoleText);
@@ -160,7 +158,7 @@ namespace Application.Ringtoets.MigrationConsole.Test
         [Test]
         public void GivenConsole_WhenMigrateCalledUnableToSaveTarget_ThenExitWithErrorCode()
         {
-            // Scenario
+            // Given
             string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration, "FullTestProject164.rtd");
             string targetFilePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration, Path.GetRandomFileName());
 
@@ -169,7 +167,7 @@ namespace Application.Ringtoets.MigrationConsole.Test
             using (File.Create(targetFilePath))
             using (var consoleOutput = new ConsoleOutput())
             {
-                // Event
+                // When
                 RingtoetsMigrationTool.Main(new[]
                 {
                     sourceFilePath,
@@ -179,13 +177,14 @@ namespace Application.Ringtoets.MigrationConsole.Test
                 consoleText = consoleOutput.GetConsoleOutput();
             }
 
-            // Result
-            Assert.That(consoleText.StartsWith("Er is een onverwachte fout opgetreden tijdens het verplaatsen van het gemigreerde bestand '"));
-            Assert.That(consoleText.EndsWith($"' naar '{targetFilePath}'." + Environment.NewLine
-                                             + "Het besturingssysteem geeft de volgende melding: "
-                                             + $"The process cannot access the file '{targetFilePath}' because it is being used by another process."
-                                             + Environment.NewLine + Environment.NewLine
-                                             + GetConsoleFullDescription()));
+            // Then
+            StringAssert.StartsWith("Er is een onverwachte fout opgetreden tijdens het verplaatsen van het gemigreerde bestand '",
+                                    consoleText);
+            StringAssert.EndsWith($"' naar '{targetFilePath}'." + Environment.NewLine
+                                  + "Het besturingssysteem geeft de volgende melding: "
+                                  + $"The process cannot access the file '{targetFilePath}' because it is being used by another process."
+                                  + Environment.NewLine + Environment.NewLine
+                                  + GetConsoleFullDescription(), consoleText);
             Assert.AreEqual(22, environmentControl.ErrorCodeCalled);
         }
 

@@ -20,15 +20,12 @@
 // All rights reserved.
 
 using System;
-using System.Data;
 using System.Data.SQLite;
 using System.IO;
-using Core.Common.IO.Readers;
 using Core.Common.TestUtil;
 using Migration.Scripts.Data;
 using Migration.Scripts.Data.Exceptions;
 using NUnit.Framework;
-using Rhino.Mocks;
 
 namespace Application.Ringtoets.Migration.Test
 {
@@ -105,29 +102,6 @@ namespace Application.Ringtoets.Migration.Test
         }
 
         [Test]
-        public void Upgrade_ActualQueries_ExpectedProperties()
-        {
-            // Setup
-            var createScript = new RingtoetsCreateScript("2", "CREATE TABLE 'MigrationScript' ('Field' TEXT NOT NULL);");
-            var upgradeScript = new RingtoetsUpgradeScript("1", "2", "INSERT INTO 'MigrationScript' SELECT '{0}';");
-            var migrationScript = new FileMigrationScript(createScript, upgradeScript);
-            var versionedFile = new RingtoetsVersionedFile("c:\\file.ext");
-
-            // Call
-            IVersionedFile upgradedFile = migrationScript.Upgrade(versionedFile);
-
-            // Assert
-            Assert.IsNotNull(upgradedFile);
-
-            Assert.IsTrue(File.Exists(upgradedFile.Location));
-            using (var msdr = new MigrationScriptDatabaseReader(upgradedFile.Location))
-            {
-                Assert.IsTrue(msdr.IsValueInserted(versionedFile.Location));
-            }
-            using (new FileDisposeHelper(upgradedFile.Location)) {}
-        }
-
-        [Test]
         public void Upgrade_UpgradeFails_ThrowsCriticalMigrationException()
         {
             // Setup
@@ -165,32 +139,6 @@ namespace Application.Ringtoets.Migration.Test
             using (new FileDisposeHelper(filePath))
             {
                 Assert.IsTrue(File.Exists(filePath));
-            }
-        }
-
-        private class MigrationScriptDatabaseReader : SqLiteDatabaseReaderBase
-        {
-            public MigrationScriptDatabaseReader(string filePath) : base(filePath) {}
-
-            public bool IsValueInserted(string value)
-            {
-                const string query = "SELECT FIELD FROM 'MigrationScript';";
-                try
-                {
-                    using (IDataReader dataReader = CreateDataReader(query, null))
-                    {
-                        if (!dataReader.Read())
-                        {
-                            return false;
-                        }
-
-                        return dataReader.Read<string>("Field").Equals(value);
-                    }
-                }
-                catch
-                {
-                    return false;
-                }
             }
         }
     }

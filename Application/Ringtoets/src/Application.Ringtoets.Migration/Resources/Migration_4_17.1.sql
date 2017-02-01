@@ -1,3 +1,8 @@
+/*
+Migration script for migrating Ringtoets databases.
+SourceProject version: 4
+TargetProject version: 17.1
+*/
 PRAGMA foreign_keys = OFF;
 
 ATTACH DATABASE [{0}] AS SOURCEPROJECT;

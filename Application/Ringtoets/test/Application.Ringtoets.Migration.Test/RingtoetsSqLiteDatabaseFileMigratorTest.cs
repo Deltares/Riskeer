@@ -140,8 +140,8 @@ namespace Application.Ringtoets.Migration.Test
 
                 // Assert
                 CriticalMigrationException exception = Assert.Throws<CriticalMigrationException>(call);
-                Assert.That(exception.Message.StartsWith("Er is een onverwachte fout opgetreden tijdens het verplaatsen van het gemigreerde bestand '"));
-                Assert.That(exception.Message.EndsWith($"' naar '{targetFilePath}'."));
+                StringAssert.StartsWith("Er is een onverwachte fout opgetreden tijdens het verplaatsen van het gemigreerde bestand '", exception.Message);
+                StringAssert.EndsWith($"' naar '{targetFilePath}'.", exception.Message);
                 Assert.IsInstanceOf<IOException>(exception.InnerException);
             }
         }
@@ -187,8 +187,9 @@ namespace Application.Ringtoets.Migration.Test
 
                     // Assert
                     CriticalMigrationException exception = Assert.Throws<CriticalMigrationException>(call);
-                    Assert.That(exception.Message.StartsWith("Er is een onverwachte fout opgetreden tijdens het verplaatsen van het gemigreerde bestand '"));
-                    Assert.That(exception.Message.EndsWith($"' naar '{targetFilePath}'."));
+                    StringAssert.StartsWith("Er is een onverwachte fout opgetreden tijdens het verplaatsen van het gemigreerde bestand '", 
+                        exception.Message);
+                    StringAssert.EndsWith($"' naar '{targetFilePath}'.", exception.Message);
                     Assert.IsInstanceOf<UnauthorizedAccessException>(exception.InnerException);
                 }
                 finally

@@ -20,10 +20,8 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Threading;
-using System.Windows.Threading;
 using Application.Ringtoets.Migration;
 using Core.Common.Gui;
 using Core.Common.Gui.Forms.MainWindow;
@@ -38,60 +36,36 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
     [TestFixture]
     public class StorageMigrationIntegrationTest
     {
-        private const string tempExtension = ".temp";
-        private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration);
+        private static readonly string testPath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration);
 
         [Test]
         [Apartment(ApartmentState.STA)]
         public void GivenRingtoetsGuiWithStorageSql_WhenRunWithMigratedFile_MigratedProjectSet()
         {
-            string targetFilePath = GetRandomRingtoetsFile();
-            string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration, "FullTestProject164.rtd");
-            MigrateFile(sourceFilePath, targetFilePath);
-
-            // Given
-            var projectStore = new StorageSqLite();
-
-            using (var gui = new GuiCore(new MainWindow(), projectStore, new RingtoetsProjectFactory(), new GuiCoreSettings()))
+            string targetFilePath = Path.Combine(testPath, Path.GetRandomFileName());
+            using (new FileDisposeHelper(targetFilePath))
             {
-                // When
-                gui.Run(targetFilePath);
+                string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration, "FullTestProject164.rtd");
+                MigrateFile(sourceFilePath, targetFilePath);
 
-                // Then
-                Assert.AreEqual(targetFilePath, gui.ProjectFilePath);
-                Assert.NotNull(gui.Project);
-                string expectedProjectName = Path.GetFileNameWithoutExtension(targetFilePath);
-                Assert.AreEqual(expectedProjectName, gui.Project.Name);
-                Assert.AreEqual("description", gui.Project.Description);
-                Assert.IsInstanceOf<RingtoetsProject>(gui.Project);
+                // Given
+                var projectStore = new StorageSqLite();
+
+                using (var gui = new GuiCore(new MainWindow(), projectStore, new RingtoetsProjectFactory(), new GuiCoreSettings()))
+                {
+                    // When
+                    gui.Run(targetFilePath);
+
+                    // Then
+                    Assert.AreEqual(targetFilePath, gui.ProjectFilePath);
+                    Assert.NotNull(gui.Project);
+                    string expectedProjectName = Path.GetFileNameWithoutExtension(targetFilePath);
+                    Assert.AreEqual(expectedProjectName, gui.Project.Name);
+                    Assert.AreEqual("description", gui.Project.Description);
+                    Assert.IsInstanceOf<RingtoetsProject>(gui.Project);
+                }
+                GC.WaitForPendingFinalizers();
             }
-        }
-
-        [OneTimeTearDown]
-        public void TearDownTempRingtoetsFile()
-        {
-            IEnumerable<string> filesToDelete = Directory.EnumerateFiles(testDataPath, string.Concat("*", tempExtension));
-
-            foreach (string fileToDelete in filesToDelete)
-            {
-                TearDownTempRingtoetsFile(fileToDelete);
-            }
-            Dispatcher.CurrentDispatcher.InvokeShutdown();
-        }
-
-        private static void TearDownTempRingtoetsFile(string filePath)
-        {
-            GC.Collect();
-            GC.WaitForPendingFinalizers();
-            if (!string.IsNullOrWhiteSpace(filePath) && File.Exists(filePath))
-            {
-                File.Delete(filePath);
-            }
-        }
-
-        private static string GetRandomRingtoetsFile()
-        {
-            return Path.Combine(testDataPath, string.Concat(Path.GetRandomFileName(), tempExtension));
         }
 
         private static void MigrateFile(string sourceFilePath, string targetFilePath)
