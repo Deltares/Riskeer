@@ -56,11 +56,11 @@ namespace Migration.Console
         /// <summary>
         /// Terminates this process and gives the underlying operating system the specified exit code.
         /// </summary>
-        /// <param name="exitCode">Exit code to be given to the operating system.</param>
+        /// <param name="errorCode">Exit code to be given to the operating system.</param>
         /// <exception cref="SecurityException">The caller does not have sufficient security permission to perform this function.</exception>
-        public virtual void Exit(int exitCode)
+        public virtual void Exit(ErrorCode errorCode)
         {
-            Environment.Exit(exitCode);
+            Environment.Exit((int) errorCode);
         }
     }
 }

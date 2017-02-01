@@ -29,11 +29,11 @@ namespace Migration.Console.TestUtil
         /// <summary>
         /// Gets the error code that was used when <see cref="Exit"/> was called;
         /// </summary>
-        public int ErrorCodeCalled { get; private set; }
+        public ErrorCode ErrorCodeCalled { get; private set; }
 
-        public override void Exit(int exitCode)
+        public override void Exit(ErrorCode errorCode)
         {
-            ErrorCodeCalled = exitCode;
+            ErrorCodeCalled = errorCode;
         }
     }
 }

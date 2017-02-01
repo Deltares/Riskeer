@@ -74,7 +74,7 @@ namespace Application.Ringtoets.MigrationConsole
 
         private static void Exit(ErrorCode errorCode)
         {
-            EnvironmentControl.Instance.Exit((int) errorCode);
+            EnvironmentControl.Instance.Exit(errorCode);
         }
 
         private static void DisplayException(Exception exception)

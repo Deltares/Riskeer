@@ -44,14 +44,13 @@ namespace Migration.Console.TestUtil.Test
             // Setup
             var testEnvironmentControl = new TestEnvironmentControl();
             ErrorCode errorCodeEnum = new Random(74).NextEnumValue<ErrorCode>();
-            int errorCode = (int) errorCodeEnum;
-            testEnvironmentControl.Exit(errorCode);
+            testEnvironmentControl.Exit(errorCodeEnum);
 
             // Call
-            int called = testEnvironmentControl.ErrorCodeCalled;
+            ErrorCode called = testEnvironmentControl.ErrorCodeCalled;
 
             // Assert
-            Assert.AreEqual(errorCode, called);
+            Assert.AreEqual(errorCodeEnum, called);
         }
     }
 }

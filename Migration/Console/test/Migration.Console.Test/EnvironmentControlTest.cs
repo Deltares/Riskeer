@@ -34,7 +34,7 @@ namespace Migration.Console.Test
             EnvironmentControl instance = EnvironmentControl.Instance;
 
             // Assert
-            Assert.IsInstanceOf<EnvironmentControl>(instance);
+            Assert.IsNotNull(instance);
         }
 
         [Test]

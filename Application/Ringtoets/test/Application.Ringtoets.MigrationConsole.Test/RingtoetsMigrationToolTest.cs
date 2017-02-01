@@ -60,7 +60,7 @@ namespace Application.Ringtoets.MigrationConsole.Test
             // Assert
             var expectedText = GetConsoleFullDescription();
             Assert.AreEqual(expectedText, consoleText);
-            Assert.AreEqual(0, environmentControl.ErrorCodeCalled);
+            Assert.AreEqual(ErrorCode.ErrorSuccess, environmentControl.ErrorCodeCalled);
         }
 
         [Test]
@@ -88,7 +88,7 @@ namespace Application.Ringtoets.MigrationConsole.Test
                                + Environment.NewLine + Environment.NewLine
                                + GetConsoleFullDescription();
             Assert.AreEqual(expectedText, consoleText);
-            Assert.AreEqual(22, environmentControl.ErrorCodeCalled);
+            Assert.AreEqual(ErrorCode.ErrorBadCommand, environmentControl.ErrorCodeCalled);
         }
 
         [Test]
@@ -113,7 +113,7 @@ namespace Application.Ringtoets.MigrationConsole.Test
             // Then
             Assert.AreEqual($@"Het projectbestand is {(isSupported ? "" : "niet ")}ondersteund."
                             + Environment.NewLine, consoleText);
-            Assert.AreEqual(0, environmentControl.ErrorCodeCalled);
+            Assert.AreEqual(ErrorCode.ErrorSuccess, environmentControl.ErrorCodeCalled);
         }
 
         [Test]
@@ -146,7 +146,7 @@ namespace Application.Ringtoets.MigrationConsole.Test
                 string expectedVersion = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
                 Assert.AreEqual(expectedVersion, toVersionedFile.GetVersion());
             }
-            Assert.AreEqual(0, environmentControl.ErrorCodeCalled);
+            Assert.AreEqual(ErrorCode.ErrorSuccess, environmentControl.ErrorCodeCalled);
         }
 
         [Test]
@@ -179,7 +179,7 @@ namespace Application.Ringtoets.MigrationConsole.Test
                                   + $"The process cannot access the file '{targetFilePath}' because it is being used by another process."
                                   + Environment.NewLine + Environment.NewLine
                                   + GetConsoleFullDescription(), consoleText);
-            Assert.AreEqual(22, environmentControl.ErrorCodeCalled);
+            Assert.AreEqual(ErrorCode.ErrorBadCommand, environmentControl.ErrorCodeCalled);
         }
 
         private static string GetConsoleFullDescription()
