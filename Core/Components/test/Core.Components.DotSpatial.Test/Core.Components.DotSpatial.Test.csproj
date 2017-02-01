@@ -105,6 +105,7 @@
     <Compile Include="Converter\MapLineDataConverterTest.cs" />
     <Compile Include="Converter\MapPolygonDataConverterTest.cs" />
     <Compile Include="Converter\FeatureBasedMapDataConverterTest.cs" />
+    <Compile Include="Layer\BruTile\BruTileLayerTest.cs" />
     <Compile Include="Layer\BruTile\Configurations\BruTileReflectionHelperTest.cs" />
     <Compile Include="Layer\BruTile\Configurations\CannotCreateTileCacheExceptionTest.cs" />
     <Compile Include="Layer\BruTile\Configurations\CannotFindTileSourceExceptionTest.cs" />

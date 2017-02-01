@@ -107,6 +107,7 @@ namespace Core.Components.DotSpatial.Layer.BruTile
         private float transparency;
 
         private string level;
+        private static readonly ProjectionInfo defaultProjection = new ProjectionInfo();
 
         /// <summary>
         /// Creates an instance of this class using some tile source configuration.
@@ -335,23 +336,16 @@ namespace Core.Components.DotSpatial.Layer.BruTile
         private static ProjectionInfo GetTileSourceProjectionInfo(string spatialReferenceSystemString)
         {
             ProjectionInfo projectionInfo;
-            // For WMTS, 'spatialReferenceSystemString' might be some crude value (urn-string):
-            string authorityCode = ToAuthorityCode(spatialReferenceSystemString);
-            if (!string.IsNullOrWhiteSpace(authorityCode))
+            if (!TryParseProjectionEsri(spatialReferenceSystemString, out projectionInfo))
             {
-                projectionInfo = AuthorityCodeHandler.Instance[authorityCode];
-            }
-            else
-            {
-                ProjectionInfo p;
-                if (!TryParseProjectionEsri(spatialReferenceSystemString, out p))
+                if (!TryParseProjectionProj4(spatialReferenceSystemString, out projectionInfo))
                 {
-                    if (!TryParseProjectionProj4(spatialReferenceSystemString, out p))
-                    {
-                        p = null;
-                    }
+                    // For WMTS, 'spatialReferenceSystemString' might be some crude value (urn-string):
+                    string authorityCode = ToAuthorityCode(spatialReferenceSystemString);
+                    projectionInfo = !string.IsNullOrWhiteSpace(authorityCode) ?
+                                         AuthorityCodeHandler.Instance[authorityCode] :
+                                         null;
                 }
-                projectionInfo = p;
             }
 
             if (projectionInfo == null)
@@ -360,7 +354,7 @@ namespace Core.Components.DotSpatial.Layer.BruTile
             }
 
             // WebMercator: set datum to WGS1984 for better accuracy 
-            if (spatialReferenceSystemString == webMercatorEpsgIdentifier)
+            if (projectionInfo.Name == webMercatorEpsgIdentifier)
             {
                 projectionInfo.GeographicInfo.Datum = KnownCoordinateSystems.Geographic.World.WGS1984.GeographicInfo.Datum;
             }
@@ -378,6 +372,14 @@ namespace Core.Components.DotSpatial.Layer.BruTile
             {
                 projectionInfo = null;
             }
+
+            // Compensate for ProjectionInfo.FromProj4String returning a default constructed 
+            // ProjectionInfo instance if parsing failed:
+            if (defaultProjection.Equals(projectionInfo))
+            {
+                projectionInfo = null;
+            }
+
             return projectionInfo != null;
         }
 
@@ -427,7 +429,7 @@ namespace Core.Components.DotSpatial.Layer.BruTile
                 return srs;
             }
 
-            // More than 1 colon => assume urn:ogc:def:crs:EPSG:6.18.3:3857
+            // More than 1 colon => assume format urn:ogc:def:crs:EPSG:6.18.3:3857
             if (srsParts.Length > 4)
             {
                 return $"{srsParts[4]}:{srsParts.Last()}";
