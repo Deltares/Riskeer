@@ -47,10 +47,11 @@ namespace Application.Ringtoets.Migration
         public RingtoetsDatabaseSourceFile(string databaseFilePath) : base(databaseFilePath) {}
 
         /// <summary>
-        /// Gets the current version.
+        /// Gets the version of the Ringtoets database source file at location <see cref="SqLiteDatabaseReaderBase.Path"/>.
         /// </summary>
-        /// <returns>The version.</returns>
-        /// <exception cref="StorageValidationException">Thrown when is not a valid file.</exception>
+        /// <returns>The version of the file.</returns>
+        /// <exception cref="StorageValidationException">Thrown when the file is not a valid 
+        /// Ringtoets database source file.</exception>
         public string GetVersion()
         {
             string versionQuery = RingtoetsDatabaseQueryBuilder.GetVersionQuery();

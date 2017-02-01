@@ -48,7 +48,7 @@ namespace Application.Ringtoets.Migration.Test
 
             // Assert
             var exception = Assert.Throws<CriticalFileReadException>(test);
-            Assert.AreEqual($"Fout bij het lezen van bestand '{filePath}': {"het bestand bestaat niet."}",
+            Assert.AreEqual($"Fout bij het lezen van bestand '{filePath}': het bestand bestaat niet.",
                             exception.Message);
         }
 
@@ -65,7 +65,7 @@ namespace Application.Ringtoets.Migration.Test
 
             // Assert
             var exception = Assert.Throws<CriticalFileReadException>(test);
-            Assert.AreEqual($"Fout bij het lezen van bestand '{filePath}': {"bestandspad mag niet leeg of ongedefinieerd zijn."}",
+            Assert.AreEqual($"Fout bij het lezen van bestand '{filePath}': bestandspad mag niet leeg of ongedefinieerd zijn.",
                             exception.Message);
         }
 
