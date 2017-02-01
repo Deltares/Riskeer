@@ -34,9 +34,14 @@ using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.IO.FileImporters;
+using Ringtoets.Common.Service;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Service;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
+using Ringtoets.HydraRing.Calculation.Data;
+using Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics;
+using Ringtoets.HydraRing.Calculation.Data.Input.Overtopping;
+using Ringtoets.HydraRing.Calculation.TestUtil;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 using Ringtoets.Integration.Data;
 
@@ -887,6 +892,149 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
                     StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[6]);
                 });
                 Assert.AreEqual(ActivityState.Executed, activity.State);
+            }
+        }
+
+        [Test]
+        public void Run_ValidOvertoppingCalculation_InputPropertiesCorrectlySendToService()
+        {
+            // Setup
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            ImportHydraulicBoundaryDatabase(assessmentSection);
+            AddSectionToAssessmentSection(assessmentSection);
+
+            var calculation = new GrassCoverErosionInwardsCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    DikeProfile = CreateDikeProfile()
+                }
+            };
+
+            var activity = new GrassCoverErosionInwardsCalculationActivity(calculation, validFile, assessmentSection.GrassCoverErosionInwards, assessmentSection);
+
+            using (new HydraRingCalculatorFactoryConfig())
+            {
+                // Call
+                activity.Run();
+
+                // Assert
+                var testOvertoppingCalculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).OvertoppingCalculator;
+                OvertoppingCalculationInput[] overtoppingCalculationInputs = testOvertoppingCalculator.ReceivedInputs.ToArray();
+                Assert.AreEqual(1, overtoppingCalculationInputs.Length);
+
+                OvertoppingCalculationInput actualInput = overtoppingCalculationInputs[0];
+                GeneralGrassCoverErosionInwardsInput generalInput = assessmentSection.GrassCoverErosionInwards.GeneralInput;
+
+                var input = calculation.InputParameters;
+                var expectedInput = new OvertoppingCalculationInput(calculation.InputParameters.HydraulicBoundaryLocation.Id,
+                                                                    calculation.InputParameters.Orientation,
+                                                                    calculation.InputParameters.DikeGeometry.Select(roughnessPoint => new HydraRingRoughnessProfilePoint(roughnessPoint.Point.X, roughnessPoint.Point.Y, roughnessPoint.Roughness)),
+                                                                    input.ForeshoreGeometry.Select(c => new HydraRingForelandPoint(c.X, c.Y)),
+                                                                    new HydraRingBreakWater((int) input.BreakWater.Type, input.BreakWater.Height),
+                                                                    calculation.InputParameters.DikeHeight,
+                                                                    generalInput.CriticalOvertoppingModelFactor,
+                                                                    generalInput.FbFactor.Mean,
+                                                                    generalInput.FbFactor.StandardDeviation,
+                                                                    generalInput.FbFactor.LowerBoundary,
+                                                                    generalInput.FbFactor.UpperBoundary,
+                                                                    generalInput.FnFactor.Mean,
+                                                                    generalInput.FnFactor.StandardDeviation,
+                                                                    generalInput.FnFactor.LowerBoundary,
+                                                                    generalInput.FnFactor.UpperBoundary,
+                                                                    generalInput.OvertoppingModelFactor,
+                                                                    calculation.InputParameters.CriticalFlowRate.Mean,
+                                                                    calculation.InputParameters.CriticalFlowRate.StandardDeviation,
+                                                                    generalInput.FrunupModelFactor.Mean,
+                                                                    generalInput.FrunupModelFactor.StandardDeviation,
+                                                                    generalInput.FrunupModelFactor.LowerBoundary,
+                                                                    generalInput.FrunupModelFactor.UpperBoundary,
+                                                                    generalInput.FshallowModelFactor.Mean,
+                                                                    generalInput.FshallowModelFactor.StandardDeviation,
+                                                                    generalInput.FshallowModelFactor.LowerBoundary,
+                                                                    generalInput.FshallowModelFactor.UpperBoundary);
+
+                HydraRingDataEqualityHelper.AreEqual(expectedInput, actualInput);
+                Assert.AreEqual(testDataPath, testOvertoppingCalculator.HydraulicBoundaryDatabaseDirectory);
+                Assert.AreEqual(assessmentSection.Id, testOvertoppingCalculator.RingId);
+            }
+        }
+
+        [Test]
+        [TestCase(DikeHeightCalculationType.CalculateByAssessmentSectionNorm, TestName = "Run_ValidDikeHeightCalculation_InputPropertiesCorrectlySendToService(AssessmentSectionNorm)")]
+        [TestCase(DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability, TestName = "Run_ValidDikeHeightCalculation_InputPropertiesCorrectlySendToService(ProfileProbability)")]
+        public void Run_ValidDikeHeightCalculation_InputPropertiesCorrectlySendToService(DikeHeightCalculationType dikeHeightCalculationType)
+        {
+            // Setup
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            ImportHydraulicBoundaryDatabase(assessmentSection);
+            AddSectionToAssessmentSection(assessmentSection);
+
+            var calculation = new GrassCoverErosionInwardsCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    DikeProfile = CreateDikeProfile(),
+                    DikeHeightCalculationType = dikeHeightCalculationType
+                }
+            };
+
+            var activity = new GrassCoverErosionInwardsCalculationActivity(calculation, validFile, assessmentSection.GrassCoverErosionInwards, assessmentSection);
+
+            using (new HydraRingCalculatorFactoryConfig())
+            {
+                // Call
+                activity.Run();
+
+                // Assert
+                var dikeHeightCalculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).DikeHeightCalculator;
+                DikeHeightCalculationInput[] dikeHeightCalculationInputs = dikeHeightCalculator.ReceivedInputs.ToArray();
+                Assert.AreEqual(1, dikeHeightCalculationInputs.Length);
+
+                DikeHeightCalculationInput actualInput = dikeHeightCalculationInputs[0];
+                GeneralGrassCoverErosionInwardsInput generalInput = assessmentSection.GrassCoverErosionInwards.GeneralInput;
+
+                var input = calculation.InputParameters;
+
+                var norm = dikeHeightCalculationType == DikeHeightCalculationType.CalculateByAssessmentSectionNorm
+                               ? assessmentSection.FailureMechanismContribution.Norm
+                               : RingtoetsCommonDataCalculationService.ProfileSpecificRequiredProbability(
+                                   assessmentSection.FailureMechanismContribution.Norm,
+                                   assessmentSection.GrassCoverErosionInwards.Contribution,
+                                   generalInput.N);
+
+                var expectedInput = new DikeHeightCalculationInput(calculation.InputParameters.HydraulicBoundaryLocation.Id,
+                                                                   norm,
+                                                                   calculation.InputParameters.Orientation,
+                                                                   calculation.InputParameters.DikeGeometry.Select(roughnessPoint => new HydraRingRoughnessProfilePoint(roughnessPoint.Point.X, roughnessPoint.Point.Y, roughnessPoint.Roughness)),
+                                                                   input.ForeshoreGeometry.Select(c => new HydraRingForelandPoint(c.X, c.Y)),
+                                                                   new HydraRingBreakWater((int) input.BreakWater.Type, input.BreakWater.Height),
+                                                                   generalInput.CriticalOvertoppingModelFactor,
+                                                                   generalInput.FbFactor.Mean,
+                                                                   generalInput.FbFactor.StandardDeviation,
+                                                                   generalInput.FbFactor.LowerBoundary,
+                                                                   generalInput.FbFactor.UpperBoundary,
+                                                                   generalInput.FnFactor.Mean,
+                                                                   generalInput.FnFactor.StandardDeviation,
+                                                                   generalInput.FnFactor.LowerBoundary,
+                                                                   generalInput.FnFactor.UpperBoundary,
+                                                                   generalInput.OvertoppingModelFactor,
+                                                                   calculation.InputParameters.CriticalFlowRate.Mean,
+                                                                   calculation.InputParameters.CriticalFlowRate.StandardDeviation,
+                                                                   generalInput.FrunupModelFactor.Mean,
+                                                                   generalInput.FrunupModelFactor.StandardDeviation,
+                                                                   generalInput.FrunupModelFactor.LowerBoundary,
+                                                                   generalInput.FrunupModelFactor.UpperBoundary,
+                                                                   generalInput.FshallowModelFactor.Mean,
+                                                                   generalInput.FshallowModelFactor.StandardDeviation,
+                                                                   generalInput.FshallowModelFactor.LowerBoundary,
+                                                                   generalInput.FshallowModelFactor.UpperBoundary);
+
+                HydraRingDataEqualityHelper.AreEqual(expectedInput, actualInput);
+                Assert.AreEqual(testDataPath, dikeHeightCalculator.HydraulicBoundaryDatabaseDirectory);
+                Assert.AreEqual(assessmentSection.Id, dikeHeightCalculator.RingId);
             }
         }
 

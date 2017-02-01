@@ -23,6 +23,8 @@ using System.Linq;
 using NUnit.Framework;
 using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Data.Input;
+using Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics;
+using Ringtoets.HydraRing.Calculation.Data.Input.Overtopping;
 using Ringtoets.HydraRing.Calculation.Data.Input.Structures;
 using Ringtoets.HydraRing.Calculation.Data.Input.WaveConditions;
 using Ringtoets.HydraRing.Calculation.Data.Variables;
@@ -35,6 +37,52 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil
     public static class HydraRingDataEqualityHelper
     {
         private const double accuracy = 1e-6;
+
+        /// <summary>
+        /// Asserts whether or not <paramref name="expectedInput"/> and <paramref name="actualInput"/> are equal to eachother.
+        /// </summary>
+        /// <param name="expectedInput">The expected calculation input.</param>
+        /// <param name="actualInput">The actual calculation input.</param>
+        public static void AreEqual(OvertoppingCalculationInput expectedInput, OvertoppingCalculationInput actualInput)
+        {
+            Assert.AreEqual(expectedInput.FailureMechanismType, actualInput.FailureMechanismType);
+            Assert.AreEqual(expectedInput.CalculationTypeId, actualInput.CalculationTypeId);
+            Assert.AreEqual(expectedInput.VariableId, actualInput.VariableId);
+            Assert.AreEqual(expectedInput.HydraulicBoundaryLocationId, actualInput.HydraulicBoundaryLocationId);
+            Assert.AreEqual(expectedInput.Section.SectionId, actualInput.Section.SectionId);
+
+            Assert.AreEqual(expectedInput.Beta, actualInput.Beta, accuracy);
+            Assert.AreEqual(expectedInput.Section.CrossSectionNormal, actualInput.Section.CrossSectionNormal, accuracy);
+
+            AreEqual(expectedInput.BreakWater, actualInput.BreakWater);
+            AreEqual(expectedInput.Section, actualInput.Section);
+            AreEqual(expectedInput.ProfilePoints.ToArray(), actualInput.ProfilePoints.ToArray());
+            AreEqual(expectedInput.ForelandsPoints.ToArray(), actualInput.ForelandsPoints.ToArray());
+            AreEqual(expectedInput.Variables.ToArray(), actualInput.Variables.ToArray());
+        }
+
+        /// <summary>
+        /// Asserts whether or not <paramref name="expectedInput"/> and <paramref name="actualInput"/> are equal to eachother.
+        /// </summary>
+        /// <param name="expectedInput">The expected calculation input.</param>
+        /// <param name="actualInput">The actual calculation input.</param>
+        public static void AreEqual(DikeHeightCalculationInput expectedInput, DikeHeightCalculationInput actualInput)
+        {
+            Assert.AreEqual(expectedInput.FailureMechanismType, actualInput.FailureMechanismType);
+            Assert.AreEqual(expectedInput.CalculationTypeId, actualInput.CalculationTypeId);
+            Assert.AreEqual(expectedInput.VariableId, actualInput.VariableId);
+            Assert.AreEqual(expectedInput.HydraulicBoundaryLocationId, actualInput.HydraulicBoundaryLocationId);
+            Assert.AreEqual(expectedInput.Section.SectionId, actualInput.Section.SectionId);
+
+            Assert.AreEqual(expectedInput.Beta, actualInput.Beta, accuracy);
+            Assert.AreEqual(expectedInput.Section.CrossSectionNormal, actualInput.Section.CrossSectionNormal, accuracy);
+
+            AreEqual(expectedInput.BreakWater, actualInput.BreakWater);
+            AreEqual(expectedInput.Section, actualInput.Section);
+            AreEqual(expectedInput.ProfilePoints.ToArray(), actualInput.ProfilePoints.ToArray());
+            AreEqual(expectedInput.ForelandsPoints.ToArray(), actualInput.ForelandsPoints.ToArray());
+            AreEqual(expectedInput.Variables.ToArray(), actualInput.Variables.ToArray());
+        }
 
         /// <summary>
         /// Asserts whether or not <paramref name="expectedInput"/> and <paramref name="actualInput"/> are equal to eachother.
@@ -157,6 +205,18 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil
             Assert.AreEqual(expectedSection.SectionLength, actualSection.SectionLength, accuracy);
             Assert.AreEqual(expectedSection.CrossSectionNormal, actualSection.CrossSectionNormal, accuracy);
             Assert.AreEqual(expectedSection.SectionId, actualSection.SectionId);
+        }
+
+        private static void AreEqual(HydraRingProfilePoint[] expectedProfilePoints, HydraRingProfilePoint[] actualProfilePoints)
+        {
+            Assert.AreEqual(expectedProfilePoints.Length, actualProfilePoints.Length);
+
+            for (int i = 0; i < expectedProfilePoints.Length; i++)
+            {
+                Assert.AreEqual(expectedProfilePoints[i].X, actualProfilePoints[i].X, accuracy);
+                Assert.AreEqual(expectedProfilePoints[i].Z, actualProfilePoints[i].Z, accuracy);
+                Assert.AreEqual(expectedProfilePoints[i].Roughness, actualProfilePoints[i].Roughness, accuracy);
+            }
         }
 
         private static void AreEqual(HydraRingForelandPoint[] expectedForelandPoints, HydraRingForelandPoint[] actualForelandPoints)
