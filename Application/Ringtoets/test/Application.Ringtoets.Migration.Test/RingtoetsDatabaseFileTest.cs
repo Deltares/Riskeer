@@ -96,8 +96,7 @@ namespace Application.Ringtoets.Migration.Test
                 TestDelegate call = () => databaseFile.ExecuteQuery(query);
 
                 // Assert
-                TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call,
-                                                                                          "Parameter must be a valid database script.");
+                TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, "Parameter must be a valid database script.");
             }
         }
 

@@ -28,7 +28,7 @@ using Migration.Scripts.Data.Exceptions;
 namespace Application.Ringtoets.Migration
 {
     /// <summary>
-    /// Class that provides methods for the creating a <see cref="RingtoetsVersionedFile"/> for a specific version.
+    /// Class that provides methods for creating a <see cref="RingtoetsVersionedFile"/> for a specific version.
     /// </summary>
     public class RingtoetsCreateScript : CreateScript
     {

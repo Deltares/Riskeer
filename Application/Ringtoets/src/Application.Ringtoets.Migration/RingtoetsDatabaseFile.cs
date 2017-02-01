@@ -28,7 +28,7 @@ using Core.Common.Utils;
 namespace Application.Ringtoets.Migration
 {
     /// <summary>
-    /// Class that provides methods for the migration a Ringtoets database target file.
+    /// Class that provides methods for the migration of a Ringtoets database target file.
     /// </summary>
     public class RingtoetsDatabaseFile : IDisposable
     {
@@ -101,7 +101,6 @@ namespace Application.Ringtoets.Migration
 
             if (disposing)
             {
-                connection?.Close();
                 connection?.Dispose();
                 connection = null;
             }

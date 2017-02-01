@@ -51,8 +51,8 @@
     <Compile Include="TestEnvironmentControl.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\..\..\build\Copying.licenseheader">
-      <Link>Copying.licenseheader</Link>
+    <None Include="..\..\..\..\build\Copying.Lesser.licenseheader">
+      <Link>Copying.Lesser.licenseheader</Link>
     </None>
   </ItemGroup>
   <ItemGroup>

@@ -31,12 +31,14 @@ namespace Application.Ringtoets.Migration.Test
     [TestFixture]
     public class RingtoetsDatabaseSourceFileTest
     {
+        private static TestDataPath TestDataPath => TestDataPath.Application.Ringtoets.Migration;
+
         [Test]
         public void Constructor_NonExistingPath_ThrowsCriticalFileReadException()
         {
             // Setup
-            string filename = Path.GetRandomFileName();
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration, filename);
+            string fileName = Path.GetRandomFileName();
+            string filePath = TestHelper.GetTestDataPath(TestDataPath, fileName);
 
             // Call
             TestDelegate test = () =>
@@ -71,8 +73,8 @@ namespace Application.Ringtoets.Migration.Test
         public void Constructor_ValidPath_ExpectedProperties()
         {
             // Setup
-            string filename = Path.GetRandomFileName();
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration, filename);
+            string fileName = Path.GetRandomFileName();
+            string filePath = TestHelper.GetTestDataPath(TestDataPath, fileName);
 
             // Call
             using (new FileDisposeHelper(filePath))
@@ -87,8 +89,8 @@ namespace Application.Ringtoets.Migration.Test
         public void GetVersion_EmptyFile_ThrowsStorageValidationException()
         {
             // Setup
-            string filename = Path.GetRandomFileName();
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration, filename);
+            string fileName = Path.GetRandomFileName();
+            string filePath = TestHelper.GetTestDataPath(TestDataPath, fileName);
 
             using (new FileDisposeHelper(filePath))
             using (var file = new RingtoetsDatabaseSourceFile(filePath))
@@ -107,7 +109,7 @@ namespace Application.Ringtoets.Migration.Test
         public void GetVersion_EmptyRingtoetsDatabaseFile_ReturnsEmpty()
         {
             // Setup
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration, "EmptyDatabase.rtd");
+            string filePath = TestHelper.GetTestDataPath(TestDataPath, "EmptyDatabase.rtd");
 
             using (var file = new RingtoetsDatabaseSourceFile(filePath))
             {
