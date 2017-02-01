@@ -24,6 +24,8 @@ namespace Migration.Console
     /// <summary>
     /// Enumeration that defines the possible exit codes of an application.
     /// </summary>
+    /// <remarks>See <a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ms681381(v=vs.85).aspx">
+    /// System Error Codes</a></remarks>
     public enum ErrorCode
     {
         /// <summary>
@@ -32,7 +34,7 @@ namespace Migration.Console
         ErrorSuccess = 0,
 
         /// <summary>
-        /// Exit because the command provide failed.
+        /// Exit because the command provided failed.
         /// </summary>
         ErrorBadCommand = 22,
 

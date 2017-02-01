@@ -42,9 +42,8 @@ namespace Core.Common.IO
         {
             if (string.IsNullOrWhiteSpace(filePath))
             {
-                throw new ArgumentNullException(nameof(filePath), @"Cannot create a connection "
-                                                                  + @"string without the path to "
-                                                                  + @"the file to connect to.");
+                const string message = @"Cannot create a connection string without the path to the file to connect to.";
+                throw new ArgumentNullException(nameof(filePath), message);
             }
             return new SQLiteConnectionStringBuilder
             {

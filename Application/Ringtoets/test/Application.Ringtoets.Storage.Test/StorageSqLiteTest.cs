@@ -359,7 +359,7 @@ namespace Application.Ringtoets.Storage.Test
             // Assert
             ArgumentException exception = Assert.Throws<ArgumentException>(test);
             Assert.AreEqual($"Fout bij het lezen van bestand '{invalidPath}': bestandspad mag niet "
-                            + " leeg of ongedefinieerd zijn.", exception.Message);
+                            + "leeg of ongedefinieerd zijn.", exception.Message);
         }
 
         [Test]

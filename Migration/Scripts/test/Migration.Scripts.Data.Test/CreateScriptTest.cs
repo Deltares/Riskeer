@@ -30,6 +30,8 @@ namespace Migration.Scripts.Data.Test
     [TestFixture]
     public class CreateScriptTest
     {
+        private static readonly TestDataPath testPath = TestDataPath.Migration.Core.Storage;
+
         [Test]
         [TestCase("")]
         [TestCase(null)]
@@ -63,7 +65,7 @@ namespace Migration.Scripts.Data.Test
             const string version = "Valid version";
 
             string targetFilename = Path.GetRandomFileName();
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Migration.Core.Storage, targetFilename);
+            string filePath = TestHelper.GetTestDataPath(testPath, targetFilename);
             var createScript = new TestCreateScript(version);
 
             // Call
@@ -99,7 +101,7 @@ namespace Migration.Scripts.Data.Test
             const string version = "Valid version";
 
             string filename = Path.GetRandomFileName();
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Migration.Core.Storage, filename);
+            string filePath = TestHelper.GetTestDataPath(testPath, filename);
             var createScript = new TestCreateScript(version);
 
             using (new FileDisposeHelper(filePath))

@@ -39,7 +39,7 @@ namespace Migration.Console.Test
         public void WriteErrorLine_StringNull_ThrowsArgumentNullException()
         {
             // Setup
-            var originalColor = SystemConsole.ForegroundColor;
+            ConsoleColor originalColor = SystemConsole.ForegroundColor;
             const string args = "an argument";
 
             // Call
@@ -55,7 +55,7 @@ namespace Migration.Console.Test
         public void WriteErrorLine_ArgsNull_ThrowsArgumentNullException()
         {
             // Setup
-            var originalColor = SystemConsole.ForegroundColor;
+            ConsoleColor originalColor = SystemConsole.ForegroundColor;
             const string writeLine = "this is an error line with {0}";
 
             // Call
@@ -71,7 +71,7 @@ namespace Migration.Console.Test
         public void WriteErrorLine_StringAndParamArgs_WritesExpectedLine()
         {
             // Setup
-            var originalColor = SystemConsole.ForegroundColor;
+            ConsoleColor originalColor = SystemConsole.ForegroundColor;
             const string writeLine = "this is an error line with {0}";
             const string args = "an argument";
             string consoleText;
@@ -92,7 +92,7 @@ namespace Migration.Console.Test
         public void WriteErrorLine_String_WritesExpectedLine()
         {
             // Setup
-            var originalColor = SystemConsole.ForegroundColor;
+            ConsoleColor originalColor = SystemConsole.ForegroundColor;
             const string writeLine = "this is an error line";
             string consoleText;
 
@@ -165,8 +165,8 @@ namespace Migration.Console.Test
             }
 
             // Assert
-            var expectedText = string.Concat("          ", string.Format(writeLine, args),
-                                             Environment.NewLine, Environment.NewLine);
+            string expectedText = string.Concat("          ", string.Format(writeLine, args),
+                                                Environment.NewLine, Environment.NewLine);
             Assert.AreEqual(expectedText, consoleText);
         }
 
@@ -185,8 +185,7 @@ namespace Migration.Console.Test
             }
 
             // Assert
-            var expectedText = string.Concat("          ", writeLine, Environment.NewLine,
-                                             Environment.NewLine);
+            var expectedText = string.Concat("          ", writeLine, Environment.NewLine, Environment.NewLine);
             Assert.AreEqual(expectedText, consoleText);
         }
 

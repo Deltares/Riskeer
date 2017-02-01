@@ -54,7 +54,7 @@ namespace Migration.Scripts.Data
         }
 
         /// <summary>
-        /// Gets the supported version.
+        /// Gets the version number from which files can be upgraded by the script.
         /// </summary>
         /// <returns>The supported version.</returns>
         public string SupportedVersion()
@@ -63,7 +63,7 @@ namespace Migration.Scripts.Data
         }
 
         /// <summary>
-        /// Gets the target version.
+        /// Gets the version number to which files will be upgraded by the script.
         /// </summary>
         /// <returns>The target version.</returns>
         public string TargetVersion()
