@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -40,7 +41,7 @@ namespace Ringtoets.Piping.Data.Test
             StochasticSoilModel stochasticSoilModelSegment = new StochasticSoilModel(segmentSoilModelId, segmentSoilModelName, segmentName);
 
             // Assert
-            Assert.IsInstanceOf<StochasticSoilModel>(stochasticSoilModelSegment);
+            Assert.IsInstanceOf<Observable>(stochasticSoilModelSegment);
             Assert.AreEqual(segmentSoilModelId, stochasticSoilModelSegment.Id);
             Assert.AreEqual(segmentSoilModelName, stochasticSoilModelSegment.Name);
             Assert.AreEqual(segmentName, stochasticSoilModelSegment.SegmentName);

@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
+using Core.Common.Utils;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Plugin.Properties;
 using Ringtoets.Piping.Service;
@@ -103,17 +104,18 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             List<StochasticSoilModel> updatedModels = GetUpdatedExistingModels(targetCollection, readModelList).ToList();
             List<StochasticSoilModel> removedModels = GetRemovedExistingModels(targetCollection, readModelList).ToList();
 
-            var affectedObjects = new List<IObservable>
+            var affectedObjects = new List<IObservable>();
+            if (addedModels.Any())
             {
-                targetCollection
-            };
+                affectedObjects.Add(targetCollection);
+            }
             affectedObjects.AddRange(UpdateModels(updatedModels, readModelList));
             affectedObjects.AddRange(RemoveModels(removedModels));
 
             targetCollection.Clear();
             targetCollection.AddRange(addedModels.Union(updatedModels), sourceFilePath);
 
-            return affectedObjects;
+            return affectedObjects.Distinct(new ReferenceEqualityComparer<IObservable>());
         }
 
         private static IEnumerable<StochasticSoilModel> GetAddedReadModels(IEnumerable<StochasticSoilModel> existingCollection, IEnumerable<StochasticSoilModel> readStochasticSoilModels)
@@ -147,6 +149,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             var affectedObjects = new List<IObservable>();
             foreach (StochasticSoilModel updatedModel in updatedModels)
             {
+                affectedObjects.Add(updatedModel);
                 StochasticSoilModel readModel = readModels.Single(r => r.Name.Equals(updatedModel.Name));
                 affectedObjects.AddRange(UpdateStochasticSoilModel(updatedModel, readModel));
             }
