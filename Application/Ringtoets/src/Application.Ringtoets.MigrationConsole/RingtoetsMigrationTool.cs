@@ -25,6 +25,7 @@ using Application.Ringtoets.Migration;
 using Application.Ringtoets.MigrationConsole.Properties;
 using Migration.Console;
 using Migration.Scripts.Data.Exceptions;
+using Ringtoets.Common.Utils;
 using MigrationConsoleResources = Migration.Console.Properties.Resources;
 
 namespace Application.Ringtoets.MigrationConsole
@@ -37,6 +38,7 @@ namespace Application.Ringtoets.MigrationConsole
         private const string commandMigrate = "--migrate";
         private const string commandVersionSupported = "--supported";
         private const string commandHelp = "--help";
+        private const string commandHelpShort = "-h";
 
         /// <summary>
         /// Main Ringtoets migration application.
@@ -89,18 +91,23 @@ namespace Application.Ringtoets.MigrationConsole
         private static void ExecuteCommand(string[] args)
         {
             string command = args.FirstOrDefault() ?? commandHelp;
-            switch (command)
+            if (command.Equals(commandHelp) || command.Equals(commandHelpShort))
             {
-                case commandMigrate:
-                    MigrateCommand(args);
+                DisplayAllCommands();
+                return;
+            }
+
+            var length = args.Length;
+            switch (length)
+            {
+                case 1:
+                    IsVersionSupportedCommand(args[0]);
                     break;
-                case commandVersionSupported:
-                    IsVersionSupportedCommand(args);
-                    break;
-                case commandHelp:
-                    DisplayAllCommands();
+                case 2:
+                    MigrateCommand(args[0], args[1]);
                     break;
                 default:
+                    command = string.Join(" ", args);
                     InvalidCommand(command);
                     break;
             }
@@ -108,9 +115,11 @@ namespace Application.Ringtoets.MigrationConsole
 
         private static void DisplayAllCommands()
         {
-            Console.WriteLine(commandHelp
-                              + "\t"
-                              + Resources.CommandHelp_Command_0_Detailed, commandHelp);
+            Console.WriteLine(Resources.RingtoetsMigrationTool_Info);
+            Console.WriteLine();
+            Console.WriteLine(Resources.CommandSupported_Command_0_Brief, commandHelpShort);
+            Console.WriteLine(Resources.CommandSupported_Command_0_Brief, commandHelp);
+            ConsoleHelper.WriteCommandDescriptionLine(Resources.CommandHelp_Detailed);
             ShowMigrateCommand();
             ShowSupportedCommand();
         }
@@ -126,59 +135,44 @@ namespace Application.Ringtoets.MigrationConsole
 
         #region Version Supported Command
 
-        private static void IsVersionSupportedCommand(string[] args)
+        private static void IsVersionSupportedCommand(string location)
         {
-            if (args.Length != 2)
-            {
-                throw new InvalidOperationException(string.Format(MigrationConsoleResources.Command_0_Incorrect_number_of_parameters,
-                                                                  commandVersionSupported));
-            }
-
-            string version = args[1];
-
             var migrator = new RingtoetsSqLiteDatabaseFileMigrator();
+            var versionedFile = new RingtoetsVersionedFile(location);
+            var version = versionedFile.GetVersion();
+
             bool isSupported = migrator.IsVersionSupported(version);
             Console.WriteLine(isSupported
-                                  ? "Version '{0}' is supported."
-                                  : "Version '{0}' is not supported.", version);
+                                  ? Resources.CommandSupported_File_Supported
+                                  : Resources.CommandSupported_File_Not_Supported);
         }
 
         private static void ShowSupportedCommand()
         {
-            Console.WriteLine(Resources.CommandSupported_Command_0_Brief
-                              + "\t"
-                              + Resources.CommandSupported_Detailed, commandVersionSupported);
+            Console.WriteLine(Resources.CommandSupported_Brief);
+            ConsoleHelper.WriteCommandDescriptionLine(Resources.CommandSupported_Detailed);
         }
 
         #endregion
 
         #region Migrate Command
 
-        private static void MigrateCommand(string[] args)
+        private static void MigrateCommand(string filepath, string toFilepath)
         {
-            if (args.Length != 4)
-            {
-                throw new InvalidOperationException(string.Format(MigrationConsoleResources.Command_0_Incorrect_number_of_parameters,
-                                                                  commandMigrate));
-            }
+            string toVersion = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
+
             var migrator = new RingtoetsSqLiteDatabaseFileMigrator();
-
-            string filepath = args[1];
-            string toVersion = args[2];
-            string toFilepath = args[3];
-
             var sourceFile = new RingtoetsVersionedFile(filepath);
 
             migrator.Migrate(sourceFile, toVersion, toFilepath);
-            Console.WriteLine(Resources.CommandMigrate_Successful_Migration_From_Location_0_To_Version_1_At_Location_2,
-                              filepath, toVersion, toFilepath);
+            Console.WriteLine(Resources.CommandMigrate_Successful_Migration_From_Location_0_To_Location_1,
+                              filepath, toFilepath);
         }
 
         private static void ShowMigrateCommand()
         {
-            Console.WriteLine(Resources.CommandMigrate_Command_0_Brief
-                              + "\t"
-                              + Resources.CommandMigrate_Detailed, commandMigrate);
+            Console.WriteLine(Resources.CommandMigrate_Brief);
+            ConsoleHelper.WriteCommandDescriptionLine(Resources.CommandMigrate_Detailed);
         }
 
         #endregion

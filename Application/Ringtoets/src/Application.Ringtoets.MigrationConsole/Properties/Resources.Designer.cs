@@ -82,11 +82,11 @@ namespace Application.Ringtoets.MigrationConsole.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Geef het hulp menu weer..
+        ///   Looks up a localized string similar to Geeft deze informatie weer..
         /// </summary>
-        internal static string CommandHelp_Command_0_Detailed {
+        internal static string CommandHelp_Detailed {
             get {
-                return ResourceManager.GetString("CommandHelp_Command_0_Detailed", resourceCulture);
+                return ResourceManager.GetString("CommandHelp_Detailed", resourceCulture);
             }
         }
         
@@ -100,16 +100,16 @@ namespace Application.Ringtoets.MigrationConsole.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} RINGTOETSBESTANDSPAD NIEUWEVERSIE UITVOERPAD.
+        ///   Looks up a localized string similar to MIGRATIEHULPPROGRAMMA bronprojectpad doelprojectpad.
         /// </summary>
-        internal static string CommandMigrate_Command_0_Brief {
+        internal static string CommandMigrate_Brief {
             get {
-                return ResourceManager.GetString("CommandMigrate_Command_0_Brief", resourceCulture);
+                return ResourceManager.GetString("CommandMigrate_Brief", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to RINGTOETSBESTANDSPAD is het bestandspad naar het Ringtoetsdatabase bestand dat gemigreerd moet worden. NIEUWEVERSIE is de versie naar waar gemigreerd moet worden. UITVOERPAD is het pad waar de het gemigreerde Ringtoetsbestand opgeslagen zal worden..
+        ///   Looks up a localized string similar to Voert de migratie uit van het projectbestand dat te vinden is in het bronprojectpad en slaat het resulterende projectbestand op in het doelprojectpad..
         /// </summary>
         internal static string CommandMigrate_Detailed {
             get {
@@ -118,16 +118,25 @@ namespace Application.Ringtoets.MigrationConsole.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het bestand &apos;{0}&apos; is succesvol gemigreerd naar versie {1} op locatie &apos;{2}&apos;..
+        ///   Looks up a localized string similar to Het bestand &apos;{0}&apos; is succesvol gemigreerd naar &apos;{1}&apos;..
         /// </summary>
-        internal static string CommandMigrate_Successful_Migration_From_Location_0_To_Version_1_At_Location_2 {
+        internal static string CommandMigrate_Successful_Migration_From_Location_0_To_Location_1 {
             get {
-                return ResourceManager.GetString("CommandMigrate_Successful_Migration_From_Location_0_To_Version_1_At_Location_2", resourceCulture);
+                return ResourceManager.GetString("CommandMigrate_Successful_Migration_From_Location_0_To_Location_1", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} RINGTOETSBESTANDSPAD.
+        ///   Looks up a localized string similar to MIGRATIEHULPPROGRAMMA bronprojectpad.
+        /// </summary>
+        internal static string CommandSupported_Brief {
+            get {
+                return ResourceManager.GetString("CommandSupported_Brief", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to MIGRATIEHULPPROGRAMMA {0}.
         /// </summary>
         internal static string CommandSupported_Command_0_Brief {
             get {
@@ -136,11 +145,38 @@ namespace Application.Ringtoets.MigrationConsole.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to RINGTOETSBESTANDSPAD is het bestandspad naar het Ringtoetsdatabase bestand waarvan de versie gevalideerd moet worden..
+        ///   Looks up a localized string similar to Controleert of het projectbestand dat te vinden is in het bronprojectpad gemigreerd kan worden..
         /// </summary>
         internal static string CommandSupported_Detailed {
             get {
                 return ResourceManager.GetString("CommandSupported_Detailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het projectbestand is niet ondersteund..
+        /// </summary>
+        internal static string CommandSupported_File_Not_Supported {
+            get {
+                return ResourceManager.GetString("CommandSupported_File_Not_Supported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het projectbestand is ondersteund..
+        /// </summary>
+        internal static string CommandSupported_File_Supported {
+            get {
+                return ResourceManager.GetString("CommandSupported_File_Supported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dit hulpprogramma kan worden gebruikt om een projectbestand in het formaat van een eerdere versie van Ringtoets te migreren naar het formaat van de huidige versie van Ringtoets..
+        /// </summary>
+        internal static string RingtoetsMigrationTool_Info {
+            get {
+                return ResourceManager.GetString("RingtoetsMigrationTool_Info", resourceCulture);
             }
         }
     }

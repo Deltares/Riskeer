@@ -120,5 +120,87 @@ namespace Migration.Console.Test
             // Assert
             Assert.Throws<FormatException>(call);
         }
+
+        [Test]
+        public void WriteCommandDescriptionLine_StringNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            const string args = "an argument";
+
+            // Call
+            TestDelegate call = () => ConsoleHelper.WriteCommandDescriptionLine(null, args);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("format", paramName);
+        }
+
+        [Test]
+        public void WriteCommandDescriptionLine_ArgsNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            const string writeLine = "this is an error line with {0}";
+
+            // Call
+            TestDelegate call = () => ConsoleHelper.WriteCommandDescriptionLine(writeLine, null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("args", paramName);
+        }
+
+        [Test]
+        public void WriteCommandDescriptionLine_StringAndParamArgs_WritesExpectedLine()
+        {
+            // Setup
+            const string writeLine = "this is an error line with {0}";
+            const string args = "an argument";
+            string consoleText;
+
+            // Call
+            using (var consoleOutput = new ConsoleOutput())
+            {
+                ConsoleHelper.WriteCommandDescriptionLine(writeLine, args);
+                consoleText = consoleOutput.GetConsoleOutput();
+            }
+
+            // Assert
+            var expectedText = string.Concat("          ", string.Format(writeLine, args),
+                                             Environment.NewLine, Environment.NewLine);
+            Assert.AreEqual(expectedText, consoleText);
+        }
+
+        [Test]
+        public void WriteCommandDescriptionLine_String_WritesExpectedLine()
+        {
+            // Setup
+            const string writeLine = "this is an error line";
+            string consoleText;
+
+            // Call
+            using (var consoleOutput = new ConsoleOutput())
+            {
+                ConsoleHelper.WriteCommandDescriptionLine(writeLine);
+                consoleText = consoleOutput.GetConsoleOutput();
+            }
+
+            // Assert
+            var expectedText = string.Concat("          ", writeLine, Environment.NewLine,
+                                             Environment.NewLine);
+            Assert.AreEqual(expectedText, consoleText);
+        }
+
+        [Test]
+        public void WriteCommandDescriptionLine_InvalidString_ThrowsFormatException()
+        {
+            // Setup
+            string invalidFormat = "{d}";
+
+            // Call
+            TestDelegate call = () => ConsoleHelper.WriteCommandDescriptionLine(invalidFormat, "ABC");
+
+            // Assert
+            Assert.Throws<FormatException>(call);
+        }
     }
 }

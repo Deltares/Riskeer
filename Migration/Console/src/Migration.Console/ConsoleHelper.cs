@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using SystemConsole = System.Console;
 
@@ -52,6 +53,64 @@ namespace Migration.Console
             SystemConsole.ForegroundColor = ConsoleColor.Red;
             SystemConsole.WriteLine(format, args);
             SystemConsole.ResetColor();
+        }
+
+        /// <summary>
+        /// Writes <paramref name="format"/> as a description text to the <see cref="SystemConsole"/>.
+        /// </summary>
+        /// <param name="format">A composite format string.</param>
+        /// <param name="args">An array of objects to write using <paramref name="format"/>.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any of the input parameters is <c>null</c>.</exception>
+        /// <exception cref="IOException">Thrown when an I/O error occurred.</exception>
+        /// <exception cref="FormatException">Thrown when the format specification in <paramref name="format"/> is invalid.</exception>
+        /// <seealso cref="SystemConsole.WriteLine(string, object[])"/>
+        public static void WriteCommandDescriptionLine(string format, params object[] args)
+        {
+            
+            const int paddingLeft = 10;
+            const int paddingRight = 1;
+            WriteLineWithPadding(format, args, paddingLeft, paddingRight);
+            SystemConsole.WriteLine();
+        }
+
+        private static void WriteLineWithPadding(string format, object[] args, int paddingLeft, int paddingRight)
+        {
+            if (format == null)
+            {
+                throw new ArgumentNullException(nameof(format));
+            }
+            if (args == null)
+            {
+                throw new ArgumentNullException(nameof(args));
+            }
+            var windowWidth = GetWindowWidth() - paddingRight;
+
+            int bufferSize = windowWidth - paddingLeft;
+            var paddingString = new string(' ', paddingLeft);
+            foreach (var line in format.SplitByLength(bufferSize))
+            {
+                SystemConsole.WriteLine($@"{paddingString}{line.TrimStart()}", args);
+            }
+        }
+
+        private static int GetWindowWidth()
+        {
+            try
+            {
+                return SystemConsole.WindowWidth;
+            }
+            catch (IOException)
+            {
+                return 80;
+            }
+        }
+
+        private static IEnumerable<string> SplitByLength(this string str, int maxLength)
+        {
+            for (int index = 0; index < str.Length; index += maxLength)
+            {
+                yield return str.Substring(index, Math.Min(maxLength, str.Length - index));
+            }
         }
     }
 }

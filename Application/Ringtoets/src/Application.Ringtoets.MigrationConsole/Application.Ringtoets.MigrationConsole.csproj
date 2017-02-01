@@ -6,7 +6,7 @@
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Application.Ringtoets.MigrationConsole</RootNamespace>
-    <AssemblyName>Ringtoets Migrator</AssemblyName>
+    <AssemblyName>Migratiehulpprogramma</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -68,6 +68,11 @@
       <Name>Migration.Scripts.Data</Name>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Ringtoets\Common\src\Ringtoets.Common.Utils\Ringtoets.Common.Utils.csproj">
+      <Project>{6A074D65-A81C-4C1C-8E24-F36C916E4ED7}</Project>
+      <Name>Ringtoets.Common.Utils</Name>
+      <Private>False</Private>
+    </ProjectReference>
     <ProjectReference Include="..\Application.Ringtoets.Migration\Application.Ringtoets.Migration.csproj">
       <Project>{FAC55B92-E259-43D6-B9A1-5BDA6C834359}</Project>
       <Name>Application.Ringtoets.Migration</Name>
@@ -78,6 +83,7 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
