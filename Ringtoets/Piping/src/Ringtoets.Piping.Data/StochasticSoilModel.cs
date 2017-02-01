@@ -109,8 +109,13 @@ namespace Ringtoets.Piping.Data
                 StochasticSoilProfile sameProfile = StochasticSoilProfiles.SingleOrDefault(sp => sp.SoilProfile.Name.Equals(fromProfile.SoilProfile.Name));
                 if (sameProfile != null)
                 {
+                    var soilProfileChanged = !sameProfile.SoilProfile.Equals(fromProfile.SoilProfile);
                     sameProfile.Update(fromProfile);
-                    updatedProfiles.Add(sameProfile);
+
+                    if (soilProfileChanged)
+                    {
+                        updatedProfiles.Add(sameProfile);
+                    }
                 }
                 else
                 {

@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Drawing;
 using System.Linq;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -183,6 +184,96 @@ namespace Ringtoets.Piping.Data.Test
 
             // Call & Assert
             Assert.AreEqual(name, profile.ToString());
+        }
+
+        [Test]
+        [TestCaseSource(nameof(ProfileCombinations))]
+        public void Equals_DifferentScenarios_ReturnsExpectedResult(PipingSoilProfile profile, PipingSoilProfile otherProfile, bool expectedEqual)
+        {
+            // Call
+            var areEqual = profile.Equals(otherProfile);
+
+            // Assert
+            Assert.AreEqual(expectedEqual, areEqual);
+        }
+
+        private static TestCaseData[] ProfileCombinations()
+        {
+            var profileA = CreateRandomProfile(21);
+            var profileB = CreateRandomProfile(21);
+            var profileC = CreateRandomProfile(73);
+
+            var profileD = CreateSingleLayerProfile("A", -3, SoilProfileType.SoilProfile1D);
+            var profileE = CreateSingleLayerProfile("A", -3, SoilProfileType.SoilProfile2D);
+            var profileF = CreateSingleLayerProfile("A", -2, SoilProfileType.SoilProfile1D);
+            var profileG = CreateSingleLayerProfile("B", -3, SoilProfileType.SoilProfile1D);
+
+            var seed = 78;
+            var random = new Random(seed);
+            var profileH = new PipingSoilProfile(GetRandomName(random), -random.NextDouble(), new[]
+            {
+                CreateRandomLayer(random)
+            }, random.NextEnumValue<SoilProfileType>(), random.Next());
+            
+            random = new Random(seed);
+            var profileI = new PipingSoilProfile(GetRandomName(random), -random.NextDouble(), new[]
+            {
+                CreateRandomLayer(random),
+                CreateRandomLayer(random)
+            }, random.NextEnumValue<SoilProfileType>(), random.Next());
+            
+
+
+            return new[]
+            {
+                new TestCaseData(profileA, profileA, true) { TestName = "Equals_ProfileAProfileA_True"},
+                new TestCaseData(profileA, profileB, true) { TestName = "Equals_ProfileAProfileB_True"},
+                new TestCaseData(profileB, profileC, false) { TestName = "Equals_ProfileBProfileC_False"},
+                new TestCaseData(profileC, profileC, true) { TestName = "Equals_ProfileCProfileC_True"},
+                new TestCaseData(profileD, profileE, false) { TestName = "Equals_ProfileDProfileE_False"},
+                new TestCaseData(profileD, profileF, false) { TestName = "Equals_ProfileDProfileF_False"},
+                new TestCaseData(profileD, profileG, false) { TestName = "Equals_ProfileDProfileG_False"},
+                new TestCaseData(profileH, profileI, false) { TestName = "Equals_ProfileHProfileI_False"},
+                new TestCaseData(profileI, profileH, false) { TestName = "Equals_ProfileHProfileI_False"},
+            };
+        }
+
+        private static PipingSoilProfile CreateSingleLayerProfile(string name, double bottom, SoilProfileType type)
+        {
+            return new PipingSoilProfile(name, bottom, new [] { new PipingSoilLayer(bottom + 1.0) }, type, -200);
+        }
+
+        private static PipingSoilProfile CreateRandomProfile(int randomSeed)
+        {
+            var random = new Random(randomSeed);
+            var layers = new Collection<PipingSoilLayer>();
+            for (int i = 0; i < random.Next(2, 6); i++)
+            {
+                layers.Add(CreateRandomLayer(random));
+            }
+            return new PipingSoilProfile(GetRandomName(random), -random.NextDouble(), layers, random.NextEnumValue<SoilProfileType>(), random.Next());
+        }
+
+        private static PipingSoilLayer CreateRandomLayer(Random random)
+        {
+            return new PipingSoilLayer(random.NextDouble())
+            {
+                MaterialName = GetRandomName(random),
+                Color = Color.FromKnownColor(random.NextEnumValue<KnownColor>()),
+                IsAquifer = random.NextBoolean(),
+                BelowPhreaticLevelDeviation = random.NextDouble(),
+                BelowPhreaticLevelMean = random.NextDouble(),
+                BelowPhreaticLevelShift = random.NextDouble(),
+                DiameterD70Deviation = random.NextDouble(),
+                DiameterD70Mean = random.NextDouble(),
+                PermeabilityDeviation = random.NextDouble(),
+                PermeabilityMean = random.NextDouble()
+            };
+        }
+
+        private static string GetRandomName(Random random)
+        {
+            return string.Join("", Enumerable.Repeat('x', random.Next(0, 40)));
         }
     }
 }

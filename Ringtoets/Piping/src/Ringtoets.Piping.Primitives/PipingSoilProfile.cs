@@ -1,25 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2016. All rights reserved.
-//
-// This file is part of Ringtoets.
-//
-// Ringtoets is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-// 
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-// GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License
-// along with this program. If not, see <http://www.gnu.org/licenses/>.
-//
-// All names, logos, and references to "Deltares" are registered trademarks of
-// Stichting Deltares and remain full property of Stichting Deltares at all times.
-// All rights reserved.
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using Ringtoets.Piping.Primitives.Properties;
@@ -102,9 +81,9 @@ namespace Ringtoets.Piping.Primitives
         /// <exception cref="ArgumentException"><see cref="Layers"/> does not contain <paramref name="layer"/>.</exception>
         public double GetLayerThickness(PipingSoilLayer layer)
         {
-            var layersOrderedByTopAscending = layers.Reverse();
-            var previousLevel = Bottom;
-            foreach (var oLayer in layersOrderedByTopAscending)
+            IEnumerable<PipingSoilLayer> layersOrderedByTopAscending = layers.Reverse();
+            double previousLevel = Bottom;
+            foreach (PipingSoilLayer oLayer in layersOrderedByTopAscending)
             {
                 if (ReferenceEquals(layer, oLayer))
                 {
@@ -118,6 +97,65 @@ namespace Ringtoets.Piping.Primitives
         public override string ToString()
         {
             return Name;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj))
+            {
+                return false;
+            }
+            if (ReferenceEquals(this, obj))
+            {
+                return true;
+            }
+            if (obj.GetType() != GetType())
+            {
+                return false;
+            }
+            return Equals((PipingSoilProfile) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                int hashCode = layers?.GetHashCode() ?? 0;
+                hashCode = (hashCode * 397) ^ PipingSoilProfileId.GetHashCode();
+                hashCode = (hashCode * 397) ^ Bottom.GetHashCode();
+                hashCode = (hashCode * 397) ^ (Name?.GetHashCode() ?? 0);
+                hashCode = (hashCode * 397) ^ (int) SoilProfileType;
+                return hashCode;
+            }
+        }
+
+        private bool Equals(PipingSoilProfile other)
+        {
+            return AreLayersEqual(layers, other.layers)
+                   && PipingSoilProfileId == other.PipingSoilProfileId
+                   && Bottom.Equals(other.Bottom)
+                   && string.Equals(Name, other.Name)
+                   && SoilProfileType == other.SoilProfileType;
+        }
+
+        private bool AreLayersEqual(IEnumerable<PipingSoilLayer> layers, IEnumerable<PipingSoilLayer> otherLayers)
+        {
+            using (IEnumerator<PipingSoilLayer> layersEnumerator = layers.GetEnumerator())
+            using (IEnumerator<PipingSoilLayer> otherLayersEnumerator = otherLayers.GetEnumerator())
+            {
+                bool enumeratorAdvanced;
+                bool otherEnumeratorAdvanced;
+
+                while ((enumeratorAdvanced = layersEnumerator.MoveNext())
+                    & (otherEnumeratorAdvanced = otherLayersEnumerator.MoveNext()))
+                {
+                    if (!layersEnumerator.Current.Equals(otherLayersEnumerator.Current))
+                    {
+                        return false;
+                    }
+                }
+                return !enumeratorAdvanced && !otherEnumeratorAdvanced;
+            }
         }
 
         /// <summary>

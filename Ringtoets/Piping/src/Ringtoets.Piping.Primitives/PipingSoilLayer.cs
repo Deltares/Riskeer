@@ -1,25 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2016. All rights reserved.
-//
-// This file is part of Ringtoets.
-//
-// Ringtoets is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-// 
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-// GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License
-// along with this program. If not, see <http://www.gnu.org/licenses/>.
-//
-// All names, logos, and references to "Deltares" are registered trademarks of
-// Stichting Deltares and remain full property of Stichting Deltares at all times.
-// All rights reserved.
-
-using System;
+﻿using System;
 using System.Drawing;
 
 namespace Ringtoets.Piping.Primitives
@@ -52,7 +31,7 @@ namespace Ringtoets.Piping.Primitives
         /// <summary>
         /// Gets the top level of the <see cref="PipingSoilLayer"/>.
         /// </summary>
-        public double Top { get; private set; }
+        public double Top { get; }
 
         /// <summary>
         /// Gets or sets a value indicating whether or not the <see cref="PipingSoilLayer"/> is an aquifer.
@@ -127,5 +106,56 @@ namespace Ringtoets.Piping.Primitives
         /// Gets or sets the <see cref="Color"/> that was used to represent the <see cref="PipingSoilLayer"/>.
         /// </summary>
         public Color Color { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj))
+            {
+                return false;
+            }
+            if (ReferenceEquals(this, obj))
+            {
+                return true;
+            }
+            if (obj.GetType() != GetType())
+            {
+                return false;
+            }
+            return Equals((PipingSoilLayer) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                int hashCode = materialName?.GetHashCode() ?? 0;
+                hashCode = (hashCode * 397) ^ Top.GetHashCode();
+                hashCode = (hashCode * 397) ^ IsAquifer.GetHashCode();
+                hashCode = (hashCode * 397) ^ BelowPhreaticLevelMean.GetHashCode();
+                hashCode = (hashCode * 397) ^ BelowPhreaticLevelDeviation.GetHashCode();
+                hashCode = (hashCode * 397) ^ BelowPhreaticLevelShift.GetHashCode();
+                hashCode = (hashCode * 397) ^ DiameterD70Mean.GetHashCode();
+                hashCode = (hashCode * 397) ^ DiameterD70Deviation.GetHashCode();
+                hashCode = (hashCode * 397) ^ PermeabilityMean.GetHashCode();
+                hashCode = (hashCode * 397) ^ PermeabilityDeviation.GetHashCode();
+                hashCode = (hashCode * 397) ^ Color.GetHashCode();
+                return hashCode;
+            }
+        }
+
+        private bool Equals(PipingSoilLayer other)
+        {
+            return string.Equals(materialName, other.materialName)
+                   && Top.Equals(other.Top)
+                   && IsAquifer == other.IsAquifer
+                   && BelowPhreaticLevelMean.Equals(other.BelowPhreaticLevelMean)
+                   && BelowPhreaticLevelDeviation.Equals(other.BelowPhreaticLevelDeviation)
+                   && BelowPhreaticLevelShift.Equals(other.BelowPhreaticLevelShift)
+                   && DiameterD70Mean.Equals(other.DiameterD70Mean)
+                   && DiameterD70Deviation.Equals(other.DiameterD70Deviation)
+                   && PermeabilityMean.Equals(other.PermeabilityMean)
+                   && PermeabilityDeviation.Equals(other.PermeabilityDeviation)
+                   && Color.Equals(other.Color);
+        }
     }
 }

@@ -106,7 +106,7 @@ namespace Application.Ringtoets.Storage.Create
                 throw new ArgumentNullException(nameof(model));
             }
 
-            return collection.ContainsValue(model);
+            return collection.Values.Contains(model, new ReferenceEqualityComparer<TModel>());
         }
 
         private void Register<TEntity, TModel>(Dictionary<TEntity, TModel> collection, TEntity entity, TModel model)
