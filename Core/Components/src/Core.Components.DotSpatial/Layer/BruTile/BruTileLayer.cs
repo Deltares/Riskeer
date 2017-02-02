@@ -61,6 +61,7 @@ using BruTile;
 using Core.Components.DotSpatial.Layer.BruTile.Configurations;
 using Core.Components.DotSpatial.Layer.BruTile.Projections;
 using Core.Components.DotSpatial.Layer.BruTile.TileFetching;
+using Core.Components.DotSpatial.Properties;
 using DotSpatial.Controls;
 using DotSpatial.Projections;
 using DotSpatial.Projections.AuthorityCodes;
@@ -83,6 +84,8 @@ namespace Core.Components.DotSpatial.Layer.BruTile
     public class BruTileLayer : DotSpatialLayer, IMapLayer
     {
         private const string webMercatorEpsgIdentifier = "EPSG:3857";
+        private const int autoRefreshTimeMs = 250;
+        private static readonly ProjectionInfo defaultProjection = new ProjectionInfo();
         private readonly IConfiguration configuration;
 
         private readonly AsyncTileFetcher tileFetcher;
@@ -107,7 +110,6 @@ namespace Core.Components.DotSpatial.Layer.BruTile
         private float transparency;
 
         private string level;
-        private static readonly ProjectionInfo defaultProjection = new ProjectionInfo();
 
         /// <summary>
         /// Creates an instance of this class using some tile source configuration.
@@ -162,6 +164,8 @@ namespace Core.Components.DotSpatial.Layer.BruTile
         /// </summary>
         /// <remarks>A value of 0 means that the layer's fully visible and a value of 1
         /// means that the layer to no longer visible.</remarks>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when setting a value outside
+        /// the [0.0, 1.0] range.</exception>
         public float Transparency
         {
             get
@@ -173,7 +177,7 @@ namespace Core.Components.DotSpatial.Layer.BruTile
                 if (value < 0f || value > 1f)
                 {
                     throw new ArgumentOutOfRangeException(nameof(value),
-                                                          "Transparanties moet in het bereik [0.0, 1.0] liggen.");
+                                                          Resources.BruTileLayer_Transparency_Value_out_of_range);
                 }
 
                 if (!Equals(value, transparency))
@@ -186,15 +190,12 @@ namespace Core.Components.DotSpatial.Layer.BruTile
                     };
                     imageAttributes.SetColorMatrix(ca, ColorMatrixFlag.Default, ColorAdjustType.Bitmap);
 
-                    OnItemChanged(EventArgs.Empty);
+                    OnItemChanged(this);
                     MapFrame?.Invalidate(MapFrame.ViewExtents);
                 }
             }
         }
 
-        /// <summary>
-        /// Gets the <see cref="DotSpatialExtent"/> in world coordinates of this layer.
-        /// </summary>
         public override DotSpatialExtent Extent
         {
             get
@@ -215,11 +216,9 @@ namespace Core.Components.DotSpatial.Layer.BruTile
 
         public override void Reproject(ProjectionInfo targetProjectionInfo)
         {
-            base.Reproject(targetProjectionInfo);
-
             if (targetProjectionInfo != null)
             {
-                targetProjection = targetProjectionInfo.Matches(sourceProjection) ?
+                targetProjection = targetProjectionInfo.Equals(sourceProjection) ?
                                        null :
                                        targetProjectionInfo;
             }
@@ -241,80 +240,50 @@ namespace Core.Components.DotSpatial.Layer.BruTile
 
             stopwatch.Reset();
 
-            DotSpatialExtent region = regions.FirstOrDefault() ?? args.GeographicExtents;
+            IEnumerable<DotSpatialExtent> regionsToDraw = regions.Any() ?
+                                                              (IEnumerable<DotSpatialExtent>) regions :
+                                                              new[]
+                                                              {
+                                                                  args.GeographicExtents
+                                                              };
 
-            if (!Monitor.TryEnter(drawLock))
+            // Loop constants:
+            ITileSchema schema = configuration.TileSource.Schema;
+            foreach (DotSpatialExtent region in regionsToDraw)
             {
-                return;
-            }
-
-            // If the layer is reprojected, we should take that into account for the geographic region:
-            DotSpatialExtent geoExtent = targetProjection == null
-                                             ? region
-                                             : region.Intersection(Extent)
-                                                     .Reproject(targetProjection, sourceProjection);
-
-            if (geoExtent.IsEmpty())
-            {
-                Monitor.Exit(drawLock);
-                return;
-            }
-
-            BruTileExtent extent;
-            try
-            {
-                extent = ToBrutileExtent(geoExtent);
-            }
-            catch (Exception ex)
-            {
-                Monitor.Exit(drawLock);
-                return;
-            }
-
-            if (double.IsNaN(extent.Area))
-            {
-                Monitor.Exit(drawLock);
-                return;
-            }
-
-            double distancePerPixel = extent.Width/args.ImageRectangle.Width;
-
-            ITileSource tileSource = configuration.TileSource;
-            ITileSchema schema = tileSource.Schema;
-            string level = this.level = Utilities.GetNearestLevel(schema.Resolutions, distancePerPixel);
-
-            tileFetcher.DropAllPendingTileRequests();
-            var tiles = new List<TileInfo>(Sort(schema.GetTileInfos(extent, level), geoExtent.Center));
-            var tilesNotImmediatelyDrawn = new List<TileInfo>();
-
-            // Set up Tile reprojector
-            var reprojector = new TileReprojector(args, sourceProjection, targetProjection);
-
-            // Store the current transformation
-            Matrix transform = args.Device.Transform;
-            Resolution resolution = schema.Resolutions[level];
-            foreach (TileInfo info in tiles)
-            {
-                byte[] imageData = tileFetcher.GetTile(info);
-                if (imageData != null)
+                if (!Monitor.TryEnter(drawLock))
                 {
-                    DrawTile(args, info, resolution, imageData, reprojector);
                     continue;
                 }
 
-                tilesNotImmediatelyDrawn.Add(info);
+                // If the layer is reprojected, we should take that into account for the geographic region:
+                DotSpatialExtent geoExtent = targetProjection == null
+                                                 ? region
+                                                 : region.Intersection(Extent)
+                                                         .Reproject(targetProjection, sourceProjection);
+
+                BruTileExtent extent;
+                if (!GetBruTileExtentToRender(geoExtent, out extent))
+                {
+                    continue;
+                }
+
+                double distancePerPixel = extent.Width / args.ImageRectangle.Width;
+                level = Utilities.GetNearestLevel(schema.Resolutions, distancePerPixel);
+
+                tileFetcher.DropAllPendingTileRequests();
+
+                // Save original transform:
+                Matrix transform = args.Device.Transform;
+
+                IList<TileInfo> tiles = Sort(schema.GetTileInfos(extent, level), geoExtent.Center);
+                DrawTilesAtCurrentLevel(args, tiles, schema);
+
+                // Restore the transform:
+                args.Device.Transform = transform;
+
+                Monitor.Exit(drawLock);
             }
-
-            // Draw the tiles that were not present at the moment requested
-            foreach (var tileInfo in tilesNotImmediatelyDrawn)
-            {
-                DrawTile(args, tileInfo, resolution, tileFetcher.GetTile(tileInfo), reprojector);
-            }
-
-            // Restore the transform
-            args.Device.Transform = transform;
-
-            Monitor.Exit(drawLock);
         }
 
         protected override void Dispose(bool managedResources)
@@ -326,11 +295,66 @@ namespace Core.Components.DotSpatial.Layer.BruTile
 
             if (managedResources)
             {
-                configuration.TileFetcher.Dispose();
+                configuration.Dispose();
                 imageAttributes.Dispose();
             }
 
             base.Dispose(managedResources);
+        }
+
+        private bool GetBruTileExtentToRender(DotSpatialExtent geoExtent, out BruTileExtent extent)
+        {
+            extent = new BruTileExtent();
+
+            if (geoExtent.IsEmpty())
+            {
+                Monitor.Exit(drawLock);
+                return false;
+            }
+
+            try
+            {
+                extent = ToBrutileExtent(geoExtent);
+            }
+            catch (Exception)
+            {
+                Monitor.Exit(drawLock);
+                return false;
+            }
+
+            if (double.IsNaN(extent.Area))
+            {
+                Monitor.Exit(drawLock);
+                return false;
+            }
+            return true;
+        }
+
+        private void DrawTilesAtCurrentLevel(MapArgs args, IEnumerable<TileInfo> tiles, ITileSchema schema)
+        {
+            var tilesNotImmediatelyDrawn = new List<TileInfo>();
+
+            // Loop constants:
+            var reprojector = new TileReprojector(args, sourceProjection, targetProjection);
+            Resolution resolution = schema.Resolutions[level];
+            foreach (TileInfo info in tiles)
+            {
+                byte[] imageData = tileFetcher.GetTile(info);
+                if (imageData != null)
+                {
+                    DrawTile(args, info, resolution, imageData, reprojector);
+                }
+                else
+                {
+                    tilesNotImmediatelyDrawn.Add(info);
+                }
+            }
+
+            // Draw the tiles that were not present at the moment requested
+            foreach (var tileInfo in tilesNotImmediatelyDrawn)
+            {
+                DrawTile(args, tileInfo, resolution, tileFetcher.GetTile(tileInfo), reprojector);
+            }
         }
 
         private static ProjectionInfo GetTileSourceProjectionInfo(string spatialReferenceSystemString)
@@ -364,17 +388,27 @@ namespace Core.Components.DotSpatial.Layer.BruTile
 
         private static bool TryParseProjectionProj4(string proj4, out ProjectionInfo projectionInfo)
         {
+            return TryParseString(proj4, ProjectionInfo.FromProj4String, out projectionInfo);
+        }
+
+        private static bool TryParseProjectionEsri(string esriWkt, out ProjectionInfo projectionInfo)
+        {
+            return TryParseString(esriWkt, ProjectionInfo.FromEsriString, out projectionInfo);
+        }
+
+        private static bool TryParseString(string text, Func<string, ProjectionInfo> parseText, out ProjectionInfo projectionInfo)
+        {
             try
             {
-                projectionInfo = ProjectionInfo.FromProj4String(proj4);
+                projectionInfo = parseText(text);
             }
             catch
             {
                 projectionInfo = null;
             }
 
-            // Compensate for ProjectionInfo.FromProj4String returning a default constructed 
-            // ProjectionInfo instance if parsing failed:
+            // Compensate for parseText returning a default constructed 
+            // ProjectionInfo instance if parsing failed (some edge cases):
             if (defaultProjection.Equals(projectionInfo))
             {
                 projectionInfo = null;
@@ -383,58 +417,40 @@ namespace Core.Components.DotSpatial.Layer.BruTile
             return projectionInfo != null;
         }
 
-        private static bool TryParseProjectionEsri(string esriWkt, out ProjectionInfo projectionInfo)
-        {
-            try
-            {
-                projectionInfo = ProjectionInfo.FromEsriString(esriWkt);
-            }
-            catch
-            {
-                projectionInfo = null;
-            }
-            return projectionInfo != null;
-        }
-
         /// <summary>
         /// Attempts to get the EPSG:IdNumber part from a spatial reference system string.
         /// </summary>
         /// <param name="srs">The spatial reference system string.</param>
         /// <returns>The EPSG authority code, or an empty string if one couldn't be found.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="srs"/> is
-        /// <c>null</c> or contains only whitespace.</exception>
         private static string ToAuthorityCode(string srs)
         {
-            if (string.IsNullOrWhiteSpace(srs))
+            if (!string.IsNullOrWhiteSpace(srs))
             {
-                throw new ArgumentNullException(nameof(srs));
-            }
-
-            const char srsSeparatorChar = ':';
-            if (!srs.Contains(srsSeparatorChar))
-            {
-                int value;
-                if (!int.TryParse(srs, NumberStyles.Integer, NumberFormatInfo.InvariantInfo, out value))
+                const char srsSeparatorChar = ':';
+                if (!srs.Contains(srsSeparatorChar))
                 {
-                    return "";
+                    int value;
+                    if (!int.TryParse(srs, NumberStyles.Integer, NumberFormatInfo.InvariantInfo, out value))
+                    {
+                        return "";
+                    }
+                    return $"EPSG:{value}";
                 }
-                return $"EPSG:{value}";
+
+                string[] srsParts = srs.Split(srsSeparatorChar);
+
+                // One colon => assume Authority:Code
+                if (srsParts.Length == 2)
+                {
+                    return srs;
+                }
+
+                // More than 1 colon => assume format urn:ogc:def:crs:EPSG:6.18.3:3857
+                if (srsParts.Length > 4)
+                {
+                    return $"{srsParts[4]}:{srsParts.Last()}";
+                }
             }
-
-            string[] srsParts = srs.Split(srsSeparatorChar);
-
-            // One colon => assume Authority:Code
-            if (srsParts.Length == 2)
-            {
-                return srs;
-            }
-
-            // More than 1 colon => assume format urn:ogc:def:crs:EPSG:6.18.3:3857
-            if (srsParts.Length > 4)
-            {
-                return $"{srsParts[4]}:{srsParts.Last()}";
-            }
-
             return "";
         }
 
@@ -447,7 +463,7 @@ namespace Core.Components.DotSpatial.Layer.BruTile
             }
 
             // Some timed refreshes if the server becomes slooow...
-            if (stopwatch.Elapsed.Milliseconds > 250 && !tileFetcher.IsReady())
+            if (stopwatch.Elapsed.Milliseconds > autoRefreshTimeMs && !tileFetcher.IsReady())
             {
                 stopwatch.Reset();
                 MapFrame.Invalidate();
@@ -455,10 +471,10 @@ namespace Core.Components.DotSpatial.Layer.BruTile
                 return;
             }
 
-            Extent ext = ToBrutileExtent(MapFrame.ViewExtents);
-            if (ext.Intersects(e.TileInfo.Extent))
+            DotSpatialExtent tileExtent = FromBruTileExtent(e.TileInfo.Extent);
+            if (MapFrame.ViewExtents.Intersects(tileExtent))
             {
-                MapFrame.Invalidate(FromBruTileExtent(e.TileInfo.Extent));
+                MapFrame.Invalidate(tileExtent);
             }
         }
 
@@ -473,37 +489,51 @@ namespace Core.Components.DotSpatial.Layer.BruTile
             return new DotSpatialExtent(extent.MinX, extent.MinY, extent.MaxX, extent.MaxY);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="extent"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="extent"/>
+        /// has <see cref="DotSpatial.Data.Extent.MinX"/>
+        /// </exception>
         private static BruTileExtent ToBrutileExtent(DotSpatialExtent extent)
         {
             return new BruTileExtent(extent.MinX, extent.MinY, extent.MaxX, extent.MaxY);
         }
 
-        private static IEnumerable<TileInfo> Sort(IEnumerable<TileInfo> enumerable, Coordinate coordinate)
+        /// <summary>
+        /// Sorts the available <see cref="TileInfo"/> with respect to distance to a given
+        /// <see cref="Coordinate"/> in ascending order. 
+        /// </summary>
+        /// <param name="tileInfos">The <see cref="TileInfo"/> objects to be sorted.</param>
+        /// <param name="focusPoint">The point used to order based on distance.</param>
+        /// <returns></returns>
+        /// <remarks>Subsequent equidistant tiles are ordered to occur first.</remarks>
+        private static IList<TileInfo> Sort(IEnumerable<TileInfo> tileInfos, Coordinate focusPoint)
         {
-            var res = new SortedList<double, TileInfo>();
-            foreach (var tileInfo in enumerable)
+            var sortResult = new SortedList<double, TileInfo>();
+            foreach (var tileInfo in tileInfos)
             {
-                double dx = coordinate.X - tileInfo.Extent.CenterX;
-                double dy = coordinate.Y - tileInfo.Extent.CenterY;
-                double d = Math.Sqrt(dx*dx + dy*dy);
-                while (res.ContainsKey(d))
+                BruTileExtent tileInfoExtent = tileInfo.Extent;
+                var tileCenterCoordinate = new Coordinate(tileInfoExtent.CenterX, tileInfoExtent.CenterY);
+                double distance = focusPoint.Distance(tileCenterCoordinate);
+                while (sortResult.ContainsKey(distance))
                 {
-                    d *= 1e-12;
+                    distance *= 1e-12;
                 }
-                res.Add(d, tileInfo);
+                sortResult.Add(distance, tileInfo);
             }
-            return res.Values;
+            return sortResult.Values;
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
-        private void DrawTile(MapArgs args, TileInfo info, Resolution resolution, byte[] buffer, TileReprojector reprojector = null)
+        private void DrawTile(MapArgs args, TileInfo info, Resolution resolution, byte[] buffer, TileReprojector reprojector)
         {
             if (buffer == null || buffer.Length == 0)
             {
                 return;
             }
-
-            reprojector = reprojector ?? new TileReprojector(args, sourceProjection, targetProjection);
 
             using (var bitmap = (Bitmap) Image.FromStream(new MemoryStream(buffer)))
             {
@@ -520,9 +550,9 @@ namespace Core.Components.DotSpatial.Layer.BruTile
                     return;
                 }
 
-                Point lt = args.ProjToPixel(outWorldFile.ToWorldCoordinates(0, 0));
-                Point rb = args.ProjToPixel(outWorldFile.ToWorldCoordinates(outBitmap.Width, outBitmap.Height));
-                var rect = new Rectangle(lt, Size.Subtract(new Size(rb), new Size(lt)));
+                Point leftTopPoint = args.ProjToPixel(outWorldFile.ToWorldCoordinates(0, 0));
+                Point rightBottomPoint = args.ProjToPixel(outWorldFile.ToWorldCoordinates(outBitmap.Width, outBitmap.Height));
+                var rect = new Rectangle(leftTopPoint, Size.Subtract(new Size(rightBottomPoint), new Size(leftTopPoint)));
 
                 args.Device.DrawImage(outBitmap, rect, 0, 0, outBitmap.Width, outBitmap.Height,
                                       GraphicsUnit.Pixel, imageAttributes);

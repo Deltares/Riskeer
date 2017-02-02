@@ -131,6 +131,11 @@ namespace Core.Components.DotSpatial.Layer.BruTile.Configurations
             InitializeFromTileSource(tileSource);
         }
 
+        public void Dispose()
+        {
+            TileFetcher?.Dispose();
+        }
+
         /// <summary>
         /// Validates a <see cref="ITileSource"/>.
         /// </summary>

@@ -101,6 +101,15 @@ namespace Core.Components.DotSpatial.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Transparantie moet in het bereik [0.0, 1.0] liggen..
+        /// </summary>
+        internal static string BruTileLayer_Transparency_Value_out_of_range {
+            get {
+                return ResourceManager.GetString("BruTileLayer_Transparency_Value_out_of_range", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Een kritieke fout is opgetreden bij het aanmaken van de cache..
         /// </summary>
         internal static string PersistentCacheConfiguration_CreateTileCache_Critical_error_while_creating_tile_cache {

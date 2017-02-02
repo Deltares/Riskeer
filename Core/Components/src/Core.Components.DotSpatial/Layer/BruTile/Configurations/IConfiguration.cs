@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using BruTile;
 using Core.Components.DotSpatial.Layer.BruTile.TileFetching;
 
@@ -31,7 +32,7 @@ namespace Core.Components.DotSpatial.Layer.BruTile.Configurations
     /// Original source: https://github.com/FObermaier/DotSpatial.Plugins/blob/master/DotSpatial.Plugins.BruTileLayer/Configuration/IConfiguration.cs
     /// Original license: http://www.apache.org/licenses/LICENSE-2.0.html
     /// </remarks>
-    public interface IConfiguration
+    public interface IConfiguration : IDisposable
     {
         /// <summary>
         /// Gets the name of the layer.
