@@ -22,8 +22,6 @@
 using System;
 using System.Drawing.Imaging;
 using System.IO;
-using System.Reflection;
-using System.Text.RegularExpressions;
 using BruTile;
 using BruTile.Web;
 using BruTile.Wmts;
@@ -46,7 +44,7 @@ namespace Core.Components.DotSpatial.TestUtil
         /// </summary>
         /// <param name="backgroundMapData">The map data to work with.</param>
         public TestWmtsTileSource(WmtsMapData backgroundMapData)
-            : base(CreateWmtsTileSchema(backgroundMapData), null, "Stub schema", null, GetStubTile)
+            : base(CreateWmtsTileSchema(backgroundMapData), new RequestStub(), "Stub schema", null, GetStubTile)
         {
             var imageFormatExtension = backgroundMapData.PreferredFormat.Split('/')[1];
             if (imageFormatExtension != "png")
@@ -60,7 +58,7 @@ namespace Core.Components.DotSpatial.TestUtil
             return TileSchemaFactory.CreateWmtsTileSchema(backgroundMapData);
         }
 
-        private static byte[] GetStubTile(Uri arg)
+        private static byte[] GetStubTile(Uri url)
         {
             if (pngTileDataStub == null)
             {
@@ -71,6 +69,14 @@ namespace Core.Components.DotSpatial.TestUtil
                 }
             }
             return pngTileDataStub;
+        }
+
+        private class RequestStub : IRequest
+        {
+            public Uri GetUri(TileInfo info)
+            {
+                return new Uri(@"https:\\www.stub.org");
+            }
         }
     }
 }

@@ -19,23 +19,31 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using Core.Components.Gis.Data;
+using NUnit.Framework;
 
-namespace Core.Components.DotSpatial.TestUtil
+namespace Core.Components.DotSpatial.TestUtil.Test
 {
-    /// <summary>
-    /// A class representing a <see cref="FeatureBasedMapData"/> implementation which is
-    /// not in the regular codebase.
-    /// </summary>
-    public class TestFeatureBasedMapData : FeatureBasedMapData
+    [TestFixture]
+    public class TestFeatureBasedMapDataTest
     {
-        /// <summary>
-        /// Initializes a new instance of <see cref="TestFeatureBasedMapData"/>.
-        /// </summary>
-        /// <param name="name">The name of the map data.</param>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="name"/> is
-        /// <c>null</c> or whitespace.</exception>
-        public TestFeatureBasedMapData(string name) : base(name) {}
+        [Test]
+        public void Constructor_ValidArguments_ExpectedValues()
+        {
+            // Setup
+            const string name = "A";
+
+            // Call
+            var mapData = new TestFeatureBasedMapData(name);
+
+            // Assert
+            Assert.IsInstanceOf<FeatureBasedMapData>(mapData);
+            Assert.AreEqual(name, mapData.Name);
+            CollectionAssert.IsEmpty(mapData.Features);
+            Assert.IsTrue(mapData.IsVisible);
+            CollectionAssert.IsEmpty(mapData.MetaData);
+            Assert.IsNull(mapData.SelectedMetaDataAttribute);
+            Assert.IsFalse(mapData.ShowLabels);
+        }
     }
 }

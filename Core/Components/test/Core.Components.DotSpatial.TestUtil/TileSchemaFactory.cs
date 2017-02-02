@@ -62,7 +62,7 @@ namespace Core.Components.DotSpatial.TestUtil
 
         private static WmtsTileSchema ConstructWmtsTileSchema()
         {
-            return (WmtsTileSchema)typeof(WmtsTileSchema)
+            return (WmtsTileSchema) typeof(WmtsTileSchema)
                 .GetConstructor(BindingFlags.NonPublic | BindingFlags.Instance, null, Type.EmptyTypes, null)
                 .Invoke(null);
         }

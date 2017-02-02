@@ -247,42 +247,10 @@ namespace Core.Components.DotSpatial.Layer.BruTile
                                                                   args.GeographicExtents
                                                               };
 
-            // Loop constants:
             ITileSchema schema = configuration.TileSource.Schema;
             foreach (DotSpatialExtent region in regionsToDraw)
             {
-                if (!Monitor.TryEnter(drawLock))
-                {
-                    continue;
-                }
-
-                // If the layer is reprojected, we should take that into account for the geographic region:
-                DotSpatialExtent geoExtent = targetProjection == null
-                                                 ? region
-                                                 : region.Intersection(Extent)
-                                                         .Reproject(targetProjection, sourceProjection);
-
-                BruTileExtent extent;
-                if (!GetBruTileExtentToRender(geoExtent, out extent))
-                {
-                    continue;
-                }
-
-                double distancePerPixel = extent.Width / args.ImageRectangle.Width;
-                level = Utilities.GetNearestLevel(schema.Resolutions, distancePerPixel);
-
-                tileFetcher.DropAllPendingTileRequests();
-
-                // Save original transform:
-                Matrix transform = args.Device.Transform;
-
-                IList<TileInfo> tiles = Sort(schema.GetTileInfos(extent, level), geoExtent.Center);
-                DrawTilesAtCurrentLevel(args, tiles, schema);
-
-                // Restore the transform:
-                args.Device.Transform = transform;
-
-                Monitor.Exit(drawLock);
+                DrawRegion(args, region, schema);
             }
         }
 
@@ -302,26 +270,51 @@ namespace Core.Components.DotSpatial.Layer.BruTile
             base.Dispose(managedResources);
         }
 
+        private void DrawRegion(MapArgs args, DotSpatialExtent region, ITileSchema schema)
+        {
+            if (!Monitor.TryEnter(drawLock))
+            {
+                return;
+            }
+
+            // If the layer is reprojected, we should take that into account for the geographic region:
+            DotSpatialExtent geoExtent = targetProjection == null
+                                             ? region
+                                             : region.Intersection(Extent)
+                                                     .Reproject(targetProjection, sourceProjection);
+            BruTileExtent extent;
+            if (!GetBruTileExtentToRender(geoExtent, out extent))
+            {
+                return;
+            }
+
+            double distancePerPixel = extent.Width / args.ImageRectangle.Width;
+            level = Utilities.GetNearestLevel(schema.Resolutions, distancePerPixel);
+
+            tileFetcher.DropAllPendingTileRequests();
+
+            // Save original transform:
+            Matrix transform = args.Device.Transform;
+
+            IList<TileInfo> tiles = Sort(schema.GetTileInfos(extent, level), geoExtent.Center);
+            DrawTilesAtCurrentLevel(args, tiles, schema);
+
+            // Restore the transform:
+            args.Device.Transform = transform;
+
+            Monitor.Exit(drawLock);
+        }
+
         private bool GetBruTileExtentToRender(DotSpatialExtent geoExtent, out BruTileExtent extent)
         {
-            extent = new BruTileExtent();
-
             if (geoExtent.IsEmpty())
             {
+                extent = new BruTileExtent();
                 Monitor.Exit(drawLock);
                 return false;
             }
 
-            try
-            {
-                extent = ToBrutileExtent(geoExtent);
-            }
-            catch (Exception)
-            {
-                Monitor.Exit(drawLock);
-                return false;
-            }
-
+            extent = ToBrutileExtent(geoExtent);
             if (double.IsNaN(extent.Area))
             {
                 Monitor.Exit(drawLock);
@@ -334,7 +327,6 @@ namespace Core.Components.DotSpatial.Layer.BruTile
         {
             var tilesNotImmediatelyDrawn = new List<TileInfo>();
 
-            // Loop constants:
             var reprojector = new TileReprojector(args, sourceProjection, targetProjection);
             Resolution resolution = schema.Resolutions[level];
             foreach (TileInfo info in tiles)
@@ -490,12 +482,14 @@ namespace Core.Components.DotSpatial.Layer.BruTile
         }
 
         /// <summary>
-        /// 
+        /// Converts from <see cref="DotSpatialExtent"/> (Dotspatial) to <see cref="BruTileExtent"/>
+        /// (BruTile).
         /// </summary>
-        /// <param name="extent"></param>
-        /// <returns></returns>
+        /// <param name="extent">The extent to convert from.</param>
+        /// <returns>The converted extent.</returns>
         /// <exception cref="ArgumentException">Thrown when <paramref name="extent"/>
-        /// has <see cref="DotSpatial.Data.Extent.MinX"/>
+        /// has <see cref="DotSpatialExtent.MinX"/> greater than <see cref="DotSpatialExtent.MaxX"/>
+        /// or <see cref="DotSpatialExtent.MinY"/> greater than <see cref="DotSpatialExtent.MaxY"/>.
         /// </exception>
         private static BruTileExtent ToBrutileExtent(DotSpatialExtent extent)
         {
@@ -552,9 +546,10 @@ namespace Core.Components.DotSpatial.Layer.BruTile
 
                 Point leftTopPoint = args.ProjToPixel(outWorldFile.ToWorldCoordinates(0, 0));
                 Point rightBottomPoint = args.ProjToPixel(outWorldFile.ToWorldCoordinates(outBitmap.Width, outBitmap.Height));
-                var rect = new Rectangle(leftTopPoint, Size.Subtract(new Size(rightBottomPoint), new Size(leftTopPoint)));
+                var imageScreenBounds = new Rectangle(leftTopPoint, new Size(rightBottomPoint.X - leftTopPoint.X,
+                                                                             rightBottomPoint.Y - leftTopPoint.Y));
 
-                args.Device.DrawImage(outBitmap, rect, 0, 0, outBitmap.Width, outBitmap.Height,
+                args.Device.DrawImage(outBitmap, imageScreenBounds, 0, 0, outBitmap.Width, outBitmap.Height,
                                       GraphicsUnit.Pixel, imageAttributes);
 
                 if (outBitmap != bitmap)
