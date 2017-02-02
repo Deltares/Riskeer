@@ -74,6 +74,10 @@
       <Project>{D08DB9E2-6861-44C8-A725-71A70274CC77}</Project>
       <Name>Migration.Scripts.Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\Scripts\test\Migration.Scripts.Data.TestUtil\Migration.Scripts.Data.TestUtil.csproj">
+      <Project>{E4B36055-A984-4D40-9A70-34354054FE46}</Project>
+      <Name>Migration.Scripts.Data.TestUtil</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\src\Migration.Core.Storage\Migration.Core.Storage.csproj">
       <Project>{EFD7E662-5B69-4B71-A448-565B64E9C033}</Project>
       <Name>Migration.Core.Storage</Name>

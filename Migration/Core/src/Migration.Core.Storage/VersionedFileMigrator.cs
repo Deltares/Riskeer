@@ -74,8 +74,17 @@ namespace Migration.Core.Storage
         /// <param name="toVersion">The version to upgrade to.</param>
         /// <returns><c>true</c> if <paramref name="versionedFile"/> needs to be upgraded to <paramref name="toVersion"/>, 
         /// <c>false</c> otherwise.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any of the input parameters is <c>null</c>.</exception>
         public bool NeedsMigrate(IVersionedFile versionedFile, string toVersion)
         {
+            if (versionedFile == null)
+            {
+                throw new ArgumentNullException(nameof(versionedFile));
+            }
+            if (toVersion == null)
+            {
+                throw new ArgumentNullException(nameof(toVersion));
+            }
             return versionedFileComparer.Compare(versionedFile.GetVersion(), toVersion) < 0;
         }
 

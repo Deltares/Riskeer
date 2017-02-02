@@ -19,10 +19,11 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections;
-using System.Linq;
-using Migration.Core.Storage.TestUtil;
+using System.Collections.Generic;
 using Migration.Scripts.Data;
+using Migration.Scripts.Data.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 
@@ -32,23 +33,123 @@ namespace Migration.Core.Storage.Test
     public class VersionedFileMigratorTest
     {
         [Test]
+        public void Constructor_ComparerNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => new SimpleVersionedFileMigrator(null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("comparer", paramName);
+        }
+
+        [Test]
         [TestCase("")]
         [TestCase(null)]
-        public void IsVersionSupported_ToVersionIsNullOrWhiteSpace_ReturnsFalse(string toVersion)
+        public void IsVersionSupported_FromVersionIsNullOrWhiteSpace_ReturnsFalse(string fromVersion)
         {
             // Setup
             var mockRepository = new MockRepository();
             var comparer = mockRepository.Stub<IComparer>();
             mockRepository.ReplayAll();
-            var migrator = new TestVersionedFileMigrator(comparer, Enumerable.Empty<UpgradeScript>(),
-                                                         Enumerable.Empty<CreateScript>());
+            var migrator = new SimpleVersionedFileMigrator(comparer);
 
             // Call
-            bool isSupported = migrator.IsVersionSupported(toVersion);
+            bool isSupported = migrator.IsVersionSupported(fromVersion);
 
             // Assert
             Assert.IsFalse(isSupported);
             mockRepository.VerifyAll();
+        }
+
+        [Test]
+        [TestCase("true", true)]
+        [TestCase("false", false)]
+        public void IsVersionSupported_ValidFromVersion_ReturnsIfSupported(string fromVersion, bool shouldSupport)
+        {
+            // Setup
+            var mockRepository = new MockRepository();
+            var comparer = mockRepository.Stub<IComparer>();
+            mockRepository.ReplayAll();
+
+            string toVersion = "1";
+            var migrator = new SimpleVersionedFileMigrator(comparer)
+            {
+                CreateScripts =
+                {
+                    new TestCreateScript(toVersion)
+                },
+                UpgradeScripts =
+                {
+                    new TestUpgradeScript("true", toVersion)
+                }
+            };
+
+            // Call
+            bool isSupported = migrator.IsVersionSupported(fromVersion);
+
+            // Assert
+            Assert.AreEqual(shouldSupport, isSupported);
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void NeedsMigrate_VersionedFileNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mockRepository = new MockRepository();
+            var comparer = mockRepository.Stub<IComparer>();
+            mockRepository.ReplayAll();
+            var migrator = new SimpleVersionedFileMigrator(comparer);
+
+            // Call
+            TestDelegate call = () => migrator.NeedsMigrate(null, "");
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("versionedFile", paramName);
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void NeedsMigrate_ToVersionNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mockRepository = new MockRepository();
+            var comparer = mockRepository.Stub<IComparer>();
+            var versionedFile = mockRepository.Stub<IVersionedFile>();
+            mockRepository.ReplayAll();
+            var migrator = new SimpleVersionedFileMigrator(comparer);
+
+            // Call
+            TestDelegate call = () => migrator.NeedsMigrate(versionedFile, null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("toVersion", paramName);
+            mockRepository.VerifyAll();
+        }
+
+        private class SimpleVersionedFileMigrator : VersionedFileMigrator
+        {
+            public SimpleVersionedFileMigrator(IComparer comparer) : base(comparer)
+            {
+                UpgradeScripts = new List<UpgradeScript>();
+                CreateScripts = new List<CreateScript>();
+            }
+
+            public List<UpgradeScript> UpgradeScripts { get; }
+            public List<CreateScript> CreateScripts { get; }
+
+            protected override IEnumerable<UpgradeScript> GetAvailableUpgradeScripts()
+            {
+                return UpgradeScripts;
+            }
+
+            protected override IEnumerable<CreateScript> GetAvailableCreateScripts()
+            {
+                return CreateScripts;
+            }
         }
     }
 }
