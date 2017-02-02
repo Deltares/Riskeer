@@ -20,7 +20,9 @@
 // All rights reserved.
 
 using System.Collections;
+using System.Linq;
 using Migration.Core.Storage.TestUtil;
+using Migration.Scripts.Data;
 using NUnit.Framework;
 using Rhino.Mocks;
 
@@ -38,7 +40,8 @@ namespace Migration.Core.Storage.Test
             var mockRepository = new MockRepository();
             var comparer = mockRepository.Stub<IComparer>();
             mockRepository.ReplayAll();
-            var migrator = new TestVersionedFileMigrator(comparer);
+            var migrator = new TestVersionedFileMigrator(comparer, Enumerable.Empty<UpgradeScript>(),
+                                                         Enumerable.Empty<CreateScript>());
 
             // Call
             bool isSupported = migrator.IsVersionSupported(toVersion);

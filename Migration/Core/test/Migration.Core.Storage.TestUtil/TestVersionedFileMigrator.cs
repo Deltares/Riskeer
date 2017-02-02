@@ -22,7 +22,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using Migration.Scripts.Data;
 
 namespace Migration.Core.Storage.TestUtil
@@ -32,22 +31,40 @@ namespace Migration.Core.Storage.TestUtil
     /// </summary>
     public class TestVersionedFileMigrator : VersionedFileMigrator
     {
+        private readonly IEnumerable<UpgradeScript> upgradeScripts;
+        private readonly IEnumerable<CreateScript> createScripts;
+
         /// <summary>
         /// Creates a new instance of the <see cref="TestVersionedFileMigrator"/> class.
         /// </summary>
         /// <param name="comparer">The comparer to use to compare versions.</param>
+        /// <param name="upgradeScripts">The upgrade scripts to use.</param>
+        /// <param name="createScripts">The create scripts to use.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="comparer"/> is 
         /// <c>null</c>.</exception>
-        public TestVersionedFileMigrator(IComparer comparer) : base(comparer) {}
+        public TestVersionedFileMigrator(IComparer comparer, IEnumerable<UpgradeScript> upgradeScripts,
+                                         IEnumerable<CreateScript> createScripts) : base(comparer)
+        {
+            if (upgradeScripts == null)
+            {
+                throw new ArgumentNullException(nameof(upgradeScripts));
+            }
+            if (createScripts == null)
+            {
+                throw new ArgumentNullException(nameof(createScripts));
+            }
+            this.upgradeScripts = upgradeScripts;
+            this.createScripts = createScripts;
+        }
 
         protected override IEnumerable<UpgradeScript> GetAvailableUpgradeScripts()
         {
-            return Enumerable.Empty<UpgradeScript>();
+            return upgradeScripts;
         }
 
         protected override IEnumerable<CreateScript> GetAvailableCreateScripts()
         {
-            return Enumerable.Empty<CreateScript>();
+            return createScripts;
         }
     }
 }

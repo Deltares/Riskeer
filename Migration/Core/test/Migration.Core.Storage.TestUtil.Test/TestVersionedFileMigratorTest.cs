@@ -21,6 +21,8 @@
 
 using System;
 using System.Collections;
+using System.Linq;
+using Migration.Scripts.Data;
 using NUnit.Framework;
 using Rhino.Mocks;
 
@@ -33,7 +35,8 @@ namespace Migration.Core.Storage.TestUtil.Test
         public void Constructor_ComparerNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new TestVersionedFileMigrator(null);
+            TestDelegate call = () => new TestVersionedFileMigrator(null, Enumerable.Empty<UpgradeScript>(),
+                                                                    Enumerable.Empty<CreateScript>());
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -49,7 +52,8 @@ namespace Migration.Core.Storage.TestUtil.Test
             mockRepository.ReplayAll();
 
             // Call
-            var migrator = new TestVersionedFileMigrator(comparer);
+            var migrator = new TestVersionedFileMigrator(comparer, Enumerable.Empty<UpgradeScript>(),
+                                                         Enumerable.Empty<CreateScript>());
 
             // Assert
             Assert.IsInstanceOf<VersionedFileMigrator>(migrator);
