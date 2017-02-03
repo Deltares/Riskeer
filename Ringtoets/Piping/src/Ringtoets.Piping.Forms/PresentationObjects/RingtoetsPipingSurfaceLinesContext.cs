@@ -31,7 +31,7 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
     /// <summary>
     /// The presentation object for <see cref="PipingFailureMechanism.SurfaceLines"/>.
     /// </summary>
-    public class RingtoetsPipingSurfaceLinesContext : ObservableWrappedObjectContextBase<ObservableList<RingtoetsPipingSurfaceLine>>
+    public class RingtoetsPipingSurfaceLinesContext : ObservableWrappedObjectContextBase<ObservableCollectionWithSourcePath<RingtoetsPipingSurfaceLine>>
     {
         /// <summary>
         /// Creates a new instance of <see cref="RingtoetsPipingSurfaceLinesContext"/>.
@@ -40,7 +40,7 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
         /// <param name="failureMechanism">The failure mechanism</param>
         /// <param name="assessmentSection">The assessment section.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
-        public RingtoetsPipingSurfaceLinesContext(ObservableList<RingtoetsPipingSurfaceLine> surfaceLines,
+        public RingtoetsPipingSurfaceLinesContext(ObservableCollectionWithSourcePath<RingtoetsPipingSurfaceLine> surfaceLines,
                                                   PipingFailureMechanism failureMechanism,
                                                   IAssessmentSection assessmentSection)
             : base(surfaceLines)

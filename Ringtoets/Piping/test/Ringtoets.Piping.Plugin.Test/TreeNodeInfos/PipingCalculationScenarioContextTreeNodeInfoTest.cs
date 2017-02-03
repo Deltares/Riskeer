@@ -752,13 +752,12 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 new Point3D(0.0, -5.0, 0.0)
             });
 
-            var failureMechanism = new PipingFailureMechanism
+            var failureMechanism = new PipingFailureMechanism();
+            const string arbitraryFilePath = "path";
+            failureMechanism.SurfaceLines.AddRange(new[]
             {
-                SurfaceLines =
-                {
-                    surfaceLine
-                }
-            };
+                surfaceLine
+            }, arbitraryFilePath);
             failureMechanism.StochasticSoilModels.AddRange(new[]
             {
                 new TestStochasticSoilModel
@@ -768,7 +767,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                         new Point2D(0.0, 0.0), new Point2D(5.0, 0.0)
                     }
                 }
-            }, "path");
+            }, arbitraryFilePath);
 
             failureMechanism.AddSection(new FailureMechanismSection("Section", new List<Point2D>
             {

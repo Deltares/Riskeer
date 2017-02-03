@@ -77,9 +77,11 @@ namespace Ringtoets.Piping.Integration.TestUtils
                 new Point3D(10, 10, 0)
             });
 
-            failureMechanism.SurfaceLines.Add(surfaceline1);
-            failureMechanism.SurfaceLines.Add(surfaceline2);
-
+            failureMechanism.SurfaceLines.AddRange(new[]
+            {
+                surfaceline1,
+                surfaceline2
+            }, "some/path/to/surfacelines");
             var stochasticSoilModel1 = new StochasticSoilModel(1, "A", "B")
             {
                 Geometry =
@@ -109,7 +111,7 @@ namespace Ringtoets.Piping.Integration.TestUtils
             {
                 stochasticSoilModel1,
                 stochasticSoilModel2
-            }, "path");
+            }, "some/path/to/stochasticsoilmodels");
 
             var calculation = new PipingCalculationScenario(new GeneralPipingInput());
             var calculationWithOutput = new PipingCalculationScenario(new GeneralPipingInput())

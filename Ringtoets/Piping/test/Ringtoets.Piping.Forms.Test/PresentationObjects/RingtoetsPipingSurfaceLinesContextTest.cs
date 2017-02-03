@@ -44,13 +44,13 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
 
             var failureMechanism = new PipingFailureMechanism();
 
-            var surfaceLines = new ObservableList<RingtoetsPipingSurfaceLine>();
+            var surfaceLines = new ObservableCollectionWithSourcePath<RingtoetsPipingSurfaceLine>();
 
             // Call
             var context = new RingtoetsPipingSurfaceLinesContext(surfaceLines, failureMechanism, assessmentSectionMock);
 
             // Assert
-            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<ObservableList<RingtoetsPipingSurfaceLine>>>(context);
+            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<ObservableCollectionWithSourcePath<RingtoetsPipingSurfaceLine>>>(context);
             Assert.AreSame(surfaceLines, context.WrappedData);
             Assert.AreSame(assessmentSectionMock, context.AssessmentSection);
             mocks.VerifyAll();
@@ -60,7 +60,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
         public void ParameteredConstructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Setup
-            var surfaceLines = new ObservableList<RingtoetsPipingSurfaceLine>();
+            var surfaceLines = new ObservableCollectionWithSourcePath<RingtoetsPipingSurfaceLine>();
             var failureMechanism = new PipingFailureMechanism();
 
             // Call
@@ -79,7 +79,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var surfaceLines = new ObservableList<RingtoetsPipingSurfaceLine>();
+            var surfaceLines = new ObservableCollectionWithSourcePath<RingtoetsPipingSurfaceLine>();
 
             // Call
             TestDelegate call = () => new RingtoetsPipingSurfaceLinesContext(surfaceLines, null, assessmentSection);

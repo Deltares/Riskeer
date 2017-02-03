@@ -667,8 +667,11 @@ namespace Application.Ringtoets.Storage.TestUtil
                         }
                     }
                 }
-            }, "some/path/to/file");
-            pipingFailureMechanism.SurfaceLines.Add(GetSurfaceLine());
+            }, "some/path/to/stochasticSoilModelfile");
+            pipingFailureMechanism.SurfaceLines.AddRange(new[]
+            {
+                GetSurfaceLine()
+            }, "some/path/to/surfaceLinefile");
 
             CalculationGroup pipingCalculationGroup = pipingFailureMechanism.CalculationsGroup;
             pipingCalculationGroup.Children.Add(new CalculationGroup

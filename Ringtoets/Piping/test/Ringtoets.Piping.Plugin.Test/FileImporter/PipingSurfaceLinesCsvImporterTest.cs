@@ -52,14 +52,14 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         [Test]
         public void DefaultConstructor_ExpectedValues()
         {
-            var list = new ObservableList<RingtoetsPipingSurfaceLine>();
+            var list = new ObservableCollectionWithSourcePath<RingtoetsPipingSurfaceLine>();
             var referenceLine = new ReferenceLine();
 
             // Call
             var importer = new PipingSurfaceLinesCsvImporter(list, referenceLine, "");
 
             // Assert
-            Assert.IsInstanceOf<FileImporterBase<ObservableList<RingtoetsPipingSurfaceLine>>>(importer);
+            Assert.IsInstanceOf<FileImporterBase<ObservableCollectionWithSourcePath<RingtoetsPipingSurfaceLine>>>(importer);
         }
 
         [Test]
@@ -126,11 +126,11 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             bool importResult = importer.Import();
 
             // Assert
-            Assert.IsTrue(importResult);
-            var importTargetArray = failureMechanism.SurfaceLines.ToArray();
-            Assert.AreEqual(expectedNumberOfSurfaceLines, importTargetArray.Length);
+            ObservableCollectionWithSourcePath<RingtoetsPipingSurfaceLine> importedSurfaceLines = failureMechanism.SurfaceLines;
+            AssertSuccesfulImport(importResult, expectedNumberOfSurfaceLines, validFilePath, importedSurfaceLines);
 
             // Sample some of the imported data:
+            RingtoetsPipingSurfaceLine[] importTargetArray = importedSurfaceLines.ToArray();
             RingtoetsPipingSurfaceLine firstSurfaceLine = importTargetArray[0];
             Assert.AreEqual("Rotterdam1", firstSurfaceLine.Name);
             Assert.AreEqual(8, firstSurfaceLine.Points.Length);
@@ -146,6 +146,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Assert.AreEqual(6, callCount);
 
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(validFilePath));
+            Assert.AreEqual(validFilePath, failureMechanism.SurfaceLines.SourcePath);
         }
 
         [Test]
@@ -187,11 +188,11 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             };
 
             TestHelper.AssertLogMessagesAreGenerated(call, mesages, 4);
-            Assert.IsTrue(importResult);
-            var importTargetArray = failureMechanism.SurfaceLines.ToArray();
-            Assert.AreEqual(1, importTargetArray.Length);
+            ObservableCollectionWithSourcePath<RingtoetsPipingSurfaceLine> importedSurfaceLines = failureMechanism.SurfaceLines;
+            AssertSuccesfulImport(importResult, 1, validFilePath, importedSurfaceLines);
 
             // Sample some of the imported data:
+            RingtoetsPipingSurfaceLine[] importTargetArray = importedSurfaceLines.ToArray();
             RingtoetsPipingSurfaceLine firstSurfaceLine = importTargetArray[0];
             Assert.AreEqual("Rotterdam1", firstSurfaceLine.Name);
             var geometryPoints = firstSurfaceLine.Points.ToArray();
@@ -205,6 +206,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             AssertAreEqualPoint2D(new Point2D(94270.0, 427795.313769642), firstSurfaceLine.ReferenceLineIntersectionWorldPoint);
 
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(validFilePath));
+            Assert.AreEqual(validFilePath, failureMechanism.SurfaceLines.SourcePath);
         }
 
         [Test]
@@ -236,8 +238,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             // Assert
             TestHelper.AssertLogMessageIsGenerated(call, "Profielschematisaties importeren afgebroken. Geen data ingelezen.", 3);
-            Assert.IsFalse(importResult);
-            CollectionAssert.IsEmpty(failureMechanism.SurfaceLines);
+            AssertUnsuccessfulImport(importResult, failureMechanism.SurfaceLines);
         }
 
         [Test]
@@ -269,8 +270,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             // Assert
             TestHelper.AssertLogMessageIsGenerated(call, "Profielschematisaties importeren afgebroken. Geen data ingelezen.", 4);
-            Assert.IsFalse(importResult);
-            CollectionAssert.IsEmpty(failureMechanism.SurfaceLines);
+            AssertUnsuccessfulImport(importResult, failureMechanism.SurfaceLines);
         }
 
         [Test]
@@ -311,8 +311,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             // Assert
             TestHelper.AssertLogMessageIsGenerated(call, "Profielschematisaties importeren afgebroken. Geen data ingelezen.", 4);
-            Assert.IsFalse(importResult);
-            CollectionAssert.IsEmpty(failureMechanism.SurfaceLines);
+            AssertUnsuccessfulImport(importResult, failureMechanism.SurfaceLines);
         }
 
         [Test]
@@ -350,9 +349,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             importResult = importer.Import();
 
             // Assert
-            Assert.IsTrue(importResult);
-            RingtoetsPipingSurfaceLine[] importTargetArray = failureMechanism.SurfaceLines.ToArray();
-            Assert.AreEqual(expectedNumberOfSurfaceLines, importTargetArray.Length);
+            AssertSuccesfulImport(importResult, expectedNumberOfSurfaceLines, validFilePath, failureMechanism.SurfaceLines);
         }
 
         [Test]
@@ -377,9 +374,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var expectedLogMessage = string.Format(PipingPluginResources.PipingSurfaceLinesCsvImporter_CriticalErrorMessage_0_File_Skipped,
                                                    internalErrorMessage);
             TestHelper.AssertLogMessageIsGenerated(call, expectedLogMessage, 1);
-            Assert.IsFalse(importResult);
-            CollectionAssert.IsEmpty(failureMechanism.SurfaceLines,
-                                     "No items should be added to collection when import is aborted.");
+            AssertUnsuccessfulImport(importResult, failureMechanism.SurfaceLines);
         }
 
         [Test]
@@ -409,9 +404,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                               corruptPath)
             };
             TestHelper.AssertLogMessagesAreGenerated(call, expectedLogMessages, 3);
-            Assert.IsFalse(importResult);
-            CollectionAssert.IsEmpty(failureMechanism.SurfaceLines,
-                                     "No items should be added to collection when import is aborted.");
+            AssertUnsuccessfulImport(importResult, failureMechanism.SurfaceLines);
         }
 
         [Test]
@@ -443,9 +436,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                               internalErrorMessage)
             };
             TestHelper.AssertLogMessagesAreGenerated(call, expectedLogMessages, 3);
-            Assert.IsFalse(importResult);
-            CollectionAssert.IsEmpty(failureMechanism.SurfaceLines,
-                                     "No items should be added to collection when import is aborted.");
+            AssertUnsuccessfulImport(importResult, failureMechanism.SurfaceLines);
         }
 
         [Test]
@@ -477,9 +468,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                               corruptPath)
             };
             TestHelper.AssertLogMessagesAreGenerated(call, expectedLogMessages, 3);
-            Assert.IsFalse(importResult);
-            CollectionAssert.IsEmpty(failureMechanism.SurfaceLines,
-                                     "No items should be added to collection when import is aborted.");
+            AssertUnsuccessfulImport(importResult, failureMechanism.SurfaceLines);
         }
 
         [Test]
@@ -518,9 +507,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                                   internalErrorMessage)
                 };
                 TestHelper.AssertLogMessagesAreGenerated(call, expectedLogMessages, 3);
-                Assert.IsFalse(importResult);
-                CollectionAssert.IsEmpty(failureMechanism.SurfaceLines,
-                                         "No items should be added to collection when import is aborted.");
+                AssertUnsuccessfulImport(importResult, failureMechanism.SurfaceLines);
             }
             finally
             {
@@ -570,10 +557,8 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             };
 
             TestHelper.AssertLogMessagesAreGenerated(call, expectedLogMessages, 4);
-            Assert.IsTrue(importResult);
 
-            Assert.AreEqual(1, failureMechanism.SurfaceLines.Count,
-                            "Ensure only the one valid surfaceline has been imported.");
+            AssertSuccesfulImport(importResult, 1, corruptPath, failureMechanism.SurfaceLines);
             Assert.AreEqual(1, failureMechanism.SurfaceLines.Count(sl => sl.Name == "Rotterdam1"));
             Assert.AreEqual(3, failureMechanism.SurfaceLines.First(sl => sl.Name == "Rotterdam1").Points.Length, "First line should have been added to the model.");
         }
@@ -622,10 +607,8 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                               characteristicPointsFilePath)
             };
             TestHelper.AssertLogMessagesAreGenerated(call, expectedLogMessages, 4);
-            Assert.IsTrue(importResult);
 
-            Assert.AreEqual(2, failureMechanism.SurfaceLines.Count,
-                            "Ensure only the two valid surfacelines have been imported.");
+            AssertSuccesfulImport(importResult, 2, corruptPath, failureMechanism.SurfaceLines);
             Assert.AreEqual(1, failureMechanism.SurfaceLines.Count(sl => sl.Name == "Rotterdam1"));
             Assert.AreEqual(1, failureMechanism.SurfaceLines.Count(sl => sl.Name == "ArtifcialLocal"));
 
@@ -678,9 +661,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                               Path.Combine(ioTestDataPath, "InvalidRow_DuplicatePointsCausingRecline.krp.csv"))
             };
             TestHelper.AssertLogMessagesAreGenerated(call, expectedLogMessages, 4);
-            Assert.IsTrue(importResult);
-            RingtoetsPipingSurfaceLine[] importTargetArray = failureMechanism.SurfaceLines.ToArray();
-            Assert.AreEqual(0, importTargetArray.Length);
+            AssertSuccesfulImport(importResult, 0, path, failureMechanism.SurfaceLines);
 
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(path));
         }
@@ -721,9 +702,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                               Path.Combine(ioTestDataPath, "InvalidRow_DuplicatePointsCausingZeroLength.krp.csv"))
             };
             TestHelper.AssertLogMessagesAreGenerated(call, expectedLogMessages, 4);
-            Assert.IsTrue(importResult);
-            var importTargetArray = failureMechanism.SurfaceLines.ToArray();
-            Assert.AreEqual(0, importTargetArray.Length);
+            AssertSuccesfulImport(importResult, 0, path, failureMechanism.SurfaceLines);
 
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(path));
         }
@@ -762,8 +741,8 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var expectedLogMessage = string.Format(PipingPluginResources.PipingSurfaceLinesCsvImporter_Import_No_characteristic_points_file_for_surface_line_file_expecting_file_0_,
                                                    nonExistingCharacteristicFile);
             TestHelper.AssertLogMessageIsGenerated(call, expectedLogMessage, 3);
-            Assert.IsTrue(importResult);
-            Assert.AreEqual(2, failureMechanism.SurfaceLines.Count);
+
+            AssertSuccesfulImport(importResult, 2, surfaceLinesFile, failureMechanism.SurfaceLines);
         }
 
         [Test]
@@ -802,9 +781,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                               internalErrorMessage)
             };
             TestHelper.AssertLogMessagesAreGenerated(call, expectedLogMessages, 5);
-            Assert.IsFalse(importResult);
-            CollectionAssert.IsEmpty(failureMechanism.SurfaceLines,
-                                     "No items should be added to collection when import is aborted.");
+            AssertUnsuccessfulImport(importResult, failureMechanism.SurfaceLines);
         }
 
         [Test]
@@ -844,9 +821,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             };
 
             TestHelper.AssertLogMessagesAreGenerated(call, expectedLogMessages, 5);
-            Assert.IsFalse(importResult);
-            CollectionAssert.IsEmpty(failureMechanism.SurfaceLines,
-                                     "No items should be added to collection when import is aborted.");
+            AssertUnsuccessfulImport(importResult, failureMechanism.SurfaceLines);
         }
 
         [Test]
@@ -899,9 +874,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                                   internalErrorMessage)
                 };
                 TestHelper.AssertLogMessagesAreGenerated(call, expectedLogMessages, 5);
-                Assert.IsFalse(importResult);
-                CollectionAssert.IsEmpty(failureMechanism.SurfaceLines,
-                                         "No items should be added to collection when import is aborted.");
+                AssertUnsuccessfulImport(importResult, failureMechanism.SurfaceLines);
             }
             finally
             {
@@ -960,10 +933,8 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                 duplicateDefinitionMessage
             };
             TestHelper.AssertLogMessagesAreGenerated(call, expectedLogMessages, 5);
-            Assert.IsTrue(importResult);
 
-            Assert.AreEqual(2, failureMechanism.SurfaceLines.Count,
-                            "Ensure only the two valid surfacelines have been imported.");
+            AssertSuccesfulImport(importResult, 2, surfaceLinesFile, failureMechanism.SurfaceLines);
             Assert.AreEqual(1, failureMechanism.SurfaceLines.Count(sl => sl.Name == "Rotterdam1"));
             Assert.AreEqual(-1.02, failureMechanism.SurfaceLines.First(sl => sl.Name == "Rotterdam1").DitchPolderSide.Z, "First characteristic points definition should be added to data model.");
             Assert.AreEqual(1, failureMechanism.SurfaceLines.Count(sl => sl.Name == "ArtifcialLocal"));
@@ -1018,10 +989,8 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                               corruptPath)
             };
             TestHelper.AssertLogMessagesAreGenerated(call, expectedLogMessages, 6);
-            Assert.IsTrue(importResult);
 
-            Assert.AreEqual(2, failureMechanism.SurfaceLines.Count,
-                            "Ensure only the two valid surfacelines have been imported.");
+            AssertSuccesfulImport(importResult, 2, surfaceLinesFile, failureMechanism.SurfaceLines);
             Assert.AreEqual(1, failureMechanism.SurfaceLines.Count(sl => sl.Name == "Rotterdam1Invalid"));
             Assert.AreEqual(1, failureMechanism.SurfaceLines.Count(sl => sl.Name == "ArtifcialLocal"));
 
@@ -1082,10 +1051,8 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                               "Rotterdam1")
             };
             TestHelper.AssertLogMessagesAreGenerated(call, expectedLogMessages, 5);
-            Assert.IsTrue(importResult);
 
-            Assert.AreEqual(2, failureMechanism.SurfaceLines.Count,
-                            "Ensure only the two valid surfacelines have been imported.");
+            AssertSuccesfulImport(importResult, 2, surfaceLinesPath, failureMechanism.SurfaceLines);
             Assert.AreEqual(1, failureMechanism.SurfaceLines.Count(sl => sl.Name == "Rotterdam1"));
             Assert.AreEqual(1, failureMechanism.SurfaceLines.Count(sl => sl.Name == "ArtifcialLocal"));
 
@@ -1219,10 +1186,8 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                               pointFormat)
             };
             TestHelper.AssertLogMessagesAreGenerated(call, expectedLogMessages);
-            Assert.IsTrue(importResult);
 
-            Assert.AreEqual(2, failureMechanism.SurfaceLines.Count,
-                            "Ensure only the two valid surfacelines have been imported.");
+            AssertSuccesfulImport(importResult, 2, surfaceLinesPath, failureMechanism.SurfaceLines);
             Assert.AreEqual(1, failureMechanism.SurfaceLines.Count(sl => sl.Name == "Rotterdam1Invalid"));
             Assert.AreEqual(1, failureMechanism.SurfaceLines.Count(sl => sl.Name == "ArtifcialLocal"));
 
@@ -1315,11 +1280,11 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             bool importResult = importer.Import();
 
             // Assert
-            Assert.IsTrue(importResult);
-            RingtoetsPipingSurfaceLine[] importTargetArray = failureMechanism.SurfaceLines.ToArray();
-            Assert.AreEqual(expectedNumberOfSurfaceLines, importTargetArray.Length);
+            ObservableCollectionWithSourcePath<RingtoetsPipingSurfaceLine> importedSurfaceLines = failureMechanism.SurfaceLines;
+            AssertSuccesfulImport(importResult, expectedNumberOfSurfaceLines, validSurfaceLinesFilePath, importedSurfaceLines);
 
             // Sample some of the imported data:
+            RingtoetsPipingSurfaceLine[] importTargetArray = importedSurfaceLines.ToArray();
             RingtoetsPipingSurfaceLine firstSurfaceLine = importTargetArray[0];
             Assert.AreEqual("Rotterdam1", firstSurfaceLine.Name);
             Assert.AreEqual(8, firstSurfaceLine.Points.Length);
@@ -1376,13 +1341,14 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Action call = () => importResult = importer.Import();
 
             // Assert
-            var mesagge = "Profielschematisatie ArtifcialLocal doorkruist de huidige referentielijn niet of op meer dan één punt en kan niet worden geïmporteerd. Dit kan komen doordat de profielschematisatie een lokaal coördinaatsysteem heeft.";
-            TestHelper.AssertLogMessageIsGenerated(call, mesagge);
-            RingtoetsPipingSurfaceLine[] importTargetArray = failureMechanism.SurfaceLines.ToArray();
-            Assert.IsTrue(importResult);
-            Assert.AreEqual(expectedNumberOfSurfaceLines, importTargetArray.Length);
+            var message = "Profielschematisatie ArtifcialLocal doorkruist de huidige referentielijn niet of op meer dan één punt en kan niet worden geïmporteerd. Dit kan komen doordat de profielschematisatie een lokaal coördinaatsysteem heeft.";
+            TestHelper.AssertLogMessageIsGenerated(call, message);
+
+            ObservableCollectionWithSourcePath<RingtoetsPipingSurfaceLine> importedSurfaceLines = failureMechanism.SurfaceLines;
+            AssertSuccesfulImport(importResult, expectedNumberOfSurfaceLines, validFilePath, importedSurfaceLines);
 
             // Sample some of the imported data:
+            RingtoetsPipingSurfaceLine[] importTargetArray = importedSurfaceLines.ToArray();
             RingtoetsPipingSurfaceLine firstSurfaceLine = importTargetArray[0];
             Assert.AreEqual("Rotterdam1", firstSurfaceLine.Name);
             Assert.AreEqual(8, firstSurfaceLine.Points.Length);
@@ -1425,11 +1391,12 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             // Assert
             var mesagge = "Profielschematisatie Rotterdam1 doorkruist de huidige referentielijn niet of op meer dan één punt en kan niet worden geïmporteerd.";
             TestHelper.AssertLogMessageIsGenerated(call, mesagge);
-            RingtoetsPipingSurfaceLine[] importTargetArray = failureMechanism.SurfaceLines.ToArray();
-            Assert.IsTrue(importResult);
-            Assert.AreEqual(expectedNumberOfSurfaceLines, importTargetArray.Length);
+
+            ObservableCollectionWithSourcePath<RingtoetsPipingSurfaceLine> importedSurfaceLines = failureMechanism.SurfaceLines;
+            AssertSuccesfulImport(importResult, expectedNumberOfSurfaceLines, validFilePath, importedSurfaceLines);
 
             // Sample some of the imported data:
+            RingtoetsPipingSurfaceLine[] importTargetArray = importedSurfaceLines.ToArray();
             RingtoetsPipingSurfaceLine firstSurfaceLine = importTargetArray[0];
             Assert.AreEqual("ArtifcialLocal", firstSurfaceLine.Name);
             Assert.AreEqual(3, firstSurfaceLine.Points.Length);
@@ -1471,16 +1438,34 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var message = string.Format(PipingPluginResources.PipingSurfaceLinesCsvImporter_CheckCharacteristicPoints_EntryPointL_greater_or_equal_to_ExitPointL_for_0_,
                                         "ArtifcialLocal");
             TestHelper.AssertLogMessageIsGenerated(call, message);
-            Assert.IsTrue(importResult);
 
-            RingtoetsPipingSurfaceLine[] importTargetArray = failureMechanism.SurfaceLines.ToArray();
-            Assert.AreEqual(1, importTargetArray.Length);
+            ObservableCollectionWithSourcePath<RingtoetsPipingSurfaceLine> importedSurfaceLines = failureMechanism.SurfaceLines;
+            AssertSuccesfulImport(importResult, 1, validFilePath, importedSurfaceLines);
 
             // Sample some of the imported data:
+            RingtoetsPipingSurfaceLine[] importTargetArray = importedSurfaceLines.ToArray();
             RingtoetsPipingSurfaceLine firstSurfaceLine = importTargetArray[0];
             Assert.AreEqual("Rotterdam1", firstSurfaceLine.Name);
             Assert.AreEqual(8, firstSurfaceLine.Points.Length);
             Assert.AreEqual(427776.654093, firstSurfaceLine.StartingWorldPoint.Y);
+        }
+
+        private static void AssertSuccesfulImport(bool importResult, int expectedSurfaceLineCount, string expectedFilePath,
+                                                  ObservableCollectionWithSourcePath<RingtoetsPipingSurfaceLine> surfaceLines)
+        {
+            Assert.IsTrue(importResult);
+            Assert.AreEqual(expectedFilePath, surfaceLines.SourcePath);
+
+            string message = $"Ensure only {expectedSurfaceLineCount} valid surfacelines are imported.";
+            Assert.AreEqual(expectedSurfaceLineCount, surfaceLines.Count);
+        }
+
+        private static void AssertUnsuccessfulImport(bool importResult, ObservableCollectionWithSourcePath<RingtoetsPipingSurfaceLine> surfaceLines)
+        {
+            Assert.IsFalse(importResult);
+            CollectionAssert.IsEmpty(surfaceLines,
+                                     "No items should be added to collection when import is aborted or cancelled.");
+            Assert.IsNull(surfaceLines.SourcePath);
         }
 
         private static void AssertAreEqualPoint2D(Point2D expectedPoint, Point2D actualPoint)

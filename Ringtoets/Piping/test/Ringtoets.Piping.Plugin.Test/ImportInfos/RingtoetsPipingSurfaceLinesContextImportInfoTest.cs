@@ -96,7 +96,7 @@ namespace Ringtoets.Piping.Plugin.Test.ImportInfos
             mocks.ReplayAll();
 
             var failureMechanism = new PipingFailureMechanism();
-            var surfaceLines = new ObservableList<RingtoetsPipingSurfaceLine>();
+            var surfaceLines = new ObservableCollectionWithSourcePath<RingtoetsPipingSurfaceLine>();
 
             var context = new RingtoetsPipingSurfaceLinesContext(surfaceLines, failureMechanism, assessmentSection);
 
@@ -118,7 +118,7 @@ namespace Ringtoets.Piping.Plugin.Test.ImportInfos
             mocks.ReplayAll();
 
             var failureMechanism = new PipingFailureMechanism();
-            var surfaceLines = new ObservableList<RingtoetsPipingSurfaceLine>();
+            var surfaceLines = new ObservableCollectionWithSourcePath<RingtoetsPipingSurfaceLine>();
 
             var context = new RingtoetsPipingSurfaceLinesContext(surfaceLines, failureMechanism, assessmentSection);
 
@@ -162,7 +162,7 @@ namespace Ringtoets.Piping.Plugin.Test.ImportInfos
             mocks.ReplayAll();
 
             var failureMechanism = new PipingFailureMechanism();
-            var surfaceLines = new ObservableList<RingtoetsPipingSurfaceLine>();
+            var surfaceLines = new ObservableCollectionWithSourcePath<RingtoetsPipingSurfaceLine>();
 
             var importTarget = new RingtoetsPipingSurfaceLinesContext(surfaceLines, failureMechanism, assessmentSection);
 

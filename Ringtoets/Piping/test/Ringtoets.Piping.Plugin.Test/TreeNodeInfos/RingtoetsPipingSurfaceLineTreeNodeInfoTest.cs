@@ -168,14 +168,20 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 new Point3D(4, 5, 6)
             });
             var failureMechanism = new PipingFailureMechanism();
-            failureMechanism.SurfaceLines.Add(nodeData);
+            failureMechanism.SurfaceLines.AddRange(new[]
+            {
+                nodeData
+            }, "path");
             var otherSurfaceline = new RingtoetsPipingSurfaceLine();
             otherSurfaceline.SetGeometry(new[]
             {
                 new Point3D(7, 8, 9),
                 new Point3D(0, 1, 2)
             });
-            failureMechanism.SurfaceLines.Add(otherSurfaceline);
+            failureMechanism.SurfaceLines.AddRange(new[]
+            {
+                otherSurfaceline
+            }, "path");
             failureMechanism.SurfaceLines.Attach(observer);
 
             var generalInputs = new GeneralPipingInput();

@@ -188,7 +188,10 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             // Setup
             var random = new Random();
             var failureMechanism = new PipingFailureMechanism();
-            failureMechanism.SurfaceLines.Add(CreateSurfaceLine(random));
+            failureMechanism.SurfaceLines.AddRange(new[]
+            {
+                CreateSurfaceLine(random)
+            }, "path");
 
             var registry = new PersistenceRegistry();
 

@@ -301,8 +301,12 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 surfaceLineB.ReferenceLineIntersectionWorldPoint = new Point2D(1.5, 1.5);
 
                 var failureMechanism = new PipingFailureMechanism();
-                failureMechanism.SurfaceLines.Add(surfaceLineA);
-                failureMechanism.SurfaceLines.Add(surfaceLineB);
+                const string arbitraryFilePath = "path";
+                failureMechanism.SurfaceLines.AddRange(new[]
+                {
+                    surfaceLineA,
+                    surfaceLineB
+                }, arbitraryFilePath);
                 failureMechanism.AddSection(new FailureMechanismSection("A", geometryPoints.Take(2)));
                 failureMechanism.AddSection(new FailureMechanismSection("B", geometryPoints.Skip(1).Take(2)));
                 failureMechanism.AddSection(new FailureMechanismSection("C", geometryPoints.Skip(2).Take(2)));
@@ -310,7 +314,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 {
                     stochasticSoilModel1,
                     stochasticSoilModel2
-                }, "path");
+                }, arbitraryFilePath);
 
                 var calculationA = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
                 calculationA.InputParameters.SurfaceLine = surfaceLineA;
@@ -546,7 +550,10 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
                 var surfaceLineMapData = (MapLineData) map.Data.Collection.ElementAt(surfaceLinesIndex);
 
-                failureMechanism.SurfaceLines.Add(surfaceLine);
+                failureMechanism.SurfaceLines.AddRange(new[]
+                {
+                    surfaceLine
+                }, "path");
 
                 // Call
                 failureMechanism.SurfaceLines.NotifyObservers();

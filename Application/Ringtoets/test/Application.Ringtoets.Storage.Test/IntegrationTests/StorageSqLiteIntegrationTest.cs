@@ -602,8 +602,8 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             }
         }
 
-        private static void AssertSurfaceLines(ICollection<RingtoetsPipingSurfaceLine> expectedSurfaceLines,
-                                               ICollection<RingtoetsPipingSurfaceLine> actualSurfaceLines)
+        private static void AssertSurfaceLines(ObservableCollectionWithSourcePath<RingtoetsPipingSurfaceLine> expectedSurfaceLines,
+                                               ObservableCollectionWithSourcePath<RingtoetsPipingSurfaceLine> actualSurfaceLines)
         {
             // Precondition:
             Assert.Greater(expectedSurfaceLines.Count, 0);

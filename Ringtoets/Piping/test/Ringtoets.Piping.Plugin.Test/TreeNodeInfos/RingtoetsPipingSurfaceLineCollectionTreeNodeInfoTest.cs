@@ -94,7 +94,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var failureMechanism = new PipingFailureMechanism();
-            var surfaceLines = new ObservableList<RingtoetsPipingSurfaceLine>();
+            var surfaceLines = new ObservableCollectionWithSourcePath<RingtoetsPipingSurfaceLine>();
             var ringtoetsPipingSurfaceLines = new RingtoetsPipingSurfaceLinesContext(surfaceLines, failureMechanism, assessmentSection);
 
             // Call
@@ -112,7 +112,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var failureMechanism = new PipingFailureMechanism();
-            var surfaceLines = new ObservableList<RingtoetsPipingSurfaceLine>();
+            var surfaceLines = new ObservableCollectionWithSourcePath<RingtoetsPipingSurfaceLine>();
             var ringtoetsPipingSurfaceLines = new RingtoetsPipingSurfaceLinesContext(surfaceLines, failureMechanism, assessmentSection);
 
             // Call
@@ -130,7 +130,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var failureMechanism = new PipingFailureMechanism();
-            var surfaceLines = new ObservableList<RingtoetsPipingSurfaceLine>();
+            var surfaceLines = new ObservableCollectionWithSourcePath<RingtoetsPipingSurfaceLine>();
             var ringtoetsPipingSurfaceLines = new RingtoetsPipingSurfaceLinesContext(surfaceLines, failureMechanism, assessmentSection);
 
             // Call
@@ -148,10 +148,11 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             var ringtoetsPipingSurfaceLine1 = new RingtoetsPipingSurfaceLine();
             var ringtoetsPipingSurfaceLine2 = new RingtoetsPipingSurfaceLine();
 
-            var surfaceLines = new ObservableList<RingtoetsPipingSurfaceLine>
+            var surfaceLines = new ObservableCollectionWithSourcePath<RingtoetsPipingSurfaceLine>();
+            surfaceLines.AddRange(new[]
             {
                 ringtoetsPipingSurfaceLine1, ringtoetsPipingSurfaceLine2
-            };
+            }, "path");
 
             var failureMechanism = new PipingFailureMechanism();
 
@@ -174,10 +175,11 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             var ringtoetsPipingSurfaceLine1 = new RingtoetsPipingSurfaceLine();
             var ringtoetsPipingSurfaceLine2 = new RingtoetsPipingSurfaceLine();
 
-            var surfaceLines = new ObservableList<RingtoetsPipingSurfaceLine>
+            var surfaceLines = new ObservableCollectionWithSourcePath<RingtoetsPipingSurfaceLine>();
+            surfaceLines.AddRange(new[]
             {
                 ringtoetsPipingSurfaceLine1, ringtoetsPipingSurfaceLine2
-            };
+            }, "path");
 
             var failureMechanism = new PipingFailureMechanism();
 

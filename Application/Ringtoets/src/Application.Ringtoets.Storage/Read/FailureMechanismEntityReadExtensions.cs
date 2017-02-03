@@ -125,9 +125,12 @@ namespace Application.Ringtoets.Storage.Read
                                                                metaEntity.StochasticSoilModelSourcePath);
             }
 
-            foreach (SurfaceLineEntity surfaceLineEntity in entity.SurfaceLineEntities.OrderBy(sl => sl.Order))
+            if (entity.SurfaceLineEntities.Any())
             {
-                failureMechanism.SurfaceLines.Add(surfaceLineEntity.Read(collector));
+                failureMechanism.SurfaceLines.AddRange(entity.SurfaceLineEntities
+                                                             .OrderBy(sl => sl.Order)
+                                                             .Select(e => e.Read(collector)),
+                                                       "Temp");
             }
 
             entity.ReadPipingMechanismSectionResults(failureMechanism, collector);
