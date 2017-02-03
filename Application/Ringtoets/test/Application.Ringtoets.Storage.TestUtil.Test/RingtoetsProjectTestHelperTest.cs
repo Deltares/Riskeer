@@ -87,7 +87,7 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
         private static void AssertPipingFailureMechanism(AssessmentSection assessmentSection)
         {
             PipingFailureMechanism failureMechanism = assessmentSection.PipingFailureMechanism;
-            Assert.AreEqual("some/path/to/file", failureMechanism.StochasticSoilModels.SourcePath);
+            Assert.AreEqual("some/path/to/stochasticSoilModelFile", failureMechanism.StochasticSoilModels.SourcePath);
             Assert.AreEqual(1, failureMechanism.StochasticSoilModels.Count);
             StochasticSoilModel soilModel = failureMechanism.StochasticSoilModels[0];
             Assert.AreEqual(-1, soilModel.Id);
@@ -103,6 +103,7 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
             Assert.AreEqual(SoilProfileType.SoilProfile1D, stochasticSoilProfile2.SoilProfileType);
             Assert.AreEqual(-1, stochasticSoilProfile2.SoilProfileId);
 
+            Assert.AreEqual("some/path/to/surfaceLineFile", failureMechanism.SurfaceLines.SourcePath);
             Assert.AreEqual(1, failureMechanism.SurfaceLines.Count);
             RingtoetsPipingSurfaceLine surfaceLine = failureMechanism.SurfaceLines.First();
             Assert.AreEqual("Surfaceline", surfaceLine.Name);
