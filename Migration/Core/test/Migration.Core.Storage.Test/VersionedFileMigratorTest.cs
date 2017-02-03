@@ -417,6 +417,45 @@ namespace Migration.Core.Storage.Test
         }
 
         [Test]
+        public void Migrate_ValidChainingMigration_CreatesNewVersion()
+        {
+            // Setup
+            const string fromLocation = "fromLocation";
+            const string fromVersion = "0";
+            const string toVersion = "2";
+
+            string toLocation = TestHelper.GetTestDataPath(testPath, Path.GetRandomFileName());
+
+            var mockRepository = new MockRepository();
+            var versionedFile = mockRepository.Stub<IVersionedFile>();
+            versionedFile.Stub(vf => vf.Location).Return(fromLocation);
+            versionedFile.Expect(vf => vf.GetVersion()).Return(fromVersion);
+            mockRepository.ReplayAll();
+
+            var migrator = new SimpleVersionedFileMigrator(new SimpleVersionComparer())
+            {
+                CreateScripts =
+                {
+                    new TestCreateScript("1"),
+                    new TestCreateScript(toVersion)
+                },
+                UpgradeScripts =
+                {
+                    new TestUpgradeScript(fromVersion, "1"),
+                    new TestUpgradeScript("1", toVersion)
+                }
+            };
+
+            // Call
+            migrator.Migrate(versionedFile, toVersion, toLocation);
+
+            // Assert
+            Assert.IsTrue(File.Exists(toLocation), $"File at location {toLocation} has not been created");
+            using (new FileDisposeHelper(toLocation)) {}
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
         public void Migrate_ValidMigrationFileInUse_ThrowsCriticalMigrationException()
         {
             // Setup
@@ -457,6 +496,19 @@ namespace Migration.Core.Storage.Test
                 StringAssert.EndsWith($"' naar '{toLocation}'.", exception.Message);
             }
             mockRepository.VerifyAll();
+        }
+
+        private class SimpleVersionComparer : IComparer
+        {
+            public int Compare(object x, object y)
+            {
+                return Compare((string) x, (string) y);
+            }
+
+            private static int Compare(string x, string y)
+            {
+                return string.Compare(x, y, StringComparison.InvariantCulture);
+            }
         }
 
         private class SimpleVersionedFileMigrator : VersionedFileMigrator
