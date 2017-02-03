@@ -24,6 +24,7 @@ using System.Data.SQLite;
 using Application.Ringtoets.Migration.Properties;
 using Migration.Scripts.Data;
 using Migration.Scripts.Data.Exceptions;
+using Ringtoets.Common.Utils;
 
 namespace Application.Ringtoets.Migration
 {
@@ -42,8 +43,8 @@ namespace Application.Ringtoets.Migration
         /// <param name="query">The SQL query to upgrade from <paramref name="fromVersion"/> to <paramref name="toVersion"/>.</param>
         /// <exception cref="ArgumentException">Thrown when:
         /// <list type="bullet">
-        /// <item><paramref name="fromVersion"/> is empty or <c>null</c>,</item>
-        /// <item><paramref name="toVersion"/> is empty or <c>null</c>,</item>
+        /// <item><paramref name="fromVersion"/> is empty, <c>null</c>, or not a valid Ringtoets database version,</item>
+        /// <item><paramref name="toVersion"/> is empty, <c>null</c>, or not a valid Ringtoets database version,</item>
         /// <item><paramref name="query"/> is empty, <c>null</c>, or consists out of only whitespace characters.</item>
         /// </list></exception>
         public RingtoetsUpgradeScript(string fromVersion, string toVersion, string query)
@@ -53,6 +54,16 @@ namespace Application.Ringtoets.Migration
             {
                 throw new ArgumentException(@"Query must have a value.", nameof(query));
             }
+
+            if (!RingtoetsVersionHelper.IsValidVersion(fromVersion))
+            {
+                throw new ArgumentException($@"{fromVersion} is not a valid Ringtoets database version.", nameof(fromVersion));
+            }
+            if (!RingtoetsVersionHelper.IsValidVersion(toVersion))
+            {
+                throw new ArgumentException($@"{toVersion} is not a valid Ringtoets database version.", nameof(toVersion));
+            }
+
             upgradeQuery = query;
         }
 

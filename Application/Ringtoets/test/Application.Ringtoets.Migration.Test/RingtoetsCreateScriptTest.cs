@@ -26,6 +26,7 @@ using Core.Common.TestUtil;
 using Migration.Scripts.Data;
 using Migration.Scripts.Data.Exceptions;
 using NUnit.Framework;
+using Ringtoets.Common.Utils;
 
 namespace Application.Ringtoets.Migration.Test
 {
@@ -35,6 +36,7 @@ namespace Application.Ringtoets.Migration.Test
         [Test]
         [TestCase("")]
         [TestCase(null)]
+        [TestCase("4")]
         public void Constructor_InvalidVersion_ThrowsArgumentException(string version)
         {
             // Setup
@@ -55,7 +57,7 @@ namespace Application.Ringtoets.Migration.Test
         public void Constructor_InvalidQuery_ThrowsArgumentException(string query)
         {
             // Setup
-            const string version = "Valid version";
+            string version = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
 
             // Call
             TestDelegate call = () => new RingtoetsCreateScript(version, query);
@@ -70,7 +72,7 @@ namespace Application.Ringtoets.Migration.Test
         {
             // Setup
             const string query = "Valid query";
-            const string version = "Valid version";
+            string version = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
 
             // Call
             var createScript = new RingtoetsCreateScript(version, query);
@@ -85,7 +87,7 @@ namespace Application.Ringtoets.Migration.Test
         {
             // Setup
             const string query = ";";
-            const string version = "Valid version";
+            string version = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
 
             string targetFilename = Path.GetRandomFileName();
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration, targetFilename);
@@ -104,7 +106,7 @@ namespace Application.Ringtoets.Migration.Test
         {
             // Setup
             const string query = ";";
-            const string version = "Valid version";
+            string version = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
 
             string filename = Path.GetRandomFileName();
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration, filename);
@@ -130,7 +132,7 @@ namespace Application.Ringtoets.Migration.Test
         {
             // Setup
             const string query = "THIS WILL FAIL";
-            const string version = "Valid version";
+            string version = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
 
             string targetFilename = Path.GetRandomFileName();
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration, targetFilename);

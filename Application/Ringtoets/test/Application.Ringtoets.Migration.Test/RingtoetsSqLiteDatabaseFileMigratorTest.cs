@@ -48,7 +48,7 @@ namespace Application.Ringtoets.Migration.Test
             var migrator = new RingtoetsSqLiteDatabaseFileMigrator();
 
             // Call
-            bool isSupported = migrator.IsVersionSupported("4");
+            bool isSupported = migrator.IsVersionSupported("5");
 
             // Assert
             Assert.IsTrue(isSupported);
@@ -215,7 +215,7 @@ namespace Application.Ringtoets.Migration.Test
 
             // Assert
             string message = Assert.Throws<CriticalMigrationException>(call).Message;
-            Assert.AreEqual($"Het is niet mogelijk om versie '4' te migreren naar versie '{newVersion}'.", message);
+            Assert.AreEqual($"Het is niet mogelijk om versie '5' te migreren naar versie '{newVersion}'.", message);
         }
 
         [Test]

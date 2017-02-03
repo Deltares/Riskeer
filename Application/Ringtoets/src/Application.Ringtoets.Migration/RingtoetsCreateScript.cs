@@ -24,6 +24,7 @@ using System.Data.SQLite;
 using Application.Ringtoets.Migration.Properties;
 using Migration.Scripts.Data;
 using Migration.Scripts.Data.Exceptions;
+using Ringtoets.Common.Utils;
 
 namespace Application.Ringtoets.Migration
 {
@@ -41,11 +42,15 @@ namespace Application.Ringtoets.Migration
         /// <param name="query">The SQL query that belongs to <paramref name="version"/>.</param>
         /// <exception cref="ArgumentException">Thrown when:
         /// <list type="bullet">
-        /// <item><paramref name="version"/> is empty or <c>null</c>,</item>
+        /// <item><paramref name="version"/> is empty, <c>null</c>, or not a valid Ringtoets database version,</item>
         /// <item><paramref name="query"/> is empty, <c>null</c>, or consist out of only whitespace characters.</item>
         /// </list></exception>
         public RingtoetsCreateScript(string version, string query) : base(version)
         {
+            if (!RingtoetsVersionHelper.IsValidVersion(version))
+            {
+                throw new ArgumentException($@"{version} is not a valid Ringtoets database version.", nameof(version));
+            }
             if (string.IsNullOrWhiteSpace(query))
             {
                 throw new ArgumentException(@"Query must have a value.", nameof(query));

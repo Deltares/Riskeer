@@ -26,6 +26,7 @@ using Core.Common.TestUtil;
 using Migration.Scripts.Data;
 using Migration.Scripts.Data.Exceptions;
 using NUnit.Framework;
+using Ringtoets.Common.Utils;
 
 namespace Application.Ringtoets.Migration.Test
 {
@@ -35,11 +36,12 @@ namespace Application.Ringtoets.Migration.Test
         [Test]
         [TestCase("")]
         [TestCase(null)]
+        [TestCase("4")]
         public void Constructor_InvalidFromVersion_ThrowsArgumentException(string fromVersion)
         {
             // Setup
             const string query = "Valid query";
-            const string toVersion = "toVersion";
+            string toVersion = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
 
             // Call
             TestDelegate call = () => new RingtoetsUpgradeScript(fromVersion, toVersion, query);
@@ -52,10 +54,11 @@ namespace Application.Ringtoets.Migration.Test
         [Test]
         [TestCase("")]
         [TestCase(null)]
+        [TestCase("4")]
         public void Constructor_InvalidToVersion_ThrowsArgumentException(string toVersion)
         {
             // Setup
-            const string fromVersion = "fromVersion";
+            string fromVersion = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
             const string query = "Valid query";
 
             // Call
@@ -73,8 +76,8 @@ namespace Application.Ringtoets.Migration.Test
         public void Constructor_InvalidQuery_ThrowsArgumentException(string query)
         {
             // Setup
-            const string fromVersion = "fromVersion";
-            const string toVersion = "toVersion";
+            string fromVersion = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
+            string toVersion = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
 
             // Call
             TestDelegate call = () => new RingtoetsUpgradeScript(fromVersion, toVersion, query);
@@ -88,8 +91,8 @@ namespace Application.Ringtoets.Migration.Test
         public void Constructor_ValidParameters_ReturnsExpectedValues()
         {
             // Setup
-            const string fromVersion = "fromVersion";
-            const string toVersion = "toVersion";
+            string fromVersion = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
+            string toVersion = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
             const string query = ";";
 
             // Call
@@ -107,8 +110,10 @@ namespace Application.Ringtoets.Migration.Test
             // Setup
             string filename = Path.GetRandomFileName();
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration, filename);
+            string fromVersion = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
+            string toVersion = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
 
-            var upgradeScript = new RingtoetsUpgradeScript("1", "2", "THIS WILL FAIL");
+            var upgradeScript = new RingtoetsUpgradeScript(fromVersion, toVersion, "THIS WILL FAIL");
 
             // Call
             TestDelegate call = () => upgradeScript.Upgrade("c:\\file.ext", "c:\\file.ext");
@@ -117,7 +122,7 @@ namespace Application.Ringtoets.Migration.Test
             using (new FileDisposeHelper(filePath))
             {
                 CriticalMigrationException exception = Assert.Throws<CriticalMigrationException>(call);
-                Assert.AreEqual("Het upgraden van het Ringtoets bestand versie 1 naar 2 is mislukt.",
+                Assert.AreEqual($"Het upgraden van het Ringtoets bestand versie {fromVersion} naar {fromVersion} is mislukt.",
                                 exception.Message);
                 Assert.IsInstanceOf<SQLiteException>(exception.InnerException);
             }
@@ -129,8 +134,10 @@ namespace Application.Ringtoets.Migration.Test
             // Setup
             string filename = Path.GetRandomFileName();
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration, filename);
+            string fromVersion = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
+            string toVersion = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
 
-            var upgradeScript = new RingtoetsUpgradeScript("1", "2", ";");
+            var upgradeScript = new RingtoetsUpgradeScript(fromVersion, toVersion, ";");
 
             // Call
             upgradeScript.Upgrade("c:\\file.ext", filePath);
