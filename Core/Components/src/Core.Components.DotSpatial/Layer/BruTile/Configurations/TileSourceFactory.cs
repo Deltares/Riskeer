@@ -39,7 +39,7 @@ namespace Core.Components.DotSpatial.Layer.BruTile.Configurations
         private static ITileSourceFactory instance;
 
         /// <summary>
-        /// The singleton instance.
+        /// Gets the singleton instance of <see cref="ITileSourceFactory"/>.
         /// </summary>
         public static ITileSourceFactory Instance
         {
@@ -63,6 +63,13 @@ namespace Core.Components.DotSpatial.Layer.BruTile.Configurations
             return wmtsTileSources;
         }
 
+        /// <summary>
+        /// Parses the capabilities XML provided by the WMTS.
+        /// </summary>
+        /// <param name="capabilitiesUrl">The WMTS url.</param>
+        /// <returns>The tile sources offered by the service.</returns>
+        /// <exception cref="CannotFindTileSourceException">Thrown when unable to connect
+        /// to the WMTS and parse the response.</exception>
         private static IEnumerable<ITileSource> ParseWmtsTileSources(string capabilitiesUrl)
         {
             try

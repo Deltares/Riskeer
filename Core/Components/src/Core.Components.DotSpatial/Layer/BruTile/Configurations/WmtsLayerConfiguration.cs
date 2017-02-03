@@ -106,6 +106,13 @@ namespace Core.Components.DotSpatial.Layer.BruTile.Configurations
         /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="preferredFormat"/>
         /// is not an image MIME-type.</exception>
+        /// <exception cref="CannotFindTileSourceException">Thrown when it has become impossible
+        /// to create a <see cref="ITileSource"/> based on the given information (for example:
+        /// unable to connect to server).</exception>
+        /// <exception cref="CannotCreateTileCacheException">Thrown when it has become impossible
+        /// to create the persistent tile cache for the configuration.</exception>
+        /// <exception cref="CannotReceiveTilesException">Thrown when it has become impossible
+        /// to receive tiles with the initialized <see cref="ITileSource"/>.</exception>
         public static WmtsLayerConfiguration CreateInitializedConfiguration(string wmtsCapabilitiesUrl, string capabilityIdentifier, string preferredFormat)
         {
             ValidateConfigurationParameters(wmtsCapabilitiesUrl, capabilityIdentifier, preferredFormat);

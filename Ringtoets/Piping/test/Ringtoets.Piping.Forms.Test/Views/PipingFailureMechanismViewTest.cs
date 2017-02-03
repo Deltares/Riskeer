@@ -178,11 +178,9 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void Data_AssessmentSectionWithBackgroundMapData_BackgroundMapDataSet(bool isConfigured)
+        public void Data_AssessmentSectionWithBackgroundMapData_BackgroundMapDataSet()
         {
-            WmtsMapData backgroundMapData = isConfigured ? WmtsMapData.CreateAlternativePdokMapData() : WmtsMapData.CreateUnconnectedMapData();
+            WmtsMapData backgroundMapData = WmtsMapData.CreateAlternativePdokMapData();
 
             var mocks = new MockRepository();
             var assessmentSection = new ObservableTestAssessmentSectionStub

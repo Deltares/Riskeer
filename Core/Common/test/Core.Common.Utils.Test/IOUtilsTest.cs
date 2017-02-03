@@ -100,7 +100,7 @@ namespace Core.Common.Utils.Test
             TestDelegate call = () => IOUtils.ValidateFolderPath(invalidPath);
 
             // Assert
-            string message = $"Fout bij het schrijven naar bestandsmap '{invalidPath}': pad naar bestandsmap mag niet leeg of ongedefinieerd zijn.";
+            string message = $"Fout bij het schrijven naar bestandsmap '{invalidPath}': pad naar bestandsmap moet opgegeven zijn.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, message);
         }
 

@@ -61,6 +61,8 @@ namespace Core.Components.DotSpatial.Layer.BruTile.Projections
         /// along the X-axis).</param>
         /// <param name="b2">Y-ordinate of the center of the top left pixel. (Translation
         /// along the Y-axis)</param>
+        /// <exception cref="ArgumentException">Thrown when the 'a' input arguments do not
+        /// define an invertible matrix.</exception>
         public WorldFile(double a11, double a21, double a12, double a22, double b1, double b2)
         {
             matrix.A11 = a11;

@@ -114,15 +114,18 @@ namespace Core.Components.DotSpatial.Layer.BruTile
         /// <summary>
         /// Creates an instance of this class using some tile source configuration.
         /// </summary>
-        /// <param name="configuration">The tile source configuration.</param>
+        /// <param name="configuration">The tile source configuration. If the configuration
+        /// hasn't been initialized yet, <see cref="IConfiguration.Initialize"/> will
+        /// be called.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="configuration"/>
         /// is <c>null</c>.</exception>
-        /// <exception cref="CannotFindTileSourceException">Thrown when no tile source
-        /// can be found based on <paramref name="configuration"/>.</exception>
-        /// <exception cref="CannotCreateTileCacheException">Thrown when a critical error
-        /// prevents the creation of the persistent tile cache.</exception>
-        /// <exception cref="CannotReceiveTilesException">Thrown when it no tiles can be
-        /// received from the tile source.</exception>
+        /// <exception cref="CannotFindTileSourceException">Thrown when <paramref name="configuration"/>
+        /// is not initialized and during initialization no tile source can be found based.</exception>
+        /// <exception cref="CannotCreateTileCacheException">Thrown when <paramref name="configuration"/>
+        /// is not initialized and during initialization a critical error prevents the creation
+        ///  of the persistent tile cache.</exception>
+        /// <exception cref="CannotReceiveTilesException">Thrown when <paramref name="configuration"/>
+        /// is not initialized and during initialization no tiles can be received from the tile source.</exception>
         public BruTileLayer(IConfiguration configuration)
         {
             if (configuration == null)

@@ -82,6 +82,15 @@ namespace Core.Common.Utils.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Toegankelijk gebied moet geheel binnen de afbeelding vallen..
+        /// </summary>
+        public static string ColorAccess_Create_Accessible_area_outside_image_bounds_error {
+            get {
+                return ResourceManager.GetString("ColorAccess_Create_Accessible_area_outside_image_bounds_error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Slechts de volgende waardes worden geaccepteerd: {0}..
         /// </summary>
         public static string ConvertFrom_Only_following_values_are_accepted_ParameterValues_0_ {
@@ -211,45 +220,45 @@ namespace Core.Common.Utils.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Er is een fout opgetreden bij het verwijderen van bestanden in de map &apos;{0}&apos;..
         /// </summary>
-        public static string FileUtils_DeleteOldFiles_Error_occurred_deleting_files_in_folder_0 {
+        public static string IOUtils_DeleteOldFiles_Error_occurred_deleting_files_in_folder_0 {
             get {
-                return ResourceManager.GetString("FileUtils_DeleteOldFiles_Error_occurred_deleting_files_in_folder_0", resourceCulture);
+                return ResourceManager.GetString("IOUtils_DeleteOldFiles_Error_occurred_deleting_files_in_folder_0", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Het pad naar bestandsmap bevat een &apos;:&apos; op een ongeldige plek..
         /// </summary>
-        public static string FileUtils_ValidateFolderPath_Folder_path_contains_invalid_character {
+        public static string IOUtils_ValidateFolderPath_Folder_path_contains_invalid_character {
             get {
-                return ResourceManager.GetString("FileUtils_ValidateFolderPath_Folder_path_contains_invalid_character", resourceCulture);
+                return ResourceManager.GetString("IOUtils_ValidateFolderPath_Folder_path_contains_invalid_character", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Het pad naar bestandsmap is te lang..
         /// </summary>
-        public static string FileUtils_ValidateFolderPath_Folder_path_too_long {
+        public static string IOUtils_ValidateFolderPath_Folder_path_too_long {
             get {
-                return ResourceManager.GetString("FileUtils_ValidateFolderPath_Folder_path_too_long", resourceCulture);
+                return ResourceManager.GetString("IOUtils_ValidateFolderPath_Folder_path_too_long", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Geen toegangsrechten tot bestandsmap..
         /// </summary>
-        public static string FileUtils_ValidateFolderPath_No_access_rights_to_folder {
+        public static string IOUtils_ValidateFolderPath_No_access_rights_to_folder {
             get {
-                return ResourceManager.GetString("FileUtils_ValidateFolderPath_No_access_rights_to_folder", resourceCulture);
+                return ResourceManager.GetString("IOUtils_ValidateFolderPath_No_access_rights_to_folder", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Pad naar bestandsmap mag niet leeg of ongedefinieerd zijn..
+        ///   Looks up a localized string similar to Pad naar bestandsmap moet opgegeven zijn..
         /// </summary>
-        public static string FileUtils_ValidateFolderPath_Path_cannot_be_empty {
+        public static string IOUtils_ValidateFolderPath_Path_cannot_be_empty {
             get {
-                return ResourceManager.GetString("FileUtils_ValidateFolderPath_Path_cannot_be_empty", resourceCulture);
+                return ResourceManager.GetString("IOUtils_ValidateFolderPath_Path_cannot_be_empty", resourceCulture);
             }
         }
         

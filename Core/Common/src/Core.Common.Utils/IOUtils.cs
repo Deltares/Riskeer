@@ -75,7 +75,7 @@ namespace Core.Common.Utils
             if (string.IsNullOrWhiteSpace(path))
             {
                 var message = new DirectoryWriterErrorMessageBuilder(path)
-                    .Build(Resources.FileUtils_ValidateFolderPath_Path_cannot_be_empty);
+                    .Build(Resources.IOUtils_ValidateFolderPath_Path_cannot_be_empty);
                 throw new ArgumentException(message);
             }
             try
@@ -85,19 +85,19 @@ namespace Core.Common.Utils
             catch (SecurityException e)
             {
                 var message = new DirectoryWriterErrorMessageBuilder(path)
-                    .Build(Resources.FileUtils_ValidateFolderPath_No_access_rights_to_folder);
+                    .Build(Resources.IOUtils_ValidateFolderPath_No_access_rights_to_folder);
                 throw new ArgumentException(message, e);
             }
             catch (PathTooLongException e)
             {
                 var message = new DirectoryWriterErrorMessageBuilder(path)
-                    .Build(Resources.FileUtils_ValidateFolderPath_Folder_path_too_long);
+                    .Build(Resources.IOUtils_ValidateFolderPath_Folder_path_too_long);
                 throw new ArgumentException(message, e);
             }
             catch (NotSupportedException e)
             {
                 var message = new DirectoryWriterErrorMessageBuilder(path)
-                    .Build(Resources.FileUtils_ValidateFolderPath_Folder_path_contains_invalid_character);
+                    .Build(Resources.IOUtils_ValidateFolderPath_Folder_path_contains_invalid_character);
                 throw new ArgumentException(message, e);
             }
         }
@@ -200,7 +200,7 @@ namespace Core.Common.Utils
                 if (e is ArgumentException || e is IOException || e is NotSupportedException || e is UnauthorizedAccessException)
                 {
                     var message = string.Format(CultureInfo.CurrentCulture,
-                                                Resources.FileUtils_DeleteOldFiles_Error_occurred_deleting_files_in_folder_0,
+                                                Resources.IOUtils_DeleteOldFiles_Error_occurred_deleting_files_in_folder_0,
                                                 path);
                     throw new IOException(message, e);
                 }

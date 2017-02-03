@@ -153,7 +153,7 @@
   <data name="TextFile_On_LineNumber_0_" xml:space="preserve">
     <value>op regel {0}</value>
   </data>
-  <data name="FileUtils_DeleteOldFiles_Error_occurred_deleting_files_in_folder_0" xml:space="preserve">
+  <data name="IOUtils_DeleteOldFiles_Error_occurred_deleting_files_in_folder_0" xml:space="preserve">
     <value>Er is een fout opgetreden bij het verwijderen van bestanden in de map '{0}'.</value>
   </data>
   <data name="Error_General_output_error_0" xml:space="preserve">
@@ -168,16 +168,19 @@
   <data name="Error_Writing_to_Directory_0_CustomMessage_1_" xml:space="preserve">
     <value>Fout bij het schrijven naar bestandsmap '{0}': {1}</value>
   </data>
-  <data name="FileUtils_ValidateFolderPath_Path_cannot_be_empty" xml:space="preserve">
-    <value>Pad naar bestandsmap mag niet leeg of ongedefinieerd zijn.</value>
+  <data name="IOUtils_ValidateFolderPath_Path_cannot_be_empty" xml:space="preserve">
+    <value>Pad naar bestandsmap moet opgegeven zijn.</value>
   </data>
-  <data name="FileUtils_ValidateFolderPath_No_access_rights_to_folder" xml:space="preserve">
+  <data name="IOUtils_ValidateFolderPath_No_access_rights_to_folder" xml:space="preserve">
     <value>Geen toegangsrechten tot bestandsmap.</value>
   </data>
-  <data name="FileUtils_ValidateFolderPath_Folder_path_too_long" xml:space="preserve">
+  <data name="IOUtils_ValidateFolderPath_Folder_path_too_long" xml:space="preserve">
     <value>Het pad naar bestandsmap is te lang.</value>
   </data>
-  <data name="FileUtils_ValidateFolderPath_Folder_path_contains_invalid_character" xml:space="preserve">
+  <data name="IOUtils_ValidateFolderPath_Folder_path_contains_invalid_character" xml:space="preserve">
     <value>Het pad naar bestandsmap bevat een ':' op een ongeldige plek.</value>
+  </data>
+  <data name="ColorAccess_Create_Accessible_area_outside_image_bounds_error" xml:space="preserve">
+    <value>Toegankelijk gebied moet geheel binnen de afbeelding vallen.</value>
   </data>
 </root>

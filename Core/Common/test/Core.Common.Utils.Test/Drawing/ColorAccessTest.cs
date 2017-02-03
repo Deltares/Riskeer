@@ -56,7 +56,7 @@ namespace Core.Common.Utils.Test.Drawing
             TestDelegate call = () => ColorAccess.Create(Resources.Black2x2, rect);
 
             // Assert
-            string message = "Accessible area must be within the bounds of the image.";
+            string message = "Toegankelijk gebied moet geheel binnen de afbeelding vallen.";
             string paramName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, message).ParamName;
             Assert.AreEqual("accessibleArea", paramName);
         }

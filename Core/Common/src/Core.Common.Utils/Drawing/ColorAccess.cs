@@ -24,6 +24,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Runtime.InteropServices;
+using Core.Common.Utils.Properties;
 
 namespace Core.Common.Utils.Drawing
 {
@@ -79,7 +80,7 @@ namespace Core.Common.Utils.Drawing
         /// </summary>
         /// <param name="x">The x-coordinate.</param>
         /// <param name="y">The y-coordinate.</param>
-        /// <returns></returns>
+        /// <returns>The color of the given pixel.</returns>
         public Color this[int x, int y]
         {
             get
@@ -116,15 +117,14 @@ namespace Core.Common.Utils.Drawing
                         return Color.FromArgb(Buffer[index + 3], Buffer[index + 2],
                                               Buffer[index + 1], Buffer[index]);
                     default:
-                        throw new NotImplementedException();
+                        throw new InvalidOperationException($"Indexing image for image format '{format}' isn't supported.");
                 }
             }
-
             set
             {
                 if (format != PixelFormat.Format32bppArgb)
                 {
-                    throw new NotImplementedException();
+                    throw new InvalidOperationException($"Setting image color for image format '{format}' isn't supported.");
                 }
                 ValidateIndices(x, y);
 
@@ -150,6 +150,8 @@ namespace Core.Common.Utils.Drawing
         /// </summary>
         /// <param name="bitmap">The image to update.</param>
         /// <exception cref="Exception">Thrown when unable to access the image data of <paramref name="bitmap"/>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="bitmap"/>
+        /// is <c>null</c>.</exception>
         public void SetBufferToImageAtOriginalLocation(Bitmap bitmap)
         {
             if (bitmap == null)
@@ -172,7 +174,7 @@ namespace Core.Common.Utils.Drawing
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="bitmap"/>
         /// is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="accessibleArea"/>
-        /// does not fully fit within the bounds of <paramref name="bitmap"/>.</exception>
+        /// is specified and does not fully fit within the bounds of <paramref name="bitmap"/>.</exception>
         /// <exception cref="Exception">Thrown when unable to connect to the data buffers
         /// of <paramref name="bitmap"/>.</exception>
         public static ColorAccess Create(Bitmap bitmap, Rectangle? accessibleArea = null)
@@ -189,7 +191,8 @@ namespace Core.Common.Utils.Drawing
             }
             else if (!fullBitmapArea.Contains(accessibleArea.Value))
             {
-                throw new ArgumentException("Accessible area must be within the bounds of the image.", nameof(accessibleArea));
+                throw new ArgumentException(Resources.ColorAccess_Create_Accessible_area_outside_image_bounds_error,
+                                            nameof(accessibleArea));
             }
 
             BitmapData imageData = bitmap.LockBits(accessibleArea.Value, ImageLockMode.ReadOnly, bitmap.PixelFormat);
