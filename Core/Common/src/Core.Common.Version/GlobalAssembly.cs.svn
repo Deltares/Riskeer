@@ -35,5 +35,5 @@ using System.Resources;
 [assembly: ComVisible(false)]
 [assembly: CLSCompliant(false)]
 
-[assembly: AssemblyVersion("16.4.3.SVNREV")]
-[assembly: AssemblyFileVersion("16.4.3.SVNREV")]
+[assembly: AssemblyVersion("16.4.4.SVNREV")]
+[assembly: AssemblyFileVersion("16.4.4.SVNREV")]
