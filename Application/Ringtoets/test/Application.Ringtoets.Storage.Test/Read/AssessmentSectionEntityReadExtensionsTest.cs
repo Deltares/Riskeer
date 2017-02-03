@@ -95,7 +95,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         [Test]
         [TestCase(false)]
         [TestCase(true)]
-        public void Read_WithBackgroundMapData_ReturnnewAssessmentSectionWithBackgroundMapData(bool isConfigured)
+        public void Read_WithBackgroundMapData_ReturnsNewAssessmentSectionWithBackgroundMapData(bool isConfigured)
         {
             // Setup
             const string mapDataName = "Background";

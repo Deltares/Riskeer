@@ -23,12 +23,11 @@ using System;
 using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Base.Data;
 using Core.Components.Gis.Data;
-using Ringtoets.Integration.Data;
 
 namespace Application.Ringtoets.Storage.Read
 {
     /// <summary>
-    /// Extension methods for read operations for <see cref="AssessmentSection.BackgroundMapData"/>
+    /// Extension methods for read operations for <see cref="WmtsMapData"/>
     /// based on the <see cref="BackgroundMapDataEntity"/>.
     /// </summary>
     internal static class BackgroundMapDataEntityReadExtensions

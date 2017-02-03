@@ -24,6 +24,7 @@ using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Serializers;
 using Core.Common.Base.Geometry;
+using Core.Components.Gis.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
@@ -108,7 +109,7 @@ namespace Application.Ringtoets.Storage.Read
 
         private static void ReadBackgroundMapData(this AssessmentSectionEntity entity, IAssessmentSection assessmentSection)
         {
-            var backgroundMapData = entity.BackgroundMapDataEntities.Single().Read();
+            WmtsMapData backgroundMapData = entity.BackgroundMapDataEntities.Single().Read();
 
             assessmentSection.BackgroundMapData.Name = backgroundMapData.Name;
 
