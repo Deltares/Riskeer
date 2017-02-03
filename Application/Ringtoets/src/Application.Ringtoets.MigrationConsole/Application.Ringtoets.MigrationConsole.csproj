@@ -45,6 +45,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="RingtoetsMigrationConsole.cs" />
     <Compile Include="RingtoetsMigrationTool.cs" />
   </ItemGroup>
   <ItemGroup>

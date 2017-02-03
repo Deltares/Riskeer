@@ -46,6 +46,7 @@
     <Compile Include="..\..\..\..\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
+    <Compile Include="ConsoleBaseTest.cs" />
     <Compile Include="ConsoleHelperTest.cs" />
     <Compile Include="EnvironmentControlTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -57,6 +58,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Scripts\src\Migration.Scripts.Data\Migration.Scripts.Data.csproj">
+      <Project>{D08DB9E2-6861-44C8-A725-71A70274CC77}</Project>
+      <Name>Migration.Scripts.Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\src\Migration.Console\Migration.Console.csproj">
       <Project>{2E2C9B96-E72A-4C10-AA54-A5381FE30B0D}</Project>
       <Name>Migration.Console</Name>

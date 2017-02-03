@@ -82,15 +82,6 @@ namespace Application.Ringtoets.MigrationConsole.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Geeft deze informatie weer..
-        /// </summary>
-        internal static string CommandHelp_Detailed {
-            get {
-                return ResourceManager.GetString("CommandHelp_Detailed", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to {0} is geen geldige opdracht..
         /// </summary>
         internal static string CommandInvalid_Command_0_Is_not_valid {
@@ -136,15 +127,6 @@ namespace Application.Ringtoets.MigrationConsole.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to MIGRATIEHULPPROGRAMMA {0}.
-        /// </summary>
-        internal static string CommandSupported_Command_0_Brief {
-            get {
-                return ResourceManager.GetString("CommandSupported_Command_0_Brief", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Controleert of het projectbestand dat te vinden is in het bronprojectpad gemigreerd kan worden..
         /// </summary>
         internal static string CommandSupported_Detailed {
@@ -174,9 +156,18 @@ namespace Application.Ringtoets.MigrationConsole.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Dit hulpprogramma kan worden gebruikt om een projectbestand in het formaat van een eerdere versie van Ringtoets te migreren naar het formaat van de huidige versie van Ringtoets..
         /// </summary>
-        internal static string RingtoetsMigrationTool_Info {
+        internal static string RingtoetsMigrationTool_ApplicationDescription {
             get {
-                return ResourceManager.GetString("RingtoetsMigrationTool_Info", resourceCulture);
+                return ResourceManager.GetString("RingtoetsMigrationTool_ApplicationDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to MIGRATIEHULPPROGRAMMA.
+        /// </summary>
+        internal static string RingtoetsMigrationTool_ApplicationName {
+            get {
+                return ResourceManager.GetString("RingtoetsMigrationTool_ApplicationName", resourceCulture);
             }
         }
     }

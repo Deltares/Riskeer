@@ -117,12 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="CommandHelp_Detailed" xml:space="preserve">
-    <value>Geeft deze informatie weer.</value>
-  </data>
-  <data name="CommandInvalid_Command_0_Is_not_valid" xml:space="preserve">
-    <value>{0} is geen geldige opdracht.</value>
-  </data>
   <data name="CommandMigrate_Brief" xml:space="preserve">
     <value>MIGRATIEHULPPROGRAMMA bronprojectpad doelprojectpad</value>
   </data>
@@ -138,10 +132,7 @@
   <data name="CommandSupported_Detailed" xml:space="preserve">
     <value>Controleert of het projectbestand dat te vinden is in het bronprojectpad gemigreerd kan worden.</value>
   </data>
-  <data name="CommandSupported_Command_0_Brief" xml:space="preserve">
-    <value>MIGRATIEHULPPROGRAMMA {0}</value>
-  </data>
-  <data name="RingtoetsMigrationTool_Info" xml:space="preserve">
+  <data name="RingtoetsMigrationTool_ApplicationDescription" xml:space="preserve">
     <value>Dit hulpprogramma kan worden gebruikt om een projectbestand in het formaat van een eerdere versie van Ringtoets te migreren naar het formaat van de huidige versie van Ringtoets.</value>
   </data>
   <data name="CommandSupported_File_Supported" xml:space="preserve">
@@ -149,5 +140,11 @@
   </data>
   <data name="CommandSupported_File_Not_Supported" xml:space="preserve">
     <value>Het projectbestand is niet ondersteund.</value>
+  </data>
+  <data name="CommandInvalid_Command_0_Is_not_valid" xml:space="preserve">
+    <value>{0} is geen geldige opdracht.</value>
+  </data>
+  <data name="RingtoetsMigrationTool_ApplicationName" xml:space="preserve">
+    <value>MIGRATIEHULPPROGRAMMA</value>
   </data>
 </root>

@@ -19,27 +19,13 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
-using System.Linq;
-using Application.Ringtoets.Migration;
-using Application.Ringtoets.MigrationConsole.Properties;
-using Migration.Console;
-using Migration.Scripts.Data.Exceptions;
-using Ringtoets.Common.Utils;
-using MigrationConsoleResources = Migration.Console.Properties.Resources;
-
 namespace Application.Ringtoets.MigrationConsole
 {
     /// <summary>
-    /// Console application that can migrate a Ringtoets database file to a newer version.
+    /// Entry point to the console application that can migrate a Ringtoets database file to a newer version.
     /// </summary>
     public static class RingtoetsMigrationTool
     {
-        private const string commandMigrate = "--migrate";
-        private const string commandVersionSupported = "--supported";
-        private const string commandHelp = "--help";
-        private const string commandHelpShort = "-h";
-
         /// <summary>
         /// Main Ringtoets migration application.
         /// </summary>
@@ -51,130 +37,8 @@ namespace Application.Ringtoets.MigrationConsole
         /// </list></remarks>
         public static void Main(string[] args)
         {
-            try
-            {
-                ExecuteCommand(args);
-            }
-            catch (Exception exception)
-            {
-                DisplayException(exception);
-                DisplayAllCommands();
-
-                if (exception is CriticalMigrationException || exception is NotSupportedException)
-                {
-                    Exit(ErrorCode.ErrorBadCommand);
-                    return;
-                }
-                Exit(ErrorCode.ErrorInvalidCommandLine);
-                return;
-            }
-
-            Exit(ErrorCode.ErrorSuccess);
+            var ringtoetsMigrationTool = new RingtoetsMigrationConsole();
+            ringtoetsMigrationTool.ExecuteConsoleTool(args);
         }
-
-        private static void Exit(ErrorCode errorCode)
-        {
-            EnvironmentControl.Instance.Exit(errorCode);
-        }
-
-        private static void DisplayException(Exception exception)
-        {
-            ConsoleHelper.WriteErrorLine(exception.Message);
-            if (exception.InnerException != null)
-            {
-                ConsoleHelper.WriteErrorLine(MigrationConsoleResources.Message_Inner_Exception_0,
-                                             exception.InnerException.Message);
-            }
-            ConsoleHelper.WriteErrorLine("");
-        }
-
-        private static void ExecuteCommand(string[] args)
-        {
-            string command = args.FirstOrDefault() ?? commandHelp;
-            if (command.Equals(commandHelp) || command.Equals(commandHelpShort))
-            {
-                DisplayAllCommands();
-                return;
-            }
-
-            var length = args.Length;
-            switch (length)
-            {
-                case 1:
-                    IsVersionSupportedCommand(args[0]);
-                    break;
-                case 2:
-                    MigrateCommand(args[0], args[1]);
-                    break;
-                default:
-                    command = string.Join(" ", args);
-                    InvalidCommand(command);
-                    break;
-            }
-        }
-
-        private static void DisplayAllCommands()
-        {
-            Console.WriteLine(Resources.RingtoetsMigrationTool_Info);
-            Console.WriteLine();
-            Console.WriteLine(Resources.CommandSupported_Command_0_Brief, commandHelpShort);
-            Console.WriteLine(Resources.CommandSupported_Command_0_Brief, commandHelp);
-            ConsoleHelper.WriteCommandDescriptionLine(Resources.CommandHelp_Detailed);
-            ShowMigrateCommand();
-            ShowSupportedCommand();
-        }
-
-        #region Invalid Command
-
-        private static void InvalidCommand(string command)
-        {
-            throw new NotSupportedException(string.Format(Resources.CommandInvalid_Command_0_Is_not_valid, command));
-        }
-
-        #endregion
-
-        #region Version Supported Command
-
-        private static void IsVersionSupportedCommand(string location)
-        {
-            var migrator = new RingtoetsSqLiteDatabaseFileMigrator();
-            var versionedFile = new RingtoetsVersionedFile(location);
-            var version = versionedFile.GetVersion();
-
-            bool isSupported = migrator.IsVersionSupported(version);
-            Console.WriteLine(isSupported
-                                  ? Resources.CommandSupported_File_Supported
-                                  : Resources.CommandSupported_File_Not_Supported);
-        }
-
-        private static void ShowSupportedCommand()
-        {
-            Console.WriteLine(Resources.CommandSupported_Brief);
-            ConsoleHelper.WriteCommandDescriptionLine(Resources.CommandSupported_Detailed);
-        }
-
-        #endregion
-
-        #region Migrate Command
-
-        private static void MigrateCommand(string filepath, string toFilepath)
-        {
-            string toVersion = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
-
-            var migrator = new RingtoetsSqLiteDatabaseFileMigrator();
-            var sourceFile = new RingtoetsVersionedFile(filepath);
-
-            migrator.Migrate(sourceFile, toVersion, toFilepath);
-            Console.WriteLine(Resources.CommandMigrate_Successful_Migration_From_Location_0_To_Location_1,
-                              filepath, toFilepath);
-        }
-
-        private static void ShowMigrateCommand()
-        {
-            Console.WriteLine(Resources.CommandMigrate_Brief);
-            ConsoleHelper.WriteCommandDescriptionLine(Resources.CommandMigrate_Detailed);
-        }
-
-        #endregion
     }
 }

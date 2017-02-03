@@ -24,6 +24,7 @@ using System.Data.SQLite;
 using Application.Ringtoets.Storage.Properties;
 using Core.Common.IO;
 using NUnit.Framework;
+using Ringtoets.Common.Utils;
 using Ringtoets.Integration.Data;
 
 namespace Application.Ringtoets.Storage.TestUtil
@@ -42,7 +43,7 @@ namespace Application.Ringtoets.Storage.TestUtil
         public static void CreateCorruptDatabaseFile(string databaseFilePath)
         {
             CreateDatabaseFile(databaseFilePath, GetCorruptSchema());
-            AddVersionEntity(databaseFilePath, "5");
+            AddVersionEntity(databaseFilePath, RingtoetsVersionHelper.GetCurrentDatabaseVersion());
         }
 
         /// <summary>
@@ -54,7 +55,7 @@ namespace Application.Ringtoets.Storage.TestUtil
         public static void CreateCompleteDatabaseFileWithoutProjectData(string databaseFilePath)
         {
             CreateCompleteDatabaseFileEmpty(databaseFilePath);
-            AddVersionEntity(databaseFilePath, "5");
+            AddVersionEntity(databaseFilePath, RingtoetsVersionHelper.GetCurrentDatabaseVersion());
         }
 
         /// <summary>

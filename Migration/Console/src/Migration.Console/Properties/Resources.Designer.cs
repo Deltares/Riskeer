@@ -82,11 +82,11 @@ namespace Migration.Console.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Er is een verkeerd aantal parameters opgegeven voor de opdracht &apos;{0}&apos;.
+        ///   Looks up a localized string similar to Geeft deze informatie weer..
         /// </summary>
-        public static string Command_0_Incorrect_number_of_parameters {
+        public static string CommandHelp_Detailed {
             get {
-                return ResourceManager.GetString("Command_0_Incorrect_number_of_parameters", resourceCulture);
+                return ResourceManager.GetString("CommandHelp_Detailed", resourceCulture);
             }
         }
         
