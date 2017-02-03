@@ -1278,7 +1278,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
             var group = new CalculationGroup();
-            var pipingFailureMechanism = GetFailureMechanism();
+            var pipingFailureMechanism = TestPipingFailureMechanism.GetFailureMechanismWithSurfaceLinesAndStochasticSoilModels();
             var surfaceLines = pipingFailureMechanism.SurfaceLines.ToArray();
 
             var calculation = new PipingCalculationScenario(new GeneralPipingInput())
@@ -1328,51 +1328,6 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             mocks.VerifyAll();
 
             base.TearDown();
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="PipingFailureMechanism"/> with sections and a surface line.
-        /// </summary>
-        /// <returns>A new instance of <see cref="PipingFailureMechanism"/>.</returns>
-        private static PipingFailureMechanism GetFailureMechanism()
-        {
-            var surfaceLine = new RingtoetsPipingSurfaceLine
-            {
-                Name = "Surface line",
-                ReferenceLineIntersectionWorldPoint = new Point2D(0.0, 0.0)
-            };
-
-            surfaceLine.SetGeometry(new[]
-            {
-                new Point3D(0.0, 5.0, 0.0),
-                new Point3D(0.0, 0.0, 1.0),
-                new Point3D(0.0, -5.0, 0.0)
-            });
-
-            var failureMechanism = new PipingFailureMechanism();
-            const string arbitraryFilePath = "path";
-            failureMechanism.SurfaceLines.AddRange(new[]
-            {
-                surfaceLine
-            }, arbitraryFilePath);
-            failureMechanism.StochasticSoilModels.AddRange(new[]
-            {
-                new TestStochasticSoilModel
-                {
-                    Geometry =
-                    {
-                        new Point2D(0.0, 0.0), new Point2D(5.0, 0.0)
-                    }
-                }
-            }, arbitraryFilePath);
-
-            failureMechanism.AddSection(new FailureMechanismSection("Section", new List<Point2D>
-            {
-                new Point2D(0.0, 0.0),
-                new Point2D(5.0, 0.0)
-            }));
-
-            return failureMechanism;
         }
     }
 }
