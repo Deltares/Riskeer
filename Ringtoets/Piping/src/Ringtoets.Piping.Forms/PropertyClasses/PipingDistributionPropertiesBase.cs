@@ -58,8 +58,8 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         /// <param name="calculation">The calculation the <paramref name="data"/> belgons to.</param>
         /// <param name="calculationInput">The calculation input the <paramref name="data"/> belongs to.</param>
         /// <param name="handler">The handler responsible for handling effects of a property change.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any number of properties in this class
-        /// is editable and any parameter is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="data"/> is <c>null</c>
+        /// or when any number of properties in this class is editable and any other parameter is <c>null</c>.</exception>
         protected PipingDistributionPropertiesBase(DistributionPropertiesReadOnly propertiesReadOnly,
                                                    TDistribution data,
                                                    TCalculation calculation,

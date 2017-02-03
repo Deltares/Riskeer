@@ -66,10 +66,11 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         }
 
         [Test]
+        [TestCase(DistributionPropertiesReadOnly.All)]
         [TestCase(DistributionPropertiesReadOnly.Mean)]
         [TestCase(DistributionPropertiesReadOnly.StandardDeviation)]
         [TestCase(DistributionPropertiesReadOnly.None)]
-        public void Constructor_DistributionNullWhileChangesPossible_ThrowArgumentNullException(DistributionPropertiesReadOnly flags)
+        public void Constructor_DistributionNull_ThrowArgumentNullException(DistributionPropertiesReadOnly flags)
         {
             // Setup
             var mockRepository = new MockRepository();
@@ -283,6 +284,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         }
 
         [Test]
+        [SetCulture("nl-NL")]
         public void ToString_Always_ReturnDistributionName()
         {
             // Setup
@@ -306,7 +308,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var propertyName = properties.ToString();
 
             // Assert
-            Assert.AreEqual("1.00 (Standaardafwijking = 2.00)", propertyName);
+            Assert.AreEqual("1,00 (Standaardafwijking = 2,00)", propertyName);
         }
 
         private void SetPropertyAndVerifyNotifcationsAndOutputForCalculation<TPropertyValue>(
