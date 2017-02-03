@@ -40,7 +40,8 @@ namespace Migration.Scripts.Data.TestUtil
         {
             return new TestVersionedFile
             {
-                Location = location
+                Location = location,
+                Version = GetVersion()
             };
         }
 
@@ -51,9 +52,14 @@ namespace Migration.Scripts.Data.TestUtil
         {
             public string Location { get; set; }
 
+            /// <summary>
+            /// Sets the version for <seealso cref="GetVersion"/>.
+            /// </summary>
+            public string Version { private get; set; }
+
             public string GetVersion()
             {
-                return string.Empty;
+                return Version;
             }
         }
     }

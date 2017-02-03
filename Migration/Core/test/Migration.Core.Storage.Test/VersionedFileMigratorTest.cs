@@ -22,7 +22,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using Core.Common.TestUtil;
 using Migration.Scripts.Data;
+using Migration.Scripts.Data.Exceptions;
 using Migration.Scripts.Data.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -32,6 +35,8 @@ namespace Migration.Core.Storage.Test
     [TestFixture]
     public class VersionedFileMigratorTest
     {
+        private static readonly TestDataPath testPath = TestDataPath.Migration.Core.Storage;
+
         [Test]
         public void Constructor_ComparerNull_ThrowsArgumentNullException()
         {
@@ -127,6 +132,330 @@ namespace Migration.Core.Storage.Test
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
             Assert.AreEqual("toVersion", paramName);
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        [TestCase("0", "0", false)]
+        [TestCase("1", "0", false)]
+        [TestCase("0", "1", false)]
+        public void NeedsMigrate_ValidVersionedFile_ReturnsIfNeedsMigrate(string fromVersion, string toVersion, bool shouldMigrate)
+        {
+            // Setup
+            var mockRepository = new MockRepository();
+            var comparer = mockRepository.Stub<IComparer>();
+            var versionedFile = mockRepository.Stub<IVersionedFile>();
+            mockRepository.ReplayAll();
+
+            var migrator = new SimpleVersionedFileMigrator(comparer)
+            {
+                CreateScripts =
+                {
+                    new TestCreateScript(toVersion)
+                },
+                UpgradeScripts =
+                {
+                    new TestUpgradeScript(fromVersion, toVersion)
+                }
+            };
+
+            // Call
+            bool needsMigrate = migrator.NeedsMigrate(versionedFile, toVersion);
+
+            // Assert
+            Assert.AreEqual(shouldMigrate, needsMigrate);
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void Migrate_VersionedFileNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mockRepository = new MockRepository();
+            var comparer = mockRepository.Stub<IComparer>();
+            mockRepository.ReplayAll();
+
+            const string fromVersion = "fromVersion";
+            const string toVersion = "toVersion";
+            const string toLocation = "location";
+
+            var migrator = new SimpleVersionedFileMigrator(comparer)
+            {
+                CreateScripts =
+                {
+                    new TestCreateScript(toVersion)
+                },
+                UpgradeScripts =
+                {
+                    new TestUpgradeScript(fromVersion, toVersion)
+                }
+            };
+
+            // Call
+            TestDelegate call = () => migrator.Migrate(null, toVersion, toLocation);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("versionedFile", paramName);
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void Migrate_ToVersionNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mockRepository = new MockRepository();
+            var comparer = mockRepository.Stub<IComparer>();
+            var versionedFile = mockRepository.Stub<IVersionedFile>();
+            mockRepository.ReplayAll();
+
+            const string fromVersion = "fromVersion";
+            const string toVersion = "toVersion";
+            const string toLocation = "location";
+
+            var migrator = new SimpleVersionedFileMigrator(comparer)
+            {
+                CreateScripts =
+                {
+                    new TestCreateScript(toVersion)
+                },
+                UpgradeScripts =
+                {
+                    new TestUpgradeScript(fromVersion, toVersion)
+                }
+            };
+
+            // Call
+            TestDelegate call = () => migrator.Migrate(versionedFile, null, toLocation);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("toVersion", paramName);
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void Migrate_NewFileLocationNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mockRepository = new MockRepository();
+            var comparer = mockRepository.Stub<IComparer>();
+            var versionedFile = mockRepository.Stub<IVersionedFile>();
+            mockRepository.ReplayAll();
+
+            const string fromVersion = "fromVersion";
+            const string toVersion = "toVersion";
+
+            var migrator = new SimpleVersionedFileMigrator(comparer)
+            {
+                CreateScripts =
+                {
+                    new TestCreateScript(toVersion)
+                },
+                UpgradeScripts =
+                {
+                    new TestUpgradeScript(fromVersion, toVersion)
+                }
+            };
+
+            // Call
+            TestDelegate call = () => migrator.Migrate(versionedFile, toVersion, null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("newFileLocation", paramName);
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void Migrate_NewFileLocationEqualToVersionedFileLocation_ThrowsCriticalMigrationException()
+        {
+            // Setup
+            const string fromVersion = "fromVersion";
+            const string toVersion = "toVersion";
+            const string toLocation = "location";
+
+            var mockRepository = new MockRepository();
+            var comparer = mockRepository.Stub<IComparer>();
+            var versionedFile = mockRepository.Stub<IVersionedFile>();
+            versionedFile.Expect(vf => vf.Location).Return(toLocation);
+            mockRepository.ReplayAll();
+
+            var migrator = new SimpleVersionedFileMigrator(comparer)
+            {
+                CreateScripts =
+                {
+                    new TestCreateScript(toVersion)
+                },
+                UpgradeScripts =
+                {
+                    new TestUpgradeScript(fromVersion, toVersion)
+                }
+            };
+
+            // Call
+            TestDelegate call = () => migrator.Migrate(versionedFile, toVersion, toLocation);
+
+            // Assert
+            CriticalMigrationException exception = Assert.Throws<CriticalMigrationException>(call);
+            Assert.AreEqual("Het bestandspad van het uitvoerbestand moet anders zijn dan het bestandspad van het bronbestand.", exception.Message);
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void Migrate_VersionedFileVersionNotSupported_ThrowsCriticalMigrationException()
+        {
+            // Setup
+            const string fromVersion = "fromVersion";
+            const string fromLocation = "fromLocation";
+            const string toVersion = "toVersion";
+            const string toLocation = "location";
+            const string incorrectVersion = "not supported";
+
+            var mockRepository = new MockRepository();
+            var comparer = mockRepository.Stub<IComparer>();
+            var versionedFile = mockRepository.Stub<IVersionedFile>();
+            versionedFile.Expect(vf => vf.Location).Return(fromLocation);
+            versionedFile.Expect(vf => vf.GetVersion()).Return(incorrectVersion);
+            mockRepository.ReplayAll();
+
+            var migrator = new SimpleVersionedFileMigrator(comparer)
+            {
+                CreateScripts =
+                {
+                    new TestCreateScript(toVersion)
+                },
+                UpgradeScripts =
+                {
+                    new TestUpgradeScript(fromVersion, toVersion)
+                }
+            };
+
+            // Call
+            TestDelegate call = () => migrator.Migrate(versionedFile, toVersion, toLocation);
+
+            // Assert
+            CriticalMigrationException exception = Assert.Throws<CriticalMigrationException>(call);
+            Assert.AreEqual($"Het upgraden van versie '{incorrectVersion}' is niet ondersteund.", exception.Message);
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void Migrate_NoMigrationScriptToMigrate_ThrowsCriticalMigrationException()
+        {
+            // Setup
+            const string fromVersion = "fromVersion";
+            const string fromLocation = "fromLocation";
+            const string toVersion = "toVersion";
+            const string toLocation = "location";
+            const string incorrectVersion = "not supported";
+
+            var mockRepository = new MockRepository();
+            var comparer = mockRepository.Stub<IComparer>();
+            var versionedFile = mockRepository.Stub<IVersionedFile>();
+            versionedFile.Expect(vf => vf.Location).Return(fromLocation);
+            versionedFile.Expect(vf => vf.GetVersion()).Return(fromVersion);
+            mockRepository.ReplayAll();
+
+            var migrator = new SimpleVersionedFileMigrator(comparer)
+            {
+                CreateScripts =
+                {
+                    new TestCreateScript(toVersion)
+                },
+                UpgradeScripts =
+                {
+                    new TestUpgradeScript(fromVersion, toVersion)
+                }
+            };
+
+            // Call
+            TestDelegate call = () => migrator.Migrate(versionedFile, incorrectVersion, toLocation);
+
+            // Assert
+            CriticalMigrationException exception = Assert.Throws<CriticalMigrationException>(call);
+            Assert.AreEqual($"Het is niet mogelijk om versie '{fromVersion}' te migreren naar versie '{incorrectVersion}'.", exception.Message);
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void Migrate_ValidMigration_CreatesNewVersion()
+        {
+            // Setup
+            const string fromVersion = "fromVersion";
+            const string fromLocation = "fromLocation";
+            const string toVersion = "toVersion";
+
+            string toLocation = TestHelper.GetTestDataPath(testPath, Path.GetRandomFileName());
+
+            var mockRepository = new MockRepository();
+            var comparer = mockRepository.Stub<IComparer>();
+            var versionedFile = mockRepository.Stub<IVersionedFile>();
+            versionedFile.Stub(vf => vf.Location).Return(fromLocation);
+            versionedFile.Expect(vf => vf.GetVersion()).Return(fromVersion);
+            mockRepository.ReplayAll();
+
+            var migrator = new SimpleVersionedFileMigrator(comparer)
+            {
+                CreateScripts =
+                {
+                    new TestCreateScript(toVersion)
+                },
+                UpgradeScripts =
+                {
+                    new TestUpgradeScript(fromVersion, toVersion)
+                }
+            };
+
+            // Call
+            migrator.Migrate(versionedFile, toVersion, toLocation);
+
+            // Assert
+            Assert.IsTrue(File.Exists(toLocation), $"File at location {toLocation} has not been created");
+            using (new FileDisposeHelper(toLocation)) {}
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void Migrate_ValidMigrationFileInUse_ThrowsCriticalMigrationException()
+        {
+            // Setup
+            const string fromVersion = "fromVersion";
+            const string fromLocation = "fromLocation";
+            const string toVersion = "toVersion";
+
+            string toLocation = TestHelper.GetTestDataPath(testPath, Path.GetRandomFileName());
+
+            var mockRepository = new MockRepository();
+            var comparer = mockRepository.Stub<IComparer>();
+            var versionedFile = mockRepository.Stub<IVersionedFile>();
+            versionedFile.Stub(vf => vf.Location).Return(fromLocation);
+            versionedFile.Expect(vf => vf.GetVersion()).Return(fromVersion);
+            mockRepository.ReplayAll();
+
+            using (new FileDisposeHelper(toLocation))
+            using (File.Create(toLocation))
+            {
+                var migrator = new SimpleVersionedFileMigrator(comparer)
+                {
+                    CreateScripts =
+                    {
+                        new TestCreateScript(toVersion)
+                    },
+                    UpgradeScripts =
+                    {
+                        new TestUpgradeScript(fromVersion, toVersion)
+                    }
+                };
+
+                // Call
+                TestDelegate call = () => migrator.Migrate(versionedFile, toVersion, toLocation);
+
+                // Assert
+                CriticalMigrationException exception = Assert.Throws<CriticalMigrationException>(call);
+                StringAssert.StartsWith("Er is een onverwachte fout opgetreden tijdens het verplaatsen van het gemigreerde bestand '", exception.Message);
+                StringAssert.EndsWith($"' naar '{toLocation}'.", exception.Message);
+            }
             mockRepository.VerifyAll();
         }
 

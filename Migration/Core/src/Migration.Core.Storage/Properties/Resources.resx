@@ -125,10 +125,10 @@
     <value>Er is een onverwachte fout opgetreden tijdens het verplaatsen van het gemigreerde bestand '{0}' naar '{1}'.</value>
   </data>
   <data name="Upgrade_Version_0_Not_Supported" xml:space="preserve">
-    <value>Het upgraden van versie {0} is niet ondersteund.</value>
+    <value>Het upgraden van versie '{0}' is niet ondersteund.</value>
   </data>
   <data name="Migrate_From_Version_0_To_Version_1_Not_Supported" xml:space="preserve">
-    <value>Het is niet mogelijk om versie {0} te migreren naar versie {1}</value>
+    <value>Het is niet mogelijk om versie '{0}' te migreren naar versie '{1}'.</value>
   </data>
   <data name="Migrate_Target_File_Path_Must_Differ_From_Source_File_Path" xml:space="preserve">
     <value>Het bestandspad van het uitvoerbestand moet anders zijn dan het bestandspad van het bronbestand.</value>

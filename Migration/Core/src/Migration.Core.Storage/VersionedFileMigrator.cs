@@ -89,20 +89,33 @@ namespace Migration.Core.Storage
         }
 
         /// <summary>
-        /// Migrates <paramref name="fromVersionedFile"/> to version <paramref name="toVersion"/> at location <paramref name="newFileLocation"/>.
+        /// Migrates <paramref name="versionedFile"/> to version <paramref name="toVersion"/> at location <paramref name="newFileLocation"/>.
         /// </summary>
-        /// <param name="fromVersionedFile">The source versioned file to migrate from.</param>
+        /// <param name="versionedFile">The source versioned file to migrate from.</param>
         /// <param name="toVersion">The version to upgrade to.</param>
         /// <param name="newFileLocation">The location where the migrated file needs to be saved.</param>
-        /// <exception cref="CriticalMigrationException">Thrown when migrating <paramref name="fromVersionedFile"/> 
+        /// <exception cref="ArgumentNullException">Thrown when any of the input parameters is <c>null</c>.</exception>
+        /// <exception cref="CriticalMigrationException">Thrown when migrating <paramref name="versionedFile"/> 
         /// to a new version on location <paramref name="newFileLocation"/> failed.</exception>
-        public void Migrate(IVersionedFile fromVersionedFile, string toVersion, string newFileLocation)
+        public void Migrate(IVersionedFile versionedFile, string toVersion, string newFileLocation)
         {
-            if (Path.GetFullPath(fromVersionedFile.Location).Equals(Path.GetFullPath(newFileLocation)))
+            if (versionedFile == null)
+            {
+                throw new ArgumentNullException(nameof(versionedFile));
+            }
+            if (toVersion == null)
+            {
+                throw new ArgumentNullException(nameof(toVersion));
+            }
+            if (newFileLocation == null)
+            {
+                throw new ArgumentNullException(nameof(newFileLocation));
+            }
+            if (Path.GetFullPath(versionedFile.Location).Equals(Path.GetFullPath(newFileLocation)))
             {
                 throw new CriticalMigrationException(Resources.Migrate_Target_File_Path_Must_Differ_From_Source_File_Path);
             }
-            string fromVersion = fromVersionedFile.GetVersion();
+            string fromVersion = versionedFile.GetVersion();
             if (!IsVersionSupported(fromVersion))
             {
                 throw new CriticalMigrationException(string.Format(Resources.Upgrade_Version_0_Not_Supported,
@@ -116,7 +129,7 @@ namespace Migration.Core.Storage
                                                                    fromVersion, toVersion));
             }
 
-            IVersionedFile upgradedVersionFile = migrationScript.Upgrade(fromVersionedFile);
+            IVersionedFile upgradedVersionFile = migrationScript.Upgrade(versionedFile);
             if (!upgradedVersionFile.GetVersion().Equals(toVersion))
             {
                 Migrate(upgradedVersionFile, toVersion, newFileLocation);
@@ -146,11 +159,6 @@ namespace Migration.Core.Storage
             var supportedMigrationScripts = fileMigrationScripts.Where(ms => ms.SupportedVersion()
                                                                                .Equals(fromVersion));
 
-            if (!supportedMigrationScripts.Any())
-            {
-                return null;
-            }
-
             return supportedMigrationScripts.FirstOrDefault(ms => ms.TargetVersion().Equals(toVersion))
                    ?? supportedMigrationScripts.FirstOrDefault(ms => versionedFileComparer.Compare(toVersion, ms.TargetVersion()) > 0);
         }
@@ -158,11 +166,10 @@ namespace Migration.Core.Storage
         private IEnumerable<FileMigrationScript> GetAvailableMigrations()
         {
             IEnumerable<UpgradeScript> migrationStreams = GetAvailableUpgradeScripts();
-            IEnumerable<CreateScript> createScripts = GetAvailableCreateScripts();
 
             foreach (var migrationScript in migrationStreams)
             {
-                CreateScript createScript = createScripts.FirstOrDefault(cs => cs.GetVersion().Equals(migrationScript.ToVersion()));
+                CreateScript createScript = GetAvailableCreateScripts().FirstOrDefault(cs => cs.GetVersion().Equals(migrationScript.ToVersion()));
                 if (createScript != null)
                 {
                     yield return new FileMigrationScript(createScript, migrationScript);

@@ -43,11 +43,15 @@ namespace Migration.Scripts.Data.TestUtil.Test
         [Test]
         public void Constructor_ValidParameters_ExpectedProperties()
         {
+            // Setup
+            const string version = "version";
+
             // Call
-            var createScript = new TestCreateScript("version");
+            var createScript = new TestCreateScript(version);
 
             // Assert
             Assert.IsInstanceOf<CreateScript>(createScript);
+            Assert.AreEqual(version, createScript.GetVersion());
         }
     }
 }

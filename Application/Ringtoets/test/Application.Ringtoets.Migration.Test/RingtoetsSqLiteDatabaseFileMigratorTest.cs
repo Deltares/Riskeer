@@ -215,7 +215,7 @@ namespace Application.Ringtoets.Migration.Test
 
             // Assert
             string message = Assert.Throws<CriticalMigrationException>(call).Message;
-            Assert.AreEqual($"Het is niet mogelijk om versie 4 te migreren naar versie {newVersion}", message);
+            Assert.AreEqual($"Het is niet mogelijk om versie '4' te migreren naar versie '{newVersion}'.", message);
         }
 
         [Test]
@@ -233,7 +233,7 @@ namespace Application.Ringtoets.Migration.Test
 
             // Assert
             string message = Assert.Throws<CriticalMigrationException>(call).Message;
-            Assert.AreEqual("Het upgraden van versie 8 is niet ondersteund.", message);
+            Assert.AreEqual("Het upgraden van versie '8' is niet ondersteund.", message);
         }
     }
 }
