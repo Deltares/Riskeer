@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Base;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
 using Ringtoets.Piping.Data;
@@ -29,9 +30,9 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 namespace Ringtoets.Piping.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of <see cref="StochasticSoilModelCollection"/> for properties panel.
+    /// ViewModel of <see cref="ObservableCollectionWithSourcePath{T}"/> for properties panel.
     /// </summary>
-    public class StochasticSoilModelCollectionProperties : ObjectProperties<StochasticSoilModelCollection>
+    public class StochasticSoilModelCollectionProperties : ObjectProperties<ObservableCollectionWithSourcePath<StochasticSoilModel>>
     {
         /// <summary>
         /// Creates a new instance of <see cref="StochasticSoilModelCollectionProperties"/>.
@@ -39,7 +40,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         /// <param name="collection">The collection for which the properties are shown.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="collection"/>
         /// is <c>null</c>.</exception>
-        public StochasticSoilModelCollectionProperties(StochasticSoilModelCollection collection)
+        public StochasticSoilModelCollectionProperties(ObservableCollectionWithSourcePath<StochasticSoilModel> collection)
         {
             if (collection == null)
             {

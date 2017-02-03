@@ -44,7 +44,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var strategy = new StochasticSoilModelUpdateDataStrategy(new PipingFailureMechanism());
 
             // Call
-            TestDelegate test = () => strategy.UpdateModelWithImportedData(new StochasticSoilModelCollection(), null, string.Empty);
+            TestDelegate test = () => strategy.UpdateModelWithImportedData(new ObservableCollectionWithSourcePath<StochasticSoilModel>(), null, string.Empty);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -58,7 +58,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var strategy = new StochasticSoilModelUpdateDataStrategy(new PipingFailureMechanism());
 
             // Call
-            TestDelegate test = () => strategy.UpdateModelWithImportedData(new StochasticSoilModelCollection(), new List<StochasticSoilModel>(), null);
+            TestDelegate test = () => strategy.UpdateModelWithImportedData(new ObservableCollectionWithSourcePath<StochasticSoilModel>(), new List<StochasticSoilModel>(), null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -85,7 +85,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             // Setup
             const string nonUniqueName = "non-unique name";
 
-            var targetCollection = new StochasticSoilModelCollection();
+            var targetCollection = new ObservableCollectionWithSourcePath<StochasticSoilModel>();
             targetCollection.AddRange(new[]
             {
                 new TestStochasticSoilModel(nonUniqueName)
@@ -117,7 +117,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                 new TestStochasticSoilModel("B")
             };
             var strategy = new StochasticSoilModelUpdateDataStrategy(new PipingFailureMechanism());
-            var targetCollection = new StochasticSoilModelCollection();
+            var targetCollection = new ObservableCollectionWithSourcePath<StochasticSoilModel>();
 
             // Call
             IEnumerable<IObservable> affectedObjects = strategy.UpdateModelWithImportedData(targetCollection, importedStochasticSoilModels, "path");
@@ -134,7 +134,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         public void UpdateModelWithImportedData_WithCurrentModelsAndImportedDataEmpty_ModelsRemoved()
         {
             // Setup
-            var targetCollection = new StochasticSoilModelCollection();
+            var targetCollection = new ObservableCollectionWithSourcePath<StochasticSoilModel>();
             targetCollection.AddRange(new[]
             {
                 new TestStochasticSoilModel(),
@@ -191,7 +191,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var modelsName = "same model";
             var existingModel = new TestStochasticSoilModel(modelsName);
 
-            var targetCollection = new StochasticSoilModelCollection();
+            var targetCollection = new ObservableCollectionWithSourcePath<StochasticSoilModel>();
             targetCollection.AddRange(new[]
             {
                 existingModel,
@@ -222,7 +222,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var modelsName = "same model";
             var existingModel = new TestStochasticSoilModel(modelsName);
 
-            var targetCollection = new StochasticSoilModelCollection();
+            var targetCollection = new ObservableCollectionWithSourcePath<StochasticSoilModel>();
             targetCollection.AddRange(new[]
             {
                 existingModel,
@@ -254,7 +254,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var modelsName = "same model";
             var existingModel = new TestStochasticSoilModel(modelsName);
 
-            var targetCollection = new StochasticSoilModelCollection();
+            var targetCollection = new ObservableCollectionWithSourcePath<StochasticSoilModel>();
             targetCollection.AddRange(new[]
             {
                 existingModel,
@@ -308,7 +308,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var modelsName = "same model";
             var existingModel = new TestStochasticSoilModel(modelsName);
 
-            var targetCollection = new StochasticSoilModelCollection();
+            var targetCollection = new ObservableCollectionWithSourcePath<StochasticSoilModel>();
             targetCollection.AddRange(new[]
             {
                 existingModel,
@@ -374,7 +374,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             var strategy = new StochasticSoilModelUpdateDataStrategy(failureMechanism);
 
-            var targetCollection = new StochasticSoilModelCollection();
+            var targetCollection = new ObservableCollectionWithSourcePath<StochasticSoilModel>();
             targetCollection.AddRange(new[]
             {
                 existingModel,

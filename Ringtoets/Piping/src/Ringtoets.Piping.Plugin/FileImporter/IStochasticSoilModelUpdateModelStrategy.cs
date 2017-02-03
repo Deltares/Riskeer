@@ -35,7 +35,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
         /// <summary>
         /// Adds the imported data to the <paramref name="targetCollection"/>.
         /// </summary>
-        /// <param name="targetCollection">The <see cref="StochasticSoilModelCollection"/> to which the imported data
+        /// <param name="targetCollection">The <see cref="ObservableCollectionWithSourcePath{StochasticSoilModel}"/> to which the imported data
         /// is added.</param>
         /// <param name="readStochasticSoilModels">The stochastic soil models which were imported.</param>
         /// <param name="sourceFilePath">The path to the source file from which the soil models were imported.</param>
@@ -45,7 +45,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
         /// exception.</exception>
         /// <returns><see cref="IEnumerable{T}"/> of updated instances.</returns>
         IEnumerable<IObservable> UpdateModelWithImportedData(
-            StochasticSoilModelCollection targetCollection, 
+            ObservableCollectionWithSourcePath<StochasticSoilModel> targetCollection, 
             IEnumerable<StochasticSoilModel> readStochasticSoilModels, 
             string sourceFilePath);
     }

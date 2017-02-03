@@ -35,7 +35,9 @@ namespace Ringtoets.Piping.Plugin.FileImporter
     {
         private readonly ILog log = LogManager.GetLogger(typeof(StochasticSoilModelReplaceDataStrategy));
 
-        public IEnumerable<IObservable> UpdateModelWithImportedData(StochasticSoilModelCollection targetCollection, IEnumerable<StochasticSoilModel> readStochasticSoilModels, string sourceFilePath)
+        public IEnumerable<IObservable> UpdateModelWithImportedData(ObservableCollectionWithSourcePath<StochasticSoilModel> targetCollection,
+                                                                    IEnumerable<StochasticSoilModel> readStochasticSoilModels,
+                                                                    string sourceFilePath)
         {
             if (targetCollection == null)
             {
@@ -61,7 +63,10 @@ namespace Ringtoets.Piping.Plugin.FileImporter
                 modelsToAdd.Add(readStochasticSoilModel);
             }
             targetCollection.AddRange(modelsToAdd, sourceFilePath);
-            return new [] { targetCollection };
+            return new[]
+            {
+                targetCollection
+            };
         }
     }
 }

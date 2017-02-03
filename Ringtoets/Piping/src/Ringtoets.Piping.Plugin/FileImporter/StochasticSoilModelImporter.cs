@@ -40,7 +40,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
     /// <summary>
     /// Imports .soil files (SqlLite database files) created with the D-Soil Model application.
     /// </summary>
-    public class StochasticSoilModelImporter : FileImporterBase<StochasticSoilModelCollection>
+    public class StochasticSoilModelImporter : FileImporterBase<ObservableCollectionWithSourcePath<StochasticSoilModel>>
     {
         private readonly ILog log = LogManager.GetLogger(typeof(StochasticSoilModelImporter));
         private readonly IStochasticSoilModelUpdateModelStrategy modelUpdateStrategy;
@@ -54,7 +54,9 @@ namespace Ringtoets.Piping.Plugin.FileImporter
         /// when updating the <paramref name="importTarget"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="importTarget"/> or
         /// <paramref name="modelUpdateStrategy"/> is <c>null</c>.</exception>
-        public StochasticSoilModelImporter(StochasticSoilModelCollection importTarget, string filePath, IStochasticSoilModelUpdateModelStrategy modelUpdateStrategy)
+        public StochasticSoilModelImporter(ObservableCollectionWithSourcePath<StochasticSoilModel> importTarget,
+                                           string filePath,
+                                           IStochasticSoilModelUpdateModelStrategy modelUpdateStrategy)
             : base(filePath, importTarget)
         {
             if (modelUpdateStrategy == null)

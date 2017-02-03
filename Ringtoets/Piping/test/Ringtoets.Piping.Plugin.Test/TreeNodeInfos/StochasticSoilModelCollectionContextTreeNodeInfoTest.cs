@@ -26,6 +26,7 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
+using Core.Common.Base;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.Commands;
@@ -257,7 +258,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var context = new StochasticSoilModelCollectionContext(new StochasticSoilModelCollection(), new PipingFailureMechanism(), assessmentSection);
+                var context = new StochasticSoilModelCollectionContext(new ObservableCollectionWithSourcePath<StochasticSoilModel>(), new PipingFailureMechanism(), assessmentSection);
                 var gui = mocks.Stub<IGui>();
 
                 gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilderMock);
@@ -283,7 +284,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 var pipingFailureMechanism = new PipingFailureMechanism();
                 var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
 
-                var stochasticSoilModelCollection = new StochasticSoilModelCollection();
+                var stochasticSoilModelCollection = new ObservableCollectionWithSourcePath<StochasticSoilModel>();
                 if (sourcePathSet)
                 {
                     stochasticSoilModelCollection.AddRange(Enumerable.Empty<StochasticSoilModel>(), "some path");
@@ -330,7 +331,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             {
                 var pipingFailureMechanism = new PipingFailureMechanism();
                 var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-                var stochasticSoilModelCollection = new StochasticSoilModelCollection();
+                var stochasticSoilModelCollection = new ObservableCollectionWithSourcePath<StochasticSoilModel>();
                 stochasticSoilModelCollection.AddRange(Enumerable.Empty<StochasticSoilModel>(), somePath);
 
                 var nodeData = new StochasticSoilModelCollectionContext(stochasticSoilModelCollection,
@@ -381,7 +382,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             {
                 var pipingFailureMechanism = new PipingFailureMechanism();
                 var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-                var stochasticSoilModelCollection = new StochasticSoilModelCollection();
+                var stochasticSoilModelCollection = new ObservableCollectionWithSourcePath<StochasticSoilModel>();
                 stochasticSoilModelCollection.AddRange(Enumerable.Empty<StochasticSoilModel>(), existingFilePath);
 
                 var nodeData = new StochasticSoilModelCollectionContext(stochasticSoilModelCollection,

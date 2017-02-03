@@ -516,7 +516,7 @@ namespace Ringtoets.Piping.Plugin
                       .Build();
         }
 
-        private StrictContextMenuItem CreateUpdateStochasticSoilModelsItem(StochasticSoilModelCollection soilModelCollection, PipingFailureMechanism failureMechanism)
+        private StrictContextMenuItem CreateUpdateStochasticSoilModelsItem(ObservableCollectionWithSourcePath<StochasticSoilModel> soilModelCollection, PipingFailureMechanism failureMechanism)
         {
             var enabled = soilModelCollection.SourcePath != null;
 
@@ -530,7 +530,7 @@ namespace Ringtoets.Piping.Plugin
             };
         }
 
-        private void UpdateStochasticSoilModelFromKnownSourceFile(StochasticSoilModelCollection soilModelCollection, PipingFailureMechanism failureMechanism)
+        private void UpdateStochasticSoilModelFromKnownSourceFile(ObservableCollectionWithSourcePath<StochasticSoilModel> soilModelCollection, PipingFailureMechanism failureMechanism)
         {
             string updateFromPath = soilModelCollection.SourcePath;
             if (!File.Exists(updateFromPath))
@@ -565,7 +565,7 @@ namespace Ringtoets.Piping.Plugin
             return null;
         }
 
-        private void RunUpdateStochasticSoilModel(StochasticSoilModelCollection soilModelCollection, PipingFailureMechanism failureMechanism, string sourceFilePath)
+        private void RunUpdateStochasticSoilModel(ObservableCollectionWithSourcePath<StochasticSoilModel> soilModelCollection, PipingFailureMechanism failureMechanism, string sourceFilePath)
         {
             var importer = new StochasticSoilModelImporter(soilModelCollection,
                                                            sourceFilePath,

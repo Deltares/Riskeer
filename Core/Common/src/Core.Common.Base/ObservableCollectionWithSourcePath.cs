@@ -3,16 +3,16 @@
 // This file is part of Ringtoets.
 //
 // Ringtoets is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
+// it under the terms of the GNU Lesser General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 // 
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-// GNU General Public License for more details.
+// GNU Lesser General Public License for more details.
 //
-// You should have received a copy of the GNU General Public License
+// You should have received a copy of the GNU Lesser General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 //
 // All names, logos, and references to "Deltares" are registered trademarks of
@@ -23,18 +23,19 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Core.Common.Base;
 using Core.Common.Utils;
 
-namespace Ringtoets.Piping.Data
+namespace Core.Common.Base
 {
     /// <summary>
-    /// A collection to store the <see cref="StochasticSoilModel"/> and the source path
+    /// A collection to store elements and the source path
     /// they were imported from.
     /// </summary>
-    public class StochasticSoilModelCollection : Observable, IEnumerable<StochasticSoilModel>
+    /// <typeparam name="T">The type of elements in the collection.</typeparam>
+    public class ObservableCollectionWithSourcePath<T> : Observable, IEnumerable<T>
+        where T : class
     {
-        private readonly List<StochasticSoilModel> stochasticSoilModels = new List<StochasticSoilModel>();
+        private readonly List<T> collection = new List<T>();
 
         /// <summary>
         /// Gets the element at index <paramref name="i"/> in the collection.
@@ -43,11 +44,11 @@ namespace Ringtoets.Piping.Data
         /// <returns>The element at index <paramref name="i"/> in the collection.</returns>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="i"/> is not 
         /// between [0, <see cref="Count"/>)</exception>
-        public StochasticSoilModel this[int i]
+        public T this[int i]
         {
             get
             {
-                return stochasticSoilModels[i];
+                return collection[i];
             }
         }
 
@@ -58,27 +59,26 @@ namespace Ringtoets.Piping.Data
         {
             get
             {
-                return stochasticSoilModels.Count;
+                return collection.Count;
             }
         }
 
         /// <summary>
-        /// Gets the last known file path from which the <see cref="StochasticSoilModel"/>
-        /// elements were imported.
+        /// Gets the last known file path from which the elements were imported.
         /// </summary>
-        /// <returns>The path where the <see cref="StochasticSoilModel"/> elements originate
+        /// <returns>The path where the elements originate
         /// from, or <c>null</c> if the collection is cleared.</returns>
         public string SourcePath { get; private set; }
 
         /// <summary>
-        /// Removes the first occurrence of <paramref name="model"/> in the collection.
+        /// Removes the first occurrence of <paramref name="item"/> in the collection.
         /// </summary>
-        /// <param name="model">The <see cref="StochasticSoilModel"/> to be removed.</param>
-        /// <returns><c>True</c> if the <paramref name="model"/> was successfully removed from the collection;
-        /// <c>False</c> if otherwise or if the <paramref name="model"/> was not found in the collection. </returns>
-        public bool Remove(StochasticSoilModel model)
+        /// <param name="item">The item of type <see cref="T"/> to be removed.</param>
+        /// <returns><c>True</c> if the <paramref name="item"/> was successfully removed from the collection;
+        /// <c>False</c> if otherwise or if the <paramref name="item"/> was not found in the collection. </returns>
+        public bool Remove(T item)
         {
-            bool remove = stochasticSoilModels.Remove(model);
+            bool remove = collection.Remove(item);
             if (remove && Count == 0)
             {
                 SourcePath = null;
@@ -92,30 +92,30 @@ namespace Ringtoets.Piping.Data
         public void Clear()
         {
             SourcePath = null;
-            stochasticSoilModels.Clear();
+            collection.Clear();
         }
 
         /// <summary>
-        /// Adds all <see cref="StochasticSoilModel"/> elements originating from a source file.
+        /// Adds all elements originating from a source file.
         /// </summary>
-        /// <param name="soilModels">The <see cref="StochasticSoilModel"/></param>
+        /// <param name="items">The elements to add</param>
         /// <param name="filePath">The path to the source file.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when:
         /// <list type="bullet">
-        /// <item><paramref name="soilModels"/> contains <c>null</c>.</item>
+        /// <item><paramref name="items"/> contains <c>null</c>.</item>
         /// <item><paramref name="filePath"/> is not a valid file path.</item>
         /// </list>
         /// </exception>
-        public void AddRange(IEnumerable<StochasticSoilModel> soilModels, string filePath)
+        public void AddRange(IEnumerable<T> items, string filePath)
         {
-            if (soilModels == null)
+            if (items == null)
             {
-                throw new ArgumentNullException(nameof(soilModels));
+                throw new ArgumentNullException(nameof(items));
             }
-            if (soilModels.Contains(null))
+            if (items.Contains(null))
             {
-                throw new ArgumentException("Collection cannot contain null.", nameof(soilModels));
+                throw new ArgumentException("Collection cannot contain null.", nameof(items));
             }
             if (filePath == null)
             {
@@ -127,12 +127,12 @@ namespace Ringtoets.Piping.Data
             }
 
             SourcePath = filePath;
-            stochasticSoilModels.AddRange(soilModels);
+            collection.AddRange(items);
         }
 
-        public IEnumerator<StochasticSoilModel> GetEnumerator()
+        public IEnumerator<T> GetEnumerator()
         {
-            return stochasticSoilModels.GetEnumerator();
+            return collection.GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()

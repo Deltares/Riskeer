@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.Linq;
+using Core.Common.Base;
 using Core.Common.Gui.Plugin;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -67,7 +68,7 @@ namespace Ringtoets.Piping.Plugin.Test.PropertyInfos
 
             var failureMechanism = new PipingFailureMechanism();
 
-            var collection = new StochasticSoilModelCollection();
+            var collection = new ObservableCollectionWithSourcePath<StochasticSoilModel>();
             var context = new StochasticSoilModelCollectionContext(collection, failureMechanism, assessmentSection);
 
             // Call

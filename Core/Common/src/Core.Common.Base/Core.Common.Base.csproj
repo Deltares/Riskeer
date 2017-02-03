@@ -103,6 +103,7 @@
     <Compile Include="IO\OnProgressChanged.cs" />
     <Compile Include="Observer.cs" />
     <Compile Include="RecursiveObserver.cs" />
+    <Compile Include="ObservableCollectionWithSourcePath.cs" />
     <Compile Include="Storage\StorageException.cs" />
     <Compile Include="Storage\StorageValidationException.cs" />
     <Compile Include="Storage\CouldNotConnectException.cs" />
@@ -156,7 +157,13 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Core.Common.Utils\Core.Common.Utils.csproj">
+      <Project>{f49bd8b2-332a-4c91-a196-8cce0a2c7d98}</Project>
+      <Name>Core.Common.Utils</Name>
+      <Private>False</Private>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

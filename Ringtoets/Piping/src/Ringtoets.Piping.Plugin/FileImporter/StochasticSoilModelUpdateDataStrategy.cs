@@ -70,7 +70,9 @@ namespace Ringtoets.Piping.Plugin.FileImporter
         /// </exception>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <returns>List of updated instances.</returns>
-        public IEnumerable<IObservable> UpdateModelWithImportedData(StochasticSoilModelCollection targetCollection, IEnumerable<StochasticSoilModel> readStochasticSoilModels, string sourceFilePath)
+        public IEnumerable<IObservable> UpdateModelWithImportedData(ObservableCollectionWithSourcePath<StochasticSoilModel> targetCollection,
+                                                                    IEnumerable<StochasticSoilModel> readStochasticSoilModels,
+                                                                    string sourceFilePath)
         {
             if (readStochasticSoilModels == null)
             {
@@ -96,9 +98,10 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             }
         }
 
-        private IEnumerable<IObservable> ModifyModelCollection(IEnumerable<StochasticSoilModel> readStochasticSoilModels, StochasticSoilModelCollection targetCollection, string sourceFilePath)
+        private IEnumerable<IObservable> ModifyModelCollection(IEnumerable<StochasticSoilModel> readStochasticSoilModels,
+                                                               ObservableCollectionWithSourcePath<StochasticSoilModel> targetCollection,
+                                                               string sourceFilePath)
         {
-
             List<StochasticSoilModel> readModelList = readStochasticSoilModels.ToList();
             List<StochasticSoilModel> addedModels = GetAddedReadModels(targetCollection, readModelList).ToList();
             List<StochasticSoilModel> updatedModels = GetUpdatedExistingModels(targetCollection, readModelList).ToList();

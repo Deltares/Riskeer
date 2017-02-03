@@ -3,16 +3,16 @@
 // This file is part of Ringtoets.
 //
 // Ringtoets is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
+// it under the terms of the GNU Lesser General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 // 
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-// GNU General Public License for more details.
+// GNU Lesser General Public License for more details.
 //
-// You should have received a copy of the GNU General Public License
+// You should have received a copy of the GNU Lesser General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 //
 // All names, logos, and references to "Deltares" are registered trademarks of
@@ -21,22 +21,20 @@
 
 using System;
 using System.Linq;
-using Core.Common.Base;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Piping.Data.TestUtil;
 
-namespace Ringtoets.Piping.Data.Test
+namespace Core.Common.Base.Test
 {
     [TestFixture]
-    public class StochasticSoilModelCollectionTest
+    public class ObservableCollectionWithSourcePathTest
     {
         [Test]
-        public void DefaultConstructor_ReturnObservableStochasticSoilModelCollection()
+        public void DefaultConstructor_ReturnObservableCollectionWithSourcePath()
         {
             // Call
-            var collection = new StochasticSoilModelCollection();
+            var collection = new ObservableCollectionWithSourcePath<object>();
 
             // Assert
             Assert.IsInstanceOf<Observable>(collection);
@@ -46,29 +44,29 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void AddRange_SoilModelsNull_ThrowArgumentNullException()
+        public void AddRange_ItemsNull_ThrowArgumentNullException()
         {
             // Setup
-            var collection = new StochasticSoilModelCollection();
+            var collection = new ObservableCollectionWithSourcePath<object>();
 
             // Call
             TestDelegate call = () => collection.AddRange(null, "path");
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("soilModels", paramName);
+            Assert.AreEqual("items", paramName);
         }
 
         [Test]
-        public void AddRange_SoilModelHasNullElement_ThrowArgumentException()
+        public void AddRange_ItemsHasNullElement_ThrowArgumentException()
         {
             // Setup
-            var collection = new StochasticSoilModelCollection();
+            var collection = new ObservableCollectionWithSourcePath<object>();
             var models = new[]
             {
-                new TestStochasticSoilModel(),
+                new object(),
                 null,
-                new TestStochasticSoilModel()
+                new object()
             };
 
             // Call
@@ -77,17 +75,17 @@ namespace Ringtoets.Piping.Data.Test
             // Assert
             string message = "Collection cannot contain null.";
             string paramName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, message).ParamName;
-            Assert.AreEqual("soilModels", paramName);
+            Assert.AreEqual("items", paramName);
         }
 
         [Test]
         public void AddRange_FilePathNull_ThrowArgumentNullException()
         {
             // Setup
-            var collection = new StochasticSoilModelCollection();
+            var collection = new ObservableCollectionWithSourcePath<object>();
 
             // Call
-            TestDelegate call = () => collection.AddRange(Enumerable.Empty<StochasticSoilModel>(), null);
+            TestDelegate call = () => collection.AddRange(Enumerable.Empty<object>(), null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -98,12 +96,12 @@ namespace Ringtoets.Piping.Data.Test
         public void AddRange_NotAnActualFilePath_ThrowArgumentNull()
         {
             // Setup
-            var collection = new StochasticSoilModelCollection();
+            var collection = new ObservableCollectionWithSourcePath<object>();
 
             const string invalidFilePath = @"            ";
 
             // Call
-            TestDelegate call = () => collection.AddRange(Enumerable.Empty<StochasticSoilModel>(), invalidFilePath);
+            TestDelegate call = () => collection.AddRange(Enumerable.Empty<object>(), invalidFilePath);
 
             // Assert
             string message = $"'{invalidFilePath}' is not a valid filepath.";
@@ -115,18 +113,18 @@ namespace Ringtoets.Piping.Data.Test
         public void AddRange_AddNewStochasticSoilModel_CollectionContainsModel()
         {
             // Setup
-            var collection = new StochasticSoilModelCollection();
-            var soilModel = new StochasticSoilModel(1, string.Empty, string.Empty);
+            var collection = new ObservableCollectionWithSourcePath<object>();
+            var item = new object();
 
             // Call 
             const string filePath = "some/file/path";
             collection.AddRange(new[]
             {
-                soilModel
+                item
             }, filePath);
 
             // Assert
-            CollectionAssert.Contains(collection, soilModel);
+            CollectionAssert.Contains(collection, item);
             Assert.AreEqual(filePath, collection.SourcePath);
         }
 
@@ -134,22 +132,22 @@ namespace Ringtoets.Piping.Data.Test
         public void AddRange_AddingNewModels_CollectionContainsExpectedElements()
         {
             // Setup
-            var collection = new StochasticSoilModelCollection();
-            var expectedSoilModelCollection = new[]
+            var collection = new ObservableCollectionWithSourcePath<object>();
+            var expectedCollection = new[]
             {
-                new StochasticSoilModel(1, string.Empty, string.Empty),
-                new StochasticSoilModel(2, string.Empty, string.Empty),
-                new StochasticSoilModel(3, string.Empty, string.Empty),
-                new StochasticSoilModel(4, string.Empty, string.Empty)
+                new object(),
+                new object(),
+                new object(),
+                new object()
             };
 
             const string filePath = "some/file/path";
 
             // Call
-            collection.AddRange(expectedSoilModelCollection, filePath);
+            collection.AddRange(expectedCollection, filePath);
 
             // Assert
-            CollectionAssert.AreEqual(expectedSoilModelCollection, collection);
+            CollectionAssert.AreEqual(expectedCollection, collection);
             Assert.AreEqual(filePath, collection.SourcePath);
         }
 
@@ -157,13 +155,13 @@ namespace Ringtoets.Piping.Data.Test
         public void Count_CollectionFilledWithElements_ReturnsExpectedNumberOfElements()
         {
             // Setup
-            var collection = new StochasticSoilModelCollection();
+            var collection = new ObservableCollectionWithSourcePath<object>();
             collection.AddRange(new[]
             {
-                new StochasticSoilModel(1, string.Empty, string.Empty),
-                new StochasticSoilModel(2, string.Empty, string.Empty),
-                new StochasticSoilModel(3, string.Empty, string.Empty),
-                new StochasticSoilModel(4, string.Empty, string.Empty)
+                new object(),
+                new object(),
+                new object(),
+                new object()
             }, "path");
 
             // Call
@@ -179,12 +177,12 @@ namespace Ringtoets.Piping.Data.Test
         public void Indexer_GetItemAtIndexOutOfRange_ThrowsArgumentOutOfRangeException(int invalidIndex)
         {
             // Setup
-            var collection = new StochasticSoilModelCollection();
+            var collection = new ObservableCollectionWithSourcePath<object>();
 
             // Call
             TestDelegate call = () =>
             {
-                StochasticSoilModel model = collection[invalidIndex];
+                object item = collection[invalidIndex];
             };
 
             // Assert
@@ -195,19 +193,19 @@ namespace Ringtoets.Piping.Data.Test
         public void Indexer_GetElementAtIndex_ReturnsExpectedElement()
         {
             // Setup
-            var elementToRetrieve = new StochasticSoilModel(0, string.Empty, string.Empty);
-            var collection = new StochasticSoilModelCollection();
+            var elementToRetrieve = new object();
+            var collection = new ObservableCollectionWithSourcePath<object>();
             collection.AddRange(new[]
             {
-                new StochasticSoilModel(1, string.Empty, string.Empty),
-                new StochasticSoilModel(2, string.Empty, string.Empty),
-                new StochasticSoilModel(3, string.Empty, string.Empty),
-                new StochasticSoilModel(4, string.Empty, string.Empty),
+                new object(),
+                new object(),
+                new object(),
+                new object(),
                 elementToRetrieve
             }, "path");
 
             // Call
-            StochasticSoilModel retrievedElement = collection[4];
+            object retrievedElement = collection[4];
 
             // Assert
             Assert.AreSame(elementToRetrieve, retrievedElement);
@@ -217,43 +215,43 @@ namespace Ringtoets.Piping.Data.Test
         public void Remove_ElementNotInList_ReturnsFalse()
         {
             // Setup
-            var element = new StochasticSoilModel(0, string.Empty, string.Empty);
+            var element = new object();
 
-            var collection = new StochasticSoilModelCollection();
-            var expectedSoilModelCollection = new[]
+            var collection = new ObservableCollectionWithSourcePath<object>();
+            var expectedCollection = new[]
             {
-                new StochasticSoilModel(1, string.Empty, string.Empty),
-                new StochasticSoilModel(2, string.Empty, string.Empty),
-                new StochasticSoilModel(3, string.Empty, string.Empty),
-                new StochasticSoilModel(4, string.Empty, string.Empty)
+                new object(),
+                new object(),
+                new object(),
+                new object()
             };
 
-            collection.AddRange(expectedSoilModelCollection, "path");
+            collection.AddRange(expectedCollection, "path");
 
             // Call
             bool removeSuccessful = collection.Remove(element);
 
             // Assert
             Assert.IsFalse(removeSuccessful);
-            CollectionAssert.AreEqual(expectedSoilModelCollection, collection);
+            CollectionAssert.AreEqual(expectedCollection, collection);
         }
 
         [Test]
         public void Remove_ElementInCollection_ReturnsTrue()
         {
             // Setup
-            var elementToBeRemoved = new StochasticSoilModel(0, string.Empty, string.Empty);
+            var elementToBeRemoved = new object();
 
-            var collection = new StochasticSoilModelCollection();
-            var expectedSoilModelCollection = new[]
+            var collection = new ObservableCollectionWithSourcePath<object>();
+            var expectedCollections = new[]
             {
-                new StochasticSoilModel(1, string.Empty, string.Empty),
-                new StochasticSoilModel(2, string.Empty, string.Empty),
-                new StochasticSoilModel(3, string.Empty, string.Empty),
-                new StochasticSoilModel(4, string.Empty, string.Empty)
+                new object(),
+                new object(),
+                new object(),
+                new object()
             };
 
-            collection.AddRange(expectedSoilModelCollection.Concat(new[]
+            collection.AddRange(expectedCollections.Concat(new[]
             {
                 elementToBeRemoved
             }), "path");
@@ -263,45 +261,45 @@ namespace Ringtoets.Piping.Data.Test
 
             // Assert
             Assert.IsTrue(removeSuccessful);
-            CollectionAssert.AreEqual(expectedSoilModelCollection, collection);
+            CollectionAssert.AreEqual(expectedCollections, collection);
         }
 
         [Test]
         public void Remove_ElementToRemoveMultiplesInCollection_ReturnsTrueAndRemovesFirstOccurence()
         {
             // Setup
-            var elementToBeRemoved = new StochasticSoilModel(0, string.Empty, string.Empty);
+            var elementToBeRemoved = new object();
 
-            var collection = new StochasticSoilModelCollection();
+            var collection = new ObservableCollectionWithSourcePath<object>();
             var removeElementCollection = new[]
             {
                 elementToBeRemoved
             };
-            var expectedSoilModelCollection = new[]
+            var expectedCollection = new[]
             {
-                new StochasticSoilModel(1, string.Empty, string.Empty),
-                new StochasticSoilModel(2, string.Empty, string.Empty),
-                new StochasticSoilModel(3, string.Empty, string.Empty),
-                new StochasticSoilModel(4, string.Empty, string.Empty),
+                new object(),
+                new object(),
+                new object(),
+                new object(),
                 elementToBeRemoved
             };
 
-            collection.AddRange(removeElementCollection.Concat(expectedSoilModelCollection), "path");
+            collection.AddRange(removeElementCollection.Concat(expectedCollection), "path");
 
             // Call
             bool removeSuccessful = collection.Remove(elementToBeRemoved);
 
             // Assert
             Assert.IsTrue(removeSuccessful);
-            CollectionAssert.AreEqual(expectedSoilModelCollection, collection);
+            CollectionAssert.AreEqual(expectedCollection, collection);
         }
 
         [Test]
         public void Remove_RemoveLastElement_ReturnsTrueAndClearSourcePath()
         {
             // Setup
-            var elementToBeRemoved = new StochasticSoilModel(0, string.Empty, string.Empty);
-            var collection = new StochasticSoilModelCollection();
+            var elementToBeRemoved = new object();
+            var collection = new ObservableCollectionWithSourcePath<object>();
             collection.AddRange(new[]
             {
                 elementToBeRemoved
@@ -322,16 +320,16 @@ namespace Ringtoets.Piping.Data.Test
         public void Clear_CollectionFullyDefined_ClearsSourcePathAndCollection()
         {
             // Setup
-            var collection = new StochasticSoilModelCollection();
-            var expectedSoilModelCollection = new[]
+            var collection = new ObservableCollectionWithSourcePath<object>();
+            var expectedObjectCollection = new[]
             {
-                new StochasticSoilModel(1, string.Empty, string.Empty),
-                new StochasticSoilModel(2, string.Empty, string.Empty),
-                new StochasticSoilModel(3, string.Empty, string.Empty),
-                new StochasticSoilModel(4, string.Empty, string.Empty)
+                new object(),
+                new object(),
+                new object(),
+                new object()
             };
 
-            collection.AddRange(expectedSoilModelCollection, "path");
+            collection.AddRange(expectedObjectCollection, "path");
 
             // Call
             collection.Clear();
@@ -351,11 +349,11 @@ namespace Ringtoets.Piping.Data.Test
             observer.Expect(o => o.UpdateObserver()); // Expect to be called once
             mocks.ReplayAll();
 
-            var stochasticSoilModelCollection = new StochasticSoilModelCollection();
-            stochasticSoilModelCollection.Attach(observer);
+            var observableCollection = new ObservableCollectionWithSourcePath<object>();
+            observableCollection.Attach(observer);
 
             // Call
-            stochasticSoilModelCollection.NotifyObservers();
+            observableCollection.NotifyObservers();
 
             // Assert
             mocks.VerifyAll();
@@ -369,12 +367,12 @@ namespace Ringtoets.Piping.Data.Test
             var observer = mocks.StrictMock<IObserver>();
             mocks.ReplayAll();
 
-            var stochasticSoilModelCollection = new StochasticSoilModelCollection();
-            stochasticSoilModelCollection.Attach(observer);
-            stochasticSoilModelCollection.Detach(observer);
+            var observableCollection = new ObservableCollectionWithSourcePath<object>();
+            observableCollection.Attach(observer);
+            observableCollection.Detach(observer);
 
             // Call
-            stochasticSoilModelCollection.NotifyObservers();
+            observableCollection.NotifyObservers();
 
             // Assert
             mocks.VerifyAll(); // Expect no calls on 'observer'
@@ -385,7 +383,7 @@ namespace Ringtoets.Piping.Data.Test
         {
             // Setup
             var mocks = new MockRepository();
-            var stochasticSoilModelCollection = new StochasticSoilModelCollection();
+            var observableCollection = new ObservableCollectionWithSourcePath<object>();
 
             var observer1 = mocks.Stub<IObserver>();
             var observer2 = mocks.Stub<IObserver>();
@@ -394,23 +392,23 @@ namespace Ringtoets.Piping.Data.Test
             var observer5 = mocks.Stub<IObserver>();
             var observer6 = mocks.Stub<IObserver>();
 
-            stochasticSoilModelCollection.Attach(observer1);
-            stochasticSoilModelCollection.Attach(observer2);
-            stochasticSoilModelCollection.Attach(observer3);
-            stochasticSoilModelCollection.Attach(observer4);
-            stochasticSoilModelCollection.Attach(observer6);
+            observableCollection.Attach(observer1);
+            observableCollection.Attach(observer2);
+            observableCollection.Attach(observer3);
+            observableCollection.Attach(observer4);
+            observableCollection.Attach(observer6);
 
             observer1.Expect(o => o.UpdateObserver());
-            observer2.Expect(o => o.UpdateObserver()).Do((Action) (() => stochasticSoilModelCollection.Detach(observer3)));
+            observer2.Expect(o => o.UpdateObserver()).Do((Action) (() => observableCollection.Detach(observer3)));
             observer3.Expect(o => o.UpdateObserver()).Repeat.Never(); // A detached observer should no longer be updated
-            observer4.Expect(o => o.UpdateObserver()).Do((Action) (() => stochasticSoilModelCollection.Attach(observer5)));
+            observer4.Expect(o => o.UpdateObserver()).Do((Action) (() => observableCollection.Attach(observer5)));
             observer5.Expect(o => o.UpdateObserver()).Repeat.Never(); // An attached observer should not be updated too
             observer6.Expect(o => o.UpdateObserver());
 
             mocks.ReplayAll();
 
             // Call
-            stochasticSoilModelCollection.NotifyObservers();
+            observableCollection.NotifyObservers();
 
             // Assert
             mocks.VerifyAll();

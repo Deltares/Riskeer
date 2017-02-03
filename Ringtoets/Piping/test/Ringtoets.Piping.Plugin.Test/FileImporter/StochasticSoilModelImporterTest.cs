@@ -40,7 +40,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         public void Constructor_ModelUpdateStrategyNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new StochasticSoilModelImporter(new StochasticSoilModelCollection(), "", null);
+            TestDelegate call = () => new StochasticSoilModelImporter(new ObservableCollectionWithSourcePath<StochasticSoilModel>(), "", null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -50,13 +50,13 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         [Test]
         public void Constructor_ExpectedValues()
         {
-            var list = new StochasticSoilModelCollection();
+            var list = new ObservableCollectionWithSourcePath<StochasticSoilModel>();
 
             // Call
             var importer = new StochasticSoilModelImporter(list, "", new TestStochasticSoilModelUpdateModelStrategy());
 
             // Assert
-            Assert.IsInstanceOf<FileImporterBase<StochasticSoilModelCollection>>(importer);
+            Assert.IsInstanceOf<FileImporterBase<ObservableCollectionWithSourcePath<StochasticSoilModel>>>(importer);
         }
 
         [Test]
@@ -824,7 +824,9 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         public StochasticSoilModel[] ReadModels { get; private set; }
         public string FilePath { get; private set; }
 
-        public IEnumerable<IObservable> UpdateModelWithImportedData(StochasticSoilModelCollection targetCollection, IEnumerable<StochasticSoilModel> readStochasticSoilModels, string sourceFilePath)
+        public IEnumerable<IObservable> UpdateModelWithImportedData(ObservableCollectionWithSourcePath<StochasticSoilModel> targetCollection,
+                                                                    IEnumerable<StochasticSoilModel> readStochasticSoilModels,
+                                                                    string sourceFilePath)
         {
             Updated = true;
             EvaluateGetValidStochasticSoilModelsMethod(readStochasticSoilModels);
@@ -833,12 +835,9 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             return Enumerable.Empty<IObservable>();
         }
 
-
         private void EvaluateGetValidStochasticSoilModelsMethod(IEnumerable<StochasticSoilModel> readStochasticSoilModels)
         {
-
             ReadModels = readStochasticSoilModels.ToArray();
         }
-
     }
 }
