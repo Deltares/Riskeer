@@ -115,7 +115,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 assessmentSection);
 
             // Call
-            var text = info.Text(stochasticSoilModelCollectionContext);
+            string text = info.Text(stochasticSoilModelCollectionContext);
 
             // Assert
             Assert.AreEqual(Resources.StochasticSoilModelCollection_DisplayName, text);
@@ -136,7 +136,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 assessmentSection);
 
             // Call
-            var image = info.Image(stochasticSoilModelCollectionContext);
+            Image image = info.Image(stochasticSoilModelCollectionContext);
 
             // Assert
             TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GeneralFolderIcon, image);
@@ -157,7 +157,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 assessmentSection);
 
             // Call
-            var foreColor = info.ForeColor(stochasticSoilModelCollectionContext);
+            Color foreColor = info.ForeColor(stochasticSoilModelCollectionContext);
 
             // Assert
             Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), foreColor);
@@ -182,7 +182,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 assessmentSection);
 
             // Call
-            var foreColor = info.ForeColor(stochasticSoilModelCollectionContext);
+            Color foreColor = info.ForeColor(stochasticSoilModelCollectionContext);
 
             // Assert
             Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), foreColor);
@@ -226,9 +226,8 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 stochasticSoilModel
             }, "path");
 
-
             // Call
-            var objects = info.ChildNodeObjects(stochasticSoilModelCollectionContext);
+            object[] objects = info.ChildNodeObjects(stochasticSoilModelCollectionContext);
 
             // Assert
             CollectionAssert.AreEqual(new[]
@@ -291,8 +290,8 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 }
 
                 var nodeData = new StochasticSoilModelCollectionContext(stochasticSoilModelCollection,
-                                                                 pipingFailureMechanism,
-                                                                 assessmentSectionMock);
+                                                                        pipingFailureMechanism,
+                                                                        assessmentSectionMock);
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -308,9 +307,9 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
                     // Assert
-                    var expectedToolTip = sourcePathSet
-                        ? RingtoetsPipingPluginResources.PipingPlugin_UpdateStochasticSoilModelsMenuItem_ToolTip
-                        : RingtoetsPipingPluginResources.PipingPlugin_UpdateStochasticSoilModelsMenuItem_ToolTip_No_SourcePath_set;
+                    string expectedToolTip = sourcePathSet
+                                                 ? RingtoetsPipingPluginResources.PipingPlugin_UpdateStochasticSoilModelsMenuItem_ToolTip
+                                                 : RingtoetsPipingPluginResources.PipingPlugin_UpdateStochasticSoilModelsMenuItem_ToolTip_No_SourcePath_set;
 
                     TestHelper.AssertContextMenuStripContainsItem(menu, updateStochasticSoilModelsItemIndex,
                                                                   RingtoetsPipingPluginResources.PipingPlugin_UpdateStochasticSoilModelsMenuItem_Text,
@@ -335,8 +334,8 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 stochasticSoilModelCollection.AddRange(Enumerable.Empty<StochasticSoilModel>(), somePath);
 
                 var nodeData = new StochasticSoilModelCollectionContext(stochasticSoilModelCollection,
-                                                                 pipingFailureMechanism,
-                                                                 assessmentSectionMock);
+                                                                        pipingFailureMechanism,
+                                                                        assessmentSectionMock);
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -364,7 +363,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
 
                     // Assert
                     TestHelper.AssertLogMessageIsGenerated(
-                        test, 
+                        test,
                         $"Bijwerken van ondergrondschematisaties in '{somePath}' is door de gebruiker geannuleerd.");
                 }
             }
@@ -386,8 +385,8 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 stochasticSoilModelCollection.AddRange(Enumerable.Empty<StochasticSoilModel>(), existingFilePath);
 
                 var nodeData = new StochasticSoilModelCollectionContext(stochasticSoilModelCollection,
-                                                                 pipingFailureMechanism,
-                                                                 assessmentSectionMock);
+                                                                        pipingFailureMechanism,
+                                                                        assessmentSectionMock);
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 

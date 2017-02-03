@@ -199,14 +199,5 @@ namespace Ringtoets.Piping.Data.Properties {
                         "nt_at_0_to_assign_as_characteristic_point_1_", resourceCulture);
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Het aandeel van de ondergrondschematisatie in het stochastische ondergrondmodel moet in het bereik [0,1] liggen..
-        /// </summary>
-        public static string StochasticSoilProfile_Probability_Should_be_in_range_0_1 {
-            get {
-                return ResourceManager.GetString("StochasticSoilProfile_Probability_Should_be_in_range_0_1", resourceCulture);
-            }
-        }
     }
 }

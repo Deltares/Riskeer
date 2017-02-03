@@ -98,7 +98,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
             {
                 if (exception is FormatException || exception is OverflowException || exception is InvalidCastException)
                 {
-                    var message = new FileReaderErrorMessageBuilder(Path)
+                    string message = new FileReaderErrorMessageBuilder(Path)
                         .Build(Resources.StochasticSoilProfileDatabaseReader_StochasticSoilProfile_has_invalid_value);
                     throw new StochasticSoilProfileReadException(message, exception);
                 }
@@ -108,10 +108,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
 
         public override void Dispose()
         {
-            if (dataReader != null)
-            {
-                dataReader.Dispose();
-            }
+            dataReader?.Dispose();
             base.Dispose();
         }
 
@@ -137,7 +134,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
 
         private void CreateDataReader()
         {
-            var stochasticSoilProfileQuery = SoilDatabaseQueryBuilder.GetAllStochasticSoilProfileQuery();
+            string stochasticSoilProfileQuery = SoilDatabaseQueryBuilder.GetAllStochasticSoilProfileQuery();
             try
             {
                 dataReader = CreateDataReader(stochasticSoilProfileQuery);
@@ -145,7 +142,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
             catch (SQLiteException exception)
             {
                 CloseConnection();
-                var message = new FileReaderErrorMessageBuilder(Path)
+                string message = new FileReaderErrorMessageBuilder(Path)
                     .Build(Resources.StochasticSoilModelDatabaseReader_Failed_to_read_database);
                 throw new CriticalFileReadException(message, exception);
             }

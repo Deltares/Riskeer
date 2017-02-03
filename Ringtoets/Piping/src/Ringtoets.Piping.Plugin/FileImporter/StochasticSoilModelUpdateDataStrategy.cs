@@ -26,6 +26,7 @@ using Core.Common.Base;
 using Core.Common.Utils;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Plugin.Properties;
+using Ringtoets.Piping.Primitives;
 using Ringtoets.Piping.Service;
 
 namespace Ringtoets.Piping.Plugin.FileImporter
@@ -59,17 +60,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
         /// Removes stochastic soil models that are in <paramref name="targetCollection"/>, but are not part 
         /// of <paramref name="readStochasticSoilModels"/>.
         /// </summary>
-        /// <param name="targetCollection">The current collection of <see cref="StochasticSoilModel"/>.</param>
-        /// <param name="readStochasticSoilModels">The imported stochastic soil models.</param>
-        /// <param name="sourceFilePath">The file path from which the <paramref name="readStochasticSoilModels"/>
-        /// were imported.</param>
-        /// <exception cref="StochasticSoilModelUpdateException">Thrown when <paramref name="targetCollection"/>
-        /// contains multiple <see cref="StochasticSoilModel"/> with the same <see cref="StochasticSoilModel.Name"/>,
-        /// and <paramref name="readStochasticSoilModels"/> also contains a <see cref="StochasticSoilModel"/> with
-        /// the same name.
-        /// </exception>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        /// <returns>List of updated instances.</returns>
+        /// <seealso cref="IStochasticSoilModelUpdateModelStrategy.UpdateModelWithImportedData"/>
         public IEnumerable<IObservable> UpdateModelWithImportedData(ObservableCollectionWithSourcePath<StochasticSoilModel> targetCollection,
                                                                     IEnumerable<StochasticSoilModel> readStochasticSoilModels,
                                                                     string sourceFilePath)
@@ -166,6 +157,10 @@ namespace Ringtoets.Piping.Plugin.FileImporter
 
         private IEnumerable<IObservable> UpdateStochasticSoilModel(StochasticSoilModel existingModel, StochasticSoilModel readModel)
         {
+            Dictionary<StochasticSoilProfile, PipingSoilProfile> oldProfiles = existingModel
+                .StochasticSoilProfiles
+                .ToDictionary(ssp => ssp, ssp => ssp.SoilProfile, new ReferenceEqualityComparer<StochasticSoilProfile>());
+
             StochasticSoilModelProfileDifference difference = existingModel.Update(readModel);
 
             var affectedObjects = new List<IObservable>();
@@ -175,7 +170,10 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             }
             foreach (StochasticSoilProfile updatedProfile in difference.UpdatedProfiles)
             {
-                affectedObjects.AddRange(PipingDataSynchronizationService.ClearStochasticSoilProfileDependentData(failureMechanism, updatedProfile));
+                if (!oldProfiles[updatedProfile].Equals(updatedProfile.SoilProfile))
+                {
+                    affectedObjects.AddRange(PipingDataSynchronizationService.ClearStochasticSoilProfileDependentData(failureMechanism, updatedProfile));
+                }
             }
             return affectedObjects;
         }

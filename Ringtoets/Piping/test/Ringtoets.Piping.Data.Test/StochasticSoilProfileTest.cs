@@ -20,6 +20,8 @@
 // All rights reserved.
 
 using System;
+using System.Drawing;
+using System.Linq;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Piping.KernelWrapper.TestUtil;
@@ -36,7 +38,7 @@ namespace Ringtoets.Piping.Data.Test
         public void Constructor_Always_ExpectedValues(double probability, SoilProfileType soilProfileType, long soilProfileId)
         {
             // Call
-            StochasticSoilProfile stochasticSoilProfileProbability = new StochasticSoilProfile(probability, soilProfileType, soilProfileId);
+            var stochasticSoilProfileProbability = new StochasticSoilProfile(probability, soilProfileType, soilProfileId);
 
             // Assert
             Assert.IsInstanceOf<StochasticSoilProfile>(stochasticSoilProfileProbability);
@@ -46,54 +48,23 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        [TestCase(12.5)]
-        [TestCase(1 + 1e-6)]
-        [TestCase(0 - 1e-6)]
-        [TestCase(-66.3)]
-        public void Constructor_WithInvalidProbabilities_ThrowsArgumentOutOfRangeException(double probability)
-        {
-            // Call
-            TestDelegate test = () => new StochasticSoilProfile(probability, SoilProfileType.SoilProfile1D, -1);
-
-            // Assert
-            var expectedMessage = "Het aandeel van de ondergrondschematisatie in het stochastische ondergrondmodel moet in het bereik [0,1] liggen.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
-        }
-
-        [Test]
         [TestCase(0)]
         [TestCase(0.23)]
         [TestCase(0.41)]
         [TestCase(double.NaN)]
+        [TestCase(double.MaxValue)]
+        [TestCase(double.MinValue)]
         public void AddProbability_DifferentValues_ProbabilityIncreasedAsExpected(double probabilityToAdd)
         {
             // Setup
-            var startProbability = new Random(21).NextDouble() * 0.5;
+            double startProbability = new Random(21).NextDouble() * 0.5;
             var profile = new StochasticSoilProfile(startProbability, SoilProfileType.SoilProfile1D, -1);
-            
+
             // Call
             profile.AddProbability(probabilityToAdd);
 
             // Assert
             Assert.AreEqual(startProbability + probabilityToAdd, profile.Probability);
-        }
-
-        [TestCase(double.MaxValue)]
-        [TestCase(double.MinValue)]
-
-        public void AddProbability_DifferentValuesMakingProbabilityInvalid_ThrowsArgumentOutOfRangeException(double probabilityToAdd)
-        {
-            // Setup
-            var startProbability = new Random(21).NextDouble() * 0.5;
-            var profile = new StochasticSoilProfile(startProbability, SoilProfileType.SoilProfile1D, -1);
-            
-            // Call
-            TestDelegate test = () =>profile.AddProbability(probabilityToAdd);
-
-            // Assert
-            var expectedMessage = "Het aandeel van de ondergrondschematisatie in het stochastische ondergrondmodel moet in het bereik [0,1] liggen.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
-            Assert.AreEqual(startProbability, profile.Probability);
         }
 
         [Test]
@@ -124,15 +95,82 @@ namespace Ringtoets.Piping.Data.Test
             var stochasticProfile = new StochasticSoilProfile(0.0, SoilProfileType.SoilProfile1D, 0);
 
             // Call
-            stochasticProfile.Update(otherStochasticProfile);
+            bool updated = stochasticProfile.Update(otherStochasticProfile);
 
             // Assert
+            Assert.IsTrue(updated);
             Assert.AreEqual(newProbability, stochasticProfile.Probability);
             Assert.AreSame(newProfile, stochasticProfile.SoilProfile);
         }
 
         [Test]
-        [TestCase(null)]
+        public void Update_WithEqualProfile_ReturnsFalse()
+        {
+            // Setup
+            var probability = 1.0;
+            var profile = new TestPipingSoilProfile();
+            var otherStochasticProfile = new StochasticSoilProfile(probability, SoilProfileType.SoilProfile1D, 0)
+            {
+                SoilProfile = profile
+            };
+
+            var stochasticProfile = new StochasticSoilProfile(probability, SoilProfileType.SoilProfile1D, 0)
+            {
+                SoilProfile = profile
+            };
+
+            // Call
+            bool updated = stochasticProfile.Update(otherStochasticProfile);
+
+            // Assert
+            Assert.IsFalse(updated);
+            Assert.AreEqual(probability, stochasticProfile.Probability);
+            Assert.AreSame(profile, stochasticProfile.SoilProfile);
+        }
+
+        [Test]
+        public void Equals_Null_ReturnsFalse()
+        {
+            // Setup
+            var stochasticProfile = new StochasticSoilProfile(0.0, SoilProfileType.SoilProfile1D, 0);
+
+            // Call
+            bool areEqual = stochasticProfile.Equals(null);
+
+            // Assert
+            Assert.IsFalse(areEqual);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(StochasticProfileCombinations))]
+        public void Equals_DifferentScenarios_ReturnsExpectedResult(StochasticSoilProfile profile, StochasticSoilProfile otherProfile, bool expectedEqual)
+        {
+            // Call
+            bool areEqualOne = profile.Equals(otherProfile);
+            bool areEqualTwo = profile.Equals(otherProfile);
+
+            // Assert
+            Assert.AreEqual(expectedEqual, areEqualOne);
+            Assert.AreEqual(expectedEqual, areEqualTwo);
+        }
+
+        [Test]
+        public void ToString_WithNullName_ReturnsStringEmpty()
+        {
+            // Setup
+            var stochasticSoilProfile = new StochasticSoilProfile(0.0, SoilProfileType.SoilProfile1D, 0)
+            {
+                SoilProfile = new PipingSoilProfile(null, 0.0, new[]
+                {
+                    new PipingSoilLayer(0.0)
+                }, SoilProfileType.SoilProfile1D, 0)
+            };
+
+            // Call & Assert
+            Assert.IsEmpty(stochasticSoilProfile.ToString());
+        }
+
+        [Test]
         [TestCase("")]
         [TestCase("some name")]
         public void ToString_WithName_ReturnsName(string name)
@@ -148,6 +186,59 @@ namespace Ringtoets.Piping.Data.Test
 
             // Call & Assert
             Assert.AreEqual(name, stochasticSoilProfile.ToString());
+        }
+
+        private static TestCaseData[] StochasticProfileCombinations()
+        {
+            StochasticSoilProfile profileA = CreateRandomStochasticProfile(21);
+            StochasticSoilProfile profileB = CreateRandomStochasticProfile(21);
+            StochasticSoilProfile profileC = CreateRandomStochasticProfile(73);
+
+            return new[]
+            {
+                new TestCaseData(profileA, profileB, true)
+                {
+                    TestName = "Equals_ProfileAProfileB_True"
+                },
+                new TestCaseData(profileB, profileC, false)
+                {
+                    TestName = "Equals_ProfileBProfileC_False"
+                }
+            };
+        }
+
+        private static StochasticSoilProfile CreateRandomStochasticProfile(int randomSeed)
+        {
+            var random = new Random(randomSeed);
+            return new StochasticSoilProfile(random.NextDouble(), SoilProfileType.SoilProfile1D, random.Next())
+            {
+                SoilProfile = CreateRandomProfile(random)
+            };
+        }
+
+        private static PipingSoilProfile CreateRandomProfile(Random random)
+        {
+            return new PipingSoilProfile(GetRandomName(random), -1.0 - random.NextDouble(), new[]
+            {
+                new PipingSoilLayer(random.NextDouble())
+                {
+                    MaterialName = GetRandomName(random),
+                    Color = Color.FromKnownColor(random.NextEnumValue<KnownColor>()),
+                    IsAquifer = random.NextBoolean(),
+                    BelowPhreaticLevelDeviation = random.NextDouble(),
+                    BelowPhreaticLevelMean = random.NextDouble(),
+                    BelowPhreaticLevelShift = random.NextDouble(),
+                    DiameterD70Deviation = random.NextDouble(),
+                    DiameterD70Mean = random.NextDouble(),
+                    PermeabilityDeviation = random.NextDouble(),
+                    PermeabilityMean = random.NextDouble()
+                }
+            }, SoilProfileType.SoilProfile1D, random.Next());
+        }
+
+        private static string GetRandomName(Random random)
+        {
+            return string.Join("", Enumerable.Repeat('x', random.Next(0, 40)));
         }
     }
 }

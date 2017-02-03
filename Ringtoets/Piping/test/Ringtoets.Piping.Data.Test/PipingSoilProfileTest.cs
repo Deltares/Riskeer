@@ -171,7 +171,19 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        [TestCase(null)]
+        public void ToString_WithNullName_ReturnsStringEmpty()
+        {
+            // Setup
+            var profile = new PipingSoilProfile(null, 0.0, new[]
+            {
+                new PipingSoilLayer(0.0)
+            }, SoilProfileType.SoilProfile1D, 0);
+
+            // Call & Assert
+            Assert.IsEmpty(profile.ToString());
+        }
+
+        [Test]
         [TestCase("")]
         [TestCase("some name")]
         public void ToString_WithName_ReturnsName(string name)
@@ -187,14 +199,30 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
+        public void Equals_Null_ReturnsFalse()
+        {
+            // Setup
+            var profile = new PipingSoilProfile("name", 0, new[] {
+                CreateRandomLayer(new Random(21))}, SoilProfileType.SoilProfile1D, -1);
+
+            // Call
+            var areEqual = profile.Equals(null);
+
+            // Assert
+            Assert.IsFalse(areEqual);
+        }
+
+        [Test]
         [TestCaseSource(nameof(ProfileCombinations))]
         public void Equals_DifferentScenarios_ReturnsExpectedResult(PipingSoilProfile profile, PipingSoilProfile otherProfile, bool expectedEqual)
         {
             // Call
-            var areEqual = profile.Equals(otherProfile);
+            var areEqualOne = profile.Equals(otherProfile);
+            var areEqualTwo = otherProfile.Equals(profile);
 
             // Assert
-            Assert.AreEqual(expectedEqual, areEqual);
+            Assert.AreEqual(expectedEqual, areEqualOne);
+            Assert.AreEqual(expectedEqual, areEqualTwo);
         }
 
         private static TestCaseData[] ProfileCombinations()
@@ -222,19 +250,14 @@ namespace Ringtoets.Piping.Data.Test
                 CreateRandomLayer(random)
             }, random.NextEnumValue<SoilProfileType>(), random.Next());
             
-
-
             return new[]
             {
-                new TestCaseData(profileA, profileA, true) { TestName = "Equals_ProfileAProfileA_True"},
                 new TestCaseData(profileA, profileB, true) { TestName = "Equals_ProfileAProfileB_True"},
                 new TestCaseData(profileB, profileC, false) { TestName = "Equals_ProfileBProfileC_False"},
-                new TestCaseData(profileC, profileC, true) { TestName = "Equals_ProfileCProfileC_True"},
                 new TestCaseData(profileD, profileE, false) { TestName = "Equals_ProfileDProfileE_False"},
                 new TestCaseData(profileD, profileF, false) { TestName = "Equals_ProfileDProfileF_False"},
                 new TestCaseData(profileD, profileG, false) { TestName = "Equals_ProfileDProfileG_False"},
                 new TestCaseData(profileH, profileI, false) { TestName = "Equals_ProfileHProfileI_False"},
-                new TestCaseData(profileI, profileH, false) { TestName = "Equals_ProfileHProfileI_False"},
             };
         }
 
@@ -251,7 +274,7 @@ namespace Ringtoets.Piping.Data.Test
             {
                 layers.Add(CreateRandomLayer(random));
             }
-            return new PipingSoilProfile(GetRandomName(random), -random.NextDouble(), layers, random.NextEnumValue<SoilProfileType>(), random.Next());
+            return new PipingSoilProfile(GetRandomName(random), -1.0 - random.NextDouble(), layers, random.NextEnumValue<SoilProfileType>(), random.Next());
         }
 
         private static PipingSoilLayer CreateRandomLayer(Random random)

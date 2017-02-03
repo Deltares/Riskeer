@@ -90,14 +90,29 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
+        public void Equals_Null_ReturnsFalse()
+        {
+            // Setup
+            var layer = CreateRandomLayer(21);
+
+            // Call
+            var areEqual = layer.Equals(null);
+
+            // Assert
+            Assert.IsFalse(areEqual);
+        }
+
+        [Test]
         [TestCaseSource(nameof(LayerCombinations))]
         public void Equals_DifferentScenarios_ReturnsExpectedResult(PipingSoilLayer layer, PipingSoilLayer otherLayer, bool expectedEqual)
         {
             // Call
-            var areEqual = layer.Equals(otherLayer);
+            var areEqualOne = layer.Equals(otherLayer);
+            var areEqualTwo = otherLayer.Equals(layer);
 
             // Assert
-            Assert.AreEqual(expectedEqual, areEqual);
+            Assert.AreEqual(expectedEqual, areEqualOne);
+            Assert.AreEqual(expectedEqual, areEqualTwo);
         }
 
         private static TestCaseData[] LayerCombinations()

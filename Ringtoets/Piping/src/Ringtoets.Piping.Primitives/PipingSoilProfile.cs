@@ -1,4 +1,25 @@
-﻿using System;
+﻿// Copyright (C) Stichting Deltares 2016. All rights reserved.
+//
+// This file is part of Ringtoets.
+//
+// Ringtoets is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+// 
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program. If not, see <http://www.gnu.org/licenses/>.
+//
+// All names, logos, and references to "Deltares" are registered trademarks of
+// Stichting Deltares and remain full property of Stichting Deltares at all times.
+// All rights reserved.
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Ringtoets.Piping.Primitives.Properties;
@@ -10,7 +31,7 @@ namespace Ringtoets.Piping.Primitives
     /// </summary>
     public class PipingSoilProfile
     {
-        private IEnumerable<PipingSoilLayer> layers;
+        private PipingSoilLayer[] layers;
 
         /// <summary>
         /// Creates a new instance ofL <see cref="PipingSoilProfile"/>, with the given <paramref name="name"/>, <paramref name="bottom"/> and <paramref name="layers"/>.
@@ -36,17 +57,17 @@ namespace Ringtoets.Piping.Primitives
         /// <summary>
         /// Gets the database identifier of the <see cref="PipingSoilProfile"/>.
         /// </summary>
-        public long PipingSoilProfileId { get; private set; }
+        public long PipingSoilProfileId { get; }
 
         /// <summary>
         /// Gets the bottom level of the <see cref="PipingSoilProfile"/>.
         /// </summary>
-        public double Bottom { get; private set; }
+        public double Bottom { get; }
 
         /// <summary>
         /// Gets the name of <see cref="PipingSoilProfile"/>.
         /// </summary>
-        public string Name { get; private set; }
+        public string Name { get; }
 
         /// <summary>
         /// Gets an ordered (by <see cref="PipingSoilLayer.Top"/>, descending) <see cref="IEnumerable{T}"/> of 
@@ -70,7 +91,7 @@ namespace Ringtoets.Piping.Primitives
         /// <summary>
         /// Gets the type of soil profile used as data source to build this instance.
         /// </summary>
-        public SoilProfileType SoilProfileType { get; private set; }
+        public SoilProfileType SoilProfileType { get; }
 
         /// <summary>
         /// Gets the thickness of the given layer in the <see cref="PipingSoilProfile"/>.
@@ -96,7 +117,7 @@ namespace Ringtoets.Piping.Primitives
 
         public override string ToString()
         {
-            return Name;
+            return Name ?? string.Empty;
         }
 
         public override bool Equals(object obj)
@@ -131,31 +152,29 @@ namespace Ringtoets.Piping.Primitives
 
         private bool Equals(PipingSoilProfile other)
         {
-            return AreLayersEqual(layers, other.layers)
+            return AreLayersEqual(other.layers)
                    && PipingSoilProfileId == other.PipingSoilProfileId
                    && Bottom.Equals(other.Bottom)
                    && string.Equals(Name, other.Name)
                    && SoilProfileType == other.SoilProfileType;
         }
 
-        private bool AreLayersEqual(IEnumerable<PipingSoilLayer> layers, IEnumerable<PipingSoilLayer> otherLayers)
+        private bool AreLayersEqual(PipingSoilLayer[] otherLayers)
         {
-            using (IEnumerator<PipingSoilLayer> layersEnumerator = layers.GetEnumerator())
-            using (IEnumerator<PipingSoilLayer> otherLayersEnumerator = otherLayers.GetEnumerator())
+            int layerCount = layers.Length;
+            if (layerCount != otherLayers.Length)
             {
-                bool enumeratorAdvanced;
-                bool otherEnumeratorAdvanced;
-
-                while ((enumeratorAdvanced = layersEnumerator.MoveNext())
-                    & (otherEnumeratorAdvanced = otherLayersEnumerator.MoveNext()))
-                {
-                    if (!layersEnumerator.Current.Equals(otherLayersEnumerator.Current))
-                    {
-                        return false;
-                    }
-                }
-                return !enumeratorAdvanced && !otherEnumeratorAdvanced;
+                return false;
             }
+
+            for (int i = 0; i < layerCount; i++)
+            {
+                if (!layers[i].Equals(otherLayers[i]))
+                {
+                    return false;
+                }
+            }
+            return true;
         }
 
         /// <summary>

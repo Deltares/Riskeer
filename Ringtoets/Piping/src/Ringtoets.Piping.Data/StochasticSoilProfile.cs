@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using Ringtoets.Piping.Data.Properties;
 using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.Data
@@ -30,8 +29,6 @@ namespace Ringtoets.Piping.Data
     /// </summary>
     public class StochasticSoilProfile
     {
-        private double probability;
-
         /// <summary>
         /// Creates a new instance of <see cref="StochasticSoilProfile"/>.
         /// </summary>
@@ -48,12 +45,12 @@ namespace Ringtoets.Piping.Data
         /// <summary>
         /// Gets the type of the stochastic soil profile.
         /// </summary>
-        public SoilProfileType SoilProfileType { get; private set; }
+        public SoilProfileType SoilProfileType { get; }
 
         /// <summary>
         /// Gets the database identifier of the stochastic soil profile.
         /// </summary>
-        public long SoilProfileId { get; private set; }
+        public long SoilProfileId { get; }
 
         /// <summary>
         /// Gets the <see cref="PipingSoilProfile"/>.
@@ -63,23 +60,7 @@ namespace Ringtoets.Piping.Data
         /// <summary>
         /// Gets the probability of the stochastic soil profile.
         /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown when the <paramref name="value"/> is outside the range
-        /// [0, 1].</exception>
-        public double Probability
-        {
-            get
-            {
-                return probability;
-            }
-            private set
-            {
-                if (!double.IsNaN(value) && (value < 0 || value > 1))
-                {
-                    throw new ArgumentOutOfRangeException(nameof(value), Resources.StochasticSoilProfile_Probability_Should_be_in_range_0_1);
-                }
-                probability = value;
-            }
-        }
+        public double Probability { get; private set; }
 
         /// <summary>
         /// Updates the probability of the <see cref="StochasticSoilProfile"/> 
@@ -100,19 +81,53 @@ namespace Ringtoets.Piping.Data
         /// obtain the property values from.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="fromProfile"/>
         /// is <c>null</c>.</exception>
-        public void Update(StochasticSoilProfile fromProfile)
+        /// <returns><c>true</c> if the profile has been updated; <c>false</c> otherwise.</returns>
+        public bool Update(StochasticSoilProfile fromProfile)
         {
             if (fromProfile == null)
             {
                 throw new ArgumentNullException(nameof(fromProfile));
             }
-            SoilProfile = fromProfile.SoilProfile;
-            Probability = fromProfile.Probability;
+            if (!Equals(fromProfile))
+            {
+                SoilProfile = fromProfile.SoilProfile;
+                Probability = fromProfile.Probability;
+                return true;
+            }
+            return false;
         }
 
         public override string ToString()
         {
-            return SoilProfile == null ? string.Empty : SoilProfile.ToString();
+            return SoilProfile?.ToString() ?? string.Empty;
+        }
+
+        protected bool Equals(StochasticSoilProfile other)
+        {
+            return Probability.Equals(other.Probability) 
+                && SoilProfileType == other.SoilProfileType 
+                && SoilProfileId == other.SoilProfileId 
+                && Equals(SoilProfile, other.SoilProfile);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != GetType()) return false;
+            return Equals((StochasticSoilProfile) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                int hashCode = Probability.GetHashCode();
+                hashCode = (hashCode * 397) ^ (int) SoilProfileType;
+                hashCode = (hashCode * 397) ^ SoilProfileId.GetHashCode();
+                hashCode = (hashCode * 397) ^ (SoilProfile?.GetHashCode() ?? 0);
+                return hashCode;
+            }
         }
     }
 }

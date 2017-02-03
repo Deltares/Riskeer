@@ -1,4 +1,25 @@
-﻿using System;
+﻿// Copyright (C) Stichting Deltares 2016. All rights reserved.
+//
+// This file is part of Ringtoets.
+//
+// Ringtoets is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+// 
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program. If not, see <http://www.gnu.org/licenses/>.
+//
+// All names, logos, and references to "Deltares" are registered trademarks of
+// Stichting Deltares and remain full property of Stichting Deltares at all times.
+// All rights reserved.
+
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -209,7 +230,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             TestHelper.AssertLogMessagesAreGenerated(call, expectedLogMessages, expectedLogMessages.Length);
             Assert.AreEqual(35 * 2, progress);
 
-            var readModels = AssertSuccessfulImport(validFilePath, importResult, updateStrategy);
+            StochasticSoilModel[] readModels = AssertSuccessfulImport(validFilePath, importResult, updateStrategy);
             Assert.AreEqual(3, readModels.Length);
         }
 
@@ -342,7 +363,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             // Assert
             TestHelper.AssertLogMessageIsGenerated(call, "Huidige actie was niet meer te annuleren en is daarom voortgezet.", 1);
-            var readModels = AssertSuccessfulImport(validFilePath, importResult, updateStrategy);
+            StochasticSoilModel[] readModels = AssertSuccessfulImport(validFilePath, importResult, updateStrategy);
             Assert.AreEqual(3, readModels.Length);
         }
 
@@ -373,7 +394,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             importResult = importer.Import();
 
             // Assert
-            var readModels = AssertSuccessfulImport(validFilePath, importResult, updateStrategy);
+            StochasticSoilModel[] readModels = AssertSuccessfulImport(validFilePath, importResult, updateStrategy);
             Assert.AreEqual(3, readModels.Length);
         }
 
@@ -407,7 +428,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             TestHelper.AssertLogMessagesAreGenerated(call, expectedLogMessages, 2);
             Assert.AreEqual(7, progress);
 
-            var readModels = AssertSuccessfulImport(pathToCorruptFile, importResult, updateStrategy);
+            StochasticSoilModel[] readModels = AssertSuccessfulImport(pathToCorruptFile, importResult, updateStrategy);
             CollectionAssert.IsEmpty(readModels);
         }
 
@@ -428,7 +449,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             bool importResult = importer.Import();
 
             // Assert
-            var readModels = AssertSuccessfulImport(pathToCorruptFile, importResult, updateStrategy);
+            StochasticSoilModel[] readModels = AssertSuccessfulImport(pathToCorruptFile, importResult, updateStrategy);
             CollectionAssert.IsEmpty(readModels);
         }
 
@@ -456,7 +477,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                 " Dit stochastische ondergrondmodel wordt overgeslagen.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedLogMessage, 1);
 
-            var readModels = AssertSuccessfulImport(pathToCorruptFile, importResult, updateStrategy);
+            StochasticSoilModel[] readModels = AssertSuccessfulImport(pathToCorruptFile, importResult, updateStrategy);
             CollectionAssert.IsEmpty(readModels);
         }
 
@@ -482,7 +503,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var expectedLogMessages = "De som van de kansen van voorkomen in het stochastich ondergrondmodel 'Name' is niet gelijk aan 100%.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedLogMessages, 1);
 
-            var readModels = AssertSuccessfulImport(pathToCorruptFile, importResult, updateStrategy);
+            StochasticSoilModel[] readModels = AssertSuccessfulImport(pathToCorruptFile, importResult, updateStrategy);
             Assert.AreEqual(1, readModels.Length);
         }
 
@@ -502,7 +523,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             bool importResult = importer.Import();
 
             // Assert
-            var readModels = AssertSuccessfulImport(validFilePath, importResult, updateStrategy);
+            StochasticSoilModel[] readModels = AssertSuccessfulImport(validFilePath, importResult, updateStrategy);
 
             Assert.AreEqual(2, readModels.Length);
             StochasticSoilModel model1 = readModels[0];
@@ -538,7 +559,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             bool importResult = importer.Import();
 
             // Assert
-            var readModels = AssertSuccessfulImport(validFilePath, importResult, updateStrategy);
+            StochasticSoilModel[] readModels = AssertSuccessfulImport(validFilePath, importResult, updateStrategy);
 
             Assert.AreEqual(2, readModels.Length);
             StochasticSoilModel model1 = readModels[0];
@@ -580,7 +601,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                                         "ondergrondmodel 'Model'. Dit model wordt overgeslagen.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedLogMessage, 1);
 
-            var readModels = AssertSuccessfulImport(validFilePath, importResult, updateStrategy);
+            StochasticSoilModel[] readModels = AssertSuccessfulImport(validFilePath, importResult, updateStrategy);
             CollectionAssert.IsEmpty(readModels);
         }
 
@@ -607,7 +628,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                                      "'StochasticSoilModelName'. Kansen van voorkomen worden opgeteld.";
             TestHelper.AssertLogMessageIsGenerated(importAction, expectedMessage, 1);
 
-            var readModels = AssertSuccessfulImport(pathToFile, importResult, updateStrategy);
+            StochasticSoilModel[] readModels = AssertSuccessfulImport(pathToFile, importResult, updateStrategy);
             Assert.AreEqual(1, readModels.Length);
             StochasticSoilModel firstModel = readModels.First();
             Assert.AreEqual(1, firstModel.StochasticSoilProfiles.Count);
@@ -634,7 +655,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             // Assert
             TestHelper.AssertLogMessagesCount(importAction, 0);
-            var readModels = AssertSuccessfulImport(pathToFile, importResult, updateStrategy);
+            StochasticSoilModel[] readModels = AssertSuccessfulImport(pathToFile, importResult, updateStrategy);
             Assert.AreEqual(1, readModels.Length);
             StochasticSoilModel firstModel = readModels.First();
             Assert.AreEqual(2, firstModel.StochasticSoilProfiles.Count);
@@ -662,7 +683,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             bool importResult = importer.Import();
 
             // Assert
-            var readModels = AssertSuccessfulImport(validFilePath, importResult, updateStrategy);
+            StochasticSoilModel[] readModels = AssertSuccessfulImport(validFilePath, importResult, updateStrategy);
             Assert.AreEqual(1, readModels.Length);
 
             StochasticSoilModel soilModel = readModels[0];
@@ -719,7 +740,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             bool importResult = importer.Import();
 
             // Assert
-            var readModels = AssertSuccessfulImport(validFilePath, importResult, updateStrategy);
+            StochasticSoilModel[] readModels = AssertSuccessfulImport(validFilePath, importResult, updateStrategy);
             Assert.AreEqual(1, readModels.Length);
 
             StochasticSoilModel soilModel = readModels[0];

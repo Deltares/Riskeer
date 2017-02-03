@@ -92,6 +92,7 @@ namespace Ringtoets.Piping.Data
                 throw new ArgumentNullException(nameof(fromModel));
             }
 
+            Id = fromModel.Id;
             Name = fromModel.Name;
             SegmentName = fromModel.SegmentName;
             Geometry.Clear();
@@ -110,13 +111,10 @@ namespace Ringtoets.Piping.Data
                 StochasticSoilProfile sameProfile = StochasticSoilProfiles.SingleOrDefault(sp => sp.SoilProfile.Name.Equals(fromProfile.SoilProfile.Name));
                 if (sameProfile != null)
                 {
-                    var soilProfileChanged = !sameProfile.SoilProfile.Equals(fromProfile.SoilProfile);
-                    sameProfile.Update(fromProfile);
-
-                    if (soilProfileChanged)
+                    if (sameProfile.Update(fromProfile))
                     {
                         updatedProfiles.Add(sameProfile);
-                    }
+                    } 
                 }
                 else
                 {
