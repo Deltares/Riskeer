@@ -71,6 +71,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="PropertyClasses\PipingDistributionPropertiesBase.cs" />
     <Compile Include="PropertyClasses\PipingFailureMechanismContextProperties.cs" />
     <Compile Include="PropertyClasses\PipingInputContextProperties.cs" />
     <Compile Include="PropertyClasses\PipingOutputContextProperties.cs" />

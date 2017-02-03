@@ -68,6 +68,7 @@
     <Compile Include="PresentationObjects\PipingScenariosContextTest.cs" />
     <Compile Include="PresentationObjects\RingtoetsPipingSurfaceLinesContextTest.cs" />
     <Compile Include="PresentationObjects\StochasticSoilModelCollectionContextTest.cs" />
+    <Compile Include="PropertyClasses\PipingDistributionPropertiesBaseTest.cs" />
     <Compile Include="PropertyClasses\PipingFailureMechanismContextPropertiesTest.cs" />
     <Compile Include="PropertyClasses\PipingOutputContextPropertiesTest.cs" />
     <Compile Include="PropertyClasses\StochasticSoilModelCollectionPropertiesTest.cs" />
