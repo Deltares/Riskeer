@@ -57,7 +57,7 @@ namespace Migration.Core.Storage
         }
 
         /// <summary>
-        /// Returns if <paramref name="fromVersion"/> is a supported version to migrate from.
+        /// Returns if a <see cref="FileMigrationScript"/> has been found where <paramref name="fromVersion"/> is the version to migrate from.
         /// </summary>
         /// <param name="fromVersion">Version to validate.</param>
         /// <returns><c>true</c> if <paramref name="fromVersion"/> is supported, <c>false</c> otherwise.</returns>
@@ -99,6 +99,26 @@ namespace Migration.Core.Storage
         /// to a new version on location <paramref name="newFileLocation"/> failed.</exception>
         public void Migrate(IVersionedFile versionedFile, string toVersion, string newFileLocation)
         {
+            ValidateMigrationArguments(versionedFile, toVersion, newFileLocation);
+            FileMigrationScript migrationScript = TryGetMigrationScript(versionedFile, toVersion);
+
+            IVersionedFile upgradedVersionFile = migrationScript.Upgrade(versionedFile);
+            if (!upgradedVersionFile.GetVersion().Equals(toVersion))
+            {
+                Migrate(upgradedVersionFile, toVersion, newFileLocation);
+            }
+            else
+            {
+                MoveMigratedFile(upgradedVersionFile.Location, newFileLocation);
+            }
+        }
+
+        protected abstract IEnumerable<UpgradeScript> GetAvailableUpgradeScripts();
+
+        protected abstract IEnumerable<CreateScript> GetAvailableCreateScripts();
+
+        private static void ValidateMigrationArguments(IVersionedFile versionedFile, string toVersion, string newFileLocation)
+        {
             if (versionedFile == null)
             {
                 throw new ArgumentNullException(nameof(versionedFile));
@@ -115,6 +135,10 @@ namespace Migration.Core.Storage
             {
                 throw new CriticalMigrationException(Resources.Migrate_Target_File_Path_Must_Differ_From_Source_File_Path);
             }
+        }
+
+        private FileMigrationScript TryGetMigrationScript(IVersionedFile versionedFile, string toVersion)
+        {
             string fromVersion = versionedFile.GetVersion();
             if (!IsVersionSupported(fromVersion))
             {
@@ -128,31 +152,23 @@ namespace Migration.Core.Storage
                 throw new CriticalMigrationException(string.Format(Resources.Migrate_From_Version_0_To_Version_1_Not_Supported,
                                                                    fromVersion, toVersion));
             }
-
-            IVersionedFile upgradedVersionFile = migrationScript.Upgrade(versionedFile);
-            if (!upgradedVersionFile.GetVersion().Equals(toVersion))
-            {
-                Migrate(upgradedVersionFile, toVersion, newFileLocation);
-            }
-            else
-            {
-                try
-                {
-                    File.Copy(upgradedVersionFile.Location, newFileLocation, true);
-                    File.Delete(upgradedVersionFile.Location);
-                }
-                catch (Exception exception) when (exception is IOException || exception is UnauthorizedAccessException)
-                {
-                    var message = string.Format(Resources.Migrate_Unable_To_Move_From_Location_0_To_Location_1,
-                                                upgradedVersionFile.Location, newFileLocation);
-                    throw new CriticalMigrationException(message, exception);
-                }
-            }
+            return migrationScript;
         }
 
-        protected abstract IEnumerable<UpgradeScript> GetAvailableUpgradeScripts();
-
-        protected abstract IEnumerable<CreateScript> GetAvailableCreateScripts();
+        private static void MoveMigratedFile(string sourceFileName, string destinationFileName)
+        {
+            try
+            {
+                File.Copy(sourceFileName, destinationFileName, true);
+                File.Delete(sourceFileName);
+            }
+            catch (Exception exception) when (exception is IOException || exception is UnauthorizedAccessException)
+            {
+                var message = string.Format(Resources.Migrate_Unable_To_Move_From_Location_0_To_Location_1,
+                                            sourceFileName, destinationFileName);
+                throw new CriticalMigrationException(message, exception);
+            }
+        }
 
         private FileMigrationScript GetMigrationScript(string fromVersion, string toVersion)
         {
