@@ -62,7 +62,7 @@ namespace Ringtoets.Common.Utils.Test
         }
 
         [Test]
-        [TestCase("4")]
+        [TestCase("5")]
         [TestCase("17.0")]
         public void IsNewerThanCurrentString_OlderVersion_ReturnsFalse(string olderVersion)
         {
@@ -74,7 +74,7 @@ namespace Ringtoets.Common.Utils.Test
         }
 
         [Test]
-        [TestCase("4a.0")]
+        [TestCase("5a.0")]
         [TestCase("17..")]
         public void IsNewerThanCurrentString_InvalidVersion_ReturnsFalse(string invalidVersion)
         {
@@ -86,7 +86,7 @@ namespace Ringtoets.Common.Utils.Test
         }
 
         [Test]
-        [TestCase("4")]
+        [TestCase("5")]
         [TestCase("17")]
         public void IsValidVersion_ValidVersion_ReturnsTrue(string validVersion)
         {
@@ -98,7 +98,7 @@ namespace Ringtoets.Common.Utils.Test
         }
 
         [Test]
-        [TestCase("3")]
+        [TestCase("4")]
         [TestCase("..")]
         public void IsValidVersion_InvalidVersion_ReturnsFalse(string invalidVersion)
         {

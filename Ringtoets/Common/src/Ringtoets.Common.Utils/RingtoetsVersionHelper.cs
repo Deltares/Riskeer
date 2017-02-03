@@ -26,7 +26,7 @@ namespace Ringtoets.Common.Utils
     /// </summary>
     public static class RingtoetsVersionHelper
     {
-        private const string validDatabaseversion = "4";
+        private const string validDatabaseVersion = "5";
         private const string currentDatabaseVersion = "17.1";
 
         /// <summary>
@@ -42,7 +42,7 @@ namespace Ringtoets.Common.Utils
         /// Returns if the <paramref name="version"/> is newer than the current database version.
         /// </summary>
         /// <param name="version">The version to compare.</param>
-        /// <returns><c>true</c> is <paramref name="version"/> is newer than the current 
+        /// <returns><c>true</c> if <paramref name="version"/> is newer than the current 
         /// database version, <c>false</c> otherwise.</returns>
         public static bool IsNewerThanCurrent(string version)
         {
@@ -54,12 +54,12 @@ namespace Ringtoets.Common.Utils
         /// Returns if the <paramref name="version"/> is a valid database version.
         /// </summary>
         /// <param name="version">The version to compare.</param>
-        /// <returns><c>true</c> is <paramref name="version"/> is a valid database version, 
+        /// <returns><c>true</c> if <paramref name="version"/> is a valid database version, 
         /// <c>false</c> otherwise.</returns>
         public static bool IsValidVersion(string version)
         {
             var versionComparer = new RingtoetsVersionComparer();
-            return versionComparer.Compare(version, validDatabaseversion) >= 0;
+            return versionComparer.Compare(version, validDatabaseVersion) >= 0;
         }
     }
 }

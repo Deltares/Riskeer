@@ -42,7 +42,7 @@ namespace Application.Ringtoets.Storage.TestUtil
         public static void CreateCorruptDatabaseFile(string databaseFilePath)
         {
             CreateDatabaseFile(databaseFilePath, GetCorruptSchema());
-            AddVersionEntity(databaseFilePath, "4");
+            AddVersionEntity(databaseFilePath, "5");
         }
 
         /// <summary>
@@ -54,7 +54,7 @@ namespace Application.Ringtoets.Storage.TestUtil
         public static void CreateCompleteDatabaseFileWithoutProjectData(string databaseFilePath)
         {
             CreateCompleteDatabaseFileEmpty(databaseFilePath);
-            AddVersionEntity(databaseFilePath, "4");
+            AddVersionEntity(databaseFilePath, "5");
         }
 
         /// <summary>
