@@ -63,7 +63,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Banner_493x77.bmp" />
-    <Content Include="Gebruikershandleiding Ringtoets 16.4.1.pdf" />
     <Content Include="GenerateVariables.wxi" />
     <Content Include="GenerateVariables.wxi.svn" />
     <Content Include="IHW\voorbeeldbestand_nationaalBestandPrimaireWaterkeringen.dbf" />
