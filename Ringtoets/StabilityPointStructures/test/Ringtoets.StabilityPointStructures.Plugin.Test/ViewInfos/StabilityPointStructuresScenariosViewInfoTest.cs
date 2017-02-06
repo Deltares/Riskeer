@@ -157,7 +157,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.ViewInfos
                 var unrelatedFailureMechanism = new StabilityPointStructuresFailureMechanism();
 
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
-                assessmentSection.Expect(asm => asm.GetFailureMechanisms()).Return(new[]
+                assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new[]
                 {
                     unrelatedFailureMechanism
                 });
@@ -187,7 +187,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.ViewInfos
             })
             {
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
-                assessmentSection.Expect(asm => asm.GetFailureMechanisms()).Return(new[]
+                assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new[]
                 {
                     relatedFailureMechanism
                 });
@@ -244,8 +244,8 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.ViewInfos
         public void CloseForData_AssessmentSectionRemovedWithoutStabilityPointStructuresFailureMechanism_ReturnsFalse()
         {
             // Setup
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-            assessmentSectionMock.Expect(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[0]);
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[0]);
             mocks.ReplayAll();
 
             var view = new StabilityPointStructuresScenariosView
@@ -254,7 +254,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.ViewInfos
             };
 
             // Call
-            bool closeForData = info.CloseForData(view, assessmentSectionMock);
+            bool closeForData = info.CloseForData(view, assessmentSection);
 
             // Assert
             Assert.IsFalse(closeForData);
@@ -265,8 +265,8 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.ViewInfos
         public void CloseForData_ViewNotCorrespondingToRemovedAssessmentSection_ReturnsFalse()
         {
             // Setup
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-            assessmentSectionMock.Expect(asm => asm.GetFailureMechanisms()).Return(new[]
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new[]
             {
                 new StabilityPointStructuresFailureMechanism()
             });
@@ -279,7 +279,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.ViewInfos
             };
 
             // Call
-            bool closeForData = info.CloseForData(view, assessmentSectionMock);
+            bool closeForData = info.CloseForData(view, assessmentSection);
 
             // Assert
             Assert.IsFalse(closeForData);
@@ -290,9 +290,9 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.ViewInfos
         public void CloseForData_ViewCorrespondingToRemovedAssessmentSection_ReturnsTrue()
         {
             // Setup
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            assessmentSectionMock.Expect(asm => asm.GetFailureMechanisms()).Return(new[]
+            assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new[]
             {
                 failureMechanism
             });
@@ -305,7 +305,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.ViewInfos
             };
 
             // Call
-            bool closeForData = info.CloseForData(view, assessmentSectionMock);
+            bool closeForData = info.CloseForData(view, assessmentSection);
 
             // Assert
             Assert.IsTrue(closeForData);

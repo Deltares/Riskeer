@@ -37,17 +37,17 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var failureMechanism = new PipingFailureMechanism();
 
             // Call
-            var context = new PipingFailureMechanismContext(failureMechanism, assessmentSectionMock);
+            var context = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismContext<PipingFailureMechanism>>(context);
-            Assert.AreSame(assessmentSectionMock, context.Parent);
+            Assert.AreSame(assessmentSection, context.Parent);
             Assert.AreSame(failureMechanism, context.WrappedData);
             mocks.VerifyAll();
         }

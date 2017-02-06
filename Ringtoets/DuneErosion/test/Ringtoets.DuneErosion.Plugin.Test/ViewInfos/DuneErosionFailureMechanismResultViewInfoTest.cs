@@ -195,7 +195,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
             var failureMechanism = new DuneErosionFailureMechanism();
             var otherFailureMechanism = mocks.Stub<FailureMechanismBase>("N", "C");
 
-            assessmentSection.Expect(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[]
+            assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[]
             {
                 otherFailureMechanism,
                 failureMechanism

@@ -87,12 +87,12 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.ViewInfos
         public void CloseForData_ViewNotCorrespondingToRemovedAssessmentSection_ReturnsFalse()
         {
             // Setup
-            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
-            var otherAssessmentSectionMock = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var otherAssessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            var failureMechanismContext = new StabilityPointStructuresFailureMechanismContext(failureMechanism, assessmentSectionStub);
+            var failureMechanismContext = new StabilityPointStructuresFailureMechanismContext(failureMechanism, assessmentSection);
 
             using (var view = new StabilityPointStructuresFailureMechanismView
             {
@@ -100,7 +100,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.ViewInfos
             })
             {
                 // Call
-                bool closeForData = info.CloseForData(view, otherAssessmentSectionMock);
+                bool closeForData = info.CloseForData(view, otherAssessmentSection);
 
                 // Assert
                 Assert.IsFalse(closeForData);

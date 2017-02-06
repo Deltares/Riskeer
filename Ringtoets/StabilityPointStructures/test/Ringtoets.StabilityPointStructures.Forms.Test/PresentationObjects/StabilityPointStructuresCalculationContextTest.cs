@@ -37,21 +37,21 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PresentationObjects
         {
             // Setup
             var mocksRepository = new MockRepository();
-            var assessmentSectionMock = mocksRepository.Stub<IAssessmentSection>();
+            var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
             mocksRepository.ReplayAll();
 
             var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
             // Call
-            var context = new StabilityPointStructuresCalculationContext(calculation, failureMechanism, assessmentSectionMock);
+            var context = new StabilityPointStructuresCalculationContext(calculation, failureMechanism, assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismItemContextBase<StructuresCalculation<StabilityPointStructuresInput>, StabilityPointStructuresFailureMechanism>>(context);
             Assert.IsInstanceOf<ICalculationContext<StructuresCalculation<StabilityPointStructuresInput>, StabilityPointStructuresFailureMechanism>>(context);
             Assert.AreSame(calculation, context.WrappedData);
             Assert.AreSame(failureMechanism, context.FailureMechanism);
-            Assert.AreSame(assessmentSectionMock, context.AssessmentSection);
+            Assert.AreSame(assessmentSection, context.AssessmentSection);
             mocksRepository.VerifyAll();
         }
     }

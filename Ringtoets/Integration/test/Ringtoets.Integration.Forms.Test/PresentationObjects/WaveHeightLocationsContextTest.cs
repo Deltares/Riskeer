@@ -35,15 +35,15 @@ namespace Ringtoets.Integration.Forms.Test.PresentationObjects
         {
             // Setup
             var mockRepository = new MockRepository();
-            var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
 
             // Call
-            var presentationObject = new WaveHeightLocationsContext(assessmentSectionMock);
+            var presentationObject = new WaveHeightLocationsContext(assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<ObservableWrappedObjectContextBase<IAssessmentSection>>(presentationObject);
-            Assert.AreSame(assessmentSectionMock, presentationObject.WrappedData);
+            Assert.AreSame(assessmentSection, presentationObject.WrappedData);
             mockRepository.VerifyAll();
         }
     }

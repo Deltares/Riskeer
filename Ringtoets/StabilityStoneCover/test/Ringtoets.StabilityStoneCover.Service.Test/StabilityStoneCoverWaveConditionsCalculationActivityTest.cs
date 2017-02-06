@@ -37,14 +37,14 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             var calculation = new StabilityStoneCoverWaveConditionsCalculation();
 
             // Call
-            var activity = new StabilityStoneCoverWaveConditionsCalculationActivity(calculation, string.Empty, failureMechanism, assessmentSectionMock);
+            var activity = new StabilityStoneCoverWaveConditionsCalculationActivity(calculation, string.Empty, failureMechanism, assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<HydraRingActivityBase>(activity);
@@ -60,13 +60,13 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
             // Call
-            TestDelegate call = () => new StabilityStoneCoverWaveConditionsCalculationActivity(null, "", failureMechanism, assessmentSectionMock);
+            TestDelegate call = () => new StabilityStoneCoverWaveConditionsCalculationActivity(null, "", failureMechanism, assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -79,14 +79,14 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             var calculation = new StabilityStoneCoverWaveConditionsCalculation();
 
             // Call
-            TestDelegate call = () => new StabilityStoneCoverWaveConditionsCalculationActivity(calculation, null, failureMechanism, assessmentSectionMock);
+            TestDelegate call = () => new StabilityStoneCoverWaveConditionsCalculationActivity(calculation, null, failureMechanism, assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -99,13 +99,13 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var calculation = new StabilityStoneCoverWaveConditionsCalculation();
 
             // Call
-            TestDelegate call = () => new StabilityStoneCoverWaveConditionsCalculationActivity(calculation, "", null, assessmentSectionMock);
+            TestDelegate call = () => new StabilityStoneCoverWaveConditionsCalculationActivity(calculation, "", null, assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

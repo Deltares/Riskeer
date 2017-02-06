@@ -281,7 +281,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 var pipingFailureMechanism = new PipingFailureMechanism();
-                var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+                var assessmentSection = mocks.Stub<IAssessmentSection>();
 
                 var stochasticSoilModelCollection = new ObservableCollectionWithSourcePath<StochasticSoilModel>();
                 if (sourcePathSet)
@@ -291,7 +291,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
 
                 var nodeData = new StochasticSoilModelCollectionContext(stochasticSoilModelCollection,
                                                                         pipingFailureMechanism,
-                                                                        assessmentSectionMock);
+                                                                        assessmentSection);
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -329,13 +329,13 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 var pipingFailureMechanism = new PipingFailureMechanism();
-                var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+                var assessmentSection = mocks.Stub<IAssessmentSection>();
                 var stochasticSoilModelCollection = new ObservableCollectionWithSourcePath<StochasticSoilModel>();
                 stochasticSoilModelCollection.AddRange(Enumerable.Empty<StochasticSoilModel>(), somePath);
 
                 var nodeData = new StochasticSoilModelCollectionContext(stochasticSoilModelCollection,
                                                                         pipingFailureMechanism,
-                                                                        assessmentSectionMock);
+                                                                        assessmentSection);
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -380,13 +380,13 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 var pipingFailureMechanism = new PipingFailureMechanism();
-                var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+                var assessmentSection = mocks.Stub<IAssessmentSection>();
                 var stochasticSoilModelCollection = new ObservableCollectionWithSourcePath<StochasticSoilModel>();
                 stochasticSoilModelCollection.AddRange(Enumerable.Empty<StochasticSoilModel>(), existingFilePath);
 
                 var nodeData = new StochasticSoilModelCollectionContext(stochasticSoilModelCollection,
                                                                         pipingFailureMechanism,
-                                                                        assessmentSectionMock);
+                                                                        assessmentSection);
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 

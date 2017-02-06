@@ -157,8 +157,8 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
         public void CloseForData_AssessmentSectionRemovedWithoutPipingFailureMechanism_ReturnsFalse()
         {
             // Setup
-            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
-            assessmentSection.Expect(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[0]);
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[0]);
             var handler = mocks.Stub<ICalculationInputPropertyChangeHandler<PipingInput, PipingCalculationScenario>>();
             mocks.ReplayAll();
 
@@ -179,8 +179,8 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
         public void CloseForData_ViewNotCorrespondingToRemovedAssessmentSection_ReturnsFalse()
         {
             // Setup
-            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
-            assessmentSection.Expect(asm => asm.GetFailureMechanisms()).Return(new[]
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new[]
             {
                 new PipingFailureMechanism()
             });
@@ -206,7 +206,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var failureMechanism = new PipingFailureMechanism();
-            assessmentSection.Expect(asm => asm.GetFailureMechanisms()).Return(new[]
+            assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new[]
             {
                 failureMechanism
             });

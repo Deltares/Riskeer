@@ -39,7 +39,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var surfacelines = new[]
@@ -54,7 +54,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             var failureMechanism = new PipingFailureMechanism();
 
             // Call
-            var presentationObject = new PipingCalculationScenarioContext(calculation, surfacelines, soilModels, failureMechanism, assessmentSectionMock);
+            var presentationObject = new PipingCalculationScenarioContext(calculation, surfacelines, soilModels, failureMechanism, assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<IObservable>(presentationObject);
@@ -64,7 +64,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             Assert.AreSame(surfacelines, presentationObject.AvailablePipingSurfaceLines);
             Assert.AreSame(soilModels, presentationObject.AvailableStochasticSoilModels);
             Assert.AreSame(failureMechanism, presentationObject.FailureMechanism);
-            Assert.AreSame(assessmentSectionMock, presentationObject.AssessmentSection);
+            Assert.AreSame(assessmentSection, presentationObject.AssessmentSection);
             mocks.VerifyAll();
         }
     }

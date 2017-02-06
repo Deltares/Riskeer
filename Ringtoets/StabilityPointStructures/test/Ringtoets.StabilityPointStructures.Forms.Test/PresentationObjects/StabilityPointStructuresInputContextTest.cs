@@ -44,7 +44,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PresentationObjects
         public void ConstructorWithData_Always_ExpectedPropertiesSet()
         {
             // Setup
-            var assessmentSectionMock = mocksRepository.Stub<IAssessmentSection>();
+            var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
             mocksRepository.ReplayAll();
 
             var input = new StabilityPointStructuresInput();
@@ -52,14 +52,14 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PresentationObjects
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
             // Call
-            var context = new StabilityPointStructuresInputContext(input, calculation, failureMechanism, assessmentSectionMock);
+            var context = new StabilityPointStructuresInputContext(input, calculation, failureMechanism, assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<InputContextBase<StabilityPointStructuresInput, StructuresCalculation<StabilityPointStructuresInput>, StabilityPointStructuresFailureMechanism>>(context);
             Assert.AreSame(input, context.WrappedData);
             Assert.AreSame(calculation, context.Calculation);
             Assert.AreSame(failureMechanism, context.FailureMechanism);
-            Assert.AreSame(assessmentSectionMock, context.AssessmentSection);
+            Assert.AreSame(assessmentSection, context.AssessmentSection);
             mocksRepository.VerifyAll();
         }
     }

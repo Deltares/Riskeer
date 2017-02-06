@@ -48,7 +48,7 @@ namespace Ringtoets.Piping.Forms.Test.UITypeEditors
             var provider = mockRepository.DynamicMock<IServiceProvider>();
             var service = mockRepository.DynamicMock<IWindowsFormsEditorService>();
             var context = mockRepository.DynamicMock<ITypeDescriptorContext>();
-            var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             var handler = mockRepository.Stub<ICalculationInputPropertyChangeHandler<PipingInput, PipingCalculationScenario>>();
 
             var calculationItem = new PipingCalculationScenario(new GeneralPipingInput());
@@ -66,7 +66,7 @@ namespace Ringtoets.Piping.Forms.Test.UITypeEditors
                                                                 },
                                                                 Enumerable.Empty<StochasticSoilModel>(),
                                                                 failureMechanism,
-                                                                assessmentSectionMock);
+                                                                assessmentSection);
 
             var properties = new PipingInputContextProperties(inputParametersContext, handler);
 
@@ -97,7 +97,7 @@ namespace Ringtoets.Piping.Forms.Test.UITypeEditors
             var provider = mockRepository.DynamicMock<IServiceProvider>();
             var service = mockRepository.DynamicMock<IWindowsFormsEditorService>();
             var context = mockRepository.DynamicMock<ITypeDescriptorContext>();
-            var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             var handler = mockRepository.Stub<ICalculationInputPropertyChangeHandler<PipingInput, PipingCalculationScenario>>();
 
             var surfaceLine = new RingtoetsPipingSurfaceLine();
@@ -121,7 +121,7 @@ namespace Ringtoets.Piping.Forms.Test.UITypeEditors
                                                                 },
                                                                 Enumerable.Empty<StochasticSoilModel>(),
                                                                 failureMechanism,
-                                                                assessmentSectionMock);
+                                                                assessmentSection);
 
             var properties = new PipingInputContextProperties(inputParametersContext, handler);
 

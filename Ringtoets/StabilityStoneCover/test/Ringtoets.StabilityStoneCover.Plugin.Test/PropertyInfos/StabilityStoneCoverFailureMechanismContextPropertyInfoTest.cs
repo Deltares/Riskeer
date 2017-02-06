@@ -53,11 +53,11 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.PropertyInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
-            var context = new StabilityStoneCoverFailureMechanismContext(failureMechanism, assessmentSectionMock);
+            var context = new StabilityStoneCoverFailureMechanismContext(failureMechanism, assessmentSection);
 
             using (var plugin = new StabilityStoneCoverPlugin())
             {

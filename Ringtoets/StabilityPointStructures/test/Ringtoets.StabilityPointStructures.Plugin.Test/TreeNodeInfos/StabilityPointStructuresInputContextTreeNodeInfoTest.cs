@@ -87,12 +87,11 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
         public void Text_Always_ReturnsTextFromResource()
         {
             // Setup
-            var assessmentSectionMock = mocksRepository.Stub<IAssessmentSection>();
             var stabilityPointStructuresInputContext = new StabilityPointStructuresInputContext(
                 mocksRepository.Stub<StabilityPointStructuresInput>(),
                 mocksRepository.Stub<StructuresCalculation<StabilityPointStructuresInput>>(),
                 new StabilityPointStructuresFailureMechanism(),
-                assessmentSectionMock);
+                mocksRepository.Stub<IAssessmentSection>());
 
             mocksRepository.ReplayAll();
 
@@ -107,12 +106,11 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
         public void Image_Always_ReturnsSetImage()
         {
             // Setup
-            var assessmentSectionMock = mocksRepository.Stub<IAssessmentSection>();
             var stabilityPointStructuresInputContext = new StabilityPointStructuresInputContext(
                 mocksRepository.Stub<StabilityPointStructuresInput>(),
                 mocksRepository.Stub<StructuresCalculation<StabilityPointStructuresInput>>(),
                 new StabilityPointStructuresFailureMechanism(),
-                assessmentSectionMock);
+                mocksRepository.Stub<IAssessmentSection>());
 
             mocksRepository.ReplayAll();
 

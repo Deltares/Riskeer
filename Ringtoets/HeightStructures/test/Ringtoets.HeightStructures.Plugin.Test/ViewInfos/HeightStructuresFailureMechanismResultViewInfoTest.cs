@@ -113,7 +113,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.ViewInfos
             };
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Expect(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[0]);
+            assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[0]);
 
             mocks.ReplayAll();
 
@@ -139,7 +139,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.ViewInfos
                 Data = failureMechanism.SectionResults
             };
 
-            assessmentSection.Expect(asm => asm.GetFailureMechanisms()).Return(new[]
+            assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new[]
             {
                 otherFailureMechanism
             });

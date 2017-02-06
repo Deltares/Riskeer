@@ -88,12 +88,12 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
         public void CloseForData_ViewNotCorrespondingToRemovedAssessmentSection_ReturnsFalse()
         {
             // Setup
-            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
-            var otherAssessmentSectionMock = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var otherAssessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var pipingFailureMechanism = new PipingFailureMechanism();
-            var pipingFailureMechanismContext = new PipingFailureMechanismContext(pipingFailureMechanism, assessmentSectionStub);
+            var pipingFailureMechanismContext = new PipingFailureMechanismContext(pipingFailureMechanism, assessmentSection);
 
             using (var view = new PipingFailureMechanismView
             {
@@ -101,7 +101,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
             })
             {
                 // Call
-                bool closeForData = info.CloseForData(view, otherAssessmentSectionMock);
+                bool closeForData = info.CloseForData(view, otherAssessmentSection);
 
                 // Assert
                 Assert.IsFalse(closeForData);

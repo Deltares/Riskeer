@@ -157,7 +157,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.ViewInfos
                 var unrelatedFailureMechanism = new ClosingStructuresFailureMechanism();
 
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
-                assessmentSection.Expect(asm => asm.GetFailureMechanisms()).Return(new[]
+                assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new[]
                 {
                     unrelatedFailureMechanism
                 });
@@ -187,7 +187,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.ViewInfos
             })
             {
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
-                assessmentSection.Expect(asm => asm.GetFailureMechanisms()).Return(new[]
+                assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new[]
                 {
                     relatedFailureMechanism
                 });

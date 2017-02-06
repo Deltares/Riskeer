@@ -139,10 +139,10 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.ViewInfos
         public void CloseForData_AssessmentSectionRemovedWithoutFailureMechanism_ReturnsFalse()
         {
             // Setup
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
-            assessmentSectionMock.Expect(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[0]);
+            assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[0]);
 
             mocks.ReplayAll();
 
@@ -151,7 +151,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.ViewInfos
                 view.Data = failureMechanism.SectionResults;
 
                 // Call
-                var closeForData = info.CloseForData(view, assessmentSectionMock);
+                var closeForData = info.CloseForData(view, assessmentSection);
 
                 // Assert
                 Assert.IsFalse(closeForData);
@@ -163,23 +163,23 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.ViewInfos
         public void CloseForData_ViewNotCorrespondingToRemovedAssessmentSection_ReturnsFalse()
         {
             // Setup
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-            var failureMechanismMock = mocks.Stub<FailureMechanismBase>("N", "C");
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
+            var otherFailureMechanism = mocks.Stub<FailureMechanismBase>("N", "C");
 
-            assessmentSectionMock.Expect(asm => asm.GetFailureMechanisms()).Return(new[]
+            assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new[]
             {
-                failureMechanismMock
+                otherFailureMechanism
             });
 
             mocks.ReplayAll();
 
             using (var view = new StabilityStoneCoverResultView())
             {
-                var failureMechanism = new StabilityStoneCoverFailureMechanism();
                 view.Data = failureMechanism.SectionResults;
 
                 // Call
-                var closeForData = info.CloseForData(view, assessmentSectionMock);
+                var closeForData = info.CloseForData(view, assessmentSection);
 
                 // Assert
                 Assert.IsFalse(closeForData);
@@ -191,10 +191,10 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.ViewInfos
         public void CloseForData_ViewCorrespondingToRemovedAssessmentSection_ReturnsTrue()
         {
             // Setup
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
-            assessmentSectionMock.Expect(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[]
+            assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[]
             {
                 new StabilityStoneCoverFailureMechanism(),
                 failureMechanism
@@ -207,7 +207,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.ViewInfos
                 view.Data = failureMechanism.SectionResults;
 
                 // Call
-                var closeForData = info.CloseForData(view, assessmentSectionMock);
+                var closeForData = info.CloseForData(view, assessmentSection);
 
                 // Assert
                 Assert.IsTrue(closeForData);

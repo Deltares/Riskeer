@@ -53,11 +53,11 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.PropertyInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            var context = new WaveImpactAsphaltCoverFailureMechanismContext(failureMechanism, assessmentSectionMock);
+            var context = new WaveImpactAsphaltCoverFailureMechanismContext(failureMechanism, assessmentSection);
 
             using (var plugin = new WaveImpactAsphaltCoverPlugin())
             {

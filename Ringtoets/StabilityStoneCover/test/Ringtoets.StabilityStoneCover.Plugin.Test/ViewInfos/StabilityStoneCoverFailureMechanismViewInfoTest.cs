@@ -88,12 +88,12 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.ViewInfos
         public void CloseForData_ViewNotCorrespondingToRemovedAssessmentSection_ReturnsFalse()
         {
             // Setup
-            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
-            var otherAssessmentSectionMock = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var otherAssessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var stabilityStoneCoverFailureMechanism = new StabilityStoneCoverFailureMechanism();
-            var stabilityStoneCoverFailureMechanismContext = new StabilityStoneCoverFailureMechanismContext(stabilityStoneCoverFailureMechanism, assessmentSectionStub);
+            var stabilityStoneCoverFailureMechanismContext = new StabilityStoneCoverFailureMechanismContext(stabilityStoneCoverFailureMechanism, assessmentSection);
 
             using (var view = new StabilityStoneCoverFailureMechanismView
             {
@@ -101,7 +101,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.ViewInfos
             })
             {
                 // Call
-                bool closeForData = info.CloseForData(view, otherAssessmentSectionMock);
+                bool closeForData = info.CloseForData(view, otherAssessmentSection);
 
                 // Assert
                 Assert.IsFalse(closeForData);

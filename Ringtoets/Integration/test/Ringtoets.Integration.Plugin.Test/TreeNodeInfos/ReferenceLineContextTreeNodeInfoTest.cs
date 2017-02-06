@@ -82,7 +82,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         public void Text_Always_ReturnsName()
         {
             // Setup
-            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var referenceLineContext = new ReferenceLineContext(assessmentSection);
@@ -104,7 +104,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         public void Image_Always_ReturnsSetImage()
         {
             // Setup
-            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var referenceLineContext = new ReferenceLineContext(assessmentSection);

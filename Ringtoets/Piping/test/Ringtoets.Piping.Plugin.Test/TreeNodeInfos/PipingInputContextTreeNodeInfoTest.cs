@@ -88,14 +88,13 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
         public void Text_Always_ReturnsTextFromResource()
         {
             // Setup
-            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
             var pipingInputContext = new PipingInputContext(
                 new PipingInput(new GeneralPipingInput()),
                 new PipingCalculationScenario(new GeneralPipingInput()),
                 Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                 Enumerable.Empty<StochasticSoilModel>(),
                 new PipingFailureMechanism(),
-                assessmentSection);
+                mocks.Stub<IAssessmentSection>());
 
             mocks.ReplayAll();
 
@@ -110,14 +109,13 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
         public void Image_Always_ReturnsSetImage()
         {
             // Setup
-            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
             var pipingInputContext = new PipingInputContext(
                 new PipingInput(new GeneralPipingInput()),
                 new PipingCalculationScenario(new GeneralPipingInput()),
                 Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                 Enumerable.Empty<StochasticSoilModel>(),
                 new PipingFailureMechanism(),
-                assessmentSection);
+                mocks.Stub<IAssessmentSection>());
 
             mocks.ReplayAll();
 

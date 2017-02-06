@@ -36,21 +36,21 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.PresentationObjects
         {
             // Setup
             var mocksRepository = new MockRepository();
-            var assessmentSectionMock = mocksRepository.StrictMock<IAssessmentSection>();
+            var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
             mocksRepository.ReplayAll();
 
             var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation();
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
             // Call
-            var context = new WaveImpactAsphaltCoverWaveConditionsCalculationContext(calculation, failureMechanism, assessmentSectionMock);
+            var context = new WaveImpactAsphaltCoverWaveConditionsCalculationContext(calculation, failureMechanism, assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<WaveImpactAsphaltCoverContext<WaveImpactAsphaltCoverWaveConditionsCalculation>>(context);
             Assert.IsInstanceOf<ICalculationContext<WaveImpactAsphaltCoverWaveConditionsCalculation, WaveImpactAsphaltCoverFailureMechanism>>(context);
             Assert.AreEqual(calculation, context.WrappedData);
             Assert.AreEqual(failureMechanism, context.FailureMechanism);
-            Assert.AreEqual(assessmentSectionMock, context.AssessmentSection);
+            Assert.AreEqual(assessmentSection, context.AssessmentSection);
             mocksRepository.VerifyAll();
         }
     }

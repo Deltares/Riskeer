@@ -90,7 +90,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
         public void Text_Always_ReturnsTextFromResource()
         {
             // Setup
-            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var failureMechanism = new PipingFailureMechanism();
@@ -108,7 +108,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
         public void Image_Always_ReturnsSetImage()
         {
             // Setup
-            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var failureMechanism = new PipingFailureMechanism();
@@ -126,7 +126,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
         public void ForeColor_CollectionWithoutSurfaceLines_ReturnsGrayText()
         {
             // Setup
-            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var failureMechanism = new PipingFailureMechanism();
@@ -144,7 +144,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
         public void ForeColor_CollectionWithSurfaceLines_ReturnsControlText()
         {
             // Setup
-            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             var ringtoetsPipingSurfaceLine1 = new RingtoetsPipingSurfaceLine();
             var ringtoetsPipingSurfaceLine2 = new RingtoetsPipingSurfaceLine();
 
@@ -171,7 +171,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
         public void ChildNodeObjects_Always_ReturnsChildrenOfData()
         {
             // Setup
-            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             var ringtoetsPipingSurfaceLine1 = new RingtoetsPipingSurfaceLine();
             var ringtoetsPipingSurfaceLine2 = new RingtoetsPipingSurfaceLine();
 

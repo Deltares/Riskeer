@@ -37,14 +37,14 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation();
 
             // Call
-            var activity = new WaveImpactAsphaltCoverWaveConditionsCalculationActivity(calculation, string.Empty, failureMechanism, assessmentSectionMock);
+            var activity = new WaveImpactAsphaltCoverWaveConditionsCalculationActivity(calculation, string.Empty, failureMechanism, assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<HydraRingActivityBase>(activity);
@@ -60,7 +60,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
@@ -79,7 +79,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation();
@@ -99,7 +99,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation();

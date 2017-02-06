@@ -48,7 +48,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         {
             // Setup
             var mockRepository = new MockRepository();
-            var assessmentSection = mockRepository.StrictMock<IAssessmentSection>();
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
 
             var failureMechanism = new TestFailureMechanism();

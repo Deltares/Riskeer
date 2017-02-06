@@ -214,7 +214,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             // Setup
             var guiMock = mocks.StrictMock<IGui>();
             var failureMechanism = new TestStabilityPointStructuresFailureMechanism();
-            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
             var nodeData = new StabilityPointStructuresCalculationContext(calculation, failureMechanism, assessmentSection);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
@@ -223,11 +223,11 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 guiMock.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                assessmentSection.Stub(asm => asm.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase
+                assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
                 {
                     FilePath = validFilePath,
                     Version = "random"
-                });
+                };
 
                 mocks.ReplayAll();
 
