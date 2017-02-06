@@ -179,8 +179,11 @@ namespace Ringtoets.Piping.Data.Test
                 new PipingSoilLayer(0.0)
             }, SoilProfileType.SoilProfile1D, 0);
 
-            // Call & Assert
-            Assert.IsEmpty(profile.ToString());
+            // Call
+            string text = profile.ToString();
+
+            // Assert
+            Assert.IsEmpty(text);
         }
 
         [Test]
@@ -194,8 +197,11 @@ namespace Ringtoets.Piping.Data.Test
                 new PipingSoilLayer(0.0)
             }, SoilProfileType.SoilProfile1D, 0);
 
-            // Call & Assert
-            Assert.AreEqual(name, profile.ToString());
+            // Call
+            string text = profile.ToString();
+
+            // Assert
+            Assert.AreEqual(name, text);
         }
 
         [Test]

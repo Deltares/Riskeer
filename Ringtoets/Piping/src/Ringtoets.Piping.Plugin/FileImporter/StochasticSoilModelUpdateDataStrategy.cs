@@ -34,6 +34,11 @@ namespace Ringtoets.Piping.Plugin.FileImporter
 {
     /// <summary>
     /// Strategy for updating the current stochastic soil models with the imported stochastic soil models.
+    /// Adds stochastic soil models that are imported and are not part of current stochastic soil model collection.
+    /// Removes stochastic soil models that are part of the current stochastic soil model collection, but were not
+    /// amongst the imported stochastic soil models.
+    /// Updates stochastic soil models that are part of the current stochastic soil model collection and are also
+    /// imported.
     /// </summary>
     public class StochasticSoilModelUpdateDataStrategy : IStochasticSoilModelUpdateModelStrategy
     {
@@ -51,17 +56,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             }
             this.failureMechanism = failureMechanism;
         }
-
-        /// <summary>
-        /// Updates the <paramref name="targetCollection"/>. 
-        /// Updates stochastic soil models in <paramref name="targetCollection"/> that are part of
-        /// <paramref name="readStochasticSoilModels"/>.
-        /// Adds stochastic soil models that are not in <paramref name="targetCollection"/>, but are part of 
-        /// <paramref name="readStochasticSoilModels"/>.
-        /// Removes stochastic soil models that are in <paramref name="targetCollection"/>, but are not part 
-        /// of <paramref name="readStochasticSoilModels"/>.
-        /// </summary>
-        /// <seealso cref="IStochasticSoilModelUpdateModelStrategy.UpdateModelWithImportedData"/>
+        
         public IEnumerable<IObservable> UpdateModelWithImportedData(ObservableCollectionWithSourcePath<StochasticSoilModel> targetCollection,
                                                                     IEnumerable<StochasticSoilModel> readStochasticSoilModels,
                                                                     string sourceFilePath)

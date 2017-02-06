@@ -109,15 +109,18 @@ namespace Ringtoets.Piping.Data.Test
             // Setup
             var probability = 1.0;
             var profile = new TestPipingSoilProfile();
+            var stochasticProfile = new StochasticSoilProfile(probability, SoilProfileType.SoilProfile1D, 0)
+            {
+                SoilProfile = profile
+            };
+
             var otherStochasticProfile = new StochasticSoilProfile(probability, SoilProfileType.SoilProfile1D, 0)
             {
                 SoilProfile = profile
             };
 
-            var stochasticProfile = new StochasticSoilProfile(probability, SoilProfileType.SoilProfile1D, 0)
-            {
-                SoilProfile = profile
-            };
+            // Precondition
+            Assert.AreEqual(stochasticProfile, otherStochasticProfile);
 
             // Call
             bool updated = stochasticProfile.Update(otherStochasticProfile);
@@ -166,8 +169,11 @@ namespace Ringtoets.Piping.Data.Test
                 }, SoilProfileType.SoilProfile1D, 0)
             };
 
-            // Call & Assert
-            Assert.IsEmpty(stochasticSoilProfile.ToString());
+            // Call
+            string text = stochasticSoilProfile.ToString();
+
+            // Assert
+            Assert.IsEmpty(text);
         }
 
         [Test]
@@ -184,8 +190,11 @@ namespace Ringtoets.Piping.Data.Test
                 }, SoilProfileType.SoilProfile1D, 0)
             };
 
-            // Call & Assert
-            Assert.AreEqual(name, stochasticSoilProfile.ToString());
+            // Call
+            string text = stochasticSoilProfile.ToString();
+
+            // Assert
+            Assert.AreEqual(name, text);
         }
 
         private static TestCaseData[] StochasticProfileCombinations()
