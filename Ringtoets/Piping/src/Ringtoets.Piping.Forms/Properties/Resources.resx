@@ -619,9 +619,6 @@
   <data name="StochasticSoilModelCollection_SourcePath_Description" xml:space="preserve">
     <value>De locatie van het bestand waaruit de stochastische ondergrondmodellen zijn geïmporteerd.</value>
   </data>
-  <data name="StochasticSoilModelCollection_SourcePath_DisplayName" xml:space="preserve">
-    <value>Bronlocatie</value>
-  </data>
   <data name="PipingSoilLayerTable_ColumnHeader_MaterialName" xml:space="preserve">
     <value>Naam</value>
   </data>
@@ -654,5 +651,8 @@
   </data>
   <data name="PipingSoilLayerTable_ColumnHeader_BelowPhreaticLevelShift" xml:space="preserve">
     <value>Verzadigd gewicht (verschuiving) [kN/m³]</value>
+  </data>
+  <data name="RingtoetsPipingSurfaceLineCollection_SourcePath_Description" xml:space="preserve">
+    <value>De locatie van het bestand waaruit de profielschematisaties zijn geïmporteerd.</value>
   </data>
 </root>

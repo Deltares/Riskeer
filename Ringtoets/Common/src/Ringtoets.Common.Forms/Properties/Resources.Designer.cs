@@ -1559,6 +1559,15 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bronlocatie.
+        /// </summary>
+        public static string ObservableCollectionWithSourcePath_SourcePath_DisplayName {
+            get {
+                return ResourceManager.GetString("ObservableCollectionWithSourcePath_SourcePath_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Oriëntatie [°].
         /// </summary>
         public static string Orientation_DisplayName {

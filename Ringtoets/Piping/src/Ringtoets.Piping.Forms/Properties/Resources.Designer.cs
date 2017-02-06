@@ -1474,6 +1474,15 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to De locatie van het bestand waaruit de profielschematisaties zijn geïmporteerd..
+        /// </summary>
+        public static string RingtoetsPipingSurfaceLineCollection_SourcePath_Description {
+            get {
+                return ResourceManager.GetString("RingtoetsPipingSurfaceLineCollection_SourcePath_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Geometrie uit de database..
         /// </summary>
         public static string StochasticSoilModel_Geometry_Description {
@@ -1578,15 +1587,6 @@ namespace Ringtoets.Piping.Forms.Properties {
         public static string StochasticSoilModelCollection_SourcePath_Description {
             get {
                 return ResourceManager.GetString("StochasticSoilModelCollection_SourcePath_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Bronlocatie.
-        /// </summary>
-        public static string StochasticSoilModelCollection_SourcePath_DisplayName {
-            get {
-                return ResourceManager.GetString("StochasticSoilModelCollection_SourcePath_DisplayName", resourceCulture);
             }
         }
         

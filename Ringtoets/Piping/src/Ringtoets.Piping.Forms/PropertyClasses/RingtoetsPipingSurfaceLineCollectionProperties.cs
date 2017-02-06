@@ -23,24 +23,24 @@ using System;
 using Core.Common.Base;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
-using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Primitives;
 using Ringtoets.Piping.Forms.Properties;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Piping.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of <see cref="ObservableCollectionWithSourcePath{T}"/> of <see cref="StochasticSoilModel"/> for properties panel.
+    /// ViewModel of <see cref="ObservableCollectionWithSourcePath{T}"/> of <see cref="RingtoetsPipingSurfaceLine"/> for properties panel.
     /// </summary>
-    public class StochasticSoilModelCollectionProperties : ObjectProperties<ObservableCollectionWithSourcePath<StochasticSoilModel>>
+    public class RingtoetsPipingSurfaceLineCollectionProperties : ObjectProperties<ObservableCollectionWithSourcePath<RingtoetsPipingSurfaceLine>>
     {
         /// <summary>
-        /// Creates a new instance of <see cref="StochasticSoilModelCollectionProperties"/>.
+        /// Creates a new instance of <see cref="RingtoetsPipingSurfaceLineCollectionProperties"/>.
         /// </summary>
         /// <param name="collection">The collection for which the properties are shown.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="collection"/>
         /// is <c>null</c>.</exception>
-        public StochasticSoilModelCollectionProperties(ObservableCollectionWithSourcePath<StochasticSoilModel> collection)
+        public RingtoetsPipingSurfaceLineCollectionProperties(ObservableCollectionWithSourcePath<RingtoetsPipingSurfaceLine> collection)
         {
             if (collection == null)
             {
@@ -51,7 +51,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
 
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.ObservableCollectionWithSourcePath_SourcePath_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.StochasticSoilModelCollection_SourcePath_Description))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.RingtoetsPipingSurfaceLineCollection_SourcePath_Description))]
         public string SourcePath
         {
             get
