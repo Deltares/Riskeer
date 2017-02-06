@@ -201,69 +201,6 @@ namespace Ringtoets.Piping.Forms.Test.TypeConverters
             mocks.VerifyAll();
         }
 
-        #region Integration tests
-
-        [Test]
-        [TestCase(1)]
-        [TestCase(2)]
-        public void GivenPipingInputParameterContextPropertiesInDynamicPropertyBag_WhenSettingNewValue_ThenPipingInputUpdatesObservers(int propertyIndexToChange)
-        {
-            // Scenario
-            var mocks = new MockRepository();
-            var typeDescriptorContextMock = mocks.StrictMock<ITypeDescriptorContext>();
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-
-            var calculationItem = new PipingCalculationScenario(new GeneralPipingInput());
-            var failureMechanism = new PipingFailureMechanism();
-
-            var inputParameters = new PipingInput(new GeneralPipingInput());
-            var inputParametersContext = new PipingInputContext(inputParameters,
-                                                                calculationItem,
-                                                                Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                                Enumerable.Empty<StochasticSoilModel>(),
-                                                                failureMechanism,
-                                                                assessmentSectionMock);
-
-            var handler = new CalculationInputPropertyChangeHandler<PipingInput, PipingCalculationScenario>();
-            var inputParameterContextProperties = new PipingInputContextProperties(inputParametersContext, handler);
-
-            PropertyDescriptor propertyDescriptor = TypeDescriptor.GetProperties(inputParameterContextProperties).Find("PhreaticLevelExit", false);
-            var dynamicPropertyBag = new DynamicPropertyBag(inputParameterContextProperties);
-
-            typeDescriptorContextMock.Expect(tdc => tdc.Instance).Return(dynamicPropertyBag).Repeat.Twice();
-            typeDescriptorContextMock.Stub(tdc => tdc.PropertyDescriptor).Return(propertyDescriptor);
-            mocks.ReplayAll();
-
-            inputParameters.Attach(observer);
-
-            DesignVariable<NormalDistribution> phreaticLevelExit = inputParameterContextProperties.PhreaticLevelExit;
-            PropertyDescriptorCollection properties = new NormalDistributionDesignVariableTypeConverter().GetProperties(typeDescriptorContextMock, phreaticLevelExit);
-
-            // Precondition
-            Assert.IsNotNull(properties);
-
-            // Event
-            const double newValue = 2.3;
-            properties[propertyIndexToChange].SetValue(phreaticLevelExit, (RoundedDouble) newValue);
-
-            // Result
-            switch (propertyIndexToChange)
-            {
-                case 1:
-                    Assert.AreEqual(newValue, inputParameters.PhreaticLevelExit.Mean.Value);
-                    break;
-                case 2:
-                    Assert.AreEqual(newValue, inputParameters.PhreaticLevelExit.StandardDeviation.Value);
-                    break;
-            }
-            mocks.VerifyAll();
-        }
-
-        #endregion
-
         private class ClassWithReadOnlyDesignVariable
         {
             public ClassWithReadOnlyDesignVariable()

@@ -211,8 +211,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             PropertyDescriptor phreaticLevelExitProperty = dynamicProperties[expectedPhreaticLevelExitPropertyIndex];
             Assert.IsNotNull(phreaticLevelExitProperty);
-            Assert.IsInstanceOf<NormalDistributionDesignVariableTypeConverter>(phreaticLevelExitProperty.Converter);
-            Assert.IsFalse(phreaticLevelExitProperty.IsReadOnly);
+            Assert.IsInstanceOf<ExpandableObjectConverter>(phreaticLevelExitProperty.Converter);
             Assert.AreEqual(hydraulicDataCategory, phreaticLevelExitProperty.Category);
             Assert.AreEqual("Polderpeil [m+NAP]", phreaticLevelExitProperty.DisplayName);
             Assert.AreEqual("Polderpeil.", phreaticLevelExitProperty.Description);
@@ -432,8 +431,10 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             PipingInputContextProperties properties = new PipingInputContextProperties(context, handler);
 
             // Call & Assert
-            Assert.AreSame(inputParameters.PhreaticLevelExit, properties.PhreaticLevelExit.Distribution);
-            Assert.AreSame(inputParameters.DampingFactorExit, properties.DampingFactorExit.Data);
+            Assert.AreEqual(inputParameters.PhreaticLevelExit.Mean, properties.PhreaticLevelExit.Mean);
+            Assert.AreEqual(inputParameters.PhreaticLevelExit.StandardDeviation, properties.PhreaticLevelExit.StandardDeviation);
+            Assert.AreEqual(inputParameters.DampingFactorExit.Mean, properties.DampingFactorExit.Mean);
+            Assert.AreEqual(inputParameters.DampingFactorExit.StandardDeviation, properties.DampingFactorExit.StandardDeviation);
             Assert.AreEqual(inputParameters.ThicknessCoverageLayer.Mean, properties.ThicknessCoverageLayer.Distribution.Mean);
             Assert.AreEqual(inputParameters.ThicknessCoverageLayer.StandardDeviation, properties.ThicknessCoverageLayer.Distribution.StandardDeviation);
             Assert.AreEqual(inputParameters.EffectiveThicknessCoverageLayer.Mean, properties.EffectiveThicknessCoverageLayer.Distribution.Mean);
@@ -524,7 +525,8 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             properties.StochasticSoilProfile = soilProfile;
             properties.DampingFactorExit.Mean = dampingFactorExit.Distribution.Mean;
             properties.DampingFactorExit.StandardDeviation = dampingFactorExit.Distribution.StandardDeviation;
-            properties.PhreaticLevelExit = phreaticLevelExit;
+            properties.PhreaticLevelExit.Mean = phreaticLevelExit.Distribution.Mean;
+            properties.PhreaticLevelExit.StandardDeviation = phreaticLevelExit.Distribution.StandardDeviation;
 
             // Assert
             Assert.AreEqual(assessmentLevel, inputParameters.AssessmentLevel.Value);
@@ -611,15 +613,25 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void PhreaticLevelExit_SetValidValue_SetsValueAndUpdatesObservers()
+        public void PhreaticLevelExitMean_SetValidValue_SetsValueAndUpdatesObservers()
         {
             // Setup
-            var distribution = new NormalDistribution(3);
-            var newPhreaticLevelExit = new NormalDistributionDesignVariable(distribution);
+            var mean = new RoundedDouble(2, 2);
             var calculation = new PipingCalculationScenario(new GeneralPipingInput());
 
             // Call & Assert
-            SetPropertyAndVerifyNotifcationsAndOutputForCalculation(properties => properties.PhreaticLevelExit = newPhreaticLevelExit, distribution, calculation);
+            SetPropertyAndVerifyNotifcationsAndOutputForCalculation(properties => properties.PhreaticLevelExit.Mean = mean, mean, calculation);
+        }
+
+        [Test]
+        public void PhreaticLevelExitStandardDeviation_SetValidValue_SetsValueAndUpdatesObservers()
+        {
+            // Setup
+            var standardDeviation = new RoundedDouble(2, 2);
+            var calculation = new PipingCalculationScenario(new GeneralPipingInput());
+
+            // Call & Assert
+            SetPropertyAndVerifyNotifcationsAndOutputForCalculation(properties => properties.PhreaticLevelExit.StandardDeviation = standardDeviation, standardDeviation, calculation);
         }
 
         [Test]
@@ -1397,7 +1409,6 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         {
             // Given
             var mocks = new MockRepository();
-            var typeDescriptorContext = mocks.StrictMock<ITypeDescriptorContext>();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
 
             PipingCalculationScenario calculationItem = new PipingCalculationScenario(new GeneralPipingInput());
@@ -1416,17 +1427,18 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             PipingInputContextProperties contextProperties = new PipingInputContextProperties(context, handler);
             inputParameters.HydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(1.0);
 
-            DesignVariable<NormalDistribution> phreaticLevelExitProperty = contextProperties.PhreaticLevelExit;
-            DynamicPropertyBag dynamicPropertyBag = new DynamicPropertyBag(contextProperties);
-            typeDescriptorContext.Expect(tdc => tdc.Instance).Return(dynamicPropertyBag).Repeat.Twice();
-            typeDescriptorContext.Stub(tdc => tdc.PropertyDescriptor).Return(dynamicPropertyBag.GetProperties()["PhreaticLevelExit"]);
+            NormalDistributionDesignVariableProperties phreaticLevelExitProperty = contextProperties.PhreaticLevelExit;
             mocks.ReplayAll();
 
-            PropertyDescriptorCollection properties = new NormalDistributionDesignVariableTypeConverter().GetProperties(typeDescriptorContext, phreaticLevelExitProperty);
-            Assert.NotNull(properties);
-
             // When
-            properties[propertyIndexToChange].SetValue(phreaticLevelExitProperty, (RoundedDouble) 2.3);
+            if (propertyIndexToChange == 1)
+            {
+                phreaticLevelExitProperty.Mean = (RoundedDouble) 2.3;
+            }
+            else if (propertyIndexToChange == 2)
+            {
+                phreaticLevelExitProperty.StandardDeviation = (RoundedDouble) 2.3;
+            }
 
             // Then
             Assert.IsFalse(double.IsNaN(inputParameters.PiezometricHeadExit));

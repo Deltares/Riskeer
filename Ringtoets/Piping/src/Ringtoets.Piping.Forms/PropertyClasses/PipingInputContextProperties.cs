@@ -231,19 +231,19 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         }
 
         [PropertyOrder(phreaticLevelExitPropertyIndex)]
-        [TypeConverter(typeof(NormalDistributionDesignVariableTypeConverter))]
+        [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_HydraulicData))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.PipingInput_PhreaticLevelExit_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.PipingInput_PhreaticLevelExit_Description))]
-        public DesignVariable<NormalDistribution> PhreaticLevelExit
+        public NormalDistributionDesignVariableProperties PhreaticLevelExit
         {
             get
             {
-                return PipingSemiProbabilisticDesignValueFactory.GetPhreaticLevelExit(data.WrappedData);
-            }
-            set
-            {
-                ChangePropertyValueAndNotifyAffectedObjects((input, v) => input.PhreaticLevelExit = v, value.Distribution);
+                return new NormalDistributionDesignVariableProperties(DistributionPropertiesReadOnly.None,
+                                                                      PipingSemiProbabilisticDesignValueFactory.GetPhreaticLevelExit(data.WrappedData),
+                                                                      data.PipingCalculation,
+                                                                      data.WrappedData,
+                                                                      propertyChangeHandler);
             }
         }
 
