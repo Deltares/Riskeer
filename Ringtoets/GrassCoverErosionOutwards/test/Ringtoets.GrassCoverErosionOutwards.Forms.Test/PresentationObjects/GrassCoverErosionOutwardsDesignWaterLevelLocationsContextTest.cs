@@ -39,13 +39,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
             // Call
-            TestDelegate call = () => new GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(null, assessmentSectionStub, failureMechanism);
+            TestDelegate call = () => new GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(null, assessmentSection, failureMechanism);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -73,13 +73,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var locations = new ObservableList<HydraulicBoundaryLocation>();
 
             // Call
-            TestDelegate call = () => new GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(locations, assessmentSectionStub, null);
+            TestDelegate call = () => new GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(locations, assessmentSection, null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -92,17 +92,17 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
         {
             // Setup
             var mockRepository = new MockRepository();
-            var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
             var locations = new ObservableList<HydraulicBoundaryLocation>();
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
             // Call
-            var presentationObject = new GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(locations, assessmentSectionMock, failureMechanism);
+            var presentationObject = new GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(locations, assessmentSection, failureMechanism);
 
             // Assert
             Assert.IsInstanceOf<ObservableWrappedObjectContextBase<ObservableList<HydraulicBoundaryLocation>>>(presentationObject);
-            Assert.AreSame(assessmentSectionMock, presentationObject.AssessmentSection);
+            Assert.AreSame(assessmentSection, presentationObject.AssessmentSection);
             Assert.AreSame(locations, presentationObject.WrappedData);
             Assert.AreSame(failureMechanism, presentationObject.FailureMechanism);
             mockRepository.VerifyAll();

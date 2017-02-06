@@ -136,7 +136,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
             };
 
             var mocks = new MockRepository();
-            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(a => a.GetFailureMechanisms()).Return(new[]
             {
                 failureMechanism

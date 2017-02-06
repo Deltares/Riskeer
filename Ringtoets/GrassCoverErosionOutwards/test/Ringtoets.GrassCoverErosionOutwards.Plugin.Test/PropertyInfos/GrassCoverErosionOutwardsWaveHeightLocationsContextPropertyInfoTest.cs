@@ -55,13 +55,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.PropertyInfos
         {
             // Setup
             MockRepository mockRepository = new MockRepository();
-            var assessmentSectionMock = mockRepository.Stub<IAssessmentSection>();
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
 
             var hydraulicBoundaryLocations = new ObservableList<HydraulicBoundaryLocation>();
 
             var context = new GrassCoverErosionOutwardsWaveHeightLocationsContext(
-                hydraulicBoundaryLocations, assessmentSectionMock, new GrassCoverErosionOutwardsFailureMechanism());
+                hydraulicBoundaryLocations, assessmentSection, new GrassCoverErosionOutwardsFailureMechanism());
 
             using (GrassCoverErosionOutwardsPlugin plugin = new GrassCoverErosionOutwardsPlugin())
             {

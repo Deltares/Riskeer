@@ -37,14 +37,14 @@ namespace Ringtoets.HeightStructures.Service.Test
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var failureMechanism = new HeightStructuresFailureMechanism();
             var calculation = new StructuresCalculation<HeightStructuresInput>();
 
             // Call
-            var activity = new HeightStructuresCalculationActivity(calculation, "", failureMechanism, assessmentSectionMock);
+            var activity = new HeightStructuresCalculationActivity(calculation, "", failureMechanism, assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<Activity>(activity);
@@ -60,13 +60,13 @@ namespace Ringtoets.HeightStructures.Service.Test
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var failureMechanism = new HeightStructuresFailureMechanism();
 
             // Call
-            TestDelegate call = () => new HeightStructuresCalculationActivity(null, "", failureMechanism, assessmentSectionMock);
+            TestDelegate call = () => new HeightStructuresCalculationActivity(null, "", failureMechanism, assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -79,14 +79,14 @@ namespace Ringtoets.HeightStructures.Service.Test
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var failureMechanism = new HeightStructuresFailureMechanism();
             var calculation = new StructuresCalculation<HeightStructuresInput>();
 
             // Call
-            TestDelegate call = () => new HeightStructuresCalculationActivity(calculation, null, failureMechanism, assessmentSectionMock);
+            TestDelegate call = () => new HeightStructuresCalculationActivity(calculation, null, failureMechanism, assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -99,13 +99,13 @@ namespace Ringtoets.HeightStructures.Service.Test
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var calculation = new StructuresCalculation<HeightStructuresInput>();
 
             // Call
-            TestDelegate call = () => new HeightStructuresCalculationActivity(calculation, "", null, assessmentSectionMock);
+            TestDelegate call = () => new HeightStructuresCalculationActivity(calculation, "", null, assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

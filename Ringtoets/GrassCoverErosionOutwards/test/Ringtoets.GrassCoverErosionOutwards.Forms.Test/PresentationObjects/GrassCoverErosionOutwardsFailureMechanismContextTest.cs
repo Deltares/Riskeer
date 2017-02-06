@@ -37,17 +37,17 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
             // Call
-            var context = new GrassCoverErosionOutwardsFailureMechanismContext(failureMechanism, assessmentSectionMock);
+            var context = new GrassCoverErosionOutwardsFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismContext<GrassCoverErosionOutwardsFailureMechanism>>(context);
-            Assert.AreSame(assessmentSectionMock, context.Parent);
+            Assert.AreSame(assessmentSection, context.Parent);
             Assert.AreSame(failureMechanism, context.WrappedData);
             mocks.VerifyAll();
         }
@@ -57,11 +57,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => new GrassCoverErosionOutwardsFailureMechanismContext(null, assessmentSectionMock);
+            TestDelegate call = () => new GrassCoverErosionOutwardsFailureMechanismContext(null, assessmentSection);
 
             // Assert
             Assert.Throws<ArgumentNullException>(call);

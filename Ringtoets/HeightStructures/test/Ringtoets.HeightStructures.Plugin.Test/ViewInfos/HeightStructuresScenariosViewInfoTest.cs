@@ -226,8 +226,8 @@ namespace Ringtoets.HeightStructures.Plugin.Test.ViewInfos
         public void CloseForData_AssessmentSectionRemovedWithoutHeightStructuresFailureMechanism_ReturnsFalse()
         {
             // Setup
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-            assessmentSectionMock.Expect(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[0]);
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[0]);
             mocks.ReplayAll();
 
             var view = new HeightStructuresScenariosView
@@ -236,7 +236,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.ViewInfos
             };
 
             // Call
-            bool closeForData = info.CloseForData(view, assessmentSectionMock);
+            bool closeForData = info.CloseForData(view, assessmentSection);
 
             // Assert
             Assert.IsFalse(closeForData);
@@ -247,8 +247,8 @@ namespace Ringtoets.HeightStructures.Plugin.Test.ViewInfos
         public void CloseForData_ViewNotCorrespondingToRemovedAssessmentSection_ReturnsFalse()
         {
             // Setup
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-            assessmentSectionMock.Expect(asm => asm.GetFailureMechanisms()).Return(new[]
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new[]
             {
                 new HeightStructuresFailureMechanism()
             });
@@ -261,7 +261,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.ViewInfos
             };
 
             // Call
-            bool closeForData = info.CloseForData(view, assessmentSectionMock);
+            bool closeForData = info.CloseForData(view, assessmentSection);
 
             // Assert
             Assert.IsFalse(closeForData);
@@ -272,9 +272,9 @@ namespace Ringtoets.HeightStructures.Plugin.Test.ViewInfos
         public void CloseForData_ViewCorrespondingToRemovedAssessmentSection_ReturnsTrue()
         {
             // Setup
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             var failureMechanism = new HeightStructuresFailureMechanism();
-            assessmentSectionMock.Expect(asm => asm.GetFailureMechanisms()).Return(new[]
+            assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new[]
             {
                 failureMechanism
             });
@@ -287,7 +287,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.ViewInfos
             };
 
             // Call
-            bool closeForData = info.CloseForData(view, assessmentSectionMock);
+            bool closeForData = info.CloseForData(view, assessmentSection);
 
             // Assert
             Assert.IsTrue(closeForData);
@@ -330,12 +330,12 @@ namespace Ringtoets.HeightStructures.Plugin.Test.ViewInfos
         public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanismContext_ReturnsFalse()
         {
             // Setup
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var view = new HeightStructuresScenariosView();
             var failureMechanism = new HeightStructuresFailureMechanism();
-            var failureMechanismContext = new HeightStructuresFailureMechanismContext(new HeightStructuresFailureMechanism(), assessmentSectionMock);
+            var failureMechanismContext = new HeightStructuresFailureMechanismContext(new HeightStructuresFailureMechanism(), assessmentSection);
 
             view.Data = failureMechanism.CalculationsGroup;
 
