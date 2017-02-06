@@ -190,17 +190,17 @@ namespace Application.Ringtoets.MigrationConsole.Test
                    + "MIGRATIEHULPPROGRAMMA -h" + Environment.NewLine
                    + "MIGRATIEHULPPROGRAMMA --help" + Environment.NewLine
                    + "          Geeft deze informatie weer." + Environment.NewLine + Environment.NewLine
+                   + "MIGRATIEHULPPROGRAMMA bronprojectpad" + Environment.NewLine
+                   + "          Controleert of het projectbestand dat te vinden is in het bronproject"
+                   + Environment.NewLine
+                   + "          pad gemigreerd kan worden." + Environment.NewLine + Environment.NewLine
                    + "MIGRATIEHULPPROGRAMMA bronprojectpad doelprojectpad" + Environment.NewLine
                    + "          Voert de migratie uit van het projectbestand dat te vinden is in het "
                    + Environment.NewLine
                    + "          bronprojectpad en slaat het resulterende projectbestand op in het doe"
                    + Environment.NewLine
                    + "          lprojectpad."
-                   + Environment.NewLine + Environment.NewLine
-                   + "MIGRATIEHULPPROGRAMMA bronprojectpad" + Environment.NewLine
-                   + "          Controleert of het projectbestand dat te vinden is in het bronproject"
-                   + Environment.NewLine
-                   + "          pad gemigreerd kan worden." + Environment.NewLine + Environment.NewLine;
+                   + Environment.NewLine + Environment.NewLine;
         }
     }
 }
