@@ -42,7 +42,6 @@ using Ringtoets.Common.Forms.UITypeEditors;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.PropertyClasses;
-using Ringtoets.Piping.Forms.TypeConverters;
 using Ringtoets.Piping.KernelWrapper.TestUtil;
 using Ringtoets.Piping.Primitives;
 

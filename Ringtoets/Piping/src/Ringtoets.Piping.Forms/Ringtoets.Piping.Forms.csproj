@@ -83,14 +83,6 @@
     <Compile Include="PropertyClasses\StochasticSoilProfileProperties.cs" />
     <Compile Include="PropertyClasses\RingtoetsPipingSurfaceLineProperties.cs" />
     <Compile Include="PropertyClasses\StochasticSoilModelProperties.cs" />
-    <Compile Include="TypeConverters\LogNormalDistributionDesignVariableTypeConverter.cs" />
-    <Compile Include="TypeConverters\DesignVariableTypeConverter.cs" />
-    <Compile Include="TypeConverters\PropertyDescriptors\RoutedPropertyDescriptor.cs" />
-    <Compile Include="TypeConverters\PropertyDescriptors\ContainingPropertyUpdateDescriptorDecorator.cs" />
-    <Compile Include="TypeConverters\ShiftedLogNormalDistributionDesignVariableTypeConverter.cs" />
-    <Compile Include="TypeConverters\PropertyDescriptors\SimpleReadonlyPropertyDescriptor.cs" />
-    <Compile Include="TypeConverters\PropertyDescriptors\TextPropertyDescriptorDecorator.cs" />
-    <Compile Include="TypeConverters\NormalDistributionDesignVariableTypeConverter.cs" />
     <Compile Include="UITypeEditors\PipingInputContextStochasticSoilModelSelectionEditor.cs" />
     <Compile Include="UITypeEditors\PipingInputContextStochasticSoilProfileSelectionEditor.cs" />
     <Compile Include="UITypeEditors\PipingInputContextSurfaceLineSelectionEditor.cs" />
