@@ -62,13 +62,13 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void GetViewName_Always_ReturnsViewName()
         {
             // Setup
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-            var viewMock = mocks.StrictMock<AssessmentSectionView>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var view = mocks.Stub<AssessmentSectionView>();
 
             mocks.ReplayAll();
 
             // Call
-            var viewName = info.GetViewName(viewMock, assessmentSectionMock);
+            var viewName = info.GetViewName(view, assessmentSection);
 
             // Assert
             Assert.AreEqual("Trajectkaart", viewName);

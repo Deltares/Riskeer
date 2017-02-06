@@ -832,14 +832,14 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             const string name = "A";
 
             var mocks = new MockRepository();
-            var failureMechanismMock = mocks.StrictMock<IFailureMechanism>();
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
 
-            failureMechanismMock.Stub(fm => fm.Name).Return(name);
+            failureMechanism.Stub(fm => fm.Name).Return(name);
 
             mocks.ReplayAll();
 
-            var context = new TestFailureMechanismContext(failureMechanismMock, assessmentSectionMock);
+            var context = new TestFailureMechanismContext(failureMechanism, assessmentSection);
             var treeNodeInfo = RingtoetsTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<TestFailureMechanismContext>(null, null, null, null);
 
             // Call
@@ -868,13 +868,14 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var failureMechanismStub = mocks.Stub<IFailureMechanism>();
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+
             mocks.ReplayAll();
 
-            failureMechanismStub.IsRelevant = true;
+            failureMechanism.IsRelevant = true;
 
-            var context = new TestFailureMechanismContext(failureMechanismStub, assessmentSectionMock);
+            var context = new TestFailureMechanismContext(failureMechanism, assessmentSection);
             var treeNodeInfo = RingtoetsTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<TestFailureMechanismContext>(null, null, null, null);
 
             // Call
@@ -890,13 +891,14 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var failureMechanismStub = mocks.Stub<IFailureMechanism>();
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+
             mocks.ReplayAll();
 
-            failureMechanismStub.IsRelevant = false;
+            failureMechanism.IsRelevant = false;
 
-            var context = new TestFailureMechanismContext(failureMechanismStub, assessmentSectionMock);
+            var context = new TestFailureMechanismContext(failureMechanism, assessmentSection);
             var treeNodeInfo = RingtoetsTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<TestFailureMechanismContext>(null, null, null, null);
 
             // Call
@@ -912,12 +914,12 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var failureMechanismStub = mocks.Stub<IFailureMechanism>();
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
 
             mocks.ReplayAll();
 
-            failureMechanismStub.IsRelevant = true;
+            failureMechanism.IsRelevant = true;
 
             var resultIsRelevant = new[]
             {
@@ -931,7 +933,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                 new object()
             };
 
-            var context = new TestFailureMechanismContext(failureMechanismStub, assessmentSectionMock);
+            var context = new TestFailureMechanismContext(failureMechanism, assessmentSection);
             var treeNodeInfo = RingtoetsTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<TestFailureMechanismContext>(mechanismContext => resultIsRelevant, mechanismContext => resultIsNotRelevant, null, null);
 
             // Call
@@ -948,12 +950,12 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var failureMechanismStub = mocks.Stub<IFailureMechanism>();
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
 
             mocks.ReplayAll();
 
-            failureMechanismStub.IsRelevant = false;
+            failureMechanism.IsRelevant = false;
 
             var resultIsRelevant = new[]
             {
@@ -967,7 +969,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                 new object()
             };
 
-            var context = new TestFailureMechanismContext(failureMechanismStub, assessmentSectionMock);
+            var context = new TestFailureMechanismContext(failureMechanism, assessmentSection);
             var treeNodeInfo = RingtoetsTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<TestFailureMechanismContext>(mechanismContext => resultIsRelevant, mechanismContext => resultIsNotRelevant, null, null);
 
             // Call
@@ -988,19 +990,19 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             using (var contextMenuStripNotRelevant = new ContextMenuStrip())
             {
                 var mocks = new MockRepository();
-                var failureMechanismStub = mocks.Stub<IFailureMechanism>();
-                var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+                var failureMechanism = mocks.Stub<IFailureMechanism>();
+                var assessmentSection = mocks.Stub<IAssessmentSection>();
 
                 mocks.ReplayAll();
 
-                failureMechanismStub.IsRelevant = true;
+                failureMechanism.IsRelevant = true;
 
-                var context = new TestFailureMechanismContext(failureMechanismStub, assessmentSectionMock);
+                var context = new TestFailureMechanismContext(failureMechanism, assessmentSection);
                 var treeNodeInfo = RingtoetsTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<TestFailureMechanismContext>(null, null,
                                                                                                                                        (mechanismContext, parent, treeViewControl) =>
                                                                                                                                        {
                                                                                                                                            Assert.AreEqual(context, mechanismContext);
-                                                                                                                                           Assert.AreEqual(assessmentSectionMock, parent);
+                                                                                                                                           Assert.AreEqual(assessmentSection, parent);
                                                                                                                                            Assert.AreEqual(treeView, treeViewControl);
 
                                                                                                                                            return contextMenuStripRelevant;
@@ -1008,14 +1010,14 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                                                                                                                                        (mechanismContext, parent, treeViewControl) =>
                                                                                                                                        {
                                                                                                                                            Assert.AreEqual(context, mechanismContext);
-                                                                                                                                           Assert.AreEqual(assessmentSectionMock, parent);
+                                                                                                                                           Assert.AreEqual(assessmentSection, parent);
                                                                                                                                            Assert.AreEqual(treeView, treeViewControl);
 
                                                                                                                                            return contextMenuStripNotRelevant;
                                                                                                                                        });
 
                 // Call
-                using (ContextMenuStrip contextMenuStrip = treeNodeInfo.ContextMenuStrip(context, assessmentSectionMock, treeView))
+                using (ContextMenuStrip contextMenuStrip = treeNodeInfo.ContextMenuStrip(context, assessmentSection, treeView))
                 {
                     // Assert
                     Assert.AreSame(contextMenuStripRelevant, contextMenuStrip);
@@ -1033,19 +1035,19 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             using (var contextMenuStripNotRelevant = new ContextMenuStrip())
             {
                 var mocks = new MockRepository();
-                var failureMechanismStub = mocks.Stub<IFailureMechanism>();
-                var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+                var failureMechanism = mocks.Stub<IFailureMechanism>();
+                var assessmentSection = mocks.Stub<IAssessmentSection>();
 
                 mocks.ReplayAll();
 
-                failureMechanismStub.IsRelevant = false;
+                failureMechanism.IsRelevant = false;
 
-                var context = new TestFailureMechanismContext(failureMechanismStub, assessmentSectionMock);
+                var context = new TestFailureMechanismContext(failureMechanism, assessmentSection);
                 var treeNodeInfo = RingtoetsTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<TestFailureMechanismContext>(null, null,
                                                                                                                                        (mechanismContext, parent, treeViewControl) =>
                                                                                                                                        {
                                                                                                                                            Assert.AreEqual(context, mechanismContext);
-                                                                                                                                           Assert.AreEqual(assessmentSectionMock, parent);
+                                                                                                                                           Assert.AreEqual(assessmentSection, parent);
                                                                                                                                            Assert.AreEqual(treeView, treeViewControl);
 
                                                                                                                                            return contextMenuStripRelevant;
@@ -1053,14 +1055,14 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                                                                                                                                        (mechanismContext, parent, treeViewControl) =>
                                                                                                                                        {
                                                                                                                                            Assert.AreEqual(context, mechanismContext);
-                                                                                                                                           Assert.AreEqual(assessmentSectionMock, parent);
+                                                                                                                                           Assert.AreEqual(assessmentSection, parent);
                                                                                                                                            Assert.AreEqual(treeView, treeViewControl);
 
                                                                                                                                            return contextMenuStripNotRelevant;
                                                                                                                                        });
 
                 // Call
-                using (ContextMenuStrip result = treeNodeInfo.ContextMenuStrip(context, assessmentSectionMock, treeView))
+                using (ContextMenuStrip result = treeNodeInfo.ContextMenuStrip(context, assessmentSection, treeView))
                 {
                     // Assert
                     Assert.AreSame(contextMenuStripNotRelevant, result);

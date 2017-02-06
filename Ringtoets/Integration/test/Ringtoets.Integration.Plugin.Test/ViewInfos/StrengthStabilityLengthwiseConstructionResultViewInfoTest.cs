@@ -138,8 +138,8 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void CloseForData_AssessmentSectionRemovedWithoutFailureMechanism_ReturnsFalse()
         {
             // Setup
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-            assessmentSectionMock.Expect(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[0]);
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[0]);
 
             mocks.ReplayAll();
 
@@ -149,7 +149,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
                 view.Data = failureMechanism.SectionResults;
 
                 // Call
-                var closeForData = info.CloseForData(view, assessmentSectionMock);
+                var closeForData = info.CloseForData(view, assessmentSection);
 
                 // Assert
                 Assert.IsFalse(closeForData);
@@ -161,22 +161,23 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void CloseForData_ViewNotCorrespondingToRemovedAssessmentSection_ReturnsFalse()
         {
             // Setup
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-            var failureMechanismMock = mocks.Stub<FailureMechanismBase>("N", "C");
-            assessmentSectionMock.Expect(asm => asm.GetFailureMechanisms()).Return(new[]
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var failureMechanism = new StrengthStabilityLengthwiseConstructionFailureMechanism();
+            var otherFailureMechanism = mocks.Stub<FailureMechanismBase>("N", "C");
+
+            assessmentSection.Expect(asm => asm.GetFailureMechanisms()).Return(new[]
             {
-                failureMechanismMock
+                otherFailureMechanism
             });
 
             mocks.ReplayAll();
 
             using (var view = new StrengthStabilityLengthwiseConstructionResultView())
             {
-                var failureMechanism = new StrengthStabilityLengthwiseConstructionFailureMechanism();
                 view.Data = failureMechanism.SectionResults;
 
                 // Call
-                var closeForData = info.CloseForData(view, assessmentSectionMock);
+                var closeForData = info.CloseForData(view, assessmentSection);
 
                 // Assert
                 Assert.IsFalse(closeForData);
@@ -188,10 +189,10 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void CloseForData_ViewCorrespondingToRemovedAssessmentSection_ReturnsTrue()
         {
             // Setup
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             var failureMechanism = new StrengthStabilityLengthwiseConstructionFailureMechanism();
 
-            assessmentSectionMock.Expect(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[]
+            assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[]
             {
                 new PipingFailureMechanism(),
                 failureMechanism
@@ -204,7 +205,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
                 view.Data = failureMechanism.SectionResults;
 
                 // Call
-                var closeForData = info.CloseForData(view, assessmentSectionMock);
+                var closeForData = info.CloseForData(view, assessmentSection);
 
                 // Assert
                 Assert.IsTrue(closeForData);
