@@ -45,6 +45,12 @@
     <Compile Include="..\..\..\..\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
+    <Compile Include="BackgroundMapDataSelectionDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BackgroundMapDataSelectionDialog.Designer.cs">
+      <DependentUpon>BackgroundMapDataSelectionDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="Commands\AddAssessmentSectionCommand.cs" />
     <Compile Include="Commands\AssessmentSectionFromFileCommandHandler.cs" />
     <Compile Include="Commands\IAssessmentSectionFromFileCommandHandler.cs" />
@@ -216,11 +222,6 @@
       <Name>Ringtoets.GrassCoverErosionOutwards.Data</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\GrassCoverErosionOutwards\src\Ringtoets.GrassCoverErosionOutwards.Forms\Ringtoets.GrassCoverErosionOutwards.Forms.csproj">
-      <Project>{41b829c1-630f-40b0-8bee-b1c4c94ec8c4}</Project>
-      <Name>Ringtoets.GrassCoverErosionOutwards.Forms</Name>
-      <Private>False</Private>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\HeightStructures\src\Ringtoets.HeightStructures.Data\Ringtoets.HeightStructures.Data.csproj">
       <Project>{1C0017D8-35B5-4CA0-8FC7-A83F46DBDC99}</Project>
       <Name>Ringtoets.HeightStructures.Data</Name>
@@ -238,6 +239,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="BackgroundMapDataSelectionDialog.resx">
+      <DependentUpon>BackgroundMapDataSelectionDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
