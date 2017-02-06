@@ -55,8 +55,8 @@ namespace Application.Ringtoets.MigrationConsole
         protected override void DisplayAllCommands()
         {
             base.DisplayAllCommands();
-            ShowMigrateCommand();
             ShowSupportedCommand();
+            ShowMigrateCommand();
         }
 
         #region Commands
