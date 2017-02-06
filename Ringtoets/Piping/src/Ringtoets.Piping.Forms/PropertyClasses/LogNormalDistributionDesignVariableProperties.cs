@@ -21,12 +21,10 @@
 
 using System;
 using Core.Common.Base.Data;
-using Core.Common.Gui.Attributes;
 using Core.Common.Utils.Attributes;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Piping.Data;
-using Ringtoets.Piping.Forms.Properties;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Piping.Forms.PropertyClasses
@@ -34,8 +32,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
     /// <summary>
     /// ViewModel of <see cref="DesignVariable{TDistributionType}"/> of <see cref="LogNormalDistribution"/> for properties panel.
     /// </summary>
-    public class LogNormalDistributionDesignVariableProperties
-        : PipingDistributionPropertiesBase<LogNormalDistribution, PipingInput, PipingCalculationScenario>
+    public class LogNormalDistributionDesignVariableProperties : DesignVariableProperties<LogNormalDistribution>
     {
         /// <summary>
         /// Creates a new read-only <see cref="LogNormalDistributionDesignVariableProperties"/>.
@@ -61,13 +58,10 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
                                                              PipingInput calculationInput,
                                                              ICalculationInputPropertyChangeHandler<PipingInput, PipingCalculationScenario> handler)
             : base(propertiesReadOnly,
-                   GetDistribution(designVariable),
+                   designVariable,
                    calculation,
                    calculationInput,
-                   handler)
-        {
-            DesignVariable = designVariable;
-        }
+                   handler) {}
 
         public override string DistributionType { get; } = RingtoetsCommonFormsResources.DistributionType_LogNormal;
 
@@ -95,44 +89,6 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             {
                 base.StandardDeviation = value;
             }
-        }
-
-        [PropertyOrder(5)]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.DesignVariableTypeConverter_DesignValue_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.DesignVariableTypeConverter_DesignValue_Description))]
-        public RoundedDouble DesignValue
-        {
-            get
-            {
-                return DesignVariable.GetDesignValue();
-            }
-        }
-
-        public override string ToString()
-        {
-            return $"{DesignValue} ({RingtoetsCommonFormsResources.NormalDistribution_Mean_DisplayName} = {Mean}, " +
-                   $"{RingtoetsCommonFormsResources.NormalDistribution_StandardDeviation_DisplayName} = {StandardDeviation})";
-        }
-
-        /// <summary>
-        /// Gets the design variable.
-        /// </summary>
-        protected DesignVariable<LogNormalDistribution> DesignVariable { get; }
-
-        /// <summary>
-        /// Gets the <see cref="LogNormalDistribution"/> of the <see cref="DesignVariable{T}"/>.
-        /// </summary>
-        /// <param name="logNormalDesignVariable">The design variable to get the distribution from.</param>
-        /// <returns>The distribution of the design variable.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="logNormalDesignVariable"/>
-        /// is <c>null</c>.</exception>
-        private static LogNormalDistribution GetDistribution(DesignVariable<LogNormalDistribution> logNormalDesignVariable)
-        {
-            if (logNormalDesignVariable == null)
-            {
-                throw new ArgumentNullException(nameof(logNormalDesignVariable));
-            }
-            return logNormalDesignVariable.Distribution;
         }
     }
 }

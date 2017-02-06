@@ -44,7 +44,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("logNormalDesignVariable", exception.ParamName);
+            Assert.AreEqual("designVariable", exception.ParamName);
         }
 
         [Test]
@@ -84,7 +84,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("logNormalDesignVariable", exception.ParamName);
+            Assert.AreEqual("designVariable", exception.ParamName);
             mocks.VerifyAll();
         }
 

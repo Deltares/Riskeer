@@ -55,7 +55,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("normalDesignVariable", exception.ParamName);
+            Assert.AreEqual("designVariable", exception.ParamName);
             mocks.VerifyAll();
         }
 
@@ -80,7 +80,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                                                                             handler);
 
             // Assert
-            Assert.IsInstanceOf<PipingDistributionPropertiesBase<NormalDistribution, PipingInput, PipingCalculationScenario>>(properties);
+            Assert.IsInstanceOf<DesignVariableProperties<NormalDistribution>>(properties);
             Assert.AreSame(distribution, properties.Data);
             Assert.AreEqual(distribution.Mean, properties.Mean);
             Assert.AreEqual(distribution.StandardDeviation, properties.StandardDeviation);
@@ -169,38 +169,6 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             Assert.AreEqual(distribution.Mean, properties.Mean);
             Assert.AreEqual(distribution.StandardDeviation, properties.StandardDeviation);
             Assert.AreEqual(designVariable.GetDesignValue(), properties.DesignValue);
-        }
-
-        [Test]
-        [SetCulture("nl-NL")]
-        public void ToString_Always_ReturnDistributionName()
-        {
-            // Setup
-            var mockRepository = new MockRepository();
-            var handler = mockRepository.Stub<ICalculationInputPropertyChangeHandler<PipingInput, PipingCalculationScenario>>();
-            mockRepository.ReplayAll();
-
-            var distribution = new NormalDistribution(2)
-            {
-                Mean = new RoundedDouble(2, 1),
-                StandardDeviation = new RoundedDouble(2, 2)
-            };
-            var designVariable = new NormalDistributionDesignVariable(distribution);
-
-            PipingCalculationScenario calculationScenario = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
-
-            // Call
-            var properties = new NormalDistributionDesignVariableProperties(DistributionPropertiesReadOnly.None,
-                                                                            designVariable,
-                                                                            calculationScenario,
-                                                                            calculationScenario.InputParameters,
-                                                                            handler);
-
-            // Call
-            var propertyName = properties.ToString();
-
-            // Assert
-            Assert.AreEqual("1,00 (Verwachtingswaarde = 1,00, Standaardafwijking = 2,00)", propertyName);
         }
     }
 }

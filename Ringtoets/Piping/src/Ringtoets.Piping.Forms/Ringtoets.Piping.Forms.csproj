@@ -71,6 +71,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="PropertyClasses\DesignVariableProperties.cs" />
     <Compile Include="PropertyClasses\LogNormalDistributionDesignVariableProperties.cs" />
     <Compile Include="PropertyClasses\NormalDistributionDesignVariableProperties.cs" />
     <Compile Include="PropertyClasses\PipingDistributionPropertiesBase.cs" />
