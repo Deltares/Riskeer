@@ -53,11 +53,11 @@ namespace Ringtoets.DuneErosion.Plugin.Test.PropertyInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var failureMechanism = new DuneErosionFailureMechanism();
-            var context = new DuneErosionFailureMechanismContext(failureMechanism, assessmentSectionMock);
+            var context = new DuneErosionFailureMechanismContext(failureMechanism, assessmentSection);
 
             using (var plugin = new DuneErosionPlugin())
             {

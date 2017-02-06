@@ -37,21 +37,21 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PresentationObjects
         {
             // Setup
             var mockRepository = new MockRepository();
-            var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
 
             var calculationGroup = new CalculationGroup();
             var failureMechanism = new ClosingStructuresFailureMechanism();
 
             // Call
-            var groupContext = new ClosingStructuresCalculationGroupContext(calculationGroup, failureMechanism, assessmentSectionMock);
+            var groupContext = new ClosingStructuresCalculationGroupContext(calculationGroup, failureMechanism, assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismItemContextBase<CalculationGroup, ClosingStructuresFailureMechanism>>(groupContext);
             Assert.IsInstanceOf<ICalculationContext<CalculationGroup, ClosingStructuresFailureMechanism>>(groupContext);
             Assert.AreSame(calculationGroup, groupContext.WrappedData);
             Assert.AreSame(failureMechanism, groupContext.FailureMechanism);
-            Assert.AreSame(assessmentSectionMock, groupContext.AssessmentSection);
+            Assert.AreSame(assessmentSection, groupContext.AssessmentSection);
             mockRepository.VerifyAll();
         }
     }

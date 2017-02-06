@@ -37,14 +37,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             var calculation = new GrassCoverErosionInwardsCalculation();
 
             // Call
-            var activity = new GrassCoverErosionInwardsCalculationActivity(calculation, "", failureMechanism, assessmentSectionMock);
+            var activity = new GrassCoverErosionInwardsCalculationActivity(calculation, "", failureMechanism, assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<HydraRingActivityBase>(activity);
@@ -60,13 +60,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
             // Call
-            TestDelegate call = () => new GrassCoverErosionInwardsCalculationActivity(null, "", failureMechanism, assessmentSectionMock);
+            TestDelegate call = () => new GrassCoverErosionInwardsCalculationActivity(null, "", failureMechanism, assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -79,14 +79,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             var calculation = new GrassCoverErosionInwardsCalculation();
 
             // Call
-            TestDelegate call = () => new GrassCoverErosionInwardsCalculationActivity(calculation, null, failureMechanism, assessmentSectionMock);
+            TestDelegate call = () => new GrassCoverErosionInwardsCalculationActivity(calculation, null, failureMechanism, assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -99,13 +99,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var calculation = new GrassCoverErosionInwardsCalculation();
 
             // Call
-            TestDelegate call = () => new GrassCoverErosionInwardsCalculationActivity(calculation, "", null, assessmentSectionMock);
+            TestDelegate call = () => new GrassCoverErosionInwardsCalculationActivity(calculation, "", null, assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

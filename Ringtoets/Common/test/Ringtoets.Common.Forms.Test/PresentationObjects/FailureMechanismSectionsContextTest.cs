@@ -53,18 +53,18 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
             };
 
             var mocks = new MockRepository();
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-            var failureMechanismMock = mocks.StrictMock<IFailureMechanism>();
-            failureMechanismMock.Stub(fm => fm.Sections).Return(sectionsSequence);
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            failureMechanism.Stub(fm => fm.Sections).Return(sectionsSequence);
             mocks.ReplayAll();
 
             // Call
-            var context = new FailureMechanismSectionsContext(failureMechanismMock, assessmentSectionMock);
+            var context = new FailureMechanismSectionsContext(failureMechanism, assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<ObservableWrappedObjectContextBase<IFailureMechanism>>(context);
-            Assert.AreSame(failureMechanismMock, context.WrappedData);
-            Assert.AreSame(assessmentSectionMock, context.ParentAssessmentSection);
+            Assert.AreSame(failureMechanism, context.WrappedData);
+            Assert.AreSame(assessmentSection, context.ParentAssessmentSection);
             mocks.VerifyAll();
         }
 
@@ -73,11 +73,11 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
         {
             // Setup
             var mocks = new MockRepository();
-            var failureMechanismMock = mocks.StrictMock<IFailureMechanism>();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => new FailureMechanismSectionsContext(failureMechanismMock, null);
+            TestDelegate call = () => new FailureMechanismSectionsContext(failureMechanism, null);
 
             // Assert
             Assert.Throws<ArgumentNullException>(call);

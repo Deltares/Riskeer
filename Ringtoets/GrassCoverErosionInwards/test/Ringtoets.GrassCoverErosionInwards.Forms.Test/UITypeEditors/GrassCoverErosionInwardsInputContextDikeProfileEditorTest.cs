@@ -60,11 +60,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.UITypeEditors
             var grassCoverErosionInwardsInput = new GrassCoverErosionInwardsInput();
             var grassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation();
 
-            var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             var inputContext = new GrassCoverErosionInwardsInputContext(grassCoverErosionInwardsInput,
                                                                         grassCoverErosionInwardsCalculation,
                                                                         failureMechanism,
-                                                                        assessmentSectionMock);
+                                                                        assessmentSection);
 
             var properties = new GrassCoverErosionInwardsInputContextProperties
             {
@@ -110,11 +110,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.UITypeEditors
             };
             var grassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation();
 
-            var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             var inputContext = new GrassCoverErosionInwardsInputContext(grassCoverErosionInwardsInput,
                                                                         grassCoverErosionInwardsCalculation,
                                                                         failureMechanism,
-                                                                        assessmentSectionMock);
+                                                                        assessmentSection);
 
             var properties = new GrassCoverErosionInwardsInputContextProperties
             {

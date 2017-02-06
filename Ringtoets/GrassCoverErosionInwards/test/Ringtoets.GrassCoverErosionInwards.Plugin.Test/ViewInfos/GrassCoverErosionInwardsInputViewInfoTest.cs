@@ -83,7 +83,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
         public void GetViewData_Always_ReturnsWrappedCalculation()
         {
             // Setup
-            IAssessmentSection assessmentSection = mocks.StrictMock<IAssessmentSection>();
+            IAssessmentSection assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             GrassCoverErosionInwardsInput input = new GrassCoverErosionInwardsInput();
@@ -104,7 +104,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
         public void CloseForData_ViewCorrespondingToRemovedCalculationContext_ReturnsTrue()
         {
             // Setup
-            IAssessmentSection assessmentSection = mocks.StrictMock<IAssessmentSection>();
+            IAssessmentSection assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             GrassCoverErosionInwardsCalculation calculation = new GrassCoverErosionInwardsCalculation();
@@ -130,7 +130,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
         public void CloseForData_ViewNotCorrespondingToRemovedCalculationContext_ReturnsFalse()
         {
             // Setup
-            IAssessmentSection assessmentSection = mocks.StrictMock<IAssessmentSection>();
+            IAssessmentSection assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             GrassCoverErosionInwardsCalculation calculation = new GrassCoverErosionInwardsCalculation();
@@ -199,7 +199,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
         public void CloseForData_ViewCorrespondingWithRemovedCalculationGroupContext_ReturnsTrue()
         {
             // Setup
-            IAssessmentSection assessmentSection = mocks.StrictMock<IAssessmentSection>();
+            IAssessmentSection assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             GrassCoverErosionInwardsCalculation calculation = new GrassCoverErosionInwardsCalculation();
@@ -227,7 +227,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
         public void CloseForData_ViewNotCorrespondingWithRemovedCalculationGroupContext_ReturnsFalse()
         {
             // Setup
-            IAssessmentSection assessmentSection = mocks.StrictMock<IAssessmentSection>();
+            IAssessmentSection assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             GrassCoverErosionInwardsCalculation calculation = new GrassCoverErosionInwardsCalculation();
@@ -255,7 +255,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
         public void CloseForData_NestedViewCorrespondingWithRemovedParentCalculationGroupContext_ReturnsTrue()
         {
             // Setup
-            IAssessmentSection assessmentSection = mocks.StrictMock<IAssessmentSection>();
+            IAssessmentSection assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             GrassCoverErosionInwardsCalculation calculation = new GrassCoverErosionInwardsCalculation();
@@ -285,7 +285,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
         public void CloseForData_NestedViewNotCorrespondingWithRemovedParentCalculationGroupContext_ReturnsFalse()
         {
             // Setup
-            IAssessmentSection assessmentSection = mocks.StrictMock<IAssessmentSection>();
+            IAssessmentSection assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             GrassCoverErosionInwardsCalculation calculation = new GrassCoverErosionInwardsCalculation();
@@ -315,7 +315,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
         public void CloseForData_ViewCorrespondingToRemovedFailureMechanismContext_ReturnsTrue()
         {
             // Setup
-            IAssessmentSection assessmentSection = mocks.StrictMock<IAssessmentSection>();
+            IAssessmentSection assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             GrassCoverErosionInwardsCalculation calculation = new GrassCoverErosionInwardsCalculation();
@@ -342,7 +342,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
         public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanismContext_ReturnsFalse()
         {
             // Setup
-            IAssessmentSection assessmentSection = mocks.StrictMock<IAssessmentSection>();
+            IAssessmentSection assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             GrassCoverErosionInwardsCalculation calculation = new GrassCoverErosionInwardsCalculation();
@@ -369,7 +369,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
         public void CloseForData_NestedViewCorrespondingToRemovedFailureMechanismContext_ReturnsTrue()
         {
             // Setup
-            IAssessmentSection assessmentSection = mocks.StrictMock<IAssessmentSection>();
+            IAssessmentSection assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             GrassCoverErosionInwardsCalculation calculation = new GrassCoverErosionInwardsCalculation();
@@ -399,7 +399,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
         public void CloseForData_NestedViewNotCorrespondingToRemovedFailureMechanismContext_ReturnsFalse()
         {
             // Setup
-            IAssessmentSection assessmentSection = mocks.StrictMock<IAssessmentSection>();
+            IAssessmentSection assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             GrassCoverErosionInwardsCalculation calculation = new GrassCoverErosionInwardsCalculation();
@@ -523,8 +523,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
             GrassCoverErosionInwardsFailureMechanism failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculation);
 
-            IAssessmentSection assessmentSection = mocks.StrictMock<IAssessmentSection>();
-            assessmentSection.Expect(section => section.GetFailureMechanisms()).Return(new[]
+            IAssessmentSection assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(section => section.GetFailureMechanisms()).Return(new[]
             {
                 failureMechanism
             });
@@ -553,8 +553,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
             GrassCoverErosionInwardsFailureMechanism failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculation);
 
-            IAssessmentSection assessmentSection = mocks.StrictMock<IAssessmentSection>();
-            assessmentSection.Expect(section => section.GetFailureMechanisms()).Return(new[]
+            IAssessmentSection assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(section => section.GetFailureMechanisms()).Return(new[]
             {
                 failureMechanism
             });
@@ -586,8 +586,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
             GrassCoverErosionInwardsFailureMechanism failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculationGroup);
 
-            IAssessmentSection assessmentSection = mocks.StrictMock<IAssessmentSection>();
-            assessmentSection.Expect(section => section.GetFailureMechanisms()).Return(new[]
+            IAssessmentSection assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(section => section.GetFailureMechanisms()).Return(new[]
             {
                 failureMechanism
             });
@@ -619,8 +619,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
             GrassCoverErosionInwardsFailureMechanism failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculationGroup);
 
-            IAssessmentSection assessmentSection = mocks.StrictMock<IAssessmentSection>();
-            assessmentSection.Expect(section => section.GetFailureMechanisms()).Return(new[]
+            IAssessmentSection assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(section => section.GetFailureMechanisms()).Return(new[]
             {
                 failureMechanism
             });

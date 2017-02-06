@@ -39,19 +39,19 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var failureMechanisms = Enumerable.Empty<IFailureMechanism>();
             var contribution = new FailureMechanismContribution(failureMechanisms, 1.1, 1.0/30000);
 
             // Call
-            var context = new FailureMechanismContributionContext(contribution, assessmentSectionMock);
+            var context = new FailureMechanismContributionContext(contribution, assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<ObservableWrappedObjectContextBase<FailureMechanismContribution>>(context);
             Assert.AreSame(contribution, context.WrappedData);
-            Assert.AreSame(assessmentSectionMock, context.Parent);
+            Assert.AreSame(assessmentSection, context.Parent);
             mocks.VerifyAll();
         }
 

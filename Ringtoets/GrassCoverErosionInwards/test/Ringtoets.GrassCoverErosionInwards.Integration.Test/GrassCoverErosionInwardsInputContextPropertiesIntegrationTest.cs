@@ -49,7 +49,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
         public void DikeProfile_CalculationDikeProfileSetToOtherSection_SecondSectionResultCalculationSetFirstSectionResultCalculationNull()
         {
             // Setup
-            var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
 
             DikeProfile dikeProfile1 = new TestDikeProfile(new Point2D(0.51, 0.51));
@@ -82,7 +82,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
             var sectionResults = failureMechanism.SectionResults.ToArray();
             sectionResults[0].Calculation = calculation;
 
-            var inputContext = new GrassCoverErosionInwardsInputContext(calculation.InputParameters, calculation, failureMechanism, assessmentSectionMock);
+            var inputContext = new GrassCoverErosionInwardsInputContext(calculation.InputParameters, calculation, failureMechanism, assessmentSection);
 
             var properties = new GrassCoverErosionInwardsInputContextProperties
             {
@@ -103,7 +103,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
         public void DikeProfile_CalculationDikeProfileSetToOtherSection_SecondSectionResultCalculationUnchangedFirstSectionResultCalculationNull()
         {
             // Setup
-            var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
 
             DikeProfile dikeProfile1 = new TestDikeProfile(new Point2D(0.51, 0.51));
@@ -147,7 +147,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
             sectionResults[0].Calculation = calculation1;
             sectionResults[1].Calculation = calculation2;
 
-            var inputContext = new GrassCoverErosionInwardsInputContext(calculation1.InputParameters, calculation1, failureMechanism, assessmentSectionMock);
+            var inputContext = new GrassCoverErosionInwardsInputContext(calculation1.InputParameters, calculation1, failureMechanism, assessmentSection);
 
             var properties = new GrassCoverErosionInwardsInputContextProperties
             {

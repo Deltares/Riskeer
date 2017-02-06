@@ -139,10 +139,10 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
         public void CloseForData_AssessmentSectionRemovedWithoutFailureMechanism_ReturnsFalse()
         {
             // Setup
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             var failureMechanism = new DuneErosionFailureMechanism();
 
-            assessmentSectionMock.Expect(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[0]);
+            assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[0]);
 
             mocks.ReplayAll();
 
@@ -151,7 +151,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
                 view.Data = failureMechanism.SectionResults;
 
                 // Call
-                var closeForData = info.CloseForData(view, assessmentSectionMock);
+                var closeForData = info.CloseForData(view, assessmentSection);
 
                 // Assert
                 Assert.IsFalse(closeForData);
@@ -163,23 +163,23 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
         public void CloseForData_ViewNotCorrespondingToRemovedAssessmentSection_ReturnsFalse()
         {
             // Setup
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-            var failureMechanismMock = mocks.Stub<FailureMechanismBase>("N", "C");
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var failureMechanism = new DuneErosionFailureMechanism();
+            var otherFailureMechanism = mocks.Stub<FailureMechanismBase>("N", "C");
 
-            assessmentSectionMock.Expect(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[]
+            assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[]
             {
-                failureMechanismMock
+                otherFailureMechanism
             });
 
             mocks.ReplayAll();
 
             using (var view = new DuneErosionFailureMechanismResultView())
             {
-                var failureMechanism = new DuneErosionFailureMechanism();
                 view.Data = failureMechanism.SectionResults;
 
                 // Call
-                var closeForData = info.CloseForData(view, assessmentSectionMock);
+                var closeForData = info.CloseForData(view, assessmentSection);
 
                 // Assert
                 Assert.IsFalse(closeForData);
@@ -191,13 +191,13 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
         public void CloseForData_ViewCorrespondingToRemovedAssessmentSection_ReturnsTrue()
         {
             // Setup
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             var failureMechanism = new DuneErosionFailureMechanism();
-            var failureMechanismStub = mocks.Stub<FailureMechanismBase>("N", "C");
+            var otherFailureMechanism = mocks.Stub<FailureMechanismBase>("N", "C");
 
-            assessmentSectionMock.Expect(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[]
+            assessmentSection.Expect(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[]
             {
-                failureMechanismStub,
+                otherFailureMechanism,
                 failureMechanism
             });
 
@@ -208,7 +208,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
                 view.Data = failureMechanism.SectionResults;
 
                 // Call
-                var closeForData = info.CloseForData(view, assessmentSectionMock);
+                var closeForData = info.CloseForData(view, assessmentSection);
 
                 // Assert
                 Assert.IsTrue(closeForData);
