@@ -39,6 +39,14 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         private readonly DesignVariable<LogNormalDistribution> designVariable;
 
         /// <summary>
+        /// Creates a new read-only <see cref="LogNormalDistributionDesignVariableProperties"/>.
+        /// </summary>
+        /// <param name="designVariable">The <see cref="DesignVariable{T}"/> to create the properties for.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="designVariable"/> is <c>null</c>.</exception>
+        public LogNormalDistributionDesignVariableProperties(DesignVariable<LogNormalDistribution> designVariable)
+            : this(DistributionPropertiesReadOnly.All, designVariable, null, null, null) {}
+
+        /// <summary>
         /// Creates a new <see cref="LogNormalDistributionDesignVariableProperties"/>.
         /// </summary>
         /// <param name="propertiesReadOnly">Indicates which properties, if any, should be marked as read-only.</param>

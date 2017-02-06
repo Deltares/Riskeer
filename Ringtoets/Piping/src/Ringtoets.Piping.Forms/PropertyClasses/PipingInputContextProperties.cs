@@ -364,80 +364,80 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         }
 
         [PropertyOrder(seepageLengthPropertyIndex)]
-        [TypeConverter(typeof(LogNormalDistributionDesignVariableTypeConverter))]
+        [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.PipingInput_SeepageLength_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.PipingInput_SeepageLength_Description))]
-        public DesignVariable<LogNormalDistribution> SeepageLength
+        public LogNormalDistributionDesignVariableProperties SeepageLength
         {
             get
             {
-                return PipingSemiProbabilisticDesignValueFactory.GetSeepageLength(data.WrappedData);
+                return new LogNormalDistributionDesignVariableProperties(PipingSemiProbabilisticDesignValueFactory.GetSeepageLength(data.WrappedData));
             }
         }
 
         [PropertyOrder(thicknessCoverageLayerPropertyIndex)]
-        [TypeConverter(typeof(LogNormalDistributionDesignVariableTypeConverter))]
+        [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.PipingInput_ThicknessCoverageLayer_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.PipingInput_ThicknessCoverageLayer_Description))]
-        public DesignVariable<LogNormalDistribution> ThicknessCoverageLayer
+        public LogNormalDistributionDesignVariableProperties ThicknessCoverageLayer
         {
             get
             {
-                return PipingSemiProbabilisticDesignValueFactory.GetThicknessCoverageLayer(data.WrappedData);
+                return new LogNormalDistributionDesignVariableProperties(PipingSemiProbabilisticDesignValueFactory.GetThicknessCoverageLayer(data.WrappedData));
             }
         }
 
         [PropertyOrder(effectiveThicknessCoverageLayerPropertyIndex)]
-        [TypeConverter(typeof(LogNormalDistributionDesignVariableTypeConverter))]
+        [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.PipingInput_EffectiveThicknessCoverageLayer_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.PipingInput_EffectiveThicknessCoverageLayer_Description))]
-        public DesignVariable<LogNormalDistribution> EffectiveThicknessCoverageLayer
+        public LogNormalDistributionDesignVariableProperties EffectiveThicknessCoverageLayer
         {
             get
             {
-                return PipingSemiProbabilisticDesignValueFactory.GetEffectiveThicknessCoverageLayer(data.WrappedData);
+                return new LogNormalDistributionDesignVariableProperties(PipingSemiProbabilisticDesignValueFactory.GetEffectiveThicknessCoverageLayer(data.WrappedData));
             }
         }
 
         [PropertyOrder(thicknessAquiferLayerPropertyIndex)]
-        [TypeConverter(typeof(LogNormalDistributionDesignVariableTypeConverter))]
+        [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.PipingInput_ThicknessAquiferLayer_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.PipingInput_ThicknessAquiferLayer_Description))]
-        public DesignVariable<LogNormalDistribution> ThicknessAquiferLayer
+        public LogNormalDistributionDesignVariableProperties ThicknessAquiferLayer
         {
             get
             {
-                return PipingSemiProbabilisticDesignValueFactory.GetThicknessAquiferLayer(data.WrappedData);
+                return new LogNormalDistributionDesignVariableProperties(PipingSemiProbabilisticDesignValueFactory.GetThicknessAquiferLayer(data.WrappedData));
             }
         }
 
         [PropertyOrder(darcyPermeabilityPropertyIndex)]
-        [TypeConverter(typeof(LogNormalDistributionDesignVariableTypeConverter))]
+        [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.PipingInput_DarcyPermeability_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.PipingInput_DarcyPermeability_Description))]
-        public DesignVariable<LogNormalDistribution> DarcyPermeability
+        public LogNormalDistributionDesignVariableProperties DarcyPermeability
         {
             get
             {
-                return PipingSemiProbabilisticDesignValueFactory.GetDarcyPermeability(data.WrappedData);
+                return new LogNormalDistributionDesignVariableProperties(PipingSemiProbabilisticDesignValueFactory.GetDarcyPermeability(data.WrappedData));
             }
         }
 
         [PropertyOrder(diameter70PropertyIndex)]
-        [TypeConverter(typeof(LogNormalDistributionDesignVariableTypeConverter))]
+        [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.PipingInput_Diameter70_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.PipingInput_Diameter70_Description))]
-        public DesignVariable<LogNormalDistribution> Diameter70
+        public LogNormalDistributionDesignVariableProperties Diameter70
         {
             get
             {
-                return PipingSemiProbabilisticDesignValueFactory.GetDiameter70(data.WrappedData);
+                return new LogNormalDistributionDesignVariableProperties(PipingSemiProbabilisticDesignValueFactory.GetDiameter70(data.WrappedData));
             }
         }
 
@@ -453,6 +453,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
                 return PipingSemiProbabilisticDesignValueFactory.GetSaturatedVolumicWeightOfCoverageLayer(data.WrappedData);
             }
         }
+
 
         #endregion
 

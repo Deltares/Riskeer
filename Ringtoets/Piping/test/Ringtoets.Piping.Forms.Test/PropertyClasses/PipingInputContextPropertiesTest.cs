@@ -260,7 +260,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             PropertyDescriptor seepageLengthProperty = dynamicProperties[expectedSeepageLengthPropertyIndex];
             Assert.IsNotNull(seepageLengthProperty);
-            Assert.IsInstanceOf<LogNormalDistributionDesignVariableTypeConverter>(seepageLengthProperty.Converter);
+            Assert.IsInstanceOf<ExpandableObjectConverter>(seepageLengthProperty.Converter);
             Assert.IsTrue(seepageLengthProperty.IsReadOnly);
             Assert.AreEqual(schematizationCategory, seepageLengthProperty.Category);
             Assert.AreEqual("Kwelweglengte [m]", seepageLengthProperty.DisplayName);
@@ -268,7 +268,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             PropertyDescriptor thicknessCoverageLayerProperty = dynamicProperties[expectedThicknessCoverageLayerPropertyIndex];
             Assert.IsNotNull(thicknessCoverageLayerProperty);
-            Assert.IsInstanceOf<LogNormalDistributionDesignVariableTypeConverter>(thicknessCoverageLayerProperty.Converter);
+            Assert.IsInstanceOf<ExpandableObjectConverter>(thicknessCoverageLayerProperty.Converter);
             Assert.IsTrue(thicknessCoverageLayerProperty.IsReadOnly);
             Assert.AreEqual(schematizationCategory, thicknessCoverageLayerProperty.Category);
             Assert.AreEqual("Totale deklaagdikte bij uittredepunt [m]", thicknessCoverageLayerProperty.DisplayName);
@@ -276,7 +276,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             PropertyDescriptor effectiveThicknessCoverageLayerProperty = dynamicProperties[expectedEffectiveThicknessCoverageLayerPropertyIndex];
             Assert.IsNotNull(effectiveThicknessCoverageLayerProperty);
-            Assert.IsInstanceOf<LogNormalDistributionDesignVariableTypeConverter>(effectiveThicknessCoverageLayerProperty.Converter);
+            Assert.IsInstanceOf<ExpandableObjectConverter>(effectiveThicknessCoverageLayerProperty.Converter);
             Assert.IsTrue(effectiveThicknessCoverageLayerProperty.IsReadOnly);
             Assert.AreEqual(schematizationCategory, effectiveThicknessCoverageLayerProperty.Category);
             Assert.AreEqual("Effectieve deklaagdikte bij uittredepunt [m]", effectiveThicknessCoverageLayerProperty.DisplayName);
@@ -284,7 +284,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             PropertyDescriptor thicknessAquiferLayerProperty = dynamicProperties[expectedThicknessAquiferLayerPropertyIndex];
             Assert.IsNotNull(thicknessAquiferLayerProperty);
-            Assert.IsInstanceOf<LogNormalDistributionDesignVariableTypeConverter>(thicknessAquiferLayerProperty.Converter);
+            Assert.IsInstanceOf<ExpandableObjectConverter>(thicknessAquiferLayerProperty.Converter);
             Assert.IsTrue(thicknessAquiferLayerProperty.IsReadOnly);
             Assert.AreEqual(schematizationCategory, thicknessAquiferLayerProperty.Category);
             Assert.AreEqual("Dikte watervoerend pakket [m]", thicknessAquiferLayerProperty.DisplayName);
@@ -292,7 +292,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             PropertyDescriptor darcyPermeabilityProperty = dynamicProperties[expectedDarcyPermeabilityPropertyIndex];
             Assert.IsNotNull(darcyPermeabilityProperty);
-            Assert.IsInstanceOf<LogNormalDistributionDesignVariableTypeConverter>(darcyPermeabilityProperty.Converter);
+            Assert.IsInstanceOf<ExpandableObjectConverter>(darcyPermeabilityProperty.Converter);
             Assert.IsTrue(darcyPermeabilityProperty.IsReadOnly);
             Assert.AreEqual(schematizationCategory, darcyPermeabilityProperty.Category);
             Assert.AreEqual("Doorlatendheid aquifer [m/s]", darcyPermeabilityProperty.DisplayName);
@@ -300,7 +300,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             PropertyDescriptor diameter70Property = dynamicProperties[expectedDiameter70PropertyIndex];
             Assert.IsNotNull(diameter70Property);
-            Assert.IsInstanceOf<LogNormalDistributionDesignVariableTypeConverter>(diameter70Property.Converter);
+            Assert.IsInstanceOf<ExpandableObjectConverter>(diameter70Property.Converter);
             Assert.IsTrue(diameter70Property.IsReadOnly);
             Assert.AreEqual(schematizationCategory, diameter70Property.Category);
             Assert.AreEqual("De d70 in de bovenste zandlaag [m]", diameter70Property.DisplayName);
@@ -435,16 +435,16 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             Assert.AreEqual(inputParameters.PhreaticLevelExit.StandardDeviation, properties.PhreaticLevelExit.StandardDeviation);
             Assert.AreEqual(inputParameters.DampingFactorExit.Mean, properties.DampingFactorExit.Mean);
             Assert.AreEqual(inputParameters.DampingFactorExit.StandardDeviation, properties.DampingFactorExit.StandardDeviation);
-            Assert.AreEqual(inputParameters.ThicknessCoverageLayer.Mean, properties.ThicknessCoverageLayer.Distribution.Mean);
-            Assert.AreEqual(inputParameters.ThicknessCoverageLayer.StandardDeviation, properties.ThicknessCoverageLayer.Distribution.StandardDeviation);
-            Assert.AreEqual(inputParameters.EffectiveThicknessCoverageLayer.Mean, properties.EffectiveThicknessCoverageLayer.Distribution.Mean);
-            Assert.AreEqual(inputParameters.EffectiveThicknessCoverageLayer.StandardDeviation, properties.EffectiveThicknessCoverageLayer.Distribution.StandardDeviation);
-            Assert.AreEqual(inputParameters.Diameter70.Mean, properties.Diameter70.Distribution.Mean);
-            Assert.AreEqual(inputParameters.Diameter70.StandardDeviation, properties.Diameter70.Distribution.StandardDeviation);
-            Assert.AreEqual(inputParameters.DarcyPermeability.Mean, properties.DarcyPermeability.Distribution.Mean);
-            Assert.AreEqual(inputParameters.DarcyPermeability.StandardDeviation, properties.DarcyPermeability.Distribution.StandardDeviation);
-            Assert.AreEqual(inputParameters.ThicknessAquiferLayer.Mean, properties.ThicknessAquiferLayer.Distribution.Mean);
-            Assert.AreEqual(inputParameters.ThicknessAquiferLayer.StandardDeviation, properties.ThicknessAquiferLayer.Distribution.StandardDeviation);
+            Assert.AreEqual(inputParameters.ThicknessCoverageLayer.Mean, properties.ThicknessCoverageLayer.Mean);
+            Assert.AreEqual(inputParameters.ThicknessCoverageLayer.StandardDeviation, properties.ThicknessCoverageLayer.StandardDeviation);
+            Assert.AreEqual(inputParameters.EffectiveThicknessCoverageLayer.Mean, properties.EffectiveThicknessCoverageLayer.Mean);
+            Assert.AreEqual(inputParameters.EffectiveThicknessCoverageLayer.StandardDeviation, properties.EffectiveThicknessCoverageLayer.StandardDeviation);
+            Assert.AreEqual(inputParameters.Diameter70.Mean, properties.Diameter70.Mean);
+            Assert.AreEqual(inputParameters.Diameter70.StandardDeviation, properties.Diameter70.StandardDeviation);
+            Assert.AreEqual(inputParameters.DarcyPermeability.Mean, properties.DarcyPermeability.Mean);
+            Assert.AreEqual(inputParameters.DarcyPermeability.StandardDeviation, properties.DarcyPermeability.StandardDeviation);
+            Assert.AreEqual(inputParameters.ThicknessAquiferLayer.Mean, properties.ThicknessAquiferLayer.Mean);
+            Assert.AreEqual(inputParameters.ThicknessAquiferLayer.StandardDeviation, properties.ThicknessAquiferLayer.StandardDeviation);
             Assert.AreEqual(
                 inputParameters.SaturatedVolumicWeightOfCoverageLayer.Mean,
                 properties.SaturatedVolumicWeightOfCoverageLayer.Distribution.Mean);
@@ -458,8 +458,8 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             Assert.AreEqual(inputParameters.AssessmentLevel, properties.AssessmentLevel);
             Assert.AreEqual(inputParameters.PiezometricHeadExit, properties.PiezometricHeadExit);
 
-            Assert.AreEqual(inputParameters.SeepageLength.Mean, properties.SeepageLength.Distribution.Mean);
-            Assert.AreEqual(inputParameters.SeepageLength.StandardDeviation, properties.SeepageLength.Distribution.StandardDeviation);
+            Assert.AreEqual(inputParameters.SeepageLength.Mean, properties.SeepageLength.Mean);
+            Assert.AreEqual(inputParameters.SeepageLength.StandardDeviation, properties.SeepageLength.StandardDeviation);
             Assert.AreEqual(inputParameters.SeepageLength.Mean, properties.ExitPointL - properties.EntryPointL);
             Assert.AreEqual(inputParameters.ExitPointL, properties.ExitPointL);
 
@@ -711,9 +711,9 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             };
 
             // Assert
-            Assert.AreEqual(seepageLength, properties.SeepageLength.Distribution.Mean, 1e-6);
+            Assert.AreEqual(seepageLength, properties.SeepageLength.Mean, 1e-6);
             Assert.AreEqual(properties.ExitPointL, inputParameters.ExitPointL);
-            Assert.AreEqual(properties.SeepageLength.Distribution.Mean, inputParameters.SeepageLength.Mean);
+            Assert.AreEqual(properties.SeepageLength.Mean, inputParameters.SeepageLength.Mean);
 
             mocks.VerifyAll();
         }
@@ -756,9 +756,9 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             };
 
             // Assert
-            Assert.AreEqual(1.5, properties.SeepageLength.Distribution.Mean.Value);
+            Assert.AreEqual(1.5, properties.SeepageLength.Mean.Value);
             Assert.AreEqual(properties.ExitPointL, inputParameters.ExitPointL);
-            Assert.AreEqual(properties.SeepageLength.Distribution.Mean, inputParameters.SeepageLength.Mean);
+            Assert.AreEqual(properties.SeepageLength.Mean, inputParameters.SeepageLength.Mean);
 
             mocks.VerifyAll();
         }

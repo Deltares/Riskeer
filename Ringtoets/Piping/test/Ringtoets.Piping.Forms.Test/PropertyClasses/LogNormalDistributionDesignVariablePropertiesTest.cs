@@ -37,6 +37,35 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
     public class LogNormalDistributionDesignVariablePropertiesTest
     {
         [Test]
+        public void SingleParameterConstructor_DesignVariableNull_ThrowArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => new LogNormalDistributionDesignVariableProperties(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("logNormalDesignVariable", exception.ParamName);
+        }
+
+        [Test]
+        public void SingleParameterConstructor_ExpectedValues()
+        {
+            // Setup
+            var distribution = new LogNormalDistribution();
+            var designVariable = new LogNormalDistributionDesignVariable(distribution);
+
+            // Call
+            var properties = new LogNormalDistributionDesignVariableProperties(designVariable);
+
+            // Assert
+            Assert.IsInstanceOf<PipingDistributionPropertiesBase<LogNormalDistribution, PipingInput, PipingCalculationScenario>>(properties);
+            Assert.AreSame(distribution, properties.Data);
+            Assert.AreEqual(distribution.Mean, properties.Mean);
+            Assert.AreEqual(distribution.StandardDeviation, properties.StandardDeviation);
+            Assert.AreEqual("Lognormaal", properties.DistributionType);            
+        }
+
+        [Test]
         public void Constructor_DesignVariableNull_ThrowArgumentNullException()
         {
             // Setup
