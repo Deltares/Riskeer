@@ -125,32 +125,34 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_Always_CallsContextMenuBuilderMethods()
         {
             // Setup
-            var guiMock = mockRepository.StrictMock<IGui>();
             var menuBuilderMock = mockRepository.StrictMock<IContextMenuBuilder>();
-            var assessmentSectionMock = mockRepository.Stub<IAssessmentSection>();
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
 
-            var nodeData = new WaveHeightLocationsContext(assessmentSectionMock);
+            var nodeData = new WaveHeightLocationsContext(assessmentSection);
 
-            menuBuilderMock.Expect(mb => mb.AddOpenItem()).Return(menuBuilderMock);
-            menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
-            menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
-            menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
-            menuBuilderMock.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilderMock);
-            menuBuilderMock.Expect(mb => mb.Build()).Return(null);
-            guiMock.Stub(g => g.ProjectOpened += null).IgnoreArguments();
-            guiMock.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
+            using (mockRepository.Ordered())
+            {
+                menuBuilderMock.Expect(mb => mb.AddOpenItem()).Return(menuBuilderMock);
+                menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
+                menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
+                menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
+                menuBuilderMock.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilderMock);
+                menuBuilderMock.Expect(mb => mb.Build()).Return(null);
+            }
 
             using (var treeViewControl = new TreeViewControl())
             {
-                guiMock.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilderMock);
-
+                var gui = mockRepository.Stub<IGui>();
+                gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
+                gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilderMock);
                 mockRepository.ReplayAll();
 
                 using (var plugin = new RingtoetsPlugin())
                 {
                     TreeNodeInfo info = GetInfo(plugin);
 
-                    plugin.Gui = guiMock;
+                    plugin.Gui = gui;
 
                     // Call
                     info.ContextMenuStrip(nodeData, null, treeViewControl);
@@ -164,29 +166,28 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_HydraulicBoundaryDatabaseNotValid_ContextMenuItemCalculateAllDisabledAndTooltipSet()
         {
             // Setup
-            var guiMock = mockRepository.StrictMock<IGui>();
-            var assessmentSectionMock = mockRepository.Stub<IAssessmentSection>();
-
-            var nodeData = new WaveHeightLocationsContext(assessmentSectionMock)
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
+            var nodeData = new WaveHeightLocationsContext(assessmentSection)
             {
                 WrappedData =
                 {
                     HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase()
                 }
             };
-            guiMock.Stub(g => g.ProjectOpened += null).IgnoreArguments();
-            guiMock.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
 
             using (var treeViewControl = new TreeViewControl())
             {
-                guiMock.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                var gui = mockRepository.Stub<IGui>();
+                gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
+                gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
                 mockRepository.ReplayAll();
 
                 using (var plugin = new RingtoetsPlugin())
                 {
                     TreeNodeInfo info = GetInfo(plugin);
 
-                    plugin.Gui = guiMock;
+                    plugin.Gui = gui;
 
                     // Call
                     using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
@@ -209,10 +210,8 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_AllRequiredInputSet_ContextMenuItemCalculateAllEnabled()
         {
             // Setup
-            var guiMock = mockRepository.StrictMock<IGui>();
-            var assessmentSectionMock = mockRepository.Stub<IAssessmentSection>();
-
-            var nodeData = new WaveHeightLocationsContext(assessmentSectionMock)
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
+            var nodeData = new WaveHeightLocationsContext(assessmentSection)
             {
                 WrappedData =
                 {
@@ -222,19 +221,20 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                     }
                 }
             };
-            guiMock.Stub(g => g.ProjectOpened += null).IgnoreArguments();
-            guiMock.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
 
             using (var treeViewControl = new TreeViewControl())
             {
-                guiMock.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                var gui = mockRepository.Stub<IGui>();
+                gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
+                gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
                 mockRepository.ReplayAll();
 
                 using (var plugin = new RingtoetsPlugin())
                 {
                     TreeNodeInfo info = GetInfo(plugin);
 
-                    plugin.Gui = guiMock;
+                    plugin.Gui = gui;
 
                     // Call
                     using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
@@ -257,8 +257,6 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         public void GivenHydraulicBoundaryLocationThatSucceeds_CalculatingWaveHeightFromContextMenu_ThenLogMessagesAddedPreviousOutputAffected()
         {
             // Given
-            var guiMock = mockRepository.DynamicMock<IGui>();
-
             const string locationName = "locationName";
             var location = new HydraulicBoundaryLocation(1, locationName, 1.1, 2.2);
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
@@ -278,9 +276,12 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                guiMock.Expect(g => g.Get(context, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                guiMock.Expect(g => g.MainWindow).Return(mockRepository.Stub<IMainWindow>());
-                guiMock.Expect(g => g.DocumentViewController).Return(mockRepository.Stub<IDocumentViewController>());
+                var gui = mockRepository.Stub<IGui>();
+                gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
+                gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
+                gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                gui.Stub(g => g.MainWindow).Return(mockRepository.Stub<IMainWindow>());
+                gui.Stub(g => g.DocumentViewController).Return(mockRepository.Stub<IDocumentViewController>());
                 mockRepository.ReplayAll();
 
                 DialogBoxHandler = (name, wnd) =>
@@ -291,7 +292,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 using (var plugin = new RingtoetsPlugin())
                 {
                     TreeNodeInfo info = GetInfo(plugin);
-                    plugin.Gui = guiMock;
+                    plugin.Gui = gui;
                     plugin.Activate();
 
                     using (ContextMenuStrip contextMenuAdapter = info.ContextMenuStrip(context, null, treeViewControl))

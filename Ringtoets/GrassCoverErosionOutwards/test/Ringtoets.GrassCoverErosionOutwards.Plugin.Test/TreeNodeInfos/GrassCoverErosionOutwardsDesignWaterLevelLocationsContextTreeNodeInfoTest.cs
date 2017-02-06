@@ -95,12 +95,12 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         public void Text_Always_ReturnName()
         {
             // Setup
-            var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
 
             var context = new GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(
                 new ObservableList<HydraulicBoundaryLocation>(),
-                assessmentSectionMock,
+                assessmentSection,
                 new GrassCoverErosionOutwardsFailureMechanism());
 
             using (var plugin = new GrassCoverErosionOutwardsPlugin())
@@ -120,11 +120,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         public void Image_Always_ReturnGenericInputOutputIcon()
         {
             // Setup
-            var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
             var context = new GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(
                 new ObservableList<HydraulicBoundaryLocation>(),
-                assessmentSectionMock,
+                assessmentSection,
                 new GrassCoverErosionOutwardsFailureMechanism());
             using (var plugin = new GrassCoverErosionOutwardsPlugin())
             {
@@ -143,7 +143,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_Always_CallsContextMenuBuilderMethods()
         {
             // Setup
-            var assessmentSectionMock = mockRepository.Stub<IAssessmentSection>();
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
 
             using (var treeViewControl = new TreeViewControl())
             using (var plugin = new GrassCoverErosionOutwardsPlugin())
@@ -152,19 +152,23 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
 
                 var context = new GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(
                     new ObservableList<HydraulicBoundaryLocation>(),
-                    assessmentSectionMock,
+                    assessmentSection,
                     new GrassCoverErosionOutwardsFailureMechanism());
 
                 var menuBuilder = mockRepository.StrictMock<IContextMenuBuilder>();
-                menuBuilder.Expect(mb => mb.AddOpenItem()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.Build()).Return(null);
 
-                var gui = mockRepository.StrictMock<IGui>();
-                gui.Expect(cmp => cmp.Get(context, treeViewControl)).Return(menuBuilder);
+                using (mockRepository.Ordered())
+                {
+                    menuBuilder.Expect(mb => mb.AddOpenItem()).Return(menuBuilder);
+                    menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
+                    menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
+                    menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
+                    menuBuilder.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilder);
+                    menuBuilder.Expect(mb => mb.Build()).Return(null);
+                }
+
+                var gui = mockRepository.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(menuBuilder);
 
                 mockRepository.ReplayAll();
 
@@ -182,8 +186,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_HydraulicBoundaryDatabaseNotValid_ContextMenuItemCalculateAllDisabledAndTooltipSet()
         {
             // Setup
-            var assessmentSectionMock = mockRepository.Stub<IAssessmentSection>();
-            assessmentSectionMock.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
+            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
 
             var applicationFeatureCommandHandler = mockRepository.Stub<IApplicationFeatureCommands>();
             var importCommandHandler = mockRepository.Stub<IImportCommandHandler>();
@@ -199,7 +203,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
 
                     var context = new GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(
                         new ObservableList<HydraulicBoundaryLocation>(),
-                        assessmentSectionMock,
+                        assessmentSection,
                         new GrassCoverErosionOutwardsFailureMechanism
                         {
                             Contribution = 5
@@ -212,8 +216,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                                                              context,
                                                              treeViewControl);
 
-                    var gui = mockRepository.StrictMock<IGui>();
-                    gui.Expect(cmp => cmp.Get(context, treeViewControl)).Return(menuBuilder);
+                    var gui = mockRepository.Stub<IGui>();
+                    gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(menuBuilder);
 
                     mockRepository.ReplayAll();
 
@@ -239,8 +243,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_FailureMechanismContributionZero_ContextMenuItemCalculateAllDisabledAndTooltipSet()
         {
             // Setup
-            var assessmentSectionMock = mockRepository.Stub<IAssessmentSection>();
-            assessmentSectionMock.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
+            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
                 FilePath = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "HydraulicBoundaryDatabaseImporter"), "complete.sqlite"),
                 Version = "1.0"
@@ -260,7 +264,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
 
                     var context = new GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(
                         new ObservableList<HydraulicBoundaryLocation>(),
-                        assessmentSectionMock,
+                        assessmentSection,
                         new GrassCoverErosionOutwardsFailureMechanism());
 
                     var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler,
@@ -270,8 +274,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                                                              context,
                                                              treeViewControl);
 
-                    var gui = mockRepository.StrictMock<IGui>();
-                    gui.Expect(cmp => cmp.Get(context, treeViewControl)).Return(menuBuilder);
+                    var gui = mockRepository.Stub<IGui>();
+                    gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(menuBuilder);
 
                     mockRepository.ReplayAll();
 
@@ -297,8 +301,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_AllRequiredInputSet_ContextMenuItemCalculateAllEnabled()
         {
             // Setup
-            var assessmentSectionMock = mockRepository.Stub<IAssessmentSection>();
-            assessmentSectionMock.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
+            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
                 FilePath = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "HydraulicBoundaryDatabaseImporter"), "complete.sqlite"),
                 Version = "1.0"
@@ -318,7 +322,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
 
                     var context = new GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(
                         new ObservableList<HydraulicBoundaryLocation>(),
-                        assessmentSectionMock,
+                        assessmentSection,
                         new GrassCoverErosionOutwardsFailureMechanism
                         {
                             Contribution = 5
@@ -331,8 +335,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                                                              context,
                                                              treeViewControl);
 
-                    var gui = mockRepository.StrictMock<IGui>();
-                    gui.Expect(cmp => cmp.Get(context, treeViewControl)).Return(menuBuilder);
+                    var gui = mockRepository.Stub<IGui>();
+                    gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(menuBuilder);
 
                     mockRepository.ReplayAll();
 
@@ -359,7 +363,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             // Setup
             string filePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
 
-            var guiMock = mockRepository.DynamicMock<IGui>();
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
             {
                 Contribution = 5
@@ -378,14 +381,15 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                guiMock.Expect(g => g.Get(context, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                guiMock.Expect(g => g.MainWindow).Return(mockRepository.Stub<IMainWindow>());
+                var gui = mockRepository.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                gui.Stub(g => g.MainWindow).Return(mockRepository.Stub<IMainWindow>());
                 mockRepository.ReplayAll();
 
                 using (var plugin = new GrassCoverErosionOutwardsPlugin())
                 {
                     TreeNodeInfo info = GetInfo(plugin);
-                    plugin.Gui = guiMock;
+                    plugin.Gui = gui;
                     plugin.Activate();
 
                     using (ContextMenuStrip contextMenuAdapter = info.ContextMenuStrip(context, null, treeViewControl))
@@ -419,7 +423,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         public void GivenHydraulicBoundaryLocationSucceeds_CalculatingDesignWaterLevelFromContextMenu_ThenLogMessagesAddedOutputSet()
         {
             // Given
-            var guiMock = mockRepository.DynamicMock<IGui>();
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
             {
                 Contribution = 5
@@ -435,14 +438,15 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                guiMock.Expect(g => g.Get(context, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                guiMock.Expect(g => g.MainWindow).Return(mockRepository.Stub<IMainWindow>());
+                var gui = mockRepository.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                gui.Stub(g => g.MainWindow).Return(mockRepository.Stub<IMainWindow>());
                 mockRepository.ReplayAll();
 
                 using (var plugin = new GrassCoverErosionOutwardsPlugin())
                 {
                     TreeNodeInfo info = GetInfo(plugin);
-                    plugin.Gui = guiMock;
+                    plugin.Gui = gui;
                     plugin.Activate();
 
                     using (ContextMenuStrip contextMenuAdapter = info.ContextMenuStrip(context, null, treeViewControl))

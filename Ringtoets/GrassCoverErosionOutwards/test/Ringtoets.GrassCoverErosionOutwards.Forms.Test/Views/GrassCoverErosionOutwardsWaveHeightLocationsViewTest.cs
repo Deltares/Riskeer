@@ -146,13 +146,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
         }
 
         [Test]
-        public void WaveHeightLocationsView_AssessmentSection_CorrectlyAttachedAndDetached()
+        public void GivenWaveHeightLocationsView_WhenSettingAssessmentSectionAndDisposingView_ThenCorrectlyAttachAndDetachAssessmentSection()
         {
             // Setup
             GrassCoverErosionOutwardsWaveHeightLocationsView view = ShowFullyConfiguredWaveHeightLocationsView();
             var assessmentSection = mockRepository.StrictMock<IAssessmentSection>();
-            assessmentSection.Expect(a => a.Attach(null)).IgnoreArguments();
-            assessmentSection.Expect(a => a.Detach(null)).IgnoreArguments();
+            assessmentSection.Expect(a => a.Attach(Arg<IObserver>.Is.NotNull)).IgnoreArguments();
+            assessmentSection.Expect(a => a.Detach(Arg<IObserver>.Is.NotNull)).IgnoreArguments();
             mockRepository.ReplayAll();
 
             // Call

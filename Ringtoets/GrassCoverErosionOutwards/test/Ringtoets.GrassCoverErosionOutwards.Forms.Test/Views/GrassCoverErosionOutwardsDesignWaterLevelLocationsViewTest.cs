@@ -150,13 +150,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
         }
 
         [Test]
-        public void DesignWaterLevelLocationsView_AssessmentSection_CorrectlyAttachedAndDetached()
+        public void GivenDesignWaterLevelLocationsView_WhenSettingAssessmentSectionAndDisposingView_ThenCorrectlyAttachAndDetachAssessmentSection()
         {
             // Setup
             GrassCoverErosionOutwardsDesignWaterLevelLocationsView view = ShowFullyConfiguredDesignWaterLevelLocationsView();
             var assessmentSection = mockRepository.StrictMock<IAssessmentSection>();
-            assessmentSection.Expect(a => a.Attach(null)).IgnoreArguments();
-            assessmentSection.Expect(a => a.Detach(null)).IgnoreArguments();
+            assessmentSection.Expect(a => a.Attach(Arg<IObserver>.Is.NotNull)).IgnoreArguments();
+            assessmentSection.Expect(a => a.Detach(Arg<IObserver>.Is.NotNull)).IgnoreArguments();
             mockRepository.ReplayAll();
 
             // Call

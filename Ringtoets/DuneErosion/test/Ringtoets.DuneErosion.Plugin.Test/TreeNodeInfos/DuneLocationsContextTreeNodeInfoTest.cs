@@ -169,9 +169,9 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
             // Setup
             using (var treeViewControl = new TreeViewControl())
             {
-                var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+                var assessmentSection = mocks.Stub<IAssessmentSection>();
                 var failureMechanism = new DuneErosionFailureMechanism();
-                var context = new DuneLocationsContext(failureMechanism.DuneLocations, failureMechanism, assessmentSectionMock);
+                var context = new DuneLocationsContext(failureMechanism.DuneLocations, failureMechanism, assessmentSection);
 
                 var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
 
@@ -187,8 +187,8 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
                     menuBuilder.Expect(mb => mb.Build()).Return(null);
                 }
 
-                var gui = mocks.StrictMock<IGui>();
-                gui.Expect(cmp => cmp.Get(context, treeViewControl)).Return(menuBuilder);
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(menuBuilder);
 
                 mocks.ReplayAll();
 
@@ -210,18 +210,20 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
             {
                 var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
 
-                var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-                assessmentSectionMock.Stub(asm => asm.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
+                var assessmentSection = mocks.Stub<IAssessmentSection>();
+                assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
+
                 var failureMechanism = new DuneErosionFailureMechanism
                 {
                     Contribution = 10
                 };
-                var context = new DuneLocationsContext(failureMechanism.DuneLocations, failureMechanism, assessmentSectionMock);
 
                 var builder = new CustomItemsOnlyContextMenuBuilder();
+                var context = new DuneLocationsContext(failureMechanism.DuneLocations, failureMechanism, assessmentSection);
 
-                var gui = mocks.StrictMock<IGui>();
-                gui.Expect(cmp => cmp.Get(context, treeViewControl)).Return(builder);
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(builder);
+
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
@@ -256,18 +258,20 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
                     Version = "1.0"
                 };
 
-                var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-                assessmentSectionMock.Stub(asm => asm.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
+                var assessmentSection = mocks.Stub<IAssessmentSection>();
+                assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
+
                 var failureMechanism = new DuneErosionFailureMechanism
                 {
                     Contribution = 10
                 };
-                var context = new DuneLocationsContext(failureMechanism.DuneLocations, failureMechanism, assessmentSectionMock);
 
                 var builder = new CustomItemsOnlyContextMenuBuilder();
+                var context = new DuneLocationsContext(failureMechanism.DuneLocations, failureMechanism, assessmentSection);
 
-                var gui = mocks.StrictMock<IGui>();
-                gui.Expect(cmp => cmp.Get(context, treeViewControl)).Return(builder);
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(builder);
+
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
@@ -299,15 +303,17 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
                     Version = "1.0"
                 };
 
-                var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-                assessmentSectionMock.Stub(asm => asm.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
+                var assessmentSection = mocks.Stub<IAssessmentSection>();
+                assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
+
                 var failureMechanism = new DuneErosionFailureMechanism();
-                var context = new DuneLocationsContext(failureMechanism.DuneLocations, failureMechanism, assessmentSectionMock);
 
                 var builder = new CustomItemsOnlyContextMenuBuilder();
+                var context = new DuneLocationsContext(failureMechanism.DuneLocations, failureMechanism, assessmentSection);
 
-                var gui = mocks.StrictMock<IGui>();
-                gui.Expect(cmp => cmp.Get(context, treeViewControl)).Return(builder);
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(builder);
+
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
@@ -341,18 +347,20 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
                     Version = "1.0"
                 };
 
-                var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-                assessmentSectionMock.Stub(asm => asm.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
+                var assessmentSection = mocks.Stub<IAssessmentSection>();
+                assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
+
                 var failureMechanism = new DuneErosionFailureMechanism
                 {
                     Contribution = 10
                 };
-                var context = new DuneLocationsContext(failureMechanism.DuneLocations, failureMechanism, assessmentSectionMock);
 
                 var builder = new CustomItemsOnlyContextMenuBuilder();
+                var context = new DuneLocationsContext(failureMechanism.DuneLocations, failureMechanism, assessmentSection);
 
-                var gui = mocks.StrictMock<IGui>();
-                gui.Expect(cmp => cmp.Get(context, treeViewControl)).Return(builder);
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(builder);
+
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
@@ -423,9 +431,9 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
                 var builder = new CustomItemsOnlyContextMenuBuilder();
 
                 var mainWindowStub = mocks.Stub<IMainWindow>();
-                var gui = mocks.StrictMock<IGui>();
-                gui.Expect(cmp => cmp.Get(context, treeViewControl)).Return(builder);
-                gui.Expect(g => g.MainWindow).Return(mainWindowStub);
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(builder);
+                gui.Stub(g => g.MainWindow).Return(mainWindowStub);
                 var observerMock = mocks.StrictMock<IObserver>();
                 observerMock.Expect(o => o.UpdateObserver());
                 mocks.ReplayAll();
