@@ -44,6 +44,7 @@ using Ringtoets.HeightStructures.Data;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Plugin.Handlers;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.IO.Importer;
 using Ringtoets.Piping.Plugin.FileImporter;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityStoneCover.Data;
@@ -551,7 +552,8 @@ namespace Demo.Ringtoets.Commands
                 var soilProfilesImporter = new StochasticSoilModelImporter(pipingFailureMechanism.StochasticSoilModels,
                                                                            Path.Combine(embeddedResourceFileWriter.TargetFolderPath,
                                                                                         "DR6.soil"),
-                                                                           new StochasticSoilModelReplaceDataStrategy());
+                                                                           new StochasticSoilModelReplaceDataStrategy(),
+                                                                           new StochasticSoilModelChangeHandler());
                 soilProfilesImporter.Import();
             }
 

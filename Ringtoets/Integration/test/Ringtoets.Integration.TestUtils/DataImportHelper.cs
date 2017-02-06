@@ -35,6 +35,8 @@ using Ringtoets.Common.IO.ReferenceLines;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Plugin.Handlers;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.IO.Importer;
+using Ringtoets.Piping.IO.TestUtil;
 using Ringtoets.Piping.Plugin.FileImporter;
 using Ringtoets.Piping.Primitives;
 
@@ -207,7 +209,8 @@ namespace Ringtoets.Integration.TestUtils
                 var activity = new FileImportActivity(new StochasticSoilModelImporter(
                                                           assessmentSection.PipingFailureMechanism.StochasticSoilModels,
                                                           filePath,
-                                                          new StochasticSoilModelReplaceDataStrategy()),
+                                                          new StochasticSoilModelReplaceDataStrategy(),
+                                                          new TestStochasticSoilModelChangeHandler()),
                                                       "StochasticSoilModelImporter");
                 activity.Run();
                 activity.Finish();

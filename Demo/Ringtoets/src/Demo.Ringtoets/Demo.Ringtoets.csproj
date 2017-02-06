@@ -177,6 +177,11 @@
       <Name>Ringtoets.Piping.Data</Name>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Ringtoets\Piping\src\Ringtoets.Piping.IO\Ringtoets.Piping.IO.csproj">
+      <Project>{35B87B7A-7F50-4139-B563-589EE522B1ED}</Project>
+      <Name>Ringtoets.Piping.IO</Name>
+      <Private>False</Private>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Ringtoets\Piping\src\Ringtoets.Piping.Plugin\Ringtoets.Piping.Plugin.csproj">
       <Project>{1d3d58b6-ef7e-401e-92a0-104067d222ee}</Project>
       <Name>Ringtoets.Piping.Plugin</Name>

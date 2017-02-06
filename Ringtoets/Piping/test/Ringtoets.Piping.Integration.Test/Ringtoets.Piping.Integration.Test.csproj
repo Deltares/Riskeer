@@ -104,6 +104,10 @@
       <Name>Ringtoets.Piping.Forms</Name>
       <Private>True</Private>
     </ProjectReference>
+    <ProjectReference Include="..\..\src\Ringtoets.Piping.IO\Ringtoets.Piping.IO.csproj">
+      <Project>{35b87b7a-7f50-4139-b563-589ee522b1ed}</Project>
+      <Name>Ringtoets.Piping.IO</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\src\Ringtoets.Piping.KernelWrapper\Ringtoets.Piping.KernelWrapper.csproj">
       <Project>{D64E4F0E-E341-496F-82B2-941AD202B4E3}</Project>
       <Name>Ringtoets.Piping.KernelWrapper</Name>
@@ -127,6 +131,10 @@
     <ProjectReference Include="..\Ringtoets.Piping.Data.TestUtil\Ringtoets.Piping.Data.TestUtil.csproj">
       <Project>{955E574D-67CE-4347-AA6B-7DF8A04ED754}</Project>
       <Name>Ringtoets.Piping.Data.TestUtil</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ringtoets.Piping.IO.TestUtil\Ringtoets.Piping.IO.TestUtil.csproj">
+      <Project>{4A675B7E-96AD-4911-B154-85385C9330C3}</Project>
+      <Name>Ringtoets.Piping.IO.TestUtil</Name>
     </ProjectReference>
     <ProjectReference Include="..\Ringtoets.Piping.KernelWrapper.TestUtil\Ringtoets.Piping.KernelWrapper.TestUtil.csproj">
       <Project>{27E0A5C9-3ABF-426A-A3DA-7D0B83A218C8}</Project>

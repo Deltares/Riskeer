@@ -31,11 +31,11 @@ using log4net;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.IO.Exceptions;
 using Ringtoets.Piping.IO.SoilProfile;
-using Ringtoets.Piping.Plugin.Properties;
 using Ringtoets.Piping.Primitives;
+using Resources = Ringtoets.Piping.IO.Properties.Resources;
 using RingtoestCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 
-namespace Ringtoets.Piping.Plugin.FileImporter
+namespace Ringtoets.Piping.IO.Importer
 {
     /// <summary>
     /// Imports .soil files (SqlLite database files) created with the D-Soil Model application.
@@ -51,17 +51,20 @@ namespace Ringtoets.Piping.Plugin.FileImporter
         /// <param name="importTarget">The collection to update.</param>
         /// <param name="filePath">The path to the file to import from.</param>
         /// <param name="modelUpdateStrategy">The <see cref="IStochasticSoilModelUpdateModelStrategy"/> to use
-        /// when updating the <paramref name="importTarget"/>.</param>
+        ///     when updating the <paramref name="importTarget"/>.</param>
+        /// <param name="changeHandler"></param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="importTarget"/> or
         /// <paramref name="modelUpdateStrategy"/> is <c>null</c>.</exception>
-        public StochasticSoilModelImporter(ObservableCollectionWithSourcePath<StochasticSoilModel> importTarget,
-                                           string filePath,
-                                           IStochasticSoilModelUpdateModelStrategy modelUpdateStrategy)
+        public StochasticSoilModelImporter(ObservableCollectionWithSourcePath<StochasticSoilModel> importTarget, string filePath, IStochasticSoilModelUpdateModelStrategy modelUpdateStrategy, IStochasticSoilModelChangeHandler changeHandler)
             : base(filePath, importTarget)
         {
             if (modelUpdateStrategy == null)
             {
                 throw new ArgumentNullException(nameof(modelUpdateStrategy));
+            }
+            if (changeHandler == null)
+            {
+                throw new ArgumentNullException(nameof(changeHandler));
             }
             this.modelUpdateStrategy = modelUpdateStrategy;
         }
@@ -76,29 +79,38 @@ namespace Ringtoets.Piping.Plugin.FileImporter
 
         protected override bool OnImport()
         {
-            var importSoilProfileResult = ReadSoilProfiles();
-            if (importSoilProfileResult.CriticalErrorOccurred || Canceled)
+            bool proceedModelImport = ChangeHandler == null || !ChangeHandler.RequireConfirmation();
+            if (!proceedModelImport)
             {
-                return false;
+                proceedModelImport = ChangeHandler.InquireConfirmation();
             }
-
-            var importStochasticSoilModelResult = ReadStochasticSoilModels();
-            if (importStochasticSoilModelResult.CriticalErrorOccurred || Canceled)
+            if (proceedModelImport)
             {
-                return false;
+                var importSoilProfileResult = ReadSoilProfiles();
+                if (importSoilProfileResult.CriticalErrorOccurred || Canceled)
+                {
+                    return false;
+                }
+
+                var importStochasticSoilModelResult = ReadStochasticSoilModels();
+                if (importStochasticSoilModelResult.CriticalErrorOccurred || Canceled)
+                {
+                    return false;
+                }
+
+                AddSoilProfilesToStochasticSoilModels(importSoilProfileResult.ImportedItems, importStochasticSoilModelResult.ImportedItems);
+                MergeStochasticSoilProfiles(importStochasticSoilModelResult.ImportedItems);
+                CheckIfAllProfilesAreUsed(importSoilProfileResult.ImportedItems, importStochasticSoilModelResult.ImportedItems);
+                if (Canceled)
+                {
+                    return false;
+                }
+
+                UpdatedInstances = modelUpdateStrategy.UpdateModelWithImportedData(ImportTarget, GetValidStochasticSoilModels(importStochasticSoilModelResult), FilePath);
+
+                return true;
             }
-
-            AddSoilProfilesToStochasticSoilModels(importSoilProfileResult.ImportedItems, importStochasticSoilModelResult.ImportedItems);
-            MergeStochasticSoilProfiles(importStochasticSoilModelResult.ImportedItems);
-            CheckIfAllProfilesAreUsed(importSoilProfileResult.ImportedItems, importStochasticSoilModelResult.ImportedItems);
-            if (Canceled)
-            {
-                return false;
-            }
-
-            UpdatedInstances = modelUpdateStrategy.UpdateModelWithImportedData(ImportTarget, GetValidStochasticSoilModels(importStochasticSoilModelResult), FilePath);
-
-            return true;
+            return false;
         }
 
         protected override void LogImportCanceledMessage()
@@ -107,6 +119,8 @@ namespace Ringtoets.Piping.Plugin.FileImporter
         }
 
         private IEnumerable<IObservable> UpdatedInstances { get; set; }
+
+        public IStochasticSoilModelChangeHandler ChangeHandler { get; set; }
 
         /// <summary>
         /// Validate the definition of a <see cref="StochasticSoilModel"/>.

@@ -22,7 +22,7 @@
 using System;
 using System.Runtime.Serialization;
 
-namespace Ringtoets.Piping.Plugin.FileImporter
+namespace Ringtoets.Piping.IO.Importer
 {
     /// <summary>
     /// The exception that is thrown when applying the stochastic soil model update strategy failed.

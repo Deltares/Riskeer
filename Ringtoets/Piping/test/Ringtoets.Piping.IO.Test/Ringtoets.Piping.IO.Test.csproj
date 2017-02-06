@@ -77,6 +77,7 @@
     <Compile Include="SoilProfile\StochasticSoilModelReaderTest.cs" />
     <Compile Include="SoilProfile\StochasticSoilProfileReaderTest.cs" />
     <Compile Include="SoilProfile\SoilDatabaseVersionReaderTest.cs" />
+    <Compile Include="StochasticSoilModelImporterTest.cs" />
     <Compile Include="SurfaceLines\CharacteristicPointsCsvReaderTest.cs" />
     <Compile Include="SurfaceLines\CharacteristicPointsTest.cs" />
     <Compile Include="Exceptions\PipingSoilProfileReadExceptionTest.cs" />
@@ -106,6 +107,10 @@
       <Project>{d749ee4c-ce50-4c17-bf01-9a953028c126}</Project>
       <Name>Core.Common.TestUtil</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">
+      <Project>{D4200F43-3F72-4F42-AF0A-8CED416A38EC}</Project>
+      <Name>Ringtoets.Common.Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\src\Ringtoets.Piping.Data\Ringtoets.Piping.Data.csproj">
       <Project>{ce994cc9-6f6a-48ac-b4be-02c30a21f4db}</Project>
       <Name>Ringtoets.Piping.Data</Name>
@@ -121,6 +126,10 @@
     <ProjectReference Include="..\Ringtoets.Piping.Data.TestUtil\Ringtoets.Piping.Data.TestUtil.csproj">
       <Project>{955E574D-67CE-4347-AA6B-7DF8A04ED754}</Project>
       <Name>Ringtoets.Piping.Data.TestUtil</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ringtoets.Piping.IO.TestUtil\Ringtoets.Piping.IO.TestUtil.csproj">
+      <Project>{4A675B7E-96AD-4911-B154-85385C9330C3}</Project>
+      <Name>Ringtoets.Piping.IO.TestUtil</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

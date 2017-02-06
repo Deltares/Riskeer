@@ -25,6 +25,7 @@ using System.Linq;
 using Core.Common.Base;
 using log4net;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.IO.Importer;
 
 namespace Ringtoets.Piping.Plugin.FileImporter
 {

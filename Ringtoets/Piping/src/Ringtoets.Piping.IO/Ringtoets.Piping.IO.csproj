@@ -52,6 +52,10 @@
     <Compile Include="Builders\SoilProfileBuilder2D.cs" />
     <Compile Include="Builders\SoilDatabaseQueryBuilder.cs" />
     <Compile Include="Exceptions\StochasticSoilProfileReadException.cs" />
+    <Compile Include="Importer\IStochasticSoilModelChangeHandler.cs" />
+    <Compile Include="Importer\IStochasticSoilModelUpdateModelStrategy.cs" />
+    <Compile Include="Importer\StochasticSoilModelImporter.cs" />
+    <Compile Include="Importer\StochasticSoilModelUpdateException.cs" />
     <Compile Include="SoilProfile\LayerProperties.cs" />
     <Compile Include="SoilProfile\MechanismDatabaseColumns.cs" />
     <Compile Include="SoilProfile\MetaDataDatabaseColumns.cs" />
@@ -95,6 +99,11 @@
       <Name>Core.Common.Utils</Name>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.IO\Ringtoets.Common.IO.csproj">
+      <Project>{52ba7627-cbab-4209-be77-3b5f31378277}</Project>
+      <Name>Ringtoets.Common.IO</Name>
+      <Private>False</Private>
+    </ProjectReference>
     <ProjectReference Include="..\Ringtoets.Piping.Data\Ringtoets.Piping.Data.csproj">
       <Project>{ce994cc9-6f6a-48ac-b4be-02c30a21f4db}</Project>
       <Name>Ringtoets.Piping.Data</Name>
@@ -114,6 +123,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="log4net, Version=1.2.14.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\packages\log4net.2.0.4\lib\net40-full\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System">
       <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.0\System.dll</HintPath>
     </Reference>

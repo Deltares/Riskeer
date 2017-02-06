@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Piping.IO.Importer;
 using Ringtoets.Piping.Plugin.FileImporter;
@@ -28,6 +27,41 @@ using Ringtoets.Piping.Plugin.FileImporter;
 namespace Ringtoets.Piping.Plugin.Test.FileImporter
 {
     [TestFixture]
-    public class StochasticSoilModelUpdateExceptionTest :
-        CustomExceptionDesignGuidelinesTestFixture<StochasticSoilModelUpdateException, Exception> {}
+    public class StochasticSoilModelChangeHandlerTest
+    {
+        [Test]
+        public void DefaultConstructor_ImplementedExpectedInterface()
+        {
+            // Call
+            var handler = new StochasticSoilModelChangeHandler();
+
+            // Assert
+            Assert.Throws<NotImplementedException>(() => handler.InquireConfirmation());
+        }
+
+        [Test]
+        public void RequireConfirmation_Always_ReturnFalse()
+        {
+            // Setup
+            var handler = new StochasticSoilModelChangeHandler();
+
+            // Call
+            bool requireConfirmation = handler.RequireConfirmation();
+
+            // Assert
+            Assert.IsFalse(requireConfirmation);
+        }
+        [Test]
+        public void InquireConfirmation_Always_ThrowsNotImplementedException()
+        {
+            // Setup
+            var handler = new StochasticSoilModelChangeHandler();
+
+            // Call
+            TestDelegate testDelegate = () => handler.InquireConfirmation();
+
+            // Assert
+            Assert.Throws<NotImplementedException>(testDelegate);
+        }
+    }
 }

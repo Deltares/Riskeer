@@ -19,15 +19,20 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
-using Core.Common.TestUtil;
-using NUnit.Framework;
 using Ringtoets.Piping.IO.Importer;
-using Ringtoets.Piping.Plugin.FileImporter;
 
-namespace Ringtoets.Piping.Plugin.Test.FileImporter
+namespace Ringtoets.Piping.Plugin.FileImporter
 {
-    [TestFixture]
-    public class StochasticSoilModelUpdateExceptionTest :
-        CustomExceptionDesignGuidelinesTestFixture<StochasticSoilModelUpdateException, Exception> {}
+    public class StochasticSoilModelChangeHandler : IStochasticSoilModelChangeHandler
+    {
+        public bool RequireConfirmation()
+        {
+            return false;
+        }
+
+        public bool InquireConfirmation()
+        {
+            throw new System.NotImplementedException();
+        }
+    }
 }

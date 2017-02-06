@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2016. All rights reserved.
+// Copyright (C) Stichting Deltares 2016. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -19,15 +19,12 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
-using Core.Common.TestUtil;
-using NUnit.Framework;
-using Ringtoets.Piping.IO.Importer;
-using Ringtoets.Piping.Plugin.FileImporter;
-
-namespace Ringtoets.Piping.Plugin.Test.FileImporter
+namespace Ringtoets.Piping.IO.Importer
 {
-    [TestFixture]
-    public class StochasticSoilModelUpdateExceptionTest :
-        CustomExceptionDesignGuidelinesTestFixture<StochasticSoilModelUpdateException, Exception> {}
+    public interface IStochasticSoilModelChangeHandler
+    {
+        bool RequireConfirmation();
+
+        bool InquireConfirmation();
+    }
 }

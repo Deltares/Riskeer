@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
@@ -29,7 +28,6 @@ using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.Service;
 using Core.Common.Controls.TreeView;
-using Core.Common.Controls.TreeView.Properties;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms;
 using Core.Common.Gui.Forms.ProgressDialog;
@@ -48,6 +46,7 @@ using Ringtoets.Piping.Forms;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.PropertyClasses;
 using Ringtoets.Piping.Forms.Views;
+using Ringtoets.Piping.IO.Importer;
 using Ringtoets.Piping.Plugin.FileImporter;
 using Ringtoets.Piping.Primitives;
 using Ringtoets.Piping.Service;
@@ -116,7 +115,8 @@ namespace Ringtoets.Piping.Plugin
                 IsEnabled = context => context.AssessmentSection.ReferenceLine != null,
                 CreateFileImporter = (context, filePath) => new StochasticSoilModelImporter(context.WrappedData,
                                                                                             filePath,
-                                                                                            new StochasticSoilModelReplaceDataStrategy())
+                                                                                            new StochasticSoilModelReplaceDataStrategy(),
+                                                                                            new StochasticSoilModelChangeHandler())
             };
         }
 
@@ -569,7 +569,8 @@ namespace Ringtoets.Piping.Plugin
         {
             var importer = new StochasticSoilModelImporter(soilModelCollection,
                                                            sourceFilePath,
-                                                           new StochasticSoilModelUpdateDataStrategy(failureMechanism));
+                                                           new StochasticSoilModelUpdateDataStrategy(failureMechanism),
+                                                           new StochasticSoilModelChangeHandler());
 
             var activity = new FileImportActivity(importer, PipingPluginResources.PipingPlugin_RunUpdateStochasticSoilModel_Update_StochasticSoilModels);
             ActivityProgressDialogRunner.Run(Gui.MainWindow, activity);

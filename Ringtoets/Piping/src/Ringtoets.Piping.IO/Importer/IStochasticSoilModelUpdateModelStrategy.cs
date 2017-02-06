@@ -24,7 +24,7 @@ using System.Collections.Generic;
 using Core.Common.Base;
 using Ringtoets.Piping.Data;
 
-namespace Ringtoets.Piping.Plugin.FileImporter
+namespace Ringtoets.Piping.IO.Importer
 {
     /// <summary>
     /// Interface describing the method of updating the data model after new stochastic soil models
@@ -40,10 +40,10 @@ namespace Ringtoets.Piping.Plugin.FileImporter
         /// <param name="readStochasticSoilModels">The stochastic soil models which were imported.</param>
         /// <param name="sourceFilePath">The path to the source file from which the soil models were imported.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        /// <exception cref="StochasticSoilModelUpdateException">Thrown when applying the strategy failed.
-        /// <see cref="StochasticSoilModelUpdateException.InnerException"/> is set with the more detailed
+        /// <exception cref="Exception.InnerException">Thrown when applying the strategy failed.
+        /// <see cref="StochasticSoilModelUpdateException"/> is set with the more detailed
         /// exception.</exception>
-        /// <returns><see cref="IEnumerable{T}"/> of updated instances.</returns>
+        /// <returns><see cref="StochasticSoilModelUpdateException"/> of updated instances.</returns>
         IEnumerable<IObservable> UpdateModelWithImportedData(
             ObservableCollectionWithSourcePath<StochasticSoilModel> targetCollection, 
             IEnumerable<StochasticSoilModel> readStochasticSoilModels, 

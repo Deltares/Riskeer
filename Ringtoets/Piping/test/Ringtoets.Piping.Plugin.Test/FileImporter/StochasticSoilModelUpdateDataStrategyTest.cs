@@ -26,6 +26,7 @@ using Core.Common.Base;
 using NUnit.Framework;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.TestUtil;
+using Ringtoets.Piping.IO.Importer;
 using Ringtoets.Piping.KernelWrapper.TestUtil;
 using Ringtoets.Piping.Plugin.FileImporter;
 using Ringtoets.Piping.Primitives;

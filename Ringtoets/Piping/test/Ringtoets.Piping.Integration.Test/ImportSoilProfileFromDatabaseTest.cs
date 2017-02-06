@@ -25,6 +25,8 @@ using Core.Common.TestUtil;
 using Deltares.WTIPiping;
 using NUnit.Framework;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.IO.Importer;
+using Ringtoets.Piping.IO.TestUtil;
 using Ringtoets.Piping.KernelWrapper;
 using Ringtoets.Piping.Plugin.FileImporter;
 using Ringtoets.Piping.Primitives;
@@ -47,7 +49,8 @@ namespace Ringtoets.Piping.Integration.Test
             var importer = new StochasticSoilModelImporter(
                 pipingFailureMechanism.StochasticSoilModels,
                 databasePath,
-                new StochasticSoilModelReplaceDataStrategy());
+                new StochasticSoilModelReplaceDataStrategy(),
+                new TestStochasticSoilModelChangeHandler());
             importer.Import();
 
             // Then
@@ -87,7 +90,8 @@ namespace Ringtoets.Piping.Integration.Test
             var importer = new StochasticSoilModelImporter(
                 pipingFailureMechanism.StochasticSoilModels,
                 databasePath,
-                new StochasticSoilModelReplaceDataStrategy());
+                new StochasticSoilModelReplaceDataStrategy(),
+                new TestStochasticSoilModelChangeHandler());
             importer.Import();
 
             // Then
@@ -123,7 +127,8 @@ namespace Ringtoets.Piping.Integration.Test
             var importer = new StochasticSoilModelImporter(
                 pipingFailureMechanism.StochasticSoilModels,
                 databasePath,
-                new StochasticSoilModelReplaceDataStrategy());
+                new StochasticSoilModelReplaceDataStrategy(),
+                new TestStochasticSoilModelChangeHandler());
             importer.Import();
 
             // Then
