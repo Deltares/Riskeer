@@ -51,6 +51,19 @@ namespace Application.Ringtoets.Storage.DbContext
         public int Order { get; set; }
         public string Name { get; set; }
         public string Comments { get; set; }
+        public Nullable<double> LevelCrestStructureMean { get; set; }
+        public Nullable<double> LevelCrestStructureStandardDeviation { get; set; }
+        public Nullable<double> DeviationWaveDirection { get; set; }
+
+        public virtual CalculationGroupEntity CalculationGroupEntity { get; set; }
+        public virtual HeightStructureEntity HeightStructureEntity { get; set; }
+
+        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<HeightStructuresOutputEntity> HeightStructuresOutputEntities { get; set; }
+
+        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<HeightStructuresSectionResultEntity> HeightStructuresSectionResultEntities { get; set; }
+
         public Nullable<double> ModelFactorSuperCriticalFlowMean { get; set; }
         public Nullable<double> StructureNormalOrientation { get; set; }
         public Nullable<double> AllowedLevelIncreaseStorageMean { get; set; }
@@ -65,23 +78,11 @@ namespace Application.Ringtoets.Storage.DbContext
         public Nullable<double> WidthFlowAperturesMean { get; set; }
         public Nullable<double> WidthFlowAperturesStandardDeviation { get; set; }
         public Nullable<double> StormDurationMean { get; set; }
-        public Nullable<double> LevelCrestStructureMean { get; set; }
-        public Nullable<double> LevelCrestStructureStandardDeviation { get; set; }
-        public Nullable<double> DeviationWaveDirection { get; set; }
         public byte UseBreakWater { get; set; }
         public byte UseForeshore { get; set; }
         public byte BreakWaterType { get; set; }
         public Nullable<double> BreakWaterHeight { get; set; }
-
-        public virtual CalculationGroupEntity CalculationGroupEntity { get; set; }
         public virtual ForeshoreProfileEntity ForeshoreProfileEntity { get; set; }
-        public virtual HeightStructureEntity HeightStructureEntity { get; set; }
         public virtual HydraulicLocationEntity HydraulicLocationEntity { get; set; }
-
-        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<HeightStructuresOutputEntity> HeightStructuresOutputEntities { get; set; }
-
-        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<HeightStructuresSectionResultEntity> HeightStructuresSectionResultEntities { get; set; }
     }
 }
