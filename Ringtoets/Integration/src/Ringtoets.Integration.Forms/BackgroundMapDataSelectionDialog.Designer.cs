@@ -37,17 +37,67 @@ namespace Ringtoets.Integration.Forms
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BackgroundMapDataSelectionDialog));
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.cancelButton = new System.Windows.Forms.Button();
+            this.selectButton = new System.Windows.Forms.Button();
+            this.propertiesGroupBox = new System.Windows.Forms.GroupBox();
+            this.tableLayoutPanel1.SuspendLayout();
+            this.flowLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
+            // 
+            // tableLayoutPanel1
+            // 
+            resources.ApplyResources(this.tableLayoutPanel1, "tableLayoutPanel1");
+            this.tableLayoutPanel1.Controls.Add(this.flowLayoutPanel1, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.propertiesGroupBox, 0, 1);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            // 
+            // flowLayoutPanel1
+            // 
+            resources.ApplyResources(this.flowLayoutPanel1, "flowLayoutPanel1");
+            this.flowLayoutPanel1.Controls.Add(this.cancelButton);
+            this.flowLayoutPanel1.Controls.Add(this.selectButton);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            // 
+            // cancelButton
+            // 
+            this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            resources.ApplyResources(this.cancelButton, "cancelButton");
+            this.cancelButton.Name = "cancelButton";
+            this.cancelButton.UseVisualStyleBackColor = true;
+            // 
+            // selectButton
+            // 
+            resources.ApplyResources(this.selectButton, "selectButton");
+            this.selectButton.Name = "selectButton";
+            this.selectButton.UseVisualStyleBackColor = true;
+            // 
+            // propertiesGroupBox
+            // 
+            resources.ApplyResources(this.propertiesGroupBox, "propertiesGroupBox");
+            this.propertiesGroupBox.Name = "propertiesGroupBox";
+            this.propertiesGroupBox.TabStop = false;
             // 
             // BackgroundMapDataSelectionDialog
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "BackgroundMapDataSelectionDialog";
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel1.PerformLayout();
+            this.flowLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
+
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+        private System.Windows.Forms.Button cancelButton;
+        private System.Windows.Forms.Button selectButton;
+        private System.Windows.Forms.GroupBox propertiesGroupBox;
     }
 }

@@ -61,7 +61,7 @@ namespace Ringtoets.Integration.Forms
 
         protected override Button GetCancelButton()
         {
-            return null;
+            return cancelButton;
         }
     }
 }

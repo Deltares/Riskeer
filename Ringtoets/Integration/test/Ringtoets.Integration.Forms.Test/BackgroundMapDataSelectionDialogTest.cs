@@ -24,13 +24,14 @@ using System.Drawing;
 using System.Windows.Forms;
 using Core.Common.Controls.Dialogs;
 using Core.Common.TestUtil;
+using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Forms.Test
 {
     [TestFixture]
-    public class BackgroundMapDataSelectionDialogTest
+    public class BackgroundMapDataSelectionDialogTest : NUnitFormTest
     {
         [Test]
         public void Constructor_WithoutParent_ThrowsArgumentNullException()
@@ -66,19 +67,66 @@ namespace Ringtoets.Integration.Forms.Test
         }
 
         [Test]
-        public void OnLoad_Always_MinimumSizeSet()
+        public void ShowDialog_Always_DefaultProperties()
         {
             // Setup
+            Button buttonSelect = null;
+            Button buttonCancel = null;
+            GroupBox groupBoxProperties = null;
+            DialogBoxHandler = (name, wnd) =>
+            {
+                using (var openedDialog = new FormTester(name))
+                {
+                    var form = (Form) openedDialog.TheObject;
+                    buttonSelect = (Button) new ButtonTester("selectButton", form).TheObject;
+                    buttonCancel = (Button) new ButtonTester("cancelButton", form).TheObject;
+                    groupBoxProperties = (GroupBox) new ControlTester("propertiesGroupBox", form).TheObject;
+                }
+            };
+
             using (var dialogParent = new Form())
             using (var dialog = new BackgroundMapDataSelectionDialog(dialogParent))
             {
                 // Call
-                dialog.Show();
+                dialog.ShowDialog();
 
                 // Assert
-                
+                Assert.IsNotNull(buttonSelect);
+                Assert.AreEqual("Selecteren", buttonSelect.Text);
+                Assert.IsNotNull(buttonCancel);
+                Assert.AreEqual("Annuleren", buttonCancel.Text);
+                Assert.IsNotNull(groupBoxProperties);
+                Assert.AreEqual("Eigenschappen", groupBoxProperties.Text);
                 Assert.AreEqual(500, dialog.MinimumSize.Width);
                 Assert.AreEqual(350, dialog.MinimumSize.Height);
+            }
+        }
+
+        [Test]
+        public void GivenValidDialog_WhenCancelPressed_ThenSelectedMapDataNull()
+        {
+            // Given
+            Button cancelButton = null;
+            DialogBoxHandler = (name, wnd) =>
+            {
+                using (var openedDialog = new FormTester(name))
+                {
+                    var form = (Form) openedDialog.TheObject;
+                    var button = new ButtonTester("cancelButton", form);
+                    cancelButton = (Button) button.TheObject;
+                    button.Click();
+                }
+            };
+
+            using (var dialogParent = new Form())
+            using (var dialog = new BackgroundMapDataSelectionDialog(dialogParent))
+            {
+                // When
+                dialog.ShowDialog();
+
+                // Then
+                Assert.IsNull(dialog.SelectedMapData);
+                Assert.AreEqual(dialog.CancelButton, cancelButton);
             }
         }
 
