@@ -39,6 +39,7 @@ namespace Ringtoets.Piping.Data.TestUtil.Test
             var failureMechanism = new TestPipingFailureMechanism();
 
             // Assert
+            Assert.IsInstanceOf<PipingFailureMechanism>(failureMechanism);
             Assert.AreEqual(24, failureMechanism.Contribution);
         }
 

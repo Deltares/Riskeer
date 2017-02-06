@@ -151,17 +151,16 @@ namespace Ringtoets.Common.Forms.Views
         /// </summary>
         protected void UpdateCalculateForSelectedButton()
         {
-            var validationText = ValidateCalculatableObjects();
+            string validationText = ValidateCalculatableObjects();
             if (!string.IsNullOrEmpty(validationText))
             {
                 CalculateForSelectedButton.Enabled = false;
                 CalculateForSelectedButtonErrorProvider.SetError(CalculateForSelectedButton, validationText);
-                CalculateForSelectedButtonErrorProvider.SetIconPadding(CalculateForSelectedButton, 2);
             }
             else
             {
                 CalculateForSelectedButton.Enabled = true;
-                CalculateForSelectedButtonErrorProvider.Clear();
+                CalculateForSelectedButtonErrorProvider.SetError(CalculateForSelectedButton, "");
             }
         }
 

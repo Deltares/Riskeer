@@ -240,14 +240,14 @@ namespace Ringtoets.DuneErosion.Plugin
 
         private static string ValidateAllDataAvailableAndGetErrorMessage(IAssessmentSection assessmentSection, DuneErosionFailureMechanism failureMechanism)
         {
-            if (!failureMechanism.DuneLocations.Any())
-            {
-                return Resources.DuneErosionPlugin_DuneLocationsContextMenuStrip_Calculate_all_ToolTip_no_locations;
-            }
-
             if (failureMechanism.Contribution <= 0.0)
             {
                 return RingtoetsCommonFormsResources.Contribution_of_failure_mechanism_zero;
+            }
+
+            if (!failureMechanism.DuneLocations.Any())
+            {
+                return Resources.DuneErosionPlugin_DuneLocationsContextMenuStrip_Calculate_all_ToolTip_no_locations;
             }
 
             return HydraulicBoundaryDatabaseConnectionValidator.Validate(assessmentSection.HydraulicBoundaryDatabase);
@@ -274,7 +274,7 @@ namespace Ringtoets.DuneErosion.Plugin
                     context.NotifyObservers();
                 });
 
-            var validationText = ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection, context.FailureMechanism);
+            string validationText = ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection, context.FailureMechanism);
             if (!string.IsNullOrEmpty(validationText))
             {
                 calculateAllItem.Enabled = false;

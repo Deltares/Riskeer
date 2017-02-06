@@ -24,8 +24,15 @@ using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.Data.TestUtil
 {
+    /// <summary>
+    /// <see cref="StochasticSoilModel"/> for testing purposes.
+    /// </summary>
     public class TestStochasticSoilModel : StochasticSoilModel
     {
+        /// <summary>
+        /// Creates a new instance of <see cref="TestStochasticSoilModel"/>.
+        /// </summary>
+        /// <param name="name">The name of the stochastic soil model.</param>
         public TestStochasticSoilModel(string name) : base(0, name, string.Empty)
         {
             StochasticSoilProfiles.AddRange(new[]
@@ -41,7 +48,9 @@ namespace Ringtoets.Piping.Data.TestUtil
             });
         }
 
-        public TestStochasticSoilModel() : this(string.Empty)
-        { }
+        /// <summary>
+        /// Creates a new instance of <see cref="TestStochasticSoilModel"/>.
+        /// </summary>
+        public TestStochasticSoilModel() : this(string.Empty) {}
     }
 }

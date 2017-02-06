@@ -194,13 +194,12 @@ namespace Ringtoets.Common.Forms.Test.Views
         [Test]
         public void GivenFullyConfiguredView_WhenRowsSelected_ThenCalculateForSelectedButtonEnabledAndNoErrorMessageProvided()
         {
-            // Given & When
+            // Given
             TestCalculatableView view = ShowFullyConfiguredTestCalculatableView();
-
             var dataGridView = (DataGridView) view.Controls.Find("dataGridView", true)[0];
 
-            DataGridViewRowCollection rows = dataGridView.Rows;
-            rows[0].Cells[calculateColumnIndex].Value = true;
+            // When
+            dataGridView.Rows[0].Cells[calculateColumnIndex].Value = true;
 
             // Then
             var button = (Button) view.Controls.Find("CalculateForSelectedButton", true)[0];

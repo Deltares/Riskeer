@@ -95,6 +95,7 @@
     <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Service\Ringtoets.Common.Service.csproj">
       <Project>{D951D6DA-FE83-4920-9FDB-63BF96480B54}</Project>
       <Name>Ringtoets.Common.Service</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\Ringtoets.DuneErosion.Data\Ringtoets.DuneErosion.Data.csproj">
       <Project>{D1068432-C172-4AA6-847B-D9DEB4C6DE26}</Project>

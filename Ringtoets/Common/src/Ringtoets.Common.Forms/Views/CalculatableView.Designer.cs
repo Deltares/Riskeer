@@ -104,6 +104,7 @@ namespace Ringtoets.Common.Forms.Views
             this.CalculateForSelectedButtonErrorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
             this.CalculateForSelectedButtonErrorProvider.ContainerControl = this;
             this.CalculateForSelectedButtonErrorProvider.Icon = Properties.Resources.warning;
+            this.CalculateForSelectedButtonErrorProvider.SetIconPadding(CalculateForSelectedButton, 2);
             // 
             // CalculatableView
             // 

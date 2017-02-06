@@ -519,7 +519,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                     }
                 });
 
-            var validationText = ValidateAllDataAvailableAndGetErrorMessage(nodeData.AssessmentSection, nodeData.FailureMechanism);
+            string validationText = ValidateAllDataAvailableAndGetErrorMessage(nodeData.AssessmentSection, nodeData.FailureMechanism);
             if (!string.IsNullOrEmpty(validationText))
             {
                 designWaterLevelItem.Enabled = false;
@@ -576,7 +576,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                     }
                 });
 
-            var validationText = ValidateAllDataAvailableAndGetErrorMessage(nodeData.AssessmentSection, nodeData.FailureMechanism);
+            string validationText = ValidateAllDataAvailableAndGetErrorMessage(nodeData.AssessmentSection, nodeData.FailureMechanism);
             if (!string.IsNullOrEmpty(validationText))
             {
                 waveHeightItem.Enabled = false;

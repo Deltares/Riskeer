@@ -36,7 +36,7 @@ namespace Ringtoets.Piping.Data.TestUtil.Test
                                                                                     "..1..",
                                                                                     ".....",
                                                                                     "....."
-                                                                            )).ToArray();
+                                                                        )).ToArray();
 
             // Assert
             Assert.AreEqual(1, result.Length);
@@ -53,7 +53,7 @@ namespace Ringtoets.Piping.Data.TestUtil.Test
                                                                                     "..1..",
                                                                                     ".....",
                                                                                     "....2"
-                                                                            )).ToArray();
+                                                                        )).ToArray();
 
             // Assert
             Assert.AreEqual(2, result.Length);
@@ -72,7 +72,7 @@ namespace Ringtoets.Piping.Data.TestUtil.Test
                                                                                     "..2..",
                                                                                     ".....",
                                                                                     "....1"
-                                                                            )).ToArray();
+                                                                        )).ToArray();
 
             // Assert
             Assert.AreEqual(2, result.Length);

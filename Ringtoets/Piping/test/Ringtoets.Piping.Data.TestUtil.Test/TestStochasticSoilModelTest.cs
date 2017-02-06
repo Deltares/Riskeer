@@ -34,6 +34,7 @@ namespace Ringtoets.Piping.Data.TestUtil.Test
             var model = new TestStochasticSoilModel();
 
             // Assert
+            Assert.IsInstanceOf<StochasticSoilModel>(model);
             Assert.IsEmpty(model.Name);
             Assert.IsEmpty(model.SegmentName);
             Assert.AreEqual(2, model.StochasticSoilProfiles.Count);
@@ -51,6 +52,7 @@ namespace Ringtoets.Piping.Data.TestUtil.Test
             var model = new TestStochasticSoilModel(name);
 
             // Assert
+            Assert.IsInstanceOf<StochasticSoilModel>(model);
             Assert.AreEqual(name, model.Name);
             Assert.IsEmpty(model.SegmentName);
             Assert.AreEqual(2, model.StochasticSoilProfiles.Count);

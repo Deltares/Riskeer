@@ -369,7 +369,7 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
 
         private static void SetStateWithEnableFunction<T>(T context, Func<T, string> enableFunction, StrictContextMenuItem menuItem)
         {
-            var validationText = enableFunction != null ? enableFunction(context) : null;
+            string validationText = enableFunction != null ? enableFunction(context) : null;
             if (!string.IsNullOrEmpty(validationText))
             {
                 menuItem.Enabled = false;

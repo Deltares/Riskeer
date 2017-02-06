@@ -27,7 +27,7 @@ using Ringtoets.Piping.Primitives;
 namespace Ringtoets.Piping.Data.TestUtil
 {
     /// <summary>
-    /// Simple piping failure mechanism that can be used for testing
+    /// Simple piping failure mechanism that can be used for testing.
     /// </summary>
     public class TestPipingFailureMechanism : PipingFailureMechanism
     {
