@@ -188,10 +188,11 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             // Setup
             var random = new Random();
             var failureMechanism = new PipingFailureMechanism();
+            const string somePath = "path";
             failureMechanism.SurfaceLines.AddRange(new[]
             {
                 CreateSurfaceLine(random)
-            }, "path");
+            }, somePath);
 
             var registry = new PersistenceRegistry();
 
@@ -201,6 +202,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             // Assert
             Assert.IsNotNull(entity);
             Assert.AreEqual(failureMechanism.SurfaceLines.Count, entity.SurfaceLineEntities.Count);
+            Assert.AreEqual(somePath, entity.PipingFailureMechanismMetaEntities.First().SurfaceLineSourcePath);
         }
 
         [Test]

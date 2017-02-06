@@ -313,6 +313,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var entity = CreateAssessmentSectionEntity();
 
             string emptyPointsXml = new Point3DXmlSerializer().ToXml(new Point3D[0]);
+            const string surfaceLineSourcePath = "some/path";
             var failureMechanismEntity = new FailureMechanismEntity
             {
                 FailureMechanismType = (int) FailureMechanismType.Piping,
@@ -330,7 +331,10 @@ namespace Application.Ringtoets.Storage.Test.Read
                 },
                 PipingFailureMechanismMetaEntities =
                 {
-                    new PipingFailureMechanismMetaEntity()
+                    new PipingFailureMechanismMetaEntity
+                    {
+                        SurfaceLineSourcePath = surfaceLineSourcePath
+                    }
                 }
             };
             entity.FailureMechanismEntities.Add(failureMechanismEntity);
@@ -343,6 +347,7 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             // Assert
             Assert.AreEqual(2, section.PipingFailureMechanism.SurfaceLines.Count);
+            Assert.AreEqual(surfaceLineSourcePath, section.PipingFailureMechanism.SurfaceLines.SourcePath);
         }
 
         [Test]

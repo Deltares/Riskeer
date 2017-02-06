@@ -130,7 +130,7 @@ namespace Application.Ringtoets.Storage.Read
                 failureMechanism.SurfaceLines.AddRange(entity.SurfaceLineEntities
                                                              .OrderBy(sl => sl.Order)
                                                              .Select(e => e.Read(collector)),
-                                                       "Temp");
+                                                       metaEntity.SurfaceLineSourcePath);
             }
 
             entity.ReadPipingMechanismSectionResults(failureMechanism, collector);

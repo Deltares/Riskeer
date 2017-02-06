@@ -45,16 +45,19 @@ INSERT INTO MacrostabilityOutwardsSectionResultEntity SELECT * FROM [SOURCEPROJE
 INSERT INTO MicrostabilitySectionResultEntity SELECT * FROM [SOURCEPROJECT].MicrostabilitySectionResultEntity;
 INSERT INTO PipingCalculationEntity SELECT * FROM [SOURCEPROJECT].PipingCalculationEntity;
 INSERT INTO PipingCalculationOutputEntity SELECT * FROM [SOURCEPROJECT].PipingCalculationOutputEntity;
-INSERT INTO PipingFailureMechanismMetaEntity (
+	INSERT INTO PipingFailureMechanismMetaEntity (
 	[PipingFailureMechanismMetaEntityId],
 	[FailureMechanismEntityId],
 	[A],
 	[WaterVolumetricWeight],
-	[StochasticSoilModelSourcePath]) 
-SELECT [PipingFailureMechanismMetaEntityId],
+	[StochasticSoilModelSourcePath],
+	[SurfacelineSourcePath]) 
+SELECT 
+	[PipingFailureMechanismMetaEntityId],
 	[FailureMechanismEntityId],
 	[A],
 	[WaterVolumetricWeight], 
+	"Onbekend", 
 	"Onbekend" FROM [SOURCEPROJECT].PipingFailureMechanismMetaEntity;
 INSERT INTO PipingSectionResultEntity SELECT * FROM [SOURCEPROJECT].PipingSectionResultEntity;
 INSERT INTO PipingSemiProbabilisticOutputEntity SELECT * FROM [SOURCEPROJECT].PipingSemiProbabilisticOutputEntity;

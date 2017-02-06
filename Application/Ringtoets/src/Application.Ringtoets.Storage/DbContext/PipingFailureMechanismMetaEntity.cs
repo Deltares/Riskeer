@@ -37,6 +37,7 @@ namespace Application.Ringtoets.Storage.DbContext
         public double A { get; set; }
         public double WaterVolumetricWeight { get; set; }
         public string StochasticSoilModelSourcePath { get; set; }
+        public string SurfaceLineSourcePath { get; set; }
 
         public virtual FailureMechanismEntity FailureMechanismEntity { get; set; }
     }

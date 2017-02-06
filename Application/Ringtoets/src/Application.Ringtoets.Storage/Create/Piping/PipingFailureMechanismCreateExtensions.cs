@@ -71,7 +71,8 @@ namespace Application.Ringtoets.Storage.Create.Piping
             {
                 A = mechanism.PipingProbabilityAssessmentInput.A,
                 WaterVolumetricWeight = mechanism.GeneralInput.WaterVolumetricWeight,
-                StochasticSoilModelSourcePath = mechanism.StochasticSoilModels.SourcePath
+                StochasticSoilModelSourcePath = mechanism.StochasticSoilModels.SourcePath,
+                SurfaceLineSourcePath = mechanism.SurfaceLines.SourcePath
             };
 
             entity.PipingFailureMechanismMetaEntities.Add(metaEntity);

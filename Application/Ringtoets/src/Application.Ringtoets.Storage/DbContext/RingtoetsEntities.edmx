@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="RingtoetsEntitiesModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=D:\Repos\Ringtoets\Application\Ringtoets\src\Application.Ringtoets.Storage\Ringtoets.rtd" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="RingtoetsEntitiesModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=D:\Checkout\Application\Ringtoets\src\Application.Ringtoets.Storage\Ringtoets.rtd" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AssessmentSectionEntity">
           <Key>
             <PropertyRef Name="AssessmentSectionEntityId" />
@@ -641,6 +641,7 @@
           <Property Name="A" Type="real" Nullable="false" />
           <Property Name="WaterVolumetricWeight" Type="real" Nullable="false" />
           <Property Name="StochasticSoilModelSourcePath" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="SurfaceLineSourcePath" Type="nvarchar" MaxLength="2147483647" />
         </EntityType>
         <EntityType Name="PipingSectionResultEntity">
           <Key>
@@ -3756,6 +3757,7 @@
           <Property Name="A" Type="Double" Nullable="false" />
           <Property Name="WaterVolumetricWeight" Type="Double" Nullable="false" />
           <Property Name="StochasticSoilModelSourcePath" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="SurfaceLineSourcePath" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="FailureMechanismEntity" Relationship="RingtoetsEntitiesModel.FK_PipingFailureMechanismMetaEntity_0_0" FromRole="PipingFailureMechanismMetaEntity" ToRole="FailureMechanismEntity" />
         </EntityType>
         <EntityType Name="PipingSectionResultEntity">
@@ -5957,6 +5959,7 @@
           <EntitySetMapping Name="PipingFailureMechanismMetaEntities">
             <EntityTypeMapping TypeName="RingtoetsEntitiesModel.PipingFailureMechanismMetaEntity">
               <MappingFragment StoreEntitySet="PipingFailureMechanismMetaEntity">
+                <ScalarProperty Name="SurfaceLineSourcePath" ColumnName="SurfaceLineSourcePath" />
                 <ScalarProperty Name="StochasticSoilModelSourcePath" ColumnName="StochasticSoilModelSourcePath" />
                 <ScalarProperty Name="WaterVolumetricWeight" ColumnName="WaterVolumetricWeight" />
                 <ScalarProperty Name="A" ColumnName="A" />

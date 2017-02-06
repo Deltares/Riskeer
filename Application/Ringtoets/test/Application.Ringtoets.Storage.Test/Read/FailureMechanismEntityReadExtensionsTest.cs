@@ -291,6 +291,9 @@ namespace Application.Ringtoets.Storage.Test.Read
             var pipingFailureMechanismMetaEntity = pipingFailureMechanismMetaEntities[0];
             Assert.AreEqual(pipingFailureMechanismMetaEntity.A, failureMechanism.PipingProbabilityAssessmentInput.A);
             Assert.AreEqual(pipingFailureMechanismMetaEntity.WaterVolumetricWeight, failureMechanism.GeneralInput.WaterVolumetricWeight.Value);
+
+            Assert.IsNull(pipingFailureMechanismMetaEntity.StochasticSoilModelSourcePath);
+            Assert.IsNull(pipingFailureMechanismMetaEntity.SurfaceLineSourcePath);
         }
 
         [Test]
@@ -346,6 +349,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         {
             // Setup
             string emptyPointsXml = new Point3DXmlSerializer().ToXml(new Point3D[0]);
+            var sourcePath = "some/path";
             var entity = new FailureMechanismEntity
             {
                 CalculationGroupEntity = new CalculationGroupEntity(),
@@ -366,7 +370,10 @@ namespace Application.Ringtoets.Storage.Test.Read
                 },
                 PipingFailureMechanismMetaEntities =
                 {
-                    new PipingFailureMechanismMetaEntity()
+                    new PipingFailureMechanismMetaEntity
+                    {
+                        SurfaceLineSourcePath = sourcePath
+                    }
                 }
             };
             var collector = new ReadConversionCollector();
@@ -377,6 +384,7 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             // Assert
             Assert.AreEqual(2, failureMechanism.SurfaceLines.Count);
+            Assert.AreEqual(sourcePath, failureMechanism.SurfaceLines.SourcePath);
             CollectionAssert.AreEqual(new[]
             {
                 "2",
