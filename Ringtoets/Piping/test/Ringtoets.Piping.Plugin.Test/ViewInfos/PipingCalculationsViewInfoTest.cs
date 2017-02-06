@@ -76,7 +76,11 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
 
             var failureMechanism = new PipingFailureMechanism();
             var calculationGroup = new CalculationGroup();
-            var calculationGroupContext = new PipingCalculationGroupContext(calculationGroup, Enumerable.Empty<RingtoetsPipingSurfaceLine>(), Enumerable.Empty<StochasticSoilModel>(), failureMechanism, assessmentSection);
+            var calculationGroupContext = new PipingCalculationGroupContext(calculationGroup,
+                                                                            Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                            Enumerable.Empty<StochasticSoilModel>(),
+                                                                            failureMechanism,
+                                                                            assessmentSection);
 
             // Call & Assert
             Assert.AreEqual(calculationGroup, info.GetViewData(calculationGroupContext));

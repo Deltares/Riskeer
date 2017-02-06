@@ -29,7 +29,6 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.ChangeHandlers;
-using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.TestUtils;
 using Ringtoets.Piping.Data;

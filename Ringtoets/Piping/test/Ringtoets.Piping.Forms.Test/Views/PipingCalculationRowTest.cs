@@ -21,7 +21,6 @@
 
 using System;
 using System.Globalization;
-using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
@@ -35,11 +34,8 @@ using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.TestUtil;
-using Ringtoets.Piping.Forms.PresentationObjects;
-using Ringtoets.Piping.Forms.PropertyClasses;
 using Ringtoets.Piping.Forms.Views;
 using Ringtoets.Piping.KernelWrapper.TestUtil;
-using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.Forms.Test.Views
 {

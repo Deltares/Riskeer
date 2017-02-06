@@ -668,7 +668,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 var button = (Button) pipingCalculationsView.Controls.Find("buttonGenerateScenarios", true)[0];
 
                 // Call
-                var state = button.Enabled;
+                bool state = button.Enabled;
 
                 // Assert
                 Assert.IsTrue(state);
@@ -1375,7 +1375,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         {
             ConfigureHydraulicBoundaryDatabase(assessmentSection);
 
-            var failureMechanism = ConfigureFailuremechanism();
+            PipingFailureMechanism failureMechanism = ConfigureFailuremechanism();
 
             return ShowFullyConfiguredPipingCalculationsView(assessmentSection,
                                                              failureMechanism,
@@ -1388,7 +1388,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                                                                                  CalculationGroup calculationGroup,
                                                                                  ICalculationInputPropertyChangeHandler<PipingInput, PipingCalculationScenario> handler)
         {
-            var view = ShowPipingCalculationsView(handler);
+            PipingCalculationsView view = ShowPipingCalculationsView(handler);
             view.Data = calculationGroup;
             view.AssessmentSection = assessmentSection;
             view.PipingFailureMechanism = failureMechanism;

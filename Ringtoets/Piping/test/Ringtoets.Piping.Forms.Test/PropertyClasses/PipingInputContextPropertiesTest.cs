@@ -70,7 +70,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         private const int expectedSaturatedVolumicWeightOfCoverageLayerPropertyIndex = 17;
 
         [Test]
-        public void Constructor_ContextNull_ThrowArgumentNullException()
+        public void Constructor_DataNull_ThrowArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -114,7 +114,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             Assert.AreEqual("handler", exception.ParamName);
             mocks.VerifyAll();
         }
-        
+
         [Test]
         public void DefaultConstructor_ExpectedValues()
         {
@@ -678,7 +678,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var inputObserver = mocks.StrictMock<IObserver>();            
+            var inputObserver = mocks.StrictMock<IObserver>();
             int numberOfChangedProperties = 2;
             inputObserver.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChangedProperties);
             mocks.ReplayAll();
@@ -723,7 +723,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var inputObserver = mocks.StrictMock<IObserver>();            
+            var inputObserver = mocks.StrictMock<IObserver>();
             int numberOfChangedProperties = 2;
             inputObserver.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChangedProperties);
             mocks.ReplayAll();
@@ -851,7 +851,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                 });
 
             PipingInputContextProperties properties = new PipingInputContextProperties(context, handler);
-            
+
             // Call
             TestDelegate call = () => properties.EntryPointL = entryPoint;
 
@@ -888,7 +888,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                                                  failureMechanism,
                                                  assessmentSection);
 
-            RoundedDouble entryPointL = (RoundedDouble)(-15.0);
+            RoundedDouble entryPointL = (RoundedDouble) (-15.0);
 
             var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<PipingInput, PipingCalculationScenario, RoundedDouble>(
                 inputParameters,
@@ -936,7 +936,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                                                  failureMechanism,
                                                  assessmentSection);
 
-            RoundedDouble exitPointL = (RoundedDouble)10.0;
+            RoundedDouble exitPointL = (RoundedDouble) 10.0;
 
             var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<PipingInput, PipingCalculationScenario, RoundedDouble>(
                 inputParameters,
@@ -970,7 +970,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             PipingCalculationScenario calculationItem = new PipingCalculationScenario(new GeneralPipingInput());
             PipingFailureMechanism failureMechanism = new PipingFailureMechanism();
-            
+
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
             var selectableHydraulicBoundaryLocation = new SelectableHydraulicBoundaryLocation(hydraulicBoundaryLocation, null);
 
@@ -1002,19 +1002,18 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
         [Test]
         public void HydraulicBoundaryLocation_DesignWaterLevelSet_SetsAssessmentLevelToDesignWaterLevelAndNotifiesOnce()
-        {           
-
+        {
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var observable = mocks.StrictMock<IObservable>();
             observable.Expect(o => o.NotifyObservers());
             mocks.ReplayAll();
-            
+
             PipingFailureMechanism failureMechanism = new PipingFailureMechanism();
 
             PipingCalculationScenario calculationItem = new PipingCalculationScenario(new GeneralPipingInput());
-            RoundedDouble testLevel = (RoundedDouble)new Random(21).NextDouble();
+            RoundedDouble testLevel = (RoundedDouble) new Random(21).NextDouble();
             HydraulicBoundaryLocation hydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(
                 testLevel);
             var selectableHydraulicBoundaryLocation = new SelectableHydraulicBoundaryLocation(hydraulicBoundaryLocation, null);
@@ -1069,7 +1068,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                                                  Enumerable.Empty<StochasticSoilModel>(),
                                                  failureMechanism,
                                                  assessmentSection);
-            
+
             var handler = new CalculationInputPropertyChangeHandler<PipingInput, PipingCalculationScenario>();
 
             PipingInputContextProperties properties = new PipingInputContextProperties(context, handler)
@@ -1124,7 +1123,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                 inputParameters,
                 calculationItem,
                 testLevel,
-                new []
+                new[]
                 {
                     observable
                 });
@@ -1166,7 +1165,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                                                  Enumerable.Empty<StochasticSoilModel>(),
                                                  failureMechanism,
                                                  assessmentSection);
-            
+
             var handler = new CalculationInputPropertyChangeHandler<PipingInput, PipingCalculationScenario>();
 
             PipingInputContextProperties properties = new PipingInputContextProperties(context, handler);
@@ -2027,7 +2026,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var observable = mocks.StrictMock<IObservable>();
             observable.Expect(o => o.NotifyObservers());
             mocks.ReplayAll();
-            
+
             PipingInput inputParameters = calculation.InputParameters;
 
             var failureMechanism = new PipingFailureMechanism();
