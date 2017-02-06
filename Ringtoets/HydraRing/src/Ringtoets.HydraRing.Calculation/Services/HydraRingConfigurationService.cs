@@ -64,8 +64,6 @@ namespace Ringtoets.HydraRing.Calculation.Services
         private const double defaultHydraRingValue = 0.0;
         private readonly double? defaultHydraRingNullValue = null;
 
-        private readonly string ringId;
-        private readonly HydraRingUncertaintiesType uncertaintiesType;
         private readonly IList<HydraRingCalculationInput> hydraRingInputs = new List<HydraRingCalculationInput>();
         private readonly FailureMechanismDefaultsProvider failureMechanismDefaultsProvider = new FailureMechanismDefaultsProvider();
         private readonly VariableDefaultsProvider variableDefaultsProvider = new VariableDefaultsProvider();
@@ -73,35 +71,16 @@ namespace Ringtoets.HydraRing.Calculation.Services
         /// <summary>
         /// Creates a new instance of the <see cref="HydraRingConfigurationService"/> class.
         /// </summary>
-        /// <param name="ringId">The id of the ring to perform Hydra-Ring calculations for.</param>
         /// <param name="uncertaintiesType">The <see cref="HydraRingUncertaintiesType"/> to use while performing Hydra-Ring calculations.</param>
-        public HydraRingConfigurationService(string ringId, HydraRingUncertaintiesType uncertaintiesType)
+        public HydraRingConfigurationService(HydraRingUncertaintiesType uncertaintiesType)
         {
-            this.ringId = ringId;
-            this.uncertaintiesType = uncertaintiesType;
-        }
-
-        /// <summary>
-        /// Gets the id of the ring to perform Hydra-Ring calculations for.
-        /// </summary>
-        public string RingId
-        {
-            get
-            {
-                return ringId;
-            }
+            this.UncertaintiesType = uncertaintiesType;
         }
 
         /// <summary>
         /// Gets the <see cref="HydraRingUncertaintiesType"/> to use while performing Hydra-Ring calculations.
         /// </summary>
-        public HydraRingUncertaintiesType UncertaintiesType
-        {
-            get
-            {
-                return uncertaintiesType;
-            }
-        }
+        public HydraRingUncertaintiesType UncertaintiesType { get; }
 
         /// <summary>
         /// Adds Hydra-Ring calculation input to the configuration.

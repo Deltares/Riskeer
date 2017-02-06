@@ -113,7 +113,7 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
                 var sectionId = hydraRingCalculationInput.Section.SectionId;
                 OutputDirectory = CreateWorkingDirectory();
 
-                var hydraRingConfigurationService = new HydraRingConfigurationService(ringId, uncertaintiesType);
+                var hydraRingConfigurationService = new HydraRingConfigurationService(uncertaintiesType);
                 hydraRingConfigurationService.AddHydraRingCalculationInput(hydraRingCalculationInput);
 
                 var hydraRingInitializationService = new HydraRingInitializationService(hydraRingCalculationInput.FailureMechanismType, sectionId, hlcdDirectory, OutputDirectory);

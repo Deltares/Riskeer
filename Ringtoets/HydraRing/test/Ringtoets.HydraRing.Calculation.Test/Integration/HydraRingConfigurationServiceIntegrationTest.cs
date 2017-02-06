@@ -44,7 +44,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
         public void WriteDatabaseCreationScript_HydraRingConfigurationWithAssessmentLevelCalculationInput_WritesExpectedCreationScript()
         {
             // Setup
-            var hydraRingConfigurationService = new HydraRingConfigurationService("34-1", HydraRingUncertaintiesType.All);
+            var hydraRingConfigurationService = new HydraRingConfigurationService(HydraRingUncertaintiesType.All);
 
             hydraRingConfigurationService.AddHydraRingCalculationInput(new AssessmentLevelCalculationInput(1, 700004, 1.0/10000)
             {
@@ -129,7 +129,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
         public void WriteDatabaseCreationScript_HydraRingConfigurationWithWaveHeightCalculationInput_WritesExpectedCreationScript()
         {
             // Setup
-            var hydraRingConfigurationService = new HydraRingConfigurationService("34-1", HydraRingUncertaintiesType.All);
+            var hydraRingConfigurationService = new HydraRingConfigurationService(HydraRingUncertaintiesType.All);
 
             hydraRingConfigurationService.AddHydraRingCalculationInput(new WaveHeightCalculationInput(1, 700004, 1.0/10000)
             {
@@ -214,7 +214,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
         public void WriteDatabaseCreationScript_HydraRingConfigurationWithOvertoppingCalculationInput_WritesExpectedCreationScript()
         {
             // Setup
-            var hydraRingConfigurationService = new HydraRingConfigurationService("34-1", HydraRingUncertaintiesType.All);
+            var hydraRingConfigurationService = new HydraRingConfigurationService(HydraRingUncertaintiesType.All);
             const int hydraulicBoundaryLocationId = 700004;
 
             const double sectionNormal = 3.3;
@@ -366,7 +366,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
         public void WriteDatabaseCreationScript_HydraRingConfigurationWithDikeHeightCalculationInput_WritesExpectedCreationScript()
         {
             // Setup
-            var hydraRingConfigurationService = new HydraRingConfigurationService("34-1", HydraRingUncertaintiesType.All);
+            var hydraRingConfigurationService = new HydraRingConfigurationService(HydraRingUncertaintiesType.All);
             const int hydraulicBoundaryLocationId = 700004;
 
             const double sectionNormal = 3.3;
@@ -517,7 +517,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
         public void WriteDatabaseCreationScript_HydraRingConfigurationWithOvertoppingRateCalculationInput_WritesExpectedCreationScript()
         {
             // Setup
-            var hydraRingConfigurationService = new HydraRingConfigurationService("34-1", HydraRingUncertaintiesType.All);
+            var hydraRingConfigurationService = new HydraRingConfigurationService(HydraRingUncertaintiesType.All);
             const int hydraulicBoundaryLocationId = 700004;
 
             const double sectionNormal = 3.3;
@@ -667,7 +667,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
         public void WriteDatabaseCreationScript_HydraRingConfigurationWithStructuresOvertoppingCalculationInput_WritesExpectedCreationScript()
         {
             // Setup
-            var hydraRingConfigurationService = new HydraRingConfigurationService("34-1", HydraRingUncertaintiesType.All);
+            var hydraRingConfigurationService = new HydraRingConfigurationService(HydraRingUncertaintiesType.All);
             const int hydraulicBoundaryLocationId = 700004;
 
             const double sectionNormal = 3.3;
@@ -829,7 +829,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
         public void WriteDatabaseCreationScript_HydraRingConfigurationWithWaveConditionsCosineCalculationInput_WritesExpectedCreationScript()
         {
             // Setup
-            var hydraRingConfigurationService = new HydraRingConfigurationService("34-1", HydraRingUncertaintiesType.All);
+            var hydraRingConfigurationService = new HydraRingConfigurationService(HydraRingUncertaintiesType.All);
             const int hydraulicBoundaryLocationId = 700004;
 
             var forelandPoints = new List<HydraRingForelandPoint>
@@ -939,7 +939,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
         public void WriteDatabaseCreationScript_HydraRingConfigurationWithWaveConditionsTrapezoidCalculationInput_WritesExpectedCreationScript()
         {
             // Setup
-            var hydraRingConfigurationService = new HydraRingConfigurationService("34-1", HydraRingUncertaintiesType.All);
+            var hydraRingConfigurationService = new HydraRingConfigurationService(HydraRingUncertaintiesType.All);
             const int hydraulicBoundaryLocationId = 700004;
 
             var forelandPoints = new List<HydraRingForelandPoint>
@@ -1051,7 +1051,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
         public void WriteDatabaseCreationScript_HydraRingConfigurationWithStructuresClosureFloodedCulvertCalculationInput_WritesExpectedCreationScript()
         {
             // Setup
-            var hydraRingConfigurationService = new HydraRingConfigurationService("34-1", HydraRingUncertaintiesType.All);
+            var hydraRingConfigurationService = new HydraRingConfigurationService(HydraRingUncertaintiesType.All);
             const int hydraulicBoundaryLocationId = 700004;
 
             const double sectionNormal = 3.3;
@@ -1173,7 +1173,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
         public void WriteDatabaseCreationScript_HydraRingConfigurationWithStructuresClosureLowSillCalculationInput_WritesExpectedCreationScript()
         {
             // Setup
-            var hydraRingConfigurationService = new HydraRingConfigurationService("34-1", HydraRingUncertaintiesType.All);
+            var hydraRingConfigurationService = new HydraRingConfigurationService(HydraRingUncertaintiesType.All);
             const int hydraulicBoundaryLocationId = 700004;
 
             const double sectionNormal = 3.3;
@@ -1298,7 +1298,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
         public void WriteDatabaseCreationScript_HydraRingConfigurationWithStructuresClosureVerticalWallCalculationInput_WritesExpectedCreationScript()
         {
             // Setup
-            var hydraRingConfigurationService = new HydraRingConfigurationService("34-1", HydraRingUncertaintiesType.All);
+            var hydraRingConfigurationService = new HydraRingConfigurationService(HydraRingUncertaintiesType.All);
             const int hydraulicBoundaryLocationId = 700004;
 
             const double sectionNormal = 3.3;
@@ -1424,7 +1424,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
         public void WriteDatabaseCreationScript_HydraRingConfigurationWithStructuresStabilityPointFloodedCulvertLinearCalculationInput_WritesExpectedCreationScript()
         {
             // Setup
-            var hydraRingConfigurationService = new HydraRingConfigurationService("34-1", HydraRingUncertaintiesType.All);
+            var hydraRingConfigurationService = new HydraRingConfigurationService(HydraRingUncertaintiesType.All);
             const int hydraulicBoundaryLocationId = 700004;
 
             const double sectionNormal = 3.3;
@@ -1580,7 +1580,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
         public void WriteDatabaseCreationScript_HydraRingConfigurationWithStructuresStabilityPointFloodedCulvertQuadraticCalculationInput_WritesExpectedCreationScript()
         {
             // Setup
-            var hydraRingConfigurationService = new HydraRingConfigurationService("34-1", HydraRingUncertaintiesType.All);
+            var hydraRingConfigurationService = new HydraRingConfigurationService(HydraRingUncertaintiesType.All);
             const int hydraulicBoundaryLocationId = 700004;
 
             const double sectionNormal = 3.3;
@@ -1736,7 +1736,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
         public void WriteDatabaseCreationScript_HydraRingConfigurationWithStructuresStabilityPointLowSillLinearCalculationInput_WritesExpectedCreationScript()
         {
             // Setup
-            var hydraRingConfigurationService = new HydraRingConfigurationService("34-1", HydraRingUncertaintiesType.All);
+            var hydraRingConfigurationService = new HydraRingConfigurationService(HydraRingUncertaintiesType.All);
             const int hydraulicBoundaryLocationId = 700004;
 
             var sectionNormal = 3.3;
@@ -1892,7 +1892,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
         public void WriteDatabaseCreationScript_HydraRingConfigurationWithStructuresStabilityPointLowSillQuadraticCalculationInput_WritesExpectedCreationScript()
         {
             // Setup
-            var hydraRingConfigurationService = new HydraRingConfigurationService("34-1", HydraRingUncertaintiesType.All);
+            var hydraRingConfigurationService = new HydraRingConfigurationService(HydraRingUncertaintiesType.All);
             const int hydraulicBoundaryLocationId = 700004;
 
             const double sectionNormal = 3.3;
@@ -2048,7 +2048,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
         public void WriteDatabaseCreationScript_HydraRingConfigurationWithDunesBoundaryConditionsCalculationInput_WritesExpectedCreationScript()
         {
             // Setup
-            var hydraRingConfigurationService = new HydraRingConfigurationService("34-1", HydraRingUncertaintiesType.All);
+            var hydraRingConfigurationService = new HydraRingConfigurationService(HydraRingUncertaintiesType.All);
 
             hydraRingConfigurationService.AddHydraRingCalculationInput(new DunesBoundaryConditionsCalculationInput(1, 700004, 1.0/10000)
             {

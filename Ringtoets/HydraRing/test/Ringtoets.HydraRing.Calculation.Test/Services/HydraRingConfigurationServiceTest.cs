@@ -43,10 +43,9 @@ namespace Ringtoets.HydraRing.Calculation.Test.Services
         public void Constructor_ExpectedValues()
         {
             // Call
-            var hydraRingConfigurationService = new HydraRingConfigurationService("34-1", HydraRingUncertaintiesType.Model);
+            var hydraRingConfigurationService = new HydraRingConfigurationService(HydraRingUncertaintiesType.Model);
 
             // Assert
-            Assert.AreEqual("34-1", hydraRingConfigurationService.RingId);
             Assert.AreEqual(HydraRingUncertaintiesType.Model, hydraRingConfigurationService.UncertaintiesType);
         }
 
@@ -54,7 +53,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Services
         public void AddHydraRingCalculationInput_DuplicateSectionId_ThrowsArgumentException()
         {
             // Setup
-            var hydraRingConfigurationService = new HydraRingConfigurationService("34-1", HydraRingUncertaintiesType.Model);
+            var hydraRingConfigurationService = new HydraRingConfigurationService(HydraRingUncertaintiesType.Model);
             var calculationInput1 = new HydraRingCalculationInputImplementation(1, 2);
             var calculationInput2 = new HydraRingCalculationInputImplementation(1, 3);
 
@@ -71,7 +70,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Services
         [Test]
         public void AddHydraRingCalculationInput_MultipleFailureMechanismTypes_ThrowsNotSupportedException()
         {
-            var hydraRingConfigurationService = new HydraRingConfigurationService("34-1", HydraRingUncertaintiesType.Model);
+            var hydraRingConfigurationService = new HydraRingConfigurationService(HydraRingUncertaintiesType.Model);
             var calculationInput1 = new HydraRingCalculationInputImplementation(1, 2);
             var calculationInput2 = new HydraRingCalculationInputImplementation(2, 3);
             calculationInput2.SetFailureMechanismType(HydraRingFailureMechanismType.HydraulicLoads);
@@ -91,7 +90,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Services
         public void WriteDatabaseCreationScript_SingleHydraRingCalculationInputAddedToConfiguration_WritesExpectedCreationScript()
         {
             // Setup
-            var hydraRingConfigurationService = new HydraRingConfigurationService("34-1", HydraRingUncertaintiesType.Model);
+            var hydraRingConfigurationService = new HydraRingConfigurationService(HydraRingUncertaintiesType.Model);
 
             hydraRingConfigurationService.AddHydraRingCalculationInput(new HydraRingCalculationInputImplementation(1, 700004)
             {
@@ -197,7 +196,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Services
         public void WriteDatabaseCreationScript_MultipleHydraRingCalculationInputsAddedToConfiguration_WritesExpectedCreationScript()
         {
             // Setup
-            var hydraRingConfigurationService = new HydraRingConfigurationService("34-1", HydraRingUncertaintiesType.Model);
+            var hydraRingConfigurationService = new HydraRingConfigurationService(HydraRingUncertaintiesType.Model);
 
             hydraRingConfigurationService.AddHydraRingCalculationInput(new HydraRingCalculationInputImplementation(1, 700004)
             {
