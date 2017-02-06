@@ -114,12 +114,12 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
         [Test]
         public void ChildNodeObjects_CalculationWithoutOutput_ReturnCollectionWithEmptyOutputObject()
         {
-            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var failureMechanism = new HeightStructuresFailureMechanism();
             var calculation = new StructuresCalculation<HeightStructuresInput>();
-            var calculationContext = new HeightStructuresCalculationContext(calculation, failureMechanism, assessmentSectionStub);
+            var calculationContext = new HeightStructuresCalculationContext(calculation, failureMechanism, assessmentSection);
 
             // Call
             var children = info.ChildNodeObjects(calculationContext).ToArray();
@@ -141,7 +141,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
         [Test]
         public void ChildNodeObjects_CalculationWithOutput_ReturnCollectionWithOutputObject()
         {
-            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var failureMechanism = new HeightStructuresFailureMechanism();
@@ -150,7 +150,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
                 Output = new TestStructuresOutput()
             };
 
-            var calculationContext = new HeightStructuresCalculationContext(calculation, failureMechanism, assessmentSectionStub);
+            var calculationContext = new HeightStructuresCalculationContext(calculation, failureMechanism, assessmentSection);
 
             // Call
             var children = info.ChildNodeObjects(calculationContext).ToArray();
@@ -173,11 +173,10 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_Always_CallsContextMenuBuilderMethods()
         {
             // Setup
-            var guiMock = mocks.StrictMock<IGui>();
             var failureMechanism = new HeightStructuresFailureMechanism();
-            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             var calculation = new StructuresCalculation<HeightStructuresInput>();
-            var nodeData = new HeightStructuresCalculationContext(calculation, failureMechanism, assessmentSectionStub);
+            var nodeData = new HeightStructuresCalculationContext(calculation, failureMechanism, assessmentSection);
             var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
 
             using (mocks.Ordered())
@@ -198,11 +197,12 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                guiMock.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilderMock);
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilderMock);
 
                 mocks.ReplayAll();
 
-                plugin.Gui = guiMock;
+                plugin.Gui = gui;
 
                 // Call
                 info.ContextMenuStrip(nodeData, null, treeViewControl);
@@ -215,9 +215,8 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_Always_AddCustomItems()
         {
             // Setup
-            var guiMock = mocks.StrictMock<IGui>();
             var failureMechanism = new TestHeightStructuresFailureMechanism();
-            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             var calculation = new StructuresCalculation<HeightStructuresInput>();
             var nodeData = new HeightStructuresCalculationContext(calculation, failureMechanism, assessmentSection);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
@@ -225,16 +224,17 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                guiMock.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                assessmentSection.Stub(asm => asm.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
                 {
                     FilePath = validFilePath,
                     Version = "random"
-                });
+                };
 
                 mocks.ReplayAll();
 
-                plugin.Gui = guiMock;
+                plugin.Gui = gui;
 
                 // Call
                 using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewControl))
@@ -265,8 +265,6 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_NoHydraulicBoundaryDatabase_ContextMenuItemPerformCalculationDisabledAndTooltipSet()
         {
             // Setup
-            var guiMock = mocks.StrictMock<IGui>();
-
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var failureMechanism = new TestHeightStructuresFailureMechanism();
             var calculation = new StructuresCalculation<HeightStructuresInput>();
@@ -274,11 +272,12 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                guiMock.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
 
                 mocks.ReplayAll();
 
-                plugin.Gui = guiMock;
+                plugin.Gui = gui;
 
                 // Call
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
@@ -297,8 +296,6 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_HydraulicBoundaryDatabaseNotValid_ContextMenuItemPerformCalculationDisabledAndTooltipSet()
         {
             // Setup
-            var guiMock = mocks.StrictMock<IGui>();
-
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var failureMechanism = new TestHeightStructuresFailureMechanism();
             var calculation = new StructuresCalculation<HeightStructuresInput>();
@@ -306,13 +303,14 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                guiMock.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
 
                 mocks.ReplayAll();
 
                 assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
 
-                plugin.Gui = guiMock;
+                plugin.Gui = gui;
 
                 // Call
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
@@ -332,8 +330,6 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_FailureMechanismContributionZero_ContextMenuItemPerformCalculationDisabledAndTooltipSet()
         {
             // Setup
-            var guiMock = mocks.StrictMock<IGui>();
-
             string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
 
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
@@ -343,20 +339,21 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
             };
 
             var failureMechanism = new HeightStructuresFailureMechanism();
-            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
 
             var calculation = new StructuresCalculation<HeightStructuresInput>();
-            var nodeData = new HeightStructuresCalculationContext(calculation, failureMechanism, assessmentSectionStub);
+            var nodeData = new HeightStructuresCalculationContext(calculation, failureMechanism, assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
             {
-                guiMock.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
 
                 mocks.ReplayAll();
 
-                assessmentSectionStub.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
+                assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
 
-                plugin.Gui = guiMock;
+                plugin.Gui = gui;
 
                 // Call
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
@@ -375,8 +372,6 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_AllRequiredInputSet_ContextMenuItemPerformCalculationEnabled()
         {
             // Setup
-            var guiMock = mocks.StrictMock<IGui>();
-
             string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
 
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
@@ -386,20 +381,21 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
             };
 
             var failureMechanism = new TestHeightStructuresFailureMechanism();
-            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
 
             var calculation = new StructuresCalculation<HeightStructuresInput>();
-            var nodeData = new HeightStructuresCalculationContext(calculation, failureMechanism, assessmentSectionStub);
+            var nodeData = new HeightStructuresCalculationContext(calculation, failureMechanism, assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
             {
-                guiMock.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
 
                 mocks.ReplayAll();
 
-                assessmentSectionStub.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
+                assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
 
-                plugin.Gui = guiMock;
+                plugin.Gui = gui;
 
                 // Call
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
@@ -417,8 +413,6 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_NoHydraulicBoundaryDatabase_ContextMenuItemValidateCalculationDisabledAndTooltipSet()
         {
             // Setup
-            var guiMock = mocks.StrictMock<IGui>();
-
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var failureMechanism = new TestHeightStructuresFailureMechanism();
             var calculation = new StructuresCalculation<HeightStructuresInput>();
@@ -426,11 +420,12 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                guiMock.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
 
                 mocks.ReplayAll();
 
-                plugin.Gui = guiMock;
+                plugin.Gui = gui;
 
                 // Call
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
@@ -449,8 +444,6 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_HydraulicBoundaryDatabaseNotValid_ContextMenuItemValidateCalculationDisabledAndTooltipSet()
         {
             // Setup
-            var guiMock = mocks.StrictMock<IGui>();
-
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
 
@@ -460,11 +453,12 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                guiMock.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
 
                 mocks.ReplayAll();
 
-                plugin.Gui = guiMock;
+                plugin.Gui = gui;
 
                 // Call
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
@@ -484,8 +478,6 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_FailureMechanismContributionZero_ContextMenuItemValidateCalculationDisabledAndTooltipSet()
         {
             // Setup
-            var guiMock = mocks.StrictMock<IGui>();
-
             string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
 
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
@@ -503,11 +495,12 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                guiMock.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
 
                 mocks.ReplayAll();
 
-                plugin.Gui = guiMock;
+                plugin.Gui = gui;
 
                 // Call
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
@@ -526,8 +519,6 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_AllRequiredInputSet_ContextMenuItemValidateCalculationEnabled()
         {
             // Setup
-            var guiMock = mocks.StrictMock<IGui>();
-
             string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
 
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
@@ -545,11 +536,12 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                guiMock.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
 
                 mocks.ReplayAll();
 
-                plugin.Gui = guiMock;
+                plugin.Gui = gui;
 
                 // Call
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
@@ -567,7 +559,6 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
         public void GivenCalculationThatSucceeds_WhenCalculatingFromContextMenu_ThenOutputSetLogMessagesAddedAndUpdateObserver()
         {
             // Given
-            var gui = mocks.DynamicMock<IGui>();
             var mainWindow = mocks.DynamicMock<IMainWindow>();
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
@@ -603,9 +594,9 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                gui.Expect(g => g.Get(calculationContext, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                gui.Expect(g => g.MainWindow).Return(mainWindow);
-
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(g => g.Get(calculationContext, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                gui.Stub(g => g.MainWindow).Return(mainWindow);
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
@@ -643,7 +634,6 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
         public void GivenCalculationWithNonExistingFilePath_WhenValidatingFromContextMenu_ThenLogMessagesAdded()
         {
             // Given
-            var gui = mocks.DynamicMock<IGui>();
             var observer = mocks.StrictMock<IObserver>();
 
             string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
@@ -672,7 +662,8 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                gui.Expect(g => g.Get(calculationContext, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(g => g.Get(calculationContext, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
 
                 mocks.ReplayAll();
 

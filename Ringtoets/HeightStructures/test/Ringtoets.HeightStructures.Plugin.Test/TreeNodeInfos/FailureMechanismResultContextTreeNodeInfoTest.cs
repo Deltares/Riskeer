@@ -112,22 +112,24 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_Always_CallsContextMenuBuilderMethods()
         {
             // Setup
-            var guiMock = mocks.StrictMock<IGui>();
-
             var failureMechanism = new HeightStructuresFailureMechanism();
             var nodeData = new FailureMechanismSectionResultContext<HeightStructuresFailureMechanismSectionResult>(Enumerable.Empty<HeightStructuresFailureMechanismSectionResult>(), failureMechanism);
             var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
 
-            menuBuilderMock.Expect(mb => mb.AddOpenItem()).Return(menuBuilderMock);
-            menuBuilderMock.Expect(mb => mb.Build()).Return(null);
+            using (mocks.Ordered())
+            {
+                menuBuilderMock.Expect(mb => mb.AddOpenItem()).Return(menuBuilderMock);
+                menuBuilderMock.Expect(mb => mb.Build()).Return(null);
+            }
 
             using (var treeViewControl = new TreeViewControl())
             {
-                guiMock.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilderMock);
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilderMock);
 
                 mocks.ReplayAll();
 
-                plugin.Gui = guiMock;
+                plugin.Gui = gui;
 
                 // Call
                 info.ContextMenuStrip(nodeData, null, treeViewControl);
