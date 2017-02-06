@@ -19,38 +19,22 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Windows.Forms;
-using Core.Common.Controls.DataGrid;
-using Core.Common.Controls.Dialogs;
-using Core.Components.Gis.Data;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Forms
 {
     /// <summary>
-    /// A dialog which allows the user to make a selection from a given set of background layers. Upon
-    /// closing of the dialog, the selected background layer can be obtained.
+    /// This class represents a <seealso cref="Control"/> where WMTS locations can be administrated.
     /// </summary>
-    public partial class BackgroundMapDataSelectionDialog : DialogBase
+    public partial class WmtsLocationControl : UserControl
     {
         /// <summary>
-        /// Creates a new instance of <see cref="ReferenceLineMetaSelectionDialog"/>.
+        /// Creates a new instance of <see cref="WmtsLocationControl"/>.
         /// </summary>
-        /// <param name="dialogParent">The parent of the dialog.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="dialogParent"/> is <c>null</c>.</exception>
-        public BackgroundMapDataSelectionDialog(IWin32Window dialogParent)
-            : base(dialogParent, RingtoetsCommonFormsResources.SelectionDialogIcon, 500, 350)
+        public WmtsLocationControl()
         {
             InitializeComponent();
-            mapLayerComboBox.Enabled = false;
-            selectButton.Enabled = false;
         }
-
-        /// <summary>
-        /// Gets the <see cref="MapData"/> from the selected row in the <see cref="DataGridViewControl"/>.
-        /// </summary>
-        public object SelectedMapData { get; private set; }
 
         protected override void Dispose(bool disposing)
         {
@@ -59,11 +43,6 @@ namespace Ringtoets.Integration.Forms
                 components?.Dispose();
             }
             base.Dispose(disposing);
-        }
-
-        protected override Button GetCancelButton()
-        {
-            return cancelButton;
         }
     }
 }

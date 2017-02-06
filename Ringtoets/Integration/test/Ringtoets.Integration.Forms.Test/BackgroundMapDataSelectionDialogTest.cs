@@ -97,14 +97,20 @@ namespace Ringtoets.Integration.Forms.Test
                 // Assert
                 Assert.IsNotNull(mapLayerLabel);
                 Assert.AreEqual("Type kaartlaag", mapLayerLabel.Text);
+
                 Assert.IsNotNull(mapLayers);
+                Assert.IsFalse(mapLayers.Enabled);
+
                 Assert.IsNotNull(groupBoxProperties);
                 Assert.AreEqual("Eigenschappen", groupBoxProperties.Text);
+
                 Assert.IsNotNull(buttonSelect);
                 Assert.AreEqual("Selecteren", buttonSelect.Text);
                 Assert.IsFalse(buttonSelect.Enabled);
+
                 Assert.IsNotNull(buttonCancel);
                 Assert.AreEqual("Annuleren", buttonCancel.Text);
+
                 Assert.AreEqual(500, dialog.MinimumSize.Width);
                 Assert.AreEqual(350, dialog.MinimumSize.Height);
             }
