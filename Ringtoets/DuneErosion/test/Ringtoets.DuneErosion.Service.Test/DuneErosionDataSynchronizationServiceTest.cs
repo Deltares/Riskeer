@@ -105,6 +105,7 @@ namespace Ringtoets.DuneErosion.Service.Test
         }
 
         [Test]
+        [SetCulture("en-US")]
         public void SetDuneLocations_DuneLocationOffsetMatchesWithHydraulicBoundaryLocationName_DuneLocationAddedToFailureMechanism()
         {
             // Setup
