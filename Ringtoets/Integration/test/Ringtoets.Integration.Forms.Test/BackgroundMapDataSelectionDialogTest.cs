@@ -70,17 +70,21 @@ namespace Ringtoets.Integration.Forms.Test
         public void ShowDialog_Always_DefaultProperties()
         {
             // Setup
+            Label mapLayerLabel = null;
+            ComboBox mapLayers = null;
+            GroupBox groupBoxProperties = null;
             Button buttonSelect = null;
             Button buttonCancel = null;
-            GroupBox groupBoxProperties = null;
             DialogBoxHandler = (name, wnd) =>
             {
                 using (var openedDialog = new FormTester(name))
                 {
                     var form = (Form) openedDialog.TheObject;
+                    mapLayerLabel = (Label) new LabelTester("mapLayerLabel", form).TheObject;
+                    mapLayers = (ComboBox) new ComboBoxTester("mapLayerComboBox", form).TheObject;
+                    groupBoxProperties = (GroupBox) new ControlTester("propertiesGroupBox", form).TheObject;
                     buttonSelect = (Button) new ButtonTester("selectButton", form).TheObject;
                     buttonCancel = (Button) new ButtonTester("cancelButton", form).TheObject;
-                    groupBoxProperties = (GroupBox) new ControlTester("propertiesGroupBox", form).TheObject;
                 }
             };
 
@@ -91,12 +95,16 @@ namespace Ringtoets.Integration.Forms.Test
                 dialog.ShowDialog();
 
                 // Assert
-                Assert.IsNotNull(buttonSelect);
-                Assert.AreEqual("Selecteren", buttonSelect.Text);
-                Assert.IsNotNull(buttonCancel);
-                Assert.AreEqual("Annuleren", buttonCancel.Text);
+                Assert.IsNotNull(mapLayerLabel);
+                Assert.AreEqual("Type kaartlaag", mapLayerLabel.Text);
+                Assert.IsNotNull(mapLayers);
                 Assert.IsNotNull(groupBoxProperties);
                 Assert.AreEqual("Eigenschappen", groupBoxProperties.Text);
+                Assert.IsNotNull(buttonSelect);
+                Assert.AreEqual("Selecteren", buttonSelect.Text);
+                Assert.IsFalse(buttonSelect.Enabled);
+                Assert.IsNotNull(buttonCancel);
+                Assert.AreEqual("Annuleren", buttonCancel.Text);
                 Assert.AreEqual(500, dialog.MinimumSize.Width);
                 Assert.AreEqual(350, dialog.MinimumSize.Height);
             }

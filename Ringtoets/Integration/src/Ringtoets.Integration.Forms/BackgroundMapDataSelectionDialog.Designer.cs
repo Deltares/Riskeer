@@ -42,13 +42,18 @@ namespace Ringtoets.Integration.Forms
             this.cancelButton = new System.Windows.Forms.Button();
             this.selectButton = new System.Windows.Forms.Button();
             this.propertiesGroupBox = new System.Windows.Forms.GroupBox();
+            this.mapLayerLabel = new System.Windows.Forms.Label();
+            this.mapLayerComboBox = new System.Windows.Forms.ComboBox();
+            this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
             this.tableLayoutPanel1.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
+            this.flowLayoutPanel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
             // 
             resources.ApplyResources(this.tableLayoutPanel1, "tableLayoutPanel1");
+            this.tableLayoutPanel1.Controls.Add(this.flowLayoutPanel2, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.flowLayoutPanel1, 0, 2);
             this.tableLayoutPanel1.Controls.Add(this.propertiesGroupBox, 0, 1);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -79,6 +84,24 @@ namespace Ringtoets.Integration.Forms
             this.propertiesGroupBox.Name = "propertiesGroupBox";
             this.propertiesGroupBox.TabStop = false;
             // 
+            // mapLayerLabel
+            // 
+            resources.ApplyResources(this.mapLayerLabel, "mapLayerLabel");
+            this.mapLayerLabel.Name = "mapLayerLabel";
+            // 
+            // mapLayerComboBox
+            // 
+            this.mapLayerComboBox.FormattingEnabled = true;
+            resources.ApplyResources(this.mapLayerComboBox, "mapLayerComboBox");
+            this.mapLayerComboBox.Name = "mapLayerComboBox";
+            // 
+            // flowLayoutPanel2
+            // 
+            resources.ApplyResources(this.flowLayoutPanel2, "flowLayoutPanel2");
+            this.flowLayoutPanel2.Controls.Add(this.mapLayerLabel);
+            this.flowLayoutPanel2.Controls.Add(this.mapLayerComboBox);
+            this.flowLayoutPanel2.Name = "flowLayoutPanel2";
+            // 
             // BackgroundMapDataSelectionDialog
             // 
             resources.ApplyResources(this, "$this");
@@ -88,6 +111,8 @@ namespace Ringtoets.Integration.Forms
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.flowLayoutPanel1.ResumeLayout(false);
+            this.flowLayoutPanel2.ResumeLayout(false);
+            this.flowLayoutPanel2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -99,5 +124,8 @@ namespace Ringtoets.Integration.Forms
         private System.Windows.Forms.Button cancelButton;
         private System.Windows.Forms.Button selectButton;
         private System.Windows.Forms.GroupBox propertiesGroupBox;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel2;
+        private System.Windows.Forms.Label mapLayerLabel;
+        private System.Windows.Forms.ComboBox mapLayerComboBox;
     }
 }

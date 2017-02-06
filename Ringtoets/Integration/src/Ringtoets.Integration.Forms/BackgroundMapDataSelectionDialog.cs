@@ -43,6 +43,7 @@ namespace Ringtoets.Integration.Forms
             : base(dialogParent, RingtoetsCommonFormsResources.SelectionDialogIcon, 500, 350)
         {
             InitializeComponent();
+            selectButton.Enabled = false;
         }
 
         /// <summary>
