@@ -37,9 +37,10 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil
         /// <summary>
         /// Asserts whether or not <paramref name="expectedInput"/> and <paramref name="actualInput"/> are equal to each other.
         /// </summary>
+        /// <typeparam name="T">The type of <see cref="HydraRingCalculationInput"/> to compare.</typeparam>
         /// <param name="expectedInput">The expected calculation input.</param>
         /// <param name="actualInput">The actual calculation input.</param>
-        public static void AreEqual(HydraRingCalculationInput expectedInput, HydraRingCalculationInput actualInput)
+        public static void AreEqual<T>(T expectedInput, T actualInput) where T : HydraRingCalculationInput
         {
             Assert.AreEqual(expectedInput.FailureMechanismType, actualInput.FailureMechanismType);
             Assert.AreEqual(expectedInput.CalculationTypeId, actualInput.CalculationTypeId);
