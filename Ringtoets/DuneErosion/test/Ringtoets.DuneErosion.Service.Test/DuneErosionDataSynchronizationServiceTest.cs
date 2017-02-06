@@ -105,12 +105,12 @@ namespace Ringtoets.DuneErosion.Service.Test
         }
 
         [Test]
-        public void SetDuneLocations_DuneLocationMatchesWithHydraulicBoundaryLocation_DuneLocationAddedToFailureMechanism()
+        public void SetDuneLocations_DuneLocationOffsetMatchesWithHydraulicBoundaryLocationName_DuneLocationAddedToFailureMechanism()
         {
             // Setup
             var failureMechanism = new DuneErosionFailureMechanism();
             var readDuneLocation = new ReadDuneLocation("dune location 1", new Point2D(1.0, 5.3), 8, 1.1, 2.2, 3.3);
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "hydraulic location 1", 1.0, 5.3);
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "Location_1.1", 1.0, 5.3);
 
             // Precondition
             CollectionAssert.IsEmpty(failureMechanism.DuneLocations);
@@ -131,21 +131,41 @@ namespace Ringtoets.DuneErosion.Service.Test
         }
 
         [Test]
-        public void SetDuneLocation_DuneLocationNoMatchWithHydraulicBoundaryLocation_DuneLocationNotAddedToFailureMechanism()
+        [TestCaseSource(nameof(Locations))]
+        public void SetDuneLocation_DuneLocationNoMatchWithHydraulicBoundaryLocation_DuneLocationNotAddedToFailureMechanism(ReadDuneLocation readDuneLocation,
+                                                                                                                            HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
             // Setup
             var failureMechanism = new DuneErosionFailureMechanism();
-            var readDuneLocation = new ReadDuneLocation("dune location 1", new Point2D(1.0, 2.0), 0, 0, 0, 0);
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "hydraulic location 1", 2.0, 1.0);
 
             // Precondition
             CollectionAssert.IsEmpty(failureMechanism.DuneLocations);
 
             // Call
-            DuneErosionDataSynchronizationService.SetDuneLocations(failureMechanism, new[] { hydraulicBoundaryLocation }, new[] { readDuneLocation });
+            DuneErosionDataSynchronizationService.SetDuneLocations(failureMechanism, new[]
+            {
+                hydraulicBoundaryLocation
+            }, new[]
+            {
+                readDuneLocation
+            });
 
             // Assert
             CollectionAssert.IsEmpty(failureMechanism.DuneLocations);
+        }
+
+        private static IEnumerable<TestCaseData> Locations
+        {
+            get
+            {
+                yield return new TestCaseData(
+                    new ReadDuneLocation("dune location 1", new Point2D(1.0, 2.0), 0, 0, 0, 0),
+                    new HydraulicBoundaryLocation(1, "hydraulic location 1", 2.0, 1.0)).SetName("DifferentCoordinates");
+
+                yield return new TestCaseData(
+                    new ReadDuneLocation("dune location 1", new Point2D(1.0, 2.0), 0, 2.2, 0, 0),
+                    new HydraulicBoundaryLocation(1, "hydraulic_location_1.1", 1.0, 2.0)).SetName("DifferentOffset");
+            }
         }
 
         [Test]

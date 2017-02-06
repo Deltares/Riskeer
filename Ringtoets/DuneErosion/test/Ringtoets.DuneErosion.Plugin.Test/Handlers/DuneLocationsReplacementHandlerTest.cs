@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.Gui.Commands;
 using NUnit.Framework;
@@ -76,7 +77,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.Handlers
 
             var failureMechanism = new DuneErosionFailureMechanism();
             var handler = new DuneLocationsReplacementHandler(viewCommands, failureMechanism);
-            
+
             // Call
             TestDelegate test = () => handler.Replace(null);
 
@@ -109,9 +110,9 @@ namespace Ringtoets.DuneErosion.Plugin.Test.Handlers
 
             // Call
             handler.Replace(new HydraulicBoundaryLocation[]
-                            {
-                                new TestHydraulicBoundaryLocation()
-                            });
+            {
+                new TestHydraulicBoundaryLocation()
+            });
 
             // Assert
             CollectionAssert.IsEmpty(failureMechanism.DuneLocations);
@@ -140,19 +141,17 @@ namespace Ringtoets.DuneErosion.Plugin.Test.Handlers
             Assert.AreEqual(2, failureMechanism.DuneLocations.Count);
 
             // Call
-            handler.Replace(new []
-                            {
-                                new HydraulicBoundaryLocation(1, "test", 205354, 609735)
-                            });
+            handler.Replace(new[]
+            {
+                new HydraulicBoundaryLocation(1, "test_100", 205354, 609735)
+            });
 
             // Assert
-            Assert.AreEqual(7, failureMechanism.DuneLocations.Count);
+            Assert.AreEqual(1, failureMechanism.DuneLocations.Count);
+            DuneLocation duneLocation = failureMechanism.DuneLocations.First();
 
-            foreach (DuneLocation duneLocation in failureMechanism.DuneLocations)
-            {
-                Assert.AreEqual(1, duneLocation.Id);
-                Assert.AreEqual(new Point2D(205354, 609735), duneLocation.Location);
-            }
+            Assert.AreEqual(1, duneLocation.Id);
+            Assert.AreEqual(new Point2D(205354, 609735), duneLocation.Location);
 
             mocks.VerifyAll();
         }
@@ -178,9 +177,9 @@ namespace Ringtoets.DuneErosion.Plugin.Test.Handlers
             var handler = new DuneLocationsReplacementHandler(viewCommands, failureMechanism);
 
             handler.Replace(new HydraulicBoundaryLocation[]
-                            {
-                                new TestHydraulicBoundaryLocation()
-                            });
+            {
+                new TestHydraulicBoundaryLocation()
+            });
 
             // Precondition
             CollectionAssert.IsEmpty(failureMechanism.DuneLocations);
@@ -211,12 +210,12 @@ namespace Ringtoets.DuneErosion.Plugin.Test.Handlers
             var handler = new DuneLocationsReplacementHandler(viewCommands, failureMechanism);
 
             handler.Replace(new[]
-                            {
-                                new HydraulicBoundaryLocation(1, "test", 205354, 609735)
-                            });
+            {
+                new HydraulicBoundaryLocation(1, "test_100", 205354, 609735)
+            });
 
             // Precondition
-            Assert.AreEqual(7, failureMechanism.DuneLocations.Count);
+            Assert.AreEqual(1, failureMechanism.DuneLocations.Count);
 
             // Call
             handler.DoPostReplacementUpdates();

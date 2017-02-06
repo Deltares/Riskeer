@@ -27,6 +27,7 @@ using Core.Common.Base.Geometry;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.IO;
+using DuneErosionDataResources = Ringtoets.DuneErosion.Data.Properties.Resources;
 
 namespace Ringtoets.DuneErosion.Service
 {
@@ -69,9 +70,14 @@ namespace Ringtoets.DuneErosion.Service
 
             foreach (ReadDuneLocation duneLocation in duneLocations)
             {
+                string duneLocationOffset = duneLocation.Offset.ToString(DuneErosionDataResources.DuneLocation_Offset_format, null);
+
                 foreach (var hydraulicBoundaryLocation in hydraulicBoundaryLocations)
                 {
-                    if (Math2D.AreEqualPoints(hydraulicBoundaryLocation.Location, duneLocation.Location))
+                    string offsetFromLocationName = hydraulicBoundaryLocation.Name.Split('_').Last();
+
+                    if (Math2D.AreEqualPoints(hydraulicBoundaryLocation.Location, duneLocation.Location)
+                        && offsetFromLocationName == duneLocationOffset)
                     {
                         failureMechanism.DuneLocations.Add(new DuneLocation(hydraulicBoundaryLocation.Id,
                                                                             duneLocation.Name,
