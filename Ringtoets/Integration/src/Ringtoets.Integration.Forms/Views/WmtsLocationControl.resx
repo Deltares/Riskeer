@@ -318,28 +318,28 @@
   <data name="&gt;&gt;flowLayoutPanel2.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="dataGridView.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+  <data name="dataGridViewControl.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
-  <data name="dataGridView.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="dataGridViewControl.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 71</value>
   </data>
-  <data name="dataGridView.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="dataGridViewControl.Size" type="System.Drawing.Size, System.Drawing">
     <value>481, 146</value>
   </data>
-  <data name="dataGridView.TabIndex" type="System.Int32, mscorlib">
+  <data name="dataGridViewControl.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
-  <data name="&gt;&gt;dataGridView.Name" xml:space="preserve">
-    <value>dataGridView</value>
+  <data name="&gt;&gt;dataGridViewControl.Name" xml:space="preserve">
+    <value>dataGridViewControl</value>
   </data>
-  <data name="&gt;&gt;dataGridView.Type" xml:space="preserve">
+  <data name="&gt;&gt;dataGridViewControl.Type" xml:space="preserve">
     <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;dataGridView.Parent" xml:space="preserve">
+  <data name="&gt;&gt;dataGridViewControl.Parent" xml:space="preserve">
     <value>tableLayoutPanel1</value>
   </data>
-  <data name="&gt;&gt;dataGridView.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;dataGridViewControl.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
   <data name="tableLayoutPanel1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">

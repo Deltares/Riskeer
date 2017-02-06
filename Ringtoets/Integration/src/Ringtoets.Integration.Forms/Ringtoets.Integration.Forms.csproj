@@ -150,10 +150,10 @@
     <Compile Include="Views\WaveHeightLocationsView.Designer.cs">
       <DependentUpon>WaveHeightLocationsView.cs</DependentUpon>
     </Compile>
-    <Compile Include="WmtsLocationControl.cs">
+    <Compile Include="Views\WmtsLocationControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="WmtsLocationControl.Designer.cs">
+    <Compile Include="Views\WmtsLocationControl.Designer.cs">
       <DependentUpon>WmtsLocationControl.cs</DependentUpon>
     </Compile>
   </ItemGroup>
@@ -269,7 +269,7 @@
       <DependentUpon>WaveHeightLocationsView.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="WmtsLocationControl.resx">
+    <EmbeddedResource Include="Views\WmtsLocationControl.resx">
       <DependentUpon>WmtsLocationControl.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>

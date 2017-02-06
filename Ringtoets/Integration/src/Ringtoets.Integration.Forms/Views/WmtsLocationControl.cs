@@ -21,7 +21,7 @@
 
 using System.Windows.Forms;
 
-namespace Ringtoets.Integration.Forms
+namespace Ringtoets.Integration.Forms.Views
 {
     /// <summary>
     /// This class represents a <seealso cref="Control"/> where WMTS locations can be administrated.
@@ -34,6 +34,7 @@ namespace Ringtoets.Integration.Forms
         public WmtsLocationControl()
         {
             InitializeComponent();
+            InitializeDataGridView();
         }
 
         protected override void Dispose(bool disposing)
@@ -43,6 +44,14 @@ namespace Ringtoets.Integration.Forms
                 components?.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        private void InitializeDataGridView()
+        {
+            dataGridViewControl.AddTextBoxColumn("", "Kaartlaag", true);
+            dataGridViewControl.AddTextBoxColumn("", "Formaat", true);
+            dataGridViewControl.AddTextBoxColumn("", "Titel", true);
+            dataGridViewControl.AddTextBoxColumn("", "Coördinatenstelsel", true);
         }
     }
 }
