@@ -204,8 +204,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             PropertyDescriptor dampingsFactorExitProperty = dynamicProperties[expectedDampingFactorExitPropertyIndex];
             Assert.IsNotNull(dampingsFactorExitProperty);
-            Assert.IsInstanceOf<LogNormalDistributionDesignVariableTypeConverter>(dampingsFactorExitProperty.Converter);
-            Assert.IsFalse(dampingsFactorExitProperty.IsReadOnly);
+            Assert.IsInstanceOf<ExpandableObjectConverter>(dampingsFactorExitProperty.Converter);
             Assert.AreEqual(hydraulicDataCategory, dampingsFactorExitProperty.Category);
             Assert.AreEqual("Dempingsfactor bij uittredepunt [-]", dampingsFactorExitProperty.DisplayName);
             Assert.AreEqual("Dempingsfactor relateert respons van stijghoogte bij binnenteen aan buitenwaterstand.", dampingsFactorExitProperty.Description);
@@ -434,7 +433,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             // Call & Assert
             Assert.AreSame(inputParameters.PhreaticLevelExit, properties.PhreaticLevelExit.Distribution);
-            Assert.AreSame(inputParameters.DampingFactorExit, properties.DampingFactorExit.Distribution);
+            Assert.AreSame(inputParameters.DampingFactorExit, properties.DampingFactorExit.Data);
             Assert.AreEqual(inputParameters.ThicknessCoverageLayer.Mean, properties.ThicknessCoverageLayer.Distribution.Mean);
             Assert.AreEqual(inputParameters.ThicknessCoverageLayer.StandardDeviation, properties.ThicknessCoverageLayer.Distribution.StandardDeviation);
             Assert.AreEqual(inputParameters.EffectiveThicknessCoverageLayer.Mean, properties.EffectiveThicknessCoverageLayer.Distribution.Mean);
@@ -523,7 +522,8 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             properties.ExitPointL = (RoundedDouble) exitPointL;
             properties.StochasticSoilModel = soilModel;
             properties.StochasticSoilProfile = soilProfile;
-            properties.DampingFactorExit = dampingFactorExit;
+            properties.DampingFactorExit.Mean = dampingFactorExit.Distribution.Mean;
+            properties.DampingFactorExit.StandardDeviation = dampingFactorExit.Distribution.StandardDeviation;
             properties.PhreaticLevelExit = phreaticLevelExit;
 
             // Assert
@@ -589,15 +589,25 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void DampingFactorExit_SetValidValue_SetsValueAndUpdatesObservers()
+        public void DampingFactorExitMean_SetValidValue_SetsValueAndUpdatesObservers()
         {
             // Setup
-            var distribution = new LogNormalDistribution(3);
-            var newDampingFactorExit = new LogNormalDistributionDesignVariable(distribution);
+            var mean = new RoundedDouble(2, 2);
             var calculation = new PipingCalculationScenario(new GeneralPipingInput());
 
             // Call & Assert
-            SetPropertyAndVerifyNotifcationsAndOutputForCalculation(properties => properties.DampingFactorExit = newDampingFactorExit, distribution, calculation);
+            SetPropertyAndVerifyNotifcationsAndOutputForCalculation(properties => properties.DampingFactorExit.Mean = mean, mean, calculation);
+        }
+
+        [Test]
+        public void DampingFactorExitStandardDeviation_SetValidValue_SetsValueAndUpdatesObservers()
+        {
+            // Setup
+            var standardDeviation = new RoundedDouble(2, 2);
+            var calculation = new PipingCalculationScenario(new GeneralPipingInput());
+
+            // Call & Assert
+            SetPropertyAndVerifyNotifcationsAndOutputForCalculation(properties => properties.DampingFactorExit.StandardDeviation = standardDeviation, standardDeviation, calculation);
         }
 
         [Test]

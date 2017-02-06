@@ -214,19 +214,19 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         }
 
         [PropertyOrder(dampingFactorExitPropertyIndex)]
-        [TypeConverter(typeof(LogNormalDistributionDesignVariableTypeConverter))]
+        [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_HydraulicData))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.PipingInput_DampingFactorExit_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.PipingInput_DampingFactorExit_Description))]
-        public DesignVariable<LogNormalDistribution> DampingFactorExit
+        public LogNormalDistributionDesignVariableProperties DampingFactorExit
         {
             get
             {
-                return PipingSemiProbabilisticDesignValueFactory.GetDampingFactorExit(data.WrappedData);
-            }
-            set
-            {
-                ChangePropertyValueAndNotifyAffectedObjects((input, v) => input.DampingFactorExit = v, value.Distribution);
+                return new LogNormalDistributionDesignVariableProperties(DistributionPropertiesReadOnly.None,
+                                                                         PipingSemiProbabilisticDesignValueFactory.GetDampingFactorExit(data.WrappedData),
+                                                                         data.PipingCalculation,
+                                                                         data.WrappedData,
+                                                                         propertyChangeHandler);
             }
         }
 
@@ -455,7 +455,6 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         }
 
         #endregion
-
 
         private void ChangePropertyValueAndNotifyAffectedObjects<TValue>(
             SetCalculationInputPropertyValueDelegate<PipingInput, TValue> setPropertyValue,

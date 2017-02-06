@@ -20,21 +20,11 @@
 // All rights reserved.
 
 using System.ComponentModel;
-using System.Linq;
-using Core.Common.Base;
 using Core.Common.Base.Data;
-using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Probabilistics;
-using Ringtoets.Common.Forms.ChangeHandlers;
-using Ringtoets.Common.Forms.PropertyClasses;
-using Ringtoets.Piping.Data;
-using Ringtoets.Piping.Forms.PresentationObjects;
-using Ringtoets.Piping.Forms.PropertyClasses;
 using Ringtoets.Piping.Forms.TypeConverters;
-using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.Forms.Test.TypeConverters
 {
@@ -200,69 +190,6 @@ namespace Ringtoets.Piping.Forms.Test.TypeConverters
 
             mocks.VerifyAll();
         }
-
-        #region Integration tests
-
-        [Test]
-        [TestCase(1)]
-        [TestCase(2)]
-        public void GivenPipingInputParameterContextPropertiesInDynamicPropertyBag_WhenSettingNewValue_ThenPipingInputUpdatesObservers(int propertyIndexToChange)
-        {
-            // Scenario
-            var mocks = new MockRepository();
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-            var typeDescriptorContextMock = mocks.StrictMock<ITypeDescriptorContext>();
-
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-
-            var calculationItem = new PipingCalculationScenario(new GeneralPipingInput());
-            var failureMechanism = new PipingFailureMechanism();
-
-            var inputParameters = new PipingInput(new GeneralPipingInput());
-            var inputParametersContext = new PipingInputContext(inputParameters,
-                                                                calculationItem,
-                                                                Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                                Enumerable.Empty<StochasticSoilModel>(),
-                                                                failureMechanism,
-                                                                assessmentSectionMock);
-
-            var handler = new CalculationInputPropertyChangeHandler<PipingInput, PipingCalculationScenario>();
-
-            var inputParameterContextProperties = new PipingInputContextProperties(inputParametersContext, handler);
-            PropertyDescriptor propertyDescriptor = TypeDescriptor.GetProperties(inputParameterContextProperties).Find("DampingFactorExit", false);
-            var dynamicPropertyBag = new DynamicPropertyBag(inputParameterContextProperties);
-
-            typeDescriptorContextMock.Expect(tdc => tdc.Instance).Return(dynamicPropertyBag).Repeat.Twice();
-            typeDescriptorContextMock.Stub(tdc => tdc.PropertyDescriptor).Return(propertyDescriptor);
-            mocks.ReplayAll();
-
-            inputParameters.Attach(observer);
-
-            DesignVariable<LogNormalDistribution> dampingFactorExit = inputParameterContextProperties.DampingFactorExit;
-            var properties = new LogNormalDistributionDesignVariableTypeConverter().GetProperties(typeDescriptorContextMock, dampingFactorExit);
-
-            // Precondition
-            Assert.IsNotNull(properties);
-
-            // Event
-            const double newDoubleValue = 2.3;
-            properties[propertyIndexToChange].SetValue(dampingFactorExit, (RoundedDouble) newDoubleValue);
-
-            // Result
-            switch (propertyIndexToChange)
-            {
-                case 1:
-                    Assert.AreEqual(newDoubleValue, inputParameters.DampingFactorExit.Mean.Value);
-                    break;
-                case 2:
-                    Assert.AreEqual(newDoubleValue, inputParameters.DampingFactorExit.StandardDeviation.Value);
-                    break;
-            }
-            mocks.VerifyAll();
-        }
-
-        #endregion
 
         private class ClassWithReadOnlyDesignVariable
         {
