@@ -36,7 +36,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var handler = new StochasticSoilModelChangeHandler();
 
             // Assert
-            Assert.Throws<NotImplementedException>(() => handler.InquireConfirmation());
+            Assert.IsInstanceOf<IStochasticSoilModelChangeHandler>(handler);
         }
 
         [Test]
