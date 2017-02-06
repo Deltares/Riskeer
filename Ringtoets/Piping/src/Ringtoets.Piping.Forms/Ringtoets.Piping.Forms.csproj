@@ -72,6 +72,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="PropertyClasses\LogNormalDistributionDesignVariableProperties.cs" />
+    <Compile Include="PropertyClasses\NormalDistributionDesignVariableProperties.cs" />
     <Compile Include="PropertyClasses\PipingDistributionPropertiesBase.cs" />
     <Compile Include="PropertyClasses\PipingFailureMechanismContextProperties.cs" />
     <Compile Include="PropertyClasses\PipingInputContextProperties.cs" />

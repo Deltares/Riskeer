@@ -34,7 +34,7 @@ using Ringtoets.Piping.Forms.PropertyClasses;
 namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class LogNormalDistributionDesignVariablePropertiesTest
+    public class NormalDistributionDesignVariablePropertiesTest
     {
         [Test]
         public void Constructor_DesignVariableNull_ThrowArgumentNullException()
@@ -47,15 +47,15 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             PipingCalculationScenario calculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
 
             // Call
-            TestDelegate test = () => new LogNormalDistributionDesignVariableProperties(DistributionPropertiesReadOnly.None,
-                                                                                        null,
-                                                                                        calculation,
-                                                                                        calculation.InputParameters,
-                                                                                        handler);
+            TestDelegate test = () => new NormalDistributionDesignVariableProperties(DistributionPropertiesReadOnly.None,
+                                                                                     null,
+                                                                                     calculation,
+                                                                                     calculation.InputParameters,
+                                                                                     handler);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("logNormalDesignVariable", exception.ParamName);
+            Assert.AreEqual("normalDesignVariable", exception.ParamName);
             mocks.VerifyAll();
         }
 
@@ -67,24 +67,24 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var handler = mockRepository.Stub<ICalculationInputPropertyChangeHandler<PipingInput, PipingCalculationScenario>>();
             mockRepository.ReplayAll();
 
-            var distribution = new LogNormalDistribution();
-            var designVariable = new LogNormalDistributionDesignVariable(distribution);
+            var distribution = new NormalDistribution();
+            var designVariable = new NormalDistributionDesignVariable(distribution);
 
             PipingCalculationScenario calculationScenario = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
 
             // Call
-            var properties = new LogNormalDistributionDesignVariableProperties(DistributionPropertiesReadOnly.All,
-                                                              designVariable,
-                                                              calculationScenario,
-                                                              calculationScenario.InputParameters,
-                                                              handler);
+            var properties = new NormalDistributionDesignVariableProperties(DistributionPropertiesReadOnly.All,
+                                                                            designVariable,
+                                                                            calculationScenario,
+                                                                            calculationScenario.InputParameters,
+                                                                            handler);
 
             // Assert
-            Assert.IsInstanceOf<PipingDistributionPropertiesBase<LogNormalDistribution, PipingInput, PipingCalculationScenario>>(properties);
+            Assert.IsInstanceOf<PipingDistributionPropertiesBase<NormalDistribution, PipingInput, PipingCalculationScenario>>(properties);
             Assert.AreSame(distribution, properties.Data);
             Assert.AreEqual(distribution.Mean, properties.Mean);
             Assert.AreEqual(distribution.StandardDeviation, properties.StandardDeviation);
-            Assert.AreEqual("Lognormaal", properties.DistributionType);
+            Assert.AreEqual("Normaal", properties.DistributionType);
             mockRepository.VerifyAll();
         }
 
@@ -96,17 +96,17 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var handler = mockRepository.Stub<ICalculationInputPropertyChangeHandler<PipingInput, PipingCalculationScenario>>();
             mockRepository.ReplayAll();
 
-            var distribution = new LogNormalDistribution();
-            var designVariable = new LogNormalDistributionDesignVariable(distribution);
+            var distribution = new NormalDistribution();
+            var designVariable = new NormalDistributionDesignVariable(distribution);
 
             PipingCalculationScenario calculationScenario = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
 
             // Call
-            var properties = new LogNormalDistributionDesignVariableProperties(DistributionPropertiesReadOnly.None,
-                                                                               designVariable,
-                                                                               calculationScenario,
-                                                                               calculationScenario.InputParameters,
-                                                                               handler);
+            var properties = new NormalDistributionDesignVariableProperties(DistributionPropertiesReadOnly.None,
+                                                                            designVariable,
+                                                                            calculationScenario,
+                                                                            calculationScenario.InputParameters,
+                                                                            handler);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -123,13 +123,13 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(meanProperty,
                                                                             "Misc",
                                                                             "Verwachtingswaarde",
-                                                                            "De gemiddelde waarde van de lognormale verdeling.");
+                                                                            "De gemiddelde waarde van de normale verdeling.");
 
             PropertyDescriptor standardDeviationProperty = dynamicProperties[2];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(standardDeviationProperty,
                                                                             "Misc",
                                                                             "Standaardafwijking",
-                                                                            "De standaardafwijking van de lognormale verdeling.");
+                                                                            "De standaardafwijking van de normale verdeling.");
 
             PropertyDescriptor designValueProperty = dynamicProperties[3];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(designValueProperty,
@@ -148,24 +148,24 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var handler = mockRepository.Stub<ICalculationInputPropertyChangeHandler<PipingInput, PipingCalculationScenario>>();
             mockRepository.ReplayAll();
 
-            var distribution = new LogNormalDistribution(2)
+            var distribution = new NormalDistribution(2)
             {
                 Mean = new RoundedDouble(2, 1),
                 StandardDeviation = new RoundedDouble(2, 2)
             };
-            var designVariable = new LogNormalDistributionDesignVariable(distribution);
+            var designVariable = new NormalDistributionDesignVariable(distribution);
 
             PipingCalculationScenario calculationScenario = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
 
             // Call
-            var properties = new LogNormalDistributionDesignVariableProperties(DistributionPropertiesReadOnly.None,
-                                                                               designVariable,
-                                                                               calculationScenario,
-                                                                               calculationScenario.InputParameters,
-                                                                               handler);
+            var properties = new NormalDistributionDesignVariableProperties(DistributionPropertiesReadOnly.None,
+                                                                            designVariable,
+                                                                            calculationScenario,
+                                                                            calculationScenario.InputParameters,
+                                                                            handler);
 
             // Assert
-            Assert.AreEqual("Lognormaal", properties.DistributionType);
+            Assert.AreEqual("Normaal", properties.DistributionType);
             Assert.AreEqual(distribution.Mean, properties.Mean);
             Assert.AreEqual(distribution.StandardDeviation, properties.StandardDeviation);
             Assert.AreEqual(designVariable.GetDesignValue(), properties.DesignValue);
@@ -180,27 +180,27 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var handler = mockRepository.Stub<ICalculationInputPropertyChangeHandler<PipingInput, PipingCalculationScenario>>();
             mockRepository.ReplayAll();
 
-            var distribution = new LogNormalDistribution(2)
+            var distribution = new NormalDistribution(2)
             {
                 Mean = new RoundedDouble(2, 1),
                 StandardDeviation = new RoundedDouble(2, 2)
             };
-            var designVariable = new LogNormalDistributionDesignVariable(distribution);
+            var designVariable = new NormalDistributionDesignVariable(distribution);
 
             PipingCalculationScenario calculationScenario = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
 
             // Call
-            var properties = new LogNormalDistributionDesignVariableProperties(DistributionPropertiesReadOnly.None,
-                                                                               designVariable,
-                                                                               calculationScenario,
-                                                                               calculationScenario.InputParameters,
-                                                                               handler);
+            var properties = new NormalDistributionDesignVariableProperties(DistributionPropertiesReadOnly.None,
+                                                                            designVariable,
+                                                                            calculationScenario,
+                                                                            calculationScenario.InputParameters,
+                                                                            handler);
 
             // Call
             var propertyName = properties.ToString();
 
             // Assert
-            Assert.AreEqual("0,45 (Verwachtingswaarde = 1,00, Standaardafwijking = 2,00)", propertyName);
+            Assert.AreEqual("1,00 (Verwachtingswaarde = 1,00, Standaardafwijking = 2,00)", propertyName);
         }
     }
 }
