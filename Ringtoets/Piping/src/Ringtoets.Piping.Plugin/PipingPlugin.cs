@@ -36,7 +36,6 @@ using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Forms;
 using Ringtoets.Common.Forms.ChangeHandlers;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PresentationObjects;
@@ -83,6 +82,10 @@ namespace Ringtoets.Piping.Plugin
                 CreateInstance = context => new PipingInputContextProperties(context, new CalculationInputPropertyChangeHandler<PipingInput, PipingCalculationScenario>())
             };
             yield return new PropertyInfo<PipingOutputContext, PipingOutputContextProperties>();
+            yield return new PropertyInfo<RingtoetsPipingSurfaceLinesContext, RingtoetsPipingSurfaceLineCollectionProperties>
+            {
+                CreateInstance = context => new RingtoetsPipingSurfaceLineCollectionProperties(context.WrappedData)
+            };
             yield return new PropertyInfo<RingtoetsPipingSurfaceLine, RingtoetsPipingSurfaceLineProperties>();
             yield return new PropertyInfo<StochasticSoilModelCollectionContext, StochasticSoilModelCollectionProperties>
             {

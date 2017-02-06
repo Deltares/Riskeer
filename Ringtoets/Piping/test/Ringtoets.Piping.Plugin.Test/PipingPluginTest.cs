@@ -66,7 +66,7 @@ namespace Ringtoets.Piping.Plugin.Test
                 PropertyInfo[] propertyInfos = plugin.GetPropertyInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(7, propertyInfos.Length);
+                Assert.AreEqual(8, propertyInfos.Length);
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
@@ -82,6 +82,11 @@ namespace Ringtoets.Piping.Plugin.Test
                     propertyInfos,
                     typeof(PipingOutputContext),
                     typeof(PipingOutputContextProperties));
+
+                PluginTestHelper.AssertPropertyInfoDefined(
+                    propertyInfos,
+                    typeof(RingtoetsPipingSurfaceLinesContext),
+                    typeof(RingtoetsPipingSurfaceLineCollectionProperties));
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
