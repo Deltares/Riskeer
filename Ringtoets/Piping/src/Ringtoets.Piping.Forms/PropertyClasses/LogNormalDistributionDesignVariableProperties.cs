@@ -21,6 +21,7 @@
 
 using System;
 using Core.Common.Base.Data;
+using Core.Common.Gui.Attributes;
 using Core.Common.Utils.Attributes;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Forms.PropertyClasses;
@@ -36,8 +37,6 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
     public class LogNormalDistributionDesignVariableProperties
         : PipingDistributionPropertiesBase<LogNormalDistribution, PipingInput, PipingCalculationScenario>
     {
-        private readonly DesignVariable<LogNormalDistribution> designVariable;
-
         /// <summary>
         /// Creates a new read-only <see cref="LogNormalDistributionDesignVariableProperties"/>.
         /// </summary>
@@ -67,7 +66,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
                    calculationInput,
                    handler)
         {
-            this.designVariable = designVariable;
+            DesignVariable = designVariable;
         }
 
         public override string DistributionType { get; } = RingtoetsCommonFormsResources.DistributionType_LogNormal;
@@ -98,13 +97,14 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
         }
 
+        [PropertyOrder(5)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.DesignVariableTypeConverter_DesignValue_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.DesignVariableTypeConverter_DesignValue_Description))]
         public RoundedDouble DesignValue
         {
             get
             {
-                return designVariable.GetDesignValue();
+                return DesignVariable.GetDesignValue();
             }
         }
 
@@ -113,6 +113,11 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             return $"{DesignValue} ({RingtoetsCommonFormsResources.NormalDistribution_Mean_DisplayName} = {Mean}, " +
                    $"{RingtoetsCommonFormsResources.NormalDistribution_StandardDeviation_DisplayName} = {StandardDeviation})";
         }
+
+        /// <summary>
+        /// Gets the design variable.
+        /// </summary>
+        protected DesignVariable<LogNormalDistribution> DesignVariable { get; }
 
         /// <summary>
         /// Gets the <see cref="LogNormalDistribution"/> of the <see cref="DesignVariable{T}"/>.

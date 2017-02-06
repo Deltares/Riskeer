@@ -78,6 +78,7 @@
     <Compile Include="PropertyClasses\PipingInputContextProperties.cs" />
     <Compile Include="PropertyClasses\PipingOutputContextProperties.cs" />
     <Compile Include="PropertyClasses\RingtoetsPipingSurfaceLineCollectionProperties.cs" />
+    <Compile Include="PropertyClasses\ShiftedLogNormalDistributionDesignVariableProperties.cs" />
     <Compile Include="PropertyClasses\StochasticSoilModelCollectionProperties.cs" />
     <Compile Include="PropertyClasses\StochasticSoilProfileProperties.cs" />
     <Compile Include="PropertyClasses\RingtoetsPipingSurfaceLineProperties.cs" />

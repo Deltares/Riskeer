@@ -308,7 +308,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             PropertyDescriptor saturatedVolumicWeightOfCoverageLayerProperty = dynamicProperties[expectedSaturatedVolumicWeightOfCoverageLayerPropertyIndex];
             Assert.IsNotNull(saturatedVolumicWeightOfCoverageLayerProperty);
-            Assert.IsInstanceOf<ShiftedLogNormalDistributionDesignVariableTypeConverter>(saturatedVolumicWeightOfCoverageLayerProperty.Converter);
+            Assert.IsInstanceOf<ExpandableObjectConverter>(saturatedVolumicWeightOfCoverageLayerProperty.Converter);
             Assert.IsTrue(saturatedVolumicWeightOfCoverageLayerProperty.IsReadOnly);
             Assert.AreEqual(schematizationCategory, saturatedVolumicWeightOfCoverageLayerProperty.Category);
             Assert.AreEqual("Verzadigd gewicht deklaag [kN/m³]", saturatedVolumicWeightOfCoverageLayerProperty.DisplayName);
@@ -447,13 +447,13 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             Assert.AreEqual(inputParameters.ThicknessAquiferLayer.StandardDeviation, properties.ThicknessAquiferLayer.StandardDeviation);
             Assert.AreEqual(
                 inputParameters.SaturatedVolumicWeightOfCoverageLayer.Mean,
-                properties.SaturatedVolumicWeightOfCoverageLayer.Distribution.Mean);
+                properties.SaturatedVolumicWeightOfCoverageLayer.Mean);
             Assert.AreEqual(
                 inputParameters.SaturatedVolumicWeightOfCoverageLayer.StandardDeviation,
-                properties.SaturatedVolumicWeightOfCoverageLayer.Distribution.StandardDeviation);
+                properties.SaturatedVolumicWeightOfCoverageLayer.StandardDeviation);
             Assert.AreEqual(
                 inputParameters.SaturatedVolumicWeightOfCoverageLayer.Shift,
-                properties.SaturatedVolumicWeightOfCoverageLayer.Distribution.Shift);
+                properties.SaturatedVolumicWeightOfCoverageLayer.Shift);
 
             Assert.AreEqual(inputParameters.AssessmentLevel, properties.AssessmentLevel);
             Assert.AreEqual(inputParameters.PiezometricHeadExit, properties.PiezometricHeadExit);

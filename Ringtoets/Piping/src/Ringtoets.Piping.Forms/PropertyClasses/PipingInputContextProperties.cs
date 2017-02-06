@@ -442,15 +442,16 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         }
 
         [PropertyOrder(saturatedVolumicWeightOfCoverageLayerPropertyIndex)]
-        [TypeConverter(typeof(ShiftedLogNormalDistributionDesignVariableTypeConverter))]
+        [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.PipingInput_SaturatedVolumicWeightOfCoverageLayer_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.PipingInput_SaturatedVolumicWeightOfCoverageLayer_Description))]
-        public DesignVariable<LogNormalDistribution> SaturatedVolumicWeightOfCoverageLayer
+        public ShiftedLogNormalDistributionDesignVariableProperties SaturatedVolumicWeightOfCoverageLayer
         {
             get
             {
-                return PipingSemiProbabilisticDesignValueFactory.GetSaturatedVolumicWeightOfCoverageLayer(data.WrappedData);
+                return new ShiftedLogNormalDistributionDesignVariableProperties(
+                    PipingSemiProbabilisticDesignValueFactory.GetSaturatedVolumicWeightOfCoverageLayer(data.WrappedData));
             }
         }
 
