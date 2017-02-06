@@ -102,7 +102,7 @@ namespace Ringtoets.ClosingStructures.Service
                                                                                               hydraulicBoundaryDatabaseFilePath);
 
             string hlcdDirectory = Path.GetDirectoryName(hydraulicBoundaryDatabaseFilePath);
-            calculator = HydraRingCalculatorFactory.Instance.CreateStructuresClosureCalculator(hlcdDirectory, assessmentSection.Id);
+            calculator = HydraRingCalculatorFactory.Instance.CreateStructuresClosureCalculator(hlcdDirectory);
 
             CalculationServiceHelper.LogCalculationBeginTime(calculationName);
 

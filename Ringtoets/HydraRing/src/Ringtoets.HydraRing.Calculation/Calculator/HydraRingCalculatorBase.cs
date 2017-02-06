@@ -42,7 +42,6 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
         private readonly LastErrorFileParser lastErrorFileParser;
 
         private readonly string hlcdDirectory;
-        private readonly string ringId;
         private Process hydraRingProcess;
 
         /// <summary>
@@ -50,16 +49,14 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
         /// initialized.
         /// </summary>
         /// <param name="hlcdDirectory">The directory in which the Hydraulic Boundary Database can be found.</param>
-        /// <param name="ringId">The id of the assessment section which is used in the calculation.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="hlcdDirectory"/> is <c>null</c>.</exception>
-        protected HydraRingCalculatorBase(string hlcdDirectory, string ringId)
+        protected HydraRingCalculatorBase(string hlcdDirectory)
         {
             if (hlcdDirectory == null)
             {
                 throw new ArgumentNullException(nameof(hlcdDirectory));
             }
             this.hlcdDirectory = hlcdDirectory;
-            this.ringId = ringId;
 
             lastErrorFileParser = new LastErrorFileParser();
         }

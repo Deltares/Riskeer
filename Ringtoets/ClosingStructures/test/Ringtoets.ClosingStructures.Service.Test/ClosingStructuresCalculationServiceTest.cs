@@ -629,7 +629,6 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 StructuresClosureCalculationInput[] calculationInputs = calculator.ReceivedInputs.ToArray();
                 Assert.AreEqual(1, calculationInputs.Length);
                 Assert.AreEqual(testDataPath, calculator.HydraulicBoundaryDatabaseDirectory);
-                Assert.AreEqual(assessmentSectionStub.Id, calculator.RingId);
 
                 GeneralClosingStructuresInput generalInput = closingStructuresFailureMechanism.GeneralInput;
                 ClosingStructuresInput input = calculation.InputParameters;
@@ -708,7 +707,6 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 StructuresClosureCalculationInput[] calculationInputs = calculator.ReceivedInputs.ToArray();
                 Assert.AreEqual(1, calculationInputs.Length);
                 Assert.AreEqual(testDataPath, calculator.HydraulicBoundaryDatabaseDirectory);
-                Assert.AreEqual(assessmentSectionStub.Id, calculator.RingId);
 
                 GeneralClosingStructuresInput generalInput = closingStructuresFailureMechanism.GeneralInput;
                 ClosingStructuresInput input = calculation.InputParameters;
@@ -786,7 +784,6 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 StructuresClosureCalculationInput[] calculationInputs = calculator.ReceivedInputs.ToArray();
                 Assert.AreEqual(1, calculationInputs.Length);
                 Assert.AreEqual(testDataPath, calculator.HydraulicBoundaryDatabaseDirectory);
-                Assert.AreEqual(assessmentSectionStub.Id, calculator.RingId);
 
                 GeneralClosingStructuresInput generalInput = closingStructuresFailureMechanism.GeneralInput;
                 ClosingStructuresInput input = calculation.InputParameters;

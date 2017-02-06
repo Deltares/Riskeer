@@ -67,7 +67,6 @@ namespace Ringtoets.Common.Service.Test
             // Call
             var activity = new DesignWaterLevelCalculationActivity(hydraulicBoundaryLocation,
                                                                    validFilePath,
-                                                                   string.Empty,
                                                                    1,
                                                                    calculationMessageProviderMock);
 
@@ -90,7 +89,6 @@ namespace Ringtoets.Common.Service.Test
             // Call
             TestDelegate call = () => new DesignWaterLevelCalculationActivity(hydraulicBoundaryLocation,
                                                                               validFilePath,
-                                                                              string.Empty,
                                                                               1,
                                                                               null);
 
@@ -111,7 +109,6 @@ namespace Ringtoets.Common.Service.Test
             // Call
             TestDelegate call = () => new DesignWaterLevelCalculationActivity(null,
                                                                               validFilePath,
-                                                                              string.Empty,
                                                                               1,
                                                                               calculationMessageProviderStub);
 
@@ -139,7 +136,6 @@ namespace Ringtoets.Common.Service.Test
 
             var activity = new DesignWaterLevelCalculationActivity(hydraulicBoundaryLocation,
                                                                    inValidFilePath,
-                                                                   string.Empty,
                                                                    1,
                                                                    calculationMessageProviderMock);
 
@@ -167,7 +163,6 @@ namespace Ringtoets.Common.Service.Test
             const string locationName = "punt_flw_";
             const string activityName = "GetActivityName";
             const string calculationName = "locationName";
-            const string ringId = "11-1";
             const double norm = 1.0/30;
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, locationName, 0, 0);
@@ -179,7 +174,6 @@ namespace Ringtoets.Common.Service.Test
 
             var activity = new DesignWaterLevelCalculationActivity(hydraulicBoundaryLocation,
                                                                    validFilePath,
-                                                                   ringId,
                                                                    norm,
                                                                    calculationMessageProviderMock);
 
@@ -207,7 +201,6 @@ namespace Ringtoets.Common.Service.Test
 
                 Assert.AreEqual(hydraulicBoundaryLocation.Id, designWaterLevelCalculationInput.HydraulicBoundaryLocationId);
                 Assert.AreEqual(testDataPath, testDesignWaterLevelCalculator.HydraulicBoundaryDatabaseDirectory);
-                Assert.AreEqual(ringId, testDesignWaterLevelCalculator.RingId);
                 Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(norm), designWaterLevelCalculationInput.Beta);
             }
             Assert.AreEqual(ActivityState.Executed, activity.State);
@@ -237,7 +230,6 @@ namespace Ringtoets.Common.Service.Test
 
             var activity = new DesignWaterLevelCalculationActivity(hydraulicBoundaryLocation,
                                                                    validFilePath,
-                                                                   string.Empty,
                                                                    norm,
                                                                    calculationMessageProviderMock);
 
@@ -269,7 +261,6 @@ namespace Ringtoets.Common.Service.Test
 
             var activity = new DesignWaterLevelCalculationActivity(hydraulicBoundaryLocation,
                                                                    validFilePath,
-                                                                   string.Empty,
                                                                    norm,
                                                                    calculationMessageProviderMock);
 
@@ -312,7 +303,6 @@ namespace Ringtoets.Common.Service.Test
             string validFilePath = Path.Combine(testDataPath, validFile);
             var activity = new DesignWaterLevelCalculationActivity(hydraulicBoundaryLocation,
                                                                    validFilePath,
-                                                                   string.Empty,
                                                                    30,
                                                                    calculationMessageProviderMock);
 
@@ -358,7 +348,6 @@ namespace Ringtoets.Common.Service.Test
             const double norm = 1.0/300;
             var activity = new DesignWaterLevelCalculationActivity(hydraulicBoundaryLocation,
                                                                    validFilePath,
-                                                                   string.Empty,
                                                                    norm,
                                                                    calculationMessageProviderMock);
 
@@ -410,7 +399,6 @@ namespace Ringtoets.Common.Service.Test
             const double norm = 1.0/30;
             var activity = new DesignWaterLevelCalculationActivity(hydraulicBoundaryLocation,
                                                                    validFilePath,
-                                                                   string.Empty,
                                                                    norm,
                                                                    calculationMessageProviderMock);
 

@@ -31,7 +31,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Calculator
         public void DefaultConstructor_InitializesOutputWithoutValues()
         {
             // Call
-            var calculator = new DikeHeightCalculator(string.Empty, string.Empty);
+            var calculator = new DikeHeightCalculator(string.Empty);
 
             // Assert
             Assert.IsInstanceOf<HydraRingCalculatorBase>(calculator);

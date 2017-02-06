@@ -58,7 +58,6 @@ namespace Ringtoets.DuneErosion.Integration.Test
             var activity = new DuneErosionBoundaryCalculationActivity(duneLocation,
                                                                       failureMechanism,
                                                                       validFilePath,
-                                                                      "13-1",
                                                                       1.0 / 30000);
 
             using (new HydraRingCalculatorFactoryConfig())
@@ -98,7 +97,6 @@ namespace Ringtoets.DuneErosion.Integration.Test
             var activity = new DuneErosionBoundaryCalculationActivity(duneLocation,
                                                                       failureMechanism,
                                                                       validFilePath,
-                                                                      "13-1",
                                                                       1.0 / 30000);
 
             using (new HydraRingCalculatorFactoryConfig())
@@ -132,7 +130,6 @@ namespace Ringtoets.DuneErosion.Integration.Test
             var activity = new DuneErosionBoundaryCalculationActivity(duneLocation,
                                                                       failureMechanism,
                                                                       validFilePath,
-                                                                      "13-1",
                                                                       1.0 / 30000);
 
             using (new HydraRingCalculatorFactoryConfig())

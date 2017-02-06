@@ -178,7 +178,6 @@ namespace Ringtoets.DuneErosion.Forms.Views
             CalculationGuiService.Calculate(locationsToCalculate,
                                             FailureMechanism,
                                             AssessmentSection.HydraulicBoundaryDatabase.FilePath,
-                                            AssessmentSection.Id,
                                             FailureMechanism.GetMechanismSpecificNorm(AssessmentSection.FailureMechanismContribution.Norm));
 
             ((IObservable) Data).NotifyObservers();

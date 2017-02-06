@@ -910,7 +910,6 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                 StructuresStabilityPointCalculationInput[] calculationInputs = calculator.ReceivedInputs.ToArray();
                 Assert.AreEqual(1, calculationInputs.Length);
                 Assert.AreEqual(testDataPath, calculator.HydraulicBoundaryDatabaseDirectory);
-                Assert.AreEqual(assessmentSectionStub.Id, calculator.RingId);
 
                 GeneralStabilityPointStructuresInput generalInput = failureMechanism.GeneralInput;
                 StabilityPointStructuresInput input = calculation.InputParameters;
@@ -1028,7 +1027,6 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                 StructuresStabilityPointCalculationInput[] calculationInputs = calculator.ReceivedInputs.ToArray();
                 Assert.AreEqual(1, calculationInputs.Length);
                 Assert.AreEqual(testDataPath, calculator.HydraulicBoundaryDatabaseDirectory);
-                Assert.AreEqual(assessmentSectionStub.Id, calculator.RingId);
 
                 GeneralStabilityPointStructuresInput generalInput = failureMechanism.GeneralInput;
                 StabilityPointStructuresInput input = calculation.InputParameters;
@@ -1146,7 +1144,6 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                 StructuresStabilityPointCalculationInput[] calculationInputs = calculator.ReceivedInputs.ToArray();
                 Assert.AreEqual(1, calculationInputs.Length);
                 Assert.AreEqual(testDataPath, calculator.HydraulicBoundaryDatabaseDirectory);
-                Assert.AreEqual(assessmentSectionStub.Id, calculator.RingId);
 
                 GeneralStabilityPointStructuresInput generalInput = failureMechanism.GeneralInput;
                 StabilityPointStructuresInput input = calculation.InputParameters;
@@ -1264,7 +1261,6 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                 StructuresStabilityPointCalculationInput[] calculationInputs = calculator.ReceivedInputs.ToArray();
                 Assert.AreEqual(1, calculationInputs.Length);
                 Assert.AreEqual(testDataPath, calculator.HydraulicBoundaryDatabaseDirectory);
-                Assert.AreEqual(assessmentSectionStub.Id, calculator.RingId);
 
                 GeneralStabilityPointStructuresInput generalInput = failureMechanism.GeneralInput;
                 StabilityPointStructuresInput input = calculation.InputParameters;

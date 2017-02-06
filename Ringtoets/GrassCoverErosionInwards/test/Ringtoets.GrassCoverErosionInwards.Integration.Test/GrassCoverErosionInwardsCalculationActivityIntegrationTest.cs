@@ -957,7 +957,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
 
                 HydraRingDataEqualityHelper.AreEqual(expectedInput, actualInput);
                 Assert.AreEqual(testDataPath, testOvertoppingCalculator.HydraulicBoundaryDatabaseDirectory);
-                Assert.AreEqual(assessmentSection.Id, testOvertoppingCalculator.RingId);
             }
         }
 
@@ -1034,7 +1033,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
 
                 HydraRingDataEqualityHelper.AreEqual(expectedInput, actualInput);
                 Assert.AreEqual(testDataPath, dikeHeightCalculator.HydraulicBoundaryDatabaseDirectory);
-                Assert.AreEqual(assessmentSection.Id, dikeHeightCalculator.RingId);
             }
         }
 

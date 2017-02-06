@@ -34,7 +34,6 @@ namespace Ringtoets.DuneErosion.Service
         private readonly DuneLocation duneLocation;
         private readonly DuneErosionFailureMechanism failureMechanism;
         private readonly string hydraulicBoundaryDatabaseFilePath;
-        private readonly string ringId;
         private readonly double norm;
         private readonly DuneErosionBoundaryCalculationService calculationService;
 
@@ -45,13 +44,11 @@ namespace Ringtoets.DuneErosion.Service
         /// <param name="failureMechanism">The <see cref="DuneErosionFailureMechanism"/> that holds information about the contribution and
         /// the general inputs used in the calculation.</param>
         /// <param name="hydraulicBoundaryDatabaseFilePath">The HLCD file that should be used for performing the calculation.</param>
-        /// <param name="ringId">The id of the ring to perform the calculation for.</param>
         /// <param name="norm">The norm to use during the calculation.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public DuneErosionBoundaryCalculationActivity(DuneLocation duneLocation,
                                                       DuneErosionFailureMechanism failureMechanism,
                                                       string hydraulicBoundaryDatabaseFilePath,
-                                                      string ringId,
                                                       double norm)
         {
             if (duneLocation == null)
@@ -66,7 +63,6 @@ namespace Ringtoets.DuneErosion.Service
             this.duneLocation = duneLocation;
             this.failureMechanism = failureMechanism;
             this.hydraulicBoundaryDatabaseFilePath = hydraulicBoundaryDatabaseFilePath;
-            this.ringId = ringId;
             this.norm = norm;
 
             calculationService = new DuneErosionBoundaryCalculationService();
@@ -84,7 +80,6 @@ namespace Ringtoets.DuneErosion.Service
 
             calculationService.Calculate(duneLocation,
                                          failureMechanism,
-                                         ringId,
                                          norm,
                                          hydraulicBoundaryDatabaseFilePath);
         }

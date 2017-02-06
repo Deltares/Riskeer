@@ -1319,7 +1319,6 @@ namespace Ringtoets.Integration.Plugin
                     IAssessmentSection assessmentSection = nodeData.WrappedData;
                     bool successfulCalculation = hydraulicBoundaryLocationCalculationGuiService.CalculateDesignWaterLevels(assessmentSection.HydraulicBoundaryDatabase.FilePath,
                                                                                                                            assessmentSection.HydraulicBoundaryDatabase.Locations,
-                                                                                                                           assessmentSection.Id,
                                                                                                                            assessmentSection.FailureMechanismContribution.Norm,
                                                                                                                            new DesignWaterLevelCalculationMessageProvider());
                     if (successfulCalculation)
@@ -1354,7 +1353,6 @@ namespace Ringtoets.Integration.Plugin
                     IAssessmentSection assessmentSection = nodeData.WrappedData;
                     bool successfulCalculation = hydraulicBoundaryLocationCalculationGuiService.CalculateWaveHeights(assessmentSection.HydraulicBoundaryDatabase.FilePath,
                                                                                                                      assessmentSection.HydraulicBoundaryDatabase.Locations,
-                                                                                                                     assessmentSection.Id,
                                                                                                                      assessmentSection.FailureMechanismContribution.Norm,
                                                                                                                      new WaveHeightCalculationMessageProvider());
                     if (successfulCalculation)

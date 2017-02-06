@@ -62,7 +62,6 @@ namespace Ringtoets.DuneErosion.Forms.Test.GuiServices
                 TestDelegate test = () => guiService.Calculate(null,
                                                                failureMechanism,
                                                                "path",
-                                                               "id",
                                                                1.0 / 30000);
 
                 // Assert
@@ -83,7 +82,6 @@ namespace Ringtoets.DuneErosion.Forms.Test.GuiServices
                 TestDelegate test = () => guiService.Calculate(Enumerable.Empty<DuneLocation>(),
                                                                null,
                                                                "path",
-                                                               "id",
                                                                1.0 / 30000);
 
                 // Assert
@@ -129,7 +127,6 @@ namespace Ringtoets.DuneErosion.Forms.Test.GuiServices
                 TestHelper.AssertLogMessages(() => guiService.Calculate(failureMechanism.DuneLocations,
                                                                         failureMechanism,
                                                                         validFilePath,
-                                                                        "13-1",
                                                                         1.0 / 200),
                                              messages =>
                                              {

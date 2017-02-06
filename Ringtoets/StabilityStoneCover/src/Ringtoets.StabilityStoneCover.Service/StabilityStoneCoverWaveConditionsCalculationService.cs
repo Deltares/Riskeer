@@ -119,21 +119,20 @@ namespace Ringtoets.StabilityStoneCover.Service
             var bColumns = generalWaveConditionsInput.GeneralColumnsWaveConditionsInput.B;
             var cColumns = generalWaveConditionsInput.GeneralColumnsWaveConditionsInput.C;
 
-            var ringId = assessmentSection.Id;
             var norm = assessmentSection.FailureMechanismContribution.Norm;
             TotalWaterLevelCalculations = calculation.InputParameters.WaterLevels.Count() * 2;
 
             try
             {
                 log.InfoFormat(Resources.StabilityStoneCoverWaveConditionsCalculationService_Calculate_Calculation_0_for_blocks_started, calculationName);
-                IEnumerable<WaveConditionsOutput> blocksOutputs = CalculateWaveConditions(calculationName, calculation.InputParameters, aBlocks, bBlocks, cBlocks, norm, ringId, hlcdFilePath);
+                IEnumerable<WaveConditionsOutput> blocksOutputs = CalculateWaveConditions(calculationName, calculation.InputParameters, aBlocks, bBlocks, cBlocks, norm, hlcdFilePath);
                 log.InfoFormat(Resources.StabilityStoneCoverWaveConditionsCalculationService_Calculate_Calculation_0_for_blocks_finished, calculationName);
 
                 IEnumerable<WaveConditionsOutput> columnsOutputs = null;
                 if (!Canceled)
                 {
                     log.InfoFormat(Resources.StabilityStoneCoverWaveConditionsCalculationService_Calculate_Calculation_0_for_columns_started, calculationName);
-                    columnsOutputs = CalculateWaveConditions(calculationName, calculation.InputParameters, aColumns, bColumns, cColumns, norm, ringId, hlcdFilePath);
+                    columnsOutputs = CalculateWaveConditions(calculationName, calculation.InputParameters, aColumns, bColumns, cColumns, norm, hlcdFilePath);
                     log.InfoFormat(Resources.StabilityStoneCoverWaveConditionsCalculationService_Calculate_Calculation_0_for_columns_finished, calculationName);
                 }
 

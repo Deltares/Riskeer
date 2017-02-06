@@ -418,11 +418,10 @@ namespace Ringtoets.Revetment.Service.Test
             const double norm = 0.2;
 
             string hcldFilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
-            string ringId = "11-1";
             string calculationName = "test";
 
             // Call
-            TestDelegate test = () => new WaveConditionsCalculationService().PublicCalculate(a, b, c, norm, null, hcldFilePath, ringId, calculationName);
+            TestDelegate test = () => new WaveConditionsCalculationService().PublicCalculate(a, b, c, norm, null, hcldFilePath, calculationName);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -454,7 +453,6 @@ namespace Ringtoets.Revetment.Service.Test
             };
 
             string hcldFilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
-            string ringId = "11-1";
             string calculationName = "test";
 
             using (new HydraRingCalculatorFactoryConfig())
@@ -462,11 +460,10 @@ namespace Ringtoets.Revetment.Service.Test
                 var testCalculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).WaveConditionsCosineCalculator;
 
                 // Call
-                new WaveConditionsCalculationService().PublicCalculate(a, b, c, norm, input, hcldFilePath, ringId, calculationName);
+                new WaveConditionsCalculationService().PublicCalculate(a, b, c, norm, input, hcldFilePath, calculationName);
 
                 // Assert
                 Assert.AreEqual(Path.GetDirectoryName(hcldFilePath), testCalculator.HydraulicBoundaryDatabaseDirectory);
-                Assert.AreEqual(ringId, testCalculator.RingId);
                 for (int i = 0; i < input.WaterLevels.Count(); i++)
                 {
                     WaveConditionsCosineCalculationInput expectedInput = CreateInput(input.WaterLevels.ElementAt(i), a, b, c, norm, input, useForeshore, useBreakWater);
@@ -492,7 +489,6 @@ namespace Ringtoets.Revetment.Service.Test
                 LowerBoundaryRevetment = (RoundedDouble) 3
             };
 
-            const string ringId = "11-1";
             const string calculationName = "test";
 
             string hcldFilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
@@ -508,7 +504,7 @@ namespace Ringtoets.Revetment.Service.Test
                 {
                     try
                     {
-                        new WaveConditionsCalculationService().PublicCalculate(a, b, c, norm, input, hcldFilePath, ringId, calculationName);
+                        new WaveConditionsCalculationService().PublicCalculate(a, b, c, norm, input, hcldFilePath, calculationName);
                     }
                     catch (HydraRingCalculationException)
                     {
@@ -547,7 +543,6 @@ namespace Ringtoets.Revetment.Service.Test
                 LowerBoundaryRevetment = (RoundedDouble) 3
             };
 
-            const string ringId = "11-1";
             const string name = "test";
 
             string hcldFilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
@@ -559,7 +554,7 @@ namespace Ringtoets.Revetment.Service.Test
                 testCalculator.CalculationFinishedHandler += (s, e) => service.Cancel();
 
                 // Call
-                service.PublicCalculate(a, b, c, norm, input, hcldFilePath, ringId, name);
+                service.PublicCalculate(a, b, c, norm, input, hcldFilePath, name);
 
                 // Assert
                 Assert.IsTrue(testCalculator.IsCanceled);
@@ -610,9 +605,9 @@ namespace Ringtoets.Revetment.Service.Test
             return ValidateWaveConditionsInput(waveConditionsInput, calculationName, dbFilePath, valueName);
         }
 
-        public void PublicCalculate(RoundedDouble a, RoundedDouble b, RoundedDouble c, double norm, WaveConditionsInput input, string dbFilePath, string ringId, string name)
+        public void PublicCalculate(RoundedDouble a, RoundedDouble b, RoundedDouble c, double norm, WaveConditionsInput input, string dbFilePath, string name)
         {
-            CalculateWaveConditions(name, input, a, b, c, norm, ringId, dbFilePath);
+            CalculateWaveConditions(name, input, a, b, c, norm, dbFilePath);
         }
     }
 }

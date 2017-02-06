@@ -123,7 +123,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
 
             bool successFullCalculation = CalculationGuiService.CalculateWaveHeights(AssessmentSection.HydraulicBoundaryDatabase.FilePath,
                                                                                      locations,
-                                                                                     AssessmentSection.Id,
                                                                                      mechanismSpecificNorm,
                                                                                      new GrassCoverErosionOutwardsWaveHeightCalculationMessageProvider());
 

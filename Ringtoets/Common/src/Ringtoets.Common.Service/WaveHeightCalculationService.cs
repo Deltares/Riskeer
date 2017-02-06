@@ -76,7 +76,6 @@ namespace Ringtoets.Common.Service
         /// </summary>
         /// <param name="hydraulicBoundaryLocation">The hydraulic boundary location used in the calculation.</param>
         /// <param name="hydraulicBoundaryDatabaseFilePath">The path which points to the hydraulic boundary database file.</param>
-        /// <param name="ringId">The id of the assessment section.</param>
         /// <param name="norm">The norm of the assessment section.</param>
         /// <param name="messageProvider">The object which is used to build log messages.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocation"/> is <c>null</c>.</exception>
@@ -95,7 +94,6 @@ namespace Ringtoets.Common.Service
         /// <exception cref="HydraRingCalculationException">Thrown when an error occurs while performing the calculation.</exception>
         public void Calculate(HydraulicBoundaryLocation hydraulicBoundaryLocation,
                               string hydraulicBoundaryDatabaseFilePath,
-                              string ringId,
                               double norm,
                               ICalculationMessageProvider messageProvider)
         {
@@ -109,7 +107,7 @@ namespace Ringtoets.Common.Service
 
             CalculationServiceHelper.LogCalculationBeginTime(calculationName);
 
-            calculator = HydraRingCalculatorFactory.Instance.CreateWaveHeightCalculator(hlcdDirectory, ringId);
+            calculator = HydraRingCalculatorFactory.Instance.CreateWaveHeightCalculator(hlcdDirectory);
 
             var exceptionThrown = false;
 

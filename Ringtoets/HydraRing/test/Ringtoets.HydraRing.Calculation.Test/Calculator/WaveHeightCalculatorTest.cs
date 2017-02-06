@@ -31,7 +31,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Calculator
         public void DefaultConstructor_InitializesOutputWithoutValues()
         {
             // Call
-            var calculator = new WaveHeightCalculator(string.Empty, string.Empty);
+            var calculator = new WaveHeightCalculator(string.Empty);
 
             // Assert
             Assert.IsInstanceOf<HydraRingCalculatorBase>(calculator);

@@ -31,7 +31,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Calculator
         public void DefaultConstructor_InitializesOutputWithoutValues()
         {
             // Call
-            var calculator = new WaveConditionsCosineCalculator(string.Empty, string.Empty);
+            var calculator = new WaveConditionsCosineCalculator(string.Empty);
 
             // Assert
             Assert.IsInstanceOf<HydraRingCalculatorBase>(calculator);

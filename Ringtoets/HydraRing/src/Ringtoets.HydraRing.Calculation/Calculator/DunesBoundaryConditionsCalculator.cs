@@ -40,10 +40,9 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
         /// Create a new instance of <see cref="DesignWaterLevelCalculator"/>.
         /// </summary>
         /// <param name="hlcdDirectory">The directory in which the Hydraulic Boundary Database can be found.</param>
-        /// <param name="ringId">The id of the assessment section which is used in the calculation.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="hlcdDirectory"/> is <c>null</c>.</exception>
-        internal DunesBoundaryConditionsCalculator(string hlcdDirectory, string ringId)
-            : base(hlcdDirectory, ringId)
+        internal DunesBoundaryConditionsCalculator(string hlcdDirectory)
+            : base(hlcdDirectory)
         {
             dunesBoundaryParser = new DunesBoundaryConditionsCalculationParser();
             targetProbabilityParser = new ReliabilityIndexCalculationParser();
@@ -55,8 +54,11 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
         }
 
         public double WaterLevel { get; private set; }
+
         public double WaveHeight { get; private set; }
+
         public double WavePeriod { get; private set; }
+
         public double ReliabilityIndex { get; private set; }
 
         public void Calculate(DunesBoundaryConditionsCalculationInput input)

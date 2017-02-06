@@ -114,13 +114,12 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service
             var a = failureMechanism.GeneralInput.GeneralWaveConditionsInput.A;
             var b = failureMechanism.GeneralInput.GeneralWaveConditionsInput.B;
             var c = failureMechanism.GeneralInput.GeneralWaveConditionsInput.C;
-            var ringId = assessmentSection.Id;
             var mechanismSpecificNorm = failureMechanism.GetMechanismSpecificNorm(assessmentSection);
             TotalWaterLevelCalculations = calculation.InputParameters.WaterLevels.Count();
 
             try
             {
-                var outputs = CalculateWaveConditions(calculationName, calculation.InputParameters, a, b, c, mechanismSpecificNorm, ringId, hlcdFilePath);
+                var outputs = CalculateWaveConditions(calculationName, calculation.InputParameters, a, b, c, mechanismSpecificNorm, hlcdFilePath);
 
                 if (!Canceled)
                 {

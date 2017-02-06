@@ -57,13 +57,11 @@ namespace Ringtoets.DuneErosion.Forms.GuiServices
         /// <param name="failureMechanism">The <see cref="DuneErosionFailureMechanism"/>
         ///  that holds information about the contribution and the general inputs used in the calculation.</param>
         /// <param name="hydraulicBoundaryDatabaseFilePath">The HLCD file that should be used for performing the calculation.</param>
-        /// <param name="ringId">The id of the ring to perform the calculation for.</param>
         /// <param name="norm">The norm to use during the calculation.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public void Calculate(IEnumerable<DuneLocation> locations,
                               DuneErosionFailureMechanism failureMechanism,
                               string hydraulicBoundaryDatabaseFilePath,
-                              string ringId,
                               double norm)
         {
             if (locations == null)
@@ -79,7 +77,6 @@ namespace Ringtoets.DuneErosion.Forms.GuiServices
                                                  .Select(l => new DuneErosionBoundaryCalculationActivity(l,
                                                                                                          failureMechanism,
                                                                                                          hydraulicBoundaryDatabaseFilePath,
-                                                                                                         ringId,
                                                                                                          norm)).ToArray());
         }
     }

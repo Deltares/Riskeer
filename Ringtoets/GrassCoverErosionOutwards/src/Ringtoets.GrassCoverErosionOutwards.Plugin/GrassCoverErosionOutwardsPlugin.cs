@@ -509,7 +509,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                     bool successfulCalculation = hydraulicBoundaryLocationCalculationGuiService.CalculateDesignWaterLevels(
                         assessmentSection.HydraulicBoundaryDatabase.FilePath,
                         nodeData.WrappedData,
-                        assessmentSection.Id,
                         mechanismSpecificNorm,
                         new GrassCoverErosionOutwardsDesignWaterLevelCalculationMessageProvider());
 
@@ -566,7 +565,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                     bool successfulCalculation = hydraulicBoundaryLocationCalculationGuiService.CalculateWaveHeights(
                         assessmentSection.HydraulicBoundaryDatabase.FilePath,
                         nodeData.WrappedData,
-                        assessmentSection.Id,
                         mechanismSpecificNorm,
                         new GrassCoverErosionOutwardsWaveHeightCalculationMessageProvider());
 

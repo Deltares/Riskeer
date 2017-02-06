@@ -269,7 +269,6 @@ namespace Ringtoets.DuneErosion.Plugin
                     duneLocationCalculationGuiService.Calculate(context.WrappedData,
                                                                 context.FailureMechanism,
                                                                 context.AssessmentSection.HydraulicBoundaryDatabase.FilePath,
-                                                                context.AssessmentSection.Id,
                                                                 context.FailureMechanism.GetMechanismSpecificNorm(context.AssessmentSection.FailureMechanismContribution.Norm));
                     context.NotifyObservers();
                 });

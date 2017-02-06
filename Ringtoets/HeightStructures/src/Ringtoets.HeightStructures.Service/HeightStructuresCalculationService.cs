@@ -132,7 +132,7 @@ namespace Ringtoets.HeightStructures.Service
             StructuresOvertoppingCalculationInput input = CreateInput(calculation, failureMechanism.GeneralInput, hydraulicBoundaryDatabaseFilePath);
 
             string hlcdDirectory = Path.GetDirectoryName(hydraulicBoundaryDatabaseFilePath);
-            calculator = HydraRingCalculatorFactory.Instance.CreateStructuresOvertoppingCalculator(hlcdDirectory, assessmentSection.Id);
+            calculator = HydraRingCalculatorFactory.Instance.CreateStructuresOvertoppingCalculator(hlcdDirectory);
 
             CalculationServiceHelper.LogCalculationBeginTime(calculationName);
 

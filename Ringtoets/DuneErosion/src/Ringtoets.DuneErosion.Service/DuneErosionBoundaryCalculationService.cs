@@ -53,7 +53,6 @@ namespace Ringtoets.DuneErosion.Service
         /// <param name="duneLocation">The <see cref="DuneLocation"/> that holds information required to perform the calculation.</param>
         /// <param name="failureMechanism">The <see cref="DuneErosionFailureMechanism"/> that holds information about the contribution and 
         /// the general inputs used in the calculation.</param>
-        /// <param name="ringId">The id of the assessment section.</param>
         /// <param name="norm">The norm of the assessment section.</param>
         /// <param name="hydraulicBoundaryDatabaseFilePath">The path which points to the hydraulic boundary database file.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="duneLocation"/> or <paramref name="failureMechanism"/>
@@ -74,7 +73,6 @@ namespace Ringtoets.DuneErosion.Service
         /// <exception cref="HydraRingCalculationException">Thrown when an error occurs while performing the calculation.</exception>
         public void Calculate(DuneLocation duneLocation,
                               DuneErosionFailureMechanism failureMechanism,
-                              string ringId,
                               double norm,
                               string hydraulicBoundaryDatabaseFilePath)
         {
@@ -88,7 +86,7 @@ namespace Ringtoets.DuneErosion.Service
             }
 
             string hlcdDirectory = Path.GetDirectoryName(hydraulicBoundaryDatabaseFilePath);
-            calculator = HydraRingCalculatorFactory.Instance.CreateDunesBoundaryConditionsCalculator(hlcdDirectory, ringId);
+            calculator = HydraRingCalculatorFactory.Instance.CreateDunesBoundaryConditionsCalculator(hlcdDirectory);
 
             string calculationName = duneLocation.Name;
 

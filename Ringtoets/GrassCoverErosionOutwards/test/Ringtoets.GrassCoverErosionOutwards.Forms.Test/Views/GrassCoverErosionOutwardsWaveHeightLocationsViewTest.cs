@@ -313,11 +313,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 
             ICalculationMessageProvider messageProvider = null;
             HydraulicBoundaryLocation[] calculatedLocations = null;
-            guiServiceMock.Expect(ch => ch.CalculateWaveHeights(null, null, null, 1, null)).IgnoreArguments().WhenCalled(
+            guiServiceMock.Expect(ch => ch.CalculateWaveHeights(null, null, 1, null)).IgnoreArguments().WhenCalled(
                 invocation =>
                 {
                     calculatedLocations = ((IEnumerable<HydraulicBoundaryLocation>) invocation.Arguments[1]).ToArray();
-                    messageProvider = (ICalculationMessageProvider) invocation.Arguments[4];
+                    messageProvider = (ICalculationMessageProvider) invocation.Arguments[3];
                 }).Return(isSuccessful);
 
             IAssessmentSection assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();

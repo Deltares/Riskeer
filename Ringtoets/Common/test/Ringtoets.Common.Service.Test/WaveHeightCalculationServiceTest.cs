@@ -136,7 +136,7 @@ namespace Ringtoets.Common.Service.Test
             mockRepository.ReplayAll();
 
             // Call
-            TestDelegate test = () => new WaveHeightCalculationService().Calculate(null, string.Empty, string.Empty, 1, calculationMessageProviderStub);
+            TestDelegate test = () => new WaveHeightCalculationService().Calculate(null, string.Empty, 1, calculationMessageProviderStub);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -152,7 +152,6 @@ namespace Ringtoets.Common.Service.Test
             const string locationName = "punt_flw_ 1";
             const string calculationName = "locationName";
             const string calculationNotConvergedMessage = "calculationNotConvergedMessage";
-            const string ringId = "ringId";
             const double norm = 1.0/30;
 
             var mockRepository = new MockRepository();
@@ -169,13 +168,11 @@ namespace Ringtoets.Common.Service.Test
 
                 new WaveHeightCalculationService().Calculate(hydraulicBoundaryLocation,
                                                              validFilePath,
-                                                             ringId,
                                                              norm,
                                                              calculationMessageProviderMock);
 
                 // Assert
                 Assert.AreEqual(testDataPath, testCalculator.HydraulicBoundaryDatabaseDirectory);
-                Assert.AreEqual(ringId, testCalculator.RingId);
 
                 var expectedInput = CreateInput(hydraulicBoundaryLocation, norm);
                 AssertInput(expectedInput, testCalculator.ReceivedInputs.First());
@@ -207,7 +204,6 @@ namespace Ringtoets.Common.Service.Test
                 // Call
                 service.Calculate(hydraulicBoundaryLocation,
                                   validFilePath,
-                                  "ringId",
                                   norm,
                                   calculationMessageProviderStub);
 
@@ -251,7 +247,6 @@ namespace Ringtoets.Common.Service.Test
                     {
                         new WaveHeightCalculationService().Calculate(hydraulicBoundaryLocation,
                                                                      validFilePath,
-                                                                     "ringId",
                                                                      norm,
                                                                      calculationMessageProviderMock);
                     }
@@ -310,7 +305,6 @@ namespace Ringtoets.Common.Service.Test
                     {
                         new WaveHeightCalculationService().Calculate(hydraulicBoundaryLocation,
                                                                      validFilePath,
-                                                                     "ringId",
                                                                      norm,
                                                                      calculationMessageProviderMock);
                     }
@@ -371,7 +365,6 @@ namespace Ringtoets.Common.Service.Test
                     {
                         new WaveHeightCalculationService().Calculate(hydraulicBoundaryLocation,
                                                                      validFilePath,
-                                                                     "ringId",
                                                                      norm,
                                                                      calculationMessageProviderMock);
                     }

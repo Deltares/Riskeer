@@ -110,13 +110,12 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service
             var b = generalWaveConditionsInput.B;
             var c = generalWaveConditionsInput.C;
 
-            var ringId = assessmentSection.Id;
             var norm = assessmentSection.FailureMechanismContribution.Norm;
             TotalWaterLevelCalculations = calculation.InputParameters.WaterLevels.Count();
 
             try
             {
-                var outputs = CalculateWaveConditions(calculationName, calculation.InputParameters, a, b, c, norm, ringId, hlcdFilePath);
+                var outputs = CalculateWaveConditions(calculationName, calculation.InputParameters, a, b, c, norm, hlcdFilePath);
 
                 if (!Canceled)
                 {

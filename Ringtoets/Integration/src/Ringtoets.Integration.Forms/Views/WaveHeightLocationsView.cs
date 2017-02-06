@@ -88,8 +88,8 @@ namespace Ringtoets.Integration.Forms.Views
 
             bool successfulCalculation = CalculationGuiService.CalculateWaveHeights(AssessmentSection.HydraulicBoundaryDatabase.FilePath,
                                                                                     locations,
-                                                                                    AssessmentSection.Id,
-                                                                                    AssessmentSection.FailureMechanismContribution.Norm, new WaveHeightCalculationMessageProvider());
+                                                                                    AssessmentSection.FailureMechanismContribution.Norm,
+                                                                                    new WaveHeightCalculationMessageProvider());
 
             if (successfulCalculation)
             {

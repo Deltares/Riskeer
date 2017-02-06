@@ -59,7 +59,6 @@ namespace Ringtoets.Common.Forms.GuiServices
 
         public bool CalculateDesignWaterLevels(string hydraulicBoundaryDatabaseFilePath,
                                                IEnumerable<HydraulicBoundaryLocation> locations,
-                                               string ringId,
                                                double norm,
                                                ICalculationMessageProvider messageProvider)
         {
@@ -76,14 +75,12 @@ namespace Ringtoets.Common.Forms.GuiServices
             return RunActivities(hydraulicBoundaryDatabaseFilePath,
                                  locations.Select(location => new DesignWaterLevelCalculationActivity(location,
                                                                                                       hydraulicBoundaryDatabaseFilePath,
-                                                                                                      ringId,
                                                                                                       norm,
                                                                                                       messageProvider)).ToArray());
         }
 
         public bool CalculateWaveHeights(string hydraulicBoundaryDatabaseFilePath,
                                          IEnumerable<HydraulicBoundaryLocation> locations,
-                                         string ringId,
                                          double norm,
                                          ICalculationMessageProvider messageProvider)
         {
@@ -100,7 +97,6 @@ namespace Ringtoets.Common.Forms.GuiServices
             return RunActivities(hydraulicBoundaryDatabaseFilePath,
                                  locations.Select(location => new WaveHeightCalculationActivity(location,
                                                                                                 hydraulicBoundaryDatabaseFilePath,
-                                                                                                ringId,
                                                                                                 norm,
                                                                                                 messageProvider)).ToArray());
         }

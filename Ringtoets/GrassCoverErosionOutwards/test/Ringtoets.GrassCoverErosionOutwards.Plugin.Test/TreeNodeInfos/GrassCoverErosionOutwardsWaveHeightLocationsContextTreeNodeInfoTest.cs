@@ -450,7 +450,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                         var waveHeightCalculationInput = testWaveHeightCalculator.ReceivedInputs.First();
 
                         Assert.AreEqual(testDataPath, testWaveHeightCalculator.HydraulicBoundaryDatabaseDirectory);
-                        Assert.AreEqual(assessmentSectionStub.Id, testWaveHeightCalculator.RingId);
 
                         Assert.AreEqual(grassCoverErosionOutwardsHydraulicBoundaryLocation.Id, waveHeightCalculationInput.HydraulicBoundaryLocationId);
                         var expectedProbability = assessmentSectionStub.FailureMechanismContribution.Norm

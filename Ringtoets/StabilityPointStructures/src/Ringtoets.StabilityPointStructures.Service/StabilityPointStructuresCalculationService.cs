@@ -133,7 +133,7 @@ namespace Ringtoets.StabilityPointStructures.Service
                                                                                                             hydraulicBoundaryDatabaseFilePath);
 
             string hlcdDirectory = Path.GetDirectoryName(hydraulicBoundaryDatabaseFilePath);
-            calculator = HydraRingCalculatorFactory.Instance.CreateStructuresStabilityPointCalculator(hlcdDirectory, assessmentSection.Id);
+            calculator = HydraRingCalculatorFactory.Instance.CreateStructuresStabilityPointCalculator(hlcdDirectory);
 
             CalculationServiceHelper.LogCalculationBeginTime(calculationName);
 

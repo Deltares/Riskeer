@@ -40,10 +40,9 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
         /// Create a new instance of <see cref="WaveConditionsCosineCalculator"/>.
         /// </summary>
         /// <param name="hlcdDirectory">The directory in which the Hydraulic Boundary Database can be found.</param>
-        /// <param name="ringId">The id of the assessment section which is used in the calculation.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="hlcdDirectory"/> is <c>null</c>.</exception>
-        internal WaveConditionsCosineCalculator(string hlcdDirectory, string ringId)
-            : base(hlcdDirectory, ringId)
+        internal WaveConditionsCosineCalculator(string hlcdDirectory)
+            : base(hlcdDirectory)
         {
             waveConditionsCalculationParser = new WaveConditionsCalculationParser();
             reliabilityIndexCalculationParser = new ReliabilityIndexCalculationParser();
@@ -56,9 +55,13 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
         }
 
         public double WaveHeight { get; private set; }
+
         public double WaveAngle { get; private set; }
+
         public double WavePeakPeriod { get; private set; }
+
         public double WaveDirection { get; private set; }
+
         public double ReliabilityIndex { get; private set; }
 
         public void Calculate(WaveConditionsCosineCalculationInput input)

@@ -42,7 +42,6 @@ namespace Ringtoets.DuneErosion.Service.Test
             var activity = new DuneErosionBoundaryCalculationActivity(duneLocation,
                                                                       failureMechanism,
                                                                       "path",
-                                                                      "id",
                                                                       1.0 / 30000);
 
             // Assert
@@ -62,7 +61,6 @@ namespace Ringtoets.DuneErosion.Service.Test
             TestDelegate test = () => new DuneErosionBoundaryCalculationActivity(null,
                                                                                  failureMechanism,
                                                                                  "path",
-                                                                                 "id",
                                                                                  1.0 / 30000);
 
             // Assert
@@ -80,7 +78,6 @@ namespace Ringtoets.DuneErosion.Service.Test
             TestDelegate test = () => new DuneErosionBoundaryCalculationActivity(duneLocation,
                                                                                  null,
                                                                                  "path",
-                                                                                 "id",
                                                                                  1.0 / 30000);
 
             // Assert

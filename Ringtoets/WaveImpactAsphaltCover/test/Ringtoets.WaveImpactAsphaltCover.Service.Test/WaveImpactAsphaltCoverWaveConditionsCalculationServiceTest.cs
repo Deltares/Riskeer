@@ -473,7 +473,6 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
                 Assert.AreEqual(3, testWaveConditionsInputs.Length);
 
                 Assert.AreEqual(testDataPath, testWaveConditionsCosineCalculator.HydraulicBoundaryDatabaseDirectory);
-                Assert.AreEqual(assessmentSectionStub.Id, testWaveConditionsCosineCalculator.RingId);
 
                 int waterLevelIndex = 0;
                 foreach (WaveConditionsCosineCalculationInput actualInput in testWaveConditionsInputs)

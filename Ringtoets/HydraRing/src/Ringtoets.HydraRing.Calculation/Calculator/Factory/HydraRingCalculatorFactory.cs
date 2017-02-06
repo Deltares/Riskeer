@@ -44,49 +44,49 @@ namespace Ringtoets.HydraRing.Calculation.Calculator.Factory
             }
         }
 
-        public IDesignWaterLevelCalculator CreateDesignWaterLevelCalculator(string hlcdDirectory, string ringId)
+        public IDesignWaterLevelCalculator CreateDesignWaterLevelCalculator(string hlcdDirectory)
         {
-            return new DesignWaterLevelCalculator(hlcdDirectory, ringId);
+            return new DesignWaterLevelCalculator(hlcdDirectory);
         }
 
-        public IDikeHeightCalculator CreateDikeHeightCalculator(string hlcdDirectory, string ringId)
+        public IDikeHeightCalculator CreateDikeHeightCalculator(string hlcdDirectory)
         {
-            return new DikeHeightCalculator(hlcdDirectory, ringId);
+            return new DikeHeightCalculator(hlcdDirectory);
         }
 
-        public IOvertoppingCalculator CreateOvertoppingCalculator(string hlcdDirectory, string ringId)
+        public IOvertoppingCalculator CreateOvertoppingCalculator(string hlcdDirectory)
         {
-            return new OvertoppingCalculator(hlcdDirectory, ringId);
+            return new OvertoppingCalculator(hlcdDirectory);
         }
 
-        public IWaveConditionsCosineCalculator CreateWaveConditionsCosineCalculator(string hlcdDirectory, string ringId)
+        public IWaveConditionsCosineCalculator CreateWaveConditionsCosineCalculator(string hlcdDirectory)
         {
-            return new WaveConditionsCosineCalculator(hlcdDirectory, ringId);
+            return new WaveConditionsCosineCalculator(hlcdDirectory);
         }
 
-        public IWaveHeightCalculator CreateWaveHeightCalculator(string hlcdDirectory, string ringId)
+        public IWaveHeightCalculator CreateWaveHeightCalculator(string hlcdDirectory)
         {
-            return new WaveHeightCalculator(hlcdDirectory, ringId);
+            return new WaveHeightCalculator(hlcdDirectory);
         }
 
-        public IStructuresOvertoppingCalculator CreateStructuresOvertoppingCalculator(string hlcdDirectory, string ringId)
+        public IStructuresOvertoppingCalculator CreateStructuresOvertoppingCalculator(string hlcdDirectory)
         {
-            return new StructuresOvertoppingCalculator(hlcdDirectory, ringId);
+            return new StructuresOvertoppingCalculator(hlcdDirectory);
         }
 
-        public IStructuresClosureCalculator CreateStructuresClosureCalculator(string hlcdDirectory, string ringId)
+        public IStructuresClosureCalculator CreateStructuresClosureCalculator(string hlcdDirectory)
         {
-            return new StructuresClosureCalculator(hlcdDirectory, ringId);
+            return new StructuresClosureCalculator(hlcdDirectory);
         }
 
-        public IStructuresStabilityPointCalculator CreateStructuresStabilityPointCalculator(string hlcdDirectory, string ringId)
+        public IStructuresStabilityPointCalculator CreateStructuresStabilityPointCalculator(string hlcdDirectory)
         {
-            return new StructuresStabilityPointCalculator(hlcdDirectory, ringId);
+            return new StructuresStabilityPointCalculator(hlcdDirectory);
         }
 
-        public IDunesBoundaryConditionsCalculator CreateDunesBoundaryConditionsCalculator(string hlcdDirectory, string ringId)
+        public IDunesBoundaryConditionsCalculator CreateDunesBoundaryConditionsCalculator(string hlcdDirectory)
         {
-            return new DunesBoundaryConditionsCalculator(hlcdDirectory, ringId);
+            return new DunesBoundaryConditionsCalculator(hlcdDirectory);
         }
     }
 }

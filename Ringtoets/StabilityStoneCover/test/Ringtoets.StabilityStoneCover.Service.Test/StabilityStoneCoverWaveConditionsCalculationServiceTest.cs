@@ -531,7 +531,6 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
                 WaveConditionsInput input = calculation.InputParameters;
 
                 Assert.AreEqual(testDataPath, testWaveConditionsCosineCalculator.HydraulicBoundaryDatabaseDirectory);
-                Assert.AreEqual(assessmentSectionStub.Id, testWaveConditionsCosineCalculator.RingId);
 
                 int waterLevelIndex = 0;
                 for (int i = 0; i < testWaveConditionsInputs.Length/2; i++)

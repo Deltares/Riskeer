@@ -35,7 +35,6 @@ namespace Ringtoets.Common.Service
         private readonly HydraulicBoundaryLocation hydraulicBoundaryLocation;
         private readonly double norm;
         private readonly string hydraulicBoundaryDatabaseFilePath;
-        private readonly string ringId;
         private readonly ICalculationMessageProvider messageProvider;
         private readonly WaveHeightCalculationService calculationService;
 
@@ -44,14 +43,12 @@ namespace Ringtoets.Common.Service
         /// </summary>
         /// <param name="hydraulicBoundaryLocation">The <see cref="HydraulicBoundaryLocation"/> to perform the calculation for.</param>
         /// <param name="hydraulicBoundaryDatabaseFilePath">The HLCD file that should be used for performing the calculation.</param>
-        /// <param name="ringId">The id of the ring to perform the calculation for.</param>
         /// <param name="norm">The norm to use during the calculation.</param>
         /// <param name="messageProvider">The provider of the messages to use during the calculation.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocation"/>
         /// or <paramref name="messageProvider"/> is <c>null</c>.</exception>
         public WaveHeightCalculationActivity(HydraulicBoundaryLocation hydraulicBoundaryLocation,
                                              string hydraulicBoundaryDatabaseFilePath,
-                                             string ringId,
                                              double norm,
                                              ICalculationMessageProvider messageProvider)
         {
@@ -69,7 +66,6 @@ namespace Ringtoets.Common.Service
             this.messageProvider = messageProvider;
 
             this.hydraulicBoundaryDatabaseFilePath = hydraulicBoundaryDatabaseFilePath;
-            this.ringId = ringId;
             this.norm = norm;
 
             Name = messageProvider.GetActivityName(hydraulicBoundaryLocation.Name);
@@ -97,7 +93,6 @@ namespace Ringtoets.Common.Service
                 calculationService.Calculate(
                     hydraulicBoundaryLocation,
                     hydraulicBoundaryDatabaseFilePath,
-                    ringId,
                     norm,
                     messageProvider);
             }

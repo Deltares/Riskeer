@@ -37,7 +37,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Calculator
         public void Constructor_WithoutHlcdDirectory_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new TestHydraRingCalculator(null, null);
+            TestDelegate test = () => new TestHydraRingCalculator(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -45,20 +45,10 @@ namespace Ringtoets.HydraRing.Calculation.Test.Calculator
         }
 
         [Test]
-        public void Constructor_WithHlcdDirectory_InitializesOutputWithoutValues()
-        {
-            // Call
-            var calculator = new TestHydraRingCalculator("", null);
-
-            // Assert
-            Assert.IsNull(calculator.OutputDirectory);
-        }
-
-        [Test]
         public void Calculate_WithCustomParser_ParsersExecutedAndOutputSet()
         {
             // Setup
-            var calculator = new TestHydraRingCalculator("", null);
+            var calculator = new TestHydraRingCalculator("");
 
             // Call
             calculator.PublicCalculate();
@@ -73,7 +63,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Calculator
     {
         private readonly TestParser parser;
 
-        public TestHydraRingCalculator(string hlcdDirectory, string ringId) : base(hlcdDirectory, ringId)
+        public TestHydraRingCalculator(string hlcdDirectory) : base(hlcdDirectory)
         {
             parser = new TestParser();
         }

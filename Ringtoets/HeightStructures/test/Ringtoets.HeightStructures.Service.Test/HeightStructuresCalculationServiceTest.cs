@@ -753,7 +753,6 @@ namespace Ringtoets.HeightStructures.Service.Test
                 StructuresOvertoppingCalculationInput[] overtoppingCalculationInputs = testStructuresOvertoppingCalculator.ReceivedInputs.ToArray();
                 Assert.AreEqual(1, overtoppingCalculationInputs.Length);
                 Assert.AreEqual(testDataPath, testStructuresOvertoppingCalculator.HydraulicBoundaryDatabaseDirectory);
-                Assert.AreEqual(assessmentSectionStub.Id, testStructuresOvertoppingCalculator.RingId);
 
                 GeneralHeightStructuresInput generalInput = heightStructuresFailureMechanism.GeneralInput;
                 HeightStructuresInput input = calculation.InputParameters;

@@ -87,8 +87,8 @@ namespace Ringtoets.Integration.Forms.Views
             }
             bool successfulCalculation = CalculationGuiService.CalculateDesignWaterLevels(AssessmentSection.HydraulicBoundaryDatabase.FilePath,
                                                                                           locations,
-                                                                                          AssessmentSection.Id,
-                                                                                          AssessmentSection.FailureMechanismContribution.Norm, new DesignWaterLevelCalculationMessageProvider());
+                                                                                          AssessmentSection.FailureMechanismContribution.Norm,
+                                                                                          new DesignWaterLevelCalculationMessageProvider());
             if (successfulCalculation)
             {
                 AssessmentSection.HydraulicBoundaryDatabase.NotifyObservers();

@@ -39,10 +39,9 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
         /// Creates a new instance of <see cref="StructuresStabilityPointCalculator"/>.
         /// </summary>
         /// <param name="hlcdDirectory">The directory in which the hydraulic boundary database can be found.</param>
-        /// <param name="ringId">The id of the assessment section which is used in the calculation.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="hlcdDirectory"/> is <c>null</c>.</exception>
-        public StructuresStabilityPointCalculator(string hlcdDirectory, string ringId)
-            : base(hlcdDirectory, ringId)
+        public StructuresStabilityPointCalculator(string hlcdDirectory)
+            : base(hlcdDirectory)
         {
             exceedanceProbabilityCalculationParser = new ExceedanceProbabilityCalculationParser();
             ExceedanceProbabilityBeta = double.NaN;

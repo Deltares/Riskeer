@@ -173,7 +173,6 @@ namespace Ringtoets.WaveImpactAsphaltCover.Integration.Test
 
                     HydraRingDataEqualityHelper.AreEqual(expectedInput, actualInput);
                     Assert.AreEqual(testDataPath, testWaveConditionsCosineCalculator.HydraulicBoundaryDatabaseDirectory);
-                    Assert.AreEqual(assessmentSection.Id, testWaveConditionsCosineCalculator.RingId);
                 }
             }
         }

@@ -39,10 +39,9 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
         /// Create a new instance of <see cref="WaveHeightCalculator"/>.
         /// </summary>
         /// <param name="hlcdDirectory">The directory in which the Hydraulic Boundary Database can be found.</param>
-        /// <param name="ringId">The id of the assessment section which is used in the calculation.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="hlcdDirectory"/> is <c>null</c>.</exception>
-        internal WaveHeightCalculator(string hlcdDirectory, string ringId)
-            : base(hlcdDirectory, ringId)
+        internal WaveHeightCalculator(string hlcdDirectory)
+            : base(hlcdDirectory)
         {
             targetProbabilityParser = new ReliabilityIndexCalculationParser();
 
@@ -51,6 +50,7 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
         }
 
         public double WaveHeight { get; private set; }
+
         public double ReliabilityIndex { get; private set; }
 
         public void Calculate(WaveHeightCalculationInput input)

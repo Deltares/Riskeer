@@ -38,7 +38,6 @@ namespace Ringtoets.Common.Forms.GuiServices
         /// <param name="hydraulicBoundaryDatabaseFilePath">The HLCD file that should be used for performing the calculation.</param>
         /// <param name="locations">The <see cref="HydraulicBoundaryLocation"/> objects to calculate 
         ///     the <see cref="HydraulicBoundaryLocation.DesignWaterLevel"/> for.</param>
-        /// <param name="ringId">The id of the ring to perform the calculation for.</param>
         /// <param name="norm">The norm to use during the calculation.</param>
         /// <param name="messageProvider">The message provider for the services.</param>
         /// <returns>True if the observers should be notified; false if otherwise</returns>
@@ -46,7 +45,6 @@ namespace Ringtoets.Common.Forms.GuiServices
         /// or <paramref name="locations"/> is <c>null</c>.</exception>
         bool CalculateDesignWaterLevels(string hydraulicBoundaryDatabaseFilePath,
                                         IEnumerable<HydraulicBoundaryLocation> locations,
-                                        string ringId,
                                         double norm,
                                         ICalculationMessageProvider messageProvider);
 
@@ -56,7 +54,6 @@ namespace Ringtoets.Common.Forms.GuiServices
         /// <param name="hydraulicBoundaryDatabaseFilePath">The HLCD file that should be used for performing the calculation.</param>
         /// <param name="locations">The <see cref="HydraulicBoundaryLocation"/> objects to calculate 
         ///     the <see cref="HydraulicBoundaryLocation.DesignWaterLevel"/> for.</param>
-        /// <param name="ringId">The id of the ring to perform the calculation for.</param>
         /// <param name="norm">The norm to use during the calculation.</param>
         /// <param name="messageProvider">The message provider for the services.</param>
         /// <returns>True if the observers should be notified; false if otherwise</returns>
@@ -64,7 +61,6 @@ namespace Ringtoets.Common.Forms.GuiServices
         /// or <paramref name="locations"/> is <c>null</c>.</exception>
         bool CalculateWaveHeights(string hydraulicBoundaryDatabaseFilePath,
                                   IEnumerable<HydraulicBoundaryLocation> locations,
-                                  string ringId,
                                   double norm,
                                   ICalculationMessageProvider messageProvider);
     }

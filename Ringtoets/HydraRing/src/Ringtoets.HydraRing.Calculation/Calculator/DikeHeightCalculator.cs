@@ -39,10 +39,9 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
         /// Create a new instance of <see cref="DikeHeightCalculator"/>.
         /// </summary>
         /// <param name="hlcdDirectory">The directory in which the Hydraulic Boundary Database can be found.</param>
-        /// <param name="ringId">The id of the assessment section which is used in the calculation.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="hlcdDirectory"/> is <c>null</c>.</exception>
-        internal DikeHeightCalculator(string hlcdDirectory, string ringId)
-            : base(hlcdDirectory, ringId)
+        internal DikeHeightCalculator(string hlcdDirectory)
+            : base(hlcdDirectory)
         {
             targetProbabilityParser = new ReliabilityIndexCalculationParser();
 

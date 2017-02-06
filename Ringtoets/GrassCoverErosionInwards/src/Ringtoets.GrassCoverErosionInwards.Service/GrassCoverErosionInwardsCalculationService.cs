@@ -157,7 +157,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
 
             CalculationServiceHelper.LogCalculationBeginTime(calculationName);
 
-            overtoppingCalculator = HydraRingCalculatorFactory.Instance.CreateOvertoppingCalculator(hlcdDirectory, assessmentSection.Id);
+            overtoppingCalculator = HydraRingCalculatorFactory.Instance.CreateOvertoppingCalculator(hlcdDirectory);
             var overtoppingCalculationInput = CreateOvertoppingInput(calculation, generalInput, hydraulicBoundaryDatabaseFilePath);
             DikeHeightAssessmentOutput dikeHeight = null;
 
@@ -174,7 +174,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                 {
                     NotifyProgress(Resources.GrassCoverErosionInwardsCalculationService_Calculate_Executing_dikeheight_calculation, 2, totalSteps);
 
-                    dikeHeightCalculator = HydraRingCalculatorFactory.Instance.CreateDikeHeightCalculator(hlcdDirectory, assessmentSection.Id);
+                    dikeHeightCalculator = HydraRingCalculatorFactory.Instance.CreateDikeHeightCalculator(hlcdDirectory);
 
                     var norm = GetProbabilityToUse(assessmentSection.FailureMechanismContribution.Norm,
                                                    generalInput, failureMechanismContribution,
