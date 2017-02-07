@@ -504,7 +504,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                     IAssessmentSection assessmentSection = nodeData.AssessmentSection;
                     GrassCoverErosionOutwardsFailureMechanism failureMechanism = nodeData.FailureMechanism;
 
-                    double mechanismSpecificNorm = failureMechanism.GetMechanismSpecificNorm(assessmentSection);
+                    double mechanismSpecificNorm = GetFailureMechanismSpecificNorm(assessmentSection, failureMechanism);
 
                     bool successfulCalculation = hydraulicBoundaryLocationCalculationGuiService.CalculateDesignWaterLevels(
                         assessmentSection.HydraulicBoundaryDatabase.FilePath,
@@ -560,7 +560,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                         return;
                     }
 
-                    double mechanismSpecificNorm = failureMechanism.GetMechanismSpecificNorm(assessmentSection);
+                    double mechanismSpecificNorm = GetFailureMechanismSpecificNorm(assessmentSection, failureMechanism);
 
                     bool successfulCalculation = hydraulicBoundaryLocationCalculationGuiService.CalculateWaveHeights(
                         assessmentSection.HydraulicBoundaryDatabase.FilePath,
@@ -892,6 +892,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
         }
 
         #endregion
+
+        private static double GetFailureMechanismSpecificNorm(IAssessmentSection assessmentSection, GrassCoverErosionOutwardsFailureMechanism failureMechanism)
+        {
+            return RingtoetsCommonDataCalculationService.ProfileSpecificRequiredProbability(
+                assessmentSection.FailureMechanismContribution.Norm,
+                failureMechanism.Contribution,
+                failureMechanism.GeneralInput.N);
+        }
 
         #endregion
     }

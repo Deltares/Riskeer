@@ -115,7 +115,12 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service
             RoundedDouble a = failureMechanism.GeneralInput.GeneralWaveConditionsInput.A;
             RoundedDouble b = failureMechanism.GeneralInput.GeneralWaveConditionsInput.B;
             RoundedDouble c = failureMechanism.GeneralInput.GeneralWaveConditionsInput.C;
-            double mechanismSpecificNorm = failureMechanism.GetMechanismSpecificNorm(assessmentSection);
+
+            double mechanismSpecificNorm = RingtoetsCommonDataCalculationService.ProfileSpecificRequiredProbability(
+                assessmentSection.FailureMechanismContribution.Norm,
+                failureMechanism.Contribution,
+                failureMechanism.GeneralInput.N);
+
             TotalWaterLevelCalculations = calculation.InputParameters.WaterLevels.Count();
 
             try

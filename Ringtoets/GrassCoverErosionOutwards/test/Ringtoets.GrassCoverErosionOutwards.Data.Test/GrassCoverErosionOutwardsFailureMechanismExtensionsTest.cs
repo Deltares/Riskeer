@@ -22,9 +22,6 @@
 using System;
 using System.Linq;
 using NUnit.Framework;
-using Rhino.Mocks;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.Hydraulics;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
@@ -107,52 +104,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
                 Assert.AreEqual(locations[i].Location.X, failureMechanism.HydraulicBoundaryLocations[i].Location.X);
                 Assert.AreEqual(locations[i].Location.Y, failureMechanism.HydraulicBoundaryLocations[i].Location.Y);
             }
-        }
-
-        [Test]
-        public void GetMechanismSpecificNorm_AssessmentSectionNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-
-            // Call
-            TestDelegate test = () => failureMechanism.GetMechanismSpecificNorm(null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("assessmentSection", exception.ParamName);
-        }
-
-        [Test]
-        [TestCase(0, 0)]
-        [TestCase(10, 0.00025)]
-        public void GetMechanismSpecificNorm_WithAssessmentSection_ReturnMechanismSpecificNorm(double contribution, double expectedMechanismSpecificNorm)
-        {
-            // Setup
-            const double norm = 1.0/200;
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
-            {
-                Contribution = contribution
-            };
-
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.GetFailureMechanisms()).Return(new[]
-            {
-                failureMechanism
-            });
-            assessmentSection.Stub(a => a.FailureMechanismContribution).Return(new FailureMechanismContribution(new[]
-            {
-                failureMechanism
-            }, 1, norm));
-            mocks.ReplayAll();
-
-            // Call
-            double mechanismSpecificNorm = failureMechanism.GetMechanismSpecificNorm(assessmentSection);
-
-            // Assert
-            Assert.AreEqual(expectedMechanismSpecificNorm, mechanismSpecificNorm);
-            mocks.VerifyAll();
         }
     }
 }
