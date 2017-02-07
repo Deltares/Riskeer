@@ -30,7 +30,7 @@ namespace Ringtoets.Piping.IO.Importer
     /// Interface describing the method of updating the data model after new surface lines 
     /// have been imported.
     /// </summary>
-    public interface ISurfaceLineUpdateStrategy
+    public interface ISurfaceLineUpdateSurfaceLineStrategy
     {
         /// <summary>
         /// Adds the imported data to the <paramref name="targetCollection"/>.

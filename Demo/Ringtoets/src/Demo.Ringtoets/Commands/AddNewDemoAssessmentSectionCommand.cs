@@ -542,6 +542,7 @@ namespace Demo.Ringtoets.Commands
             {
                 var surfaceLinesImporter = new PipingSurfaceLinesCsvImporter(pipingFailureMechanism.SurfaceLines,
                                                                              demoAssessmentSection.ReferenceLine,
+                                                                             new RingtoetsPipingSurfaceLineReplaceDataStrategy(), 
                                                                              Path.Combine(embeddedResourceFileWriter.TargetFolderPath,
                                                                                           "DR6_surfacelines.csv"));
                 surfaceLinesImporter.Import();

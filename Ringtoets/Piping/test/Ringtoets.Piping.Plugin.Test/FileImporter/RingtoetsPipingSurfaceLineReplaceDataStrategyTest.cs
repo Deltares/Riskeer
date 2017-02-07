@@ -40,7 +40,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var strategy = new RingtoetsPipingSurfaceLineReplaceDataStrategy();
 
             // Assert
-            Assert.IsInstanceOf<ISurfaceLineUpdateStrategy>(strategy);
+            Assert.IsInstanceOf<ISurfaceLineUpdateSurfaceLineStrategy>(strategy);
         }
 
         [Test]

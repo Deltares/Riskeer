@@ -106,6 +106,7 @@ namespace Ringtoets.Piping.Plugin
                 IsEnabled = context => context.AssessmentSection.ReferenceLine != null,
                 CreateFileImporter = (context, filePath) => new PipingSurfaceLinesCsvImporter(context.WrappedData,
                                                                                               context.AssessmentSection.ReferenceLine,
+                                                                                              new RingtoetsPipingSurfaceLineReplaceDataStrategy(),
                                                                                               filePath)
             };
 

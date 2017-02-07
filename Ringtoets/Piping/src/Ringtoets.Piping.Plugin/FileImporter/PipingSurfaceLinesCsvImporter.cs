@@ -30,6 +30,7 @@ using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
 using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Piping.IO.Importer;
 using Ringtoets.Piping.IO.SurfaceLines;
 using Ringtoets.Piping.Plugin.Properties;
 using Ringtoets.Piping.Primitives;
@@ -53,6 +54,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
 
         private const string characteristicPointsFileSubExtension = ".krp";
         private const string csvFileExtension = ".csv";
+        private readonly ISurfaceLineUpdateSurfaceLineStrategy surfaceLineUpdateStrategy;
         private readonly ILog log = LogManager.GetLogger(typeof(PipingSurfaceLinesCsvImporter));
 
         private readonly ReferenceLine referenceLine;
@@ -62,16 +64,29 @@ namespace Ringtoets.Piping.Plugin.FileImporter
         /// </summary>
         /// <param name="importTarget">The import target.</param>
         /// <param name="referenceLine">The reference line.</param>
+        /// <param name="surfaceLineUpdateStrategy">The strategy to update the surface lines with imported data.</param>
         /// <param name="filePath">The path to the file to import from.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="importTarget"/>
         /// or <paramref name="referenceLine"/> is <c>null</c>.</exception>
-        public PipingSurfaceLinesCsvImporter(ObservableCollectionWithSourcePath<RingtoetsPipingSurfaceLine> importTarget, ReferenceLine referenceLine, string filePath) : base(filePath, importTarget)
+        public PipingSurfaceLinesCsvImporter(ObservableCollectionWithSourcePath<RingtoetsPipingSurfaceLine> importTarget, 
+            ReferenceLine referenceLine, 
+            ISurfaceLineUpdateSurfaceLineStrategy surfaceLineUpdateStrategy, 
+            string filePath) : base(filePath, importTarget)
         {
+            if (importTarget == null)
+            {
+                throw new ArgumentNullException(nameof(importTarget));
+            }
             if (referenceLine == null)
             {
                 throw new ArgumentNullException(nameof(referenceLine));
             }
+            if (surfaceLineUpdateStrategy == null)
+            {
+                throw new ArgumentNullException(nameof(surfaceLineUpdateStrategy));
+            }
 
+            this.surfaceLineUpdateStrategy = surfaceLineUpdateStrategy;
             this.referenceLine = referenceLine;
         }
 
@@ -96,8 +111,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
                 return false;
             }
 
-            ImportTarget.AddRange(importResults, FilePath);
-
+            surfaceLineUpdateStrategy.UpdateSurfaceLinesWithImportedData(ImportTarget, importResults, FilePath);
             return true;
         }
 

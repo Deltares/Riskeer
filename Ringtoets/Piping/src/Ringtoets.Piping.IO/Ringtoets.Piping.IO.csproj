@@ -54,7 +54,7 @@
     <Compile Include="Exceptions\StochasticSoilProfileReadException.cs" />
     <Compile Include="Importer\IStochasticSoilModelChangeHandler.cs" />
     <Compile Include="Importer\IStochasticSoilModelUpdateModelStrategy.cs" />
-    <Compile Include="Importer\ISurfaceLineUpdateStrategy.cs" />
+    <Compile Include="Importer\ISurfaceLineUpdateSurfaceLineStrategy.cs" />
     <Compile Include="Importer\StochasticSoilModelImporter.cs" />
     <Compile Include="Importer\StochasticSoilModelUpdateException.cs" />
     <Compile Include="SoilProfile\LayerProperties.cs" />
