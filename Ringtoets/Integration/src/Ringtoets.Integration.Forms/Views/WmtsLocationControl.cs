@@ -23,7 +23,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.Views;
-using Core.Common.Utils.Reflection;
 
 namespace Ringtoets.Integration.Forms.Views
 {
@@ -70,14 +69,10 @@ namespace Ringtoets.Integration.Forms.Views
             dataGridViewControl.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridViewControl.MultiSelect = false;
 
-            dataGridViewControl.AddTextBoxColumn(TypeUtils.GetMemberName<WmtsCapabilityRow>(row => row.Id),
-                                                 "Kaartlaag", true);
-            dataGridViewControl.AddTextBoxColumn(TypeUtils.GetMemberName<WmtsCapabilityRow>(row => row.Format),
-                                                 "Formaat", true);
-            dataGridViewControl.AddTextBoxColumn(TypeUtils.GetMemberName<WmtsCapabilityRow>(row => row.Title),
-                                                 "Titel", true);
-            dataGridViewControl.AddTextBoxColumn(TypeUtils.GetMemberName<WmtsCapabilityRow>(row => row.CoordinateSystem),
-                                                 "Coördinatenstelsel", true);
+            dataGridViewControl.AddTextBoxColumn(nameof(WmtsCapabilityRow.Id), "Kaartlaag", true);
+            dataGridViewControl.AddTextBoxColumn(nameof(WmtsCapabilityRow.Format), "Formaat", true);
+            dataGridViewControl.AddTextBoxColumn(nameof(WmtsCapabilityRow.Title), "Titel", true);
+            dataGridViewControl.AddTextBoxColumn(nameof(WmtsCapabilityRow.CoordinateSystem), "Coördinatenstelsel", true);
         }
 
         private void UpdateDataGridViewDataSource()

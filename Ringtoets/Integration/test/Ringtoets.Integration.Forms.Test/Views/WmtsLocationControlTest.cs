@@ -118,6 +118,22 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         [Test]
+        public void Dispose_AlreadyDisposed_DoesNotThrowException()
+        {
+            // Call
+            TestDelegate call = () =>
+            {
+                using (var control = new WmtsLocationControl())
+                {
+                    control.Dispose();
+                }
+            };
+
+            // Assert
+            Assert.DoesNotThrow(call);
+        }
+
+        [Test]
         public void Data_WmtsCapabilityRow_DataSet()
         {
             // Setup
