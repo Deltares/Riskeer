@@ -23,7 +23,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Utils.Extensions;
-using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Data
@@ -63,25 +62,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data
                                                                                                                        location.Name,
                                                                                                                        location.Location.X,
                                                                                                                        location.Location.Y)));
-        }
-
-        /// <summary>
-        /// Gets the norm which is needed in the calculations within <see cref="GrassCoverErosionOutwardsFailureMechanism"/>.
-        /// </summary>
-        /// <param name="failureMechanism">The <see cref="GrassCoverErosionOutwardsFailureMechanism"/> to get the failure mechanism norm for.</param>
-        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> which contains the assessment section norm.</param>
-        /// <returns>The value of the failure mechanism norm.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/> is <c>null</c>.</exception>
-        public static double GetMechanismSpecificNorm(this GrassCoverErosionOutwardsFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
-        {
-            if (assessmentSection == null)
-            {
-                throw new ArgumentNullException(nameof(assessmentSection));
-            }
-
-            return assessmentSection.FailureMechanismContribution.Norm
-                   *(failureMechanism.Contribution/100)
-                   /failureMechanism.GeneralInput.N;
         }
     }
 }

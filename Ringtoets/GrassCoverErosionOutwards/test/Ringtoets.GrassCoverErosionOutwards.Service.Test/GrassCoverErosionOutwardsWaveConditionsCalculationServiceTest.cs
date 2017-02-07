@@ -30,6 +30,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Service;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
 using Ringtoets.HydraRing.Calculation.Data;
@@ -280,7 +281,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
             var mocks = new MockRepository();
             var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
-            
+
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
             // Call
@@ -302,7 +303,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
             var mocks = new MockRepository();
             var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
-            
+
             var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation();
 
             // Call
@@ -487,11 +488,16 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
                 {
                     GeneralGrassCoverErosionOutwardsInput generalInput = grassCoverErosionOutwardsFailureMechanism.GeneralInput;
 
+                    double mechanismSpecificNorm = RingtoetsCommonDataCalculationService.ProfileSpecificRequiredProbability(
+                        assessmentSectionStub.FailureMechanismContribution.Norm,
+                        grassCoverErosionOutwardsFailureMechanism.Contribution,
+                        grassCoverErosionOutwardsFailureMechanism.GeneralInput.N);
+
                     WaveConditionsInput input = calculation.InputParameters;
                     var expectedInput = new WaveConditionsCosineCalculationInput(1,
                                                                                  input.Orientation,
                                                                                  input.HydraulicBoundaryLocation.Id,
-                                                                                 grassCoverErosionOutwardsFailureMechanism.GetMechanismSpecificNorm(assessmentSectionStub),
+                                                                                 mechanismSpecificNorm,
                                                                                  input.ForeshoreProfile.Geometry.Select(c => new HydraRingForelandPoint(c.X, c.Y)),
                                                                                  new HydraRingBreakWater((int) input.BreakWater.Type, input.BreakWater.Height),
                                                                                  calculation.InputParameters.WaterLevels.ElementAt(waterLevelIndex++),
