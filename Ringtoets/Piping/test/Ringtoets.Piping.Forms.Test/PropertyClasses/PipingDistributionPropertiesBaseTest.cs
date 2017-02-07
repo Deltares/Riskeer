@@ -66,11 +66,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         }
 
         [Test]
-        [TestCase(DistributionPropertiesReadOnly.All)]
-        [TestCase(DistributionPropertiesReadOnly.Mean)]
-        [TestCase(DistributionPropertiesReadOnly.StandardDeviation)]
-        [TestCase(DistributionPropertiesReadOnly.None)]
-        public void Constructor_DistributionNull_ThrowArgumentNullException(DistributionPropertiesReadOnly flags)
+        public void Constructor_DistributionNull_ThrowArgumentNullException()
         {
             // Setup
             var mockRepository = new MockRepository();
@@ -79,8 +75,11 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             PipingCalculationScenario scenario = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
 
+            var random = new Random();
+            var flag = random.NextEnumValue<DistributionPropertiesReadOnly>();
+
             // Call
-            TestDelegate call = () => new SimpleDistributionProperties(flags, null, scenario, scenario.InputParameters, handler);
+            TestDelegate call = () => new SimpleDistributionProperties(flag, null, scenario, scenario.InputParameters, handler);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

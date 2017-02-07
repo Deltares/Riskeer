@@ -31,9 +31,24 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 
 namespace Ringtoets.Piping.Forms.PropertyClasses
 {
-    public abstract class DesignVariableProperties<TDistribution> : PipingDistributionPropertiesBase<TDistribution, PipingInput, PipingCalculationScenario>
+    /// <summary>
+    /// ViewModel base of <see cref="DesignVariable{TDistribution}"/> for properties panel.
+    /// </summary>
+    /// <typeparam name="TDistribution">The type of the distribution.</typeparam>
+    public abstract class DesignVariableProperties<TDistribution> 
+        : PipingDistributionPropertiesBase<TDistribution, PipingInput, PipingCalculationScenario>
         where TDistribution : IDistribution
     {
+        /// <summary>
+        /// Creates a new <see cref="DesignVariableProperties{TDistribution}"/>
+        /// </summary>
+        /// <param name="propertiesReadOnly">Indicates which properties, if any, should be marked as read-only.</param>
+        /// <param name="designVariable">The data of the <see cref="TDistribution"/> to create the properties for.</param>
+        /// <param name="calculation">The calculation the <paramref name="designVariable"/> belongs to.</param>
+        /// <param name="calculationInput">The calculation input the <paramref name="designVariable"/> belongs to.</param>
+        /// <param name="handler">The handler responsible for handling effects of a property change.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="designVariable"/> is <c>null</c>
+        /// or when any number of properties in this class is editable and any other parameter is <c>null</c>.</exception>
         protected DesignVariableProperties(DistributionPropertiesReadOnly propertiesReadOnly,
                                            DesignVariable<TDistribution> designVariable,
                                            PipingCalculationScenario calculation,

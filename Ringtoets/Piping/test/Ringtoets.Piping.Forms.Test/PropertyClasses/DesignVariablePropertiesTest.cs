@@ -94,8 +94,8 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             var distribution = new LogNormalDistribution(2)
             {
-                Mean = new RoundedDouble(2, 1),
-                StandardDeviation = new RoundedDouble(2, 2)
+                Mean = (RoundedDouble) 1,
+                StandardDeviation = (RoundedDouble) 2
             };
             var designVariable = new LogNormalDistributionDesignVariable(distribution);
 

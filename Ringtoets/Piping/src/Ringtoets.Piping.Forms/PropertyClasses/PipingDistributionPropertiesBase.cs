@@ -55,7 +55,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         /// </summary>
         /// <param name="propertiesReadOnly">Indicates which properties, if any, should be marked as read-only.</param>
         /// <param name="data">The data of the <see cref="TDistribution"/> to create the properties for.</param>
-        /// <param name="calculation">The calculation the <paramref name="data"/> belgons to.</param>
+        /// <param name="calculation">The calculation the <paramref name="data"/> belongs to.</param>
         /// <param name="calculationInput">The calculation input the <paramref name="data"/> belongs to.</param>
         /// <param name="handler">The handler responsible for handling effects of a property change.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="data"/> is <c>null</c>
