@@ -62,7 +62,7 @@ namespace Core.Common.Base.Test
         {
             // Setup
             var collection = new ObservableCollectionWithSourcePath<object>();
-            var models = new[]
+            var items = new[]
             {
                 new object(),
                 null,
@@ -70,7 +70,7 @@ namespace Core.Common.Base.Test
             };
 
             // Call
-            TestDelegate call = () => collection.AddRange(models, "path");
+            TestDelegate call = () => collection.AddRange(items, "path");
 
             // Assert
             string message = "Collection cannot contain null.";
@@ -110,7 +110,7 @@ namespace Core.Common.Base.Test
         }
 
         [Test]
-        public void AddRange_AddNewStochasticSoilModel_CollectionContainsModel()
+        public void AddRange_AddNewItem_CollectionContainsModel()
         {
             // Setup
             var collection = new ObservableCollectionWithSourcePath<object>();
@@ -129,7 +129,7 @@ namespace Core.Common.Base.Test
         }
 
         [Test]
-        public void AddRange_AddingNewModels_CollectionContainsExpectedElements()
+        public void AddRange_AddingNewItems_CollectionContainsExpectedElements()
         {
             // Setup
             var collection = new ObservableCollectionWithSourcePath<object>();

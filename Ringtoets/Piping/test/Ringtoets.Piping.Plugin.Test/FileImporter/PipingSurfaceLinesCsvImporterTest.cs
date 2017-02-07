@@ -52,11 +52,11 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         [Test]
         public void DefaultConstructor_ExpectedValues()
         {
-            var list = new ObservableCollectionWithSourcePath<RingtoetsPipingSurfaceLine>();
+            var collection = new ObservableCollectionWithSourcePath<RingtoetsPipingSurfaceLine>();
             var referenceLine = new ReferenceLine();
 
             // Call
-            var importer = new PipingSurfaceLinesCsvImporter(list, referenceLine, "");
+            var importer = new PipingSurfaceLinesCsvImporter(collection, referenceLine, "");
 
             // Assert
             Assert.IsInstanceOf<FileImporterBase<ObservableCollectionWithSourcePath<RingtoetsPipingSurfaceLine>>>(importer);

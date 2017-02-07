@@ -32,7 +32,7 @@ using Ringtoets.Piping.Primitives;
 namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class RingtoetsSurfaceLineCollectionPropertiesTest
+    public class RingtoetsPipingSurfaceLineCollectionPropertiesTest
     {
         [Test]
         public void Constructor_WithoutColleciton_ThrowsArgumentNullException()
@@ -75,14 +75,14 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
             Assert.AreEqual(1, dynamicProperties.Count);
 
-            PropertyDescriptor stochasticSoilModelIdProperty = dynamicProperties[0];
-            Assert.IsNotNull(stochasticSoilModelIdProperty);
-            Assert.IsTrue(stochasticSoilModelIdProperty.IsReadOnly);
-            Assert.AreEqual("Algemeen", stochasticSoilModelIdProperty.Category);
-            Assert.AreEqual("Bronlocatie", stochasticSoilModelIdProperty.DisplayName);
+            PropertyDescriptor surfaceLineCollectionProperty = dynamicProperties[0];
+            Assert.IsNotNull(surfaceLineCollectionProperty);
+            Assert.IsTrue(surfaceLineCollectionProperty.IsReadOnly);
+            Assert.AreEqual("Algemeen", surfaceLineCollectionProperty.Category);
+            Assert.AreEqual("Bronlocatie", surfaceLineCollectionProperty.DisplayName);
             Assert.AreEqual(
                 "De locatie van het bestand waaruit de profielschematisaties zijn geïmporteerd.",
-                stochasticSoilModelIdProperty.Description);
+                surfaceLineCollectionProperty.Description);
         }
     }
 }
