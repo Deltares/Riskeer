@@ -19,15 +19,21 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Controls.Views;
+using Core.Common.Utils.Reflection;
 
 namespace Ringtoets.Integration.Forms.Views
 {
     /// <summary>
     /// This class represents a <seealso cref="Control"/> where WMTS locations can be administrated.
     /// </summary>
-    public partial class WmtsLocationControl : UserControl
+    public partial class WmtsLocationControl : UserControl, IView
     {
+        private IEnumerable<WmtsCapabilityRow> capabilities;
+
         /// <summary>
         /// Creates a new instance of <see cref="WmtsLocationControl"/>.
         /// </summary>
@@ -35,6 +41,19 @@ namespace Ringtoets.Integration.Forms.Views
         {
             InitializeComponent();
             InitializeDataGridView();
+        }
+
+        public object Data
+        {
+            get
+            {
+                return capabilities;
+            }
+            set
+            {
+                capabilities = value as IEnumerable<WmtsCapabilityRow>;
+                UpdateDataGridViewDataSource();
+            }
         }
 
         protected override void Dispose(bool disposing)
@@ -48,10 +67,22 @@ namespace Ringtoets.Integration.Forms.Views
 
         private void InitializeDataGridView()
         {
-            dataGridViewControl.AddTextBoxColumn("", "Kaartlaag", true);
-            dataGridViewControl.AddTextBoxColumn("", "Formaat", true);
-            dataGridViewControl.AddTextBoxColumn("", "Titel", true);
-            dataGridViewControl.AddTextBoxColumn("", "Coördinatenstelsel", true);
+            dataGridViewControl.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dataGridViewControl.MultiSelect = false;
+
+            dataGridViewControl.AddTextBoxColumn(TypeUtils.GetMemberName<WmtsCapabilityRow>(row => row.Id),
+                                                 "Kaartlaag", true);
+            dataGridViewControl.AddTextBoxColumn(TypeUtils.GetMemberName<WmtsCapabilityRow>(row => row.Format),
+                                                 "Formaat", true);
+            dataGridViewControl.AddTextBoxColumn(TypeUtils.GetMemberName<WmtsCapabilityRow>(row => row.Title),
+                                                 "Titel", true);
+            dataGridViewControl.AddTextBoxColumn(TypeUtils.GetMemberName<WmtsCapabilityRow>(row => row.CoordinateSystem),
+                                                 "Coördinatenstelsel", true);
+        }
+
+        private void UpdateDataGridViewDataSource()
+        {
+            dataGridViewControl.SetDataSource(capabilities.ToArray());
         }
     }
 }
