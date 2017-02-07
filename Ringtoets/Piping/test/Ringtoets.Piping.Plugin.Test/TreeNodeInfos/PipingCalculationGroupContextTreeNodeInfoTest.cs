@@ -178,7 +178,6 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_NestedCalculationGroupWithCalculationOutput_ReturnContextMenuWithItems()
         {
             // Setup
-            var gui = mocks.StrictMock<IGui>();
             var group = new CalculationGroup();
             var parentGroup = new CalculationGroup();
 
@@ -213,7 +212,9 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                                                      viewCommandsHandler,
                                                      nodeData,
                                                      treeViewControl);
-            gui.Expect(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
+
+            var gui = mocks.Stub<IGui>();
+            gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
 
             treeViewControl.Expect(tvc => tvc.CanRemoveNodeForData(nodeData)).Return(true);
             treeViewControl.Expect(tvc => tvc.CanRenameNodeForData(nodeData)).Return(true);
@@ -288,7 +289,6 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_WithoutParentNodeDefaultBehavior_ReturnContextMenuWithoutRenameRemove()
         {
             // Setup
-            var gui = mocks.StrictMock<IGui>();
             var group = new CalculationGroup();
 
             group.Children.Add(new PipingCalculationScenario(new GeneralPipingInput())
@@ -308,7 +308,10 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             var applicationFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
             var importHandlerMock = mocks.StrictMock<IImportCommandHandler>();
             var exportHandlerMock = mocks.StrictMock<IExportCommandHandler>();
+
             var viewCommandsHandler = mocks.StrictMock<IViewCommands>();
+            viewCommandsHandler.Expect(vc => vc.CanOpenViewFor(nodeData)).Return(true);
+
             using (var treeViewControl = new TreeViewControl())
             {
                 var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler,
@@ -317,9 +320,10 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                                                          viewCommandsHandler,
                                                          nodeData,
                                                          treeViewControl);
-                gui.Expect(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
+
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
                 gui.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
-                viewCommandsHandler.Expect(vc => vc.CanOpenViewFor(nodeData)).Return(true);
 
                 mocks.ReplayAll();
 
@@ -402,10 +406,9 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                                                                  pipingFailureMechanism,
                                                                  assessmentSection);
 
-                var gui = mocks.StrictMock<IGui>();
-                gui.Expect(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
                 gui.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
-
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
@@ -445,10 +448,9 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-                var gui = mocks.StrictMock<IGui>();
-                gui.Expect(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
                 gui.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
-
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
@@ -491,10 +493,9 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-                var gui = mocks.StrictMock<IGui>();
-                gui.Expect(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
                 gui.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
-
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
@@ -535,9 +536,8 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-                var gui = mocks.StrictMock<IGui>();
-                gui.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
-
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
@@ -585,9 +585,8 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-                var gui = mocks.StrictMock<IGui>();
-                gui.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
-
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
@@ -632,8 +631,8 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-                var gui = mocks.StrictMock<IGui>();
-                gui.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
 
                 var observer = mocks.StrictMock<IObserver>();
                 observer.Expect(o => o.UpdateObserver());
@@ -690,8 +689,8 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-                var gui = mocks.StrictMock<IGui>();
-                gui.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
 
                 var observer = mocks.StrictMock<IObserver>();
                 observer.Expect(o => o.UpdateObserver());
@@ -763,9 +762,8 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-                var gui = mocks.StrictMock<IGui>();
-                gui.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
-
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
@@ -830,10 +828,9 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-                var gui = mocks.StrictMock<IGui>();
-                gui.Expect(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                gui.Expect(g => g.MainWindow).Return(mainWindow);
-
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.MainWindow).Return(mainWindow);
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
@@ -907,9 +904,8 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-                var gui = mocks.StrictMock<IGui>();
-                gui.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
-
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
@@ -980,11 +976,10 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
                 var mainWindow = mocks.Stub<IMainWindow>();
 
-                var gui = mocks.StrictMock<IGui>();
-                gui.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                gui.Expect(g => g.MainWindow).Return(mainWindow);
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.MainWindow).Return(mainWindow);
                 gui.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
-
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
@@ -1083,11 +1078,10 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
                 var mainWindow = mocks.Stub<IMainWindow>();
 
-                var gui = mocks.StrictMock<IGui>();
-                gui.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                gui.Expect(g => g.MainWindow).Return(mainWindow);
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.MainWindow).Return(mainWindow);
                 gui.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
-
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
@@ -1196,11 +1190,10 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
                 var mainWindow = mocks.Stub<IMainWindow>();
 
-                var gui = mocks.StrictMock<IGui>();
-                gui.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                gui.Expect(g => g.MainWindow).Return(mainWindow);
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.MainWindow).Return(mainWindow);
                 gui.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
-
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;

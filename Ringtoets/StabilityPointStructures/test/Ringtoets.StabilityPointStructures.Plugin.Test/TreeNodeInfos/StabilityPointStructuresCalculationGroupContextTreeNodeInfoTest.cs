@@ -68,7 +68,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
         private const int contextMenuClearAllIndexNestedGroup = 7;
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "HydraulicBoundaryDatabaseImporter");
 
-        private IGui guiMock;
+        private IGui gui;
         private TreeNodeInfo info;
         private MockRepository mocks;
         private StabilityPointStructuresPlugin plugin;
@@ -77,10 +77,10 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
         public void SetUp()
         {
             mocks = new MockRepository();
-            guiMock = mocks.Stub<IGui>();
+            gui = mocks.Stub<IGui>();
             plugin = new StabilityPointStructuresPlugin
             {
-                Gui = guiMock
+                Gui = gui
             };
 
             info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(StabilityPointStructuresCalculationGroupContext));
@@ -197,8 +197,8 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                guiMock.Expect(cmp => cmp.Get(groupContext, treeViewControl)).Return(menuBuilderMock);
-                guiMock.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
+                gui.Stub(cmp => cmp.Get(groupContext, treeViewControl)).Return(menuBuilderMock);
+                gui.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
                 mocks.ReplayAll();
 
                 // Call
@@ -223,8 +223,8 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             {
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-                guiMock.Expect(g => g.Get(groupContext, treeViewControl)).Return(menuBuilder);
-                guiMock.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
+                gui.Stub(g => g.Get(groupContext, treeViewControl)).Return(menuBuilder);
+                gui.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
 
                 mocks.ReplayAll();
 
@@ -282,8 +282,8 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                guiMock.Expect(g => g.Get(groupContext, treeViewControl)).Return(menuBuilder);
-                guiMock.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
+                gui.Stub(g => g.Get(groupContext, treeViewControl)).Return(menuBuilder);
+                gui.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
 
                 mocks.ReplayAll();
 
@@ -327,8 +327,8 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                guiMock.Expect(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                guiMock.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
+                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
                 mocks.ReplayAll();
 
                 // Call
@@ -376,8 +376,8 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                guiMock.Expect(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                guiMock.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
+                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
                 mocks.ReplayAll();
 
                 // Call
@@ -435,8 +435,8 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                guiMock.Expect(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                guiMock.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
+                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
 
                 mocks.ReplayAll();
 
@@ -493,8 +493,8 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                guiMock.Expect(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                guiMock.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
+                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
 
                 mocks.ReplayAll();
 
@@ -548,7 +548,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 menuBuilderMock.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.Build()).Return(null);
 
-                guiMock.Expect(cmp => cmp.Get(groupContext, treeViewControl)).Return(menuBuilderMock);
+                gui.Stub(cmp => cmp.Get(groupContext, treeViewControl)).Return(menuBuilderMock);
                 mocks.ReplayAll();
 
                 // Call
@@ -575,7 +575,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-                guiMock.Expect(g => g.Get(groupContext, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.Get(groupContext, treeViewControl)).Return(menuBuilder);
 
                 mocks.ReplayAll();
 
@@ -633,8 +633,8 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                guiMock.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                guiMock.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
 
                 mocks.ReplayAll();
 
@@ -679,8 +679,8 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                guiMock.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                guiMock.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
 
                 mocks.ReplayAll();
 
@@ -749,15 +749,15 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                guiMock.Expect(g => g.Get(groupContext, treeViewControl)).Return(menuBuilder);
-                guiMock.Expect(g => g.MainWindow).Return(mainWindow);
-                guiMock.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
+                gui.Stub(g => g.Get(groupContext, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.MainWindow).Return(mainWindow);
+                gui.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
 
                 mocks.ReplayAll();
 
                 assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
 
-                plugin.Gui = guiMock;
+                plugin.Gui = gui;
 
                 DialogBoxHandler = (name, wnd) =>
                 {
@@ -832,14 +832,14 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                guiMock.Expect(g => g.Get(groupContext, treeViewControl)).Return(menuBuilder);
-                guiMock.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
+                gui.Stub(g => g.Get(groupContext, treeViewControl)).Return(menuBuilder);
+                gui.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
 
                 mocks.ReplayAll();
 
                 assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
 
-                plugin.Gui = guiMock;
+                plugin.Gui = gui;
 
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(groupContext, null, treeViewControl))
                 {
@@ -886,13 +886,13 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
                 var mainWindow = mocks.Stub<IMainWindow>();
 
-                guiMock.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                guiMock.Expect(g => g.MainWindow).Return(mainWindow);
-                guiMock.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.MainWindow).Return(mainWindow);
+                gui.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
 
                 mocks.ReplayAll();
 
-                plugin.Gui = guiMock;
+                plugin.Gui = gui;
 
                 DialogBoxHandler = (name, wnd) =>
                 {
@@ -944,13 +944,13 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
                 var mainWindow = mocks.Stub<IMainWindow>();
 
-                guiMock.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                guiMock.Expect(g => g.MainWindow).Return(mainWindow);
-                guiMock.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.MainWindow).Return(mainWindow);
+                gui.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
 
                 mocks.ReplayAll();
 
-                plugin.Gui = guiMock;
+                plugin.Gui = gui;
 
                 DialogBoxHandler = (name, wnd) =>
                 {
@@ -1009,13 +1009,13 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
                 var mainWindow = mocks.Stub<IMainWindow>();
 
-                guiMock.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                guiMock.Expect(g => g.MainWindow).Return(mainWindow);
-                guiMock.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.MainWindow).Return(mainWindow);
+                gui.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
 
                 mocks.ReplayAll();
 
-                plugin.Gui = guiMock;
+                plugin.Gui = gui;
 
                 DialogBoxHandler = (name, wnd) =>
                 {

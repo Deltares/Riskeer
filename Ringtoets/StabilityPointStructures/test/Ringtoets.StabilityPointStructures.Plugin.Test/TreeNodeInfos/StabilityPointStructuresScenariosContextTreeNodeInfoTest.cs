@@ -104,18 +104,21 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_Always_CallsBuilderMethods()
         {
             // Setup
-            var guiMock = mocks.StrictMock<IGui>();
             var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
+
+            using (mocks.Ordered())
+            {
+                menuBuilderMock.Expect(mb => mb.AddOpenItem()).Return(menuBuilderMock);
+                menuBuilderMock.Expect(mb => mb.Build()).Return(null);
+            }
 
             using (var treeViewControl = new TreeViewControl())
             {
-                guiMock.Expect(g => g.Get(null, treeViewControl)).Return(menuBuilderMock);
-
-                menuBuilderMock.Expect(mb => mb.AddOpenItem()).Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.Build()).Return(null);
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(g => g.Get(null, treeViewControl)).Return(menuBuilderMock);
                 mocks.ReplayAll();
 
-                plugin.Gui = guiMock;
+                plugin.Gui = gui;
 
                 // Call
                 info.ContextMenuStrip(null, null, treeViewControl);

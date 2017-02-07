@@ -277,7 +277,6 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
                 var context = new FailureMechanismContext<IFailureMechanism>(failureMechanism, assessmentSection);
 
-                var gui = mocks.StrictMock<IGui>();
                 var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
 
                 using (mocks.Ordered())
@@ -293,10 +292,10 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                     menuBuilderMock.Expect(mb => mb.Build()).Return(null);
                 }
 
-                gui.Expect(cmp => cmp.Get(context, treeView)).Return(menuBuilderMock);
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(context, treeView)).Return(menuBuilderMock);
                 gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
                 gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
-
                 mocks.ReplayAll();
 
                 using (var plugin = new RingtoetsPlugin())
@@ -326,7 +325,6 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
                 var context = new FailureMechanismContext<IFailureMechanism>(failureMechanism, assessmentSection);
 
-                var gui = mocks.StrictMock<IGui>();
                 var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
 
                 using (mocks.Ordered())
@@ -338,10 +336,10 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                     menuBuilderMock.Expect(mb => mb.Build()).Return(null);
                 }
 
-                gui.Expect(cmp => cmp.Get(context, treeView)).Return(menuBuilderMock);
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(context, treeView)).Return(menuBuilderMock);
                 gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
                 gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
-
                 mocks.ReplayAll();
 
                 using (var plugin = new RingtoetsPlugin())
@@ -370,11 +368,10 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-                var gui = mocks.StrictMock<IGui>();
-                gui.Expect(cmp => cmp.Get(context, treeView)).Return(menuBuilder);
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(context, treeView)).Return(menuBuilder);
                 gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
                 gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
-
                 mocks.ReplayAll();
 
                 using (var plugin = new RingtoetsPlugin())
@@ -421,12 +418,11 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             {
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-                var gui = mocks.StrictMock<IGui>();
+                var gui = mocks.Stub<IGui>();
                 gui.Stub(g => g.ViewCommands).Return(viewCommands);
                 gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
                 gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
-                gui.Expect(g => g.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
-
+                gui.Stub(g => g.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
                 mocks.ReplayAll();
 
                 using (var plugin = new RingtoetsPlugin())
@@ -469,15 +465,13 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-            var gui = mocks.StrictMock<IGui>();
-            gui.Stub(g => g.ViewCommands).Return(viewCommands);
-            gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
-            gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
-
             using (var treeViewControl = new TreeViewControl())
             {
-                gui.Expect(g => g.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
-
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(g => g.ViewCommands).Return(viewCommands);
+                gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
+                gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
+                gui.Stub(g => g.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
                 mocks.ReplayAll();
 
                 using (var plugin = new RingtoetsPlugin())

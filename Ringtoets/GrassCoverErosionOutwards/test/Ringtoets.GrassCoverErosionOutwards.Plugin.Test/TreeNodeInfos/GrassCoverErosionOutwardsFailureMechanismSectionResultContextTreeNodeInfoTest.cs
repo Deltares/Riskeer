@@ -110,12 +110,12 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var guiMock = mocks.Stub<IGui>();
-                guiMock.Stub(g => g.Get(null, treeViewControl)).Return(menuBuilderMock);
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(g => g.Get(null, treeViewControl)).Return(menuBuilderMock);
 
                 mocks.ReplayAll();
 
-                plugin.Gui = guiMock;
+                plugin.Gui = gui;
 
                 // Call
                 info.ContextMenuStrip(null, null, treeViewControl);

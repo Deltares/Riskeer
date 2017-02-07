@@ -125,20 +125,23 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_Always_CallsBuilderMethods()
         {
             // Setup
-            var guiMock = mocksRepository.StrictMock<IGui>();
             var menuBuilderMock = mocksRepository.StrictMock<IContextMenuBuilder>();
 
-            menuBuilderMock.Expect(mb => mb.AddOpenItem()).Return(menuBuilderMock);
-            menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
-            menuBuilderMock.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilderMock);
-            menuBuilderMock.Expect(mb => mb.Build()).Return(null);
-            mocksRepository.ReplayAll();
-
-            plugin.Gui = guiMock;
+            using (mocksRepository.Ordered())
+            {
+                menuBuilderMock.Expect(mb => mb.AddOpenItem()).Return(menuBuilderMock);
+                menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
+                menuBuilderMock.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilderMock);
+                menuBuilderMock.Expect(mb => mb.Build()).Return(null);
+            }
 
             using (var treeViewControl = new TreeViewControl())
             {
-                guiMock.Expect(g => g.Get(null, treeViewControl)).Return(menuBuilderMock);
+                var gui = mocksRepository.Stub<IGui>();
+                gui.Stub(g => g.Get(null, treeViewControl)).Return(menuBuilderMock);
+                mocksRepository.ReplayAll();
+
+                plugin.Gui = gui;
 
                 // Call
                 info.ContextMenuStrip(null, null, treeViewControl);

@@ -295,10 +295,9 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-                var gui = mocks.StrictMock<IGui>();
-                gui.Expect(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
                 gui.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
-
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
@@ -338,14 +337,12 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                                                                         assessmentSection);
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-
-                var gui = mocks.StrictMock<IGui>();
-                gui.Expect(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                gui.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
-
                 var mainWindow = mocks.Stub<IMainWindow>();
-                gui.Expect(g => g.MainWindow).Return(mainWindow);
 
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
+                gui.Stub(g => g.MainWindow).Return(mainWindow);
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
@@ -389,14 +386,12 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                                                                         assessmentSection);
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-
-                var gui = mocks.StrictMock<IGui>();
-                gui.Expect(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                gui.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
-
                 var mainWindow = mocks.Stub<IMainWindow>();
-                gui.Stub(g => g.MainWindow).Return(mainWindow);
 
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
+                gui.Stub(g => g.MainWindow).Return(mainWindow);
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;

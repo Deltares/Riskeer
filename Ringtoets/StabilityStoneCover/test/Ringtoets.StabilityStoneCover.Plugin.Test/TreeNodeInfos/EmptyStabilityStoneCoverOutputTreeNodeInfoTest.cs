@@ -126,13 +126,17 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
-                menuBuilder.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.Build()).Return(null);
 
-                var gui = mocks.StrictMock<IGui>();
+                using (mocks.Ordered())
+                {
+                    menuBuilder.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilder);
+                    menuBuilder.Expect(mb => mb.Build()).Return(null);
+                }
+
                 var output = new EmptyStabilityStoneCoverOutput();
-                gui.Expect(cmp => cmp.Get(output, treeViewControl)).Return(menuBuilder);
 
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(output, treeViewControl)).Return(menuBuilder);
                 mocks.ReplayAll();
 
                 using (var plugin = new StabilityStoneCoverPlugin())

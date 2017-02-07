@@ -710,12 +710,12 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-                var guiMock = mocksRepository.Stub<IGui>();
-                guiMock.Expect(g => g.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
+                var gui = mocksRepository.Stub<IGui>();
+                gui.Stub(g => g.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
 
                 mocksRepository.ReplayAll();
 
-                plugin.Gui = guiMock;
+                plugin.Gui = gui;
 
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl))
                 {

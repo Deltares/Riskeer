@@ -154,16 +154,16 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var guiMock = mockRepository.Stub<IGui>();
-                guiMock.Stub(g => g.Get(null, treeViewControl)).Return(menuBuilderMock);
-                guiMock.Stub(g => g.ProjectOpened += null).IgnoreArguments();
-                guiMock.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
+                var gui = mockRepository.Stub<IGui>();
+                gui.Stub(g => g.Get(null, treeViewControl)).Return(menuBuilderMock);
+                gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
+                gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
                 mockRepository.ReplayAll();
 
                 using (var plugin = new RingtoetsPlugin())
                 {
                     var info = GetInfo(plugin);
-                    plugin.Gui = guiMock;
+                    plugin.Gui = gui;
 
                     // Call
                     info.ContextMenuStrip(null, null, treeViewControl);
@@ -177,22 +177,21 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_Always_ContextMenuItemAddAssessmentSectionEnabled()
         {
             // Setup
-            var guiMock = mockRepository.StrictMock<IGui>();
-            guiMock.Stub(g => g.ProjectOpened += null).IgnoreArguments();
-            guiMock.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
-
             var project = new RingtoetsProject();
 
             using (var treeViewControl = new TreeViewControl())
             {
-                guiMock.Expect(cmp => cmp.Get(project, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                var gui = mockRepository.Stub<IGui>();
+                gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
+                gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
+                gui.Stub(cmp => cmp.Get(project, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
                 mockRepository.ReplayAll();
 
                 using (var plugin = new RingtoetsPlugin())
                 {
                     var info = GetInfo(plugin);
 
-                    plugin.Gui = guiMock;
+                    plugin.Gui = gui;
 
                     // Call
                     using (ContextMenuStrip contextMenu = info.ContextMenuStrip(project, null, treeViewControl))

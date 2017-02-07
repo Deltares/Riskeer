@@ -30,6 +30,7 @@ using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.Commands;
 using Core.Common.Gui.ContextMenu;
+using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.TestUtil.ContextMenu;
 using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
@@ -155,18 +156,17 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var guiMock = mocks.StrictMock<IGui>();
-                guiMock.Stub(g => g.ProjectOpened += null).IgnoreArguments();
-                guiMock.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
-                guiMock.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilderMock);
-
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
+                gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilderMock);
                 mocks.ReplayAll();
 
                 using (var plugin = new RingtoetsPlugin())
                 {
                     var info = GetInfo(plugin);
 
-                    plugin.Gui = guiMock;
+                    plugin.Gui = gui;
 
                     // Call
                     info.ContextMenuStrip(nodeData, null, treeViewControl);
@@ -286,9 +286,14 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             using (RingtoetsPlugin plugin = new RingtoetsPlugin())
             {
                 var viewCommands = mocks.Stub<IViewCommands>();
-                IGui gui = mocks.DynamicMock<IGui>();
+                var mainWindow = mocks.Stub<IMainWindow>();
+
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(g => g.MainWindow).Return(mainWindow);
+                gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
+                gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
                 gui.Stub(g => g.ViewCommands).Return(viewCommands);
-                gui.Expect(cmp => cmp.Get(hydraulicBoundaryDatabaseContext, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                gui.Stub(cmp => cmp.Get(hydraulicBoundaryDatabaseContext, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
                 mocks.ReplayAll();
 
                 assessmentSection.Attach(assessmentSectionObserver);
@@ -339,8 +344,13 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             using (TreeViewControl treeViewControl = new TreeViewControl())
             using (RingtoetsPlugin plugin = new RingtoetsPlugin())
             {
-                IGui gui = mocks.DynamicMock<IGui>();
-                gui.Expect(cmp => cmp.Get(hydraulicBoundaryDatabaseContext, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                var mainWindow = mocks.Stub<IMainWindow>();
+
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(g => g.MainWindow).Return(mainWindow);
+                gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
+                gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
+                gui.Stub(cmp => cmp.Get(hydraulicBoundaryDatabaseContext, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
                 mocks.ReplayAll();
 
                 DialogBoxHandler = (name, wnd) =>
@@ -382,8 +392,13 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             using (TreeViewControl treeViewControl = new TreeViewControl())
             using (RingtoetsPlugin plugin = new RingtoetsPlugin())
             {
-                IGui gui = mocks.DynamicMock<IGui>();
-                gui.Expect(cmp => cmp.Get(hydraulicBoundaryDatabaseContext, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                var mainWindow = mocks.Stub<IMainWindow>();
+
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(g => g.MainWindow).Return(mainWindow);
+                gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
+                gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
+                gui.Stub(cmp => cmp.Get(hydraulicBoundaryDatabaseContext, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
                 mocks.ReplayAll();
 
                 DialogBoxHandler = (name, wnd) =>
@@ -426,8 +441,13 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             using (TreeViewControl treeViewControl = new TreeViewControl())
             using (RingtoetsPlugin plugin = new RingtoetsPlugin())
             {
-                IGui gui = mocks.DynamicMock<IGui>();
-                gui.Expect(cmp => cmp.Get(hydraulicBoundaryDatabaseContext, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                var mainWindow = mocks.Stub<IMainWindow>();
+
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(g => g.MainWindow).Return(mainWindow);
+                gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
+                gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
+                gui.Stub(cmp => cmp.Get(hydraulicBoundaryDatabaseContext, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
                 mocks.ReplayAll();
 
                 DialogBoxHandler = (name, wnd) =>
@@ -470,8 +490,13 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             using (TreeViewControl treeViewControl = new TreeViewControl())
             using (RingtoetsPlugin plugin = new RingtoetsPlugin())
             {
-                IGui gui = mocks.DynamicMock<IGui>();
-                gui.Expect(cmp => cmp.Get(hydraulicBoundaryDatabaseContext, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                var mainWindow = mocks.Stub<IMainWindow>();
+
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(g => g.MainWindow).Return(mainWindow);
+                gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
+                gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
+                gui.Stub(cmp => cmp.Get(hydraulicBoundaryDatabaseContext, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
                 mocks.ReplayAll();
 
                 DialogBoxHandler = (name, wnd) =>
@@ -547,8 +572,13 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             using (TreeViewControl treeViewControl = new TreeViewControl())
             using (RingtoetsPlugin plugin = new RingtoetsPlugin())
             {
-                IGui gui = mocks.DynamicMock<IGui>();
-                gui.Expect(cmp => cmp.Get(hydraulicBoundaryDatabaseContext, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                var mainWindow = mocks.Stub<IMainWindow>();
+
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(g => g.MainWindow).Return(mainWindow);
+                gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
+                gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
+                gui.Stub(cmp => cmp.Get(hydraulicBoundaryDatabaseContext, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
                 mocks.ReplayAll();
 
                 DialogBoxHandler = (name, wnd) =>

@@ -542,7 +542,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         public void GivenCalculationThatSucceeds_WhenCalculatingFromContextMenu_ThenOutputSetLogMessagesAddedAndUpdateObserver()
         {
             // Given
-            var gui = mocks.DynamicMock<IGui>();
             var mainWindow = mocks.DynamicMock<IMainWindow>();
             var observerMock = mocks.StrictMock<IObserver>();
             observerMock.Expect(o => o.UpdateObserver());
@@ -581,9 +580,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                gui.Expect(g => g.Get(calculationContext, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                gui.Expect(g => g.MainWindow).Return(mainWindow);
-
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(g => g.Get(calculationContext, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                gui.Stub(g => g.MainWindow).Return(mainWindow);
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;

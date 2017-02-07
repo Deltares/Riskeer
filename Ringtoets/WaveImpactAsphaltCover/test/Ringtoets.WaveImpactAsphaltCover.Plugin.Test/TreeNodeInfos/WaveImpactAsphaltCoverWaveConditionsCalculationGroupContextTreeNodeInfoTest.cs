@@ -1119,7 +1119,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
 
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                gui.Expect(cmp => cmp.MainWindow).Return(mainWindow);
+                gui.Stub(cmp => cmp.MainWindow).Return(mainWindow);
                 gui.Stub(cmp => cmp.ViewCommands).Return(viewCommandsMock);
 
                 mocks.ReplayAll();
@@ -1179,7 +1179,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
 
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                gui.Expect(cmp => cmp.MainWindow).Return(mainWindow);
+                gui.Stub(cmp => cmp.MainWindow).Return(mainWindow);
                 gui.Stub(cmp => cmp.ViewCommands).Return(viewCommandsMock);
 
                 mocks.ReplayAll();

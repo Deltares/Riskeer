@@ -129,13 +129,12 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var context = new FailureMechanismSectionsContext(failureMechanism, assessmentSection);
 
-            var gui = mocks.StrictMock<IGui>();
-            gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
-            gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
-
             using (var treeViewControl = new TreeViewControl())
             {
-                gui.Expect(cmp => cmp.Get(context, treeViewControl)).Return(menuBuilderMock);
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
+                gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
+                gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(menuBuilderMock);
                 mocks.ReplayAll();
 
                 using (var plugin = new RingtoetsPlugin())

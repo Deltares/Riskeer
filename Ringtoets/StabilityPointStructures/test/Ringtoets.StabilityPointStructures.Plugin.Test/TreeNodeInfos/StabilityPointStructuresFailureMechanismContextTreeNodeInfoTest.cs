@@ -199,7 +199,6 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
             var failureMechanismContext = new StabilityPointStructuresFailureMechanismContext(failureMechanism, assessmentSection);
-            var guiMock = mocksRepository.StrictMock<IGui>();
             var menuBuilderMock = mocksRepository.StrictMock<IContextMenuBuilder>();
 
             using (mocksRepository.Ordered())
@@ -223,10 +222,11 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             using (var plugin = new StabilityPointStructuresPlugin())
             using (var treeViewControl = new TreeViewControl())
             {
-                guiMock.Expect(cmp => cmp.Get(failureMechanismContext, treeViewControl)).Return(menuBuilderMock);
+                var gui = mocksRepository.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(failureMechanismContext, treeViewControl)).Return(menuBuilderMock);
                 mocksRepository.ReplayAll();
 
-                plugin.Gui = guiMock;
+                plugin.Gui = gui;
                 var info = GetInfo(plugin);
 
                 // Call
@@ -247,7 +247,6 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             };
             var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
             var failureMechanismContext = new StabilityPointStructuresFailureMechanismContext(failureMechanism, assessmentSection);
-            var guiMock = mocksRepository.StrictMock<IGui>();
             var menuBuilderMock = mocksRepository.StrictMock<IContextMenuBuilder>();
 
             using (mocksRepository.Ordered())
@@ -262,10 +261,12 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             using (var plugin = new StabilityPointStructuresPlugin())
             using (var treeViewControl = new TreeViewControl())
             {
-                guiMock.Expect(cmp => cmp.Get(failureMechanismContext, treeViewControl)).Return(menuBuilderMock);
+                var gui = mocksRepository.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(failureMechanismContext, treeViewControl)).Return(menuBuilderMock);
                 mocksRepository.ReplayAll();
 
-                plugin.Gui = guiMock;
+                plugin.Gui = gui;
+
                 var info = GetInfo(plugin);
 
                 // Call
@@ -287,14 +288,14 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 var failureMechanism = new StabilityPointStructuresFailureMechanism();
                 var failureMechanismContext = new StabilityPointStructuresFailureMechanismContext(failureMechanism, assessmentSection);
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-                var guiMock = mocksRepository.StrictMock<IGui>();
 
-                guiMock.Expect(cmp => cmp.Get(failureMechanismContext, treeView)).Return(menuBuilder);
-                guiMock.Stub(g => g.ProjectOpened += null).IgnoreArguments();
-                guiMock.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
-
+                var gui = mocksRepository.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(failureMechanismContext, treeView)).Return(menuBuilder);
+                gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
+                gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
                 mocksRepository.ReplayAll();
-                plugin.Gui = guiMock;
+
+                plugin.Gui = gui;
 
                 var info = GetInfo(plugin);
 
@@ -346,14 +347,14 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 };
                 var failureMechanismContext = new StabilityPointStructuresFailureMechanismContext(failureMechanism, assessmentSection);
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-                var guiMock = mocksRepository.StrictMock<IGui>();
 
-                guiMock.Expect(cmp => cmp.Get(failureMechanismContext, treeView)).Return(menuBuilder);
-                guiMock.Stub(g => g.ProjectOpened += null).IgnoreArguments();
-                guiMock.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
-
+                var gui = mocksRepository.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(failureMechanismContext, treeView)).Return(menuBuilder);
+                gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
+                gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
                 mocksRepository.ReplayAll();
-                plugin.Gui = guiMock;
+
+                plugin.Gui = gui;
 
                 var info = GetInfo(plugin);
 
@@ -381,18 +382,18 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             var failureMechanismContext = new StabilityPointStructuresFailureMechanismContext(failureMechanism, assessmentSection);
             var viewCommands = mocksRepository.StrictMock<IViewCommands>();
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-            var guiMock = mocksRepository.StrictMock<IGui>();
 
             viewCommands.Expect(vs => vs.RemoveAllViewsForItem(failureMechanismContext));
-            guiMock.Stub(g => g.ViewCommands).Return(viewCommands);
 
             using (var plugin = new StabilityPointStructuresPlugin())
             using (var treeViewControl = new TreeViewControl())
             {
-                guiMock.Expect(g => g.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
-
+                var gui = mocksRepository.Stub<IGui>();
+                gui.Stub(g => g.ViewCommands).Return(viewCommands);
+                gui.Stub(g => g.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
                 mocksRepository.ReplayAll();
-                plugin.Gui = guiMock;
+
+                plugin.Gui = gui;
 
                 var info = GetInfo(plugin);
 
@@ -421,18 +422,18 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             var failureMechanismContext = new StabilityPointStructuresFailureMechanismContext(failureMechanism, assessmentSection);
             var viewCommands = mocksRepository.StrictMock<IViewCommands>();
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-            var guiMock = mocksRepository.StrictMock<IGui>();
 
             viewCommands.Expect(vs => vs.RemoveAllViewsForItem(failureMechanismContext));
-            guiMock.Stub(g => g.ViewCommands).Return(viewCommands);
 
             using (var plugin = new StabilityPointStructuresPlugin())
             using (var treeViewControl = new TreeViewControl())
             {
-                guiMock.Expect(g => g.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
-
+                var gui = mocksRepository.Stub<IGui>();
+                gui.Stub(g => g.ViewCommands).Return(viewCommands);
+                gui.Stub(g => g.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
                 mocksRepository.ReplayAll();
-                plugin.Gui = guiMock;
+
+                plugin.Gui = gui;
 
                 var info = GetInfo(plugin);
 
@@ -453,7 +454,6 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_NoHydraulicBoundaryDatabase_ContextMenuItemCalculateAllAndValidateAllDisabledAndTooltipSet()
         {
             // Setup
-            var guiMock = mocksRepository.StrictMock<IGui>();
             var failureMechanism = new TestStabilityPointStructuresFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<StabilityPointStructuresInput>());
 
@@ -465,11 +465,12 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             using (var plugin = new StabilityPointStructuresPlugin())
             using (var treeViewControl = new TreeViewControl())
             {
-                guiMock.Expect(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                var gui = mocksRepository.Stub<IGui>();
+                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
                 mocksRepository.ReplayAll();
 
                 var info = GetInfo(plugin);
-                plugin.Gui = guiMock;
+                plugin.Gui = gui;
 
                 // Call
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
@@ -494,7 +495,6 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_HydraulicBoundaryDatabaseNotValid_ContextMenuItemCalculateAllAndValidateAllDisabledAndTooltipSet()
         {
             // Setup
-            var guiMock = mocksRepository.StrictMock<IGui>();
             var failureMechanism = new TestStabilityPointStructuresFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<StabilityPointStructuresInput>());
 
@@ -507,11 +507,12 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             using (var plugin = new StabilityPointStructuresPlugin())
             using (var treeViewControl = new TreeViewControl())
             {
-                guiMock.Expect(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                var gui = mocksRepository.Stub<IGui>();
+                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
                 mocksRepository.ReplayAll();
 
                 var info = GetInfo(plugin);
-                plugin.Gui = guiMock;
+                plugin.Gui = gui;
 
                 // Call
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
@@ -538,20 +539,17 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_FailureMechanismContributionZero_ContextMenuItemCalculateAllAndValidateAllDisabledAndTooltipSet()
         {
             // Setup
-            var guiMock = mocksRepository.StrictMock<IGui>();
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<StabilityPointStructuresInput>());
 
             string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
 
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
+            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
                 FilePath = validFilePath,
                 Version = "1.0"
             };
-
-            var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
-            assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
 
             var nodeData = new StabilityPointStructuresFailureMechanismContext(failureMechanism, assessmentSection);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
@@ -559,11 +557,12 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             using (var plugin = new StabilityPointStructuresPlugin())
             using (var treeViewControl = new TreeViewControl())
             {
-                guiMock.Expect(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                var gui = mocksRepository.Stub<IGui>();
+                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
                 mocksRepository.ReplayAll();
 
                 var info = GetInfo(plugin);
-                plugin.Gui = guiMock;
+                plugin.Gui = gui;
 
                 // Call
                 using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewControl))
@@ -588,20 +587,17 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_AllRequiredInputSet_ContextMenuItemCalculateAllAndValidateAllEnabled()
         {
             // Setup
-            var guiMock = mocksRepository.StrictMock<IGui>();
             var failureMechanism = new TestStabilityPointStructuresFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<StabilityPointStructuresInput>());
 
             string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
 
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
+            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
                 FilePath = validFilePath,
                 Version = "1.0"
             };
-
-            var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
-            assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
 
             var nodeData = new StabilityPointStructuresFailureMechanismContext(failureMechanism, assessmentSection);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
@@ -609,11 +605,12 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             using (var plugin = new StabilityPointStructuresPlugin())
             using (var treeViewControl = new TreeViewControl())
             {
-                guiMock.Expect(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                var gui = mocksRepository.Stub<IGui>();
+                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
                 mocksRepository.ReplayAll();
 
                 var info = GetInfo(plugin);
-                plugin.Gui = guiMock;
+                plugin.Gui = gui;
 
                 // Call
                 using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewControl))
@@ -636,7 +633,6 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_ClickOnCalculateAllItem_ScheduleAllChildCalculations()
         {
             // Setup
-            var guiMock = mocksRepository.StrictMock<IGui>();
             var mainWindow = mocksRepository.Stub<IMainWindow>();
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -679,13 +675,13 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             using (var plugin = new StabilityPointStructuresPlugin())
             using (var treeViewControl = new TreeViewControl())
             {
-                guiMock.Expect(g => g.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
-                guiMock.Expect(g => g.MainWindow).Return(mainWindow);
-
+                var gui = mocksRepository.Stub<IGui>();
+                gui.Stub(g => g.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.MainWindow).Return(mainWindow);
                 mocksRepository.ReplayAll();
 
                 var info = GetInfo(plugin);
-                plugin.Gui = guiMock;
+                plugin.Gui = gui;
 
                 DialogBoxHandler = (name, wnd) =>
                 {
@@ -759,12 +755,12 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-                var guiMock = mocksRepository.Stub<IGui>();
-                guiMock.Expect(g => g.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
+                var gui = mocksRepository.Stub<IGui>();
+                gui.Stub(g => g.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
 
                 mocksRepository.ReplayAll();
 
-                plugin.Gui = guiMock;
+                plugin.Gui = gui;
                 TreeNodeInfo info = GetInfo(plugin);
 
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl))

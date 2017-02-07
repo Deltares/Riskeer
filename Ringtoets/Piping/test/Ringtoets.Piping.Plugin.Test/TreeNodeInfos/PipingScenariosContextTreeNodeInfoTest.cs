@@ -124,8 +124,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 menuBuilderMock.Expect(mb => mb.Build()).Return(null);
 
                 var gui = mocks.Stub<IGui>();
-                gui.Expect(g => g.Get(context, treeViewControl)).Return(menuBuilderMock);
-
+                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilderMock);
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;

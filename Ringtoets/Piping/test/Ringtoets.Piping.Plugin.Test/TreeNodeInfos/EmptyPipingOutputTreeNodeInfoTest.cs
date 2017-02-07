@@ -126,13 +126,17 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
-            menuBuilderMock.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilderMock);
-            menuBuilderMock.Expect(mb => mb.Build()).Return(null);
+
+            using (mocks.Ordered())
+            {
+                menuBuilderMock.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilderMock);
+                menuBuilderMock.Expect(mb => mb.Build()).Return(null);
+            }
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var gui = mocks.StrictMock<IGui>();
-                gui.Expect(cmp => cmp.Get(null, treeViewControl)).Return(menuBuilderMock);
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(null, treeViewControl)).Return(menuBuilderMock);
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;

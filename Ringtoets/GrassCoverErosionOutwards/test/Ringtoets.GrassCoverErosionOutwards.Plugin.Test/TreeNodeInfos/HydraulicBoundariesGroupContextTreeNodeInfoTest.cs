@@ -137,9 +137,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                     menuBuilder.Expect(mb => mb.Build()).Return(null);
                 }
 
-                var gui = mockRepository.StrictMock<IGui>();
-                gui.Expect(cmp => cmp.Get(context, treeViewControl)).Return(menuBuilder);
-
+                var gui = mockRepository.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(menuBuilder);
                 mockRepository.ReplayAll();
 
                 plugin.Gui = gui;
