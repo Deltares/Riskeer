@@ -208,10 +208,8 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
             // Setup
             using (var treeViewControl = new TreeViewControl())
             {
-                var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
-                assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
+                assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
 
                 var failureMechanism = new DuneErosionFailureMechanism
                 {
@@ -252,14 +250,12 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+                var assessmentSection = mocks.Stub<IAssessmentSection>();
+                assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
                 {
                     FilePath = validFilePath,
                     Version = "1.0"
                 };
-
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
-                assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
 
                 var failureMechanism = new DuneErosionFailureMechanism
                 {
@@ -297,14 +293,12 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+                var assessmentSection = mocks.Stub<IAssessmentSection>();
+                assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
                 {
                     FilePath = validFilePath,
                     Version = "1.0"
                 };
-
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
-                assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
 
                 var failureMechanism = new DuneErosionFailureMechanism();
 
@@ -341,14 +335,12 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+                var assessmentSection = mocks.Stub<IAssessmentSection>();
+                assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
                 {
                     FilePath = validFilePath,
                     Version = "1.0"
                 };
-
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
-                assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
 
                 var failureMechanism = new DuneErosionFailureMechanism
                 {
@@ -409,13 +401,11 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
                     })
                 });
 
-                var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+                var assessmentSection = mocks.Stub<IAssessmentSection>();
+                assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
                 {
                     FilePath = validFilePath
                 };
-
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
-                assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
                 assessmentSection.Stub(a => a.Id).Return("13-1");
                 assessmentSection.Stub(a => a.GetFailureMechanisms()).Return(new[]
                 {

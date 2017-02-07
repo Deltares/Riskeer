@@ -316,7 +316,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
         private DesignWaterLevelLocationsView ShowFullyConfiguredDesignWaterLevelLocationsView()
         {
-            var view = ShowDesignWaterLevelLocationsView();
+            DesignWaterLevelLocationsView view = ShowDesignWaterLevelLocationsView();
 
             var assessmentSection = new ObservableTestAssessmentSectionStub
             {

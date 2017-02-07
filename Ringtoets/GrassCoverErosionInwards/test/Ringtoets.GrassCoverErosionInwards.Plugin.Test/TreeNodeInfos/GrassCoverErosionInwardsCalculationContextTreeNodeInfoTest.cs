@@ -551,16 +551,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0.0, 1.1);
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-            {
-                FilePath = validFilePath,
-                Version = "random"
-            };
-            hydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(a => a.Id).Return(string.Empty);
-            assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
+            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                FilePath = validFilePath,
+                Version = "random",
+                Locations = { hydraulicBoundaryLocation }
+            };
             assessmentSection.Stub(a => a.FailureMechanismContribution).Return(new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 1, 1));
 
             var initialOutput = new GrassCoverErosionInwardsOutput(0, true,
@@ -629,15 +628,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0.0, 1.1);
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-            {
-                FilePath = validFilePath,
-                Version = "random"
-            };
-            hydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
+            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                FilePath = validFilePath,
+                Version = "random",
+                Locations = { hydraulicBoundaryLocation }
+            };
 
             var calculation = new GrassCoverErosionInwardsCalculation
             {

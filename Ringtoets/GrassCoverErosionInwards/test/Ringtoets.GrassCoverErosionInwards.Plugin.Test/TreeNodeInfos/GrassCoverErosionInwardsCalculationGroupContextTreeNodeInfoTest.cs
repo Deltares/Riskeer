@@ -386,7 +386,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             };
 
             var failureMechanism = new TestGrassCoverErosionInwardsFailureMechanism();
-
             failureMechanism.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation());
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -437,7 +436,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             };
 
             var failureMechanism = new TestGrassCoverErosionInwardsFailureMechanism();
-
             failureMechanism.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation());
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -492,7 +490,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-
             failureMechanism.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation());
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -542,7 +539,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
 
             var failureMechanism = new TestGrassCoverErosionInwardsFailureMechanism();
-
             failureMechanism.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation());
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -856,7 +852,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                     DikeProfile = new TestDikeProfile()
                 }
             });
-
             failureMechanism.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation
             {
                 Name = "B",
@@ -923,7 +918,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                     DikeProfile = new TestDikeProfile()
                 }
             });
-
             failureMechanism.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation
             {
                 Name = "B",

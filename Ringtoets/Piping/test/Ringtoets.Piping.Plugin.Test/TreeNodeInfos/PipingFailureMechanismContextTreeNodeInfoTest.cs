@@ -133,8 +133,8 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var pipingFailureMechanism = new PipingFailureMechanism();
             var generalInputParameters = new GeneralPipingInput();
+            var pipingFailureMechanism = new PipingFailureMechanism();
             pipingFailureMechanism.CalculationsGroup.Children.Add(new PipingCalculationScenario(generalInputParameters));
             pipingFailureMechanism.CalculationsGroup.Children.Add(new PipingCalculationScenario(generalInputParameters));
 
@@ -198,11 +198,11 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
+            var generalInputParameters = new GeneralPipingInput();
             var pipingFailureMechanism = new PipingFailureMechanism
             {
                 IsRelevant = false
             };
-            var generalInputParameters = new GeneralPipingInput();
             pipingFailureMechanism.CalculationsGroup.Children.Add(new PipingCalculationScenario(generalInputParameters));
             pipingFailureMechanism.CalculationsGroup.Children.Add(new PipingCalculationScenario(generalInputParameters));
 

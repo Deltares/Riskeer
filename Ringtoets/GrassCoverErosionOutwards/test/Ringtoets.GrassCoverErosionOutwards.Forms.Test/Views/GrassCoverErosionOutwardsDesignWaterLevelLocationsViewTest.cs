@@ -418,7 +418,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 
         private GrassCoverErosionOutwardsDesignWaterLevelLocationsView ShowFullyConfiguredDesignWaterLevelLocationsView()
         {
-            var view = ShowDesignWaterLevelLocationsView();
+            GrassCoverErosionOutwardsDesignWaterLevelLocationsView view = ShowDesignWaterLevelLocationsView();
             view.Data = new ObservableList<HydraulicBoundaryLocation>
             {
                 new HydraulicBoundaryLocation(1, "1", 1.0, 1.0),

@@ -432,15 +432,14 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0.0, 1.1);
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-            {
-                FilePath = validFilePath,
-                Version = "random"
-            };
-            hydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
+            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                FilePath = validFilePath,
+                Version = "random",
+                Locations = { hydraulicBoundaryLocation }
+            };
             assessmentSection.Stub(a => a.Id).Return(string.Empty);
             assessmentSection.Stub(a => a.FailureMechanismContribution).Return(new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 1, 1));
 
@@ -507,15 +506,14 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0.0, 1.1);
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-            {
-                FilePath = validFilePath,
-                Version = "random"
-            };
-            hydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);
 
             var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
-            assessmentSectionStub.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
+            assessmentSectionStub.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                FilePath = validFilePath,
+                Version = "random",
+                Locations = { hydraulicBoundaryLocation }
+            };
 
             var calculation = new TestStabilityPointStructuresCalculation
             {

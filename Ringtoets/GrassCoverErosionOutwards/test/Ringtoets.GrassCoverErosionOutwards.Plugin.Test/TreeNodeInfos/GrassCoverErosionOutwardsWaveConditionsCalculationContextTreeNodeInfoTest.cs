@@ -304,16 +304,15 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var location = new HydraulicBoundaryLocation(0, string.Empty, 0, 0);
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
                 Locations =
                 {
                     location
                 }
             };
-
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
             mocks.ReplayAll();
 
             var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
@@ -368,16 +367,15 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var location = new HydraulicBoundaryLocation(0, string.Empty, 0, 0);
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
                 Locations =
                 {
                     location
                 }
             };
-
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
             mocks.ReplayAll();
 
             var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation

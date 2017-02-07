@@ -302,7 +302,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
         private WaveHeightLocationsView ShowFullyConfiguredWaveHeightLocationsView()
         {
-            var view = ShowWaveHeightLocationsView();
+            WaveHeightLocationsView view = ShowWaveHeightLocationsView();
 
             var assessmentSection = new ObservableTestAssessmentSectionStub
             {

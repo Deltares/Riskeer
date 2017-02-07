@@ -415,17 +415,15 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
 
             string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
 
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-            {
-                FilePath = validFilePath,
-                Version = "1.0"
-            };
-
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<StabilityPointStructuresInput>());
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
+            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                FilePath = validFilePath,
+                Version = "1.0"
+            };
 
             var nodeData = new StabilityPointStructuresCalculationGroupContext(group,
                                                                                failureMechanism,
@@ -473,17 +471,15 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
 
             string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
 
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-            {
-                FilePath = validFilePath,
-                Version = "1.0"
-            };
-
             var failureMechanism = new TestStabilityPointStructuresFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<StabilityPointStructuresInput>());
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
+            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                FilePath = validFilePath,
+                Version = "1.0"
+            };
 
             var nodeData = new StabilityPointStructuresCalculationGroupContext(group,
                                                                                failureMechanism,
@@ -723,7 +719,6 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                     LoadSchematizationType = LoadSchematizationType.Linear
                 }
             });
-
             failureMechanism.CalculationsGroup.Children.Add(new TestStabilityPointStructuresCalculation
             {
                 Name = "B",
@@ -741,8 +736,10 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             hydraulicBoundaryDatabase.FilePath = validFilePath;
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
             assessmentSection.Stub(a => a.Id).Return(string.Empty);
             assessmentSection.Stub(a => a.FailureMechanismContribution).Return(new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 1, 1));
+
             var groupContext = new StabilityPointStructuresCalculationGroupContext(failureMechanism.CalculationsGroup,
                                                                                    failureMechanism,
                                                                                    assessmentSection);
@@ -754,8 +751,6 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 gui.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
 
                 mocks.ReplayAll();
-
-                assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
 
                 plugin.Gui = gui;
 
@@ -808,7 +803,6 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                     LoadSchematizationType = LoadSchematizationType.Linear
                 }
             });
-
             failureMechanism.CalculationsGroup.Children.Add(new TestStabilityPointStructuresCalculation
             {
                 Name = "B",
@@ -826,6 +820,8 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             hydraulicBoundaryDatabase.FilePath = validFilePath;
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
+
             var groupContext = new StabilityPointStructuresCalculationGroupContext(failureMechanism.CalculationsGroup,
                                                                                    failureMechanism,
                                                                                    assessmentSection);
@@ -836,8 +832,6 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 gui.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
 
                 mocks.ReplayAll();
-
-                assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
 
                 plugin.Gui = gui;
 
