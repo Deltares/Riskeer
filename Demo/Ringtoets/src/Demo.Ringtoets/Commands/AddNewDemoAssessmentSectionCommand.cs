@@ -553,7 +553,7 @@ namespace Demo.Ringtoets.Commands
                                                                            Path.Combine(embeddedResourceFileWriter.TargetFolderPath,
                                                                                         "DR6.soil"),
                                                                            new StochasticSoilModelReplaceDataStrategy(),
-                                                                           new StochasticSoilModelChangeHandler());
+                                                                           new StochasticSoilModelChangeHandler(pipingFailureMechanism));
                 soilProfilesImporter.Import();
             }
 

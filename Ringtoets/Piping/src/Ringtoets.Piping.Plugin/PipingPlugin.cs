@@ -119,7 +119,7 @@ namespace Ringtoets.Piping.Plugin
                 CreateFileImporter = (context, filePath) => new StochasticSoilModelImporter(context.WrappedData,
                                                                                             filePath,
                                                                                             new StochasticSoilModelReplaceDataStrategy(),
-                                                                                            new StochasticSoilModelChangeHandler())
+                                                                                            new StochasticSoilModelChangeHandler(context.FailureMechanism))
             };
         }
 
@@ -573,7 +573,7 @@ namespace Ringtoets.Piping.Plugin
             var importer = new StochasticSoilModelImporter(soilModelCollection,
                                                            sourceFilePath,
                                                            new StochasticSoilModelUpdateDataStrategy(failureMechanism),
-                                                           new StochasticSoilModelChangeHandler());
+                                                           new StochasticSoilModelChangeHandler(failureMechanism));
 
             var activity = new FileImportActivity(importer, PipingPluginResources.PipingPlugin_RunUpdateStochasticSoilModel_Update_StochasticSoilModels);
             ActivityProgressDialogRunner.Run(Gui.MainWindow, activity);

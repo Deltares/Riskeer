@@ -20,30 +20,48 @@
 // All rights reserved.
 
 using System;
+using NUnit.Extensions.Forms;
 using NUnit.Framework;
+using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.IO.Importer;
+using Ringtoets.Piping.KernelWrapper.TestUtil;
 using Ringtoets.Piping.Plugin.FileImporter;
 
 namespace Ringtoets.Piping.Plugin.Test.FileImporter
 {
     [TestFixture]
-    public class StochasticSoilModelChangeHandlerTest
+    public class StochasticSoilModelChangeHandlerTest : NUnitFormTest
     {
         [Test]
-        public void DefaultConstructor_ImplementedExpectedInterface()
+        public void Constructor_WithoutFailureMechanism_ThrowsArgumentNullException()
         {
             // Call
-            var handler = new StochasticSoilModelChangeHandler();
+            TestDelegate test = () => new StochasticSoilModelChangeHandler(null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("failureMechanism", paramName);
+        }
+
+        [Test]
+        public void Constructor_WithFailureMechanism_ImplementsExpectedInterface()
+        {
+            // Call
+            var handler = new StochasticSoilModelChangeHandler(new PipingFailureMechanism());
 
             // Assert
             Assert.IsInstanceOf<IStochasticSoilModelChangeHandler>(handler);
         }
 
         [Test]
-        public void RequireConfirmation_Always_ReturnFalse()
+        public void RequireConfirmation_FailureMechanismWithCalculationWithoutOutput_ReturnFalse()
         {
             // Setup
-            var handler = new StochasticSoilModelChangeHandler();
+            var failureMechanism = new PipingFailureMechanism();
+            failureMechanism.CalculationsGroup.Children.Add(new PipingCalculationScenario(new GeneralPipingInput()));
+
+            var handler = new StochasticSoilModelChangeHandler(failureMechanism);
 
             // Call
             bool requireConfirmation = handler.RequireConfirmation();
@@ -51,17 +69,87 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             // Assert
             Assert.IsFalse(requireConfirmation);
         }
+
         [Test]
-        public void InquireConfirmation_Always_ThrowsNotImplementedException()
+        public void RequireConfirmation_FailureMechanismWithCalculationWithOutput_ReturnTrue()
         {
             // Setup
-            var handler = new StochasticSoilModelChangeHandler();
+            var failureMechanism = new PipingFailureMechanism();
+            failureMechanism.CalculationsGroup.Children.Add(new PipingCalculationScenario(new GeneralPipingInput())
+            {
+                Output = new TestPipingOutput()
+            });
+
+            var handler = new StochasticSoilModelChangeHandler(failureMechanism);
 
             // Call
-            TestDelegate testDelegate = () => handler.InquireConfirmation();
+            bool requireConfirmation = handler.RequireConfirmation();
 
             // Assert
-            Assert.Throws<NotImplementedException>(testDelegate);
+            Assert.IsTrue(requireConfirmation);
+        }
+
+        [Test]
+        public void InquireConfirmation_Always_ShowsConfirmationDialog()
+        {
+            // Setup
+            var handler = new StochasticSoilModelChangeHandler(new PipingFailureMechanism());
+
+            string dialogText = string.Empty; 
+
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var tester = new MessageBoxTester(wnd);
+                dialogText = tester.Text;
+                tester.ClickCancel();
+            };
+
+            // Call
+            handler.InquireConfirmation();
+
+            // Assert
+            const string message = "Wanneer ondergrondschematisaties wijzigen als gevolg van het bijwerken, " +
+                                   "zullen de resultaten van berekeningen die deze ondergrondschematisaties worden " +
+                                   "verwijderd. Weet u zeker dat u wilt doorgaan?";
+            Assert.AreEqual(message, dialogText);
+        }
+
+        [Test]
+        public void InquireConfirmation_PressOkInMessageBox_ReturnsTrue()
+        {
+            // Setup
+            var handler = new StochasticSoilModelChangeHandler(new PipingFailureMechanism());
+            
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var tester = new MessageBoxTester(wnd);
+                tester.ClickOk();
+            };
+
+            // Call
+            var confirmed = handler.InquireConfirmation();
+
+            // Assert
+            Assert.IsTrue(confirmed);
+        }
+
+        [Test]
+        public void InquireConfirmation_PressCancelInMessageBox_ReturnsFalse()
+        {
+            // Setup
+            var handler = new StochasticSoilModelChangeHandler(new PipingFailureMechanism());
+            
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var tester = new MessageBoxTester(wnd);
+                tester.ClickCancel();
+            };
+
+            // Call
+            var confirmed = handler.InquireConfirmation();
+
+            // Assert
+            Assert.IsFalse(confirmed);
         }
     }
 }

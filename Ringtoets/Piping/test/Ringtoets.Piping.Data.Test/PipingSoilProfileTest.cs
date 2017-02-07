@@ -302,7 +302,7 @@ namespace Ringtoets.Piping.Data.Test
 
         private static string GetRandomName(Random random)
         {
-            return string.Join("", Enumerable.Repeat('x', random.Next(0, 40)));
+            return new string('x', random.Next(0, 40));
         }
     }
 }

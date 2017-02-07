@@ -383,6 +383,16 @@ namespace Ringtoets.Piping.Plugin.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Wanneer ondergrondschematisaties wijzigen als gevolg van het bijwerken, zullen de resultaten van berekeningen die deze ondergrondschematisaties worden verwijderd. Weet u zeker dat u wilt doorgaan?.
+        /// </summary>
+        public static string StochasticSoilModelChangeHandler_When_updating_StochasticSoilModel_definitions_assigned_to_calculations_output_will_be_cleared_confirm {
+            get {
+                return ResourceManager.GetString("StochasticSoilModelChangeHandler_When_updating_StochasticSoilModel_definitions_as" +
+                        "signed_to_calculations_output_will_be_cleared_confirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Het stochastische ondergrondmodel &apos;{0}&apos; bestaat al in het toetsspoor..
         /// </summary>
         public static string StochasticSoilModelImporter_AddImportedDataToModel_Stochastisch_soil_model_0_already_exists {

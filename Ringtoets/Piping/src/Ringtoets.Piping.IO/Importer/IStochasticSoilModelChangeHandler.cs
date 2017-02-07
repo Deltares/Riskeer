@@ -21,10 +21,25 @@
 
 namespace Ringtoets.Piping.IO.Importer
 {
+    /// <summary>
+    /// Interface for verifying and handling changes as an effect of a change to the stochastic 
+    /// soil model collection.
+    /// </summary>
     public interface IStochasticSoilModelChangeHandler
     {
+        /// <summary>
+        /// Verifies whether the change to the stochastic soil model collections has side-effects;
+        /// and therefore a confirmation is required.
+        /// </summary>
+        /// <returns><c>true</c> if confirmation is required, <c>false</c> otherwise.</returns>
         bool RequireConfirmation();
 
+        /// <summary>
+        /// Inquires for a confirmation.
+        /// </summary>
+        /// <returns><c>true</c> if confirmation is given; <c>false</c> otherwise.</returns>
+        /// <remarks>Should only be called when <see cref="RequireConfirmation"/> returns <c>true</c>.
+        /// </remarks>
         bool InquireConfirmation();
     }
 }
