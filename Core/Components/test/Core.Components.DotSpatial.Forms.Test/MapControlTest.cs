@@ -2016,7 +2016,6 @@ namespace Core.Components.DotSpatial.Forms.Test
 
         private static void DoWhileTileCacheRootLocked(Action test)
         {
-            // Given
             string expectedTileCachePath = Path.Combine(BruTileSettings.PersistentCacheDirectoryRoot, "wmts");
 
             string backupTileCachePath = expectedTileCachePath + "_bak";
