@@ -59,37 +59,70 @@ namespace Ringtoets.Common.Service.Test
         }
 
         [Test]
-        [TestCase(0, 0)]
-        [TestCase(10, 0.00025)]
-        public void ProfileSpecificRequiredProbability_WithValidParameters_ReturnSpecificProbability(double contribution, double expectedProfileSpecificRequiredProbability)
+        public void ProfileSpecificRequiredProbability_WithValidParameters_ReturnSpecificProbability(
+            [Values(1, 0.5, 0)] double norm,
+            [Values(100, 50, 0)] double failureMechanismContribution,
+            [Values(10, 1)] int n)
         {
-            // Setup
-            const double norm = 1.0/200;
-            const int n = 2;
-
             // Call
-            double probability = RingtoetsCommonDataCalculationService.ProfileSpecificRequiredProbability(norm, contribution, n);
+            double probability = RingtoetsCommonDataCalculationService.ProfileSpecificRequiredProbability(norm, failureMechanismContribution, n);
 
             // Assert
+            double expectedProfileSpecificRequiredProbability = norm * (failureMechanismContribution / 100) / n;
             Assert.AreEqual(expectedProfileSpecificRequiredProbability, probability);
         }
 
         [Test]
-        public void ProfileSpecificRequiredProbability_WithZeroN_ThrowsArgumentException()
+        public void ProfileSpecificRequiredProbability_WithInvalidNorm_ThrowsArgumentException([Values(150, 1 + 1e-6, -1e-6, -150, double.NaN)] double norm)
         {
             // Setup
-            const double norm = 1.0/200;
-            const double contribution = 10;
-            const int n = 0;
+            const double failureMechanismContribution = 50;
+            int n = 10;
 
             // Call
-            TestDelegate action = () => RingtoetsCommonDataCalculationService.ProfileSpecificRequiredProbability(norm, contribution, n);
+            TestDelegate action = () => RingtoetsCommonDataCalculationService.ProfileSpecificRequiredProbability(norm, failureMechanismContribution, n);
+
+            // Asserty
+            ArgumentOutOfRangeException exception = Assert.Throws<ArgumentOutOfRangeException>(action);
+            Assert.AreEqual(norm, exception.ActualValue);
+            Assert.AreEqual("norm", exception.ParamName);
+            StringAssert.StartsWith("De norm moet in het bereik [0, 1] liggen." +
+                                    Environment.NewLine, exception.Message);
+        }
+
+        [Test]
+        public void ProfileSpecificRequiredProbability_WithInvalidFailureMechanismContribution_ThrowsArgumentException([Values(150, 100 + 1e-6, -1e-6, -150, double.NaN)] double failureMechanismContribution)
+        {
+            // Setup
+            const double norm = 0.5;
+            int n = 10;
+
+            // Call
+            TestDelegate action = () => RingtoetsCommonDataCalculationService.ProfileSpecificRequiredProbability(norm, failureMechanismContribution, n);
+
+            // Assert
+            ArgumentOutOfRangeException exception = Assert.Throws<ArgumentOutOfRangeException>(action);
+            Assert.AreEqual(failureMechanismContribution, exception.ActualValue);
+            Assert.AreEqual("failureMechanismContribution", exception.ParamName);
+            StringAssert.StartsWith("De bijdrage van dit toetsspoor moet in het bereik [0, 100] liggen." +
+                                    Environment.NewLine, exception.Message);
+        }
+
+        [Test]
+        public void ProfileSpecificRequiredProbability_WithInvalidN_ThrowsArgumentException([Values(0, -1)] int n)
+        {
+            // Setup
+            const double norm = 0.5;
+            const double failureMechanismContribution = 50;
+
+            // Call
+            TestDelegate action = () => RingtoetsCommonDataCalculationService.ProfileSpecificRequiredProbability(norm, failureMechanismContribution, n);
 
             // Assert
             ArgumentOutOfRangeException exception = Assert.Throws<ArgumentOutOfRangeException>(action);
             Assert.AreEqual(n, exception.ActualValue);
             Assert.AreEqual("n", exception.ParamName);
-            StringAssert.StartsWith("De N-waarde van dit toetsspoor is nul. Daardoor is de doorsnede-eis onbepaald en kan de berekening niet worden uitgevoerd." +
+            StringAssert.StartsWith("De N-waarde van dit toetsspoor moet groter zijn dan 0." +
                                     Environment.NewLine, exception.Message);
         }
     }

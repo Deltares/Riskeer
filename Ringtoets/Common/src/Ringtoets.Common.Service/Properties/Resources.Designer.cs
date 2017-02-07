@@ -244,12 +244,32 @@ namespace Ringtoets.Common.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De N-waarde van dit toetsspoor is nul. Daardoor is de doorsnede-eis onbepaald en kan de berekening niet worden uitgevoerd..
+        ///   Looks up a localized string similar to De bijdrage van dit toetsspoor moet in het bereik [0, 1] liggen..
         /// </summary>
-        public static string RingtoetsCommonDataCalculationService_ProfileSpecificRequiredProbability_N_is_zero {
+        public static string RingtoetsCommonDataCalculationService_ProfileSpecificRequiredProbability_Contribution_must_be_in_interval_0_100 {
             get {
-                return ResourceManager.GetString("RingtoetsCommonDataCalculationService_ProfileSpecificRequiredProbability_N_is_zer" +
-                        "o", resourceCulture);
+                return ResourceManager.GetString("RingtoetsCommonDataCalculationService_ProfileSpecificRequiredProbability_Contribu" +
+                        "tion_must_be_in_interval_0_100", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De N-waarde van dit toetsspoor moet groter zijn dan 0..
+        /// </summary>
+        public static string RingtoetsCommonDataCalculationService_ProfileSpecificRequiredProbability_N_must_be_larger_than_0 {
+            get {
+                return ResourceManager.GetString("RingtoetsCommonDataCalculationService_ProfileSpecificRequiredProbability_N_must_b" +
+                        "e_larger_than_0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De norm moet in het bereik [0, 1] liggen..
+        /// </summary>
+        public static string RingtoetsCommonDataCalculationService_ProfileSpecificRequiredProbability_Norm_must_be_in_interval_0_1 {
+            get {
+                return ResourceManager.GetString("RingtoetsCommonDataCalculationService_ProfileSpecificRequiredProbability_Norm_mus" +
+                        "t_be_in_interval_0_1", resourceCulture);
             }
         }
         
