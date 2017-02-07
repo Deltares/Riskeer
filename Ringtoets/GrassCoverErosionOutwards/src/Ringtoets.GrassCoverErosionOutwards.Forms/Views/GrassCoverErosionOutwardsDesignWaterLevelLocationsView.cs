@@ -127,7 +127,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
                 return;
             }
 
-            var mechanismSpecificNorm = FailureMechanism.GetMechanismSpecificNorm(AssessmentSection);
+            double mechanismSpecificNorm = FailureMechanism.GetMechanismSpecificNorm(AssessmentSection);
 
             bool successfulCalculation = CalculationGuiService.CalculateDesignWaterLevels(AssessmentSection.HydraulicBoundaryDatabase.FilePath,
                                                                                           locations,

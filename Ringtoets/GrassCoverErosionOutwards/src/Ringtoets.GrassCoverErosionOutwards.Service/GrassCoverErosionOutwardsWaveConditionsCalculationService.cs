@@ -21,6 +21,7 @@
 
 using System;
 using System.Linq;
+using Core.Common.Base.Data;
 using Core.Common.IO.Exceptions;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Service;
@@ -111,10 +112,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service
 
             CalculationServiceHelper.LogCalculationBeginTime(calculationName);
 
-            var a = failureMechanism.GeneralInput.GeneralWaveConditionsInput.A;
-            var b = failureMechanism.GeneralInput.GeneralWaveConditionsInput.B;
-            var c = failureMechanism.GeneralInput.GeneralWaveConditionsInput.C;
-            var mechanismSpecificNorm = failureMechanism.GetMechanismSpecificNorm(assessmentSection);
+            RoundedDouble a = failureMechanism.GeneralInput.GeneralWaveConditionsInput.A;
+            RoundedDouble b = failureMechanism.GeneralInput.GeneralWaveConditionsInput.B;
+            RoundedDouble c = failureMechanism.GeneralInput.GeneralWaveConditionsInput.C;
+            double mechanismSpecificNorm = failureMechanism.GetMechanismSpecificNorm(assessmentSection);
             TotalWaterLevelCalculations = calculation.InputParameters.WaterLevels.Count();
 
             try

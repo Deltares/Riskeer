@@ -43,7 +43,7 @@ namespace Ringtoets.DuneErosion.Service
         /// <param name="duneLocation">The <see cref="DuneLocation"/> to perform the calculation for.</param>
         /// <param name="failureMechanism">The <see cref="DuneErosionFailureMechanism"/> that holds information about the contribution and
         /// the general inputs used in the calculation.</param>
-        /// <param name="hydraulicBoundaryDatabaseFilePath">The HLCD file that should be used for performing the calculation.</param>
+        /// <param name="hydraulicBoundaryDatabaseFilePath">The hydraulic boundary database file that should be used for performing the calculation.</param>
         /// <param name="norm">The norm to use during the calculation.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public DuneErosionBoundaryCalculationActivity(DuneLocation duneLocation,

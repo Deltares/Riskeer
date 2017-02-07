@@ -504,7 +504,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                     IAssessmentSection assessmentSection = nodeData.AssessmentSection;
                     GrassCoverErosionOutwardsFailureMechanism failureMechanism = nodeData.FailureMechanism;
 
-                    var mechanismSpecificNorm = failureMechanism.GetMechanismSpecificNorm(assessmentSection);
+                    double mechanismSpecificNorm = failureMechanism.GetMechanismSpecificNorm(assessmentSection);
 
                     bool successfulCalculation = hydraulicBoundaryLocationCalculationGuiService.CalculateDesignWaterLevels(
                         assessmentSection.HydraulicBoundaryDatabase.FilePath,
@@ -560,7 +560,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                         return;
                     }
 
-                    var mechanismSpecificNorm = failureMechanism.GetMechanismSpecificNorm(assessmentSection);
+                    double mechanismSpecificNorm = failureMechanism.GetMechanismSpecificNorm(assessmentSection);
 
                     bool successfulCalculation = hydraulicBoundaryLocationCalculationGuiService.CalculateWaveHeights(
                         assessmentSection.HydraulicBoundaryDatabase.FilePath,

@@ -78,7 +78,7 @@ namespace Ringtoets.DuneErosion.Service.Test
             {
                 Contribution = 10
             };
-            var mechanismSpecificNorm = failureMechanism.GetMechanismSpecificNorm(1.0/200);
+            double mechanismSpecificNorm = failureMechanism.GetMechanismSpecificNorm(1.0/200);
 
             var duneLocation = new DuneLocation(1300001, "test", new Point2D(0, 0), new DuneLocation.ConstructionProperties
                                                 {

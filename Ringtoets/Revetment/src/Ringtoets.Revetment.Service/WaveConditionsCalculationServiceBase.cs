@@ -74,7 +74,7 @@ namespace Ringtoets.Revetment.Service
         /// </summary>
         /// <param name="waveConditionsInput">The input of the calculation.</param>
         /// <param name="name">The name of the calculation.</param>
-        /// <param name="hydraulicBoundaryDatabaseFilePath">The directory of the HLCD file that should be used for performing the calculation.</param>
+        /// <param name="hydraulicBoundaryDatabaseFilePath">The hydraulic boundary database file that should be used for performing the calculation.</param>
         /// <param name="designWaterLevelName">The name of the design water level property.</param>
         /// <returns><c>True</c> if <paramref name="waveConditionsInput"/> has no validation errors; <c>False</c> otherwise.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="waveConditionsInput"/>
