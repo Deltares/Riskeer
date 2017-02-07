@@ -40,7 +40,7 @@ namespace Migration.Core.Storage.TestUtil
         /// <param name="comparer">The comparer to use to compare versions.</param>
         /// <param name="upgradeScripts">The upgrade scripts to use.</param>
         /// <param name="createScripts">The create scripts to use.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="comparer"/> is 
+        /// <exception cref="ArgumentNullException">Thrown when any of the input parameters is 
         /// <c>null</c>.</exception>
         public TestVersionedFileMigrator(IComparer comparer, IEnumerable<UpgradeScript> upgradeScripts,
                                          IEnumerable<CreateScript> createScripts) : base(comparer)

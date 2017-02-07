@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using Migration.Scripts.Data;
 using NUnit.Framework;
@@ -44,6 +45,42 @@ namespace Migration.Core.Storage.TestUtil.Test
         }
 
         [Test]
+        public void Constructor_UpgradeScriptsNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mockRepository = new MockRepository();
+            var comparer = mockRepository.Stub<IComparer>();
+            mockRepository.ReplayAll();
+
+            // Call
+            TestDelegate call = () => new TestVersionedFileMigrator(comparer, null,
+                                                                    Enumerable.Empty<CreateScript>());
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("upgradeScripts", paramName);
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_CreateScriptsNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mockRepository = new MockRepository();
+            var comparer = mockRepository.Stub<IComparer>();
+            mockRepository.ReplayAll();
+
+            // Call
+            TestDelegate call = () => new TestVersionedFileMigrator(comparer, Enumerable.Empty<UpgradeScript>(),
+                                                                    null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("createScripts", paramName);
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
         public void Constructor_ValidComparer_ExpectedProperties()
         {
             // Setup
@@ -52,12 +89,33 @@ namespace Migration.Core.Storage.TestUtil.Test
             mockRepository.ReplayAll();
 
             // Call
-            var migrator = new TestVersionedFileMigrator(comparer, Enumerable.Empty<UpgradeScript>(),
-                                                         Enumerable.Empty<CreateScript>());
+            IEnumerable<UpgradeScript> upgradeScripts = Enumerable.Empty<UpgradeScript>();
+            IEnumerable<CreateScript> createScripts = Enumerable.Empty<CreateScript>();
+            var migrator = new SimpleTestVersionedFileMigrator(comparer, upgradeScripts,
+                                                               createScripts);
 
             // Assert
             Assert.IsInstanceOf<VersionedFileMigrator>(migrator);
+            Assert.AreSame(upgradeScripts, migrator.AvailableUpgradeScripts());
+            Assert.AreSame(createScripts, migrator.AvailableCreateScripts());
             mockRepository.VerifyAll();
+        }
+
+        private class SimpleTestVersionedFileMigrator : TestVersionedFileMigrator
+        {
+            public SimpleTestVersionedFileMigrator(IComparer comparer, IEnumerable<UpgradeScript> upgradeScripts,
+                                                   IEnumerable<CreateScript> createScripts)
+                : base(comparer, upgradeScripts, createScripts) {}
+
+            public IEnumerable<UpgradeScript> AvailableUpgradeScripts()
+            {
+                return GetAvailableUpgradeScripts();
+            }
+
+            public IEnumerable<CreateScript> AvailableCreateScripts()
+            {
+                return GetAvailableCreateScripts();
+            }
         }
     }
 }
