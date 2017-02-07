@@ -196,7 +196,6 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             var failureMechanism = new ClosingStructuresFailureMechanism();
             var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
             var failureMechanismContext = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSection);
-            var guiMock = mocksRepository.StrictMock<IGui>();
             var menuBuilderMock = mocksRepository.StrictMock<IContextMenuBuilder>();
 
             using (mocksRepository.Ordered())
@@ -219,10 +218,11 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                guiMock.Expect(cmp => cmp.Get(failureMechanismContext, treeViewControl)).Return(menuBuilderMock);
+                var gui = mocksRepository.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(failureMechanismContext, treeViewControl)).Return(menuBuilderMock);
                 mocksRepository.ReplayAll();
 
-                plugin.Gui = guiMock;
+                plugin.Gui = gui;
 
                 // Call
                 info.ContextMenuStrip(failureMechanismContext, null, treeViewControl);
@@ -242,7 +242,6 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             };
             var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
             var failureMechanismContext = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSection);
-            var guiMock = mocksRepository.StrictMock<IGui>();
             var menuBuilderMock = mocksRepository.StrictMock<IContextMenuBuilder>();
 
             using (mocksRepository.Ordered())
@@ -256,10 +255,11 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                guiMock.Expect(cmp => cmp.Get(failureMechanismContext, treeViewControl)).Return(menuBuilderMock);
+                var gui = mocksRepository.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(failureMechanismContext, treeViewControl)).Return(menuBuilderMock);
                 mocksRepository.ReplayAll();
 
-                plugin.Gui = guiMock;
+                plugin.Gui = gui;
 
                 // Call
                 info.ContextMenuStrip(failureMechanismContext, null, treeViewControl);
@@ -279,14 +279,14 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
                 var failureMechanism = new ClosingStructuresFailureMechanism();
                 var failureMechanismContext = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSection);
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-                var guiMock = mocksRepository.StrictMock<IGui>();
 
-                guiMock.Expect(cmp => cmp.Get(failureMechanismContext, treeView)).Return(menuBuilder);
-                guiMock.Stub(g => g.ProjectOpened += null).IgnoreArguments();
-                guiMock.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
-
+                var gui = mocksRepository.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(failureMechanismContext, treeView)).Return(menuBuilder);
+                gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
+                gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
                 mocksRepository.ReplayAll();
-                plugin.Gui = guiMock;
+
+                plugin.Gui = gui;
 
                 // Call
                 using (ContextMenuStrip menu = info.ContextMenuStrip(failureMechanismContext, assessmentSection, treeView))
@@ -332,14 +332,14 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
                 };
                 var failureMechanismContext = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSection);
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-                var guiMock = mocksRepository.StrictMock<IGui>();
 
-                guiMock.Expect(cmp => cmp.Get(failureMechanismContext, treeView)).Return(menuBuilder);
-                guiMock.Stub(g => g.ProjectOpened += null).IgnoreArguments();
-                guiMock.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
-
+                var gui = mocksRepository.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(failureMechanismContext, treeView)).Return(menuBuilder);
+                gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
+                gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
                 mocksRepository.ReplayAll();
-                plugin.Gui = guiMock;
+
+                plugin.Gui = gui;
 
                 // Call
                 using (ContextMenuStrip menu = info.ContextMenuStrip(failureMechanismContext, assessmentSection, treeView))
@@ -364,17 +364,17 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             var failureMechanismContext = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSection);
             var viewCommandsMock = mocksRepository.StrictMock<IViewCommands>();
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-            var guiMock = mocksRepository.StrictMock<IGui>();
 
             viewCommandsMock.Expect(vs => vs.RemoveAllViewsForItem(failureMechanismContext));
-            guiMock.Stub(g => g.ViewCommands).Return(viewCommandsMock);
 
             using (var treeViewControl = new TreeViewControl())
             {
-                guiMock.Expect(g => g.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
-
+                var gui = mocksRepository.Stub<IGui>();
+                gui.Stub(g => g.ViewCommands).Return(viewCommandsMock);
+                gui.Stub(g => g.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
                 mocksRepository.ReplayAll();
-                plugin.Gui = guiMock;
+
+                plugin.Gui = gui;
 
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl))
                 {
@@ -399,17 +399,17 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             var failureMechanismContext = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSection);
             var viewCommandsMock = mocksRepository.StrictMock<IViewCommands>();
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-            var guiMock = mocksRepository.StrictMock<IGui>();
 
             viewCommandsMock.Expect(vs => vs.RemoveAllViewsForItem(failureMechanismContext));
-            guiMock.Stub(g => g.ViewCommands).Return(viewCommandsMock);
 
             using (var treeViewControl = new TreeViewControl())
             {
-                guiMock.Expect(g => g.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
-
+                var gui = mocksRepository.Stub<IGui>();
+                gui.Stub(g => g.ViewCommands).Return(viewCommandsMock);
+                gui.Stub(g => g.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
                 mocksRepository.ReplayAll();
-                plugin.Gui = guiMock;
+
+                plugin.Gui = gui;
 
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl))
                 {
@@ -426,7 +426,6 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_NoHydraulicBoundaryDatabase_ContextMenuItemCalculateAllAndValidateAllDisabledAndTooltipSet()
         {
             // Setup
-            var guiMock = mocksRepository.StrictMock<IGui>();
             var failureMechanism = new TestClosingStructuresFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<ClosingStructuresInput>());
 
@@ -437,11 +436,11 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                guiMock.Expect(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
-
+                var gui = mocksRepository.Stub<IGui>();
+                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
                 mocksRepository.ReplayAll();
 
-                plugin.Gui = guiMock;
+                plugin.Gui = gui;
 
                 // Call
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
@@ -466,7 +465,6 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_HydraulicBoundaryDatabaseNotValid_ContextMenuItemCalculateAllAndValidateAllDisabledAndTooltipSet()
         {
             // Setup
-            var guiMock = mocksRepository.StrictMock<IGui>();
             var failureMechanism = new TestClosingStructuresFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<ClosingStructuresInput>());
 
@@ -478,11 +476,11 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                guiMock.Expect(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
-
+                var gui = mocksRepository.Stub<IGui>();
+                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
                 mocksRepository.ReplayAll();
 
-                plugin.Gui = guiMock;
+                plugin.Gui = gui;
 
                 // Call
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
@@ -509,7 +507,6 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_FailureMechanismContributionZero_ContextMenuItemCalculateAllAndValidateAllDisabledAndTooltipSet()
         {
             // Setup
-            var guiMock = mocksRepository.StrictMock<IGui>();
             var failureMechanism = new ClosingStructuresFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<ClosingStructuresInput>());
 
@@ -529,11 +526,11 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                guiMock.Expect(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
-
+                var gui = mocksRepository.Stub<IGui>();
+                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
                 mocksRepository.ReplayAll();
 
-                plugin.Gui = guiMock;
+                plugin.Gui = gui;
 
                 // Call
                 using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewControl))
@@ -558,7 +555,6 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_AllRequiredInputSet_ContextMenuItemCalculateAllAndValidateAllEnabled()
         {
             // Setup
-            var guiMock = mocksRepository.StrictMock<IGui>();
             var failureMechanism = new TestClosingStructuresFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<ClosingStructuresInput>());
 
@@ -578,11 +574,11 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                guiMock.Expect(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
-
+                var gui = mocksRepository.Stub<IGui>();
+                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
                 mocksRepository.ReplayAll();
 
-                plugin.Gui = guiMock;
+                plugin.Gui = gui;
 
                 // Call
                 using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewControl))
@@ -605,7 +601,6 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_ClickOnCalculateAllItem_ScheduleAllChildCalculations()
         {
             // Setup
-            var guiMock = mocksRepository.StrictMock<IGui>();
             var mainWindowStub = mocksRepository.Stub<IMainWindow>();
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -641,12 +636,12 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                guiMock.Expect(g => g.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
-                guiMock.Expect(g => g.MainWindow).Return(mainWindowStub);
-
+                var gui = mocksRepository.Stub<IGui>();
+                gui.Stub(g => g.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.MainWindow).Return(mainWindowStub);
                 mocksRepository.ReplayAll();
 
-                plugin.Gui = guiMock;
+                plugin.Gui = gui;
 
                 DialogBoxHandler = (name, wnd) =>
                 {

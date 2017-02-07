@@ -54,12 +54,12 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
         {
             // Setup
             MockRepository mockRepository = new MockRepository();
-            var assessmentSectionMock = mockRepository.Stub<IAssessmentSection>();
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-            assessmentSectionMock.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
+            assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
             mockRepository.ReplayAll();
 
-            DesignWaterLevelLocationsContext context = new DesignWaterLevelLocationsContext(assessmentSectionMock);
+            DesignWaterLevelLocationsContext context = new DesignWaterLevelLocationsContext(assessmentSection);
 
             using (RingtoetsPlugin plugin = new RingtoetsPlugin())
             {

@@ -39,7 +39,7 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
         {
             // Setup
             var mocks = new MockRepository();
-            var failureMechanismMock = mocks.StrictMock<IFailureMechanism>();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
             mocks.ReplayAll();
 
             var failureMechanismSectionResults = new[]
@@ -48,12 +48,12 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
             };
 
             // Call
-            var context = new FailureMechanismSectionResultContext<FailureMechanismSectionResult>(failureMechanismSectionResults, failureMechanismMock);
+            var context = new FailureMechanismSectionResultContext<FailureMechanismSectionResult>(failureMechanismSectionResults, failureMechanism);
 
             // Assert
             Assert.IsInstanceOf<WrappedObjectContextBase<IEnumerable<FailureMechanismSectionResult>>>(context);
             Assert.AreSame(failureMechanismSectionResults, context.WrappedData);
-            Assert.AreSame(failureMechanismMock, context.FailureMechanism);
+            Assert.AreSame(failureMechanism, context.FailureMechanism);
             mocks.VerifyAll();
         }
 

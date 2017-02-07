@@ -174,7 +174,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_Always_CallsContextMenuBuilderMethods()
         {
             // Setup
-            var guiMock = mocks.StrictMock<IGui>();
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var calculation = new GrassCoverErosionInwardsCalculation();
@@ -199,11 +198,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                guiMock.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilderMock);
-
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilderMock);
                 mocks.ReplayAll();
 
-                plugin.Gui = guiMock;
+                plugin.Gui = gui;
 
                 // Call
                 info.ContextMenuStrip(nodeData, null, treeViewControl);
@@ -216,26 +215,27 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_Always_AddCustomItems()
         {
             // Setup
-            var guiMock = mocks.StrictMock<IGui>();
-            var failureMechanism = new TestGrassCoverErosionInwardsFailureMechanism();
+            string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
+
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                FilePath = validFilePath,
+                Version = "random"
+            };
+
             var calculation = new GrassCoverErosionInwardsCalculation();
+            var failureMechanism = new TestGrassCoverErosionInwardsFailureMechanism();
             var nodeData = new GrassCoverErosionInwardsCalculationContext(calculation, failureMechanism, assessmentSection);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-            string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
 
             using (var treeViewControl = new TreeViewControl())
             {
-                guiMock.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-                {
-                    FilePath = validFilePath,
-                    Version = "random"
-                };
-
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
                 mocks.ReplayAll();
 
-                plugin.Gui = guiMock;
+                plugin.Gui = gui;
 
                 // Call
                 using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewControl))
@@ -266,8 +266,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_NoHydraulicBoundaryDatabase_ContextMenuItemPerformCalculationDisabledAndTooltipSet()
         {
             // Setup
-            var guiMock = mocks.StrictMock<IGui>();
-
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var calculation = new GrassCoverErosionInwardsCalculation();
             var failureMechanism = new TestGrassCoverErosionInwardsFailureMechanism();
@@ -275,11 +273,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                guiMock.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
                 mocks.ReplayAll();
 
-                plugin.Gui = guiMock;
+                plugin.Gui = gui;
 
                 // Call
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
@@ -298,8 +296,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_HydraulicBoundaryDatabaseNotValid_ContextMenuItemPerformCalculationDisabledAndTooltipSet()
         {
             // Setup
-            var guiMock = mocks.StrictMock<IGui>();
-
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
 
@@ -309,11 +305,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                guiMock.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
                 mocks.ReplayAll();
 
-                plugin.Gui = guiMock;
+                plugin.Gui = gui;
 
                 // Call
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
@@ -333,8 +329,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_FailureMechanismContributionZero_ContextMenuItemPerformCalculationDisabledAndTooltipSet()
         {
             // Setup
-            var guiMock = mocks.StrictMock<IGui>();
-
             string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -350,11 +344,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                guiMock.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
                 mocks.ReplayAll();
 
-                plugin.Gui = guiMock;
+                plugin.Gui = gui;
 
                 // Call
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
@@ -373,8 +367,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_AllRequiredInputSet_ContextMenuItemPerformCalculationEnabled()
         {
             // Setup
-            var guiMock = mocks.StrictMock<IGui>();
-
             string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -390,11 +382,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                guiMock.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
                 mocks.ReplayAll();
 
-                plugin.Gui = guiMock;
+                plugin.Gui = gui;
 
                 // Call
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
@@ -412,8 +404,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_NoHydraulicBoundaryDatabase_ContextMenuItemValidateCalculationDisabledAndTooltipSet()
         {
             // Setup
-            var guiMock = mocks.StrictMock<IGui>();
-
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var calculation = new GrassCoverErosionInwardsCalculation();
             var failureMechanism = new TestGrassCoverErosionInwardsFailureMechanism();
@@ -421,11 +411,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                guiMock.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
                 mocks.ReplayAll();
 
-                plugin.Gui = guiMock;
+                plugin.Gui = gui;
 
                 // Call
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
@@ -444,8 +434,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_HydraulicBoundaryDatabaseNotValid_ContextMenuItemValidateCalculationDisabledAndTooltipSet()
         {
             // Setup
-            var guiMock = mocks.StrictMock<IGui>();
-
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
 
@@ -455,11 +443,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                guiMock.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
                 mocks.ReplayAll();
 
-                plugin.Gui = guiMock;
+                plugin.Gui = gui;
 
                 // Call
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
@@ -479,8 +467,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_FailureMechanismContributionZero_ContextMenuItemValidateCalculationDisabledAndTooltipSet()
         {
             // Setup
-            var guiMock = mocks.StrictMock<IGui>();
-
             string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -496,11 +482,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                guiMock.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
                 mocks.ReplayAll();
 
-                plugin.Gui = guiMock;
+                plugin.Gui = gui;
 
                 // Call
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
@@ -519,8 +505,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_AllRequiredInputSet_ContextMenuItemValidateCalculationEnabled()
         {
             // Setup
-            var guiMock = mocks.StrictMock<IGui>();
-
             string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -536,11 +520,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                guiMock.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
                 mocks.ReplayAll();
 
-                plugin.Gui = guiMock;
+                plugin.Gui = gui;
 
                 // Call
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
@@ -639,7 +623,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         public void GivenCalculation_WhenValidatingFromContextMenu_ThenLogMessagesAdded()
         {
             // Given
-            var gui = mocks.StrictMock<IGui>();
             var observerMock = mocks.StrictMock<IObserver>();
 
             var failureMechanism = new TestGrassCoverErosionInwardsFailureMechanism();
@@ -670,8 +653,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                gui.Expect(g => g.Get(calculationContext, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(g => g.Get(calculationContext, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;

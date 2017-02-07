@@ -167,7 +167,6 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
             var failureMechanism = new DuneErosionFailureMechanism();
             var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
             var failureMechanismContext = new DuneErosionFailureMechanismContext(failureMechanism, assessmentSection);
-            var guiMock = mocksRepository.StrictMock<IGui>();
 
             var menuBuilderMock = mocksRepository.StrictMock<IContextMenuBuilder>();
             using (mocksRepository.Ordered())
@@ -185,10 +184,11 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                guiMock.Expect(cmp => cmp.Get(failureMechanismContext, treeViewControl)).Return(menuBuilderMock);
+                var gui = mocksRepository.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(failureMechanismContext, treeViewControl)).Return(menuBuilderMock);
                 mocksRepository.ReplayAll();
 
-                plugin.Gui = guiMock;
+                plugin.Gui = gui;
 
                 // Call
                 info.ContextMenuStrip(failureMechanismContext, null, treeViewControl);
@@ -208,7 +208,6 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
             };
             var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
             var failureMechanismContext = new DuneErosionFailureMechanismContext(failureMechanism, assessmentSection);
-            var guiMock = mocksRepository.StrictMock<IGui>();
             var menuBuilderMock = mocksRepository.StrictMock<IContextMenuBuilder>();
 
             using (mocksRepository.Ordered())
@@ -222,10 +221,11 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                guiMock.Expect(cmp => cmp.Get(failureMechanismContext, treeViewControl)).Return(menuBuilderMock);
+                var gui = mocksRepository.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(failureMechanismContext, treeViewControl)).Return(menuBuilderMock);
                 mocksRepository.ReplayAll();
 
-                plugin.Gui = guiMock;
+                plugin.Gui = gui;
 
                 // Call
                 info.ContextMenuStrip(failureMechanismContext, null, treeViewControl);
@@ -245,14 +245,14 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
                 var failureMechanism = new DuneErosionFailureMechanism();
                 var failureMechanismContext = new DuneErosionFailureMechanismContext(failureMechanism, assessmentSection);
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-                var guiMock = mocksRepository.StrictMock<IGui>();
 
-                guiMock.Expect(cmp => cmp.Get(failureMechanismContext, treeView)).Return(menuBuilder);
-                guiMock.Stub(g => g.ProjectOpened += null).IgnoreArguments();
-                guiMock.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
-
+                var gui = mocksRepository.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(failureMechanismContext, treeView)).Return(menuBuilder);
+                gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
+                gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
                 mocksRepository.ReplayAll();
-                plugin.Gui = guiMock;
+
+                plugin.Gui = gui;
 
                 // Call
                 using (ContextMenuStrip menu = info.ContextMenuStrip(failureMechanismContext, assessmentSection, treeView))
@@ -281,14 +281,14 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
                 };
                 var failureMechanismContext = new DuneErosionFailureMechanismContext(failureMechanism, assessmentSection);
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-                var guiMock = mocksRepository.StrictMock<IGui>();
 
-                guiMock.Expect(cmp => cmp.Get(failureMechanismContext, treeView)).Return(menuBuilder);
-                guiMock.Stub(g => g.ProjectOpened += null).IgnoreArguments();
-                guiMock.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
-
+                var gui = mocksRepository.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(failureMechanismContext, treeView)).Return(menuBuilder);
+                gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
+                gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
                 mocksRepository.ReplayAll();
-                plugin.Gui = guiMock;
+
+                plugin.Gui = gui;
 
                 // Call
                 using (ContextMenuStrip menu = info.ContextMenuStrip(failureMechanismContext, assessmentSection, treeView))
@@ -313,17 +313,17 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
             var failureMechanismContext = new DuneErosionFailureMechanismContext(failureMechanism, assessmentSection);
             var viewCommandsMock = mocksRepository.StrictMock<IViewCommands>();
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-            var guiMock = mocksRepository.StrictMock<IGui>();
 
             viewCommandsMock.Expect(vs => vs.RemoveAllViewsForItem(failureMechanismContext));
-            guiMock.Stub(g => g.ViewCommands).Return(viewCommandsMock);
 
             using (var treeViewControl = new TreeViewControl())
             {
-                guiMock.Expect(g => g.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
-
+                var gui = mocksRepository.Stub<IGui>();
+                gui.Stub(g => g.ViewCommands).Return(viewCommandsMock);
+                gui.Stub(g => g.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
                 mocksRepository.ReplayAll();
-                plugin.Gui = guiMock;
+
+                plugin.Gui = gui;
 
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl))
                 {
@@ -348,17 +348,17 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
             var failureMechanismContext = new DuneErosionFailureMechanismContext(failureMechanism, assessmentSection);
             var viewCommandsMock = mocksRepository.StrictMock<IViewCommands>();
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-            var guiMock = mocksRepository.StrictMock<IGui>();
 
             viewCommandsMock.Expect(vs => vs.RemoveAllViewsForItem(failureMechanismContext));
-            guiMock.Stub(g => g.ViewCommands).Return(viewCommandsMock);
 
             using (var treeViewControl = new TreeViewControl())
             {
-                guiMock.Expect(g => g.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
-
+                var gui = mocksRepository.Stub<IGui>();
+                gui.Stub(g => g.ViewCommands).Return(viewCommandsMock);
+                gui.Stub(g => g.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
                 mocksRepository.ReplayAll();
-                plugin.Gui = guiMock;
+
+                plugin.Gui = gui;
 
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl))
                 {

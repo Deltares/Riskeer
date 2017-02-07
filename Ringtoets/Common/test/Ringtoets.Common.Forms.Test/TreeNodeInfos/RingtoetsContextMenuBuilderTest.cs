@@ -259,8 +259,8 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             var importHandlerMock = mocks.StrictMock<IImportCommandHandler>();
             var exportHandlerMock = mocks.StrictMock<IExportCommandHandler>();
             var viewCommandsMock = mocks.StrictMock<IViewCommands>();
-            var failureMechanismMock = mocks.Stub<IFailureMechanism>();
-            failureMechanismMock.Stub(fm => fm.Calculations).Return(new List<ICalculation>());
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            failureMechanism.Stub(fm => fm.Calculations).Return(new List<ICalculation>());
 
             mocks.ReplayAll();
 
@@ -270,12 +270,12 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                                                                 importHandlerMock,
                                                                 exportHandlerMock,
                                                                 viewCommandsMock,
-                                                                failureMechanismMock,
+                                                                failureMechanism,
                                                                 treeViewControl);
                 var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
 
                 // Call
-                var result = ringtoetsContextMenuBuilder.AddClearAllCalculationOutputInFailureMechanismItem(failureMechanismMock).Build();
+                var result = ringtoetsContextMenuBuilder.AddClearAllCalculationOutputInFailureMechanismItem(failureMechanism).Build();
 
                 // Assert
                 Assert.IsInstanceOf<ContextMenuStrip>(result);

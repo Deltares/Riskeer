@@ -240,20 +240,24 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
-            menuBuilderMock.Expect(mb => mb.AddDeleteItem()).Return(menuBuilderMock);
-            menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
-            menuBuilderMock.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilderMock);
-            menuBuilderMock.Expect(mb => mb.Build()).Return(null);
+
+            using (mocks.Ordered())
+            {
+                menuBuilderMock.Expect(mb => mb.AddDeleteItem()).Return(menuBuilderMock);
+                menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
+                menuBuilderMock.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilderMock);
+                menuBuilderMock.Expect(mb => mb.Build()).Return(null);
+            }
 
             using (var treeViewControl = new TreeViewControl())
             {
                 ClosingStructure nodeData = new TestClosingStructure();
 
-                var guiMock = mocks.StrictMock<IGui>();
-                guiMock.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilderMock);
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilderMock);
                 mocks.ReplayAll();
 
-                plugin.Gui = guiMock;
+                plugin.Gui = gui;
 
                 // Call
                 info.ContextMenuStrip(nodeData, null, treeViewControl);

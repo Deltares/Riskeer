@@ -165,7 +165,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             var failureMechanism = new StrengthStabilityLengthwiseConstructionFailureMechanism();
             var otherFailureMechanism = mocks.Stub<FailureMechanismBase>("N", "C");
 
-            assessmentSection.Expect(asm => asm.GetFailureMechanisms()).Return(new[]
+            assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new[]
             {
                 otherFailureMechanism
             });

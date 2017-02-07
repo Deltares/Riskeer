@@ -164,7 +164,8 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var failureMechanism = new WaterPressureAsphaltCoverFailureMechanism();
             var otherFailureMechanism = mocks.Stub<FailureMechanismBase>("N", "C");
-            assessmentSection.Expect(asm => asm.GetFailureMechanisms()).Return(new[]
+
+            assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new[]
             {
                 otherFailureMechanism
             });
