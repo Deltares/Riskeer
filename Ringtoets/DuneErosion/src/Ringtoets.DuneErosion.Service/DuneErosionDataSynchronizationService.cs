@@ -21,12 +21,16 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using System.Text.RegularExpressions;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
+using log4net;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.IO;
+using Ringtoets.DuneErosion.Service.Properties;
 using DuneErosionDataResources = Ringtoets.DuneErosion.Data.Properties.Resources;
 
 namespace Ringtoets.DuneErosion.Service
@@ -36,6 +40,8 @@ namespace Ringtoets.DuneErosion.Service
     /// </summary>
     public static class DuneErosionDataSynchronizationService
     {
+        private static readonly ILog log = LogManager.GetLogger(typeof(DuneErosionDataSynchronizationService));
+
         /// <summary>
         /// Sets <see cref="DuneErosionFailureMechanism.DuneLocations"/> based upon 
         /// the <paramref name="hydraulicBoundaryLocations"/>.
@@ -70,26 +76,41 @@ namespace Ringtoets.DuneErosion.Service
 
             foreach (ReadDuneLocation duneLocation in duneLocations)
             {
-                string duneLocationOffset = duneLocation.Offset.ToString(DuneErosionDataResources.DuneLocation_Offset_format, null);
+                string duneLocationOffset = duneLocation.Offset.ToString(DuneErosionDataResources.DuneLocation_Offset_format, CultureInfo.InvariantCulture);
 
                 foreach (var hydraulicBoundaryLocation in hydraulicBoundaryLocations)
                 {
-                    string offsetFromLocationName = hydraulicBoundaryLocation.Name.Split('_').Last();
-
-                    if (Math2D.AreEqualPoints(hydraulicBoundaryLocation.Location, duneLocation.Location)
-                        && offsetFromLocationName == duneLocationOffset)
+                    if (Math2D.AreEqualPoints(hydraulicBoundaryLocation.Location, duneLocation.Location))
                     {
-                        failureMechanism.DuneLocations.Add(new DuneLocation(hydraulicBoundaryLocation.Id,
-                                                                            duneLocation.Name,
-                                                                            duneLocation.Location,
-                                                                            new DuneLocation.ConstructionProperties
-                                                                            {
-                                                                                CoastalAreaId = duneLocation.CoastalAreaId,
-                                                                                Offset = duneLocation.Offset,
-                                                                                Orientation = duneLocation.Orientation,
-                                                                                D50 = duneLocation.D50
-                                                                            }));
-                        break;
+                        // Regex to search for a pattern like "schiermonnikoog_21_100"
+                        // Only the last number is captured in a group called "Offset"
+                        // The last number can also contain decimals.
+                        var regex = new Regex(@"^(?:\S+)_(?:\d+)_(?<Offset>(?:\d+\.)?\d+$)");
+                        Match match = regex.Match(hydraulicBoundaryLocation.Name);
+
+                        if (match.Success)
+                        {
+                            if (match.Groups["Offset"].Value == duneLocationOffset)
+                            {
+                                failureMechanism.DuneLocations.Add(new DuneLocation(hydraulicBoundaryLocation.Id,
+                                                                                    duneLocation.Name,
+                                                                                    duneLocation.Location,
+                                                                                    new DuneLocation.ConstructionProperties
+                                                                                    {
+                                                                                        CoastalAreaId = duneLocation.CoastalAreaId,
+                                                                                        Offset = duneLocation.Offset,
+                                                                                        Orientation = duneLocation.Orientation,
+                                                                                        D50 = duneLocation.D50
+                                                                                    }));
+                                break;
+                            }
+                        }
+                        else
+                        {
+                            // Situation will never happen unless database is changed.
+                            log.WarnFormat(Resources.DuneErosionDataSynchronizationService_SetDuneLocations_Location_0_is_dune_location_but_name_is_not_according_format,
+                                           hydraulicBoundaryLocation.Name);
+                        }
                     }
                 }
             }

@@ -121,5 +121,15 @@ namespace Ringtoets.DuneErosion.Service.Properties {
                         "cation_0_not_converged", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Locatie &apos;{0}&apos; komt overeen met een duinen locatie, maar het formaat van de naam is niet volgens verwachting..
+        /// </summary>
+        internal static string DuneErosionDataSynchronizationService_SetDuneLocations_Location_0_is_dune_location_but_name_is_not_according_format {
+            get {
+                return ResourceManager.GetString("DuneErosionDataSynchronizationService_SetDuneLocations_Location_0_is_dune_locatio" +
+                        "n_but_name_is_not_according_format", resourceCulture);
+            }
+        }
     }
 }

@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.DuneErosion.Data;
@@ -105,13 +106,12 @@ namespace Ringtoets.DuneErosion.Service.Test
         }
 
         [Test]
-        [SetCulture("en-US")]
         public void SetDuneLocations_DuneLocationOffsetMatchesWithHydraulicBoundaryLocationName_DuneLocationAddedToFailureMechanism()
         {
             // Setup
             var failureMechanism = new DuneErosionFailureMechanism();
             var readDuneLocation = new ReadDuneLocation("dune location 1", new Point2D(1.0, 5.3), 8, 1.1, 2.2, 3.3);
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "Location_1.1", 1.0, 5.3);
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "Location_2_1.1", 1.0, 5.3);
 
             // Precondition
             CollectionAssert.IsEmpty(failureMechanism.DuneLocations);
@@ -129,6 +129,28 @@ namespace Ringtoets.DuneErosion.Service.Test
             Assert.AreEqual(readDuneLocation.Offset, duneLocation.Offset);
             Assert.AreEqual(readDuneLocation.Orientation, duneLocation.Orientation);
             Assert.AreEqual(readDuneLocation.D50, duneLocation.D50);
+        }
+
+        [Test]
+        public void SetDuneLocations_DuneLocationsMatchNameNotAccordingFormat_DeuneLocationNotAddedLogMessage()
+        {
+            // Setup
+            const string locationName = "Location_1.1";
+
+            var failureMechanism = new DuneErosionFailureMechanism();
+            var readDuneLocation = new ReadDuneLocation("dune location 1", new Point2D(1.0, 5.3), 8, 1.1, 2.2, 3.3);
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, locationName, 1.0, 5.3);
+
+            // Precondition
+            CollectionAssert.IsEmpty(failureMechanism.DuneLocations);
+
+            // Call
+            Action test = () => DuneErosionDataSynchronizationService.SetDuneLocations(failureMechanism, new[] { hydraulicBoundaryLocation }, new[] { readDuneLocation });
+
+            // Assert
+            string expectedMessage = $"Locatie '{locationName}' komt overeen met een duinen locatie, maar het formaat van de naam is niet volgens verwachting.";
+            TestHelper.AssertLogMessageIsGenerated(test, expectedMessage, 1);
+            CollectionAssert.IsEmpty(failureMechanism.DuneLocations);
         }
 
         [Test]

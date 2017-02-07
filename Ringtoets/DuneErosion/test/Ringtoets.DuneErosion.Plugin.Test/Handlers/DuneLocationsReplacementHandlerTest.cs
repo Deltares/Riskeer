@@ -143,7 +143,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.Handlers
             // Call
             handler.Replace(new[]
             {
-                new HydraulicBoundaryLocation(1, "test_100", 205354, 609735)
+                new HydraulicBoundaryLocation(1, "test_1_100", 205354, 609735)
             });
 
             // Assert
@@ -211,7 +211,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.Handlers
 
             handler.Replace(new[]
             {
-                new HydraulicBoundaryLocation(1, "test_100", 205354, 609735)
+                new HydraulicBoundaryLocation(1, "Locatie_1_100", 205354, 609735)
             });
 
             // Precondition
