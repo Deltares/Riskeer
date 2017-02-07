@@ -110,7 +110,7 @@ namespace Core.Common.Base.Test
         }
 
         [Test]
-        public void AddRange_AddNewItem_CollectionContainsModel()
+        public void AddRange_AddNewItem_CollectionContainsItem()
         {
             // Setup
             var collection = new ObservableCollectionWithSourcePath<object>();
