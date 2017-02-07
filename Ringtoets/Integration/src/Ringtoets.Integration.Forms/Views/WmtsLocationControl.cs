@@ -82,7 +82,7 @@ namespace Ringtoets.Integration.Forms.Views
 
         private void UpdateDataGridViewDataSource()
         {
-            dataGridViewControl.SetDataSource(capabilities.ToArray());
+            dataGridViewControl.SetDataSource(capabilities?.ToArray());
         }
     }
 }
