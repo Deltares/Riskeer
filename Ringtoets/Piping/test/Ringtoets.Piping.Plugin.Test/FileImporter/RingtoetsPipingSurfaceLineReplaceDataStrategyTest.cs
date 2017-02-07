@@ -58,7 +58,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         }
 
         [Test]
-        public void UpdateModelWithImportedData_ReadSurfaceLinesNull_ThrowsArgumentNullException()
+        public void UpdateSurfaceLinesWithImportedData_ReadSurfaceLinesNull_ThrowsArgumentNullException()
         {
             // Setup
             var strategy = new RingtoetsPipingSurfaceLineReplaceDataStrategy();
@@ -74,7 +74,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         }
 
         [Test]
-        public void UpdateModelWithImportedData_SourceFilePathNull_ThrowsArgumentNullException()
+        public void UpdateSurfaceLinesWithImportedData_SourceFilePathNull_ThrowsArgumentNullException()
         {
             // Setup
             var strategy = new RingtoetsPipingSurfaceLineReplaceDataStrategy();
@@ -90,7 +90,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         }
 
         [Test]
-        public void UpdateModelWithImportedData_DifferentSourcePath_UpdatesSourcePathOfTargetCollection()
+        public void UpdateSurfaceLinesWithImportedData_DifferentSourcePath_UpdatesSourcePathOfTargetCollection()
         {
             // Setup 
             var targetCollection = new ObservableCollectionWithSourcePath<RingtoetsPipingSurfaceLine>();
@@ -113,7 +113,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         }
 
         [Test]
-        public void UpdateModelWithImportedData_DifferentElements_UpdatesTargetCollection()
+        public void UpdateSurfaceLinesWithImportedData_DifferentElements_UpdatesTargetCollection()
         {
             // Setup
             var targetSurfaceLine = new RingtoetsPipingSurfaceLine
