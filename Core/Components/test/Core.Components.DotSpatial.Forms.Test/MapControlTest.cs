@@ -21,13 +21,17 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Security.AccessControl;
 using System.Threading;
 using System.Windows.Forms;
+using BruTile;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using Core.Components.DotSpatial.Layer.BruTile;
+using Core.Components.DotSpatial.Layer.BruTile.Configurations;
 using Core.Components.DotSpatial.MapFunctions;
 using Core.Components.DotSpatial.TestUtil;
 using Core.Components.Gis.Data;
@@ -35,11 +39,12 @@ using Core.Components.Gis.Features;
 using Core.Components.Gis.Forms;
 using Core.Components.Gis.Geometries;
 using DotSpatial.Controls;
-using DotSpatial.Data;
 using DotSpatial.Projections;
 using DotSpatial.Symbology;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
+using Rhino.Mocks;
+using Extent = DotSpatial.Data.Extent;
 
 namespace Core.Components.DotSpatial.Forms.Test
 {
@@ -47,6 +52,26 @@ namespace Core.Components.DotSpatial.Forms.Test
     public class MapControlTest
     {
         private const double padding = 0.05;
+
+        private static IEnumerable<TestCaseData> ProblematicTileSourceFactories
+        {
+            get
+            {
+                var factoryWithoutRequiredTileSource = MockRepository.GenerateStub<ITileSourceFactory>();
+                factoryWithoutRequiredTileSource.Stub(f => f.GetWmtsTileSources(Arg<string>.Is.NotNull))
+                                                .Return(Enumerable.Empty<ITileSource>());
+
+                var factoryThrowingCannotFindTileSourceException = MockRepository.GenerateStub<ITileSourceFactory>();
+                factoryThrowingCannotFindTileSourceException.Stub(f => f.GetWmtsTileSources(Arg<string>.Is.NotNull))
+                                                            .Throw(new CannotFindTileSourceException());
+
+                yield return new TestCaseData(factoryWithoutRequiredTileSource)
+                    .SetName("Required tile source not returned by factory.");
+
+                yield return new TestCaseData(factoryThrowingCannotFindTileSourceException)
+                    .SetName("Tile source factory throws CannotFindTileSourceException.");
+            }
+        }
 
         [Test]
         public void DefaultConstructor_DefaultValues()
@@ -118,6 +143,180 @@ namespace Core.Components.DotSpatial.Forms.Test
                 Assert.IsTrue(bruTileLayer.Projection.Equals(mapView.Projection),
                               "The background layer's Project should define the Projection of 'mapView'.");
             }
+        }
+
+        [Test]
+        [TestCaseSource(nameof(ProblematicTileSourceFactories))]
+        public void GivenMapControlWithoutBackgroundMapData_WhenTileSourceFactoryProblematic_ThenLogErrorAndDoNotAddBackgroundLayer(ITileSourceFactory problematicFactory)
+        {
+            // Given
+            WmtsMapData backgroundMapData = WmtsMapData.CreateDefaultPdokMapData();
+
+            using (new UseCustomTileSourceFactoryConfig(problematicFactory))
+            using (var map = new MapControl())
+            {
+                var mapView = map.Controls.OfType<Map>().First();
+                var originalProjection = mapView.Projection;
+
+                // When
+                Action call = () => map.BackgroundMapData = backgroundMapData;
+
+                // Then
+                const string expectedMessage = "Verbinden met WMTS is mislukt waardoor geen kaartgegevens ingeladen kunnen worden. De achtergrondkaart kan nu niet getoond worden.";
+                TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
+
+                Assert.AreEqual(0, mapView.Layers.Count);
+
+                Assert.AreSame(originalProjection, mapView.Projection);
+            }
+        }
+
+        [Test]
+        public void GivenMapControlWithoutBackgroundMapData_WhenSettingBackgroundAndFailingToCreateCache_ThenLogErrorAndDoNotAddBackgroundLayer()
+        {
+            DoWhileTileCacheRootLocked(() =>
+            {
+                // Given
+                WmtsMapData backgroundMapData = WmtsMapData.CreateDefaultPdokMapData();
+                using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
+                using (var map = new MapControl())
+                {
+                    var mapView = map.Controls.OfType<Map>().First();
+                    var originalProjection = mapView.Projection;
+
+                    // When
+                    Action call = () => map.BackgroundMapData = backgroundMapData;
+
+                    // Then
+                    const string expectedMessage = "Configuratie van kaartgegevens hulpbestanden is mislukt. De achtergrondkaart kan nu niet getoond worden.";
+                    TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
+
+                    Assert.AreEqual(0, mapView.Layers.Count);
+
+                    Assert.AreSame(originalProjection, mapView.Projection);
+                }
+            });
+        }
+
+        [Test]
+        [TestCaseSource(nameof(ProblematicTileSourceFactories))]
+        public void GivenMapControlWithFailingBackgroundMapData_WhenBackgroundNotifiesAndInitializationSuccessful_ThenBackgroundLayerAdded(ITileSourceFactory problematicFactory)
+        {
+            // Given
+            WmtsMapData backgroundMapData = WmtsMapData.CreateDefaultPdokMapData();
+
+            using (new UseCustomTileSourceFactoryConfig(problematicFactory))
+            using (var map = new MapControl())
+            {
+                // Precondition
+                Action setAndCauseFailingInitialization = () => map.BackgroundMapData = backgroundMapData;
+                const string expectedMessage = "Verbinden met WMTS is mislukt waardoor geen kaartgegevens ingeladen kunnen worden. De achtergrondkaart kan nu niet getoond worden.";
+                TestHelper.AssertLogMessageIsGenerated(setAndCauseFailingInitialization, expectedMessage, 1);
+
+                using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
+                {
+                    // When
+                    backgroundMapData.NotifyObservers();
+
+                    // Then
+                    var mapView = map.Controls.OfType<Map>().First();
+                    Assert.AreEqual(1, mapView.Layers.Count);
+                    IMapLayer backgroundLayer = mapView.Layers[0];
+
+                    Assert.IsInstanceOf<BruTileLayer>(backgroundLayer);
+                    Assert.AreSame(backgroundLayer.Projection, mapView.Projection);
+                }
+            }
+        }
+
+        [Test]
+        public void GivenMapControlWithFailedCacheForBackgroundMapData_WhenBackgroundNotifiesObserversAndLayerInitializationSuccessful_ThenBackgroundLayerAdded()
+        {
+            // Given
+            WmtsMapData backgroundMapData = WmtsMapData.CreateDefaultPdokMapData();
+            using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
+            using (var map = new MapControl())
+            {
+                DoWhileTileCacheRootLocked(() =>
+                {
+                    // Precondition
+                    Action setAndCauseCacheInitializationFailure = () => map.BackgroundMapData = backgroundMapData;
+                    const string expectedMessage = "Configuratie van kaartgegevens hulpbestanden is mislukt. De achtergrondkaart kan nu niet getoond worden.";
+                    TestHelper.AssertLogMessageIsGenerated(setAndCauseCacheInitializationFailure, expectedMessage, 1);
+                });
+
+                // When
+                backgroundMapData.NotifyObservers();
+
+                // Then
+                var mapView = map.Controls.OfType<Map>().First();
+                Assert.AreEqual(1, mapView.Layers.Count);
+                IMapLayer backgroundLayer = mapView.Layers[0];
+
+                Assert.IsInstanceOf<BruTileLayer>(backgroundLayer);
+                Assert.AreSame(backgroundLayer.Projection, mapView.Projection);
+            }
+        }
+
+        [Test]
+        [TestCaseSource(nameof(ProblematicTileSourceFactories))]
+        public void GivenMapControlWithFailedBackgroundMapData_WhenBackgroundNotifiesObservers_ThenFailedInitializationShouldNotGenerateLogMessage(ITileSourceFactory problematicFactory)
+        {
+            // Given
+            WmtsMapData backgroundMapData = WmtsMapData.CreateDefaultPdokMapData();
+
+            using (new UseCustomTileSourceFactoryConfig(problematicFactory))
+            using (var map = new MapControl())
+            {
+                var mapView = map.Controls.OfType<Map>().First();
+                var originalProjection = mapView.Projection;
+
+                // Precondition
+                Action setAndCauseFailToInitializeLayer = () => map.BackgroundMapData = backgroundMapData;
+                const string expectedMessage = "Verbinden met WMTS is mislukt waardoor geen kaartgegevens ingeladen kunnen worden. De achtergrondkaart kan nu niet getoond worden.";
+                TestHelper.AssertLogMessageIsGenerated(setAndCauseFailToInitializeLayer, expectedMessage, 1);
+
+                // When
+                Action call = () => backgroundMapData.NotifyObservers();
+
+                // Then
+                TestHelper.AssertLogMessagesCount(call, 0);
+
+                Assert.AreEqual(0, mapView.Layers.Count);
+
+                Assert.AreSame(originalProjection, mapView.Projection);
+            }
+        }
+
+        [Test]
+        public void GivenMapControlWithFailedCacheforBackgroundMapData_WhenBackgroundNotifiesObservers_ThenFailedInitializationShouldNotGenerateLogMessage()
+        {
+            DoWhileTileCacheRootLocked(() =>
+            {
+                // Given
+                WmtsMapData backgroundMapData = WmtsMapData.CreateDefaultPdokMapData();
+                using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
+                using (var map = new MapControl())
+                {
+                    var mapView = map.Controls.OfType<Map>().First();
+                    var originalProjection = mapView.Projection;
+
+                    // Precondition
+                    Action setAndCauseCacheInitializationFailure = () => map.BackgroundMapData = backgroundMapData;
+                    const string expectedMessage = "Configuratie van kaartgegevens hulpbestanden is mislukt. De achtergrondkaart kan nu niet getoond worden.";
+                    TestHelper.AssertLogMessageIsGenerated(setAndCauseCacheInitializationFailure, expectedMessage, 1);
+
+                    // When
+                    Action call = () => backgroundMapData.NotifyObservers();
+
+                    // Then
+                    TestHelper.AssertLogMessagesCount(call, 0);
+
+                    Assert.AreEqual(0, mapView.Layers.Count);
+
+                    Assert.AreSame(originalProjection, mapView.Projection);
+                }
+            });
         }
 
         [Test]
@@ -686,6 +885,112 @@ namespace Core.Components.DotSpatial.Forms.Test
                 Assert.AreEqual("Polygons", featureLayers[2].Name);
                 Assert.IsTrue(mapView.Projection.Equals(featureLayers[2].Projection));
             }
+        }
+
+        [Test]
+        [TestCaseSource(nameof(ProblematicTileSourceFactories))]
+        public void GivenMapControl_WhenBackgroundAndThenMapDataSetWhileTileSourceFactoryProblematic_MapControlUpdated(ITileSourceFactory problematicFactory)
+        {
+            // Given
+            WmtsMapData backgroundMapData = WmtsMapData.CreateDefaultPdokMapData();
+
+            using (new UseCustomTileSourceFactoryConfig(problematicFactory))
+            using (var map = new MapControl())
+            {
+                var mapView = map.Controls.OfType<Map>().First();
+                var originalProjection = mapView.Projection;
+
+                var mapPointData = new MapPointData("Points")
+                {
+                    Features = new[]
+                    {
+                        new MapFeature(new[]
+                        {
+                            new MapGeometry(new[]
+                            {
+                                new[]
+                                {
+                                    new Point2D(1.1, 2.2)
+                                }
+                            })
+                        })
+                    }
+                };
+                var mapDataCollection = new MapDataCollection("Root collection");
+                mapDataCollection.Add(mapPointData);
+
+                // When
+                Action call = () =>
+                {
+                    map.BackgroundMapData = backgroundMapData;
+                    map.Data = mapDataCollection;
+                };
+
+                // Then
+                const string expectedMessage = "Verbinden met WMTS is mislukt waardoor geen kaartgegevens ingeladen kunnen worden. De achtergrondkaart kan nu niet getoond worden.";
+                TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1); // Message should only the generated once!
+
+                Assert.AreEqual(1, mapView.Layers.Count);
+                var pointsLayer = (FeatureLayer) mapView.Layers[0];
+                Assert.AreEqual(mapPointData.Name, pointsLayer.Name);
+                Assert.AreSame(originalProjection, pointsLayer.Projection);
+
+                Assert.AreSame(originalProjection, mapView.Projection);
+            }
+        }
+
+        [Test]
+        public void GivenMapControl_WhenBackgroundAndThenMapDataSetAndFailingToCreateCache_MapControlUpdated()
+        {
+            DoWhileTileCacheRootLocked(() =>
+            {
+                // Given
+                WmtsMapData backgroundMapData = WmtsMapData.CreateDefaultPdokMapData();
+
+                using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
+                using (var map = new MapControl())
+                {
+                    var mapView = map.Controls.OfType<Map>().First();
+                    var originalProjection = mapView.Projection;
+
+                    var mapPointData = new MapPointData("Points")
+                    {
+                        Features = new[]
+                        {
+                            new MapFeature(new[]
+                            {
+                                new MapGeometry(new[]
+                                {
+                                    new[]
+                                    {
+                                        new Point2D(1.1, 2.2)
+                                    }
+                                })
+                            })
+                        }
+                    };
+                    var mapDataCollection = new MapDataCollection("Root collection");
+                    mapDataCollection.Add(mapPointData);
+
+                    // When
+                    Action call = () =>
+                    {
+                        map.BackgroundMapData = backgroundMapData;
+                        map.Data = mapDataCollection;
+                    };
+
+                    // Then
+                    const string expectedMessage = "Configuratie van kaartgegevens hulpbestanden is mislukt. De achtergrondkaart kan nu niet getoond worden.";
+                    TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
+
+                    Assert.AreEqual(1, mapView.Layers.Count);
+                    var pointsLayer = (FeatureLayer) mapView.Layers[0];
+                    Assert.AreEqual(mapPointData.Name, pointsLayer.Name);
+                    Assert.AreSame(originalProjection, pointsLayer.Projection);
+
+                    Assert.AreSame(originalProjection, mapView.Projection);
+                }
+            });
         }
 
         [Test]
@@ -1671,9 +1976,9 @@ namespace Core.Components.DotSpatial.Forms.Test
 
                 // Precondition
                 Assert.AreEqual(isPanning, map.IsPanningEnabled,
-                                string.Format("Precondition failed: IsPanningEnabled is {0}", map.IsPanningEnabled));
+                                $"Precondition failed: IsPanningEnabled is {map.IsPanningEnabled}");
                 Assert.AreEqual(!isPanning, map.IsRectangleZoomingEnabled,
-                                string.Format("Precondition failed: IsRectangleZoomingEnabled is {0}", map.IsRectangleZoomingEnabled));
+                                $"Precondition failed: IsRectangleZoomingEnabled is {map.IsRectangleZoomingEnabled}");
 
                 // Call
                 map.TogglePanning();
@@ -1706,6 +2011,33 @@ namespace Core.Components.DotSpatial.Forms.Test
 
                 // Assert
                 Assert.AreNotEqual(isShowingCoordinates, map.IsMouseCoordinatesVisible);
+            }
+        }
+
+        private static void DoWhileTileCacheRootLocked(Action test)
+        {
+            // Given
+            string expectedTileCachePath = Path.Combine(BruTileSettings.PersistentCacheDirectoryRoot, "wmts");
+
+            string backupTileCachePath = expectedTileCachePath + "_bak";
+            if (Directory.Exists(expectedTileCachePath))
+            {
+                Directory.Move(expectedTileCachePath, backupTileCachePath);
+            }
+
+            try
+            {
+                using (new DirectoryPermissionsRevoker(BruTileSettings.PersistentCacheDirectoryRoot, FileSystemRights.Write))
+                {
+                    test();
+                }
+            }
+            finally
+            {
+                if (Directory.Exists(backupTileCachePath))
+                {
+                    Directory.Move(backupTileCachePath, expectedTileCachePath);
+                }
             }
         }
 

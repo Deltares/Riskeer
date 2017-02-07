@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
+using Core.Components.DotSpatial.Forms.Properties;
 using Core.Components.DotSpatial.Layer;
 using Core.Components.DotSpatial.Layer.BruTile;
 using Core.Components.DotSpatial.Layer.BruTile.Configurations;
@@ -33,6 +34,8 @@ using Core.Components.Gis.Forms;
 using DotSpatial.Controls;
 using DotSpatial.Data;
 using DotSpatial.Topology;
+using log4net;
+using ILog = log4net.ILog;
 
 namespace Core.Components.DotSpatial.Forms
 {
@@ -41,10 +44,12 @@ namespace Core.Components.DotSpatial.Forms
     /// </summary>
     public sealed class MapControl : Control, IMapControl
     {
+        private readonly ILog log = LogManager.GetLogger(typeof(MapControl));
         private readonly Cursor defaultCursor = Cursors.Default;
         private readonly RecursiveObserver<MapDataCollection, MapDataCollection> mapDataCollectionObserver;
         private readonly Observer backGroundMapDataObserver;
         private readonly IList<DrawnMapData> drawnMapDataList = new List<DrawnMapData>();
+        private readonly WmtsBackgroundLayerStatus backgroundLayerStatus = new WmtsBackgroundLayerStatus();
 
         private Map map;
         private MapFunctionPan mapFunctionPan;
@@ -52,12 +57,7 @@ namespace Core.Components.DotSpatial.Forms
         private RdNewMouseCoordinatesMapExtension mouseCoordinatesMapExtension;
         private MapDataCollection data;
 
-        private BruTileLayer backgroundLayer;
         private WmtsMapData backgroundMapData;
-
-        private string layerSourceCapabilitiesUrl;
-        private string layerSelectedCapabilityId;
-        private string layerPreferredFormat;
 
         /// <summary>
         /// Creates a new instance of <see cref="MapControl"/>.
@@ -87,7 +87,7 @@ namespace Core.Components.DotSpatial.Forms
             {
                 if (HasMapData)
                 {
-                    ClearAllMapData();
+                    ClearAllMapData(true);
                 }
 
                 data = value;
@@ -111,11 +111,7 @@ namespace Core.Components.DotSpatial.Forms
             {
                 if (HasMapData)
                 {
-                    ClearAllMapData();
-
-                    layerSourceCapabilitiesUrl = null;
-                    layerSelectedCapabilityId = null;
-                    layerPreferredFormat = null;
+                    ClearAllMapData(false);
                 }
 
                 backgroundMapData = value;
@@ -197,17 +193,20 @@ namespace Core.Components.DotSpatial.Forms
 
         private void HandleBackgroundMapDataChange()
         {
-            if (backgroundLayer != null)
+            if (backgroundLayerStatus.BackgroundLayer != null)
             {
                 if (HasBackgroundMapDataConfigurationChanged())
                 {
-                    map.Layers.Remove(backgroundLayer);
-                    backgroundLayer.Dispose();
+                    map.Layers.Remove(backgroundLayerStatus.BackgroundLayer);
+                    backgroundLayerStatus.ClearConfiguration();
 
                     InsertBackgroundLayer();
                 }
-                backgroundLayer.IsVisible = backgroundMapData.IsVisible;
-                backgroundLayer.Transparency = Convert.ToSingle(backgroundMapData.Transparency);
+                else
+                {
+                    backgroundLayerStatus.BackgroundLayer.IsVisible = backgroundMapData.IsVisible;
+                    backgroundLayerStatus.BackgroundLayer.Transparency = Convert.ToSingle(backgroundMapData.Transparency);
+                }
             }
             else
             {
@@ -217,9 +216,7 @@ namespace Core.Components.DotSpatial.Forms
 
         private bool HasBackgroundMapDataConfigurationChanged()
         {
-            return !Equals(backgroundMapData.SourceCapabilitiesUrl, layerSourceCapabilitiesUrl)
-                   || !Equals(backgroundMapData.SelectedCapabilityIdentifier, layerSelectedCapabilityId)
-                   || !Equals(backgroundMapData.PreferredFormat, layerPreferredFormat);
+            return !backgroundLayerStatus.HasSameConfiguration(BackgroundMapData);
         }
 
         private void InsertBackgroundLayer()
@@ -237,30 +234,64 @@ namespace Core.Components.DotSpatial.Forms
             }
         }
 
-        private void InitializeBackgroundLayer()
+        /// <summary>
+        /// Attempts to initialize the background layer.
+        /// </summary>
+        /// <returns><c>true</c> if initialization of the background layer was successful,
+        /// <c>false</c> otherwise.
+        /// </returns>
+        private bool InitializeBackgroundLayer()
         {
-            WmtsLayerConfiguration configuration = WmtsLayerConfiguration.CreateInitializedConfiguration(backgroundMapData.SourceCapabilitiesUrl,
-                                                                                                         backgroundMapData.SelectedCapabilityIdentifier,
-                                                                                                         backgroundMapData.PreferredFormat);
-            backgroundLayer = new BruTileLayer(configuration)
+            try
             {
-                IsVisible = backgroundMapData.IsVisible,
-                Transparency = Convert.ToSingle(backgroundMapData.Transparency)
-            };
+                WmtsLayerConfiguration configuration = WmtsLayerConfiguration.CreateInitializedConfiguration(backgroundMapData.SourceCapabilitiesUrl,
+                                                                                                             backgroundMapData.SelectedCapabilityIdentifier,
+                                                                                                             backgroundMapData.PreferredFormat);
+                var backgroundLayer = new BruTileLayer(configuration)
+                {
+                    IsVisible = backgroundMapData.IsVisible,
+                    Transparency = Convert.ToSingle(backgroundMapData.Transparency)
+                };
+                backgroundLayerStatus.SuccessfullyInitializedLayer(backgroundLayer, backgroundMapData);
+                return true;
+            }
+            catch (Exception e) when (e is CannotFindTileSourceException || e is CannotReceiveTilesException)
+            {
+                HandleBruTileInitializationException(e, Resources.MapControl_InitializeBackgroundLayer_Wmts_connection_failed);
 
-            layerSourceCapabilitiesUrl = backgroundMapData.SourceCapabilitiesUrl;
-            layerSelectedCapabilityId = backgroundMapData.SelectedCapabilityIdentifier;
-            layerPreferredFormat = backgroundMapData.PreferredFormat;
+                return false;
+            }
+            catch (CannotCreateTileCacheException e)
+            {
+                HandleBruTileInitializationException(e, Resources.MapControl_InitializeBackgroundLayer_Persistent_cache_creation_failed);
+
+                return false;
+            }
+        }
+
+        private void HandleBruTileInitializationException(Exception e, string message)
+        {
+            if (!backgroundLayerStatus.PreviousBackgroundLayerCreationFailed)
+            {
+                string fullMessage = string.Format(Resources.MapControl_HandleBruTileInitializationException_Message_0_therefore_cannot_show_background_layer,
+                                                   message);
+                log.Error(fullMessage, e);
+            }
+
+            backgroundLayerStatus.LayerInitializationFailed();
         }
 
         private void InsertBackgroundLayerAndReprojectExistingLayers()
         {
-            IMapLayer[] existingMapLayers = map.Layers.ToArray();
+            if (backgroundLayerStatus.BackgroundLayer != null)
+            {
+                IMapLayer[] existingMapLayers = map.Layers.ToArray();
 
-            map.Projection = backgroundLayer.Projection;
-            map.Layers.Insert(0, backgroundLayer);
+                map.Projection = backgroundLayerStatus.BackgroundLayer.Projection;
+                map.Layers.Insert(0, backgroundLayerStatus.BackgroundLayer);
 
-            ReprojectLayers(existingMapLayers);
+                ReprojectLayers(existingMapLayers);
+            }
         }
 
         private void ReprojectLayers(IEnumerable<IMapLayer> layersToReproject)
@@ -376,15 +407,11 @@ namespace Core.Components.DotSpatial.Forms
         {
             if (BackgroundMapData != null && BackgroundMapData.IsConfigured)
             {
-                InitializeBackgroundLayer();
-                map.Projection = backgroundLayer.Projection;
-                map.Layers.Add(backgroundLayer);
-            }
-            else
-            {
-                layerSourceCapabilitiesUrl = null;
-                layerSelectedCapabilityId = null;
-                layerPreferredFormat = null;
+                if (InitializeBackgroundLayer())
+                {
+                    map.Projection = backgroundLayerStatus.BackgroundLayer.Projection;
+                    map.Layers.Add(backgroundLayerStatus.BackgroundLayer);
+                }
             }
 
             if (Data != null)
@@ -396,7 +423,7 @@ namespace Core.Components.DotSpatial.Forms
             }
         }
 
-        private void ClearAllMapData()
+        private void ClearAllMapData(bool expectedRecreationOfBackgroundLayer)
         {
             foreach (DrawnMapData drawnMapData in drawnMapDataList)
             {
@@ -407,6 +434,8 @@ namespace Core.Components.DotSpatial.Forms
 
             map.ClearLayers();
             map.Projection = MapDataConstants.FeatureBasedMapDataCoordinateSystem;
+
+            backgroundLayerStatus.ClearConfiguration(expectedRecreationOfBackgroundLayer);
         }
 
         private void HandleMapDataCollectionChange()
