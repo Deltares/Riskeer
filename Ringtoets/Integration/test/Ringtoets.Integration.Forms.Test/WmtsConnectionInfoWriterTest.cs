@@ -145,10 +145,10 @@ namespace Ringtoets.Integration.Forms.Test
 
                 // Assert
                 string actualContent = GetFileContent(filePath);
-                string expectedContent = "<?xml version=\"1.0\" encoding=\"utf-8\"?><WmtsConnectionInfos>" +
-                                         "<WmtsConnectionInfo><Name>name1</Name><URL>url1</URL></WmtsConnectionInfo>" +
-                                         "<WmtsConnectionInfo><Name>name2</Name><URL>url2</URL></WmtsConnectionInfo>" +
-                                         "</WmtsConnectionInfos>";
+                string expectedContent = "<?xml version=\"1.0\" encoding=\"utf-8\"?><WmtsConnections>" +
+                                         "<WmtsConnection><Name>name1</Name><URL>url1</URL></WmtsConnection>" +
+                                         "<WmtsConnection><Name>name2</Name><URL>url2</URL></WmtsConnection>" +
+                                         "</WmtsConnections>";
                 Assert.AreEqual(expectedContent, actualContent);
             }
         }

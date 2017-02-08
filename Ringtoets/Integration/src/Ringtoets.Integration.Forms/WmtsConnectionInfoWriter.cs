@@ -24,7 +24,6 @@ using System.Collections.Generic;
 using System.Xml;
 using Core.Common.IO.Exceptions;
 using Core.Common.Utils;
-using Core.Common.Utils.Extensions;
 using CoreCommonUtilsResources = Core.Common.Utils.Properties.Resources;
 
 namespace Ringtoets.Integration.Forms
