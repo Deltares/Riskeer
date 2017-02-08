@@ -131,6 +131,6 @@
     <value>Duinafslag berekening voor locatie '{0}' is niet geconvergeerd.</value>
   </data>
   <data name="DuneErosionDataSynchronizationService_SetDuneLocations_Location_0_is_dune_location_but_name_is_not_according_format" xml:space="preserve">
-    <value>Locatie '{0}' komt overeen met een duinen locatie, maar het formaat van de naam is niet volgens verwachting.</value>
+    <value>Locatie '{0}' moet voldoen aan het formaat 'Naam_Vaknummer_Metrering'. Deze locatie is niet toegevoegd aan de hydraulische randvoorwaarden voor toetsspoor duinen.</value>
   </data>
 </root>

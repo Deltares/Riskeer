@@ -132,13 +132,18 @@ namespace Ringtoets.DuneErosion.Service.Test
         }
 
         [Test]
-        public void SetDuneLocations_DuneLocationsMatchNameNotAccordingFormat_DeuneLocationNotAddedLogMessage()
+        [TestCase(0)]
+        [TestCase(-1)]
+        [TestCase(-0.1)]
+        [TestCase(1)]
+        [TestCase(0.1)]       
+        public void SetDuneLocations_DuneLocationsMatchNameNotAccordingFormat_DeuneLocationNotAddedLogMessage(double offset)
         {
             // Setup
-            const string locationName = "Location_1.1";
+            string locationName = $"Location_{offset}";
 
             var failureMechanism = new DuneErosionFailureMechanism();
-            var readDuneLocation = new ReadDuneLocation("dune location 1", new Point2D(1.0, 5.3), 8, 1.1, 2.2, 3.3);
+            var readDuneLocation = new ReadDuneLocation("dune location 1", new Point2D(1.0, 5.3), 8, offset, 2.2, 3.3);
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, locationName, 1.0, 5.3);
 
             // Precondition
@@ -148,7 +153,8 @@ namespace Ringtoets.DuneErosion.Service.Test
             Action test = () => DuneErosionDataSynchronizationService.SetDuneLocations(failureMechanism, new[] { hydraulicBoundaryLocation }, new[] { readDuneLocation });
 
             // Assert
-            string expectedMessage = $"Locatie '{locationName}' komt overeen met een duinen locatie, maar het formaat van de naam is niet volgens verwachting.";
+            string expectedMessage = $"Locatie '{locationName}' moet voldoen aan het formaat 'Naam_Vaknummer_Metrering'. " +
+                                     "Deze locatie is niet toegevoegd aan de hydraulische randvoorwaarden voor toetsspoor duinen.";
             TestHelper.AssertLogMessageIsGenerated(test, expectedMessage, 1);
             CollectionAssert.IsEmpty(failureMechanism.DuneLocations);
         }

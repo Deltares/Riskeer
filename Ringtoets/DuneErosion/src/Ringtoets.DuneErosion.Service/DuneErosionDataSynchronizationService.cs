@@ -82,7 +82,7 @@ namespace Ringtoets.DuneErosion.Service
                 {
                     if (Math2D.AreEqualPoints(hydraulicBoundaryLocation.Location, duneLocation.Location))
                     {
-                        // Regex to search for a pattern like "schiermonnikoog_21_100"
+                        // Regex to search for a pattern like "schiermonnikoog_21_100.1"
                         // Only the last number is captured in a group called "Offset"
                         // The last number can also contain decimals.
                         var regex = new Regex(@"^(?:\S+)_(?:\d+)_(?<Offset>(?:\d+\.)?\d+$)");
@@ -107,9 +107,8 @@ namespace Ringtoets.DuneErosion.Service
                         }
                         else
                         {
-                            // Situation will never happen unless database is changed.
-                            log.WarnFormat(Resources.DuneErosionDataSynchronizationService_SetDuneLocations_Location_0_is_dune_location_but_name_is_not_according_format,
-                                           hydraulicBoundaryLocation.Name);
+                            log.ErrorFormat(Resources.DuneErosionDataSynchronizationService_SetDuneLocations_Location_0_is_dune_location_but_name_is_not_according_format,
+                                            hydraulicBoundaryLocation.Name);
                         }
                     }
                 }
