@@ -138,16 +138,16 @@ namespace Migration.Core.Storage.Test
         [Test]
         [TestCase("0", "0", false)]
         [TestCase("1", "0", false)]
-        [TestCase("0", "1", false)]
+        [TestCase("0", "1", true)]
         public void NeedsMigrate_ValidVersionedFile_ReturnsIfNeedsMigrate(string fromVersion, string toVersion, bool shouldMigrate)
         {
             // Setup
             var mockRepository = new MockRepository();
-            var comparer = mockRepository.Stub<IComparer>();
             var versionedFile = mockRepository.Stub<IVersionedFile>();
+            versionedFile.Expect(vf => vf.GetVersion()).Return(fromVersion);
             mockRepository.ReplayAll();
 
-            var migrator = new SimpleVersionedFileMigrator(comparer)
+            var migrator = new SimpleVersionedFileMigrator(new SimpleVersionComparer())
             {
                 CreateScripts =
                 {
@@ -175,21 +175,10 @@ namespace Migration.Core.Storage.Test
             var comparer = mockRepository.Stub<IComparer>();
             mockRepository.ReplayAll();
 
-            const string fromVersion = "fromVersion";
             const string toVersion = "toVersion";
             const string toLocation = "location";
 
-            var migrator = new SimpleVersionedFileMigrator(comparer)
-            {
-                CreateScripts =
-                {
-                    new TestCreateScript(toVersion)
-                },
-                UpgradeScripts =
-                {
-                    new TestUpgradeScript(fromVersion, toVersion)
-                }
-            };
+            var migrator = new SimpleVersionedFileMigrator(comparer);
 
             // Call
             TestDelegate call = () => migrator.Migrate(null, toVersion, toLocation);
@@ -209,21 +198,9 @@ namespace Migration.Core.Storage.Test
             var versionedFile = mockRepository.Stub<IVersionedFile>();
             mockRepository.ReplayAll();
 
-            const string fromVersion = "fromVersion";
-            const string toVersion = "toVersion";
             const string toLocation = "location";
 
-            var migrator = new SimpleVersionedFileMigrator(comparer)
-            {
-                CreateScripts =
-                {
-                    new TestCreateScript(toVersion)
-                },
-                UpgradeScripts =
-                {
-                    new TestUpgradeScript(fromVersion, toVersion)
-                }
-            };
+            var migrator = new SimpleVersionedFileMigrator(comparer);
 
             // Call
             TestDelegate call = () => migrator.Migrate(versionedFile, null, toLocation);
@@ -243,20 +220,9 @@ namespace Migration.Core.Storage.Test
             var versionedFile = mockRepository.Stub<IVersionedFile>();
             mockRepository.ReplayAll();
 
-            const string fromVersion = "fromVersion";
             const string toVersion = "toVersion";
 
-            var migrator = new SimpleVersionedFileMigrator(comparer)
-            {
-                CreateScripts =
-                {
-                    new TestCreateScript(toVersion)
-                },
-                UpgradeScripts =
-                {
-                    new TestUpgradeScript(fromVersion, toVersion)
-                }
-            };
+            var migrator = new SimpleVersionedFileMigrator(comparer);
 
             // Call
             TestDelegate call = () => migrator.Migrate(versionedFile, toVersion, null);
@@ -271,7 +237,6 @@ namespace Migration.Core.Storage.Test
         public void Migrate_NewFileLocationEqualToVersionedFileLocation_ThrowsCriticalMigrationException()
         {
             // Setup
-            const string fromVersion = "fromVersion";
             const string toVersion = "toVersion";
             const string toLocation = "location";
 
@@ -281,17 +246,7 @@ namespace Migration.Core.Storage.Test
             versionedFile.Expect(vf => vf.Location).Return(toLocation);
             mockRepository.ReplayAll();
 
-            var migrator = new SimpleVersionedFileMigrator(comparer)
-            {
-                CreateScripts =
-                {
-                    new TestCreateScript(toVersion)
-                },
-                UpgradeScripts =
-                {
-                    new TestUpgradeScript(fromVersion, toVersion)
-                }
-            };
+            var migrator = new SimpleVersionedFileMigrator(comparer);
 
             // Call
             TestDelegate call = () => migrator.Migrate(versionedFile, toVersion, toLocation);
@@ -306,7 +261,6 @@ namespace Migration.Core.Storage.Test
         public void Migrate_VersionedFileVersionNotSupported_ThrowsCriticalMigrationException()
         {
             // Setup
-            const string fromVersion = "fromVersion";
             const string fromLocation = "fromLocation";
             const string toVersion = "toVersion";
             const string toLocation = "location";
@@ -319,17 +273,7 @@ namespace Migration.Core.Storage.Test
             versionedFile.Expect(vf => vf.GetVersion()).Return(incorrectVersion);
             mockRepository.ReplayAll();
 
-            var migrator = new SimpleVersionedFileMigrator(comparer)
-            {
-                CreateScripts =
-                {
-                    new TestCreateScript(toVersion)
-                },
-                UpgradeScripts =
-                {
-                    new TestUpgradeScript(fromVersion, toVersion)
-                }
-            };
+            var migrator = new SimpleVersionedFileMigrator(comparer);
 
             // Call
             TestDelegate call = () => migrator.Migrate(versionedFile, toVersion, toLocation);
