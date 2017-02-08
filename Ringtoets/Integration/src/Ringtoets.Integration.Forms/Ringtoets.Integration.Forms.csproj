@@ -41,6 +41,7 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\..\..\..\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
@@ -160,6 +161,7 @@
     </Compile>
     <Compile Include="Views\WmtsCapabilityRow.cs" />
     <Compile Include="WmtsConnectionInfo.cs" />
+    <Compile Include="WmtsConnectionInfoReader.cs" />
     <Compile Include="WmtsConnectionInfoWriter.cs" />
     <Compile Include="WmtsConnectionInfoXmlDefinitions.cs" />
   </ItemGroup>

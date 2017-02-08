@@ -20,11 +20,9 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Security.AccessControl;
-using System.Xml;
 using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -132,7 +130,7 @@ namespace Ringtoets.Integration.Forms.Test
             string filePath = Path.Combine(testPath, Path.GetRandomFileName());
             var wmtsConfigurationWriter = new WmtsConnectionInfoWriter(filePath);
 
-            var wmtsConnectionInfos = new []
+            var wmtsConnectionInfos = new[]
             {
                 new WmtsConnectionInfo("name1", "url1"),
                 new WmtsConnectionInfo("name2", "url2")

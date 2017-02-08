@@ -120,6 +120,7 @@
     <Compile Include="Views\WmtsCapabilityTest.cs" />
     <Compile Include="Views\WmtsLocationControlTest.cs" />
     <Compile Include="Views\WmtsCapabilityRowTest.cs" />
+    <Compile Include="WmtsConnectionInfoReaderTest.cs" />
     <Compile Include="WmtsConnectionInfoTest.cs" />
     <Compile Include="WmtsConnectionInfoWriterTest.cs" />
   </ItemGroup>
