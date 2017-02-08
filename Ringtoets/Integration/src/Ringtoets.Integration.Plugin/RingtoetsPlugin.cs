@@ -563,6 +563,8 @@ namespace Ringtoets.Integration.Plugin
                 Image = failureMechanismContribution => RingtoetsCommonFormsResources.FailureMechanismContributionIcon,
                 ContextMenuStrip = (failureMechanismContribution, parentData, treeViewControl) => Gui.Get(failureMechanismContribution, treeViewControl)
                                                                                                      .AddOpenItem()
+                                                                                                     .AddSeparator()
+                                                                                                     .AddPropertiesItem()
                                                                                                      .Build()
             };
 

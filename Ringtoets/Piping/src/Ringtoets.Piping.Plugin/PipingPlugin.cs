@@ -223,14 +223,7 @@ namespace Ringtoets.Piping.Plugin
                 Image = ringtoetsPipingSurfaceLine => RingtoetsCommonFormsResources.GeneralFolderIcon,
                 ForeColor = ringtoetsPipingSurfaceLine => ringtoetsPipingSurfaceLine.WrappedData.Any() ? Color.FromKnownColor(KnownColor.ControlText) : Color.FromKnownColor(KnownColor.GrayText),
                 ChildNodeObjects = ringtoetsPipingSurfaceLine => ringtoetsPipingSurfaceLine.WrappedData.Cast<object>().ToArray(),
-                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
-                                                                                 .AddImportItem()
-                                                                                 .AddSeparator()
-                                                                                 .AddDeleteChildrenItem()
-                                                                                 .AddSeparator()
-                                                                                 .AddCollapseAllItem()
-                                                                                 .AddExpandAllItem()
-                                                                                 .Build()
+                ContextMenuStrip = RingtoetsPipingSurfaceLinesContextContextMenuStrip
             };
 
             yield return new TreeNodeInfo<RingtoetsPipingSurfaceLine>
@@ -501,6 +494,24 @@ namespace Ringtoets.Piping.Plugin
             return null;
         }
 
+        #region  RingtoetsPipingSurfaceLinesContext TreeNodeInfo
+
+        private ContextMenuStrip RingtoetsPipingSurfaceLinesContextContextMenuStrip(RingtoetsPipingSurfaceLinesContext nodeData, object parentData, TreeViewControl treeViewControl)
+        {
+            return Gui.Get(nodeData, treeViewControl)
+                      .AddImportItem()
+                      .AddSeparator()
+                      .AddDeleteChildrenItem()
+                      .AddSeparator()
+                      .AddCollapseAllItem()
+                      .AddExpandAllItem()
+                      .AddSeparator()
+                      .AddPropertiesItem()
+                      .Build();
+        }
+
+        #endregion
+
         #region StochasticSoilModelCollectionContext TreeNodeInfo
 
         private ContextMenuStrip StochasticSoilModelCollectionContextContextMenuStrip(StochasticSoilModelCollectionContext nodeData, object parentData, TreeViewControl treeViewControl)
@@ -516,6 +527,8 @@ namespace Ringtoets.Piping.Plugin
                       .AddSeparator()
                       .AddCollapseAllItem()
                       .AddExpandAllItem()
+                      .AddSeparator()
+                      .AddPropertiesItem()
                       .Build();
         }
 
