@@ -63,7 +63,7 @@ namespace Migration.Console.Test
         }
 
         [Test]
-        public void DisplayAllCommands_WritesAllCommandsToConsole()
+        public void DisplayCommands_WritesCommandsToConsole()
         {
             // Setup
             var consoleBase = new SimpleConsoleBase(applicationName, applicationDescription);
@@ -71,11 +71,11 @@ namespace Migration.Console.Test
             using (var consoleOutput = new ConsoleOutput())
             {
                 // Call
-                consoleBase.WriteDisplayAllCommands();
+                consoleBase.WriteDisplayCommands();
 
                 // Assert
                 string consoleText = consoleOutput.GetConsoleOutput();
-                Assert.AreEqual(GetConsoleFullDescription(), consoleText);
+                Assert.IsEmpty(consoleText);
                 Assert.AreEqual(ErrorCode.ErrorSuccess, environmentControl.ErrorCodeCalled);
             }
         }
@@ -231,9 +231,9 @@ namespace Migration.Console.Test
                 ExecuteConsoleTool(args);
             }
 
-            public void WriteDisplayAllCommands()
+            public void WriteDisplayCommands()
             {
-                DisplayAllCommands();
+                DisplayCommands();
             }
 
             protected override void ExecuteCommand(string[] args)

@@ -28,13 +28,15 @@ namespace Migration.Console.Test
     public class EnvironmentControlTest
     {
         [Test]
-        public void CurrentInstance_ExpectedProperties()
+        public void Instance_ExpectedProperties()
         {
             // Call
             EnvironmentControl instance = EnvironmentControl.Instance;
 
             // Assert
             Assert.IsNotNull(instance);
+            EnvironmentControl expectedInstance = EnvironmentControl.Instance;
+            Assert.AreSame(expectedInstance, instance);
         }
 
         [Test]
@@ -45,6 +47,21 @@ namespace Migration.Console.Test
 
             // Assert
             Assert.Throws<ArgumentNullException>(call);
+        }
+
+        [Test]
+        public void Instance_ValidEnvironmentControl_ExpectedProperties()
+        {
+            // Setup
+            EnvironmentControl expectedInstance = EnvironmentControl.Instance;
+
+            // Call
+            EnvironmentControl.Instance = new EnvironmentControl();
+
+            // Assert
+            Assert.IsNotNull(expectedInstance);
+            EnvironmentControl newInstance = EnvironmentControl.Instance;
+            Assert.AreNotSame(expectedInstance, newInstance);
         }
     }
 }

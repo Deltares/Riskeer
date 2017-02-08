@@ -86,16 +86,9 @@ namespace Migration.Console
         }
 
         /// <summary>
-        /// Writes all commands to the <seealso cref="SystemConsole"/>.
+        /// Writes all other commands to the <see cref="SystemConsole"/>.
         /// </summary>
-        protected virtual void DisplayAllCommands()
-        {
-            SystemConsole.WriteLine(applicationDescription);
-            SystemConsole.WriteLine();
-            SystemConsole.WriteLine(string.Concat(applicationName, " ", commandHelpShort));
-            SystemConsole.WriteLine(string.Concat(applicationName, " ", commandHelp));
-            ConsoleHelper.WriteCommandDescriptionLine(Resources.CommandHelp_Detailed);
-        }
+        protected virtual void DisplayCommands() {}
 
         /// <summary>
         /// Executes a command based upon the arguments provided.
@@ -103,6 +96,19 @@ namespace Migration.Console
         /// <param name="args">The arguments that determine which command to execute.</param>
         /// <exception cref="Exception">Thrown when the command failed.</exception>
         protected abstract void ExecuteCommand(string[] args);
+
+        /// <summary>
+        /// Writes all commands to the <see cref="SystemConsole"/>.
+        /// </summary>
+        private void DisplayAllCommands()
+        {
+            SystemConsole.WriteLine(applicationDescription);
+            SystemConsole.WriteLine();
+            SystemConsole.WriteLine(string.Concat(applicationName, " ", commandHelpShort));
+            SystemConsole.WriteLine(string.Concat(applicationName, " ", commandHelp));
+            ConsoleHelper.WriteCommandDescriptionLine(Resources.CommandHelp_Detailed);
+            DisplayCommands();
+        }
 
         private void ParseCommand(string[] args)
         {

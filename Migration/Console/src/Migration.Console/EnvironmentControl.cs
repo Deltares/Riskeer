@@ -29,7 +29,7 @@ namespace Migration.Console
     /// </summary>
     public class EnvironmentControl
     {
-        private static EnvironmentControl instance;
+        private static EnvironmentControl instance = new EnvironmentControl();
 
         /// <summary>
         /// Gets or sets the current <see cref="EnvironmentControl"/> instance.
@@ -39,9 +39,8 @@ namespace Migration.Console
         {
             get
             {
-                return instance ?? (instance = new EnvironmentControl());
+                return instance;
             }
-
             set
             {
                 if (value == null)

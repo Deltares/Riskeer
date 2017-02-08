@@ -32,10 +32,10 @@ namespace Application.Ringtoets.MigrationConsole
     /// </summary>
     public class RingtoetsMigrationConsole : ConsoleBase
     {
-        public RingtoetsMigrationConsole() : base(Resources.RingtoetsMigrationTool_ApplicationName, 
-            Resources.RingtoetsMigrationTool_ApplicationDescription) {}
+        public RingtoetsMigrationConsole() : base(Resources.RingtoetsMigrationTool_ApplicationName,
+                                                  Resources.RingtoetsMigrationTool_ApplicationDescription) {}
 
-       protected override void ExecuteCommand(string[] args)
+        protected override void ExecuteCommand(string[] args)
         {
             switch (args.Length)
             {
@@ -52,9 +52,8 @@ namespace Application.Ringtoets.MigrationConsole
             }
         }
 
-        protected override void DisplayAllCommands()
+        protected override void DisplayCommands()
         {
-            base.DisplayAllCommands();
             ShowSupportedCommand();
             ShowMigrateCommand();
         }
