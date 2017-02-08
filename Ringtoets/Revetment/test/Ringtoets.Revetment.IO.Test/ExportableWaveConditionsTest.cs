@@ -32,20 +32,13 @@ namespace Ringtoets.Revetment.IO.Test
     [TestFixture]
     public class ExportableWaveConditionsTest
     {
-        private readonly WaveConditionsInput waveConditionsInput = new WaveConditionsInput()
-        {
-            HydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, "hblName", 1.0, 8.0),
-            ForeshoreProfile = new ForeshoreProfile(new Point2D(8.7, 7.8), new Point2D[0], null, new ForeshoreProfile.ConstructionProperties()),
-            UseForeshore = true
-        };
-
         private readonly WaveConditionsOutput waveConditionsOutput = new TestWaveConditionsOutput();
 
         [Test]
         public void Constructor_NameNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new ExportableWaveConditions(null, waveConditionsInput, waveConditionsOutput, CoverType.StoneCoverColumns);
+            TestDelegate call = () => new ExportableWaveConditions(null, CreateValidWaveConditionsInput(), waveConditionsOutput, CoverType.StoneCoverColumns);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -67,7 +60,7 @@ namespace Ringtoets.Revetment.IO.Test
         public void Constructor_WaveConditionsOutputNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new ExportableWaveConditions("aName", waveConditionsInput, null, CoverType.StoneCoverColumns);
+            TestDelegate call = () => new ExportableWaveConditions("aName", CreateValidWaveConditionsInput(), null, CoverType.StoneCoverColumns);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -87,41 +80,16 @@ namespace Ringtoets.Revetment.IO.Test
         }
 
         [Test]
-        public void Constructor_ValidDataWithoutForeshore_ExpectedValues()
+        [Combinatorial]
+        public void Constructor_ValidDataWithoutForeshore_ExpectedValues(
+            [Values(true, false)] bool useBreakWater,
+            [Values(true, false)] bool useForeshore)
         {
-            // Call
-            ExportableWaveConditions exportableWaveConditions =
-                new ExportableWaveConditions("ewcName",
-                                             new WaveConditionsInput()
-                                             {
-                                                 HydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, "hblName", 1.0, 8.0)
-                                             },
-                                             waveConditionsOutput,
-                                             CoverType.StoneCoverColumns);
+            // Setup
+            WaveConditionsInput waveConditionsInput = CreateValidWaveConditionsInput();
+            waveConditionsInput.UseBreakWater = useBreakWater;
+            waveConditionsInput.UseForeshore = useForeshore;
 
-            // Assert
-            Assert.AreEqual("ewcName", exportableWaveConditions.CalculationName);
-            Assert.AreEqual("hblName", exportableWaveConditions.LocationName);
-            Assert.AreEqual(1.0, exportableWaveConditions.LocationXCoordinate);
-            Assert.AreEqual(8.0, exportableWaveConditions.LocationYCoordinate);
-            Assert.AreEqual(null, exportableWaveConditions.ForeshoreName);
-            Assert.AreEqual(false, exportableWaveConditions.UseBreakWater);
-            Assert.AreEqual(false, exportableWaveConditions.UseForeshore);
-            Assert.AreEqual(CoverType.StoneCoverColumns, exportableWaveConditions.CoverType);
-            Assert.AreEqual(2, exportableWaveConditions.WaterLevel.NumberOfDecimalPlaces);
-            Assert.AreEqual(2, exportableWaveConditions.WaveHeight.NumberOfDecimalPlaces);
-            Assert.AreEqual(2, exportableWaveConditions.WavePeriod.NumberOfDecimalPlaces);
-            Assert.AreEqual(2, exportableWaveConditions.WaveAngle.NumberOfDecimalPlaces);
-            Assert.AreEqual(waveConditionsOutput.WaterLevel, exportableWaveConditions.WaterLevel);
-            Assert.AreEqual(waveConditionsOutput.WaveHeight, exportableWaveConditions.WaveHeight);
-            Assert.AreEqual(waveConditionsOutput.WavePeakPeriod, exportableWaveConditions.WavePeriod);
-            Assert.AreEqual(waveConditionsOutput.WaveAngle, exportableWaveConditions.WaveAngle);
-            Assert.AreEqual(waveConditionsOutput.WaveDirection, exportableWaveConditions.WaveDirection);
-        }
-
-        [Test]
-        public void Constructor_ValidDataWithForeshore_ExpectedValues()
-        {
             // Call
             ExportableWaveConditions exportableWaveConditions =
                 new ExportableWaveConditions("ewcName",
@@ -135,8 +103,8 @@ namespace Ringtoets.Revetment.IO.Test
             Assert.AreEqual(1.0, exportableWaveConditions.LocationXCoordinate);
             Assert.AreEqual(8.0, exportableWaveConditions.LocationYCoordinate);
             Assert.AreEqual(null, exportableWaveConditions.ForeshoreName);
-            Assert.AreEqual(false, exportableWaveConditions.UseBreakWater);
-            Assert.AreEqual(true, exportableWaveConditions.UseForeshore);
+            Assert.AreEqual(useBreakWater, exportableWaveConditions.UseBreakWater);
+            Assert.AreEqual(useForeshore, exportableWaveConditions.UseForeshore);
             Assert.AreEqual(CoverType.StoneCoverColumns, exportableWaveConditions.CoverType);
             Assert.AreEqual(2, exportableWaveConditions.WaterLevel.NumberOfDecimalPlaces);
             Assert.AreEqual(2, exportableWaveConditions.WaveHeight.NumberOfDecimalPlaces);
@@ -147,6 +115,56 @@ namespace Ringtoets.Revetment.IO.Test
             Assert.AreEqual(waveConditionsOutput.WavePeakPeriod, exportableWaveConditions.WavePeriod);
             Assert.AreEqual(waveConditionsOutput.WaveAngle, exportableWaveConditions.WaveAngle);
             Assert.AreEqual(waveConditionsOutput.WaveDirection, exportableWaveConditions.WaveDirection);
+        }
+
+        [Test]
+        [Combinatorial]
+        public void Constructor_ValidDataWithForeshore_ExpectedValues(
+            [Values(true, false)] bool useBreakWater,
+            [Values(true, false)] bool useForeshore)
+        {
+            // Setup
+            WaveConditionsInput waveConditionsInput = CreateValidWaveConditionsInput();
+            waveConditionsInput.ForeshoreProfile = new ForeshoreProfile(new Point2D(8.7, 7.8), new Point2D[0], null, new ForeshoreProfile.ConstructionProperties
+            {
+                Name = "profile"
+            });
+            waveConditionsInput.UseBreakWater = useBreakWater;
+            waveConditionsInput.UseForeshore = useForeshore;
+
+            // Call
+            ExportableWaveConditions exportableWaveConditions =
+                new ExportableWaveConditions("ewcName",
+                                             waveConditionsInput,
+                                             waveConditionsOutput,
+                                             CoverType.StoneCoverColumns);
+
+            // Assert
+            Assert.AreEqual("ewcName", exportableWaveConditions.CalculationName);
+            Assert.AreEqual("hblName", exportableWaveConditions.LocationName);
+            Assert.AreEqual(1.0, exportableWaveConditions.LocationXCoordinate);
+            Assert.AreEqual(8.0, exportableWaveConditions.LocationYCoordinate);
+            Assert.AreEqual("profile", exportableWaveConditions.ForeshoreName);
+            Assert.AreEqual(useBreakWater, exportableWaveConditions.UseBreakWater);
+            Assert.AreEqual(useForeshore, exportableWaveConditions.UseForeshore);
+            Assert.AreEqual(CoverType.StoneCoverColumns, exportableWaveConditions.CoverType);
+            Assert.AreEqual(2, exportableWaveConditions.WaterLevel.NumberOfDecimalPlaces);
+            Assert.AreEqual(2, exportableWaveConditions.WaveHeight.NumberOfDecimalPlaces);
+            Assert.AreEqual(2, exportableWaveConditions.WavePeriod.NumberOfDecimalPlaces);
+            Assert.AreEqual(2, exportableWaveConditions.WaveAngle.NumberOfDecimalPlaces);
+            Assert.AreEqual(waveConditionsOutput.WaterLevel, exportableWaveConditions.WaterLevel);
+            Assert.AreEqual(waveConditionsOutput.WaveHeight, exportableWaveConditions.WaveHeight);
+            Assert.AreEqual(waveConditionsOutput.WavePeakPeriod, exportableWaveConditions.WavePeriod);
+            Assert.AreEqual(waveConditionsOutput.WaveAngle, exportableWaveConditions.WaveAngle);
+            Assert.AreEqual(waveConditionsOutput.WaveDirection, exportableWaveConditions.WaveDirection);
+        }
+
+        private static WaveConditionsInput CreateValidWaveConditionsInput()
+        {
+            return new WaveConditionsInput
+            {
+                HydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, "hblName", 1.0, 8.0)
+            };
         }
     }
 }
