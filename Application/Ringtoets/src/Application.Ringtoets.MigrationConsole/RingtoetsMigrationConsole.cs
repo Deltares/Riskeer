@@ -72,9 +72,11 @@ namespace Application.Ringtoets.MigrationConsole
             var version = versionedFile.GetVersion();
 
             bool isSupported = migrator.IsVersionSupported(version);
+
+            string toVersion = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
             Console.WriteLine(isSupported
-                                  ? Resources.CommandSupported_File_Supported
-                                  : Resources.CommandSupported_File_Not_Supported);
+                                  ? Resources.CommandSupported_File_Able_To_Migrate_To_Version_0
+                                  : Resources.CommandSupported_File_Not_Able_To_Migrate_To_Version_0, toVersion);
         }
 
         private static void ShowSupportedCommand()
@@ -91,8 +93,8 @@ namespace Application.Ringtoets.MigrationConsole
             var sourceFile = new RingtoetsVersionedFile(filepath);
 
             migrator.Migrate(sourceFile, toVersion, toFilepath);
-            Console.WriteLine(Resources.CommandMigrate_Successful_Migration_From_Location_0_To_Location_1,
-                              filepath, toFilepath);
+            Console.WriteLine(Resources.CommandMigrate_Successful_Migration_From_Location_0_To_Location_1_Version_2,
+                              filepath, toFilepath, toVersion);
         }
 
         private static void ShowMigrateCommand()

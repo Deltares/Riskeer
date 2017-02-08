@@ -34,6 +34,7 @@ namespace Application.Ringtoets.MigrationConsole.Test
     public class RingtoetsMigrationToolTest
     {
         private TestEnvironmentControl environmentControl;
+        private readonly TestDataPath testPath = TestDataPath.Application.Ringtoets.Migration;
 
         [SetUp]
         public void SetUp()
@@ -45,22 +46,18 @@ namespace Application.Ringtoets.MigrationConsole.Test
         [Test]
         public void Main_NoArguments_WritesHelpToConsole()
         {
-            // Setup
-            string consoleText;
-
             // Call
             using (var consoleOutput = new ConsoleOutput())
             {
                 RingtoetsMigrationTool.Main(new string[]
                                                 {});
 
-                consoleText = consoleOutput.GetConsoleOutput();
+                // Assert
+                string consoleText = consoleOutput.GetConsoleOutput();
+                var expectedText = Environment.NewLine + GetConsoleFullDescription();
+                Assert.AreEqual(expectedText, consoleText);
+                Assert.AreEqual(ErrorCode.ErrorSuccess, environmentControl.ErrorCodeCalled);
             }
-
-            // Assert
-            var expectedText = GetConsoleFullDescription();
-            Assert.AreEqual(expectedText, consoleText);
-            Assert.AreEqual(ErrorCode.ErrorSuccess, environmentControl.ErrorCodeCalled);
         }
 
         [Test]
@@ -73,22 +70,22 @@ namespace Application.Ringtoets.MigrationConsole.Test
                 "1",
                 "2"
             };
-            string consoleText;
 
             // Call
             using (var consoleOutput = new ConsoleOutput())
             {
                 RingtoetsMigrationTool.Main(invalidCommand);
 
-                consoleText = consoleOutput.GetConsoleOutput();
-            }
+                // Assert
+                string consoleText = consoleOutput.GetConsoleOutput();
 
-            // Assert
-            var expectedText = $"{string.Join(" ", invalidCommand)} is geen geldige opdracht."
-                               + Environment.NewLine + Environment.NewLine
-                               + GetConsoleFullDescription();
-            Assert.AreEqual(expectedText, consoleText);
-            Assert.AreEqual(ErrorCode.ErrorBadCommand, environmentControl.ErrorCodeCalled);
+                var expectedText = Environment.NewLine
+                                   + $"{string.Join(" ", invalidCommand)} is geen geldige opdracht."
+                                   + Environment.NewLine + Environment.NewLine
+                                   + GetConsoleFullDescription();
+                Assert.AreEqual(expectedText, consoleText);
+                Assert.AreEqual(ErrorCode.ErrorBadCommand, environmentControl.ErrorCodeCalled);
+            }
         }
 
         [Test]
@@ -97,8 +94,8 @@ namespace Application.Ringtoets.MigrationConsole.Test
         public void GivenConsole_WhenVersionSupportedCall_ThenReturnedIfSupported(string file, bool isSupported)
         {
             // Given
-            string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration, file);
-            string consoleText;
+            string sourceFilePath = TestHelper.GetTestDataPath(testPath, file);
+            string expectedVersion = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
             using (var consoleOutput = new ConsoleOutput())
             {
                 // When
@@ -107,25 +104,25 @@ namespace Application.Ringtoets.MigrationConsole.Test
                     sourceFilePath
                 });
 
-                consoleText = consoleOutput.GetConsoleOutput();
+                // Then
+                string consoleText = consoleOutput.GetConsoleOutput();
+                Assert.AreEqual(Environment.NewLine + $@"Het projectbestand kan {(isSupported ? "" : "niet ")}"
+                                + $"gemigreerd worden naar versie '{expectedVersion}'."
+                                + Environment.NewLine, consoleText);
+                Assert.AreEqual(ErrorCode.ErrorSuccess, environmentControl.ErrorCodeCalled);
             }
-
-            // Then
-            Assert.AreEqual($@"Het projectbestand wordt {(isSupported ? "" : "niet ")}ondersteund."
-                            + Environment.NewLine, consoleText);
-            Assert.AreEqual(ErrorCode.ErrorSuccess, environmentControl.ErrorCodeCalled);
         }
 
         [Test]
         public void GivenConsole_WhenMigrateCalledWithArguments_MigratesToNewVersion()
         {
             // Given
-            string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration, "FullTestProject164.rtd");
-            string targetFilePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration, Path.GetRandomFileName());
+            string sourceFilePath = TestHelper.GetTestDataPath(testPath, "FullTestProject164.rtd");
+            string targetFilePath = TestHelper.GetTestDataPath(testPath, Path.GetRandomFileName());
+            string expectedVersion = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
 
             using (new FileDisposeHelper(targetFilePath))
             {
-                string consoleText;
                 using (var consoleOutput = new ConsoleOutput())
                 {
                     // When
@@ -135,16 +132,16 @@ namespace Application.Ringtoets.MigrationConsole.Test
                         targetFilePath
                     });
 
-                    consoleText = consoleOutput.GetConsoleOutput();
+                    // Then
+                    string consoleText = consoleOutput.GetConsoleOutput();
+                    var expected = Environment.NewLine
+                                   + $"Het bestand '{sourceFilePath}' is succesvol gemigreerd naar "
+                                   + $"'{targetFilePath}' (versie '{expectedVersion}')."
+                                   + Environment.NewLine;
+                    Assert.AreEqual(expected, consoleText);
+                    var toVersionedFile = new RingtoetsVersionedFile(targetFilePath);
+                    Assert.AreEqual(expectedVersion, toVersionedFile.GetVersion());
                 }
-
-                // Then
-                var expected = $"Het bestand '{sourceFilePath}' is succesvol gemigreerd naar '{targetFilePath}'."
-                               + Environment.NewLine;
-                Assert.AreEqual(expected, consoleText);
-                var toVersionedFile = new RingtoetsVersionedFile(targetFilePath);
-                string expectedVersion = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
-                Assert.AreEqual(expectedVersion, toVersionedFile.GetVersion());
             }
             Assert.AreEqual(ErrorCode.ErrorSuccess, environmentControl.ErrorCodeCalled);
         }
@@ -153,10 +150,9 @@ namespace Application.Ringtoets.MigrationConsole.Test
         public void GivenConsole_WhenMigrateCalledUnableToSaveTarget_ThenExitWithErrorCode()
         {
             // Given
-            string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration, "FullTestProject164.rtd");
-            string targetFilePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration, Path.GetRandomFileName());
+            string sourceFilePath = TestHelper.GetTestDataPath(testPath, "FullTestProject164.rtd");
+            string targetFilePath = TestHelper.GetTestDataPath(testPath, Path.GetRandomFileName());
 
-            string consoleText;
             using (var fileDisposeHelper = new FileDisposeHelper(targetFilePath))
             using (var consoleOutput = new ConsoleOutput())
             {
@@ -169,17 +165,18 @@ namespace Application.Ringtoets.MigrationConsole.Test
                     targetFilePath
                 });
 
-                consoleText = consoleOutput.GetConsoleOutput();
+                // Then
+                string consoleText = consoleOutput.GetConsoleOutput();
+                StringAssert.StartsWith(Environment.NewLine
+                                        + "Er is een onverwachte fout opgetreden tijdens het verplaatsen van het gemigreerde bestand '",
+                                        consoleText);
+                StringAssert.EndsWith($"' naar '{targetFilePath}'." + Environment.NewLine
+                                      + "Het besturingssysteem geeft de volgende melding: "
+                                      + $"The process cannot access the file '{targetFilePath}' because it is being used by another process."
+                                      + Environment.NewLine + Environment.NewLine
+                                      + GetConsoleFullDescription(), consoleText);
             }
 
-            // Then
-            StringAssert.StartsWith("Er is een onverwachte fout opgetreden tijdens het verplaatsen van het gemigreerde bestand '",
-                                    consoleText);
-            StringAssert.EndsWith($"' naar '{targetFilePath}'." + Environment.NewLine
-                                  + "Het besturingssysteem geeft de volgende melding: "
-                                  + $"The process cannot access the file '{targetFilePath}' because it is being used by another process."
-                                  + Environment.NewLine + Environment.NewLine
-                                  + GetConsoleFullDescription(), consoleText);
             Assert.AreEqual(ErrorCode.ErrorBadCommand, environmentControl.ErrorCodeCalled);
         }
 

@@ -64,6 +64,7 @@ namespace Migration.Console
         /// <remarks>By default, the help command is executed.</remarks>
         public void ExecuteConsoleTool(string[] args)
         {
+            SystemConsole.WriteLine();
             try
             {
                 ParseCommand(args);

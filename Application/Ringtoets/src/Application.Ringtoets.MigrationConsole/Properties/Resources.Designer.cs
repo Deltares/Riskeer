@@ -109,11 +109,11 @@ namespace Application.Ringtoets.MigrationConsole.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het bestand &apos;{0}&apos; is succesvol gemigreerd naar &apos;{1}&apos;..
+        ///   Looks up a localized string similar to Het bestand &apos;{0}&apos; is succesvol gemigreerd naar &apos;{1}&apos; (versie &apos;{2}&apos;)..
         /// </summary>
-        internal static string CommandMigrate_Successful_Migration_From_Location_0_To_Location_1 {
+        internal static string CommandMigrate_Successful_Migration_From_Location_0_To_Location_1_Version_2 {
             get {
-                return ResourceManager.GetString("CommandMigrate_Successful_Migration_From_Location_0_To_Location_1", resourceCulture);
+                return ResourceManager.GetString("CommandMigrate_Successful_Migration_From_Location_0_To_Location_1_Version_2", resourceCulture);
             }
         }
         
@@ -136,20 +136,20 @@ namespace Application.Ringtoets.MigrationConsole.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het projectbestand wordt niet ondersteund..
+        ///   Looks up a localized string similar to Het projectbestand kan gemigreerd worden naar versie &apos;{0}&apos;..
         /// </summary>
-        internal static string CommandSupported_File_Not_Supported {
+        internal static string CommandSupported_File_Able_To_Migrate_To_Version_0 {
             get {
-                return ResourceManager.GetString("CommandSupported_File_Not_Supported", resourceCulture);
+                return ResourceManager.GetString("CommandSupported_File_Able_To_Migrate_To_Version_0", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het projectbestand wordt ondersteund..
+        ///   Looks up a localized string similar to Het projectbestand kan niet gemigreerd worden naar versie &apos;{0}&apos;..
         /// </summary>
-        internal static string CommandSupported_File_Supported {
+        internal static string CommandSupported_File_Not_Able_To_Migrate_To_Version_0 {
             get {
-                return ResourceManager.GetString("CommandSupported_File_Supported", resourceCulture);
+                return ResourceManager.GetString("CommandSupported_File_Not_Able_To_Migrate_To_Version_0", resourceCulture);
             }
         }
         

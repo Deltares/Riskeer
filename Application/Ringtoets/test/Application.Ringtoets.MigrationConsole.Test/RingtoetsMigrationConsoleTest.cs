@@ -65,7 +65,7 @@ namespace Application.Ringtoets.MigrationConsole.Test
                                                {});
 
                 // Assert
-                var expectedText = GetConsoleFullDescription();
+                var expectedText = Environment.NewLine + GetConsoleFullDescription();
                 string consoleText = consoleOutput.GetConsoleOutput();
                 Assert.AreEqual(expectedText, consoleText);
                 Assert.AreEqual(ErrorCode.ErrorSuccess, environmentControl.ErrorCodeCalled);
@@ -90,7 +90,8 @@ namespace Application.Ringtoets.MigrationConsole.Test
                 console.ExecuteConsoleTool(invalidCommand);
 
                 // Assert
-                var expectedText = $"{string.Join(" ", invalidCommand)} is geen geldige opdracht."
+                var expectedText = Environment.NewLine
+                                   + $"{string.Join(" ", invalidCommand)} is geen geldige opdracht."
                                    + Environment.NewLine + Environment.NewLine
                                    + GetConsoleFullDescription();
                 string consoleText = consoleOutput.GetConsoleOutput();
@@ -107,6 +108,7 @@ namespace Application.Ringtoets.MigrationConsole.Test
             // Given
             string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration, file);
             var console = new RingtoetsMigrationConsole();
+            string expectedVersion = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
 
             using (var consoleOutput = new ConsoleOutput())
             {
@@ -118,7 +120,8 @@ namespace Application.Ringtoets.MigrationConsole.Test
 
                 // Then
                 string consoleText = consoleOutput.GetConsoleOutput();
-                Assert.AreEqual($@"Het projectbestand wordt {(isSupported ? "" : "niet ")}ondersteund."
+                Assert.AreEqual(Environment.NewLine
+                                + $@"Het projectbestand kan {(isSupported ? "" : "niet ")}gemigreerd worden naar versie '{expectedVersion}'."
                                 + Environment.NewLine, consoleText);
                 Assert.AreEqual(ErrorCode.ErrorSuccess, environmentControl.ErrorCodeCalled);
             }
@@ -131,6 +134,7 @@ namespace Application.Ringtoets.MigrationConsole.Test
             string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration, "FullTestProject164.rtd");
             string targetFilePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration, Path.GetRandomFileName());
             var console = new RingtoetsMigrationConsole();
+            string expectedVersion = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
 
             using (new FileDisposeHelper(targetFilePath))
             {
@@ -144,13 +148,13 @@ namespace Application.Ringtoets.MigrationConsole.Test
                     });
 
                     // Then
-                    var expected = $"Het bestand '{sourceFilePath}' is succesvol gemigreerd naar '{targetFilePath}'."
+                    var expected = Environment.NewLine
+                                   + $"Het bestand '{sourceFilePath}' is succesvol gemigreerd naar '{targetFilePath}' (versie '{expectedVersion}')."
                                    + Environment.NewLine;
                     string consoleText = consoleOutput.GetConsoleOutput();
                     Assert.AreEqual(expected, consoleText);
 
                     var toVersionedFile = new RingtoetsVersionedFile(targetFilePath);
-                    string expectedVersion = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
                     Assert.AreEqual(expectedVersion, toVersionedFile.GetVersion());
                 }
             }
@@ -180,7 +184,7 @@ namespace Application.Ringtoets.MigrationConsole.Test
 
                 // Then
                 string consoleText = consoleOutput.GetConsoleOutput();
-                StringAssert.StartsWith("Er is een onverwachte fout opgetreden tijdens het verplaatsen van het gemigreerde bestand '",
+                StringAssert.StartsWith(Environment.NewLine + "Er is een onverwachte fout opgetreden tijdens het verplaatsen van het gemigreerde bestand '",
                                         consoleText);
                 StringAssert.EndsWith($"' naar '{targetFilePath}'." + Environment.NewLine
                                       + "Het besturingssysteem geeft de volgende melding: "

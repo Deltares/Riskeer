@@ -93,7 +93,8 @@ namespace Migration.Console.Test
 
                 // Assert
                 string consoleText = consoleOutput.GetConsoleOutput();
-                Assert.AreEqual(GetConsoleFullDescription(), consoleText);
+                string expectedText = Environment.NewLine + GetConsoleFullDescription();
+                Assert.AreEqual(expectedText, consoleText);
                 Assert.AreEqual(ErrorCode.ErrorSuccess, environmentControl.ErrorCodeCalled);
             }
         }
@@ -116,7 +117,8 @@ namespace Migration.Console.Test
 
                 // Assert
                 string consoleText = consoleOutput.GetConsoleOutput();
-                Assert.AreEqual(GetConsoleFullDescription(), consoleText);
+                string expectedText = Environment.NewLine + GetConsoleFullDescription();
+                Assert.AreEqual(expectedText, consoleText);
                 Assert.AreEqual(ErrorCode.ErrorSuccess, environmentControl.ErrorCodeCalled);
             }
         }
@@ -138,7 +140,7 @@ namespace Migration.Console.Test
                 consoleBase.SimpleExecuteConsoleTool(commandArgs);
 
                 // Assert
-                Assert.IsEmpty(consoleOutput.GetConsoleOutput());
+                Assert.AreEqual(Environment.NewLine, consoleOutput.GetConsoleOutput());
                 Assert.AreEqual(commandArgs, consoleBase.ExecuteCommandArguments);
                 Assert.AreEqual(ErrorCode.ErrorSuccess, environmentControl.ErrorCodeCalled);
             }
@@ -164,7 +166,7 @@ namespace Migration.Console.Test
                 consoleBase.SimpleExecuteConsoleTool(commandArgs);
 
                 // Assert
-                string expectedtext = exceptionMessage + Environment.NewLine
+                string expectedtext = Environment.NewLine + exceptionMessage + Environment.NewLine
                                       + Environment.NewLine + GetConsoleFullDescription();
                 string consoleText = consoleOutput.GetConsoleOutput();
                 Assert.AreEqual(expectedtext, consoleText);
@@ -196,7 +198,7 @@ namespace Migration.Console.Test
                 consoleBase.SimpleExecuteConsoleTool(commandArgs);
 
                 // Assert
-                string expectedtext = exceptionMessage + Environment.NewLine
+                string expectedtext = Environment.NewLine + exceptionMessage + Environment.NewLine
                                       + $"Het besturingssysteem geeft de volgende melding: {innerExceptionMessage}"
                                       + Environment.NewLine + Environment.NewLine
                                       + GetConsoleFullDescription();
