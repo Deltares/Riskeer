@@ -510,6 +510,10 @@ namespace Ringtoets.Integration.Plugin
             {
                 Text = context => RingtoetsIntegrationPluginResources.RingtoetsPlugin_BackgroundMapDataContext_Text,
                 Image = context => RingtoetsFormsResources.Map,
+                ContextMenuStrip = (nodeData, parentData, treeViewControl) =>
+                    Gui.Get(nodeData, treeViewControl)
+                       .AddPropertiesItem()
+                       .Build(),
                 ForeColor = context => context.WrappedData.IsConfigured ?
                                            Color.FromKnownColor(KnownColor.ControlText) :
                                            Color.FromKnownColor(KnownColor.GrayText)

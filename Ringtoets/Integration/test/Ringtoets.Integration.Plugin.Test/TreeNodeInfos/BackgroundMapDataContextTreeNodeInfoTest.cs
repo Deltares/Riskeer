@@ -22,16 +22,19 @@
 using System.Drawing;
 using System.Linq;
 using Core.Common.Controls.TreeView;
+using Core.Common.Gui;
+using Core.Common.Gui.ContextMenu;
 using Core.Common.TestUtil;
 using Core.Components.Gis.Data;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.Properties;
 
 namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class BackgroundWmtsMapDataTreeNodeInfoTest
+    public class BackgroundMapDataContextTreeNodeInfoTest
     {
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
@@ -45,7 +48,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 Assert.IsNotNull(info.Text);
                 Assert.IsNotNull(info.ForeColor);
                 Assert.IsNotNull(info.Image);
-                Assert.IsNull(info.ContextMenuStrip);
+                Assert.IsNotNull(info.ContextMenuStrip);
                 Assert.IsNull(info.EnsureVisibleOnCreate);
                 Assert.IsNull(info.ExpandOnCreate);
                 Assert.IsNull(info.ChildNodeObjects);
@@ -137,7 +140,41 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             }
         }
 
-        private TreeNodeInfo GetInfo(RingtoetsPlugin plugin)
+        [Test]
+        public void ContextMenuStrip_Always_CallsBuilder()
+        {
+            // Setup
+            var mockRepository = new MockRepository();
+            var menuBuilderMock = mockRepository.StrictMock<IContextMenuBuilder>();
+
+            using (mockRepository.Ordered())
+            {
+                menuBuilderMock.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilderMock);
+                menuBuilderMock.Expect(mb => mb.Build()).Return(null);
+            }
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var gui = mockRepository.Stub<IGui>();
+                gui.Stub(g => g.Get(null, treeViewControl)).Return(menuBuilderMock);
+                gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
+                gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
+                mockRepository.ReplayAll();
+
+                using (var plugin = new RingtoetsPlugin())
+                {
+                    var info = GetInfo(plugin);
+                    plugin.Gui = gui;
+
+                    // Call
+                    info.ContextMenuStrip(null, null, treeViewControl);
+                }
+            }
+            // Assert
+            mockRepository.VerifyAll();
+        }
+
+        private static TreeNodeInfo GetInfo(RingtoetsPlugin plugin)
         {
             return plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(BackgroundMapDataContext));
         }
