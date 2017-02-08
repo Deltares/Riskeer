@@ -52,12 +52,12 @@ namespace Ringtoets.Common.Service
         /// <param name="failureMechanismContribution">The failure mechanism contribution.</param>
         /// <param name="n">The 'N' parameter used to factor in the 'length effect'.</param>
         /// <returns>The profile specific required probability.</returns>
-        ///  <exception cref="ArgumentOutOfRangeException">
+        /// <exception cref="ArgumentOutOfRangeException">
         /// Thrown when:
         /// <list type="bullet">
-        /// <item><param name="norm"/> is not in the interval [0.0, 1.0] or is <see cref="double.NaN"/>;</item>
-        /// <item><param name="failureMechanismContribution"/> is not in the interval [0.0, 100.0] or is <see cref="double.NaN"/>;</item>
-        /// <item><param name="n"/> is not larger than 0.</item>
+        /// <item><paramref name="norm"/> is not in the interval [0.0, 1.0] or is <see cref="double.NaN"/>;</item>
+        /// <item><paramref name="failureMechanismContribution"/> is not in the interval [0.0, 100.0] or is <see cref="double.NaN"/>;</item>
+        /// <item><paramref name="n"/> is not larger than 0.</item>
         /// </list>
         /// </exception>
         public static double ProfileSpecificRequiredProbability(double norm, double failureMechanismContribution, int n)
