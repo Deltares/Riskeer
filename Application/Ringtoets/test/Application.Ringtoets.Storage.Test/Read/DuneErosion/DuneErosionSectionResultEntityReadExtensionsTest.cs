@@ -48,6 +48,7 @@ namespace Application.Ringtoets.Storage.Test.Read.DuneErosion
         }
 
         [Test]
+        [Combinatorial]
         public void Read_ParameterValues_SectionResultWithParameterValues(
             [Values(AssessmentLayerOneState.NotAssessed, AssessmentLayerOneState.NoVerdict,
                 AssessmentLayerOneState.Sufficient)] AssessmentLayerOneState layerOne,

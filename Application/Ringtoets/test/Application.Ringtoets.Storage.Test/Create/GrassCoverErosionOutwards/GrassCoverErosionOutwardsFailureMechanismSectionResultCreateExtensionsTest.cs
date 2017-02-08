@@ -33,6 +33,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionOutwards
     public class GrassCoverErosionOutwardsFailureMechanismSectionResultCreateExtensionsTest
     {
         [Test]
+        [Combinatorial]
         public void Create_VariousResults_ReturnsExpectedEntity(
             [Values(AssessmentLayerOneState.NotAssessed, AssessmentLayerOneState.NoVerdict,
                 AssessmentLayerOneState.Sufficient)] AssessmentLayerOneState assessmentLayerOneResult,

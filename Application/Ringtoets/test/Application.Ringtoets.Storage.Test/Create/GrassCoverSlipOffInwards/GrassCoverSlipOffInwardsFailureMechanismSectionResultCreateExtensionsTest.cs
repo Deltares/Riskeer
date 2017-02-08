@@ -33,6 +33,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverSlipOffInwards
     public class GrassCoverSlipOffInwardsFailureMechanismSectionResultCreateExtensionsTest
     {
         [Test]
+        [Combinatorial]
         public void Create_VariousResults_ReturnsEntity(
             [Values(AssessmentLayerOneState.NotAssessed, AssessmentLayerOneState.NoVerdict,
                 AssessmentLayerOneState.Sufficient)] AssessmentLayerOneState assessmentLayerOneResult,

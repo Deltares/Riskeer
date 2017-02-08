@@ -33,6 +33,7 @@ namespace Application.Ringtoets.Storage.Test.Read
     public class IHydraulicLocationOutputEntityReadExtensionsTest
     {
         [Test]
+        [Combinatorial]
         public void Read_ValidParameters_ReturnsHydraulicBoundaryLocationOutput(
             [Values(HydraulicLocationOutputType.DesignWaterLevel, HydraulicLocationOutputType.WaveHeight)] HydraulicLocationOutputType outputType,
             [Values(CalculationConvergence.CalculatedNotConverged, CalculationConvergence.CalculatedConverged,

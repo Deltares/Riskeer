@@ -48,6 +48,7 @@ namespace Ringtoets.Common.Service.Test
         }
 
         [Test]
+        [Combinatorial]
         public void ClearHydraulicBoundaryLocationOutput_LocationWithData_ClearsDataAndReturnsAffectedObjects(
             [Values(3.4, double.NaN)] double designWaterLevel,
             [Values(5.3, double.NaN)] double waveHeight)

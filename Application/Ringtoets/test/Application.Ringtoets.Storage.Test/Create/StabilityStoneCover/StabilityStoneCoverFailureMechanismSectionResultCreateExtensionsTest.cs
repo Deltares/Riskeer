@@ -33,6 +33,7 @@ namespace Application.Ringtoets.Storage.Test.Create.StabilityStoneCover
     public class StabilityStoneCoverFailureMechanismSectionResultCreateExtensionsTest
     {
         [Test]
+        [Combinatorial]
         public void Create_ValidData_ReturnsEntityEqualData(
             [Values(AssessmentLayerOneState.NotAssessed, AssessmentLayerOneState.NoVerdict,
                 AssessmentLayerOneState.Sufficient)] AssessmentLayerOneState assessmentLayerOneResult,

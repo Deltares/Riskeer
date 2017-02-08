@@ -33,6 +33,7 @@ namespace Application.Ringtoets.Storage.Test.Create.DuneErosion
     public class DuneErosionFailureMechanismSectionResultCreateExtensionsTest
     {
         [Test]
+        [Combinatorial]
         public void Create_ValidData_ReturnsEntityEqualData(
             [Values(AssessmentLayerOneState.NotAssessed, AssessmentLayerOneState.NoVerdict,
                 AssessmentLayerOneState.Sufficient)] AssessmentLayerOneState assessmentLayerOneResult,

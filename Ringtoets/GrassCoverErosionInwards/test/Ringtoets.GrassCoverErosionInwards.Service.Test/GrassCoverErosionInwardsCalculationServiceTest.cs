@@ -496,6 +496,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
         }
 
         [Test]
+        [Combinatorial]
         public void Calculate_CalculationValid_ReturnOutput([Values(true, false)] bool useForeland,
                                                             [Values(DikeHeightCalculationType.CalculateByAssessmentSectionNorm,
                                                                 DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability,
@@ -674,6 +675,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
         }
 
         [Test]
+        [Combinatorial]
         public void Calculate_CancelWithValidDikeCalculationInput_CancelsCalculatorAndHasNullOutput(
             [Values(true, false)] bool cancelBeforeDikeHeightCalculationStarts,
             [Values(DikeHeightCalculationType.CalculateByAssessmentSectionNorm,

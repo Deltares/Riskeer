@@ -59,6 +59,7 @@ namespace Ringtoets.Common.Service.Test
         }
 
         [Test]
+        [Combinatorial]
         public void ProfileSpecificRequiredProbability_WithValidParameters_ReturnSpecificProbability(
             [Values(1, 0.5, 0)] double norm,
             [Values(100, 50, 0)] double failureMechanismContribution,
@@ -73,7 +74,8 @@ namespace Ringtoets.Common.Service.Test
         }
 
         [Test]
-        public void ProfileSpecificRequiredProbability_WithInvalidNorm_ThrowsArgumentException([Values(150, 1 + 1e-6, -1e-6, -150, double.NaN)] double norm)
+        public void ProfileSpecificRequiredProbability_WithInvalidNorm_ThrowsArgumentException(
+            [Values(150, 1 + 1e-6, -1e-6, -150, double.NaN)] double norm)
         {
             // Setup
             const double failureMechanismContribution = 50;
@@ -91,7 +93,8 @@ namespace Ringtoets.Common.Service.Test
         }
 
         [Test]
-        public void ProfileSpecificRequiredProbability_WithInvalidFailureMechanismContribution_ThrowsArgumentException([Values(150, 100 + 1e-6, -1e-6, -150, double.NaN)] double failureMechanismContribution)
+        public void ProfileSpecificRequiredProbability_WithInvalidFailureMechanismContribution_ThrowsArgumentException(
+            [Values(150, 100 + 1e-6, -1e-6, -150, double.NaN)] double failureMechanismContribution)
         {
             // Setup
             const double norm = 0.5;

@@ -234,6 +234,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
         }
 
         [Test]
+        [Combinatorial]
         public void Validate_UseBreakWaterInvalidBreakWaterHeight_LogErrorAndReturnFalse(
             [Values(StabilityPointStructureInflowModelType.FloodedCulvert, StabilityPointStructureInflowModelType.LowSill)] StabilityPointStructureInflowModelType inflowModelType,
             [Values(LoadSchematizationType.Quadratic, LoadSchematizationType.Linear)] LoadSchematizationType loadSchematizationType,

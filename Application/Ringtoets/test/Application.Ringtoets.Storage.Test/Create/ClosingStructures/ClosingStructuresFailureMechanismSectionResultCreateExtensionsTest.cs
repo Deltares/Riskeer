@@ -49,6 +49,7 @@ namespace Application.Ringtoets.Storage.Test.Create.ClosingStructures
         }
 
         [Test]
+        [Combinatorial]
         public void Create_WithDifferentResults_ReturnsEntityWithExpectedResults(
             [Values(AssessmentLayerOneState.NotAssessed, AssessmentLayerOneState.NoVerdict,
                 AssessmentLayerOneState.Sufficient)] AssessmentLayerOneState assessmentLayerOneResult,

@@ -49,6 +49,7 @@ namespace Application.Ringtoets.Storage.Test.Create.StabilityPointStructures
         }
 
         [Test]
+        [Combinatorial]
         public void Create_VariousResults_ReturnsEntity(
             [Values(AssessmentLayerOneState.NotAssessed, AssessmentLayerOneState.NoVerdict,
                 AssessmentLayerOneState.Sufficient)] AssessmentLayerOneState assessmentLayerOneResult,

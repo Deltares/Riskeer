@@ -156,6 +156,7 @@ namespace Ringtoets.Integration.Forms.Test
         }
 
         [Test]
+        [Combinatorial]
         public void Constructor_WithParentAndReferenceLineMetas_ShowsExpectedGrid(
             [Values("", "10")] string assessmentSectionId,
             [Values(null, int.MinValue, -1, 0, 1, int.MaxValue)] int? signalingValue,

@@ -64,20 +64,23 @@ namespace Ringtoets.Common.Service
         {
             if (double.IsNaN(norm) || norm < 0.0 || norm > 1.0)
             {
-                throw new ArgumentOutOfRangeException(nameof(norm), norm, Resources.RingtoetsCommonDataCalculationService_ProfileSpecificRequiredProbability_Norm_must_be_in_interval_0_1);
+                throw new ArgumentOutOfRangeException(nameof(norm), norm,
+                                                      Resources.RingtoetsCommonDataCalculationService_ProfileSpecificRequiredProbability_Norm_must_be_in_interval_0_1);
             }
 
             if (double.IsNaN(failureMechanismContribution) || failureMechanismContribution < 0 || failureMechanismContribution > 100)
             {
-                throw new ArgumentOutOfRangeException(nameof(failureMechanismContribution), failureMechanismContribution, Resources.RingtoetsCommonDataCalculationService_ProfileSpecificRequiredProbability_Contribution_must_be_in_interval_0_100);
+                throw new ArgumentOutOfRangeException(nameof(failureMechanismContribution), failureMechanismContribution,
+                                                      Resources.RingtoetsCommonDataCalculationService_ProfileSpecificRequiredProbability_Contribution_must_be_in_interval_0_100);
             }
 
             if (n <= 0)
             {
-                throw new ArgumentOutOfRangeException(nameof(n), n, Resources.RingtoetsCommonDataCalculationService_ProfileSpecificRequiredProbability_N_must_be_larger_than_0);
+                throw new ArgumentOutOfRangeException(nameof(n), n,
+                                                      Resources.RingtoetsCommonDataCalculationService_ProfileSpecificRequiredProbability_N_must_be_larger_than_0);
             }
 
-            return norm*(failureMechanismContribution/100)/n;
+            return norm * (failureMechanismContribution / 100) / n;
         }
     }
 }

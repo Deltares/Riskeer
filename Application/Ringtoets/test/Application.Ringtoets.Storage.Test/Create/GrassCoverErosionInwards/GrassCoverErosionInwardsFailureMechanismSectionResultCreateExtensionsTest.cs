@@ -48,6 +48,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
         }
 
         [Test]
+        [Combinatorial]
         public void Create_WithDifferentResults_ReturnsEntityWithExpectedResults(
             [Values(AssessmentLayerOneState.NotAssessed, AssessmentLayerOneState.NoVerdict,
                 AssessmentLayerOneState.Sufficient)] AssessmentLayerOneState assessmentLayerOneResult,
