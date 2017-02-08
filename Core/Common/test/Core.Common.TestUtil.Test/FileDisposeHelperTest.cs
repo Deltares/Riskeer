@@ -28,15 +28,17 @@ namespace Core.Common.TestUtil.Test
     [TestFixture]
     public class FileDisposeHelperTest
     {
+        private static readonly TestDataPath testPath = TestDataPath.Core.Common.TestUtils;
+
         [Test]
         public void Constructor_NotExistingFile_DoesNotThrowException()
         {
             // Setup
-            string filePath = "doesNotExist.tmp";
+            string filePath = TestHelper.GetTestDataPath(testPath, Path.GetRandomFileName());
             FileDisposeHelper disposeHelper = null;
 
             // Precondition
-            Assert.IsFalse(File.Exists(filePath), string.Format("Precondition failed: File '{0}' should not exist", filePath));
+            Assert.IsFalse(File.Exists(filePath), $"Precondition failed: File '{filePath}' should not exist");
 
             // Call
             TestDelegate test = () => disposeHelper = new FileDisposeHelper(filePath);
@@ -51,7 +53,7 @@ namespace Core.Common.TestUtil.Test
         public void Constructor_ExistingFile_DoesNotThrowException()
         {
             // Setup
-            string filePath = "doesExist.tmp";
+            string filePath = TestHelper.GetTestDataPath(testPath, Path.GetRandomFileName());
             FileDisposeHelper disposeHelper = null;
 
             try
@@ -59,7 +61,7 @@ namespace Core.Common.TestUtil.Test
                 using (File.Create(filePath)) {}
 
                 // Precondition
-                Assert.IsTrue(File.Exists(filePath), string.Format("Precondition failed: File '{0}' should exist", filePath));
+                Assert.IsTrue(File.Exists(filePath), $"Precondition failed: File '{filePath}' should exist");
 
                 // Call
                 TestDelegate test = () => disposeHelper = new FileDisposeHelper(filePath);
@@ -80,7 +82,7 @@ namespace Core.Common.TestUtil.Test
         public void Constructor_FileDoesNotExist_Createsfile()
         {
             // Setup
-            string filePath = "willExist.tmp";
+            string filePath = TestHelper.GetTestDataPath(testPath, Path.GetRandomFileName());
 
             try
             {
@@ -121,8 +123,8 @@ namespace Core.Common.TestUtil.Test
             // Setup
             var filePaths = new[]
             {
-                "willExist.tmp",
-                "alsoWillExist.tmp"
+                TestHelper.GetTestDataPath(testPath, Path.GetRandomFileName()),
+                TestHelper.GetTestDataPath(testPath, Path.GetRandomFileName())
             };
 
             try
@@ -151,7 +153,7 @@ namespace Core.Common.TestUtil.Test
         public void Constructor_FilePathThatCannotBeCreated_ThrowsArgumentException()
         {
             // Setup
-            string filePath = Path.Combine("nonExistingPath", "fileThatCannotBeCreated");
+            string filePath = Path.Combine(TestHelper.GetTestDataPath(testPath), "nonExistingPath", "fileThatCannotBeCreated");
 
             // Call
             TestDelegate test = () => new FileDisposeHelper(filePath);
@@ -166,7 +168,7 @@ namespace Core.Common.TestUtil.Test
             // Setup
             var filePaths = new[]
             {
-                Path.Combine("nonExistingPath", "fileThatCannotBeCreated")
+                Path.Combine(TestHelper.GetTestDataPath(testPath), "nonExistingPath", "fileThatCannotBeCreated")
             };
 
             // Call
@@ -174,6 +176,123 @@ namespace Core.Common.TestUtil.Test
 
             // Assert
             Assert.Throws<ArgumentException>(test);
+        }
+
+        [Test]
+        public void LockFiles_ValidFilePath_LocksFile()
+        {
+            // Setup
+            string filePath = TestHelper.GetTestDataPath(testPath, Path.GetRandomFileName());
+
+            try
+            {
+                using (var fileDisposeHelper = new FileDisposeHelper(filePath))
+                {
+                    // Call
+                    fileDisposeHelper.LockFiles();
+
+                    // Assert
+                    Assert.IsFalse(IsFileWritable(filePath), $"'{filePath}' is not locked for writing.");
+                }
+
+                Assert.IsFalse(File.Exists(filePath), $"'{filePath}' should have been deleted.");
+            }
+            catch (Exception exception)
+            {
+                File.Delete(filePath);
+                Assert.Fail(exception.Message);
+            }
+        }
+
+        [Test]
+        public void LockFiles_FileAlreadyLocked_ThrowsInvalidOperationException()
+        {
+            // Setup
+            string filePath = TestHelper.GetTestDataPath(testPath, Path.GetRandomFileName());
+
+            try
+            {
+                using (var fileDisposeHelper = new FileDisposeHelper(filePath))
+                using (File.OpenWrite(filePath))
+                {
+                    // Call
+                    TestDelegate call = () => fileDisposeHelper.LockFiles();
+
+                    // Assert
+                    InvalidOperationException exception = Assert.Throws<InvalidOperationException>(call);
+                    Assert.AreEqual($"Unable to lock '{filePath}'.", exception.Message);
+                    Assert.IsNotNull(exception.InnerException);
+                }
+            }
+            catch (Exception exception)
+            {
+                File.Delete(filePath);
+                Assert.Fail(exception.Message);
+            }
+        }
+
+        [Test]
+        public void LockFiles_DirectoryAlreadyDeleted_ThrowsInvalidOperationException()
+        {
+            // Setup
+            string directoryPath = TestHelper.GetTestDataPath(testPath, Path.GetRandomFileName());
+            string filePath = Path.Combine(directoryPath, Path.GetRandomFileName());
+
+            try
+            {
+                Directory.CreateDirectory(directoryPath);
+                using (var fileDisposeHelper = new FileDisposeHelper(filePath))
+                {
+                    Directory.Delete(directoryPath, true);
+
+                    // Precondition
+                    Assert.IsFalse(Directory.Exists(directoryPath), $"'{directoryPath}' should have been deleted.");
+
+                    // Call
+                    TestDelegate call = () => fileDisposeHelper.LockFiles();
+
+                    // Assert
+                    InvalidOperationException exception = Assert.Throws<InvalidOperationException>(call);
+                    Assert.AreEqual($"Unable to lock '{filePath}'.", exception.Message);
+                    Assert.IsNotNull(exception.InnerException);
+                }
+            }
+            catch (Exception exception)
+            {
+                if (Directory.Exists(filePath))
+                {
+                    Directory.Delete(directoryPath, true);
+                    Assert.Fail($"File was not deleted: '{filePath}': {exception}");
+                }
+            }
+        }
+
+        [Test]
+        public void GivenFileDisposeHelperWithLockedFiles_LockFilesCalledAgain_DoesNotThrowException()
+        {
+            // Given
+            string filePath = TestHelper.GetTestDataPath(testPath, Path.GetRandomFileName());
+
+            try
+            {
+                using (var fileDisposeHelper = new FileDisposeHelper(filePath))
+                {
+                    fileDisposeHelper.LockFiles();
+
+                    // When
+                    TestDelegate call = () => fileDisposeHelper.LockFiles();
+
+                    // Then
+                    Assert.DoesNotThrow(call);
+                }
+
+                Assert.IsFalse(File.Exists(filePath), $"'{filePath}' should have been deleted.");
+            }
+            catch (Exception exception)
+            {
+                File.Delete(filePath);
+                Assert.Fail(exception.Message);
+            }
         }
 
         [Test]
@@ -193,7 +312,7 @@ namespace Core.Common.TestUtil.Test
         public void Dispose_ExistingFile_DeletesFile()
         {
             // Setup
-            const string filePath = "doesExist.tmp";
+            string filePath = TestHelper.GetTestDataPath(testPath, Path.GetRandomFileName());
 
             try
             {
@@ -212,7 +331,7 @@ namespace Core.Common.TestUtil.Test
             }
 
             // Assert
-            Assert.IsFalse(File.Exists(filePath));
+            Assert.IsFalse(File.Exists(filePath), $"'{filePath}' should have been deleted.");
         }
 
         [Test]
@@ -221,8 +340,8 @@ namespace Core.Common.TestUtil.Test
             // Setup
             var filePaths = new[]
             {
-                "doesExist.tmp",
-                "alsoDoesExist.tmp"
+                TestHelper.GetTestDataPath(testPath, Path.GetRandomFileName()),
+                TestHelper.GetTestDataPath(testPath, Path.GetRandomFileName())
             };
 
             try
@@ -250,7 +369,7 @@ namespace Core.Common.TestUtil.Test
             // Assert
             foreach (var filePath in filePaths)
             {
-                Assert.IsFalse(File.Exists(filePath));
+                Assert.IsFalse(File.Exists(filePath), $"'{filePath}' should have been deleted.");
             }
         }
 
@@ -258,8 +377,8 @@ namespace Core.Common.TestUtil.Test
         public void Dispose_FileAlreadyDeleted_DoesNotThrowException()
         {
             // Setup
-            const string directoryPath = "willBeRemoved";
-            string filePath = Path.Combine(directoryPath, "doesNotExist.tmp");
+            string directoryPath = TestHelper.GetTestDataPath(testPath, "willBeRemoved");
+            string filePath = Path.Combine(directoryPath, Path.GetRandomFileName());
 
             // Call
             try
@@ -280,6 +399,19 @@ namespace Core.Common.TestUtil.Test
                     Assert.Fail("File was not deleted: {0}", filePath);
                 }
             }
+        }
+
+        private static bool IsFileWritable(string filePath)
+        {
+            try
+            {
+                using (File.OpenWrite(filePath)) {}
+            }
+            catch (IOException)
+            {
+                return false;
+            }
+            return true;
         }
     }
 }

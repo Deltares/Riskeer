@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Core.Common.Utils;
 
 namespace Core.Common.TestUtil
@@ -40,7 +41,8 @@ namespace Core.Common.TestUtil
     /// </example>
     public class FileDisposeHelper : IDisposable
     {
-        private readonly IEnumerable<string> files;
+        private readonly Dictionary<string, FileStream> filePathStreams;
+        private bool disposed;
 
         /// <summary>
         /// Creates a new instance of <see cref="FileDisposeHelper"/>.
@@ -50,7 +52,11 @@ namespace Core.Common.TestUtil
         /// not be created by the system.</exception>
         public FileDisposeHelper(IEnumerable<string> filePaths)
         {
-            files = filePaths;
+            filePathStreams = new Dictionary<string, FileStream>();
+            foreach (string filePath in filePaths)
+            {
+                filePathStreams.Add(filePath, null);
+            }
             Create();
         }
 
@@ -64,19 +70,63 @@ namespace Core.Common.TestUtil
             filePath
         }) {}
 
+        /// <summary>
+        /// Declines sharing of the files specified in the constructor.
+        /// </summary>
+        /// <exception cref="InvalidOperationException">Thrown when one of the files could not be locked.</exception>
+        /// <seealso cref="FileShare.None"/>
+        public void LockFiles()
+        {
+            IEnumerable<KeyValuePair<string, FileStream>> notLockedFiles = filePathStreams.Where(f => f.Value == null).ToArray();
+            foreach (KeyValuePair<string, FileStream> filePathStream in notLockedFiles)
+            {
+                LockFile(filePathStream.Key);
+            }
+        }
+
         public void Dispose()
         {
-            foreach (var file in files)
+            Dispose(true);
+        }
+
+        private void LockFile(string filePath)
+        {
+            try
             {
-                try
+                filePathStreams[filePath] = File.OpenWrite(filePath);
+            }
+            catch (IOException exception)
+            {
+                throw new InvalidOperationException($"Unable to lock '{filePath}'.", exception);
+            }
+        }
+
+        private void Dispose(bool disposing)
+        {
+            if (disposed)
+            {
+                return;
+            }
+
+            if (disposing)
+            {
+                KeyValuePair<string, FileStream>[] dictionary = filePathStreams.ToArray();
+                foreach (KeyValuePair<string, FileStream> filePathStream in dictionary)
                 {
-                    DeleteFile(file);
-                }
-                catch
-                {
-                    // ignored
+                    filePathStream.Value?.Dispose();
+                    filePathStreams[filePathStream.Key] = null;
+
+                    try
+                    {
+                        DeleteFile(filePathStream.Key);
+                    }
+                    catch
+                    {
+                        // ignored
+                    }
                 }
             }
+            disposed = true;
         }
 
         /// <summary>
@@ -85,9 +135,9 @@ namespace Core.Common.TestUtil
         /// <exception cref="ArgumentException">Thrown when the file could not be created by the system.</exception>
         private void Create()
         {
-            foreach (var file in files)
+            foreach (string filePath in filePathStreams.Keys)
             {
-                CreateFile(file);
+                CreateFile(filePath);
             }
         }
 
