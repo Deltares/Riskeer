@@ -93,8 +93,15 @@ namespace Migration.Scripts.Data
         /// <exception cref="CriticalMigrationException">Thrown when upgrading failed.</exception>
         public void Upgrade(string sourceLocation, string targetLocation)
         {
-            IOUtils.ValidateFilePath(sourceLocation);
-            IOUtils.ValidateFilePath(targetLocation);
+            if (!IOUtils.IsValidFilePath(sourceLocation))
+            {
+                throw new ArgumentException($@"'{sourceLocation}' is not a valid file path.", nameof(sourceLocation));
+            }
+            if (!IOUtils.IsValidFilePath(targetLocation))
+            {
+                throw new ArgumentException($@"'{targetLocation}' is not a valid file path.", nameof(targetLocation));
+            }
+
             PerformUpgrade(sourceLocation, targetLocation);
         }
 

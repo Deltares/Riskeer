@@ -84,7 +84,8 @@ namespace Migration.Scripts.Data.Test
             TestDelegate call = () => upgradeScript.Upgrade(sourceFilePath, "Filepath.ext");
 
             // Assert
-            Assert.Throws<ArgumentException>(call);
+            ArgumentException exception = Assert.Throws<ArgumentException>(call);
+            Assert.AreEqual("sourceLocation", exception.ParamName);
         }
 
         [Test]
@@ -102,7 +103,8 @@ namespace Migration.Scripts.Data.Test
             TestDelegate call = () => upgradeScript.Upgrade("Filepath.ext", targetFilePath);
 
             // Assert
-            Assert.Throws<ArgumentException>(call);
+            ArgumentException exception = Assert.Throws<ArgumentException>(call);
+            Assert.AreEqual("targetLocation", exception.ParamName);
         }
     }
 }
