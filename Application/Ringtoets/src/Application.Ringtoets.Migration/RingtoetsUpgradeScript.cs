@@ -55,14 +55,8 @@ namespace Application.Ringtoets.Migration
                 throw new ArgumentException(@"Query must have a value.", nameof(query));
             }
 
-            if (!RingtoetsVersionHelper.IsValidVersion(fromVersion))
-            {
-                throw new ArgumentException($@"{fromVersion} is not a valid Ringtoets database version.", nameof(fromVersion));
-            }
-            if (!RingtoetsVersionHelper.IsValidVersion(toVersion))
-            {
-                throw new ArgumentException($@"{toVersion} is not a valid Ringtoets database version.", nameof(toVersion));
-            }
+            RingtoetsVersionHelper.ValidateVersion(fromVersion);
+            RingtoetsVersionHelper.ValidateVersion(toVersion);
 
             upgradeQuery = query;
         }

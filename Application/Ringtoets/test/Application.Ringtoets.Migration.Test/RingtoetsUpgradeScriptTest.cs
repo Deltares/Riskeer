@@ -36,8 +36,7 @@ namespace Application.Ringtoets.Migration.Test
         [Test]
         [TestCase("")]
         [TestCase(null)]
-        [TestCase("4")]
-        public void Constructor_InvalidFromVersion_ThrowsArgumentException(string fromVersion)
+        public void Constructor_FromVersionOrEmpty_ThrowsArgumentException(string fromVersion)
         {
             // Setup
             const string query = "Valid query";
@@ -54,8 +53,7 @@ namespace Application.Ringtoets.Migration.Test
         [Test]
         [TestCase("")]
         [TestCase(null)]
-        [TestCase("4")]
-        public void Constructor_InvalidToVersion_ThrowsArgumentException(string toVersion)
+        public void Constructor_ToVersionOrEmpty_ThrowsArgumentException(string toVersion)
         {
             // Setup
             string fromVersion = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
@@ -67,6 +65,38 @@ namespace Application.Ringtoets.Migration.Test
             // Assert
             string paramName = Assert.Throws<ArgumentException>(call).ParamName;
             Assert.AreEqual("toVersion", paramName);
+        }
+
+        [Test]
+        [TestCase("4")]
+        public void Constructor_InvalidFromVersion_ThrowsArgumentException(string fromVersion)
+        {
+            // Setup
+            const string query = "Valid query";
+            string toVersion = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
+
+            // Call
+            TestDelegate call = () => new RingtoetsUpgradeScript(fromVersion, toVersion, query);
+
+            // Assert
+            string expectedMessage = $@"'{fromVersion}' is geen geldige Ringtoets versie.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
+        }
+
+        [Test]
+        [TestCase("4")]
+        public void Constructor_InvalidToVersion_ThrowsArgumentException(string toVersion)
+        {
+            // Setup
+            string fromVersion = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
+            const string query = "Valid query";
+
+            // Call
+            TestDelegate call = () => new RingtoetsUpgradeScript(fromVersion, toVersion, query);
+
+            // Assert
+            string expectedMessage = $@"'{toVersion}' is geen geldige Ringtoets versie.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
 
         [Test]
@@ -144,7 +174,7 @@ namespace Application.Ringtoets.Migration.Test
 
             // Assert
             Assert.IsTrue(File.Exists(filePath));
-            using (new FileDisposeHelper(filePath)) { }
+            using (new FileDisposeHelper(filePath)) {}
         }
     }
 }

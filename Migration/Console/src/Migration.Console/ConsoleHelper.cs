@@ -82,9 +82,8 @@ namespace Migration.Console
             {
                 throw new ArgumentNullException(nameof(args));
             }
-            var windowWidth = GetWindowWidth() - paddingRight;
 
-            int bufferSize = windowWidth - paddingLeft;
+            int bufferSize = GetLineWidth() - paddingRight - paddingLeft;
             var paddingString = new string(' ', paddingLeft);
             foreach (var line in format.SplitByLength(bufferSize))
             {
@@ -92,7 +91,7 @@ namespace Migration.Console
             }
         }
 
-        private static int GetWindowWidth()
+        private static int GetLineWidth()
         {
             try
             {

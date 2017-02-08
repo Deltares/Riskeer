@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 
 namespace Ringtoets.Common.Utils.Test
@@ -74,8 +76,7 @@ namespace Ringtoets.Common.Utils.Test
         }
 
         [Test]
-        [TestCase("5a.0")]
-        [TestCase("17..")]
+        [TestCaseSource(nameof(InValidVersions))]
         public void IsNewerThanCurrentString_InvalidVersion_ReturnsFalse(string invalidVersion)
         {
             // Call
@@ -86,8 +87,7 @@ namespace Ringtoets.Common.Utils.Test
         }
 
         [Test]
-        [TestCase("5")]
-        [TestCase("17")]
+        [TestCaseSource(nameof(ValidVersions))]
         public void IsValidVersion_ValidVersion_ReturnsTrue(string validVersion)
         {
             // Call
@@ -98,8 +98,7 @@ namespace Ringtoets.Common.Utils.Test
         }
 
         [Test]
-        [TestCase("4")]
-        [TestCase("..")]
+        [TestCaseSource(nameof(InValidVersions))]
         public void IsValidVersion_InvalidVersion_ReturnsFalse(string invalidVersion)
         {
             // Call
@@ -107,6 +106,48 @@ namespace Ringtoets.Common.Utils.Test
 
             // Assert
             Assert.IsFalse(isNewer);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(ValidVersions))]
+        public void ValidateVersion_ValidVersion_DoesNotThrowException(string validVersion)
+        {
+            // Call
+            TestDelegate call = () => RingtoetsVersionHelper.ValidateVersion(validVersion);
+
+            // Assert
+            Assert.DoesNotThrow(call);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(InValidVersions))]
+        public void ValidateVersion_InValidVersion_ThrowArgumentException(string validVersion)
+        {
+            // Call
+            TestDelegate call = () => RingtoetsVersionHelper.ValidateVersion(validVersion);
+
+            // Assert
+            string expectedMessage = $@"'{validVersion}' is geen geldige Ringtoets versie.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
+        }
+
+        private static TestCaseData[] ValidVersions()
+        {
+            return new[]
+            {
+                new TestCaseData("5"),
+                new TestCaseData("17.1")
+            };
+        }
+
+        private static TestCaseData[] InValidVersions()
+        {
+            return new[]
+            {
+                new TestCaseData("4"),
+                new TestCaseData("5a"),
+                new TestCaseData("..")
+            };
         }
     }
 }

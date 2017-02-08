@@ -19,6 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using Ringtoets.Common.Utils.Properties;
+
 namespace Ringtoets.Common.Utils
 {
     /// <summary>
@@ -56,10 +59,26 @@ namespace Ringtoets.Common.Utils
         /// <param name="version">The version to compare.</param>
         /// <returns><c>true</c> if <paramref name="version"/> is a valid database version, 
         /// <c>false</c> otherwise.</returns>
+        /// <remarks>A valid version must be greater than <see cref="validDatabaseVersion"/>.</remarks>
         public static bool IsValidVersion(string version)
         {
             var versionComparer = new RingtoetsVersionComparer();
             return versionComparer.Compare(version, validDatabaseVersion) >= 0;
+        }
+
+        /// <summary>
+        /// Validates if the <paramref name="version"/> is a valid database version.
+        /// </summary>
+        /// <param name="version">The version to compare.</param>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="version"/> is not a 
+        /// valid Ringtoets database version.</exception>
+        /// <seealso cref="IsValidVersion"/>
+        public static void ValidateVersion(string version)
+        {
+            if (!IsValidVersion(version))
+            {
+                throw new ArgumentException(string.Format(Resources.RingtoetsVersionHelper_Version_0_Not_Valid, version), version);
+            }
         }
     }
 }

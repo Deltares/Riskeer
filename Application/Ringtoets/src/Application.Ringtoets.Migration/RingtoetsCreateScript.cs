@@ -47,10 +47,8 @@ namespace Application.Ringtoets.Migration
         /// </list></exception>
         public RingtoetsCreateScript(string version, string query) : base(version)
         {
-            if (!RingtoetsVersionHelper.IsValidVersion(version))
-            {
-                throw new ArgumentException($@"{version} is not a valid Ringtoets database version.", nameof(version));
-            }
+            RingtoetsVersionHelper.ValidateVersion(version);
+
             if (string.IsNullOrWhiteSpace(query))
             {
                 throw new ArgumentException(@"Query must have a value.", nameof(query));

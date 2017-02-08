@@ -36,8 +36,7 @@ namespace Application.Ringtoets.Migration.Test
         [Test]
         [TestCase("")]
         [TestCase(null)]
-        [TestCase("4")]
-        public void Constructor_InvalidVersion_ThrowsArgumentException(string version)
+        public void Constructor_VersionOrEmpty_ThrowsArgumentException(string version)
         {
             // Setup
             const string query = "Valid query";
@@ -48,6 +47,21 @@ namespace Application.Ringtoets.Migration.Test
             // Assert
             string paramName = Assert.Throws<ArgumentException>(call).ParamName;
             Assert.AreEqual("version", paramName);
+        }
+
+        [Test]
+        [TestCase("4")]
+        public void Constructor_InvalidVersion_ThrowsArgumentException(string version)
+        {
+            // Setup
+            const string query = "Valid query";
+
+            // Call
+            TestDelegate call = () => new RingtoetsCreateScript(version, query);
+
+            // Assert
+            string expectedMessage = $@"'{version}' is geen geldige Ringtoets versie.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
 
         [Test]
