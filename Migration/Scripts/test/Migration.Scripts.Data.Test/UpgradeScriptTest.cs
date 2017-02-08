@@ -73,7 +73,7 @@ namespace Migration.Scripts.Data.Test
         [TestCase("")]
         [TestCase("   ")]
         [TestCase(null)]
-        public void Upgrade_SourceNull_ThrowsArgumentException(string sourceFilePath)
+        public void Upgrade_InvalidSourceFilePath_ThrowsArgumentException(string sourceFilePath)
         {
             // Setup
             const string fromVersion = "fromVersion";
@@ -91,7 +91,7 @@ namespace Migration.Scripts.Data.Test
         [TestCase("")]
         [TestCase("   ")]
         [TestCase(null)]
-        public void Upgrade_TargetNull_ThrowsArgumentException(string targetFilePath)
+        public void Upgrade_InvalidTargetFilePath_ThrowsArgumentException(string targetFilePath)
         {
             // Setup
             const string fromVersion = "fromVersion";

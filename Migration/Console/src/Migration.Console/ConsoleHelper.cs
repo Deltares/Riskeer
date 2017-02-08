@@ -66,7 +66,6 @@ namespace Migration.Console
         /// <seealso cref="SystemConsole.WriteLine(string, object[])"/>
         public static void WriteCommandDescriptionLine(string format, params object[] args)
         {
-            
             const int paddingLeft = 10;
             const int paddingRight = 1;
             WriteLineWithPadding(format, args, paddingLeft, paddingRight);

@@ -122,7 +122,7 @@ namespace Application.Ringtoets.Migration.Test
             using (new FileDisposeHelper(filePath))
             {
                 CriticalMigrationException exception = Assert.Throws<CriticalMigrationException>(call);
-                Assert.AreEqual($"Het upgraden van het Ringtoets bestand versie {fromVersion} naar {fromVersion} is mislukt.",
+                Assert.AreEqual($"Het upgraden van het Ringtoets bestand versie '{fromVersion}' naar '{fromVersion}' is mislukt.",
                                 exception.Message);
                 Assert.IsInstanceOf<SQLiteException>(exception.InnerException);
             }
@@ -143,10 +143,8 @@ namespace Application.Ringtoets.Migration.Test
             upgradeScript.Upgrade("c:\\file.ext", filePath);
 
             // Assert
-            using (new FileDisposeHelper(filePath))
-            {
-                Assert.IsTrue(File.Exists(filePath));
-            }
+            Assert.IsTrue(File.Exists(filePath));
+            using (new FileDisposeHelper(filePath)) { }
         }
     }
 }

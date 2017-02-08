@@ -136,7 +136,7 @@ namespace Application.Ringtoets.MigrationConsole.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het projectbestand is niet ondersteund..
+        ///   Looks up a localized string similar to Het projectbestand wordt niet ondersteund..
         /// </summary>
         internal static string CommandSupported_File_Not_Supported {
             get {
@@ -145,7 +145,7 @@ namespace Application.Ringtoets.MigrationConsole.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het projectbestand is ondersteund..
+        ///   Looks up a localized string similar to Het projectbestand wordt ondersteund..
         /// </summary>
         internal static string CommandSupported_File_Supported {
             get {

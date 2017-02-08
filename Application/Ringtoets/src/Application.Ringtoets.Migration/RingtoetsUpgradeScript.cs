@@ -43,8 +43,8 @@ namespace Application.Ringtoets.Migration
         /// <param name="query">The SQL query to upgrade from <paramref name="fromVersion"/> to <paramref name="toVersion"/>.</param>
         /// <exception cref="ArgumentException">Thrown when:
         /// <list type="bullet">
-        /// <item><paramref name="fromVersion"/> is empty, <c>null</c>, or not a valid Ringtoets database version,</item>
-        /// <item><paramref name="toVersion"/> is empty, <c>null</c>, or not a valid Ringtoets database version,</item>
+        /// <item><paramref name="fromVersion"/> is not a valid Ringtoets database version,</item>
+        /// <item><paramref name="toVersion"/> is not a valid Ringtoets database version,</item>
         /// <item><paramref name="query"/> is empty, <c>null</c>, or consists out of only whitespace characters.</item>
         /// </list></exception>
         public RingtoetsUpgradeScript(string fromVersion, string toVersion, string query)

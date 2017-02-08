@@ -136,10 +136,10 @@
     <value>Dit hulpprogramma kan worden gebruikt om een projectbestand in het formaat van een eerdere versie van Ringtoets te migreren naar het formaat van de huidige versie van Ringtoets.</value>
   </data>
   <data name="CommandSupported_File_Supported" xml:space="preserve">
-    <value>Het projectbestand is ondersteund.</value>
+    <value>Het projectbestand wordt ondersteund.</value>
   </data>
   <data name="CommandSupported_File_Not_Supported" xml:space="preserve">
-    <value>Het projectbestand is niet ondersteund.</value>
+    <value>Het projectbestand wordt niet ondersteund.</value>
   </data>
   <data name="CommandInvalid_Command_0_Is_not_valid" xml:space="preserve">
     <value>{0} is geen geldige opdracht.</value>

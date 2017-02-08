@@ -78,7 +78,7 @@ namespace Application.Ringtoets.Storage.Test
             // Assert
             StorageException exception = Assert.Throws<CouldNotConnectException>(test);
 
-            Assert.AreEqual($@"Fout bij het lezen van bestand '{nonExistingPath}': {"het bestand bestaat niet."}",
+            Assert.AreEqual($@"Fout bij het lezen van bestand '{nonExistingPath}': het bestand bestaat niet.",
                             exception.Message);
         }
 
@@ -151,7 +151,7 @@ namespace Application.Ringtoets.Storage.Test
                                 exception.InnerException.Message);
 
                 Assert.IsInstanceOf<SQLiteException>(exception.InnerException.InnerException);
-                Assert.AreEqual("SQL logic error or missing database" + Environment.NewLine
+                Assert.AreEqual($"SQL logic error or missing database{Environment.NewLine}"
                                 + "no such table: ProjectEntity", exception.InnerException.InnerException.Message);
             }
             finally
@@ -286,8 +286,8 @@ namespace Application.Ringtoets.Storage.Test
                 StorageException exception = Assert.Throws<StorageValidationException>(test);
                 Assert.IsInstanceOf<Exception>(exception);
                 Assert.AreEqual($@"Fout bij het lezen van bestand '{tempRingtoetsFile}': ringtoets "
-                                + $"bestand versie '{versionCode}' is niet valide. Ringtoets bestand "
-                                + "versie dient '16.4' of hoger te zijn.", exception.Message);
+                                + $"bestand versie '{versionCode}' is niet valide. De versie van het Ringtoets projectbestand "
+                                + "dient '16.4' of hoger te zijn.", exception.Message);
             }
             finally
             {

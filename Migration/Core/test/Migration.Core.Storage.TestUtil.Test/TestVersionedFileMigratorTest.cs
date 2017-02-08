@@ -87,10 +87,11 @@ namespace Migration.Core.Storage.TestUtil.Test
             var mockRepository = new MockRepository();
             var comparer = mockRepository.Stub<IComparer>();
             mockRepository.ReplayAll();
-
-            // Call
+            
             IEnumerable<UpgradeScript> upgradeScripts = Enumerable.Empty<UpgradeScript>();
             IEnumerable<CreateScript> createScripts = Enumerable.Empty<CreateScript>();
+
+            // Call
             var migrator = new SimpleTestVersionedFileMigrator(comparer, upgradeScripts,
                                                                createScripts);
 

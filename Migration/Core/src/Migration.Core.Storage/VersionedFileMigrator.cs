@@ -164,16 +164,16 @@ namespace Migration.Core.Storage
             }
             catch (Exception exception) when (exception is IOException || exception is UnauthorizedAccessException)
             {
-                var message = string.Format(Resources.Migrate_Unable_To_Move_From_Location_0_To_Location_1,
-                                            sourceFileName, destinationFileName);
+                string message = string.Format(Resources.Migrate_Unable_To_Move_From_Location_0_To_Location_1,
+                                               sourceFileName, destinationFileName);
                 throw new CriticalMigrationException(message, exception);
             }
         }
 
         private FileMigrationScript GetMigrationScript(string fromVersion, string toVersion)
         {
-            var supportedMigrationScripts = fileMigrationScripts.Where(ms => ms.SupportedVersion()
-                                                                               .Equals(fromVersion));
+            IEnumerable<FileMigrationScript> supportedMigrationScripts = fileMigrationScripts.Where(ms => ms.SupportedVersion()
+                                                                                                            .Equals(fromVersion));
 
             return supportedMigrationScripts.FirstOrDefault(ms => ms.TargetVersion().Equals(toVersion))
                    ?? supportedMigrationScripts.FirstOrDefault(ms => versionedFileComparer.Compare(toVersion, ms.TargetVersion()) > 0);
@@ -181,14 +181,14 @@ namespace Migration.Core.Storage
 
         private IEnumerable<FileMigrationScript> GetAvailableMigrations()
         {
-            IEnumerable<UpgradeScript> migrationStreams = GetAvailableUpgradeScripts();
+            IEnumerable<UpgradeScript> upgradeScripts = GetAvailableUpgradeScripts();
 
-            foreach (var migrationScript in migrationStreams)
+            foreach (UpgradeScript upgradeScript in upgradeScripts)
             {
-                CreateScript createScript = GetAvailableCreateScripts().FirstOrDefault(cs => cs.GetVersion().Equals(migrationScript.ToVersion()));
+                CreateScript createScript = GetAvailableCreateScripts().FirstOrDefault(cs => cs.GetVersion().Equals(upgradeScript.ToVersion()));
                 if (createScript != null)
                 {
-                    yield return new FileMigrationScript(createScript, migrationScript);
+                    yield return new FileMigrationScript(createScript, upgradeScript);
                 }
             }
         }

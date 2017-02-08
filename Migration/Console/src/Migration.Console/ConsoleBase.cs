@@ -127,7 +127,7 @@ namespace Migration.Console
             {
                 ConsoleHelper.WriteErrorLine(Resources.Message_Inner_Exception_0, exception.InnerException.Message);
             }
-            ConsoleHelper.WriteErrorLine("");
+            SystemConsole.WriteLine();
         }
     }
 }

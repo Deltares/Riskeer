@@ -68,18 +68,16 @@ namespace Migration.Console.Test
             // Setup
             var consoleBase = new SimpleConsoleBase(applicationName, applicationDescription);
 
-            string consoleText;
             using (var consoleOutput = new ConsoleOutput())
             {
                 // Call
                 consoleBase.WriteDisplayAllCommands();
 
-                consoleText = consoleOutput.GetConsoleOutput();
+                // Assert
+                string consoleText = consoleOutput.GetConsoleOutput();
+                Assert.AreEqual(GetConsoleFullDescription(), consoleText);
+                Assert.AreEqual(ErrorCode.ErrorSuccess, environmentControl.ErrorCodeCalled);
             }
-
-            // Assert
-            Assert.AreEqual(GetConsoleFullDescription(), consoleText);
-            Assert.AreEqual(ErrorCode.ErrorSuccess, environmentControl.ErrorCodeCalled);
         }
 
         [Test]
@@ -88,18 +86,16 @@ namespace Migration.Console.Test
             // Setup
             var consoleBase = new SimpleConsoleBase(applicationName, applicationDescription);
 
-            string consoleText;
             using (var consoleOutput = new ConsoleOutput())
             {
                 // Call
                 consoleBase.SimpleExecuteConsoleTool(null);
 
-                consoleText = consoleOutput.GetConsoleOutput();
+                // Assert
+                string consoleText = consoleOutput.GetConsoleOutput();
+                Assert.AreEqual(GetConsoleFullDescription(), consoleText);
+                Assert.AreEqual(ErrorCode.ErrorSuccess, environmentControl.ErrorCodeCalled);
             }
-
-            // Assert
-            Assert.AreEqual(GetConsoleFullDescription(), consoleText);
-            Assert.AreEqual(ErrorCode.ErrorSuccess, environmentControl.ErrorCodeCalled);
         }
 
         [Test]
@@ -110,7 +106,6 @@ namespace Migration.Console.Test
             // Setup
             var consoleBase = new SimpleConsoleBase(applicationName, applicationDescription);
 
-            string consoleText;
             using (var consoleOutput = new ConsoleOutput())
             {
                 // Call
@@ -119,12 +114,11 @@ namespace Migration.Console.Test
                     command
                 });
 
-                consoleText = consoleOutput.GetConsoleOutput();
+                // Assert
+                string consoleText = consoleOutput.GetConsoleOutput();
+                Assert.AreEqual(GetConsoleFullDescription(), consoleText);
+                Assert.AreEqual(ErrorCode.ErrorSuccess, environmentControl.ErrorCodeCalled);
             }
-
-            // Assert
-            Assert.AreEqual(GetConsoleFullDescription(), consoleText);
-            Assert.AreEqual(ErrorCode.ErrorSuccess, environmentControl.ErrorCodeCalled);
         }
 
         [Test]
@@ -138,82 +132,80 @@ namespace Migration.Console.Test
             };
             var consoleBase = new SimpleConsoleBase(applicationName, applicationDescription);
 
-            string consoleText;
             using (var consoleOutput = new ConsoleOutput())
             {
                 // Call
-
                 consoleBase.SimpleExecuteConsoleTool(commandArgs);
 
-                consoleText = consoleOutput.GetConsoleOutput();
+                // Assert
+                Assert.IsEmpty(consoleOutput.GetConsoleOutput());
+                Assert.AreEqual(commandArgs, consoleBase.ExecuteCommandArguments);
+                Assert.AreEqual(ErrorCode.ErrorSuccess, environmentControl.ErrorCodeCalled);
             }
-
-            // Assert
-            Assert.AreEqual("", consoleText);
-            Assert.AreEqual(commandArgs, consoleBase.ExecuteCommandArguments);
-            Assert.AreEqual(ErrorCode.ErrorSuccess, environmentControl.ErrorCodeCalled);
         }
 
         [Test]
-        public void ExecuteConsoleTool_BadCommand_WritesErrorWithErrorCode()
+        public void ExecuteConsoleTool_ThrowsExceptionWithoutInnerException_WritesErrorWithErrorCode()
         {
             // Setup
             const string command = "invalid command";
+            const string exceptionMessage = "I was told to be thrown.";
             var commandArgs = new[]
             {
                 command
             };
             var consoleBase = new SimpleConsoleBase(applicationName, applicationDescription);
 
-            string consoleText;
             using (var consoleOutput = new ConsoleOutput())
             {
-                consoleBase.ExceptionToBeThrown = new CriticalMigrationException("I was told to be thrown.");
+                consoleBase.ExceptionToBeThrown = new CriticalMigrationException(exceptionMessage);
 
                 // Call
                 consoleBase.SimpleExecuteConsoleTool(commandArgs);
 
-                consoleText = consoleOutput.GetConsoleOutput();
-            }
+                // Assert
+                string expectedtext = exceptionMessage + Environment.NewLine
+                                      + Environment.NewLine + GetConsoleFullDescription();
+                string consoleText = consoleOutput.GetConsoleOutput();
+                Assert.AreEqual(expectedtext, consoleText);
 
-            // Assert
-            string expectedtext = "I was told to be thrown." + Environment.NewLine
-                                  + Environment.NewLine + GetConsoleFullDescription();
-            Assert.AreEqual(expectedtext, consoleText);
-            Assert.AreEqual(commandArgs, consoleBase.ExecuteCommandArguments);
-            Assert.AreEqual(ErrorCode.ErrorBadCommand, environmentControl.ErrorCodeCalled);
+                Assert.AreEqual(commandArgs, consoleBase.ExecuteCommandArguments);
+                Assert.AreEqual(ErrorCode.ErrorBadCommand, environmentControl.ErrorCodeCalled);
+            }
         }
 
         [Test]
-        public void ExecuteConsoleTool_ThrowsException_WritesErrorWithErrorCode()
+        public void ExecuteConsoleTool_ThrowsExceptionWithInnerException_WritesErrorsWithErrorCode()
         {
             // Setup
             const string command = "invalid command";
+            const string exceptionMessage = "I was told to be thrown.";
+            const string innerExceptionMessage = "inner exception.";
+
             var commandArgs = new[]
             {
                 command
             };
             var consoleBase = new SimpleConsoleBase(applicationName, applicationDescription);
 
-            string consoleText;
             using (var consoleOutput = new ConsoleOutput())
             {
-                consoleBase.ExceptionToBeThrown = new Exception("I was told to be thrown.", new Exception("inner exception."));
+                consoleBase.ExceptionToBeThrown = new Exception(exceptionMessage, new Exception(innerExceptionMessage));
 
                 // Call
                 consoleBase.SimpleExecuteConsoleTool(commandArgs);
 
-                consoleText = consoleOutput.GetConsoleOutput();
-            }
+                // Assert
+                string expectedtext = exceptionMessage + Environment.NewLine
+                                      + $"Het besturingssysteem geeft de volgende melding: {innerExceptionMessage}"
+                                      + Environment.NewLine + Environment.NewLine
+                                      + GetConsoleFullDescription();
+                string consoleText = consoleOutput.GetConsoleOutput();
+                Assert.AreEqual(expectedtext, consoleText);
 
-            // Assert
-            string expectedtext = "I was told to be thrown." + Environment.NewLine
-                                  + "Het besturingssysteem geeft de volgende melding: inner exception."
-                                  + Environment.NewLine + Environment.NewLine
-                                  + GetConsoleFullDescription();
-            Assert.AreEqual(expectedtext, consoleText);
-            Assert.AreEqual(commandArgs, consoleBase.ExecuteCommandArguments);
-            Assert.AreEqual(ErrorCode.ErrorInvalidCommandLine, environmentControl.ErrorCodeCalled);
+                Assert.AreEqual(commandArgs, consoleBase.ExecuteCommandArguments);
+                Assert.AreEqual(ErrorCode.ErrorInvalidCommandLine, environmentControl.ErrorCodeCalled);
+            }
         }
 
         private static string GetConsoleFullDescription()

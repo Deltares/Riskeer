@@ -111,7 +111,7 @@ namespace Application.Ringtoets.MigrationConsole.Test
             }
 
             // Then
-            Assert.AreEqual($@"Het projectbestand is {(isSupported ? "" : "niet ")}ondersteund."
+            Assert.AreEqual($@"Het projectbestand wordt {(isSupported ? "" : "niet ")}ondersteund."
                             + Environment.NewLine, consoleText);
             Assert.AreEqual(ErrorCode.ErrorSuccess, environmentControl.ErrorCodeCalled);
         }

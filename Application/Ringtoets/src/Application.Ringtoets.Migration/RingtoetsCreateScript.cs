@@ -42,7 +42,7 @@ namespace Application.Ringtoets.Migration
         /// <param name="query">The SQL query that belongs to <paramref name="version"/>.</param>
         /// <exception cref="ArgumentException">Thrown when:
         /// <list type="bullet">
-        /// <item><paramref name="version"/> is empty, <c>null</c>, or not a valid Ringtoets database version,</item>
+        /// <item><paramref name="version"/> is not a valid Ringtoets database version,</item>
         /// <item><paramref name="query"/> is empty, <c>null</c>, or consist out of only whitespace characters.</item>
         /// </list></exception>
         public RingtoetsCreateScript(string version, string query) : base(version)

@@ -145,7 +145,7 @@
     <value>Er bestaat al een tijdelijk bestand ({0}) dat niet verwijderd kan worden. Dit bestand dient handmatig verwijderd te worden.</value>
   </data>
   <data name="StorageSqLite_ValidateDatabaseVersion_DatabaseVersion_0_is_invalid" xml:space="preserve">
-    <value>Ringtoets bestand versie '{0}' is niet valide. Ringtoets bestand versie dient '16.4' of hoger te zijn.</value>
+    <value>Ringtoets bestand versie '{0}' is niet valide. De versie van het Ringtoets projectbestand dient '16.4' of hoger te zijn.</value>
   </data>
   <data name="StorageSqLite_ValidateDatabaseVersion_DatabaseVersion_0_higher_then_current_DatabaseVersion_1_" xml:space="preserve">
     <value>Ringtoets bestand versie '{0}' is hoger dan de huidig ondersteunde versie ('{1}'). Update Ringtoets naar een nieuwere versie.</value>
