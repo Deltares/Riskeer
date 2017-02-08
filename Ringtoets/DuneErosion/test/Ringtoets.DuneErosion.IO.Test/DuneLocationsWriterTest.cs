@@ -61,7 +61,7 @@ namespace Ringtoets.DuneErosion.IO.Test
         [TestCase("")]
         [TestCase("   ")]
         [TestCase("c:\\>")]
-        public void WriteWaveConditions_FilePathInvalid_ThrowCriticalFileWriteException(string filePath)
+        public void WriteDuneLocations_FilePathInvalid_ThrowCriticalFileWriteException(string filePath)
         {
             // Call
             TestDelegate call = () => DuneLocationsWriter.WriteDuneLocations(Enumerable.Empty<DuneLocation>(), filePath);

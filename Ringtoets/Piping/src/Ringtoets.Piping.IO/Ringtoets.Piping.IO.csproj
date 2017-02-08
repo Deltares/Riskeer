@@ -52,6 +52,7 @@
     <Compile Include="Builders\SoilProfileBuilder2D.cs" />
     <Compile Include="Builders\SoilDatabaseQueryBuilder.cs" />
     <Compile Include="Exceptions\StochasticSoilProfileReadException.cs" />
+    <Compile Include="Exporters\CalculationGroupWriter.cs" />
     <Compile Include="Importer\IStochasticSoilModelChangeHandler.cs" />
     <Compile Include="Importer\IStochasticSoilModelUpdateModelStrategy.cs" />
     <Compile Include="Importer\ISurfaceLineUpdateSurfaceLineStrategy.cs" />
@@ -98,6 +99,11 @@
     <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Utils\Core.Common.Utils.csproj">
       <Project>{f49bd8b2-332a-4c91-a196-8cce0a2c7d98}</Project>
       <Name>Core.Common.Utils</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">
+      <Project>{D4200F43-3F72-4F42-AF0A-8CED416A38EC}</Project>
+      <Name>Ringtoets.Common.Data</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.IO\Ringtoets.Common.IO.csproj">
@@ -153,6 +159,7 @@
     </None>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>
