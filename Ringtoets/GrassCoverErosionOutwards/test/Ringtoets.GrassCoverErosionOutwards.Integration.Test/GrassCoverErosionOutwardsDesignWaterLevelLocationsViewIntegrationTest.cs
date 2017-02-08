@@ -61,11 +61,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
         [TestCase(true, false, "De bijdrage van dit toetsspoor is nul.", TestName = "CalculateButton_ContributionChanged_SyncedAccordingly(true, false, message)")]
         [TestCase(false, true, "Er zijn geen berekeningen geselecteerd.", TestName = "CalculateButton_ContributionChanged_SyncedAccordingly(false, true, message)")]
         [TestCase(true, true, "", TestName = "CalculateButton_ContributionChanged_SyncedAccordingly(true, true, message)")]
-        public void CalculateForSelectedButton_FailureMechanismContributionChanged_ButtonAndErrorMessageSyncedAccordingly(bool rowSelected,
-                                                                                                                          bool contributionAfterChangeNotZero,
-                                                                                                                          string expectedErrorMessage)
+        public void GivenDesignWaterLevelLocationsView_WhenFailureMechanismContributionChanged_ThenButtonAndErrorMessageSyncedAccordingly(bool rowSelected,
+                                                                                                                                          bool contributionAfterChangeNotZero,
+                                                                                                                                          string expectedErrorMessage)
         {
-            // Setup
+            // Given
             GrassCoverErosionOutwardsDesignWaterLevelLocationsView view = ShowFullyConfiguredDesignWaterLevelLocationsView();
             view.AssessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
@@ -89,11 +89,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
             var errorProvider = TypeUtils.GetField<ErrorProvider>(view, "CalculateForSelectedButtonErrorProvider");
             Assert.AreNotEqual(expectedErrorMessage, errorProvider.GetError(button));
 
-            // Call
+            // When
             failureMechanism.Contribution = contributionAfterChangeNotZero ? 5 : 0;
             view.AssessmentSection.NotifyObservers();
 
-            // Assert
+            // Then
             Assert.AreEqual(rowSelected && contributionAfterChangeNotZero, button.Enabled);
             Assert.AreEqual(expectedErrorMessage, errorProvider.GetError(button));
         }

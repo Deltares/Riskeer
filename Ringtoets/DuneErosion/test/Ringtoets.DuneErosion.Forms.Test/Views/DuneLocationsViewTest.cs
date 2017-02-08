@@ -429,11 +429,14 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
         [TestCase(true, false, "De bijdrage van dit toetsspoor is nul.", TestName = "CalculateButton_RowSelectionContributionSet_SyncedAccordingly(true, false, message)")]
         [TestCase(false, true, "Er zijn geen berekeningen geselecteerd.", TestName = "CalculateButton_RowSelectionContributionSet_SyncedAccordingly(false, true, message)")]
         [TestCase(true, true, "", TestName = "CalculateButton_RowSelectionContributionSet_SyncedAccordingly(true, true, message)")]
-        public void CalculateForSelectedButton_SpecificCombinationOfRowSelectionAndFailureMechanismContributionSet_ButtonAndErrorMessageSyncedAccordingly(bool rowSelected, bool contributionNotZero, string expectedErrorMessage)
+        public void GivenDuneLocationsView_WhenSpecificCombinationOfRowSelectionAndFailureMechanismContributionSet_ThenButtonAndErrorMessageSyncedAccordingly(bool rowSelected,
+                                                                                                                                                              bool contributionNotZero,
+                                                                                                                                                              string expectedErrorMessage)
         {
-            // Setup & Call
+            // Given
             DuneLocationsView view = ShowFullyConfiguredDuneLocationsView();
 
+            // When
             if (rowSelected)
             {
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
@@ -448,7 +451,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             }
             view.FailureMechanism = failureMechanism;
 
-            // Assert
+            // Then
             var button = (Button) view.Controls.Find("CalculateForSelectedButton", true)[0];
             Assert.AreEqual(rowSelected && contributionNotZero, button.Enabled);
             var errorProvider = TypeUtils.GetField<ErrorProvider>(view, "CalculateForSelectedButtonErrorProvider");
