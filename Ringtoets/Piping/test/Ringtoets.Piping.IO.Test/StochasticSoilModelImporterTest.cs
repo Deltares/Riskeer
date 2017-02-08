@@ -55,8 +55,7 @@ namespace Ringtoets.Piping.IO.Test
             TestDelegate call = () => new StochasticSoilModelImporter(
                 null,
                 "",
-                new TestStochasticSoilModelUpdateModelStrategy(),
-                new TestStochasticSoilModelChangeHandler());
+                new TestStochasticSoilModelUpdateModelStrategy());
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -70,27 +69,11 @@ namespace Ringtoets.Piping.IO.Test
             TestDelegate call = () => new StochasticSoilModelImporter(
                 new ObservableCollectionWithSourcePath<StochasticSoilModel>(),
                 "",
-                null,
-                new TestStochasticSoilModelChangeHandler());
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("modelUpdateStrategy", paramName);
-        }
-
-        [Test]
-        public void Constructor_ChangeHandlerNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate call = () => new StochasticSoilModelImporter(
-                new ObservableCollectionWithSourcePath<StochasticSoilModel>(),
-                "",
-                new TestStochasticSoilModelUpdateModelStrategy(),
                 null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("changeHandler", paramName);
+            Assert.AreEqual("modelUpdateStrategy", paramName);
         }
 
         [Test]
@@ -102,8 +85,7 @@ namespace Ringtoets.Piping.IO.Test
             var importer = new StochasticSoilModelImporter(
                 list,
                 "",
-                new TestStochasticSoilModelUpdateModelStrategy(),
-                new TestStochasticSoilModelChangeHandler());
+                new TestStochasticSoilModelUpdateModelStrategy());
 
             // Assert
             Assert.IsInstanceOf<FileImporterBase<ObservableCollectionWithSourcePath<StochasticSoilModel>>>(importer);
@@ -121,8 +103,7 @@ namespace Ringtoets.Piping.IO.Test
             var importer = new StochasticSoilModelImporter(
                 failureMechanism.StochasticSoilModels,
                 validFilePath,
-                updateStrategy,
-                new TestStochasticSoilModelChangeHandler());
+                updateStrategy);
             importer.SetProgressChanged(IncrementProgress);
 
             // Precondition
@@ -157,8 +138,7 @@ namespace Ringtoets.Piping.IO.Test
             var importer = new StochasticSoilModelImporter(
                 failureMechanism.StochasticSoilModels,
                 invalidFilePath,
-                updateStrategy,
-                new TestStochasticSoilModelChangeHandler());
+                updateStrategy);
             importer.SetProgressChanged(IncrementProgress);
 
             // Precondition
@@ -182,77 +162,6 @@ namespace Ringtoets.Piping.IO.Test
         }
 
         [Test]
-        public void Import_ValidFileConfirmationRequiredButNotGiven_ConfirmationInquiredModelsNotImported()
-        {
-            // Setup
-            string validFilePath = Path.Combine(testDataPath, "complete.soil");
-            var updateStrategy = new TestStochasticSoilModelUpdateModelStrategy();
-            var importer = new StochasticSoilModelImporter(
-                new ObservableCollectionWithSourcePath<StochasticSoilModel>(),
-                validFilePath,
-                updateStrategy,
-                new TestStochasticSoilModelChangeHandler());
-
-            var changeHandler = new TestStochasticSoilModelChangeHandler(true);
-            importer.ChangeHandler = changeHandler;
-
-            // Call
-            bool importResult = importer.Import();
-
-            // Assert
-            Assert.IsTrue(changeHandler.ConfirmationInquired);
-            AssertUnsuccessfulImport(importResult, updateStrategy);
-        }
-
-        [Test]
-        public void Import_ValidFileConfirmationRequiredAndGiven_ConfirmationInquiredModelsImported()
-        {
-            // Setup
-            string validFilePath = Path.Combine(testDataPath, "complete.soil");
-            var updateStrategy = new TestStochasticSoilModelUpdateModelStrategy();
-            var importer = new StochasticSoilModelImporter(
-                new ObservableCollectionWithSourcePath<StochasticSoilModel>(),
-                validFilePath,
-                updateStrategy,
-                new TestStochasticSoilModelChangeHandler());
-
-            var changeHandler = new TestStochasticSoilModelChangeHandler(true)
-            {
-                Confirmation = true
-            };
-            importer.ChangeHandler = changeHandler;
-
-            // Call
-            bool importResult = importer.Import();
-
-            // Assert
-            Assert.IsTrue(changeHandler.ConfirmationInquired);
-            AssertSuccessfulImport(validFilePath, importResult, updateStrategy);
-        }
-
-        [Test]
-        public void Import_ValidFileConfirmationNotRequired_ConfirmationNotInquiredModelsImported()
-        {
-            // Setup
-            string validFilePath = Path.Combine(testDataPath, "complete.soil");
-            var importer = new StochasticSoilModelImporter(
-                new ObservableCollectionWithSourcePath<StochasticSoilModel>(),
-                validFilePath,
-                new TestStochasticSoilModelUpdateModelStrategy(),
-                new TestStochasticSoilModelChangeHandler());
-
-            var changeHandler = new TestStochasticSoilModelChangeHandler(false);
-            importer.ChangeHandler = changeHandler;
-
-            // Call
-            bool importResult = importer.Import();
-
-            // Assert
-            Assert.IsFalse(changeHandler.ConfirmationInquired);
-            Assert.IsTrue(importResult);
-        }
-
-        [Test]
         public void Import_ImportingToValidTargetWithValidFile_ImportSoilModelToCollectionAndSourcePathSet()
         {
             // Setup
@@ -265,8 +174,7 @@ namespace Ringtoets.Piping.IO.Test
             var importer = new StochasticSoilModelImporter(
                 pipingFailureMechanism.StochasticSoilModels,
                 validFilePath,
-                updateStrategy,
-                new TestStochasticSoilModelChangeHandler());
+                updateStrategy);
             importer.SetProgressChanged((description, step, steps) =>
                                             progressChangeNotifications.Add(new ProgressNotification(description, step, steps)));
 
@@ -318,8 +226,7 @@ namespace Ringtoets.Piping.IO.Test
             var importer = new StochasticSoilModelImporter(
                 failureMechanism.StochasticSoilModels,
                 validFilePath,
-                updateStrategy,
-                new TestStochasticSoilModelChangeHandler());
+                updateStrategy);
             importer.SetProgressChanged(IncrementProgress);
 
             var importResult = false;
@@ -353,8 +260,7 @@ namespace Ringtoets.Piping.IO.Test
             var importer = new StochasticSoilModelImporter(
                 failureMechanism.StochasticSoilModels,
                 validFilePath,
-                updateStrategy,
-                new TestStochasticSoilModelChangeHandler());
+                updateStrategy);
             importer.SetProgressChanged((description, step, steps) =>
             {
                 if (description.Contains("Inlezen van de D-Soil Model database."))
@@ -388,8 +294,7 @@ namespace Ringtoets.Piping.IO.Test
             var importer = new StochasticSoilModelImporter(
                 failureMechanism.StochasticSoilModels,
                 validFilePath,
-                updateStrategy,
-                new TestStochasticSoilModelChangeHandler());
+                updateStrategy);
             importer.SetProgressChanged((description, step, steps) =>
             {
                 if (description.Contains("Inlezen van de stochastische ondergrondmodellen."))
@@ -423,8 +328,7 @@ namespace Ringtoets.Piping.IO.Test
             var importer = new StochasticSoilModelImporter(
                 failureMechanism.StochasticSoilModels,
                 validFilePath,
-                updateStrategy,
-                new TestStochasticSoilModelChangeHandler());
+                updateStrategy);
             importer.SetProgressChanged((description, step, steps) =>
             {
                 if (description.Contains("Controleren van ondergrondschematisaties."))
@@ -458,8 +362,7 @@ namespace Ringtoets.Piping.IO.Test
             var importer = new StochasticSoilModelImporter(
                 failureMechanism.StochasticSoilModels,
                 validFilePath,
-                updateStrategy,
-                new TestStochasticSoilModelChangeHandler());
+                updateStrategy);
             importer.SetProgressChanged((description, step, steps) =>
             {
                 if (description.Contains("Geïmporteerde data toevoegen aan het toetsspoor."))
@@ -494,8 +397,7 @@ namespace Ringtoets.Piping.IO.Test
             var importer = new StochasticSoilModelImporter(
                 failureMechanism.StochasticSoilModels,
                 validFilePath,
-                updateStrategy,
-                new TestStochasticSoilModelChangeHandler());
+                updateStrategy);
             importer.SetProgressChanged((description, step, steps) => importer.Cancel());
 
             // Precondition
@@ -527,8 +429,7 @@ namespace Ringtoets.Piping.IO.Test
             var importer = new StochasticSoilModelImporter(
                 failureMechanism.StochasticSoilModels,
                 pathToCorruptFile,
-                updateStrategy,
-                new TestStochasticSoilModelChangeHandler());
+                updateStrategy);
             importer.SetProgressChanged(IncrementProgress);
 
             var importResult = false;
@@ -563,8 +464,7 @@ namespace Ringtoets.Piping.IO.Test
             var importer = new StochasticSoilModelImporter(
                 failureMechanism.StochasticSoilModels,
                 pathToCorruptFile,
-                updateStrategy,
-                new TestStochasticSoilModelChangeHandler());
+                updateStrategy);
             importer.SetProgressChanged(IncrementProgress);
 
             // Call
@@ -586,8 +486,7 @@ namespace Ringtoets.Piping.IO.Test
             var importer = new StochasticSoilModelImporter(
                 failureMechanism.StochasticSoilModels,
                 pathToCorruptFile,
-                updateStrategy,
-                new TestStochasticSoilModelChangeHandler());
+                updateStrategy);
             importer.SetProgressChanged(IncrementProgress);
 
             var importResult = false;
@@ -616,8 +515,7 @@ namespace Ringtoets.Piping.IO.Test
             var importer = new StochasticSoilModelImporter(
                 failureMechanism.StochasticSoilModels,
                 pathToCorruptFile,
-                updateStrategy,
-                new TestStochasticSoilModelChangeHandler());
+                updateStrategy);
             importer.SetProgressChanged(IncrementProgress);
 
             var importResult = false;
@@ -644,8 +542,7 @@ namespace Ringtoets.Piping.IO.Test
             var importer = new StochasticSoilModelImporter(
                 pipingFailureMechanism.StochasticSoilModels,
                 validFilePath,
-                updateStrategy,
-                new TestStochasticSoilModelChangeHandler());
+                updateStrategy);
 
             // Call
             bool importResult = importer.Import();
@@ -682,8 +579,7 @@ namespace Ringtoets.Piping.IO.Test
             var importer = new StochasticSoilModelImporter(
                 pipingFailureMechanism.StochasticSoilModels,
                 validFilePath,
-                updateStrategy,
-                new TestStochasticSoilModelChangeHandler());
+                updateStrategy);
 
             // Call
             bool importResult = importer.Import();
@@ -720,8 +616,7 @@ namespace Ringtoets.Piping.IO.Test
             var importer = new StochasticSoilModelImporter(
                 failureMechanism.StochasticSoilModels,
                 validFilePath,
-                updateStrategy,
-                new TestStochasticSoilModelChangeHandler());
+                updateStrategy);
 
             var importResult = false;
 
@@ -748,8 +643,7 @@ namespace Ringtoets.Piping.IO.Test
             var importer = new StochasticSoilModelImporter(
                 failureMechanism.StochasticSoilModels,
                 pathToFile,
-                updateStrategy,
-                new TestStochasticSoilModelChangeHandler());
+                updateStrategy);
             importer.SetProgressChanged(IncrementProgress);
 
             var importResult = false;
@@ -780,8 +674,7 @@ namespace Ringtoets.Piping.IO.Test
             var importer = new StochasticSoilModelImporter(
                 failureMechanism.StochasticSoilModels,
                 pathToFile,
-                updateStrategy,
-                new TestStochasticSoilModelChangeHandler());
+                updateStrategy);
             importer.SetProgressChanged(IncrementProgress);
 
             var importResult = false;
@@ -809,8 +702,7 @@ namespace Ringtoets.Piping.IO.Test
             var importer = new StochasticSoilModelImporter(
                 failureMechanism.StochasticSoilModels,
                 validFilePath,
-                updateStrategy,
-                new TestStochasticSoilModelChangeHandler());
+                updateStrategy);
             importer.SetProgressChanged(IncrementProgress);
 
             // Precondition
@@ -868,8 +760,7 @@ namespace Ringtoets.Piping.IO.Test
             var importer = new StochasticSoilModelImporter(
                 failureMechanism.StochasticSoilModels,
                 validFilePath,
-                updateStrategy,
-                new TestStochasticSoilModelChangeHandler());
+                updateStrategy);
             importer.SetProgressChanged(IncrementProgress);
 
             // Precondition
@@ -961,8 +852,7 @@ namespace Ringtoets.Piping.IO.Test
             var importer = new StochasticSoilModelImporter(
                 new ObservableCollectionWithSourcePath<StochasticSoilModel>(),
                 validFilePath,
-                updateStrategy,
-                new TestStochasticSoilModelChangeHandler());
+                updateStrategy);
             importer.Import();
 
             // Call

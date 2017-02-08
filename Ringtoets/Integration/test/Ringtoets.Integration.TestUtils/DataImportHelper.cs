@@ -212,8 +212,7 @@ namespace Ringtoets.Integration.TestUtils
                 var activity = new FileImportActivity(new StochasticSoilModelImporter(
                                                           assessmentSection.PipingFailureMechanism.StochasticSoilModels,
                                                           filePath,
-                                                          new StochasticSoilModelReplaceDataStrategy(),
-                                                          new TestStochasticSoilModelChangeHandler()),
+                                                          new StochasticSoilModelReplaceDataStrategy()),
                                                       "StochasticSoilModelImporter");
                 activity.Run();
                 activity.Finish();
