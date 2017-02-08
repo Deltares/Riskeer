@@ -268,9 +268,9 @@ namespace Core.Plugins.Map.Test.Legend
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void TreeViewSelectedNodeChanged_Always_SelectionChangedFired()
+        public void GivenMapLegendView_WhenSelectedNodeChanged_SelectionChangedFired()
         {
-            // Setup
+            // Given
             var mapData = new MapLineData("line data");
             var mapDataCollection = new MapDataCollection("collection");
 
@@ -282,17 +282,38 @@ namespace Core.Plugins.Map.Test.Legend
             })
             {
                 var treeViewControl = TypeUtils.GetField<TreeViewControl>(view, "treeViewControl");
-
                 WindowsFormsTestHelper.Show(treeViewControl);
 
                 var selectionChangedCount = 0;
                 view.SelectionChanged += (sender, args) => selectionChangedCount++;
 
-                // Call
+                // When
                 treeViewControl.TrySelectNodeForData(mapData);
 
-                // Assert
+                // Then
                 Assert.AreEqual(1, selectionChangedCount);
+            }
+            WindowsFormsTestHelper.CloseAll();
+        }
+
+        [Test]
+        [Apartment(ApartmentState.STA)]
+        public void GivenMapLegendView_WhenSettingData_SelectionChangedNotFired()
+        {
+            // Given
+            using (var view = new MapLegendView(contextMenuBuilderProvider))
+            {
+                var selectionChangedCount = 0;
+                view.SelectionChanged += (sender, args) => selectionChangedCount++;
+
+                var treeViewControl = TypeUtils.GetField<TreeViewControl>(view, "treeViewControl");
+                WindowsFormsTestHelper.Show(treeViewControl);
+
+                // When
+                view.Data = new MapDataCollection("collection");
+
+                // Then
+                Assert.AreEqual(0, selectionChangedCount);
             }
             WindowsFormsTestHelper.CloseAll();
         }
