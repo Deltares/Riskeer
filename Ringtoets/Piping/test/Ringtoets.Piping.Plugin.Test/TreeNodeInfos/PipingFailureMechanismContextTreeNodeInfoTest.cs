@@ -582,11 +582,14 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 var pipingFailureMechanismContext = new PipingFailureMechanismContext(pipingFailureMechanism, assessmentSection);
 
                 var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
-                menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddExpandAllItem()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddCollapseAllItem()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.Build()).Return(null);
+                using (mocks.Ordered())
+                {
+                    menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
+                    menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
+                    menuBuilder.Expect(mb => mb.AddCollapseAllItem()).Return(menuBuilder);
+                    menuBuilder.Expect(mb => mb.AddExpandAllItem()).Return(menuBuilder);
+                    menuBuilder.Expect(mb => mb.Build()).Return(null);
+                }
 
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(cmp => cmp.Get(pipingFailureMechanismContext, treeViewControl)).Return(menuBuilder);

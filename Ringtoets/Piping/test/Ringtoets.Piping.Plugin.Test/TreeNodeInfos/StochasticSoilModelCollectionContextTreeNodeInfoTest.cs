@@ -242,8 +242,8 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
 
+            var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
             using (mocks.Ordered())
             {
                 menuBuilderMock.Expect(mb => mb.AddImportItem()).Return(menuBuilderMock);

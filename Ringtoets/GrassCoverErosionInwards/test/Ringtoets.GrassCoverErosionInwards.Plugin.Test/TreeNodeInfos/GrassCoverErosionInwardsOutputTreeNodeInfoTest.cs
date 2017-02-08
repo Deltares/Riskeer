@@ -111,7 +111,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var menuBuilderMock = mocksRepository.StrictMock<IContextMenuBuilder>();
-
             using (mocksRepository.Ordered())
             {
                 menuBuilderMock.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilderMock);

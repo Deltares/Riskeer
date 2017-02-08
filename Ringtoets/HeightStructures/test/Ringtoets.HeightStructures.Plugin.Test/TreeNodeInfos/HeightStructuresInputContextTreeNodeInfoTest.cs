@@ -130,17 +130,16 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var menuBuilderMock = mocksRepository.StrictMock<IContextMenuBuilder>();
+            using (mocksRepository.Ordered())
+            {
+                menuBuilderMock.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilderMock);
+                menuBuilderMock.Expect(mb => mb.Build()).Return(null);
+            }
 
             using (var treeViewControl = new TreeViewControl())
             {
                 var gui = mocksRepository.Stub<IGui>();
                 gui.Stub(g => g.Get(null, treeViewControl)).Return(menuBuilderMock);
-
-                using (mocksRepository.Ordered())
-                {
-                    menuBuilderMock.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilderMock);
-                    menuBuilderMock.Expect(mb => mb.Build()).Return(null);
-                }
 
                 mocksRepository.ReplayAll();
 

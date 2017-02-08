@@ -122,8 +122,11 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
-            menuBuilderMock.Expect(mb => mb.AddImportItem()).Return(menuBuilderMock);
-            menuBuilderMock.Expect(mb => mb.Build()).Return(null);
+            using (mocks.Ordered())
+            {
+                menuBuilderMock.Expect(mb => mb.AddImportItem()).Return(menuBuilderMock);
+                menuBuilderMock.Expect(mb => mb.Build()).Return(null);
+            }
 
             var failureMechanism = mocks.Stub<IFailureMechanism>();
             var assessmentSection = mocks.Stub<IAssessmentSection>();

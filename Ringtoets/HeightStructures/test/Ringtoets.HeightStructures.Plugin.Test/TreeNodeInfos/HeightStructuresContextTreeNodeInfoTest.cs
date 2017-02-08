@@ -205,8 +205,8 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
 
+            var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
             using (mocks.Ordered())
             {
                 menuBuilderMock.Expect(mb => mb.AddImportItem()).Return(menuBuilderMock);

@@ -112,8 +112,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 var output = new GrassCoverErosionOutwardsWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>());
 
                 var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
-                menuBuilder.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.Build()).Return(null);
+                using (mocks.Ordered())
+                {
+                    menuBuilder.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilder);
+                    menuBuilder.Expect(mb => mb.Build()).Return(null);
+                }
 
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(cmp => cmp.Get(output, treeViewControl)).Return(menuBuilder);

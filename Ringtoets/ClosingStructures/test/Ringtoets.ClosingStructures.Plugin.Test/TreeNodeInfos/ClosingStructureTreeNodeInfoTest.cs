@@ -240,7 +240,6 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
-
             using (mocks.Ordered())
             {
                 menuBuilderMock.Expect(mb => mb.AddDeleteItem()).Return(menuBuilderMock);

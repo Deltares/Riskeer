@@ -214,7 +214,10 @@ namespace Core.Plugins.ProjectExplorer.Test
             var treeIdentifier = "SomeName";
             var formIdentifier = "SomeForm";
             var mocks = new MockRepository();
-            IViewCommands viewCommands = mocks.StrictMock<IViewCommands>();
+
+            var viewCommands = mocks.StrictMock<IViewCommands>();
+            viewCommands.Expect(a => a.OpenViewForSelection());
+
             var projectStub = mocks.Stub<IProject>();
 
             mocks.ReplayAll();
@@ -226,11 +229,6 @@ namespace Core.Plugins.ProjectExplorer.Test
                     TagType = typeof(IProject)
                 }
             };
-
-            using (mocks.Ordered())
-            {
-                viewCommands.Expect(a => a.OpenViewForSelection());
-            }
 
             using (var explorer = new ProjectExplorer(viewCommands, treeNodeInfos)
             {

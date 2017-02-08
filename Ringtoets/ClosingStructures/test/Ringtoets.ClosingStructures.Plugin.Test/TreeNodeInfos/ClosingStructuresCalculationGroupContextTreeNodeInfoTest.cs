@@ -189,7 +189,6 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
                                                                             assessmentSection);
 
             var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
-
             using (mocks.Ordered())
             {
                 menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
@@ -205,7 +204,6 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
                 menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.AddCollapseAllItem()).Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.AddExpandAllItem()).Return(menuBuilderMock);
-
                 menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.Build()).Return(null);
@@ -333,8 +331,8 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             var parentGroupContext = new ClosingStructuresCalculationGroupContext(parentGroup,
                                                                                   failureMechanism,
                                                                                   assessmentSection);
-            var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
 
+            var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
             using (mocks.Ordered())
             {
                 menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);

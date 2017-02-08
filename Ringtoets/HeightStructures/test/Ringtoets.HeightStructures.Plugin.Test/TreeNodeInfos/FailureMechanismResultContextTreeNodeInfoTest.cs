@@ -114,8 +114,8 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
             // Setup
             var failureMechanism = new HeightStructuresFailureMechanism();
             var nodeData = new FailureMechanismSectionResultContext<HeightStructuresFailureMechanismSectionResult>(Enumerable.Empty<HeightStructuresFailureMechanismSectionResult>(), failureMechanism);
-            var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
 
+            var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
             using (mocks.Ordered())
             {
                 menuBuilderMock.Expect(mb => mb.AddOpenItem()).Return(menuBuilderMock);

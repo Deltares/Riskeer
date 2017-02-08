@@ -177,8 +177,8 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var calculation = new StructuresCalculation<HeightStructuresInput>();
             var nodeData = new HeightStructuresCalculationContext(calculation, failureMechanism, assessmentSection);
-            var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
 
+            var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
             using (mocks.Ordered())
             {
                 menuBuilderMock.Expect(mb => mb.AddRenameItem()).Return(menuBuilderMock);

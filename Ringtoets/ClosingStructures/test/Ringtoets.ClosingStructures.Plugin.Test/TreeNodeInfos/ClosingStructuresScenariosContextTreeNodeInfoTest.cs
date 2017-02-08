@@ -105,17 +105,16 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
+            using (mocks.Ordered())
+            {
+                menuBuilderMock.Expect(mb => mb.AddOpenItem()).Return(menuBuilderMock);
+                menuBuilderMock.Expect(mb => mb.Build()).Return(null);
+            }
 
             using (var treeViewControl = new TreeViewControl())
             {
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(g => g.Get(null, treeViewControl)).Return(menuBuilderMock);
-
-                using (mocks.Ordered())
-                {
-                    menuBuilderMock.Expect(mb => mb.AddOpenItem()).Return(menuBuilderMock);
-                    menuBuilderMock.Expect(mb => mb.Build()).Return(null);
-                }
 
                 mocks.ReplayAll();
 

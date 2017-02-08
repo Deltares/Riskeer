@@ -141,7 +141,6 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             var nodeData = new HydraulicBoundaryDatabaseContext(assessmentSection);
 
             var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
-
             using (mocks.Ordered())
             {
                 menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);

@@ -183,7 +183,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                                                                                    assessmentSection);
 
             var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
-
             using (mocks.Ordered())
             {
                 menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
@@ -287,7 +286,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
-
                 using (mocks.Ordered())
                 {
                     menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);

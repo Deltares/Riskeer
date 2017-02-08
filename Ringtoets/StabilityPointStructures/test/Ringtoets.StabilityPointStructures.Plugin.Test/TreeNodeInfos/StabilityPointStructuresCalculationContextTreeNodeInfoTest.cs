@@ -175,6 +175,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
             var nodeData = new StabilityPointStructuresCalculationContext(calculation, failureMechanism, assessmentSection);
+
             var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
             using (mocks.Ordered())
             {

@@ -178,8 +178,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var calculation = new GrassCoverErosionInwardsCalculation();
             var nodeData = new GrassCoverErosionInwardsCalculationContext(calculation, failureMechanism, assessmentSection);
-            var menuBuilderMock = mocks.Stub<IContextMenuBuilder>();
 
+            var menuBuilderMock = mocks.Stub<IContextMenuBuilder>();
             using (mocks.Ordered())
             {
                 menuBuilderMock.Expect(mb => mb.AddRenameItem()).Return(menuBuilderMock);

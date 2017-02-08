@@ -188,8 +188,8 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
             var failureMechanism = new HeightStructuresFailureMechanism();
             var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
             var failureMechanismContext = new HeightStructuresFailureMechanismContext(failureMechanism, assessmentSection);
-            var menuBuilderMock = mocksRepository.StrictMock<IContextMenuBuilder>();
 
+            var menuBuilderMock = mocksRepository.StrictMock<IContextMenuBuilder>();
             using (mocksRepository.Ordered())
             {
                 menuBuilderMock.Expect(mb => mb.AddOpenItem()).Return(menuBuilderMock);
@@ -234,8 +234,8 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
             };
             var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
             var failureMechanismContext = new HeightStructuresFailureMechanismContext(failureMechanism, assessmentSection);
-            var menuBuilderMock = mocksRepository.StrictMock<IContextMenuBuilder>();
 
+            var menuBuilderMock = mocksRepository.StrictMock<IContextMenuBuilder>();
             using (mocksRepository.Ordered())
             {
                 menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);

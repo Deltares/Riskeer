@@ -124,11 +124,9 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_Always_CallsContextMenuBuilderMethods()
         {
             // Setup
-            var menuBuilderMock = mockRepository.StrictMock<IContextMenuBuilder>();
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
 
-            var nodeData = new DesignWaterLevelLocationsContext(assessmentSection);
-
+            var menuBuilderMock = mockRepository.StrictMock<IContextMenuBuilder>();
             using (mockRepository.Ordered())
             {
                 menuBuilderMock.Expect(mb => mb.AddOpenItem()).Return(menuBuilderMock);
@@ -138,6 +136,8 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 menuBuilderMock.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.Build()).Return(null);
             }
+
+            var nodeData = new DesignWaterLevelLocationsContext(assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
             {

@@ -199,8 +199,8 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
             var failureMechanismContext = new StabilityPointStructuresFailureMechanismContext(failureMechanism, assessmentSection);
-            var menuBuilderMock = mocksRepository.StrictMock<IContextMenuBuilder>();
 
+            var menuBuilderMock = mocksRepository.StrictMock<IContextMenuBuilder>();
             using (mocksRepository.Ordered())
             {
                 menuBuilderMock.Expect(mb => mb.AddOpenItem()).Return(menuBuilderMock);
@@ -247,8 +247,8 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             };
             var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
             var failureMechanismContext = new StabilityPointStructuresFailureMechanismContext(failureMechanism, assessmentSection);
-            var menuBuilderMock = mocksRepository.StrictMock<IContextMenuBuilder>();
 
+            var menuBuilderMock = mocksRepository.StrictMock<IContextMenuBuilder>();
             using (mocksRepository.Ordered())
             {
                 menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);

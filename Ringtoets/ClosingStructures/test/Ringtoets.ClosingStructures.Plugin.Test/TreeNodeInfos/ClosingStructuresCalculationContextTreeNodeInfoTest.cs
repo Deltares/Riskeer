@@ -188,8 +188,8 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var calculation = new StructuresCalculation<ClosingStructuresInput>();
             var nodeData = new ClosingStructuresCalculationContext(calculation, failureMechanism, assessmentSection);
-            var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
 
+            var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
             using (mocks.Ordered())
             {
                 menuBuilderMock.Expect(mb => mb.AddRenameItem()).Return(menuBuilderMock);

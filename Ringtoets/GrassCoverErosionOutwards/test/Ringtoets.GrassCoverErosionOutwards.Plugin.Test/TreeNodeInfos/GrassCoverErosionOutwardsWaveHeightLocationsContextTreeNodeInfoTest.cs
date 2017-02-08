@@ -153,7 +153,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                         new GrassCoverErosionOutwardsFailureMechanism());
 
                     var menuBuilder = mockRepository.StrictMock<IContextMenuBuilder>();
-
                     using (mockRepository.Ordered())
                     {
                         menuBuilder.Expect(mb => mb.AddOpenItem()).Return(menuBuilder);

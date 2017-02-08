@@ -174,7 +174,6 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
                 var context = new DuneLocationsContext(failureMechanism.DuneLocations, failureMechanism, assessmentSection);
 
                 var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
-
                 using (mocks.Ordered())
                 {
                     menuBuilder.Expect(mb => mb.AddOpenItem()).Return(menuBuilder);

@@ -278,7 +278,6 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 var context = new FailureMechanismContext<IFailureMechanism>(failureMechanism, assessmentSection);
 
                 var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
-
                 using (mocks.Ordered())
                 {
                     menuBuilderMock.Expect(mb => mb.AddOpenItem()).Return(menuBuilderMock);
@@ -326,7 +325,6 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 var context = new FailureMechanismContext<IFailureMechanism>(failureMechanism, assessmentSection);
 
                 var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
-
                 using (mocks.Ordered())
                 {
                     menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);

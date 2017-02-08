@@ -128,8 +128,11 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 var output = new EmptyWaveImpactAsphaltCoverOutput();
 
                 var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
-                menuBuilder.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.Build()).Return(null);
+                using (mocks.Ordered())
+                {
+                    menuBuilder.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilder);
+                    menuBuilder.Expect(mb => mb.Build()).Return(null);
+                }
 
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(cmp => cmp.Get(output, treeViewControl)).Return(menuBuilder);

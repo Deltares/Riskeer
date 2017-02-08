@@ -207,6 +207,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
+
             var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
             using (mocks.Ordered())
             {

@@ -127,7 +127,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 var context = new HydraulicBoundariesGroupContext(failureMechanism.HydraulicBoundaryLocations, failureMechanism, assessmentSection);
 
                 var menuBuilder = mockRepository.StrictMock<IContextMenuBuilder>();
-
                 using (mockRepository.Ordered())
                 {
                     menuBuilder.Expect(mb => mb.AddExportItem()).Return(menuBuilder);

@@ -126,7 +126,6 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
-
                 using (mocks.Ordered())
                 {
                     menuBuilder.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilder);

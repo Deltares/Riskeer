@@ -179,8 +179,8 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
             var groupContext = new HeightStructuresCalculationGroupContext(group,
                                                                            failureMechanism,
                                                                            assessmentSection);
-            var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
 
+            var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
             using (mocks.Ordered())
             {
                 menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
@@ -322,8 +322,8 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
             var parentGroupContext = new HeightStructuresCalculationGroupContext(parentGroup,
                                                                                  failureMechanism,
                                                                                  assessmentSection);
-            var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
 
+            var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
             using (mocks.Ordered())
             {
                 menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
