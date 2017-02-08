@@ -295,9 +295,9 @@ namespace Ringtoets.Integration.Service.Test
         }
 
         [Test]
-        [TestCaseSource(nameof(GrassAndDuneLocations))]
-        public void ClearHydraulicBoundaryLocationOutputForFailureMechanisms_GrassCoverErosionOutwardsAndDuneLocations_ClearDataAndReturnAffectedLocations(HydraulicBoundaryLocation grassCoverErosionLocation,
-                                                                                                                                                           DuneLocation duneLocation)
+        [TestCaseSource(nameof(GrassAndDuneLocations1))]
+        public void ClearHydraulicBoundaryLocationOutputForFailureMechanisms_GrassCoverErosionOutwardsAndDuneLocations_ClearDataAndReturnAffectedLocations(
+            HydraulicBoundaryLocation grassCoverErosionLocation, DuneLocation duneLocation)
         {
             // Setup
             var grassCoverErosionOutwardsFailureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
@@ -367,9 +367,9 @@ namespace Ringtoets.Integration.Service.Test
         }
 
         [Test]
-        [TestCaseSource(nameof(GrassAndDuneLocations))]
-        public void ClearHydraulicBoundaryLocationOutputForFailureMechanisms_FailureMechanismsGrassCoverErosionOutwardsAndDuneLocations_ClearDataAndReturnAffectedLocations(HydraulicBoundaryLocation grassCoverErosionLocation,
-                                                                                                                                                                            DuneLocation duneLocation)
+        [TestCaseSource(nameof(GrassAndDuneLocations2))]
+        public void ClearHydraulicBoundaryLocationOutputForFailureMechanisms_FailureMechanismsGrassCoverErosionOutwardsAndDuneLocations_ClearDataAndReturnAffectedLocations(
+            HydraulicBoundaryLocation grassCoverErosionLocation, DuneLocation duneLocation)
         {
             // Setup
             var grassCoverErosionOutwardsFailureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
@@ -408,9 +408,8 @@ namespace Ringtoets.Integration.Service.Test
 
         [Test]
         [TestCaseSource(nameof(HydraulicBoundaryLocationAndGrassAndDuneLocations))]
-        public void ClearHydraulicBoundaryLocationOutput_HydraulicBoundaryGrassCoverErosionOutwardsAndDuneLocations_ClearDataAndReturnAffectedLocations(HydraulicBoundaryLocation hydraulicBoundaryLocation,
-                                                                                                                                                        HydraulicBoundaryLocation grassCoverErosionLocation,
-                                                                                                                                                        DuneLocation duneLocation)
+        public void ClearHydraulicBoundaryLocationOutput_HydraulicBoundaryGrassCoverErosionOutwardsAndDuneLocations_ClearDataAndReturnAffectedLocations(
+            HydraulicBoundaryLocation hydraulicBoundaryLocation, HydraulicBoundaryLocation grassCoverErosionLocation, DuneLocation duneLocation)
         {
             // Setup
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
@@ -1502,33 +1501,46 @@ namespace Ringtoets.Integration.Service.Test
 
         #region TestData
 
-        private static IEnumerable<TestCaseData> GrassAndDuneLocations
+        private static IEnumerable<TestCaseData> GrassAndDuneLocations1
         {
             get
             {
-                yield return new TestCaseData(
-                    new TestHydraulicBoundaryLocation(),
-                    new TestDuneLocation()
-                ).SetName("GrassAndDuneLocationNoOutput");
-                yield return new TestCaseData(
-                    TestHydraulicBoundaryLocation.CreateFullyCalculated(),
-                    new TestDuneLocation()
-                ).SetName("DuneLocationWithoutOutputGrassLocationWithOutput");
-                yield return new TestCaseData(
-                    new TestHydraulicBoundaryLocation(),
-                    new TestDuneLocation
-                    {
-                        Output = new TestDuneLocationOutput()
-                    }
-                ).SetName("GrassLocationWithoutOutputDuneLocationWithOutput");
-                yield return new TestCaseData(
-                    TestHydraulicBoundaryLocation.CreateFullyCalculated(),
-                    new TestDuneLocation
-                    {
-                        Output = new TestDuneLocationOutput()
-                    }
-                ).SetName("GrassAndDuneLocationWithOutput");
+                return GrassAndDuneLocationSource("Location1");
             }
+        }
+
+        private static IEnumerable<TestCaseData> GrassAndDuneLocations2
+        {
+            get
+            {
+                return GrassAndDuneLocationSource("Location2");
+            }
+        }
+
+        private static IEnumerable<TestCaseData> GrassAndDuneLocationSource(string testName)
+        {
+            yield return new TestCaseData(
+                new TestHydraulicBoundaryLocation(),
+                new TestDuneLocation()
+            ).SetName($"GrassAndDuneLocationNoOutput_{testName}");
+            yield return new TestCaseData(
+                TestHydraulicBoundaryLocation.CreateFullyCalculated(),
+                new TestDuneLocation()
+            ).SetName($"DuneLocationWithoutOutputGrassLocationWithOutput_{testName}");
+            yield return new TestCaseData(
+                new TestHydraulicBoundaryLocation(),
+                new TestDuneLocation
+                {
+                    Output = new TestDuneLocationOutput()
+                }
+            ).SetName($"GrassLocationWithoutOutputDuneLocationWithOutput_{testName}");
+            yield return new TestCaseData(
+                TestHydraulicBoundaryLocation.CreateFullyCalculated(),
+                new TestDuneLocation
+                {
+                    Output = new TestDuneLocationOutput()
+                }
+            ).SetName($"GrassAndDuneLocationWithOutput_{testName}");
         }
 
         private static IEnumerable<TestCaseData> HydraulicBoundaryLocationAndGrassAndDuneLocations

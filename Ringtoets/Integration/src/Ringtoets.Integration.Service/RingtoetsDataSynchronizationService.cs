@@ -224,12 +224,12 @@ namespace Ringtoets.Integration.Service
             var affectedObjects = new List<IObservable>();
             affectedObjects.AddRange(ClearHydraulicBoundaryLocationOutputOfFailureMechanisms(assessmentSection));
 
-            IEnumerable<IObservable> affectedHydraulicBoundaryLocations =
+            IEnumerable<IObservable> affectedClearedObjects =
                 RingtoetsCommonDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(hydraulicBoundaryDatabase.Locations);
-            if (affectedHydraulicBoundaryLocations.Any())
+            affectedObjects.AddRange(affectedClearedObjects);
+            if (affectedClearedObjects.OfType<HydraulicBoundaryLocation>().Any())
             {
                 affectedObjects.Add(hydraulicBoundaryDatabase);
-                affectedObjects.AddRange(affectedHydraulicBoundaryLocations);
             }
 
             return affectedObjects.ToArray();
