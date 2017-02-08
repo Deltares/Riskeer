@@ -20,9 +20,11 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Security.AccessControl;
+using System.Xml;
 using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -32,7 +34,7 @@ namespace Ringtoets.Integration.Forms.Test
     [TestFixture]
     public class WmtsConnectionInfoWriterTest
     {
-        private static readonly string testPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Forms);
+        private static readonly string testPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Forms, "WmtsConnectionInfo");
 
         [Test]
         [TestCase("")]
@@ -81,9 +83,10 @@ namespace Ringtoets.Integration.Forms.Test
         }
 
         [Test]
-        public void WriteWmtsConfiguration_InvalidDirectoryRights_ThrowCriticalFileWriteException()
+        public void WriteWmtsConnectionInfo_InvalidDirectoryRights_ThrowCriticalFileWriteException()
         {
-            string directoryPath = Path.Combine(testPath, nameof(WmtsConnectionInfoWriterTest) + "_InvalidDirectoryRights");
+            // Setup
+            string directoryPath = Path.Combine(testPath, "InvalidDirectoryRights");
             Directory.CreateDirectory(directoryPath);
             string filePath = Path.Combine(directoryPath, Path.GetRandomFileName());
             var wmtsConfigurationWriter = new WmtsConnectionInfoWriter(filePath);
@@ -104,6 +107,57 @@ namespace Ringtoets.Integration.Forms.Test
             finally
             {
                 Directory.Delete(directoryPath, true);
+            }
+        }
+
+        [Test]
+        public void WriteWmtsConnectionInfo_WmtsConnectionInfosNull_ThrowArgumentNullException()
+        {
+            // Setup
+            string filePath = Path.Combine(testPath, Path.GetRandomFileName());
+            var wmtsConfigurationWriter = new WmtsConnectionInfoWriter(filePath);
+
+            // Call
+            TestDelegate call = () => wmtsConfigurationWriter.WriteWmtsConnectionInfo(null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("wmtsConnectionInfos", paramName);
+        }
+
+        [Test]
+        public void WriteWmtsConnectionInfo_ValidWmtsConnectionInfo_SavesWmtsConnectionInfoToFile()
+        {
+            // Setup
+            string filePath = Path.Combine(testPath, Path.GetRandomFileName());
+            var wmtsConfigurationWriter = new WmtsConnectionInfoWriter(filePath);
+
+            var wmtsConnectionInfos = new []
+            {
+                new WmtsConnectionInfo("name1", "url1"),
+                new WmtsConnectionInfo("name2", "url2")
+            };
+
+            using (new FileDisposeHelper(filePath))
+            {
+                // Call
+                wmtsConfigurationWriter.WriteWmtsConnectionInfo(wmtsConnectionInfos);
+
+                // Assert
+                string actualContent = GetFileContent(filePath);
+                string expectedContent = "<?xml version=\"1.0\" encoding=\"utf-8\"?><WmtsConnectionInfos>" +
+                                         "<WmtsConnectionInfo><Name>name1</Name><URL>url1</URL></WmtsConnectionInfo>" +
+                                         "<WmtsConnectionInfo><Name>name2</Name><URL>url2</URL></WmtsConnectionInfo>" +
+                                         "</WmtsConnectionInfos>";
+                Assert.AreEqual(expectedContent, actualContent);
+            }
+        }
+
+        private static string GetFileContent(string filePath)
+        {
+            using (var reader = new StreamReader(filePath))
+            {
+                return reader.ReadToEnd();
             }
         }
     }

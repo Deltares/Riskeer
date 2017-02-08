@@ -21,8 +21,10 @@
 
 using System;
 using System.Collections.Generic;
+using System.Xml;
 using Core.Common.IO.Exceptions;
 using Core.Common.Utils;
+using Core.Common.Utils.Extensions;
 using CoreCommonUtilsResources = Core.Common.Utils.Properties.Resources;
 
 namespace Ringtoets.Integration.Forms
@@ -56,11 +58,53 @@ namespace Ringtoets.Integration.Forms
         /// Writes the <paramref name="wmtsConnectionInfos"/> to <see cref="filePath"/>.
         /// </summary>
         /// <param name="wmtsConnectionInfos">The <see cref="WmtsConnectionInfo"/> objects to write.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="wmtsConnectionInfos"/> is <c>null</c>.</exception>
         /// <exception cref="CriticalFileWriteException">Thrown when writing <paramref name="wmtsConnectionInfos"/> 
         /// to <see cref="filePath"/> failed.</exception>
         public void WriteWmtsConnectionInfo(IEnumerable<WmtsConnectionInfo> wmtsConnectionInfos)
         {
-            throw new CriticalFileWriteException(string.Format(CoreCommonUtilsResources.Error_General_output_error_0, filePath));
+            if (wmtsConnectionInfos == null)
+            {
+                throw new ArgumentNullException(nameof(wmtsConnectionInfos));
+            }
+            try
+            {
+                WriteWmtsConnectionInfosToXml(wmtsConnectionInfos);
+            }
+            catch (Exception exception)
+            {
+                throw new CriticalFileWriteException(string.Format(CoreCommonUtilsResources.Error_General_output_error_0, filePath), exception);
+            }
+        }
+
+        private void WriteWmtsConnectionInfosToXml(IEnumerable<WmtsConnectionInfo> wmtsConnectionInfos)
+        {
+            using (XmlWriter writer = XmlWriter.Create(filePath))
+            {
+                writer.WriteStartDocument();
+                writer.WriteStartElement(WmtsConnectionInfoXmlDefinitions.RootElement);
+
+                foreach (WmtsConnectionInfo wmtsConnectionInfo in wmtsConnectionInfos)
+                {
+                    WriteWmtsConnectionInfoToXml(writer, wmtsConnectionInfo);
+                }
+
+                writer.WriteEndElement();
+                writer.WriteEndDocument();
+
+                writer.Flush();
+                writer.Close();
+            }
+        }
+
+        private static void WriteWmtsConnectionInfoToXml(XmlWriter writer, WmtsConnectionInfo wmtsConnectionInfo)
+        {
+            writer.WriteStartElement(WmtsConnectionInfoXmlDefinitions.WmtsConnectionElement);
+
+            writer.WriteElementString(WmtsConnectionInfoXmlDefinitions.WmtsConnectionNameElement, wmtsConnectionInfo.Name);
+            writer.WriteElementString(WmtsConnectionInfoXmlDefinitions.WmtsConnectionUrlElement, wmtsConnectionInfo.Url);
+
+            writer.WriteEndElement();
         }
     }
 }

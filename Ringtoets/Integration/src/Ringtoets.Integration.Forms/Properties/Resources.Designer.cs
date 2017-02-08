@@ -678,5 +678,41 @@ namespace Ringtoets.Integration.Forms.Properties {
                 return ResourceManager.GetString("WaveHeightLocationsContext_DisplayName", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Coördinatenstelsel.
+        /// </summary>
+        public static string WmtsCapability_MapLayer_CoordinateSystem {
+            get {
+                return ResourceManager.GetString("WmtsCapability_MapLayer_CoordinateSystem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Formaat.
+        /// </summary>
+        public static string WmtsCapability_MapLayer_Format {
+            get {
+                return ResourceManager.GetString("WmtsCapability_MapLayer_Format", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kaartlaag.
+        /// </summary>
+        public static string WmtsCapability_MapLayer_Id {
+            get {
+                return ResourceManager.GetString("WmtsCapability_MapLayer_Id", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Titel.
+        /// </summary>
+        public static string WmtsCapability_MapLayer_Title {
+            get {
+                return ResourceManager.GetString("WmtsCapability_MapLayer_Title", resourceCulture);
+            }
+        }
     }
 }
