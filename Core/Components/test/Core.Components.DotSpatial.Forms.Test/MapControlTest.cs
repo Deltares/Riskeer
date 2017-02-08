@@ -53,23 +53,39 @@ namespace Core.Components.DotSpatial.Forms.Test
     {
         private const double padding = 0.05;
 
-        private static IEnumerable<TestCaseData> ProblematicTileSourceFactories
+        private static IEnumerable<TestCaseData> MapControlWithoutBackgroundMapDataProblematicTileSourceFactories
         {
             get
             {
-                var factoryWithoutRequiredTileSource = MockRepository.GenerateStub<ITileSourceFactory>();
-                factoryWithoutRequiredTileSource.Stub(f => f.GetWmtsTileSources(Arg<string>.Is.NotNull))
-                                                .Return(Enumerable.Empty<ITileSource>());
+                foreach (TestCaseData testCaseData in GetProblematicTileSourceFactoryTestCaseData("MapControlWithoutBackgroundMapData"))
+                    yield return testCaseData;
+            }
+        }
 
-                var factoryThrowingCannotFindTileSourceException = MockRepository.GenerateStub<ITileSourceFactory>();
-                factoryThrowingCannotFindTileSourceException.Stub(f => f.GetWmtsTileSources(Arg<string>.Is.NotNull))
-                                                            .Throw(new CannotFindTileSourceException());
+        private static IEnumerable<TestCaseData> MapWithFailedBackgroundMapDataThenSuccessfulAtNotify
+        {
+            get
+            {
+                foreach (TestCaseData testCaseData in GetProblematicTileSourceFactoryTestCaseData("MapWithFailedBackgroundMapDataThenSuccessfulAtNotify"))
+                    yield return testCaseData;
+            }
+        }
 
-                yield return new TestCaseData(factoryWithoutRequiredTileSource)
-                    .SetName("Required tile source not returned by factory.");
+        private static IEnumerable<TestCaseData> MapWithFailedBackgroundMapDataThenFailedAgainAtNotify
+        {
+            get
+            {
+                foreach (TestCaseData testCaseData in GetProblematicTileSourceFactoryTestCaseData("MapWithFailedBackgroundMapDataThenFailedAgainAtNotify"))
+                    yield return testCaseData;
+            }
+        }
 
-                yield return new TestCaseData(factoryThrowingCannotFindTileSourceException)
-                    .SetName("Tile source factory throws CannotFindTileSourceException.");
+        private static IEnumerable<TestCaseData> SettingBothBackgroundAndRegularMapDataWhileBackgroundFailed
+        {
+            get
+            {
+                foreach (TestCaseData testCaseData in GetProblematicTileSourceFactoryTestCaseData("SettingBothBackgroundAndRegularMapDataWhileBackgroundFailed"))
+                    yield return testCaseData;
             }
         }
 
@@ -146,7 +162,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         }
 
         [Test]
-        [TestCaseSource(nameof(ProblematicTileSourceFactories))]
+        [TestCaseSource(nameof(MapControlWithoutBackgroundMapDataProblematicTileSourceFactories))]
         public void GivenMapControlWithoutBackgroundMapData_WhenTileSourceFactoryProblematic_ThenLogErrorAndDoNotAddBackgroundLayer(ITileSourceFactory problematicFactory)
         {
             // Given
@@ -199,7 +215,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         }
 
         [Test]
-        [TestCaseSource(nameof(ProblematicTileSourceFactories))]
+        [TestCaseSource(nameof(MapWithFailedBackgroundMapDataThenSuccessfulAtNotify))]
         public void GivenMapControlWithFailingBackgroundMapData_WhenBackgroundNotifiesAndInitializationSuccessful_ThenBackgroundLayerAdded(ITileSourceFactory problematicFactory)
         {
             // Given
@@ -259,7 +275,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         }
 
         [Test]
-        [TestCaseSource(nameof(ProblematicTileSourceFactories))]
+        [TestCaseSource(nameof(MapWithFailedBackgroundMapDataThenFailedAgainAtNotify))]
         public void GivenMapControlWithFailedBackgroundMapData_WhenBackgroundNotifiesObservers_ThenFailedInitializationShouldNotGenerateLogMessage(ITileSourceFactory problematicFactory)
         {
             // Given
@@ -888,7 +904,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         }
 
         [Test]
-        [TestCaseSource(nameof(ProblematicTileSourceFactories))]
+        [TestCaseSource(nameof(SettingBothBackgroundAndRegularMapDataWhileBackgroundFailed))]
         public void GivenMapControl_WhenBackgroundAndThenMapDataSetWhileTileSourceFactoryProblematic_MapControlUpdated(ITileSourceFactory problematicFactory)
         {
             // Given
@@ -2012,6 +2028,31 @@ namespace Core.Components.DotSpatial.Forms.Test
                 // Assert
                 Assert.AreNotEqual(isShowingCoordinates, map.IsMouseCoordinatesVisible);
             }
+        }
+
+        /// <summary>
+        /// Generates <see cref="TestCaseData"/> containing problematic <see cref="ITileSourceFactory"/>.
+        /// </summary>
+        /// <param name="prefix">The test-name prefix.</param>
+        /// <returns>The data for the test cases.</returns>
+        /// <remarks>Some test runners, like TeamCity, cannot properly deal with reuse of
+        /// <see cref="TestCaseData"/> sources where the source defines a name of the test,
+        /// as these testrunners to not display tests in hierarchical form.</remarks>
+        private static IEnumerable<TestCaseData> GetProblematicTileSourceFactoryTestCaseData(string prefix)
+        {
+            var factoryWithoutRequiredTileSource = MockRepository.GenerateStub<ITileSourceFactory>();
+            factoryWithoutRequiredTileSource.Stub(f => f.GetWmtsTileSources(Arg<string>.Is.NotNull))
+                                            .Return(Enumerable.Empty<ITileSource>());
+
+            var factoryThrowingCannotFindTileSourceException = MockRepository.GenerateStub<ITileSourceFactory>();
+            factoryThrowingCannotFindTileSourceException.Stub(f => f.GetWmtsTileSources(Arg<string>.Is.NotNull))
+                                                        .Throw(new CannotFindTileSourceException());
+
+            yield return new TestCaseData(factoryWithoutRequiredTileSource)
+                .SetName($"{prefix}: Required tile source not returned by factory.");
+
+            yield return new TestCaseData(factoryThrowingCannotFindTileSourceException)
+                .SetName($"{prefix}: Tile source factory throws CannotFindTileSourceException.");
         }
 
         private static void DoWhileTileCacheRootLocked(Action test)
