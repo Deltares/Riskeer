@@ -227,19 +227,18 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
         public void CreateDatabaseFile_FileAlreadyExistsAndLocked_Fail()
         {
             // Setup
-            string validPath = Path.Combine(testDataPath, "tempFile.rtd");
+            string validPath = Path.Combine(testDataPath, Path.GetRandomFileName());
             const string validScript = ";";
 
-            using (new FileDisposeHelper(validPath))
+            using (var fileDisposeHelper = new FileDisposeHelper(validPath))
             {
-                using (File.Create(validPath))
-                {
-                    // Call
-                    TestDelegate test = () => SqLiteDatabaseHelper.CreateDatabaseFile(validPath, validScript);
+                fileDisposeHelper.LockFiles();
 
-                    // Assert
-                    Assert.Throws<IOException>(test);
-                }
+                // Call
+                TestDelegate test = () => SqLiteDatabaseHelper.CreateDatabaseFile(validPath, validScript);
+
+                // Assert
+                Assert.Throws<IOException>(test);
             }
         }
 

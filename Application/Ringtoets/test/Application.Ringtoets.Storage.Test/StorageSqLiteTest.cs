@@ -429,16 +429,14 @@ namespace Application.Ringtoets.Storage.Test
             FileDisposeHelper fileDisposeHelper = new FileDisposeHelper(tempRingtoetsFile);
             try
             {
+                fileDisposeHelper.LockFiles();
+
                 // Call
                 TestDelegate test = () => storage.SaveProjectAs(tempRingtoetsFile);
 
-                StorageException exception;
-                using (File.Create(tempRingtoetsFile)) // Locks file
-                {
-                    exception = Assert.Throws<StorageException>(test);
-                }
-
                 // Assert
+                StorageException exception = Assert.Throws<StorageException>(test);
+                
                 Assert.IsInstanceOf<Exception>(exception);
                 Assert.IsInstanceOf<IOException>(exception.InnerException);
                 Assert.IsInstanceOf<Exception>(exception);

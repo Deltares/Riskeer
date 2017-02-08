@@ -166,10 +166,11 @@ namespace Application.Ringtoets.MigrationConsole.Test
 
             var console = new RingtoetsMigrationConsole();
 
-            using (new FileDisposeHelper(targetFilePath))
-            using (File.Create(targetFilePath))
+            using (var fileDisposeHelper = new FileDisposeHelper(targetFilePath))
             using (var consoleOutput = new ConsoleOutput())
             {
+                fileDisposeHelper.LockFiles();
+
                 // When
                 console.ExecuteConsoleTool(new[]
                 {

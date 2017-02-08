@@ -87,9 +87,10 @@ namespace Application.Ringtoets.Migration.Test
 
             var sourceFile = new RingtoetsVersionedFile(filePath);
 
-            using (new FileDisposeHelper(filePath))
-            using (File.Create(filePath))
+            using (var fileDisposeHelper = new FileDisposeHelper(filePath))
             {
+                fileDisposeHelper.LockFiles();
+
                 // Call
                 TestDelegate call = () => sourceFile.GetVersion();
 

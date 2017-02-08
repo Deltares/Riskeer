@@ -472,9 +472,9 @@ namespace Migration.Core.Storage.Test
             versionedFile.Expect(vf => vf.GetVersion()).Return(fromVersion);
             mockRepository.ReplayAll();
 
-            using (new FileDisposeHelper(toLocation))
-            using (File.Create(toLocation))
+            using (var fileDisposeHelper = new FileDisposeHelper(toLocation))
             {
+                fileDisposeHelper.LockFiles();
                 var migrator = new SimpleVersionedFileMigrator(comparer)
                 {
                     CreateScripts =

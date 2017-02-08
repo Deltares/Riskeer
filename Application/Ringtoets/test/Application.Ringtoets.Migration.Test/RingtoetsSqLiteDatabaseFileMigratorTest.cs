@@ -132,9 +132,10 @@ namespace Application.Ringtoets.Migration.Test
             string targetFilePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration, Path.GetRandomFileName());
             var migrator = new RingtoetsSqLiteDatabaseFileMigrator();
 
-            using (new FileDisposeHelper(targetFilePath))
-            using (File.Create(targetFilePath))
+            using (var fileDisposeHelper = new FileDisposeHelper(targetFilePath))
             {
+                fileDisposeHelper.LockFiles();
+
                 // Call
                 TestDelegate call = () => migrator.Migrate(fromVersionedFile, newVersion, targetFilePath);
 

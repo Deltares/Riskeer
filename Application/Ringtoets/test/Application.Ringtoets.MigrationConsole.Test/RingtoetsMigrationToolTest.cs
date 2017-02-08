@@ -157,10 +157,11 @@ namespace Application.Ringtoets.MigrationConsole.Test
             string targetFilePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration, Path.GetRandomFileName());
 
             string consoleText;
-            using (new FileDisposeHelper(targetFilePath))
-            using (File.Create(targetFilePath))
+            using (var fileDisposeHelper = new FileDisposeHelper(targetFilePath))
             using (var consoleOutput = new ConsoleOutput())
             {
+                fileDisposeHelper.LockFiles();
+
                 // When
                 RingtoetsMigrationTool.Main(new[]
                 {
