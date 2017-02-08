@@ -541,7 +541,7 @@ namespace Ringtoets.Piping.Plugin
                 updateFromPath = InquireUserForNewPath();
             }
 
-            if (updateFromPath != null)
+            if (IsClearResultAllowed(failureMechanism) && updateFromPath != null)
             {
                 RunUpdateStochasticSoilModel(soilModelCollection, failureMechanism, updateFromPath);
             }
@@ -551,6 +551,18 @@ namespace Ringtoets.Piping.Plugin
                     PipingPluginResources.PipingPlugin_UpdateStochasticSoilModels_Update_of_StochasticSoilModels_from_File_0_canceled_by_user, 
                     soilModelCollection.SourcePath));
             }
+        }
+
+        private static bool IsClearResultAllowed(PipingFailureMechanism failureMechanism)
+        {
+            var changeHandler = new StochasticSoilModelChangeHandler(failureMechanism);
+            bool allowed = true;
+            bool requireConfirmation = changeHandler.RequireConfirmation();
+            if (requireConfirmation)
+            {
+                allowed = changeHandler.InquireConfirmation();
+            }
+            return allowed;
         }
 
         private string InquireUserForNewPath()

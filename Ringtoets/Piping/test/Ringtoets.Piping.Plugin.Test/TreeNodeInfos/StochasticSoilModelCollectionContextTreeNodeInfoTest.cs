@@ -41,6 +41,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.Properties;
+using Ringtoets.Piping.KernelWrapper.TestUtil;
 using Ringtoets.Piping.Primitives;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using RingtoetsPipingPluginResources = Ringtoets.Piping.Plugin.Properties.Resources;
@@ -336,14 +337,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                                                                         pipingFailureMechanism,
                                                                         assessmentSection);
 
-                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-                var mainWindow = mocks.Stub<IMainWindow>();
-
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                gui.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
-                gui.Stub(g => g.MainWindow).Return(mainWindow);
-                mocks.ReplayAll();
+                IGui gui = CreateGuiStub(nodeData, treeViewControl);
 
                 plugin.Gui = gui;
 
@@ -378,21 +372,12 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             {
                 var pipingFailureMechanism = new PipingFailureMechanism();
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var stochasticSoilModelCollection = new ObservableCollectionWithSourcePath<StochasticSoilModel>();
-                stochasticSoilModelCollection.AddRange(Enumerable.Empty<StochasticSoilModel>(), existingFilePath);
 
-                var nodeData = new StochasticSoilModelCollectionContext(stochasticSoilModelCollection,
+                var nodeData = new StochasticSoilModelCollectionContext(CreateEmptyImportedStochasticSoilModelCollection(existingFilePath),
                                                                         pipingFailureMechanism,
                                                                         assessmentSection);
 
-                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-                var mainWindow = mocks.Stub<IMainWindow>();
-
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                gui.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
-                gui.Stub(g => g.MainWindow).Return(mainWindow);
-                mocks.ReplayAll();
+                IGui gui = CreateGuiStub(nodeData, treeViewControl);
 
                 plugin.Gui = gui;
 
@@ -412,6 +397,120 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                         "Uitvoeren van 'Bijwerken van stochastische ondergrondmodellen.' is gelukt.");
                 }
             }
+        }
+
+        [Test]
+        [Apartment(ApartmentState.STA)]
+        public void ContextMenuStrip_ClickOnUpdateStochasticSoilModelsPathKnownAndConfirmationRequiredAndGiven_SuccessMessageLogged()
+        {
+            // Setup
+            string testDirectory = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO, "StochasticSoilModelDatabaseReader");
+            string existingFilePath = Path.Combine(testDirectory, "emptyschema.soil");
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var pipingFailureMechanism = new PipingFailureMechanism();
+                MakeConfirmationRequired(pipingFailureMechanism);
+
+                var assessmentSection = mocks.Stub<IAssessmentSection>();
+
+                var nodeData = new StochasticSoilModelCollectionContext(CreateEmptyImportedStochasticSoilModelCollection(existingFilePath),
+                                                                        pipingFailureMechanism,
+                                                                        assessmentSection);
+
+                IGui gui = CreateGuiStub(nodeData, treeViewControl);
+
+                plugin.Gui = gui;
+
+                DialogBoxHandler = (name, handler) =>
+                {
+                    DialogBoxHandler = (activityName, activityHandler) =>
+                    {
+                        // Activity dialog closes by itself
+                    };
+
+                    var tester = new MessageBoxTester(handler);
+                    tester.ClickOk();
+                };
+
+                using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                {
+                    // Call
+                    Action test = () => menu.Items[updateStochasticSoilModelsItemIndex].PerformClick();
+
+                    // Assert
+                    TestHelper.AssertLogMessageIsGenerated(
+                        test,
+                        "Uitvoeren van 'Bijwerken van stochastische ondergrondmodellen.' is gelukt.");
+                }
+            }
+        }
+
+        [Test]
+        [Apartment(ApartmentState.STA)]
+        public void ContextMenuStrip_ClickOnUpdateStochasticSoilModelsPathKnownAndConfirmationRequiredButNotGiven_CancelMessageLogged()
+        {
+            // Setup
+            string testDirectory = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO, "StochasticSoilModelDatabaseReader");
+            string existingFilePath = Path.Combine(testDirectory, "emptyschema.soil");
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var pipingFailureMechanism = new PipingFailureMechanism();
+                MakeConfirmationRequired(pipingFailureMechanism);
+
+                var assessmentSection = mocks.Stub<IAssessmentSection>();
+
+                var nodeData = new StochasticSoilModelCollectionContext(CreateEmptyImportedStochasticSoilModelCollection(existingFilePath),
+                                                                        pipingFailureMechanism,
+                                                                        assessmentSection);
+
+                IGui gui = CreateGuiStub(nodeData, treeViewControl);
+
+                plugin.Gui = gui;
+
+                DialogBoxHandler = (name, handler) =>
+                {
+                    var tester = new MessageBoxTester(handler);
+                    tester.ClickCancel();
+                };
+
+                using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                {
+                    // Call
+                    Action test = () => menu.Items[updateStochasticSoilModelsItemIndex].PerformClick();
+
+                    // Assert
+                    TestHelper.AssertLogMessageIsGenerated(
+                        test,
+                        $"Bijwerken van ondergrondschematisaties in '{existingFilePath}' is door de gebruiker geannuleerd.");
+                }
+            }
+        }
+
+        private static ObservableCollectionWithSourcePath<StochasticSoilModel> CreateEmptyImportedStochasticSoilModelCollection(string existingFilePath)
+        {
+            var stochasticSoilModelCollection = new ObservableCollectionWithSourcePath<StochasticSoilModel>();
+            stochasticSoilModelCollection.AddRange(Enumerable.Empty<StochasticSoilModel>(), existingFilePath);
+            return stochasticSoilModelCollection;
+        }
+
+        private static void MakeConfirmationRequired(PipingFailureMechanism pipingFailureMechanism)
+        {
+            pipingFailureMechanism.CalculationsGroup.Children.Add(new PipingCalculationScenario(new GeneralPipingInput())
+            {
+                Output = new TestPipingOutput()
+            });
+        }
+
+        private IGui CreateGuiStub(StochasticSoilModelCollectionContext nodeData, TreeViewControl treeViewControl)
+        {
+            var gui = mocks.Stub<IGui>();
+            gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+            gui.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
+            gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
+            mocks.ReplayAll();
+            return gui;
         }
     }
 }
