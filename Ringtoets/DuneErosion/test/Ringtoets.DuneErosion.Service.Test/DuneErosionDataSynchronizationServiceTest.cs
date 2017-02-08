@@ -134,9 +134,9 @@ namespace Ringtoets.DuneErosion.Service.Test
         [Test]
         [TestCase(0)]
         [TestCase(-1)]
-        [TestCase(-0.1)]
+        [TestCase(-0.123)]
         [TestCase(1)]
-        [TestCase(0.1)]       
+        [TestCase(123.456789)]       
         public void SetDuneLocations_DuneLocationsMatchNameNotAccordingFormat_DeuneLocationNotAddedLogMessage(double offset)
         {
             // Setup
