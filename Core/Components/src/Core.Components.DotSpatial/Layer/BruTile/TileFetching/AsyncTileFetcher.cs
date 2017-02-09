@@ -36,7 +36,7 @@ namespace Core.Components.DotSpatial.Layer.BruTile.TileFetching
     /// Original source: https://github.com/FObermaier/DotSpatial.Plugins/blob/master/DotSpatial.Plugins.BruTileLayer/TileFetcher.cs
     /// Original license: http://www.apache.org/licenses/LICENSE-2.0.html
     /// </remarks>
-    public class AsyncTileFetcher : IDisposable
+    public class AsyncTileFetcher : ITileFetcher
     {
         private readonly ConcurrentDictionary<TileIndex, int> activeTileRequests = new ConcurrentDictionary<TileIndex, int>();
         private readonly ConcurrentDictionary<TileIndex, int> openTileRequests = new ConcurrentDictionary<TileIndex, int>();
@@ -45,14 +45,8 @@ namespace Core.Components.DotSpatial.Layer.BruTile.TileFetching
         private ITileCache<byte[]> persistentCache;
         private SmartThreadPool threadPool;
 
-        /// <summary>
-        /// Event raised when the tile fetcher has received a tile.
-        /// </summary>
         public event EventHandler<TileReceivedEventArgs> TileReceived;
 
-        /// <summary>
-        /// Event raised when the tile request queue is empty
-        /// </summary>
         public event EventHandler QueueEmpty;
 
         /// <summary>
@@ -94,15 +88,6 @@ namespace Core.Components.DotSpatial.Layer.BruTile.TileFetching
             threadPool = new SmartThreadPool(10000, BruTileSettings.MaximumNumberOfThreads);
         }
 
-        /// <summary>
-        /// Gets the tile from cache or queues a fetch request.
-        /// </summary>
-        /// <param name="tileInfo">The tile info.</param>
-        /// <returns>The tile data if a match can be found in the cache, otherwise <c>null</c>
-        /// is returned.</returns>
-        /// <remarks>If no tile can be returned, you can use <see cref="TileReceived"/> and
-        /// <see cref="QueueEmpty"/> events for handling tile retrieval once the queued
-        /// request has been served.</remarks>
         public byte[] GetTile(TileInfo tileInfo)
         {
             byte[] res = GetTileFromCache(tileInfo);
@@ -115,17 +100,11 @@ namespace Core.Components.DotSpatial.Layer.BruTile.TileFetching
             return null;
         }
 
-        /// <summary>
-        /// Determines if this instance is idle and has no tile requests unserved.
-        /// </summary>
         public bool IsReady()
         {
             return activeTileRequests.Count == 0 && openTileRequests.Count == 0;
         }
 
-        /// <summary>
-        /// Stops all pending tile requests.
-        /// </summary>
         public void DropAllPendingTileRequests()
         {
             // Notes: http://dotspatial.codeplex.com/discussions/473428

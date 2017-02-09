@@ -102,6 +102,7 @@
     <Compile Include="Layer\BruTile\Projections\ReprojectExtensions.cs" />
     <Compile Include="Layer\BruTile\Projections\TileReprojector.cs" />
     <Compile Include="Layer\BruTile\Projections\WorldFile.cs" />
+    <Compile Include="Layer\BruTile\TileFetching\ITileFetcher.cs" />
     <Compile Include="Layer\BruTile\TileFetching\NoopTileCache.cs" />
     <Compile Include="Layer\BruTile\TileFetching\AsyncTileFetcher.cs" />
     <Compile Include="Layer\BruTile\TileFetching\TileReceivedEventArgs.cs" />

@@ -94,7 +94,7 @@ namespace Core.Components.DotSpatial.Layer.BruTile.Configurations
 
         public ITileSource TileSource { get; private set; }
 
-        public AsyncTileFetcher TileFetcher { get; private set; }
+        public ITileFetcher TileFetcher { get; private set; }
 
         /// <summary>
         /// Creates a fully initialized instance of <see cref="WmtsLayerConfiguration"/>.

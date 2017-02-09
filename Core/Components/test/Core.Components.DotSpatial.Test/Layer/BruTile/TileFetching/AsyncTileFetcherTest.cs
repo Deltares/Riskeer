@@ -51,7 +51,7 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile.TileFetching
             using (var tileFetcher = new AsyncTileFetcher(tileProvider, 100, 200))
             {
                 // Assert
-                Assert.IsInstanceOf<IDisposable>(tileFetcher);
+                Assert.IsInstanceOf<ITileFetcher>(tileFetcher);
             }
             mocks.VerifyAll();
         }

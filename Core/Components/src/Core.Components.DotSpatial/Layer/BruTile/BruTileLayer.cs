@@ -87,7 +87,7 @@ namespace Core.Components.DotSpatial.Layer.BruTile
         private static readonly ProjectionInfo defaultProjection = new ProjectionInfo();
         private readonly IConfiguration configuration;
 
-        private readonly AsyncTileFetcher tileFetcher;
+        private readonly ITileFetcher tileFetcher;
 
         private readonly ImageAttributes imageAttributes;
 

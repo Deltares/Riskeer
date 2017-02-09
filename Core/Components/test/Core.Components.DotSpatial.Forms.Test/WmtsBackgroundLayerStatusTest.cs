@@ -106,8 +106,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         {
             // Setup
             var mocks = new MockRepository();
-            var provider = mocks.Stub<ITileProvider>();
-            using (var tileFetcher = new AsyncTileFetcher(provider, 1, 2))
+            var tileFetcher = mocks.Stub<ITileFetcher>();
             using (var layerStatus = new WmtsBackgroundLayerStatus())
             {
                 IConfiguration configuration = CreateStubConfiguration(mocks, tileFetcher);
@@ -137,8 +136,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         {
             // Setup
             var mocks = new MockRepository();
-            var provider = mocks.Stub<ITileProvider>();
-            using (var tileFetcher = new AsyncTileFetcher(provider, 1, 2))
+            var tileFetcher = mocks.Stub<ITileFetcher>();
             using (var layerStatus = new WmtsBackgroundLayerStatus())
             {
                 IConfiguration configuration = CreateStubConfiguration(mocks, tileFetcher);
@@ -182,22 +180,19 @@ namespace Core.Components.DotSpatial.Forms.Test
         {
             // Setup
             var mocks = new MockRepository();
-            var provider = mocks.Stub<ITileProvider>();
-            using (var fileFetcher = new AsyncTileFetcher(provider, 1, 2))
+            var tileFetcher = mocks.Stub<ITileFetcher>();
+            IConfiguration configuration = CreateStubConfiguration(mocks, tileFetcher);
+            mocks.ReplayAll();
+
+            using (var layer = new BruTileLayer(configuration))
+            using (var layerStatus = new WmtsBackgroundLayerStatus())
             {
-                IConfiguration configuration = CreateStubConfiguration(mocks, fileFetcher);
-                mocks.ReplayAll();
+                // Call
+                TestDelegate call = () => layerStatus.SuccessfullyInitializedLayer(layer, null);
 
-                using (var layer = new BruTileLayer(configuration))
-                using (var layerStatus = new WmtsBackgroundLayerStatus())
-                {
-                    // Call
-                    TestDelegate call = () => layerStatus.SuccessfullyInitializedLayer(layer, null);
-
-                    // Assert
-                    string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-                    Assert.AreEqual("dataSource", paramName);
-                }
+                // Assert
+                string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+                Assert.AreEqual("dataSource", paramName);
             }
         }
 
@@ -206,28 +201,25 @@ namespace Core.Components.DotSpatial.Forms.Test
         {
             // Setup
             var mocks = new MockRepository();
-            var provider = mocks.Stub<ITileProvider>();
-            using (var fileFetcher = new AsyncTileFetcher(provider, 1, 2))
+            var tileFetcher = mocks.Stub<ITileFetcher>();
+            IConfiguration configuration = CreateStubConfiguration(mocks, tileFetcher);
+            mocks.ReplayAll();
+
+            using (var layer = new BruTileLayer(configuration))
+            using (var layerStatus = new WmtsBackgroundLayerStatus())
             {
-                IConfiguration configuration = CreateStubConfiguration(mocks, fileFetcher);
-                mocks.ReplayAll();
+                layerStatus.LayerInitializationFailed();
 
-                using (var layer = new BruTileLayer(configuration))
-                using (var layerStatus = new WmtsBackgroundLayerStatus())
-                {
-                    layerStatus.LayerInitializationFailed();
+                // Precondition
+                Assert.IsTrue(layerStatus.PreviousBackgroundLayerCreationFailed);
 
-                    // Precondition
-                    Assert.IsTrue(layerStatus.PreviousBackgroundLayerCreationFailed);
+                var mapData = WmtsMapData.CreateDefaultPdokMapData();
 
-                    var mapData = WmtsMapData.CreateDefaultPdokMapData();
+                // Call
+                layerStatus.SuccessfullyInitializedLayer(layer, mapData);
 
-                    // Call
-                    layerStatus.SuccessfullyInitializedLayer(layer, mapData);
-
-                    // Assert
-                    Assert.IsFalse(layerStatus.PreviousBackgroundLayerCreationFailed);
-                }
+                // Assert
+                Assert.IsFalse(layerStatus.PreviousBackgroundLayerCreationFailed);
             }
         }
 
@@ -250,25 +242,22 @@ namespace Core.Components.DotSpatial.Forms.Test
         {
             // Setup
             var mocks = new MockRepository();
-            var provider = mocks.Stub<ITileProvider>();
-            using (var fileFetcher = new AsyncTileFetcher(provider, 1, 2))
+            var tileFetcher = mocks.Stub<ITileFetcher>();
+            IConfiguration configuration = CreateStubConfiguration(mocks, tileFetcher);
+            mocks.ReplayAll();
+
+            using (var layer = new BruTileLayer(configuration))
+            using (var layerStatus = new WmtsBackgroundLayerStatus())
             {
-                IConfiguration configuration = CreateStubConfiguration(mocks, fileFetcher);
-                mocks.ReplayAll();
+                var mapData = WmtsMapData.CreateDefaultPdokMapData();
+                layerStatus.SuccessfullyInitializedLayer(layer, mapData);
 
-                using (var layer = new BruTileLayer(configuration))
-                using (var layerStatus = new WmtsBackgroundLayerStatus())
-                {
-                    var mapData = WmtsMapData.CreateDefaultPdokMapData();
-                    layerStatus.SuccessfullyInitializedLayer(layer, mapData);
+                // Call
+                layerStatus.LayerInitializationFailed();
 
-                    // Call
-                    layerStatus.LayerInitializationFailed();
-
-                    // Assert
-                    Assert.IsTrue(layerStatus.PreviousBackgroundLayerCreationFailed);
-                    Assert.IsFalse(layerStatus.HasSameConfiguration(mapData));
-                }
+                // Assert
+                Assert.IsTrue(layerStatus.PreviousBackgroundLayerCreationFailed);
+                Assert.IsFalse(layerStatus.HasSameConfiguration(mapData));
             }
         }
 
@@ -277,25 +266,22 @@ namespace Core.Components.DotSpatial.Forms.Test
         {
             // Setup
             var mocks = new MockRepository();
-            var provider = mocks.Stub<ITileProvider>();
-            using (var fileFetcher = new AsyncTileFetcher(provider, 1, 2))
+            var tileFetcher = mocks.Stub<ITileFetcher>();
+            IConfiguration configuration = CreateStubConfiguration(mocks, tileFetcher);
+            mocks.ReplayAll();
+
+            using (var layer = new BruTileLayer(configuration))
+            using (var layerStatus = new WmtsBackgroundLayerStatus())
             {
-                IConfiguration configuration = CreateStubConfiguration(mocks, fileFetcher);
-                mocks.ReplayAll();
+                var mapData = WmtsMapData.CreateDefaultPdokMapData();
+                layerStatus.SuccessfullyInitializedLayer(layer, mapData);
 
-                using (var layer = new BruTileLayer(configuration))
-                using (var layerStatus = new WmtsBackgroundLayerStatus())
-                {
-                    var mapData = WmtsMapData.CreateDefaultPdokMapData();
-                    layerStatus.SuccessfullyInitializedLayer(layer, mapData);
+                // Call
+                layerStatus.ClearConfiguration();
 
-                    // Call
-                    layerStatus.ClearConfiguration();
-
-                    // Assert
-                    Assert.IsFalse(layerStatus.PreviousBackgroundLayerCreationFailed);
-                    Assert.IsFalse(layerStatus.HasSameConfiguration(mapData));
-                }
+                // Assert
+                Assert.IsFalse(layerStatus.PreviousBackgroundLayerCreationFailed);
+                Assert.IsFalse(layerStatus.HasSameConfiguration(mapData));
             }
         }
 
@@ -317,7 +303,7 @@ namespace Core.Components.DotSpatial.Forms.Test
             }
         }
 
-        private static IConfiguration CreateStubConfiguration(MockRepository mocks, AsyncTileFetcher tileFetcher)
+        private static IConfiguration CreateStubConfiguration(MockRepository mocks, ITileFetcher tileFetcher)
         {
             var schema = mocks.Stub<ITileSchema>();
             schema.Stub(s => s.Srs).Return("EPSG:28992");
