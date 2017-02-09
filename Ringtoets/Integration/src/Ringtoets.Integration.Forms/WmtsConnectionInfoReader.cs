@@ -136,9 +136,8 @@ namespace Ringtoets.Integration.Forms
             }
             catch (ArgumentException exception)
             {
-                string locationDescription = string.Format(Resources.WmtsConnectionInfoReader_XML_Location_Name_0_URL_1, name, url);
-                string message = new FileReaderErrorMessageBuilder(filePath).WithLocation(locationDescription)
-                                                                         .Build(Resources.WmtsConnectionInfoReader_Unable_To_Create_WmtsConnectionInfo);
+                string errorMessage = string.Format(Resources.WmtsConnectionInfoReader_Unable_To_Create_WmtsConnectionInfo, name, url);
+                string message = new FileReaderErrorMessageBuilder(filePath).Build(errorMessage);
 
                 log.Warn(message, exception);
             }

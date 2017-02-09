@@ -187,14 +187,12 @@ namespace Ringtoets.Integration.Forms.Test
             Action action = () => { readConnectionInfos = reader.ReadWmtsConnectionInfos(filePath).ToArray(); };
 
             // Assert
-            string expectedMessage = $"Fout bij het lezen van bestand '{filePath}' waarbij Naam='First name' "
-                                     + "en URL='': het is niet mogelijk om een WMTS connectie aan te maken.";
+            string expectedMessage = $"Fout bij het lezen van bestand '{filePath}': het is niet mogelijk om WMTS connectie First name aan te maken met URL ''.";
             TestHelper.AssertLogMessageWithLevelIsGenerated(action, Tuple.Create(expectedMessage, LogLevelConstant.Warn));
 
             Assert.IsNotNull(readConnectionInfos);
             Assert.AreEqual(1, readConnectionInfos.Length);
-            var expectedWmtsConnectionInfo = new WmtsConnectionInfo(@"second name",
-                                                                    @"https://domain.com");
+            var expectedWmtsConnectionInfo = new WmtsConnectionInfo(@"second name", @"https://domain.com");
 
             AssertAreEqual(expectedWmtsConnectionInfo, readConnectionInfos[0]);
         }

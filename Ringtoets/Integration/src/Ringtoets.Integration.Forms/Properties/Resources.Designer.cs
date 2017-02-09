@@ -716,20 +716,11 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het is niet mogelijk om een WMTS connectie aan te maken..
+        ///   Looks up a localized string similar to Het is niet mogelijk om WMTS connectie {0} aan te maken met URL &apos;{1}&apos;..
         /// </summary>
         public static string WmtsConnectionInfoReader_Unable_To_Create_WmtsConnectionInfo {
             get {
                 return ResourceManager.GetString("WmtsConnectionInfoReader_Unable_To_Create_WmtsConnectionInfo", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to waarbij Naam=&apos;{0}&apos; en URL=&apos;{1}&apos;.
-        /// </summary>
-        public static string WmtsConnectionInfoReader_XML_Location_Name_0_URL_1 {
-            get {
-                return ResourceManager.GetString("WmtsConnectionInfoReader_XML_Location_Name_0_URL_1", resourceCulture);
             }
         }
     }
