@@ -22,12 +22,17 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
+using System.Linq;
 using BruTile;
+using BruTile.Cache;
 using Core.Common.TestUtil;
 using Core.Components.DotSpatial.Layer.BruTile;
 using Core.Components.DotSpatial.Layer.BruTile.Configurations;
 using Core.Components.DotSpatial.Layer.BruTile.Projections;
 using Core.Components.DotSpatial.Layer.BruTile.TileFetching;
+using Core.Components.DotSpatial.Test.Properties;
 using DotSpatial.Controls;
 using DotSpatial.Projections;
 using DotSpatial.Projections.AuthorityCodes;
@@ -42,6 +47,117 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
     [TestFixture]
     public class BruTileLayerTest
     {
+        private static IEnumerable<TestCaseData> DrawRegionsTestCases
+        {
+            get
+            {
+                yield return new TestCaseData(new TileInfosTestConfig(new[]
+                                              {
+                                                  new TileInfoConfig(new Extent(99949.76, 463000.08, 155000, 518050.32),
+                                                                     7, 7, Resources.blue_256x256),
+                                                  new TileInfoConfig(new Extent(44899.52, 463000.08, 99949.76, 518050.32),
+                                                                     6, 7, Resources.green_256x256)
+                                              }, 4),
+                                              Resources.BackgroundLayerCanvas,
+                                              Resources.BackgroundLayerCanvasAfterAddingTestTiles,
+                                              new DotSpatialExtent(-78529.9210634486, 403315.730436505, 306453.46038588, 581961.051306503),
+                                              new DotSpatialExtent(-78529.9210634486, 403315.730436505, 306453.46038588, 581961.051306503),
+                                              false,
+                                              0f)
+                    .SetName("DrawRegions for 2 consecutive tiles at level 4.");
+
+                yield return new TestCaseData(new TileInfosTestConfig(new[]
+                                              {
+                                                  new TileInfoConfig(new Extent(99949.76, 463000.08, 155000, 518050.32),
+                                                                     7, 7, Resources.blue_256x256),
+                                                  new TileInfoConfig(new Extent(44899.52, 463000.08, 99949.76, 518050.32),
+                                                                     6, 7, Resources.green_256x256)
+                                              }, 4),
+                                              Resources.BackgroundLayerCanvas,
+                                              Resources.BackgroundLayerCanvasAfterAddingTestTiles,
+                                              new DotSpatialExtent(-78529.9210634486, 403315.730436505, 306453.46038588, 581961.051306503),
+                                              null,
+                                              false,
+                                              0f)
+                    .SetName("DrawRegions for 2 consecutive tiles at level 4 without specifying region.");
+
+                yield return new TestCaseData(new TileInfosTestConfig(new[]
+                                              {
+                                                  new TileInfoConfig(new Extent(113712.32, 509448.72, 115432.64, 511169.04),
+                                                                     232, 228, Resources.blue_256x256),
+                                                  new TileInfoConfig(new Extent(111992, 511169.04, 113712.32, 512889.36),
+                                                                     231, 227, Resources.green_256x256)
+                                              }, 9),
+                                              Resources.BackgroundLayerCanvas_smaller,
+                                              Resources.BackgroundLayerCanvas_smallerAfterAddingTestTiles,
+                                              new DotSpatialExtent(4.71640686348909, 52.5275200480914, 4.84542703038542, 52.622163604187),
+                                              new DotSpatialExtent(4.71640686348909, 52.5275200480914, 4.84542703038542, 52.622163604187),
+                                              true,
+                                              0f)
+                    .SetName("DrawRegions for 2 loose tiles at level 9 in WGS84.");
+
+                yield return new TestCaseData(new TileInfosTestConfig(new[]
+                                              {
+                                                  new TileInfoConfig(new Extent(113712.32, 509448.72, 115432.64, 511169.04),
+                                                                     232, 228, Resources.blue_256x256),
+                                                  new TileInfoConfig(new Extent(111992, 511169.04, 113712.32, 512889.36),
+                                                                     231, 227, Resources.green_256x256)
+                                              }, 9),
+                                              Resources.BackgroundLayerCanvas_smaller,
+                                              Resources.BackgroundLayerCanvas_smallerAfterAddingTestTiles,
+                                              new DotSpatialExtent(4.71640686348909, 52.5275200480914, 4.84542703038542, 52.622163604187),
+                                              null,
+                                              true,
+                                              0f)
+                    .SetName("DrawRegions for 2 loose tiles at level 9 in WGS84 without specifying region.");
+
+                yield return new TestCaseData(new TileInfosTestConfig(new[]
+                                              {
+                                                  new TileInfoConfig(new Extent(113712.32, 509448.72, 115432.64, 511169.04),
+                                                                     232, 228, Resources.blue_256x256),
+                                                  new TileInfoConfig(new Extent(111992, 511169.04, 113712.32, 512889.36),
+                                                                     231, 227, Resources.green_256x256)
+                                              }, 9),
+                                              Resources.BackgroundLayerCanvas_smaller,
+                                              Resources.BackgroundLayerCanvas_smaller,
+                                              new DotSpatialExtent(4.71640686348909, 52.5275200480914, 4.84542703038542, 52.622163604187),
+                                              new DotSpatialExtent(4.58738669659276, 52.5275200480914, 4.45836652969643, 52.622163604187),
+                                              false,
+                                              0f)
+                    .SetName("DrawRegions at level 9 for region outside viewport.");
+
+                yield return new TestCaseData(new TileInfosTestConfig(new[]
+                                              {
+                                                  new TileInfoConfig(new Extent(99949.76, 463000.08, 155000, 518050.32),
+                                                                     7, 7, Resources.blue_256x256),
+                                                  new TileInfoConfig(new Extent(44899.52, 463000.08, 99949.76, 518050.32),
+                                                                     6, 7, Resources.green_256x256)
+                                              }, 4),
+                                              Resources.BackgroundLayerCanvas,
+                                              Resources.BackgroundLayerCanvas,
+                                              new DotSpatialExtent(-78529.9210634486, 403315.730436505, 306453.46038588, 581961.051306503),
+                                              new DotSpatialExtent(-78529.9210634486, 403315.730436505, 306453.46038588, 581961.051306503),
+                                              false,
+                                              1f)
+                    .SetName("DrawRegions for 2 consecutive tiles at level 4 for fully transparent layer.");
+
+                yield return new TestCaseData(new TileInfosTestConfig(new[]
+                                              {
+                                                  new TileInfoConfig(new Extent(99949.76, 463000.08, 155000, 518050.32),
+                                                                     7, 7, Resources.blue_256x256),
+                                                  new TileInfoConfig(new Extent(44899.52, 463000.08, 99949.76, 518050.32),
+                                                                     6, 7, Resources.green_256x256)
+                                              }, 4),
+                                              Resources.BackgroundLayerCanvas,
+                                              Resources.BackgroundLayerAfterAddingHalfTransparentTestTiles,
+                                              new DotSpatialExtent(-78529.9210634486, 403315.730436505, 306453.46038588, 581961.051306503),
+                                              new DotSpatialExtent(-78529.9210634486, 403315.730436505, 306453.46038588, 581961.051306503),
+                                              false,
+                                              0.5f)
+                    .SetName("DrawRegions for 2 consecutive tiles at level 4 for 50% transparent layer.");
+            }
+        }
+
         [Test]
         public void Constructor_ConfigurationNull_ThrowArgumentNullException()
         {
@@ -583,6 +699,258 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
                 }
             }
             mocks.VerifyAll();
+        }
+
+        [Test]
+        [TestCaseSource(nameof(DrawRegionsTestCases))]
+        public void DrawRegions_VariousTestCases_DrawMapTiles(TileInfosTestConfig testConfig,
+                                                              Bitmap mapCanvasSource,
+                                                              Bitmap expectedResult,
+                                                              DotSpatialExtent mapExtent,
+                                                              DotSpatialExtent regionExtent,
+                                                              bool reprojectLayerToWgs84,
+                                                              float transparency)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var configuration = CreateConfigurationForDrawing(mocks, testConfig);
+            mocks.ReplayAll();
+
+            using (var layer = new BruTileLayer(configuration))
+            using (var mapCanvas = (Bitmap) mapCanvasSource.Clone())
+            using (var graphics = Graphics.FromImage(mapCanvas))
+            {
+                if (reprojectLayerToWgs84)
+                {
+                    layer.Reproject(KnownCoordinateSystems.Geographic.World.WGS1984);
+                }
+                layer.Transparency = transparency;
+
+                var mapArgs = new MapArgs(new Rectangle(0, 0, mapCanvas.Width, mapCanvas.Height),
+                                          mapExtent,
+                                          graphics);
+
+                var regions = new List<DotSpatialExtent>();
+                if (regionExtent != null)
+                {
+                    regions.Add(regionExtent);
+                }
+
+                // Call
+                layer.DrawRegions(mapArgs, regions);
+
+                // Assert
+                TestHelper.AssertImagesAreEqual(expectedResult, mapCanvas);
+            }
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void DrawRegions_FirstTileRetrieveNotInCacheSecondTileInCache_DrawMapTiles()
+        {
+            // Setup
+            var testConfig = new TileInfosTestConfig(new[]
+            {
+                new TileInfoConfig(new Extent(99949.76, 463000.08, 155000, 518050.32),
+                                   7, 7, Resources.blue_256x256),
+                new TileInfoConfig(new Extent(44899.52, 463000.08, 99949.76, 518050.32),
+                                   6, 7, Resources.green_256x256)
+            }, 4);
+
+            var mocks = new MockRepository();
+            var configuration = CreateConfigurationForDrawingWhereFirstTileFetchNotInCacheButSecondFetchDoes(mocks, testConfig);
+            mocks.ReplayAll();
+
+            using (var layer = new BruTileLayer(configuration))
+            using (var mapCanvas = (Bitmap) Resources.BackgroundLayerCanvas.Clone())
+            using (var graphics = Graphics.FromImage(mapCanvas))
+            {
+                var mapArgs = new MapArgs(new Rectangle(0, 0, mapCanvas.Width, mapCanvas.Height),
+                                          new DotSpatialExtent(-78529.9210634486, 403315.730436505, 306453.46038588, 581961.051306503),
+                                          graphics);
+
+                var regions = new List<DotSpatialExtent>();
+
+                // Call
+                layer.DrawRegions(mapArgs, regions);
+
+                // Assert
+                TestHelper.AssertImagesAreEqual(Resources.BackgroundLayerCanvasAfterAddingTestTiles, mapCanvas);
+            }
+            mocks.VerifyAll();
+        }
+
+        private static Resolution CreateResulutionForLevel(int level, string epsgCode)
+        {
+            int numberOfImagesAtLevel = GetNumberOfImages(level);
+            return new Resolution($"{epsgCode}:{level}", GetUnitsPerPixel(level),
+                                  256, 256,
+                                  -285401.92, 903402,
+                                  numberOfImagesAtLevel, numberOfImagesAtLevel,
+                                  GetScaleFactor(level));
+        }
+
+        private static int GetNumberOfImages(int level)
+        {
+            return Convert.ToInt32(Math.Pow(2, level));
+        }
+
+        private static double GetUnitsPerPixel(int level)
+        {
+            return 3440.64 / GetNumberOfImages(level);
+        }
+
+        private static int GetScaleFactor(int level)
+        {
+            return 12288000 / GetNumberOfImages(level);
+        }
+
+        private static IDictionary<string, Resolution> CreateResolutionDictionary(string epsgCode, int level)
+        {
+            var levelToCreateResolutionsFor = new[]
+            {
+                level - 1,
+                level,
+                level + 1
+            };
+
+            return levelToCreateResolutionsFor.ToDictionary(resolutionLevel => $"{epsgCode}:{resolutionLevel}",
+                                                            resolutionLevel => CreateResulutionForLevel(resolutionLevel, epsgCode));
+        }
+
+        public class TileInfosTestConfig
+        {
+            public TileInfosTestConfig(IEnumerable<TileInfoConfig> configs, int level)
+            {
+                TileInfoConfigurations = new List<TileInfoConfig>(configs);
+                Level = level;
+            }
+
+            public ICollection<TileInfoConfig> TileInfoConfigurations { get; }
+            public int Level { get; }
+        }
+
+        public class TileInfoConfig
+        {
+            public TileInfoConfig(Extent extent, int columnIndex, int rowIndex, Bitmap image)
+            {
+                Extent = extent;
+                ColumnIndex = columnIndex;
+                RowIndex = rowIndex;
+                Image = image;
+            }
+
+            public Extent Extent { get; }
+            public int ColumnIndex { get; }
+            public int RowIndex { get; }
+            public Bitmap Image { get; }
+        }
+
+        private static IConfiguration CreateConfigurationForDrawingWhereFirstTileFetchNotInCacheButSecondFetchDoes(MockRepository mocks, TileInfosTestConfig config)
+        {
+            var epsgCode = "EPSG:28992";
+            int level = config.Level;
+            var levelId = $"{epsgCode}:{level}";
+
+            var tileInfoImageLookup = config.TileInfoConfigurations.ToDictionary(c => new TileInfo
+                                                                                 {
+                                                                                     Extent = c.Extent,
+                                                                                     Index = new TileIndex(c.ColumnIndex, c.RowIndex, levelId)
+                                                                                 },
+                                                                                 c => c.Image);
+
+            var tileProvider = mocks.Stub<ITileProvider>();
+            tileProvider.Stub(p => p.GetTile(Arg<TileInfo>.Is.Anything)).Return(null);
+
+            var persistentCache = mocks.Stub<ITileCache<byte[]>>();
+            int callCount = 0;
+            foreach (KeyValuePair<TileInfo, Bitmap> tileInfoImagePair in tileInfoImageLookup)
+            {
+                // Configure persistent cache in such a way that first retrieve returns null for that tile
+                // and then second retrieve does return the data (simulating tile having been
+                // retrieved asynchronously):
+                persistentCache.Stub(c => c.Find(tileInfoImagePair.Key.Index))
+                               .WhenCalled(invocation =>
+                               {
+                                   invocation.ReturnValue = callCount < tileInfoImageLookup.Count ?
+                                                                null :
+                                                                ToByteArray(tileInfoImagePair.Value);
+                                   callCount++;
+                               })
+                               .Return(ToByteArray(tileInfoImagePair.Value));
+            }
+            var tileFetcher = new AsyncTileFetcher(tileProvider, 1, 5, persistentCache);
+
+            var tileSchema = mocks.Stub<ITileSchema>();
+            tileSchema.Stub(s => s.Srs).Return(epsgCode);
+            tileSchema.Stub(s => s.Extent).Return(new Extent(-285401.92, 22598.16, 595401.92, 903402));
+            tileSchema.Stub(s => s.Resolutions).Return(CreateResolutionDictionary(epsgCode, level));
+            tileSchema.Stub(s => s.GetTileInfos(Arg<Extent>.Is.NotNull,
+                                                Arg<string>.Is.Equal(levelId)))
+                      .Return(tileInfoImageLookup.Keys);
+
+            var tileSource = mocks.Stub<ITileSource>();
+            tileSource.Stub(ts => ts.Schema).Return(tileSchema);
+
+            var configuration = mocks.Stub<IConfiguration>();
+            configuration.Stub(c => c.Initialized).Return(true);
+            configuration.Stub(c => c.LegendText).Return("A");
+            configuration.Stub(c => c.TileFetcher).Return(tileFetcher);
+            configuration.Stub(c => c.TileSource).Return(tileSource);
+            configuration.Stub(c => c.Dispose());
+            return configuration;
+        }
+
+        private static IConfiguration CreateConfigurationForDrawing(MockRepository mocks, TileInfosTestConfig config)
+        {
+            var epsgCode = "EPSG:28992";
+            int level = config.Level;
+            var levelId = $"{epsgCode}:{level}";
+
+            var tileInfoImageLookup = config.TileInfoConfigurations.ToDictionary(c => new TileInfo
+                                                                                 {
+                                                                                     Extent = c.Extent,
+                                                                                     Index = new TileIndex(c.ColumnIndex, c.RowIndex, levelId)
+                                                                                 },
+                                                                                 c => c.Image);
+
+            var tileProvider = mocks.Stub<ITileProvider>();
+            var persistentCache = mocks.Stub<ITileCache<byte[]>>();
+            foreach (KeyValuePair<TileInfo, Bitmap> tileInfoImagePair in tileInfoImageLookup)
+            {
+                persistentCache.Stub(c => c.Find(tileInfoImagePair.Key.Index))
+                               .Return(ToByteArray(tileInfoImagePair.Value));
+            }
+            var tileFetcher = new AsyncTileFetcher(tileProvider, 1, 5, persistentCache);
+
+            var tileSchema = mocks.Stub<ITileSchema>();
+            tileSchema.Stub(s => s.Srs).Return(epsgCode);
+            tileSchema.Stub(s => s.Extent).Return(new Extent(-285401.92, 22598.16, 595401.92, 903402));
+            tileSchema.Stub(s => s.Resolutions).Return(CreateResolutionDictionary(epsgCode, level));
+            tileSchema.Stub(s => s.GetTileInfos(Arg<Extent>.Is.NotNull,
+                                                Arg<string>.Is.Equal(levelId)))
+                      .Return(tileInfoImageLookup.Keys);
+
+            var tileSource = mocks.Stub<ITileSource>();
+            tileSource.Stub(ts => ts.Schema).Return(tileSchema);
+
+            var configuration = mocks.Stub<IConfiguration>();
+            configuration.Stub(c => c.Initialized).Return(true);
+            configuration.Stub(c => c.LegendText).Return("A");
+            configuration.Stub(c => c.TileFetcher).Return(tileFetcher);
+            configuration.Stub(c => c.TileSource).Return(tileSource);
+            configuration.Stub(c => c.Dispose());
+            return configuration;
+        }
+
+        private static byte[] ToByteArray(Image image)
+        {
+            using (var stream = new MemoryStream())
+            {
+                image.Save(stream, ImageFormat.Png);
+                stream.Seek(0, SeekOrigin.Begin);
+                return stream.ToArray();
+            }
         }
 
         private static IConfiguration CreateStubConfiguration(MockRepository mocks, AsyncTileFetcher tileFetcher,

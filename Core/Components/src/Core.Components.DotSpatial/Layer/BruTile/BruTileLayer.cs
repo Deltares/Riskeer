@@ -84,13 +84,10 @@ namespace Core.Components.DotSpatial.Layer.BruTile
     public class BruTileLayer : DotSpatialLayer, IMapLayer
     {
         private const string webMercatorEpsgIdentifier = "EPSG:3857";
-        private const int autoRefreshTimeMs = 250;
         private static readonly ProjectionInfo defaultProjection = new ProjectionInfo();
         private readonly IConfiguration configuration;
 
         private readonly AsyncTileFetcher tileFetcher;
-
-        private readonly Stopwatch stopwatch = new Stopwatch();
 
         private readonly ImageAttributes imageAttributes;
 
@@ -240,8 +237,6 @@ namespace Core.Components.DotSpatial.Layer.BruTile
             {
                 return;
             }
-
-            stopwatch.Reset();
 
             IEnumerable<DotSpatialExtent> regionsToDraw = regions.Any() ?
                                                               (IEnumerable<DotSpatialExtent>) regions :
@@ -457,15 +452,6 @@ namespace Core.Components.DotSpatial.Layer.BruTile
                 return;
             }
 
-            // Some timed refreshes if the server becomes slooow...
-            if (stopwatch.Elapsed.Milliseconds > autoRefreshTimeMs && !tileFetcher.IsReady())
-            {
-                stopwatch.Reset();
-                MapFrame.Invalidate();
-                stopwatch.Restart();
-                return;
-            }
-
             DotSpatialExtent tileExtent = FromBruTileExtent(e.TileInfo.Extent);
             if (MapFrame.ViewExtents.Intersects(tileExtent))
             {
@@ -475,7 +461,6 @@ namespace Core.Components.DotSpatial.Layer.BruTile
 
         private void HandleQueueEmpty(object sender, EventArgs empty)
         {
-            stopwatch.Reset();
             MapFrame.Invalidate();
         }
 
@@ -534,9 +519,9 @@ namespace Core.Components.DotSpatial.Layer.BruTile
 
             using (var bitmap = (Bitmap) Image.FromStream(new MemoryStream(buffer)))
             {
-                WorldFile inWorldFile = new WorldFile(resolution.UnitsPerPixel, 0,
-                                                      0, -resolution.UnitsPerPixel,
-                                                      info.Extent.MinX, info.Extent.MaxY);
+                var inWorldFile = new WorldFile(resolution.UnitsPerPixel, 0,
+                                                0, -resolution.UnitsPerPixel,
+                                                info.Extent.MinX, info.Extent.MaxY);
 
                 WorldFile outWorldFile;
                 Bitmap outBitmap;

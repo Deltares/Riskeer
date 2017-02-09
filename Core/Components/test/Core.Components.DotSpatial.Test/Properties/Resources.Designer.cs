@@ -63,6 +63,76 @@ namespace Core.Components.DotSpatial.Test.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap BackgroundLayerAfterAddingHalfTransparentTestTiles {
+            get {
+                object obj = ResourceManager.GetObject("BackgroundLayerAfterAddingHalfTransparentTestTiles", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap BackgroundLayerCanvas {
+            get {
+                object obj = ResourceManager.GetObject("BackgroundLayerCanvas", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap BackgroundLayerCanvas_smaller {
+            get {
+                object obj = ResourceManager.GetObject("BackgroundLayerCanvas_smaller", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap BackgroundLayerCanvas_smallerAfterAddingTestTiles {
+            get {
+                object obj = ResourceManager.GetObject("BackgroundLayerCanvas_smallerAfterAddingTestTiles", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap BackgroundLayerCanvasAfterAddingTestTiles {
+            get {
+                object obj = ResourceManager.GetObject("BackgroundLayerCanvasAfterAddingTestTiles", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap blue_256x256 {
+            get {
+                object obj = ResourceManager.GetObject("blue_256x256", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap green_256x256 {
+            get {
+                object obj = ResourceManager.GetObject("green_256x256", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap source {
             get {
                 object obj = ResourceManager.GetObject("source", resourceCulture);

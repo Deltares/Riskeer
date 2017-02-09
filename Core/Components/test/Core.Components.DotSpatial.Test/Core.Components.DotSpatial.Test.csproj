@@ -177,6 +177,27 @@
   <ItemGroup>
     <None Include="Resources\target.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BackgroundLayerCanvas.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\green_256x256.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\blue_256x256.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BackgroundLayerCanvasAfterAddingTestTiles.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BackgroundLayerCanvas_smaller.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BackgroundLayerCanvas_smallerAfterAddingTestTiles.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BackgroundLayerAfterAddingHalfTransparentTestTiles.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\..\..\..\packages\System.Data.SQLite.Core.1.0.104.0\build\net40\System.Data.SQLite.Core.targets" Condition="Exists('..\..\..\..\packages\System.Data.SQLite.Core.1.0.104.0\build\net40\System.Data.SQLite.Core.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
