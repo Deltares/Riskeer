@@ -714,5 +714,23 @@ namespace Ringtoets.Integration.Forms.Properties {
                 return ResourceManager.GetString("WmtsCapability_MapLayer_Title", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het is niet mogelijk om een WMTS connectie aan te maken..
+        /// </summary>
+        public static string WmtsConnectionInfoReader_Unable_To_Create_WmtsConnectionInfo {
+            get {
+                return ResourceManager.GetString("WmtsConnectionInfoReader_Unable_To_Create_WmtsConnectionInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to waarbij Naam=&apos;{0}&apos; en URL=&apos;{1}&apos;.
+        /// </summary>
+        public static string WmtsConnectionInfoReader_XML_Location_Name_0_URL_1 {
+            get {
+                return ResourceManager.GetString("WmtsConnectionInfoReader_XML_Location_Name_0_URL_1", resourceCulture);
+            }
+        }
     }
 }

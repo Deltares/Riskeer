@@ -21,9 +21,15 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Xml;
 using System.Xml.Linq;
+using Core.Common.IO.Exceptions;
 using Core.Common.Utils;
+using Core.Common.Utils.Builders;
+using log4net;
+using Ringtoets.Integration.Forms.Properties;
+using CoreCommonUtilsResources = Core.Common.Utils.Properties.Resources;
 
 namespace Ringtoets.Integration.Forms
 {
@@ -32,11 +38,15 @@ namespace Ringtoets.Integration.Forms
     /// </summary>
     public class WmtsConnectionInfoReader
     {
+        private static readonly ILog log = LogManager.GetLogger(typeof(WmtsConnectionInfoReader));
+        private string filePath;
+
         /// <summary>
-        /// Reads the WMTS Connection infos from <paramref name="filePath"/>.
+        /// Reads the WMTS Connection info objects from <paramref name="path"/>.
         /// </summary>
-        /// <param name="filePath">The file path that contains the <see cref="Forms.WmtsConnectionInfo"/> information.</param>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>
+        /// <param name="path">The file path that contains the <see cref="Forms.WmtsConnectionInfo"/> information.</param>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="path"/> is invalid.</exception>
+        /// <exception cref="CriticalFileReadException">Thrown when <paramref name="path"/> could not successfully be read.</exception>
         /// <remarks>A valid path:
         /// <list type="bullet">
         /// <item>is not empty or <c>null</c>,</item>
@@ -44,42 +54,68 @@ namespace Ringtoets.Integration.Forms
         /// <item>does not contain an invalid character,</item>
         /// <item>does not end with a directory or path separator (empty file name).</item>
         /// </list></remarks>
-        public List<WmtsConnectionInfo> ReadWmtsConnectionInfos(string filePath)
+        public IEnumerable<WmtsConnectionInfo> ReadWmtsConnectionInfos(string path)
+        {
+            filePath = path;
+            ValidateFilePath();
+
+            try
+            {
+                return ReadWmtsConnectionInfos();
+            }
+            catch (Exception exception) when (exception is XmlException || exception is IOException)
+            {
+                string message = new FileReaderErrorMessageBuilder(filePath)
+                    .Build(CoreCommonUtilsResources.Error_General_IO_Import_ErrorMessage);
+                throw new CriticalFileReadException(message, exception);
+            }
+        }
+
+        private void ValidateFilePath()
         {
             IOUtils.ValidateFilePath(filePath);
+            if (!File.Exists(filePath))
+            {
+                string message = new FileReaderErrorMessageBuilder(filePath).Build(CoreCommonUtilsResources.Error_File_does_not_exist);
+                throw new CriticalFileReadException(message);
+            }
+        }
 
+        private IEnumerable<WmtsConnectionInfo> ReadWmtsConnectionInfos()
+        {
             var connectionInfos = new List<WmtsConnectionInfo>();
             using (XmlReader reader = XmlReader.Create(filePath))
             {
                 while (reader.Read())
                 {
-                    if (reader.NodeType != XmlNodeType.Element || !reader.IsStartElement() || reader.Name != WmtsConnectionInfoXmlDefinitions.WmtsConnectionElement)
+                    if (reader.NodeType != XmlNodeType.Element
+                        || !reader.IsStartElement()
+                        || reader.Name != WmtsConnectionInfoXmlDefinitions.WmtsConnectionElement)
                     {
                         continue;
                     }
 
-                    connectionInfos.Add(ReadWmtsConnectionElement(reader));
+                    WmtsConnectionInfo readWmtsConnectionElement = ReadWmtsConnectionElement(reader);
+                    if (readWmtsConnectionElement != null)
+                    {
+                        connectionInfos.Add(readWmtsConnectionElement);
+                    }
                 }
             }
             return connectionInfos;
         }
 
-        private static WmtsConnectionInfo ReadWmtsConnectionElement(XmlReader reader)
+        private WmtsConnectionInfo ReadWmtsConnectionElement(XmlReader reader)
         {
             using (XmlReader subtreeReader = reader.ReadSubtree())
             {
                 XElement wmtsConnectionElement = XElement.Load(subtreeReader);
 
-                WmtsConnectionInfo readWmtsConnectionInfo = WmtsConnectionInfo(wmtsConnectionElement);
-                if (readWmtsConnectionInfo != null)
-                {
-                    return readWmtsConnectionInfo;
-                }
+                return WmtsConnectionInfo(wmtsConnectionElement);
             }
-            return null;
         }
 
-        private static WmtsConnectionInfo WmtsConnectionInfo(XContainer element)
+        private WmtsConnectionInfo WmtsConnectionInfo(XContainer element)
         {
             XElement nameElement = element.Element(WmtsConnectionInfoXmlDefinitions.WmtsConnectionNameElement);
             XElement urlElement = element.Element(WmtsConnectionInfoXmlDefinitions.WmtsConnectionUrlElement);
@@ -88,7 +124,25 @@ namespace Ringtoets.Integration.Forms
             {
                 return null;
             }
-            return new WmtsConnectionInfo(nameElement.Value, urlElement.Value);
+
+            return TryCreateWmtsConnectionInfo(nameElement.Value, urlElement.Value);
+        }
+
+        private WmtsConnectionInfo TryCreateWmtsConnectionInfo(string name, string url)
+        {
+            try
+            {
+                return new WmtsConnectionInfo(name, url);
+            }
+            catch (ArgumentException exception)
+            {
+                string locationDescription = string.Format(Resources.WmtsConnectionInfoReader_XML_Location_Name_0_URL_1, name, url);
+                string message = new FileReaderErrorMessageBuilder(filePath).WithLocation(locationDescription)
+                                                                         .Build(Resources.WmtsConnectionInfoReader_Unable_To_Create_WmtsConnectionInfo);
+
+                log.Warn(message, exception);
+            }
+            return null;
         }
     }
 }

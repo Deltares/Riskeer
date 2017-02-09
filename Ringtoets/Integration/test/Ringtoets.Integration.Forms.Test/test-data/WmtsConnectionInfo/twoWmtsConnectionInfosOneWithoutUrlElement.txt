@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="utf-8"?><WmtsConnections><WmtsConnection><Name>First name</Name></WmtsConnection><WmtsConnection><Name>second name</Name><URL>https://domain.com</URL></WmtsConnection></WmtsConnections>

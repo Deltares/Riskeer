@@ -327,4 +327,10 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="WmtsCapability_MapLayer_CoordinateSystem" xml:space="preserve">
     <value>Coördinatenstelsel</value>
   </data>
+  <data name="WmtsConnectionInfoReader_Unable_To_Create_WmtsConnectionInfo" xml:space="preserve">
+    <value>Het is niet mogelijk om een WMTS connectie aan te maken.</value>
+  </data>
+  <data name="WmtsConnectionInfoReader_XML_Location_Name_0_URL_1" xml:space="preserve">
+    <value>waarbij Naam='{0}' en URL='{1}'</value>
+  </data>
 </root>
