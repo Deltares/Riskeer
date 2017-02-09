@@ -19,21 +19,32 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Core.Common.Utils.Attributes;
+using System.Collections.Generic;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 
 namespace Ringtoets.GrassCoverErosionInwards.Data.Test
 {
     [TestFixture]
-    public class DikeHeightCalculationTypeTest
+    public class DikeHeightCalculationTypeTest : EnumTestFixture<DikeHeightCalculationType>
     {
-        [Test]
-        public void DisplayName_Always_ReturnExpectedValues()
+        protected override IDictionary<DikeHeightCalculationType, string> ExpectedDisplayNameForEnumValues
         {
-            // Assert
-            Assert.AreEqual("Niet", GetDisplayName(DikeHeightCalculationType.NoCalculation));
-            Assert.AreEqual("HBN bij norm", GetDisplayName(DikeHeightCalculationType.CalculateByAssessmentSectionNorm));
-            Assert.AreEqual("HBN bij doorsnede-eis", GetDisplayName(DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability));
+            get
+            {
+                return new Dictionary<DikeHeightCalculationType, string>
+                {
+                    {
+                        DikeHeightCalculationType.NoCalculation, "Niet"
+                    },
+                    {
+                        DikeHeightCalculationType.CalculateByAssessmentSectionNorm, "HBN bij norm"
+                    },
+                    {
+                        DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability, "HBN bij doorsnede-eis"
+                    }
+                };
+            }
         }
 
         [Test]
@@ -43,14 +54,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             Assert.AreEqual(1, (byte) DikeHeightCalculationType.NoCalculation);
             Assert.AreEqual(2, (byte) DikeHeightCalculationType.CalculateByAssessmentSectionNorm);
             Assert.AreEqual(3, (byte) DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability);
-        }
-
-        private static string GetDisplayName(DikeHeightCalculationType value)
-        {
-            var type = typeof(DikeHeightCalculationType);
-            var memInfo = type.GetMember(value.ToString());
-            var attributes = memInfo[0].GetCustomAttributes(typeof(ResourcesDisplayNameAttribute), false);
-            return ((ResourcesDisplayNameAttribute) attributes[0]).DisplayName;
         }
     }
 }

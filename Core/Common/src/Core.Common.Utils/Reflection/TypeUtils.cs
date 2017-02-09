@@ -24,6 +24,7 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Linq.Expressions;
 using System.Reflection;
+using Core.Common.Utils.Attributes;
 using Core.Common.Utils.Properties;
 
 namespace Core.Common.Utils.Reflection
@@ -33,6 +34,27 @@ namespace Core.Common.Utils.Reflection
     /// </summary>
     public static class TypeUtils
     {
+        /// <summary>
+        /// Gets the string representation of an enum value, taking <see cref="ResourcesDisplayNameAttribute"/>
+        /// into account.
+        /// </summary>
+        /// <typeparam name="TEnumType">The type of the enum.</typeparam>
+        /// <param name="enumValue">The value of the enum.</param>
+        /// <returns>The display name of the enum value.</returns>
+        public static string GetDisplayName<TEnumType>(TEnumType enumValue) where TEnumType : IConvertible
+        {
+            string valueString = enumValue.ToString();
+            FieldInfo fieldInfo = typeof(TEnumType).GetField(valueString);
+            if (fieldInfo == null)
+            {
+                throw new InvalidEnumArgumentException(nameof(enumValue), Convert.ToInt32(enumValue), typeof(TEnumType));
+            }
+            var resourcesDisplayNameAttribute = (ResourcesDisplayNameAttribute)Attribute.GetCustomAttribute(fieldInfo, typeof(ResourcesDisplayNameAttribute));
+            return resourcesDisplayNameAttribute != null ?
+                       resourcesDisplayNameAttribute.DisplayName :
+                       valueString;
+        }
+
         /// <summary>
         /// Checks if a type implements, inherits from or is a certain other type.
         /// </summary>

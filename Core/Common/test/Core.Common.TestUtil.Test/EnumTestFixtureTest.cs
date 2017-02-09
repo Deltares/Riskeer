@@ -3,16 +3,16 @@
 // This file is part of Ringtoets.
 //
 // Ringtoets is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
+// it under the terms of the GNU Lesser General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 // 
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-// GNU General Public License for more details.
+// GNU Lesser General Public License for more details.
 //
-// You should have received a copy of the GNU General Public License
+// You should have received a copy of the GNU Lesser General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 //
 // All names, logos, and references to "Deltares" are registered trademarks of
@@ -20,31 +20,37 @@
 // All rights reserved.
 
 using System.Collections.Generic;
-using Core.Common.TestUtil;
+using Core.Common.TestUtil.Test.Properties;
+using Core.Common.Utils.Attributes;
 using NUnit.Framework;
 
-namespace Ringtoets.Revetment.Data.Test
+namespace Core.Common.TestUtil.Test
 {
     [TestFixture]
-    public class WaveConditionsInputStepSizeTest : EnumTestFixture<WaveConditionsInputStepSize>
+    public class EnumTestFixtureTest : EnumTestFixture<EnumTestFixtureTest.DisplayNameTestEnum>
     {
-        protected override IDictionary<WaveConditionsInputStepSize, string> ExpectedDisplayNameForEnumValues
+        protected override IDictionary<DisplayNameTestEnum, string> ExpectedDisplayNameForEnumValues
         {
             get
             {
-                return new Dictionary<WaveConditionsInputStepSize, string>
+                return new Dictionary<DisplayNameTestEnum, string>
                 {
                     {
-                        WaveConditionsInputStepSize.Half, "0.5"
+                        DisplayNameTestEnum.NoDisplayName, null
                     },
                     {
-                        WaveConditionsInputStepSize.One, "1.0"
-                    },
-                    {
-                        WaveConditionsInputStepSize.Two, "2.0"
+                        DisplayNameTestEnum.HasResourcesDisplayName, Resources.SomeDisplayName
                     }
                 };
             }
+        }
+
+        public enum DisplayNameTestEnum
+        {
+            NoDisplayName,
+
+            [ResourcesDisplayName(typeof(Resources), nameof(Resources.SomeDisplayName))]
+            HasResourcesDisplayName
         }
     }
 }

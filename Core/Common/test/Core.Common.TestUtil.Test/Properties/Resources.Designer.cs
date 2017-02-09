@@ -110,5 +110,14 @@ namespace Core.Common.TestUtil.Test.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to I&apos;m a ResourcesDisplayName text.
+        /// </summary>
+        internal static string SomeDisplayName {
+            get {
+                return ResourceManager.GetString("SomeDisplayName", resourceCulture);
+            }
+        }
     }
 }

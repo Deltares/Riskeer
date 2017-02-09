@@ -44,7 +44,7 @@ namespace Core.Components.Gis.Test.Data
             var mapData = new WmtsMapData(name, url, capabilityIdentifier, imageFormat);
 
             // Assert
-            Assert.IsInstanceOf<MapData>(mapData);
+            Assert.IsInstanceOf<ImageBasedMapData>(mapData);
 
             Assert.AreEqual(name, mapData.Name);
             Assert.IsTrue(mapData.IsVisible);

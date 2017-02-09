@@ -23,7 +23,10 @@ using System;
 using System.ComponentModel;
 using System.Linq.Expressions;
 using System.Reflection;
+using Core.Common.TestUtil;
+using Core.Common.Utils.Attributes;
 using Core.Common.Utils.Reflection;
+using Core.Common.Utils.Test.Properties;
 using NUnit.Framework;
 
 namespace Core.Common.Utils.Test.Reflection
@@ -31,6 +34,47 @@ namespace Core.Common.Utils.Test.Reflection
     [TestFixture]
     public class TypeUtilsTest
     {
+        [Test]
+        public void GetDisplayName_EnumWithoutResourcesAttribute_EnumToString()
+        {
+            // Setup
+            var value = TestEnum.NoDisplayName;
+
+            // Call
+            string result = TypeUtils.GetDisplayName(value);
+
+            // Assert
+            Assert.AreEqual(value.ToString(), result);
+        }
+
+        [Test]
+        public void GetDisplayName_EnumWithResourcesAttribute_ResourceText()
+        {
+            // Setup
+            var value = TestEnum.HasDisplayName;
+
+            // Call
+            string result = TypeUtils.GetDisplayName(value);
+
+            // Assert
+            Assert.AreEqual(Resources.EnumStringResource, result);
+        }
+
+        [Test]
+        public void GetDisplayName_ValueNotPartOfEnumMembers_ThrowInvalidEnumArgumentException()
+        {
+            // Setup
+            var value = (TestEnum) 999;
+
+            // Call
+            TestDelegate call = () => TypeUtils.GetDisplayName(value);
+
+            // Assert
+            var message = "The value of argument 'enumValue' (999) is invalid for Enum type 'TestEnum'.";
+            var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(call, message);
+            Assert.AreEqual("enumValue", exception.ParamName);
+        }
+
         [Test]
         public void Implements_TypeNull_ThrowArgumentNullException()
         {
@@ -576,6 +620,14 @@ namespace Core.Common.Utils.Test.Reflection
 
             // Assert
             Assert.IsTrue(hasTypeConverter);
+        }
+
+        private enum TestEnum
+        {
+            NoDisplayName,
+
+            [ResourcesDisplayName(typeof(Resources), nameof(Resources.EnumStringResource))]
+            HasDisplayName
         }
 
         private class TestClass

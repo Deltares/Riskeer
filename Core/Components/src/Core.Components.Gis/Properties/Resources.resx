@@ -117,7 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="WmtsMapData_Transparency_Value_must_be_in_zero_to_one_range" xml:space="preserve">
+  <data name="ImageBasedMapData_Transparency_Value_must_be_in_zero_to_one_range" xml:space="preserve">
     <value>De transparantie moet in het bereik [0.0, 1.0] liggen.</value>
   </data>
   <data name="WmtsMapData_Unconfigured_name" xml:space="preserve">
@@ -125,5 +125,23 @@
   </data>
   <data name="WmtsMapData_CreateDefaultPdokMapData_Name" xml:space="preserve">
     <value>PDOK achtergrondkaart</value>
+  </data>
+  <data name="BingAerial_DisplayName" xml:space="preserve">
+    <value>Bing Maps - Satelliet</value>
+  </data>
+  <data name="BingHybrid_DisplayName" xml:space="preserve">
+    <value>Bing Maps - Satelliet + Wegen</value>
+  </data>
+  <data name="BingRoads_DisplayName" xml:space="preserve">
+    <value>Bing Maps - Wegen</value>
+  </data>
+  <data name="EsriWorldShadedRelief_DisplayName" xml:space="preserve">
+    <value>Esri World - Reliëf</value>
+  </data>
+  <data name="EsriWorldTopo_DisplayName" xml:space="preserve">
+    <value>Esri World - Topografisch</value>
+  </data>
+  <data name="OpenStreetMap_DisplayName" xml:space="preserve">
+    <value>OpenStreetMap</value>
   </data>
 </root>

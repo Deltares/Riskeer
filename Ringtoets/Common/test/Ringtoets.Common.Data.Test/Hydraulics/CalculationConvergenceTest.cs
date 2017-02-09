@@ -19,30 +19,33 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Core.Common.Utils.Attributes;
+using System.Collections.Generic;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
 
 namespace Ringtoets.Common.Data.Test.Hydraulics
 {
     [TestFixture]
-    public class CalculationConvergenceTest
+    public class CalculationConvergenceTest : EnumTestFixture<CalculationConvergence>
     {
-        [Test]
-        public void DisplayName_Always_ReturnExpectedValues()
+        protected override IDictionary<CalculationConvergence, string> ExpectedDisplayNameForEnumValues
         {
-            // Assert
-            Assert.AreEqual("", GetDisplayName(CalculationConvergence.NotCalculated));
-            Assert.AreEqual("Nee", GetDisplayName(CalculationConvergence.CalculatedNotConverged));
-            Assert.AreEqual("Ja", GetDisplayName(CalculationConvergence.CalculatedConverged));
-        }
-
-        private string GetDisplayName(CalculationConvergence value)
-        {
-            var type = typeof(CalculationConvergence);
-            var memInfo = type.GetMember(value.ToString());
-            var attributes = memInfo[0].GetCustomAttributes(typeof(ResourcesDisplayNameAttribute), false);
-            return ((ResourcesDisplayNameAttribute) attributes[0]).DisplayName;
+            get
+            {
+                return new Dictionary<CalculationConvergence, string>
+                {
+                    {
+                        CalculationConvergence.NotCalculated, ""
+                    },
+                    {
+                        CalculationConvergence.CalculatedNotConverged, "Nee"
+                    },
+                    {
+                        CalculationConvergence.CalculatedConverged, "Ja"
+                    }
+                };
+            }
         }
     }
 }

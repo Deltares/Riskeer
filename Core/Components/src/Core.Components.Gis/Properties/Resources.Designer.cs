@@ -82,20 +82,74 @@ namespace Core.Components.Gis.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to PDOK achtergrondkaart.
+        ///   Looks up a localized string similar to Bing Maps - Satelliet.
         /// </summary>
-        internal static string WmtsMapData_CreateDefaultPdokMapData_Name {
+        internal static string BingAerial_DisplayName {
             get {
-                return ResourceManager.GetString("WmtsMapData_CreateDefaultPdokMapData_Name", resourceCulture);
+                return ResourceManager.GetString("BingAerial_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bing Maps - Satelliet + Wegen.
+        /// </summary>
+        internal static string BingHybrid_DisplayName {
+            get {
+                return ResourceManager.GetString("BingHybrid_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bing Maps - Wegen.
+        /// </summary>
+        internal static string BingRoads_DisplayName {
+            get {
+                return ResourceManager.GetString("BingRoads_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Esri World - Reliëf.
+        /// </summary>
+        internal static string EsriWorldShadedRelief_DisplayName {
+            get {
+                return ResourceManager.GetString("EsriWorldShadedRelief_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Esri World - Topografisch.
+        /// </summary>
+        internal static string EsriWorldTopo_DisplayName {
+            get {
+                return ResourceManager.GetString("EsriWorldTopo_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to De transparantie moet in het bereik [0.0, 1.0] liggen..
         /// </summary>
-        internal static string WmtsMapData_Transparency_Value_must_be_in_zero_to_one_range {
+        internal static string ImageBasedMapData_Transparency_Value_must_be_in_zero_to_one_range {
             get {
-                return ResourceManager.GetString("WmtsMapData_Transparency_Value_must_be_in_zero_to_one_range", resourceCulture);
+                return ResourceManager.GetString("ImageBasedMapData_Transparency_Value_must_be_in_zero_to_one_range", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OpenStreetMap.
+        /// </summary>
+        internal static string OpenStreetMap_DisplayName {
+            get {
+                return ResourceManager.GetString("OpenStreetMap_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PDOK achtergrondkaart.
+        /// </summary>
+        internal static string WmtsMapData_CreateDefaultPdokMapData_Name {
+            get {
+                return ResourceManager.GetString("WmtsMapData_CreateDefaultPdokMapData_Name", resourceCulture);
             }
         }
         

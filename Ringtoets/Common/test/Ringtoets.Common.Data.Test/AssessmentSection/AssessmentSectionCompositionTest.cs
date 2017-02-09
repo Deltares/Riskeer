@@ -19,30 +19,33 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Core.Common.Utils.Attributes;
+using System.Collections.Generic;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
 
 namespace Ringtoets.Common.Data.Test.AssessmentSection
 {
     [TestFixture]
-    public class AssessmentSectionCompositionTest
+    public class AssessmentSectionCompositionTest : EnumTestFixture<AssessmentSectionComposition>
     {
-        [Test]
-        public void DisplayName_Always_ReturnExpectedValues()
+        protected override IDictionary<AssessmentSectionComposition, string> ExpectedDisplayNameForEnumValues
         {
-            // Assert
-            Assert.AreEqual("Dijk", GetDisplayName(AssessmentSectionComposition.Dike));
-            Assert.AreEqual("Duin", GetDisplayName(AssessmentSectionComposition.Dune));
-            Assert.AreEqual("Dijk / Duin", GetDisplayName(AssessmentSectionComposition.DikeAndDune));
-        }
-
-        private string GetDisplayName(AssessmentSectionComposition value)
-        {
-            var type = typeof(AssessmentSectionComposition);
-            var memInfo = type.GetMember(value.ToString());
-            var attributes = memInfo[0].GetCustomAttributes(typeof(ResourcesDisplayNameAttribute), false);
-            return ((ResourcesDisplayNameAttribute) attributes[0]).DisplayName;
+            get
+            {
+                return new Dictionary<AssessmentSectionComposition, string>
+                {
+                    {
+                        AssessmentSectionComposition.Dike, "Dijk"
+                    },
+                    {
+                        AssessmentSectionComposition.Dune, "Duin"
+                    },
+                    {
+                        AssessmentSectionComposition.DikeAndDune, "Dijk / Duin"
+                    }
+                };
+            }
         }
     }
 }

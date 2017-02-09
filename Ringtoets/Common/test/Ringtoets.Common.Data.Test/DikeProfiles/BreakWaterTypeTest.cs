@@ -22,26 +22,27 @@
 using System.Collections.Generic;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Ringtoets.Common.Data.DikeProfiles;
 
-namespace Ringtoets.Revetment.Data.Test
+namespace Ringtoets.Common.Data.Test.DikeProfiles
 {
     [TestFixture]
-    public class WaveConditionsInputStepSizeTest : EnumTestFixture<WaveConditionsInputStepSize>
+    public class BreakWaterTypeTest : EnumTestFixture<BreakWaterType>
     {
-        protected override IDictionary<WaveConditionsInputStepSize, string> ExpectedDisplayNameForEnumValues
+        protected override IDictionary<BreakWaterType, string> ExpectedDisplayNameForEnumValues
         {
             get
             {
-                return new Dictionary<WaveConditionsInputStepSize, string>
+                return new Dictionary<BreakWaterType, string>
                 {
                     {
-                        WaveConditionsInputStepSize.Half, "0.5"
+                        BreakWaterType.Wall, "Muur"
                     },
                     {
-                        WaveConditionsInputStepSize.One, "1.0"
+                        BreakWaterType.Caisson, "Caisson"
                     },
                     {
-                        WaveConditionsInputStepSize.Two, "2.0"
+                        BreakWaterType.Dam, "Havendam"
                     }
                 };
             }

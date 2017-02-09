@@ -46,6 +46,7 @@
     <Compile Include="..\..\..\Common\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
+    <Compile Include="Data\ImageBasedMapDataTest.cs" />
     <Compile Include="Data\MapDataCollectionExtensionsTest.cs" />
     <Compile Include="Data\MapDataCollectionTest.cs" />
     <Compile Include="Data\MapDataTest.cs" />
@@ -53,6 +54,8 @@
     <Compile Include="Data\MapPointDataTest.cs" />
     <Compile Include="Data\MapPolygonDataTest.cs" />
     <Compile Include="Data\FeatureBasedMapDataTest.cs" />
+    <Compile Include="Data\WellKnownTileSourceMapDataTest.cs" />
+    <Compile Include="Data\WellKnownTileSourceTest.cs" />
     <Compile Include="Data\WmtsMapDataTest.cs" />
     <Compile Include="Features\MapFeatureTest.cs" />
     <Compile Include="Geometries\MapGeometryTest.cs" />
@@ -72,6 +75,10 @@
     <ProjectReference Include="..\..\..\Common\src\Core.Common.Base\Core.Common.Base.csproj">
       <Project>{3bbfd65b-b277-4e50-ae6d-bd24c3434609}</Project>
       <Name>Core.Common.Base</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\src\Core.Common.Utils\Core.Common.Utils.csproj">
+      <Project>{f49bd8b2-332a-4c91-a196-8cce0a2c7d98}</Project>
+      <Name>Core.Common.Utils</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj">
       <Project>{d749ee4c-ce50-4c17-bf01-9a953028c126}</Project>

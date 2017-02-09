@@ -60,8 +60,11 @@
     <Compile Include="CommentTest.cs" />
     <Compile Include="DikeProfiles\BreakWaterTest.cs" />
     <Compile Include="Calculation\CalculationGroupTest.cs" />
+    <Compile Include="DikeProfiles\BreakWaterTypeTest.cs" />
     <Compile Include="DikeProfiles\DikeProfileTest.cs" />
     <Compile Include="DikeProfiles\ForeshoreProfileTest.cs" />
+    <Compile Include="FailureMechanism\AssessmentLayerOneStateTest.cs" />
+    <Compile Include="FailureMechanism\AssessmentLayerTwoAResultTest.cs" />
     <Compile Include="Hydraulics\CalculationConvergenceTest.cs" />
     <Compile Include="Hydraulics\HydraulicBoundaryDatabaseTest.cs" />
     <Compile Include="Hydraulics\HydraulicBoundaryLocationOutputTest.cs" />

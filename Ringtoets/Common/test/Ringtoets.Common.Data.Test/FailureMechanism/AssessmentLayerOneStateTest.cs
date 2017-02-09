@@ -21,27 +21,26 @@
 
 using System.Collections.Generic;
 using Core.Common.TestUtil;
-using NUnit.Framework;
+using Ringtoets.Common.Data.FailureMechanism;
 
-namespace Ringtoets.Revetment.Data.Test
+namespace Ringtoets.Common.Data.Test.FailureMechanism
 {
-    [TestFixture]
-    public class WaveConditionsInputStepSizeTest : EnumTestFixture<WaveConditionsInputStepSize>
+    public class AssessmentLayerOneStateTest : EnumTestFixture<AssessmentLayerOneState>
     {
-        protected override IDictionary<WaveConditionsInputStepSize, string> ExpectedDisplayNameForEnumValues
+        protected override IDictionary<AssessmentLayerOneState, string> ExpectedDisplayNameForEnumValues
         {
             get
             {
-                return new Dictionary<WaveConditionsInputStepSize, string>
+                return new Dictionary<AssessmentLayerOneState, string>
                 {
                     {
-                        WaveConditionsInputStepSize.Half, "0.5"
+                        AssessmentLayerOneState.NotAssessed, "Toets niet uitgevoerd"
                     },
                     {
-                        WaveConditionsInputStepSize.One, "1.0"
+                        AssessmentLayerOneState.Sufficient, "Voldoende / Niet relevant"
                     },
                     {
-                        WaveConditionsInputStepSize.Two, "2.0"
+                        AssessmentLayerOneState.NoVerdict, "Nog geen oordeel"
                     }
                 };
             }

@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base.Data;
 using Core.Components.Gis.Properties;
 
 namespace Core.Components.Gis.Data
@@ -28,10 +27,8 @@ namespace Core.Components.Gis.Data
     /// <summary>
     /// Class representing a mapdata coming from a Web Map Tile Service (WMTS).
     /// </summary>
-    public class WmtsMapData : MapData
+    public class WmtsMapData : ImageBasedMapData
     {
-        private RoundedDouble transparency;
-
         /// <summary>
         /// Creates a new instance of <see cref="WmtsMapData"/>.
         /// </summary>
@@ -60,7 +57,6 @@ namespace Core.Components.Gis.Data
         /// <exception cref="ArgumentException">Thrown when <paramref name="name"/> is <c>null</c> or only whitespace.</exception>
         private WmtsMapData(string name) : base(name)
         {
-            transparency = new RoundedDouble(2, 0.0);
             IsVisible = false;
         }
 
@@ -74,28 +70,6 @@ namespace Core.Components.Gis.Data
         /// that has been connected to for this map data.
         /// </summary>
         public string SelectedCapabilityIdentifier { get; private set; }
-
-        /// <summary>
-        /// Gets or sets the transparency of the map data.
-        /// </summary>
-        public RoundedDouble Transparency
-        {
-            get
-            {
-                return transparency;
-            }
-            set
-            {
-                var newValue = new RoundedDouble(transparency.NumberOfDecimalPlaces, value);
-                if (double.IsNaN(newValue) || newValue < 0.0 || newValue > 1.0)
-                {
-                    throw new ArgumentOutOfRangeException(nameof(value),
-                                                          Resources.WmtsMapData_Transparency_Value_must_be_in_zero_to_one_range);
-                }
-
-                transparency = newValue;
-            }
-        }
 
         /// <summary>
         /// Gets a value indicating if the map data is configured to use a particular WMTS.
