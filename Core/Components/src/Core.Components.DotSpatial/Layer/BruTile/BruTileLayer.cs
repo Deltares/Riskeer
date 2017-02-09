@@ -48,7 +48,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
@@ -275,49 +274,46 @@ namespace Core.Components.DotSpatial.Layer.BruTile
                 return;
             }
 
-            // If the layer is reprojected, we should take that into account for the geographic region:
-            DotSpatialExtent geoExtent = targetProjection == null
-                                             ? region
-                                             : region.Intersection(Extent)
-                                                     .Reproject(targetProjection, sourceProjection);
-            BruTileExtent extent;
-            if (!GetBruTileExtentToRender(geoExtent, out extent))
+            try
             {
-                return;
+                // If the layer is reprojected, we should take that into account for the geographic region:
+                DotSpatialExtent geoExtent = targetProjection == null
+                                                 ? region
+                                                 : region.Intersection(Extent)
+                                                         .Reproject(targetProjection, sourceProjection);
+                BruTileExtent extent;
+                if (GetBruTileExtentToRender(geoExtent, out extent))
+                {
+                    double distancePerPixel = extent.Width / args.ImageRectangle.Width;
+                    level = Utilities.GetNearestLevel(schema.Resolutions, distancePerPixel);
+
+                    tileFetcher.DropAllPendingTileRequests();
+
+                    // Save original transform:
+                    Matrix transform = args.Device.Transform;
+
+                    IList<TileInfo> tiles = Sort(schema.GetTileInfos(extent, level), geoExtent.Center);
+                    DrawTilesAtCurrentLevel(args, tiles, schema);
+
+                    // Restore the transform:
+                    args.Device.Transform = transform;
+                }
             }
-
-            double distancePerPixel = extent.Width / args.ImageRectangle.Width;
-            level = Utilities.GetNearestLevel(schema.Resolutions, distancePerPixel);
-
-            tileFetcher.DropAllPendingTileRequests();
-
-            // Save original transform:
-            Matrix transform = args.Device.Transform;
-
-            IList<TileInfo> tiles = Sort(schema.GetTileInfos(extent, level), geoExtent.Center);
-            DrawTilesAtCurrentLevel(args, tiles, schema);
-
-            // Restore the transform:
-            args.Device.Transform = transform;
-
-            Monitor.Exit(drawLock);
+            finally
+            {
+                Monitor.Exit(drawLock);
+            }
         }
 
-        private bool GetBruTileExtentToRender(DotSpatialExtent geoExtent, out BruTileExtent extent)
+        private static bool GetBruTileExtentToRender(DotSpatialExtent geoExtent, out BruTileExtent extent)
         {
             if (geoExtent.IsEmpty())
             {
                 extent = new BruTileExtent();
-                Monitor.Exit(drawLock);
                 return false;
             }
 
             extent = ToBrutileExtent(geoExtent);
-            if (double.IsNaN(extent.Area))
-            {
-                Monitor.Exit(drawLock);
-                return false;
-            }
             return true;
         }
 
@@ -517,33 +513,40 @@ namespace Core.Components.DotSpatial.Layer.BruTile
                 return;
             }
 
-            using (var bitmap = (Bitmap) Image.FromStream(new MemoryStream(buffer)))
+            try
             {
-                var inWorldFile = new WorldFile(resolution.UnitsPerPixel, 0,
-                                                0, -resolution.UnitsPerPixel,
-                                                info.Extent.MinX, info.Extent.MaxY);
-
-                WorldFile outWorldFile;
-                Bitmap outBitmap;
-
-                reprojector.Reproject(inWorldFile, bitmap, out outWorldFile, out outBitmap);
-                if (outWorldFile == null)
+                using (var bitmap = (Bitmap) Image.FromStream(new MemoryStream(buffer)))
                 {
-                    return;
+                    var inWorldFile = new WorldFile(resolution.UnitsPerPixel, 0,
+                                                    0, -resolution.UnitsPerPixel,
+                                                    info.Extent.MinX, info.Extent.MaxY);
+
+                    WorldFile outWorldFile;
+                    Bitmap outBitmap;
+
+                    reprojector.Reproject(inWorldFile, bitmap, out outWorldFile, out outBitmap);
+                    if (outWorldFile == null)
+                    {
+                        return;
+                    }
+
+                    Point leftTopPoint = args.ProjToPixel(outWorldFile.ToWorldCoordinates(0, 0));
+                    Point rightBottomPoint = args.ProjToPixel(outWorldFile.ToWorldCoordinates(outBitmap.Width, outBitmap.Height));
+                    var imageScreenBounds = new Rectangle(leftTopPoint, new Size(rightBottomPoint.X - leftTopPoint.X,
+                                                                                 rightBottomPoint.Y - leftTopPoint.Y));
+
+                    args.Device.DrawImage(outBitmap, imageScreenBounds, 0, 0, outBitmap.Width, outBitmap.Height,
+                                          GraphicsUnit.Pixel, imageAttributes);
+
+                    if (outBitmap != bitmap)
+                    {
+                        outBitmap.Dispose();
+                    }
                 }
-
-                Point leftTopPoint = args.ProjToPixel(outWorldFile.ToWorldCoordinates(0, 0));
-                Point rightBottomPoint = args.ProjToPixel(outWorldFile.ToWorldCoordinates(outBitmap.Width, outBitmap.Height));
-                var imageScreenBounds = new Rectangle(leftTopPoint, new Size(rightBottomPoint.X - leftTopPoint.X,
-                                                                             rightBottomPoint.Y - leftTopPoint.Y));
-
-                args.Device.DrawImage(outBitmap, imageScreenBounds, 0, 0, outBitmap.Width, outBitmap.Height,
-                                      GraphicsUnit.Pixel, imageAttributes);
-
-                if (outBitmap != bitmap)
-                {
-                    outBitmap.Dispose();
-                }
+            }
+            catch (ArgumentException)
+            {
+                // Silently drop the corrupt image
             }
         }
     }
