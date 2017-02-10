@@ -38,6 +38,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
@@ -153,6 +154,12 @@
       <DependentUpon>WaveHeightLocationsView.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\WmtsCapability.cs" />
+    <Compile Include="Views\WmtsConnectionDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\WmtsConnectionDialog.Designer.cs">
+      <DependentUpon>WmtsConnectionDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\WmtsLocationControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -276,6 +283,9 @@
     <EmbeddedResource Include="Views\WaveHeightLocationsView.resx">
       <DependentUpon>WaveHeightLocationsView.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\WmtsConnectionDialog.resx">
+      <DependentUpon>WmtsConnectionDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\WmtsLocationControl.resx">
       <DependentUpon>WmtsLocationControl.cs</DependentUpon>

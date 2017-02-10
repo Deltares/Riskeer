@@ -118,6 +118,7 @@
     <Compile Include="Views\SectionResultRows\StrengthStabilityLengthwiseConstructionSectionResultRowTest.cs" />
     <Compile Include="Views\WaveHeightLocationsViewTest.cs" />
     <Compile Include="Views\WmtsCapabilityTest.cs" />
+    <Compile Include="Views\WmtsConnectionDialogTest.cs" />
     <Compile Include="Views\WmtsLocationControlTest.cs" />
     <Compile Include="Views\WmtsCapabilityRowTest.cs" />
     <Compile Include="WmtsConnectionInfoReaderTest.cs" />

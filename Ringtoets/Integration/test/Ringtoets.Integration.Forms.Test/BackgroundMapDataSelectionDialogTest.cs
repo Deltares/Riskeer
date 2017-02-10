@@ -21,6 +21,7 @@
 
 using System;
 using System.Drawing;
+using System.Threading;
 using System.Windows.Forms;
 using Core.Common.Controls.Dialogs;
 using Core.Common.TestUtil;
@@ -67,25 +68,13 @@ namespace Ringtoets.Integration.Forms.Test
         }
 
         [Test]
+        [Apartment(ApartmentState.STA)]
         public void ShowDialog_Always_DefaultProperties()
         {
             // Setup
-            Label mapLayerLabel = null;
-            ComboBox mapLayers = null;
-            GroupBox groupBoxProperties = null;
-            Button buttonSelect = null;
-            Button buttonCancel = null;
             DialogBoxHandler = (name, wnd) =>
             {
-                using (var openedDialog = new FormTester(name))
-                {
-                    var form = (Form) openedDialog.TheObject;
-                    mapLayerLabel = (Label) new LabelTester("mapLayerLabel", form).TheObject;
-                    mapLayers = (ComboBox) new ComboBoxTester("mapLayerComboBox", form).TheObject;
-                    groupBoxProperties = (GroupBox) new ControlTester("propertiesGroupBox", form).TheObject;
-                    buttonSelect = (Button) new ButtonTester("selectButton", form).TheObject;
-                    buttonCancel = (Button) new ButtonTester("cancelButton", form).TheObject;
-                }
+                using (new FormTester(name)) {}
             };
 
             using (var dialogParent = new Form())
@@ -95,20 +84,20 @@ namespace Ringtoets.Integration.Forms.Test
                 dialog.ShowDialog();
 
                 // Assert
-                Assert.IsNotNull(mapLayerLabel);
+                var mapLayerLabel = new LabelTester("mapLayerLabel", dialog);
                 Assert.AreEqual("Type kaartlaag", mapLayerLabel.Text);
 
-                Assert.IsNotNull(mapLayers);
+                var mapLayers = (ComboBox) new ComboBoxTester("mapLayerComboBox", dialog).TheObject;
                 Assert.IsFalse(mapLayers.Enabled);
 
-                Assert.IsNotNull(groupBoxProperties);
+                var groupBoxProperties = new ControlTester("propertiesGroupBox", dialog);
                 Assert.AreEqual("Eigenschappen", groupBoxProperties.Text);
 
-                Assert.IsNotNull(buttonSelect);
+                Button buttonSelect = (Button) new ButtonTester("selectButton", dialog).TheObject;
                 Assert.AreEqual("Selecteren", buttonSelect.Text);
                 Assert.IsFalse(buttonSelect.Enabled);
 
-                Assert.IsNotNull(buttonCancel);
+                Button buttonCancel = (Button) new ButtonTester("cancelButton", dialog).TheObject;
                 Assert.AreEqual("Annuleren", buttonCancel.Text);
 
                 Assert.AreEqual(500, dialog.MinimumSize.Width);
@@ -117,6 +106,7 @@ namespace Ringtoets.Integration.Forms.Test
         }
 
         [Test]
+        [Apartment(ApartmentState.STA)]
         public void GivenValidDialog_WhenCancelPressed_ThenSelectedMapDataNull()
         {
             // Given

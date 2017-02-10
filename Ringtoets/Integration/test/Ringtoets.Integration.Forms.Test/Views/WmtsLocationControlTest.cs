@@ -52,12 +52,13 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         [Test]
-        public void Show_DefaultProperties()
+        public void Show_AddedToForm_DefaultProperties()
         {
-            // Call
+            // Setup
             using (var control = new WmtsLocationControl())
             using (var form = new Form())
             {
+                // Call
                 form.Controls.Add(control);
 
                 // Assert

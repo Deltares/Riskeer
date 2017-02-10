@@ -81,6 +81,8 @@ namespace Core.Common.Gui.Test.Forms
                 Assert.AreEqual(320, dialog.MinimumSize.Width);
                 Assert.AreEqual(220, dialog.MinimumSize.Height);
             }
+
+            mocks.VerifyAll();
         }
 
         [Test]
