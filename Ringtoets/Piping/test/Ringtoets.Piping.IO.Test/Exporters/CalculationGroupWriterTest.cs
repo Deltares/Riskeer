@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Security.AccessControl;
 using Core.Common.Base.Data;
@@ -29,7 +30,7 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Piping.Data;
-using Ringtoets.Piping.Data.TestUtil;
+using Ringtoets.Piping.Integration.TestUtils;
 using Ringtoets.Piping.IO.Exporters;
 using Ringtoets.Piping.Primitives;
 
@@ -119,7 +120,7 @@ namespace Ringtoets.Piping.IO.Test.Exporters
         }
 
         [Test]
-        public void WriteCalculationGroups_ValidData_ValidFile()
+        public void WriteCalculationGroups_CalculationGroupsAndCalculation_ValidFile()
         {
             // Setup
             string directoryPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO,
@@ -127,31 +128,14 @@ namespace Ringtoets.Piping.IO.Test.Exporters
             Directory.CreateDirectory(directoryPath);
             string filePath = Path.Combine(directoryPath, "test.xml");
 
-            var calculationGroup = new CalculationGroup("PK001_0001", false);
+            var calculation = PipingTestDataGenerator.GetPipingCalculation();
+            calculation.InputParameters.ExitPointL = (RoundedDouble) 0.2;
 
-            var calculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
-            calculation.Name = "PK001_0001 W1-6_0_1D1";
-            calculation.InputParameters.HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "PUNT_KAT_18", 0, 0);
-            calculation.InputParameters.SurfaceLine.Name = "PK001_0001";
-            calculation.InputParameters.StochasticSoilModel = new StochasticSoilModel(1, "PK001_0001_Piping", string.Empty);
-            calculation.InputParameters.StochasticSoilProfile = new StochasticSoilProfile(0, SoilProfileType.SoilProfile1D, 0)
-            {
-                SoilProfile = new PipingSoilProfile("W1-6_0_1D1", 0, new[]
-                {
-                    new PipingSoilLayer(0)
-                }, SoilProfileType.SoilProfile1D, 0)
-            };
-            calculation.InputParameters.PhreaticLevelExit.Mean = (RoundedDouble) 0;
-            calculation.InputParameters.PhreaticLevelExit.StandardDeviation = (RoundedDouble) 0.1;
-            calculation.InputParameters.DampingFactorExit.Mean = (RoundedDouble) 0.7;
-            calculation.InputParameters.DampingFactorExit.StandardDeviation = (RoundedDouble) 0.1;
-
-            calculationGroup.Children.Add(calculation);
-
-            var calculation2 = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
+            var calculation2 = PipingTestDataGenerator.GetPipingCalculation();
             calculation2.Name = "PK001_0002 W1-6_4_1D1";
             calculation2.InputParameters.HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "PUNT_SCH_17", 0, 0);
             calculation2.InputParameters.SurfaceLine.Name = "PK001_0002";
+            calculation2.InputParameters.ExitPointL = (RoundedDouble) 0.2;
             calculation2.InputParameters.StochasticSoilModel = new StochasticSoilModel(1, "PK001_0002_Piping", string.Empty);
             calculation2.InputParameters.StochasticSoilProfile = new StochasticSoilProfile(0, SoilProfileType.SoilProfile1D, 0)
             {
@@ -160,25 +144,42 @@ namespace Ringtoets.Piping.IO.Test.Exporters
                     new PipingSoilLayer(0)
                 }, SoilProfileType.SoilProfile1D, 0)
             };
-            calculation2.InputParameters.PhreaticLevelExit.Mean = (RoundedDouble)0;
-            calculation2.InputParameters.PhreaticLevelExit.StandardDeviation = (RoundedDouble)0.1;
-            calculation2.InputParameters.DampingFactorExit.Mean = (RoundedDouble)0.7;
-            calculation2.InputParameters.DampingFactorExit.StandardDeviation = (RoundedDouble)0.1;
 
-            var calculationGroup2 = new CalculationGroup("PK001_0002", false);
-            calculationGroup2.Children.Add(calculation2);
-            calculationGroup.Children.Add(calculationGroup2);
+            var calculationGroup2 = new CalculationGroup("PK001_0002", false)
+            {
+                Children =
+                {
+                    calculation2
+                }
+            };
+
+            var calculationGroup = new CalculationGroup("PK001_0001", false)
+            {
+                Children =
+                {
+                    calculation,
+                    calculationGroup2
+                }
+            };
+
+            var rootGroup = new CalculationGroup("root", false)
+            {
+                Children =
+                {
+                    calculationGroup
+                }
+            };
 
             try
             {
                 // Call
-                CalculationGroupWriter.WriteCalculationGroups(calculationGroup, filePath);
+                CalculationGroupWriter.WriteCalculationGroups(rootGroup, filePath);
 
                 // Assert
                 Assert.IsTrue(File.Exists(filePath));
 
                 var actualXml = File.ReadAllText(filePath);
-                var expectedXml = File.ReadAllText(Path.Combine(directoryPath, "folder_with_subfolder_and_calculation.xml"));
+                var expectedXml = File.ReadAllText(Path.Combine(directoryPath, "folderWithSubfolderAndCalculation.xml"));
 
 
                 Assert.AreEqual(expectedXml, actualXml);
@@ -186,6 +187,65 @@ namespace Ringtoets.Piping.IO.Test.Exporters
             finally
             {
                 File.Delete(filePath);
+            }
+        }
+
+        [Test]
+        [TestCaseSource(nameof(Calculations))]
+        public void WriteCalculationGroups_ValidCalculationCalculation_ValidFile(string expectedFileName, PipingCalculation calculation)
+        {
+            // Setup
+            string directoryPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO,
+                                                              "CalculationGroupWriter");
+            Directory.CreateDirectory(directoryPath);
+            string filePath = Path.Combine(directoryPath, "test.xml");
+
+            var rootCalculationGroup = new CalculationGroup("group", false);
+            rootCalculationGroup.Children.Add(calculation);
+
+            try
+            {
+                // Call
+                CalculationGroupWriter.WriteCalculationGroups(rootCalculationGroup, filePath);
+
+                // Assert
+                Assert.IsTrue(File.Exists(filePath));
+
+                var actualXml = File.ReadAllText(filePath);
+                var expectedXml = File.ReadAllText(Path.Combine(directoryPath, $"{expectedFileName}.xml"));
+
+
+                Assert.AreEqual(expectedXml, actualXml);
+            }
+            finally
+            {
+                File.Delete(filePath);
+            }
+        }
+
+        private static IEnumerable<TestCaseData> Calculations
+        {
+            get
+            {
+                yield return new TestCaseData("calculationWithoutHydraulicLocation",
+                                              PipingTestDataGenerator.GetPipingCalculationWithoutHydraulicLocationAndAssessmentLevel())
+                    .SetName("calculationWithoutHydraulicLocation");
+
+                yield return new TestCaseData("calculationWithAssessmentLevel",
+                                              PipingTestDataGenerator.GetPipingCalculationWithAssessmentLevel())
+                    .SetName("calculationWithAssessmentLevel");
+
+                yield return new TestCaseData("calculationWithoutSurfaceLine",
+                                              PipingTestDataGenerator.GetPipingCalculationWithoutSurfaceLine())
+                    .SetName("calculationWithoutSurfaceLine");
+
+                yield return new TestCaseData("calculationWithoutSoilModel",
+                                              PipingTestDataGenerator.GetPipingCalculationWithoutSoilModel())
+                    .SetName("calculationWithoutSoilModel");
+
+                yield return new TestCaseData("calculationWithoutSoilProfile",
+                                              PipingTestDataGenerator.GetPipingCalculationWithoutSoilProfile())
+                    .SetName("calculationWithoutSoilProfile");
             }
         }
     }

@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+	<berekening naam="PK001_0001 W1-6_0_1D1">
+		<hrlocatie>PUNT_KAT_18</hrlocatie>
+		<ondergrondmodel>PK001_0001_Piping</ondergrondmodel>
+		<ondergrondschematisatie>W1-6_0_1D1</ondergrondschematisatie>
+		<stochast naam="polderpeil">
+			<verwachtingswaarde>0.000</verwachtingswaarde>
+			<standaardafwijking>0.100</standaardafwijking>
+		</stochast>
+		<stochast naam="dempingsfactor">
+			<verwachtingswaarde>0.700</verwachtingswaarde>
+			<standaardafwijking>0.100</standaardafwijking>
+		</stochast>
+	</berekening>
+</root>

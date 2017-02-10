@@ -65,7 +65,7 @@ namespace Ringtoets.Piping.IO.Exporters
                     writer.WriteStartDocument();
                     writer.WriteStartElement("root");
 
-                    WriteCalculationGroupToFile(rootCalculationGroup, writer);
+                    WriteChildElements(rootCalculationGroup, writer);
 
                     writer.WriteEndElement();
                     writer.WriteEndDocument();
@@ -77,11 +77,8 @@ namespace Ringtoets.Piping.IO.Exporters
             }
         }
 
-        private static void WriteCalculationGroupToFile(CalculationGroup calculationGroup, XmlWriter writer)
+        private static void WriteChildElements(CalculationGroup calculationGroup, XmlWriter writer)
         {
-            writer.WriteStartElement("folder");
-            writer.WriteAttributeString("naam", calculationGroup.Name);
-
             foreach (ICalculationBase child in calculationGroup.Children)
             {
                 var innerGroup = child as CalculationGroup;
@@ -96,6 +93,14 @@ namespace Ringtoets.Piping.IO.Exporters
                     WriteCalculationToFile(calculation, writer);
                 }
             }
+        }
+
+        private static void WriteCalculationGroupToFile(CalculationGroup calculationGroup, XmlWriter writer)
+        {
+            writer.WriteStartElement("folder");
+            writer.WriteAttributeString("naam", calculationGroup.Name);
+
+            WriteChildElements(calculationGroup, writer);
 
             writer.WriteEndElement();
         }
@@ -107,9 +112,16 @@ namespace Ringtoets.Piping.IO.Exporters
 
             PipingInput calculationInputParameters = calculation.InputParameters;
 
-            if (calculationInputParameters.HydraulicBoundaryLocation != null)
+            if (calculationInputParameters.UseAssessmentLevelManualInput)
             {
-                writer.WriteElementString("hrlocatie", calculationInputParameters.HydraulicBoundaryLocation.Name);
+                writer.WriteElementString("toetspeil", calculationInputParameters.AssessmentLevel.ToString());
+            }
+            else
+            {
+                if (calculationInputParameters.HydraulicBoundaryLocation != null)
+                {
+                    writer.WriteElementString("hrlocatie", calculationInputParameters.HydraulicBoundaryLocation.Name);
+                }
             }
 
             if (calculationInputParameters.SurfaceLine != null)
@@ -122,11 +134,11 @@ namespace Ringtoets.Piping.IO.Exporters
             if (calculationInputParameters.StochasticSoilModel != null)
             {
                 writer.WriteElementString("ondergrondmodel", calculationInputParameters.StochasticSoilModel.Name);
-            }
 
-            if (calculationInputParameters.StochasticSoilProfile.SoilProfile != null)
-            {
-                writer.WriteElementString("ondergrondschematisatie", calculationInputParameters.StochasticSoilProfile.SoilProfile.Name);
+                if (calculationInputParameters.StochasticSoilProfile?.SoilProfile != null)
+                {
+                    writer.WriteElementString("ondergrondschematisatie", calculationInputParameters.StochasticSoilProfile.SoilProfile.Name);
+                }
             }
 
             WriteDistribution(calculationInputParameters.PhreaticLevelExit, "polderpeil", writer);

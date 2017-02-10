@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Hydraulics;
@@ -44,6 +45,95 @@ namespace Ringtoets.Piping.Integration.TestUtils
             SetFullyConfiguredFailureMechanism(failureMechanism, hydroLocation);
 
             return failureMechanism;
+        }
+
+        /// <summary>
+        /// Gets a <see cref="PipingCalculation"/> without hydraulic boundary location or design water level.
+        /// </summary>
+        /// <returns>A <see cref="PipingCalculation"/> without hydraulic boundary location or design water level</returns>
+        public static PipingCalculation GetPipingCalculationWithoutHydraulicLocationAndAssessmentLevel()
+        {
+            PipingCalculation calculation = GetPipingCalculation();
+            calculation.InputParameters.HydraulicBoundaryLocation = null;
+
+            return calculation;
+        }
+
+        public static PipingCalculation GetPipingCalculationWithAssessmentLevel()
+        {
+            PipingCalculation calculation = GetPipingCalculation();
+            calculation.InputParameters.UseAssessmentLevelManualInput = true;
+            calculation.InputParameters.AssessmentLevel = (RoundedDouble) 3.0;
+
+            return calculation; 
+        }
+
+        public static PipingCalculation GetPipingCalculationWithoutSurfaceLine()
+        {
+            PipingCalculation calculation = GetPipingCalculation();
+            calculation.InputParameters.SurfaceLine = null;
+
+            return calculation;
+        }
+
+        public static PipingCalculation GetPipingCalculationWithoutSoilModel()
+        {
+            PipingCalculation calculation = GetPipingCalculation();
+            calculation.InputParameters.StochasticSoilModel = null;
+
+            return calculation;
+        }
+
+        public static PipingCalculation GetPipingCalculationWithoutSoilProfile()
+        {
+            PipingCalculation calculation = GetPipingCalculation();
+            calculation.InputParameters.StochasticSoilProfile = null;
+
+            return calculation;
+        }
+
+        public static PipingCalculation GetPipingCalculation()
+        {
+            var surfaceline = new RingtoetsPipingSurfaceLine
+            {
+                ReferenceLineIntersectionWorldPoint = new Point2D(0, 5),
+                Name = "PK001_0001"
+            };
+            surfaceline.SetGeometry(new[]
+            {
+                new Point3D(0, 0, 0),
+                new Point3D(0, 10, 0)
+            });
+
+            var calculation = new PipingCalculation(new GeneralPipingInput())
+            {
+                Name = "PK001_0001 W1-6_0_1D1",
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "PUNT_KAT_18", 0, 0),
+                    SurfaceLine = surfaceline,
+                    StochasticSoilModel = new StochasticSoilModel(1, "PK001_0001_Piping", string.Empty),
+                    StochasticSoilProfile = new StochasticSoilProfile(0, SoilProfileType.SoilProfile1D, 0)
+                    {
+                        SoilProfile = new PipingSoilProfile("W1-6_0_1D1", 0, new[]
+                        {
+                            new PipingSoilLayer(0)
+                        }, SoilProfileType.SoilProfile1D, 0)
+                    },
+                    PhreaticLevelExit =
+                    {
+                        Mean = (RoundedDouble) 0,
+                        StandardDeviation = (RoundedDouble) 0.1
+                    },
+                    DampingFactorExit =
+                    {
+                        Mean = (RoundedDouble) 0.7,
+                        StandardDeviation = (RoundedDouble) 0.1
+                    }
+                }
+            };
+
+            return calculation;
         }
 
         /// <summary>
