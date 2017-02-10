@@ -87,6 +87,7 @@ namespace Core.Common.TestUtil
         public void Dispose()
         {
             Dispose(true);
+            GC.SuppressFinalize(this);
         }
 
         private void LockFile(string filePath)
@@ -101,30 +102,37 @@ namespace Core.Common.TestUtil
             }
         }
 
-        private void Dispose(bool disposing)
+        /// <summary>
+        /// Frees the unmanaged resources and deletes the files defined in <see cref="filePathStreams"/>.
+        /// When <paramref name="disposing"/> is <c>true</c>, the managed resources are freed as well.
+        /// </summary>
+        /// <param name="disposing">Indicates whether the method call comes from the <see cref="Dispose"/> method.</param>
+        protected virtual void Dispose(bool disposing)
         {
             if (disposed)
             {
                 return;
             }
 
+            KeyValuePair<string, FileStream>[] dictionary = filePathStreams.ToArray();
+            foreach (KeyValuePair<string, FileStream> filePathStream in dictionary)
+            {
+                filePathStream.Value?.Dispose();
+                filePathStreams[filePathStream.Key] = null;
+
+                try
+                {
+                    DeleteFile(filePathStream.Key);
+                }
+                catch
+                {
+                    // ignored
+                }
+            }
+
             if (disposing)
             {
-                KeyValuePair<string, FileStream>[] dictionary = filePathStreams.ToArray();
-                foreach (KeyValuePair<string, FileStream> filePathStream in dictionary)
-                {
-                    filePathStream.Value?.Dispose();
-                    filePathStreams[filePathStream.Key] = null;
-
-                    try
-                    {
-                        DeleteFile(filePathStream.Key);
-                    }
-                    catch
-                    {
-                        // ignored
-                    }
-                }
+                filePathStreams.Clear();
             }
             disposed = true;
         }
@@ -211,6 +219,11 @@ namespace Core.Common.TestUtil
                     throw;
                 }
             }
+        }
+
+        ~FileDisposeHelper()
+        {
+            Dispose(false);
         }
     }
 }

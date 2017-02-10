@@ -46,9 +46,10 @@ namespace Application.Ringtoets.MigrationConsole.Test
         [Test]
         public void Main_NoArguments_WritesHelpToConsole()
         {
-            // Call
+            // Setup
             using (var consoleOutput = new ConsoleOutput())
             {
+                // Call
                 RingtoetsMigrationTool.Main(new string[]
                                                 {});
 
@@ -71,9 +72,9 @@ namespace Application.Ringtoets.MigrationConsole.Test
                 "2"
             };
 
-            // Call
             using (var consoleOutput = new ConsoleOutput())
             {
+                // Call
                 RingtoetsMigrationTool.Main(invalidCommand);
 
                 // Assert

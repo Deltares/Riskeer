@@ -60,9 +60,6 @@ namespace Core.Common.TestUtil.Test
             {
                 using (File.Create(filePath)) {}
 
-                // Precondition
-                Assert.IsTrue(File.Exists(filePath), $"Precondition failed: File '{filePath}' should exist");
-
                 // Call
                 TestDelegate test = () => disposeHelper = new FileDisposeHelper(filePath);
 
@@ -268,9 +265,9 @@ namespace Core.Common.TestUtil.Test
         }
 
         [Test]
-        public void GivenFileDisposeHelperWithLockedFiles_LockFilesCalledAgain_DoesNotThrowException()
+        public void LockedFiles_LockFilesCalledAlready_DoesNotThrowException()
         {
-            // Given
+            // Setup
             string filePath = TestHelper.GetTestDataPath(testPath, Path.GetRandomFileName());
 
             try
@@ -279,10 +276,10 @@ namespace Core.Common.TestUtil.Test
                 {
                     fileDisposeHelper.LockFiles();
 
-                    // When
+                    // Call
                     TestDelegate call = () => fileDisposeHelper.LockFiles();
 
-                    // Then
+                    // Assert
                     Assert.DoesNotThrow(call);
                 }
 

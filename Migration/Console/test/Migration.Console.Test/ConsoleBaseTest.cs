@@ -63,7 +63,7 @@ namespace Migration.Console.Test
         }
 
         [Test]
-        public void DisplayCommands_WritesCommandsToConsole()
+        public void DisplayCommands_WritesNoCommandsToConsole()
         {
             // Setup
             var consoleBase = new SimpleConsoleBase(applicationName, applicationDescription);

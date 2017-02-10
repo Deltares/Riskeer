@@ -36,7 +36,7 @@ namespace Application.Ringtoets.Migration.Test
         [Test]
         [TestCase("")]
         [TestCase(null)]
-        public void Constructor_VersionOrEmpty_ThrowsArgumentException(string version)
+        public void Constructor_VersionNullOrEmpty_ThrowsArgumentException(string version)
         {
             // Setup
             const string query = "Valid query";

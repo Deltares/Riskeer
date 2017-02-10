@@ -36,7 +36,7 @@ namespace Application.Ringtoets.Migration.Test
         [Test]
         [TestCase("")]
         [TestCase(null)]
-        public void Constructor_FromVersionOrEmpty_ThrowsArgumentException(string fromVersion)
+        public void Constructor_FromVersionNullOrEmpty_ThrowsArgumentException(string fromVersion)
         {
             // Setup
             const string query = "Valid query";
@@ -53,7 +53,7 @@ namespace Application.Ringtoets.Migration.Test
         [Test]
         [TestCase("")]
         [TestCase(null)]
-        public void Constructor_ToVersionOrEmpty_ThrowsArgumentException(string toVersion)
+        public void Constructor_ToVersionNullOrEmpty_ThrowsArgumentException(string toVersion)
         {
             // Setup
             string fromVersion = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
