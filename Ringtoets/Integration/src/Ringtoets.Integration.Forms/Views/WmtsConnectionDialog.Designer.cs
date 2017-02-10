@@ -36,6 +36,7 @@ namespace Ringtoets.Integration.Forms.Views
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(WmtsConnectionDialog));
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.nameTextBox = new System.Windows.Forms.TextBox();
@@ -45,6 +46,7 @@ namespace Ringtoets.Integration.Forms.Views
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.cancelButton = new System.Windows.Forms.Button();
             this.actionButton = new System.Windows.Forms.Button();
+            this.urlToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.tableLayoutPanel2.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
@@ -77,6 +79,7 @@ namespace Ringtoets.Integration.Forms.Views
             // 
             resources.ApplyResources(this.urlLabel, "urlLabel");
             this.urlLabel.Name = "urlLabel";
+            this.urlToolTip.SetToolTip(this.urlLabel, resources.GetString("urlLabel.ToolTip"));
             // 
             // flowLayoutPanel1
             // 
@@ -96,6 +99,13 @@ namespace Ringtoets.Integration.Forms.Views
             resources.ApplyResources(this.actionButton, "actionButton");
             this.actionButton.Name = "actionButton";
             this.actionButton.UseVisualStyleBackColor = true;
+            // 
+            // urlToolTip
+            // 
+            this.urlToolTip.IsBalloon = true;
+            this.urlToolTip.ShowAlways = true;
+            this.urlToolTip.Tag = "";
+            this.urlToolTip.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
             // 
             // WmtsConnectionDialog
             // 
@@ -121,5 +131,6 @@ namespace Ringtoets.Integration.Forms.Views
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.Label nameLabel;
         private System.Windows.Forms.Label urlLabel;
+        private System.Windows.Forms.ToolTip urlToolTip;
     }
 }

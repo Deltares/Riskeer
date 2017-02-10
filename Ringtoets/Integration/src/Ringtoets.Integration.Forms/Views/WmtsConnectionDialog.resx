@@ -231,6 +231,12 @@
   <data name="urlLabel.Text" xml:space="preserve">
     <value>URL</value>
   </data>
+  <metadata name="urlToolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <data name="urlLabel.ToolTip" xml:space="preserve">
+    <value>URL naar het WMTS dataservice inclusief 'capabilities'.</value>
+  </data>
   <data name="&gt;&gt;urlLabel.Name" xml:space="preserve">
     <value>urlLabel</value>
   </data>
@@ -361,7 +367,13 @@
     <value>373, 142</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
-    <value>WmtsConnectionDialog</value>
+    <value>Nieuwe WMTS locatie toevoegen</value>
+  </data>
+  <data name="&gt;&gt;urlToolTip.Name" xml:space="preserve">
+    <value>urlToolTip</value>
+  </data>
+  <data name="&gt;&gt;urlToolTip.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolTip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>WmtsConnectionDialog</value>

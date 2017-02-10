@@ -22,6 +22,7 @@
 using System;
 using System.Windows.Forms;
 using Core.Common.Controls.Dialogs;
+using Ringtoets.Integration.Forms.Properties;
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 
 namespace Ringtoets.Integration.Forms.Views
@@ -41,6 +42,25 @@ namespace Ringtoets.Integration.Forms.Views
             InitializeComponent();
             UpdateActionButton();
             InitializeEventHandlers();
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="WmtsConnectionDialog"/> in edit mode.
+        /// </summary>
+        /// <param name="dialogParent">The parent of the dialog.</param>
+        /// <param name="wmtsConnectionInfo">The information to set in the input boxes.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any of the input parameters is <c>null</c>.</exception>
+        public WmtsConnectionDialog(IWin32Window dialogParent, WmtsConnectionInfo wmtsConnectionInfo) : this(dialogParent)
+        {
+            if (wmtsConnectionInfo == null)
+            {
+                throw new ArgumentNullException(nameof(wmtsConnectionInfo));
+            }
+
+            nameTextBox.Text = wmtsConnectionInfo.Name;
+            urlTextBox.Text = wmtsConnectionInfo.Url;
+            actionButton.Text = Resources.WmtsConnectionDialog_ActionButton_Edit;
+            Text = Resources.WmtsConnectionDialog_Text_Edit;
         }
 
         /// <summary>

@@ -330,4 +330,10 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="WmtsConnectionInfoReader_Unable_To_Create_WmtsConnectionInfo" xml:space="preserve">
     <value>Het is niet mogelijk om WMTS connectie {0} aan te maken met URL '{1}'.</value>
   </data>
+  <data name="WmtsConnectionDialog_ActionButton_Edit" xml:space="preserve">
+    <value>Bewerken</value>
+  </data>
+  <data name="WmtsConnectionDialog_Text_Edit" xml:space="preserve">
+    <value>WMTS locatie aanpassen</value>
+  </data>
 </root>

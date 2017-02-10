@@ -45,7 +45,38 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         [Test]
-        public void WmtsConnection_WithDialogParent_ExpectedProperties()
+        public void WmtsConnectionInfoConstructor_WithoutDialogParent_ThrowsArgumentNullException()
+        {
+            // Setup
+            var info = new WmtsConnectionInfo("name", "url");
+
+            // Call
+            TestDelegate test = () => new WmtsConnectionDialog(null, info);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("dialogParent", paramName);
+        }
+
+        [Test]
+        public void WmtsConnectionInfoConstructor_WithoutWmtsConnectionInfo_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var dialogParent = mocks.StrictMock<IWin32Window>();
+            mocks.ReplayAll();
+
+            // Call
+            TestDelegate test = () => new WmtsConnectionDialog(dialogParent, null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("wmtsConnectionInfo", paramName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_WithDialogParent_ExpectedProperties()
         {
             // Setup
             var mocks = new MockRepository();
@@ -59,6 +90,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 Assert.IsInstanceOf<DialogBase>(dialog);
                 Assert.IsNull(dialog.WmtsConnectionName);
                 Assert.IsNull(dialog.WmtsConnectionUrl);
+
+                Assert.AreEqual("Nieuwe WMTS locatie toevoegen", dialog.Text);
 
                 var nameLabel = new LabelTester("nameLabel", dialog);
                 Assert.AreEqual("Omschrijving", nameLabel.Text);
@@ -78,6 +111,50 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
                 var urlTextBox = new TextBoxTester("urlTextBox", dialog);
                 Assert.IsEmpty(urlTextBox.Text);
+            }
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void WmtsConnectionInfoConstructor_WithDialogParent_ExpectedProperties()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var dialogParent = mocks.StrictMock<IWin32Window>();
+            mocks.ReplayAll();
+            const string connectionName = @"name";
+            const string connectionUrl = @"url";
+            var info = new WmtsConnectionInfo(connectionName, connectionUrl);
+
+            // Call
+            using (var dialog = new WmtsConnectionDialog(dialogParent, info))
+            {
+                // Assert
+                Assert.IsInstanceOf<DialogBase>(dialog);
+                Assert.IsNull(dialog.WmtsConnectionName);
+                Assert.IsNull(dialog.WmtsConnectionUrl);
+
+                Assert.AreEqual("WMTS locatie aanpassen", dialog.Text);
+
+                var nameLabel = new LabelTester("nameLabel", dialog);
+                Assert.AreEqual("Omschrijving", nameLabel.Text);
+
+                var urlLabel = new LabelTester("urlLabel", dialog);
+                Assert.AreEqual("URL", urlLabel.Text);
+
+                var actionButton = (Button) new ButtonTester("actionButton", dialog).TheObject;
+                Assert.AreEqual("Bewerken", actionButton.Text);
+                Assert.IsTrue(actionButton.Enabled);
+
+                var cancelButton = new ButtonTester("cancelButton", dialog);
+                Assert.AreEqual("Annuleren", cancelButton.Text);
+
+                var nameTextBox = new TextBoxTester("nameTextBox", dialog);
+                Assert.AreEqual(connectionName, nameTextBox.Text);
+
+                var urlTextBox = new TextBoxTester("urlTextBox", dialog);
+                Assert.AreEqual(connectionUrl, urlTextBox.Text);
             }
 
             mocks.VerifyAll();
