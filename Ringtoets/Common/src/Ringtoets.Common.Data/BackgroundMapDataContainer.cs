@@ -32,30 +32,30 @@ namespace Ringtoets.Common.Data
     public class BackgroundMapDataContainer
     {
         private readonly ImageBasedMapDataConfigurationHolder configuration = new ImageBasedMapDataConfigurationHolder();
-        private ImageBasedMapData backgroundMapData;
+        private ImageBasedMapData mapData;
 
         /// <summary>
         /// The background <see cref="ImageBasedMapData"/>.
         /// </summary>
-        public ImageBasedMapData BackgroundMapData
+        public ImageBasedMapData MapData
         {
             get
             {
-                return backgroundMapData;
+                return mapData;
             }
             set
             {
-                backgroundMapData = value;
-                if (backgroundMapData != null)
+                mapData = value;
+                if (mapData != null)
                 {
-                    backgroundMapData.IsVisible = IsVisible;
-                    backgroundMapData.Transparency = Transparency;
+                    mapData.IsVisible = IsVisible;
+                    mapData.Transparency = Transparency;
                 }
             }
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether the <see cref="BackgroundMapData"/> is visible.
+        /// Gets or sets a value indicating whether the <see cref="MapData"/> is visible.
         /// </summary>
         public bool IsVisible
         {
@@ -66,15 +66,15 @@ namespace Ringtoets.Common.Data
             set
             {
                 configuration.IsVisible = value;
-                if (backgroundMapData != null)
+                if (mapData != null)
                 {
-                    backgroundMapData.IsVisible = value;
+                    mapData.IsVisible = value;
                 }
             }
         }
 
         /// <summary>
-        /// Gets or sets the transparency of <see cref="BackgroundMapData"/>.
+        /// Gets or sets the transparency of <see cref="MapData"/>.
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when setting a new value
         /// that is not in the range [0.0, 1.0].</exception>
@@ -87,9 +87,9 @@ namespace Ringtoets.Common.Data
             set
             {
                 configuration.Transparency = value;
-                if (backgroundMapData != null)
+                if (mapData != null)
                 {
-                    backgroundMapData.Transparency = value;
+                    mapData.Transparency = value;
                 }
             }
         }

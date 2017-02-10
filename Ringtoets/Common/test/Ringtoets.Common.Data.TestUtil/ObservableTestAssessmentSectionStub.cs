@@ -40,6 +40,7 @@ namespace Ringtoets.Common.Data.TestUtil
         public ObservableTestAssessmentSectionStub()
         {
             FailureMechanismContribution = new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 0, 1.0/300000);
+            BackgroundMapData = new BackgroundMapDataContainer();
         }
 
         public string Id { get; }
@@ -49,7 +50,7 @@ namespace Ringtoets.Common.Data.TestUtil
         public ReferenceLine ReferenceLine { get; set; }
         public FailureMechanismContribution FailureMechanismContribution { get; }
         public HydraulicBoundaryDatabase HydraulicBoundaryDatabase { get; set; }
-        public WmtsMapData BackgroundMapData { get; set; }
+        public BackgroundMapDataContainer BackgroundMapData { get; }
 
         public IEnumerable<IFailureMechanism> GetFailureMechanisms()
         {

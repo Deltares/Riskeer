@@ -25,6 +25,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityPointStructures.Forms.PresentationObjects;
 using Ringtoets.StabilityPointStructures.Forms.Views;
@@ -87,7 +88,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.ViewInfos
         public void CloseForData_ViewNotCorrespondingToRemovedAssessmentSection_ReturnsFalse()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = new ObservableTestAssessmentSectionStub();
             var otherAssessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
@@ -112,11 +113,10 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.ViewInfos
         public void CloseForData_ViewCorrespondingToRemovedAssessmentSection_ReturnsTrue()
         {
             // Setup
-            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            var assessmentSection = new ObservableTestAssessmentSectionStub();
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            var failureMechanismContext = new StabilityPointStructuresFailureMechanismContext(failureMechanism, assessmentSectionStub);
+            var failureMechanismContext = new StabilityPointStructuresFailureMechanismContext(failureMechanism, assessmentSection);
 
             using (var view = new StabilityPointStructuresFailureMechanismView
             {
@@ -124,25 +124,23 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.ViewInfos
             })
             {
                 // Call
-                bool closeForData = info.CloseForData(view, assessmentSectionStub);
+                bool closeForData = info.CloseForData(view, assessmentSection);
 
                 // Assert
                 Assert.IsTrue(closeForData);
             }
-            mocks.VerifyAll();
         }
 
         [Test]
         public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanism_ReturnsFalse()
         {
             // Setup
-            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            var assessmentSection = new ObservableTestAssessmentSectionStub();
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             var otherStabilityPointStructuresFailureMechanism = new StabilityPointStructuresFailureMechanism();
 
-            var failureMechanismContext = new StabilityPointStructuresFailureMechanismContext(failureMechanism, assessmentSectionStub);
+            var failureMechanismContext = new StabilityPointStructuresFailureMechanismContext(failureMechanism, assessmentSection);
 
             using (var view = new StabilityPointStructuresFailureMechanismView
             {
@@ -155,18 +153,16 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsFalse(closeForData);
             }
-            mocks.VerifyAll();
         }
 
         [Test]
         public void CloseForData_ViewCorrespondingToRemovedFailureMechanism_ReturnsTrue()
         {
             // Setup
-            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            var assessmentSection = new ObservableTestAssessmentSectionStub();
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            var failureMechanismContext = new StabilityPointStructuresFailureMechanismContext(failureMechanism, assessmentSectionStub);
+            var failureMechanismContext = new StabilityPointStructuresFailureMechanismContext(failureMechanism, assessmentSection);
 
             using (var view = new StabilityPointStructuresFailureMechanismView
             {
@@ -179,7 +175,6 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsTrue(closeForData);
             }
-            mocks.VerifyAll();
         }
 
         [Test]

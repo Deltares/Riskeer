@@ -28,7 +28,6 @@ using Core.Components.DotSpatial.TestUtil;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Forms;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -89,9 +88,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
             // Setup
             using (var view = new StabilityPointStructuresFailureMechanismView())
             {
-                var mockRepository = new MockRepository();
-                var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-                mockRepository.ReplayAll();
+                var assessmentSection = new ObservableTestAssessmentSectionStub();
 
                 var failureMechanismContext = new StabilityPointStructuresFailureMechanismContext(
                     new StabilityPointStructuresFailureMechanism(), assessmentSection);
@@ -101,8 +98,6 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
 
                 // Assert
                 Assert.AreSame(failureMechanismContext, view.Data);
-
-                mockRepository.VerifyAll();
             }
         }
 
@@ -130,7 +125,10 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
 
             IAssessmentSection assessmentSection = new ObservableTestAssessmentSectionStub
             {
-                BackgroundMapData = backgroundMapData
+                BackgroundMapData =
+                {
+                    MapData = backgroundMapData
+                }
             };
 
             using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
@@ -153,9 +151,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
             // Setup
             using (var view = new StabilityPointStructuresFailureMechanismView())
             {
-                var mockRepository = new MockRepository();
-                var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-                mockRepository.ReplayAll();
+                var assessmentSection = new ObservableTestAssessmentSectionStub();
 
                 var failureMechanismContext = new StabilityPointStructuresFailureMechanismContext(
                     new StabilityPointStructuresFailureMechanism(), assessmentSection);
@@ -172,8 +168,6 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
                 Assert.IsNull(view.Data);
                 Assert.IsNull(view.Map.Data);
                 Assert.IsNull(view.Map.BackgroundMapData);
-
-                mockRepository.VerifyAll();
             }
         }
 
@@ -183,9 +177,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
             // Setup
             using (var view = new StabilityPointStructuresFailureMechanismView())
             {
-                var mockRepository = new MockRepository();
-                var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-                mockRepository.ReplayAll();
+                var assessmentSection = new ObservableTestAssessmentSectionStub();
 
                 var failureMechanismContext = new StabilityPointStructuresFailureMechanismContext(
                     new StabilityPointStructuresFailureMechanism(), assessmentSection);
@@ -196,8 +188,6 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
                 // Assert
                 Assert.AreSame(failureMechanismContext, view.Data);
                 AssertEmptyMapData(view.Map.Data);
-
-                mockRepository.VerifyAll();
             }
         }
 
@@ -227,16 +217,16 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
 
                 var referenceLine = new ReferenceLine();
                 referenceLine.SetGeometry(new[]
-                                          {
-                                              new Point2D(1.0, 2.0),
-                                              new Point2D(2.0, 1.0)
-                                          });
+                {
+                    new Point2D(1.0, 2.0),
+                    new Point2D(2.0, 1.0)
+                });
 
-                var mockRepository = new MockRepository();
-                var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-                assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
-                assessmentSection.ReferenceLine = referenceLine;
-                mockRepository.ReplayAll();
+                var assessmentSection = new ObservableTestAssessmentSectionStub
+                {
+                    HydraulicBoundaryDatabase = hydraulicBoundaryDatabase,
+                    ReferenceLine = referenceLine
+                };
 
                 var calculationLocationA = new Point2D(1.2, 2.3);
                 var calculationLocationB = new Point2D(2.7, 2.0);
@@ -268,15 +258,15 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
                 failureMechanism.AddSection(new FailureMechanismSection("C", geometryPoints.Skip(2).Take(2)));
 
                 failureMechanism.ForeshoreProfiles.Add(new TestForeshoreProfile(new[]
-                                                                                {
-                                                                                    new Point2D(0, 0),
-                                                                                    new Point2D(1, 1)
-                                                                                }));
+                {
+                    new Point2D(0, 0),
+                    new Point2D(1, 1)
+                }));
                 failureMechanism.ForeshoreProfiles.Add(new TestForeshoreProfile(new[]
-                                                                                {
-                                                                                    new Point2D(2, 2),
-                                                                                    new Point2D(3, 3)
-                                                                                }));
+                {
+                    new Point2D(2, 2),
+                    new Point2D(3, 3)
+                }));
                 failureMechanism.CalculationsGroup.Children.Add(calculationA);
                 failureMechanism.CalculationsGroup.Children.Add(calculationB);
 
@@ -303,8 +293,6 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
                 AssertCalculationsMapData(
                     failureMechanism.Calculations.Cast<StructuresCalculation<StabilityPointStructuresInput>>(),
                     mapDataList[calculationsIndex]);
-
-                mockRepository.VerifyAll();
             }
         }
 
@@ -502,10 +490,10 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
 
                 // Call
                 failureMechanism.AddSection(new FailureMechanismSection(string.Empty, new[]
-                                                                        {
-                                                                            new Point2D(1, 2),
-                                                                            new Point2D(1, 2)
-                                                                        }));
+                {
+                    new Point2D(1, 2),
+                    new Point2D(1, 2)
+                }));
                 failureMechanism.NotifyObservers();
 
                 // Assert
@@ -527,10 +515,10 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
                 var failureMechanismContext = new StabilityPointStructuresFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
 
                 failureMechanism.ForeshoreProfiles.Add(new TestForeshoreProfile(new[]
-                                                                                {
-                                                                                    new Point2D(0, 0),
-                                                                                    new Point2D(1, 1)
-                                                                                }));
+                {
+                    new Point2D(0, 0),
+                    new Point2D(1, 1)
+                }));
 
                 view.Data = failureMechanismContext;
 
@@ -541,10 +529,10 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
 
                 // Call
                 failureMechanism.ForeshoreProfiles.Add(new TestForeshoreProfile(new[]
-                                                                                {
-                                                                                    new Point2D(2, 2),
-                                                                                    new Point2D(3, 3)
-                                                                                }));
+                {
+                    new Point2D(2, 2),
+                    new Point2D(3, 3)
+                }));
                 failureMechanism.ForeshoreProfiles.NotifyObservers();
 
                 // Assert
@@ -813,10 +801,10 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
 
             newAssessmentSection.ReferenceLine = new ReferenceLine();
             newAssessmentSection.ReferenceLine.SetGeometry(new[]
-                                                           {
-                                                               new Point2D(2, 4),
-                                                               new Point2D(3, 4)
-                                                           });
+            {
+                new Point2D(2, 4),
+                new Point2D(3, 4)
+            });
 
             var oldStabilityPointStructuresFailureMechanismContext = new StabilityPointStructuresFailureMechanismContext(new StabilityPointStructuresFailureMechanism(), oldAssessmentSection);
             var newStabilityPointStructuresFailureMechanismContext = new StabilityPointStructuresFailureMechanismContext(new StabilityPointStructuresFailureMechanism(), newAssessmentSection);
@@ -871,10 +859,10 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
 
                 StructuresCalculation<StabilityPointStructuresInput> calculation = calculationsArray[index];
                 CollectionAssert.AreEquivalent(new[]
-                                               {
-                                                   calculation.InputParameters.Structure.Location,
-                                                   calculation.InputParameters.HydraulicBoundaryLocation.Location
-                                               }, geometries[0].PointCollections.First());
+                {
+                    calculation.InputParameters.Structure.Location,
+                    calculation.InputParameters.HydraulicBoundaryLocation.Location
+                }, geometries[0].PointCollections.First());
             }
             Assert.AreEqual("Berekeningen", mapData.Name);
         }

@@ -81,7 +81,7 @@
     <Compile Include="Create\StabilityStoneCover\StabilityStoneCoverWaveConditionsCalculationCreateExtensions.cs" />
     <Compile Include="Create\WaveConditionsOutputCreateExtensions.cs" />
     <Compile Include="Create\WaveImpactAsphaltCover\WaveImpactAsphaltCoverWaveConditionsCalculationCreateExtensions.cs" />
-    <Compile Include="Create\BackgroundMapDataCreateExtensions.cs" />
+    <Compile Include="Create\BackgroundMapDataContainerCreateExtensions.cs" />
     <Compile Include="DbContext\AssessmentSectionEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>

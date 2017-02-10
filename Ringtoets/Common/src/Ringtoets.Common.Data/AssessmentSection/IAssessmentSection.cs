@@ -70,9 +70,10 @@ namespace Ringtoets.Common.Data.AssessmentSection
         HydraulicBoundaryDatabase HydraulicBoundaryDatabase { get; set; }
 
         /// <summary>
-        /// The layer that represents the background for all geo-referenced data.
+        /// Gets the containers that holds the layer that represents the background for all
+        /// geo-referenced data.
         /// </summary>
-        WmtsMapData BackgroundMapData { get; }
+        BackgroundMapDataContainer BackgroundMapData { get; }
 
         /// <summary>
         /// Gets the failure mechanisms corresponding to the assessment section.

@@ -134,7 +134,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
                     SetMapDataFeatures();
 
                     Map.Data = mapDataCollection;
-                    Map.BackgroundMapData = data.Parent.BackgroundMapData;
+                    Map.BackgroundMapData = (WmtsMapData)data.Parent.BackgroundMapData.MapData;
                 }
             }
         }

@@ -36,6 +36,7 @@ using Core.Common.Gui.Forms;
 using Core.Common.Gui.Plugin;
 using Core.Common.IO.Exceptions;
 using Core.Common.Utils.Extensions;
+using Core.Components.Gis.Data;
 using log4net;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.ClosingStructures.Forms.PresentationObjects;
@@ -1051,7 +1052,7 @@ namespace Ringtoets.Integration.Plugin
         {
             var childNodes = new List<object>
             {
-                new BackgroundMapDataContext(nodeData.BackgroundMapData),
+                new BackgroundMapDataContext((WmtsMapData)nodeData.BackgroundMapData.MapData),
                 new ReferenceLineContext(nodeData),
                 new FailureMechanismContributionContext(nodeData.FailureMechanismContribution, nodeData),
                 new HydraulicBoundaryDatabaseContext(nodeData),

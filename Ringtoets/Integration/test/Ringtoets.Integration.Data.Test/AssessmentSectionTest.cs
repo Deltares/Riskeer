@@ -23,6 +23,7 @@ using System;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
+using Core.Components.Gis.Data;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Contribution;
@@ -144,8 +145,9 @@ namespace Ringtoets.Integration.Data.Test
             Assert.AreEqual(sum, section.FailureMechanismContribution.Distribution.Sum(d => d.Contribution));
 
             Assert.IsFalse(section.BackgroundMapData.IsVisible);
-            Assert.IsFalse(section.BackgroundMapData.IsConfigured);
             Assert.AreEqual(0.0, section.BackgroundMapData.Transparency.Value);
+            var mapData = (WmtsMapData)section.BackgroundMapData.MapData;
+            Assert.IsFalse(mapData.IsConfigured);
         }
 
         [Test]

@@ -23,6 +23,7 @@ using System;
 using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Utils.Extensions;
 using Core.Components.Gis.Data;
+using Ringtoets.Common.Data;
 
 namespace Application.Ringtoets.Storage.Create
 {
@@ -30,8 +31,29 @@ namespace Application.Ringtoets.Storage.Create
     /// Extensions methods for <see cref="WmtsMapData"/> related to 
     /// creating a <see cref="BackgroundMapDataEntity"/>.
     /// </summary>
-    internal static class BackgroundMapDataCreateExtensions
+    internal static class BackgroundMapDataContainerCreateExtensions
     {
+        /// <summary>
+        /// Creates a <see cref="BackgroundMapDataEntity"/> based on the information of the
+        /// <see cref="BackgroundMapDataContainer"/> and it's <see cref="ImageBasedMapData"/>.
+        /// </summary>
+        /// <param name="mapDataContainer">The container to create a <see cref="BackgroundMapDataEntity"/> for.</param>
+        /// <returns>The entity, or <c>null</c> if <paramref name="mapDataContainer"/> contains
+        /// an unsupported <see cref="ImageBasedMapData"/> instance.</returns>
+        internal static BackgroundMapDataEntity Create(this BackgroundMapDataContainer mapDataContainer)
+        {
+            if (mapDataContainer == null)
+            {
+                throw new ArgumentNullException(nameof(mapDataContainer));
+            }
+            var wmtsMapData = mapDataContainer.MapData as WmtsMapData;
+            if (wmtsMapData != null)
+            {
+                return wmtsMapData.Create();
+            }
+            return null; // TODO: WTI-1141
+        }
+
         /// <summary>
         /// Creates a <see cref="BackgroundMapDataEntity"/> based on the information of the <see cref="WmtsMapData"/>
         /// </summary>

@@ -38,7 +38,7 @@ namespace Ringtoets.Common.Data.Test
             var container = new BackgroundMapDataContainer();
 
             // Assert
-            Assert.IsNull(container.BackgroundMapData);
+            Assert.IsNull(container.MapData);
             Assert.IsTrue(container.IsVisible);
             Assert.AreEqual(2, container.Transparency.NumberOfDecimalPlaces);
             Assert.AreEqual(0, container.Transparency.Value);
@@ -54,15 +54,14 @@ namespace Ringtoets.Common.Data.Test
             var container = new BackgroundMapDataContainer();
 
             // Call
-            container.Transparency = (RoundedDouble)newValue;
+            container.Transparency = (RoundedDouble) newValue;
 
             // Assert
             Assert.AreEqual(newValue, container.Transparency);
         }
 
-
         [Test]
-        public void Transparency_WithBackgroundMapData_MapDataTransparencyUpdated()
+        public void Transparency_WithMapData_MapDataTransparencyUpdated()
         {
             // Setup
             var mocks = new MockRepository();
@@ -70,7 +69,7 @@ namespace Ringtoets.Common.Data.Test
             mocks.ReplayAll();
 
             var container = new BackgroundMapDataContainer();
-            container.BackgroundMapData = backgroundMapData;
+            container.MapData = backgroundMapData;
 
             // Call
             container.Transparency = (RoundedDouble) 0.5;
@@ -92,14 +91,13 @@ namespace Ringtoets.Common.Data.Test
             var container = new BackgroundMapDataContainer();
 
             // Call
-            TestDelegate call = () => container.Transparency = (RoundedDouble)invalidTransparency;
+            TestDelegate call = () => container.Transparency = (RoundedDouble) invalidTransparency;
 
             // Assert
             var message = "De transparantie moet in het bereik [0.0, 1.0] liggen.";
             string paramName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, message).ParamName;
             Assert.AreEqual("value", paramName);
         }
-
 
         [Test]
         [TestCase(true)]
@@ -116,11 +114,10 @@ namespace Ringtoets.Common.Data.Test
             Assert.AreEqual(newValue, container.IsVisible);
         }
 
-
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void IsVisible_WithBackgroundMapData_MapDataIsVisibleUpdated(bool isVisible)
+        public void IsVisible_WithMapData_MapDataIsVisibleUpdated(bool isVisible)
         {
             // Setup
             var mocks = new MockRepository();
@@ -129,7 +126,7 @@ namespace Ringtoets.Common.Data.Test
 
             var container = new BackgroundMapDataContainer
             {
-                BackgroundMapData = imageBasedMapData
+                MapData = imageBasedMapData
             };
 
             // Call
@@ -143,7 +140,7 @@ namespace Ringtoets.Common.Data.Test
         [Test]
         [TestCase(true, 0.5)]
         [TestCase(false, 0.8)]
-        public void BackgroundMapData_SetNewValue_GetNewValueAndInitializePreconfiguration(bool isVisible, double transparency)
+        public void MapData_SetNewValue_GetNewValueAndInitializePreconfiguration(bool isVisible, double transparency)
         {
             // Setup
             var mocks = new MockRepository();
@@ -153,16 +150,16 @@ namespace Ringtoets.Common.Data.Test
             var container = new BackgroundMapDataContainer
             {
                 IsVisible = isVisible,
-                Transparency = (RoundedDouble)transparency
+                Transparency = (RoundedDouble) transparency
             };
 
             // Call
-            container.BackgroundMapData = imageBasedMapData;
+            container.MapData = imageBasedMapData;
 
             // Assert
             Assert.AreEqual(container.Transparency, imageBasedMapData.Transparency);
             Assert.AreEqual(container.IsVisible, imageBasedMapData.IsVisible);
-            Assert.AreSame(imageBasedMapData, container.BackgroundMapData);
+            Assert.AreSame(imageBasedMapData, container.MapData);
             mocks.VerifyAll();
         }
     }

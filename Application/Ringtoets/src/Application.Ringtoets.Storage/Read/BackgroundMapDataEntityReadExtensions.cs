@@ -23,31 +23,44 @@ using System;
 using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Base.Data;
 using Core.Components.Gis.Data;
+using Ringtoets.Common.Data;
 
 namespace Application.Ringtoets.Storage.Read
 {
     /// <summary>
-    /// Extension methods for read operations for <see cref="WmtsMapData"/>
+    /// Extension methods for read operations for <see cref="BackgroundMapDataContainer"/>
     /// based on the <see cref="BackgroundMapDataEntity"/>.
     /// </summary>
     internal static class BackgroundMapDataEntityReadExtensions
     {
         /// <summary>
         /// Read the <see cref="BackgroundMapDataEntity"/> and use the information
-        /// to construct a <see cref="WmtsMapData"/>.
+        /// to construct a <see cref="BackgroundMapDataContainer"/>.
         /// </summary>
         /// <param name="entity">The <see cref="BackgroundMapDataEntity"/>
-        /// to create <see cref="WmtsMapData"/> for.</param>
+        /// to create <see cref="BackgroundMapDataContainer"/> for.</param>
         /// <returns>A new <see cref="WmtsMapData"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when
         /// <paramref name="entity"/> is <c>null</c>.</exception>
-        internal static WmtsMapData Read(this BackgroundMapDataEntity entity)
+        internal static BackgroundMapDataContainer Read(this BackgroundMapDataEntity entity)
         {
             if (entity == null)
             {
                 throw new ArgumentNullException(nameof(entity));
             }
 
+            var container = new BackgroundMapDataContainer
+            {
+                IsVisible = Convert.ToBoolean(entity.IsVisible),
+                Transparency = (RoundedDouble) entity.Transparency,
+                MapData = CreateMapData(entity)
+            };
+
+            return container;
+        }
+
+        private static WmtsMapData CreateMapData(BackgroundMapDataEntity entity)
+        {
             var mapData = WmtsMapData.CreateUnconnectedMapData();
             mapData.Name = entity.Name;
 
@@ -55,10 +68,6 @@ namespace Application.Ringtoets.Storage.Read
             {
                 mapData.Configure(entity.SourceCapabilitiesUrl, entity.SelectedCapabilityName, entity.PreferredFormat);
             }
-
-            mapData.IsVisible = Convert.ToBoolean(entity.IsVisible);
-            mapData.Transparency = (RoundedDouble)entity.Transparency;
-
             return mapData;
         }
     }

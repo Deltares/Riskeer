@@ -25,6 +25,7 @@ using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Serializers;
 using Core.Common.Base.Geometry;
 using Core.Components.Gis.Data;
+using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
@@ -109,19 +110,11 @@ namespace Application.Ringtoets.Storage.Read
 
         private static void ReadBackgroundMapData(this AssessmentSectionEntity entity, IAssessmentSection assessmentSection)
         {
-            WmtsMapData backgroundMapData = entity.BackgroundMapDataEntities.Single().Read();
+            BackgroundMapDataContainer container = entity.BackgroundMapDataEntities.Single().Read();
 
-            assessmentSection.BackgroundMapData.Name = backgroundMapData.Name;
-
-            if (backgroundMapData.IsConfigured)
-            {
-                assessmentSection.BackgroundMapData.Configure(backgroundMapData.SourceCapabilitiesUrl,
-                                                              backgroundMapData.SelectedCapabilityIdentifier,
-                                                              backgroundMapData.PreferredFormat);
-            }
-
-            assessmentSection.BackgroundMapData.IsVisible = backgroundMapData.IsVisible;
-            assessmentSection.BackgroundMapData.Transparency = backgroundMapData.Transparency;
+            assessmentSection.BackgroundMapData.IsVisible = container.IsVisible;
+            assessmentSection.BackgroundMapData.Transparency = container.Transparency;
+            assessmentSection.BackgroundMapData.MapData = container.MapData;
         }
 
         private static void ReadReferenceLine(this AssessmentSectionEntity entity, IAssessmentSection assessmentSection)

@@ -147,7 +147,7 @@ namespace Ringtoets.Piping.Forms.Views
 
                     SetMapDataFeatures();
 
-                    Map.BackgroundMapData = data.Parent.BackgroundMapData;
+                    Map.BackgroundMapData = (WmtsMapData) data.Parent.BackgroundMapData.MapData;
                     Map.Data = mapDataCollection;
                 }
             }

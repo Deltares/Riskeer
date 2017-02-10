@@ -182,7 +182,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 // Assert
                 Assert.AreEqual(23, objects.Length);
                 var backgroundMapData = (BackgroundMapDataContext) objects[0];
-                Assert.AreSame(assessmentSection.BackgroundMapData, backgroundMapData.WrappedData);
+                Assert.AreSame(assessmentSection.BackgroundMapData.MapData, backgroundMapData.WrappedData);
 
                 var referenceLineContext = (ReferenceLineContext) objects[1];
                 Assert.AreSame(assessmentSection, referenceLineContext.WrappedData);

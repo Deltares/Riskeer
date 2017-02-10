@@ -108,10 +108,14 @@ namespace Demo.Ringtoets.Commands
         private static void InitializeBackgroundMapData(AssessmentSection demoAssessmentSection)
         {
             WmtsMapData targetConfiguration = WmtsMapData.CreateDefaultPdokMapData();
-            demoAssessmentSection.BackgroundMapData.Name = targetConfiguration.Name;
-            demoAssessmentSection.BackgroundMapData.Configure(targetConfiguration.SourceCapabilitiesUrl,
-                                                              targetConfiguration.SelectedCapabilityIdentifier,
-                                                              targetConfiguration.PreferredFormat);
+            demoAssessmentSection.BackgroundMapData.IsVisible = targetConfiguration.IsVisible;
+            demoAssessmentSection.BackgroundMapData.Transparency = targetConfiguration.Transparency;
+
+            var backgroundMapData = (WmtsMapData)demoAssessmentSection.BackgroundMapData.MapData;
+            backgroundMapData.Name = targetConfiguration.Name;
+            backgroundMapData.Configure(targetConfiguration.SourceCapabilitiesUrl,
+                                        targetConfiguration.SelectedCapabilityIdentifier,
+                                        targetConfiguration.PreferredFormat);
         }
 
         private void InitializeDemoReferenceLine(AssessmentSection demoAssessmentSection)

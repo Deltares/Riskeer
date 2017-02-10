@@ -101,7 +101,10 @@ namespace Ringtoets.Common.Forms.Test.Views
 
             IAssessmentSection assessmentSection = new ObservableTestAssessmentSectionStub
             {
-                BackgroundMapData = backgroundMapData
+                BackgroundMapData =
+                {
+                    MapData = backgroundMapData
+                }
             };
 
             using (new UseCustomTileSourceFactoryConfig(backgroundMapData))

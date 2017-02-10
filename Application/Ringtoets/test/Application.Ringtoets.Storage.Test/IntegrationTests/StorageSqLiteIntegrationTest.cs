@@ -34,6 +34,7 @@ using Core.Common.Gui;
 using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.Settings;
 using Core.Common.TestUtil;
+using Core.Components.Gis.Data;
 using NUnit.Framework;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data;
@@ -65,18 +66,6 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
     {
         private const string tempExtension = ".temp";
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Storage, "DatabaseFiles");
-
-        [OneTimeTearDown]
-        public void TearDownTempRingtoetsFile()
-        {
-            IEnumerable<string> filesToDelete = Directory.EnumerateFiles(testDataPath, "*.temp");
-
-            foreach (string fileToDelete in filesToDelete)
-            {
-                TearDownTempRingtoetsFile(fileToDelete);
-            }
-            Dispatcher.CurrentDispatcher.InvokeShutdown();
-        }
 
         [Test]
         public void SaveProjectAs_SaveAsNewFile_ProjectAsEntitiesInBothFiles()
@@ -221,6 +210,18 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             }
         }
 
+        [OneTimeTearDown]
+        public void TearDownTempRingtoetsFile()
+        {
+            IEnumerable<string> filesToDelete = Directory.EnumerateFiles(testDataPath, "*.temp");
+
+            foreach (string fileToDelete in filesToDelete)
+            {
+                TearDownTempRingtoetsFile(fileToDelete);
+            }
+            Dispatcher.CurrentDispatcher.InvokeShutdown();
+        }
+
         private static string GetRandomRingtoetsFile()
         {
             return Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Storage, "DatabaseFiles"),
@@ -245,6 +246,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 Assert.AreEqual(expectedAssessmentSection.Name, actualAssessmentSection.Name);
                 AssertComments(expectedAssessmentSection.Comments, actualAssessmentSection.Comments);
 
+                AssertBackgroundMapDataContainer(expectedAssessmentSection.BackgroundMapData, actualAssessmentSection.BackgroundMapData);
                 AssertHydraulicBoundaryDatabase(expectedAssessmentSection.HydraulicBoundaryDatabase, actualAssessmentSection.HydraulicBoundaryDatabase);
                 AssertReferenceLine(expectedAssessmentSection.ReferenceLine, actualAssessmentSection.ReferenceLine);
                 AssertPipingFailureMechanism(expectedAssessmentSection.PipingFailureMechanism, actualAssessmentSection.PipingFailureMechanism);
@@ -1774,6 +1776,32 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             Assert.AreEqual(expectedOutput.CalculatedProbability, actualOutput.CalculatedProbability);
             Assert.AreEqual(expectedOutput.CalculatedReliability, actualOutput.CalculatedReliability);
             Assert.AreEqual(CalculationConvergence.NotCalculated, actualOutput.CalculationConvergence);
+        }
+
+        #endregion
+
+        #region BackgroundMapDataContainer
+
+        private static void AssertBackgroundMapDataContainer(BackgroundMapDataContainer expectedContainer, BackgroundMapDataContainer actualContainer)
+        {
+            Assert.AreEqual(expectedContainer.IsVisible, actualContainer.IsVisible);
+            Assert.AreEqual(expectedContainer.Transparency, actualContainer.Transparency);
+
+            var expectedWmtsMapData = (WmtsMapData) expectedContainer.MapData;
+            var actualWmtsMapData = (WmtsMapData) actualContainer.MapData;
+            AssertWmtsMapData(expectedWmtsMapData, actualWmtsMapData);
+        }
+
+        private static void AssertWmtsMapData(WmtsMapData expectedWmtsMapData, WmtsMapData actualWmtsMapData)
+        {
+            Assert.AreEqual(expectedWmtsMapData.Name, actualWmtsMapData.Name);
+            Assert.AreEqual(expectedWmtsMapData.IsVisible, actualWmtsMapData.IsVisible);
+            Assert.AreEqual(expectedWmtsMapData.Transparency, actualWmtsMapData.Transparency);
+
+            Assert.AreEqual(expectedWmtsMapData.IsConfigured, actualWmtsMapData.IsConfigured);
+            Assert.AreEqual(expectedWmtsMapData.SourceCapabilitiesUrl, actualWmtsMapData.SourceCapabilitiesUrl);
+            Assert.AreEqual(expectedWmtsMapData.SelectedCapabilityIdentifier, actualWmtsMapData.SelectedCapabilityIdentifier);
+            Assert.AreEqual(expectedWmtsMapData.PreferredFormat, actualWmtsMapData.PreferredFormat);
         }
 
         #endregion

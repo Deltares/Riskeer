@@ -49,7 +49,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             Assert.AreEqual(0, Convert.ToInt32(assessmentSection.Composition));
             Assert.IsNull(assessmentSection.ReferenceLine);
             Assert.IsNull(assessmentSection.HydraulicBoundaryDatabase);
-            Assert.IsNull(assessmentSection.BackgroundMapData);
+            Assert.IsNull(assessmentSection.BackgroundMapData.MapData);
 
             Assert.AreEqual(1.0 / 300000.0, assessmentSection.FailureMechanismContribution.Norm);
             FailureMechanismContributionItem[] contributionItems = assessmentSection.FailureMechanismContribution.Distribution.ToArray();

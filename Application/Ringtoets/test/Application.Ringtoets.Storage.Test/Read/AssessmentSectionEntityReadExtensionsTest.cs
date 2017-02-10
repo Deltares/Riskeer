@@ -30,6 +30,7 @@ using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using Core.Components.Gis.Data;
 using NUnit.Framework;
+using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
@@ -116,7 +117,7 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             if (isConfigured)
             {                
-                backgroundMapDataEntity.SourceCapabilitiesUrl = sourceCapabilitiesUrl;                
+                backgroundMapDataEntity.SourceCapabilitiesUrl = sourceCapabilitiesUrl;
                 backgroundMapDataEntity.SelectedCapabilityName = selectedCapabilityName;
                 backgroundMapDataEntity.PreferredFormat = preferredFormat;
             }
@@ -129,11 +130,13 @@ namespace Application.Ringtoets.Storage.Test.Read
             var section = entity.Read(collector);
 
             // Assert
-            WmtsMapData backgroundMapData = section.BackgroundMapData;
+            BackgroundMapDataContainer container = section.BackgroundMapData;
+            Assert.AreEqual(isVisible, container.IsVisible);
+            Assert.AreEqual(transparency, container.Transparency);
+
+            var backgroundMapData = (WmtsMapData)container.MapData;
             Assert.AreEqual(isConfigured, backgroundMapData.IsConfigured);
             Assert.AreEqual(mapDataName, backgroundMapData.Name);
-            Assert.AreEqual(isVisible, backgroundMapData.IsVisible);
-            Assert.AreEqual(transparency, backgroundMapData.Transparency);
 
             if (isConfigured)
             {

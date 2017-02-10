@@ -60,7 +60,13 @@ namespace Ringtoets.Integration.Data
             Name = Resources.AssessmentSection_DisplayName;
             Comments = new Comment();
 
-            BackgroundMapData = WmtsMapData.CreateUnconnectedMapData();
+            var mapData = WmtsMapData.CreateUnconnectedMapData();
+            BackgroundMapData = new BackgroundMapDataContainer
+            {
+                IsVisible = mapData.IsVisible,
+                Transparency = mapData.Transparency,
+                MapData = mapData
+            };
 
             PipingFailureMechanism = new PipingFailureMechanism();
             GrassCoverErosionInwards = new GrassCoverErosionInwardsFailureMechanism();
@@ -205,7 +211,7 @@ namespace Ringtoets.Integration.Data
 
         public HydraulicBoundaryDatabase HydraulicBoundaryDatabase { get; set; }
 
-        public WmtsMapData BackgroundMapData { get; }
+        public BackgroundMapDataContainer BackgroundMapData { get; }
 
         public IEnumerable<IFailureMechanism> GetFailureMechanisms()
         {

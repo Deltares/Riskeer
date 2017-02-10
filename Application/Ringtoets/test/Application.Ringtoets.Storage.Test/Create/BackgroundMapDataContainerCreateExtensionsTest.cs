@@ -25,12 +25,94 @@ using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Base.Data;
 using Core.Components.Gis.Data;
 using NUnit.Framework;
+using Ringtoets.Common.Data;
 
 namespace Application.Ringtoets.Storage.Test.Create
 {
     [TestFixture]
-    public class BackgroundMapDataCreateExtensionsTest
+    public class BackgroundMapDataContainerCreateExtensionsTest
     {
+        [Test]
+        public void Create_BackgroundMapDataContainerNull_ThrowArgumentNullException()
+        {
+            // Setup
+            BackgroundMapDataContainer container = null;
+
+            // Call
+            TestDelegate test = () => container.Create();
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("mapDataContainer", exception.ParamName);
+        }
+
+
+        [Test]
+        public void Create_BackgroundMapDataContainerWithWmtsMapData_ReturnsBackgroundMapDataEntity()
+        {
+            // Setup
+            const string name = "background";
+            const string sourceCapabilitiesUrl = "//url";
+            const string selectedCapabilityName = "selectedName";
+            const string preferredFormat = "image/png";
+            const bool isVisible = true;
+            RoundedDouble transparancy = (RoundedDouble)0.3;
+
+            var mapData = new WmtsMapData(name, sourceCapabilitiesUrl, selectedCapabilityName, preferredFormat)
+            {
+                IsVisible = isVisible,
+                Transparency = transparancy
+            };
+
+            var container = new BackgroundMapDataContainer
+            {
+                IsVisible = isVisible,
+                Transparency = transparancy,
+                MapData = mapData
+            };
+
+            // Call
+            BackgroundMapDataEntity entity = container.Create();
+
+            // Assert
+            Assert.AreEqual(name, entity.Name);
+            Assert.AreEqual(sourceCapabilitiesUrl, entity.SourceCapabilitiesUrl);
+            Assert.AreEqual(selectedCapabilityName, entity.SelectedCapabilityName);
+            Assert.AreEqual(preferredFormat, entity.PreferredFormat);
+            Assert.AreEqual(Convert.ToByte(isVisible), entity.IsVisible);
+            Assert.AreEqual(transparancy, entity.Transparency);
+        }
+
+        [Test]
+        public void Create_BackgroundMapDataContainerWithoutMapData_ReturnsNull()
+        {
+            // Setup
+            var container = new BackgroundMapDataContainer();
+
+            // Call
+            BackgroundMapDataEntity entity = container.Create();
+
+            // Assert
+            Assert.IsNull(entity); // TODO: WTI-1141
+        }
+
+
+        [Test]
+        public void Create_BackgroundMapDataContainerWithWellKnownTileSource_ReturnsNull()
+        {
+            // Setup
+            var container = new BackgroundMapDataContainer
+            {
+                MapData = new WellKnownTileSourceMapData(WellKnownTileSource.BingAerial)
+            };
+
+            // Call
+            BackgroundMapDataEntity entity = container.Create();
+
+            // Assert
+            Assert.IsNull(entity); // TODO: WTI-1141
+        }
+
         [Test]
         public void Create_WmtsMapDataNull_ThrowArgumentNullException()
         {
@@ -46,7 +128,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void Create_ConfiguredWmtsMapData_ReturnWmtsMapDataEntity()
+        public void Create_ConfiguredWmtsMapData_ReturnBackgroundMapDataEntity()
         {
             // Setup
             const string name = "background";
@@ -63,10 +145,9 @@ namespace Application.Ringtoets.Storage.Test.Create
             };
 
             // Call
-            var entity = mapData.Create();
+            BackgroundMapDataEntity entity = mapData.Create();
 
             // Assert
-            Assert.IsInstanceOf<BackgroundMapDataEntity>(entity);
             Assert.AreEqual(name, entity.Name);
             Assert.AreEqual(sourceCapabilitiesUrl, entity.SourceCapabilitiesUrl);
             Assert.AreEqual(selectedCapabilityName, entity.SelectedCapabilityName);
@@ -76,16 +157,15 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void Create_UnconfiguredWmtsMapData_ReturnWmtsMapDataEntity()
+        public void Create_UnconfiguredWmtsMapData_ReturnBackgroundMapDataEntity()
         {
             // Setup
             var mapData = WmtsMapData.CreateUnconnectedMapData();
 
             // Call
-            var entity = mapData.Create();
+            BackgroundMapDataEntity entity = mapData.Create();
 
             // Assert
-            Assert.IsInstanceOf<BackgroundMapDataEntity>(entity);
             Assert.AreEqual(mapData.Name, entity.Name);
             Assert.IsNull(entity.SourceCapabilitiesUrl);
             Assert.IsNull(entity.SelectedCapabilityName);

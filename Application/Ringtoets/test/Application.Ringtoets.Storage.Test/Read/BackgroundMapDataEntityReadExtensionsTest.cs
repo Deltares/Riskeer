@@ -24,6 +24,7 @@ using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read;
 using Core.Components.Gis.Data;
 using NUnit.Framework;
+using Ringtoets.Common.Data;
 
 namespace Application.Ringtoets.Storage.Test.Read
 {
@@ -66,16 +67,18 @@ namespace Application.Ringtoets.Storage.Test.Read
             };
 
             // Call
-            WmtsMapData mapData = entity.Read();
+            BackgroundMapDataContainer container = entity.Read();
 
             // Assert
-            Assert.AreEqual(name, mapData.Name);
-            Assert.AreEqual(url, mapData.SourceCapabilitiesUrl);
-            Assert.AreEqual(capabilityName, mapData.SelectedCapabilityIdentifier);
-            Assert.AreEqual(isVisible, mapData.IsVisible);
-            Assert.AreEqual(transparancy, mapData.Transparency.Value);
-            Assert.AreEqual(preferredFormat, mapData.PreferredFormat);
-            Assert.IsTrue(mapData.IsConfigured);
+            Assert.AreEqual(isVisible, container.IsVisible);
+            Assert.AreEqual(transparancy, container.Transparency.Value);
+
+            var wmtsMapData = (WmtsMapData) container.MapData;
+            Assert.AreEqual(name, wmtsMapData.Name);
+            Assert.AreEqual(url, wmtsMapData.SourceCapabilitiesUrl);
+            Assert.AreEqual(capabilityName, wmtsMapData.SelectedCapabilityIdentifier);
+            Assert.AreEqual(preferredFormat, wmtsMapData.PreferredFormat);
+            Assert.IsTrue(wmtsMapData.IsConfigured);
         }
 
         [Test]
@@ -94,16 +97,18 @@ namespace Application.Ringtoets.Storage.Test.Read
             };
 
             // Call
-            WmtsMapData mapData = entity.Read();
+            BackgroundMapDataContainer container = entity.Read();
 
             // Assert
-            Assert.AreEqual(name, mapData.Name);
-            Assert.IsNull(mapData.SourceCapabilitiesUrl);
-            Assert.IsNull(mapData.SelectedCapabilityIdentifier);
-            Assert.AreEqual(isVisible, mapData.IsVisible);
-            Assert.AreEqual(transparancy, mapData.Transparency.Value);
-            Assert.IsNull(mapData.PreferredFormat);
-            Assert.IsFalse(mapData.IsConfigured);
+            Assert.AreEqual(isVisible, container.IsVisible);
+            Assert.AreEqual(transparancy, container.Transparency.Value);
+
+            var wmtsMapData = (WmtsMapData)container.MapData;
+            Assert.AreEqual(name, wmtsMapData.Name);
+            Assert.IsNull(wmtsMapData.SourceCapabilitiesUrl);
+            Assert.IsNull(wmtsMapData.SelectedCapabilityIdentifier);
+            Assert.IsNull(wmtsMapData.PreferredFormat);
+            Assert.IsFalse(wmtsMapData.IsConfigured);
         }
     }
 }
