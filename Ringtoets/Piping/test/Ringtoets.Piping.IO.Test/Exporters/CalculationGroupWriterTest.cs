@@ -22,11 +22,16 @@
 using System;
 using System.IO;
 using System.Security.AccessControl;
+using Core.Common.Base.Data;
 using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.IO.Exporters;
+using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.IO.Test.Exporters
 {
@@ -110,6 +115,77 @@ namespace Ringtoets.Piping.IO.Test.Exporters
             finally
             {
                 Directory.Delete(directoryPath, true);
+            }
+        }
+
+        [Test]
+        public void WriteCalculationGroups_ValidData_ValidFile()
+        {
+            // Setup
+            string directoryPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO,
+                                                              "CalculationGroupWriter");
+            Directory.CreateDirectory(directoryPath);
+            string filePath = Path.Combine(directoryPath, "test.xml");
+
+            var calculationGroup = new CalculationGroup("PK001_0001", false);
+
+            var calculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
+            calculation.Name = "PK001_0001 W1-6_0_1D1";
+            calculation.InputParameters.HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "PUNT_KAT_18", 0, 0);
+            calculation.InputParameters.SurfaceLine.Name = "PK001_0001";
+            calculation.InputParameters.StochasticSoilModel = new StochasticSoilModel(1, "PK001_0001_Piping", string.Empty);
+            calculation.InputParameters.StochasticSoilProfile = new StochasticSoilProfile(0, SoilProfileType.SoilProfile1D, 0)
+            {
+                SoilProfile = new PipingSoilProfile("W1-6_0_1D1", 0, new[]
+                {
+                    new PipingSoilLayer(0)
+                }, SoilProfileType.SoilProfile1D, 0)
+            };
+            calculation.InputParameters.PhreaticLevelExit.Mean = (RoundedDouble) 0;
+            calculation.InputParameters.PhreaticLevelExit.StandardDeviation = (RoundedDouble) 0.1;
+            calculation.InputParameters.DampingFactorExit.Mean = (RoundedDouble) 0.7;
+            calculation.InputParameters.DampingFactorExit.StandardDeviation = (RoundedDouble) 0.1;
+
+            calculationGroup.Children.Add(calculation);
+
+            var calculation2 = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
+            calculation2.Name = "PK001_0002 W1-6_4_1D1";
+            calculation2.InputParameters.HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "PUNT_SCH_17", 0, 0);
+            calculation2.InputParameters.SurfaceLine.Name = "PK001_0002";
+            calculation2.InputParameters.StochasticSoilModel = new StochasticSoilModel(1, "PK001_0002_Piping", string.Empty);
+            calculation2.InputParameters.StochasticSoilProfile = new StochasticSoilProfile(0, SoilProfileType.SoilProfile1D, 0)
+            {
+                SoilProfile = new PipingSoilProfile("W1-6_4_1D1", 0, new []
+                {
+                    new PipingSoilLayer(0)
+                }, SoilProfileType.SoilProfile1D, 0)
+            };
+            calculation2.InputParameters.PhreaticLevelExit.Mean = (RoundedDouble)0;
+            calculation2.InputParameters.PhreaticLevelExit.StandardDeviation = (RoundedDouble)0.1;
+            calculation2.InputParameters.DampingFactorExit.Mean = (RoundedDouble)0.7;
+            calculation2.InputParameters.DampingFactorExit.StandardDeviation = (RoundedDouble)0.1;
+
+            var calculationGroup2 = new CalculationGroup("PK001_0002", false);
+            calculationGroup2.Children.Add(calculation2);
+            calculationGroup.Children.Add(calculationGroup2);
+
+            try
+            {
+                // Call
+                CalculationGroupWriter.WriteCalculationGroups(calculationGroup, filePath);
+
+                // Assert
+                Assert.IsTrue(File.Exists(filePath));
+
+                var actualXml = File.ReadAllText(filePath);
+                var expectedXml = File.ReadAllText(Path.Combine(directoryPath, "folder_with_subfolder_and_calculation.xml"));
+
+
+                Assert.AreEqual(expectedXml, actualXml);
+            }
+            finally
+            {
+                File.Delete(filePath);
             }
         }
     }

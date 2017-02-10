@@ -23,6 +23,8 @@ using System;
 using System.Xml;
 using Core.Common.IO.Exceptions;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.Probabilistics;
+using Ringtoets.Piping.Data;
 using CoreCommonUtilsResources = Core.Common.Utils.Properties.Resources;
 
 namespace Ringtoets.Piping.IO.Exporters
@@ -52,15 +54,97 @@ namespace Ringtoets.Piping.IO.Exporters
 
             try
             {
-                using (XmlWriter writer = XmlWriter.Create(filePath))
+                var settings = new XmlWriterSettings
                 {
-                    
+                    Indent = true,
+                    IndentChars = "\t"
+                };
+
+                using (XmlWriter writer = XmlWriter.Create(filePath, settings))
+                {
+                    writer.WriteStartDocument();
+                    writer.WriteStartElement("root");
+
+                    WriteCalculationGroupToFile(rootCalculationGroup, writer);
+
+                    writer.WriteEndElement();
+                    writer.WriteEndDocument();
                 }
             }
             catch (SystemException e)
             {
                 throw new CriticalFileWriteException(string.Format(CoreCommonUtilsResources.Error_General_output_error_0, filePath), e);
             }
+        }
+
+        private static void WriteCalculationGroupToFile(CalculationGroup calculationGroup, XmlWriter writer)
+        {
+            writer.WriteStartElement("folder");
+            writer.WriteAttributeString("naam", calculationGroup.Name);
+
+            foreach (ICalculationBase child in calculationGroup.Children)
+            {
+                var innerGroup = child as CalculationGroup;
+                if (innerGroup != null)
+                {
+                    WriteCalculationGroupToFile(innerGroup, writer);
+                }
+
+                var calculation = child as PipingCalculation;
+                if (calculation != null)
+                {
+                    WriteCalculationToFile(calculation, writer);
+                }
+            }
+
+            writer.WriteEndElement();
+        }
+
+        private static void WriteCalculationToFile(PipingCalculation calculation, XmlWriter writer)
+        {
+            writer.WriteStartElement("berekening");
+            writer.WriteAttributeString("naam", calculation.Name);
+
+            PipingInput calculationInputParameters = calculation.InputParameters;
+
+            if (calculationInputParameters.HydraulicBoundaryLocation != null)
+            {
+                writer.WriteElementString("hrlocatie", calculationInputParameters.HydraulicBoundaryLocation.Name);
+            }
+
+            if (calculationInputParameters.SurfaceLine != null)
+            {
+                writer.WriteElementString("profielschematisatie", calculationInputParameters.SurfaceLine.Name);
+                writer.WriteElementString("intredepunt", calculationInputParameters.EntryPointL.ToString());
+                writer.WriteElementString("uittredepunt", calculationInputParameters.ExitPointL.ToString());
+            }
+
+            if (calculationInputParameters.StochasticSoilModel != null)
+            {
+                writer.WriteElementString("ondergrondmodel", calculationInputParameters.StochasticSoilModel.Name);
+            }
+
+            if (calculationInputParameters.StochasticSoilProfile.SoilProfile != null)
+            {
+                writer.WriteElementString("ondergrondschematisatie", calculationInputParameters.StochasticSoilProfile.SoilProfile.Name);
+            }
+
+            WriteDistribution(calculationInputParameters.PhreaticLevelExit, "polderpeil", writer);
+            WriteDistribution(calculationInputParameters.DampingFactorExit, "dempingsfactor", writer);
+
+
+            writer.WriteEndElement();
+        }
+
+        private static void WriteDistribution(IDistribution distribution, string elementName, XmlWriter writer)
+        {
+            writer.WriteStartElement("stochast");
+            writer.WriteAttributeString("naam", elementName);
+
+            writer.WriteElementString("verwachtingswaarde", distribution.Mean.ToString());
+            writer.WriteElementString("standaardafwijking", distribution.StandardDeviation.ToString());
+
+            writer.WriteEndElement();
         }
     }
 }
