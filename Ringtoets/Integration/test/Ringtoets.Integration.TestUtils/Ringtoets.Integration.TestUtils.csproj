@@ -171,6 +171,10 @@
       <Project>{c8383b76-b3f1-4e6e-b56c-527b469fa20a}</Project>
       <Name>Ringtoets.Integration.Plugin</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\src\Ringtoets.Integration.Service\Ringtoets.Integration.Service.csproj">
+      <Project>{28811c4a-6c18-42c1-88b2-a03a3784e2d0}</Project>
+      <Name>Ringtoets.Integration.Service</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">

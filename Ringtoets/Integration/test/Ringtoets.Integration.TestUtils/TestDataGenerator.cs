@@ -35,6 +35,7 @@ using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.Integration.Data;
+using Ringtoets.Integration.Service;
 using Ringtoets.Piping.Integration.TestUtils;
 using Ringtoets.Revetment.Data;
 using Ringtoets.StabilityPointStructures.Data;
@@ -49,20 +50,22 @@ namespace Ringtoets.Integration.TestUtils
     public static class TestDataGenerator
     {
         /// <summary>
-        /// Gets a fully configured <see cref="AssessmentSection"/>.
+        /// Gets a fully configured <see cref="AssessmentSection"/> with all possible configurations for the 
+        /// parent and nested calculations of the failure mechanisms.
         /// </summary>
         /// <returns>A fully configured <see cref="AssessmentSection"/>.</returns>
-        public static AssessmentSection GetFullyConfiguredAssessmentSection()
+        public static AssessmentSection GetAssessmentSectionWithAllCalculationConfigurations()
         {
-            return GetFullyConfiguredAssessmentSection(AssessmentSectionComposition.Dike);
+            return GetAssessmentSectionWithAllCalculationConfigurations(AssessmentSectionComposition.Dike);
         }
 
         /// <summary>
-        /// Gets a fully configured <see cref="AssessmentSection"/> with a desired <see cref="AssessmentSectionComposition"/>.
+        /// Gets a fully configured <see cref="AssessmentSection"/> with a desired <see cref="AssessmentSectionComposition"/>
+        /// and with all possible configurations for the parent and nested calculations of the failure mechanisms.
         /// </summary>
         /// <param name="composition">The desired <see cref="AssessmentSectionComposition"/> to initialize the <see cref="AssessmentSection"/> with.</param>
         /// <returns>A fully configured <see cref="AssessmentSection"/>.</returns>
-        public static AssessmentSection GetFullyConfiguredAssessmentSection(AssessmentSectionComposition composition)
+        public static AssessmentSection GetAssessmentSectionWithAllCalculationConfigurations(AssessmentSectionComposition composition)
         {
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0)
             {
@@ -93,6 +96,37 @@ namespace Ringtoets.Integration.TestUtils
             SetFullyConfiguredFailureMechanism(assessmentSection.StabilityStoneCover, hydraulicBoundaryLocation);
             SetFullyConfiguredFailureMechanism(assessmentSection.WaveImpactAsphaltCover, hydraulicBoundaryLocation);
             SetFullyConfiguredFailureMechanism(assessmentSection.DuneErosion, hydraulicBoundaryLocation);
+
+            return assessmentSection;
+        }
+
+        /// <summary>
+        /// Gets a fully configured <see cref="AssessmentSection"/> with a desired <see cref="AssessmentSectionComposition"/> and 
+        /// possible configurations of the parent and nested calculations, but without the output of the 
+        /// <see cref="HydraulicBoundaryLocation.DesignWaterLevel"/>,  <see cref="HydraulicBoundaryLocation.WaveHeightOutput"/> 
+        /// and <see cref="DuneLocation.Output"/>
+        /// </summary>
+        /// <param name="composition">The desired <see cref="AssessmentSectionComposition"/> to initialize the <see cref="AssessmentSection"/> with.</param>
+        /// <returns>A fully configured <see cref="AssessmentSection"/> without the output of the <see cref="HydraulicBoundaryLocation"/> and the 
+        /// <see cref="DuneLocation"/>.</returns>
+        public static AssessmentSection GetAssessmentSectionWithAllCalculationConfigurationsWithoutHydraulicBoundaryLocationAndDuneOutput(AssessmentSectionComposition composition)
+        {
+            AssessmentSection assessmentSection = GetAssessmentSectionWithAllCalculationConfigurations(composition);
+            RingtoetsDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(assessmentSection.HydraulicBoundaryDatabase, assessmentSection);
+
+            return assessmentSection;
+        }
+
+        /// <summary>
+        /// Gets a fully configured <see cref="AssessmentSection"/> with a desired <see cref="AssessmentSectionComposition"/> and 
+        /// possible configurations of the parent and nested calculations, but without the calculation outputs.
+        /// </summary>
+        /// <param name="composition">The desired <see cref="AssessmentSectionComposition"/> to initiailize the <see cref="AssessmentSection"/> with.</param>
+        /// <returns>A fully configured <see cref="AssessmentSection"/>, but without the calculation output.</returns>
+        public static AssessmentSection GetAssessmentSectionWithAllCalculationConfigurationsWithoutCalculationOutput(AssessmentSectionComposition composition)
+        {
+            AssessmentSection assessmentSection = GetAssessmentSectionWithAllCalculationConfigurations(composition);
+            RingtoetsDataSynchronizationService.ClearFailureMechanismCalculationOutputs(assessmentSection);
 
             return assessmentSection;
         }
@@ -235,7 +269,7 @@ namespace Ringtoets.Integration.TestUtils
             failureMechanism.DikeProfiles.Add(dikeprofile2);
 
             var calculation = new GrassCoverErosionInwardsCalculation();
-            var calculationWithOutput = new GrassCoverErosionInwardsCalculation
+            var calculationWithOutputAndDikeProfileAndHydraulicBoundaryLocation = new GrassCoverErosionInwardsCalculation
             {
                 InputParameters =
                 {
@@ -250,7 +284,6 @@ namespace Ringtoets.Integration.TestUtils
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation,
-                    DikeProfile = dikeprofile2
                 },
                 Output = new GrassCoverErosionInwardsOutput(0, false, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0),
                                                             new DikeHeightAssessmentOutput(0, 0, 0, 0, 0, CalculationConvergence.CalculatedConverged))
@@ -262,9 +295,17 @@ namespace Ringtoets.Integration.TestUtils
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation
                 }
             };
+            var calculationWitDikeProfileAndHydraulicBoundaryLocation = new GrassCoverErosionInwardsCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
+                    DikeProfile = dikeprofile2
+                }
+            };
 
             var subCalculation = new GrassCoverErosionInwardsCalculation();
-            var subCalculationWithOutput = new GrassCoverErosionInwardsCalculation
+            var subCalculationWithOutputAndDikeProfileAndHydraulicBoundaryLocation = new GrassCoverErosionInwardsCalculation
             {
                 InputParameters =
                 {
@@ -279,7 +320,6 @@ namespace Ringtoets.Integration.TestUtils
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation,
-                    DikeProfile = dikeprofile1
                 },
                 Output = new GrassCoverErosionInwardsOutput(0, false, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0),
                                                             new DikeHeightAssessmentOutput(0, 0, 0, 0, 0, CalculationConvergence.CalculatedConverged))
@@ -291,19 +331,29 @@ namespace Ringtoets.Integration.TestUtils
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation
                 }
             };
+            var subCalculationWitDikeProfileAndHydraulicBoundaryLocation = new GrassCoverErosionInwardsCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
+                    DikeProfile = dikeprofile2
+                }
+            };
 
             failureMechanism.CalculationsGroup.Children.Add(calculation);
-            failureMechanism.CalculationsGroup.Children.Add(calculationWithOutput);
+            failureMechanism.CalculationsGroup.Children.Add(calculationWithOutputAndDikeProfileAndHydraulicBoundaryLocation);
             failureMechanism.CalculationsGroup.Children.Add(calculationWithOutputAndHydraulicBoundaryLocation);
             failureMechanism.CalculationsGroup.Children.Add(calculationWithHydraulicBoundaryLocation);
+            failureMechanism.CalculationsGroup.Children.Add(calculationWitDikeProfileAndHydraulicBoundaryLocation);
             failureMechanism.CalculationsGroup.Children.Add(new CalculationGroup
             {
                 Children =
                 {
                     subCalculation,
-                    subCalculationWithOutput,
+                    subCalculationWithOutputAndDikeProfileAndHydraulicBoundaryLocation,
                     subCalculationWithOutputAndHydraulicBoundaryLocation,
-                    subCalculationWithHydraulicBoundaryLocation
+                    subCalculationWithHydraulicBoundaryLocation,
+                    subCalculationWitDikeProfileAndHydraulicBoundaryLocation
                 }
             });
 
@@ -322,8 +372,8 @@ namespace Ringtoets.Integration.TestUtils
             failureMechanism.AddSection(section1);
             failureMechanism.AddSection(section2);
 
-            failureMechanism.SectionResults.ElementAt(0).Calculation = calculationWithOutput;
-            failureMechanism.SectionResults.ElementAt(1).Calculation = subCalculationWithOutput;
+            failureMechanism.SectionResults.ElementAt(0).Calculation = calculationWithOutputAndDikeProfileAndHydraulicBoundaryLocation;
+            failureMechanism.SectionResults.ElementAt(1).Calculation = subCalculationWithOutputAndDikeProfileAndHydraulicBoundaryLocation;
         }
 
         private static void SetFullyConfiguredFailureMechanism(HeightStructuresFailureMechanism failureMechanism,
@@ -434,16 +484,15 @@ namespace Ringtoets.Integration.TestUtils
             where TCalculationInput : StructuresInputBase<TStructureBase>, new()
         {
             var calculation = new StructuresCalculation<TCalculationInput>();
-            var calculationWithOutput = new StructuresCalculation<TCalculationInput>
+            var calculationWithOutputAndHydraulicBoundaryLocation = new StructuresCalculation<TCalculationInput>
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
-                    ForeshoreProfile = profile1
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
                 },
                 Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
             };
-            var calculationWithForeshoreProfile = new StructuresCalculation<TCalculationInput>
+            var calculationWithHydraulicBoundaryLocationAndForeshoreProfile = new StructuresCalculation<TCalculationInput>
             {
                 InputParameters =
                 {
@@ -451,7 +500,7 @@ namespace Ringtoets.Integration.TestUtils
                     ForeshoreProfile = profile1
                 }
             };
-            var calculationWithOutputAndHydraulicBoundaryLocation = new StructuresCalculation<TCalculationInput>
+            var calculationWithOutputAndHydraulicBoundaryLocationAndForeshoreProfiles = new StructuresCalculation<TCalculationInput>
             {
                 InputParameters =
                 {
@@ -469,21 +518,20 @@ namespace Ringtoets.Integration.TestUtils
             };
 
             var subCalculation = new StructuresCalculation<TCalculationInput>();
-            var subCalculationWithOutput = new StructuresCalculation<TCalculationInput>
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
-                    ForeshoreProfile = profile2
-                },
-                Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
-            };
             var subCalculationWithOutputAndHydraulicBoundaryLocation = new StructuresCalculation<TCalculationInput>
             {
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation,
-                    ForeshoreProfile = profile1
+                },
+                Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
+            };
+            var subCalculationWithOutputAndHydraulicBoundaryLocationAndForeshoreProfile = new StructuresCalculation<TCalculationInput>
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
+                    ForeshoreProfile = profile2
                 },
                 Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
             };
@@ -494,20 +542,29 @@ namespace Ringtoets.Integration.TestUtils
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation
                 }
             };
+            var subCalculationWithHydraulicBoundaryLocationAndForeshoreProfile = new StructuresCalculation<TCalculationInput>
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
+                    ForeshoreProfile = profile1
+                }
+            };
 
             failureMechanism.CalculationsGroup.Children.Add(calculation);
-            failureMechanism.CalculationsGroup.Children.Add(calculationWithOutput);
-            failureMechanism.CalculationsGroup.Children.Add(calculationWithForeshoreProfile);
             failureMechanism.CalculationsGroup.Children.Add(calculationWithOutputAndHydraulicBoundaryLocation);
+            failureMechanism.CalculationsGroup.Children.Add(calculationWithHydraulicBoundaryLocationAndForeshoreProfile);
+            failureMechanism.CalculationsGroup.Children.Add(calculationWithOutputAndHydraulicBoundaryLocationAndForeshoreProfiles);
             failureMechanism.CalculationsGroup.Children.Add(calculationWithHydraulicBoundaryLocation);
             failureMechanism.CalculationsGroup.Children.Add(new CalculationGroup
             {
                 Children =
                 {
                     subCalculation,
-                    subCalculationWithOutput,
                     subCalculationWithOutputAndHydraulicBoundaryLocation,
-                    subCalculationWithHydraulicBoundaryLocation
+                    subCalculationWithOutputAndHydraulicBoundaryLocationAndForeshoreProfile,
+                    subCalculationWithHydraulicBoundaryLocation,
+                    subCalculationWithHydraulicBoundaryLocationAndForeshoreProfile
                 }
             });
         }
@@ -542,14 +599,12 @@ namespace Ringtoets.Integration.TestUtils
 
             failureMechanism.ForeshoreProfiles.Add(profile1);
             failureMechanism.ForeshoreProfiles.Add(profile2);
-
             var calculation = new StabilityStoneCoverWaveConditionsCalculation();
-            var calculationWithOutput = new StabilityStoneCoverWaveConditionsCalculation
+            var calculationWithOutputAndHydraulicBoundaryLocation = new StabilityStoneCoverWaveConditionsCalculation
             {
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation,
-                    ForeshoreProfile = profile1
                 },
                 Output = new StabilityStoneCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>(),
                                                                      Enumerable.Empty<WaveConditionsOutput>())
@@ -562,7 +617,7 @@ namespace Ringtoets.Integration.TestUtils
                     ForeshoreProfile = profile1
                 }
             };
-            var calculationWithOutputAndHydraulicBoundaryLocation = new StabilityStoneCoverWaveConditionsCalculation
+            var calculationWithOutputAndHydraulicBoundaryLocationAndForeshoreProfile = new StabilityStoneCoverWaveConditionsCalculation
             {
                 InputParameters =
                 {
@@ -581,7 +636,7 @@ namespace Ringtoets.Integration.TestUtils
             };
 
             var subCalculation = new StabilityStoneCoverWaveConditionsCalculation();
-            var subCalculationWithOutput = new StabilityStoneCoverWaveConditionsCalculation
+            var subCalculationWithOutputAndHydraulicBoundarLocationAndForeshoreProfile = new StabilityStoneCoverWaveConditionsCalculation
             {
                 InputParameters =
                 {
@@ -596,7 +651,6 @@ namespace Ringtoets.Integration.TestUtils
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation,
-                    ForeshoreProfile = profile1
                 },
                 Output = new StabilityStoneCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>(),
                                                                      Enumerable.Empty<WaveConditionsOutput>())
@@ -608,20 +662,29 @@ namespace Ringtoets.Integration.TestUtils
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation
                 }
             };
+            var subCalculationWithHydraulicBoundaryLocationAndForeshoreProfile = new StabilityStoneCoverWaveConditionsCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
+                    ForeshoreProfile = profile2
+                }
+            };
 
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation);
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationWithOutput);
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationWithForeshoreProfile);
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationWithOutputAndHydraulicBoundaryLocation);
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationWithForeshoreProfile);
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationWithOutputAndHydraulicBoundaryLocationAndForeshoreProfile);
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationWithHydraulicBoundaryLocation);
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(new CalculationGroup
             {
                 Children =
                 {
                     subCalculation,
-                    subCalculationWithOutput,
+                    subCalculationWithOutputAndHydraulicBoundarLocationAndForeshoreProfile,
                     subCalculationWithOutputAndHydraulicBoundaryLocation,
-                    subCalculationWithHydraulicBoundaryLocation
+                    subCalculationWithHydraulicBoundaryLocation,
+                    subCalculationWithHydraulicBoundaryLocationAndForeshoreProfile
                 }
             });
         }
@@ -658,12 +721,11 @@ namespace Ringtoets.Integration.TestUtils
             failureMechanism.ForeshoreProfiles.Add(profile2);
 
             var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation();
-            var calculationWithOutput = new WaveImpactAsphaltCoverWaveConditionsCalculation
+            var calculationWithOutputAndHydraulicBoundaryLocation = new WaveImpactAsphaltCoverWaveConditionsCalculation
             {
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation,
-                    ForeshoreProfile = profile1
                 },
                 Output = new WaveImpactAsphaltCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>())
             };
@@ -675,7 +737,7 @@ namespace Ringtoets.Integration.TestUtils
                     ForeshoreProfile = profile1
                 }
             };
-            var calculationWithOutputAndHydraulicBoundaryLocation = new WaveImpactAsphaltCoverWaveConditionsCalculation
+            var calculationWithOutputAndHydraulicBoundaryLocationAndForeshoreProfile = new WaveImpactAsphaltCoverWaveConditionsCalculation
             {
                 InputParameters =
                 {
@@ -693,7 +755,7 @@ namespace Ringtoets.Integration.TestUtils
             };
 
             var subCalculation = new WaveImpactAsphaltCoverWaveConditionsCalculation();
-            var subCalculationWithOutput = new WaveImpactAsphaltCoverWaveConditionsCalculation
+            var subCalculationWithOutputAndHydraulicBoundarLocationAndForeshoreProfile = new WaveImpactAsphaltCoverWaveConditionsCalculation
             {
                 InputParameters =
                 {
@@ -707,7 +769,6 @@ namespace Ringtoets.Integration.TestUtils
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation,
-                    ForeshoreProfile = profile1
                 },
                 Output = new WaveImpactAsphaltCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>())
             };
@@ -718,20 +779,29 @@ namespace Ringtoets.Integration.TestUtils
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation
                 }
             };
+            var subCalculationWithHydraulicBoundaryLocationAndForeshoreProfile = new WaveImpactAsphaltCoverWaveConditionsCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
+                    ForeshoreProfile = profile2
+                }
+            };
 
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation);
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationWithOutput);
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationWithForeshoreProfile);
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationWithOutputAndHydraulicBoundaryLocation);
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationWithForeshoreProfile);
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationWithOutputAndHydraulicBoundaryLocationAndForeshoreProfile);
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationWithHydraulicBoundaryLocation);
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(new CalculationGroup
             {
                 Children =
                 {
                     subCalculation,
-                    subCalculationWithOutput,
+                    subCalculationWithOutputAndHydraulicBoundarLocationAndForeshoreProfile,
                     subCalculationWithOutputAndHydraulicBoundaryLocation,
-                    subCalculationWithHydraulicBoundaryLocation
+                    subCalculationWithHydraulicBoundaryLocation,
+                    subCalculationWithHydraulicBoundaryLocationAndForeshoreProfile
                 }
             });
         }
@@ -781,28 +851,27 @@ namespace Ringtoets.Integration.TestUtils
             failureMechanism.ForeshoreProfiles.Add(profile2);
 
             var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation();
-            var calculationWithOutput = new GrassCoverErosionOutwardsWaveConditionsCalculation
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = internalHydroLocation,
-                    ForeshoreProfile = profile1
-                },
-                Output = new GrassCoverErosionOutwardsWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>())
-            };
-            var calculationWithForeshoreProfile = new GrassCoverErosionOutwardsWaveConditionsCalculation
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = internalHydroLocation,
-                    ForeshoreProfile = profile1
-                }
-            };
             var calculationWithOutputAndHydraulicBoundaryLocation = new GrassCoverErosionOutwardsWaveConditionsCalculation
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = internalHydroLocation,
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
+                },
+                Output = new GrassCoverErosionOutwardsWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>())
+            };
+            var calculationWitHydraulicBoundaryLocationAndhForeshoreProfile = new GrassCoverErosionOutwardsWaveConditionsCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
+                    ForeshoreProfile = profile1
+                }
+            };
+            var calculationWithOutputAndHydraulicBoundaryLocationAndForeshoreProfile = new GrassCoverErosionOutwardsWaveConditionsCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
                     ForeshoreProfile = profile2
                 },
                 Output = new GrassCoverErosionOutwardsWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>())
@@ -811,16 +880,16 @@ namespace Ringtoets.Integration.TestUtils
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = internalHydroLocation
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
                 }
             };
 
             var subCalculation = new GrassCoverErosionOutwardsWaveConditionsCalculation();
-            var subCalculationWithOutput = new GrassCoverErosionOutwardsWaveConditionsCalculation
+            var subCalculationWithOutputAndHydraulicBoundarLocationAndForeshoreProfile = new GrassCoverErosionOutwardsWaveConditionsCalculation
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = internalHydroLocation,
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
                     ForeshoreProfile = profile2
                 },
                 Output = new GrassCoverErosionOutwardsWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>())
@@ -829,8 +898,7 @@ namespace Ringtoets.Integration.TestUtils
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = internalHydroLocation,
-                    ForeshoreProfile = profile1
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
                 },
                 Output = new GrassCoverErosionOutwardsWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>())
             };
@@ -838,23 +906,32 @@ namespace Ringtoets.Integration.TestUtils
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = internalHydroLocation
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                }
+            };
+            var subCalculationWithHydraulicBoundaryLocationAndForeshoreProfile = new GrassCoverErosionOutwardsWaveConditionsCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
+                    ForeshoreProfile = profile2
                 }
             };
 
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation);
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationWithOutput);
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationWithForeshoreProfile);
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationWithOutputAndHydraulicBoundaryLocation);
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationWitHydraulicBoundaryLocationAndhForeshoreProfile);
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationWithOutputAndHydraulicBoundaryLocationAndForeshoreProfile);
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationWithHydraulicBoundaryLocation);
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(new CalculationGroup
             {
                 Children =
                 {
                     subCalculation,
-                    subCalculationWithOutput,
+                    subCalculationWithOutputAndHydraulicBoundarLocationAndForeshoreProfile,
                     subCalculationWithOutputAndHydraulicBoundaryLocation,
-                    subCalculationWithHydraulicBoundaryLocation
+                    subCalculationWithHydraulicBoundaryLocation,
+                    subCalculationWithHydraulicBoundaryLocationAndForeshoreProfile
                 }
             });
         }
@@ -862,16 +939,27 @@ namespace Ringtoets.Integration.TestUtils
         private static void SetFullyConfiguredFailureMechanism(DuneErosionFailureMechanism failureMechanism,
                                                                HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
-            DuneLocation duneLocation = new DuneLocation(hydraulicBoundaryLocation.Id,
-                                                         hydraulicBoundaryLocation.Name,
-                                                         new Point2D(hydraulicBoundaryLocation.Location.X, hydraulicBoundaryLocation.Location.Y),
-                                                         new DuneLocation.ConstructionProperties
-                                                         {
-                                                             CoastalAreaId = 7,
-                                                             Offset = 20,
-                                                             Orientation = 180,
-                                                             D50 = 0.00008
-                                                         })
+            var duneLocation = new DuneLocation(hydraulicBoundaryLocation.Id,
+                                    hydraulicBoundaryLocation.Name,
+                                    new Point2D(hydraulicBoundaryLocation.Location.X, hydraulicBoundaryLocation.Location.Y),
+                                    new DuneLocation.ConstructionProperties
+                                    {
+                                        CoastalAreaId = 7,
+                                        Offset = 20,
+                                        Orientation = 180,
+                                        D50 = 0.00008
+                                    });
+
+            var duneLocationWithOutput = new DuneLocation(hydraulicBoundaryLocation.Id,
+                                                          hydraulicBoundaryLocation.Name,
+                                                          new Point2D(hydraulicBoundaryLocation.Location.X, hydraulicBoundaryLocation.Location.Y),
+                                                          new DuneLocation.ConstructionProperties
+                                                          {
+                                                              CoastalAreaId = 7,
+                                                              Offset = 20,
+                                                              Orientation = 180,
+                                                              D50 = 0.00008
+                                                          })
             {
                 Output = new DuneLocationOutput(CalculationConvergence.CalculatedConverged, new DuneLocationOutput.ConstructionProperties
                 {
@@ -882,6 +970,7 @@ namespace Ringtoets.Integration.TestUtils
             };
 
             failureMechanism.DuneLocations.Add(duneLocation);
+            failureMechanism.DuneLocations.Add(duneLocationWithOutput);
         }
     }
 }

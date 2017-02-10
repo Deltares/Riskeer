@@ -146,7 +146,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             var viewCommands = mocks.Stub<IViewCommands>();
             mocks.ReplayAll();
 
-            AssessmentSection assessmentSection = TestDataGenerator.GetFullyConfiguredAssessmentSection();
+            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations();
             var handler = new ReferenceLineReplacementHandler(viewCommands);
 
             var referenceLine = new ReferenceLine();
@@ -314,7 +314,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
         public void DoPostReplacementUpdates_AfterReplacingReferenceLine_CloseViewsForRemovedData()
         {
             // Setup
-            const int expectedNumberOfRemovedInstances = 102;
+            const int expectedNumberOfRemovedInstances = 112;
 
             var mocks = new MockRepository();
             var viewCommands = mocks.StrictMock<IViewCommands>();
@@ -324,7 +324,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
 
             var handler = new ReferenceLineReplacementHandler(viewCommands);
 
-            AssessmentSection assessmentSection = TestDataGenerator.GetFullyConfiguredAssessmentSection();
+            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations();
             handler.Replace(assessmentSection, new ReferenceLine());
 
             // Call
@@ -338,7 +338,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
         public void DoPostReplacementUpdates_CalledSecondTimeAfterReplaceAndUpdateCycle_DoNothing()
         {
             // Setup
-            const int expectedNumberOfRemovedInstances = 102;
+            const int expectedNumberOfRemovedInstances = 112;
 
             var mocks = new MockRepository();
             var viewCommands = mocks.StrictMock<IViewCommands>();
@@ -348,7 +348,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
 
             var handler = new ReferenceLineReplacementHandler(viewCommands);
 
-            AssessmentSection assessmentSection = TestDataGenerator.GetFullyConfiguredAssessmentSection();
+            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations();
             handler.Replace(assessmentSection, new ReferenceLine());
             handler.DoPostReplacementUpdates();
 

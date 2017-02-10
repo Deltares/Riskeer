@@ -27,6 +27,7 @@ using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.Integration.Data;
@@ -151,11 +152,26 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
         public void ChangeNorm_FullyConfiguredAssessmentSection_AllCalculationOutputClearedAndContributionsUpdatedAndReturnsAllAffectedObjects()
         {
             // Setup
-            AssessmentSection section = TestDataGenerator.GetFullyConfiguredAssessmentSection();
-            var expectedAffectedCalculations = section.GetFailureMechanisms()
+            AssessmentSection section = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations();
+            ICalculation[] expectedAffectedCalculations = section.GetFailureMechanisms()
                                                       .SelectMany(fm => fm.Calculations)
                                                       .Where(c => c.HasOutput)
                                                       .ToArray();
+
+            IEnumerable<IObservable> expectedAffectedObjects =
+                expectedAffectedCalculations.Cast<IObservable>()
+                                            .Concat(section.GetFailureMechanisms())
+                                            .Concat(section.GrassCoverErosionOutwards.HydraulicBoundaryLocations)
+                                            .Concat(section.HydraulicBoundaryDatabase.Locations)
+                                            .Concat(section.DuneErosion.DuneLocations.Where(dl => dl.Output != null))
+                                            .Concat(new IObservable[]
+                                            {
+                                                section.FailureMechanismContribution,
+                                                section.GrassCoverErosionOutwards.HydraulicBoundaryLocations,
+                                                section.HydraulicBoundaryDatabase,
+                                                section.DuneErosion.DuneLocations
+                                            }).ToList();
+
             var handler = new FailureMechanismContributionNormChangeHandler();
 
             IEnumerable<IObservable> affectedObjects = null;
@@ -177,18 +193,6 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             CollectionAssert.IsEmpty(section.GetFailureMechanisms().SelectMany(fm => fm.Calculations).Where(c => c.HasOutput),
                                      "There should be no calculations with output.");
 
-            var expectedAffectedObjects = expectedAffectedCalculations.Cast<IObservable>()
-                                                                      .Concat(section.GetFailureMechanisms())
-                                                                      .Concat(section.GrassCoverErosionOutwards.HydraulicBoundaryLocations)
-                                                                      .Concat(section.HydraulicBoundaryDatabase.Locations)
-                                                                      .Concat(section.DuneErosion.DuneLocations)
-                                                                      .Concat(new IObservable[]
-                                                                      {
-                                                                          section.FailureMechanismContribution,
-                                                                          section.GrassCoverErosionOutwards.HydraulicBoundaryLocations,
-                                                                          section.HydraulicBoundaryDatabase,
-                                                                          section.DuneErosion.DuneLocations
-                                                                      });
             foreach (HydraulicBoundaryLocation location in section.HydraulicBoundaryDatabase.Locations
                                                                   .Concat(section.GrassCoverErosionOutwards.HydraulicBoundaryLocations))
             {
@@ -206,11 +210,24 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
         public void ChangeNorm_FullyConfiguredAssessmentSectionWithoutCalculationOutput_NormChangedContributionsUpdatedAndReturnsAllAffectedObjects()
         {
             // Setup
-            AssessmentSection section = TestDataGenerator.GetFullyConfiguredAssessmentSection();
+            AssessmentSection section = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations();
             RingtoetsDataSynchronizationService.ClearFailureMechanismCalculationOutputs(section);
 
             // Precondition
             CollectionAssert.IsEmpty(section.GetFailureMechanisms().SelectMany(fm => fm.Calculations).Where(c => c.HasOutput));
+
+            IEnumerable<IObservable> expectedAffectedObjects =
+                section.GetFailureMechanisms().Cast<IObservable>()
+                       .Concat(section.GrassCoverErosionOutwards.HydraulicBoundaryLocations)
+                       .Concat(section.HydraulicBoundaryDatabase.Locations)
+                       .Concat(section.DuneErosion.DuneLocations.Where(dl => dl.Output != null))
+                       .Concat(new IObservable[]
+                       {
+                           section.FailureMechanismContribution,
+                           section.GrassCoverErosionOutwards.HydraulicBoundaryLocations,
+                           section.HydraulicBoundaryDatabase,
+                           section.DuneErosion.DuneLocations
+                       }).ToList();
 
             var handler = new FailureMechanismContributionNormChangeHandler();
 
@@ -226,17 +243,6 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
 
             Assert.AreEqual(newNormValue, section.FailureMechanismContribution.Norm);
 
-            var expectedAffectedObjects = section.GetFailureMechanisms().Cast<IObservable>()
-                                                 .Concat(section.GrassCoverErosionOutwards.HydraulicBoundaryLocations)
-                                                 .Concat(section.HydraulicBoundaryDatabase.Locations)
-                                                 .Concat(section.DuneErosion.DuneLocations)
-                                                 .Concat(new IObservable[]
-                                                 {
-                                                     section.FailureMechanismContribution,
-                                                     section.GrassCoverErosionOutwards.HydraulicBoundaryLocations,
-                                                     section.HydraulicBoundaryDatabase,
-                                                     section.DuneErosion.DuneLocations
-                                                 });
             foreach (HydraulicBoundaryLocation location in section.HydraulicBoundaryDatabase.Locations
                                                                   .Concat(section.GrassCoverErosionOutwards.HydraulicBoundaryLocations))
             {
@@ -254,7 +260,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
         public void ChangeNorm_FullyConfiguredAssessmentSectionWithoutCalculatedHydraulicBoundaryLocations_AllFailureMechanismCalculationOutputClearedAndContributionsUpdatedAndReturnsAllAffectedObjects()
         {
             // Setup
-            AssessmentSection section = TestDataGenerator.GetFullyConfiguredAssessmentSection();
+            AssessmentSection section = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations();
             RingtoetsDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(section.HydraulicBoundaryDatabase, section);
 
             // Precondition

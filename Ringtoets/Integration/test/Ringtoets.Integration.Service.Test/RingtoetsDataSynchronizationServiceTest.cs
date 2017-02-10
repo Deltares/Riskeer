@@ -68,7 +68,7 @@ namespace Ringtoets.Integration.Service.Test
         public void ClearFailureMechanismCalculationOutputs_WithAssessmentSection_ClearsFailureMechanismCalculationsOutputAndReturnsAffectedCalculations()
         {
             // Setup
-            AssessmentSection assessmentSection = TestDataGenerator.GetFullyConfiguredAssessmentSection();
+            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations();
             IEnumerable<ICalculation> expectedAffectedItems = assessmentSection.GetFailureMechanisms()
                                                                                .SelectMany(f => f.Calculations)
                                                                                .Where(c => c.HasOutput)
@@ -145,7 +145,7 @@ namespace Ringtoets.Integration.Service.Test
         public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_VariousCalculations_ClearsHydraulicBoundaryLocationAndCalculationsAndReturnsAffectedObjects()
         {
             // Setup
-            var assessmentSection = TestDataGenerator.GetFullyConfiguredAssessmentSection();
+            var assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations();
             var expectedAffectedItems = new List<IObservable>();
             expectedAffectedItems.AddRange(assessmentSection.ClosingStructures.Calculations
                                                             .Cast<StructuresCalculation<ClosingStructuresInput>>()
@@ -484,7 +484,7 @@ namespace Ringtoets.Integration.Service.Test
         public void ClearReferenceLine_FullyConfiguredAssessmentSection_AllReferenceLineDependentDataCleared()
         {
             // Setup
-            AssessmentSection assessmentSection = TestDataGenerator.GetFullyConfiguredAssessmentSection();
+            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations();
 
             // Call
             RingtoetsDataSynchronizationService.ClearReferenceLine(assessmentSection);
@@ -591,7 +591,7 @@ namespace Ringtoets.Integration.Service.Test
         public void ClearReferenceLine_FullyConfiguredAssessmentSection_ClearResultsContainAllAffectedObjectsAndAllRemovedObjects()
         {
             // Setup
-            AssessmentSection assessmentSection = TestDataGenerator.GetFullyConfiguredAssessmentSection();
+            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations();
 
             IList<object> expectedRemovedObjects = GetExpectedRemovedObjectsWhenClearingReferenceLine(assessmentSection);
 
@@ -686,7 +686,7 @@ namespace Ringtoets.Integration.Service.Test
         public void ClearReferenceLine_FullyConfiguredAssessmentSectionWithoutReferenceLine_ClearResultsDoesNotContainReferenceLineNorNullForRemovedObjects()
         {
             // Setup
-            AssessmentSection assessmentSection = TestDataGenerator.GetFullyConfiguredAssessmentSection();
+            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations();
             ReferenceLine originalReferenceLine = assessmentSection.ReferenceLine;
             assessmentSection.ReferenceLine = null;
 

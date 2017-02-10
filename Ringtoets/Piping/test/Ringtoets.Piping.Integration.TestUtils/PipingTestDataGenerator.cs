@@ -152,6 +152,14 @@ namespace Ringtoets.Piping.Integration.TestUtils
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation
                 }
             };
+            var calculationWithSurfaceLineAndStochasticSoilModel = new PipingCalculationScenario(new GeneralPipingInput())
+            {
+                InputParameters =
+                {
+                    SurfaceLine = surfaceline1,
+                    StochasticSoilModel = stochasticSoilModel2
+                }
+            };
 
             var subCalculation = new PipingCalculationScenario(new GeneralPipingInput());
             var subCalculationWithOutput = new PipingCalculationScenario(new GeneralPipingInput())
@@ -183,11 +191,20 @@ namespace Ringtoets.Piping.Integration.TestUtils
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation
                 }
             };
+            var subCalculationWithSurfaceLineAndStochasticSoilModel = new PipingCalculationScenario(new GeneralPipingInput())
+            {
+                InputParameters =
+                {
+                    SurfaceLine = surfaceline1,
+                    StochasticSoilModel = stochasticSoilModel2
+                }
+            };
 
             failureMechanism.CalculationsGroup.Children.Add(calculation);
             failureMechanism.CalculationsGroup.Children.Add(calculationWithOutput);
             failureMechanism.CalculationsGroup.Children.Add(calculationWithSurfaceLineAndSoilModel);
             failureMechanism.CalculationsGroup.Children.Add(calculationWithOutputAndHydraulicBoundaryLocation);
+            failureMechanism.CalculationsGroup.Children.Add(calculationWithSurfaceLineAndStochasticSoilModel);
             failureMechanism.CalculationsGroup.Children.Add(calculationWithHydraulicBoundaryLocation);
             failureMechanism.CalculationsGroup.Children.Add(new CalculationGroup
             {
@@ -196,7 +213,8 @@ namespace Ringtoets.Piping.Integration.TestUtils
                     subCalculation,
                     subCalculationWithOutput,
                     subCalculationWithOutputAndHydraulicBoundaryLocation,
-                    subCalculationWithHydraulicBoundaryLocation
+                    subCalculationWithHydraulicBoundaryLocation,
+                    subCalculationWithSurfaceLineAndStochasticSoilModel
                 }
             });
         }

@@ -132,7 +132,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
         public void ChangeComposition_ChangeToSameValue_DoNothing()
         {
             // Setup
-            AssessmentSection assessmentSection = TestDataGenerator.GetFullyConfiguredAssessmentSection();
+            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations();
             AssessmentSectionComposition originalComposition = assessmentSection.Composition;
             ICalculation[] calculationsWithOutput = assessmentSection.GetFailureMechanisms()
                                                                      .SelectMany(fm => fm.Calculations)
@@ -171,7 +171,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
                                                                                                                                         AssessmentSectionComposition newComposition)
         {
             // Setup
-            AssessmentSection assessmentSection = TestDataGenerator.GetFullyConfiguredAssessmentSection(oldComposition);
+            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations(oldComposition);
 
             GrassCoverErosionOutwardsFailureMechanism grassCoverErosionOutwardsFailureMechanism = assessmentSection.GetFailureMechanisms()
                                                                                                                    .OfType<GrassCoverErosionOutwardsFailureMechanism>()
@@ -187,7 +187,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
                 .ToList();
 
             IEnumerable<IObservable> expectedAffectedObjects =
-                duneErosionFailureMechanism.DuneLocations.Cast<IObservable>()
+                duneErosionFailureMechanism.DuneLocations.Where(dl => dl.Output != null).Cast<IObservable>()
                                            .Concat(grassCoverErosionOutwardsFailureMechanism.HydraulicBoundaryLocations)
                                            .Concat(new IObservable[]
                                            {
@@ -238,7 +238,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
                                                                                                                                         AssessmentSectionComposition newComposition)
         {
             // Setup
-            AssessmentSection assessmentSection = TestDataGenerator.GetFullyConfiguredAssessmentSection(oldComposition);
+            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations(oldComposition);
 
             DuneErosionFailureMechanism duneErosionFailureMechanism = assessmentSection.GetFailureMechanisms()
                                                                                        .OfType<DuneErosionFailureMechanism>()
@@ -249,7 +249,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
                                                                                    .Where(calc => calc.HasOutput)
                                                                                    .ToList();
 
-            IEnumerable<IObservable> expectedAffectedObjects = duneErosionFailureMechanism.DuneLocations
+            IEnumerable<IObservable> expectedAffectedObjects = duneErosionFailureMechanism.DuneLocations.Where(dl => dl.Output != null)
                                                                                           .Concat(new IObservable[]
                                                                                           {
                                                                                               assessmentSection,
@@ -291,7 +291,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
                                                                                                                             AssessmentSectionComposition newComposition)
         {
             // Setup
-            AssessmentSection assessmentSection = TestDataGenerator.GetFullyConfiguredAssessmentSection(oldComposition);
+            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations(oldComposition);
             RingtoetsDataSynchronizationService.ClearFailureMechanismCalculationOutputs(assessmentSection);
 
             // Precondition
@@ -306,7 +306,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
                                                                                        .First();
 
             IEnumerable<IObservable> expectedAffectedObjects =
-                duneErosionFailureMechanism.DuneLocations.Cast<IObservable>()
+                duneErosionFailureMechanism.DuneLocations.Where(dl => dl.Output != null).Cast<IObservable>()
                                            .Concat(grassCoverErosionOutwardsFailureMechanism.HydraulicBoundaryLocations)
                                            .Concat(new IObservable[]
                                            {
@@ -350,7 +350,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
                                                                                                                                AssessmentSectionComposition newComposition)
         {
             // Setup
-            AssessmentSection assessmentSection = TestDataGenerator.GetFullyConfiguredAssessmentSection(oldComposition);
+            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations(oldComposition);
             RingtoetsDataSynchronizationService.ClearFailureMechanismCalculationOutputs(assessmentSection);
 
             // Precondition
@@ -360,7 +360,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
                                                                                        .OfType<DuneErosionFailureMechanism>()
                                                                                        .First();
 
-            IEnumerable<IObservable> expectedAffectedObjects = duneErosionFailureMechanism.DuneLocations
+            IEnumerable<IObservable> expectedAffectedObjects = duneErosionFailureMechanism.DuneLocations.Where(dl => dl.Output != null)
                                                                                           .Concat(new IObservable[]
                                                                                           {
                                                                                               assessmentSection,
@@ -399,7 +399,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
                                                                                                                                          AssessmentSectionComposition newComposition)
         {
             // Setup
-            AssessmentSection assessmentSection = TestDataGenerator.GetFullyConfiguredAssessmentSection(oldComposition);
+            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations(oldComposition);
             RingtoetsDataSynchronizationService.ClearHydraulicBoundaryLocationOutputOfFailureMechanisms(assessmentSection);
 
             // Precondition
@@ -443,7 +443,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
                                                                                                                                             AssessmentSectionComposition newComposition)
         {
             // Setup
-            AssessmentSection assessmentSection = TestDataGenerator.GetFullyConfiguredAssessmentSection(oldComposition);
+            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations(oldComposition);
             RingtoetsDataSynchronizationService.ClearHydraulicBoundaryLocationOutputOfFailureMechanisms(assessmentSection);
 
             // Precondition
