@@ -144,6 +144,23 @@ namespace Ringtoets.Integration.Forms.Test
             }
         }
 
+        [Test]
+        public void Dispose_DisposedAlreadyCalled_DoesNotThrowException()
+        {
+            // Call
+            TestDelegate call = () =>
+            {
+                using (var dialogParent = new Form())
+                using (var dialog = new BackgroundMapDataSelectionDialog(dialogParent))
+                {
+                    dialog.Dispose();
+                }
+            };
+
+            // Assert
+            Assert.DoesNotThrow(call);
+        }
+
         private static Icon BitmapToIcon(Bitmap icon)
         {
             return Icon.FromHandle(icon.GetHicon());
