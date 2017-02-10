@@ -132,9 +132,10 @@ namespace Ringtoets.Integration.TestUtils
         }
 
         /// <summary>
-        /// Gets a fully configured <see cref="StabilityStoneCoverFailureMechanism"/>.
+        /// Gets a fully configured <see cref="StabilityStoneCoverFailureMechanism"/> with all
+        /// possible parent and nested calculation configurations.
         /// </summary>
-        public static StabilityStoneCoverFailureMechanism GetFullyConfiguredStabilityStoneCoverFailureMechanism()
+        public static StabilityStoneCoverFailureMechanism GetStabilityStoneCoverFailureMechanismWithAllCalculationConfigurations()
         {
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             var hydroLocation = new HydraulicBoundaryLocation(1, "<hydro location>", 0, 0);
@@ -144,9 +145,10 @@ namespace Ringtoets.Integration.TestUtils
         }
 
         /// <summary>
-        /// Gets a fully configured <see cref="WaveImpactAsphaltCoverFailureMechanism"/>.
+        /// Gets a fully configured <see cref="WaveImpactAsphaltCoverFailureMechanism"/> with
+        /// all possible parent and nested calculation configurations.
         /// </summary>
-        public static WaveImpactAsphaltCoverFailureMechanism GetFullyConfiguredWaveImpactAsphaltCoverFailureMechanism()
+        public static WaveImpactAsphaltCoverFailureMechanism GetWaveImpactAsphaltCoverFailureMechanismWithAllCalculationConfigurations()
         {
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             var hydroLocation = new HydraulicBoundaryLocation(1, "<hydro location>", 0, 0);
@@ -156,9 +158,10 @@ namespace Ringtoets.Integration.TestUtils
         }
 
         /// <summary>
-        /// Gets a fully configured <see cref="GrassCoverErosionOutwardsFailureMechanism"/>.
+        /// Gets a fully configured <see cref="GrassCoverErosionOutwardsFailureMechanism"/> with 
+        /// all possible parent and nested calculation configurations.
         /// </summary>
-        public static GrassCoverErosionOutwardsFailureMechanism GetFullyConfiguredGrassCoverErosionOutwardsFailureMechanism()
+        public static GrassCoverErosionOutwardsFailureMechanism GetGrassCoverErosionOutwardsFailureMechanismWithAllCalculationConfigurations()
         {
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             var hydroLocation = new HydraulicBoundaryLocation(1, "<hydro location>", 0, 0);
@@ -168,9 +171,10 @@ namespace Ringtoets.Integration.TestUtils
         }
 
         /// <summary>
-        /// Gets a fully configured <see cref="HeightStructuresFailureMechanism"/>.
+        /// Gets a fully configured <see cref="HeightStructuresFailureMechanism"/> with all possible 
+        /// parent and nested calculation configurations.
         /// </summary>
-        public static HeightStructuresFailureMechanism GetFullyConfiguredHeightStructuresFailureMechanism()
+        public static HeightStructuresFailureMechanism GetHeightStructuresFailureMechanismWithAlLCalculationConfigurations()
         {
             var failureMechanism = new HeightStructuresFailureMechanism();
             var hydroLocation = new HydraulicBoundaryLocation(1, "<hydro location>", 0, 0);
@@ -180,9 +184,10 @@ namespace Ringtoets.Integration.TestUtils
         }
 
         /// <summary>
-        /// Gets a fully configured <see cref="ClosingStructuresFailureMechanism"/>.
+        /// Gets a fully configured <see cref="ClosingStructuresFailureMechanism"/> with all possible
+        /// parent and nested calculation configurations.
         /// </summary>
-        public static ClosingStructuresFailureMechanism GetFullyConfiguredClosingStructuresFailureMechanism()
+        public static ClosingStructuresFailureMechanism GetClosingStructuresFailureMechanismWithAllCalculationConfigurations()
         {
             var failureMechanism = new ClosingStructuresFailureMechanism();
             var hydroLocation = new HydraulicBoundaryLocation(1, "<hydro location>", 0, 0);
@@ -192,9 +197,10 @@ namespace Ringtoets.Integration.TestUtils
         }
 
         /// <summary>
-        /// Gets a fully configured <see cref="StabilityPointStructuresFailureMechanism"/>.
+        /// Gets a fully configured <see cref="StabilityPointStructuresFailureMechanism"/> with all possible
+        /// parent and nested calculation configurations.
         /// </summary>
-        public static StabilityPointStructuresFailureMechanism GetFullyConfiguredStabilityPointStructuresFailureMechanism()
+        public static StabilityPointStructuresFailureMechanism GetStabilityPointStructuresFailureMechanismWithAllCalculationConfigurations()
         {
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             var hydroLocation = new HydraulicBoundaryLocation(1, "<hydro location>", 0, 0);
@@ -204,9 +210,10 @@ namespace Ringtoets.Integration.TestUtils
         }
 
         /// <summary>
-        /// Gets a fully configured <see cref="GrassCoverErosionInwardsFailureMechanism"/>.
+        /// Gets a fully configured <see cref="GrassCoverErosionInwardsFailureMechanism"/> with all possible
+        /// parent and nested calculation configurations.
         /// </summary>
-        public static GrassCoverErosionInwardsFailureMechanism GetFullyConfiguredGrassCoverErosionInwardsFailureMechanism()
+        public static GrassCoverErosionInwardsFailureMechanism GetGrassCoverErosionInwardsFailureMechanismWithAllCalculationConfigurations()
         {
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             var hydroLocation = new HydraulicBoundaryLocation(1, "<hydro location>", 0, 0);
@@ -940,15 +947,15 @@ namespace Ringtoets.Integration.TestUtils
                                                                HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
             var duneLocation = new DuneLocation(hydraulicBoundaryLocation.Id,
-                                    hydraulicBoundaryLocation.Name,
-                                    new Point2D(hydraulicBoundaryLocation.Location.X, hydraulicBoundaryLocation.Location.Y),
-                                    new DuneLocation.ConstructionProperties
-                                    {
-                                        CoastalAreaId = 7,
-                                        Offset = 20,
-                                        Orientation = 180,
-                                        D50 = 0.00008
-                                    });
+                                                hydraulicBoundaryLocation.Name,
+                                                new Point2D(hydraulicBoundaryLocation.Location.X, hydraulicBoundaryLocation.Location.Y),
+                                                new DuneLocation.ConstructionProperties
+                                                {
+                                                    CoastalAreaId = 7,
+                                                    Offset = 20,
+                                                    Orientation = 180,
+                                                    D50 = 0.00008
+                                                });
 
             var duneLocationWithOutput = new DuneLocation(hydraulicBoundaryLocation.Id,
                                                           hydraulicBoundaryLocation.Name,

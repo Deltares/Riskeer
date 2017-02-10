@@ -22,7 +22,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
-using NUnit.Framework.Internal.Filters;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -80,8 +79,8 @@ namespace Ringtoets.Integration.TestUtils.Test
                                                                                                           && loc.WaveHeightOutput != null));
 
             DuneErosionFailureMechanism duneErosionFailureMechanism = assessmentSection.GetFailureMechanisms()
-                                                                           .OfType<DuneErosionFailureMechanism>()
-                                                                           .First();
+                                                                                       .OfType<DuneErosionFailureMechanism>()
+                                                                                       .First();
             AssertDuneErosionFailureMechanismCalculationConfigurationsWithoutOutputs(duneErosionFailureMechanism);
             AssertDuneErosionFailureMechanismCalculationConfigurationsWithOutputs(duneErosionFailureMechanism);
         }
@@ -149,8 +148,8 @@ namespace Ringtoets.Integration.TestUtils.Test
                 if (closingStructuresFailureMechanism != null)
                 {
                     AssertHasForeshoreProfiles(closingStructuresFailureMechanism);
-                    AssertClosingStructureFailuresMechanismCalculationsWithOutputs(closingStructuresFailureMechanism);
-                    AssertClosingStructureFailuresMechanismCalculationsWithoutOutputs(closingStructuresFailureMechanism);
+                    AssertClosingStructureFailureMechanismCalculationConfigurationsWithOutputs(closingStructuresFailureMechanism);
+                    AssertClosingStructureFailureMechanismCalculationConfigurationsWithoutOutputs(closingStructuresFailureMechanism);
                     containsClosingStructuresFailureMechanism = true;
                 }
 
@@ -173,8 +172,8 @@ namespace Ringtoets.Integration.TestUtils.Test
                 if (heightStructuresFailureMechanism != null)
                 {
                     AssertHasForeshoreProfiles(heightStructuresFailureMechanism);
-                    AssertHeightStructureFailureMechanismCalculationConfigurationsWithOutputs(heightStructuresFailureMechanism);
-                    AssertHeightStructureFailureMechanismCalculationConfigurationsWithoutOutputs(heightStructuresFailureMechanism);
+                    AssertHeightStructuresFailureMechanismCalculationConfigurationsWithOutputs(heightStructuresFailureMechanism);
+                    AssertHeightStructuresFailureMechanismCalculationConfigurationsWithoutOutputs(heightStructuresFailureMechanism);
                     containsHeightStructuresFailureMechanism = true;
                 }
 
@@ -198,16 +197,16 @@ namespace Ringtoets.Integration.TestUtils.Test
                 if (stabilityStoneCoverFailureMechanism != null)
                 {
                     AssertHasForeshoreProfiles(stabilityStoneCoverFailureMechanism);
-                    AssertStabilityStoneCoverWaveConditionsFailureMechanismCalculationConfigurationsWithOutputs(stabilityStoneCoverFailureMechanism);
-                    AssertStabilityStoneCoverWaveConditionsFailureMechanismCalculationConfigurationsWithoutOutputs(stabilityStoneCoverFailureMechanism);
+                    AssertStabilityStoneCoverFailureMechanismCalculationConfigurationsWithOutputs(stabilityStoneCoverFailureMechanism);
+                    AssertStabilityStoneCoverFailureMechanismCalculationConfigurationsWithoutOutputs(stabilityStoneCoverFailureMechanism);
                     containsStabilityStoneCoverFailureMechanism = true;
                 }
 
                 if (waveImpactAsphaltCoverFailureMechanism != null)
                 {
                     AssertHasForeshoreProfiles(waveImpactAsphaltCoverFailureMechanism);
-                    AssertWaveImpactAsphaltCoverWaveConditionsFailureMechanismCalculationConfigurationsWithOutputs(waveImpactAsphaltCoverFailureMechanism);
-                    AssertWaveImpactAsphaltCoverWaveConditionsFailureMechanismCalculationConfigurationsWithoutOutputs(waveImpactAsphaltCoverFailureMechanism);
+                    AssertWaveImpactAsphaltCoverFailureMechanismCalculationConfigurationsWithOutputs(waveImpactAsphaltCoverFailureMechanism);
+                    AssertWaveImpactAsphaltCoverFailureMechanismCalculationConfigurationsWithoutOutputs(waveImpactAsphaltCoverFailureMechanism);
                     containsWaveImpactAsphaltCoverFailureMechanism = true;
                 }
 
@@ -255,7 +254,7 @@ namespace Ringtoets.Integration.TestUtils.Test
                 if (closingStructuresFailureMechanism != null)
                 {
                     AssertHasForeshoreProfiles(closingStructuresFailureMechanism);
-                    AssertClosingStructureFailuresMechanismCalculationsWithoutOutputs(closingStructuresFailureMechanism);
+                    AssertClosingStructureFailureMechanismCalculationConfigurationsWithoutOutputs(closingStructuresFailureMechanism);
                     containsClosingStructuresFailureMechanism = true;
                 }
 
@@ -276,7 +275,7 @@ namespace Ringtoets.Integration.TestUtils.Test
                 if (heightStructuresFailureMechanism != null)
                 {
                     AssertHasForeshoreProfiles(heightStructuresFailureMechanism);
-                    AssertHeightStructureFailureMechanismCalculationConfigurationsWithoutOutputs(heightStructuresFailureMechanism);
+                    AssertHeightStructuresFailureMechanismCalculationConfigurationsWithoutOutputs(heightStructuresFailureMechanism);
                     containsHeightStructuresFailureMechanism = true;
                 }
 
@@ -298,14 +297,14 @@ namespace Ringtoets.Integration.TestUtils.Test
                 if (stabilityStoneCoverFailureMechanism != null)
                 {
                     AssertHasForeshoreProfiles(stabilityStoneCoverFailureMechanism);
-                    AssertStabilityStoneCoverWaveConditionsFailureMechanismCalculationConfigurationsWithoutOutputs(stabilityStoneCoverFailureMechanism);
+                    AssertStabilityStoneCoverFailureMechanismCalculationConfigurationsWithoutOutputs(stabilityStoneCoverFailureMechanism);
                     containsStabilityStoneCoverFailureMechanism = true;
                 }
 
                 if (waveImpactAsphaltCoverFailureMechanism != null)
                 {
                     AssertHasForeshoreProfiles(waveImpactAsphaltCoverFailureMechanism);
-                    AssertWaveImpactAsphaltCoverWaveConditionsFailureMechanismCalculationConfigurationsWithoutOutputs(waveImpactAsphaltCoverFailureMechanism);
+                    AssertWaveImpactAsphaltCoverFailureMechanismCalculationConfigurationsWithoutOutputs(waveImpactAsphaltCoverFailureMechanism);
                     containsWaveImpactAsphaltCoverFailureMechanism = true;
                 }
 
@@ -378,6 +377,18 @@ namespace Ringtoets.Integration.TestUtils.Test
 
         #region Grass Cover Erosion Inwards
 
+        [Test]
+        public void GetGrassCoverErosionInwardsFailureMechanismWithAllCalculationConfigurations_ReturnsAllPossibleCalculationConfigurations()
+        {
+            // Call 
+            GrassCoverErosionInwardsFailureMechanism failureMechanism = TestDataGenerator.GetGrassCoverErosionInwardsFailureMechanismWithAllCalculationConfigurations();
+
+            // Assert
+            AssertHasDikeProfiles(failureMechanism);
+            AssertGrassCoverErosionInwardsFailureMechanismCalculationConfigurationsWithOutputs(failureMechanism);
+            AssertGrassCoverErosionInwardsFailureMechanismCalculationConfigurationsWithoutOutputs(failureMechanism);
+        }
+
         private static void AssertGrassCoverErosionInwardsFailureMechanismCalculationConfigurationsWithOutputs(GrassCoverErosionInwardsFailureMechanism failureMechanism)
         {
             IEnumerable<ICalculationBase> calculationRoot = failureMechanism.CalculationsGroup.Children;
@@ -426,7 +437,19 @@ namespace Ringtoets.Integration.TestUtils.Test
 
         #region Stability Stone Cover 
 
-        private static void AssertStabilityStoneCoverWaveConditionsFailureMechanismCalculationConfigurationsWithOutputs(
+        [Test]
+        public void GetStabilityStoneCoverFailureMechanismWithAllCalculationConfigurations_ReturnsAllPossibleCalculationConfigurations()
+        {
+            // Call 
+            StabilityStoneCoverFailureMechanism failureMechanism = TestDataGenerator.GetStabilityStoneCoverFailureMechanismWithAllCalculationConfigurations();
+
+            // Assert
+            AssertHasForeshoreProfiles(failureMechanism);
+            AssertStabilityStoneCoverFailureMechanismCalculationConfigurationsWithOutputs(failureMechanism);
+            AssertStabilityStoneCoverFailureMechanismCalculationConfigurationsWithoutOutputs(failureMechanism);
+        }
+
+        private static void AssertStabilityStoneCoverFailureMechanismCalculationConfigurationsWithOutputs(
             StabilityStoneCoverFailureMechanism failureMechanism)
         {
             IEnumerable<ICalculationBase> calculationRoot = failureMechanism.WaveConditionsCalculationGroup.Children;
@@ -438,7 +461,7 @@ namespace Ringtoets.Integration.TestUtils.Test
                 nestedCalculations.Children.OfType<StabilityStoneCoverWaveConditionsCalculation>());
         }
 
-        private static void AssertStabilityStoneCoverWaveConditionsFailureMechanismCalculationConfigurationsWithoutOutputs(StabilityStoneCoverFailureMechanism failureMechanism)
+        private static void AssertStabilityStoneCoverFailureMechanismCalculationConfigurationsWithoutOutputs(StabilityStoneCoverFailureMechanism failureMechanism)
         {
             IEnumerable<ICalculationBase> calculationRoot = failureMechanism.WaveConditionsCalculationGroup.Children;
             AssertStabilityStoneCoverWaveCalculationGroupWithoutOutput(calculationRoot.OfType<StabilityStoneCoverWaveConditionsCalculation>());
@@ -477,35 +500,47 @@ namespace Ringtoets.Integration.TestUtils.Test
 
         #region Wave Impact Asphalt Cover
 
-        private static void AssertWaveImpactAsphaltCoverWaveConditionsFailureMechanismCalculationConfigurationsWithOutputs(
+        [Test]
+        public void GetWaveImpactAsphaltCoverFailureMechanismWithAllCalculationConfigurations_ReturnsAllPossibleCalculationConfigurations()
+        {
+            // Call 
+            WaveImpactAsphaltCoverFailureMechanism failureMechanism = TestDataGenerator.GetWaveImpactAsphaltCoverFailureMechanismWithAllCalculationConfigurations();
+
+            // Assert
+            AssertHasForeshoreProfiles(failureMechanism);
+            AssertWaveImpactAsphaltCoverFailureMechanismCalculationConfigurationsWithOutputs(failureMechanism);
+            AssertWaveImpactAsphaltCoverFailureMechanismCalculationConfigurationsWithoutOutputs(failureMechanism);
+        }
+
+        private static void AssertWaveImpactAsphaltCoverFailureMechanismCalculationConfigurationsWithOutputs(
             WaveImpactAsphaltCoverFailureMechanism failureMechanism)
         {
             IEnumerable<ICalculationBase> calculationRoot = failureMechanism.WaveConditionsCalculationGroup.Children;
-            AssertWaveImpactAsphaltCoverWaveConditionsCalculationGroupWithOutput(
+            AssertWaveImpactAsphaltCoverCalculationGroupWithOutput(
                 calculationRoot.OfType<WaveImpactAsphaltCoverWaveConditionsCalculation>());
 
             CalculationGroup nestedCalculations = calculationRoot.OfType<CalculationGroup>().First();
-            AssertWaveImpactAsphaltCoverWaveConditionsCalculationGroupWithOutput(
+            AssertWaveImpactAsphaltCoverCalculationGroupWithOutput(
                 nestedCalculations.Children.OfType<WaveImpactAsphaltCoverWaveConditionsCalculation>());
         }
 
-        private static void AssertWaveImpactAsphaltCoverWaveConditionsFailureMechanismCalculationConfigurationsWithoutOutputs(
+        private static void AssertWaveImpactAsphaltCoverFailureMechanismCalculationConfigurationsWithoutOutputs(
             WaveImpactAsphaltCoverFailureMechanism failureMechanism)
         {
             IEnumerable<ICalculationBase> calculationRoot = failureMechanism.WaveConditionsCalculationGroup.Children;
-            AssertWaveImpactAsphaltCoverWaveCalculationGroupWithoutOutput(calculationRoot.OfType<WaveImpactAsphaltCoverWaveConditionsCalculation>());
+            AssertWaveImpactAsphaltCoverCalculationGroupWithoutOutput(calculationRoot.OfType<WaveImpactAsphaltCoverWaveConditionsCalculation>());
 
             CalculationGroup nestedCalculations = calculationRoot.OfType<CalculationGroup>().First();
-            AssertWaveImpactAsphaltCoverWaveCalculationGroupWithoutOutput(nestedCalculations.Children.OfType<WaveImpactAsphaltCoverWaveConditionsCalculation>());
+            AssertWaveImpactAsphaltCoverCalculationGroupWithoutOutput(nestedCalculations.Children.OfType<WaveImpactAsphaltCoverWaveConditionsCalculation>());
         }
 
-        private static void AssertWaveImpactAsphaltCoverWaveConditionsCalculationGroupWithOutput(IEnumerable<WaveImpactAsphaltCoverWaveConditionsCalculation> children)
+        private static void AssertWaveImpactAsphaltCoverCalculationGroupWithOutput(IEnumerable<WaveImpactAsphaltCoverWaveConditionsCalculation> children)
         {
             AssertCalculationConfig(children, true, false, true);
             AssertCalculationConfig(children, true, true, true);
         }
 
-        private static void AssertWaveImpactAsphaltCoverWaveCalculationGroupWithoutOutput(IEnumerable<WaveImpactAsphaltCoverWaveConditionsCalculation> children)
+        private static void AssertWaveImpactAsphaltCoverCalculationGroupWithoutOutput(IEnumerable<WaveImpactAsphaltCoverWaveConditionsCalculation> children)
         {
             AssertCalculationConfig(children, false, false, false);
             AssertCalculationConfig(children, true, false, false);
@@ -528,6 +563,20 @@ namespace Ringtoets.Integration.TestUtils.Test
         #endregion
 
         #region Grass Cover Erosion Outwards
+
+        [Test]
+        public void GetGrassCoverErosionOutwardsFailureMechanismWithAllCalculationConfigurations_ReturnsAllPossibleCalculationConfigurations()
+        {
+            // Call 
+            GrassCoverErosionOutwardsFailureMechanism failureMechanism = TestDataGenerator.GetGrassCoverErosionOutwardsFailureMechanismWithAllCalculationConfigurations();
+
+            // Assert
+            Assert.IsTrue(failureMechanism.HydraulicBoundaryLocations.All(loc => loc.DesignWaterLevelOutput != null
+                                                                                 && loc.WaveHeightOutput != null));
+            AssertHasForeshoreProfiles(failureMechanism);
+            AssertGrassCoverErosionOutwardsFailureMechanismCalculationConfigurationsWithOutputs(failureMechanism);
+            AssertGrassCoverErosionOutwardsFailureMechanismCalculationConfigurationsWithoutOutputs(failureMechanism);
+        }
 
         private static void AssertGrassCoverErosionOutwardsFailureMechanismCalculationConfigurationsWithOutputs(GrassCoverErosionOutwardsFailureMechanism failureMechanism)
         {
@@ -593,7 +642,19 @@ namespace Ringtoets.Integration.TestUtils.Test
 
         #region ClosingStructures
 
-        private static void AssertClosingStructureFailuresMechanismCalculationsWithOutputs(ClosingStructuresFailureMechanism failureMechanism)
+        [Test]
+        public void GetClosingStructuresFailureMechanismWithAllCalculationConfigurations_ReturnsAllPossibleCalculationConfigurations()
+        {
+            // Call 
+            ClosingStructuresFailureMechanism failureMechanism = TestDataGenerator.GetClosingStructuresFailureMechanismWithAllCalculationConfigurations();
+
+            // Assert
+            AssertHasForeshoreProfiles(failureMechanism);
+            AssertClosingStructureFailureMechanismCalculationConfigurationsWithOutputs(failureMechanism);
+            AssertClosingStructureFailureMechanismCalculationConfigurationsWithoutOutputs(failureMechanism);
+        }
+
+        private static void AssertClosingStructureFailureMechanismCalculationConfigurationsWithOutputs(ClosingStructuresFailureMechanism failureMechanism)
         {
             IEnumerable<ICalculationBase> calculationsRoot = failureMechanism.CalculationsGroup.Children;
             AssertStructuresCalculationGroupConfigurationWithOutputs<ClosingStructure, ClosingStructuresInput>(
@@ -604,7 +665,7 @@ namespace Ringtoets.Integration.TestUtils.Test
                 nestedCalculations.Children.OfType<StructuresCalculation<ClosingStructuresInput>>());
         }
 
-        private static void AssertClosingStructureFailuresMechanismCalculationsWithoutOutputs(ClosingStructuresFailureMechanism failureMechanism)
+        private static void AssertClosingStructureFailureMechanismCalculationConfigurationsWithoutOutputs(ClosingStructuresFailureMechanism failureMechanism)
         {
             IEnumerable<ICalculationBase> calculationsRoot = failureMechanism.CalculationsGroup.Children;
             AssertStructuresCalculationGroupConfigurationWithoutOutputs<ClosingStructure, ClosingStructuresInput>(
@@ -623,6 +684,18 @@ namespace Ringtoets.Integration.TestUtils.Test
         #endregion
 
         #region StabilityPointStructures
+
+        [Test]
+        public void GetStabilityPointStructuresFailureMechanismWithAllCalculationConfigurations_ReturnsAllPossibleCalculationConfigurations()
+        {
+            // Call 
+            StabilityPointStructuresFailureMechanism failureMechanism = TestDataGenerator.GetStabilityPointStructuresFailureMechanismWithAllCalculationConfigurations();
+
+            // Assert
+            AssertHasForeshoreProfiles(failureMechanism);
+            AssertStabilityPointStructuresFailureMechanismCalculationConfigurationsWithOutputs(failureMechanism);
+            AssertStabilityPointStructuresFailureMechanismCalculationConfigurationsWithoutOutputs(failureMechanism);
+        }
 
         private static void AssertStabilityPointStructuresFailureMechanismCalculationConfigurationsWithOutputs(StabilityPointStructuresFailureMechanism failureMechanism)
         {
@@ -655,7 +728,19 @@ namespace Ringtoets.Integration.TestUtils.Test
 
         #region HeightStructures
 
-        private static void AssertHeightStructureFailureMechanismCalculationConfigurationsWithOutputs(HeightStructuresFailureMechanism failureMechanism)
+        [Test]
+        public void GetHeightStructuresFailureMechanismWithAllCalculationConfigurations_ReturnsAllPossibleCalculationConfigurations()
+        {
+            // Call 
+            HeightStructuresFailureMechanism failureMechanism = TestDataGenerator.GetHeightStructuresFailureMechanismWithAlLCalculationConfigurations();
+
+            // Assert
+            AssertHasForeshoreProfiles(failureMechanism);
+            AssertHeightStructuresFailureMechanismCalculationConfigurationsWithOutputs(failureMechanism);
+            AssertHeightStructuresFailureMechanismCalculationConfigurationsWithoutOutputs(failureMechanism);
+        }
+
+        private static void AssertHeightStructuresFailureMechanismCalculationConfigurationsWithOutputs(HeightStructuresFailureMechanism failureMechanism)
         {
             IEnumerable<ICalculationBase> calculationsRoot = failureMechanism.CalculationsGroup.Children;
             AssertStructuresCalculationGroupConfigurationWithOutputs<HeightStructure, HeightStructuresInput>(
@@ -666,7 +751,7 @@ namespace Ringtoets.Integration.TestUtils.Test
                 nestedCalculations.Children.OfType<StructuresCalculation<HeightStructuresInput>>());
         }
 
-        private static void AssertHeightStructureFailureMechanismCalculationConfigurationsWithoutOutputs(HeightStructuresFailureMechanism failureMechanism)
+        private static void AssertHeightStructuresFailureMechanismCalculationConfigurationsWithoutOutputs(HeightStructuresFailureMechanism failureMechanism)
         {
             IEnumerable<ICalculationBase> calculationsRoot = failureMechanism.CalculationsGroup.Children;
             AssertStructuresCalculationGroupConfigurationWithoutOutputs<HeightStructure, HeightStructuresInput>(

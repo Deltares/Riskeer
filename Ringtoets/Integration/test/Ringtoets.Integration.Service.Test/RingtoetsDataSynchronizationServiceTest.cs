@@ -107,8 +107,8 @@ namespace Ringtoets.Integration.Service.Test
 
             List<IFailureMechanism> failureMechanisms = new List<IFailureMechanism>
             {
-                TestDataGenerator.GetFullyConfiguredClosingStructuresFailureMechanism(),
-                TestDataGenerator.GetFullyConfiguredGrassCoverErosionInwardsFailureMechanism(),
+                TestDataGenerator.GetClosingStructuresFailureMechanismWithAllCalculationConfigurations(),
+                TestDataGenerator.GetGrassCoverErosionInwardsFailureMechanismWithAllCalculationConfigurations(),
                 pipingFailureMechanism
             };
 
@@ -814,7 +814,7 @@ namespace Ringtoets.Integration.Service.Test
         public void RemoveForeshoreProfile_FullyConfiguredStabilityStoneCoverFailureMechanism_RemoveProfileAndClearDependentData()
         {
             // Setup
-            StabilityStoneCoverFailureMechanism failureMechanism = TestDataGenerator.GetFullyConfiguredStabilityStoneCoverFailureMechanism();
+            StabilityStoneCoverFailureMechanism failureMechanism = TestDataGenerator.GetStabilityStoneCoverFailureMechanismWithAllCalculationConfigurations();
             ForeshoreProfile profile = failureMechanism.ForeshoreProfiles[0];
             StabilityStoneCoverWaveConditionsCalculation[] calculationsWithForeshoreProfile =
                 failureMechanism.Calculations
@@ -889,7 +889,7 @@ namespace Ringtoets.Integration.Service.Test
         public void RemoveForeshoreProfile_FullyConfiguredWaveImpactAsphaltCoverFailureMechanism_RemoveProfileAndClearDependentData()
         {
             // Setup
-            WaveImpactAsphaltCoverFailureMechanism failureMechanism = TestDataGenerator.GetFullyConfiguredWaveImpactAsphaltCoverFailureMechanism();
+            WaveImpactAsphaltCoverFailureMechanism failureMechanism = TestDataGenerator.GetWaveImpactAsphaltCoverFailureMechanismWithAllCalculationConfigurations();
             ForeshoreProfile profile = failureMechanism.ForeshoreProfiles[0];
             WaveImpactAsphaltCoverWaveConditionsCalculation[] calculationsWithForeshoreProfile =
                 failureMechanism.Calculations
@@ -964,7 +964,7 @@ namespace Ringtoets.Integration.Service.Test
         public void RemoveForeshoreProfile_FullyConfiguredGrassCoverErosionOutwardsFailureMechanism_RemoveProfileAndClearDependentData()
         {
             // Setup
-            GrassCoverErosionOutwardsFailureMechanism failureMechanism = TestDataGenerator.GetFullyConfiguredGrassCoverErosionOutwardsFailureMechanism();
+            GrassCoverErosionOutwardsFailureMechanism failureMechanism = TestDataGenerator.GetGrassCoverErosionOutwardsFailureMechanismWithAllCalculationConfigurations();
             ForeshoreProfile profile = failureMechanism.ForeshoreProfiles[0];
             GrassCoverErosionOutwardsWaveConditionsCalculation[] calculationsWithForeshoreProfile =
                 failureMechanism.Calculations.Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>()
@@ -1038,7 +1038,7 @@ namespace Ringtoets.Integration.Service.Test
         public void RemoveForeshoreProfile_FullyConfiguredHeightStructuresFailureMechanism_RemoveProfileAndClearDependentData()
         {
             // Setup
-            HeightStructuresFailureMechanism failureMechanism = TestDataGenerator.GetFullyConfiguredHeightStructuresFailureMechanism();
+            HeightStructuresFailureMechanism failureMechanism = TestDataGenerator.GetHeightStructuresFailureMechanismWithAlLCalculationConfigurations();
             ForeshoreProfile profile = failureMechanism.ForeshoreProfiles[0];
             StructuresCalculation<HeightStructuresInput>[] calculationsWithForeshoreProfile =
                 failureMechanism.Calculations
@@ -1113,7 +1113,7 @@ namespace Ringtoets.Integration.Service.Test
         public void RemoveForeshoreProfile_FullyConfiguredClosingStructuresFailureMechanism_RemoveProfileAndClearDependentData()
         {
             // Setup
-            ClosingStructuresFailureMechanism failureMechanism = TestDataGenerator.GetFullyConfiguredClosingStructuresFailureMechanism();
+            ClosingStructuresFailureMechanism failureMechanism = TestDataGenerator.GetClosingStructuresFailureMechanismWithAllCalculationConfigurations();
             ForeshoreProfile profile = failureMechanism.ForeshoreProfiles[0];
             StructuresCalculation<ClosingStructuresInput>[] calculationsWithForeshoreProfile =
                 failureMechanism.Calculations
@@ -1188,7 +1188,7 @@ namespace Ringtoets.Integration.Service.Test
         public void RemoveForeshoreProfile_FullyConfiguredStabilityPointStructuresFailureMechanism_RemoveProfileAndClearDependentData()
         {
             // Setup
-            StabilityPointStructuresFailureMechanism failureMechanism = TestDataGenerator.GetFullyConfiguredStabilityPointStructuresFailureMechanism();
+            StabilityPointStructuresFailureMechanism failureMechanism = TestDataGenerator.GetStabilityPointStructuresFailureMechanismWithAllCalculationConfigurations();
             ForeshoreProfile profile = failureMechanism.ForeshoreProfiles[0];
             StructuresCalculation<StabilityPointStructuresInput>[] calculationsWithForeshoreProfile =
                 failureMechanism.Calculations
@@ -1263,7 +1263,7 @@ namespace Ringtoets.Integration.Service.Test
         public void RemoveDikeProfile_FullyConfiguredGrassCoverErosionInwardsFailureMechanism_RemoveProfileAndClearDependentData()
         {
             // Setup
-            GrassCoverErosionInwardsFailureMechanism failureMechanism = TestDataGenerator.GetFullyConfiguredGrassCoverErosionInwardsFailureMechanism();
+            GrassCoverErosionInwardsFailureMechanism failureMechanism = TestDataGenerator.GetGrassCoverErosionInwardsFailureMechanismWithAllCalculationConfigurations();
             DikeProfile profile = failureMechanism.DikeProfiles[0];
             GrassCoverErosionInwardsCalculation[] calculations = failureMechanism.Calculations.Cast<GrassCoverErosionInwardsCalculation>()
                                                                                  .Where(c => ReferenceEquals(c.InputParameters.DikeProfile, profile))
