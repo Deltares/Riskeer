@@ -41,8 +41,8 @@ namespace Core.Common.Base
         {
             observers.Remove(observer);
         }
-
-        public void NotifyObservers()
+         
+        public virtual void NotifyObservers()
         {
             // Iterate through a copy of the list of observers; an update of one observer might result in detaching
             // another observer (which will result in a "list modified" exception over here otherwise)

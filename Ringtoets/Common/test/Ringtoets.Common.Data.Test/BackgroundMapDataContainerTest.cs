@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using Core.Components.Gis.Data;
@@ -38,6 +39,8 @@ namespace Ringtoets.Common.Data.Test
             var container = new BackgroundMapDataContainer();
 
             // Assert
+            Assert.IsInstanceOf<Observable>(container);
+
             Assert.IsNull(container.MapData);
             Assert.IsTrue(container.IsVisible);
             Assert.AreEqual(2, container.Transparency.NumberOfDecimalPlaces);
@@ -64,19 +67,16 @@ namespace Ringtoets.Common.Data.Test
         public void Transparency_WithMapData_MapDataTransparencyUpdated()
         {
             // Setup
-            var mocks = new MockRepository();
-            var backgroundMapData = mocks.Stub<ImageBasedMapData>("A");
-            mocks.ReplayAll();
+            var imageBasedMapData = new ImageBasedMapDataStub();
 
             var container = new BackgroundMapDataContainer();
-            container.MapData = backgroundMapData;
+            container.MapData = imageBasedMapData;
 
             // Call
             container.Transparency = (RoundedDouble) 0.5;
 
             // Assert
-            Assert.AreEqual(container.Transparency, backgroundMapData.Transparency);
-            mocks.VerifyAll();
+            Assert.AreEqual(container.Transparency, imageBasedMapData.Transparency);
         }
 
         [Test]
@@ -120,9 +120,7 @@ namespace Ringtoets.Common.Data.Test
         public void IsVisible_WithMapData_MapDataIsVisibleUpdated(bool isVisible)
         {
             // Setup
-            var mocks = new MockRepository();
-            var imageBasedMapData = mocks.Stub<ImageBasedMapData>("A");
-            mocks.ReplayAll();
+            var imageBasedMapData = new ImageBasedMapDataStub();
 
             var container = new BackgroundMapDataContainer
             {
@@ -134,7 +132,6 @@ namespace Ringtoets.Common.Data.Test
 
             // Assert
             Assert.AreEqual(container.IsVisible, imageBasedMapData.IsVisible);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -143,9 +140,7 @@ namespace Ringtoets.Common.Data.Test
         public void MapData_SetNewValue_GetNewValueAndInitializePreconfiguration(bool isVisible, double transparency)
         {
             // Setup
-            var mocks = new MockRepository();
-            var imageBasedMapData = mocks.Stub<ImageBasedMapData>("A");
-            mocks.ReplayAll();
+            var imageBasedMapData = new ImageBasedMapDataStub();
 
             var container = new BackgroundMapDataContainer
             {
@@ -160,7 +155,59 @@ namespace Ringtoets.Common.Data.Test
             Assert.AreEqual(container.Transparency, imageBasedMapData.Transparency);
             Assert.AreEqual(container.IsVisible, imageBasedMapData.IsVisible);
             Assert.AreSame(imageBasedMapData, container.MapData);
-            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void NotifyObservers_WithMapData_NotifyObserversOfMapDataAndContainer()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var mapDataObserver = mocks.StrictMock<IObserver>();
+            mapDataObserver.Expect(o => o.UpdateObserver());
+
+            var containerObserver = mocks.StrictMock<IObserver>();
+            containerObserver.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            var imageBasedMapData = new ImageBasedMapDataStub();
+            imageBasedMapData.Attach(mapDataObserver);
+
+            var container = new BackgroundMapDataContainer
+            {
+                MapData = imageBasedMapData
+            };
+            container.Attach(containerObserver);
+
+            // Call
+            container.NotifyObservers();
+
+            // Assert
+            mocks.VerifyAll(); // 'imageBasedMapData' and 'container' should have it's observers notified.
+        }
+
+
+        [Test]
+        public void NotifyObservers_NoMapData_NotifyObserversOfContainer()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var containerObserver = mocks.StrictMock<IObserver>();
+            containerObserver.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            var container = new BackgroundMapDataContainer();
+            container.Attach(containerObserver);
+
+            // Call
+            container.NotifyObservers();
+
+            // Assert
+            mocks.VerifyAll(); // 'container' should have it's observers notified.
+        }
+
+        private class ImageBasedMapDataStub : ImageBasedMapData
+        {
+            public ImageBasedMapDataStub() : base("A") {}
         }
     }
 }

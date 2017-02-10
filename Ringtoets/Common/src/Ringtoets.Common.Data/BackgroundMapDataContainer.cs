@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Components.Gis.Data;
 
@@ -29,7 +30,7 @@ namespace Ringtoets.Common.Data
     /// Holds a <see cref="ImageBasedMapData"/> to serve as the background map-data and allows
     /// preconfiguration of <see cref="ImageBasedMapData"/> properties.
     /// </summary>
-    public class BackgroundMapDataContainer
+    public class BackgroundMapDataContainer : Observable
     {
         private readonly ImageBasedMapDataConfigurationHolder configuration = new ImageBasedMapDataConfigurationHolder();
         private ImageBasedMapData mapData;
@@ -92,6 +93,12 @@ namespace Ringtoets.Common.Data
                     mapData.Transparency = value;
                 }
             }
+        }
+
+        public override void NotifyObservers()
+        {
+            base.NotifyObservers();
+            mapData?.NotifyObservers();
         }
 
         private class ImageBasedMapDataConfigurationHolder : ImageBasedMapData
