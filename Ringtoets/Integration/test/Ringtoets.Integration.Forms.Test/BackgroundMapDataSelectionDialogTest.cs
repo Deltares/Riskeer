@@ -111,12 +111,12 @@ namespace Ringtoets.Integration.Forms.Test
         {
             // Given
             Button cancelButton = null;
+
             DialogBoxHandler = (name, wnd) =>
             {
-                using (var openedDialog = new FormTester(name))
+                using (new FormTester(name))
                 {
-                    var form = (Form) openedDialog.TheObject;
-                    var button = new ButtonTester("cancelButton", form);
+                    var button = new ButtonTester("cancelButton", name);
                     cancelButton = (Button) button.TheObject;
                     button.Click();
                 }

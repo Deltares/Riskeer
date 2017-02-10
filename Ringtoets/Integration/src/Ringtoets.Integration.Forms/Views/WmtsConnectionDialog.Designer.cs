@@ -37,8 +37,7 @@ namespace Ringtoets.Integration.Forms.Views
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(WmtsConnectionDialog));
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.nameTextBox = new System.Windows.Forms.TextBox();
             this.urlTextBox = new System.Windows.Forms.TextBox();
             this.nameLabel = new System.Windows.Forms.Label();
@@ -46,26 +45,18 @@ namespace Ringtoets.Integration.Forms.Views
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.cancelButton = new System.Windows.Forms.Button();
             this.actionButton = new System.Windows.Forms.Button();
-            this.tableLayoutPanel1.SuspendLayout();
-            this.tableLayoutPanel3.SuspendLayout();
+            this.tableLayoutPanel2.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // tableLayoutPanel1
+            // tableLayoutPanel2
             // 
-            resources.ApplyResources(this.tableLayoutPanel1, "tableLayoutPanel1");
-            this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel3, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.flowLayoutPanel1, 0, 2);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            // 
-            // tableLayoutPanel3
-            // 
-            resources.ApplyResources(this.tableLayoutPanel3, "tableLayoutPanel3");
-            this.tableLayoutPanel3.Controls.Add(this.nameTextBox, 1, 0);
-            this.tableLayoutPanel3.Controls.Add(this.urlTextBox, 1, 1);
-            this.tableLayoutPanel3.Controls.Add(this.nameLabel, 0, 0);
-            this.tableLayoutPanel3.Controls.Add(this.urlLabel, 0, 1);
-            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
+            resources.ApplyResources(this.tableLayoutPanel2, "tableLayoutPanel2");
+            this.tableLayoutPanel2.Controls.Add(this.nameTextBox, 1, 0);
+            this.tableLayoutPanel2.Controls.Add(this.urlTextBox, 1, 1);
+            this.tableLayoutPanel2.Controls.Add(this.nameLabel, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.urlLabel, 0, 1);
+            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             // 
             // nameTextBox
             // 
@@ -90,7 +81,6 @@ namespace Ringtoets.Integration.Forms.Views
             // flowLayoutPanel1
             // 
             resources.ApplyResources(this.flowLayoutPanel1, "flowLayoutPanel1");
-            this.tableLayoutPanel1.SetColumnSpan(this.flowLayoutPanel1, 2);
             this.flowLayoutPanel1.Controls.Add(this.cancelButton);
             this.flowLayoutPanel1.Controls.Add(this.actionButton);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
@@ -111,12 +101,11 @@ namespace Ringtoets.Integration.Forms.Views
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.tableLayoutPanel1);
+            this.Controls.Add(this.tableLayoutPanel2);
+            this.Controls.Add(this.flowLayoutPanel1);
             this.Name = "WmtsConnectionDialog";
-            this.tableLayoutPanel1.ResumeLayout(false);
-            this.tableLayoutPanel1.PerformLayout();
-            this.tableLayoutPanel3.ResumeLayout(false);
-            this.tableLayoutPanel3.PerformLayout();
+            this.tableLayoutPanel2.ResumeLayout(false);
+            this.tableLayoutPanel2.PerformLayout();
             this.flowLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -124,13 +113,12 @@ namespace Ringtoets.Integration.Forms.Views
         }
 
         #endregion
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.TextBox urlTextBox;
         private System.Windows.Forms.TextBox nameTextBox;
         private System.Windows.Forms.Button actionButton;
         private System.Windows.Forms.Button cancelButton;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.Label nameLabel;
         private System.Windows.Forms.Label urlLabel;
     }

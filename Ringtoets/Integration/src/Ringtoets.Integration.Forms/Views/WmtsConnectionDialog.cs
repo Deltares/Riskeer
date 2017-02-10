@@ -39,23 +39,19 @@ namespace Ringtoets.Integration.Forms.Views
             : base(dialogParent, CoreCommonGuiResources.RenameIcon, 250, 150)
         {
             InitializeComponent();
+            UpdateActionButton();
+            InitializeEventHandlers();
         }
 
-        public string WmtsConnectionName
-        {
-            get
-            {
-                return nameTextBox.Text;
-            }
-        }
+        /// <summary>
+        /// Gets the name that was set in the dialog.
+        /// </summary>
+        public string WmtsConnectionName { get; private set; }
 
-        public string WmtsConnectionUrl
-        {
-            get
-            {
-                return urlTextBox.Text;
-            }
-        }
+        /// <summary>
+        /// Gets the URL that was set in the dialog.
+        /// </summary>
+        public string WmtsConnectionUrl { get; private set; }
 
         protected override void Dispose(bool disposing)
         {
@@ -70,5 +66,40 @@ namespace Ringtoets.Integration.Forms.Views
         {
             return cancelButton;
         }
+
+        private void UpdateActionButton()
+        {
+            actionButton.Enabled = !(string.IsNullOrWhiteSpace(nameTextBox.Text) || string.IsNullOrWhiteSpace(urlTextBox.Text));
+        }
+
+        #region Event handling
+
+        private void InitializeEventHandlers()
+        {
+            actionButton.Click += ActionButton_Click;
+            nameTextBox.TextChanged += NameTextbox_Changed;
+            urlTextBox.TextChanged += UrlTextbox_Changed;
+        }
+
+        private void NameTextbox_Changed(object sender, EventArgs e)
+        {
+            UpdateActionButton();
+        }
+
+        private void UrlTextbox_Changed(object sender, EventArgs e)
+        {
+            UpdateActionButton();
+        }
+
+        private void ActionButton_Click(object sender, EventArgs e)
+        {
+            WmtsConnectionName = nameTextBox.Text;
+            WmtsConnectionUrl = urlTextBox.Text;
+
+            DialogResult = DialogResult.OK;
+            Close();
+        }
+
+        #endregion
     }
 }

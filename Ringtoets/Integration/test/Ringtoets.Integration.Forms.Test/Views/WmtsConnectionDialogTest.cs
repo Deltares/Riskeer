@@ -31,7 +31,7 @@ using Ringtoets.Integration.Forms.Views;
 namespace Ringtoets.Integration.Forms.Test.Views
 {
     [TestFixture]
-    public class WmtsConnectionDialogTest :NUnitFormTest
+    public class WmtsConnectionDialogTest : NUnitFormTest
     {
         [Test]
         public void Constructor_WithoutDialogParent_ThrowsArgumentNullException()
@@ -45,7 +45,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         [Test]
-        public void WmtsConnectionAddDialog_WithDialogParent_ExpectedProperties()
+        public void WmtsConnection_WithDialogParent_ExpectedProperties()
         {
             // Setup
             var mocks = new MockRepository();
@@ -57,24 +57,25 @@ namespace Ringtoets.Integration.Forms.Test.Views
             {
                 // Assert
                 Assert.IsInstanceOf<DialogBase>(dialog);
-                Assert.IsEmpty(dialog.WmtsConnectionName);
-                Assert.IsEmpty(dialog.WmtsConnectionUrl);
+                Assert.IsNull(dialog.WmtsConnectionName);
+                Assert.IsNull(dialog.WmtsConnectionUrl);
 
                 var nameLabel = new LabelTester("nameLabel", dialog);
                 Assert.AreEqual("Omschrijving", nameLabel.Text);
-                
+
                 var urlLabel = new LabelTester("urlLabel", dialog);
                 Assert.AreEqual("URL", urlLabel.Text);
-                
-                var actionButton = new ButtonTester("actionButton", dialog);
+
+                var actionButton = (Button) new ButtonTester("actionButton", dialog).TheObject;
                 Assert.AreEqual("Toevoegen", actionButton.Text);
-                
+                Assert.IsFalse(actionButton.Enabled);
+
                 var cancelButton = new ButtonTester("cancelButton", dialog);
                 Assert.AreEqual("Annuleren", cancelButton.Text);
-                
+
                 var nameTextBox = new TextBoxTester("nameTextBox", dialog);
                 Assert.IsEmpty(nameTextBox.Text);
-                
+
                 var urlTextBox = new TextBoxTester("urlTextBox", dialog);
                 Assert.IsEmpty(urlTextBox.Text);
             }
@@ -89,7 +90,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             // Setup
             DialogBoxHandler = (name, wnd) =>
             {
-                using (new FormTester(name)){}
+                using (new FormTester(name)) {}
             };
 
             using (var dialogParent = new Form())
@@ -101,6 +102,134 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 // Assert
                 Assert.AreEqual(250, dialog.MinimumSize.Width);
                 Assert.AreEqual(150, dialog.MinimumSize.Height);
+            }
+        }
+
+        [Test]
+        [Apartment(ApartmentState.STA)]
+        public void ActionButton_WithoutValidText_ButtonIsDisabled(
+            [Values("", "  ", null)] string name,
+            [Values("", "  ", null)] string url)
+        {
+            // Setup
+            DialogBoxHandler = (formName, wnd) =>
+            {
+                using (new FormTester(formName)) {}
+            };
+
+            using (var dialogParent = new Form())
+            using (var dialog = new WmtsConnectionDialog(dialogParent))
+            {
+                dialog.ShowDialog();
+
+                var nameTextBox = (TextBox) new TextBoxTester("nameTextBox", dialog).TheObject;
+                var urlTextBox = (TextBox) new TextBoxTester("urlTextBox", dialog).TheObject;
+                var actionButton = (Button) new ButtonTester("actionButton", dialog).TheObject;
+
+                // Call
+                nameTextBox.Text = name;
+                urlTextBox.Text = url;
+
+                // Assert
+                Assert.IsFalse(actionButton.Enabled);
+            }
+        }
+
+        [Test]
+        [Apartment(ApartmentState.STA)]
+        public void ActionButton_WithValidText_ButtonIsEnabled()
+        {
+            // Setup
+            DialogBoxHandler = (formName, wnd) =>
+            {
+                using (new FormTester(formName)) {}
+            };
+
+            using (var dialogParent = new Form())
+            using (var dialog = new WmtsConnectionDialog(dialogParent))
+            {
+                dialog.ShowDialog();
+
+                var nameTextBox = (TextBox) new TextBoxTester("nameTextBox", dialog).TheObject;
+                var urlTextBox = (TextBox) new TextBoxTester("urlTextBox", dialog).TheObject;
+                var actionButton = (Button) new ButtonTester("actionButton", dialog).TheObject;
+
+                // Call
+                nameTextBox.Text = @"nameTextBox";
+                urlTextBox.Text = @"urlTextBox";
+
+                // Assert
+                Assert.IsTrue(actionButton.Enabled);
+            }
+        }
+
+        [Test]
+        [Apartment(ApartmentState.STA)]
+        public void ActionButtonCick_WithValidText_SetsPropertiesAndClosesForm()
+        {
+            // Setup
+            const string urltextbox = @"urlTextBox";
+            const string nametextbox = @"nameTextBox";
+            var dialogResult = DialogResult.None;
+
+            DialogBoxHandler = (formName, wnd) =>
+            {
+                using (var formTester = new FormTester(formName))
+                {
+                    var nameTextBox = (TextBox) new TextBoxTester("nameTextBox", formName).TheObject;
+                    var urlTextBox = (TextBox) new TextBoxTester("urlTextBox", formName).TheObject;
+                    nameTextBox.Text = nametextbox;
+                    urlTextBox.Text = urltextbox;
+
+                    var actionButton = new ButtonTester("actionButton", formName);
+
+                    // Call
+                    actionButton.Click();
+
+                    dialogResult = formTester.DialogResult;
+                }
+            };
+
+            using (var dialogParent = new Form())
+            using (var dialog = new WmtsConnectionDialog(dialogParent))
+            {
+                dialog.ShowDialog();
+
+                // Assert
+                Assert.AreEqual(nametextbox, dialog.WmtsConnectionName);
+                Assert.AreEqual(urltextbox, dialog.WmtsConnectionUrl);
+                Assert.AreEqual(DialogResult.OK, dialogResult);
+            }
+        }
+
+        [Test]
+        [Apartment(ApartmentState.STA)]
+        public void GivenValidDialog_WhenCancelPressed_ThenWmtsConnectionDataNull()
+        {
+            // Given
+            Button cancelButton = null;
+
+            DialogBoxHandler = (name, wnd) =>
+            {
+                using (new FormTester(name))
+                {
+                    var button = new ButtonTester("cancelButton", name);
+                    cancelButton = (Button) button.TheObject;
+                    button.Click();
+                }
+            };
+
+            using (var dialogParent = new Form())
+            using (var dialog = new WmtsConnectionDialog(dialogParent))
+            {
+                // When
+                dialog.ShowDialog();
+
+                // Then
+                Assert.IsNull(dialog.WmtsConnectionName);
+                Assert.IsNull(dialog.WmtsConnectionUrl);
+
+                Assert.AreEqual(dialog.CancelButton, cancelButton);
             }
         }
 
