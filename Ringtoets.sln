@@ -1375,6 +1375,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Piping.IO.TestUti
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Integration.TestUtils.Test", "Ringtoets\Integration\test\Ringtoets.Integration.TestUtils.Test\Ringtoets.Integration.TestUtils.Test.csproj", "{EA3E979C-FB00-443B-B6A0-273254F24802}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Piping.Integration.TestUtils.Test", "Ringtoets\Piping\test\Ringtoets.Piping.Integration.TestUtils.Test\Ringtoets.Piping.Integration.TestUtils.Test.csproj", "{070DC87D-520B-4A84-8965-ED5012875FCC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		CreateInstaller|x86 = CreateInstaller|x86
@@ -3446,6 +3448,14 @@ Global
 		{EA3E979C-FB00-443B-B6A0-273254F24802}.Release|x86.Build.0 = Release|x86
 		{EA3E979C-FB00-443B-B6A0-273254F24802}.ReleaseForCodeCoverage|x86.ActiveCfg = ReleaseForCodeCoverage|x86
 		{EA3E979C-FB00-443B-B6A0-273254F24802}.ReleaseForCodeCoverage|x86.Build.0 = ReleaseForCodeCoverage|x86
+		{070DC87D-520B-4A84-8965-ED5012875FCC}.CreateInstaller|x86.ActiveCfg = Release|x86
+		{070DC87D-520B-4A84-8965-ED5012875FCC}.CreateInstallerWithDemoProject|x86.ActiveCfg = Release|x86
+		{070DC87D-520B-4A84-8965-ED5012875FCC}.Debug|x86.ActiveCfg = Debug|x86
+		{070DC87D-520B-4A84-8965-ED5012875FCC}.Debug|x86.Build.0 = Debug|x86
+		{070DC87D-520B-4A84-8965-ED5012875FCC}.Release|x86.ActiveCfg = Release|x86
+		{070DC87D-520B-4A84-8965-ED5012875FCC}.Release|x86.Build.0 = Release|x86
+		{070DC87D-520B-4A84-8965-ED5012875FCC}.ReleaseForCodeCoverage|x86.ActiveCfg = ReleaseForCodeCoverage|x86
+		{070DC87D-520B-4A84-8965-ED5012875FCC}.ReleaseForCodeCoverage|x86.Build.0 = ReleaseForCodeCoverage|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -3749,6 +3759,7 @@ Global
 		{E111FC08-BE9A-493A-85D8-51CE6FBB13A3} = {D9DC93FF-DCF3-44A4-9193-9911966CDFF4}
 		{4A675B7E-96AD-4911-B154-85385C9330C3} = {1F0D20C2-7F04-431D-AF22-95A31FD53733}
 		{EA3E979C-FB00-443B-B6A0-273254F24802} = {88E04195-C43E-40D3-B5F2-3A25E1E79E03}
+		{070DC87D-520B-4A84-8965-ED5012875FCC} = {1F0D20C2-7F04-431D-AF22-95A31FD53733}
 	EndGlobalSection
 	GlobalSection(TextTemplating) = postSolution
 		TextTemplating = 1
