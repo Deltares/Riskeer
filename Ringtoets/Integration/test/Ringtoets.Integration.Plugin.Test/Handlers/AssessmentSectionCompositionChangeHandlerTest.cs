@@ -37,7 +37,6 @@ using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Plugin.Handlers;
-using Ringtoets.Integration.Service;
 using Ringtoets.Integration.TestUtils;
 using Ringtoets.Piping.Data;
 using Ringtoets.StabilityPointStructures.Data;
@@ -291,12 +290,8 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
                                                                                                                             AssessmentSectionComposition newComposition)
         {
             // Setup
-            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations(oldComposition);
-            RingtoetsDataSynchronizationService.ClearFailureMechanismCalculationOutputs(assessmentSection);
-
-            // Precondition
-            CollectionAssert.IsEmpty(assessmentSection.GetFailureMechanisms().SelectMany(fm => fm.Calculations).Where(c => c.HasOutput));
-
+            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurationsWithoutCalculationOutput(oldComposition);
+            
             GrassCoverErosionOutwardsFailureMechanism grassCoverErosionOutwardsFailureMechanism = assessmentSection.GetFailureMechanisms()
                                                                                                                    .OfType<GrassCoverErosionOutwardsFailureMechanism>()
                                                                                                                    .First();
@@ -350,11 +345,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
                                                                                                                                AssessmentSectionComposition newComposition)
         {
             // Setup
-            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations(oldComposition);
-            RingtoetsDataSynchronizationService.ClearFailureMechanismCalculationOutputs(assessmentSection);
-
-            // Precondition
-            CollectionAssert.IsEmpty(assessmentSection.GetFailureMechanisms().SelectMany(fm => fm.Calculations).Where(c => c.HasOutput));
+            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurationsWithoutCalculationOutput(oldComposition);
 
             DuneErosionFailureMechanism duneErosionFailureMechanism = assessmentSection.GetFailureMechanisms()
                                                                                        .OfType<DuneErosionFailureMechanism>()
@@ -399,13 +390,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
                                                                                                                                          AssessmentSectionComposition newComposition)
         {
             // Setup
-            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations(oldComposition);
-            RingtoetsDataSynchronizationService.ClearHydraulicBoundaryLocationOutputOfFailureMechanisms(assessmentSection);
-
-            // Precondition
-            CollectionAssert.IsEmpty(assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations.Where(loc => loc.DesignWaterLevelOutput != null
-                                                                                                                         || loc.WaveHeightOutput != null));
-            CollectionAssert.IsEmpty(assessmentSection.DuneErosion.DuneLocations.Where(dl => dl.Output != null));
+            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurationsWithoutHydraulicBoundaryLocationAndDuneOutput(oldComposition);
 
             IEnumerable<ICalculation> notAffectedObjects = GetDuneIrrelevantFailureMechanisms(assessmentSection)
                 .SelectMany(fm => fm.Calculations)
@@ -443,13 +428,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
                                                                                                                                             AssessmentSectionComposition newComposition)
         {
             // Setup
-            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations(oldComposition);
-            RingtoetsDataSynchronizationService.ClearHydraulicBoundaryLocationOutputOfFailureMechanisms(assessmentSection);
-
-            // Precondition
-            CollectionAssert.IsEmpty(assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations.Where(loc => loc.DesignWaterLevelOutput != null
-                                                                                                                         || loc.WaveHeightOutput != null));
-            CollectionAssert.IsEmpty(assessmentSection.DuneErosion.DuneLocations.Where(dl => dl.Output != null));
+            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurationsWithoutHydraulicBoundaryLocationAndDuneOutput(oldComposition);
 
             var expectedUnaffectedObjects = assessmentSection.GetFailureMechanisms()
                                                              .SelectMany(fm => fm.Calculations)

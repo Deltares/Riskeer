@@ -53,7 +53,8 @@ namespace Ringtoets.Integration.TestUtils
         /// Gets a fully configured <see cref="AssessmentSection"/> with all possible configurations for the 
         /// parent and nested calculations of the failure mechanisms.
         /// </summary>
-        /// <returns>A fully configured <see cref="AssessmentSection"/>.</returns>
+        /// <returns>A fully configured <see cref="AssessmentSection"/> with all possible configuration of 
+        /// the parent and nested calculations inside the failure mechanisms.</returns>
         public static AssessmentSection GetAssessmentSectionWithAllCalculationConfigurations()
         {
             return GetAssessmentSectionWithAllCalculationConfigurations(AssessmentSectionComposition.Dike);
@@ -64,7 +65,8 @@ namespace Ringtoets.Integration.TestUtils
         /// and with all possible configurations for the parent and nested calculations of the failure mechanisms.
         /// </summary>
         /// <param name="composition">The desired <see cref="AssessmentSectionComposition"/> to initialize the <see cref="AssessmentSection"/> with.</param>
-        /// <returns>A fully configured <see cref="AssessmentSection"/>.</returns>
+        /// <returns>A fully configured <see cref="AssessmentSection"/> with all possible configurations of 
+        /// the parent and nested calculation inside the failure mechanisms.</returns>
         public static AssessmentSection GetAssessmentSectionWithAllCalculationConfigurations(AssessmentSectionComposition composition)
         {
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0)
@@ -101,13 +103,27 @@ namespace Ringtoets.Integration.TestUtils
         }
 
         /// <summary>
+        /// Gets a fully configured <see cref="AssessmentSection"/> with all ppossible configurations of the parent 
+        /// and nested calculations, but without the output of the  <see cref="HydraulicBoundaryLocation.DesignWaterLevel"/>,  
+        /// and <see cref="DuneLocation"/>
+        /// </summary>
+        /// <returns>A fully configured <see cref="AssessmentSection"/> with all possible calculation configurations of 
+        /// the parent and nested calculations inside the failure mechanisms, but without the output of the 
+        /// <see cref="HydraulicBoundaryLocation"/> and the <see cref="DuneLocation"/>.</returns>
+        public static AssessmentSection GetAssessmentSectionWithAllCalculationConfigurationsWithoutHydraulicBoundaryLocationAndDuneOutput()
+        {
+            return GetAssessmentSectionWithAllCalculationConfigurationsWithoutHydraulicBoundaryLocationAndDuneOutput(AssessmentSectionComposition.Dike);
+        }
+
+        /// <summary>
         /// Gets a fully configured <see cref="AssessmentSection"/> with a desired <see cref="AssessmentSectionComposition"/> and 
         /// possible configurations of the parent and nested calculations, but without the output of the 
         /// <see cref="HydraulicBoundaryLocation.DesignWaterLevel"/>,  <see cref="HydraulicBoundaryLocation.WaveHeightOutput"/> 
         /// and <see cref="DuneLocation.Output"/>
         /// </summary>
         /// <param name="composition">The desired <see cref="AssessmentSectionComposition"/> to initialize the <see cref="AssessmentSection"/> with.</param>
-        /// <returns>A fully configured <see cref="AssessmentSection"/> without the output of the <see cref="HydraulicBoundaryLocation"/> and the 
+        /// <returns>A fully configured <see cref="AssessmentSection"/> with all possible calculation configurations of the parent and 
+        /// nested calculations inside the failure mechanisms, but without the output of the <see cref="HydraulicBoundaryLocation"/> and the 
         /// <see cref="DuneLocation"/>.</returns>
         public static AssessmentSection GetAssessmentSectionWithAllCalculationConfigurationsWithoutHydraulicBoundaryLocationAndDuneOutput(AssessmentSectionComposition composition)
         {
@@ -118,11 +134,23 @@ namespace Ringtoets.Integration.TestUtils
         }
 
         /// <summary>
+        /// Gets a fully configured <see cref="AssessmentSection"/> with all possible configurations of the 
+        /// parent and nested calculations, but without any calculation output of the failure mecahnisms.
+        /// </summary>
+        /// <returns>A fully configured <see cref="AssessmentSection"/> with all possible configurations of the parent and nested calculations
+        /// of the failure mechanisms, but without any calculation outputs.</returns>
+        public static AssessmentSection GetAssessmentSectionWithAllCalculationConfigurationsWithoutCalculationOutput()
+        {
+            return GetAssessmentSectionWithAllCalculationConfigurationsWithoutCalculationOutput(AssessmentSectionComposition.Dike);
+        }
+
+        /// <summary>
         /// Gets a fully configured <see cref="AssessmentSection"/> with a desired <see cref="AssessmentSectionComposition"/> and 
-        /// possible configurations of the parent and nested calculations, but without the calculation outputs.
+        /// possible configurations of the parent and nested calculations, but without any calculation output of the failure mechanisms.
         /// </summary>
         /// <param name="composition">The desired <see cref="AssessmentSectionComposition"/> to initiailize the <see cref="AssessmentSection"/> with.</param>
-        /// <returns>A fully configured <see cref="AssessmentSection"/>, but without the calculation output.</returns>
+        /// <returns>A fully configured <see cref="AssessmentSection"/> with all possible configurations of the parent and nested calculations 
+        /// of the failure mechanisms, but without any calculation output.</returns>
         public static AssessmentSection GetAssessmentSectionWithAllCalculationConfigurationsWithoutCalculationOutput(AssessmentSectionComposition composition)
         {
             AssessmentSection assessmentSection = GetAssessmentSectionWithAllCalculationConfigurations(composition);
