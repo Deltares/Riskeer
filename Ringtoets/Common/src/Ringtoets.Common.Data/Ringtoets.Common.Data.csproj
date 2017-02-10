@@ -42,6 +42,7 @@
     <Compile Include="AssessmentSection\IAssessmentSection.cs" />
     <Compile Include="AssessmentSection\ReferenceLine.cs" />
     <Compile Include="AssessmentSection\ReferenceLineMeta.cs" />
+    <Compile Include="BackgroundMapDataContainer.cs" />
     <Compile Include="Comment.cs" />
     <Compile Include="DikeProfiles\BreakWater.cs" />
     <Compile Include="DikeProfiles\BreakWaterType.cs" />

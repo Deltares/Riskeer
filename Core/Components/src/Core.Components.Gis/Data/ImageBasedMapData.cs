@@ -45,6 +45,8 @@ namespace Core.Components.Gis.Data
         /// <summary>
         /// Gets or sets the transparency of the map data.
         /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when setting a new value
+        /// that is not in the range [0.0, 1.0].</exception>
         public RoundedDouble Transparency
         {
             get
