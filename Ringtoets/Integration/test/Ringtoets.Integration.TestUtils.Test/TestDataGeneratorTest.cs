@@ -34,6 +34,7 @@ using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.Integration.Data;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Integration.TestUtils.Test;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Data;
@@ -219,10 +220,10 @@ namespace Ringtoets.Integration.TestUtils.Test
 
                 if (pipingFailureMechanism != null)
                 {
-                    AssertHasStochasticSoilModels(pipingFailureMechanism);
-                    AssertHasSurfaceLines(pipingFailureMechanism);
-                    AssertPipingFailureMechanismCalculationConfigurationsWithOutputs(pipingFailureMechanism);
-                    AssertPipingFailureMechanismCalculationConfigurationsWithoutOutputs(pipingFailureMechanism);
+                    PipingTestDataGeneratorHelper.AssertHasStochasticSoilModels(pipingFailureMechanism);
+                    PipingTestDataGeneratorHelper.AssertHasSurfaceLines(pipingFailureMechanism);
+                    PipingTestDataGeneratorHelper.AssertPipingFailureMechanismCalculationConfigurationsWithOutputs(pipingFailureMechanism);
+                    PipingTestDataGeneratorHelper.AssertPipingFailureMechanismCalculationConfigurationsWithoutOutputs(pipingFailureMechanism);
                     containsPipingFailureMechanism = true;
                 }
 
@@ -321,9 +322,9 @@ namespace Ringtoets.Integration.TestUtils.Test
 
                 if (pipingFailureMechanism != null)
                 {
-                    AssertHasStochasticSoilModels(pipingFailureMechanism);
-                    AssertHasSurfaceLines(pipingFailureMechanism);
-                    AssertPipingFailureMechanismCalculationConfigurationsWithoutOutputs(pipingFailureMechanism);
+                    PipingTestDataGeneratorHelper.AssertHasStochasticSoilModels(pipingFailureMechanism);
+                    PipingTestDataGeneratorHelper.AssertHasSurfaceLines(pipingFailureMechanism);
+                    PipingTestDataGeneratorHelper.AssertPipingFailureMechanismCalculationConfigurationsWithoutOutputs(pipingFailureMechanism);
                     containsPipingFailureMechanism = true;
                 }
 
@@ -364,56 +365,6 @@ namespace Ringtoets.Integration.TestUtils.Test
             Assert.IsTrue(containsDuneErosionFailureMechanism);
             Assert.IsTrue(containsGrassCoverErosionInwardsFailureMechanism);
         }
-
-        #region Piping
-
-        private static void AssertPipingFailureMechanismCalculationConfigurationsWithOutputs(PipingFailureMechanism failureMechanism)
-        {
-            IEnumerable<ICalculationBase> calculationRoot = failureMechanism.CalculationsGroup.Children;
-            AssertPipingCalculationGroupWithOutput(calculationRoot.OfType<PipingCalculation>());
-
-            CalculationGroup nestedCalculations = calculationRoot.OfType<CalculationGroup>().First();
-            AssertPipingCalculationGroupWithOutput(nestedCalculations.Children.OfType<PipingCalculation>());
-        }
-
-        private static void AssertPipingFailureMechanismCalculationConfigurationsWithoutOutputs(PipingFailureMechanism failureMechanism)
-        {
-            IEnumerable<ICalculationBase> calculationRoot = failureMechanism.CalculationsGroup.Children;
-            AssertPipingCalculationGroupWithoutOutput(calculationRoot.OfType<PipingCalculation>());
-
-            CalculationGroup nestedCalculations = calculationRoot.OfType<CalculationGroup>().First();
-            AssertPipingCalculationGroupWithoutOutput(nestedCalculations.Children.OfType<PipingCalculation>());
-        }
-
-        private static void AssertPipingCalculationGroupWithOutput(IEnumerable<PipingCalculation> children)
-        {
-            AssertCalculationConfig(children, true, true);
-        }
-
-        private static void AssertPipingCalculationGroupWithoutOutput(IEnumerable<PipingCalculation> children)
-        {
-            AssertCalculationConfig(children, false, false);
-            AssertCalculationConfig(children, true, false);
-        }
-
-        private static void AssertCalculationConfig(
-            IEnumerable<PipingCalculation> children, bool hasHydraulicBoundaryLocation, bool hasOutput)
-        {
-            Assert.NotNull(children.FirstOrDefault(calc => (calc.InputParameters.HydraulicBoundaryLocation != null) == hasHydraulicBoundaryLocation
-                                                           && calc.HasOutput == hasOutput));
-        }
-
-        private static void AssertHasStochasticSoilModels(PipingFailureMechanism failureMechanism)
-        {
-            CollectionAssert.IsNotEmpty(failureMechanism.StochasticSoilModels);
-        }
-
-        private static void AssertHasSurfaceLines(PipingFailureMechanism failureMechanism)
-        {
-            CollectionAssert.IsNotEmpty(failureMechanism.SurfaceLines);
-        }
-
-        #endregion
 
         #region Grass Cover Erosion Inwards
 

@@ -105,6 +105,10 @@
       <Project>{14c6f716-64e2-4bc4-a1ef-05865fcefa4c}</Project>
       <Name>Ringtoets.Piping.Primitives</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\Piping\test\Ringtoets.Piping.Integration.TestUtils.Test\Ringtoets.Piping.Integration.TestUtils.Test.csproj">
+      <Project>{070DC87D-520B-4A84-8965-ED5012875FCC}</Project>
+      <Name>Ringtoets.Piping.Integration.TestUtils.Test</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\Revetment\src\Ringtoets.Revetment.Data\Ringtoets.Revetment.Data.csproj">
       <Project>{87c2c553-c0bc-40bf-b1ea-b83bff357f27}</Project>
       <Name>Ringtoets.Revetment.Data</Name>

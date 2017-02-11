@@ -50,7 +50,7 @@ namespace Ringtoets.Piping.Integration.TestUtils
         /// <summary>
         /// Gets a <see cref="PipingCalculation"/> without hydraulic boundary location or design water level.
         /// </summary>
-        /// <returns>A <see cref="PipingCalculation"/> without hydraulic boundary location or design water level</returns>
+        /// <returns>A <see cref="PipingCalculation"/> without hydraulic boundary location or design water level.</returns>
         public static PipingCalculation GetPipingCalculationWithoutHydraulicLocationAndAssessmentLevel()
         {
             PipingCalculation calculation = GetPipingCalculation();
@@ -59,6 +59,10 @@ namespace Ringtoets.Piping.Integration.TestUtils
             return calculation;
         }
 
+        /// <summary>
+        /// Gets a <see cref="PipingCalculation"/> with manual design water level set.
+        /// </summary>
+        /// <returns>A <see cref="PipingCalculation"/> with a manual design water level.</returns>
         public static PipingCalculation GetPipingCalculationWithAssessmentLevel()
         {
             PipingCalculation calculation = GetPipingCalculation();
@@ -68,6 +72,10 @@ namespace Ringtoets.Piping.Integration.TestUtils
             return calculation; 
         }
 
+        /// <summary>
+        /// Gets a <see cref="PipingCalculation"/> without surface line.
+        /// </summary>
+        /// <returns>A <see cref="PipingCalculation"/> without surface line.</returns>
         public static PipingCalculation GetPipingCalculationWithoutSurfaceLine()
         {
             PipingCalculation calculation = GetPipingCalculation();
@@ -76,6 +84,10 @@ namespace Ringtoets.Piping.Integration.TestUtils
             return calculation;
         }
 
+        /// <summary>
+        /// Gets a <see cref="PipingCalculation"/> without soil model.
+        /// </summary>
+        /// <returns>A <see cref="PipingCalculation"/> without soil model .</returns>
         public static PipingCalculation GetPipingCalculationWithoutSoilModel()
         {
             PipingCalculation calculation = GetPipingCalculation();
@@ -84,6 +96,10 @@ namespace Ringtoets.Piping.Integration.TestUtils
             return calculation;
         }
 
+        /// <summary>
+        /// Gets a <see cref="PipingCalculation"/> without soil profile.
+        /// </summary>
+        /// <returns>A <see cref="PipingCalculation"/> without soil profile.</returns>
         public static PipingCalculation GetPipingCalculationWithoutSoilProfile()
         {
             PipingCalculation calculation = GetPipingCalculation();
@@ -92,6 +108,10 @@ namespace Ringtoets.Piping.Integration.TestUtils
             return calculation;
         }
 
+        /// <summary>
+        /// Gets a <see cref="PipingCalculation"/>.
+        /// </summary>
+        /// <returns>A <see cref="PipingCalculation"/>.</returns>
         public static PipingCalculation GetPipingCalculation()
         {
             var surfaceline = new RingtoetsPipingSurfaceLine
