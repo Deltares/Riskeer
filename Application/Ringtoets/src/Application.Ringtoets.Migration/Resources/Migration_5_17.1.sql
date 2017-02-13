@@ -106,7 +106,7 @@ INSERT INTO DuneErosionFailureMechanismMetaEntity (
 		[N])
 SELECT FailureMechanismEntityId,
 		2.0 
-		FROM FailureMechanismEntity WHERE FailureMechanismType = 8 LIMIT 1;
+		FROM FailureMechanismEntity WHERE FailureMechanismType = 8;
 INSERT INTO BackgroundMapDataEntity (
 		[AssessmentSectionEntityId],
 		[Name],
