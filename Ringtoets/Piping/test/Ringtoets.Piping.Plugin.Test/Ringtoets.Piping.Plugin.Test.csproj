@@ -73,6 +73,7 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="FileImporter\RingtoetsPipingSurfaceLineReplaceDataStrategyTest.cs" />
+    <Compile Include="FileImporter\RingtoetsPipingSurfaceLineUpdateDataStrategyTest.cs" />
     <Compile Include="FileImporter\StochasticSoilModelChangeHandlerTest.cs" />
     <Compile Include="FileImporter\PipingSurfaceLinesCsvImporterTest.cs" />
     <Compile Include="FileImporter\RingtoetsPipingSurfaceLineExtensionsTest.cs" />
