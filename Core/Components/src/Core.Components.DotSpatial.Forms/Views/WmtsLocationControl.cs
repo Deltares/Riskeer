@@ -24,7 +24,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.Views;
+using Core.Components.DotSpatial.Forms.IO;
 using Core.Components.DotSpatial.Forms.Properties;
+using Core.Components.DotSpatial.Layer.BruTile.Configurations;
+using log4net;
+using BaseResources = Core.Common.Base.Properties.Resources;
 
 namespace Core.Components.DotSpatial.Forms.Views
 {
@@ -33,8 +37,9 @@ namespace Core.Components.DotSpatial.Forms.Views
     /// </summary>
     public partial class WmtsLocationControl : UserControl, IView
     {
+        private static readonly ILog log = LogManager.GetLogger(typeof(WmtsLocationControl));
         private readonly List<WmtsConnectionInfo> wmtsConnectionInfos;
-        private IEnumerable<WmtsCapabilityRow> capabilities;
+        private List<WmtsCapabilityRow> capabilities;
 
         /// <summary>
         /// Creates a new instance of <see cref="WmtsLocationControl"/>.
@@ -42,6 +47,7 @@ namespace Core.Components.DotSpatial.Forms.Views
         public WmtsLocationControl()
         {
             wmtsConnectionInfos = new List<WmtsConnectionInfo>();
+            capabilities = new List<WmtsCapabilityRow>();
 
             InitializeComponent();
             InitializeDataGridView();
@@ -57,7 +63,7 @@ namespace Core.Components.DotSpatial.Forms.Views
             }
             set
             {
-                capabilities = value as IEnumerable<WmtsCapabilityRow>;
+                capabilities = value as List<WmtsCapabilityRow>;
                 UpdateDataGridViewDataSource();
             }
         }
@@ -100,9 +106,20 @@ namespace Core.Components.DotSpatial.Forms.Views
                                                  true);
         }
 
+        private void UpdateDataGridViewDataSource(IEnumerable<WmtsCapability> wmtsCapabilities)
+        {
+            capabilities.Clear();
+            foreach (var wmtsCapability in wmtsCapabilities)
+            {
+                capabilities.Add(new WmtsCapabilityRow(wmtsCapability));
+            }
+
+            UpdateDataGridViewDataSource();
+        }
+
         private void UpdateDataGridViewDataSource()
         {
-            dataGridViewControl.SetDataSource(capabilities?.ToArray());
+            dataGridViewControl.SetDataSource(capabilities);
         }
 
         #endregion
@@ -125,6 +142,8 @@ namespace Core.Components.DotSpatial.Forms.Views
             urlLocationComboBox.ValueMember = nameof(WmtsConnectionInfo.Url);
 
             urlLocationComboBox.SelectedItem = selectedItem;
+
+            UpdateConnectToButton();
         }
 
         #endregion
@@ -133,8 +152,33 @@ namespace Core.Components.DotSpatial.Forms.Views
 
         private void InitializeEventHandlers()
         {
+            UpdateConnectToButton();
+            connectToButton.Click += ConnectToButtonOnClick;
             addLocationButton.Click += AddLocationButtonOnClick;
             editLocationButton.Click += EditLocationButtonOnClick;
+        }
+
+        private void UpdateConnectToButton()
+        {
+            connectToButton.Enabled = wmtsConnectionInfos.Any();
+        }
+
+        private void ConnectToButtonOnClick(object sender, EventArgs e)
+        {
+            var selectedWmtsConnectionInfo = urlLocationComboBox.SelectedItem as WmtsConnectionInfo;
+
+            try
+            {
+                IEnumerable<WmtsCapability> wmtsCapabilities = WmtsCapabilityFactory.GetWmtsCapabilities(selectedWmtsConnectionInfo?.Url).ToArray();
+                UpdateDataGridViewDataSource(wmtsCapabilities);
+            }
+            catch (CannotFindTileSourceException exception)
+            {
+                Form controlForm = FindForm();
+                MessageBox.Show(controlForm, exception.Message, BaseResources.Error, MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+                log.Error(exception.Message, exception);
+            }
         }
 
         private void AddLocationButtonOnClick(object sender, EventArgs eventArgs)

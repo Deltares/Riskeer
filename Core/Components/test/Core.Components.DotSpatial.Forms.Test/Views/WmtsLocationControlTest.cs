@@ -19,14 +19,20 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Views;
+using Core.Common.TestUtil;
 using Core.Components.DotSpatial.Forms.Views;
+using Core.Components.DotSpatial.Layer.BruTile.Configurations;
+using Core.Components.DotSpatial.TestUtil;
+using Core.Components.Gis.Data;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
+using Rhino.Mocks;
 
 namespace Core.Components.DotSpatial.Forms.Test.Views
 {
@@ -47,7 +53,7 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
                 // Assert
                 Assert.IsInstanceOf<UserControl>(control);
                 Assert.IsInstanceOf<IView>(control);
-                Assert.IsNull(control.Data);
+                Assert.IsInstanceOf<List<WmtsCapabilityRow>>(control.Data);
             }
         }
 
@@ -144,7 +150,7 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
             // Setup
             using (var view = new WmtsLocationControl())
             {
-                var capabilityRows = Enumerable.Empty<WmtsCapabilityRow>();
+                var capabilityRows = new List<WmtsCapabilityRow>();
 
                 // Call
                 view.Data = capabilityRows;
@@ -353,6 +359,75 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
         }
 
         [Test]
+        public void GivenWmtsLocationControlAndConnectClicked_WhenValidDataFromUrl_ThenDataGridUpdated()
+        {
+            // Given
+            WmtsMapData backgroundMapData = WmtsMapData.CreateDefaultPdokMapData();
+
+            using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
+            using (Form form = ShowValidWmtsLocationControl())
+            {
+                form.Show();
+
+                var connectToButton = new ButtonTester("connectToButton", form);
+
+                // When
+                connectToButton.Click();
+
+                // Then
+                var dataGridViewControl = (DataGridViewControl) new ControlTester("dataGridViewControl", form).TheObject;
+                var rows = dataGridViewControl.Rows;
+                Assert.AreEqual(1, rows.Count);
+
+                var cells = rows[0].Cells;
+                Assert.AreEqual(4, cells.Count);
+                Assert.AreEqual("brtachtergrondkaart(EPSG:28992)", cells[mapLayerIdColumnIndex].FormattedValue);
+                Assert.AreEqual("image/png", cells[mapLayerFormatColumnIndex].FormattedValue);
+                Assert.AreEqual("Stub schema", cells[mapLayerTitleColumnIndex].FormattedValue);
+                Assert.AreEqual("EPSG:28992", cells[mapLayerCoordinateSystemColumnIndex].FormattedValue);
+            }
+        }
+
+        [Test]
+        public void GivenWmtsLocationControlAndConnectClicked_WhenCannotFindTileSourceException_ThenErrorMessageShownAndLogGenerated()
+        {
+            // Given
+            const string exceptionMessage = "fail";
+
+            var mockRepository = new MockRepository();
+            var tileFactory = mockRepository.StrictMock<ITileSourceFactory>();
+            tileFactory.Expect(tf => tf.GetWmtsTileSources(null)).IgnoreArguments().Throw(new CannotFindTileSourceException(exceptionMessage));
+            mockRepository.ReplayAll();
+
+            string messageBoxTitle = null;
+            string messageBoxText = null;
+            DialogBoxHandler = (formName, wnd) =>
+            {
+                var messageBox = new MessageBoxTester(wnd);
+                messageBoxTitle = messageBox.Title;
+                messageBoxText = messageBox.Text;
+                messageBox.ClickOk();
+            };
+
+            using (new UseCustomTileSourceFactoryConfig(tileFactory))
+            using (Form form = ShowValidWmtsLocationControl())
+            {
+                form.Show();
+
+                var connectToButton = new ButtonTester("connectToButton", form);
+
+                // When
+                Action action = () => connectToButton.Click();
+
+                // Then
+                TestHelper.AssertLogMessageWithLevelIsGenerated(action, Tuple.Create(exceptionMessage, LogLevelConstant.Error));
+                Assert.AreEqual("Fout", messageBoxTitle);
+                Assert.AreEqual(exceptionMessage, messageBoxText);
+            }
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
         public void Dispose_DisposedAlreadyCalled_DoesNotThrowException()
         {
             // Call
@@ -382,6 +457,23 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
             control.Data = capabilities;
 
             form.Controls.Add(control);
+            return form;
+        }
+
+        private static Form ShowValidWmtsLocationControl()
+        {
+            var form = new Form();
+            var control = new WmtsLocationControl();
+            form.Controls.Add(control);
+
+            var comboBox = (ComboBox) new ComboBoxTester("urlLocationComboBox", form).TheObject;
+            comboBox.DataSource = new List<WmtsConnectionInfo>
+            {
+                new WmtsConnectionInfo("PDOK achtergrondkaart", "https://geodata.nationaalgeoregister.nl/wmts/top10nlv2?VERSION=1.0.0&request=GetCapabilities")
+            };
+
+            var connectToButton = (Button) new ButtonTester("connectToButton", form).TheObject;
+            connectToButton.Enabled = true;
             return form;
         }
     }
