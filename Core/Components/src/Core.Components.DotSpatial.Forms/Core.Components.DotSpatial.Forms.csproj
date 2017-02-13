@@ -80,6 +80,7 @@
     <Compile Include="DotSpatialMap.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="IO\WmtsCapabilityFactory.cs" />
     <Compile Include="MapControl.cs">
       <SubType>Component</SubType>
     </Compile>
