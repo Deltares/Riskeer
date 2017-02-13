@@ -101,13 +101,9 @@
       <Project>{ce994cc9-6f6a-48ac-b4be-02c30a21f4db}</Project>
       <Name>Ringtoets.Piping.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Piping\src\Ringtoets.Piping.Primitives\Ringtoets.Piping.Primitives.csproj">
-      <Project>{14c6f716-64e2-4bc4-a1ef-05865fcefa4c}</Project>
-      <Name>Ringtoets.Piping.Primitives</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Piping\test\Ringtoets.Piping.Integration.TestUtils.Test\Ringtoets.Piping.Integration.TestUtils.Test.csproj">
-      <Project>{070DC87D-520B-4A84-8965-ED5012875FCC}</Project>
-      <Name>Ringtoets.Piping.Integration.TestUtils.Test</Name>
+    <ProjectReference Include="..\..\..\Piping\test\Ringtoets.Piping.Integration.TestUtils\Ringtoets.Piping.Integration.TestUtils.csproj">
+      <Project>{A4972765-DDBB-4A1E-B17C-7185577E5591}</Project>
+      <Name>Ringtoets.Piping.Integration.TestUtils</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Revetment\src\Ringtoets.Revetment.Data\Ringtoets.Revetment.Data.csproj">
       <Project>{87c2c553-c0bc-40bf-b1ea-b83bff357f27}</Project>
@@ -128,10 +124,6 @@
     <ProjectReference Include="..\..\src\Ringtoets.Integration.Data\Ringtoets.Integration.Data.csproj">
       <Project>{11f1f874-45af-43e4-8ae5-15a5c9593e28}</Project>
       <Name>Ringtoets.Integration.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\Ringtoets.Integration.Service\Ringtoets.Integration.Service.csproj">
-      <Project>{28811c4a-6c18-42c1-88b2-a03a3784e2d0}</Project>
-      <Name>Ringtoets.Integration.Service</Name>
     </ProjectReference>
     <ProjectReference Include="..\Ringtoets.Integration.TestUtils\Ringtoets.Integration.TestUtils.csproj">
       <Project>{174ba68d-6176-4ac5-8dfd-98cdd2c4d971}</Project>

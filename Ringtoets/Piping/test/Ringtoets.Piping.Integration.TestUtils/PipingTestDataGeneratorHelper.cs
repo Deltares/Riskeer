@@ -26,7 +26,7 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Primitives;
 
-namespace Ringtoets.Piping.Integration.TestUtils.Test
+namespace Ringtoets.Piping.Integration.TestUtils
 {
     /// <summary>
     /// Class to help asserting the <see cref="PipingTestDataGenerator"/>.
@@ -34,10 +34,11 @@ namespace Ringtoets.Piping.Integration.TestUtils.Test
     public static class PipingTestDataGeneratorHelper
     {
         /// <summary>
-        /// Asserts that the <paramref name="failureMechanism"/> contains calculations with output.
+        /// Asserts that the <paramref name="failureMechanism"/> contains all possible calculation configurations 
+        /// for the parent and nested calculations with output.
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism to assert.</param>
-        public static void AssertPipingFailureMechanismCalculationConfigurationsWithOutputs(PipingFailureMechanism failureMechanism)
+        public static void AssertHasAllPossibleCalculationConfigurationsWithOutputs(PipingFailureMechanism failureMechanism)
         {
             IEnumerable<ICalculationBase> calculationRoot = failureMechanism.CalculationsGroup.Children;
             AssertPipingCalculationGroupWithOutput(calculationRoot.OfType<PipingCalculation>());
@@ -47,10 +48,11 @@ namespace Ringtoets.Piping.Integration.TestUtils.Test
         }
 
         /// <summary>
-        /// Asserts that the <paramref name="failureMechanism"/> contains calculations without output.
+        /// Asserts that the <paramref name="failureMechanism"/> contains all possible calculation configurations 
+        /// for the parent and nested calculations without output.
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism to assert.</param>
-        public static void AssertPipingFailureMechanismCalculationConfigurationsWithoutOutputs(PipingFailureMechanism failureMechanism)
+        public static void AssertHasAllPossibleCalculationConfigurationsWithoutOutputs(PipingFailureMechanism failureMechanism)
         {
             IEnumerable<ICalculationBase> calculationRoot = failureMechanism.CalculationsGroup.Children;
             AssertPipingCalculationGroupWithoutOutput(calculationRoot.OfType<PipingCalculation>());

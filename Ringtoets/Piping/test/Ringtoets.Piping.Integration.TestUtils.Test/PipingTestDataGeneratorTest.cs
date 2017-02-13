@@ -20,12 +20,42 @@
 // All rights reserved.
 
 using NUnit.Framework;
+using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Piping.Data;
 
 namespace Ringtoets.Piping.Integration.TestUtils.Test
 {
     [TestFixture]
     public class PipingTestDataGeneratorTest
     {
+        [Test]
+        public void GetPipingFailureMechanismWithAllCalculationConfigurations_ReturnsFailureMechanismWithAllConfigurations()
+        {
+            // Call
+            PipingFailureMechanism failureMechanism = PipingTestDataGenerator.GetPipingFailureMechanismWithAllCalculationConfigurations();
 
+            // Assert
+            PipingTestDataGeneratorHelper.AssertHasStochasticSoilModels(failureMechanism);
+            PipingTestDataGeneratorHelper.AssertHasSurfaceLines(failureMechanism);
+            PipingTestDataGeneratorHelper.AssertHasAllPossibleCalculationConfigurationsWithOutputs(failureMechanism);
+            PipingTestDataGeneratorHelper.AssertHasAllPossibleCalculationConfigurationsWithoutOutputs(failureMechanism);
+        }
+
+        [Test]
+        public void SetPipingFailureMechanismWithAllCalculationConfigurations_ReturnsFailureMechanismWithAllConfigurations()
+        {
+            // Setup
+            var failureMechanism = new PipingFailureMechanism();
+            var hydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateFullyCalculated();
+
+            // Call
+            PipingTestDataGenerator.ConfigureFailureMechanismWithAllCalculationConfigurations(failureMechanism, hydraulicBoundaryLocation);
+
+            // Assert
+            PipingTestDataGeneratorHelper.AssertHasStochasticSoilModels(failureMechanism);
+            PipingTestDataGeneratorHelper.AssertHasSurfaceLines(failureMechanism);
+            PipingTestDataGeneratorHelper.AssertHasAllPossibleCalculationConfigurationsWithOutputs(failureMechanism);
+            PipingTestDataGeneratorHelper.AssertHasAllPossibleCalculationConfigurationsWithoutOutputs(failureMechanism);
+        }
     }
 }

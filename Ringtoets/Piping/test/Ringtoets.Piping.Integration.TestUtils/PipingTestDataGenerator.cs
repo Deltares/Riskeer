@@ -36,13 +36,14 @@ namespace Ringtoets.Piping.Integration.TestUtils
     public static class PipingTestDataGenerator
     {
         /// <summary>
-        /// Gets a fully configured <see cref="PipingFailureMechanism"/>.
+        /// Gets a fully configured <see cref="PipingFailureMechanism"/> with all
+        /// possible parent and nested calculation configurations.
         /// </summary>
-        public static PipingFailureMechanism GetFullyConfiguredPipingFailureMechanism()
+        public static PipingFailureMechanism GetPipingFailureMechanismWithAllCalculationConfigurations()
         {
             var failureMechanism = new PipingFailureMechanism();
             var hydroLocation = new HydraulicBoundaryLocation(1, "<hydro location>", 0, 0);
-            SetFullyConfiguredFailureMechanism(failureMechanism, hydroLocation);
+            ConfigureFailureMechanismWithAllCalculationConfigurations(failureMechanism, hydroLocation);
 
             return failureMechanism;
         }
@@ -158,14 +159,14 @@ namespace Ringtoets.Piping.Integration.TestUtils
 
         /// <summary>
         /// Configures a <see cref="PipingFailureMechanism"/> to a fully configured failure
-        /// mechanism.
+        /// mechanism with all possible parent and nested calculation configurations.
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism to be updated.</param>
         /// <param name="hydraulicBoundaryLocation">The hydraulic boundary location used
         /// by calculations.</param>
         /// <remarks>This method assumes <paramref name="failureMechanism"/> is a newly
         /// created instance.</remarks>
-        public static void SetFullyConfiguredFailureMechanism(PipingFailureMechanism failureMechanism,
+        public static void ConfigureFailureMechanismWithAllCalculationConfigurations(PipingFailureMechanism failureMechanism,
                                                               HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
             var surfaceline1 = new RingtoetsPipingSurfaceLine

@@ -34,7 +34,7 @@ using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.Integration.Data;
 using Ringtoets.Piping.Data;
-using Ringtoets.Piping.Integration.TestUtils.Test;
+using Ringtoets.Piping.Integration.TestUtils;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Data;
@@ -222,8 +222,8 @@ namespace Ringtoets.Integration.TestUtils.Test
                 {
                     PipingTestDataGeneratorHelper.AssertHasStochasticSoilModels(pipingFailureMechanism);
                     PipingTestDataGeneratorHelper.AssertHasSurfaceLines(pipingFailureMechanism);
-                    PipingTestDataGeneratorHelper.AssertPipingFailureMechanismCalculationConfigurationsWithOutputs(pipingFailureMechanism);
-                    PipingTestDataGeneratorHelper.AssertPipingFailureMechanismCalculationConfigurationsWithoutOutputs(pipingFailureMechanism);
+                    PipingTestDataGeneratorHelper.AssertHasAllPossibleCalculationConfigurationsWithOutputs(pipingFailureMechanism);
+                    PipingTestDataGeneratorHelper.AssertHasAllPossibleCalculationConfigurationsWithoutOutputs(pipingFailureMechanism);
                     containsPipingFailureMechanism = true;
                 }
 
@@ -324,7 +324,7 @@ namespace Ringtoets.Integration.TestUtils.Test
                 {
                     PipingTestDataGeneratorHelper.AssertHasStochasticSoilModels(pipingFailureMechanism);
                     PipingTestDataGeneratorHelper.AssertHasSurfaceLines(pipingFailureMechanism);
-                    PipingTestDataGeneratorHelper.AssertPipingFailureMechanismCalculationConfigurationsWithoutOutputs(pipingFailureMechanism);
+                    PipingTestDataGeneratorHelper.AssertHasAllPossibleCalculationConfigurationsWithoutOutputs(pipingFailureMechanism);
                     containsPipingFailureMechanism = true;
                 }
 

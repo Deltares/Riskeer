@@ -105,7 +105,7 @@ namespace Ringtoets.Piping.Service.Test
         public void ClearAllCalculationOutput_WithVariousCalculations_ClearsCalculationsOutputAndReturnsAffectedCalculations()
         {
             // Setup
-            PipingFailureMechanism failureMechanism = PipingTestDataGenerator.GetFullyConfiguredPipingFailureMechanism();
+            PipingFailureMechanism failureMechanism = PipingTestDataGenerator.GetPipingFailureMechanismWithAllCalculationConfigurations();
             ICalculation[] expectedAffectedCalculations = failureMechanism.Calculations
                                                                           .Where(c => c.HasOutput)
                                                                           .ToArray();
@@ -136,7 +136,7 @@ namespace Ringtoets.Piping.Service.Test
         public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_WithVariousCalculations_ClearsHydraulicBoundaryLocationAndCalculationsAndReturnsAffectedObjects()
         {
             // Setup
-            PipingFailureMechanism failureMechanism = PipingTestDataGenerator.GetFullyConfiguredPipingFailureMechanism();
+            PipingFailureMechanism failureMechanism = PipingTestDataGenerator.GetPipingFailureMechanismWithAllCalculationConfigurations();
             PipingCalculation[] calculations = failureMechanism.Calculations.Cast<PipingCalculation>().ToArray();
             IObservable[] expectedAffectedCalculations = calculations
                 .Where(c => c.HasOutput)
@@ -178,7 +178,7 @@ namespace Ringtoets.Piping.Service.Test
         public void ClearReferenceLineDependentData_FullyConfiguredFailureMechanism_RemoveReferenceLineDependentDataAndReturnAffectedObjects()
         {
             // Setup
-            PipingFailureMechanism failureMechanism = PipingTestDataGenerator.GetFullyConfiguredPipingFailureMechanism();
+            PipingFailureMechanism failureMechanism = PipingTestDataGenerator.GetPipingFailureMechanismWithAllCalculationConfigurations();
 
             var expectedRemovedObjects = failureMechanism.Sections.OfType<object>()
                                                          .Concat(failureMechanism.SectionResults)
@@ -243,7 +243,7 @@ namespace Ringtoets.Piping.Service.Test
         public void RemoveSurfaceLine_FullyConfiguredPipingFailureMechanism_RemoveProfileAndClearDependentData()
         {
             // Setup
-            PipingFailureMechanism failureMechanism = PipingTestDataGenerator.GetFullyConfiguredPipingFailureMechanism();
+            PipingFailureMechanism failureMechanism = PipingTestDataGenerator.GetPipingFailureMechanismWithAllCalculationConfigurations();
             RingtoetsPipingSurfaceLine surfaceLine = failureMechanism.SurfaceLines[0];
             PipingCalculation[] calculationsWithSurfaceLine = failureMechanism.Calculations
                                                                               .Cast<PipingCalculation>()
@@ -317,7 +317,7 @@ namespace Ringtoets.Piping.Service.Test
         public void RemoveStochasticSoilModel_FullyConfiguredPipingFailureMechanism_RemoveProfileAndClearDependentData()
         {
             // Setup
-            PipingFailureMechanism failureMechanism = PipingTestDataGenerator.GetFullyConfiguredPipingFailureMechanism();
+            PipingFailureMechanism failureMechanism = PipingTestDataGenerator.GetPipingFailureMechanismWithAllCalculationConfigurations();
             StochasticSoilModel soilModel = failureMechanism.StochasticSoilModels[1];
             PipingCalculation[] calculationsWithSoilModel = failureMechanism.Calculations
                                                                             .Cast<PipingCalculation>()
