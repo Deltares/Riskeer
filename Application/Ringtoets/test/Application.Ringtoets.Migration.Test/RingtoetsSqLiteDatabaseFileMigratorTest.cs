@@ -141,7 +141,7 @@ namespace Application.Ringtoets.Migration.Test
 
                 // Assert
                 CriticalMigrationException exception = Assert.Throws<CriticalMigrationException>(call);
-                StringAssert.StartsWith("Er is een onverwachte fout opgetreden tijdens het verplaatsen van het gemigreerde bestand '", exception.Message);
+                StringAssert.StartsWith("Er is een onverwachte fout opgetreden tijdens het verplaatsen van het gemigreerde projectbestand '", exception.Message);
                 StringAssert.EndsWith($"' naar '{targetFilePath}'.", exception.Message);
                 Assert.IsInstanceOf<IOException>(exception.InnerException);
             }
@@ -188,7 +188,7 @@ namespace Application.Ringtoets.Migration.Test
 
                     // Assert
                     CriticalMigrationException exception = Assert.Throws<CriticalMigrationException>(call);
-                    StringAssert.StartsWith("Er is een onverwachte fout opgetreden tijdens het verplaatsen van het gemigreerde bestand '", 
+                    StringAssert.StartsWith("Er is een onverwachte fout opgetreden tijdens het verplaatsen van het gemigreerde projectbestand '", 
                         exception.Message);
                     StringAssert.EndsWith($"' naar '{targetFilePath}'.", exception.Message);
                     Assert.IsInstanceOf<UnauthorizedAccessException>(exception.InnerException);
@@ -216,7 +216,7 @@ namespace Application.Ringtoets.Migration.Test
 
             // Assert
             string message = Assert.Throws<CriticalMigrationException>(call).Message;
-            Assert.AreEqual($"Het is niet mogelijk om versie '5' te migreren naar versie '{newVersion}'.", message);
+            Assert.AreEqual($"Het migreren van een projectbestand met versie '5' naar versie '{newVersion}' is niet ondersteund.", message);
         }
 
         [Test]
@@ -234,7 +234,7 @@ namespace Application.Ringtoets.Migration.Test
 
             // Assert
             string message = Assert.Throws<CriticalMigrationException>(call).Message;
-            Assert.AreEqual("Het upgraden van versie '8' is niet ondersteund.", message);
+            Assert.AreEqual("Het migreren van een projectbestand met versie '8' naar versie '17.1' is niet ondersteund.", message);
         }
     }
 }

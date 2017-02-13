@@ -90,9 +90,9 @@ namespace Application.Ringtoets.MigrationConsole.Test
         }
 
         [Test]
-        [TestCase("FullTestProject164.rtd", true)]
-        [TestCase("UnsupportedVersion8.rtd", false)]
-        public void GivenConsole_WhenVersionSupportedCall_ThenReturnedIfSupported(string file, bool isSupported)
+        [TestCase("FullTestProject164.rtd", "5", true)]
+        [TestCase("UnsupportedVersion8.rtd", "8", false)]
+        public void GivenConsole_WhenVersionSupportedCall_ThenReturnedIfSupported(string file, string fileVersion, bool isSupported)
         {
             // Given
             string sourceFilePath = TestHelper.GetTestDataPath(testPath, file);
@@ -107,9 +107,16 @@ namespace Application.Ringtoets.MigrationConsole.Test
 
                 // Then
                 string consoleText = consoleOutput.GetConsoleOutput();
-                Assert.AreEqual(Environment.NewLine + $@"Het projectbestand kan {(isSupported ? "" : "niet ")}"
-                                + $"gemigreerd worden naar versie '{expectedVersion}'."
-                                + Environment.NewLine, consoleText);
+                string expectedText = isSupported ?
+                                      Environment.NewLine
+                                      + $@"Het projectbestand kan gemigreerd worden naar versie '{expectedVersion}'."
+                                      + Environment.NewLine
+                                      :
+                                      Environment.NewLine
+                                      + $"Het migreren van een projectbestand met versie '{fileVersion}' naar versie '{expectedVersion}' is niet ondersteund."
+                                      + Environment.NewLine;
+
+                Assert.AreEqual(expectedText, consoleText);
                 Assert.AreEqual(ErrorCode.ErrorSuccess, environmentControl.ErrorCodeCalled);
             }
         }
@@ -136,8 +143,8 @@ namespace Application.Ringtoets.MigrationConsole.Test
                     // Then
                     string consoleText = consoleOutput.GetConsoleOutput();
                     var expected = Environment.NewLine
-                                   + $"Het bestand '{sourceFilePath}' is succesvol gemigreerd naar "
-                                   + $"'{targetFilePath}' (versie '{expectedVersion}')."
+                                   + $"Het projectbestand '{sourceFilePath}' is succesvol gemigreerd naar "
+                                   + $"'{targetFilePath}' (versie {expectedVersion})."
                                    + Environment.NewLine;
                     Assert.AreEqual(expected, consoleText);
                     var toVersionedFile = new RingtoetsVersionedFile(targetFilePath);
@@ -169,7 +176,7 @@ namespace Application.Ringtoets.MigrationConsole.Test
                 // Then
                 string consoleText = consoleOutput.GetConsoleOutput();
                 StringAssert.StartsWith(Environment.NewLine
-                                        + "Er is een onverwachte fout opgetreden tijdens het verplaatsen van het gemigreerde bestand '",
+                                        + "Er is een onverwachte fout opgetreden tijdens het verplaatsen van het gemigreerde projectbestand '",
                                         consoleText);
                 StringAssert.EndsWith($"' naar '{targetFilePath}'." + Environment.NewLine
                                       + "Het besturingssysteem geeft de volgende melding: "
@@ -183,8 +190,9 @@ namespace Application.Ringtoets.MigrationConsole.Test
 
         private static string GetConsoleFullDescription()
         {
+            string currentDatabaseVersion = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
             return "Dit hulpprogramma kan worden gebruikt om een projectbestand in het formaat van een "
-                   + "eerdere versie van Ringtoets te migreren naar het formaat van de huidige versie van Ringtoets."
+                   + $"eerdere versie van Ringtoets te migreren naar het formaat van de huidige versie van Ringtoets ({currentDatabaseVersion})."
                    + Environment.NewLine + Environment.NewLine
                    + "MIGRATIEHULPPROGRAMMA -h" + Environment.NewLine
                    + "MIGRATIEHULPPROGRAMMA --help" + Environment.NewLine

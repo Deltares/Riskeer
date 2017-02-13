@@ -38,7 +38,7 @@ namespace Migration.Console
         private readonly string applicationDescription;
 
         /// <summary>
-        /// Creates a new instance of <seealso cref="ConsoleBase"/>.
+        /// Creates a new instance of <see cref="ConsoleBase"/>.
         /// </summary>
         /// <param name="applicationName">The name of the application as it can be called in the command line.</param>
         /// <param name="applicationDescription">The description of the application.</param>

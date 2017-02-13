@@ -109,7 +109,7 @@ namespace Application.Ringtoets.MigrationConsole.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het bestand &apos;{0}&apos; is succesvol gemigreerd naar &apos;{1}&apos; (versie &apos;{2}&apos;)..
+        ///   Looks up a localized string similar to Het projectbestand &apos;{0}&apos; is succesvol gemigreerd naar &apos;{1}&apos; (versie {2})..
         /// </summary>
         internal static string CommandMigrate_Successful_Migration_From_Location_0_To_Location_1_Version_2 {
             get {
@@ -145,20 +145,11 @@ namespace Application.Ringtoets.MigrationConsole.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het projectbestand kan niet gemigreerd worden naar versie &apos;{0}&apos;..
+        ///   Looks up a localized string similar to Dit hulpprogramma kan worden gebruikt om een projectbestand in het formaat van een eerdere versie van Ringtoets te migreren naar het formaat van de huidige versie van Ringtoets ({0})..
         /// </summary>
-        internal static string CommandSupported_File_Not_Able_To_Migrate_To_Version_0 {
+        internal static string RingtoetsMigrationTool_ApplicationDescription_Version_0 {
             get {
-                return ResourceManager.GetString("CommandSupported_File_Not_Able_To_Migrate_To_Version_0", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Dit hulpprogramma kan worden gebruikt om een projectbestand in het formaat van een eerdere versie van Ringtoets te migreren naar het formaat van de huidige versie van Ringtoets..
-        /// </summary>
-        internal static string RingtoetsMigrationTool_ApplicationDescription {
-            get {
-                return ResourceManager.GetString("RingtoetsMigrationTool_ApplicationDescription", resourceCulture);
+                return ResourceManager.GetString("RingtoetsMigrationTool_ApplicationDescription_Version_0", resourceCulture);
             }
         }
         

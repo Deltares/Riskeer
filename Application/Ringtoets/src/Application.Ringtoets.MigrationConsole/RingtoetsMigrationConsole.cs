@@ -24,6 +24,7 @@ using Application.Ringtoets.Migration;
 using Application.Ringtoets.MigrationConsole.Properties;
 using Migration.Console;
 using Ringtoets.Common.Utils;
+using MigrationCoreStorageResources = Migration.Core.Storage.Properties.Resources;
 
 namespace Application.Ringtoets.MigrationConsole
 {
@@ -32,8 +33,13 @@ namespace Application.Ringtoets.MigrationConsole
     /// </summary>
     public class RingtoetsMigrationConsole : ConsoleBase
     {
+        private static readonly string currentDatabaseVersion = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
+
+        /// <summary>
+        /// Creates a new instance of <see cref="RingtoetsMigrationConsole"/>. 
+        /// </summary>
         public RingtoetsMigrationConsole() : base(Resources.RingtoetsMigrationTool_ApplicationName,
-                                                  Resources.RingtoetsMigrationTool_ApplicationDescription) {}
+                                                  GetApplicationDescription()) {}
 
         protected override void ExecuteCommand(string[] args)
         {
@@ -58,6 +64,12 @@ namespace Application.Ringtoets.MigrationConsole
             ShowMigrateCommand();
         }
 
+        private static string GetApplicationDescription()
+        {
+            string currentVersion = currentDatabaseVersion;
+            return string.Format(Resources.RingtoetsMigrationTool_ApplicationDescription_Version_0, currentVersion);
+        }
+
         #region Commands
 
         private static void InvalidCommand(string command)
@@ -73,10 +85,15 @@ namespace Application.Ringtoets.MigrationConsole
 
             bool isSupported = migrator.IsVersionSupported(version);
 
-            string toVersion = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
-            Console.WriteLine(isSupported
-                                  ? Resources.CommandSupported_File_Able_To_Migrate_To_Version_0
-                                  : Resources.CommandSupported_File_Not_Able_To_Migrate_To_Version_0, toVersion);
+            if (isSupported)
+            {
+                Console.WriteLine(Resources.CommandSupported_File_Able_To_Migrate_To_Version_0, currentDatabaseVersion);
+            }
+            else
+            {
+                ConsoleHelper.WriteErrorLine(MigrationCoreStorageResources.Migrate_From_Version_0_To_Version_1_Not_Supported,
+                                             version, currentDatabaseVersion);
+            }
         }
 
         private static void ShowSupportedCommand()
@@ -87,14 +104,12 @@ namespace Application.Ringtoets.MigrationConsole
 
         private static void MigrateCommand(string filepath, string toFilepath)
         {
-            string toVersion = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
-
             var migrator = new RingtoetsSqLiteDatabaseFileMigrator();
             var sourceFile = new RingtoetsVersionedFile(filepath);
 
-            migrator.Migrate(sourceFile, toVersion, toFilepath);
+            migrator.Migrate(sourceFile, currentDatabaseVersion, toFilepath);
             Console.WriteLine(Resources.CommandMigrate_Successful_Migration_From_Location_0_To_Location_1_Version_2,
-                              filepath, toFilepath, toVersion);
+                              filepath, toFilepath, currentDatabaseVersion);
         }
 
         private static void ShowMigrateCommand()

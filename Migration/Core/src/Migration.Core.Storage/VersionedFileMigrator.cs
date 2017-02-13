@@ -142,8 +142,8 @@ namespace Migration.Core.Storage
             string fromVersion = versionedFile.GetVersion();
             if (!IsVersionSupported(fromVersion))
             {
-                throw new CriticalMigrationException(string.Format(Resources.Upgrade_Version_0_Not_Supported,
-                                                                   fromVersion));
+                throw new CriticalMigrationException(string.Format(Resources.Migrate_From_Version_0_To_Version_1_Not_Supported,
+                                                                   fromVersion, toVersion));
             }
 
             FileMigrationScript migrationScript = GetMigrationScript(fromVersion, toVersion);

@@ -280,7 +280,7 @@ namespace Migration.Core.Storage.Test
 
             // Assert
             CriticalMigrationException exception = Assert.Throws<CriticalMigrationException>(call);
-            Assert.AreEqual($"Het upgraden van versie '{incorrectVersion}' is niet ondersteund.", exception.Message);
+            Assert.AreEqual($"Het migreren van een projectbestand met versie '{incorrectVersion}' naar versie '{toVersion}' is niet ondersteund.", exception.Message);
             mockRepository.VerifyAll();
         }
 
@@ -318,7 +318,7 @@ namespace Migration.Core.Storage.Test
 
             // Assert
             CriticalMigrationException exception = Assert.Throws<CriticalMigrationException>(call);
-            Assert.AreEqual($"Het is niet mogelijk om versie '{fromVersion}' te migreren naar versie '{incorrectVersion}'.", exception.Message);
+            Assert.AreEqual($"Het migreren van een projectbestand met versie '{fromVersion}' naar versie '{incorrectVersion}' is niet ondersteund.", exception.Message);
             mockRepository.VerifyAll();
         }
 
@@ -436,7 +436,7 @@ namespace Migration.Core.Storage.Test
 
                 // Assert
                 CriticalMigrationException exception = Assert.Throws<CriticalMigrationException>(call);
-                StringAssert.StartsWith("Er is een onverwachte fout opgetreden tijdens het verplaatsen van het gemigreerde bestand '", exception.Message);
+                StringAssert.StartsWith("Er is een onverwachte fout opgetreden tijdens het verplaatsen van het gemigreerde projectbestand '", exception.Message);
                 StringAssert.EndsWith($"' naar '{toLocation}'.", exception.Message);
             }
             mockRepository.VerifyAll();
