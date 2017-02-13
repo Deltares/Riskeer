@@ -90,6 +90,8 @@ namespace Core.Components.DotSpatial.Layer.BruTile.TileFetching
 
         public byte[] GetTile(TileInfo tileInfo)
         {
+            ThrowExceptionIfDisposed();
+
             byte[] res = GetTileFromCache(tileInfo);
             if (res != null)
             {
@@ -102,11 +104,15 @@ namespace Core.Components.DotSpatial.Layer.BruTile.TileFetching
 
         public bool IsReady()
         {
+            ThrowExceptionIfDisposed();
+
             return activeTileRequests.Count == 0 && openTileRequests.Count == 0;
         }
 
         public void DropAllPendingTileRequests()
         {
+            ThrowExceptionIfDisposed();
+
             // Notes: http://dotspatial.codeplex.com/discussions/473428
             threadPool.Cancel(false);
             int dummy;
@@ -125,26 +131,45 @@ namespace Core.Components.DotSpatial.Layer.BruTile.TileFetching
 
         public void Dispose()
         {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
             if (IsDisposed)
             {
                 return;
             }
 
-            volatileCache.Clear();
+            if (disposing)
+            {
+                volatileCache.Clear();
 
-            threadPool.Dispose();
-            threadPool = null;
+                threadPool.Dispose();
+                threadPool = null;
 
-            volatileCache = null;
-            provider = null;
-            persistentCache = null;
+                volatileCache = null;
+                provider = null;
+                persistentCache = null;
+            }
+
+            IsDisposed = true;
         }
 
-        private bool IsDisposed
+        private bool IsDisposed { get; set; }
+
+        /// <summary>
+        /// Thrown an <see cref="ObjectDisposedException"/> when <see cref="IsDisposed"/>
+        /// is true.
+        /// </summary>
+        /// <exception cref="ObjectDisposedException">Thrown when calling this method while
+        /// this instance is disposed.</exception>
+        private void ThrowExceptionIfDisposed()
         {
-            get
+            if (IsDisposed)
             {
-                return threadPool == null;
+                throw new ObjectDisposedException(GetType().Name);
             }
         }
 

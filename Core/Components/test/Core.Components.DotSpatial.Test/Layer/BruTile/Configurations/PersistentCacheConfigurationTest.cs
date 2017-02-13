@@ -22,10 +22,13 @@
 using System;
 using System.IO;
 using System.Security.AccessControl;
+using BruTile;
 using BruTile.Cache;
 using Core.Common.TestUtil;
 using Core.Components.DotSpatial.Layer.BruTile.Configurations;
+using Core.Components.DotSpatial.Layer.BruTile.TileFetching;
 using NUnit.Framework;
+using Rhino.Mocks;
 
 namespace Core.Components.DotSpatial.Test.Layer.BruTile.Configurations
 {
@@ -48,33 +51,40 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile.Configurations
         }
 
         [Test]
+        public void Constructor_ExpectedValues()
+        {
+            // Call
+            using (var configuration = new SimplePersistentCacheConfiguration("folder"))
+            {
+                // Assert
+                Assert.IsInstanceOf<IConfiguration>(configuration);
+
+                Assert.IsFalse(configuration.Initialized);
+                Assert.IsNull(configuration.LegendText);
+                Assert.IsNull(configuration.TileSource);
+                Assert.IsNull(configuration.TileFetcher);
+            }
+        }
+
+        [Test]
         public void CreateTileCache_DirectoryNotCreated_CreatesFileCacheDirectoryStructure()
         {
             // Setup
             var rootPath = $"CreateTileCache_DirectoryNotCreated_CreatesFileCacheDirectoryStructure{Path.DirectorySeparatorChar}";
-            var configuration = new SimplePersistentCacheConfiguration(rootPath);
 
-            if (Directory.Exists(rootPath))
-            {
-                Directory.Delete(rootPath, true);
-            }
-
-            try
-            {
-                // Call
-                IPersistentCache<byte[]> cache = configuration.TestCreateTileCache();
-
-                // Assert
-                Assert.IsInstanceOf<FileCache>(cache);
-                Assert.IsTrue(Directory.Exists(rootPath));
-            }
-            finally
-            {
-                if (Directory.Exists(rootPath))
+            DoAndCleanupAfter(
+                () =>
                 {
-                    Directory.Delete(rootPath, true);
-                }
-            }
+                    using (var configuration = new SimplePersistentCacheConfiguration(rootPath))
+                    {
+                        // Call
+                        IPersistentCache<byte[]> cache = configuration.TestCreateTileCache();
+
+                        // Assert
+                        Assert.IsInstanceOf<FileCache>(cache);
+                        Assert.IsTrue(Directory.Exists(rootPath));
+                    }
+                }, rootPath);
         }
 
         [Test]
@@ -82,8 +92,182 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile.Configurations
         {
             // Setup
             var rootPath = $"CreateTileCache_CreationOfDirectoryNotAllowed_ThrowCannotCreateTileCacheException{Path.DirectorySeparatorChar}";
-            var configuration = new SimplePersistentCacheConfiguration(rootPath);
 
+            DoAndCleanupAfter(
+                () =>
+                {
+                    using (var configuration = new SimplePersistentCacheConfiguration(rootPath))
+                    using (new DirectoryPermissionsRevoker(Directory.GetCurrentDirectory(), FileSystemRights.Write))
+                    {
+                        // Call
+                        TestDelegate call = () => configuration.TestCreateTileCache();
+
+                        // Assert
+                        string expectedMessage = "Een kritieke fout is opgetreden bij het aanmaken van de cache.";
+                        string message = Assert.Throws<CannotCreateTileCacheException>(call).Message;
+                        Assert.AreEqual(message, expectedMessage);
+                    }
+                },
+                rootPath);
+        }
+
+        [Test]
+        public void CreateTileCache_ConfigurationDisposed_ThrowObjectDisposedException()
+        {
+            // Setup
+            var configuration = new SimplePersistentCacheConfiguration("path");
+            configuration.Dispose();
+
+            // Call
+            TestDelegate call = () => configuration.TestCreateTileCache();
+
+            // Assert
+            string objectName = Assert.Throws<ObjectDisposedException>(call).ObjectName;
+            Assert.AreEqual("SimplePersistentCacheConfiguration", objectName);
+        }
+
+        [Test]
+        public void InitializeFromTileSource_ValidTileSource_InitializeConfiguration()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var tileProvider = mocks.Stub<ITileProvider>();
+            var tileSchema = mocks.Stub<ITileSchema>();
+            mocks.ReplayAll();
+
+            var rootPath = $"InitializeFromTileSource_ValidTileSource_InitializeConfiguration{Path.DirectorySeparatorChar}";
+
+            DoAndCleanupAfter(
+                () =>
+                {
+                    using (var configuration = new SimplePersistentCacheConfiguration(rootPath))
+                    {
+                        var tileSource = new TileSource(tileProvider, tileSchema);
+
+                        // Call
+                        configuration.TestInitializeFromTileSource(tileSource);
+
+                        // Assert
+                        Assert.AreSame(tileSource, configuration.TileSource);
+                        Assert.IsInstanceOf<AsyncTileFetcher>(configuration.TileFetcher);
+                        Assert.IsTrue(configuration.Initialized);
+                    }
+                },
+                rootPath);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void InitializeFromTileSource_InvalidTileSource_ThrowCannotReceiveTilesException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var tileSource = mocks.Stub<ITileSource>();
+            mocks.ReplayAll();
+
+            var rootPath = $"InitializeFromTileSource_InvalidTileSource_ThrowCannotReceiveTilesException{Path.DirectorySeparatorChar}";
+
+            DoAndCleanupAfter(
+                () =>
+                {
+                    using (var configuration = new SimplePersistentCacheConfiguration(rootPath))
+                    {
+                        // Call
+                        TestDelegate call = () => configuration.TestInitializeFromTileSource(tileSource);
+
+                        // Assert
+                        string message = Assert.Throws<CannotReceiveTilesException>(call).Message;
+                        string expectedMessage = "Bron staat het niet toe om toegang te krijgen tot de kaart tegels.";
+                        Assert.AreEqual(expectedMessage, message);
+                    }
+                },
+                rootPath);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void TestInitializeFromTileSource_CreationOfDirectoryNotAllowed_ThrowCannotCreateTileCacheException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var tileProvider = mocks.Stub<ITileProvider>();
+            var tileSchema = mocks.Stub<ITileSchema>();
+            mocks.ReplayAll();
+
+            var tileSource = new TileSource(tileProvider, tileSchema);
+
+            var rootPath = $"TestInitializeFromTileSource_CreationOfDirectoryNotAllowed_ThrowCannotCreateTileCacheException{Path.DirectorySeparatorChar}";
+
+            DoAndCleanupAfter(
+                () =>
+                {
+                    using (var configuration = new SimplePersistentCacheConfiguration(rootPath))
+                    using (new DirectoryPermissionsRevoker(Directory.GetCurrentDirectory(), FileSystemRights.Write))
+                    {
+                        // Call
+                        TestDelegate call = () => configuration.TestInitializeFromTileSource(tileSource);
+
+                        // Assert
+                        string expectedMessage = "Een kritieke fout is opgetreden bij het aanmaken van de cache.";
+                        string message = Assert.Throws<CannotCreateTileCacheException>(call).Message;
+                        Assert.AreEqual(message, expectedMessage);
+                    }
+                },
+                rootPath);
+        }
+
+        [Test]
+        public void InitializeFromTileSource_ConfigurationDisposed_ThrownObjectDisposedException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var tileProvider = mocks.Stub<ITileProvider>();
+            var tileSchema = mocks.Stub<ITileSchema>();
+            mocks.ReplayAll();
+
+            var rootPath = $"InitializeFromTileSource_ConfigurationDisposed_ThrownObjectDisposedException{Path.DirectorySeparatorChar}";
+
+            var configuration = new SimplePersistentCacheConfiguration(rootPath);
+            configuration.Dispose();
+
+            var tileSource = new TileSource(tileProvider, tileSchema);
+
+            DoAndCleanupAfter(
+                () =>
+                {
+                    // Call
+                    TestDelegate call = () => configuration.TestInitializeFromTileSource(tileSource);
+
+                    // Assert
+                    string objectName = Assert.Throws<ObjectDisposedException>(call).ObjectName;
+                    Assert.AreEqual("SimplePersistentCacheConfiguration", objectName);
+                },
+                rootPath);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Dispose_CalledMultipleTimes_DoesNotThrow()
+        {
+            // Setup
+            var configuration = new SimplePersistentCacheConfiguration("folder");
+
+            // Call
+            TestDelegate call = () =>
+            {
+                configuration.Dispose();
+                configuration.Dispose();
+            };
+
+            // Assert
+            Assert.DoesNotThrow(call);
+        }
+
+        private static void DoAndCleanupAfter(Action test, string rootPath)
+        {
             if (Directory.Exists(rootPath))
             {
                 Directory.Delete(rootPath, true);
@@ -91,16 +275,7 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile.Configurations
 
             try
             {
-                using (new DirectoryPermissionsRevoker(Directory.GetCurrentDirectory(), FileSystemRights.Write))
-                {
-                    // Call
-                    TestDelegate call = () => configuration.TestCreateTileCache();
-
-                    // Assert
-                    string expectedMessage = "Een kritieke fout is opgetreden bij het aanmaken van de cache.";
-                    string message = Assert.Throws<CannotCreateTileCacheException>(call).Message;
-                    Assert.AreEqual(message, expectedMessage);
-                }
+                test();
             }
             finally
             {
@@ -118,6 +293,21 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile.Configurations
             public IPersistentCache<byte[]> TestCreateTileCache()
             {
                 return CreateTileCache();
+            }
+
+            public void TestInitializeFromTileSource(ITileSource tileSource)
+            {
+                InitializeFromTileSource(tileSource);
+            }
+
+            public override IConfiguration Clone()
+            {
+                throw new NotImplementedException();
+            }
+
+            public override void Initialize()
+            {
+                throw new NotImplementedException();
             }
         }
     }

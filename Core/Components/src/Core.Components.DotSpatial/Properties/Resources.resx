@@ -126,7 +126,7 @@
   <data name="WorldFile_Not_invertable_transformation_arguments_error" xml:space="preserve">
     <value>Ongeldige transformatie parameters: transformatie moet omkeerbaar zijn.</value>
   </data>
-  <data name="WmtsLayerConfiguration_InitializeFromTileSource_TileSource_does_not_allow_access_to_provider" xml:space="preserve">
+  <data name="Configuration_InitializeFromTileSource_TileSource_does_not_allow_access_to_provider" xml:space="preserve">
     <value>Bron staat het niet toe om toegang te krijgen tot de kaart tegels.</value>
   </data>
   <data name="PersistentCacheConfiguration_CreateTileCache_Critical_error_while_creating_tile_cache" xml:space="preserve">

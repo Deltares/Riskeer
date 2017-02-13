@@ -110,6 +110,16 @@ namespace Core.Components.DotSpatial.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bron staat het niet toe om toegang te krijgen tot de kaart tegels..
+        /// </summary>
+        internal static string Configuration_InitializeFromTileSource_TileSource_does_not_allow_access_to_provider {
+            get {
+                return ResourceManager.GetString("Configuration_InitializeFromTileSource_TileSource_does_not_allow_access_to_provid" +
+                        "er", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Een kritieke fout is opgetreden bij het aanmaken van de cache..
         /// </summary>
         internal static string PersistentCacheConfiguration_CreateTileCache_Critical_error_while_creating_tile_cache {
@@ -153,16 +163,6 @@ namespace Core.Components.DotSpatial.Properties {
             get {
                 return ResourceManager.GetString("WmtsLayerConfiguration_GetConfiguredTileSource_Cannot_find_LayerId_0_at_WmtsUrl_1" +
                         "_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Bron staat het niet toe om toegang te krijgen tot de kaart tegels..
-        /// </summary>
-        internal static string WmtsLayerConfiguration_InitializeFromTileSource_TileSource_does_not_allow_access_to_provider {
-            get {
-                return ResourceManager.GetString("WmtsLayerConfiguration_InitializeFromTileSource_TileSource_does_not_allow_access_" +
-                        "to_provider", resourceCulture);
             }
         }
         

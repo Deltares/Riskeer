@@ -110,6 +110,7 @@
     <Compile Include="Layer\BruTile\Configurations\CannotReceiveTilesExceptionTest.cs" />
     <Compile Include="Layer\BruTile\Configurations\PersistentCacheConfigurationTest.cs" />
     <Compile Include="Layer\BruTile\Configurations\TileSourceFactoryTest.cs" />
+    <Compile Include="Layer\BruTile\Configurations\WellKnownTileSourceLayerConfigurationTest.cs" />
     <Compile Include="Layer\BruTile\Configurations\WmtsLayerConfigurationTest.cs" />
     <Compile Include="Layer\BruTile\Projections\ReprojectExtensionsTest.cs" />
     <Compile Include="Layer\BruTile\Projections\TileReprojectorTest.cs" />

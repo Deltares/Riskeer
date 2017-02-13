@@ -244,6 +244,29 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile.TileFetching
         }
 
         [Test]
+        public void GetTile_TileFetcherDisposed_ThrowObjectDisposedException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var tileProvider = mocks.Stub<ITileProvider>();
+            mocks.ReplayAll();
+
+            var tileFetcher = new AsyncTileFetcher(tileProvider, 1, 2);
+            tileFetcher.Dispose();
+
+            var tileInfo = new TileInfo();
+
+            // Call
+            TestDelegate call = () => tileFetcher.GetTile(tileInfo);
+
+            // Assert
+            string objectName = Assert.Throws<ObjectDisposedException>(call).ObjectName;
+            Assert.AreEqual("AsyncTileFetcher", objectName);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
         public void GivenTileFetcherWithoutCachedTile_WhenGettingSameTimeMultipleTimes_IgnoreDuplicateRequests()
         {
             // Given
@@ -416,6 +439,27 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile.TileFetching
         }
 
         [Test]
+        public void DropAllPendingTileRequests_TileFetcherDisposed_ThrowObjectDisposedException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var tileProvider = mocks.Stub<ITileProvider>();
+            mocks.ReplayAll();
+
+            var tileFetcher = new AsyncTileFetcher(tileProvider, 1, 2);
+            tileFetcher.Dispose();
+
+            // Call
+            TestDelegate call = () => tileFetcher.DropAllPendingTileRequests();
+
+            // Assert
+            string objectName = Assert.Throws<ObjectDisposedException>(call).ObjectName;
+            Assert.AreEqual("AsyncTileFetcher", objectName);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
         public void IsReady_TileFetcherIdle_ReturnTrue()
         {
             // Setup
@@ -462,6 +506,48 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile.TileFetching
                     mocks.VerifyAll();
                 }
             }
+        }
+
+        [Test]
+        public void IsRead_TileFetcherDisposed_ThrowObjetDisposedException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var tileProvider = mocks.Stub<ITileProvider>();
+            mocks.ReplayAll();
+
+            var tileFetcher = new AsyncTileFetcher(tileProvider, 1, 2);
+            tileFetcher.Dispose();
+
+            // Call
+            TestDelegate call = () => tileFetcher.IsReady();
+
+            // Assert
+            string objectName = Assert.Throws<ObjectDisposedException>(call).ObjectName;
+            Assert.AreEqual("AsyncTileFetcher", objectName);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Dispose_CalledMultipleTimes_DoesNotThrow()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var tileProvider = mocks.Stub<ITileProvider>();
+            mocks.ReplayAll();
+
+            var tileFetcher = new AsyncTileFetcher(tileProvider, 1, 2);
+
+            // Call
+            TestDelegate call = () =>
+            {
+                tileFetcher.Dispose();
+                tileFetcher.Dispose();
+            };
+
+            // Assert
+            Assert.DoesNotThrow(call);
         }
 
         /// <summary>

@@ -61,6 +61,10 @@ namespace Core.Components.DotSpatial.Layer.BruTile.Configurations
         /// Gets a deep copy of the configuration.
         /// </summary>
         /// <returns>The cloned configuration.</returns>
+        /// <exception cref="ObjectDisposedException">Thrown when calling this method while
+        /// this instance is disposed.</exception>
+        /// <exception cref="CannotCreateTileCacheException">Thrown when creating the file
+        /// cache failed.</exception>
         IConfiguration Clone();
 
         /// <summary>
@@ -72,6 +76,8 @@ namespace Core.Components.DotSpatial.Layer.BruTile.Configurations
         /// tile cache cannot be created.</exception>
         /// <exception cref="CannotReceiveTilesException">Thrown when <see cref="TileSource"/>
         /// doesn't allow for tiles to be received.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when calling this method while
+        /// this instance is disposed.</exception>
         void Initialize();
     }
 }

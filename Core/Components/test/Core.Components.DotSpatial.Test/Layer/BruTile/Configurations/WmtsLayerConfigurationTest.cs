@@ -131,7 +131,9 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile.Configurations
             using (new UseCustomTileSourceFactoryConfig(factory))
             {
                 // Call
-                using (WmtsLayerConfiguration configuration = WmtsLayerConfiguration.CreateInitializedConfiguration(targetMapData.SourceCapabilitiesUrl, targetMapData.SelectedCapabilityIdentifier, targetMapData.PreferredFormat))
+                using (WmtsLayerConfiguration configuration = WmtsLayerConfiguration.CreateInitializedConfiguration(targetMapData.SourceCapabilitiesUrl,
+                                                                                                                    targetMapData.SelectedCapabilityIdentifier,
+                                                                                                                    targetMapData.PreferredFormat))
                 {
                     // Assert
                     Assert.IsTrue(configuration.Initialized);
@@ -163,7 +165,9 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile.Configurations
             mocks.ReplayAll();
 
             using (new UseCustomTileSourceFactoryConfig(factory))
-            using (WmtsLayerConfiguration configuration = WmtsLayerConfiguration.CreateInitializedConfiguration(targetMapData.SourceCapabilitiesUrl, targetMapData.SelectedCapabilityIdentifier, targetMapData.PreferredFormat))
+            using (WmtsLayerConfiguration configuration = WmtsLayerConfiguration.CreateInitializedConfiguration(targetMapData.SourceCapabilitiesUrl,
+                                                                                                                targetMapData.SelectedCapabilityIdentifier,
+                                                                                                                targetMapData.PreferredFormat))
             {
                 // Call
                 IConfiguration clone = configuration.Clone();
@@ -176,6 +180,42 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile.Configurations
                 Assert.AreEqual(targetMapData.SelectedCapabilityIdentifier, clone.LegendText);
                 Assert.IsNull(clone.TileFetcher, "TileFetcher should be null because the clone hasn't been initialized yet.");
                 Assert.IsNull(clone.TileSource, "FileSource should be null because the clone hasn't been initialized yet.");
+            }
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Clone_ConfigurationDisposed_ThrowObjectDisposedException()
+        {
+            // Setup
+            var targetMapData = WmtsMapData.CreateAlternativePdokMapData();
+
+            IRequest nullRequest = null;
+            var tileSource = new HttpTileSource(TileSchemaFactory.CreateWmtsTileSchema(targetMapData),
+                                                nullRequest);
+            var tileSources = new ITileSource[]
+            {
+                tileSource
+            };
+
+            var mocks = new MockRepository();
+            var factory = mocks.Stub<ITileSourceFactory>();
+            factory.Stub(f => f.GetWmtsTileSources(targetMapData.SourceCapabilitiesUrl)).Return(tileSources);
+            mocks.ReplayAll();
+
+            using (new UseCustomTileSourceFactoryConfig(factory))
+            {
+                WmtsLayerConfiguration configuration = WmtsLayerConfiguration.CreateInitializedConfiguration(targetMapData.SourceCapabilitiesUrl,
+                                                                                                             targetMapData.SelectedCapabilityIdentifier,
+                                                                                                             targetMapData.PreferredFormat);
+                configuration.Dispose();
+
+                // Call
+                TestDelegate call = () => configuration.Clone();
+
+                // Assert
+                string objectName = Assert.Throws<ObjectDisposedException>(call).ObjectName;
+                Assert.AreEqual("WmtsLayerConfiguration", objectName);
             }
             mocks.VerifyAll();
         }
@@ -200,7 +240,9 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile.Configurations
             mocks.ReplayAll();
 
             using (new UseCustomTileSourceFactoryConfig(factory))
-            using (WmtsLayerConfiguration configuration = WmtsLayerConfiguration.CreateInitializedConfiguration(targetMapData.SourceCapabilitiesUrl, targetMapData.SelectedCapabilityIdentifier, targetMapData.PreferredFormat))
+            using (WmtsLayerConfiguration configuration = WmtsLayerConfiguration.CreateInitializedConfiguration(targetMapData.SourceCapabilitiesUrl,
+                                                                                                                targetMapData.SelectedCapabilityIdentifier,
+                                                                                                                targetMapData.PreferredFormat))
             {
                 // When
                 IConfiguration clone = configuration.Clone();
@@ -211,6 +253,42 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile.Configurations
                 Assert.AreEqual(targetMapData.SelectedCapabilityIdentifier, clone.LegendText);
                 Assert.IsTrue(clone.TileFetcher.IsReady());
                 Assert.AreSame(configuration.TileSource, clone.TileSource);
+            }
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Initialize_ConfigurationDisposed_ThrowsObjectDisposedException()
+        {
+            // Setup
+            var targetMapData = WmtsMapData.CreateAlternativePdokMapData();
+
+            IRequest nullRequest = null;
+            var tileSource = new HttpTileSource(TileSchemaFactory.CreateWmtsTileSchema(targetMapData),
+                                                nullRequest);
+            var tileSources = new ITileSource[]
+            {
+                tileSource
+            };
+
+            var mocks = new MockRepository();
+            var factory = mocks.Stub<ITileSourceFactory>();
+            factory.Stub(f => f.GetWmtsTileSources(targetMapData.SourceCapabilitiesUrl)).Return(tileSources);
+            mocks.ReplayAll();
+
+            using (new UseCustomTileSourceFactoryConfig(factory))
+            {
+                WmtsLayerConfiguration configuration = WmtsLayerConfiguration.CreateInitializedConfiguration(targetMapData.SourceCapabilitiesUrl,
+                                                                                                             targetMapData.SelectedCapabilityIdentifier,
+                                                                                                             targetMapData.PreferredFormat);
+                configuration.Dispose();
+
+                // Call
+                TestDelegate call = () => configuration.Initialize();
+
+                // Assert
+                string objectName = Assert.Throws<ObjectDisposedException>(call).ObjectName;
+                Assert.AreEqual("WmtsLayerConfiguration", objectName);
             }
             mocks.VerifyAll();
         }

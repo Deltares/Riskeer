@@ -21,8 +21,10 @@
 
 using System;
 using System.IO;
+using BruTile;
 using BruTile.Cache;
 using Core.Common.Utils;
+using Core.Components.DotSpatial.Layer.BruTile.TileFetching;
 using Core.Components.DotSpatial.Properties;
 
 namespace Core.Components.DotSpatial.Layer.BruTile.Configurations
@@ -34,9 +36,9 @@ namespace Core.Components.DotSpatial.Layer.BruTile.Configurations
     /// Original source: https://github.com/FObermaier/DotSpatial.Plugins/blob/master/DotSpatial.Plugins.BruTileLayer/Configuration/CacheConfiguration.cs
     /// Original license: http://www.apache.org/licenses/LICENSE-2.0.html
     /// </remarks>
-    public abstract class PersistentCacheConfiguration
+    public abstract class PersistentCacheConfiguration : IConfiguration
     {
-        protected readonly string persistentCacheDirectoryPath;
+        protected readonly string PersistentCacheDirectoryPath;
 
         /// <summary>
         /// Initialized a new instance of <see cref="PersistentCacheConfiguration"/>.
@@ -53,7 +55,82 @@ namespace Core.Components.DotSpatial.Layer.BruTile.Configurations
                                                           persistentCacheDirectoryPath),
                                             nameof(persistentCacheDirectoryPath));
             }
-            this.persistentCacheDirectoryPath = persistentCacheDirectoryPath;
+            PersistentCacheDirectoryPath = persistentCacheDirectoryPath;
+        }
+
+        public string LegendText { get; protected set; }
+        public ITileSource TileSource { get; private set; }
+        public ITileFetcher TileFetcher { get; private set; }
+        public bool Initialized { get; protected set; }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        public abstract IConfiguration Clone();
+
+        public abstract void Initialize();
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (IsDisposed)
+            {
+                return;
+            }
+
+            if (disposing)
+            {
+                TileFetcher?.Dispose();
+            }
+
+            IsDisposed = true;
+        }
+
+        /// <summary>
+        /// Initialized the configuration based on the given <see cref="ITileSource"/>.
+        /// </summary>
+        /// <param name="tileSource">The tile source to initialize for.</param>
+        /// <exception cref="CannotCreateTileCacheException">Thrown when a critical error
+        /// occurs when creating the tile cache.</exception>
+        /// <exception cref="CannotReceiveTilesException">Thrown when <paramref name="tileSource"/>
+        /// does not allow for tiles to be retrieved.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when calling this method while
+        /// this instance is disposed.</exception>
+        protected void InitializeFromTileSource(ITileSource tileSource)
+        {
+            ThrowExceptionIfDisposed();
+
+            TileSource = tileSource;
+            IPersistentCache<byte[]> tileCache = CreateTileCache();
+            try
+            {
+                ITileProvider provider = BruTileReflectionHelper.GetProviderFromTileSource(tileSource);
+                TileFetcher = new AsyncTileFetcher(provider,
+                                                   BruTileSettings.MemoryCacheMinimum,
+                                                   BruTileSettings.MemoryCacheMaximum,
+                                                   tileCache);
+            }
+            catch (Exception e) when (e is NotSupportedException || e is ArgumentException)
+            {
+                throw new CannotReceiveTilesException(Resources.Configuration_InitializeFromTileSource_TileSource_does_not_allow_access_to_provider, e);
+            }
+            Initialized = true;
+        }
+
+        /// <summary>
+        /// Thrown an <see cref="ObjectDisposedException"/> when <see cref="IsDisposed"/>
+        /// is true.
+        /// </summary>
+        /// <exception cref="ObjectDisposedException">Thrown when calling this method while
+        /// this instance is disposed.</exception>
+        protected void ThrowExceptionIfDisposed()
+        {
+            if (IsDisposed)
+            {
+                throw new ObjectDisposedException(GetType().Name);
+            }
         }
 
         /// <summary>
@@ -62,13 +139,17 @@ namespace Core.Components.DotSpatial.Layer.BruTile.Configurations
         /// <returns>The file cache.</returns>
         /// <exception cref="CannotCreateTileCacheException">Thrown when a critical error
         /// occurs when creating the tile cache.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when calling this method while
+        /// this instance is disposed.</exception>
         protected IPersistentCache<byte[]> CreateTileCache()
         {
-            if (!Directory.Exists(persistentCacheDirectoryPath))
+            ThrowExceptionIfDisposed();
+
+            if (!Directory.Exists(PersistentCacheDirectoryPath))
             {
                 try
                 {
-                    Directory.CreateDirectory(persistentCacheDirectoryPath);
+                    Directory.CreateDirectory(PersistentCacheDirectoryPath);
                 }
                 catch (Exception e) when (SupportedCreateDirectoryExceptions(e))
                 {
@@ -77,9 +158,11 @@ namespace Core.Components.DotSpatial.Layer.BruTile.Configurations
                 }
             }
 
-            return new FileCache(persistentCacheDirectoryPath, BruTileSettings.PersistentCacheFormat,
+            return new FileCache(PersistentCacheDirectoryPath, BruTileSettings.PersistentCacheFormat,
                                  TimeSpan.FromDays(BruTileSettings.PersistentCacheExpireInDays));
         }
+
+        private bool IsDisposed { get; set; }
 
         private static bool SupportedCreateDirectoryExceptions(Exception exception)
         {

@@ -50,16 +50,22 @@ namespace Core.Components.DotSpatial.Layer.BruTile.TileFetching
         /// <remarks>If no tile can be returned, you can use <see cref="TileReceived"/> and
         /// <see cref="QueueEmpty"/> events for handling tile retrieval once the queued
         /// request has been served.</remarks>
+        /// <exception cref="ObjectDisposedException">Thrown when calling this method while
+        /// this instance is disposed.</exception>
         byte[] GetTile(TileInfo tileInfo);
 
         /// <summary>
         /// Stops all pending tile requests.
+        /// <exception cref="ObjectDisposedException">Thrown when calling this method while
+        /// this instance is disposed.</exception>
         /// </summary>
         void DropAllPendingTileRequests();
 
         /// <summary>
         /// Determines if this instance is idle and has no tile requests unserved.
         /// </summary>
+        /// <exception cref="ObjectDisposedException">Thrown when calling this method while
+        /// this instance is disposed.</exception>
         bool IsReady();
     }
 }

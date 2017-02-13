@@ -24,9 +24,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using BruTile;
-using BruTile.Cache;
 using BruTile.Wmts;
-using Core.Components.DotSpatial.Layer.BruTile.TileFetching;
 using Core.Components.DotSpatial.Properties;
 
 namespace Core.Components.DotSpatial.Layer.BruTile.Configurations
@@ -38,12 +36,11 @@ namespace Core.Components.DotSpatial.Layer.BruTile.Configurations
     /// Original source: https://github.com/FObermaier/DotSpatial.Plugins/blob/master/DotSpatial.Plugins.BruTileLayer/Configuration/WmtsLayerConfiguration.cs
     /// Original license: http://www.apache.org/licenses/LICENSE-2.0.html
     /// </remarks>
-    public class WmtsLayerConfiguration : PersistentCacheConfiguration, IConfiguration
+    public class WmtsLayerConfiguration : PersistentCacheConfiguration
     {
         private readonly string capabilitiesUri;
         private readonly string capabilityIdentifier;
         private readonly string preferredFormat;
-        private ITileCache<byte[]> tileCache;
 
         /// <summary>
         /// Creates an instance of <see cref="WmtsLayerConfiguration"/>.
@@ -88,14 +85,6 @@ namespace Core.Components.DotSpatial.Layer.BruTile.Configurations
             InitializeFromTileSource(tileSource);
         }
 
-        public bool Initialized { get; private set; }
-
-        public string LegendText { get; }
-
-        public ITileSource TileSource { get; private set; }
-
-        public ITileFetcher TileFetcher { get; private set; }
-
         /// <summary>
         /// Creates a fully initialized instance of <see cref="WmtsLayerConfiguration"/>.
         /// </summary>
@@ -117,13 +106,17 @@ namespace Core.Components.DotSpatial.Layer.BruTile.Configurations
             return new WmtsLayerConfiguration(wmtsCapabilitiesUrl, tileSource);
         }
 
-        public IConfiguration Clone()
+        public override IConfiguration Clone()
         {
-            return new WmtsLayerConfiguration(capabilitiesUri, capabilityIdentifier, preferredFormat, persistentCacheDirectoryPath);
+            ThrowExceptionIfDisposed();
+
+            return new WmtsLayerConfiguration(capabilitiesUri, capabilityIdentifier, preferredFormat, PersistentCacheDirectoryPath);
         }
 
-        public void Initialize()
+        public override void Initialize()
         {
+            ThrowExceptionIfDisposed();
+
             if (Initialized)
             {
                 return;
@@ -132,11 +125,6 @@ namespace Core.Components.DotSpatial.Layer.BruTile.Configurations
             ITileSource tileSource = GetConfiguredTileSource(capabilitiesUri, capabilityIdentifier, preferredFormat);
 
             InitializeFromTileSource(tileSource);
-        }
-
-        public void Dispose()
-        {
-            TileFetcher?.Dispose();
         }
 
         /// <summary>
@@ -235,33 +223,6 @@ namespace Core.Components.DotSpatial.Layer.BruTile.Configurations
             }
 
             return Path.Combine(BruTileSettings.PersistentCacheDirectoryRoot, "Wmts", host, layerStyle, format);
-        }
-
-        /// <summary>
-        /// Initialized the configuration based on the given <see cref="ITileSource"/>.
-        /// </summary>
-        /// <param name="tileSource">The tile source to initialize for.</param>
-        /// <exception cref="CannotCreateTileCacheException">Thrown when a critical error
-        /// occurs when creating the tile cache.</exception>
-        /// <exception cref="CannotReceiveTilesException">Thrown when <paramref name="tileSource"/>
-        /// does not allow for tiles to be retrieved.</exception>
-        private void InitializeFromTileSource(ITileSource tileSource)
-        {
-            TileSource = tileSource;
-            tileCache = CreateTileCache();
-            try
-            {
-                ITileProvider provider = BruTileReflectionHelper.GetProviderFromTileSource(tileSource);
-                TileFetcher = new AsyncTileFetcher(provider,
-                                                   BruTileSettings.MemoryCacheMinimum,
-                                                   BruTileSettings.MemoryCacheMaximum,
-                                                   tileCache);
-            }
-            catch (Exception e) when (e is NotSupportedException || e is ArgumentException)
-            {
-                throw new CannotReceiveTilesException(Resources.WmtsLayerConfiguration_InitializeFromTileSource_TileSource_does_not_allow_access_to_provider, e);
-            }
-            Initialized = true;
         }
     }
 }

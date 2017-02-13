@@ -98,6 +98,7 @@
     <Compile Include="Layer\BruTile\Configurations\PersistentCacheConfiguration.cs" />
     <Compile Include="Layer\BruTile\Configurations\BruTileReflectionHelper.cs" />
     <Compile Include="Layer\BruTile\Configurations\TileSourceFactory.cs" />
+    <Compile Include="Layer\BruTile\Configurations\WellKnownTileSourceLayerConfiguration.cs" />
     <Compile Include="Layer\BruTile\Configurations\WmtsLayerConfiguration.cs" />
     <Compile Include="Layer\BruTile\Projections\ReprojectExtensions.cs" />
     <Compile Include="Layer\BruTile\Projections\TileReprojector.cs" />
