@@ -58,6 +58,10 @@
     <Compile Include="Importers\ISurfaceLineUpdateSurfaceLineStrategy.cs" />
     <Compile Include="Importers\StochasticSoilModelImporter.cs" />
     <Compile Include="Importers\StochasticSoilModelUpdateException.cs" />
+    <Compile Include="Readers\PipingCalculationGroupReader.cs" />
+    <Compile Include="Readers\IReadPipingCalculationItem.cs" />
+    <Compile Include="Readers\ReadPipingCalculation.cs" />
+    <Compile Include="Readers\ReadPipingCalculationGroup.cs" />
     <Compile Include="SoilProfile\LayerProperties.cs" />
     <Compile Include="SoilProfile\MechanismDatabaseColumns.cs" />
     <Compile Include="SoilProfile\MetaDataDatabaseColumns.cs" />
