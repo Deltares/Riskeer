@@ -125,7 +125,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             // Assert
             var exception = Assert.Throws<StochasticSoilModelUpdateException>(test);
-            Assert.AreEqual("Het bijwerken van de stochastische ondrgrondmodellen is mislukt.", exception.Message);
+            Assert.AreEqual("Het bijwerken van de stochastische ondergrondmodellen is mislukt.", exception.Message);
             Assert.IsInstanceOf<InvalidOperationException>(exception.InnerException);
         }
 

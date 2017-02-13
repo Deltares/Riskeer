@@ -393,7 +393,7 @@ namespace Ringtoets.Piping.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het bijwerken van de stochastische ondrgrondmodellen is mislukt..
+        ///   Looks up a localized string similar to Het bijwerken van de stochastische ondergrondmodellen is mislukt..
         /// </summary>
         public static string StochasticSoilModelUpdateDataStrategy_UpdateModelWithImportedData_Update_of_StochasticSoilModel_failed {
             get {

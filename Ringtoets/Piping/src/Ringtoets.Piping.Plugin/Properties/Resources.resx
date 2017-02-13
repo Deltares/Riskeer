@@ -214,7 +214,7 @@ Deze locatie met karakteristieke punten wordt overgeslagen.</value>
     <value>Geen bronbestand bekend om vanaf bij te werken.</value>
   </data>
   <data name="StochasticSoilModelUpdateDataStrategy_UpdateModelWithImportedData_Update_of_StochasticSoilModel_failed" xml:space="preserve">
-    <value>Het bijwerken van de stochastische ondrgrondmodellen is mislukt.</value>
+    <value>Het bijwerken van de stochastische ondergrondmodellen is mislukt.</value>
   </data>
   <data name="StochasticSoilModelChangeHandler_When_updating_StochasticSoilModel_definitions_assigned_to_calculations_output_will_be_cleared_confirm" xml:space="preserve">
     <value>Wanneer ondergrondschematisaties wijzigen als gevolg van het bijwerken, zullen de resultaten van berekeningen die deze ondergrondschematisaties worden verwijderd. Weet u zeker dat u wilt doorgaan?</value>
