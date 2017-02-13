@@ -73,12 +73,13 @@
     <Compile Include="Builders\SoilDatabaseQueryBuilderTest.cs" />
     <Compile Include="Exceptions\StochasticSoilProfileReadExceptionTest.cs" />
     <Compile Include="Exporters\CalculationGroupWriterTest.cs" />
+    <Compile Include="Importers\StochasticSoilModelUpdateExceptionTest.cs" />
     <Compile Include="SoilProfile\LayerPropertiesTest.cs" />
     <Compile Include="SoilProfile\SoilLayerColorConversionHelperTest.cs" />
     <Compile Include="SoilProfile\StochasticSoilModelReaderTest.cs" />
     <Compile Include="SoilProfile\StochasticSoilProfileReaderTest.cs" />
     <Compile Include="SoilProfile\SoilDatabaseVersionReaderTest.cs" />
-    <Compile Include="StochasticSoilModelImporterTest.cs" />
+    <Compile Include="Importers\StochasticSoilModelImporterTest.cs" />
     <Compile Include="SurfaceLines\CharacteristicPointsCsvReaderTest.cs" />
     <Compile Include="SurfaceLines\CharacteristicPointsTest.cs" />
     <Compile Include="Exceptions\PipingSoilProfileReadExceptionTest.cs" />

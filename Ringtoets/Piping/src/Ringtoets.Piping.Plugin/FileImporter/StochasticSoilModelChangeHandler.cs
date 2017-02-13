@@ -24,7 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Gui;
 using Ringtoets.Piping.Data;
-using Ringtoets.Piping.IO.Importer;
+using Ringtoets.Piping.IO.Importers;
 using Ringtoets.Piping.Plugin.Properties;
 
 namespace Ringtoets.Piping.Plugin.FileImporter

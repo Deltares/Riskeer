@@ -53,11 +53,11 @@
     <Compile Include="Builders\SoilDatabaseQueryBuilder.cs" />
     <Compile Include="Exceptions\StochasticSoilProfileReadException.cs" />
     <Compile Include="Exporters\CalculationGroupWriter.cs" />
-    <Compile Include="Importer\IStochasticSoilModelChangeHandler.cs" />
-    <Compile Include="Importer\IStochasticSoilModelUpdateModelStrategy.cs" />
-    <Compile Include="Importer\ISurfaceLineUpdateSurfaceLineStrategy.cs" />
-    <Compile Include="Importer\StochasticSoilModelImporter.cs" />
-    <Compile Include="Importer\StochasticSoilModelUpdateException.cs" />
+    <Compile Include="Importers\IStochasticSoilModelChangeHandler.cs" />
+    <Compile Include="Importers\IStochasticSoilModelUpdateModelStrategy.cs" />
+    <Compile Include="Importers\ISurfaceLineUpdateSurfaceLineStrategy.cs" />
+    <Compile Include="Importers\StochasticSoilModelImporter.cs" />
+    <Compile Include="Importers\StochasticSoilModelUpdateException.cs" />
     <Compile Include="SoilProfile\LayerProperties.cs" />
     <Compile Include="SoilProfile\MechanismDatabaseColumns.cs" />
     <Compile Include="SoilProfile\MetaDataDatabaseColumns.cs" />

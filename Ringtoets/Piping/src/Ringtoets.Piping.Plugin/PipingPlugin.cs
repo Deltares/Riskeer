@@ -47,7 +47,7 @@ using Ringtoets.Piping.Forms;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.PropertyClasses;
 using Ringtoets.Piping.Forms.Views;
-using Ringtoets.Piping.IO.Importer;
+using Ringtoets.Piping.IO.Importers;
 using Ringtoets.Piping.Plugin.FileImporter;
 using Ringtoets.Piping.Primitives;
 using Ringtoets.Piping.Service;

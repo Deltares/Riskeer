@@ -22,10 +22,9 @@
 using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Piping.IO.Importer;
-using Ringtoets.Piping.Plugin.FileImporter;
+using Ringtoets.Piping.IO.Importers;
 
-namespace Ringtoets.Piping.Plugin.Test.FileImporter
+namespace Ringtoets.Piping.IO.Test.Importers
 {
     [TestFixture]
     public class StochasticSoilModelUpdateExceptionTest :

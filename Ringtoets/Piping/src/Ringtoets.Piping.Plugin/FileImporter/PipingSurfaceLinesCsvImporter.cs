@@ -30,7 +30,7 @@ using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
 using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Piping.IO.Importer;
+using Ringtoets.Piping.IO.Importers;
 using Ringtoets.Piping.IO.SurfaceLines;
 using Ringtoets.Piping.Plugin.Properties;
 using Ringtoets.Piping.Primitives;

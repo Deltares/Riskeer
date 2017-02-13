@@ -25,7 +25,7 @@ using Core.Common.TestUtil;
 using Deltares.WTIPiping;
 using NUnit.Framework;
 using Ringtoets.Piping.Data;
-using Ringtoets.Piping.IO.Importer;
+using Ringtoets.Piping.IO.Importers;
 using Ringtoets.Piping.IO.TestUtil;
 using Ringtoets.Piping.KernelWrapper;
 using Ringtoets.Piping.Plugin.FileImporter;

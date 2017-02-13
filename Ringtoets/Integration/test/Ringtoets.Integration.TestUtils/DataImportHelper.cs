@@ -35,7 +35,7 @@ using Ringtoets.Common.IO.ReferenceLines;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Plugin.Handlers;
 using Ringtoets.Piping.Data;
-using Ringtoets.Piping.IO.Importer;
+using Ringtoets.Piping.IO.Importers;
 using Ringtoets.Piping.IO.TestUtil;
 using Ringtoets.Piping.Plugin.FileImporter;
 using Ringtoets.Piping.Primitives;

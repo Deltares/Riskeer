@@ -24,7 +24,7 @@ using System.Collections.Generic;
 using Core.Common.Base;
 using Ringtoets.Piping.Primitives;
 
-namespace Ringtoets.Piping.IO.Importer
+namespace Ringtoets.Piping.IO.Importers
 {
     /// <summary>
     /// Interface describing the method of updating the data model after new surface lines 

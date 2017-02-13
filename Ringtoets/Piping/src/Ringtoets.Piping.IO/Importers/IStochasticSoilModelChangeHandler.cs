@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.Piping.IO.Importer
+namespace Ringtoets.Piping.IO.Importers
 {
     /// <summary>
     /// Interface for verifying and handling changes as an effect of a change to the stochastic 

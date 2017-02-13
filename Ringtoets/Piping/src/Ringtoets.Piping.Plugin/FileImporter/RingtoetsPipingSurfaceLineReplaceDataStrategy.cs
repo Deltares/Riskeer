@@ -22,7 +22,7 @@
 using System;
 using System.Collections.Generic;
 using Core.Common.Base;
-using Ringtoets.Piping.IO.Importer;
+using Ringtoets.Piping.IO.Importers;
 using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.Plugin.FileImporter

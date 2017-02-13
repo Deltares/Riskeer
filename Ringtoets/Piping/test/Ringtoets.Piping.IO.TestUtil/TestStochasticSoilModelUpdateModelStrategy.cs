@@ -24,7 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using Ringtoets.Piping.Data;
-using Ringtoets.Piping.IO.Importer;
+using Ringtoets.Piping.IO.Importers;
 
 namespace Ringtoets.Piping.IO.TestUtil
 {

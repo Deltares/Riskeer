@@ -30,11 +30,11 @@ using Core.Common.Utils.Builders;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Piping.Data;
-using Ringtoets.Piping.IO.Importer;
+using Ringtoets.Piping.IO.Importers;
 using Ringtoets.Piping.IO.TestUtil;
 using Ringtoets.Piping.Primitives;
 
-namespace Ringtoets.Piping.IO.Test
+namespace Ringtoets.Piping.IO.Test.Importers
 {
     [TestFixture]
     public class StochasticSoilModelImporterTest

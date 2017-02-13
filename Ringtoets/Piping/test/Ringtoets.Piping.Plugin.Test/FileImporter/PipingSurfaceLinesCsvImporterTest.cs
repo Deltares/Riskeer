@@ -32,7 +32,7 @@ using Core.Common.Utils.Builders;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Piping.Data;
-using Ringtoets.Piping.IO.Importer;
+using Ringtoets.Piping.IO.Importers;
 using Ringtoets.Piping.Plugin.FileImporter;
 using Ringtoets.Piping.Primitives;
 using PipingIOResources = Ringtoets.Piping.IO.Properties.Resources;

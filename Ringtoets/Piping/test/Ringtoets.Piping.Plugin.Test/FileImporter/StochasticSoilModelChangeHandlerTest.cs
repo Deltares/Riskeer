@@ -25,7 +25,7 @@ using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Piping.Data;
-using Ringtoets.Piping.IO.Importer;
+using Ringtoets.Piping.IO.Importers;
 using Ringtoets.Piping.KernelWrapper.TestUtil;
 using Ringtoets.Piping.Plugin.FileImporter;
 

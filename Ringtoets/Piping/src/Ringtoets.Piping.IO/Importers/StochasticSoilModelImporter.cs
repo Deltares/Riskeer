@@ -35,7 +35,7 @@ using Ringtoets.Piping.IO.SoilProfile;
 using Ringtoets.Piping.Primitives;
 using RingtoestCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 
-namespace Ringtoets.Piping.IO.Importer
+namespace Ringtoets.Piping.IO.Importers
 {
     /// <summary>
     /// Imports .soil files (SqlLite database files) created with the D-Soil Model application.
