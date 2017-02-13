@@ -120,6 +120,7 @@ namespace Core.Common.Gui
             storageCommandHandler = new StorageCommandHandler(projectStore, projectFactory, this, MainWindow);
             importCommandHandler = new GuiImportHandler(MainWindow, Plugins.SelectMany(p => p.GetImportInfos()));
             exportCommandHandler = new GuiExportHandler(MainWindow, Plugins.SelectMany(p => p.GetExportInfos()));
+            updateCommandHandler = new GuiUpdateHandler(MainWindow, Plugins.SelectMany(p => p.GetUpdateInfos()));
 
             WindowsApplication.EnableVisualStyles();
             ViewPropertyEditor.ViewCommands = ViewCommands;
@@ -203,7 +204,8 @@ namespace Core.Common.Gui
 
             return new ContextMenuBuilder(applicationFeatureCommands,
                                           importCommandHandler,
-                                          exportCommandHandler,
+                                          exportCommandHandler, 
+                                          updateCommandHandler,
                                           ViewCommands,
                                           value,
                                           treeViewControl);
@@ -691,6 +693,7 @@ namespace Core.Common.Gui
         private readonly ViewCommandHandler viewCommandHandler;
         private readonly GuiImportHandler importCommandHandler;
         private readonly GuiExportHandler exportCommandHandler;
+        private readonly GuiUpdateHandler updateCommandHandler;
         private readonly IStorageCommands storageCommandHandler;
 
         public IApplicationFeatureCommands ApplicationCommands

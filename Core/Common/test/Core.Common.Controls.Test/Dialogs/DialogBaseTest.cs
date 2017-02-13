@@ -150,7 +150,8 @@ namespace Core.Common.Controls.Test.Dialogs
         {
             // Setup
             var mocks = new MockRepository();
-            var window = mocks.Stub<IWin32Window>();
+            var window = mocks.StrictMock<IWin32Window>();
+            window.Expect(w => w.Handle).Repeat.AtLeastOnce().Return(default(IntPtr));
             mocks.ReplayAll();
 
             Icon icon = IconStub();
@@ -180,7 +181,8 @@ namespace Core.Common.Controls.Test.Dialogs
         {
             // Setup
             var mocks = new MockRepository();
-            var window = mocks.Stub<IWin32Window>();
+            var window = mocks.StrictMock<IWin32Window>();
+            window.Expect(w => w.Handle).Repeat.AtLeastOnce().Return(default(IntPtr));
             mocks.ReplayAll();
 
             Icon icon = IconStub();

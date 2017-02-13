@@ -63,7 +63,7 @@ namespace Core.Common.Gui.Forms
         {
             get
             {
-                return SelectedItem != null ? SelectedItem.Tag : null;
+                return SelectedItem?.Tag;
             }
         }
 
@@ -74,7 +74,7 @@ namespace Core.Common.Gui.Forms
         {
             get
             {
-                return SelectedItem != null ? SelectedItem.Name : null;
+                return SelectedItem?.Name;
             }
         }
 

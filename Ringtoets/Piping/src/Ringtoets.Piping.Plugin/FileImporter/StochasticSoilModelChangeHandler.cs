@@ -22,11 +22,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Windows.Forms;
+using Core.Common.Gui;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.IO.Importer;
 using Ringtoets.Piping.Plugin.Properties;
-using CoreCommonBaseResources = Core.Common.Base.Properties.Resources;
 
 namespace Ringtoets.Piping.Plugin.FileImporter
 {
@@ -37,14 +36,20 @@ namespace Ringtoets.Piping.Plugin.FileImporter
     public class StochasticSoilModelChangeHandler : IStochasticSoilModelChangeHandler
     {
         private readonly PipingFailureMechanism failureMechanism;
+        private readonly IInquiryHelper inquiryHandler;
 
-        public StochasticSoilModelChangeHandler(PipingFailureMechanism failureMechanism)
+        public StochasticSoilModelChangeHandler(PipingFailureMechanism failureMechanism, IInquiryHelper inquiryHandler)
         {
             if (failureMechanism == null)
             {
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
+            if (inquiryHandler == null)
+            {
+                throw new ArgumentNullException(nameof(inquiryHandler));
+            }
             this.failureMechanism = failureMechanism;
+            this.inquiryHandler = inquiryHandler;
         }
 
         public bool RequireConfirmation()
@@ -61,12 +66,8 @@ namespace Ringtoets.Piping.Plugin.FileImporter
 
         public bool InquireConfirmation()
         {
-            DialogResult result = MessageBox.Show(
-                Resources.StochasticSoilModelChangeHandler_When_updating_StochasticSoilModel_definitions_assigned_to_calculations_output_will_be_cleared_confirm,
-                CoreCommonBaseResources.Confirm,
-                MessageBoxButtons.OKCancel);
-
-            return result == DialogResult.OK;
+            return inquiryHandler.InquireContinuation(
+                Resources.StochasticSoilModelChangeHandler_When_updating_StochasticSoilModel_definitions_assigned_to_calculations_output_will_be_cleared_confirm);
         }
     }
 }

@@ -484,10 +484,12 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 var appFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
                 var importHandler = mocks.Stub<IImportCommandHandler>();
                 var exportHandler = mocks.Stub<IExportCommandHandler>();
+                var updateHandler = mocks.Stub<IUpdateCommandHandler>();
                 var viewCommands = mocks.Stub<IViewCommands>();
                 var menuBuilderMock = new ContextMenuBuilder(appFeatureCommandHandler,
                                                              importHandler,
-                                                             exportHandler,
+                                                             exportHandler, 
+                                                             updateHandler,
                                                              viewCommands,
                                                              context,
                                                              treeViewControl);
@@ -532,10 +534,12 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 var appFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
                 var importHandler = mocks.Stub<IImportCommandHandler>();
                 var exportHandler = mocks.Stub<IExportCommandHandler>();
+                var updateHandler = mocks.Stub<IUpdateCommandHandler>();
                 var viewCommands = mocks.Stub<IViewCommands>();
                 var menuBuilderMock = new ContextMenuBuilder(appFeatureCommandHandler,
                                                              importHandler,
                                                              exportHandler,
+                                                             updateHandler,
                                                              viewCommands,
                                                              context,
                                                              treeViewControl);
@@ -581,10 +585,12 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 var appFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
                 var importHandler = mocks.Stub<IImportCommandHandler>();
                 var exportHandler = mocks.Stub<IExportCommandHandler>();
+                var updateHandler = mocks.Stub<IUpdateCommandHandler>();
                 var viewCommands = mocks.Stub<IViewCommands>();
                 var menuBuilderMock = new ContextMenuBuilder(appFeatureCommandHandler,
                                                              importHandler,
                                                              exportHandler,
+                                                             updateHandler,
                                                              viewCommands,
                                                              context,
                                                              treeViewControl);
@@ -636,10 +642,12 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 var appFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
                 var importHandler = mocks.Stub<IImportCommandHandler>();
                 var exportHandler = mocks.Stub<IExportCommandHandler>();
+                var updateHandler = mocks.Stub<IUpdateCommandHandler>();
                 var viewCommands = mocks.Stub<IViewCommands>();
                 var menuBuilderMock = new ContextMenuBuilder(appFeatureCommandHandler,
                                                              importHandler,
                                                              exportHandler,
+                                                             updateHandler,
                                                              viewCommands,
                                                              context,
                                                              treeViewControl);
@@ -701,10 +709,12 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 var appFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
                 var importHandler = mocks.Stub<IImportCommandHandler>();
                 var exportHandler = mocks.Stub<IExportCommandHandler>();
+                var updateHandler = mocks.Stub<IUpdateCommandHandler>();
                 var viewCommands = mocks.Stub<IViewCommands>();
                 var menuBuilderMock = new ContextMenuBuilder(appFeatureCommandHandler,
                                                              importHandler,
                                                              exportHandler,
+                                                             updateHandler,
                                                              viewCommands,
                                                              context,
                                                              treeViewControl);
@@ -768,10 +778,12 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 var appFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
                 var importHandler = mocks.Stub<IImportCommandHandler>();
                 var exportHandler = mocks.Stub<IExportCommandHandler>();
+                var updateHandler = mocks.Stub<IUpdateCommandHandler>();
                 var viewCommands = mocks.Stub<IViewCommands>();
                 var menuBuilderMock = new ContextMenuBuilder(appFeatureCommandHandler,
                                                              importHandler,
                                                              exportHandler,
+                                                             updateHandler,
                                                              viewCommands,
                                                              context,
                                                              treeViewControl);
@@ -817,10 +829,12 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 var appFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
                 var importHandler = mocks.Stub<IImportCommandHandler>();
                 var exportHandler = mocks.Stub<IExportCommandHandler>();
+                var updateHandler = mocks.Stub<IUpdateCommandHandler>();
                 var viewCommands = mocks.Stub<IViewCommands>();
                 var menuBuilderMock = new ContextMenuBuilder(appFeatureCommandHandler,
                                                              importHandler,
                                                              exportHandler,
+                                                             updateHandler,
                                                              viewCommands,
                                                              context,
                                                              treeViewControl);
@@ -872,10 +886,12 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 var appFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
                 var importHandler = mocks.Stub<IImportCommandHandler>();
                 var exportHandler = mocks.Stub<IExportCommandHandler>();
+                var updateHandler = mocks.Stub<IUpdateCommandHandler>();
                 var viewCommands = mocks.Stub<IViewCommands>();
                 var menuBuilderMock = new ContextMenuBuilder(appFeatureCommandHandler,
                                                              importHandler,
                                                              exportHandler,
+                                                             updateHandler,
                                                              viewCommands,
                                                              context,
                                                              treeViewControl);
@@ -926,11 +942,13 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 var appFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
                 var importHandler = mocks.Stub<IImportCommandHandler>();
                 var exportHandler = mocks.Stub<IExportCommandHandler>();
+                var updateHandler = mocks.Stub<IUpdateCommandHandler>();
                 var viewCommands = mocks.Stub<IViewCommands>();
                 var mainWindow = mocks.Stub<IMainWindow>();
                 var menuBuilderMock = new ContextMenuBuilder(appFeatureCommandHandler,
                                                              importHandler,
                                                              exportHandler,
+                                                             updateHandler,
                                                              viewCommands,
                                                              context,
                                                              treeViewControl);
@@ -996,10 +1014,12 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 var appFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
                 var importHandler = mocks.Stub<IImportCommandHandler>();
                 var exportHandler = mocks.Stub<IExportCommandHandler>();
+                var updateHandler = mocks.Stub<IUpdateCommandHandler>();
                 var viewCommands = mocks.Stub<IViewCommands>();
                 var menuBuilderMock = new ContextMenuBuilder(appFeatureCommandHandler,
                                                              importHandler,
                                                              exportHandler,
+                                                             updateHandler,
                                                              viewCommands,
                                                              context,
                                                              treeViewControl);
@@ -1046,10 +1066,12 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 var appFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
                 var importHandler = mocks.Stub<IImportCommandHandler>();
                 var exportHandler = mocks.Stub<IExportCommandHandler>();
+                var updateHandler = mocks.Stub<IUpdateCommandHandler>();
                 var viewCommands = mocks.Stub<IViewCommands>();
                 var menuBuilderMock = new ContextMenuBuilder(appFeatureCommandHandler,
                                                              importHandler,
                                                              exportHandler,
+                                                             updateHandler,
                                                              viewCommands,
                                                              context,
                                                              treeViewControl);
@@ -1099,10 +1121,12 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 var appFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
                 var importHandler = mocks.Stub<IImportCommandHandler>();
                 var exportHandler = mocks.Stub<IExportCommandHandler>();
+                var updateHandler = mocks.Stub<IUpdateCommandHandler>();
                 var viewCommands = mocks.Stub<IViewCommands>();
                 var menuBuilderMock = new ContextMenuBuilder(appFeatureCommandHandler,
                                                              importHandler,
-                                                             exportHandler,
+                                                             exportHandler, 
+                                                             updateHandler,
                                                              viewCommands,
                                                              context,
                                                              treeViewControl);

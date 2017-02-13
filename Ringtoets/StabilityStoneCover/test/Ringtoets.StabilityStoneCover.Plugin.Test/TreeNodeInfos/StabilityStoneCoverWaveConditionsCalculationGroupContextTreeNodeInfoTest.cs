@@ -170,7 +170,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                                                                                             assessmentSection);
 
             // Call
-            var children = info.ChildNodeObjects(groupContext);
+            object[] children = info.ChildNodeObjects(groupContext);
 
             // Assert
             CollectionAssert.IsEmpty(children);
@@ -195,7 +195,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                                                                                         assessmentSection);
 
             // Call
-            var children = info.ChildNodeObjects(nodeData).ToArray();
+            object[] children = info.ChildNodeObjects(nodeData).ToArray();
 
             // Assert
             Assert.AreEqual(failureMechanism.WaveConditionsCalculationGroup.Children.Count, children.Length);
@@ -227,12 +227,14 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             var importHandlerMock = mocks.StrictMock<IImportCommandHandler>();
             var exportHandlerMock = mocks.StrictMock<IExportCommandHandler>();
             exportHandlerMock.Expect(ehm => ehm.CanExportFrom(nodeData)).Return(true);
+            var updateHandlerMock = mocks.StrictMock<IUpdateCommandHandler>();
             var viewCommandsHandler = mocks.StrictMock<IViewCommands>();
             var treeViewControl = mocks.StrictMock<TreeViewControl>();
 
             var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler,
                                                      importHandlerMock,
                                                      exportHandlerMock,
+                                                     updateHandlerMock,
                                                      viewCommandsHandler,
                                                      nodeData,
                                                      treeViewControl);
@@ -337,12 +339,14 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             var importHandlerMock = mocks.StrictMock<IImportCommandHandler>();
             var exportHandlerMock = mocks.StrictMock<IExportCommandHandler>();
             exportHandlerMock.Expect(ehm => ehm.CanExportFrom(nodeData)).Return(true);
+            var updateHandlerMock = mocks.StrictMock<IUpdateCommandHandler>();
             var viewCommandsHandler = mocks.StrictMock<IViewCommands>();
             using (var treeViewControl = new TreeViewControl())
             {
                 var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler,
                                                          importHandlerMock,
                                                          exportHandlerMock,
+                                                         updateHandlerMock,
                                                          viewCommandsHandler,
                                                          nodeData,
                                                          treeViewControl);
@@ -441,12 +445,14 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             var importHandlerMock = mocks.StrictMock<IImportCommandHandler>();
             var exportHandlerMock = mocks.StrictMock<IExportCommandHandler>();
             exportHandlerMock.Expect(ehm => ehm.CanExportFrom(nodeData)).Return(true);
+            var updateHandlerMock = mocks.StrictMock<IUpdateCommandHandler>();
             var viewCommandsHandler = mocks.StrictMock<IViewCommands>();
             using (var treeViewControl = new TreeViewControl())
             {
                 var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler,
                                                          importHandlerMock,
                                                          exportHandlerMock,
+                                                         updateHandlerMock,
                                                          viewCommandsHandler,
                                                          nodeData,
                                                          treeViewControl);
@@ -783,7 +789,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                     // Assert
                     TestHelper.AssertLogMessages(test, m =>
                     {
-                        var messages = m.ToArray();
+                        string[] messages = m.ToArray();
                         Assert.AreEqual(4, messages.Length);
                         StringAssert.StartsWith("Validatie van 'A' gestart om: ", messages[0]);
                         StringAssert.StartsWith("Validatie van 'A' beëindigd om: ", messages[1]);
@@ -810,8 +816,8 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             observerB.Expect(o => o.UpdateObserver());
 
             var group = new CalculationGroup();
-            var calculationA = GetValidCalculation();
-            var calculationB = GetValidCalculation();
+            StabilityStoneCoverWaveConditionsCalculation calculationA = GetValidCalculation();
+            StabilityStoneCoverWaveConditionsCalculation calculationB = GetValidCalculation();
             calculationA.Attach(observerA);
             calculationB.Attach(observerB);
             group.Children.Add(calculationA);
@@ -853,7 +859,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                     // Assert
                     TestHelper.AssertLogMessages(test, m =>
                     {
-                        var messages = m.ToArray();
+                        string[] messages = m.ToArray();
                         Assert.AreEqual(54, messages.Length);
                         StringAssert.StartsWith("Berekening van 'Nieuwe berekening' gestart om: ", messages[2]);
                         StringAssert.StartsWith("Berekening van 'Nieuwe berekening' beëindigd om: ", messages[25]);
@@ -909,7 +915,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
                 {
                     // Call
-                    var clearAllOutputItem = contextMenu.Items[contextMenuClearOutputIndexNestedGroup];
+                    ToolStripItem clearAllOutputItem = contextMenu.Items[contextMenuClearOutputIndexNestedGroup];
 
                     // Assert
                     Assert.IsFalse(clearAllOutputItem.Enabled);
@@ -929,8 +935,8 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 failureMechanism, mocks, Path.Combine(hrdPath, "HRD ijsselmeer.sqlite"));
 
             var group = new CalculationGroup();
-            var calculationA = GetValidCalculation();
-            var calculationB = GetValidCalculation();
+            StabilityStoneCoverWaveConditionsCalculation calculationA = GetValidCalculation();
+            StabilityStoneCoverWaveConditionsCalculation calculationB = GetValidCalculation();
             group.Children.Add(calculationA);
             group.Children.Add(calculationB);
 
@@ -960,7 +966,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
                 {
                     // Call
-                    var clearAllOutputItem = contextMenu.Items[contextMenuClearOutputIndexNestedGroup];
+                    ToolStripItem clearAllOutputItem = contextMenu.Items[contextMenuClearOutputIndexNestedGroup];
 
                     // Assert
                     Assert.IsFalse(clearAllOutputItem.Enabled);
@@ -989,11 +995,11 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             }
 
             var group = new CalculationGroup();
-            var calculationA = GetValidCalculation();
+            StabilityStoneCoverWaveConditionsCalculation calculationA = GetValidCalculation();
             calculationA.Output = new StabilityStoneCoverWaveConditionsOutput(
                 Enumerable.Empty<WaveConditionsOutput>(),
                 Enumerable.Empty<WaveConditionsOutput>());
-            var calculationB = GetValidCalculation();
+            StabilityStoneCoverWaveConditionsCalculation calculationB = GetValidCalculation();
             calculationB.Output = new StabilityStoneCoverWaveConditionsOutput(
                 Enumerable.Empty<WaveConditionsOutput>(),
                 Enumerable.Empty<WaveConditionsOutput>());
@@ -1101,7 +1107,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
 
                     // Assert
                     Assert.AreEqual(2, group.Children.Count);
-                    var newlyAddedItem = group.Children.Last();
+                    ICalculationBase newlyAddedItem = group.Children.Last();
                     Assert.IsInstanceOf<CalculationGroup>(newlyAddedItem);
                     Assert.AreEqual("Nieuwe map (1)", newlyAddedItem.Name,
                                     "An item with the same name default name already exists, therefore '(1)' needs to be appended.");
@@ -1161,9 +1167,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
 
                 // When
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
-                {
                     contextMenu.Items[contextMenuAddGenerateCalculationsIndex].PerformClick();
-                }
 
                 // Then
                 Assert.AreEqual(2, group.Children.Count);
@@ -1221,9 +1225,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
 
                 // When
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
-                {
                     contextMenu.Items[contextMenuAddGenerateCalculationsIndex].PerformClick();
-                }
 
                 // Then
                 Assert.AreEqual(0, group.Children.Count);
@@ -1281,10 +1283,12 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 var appFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
                 var importHandler = mocks.Stub<IImportCommandHandler>();
                 var exportHandler = mocks.Stub<IExportCommandHandler>();
+                var updateHandler = mocks.Stub<IUpdateCommandHandler>();
                 var viewCommands = mocks.Stub<IViewCommands>();
                 var menuBuilderMock = new ContextMenuBuilder(appFeatureCommandHandler,
                                                              importHandler,
                                                              exportHandler,
+                                                             updateHandler,
                                                              viewCommands,
                                                              context,
                                                              treeViewControl);
@@ -1331,10 +1335,12 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 var appFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
                 var importHandler = mocks.Stub<IImportCommandHandler>();
                 var exportHandler = mocks.Stub<IExportCommandHandler>();
+                var updateHandler = mocks.Stub<IUpdateCommandHandler>();
                 var viewCommands = mocks.Stub<IViewCommands>();
                 var menuBuilderMock = new ContextMenuBuilder(appFeatureCommandHandler,
                                                              importHandler,
                                                              exportHandler,
+                                                             updateHandler,
                                                              viewCommands,
                                                              context,
                                                              treeViewControl);

@@ -20,10 +20,11 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Gui;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Ringtoets.Piping.Data;
-using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.IO.Importer;
 using Ringtoets.Piping.KernelWrapper.TestUtil;
 using Ringtoets.Piping.Plugin.FileImporter;
@@ -36,120 +37,115 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         [Test]
         public void Constructor_WithoutFailureMechanism_ThrowsArgumentNullException()
         {
+            // Setup
+            var mockRepository = new MockRepository();
+            var inquiryHandler = mockRepository.StrictMock<IInquiryHelper>();
+            mockRepository.ReplayAll();
+
             // Call
-            TestDelegate test = () => new StochasticSoilModelChangeHandler(null);
+            TestDelegate test = () => new StochasticSoilModelChangeHandler(null, inquiryHandler);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("failureMechanism", paramName);
+            mockRepository.VerifyAll();
         }
 
         [Test]
-        public void Constructor_WithFailureMechanism_ImplementsExpectedInterface()
+        public void Constructor_WithoutInquiryHandler_ThrowsArgumentNullException()
         {
             // Call
-            var handler = new StochasticSoilModelChangeHandler(new PipingFailureMechanism());
+            TestDelegate test = () => new StochasticSoilModelChangeHandler(new PipingFailureMechanism(), null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("inquiryHandler", paramName);
+        }
+
+        [Test]
+        public void Constructor_WithParameters_ImplementsExpectedInterface()
+        {
+            // Setup
+            var mockRepository = new MockRepository();
+            var inquiryHandler = mockRepository.StrictMock<IInquiryHelper>();
+            mockRepository.ReplayAll();
+
+            // Call
+            var handler = new StochasticSoilModelChangeHandler(new PipingFailureMechanism(), inquiryHandler);
 
             // Assert
             Assert.IsInstanceOf<IStochasticSoilModelChangeHandler>(handler);
+            mockRepository.VerifyAll();
         }
 
         [Test]
         public void RequireConfirmation_FailureMechanismWithCalculationWithoutOutput_ReturnFalse()
         {
             // Setup
+            var mockRepository = new MockRepository();
+            var inquiryHandler = mockRepository.StrictMock<IInquiryHelper>();
+            mockRepository.ReplayAll();
+
             var failureMechanism = new PipingFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(new PipingCalculationScenario(new GeneralPipingInput()));
 
-            var handler = new StochasticSoilModelChangeHandler(failureMechanism);
+            var handler = new StochasticSoilModelChangeHandler(failureMechanism, inquiryHandler);
 
             // Call
             bool requireConfirmation = handler.RequireConfirmation();
 
             // Assert
             Assert.IsFalse(requireConfirmation);
+            mockRepository.VerifyAll();
         }
 
         [Test]
         public void RequireConfirmation_FailureMechanismWithCalculationWithOutput_ReturnTrue()
         {
             // Setup
+            var mockRepository = new MockRepository();
+            var inquiryHandler = mockRepository.StrictMock<IInquiryHelper>();
+            mockRepository.ReplayAll();
+
             var failureMechanism = new PipingFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(new PipingCalculationScenario(new GeneralPipingInput())
             {
                 Output = new TestPipingOutput()
             });
 
-            var handler = new StochasticSoilModelChangeHandler(failureMechanism);
+            var handler = new StochasticSoilModelChangeHandler(failureMechanism, inquiryHandler);
 
             // Call
             bool requireConfirmation = handler.RequireConfirmation();
 
             // Assert
             Assert.IsTrue(requireConfirmation);
+            mockRepository.VerifyAll();
         }
 
         [Test]
-        public void InquireConfirmation_Always_ShowsConfirmationDialog()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void InquireConfirmation_Always_ShowsConfirmationDialogReturnResultOfInquiry(bool expectedResult)
         {
             // Setup
-            var handler = new StochasticSoilModelChangeHandler(new PipingFailureMechanism());
-
-            string dialogText = string.Empty; 
-
-            DialogBoxHandler = (name, wnd) =>
-            {
-                var tester = new MessageBoxTester(wnd);
-                dialogText = tester.Text;
-                tester.ClickCancel();
-            };
-
-            // Call
-            handler.InquireConfirmation();
-
-            // Assert
             const string message = "Wanneer ondergrondschematisaties wijzigen als gevolg van het bijwerken, " +
                                    "zullen de resultaten van berekeningen die deze ondergrondschematisaties worden " +
                                    "verwijderd. Weet u zeker dat u wilt doorgaan?";
-            Assert.AreEqual(message, dialogText);
-        }
 
-        [Test]
-        public void InquireConfirmation_PressOkInMessageBox_ReturnsTrue()
-        {
-            // Setup
-            var handler = new StochasticSoilModelChangeHandler(new PipingFailureMechanism());
-            
-            DialogBoxHandler = (name, wnd) =>
-            {
-                var tester = new MessageBoxTester(wnd);
-                tester.ClickOk();
-            };
+            var mockRepository = new MockRepository();
+            var inquiryHandler = mockRepository.StrictMock<IInquiryHelper>();
+            inquiryHandler.Expect(ih => ih.InquireContinuation(message)).Return(expectedResult);
+            mockRepository.ReplayAll();
+
+            var handler = new StochasticSoilModelChangeHandler(new PipingFailureMechanism(), inquiryHandler);
 
             // Call
-            var confirmed = handler.InquireConfirmation();
+            var result = handler.InquireConfirmation();
 
             // Assert
-            Assert.IsTrue(confirmed);
-        }
-
-        [Test]
-        public void InquireConfirmation_PressCancelInMessageBox_ReturnsFalse()
-        {
-            // Setup
-            var handler = new StochasticSoilModelChangeHandler(new PipingFailureMechanism());
-            
-            DialogBoxHandler = (name, wnd) =>
-            {
-                var tester = new MessageBoxTester(wnd);
-                tester.ClickCancel();
-            };
-
-            // Call
-            var confirmed = handler.InquireConfirmation();
-
-            // Assert
-            Assert.IsFalse(confirmed);
+            Assert.AreEqual(expectedResult, result);
+            mockRepository.VerifyAll();
         }
     }
 }

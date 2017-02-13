@@ -147,6 +147,19 @@ namespace Core.Common.Gui.TestUtil.Test.ContextMenu
         }
 
         [Test]
+        public void AddUpdateItem_WhenBuild_StubbedItemAddedToContextMenu()
+        {
+            // Setup
+            var builder = new CustomItemsOnlyContextMenuBuilder();
+
+            // Call
+            ContextMenuStrip result = builder.AddUpdateItem().Build();
+
+            // Assert
+            AssertStubbedContextMenuItem(result);
+        }
+
+        [Test]
         public void AddCustomImportItem_WhenBuild_StubbedItemAddedToContextMenu()
         {
             // Setup

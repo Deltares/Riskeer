@@ -181,6 +181,9 @@
   <data name="GuiImportHandler_GetSupportedImporterForTargetType_No_importer_available_for_this_item_0_" xml:space="preserve">
     <value>Geen enkele 'Importer' is beschikbaar voor dit element ({0}).</value>
   </data>
+  <data name="GuiUpdateHandler_GetSupportedUpdaterForTargetType_No_updater_available_for_this_item_0_" xml:space="preserve">
+    <value>Geen enkele 'Updater' is beschikbaar voor dit element ({0}).</value>
+  </data>
   <data name="DocumentViewController_OpenViewForData_No_view_registered_for_0_" xml:space="preserve">
     <value>Geen documentvenster geregistreerd voor: {0}.</value>
   </data>
@@ -274,6 +277,9 @@
   <data name="GuiImportHandler_GetSupportedImporterForTargetType_No_importer_available_for_this_item" xml:space="preserve">
     <value>Geen enkele 'Importer' is beschikbaar voor dit element.</value>
   </data>
+  <data name="GuiUpdateHandler_GetSupportedUpdaterForTargetType_No_updater_available_for_this_item" xml:space="preserve">
+    <value>Geen enkele 'Updater' is beschikbaar voor dit element.</value>
+  </data>
   <data name="Ribbon_Exit" xml:space="preserve">
     <value>Afsluiten</value>
   </data>
@@ -291,6 +297,9 @@
   </data>
   <data name="GuiImportHandler_GetSupportedImporterForTargetType_Data_Import" xml:space="preserve">
     <value>Importeren gegevens</value>
+  </data>
+  <data name="GuiUpdateHandler_GetSupportedUpdaterForTargetType_Data_Update" xml:space="preserve">
+    <value>Bijwerken gegevens</value>
   </data>
   <data name="icon_clear_all_messages" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icon_clear_all_messages.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -412,6 +421,9 @@
   <data name="GuiImportHandler_GetSupportedImporterForTargetType_Error" xml:space="preserve">
     <value>Fout</value>
   </data>
+  <data name="GuiUpdateHandler_GetSupportedUpdaterForTargetType_Error" xml:space="preserve">
+    <value>Fout</value>
+  </data>
   <data name="FailureMechanismContributionView_GridColumn_ProbabilitySpace" xml:space="preserve">
     <value>Faalkansruimte [1/jaar]</value>
   </data>
@@ -505,6 +517,9 @@
   <data name="GuiContextMenuItemFactory_Can_not_create_gui_context_menu_items_without_export_handler" xml:space="preserve">
     <value>Kan geen 'IExportCommandHandler'-afhankelijk element in het contextmenu creëren zonder een 'IExportCommandHandler'.</value>
   </data>
+  <data name="GuiContextMenuItemFactory_Can_not_create_gui_context_menu_items_without_update_handler" xml:space="preserve">
+    <value>Kan geen 'IUpdateCommandHandler'-afhankelijk element in het contextmenu creëren zonder een 'IUpdateCommandHandler'.</value>
+  </data>
   <data name="GuiContextMenuItemFactory_Can_not_create_gui_context_menu_items_without_view_commands" xml:space="preserve">
     <value>Kan geen 'IViewCommands'-afhankelijk element in het contextmenu creëren zonder een 'IViewCommands'.</value>
   </data>
@@ -553,6 +568,9 @@
   <data name="GuiImportHandler_GetSupportedImporterUsingDialog_Select_importer" xml:space="preserve">
     <value>Kies wat u wilt importeren</value>
   </data>
+  <data name="GuiUpdateHandler_GetSupportedUpdaterUsingDialog_Select_updater" xml:space="preserve">
+    <value>Kies wat u wilt bijwerken</value>
+  </data>
   <data name="SaveFileDialog_Title" xml:space="preserve">
     <value>Opslaan als</value>
   </data>
@@ -567,5 +585,14 @@
   </data>
   <data name="DeleteChildren_WithoutChildren_ToolTip" xml:space="preserve">
     <value>Er zijn geen onderliggende elementen om te verwijderen.</value>
+  </data>
+  <data name="Update" xml:space="preserve">
+    <value>&amp;Bijwerken...</value>
+  </data>
+  <data name="Update_ToolTip" xml:space="preserve">
+    <value>Werk de geïmporteerde gegevens bij met nieuwe gegevens vanuit een bestand.</value>
+  </data>
+  <data name="RefreshIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\table_refresh.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

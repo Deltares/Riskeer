@@ -23,6 +23,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Base.IO;
 using Core.Common.Base.Service;
 using Core.Common.Gui.Forms;
 using Core.Common.Gui.Forms.ProgressDialog;
@@ -122,21 +123,49 @@ namespace Core.Common.Gui.Commands
 
         private void ImportItemsUsingDialog(ImportInfo importInfo, object target)
         {
+            FileDialogResult filePathSelection = GetFilePath(importInfo.FileFilter);
+
+            if (filePathSelection.FileSelected && importInfo.VerifyUpdates(target))
+            {
+                RunImportActivity(importInfo.CreateFileImporter(target, filePathSelection.FileName), importInfo.Name);
+            }
+        }
+
+        private void RunImportActivity(IFileImporter importer, string importName)
+        {
+            log.Info(Resources.GuiImportHandler_ImportItemsUsingDialog_Start_importing_data);
+
+            var activity = new FileImportActivity(importer, importName);
+            ActivityProgressDialogRunner.Run(dialogParent, activity);
+        }
+
+        private static FileDialogResult GetFilePath(string fileFilter)
+        {
             using (var dialog = new OpenFileDialog
             {
-                Multiselect = true,
-                Filter = importInfo.FileFilter,
+                Multiselect = false,
+                Filter = fileFilter,
                 Title = Resources.OpenFileDialog_Title
             })
             {
-                if (dialog.ShowDialog(dialogParent) == DialogResult.OK)
-                {
-                    log.Info(Resources.GuiImportHandler_ImportItemsUsingDialog_Start_importing_data);
+                DialogResult result = dialog.ShowDialog();
+                bool fileSelected = result.Equals(DialogResult.OK);
 
-                    FileImportActivity[] importActivitiesToRun = dialog.FileNames.Select(f => new FileImportActivity(importInfo.CreateFileImporter(target, f), importInfo.Name)).ToArray();
-                    ActivityProgressDialogRunner.Run(dialogParent, importActivitiesToRun);
-                }
+                return new FileDialogResult(fileSelected, dialog.FileName);
             }
+        }
+
+        private class FileDialogResult
+        {
+            public FileDialogResult(bool fileSelected, string fileName)
+            {
+                FileSelected = fileSelected;
+                FileName = fileName;
+            }
+
+            public string FileName { get; }
+
+            public bool FileSelected { get; }
         }
     }
 }

@@ -720,6 +720,16 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kan geen &apos;IUpdateCommandHandler&apos;-afhankelijk element in het contextmenu creëren zonder een &apos;IUpdateCommandHandler&apos;..
+        /// </summary>
+        public static string GuiContextMenuItemFactory_Can_not_create_gui_context_menu_items_without_update_handler {
+            get {
+                return ResourceManager.GetString("GuiContextMenuItemFactory_Can_not_create_gui_context_menu_items_without_update_ha" +
+                        "ndler", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kan geen &apos;IViewCommands&apos;-afhankelijk element in het contextmenu creëren zonder een &apos;IViewCommands&apos;..
         /// </summary>
         public static string GuiContextMenuItemFactory_Can_not_create_gui_context_menu_items_without_view_commands {
@@ -884,6 +894,53 @@ namespace Core.Common.Gui.Properties {
         public static string GuiImportHandler_ImportItemsUsingDialog_Start_importing_data {
             get {
                 return ResourceManager.GetString("GuiImportHandler_ImportItemsUsingDialog_Start_importing_data", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bijwerken gegevens.
+        /// </summary>
+        public static string GuiUpdateHandler_GetSupportedUpdaterForTargetType_Data_Update {
+            get {
+                return ResourceManager.GetString("GuiUpdateHandler_GetSupportedUpdaterForTargetType_Data_Update", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fout.
+        /// </summary>
+        public static string GuiUpdateHandler_GetSupportedUpdaterForTargetType_Error {
+            get {
+                return ResourceManager.GetString("GuiUpdateHandler_GetSupportedUpdaterForTargetType_Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Geen enkele &apos;Updater&apos; is beschikbaar voor dit element..
+        /// </summary>
+        public static string GuiUpdateHandler_GetSupportedUpdaterForTargetType_No_updater_available_for_this_item {
+            get {
+                return ResourceManager.GetString("GuiUpdateHandler_GetSupportedUpdaterForTargetType_No_updater_available_for_this_i" +
+                        "tem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Geen enkele &apos;Updater&apos; is beschikbaar voor dit element ({0})..
+        /// </summary>
+        public static string GuiUpdateHandler_GetSupportedUpdaterForTargetType_No_updater_available_for_this_item_0_ {
+            get {
+                return ResourceManager.GetString("GuiUpdateHandler_GetSupportedUpdaterForTargetType_No_updater_available_for_this_i" +
+                        "tem_0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kies wat u wilt bijwerken.
+        /// </summary>
+        public static string GuiUpdateHandler_GetSupportedUpdaterUsingDialog_Select_updater {
+            get {
+                return ResourceManager.GetString("GuiUpdateHandler_GetSupportedUpdaterUsingDialog_Select_updater", resourceCulture);
             }
         }
         
@@ -1102,6 +1159,16 @@ namespace Core.Common.Gui.Properties {
             get {
                 return ResourceManager.GetString("PropertyResolver_PropertyResolver_Cannot_create_PropertyResolver_without_list_of_" +
                         "PropertyInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap RefreshIcon {
+            get {
+                object obj = ResourceManager.GetObject("RefreshIcon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -1477,6 +1544,24 @@ namespace Core.Common.Gui.Properties {
         public static string StorageCommandHandler_Saving_project_failed {
             get {
                 return ResourceManager.GetString("StorageCommandHandler_Saving_project_failed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &amp;Bijwerken....
+        /// </summary>
+        public static string Update {
+            get {
+                return ResourceManager.GetString("Update", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Werk de geïmporteerde gegevens bij met nieuwe gegevens vanuit een bestand..
+        /// </summary>
+        public static string Update_ToolTip {
+            get {
+                return ResourceManager.GetString("Update_ToolTip", resourceCulture);
             }
         }
     }

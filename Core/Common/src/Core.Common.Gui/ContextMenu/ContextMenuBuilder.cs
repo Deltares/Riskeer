@@ -42,25 +42,26 @@ namespace Core.Common.Gui.ContextMenu
         /// Creates a new instance of <see cref="ContextMenuBuilder"/>.
         /// </summary>
         /// <param name="featureCommandHandler">The <see cref="IApplicationFeatureCommands"/> from which to obtain
-        /// information to render and bind actions to the items of the <see cref="ContextMenu"/>. If <c>null</c>,
-        /// this builder will not render items which require this type of information.</param>
+        ///     information to render and bind actions to the items of the <see cref="ContextMenu"/>. If <c>null</c>,
+        ///     this builder will not render items which require this type of information.</param>
         /// <param name="importCommandHandler">The <see cref="IImportCommandHandler"/> from which to obtain
-        /// information to render and bind actions to the items of the <see cref="ContextMenu"/>. If <c>null</c>,
-        /// this builder will not render items which require this type of information.</param>
+        ///     information to render and bind actions to the items of the <see cref="ContextMenu"/>. If <c>null</c>,
+        ///     this builder will not render items which require this type of information.</param>
         /// <param name="exportCommandHandler">The <see cref="IExportCommandHandler"/> from which to obtain
-        /// information to render and bind actions to the items of the <see cref="ContextMenu"/>. If <c>null</c>,
-        /// this builder will not render items which require this type of information.</param>
+        ///     information to render and bind actions to the items of the <see cref="ContextMenu"/>. If <c>null</c>,
+        ///     this builder will not render items which require this type of information.</param>
+        /// <param name="updateCommandHandler"></param>
         /// <param name="viewCommands">The <see cref="IViewCommands"/> from which to obtain information to render
-        /// and bind actions to the items of the <see cref="ContextMenu"/>. If <c>null</c>, this builder will not
-        /// render items which require this type of information.</param>
+        ///     and bind actions to the items of the <see cref="ContextMenu"/>. If <c>null</c>, this builder will not
+        ///     render items which require this type of information.</param>
         /// <param name="dataValue">The data object for which to create a <see cref="ContextMenuStrip"/>.</param>
         /// <param name="treeViewControl">The <see cref="TreeViewControl"/> to use while executing the <see cref="ContextMenuStrip"/> actions.</param>
         /// <exception cref="ContextMenuBuilderException">Thrown when any input argument is <c>null</c>.</exception>
         public ContextMenuBuilder(IApplicationFeatureCommands featureCommandHandler,
                                   IImportCommandHandler importCommandHandler,
                                   IExportCommandHandler exportCommandHandler,
-                                  IViewCommands viewCommands,
-                                  object dataValue,
+                                  IUpdateCommandHandler updateCommandHandler,
+                                  IViewCommands viewCommands, object dataValue,
                                   TreeViewControl treeViewControl)
         {
             try
@@ -68,6 +69,7 @@ namespace Core.Common.Gui.ContextMenu
                 guiItemsFactory = new GuiContextMenuItemFactory(featureCommandHandler,
                                                                 importCommandHandler,
                                                                 exportCommandHandler,
+                                                                updateCommandHandler,
                                                                 viewCommands,
                                                                 dataValue);
 
@@ -125,6 +127,12 @@ namespace Core.Common.Gui.ContextMenu
         public IContextMenuBuilder AddImportItem()
         {
             AddItem(guiItemsFactory.CreateImportItem());
+            return this;
+        }
+
+        public IContextMenuBuilder AddUpdateItem()
+        {
+            AddItem(guiItemsFactory.CreateUpdateItem());
             return this;
         }
 

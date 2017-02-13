@@ -394,6 +394,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             var applicationFeatureCommandHandlerStub = mocks.Stub<IApplicationFeatureCommands>();
             var importHandlerMock = mocks.StrictMock<IImportCommandHandler>();
             var exportHandlerMock = mocks.StrictMock<IExportCommandHandler>();
+            var updateHandlerMock = mocks.StrictMock<IUpdateCommandHandler>();
             var viewCommandsHandlerMock = mocks.StrictMock<IViewCommands>();
 
             using (var treeViewControl = new TreeViewControl())
@@ -401,6 +402,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                 var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandlerStub,
                                                          importHandlerMock,
                                                          exportHandlerMock,
+                                                         updateHandlerMock,
                                                          viewCommandsHandlerMock,
                                                          nodeData,
                                                          treeViewControl);
@@ -446,13 +448,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             var applicationFeatureCommandHandlerStub = mocks.Stub<IApplicationFeatureCommands>();
             var importHandlerMock = mocks.StrictMock<IImportCommandHandler>();
             var exportHandlerMock = mocks.StrictMock<IExportCommandHandler>();
+            var updateHandlerMock = mocks.StrictMock<IUpdateCommandHandler>();
             var viewCommandsHandlerMock = mocks.StrictMock<IViewCommands>();
 
             using (var treeViewControl = new TreeViewControl())
             {
                 var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandlerStub,
                                                          importHandlerMock,
-                                                         exportHandlerMock,
+                                                         exportHandlerMock, 
+                                                         updateHandlerMock,
                                                          viewCommandsHandlerMock,
                                                          nodeData,
                                                          treeViewControl);
@@ -593,6 +597,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             var applicationFeatureCommandHandlerStub = mocks.Stub<IApplicationFeatureCommands>();
             var importHandlerMock = mocks.StrictMock<IImportCommandHandler>();
             var exportHandlerMock = mocks.StrictMock<IExportCommandHandler>();
+            var updateHandlerMock = mocks.StrictMock<IUpdateCommandHandler>();
             var viewCommandsHandlerMock = mocks.StrictMock<IViewCommands>();
 
             using (var treeViewControl = new TreeViewControl())
@@ -600,6 +605,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                 var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandlerStub,
                                                          importHandlerMock,
                                                          exportHandlerMock,
+                                                         updateHandlerMock,
                                                          viewCommandsHandlerMock,
                                                          nodeData,
                                                          treeViewControl);
@@ -645,6 +651,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             var applicationFeatureCommandHandlerStub = mocks.Stub<IApplicationFeatureCommands>();
             var importHandlerMock = mocks.StrictMock<IImportCommandHandler>();
             var exportHandlerMock = mocks.StrictMock<IExportCommandHandler>();
+            var updateHandlerMock = mocks.StrictMock<IUpdateCommandHandler>();
             var viewCommandsHandlerMock = mocks.StrictMock<IViewCommands>();
 
             using (var treeViewControl = new TreeViewControl())
@@ -652,6 +659,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                 var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandlerStub,
                                                          importHandlerMock,
                                                          exportHandlerMock,
+                                                         updateHandlerMock,
                                                          viewCommandsHandlerMock,
                                                          nodeData,
                                                          treeViewControl);

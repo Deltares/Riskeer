@@ -316,6 +316,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             var applicationFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
             var importCommandHandler = mocks.Stub<IImportCommandHandler>();
             var exportCommandHandler = mocks.Stub<IExportCommandHandler>();
+            var updateCommandHandler = mocks.Stub<IUpdateCommandHandler>();
             var viewCommandsHandler = mocks.Stub<IViewCommands>();
 
             using (var treeViewControl = new TreeViewControl())
@@ -323,6 +324,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler,
                                                          importCommandHandler,
                                                          exportCommandHandler,
+                                                         updateCommandHandler,
                                                          viewCommandsHandler,
                                                          failureMechanismContext,
                                                          treeViewControl);

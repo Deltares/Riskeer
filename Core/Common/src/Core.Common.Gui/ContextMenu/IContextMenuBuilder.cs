@@ -79,6 +79,12 @@ namespace Core.Common.Gui.ContextMenu
         IContextMenuBuilder AddImportItem();
 
         /// <summary>
+        /// Adds an item to the <see cref="ContextMenuStrip"/>, which updates the data of the <see cref="TreeNode"/>.
+        /// </summary>
+        /// <returns>The <see cref="IContextMenuBuilder"/> itself.</returns>
+        IContextMenuBuilder AddUpdateItem();
+
+        /// <summary>
         /// Adds an item to the <see cref="ContextMenuStrip"/>, which imports to the data of the <see cref="TreeNode"/>.
         /// </summary>
         /// <param name="text">The text of the import item.</param>

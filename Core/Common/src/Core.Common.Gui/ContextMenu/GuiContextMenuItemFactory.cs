@@ -35,6 +35,7 @@ namespace Core.Common.Gui.ContextMenu
         private readonly IApplicationFeatureCommands applicationFeatureCommandHandler;
         private readonly IImportCommandHandler importCommandHandler;
         private readonly IExportCommandHandler exportCommandHandler;
+        private readonly IUpdateCommandHandler updateCommandHandler;
         private readonly IViewCommands viewCommands;
         private readonly object dataObject;
 
@@ -54,6 +55,7 @@ namespace Core.Common.Gui.ContextMenu
         public GuiContextMenuItemFactory(IApplicationFeatureCommands applicationFeatureCommandHandler,
                                          IImportCommandHandler importCommandHandler,
                                          IExportCommandHandler exportCommandHandler,
+                                         IUpdateCommandHandler updateCommandHandler,
                                          IViewCommands viewCommandsHandler,
                                          object dataObject)
         {
@@ -72,6 +74,11 @@ namespace Core.Common.Gui.ContextMenu
                 throw new ArgumentNullException(nameof(exportCommandHandler),
                                                 Resources.GuiContextMenuItemFactory_Can_not_create_gui_context_menu_items_without_export_handler);
             }
+            if (updateCommandHandler == null)
+            {
+                throw new ArgumentNullException(nameof(updateCommandHandler),
+                                                Resources.GuiContextMenuItemFactory_Can_not_create_gui_context_menu_items_without_update_handler);
+            }
             if (viewCommandsHandler == null)
             {
                 throw new ArgumentNullException(nameof(viewCommandsHandler),
@@ -85,6 +92,7 @@ namespace Core.Common.Gui.ContextMenu
             this.applicationFeatureCommandHandler = applicationFeatureCommandHandler;
             this.importCommandHandler = importCommandHandler;
             this.exportCommandHandler = exportCommandHandler;
+            this.updateCommandHandler = updateCommandHandler;
             viewCommands = viewCommandsHandler;
             this.dataObject = dataObject;
         }
@@ -135,6 +143,25 @@ namespace Core.Common.Gui.ContextMenu
         public ToolStripItem CreateImportItem()
         {
             return CreateImportItem(Resources.Import, Resources.Import_ToolTip, Resources.ImportIcon);
+        }
+
+        /// <summary>
+        /// Creates a <see cref="ToolStripItem"/> which is bound to the action of updating
+        /// the data of the given <see cref="TreeNode"/>.
+        /// </summary>
+        /// <returns>The created <see cref="ToolStripItem"/>.</returns>
+        public ToolStripItem CreateUpdateItem()
+        {
+            bool canImport = updateCommandHandler.CanUpdateOn(dataObject);
+            var newItem = new ToolStripMenuItem(Resources.Update)
+            {
+                ToolTipText = Resources.Update_ToolTip,
+                Image = Resources.RefreshIcon,
+                Enabled = canImport
+            };
+            newItem.Click += (s, e) => updateCommandHandler.UpdateOn(dataObject);
+
+            return newItem;
         }
 
         /// <summary>

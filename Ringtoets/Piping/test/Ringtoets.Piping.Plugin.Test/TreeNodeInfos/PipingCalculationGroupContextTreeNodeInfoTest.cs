@@ -203,12 +203,14 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             var applicationFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
             var importHandlerMock = mocks.StrictMock<IImportCommandHandler>();
             var exportHandlerMock = mocks.StrictMock<IExportCommandHandler>();
+            var updateHandlerMock = mocks.StrictMock<IUpdateCommandHandler>();
             var viewCommandsHandler = mocks.StrictMock<IViewCommands>();
             var treeViewControl = mocks.StrictMock<TreeViewControl>();
 
             var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler,
                                                      importHandlerMock,
                                                      exportHandlerMock,
+                                                     updateHandlerMock,
                                                      viewCommandsHandler,
                                                      nodeData,
                                                      treeViewControl);
@@ -308,6 +310,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             var applicationFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
             var importHandlerMock = mocks.StrictMock<IImportCommandHandler>();
             var exportHandlerMock = mocks.StrictMock<IExportCommandHandler>();
+            var updateHandlerMock = mocks.StrictMock<IUpdateCommandHandler>();
 
             var viewCommandsHandler = mocks.StrictMock<IViewCommands>();
             viewCommandsHandler.Expect(vc => vc.CanOpenViewFor(nodeData)).Return(true);
@@ -317,6 +320,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler,
                                                          importHandlerMock,
                                                          exportHandlerMock,
+                                                         updateHandlerMock,
                                                          viewCommandsHandler,
                                                          nodeData,
                                                          treeViewControl);

@@ -28,10 +28,12 @@ using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.Service;
 using Core.Common.Controls.TreeView;
+using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms;
 using Core.Common.Gui.Forms.ProgressDialog;
 using Core.Common.Gui.Plugin;
+using Core.Common.Gui.Properties;
 using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
@@ -115,12 +117,52 @@ namespace Ringtoets.Piping.Plugin
                 Name = PipingFormsResources.StochasticSoilModelCollection_DisplayName,
                 Category = RingtoetsCommonFormsResources.Ringtoets_Category,
                 Image = PipingFormsResources.PipingSoilProfileIcon,
-                FileFilter = $"{PipingPluginResources.Soil_file_name} (*.soil)|*.soil",
-                IsEnabled = context => context.AssessmentSection.ReferenceLine != null,
-                CreateFileImporter = (context, filePath) => new StochasticSoilModelImporter(context.WrappedData,
-                                                                                            filePath,
-                                                                                            new StochasticSoilModelReplaceDataStrategy())
+                FileFilter = StochasticSoilModelFileFilter,
+                IsEnabled = StochasticSoilModelImporterEnabled,
+                CreateFileImporter = (context, filePath) => StochasticSoilModelImporter(context, filePath, new StochasticSoilModelReplaceDataStrategy()),
+                VerifyUpdates = VerifyStochasticSoilModelUpdates
             };
+        }
+
+        public override IEnumerable<UpdateInfo> GetUpdateInfos()
+        {
+            yield return new UpdateInfo<StochasticSoilModelCollectionContext>
+            {
+                Name = PipingFormsResources.StochasticSoilModelCollection_DisplayName,
+                Category = RingtoetsCommonFormsResources.Ringtoets_Category,
+                Image = PipingFormsResources.PipingSoilProfileIcon,
+                FileFilter = new ExpectedFile("soil", PipingPluginResources.Soil_file_name),
+                IsEnabled = StochasticSoilModelImporterEnabled,
+                CurrentPath = context => context.WrappedData.SourcePath,
+                CreateFileImporter = (context, filePath) => StochasticSoilModelImporter(context, filePath, new StochasticSoilModelUpdateDataStrategy(context.FailureMechanism)),
+                VerifyUpdates = VerifyStochasticSoilModelUpdates
+            };
+        }
+
+        private static StochasticSoilModelImporter StochasticSoilModelImporter(StochasticSoilModelCollectionContext context, string filePath, IStochasticSoilModelUpdateModelStrategy updateStrategy)
+        {
+            return new StochasticSoilModelImporter(context.WrappedData,
+                                                   filePath,
+                                                   updateStrategy);
+        }
+
+        private static bool StochasticSoilModelImporterEnabled(StochasticSoilModelCollectionContext context)
+        {
+            return context.AssessmentSection.ReferenceLine != null;
+        }
+
+        private static string StochasticSoilModelFileFilter
+        {
+            get
+            {
+                return $"{PipingPluginResources.Soil_file_name} (*.soil)|*.soil";
+            }
+        }
+
+        private bool VerifyStochasticSoilModelUpdates(StochasticSoilModelCollectionContext context)
+        {
+            var changeHandler = new StochasticSoilModelChangeHandler(context.FailureMechanism, new DialogBasedInquiryHelper(Gui.MainWindow));
+            return !changeHandler.RequireConfirmation() || changeHandler.InquireConfirmation();
         }
 
         public override IEnumerable<ViewInfo> GetViewInfos()
@@ -518,10 +560,7 @@ namespace Ringtoets.Piping.Plugin
         {
             return Gui.Get(nodeData, treeViewControl)
                       .AddImportItem()
-                      .AddCustomItem(
-                          CreateUpdateStochasticSoilModelsItem(
-                              nodeData.WrappedData,
-                              nodeData.FailureMechanism))
+                      .AddUpdateItem()
                       .AddSeparator()
                       .AddDeleteChildrenItem()
                       .AddSeparator()
@@ -530,77 +569,6 @@ namespace Ringtoets.Piping.Plugin
                       .AddSeparator()
                       .AddPropertiesItem()
                       .Build();
-        }
-
-        private StrictContextMenuItem CreateUpdateStochasticSoilModelsItem(ObservableCollectionWithSourcePath<StochasticSoilModel> soilModelCollection, PipingFailureMechanism failureMechanism)
-        {
-            var enabled = soilModelCollection.SourcePath != null;
-
-            return new StrictContextMenuItem(
-                PipingPluginResources.PipingPlugin_UpdateStochasticSoilModelsMenuItem_Text,
-                enabled ? PipingPluginResources.PipingPlugin_UpdateStochasticSoilModelsMenuItem_ToolTip : PipingPluginResources.PipingPlugin_UpdateStochasticSoilModelsMenuItem_ToolTip_No_SourcePath_set,
-                PipingPluginResources.RefreshIcon,
-                (sender, args) => UpdateStochasticSoilModelFromKnownSourceFile(soilModelCollection, failureMechanism))
-            {
-                Enabled = enabled
-            };
-        }
-
-        private void UpdateStochasticSoilModelFromKnownSourceFile(ObservableCollectionWithSourcePath<StochasticSoilModel> soilModelCollection, PipingFailureMechanism failureMechanism)
-        {
-            string updateFromPath = soilModelCollection.SourcePath;
-            if (!File.Exists(updateFromPath))
-            {
-                updateFromPath = InquireUserForNewPath();
-            }
-
-            if (IsClearResultAllowed(failureMechanism) && updateFromPath != null)
-            {
-                RunUpdateStochasticSoilModel(soilModelCollection, failureMechanism, updateFromPath);
-            }
-            else
-            {
-                log.Info(string.Format(
-                    PipingPluginResources.PipingPlugin_UpdateStochasticSoilModels_Update_of_StochasticSoilModels_from_File_0_canceled_by_user, 
-                    soilModelCollection.SourcePath));
-            }
-        }
-
-        private static bool IsClearResultAllowed(PipingFailureMechanism failureMechanism)
-        {
-            var changeHandler = new StochasticSoilModelChangeHandler(failureMechanism);
-            bool allowed = true;
-            bool requireConfirmation = changeHandler.RequireConfirmation();
-            if (requireConfirmation)
-            {
-                allowed = changeHandler.InquireConfirmation();
-            }
-            return allowed;
-        }
-
-        private string InquireUserForNewPath()
-        {
-            var openFileDialog = new OpenFileDialog
-            {
-                Multiselect = false,
-                Title = PipingPluginResources.PipingPlugin_UpdateStochasticSoilModelsFileDialog_Title,
-                Filter = $"{PipingPluginResources.Soil_file_name} (*.soil)|*.soil"
-            };
-            if (openFileDialog.ShowDialog(Gui.MainWindow) == DialogResult.OK)
-            {
-                return openFileDialog.FileName;
-            }
-            return null;
-        }
-
-        private void RunUpdateStochasticSoilModel(ObservableCollectionWithSourcePath<StochasticSoilModel> soilModelCollection, PipingFailureMechanism failureMechanism, string sourceFilePath)
-        {
-            var importer = new StochasticSoilModelImporter(soilModelCollection,
-                                                           sourceFilePath,
-                                                           new StochasticSoilModelUpdateDataStrategy(failureMechanism));
-
-            var activity = new FileImportActivity(importer, PipingPluginResources.PipingPlugin_RunUpdateStochasticSoilModel_Update_StochasticSoilModels);
-            ActivityProgressDialogRunner.Run(Gui.MainWindow, activity);
         }
 
         #endregion

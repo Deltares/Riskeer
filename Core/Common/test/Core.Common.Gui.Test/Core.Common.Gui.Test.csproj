@@ -85,6 +85,7 @@
     <Compile Include="Attributes\TestCaseClasses\DynamicVisibilityTestCases.cs" />
     <Compile Include="Commands\ApplicationFeatureCommandHandlerTest.cs" />
     <Compile Include="Commands\GuiExportHandlerTest.cs" />
+    <Compile Include="Commands\GuiUpdateHandlerTest.cs" />
     <Compile Include="Commands\GuiImportHandlerTest.cs" />
     <Compile Include="Commands\StorageCommandHandlerTest.cs" />
     <Compile Include="Commands\ViewCommandHandlerTest.cs" />
@@ -96,6 +97,7 @@
     <Compile Include="Converters\ExpandableArrayConverterTest.cs" />
     <Compile Include="Converters\ExpandableReadOnlyArrayConverterTest.cs" />
     <Compile Include="Converters\PngToIconConverterTest.cs" />
+    <Compile Include="ExpectedFileTest.cs" />
     <Compile Include="Forms\MainWindow\MainWindowTest.cs" />
     <Compile Include="Forms\MessageWindow\MessageWindowDialogTest.cs" />
     <Compile Include="Forms\MessageWindow\MessageWindowLogAppenderTest.cs" />
@@ -117,6 +119,7 @@
       <DependentUpon>TestView.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\ViewHost\DocumentViewControllerTest.cs" />
+    <Compile Include="DialogBasedInquiryHelperTest.cs" />
     <Compile Include="Plugin\ExportInfoTest.cs" />
     <Compile Include="Forms\ViewHost\ViewChangeEventArgsTest.cs" />
     <Compile Include="Plugin\ImportInfoTest.cs" />

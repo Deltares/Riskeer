@@ -55,7 +55,6 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TestStochasticSoilModelChangeHandler.cs" />
     <Compile Include="TestStochasticSoilModelUpdateModelStrategy.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -28,7 +28,7 @@ namespace Core.Common.Gui.Plugin
     /// <summary>
     /// Information for creating an importer for a particular data object.
     /// </summary>
-    public class ImportInfo
+    public class UpdateInfo
     {
         /// <summary>
         /// Gets or sets the data type associated with this import info.
@@ -45,8 +45,6 @@ namespace Core.Common.Gui.Plugin
         /// </summary>
         public Func<object, string, IFileImporter> CreateFileImporter { get; set; }
 
-        public Func<object, bool> VerifyUpdates { get; set; }
-
         /// <summary>
         /// Gets or sets the method used to determine whether or not the import routine should be enabled. Function arguments:
         /// <list type="number">
@@ -55,6 +53,8 @@ namespace Core.Common.Gui.Plugin
         /// </list>
         /// </summary>
         public Func<object, bool> IsEnabled { get; set; }
+        public Func<object, bool> VerifyUpdates { get; set; }
+        public Func<object, string> CurrentPath { get; set; }
 
         /// <summary>
         /// Gets or sets the name of the import information.
@@ -74,18 +74,14 @@ namespace Core.Common.Gui.Plugin
         /// <summary>
         /// Gets or sets the file filter of the import information.
         /// </summary>
-        /// <example>
-        /// An example string would be:
-        /// <code>"My file format1 (*.ext1)|*.ext1|My file format2 (*.ext2)|*.ext2"</code>
-        /// </example>
-        public string FileFilter { get; set; }
+        public ExpectedFile FileFilter { get; set; }
     }
 
     /// <summary>
     /// Information for creating an importer for a particular data object.
     /// </summary>
     /// <typeparam name="TData">The data type associated with this import info.</typeparam>
-    public class ImportInfo<TData>
+    public class UpdateInfo<TData>
     {
         /// <summary>
         /// Gets the data type associated with this import info.
@@ -116,8 +112,8 @@ namespace Core.Common.Gui.Plugin
         /// </list>
         /// </summary>
         public Func<TData, bool> IsEnabled { get; set; }
-
         public Func<TData, bool> VerifyUpdates { get; set; }
+        public Func<TData, string> CurrentPath { get; set; }
 
         /// <summary>
         /// Gets or sets the name of the import information.
@@ -137,25 +133,22 @@ namespace Core.Common.Gui.Plugin
         /// <summary>
         /// Gets or sets the file filter of the import information.
         /// </summary>
-        /// <example>
-        /// An example string would be:
-        /// <code>"My file format1 (*.ext1)|*.ext1|My file format2 (*.ext2)|*.ext2"</code>
-        /// </example>
-        public string FileFilter { get; set; }
+        public ExpectedFile FileFilter { get; set; }
 
         /// <summary>
         /// Performs an implicit conversion from <see cref="ImportInfo{TData}"/> to <see cref="ImportInfo"/>.
         /// </summary>
         /// <param name="importInfo">The import information to convert.</param>
         /// <returns>The result of the conversion.</returns>
-        public static implicit operator ImportInfo(ImportInfo<TData> importInfo)
+        public static implicit operator UpdateInfo(UpdateInfo<TData> importInfo)
         {
-            return new ImportInfo
+            return new UpdateInfo
             {
                 DataType = importInfo.DataType,
                 CreateFileImporter = (data, path) => importInfo.CreateFileImporter?.Invoke((TData) data, path),
                 IsEnabled = data => importInfo.IsEnabled == null || importInfo.IsEnabled((TData) data),
                 VerifyUpdates = data => importInfo.VerifyUpdates == null || importInfo.VerifyUpdates((TData) data),
+                CurrentPath = data => importInfo.CurrentPath?.Invoke((TData) data),
                 Name = importInfo.Name,
                 Category = importInfo.Category,
                 Image = importInfo.Image,

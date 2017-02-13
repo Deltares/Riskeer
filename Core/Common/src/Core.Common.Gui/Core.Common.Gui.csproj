@@ -107,10 +107,12 @@
     <Compile Include="Attributes\PropertyOrderAttribute.cs" />
     <Compile Include="Commands\ApplicationFeatureCommandHandler.cs" />
     <Compile Include="Commands\GuiExportHandler.cs" />
+    <Compile Include="Commands\GuiUpdateHandler.cs" />
     <Compile Include="Commands\GuiImportHandler.cs" />
     <Compile Include="Commands\IApplicationFeatureCommands.cs" />
     <Compile Include="Commands\ICommandsOwner.cs" />
     <Compile Include="Commands\IExportCommandHandler.cs" />
+    <Compile Include="Commands\IUpdateCommandHandler.cs" />
     <Compile Include="Commands\IImportCommandHandler.cs" />
     <Compile Include="Commands\IStorageCommands.cs" />
     <Compile Include="Commands\IViewCommands.cs" />
@@ -120,6 +122,9 @@
     <Compile Include="Converters\ExpandableArrayConverter.cs" />
     <Compile Include="Converters\ExpandableReadOnlyArrayConverter.cs" />
     <Compile Include="Converters\PngToIconConverter.cs" />
+    <Compile Include="DialogBasedInquiryHelper.cs" />
+    <Compile Include="ExpectedFile.cs" />
+    <Compile Include="FileResult.cs" />
     <Compile Include="Forms\NativeMethods.cs" />
     <Compile Include="Forms\MainWindow\MainWindowCommands.cs" />
     <Compile Include="Forms\MessageWindow\MessageWindowDialog.cs">
@@ -135,11 +140,13 @@
     <Compile Include="Forms\ViewHost\IDocumentViewController.cs" />
     <Compile Include="Forms\ViewHost\ToolViewLocation.cs" />
     <Compile Include="Forms\ViewHost\ViewChangeEventArgs.cs" />
+    <Compile Include="IInquiryHelper.cs" />
     <Compile Include="IViewController.cs" />
     <Compile Include="IPluginsHost.cs" />
     <Compile Include="IMainWindowController.cs" />
     <Compile Include="IProjectOwner.cs" />
     <Compile Include="Plugin\ExportInfo.cs" />
+    <Compile Include="Plugin\UpdateInfo.cs" />
     <Compile Include="Plugin\ImportInfo.cs" />
     <Compile Include="Plugin\PluginBase.cs" />
     <Compile Include="Plugin\PropertyInfo.cs" />
@@ -362,6 +369,7 @@
   <ItemGroup>
     <None Include="Resources\project-16.png" />
     <Content Include="Resources\broom.png" />
+    <None Include="Resources\table_refresh.png" />
     <Content Include="Resources\textfield_rename.png" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

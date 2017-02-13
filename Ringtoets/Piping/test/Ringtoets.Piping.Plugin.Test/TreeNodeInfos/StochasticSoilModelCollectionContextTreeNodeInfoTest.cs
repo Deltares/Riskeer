@@ -44,7 +44,6 @@ using Ringtoets.Piping.Forms.Properties;
 using Ringtoets.Piping.KernelWrapper.TestUtil;
 using Ringtoets.Piping.Primitives;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
-using RingtoetsPipingPluginResources = Ringtoets.Piping.Plugin.Properties.Resources;
 
 namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
 {
@@ -247,7 +246,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             using (mocks.Ordered())
             {
                 menuBuilderMock.Expect(mb => mb.AddImportItem()).Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
+                menuBuilderMock.Expect(mb => mb.AddUpdateItem()).Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.AddDeleteChildrenItem()).Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
@@ -260,7 +259,10 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var context = new StochasticSoilModelCollectionContext(new ObservableCollectionWithSourcePath<StochasticSoilModel>(), new PipingFailureMechanism(), assessmentSection);
+                var context = new StochasticSoilModelCollectionContext(
+                    new ObservableCollectionWithSourcePath<StochasticSoilModel>(), 
+                    new PipingFailureMechanism(), 
+                    assessmentSection);
                 var gui = mocks.Stub<IGui>();
 
                 gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilderMock);
@@ -274,222 +276,6 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             // Assert
             // Assert expectancies are called in TearDown()
         }
-
-        [Test]
-        [TestCase(false)]
-        [TestCase(true)]
-        public void ContextMenuStrip_WithOrWithoutPathToSoilModelsSource_UpdateStochasticSoilModelsItemEnabledWhenPathSet(bool sourcePathSet)
-        {
-            // Setup
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var pipingFailureMechanism = new PipingFailureMechanism();
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
-
-                var stochasticSoilModelCollection = new ObservableCollectionWithSourcePath<StochasticSoilModel>();
-                if (sourcePathSet)
-                {
-                    stochasticSoilModelCollection.AddRange(Enumerable.Empty<StochasticSoilModel>(), "some path");
-                }
-
-                var nodeData = new StochasticSoilModelCollectionContext(stochasticSoilModelCollection,
-                                                                        pipingFailureMechanism,
-                                                                        assessmentSection);
-
-                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                gui.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
-                mocks.ReplayAll();
-
-                plugin.Gui = gui;
-
-                // Call
-                using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewControl))
-                {
-                    // Assert
-                    string expectedToolTip = sourcePathSet
-                                                 ? RingtoetsPipingPluginResources.PipingPlugin_UpdateStochasticSoilModelsMenuItem_ToolTip
-                                                 : RingtoetsPipingPluginResources.PipingPlugin_UpdateStochasticSoilModelsMenuItem_ToolTip_No_SourcePath_set;
-
-                    TestHelper.AssertContextMenuStripContainsItem(menu, updateStochasticSoilModelsItemIndex,
-                                                                  RingtoetsPipingPluginResources.PipingPlugin_UpdateStochasticSoilModelsMenuItem_Text,
-                                                                  expectedToolTip,
-                                                                  RingtoetsPipingPluginResources.RefreshIcon,
-                                                                  sourcePathSet);
-                }
-            }
-        }
-
-        [Test]
-        [Apartment(ApartmentState.STA)]
-        public void ContextMenuStrip_ClickOnUpdateStochasticSoilModelsItemCancelClicked_OpenFileDialogShownCancelMessageLogged()
-        {
-            // Setup
-            const string somePath = "some path";
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var pipingFailureMechanism = new PipingFailureMechanism();
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var stochasticSoilModelCollection = new ObservableCollectionWithSourcePath<StochasticSoilModel>();
-                stochasticSoilModelCollection.AddRange(Enumerable.Empty<StochasticSoilModel>(), somePath);
-
-                var nodeData = new StochasticSoilModelCollectionContext(stochasticSoilModelCollection,
-                                                                        pipingFailureMechanism,
-                                                                        assessmentSection);
-
-                IGui gui = CreateGuiStub(nodeData, treeViewControl);
-
-                plugin.Gui = gui;
-
-                DialogBoxHandler = (name, wnd) =>
-                {
-                    var window = new OpenFileDialogTester(wnd);
-                    window.ClickCancel();
-                };
-
-                using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewControl))
-                {
-                    // Call
-                    Action test = () => menu.Items[updateStochasticSoilModelsItemIndex].PerformClick();
-
-                    // Assert
-                    TestHelper.AssertLogMessageIsGenerated(
-                        test,
-                        $"Bijwerken van ondergrondschematisaties in '{somePath}' is door de gebruiker geannuleerd.");
-                }
-            }
-        }
-
-        [Test]
-        [Apartment(ApartmentState.STA)]
-        public void ContextMenuStrip_ClickOnUpdateStochasticSoilModelsWithExistingSourceFilePath_SuccessMessageLogged()
-        {
-            // Setup
-            string testDirectory = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO, "StochasticSoilModelDatabaseReader");
-            string existingFilePath = Path.Combine(testDirectory, "emptyschema.soil");
-
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var pipingFailureMechanism = new PipingFailureMechanism();
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
-
-                var nodeData = new StochasticSoilModelCollectionContext(CreateEmptyImportedStochasticSoilModelCollection(existingFilePath),
-                                                                        pipingFailureMechanism,
-                                                                        assessmentSection);
-
-                IGui gui = CreateGuiStub(nodeData, treeViewControl);
-
-                plugin.Gui = gui;
-
-                DialogBoxHandler = (s, hWnd) =>
-                {
-                    // Activity dialog closes by itself
-                };
-
-                using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewControl))
-                {
-                    // Call
-                    Action test = () => menu.Items[updateStochasticSoilModelsItemIndex].PerformClick();
-
-                    // Assert
-                    TestHelper.AssertLogMessageIsGenerated(
-                        test,
-                        "Uitvoeren van 'Bijwerken van stochastische ondergrondmodellen.' is gelukt.");
-                }
-            }
-        }
-
-        [Test]
-        [Apartment(ApartmentState.STA)]
-        public void ContextMenuStrip_ClickOnUpdateStochasticSoilModelsPathKnownAndConfirmationRequiredAndGiven_SuccessMessageLogged()
-        {
-            // Setup
-            string testDirectory = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO, "StochasticSoilModelDatabaseReader");
-            string existingFilePath = Path.Combine(testDirectory, "emptyschema.soil");
-
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var pipingFailureMechanism = new PipingFailureMechanism();
-                MakeConfirmationRequired(pipingFailureMechanism);
-
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
-
-                var nodeData = new StochasticSoilModelCollectionContext(CreateEmptyImportedStochasticSoilModelCollection(existingFilePath),
-                                                                        pipingFailureMechanism,
-                                                                        assessmentSection);
-
-                IGui gui = CreateGuiStub(nodeData, treeViewControl);
-
-                plugin.Gui = gui;
-
-                DialogBoxHandler = (name, handler) =>
-                {
-                    DialogBoxHandler = (activityName, activityHandler) =>
-                    {
-                        // Activity dialog closes by itself
-                    };
-
-                    var tester = new MessageBoxTester(handler);
-                    tester.ClickOk();
-                };
-
-                using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewControl))
-                {
-                    // Call
-                    Action test = () => menu.Items[updateStochasticSoilModelsItemIndex].PerformClick();
-
-                    // Assert
-                    TestHelper.AssertLogMessageIsGenerated(
-                        test,
-                        "Uitvoeren van 'Bijwerken van stochastische ondergrondmodellen.' is gelukt.");
-                }
-            }
-        }
-
-        [Test]
-        [Apartment(ApartmentState.STA)]
-        public void ContextMenuStrip_ClickOnUpdateStochasticSoilModelsPathKnownAndConfirmationRequiredButNotGiven_CancelMessageLogged()
-        {
-            // Setup
-            string testDirectory = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO, "StochasticSoilModelDatabaseReader");
-            string existingFilePath = Path.Combine(testDirectory, "emptyschema.soil");
-
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var pipingFailureMechanism = new PipingFailureMechanism();
-                MakeConfirmationRequired(pipingFailureMechanism);
-
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
-
-                var nodeData = new StochasticSoilModelCollectionContext(CreateEmptyImportedStochasticSoilModelCollection(existingFilePath),
-                                                                        pipingFailureMechanism,
-                                                                        assessmentSection);
-
-                IGui gui = CreateGuiStub(nodeData, treeViewControl);
-
-                plugin.Gui = gui;
-
-                DialogBoxHandler = (name, handler) =>
-                {
-                    var tester = new MessageBoxTester(handler);
-                    tester.ClickCancel();
-                };
-
-                using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewControl))
-                {
-                    // Call
-                    Action test = () => menu.Items[updateStochasticSoilModelsItemIndex].PerformClick();
-
-                    // Assert
-                    TestHelper.AssertLogMessageIsGenerated(
-                        test,
-                        $"Bijwerken van ondergrondschematisaties in '{existingFilePath}' is door de gebruiker geannuleerd.");
-                }
-            }
-        }
-
         private static ObservableCollectionWithSourcePath<StochasticSoilModel> CreateEmptyImportedStochasticSoilModelCollection(string existingFilePath)
         {
             var stochasticSoilModelCollection = new ObservableCollectionWithSourcePath<StochasticSoilModel>();
