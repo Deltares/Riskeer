@@ -102,7 +102,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         }
 
         [Test]
-        public void UpdateModelWithImportedData_WithCurrentModelsAndImportedMultipleModelsWithSameName_ThrowsInvalidOperationException()
+        public void UpdateModelWithImportedData_WithCurrentModelsAndImportedMultipleModelsWithSameName_ThrowsStochasticSoilModelUpdateException()
         {
             // Setup
             const string nonUniqueName = "non-unique name";

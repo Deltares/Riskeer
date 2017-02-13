@@ -219,4 +219,7 @@ Deze locatie met karakteristieke punten wordt overgeslagen.</value>
   <data name="StochasticSoilModelChangeHandler_When_updating_StochasticSoilModel_definitions_assigned_to_calculations_output_will_be_cleared_confirm" xml:space="preserve">
     <value>Wanneer ondergrondschematisaties wijzigen als gevolg van het bijwerken, zullen de resultaten van berekeningen die deze ondergrondschematisaties worden verwijderd. Weet u zeker dat u wilt doorgaan?</value>
   </data>
+  <data name="RingtoetsPipingSurfaceLineUpdateDataStrategy_UpdateSurfaceLinesWithImportedData_Update_of_RingtoetsPipingSurfaceLine_has_failed" xml:space="preserve">
+    <value>Het bijwerken van de profielschematisaties is mislukt.</value>
+  </data>
 </root>

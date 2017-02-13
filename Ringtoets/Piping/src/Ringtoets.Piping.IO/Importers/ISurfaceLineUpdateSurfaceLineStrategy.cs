@@ -40,7 +40,10 @@ namespace Ringtoets.Piping.IO.Importers
         /// <param name="readRingtoetsPipingSurfaceLines">The imported surface lines.</param>
         /// <param name="sourceFilePath">The source path from where the surface lines were imported from.</param>
         /// <returns>An <see cref="IEnumerable{IObservable}"/> of updated instances.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when any of the input parameters is <c>null</c></exception>
+        /// <exception cref="ArgumentNullException">Thrown when any of the input parameters is <c>null</c>.</exception>
+        /// <exception cref="RingtoetsPipingSurfaceLineUpdateException">Thrown when applying the strategy has failed. The 
+        /// <see cref="RingtoetsPipingSurfaceLineUpdateException.InnerException"/> is set with a more detailed explanation
+        /// of why the exception occurs.</exception>
         IEnumerable<IObservable> UpdateSurfaceLinesWithImportedData(
             ObservableCollectionWithSourcePath<RingtoetsPipingSurfaceLine> targetCollection,
             IEnumerable<RingtoetsPipingSurfaceLine> readRingtoetsPipingSurfaceLines,

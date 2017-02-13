@@ -26,6 +26,7 @@ using Core.Common.Base;
 using Core.Common.Utils;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.IO.Importers;
+using Ringtoets.Piping.Plugin.Properties;
 using Ringtoets.Piping.Primitives;
 using Ringtoets.Piping.Service;
 
@@ -39,7 +40,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
     /// </summary>
     public class RingtoetsPipingSurfaceLineUpdateDataStrategy : ISurfaceLineUpdateSurfaceLineStrategy
     {
-        private PipingFailureMechanism failureMechanism;
+        private readonly PipingFailureMechanism failureMechanism;
 
         /// <summary>
         /// Creates a new instance of <see cref="RingtoetsPipingSurfaceLineUpdateDataStrategy"/>.
@@ -72,7 +73,15 @@ namespace Ringtoets.Piping.Plugin.FileImporter
                 throw new ArgumentNullException(nameof(sourceFilePath));
             }
 
-            return ModifySurfaceLineCollection(targetCollection, readRingtoetsPipingSurfaceLines, sourceFilePath);
+            try
+            {
+                return ModifySurfaceLineCollection(targetCollection, readRingtoetsPipingSurfaceLines, sourceFilePath);
+            }
+            catch (InvalidOperationException e)
+            {
+                var message = Resources.RingtoetsPipingSurfaceLineUpdateDataStrategy_UpdateSurfaceLinesWithImportedData_Update_of_RingtoetsPipingSurfaceLine_has_failed;
+                throw new RingtoetsPipingSurfaceLineUpdateException(message, e);
+            }
         }
 
         private IEnumerable<IObservable> ModifySurfaceLineCollection(ObservableCollectionWithSourcePath<RingtoetsPipingSurfaceLine> existingCollection,
@@ -89,6 +98,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             {
                 affectedObjects.Add(existingCollection);
             }
+            affectedObjects.AddRange(UpdateSurfaceLines(updatedSurfaceLines, readSurfaceLineList));
             affectedObjects.AddRange(RemoveSurfaceLines(removedSurfaceLines));
 
             existingCollection.Clear();
@@ -135,8 +145,27 @@ namespace Ringtoets.Piping.Plugin.FileImporter
 
         #endregion
 
+        #region Updating surface line helpers
+
+        private IEnumerable<IObservable> UpdateSurfaceLines(IEnumerable<RingtoetsPipingSurfaceLine> updatedSurfaceLines,
+                                                            IList<RingtoetsPipingSurfaceLine> readSurfaceLines)
+        {
+            var affectedObjects = new List<IObservable>();
+
+            foreach (RingtoetsPipingSurfaceLine updatedSurfaceLine in updatedSurfaceLines)
+            {
+                RingtoetsPipingSurfaceLine matchingSurfaceLine = readSurfaceLines.Single(sl => sl.Name == updatedSurfaceLine.Name);
+                updatedSurfaceLine.Update(matchingSurfaceLine);
+                affectedObjects.Add(updatedSurfaceLine);
+            }
+
+            return affectedObjects;
+        }
+
+        #endregion
+
         /// <summary>
-        /// Class fpr comparing <see cref="RingtoetsPipingSurfaceLine"/> by only the name.
+        /// Class for comparing <see cref="RingtoetsPipingSurfaceLine"/> by only the name.
         /// </summary>
         private class RingtoetsPipingSurfaceLineNameEqualityComparer : IEqualityComparer<RingtoetsPipingSurfaceLine>
         {

@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
+using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.IO.Importers;
@@ -35,7 +36,6 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
     public class RingtoetsPipingSurfaceLineUpdateDataStrategyTest
     {
         private const string sourceFilePath = "some/path";
-
 
         [Test]
         public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
@@ -89,7 +89,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         }
 
         [Test]
-        public void UpdatSurfaceLinesWithImportedData_SourceFilePathNull_ThrowsArgumentNullException()
+        public void UpdateSurfaceLinesWithImportedData_SourceFilePathNull_ThrowsArgumentNullException()
         {
             // Setup
             var strategy = new RingtoetsPipingSurfaceLineUpdateDataStrategy(new PipingFailureMechanism());
@@ -105,7 +105,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         }
 
         [Test]
-        public void UpdatSurfaceLinesWithImportedData_ReadSurfaceLinesNotInTargetCollection_NewSurfaceLinesAdded()
+        public void UpdateSurfaceLinesWithImportedData_ReadSurfaceLinesNotInTargetCollection_NewSurfaceLinesAdded()
         {
             // Setup
             var importedSurfaceLines = new[]
@@ -130,12 +130,51 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             // Assert
             CollectionAssert.AreEqual(importedSurfaceLines, targetCollection);
-            CollectionAssert.AreEqual(new []
+            CollectionAssert.AreEqual(new[]
             {
                 targetCollection
             }, affectedObjects);
         }
-        
+
+        [Test]
+        public void UpdateSurfaceLinesWithImportedData_WithCurrentModelsAndImportedMultipleLinesWithSameNames_ThrowsRingtoetsPipingSurfaceLineUpdateException()
+        {
+            // Setup
+            const string duplicateName = "Duplicate name it is";
+            var targetCollection = new ObservableCollectionWithSourcePath<RingtoetsPipingSurfaceLine>();
+            targetCollection.AddRange(new[]
+            {
+                new RingtoetsPipingSurfaceLine
+                {
+                    Name = duplicateName
+                }
+            }, sourceFilePath);
+
+            RingtoetsPipingSurfaceLine[] importedSurfaceLines =
+            {
+                new RingtoetsPipingSurfaceLine
+                {
+                    Name = duplicateName
+                },
+                new RingtoetsPipingSurfaceLine
+                {
+                    Name = duplicateName
+                }
+            };
+
+            var strategy = new RingtoetsPipingSurfaceLineUpdateDataStrategy(new PipingFailureMechanism());
+
+            // Call
+            TestDelegate call = () => strategy.UpdateSurfaceLinesWithImportedData(targetCollection,
+                                                                                  importedSurfaceLines,
+                                                                                  sourceFilePath);
+
+            // Assert
+            var exception = Assert.Throws<RingtoetsPipingSurfaceLineUpdateException>(call);
+            Assert.AreEqual("Het bijwerken van de profielschematisaties is mislukt.", exception.Message);
+            Assert.IsInstanceOf<InvalidOperationException>(exception.InnerException);
+        }
+
         [Test]
         public void UpdateSurfaceLinesWithImportedData_WithCurrentModelsAndImportedDataEmpty_SurfaceLinesRemoved()
         {
@@ -158,9 +197,56 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             // Assert
             CollectionAssert.IsEmpty(targetCollection);
-            CollectionAssert.AreEqual(new []
+            CollectionAssert.AreEqual(new[]
             {
                 targetCollection
+            }, affectedObjects);
+        }
+
+        [Test]
+        public void UpdateSurfaceLinesWithImportedData_WithCurrentLinesAndImportedDataHasSameName_UpdatesTargetCollection()
+        {
+            // Setup
+            var targetSurfaceLine = new RingtoetsPipingSurfaceLine
+            {
+                Name = "Name A"
+            };
+            var targetCollection = new ObservableCollectionWithSourcePath<RingtoetsPipingSurfaceLine>();
+            targetCollection.AddRange(new[]
+            {
+                targetSurfaceLine
+            }, sourceFilePath);
+
+            Point3D[] expectedGeometry =
+            {
+                new Point3D(0, 1, 2),
+                new Point3D(3, 4, 5),
+                new Point3D(6, 7, 8)
+            };
+            var readSurfaceLine = new RingtoetsPipingSurfaceLine
+            {
+                Name = "Name A"
+            };
+            readSurfaceLine.SetGeometry(expectedGeometry);
+            var readSurfacelines = new[]
+            {
+                readSurfaceLine
+            };
+
+            var strategy = new RingtoetsPipingSurfaceLineUpdateDataStrategy(new PipingFailureMechanism());
+
+            // Call
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateSurfaceLinesWithImportedData(targetCollection,
+                                                                                                   readSurfacelines,
+                                                                                                   sourceFilePath);
+
+            // Assert
+            Assert.AreEqual(1, targetCollection.Count);
+            Assert.AreSame(targetSurfaceLine, targetCollection[0]);
+            CollectionAssert.AreEqual(expectedGeometry, targetSurfaceLine.Points);
+            CollectionAssert.AreEqual(new[]
+            {
+                targetSurfaceLine
             }, affectedObjects);
         }
     }

@@ -73,6 +73,7 @@
     <Compile Include="Builders\SoilDatabaseQueryBuilderTest.cs" />
     <Compile Include="Exceptions\StochasticSoilProfileReadExceptionTest.cs" />
     <Compile Include="Exporters\CalculationGroupWriterTest.cs" />
+    <Compile Include="Importers\RingtoetsPipingSurfaceLineUpdateExceptionTest.cs" />
     <Compile Include="Importers\StochasticSoilModelUpdateExceptionTest.cs" />
     <Compile Include="Readers\PipingCalculationGroupReaderTest.cs" />
     <Compile Include="Readers\ReadPipingCalculationGroupTest.cs" />
