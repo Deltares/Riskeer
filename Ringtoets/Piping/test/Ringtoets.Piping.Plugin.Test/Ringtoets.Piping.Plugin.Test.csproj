@@ -76,6 +76,7 @@
     <Compile Include="FileImporter\StochasticSoilModelChangeHandlerTest.cs" />
     <Compile Include="FileImporter\PipingSurfaceLinesCsvImporterTest.cs" />
     <Compile Include="FileImporter\RingtoetsPipingSurfaceLineExtensionsTest.cs" />
+    <Compile Include="FileImporter\StochasticSoilModelReplaceDataStrategyTest.cs" />
     <Compile Include="FileImporter\StochasticSoilModelUpdateDataStrategyTest.cs" />
     <Compile Include="ImportInfos\RingtoetsPipingSurfaceLinesContextImportInfoTest.cs" />
     <Compile Include="ImportInfos\StochasticSoilModelCollectionContextImportInfoTest.cs" />

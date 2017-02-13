@@ -228,7 +228,9 @@ namespace Ringtoets.Piping.IO.Importers
             try
             {
                 using (var stochasticSoilModelReader = new StochasticSoilModelReader(FilePath))
+                {
                     return GetStochasticSoilModelReadResult(stochasticSoilModelReader);
+                }
             }
             catch (CriticalFileReadException e)
             {

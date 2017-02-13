@@ -77,11 +77,6 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             var modelsToAdd = new List<StochasticSoilModel>();
             foreach (StochasticSoilModel readStochasticSoilModel in readStochasticSoilModels)
             {
-                var stochasticSoilModel = targetCollection.FirstOrDefault(ssm => ssm.Id == readStochasticSoilModel.Id);
-                if (stochasticSoilModel != null)
-                {
-                    log.WarnFormat(Properties.Resources.StochasticSoilModelImporter_AddImportedDataToModel_Stochastisch_soil_model_0_already_exists, stochasticSoilModel.Name);
-                }
                 modelsToAdd.Add(readStochasticSoilModel);
             }
             foreach (StochasticSoilModel model in targetCollection.ToArray())
@@ -89,7 +84,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
                 affectedObjects.AddRange(PipingDataSynchronizationService.RemoveStochasticSoilModel(failureMechanism, model));
             }
             targetCollection.AddRange(modelsToAdd, sourceFilePath);
-            return affectedObjects;
+            return affectedObjects.Distinct();
         }
     }
 }
