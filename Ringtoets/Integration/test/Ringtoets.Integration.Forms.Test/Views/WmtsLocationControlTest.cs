@@ -65,8 +65,12 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 var urlLocationLabel = new LabelTester("urlLocationLabel", form);
                 Assert.AreEqual("Locatie (URL)", urlLocationLabel.Text);
 
-                var urlLocations = new ComboBoxTester("urlLocationComboBox", form);
-                Assert.IsNotNull(urlLocations);
+                var urlLocations = (ComboBox) new ComboBoxTester("urlLocationComboBox", form).TheObject;
+                Assert.AreEqual(ComboBoxStyle.DropDownList, urlLocations.DropDownStyle);
+                Assert.IsInstanceOf<List<WmtsConnectionInfo>>(urlLocations.DataSource);
+                Assert.AreEqual("Name", urlLocations.DisplayMember);
+                Assert.AreEqual("Url", urlLocations.ValueMember);
+                Assert.IsTrue(urlLocations.Sorted);
 
                 var buttonConnectTo = new ButtonTester("connectToButton", form);
                 Assert.AreEqual("Verbinding maken", buttonConnectTo.Text);
@@ -190,6 +194,161 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 Assert.AreEqual("image/png8", cells[mapLayerFormatColumnIndex].FormattedValue);
                 Assert.AreEqual("brtachtergrondkaart", cells[mapLayerTitleColumnIndex].FormattedValue);
                 Assert.AreEqual("EPSG:28992", cells[mapLayerCoordinateSystemColumnIndex].FormattedValue);
+            }
+        }
+
+        [Test]
+        public void GivenWmtsLocationControlAndAddLocationClicked_WhenDialogCanceled_ThenWmtsLocationsNotUpdated()
+        {
+            // Given
+            DialogBoxHandler = (formName, wnd) =>
+            {
+                using (new FormTester(formName)) {}
+            };
+
+            using (var form = new Form())
+            using (var control = new WmtsLocationControl())
+            {
+                form.Controls.Add(control);
+                form.Show();
+
+                var buttonAddLocation = new ButtonTester("addLocationButton", form);
+
+                // When
+                buttonAddLocation.Click();
+
+                // Then
+                var comboBox = (ComboBox) new ComboBoxTester("urlLocationComboBox", form).TheObject;
+                var dataSource = (List<WmtsConnectionInfo>) comboBox.DataSource;
+                Assert.AreEqual(0, dataSource.Count);
+            }
+        }
+
+        [Test]
+        public void GivenWmtsLocationControlAndAddLocationClicked_WhenValidDataInDialog_ThenWmtsLocationsUpdated()
+        {
+            // Given
+            const string name = @"someName";
+            const string url = @"someUrl";
+
+            DialogBoxHandler = (formName, wnd) =>
+            {
+                using (var formTester = new FormTester(formName))
+                {
+                    var dialog = (WmtsConnectionDialog) formTester.TheObject;
+                    var nameTextBox = (TextBox) new TextBoxTester("nameTextBox", dialog).TheObject;
+                    var urlTextBox = (TextBox) new TextBoxTester("urlTextBox", dialog).TheObject;
+                    var actionButton = new ButtonTester("actionButton", dialog);
+
+                    nameTextBox.Text = name;
+                    urlTextBox.Text = url;
+
+                    actionButton.Click();
+                }
+            };
+
+            using (var form = new Form())
+            using (var control = new WmtsLocationControl())
+            {
+                form.Controls.Add(control);
+                form.Show();
+
+                var buttonAddLocation = new ButtonTester("addLocationButton", form);
+
+                // When
+                buttonAddLocation.Click();
+
+                // Then
+                var comboBox = (ComboBox) new ComboBoxTester("urlLocationComboBox", form).TheObject;
+                var dataSource = (List<WmtsConnectionInfo>) comboBox.DataSource;
+                Assert.AreEqual(1, dataSource.Count);
+                var item = (WmtsConnectionInfo) comboBox.Items[0];
+                Assert.AreEqual(name, item.Name);
+                Assert.AreEqual(url, item.Url);
+            }
+        }
+
+        [Test]
+        public void GivenWmtsLocationControlAndEditLocationClicked_WhenDialogCanceled_ThenWmtsLocationsNotUpdated()
+        {
+            // Given
+            DialogBoxHandler = (formName, wnd) =>
+            {
+                using (new FormTester(formName)) {}
+            };
+
+            using (var form = new Form())
+            using (var control = new WmtsLocationControl())
+            {
+                form.Controls.Add(control);
+                form.Show();
+
+                var comboBox = (ComboBox) new ComboBoxTester("urlLocationComboBox", form).TheObject;
+                comboBox.DataSource = new List<WmtsConnectionInfo>
+                {
+                    new WmtsConnectionInfo("oldName", "oldUrl")
+                };
+
+                var buttonAddLocation = new ButtonTester("editLocationButton", form);
+
+                // When
+                buttonAddLocation.Click();
+
+                // Then
+                var dataSource = (List<WmtsConnectionInfo>) comboBox.DataSource;
+                Assert.AreEqual(1, dataSource.Count);
+                var item = (WmtsConnectionInfo) comboBox.Items[0];
+                Assert.AreEqual("oldName", item.Name);
+                Assert.AreEqual("oldUrl", item.Url);
+            }
+        }
+
+        [Test]
+        public void GivenWmtsLocationControlAndEditLocationClicked_WhenValidDataInDialog_ThenWmtsLocationsUpdated()
+        {
+            // Given
+            const string newName = @"newName";
+            const string newUrl = @"newUrl";
+
+            DialogBoxHandler = (formName, wnd) =>
+            {
+                using (var formTester = new FormTester(formName))
+                {
+                    var dialog = (WmtsConnectionDialog) formTester.TheObject;
+                    var nameTextBox = (TextBox) new TextBoxTester("nameTextBox", dialog).TheObject;
+                    var urlTextBox = (TextBox) new TextBoxTester("urlTextBox", dialog).TheObject;
+                    var actionButton = new ButtonTester("actionButton", dialog);
+
+                    nameTextBox.Text = newName;
+                    urlTextBox.Text = newUrl;
+
+                    actionButton.Click();
+                }
+            };
+
+            using (var form = new Form())
+            using (var control = new WmtsLocationControl())
+            {
+                form.Controls.Add(control);
+                form.Show();
+
+                var comboBox = (ComboBox) new ComboBoxTester("urlLocationComboBox", form).TheObject;
+                comboBox.DataSource = new List<WmtsConnectionInfo>
+                {
+                    new WmtsConnectionInfo("oldName", "oldUrl")
+                };
+
+                var buttonAddLocation = new ButtonTester("editLocationButton", form);
+
+                // When
+                buttonAddLocation.Click();
+
+                // Then
+                var dataSource = (List<WmtsConnectionInfo>) comboBox.DataSource;
+                Assert.AreEqual(1, dataSource.Count);
+                var item = (WmtsConnectionInfo) comboBox.Items[0];
+                Assert.AreEqual(newName, item.Name);
+                Assert.AreEqual(newUrl, item.Url);
             }
         }
 

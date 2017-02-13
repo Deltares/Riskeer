@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
@@ -32,6 +33,7 @@ namespace Ringtoets.Integration.Forms.Views
     /// </summary>
     public partial class WmtsLocationControl : UserControl, IView
     {
+        private readonly List<WmtsConnectionInfo> wmtsConnectionInfos;
         private IEnumerable<WmtsCapabilityRow> capabilities;
 
         /// <summary>
@@ -39,8 +41,12 @@ namespace Ringtoets.Integration.Forms.Views
         /// </summary>
         public WmtsLocationControl()
         {
+            wmtsConnectionInfos = new List<WmtsConnectionInfo>();
+
             InitializeComponent();
             InitializeDataGridView();
+            InitializeComboBoxDataSource();
+            InitializeEventHandlers();
         }
 
         public object Data
@@ -65,6 +71,20 @@ namespace Ringtoets.Integration.Forms.Views
             base.Dispose(disposing);
         }
 
+        private WmtsConnectionInfo TryCreateWmtsConnectionInfo(string wmtsConnectionName, string wmtsConnectionUrl)
+        {
+            try
+            {
+                return new WmtsConnectionInfo(wmtsConnectionName, wmtsConnectionUrl);
+            }
+            catch (ArgumentException)
+            {
+                return null;
+            }
+        }
+
+        #region DataGridView
+
         private void InitializeDataGridView()
         {
             dataGridViewControl.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
@@ -84,5 +104,87 @@ namespace Ringtoets.Integration.Forms.Views
         {
             dataGridViewControl.SetDataSource(capabilities?.ToArray());
         }
+
+        #endregion
+
+        #region ComboBox
+
+        private void InitializeComboBoxDataSource()
+        {
+            urlLocationComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
+            urlLocationComboBox.Sorted = true;
+            UpdateComboBoxDataSource();
+        }
+
+        private void UpdateComboBoxDataSource()
+        {
+            object selectedItem = urlLocationComboBox.SelectedItem;
+            urlLocationComboBox.DataSource = null;
+            urlLocationComboBox.DataSource = wmtsConnectionInfos;
+            urlLocationComboBox.DisplayMember = nameof(WmtsConnectionInfo.Name);
+            urlLocationComboBox.ValueMember = nameof(WmtsConnectionInfo.Url);
+
+            urlLocationComboBox.SelectedItem = selectedItem;
+        }
+
+        #endregion
+
+        #region Event handlers
+
+        private void InitializeEventHandlers()
+        {
+            addLocationButton.Click += AddLocationButtonOnClick;
+            editLocationButton.Click += EditLocationButtonOnClick;
+        }
+
+        private void AddLocationButtonOnClick(object sender, EventArgs eventArgs)
+        {
+            Form controlForm = FindForm();
+            using (var dialog = new WmtsConnectionDialog(controlForm))
+            {
+                if (dialog.ShowDialog() != DialogResult.OK)
+                {
+                    return;
+                }
+
+                WmtsConnectionInfo createdWmtsConnectionInfos = TryCreateWmtsConnectionInfo(dialog.WmtsConnectionName,
+                                                                                            dialog.WmtsConnectionUrl);
+                if (createdWmtsConnectionInfos != null)
+                {
+                    wmtsConnectionInfos.Add(createdWmtsConnectionInfos);
+                    UpdateComboBoxDataSource();
+                }
+            }
+        }
+
+        private void EditLocationButtonOnClick(object sender, EventArgs eventArgs)
+        {
+            var selectedWmtsConnectionInfo = urlLocationComboBox.SelectedItem as WmtsConnectionInfo;
+            if (selectedWmtsConnectionInfo == null)
+            {
+                return;
+            }
+            Form controlForm = FindForm();
+            using (var dialog = new WmtsConnectionDialog(controlForm, selectedWmtsConnectionInfo))
+            {
+                if (dialog.ShowDialog() != DialogResult.OK)
+                {
+                    return;
+                }
+
+                WmtsConnectionInfo createdWmtsConnectionInfos = TryCreateWmtsConnectionInfo(dialog.WmtsConnectionName,
+                                                                                            dialog.WmtsConnectionUrl);
+                if (createdWmtsConnectionInfos != null)
+                {
+                    wmtsConnectionInfos.Remove(selectedWmtsConnectionInfo);
+                    wmtsConnectionInfos.Add(createdWmtsConnectionInfos);
+                    UpdateComboBoxDataSource();
+
+                    urlLocationComboBox.SelectedItem = createdWmtsConnectionInfos;
+                }
+            }
+        }
+
+        #endregion
     }
 }
