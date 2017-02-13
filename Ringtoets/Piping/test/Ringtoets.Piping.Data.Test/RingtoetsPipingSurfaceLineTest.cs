@@ -21,6 +21,7 @@
 
 using System;
 using System.Linq;
+using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
@@ -43,6 +44,7 @@ namespace Ringtoets.Piping.Data.Test
             var surfaceLine = new RingtoetsPipingSurfaceLine();
 
             // Assert
+            Assert.IsInstanceOf<Observable>(surfaceLine);
             Assert.AreEqual(string.Empty, surfaceLine.Name);
             CollectionAssert.IsEmpty(surfaceLine.Points);
             Assert.IsNull(surfaceLine.StartingWorldPoint);
@@ -179,12 +181,12 @@ namespace Ringtoets.Piping.Data.Test
             RoundedPoint2DCollection actual = surfaceLine.ProjectGeometryToLZ();
 
             // Assert
-            var length = Math.Sqrt(2*2 + 3*3);
-            const double secondCoordinateFactor = (2.0*1.0 + 3.0*2.0)/(2.0*2.0 + 3.0*3.0);
+            var length = Math.Sqrt(2 * 2 + 3 * 3);
+            const double secondCoordinateFactor = (2.0 * 1.0 + 3.0 * 2.0) / (2.0 * 2.0 + 3.0 * 3.0);
             var expectedCoordinatesX = new[]
             {
                 0.0,
-                secondCoordinateFactor*length,
+                secondCoordinateFactor * length,
                 length
             };
             CollectionAssert.AreEqual(expectedCoordinatesX, actual.Select(p => p.X).ToArray(), new DoubleWithToleranceComparer(actual.GetAccuracy()));
@@ -722,6 +724,48 @@ namespace Ringtoets.Piping.Data.Test
 
             // Assert
             Assert.AreEqual(new Point2D(double.NaN, double.NaN), localPoint);
+        }
+
+        [Test]
+        public void Update_WithNullModel_ThrowsArgumentNullException()
+        {
+            // Setup
+            var surfaceLine = new RingtoetsPipingSurfaceLine();
+
+            // Call
+            TestDelegate call = () => surfaceLine.Update(null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("fromSurfaceLine", paramName);
+        }
+
+        [Test]
+        public void Update_ModelWithUpdatedProperties_PropertiesUpdated()
+        {
+            // Setup
+            var surfaceLine = new RingtoetsPipingSurfaceLine();
+
+            const string expectedName = "Other name";
+            Point3D[] expectedGeometry = 
+            {
+                new Point3D(0, 1, 2),
+                new Point3D(3, 4, 5),
+                new Point3D(6, 7, 8)
+            };
+
+            var surfaceLineToUpdateFrom = new RingtoetsPipingSurfaceLine
+            {
+                Name = expectedName
+            };
+            surfaceLineToUpdateFrom.SetGeometry(expectedGeometry);
+
+            // Call
+            surfaceLine.Update(surfaceLineToUpdateFrom);
+
+            // Assert
+            Assert.AreEqual(expectedName, surfaceLine.Name);
+            CollectionAssert.AreEqual(expectedGeometry, surfaceLine.Points);
         }
 
         private static void CreateTestGeometry(Point3D testPoint, RingtoetsPipingSurfaceLine surfaceLine)

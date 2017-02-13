@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Ringtoets.Piping.Primitives.Exceptions;
@@ -33,7 +34,7 @@ namespace Ringtoets.Piping.Primitives
     /// <summary>
     /// Definition of a surfaceline for piping.
     /// </summary>
-    public class RingtoetsPipingSurfaceLine
+    public class RingtoetsPipingSurfaceLine : Observable
     {
         private const int numberOfDecimalPlaces = 2;
         private Point2D[] localGeometry;
@@ -348,6 +349,25 @@ namespace Ringtoets.Piping.Primitives
             Point2D localCoordinate = worldCoordinate.ProjectIntoLocalCoordinates(firstPoint, lastPoint);
             return new Point2D(new RoundedDouble(numberOfDecimalPlaces, localCoordinate.X),
                                new RoundedDouble(numberOfDecimalPlaces, localCoordinate.Y));
+        }
+
+        /// <summary>
+        /// Updates the <see cref="RingtoetsPipingSurfaceLine"/> with the properties of 
+        /// <paramref name="fromSurfaceLine"/>.
+        /// </summary>
+        /// <param name="fromSurfaceLine">The <see cref="RingtoetsPipingSurfaceLine"/>
+        /// to get the property values from.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="fromSurfaceLine"/>
+        /// is <c>null</c>.</exception>
+        public void Update(RingtoetsPipingSurfaceLine fromSurfaceLine)
+        {
+            if (fromSurfaceLine == null)
+            {
+                throw new ArgumentNullException(nameof(fromSurfaceLine));
+            }
+
+            Name = fromSurfaceLine.Name;
+            SetGeometry(fromSurfaceLine.Points);
         }
 
         public override string ToString()

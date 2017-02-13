@@ -113,7 +113,7 @@ namespace Ringtoets.Piping.Data.Test
         [Test]
         public void Update_ModelWithUpdatedProperties_PropertiesUpdated()
         {
-            // Assert
+            // Setup
             var model = new StochasticSoilModel(1234, "name", "segment");
             model.Geometry.AddRange(new[]
             {
