@@ -174,8 +174,6 @@ namespace Ringtoets.StabilityPointStructures.Plugin
                 Text = inputContext => RingtoetsCommonFormsResources.Calculation_Input,
                 Image = inputContext => RingtoetsCommonFormsResources.GenericInputOutputIcon,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
-                                                                                 .AddOpenItem()
-                                                                                 .AddSeparator()
                                                                                  .AddPropertiesItem()
                                                                                  .Build()
             };

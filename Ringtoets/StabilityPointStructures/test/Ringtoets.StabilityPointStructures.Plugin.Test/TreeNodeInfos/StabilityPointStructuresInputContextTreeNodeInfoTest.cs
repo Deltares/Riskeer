@@ -128,8 +128,6 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             var menuBuilderMock = mocksRepository.StrictMock<IContextMenuBuilder>();
             using (mocksRepository.Ordered())
             {
-                menuBuilderMock.Expect(mb => mb.AddOpenItem()).Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.Build()).Return(null);
             }
