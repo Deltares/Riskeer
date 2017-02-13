@@ -557,7 +557,7 @@ namespace Demo.Ringtoets.Commands
                 var soilProfilesImporter = new StochasticSoilModelImporter(pipingFailureMechanism.StochasticSoilModels,
                                                                            Path.Combine(embeddedResourceFileWriter.TargetFolderPath,
                                                                                         "DR6.soil"),
-                                                                           new StochasticSoilModelReplaceDataStrategy());
+                                                                           new StochasticSoilModelReplaceDataStrategy(pipingFailureMechanism));
                 soilProfilesImporter.Import();
             }
 

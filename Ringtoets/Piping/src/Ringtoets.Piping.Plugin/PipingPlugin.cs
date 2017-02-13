@@ -119,7 +119,7 @@ namespace Ringtoets.Piping.Plugin
                 Image = PipingFormsResources.PipingSoilProfileIcon,
                 FileFilter = StochasticSoilModelFileFilter,
                 IsEnabled = StochasticSoilModelImporterEnabled,
-                CreateFileImporter = (context, filePath) => StochasticSoilModelImporter(context, filePath, new StochasticSoilModelReplaceDataStrategy()),
+                CreateFileImporter = (context, filePath) => StochasticSoilModelImporter(context, filePath, new StochasticSoilModelReplaceDataStrategy(context.FailureMechanism)),
                 VerifyUpdates = VerifyStochasticSoilModelUpdates
             };
         }

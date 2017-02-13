@@ -26,6 +26,7 @@ using Core.Common.Base;
 using log4net;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.IO.Importers;
+using Ringtoets.Piping.Service;
 
 namespace Ringtoets.Piping.Plugin.FileImporter
 {
@@ -35,6 +36,21 @@ namespace Ringtoets.Piping.Plugin.FileImporter
     public class StochasticSoilModelReplaceDataStrategy : IStochasticSoilModelUpdateModelStrategy
     {
         private readonly ILog log = LogManager.GetLogger(typeof(StochasticSoilModelReplaceDataStrategy));
+
+        private readonly PipingFailureMechanism failureMechanism;
+
+        /// <summary>
+        /// Creates a new instance of <see cref="StochasticSoilModelUpdateDataStrategy"/>.
+        /// </summary>
+        /// <param name="failureMechanism">The failure mechanism in which the models are updated.</param>
+        public StochasticSoilModelReplaceDataStrategy(PipingFailureMechanism failureMechanism)
+        {
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
+            this.failureMechanism = failureMechanism;
+        }
 
         public IEnumerable<IObservable> UpdateModelWithImportedData(ObservableCollectionWithSourcePath<StochasticSoilModel> targetCollection,
                                                                     IEnumerable<StochasticSoilModel> readStochasticSoilModels,
@@ -53,6 +69,11 @@ namespace Ringtoets.Piping.Plugin.FileImporter
                 throw new ArgumentNullException(nameof(sourceFilePath));
             }
 
+            var affectedObjects = new List<IObservable>
+            {
+                targetCollection
+            };
+
             var modelsToAdd = new List<StochasticSoilModel>();
             foreach (StochasticSoilModel readStochasticSoilModel in readStochasticSoilModels)
             {
@@ -63,11 +84,12 @@ namespace Ringtoets.Piping.Plugin.FileImporter
                 }
                 modelsToAdd.Add(readStochasticSoilModel);
             }
-            targetCollection.AddRange(modelsToAdd, sourceFilePath);
-            return new[]
+            foreach (StochasticSoilModel model in targetCollection.ToArray())
             {
-                targetCollection
-            };
+                affectedObjects.AddRange(PipingDataSynchronizationService.RemoveStochasticSoilModel(failureMechanism, model));
+            }
+            targetCollection.AddRange(modelsToAdd, sourceFilePath);
+            return affectedObjects;
         }
     }
 }

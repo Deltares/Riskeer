@@ -45,14 +45,15 @@ namespace Core.Common.Gui.Commands
 
         private readonly IWin32Window dialogParent;
         private readonly IEnumerable<UpdateInfo> updateInfos;
-        private readonly DialogBasedInquiryHelper inquiryHelper;
+        private readonly IInquiryHelper inquiryHelper;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GuiImportHandler"/> class.
         /// </summary>
         /// <param name="dialogParent">The parent window to show dialogs on top.</param>
         /// <param name="updateInfos">An enumeration of <see cref="UpdateInfo"/>.</param>
-        public GuiUpdateHandler(IWin32Window dialogParent, IEnumerable<UpdateInfo> updateInfos)
+        /// <param name="inquiryHelper"></param>
+        public GuiUpdateHandler(IWin32Window dialogParent, IEnumerable<UpdateInfo> updateInfos, IInquiryHelper inquiryHelper)
         {
             if (dialogParent == null)
             {
@@ -64,7 +65,7 @@ namespace Core.Common.Gui.Commands
             }
             this.dialogParent = dialogParent;
             this.updateInfos = updateInfos;
-            inquiryHelper = new DialogBasedInquiryHelper(dialogParent);
+            this.inquiryHelper = inquiryHelper;
         }
 
         public bool CanUpdateOn(object target)
@@ -150,7 +151,7 @@ namespace Core.Common.Gui.Commands
         {
             log.Info(Resources.GuiImportHandler_ImportItemsUsingDialog_Start_importing_data);
 
-            var activity = new FileImportActivity(importer, importName);
+            var activity = new FileImportActivity(importer, importName ?? string.Empty);
             ActivityProgressDialogRunner.Run(dialogParent, activity);
         }
     }

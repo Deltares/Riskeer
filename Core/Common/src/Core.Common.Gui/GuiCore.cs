@@ -27,7 +27,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
-using System.Windows;
+using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Storage;
@@ -47,6 +47,7 @@ using Core.Common.Utils.Extensions;
 using log4net;
 using log4net.Appender;
 using log4net.Repository.Hierarchy;
+using Application = System.Windows.Application;
 using SplashScreen = Core.Common.Gui.Forms.SplashScreen.SplashScreen;
 using WindowsApplication = System.Windows.Forms.Application;
 
@@ -120,7 +121,7 @@ namespace Core.Common.Gui
             storageCommandHandler = new StorageCommandHandler(projectStore, projectFactory, this, MainWindow);
             importCommandHandler = new GuiImportHandler(MainWindow, Plugins.SelectMany(p => p.GetImportInfos()));
             exportCommandHandler = new GuiExportHandler(MainWindow, Plugins.SelectMany(p => p.GetExportInfos()));
-            updateCommandHandler = new GuiUpdateHandler(MainWindow, Plugins.SelectMany(p => p.GetUpdateInfos()));
+            updateCommandHandler = new GuiUpdateHandler(MainWindow, Plugins.SelectMany(p => p.GetUpdateInfos()), new DialogBasedInquiryHelper(MainWindow));
 
             WindowsApplication.EnableVisualStyles();
             ViewPropertyEditor.ViewCommands = ViewCommands;

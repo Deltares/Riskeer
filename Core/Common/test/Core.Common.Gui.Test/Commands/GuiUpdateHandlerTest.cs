@@ -21,7 +21,9 @@
 
 using System;
 using System.Linq;
+using System.Threading;
 using System.Windows.Forms;
+using Core.Common.Base.IO;
 using Core.Common.Gui.Commands;
 using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.Plugin;
@@ -37,12 +39,18 @@ namespace Core.Common.Gui.Test.Commands
         [Test]
         public void Constructor_WithoutDialogParent_ThrowsArgumentNullException()
         {
+            // Setup
+            var mockRepository = new MockRepository();
+            var inquiryHelper = mockRepository.Stub<IInquiryHelper>();
+            mockRepository.ReplayAll();
+
             // Call
-            TestDelegate test = () => new GuiUpdateHandler(null, Enumerable.Empty<UpdateInfo>());
+            TestDelegate test = () => new GuiUpdateHandler(null, Enumerable.Empty<UpdateInfo>(), inquiryHelper);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("dialogParent", paramName);
+            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -51,77 +59,15 @@ namespace Core.Common.Gui.Test.Commands
             // Setup
             var mockRepository = new MockRepository();
             var mainWindow = mockRepository.Stub<IWin32Window>();
+            var inquiryHelper = mockRepository.Stub<IInquiryHelper>();
             mockRepository.ReplayAll();
 
             // Call
-            TestDelegate test = () => new GuiUpdateHandler(mainWindow, null);
+            TestDelegate test = () => new GuiUpdateHandler(mainWindow, null, inquiryHelper);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("updateInfos", paramName);
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void UpdateOn_NoUpdaterAvailable_GivesMessageBox()
-        {
-            // Setup
-            var mockRepository = new MockRepository();
-            var mainWindow = mockRepository.Stub<IMainWindow>();
-            mockRepository.ReplayAll();
-
-            string messageBoxTitle = null, messageBoxText = null;
-            DialogBoxHandler = (name, wnd) =>
-            {
-                var messageBox = new MessageBoxTester(wnd);
-
-                messageBoxText = messageBox.Text;
-                messageBoxTitle = messageBox.Title;
-
-                messageBox.ClickOk();
-            };
-
-            var importHandler = new GuiUpdateHandler(mainWindow, Enumerable.Empty<UpdateInfo>());
-
-            // Call
-            importHandler.UpdateOn(typeof(long));
-
-            // Assert
-            Assert.AreEqual("Fout", messageBoxTitle);
-            Assert.AreEqual("Geen enkele 'Updater' is beschikbaar voor dit element.", messageBoxText);
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void UpdateOn_NoSupportedUpdateInfoAvailable_GivesMessageBox()
-        {
-            // Setup
-            var mockRepository = new MockRepository();
-            var mainWindow = mockRepository.Stub<IMainWindow>();
-            mockRepository.ReplayAll();
-
-            string messageBoxTitle = null, messageBoxText = null;
-            DialogBoxHandler = (name, wnd) =>
-            {
-                var messageBox = new MessageBoxTester(wnd);
-
-                messageBoxText = messageBox.Text;
-                messageBoxTitle = messageBox.Title;
-
-                messageBox.ClickOk();
-            };
-
-            var importHandler = new GuiUpdateHandler(mainWindow, new UpdateInfo[]
-            {
-                new UpdateInfo<double>()
-            });
-
-            // Call
-            importHandler.UpdateOn(typeof(long));
-
-            // Assert
-            Assert.AreEqual("Fout", messageBoxTitle);
-            Assert.AreEqual("Geen enkele 'Updater' is beschikbaar voor dit element.", messageBoxText);
             mockRepository.VerifyAll();
         }
 
@@ -131,9 +77,10 @@ namespace Core.Common.Gui.Test.Commands
             // Setup
             var mocks = new MockRepository();
             var dialogParent = mocks.Stub<IWin32Window>();
+            var inquiryHelper = mocks.Stub<IInquiryHelper>();
             mocks.ReplayAll();
 
-            var commandHandler = new GuiUpdateHandler(dialogParent, Enumerable.Empty<UpdateInfo>());
+            var commandHandler = new GuiUpdateHandler(dialogParent, Enumerable.Empty<UpdateInfo>(), inquiryHelper);
 
             // Call
             bool isImportPossible = commandHandler.CanUpdateOn(new object());
@@ -151,12 +98,13 @@ namespace Core.Common.Gui.Test.Commands
 
             var mocks = new MockRepository();
             var dialogParent = mocks.Stub<IWin32Window>();
+            var inquiryHelper = mocks.Stub<IInquiryHelper>();
             mocks.ReplayAll();
 
             var commandHandler = new GuiUpdateHandler(dialogParent, new UpdateInfo[]
             {
                 new UpdateInfo<object>()
-            });
+            }, inquiryHelper);
 
             // Call
             bool isImportPossible = commandHandler.CanUpdateOn(target);
@@ -173,6 +121,7 @@ namespace Core.Common.Gui.Test.Commands
             var target = new object();
             var mocks = new MockRepository();
             var dialogParent = mocks.Stub<IWin32Window>();
+            var inquiryHelper = mocks.Stub<IInquiryHelper>();
             mocks.ReplayAll();
 
             var commandHandler = new GuiUpdateHandler(dialogParent, new UpdateInfo[]
@@ -181,7 +130,7 @@ namespace Core.Common.Gui.Test.Commands
                 {
                     IsEnabled = data => false
                 }
-            });
+            }, inquiryHelper);
 
             // Call
             bool isImportPossible = commandHandler.CanUpdateOn(target);
@@ -198,6 +147,7 @@ namespace Core.Common.Gui.Test.Commands
             var target = new object();
             var mocks = new MockRepository();
             var dialogParent = mocks.Stub<IWin32Window>();
+            var inquiryHelper = mocks.Stub<IInquiryHelper>();
             mocks.ReplayAll();
 
             var commandHandler = new GuiUpdateHandler(dialogParent, new UpdateInfo[]
@@ -210,7 +160,7 @@ namespace Core.Common.Gui.Test.Commands
                 {
                     IsEnabled = data => true
                 }
-            });
+            }, inquiryHelper);
 
             // Call
             bool isImportPossible = commandHandler.CanUpdateOn(target);
@@ -227,6 +177,7 @@ namespace Core.Common.Gui.Test.Commands
             var target = new object();
             var mocks = new MockRepository();
             var dialogParent = mocks.Stub<IWin32Window>();
+            var inquiryHelper = mocks.Stub<IInquiryHelper>();
             mocks.ReplayAll();
 
             var commandHandler = new GuiUpdateHandler(dialogParent, new UpdateInfo[]
@@ -239,7 +190,7 @@ namespace Core.Common.Gui.Test.Commands
                 {
                     IsEnabled = data => false
                 }
-            });
+            }, inquiryHelper);
 
             // Call
             bool isImportPossible = commandHandler.CanUpdateOn(target);
@@ -247,6 +198,145 @@ namespace Core.Common.Gui.Test.Commands
             // Assert
             Assert.IsFalse(isImportPossible);
             mocks.VerifyAll();
+        }
+
+        [Test]
+        public void UpdateOn_NoUpdaterAvailable_GivesMessageBox()
+        {
+            // Setup
+            var mockRepository = new MockRepository();
+            var mainWindow = mockRepository.Stub<IMainWindow>();
+            var inquiryHelper = mockRepository.Stub<IInquiryHelper>();
+            mockRepository.ReplayAll();
+
+            string messageBoxTitle = null, messageBoxText = null;
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var messageBox = new MessageBoxTester(wnd);
+
+                messageBoxText = messageBox.Text;
+                messageBoxTitle = messageBox.Title;
+
+                messageBox.ClickOk();
+            };
+
+            var importHandler = new GuiUpdateHandler(mainWindow, Enumerable.Empty<UpdateInfo>(), inquiryHelper);
+
+            // Call
+            importHandler.UpdateOn(3);
+
+            // Assert
+            Assert.AreEqual("Fout", messageBoxTitle);
+            Assert.AreEqual("Geen enkele 'Updater' is beschikbaar voor dit element.", messageBoxText);
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void UpdateOn_NoSupportedUpdateInfoAvailable_GivesMessageBox()
+        {
+            // Setup
+            var mockRepository = new MockRepository();
+            var mainWindow = mockRepository.Stub<IMainWindow>();
+            var inquiryHelper = mockRepository.Stub<IInquiryHelper>();
+            mockRepository.ReplayAll();
+
+            string messageBoxTitle = null, messageBoxText = null;
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var messageBox = new MessageBoxTester(wnd);
+
+                messageBoxText = messageBox.Text;
+                messageBoxTitle = messageBox.Title;
+
+                messageBox.ClickOk();
+            };
+
+            var importHandler = new GuiUpdateHandler(mainWindow, new UpdateInfo[]
+            {
+                new UpdateInfo<double>()
+            }, inquiryHelper);
+
+            // Call
+            importHandler.UpdateOn(string.Empty);
+
+            // Assert
+            Assert.AreEqual("Fout", messageBoxTitle);
+            Assert.AreEqual("Geen enkele 'Updater' is beschikbaar voor dit element.", messageBoxText);
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void UpdateOn_SupportedUpdateInfoAvailableVerifyUpdatesSuccesful_CreateFileImporterCalled()
+        {
+            // Setup
+            var filter = new ExpectedFile();
+            var mockRepository = new MockRepository();
+            var inquiryHelper = mockRepository.Stub<IInquiryHelper>();
+            inquiryHelper.Expect(ih => ih.GetSourceFileLocation(filter)).Return(new FileResult("/some/path"));
+            IFileImporter fileImporterStub = CreateStubFileImporter(mockRepository);
+            mockRepository.ReplayAll();
+
+            DialogBoxHandler = (name, wnd) =>
+            {
+                // Activity closes itself
+            };
+
+            using (var form = new Form())
+            {
+                var importHandler = new GuiUpdateHandler(form, new UpdateInfo[]
+                {
+                    new UpdateInfo<double>
+                    {
+                        CreateFileImporter = (d, s) => fileImporterStub,
+                        FileFilter = filter,
+                        VerifyUpdates = d => true
+                    }
+                }, inquiryHelper);
+
+                // Call
+                importHandler.UpdateOn(3.2);
+            }
+
+            // Assert
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void UpdateOn_SupportedUpdateInfoAvailableVerifyUpdatesUnsuccesful_FileImporterNotCreated()
+        {
+            // Setup
+            var filter = new ExpectedFile();
+            var mockRepository = new MockRepository();
+            var inquiryHelper = mockRepository.Stub<IInquiryHelper>();
+            inquiryHelper.Expect(ih => ih.GetSourceFileLocation(filter)).Return(new FileResult("/some/path"));
+            mockRepository.ReplayAll();
+
+            using (var form = new Form())
+            {
+                var importHandler = new GuiUpdateHandler(form, new UpdateInfo[]
+                {
+                    new UpdateInfo<double>
+                    {
+                        FileFilter = filter,
+                        VerifyUpdates = d => false
+                    }
+                }, inquiryHelper);
+
+                // Call
+                importHandler.UpdateOn(3.2);
+            }
+
+            // Assert
+            mockRepository.VerifyAll();
+        }
+
+        private static IFileImporter CreateStubFileImporter(MockRepository mockRepository)
+        {
+            var fileImporterStub = mockRepository.Stub<IFileImporter>();
+            fileImporterStub.Expect(fi => fi.Import());
+            fileImporterStub.Expect(fi => fi.DoPostImport());
+            fileImporterStub.Expect(fi => fi.SetProgressChanged(null)).IgnoreArguments();
+            return fileImporterStub;
         }
     }
 }
