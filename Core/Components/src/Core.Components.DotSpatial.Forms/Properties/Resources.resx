@@ -126,4 +126,29 @@
   <data name="MapControl_InitializeBackgroundLayer_Persistent_cache_creation_failed" xml:space="preserve">
     <value>Configuratie van kaartgegevens hulpbestanden is mislukt.</value>
   </data>
+  <data name="WmtsCapability_MapLayer_CoordinateSystem" xml:space="preserve">
+    <value>Coördinatenstelsel</value>
+  </data>
+  <data name="WmtsCapability_MapLayer_Format" xml:space="preserve">
+    <value>Formaat</value>
+  </data>
+  <data name="WmtsCapability_MapLayer_Id" xml:space="preserve">
+    <value>Kaartlaag</value>
+  </data>
+  <data name="WmtsCapability_MapLayer_Title" xml:space="preserve">
+    <value>Titel</value>
+  </data>
+  <data name="WmtsConnectionDialog_ActionButton_Edit" xml:space="preserve">
+    <value>Bewerken</value>
+  </data>
+  <data name="WmtsConnectionDialog_Text_Edit" xml:space="preserve">
+    <value>WMTS locatie aanpassen</value>
+  </data>
+  <data name="WmtsConnectionInfoReader_Unable_To_Create_WmtsConnectionInfo" xml:space="preserve">
+    <value>Het is niet mogelijk om WMTS connectie {0} aan te maken met URL '{1}'.</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="MapsIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\mapsicon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

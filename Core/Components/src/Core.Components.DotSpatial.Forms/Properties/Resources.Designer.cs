@@ -108,5 +108,78 @@ namespace Core.Components.DotSpatial.Forms.Properties {
                 return ResourceManager.GetString("MapControl_InitializeBackgroundLayer_Wmts_connection_failed", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap MapsIcon {
+            get {
+                object obj = ResourceManager.GetObject("MapsIcon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Coördinatenstelsel.
+        /// </summary>
+        internal static string WmtsCapability_MapLayer_CoordinateSystem {
+            get {
+                return ResourceManager.GetString("WmtsCapability_MapLayer_CoordinateSystem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Formaat.
+        /// </summary>
+        internal static string WmtsCapability_MapLayer_Format {
+            get {
+                return ResourceManager.GetString("WmtsCapability_MapLayer_Format", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kaartlaag.
+        /// </summary>
+        internal static string WmtsCapability_MapLayer_Id {
+            get {
+                return ResourceManager.GetString("WmtsCapability_MapLayer_Id", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Titel.
+        /// </summary>
+        internal static string WmtsCapability_MapLayer_Title {
+            get {
+                return ResourceManager.GetString("WmtsCapability_MapLayer_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bewerken.
+        /// </summary>
+        internal static string WmtsConnectionDialog_ActionButton_Edit {
+            get {
+                return ResourceManager.GetString("WmtsConnectionDialog_ActionButton_Edit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to WMTS locatie aanpassen.
+        /// </summary>
+        internal static string WmtsConnectionDialog_Text_Edit {
+            get {
+                return ResourceManager.GetString("WmtsConnectionDialog_Text_Edit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het is niet mogelijk om WMTS connectie {0} aan te maken met URL &apos;{1}&apos;..
+        /// </summary>
+        internal static string WmtsConnectionInfoReader_Unable_To_Create_WmtsConnectionInfo {
+            get {
+                return ResourceManager.GetString("WmtsConnectionInfoReader_Unable_To_Create_WmtsConnectionInfo", resourceCulture);
+            }
+        }
     }
 }

@@ -70,6 +70,8 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\..\..\Common\src\Core.Common.Version\GlobalAssembly.cs">
@@ -88,11 +90,44 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="WmtsBackgroundLayerStatus.cs" />
+    <Compile Include="WmtsCapability.cs" />
+    <Compile Include="Views\WmtsCapabilityRow.cs" />
+    <Compile Include="Views\WmtsConnectionDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\WmtsConnectionDialog.Designer.cs">
+      <DependentUpon>WmtsConnectionDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WmtsConnectionInfo.cs" />
+    <Compile Include="IO\WmtsConnectionInfoReader.cs" />
+    <Compile Include="IO\WmtsConnectionInfoWriter.cs" />
+    <Compile Include="IO\WmtsConnectionInfoXmlDefinitions.cs" />
+    <Compile Include="Views\WmtsLocationControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\WmtsLocationControl.Designer.cs">
+      <DependentUpon>WmtsLocationControl.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\Common\src\Core.Common.Base\Core.Common.Base.csproj">
       <Project>{3bbfd65b-b277-4e50-ae6d-bd24c3434609}</Project>
       <Name>Core.Common.Base</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\src\Core.Common.Controls\Core.Common.Controls.csproj">
+      <Project>{9A2D67E6-26AC-4D17-B11A-2B4372F2F572}</Project>
+      <Name>Core.Common.Controls</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\src\Core.Common.IO\Core.Common.IO.csproj">
+      <Project>{E344867E-9AC9-44C8-88A5-8185681679A9}</Project>
+      <Name>Core.Common.IO</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\src\Core.Common.Utils\Core.Common.Utils.csproj">
+      <Project>{F49BD8B2-332A-4C91-A196-8CCE0A2C7D98}</Project>
+      <Name>Core.Common.Utils</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\Core.Components.DotSpatial\Core.Components.DotSpatial.csproj">
@@ -124,6 +159,15 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\WmtsConnectionDialog.resx">
+      <DependentUpon>WmtsConnectionDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\WmtsLocationControl.resx">
+      <DependentUpon>WmtsLocationControl.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\MapsIcon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
