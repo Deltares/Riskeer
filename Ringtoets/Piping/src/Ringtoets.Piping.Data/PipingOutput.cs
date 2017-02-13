@@ -35,7 +35,7 @@ namespace Ringtoets.Piping.Data
         /// Creates a new instance of <see cref="PipingOutput"/>. 
         /// </summary>
         /// <param name="constructionProperties">The container of the properties for the
-        /// <see cref="PipingOutput"/></param>
+        /// <see cref="PipingOutput"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when the <paramref name="constructionProperties"/>
         /// is <c>null</c>.</exception>
         public PipingOutput(ConstructionProperties constructionProperties)

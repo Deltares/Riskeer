@@ -32,5 +32,7 @@ namespace Ringtoets.Piping.IO.Readers
         /// Gets the collection of nested <see cref="IReadPipingCalculationItem"/>.
         /// </summary>
         public IEnumerable<IReadPipingCalculationItem> Items { get; private set; }
+
+        public string Name { get; }
     }
 }

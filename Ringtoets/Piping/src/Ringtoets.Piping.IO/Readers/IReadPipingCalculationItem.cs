@@ -24,5 +24,11 @@ namespace Ringtoets.Piping.IO.Readers
     /// <summary>
     /// Interface for piping calculation items read via <see cref="PipingCalculationGroupReader"/>.
     /// </summary>
-    public interface IReadPipingCalculationItem {}
+    public interface IReadPipingCalculationItem
+    {
+        /// <summary>
+        /// Gets the name of the read piping calculation item.
+        /// </summary>
+        string Name { get; }
+    }
 }

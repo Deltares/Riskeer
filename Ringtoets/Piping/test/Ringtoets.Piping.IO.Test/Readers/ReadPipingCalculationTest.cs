@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using NUnit.Framework;
 using Ringtoets.Piping.IO.Readers;
 
@@ -28,13 +29,70 @@ namespace Ringtoets.Piping.IO.Test.Readers
     public class ReadPipingCalculationTest
     {
         [Test]
-        public void DefaultConstructor_DefaultValues()
+        public void Constructor_WithoutConstructionProperties_ThrowsArgumentNullException()
         {
             // Call
-            var readPipingCalculation = new ReadPipingCalculation();
+            TestDelegate test = () => new ReadPipingCalculation(null);
 
             // Assert
-            Assert.IsInstanceOf<IReadPipingCalculationItem>(readPipingCalculation);
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("constructionProperties", paramName);
+        }
+
+        [Test]
+        public void Constructor_ConstructionPropertiesWithoutValues_PropertiesAreDefault()
+        {
+            // Call
+            var readPipingCalculation = new ReadPipingCalculation(new ReadPipingCalculation.ConstructionProperties());
+
+            // Assert
+            Assert.IsNull(readPipingCalculation.Name);
+            Assert.AreEqual(0.0, readPipingCalculation.AssessmentLevel);
+            Assert.IsNull(readPipingCalculation.HydraulicBoundaryLocation);
+            Assert.IsNull(readPipingCalculation.SurfaceLine);
+            Assert.AreEqual(0.0, readPipingCalculation.EntryPointL);
+            Assert.AreEqual(0.0, readPipingCalculation.ExitPointL);
+            Assert.IsNull(readPipingCalculation.StochasticSoilModel);
+            Assert.IsNull(readPipingCalculation.StochasticSoilProfile);
+            Assert.AreEqual(0.0, readPipingCalculation.PhreaticLevelExitMean);
+            Assert.AreEqual(0.0, readPipingCalculation.PhreaticLevelExitStandardDeviation);
+            Assert.AreEqual(0.0, readPipingCalculation.DampingFactorExitMean);
+            Assert.AreEqual(0.0, readPipingCalculation.DampingFactorExitStandardDeviation);
+        }
+
+        [Test]
+        public void Constructor_ConstructionPropertiesWithValuesSet_PropertiesAsExpected()
+        {
+            // Call
+            var readPipingCalculation = new ReadPipingCalculation(new ReadPipingCalculation.ConstructionProperties
+            {
+                Name = "Name of the calculation",
+                AssessmentLevel = 1.1,
+                HydraulicBoundaryLocation = "Name of the hydraulic boundary location",
+                SurfaceLine = "Name of the surface line",
+                EntryPointL = 2.2,
+                ExitPointL = 3.3,
+                StochasticSoilModel = "Name of the stochastic soil model",
+                StochasticSoilProfile = "Name of the stochastic soil profile",
+                PhreaticLevelExitMean = 4.4,
+                PhreaticLevelExitStandardDeviation = 5.5,
+                DampingFactorExitMean = 6.6,
+                DampingFactorExitStandardDeviation = 7.7
+            });
+
+            // Assert
+            Assert.AreEqual("Name of the calculation", readPipingCalculation.Name);
+            Assert.AreEqual(1.1, readPipingCalculation.AssessmentLevel);
+            Assert.AreEqual("Name of the hydraulic boundary location", readPipingCalculation.HydraulicBoundaryLocation);
+            Assert.AreEqual("Name of the surface line", readPipingCalculation.SurfaceLine);
+            Assert.AreEqual(2.2, readPipingCalculation.EntryPointL);
+            Assert.AreEqual(3.3, readPipingCalculation.ExitPointL);
+            Assert.AreEqual("Name of the stochastic soil model", readPipingCalculation.StochasticSoilModel);
+            Assert.AreEqual("Name of the stochastic soil profile", readPipingCalculation.StochasticSoilProfile);
+            Assert.AreEqual(4.4, readPipingCalculation.PhreaticLevelExitMean);
+            Assert.AreEqual(5.5, readPipingCalculation.PhreaticLevelExitStandardDeviation);
+            Assert.AreEqual(6.6, readPipingCalculation.DampingFactorExitMean);
+            Assert.AreEqual(7.7, readPipingCalculation.DampingFactorExitStandardDeviation);
         }
     }
 }
