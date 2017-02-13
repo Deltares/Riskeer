@@ -20,7 +20,9 @@
 // All rights reserved.
 
 using System;
+using System.Globalization;
 using System.Xml;
+using Core.Common.Base.Data;
 using Core.Common.IO.Exceptions;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Probabilistics;
@@ -114,7 +116,7 @@ namespace Ringtoets.Piping.IO.Exporters
 
             if (calculationInputParameters.UseAssessmentLevelManualInput)
             {
-                writer.WriteElementString("toetspeil", calculationInputParameters.AssessmentLevel.ToString());
+                writer.WriteElementString("toetspeil", ToStringInvariantCulture(calculationInputParameters.AssessmentLevel));
             }
             else
             {
@@ -127,8 +129,8 @@ namespace Ringtoets.Piping.IO.Exporters
             if (calculationInputParameters.SurfaceLine != null)
             {
                 writer.WriteElementString("profielschematisatie", calculationInputParameters.SurfaceLine.Name);
-                writer.WriteElementString("intredepunt", calculationInputParameters.EntryPointL.ToString());
-                writer.WriteElementString("uittredepunt", calculationInputParameters.ExitPointL.ToString());
+                writer.WriteElementString("intredepunt", ToStringInvariantCulture(calculationInputParameters.EntryPointL));
+                writer.WriteElementString("uittredepunt", ToStringInvariantCulture(calculationInputParameters.ExitPointL));
             }
 
             if (calculationInputParameters.StochasticSoilModel != null)
@@ -144,7 +146,6 @@ namespace Ringtoets.Piping.IO.Exporters
             WriteDistribution(calculationInputParameters.PhreaticLevelExit, "polderpeil", writer);
             WriteDistribution(calculationInputParameters.DampingFactorExit, "dempingsfactor", writer);
 
-
             writer.WriteEndElement();
         }
 
@@ -153,10 +154,15 @@ namespace Ringtoets.Piping.IO.Exporters
             writer.WriteStartElement("stochast");
             writer.WriteAttributeString("naam", elementName);
 
-            writer.WriteElementString("verwachtingswaarde", distribution.Mean.ToString());
-            writer.WriteElementString("standaardafwijking", distribution.StandardDeviation.ToString());
+            writer.WriteElementString("verwachtingswaarde", ToStringInvariantCulture(distribution.Mean));
+            writer.WriteElementString("standaardafwijking", ToStringInvariantCulture(distribution.StandardDeviation));
 
             writer.WriteEndElement();
+        }
+
+        private static string ToStringInvariantCulture(RoundedDouble roundedDouble)
+        {
+            return roundedDouble.ToString(null, CultureInfo.InvariantCulture);
         }
     }
 }
