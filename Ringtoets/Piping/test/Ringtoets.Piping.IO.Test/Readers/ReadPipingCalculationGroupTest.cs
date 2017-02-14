@@ -21,6 +21,8 @@
 
 using NUnit.Framework;
 using Ringtoets.Piping.IO.Readers;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Ringtoets.Piping.IO.Test.Readers
 {
@@ -28,13 +30,21 @@ namespace Ringtoets.Piping.IO.Test.Readers
     public class ReadPipingCalculationGroupTest
     {
         [Test]
-        public void DefaultConstructor_DefaultValues()
+        public void Constructor_ExpectedValues()
         {
+            // Setup
+            var nestedItems = new List<IReadPipingCalculationItem>
+            {
+                new ReadPipingCalculation(new ReadPipingCalculation.ConstructionProperties()),
+                new ReadPipingCalculationGroup("Nested calculation group", Enumerable.Empty<IReadPipingCalculationItem>())
+            };
+
             // Call
-            var readPipingCalculationGroup = new ReadPipingCalculationGroup();
+            var readPipingCalculationGroup = new ReadPipingCalculationGroup("Calculation group", nestedItems);
 
             // Assert
             Assert.IsInstanceOf<IReadPipingCalculationItem>(readPipingCalculationGroup);
+            Assert.AreSame(nestedItems, readPipingCalculationGroup.Items);
         }
     }
 }

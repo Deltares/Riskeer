@@ -29,6 +29,17 @@ namespace Ringtoets.Piping.IO.Readers
     public class ReadPipingCalculationGroup : IReadPipingCalculationItem
     {
         /// <summary>
+        /// Creates a new instance of <see cref="ReadPipingCalculationGroup"/>.
+        /// </summary>
+        /// <param name="name">The name the piping calculation group.</param>
+        /// <param name="items">The collection of nested <see cref="IReadPipingCalculationItem"/>.</param>
+        public ReadPipingCalculationGroup(string name, IEnumerable<IReadPipingCalculationItem> items)
+        {
+            Name = name;
+            Items = items;
+        }
+
+        /// <summary>
         /// Gets the collection of nested <see cref="IReadPipingCalculationItem"/>.
         /// </summary>
         public IEnumerable<IReadPipingCalculationItem> Items { get; private set; }
