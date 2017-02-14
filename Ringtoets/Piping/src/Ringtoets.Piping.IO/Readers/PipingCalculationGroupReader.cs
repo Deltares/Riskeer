@@ -19,12 +19,18 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Xml.Linq;
 using System.Xml.Schema;
+using Core.Common.IO.Exceptions;
+using Core.Common.Utils;
+using Core.Common.Utils.Builders;
 using Core.Common.Utils.Reflection;
 using Ringtoets.Piping.IO.Properties;
+using CoreCommonUtilsResources = Core.Common.Utils.Properties.Resources;
 
 namespace Ringtoets.Piping.IO.Readers
 {
@@ -33,14 +39,21 @@ namespace Ringtoets.Piping.IO.Readers
     /// </summary>
     public class PipingCalculationGroupReader
     {
-        private readonly XmlSchemaSet schema;
-
         /// <summary>
         /// Creates a new instance of <see cref="PipingCalculationGroupReader"/>.
         /// </summary>
-        public PipingCalculationGroupReader()
+        /// <param name="filePath">The file path to the XML file.</param>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>
+        /// <exception cref="CriticalFileReadException">Thrown when <paramref name="filePath"/> points to a file that does not exist.</exception>
+        public PipingCalculationGroupReader(string filePath)
         {
-            schema = LoadXmlSchema();
+            IOUtils.ValidateFilePath(filePath);
+            if (!File.Exists(filePath))
+            {
+                string message = new FileReaderErrorMessageBuilder(filePath)
+                    .Build(CoreCommonUtilsResources.Error_File_does_not_exist);
+                throw new CriticalFileReadException(message);
+            }
         }
 
         /// <summary>
@@ -66,6 +79,8 @@ namespace Ringtoets.Piping.IO.Readers
 
         private void ValidateToSchema(XDocument document)
         {
+            XmlSchemaSet schema = LoadXmlSchema();
+
             try
             {
                 document.Validate(schema, null);

@@ -19,7 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Collections.Generic;
+using System;
+using System.IO;
+using Core.Common.IO.Exceptions;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Piping.IO.Readers;
 
@@ -29,26 +32,66 @@ namespace Ringtoets.Piping.IO.Test.Readers
     public class PipingCalculationGroupReaderTest
     {
         [Test]
-        public void Constructor_Always_ReturnsNewInstance()
+        [TestCase("")]
+        [TestCase("      ")]
+        [TestCase(null)]
+        public void Constructor_NoFilePath_ThrowArgumentException(string invalidFilePath)
         {
             // Call
-            var pipingCalculationGroupReader = new PipingCalculationGroupReader();
+            TestDelegate call = () => new PipingCalculationGroupReader(invalidFilePath);
 
             // Assert
-            Assert.NotNull(pipingCalculationGroupReader);
+            var expectedMessage = $"Fout bij het lezen van bestand '{invalidFilePath}': bestandspad mag niet leeg of ongedefinieerd zijn.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
 
         [Test]
-        public void Read_ReturnsExpectedCollectionOfReadPipingCalculationItems()
+        public void Constructor_FilePathHasInvalidPathCharacter_ThrowArgumentException()
         {
             // Setup
-            var reader = new PipingCalculationGroupReader();
+            char[] invalidFileNameChars = Path.GetInvalidFileNameChars();
+
+            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO,
+                                                              "Valid piping configuration.shp");
+            string invalidFilePath = validFilePath.Replace("piping", invalidFileNameChars[3].ToString());
 
             // Call
-            IEnumerable<IReadPipingCalculationItem> result = reader.Read();
+            TestDelegate call = () => new PipingCalculationGroupReader(invalidFilePath);
 
             // Assert
-            Assert.IsEmpty(result);
+            var expectedMessage = $"Fout bij het lezen van bestand '{invalidFilePath}': bestandspad mag niet de volgende tekens bevatten: {string.Join(", ", invalidFileNameChars)}";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
+        }
+
+        [Test]
+        public void Constructor_FilePathIsActuallyDirectoryPath_ThrowArgumentException()
+        {
+            // Setup
+            string invalidFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO,
+                                                                Path.DirectorySeparatorChar.ToString());
+
+            // Call
+            TestDelegate call = () => new PipingCalculationGroupReader(invalidFilePath);
+
+            // Assert
+            var expectedMessage = $"Fout bij het lezen van bestand '{invalidFilePath}': bestandspad mag niet verwijzen naar een lege bestandsnaam.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
+        }
+
+        [Test]
+        public void Constructor_FileDoesNotExist_ThrowCriticalFileReadException()
+        {
+            // Setup
+            string invalidFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO,
+                                                                "I_do_not_exist.shp");
+
+            // Call
+            TestDelegate call = () => new PipingCalculationGroupReader(invalidFilePath);
+
+            // Assert
+            var expectedMessage = $"Fout bij het lezen van bestand '{invalidFilePath}': het bestand bestaat niet.";
+            var message = Assert.Throws<CriticalFileReadException>(call).Message;
+            Assert.AreEqual(expectedMessage, message);
         }
     }
 }
