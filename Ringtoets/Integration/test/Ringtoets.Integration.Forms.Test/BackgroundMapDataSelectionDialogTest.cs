@@ -20,11 +20,13 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
 using Core.Common.Controls.Dialogs;
 using Core.Common.TestUtil;
+using Core.Components.DotSpatial.Forms.Views;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -63,6 +65,12 @@ namespace Ringtoets.Integration.Forms.Test
                     Bitmap expectedImage = icon.ToBitmap();
                     Bitmap actualImage = dialog.Icon.ToBitmap();
                     TestHelper.AssertImagesAreEqual(expectedImage, actualImage);
+
+                    var mapLayers = (ComboBox)new ComboBoxTester("mapLayerComboBox", dialog).TheObject;
+                    Assert.AreEqual(ComboBoxStyle.DropDownList, mapLayers.DropDownStyle);
+                    Assert.IsInstanceOf<List<IHasMapData>>(mapLayers.DataSource);
+                    Assert.AreEqual("DisplayName", mapLayers.DisplayMember);
+                    Assert.IsTrue(mapLayers.Sorted);
                 }
             }
         }

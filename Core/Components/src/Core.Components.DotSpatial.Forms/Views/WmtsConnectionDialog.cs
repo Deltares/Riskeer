@@ -36,7 +36,7 @@ namespace Core.Components.DotSpatial.Forms.Views
         /// </summary>
         /// <param name="dialogParent">The parent of the dialog.</param>
         public WmtsConnectionDialog(IWin32Window dialogParent)
-            : base(dialogParent, Resources.MapsIcon, 250, 150)
+            : base(dialogParent, Resources.MapsIcon, 400, 150)
         {
             InitializeComponent();
             UpdateActionButton();

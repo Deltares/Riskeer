@@ -63,21 +63,32 @@ namespace Core.Components.DotSpatial.Forms.Views
             }
         }
 
-        public MapData GetSelectedMapData()
+        public MapData SelectedMapData
         {
-            WmtsCapabilityRow currentRow = GetSelectedWmtsCapabilityRow();
-            if (currentRow == null)
+            get
             {
-                return null;
-            }
+                WmtsCapabilityRow currentRow = GetSelectedWmtsCapabilityRow();
+                if (currentRow == null)
+                {
+                    return null;
+                }
 
-            WmtsConnectionInfo selectedWmtsConnectionInfo = GetSelectedWmtsConnectionInfo();
-            if (selectedWmtsConnectionInfo == null)
+                WmtsConnectionInfo selectedWmtsConnectionInfo = GetSelectedWmtsConnectionInfo();
+                if (selectedWmtsConnectionInfo == null)
+                {
+                    return null;
+                }
+
+                return currentRow.WmtsCapability.ToWmtsMapdata(selectedWmtsConnectionInfo.Name, selectedWmtsConnectionInfo.Url);
+            }
+        }
+
+        public UserControl UserControl
+        {
+            get
             {
-                return null;
+                return this;
             }
-
-            return currentRow.WmtsCapability.ToWmtsMapdata(selectedWmtsConnectionInfo.Name, selectedWmtsConnectionInfo.Url);
         }
 
         protected override void Dispose(bool disposing)
@@ -116,7 +127,10 @@ namespace Core.Components.DotSpatial.Forms.Views
                                                  true);
             dataGridViewControl.AddTextBoxColumn(nameof(WmtsCapabilityRow.CoordinateSystem), Resources.WmtsCapability_MapLayer_CoordinateSystem,
                                                  true);
+            dataGridViewControl.AddCurrentCellChangedHandler(DataGridViewCurrentCellChangedHandler);
         }
+
+        private void DataGridViewCurrentCellChangedHandler(object sender, EventArgs e) {}
 
         private void UpdateDataGridViewDataSource(IEnumerable<WmtsCapability> wmtsCapabilities)
         {
@@ -158,7 +172,7 @@ namespace Core.Components.DotSpatial.Forms.Views
             urlLocationComboBox.DisplayMember = nameof(WmtsConnectionInfo.Name);
             urlLocationComboBox.ValueMember = nameof(WmtsConnectionInfo.Url);
 
-            urlLocationComboBox.SelectedItem = selectedItem;
+            urlLocationComboBox.SelectedItem = selectedItem ?? wmtsConnectionInfos.FirstOrDefault();
 
             UpdateConnectToButton();
         }
@@ -182,7 +196,7 @@ namespace Core.Components.DotSpatial.Forms.Views
 
         private void UpdateConnectToButton()
         {
-            connectToButton.Enabled = wmtsConnectionInfos.Any();
+            connectToButton.Enabled = urlLocationComboBox.SelectedItem != null;
         }
 
         private void ConnectToButtonOnClick(object sender, EventArgs e)
@@ -247,6 +261,7 @@ namespace Core.Components.DotSpatial.Forms.Views
                     UpdateComboBoxDataSource();
 
                     urlLocationComboBox.SelectedItem = createdWmtsConnectionInfos;
+                    UpdateConnectToButton();
                 }
             }
         }

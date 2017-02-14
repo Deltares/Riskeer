@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Windows.Forms;
 using Core.Components.Gis.Data;
 
 namespace Core.Components.DotSpatial.Forms.Views
@@ -36,6 +37,11 @@ namespace Core.Components.DotSpatial.Forms.Views
         /// <summary>
         /// Gets the selected <see cref="MapData"/> or <c>null</c> if none selected.
         /// </summary>
-        MapData GetSelectedMapData();
+        MapData SelectedMapData { get; }
+
+        /// <summary>
+        /// Gets the user control.
+        /// </summary>
+        UserControl UserControl { get; }
     }
 }

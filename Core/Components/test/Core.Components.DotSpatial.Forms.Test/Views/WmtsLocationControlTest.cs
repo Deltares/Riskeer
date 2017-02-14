@@ -53,7 +53,8 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
                 Assert.IsInstanceOf<UserControl>(control);
                 Assert.IsInstanceOf<IHasMapData>(control);
                 Assert.AreEqual("Web Map Tile Service (WMTS)", control.DisplayName);
-                Assert.IsNull(control.GetSelectedMapData());
+                Assert.IsNull(control.SelectedMapData);
+                Assert.AreSame(control, control.UserControl);
             }
         }
 
@@ -78,13 +79,14 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
                 Assert.AreEqual("Url", urlLocations.ValueMember);
                 Assert.IsTrue(urlLocations.Sorted);
 
-                var buttonConnectTo = new ButtonTester("connectToButton", form);
+                var buttonConnectTo = (Button) new ButtonTester("connectToButton", form).TheObject;
                 Assert.AreEqual("Verbinding maken", buttonConnectTo.Text);
+                Assert.IsFalse(buttonConnectTo.Enabled);
 
                 var buttonAddLocation = new ButtonTester("addLocationButton", form);
                 Assert.AreEqual("Locatie toevoegen...", buttonAddLocation.Text);
 
-                var buttonEditLocation = new ButtonTester("editLocationButton", form);
+                var buttonEditLocation = (Button) new ButtonTester("editLocationButton", form).TheObject;
                 Assert.AreEqual("Locatie aanpassen...", buttonEditLocation.Text);
             }
         }
@@ -184,7 +186,7 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
                 form.Show();
 
                 // Call
-                MapData selectedMapData = control.GetSelectedMapData();
+                MapData selectedMapData = control.SelectedMapData;
 
                 // Assert
                 Assert.IsNull(selectedMapData);
@@ -198,7 +200,34 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
             using (WmtsLocationControl control = ShowFullyConfiguredWmtsLocationControl())
             {
                 // Assert                
-                MapData selectedMapData = control.GetSelectedMapData();
+                MapData selectedMapData = control.SelectedMapData;
+                Assert.IsNull(selectedMapData);
+            }
+        }
+
+        [Test]
+        public void GetSelectedMapData_WithoutSelectedComboBoxWithSelectedRow_ReturnsNull()
+        {
+            // Setup
+            using (var form = new Form())
+            using (var control = new WmtsLocationControl())
+            {
+                form.Controls.Add(control);
+                form.Show();
+
+                var dataGridViewControl = (DataGridViewControl) new ControlTester("dataGridViewControl", form).TheObject;
+                dataGridViewControl.SetDataSource(new[]
+                {
+                    new WmtsCapabilityRow(new WmtsCapability("-", "image/png", "-", "-"))
+                });
+
+                var dataGridView = dataGridViewControl.Controls.OfType<DataGridView>().First();
+                dataGridView.CurrentCell = dataGridView.Rows[0].Cells[0];
+
+                // Call
+                WmtsMapData selectedMapData = control.SelectedMapData as WmtsMapData;
+
+                // Assert
                 Assert.IsNull(selectedMapData);
             }
         }
@@ -215,7 +244,7 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
                 dataGridView.CurrentCell = dataGridView.Rows[1].Cells[0];
 
                 // Call
-                WmtsMapData selectedMapData = control.GetSelectedMapData() as WmtsMapData;
+                WmtsMapData selectedMapData = control.SelectedMapData as WmtsMapData;
 
                 // Assert
                 Assert.IsNotNull(selectedMapData);
@@ -295,6 +324,47 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
                 var item = (WmtsConnectionInfo) comboBox.Items[0];
                 Assert.AreEqual(name, item.Name);
                 Assert.AreEqual(url, item.Url);
+
+                var connectToButton = (Button) new ButtonTester("connectToButton", form).TheObject;
+                Assert.IsTrue(connectToButton.Enabled);
+            }
+        }
+
+        [Test]
+        public void GivenWmtsLocationControlAndAddLocationClicked_WhenInValidDataInDialog_ThenWmtsLocationsNotUpdated()
+        {
+            // Given
+            DialogBoxHandler = (formName, wnd) =>
+            {
+                using (var formTester = new FormTester(formName))
+                {
+                    var dialog = (WmtsConnectionDialog) formTester.TheObject;
+                    var actionButtonTester = new ButtonTester("actionButton", dialog);
+                    var actionButton = (Button) actionButtonTester.TheObject;
+
+                    actionButton.Enabled = true;
+                    actionButtonTester.Click();
+                }
+            };
+
+            using (var form = new Form())
+            using (var control = new WmtsLocationControl())
+            {
+                form.Controls.Add(control);
+                form.Show();
+
+                var buttonAddLocation = new ButtonTester("addLocationButton", form);
+
+                // When
+                buttonAddLocation.Click();
+
+                // Then
+                var comboBox = (ComboBox) new ComboBoxTester("urlLocationComboBox", form).TheObject;
+                var dataSource = (List<WmtsConnectionInfo>) comboBox.DataSource;
+                Assert.AreEqual(0, dataSource.Count);
+
+                var connectToButton = (Button) new ButtonTester("connectToButton", form).TheObject;
+                Assert.IsFalse(connectToButton.Enabled);
             }
         }
 
@@ -319,10 +389,10 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
                     new WmtsConnectionInfo("oldName", "oldUrl")
                 };
 
-                var buttonAddLocation = new ButtonTester("editLocationButton", form);
+                var editLocationButton = new ButtonTester("editLocationButton", form);
 
                 // When
-                buttonAddLocation.Click();
+                editLocationButton.Click();
 
                 // Then
                 var dataSource = (List<WmtsConnectionInfo>) comboBox.DataSource;
@@ -368,10 +438,10 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
                     new WmtsConnectionInfo("oldName", "oldUrl")
                 };
 
-                var buttonAddLocation = new ButtonTester("editLocationButton", form);
+                var editLocationButton = new ButtonTester("editLocationButton", form);
 
                 // When
-                buttonAddLocation.Click();
+                editLocationButton.Click();
 
                 // Then
                 var dataSource = (List<WmtsConnectionInfo>) comboBox.DataSource;
@@ -379,6 +449,56 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
                 var item = (WmtsConnectionInfo) comboBox.Items[0];
                 Assert.AreEqual(newName, item.Name);
                 Assert.AreEqual(newUrl, item.Url);
+            }
+        }
+
+        [Test]
+        public void GivenWmtsLocationControlAndEditLocationClicked_WhenInValidDataInDialog_ThenWmtsLocationsNotUpdated()
+        {
+            // Given
+            DialogBoxHandler = (formName, wnd) =>
+            {
+                using (var formTester = new FormTester(formName))
+                {
+                    var dialog = (WmtsConnectionDialog) formTester.TheObject;
+                    var nameTextBox = (TextBox) new TextBoxTester("nameTextBox", dialog).TheObject;
+                    var urlTextBox = (TextBox) new TextBoxTester("urlTextBox", dialog).TheObject;
+                    var actionButtonTester = new ButtonTester("actionButton", dialog);
+                    var actionButton = (Button) actionButtonTester.TheObject;
+
+                    nameTextBox.Text = "";
+                    urlTextBox.Text = "";
+                    actionButton.Enabled = true;
+                    actionButtonTester.Click();
+                }
+            };
+
+            using (var form = new Form())
+            using (var control = new WmtsLocationControl())
+            {
+                form.Controls.Add(control);
+                form.Show();
+
+                var comboBox = (ComboBox) new ComboBoxTester("urlLocationComboBox", form).TheObject;
+                comboBox.DataSource = new List<WmtsConnectionInfo>
+                {
+                    new WmtsConnectionInfo("oldName", "oldUrl")
+                };
+
+                var editLocationButton = new ButtonTester("editLocationButton", form);
+
+                // When
+                editLocationButton.Click();
+
+                // Then
+                var dataSource = (List<WmtsConnectionInfo>) comboBox.DataSource;
+                Assert.AreEqual(1, dataSource.Count);
+                var item = (WmtsConnectionInfo) comboBox.Items[0];
+                Assert.AreEqual("oldName", item.Name);
+                Assert.AreEqual("oldUrl", item.Url);
+
+                var connectToButton = (Button) new ButtonTester("connectToButton", form).TheObject;
+                Assert.IsFalse(connectToButton.Enabled);
             }
         }
 

@@ -136,7 +136,7 @@
     <value>50, 4</value>
   </data>
   <data name="nameTextBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>288, 20</value>
+    <value>329, 20</value>
   </data>
   <data name="nameTextBox.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -166,7 +166,7 @@
     <value>50, 4</value>
   </data>
   <data name="urlTextBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>288, 20</value>
+    <value>329, 20</value>
   </data>
   <data name="urlTextBox.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -199,7 +199,7 @@
     <value>5</value>
   </data>
   <data name="nameLabel.Text" xml:space="preserve">
-    <value>Omschrijving</value>
+    <value>Omschrijving:</value>
   </data>
   <data name="&gt;&gt;nameLabel.Name" xml:space="preserve">
     <value>nameLabel</value>
@@ -229,11 +229,11 @@
     <value>6</value>
   </data>
   <data name="urlLabel.Text" xml:space="preserve">
-    <value>URL</value>
+    <value>URL:</value>
   </data>
-  <metadata name="urlToolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+  <data name="urlToolTip.TrayLocation" type="System.Drawing.Point, System.Drawing">
     <value>17, 17</value>
-  </metadata>
+  </data>
   <data name="urlLabel.ToolTip" xml:space="preserve">
     <value>URL naar het WMTS dataservice inclusief 'capabilities'.</value>
   </data>
@@ -253,13 +253,13 @@
     <value>Fill</value>
   </data>
   <data name="tableLayoutPanel2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
+    <value>10, 12</value>
   </data>
   <data name="tableLayoutPanel2.RowCount" type="System.Int32, mscorlib">
     <value>3</value>
   </data>
   <data name="tableLayoutPanel2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>373, 113</value>
+    <value>414, 59</value>
   </data>
   <data name="tableLayoutPanel2.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -283,7 +283,7 @@
     <value>True</value>
   </data>
   <data name="cancelButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>295, 3</value>
+    <value>336, 3</value>
   </data>
   <data name="cancelButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 23</value>
@@ -307,7 +307,7 @@
     <value>0</value>
   </data>
   <data name="actionButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>214, 3</value>
+    <value>255, 3</value>
   </data>
   <data name="actionButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 23</value>
@@ -334,13 +334,13 @@
     <value>Bottom</value>
   </data>
   <data name="flowLayoutPanel1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 113</value>
+    <value>10, 71</value>
   </data>
   <data name="flowLayoutPanel1.RightToLeft" type="System.Windows.Forms.RightToLeft, System.Windows.Forms">
     <value>Yes</value>
   </data>
   <data name="flowLayoutPanel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>373, 29</value>
+    <value>414, 29</value>
   </data>
   <data name="flowLayoutPanel1.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -357,14 +357,17 @@
   <data name="&gt;&gt;flowLayoutPanel1.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <data name="$this.Localizable" type="System.Boolean, mscorlib">
     <value>True</value>
-  </metadata>
+  </data>
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
     <value>6, 13</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>373, 142</value>
+    <value>434, 112</value>
+  </data>
+  <data name="$this.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>10, 12, 10, 12</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Nieuwe WMTS locatie toevoegen</value>

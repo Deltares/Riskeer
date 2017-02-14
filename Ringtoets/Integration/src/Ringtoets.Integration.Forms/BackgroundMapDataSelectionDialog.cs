@@ -20,9 +20,11 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Dialogs;
+using Core.Components.DotSpatial.Forms.Views;
 using Core.Components.Gis.Data;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
@@ -34,6 +36,9 @@ namespace Ringtoets.Integration.Forms
     /// </summary>
     public partial class BackgroundMapDataSelectionDialog : DialogBase
     {
+        private readonly List<IHasMapData> mapDatas;
+        private IHasMapData currentMapDataControl;
+
         /// <summary>
         /// Creates a new instance of <see cref="ReferenceLineMetaSelectionDialog"/>.
         /// </summary>
@@ -42,15 +47,27 @@ namespace Ringtoets.Integration.Forms
         public BackgroundMapDataSelectionDialog(IWin32Window dialogParent)
             : base(dialogParent, RingtoetsCommonFormsResources.SelectionDialogIcon, 500, 350)
         {
+            mapDatas = new List<IHasMapData>
+            {
+                new WmtsLocationControl()
+            };
+
             InitializeComponent();
-            mapLayerComboBox.Enabled = false;
+            InitializeComboBox();
+
             selectButton.Enabled = false;
         }
 
         /// <summary>
         /// Gets the <see cref="MapData"/> from the selected row in the <see cref="DataGridViewControl"/>.
         /// </summary>
-        public object SelectedMapData { get; private set; }
+        public MapData SelectedMapData
+        {
+            get
+            {
+                return currentMapDataControl?.SelectedMapData;
+            }
+        }
 
         protected override void Dispose(bool disposing)
         {
@@ -65,5 +82,48 @@ namespace Ringtoets.Integration.Forms
         {
             return cancelButton;
         }
+
+        private void UpdatePropertiesGroupBox()
+        {
+            if (currentMapDataControl != null)
+            {
+                propertiesGroupBox.Controls.Clear();
+                Control userControl = currentMapDataControl.UserControl;
+                propertiesGroupBox.Controls.Add(userControl);
+                userControl.Dock = DockStyle.Fill;
+            }
+        }
+
+        #region ComboBox
+
+        private void InitializeComboBox()
+        {
+            mapLayerComboBox.SelectedIndexChanged += MapLayerComboBox_OnSelectedIndexChanged;
+            mapLayerComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
+            mapLayerComboBox.Sorted = true;
+            UpdateComboBoxDataSource();
+
+            mapLayerComboBox.Enabled = false;
+        }
+
+        private void MapLayerComboBox_OnSelectedIndexChanged(object sender, EventArgs eventArgs)
+        {
+            var selectedItem = mapLayerComboBox.SelectedItem as IHasMapData;
+            if (selectedItem == null)
+            {
+                return;
+            }
+
+            currentMapDataControl = selectedItem;
+            UpdatePropertiesGroupBox();
+        }
+
+        private void UpdateComboBoxDataSource()
+        {
+            mapLayerComboBox.DataSource = mapDatas;
+            mapLayerComboBox.DisplayMember = nameof(IHasMapData.DisplayName);
+        }
+
+        #endregion
     }
 }

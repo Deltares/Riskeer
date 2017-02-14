@@ -138,6 +138,10 @@
       <Project>{d749ee4c-ce50-4c17-bf01-9a953028c126}</Project>
       <Name>Core.Common.TestUtil</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.DotSpatial.Forms\Core.Components.DotSpatial.Forms.csproj">
+      <Project>{5A91174A-FB95-4C9D-9CA5-81C0B8D4361A}</Project>
+      <Name>Core.Components.DotSpatial.Forms</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.DotSpatial\Core.Components.DotSpatial.csproj">
       <Project>{aa47e858-a2a7-470e-8b2d-c76ae8ed9ccd}</Project>
       <Name>Core.Components.DotSpatial</Name>
