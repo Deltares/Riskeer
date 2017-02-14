@@ -21,6 +21,8 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml.Schema;
+using Core.Common.Utils.Reflection;
 
 namespace Ringtoets.Piping.IO.Readers
 {
@@ -29,6 +31,16 @@ namespace Ringtoets.Piping.IO.Readers
     /// </summary>
     public class PipingCalculationGroupReader
     {
+        private readonly XmlSchemaSet schema;
+
+        /// <summary>
+        /// Creates a new instance of <see cref="PipingCalculationGroupReader"/>.
+        /// </summary>
+        public PipingCalculationGroupReader()
+        {
+            schema = LoadXmlSchema();
+        }
+
         /// <summary>
         /// Reads a piping configuration from XML and creates a collection of corresponding <see cref="IReadPipingCalculationItem"/>.
         /// </summary>
@@ -36,6 +48,17 @@ namespace Ringtoets.Piping.IO.Readers
         public IEnumerable<IReadPipingCalculationItem> Read()
         {
             return Enumerable.Empty<IReadPipingCalculationItem>();
+        }
+
+        private XmlSchemaSet LoadXmlSchema()
+        {
+            var schemaFile = AssemblyUtils.GetAssemblyResourceStream(GetType().Assembly,
+                                                                     "Ringtoets.Piping.IO.Readers.XMLPipingConfigurationSchema.xsd");
+
+            var xmlSchema = new XmlSchemaSet();
+            xmlSchema.Add(XmlSchema.Read(schemaFile, null));
+
+            return xmlSchema;
         }
     }
 }

@@ -22,7 +22,7 @@
 namespace Ringtoets.Piping.IO.Readers
 {
     /// <summary>
-    /// Interface for piping calculation items read via <see cref="PipingCalculationGroupReader"/>.
+    /// Interface for piping calculation items that are read via <see cref="PipingCalculationGroupReader"/>.
     /// </summary>
     public interface IReadPipingCalculationItem
     {

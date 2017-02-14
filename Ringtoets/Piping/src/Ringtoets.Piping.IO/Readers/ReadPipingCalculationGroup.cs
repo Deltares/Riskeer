@@ -24,7 +24,7 @@ using System.Collections.Generic;
 namespace Ringtoets.Piping.IO.Readers
 {
     /// <summary>
-    /// Class that represents a piping calculation group read via <see cref="PipingCalculationGroupReader"/>.
+    /// Class that represents a piping calculation group that is read via <see cref="PipingCalculationGroupReader"/>.
     /// </summary>
     public class ReadPipingCalculationGroup : IReadPipingCalculationItem
     {

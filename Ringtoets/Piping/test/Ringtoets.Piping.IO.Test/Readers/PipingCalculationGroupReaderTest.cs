@@ -29,6 +29,16 @@ namespace Ringtoets.Piping.IO.Test.Readers
     public class PipingCalculationGroupReaderTest
     {
         [Test]
+        public void Constructor_Always_ReturnsNewInstance()
+        {
+            // Call
+            var pipingCalculationGroupReader = new PipingCalculationGroupReader();
+
+            // Assert
+            Assert.NotNull(pipingCalculationGroupReader);
+        }
+
+        [Test]
         public void Read_ReturnsExpectedCollectionOfReadPipingCalculationItems()
         {
             // Setup

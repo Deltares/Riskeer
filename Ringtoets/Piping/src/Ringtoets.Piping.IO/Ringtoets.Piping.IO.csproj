@@ -167,6 +167,9 @@
       <Link>Copying.licenseheader</Link>
     </None>
     <None Include="packages.config" />
+    <EmbeddedResource Include="Readers\XMLPipingConfigurationSchema.xsd">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
