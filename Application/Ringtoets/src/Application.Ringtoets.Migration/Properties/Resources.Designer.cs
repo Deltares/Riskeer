@@ -132,7 +132,7 @@ namespace Application.Ringtoets.Migration.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het aanmaken van het Ringtoets bestand versie &apos;{0}&apos; is mislukt..
+        ///   Looks up a localized string similar to Het aanmaken van het Ringtoets projectbestand met versie &apos;{0}&apos; is mislukt..
         /// </summary>
         public static string RingtoetsCreateScript_Creating_Version_0_Failed {
             get {
@@ -141,7 +141,7 @@ namespace Application.Ringtoets.Migration.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het bestand &apos;{0}&apos; moet een geldig Ringtoets database bestand zijn..
+        ///   Looks up a localized string similar to Het bestand &apos;{0}&apos; moet een geldig Ringtoets projectbestand zijn..
         /// </summary>
         public static string RingtoetsDatabaseSourceFile_Invalid_Ringtoets_File_Path_0 {
             get {
@@ -150,7 +150,7 @@ namespace Application.Ringtoets.Migration.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het upgraden van het Ringtoets bestand versie &apos;{0}&apos; naar &apos;{1}&apos; is mislukt..
+        ///   Looks up a localized string similar to Het migreren van het Ringtoets projectbestand van versie &apos;{0}&apos; naar &apos;{1}&apos; is mislukt..
         /// </summary>
         public static string RingtoetsUpgradeScript_Upgrading_Version_0_To_Version_1_Failed {
             get {

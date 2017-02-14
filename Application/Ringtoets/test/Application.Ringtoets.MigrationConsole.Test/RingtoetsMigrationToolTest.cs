@@ -108,13 +108,12 @@ namespace Application.Ringtoets.MigrationConsole.Test
                 // Then
                 string consoleText = consoleOutput.GetConsoleOutput();
                 string expectedText = isSupported ?
-                                      Environment.NewLine
-                                      + $@"Het projectbestand kan gemigreerd worden naar versie '{expectedVersion}'."
-                                      + Environment.NewLine
-                                      :
-                                      Environment.NewLine
-                                      + $"Het migreren van een projectbestand met versie '{fileVersion}' naar versie '{expectedVersion}' is niet ondersteund."
-                                      + Environment.NewLine;
+                                          Environment.NewLine
+                                          + $@"Het projectbestand kan gemigreerd worden naar versie '{expectedVersion}'."
+                                          + Environment.NewLine
+                                          : Environment.NewLine
+                                            + $"Het migreren van een projectbestand met versie '{fileVersion}' naar versie '{expectedVersion}' is niet ondersteund."
+                                            + Environment.NewLine;
 
                 Assert.AreEqual(expectedText, consoleText);
                 Assert.AreEqual(ErrorCode.ErrorSuccess, environmentControl.ErrorCodeCalled);
@@ -176,10 +175,11 @@ namespace Application.Ringtoets.MigrationConsole.Test
                 // Then
                 string consoleText = consoleOutput.GetConsoleOutput();
                 StringAssert.StartsWith(Environment.NewLine
-                                        + "Er is een onverwachte fout opgetreden tijdens het verplaatsen van het gemigreerde projectbestand '",
+                                        + "Het gemigreerde projectbestand is aangemaakt op '",
                                         consoleText);
-                StringAssert.EndsWith($"' naar '{targetFilePath}'." + Environment.NewLine
-                                      + "Het besturingssysteem geeft de volgende melding: "
+                StringAssert.EndsWith($"', maar er is een onverwachte fout opgetreden tijdens het verplaatsen naar '{targetFilePath}'."
+                                      + Environment.NewLine
+                                      + "Het besturingssysteem geeft de volgende melding: " + Environment.NewLine
                                       + $"The process cannot access the file '{targetFilePath}' because it is being used by another process."
                                       + Environment.NewLine + Environment.NewLine
                                       + GetConsoleFullDescription(), consoleText);

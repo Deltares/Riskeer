@@ -141,8 +141,9 @@ namespace Application.Ringtoets.Migration.Test
 
                 // Assert
                 CriticalMigrationException exception = Assert.Throws<CriticalMigrationException>(call);
-                StringAssert.StartsWith("Er is een onverwachte fout opgetreden tijdens het verplaatsen van het gemigreerde projectbestand '", exception.Message);
-                StringAssert.EndsWith($"' naar '{targetFilePath}'.", exception.Message);
+                StringAssert.StartsWith("Het gemigreerde projectbestand is aangemaakt op '", exception.Message);
+                StringAssert.EndsWith($"', maar er is een onverwachte fout opgetreden tijdens het verplaatsen naar '{targetFilePath}'.",
+                                      exception.Message);
                 Assert.IsInstanceOf<IOException>(exception.InnerException);
             }
         }
@@ -161,7 +162,7 @@ namespace Application.Ringtoets.Migration.Test
 
             // Assert
             CriticalMigrationException exception = Assert.Throws<CriticalMigrationException>(call);
-            Assert.AreEqual("Het bestandspad van het uitvoerbestand moet anders zijn dan het bestandspad van het bronbestand.",
+            Assert.AreEqual("Het doelprojectpad moet anders zijn dan het bronprojectpad.",
                             exception.Message);
         }
 
@@ -188,9 +189,10 @@ namespace Application.Ringtoets.Migration.Test
 
                     // Assert
                     CriticalMigrationException exception = Assert.Throws<CriticalMigrationException>(call);
-                    StringAssert.StartsWith("Er is een onverwachte fout opgetreden tijdens het verplaatsen van het gemigreerde projectbestand '", 
-                        exception.Message);
-                    StringAssert.EndsWith($"' naar '{targetFilePath}'.", exception.Message);
+                    StringAssert.StartsWith("Het gemigreerde projectbestand is aangemaakt op '",
+                                            exception.Message);
+                    StringAssert.EndsWith($"', maar er is een onverwachte fout opgetreden tijdens het verplaatsen naar '{targetFilePath}'.",
+                                          exception.Message);
                     Assert.IsInstanceOf<UnauthorizedAccessException>(exception.InnerException);
                 }
                 finally

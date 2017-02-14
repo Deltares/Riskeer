@@ -199,7 +199,8 @@ namespace Migration.Console.Test
 
                 // Assert
                 string expectedtext = Environment.NewLine + exceptionMessage + Environment.NewLine
-                                      + $"Het besturingssysteem geeft de volgende melding: {innerExceptionMessage}"
+                                      + "Het besturingssysteem geeft de volgende melding: " + Environment.NewLine
+                                      + $"{innerExceptionMessage}"
                                       + Environment.NewLine + Environment.NewLine
                                       + GetConsoleFullDescription();
                 string consoleText = consoleOutput.GetConsoleOutput();

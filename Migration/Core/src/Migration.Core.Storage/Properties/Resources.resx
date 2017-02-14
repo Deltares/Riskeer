@@ -122,12 +122,12 @@
     <value>..\..\..\..\..\build\databasestructure.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
   <data name="Migrate_Unable_To_Move_From_Location_0_To_Location_1" xml:space="preserve">
-    <value>Er is een onverwachte fout opgetreden tijdens het verplaatsen van het gemigreerde projectbestand '{0}' naar '{1}'.</value>
+    <value>Het gemigreerde projectbestand is aangemaakt op '{0}', maar er is een onverwachte fout opgetreden tijdens het verplaatsen naar '{1}'.</value>
   </data>
   <data name="Migrate_From_Version_0_To_Version_1_Not_Supported" xml:space="preserve">
     <value>Het migreren van een projectbestand met versie '{0}' naar versie '{1}' is niet ondersteund.</value>
   </data>
   <data name="Migrate_Target_File_Path_Must_Differ_From_Source_File_Path" xml:space="preserve">
-    <value>Het bestandspad van het uitvoerbestand moet anders zijn dan het bestandspad van het bronbestand.</value>
+    <value>Het doelprojectpad moet anders zijn dan het bronprojectpad.</value>
   </data>
 </root>

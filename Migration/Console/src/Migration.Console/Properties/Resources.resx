@@ -121,6 +121,7 @@
     <value>Geeft deze informatie weer.</value>
   </data>
   <data name="Message_Inner_Exception_0" xml:space="preserve">
-    <value>Het besturingssysteem geeft de volgende melding: {0}</value>
+    <value>Het besturingssysteem geeft de volgende melding: 
+{0}</value>
   </data>
 </root>

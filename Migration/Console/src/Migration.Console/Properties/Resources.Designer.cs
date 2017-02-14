@@ -91,7 +91,8 @@ namespace Migration.Console.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het besturingssysteem geeft de volgende melding: {0}.
+        ///   Looks up a localized string similar to Het besturingssysteem geeft de volgende melding: 
+        ///{0}.
         /// </summary>
         public static string Message_Inner_Exception_0 {
             get {

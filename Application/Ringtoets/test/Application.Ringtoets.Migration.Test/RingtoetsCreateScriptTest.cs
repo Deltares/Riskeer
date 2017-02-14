@@ -159,7 +159,7 @@ namespace Application.Ringtoets.Migration.Test
             using (new FileDisposeHelper(filePath))
             {
                 CriticalMigrationException exception = Assert.Throws<CriticalMigrationException>(call);
-                Assert.AreEqual($"Het aanmaken van het Ringtoets bestand versie '{version}' is mislukt.",
+                Assert.AreEqual($"Het aanmaken van het Ringtoets projectbestand met versie '{version}' is mislukt.",
                                 exception.Message);
                 Assert.IsInstanceOf<SQLiteException>(exception.InnerException);
             }

@@ -253,7 +253,7 @@ namespace Migration.Core.Storage.Test
 
             // Assert
             CriticalMigrationException exception = Assert.Throws<CriticalMigrationException>(call);
-            Assert.AreEqual("Het bestandspad van het uitvoerbestand moet anders zijn dan het bestandspad van het bronbestand.", exception.Message);
+            Assert.AreEqual("Het doelprojectpad moet anders zijn dan het bronprojectpad.", exception.Message);
             mockRepository.VerifyAll();
         }
 
@@ -436,8 +436,9 @@ namespace Migration.Core.Storage.Test
 
                 // Assert
                 CriticalMigrationException exception = Assert.Throws<CriticalMigrationException>(call);
-                StringAssert.StartsWith("Er is een onverwachte fout opgetreden tijdens het verplaatsen van het gemigreerde projectbestand '", exception.Message);
-                StringAssert.EndsWith($"' naar '{toLocation}'.", exception.Message);
+                StringAssert.StartsWith("Het gemigreerde projectbestand is aangemaakt op '", exception.Message);
+                StringAssert.EndsWith($"', maar er is een onverwachte fout opgetreden tijdens het verplaatsen naar '{toLocation}'.",
+                                      exception.Message);
             }
             mockRepository.VerifyAll();
         }
