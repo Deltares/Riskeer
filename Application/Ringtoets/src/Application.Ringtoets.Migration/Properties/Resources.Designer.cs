@@ -141,7 +141,7 @@ namespace Application.Ringtoets.Migration.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het bestand &apos;{0}&apos; is moet een geldig Ringtoets database bestand zijn..
+        ///   Looks up a localized string similar to Het bestand &apos;{0}&apos; moet een geldig Ringtoets database bestand zijn..
         /// </summary>
         public static string RingtoetsDatabaseSourceFile_Invalid_Ringtoets_File_Path_0 {
             get {

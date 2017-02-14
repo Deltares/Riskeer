@@ -100,7 +100,7 @@ namespace Application.Ringtoets.Migration.Test
 
                 // Assert
                 string message = Assert.Throws<StorageValidationException>(call).Message;
-                Assert.AreEqual($"Het bestand '{filePath}' is moet een geldig Ringtoets database bestand zijn.",
+                Assert.AreEqual($"Het bestand '{filePath}' moet een geldig Ringtoets database bestand zijn.",
                                 message);
             }
         }

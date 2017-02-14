@@ -125,7 +125,7 @@
     <value>..\Resources\Migration_5_17.1.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
   <data name="RingtoetsDatabaseSourceFile_Invalid_Ringtoets_File_Path_0" xml:space="preserve">
-    <value>Het bestand '{0}' is moet een geldig Ringtoets database bestand zijn.</value>
+    <value>Het bestand '{0}' moet een geldig Ringtoets database bestand zijn.</value>
   </data>
   <data name="RingtoetsCreateScript_Creating_Version_0_Failed" xml:space="preserve">
     <value>Het aanmaken van het Ringtoets bestand versie '{0}' is mislukt.</value>
