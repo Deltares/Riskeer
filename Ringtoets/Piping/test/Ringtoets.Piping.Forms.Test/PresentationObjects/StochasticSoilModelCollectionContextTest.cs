@@ -47,7 +47,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             var context = new StochasticSoilModelCollectionContext(failureMechanism.StochasticSoilModels, failureMechanism, assessmentSection);
 
             // Assert
-            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<ObservableCollectionWithSourcePath<StochasticSoilModel>>>(context);
+            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<StochasticSoilModelCollection>>(context);
             Assert.AreSame(failureMechanism.StochasticSoilModels, context.WrappedData);
             Assert.AreSame(failureMechanism, context.FailureMechanism);
             Assert.AreSame(assessmentSection, context.AssessmentSection);
@@ -62,7 +62,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var stochasticSoilModels = new ObservableCollectionWithSourcePath<StochasticSoilModel>();
+            var stochasticSoilModels = new StochasticSoilModelCollection();
 
             // Call
             TestDelegate test = () => new StochasticSoilModelCollectionContext(stochasticSoilModels, null, assessmentSection);

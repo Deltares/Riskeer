@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using Ringtoets.Piping.IO.SoilProfile;
+using Ringtoets.Piping.IO.SoilProfile.Schema;
 
 namespace Ringtoets.Piping.IO.Builders
 {
@@ -34,7 +35,7 @@ namespace Ringtoets.Piping.IO.Builders
         /// </summary>
         /// <returns>The SQL query to execute.</returns>
         /// <remarks><see cref="System.Data.SQLite.SQLiteParameter"/> ME_Name needs to be 
-        /// defined as <see cref="MechanismDatabaseColumns.MechanismName"/>.</remarks>
+        /// defined as <see cref="MechanismTableColumns.MechanismName"/>.</remarks>
         public static string GetStochasticSoilModelOfMechanismQuery()
         {
             return string.Format(@"SELECT SP.{8}, SP.{9}, S.{10}, SSM.{11}, SSM.{12} " +
@@ -43,19 +44,19 @@ namespace Ringtoets.Piping.IO.Builders
                                  "INNER JOIN {2} SSM USING({5}) " +
                                  "INNER JOIN {3} SP USING({6}) " +
                                  "WHERE M.{7} = @{7} ORDER BY SSM.{12};",
-                                 MechanismDatabaseColumns.TableName,
-                                 SegmentDatabaseColumns.TableName,
-                                 StochasticSoilModelDatabaseColumns.TableName,
-                                 SegmentPointsDatabaseColumns.TableName,
-                                 MechanismDatabaseColumns.MechanismId,
-                                 StochasticSoilModelDatabaseColumns.StochasticSoilModelId,
-                                 SegmentPointsDatabaseColumns.SegmentId,
-                                 MechanismDatabaseColumns.MechanismName,
-                                 SegmentPointsDatabaseColumns.CoordinateX,
-                                 SegmentPointsDatabaseColumns.CoordinateY,
-                                 SegmentDatabaseColumns.SegmentName,
-                                 StochasticSoilModelDatabaseColumns.StochasticSoilModelName,
-                                 StochasticSoilModelDatabaseColumns.StochasticSoilModelId
+                                 MechanismTableColumns.TableName,
+                                 SegmentTableColumns.TableName,
+                                 StochasticSoilModelTableColumns.TableName,
+                                 SegmentPointsTableColumns.TableName,
+                                 MechanismTableColumns.MechanismId,
+                                 StochasticSoilModelTableColumns.StochasticSoilModelId,
+                                 SegmentPointsTableColumns.SegmentId,
+                                 MechanismTableColumns.MechanismName,
+                                 SegmentPointsTableColumns.CoordinateX,
+                                 SegmentPointsTableColumns.CoordinateY,
+                                 SegmentTableColumns.SegmentName,
+                                 StochasticSoilModelTableColumns.StochasticSoilModelName,
+                                 StochasticSoilModelTableColumns.StochasticSoilModelId
                 );
         }
 
@@ -75,15 +76,15 @@ namespace Ringtoets.Piping.IO.Builders
                                  "INNER JOIN {3} SP USING({6}) " +
                                  "WHERE M.{7} = @{7} GROUP BY {5}" +
                                  ");",
-                                 MechanismDatabaseColumns.TableName,
-                                 SegmentDatabaseColumns.TableName,
-                                 StochasticSoilModelDatabaseColumns.TableName,
-                                 SegmentPointsDatabaseColumns.TableName,
-                                 MechanismDatabaseColumns.MechanismId,
-                                 StochasticSoilModelDatabaseColumns.StochasticSoilModelId,
-                                 SegmentPointsDatabaseColumns.SegmentId,
-                                 MechanismDatabaseColumns.MechanismName,
-                                 StochasticSoilModelDatabaseColumns.Count
+                                 MechanismTableColumns.TableName,
+                                 SegmentTableColumns.TableName,
+                                 StochasticSoilModelTableColumns.TableName,
+                                 SegmentPointsTableColumns.TableName,
+                                 MechanismTableColumns.MechanismId,
+                                 StochasticSoilModelTableColumns.StochasticSoilModelId,
+                                 SegmentPointsTableColumns.SegmentId,
+                                 MechanismTableColumns.MechanismName,
+                                 StochasticSoilModelTableColumns.Count
                 );
         }
 
@@ -95,11 +96,11 @@ namespace Ringtoets.Piping.IO.Builders
         public static string GetAllStochasticSoilProfileQuery()
         {
             return string.Format("SELECT {1}, {2}, {3}, {4} FROM {0} ORDER BY {1};",
-                                 StochasticSoilProfileDatabaseColumns.TableName,
-                                 StochasticSoilProfileDatabaseColumns.StochasticSoilModelId,
-                                 StochasticSoilProfileDatabaseColumns.Probability,
-                                 StochasticSoilProfileDatabaseColumns.SoilProfile1DId,
-                                 StochasticSoilProfileDatabaseColumns.SoilProfile2DId
+                                 StochasticSoilProfileTableColumns.TableName,
+                                 StochasticSoilProfileTableColumns.StochasticSoilModelId,
+                                 StochasticSoilProfileTableColumns.Probability,
+                                 StochasticSoilProfileTableColumns.SoilProfile1DId,
+                                 StochasticSoilProfileTableColumns.SoilProfile2DId
                 );
         }
 
@@ -113,24 +114,34 @@ namespace Ringtoets.Piping.IO.Builders
         {
             return string.Format(
                 "SELECT (" +
-                "SELECT COUNT(DISTINCT sl1D.SP1D_ID) " +
-                "FROM Mechanism AS m " +
-                "JOIN Segment AS segment USING(ME_ID) " +
-                "JOIN StochasticSoilProfile ssp USING(SSM_ID) " +
-                "JOIN SoilLayer1D sl1D USING(SP1D_ID) " +
-                "WHERE m.ME_Name = @{0}" +
+                "SELECT COUNT(DISTINCT sl1D.{5}) " +
+                "FROM {0} m " +
+                "JOIN {1} segment USING({2}) " +
+                "JOIN {3} ssp USING({4}) " +
+                "JOIN {9} sl1D USING({5}) " +
+                "WHERE m.{7} = @{7}" +
                 ") + (" +
-                "SELECT COUNT(DISTINCT sl2D.SP2D_ID) " +
-                "FROM Mechanism AS m " +
-                "JOIN Segment AS segment USING(ME_ID) " +
-                "JOIN StochasticSoilProfile ssp USING(SSM_ID) " +
-                "JOIN SoilLayer2D sl2D USING(SP2D_ID) " +
-                "JOIN MechanismPointLocation mpl USING(ME_ID, SP2D_ID) " +
-                "WHERE m.ME_Name = @{0}" +
+                "SELECT COUNT(DISTINCT sl2D.{6}) " +
+                "FROM {0} m " +
+                "JOIN {1} segment USING({2}) " +
+                "JOIN {3} ssp USING({4}) " +
+                "JOIN {10} sl2D USING({6}) " +
+                "JOIN {8} mpl USING({2}, {6}) " +
+                "WHERE m.{7} = @{7}" +
                 ") " +
-                "AS {1};",
-                MechanismDatabaseColumns.MechanismName,
-                SoilProfileDatabaseColumns.ProfileCount);
+                "AS {11};",
+                MechanismTableColumns.TableName,
+                SegmentTableColumns.TableName,
+                MechanismTableColumns.MechanismId,
+                StochasticSoilProfileTableColumns.TableName,
+                StochasticSoilProfileTableColumns.StochasticSoilModelId,
+                StochasticSoilProfileTableColumns.SoilProfile1DId,
+                StochasticSoilProfileTableColumns.SoilProfile2DId,
+                MechanismTableColumns.MechanismName,
+                MechanismPointLocationTableColumns.TableName,
+                SoilLayer1DTableColumns.TableName,
+                SoilLayer2DTableColumns.TableName,
+                SoilProfileTableColumns.ProfileCount);
         }
 
         /// <summary>
@@ -143,10 +154,26 @@ namespace Ringtoets.Piping.IO.Builders
         {
             return string.Format(
                 "SELECT {2} FROM {0} WHERE {1} = 'VERSION' AND {2} = @{2};",
-                MetaDataDatabaseColumns.TableName,
-                MetaDataDatabaseColumns.Key,
-                MetaDataDatabaseColumns.Value
+                MetaDataTableColumns.TableName,
+                MetaDataTableColumns.Key,
+                MetaDataTableColumns.Value
                 );
+        }
+
+        /// <summary>
+        /// Returns the SQL query to execute to check if segment names in the DSoil-Model database 
+        /// are unique.
+        /// </summary>
+        /// <returns>The SQL query to execute.</returns>
+        public static string GetSoilModelNamesUniqueQuery()
+        {
+            return string.Format(
+                "SELECT [All].nameCount == [Distinct].nameCount as {0} " +
+                "FROM(SELECT COUNT({1}) nameCount FROM {2}) AS [All] " +
+                "JOIN(SELECT COUNT(DISTINCT {1}) nameCount FROM {2}) AS [Distinct];",
+                StochasticSoilModelTableColumns.AreSegmentsUnique,
+                StochasticSoilModelTableColumns.StochasticSoilModelName,
+                StochasticSoilModelTableColumns.TableName);
         }
     }
 }

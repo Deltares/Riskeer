@@ -68,7 +68,7 @@ namespace Ringtoets.Piping.Plugin.Test.PropertyInfos
 
             var failureMechanism = new PipingFailureMechanism();
 
-            var collection = new ObservableCollectionWithSourcePath<StochasticSoilModel>();
+            var collection = new StochasticSoilModelCollection();
             var context = new StochasticSoilModelCollectionContext(collection, failureMechanism, assessmentSection);
 
             // Call

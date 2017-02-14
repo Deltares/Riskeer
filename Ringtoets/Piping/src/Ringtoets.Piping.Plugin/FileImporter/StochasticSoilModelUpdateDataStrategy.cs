@@ -57,7 +57,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             this.failureMechanism = failureMechanism;
         }
         
-        public IEnumerable<IObservable> UpdateModelWithImportedData(ObservableCollectionWithSourcePath<StochasticSoilModel> targetCollection,
+        public IEnumerable<IObservable> UpdateModelWithImportedData(StochasticSoilModelCollection targetCollection,
                                                                     IEnumerable<StochasticSoilModel> readStochasticSoilModels,
                                                                     string sourceFilePath)
         {
@@ -86,7 +86,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
         }
 
         private IEnumerable<IObservable> ModifyModelCollection(IEnumerable<StochasticSoilModel> readStochasticSoilModels,
-                                                               ObservableCollectionWithSourcePath<StochasticSoilModel> targetCollection,
+                                                               StochasticSoilModelCollection targetCollection,
                                                                string sourceFilePath)
         {
             List<StochasticSoilModel> readModelList = readStochasticSoilModels.ToList();
@@ -103,14 +103,29 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             affectedObjects.AddRange(RemoveModels(removedModels));
 
             targetCollection.Clear();
-            targetCollection.AddRange(addedModels.Union(updatedModels), sourceFilePath);
+
+            try
+            {
+                targetCollection.AddRange(addedModels.Union(updatedModels), sourceFilePath);
+            }
+            catch (Exception e)
+            {
+                throw new StochasticSoilModelUpdateException(e.Message, e);
+            }
 
             return affectedObjects.Distinct(new ReferenceEqualityComparer<IObservable>());
         }
 
         private static IEnumerable<StochasticSoilModel> GetAddedReadModels(IEnumerable<StochasticSoilModel> existingCollection, IEnumerable<StochasticSoilModel> readStochasticSoilModels)
         {
-            return readStochasticSoilModels.Except(existingCollection, new SoilModelNameEqualityComparer());
+            var comparer = new SoilModelNameEqualityComparer();
+            foreach (StochasticSoilModel source in readStochasticSoilModels)
+            {
+                if (!existingCollection.Contains(source, comparer))
+                {
+                    yield return source;
+                }
+            }
         }
 
         private static IEnumerable<StochasticSoilModel> GetUpdatedExistingModels(IEnumerable<StochasticSoilModel> existingCollection, IEnumerable<StochasticSoilModel> readStochasticSoilModels)

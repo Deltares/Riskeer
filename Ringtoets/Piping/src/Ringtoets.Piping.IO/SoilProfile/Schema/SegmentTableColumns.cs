@@ -19,17 +19,15 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.Piping.IO.SoilProfile
+namespace Ringtoets.Piping.IO.SoilProfile.Schema
 {
     /// <summary>
     /// This class contains the names of the table and columns of the table 
-    /// 'StochasticSoilModel' of the DSoil-Model database.
+    /// 'Segment' of the DSoil-Model database.
     /// </summary>
-    internal static class StochasticSoilModelDatabaseColumns
+    internal static class SegmentTableColumns
     {
-        internal const string Count = "nrOfRows";
-        internal const string TableName = "StochasticSoilModel";
-        internal const string StochasticSoilModelId = "SSM_ID";
-        internal const string StochasticSoilModelName = "SSM_Name";
+        internal const string TableName = "Segment";
+        internal const string SegmentName = "SE_Name";
     }
 }

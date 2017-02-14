@@ -27,6 +27,7 @@ using Core.Common.Utils.Builders;
 using Ringtoets.Piping.IO.Builders;
 using Ringtoets.Piping.IO.Exceptions;
 using Ringtoets.Piping.IO.Properties;
+using Ringtoets.Piping.IO.SoilProfile.Schema;
 using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.IO.SoilProfile
@@ -142,7 +143,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
         {
             try
             {
-                return reader.Read<byte[]>(SoilProfileDatabaseColumns.LayerGeometry);
+                return reader.Read<byte[]>(SoilProfileTableColumns.LayerGeometry);
             }
             catch (InvalidCastException e)
             {
@@ -181,7 +182,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
             /// casted to the expected column types.</exception>
             internal RequiredProfileProperties(IRowBasedDatabaseReader reader, string profileName)
             {
-                string readColumn = SoilProfileDatabaseColumns.IntersectionX;
+                string readColumn = SoilProfileTableColumns.IntersectionX;
                 try
                 {
                     IntersectionX = reader.Read<double>(readColumn);

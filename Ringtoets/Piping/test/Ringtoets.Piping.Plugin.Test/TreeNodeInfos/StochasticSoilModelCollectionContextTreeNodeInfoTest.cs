@@ -260,7 +260,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 var context = new StochasticSoilModelCollectionContext(
-                    new ObservableCollectionWithSourcePath<StochasticSoilModel>(), 
+                    new StochasticSoilModelCollection(), 
                     new PipingFailureMechanism(), 
                     assessmentSection);
                 var gui = mocks.Stub<IGui>();

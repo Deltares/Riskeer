@@ -214,7 +214,6 @@ namespace Ringtoets.Piping.IO.Test.Exporters
                 var actualXml = File.ReadAllText(filePath);
                 var expectedXml = File.ReadAllText(Path.Combine(directoryPath, $"{expectedFileName}.xml"));
 
-
                 Assert.AreEqual(expectedXml, actualXml);
             }
             finally

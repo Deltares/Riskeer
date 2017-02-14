@@ -281,10 +281,12 @@ namespace Application.Ringtoets.Storage.Test.Read
                 {
                     new StochasticSoilModelEntity
                     {
+                        Name = "modelA",
                         StochasticSoilModelSegmentPointXml = emptySegmentPointsXml
                     },
                     new StochasticSoilModelEntity
                     {
+                        Name = "modelB",
                         StochasticSoilModelSegmentPointXml = emptySegmentPointsXml
                     }
                 },

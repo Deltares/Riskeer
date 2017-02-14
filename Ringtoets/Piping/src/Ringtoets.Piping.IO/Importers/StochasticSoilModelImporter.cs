@@ -40,7 +40,7 @@ namespace Ringtoets.Piping.IO.Importers
     /// <summary>
     /// Imports .soil files (SqlLite database files) created with the D-Soil Model application.
     /// </summary>
-    public class StochasticSoilModelImporter : FileImporterBase<ObservableCollectionWithSourcePath<StochasticSoilModel>>
+    public class StochasticSoilModelImporter : FileImporterBase<StochasticSoilModelCollection>
     {
         private readonly ILog log = LogManager.GetLogger(typeof(StochasticSoilModelImporter));
         private readonly IStochasticSoilModelUpdateModelStrategy modelUpdateStrategy;
@@ -54,7 +54,7 @@ namespace Ringtoets.Piping.IO.Importers
         ///     when updating the <paramref name="importTarget"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="importTarget"/> or
         /// <paramref name="modelUpdateStrategy"/> is <c>null</c>.</exception>
-        public StochasticSoilModelImporter(ObservableCollectionWithSourcePath<StochasticSoilModel> importTarget, string filePath, IStochasticSoilModelUpdateModelStrategy modelUpdateStrategy)
+        public StochasticSoilModelImporter(StochasticSoilModelCollection importTarget, string filePath, IStochasticSoilModelUpdateModelStrategy modelUpdateStrategy)
             : base(filePath, importTarget)
         {
             if (modelUpdateStrategy == null)
@@ -228,9 +228,7 @@ namespace Ringtoets.Piping.IO.Importers
             try
             {
                 using (var stochasticSoilModelReader = new StochasticSoilModelReader(FilePath))
-                {
                     return GetStochasticSoilModelReadResult(stochasticSoilModelReader);
-                }
             }
             catch (CriticalFileReadException e)
             {

@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
+using Core.Common.Base.Storage;
 using log4net;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.IO.Importers;
@@ -52,7 +53,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             this.failureMechanism = failureMechanism;
         }
 
-        public IEnumerable<IObservable> UpdateModelWithImportedData(ObservableCollectionWithSourcePath<StochasticSoilModel> targetCollection,
+        public IEnumerable<IObservable> UpdateModelWithImportedData(StochasticSoilModelCollection targetCollection,
                                                                     IEnumerable<StochasticSoilModel> readStochasticSoilModels,
                                                                     string sourceFilePath)
         {
@@ -74,16 +75,18 @@ namespace Ringtoets.Piping.Plugin.FileImporter
                 targetCollection
             };
 
-            var modelsToAdd = new List<StochasticSoilModel>();
-            foreach (StochasticSoilModel readStochasticSoilModel in readStochasticSoilModels)
-            {
-                modelsToAdd.Add(readStochasticSoilModel);
-            }
             foreach (StochasticSoilModel model in targetCollection.ToArray())
             {
                 affectedObjects.AddRange(PipingDataSynchronizationService.RemoveStochasticSoilModel(failureMechanism, model));
             }
-            targetCollection.AddRange(modelsToAdd, sourceFilePath);
+            try
+            {
+                targetCollection.AddRange(readStochasticSoilModels.ToList(), sourceFilePath);
+            }
+            catch (ArgumentException e)
+            {
+                throw new StochasticSoilModelUpdateException(e.Message, e);
+            }
             return affectedObjects.Distinct();
         }
     }

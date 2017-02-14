@@ -30,7 +30,7 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
     /// <summary>
     /// The presentation object for <see cref="PipingFailureMechanism.StochasticSoilModels"/>.
     /// </summary>
-    public class StochasticSoilModelCollectionContext : ObservableWrappedObjectContextBase<ObservableCollectionWithSourcePath<StochasticSoilModel>>
+    public class StochasticSoilModelCollectionContext : ObservableWrappedObjectContextBase<StochasticSoilModelCollection>
     {
         /// <summary>
         /// Creates a new instance of <see cref="StochasticSoilModelCollectionContext"/>.
@@ -39,7 +39,7 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
         /// <param name="failureMechanism">The failure mechanism.</param>
         /// <param name="assessmentSection">The assessment section.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
-        public StochasticSoilModelCollectionContext(ObservableCollectionWithSourcePath<StochasticSoilModel> wrappedStochasticSoilModels,
+        public StochasticSoilModelCollectionContext(StochasticSoilModelCollection wrappedStochasticSoilModels,
                                                     PipingFailureMechanism failureMechanism,
                                                     IAssessmentSection assessmentSection)
             : base(wrappedStochasticSoilModels)

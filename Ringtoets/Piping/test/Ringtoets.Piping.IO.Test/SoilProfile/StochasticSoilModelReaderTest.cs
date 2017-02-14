@@ -73,7 +73,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
         [Test]
         [TestCase("text.txt")]
         [TestCase("empty.soil")]
-        public void Constructor_IncorrectFormatFileOrInvalidSchema_ThrowsPipingCriticalFileReadException(string dbName)
+        public void Constructor_IncorrectFormatFileOrInvalidSchema_ThrowsCriticalFileReadException(string dbName)
         {
             // Setup
             string dbFile = Path.Combine(testDataPath, dbName);
@@ -94,12 +94,33 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
 
         [Test]
         [TestCase("withoutSoilModelTables.soil")]
-        public void Constructor_InvalidSchemaThatPassesValidation_ThrowsPipingCriticalFileReadException(string dbName)
+        public void Constructor_InvalidSchemaThatPassesValidation_ThrowsCriticalFileReadException(string dbName)
         {
             // Setup
             string dbFile = Path.Combine(testDataPath, dbName);
             string expectedMessage = new FileReaderErrorMessageBuilder(dbFile).
-                Build(string.Format(Resources.StochasticSoilModelDatabaseReader_Failed_to_read_database, dbName));
+                Build("Kan geen ondergrondmodellen lezen. Mogelijk bestaat de 'Segment' tabel niet.");
+
+            // Precondition
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile), "Precondition: file can be opened for edits.");
+
+            // Call
+            TestDelegate test = () => { using (new StochasticSoilModelReader(dbFile)) {} };
+
+            // Assert
+            CriticalFileReadException exception = Assert.Throws<CriticalFileReadException>(test);
+            Assert.AreEqual(expectedMessage, exception.Message);
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
+        }
+
+        [Test]
+        [TestCase("nonUniqueSoilModelNames.soil")]
+        public void Constructor_NonUniqueSoilModelNames_ThrowsCriticalFileReadException(string dbName)
+        {
+            // Setup
+            string dbFile = Path.Combine(testDataPath, dbName);
+            string expectedMessage = new FileReaderErrorMessageBuilder(dbFile).
+                Build("Namen van ondergrondmodellen zijn niet uniek.");
 
             // Precondition
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile), "Precondition: file can be opened for edits.");

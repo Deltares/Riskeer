@@ -64,13 +64,17 @@
     <Compile Include="Readers\ReadPipingCalculation.cs" />
     <Compile Include="Readers\ReadPipingCalculationGroup.cs" />
     <Compile Include="SoilProfile\LayerProperties.cs" />
-    <Compile Include="SoilProfile\MechanismDatabaseColumns.cs" />
-    <Compile Include="SoilProfile\MetaDataDatabaseColumns.cs" />
-    <Compile Include="SoilProfile\SegmentDatabaseColumns.cs" />
-    <Compile Include="SoilProfile\SegmentPointsDatabaseColumns.cs" />
-    <Compile Include="SoilProfile\StochasticSoilModelDatabaseColumns.cs" />
+    <Compile Include="SoilProfile\Schema\MechanismPointLocationTableColumns.cs" />
+    <Compile Include="SoilProfile\Schema\MechanismTableColumns.cs" />
+    <Compile Include="SoilProfile\Schema\MetaDataTableColumns.cs" />
+    <Compile Include="SoilProfile\Schema\SegmentTableColumns.cs" />
+    <Compile Include="SoilProfile\Schema\SegmentPointsTableColumns.cs" />
+    <Compile Include="SoilProfile\Schema\SoilLayer2DTableColumns.cs" />
+    <Compile Include="SoilProfile\Schema\SoilLayer1DTableColumns.cs" />
+    <Compile Include="SoilProfile\SoilDatabaseConstraintsReader.cs" />
+    <Compile Include="SoilProfile\Schema\StochasticSoilModelTableColumns.cs" />
     <Compile Include="SoilProfile\StochasticSoilModelReader.cs" />
-    <Compile Include="SoilProfile\StochasticSoilProfileDatabaseColumns.cs" />
+    <Compile Include="SoilProfile\Schema\StochasticSoilProfileTableColumns.cs" />
     <Compile Include="SoilProfile\SoilDatabaseVersionReader.cs" />
     <Compile Include="SoilProfile\StochasticSoilProfileReader.cs" />
     <Compile Include="SurfaceLines\CharacteristicPoints.cs" />
@@ -87,7 +91,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="SoilProfile\SoilProfileDatabaseColumns.cs" />
+    <Compile Include="SoilProfile\Schema\SoilProfileTableColumns.cs" />
     <Compile Include="SurfaceLines\PipingSurfaceLinesCsvReader.cs" />
   </ItemGroup>
   <ItemGroup>

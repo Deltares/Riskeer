@@ -24,6 +24,7 @@ using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
 using Core.Common.Utils.Builders;
 using Ringtoets.Piping.IO.Properties;
+using Ringtoets.Piping.IO.SoilProfile.Schema;
 
 namespace Ringtoets.Piping.IO.SoilProfile
 {
@@ -45,9 +46,9 @@ namespace Ringtoets.Piping.IO.SoilProfile
         {
             try
             {
-                ProfileName = reader.Read<string>(SoilProfileDatabaseColumns.ProfileName);
-                LayerCount = reader.Read<long>(SoilProfileDatabaseColumns.LayerCount);
-                ProfileId = reader.Read<long>(SoilProfileDatabaseColumns.SoilProfileId);
+                ProfileName = reader.Read<string>(SoilProfileTableColumns.ProfileName);
+                LayerCount = reader.Read<long>(SoilProfileTableColumns.LayerCount);
+                ProfileId = reader.Read<long>(SoilProfileTableColumns.SoilProfileId);
             }
             catch (InvalidCastException e)
             {

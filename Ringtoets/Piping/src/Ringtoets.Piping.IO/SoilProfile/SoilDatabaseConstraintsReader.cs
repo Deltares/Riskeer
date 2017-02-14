@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Data;
 using System.Data.SQLite;
 using Core.Common.IO.Exceptions;
@@ -31,14 +32,12 @@ using Ringtoets.Piping.IO.SoilProfile.Schema;
 namespace Ringtoets.Piping.IO.SoilProfile
 {
     /// <summary>
-    /// This class reads a soil database file and reads version from this database.
+    /// This class reads a soil database file and validates whether it meets required constraints.
     /// </summary>
-    public class SoilDatabaseVersionReader : SqLiteDatabaseReaderBase
+    public class SoilDatabaseConstraintsReader : SqLiteDatabaseReaderBase
     {
-        private const string databaseRequiredVersion = "15.0.6.0";
-
         /// <summary>
-        /// Creates a new instance of <see cref="SoilDatabaseVersionReader"/>, 
+        /// Creates a new instance of <see cref="SoilDatabaseConstraintsReader"/>, 
         /// which will use the <paramref name="databaseFilePath"/> as its source.
         /// </summary>
         /// <param name="databaseFilePath">The path of the database file to open.</param>
@@ -46,49 +45,52 @@ namespace Ringtoets.Piping.IO.SoilProfile
         /// <item>The <paramref name="databaseFilePath"/> contains invalid characters.</item>
         /// <item>No file could be found at <paramref name="databaseFilePath"/>.</item>
         /// <item>The database version could not be read.</item>
-        /// <item>The database version is incorrect.</item>
         /// </list></exception>
-        public SoilDatabaseVersionReader(string databaseFilePath) : base(databaseFilePath) {}
+        public SoilDatabaseConstraintsReader(string databaseFilePath) : base(databaseFilePath) {}
 
         /// <summary>
         /// Verifies if the database has the required version.
         /// </summary>
         /// <exception cref="CriticalFileReadException">Thrown when: <list type="bullet">
-        /// <item>The database version could not be read.</item>
-        /// <item>The database version is incorrect.</item>
+        /// <item>Required information for constraint evaluation could not be read.</item>
+        /// <item>The database segment names are not unique.</item>
         /// </list></exception>
-        public void VerifyVersion()
+        public void VerifyConstraints()
         {
-            var checkVersionQuery = SoilDatabaseQueryBuilder.GetCheckVersionQuery();
-            var sqliteParameter = new SQLiteParameter
-            {
-                DbType = DbType.String,
-                ParameterName = $"@{MetaDataTableColumns.Value}",
-                Value = databaseRequiredVersion
-            };
-
             try
             {
-                ReadVersion(checkVersionQuery, sqliteParameter);
+                ReadUniqueSegements();
             }
             catch (SQLiteException exception)
             {
-                var message = new FileReaderErrorMessageBuilder(Path).Build(Resources.PipingSoilProfileReader_Critical_Unexpected_value_on_column);
-                throw new CriticalFileReadException(message, exception);
+                throw new CriticalFileReadException(
+                    BuildMessageWithPath("Kan geen ondergrondmodellen lezen. Mogelijk bestaat de 'Segment' tabel niet."), exception);
             }
         }
 
-        private void ReadVersion(string checkVersionQuery, SQLiteParameter sqliteParameter)
+        private void ReadUniqueSegements()
         {
-            using (IDataReader dataReader = CreateDataReader(checkVersionQuery, sqliteParameter))
+            string checkSegmentNameUniqueness = SoilDatabaseQueryBuilder.GetSoilModelNamesUniqueQuery();
+            using (IDataReader dataReader = CreateDataReader(checkSegmentNameUniqueness))
             {
                 if (!dataReader.Read())
                 {
-                    throw new CriticalFileReadException(string.Format(
-                        Resources.PipingSoilProfileReader_Database_incorrect_version_requires_Version_0_,
-                        databaseRequiredVersion));
+                    throw new CriticalFileReadException(
+                        BuildMessageWithPath("Onverwachte fout tijdens het verifiëren van unieke ondergrondmodelnamen."));
+                }
+                if (!Convert.ToBoolean(dataReader[StochasticSoilModelTableColumns.AreSegmentsUnique]))
+                {
+                    throw new CriticalFileReadException(
+                        BuildMessageWithPath("Namen van ondergrondmodellen zijn niet uniek."));
                 }
             }
+        }
+
+        private string BuildMessageWithPath(string innerMessage)
+        {
+            string message = new FileReaderErrorMessageBuilder(Path)
+                .Build(innerMessage);
+            return message;
         }
     }
 }

@@ -19,16 +19,13 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.Piping.IO.SoilProfile
+namespace Ringtoets.Piping.IO.SoilProfile.Schema
 {
     /// <summary>
-    /// This class contains the names of the table and columns of the table 
-    /// 'Mechanism' of the DSoil-Model database.
+    /// This class contains the column names that are used when querying the DSoil-Model database.
     /// </summary>
-    internal static class MechanismDatabaseColumns
+    internal static class SoilLayer2DTableColumns
     {
-        internal const string TableName = "Mechanism";
-        internal const string MechanismId = "ME_ID";
-        internal const string MechanismName = "ME_Name";
+        internal const string TableName = "SoilLayer2D";
     }
 }

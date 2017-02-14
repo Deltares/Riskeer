@@ -27,6 +27,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Piping.IO.Properties;
 using Ringtoets.Piping.IO.SoilProfile;
+using Ringtoets.Piping.IO.SoilProfile.Schema;
 
 namespace Ringtoets.Piping.IO.Test.SoilProfile
 {
@@ -50,9 +51,9 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             var layerCount = 1;
             long soilProfileId = 1234;
 
-            reader.Expect(r => r.Read<string>(SoilProfileDatabaseColumns.ProfileName)).IgnoreArguments().Return(profileName);
-            reader.Expect(r => r.Read<long>(SoilProfileDatabaseColumns.LayerCount)).IgnoreArguments().Return(layerCount);
-            reader.Expect(r => r.Read<long>(SoilProfileDatabaseColumns.SoilProfileId)).IgnoreArguments().Return(soilProfileId);
+            reader.Expect(r => r.Read<string>(SoilProfileTableColumns.ProfileName)).IgnoreArguments().Return(profileName);
+            reader.Expect(r => r.Read<long>(SoilProfileTableColumns.LayerCount)).IgnoreArguments().Return(layerCount);
+            reader.Expect(r => r.Read<long>(SoilProfileTableColumns.SoilProfileId)).IgnoreArguments().Return(soilProfileId);
 
             mocks.ReplayAll();
 
@@ -76,8 +77,8 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             string path = "A";
             var invalidCastException = new InvalidCastException();
 
-            reader.Expect(r => r.Read<string>(SoilProfileDatabaseColumns.ProfileName)).IgnoreArguments().Throw(invalidCastException);
-            reader.Expect(r => r.Read<long>(SoilProfileDatabaseColumns.LayerCount)).IgnoreArguments().Return(layerCount).Repeat.Any();
+            reader.Expect(r => r.Read<string>(SoilProfileTableColumns.ProfileName)).IgnoreArguments().Throw(invalidCastException);
+            reader.Expect(r => r.Read<long>(SoilProfileTableColumns.LayerCount)).IgnoreArguments().Return(layerCount).Repeat.Any();
             reader.Expect(r => r.Path).Return(path);
 
             mocks.ReplayAll();
@@ -104,8 +105,8 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             string path = "A";
             var invalidCastException = new InvalidCastException();
 
-            reader.Expect(r => r.Read<string>(SoilProfileDatabaseColumns.ProfileName)).IgnoreArguments().Return(profileName).Repeat.Any();
-            reader.Expect(r => r.Read<long>(SoilProfileDatabaseColumns.LayerCount)).Throw(invalidCastException);
+            reader.Expect(r => r.Read<string>(SoilProfileTableColumns.ProfileName)).IgnoreArguments().Return(profileName).Repeat.Any();
+            reader.Expect(r => r.Read<long>(SoilProfileTableColumns.LayerCount)).Throw(invalidCastException);
             reader.Expect(r => r.Path).Return(path);
 
             mocks.ReplayAll();

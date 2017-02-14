@@ -211,8 +211,6 @@ namespace Core.Common.Gui.Test
         public void InquireContinuation_OkOrCancelClicked_ReturnExpectedResult(bool confirm)
         {
             // Setup
-            mocks.ReplayAll();
-
             dialogParent.Expect(d => d.Handle).Repeat.AtLeastOnce().Return(default(IntPtr));
             mocks.ReplayAll();
 

@@ -28,6 +28,7 @@ using Core.Common.Utils.Builders;
 using Ringtoets.Piping.IO.Builders;
 using Ringtoets.Piping.IO.Exceptions;
 using Ringtoets.Piping.IO.Properties;
+using Ringtoets.Piping.IO.SoilProfile.Schema;
 using Ringtoets.Piping.Primitives;
 using UtilsResources = Core.Common.Utils.Properties.Resources;
 
@@ -171,7 +172,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
         {
             try
             {
-                var dimensionValue = Read<long>(SoilProfileDatabaseColumns.Dimension);
+                var dimensionValue = Read<long>(SoilProfileTableColumns.Dimension);
                 return dimensionValue == 1 ? SoilProfile1DReader.ReadFrom(this) : SoilProfile2DReader.ReadFrom(this);
             }
             catch (PipingSoilProfileReadException e)
@@ -187,7 +188,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
         /// <param name="profileName">The name of the profile to skip.</param>
         private void MoveToNextProfile(string profileName)
         {
-            while (HasNext && Read<string>(SoilProfileDatabaseColumns.ProfileName).Equals(profileName))
+            while (HasNext && Read<string>(SoilProfileTableColumns.ProfileName).Equals(profileName))
             {
                 MoveNext();
             }
@@ -232,12 +233,12 @@ namespace Ringtoets.Piping.IO.SoilProfile
                 string.Format("SELECT SP1D_ID, COUNT(*) as {0} " +
                               "FROM SoilLayer1D " +
                               "GROUP BY SP1D_ID",
-                              SoilProfileDatabaseColumns.LayerCount);
+                              SoilProfileTableColumns.LayerCount);
             string subQueryGetNumberOfLayerProfile2D =
                 string.Format("SELECT SP2D_ID, COUNT(*) as {0} " +
                               "FROM SoilLayer2D " +
                               "GROUP BY SP2D_ID",
-                              SoilProfileDatabaseColumns.LayerCount);
+                              SoilProfileTableColumns.LayerCount);
             string subQueryGetMaterialPropertiesOfLayer =
                 string.Format(
                     "SELECT " +
@@ -261,20 +262,20 @@ namespace Ringtoets.Piping.IO.SoilProfile
                     "LEFT JOIN Stochast AS s USING(PN_ID) " +
                     "JOIN Materials AS mat WHERE pv.MA_ID = mat.MA_ID OR s.MA_ID = mat.MA_ID " +
                     "GROUP BY mat.MA_ID ",
-                    SoilProfileDatabaseColumns.MaterialName,
-                    SoilProfileDatabaseColumns.Color,
-                    SoilProfileDatabaseColumns.BelowPhreaticLevelDistribution,
-                    SoilProfileDatabaseColumns.BelowPhreaticLevelShift,
-                    SoilProfileDatabaseColumns.BelowPhreaticLevelMean,
-                    SoilProfileDatabaseColumns.BelowPhreaticLevelDeviation,
-                    SoilProfileDatabaseColumns.PermeabilityDistribution,
-                    SoilProfileDatabaseColumns.PermeabilityShift,
-                    SoilProfileDatabaseColumns.PermeabilityMean,
-                    SoilProfileDatabaseColumns.PermeabilityDeviation,
-                    SoilProfileDatabaseColumns.DiameterD70Distribution,
-                    SoilProfileDatabaseColumns.DiameterD70Shift,
-                    SoilProfileDatabaseColumns.DiameterD70Mean,
-                    SoilProfileDatabaseColumns.DiameterD70Deviation
+                    SoilProfileTableColumns.MaterialName,
+                    SoilProfileTableColumns.Color,
+                    SoilProfileTableColumns.BelowPhreaticLevelDistribution,
+                    SoilProfileTableColumns.BelowPhreaticLevelShift,
+                    SoilProfileTableColumns.BelowPhreaticLevelMean,
+                    SoilProfileTableColumns.BelowPhreaticLevelDeviation,
+                    SoilProfileTableColumns.PermeabilityDistribution,
+                    SoilProfileTableColumns.PermeabilityShift,
+                    SoilProfileTableColumns.PermeabilityMean,
+                    SoilProfileTableColumns.PermeabilityDeviation,
+                    SoilProfileTableColumns.DiameterD70Distribution,
+                    SoilProfileTableColumns.DiameterD70Shift,
+                    SoilProfileTableColumns.DiameterD70Mean,
+                    SoilProfileTableColumns.DiameterD70Deviation
                     );
             string subQueryGetLayerPropertiesOfLayer1D =
                 string.Format(
@@ -284,7 +285,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
                     "FROM ParameterNames " +
                     "JOIN LayerParameterValues USING(PN_ID) " +
                     "WHERE PN_NAME = '{0}'",
-                    SoilProfileDatabaseColumns.IsAquifer);
+                    SoilProfileTableColumns.IsAquifer);
             string subQueryGetLayerPropertiesOfLayer2D =
                 string.Format(
                     "SELECT " +
@@ -293,7 +294,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
                     "FROM ParameterNames " +
                     "JOIN LayerParameterValues USING(PN_ID) " +
                     "WHERE PN_NAME = '{0}'",
-                    SoilProfileDatabaseColumns.IsAquifer);
+                    SoilProfileTableColumns.IsAquifer);
 
             var query1D = string.Format(
                 "SELECT " +
@@ -333,28 +334,28 @@ namespace Ringtoets.Piping.IO.SoilProfile
                 subQueryGetLayerPropertiesOfLayer1D +
                 ") layerProperties USING(SL1D_ID) " +
                 "WHERE m.{21} = @{21};",
-                SoilProfileDatabaseColumns.Dimension,
-                SoilProfileDatabaseColumns.ProfileName,
-                SoilProfileDatabaseColumns.LayerCount,
-                SoilProfileDatabaseColumns.Bottom,
-                SoilProfileDatabaseColumns.Top,
-                SoilProfileDatabaseColumns.MaterialName,
-                SoilProfileDatabaseColumns.IsAquifer,
-                SoilProfileDatabaseColumns.Color,
-                SoilProfileDatabaseColumns.BelowPhreaticLevelDistribution,
-                SoilProfileDatabaseColumns.BelowPhreaticLevelShift,
-                SoilProfileDatabaseColumns.BelowPhreaticLevelMean,
-                SoilProfileDatabaseColumns.BelowPhreaticLevelDeviation,
-                SoilProfileDatabaseColumns.DiameterD70Distribution,
-                SoilProfileDatabaseColumns.DiameterD70Shift,
-                SoilProfileDatabaseColumns.DiameterD70Mean,
-                SoilProfileDatabaseColumns.DiameterD70Deviation,
-                SoilProfileDatabaseColumns.PermeabilityDistribution,
-                SoilProfileDatabaseColumns.PermeabilityShift,
-                SoilProfileDatabaseColumns.PermeabilityMean,
-                SoilProfileDatabaseColumns.PermeabilityDeviation,
-                SoilProfileDatabaseColumns.SoilProfileId,
-                MechanismDatabaseColumns.MechanismName);
+                SoilProfileTableColumns.Dimension,
+                SoilProfileTableColumns.ProfileName,
+                SoilProfileTableColumns.LayerCount,
+                SoilProfileTableColumns.Bottom,
+                SoilProfileTableColumns.Top,
+                SoilProfileTableColumns.MaterialName,
+                SoilProfileTableColumns.IsAquifer,
+                SoilProfileTableColumns.Color,
+                SoilProfileTableColumns.BelowPhreaticLevelDistribution,
+                SoilProfileTableColumns.BelowPhreaticLevelShift,
+                SoilProfileTableColumns.BelowPhreaticLevelMean,
+                SoilProfileTableColumns.BelowPhreaticLevelDeviation,
+                SoilProfileTableColumns.DiameterD70Distribution,
+                SoilProfileTableColumns.DiameterD70Shift,
+                SoilProfileTableColumns.DiameterD70Mean,
+                SoilProfileTableColumns.DiameterD70Deviation,
+                SoilProfileTableColumns.PermeabilityDistribution,
+                SoilProfileTableColumns.PermeabilityShift,
+                SoilProfileTableColumns.PermeabilityMean,
+                SoilProfileTableColumns.PermeabilityDeviation,
+                SoilProfileTableColumns.SoilProfileId,
+                MechanismTableColumns.MechanismName);
 
             var query2D = string.Format(
                 "SELECT " +
@@ -395,28 +396,28 @@ namespace Ringtoets.Piping.IO.SoilProfile
                 subQueryGetLayerPropertiesOfLayer2D +
                 ") layerProperties USING(SL2D_ID) " +
                 "WHERE m.{21} = @{21};",
-                SoilProfileDatabaseColumns.Dimension,
-                SoilProfileDatabaseColumns.ProfileName,
-                SoilProfileDatabaseColumns.LayerCount,
-                SoilProfileDatabaseColumns.LayerGeometry,
-                SoilProfileDatabaseColumns.IntersectionX,
-                SoilProfileDatabaseColumns.MaterialName,
-                SoilProfileDatabaseColumns.IsAquifer,
-                SoilProfileDatabaseColumns.Color,
-                SoilProfileDatabaseColumns.BelowPhreaticLevelDistribution,
-                SoilProfileDatabaseColumns.BelowPhreaticLevelShift,
-                SoilProfileDatabaseColumns.BelowPhreaticLevelMean,
-                SoilProfileDatabaseColumns.BelowPhreaticLevelDeviation,
-                SoilProfileDatabaseColumns.DiameterD70Distribution,
-                SoilProfileDatabaseColumns.DiameterD70Shift,
-                SoilProfileDatabaseColumns.DiameterD70Mean,
-                SoilProfileDatabaseColumns.DiameterD70Deviation,
-                SoilProfileDatabaseColumns.PermeabilityDistribution,
-                SoilProfileDatabaseColumns.PermeabilityShift,
-                SoilProfileDatabaseColumns.PermeabilityMean,
-                SoilProfileDatabaseColumns.PermeabilityDeviation,
-                SoilProfileDatabaseColumns.SoilProfileId,
-                MechanismDatabaseColumns.MechanismName);
+                SoilProfileTableColumns.Dimension,
+                SoilProfileTableColumns.ProfileName,
+                SoilProfileTableColumns.LayerCount,
+                SoilProfileTableColumns.LayerGeometry,
+                SoilProfileTableColumns.IntersectionX,
+                SoilProfileTableColumns.MaterialName,
+                SoilProfileTableColumns.IsAquifer,
+                SoilProfileTableColumns.Color,
+                SoilProfileTableColumns.BelowPhreaticLevelDistribution,
+                SoilProfileTableColumns.BelowPhreaticLevelShift,
+                SoilProfileTableColumns.BelowPhreaticLevelMean,
+                SoilProfileTableColumns.BelowPhreaticLevelDeviation,
+                SoilProfileTableColumns.DiameterD70Distribution,
+                SoilProfileTableColumns.DiameterD70Shift,
+                SoilProfileTableColumns.DiameterD70Mean,
+                SoilProfileTableColumns.DiameterD70Deviation,
+                SoilProfileTableColumns.PermeabilityDistribution,
+                SoilProfileTableColumns.PermeabilityShift,
+                SoilProfileTableColumns.PermeabilityMean,
+                SoilProfileTableColumns.PermeabilityDeviation,
+                SoilProfileTableColumns.SoilProfileId,
+                MechanismTableColumns.MechanismName);
 
             dataReader = CreateDataReader(countQuery + query2D + query1D, new SQLiteParameter
             {
@@ -426,7 +427,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
             }, new SQLiteParameter
             {
                 DbType = DbType.String,
-                ParameterName = string.Format("@{0}", MechanismDatabaseColumns.MechanismName),
+                ParameterName = string.Format("@{0}", MechanismTableColumns.MechanismName),
                 Value = pipingMechanismName
             });
         }
@@ -434,7 +435,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
         private void GetCount()
         {
             dataReader.Read();
-            Count = (int) Read<long>(SoilProfileDatabaseColumns.ProfileCount);
+            Count = (int) Read<long>(SoilProfileTableColumns.ProfileCount);
             dataReader.NextResult();
         }
     }

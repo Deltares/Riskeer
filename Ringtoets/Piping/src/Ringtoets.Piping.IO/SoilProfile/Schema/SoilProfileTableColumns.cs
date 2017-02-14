@@ -19,12 +19,12 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.Piping.IO.SoilProfile
+namespace Ringtoets.Piping.IO.SoilProfile.Schema
 {
     /// <summary>
     /// This class contains the column names that are used when querying the DSoil-Model database.
     /// </summary>
-    internal static class SoilProfileDatabaseColumns
+    internal static class SoilProfileTableColumns
     {
         internal const string SoilProfileId = "SoilProfileId";
         internal const string ProfileCount = "nrOfRows";

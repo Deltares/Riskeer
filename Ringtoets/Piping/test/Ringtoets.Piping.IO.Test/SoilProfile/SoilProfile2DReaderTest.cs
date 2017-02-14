@@ -30,6 +30,7 @@ using Rhino.Mocks;
 using Ringtoets.Piping.IO.Builders;
 using Ringtoets.Piping.IO.Exceptions;
 using Ringtoets.Piping.IO.SoilProfile;
+using Ringtoets.Piping.IO.SoilProfile.Schema;
 using Ringtoets.Piping.IO.Test.TestHelpers;
 using Ringtoets.Piping.Primitives;
 
@@ -66,8 +67,8 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             const string name = "B";
 
             reader.Expect(r => r.Path).Return(path);
-            reader.Expect(r => r.Read<string>(SoilProfileDatabaseColumns.ProfileName)).Return(name);
-            reader.Expect(r => r.Read<long>(SoilProfileDatabaseColumns.LayerCount)).Throw(new InvalidCastException());
+            reader.Expect(r => r.Read<string>(SoilProfileTableColumns.ProfileName)).Return(name);
+            reader.Expect(r => r.Read<long>(SoilProfileTableColumns.LayerCount)).Throw(new InvalidCastException());
 
             mocks.ReplayAll();
 
@@ -90,9 +91,9 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             const string path = "B";
 
             reader.Expect(r => r.Path).Return(path);
-            reader.Expect(r => r.Read<long>(SoilProfileDatabaseColumns.LayerCount)).Return(1).Repeat.Any();
-            reader.Expect(r => r.Read<string>(SoilProfileDatabaseColumns.ProfileName)).Return(name).Repeat.Any();
-            reader.Expect(r => r.Read<double>(SoilProfileDatabaseColumns.IntersectionX)).Throw(new InvalidCastException());
+            reader.Expect(r => r.Read<long>(SoilProfileTableColumns.LayerCount)).Return(1).Repeat.Any();
+            reader.Expect(r => r.Read<string>(SoilProfileTableColumns.ProfileName)).Return(name).Repeat.Any();
+            reader.Expect(r => r.Read<double>(SoilProfileTableColumns.IntersectionX)).Throw(new InvalidCastException());
 
             mocks.ReplayAll();
 
@@ -115,9 +116,9 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             const string path = "A";
 
             reader.Expect(r => r.Path).Return(path);
-            reader.Expect(r => r.Read<long>(SoilProfileDatabaseColumns.LayerCount)).Return(1).Repeat.Any();
-            reader.Expect(r => r.Read<string>(SoilProfileDatabaseColumns.ProfileName)).Return(name).Repeat.Any();
-            reader.Expect(r => r.Read<double>(SoilProfileDatabaseColumns.IntersectionX)).Return(double.NaN);
+            reader.Expect(r => r.Read<long>(SoilProfileTableColumns.LayerCount)).Return(1).Repeat.Any();
+            reader.Expect(r => r.Read<string>(SoilProfileTableColumns.ProfileName)).Return(name).Repeat.Any();
+            reader.Expect(r => r.Read<double>(SoilProfileTableColumns.IntersectionX)).Return(double.NaN);
 
             mocks.ReplayAll();
 
@@ -209,9 +210,9 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             const string path = "A";
 
             reader.Expect(r => r.Path).Return(path);
-            reader.Expect(r => r.Read<string>(SoilProfileDatabaseColumns.ProfileName)).Return(name);
-            reader.Expect(r => r.Read<long>(SoilProfileDatabaseColumns.LayerCount)).Return(1).Repeat.Any();
-            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileDatabaseColumns.IsAquifer)).Throw(new InvalidCastException());
+            reader.Expect(r => r.Read<string>(SoilProfileTableColumns.ProfileName)).Return(name);
+            reader.Expect(r => r.Read<long>(SoilProfileTableColumns.LayerCount)).Return(1).Repeat.Any();
+            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileTableColumns.IsAquifer)).Throw(new InvalidCastException());
             mocks.ReplayAll();
 
             // Call
@@ -321,11 +322,11 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
         public void ReadFrom_InvalidBelowPhreaticLevelDistributionValue_ThrowsPipingSoilProfileReadException()
         {
             // Setup
-            reader.Expect(r => r.Read<long>(SoilProfileDatabaseColumns.LayerCount)).Return(1);
-            reader.Expect(r => r.Read<string>(SoilProfileDatabaseColumns.ProfileName)).Return("");
-            reader.Expect(r => r.Read<double>(SoilProfileDatabaseColumns.IntersectionX)).Return(0.0).Repeat.Any();
-            reader.Expect(r => r.Read<byte[]>(SoilProfileDatabaseColumns.LayerGeometry)).Return(someGeometry).Repeat.Any();
-            reader.Expect(r => r.ReadOrDefault<long?>(SoilProfileDatabaseColumns.BelowPhreaticLevelDistribution)).Return(1);
+            reader.Expect(r => r.Read<long>(SoilProfileTableColumns.LayerCount)).Return(1);
+            reader.Expect(r => r.Read<string>(SoilProfileTableColumns.ProfileName)).Return("");
+            reader.Expect(r => r.Read<double>(SoilProfileTableColumns.IntersectionX)).Return(0.0).Repeat.Any();
+            reader.Expect(r => r.Read<byte[]>(SoilProfileTableColumns.LayerGeometry)).Return(someGeometry).Repeat.Any();
+            reader.Expect(r => r.ReadOrDefault<long?>(SoilProfileTableColumns.BelowPhreaticLevelDistribution)).Return(1);
             mocks.ReplayAll();
 
             // Call
@@ -344,11 +345,11 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
         public void ReadFrom_InvalidDiameterD70DistributionValue_ThrowsPipingSoilProfileReadException()
         {
             // Setup
-            reader.Expect(r => r.Read<long>(SoilProfileDatabaseColumns.LayerCount)).Return(1);
-            reader.Expect(r => r.Read<string>(SoilProfileDatabaseColumns.ProfileName)).Return("");
-            reader.Expect(r => r.Read<double>(SoilProfileDatabaseColumns.IntersectionX)).Return(0.0).Repeat.Any();
-            reader.Expect(r => r.Read<byte[]>(SoilProfileDatabaseColumns.LayerGeometry)).Return(someGeometry).Repeat.Any();
-            reader.Expect(r => r.ReadOrDefault<long?>(SoilProfileDatabaseColumns.DiameterD70Distribution)).Return(1);
+            reader.Expect(r => r.Read<long>(SoilProfileTableColumns.LayerCount)).Return(1);
+            reader.Expect(r => r.Read<string>(SoilProfileTableColumns.ProfileName)).Return("");
+            reader.Expect(r => r.Read<double>(SoilProfileTableColumns.IntersectionX)).Return(0.0).Repeat.Any();
+            reader.Expect(r => r.Read<byte[]>(SoilProfileTableColumns.LayerGeometry)).Return(someGeometry).Repeat.Any();
+            reader.Expect(r => r.ReadOrDefault<long?>(SoilProfileTableColumns.DiameterD70Distribution)).Return(1);
             mocks.ReplayAll();
 
             // Call
@@ -367,12 +368,12 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
         public void ReadFrom_InvalidDiameterD70ShiftValue_ThrowsPipingSoilProfileReadException()
         {
             // Setup
-            reader.Expect(r => r.Read<long>(SoilProfileDatabaseColumns.LayerCount)).Return(1);
-            reader.Expect(r => r.Read<string>(SoilProfileDatabaseColumns.ProfileName)).Return("");
-            reader.Expect(r => r.Read<double>(SoilProfileDatabaseColumns.IntersectionX)).Return(0.0).Repeat.Any();
-            reader.Expect(r => r.Read<byte[]>(SoilProfileDatabaseColumns.LayerGeometry)).Return(someGeometry).Repeat.Any();
-            reader.Expect(r => r.ReadOrDefault<long?>(SoilProfileDatabaseColumns.DiameterD70Distribution)).Return(SoilLayerConstants.LogNormalDistributionValue);
-            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileDatabaseColumns.DiameterD70Shift)).Return(1);
+            reader.Expect(r => r.Read<long>(SoilProfileTableColumns.LayerCount)).Return(1);
+            reader.Expect(r => r.Read<string>(SoilProfileTableColumns.ProfileName)).Return("");
+            reader.Expect(r => r.Read<double>(SoilProfileTableColumns.IntersectionX)).Return(0.0).Repeat.Any();
+            reader.Expect(r => r.Read<byte[]>(SoilProfileTableColumns.LayerGeometry)).Return(someGeometry).Repeat.Any();
+            reader.Expect(r => r.ReadOrDefault<long?>(SoilProfileTableColumns.DiameterD70Distribution)).Return(SoilLayerConstants.LogNormalDistributionValue);
+            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileTableColumns.DiameterD70Shift)).Return(1);
             mocks.ReplayAll();
 
             // Call
@@ -391,11 +392,11 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
         public void ReadFrom_InvalidPermeabilityDistributionValue_ThrowsPipingSoilProfileReadException()
         {
             // Setup
-            reader.Expect(r => r.Read<long>(SoilProfileDatabaseColumns.LayerCount)).Return(1);
-            reader.Expect(r => r.Read<string>(SoilProfileDatabaseColumns.ProfileName)).Return("");
-            reader.Expect(r => r.Read<double>(SoilProfileDatabaseColumns.IntersectionX)).Return(0.0).Repeat.Any();
-            reader.Expect(r => r.Read<byte[]>(SoilProfileDatabaseColumns.LayerGeometry)).Return(someGeometry).Repeat.Any();
-            reader.Expect(r => r.ReadOrDefault<long?>(SoilProfileDatabaseColumns.PermeabilityDistribution)).Return(1);
+            reader.Expect(r => r.Read<long>(SoilProfileTableColumns.LayerCount)).Return(1);
+            reader.Expect(r => r.Read<string>(SoilProfileTableColumns.ProfileName)).Return("");
+            reader.Expect(r => r.Read<double>(SoilProfileTableColumns.IntersectionX)).Return(0.0).Repeat.Any();
+            reader.Expect(r => r.Read<byte[]>(SoilProfileTableColumns.LayerGeometry)).Return(someGeometry).Repeat.Any();
+            reader.Expect(r => r.ReadOrDefault<long?>(SoilProfileTableColumns.PermeabilityDistribution)).Return(1);
             mocks.ReplayAll();
 
             // Call
@@ -414,12 +415,12 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
         public void ReadFrom_InvalidPermeabilityShiftValue_ThrowsPipingSoilProfileReadException()
         {
             // Setup
-            reader.Expect(r => r.Read<long>(SoilProfileDatabaseColumns.LayerCount)).Return(1);
-            reader.Expect(r => r.Read<string>(SoilProfileDatabaseColumns.ProfileName)).Return("");
-            reader.Expect(r => r.Read<double>(SoilProfileDatabaseColumns.IntersectionX)).Return(0.0).Repeat.Any();
-            reader.Expect(r => r.Read<byte[]>(SoilProfileDatabaseColumns.LayerGeometry)).Return(someGeometry).Repeat.Any();
-            reader.Expect(r => r.ReadOrDefault<long?>(SoilProfileDatabaseColumns.PermeabilityDistribution)).Return(SoilLayerConstants.LogNormalDistributionValue);
-            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileDatabaseColumns.PermeabilityShift)).Return(1);
+            reader.Expect(r => r.Read<long>(SoilProfileTableColumns.LayerCount)).Return(1);
+            reader.Expect(r => r.Read<string>(SoilProfileTableColumns.ProfileName)).Return("");
+            reader.Expect(r => r.Read<double>(SoilProfileTableColumns.IntersectionX)).Return(0.0).Repeat.Any();
+            reader.Expect(r => r.Read<byte[]>(SoilProfileTableColumns.LayerGeometry)).Return(someGeometry).Repeat.Any();
+            reader.Expect(r => r.ReadOrDefault<long?>(SoilProfileTableColumns.PermeabilityDistribution)).Return(SoilLayerConstants.LogNormalDistributionValue);
+            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileTableColumns.PermeabilityShift)).Return(1);
             mocks.ReplayAll();
 
             // Call
@@ -436,28 +437,28 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
 
         private void SetExpectations(int layerCount, string profileName, double intersectionX, double? isAquifer, string materialName, double? color, byte[] geometry, double? belowPhreaticLevelMean, double? belowPhreaticLevelDeviation, double? diameterD70Mean, double? diameterD70Deviation, double? permeabilityMean, double? permeabilityDeviation)
         {
-            reader.Expect(r => r.Read<long>(SoilProfileDatabaseColumns.LayerCount)).Return(layerCount).Repeat.Any();
-            reader.Expect(r => r.Read<string>(SoilProfileDatabaseColumns.ProfileName)).Return(profileName).Repeat.Any();
-            reader.Expect(r => r.Read<double>(SoilProfileDatabaseColumns.IntersectionX)).Return(intersectionX).Repeat.Any();
-            reader.Expect(r => r.Read<byte[]>(SoilProfileDatabaseColumns.LayerGeometry)).Return(geometry).Repeat.Any();
-            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileDatabaseColumns.IsAquifer)).Return(isAquifer).Repeat.Any();
-            reader.Expect(r => r.ReadOrDefault<string>(SoilProfileDatabaseColumns.MaterialName)).Return(materialName).Repeat.Any();
-            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileDatabaseColumns.Color)).Return(color).Repeat.Any();
+            reader.Expect(r => r.Read<long>(SoilProfileTableColumns.LayerCount)).Return(layerCount).Repeat.Any();
+            reader.Expect(r => r.Read<string>(SoilProfileTableColumns.ProfileName)).Return(profileName).Repeat.Any();
+            reader.Expect(r => r.Read<double>(SoilProfileTableColumns.IntersectionX)).Return(intersectionX).Repeat.Any();
+            reader.Expect(r => r.Read<byte[]>(SoilProfileTableColumns.LayerGeometry)).Return(geometry).Repeat.Any();
+            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileTableColumns.IsAquifer)).Return(isAquifer).Repeat.Any();
+            reader.Expect(r => r.ReadOrDefault<string>(SoilProfileTableColumns.MaterialName)).Return(materialName).Repeat.Any();
+            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileTableColumns.Color)).Return(color).Repeat.Any();
 
             var logNormalDistribution = 3;
             var logNormalShift = 0;
-            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileDatabaseColumns.BelowPhreaticLevelDistribution)).Return(logNormalDistribution).Repeat.Any();
-            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileDatabaseColumns.BelowPhreaticLevelShift)).Return(logNormalShift).Repeat.Any();
-            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileDatabaseColumns.BelowPhreaticLevelMean)).Return(belowPhreaticLevelMean).Repeat.Any();
-            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileDatabaseColumns.BelowPhreaticLevelDeviation)).Return(belowPhreaticLevelDeviation).Repeat.Any();
-            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileDatabaseColumns.DiameterD70Distribution)).Return(logNormalDistribution).Repeat.Any();
-            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileDatabaseColumns.DiameterD70Shift)).Return(logNormalShift).Repeat.Any();
-            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileDatabaseColumns.DiameterD70Mean)).Return(diameterD70Mean).Repeat.Any();
-            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileDatabaseColumns.DiameterD70Deviation)).Return(diameterD70Deviation).Repeat.Any();
-            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileDatabaseColumns.PermeabilityDistribution)).Return(logNormalDistribution).Repeat.Any();
-            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileDatabaseColumns.PermeabilityShift)).Return(logNormalShift).Repeat.Any();
-            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileDatabaseColumns.PermeabilityMean)).Return(permeabilityMean).Repeat.Any();
-            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileDatabaseColumns.PermeabilityDeviation)).Return(permeabilityDeviation).Repeat.Any();
+            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileTableColumns.BelowPhreaticLevelDistribution)).Return(logNormalDistribution).Repeat.Any();
+            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileTableColumns.BelowPhreaticLevelShift)).Return(logNormalShift).Repeat.Any();
+            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileTableColumns.BelowPhreaticLevelMean)).Return(belowPhreaticLevelMean).Repeat.Any();
+            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileTableColumns.BelowPhreaticLevelDeviation)).Return(belowPhreaticLevelDeviation).Repeat.Any();
+            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileTableColumns.DiameterD70Distribution)).Return(logNormalDistribution).Repeat.Any();
+            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileTableColumns.DiameterD70Shift)).Return(logNormalShift).Repeat.Any();
+            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileTableColumns.DiameterD70Mean)).Return(diameterD70Mean).Repeat.Any();
+            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileTableColumns.DiameterD70Deviation)).Return(diameterD70Deviation).Repeat.Any();
+            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileTableColumns.PermeabilityDistribution)).Return(logNormalDistribution).Repeat.Any();
+            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileTableColumns.PermeabilityShift)).Return(logNormalShift).Repeat.Any();
+            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileTableColumns.PermeabilityMean)).Return(permeabilityMean).Repeat.Any();
+            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileTableColumns.PermeabilityDeviation)).Return(permeabilityDeviation).Repeat.Any();
         }
 
         private static string GetExpectedSoilProfileReaderErrorMessage(string path, string name, string errorMessage)

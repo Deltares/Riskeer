@@ -45,7 +45,7 @@ namespace Ringtoets.Piping.IO.Importers
         /// exception.</exception>
         /// <returns>A <see cref="IEnumerable{IObservable}"/> of updated instances.</returns>
         IEnumerable<IObservable> UpdateModelWithImportedData(
-            ObservableCollectionWithSourcePath<StochasticSoilModel> targetCollection, 
+            StochasticSoilModelCollection targetCollection, 
             IEnumerable<StochasticSoilModel> readStochasticSoilModels, 
             string sourceFilePath);
     }

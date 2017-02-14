@@ -66,15 +66,15 @@ namespace Ringtoets.Piping.IO.Test.Builders
             // Setup
             const string expectedQuery = "SELECT (" +
                                          "SELECT COUNT(DISTINCT sl1D.SP1D_ID) " +
-                                         "FROM Mechanism AS m " +
-                                         "JOIN Segment AS segment USING(ME_ID) " +
+                                         "FROM Mechanism m " +
+                                         "JOIN Segment segment USING(ME_ID) " +
                                          "JOIN StochasticSoilProfile ssp USING(SSM_ID) " +
                                          "JOIN SoilLayer1D sl1D USING(SP1D_ID) " +
                                          "WHERE m.ME_Name = @ME_Name" +
                                          ") + (" +
                                          "SELECT COUNT(DISTINCT sl2D.SP2D_ID) " +
-                                         "FROM Mechanism AS m " +
-                                         "JOIN Segment AS segment USING(ME_ID) " +
+                                         "FROM Mechanism m " +
+                                         "JOIN Segment segment USING(ME_ID) " +
                                          "JOIN StochasticSoilProfile ssp USING(SSM_ID) " +
                                          "JOIN SoilLayer2D sl2D USING(SP2D_ID) " +
                                          "JOIN MechanismPointLocation mpl USING(ME_ID, SP2D_ID) " +
@@ -101,6 +101,22 @@ namespace Ringtoets.Piping.IO.Test.Builders
 
             // Call
             string query = SoilDatabaseQueryBuilder.GetStochasticSoilModelOfMechanismCountQuery();
+
+            // Assert
+            Assert.AreEqual(expectedQuery, query);
+        }
+
+        [Test]
+        public void GetSegmentNamesUniqueQuery_Always_ReturnsExpectedValues()
+        {
+            // Setup
+            const string expectedQuery =
+                "SELECT [All].nameCount == [Distinct].nameCount as AreSegmentsUnique " +
+                "FROM(SELECT COUNT(SSM_Name) nameCount FROM StochasticSoilModel) AS [All] " +
+                "JOIN(SELECT COUNT(DISTINCT SSM_Name) nameCount FROM StochasticSoilModel) AS [Distinct];";
+
+            // Call
+            string query = SoilDatabaseQueryBuilder.GetSoilModelNamesUniqueQuery();
 
             // Assert
             Assert.AreEqual(expectedQuery, query);

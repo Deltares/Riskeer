@@ -29,6 +29,7 @@ using Ringtoets.Piping.Data;
 using Ringtoets.Piping.IO.Builders;
 using Ringtoets.Piping.IO.Exceptions;
 using Ringtoets.Piping.IO.Properties;
+using Ringtoets.Piping.IO.SoilProfile.Schema;
 using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.IO.SoilProfile
@@ -189,12 +190,12 @@ namespace Ringtoets.Piping.IO.SoilProfile
 
         private long ReadStochasticSoilModelId()
         {
-            return Convert.ToInt64(dataReader[StochasticSoilProfileDatabaseColumns.StochasticSoilModelId]);
+            return Convert.ToInt64(dataReader[StochasticSoilProfileTableColumns.StochasticSoilModelId]);
         }
 
         private StochasticSoilProfile ReadStochasticSoilProfileProbability()
         {
-            var valueProbability = dataReader[StochasticSoilProfileDatabaseColumns.Probability];
+            var valueProbability = dataReader[StochasticSoilProfileTableColumns.Probability];
             var probability = valueProbability.Equals(DBNull.Value) ? 0 : Convert.ToDouble(valueProbability);
 
             var soilProfile1DId = ReadSoilProfile1DId(probability);
@@ -216,7 +217,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
 
         private StochasticSoilProfile ReadSoilProfile2DId(double probability)
         {
-            var valueSoilProfile2DId = dataReader[StochasticSoilProfileDatabaseColumns.SoilProfile2DId];
+            var valueSoilProfile2DId = dataReader[StochasticSoilProfileTableColumns.SoilProfile2DId];
             if (!valueSoilProfile2DId.Equals(DBNull.Value))
             {
                 var soilProfileId = Convert.ToInt64(valueSoilProfile2DId);
@@ -227,7 +228,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
 
         private StochasticSoilProfile ReadSoilProfile1DId(double probability)
         {
-            var valueSoilProfile1DId = dataReader[StochasticSoilProfileDatabaseColumns.SoilProfile1DId];
+            var valueSoilProfile1DId = dataReader[StochasticSoilProfileTableColumns.SoilProfile1DId];
             if (!valueSoilProfile1DId.Equals(DBNull.Value))
             {
                 var soilProfileId = Convert.ToInt64(valueSoilProfile1DId);

@@ -27,9 +27,7 @@ using NUnit.Framework;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.IO.Importers;
-using Ringtoets.Piping.KernelWrapper.TestUtil;
 using Ringtoets.Piping.Plugin.FileImporter;
-using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.Plugin.Test.FileImporter
 {
@@ -66,7 +64,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var strategy = new StochasticSoilModelReplaceDataStrategy(new PipingFailureMechanism());
 
             // Call
-            TestDelegate test = () => strategy.UpdateModelWithImportedData(new ObservableCollectionWithSourcePath<StochasticSoilModel>(), null, string.Empty);
+            TestDelegate test = () => strategy.UpdateModelWithImportedData(new StochasticSoilModelCollection(), null, string.Empty);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -80,7 +78,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var strategy = new StochasticSoilModelReplaceDataStrategy(new PipingFailureMechanism());
 
             // Call
-            TestDelegate test = () => strategy.UpdateModelWithImportedData(new ObservableCollectionWithSourcePath<StochasticSoilModel>(), new List<StochasticSoilModel>(), null);
+            TestDelegate test = () => strategy.UpdateModelWithImportedData(new StochasticSoilModelCollection(), new List<StochasticSoilModel>(), null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -111,7 +109,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                 new TestStochasticSoilModel("B")
             };
             var strategy = new StochasticSoilModelReplaceDataStrategy(new PipingFailureMechanism());
-            var targetCollection = new ObservableCollectionWithSourcePath<StochasticSoilModel>();
+            var targetCollection = new StochasticSoilModelCollection();
 
             // Call
             IEnumerable<IObservable> affectedObjects = strategy.UpdateModelWithImportedData(targetCollection, importedStochasticSoilModels, "path");
@@ -131,8 +129,8 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var failureMechanism = new PipingFailureMechanism();
             failureMechanism.StochasticSoilModels.AddRange(new[]
             {
-                new TestStochasticSoilModel(),
-                new TestStochasticSoilModel()
+                new TestStochasticSoilModel("A"),
+                new TestStochasticSoilModel("B")
             }, sourceFilePath);
 
             var strategy = new StochasticSoilModelReplaceDataStrategy(failureMechanism);
@@ -193,7 +191,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             var strategy = new StochasticSoilModelReplaceDataStrategy(failureMechanism);
 
-            var targetCollection = new ObservableCollectionWithSourcePath<StochasticSoilModel>();
+            var targetCollection = new StochasticSoilModelCollection();
             targetCollection.AddRange(new[]
             {
                 existingModel,
@@ -208,6 +206,27 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Assert.IsNull(calculation.InputParameters.StochasticSoilProfile);
             CollectionAssert.Contains(affectedObjects, calculation);
             CollectionAssert.Contains(affectedObjects, calculation.InputParameters);
+        }
+
+        [Test]
+        public void UpdateModelWithImportedData_ImportedModelsContainDuplicateNames_ThrowsUpdateException()
+        {
+            // Setup
+            var importedStochasticSoilModels = new[]
+            {
+                new TestStochasticSoilModel("B"),
+                new TestStochasticSoilModel("B")
+            };
+            var strategy = new StochasticSoilModelReplaceDataStrategy(new PipingFailureMechanism());
+            var targetCollection = new StochasticSoilModelCollection();
+
+            // Call
+            TestDelegate test = () => strategy.UpdateModelWithImportedData(targetCollection, importedStochasticSoilModels, "path");
+
+            // Assert
+            var exception = Assert.Throws<StochasticSoilModelUpdateException>(test);
+            Assert.AreEqual("Ondergrondmodellen moeten een unieke naam hebben. Gevonden dubbele namen: B.", exception.Message);
+            Assert.IsInstanceOf<ArgumentException>(exception.InnerException);
         }
     }
 }

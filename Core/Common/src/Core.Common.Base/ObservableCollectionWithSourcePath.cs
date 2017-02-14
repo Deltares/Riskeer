@@ -125,9 +125,19 @@ namespace Core.Common.Base
             {
                 throw new ArgumentException($"'{filePath}' is not a valid filepath.", nameof(filePath));
             }
+            ValidateItems(items);
 
             SourcePath = filePath;
             collection.AddRange(items);
+        }
+
+        /// <summary>
+        /// Perform additional validations over <paramref name="items"/>.
+        /// </summary>
+        /// <param name="items">The items to validate.</param>
+        /// <exception cref="Exception">Throw an exception when validation fails.</exception>
+        protected virtual void ValidateItems(IEnumerable<T> items)
+        {
         }
 
         public IEnumerator<T> GetEnumerator()
