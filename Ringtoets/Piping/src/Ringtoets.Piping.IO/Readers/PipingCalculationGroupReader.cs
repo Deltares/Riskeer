@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Schema;
 using Core.Common.IO.Exceptions;
@@ -55,15 +56,15 @@ namespace Ringtoets.Piping.IO.Readers
         {
             IOUtils.ValidateFilePath(xmlFilePath);
 
-            if (!File.Exists(xmlFilePath))
-            {
-                string message = new FileReaderErrorMessageBuilder(xmlFilePath).Build(CoreCommonUtilsResources.Error_File_does_not_exist);
-                throw new CriticalFileReadException(message);
-            }
+            ValidateFileExists(xmlFilePath);
+
+            XDocument xmlDocument = LoadDocument(xmlFilePath);
+
+            ValidateToSchema(xmlDocument);
         }
 
         /// <summary>
-        /// Reads a piping configuration from XML and creates a collection of corresponding <see cref="IReadPipingCalculationItem"/>.
+        /// Reads the piping configuration from the XML and creates a collection of corresponding <see cref="IReadPipingCalculationItem"/>.
         /// </summary>
         /// <returns>A collection of read <see cref="IReadPipingCalculationItem"/>.</returns>
         public IEnumerable<IReadPipingCalculationItem> Read()
@@ -72,11 +73,46 @@ namespace Ringtoets.Piping.IO.Readers
         }
 
         /// <summary>
+        /// Validates whether a file exists at the provided <paramref name="xmlFilePath"/>.
+        /// </summary>
+        /// <param name="xmlFilePath">The file path to validate.</param>
+        /// <exception cref="CriticalFileReadException">Thrown when no file is found.</exception>
+        private static void ValidateFileExists(string xmlFilePath)
+        {
+            if (!File.Exists(xmlFilePath))
+            {
+                string message = new FileReaderErrorMessageBuilder(xmlFilePath).Build(CoreCommonUtilsResources.Error_File_does_not_exist);
+                throw new CriticalFileReadException(message);
+            }
+        }
+
+        /// <summary>
+        /// Loads a XML document from the provided <see cref="xmlFilePath"/>.
+        /// </summary>
+        /// <param name="xmlFilePath">The file path to load the XML document from.</param>
+        /// <exception cref="CriticalFileReadException">Thrown when the XML document cannot be loaded.</exception>
+        private static XDocument LoadDocument(string xmlFilePath)
+        {
+            try
+            {
+                return XDocument.Load(xmlFilePath);
+            }
+            catch (Exception exception)
+                when (exception is ArgumentNullException
+                      || exception is XmlException
+                      || exception is InvalidOperationException)
+            {
+                string message = new FileReaderErrorMessageBuilder(xmlFilePath).Build(CoreCommonUtilsResources.Error_General_IO_Import_ErrorMessage);
+                throw new CriticalFileReadException(message, exception);
+            }
+        }
+
+        /// <summary>
         /// Validates the provided XML document based on a predefined XML Schema Definition (XSD).
         /// </summary>
         /// <param name="document">The XML document to validate.</param>
         /// <exception cref="CriticalFileReadException">Thrown when the provided XML document does not match the predefined XML Schema Definition (XSD).</exception>
-        private void ValidateToSchema(XDocument document)
+        private static void ValidateToSchema(XDocument document)
         {
             XmlSchemaSet schema = LoadXmlSchema();
 
@@ -90,10 +126,10 @@ namespace Ringtoets.Piping.IO.Readers
             }
         }
 
-        private XmlSchemaSet LoadXmlSchema()
+        private static XmlSchemaSet LoadXmlSchema()
         {
-            var schemaFile = AssemblyUtils.GetAssemblyResourceStream(GetType().Assembly,
-                                                                     "Ringtoets.Piping.IO.Readers.XMLPipingConfigurationSchema.xsd");
+            Stream schemaFile = AssemblyUtils.GetAssemblyResourceStream(typeof(PipingCalculationGroupReader).Assembly,
+                                                                        "Ringtoets.Piping.IO.Readers.XMLPipingConfigurationSchema.xsd");
 
             var xmlSchema = new XmlSchemaSet();
             xmlSchema.Add(XmlSchema.Read(schemaFile, null));
