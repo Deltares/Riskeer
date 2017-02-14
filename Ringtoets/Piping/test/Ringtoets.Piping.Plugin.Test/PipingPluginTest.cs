@@ -201,5 +201,30 @@ namespace Ringtoets.Piping.Plugin.Test
             }
             mocks.VerifyAll();
         }
+
+        [Test]
+        public void GetUpdateInfos_Always_ReturnsExpectedUpdateInfos()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var gui = mocks.Stub<IGui>();
+            gui.Stub(g => g.ApplicationCommands).Return(mocks.Stub<IApplicationFeatureCommands>());
+            mocks.ReplayAll();
+
+            using (var plugin = new PipingPlugin
+            {
+                Gui = gui
+            })
+            {
+                // Call
+                UpdateInfo[] updateInfos = plugin.GetUpdateInfos().ToArray();
+
+                // Assert
+                Assert.AreEqual(2, updateInfos.Length);
+                Assert.AreEqual(1, updateInfos.Count(updateInfo => updateInfo.DataType == typeof(RingtoetsPipingSurfaceLinesContext)));
+                Assert.AreEqual(1, updateInfos.Count(updateInfo => updateInfo.DataType == typeof(StochasticSoilModelCollectionContext)));
+            }
+            mocks.VerifyAll();
+        }
     }
 }

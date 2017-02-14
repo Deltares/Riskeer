@@ -104,12 +104,9 @@ namespace Ringtoets.Piping.Plugin
                 Name = PipingFormsResources.PipingSurfaceLinesCollection_DisplayName,
                 Category = RingtoetsCommonFormsResources.Ringtoets_Category,
                 Image = PipingFormsResources.PipingSurfaceLineIcon,
-                FileFilter = $"{PipingFormsResources.PipingSurfaceLinesCollection_DisplayName} {RingtoetsCommonFormsResources.DataTypeDisplayName_csv_file_filter}",
-                IsEnabled = context => context.AssessmentSection.ReferenceLine != null,
-                CreateFileImporter = (context, filePath) => new PipingSurfaceLinesCsvImporter(context.WrappedData,
-                                                                                              context.AssessmentSection.ReferenceLine,
-                                                                                              new RingtoetsPipingSurfaceLineReplaceDataStrategy(),
-                                                                                              filePath)
+                FileFilter = RingtoetsPipingSurfaceLineFileFilter,
+                IsEnabled = IsSurfaceLineImporterEnabled,
+                CreateFileImporter = (context, filePath) => PipingSurfaceLinesCsvImporter(context, filePath, new RingtoetsPipingSurfaceLineReplaceDataStrategy())
             };
 
             yield return new ImportInfo<StochasticSoilModelCollectionContext>
@@ -126,6 +123,16 @@ namespace Ringtoets.Piping.Plugin
 
         public override IEnumerable<UpdateInfo> GetUpdateInfos()
         {
+            yield return new UpdateInfo<RingtoetsPipingSurfaceLinesContext>
+            {
+                Name = PipingFormsResources.PipingSurfaceLinesCollection_DisplayName,
+                Category = RingtoetsCommonFormsResources.Ringtoets_Category,
+                Image = PipingFormsResources.PipingSurfaceLineIcon,
+                FileFilter = new ExpectedFile("csv", "Profielschematisaties Kommagescheiden bestand"),
+                IsEnabled = IsSurfaceLineImporterEnabled,
+                CreateFileImporter = (context, filePath) => PipingSurfaceLinesCsvImporter(context, filePath, new RingtoetsPipingSurfaceLineUpdateDataStrategy(context.FailureMechanism))
+            };
+
             yield return new UpdateInfo<StochasticSoilModelCollectionContext>
             {
                 Name = PipingFormsResources.StochasticSoilModelCollection_DisplayName,
@@ -542,6 +549,7 @@ namespace Ringtoets.Piping.Plugin
         {
             return Gui.Get(nodeData, treeViewControl)
                       .AddImportItem()
+                      .AddUpdateItem()
                       .AddSeparator()
                       .AddDeleteChildrenItem()
                       .AddSeparator()
@@ -966,6 +974,33 @@ namespace Ringtoets.Piping.Plugin
             parentGroupContext.WrappedData.Children.Remove(nodeData.WrappedData);
 
             parentGroupContext.NotifyObservers();
+        }
+
+        #endregion
+
+        #region Ringtoets piping surface line importer
+
+        private static PipingSurfaceLinesCsvImporter PipingSurfaceLinesCsvImporter(RingtoetsPipingSurfaceLinesContext context,
+                                                                                   string filePath,
+                                                                                   ISurfaceLineUpdateSurfaceLineStrategy strategy)
+        {
+            return new PipingSurfaceLinesCsvImporter(context.WrappedData,
+                                                     context.AssessmentSection.ReferenceLine,
+                                                     filePath,
+                                                     strategy);
+        }
+
+        private static bool IsSurfaceLineImporterEnabled(RingtoetsPipingSurfaceLinesContext context)
+        {
+            return context.AssessmentSection.ReferenceLine != null;
+        }
+
+        private static string RingtoetsPipingSurfaceLineFileFilter
+        {
+            get
+            {
+                return $"{PipingFormsResources.PipingSurfaceLinesCollection_DisplayName} {RingtoetsCommonFormsResources.DataTypeDisplayName_csv_file_filter}";
+            }
         }
 
         #endregion

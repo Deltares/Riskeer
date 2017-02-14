@@ -188,8 +188,8 @@ namespace Ringtoets.Integration.TestUtils
                 var filePath = Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "DR6_surfacelines.csv");
                 var activity = new FileImportActivity(new PipingSurfaceLinesCsvImporter(assessmentSection.PipingFailureMechanism.SurfaceLines,
                                                                                         assessmentSection.ReferenceLine,
-                                                                                        new RingtoetsPipingSurfaceLineReplaceDataStrategy(),
-                                                                                        filePath),
+                                                                                        filePath,
+                                                                                        new RingtoetsPipingSurfaceLineReplaceDataStrategy()),
                                                       "PipingSurfaceLinesCsvImporter");
                 activity.Run();
                 activity.Finish();

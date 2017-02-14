@@ -64,14 +64,14 @@ namespace Ringtoets.Piping.Plugin.FileImporter
         /// </summary>
         /// <param name="importTarget">The import target.</param>
         /// <param name="referenceLine">The reference line.</param>
-        /// <param name="surfaceLineUpdateStrategy">The strategy to update the surface lines with imported data.</param>
         /// <param name="filePath">The path to the file to import from.</param>
+        /// <param name="surfaceLineUpdateStrategy">The strategy to update the surface lines with imported data.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="importTarget"/>
         /// or <paramref name="referenceLine"/> is <c>null</c>.</exception>
-        public PipingSurfaceLinesCsvImporter(ObservableCollectionWithSourcePath<RingtoetsPipingSurfaceLine> importTarget, 
-            ReferenceLine referenceLine, 
-            ISurfaceLineUpdateSurfaceLineStrategy surfaceLineUpdateStrategy, 
-            string filePath) : base(filePath, importTarget)
+        public PipingSurfaceLinesCsvImporter(ObservableCollectionWithSourcePath<RingtoetsPipingSurfaceLine> importTarget,
+            ReferenceLine referenceLine,
+            string filePath,
+            ISurfaceLineUpdateSurfaceLineStrategy surfaceLineUpdateStrategy) : base(filePath, importTarget)
         {
             if (importTarget == null)
             {

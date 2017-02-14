@@ -111,7 +111,7 @@ namespace Demo.Ringtoets.Commands
             demoAssessmentSection.BackgroundMapData.IsVisible = targetConfiguration.IsVisible;
             demoAssessmentSection.BackgroundMapData.Transparency = targetConfiguration.Transparency;
 
-            var backgroundMapData = (WmtsMapData)demoAssessmentSection.BackgroundMapData.MapData;
+            var backgroundMapData = (WmtsMapData) demoAssessmentSection.BackgroundMapData.MapData;
             backgroundMapData.Name = targetConfiguration.Name;
             backgroundMapData.Configure(targetConfiguration.SourceCapabilitiesUrl,
                                         targetConfiguration.SelectedCapabilityIdentifier,
@@ -546,9 +546,9 @@ namespace Demo.Ringtoets.Commands
             {
                 var surfaceLinesImporter = new PipingSurfaceLinesCsvImporter(pipingFailureMechanism.SurfaceLines,
                                                                              demoAssessmentSection.ReferenceLine,
-                                                                             new RingtoetsPipingSurfaceLineReplaceDataStrategy(), 
                                                                              Path.Combine(embeddedResourceFileWriter.TargetFolderPath,
-                                                                                          "DR6_surfacelines.csv"));
+                                                                                          "DR6_surfacelines.csv"),
+                                                                             new RingtoetsPipingSurfaceLineReplaceDataStrategy());
                 surfaceLinesImporter.Import();
             }
 

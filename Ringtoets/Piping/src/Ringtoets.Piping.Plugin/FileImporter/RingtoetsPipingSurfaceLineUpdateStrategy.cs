@@ -36,7 +36,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
     /// Strategy for updating the current surface lines with the imported surface lines:
     /// - Adds imported surface lines that are not part of the current collection.
     /// - Removes surface lines that are part of the current collection, but are not part of the imported surface line collection
-    /// - Updates the surface lines that are part of the current collection and are poart of the imported sufrace line collection 
+    /// - Updates the surface lines that are part of the current collection and are part of the imported surface line collection 
     /// </summary>
     public class RingtoetsPipingSurfaceLineUpdateDataStrategy : ISurfaceLineUpdateSurfaceLineStrategy
     {
@@ -145,7 +145,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
 
         #endregion
 
-        #region Updating surface line helpers
+        #region Updating surface line helper
 
         private IEnumerable<IObservable> UpdateSurfaceLines(IEnumerable<RingtoetsPipingSurfaceLine> updatedSurfaceLines,
                                                             IList<RingtoetsPipingSurfaceLine> readSurfaceLines)

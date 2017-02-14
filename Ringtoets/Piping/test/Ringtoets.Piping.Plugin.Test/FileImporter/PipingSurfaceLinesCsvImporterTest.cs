@@ -59,9 +59,9 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             // Call
             TestDelegate call = () => new PipingSurfaceLinesCsvImporter(null,
-                                                                        referenceLine,
-                                                                        new TestSurfaceLineUpdateStrategy(),
-                                                                        string.Empty);
+                referenceLine,
+                string.Empty,
+                new TestSurfaceLineUpdateStrategy());
 
             // Assert
             string parameter = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -76,9 +76,9 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             // Call
             TestDelegate call = () => new PipingSurfaceLinesCsvImporter(list,
-                                                                        null,
-                                                                        new TestSurfaceLineUpdateStrategy(),
-                                                                        string.Empty);
+                null,
+                string.Empty,
+                new TestSurfaceLineUpdateStrategy());
 
             // Assert
             string parameter = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -94,9 +94,9 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             // Call
             TestDelegate call = () => new PipingSurfaceLinesCsvImporter(list,
-                                                                        referenceLine,
-                                                                        null,
-                                                                        string.Empty);
+                referenceLine,
+                string.Empty,
+                null);
 
             // Assert
             string parameter = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -110,7 +110,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var referenceLine = new ReferenceLine();
 
             // Call
-            var importer = new PipingSurfaceLinesCsvImporter(collection, referenceLine, new RingtoetsPipingSurfaceLineReplaceDataStrategy(), "");
+            var importer = new PipingSurfaceLinesCsvImporter(collection, referenceLine, "", new RingtoetsPipingSurfaceLineReplaceDataStrategy());
 
             // Assert
             Assert.IsInstanceOf<FileImporterBase<ObservableCollectionWithSourcePath<RingtoetsPipingSurfaceLine>>>(importer);
@@ -140,7 +140,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             bool progressCharacteristicPointsStarted = false;
 
             var surfaceLineUpdateStrategy = new TestSurfaceLineUpdateStrategy();
-            var importer = new PipingSurfaceLinesCsvImporter(failureMechanism.SurfaceLines, referenceLine, surfaceLineUpdateStrategy, validFilePath);
+            var importer = new PipingSurfaceLinesCsvImporter(failureMechanism.SurfaceLines, referenceLine, validFilePath, surfaceLineUpdateStrategy);
             importer.SetProgressChanged(delegate(string currentStepName, int currentStep, int totalNumberOfSteps)
             {
                 if (!progressStarted && callCount == 0)
@@ -217,7 +217,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             var failureMechanism = new PipingFailureMechanism();
             var surfaceLineUpdateStrategy = new TestSurfaceLineUpdateStrategy();
-            var importer = new PipingSurfaceLinesCsvImporter(failureMechanism.SurfaceLines, referenceLine, surfaceLineUpdateStrategy, validFilePath);
+            var importer = new PipingSurfaceLinesCsvImporter(failureMechanism.SurfaceLines, referenceLine, validFilePath, surfaceLineUpdateStrategy);
 
             // Precondition
             CollectionAssert.IsEmpty(failureMechanism.SurfaceLines);
@@ -268,7 +268,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var failureMechanism = new PipingFailureMechanism();
 
             var surfaceLineUpdateStrategy = new TestSurfaceLineUpdateStrategy();
-            var importer = new PipingSurfaceLinesCsvImporter(failureMechanism.SurfaceLines, referenceLine, surfaceLineUpdateStrategy, validFilePath);
+            var importer = new PipingSurfaceLinesCsvImporter(failureMechanism.SurfaceLines, referenceLine, validFilePath, surfaceLineUpdateStrategy);
             importer.SetProgressChanged(delegate(string description, int step, int steps)
             {
                 if (description.Contains("Inlezen van het profielschematisatiesbestand."))
@@ -301,7 +301,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var failureMechanism = new PipingFailureMechanism();
 
             var surfaceLineUpdateStrategy = new TestSurfaceLineUpdateStrategy();
-            var importer = new PipingSurfaceLinesCsvImporter(failureMechanism.SurfaceLines, referenceLine, surfaceLineUpdateStrategy, validFilePath);
+            var importer = new PipingSurfaceLinesCsvImporter(failureMechanism.SurfaceLines, referenceLine, validFilePath, surfaceLineUpdateStrategy);
             importer.SetProgressChanged((description, step, steps) =>
             {
                 if (description.Contains("Inlezen van het karakteristieke punten-bestand."))
@@ -341,7 +341,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             var failureMechanism = new PipingFailureMechanism();
             var surfaceLineUpdateStrategy = new TestSurfaceLineUpdateStrategy();
-            var importer = new PipingSurfaceLinesCsvImporter(failureMechanism.SurfaceLines, referenceLine, surfaceLineUpdateStrategy, validFilePath);
+            var importer = new PipingSurfaceLinesCsvImporter(failureMechanism.SurfaceLines, referenceLine, validFilePath, surfaceLineUpdateStrategy);
             importer.SetProgressChanged((description, step, steps) =>
             {
                 if (step < steps
@@ -383,7 +383,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             var failureMechanism = new PipingFailureMechanism();
             var surfaceLineUpdateStrategy = new TestSurfaceLineUpdateStrategy();
-            var importer = new PipingSurfaceLinesCsvImporter(failureMechanism.SurfaceLines, referenceLine, surfaceLineUpdateStrategy, validFilePath);
+            var importer = new PipingSurfaceLinesCsvImporter(failureMechanism.SurfaceLines, referenceLine, validFilePath, surfaceLineUpdateStrategy);
             importer.SetProgressChanged((description, step, steps) => importer.Cancel());
 
             // Precondition
@@ -412,7 +412,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             var failureMechanism = new PipingFailureMechanism();
             var surfaceLineUpdateStrategy = new TestSurfaceLineUpdateStrategy();
-            var importer = new PipingSurfaceLinesCsvImporter(failureMechanism.SurfaceLines, new ReferenceLine(), surfaceLineUpdateStrategy, corruptPath);
+            var importer = new PipingSurfaceLinesCsvImporter(failureMechanism.SurfaceLines, new ReferenceLine(), corruptPath, surfaceLineUpdateStrategy);
 
             bool importResult = true;
 
@@ -437,7 +437,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var failureMechanism = new PipingFailureMechanism();
 
             var surfaceLineUpdateStrategy = new TestSurfaceLineUpdateStrategy();
-            var importer = new PipingSurfaceLinesCsvImporter(failureMechanism.SurfaceLines, new ReferenceLine(), surfaceLineUpdateStrategy, corruptPath);
+            var importer = new PipingSurfaceLinesCsvImporter(failureMechanism.SurfaceLines, new ReferenceLine(), corruptPath, surfaceLineUpdateStrategy);
 
             var importResult = true;
 
@@ -467,7 +467,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             var failureMechanism = new PipingFailureMechanism();
             var surfaceLineUpdateStrategy = new TestSurfaceLineUpdateStrategy();
-            var importer = new PipingSurfaceLinesCsvImporter(failureMechanism.SurfaceLines, new ReferenceLine(), surfaceLineUpdateStrategy, corruptPath);
+            var importer = new PipingSurfaceLinesCsvImporter(failureMechanism.SurfaceLines, new ReferenceLine(), corruptPath, surfaceLineUpdateStrategy);
 
             var importResult = true;
 
@@ -499,7 +499,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             var failureMechanism = new PipingFailureMechanism();
             var surfaceLineUpdateStrategy = new TestSurfaceLineUpdateStrategy();
-            var importer = new PipingSurfaceLinesCsvImporter(failureMechanism.SurfaceLines, new ReferenceLine(), surfaceLineUpdateStrategy, corruptPath);
+            var importer = new PipingSurfaceLinesCsvImporter(failureMechanism.SurfaceLines, new ReferenceLine(), corruptPath, surfaceLineUpdateStrategy);
 
             bool importResult = true;
 
@@ -535,7 +535,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             {
                 var failureMechanism = new PipingFailureMechanism();
                 var surfaceLineUpdateStrategy = new TestSurfaceLineUpdateStrategy();
-                var importer = new PipingSurfaceLinesCsvImporter(failureMechanism.SurfaceLines, new ReferenceLine(), surfaceLineUpdateStrategy, copyTargetPath);
+                var importer = new PipingSurfaceLinesCsvImporter(failureMechanism.SurfaceLines, new ReferenceLine(), copyTargetPath, surfaceLineUpdateStrategy);
                 importer.SetProgressChanged((name, step, steps) =>
                 {
                     // Delete the file being read by the import during the import itself:
@@ -588,7 +588,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             var failureMechanism = new PipingFailureMechanism();
             var surfaceLineUpdateStrategy = new TestSurfaceLineUpdateStrategy();
-            var importer = new PipingSurfaceLinesCsvImporter(failureMechanism.SurfaceLines, referenceLine, surfaceLineUpdateStrategy, corruptPath);
+            var importer = new PipingSurfaceLinesCsvImporter(failureMechanism.SurfaceLines, referenceLine, corruptPath, surfaceLineUpdateStrategy);
 
             var importResult = true;
 
@@ -634,7 +634,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             int progressCallCount = 0;
             var surfaceLineUpdateStrategy = new TestSurfaceLineUpdateStrategy();
-            var importer = new PipingSurfaceLinesCsvImporter(failureMechanism.SurfaceLines, referenceLine, surfaceLineUpdateStrategy, corruptPath);
+            var importer = new PipingSurfaceLinesCsvImporter(failureMechanism.SurfaceLines, referenceLine, corruptPath, surfaceLineUpdateStrategy);
             importer.SetProgressChanged((name, step, steps) => progressCallCount++);
 
             var importResult = false;
@@ -688,7 +688,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var failureMechanism = new PipingFailureMechanism();
 
             var surfaceLineUpdateStrategy = new TestSurfaceLineUpdateStrategy();
-            var importer = new PipingSurfaceLinesCsvImporter(failureMechanism.SurfaceLines, new ReferenceLine(), surfaceLineUpdateStrategy, path);
+            var importer = new PipingSurfaceLinesCsvImporter(failureMechanism.SurfaceLines, new ReferenceLine(), path, surfaceLineUpdateStrategy);
 
             // Precondition
             CollectionAssert.IsEmpty(failureMechanism.SurfaceLines);
@@ -730,7 +730,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var failureMechanism = new PipingFailureMechanism();
 
             var surfaceLineUpdateStrategy = new TestSurfaceLineUpdateStrategy();
-            var importer = new PipingSurfaceLinesCsvImporter(failureMechanism.SurfaceLines, new ReferenceLine(), surfaceLineUpdateStrategy, path);
+            var importer = new PipingSurfaceLinesCsvImporter(failureMechanism.SurfaceLines, new ReferenceLine(), path, surfaceLineUpdateStrategy);
 
             // Precondition
             CollectionAssert.IsEmpty(failureMechanism.SurfaceLines);
@@ -782,7 +782,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var failureMechanism = new PipingFailureMechanism();
 
             var surfaceLineUpdateStrategy = new TestSurfaceLineUpdateStrategy();
-            var importer = new PipingSurfaceLinesCsvImporter(failureMechanism.SurfaceLines, referenceLine, surfaceLineUpdateStrategy, surfaceLinesFile);
+            var importer = new PipingSurfaceLinesCsvImporter(failureMechanism.SurfaceLines, referenceLine, surfaceLinesFile, surfaceLineUpdateStrategy);
 
             var importResult = true;
 
@@ -812,7 +812,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var failureMechanism = new PipingFailureMechanism();
 
             var surfaceLineUpdateStrategy = new TestSurfaceLineUpdateStrategy();
-            var importer = new PipingSurfaceLinesCsvImporter(failureMechanism.SurfaceLines, new ReferenceLine(), surfaceLineUpdateStrategy, surfaceLinesFile);
+            var importer = new PipingSurfaceLinesCsvImporter(failureMechanism.SurfaceLines, new ReferenceLine(), surfaceLinesFile, surfaceLineUpdateStrategy);
 
             var importResult = true;
 
@@ -852,7 +852,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var failureMechanism = new PipingFailureMechanism();
 
             var surfaceLineUpdateStrategy = new TestSurfaceLineUpdateStrategy();
-            var importer = new PipingSurfaceLinesCsvImporter(failureMechanism.SurfaceLines, new ReferenceLine(), surfaceLineUpdateStrategy, surfaceLinesFile);
+            var importer = new PipingSurfaceLinesCsvImporter(failureMechanism.SurfaceLines, new ReferenceLine(), surfaceLinesFile, surfaceLineUpdateStrategy);
 
             var importResult = true;
 
@@ -900,7 +900,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             {
                 var failureMechanism = new PipingFailureMechanism();
                 var surfaceLineUpdateStrategy = new TestSurfaceLineUpdateStrategy();
-                var importer = new PipingSurfaceLinesCsvImporter(failureMechanism.SurfaceLines, new ReferenceLine(), surfaceLineUpdateStrategy, copyTargetPath);
+                var importer = new PipingSurfaceLinesCsvImporter(failureMechanism.SurfaceLines, new ReferenceLine(), copyTargetPath, surfaceLineUpdateStrategy);
                 importer.SetProgressChanged((name, step, steps) =>
                 {
                     // Delete the file being read by the import during the import itself:
@@ -968,7 +968,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             var failureMechanism = new PipingFailureMechanism();
             var surfaceLineUpdateStrategy = new TestSurfaceLineUpdateStrategy();
-            var importer = new PipingSurfaceLinesCsvImporter(failureMechanism.SurfaceLines, referenceLine, surfaceLineUpdateStrategy, surfaceLinesFile);
+            var importer = new PipingSurfaceLinesCsvImporter(failureMechanism.SurfaceLines, referenceLine, surfaceLinesFile, surfaceLineUpdateStrategy);
 
             var importResult = true;
 
@@ -1019,7 +1019,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             int progressCallCount = 0;
             var surfaceLineUpdateStrategy = new TestSurfaceLineUpdateStrategy();
-            var importer = new PipingSurfaceLinesCsvImporter(failureMechanism.SurfaceLines, referenceLine, surfaceLineUpdateStrategy, surfaceLinesFile);
+            var importer = new PipingSurfaceLinesCsvImporter(failureMechanism.SurfaceLines, referenceLine, surfaceLinesFile, surfaceLineUpdateStrategy);
             importer.SetProgressChanged((name, step, steps) => progressCallCount++);
 
             var importResult = false;
@@ -1088,7 +1088,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             int progressCallCount = 0;
             var surfaceLineUpdateStrategy = new TestSurfaceLineUpdateStrategy();
-            var importer = new PipingSurfaceLinesCsvImporter(failureMechanism.SurfaceLines, referenceLine, surfaceLineUpdateStrategy, surfaceLinesPath);
+            var importer = new PipingSurfaceLinesCsvImporter(failureMechanism.SurfaceLines, referenceLine, surfaceLinesPath, surfaceLineUpdateStrategy);
             importer.SetProgressChanged((name, step, steps) => progressCallCount++);
 
             var importResult = false;
@@ -1151,7 +1151,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             int progressCallCount = 0;
             var surfaceLineUpdateStrategy = new TestSurfaceLineUpdateStrategy();
-            var importer = new PipingSurfaceLinesCsvImporter(failureMechanism.SurfaceLines, referenceLine, surfaceLineUpdateStrategy, surfaceLinesPath);
+            var importer = new PipingSurfaceLinesCsvImporter(failureMechanism.SurfaceLines, referenceLine, surfaceLinesPath, surfaceLineUpdateStrategy);
             importer.SetProgressChanged((name, step, steps) => progressCallCount++);
 
             var importResult = false;
@@ -1219,7 +1219,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             int progressCallCount = 0;
             var surfaceLineUpdateStrategy = new TestSurfaceLineUpdateStrategy();
-            var importer = new PipingSurfaceLinesCsvImporter(failureMechanism.SurfaceLines, referenceLine, surfaceLineUpdateStrategy, surfaceLinesPath);
+            var importer = new PipingSurfaceLinesCsvImporter(failureMechanism.SurfaceLines, referenceLine, surfaceLinesPath, surfaceLineUpdateStrategy);
             importer.SetProgressChanged((name, step, steps) => progressCallCount++);
 
             var importResult = false;
@@ -1295,7 +1295,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             bool progressCharacteristicPointsStarted = false;
 
             var surfaceLineUpdateStrategy = new TestSurfaceLineUpdateStrategy();
-            var importer = new PipingSurfaceLinesCsvImporter(failureMechanism.SurfaceLines, referenceLine, surfaceLineUpdateStrategy, validSurfaceLinesFilePath);
+            var importer = new PipingSurfaceLinesCsvImporter(failureMechanism.SurfaceLines, referenceLine, validSurfaceLinesFilePath, surfaceLineUpdateStrategy);
             importer.SetProgressChanged(delegate(string currentStepName, int currentStep, int totalNumberOfSteps)
             {
                 if (!progressStarted && callCount == 0)
@@ -1390,7 +1390,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var failureMechanism = new PipingFailureMechanism();
 
             var surfaceLineUpdateStrategy = new TestSurfaceLineUpdateStrategy();
-            var importer = new PipingSurfaceLinesCsvImporter(failureMechanism.SurfaceLines, referenceLine, surfaceLineUpdateStrategy, validFilePath);
+            var importer = new PipingSurfaceLinesCsvImporter(failureMechanism.SurfaceLines, referenceLine, validFilePath, surfaceLineUpdateStrategy);
 
             // Precondition
             CollectionAssert.IsEmpty(failureMechanism.SurfaceLines);
@@ -1437,7 +1437,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var failureMechanism = new PipingFailureMechanism();
 
             var surfaceLineUpdateStrategy = new TestSurfaceLineUpdateStrategy();
-            var importer = new PipingSurfaceLinesCsvImporter(failureMechanism.SurfaceLines, referenceLine, surfaceLineUpdateStrategy, validFilePath);
+            var importer = new PipingSurfaceLinesCsvImporter(failureMechanism.SurfaceLines, referenceLine, validFilePath, surfaceLineUpdateStrategy);
 
             // Precondition
             CollectionAssert.IsEmpty(failureMechanism.SurfaceLines);
@@ -1481,7 +1481,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             var failureMechanism = new PipingFailureMechanism();
             var surfaceLineUpdateStrategy = new TestSurfaceLineUpdateStrategy();
-            var importer = new PipingSurfaceLinesCsvImporter(failureMechanism.SurfaceLines, referenceLine, surfaceLineUpdateStrategy, validFilePath);
+            var importer = new PipingSurfaceLinesCsvImporter(failureMechanism.SurfaceLines, referenceLine, validFilePath, surfaceLineUpdateStrategy);
 
             // Precondition
             CollectionAssert.IsEmpty(failureMechanism.SurfaceLines);
