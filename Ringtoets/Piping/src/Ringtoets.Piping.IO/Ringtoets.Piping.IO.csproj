@@ -61,6 +61,7 @@
     <Compile Include="Importers\StochasticSoilModelUpdateException.cs" />
     <Compile Include="Readers\PipingCalculationGroupReader.cs" />
     <Compile Include="Readers\IReadPipingCalculationItem.cs" />
+    <Compile Include="Readers\PipingConfigurationConversionException.cs" />
     <Compile Include="Readers\ReadPipingCalculation.cs" />
     <Compile Include="Readers\ReadPipingCalculationGroup.cs" />
     <Compile Include="SoilProfile\LayerProperties.cs" />

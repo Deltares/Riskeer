@@ -21,8 +21,10 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml.Linq;
 using System.Xml.Schema;
 using Core.Common.Utils.Reflection;
+using Ringtoets.Piping.IO.Properties;
 
 namespace Ringtoets.Piping.IO.Readers
 {
@@ -45,6 +47,7 @@ namespace Ringtoets.Piping.IO.Readers
         /// Reads a piping configuration from XML and creates a collection of corresponding <see cref="IReadPipingCalculationItem"/>.
         /// </summary>
         /// <returns>A collection of read <see cref="IReadPipingCalculationItem"/>.</returns>
+        /// <exception cref="PipingConfigurationConversionException">Thrown when the schema validation failed.</exception>
         public IEnumerable<IReadPipingCalculationItem> Read()
         {
             return Enumerable.Empty<IReadPipingCalculationItem>();
@@ -59,6 +62,18 @@ namespace Ringtoets.Piping.IO.Readers
             xmlSchema.Add(XmlSchema.Read(schemaFile, null));
 
             return xmlSchema;
+        }
+
+        private void ValidateToSchema(XDocument document)
+        {
+            try
+            {
+                document.Validate(schema, null);
+            }
+            catch (XmlSchemaValidationException e)
+            {
+                throw new PipingConfigurationConversionException(Resources.PipingCalculationGroupReader_Configuration_contains_no_valid_xml, e);
+            }
         }
     }
 }
