@@ -604,8 +604,11 @@
   <data name="CalculationGroup_No_HRD_To_Generate_ToolTip" xml:space="preserve">
     <value>Er is geen hydraulische randvoorwaardendatabase beschikbaar om de randvoorwaardenberekeningen te genereren.</value>
   </data>
-  <data name="DataTypeDisplayName_csv_file_filter" xml:space="preserve">
-    <value>Kommagescheiden bestand (*.csv)|*.csv</value>
+  <data name="DataTypeDisplayName_csv_file_filter_Description" xml:space="preserve">
+    <value>Kommagescheiden bestand</value>
+  </data>
+  <data name="DataTypeDisplayName_csv_file_filter_Extension" xml:space="preserve">
+    <value>csv</value>
   </data>
   <data name="CalculationIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\calculation_icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>

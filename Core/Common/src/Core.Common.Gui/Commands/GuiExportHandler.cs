@@ -123,7 +123,7 @@ namespace Core.Common.Gui.Commands
         {
             using (var saveFileDialog = new SaveFileDialog
             {
-                Filter = exportInfo.FileFilter,
+                Filter = exportInfo.FileFilter.Filter,
                 Title = Resources.SaveFileDialog_Title
             })
             {

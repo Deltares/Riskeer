@@ -52,7 +52,8 @@ namespace Core.Common.Gui.Commands
         /// </summary>
         /// <param name="dialogParent">The parent window to show dialogs on top.</param>
         /// <param name="updateInfos">An enumeration of <see cref="UpdateInfo"/>.</param>
-        /// <param name="inquiryHelper"></param>
+        /// <param name="inquiryHelper">Helper responsible for performing information inquiries.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         public GuiUpdateHandler(IWin32Window dialogParent, IEnumerable<UpdateInfo> updateInfos, IInquiryHelper inquiryHelper)
         {
             if (dialogParent == null)
@@ -62,6 +63,10 @@ namespace Core.Common.Gui.Commands
             if (updateInfos == null)
             {
                 throw new ArgumentNullException(nameof(updateInfos));
+            }
+            if (inquiryHelper == null)
+            {
+                throw new ArgumentNullException(nameof(inquiryHelper));
             }
             this.dialogParent = dialogParent;
             this.updateInfos = updateInfos;

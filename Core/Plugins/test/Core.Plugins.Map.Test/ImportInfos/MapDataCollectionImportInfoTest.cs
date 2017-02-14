@@ -22,6 +22,7 @@
 using System.Drawing;
 using System.Linq;
 using Core.Common.Base.IO;
+using Core.Common.Gui;
 using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
 using Core.Components.Gis.Data;
@@ -93,10 +94,10 @@ namespace Core.Plugins.Map.Test.ImportInfos
         public void FileFilter_Always_ReturnExpectedFileFilter()
         {
             // Call
-            string fileFilter = importInfo.FileFilter;
+            ExpectedFile fileFilter = importInfo.FileFilter;
 
             // Assert
-            Assert.AreEqual("Shapebestand (*.shp)|*.shp", fileFilter);
+            Assert.AreEqual("Shapebestand (*.shp)|*.shp", fileFilter.Filter);
         }
 
         [Test]

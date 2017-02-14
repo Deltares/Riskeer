@@ -25,6 +25,7 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.TreeView;
+using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms.ProgressDialog;
 using Core.Common.Gui.Plugin;
@@ -153,7 +154,9 @@ namespace Ringtoets.StabilityStoneCover.Plugin
             {
                 CreateFileExporter = (context, filePath) => new StabilityStoneCoverWaveConditionsExporter(context.WrappedData.GetCalculations().Cast<StabilityStoneCoverWaveConditionsCalculation>(), filePath),
                 IsEnabled = context => context.WrappedData.GetCalculations().Cast<StabilityStoneCoverWaveConditionsCalculation>().Any(c => c.HasOutput),
-                FileFilter = RingtoetsCommonFormsResources.DataTypeDisplayName_csv_file_filter
+                FileFilter = new ExpectedFile(
+                    RingtoetsCommonFormsResources.DataTypeDisplayName_csv_file_filter_Extension,
+                    RingtoetsCommonFormsResources.DataTypeDisplayName_csv_file_filter_Description)
             };
 
             yield return new ExportInfo<StabilityStoneCoverWaveConditionsCalculationContext>
@@ -163,7 +166,9 @@ namespace Ringtoets.StabilityStoneCover.Plugin
                     context.WrappedData
                 }, filePath),
                 IsEnabled = context => context.WrappedData.HasOutput,
-                FileFilter = RingtoetsCommonFormsResources.DataTypeDisplayName_csv_file_filter
+                FileFilter = new ExpectedFile(
+                    RingtoetsCommonFormsResources.DataTypeDisplayName_csv_file_filter_Extension,
+                    RingtoetsCommonFormsResources.DataTypeDisplayName_csv_file_filter_Description)
             };
         }
 

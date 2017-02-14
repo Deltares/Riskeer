@@ -82,15 +82,6 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Shapebestand (*.shp)|*.shp.
-        /// </summary>
-        public static string DataTypeDisplayName_shape_file_filter {
-            get {
-                return ResourceManager.GetString("DataTypeDisplayName_shape_file_filter", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to De regel (&apos;{0}&apos;) bevat ongeldige tekst..
         /// </summary>
         public static string DikeProfileDataReader_HandleUnexpectedText_Line_0_is_invalid {
@@ -994,6 +985,24 @@ namespace Ringtoets.Common.IO.Properties {
         public static string settings_schema {
             get {
                 return ResourceManager.GetString("settings_schema", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Shapebestand.
+        /// </summary>
+        public static string Shape_file_filter_Description {
+            get {
+                return ResourceManager.GetString("Shape_file_filter_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to shp.
+        /// </summary>
+        public static string Shape_file_filter_Extension {
+            get {
+                return ResourceManager.GetString("Shape_file_filter_Extension", resourceCulture);
             }
         }
         

@@ -74,11 +74,7 @@ namespace Core.Common.Gui.Plugin
         /// <summary>
         /// Gets or sets the file filter of the import information.
         /// </summary>
-        /// <example>
-        /// An example string would be:
-        /// <code>"My file format1 (*.ext1)|*.ext1|My file format2 (*.ext2)|*.ext2"</code>
-        /// </example>
-        public string FileFilter { get; set; }
+        public ExpectedFile FileFilter { get; set; }
     }
 
     /// <summary>
@@ -137,11 +133,7 @@ namespace Core.Common.Gui.Plugin
         /// <summary>
         /// Gets or sets the file filter of the import information.
         /// </summary>
-        /// <example>
-        /// An example string would be:
-        /// <code>"My file format1 (*.ext1)|*.ext1|My file format2 (*.ext2)|*.ext2"</code>
-        /// </example>
-        public string FileFilter { get; set; }
+        public ExpectedFile FileFilter { get; set; }
 
         /// <summary>
         /// Performs an implicit conversion from <see cref="ImportInfo{TData}"/> to <see cref="ImportInfo"/>.

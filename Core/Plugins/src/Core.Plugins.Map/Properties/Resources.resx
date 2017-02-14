@@ -247,8 +247,11 @@
   <data name="Name_Layer" xml:space="preserve">
     <value>Kaartlaag</value>
   </data>
-  <data name="MapPlugin_GetImportInfos_MapDataCollection_filefilter" xml:space="preserve">
-    <value>Shapebestand (*.shp)|*.shp</value>
+  <data name="MapPlugin_GetImportInfos_MapDataCollection_filefilter_Description" xml:space="preserve">
+    <value>Shapebestand</value>
+  </data>
+  <data name="MapPlugin_GetImportInfos_MapDataCollection_filefilter_Extension" xml:space="preserve">
+    <value>shp</value>
   </data>
   <data name="MapLegendView_CreateZoomToExtentsItem_ZoomToAll_Tooltip" xml:space="preserve">
     <value>Zet het zoomniveau van de kaart dusdanig dat deze kaartlaag precies in het beeld past.</value>

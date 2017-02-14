@@ -119,9 +119,10 @@ namespace Core.Common.Gui
 
             viewCommandHandler = new ViewCommandHandler(this, this, this);
             storageCommandHandler = new StorageCommandHandler(projectStore, projectFactory, this, MainWindow);
-            importCommandHandler = new GuiImportHandler(MainWindow, Plugins.SelectMany(p => p.GetImportInfos()));
+            var dialogBasedInquiryHelper = new DialogBasedInquiryHelper(MainWindow);
+            importCommandHandler = new GuiImportHandler(MainWindow, Plugins.SelectMany(p => p.GetImportInfos()), dialogBasedInquiryHelper);
             exportCommandHandler = new GuiExportHandler(MainWindow, Plugins.SelectMany(p => p.GetExportInfos()));
-            updateCommandHandler = new GuiUpdateHandler(MainWindow, Plugins.SelectMany(p => p.GetUpdateInfos()), new DialogBasedInquiryHelper(MainWindow));
+            updateCommandHandler = new GuiUpdateHandler(MainWindow, Plugins.SelectMany(p => p.GetUpdateInfos()), dialogBasedInquiryHelper);
 
             WindowsApplication.EnableVisualStyles();
             ViewPropertyEditor.ViewCommands = ViewCommands;

@@ -78,7 +78,9 @@ namespace Core.Plugins.Map
                 Name = Resources.Name_Layer,
                 Category = Resources.Categories_Layer,
                 Image = Resources.MapPlusIcon,
-                FileFilter = Resources.MapPlugin_GetImportInfos_MapDataCollection_filefilter,
+                FileFilter = new ExpectedFile(
+                    Resources.MapPlugin_GetImportInfos_MapDataCollection_filefilter_Extension,
+                    Resources.MapPlugin_GetImportInfos_MapDataCollection_filefilter_Description),
                 IsEnabled = mapDataCollection => true,
                 CreateFileImporter = (mapDataCollection, filePath) => new FeatureBasedMapDataImporter(mapDataCollection, filePath)
             };

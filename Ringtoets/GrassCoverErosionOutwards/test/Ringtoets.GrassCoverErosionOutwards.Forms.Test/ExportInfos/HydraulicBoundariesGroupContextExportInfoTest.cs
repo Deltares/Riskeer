@@ -21,6 +21,7 @@
 
 using System.Linq;
 using Core.Common.Base.IO;
+using Core.Common.Gui;
 using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -139,10 +140,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.ExportInfos
         public void HydraulicBoundaryLocationsExporterExportInfo_FileFilter_ShpFileFilter()
         {
             // Call
-            string fileFilter = hydraulicBoundaryLocationsExporterExportInfo.FileFilter;
+            ExpectedFile fileFilter = hydraulicBoundaryLocationsExporterExportInfo.FileFilter;
 
             // Assert
-            Assert.AreEqual("Shapebestand (*.shp)|*.shp", fileFilter);
+            Assert.AreEqual("Shapebestand (*.shp)|*.shp", fileFilter.Filter);
         }
 
         [Test]
@@ -251,10 +252,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.ExportInfos
         public void WaveConditionsExporterExportInfo_FileFilter_CsvFileFilter()
         {
             // Call
-            string fileFilter = waveConditionsExporterExportInfo.FileFilter;
+            ExpectedFile fileFilter = waveConditionsExporterExportInfo.FileFilter;
 
             // Assert
-            Assert.AreEqual("Kommagescheiden bestand (*.csv)|*.csv", fileFilter);
+            Assert.AreEqual("Kommagescheiden bestand (*.csv)|*.csv", fileFilter.Filter);
         }
     }
 }

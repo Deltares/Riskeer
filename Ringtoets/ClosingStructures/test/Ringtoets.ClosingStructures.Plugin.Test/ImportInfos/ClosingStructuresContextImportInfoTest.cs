@@ -22,6 +22,7 @@
 using System.Drawing;
 using System.Linq;
 using Core.Common.Base.IO;
+using Core.Common.Gui;
 using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -120,10 +121,10 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.ImportInfos
                 ImportInfo importInfo = GetImportInfo(plugin);
 
                 // Call
-                string fileFilter = importInfo.FileFilter;
+                ExpectedFile fileFilter = importInfo.FileFilter;
 
                 // Assert
-                Assert.AreEqual("Shapebestand (*.shp)|*.shp", fileFilter);
+                Assert.AreEqual("Shapebestand (*.shp)|*.shp", fileFilter.Filter);
             }
         }
 

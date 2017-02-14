@@ -21,6 +21,7 @@
 
 using System.Linq;
 using Core.Common.Base.IO;
+using Core.Common.Gui;
 using Core.Common.Gui.Plugin;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -68,10 +69,10 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ExportInfos
                 ExportInfo info = GetExportInfo(plugin);
 
                 // Call
-                string fileFilter = info.FileFilter;
+                ExpectedFile fileFilter = info.FileFilter;
 
                 // Assert
-                Assert.AreEqual("MorphAn randvoorwaarden (*.bnd)|*.bnd", fileFilter);
+                Assert.AreEqual("MorphAn randvoorwaarden (*.bnd)|*.bnd", fileFilter.Filter);
             }
         }
 

@@ -26,6 +26,7 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.TreeView;
+using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Plugin;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -140,7 +141,9 @@ namespace Ringtoets.DuneErosion.Plugin
             {
                 CreateFileExporter = (context, filePath) => new DuneLocationsExporter(context.WrappedData, filePath),
                 IsEnabled = context => context.WrappedData.Any(dl => dl.Output != null),
-                FileFilter = Resources.DuneErosionPlugin_GetExportInfos_MorphAn_boundary_conditions_file_filter
+                FileFilter = new ExpectedFile(
+                    Resources.DuneErosionPlugin_GetExportInfos_MorphAn_boundary_conditions_file_filter_Extension,
+                    Resources.DuneErosionPlugin_GetExportInfos_MorphAn_boundary_conditions_file_filter_Description)
             };
         }
 

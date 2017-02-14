@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -43,16 +44,32 @@ namespace Core.Common.Gui.Commands
 
         private readonly IWin32Window dialogParent;
         private readonly IEnumerable<ImportInfo> importInfos;
+        private readonly IInquiryHelper inquiryHelper;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GuiImportHandler"/> class.
         /// </summary>
         /// <param name="dialogParent">The parent window to show dialogs on top.</param>
         /// <param name="importInfos">An enumeration of <see cref="ImportInfo"/>.</param>
-        public GuiImportHandler(IWin32Window dialogParent, IEnumerable<ImportInfo> importInfos)
+        /// <param name="inquiryHelper">Helper responsible for performing information inquiries.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
+        public GuiImportHandler(IWin32Window dialogParent, IEnumerable<ImportInfo> importInfos, IInquiryHelper inquiryHelper)
         {
+            if (dialogParent == null)
+            {
+                throw new ArgumentNullException(nameof(dialogParent));
+            }
+            if (importInfos == null)
+            {
+                throw new ArgumentNullException(nameof(importInfos));
+            }
+            if (inquiryHelper == null)
+            {
+                throw new ArgumentNullException(nameof(inquiryHelper));
+            }
             this.dialogParent = dialogParent;
             this.importInfos = importInfos;
+            this.inquiryHelper = inquiryHelper;
         }
 
         public bool CanImportOn(object target)
@@ -123,11 +140,11 @@ namespace Core.Common.Gui.Commands
 
         private void ImportItemsUsingDialog(ImportInfo importInfo, object target)
         {
-            FileDialogResult filePathSelection = GetFilePath(importInfo.FileFilter);
+            FileResult fileDialogResult = inquiryHelper.GetSourceFileLocation(importInfo.FileFilter);
 
-            if (filePathSelection.FileSelected && importInfo.VerifyUpdates(target))
+            if (fileDialogResult.HasFilePath && importInfo.VerifyUpdates(target))
             {
-                RunImportActivity(importInfo.CreateFileImporter(target, filePathSelection.FileName), importInfo.Name);
+                RunImportActivity(importInfo.CreateFileImporter(target, fileDialogResult.FilePath), importInfo.Name);
             }
         }
 
@@ -135,37 +152,8 @@ namespace Core.Common.Gui.Commands
         {
             log.Info(Resources.GuiImportHandler_ImportItemsUsingDialog_Start_importing_data);
 
-            var activity = new FileImportActivity(importer, importName);
+            var activity = new FileImportActivity(importer, importName ?? string.Empty);
             ActivityProgressDialogRunner.Run(dialogParent, activity);
-        }
-
-        private static FileDialogResult GetFilePath(string fileFilter)
-        {
-            using (var dialog = new OpenFileDialog
-            {
-                Multiselect = false,
-                Filter = fileFilter,
-                Title = Resources.OpenFileDialog_Title
-            })
-            {
-                DialogResult result = dialog.ShowDialog();
-                bool fileSelected = result.Equals(DialogResult.OK);
-
-                return new FileDialogResult(fileSelected, dialog.FileName);
-            }
-        }
-
-        private class FileDialogResult
-        {
-            public FileDialogResult(bool fileSelected, string fileName)
-            {
-                FileSelected = fileSelected;
-                FileName = fileName;
-            }
-
-            public string FileName { get; }
-
-            public bool FileSelected { get; }
         }
     }
 }

@@ -24,6 +24,7 @@ using System.IO;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.Base.IO;
+using Core.Common.Gui;
 using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -130,10 +131,10 @@ namespace Ringtoets.Piping.Plugin.Test.ImportInfos
         public void FileFilter_Always_ReturnExpectedFileFilter()
         {
             // Call
-            string fileFilter = importInfo.FileFilter;
+            ExpectedFile fileFilter = importInfo.FileFilter;
 
             // Assert
-            Assert.AreEqual("D-Soil Model bestand (*.soil)|*.soil", fileFilter);
+            Assert.AreEqual("D-Soil Model bestand (*.soil)|*.soil", fileFilter.Filter);
         }
 
         [Test]

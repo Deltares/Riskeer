@@ -723,11 +723,20 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kommagescheiden bestand (*.csv)|*.csv.
+        ///   Looks up a localized string similar to Kommagescheiden bestand.
         /// </summary>
-        public static string DataTypeDisplayName_csv_file_filter {
+        public static string DataTypeDisplayName_csv_file_filter_Description {
             get {
-                return ResourceManager.GetString("DataTypeDisplayName_csv_file_filter", resourceCulture);
+                return ResourceManager.GetString("DataTypeDisplayName_csv_file_filter_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to csv.
+        /// </summary>
+        public static string DataTypeDisplayName_csv_file_filter_Extension {
+            get {
+                return ResourceManager.GetString("DataTypeDisplayName_csv_file_filter_Extension", resourceCulture);
             }
         }
         

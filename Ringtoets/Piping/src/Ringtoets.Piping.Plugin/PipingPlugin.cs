@@ -125,7 +125,7 @@ namespace Ringtoets.Piping.Plugin
                 Name = PipingFormsResources.PipingSurfaceLinesCollection_DisplayName,
                 Category = RingtoetsCommonFormsResources.Ringtoets_Category,
                 Image = PipingFormsResources.PipingSurfaceLineIcon,
-                FileFilter = new ExpectedFile("csv", "Profielschematisaties Kommagescheiden bestand"),
+                FileFilter = RingtoetsPipingSurfaceLineFileFilter,
                 IsEnabled = IsSurfaceLineImporterEnabled,
                 CreateFileImporter = (context, filePath) => PipingSurfaceLinesCsvImporter(context, filePath, new RingtoetsPipingSurfaceLineUpdateDataStrategy(context.FailureMechanism))
             };
@@ -135,7 +135,7 @@ namespace Ringtoets.Piping.Plugin
                 Name = PipingFormsResources.StochasticSoilModelCollection_DisplayName,
                 Category = RingtoetsCommonFormsResources.Ringtoets_Category,
                 Image = PipingFormsResources.PipingSoilProfileIcon,
-                FileFilter = new ExpectedFile("soil", PipingPluginResources.Soil_file_name),
+                FileFilter = StochasticSoilModelFileFilter,
                 IsEnabled = StochasticSoilModelImporterEnabled,
                 CurrentPath = context => context.WrappedData.SourcePath,
                 CreateFileImporter = (context, filePath) => StochasticSoilModelImporter(context, filePath, new StochasticSoilModelUpdateDataStrategy(context.FailureMechanism)),
@@ -155,11 +155,11 @@ namespace Ringtoets.Piping.Plugin
             return context.AssessmentSection.ReferenceLine != null;
         }
 
-        private static string StochasticSoilModelFileFilter
+        private static ExpectedFile StochasticSoilModelFileFilter
         {
             get
             {
-                return $"{PipingPluginResources.Soil_file_name} (*.soil)|*.soil";
+                return new ExpectedFile(PipingPluginResources.Soil_file_Extension, PipingPluginResources.Soil_file_Description);
             }
         }
 
@@ -992,11 +992,13 @@ namespace Ringtoets.Piping.Plugin
             return context.AssessmentSection.ReferenceLine != null;
         }
 
-        private static string RingtoetsPipingSurfaceLineFileFilter
+        private static ExpectedFile RingtoetsPipingSurfaceLineFileFilter
         {
             get
             {
-                return $"{PipingFormsResources.PipingSurfaceLinesCollection_DisplayName} {RingtoetsCommonFormsResources.DataTypeDisplayName_csv_file_filter}";
+                return new ExpectedFile(
+                    RingtoetsCommonFormsResources.DataTypeDisplayName_csv_file_filter_Extension,
+                    $"{PipingFormsResources.PipingSurfaceLinesCollection_DisplayName} {RingtoetsCommonFormsResources.DataTypeDisplayName_csv_file_filter_Description}");
             }
         }
 

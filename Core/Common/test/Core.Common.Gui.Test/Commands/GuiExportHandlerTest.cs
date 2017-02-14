@@ -68,7 +68,7 @@ namespace Core.Common.Gui.Test.Commands
 
             // Assert
             string sourceTypeName = source == null ? "null" : source.GetType().FullName;
-            TestHelper.AssertLogMessageIsGenerated(call, string.Format("Ringtoets kan de huidige selectie ({0}) niet exporteren.", sourceTypeName));
+            TestHelper.AssertLogMessageIsGenerated(call, $"Ringtoets kan de huidige selectie ({sourceTypeName}) niet exporteren.");
             Assert.AreEqual("Fout", messageBoxTitle);
             Assert.AreEqual("Ringtoets kan de huidige selectie niet exporteren.", messageBoxText);
             mockRepository.VerifyAll();
@@ -107,7 +107,7 @@ namespace Core.Common.Gui.Test.Commands
 
             // Assert
             string sourceTypeName = source == null ? "null" : source.GetType().FullName;
-            TestHelper.AssertLogMessageIsGenerated(call, string.Format("Ringtoets kan de huidige selectie ({0}) niet exporteren.", sourceTypeName));
+            TestHelper.AssertLogMessageIsGenerated(call, $"Ringtoets kan de huidige selectie ({sourceTypeName}) niet exporteren.");
             Assert.AreEqual("Fout", messageBoxTitle);
             Assert.AreEqual("Ringtoets kan de huidige selectie niet exporteren.", messageBoxText);
             mockRepository.VerifyAll();
@@ -133,6 +133,7 @@ namespace Core.Common.Gui.Test.Commands
             {
                 new ExportInfo<int>
                 {
+                    FileFilter = new ExpectedFile(),
                     CreateFileExporter = (o, s) => exporterMock
                 }
             });
@@ -170,6 +171,7 @@ namespace Core.Common.Gui.Test.Commands
             {
                 new ExportInfo<int>
                 {
+                    FileFilter = new ExpectedFile(),
                     CreateFileExporter = (data, filePath) =>
                     {
                         Assert.AreEqual(expectedData, data);
@@ -183,7 +185,7 @@ namespace Core.Common.Gui.Test.Commands
             Action call = () => exportHandler.ExportFrom(expectedData);
 
             // Assert
-            var finalMessage = string.Format("Exporteren naar '{0}' is afgerond.", targetExportFileName);
+            var finalMessage = $"Exporteren naar '{targetExportFileName}' is afgerond.";
             TestHelper.AssertLogMessagesAreGenerated(call, new[]
             {
                 "Exporteren gestart.",
@@ -216,6 +218,7 @@ namespace Core.Common.Gui.Test.Commands
             {
                 new ExportInfo<int>
                 {
+                    FileFilter = new ExpectedFile(),
                     CreateFileExporter = (data, filePath) => exporterMock
                 }
             });

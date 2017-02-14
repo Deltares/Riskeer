@@ -21,7 +21,6 @@
 
 using System;
 using System.Linq;
-using System.Threading;
 using System.Windows.Forms;
 using Core.Common.Base.IO;
 using Core.Common.Gui.Commands;
@@ -68,6 +67,23 @@ namespace Core.Common.Gui.Test.Commands
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("updateInfos", paramName);
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_WithoutInquiryHelper_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mockRepository = new MockRepository();
+            var mainWindow = mockRepository.Stub<IWin32Window>();
+            mockRepository.ReplayAll();
+
+            // Call
+            TestDelegate test = () => new GuiUpdateHandler(mainWindow, Enumerable.Empty<UpdateInfo>(), null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("inquiryHelper", paramName);
             mockRepository.VerifyAll();
         }
 

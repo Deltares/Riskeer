@@ -139,8 +139,11 @@ Er is geen referentielijn geïmporteerd.</value>
   <data name="ReferenceLineImporter_ProgressText_Removing_calculation_output_and_failure_mechanism_sections" xml:space="preserve">
     <value>Wissen rekenresultaten en vakindelingen van toetsspoor.</value>
   </data>
-  <data name="DataTypeDisplayName_shape_file_filter" xml:space="preserve">
-    <value>Shapebestand (*.shp)|*.shp</value>
+  <data name="Shape_file_filter_Description" xml:space="preserve">
+    <value>Shapebestand</value>
+  </data>
+  <data name="Shape_file_filter_Extension" xml:space="preserve">
+    <value>shp</value>
   </data>
   <data name="ReferenceLinesMetaReader_File_0_lacks_required_Attribute_1_" xml:space="preserve">
     <value>Het shapebestand '{0}' om trajecten te specificeren moet de attributen 'TRAJECT_ID', 'NORM_SW', en 'NORM_OG' bevatten: '{1}' niet gevonden.</value>

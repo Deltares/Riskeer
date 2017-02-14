@@ -348,11 +348,20 @@ namespace Core.Plugins.Map.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Shapebestand (*.shp)|*.shp.
+        ///   Looks up a localized string similar to Shapebestand.
         /// </summary>
-        public static string MapPlugin_GetImportInfos_MapDataCollection_filefilter {
+        public static string MapPlugin_GetImportInfos_MapDataCollection_filefilter_Description {
             get {
-                return ResourceManager.GetString("MapPlugin_GetImportInfos_MapDataCollection_filefilter", resourceCulture);
+                return ResourceManager.GetString("MapPlugin_GetImportInfos_MapDataCollection_filefilter_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to shp.
+        /// </summary>
+        public static string MapPlugin_GetImportInfos_MapDataCollection_filefilter_Extension {
+            get {
+                return ResourceManager.GetString("MapPlugin_GetImportInfos_MapDataCollection_filefilter_Extension", resourceCulture);
             }
         }
         

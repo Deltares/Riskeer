@@ -26,6 +26,7 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls.TreeView;
+using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms.ProgressDialog;
 using Core.Common.Gui.Plugin;
@@ -83,7 +84,8 @@ namespace Ringtoets.HeightStructures.Plugin
                 Name = RingtoetsCommonFormsResources.StructuresImporter_DisplayName,
                 Category = RingtoetsCommonFormsResources.Ringtoets_Category,
                 Image = RingtoetsCommonFormsResources.StructuresIcon,
-                FileFilter = RingtoetsCommonIOResources.DataTypeDisplayName_shape_file_filter,
+                FileFilter = new ExpectedFile(RingtoetsCommonIOResources.Shape_file_filter_Extension,
+                                              RingtoetsCommonIOResources.Shape_file_filter_Description),
                 IsEnabled = context => context.AssessmentSection.ReferenceLine != null
             };
         }

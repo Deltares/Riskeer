@@ -101,11 +101,22 @@ namespace Ringtoets.DuneErosion.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to MorphAn randvoorwaarden (*.bnd)|*.bnd.
+        ///   Looks up a localized string similar to MorphAn randvoorwaarden.
         /// </summary>
-        internal static string DuneErosionPlugin_GetExportInfos_MorphAn_boundary_conditions_file_filter {
+        internal static string DuneErosionPlugin_GetExportInfos_MorphAn_boundary_conditions_file_filter_Description {
             get {
-                return ResourceManager.GetString("DuneErosionPlugin_GetExportInfos_MorphAn_boundary_conditions_file_filter", resourceCulture);
+                return ResourceManager.GetString("DuneErosionPlugin_GetExportInfos_MorphAn_boundary_conditions_file_filter_Descript" +
+                        "ion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to bnd.
+        /// </summary>
+        internal static string DuneErosionPlugin_GetExportInfos_MorphAn_boundary_conditions_file_filter_Extension {
+            get {
+                return ResourceManager.GetString("DuneErosionPlugin_GetExportInfos_MorphAn_boundary_conditions_file_filter_Extensio" +
+                        "n", resourceCulture);
             }
         }
     }

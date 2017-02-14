@@ -21,6 +21,7 @@
 
 using System.Linq;
 using Core.Common.Base.IO;
+using Core.Common.Gui;
 using Core.Common.Gui.Plugin;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -71,10 +72,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.ExportInfos
                 ExportInfo exportInfo = GetExportInfo(plugin);
 
                 // Call
-                string fileFilter = exportInfo.FileFilter;
+                ExpectedFile fileFilter = exportInfo.FileFilter;
 
                 // Assert
-                Assert.AreEqual("Kommagescheiden bestand (*.csv)|*.csv", fileFilter);
+                Assert.AreEqual("Kommagescheiden bestand (*.csv)|*.csv", fileFilter.Filter);
             }
         }
 

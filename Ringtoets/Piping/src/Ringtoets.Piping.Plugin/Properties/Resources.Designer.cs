@@ -376,9 +376,18 @@ namespace Ringtoets.Piping.Plugin.Properties {
         /// <summary>
         ///   Looks up a localized string similar to D-Soil Model bestand.
         /// </summary>
-        public static string Soil_file_name {
+        public static string Soil_file_Description {
             get {
-                return ResourceManager.GetString("Soil_file_name", resourceCulture);
+                return ResourceManager.GetString("Soil_file_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to soil.
+        /// </summary>
+        public static string Soil_file_Extension {
+            get {
+                return ResourceManager.GetString("Soil_file_Extension", resourceCulture);
             }
         }
         

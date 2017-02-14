@@ -40,10 +40,10 @@ namespace Core.Common.Gui.Test.Plugin
             Assert.IsNull(info.DataType);
             Assert.IsNull(info.CreateFileExporter);
             Assert.IsNull(info.IsEnabled);
-            Assert.That(string.IsNullOrEmpty(info.Name));
-            Assert.That(string.IsNullOrEmpty(info.Category));
+            Assert.IsNull(info.Name);
+            Assert.IsNull(info.Category);
             Assert.IsNull(info.Image);
-            Assert.That(string.IsNullOrEmpty(info.FileFilter));
+            Assert.IsNull(info.FileFilter);
         }
 
         [Test]
@@ -56,10 +56,10 @@ namespace Core.Common.Gui.Test.Plugin
             Assert.AreEqual(typeof(int), info.DataType);
             Assert.IsNull(info.CreateFileExporter);
             Assert.IsNull(info.IsEnabled);
-            Assert.That(string.IsNullOrEmpty(info.Name));
-            Assert.That(string.IsNullOrEmpty(info.Category));
+            Assert.IsNull(info.Name);
+            Assert.IsNull(info.Category);
             Assert.IsNull(info.Image);
-            Assert.That(string.IsNullOrEmpty(info.FileFilter));
+            Assert.IsNull(info.FileFilter);
         }
 
         [Test]
@@ -72,8 +72,8 @@ namespace Core.Common.Gui.Test.Plugin
 
             const string name = "name";
             const string category = "category";
-            Bitmap image = new Bitmap(16, 16);
-            const string fileFilter = "fileFilter";
+            var image = new Bitmap(16, 16);
+            var fileFilter = new ExpectedFile();
 
             var info = new ExportInfo<int>
             {
@@ -125,10 +125,10 @@ namespace Core.Common.Gui.Test.Plugin
             Assert.IsNull(convertedInfo.CreateFileExporter(new object(), string.Empty));
             Assert.IsNotNull(convertedInfo.IsEnabled);
             Assert.IsTrue(convertedInfo.IsEnabled(new object()));
-            Assert.That(string.IsNullOrEmpty(info.Name));
-            Assert.That(string.IsNullOrEmpty(info.Category));
+            Assert.IsNull(info.Name);
+            Assert.IsNull(info.Category);
             Assert.IsNull(info.Image);
-            Assert.That(string.IsNullOrEmpty(info.FileFilter));
+            Assert.IsNull(info.FileFilter);
         }
     }
 }
