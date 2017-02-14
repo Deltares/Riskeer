@@ -31,6 +31,7 @@ namespace Ringtoets.StabilityPointStructures.Data
     /// </summary>
     public class GeneralStabilityPointStructuresInput
     {
+        private static readonly Range<int> validityRangeN = new Range<int>(1, 20);
         private int n;
 
         /// <summary>
@@ -95,9 +96,10 @@ namespace Ringtoets.StabilityPointStructures.Data
             }
             set
             {
-                if (value < 1 || value > 20)
+                if (!validityRangeN.InRange(value))
                 {
-                    throw new ArgumentOutOfRangeException(nameof(value), Resources.N_Value_should_be_in_interval_1_20);
+                    throw new ArgumentOutOfRangeException(nameof(value), string.Format(Resources.N_Value_should_be_in_Range_0_,
+                                                                                       validityRangeN));
                 }
                 n = value;
             }

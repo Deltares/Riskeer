@@ -74,7 +74,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
             TestDelegate test = () => generalGrassCoverErosionInwardsInput.N = value;
 
             // Assert
-            var expectedMessage = Resources.N_Value_should_be_in_interval_1_20;
+            const string expectedMessage = "De waarde voor 'N' moet in het bereik [1, 20] liggen.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
         }
     }

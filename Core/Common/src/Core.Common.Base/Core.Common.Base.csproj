@@ -90,8 +90,10 @@
     </Compile>
     <Compile Include="Data\IProject.cs" />
     <Compile Include="Data\IProjectFactory.cs" />
+    <Compile Include="Data\Range.cs" />
     <Compile Include="Data\RoundedDouble.cs" />
     <Compile Include="Data\RoundedPoint2DCollection.cs" />
+    <Compile Include="FormattableConstants.cs" />
     <Compile Include="Geometry\Intersection2DType.cs" />
     <Compile Include="Geometry\Math2D.cs" />
     <Compile Include="Geometry\Point2D.cs" />

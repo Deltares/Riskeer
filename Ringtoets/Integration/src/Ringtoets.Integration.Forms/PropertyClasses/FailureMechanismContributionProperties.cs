@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using Core.Common.Base;
+using Core.Common.Base.Data;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils;
 using Core.Common.Utils.Attributes;
@@ -38,6 +39,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
     /// </summary>
     public class FailureMechanismContributionProperties : ObjectProperties<FailureMechanismContribution>
     {
+        private static readonly Range<int> returnPeriodValidityRange = new Range<int>(100, 1000000);
         private readonly IFailureMechanismContributionNormChangeHandler normChangeHandler;
         private readonly IAssessmentSectionCompositionChangeHandler compositionChangeHandler;
         private readonly IAssessmentSection assessmentSection;
@@ -111,18 +113,20 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         {
             get
             {
-                return Convert.ToInt32(1.0/data.Norm);
+                return Convert.ToInt32(1.0 / data.Norm);
             }
             set
             {
-                if (value < 100 || value > 1000000)
+                if (!returnPeriodValidityRange.InRange(value))
                 {
-                    throw new ArgumentOutOfRangeException(nameof(value), Resources.FailureMechanismContributionContextProperties_ReturnPeriod_Value_for_ReturnPeriod_Must_be_in_range_100_to_1000000);
+                    throw new ArgumentOutOfRangeException(nameof(value),
+                                                          string.Format(Resources.FailureMechanismContributionContextProperties_ReturnPeriod_Value_for_ReturnPeriod_Must_be_in_Range_0_,
+                                                                        returnPeriodValidityRange));
                 }
 
                 if (value != 0 && normChangeHandler.ConfirmNormChange())
                 {
-                    double newNormValue = 1.0/Convert.ToInt32(value);
+                    double newNormValue = 1.0 / Convert.ToInt32(value);
                     IEnumerable<IObservable> changedObjects = normChangeHandler.ChangeNorm(assessmentSection, newNormValue);
                     foreach (IObservable changedObject in changedObjects)
                     {

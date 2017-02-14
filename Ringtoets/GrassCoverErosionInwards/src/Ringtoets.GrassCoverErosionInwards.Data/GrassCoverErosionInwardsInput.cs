@@ -38,6 +38,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
     public class GrassCoverErosionInwardsInput : Observable, ICalculationInput, IUseBreakWater,
                                                  IUseForeshore
     {
+        private const int orientationNumberOfDecimals = 2;
+
+        private static readonly Range<RoundedDouble> orientationValidityRange = new Range<RoundedDouble>(new RoundedDouble(orientationNumberOfDecimals),
+                                                                                                         new RoundedDouble(orientationNumberOfDecimals, 360));
+
         private readonly LogNormalDistribution criticalFlowRate;
         private RoundedDouble orientation;
         private RoundedDouble dikeHeight;
@@ -48,7 +53,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// </summary>
         public GrassCoverErosionInwardsInput()
         {
-            orientation = new RoundedDouble(2);
+            orientation = new RoundedDouble(orientationNumberOfDecimals);
             dikeHeight = new RoundedDouble(2);
 
             UpdateProfileParameters();
@@ -90,9 +95,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
             set
             {
                 RoundedDouble newOrientation = value.ToPrecision(orientation.NumberOfDecimalPlaces);
-                if (!double.IsNaN(newOrientation) && (newOrientation < 0 || newOrientation > 360))
+                if (!double.IsNaN(newOrientation) && !orientationValidityRange.InRange(newOrientation))
                 {
-                    throw new ArgumentOutOfRangeException(nameof(value), RingtoetsCommonDataResources.Orientation_Value_needs_to_be_between_0_and_360);
+                    throw new ArgumentOutOfRangeException(nameof(value), string.Format(RingtoetsCommonDataResources.Orientation_Value_needs_to_be_in_Range_0_,
+                                                                                       orientationValidityRange));
                 }
                 orientation = newOrientation;
             }

@@ -315,7 +315,6 @@ namespace Core.Components.DotSpatial.Forms.Test
             var configuration = mocks.Stub<IConfiguration>();
             configuration.Stub(c => c.Initialized).Return(true);
             configuration.Stub(c => c.TileSource).Return(tileSource);
-            configuration.Stub(c => c.LegendText).Return("<Legend Text>");
             configuration.Stub(c => c.TileFetcher).Return(tileFetcher);
             configuration.Stub(c => c.Dispose());
             return configuration;

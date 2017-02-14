@@ -84,8 +84,10 @@
     <Compile Include="..\..\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
+    <Compile Include="Data\RangeTest.cs" />
     <Compile Include="Data\RoundedDoubleTest.cs" />
     <Compile Include="Data\RoundedPoint2DCollectionTest.cs" />
+    <Compile Include="FormattableConstantsTest.cs" />
     <Compile Include="Geometry\Math2DTest.cs" />
     <Compile Include="Geometry\Point2DTest.cs" />
     <Compile Include="Geometry\Point3DExtensionsTest.cs" />

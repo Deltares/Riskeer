@@ -20,8 +20,11 @@
 // All rights reserved.
 
 using System;
+using System.Globalization;
+using Core.Common.Base;
+using Core.Common.Base.Data;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Data.Properties;
+using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Ringtoets.Integration.Data.StandAlone.SectionResults
 {
@@ -31,6 +34,7 @@ namespace Ringtoets.Integration.Data.StandAlone.SectionResults
     /// </summary>
     public class MacrostabilityInwardsFailureMechanismSectionResult : FailureMechanismSectionResult
     {
+        private static readonly Range<double> validityRangeAssessmentLayerTwoA = new Range<double>(0, 1);
         private double assessmentLayerTwoA;
 
         /// <summary>
@@ -56,9 +60,11 @@ namespace Ringtoets.Integration.Data.StandAlone.SectionResults
             }
             set
             {
-                if (!double.IsNaN(value) && (value < 0 || value > 1))
+                if (!double.IsNaN(value) && !validityRangeAssessmentLayerTwoA.InRange(value))
                 {
-                    throw new ArgumentException(Resources.ArbitraryProbabilityFailureMechanismSectionResult_AssessmentLayerTwoA_Value_needs_to_be_between_0_and_1);
+                    string message = string.Format(RingtoetsCommonDataResources.ArbitraryProbabilityFailureMechanismSectionResult_AssessmentLayerTwoA_Value_needs_to_be_in_Range_0_,
+                                                   validityRangeAssessmentLayerTwoA.ToString(FormattableConstants.ShowAtLeastOneDecimal, CultureInfo.CurrentCulture));
+                    throw new ArgumentException(message);
                 }
                 assessmentLayerTwoA = value;
             }

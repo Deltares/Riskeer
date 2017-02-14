@@ -23,7 +23,6 @@ using System;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Data.Properties;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 
 namespace Ringtoets.Integration.Data.Test.StandAlone.SectionResults
@@ -47,6 +46,7 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.SectionResults
         }
 
         [Test]
+        [SetCulture("nl-NL")]
         [TestCase(-20)]
         [TestCase(-1e-6)]
         [TestCase(1 + 1e-6)]
@@ -62,9 +62,8 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.SectionResults
 
             // Assert
             var message = Assert.Throws<ArgumentException>(test).Message;
-            Assert.AreEqual(
-                Resources.ArbitraryProbabilityFailureMechanismSectionResult_AssessmentLayerTwoA_Value_needs_to_be_between_0_and_1,
-                message);
+            const string expectedMessage = "De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.";
+            Assert.AreEqual(expectedMessage, message);
         }
 
         [Test]
@@ -73,6 +72,7 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.SectionResults
         [TestCase(0.5)]
         [TestCase(1 - 1e-6)]
         [TestCase(1)]
+        [TestCase(double.NaN)]
         public void AssessmentLayerTwoA_ForValidValues_NewValueSet(double newValue)
         {
             // Setup

@@ -56,6 +56,7 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
+        [SetCulture("nl-NL")]
         [TestCase(double.NaN)]
         [TestCase(double.PositiveInfinity)]
         [TestCase(double.NegativeInfinity)]
@@ -70,7 +71,7 @@ namespace Ringtoets.Piping.Data.Test
             TestDelegate test = () => inputParameters.WaterVolumetricWeight = (RoundedDouble) newValue;
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, "De waarde moet binnen het bereik [0, 20] liggen.");
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, "De waarde moet binnen het bereik [0,00, 20,00] liggen.");
         }
 
         [Test]

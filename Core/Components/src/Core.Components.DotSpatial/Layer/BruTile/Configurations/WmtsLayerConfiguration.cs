@@ -60,7 +60,6 @@ namespace Core.Components.DotSpatial.Layer.BruTile.Configurations
             capabilitiesUri = wmtsCapabilitiesUrl;
             this.capabilityIdentifier = capabilityIdentifier;
             this.preferredFormat = preferredFormat;
-            LegendText = capabilityIdentifier;
 
             Initialized = false;
         }
@@ -80,7 +79,6 @@ namespace Core.Components.DotSpatial.Layer.BruTile.Configurations
             capabilitiesUri = wmtsCapabilitiesUrl;
             capabilityIdentifier = ((WmtsTileSchema) tileSource.Schema).Identifier;
             preferredFormat = tileSource.Schema.Format;
-            LegendText = capabilityIdentifier;
 
             InitializeFromTileSource(tileSource);
         }
@@ -96,7 +94,7 @@ namespace Core.Components.DotSpatial.Layer.BruTile.Configurations
         /// <exception cref="ArgumentException">Thrown when <paramref name="preferredFormat"/>
         /// is not an image MIME-type.</exception>
         /// <exception cref="CannotFindTileSourceException">Thrown when it has become impossible
-        /// to create a <see cref="ITileSource"/> based on the given information (for example:
+        /// to create an <see cref="ITileSource"/> based on the given information (for example:
         /// unable to connect to server).</exception>
         public static WmtsLayerConfiguration CreateInitializedConfiguration(string wmtsCapabilitiesUrl, string capabilityIdentifier, string preferredFormat)
         {
@@ -128,7 +126,7 @@ namespace Core.Components.DotSpatial.Layer.BruTile.Configurations
         }
 
         /// <summary>
-        /// Validates a <see cref="ITileSource"/>.
+        /// Validates an <see cref="ITileSource"/>.
         /// </summary>
         /// <param name="tileSource">The source to be validated.</param>
         /// <returns>Returns <paramref name="tileSource"/>.</returns>

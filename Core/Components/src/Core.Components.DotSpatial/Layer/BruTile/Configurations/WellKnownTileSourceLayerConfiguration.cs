@@ -53,7 +53,6 @@ namespace Core.Components.DotSpatial.Layer.BruTile.Configurations
             : base(persistentCacheDirectoryPath)
         {
             this.knownTileSource = knownTileSource;
-            LegendText = knownTileSource.ToString();
 
             HttpTileSource httpTileSource = KnownTileSources.Create(knownTileSource);
             InitializeFromTileSource(httpTileSource);
@@ -70,7 +69,6 @@ namespace Core.Components.DotSpatial.Layer.BruTile.Configurations
             : base(SuggestTileCachePath(tileSource, knownTileSource))
         {
             this.knownTileSource = knownTileSource;
-            LegendText = knownTileSource.ToString();
 
             InitializeFromTileSource(tileSource);
         }

@@ -58,7 +58,6 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile.Configurations
 
                     Assert.IsNotNull(configuration.TileSource);
                     Assert.IsInstanceOf<AsyncTileFetcher>(configuration.TileFetcher);
-                    Assert.AreEqual(knownTileSource.ToString(), configuration.LegendText);
                 }
             }
         }
@@ -76,7 +75,6 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile.Configurations
                     // Assert
                     Assert.IsTrue(clone.Initialized);
 
-                    Assert.AreEqual(configuration.LegendText, clone.LegendText);
                     Assert.AreNotSame(configuration.TileSource, clone.TileSource);
                     Assert.AreEqual(configuration.TileSource.Name, clone.TileSource.Name);
                     AssertAttribution(configuration.TileSource.Attribution, clone.TileSource.Attribution);

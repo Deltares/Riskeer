@@ -117,8 +117,8 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Contribution_Value_should_be_in_interval_0_100" xml:space="preserve">
-    <value>De waarde voor de toegestane bijdrage aan de faalkans moet in het bereik [0, 100] liggen.</value>
+  <data name="Contribution_Value_should_be_in_Range_0_" xml:space="preserve">
+    <value>De waarde voor de toegestane bijdrage aan de faalkans moet in het bereik {0} liggen.</value>
   </data>
   <data name="ReferenceLine_SetGeometry_New_geometry_cannot_be_null" xml:space="preserve">
     <value>De geometrie die opgegeven werd voor de referentielijn heeft geen waarde.</value>
@@ -147,8 +147,8 @@
   <data name="DesignVariable_GetDesignValue_Distribution_must_be_set" xml:space="preserve">
     <value>Een kansverdeling moet opgegeven zijn om op basis van die data een rekenwaarde te bepalen.</value>
   </data>
-  <data name="DesignVariable_Percentile_must_be_in_range" xml:space="preserve">
-    <value>Percentiel moet in het bereik [0, 1] liggen.</value>
+  <data name="DesignVariable_Percentile_must_be_in_Range_0_" xml:space="preserve">
+    <value>Percentiel moet in het bereik {0} liggen.</value>
   </data>
   <data name="LogNormalDistribution_Mean_must_be_greater_than_zero" xml:space="preserve">
     <value>Gemiddelde moet groter zijn dan 0.</value>
@@ -177,11 +177,11 @@
   <data name="AssessmentLayerTwoAResult_Successful" xml:space="preserve">
     <value>Voldoende</value>
   </data>
-  <data name="ArbitraryProbabilityFailureMechanismSectionResult_AssessmentLayerTwoA_Value_needs_to_be_between_0_and_1" xml:space="preserve">
-    <value>De waarde voor de faalkans moet in het bereik [0, 1] liggen.</value>
+  <data name="ArbitraryProbabilityFailureMechanismSectionResult_AssessmentLayerTwoA_Value_needs_to_be_in_Range_0_" xml:space="preserve">
+    <value>De waarde voor de faalkans moet in het bereik {0} liggen.</value>
   </data>
-  <data name="Probability_Must_be_in_range_zero_to_one" xml:space="preserve">
-    <value>Kans moet in het bereik [0, 1] liggen.</value>
+  <data name="Probability_Must_be_in_Range_0_" xml:space="preserve">
+    <value>Kans moet in het bereik {0} liggen.</value>
   </data>
   <data name="LogNormalDistribution_Shift_may_not_exceed_Mean" xml:space="preserve">
     <value>De verschuiving mag niet groter zijn dan de verwachtingswaarde.</value>
@@ -207,11 +207,11 @@
   <data name="HydraulicBoundaryConditions_DisplayName" xml:space="preserve">
     <value>Hydraulische randvoorwaarden</value>
   </data>
-  <data name="N_Value_should_be_in_interval_1_20" xml:space="preserve">
-    <value>De waarde voor 'N' moet in het bereik [1, 20] liggen.</value>
+  <data name="N_Value_should_be_in_Range_0_" xml:space="preserve">
+    <value>De waarde voor 'N' moet in het bereik {0} liggen.</value>
   </data>
-  <data name="FailureProbability_Value_needs_to_be_between_0_and_1" xml:space="preserve">
-    <value>De waarde voor de faalkans moet in het bereik [0, 1] liggen.</value>
+  <data name="FailureProbability_Value_needs_to_be_in_Range_0_" xml:space="preserve">
+    <value>De waarde voor de faalkans moet in het bereik {0} liggen.</value>
   </data>
   <data name="Calculation_DefaultName" xml:space="preserve">
     <value>Nieuwe berekening</value>
@@ -219,8 +219,8 @@
   <data name="CoefficientOfVariation_Should_be_greater_or_equal_to_zero" xml:space="preserve">
     <value>Variatiecoëfficiënt (CV) moet groter zijn dan of gelijk zijn aan 0.</value>
   </data>
-  <data name="Orientation_Value_needs_to_be_between_0_and_360" xml:space="preserve">
-    <value>De waarde voor de oriëntatie moet in het bereik [0, 360] liggen.</value>
+  <data name="Orientation_Value_needs_to_be_in_Range_0_" xml:space="preserve">
+    <value>De waarde voor de oriëntatie moet in het bereik {0} liggen.</value>
   </data>
   <data name="ICalculation_DisplayName" xml:space="preserve">
     <value>Berekening</value>
@@ -231,8 +231,8 @@
   <data name="StructureInflowModelType_LowSill_DisplayName" xml:space="preserve">
     <value>Lage drempel</value>
   </data>
-  <data name="DeviationWaveDirection_Value_needs_to_be_between_negative_360_and_positive_360" xml:space="preserve">
-    <value>De waarde voor de afwijking van de golfrichting moet in het bereik [-360, 360] liggen.</value>
+  <data name="DeviationWaveDirection_Value_needs_to_be_in_Range_0_" xml:space="preserve">
+    <value>De waarde voor de afwijking van de golfrichting moet in het bereik {0} liggen.</value>
   </data>
   <data name="AssessmentLayerOneState_NoVerdict" xml:space="preserve">
     <value>Nog geen oordeel</value>

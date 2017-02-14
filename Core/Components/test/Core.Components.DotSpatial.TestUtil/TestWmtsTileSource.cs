@@ -31,7 +31,7 @@ using Core.Components.Gis.Data;
 namespace Core.Components.DotSpatial.TestUtil
 {
     /// <summary>
-    /// Defines a <see cref="ITileSource"/> suitable to most unit test cases related to
+    /// Defines an <see cref="ITileSource"/> suitable to most unit test cases related to
     /// dealing with <see cref="WmtsMapData"/>.
     /// </summary>
     public class TestWmtsTileSource : HttpTileSource

@@ -661,6 +661,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
         }
 
         [Test]
+        [SetCulture("nl-NL")]
         [TestCase(-1.1)]
         [TestCase(2)]
         [TestCase(double.NaN)]
@@ -673,7 +674,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             TestDelegate call = () => input.FailureProbabilityRepairClosure = probability;
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, "De waarde voor de faalkans moet in het bereik [0, 1] liggen.");
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, "De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.");
         }
 
         [Test]
@@ -771,6 +772,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
         }
 
         [Test]
+        [SetCulture("nl-NL")]
         [TestCase(-1.1)]
         [TestCase(2)]
         [TestCase(double.NaN)]
@@ -783,7 +785,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             TestDelegate call = () => input.ProbabilityCollisionSecondaryStructure = probability;
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, "Kans moet in het bereik [0, 1] liggen.");
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, "Kans moet in het bereik [0,0, 1,0] liggen.");
         }
 
         [Test]

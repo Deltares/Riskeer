@@ -137,7 +137,6 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile.Configurations
                 {
                     // Assert
                     Assert.IsTrue(configuration.Initialized);
-                    Assert.AreEqual(targetMapData.SelectedCapabilityIdentifier, configuration.LegendText);
                     Assert.IsTrue(configuration.TileFetcher.IsReady());
                     Assert.AreSame(tileSource2, configuration.TileSource);
                 }
@@ -177,7 +176,6 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile.Configurations
                 Assert.AreNotSame(configuration, clone);
 
                 Assert.IsFalse(clone.Initialized);
-                Assert.AreEqual(targetMapData.SelectedCapabilityIdentifier, clone.LegendText);
                 Assert.IsNull(clone.TileFetcher, "TileFetcher should be null because the clone hasn't been initialized yet.");
                 Assert.IsNull(clone.TileSource, "FileSource should be null because the clone hasn't been initialized yet.");
             }
@@ -250,7 +248,6 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile.Configurations
 
                 // Assert
                 Assert.IsTrue(clone.Initialized);
-                Assert.AreEqual(targetMapData.SelectedCapabilityIdentifier, clone.LegendText);
                 Assert.IsTrue(clone.TileFetcher.IsReady());
                 Assert.AreSame(configuration.TileSource, clone.TileSource);
             }

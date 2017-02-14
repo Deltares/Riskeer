@@ -20,10 +20,13 @@
 // All rights reserved.
 
 using System;
+using System.Globalization;
+using Core.Common.Base;
 using Core.Common.Base.Data;
 using Ringtoets.Common.Data.Probabilistics;
+using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
-using RingtoetsDataCommonProperties = Ringtoets.Common.Data.Properties.Resources;
+using RingtoetsDataCommonResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Ringtoets.StabilityPointStructures.Data
 {
@@ -479,9 +482,12 @@ namespace Ringtoets.StabilityPointStructures.Data
             }
             set
             {
-                if (!ValidProbabilityValue(value))
+                if (!ProbabilityHelper.IsValidProbability(value))
                 {
-                    throw new ArgumentOutOfRangeException(nameof(value), RingtoetsDataCommonProperties.FailureProbability_Value_needs_to_be_between_0_and_1);
+                    var probabilityValidityRange = new Range<double>(0, 1);
+                    string message = string.Format(RingtoetsDataCommonResources.FailureProbability_Value_needs_to_be_in_Range_0_,
+                                                   probabilityValidityRange.ToString(FormattableConstants.ShowAtLeastOneDecimal, CultureInfo.CurrentCulture));
+                    throw new ArgumentOutOfRangeException(nameof(value), message);
                 }
                 failureProbabilityRepairClosure = value;
             }
@@ -558,10 +564,7 @@ namespace Ringtoets.StabilityPointStructures.Data
             }
             set
             {
-                if (!ValidProbabilityValue(value))
-                {
-                    throw new ArgumentOutOfRangeException(nameof(value), RingtoetsDataCommonProperties.Probability_Must_be_in_range_zero_to_one);
-                }
+                ProbabilityHelper.ValidateProbability(value, nameof(value));
                 probabilityCollisionSecondaryStructure = value;
             }
         }

@@ -199,6 +199,7 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
+        [SetCulture("nl-NL")]
         [TestCase(5.4)]
         [TestCase(1.006)]
         [TestCase(-0.005)]
@@ -213,7 +214,7 @@ namespace Ringtoets.Piping.Data.Test
             TestDelegate call = () => input.ExitPointL = (RoundedDouble) value;
 
             // Assert
-            const string expectedMessage = "Het gespecificeerde punt moet op het profiel liggen (bereik [0, 1]).";
+            const string expectedMessage = "Het gespecificeerde punt moet op het profiel liggen (bereik [0,0, 1,0]).";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
         }
 
@@ -258,6 +259,7 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
+        [SetCulture("nl-NL")]
         [TestCase(5.4)]
         [TestCase(1.006)]
         [TestCase(-0.005)]
@@ -271,7 +273,7 @@ namespace Ringtoets.Piping.Data.Test
             TestDelegate call = () => input.EntryPointL = (RoundedDouble) value;
 
             // Assert
-            const string expectedMessage = "Het gespecificeerde punt moet op het profiel liggen (bereik [0, 1]).";
+            const string expectedMessage = "Het gespecificeerde punt moet op het profiel liggen (bereik [0,0, 1,0]).";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
         }
 

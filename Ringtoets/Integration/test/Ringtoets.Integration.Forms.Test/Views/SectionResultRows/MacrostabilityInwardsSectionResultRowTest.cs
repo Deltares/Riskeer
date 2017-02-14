@@ -30,8 +30,6 @@ using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 using Ringtoets.Integration.Forms.Views.SectionResultRows;
-using CoreCommonBaseResources = Core.Common.Base.Properties.Resources;
-using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
 {
@@ -68,10 +66,10 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
 
             Assert.IsTrue(TypeUtils.HasTypeConverter<MacrostabilityInwardsSectionResultRow,
                               NoProbabilityValueDoubleConverter>(
-                                  r => r.AssessmentLayerTwoA));
+                              r => r.AssessmentLayerTwoA));
             Assert.IsTrue(TypeUtils.HasTypeConverter<MacrostabilityInwardsSectionResultRow,
                               NoValueRoundedDoubleConverter>(
-                                  r => r.AssessmentLayerThree));
+                              r => r.AssessmentLayerThree));
         }
 
         [Test]
@@ -79,6 +77,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
         [TestCase(1)]
         [TestCase(0.5)]
         [TestCase(1e-6)]
+        [TestCase(double.NaN)]
         public void AssessmentLayerTwoA_ForValidValues_ResultPropertyChanged(double value)
         {
             // Setup
@@ -94,6 +93,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
         }
 
         [Test]
+        [SetCulture("nl-NL")]
         [TestCase(-20)]
         [TestCase(-1e-6)]
         [TestCase(1 + 1e-6)]
@@ -110,8 +110,8 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
 
             // Assert
             var message = Assert.Throws<ArgumentException>(test).Message;
-            Assert.AreEqual(RingtoetsCommonDataResources.ArbitraryProbabilityFailureMechanismSectionResult_AssessmentLayerTwoA_Value_needs_to_be_between_0_and_1,
-                            message);
+            const string expectedMessage = "De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.";
+            Assert.AreEqual(expectedMessage, message);
         }
 
         [Test]

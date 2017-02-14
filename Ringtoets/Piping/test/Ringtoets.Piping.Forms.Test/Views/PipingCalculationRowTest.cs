@@ -367,6 +367,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
+        [SetCulture("nl-NL")]
         public void EntryPointL_NotOnSurfaceLine_ThrowsArgumentOutOfRangeExceptionAndDoesNotNotifyObservers()
         {
             // Setup
@@ -374,7 +375,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             RoundedDouble entryPointL = (RoundedDouble) (-3.0);
 
             // Call & Assert
-            const string expectedMessage = "Het gespecificeerde punt moet op het profiel liggen (bereik [0, 1]).";
+            const string expectedMessage = "Het gespecificeerde punt moet op het profiel liggen (bereik [0,0, 1,0]).";
             SetPropertyToInvalidValueAndVerifyException(row => row.EntryPointL = entryPointL,
                                                         entryPointL, calculation,
                                                         expectedMessage);
@@ -430,6 +431,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
+        [SetCulture("nl-NL")]
         public void ExitPointL_NotOnSurfaceLine_ThrowsArgumentOutOfRangeExceptionAndDoesNotNotifyObservers()
         {
             // Setup
@@ -437,7 +439,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             RoundedDouble exitPointL = (RoundedDouble) 3.0;
 
             // Call & Assert
-            const string expectedMessage = "Het gespecificeerde punt moet op het profiel liggen (bereik [0, 1]).";
+            const string expectedMessage = "Het gespecificeerde punt moet op het profiel liggen (bereik [0,0, 1,0]).";
             SetPropertyToInvalidValueAndVerifyException(row => row.ExitPointL = exitPointL,
                                                         exitPointL, calculation,
                                                         expectedMessage);

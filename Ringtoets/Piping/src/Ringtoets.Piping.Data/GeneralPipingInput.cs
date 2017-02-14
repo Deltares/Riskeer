@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Globalization;
 using Core.Common.Base.Data;
 using Ringtoets.Piping.Data.Properties;
 
@@ -31,6 +32,7 @@ namespace Ringtoets.Piping.Data
     /// </summary>
     public class GeneralPipingInput
     {
+        private const int waterVolumicWeightNumberOfDecimalPlaces = 2;
         private RoundedDouble waterVolumetricWeight;
 
         /// <summary>
@@ -40,7 +42,7 @@ namespace Ringtoets.Piping.Data
         {
             UpliftModelFactor = 1.0;
             SellmeijerModelFactor = 1.0;
-            waterVolumetricWeight = new RoundedDouble(2, 9.81);
+            waterVolumetricWeight = new RoundedDouble(waterVolumicWeightNumberOfDecimalPlaces, 9.81);
             CriticalHeaveGradient = 0.3;
             WhitesDragCoefficient = 0.25;
             BeddingAngle = 37;
@@ -51,6 +53,9 @@ namespace Ringtoets.Piping.Data
         }
 
         #region General parameters (used by multiple calculations)
+
+        private static readonly Range<RoundedDouble> waterVolumetricWeightValidityRange = new Range<RoundedDouble>(new RoundedDouble(waterVolumicWeightNumberOfDecimalPlaces),
+                                                                                                                   new RoundedDouble(waterVolumicWeightNumberOfDecimalPlaces, 20.0));
 
         /// <summary>
         /// Gets the volumetric weight of water.
@@ -66,11 +71,12 @@ namespace Ringtoets.Piping.Data
             }
             set
             {
-                var newValue = value.ToPrecision(waterVolumetricWeight.NumberOfDecimalPlaces);
+                var newValue = value.ToPrecision(waterVolumicWeightNumberOfDecimalPlaces);
 
-                if (double.IsNaN(newValue) || newValue < 0 || newValue > 20)
+                if (!waterVolumetricWeightValidityRange.InRange(newValue))
                 {
-                    throw new ArgumentOutOfRangeException(nameof(value), Resources.GeneralPipingInput_WaterVolumetricWeight_must_be_in_range_zero_to_twenty);
+                    throw new ArgumentOutOfRangeException(nameof(value), string.Format(Resources.GeneralPipingInput_WaterVolumetricWeight_must_be_in_Range__0_,
+                                                                                       waterVolumetricWeightValidityRange));
                 }
 
                 waterVolumetricWeight = newValue;

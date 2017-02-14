@@ -21,6 +21,7 @@
 
 using System;
 using Core.Common.Base.Data;
+using Ringtoets.Common.Data.Probability;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Ringtoets.Piping.Data
@@ -93,15 +94,8 @@ namespace Ringtoets.Piping.Data
             }
             private set
             {
-                if (double.IsNaN(value) || (0.0 <= value && value <= 1.0))
-                {
-                    requiredProbability = value;
-                }
-                else
-                {
-                    throw new ArgumentOutOfRangeException(nameof(value),
-                                                          RingtoetsCommonDataResources.Probability_Must_be_in_range_zero_to_one);
-                }
+                ProbabilityHelper.ValidateProbability(value, nameof(value), true);
+                requiredProbability = value;
             }
         }
 
@@ -137,15 +131,8 @@ namespace Ringtoets.Piping.Data
             }
             private set
             {
-                if (double.IsNaN(value) || (0.0 <= value && value <= 1.0))
-                {
-                    pipingProbability = value;
-                }
-                else
-                {
-                    throw new ArgumentOutOfRangeException(nameof(value),
-                                                          RingtoetsCommonDataResources.Probability_Must_be_in_range_zero_to_one);
-                }
+                ProbabilityHelper.ValidateProbability(value, nameof(value), true);
+                pipingProbability = value;
             }
         }
 
@@ -175,15 +162,8 @@ namespace Ringtoets.Piping.Data
             }
             private set
             {
-                if (double.IsNaN(value) || (0.0 <= value && value <= 1.0))
-                {
-                    upliftProbability = value;
-                }
-                else
-                {
-                    throw new ArgumentOutOfRangeException(nameof(value),
-                                                          RingtoetsCommonDataResources.Probability_Must_be_in_range_zero_to_one);
-                }
+                ProbabilityHelper.ValidateProbability(value, nameof(value), true);
+                upliftProbability = value;
             }
         }
 
@@ -213,15 +193,8 @@ namespace Ringtoets.Piping.Data
             }
             private set
             {
-                if (double.IsNaN(value) || (0.0 <= value && value <= 1.0))
-                {
-                    heaveProbability = value;
-                }
-                else
-                {
-                    throw new ArgumentOutOfRangeException(nameof(value),
-                                                          RingtoetsCommonDataResources.Probability_Must_be_in_range_zero_to_one);
-                }
+                ProbabilityHelper.ValidateProbability(value, nameof(value), true);
+                heaveProbability = value;
             }
         }
 
@@ -251,15 +224,8 @@ namespace Ringtoets.Piping.Data
             }
             private set
             {
-                if (double.IsNaN(value) || (0.0 <= value && value <= 1.0))
-                {
-                    sellmeijerProbability = value;
-                }
-                else
-                {
-                    throw new ArgumentOutOfRangeException(nameof(value),
-                                                          RingtoetsCommonDataResources.Probability_Must_be_in_range_zero_to_one);
-                }
+                ProbabilityHelper.ValidateProbability(value, nameof(value), true);
+                sellmeijerProbability = value;
             }
         }
     }

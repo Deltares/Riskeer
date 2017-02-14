@@ -35,11 +35,6 @@ namespace Core.Components.DotSpatial.Layer.BruTile.Configurations
     public interface IConfiguration : IDisposable
     {
         /// <summary>
-        /// Gets the name of the layer.
-        /// </summary>
-        string LegendText { get; }
-
-        /// <summary>
         /// Gets the <see cref="ITileSource"/>.
         /// </summary>
         ITileSource TileSource { get; }

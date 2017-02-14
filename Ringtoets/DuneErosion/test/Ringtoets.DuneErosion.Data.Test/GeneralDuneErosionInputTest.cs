@@ -41,9 +41,10 @@ namespace Ringtoets.DuneErosion.Data.Test
         }
 
         [Test]
+        [SetCulture("nl-NL")]
         [TestCase(-45.75)]
-        [TestCase(1.0 - 1e-6)]
-        [TestCase(20 + 1e-6)]
+        [TestCase(1.0 - 1e-2)]
+        [TestCase(20 + 1e-2)]
         [TestCase(5987.234)]
         [TestCase(double.NaN)]
         public void N_SetOutsideValidRange_ThrowArgumentOutOfRageException(double lengthEffect)
@@ -55,7 +56,7 @@ namespace Ringtoets.DuneErosion.Data.Test
             TestDelegate call = () => generalInput.N = (RoundedDouble) lengthEffect;
 
             // Assert
-            const string message = "De waarde voor 'N' moet in het bereik [1, 20] liggen.";
+            const string message = "De waarde voor 'N' moet in het bereik [1,00, 20,00] liggen.";
             string paramName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, message).ParamName;
             Assert.AreEqual("value", paramName);
         }

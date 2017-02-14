@@ -137,6 +137,7 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
+        [SetCulture("nl-NL")]
         [TestCase(double.PositiveInfinity)]
         [TestCase(double.NegativeInfinity)]
         [TestCase(0.0 - 1e-6)]
@@ -179,7 +180,7 @@ namespace Ringtoets.Piping.Data.Test
                                           pipingFactorOfSafety);
 
             // Assert
-            const string expectedMessage = "Kans moet in het bereik [0, 1] liggen.";
+            const string expectedMessage = "Kans moet in het bereik [0,0, 1,0] liggen.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
         }
 
@@ -228,6 +229,7 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
+        [SetCulture("nl-NL")]
         [TestCase(double.PositiveInfinity)]
         [TestCase(double.NegativeInfinity)]
         [TestCase(0.0 - 1e-6)]
@@ -270,7 +272,7 @@ namespace Ringtoets.Piping.Data.Test
                                           pipingFactorOfSafety);
 
             // Assert
-            const string expectedMessage = "Kans moet in het bereik [0, 1] liggen.";
+            const string expectedMessage = "Kans moet in het bereik [0,0, 1,0] liggen.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
         }
 
@@ -319,6 +321,7 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
+        [SetCulture("nl-NL")]
         [TestCase(double.PositiveInfinity)]
         [TestCase(double.NegativeInfinity)]
         [TestCase(0.0 - 1e-2)]
@@ -361,7 +364,7 @@ namespace Ringtoets.Piping.Data.Test
                                           pipingFactorOfSafety);
 
             // Assert
-            const string expectedMessage = "Kans moet in het bereik [0, 1] liggen.";
+            const string expectedMessage = "Kans moet in het bereik [0,0, 1,0] liggen.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
         }
 
@@ -410,6 +413,7 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
+        [SetCulture("nl-NL")]
         [TestCase(double.PositiveInfinity)]
         [TestCase(double.NegativeInfinity)]
         [TestCase(0.0 - 1e-6)]
@@ -452,7 +456,7 @@ namespace Ringtoets.Piping.Data.Test
                                           pipingFactorOfSafety);
 
             // Assert
-            const string expectedMessage = "Kans moet in het bereik [0, 1] liggen.";
+            const string expectedMessage = "Kans moet in het bereik [0,0, 1,0] liggen.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
         }
 
@@ -501,6 +505,7 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
+        [SetCulture("nl-NL")]
         [TestCase(double.PositiveInfinity)]
         [TestCase(double.NegativeInfinity)]
         [TestCase(0.0 - 1e-2)]
@@ -543,7 +548,7 @@ namespace Ringtoets.Piping.Data.Test
                                           pipingFactorOfSafety);
 
             // Assert
-            const string expectedMessage = "Kans moet in het bereik [0, 1] liggen.";
+            const string expectedMessage = "Kans moet in het bereik [0,0, 1,0] liggen.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
         }
     }

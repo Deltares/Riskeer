@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Globalization;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Data;
@@ -27,6 +28,7 @@ using Core.Common.Base.Geometry;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Probabilistics;
+using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Properties;
 
 namespace Ringtoets.Common.Data.Structures
@@ -37,6 +39,11 @@ namespace Ringtoets.Common.Data.Structures
     public abstract class StructuresInputBase<T> : Observable, IStructuresCalculationInput<T>, IUseBreakWater, IUseForeshore
         where T : StructureBase
     {
+        private const int structureNormalOrientationNumberOfDecimals = 2;
+
+        private static readonly Range<RoundedDouble> structureNormalOrientationValidityRange = new Range<RoundedDouble>(new RoundedDouble(structureNormalOrientationNumberOfDecimals),
+                                                                                                                        new RoundedDouble(structureNormalOrientationNumberOfDecimals, 360));
+
         private readonly NormalDistribution modelFactorSuperCriticalFlow;
         private readonly LogNormalDistribution allowedLevelIncreaseStorage;
         private readonly VariationCoefficientLogNormalDistribution storageStructureArea;
@@ -46,7 +53,6 @@ namespace Ringtoets.Common.Data.Structures
         private readonly VariationCoefficientLogNormalDistribution stormDuration;
 
         private T structure;
-
         private RoundedDouble structureNormalOrientation;
         private double failureProbabilityStructureWithErosion;
 
@@ -69,7 +75,7 @@ namespace Ringtoets.Common.Data.Structures
                 CoefficientOfVariation = (RoundedDouble) 0.25
             };
 
-            structureNormalOrientation = new RoundedDouble(2);
+            structureNormalOrientation = new RoundedDouble(structureNormalOrientationNumberOfDecimals);
             allowedLevelIncreaseStorage = new LogNormalDistribution(2);
             storageStructureArea = new VariationCoefficientLogNormalDistribution(2);
             flowWidthAtBottomProtection = new LogNormalDistribution(2);
@@ -126,16 +132,6 @@ namespace Ringtoets.Common.Data.Structures
         /// Synchronizes the input parameters with the parameters of the structure.
         /// </summary>
         protected abstract void UpdateStructureParameters();
-
-        /// <summary>
-        /// Validates the provided probability value.
-        /// </summary>
-        /// <param name="probability">The probability value to validate.</param>
-        /// <returns><c>True</c> when the provided value is valid, <c>false</c> otherwise.</returns>
-        protected static bool ValidProbabilityValue(double probability)
-        {
-            return !double.IsNaN(probability) && probability <= 1 && probability >= 0;
-        }
 
         private void SetDefaultCommonStructureSchematizationProperties()
         {
@@ -215,9 +211,10 @@ namespace Ringtoets.Common.Data.Structures
             set
             {
                 RoundedDouble newStructureNormalOrientation = value.ToPrecision(structureNormalOrientation.NumberOfDecimalPlaces);
-                if (!double.IsNaN(newStructureNormalOrientation) && (newStructureNormalOrientation < 0 || newStructureNormalOrientation > 360))
+                if (!double.IsNaN(newStructureNormalOrientation) && !structureNormalOrientationValidityRange.InRange(newStructureNormalOrientation))
                 {
-                    throw new ArgumentOutOfRangeException(nameof(value), Resources.Orientation_Value_needs_to_be_between_0_and_360);
+                    throw new ArgumentOutOfRangeException(nameof(value), string.Format(Resources.Orientation_Value_needs_to_be_in_Range_0_,
+                                                                                       structureNormalOrientationValidityRange));
                 }
                 structureNormalOrientation = newStructureNormalOrientation;
             }
@@ -305,9 +302,12 @@ namespace Ringtoets.Common.Data.Structures
             }
             set
             {
-                if (!ValidProbabilityValue(value))
+                if (!ProbabilityHelper.IsValidProbability(value))
                 {
-                    throw new ArgumentOutOfRangeException(nameof(value), Resources.FailureProbability_Value_needs_to_be_between_0_and_1);
+                    var probabilityValidityRange = new Range<double>(0, 1);
+                    string message = string.Format(Resources.FailureProbability_Value_needs_to_be_in_Range_0_,
+                                                   probabilityValidityRange.ToString(FormattableConstants.ShowAtLeastOneDecimal, CultureInfo.CurrentCulture));
+                    throw new ArgumentOutOfRangeException(nameof(value), message);
                 }
                 failureProbabilityStructureWithErosion = value;
             }

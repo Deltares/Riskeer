@@ -217,6 +217,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
         }
 
         [Test]
+        [SetCulture("nl-NL")]
         [TestCase(400)]
         [TestCase(360.05)]
         [TestCase(-360.005)]
@@ -232,7 +233,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
             TestDelegate call = () => input.DeviationWaveDirection = (RoundedDouble) invalidValue;
 
             // Assert
-            const string expectedMessage = "De waarde voor de afwijking van de golfrichting moet in het bereik [-360, 360] liggen.";
+            const string expectedMessage = "De waarde voor de afwijking van de golfrichting moet in het bereik [-360,00, 360,00] liggen.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call,
                                                                                                 expectedMessage);
         }
@@ -359,6 +360,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
         }
 
         [Test]
+        [SetCulture("nl-NL")]
         [TestCase(-1.1)]
         [TestCase(2)]
         [TestCase(double.NaN)]
@@ -371,7 +373,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
             TestDelegate call = () => input.FailureProbabilityOpenStructure = probability;
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, "De waarde voor de faalkans moet in het bereik [0, 1] liggen.");
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, "De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.");
         }
 
         [Test]
@@ -391,6 +393,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
         }
 
         [Test]
+        [SetCulture("nl-NL")]
         [TestCase(-1.1)]
         [TestCase(2)]
         [TestCase(double.NaN)]
@@ -403,7 +406,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
             TestDelegate call = () => input.FailureProbabilityReparation = probability;
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, "De waarde voor de faalkans moet in het bereik [0, 1] liggen.");
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, "De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.");
         }
 
         [Test]
@@ -449,6 +452,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
         }
 
         [Test]
+        [SetCulture("nl-NL")]
         [TestCase(-1e-6)]
         [TestCase(-23456)]
         [TestCase(double.NaN)]
@@ -461,7 +465,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
             TestDelegate call = () => input.ProbabilityOrFrequencyOpenStructureBeforeFlooding = probability;
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, "De waarde voor de faalkans moet in het bereik [0, 1] liggen.");
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, "De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.");
         }
 
         [Test]

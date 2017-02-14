@@ -34,7 +34,9 @@ namespace Ringtoets.Revetment.Data.Test
     public class WaveConditionsOutputTest
     {
         [Test]
-        public void Constructor_ExpectedValues()
+        [TestCase(0.5, double.NaN)]
+        [TestCase(double.NaN, 0.7)]
+        public void Constructor_ExpectedValues(double targetProbability, double calculatedProbability)
         {
             // Setup
             const double waterLevel = 3.09378;
@@ -42,9 +44,7 @@ namespace Ringtoets.Revetment.Data.Test
             const double wavePeakPeriod = 0.19435;
             const double waveAngle = 180.62353;
             const double waveDirection = 230.67893;
-            const double targetProbability = 0.5;
             const double targetReliability = 3000;
-            const double calculatedProbability = 0.7;
             const double calculatedReliability = 4000;
             const CalculationConvergence calculationConvergence = CalculationConvergence.NotCalculated;
 
@@ -71,6 +71,7 @@ namespace Ringtoets.Revetment.Data.Test
         }
 
         [Test]
+        [SetCulture("nl-NL")]
         [TestCase(-1e-6)]
         [TestCase(1 + 1e-6)]
         [TestCase(-100)]
@@ -84,11 +85,12 @@ namespace Ringtoets.Revetment.Data.Test
                                                                double.NaN, double.NaN, double.NaN, CalculationConvergence.NotCalculated);
 
             // Assert
-            const string expectedMessage = "Kans moet in het bereik [0, 1] liggen.";
+            const string expectedMessage = "Kans moet in het bereik [0,0, 1,0] liggen.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
         }
 
         [Test]
+        [SetCulture("nl-NL")]
         [TestCase(-1e-6)]
         [TestCase(1 + 1e-6)]
         [TestCase(-100)]
@@ -102,7 +104,7 @@ namespace Ringtoets.Revetment.Data.Test
                                                                double.NaN, calculatedProbability, double.NaN, CalculationConvergence.NotCalculated);
 
             // Assert
-            const string expectedMessage = "Kans moet in het bereik [0, 1] liggen.";
+            const string expectedMessage = "Kans moet in het bereik [0,0, 1,0] liggen.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
         }
 

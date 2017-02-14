@@ -863,6 +863,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         }
 
         [Test]
+        [SetCulture("nl-NL")]
         public void EntryPointL_NotOnSurfaceline_ThrowsArgumentOutOfRangeException()
         {
             // Setup
@@ -905,12 +906,13 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             TestDelegate call = () => properties.EntryPointL = entryPointL;
 
             // Assert
-            const string expectedMessage = "Het gespecificeerde punt moet op het profiel liggen (bereik [0, 4]).";
+            const string expectedMessage = "Het gespecificeerde punt moet op het profiel liggen (bereik [0,0, 4,0]).";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
             mocks.VerifyAll(); // No observer notified
         }
 
         [Test]
+        [SetCulture("nl-NL")]
         public void ExitPointL_NotOnSurfaceline_ThrowsArgumentOutOfRangeException()
         {
             // Setup
@@ -953,7 +955,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             TestDelegate call = () => properties.ExitPointL = exitPointL;
 
             // Assert
-            const string expectedMessage = "Het gespecificeerde punt moet op het profiel liggen (bereik [0, 4]).";
+            const string expectedMessage = "Het gespecificeerde punt moet op het profiel liggen (bereik [0,0, 4,0]).";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
             mocks.VerifyAll(); // No observer notified
         }

@@ -217,6 +217,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         }
 
         [Test]
+        [SetCulture("nl-NL")]
         [TestCase(400)]
         [TestCase(360.05)]
         [TestCase(-0.005)]
@@ -232,7 +233,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             TestDelegate call = () => input.Orientation = (RoundedDouble) invalidOrientation;
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, "De waarde voor de oriëntatie moet in het bereik [0, 360] liggen.");
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, "De waarde voor de oriëntatie moet in het bereik [0,00, 360,00] liggen.");
         }
 
         [Test]

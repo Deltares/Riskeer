@@ -82,12 +82,12 @@ namespace Ringtoets.Common.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De waarde voor de faalkans moet in het bereik [0, 1] liggen..
+        ///   Looks up a localized string similar to De waarde voor de faalkans moet in het bereik {0} liggen..
         /// </summary>
-        public static string ArbitraryProbabilityFailureMechanismSectionResult_AssessmentLayerTwoA_Value_needs_to_be_between_0_and_1 {
+        public static string ArbitraryProbabilityFailureMechanismSectionResult_AssessmentLayerTwoA_Value_needs_to_be_in_Range_0_ {
             get {
                 return ResourceManager.GetString("ArbitraryProbabilityFailureMechanismSectionResult_AssessmentLayerTwoA_Value_needs" +
-                        "_to_be_between_0_and_1", resourceCulture);
+                        "_to_be_in_Range_0_", resourceCulture);
             }
         }
         
@@ -272,11 +272,11 @@ namespace Ringtoets.Common.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De waarde voor de toegestane bijdrage aan de faalkans moet in het bereik [0, 100] liggen..
+        ///   Looks up a localized string similar to De waarde voor de toegestane bijdrage aan de faalkans moet in het bereik {0} liggen..
         /// </summary>
-        public static string Contribution_Value_should_be_in_interval_0_100 {
+        public static string Contribution_Value_should_be_in_Range_0_ {
             get {
-                return ResourceManager.GetString("Contribution_Value_should_be_in_interval_0_100", resourceCulture);
+                return ResourceManager.GetString("Contribution_Value_should_be_in_Range_0_", resourceCulture);
             }
         }
         
@@ -290,20 +290,20 @@ namespace Ringtoets.Common.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Percentiel moet in het bereik [0, 1] liggen..
+        ///   Looks up a localized string similar to Percentiel moet in het bereik {0} liggen..
         /// </summary>
-        public static string DesignVariable_Percentile_must_be_in_range {
+        public static string DesignVariable_Percentile_must_be_in_Range_0_ {
             get {
-                return ResourceManager.GetString("DesignVariable_Percentile_must_be_in_range", resourceCulture);
+                return ResourceManager.GetString("DesignVariable_Percentile_must_be_in_Range_0_", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De waarde voor de afwijking van de golfrichting moet in het bereik [-360, 360] liggen..
+        ///   Looks up a localized string similar to De waarde voor de afwijking van de golfrichting moet in het bereik {0} liggen..
         /// </summary>
-        public static string DeviationWaveDirection_Value_needs_to_be_between_negative_360_and_positive_360 {
+        public static string DeviationWaveDirection_Value_needs_to_be_in_Range_0_ {
             get {
-                return ResourceManager.GetString("DeviationWaveDirection_Value_needs_to_be_between_negative_360_and_positive_360", resourceCulture);
+                return ResourceManager.GetString("DeviationWaveDirection_Value_needs_to_be_in_Range_0_", resourceCulture);
             }
         }
         
@@ -364,11 +364,11 @@ namespace Ringtoets.Common.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De waarde voor de faalkans moet in het bereik [0, 1] liggen..
+        ///   Looks up a localized string similar to De waarde voor de faalkans moet in het bereik {0} liggen..
         /// </summary>
-        public static string FailureProbability_Value_needs_to_be_between_0_and_1 {
+        public static string FailureProbability_Value_needs_to_be_in_Range_0_ {
             get {
-                return ResourceManager.GetString("FailureProbability_Value_needs_to_be_between_0_and_1", resourceCulture);
+                return ResourceManager.GetString("FailureProbability_Value_needs_to_be_in_Range_0_", resourceCulture);
             }
         }
         
@@ -418,20 +418,20 @@ namespace Ringtoets.Common.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De waarde voor &apos;N&apos; moet in het bereik [1, 20] liggen..
+        ///   Looks up a localized string similar to De waarde voor &apos;N&apos; moet in het bereik {0} liggen..
         /// </summary>
-        public static string N_Value_should_be_in_interval_1_20 {
+        public static string N_Value_should_be_in_Range_0_ {
             get {
-                return ResourceManager.GetString("N_Value_should_be_in_interval_1_20", resourceCulture);
+                return ResourceManager.GetString("N_Value_should_be_in_Range_0_", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De waarde voor de oriëntatie moet in het bereik [0, 360] liggen..
+        ///   Looks up a localized string similar to De waarde voor de oriëntatie moet in het bereik {0} liggen..
         /// </summary>
-        public static string Orientation_Value_needs_to_be_between_0_and_360 {
+        public static string Orientation_Value_needs_to_be_in_Range_0_ {
             get {
-                return ResourceManager.GetString("Orientation_Value_needs_to_be_between_0_and_360", resourceCulture);
+                return ResourceManager.GetString("Orientation_Value_needs_to_be_in_Range_0_", resourceCulture);
             }
         }
         
@@ -454,11 +454,11 @@ namespace Ringtoets.Common.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kans moet in het bereik [0, 1] liggen..
+        ///   Looks up a localized string similar to Kans moet in het bereik {0} liggen..
         /// </summary>
-        public static string Probability_Must_be_in_range_zero_to_one {
+        public static string Probability_Must_be_in_Range_0_ {
             get {
-                return ResourceManager.GetString("Probability_Must_be_in_range_zero_to_one", resourceCulture);
+                return ResourceManager.GetString("Probability_Must_be_in_Range_0_", resourceCulture);
             }
         }
         

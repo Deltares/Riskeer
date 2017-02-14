@@ -31,6 +31,7 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
     public class HydraulicBoundaryLocationOutputTest
     {
         [Test]
+        [SetCulture("nl-NL")]
         [TestCase(-0.01)]
         [TestCase(1.01)]
         public void Constructor_InvalidTargetProbability_ThrowsArgumentOutOfRangeException(double targetProbability)
@@ -53,10 +54,11 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
             // Assert
             ArgumentOutOfRangeException exception = Assert.Throws<ArgumentOutOfRangeException>(call);
             Assert.AreEqual("targetProbability", exception.ParamName);
-            StringAssert.Contains("Kans moet in het bereik [0, 1] liggen.", exception.Message);
+            StringAssert.Contains("Kans moet in het bereik [0,0, 1,0] liggen.", exception.Message);
         }
 
         [Test]
+        [SetCulture("nl-NL")]
         [TestCase(-0.01)]
         [TestCase(1.01)]
         public void Constructor_InvalidCalculatedProbability_ThrowsArgumentOutOfRangeException(double calculatedProbability)
@@ -79,7 +81,7 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
             // Assert
             ArgumentOutOfRangeException exception = Assert.Throws<ArgumentOutOfRangeException>(call);
             Assert.AreEqual("calculatedProbability", exception.ParamName);
-            StringAssert.Contains("Kans moet in het bereik [0, 1] liggen.", exception.Message);
+            StringAssert.Contains("Kans moet in het bereik [0,0, 1,0] liggen.", exception.Message);
         }
 
         [Test]

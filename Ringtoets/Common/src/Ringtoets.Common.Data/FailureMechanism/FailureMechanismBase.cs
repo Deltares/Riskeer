@@ -21,8 +21,10 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using Core.Common.Base;
+using Core.Common.Base.Data;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Properties;
 
@@ -35,6 +37,7 @@ namespace Ringtoets.Common.Data.FailureMechanism
     /// </summary>
     public abstract class FailureMechanismBase : Observable, IFailureMechanism
     {
+        private static readonly Range<double> contributionValidityRange = new Range<double>(0, 100);
         private readonly List<FailureMechanismSection> sections;
         private double contribution;
 
@@ -70,9 +73,11 @@ namespace Ringtoets.Common.Data.FailureMechanism
             }
             set
             {
-                if (double.IsNaN(value) || value < 0 || value > 100)
+                if (!contributionValidityRange.InRange(value))
                 {
-                    throw new ArgumentOutOfRangeException(nameof(value), Resources.Contribution_Value_should_be_in_interval_0_100);
+                    string message = string.Format(Resources.Contribution_Value_should_be_in_Range_0_,
+                                                   contributionValidityRange.ToString(FormattableConstants.ShowAtLeastOneDecimal, CultureInfo.CurrentCulture));
+                    throw new ArgumentOutOfRangeException(nameof(value), message);
                 }
                 contribution = value;
             }

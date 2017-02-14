@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using Core.Common.Base;
 using Core.Common.Utils.Extensions;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Properties;
 
 namespace Ringtoets.Common.Data.Contribution
@@ -75,10 +76,8 @@ namespace Ringtoets.Common.Data.Contribution
             }
             set
             {
-                if (double.IsNaN(value) || value < 0.0 || value > 1.0)
-                {
-                    throw new ArgumentOutOfRangeException(nameof(value), Resources.Probability_Must_be_in_range_zero_to_one);
-                }
+                ProbabilityHelper.ValidateProbability(value, nameof(value));
+
                 norm = value;
                 distribution.ForEachElementDo(d => d.Norm = norm);
             }

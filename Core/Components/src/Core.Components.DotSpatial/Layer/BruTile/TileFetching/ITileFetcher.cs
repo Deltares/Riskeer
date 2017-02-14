@@ -25,7 +25,7 @@ using BruTile;
 namespace Core.Components.DotSpatial.Layer.BruTile.TileFetching
 {
     /// <summary>
-    /// Interface for object that can retrieve raw tile-image data based on a <see cref="TileInfo"/>.
+    /// Interface for an object that can retrieve raw tile-image data based on a <see cref="TileInfo"/>.
     /// </summary>
     public interface ITileFetcher : IDisposable
     {

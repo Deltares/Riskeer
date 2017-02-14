@@ -150,7 +150,7 @@
   <data name="TileSourceFactory_GetWmtsTileSources_TileSource_without_WmtsTileSchema_error" xml:space="preserve">
     <value>Een databron is niet volgens het WMTS protocol aangeleverd.</value>
   </data>
-  <data name="BruTileLayer_Transparency_Value_out_of_range" xml:space="preserve">
-    <value>Transparantie moet in het bereik [0.0, 1.0] liggen.</value>
+  <data name="BruTileLayer_Transparency_Value_out_of_Range_0_" xml:space="preserve">
+    <value>Transparantie moet in het bereik {0} liggen.</value>
   </data>
 </root>

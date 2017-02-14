@@ -79,6 +79,7 @@ namespace Ringtoets.Common.Data.Test.Contribution
         }
 
         [Test]
+        [SetCulture("nl-NL")]
         public void Constructor_WithInvalidNorm_ThrowsArgumentOutOfRangeException(
             [Values(150, 1 + 1e-6, -1e-6, -150, double.NaN)] double norm)
         {
@@ -90,15 +91,17 @@ namespace Ringtoets.Common.Data.Test.Contribution
             TestDelegate test = () => new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), contribution, norm);
 
             // Assert
-            const string expectedMessage = "Kans moet in het bereik [0, 1] liggen.";
+            const string expectedMessage = "Kans moet in het bereik [0,0, 1,0] liggen.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
         }
 
         [Test]
+        [SetCulture("nl-NL")]
         [TestCase(-10)]
         [TestCase(-1e-6)]
         [TestCase(100 + 1e-6)]
         [TestCase(150)]
+        [TestCase(double.NaN)]
         public void Constructor_OtherContributionLessOrEqualTo0OrGreaterThan100_ArgumentException(double contribution)
         {
             // Setup
@@ -109,7 +112,7 @@ namespace Ringtoets.Common.Data.Test.Contribution
             TestDelegate test = () => new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), contribution, norm);
 
             // Assert
-            const string expectedMessage = "De waarde voor de toegestane bijdrage aan de faalkans moet in het bereik [0, 100] liggen.";
+            const string expectedMessage = "De waarde voor de toegestane bijdrage aan de faalkans moet in het bereik [0,0, 100,0] liggen.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
         }
 
@@ -181,7 +184,7 @@ namespace Ringtoets.Common.Data.Test.Contribution
 
             CollectionAssert.AreEqual(failureMechanismNames, result.Distribution.Select(d => d.Assessment));
             CollectionAssert.AreEqual(failureMechanismContributions, result.Distribution.Select(d => d.Contribution));
-            CollectionAssert.AreEqual(failureMechanismContributions.Select(c => 100.0/(norm*c)), result.Distribution.Select(d => d.ProbabilitySpace));
+            CollectionAssert.AreEqual(failureMechanismContributions.Select(c => 100.0 / (norm * c)), result.Distribution.Select(d => d.ProbabilitySpace));
             var expectedIsAlwaysRelevant = Enumerable.Repeat(false, failureMechanismCount)
                                                      .Concat(Enumerable.Repeat(true, 1));
             CollectionAssert.AreEqual(expectedIsAlwaysRelevant, result.Distribution.Select(d => d.IsAlwaysRelevant));
@@ -193,7 +196,7 @@ namespace Ringtoets.Common.Data.Test.Contribution
         {
             // Setup
             IEnumerable<IFailureMechanism> failureMechanisms = Enumerable.Empty<IFailureMechanism>();
-            const double norm = 1.0/30000;
+            const double norm = 1.0 / 30000;
             var failureMechanismContribution = new FailureMechanismContribution(failureMechanisms, 12.34, norm);
 
             // Call
@@ -213,7 +216,7 @@ namespace Ringtoets.Common.Data.Test.Contribution
             // Setup
             IEnumerable<IFailureMechanism> failureMechanisms = Enumerable.Empty<IFailureMechanism>();
 
-            const double norm = 1.0/30000;
+            const double norm = 1.0 / 30000;
             var failureMechanismContribution = new FailureMechanismContribution(failureMechanisms, 12.34, norm);
 
             // Call
@@ -285,7 +288,7 @@ namespace Ringtoets.Common.Data.Test.Contribution
                 failureMechanism2
             };
 
-            const double norm = 1.0/30000;
+            const double norm = 1.0 / 30000;
             const double otherContribution = 12.34;
             var failureMechanismContribution = new FailureMechanismContribution(failureMechanisms, otherContribution, norm);
 
@@ -338,6 +341,7 @@ namespace Ringtoets.Common.Data.Test.Contribution
         }
 
         [Test]
+        [SetCulture("nl-NL")]
         public void Norm_InvalidNewNorm_ThrowsArgumentOutOfRangeException(
             [Values(150, 1 + 1e-6, -1e-6, -150, double.NaN)] double newNorm)
         {
@@ -351,7 +355,7 @@ namespace Ringtoets.Common.Data.Test.Contribution
             TestDelegate test = () => failureMechanismContribution.Norm = newNorm;
 
             // Assert
-            const string expectedMessage = "Kans moet in het bereik [0, 1] liggen.";
+            const string expectedMessage = "Kans moet in het bereik [0,0, 1,0] liggen.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
         }
 
@@ -361,8 +365,8 @@ namespace Ringtoets.Common.Data.Test.Contribution
             // Setup
             var random = new Random(21);
             var otherContribution = random.Next(1, 100);
-            const double norm = 1.0/20000;
-            const double newNorm = 1.0/30000;
+            const double norm = 1.0 / 20000;
+            const double newNorm = 1.0 / 30000;
 
             var failureMechanism = mockRepository.Stub<IFailureMechanism>();
 
@@ -383,7 +387,7 @@ namespace Ringtoets.Common.Data.Test.Contribution
 
         private static void AssertFailureProbabilitySpace(double newOtherContribution, double norm, double probabilitySpace)
         {
-            double expectedProbabilitySpace = 100.0/(norm*newOtherContribution);
+            double expectedProbabilitySpace = 100.0 / (norm * newOtherContribution);
             Assert.AreEqual(expectedProbabilitySpace, probabilitySpace);
         }
     }

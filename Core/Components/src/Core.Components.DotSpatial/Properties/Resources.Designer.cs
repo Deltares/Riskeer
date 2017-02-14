@@ -101,11 +101,11 @@ namespace Core.Components.DotSpatial.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Transparantie moet in het bereik [0.0, 1.0] liggen..
+        ///   Looks up a localized string similar to Transparantie moet in het bereik {0} liggen..
         /// </summary>
-        internal static string BruTileLayer_Transparency_Value_out_of_range {
+        internal static string BruTileLayer_Transparency_Value_out_of_Range_0_ {
             get {
-                return ResourceManager.GetString("BruTileLayer_Transparency_Value_out_of_range", resourceCulture);
+                return ResourceManager.GetString("BruTileLayer_Transparency_Value_out_of_Range_0_", resourceCulture);
             }
         }
         

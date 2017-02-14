@@ -58,7 +58,6 @@ namespace Core.Components.DotSpatial.Layer.BruTile.Configurations
             PersistentCacheDirectoryPath = persistentCacheDirectoryPath;
         }
 
-        public string LegendText { get; protected set; }
         public ITileSource TileSource { get; private set; }
         public ITileFetcher TileFetcher { get; private set; }
         public bool Initialized { get; protected set; }

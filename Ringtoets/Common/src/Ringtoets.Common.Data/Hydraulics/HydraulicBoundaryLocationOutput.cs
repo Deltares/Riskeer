@@ -46,16 +46,8 @@ namespace Ringtoets.Common.Data.Hydraulics
                                                double calculatedProbability, double calculatedReliability,
                                                CalculationConvergence calculationConvergence)
         {
-            if (!ProbabilityHelper.IsValidProbability(targetProbability))
-            {
-                throw new ArgumentOutOfRangeException(nameof(targetProbability), targetProbability,
-                                                      Resources.Probability_Must_be_in_range_zero_to_one);
-            }
-            if (!ProbabilityHelper.IsValidProbability(calculatedProbability))
-            {
-                throw new ArgumentOutOfRangeException(nameof(calculatedProbability), calculatedProbability,
-                                                      Resources.Probability_Must_be_in_range_zero_to_one);
-            }
+            ProbabilityHelper.ValidateProbability(targetProbability, nameof(targetProbability), true);
+            ProbabilityHelper.ValidateProbability(calculatedProbability, nameof(calculatedProbability), true);
 
             Result = new RoundedDouble(2, result);
 

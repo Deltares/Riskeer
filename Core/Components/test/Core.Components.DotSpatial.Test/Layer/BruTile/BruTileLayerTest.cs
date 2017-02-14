@@ -156,19 +156,19 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
                     .SetName("DrawRegions for 2 consecutive tiles at level 4 for 50% transparent layer.");
 
                 yield return new TestCaseData(new TileInfosTestConfig(new[]
-                              {
+                                              {
                                                   new TileInfoConfig(new Extent(99949.76, 463000.08, 155000, 518050.32),
                                                                      7, 7, null),
                                                   new TileInfoConfig(new Extent(44899.52, 463000.08, 99949.76, 518050.32),
                                                                      6, 7, null)
                                               }, 4),
-                              Resources.BackgroundLayerCanvas,
-                              Resources.BackgroundLayerCanvas,
-                              new DotSpatialExtent(-78529.9210634486, 403315.730436505, 306453.46038588, 581961.051306503),
-                              new DotSpatialExtent(-78529.9210634486, 403315.730436505, 306453.46038588, 581961.051306503),
-                              false,
-                              0f)
-    .SetName("DrawRegions for 2 corrupted image tiles at level 4.");
+                                              Resources.BackgroundLayerCanvas,
+                                              Resources.BackgroundLayerCanvas,
+                                              new DotSpatialExtent(-78529.9210634486, 403315.730436505, 306453.46038588, 581961.051306503),
+                                              new DotSpatialExtent(-78529.9210634486, 403315.730436505, 306453.46038588, 581961.051306503),
+                                              false,
+                                              0f)
+                    .SetName("DrawRegions for 2 corrupted image tiles at level 4.");
             }
         }
 
@@ -204,11 +204,6 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
 
                 Assert.AreEqual(AuthorityCodeHandler.Instance[authorityCode], layer.Projection);
                 Assert.AreEqual(new DotSpatialExtent(extent.MinX, extent.MinY, extent.MaxX, extent.MaxY), layer.Extent);
-
-                Assert.AreEqual(legendText, layer.LegendText);
-                Assert.IsTrue(layer.LegendItemVisible);
-                Assert.AreEqual(SymbolMode.Symbol, layer.LegendSymbolMode);
-                Assert.AreEqual(LegendType.Custom, layer.LegendType);
 
                 Assert.IsTrue(layer.IsVisible);
                 Assert.IsTrue(layer.Checked);
@@ -377,6 +372,7 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
         }
 
         [Test]
+        [SetCulture("nl-NL")]
         [TestCase(-123.456f)]
         [TestCase(-1e-6f)]
         [TestCase(1.0f + 1e-6f)]
@@ -394,7 +390,7 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
                 TestDelegate call = () => layer.Transparency = invalidValue;
 
                 // Assert
-                string message = "Transparantie moet in het bereik [0.0, 1.0] liggen.";
+                string message = "Transparantie moet in het bereik [0,0, 1,0] liggen.";
                 string paramName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, message).ParamName;
                 Assert.AreEqual("value", paramName);
             }
@@ -453,11 +449,9 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
             var tileSource = mocks.Stub<ITileSource>();
             tileSource.Stub(ts => ts.Schema).Return(schema);
 
-            string legendText = "<Legend Text>";
             var clonedConfiguration = mocks.Stub<IConfiguration>();
             clonedConfiguration.Stub(c => c.Initialized).Return(true);
             clonedConfiguration.Stub(c => c.TileSource).Return(tileSource);
-            clonedConfiguration.Stub(c => c.LegendText).Return(legendText);
             clonedConfiguration.Stub(c => c.TileFetcher).Return(tileFetcher);
             clonedConfiguration.Stub(c => c.Dispose());
 
@@ -465,7 +459,6 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
             configuration.Expect(c => c.Clone()).Return(clonedConfiguration);
             configuration.Stub(c => c.Initialized).Return(true);
             configuration.Stub(c => c.TileSource).Return(tileSource);
-            configuration.Stub(c => c.LegendText).Return(legendText);
             configuration.Stub(c => c.TileFetcher).Return(tileFetcher);
             configuration.Stub(c => c.Dispose());
 
@@ -492,15 +485,6 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
                     Assert.AreEqual(AuthorityCodeHandler.Instance[authorityCode], clonedLayer.Projection,
                                     "Even if 'layer' has been reprojected, the cloned layer should be in the original coordinate system.");
                     Assert.AreEqual(new DotSpatialExtent(extent.MinX, extent.MinY, extent.MaxX, extent.MaxY), clonedLayer.Extent);
-
-                    Assert.AreEqual(legendText, clonedLayer.LegendText,
-                                    "'clonedLayer' should have it's name initialized based on the configuration.");
-                    Assert.IsTrue(clonedLayer.LegendItemVisible,
-                                  "'clonedLayer' visibility of the legend item should be the default for a newly constructed BruTileLayer.");
-                    Assert.AreEqual(SymbolMode.Symbol, clonedLayer.LegendSymbolMode,
-                                    "'clonedLayer' value of the legend symbol mode should be the default for a newly constructed BruTileLayer.");
-                    Assert.AreEqual(LegendType.Custom, clonedLayer.LegendType,
-                                    "'clonedLayer' value of the legend type should be the default for a newly constructed BruTileLayer.");
 
                     Assert.IsTrue(clonedLayer.IsVisible,
                                   "'clonedLayer' visibility should be the default for a newly constructed BruTileLayer.");
@@ -605,7 +589,6 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
             IConfiguration configuration = mocks.Stub<IConfiguration>();
             configuration.Stub(c => c.Initialized).Return(true);
             configuration.Stub(c => c.TileSource).Return(tileSource);
-            configuration.Stub(c => c.LegendText).Return("<Legend Text>");
             configuration.Stub(c => c.TileFetcher).Return(tileFetcher);
             configuration.Expect(c => c.Dispose())
                          .WhenCalled(invocation =>
@@ -768,7 +751,7 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
             mocks.ReplayAll();
 
             using (var layer = new BruTileLayer(configuration))
-            using (var mapCanvas = (Bitmap)Resources.BackgroundLayerCanvas.Clone())
+            using (var mapCanvas = (Bitmap) Resources.BackgroundLayerCanvas.Clone())
             using (var graphics = Graphics.FromImage(mapCanvas))
             {
                 var mapArgs = new MapArgs(new Rectangle(0, 0, mapCanvas.Width, mapCanvas.Height),
@@ -1011,10 +994,10 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
             var levelId = $"{epsgCode}:{level}";
 
             var tileInfoImageLookup = config.TileInfoConfigurations.ToDictionary(c => new TileInfo
-            {
-                Extent = c.Extent,
-                Index = new TileIndex(c.ColumnIndex, c.RowIndex, levelId)
-            },
+                                                                                 {
+                                                                                     Extent = c.Extent,
+                                                                                     Index = new TileIndex(c.ColumnIndex, c.RowIndex, levelId)
+                                                                                 },
                                                                                  c => c.Image);
 
             var tileFetcher = mocks.Stub<ITileFetcher>();
@@ -1038,7 +1021,6 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
 
             IConfiguration configuration = mocks.Stub<IConfiguration>();
             configuration.Stub(c => c.Initialized).Return(true);
-            configuration.Stub(c => c.LegendText).Return("A");
             configuration.Stub(c => c.TileFetcher).Return(tileFetcher);
             configuration.Stub(c => c.TileSource).Return(tileSource);
             configuration.Stub(c => c.Dispose());
@@ -1084,10 +1066,10 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
             // image null: simulate corrupted data
             if (image == null)
             {
-                return new []
+                return new[]
                 {
-                    (byte)1,
-                    (byte)2
+                    (byte) 1,
+                    (byte) 2
                 };
             }
 
@@ -1116,7 +1098,6 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
             IConfiguration configuration = mocks.Stub<IConfiguration>();
             configuration.Stub(c => c.Initialized).Return(true);
             configuration.Stub(c => c.TileSource).Return(tileSource);
-            configuration.Stub(c => c.LegendText).Return(legendText);
             configuration.Stub(c => c.TileFetcher).Return(tileFetcher);
             configuration.Stub(c => c.Dispose());
             return configuration;
@@ -1139,7 +1120,6 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
                 configuration.Stub(c => c.Initialized).Return(false);
                 configuration.Expect(c => c.Initialize());
                 configuration.Stub(c => c.TileSource).Return(tileSource);
-                configuration.Stub(c => c.LegendText).Return("<Legend Text>");
                 configuration.Stub(c => c.TileFetcher).Return(tileFetcher);
                 configuration.Stub(c => c.Dispose());
             }

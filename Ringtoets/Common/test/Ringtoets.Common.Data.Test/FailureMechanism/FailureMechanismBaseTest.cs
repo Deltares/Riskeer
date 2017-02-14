@@ -99,6 +99,7 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
         }
 
         [Test]
+        [SetCulture("nl-NL")]
         [TestCase(double.NaN)]
         [TestCase(101)]
         [TestCase(-1e-6)]
@@ -113,7 +114,7 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
             TestDelegate test = () => failureMechanism.Contribution = value;
 
             // Assert
-            var expectedMessage = Resources.Contribution_Value_should_be_in_interval_0_100;
+            const string expectedMessage = "De waarde voor de toegestane bijdrage aan de faalkans moet in het bereik [0,0, 100,0] liggen.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
         }
 

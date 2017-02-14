@@ -49,10 +49,12 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
         }
 
         [Test]
+        [SetCulture("nl-NL")]
         [TestCase(-1234.5678)]
         [TestCase(0 - 1e-6)]
         [TestCase(1 + 1e-6)]
         [TestCase(12345.789)]
+        [TestCase(double.NaN)]
         public void Percentile_SettingInvalidValue_ThrowArgumentOutOfRangeException(double invalidPercentile)
         {
             // Setup
@@ -71,7 +73,7 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
             {
                 Environment.NewLine
             }, StringSplitOptions.RemoveEmptyEntries)[0];
-            Assert.AreEqual("Percentiel moet in het bereik [0, 1] liggen.", customMessagePart);
+            Assert.AreEqual("Percentiel moet in het bereik [0,0, 1,0] liggen.", customMessagePart);
             mocks.VerifyAll(); // Expect no calls on mocks
         }
 

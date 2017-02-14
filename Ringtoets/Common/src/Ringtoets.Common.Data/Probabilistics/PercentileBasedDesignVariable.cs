@@ -20,6 +20,9 @@
 // All rights reserved.
 
 using System;
+using System.Globalization;
+using Core.Common.Base;
+using Core.Common.Base.Data;
 using MathNet.Numerics.Distributions;
 using Ringtoets.Common.Data.Properties;
 
@@ -33,6 +36,7 @@ namespace Ringtoets.Common.Data.Probabilistics
     /// derived.</typeparam>
     public abstract class PercentileBasedDesignVariable<TDistributionType> : DesignVariable<TDistributionType> where TDistributionType : IDistribution
     {
+        private static readonly Range<double> percentileValidityRange = new Range<double>(0, 1);
         private double percentile;
 
         /// <summary>
@@ -59,9 +63,11 @@ namespace Ringtoets.Common.Data.Probabilistics
             }
             set
             {
-                if (value < 0.0 || value > 1.0)
+                if (!percentileValidityRange.InRange(value))
                 {
-                    throw new ArgumentOutOfRangeException(nameof(value), Resources.DesignVariable_Percentile_must_be_in_range);
+                    string message = string.Format(Resources.DesignVariable_Percentile_must_be_in_Range_0_,
+                                                   percentileValidityRange.ToString(FormattableConstants.ShowAtLeastOneDecimal, CultureInfo.CurrentCulture));
+                    throw new ArgumentOutOfRangeException(nameof(value), message);
                 }
                 percentile = value;
             }
@@ -79,7 +85,7 @@ namespace Ringtoets.Common.Data.Probabilistics
             // CDF function of the standard normal distribution. For more information see:
             // "Quantile function" https://en.wikipedia.org/wiki/Normal_distribution
             double designFactor = Normal.InvCDF(0.0, 1.0, Percentile);
-            return expectedValue + designFactor*standardDeviation;
+            return expectedValue + designFactor * standardDeviation;
         }
     }
 }

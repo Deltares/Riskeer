@@ -57,6 +57,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using BruTile;
+using Core.Common.Base.Data;
 using Core.Components.DotSpatial.Layer.BruTile.Configurations;
 using Core.Components.DotSpatial.Layer.BruTile.Projections;
 using Core.Components.DotSpatial.Layer.BruTile.TileFetching;
@@ -84,6 +85,8 @@ namespace Core.Components.DotSpatial.Layer.BruTile
     {
         private const string webMercatorEpsgIdentifier = "EPSG:3857";
         private static readonly ProjectionInfo defaultProjection = new ProjectionInfo();
+
+        private static readonly Range<float> transparencyValidityRange = new Range<float>(0f, 1f);
         private readonly IConfiguration configuration;
 
         private readonly ITileFetcher tileFetcher;
@@ -116,7 +119,7 @@ namespace Core.Components.DotSpatial.Layer.BruTile
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="configuration"/>
         /// is <c>null</c>.</exception>
         /// <exception cref="CannotFindTileSourceException">Thrown when <paramref name="configuration"/>
-        /// is not initialized and during initialization no tile source can be found based.</exception>
+        /// is not initialized and during initialization no tile source can be found.</exception>
         /// <exception cref="CannotCreateTileCacheException">Thrown when <paramref name="configuration"/>
         /// is not initialized and during initialization a critical error prevents the creation
         ///  of the persistent tile cache.</exception>
@@ -142,12 +145,7 @@ namespace Core.Components.DotSpatial.Layer.BruTile
             BruTileExtent extent = tileSchema.Extent;
             MyExtent = new DotSpatialExtent(extent.MinX, extent.MinY, extent.MaxX, extent.MaxY);
 
-            LegendText = configuration.LegendText;
-            LegendItemVisible = true;
-            LegendSymbolMode = SymbolMode.Symbol;
-            LegendType = LegendType.Custom;
-
-            IsVisible = Checked = true;
+            IsVisible = true;
 
             tileFetcher = configuration.TileFetcher;
             tileFetcher.TileReceived += HandleTileReceived;
@@ -173,10 +171,11 @@ namespace Core.Components.DotSpatial.Layer.BruTile
             }
             set
             {
-                if (value < 0f || value > 1f)
+                if (!transparencyValidityRange.InRange(value))
                 {
                     throw new ArgumentOutOfRangeException(nameof(value),
-                                                          Resources.BruTileLayer_Transparency_Value_out_of_range);
+                                                          string.Format(Resources.BruTileLayer_Transparency_Value_out_of_Range_0_,
+                                                                        transparencyValidityRange.ToString("0.0", CultureInfo.CurrentCulture)));
                 }
 
                 if (!Equals(value, transparency))
@@ -231,7 +230,6 @@ namespace Core.Components.DotSpatial.Layer.BruTile
 
         public void DrawRegions(MapArgs args, List<DotSpatialExtent> regions)
         {
-            // If this layer is not marked visible, exit
             if (!IsVisible)
             {
                 return;
@@ -276,11 +274,8 @@ namespace Core.Components.DotSpatial.Layer.BruTile
 
             try
             {
-                // If the layer is reprojected, we should take that into account for the geographic region:
-                DotSpatialExtent geoExtent = targetProjection == null
-                                                 ? region
-                                                 : region.Intersection(Extent)
-                                                         .Reproject(targetProjection, sourceProjection);
+                DotSpatialExtent geoExtent = GetExtentInTargetCoordinateSystem(region);
+
                 BruTileExtent extent;
                 if (GetBruTileExtentToRender(geoExtent, out extent))
                 {
@@ -289,20 +284,22 @@ namespace Core.Components.DotSpatial.Layer.BruTile
 
                     tileFetcher.DropAllPendingTileRequests();
 
-                    // Save original transform:
-                    Matrix transform = args.Device.Transform;
-
                     IList<TileInfo> tiles = Sort(schema.GetTileInfos(extent, level), geoExtent.Center);
                     DrawTilesAtCurrentLevel(args, tiles, schema);
-
-                    // Restore the transform:
-                    args.Device.Transform = transform;
                 }
             }
             finally
             {
                 Monitor.Exit(drawLock);
             }
+        }
+
+        private DotSpatialExtent GetExtentInTargetCoordinateSystem(DotSpatialExtent region)
+        {
+            return targetProjection == null
+                       ? region
+                       : region.Intersection(Extent)
+                               .Reproject(targetProjection, sourceProjection);
         }
 
         private static bool GetBruTileExtentToRender(DotSpatialExtent geoExtent, out BruTileExtent extent)
@@ -393,14 +390,14 @@ namespace Core.Components.DotSpatial.Layer.BruTile
                 projectionInfo = null;
             }
 
-            // Compensate for parseText returning a default constructed 
-            // ProjectionInfo instance if parsing failed (some edge cases):
-            if (defaultProjection.Equals(projectionInfo))
-            {
-                projectionInfo = null;
-            }
+            projectionInfo = GetCompensatedValueForDefaultConstructedProjectionInfo(projectionInfo);
 
             return projectionInfo != null;
+        }
+
+        private static ProjectionInfo GetCompensatedValueForDefaultConstructedProjectionInfo(ProjectionInfo returnedProjection)
+        {
+            return defaultProjection.Equals(returnedProjection) ? null : returnedProjection;
         }
 
         /// <summary>

@@ -1142,6 +1142,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
+        [SetCulture("nl-NL")]
         [TestCase(entryPointLColumnIndex, -0.1)]
         [TestCase(entryPointLColumnIndex, -1.0)]
         [TestCase(exitPointLColumnIndex, 10.1)]
@@ -1187,7 +1188,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 dataGridView.Rows[0].Cells[cellIndex].Value = (RoundedDouble) newValue;
 
                 // Assert
-                var expectedMessage = "Het gespecificeerde punt moet op het profiel liggen (bereik [0, 10]).";
+                var expectedMessage = "Het gespecificeerde punt moet op het profiel liggen (bereik [0,0, 10,0]).";
                 Assert.AreEqual(expectedMessage, dataGridView.Rows[0].ErrorText);
             }
             mocks.VerifyAll(); // No observer notified

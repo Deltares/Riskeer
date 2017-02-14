@@ -41,10 +41,12 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
+        [SetCulture("nl-NL")]
         [TestCase(-1)]
         [TestCase(-0.1)]
         [TestCase(1.1)]
         [TestCase(8)]
+        [TestCase(double.NaN)]
         public void A_InvalidValue_ThrowsArgumentException(double value)
         {
             // Setup
@@ -55,7 +57,7 @@ namespace Ringtoets.Piping.Data.Test
 
             // Assert
             var exception = Assert.Throws<ArgumentException>(call);
-            Assert.AreEqual("De waarde moet in het bereik [0, 1] liggen.", exception.Message);
+            Assert.AreEqual("De waarde moet in het bereik [0,0, 1,0] liggen.", exception.Message);
         }
 
         [Test]

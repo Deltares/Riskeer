@@ -20,6 +20,8 @@
 // All rights reserved.
 
 using System;
+using System.Globalization;
+using Core.Common.Base.Data;
 using Ringtoets.Piping.Data.Properties;
 
 namespace Ringtoets.Piping.Data
@@ -29,6 +31,7 @@ namespace Ringtoets.Piping.Data
     /// </summary>
     public class PipingProbabilityAssessmentInput
     {
+        private static readonly Range<double> validityRangeA = new Range<double>(0, 1);
         private double a;
 
         /// <summary>
@@ -53,9 +56,10 @@ namespace Ringtoets.Piping.Data
             }
             set
             {
-                if (!(value >= 0) || !(value <= 1))
+                if (!validityRangeA.InRange(value))
                 {
-                    throw new ArgumentException(Resources.PipingProbabilityAssessmentInput_A_Value_must_be_in_range_zero_to_one);
+                    throw new ArgumentException(string.Format(Resources.PipingProbabilityAssessmentInput_A_Value_must_be_in_Range_0_,
+                                                              validityRangeA.ToString("0.0", CultureInfo.CurrentCulture)));
                 }
 
                 a = value;

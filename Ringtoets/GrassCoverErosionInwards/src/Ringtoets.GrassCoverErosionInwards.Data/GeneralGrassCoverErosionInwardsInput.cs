@@ -32,6 +32,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
     public class GeneralGrassCoverErosionInwardsInput
     {
         private int n;
+        private static readonly Range<int> validityRangeN = new Range<int>(1, 20);
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GeneralGrassCoverErosionInwardsInput"/> class.
@@ -86,9 +87,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
             }
             set
             {
-                if (value < 1 || value > 20)
+                if (!validityRangeN.InRange(value))
                 {
-                    throw new ArgumentOutOfRangeException(nameof(value), Resources.N_Value_should_be_in_interval_1_20);
+                    throw new ArgumentOutOfRangeException(nameof(value), string.Format(Resources.N_Value_should_be_in_Range_0_,
+                                                                                       validityRangeN));
                 }
                 n = value;
             }

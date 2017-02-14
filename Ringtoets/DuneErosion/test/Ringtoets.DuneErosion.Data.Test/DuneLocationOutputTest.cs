@@ -42,6 +42,7 @@ namespace Ringtoets.DuneErosion.Data.Test
         }
 
         [Test]
+        [SetCulture("nl-NL")]
         [TestCase(-1e-6)]
         [TestCase(1.0 + 1e-6)]
         public void Constructor_InvalidTargetProbability_ThrowsArgumentOutOfRangeException(double targetProbability)
@@ -72,10 +73,11 @@ namespace Ringtoets.DuneErosion.Data.Test
             // Assert
             ArgumentOutOfRangeException exception = Assert.Throws<ArgumentOutOfRangeException>(call);
             Assert.AreEqual("TargetProbability", exception.ParamName);
-            StringAssert.Contains("Kans moet in het bereik [0, 1] liggen.", exception.Message);
+            StringAssert.Contains("Kans moet in het bereik [0,0, 1,0] liggen.", exception.Message);
         }
 
         [Test]
+        [SetCulture("nl-NL")]
         [TestCase(-0.01)]
         [TestCase(1.01)]
         public void Constructor_InvalidCalculatedProbability_ThrowsArgumentOutOfRangeException(double calculatedProbability)
@@ -106,20 +108,20 @@ namespace Ringtoets.DuneErosion.Data.Test
             // Assert
             ArgumentOutOfRangeException exception = Assert.Throws<ArgumentOutOfRangeException>(call);
             Assert.AreEqual("CalculatedProbability", exception.ParamName);
-            StringAssert.Contains("Kans moet in het bereik [0, 1] liggen.", exception.Message);
+            StringAssert.Contains("Kans moet in het bereik [0,0, 1,0] liggen.", exception.Message);
         }
 
         [Test]
-        public void Constructor_ValidInput_ExpectedProperties()
+        [TestCase(double.NaN, 0.5)]
+        [TestCase(0.2, double.NaN)]
+        public void Constructor_ValidInput_ExpectedProperties(double targetProbability, double calculatedProbability)
         {
             // Setup
             var random = new Random(32);
             double waterLevel = random.NextDouble();
             double waveHeight = random.NextDouble();
             double wavePeriod = random.NextDouble();
-            double targetProbability = random.NextDouble();
             double targetReliability = random.NextDouble();
-            double calculatedProbability = random.NextDouble();
             double calculatedReliability = random.NextDouble();
             CalculationConvergence convergence = random.NextEnumValue<CalculationConvergence>();
 
@@ -156,7 +158,7 @@ namespace Ringtoets.DuneErosion.Data.Test
         public void Constructor_EmptyConstructionProperties_DefaultValues()
         {
             // Call
-            var output = new DuneLocationOutput(CalculationConvergence.CalculatedConverged, 
+            var output = new DuneLocationOutput(CalculationConvergence.CalculatedConverged,
                                                 new DuneLocationOutput.ConstructionProperties());
 
             // Assert

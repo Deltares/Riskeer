@@ -25,6 +25,7 @@ using Core.Common.Base;
 using Core.Common.Base.Data;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.Probability;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Ringtoets.Revetment.Data
@@ -127,15 +128,8 @@ namespace Ringtoets.Revetment.Data
             }
             private set
             {
-                if (double.IsNaN(value) || (0.0 <= value && value <= 1.0))
-                {
-                    targetProbability = value;
-                }
-                else
-                {
-                    throw new ArgumentOutOfRangeException(nameof(value),
-                                                          RingtoetsCommonDataResources.Probability_Must_be_in_range_zero_to_one);
-                }
+                ProbabilityHelper.ValidateProbability(value, nameof(value), true);
+                targetProbability = value;
             }
         }
 
@@ -159,15 +153,8 @@ namespace Ringtoets.Revetment.Data
             }
             private set
             {
-                if (double.IsNaN(value) || (0.0 <= value && value <= 1.0))
-                {
-                    calculatedProbability = value;
-                }
-                else
-                {
-                    throw new ArgumentOutOfRangeException(nameof(value),
-                                                          RingtoetsCommonDataResources.Probability_Must_be_in_range_zero_to_one);
-                }
+                ProbabilityHelper.ValidateProbability(value, nameof(value), true);
+                calculatedProbability = value;
             }
         }
 

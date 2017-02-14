@@ -282,8 +282,8 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="FailureMechanismContribution_ReturnPeriod_DisplayName" xml:space="preserve">
     <value>Norm (terugkeertijd) [jaar]</value>
   </data>
-  <data name="FailureMechanismContributionContextProperties_ReturnPeriod_Value_for_ReturnPeriod_Must_be_in_range_100_to_1000000" xml:space="preserve">
-    <value>De waarde voor de 'Norm (terugkeertijd)' moet in het bereik [100, 1000000] liggen.</value>
+  <data name="FailureMechanismContributionContextProperties_ReturnPeriod_Value_for_ReturnPeriod_Must_be_in_Range_0_" xml:space="preserve">
+    <value>De waarde voor de 'Norm (terugkeertijd)' moet in het bereik {0} liggen.</value>
   </data>
   <data name="FailureMechanismContributionView_ReturnPeriodLabelText_Norm_is_one_over_ReturnPeriod_0_" xml:space="preserve">
     <value>Norm: 1 / {0}</value>

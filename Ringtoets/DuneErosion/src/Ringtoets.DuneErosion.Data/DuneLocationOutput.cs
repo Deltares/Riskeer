@@ -48,17 +48,8 @@ namespace Ringtoets.DuneErosion.Data
             WaveHeight = new RoundedDouble(2, constructionProperties.WaveHeight);
             WavePeriod = new RoundedDouble(2, constructionProperties.WavePeriod);
 
-            if (!ProbabilityHelper.IsValidProbability(constructionProperties.TargetProbability))
-            {
-                throw new ArgumentOutOfRangeException(nameof(TargetProbability), constructionProperties.TargetProbability,
-                                                      RingtoetsCommonDataResources.Probability_Must_be_in_range_zero_to_one);
-            }
-
-            if (!ProbabilityHelper.IsValidProbability(constructionProperties.CalculatedProbability))
-            {
-                throw new ArgumentOutOfRangeException(nameof(CalculatedProbability), constructionProperties.CalculatedProbability,
-                                                      RingtoetsCommonDataResources.Probability_Must_be_in_range_zero_to_one);
-            }
+            ProbabilityHelper.ValidateProbability(constructionProperties.TargetProbability, nameof(TargetProbability), true);
+            ProbabilityHelper.ValidateProbability(constructionProperties.CalculatedProbability, nameof(CalculatedProbability), true);
 
             TargetProbability = constructionProperties.TargetProbability;
             TargetReliability = new RoundedDouble(5, constructionProperties.TargetReliability);

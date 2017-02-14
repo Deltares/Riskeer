@@ -60,7 +60,6 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile.Configurations
                 Assert.IsInstanceOf<IConfiguration>(configuration);
 
                 Assert.IsFalse(configuration.Initialized);
-                Assert.IsNull(configuration.LegendText);
                 Assert.IsNull(configuration.TileSource);
                 Assert.IsNull(configuration.TileFetcher);
             }

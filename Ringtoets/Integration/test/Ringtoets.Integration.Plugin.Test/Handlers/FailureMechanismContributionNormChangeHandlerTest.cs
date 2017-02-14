@@ -132,6 +132,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
         }
 
         [Test]
+        [SetCulture("nl-NL")]
         public void ChangeNorm_InvalidNorm_ThrowArgumentOutOfRangeException(
             [Values(150, 1 + 1e-6, -1e-6, -150, double.NaN)] double invalidNorm)
         {
@@ -143,7 +144,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             TestDelegate call = () => handler.ChangeNorm(assessmentSection, invalidNorm);
 
             // Assert
-            const string expectedMessage = "Kans moet in het bereik [0, 1] liggen.";
+            const string expectedMessage = "Kans moet in het bereik [0,0, 1,0] liggen.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
         }
 

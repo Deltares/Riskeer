@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Probability;
 
@@ -29,8 +31,8 @@ namespace Ringtoets.Common.Data.Test.Probability
     {
         [Test]
         [TestCase(0)]
+        [TestCase(0.3)]
         [TestCase(1.0)]
-        [TestCase(double.NaN)]
         public void IsValidProbability_ValidProbability_ReturnTrue(double value)
         {
             // Call
@@ -40,9 +42,23 @@ namespace Ringtoets.Common.Data.Test.Probability
             Assert.IsTrue(isValid);
         }
 
+
         [Test]
+        public void IsValidProbability_NanIsValid_ReturnTrue()
+        {
+            // Call
+            bool isValid = ProbabilityHelper.IsValidProbability(double.NaN, true);
+
+            // Assert
+            Assert.IsTrue(isValid);
+        }
+
+        [Test]
+        [TestCase(-34.56)]
         [TestCase(-1e-6)]
         [TestCase(1.0 + 1e-6)]
+        [TestCase(13.76)]
+        [TestCase(double.NaN)]
         public void IsValidProbability_InvalidProbability_ReturnFalse(double value)
         {
             // Call
@@ -50,6 +66,47 @@ namespace Ringtoets.Common.Data.Test.Probability
 
             // Assert
             Assert.IsFalse(isValid);
+        }
+
+        [Test]
+        [SetCulture("nl-NL")]
+        [TestCase(-123.456, "A")]
+        [TestCase(-1e-6, "b")]
+        [TestCase(1+1e-6, "C")]
+        [TestCase(456.789, "d")]
+        [TestCase(double.NaN, "e")]
+        public void ValidateProbability_InvalidProbability_ThrowsArgumentOutOfRangeException(double invalidProbabilityValue, string expectedParamName)
+        {
+            // Call
+            TestDelegate call = () => ProbabilityHelper.ValidateProbability(invalidProbabilityValue, expectedParamName);
+
+            // Assert
+            const string message = "Kans moet in het bereik [0,0, 1,0] liggen.";
+            string paramName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, message).ParamName;
+            Assert.AreEqual(expectedParamName, paramName);
+        }
+
+        [Test]
+        [TestCase(0)]
+        [TestCase(0.7)]
+        [TestCase(1)]
+        public void ValidateProbability_ValidProbability_DoesNotThrow(double probability)
+        {
+            // Call
+            TestDelegate call = () => ProbabilityHelper.ValidateProbability(probability, "A");
+
+            // Assert
+            Assert.DoesNotThrow(call);
+        }
+
+        [Test]
+        public void ValidateProbability_AllowNaN_DoesNotThrow()
+        {
+            // Call
+            TestDelegate call = () => ProbabilityHelper.ValidateProbability(double.NaN, "A", true);
+
+            // Assert
+            Assert.DoesNotThrow(call);
         }
     }
 }

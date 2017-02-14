@@ -67,15 +67,8 @@ namespace Ringtoets.Common.Data.Probability
             }
             private set
             {
-                if (double.IsNaN(value) || (0.0 <= value && value <= 1.0))
-                {
-                    requiredProbability = value;
-                }
-                else
-                {
-                    throw new ArgumentOutOfRangeException(nameof(value),
-                                                          RingtoetsCommonDataResources.Probability_Must_be_in_range_zero_to_one);
-                }
+                ProbabilityHelper.ValidateProbability(value, nameof(value), true);
+                requiredProbability = value;
             }
         }
 
@@ -97,15 +90,8 @@ namespace Ringtoets.Common.Data.Probability
             }
             private set
             {
-                if (double.IsNaN(value) || (0.0 <= value && value <= 1.0))
-                {
-                    probability = value;
-                }
-                else
-                {
-                    throw new ArgumentOutOfRangeException(nameof(value),
-                                                          RingtoetsCommonDataResources.Probability_Must_be_in_range_zero_to_one);
-                }
+                ProbabilityHelper.ValidateProbability(value, nameof(value), true);
+                probability = value;
             }
         }
 

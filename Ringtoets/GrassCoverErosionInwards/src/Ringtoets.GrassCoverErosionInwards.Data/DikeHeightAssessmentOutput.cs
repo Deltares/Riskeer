@@ -47,16 +47,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
                                           double calculatedProbability, double calculatedReliability,
                                           CalculationConvergence calculationConvergence)
         {
-            if (!ProbabilityHelper.IsValidProbability(targetProbability))
-            {
-                throw new ArgumentOutOfRangeException(nameof(targetProbability), targetProbability,
-                                                      RingtoetsCommonDataResources.Probability_Must_be_in_range_zero_to_one);
-            }
-            if (!ProbabilityHelper.IsValidProbability(calculatedProbability))
-            {
-                throw new ArgumentOutOfRangeException(nameof(calculatedProbability), calculatedProbability,
-                                                      RingtoetsCommonDataResources.Probability_Must_be_in_range_zero_to_one);
-            }
+            ProbabilityHelper.ValidateProbability(targetProbability, nameof(targetProbability), true);
+            ProbabilityHelper.ValidateProbability(calculatedProbability, nameof(calculatedProbability), true);
 
             DikeHeight = new RoundedDouble(2, dikeHeight);
 

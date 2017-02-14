@@ -20,8 +20,11 @@
 // All rights reserved.
 
 using System;
+using System.Globalization;
+using Core.Common.Base;
 using Core.Common.Base.Data;
 using Ringtoets.Common.Data.Probabilistics;
+using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
@@ -32,6 +35,11 @@ namespace Ringtoets.ClosingStructures.Data
     /// </summary>
     public class ClosingStructuresInput : StructuresInputBase<ClosingStructure>
     {
+        private const int deviationWaveDirectionNumberOfDecimals = 2;
+
+        private static readonly Range<RoundedDouble> deviationWaveDirectionValidityRange = new Range<RoundedDouble>(new RoundedDouble(deviationWaveDirectionNumberOfDecimals, -360),
+                                                                                                                    new RoundedDouble(deviationWaveDirectionNumberOfDecimals, 360));
+
         private readonly NormalDistribution thresholdHeightOpenWeir;
         private readonly NormalDistribution drainCoefficient;
         private readonly LogNormalDistribution areaFlowApertures;
@@ -49,7 +57,7 @@ namespace Ringtoets.ClosingStructures.Data
         public ClosingStructuresInput()
         {
             factorStormDurationOpenStructure = new RoundedDouble(2, 1.0);
-            deviationWaveDirection = new RoundedDouble(2);
+            deviationWaveDirection = new RoundedDouble(deviationWaveDirectionNumberOfDecimals);
 
             drainCoefficient = new NormalDistribution(2)
             {
@@ -165,10 +173,11 @@ namespace Ringtoets.ClosingStructures.Data
             }
             set
             {
-                RoundedDouble newDeviationWaveDirection = value.ToPrecision(deviationWaveDirection.NumberOfDecimalPlaces);
-                if (!double.IsNaN(newDeviationWaveDirection) && (Math.Abs(newDeviationWaveDirection) > 360))
+                RoundedDouble newDeviationWaveDirection = value.ToPrecision(deviationWaveDirectionNumberOfDecimals);
+                if (!double.IsNaN(newDeviationWaveDirection) && !deviationWaveDirectionValidityRange.InRange(newDeviationWaveDirection))
                 {
-                    throw new ArgumentOutOfRangeException(nameof(value), RingtoetsCommonDataResources.DeviationWaveDirection_Value_needs_to_be_between_negative_360_and_positive_360);
+                    throw new ArgumentOutOfRangeException(nameof(value), string.Format(RingtoetsCommonDataResources.DeviationWaveDirection_Value_needs_to_be_in_Range_0_,
+                                                                                       deviationWaveDirectionValidityRange));
                 }
                 deviationWaveDirection = newDeviationWaveDirection;
             }
@@ -261,9 +270,12 @@ namespace Ringtoets.ClosingStructures.Data
             }
             set
             {
-                if (!ValidProbabilityValue(value))
+                if (!ProbabilityHelper.IsValidProbability(value))
                 {
-                    throw new ArgumentOutOfRangeException(nameof(value), RingtoetsCommonDataResources.FailureProbability_Value_needs_to_be_between_0_and_1);
+                    var probabilityValidityRange = new Range<double>(0, 1);
+                    string message = string.Format(RingtoetsCommonDataResources.FailureProbability_Value_needs_to_be_in_Range_0_,
+                                                   probabilityValidityRange.ToString(FormattableConstants.ShowAtLeastOneDecimal, CultureInfo.CurrentCulture));
+                    throw new ArgumentOutOfRangeException(nameof(value), message);
                 }
                 failureProbabilityOpenStructure = value;
             }
@@ -283,9 +295,12 @@ namespace Ringtoets.ClosingStructures.Data
             }
             set
             {
-                if (!ValidProbabilityValue(value))
+                if (!ProbabilityHelper.IsValidProbability(value))
                 {
-                    throw new ArgumentOutOfRangeException(nameof(value), RingtoetsCommonDataResources.FailureProbability_Value_needs_to_be_between_0_and_1);
+                    var probabilityValidityRange = new Range<double>(0, 1);
+                    string message = string.Format(RingtoetsCommonDataResources.FailureProbability_Value_needs_to_be_in_Range_0_,
+                                                   probabilityValidityRange.ToString(FormattableConstants.ShowAtLeastOneDecimal, CultureInfo.CurrentCulture));
+                    throw new ArgumentOutOfRangeException(nameof(value), message);
                 }
                 failureProbabilityReparation = value;
             }
@@ -326,9 +341,12 @@ namespace Ringtoets.ClosingStructures.Data
             }
             set
             {
-                if (!ValidProbabilityValue(value))
+                if (!ProbabilityHelper.IsValidProbability(value))
                 {
-                    throw new ArgumentOutOfRangeException(nameof(value), RingtoetsCommonDataResources.FailureProbability_Value_needs_to_be_between_0_and_1);
+                    var probabilityValidityRange = new Range<double>(0, 1);
+                    string message = string.Format(RingtoetsCommonDataResources.FailureProbability_Value_needs_to_be_in_Range_0_,
+                                                   probabilityValidityRange.ToString(FormattableConstants.ShowAtLeastOneDecimal, CultureInfo.CurrentCulture));
+                    throw new ArgumentOutOfRangeException(nameof(value), message);
                 }
                 probabilityOrFrequencyOpenStructureBeforeFlooding = value;
             }

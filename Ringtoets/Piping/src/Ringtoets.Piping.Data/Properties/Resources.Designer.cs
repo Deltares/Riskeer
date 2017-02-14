@@ -136,11 +136,11 @@ namespace Ringtoets.Piping.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De waarde moet binnen het bereik [0, 20] liggen..
+        ///   Looks up a localized string similar to De waarde moet binnen het bereik {0} liggen..
         /// </summary>
-        public static string GeneralPipingInput_WaterVolumetricWeight_must_be_in_range_zero_to_twenty {
+        public static string GeneralPipingInput_WaterVolumetricWeight_must_be_in_Range__0_ {
             get {
-                return ResourceManager.GetString("GeneralPipingInput_WaterVolumetricWeight_must_be_in_range_zero_to_twenty", resourceCulture);
+                return ResourceManager.GetString("GeneralPipingInput_WaterVolumetricWeight_must_be_in_Range__0_", resourceCulture);
             }
         }
         
@@ -172,21 +172,20 @@ namespace Ringtoets.Piping.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het gespecificeerde punt moet op het profiel liggen (bereik [{0}, {1}])..
+        ///   Looks up a localized string similar to Het gespecificeerde punt moet op het profiel liggen (bereik {0})..
         /// </summary>
-        public static string PipingInput_ValidatePointOnSurfaceLine_Length_must_be_in_range_LowerLimit_0_UpperLimit_1_ {
+        public static string PipingInput_ValidatePointOnSurfaceLine_Length_must_be_in_Range_0_ {
             get {
-                return ResourceManager.GetString("PipingInput_ValidatePointOnSurfaceLine_Length_must_be_in_range_LowerLimit_0_Upper" +
-                        "Limit_1_", resourceCulture);
+                return ResourceManager.GetString("PipingInput_ValidatePointOnSurfaceLine_Length_must_be_in_Range_0_", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De waarde moet in het bereik [0, 1] liggen..
+        ///   Looks up a localized string similar to De waarde moet in het bereik {0} liggen..
         /// </summary>
-        public static string PipingProbabilityAssessmentInput_A_Value_must_be_in_range_zero_to_one {
+        public static string PipingProbabilityAssessmentInput_A_Value_must_be_in_Range_0_ {
             get {
-                return ResourceManager.GetString("PipingProbabilityAssessmentInput_A_Value_must_be_in_range_zero_to_one", resourceCulture);
+                return ResourceManager.GetString("PipingProbabilityAssessmentInput_A_Value_must_be_in_Range_0_", resourceCulture);
             }
         }
         

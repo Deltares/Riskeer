@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Globalization;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Data;
@@ -221,9 +222,9 @@ namespace Ringtoets.Piping.Data
         {
             if (!surfaceLine.ValidateInRange(newLocalXCoordinate))
             {
-                var outOfRangeMessage = string.Format(Resources.PipingInput_ValidatePointOnSurfaceLine_Length_must_be_in_range_LowerLimit_0_UpperLimit_1_,
-                                                      surfaceLine.LocalGeometry.First().X,
-                                                      surfaceLine.LocalGeometry.Last().X);
+                var validityRange = new Range<double>(surfaceLine.LocalGeometry.First().X, surfaceLine.LocalGeometry.Last().X);
+                var outOfRangeMessage = string.Format(Resources.PipingInput_ValidatePointOnSurfaceLine_Length_must_be_in_Range_0_,
+                                                      validityRange.ToString("0.0################", CultureInfo.CurrentCulture));
                 throw new ArgumentOutOfRangeException(null, outOfRangeMessage);
             }
         }

@@ -19,6 +19,12 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using System.Globalization;
+using Core.Common.Base;
+using Core.Common.Base.Data;
+using Ringtoets.Common.Data.Properties;
+
 namespace Ringtoets.Common.Data.Probability
 {
     /// <summary>
@@ -26,15 +32,41 @@ namespace Ringtoets.Common.Data.Probability
     /// </summary>
     public static class ProbabilityHelper
     {
+        private static readonly Range<double> probabilityValidityRange = new Range<double>(0, 1);
+
         /// <summary>
         /// Checks whether the given <paramref name="probability"/> is valid.
         /// </summary>
         /// <param name="probability">The probability to check.</param>
-        /// <returns><c>true</c> when <see cref="double.NaN"/> or within the [0.0, 1.0] range.
-        /// <c>false</c> otherwise.</returns>
-        public static bool IsValidProbability(double probability)
+        /// <param name="nanIsValid">Optional: <c>false</c> is <see cref="double.NaN"/> should
+        /// be considered a valid value. Default is <c>true</c>.</param>
+        /// <returns><c>true</c> when <paramref name="probability"/> is valid; <c>false</c> otherwise.</returns>
+        public static bool IsValidProbability(double probability, bool nanIsValid = false)
         {
-            return double.IsNaN(probability) || (0.0 <= probability && probability <= 1.0);
+            if (nanIsValid && double.IsNaN(probability))
+            {
+                return true;
+            }
+            return probabilityValidityRange.InRange(probability);
+        }
+
+        /// <summary>
+        /// Checks if a argument is a valid probability value.
+        /// </summary>
+        /// <param name="probability">The value to be validated.</param>
+        /// <param name="paramName">The name of the argument.</param>
+        /// <param name="nanIsValid">Optional: <c>false</c> is <see cref="double.NaN"/> should
+        /// be considered a valid value. Default is <c>true</c>.</param>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="probability"/>
+        /// is not a valid probability value.</exception>
+        public static void ValidateProbability(double probability, string paramName, bool nanIsValid = false)
+        {
+            if (!IsValidProbability(probability, nanIsValid))
+            {
+                string message = string.Format(Resources.Probability_Must_be_in_Range_0_,
+                                               probabilityValidityRange.ToString(FormattableConstants.ShowAtLeastOneDecimal, CultureInfo.CurrentCulture));
+                throw new ArgumentOutOfRangeException(paramName, message);
+            }
         }
     }
 }

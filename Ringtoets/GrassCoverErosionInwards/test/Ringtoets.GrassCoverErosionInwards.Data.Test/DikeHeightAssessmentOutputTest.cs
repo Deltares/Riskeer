@@ -31,6 +31,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
     public class DikeHeightAssessmentOutputTest
     {
         [Test]
+        [SetCulture("nl-NL")]
         [TestCase(-0.01)]
         [TestCase(1.01)]
         public void Constructor_InvalidTargetProbability_ThrowsArgumentOutOfRangeException(double targetProbability)
@@ -53,10 +54,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             // Assert
             ArgumentOutOfRangeException exception = Assert.Throws<ArgumentOutOfRangeException>(call);
             Assert.AreEqual("targetProbability", exception.ParamName);
-            StringAssert.Contains("Kans moet in het bereik [0, 1] liggen.", exception.Message);
+            StringAssert.Contains("Kans moet in het bereik [0,0, 1,0] liggen.", exception.Message);
         }
 
         [Test]
+        [SetCulture("nl-NL")]
         [TestCase(-0.01)]
         [TestCase(1.01)]
         public void Constructor_InvalidCalculatedProbability_ThrowsArgumentOutOfRangeException(double calculatedProbability)
@@ -79,18 +81,18 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             // Assert
             ArgumentOutOfRangeException exception = Assert.Throws<ArgumentOutOfRangeException>(call);
             Assert.AreEqual("calculatedProbability", exception.ParamName);
-            StringAssert.Contains("Kans moet in het bereik [0, 1] liggen.", exception.Message);
+            StringAssert.Contains("Kans moet in het bereik [0,0, 1,0] liggen.", exception.Message);
         }
 
         [Test]
-        public void Constructor_ValidInput_ExpectedProperties()
+        [TestCase(double.NaN, 0.8457)]
+        [TestCase(0.654, double.NaN)]
+        public void Constructor_ValidInput_ExpectedProperties(double targetProbability, double calculatedProbability)
         {
             // Setup
             var random = new Random(32);
             double dikeHeight = random.NextDouble();
-            double targetProbability = random.NextDouble();
             double targetReliability = random.NextDouble();
-            double calculatedProbability = random.NextDouble();
             double calculatedReliability = random.NextDouble();
             CalculationConvergence convergence = random.NextEnumValue<CalculationConvergence>();
 

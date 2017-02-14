@@ -144,6 +144,7 @@ namespace Ringtoets.HeightStructures.Data.Test
         #region Hydraulic data
 
         [Test]
+        [SetCulture("nl-NL")]
         [TestCase(400)]
         [TestCase(360.05)]
         [TestCase(-360.005)]
@@ -159,7 +160,7 @@ namespace Ringtoets.HeightStructures.Data.Test
             TestDelegate call = () => input.DeviationWaveDirection = (RoundedDouble) invalidValue;
 
             // Assert
-            const string expectedMessage = "De waarde voor de afwijking van de golfrichting moet in het bereik [-360, 360] liggen.";
+            const string expectedMessage = "De waarde voor de afwijking van de golfrichting moet in het bereik [-360,00, 360,00] liggen.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
         }
 

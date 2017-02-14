@@ -39,6 +39,10 @@ namespace Ringtoets.Revetment.Data
     public class WaveConditionsInput : Observable, ICalculationInput, IUseBreakWater, IUseForeshore
     {
         private const double designWaterLevelSubstraction = 0.01;
+        private const int orientationNumberOfDecimals = 2;
+
+        private static readonly Range<RoundedDouble> orientationValidityRange = new Range<RoundedDouble>(new RoundedDouble(orientationNumberOfDecimals),
+                                                                                                         new RoundedDouble(orientationNumberOfDecimals, 360));
 
         private ForeshoreProfile foreshoreProfile;
         private RoundedDouble upperBoundaryRevetment;
@@ -52,7 +56,7 @@ namespace Ringtoets.Revetment.Data
         /// </summary>
         public WaveConditionsInput()
         {
-            orientation = new RoundedDouble(2, double.NaN);
+            orientation = new RoundedDouble(orientationNumberOfDecimals, double.NaN);
 
             upperBoundaryRevetment = new RoundedDouble(2, double.NaN);
             lowerBoundaryRevetment = new RoundedDouble(2, double.NaN);
@@ -111,9 +115,10 @@ namespace Ringtoets.Revetment.Data
             set
             {
                 RoundedDouble newOrientation = value.ToPrecision(orientation.NumberOfDecimalPlaces);
-                if (!double.IsNaN(newOrientation) && (newOrientation < 0 || newOrientation > 360))
+                if (!double.IsNaN(newOrientation) && !orientationValidityRange.InRange(newOrientation))
                 {
-                    throw new ArgumentOutOfRangeException(nameof(value), RingtoetsCommonDataResources.Orientation_Value_needs_to_be_between_0_and_360);
+                    throw new ArgumentOutOfRangeException(nameof(value), string.Format(RingtoetsCommonDataResources.Orientation_Value_needs_to_be_in_Range_0_,
+                                                                                       orientationValidityRange));
                 }
                 orientation = newOrientation;
             }
@@ -330,7 +335,7 @@ namespace Ringtoets.Revetment.Data
             waterLevels.Add(upperBoundary);
 
             double stepSizeValue = StepSize.AsValue();
-            RoundedDouble currentWaterLevel = new RoundedDouble(2, Math.Ceiling(upperBoundary/stepSizeValue)*stepSizeValue - stepSizeValue);
+            RoundedDouble currentWaterLevel = new RoundedDouble(2, Math.Ceiling(upperBoundary / stepSizeValue) * stepSizeValue - stepSizeValue);
 
             while (currentWaterLevel > lowerBoundary)
             {

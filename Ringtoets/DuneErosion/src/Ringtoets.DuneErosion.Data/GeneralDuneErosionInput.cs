@@ -30,14 +30,17 @@ namespace Ringtoets.DuneErosion.Data
     /// </summary>
     public class GeneralDuneErosionInput
     {
+        private static readonly Range<RoundedDouble> validityRangeN = new Range<RoundedDouble>(new RoundedDouble(numberOfDecimalPlacesN, 1),
+                                                                                               new RoundedDouble(numberOfDecimalPlacesN, 20));
         private RoundedDouble n;
+        private const int numberOfDecimalPlacesN = 2;
 
         /// <summary>
         /// Creates a new instance of <see cref="GeneralDuneErosionInput"/>.
         /// </summary>
         public GeneralDuneErosionInput()
         {
-            n = new RoundedDouble(2, 2);
+            n = new RoundedDouble(numberOfDecimalPlacesN, 2);
         }
 
         #region Length effect parameters
@@ -55,11 +58,13 @@ namespace Ringtoets.DuneErosion.Data
             }
             set
             {
-                if (double.IsNaN(value) || value < 1 || value > 20)
+                var newValue = value.ToPrecision(n.NumberOfDecimalPlaces);
+                if (!validityRangeN.InRange(newValue))
                 {
-                    throw new ArgumentOutOfRangeException(nameof(value), Resources.N_Value_should_be_in_interval_1_20);
+                    throw new ArgumentOutOfRangeException(nameof(value), string.Format(Resources.N_Value_should_be_in_Range_0_,
+                                                                                       validityRangeN));
                 }
-                n = value.ToPrecision(n.NumberOfDecimalPlaces);
+                n = newValue;
             }
         }
 

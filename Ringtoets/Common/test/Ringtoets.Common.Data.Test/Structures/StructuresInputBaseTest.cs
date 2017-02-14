@@ -289,6 +289,7 @@ namespace Ringtoets.Common.Data.Test.Structures
         #region Schematization
 
         [Test]
+        [SetCulture("nl-NL")]
         [TestCase(400)]
         [TestCase(360.05)]
         [TestCase(-0.005)]
@@ -304,7 +305,7 @@ namespace Ringtoets.Common.Data.Test.Structures
             TestDelegate call = () => input.StructureNormalOrientation = (RoundedDouble) invalidValue;
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, "De waarde voor de oriëntatie moet in het bereik [0, 360] liggen.");
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, "De waarde voor de oriëntatie moet in het bereik [0,00, 360,00] liggen.");
         }
 
         [Test]
@@ -447,6 +448,7 @@ namespace Ringtoets.Common.Data.Test.Structures
         }
 
         [Test]
+        [SetCulture("nl-NL")]
         [TestCase(-0.1)]
         [TestCase(1.1)]
         [TestCase(double.NaN)]
@@ -459,7 +461,7 @@ namespace Ringtoets.Common.Data.Test.Structures
             TestDelegate call = () => input.FailureProbabilityStructureWithErosion = (RoundedDouble) failureProbabilityStructureWithErosion;
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, "De waarde voor de faalkans moet in het bereik [0, 1] liggen.");
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, "De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.");
         }
 
         [Test]

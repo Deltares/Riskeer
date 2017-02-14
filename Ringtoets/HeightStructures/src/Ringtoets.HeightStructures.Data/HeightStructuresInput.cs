@@ -32,6 +32,11 @@ namespace Ringtoets.HeightStructures.Data
     /// </summary>
     public class HeightStructuresInput : StructuresInputBase<HeightStructure>
     {
+        private const int deviationWaveDirectionNumberOfDecimals = 2;
+
+        private static readonly Range<RoundedDouble> deviationWaveDirectionValidityRage = new Range<RoundedDouble>(new RoundedDouble(deviationWaveDirectionNumberOfDecimals, -360),
+                                                                                                                   new RoundedDouble(deviationWaveDirectionNumberOfDecimals, 360));
+
         private readonly NormalDistribution levelCrestStructure;
         private RoundedDouble deviationWaveDirection;
 
@@ -41,7 +46,7 @@ namespace Ringtoets.HeightStructures.Data
         public HeightStructuresInput()
         {
             levelCrestStructure = new NormalDistribution(2);
-            deviationWaveDirection = new RoundedDouble(2);
+            deviationWaveDirection = new RoundedDouble(deviationWaveDirectionNumberOfDecimals);
 
             SetDefaultSchematizationProperties();
         }
@@ -61,9 +66,10 @@ namespace Ringtoets.HeightStructures.Data
             set
             {
                 RoundedDouble newDeviationWaveDirection = value.ToPrecision(deviationWaveDirection.NumberOfDecimalPlaces);
-                if (!double.IsNaN(newDeviationWaveDirection) && (Math.Abs(newDeviationWaveDirection) > 360))
+                if (!double.IsNaN(newDeviationWaveDirection) && !deviationWaveDirectionValidityRage.InRange(newDeviationWaveDirection))
                 {
-                    throw new ArgumentOutOfRangeException(nameof(value), RingtoetsCommonDataResources.DeviationWaveDirection_Value_needs_to_be_between_negative_360_and_positive_360);
+                    throw new ArgumentOutOfRangeException(nameof(value), string.Format(RingtoetsCommonDataResources.DeviationWaveDirection_Value_needs_to_be_in_Range_0_,
+                                                                                       deviationWaveDirectionValidityRage));
                 }
                 deviationWaveDirection = newDeviationWaveDirection;
             }
