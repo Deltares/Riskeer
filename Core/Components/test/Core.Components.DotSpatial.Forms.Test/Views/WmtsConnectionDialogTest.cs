@@ -94,10 +94,10 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
                 Assert.AreEqual("Nieuwe WMTS locatie toevoegen", dialog.Text);
 
                 var nameLabel = new LabelTester("nameLabel", dialog);
-                Assert.AreEqual("Omschrijving", nameLabel.Text);
+                Assert.AreEqual("Omschrijving:", nameLabel.Text);
 
                 var urlLabel = new LabelTester("urlLabel", dialog);
-                Assert.AreEqual("URL", urlLabel.Text);
+                Assert.AreEqual("URL:", urlLabel.Text);
 
                 var actionButton = (Button) new ButtonTester("actionButton", dialog).TheObject;
                 Assert.AreEqual("Toevoegen", actionButton.Text);
@@ -138,10 +138,10 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
                 Assert.AreEqual("WMTS locatie aanpassen", dialog.Text);
 
                 var nameLabel = new LabelTester("nameLabel", dialog);
-                Assert.AreEqual("Omschrijving", nameLabel.Text);
+                Assert.AreEqual("Omschrijving:", nameLabel.Text);
 
                 var urlLabel = new LabelTester("urlLabel", dialog);
-                Assert.AreEqual("URL", urlLabel.Text);
+                Assert.AreEqual("URL:", urlLabel.Text);
 
                 var actionButton = (Button) new ButtonTester("actionButton", dialog).TheObject;
                 Assert.AreEqual("Bewerken", actionButton.Text);
@@ -177,7 +177,7 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
                 dialog.ShowDialog();
 
                 // Assert
-                Assert.AreEqual(250, dialog.MinimumSize.Width);
+                Assert.AreEqual(400, dialog.MinimumSize.Width);
                 Assert.AreEqual(150, dialog.MinimumSize.Height);
             }
         }
