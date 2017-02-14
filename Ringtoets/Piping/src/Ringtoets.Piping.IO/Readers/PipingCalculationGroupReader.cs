@@ -42,16 +42,22 @@ namespace Ringtoets.Piping.IO.Readers
         /// <summary>
         /// Creates a new instance of <see cref="PipingCalculationGroupReader"/>.
         /// </summary>
-        /// <param name="filePath">The file path to the XML file.</param>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>
-        /// <exception cref="CriticalFileReadException">Thrown when <paramref name="filePath"/> points to a file that does not exist.</exception>
-        public PipingCalculationGroupReader(string filePath)
+        /// <param name="xmlFilePath">The file path to the XML file.</param>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="xmlFilePath"/> is invalid.</exception>
+        /// <exception cref="CriticalFileReadException">Thrown when:
+        /// <list type="bullet">
+        /// <item><paramref name="xmlFilePath"/> points to a file that does not exist.</item>
+        /// <item><paramref name="xmlFilePath"/> points to a file that does not contain valid XML.</item>
+        /// <item><paramref name="xmlFilePath"/> points to a file that does not pass the schema validation.</item>
+        /// </list>
+        /// </exception>
+        public PipingCalculationGroupReader(string xmlFilePath)
         {
-            IOUtils.ValidateFilePath(filePath);
-            if (!File.Exists(filePath))
+            IOUtils.ValidateFilePath(xmlFilePath);
+
+            if (!File.Exists(xmlFilePath))
             {
-                string message = new FileReaderErrorMessageBuilder(filePath)
-                    .Build(CoreCommonUtilsResources.Error_File_does_not_exist);
+                string message = new FileReaderErrorMessageBuilder(xmlFilePath).Build(CoreCommonUtilsResources.Error_File_does_not_exist);
                 throw new CriticalFileReadException(message);
             }
         }
@@ -60,10 +66,28 @@ namespace Ringtoets.Piping.IO.Readers
         /// Reads a piping configuration from XML and creates a collection of corresponding <see cref="IReadPipingCalculationItem"/>.
         /// </summary>
         /// <returns>A collection of read <see cref="IReadPipingCalculationItem"/>.</returns>
-        /// <exception cref="PipingConfigurationConversionException">Thrown when the schema validation failed.</exception>
         public IEnumerable<IReadPipingCalculationItem> Read()
         {
             return Enumerable.Empty<IReadPipingCalculationItem>();
+        }
+
+        /// <summary>
+        /// Validates the provided XML document based on a predefined XML Schema Definition (XSD).
+        /// </summary>
+        /// <param name="document">The XML document to validate.</param>
+        /// <exception cref="CriticalFileReadException">Thrown when the provided XML document does not match the predefined XML Schema Definition (XSD).</exception>
+        private void ValidateToSchema(XDocument document)
+        {
+            XmlSchemaSet schema = LoadXmlSchema();
+
+            try
+            {
+                document.Validate(schema, null);
+            }
+            catch (XmlSchemaValidationException e)
+            {
+                throw new CriticalFileReadException(Resources.PipingCalculationGroupReader_Configuration_contains_no_valid_xml, e);
+            }
         }
 
         private XmlSchemaSet LoadXmlSchema()
@@ -75,20 +99,6 @@ namespace Ringtoets.Piping.IO.Readers
             xmlSchema.Add(XmlSchema.Read(schemaFile, null));
 
             return xmlSchema;
-        }
-
-        private void ValidateToSchema(XDocument document)
-        {
-            XmlSchemaSet schema = LoadXmlSchema();
-
-            try
-            {
-                document.Validate(schema, null);
-            }
-            catch (XmlSchemaValidationException e)
-            {
-                throw new PipingConfigurationConversionException(Resources.PipingCalculationGroupReader_Configuration_contains_no_valid_xml, e);
-            }
         }
     }
 }
