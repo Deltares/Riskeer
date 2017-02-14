@@ -21,7 +21,10 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using Core.Common.Base;
+using Core.Common.Base.Data;
 using Core.Common.Utils.Extensions;
 using Ringtoets.Common.IO.Properties;
 
@@ -214,6 +217,10 @@ namespace Ringtoets.Common.IO.Structures
                 }
             };
 
+        private static readonly Range<double> meanValidityRange = new Range<double>(0, 1);
+
+        private static readonly Range<double> orientationValidityRange = new Range<double>(0, 360);
+
         /// <summary>
         /// Validates a collection of <see cref="StructuresParameterRow"/> for a height structure.
         /// </summary>
@@ -348,10 +355,11 @@ namespace Ringtoets.Common.IO.Structures
             var messages = new List<string>();
 
             double mean = row.NumericalValue;
-            if (double.IsNaN(mean) || double.IsInfinity(mean) || mean < 0 || mean > 1)
+            if (!meanValidityRange.InRange(mean))
             {
-                messages.Add(string.Format(Resources.StructuresParameterRowsValidator_ProbabilityRule_ParameterId_0_Line_1_ColumnName_2_probability_out_of_range,
-                                           row.ParameterId, row.LineNumber, StructureFilesKeywords.NumericalValueColumnName.FirstToUpper()));
+                messages.Add(string.Format(Resources.StructuresParameterRowsValidator_ProbabilityRule_ParameterId_0_Line_1_ColumnName_2_probability_out_of_Range_3_,
+                                           row.ParameterId, row.LineNumber, StructureFilesKeywords.NumericalValueColumnName.FirstToUpper(),
+                                           meanValidityRange.ToString(FormattableConstants.ShowAtLeastOneDecimal, CultureInfo.CurrentCulture)));
             }
 
             return messages;
@@ -433,10 +441,11 @@ namespace Ringtoets.Common.IO.Structures
             var messages = new List<string>();
 
             double orientation = row.NumericalValue;
-            if (!(orientation >= 0 && orientation <= 360))
+            if (!orientationValidityRange.InRange(orientation))
             {
-                messages.Add(string.Format(Resources.StructuresParameterRowsValidator_ParameterId_0_Line_1_ColumnName_2_orientation_out_of_range,
-                                           row.ParameterId, row.LineNumber, StructureFilesKeywords.NumericalValueColumnName.FirstToUpper()));
+                messages.Add(string.Format(Resources.StructuresParameterRowsValidator_ParameterId_0_Line_1_ColumnName_2_orientation_out_of_Range_3_,
+                                           row.ParameterId, row.LineNumber, StructureFilesKeywords.NumericalValueColumnName.FirstToUpper(),
+                                           orientationValidityRange.ToString(FormattableConstants.ShowAtLeastOneDecimal, CultureInfo.CurrentCulture)));
             }
 
             return messages;

@@ -117,8 +117,8 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ImageBasedMapData_Transparency_Value_must_be_in_zero_to_one_range" xml:space="preserve">
-    <value>De transparantie moet in het bereik [0.0, 1.0] liggen.</value>
+  <data name="ImageBasedMapData_Transparency_Value_must_be_in_Range_0_" xml:space="preserve">
+    <value>De transparantie moet in het bereik {0} liggen.</value>
   </data>
   <data name="WmtsMapData_Unconfigured_name" xml:space="preserve">
     <value>&lt;niet bepaald&gt;</value>

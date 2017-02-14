@@ -20,8 +20,10 @@
 // All rights reserved.
 
 using System;
+using System.Globalization;
 using System.IO;
-using System.Linq;
+using Core.Common.Base;
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
@@ -333,13 +335,13 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
         }
 
         [Test]
+        [SetCulture("nl-NL")]
         [TestCase("faulty_richtingTooBig.prfl", 360.5)]
         [TestCase("faulty_richtingTooSmall.prfl", -12.36)]
         public void ReadDikeProfileData_FileWithOrientationOutOfRange_ThrowCriticalFileReadException(
             string faultyFileName, double expectedOrientationInFile)
         {
-            string expectedMessage = string.Format("de oriëntatie ('{0}') moet in het bereik [0, 360] liggen.",
-                                                   expectedOrientationInFile);
+            string expectedMessage = $"de oriëntatie ('{expectedOrientationInFile}') moet in het bereik [0,0, 360,0] liggen.";
             ReadFileAndExpectCriticalFileReadException("profiel001", faultyFileName, 4, expectedMessage);
         }
 
@@ -380,7 +382,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
             string faultyFileName, double expectedFaultyRoughness, int expectedLineNumber)
         {
             ReadDikeProfileData_FileWithRoughnessOutOfRange_ThrowsCriticalFileReadException("profiel001",
-                                                                                            faultyFileName, expectedFaultyRoughness, expectedLineNumber, "0,5");
+                                                                                            faultyFileName, expectedFaultyRoughness, expectedLineNumber);
         }
 
         [Test]
@@ -391,7 +393,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
             string faultyFileName, double expectedFaultyRoughness, int expectedLineNumber)
         {
             ReadDikeProfileData_FileWithRoughnessOutOfRange_ThrowsCriticalFileReadException("profiel001",
-                                                                                            faultyFileName, expectedFaultyRoughness, expectedLineNumber, "0.5");
+                                                                                            faultyFileName, expectedFaultyRoughness, expectedLineNumber);
         }
 
         [Test]
@@ -777,10 +779,10 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
         }
 
         private void ReadDikeProfileData_FileWithRoughnessOutOfRange_ThrowsCriticalFileReadException(string acceptedId,
-                                                                                                     string faultyFileName, double expectedFaultyRoughness, int expectedLineNumber, string expectedLowerLimitText)
+                                                                                                     string faultyFileName, double expectedFaultyRoughness, int expectedLineNumber)
         {
-            string expectedMessage = string.Format("de ingelezen ruwheid ('{0}') moet in het bereik [{1}, 1] liggen.",
-                                                   expectedFaultyRoughness, expectedLowerLimitText);
+            var range = new Range<double>(0.5, 1.0);
+            string expectedMessage = $"de ingelezen ruwheid ('{expectedFaultyRoughness}') moet in het bereik {range.ToString(FormattableConstants.ShowAtLeastOneDecimal, CultureInfo.CurrentCulture)} liggen.";
             ReadFileAndExpectCriticalFileReadException(acceptedId, faultyFileName, expectedLineNumber, expectedMessage);
         }
     }

@@ -80,6 +80,7 @@ namespace Ringtoets.Common.Data.Test
         }
 
         [Test]
+        [SetCulture("nl-NL")]
         [TestCase(-123.56)]
         [TestCase(0.0 - 1e-2)]
         [TestCase(1.0 + 1e-2)]
@@ -94,7 +95,7 @@ namespace Ringtoets.Common.Data.Test
             TestDelegate call = () => container.Transparency = (RoundedDouble) invalidTransparency;
 
             // Assert
-            var message = "De transparantie moet in het bereik [0.0, 1.0] liggen.";
+            var message = "De transparantie moet in het bereik [0,00, 1,00] liggen.";
             string paramName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, message).ParamName;
             Assert.AreEqual("value", paramName);
         }

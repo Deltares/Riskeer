@@ -30,6 +30,11 @@ namespace Core.Components.Gis.Data
     /// </summary>
     public abstract class ImageBasedMapData : MapData
     {
+        private const int transparencyNumberOfDecimals = 2;
+
+        private static readonly Range<RoundedDouble> transparencyValidityRange = new Range<RoundedDouble>(new RoundedDouble(transparencyNumberOfDecimals),
+                                                                                                          new RoundedDouble(transparencyNumberOfDecimals, 1));
+
         private RoundedDouble transparency;
 
         /// <summary>
@@ -39,7 +44,7 @@ namespace Core.Components.Gis.Data
         /// <exception cref="ArgumentException">Thrown when <paramref name="name"/> is <c>null</c> or only whitespace.</exception>
         protected ImageBasedMapData(string name) : base(name)
         {
-            transparency = new RoundedDouble(2);
+            transparency = new RoundedDouble(transparencyNumberOfDecimals);
         }
 
         /// <summary>
@@ -56,10 +61,11 @@ namespace Core.Components.Gis.Data
             set
             {
                 var newValue = new RoundedDouble(transparency.NumberOfDecimalPlaces, value);
-                if (double.IsNaN(newValue) || newValue < 0.0 || newValue > 1.0)
+                if (!transparencyValidityRange.InRange(newValue))
                 {
                     throw new ArgumentOutOfRangeException(nameof(value),
-                                                          Resources.ImageBasedMapData_Transparency_Value_must_be_in_zero_to_one_range);
+                                                          string.Format(Resources.ImageBasedMapData_Transparency_Value_must_be_in_Range_0_,
+                                                                        transparencyValidityRange));
                 }
 
                 transparency = newValue;

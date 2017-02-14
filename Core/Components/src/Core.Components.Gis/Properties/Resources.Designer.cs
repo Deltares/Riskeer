@@ -127,11 +127,11 @@ namespace Core.Components.Gis.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De transparantie moet in het bereik [0.0, 1.0] liggen..
+        ///   Looks up a localized string similar to De transparantie moet in het bereik {0} liggen..
         /// </summary>
-        internal static string ImageBasedMapData_Transparency_Value_must_be_in_zero_to_one_range {
+        internal static string ImageBasedMapData_Transparency_Value_must_be_in_Range_0_ {
             get {
-                return ResourceManager.GetString("ImageBasedMapData_Transparency_Value_must_be_in_zero_to_one_range", resourceCulture);
+                return ResourceManager.GetString("ImageBasedMapData_Transparency_Value_must_be_in_Range_0_", resourceCulture);
             }
         }
         

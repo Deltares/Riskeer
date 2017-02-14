@@ -234,8 +234,8 @@ Er is geen referentielijn geëxporteerd.</value>
   <data name="DikeProfileDataReader_ReadRoughnessPoint_Line_0_not_x_y_roughness_definition" xml:space="preserve">
     <value>De ingelezen regel ('{0}') is geen 'X Y ruwheid' definitie.</value>
   </data>
-  <data name="DikeProfileDataReader_ReadRoughnessPoint_Roughness_0_must_be_in_range_LowerLimit_1_" xml:space="preserve">
-    <value>De ingelezen ruwheid ('{0}') moet in het bereik [{1}, 1] liggen.</value>
+  <data name="DikeProfileDataReader_ReadRoughnessPoint_Roughness_0_must_be_Range_1_" xml:space="preserve">
+    <value>De ingelezen ruwheid ('{0}') moet in het bereik {1} liggen.</value>
   </data>
   <data name="DikeProfileDataReader_ReadRoughnessPoint_Roughness_DisplayName" xml:space="preserve">
     <value>ruwheid</value>
@@ -270,8 +270,8 @@ Er is geen referentielijn geëxporteerd.</value>
   <data name="DikeProfileDataReader_ValidateNoPriorParameterDefinition_Parameter_0_already_defined" xml:space="preserve">
     <value>De parameter {0} is al eerder in het bestand gedefinieerd.</value>
   </data>
-  <data name="DikeProfileDataReader_ValidateOrientation_Orientation_0_must_be_in_range" xml:space="preserve">
-    <value>De oriëntatie ('{0}') moet in het bereik [0, 360] liggen.</value>
+  <data name="DikeProfileDataReader_ValidateOrientation_Orientation_0_must_be_in_Range_1_" xml:space="preserve">
+    <value>De oriëntatie ('{0}') moet in het bereik {1} liggen.</value>
   </data>
   <data name="DikeProfileDataReader_ValidateVersion_Only_version_four_zero_supported" xml:space="preserve">
     <value>Enkel bestanden van versie '4.0' worden ondersteund.</value>
@@ -439,11 +439,11 @@ Er is geen vakindeling geïmporteerd.</value>
   <data name="StructuresImporter_GetCoefficientOfVariation_Converting_variation_StructureName_0_StructureId_1_ParameterId_2_on_Line_3_" xml:space="preserve">
     <value>De variatie voor parameter '{2}' van kunstwerk '{0}' ({1}) wordt omgerekend in een variatiecoëfficiënt (regel {3}).</value>
   </data>
-  <data name="StructuresParameterRowsValidator_ParameterId_0_Line_1_ColumnName_2_orientation_out_of_range" xml:space="preserve">
-    <value>De waarde voor parameter '{0}' op regel {1}, kolom '{2}', moet in het bereik [0, 360] liggen.</value>
+  <data name="StructuresParameterRowsValidator_ParameterId_0_Line_1_ColumnName_2_orientation_out_of_Range_3_" xml:space="preserve">
+    <value>De waarde voor parameter '{0}' op regel {1}, kolom '{2}', moet in het bereik {3} liggen.</value>
   </data>
-  <data name="StructuresParameterRowsValidator_ProbabilityRule_ParameterId_0_Line_1_ColumnName_2_probability_out_of_range" xml:space="preserve">
-    <value>De waarde voor parameter '{0}' op regel {1}, kolom '{2}', moet in het bereik [0, 1] liggen.</value>
+  <data name="StructuresParameterRowsValidator_ProbabilityRule_ParameterId_0_Line_1_ColumnName_2_probability_out_of_Range_3_" xml:space="preserve">
+    <value>De waarde voor parameter '{0}' op regel {1}, kolom '{2}', moet in het bereik {3} liggen.</value>
   </data>
   <data name="StructuresParameterRowsValidator_ParameterId_0_Line_1_ColumnName_2_value_must_be_positive_whole_number" xml:space="preserve">
     <value>De waarde voor parameter '{0}' op regel {1}, kolom '{2}', moet een positief geheel getal zijn.</value>

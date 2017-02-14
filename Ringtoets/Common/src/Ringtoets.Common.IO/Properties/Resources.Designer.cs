@@ -247,12 +247,11 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De ingelezen ruwheid (&apos;{0}&apos;) moet in het bereik [{1}, 1] liggen..
+        ///   Looks up a localized string similar to De ingelezen ruwheid (&apos;{0}&apos;) moet in het bereik {1} liggen..
         /// </summary>
-        public static string DikeProfileDataReader_ReadRoughnessPoint_Roughness_0_must_be_in_range_LowerLimit_1_ {
+        public static string DikeProfileDataReader_ReadRoughnessPoint_Roughness_0_must_be_Range_1_ {
             get {
-                return ResourceManager.GetString("DikeProfileDataReader_ReadRoughnessPoint_Roughness_0_must_be_in_range_LowerLimit_" +
-                        "1_", resourceCulture);
+                return ResourceManager.GetString("DikeProfileDataReader_ReadRoughnessPoint_Roughness_0_must_be_Range_1_", resourceCulture);
             }
         }
         
@@ -360,11 +359,11 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De oriëntatie (&apos;{0}&apos;) moet in het bereik [0, 360] liggen..
+        ///   Looks up a localized string similar to De oriëntatie (&apos;{0}&apos;) moet in het bereik {1} liggen..
         /// </summary>
-        public static string DikeProfileDataReader_ValidateOrientation_Orientation_0_must_be_in_range {
+        public static string DikeProfileDataReader_ValidateOrientation_Orientation_0_must_be_in_Range_1_ {
             get {
-                return ResourceManager.GetString("DikeProfileDataReader_ValidateOrientation_Orientation_0_must_be_in_range", resourceCulture);
+                return ResourceManager.GetString("DikeProfileDataReader_ValidateOrientation_Orientation_0_must_be_in_Range_1_", resourceCulture);
             }
         }
         
@@ -1251,12 +1250,12 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De waarde voor parameter &apos;{0}&apos; op regel {1}, kolom &apos;{2}&apos;, moet in het bereik [0, 360] liggen..
+        ///   Looks up a localized string similar to De waarde voor parameter &apos;{0}&apos; op regel {1}, kolom &apos;{2}&apos;, moet in het bereik {3} liggen..
         /// </summary>
-        public static string StructuresParameterRowsValidator_ParameterId_0_Line_1_ColumnName_2_orientation_out_of_range {
+        public static string StructuresParameterRowsValidator_ParameterId_0_Line_1_ColumnName_2_orientation_out_of_Range_3_ {
             get {
                 return ResourceManager.GetString("StructuresParameterRowsValidator_ParameterId_0_Line_1_ColumnName_2_orientation_ou" +
-                        "t_of_range", resourceCulture);
+                        "t_of_Range_3_", resourceCulture);
             }
         }
         
@@ -1281,12 +1280,12 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De waarde voor parameter &apos;{0}&apos; op regel {1}, kolom &apos;{2}&apos;, moet in het bereik [0, 1] liggen..
+        ///   Looks up a localized string similar to De waarde voor parameter &apos;{0}&apos; op regel {1}, kolom &apos;{2}&apos;, moet in het bereik {3} liggen..
         /// </summary>
-        public static string StructuresParameterRowsValidator_ProbabilityRule_ParameterId_0_Line_1_ColumnName_2_probability_out_of_range {
+        public static string StructuresParameterRowsValidator_ProbabilityRule_ParameterId_0_Line_1_ColumnName_2_probability_out_of_Range_3_ {
             get {
                 return ResourceManager.GetString("StructuresParameterRowsValidator_ProbabilityRule_ParameterId_0_Line_1_ColumnName_" +
-                        "2_probability_out_of_range", resourceCulture);
+                        "2_probability_out_of_Range_3_", resourceCulture);
             }
         }
         

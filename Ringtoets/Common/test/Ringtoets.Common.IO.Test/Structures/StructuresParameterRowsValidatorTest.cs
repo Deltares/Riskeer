@@ -76,6 +76,7 @@ namespace Ringtoets.Common.IO.Test.Structures
         }
 
         [Test]
+        [SetCulture("nl-NL")]
         public void ValidateHeightStructuresParameters_ParametersAllInvalid_ValidIsFalseAndErrorMessages()
         {
             // Setup
@@ -147,7 +148,7 @@ namespace Ringtoets.Common.IO.Test.Structures
             Assert.IsFalse(validationResult.IsValid);
             List<string> expectedErrorMessages = new List<string>
             {
-                "De waarde voor parameter 'KW_HOOGTE1' op regel 1, kolom 'Numeriekewaarde', moet in het bereik [0, 360] liggen.",
+                "De waarde voor parameter 'KW_HOOGTE1' op regel 1, kolom 'Numeriekewaarde', moet in het bereik [0,0, 360,0] liggen.",
                 "De waarde voor parameter 'KW_HOOGTE2' op regel 2, kolom 'Numeriekewaarde', is geen getal.",
                 "De waarde voor parameter 'KW_HOOGTE2' op regel 2, kolom 'Boolean', moet '0' (variatiecoëfficiënt) of '1' (standaardafwijking) zijn.",
                 "De waarde voor parameter 'KW_HOOGTE2' op regel 2, kolom 'Standaardafwijking.variatie', moet een positief getal zijn.",
@@ -159,7 +160,7 @@ namespace Ringtoets.Common.IO.Test.Structures
                 "De waarde voor parameter 'KW_HOOGTE4' op regel 4, kolom 'Standaardafwijking.variatie', moet een positief getal zijn.",
                 "De waarde voor parameter 'KW_HOOGTE5' op regel 5, kolom 'Numeriekewaarde', is geen getal.",
                 "De waarde voor parameter 'KW_HOOGTE5' op regel 5, kolom 'Boolean', moet '0' (variatiecoëfficiënt) of '1' (standaardafwijking) zijn.",
-                "De waarde voor parameter 'KW_HOOGTE6' op regel 6, kolom 'Numeriekewaarde', moet in het bereik [0, 1] liggen.",
+                "De waarde voor parameter 'KW_HOOGTE6' op regel 6, kolom 'Numeriekewaarde', moet in het bereik [0,0, 1,0] liggen.",
                 "De waarde voor parameter 'KW_HOOGTE7' op regel 7, kolom 'Numeriekewaarde', is te dicht op 0 waardoor een betrouwbare conversie tussen standaardafwijking en variatiecoëfficiënt niet mogelijk is.",
                 "De waarde voor parameter 'KW_HOOGTE8' op regel 8, kolom 'Numeriekewaarde', is te dicht op 0 waardoor een betrouwbare conversie tussen standaardafwijking en variatiecoëfficiënt niet mogelijk is."
             };
@@ -298,6 +299,7 @@ namespace Ringtoets.Common.IO.Test.Structures
         }
 
         [Test]
+        [SetCulture("nl-NL")]
         public void ValidateClosingStructuresParameters_ParametersAllInvalid_ValidIsFalseAndErrorMessages()
         {
             // Setup
@@ -419,7 +421,7 @@ namespace Ringtoets.Common.IO.Test.Structures
             {
                 "De waarde voor parameter 'KW_BETSLUIT1' op regel 1, kolom 'Numeriekewaarde', is te dicht op 0 waardoor een betrouwbare conversie tussen standaardafwijking en variatiecoëfficiënt niet mogelijk is.",
                 "De waarde voor parameter 'KW_BETSLUIT2' op regel 2, kolom 'Numeriekewaarde', moet een getal zijn groter dan 0.",
-                "De waarde voor parameter 'KW_BETSLUIT3' op regel 3, kolom 'Numeriekewaarde', moet in het bereik [0, 360] liggen.",
+                "De waarde voor parameter 'KW_BETSLUIT3' op regel 3, kolom 'Numeriekewaarde', moet in het bereik [0,0, 360,0] liggen.",
                 "De waarde voor parameter 'KW_BETSLUIT5' op regel 5, kolom 'Numeriekewaarde', is geen getal.",
                 "De waarde voor parameter 'KW_BETSLUIT5' op regel 5, kolom 'Boolean', moet '0' (variatiecoëfficiënt) of '1' (standaardafwijking) zijn.",
                 "De waarde voor parameter 'KW_BETSLUIT6' op regel 6, kolom 'Numeriekewaarde', is geen getal.",
@@ -436,9 +438,9 @@ namespace Ringtoets.Common.IO.Test.Structures
                 "De waarde voor parameter 'KW_BETSLUIT10' op regel 10, kolom 'Boolean', moet '0' (variatiecoëfficiënt) of '1' (standaardafwijking) zijn.",
                 "De waarde voor parameter 'KW_BETSLUIT10' op regel 10, kolom 'Standaardafwijking.variatie', moet een positief getal zijn.",
                 "De waarde voor parameter 'KW_BETSLUIT11' op regel 11, kolom 'Numeriekewaarde', moet een positief getal zijn.",
-                "De waarde voor parameter 'KW_BETSLUIT12' op regel 12, kolom 'Numeriekewaarde', moet in het bereik [0, 1] liggen.",
+                "De waarde voor parameter 'KW_BETSLUIT12' op regel 12, kolom 'Numeriekewaarde', moet in het bereik [0,0, 1,0] liggen.",
                 "De waarde voor parameter 'KW_BETSLUIT13' op regel 13, kolom 'Numeriekewaarde', moet een positief geheel getal zijn.",
-                "De waarde voor parameter 'KW_BETSLUIT14' op regel 14, kolom 'Numeriekewaarde', moet in het bereik [0, 1] liggen.",
+                "De waarde voor parameter 'KW_BETSLUIT14' op regel 14, kolom 'Numeriekewaarde', moet in het bereik [0,0, 1,0] liggen.",
                 "De waarde voor parameter 'KW_BETSLUIT15' op regel 15, kolom 'Alfanumeriekewaarde', moet een geldig kunstwerk type zijn."
             };
             CollectionAssert.AreEqual(expectedErrorMessages, validationResult.ErrorMessages);
@@ -761,6 +763,7 @@ namespace Ringtoets.Common.IO.Test.Structures
         }
 
         [Test]
+        [SetCulture("nl-NL")]
         public void ValidateStabilityPointStructuresParameters_ParametersAllInvalid_ValidIsFalseAndErrorMessages()
         {
             // Setup
@@ -964,7 +967,7 @@ namespace Ringtoets.Common.IO.Test.Structures
             Assert.IsFalse(validationResult.IsValid);
             List<string> expectedErrorMessages = new List<string>
             {
-                "De waarde voor parameter 'KW_STERSTAB1' op regel 1, kolom 'Numeriekewaarde', moet in het bereik [0, 360] liggen.",
+                "De waarde voor parameter 'KW_STERSTAB1' op regel 1, kolom 'Numeriekewaarde', moet in het bereik [0,0, 360,0] liggen.",
                 "De waarde voor parameter 'KW_STERSTAB2' op regel 2, kolom 'Numeriekewaarde', is te dicht op 0 waardoor een betrouwbare conversie tussen standaardafwijking en variatiecoëfficiënt niet mogelijk is.",
                 "De waarde voor parameter 'KW_STERSTAB3' op regel 3, kolom 'Numeriekewaarde', moet een getal zijn groter dan 0.",
                 "De waarde voor parameter 'KW_STERSTAB3' op regel 3, kolom 'Boolean', moet '0' (variatiecoëfficiënt) of '1' (standaardafwijking) zijn.",
@@ -987,12 +990,12 @@ namespace Ringtoets.Common.IO.Test.Structures
                 "De waarde voor parameter 'KW_STERSTAB14' op regel 14, kolom 'Numeriekewaarde', is geen getal.",
                 "De waarde voor parameter 'KW_STERSTAB14' op regel 14, kolom 'Boolean', moet '0' (variatiecoëfficiënt) of '1' (standaardafwijking) zijn.",
                 "De waarde voor parameter 'KW_STERSTAB15' op regel 15, kolom 'Numeriekewaarde', moet een positief getal zijn.",
-                "De waarde voor parameter 'KW_STERSTAB16' op regel 16, kolom 'Numeriekewaarde', moet in het bereik [0, 1] liggen.",
+                "De waarde voor parameter 'KW_STERSTAB16' op regel 16, kolom 'Numeriekewaarde', moet in het bereik [0,0, 1,0] liggen.",
                 "De waarde voor parameter 'KW_STERSTAB17' op regel 17, kolom 'Numeriekewaarde', moet een getal zijn groter dan 0.",
                 "De waarde voor parameter 'KW_STERSTAB17' op regel 17, kolom 'Boolean', moet '0' (variatiecoëfficiënt) of '1' (standaardafwijking) zijn.",
                 "De waarde voor parameter 'KW_STERSTAB17' op regel 17, kolom 'Standaardafwijking.variatie', moet een positief getal zijn.",
                 "De waarde voor parameter 'KW_STERSTAB20' op regel 20, kolom 'Numeriekewaarde', moet een positief getal zijn.",
-                "De waarde voor parameter 'KW_STERSTAB21' op regel 21, kolom 'Numeriekewaarde', moet in het bereik [0, 1] liggen.",
+                "De waarde voor parameter 'KW_STERSTAB21' op regel 21, kolom 'Numeriekewaarde', moet in het bereik [0,0, 1,0] liggen.",
                 "De waarde voor parameter 'KW_STERSTAB22' op regel 22, kolom 'Numeriekewaarde', is geen getal.",
                 "De waarde voor parameter 'KW_STERSTAB23' op regel 23, kolom 'Numeriekewaarde', is te dicht op 0 waardoor een betrouwbare conversie tussen standaardafwijking en variatiecoëfficiënt niet mogelijk is.",
                 "De waarde voor parameter 'KW_STERSTAB24' op regel 24, kolom 'Numeriekewaarde', is te dicht op 0 waardoor een betrouwbare conversie tussen standaardafwijking en variatiecoëfficiënt niet mogelijk is.",

@@ -20,11 +20,12 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
+using Core.Common.Base;
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.IO.Exceptions;
 using Core.Common.Utils;
@@ -57,6 +58,9 @@ namespace Ringtoets.Common.IO.DikeProfiles
             DIJK = 256,
             MEMO = 512,
         }
+
+        private static readonly Range<double> orientationValidityRange = new Range<double>(0, 360);
+        private static readonly Range<double> roughnessValidityRange = new Range<double>(0.5, 1.0);
 
         private readonly string[] acceptedIds;
 
@@ -383,10 +387,11 @@ namespace Ringtoets.Common.IO.DikeProfiles
         /// is outside the [0, 360] range.</exception>
         private void ValidateOrientation(double orientation, int lineNumber)
         {
-            if (orientation < 0.0 || orientation > 360.0)
+            if (!orientationValidityRange.InRange(orientation))
             {
-                string message = string.Format(Resources.DikeProfileDataReader_ValidateOrientation_Orientation_0_must_be_in_range,
-                                               orientation);
+                string rangeText = orientationValidityRange.ToString(FormattableConstants.ShowAtLeastOneDecimal, CultureInfo.CurrentCulture);
+                string message = string.Format(Resources.DikeProfileDataReader_ValidateOrientation_Orientation_0_must_be_in_Range_1_,
+                                               orientation, rangeText);
                 throw CreateCriticalFileReadException(lineNumber, message);
             }
         }
@@ -822,10 +827,11 @@ namespace Ringtoets.Common.IO.DikeProfiles
         /// is outside the range [0.5, 1].</exception>
         private void ValidateRoughness(double roughness, int lineNumber)
         {
-            if (roughness < 0.5 || roughness > 1.0)
+            if (!roughnessValidityRange.InRange(roughness))
             {
-                string message = string.Format(Resources.DikeProfileDataReader_ReadRoughnessPoint_Roughness_0_must_be_in_range_LowerLimit_1_,
-                                               roughness, 0.5);
+                string rangeText = roughnessValidityRange.ToString(FormattableConstants.ShowAtLeastOneDecimal, CultureInfo.CurrentCulture);
+                string message = string.Format(Resources.DikeProfileDataReader_ReadRoughnessPoint_Roughness_0_must_be_Range_1_,
+                                               roughness, rangeText);
                 throw CreateCriticalFileReadException(lineNumber, message);
             }
         }
