@@ -22,18 +22,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
-using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
-using Core.Common.Base.Service;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms;
 using Core.Common.Gui.Forms.ProgressDialog;
 using Core.Common.Gui.Plugin;
-using Core.Common.Gui.Properties;
 using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
@@ -106,7 +103,7 @@ namespace Ringtoets.Piping.Plugin
                 Image = PipingFormsResources.PipingSurfaceLineIcon,
                 FileFilter = RingtoetsPipingSurfaceLineFileFilter,
                 IsEnabled = IsSurfaceLineImporterEnabled,
-                CreateFileImporter = (context, filePath) => PipingSurfaceLinesCsvImporter(context, filePath, new RingtoetsPipingSurfaceLineReplaceDataStrategy())
+                CreateFileImporter = (context, filePath) => PipingSurfaceLinesCsvImporter(context, filePath, new RingtoetsPipingSurfaceLineReplaceDataStrategy(context.FailureMechanism))
             };
 
             yield return new ImportInfo<StochasticSoilModelCollectionContext>

@@ -110,7 +110,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var referenceLine = new ReferenceLine();
 
             // Call
-            var importer = new PipingSurfaceLinesCsvImporter(collection, referenceLine, "", new RingtoetsPipingSurfaceLineReplaceDataStrategy());
+            var importer = new PipingSurfaceLinesCsvImporter(collection, referenceLine, "", new TestSurfaceLineUpdateStrategy());
 
             // Assert
             Assert.IsInstanceOf<FileImporterBase<ObservableCollectionWithSourcePath<RingtoetsPipingSurfaceLine>>>(importer);

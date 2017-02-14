@@ -189,7 +189,7 @@ namespace Ringtoets.Integration.TestUtils
                 var activity = new FileImportActivity(new PipingSurfaceLinesCsvImporter(assessmentSection.PipingFailureMechanism.SurfaceLines,
                                                                                         assessmentSection.ReferenceLine,
                                                                                         filePath,
-                                                                                        new RingtoetsPipingSurfaceLineReplaceDataStrategy()),
+                                                                                        new RingtoetsPipingSurfaceLineReplaceDataStrategy(assessmentSection.PipingFailureMechanism)),
                                                       "PipingSurfaceLinesCsvImporter");
                 activity.Run();
                 activity.Finish();

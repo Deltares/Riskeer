@@ -23,7 +23,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
+using Core.Common.Base.Geometry;
 using NUnit.Framework;
+using Ringtoets.Piping.Data;
 using Ringtoets.Piping.IO.Importers;
 using Ringtoets.Piping.Plugin.FileImporter;
 using Ringtoets.Piping.Primitives;
@@ -34,10 +36,21 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
     public class RingtoetsPipingSurfaceLineReplaceDataStrategyTest
     {
         [Test]
+        public void Constructure_NullArgument_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => new RingtoetsPipingSurfaceLineReplaceDataStrategy(null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("failureMechanism", paramName);
+        }
+
+        [Test]
         public void Constructor_CreatesNewInstance()
         {
             // Call
-            var strategy = new RingtoetsPipingSurfaceLineReplaceDataStrategy();
+            var strategy = new RingtoetsPipingSurfaceLineReplaceDataStrategy(new PipingFailureMechanism());
 
             // Assert
             Assert.IsInstanceOf<ISurfaceLineUpdateSurfaceLineStrategy>(strategy);
@@ -47,7 +60,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         public void Constructor_TargetCollectionNull_ThrowsArgumentNullException()
         {
             // Setup
-            var strategy = new RingtoetsPipingSurfaceLineReplaceDataStrategy();
+            var strategy = new RingtoetsPipingSurfaceLineReplaceDataStrategy(new PipingFailureMechanism());
 
             // Call
             TestDelegate test = () => strategy.UpdateSurfaceLinesWithImportedData(null, Enumerable.Empty<RingtoetsPipingSurfaceLine>(), string.Empty);
@@ -61,12 +74,12 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         public void UpdateSurfaceLinesWithImportedData_ReadSurfaceLinesNull_ThrowsArgumentNullException()
         {
             // Setup
-            var strategy = new RingtoetsPipingSurfaceLineReplaceDataStrategy();
+            var strategy = new RingtoetsPipingSurfaceLineReplaceDataStrategy(new PipingFailureMechanism());
 
             // Call
             TestDelegate test = () => strategy.UpdateSurfaceLinesWithImportedData(new ObservableCollectionWithSourcePath<RingtoetsPipingSurfaceLine>(),
-                                                                           null,
-                                                                           string.Empty);
+                                                                                  null,
+                                                                                  string.Empty);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -77,12 +90,12 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         public void UpdateSurfaceLinesWithImportedData_SourceFilePathNull_ThrowsArgumentNullException()
         {
             // Setup
-            var strategy = new RingtoetsPipingSurfaceLineReplaceDataStrategy();
+            var strategy = new RingtoetsPipingSurfaceLineReplaceDataStrategy(new PipingFailureMechanism());
 
             // Call
             TestDelegate test = () => strategy.UpdateSurfaceLinesWithImportedData(new ObservableCollectionWithSourcePath<RingtoetsPipingSurfaceLine>(),
-                                                                           Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                                           null);
+                                                                                  Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                                  null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -95,13 +108,13 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             // Setup 
             var targetCollection = new ObservableCollectionWithSourcePath<RingtoetsPipingSurfaceLine>();
 
-            var strategy = new RingtoetsPipingSurfaceLineReplaceDataStrategy();
+            var strategy = new RingtoetsPipingSurfaceLineReplaceDataStrategy(new PipingFailureMechanism());
             const string newSourcePath = "some/other/path";
 
             // Call
             IEnumerable<IObservable> affectedObjects = strategy.UpdateSurfaceLinesWithImportedData(targetCollection,
-                                                                                            Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                                                            newSourcePath);
+                                                                                                   Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                                                   newSourcePath);
 
             // Assert
             CollectionAssert.AreEqual(new IObservable[]
@@ -113,15 +126,40 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         }
 
         [Test]
-        public void UpdateSurfaceLinesWithImportedData_DifferentElements_UpdatesTargetCollection()
+        public void UpdateSurfaceLinesWithImportedData_NoCurrentLinesWithImportedData_AddsNewSurfaceLines()
+        {
+            // Setup
+            var importedSurfaceLines = new[]
+            {
+                new RingtoetsPipingSurfaceLine()
+            };
+
+            var targetCollection = new ObservableCollectionWithSourcePath<RingtoetsPipingSurfaceLine>();
+            var strategy = new RingtoetsPipingSurfaceLineReplaceDataStrategy(new PipingFailureMechanism());
+
+            // Call
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateSurfaceLinesWithImportedData(targetCollection,
+                                                                                                   importedSurfaceLines,
+                                                                                                   "path");
+
+            // Assert
+            CollectionAssert.AreEqual(importedSurfaceLines, targetCollection);
+            CollectionAssert.AreEqual(new[]
+            {
+                targetCollection
+            }, affectedObjects);
+        }
+
+        [Test]
+        public void UpdateSurfaceLinesWithImportedData_WithCurrentAndImportedDataAreDifferent_ReplacesCurrentWithImportedData()
         {
             // Setup
             var targetSurfaceLine = new RingtoetsPipingSurfaceLine
             {
-                Name = "Name A",
+                Name = "Name A"
             };
-            var targetCollection = new ObservableCollectionWithSourcePath<RingtoetsPipingSurfaceLine>();
-            targetCollection.AddRange(new[]
+            var failureMechanism = new PipingFailureMechanism();
+            failureMechanism.SurfaceLines.AddRange(new[]
             {
                 targetSurfaceLine
             }, "some/path");
@@ -130,29 +168,70 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             {
                 Name = "Name B"
             };
-            var readSurfacelines = new[]
-            {
-                readSurfaceLine
-            };
 
-            var strategy = new RingtoetsPipingSurfaceLineReplaceDataStrategy();
+            var strategy = new RingtoetsPipingSurfaceLineReplaceDataStrategy(failureMechanism);
 
             // Call
-            IEnumerable<IObservable> affectedObjects = strategy.UpdateSurfaceLinesWithImportedData(targetCollection,
-                                                                                            readSurfacelines,
-                                                                                            "some/path");
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateSurfaceLinesWithImportedData(
+                failureMechanism.SurfaceLines,
+                new[]
+                {
+                    readSurfaceLine
+                }, "some/path");
 
             // Assert
-            CollectionAssert.AreEqual(new IObservable[]
+            CollectionAssert.AreEqual(new[]
             {
-                targetCollection
+                failureMechanism.SurfaceLines
             }, affectedObjects);
 
-            var expectedTargetCollection = new[]
+            var expectedSurfaceLines = new[]
             {
                 readSurfaceLine
             };
-            CollectionAssert.AreEqual(expectedTargetCollection, targetCollection);
+            CollectionAssert.AreEqual(expectedSurfaceLines, failureMechanism.SurfaceLines);
+        }
+
+        [Test]
+        public void UpdateSurfaceLinesWithImportedData_CalculationWithOutputRemovedSurfaceLine_CalculationUpdatedAndReturnsAffectedObject()
+        {
+            // Setup
+            var existingSurfaceLine = new RingtoetsPipingSurfaceLine();
+            existingSurfaceLine.SetGeometry(new[]
+            {
+                new Point3D(0, 1, 2),
+                new Point3D(3, 4, 5)
+            });
+
+            var calculation = new PipingCalculationScenario(new GeneralPipingInput())
+            {
+                InputParameters =
+                {
+                    SurfaceLine = existingSurfaceLine
+                },
+                Output = new PipingOutput(new PipingOutput.ConstructionProperties())
+            };
+
+            var failureMechanism = new PipingFailureMechanism();
+            failureMechanism.SurfaceLines.AddRange(new[]
+            {
+                existingSurfaceLine
+            }, "path");
+            failureMechanism.CalculationsGroup.Children.Add(calculation);
+
+            var strategy = new RingtoetsPipingSurfaceLineReplaceDataStrategy(failureMechanism);
+
+            // Call
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateSurfaceLinesWithImportedData(
+                failureMechanism.SurfaceLines,
+                Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                "path").ToArray();
+
+            // Assert
+            Assert.IsFalse(calculation.HasOutput);
+            Assert.IsNull(calculation.InputParameters.SurfaceLine);
+            CollectionAssert.Contains(affectedObjects, calculation);
+            CollectionAssert.Contains(affectedObjects, calculation.InputParameters);
         }
     }
 }

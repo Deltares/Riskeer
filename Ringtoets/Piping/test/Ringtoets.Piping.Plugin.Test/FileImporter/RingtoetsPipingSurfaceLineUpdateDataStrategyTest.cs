@@ -137,7 +137,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         }
 
         [Test]
-        public void UpdateSurfaceLinesWithImportedData_WithCurrentModelsAndImportedMultipleLinesWithSameNames_ThrowsRingtoetsPipingSurfaceLineUpdateException()
+        public void UpdateSurfaceLinesWithImportedData_WithCurrentLinesAndImportedMultipleLinesWithSameNames_ThrowsRingtoetsPipingSurfaceLineUpdateException()
         {
             // Setup
             const string duplicateName = "Duplicate name it is";
@@ -176,7 +176,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         }
 
         [Test]
-        public void UpdateSurfaceLinesWithImportedData_WithCurrentModelsAndImportedDataEmpty_SurfaceLinesRemoved()
+        public void UpdateSurfaceLinesWithImportedData_WithCurrentLinesAndImportedDataEmpty_SurfaceLinesRemoved()
         {
             // Setup
             var targetCollection = new ObservableCollectionWithSourcePath<RingtoetsPipingSurfaceLine>();

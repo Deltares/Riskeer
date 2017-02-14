@@ -21,9 +21,12 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Core.Common.Base;
+using Ringtoets.Piping.Data;
 using Ringtoets.Piping.IO.Importers;
 using Ringtoets.Piping.Primitives;
+using Ringtoets.Piping.Service;
 
 namespace Ringtoets.Piping.Plugin.FileImporter
 {
@@ -32,6 +35,23 @@ namespace Ringtoets.Piping.Plugin.FileImporter
     /// </summary>
     public class RingtoetsPipingSurfaceLineReplaceDataStrategy : ISurfaceLineUpdateSurfaceLineStrategy
     {
+        private readonly PipingFailureMechanism failureMechanism;
+
+        /// <summary>
+        /// Creates a new instance of <see cref="RingtoetsPipingSurfaceLineReplaceDataStrategy"/>.
+        /// </summary>
+        /// <param name="failureMechanism">The failure mechanism in which the surface lines are updated.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <see cref="failureMechanism"/>is <c>null</c>.</exception>
+        public RingtoetsPipingSurfaceLineReplaceDataStrategy(PipingFailureMechanism failureMechanism)
+        {
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(this.failureMechanism));
+            }
+
+            this.failureMechanism = failureMechanism;
+        }
+
         public IEnumerable<IObservable> UpdateSurfaceLinesWithImportedData(ObservableCollectionWithSourcePath<RingtoetsPipingSurfaceLine> targetCollection,
                                                                     IEnumerable<RingtoetsPipingSurfaceLine> readRingtoetsPipingSurfaceLines,
                                                                     string sourceFilePath)
@@ -49,13 +69,18 @@ namespace Ringtoets.Piping.Plugin.FileImporter
                 throw new ArgumentNullException(nameof(sourceFilePath));
             }
 
-            targetCollection.Clear();
-            targetCollection.AddRange(readRingtoetsPipingSurfaceLines, sourceFilePath);
-
-            return new []
+            var affectedObjects = new List<IObservable>
             {
                 targetCollection
             };
+
+            foreach (RingtoetsPipingSurfaceLine surfaceLine in targetCollection.ToArray())
+            {
+                affectedObjects.AddRange(PipingDataSynchronizationService.RemoveSurfaceLine(failureMechanism, surfaceLine));
+            }
+            targetCollection.AddRange(readRingtoetsPipingSurfaceLines, sourceFilePath);
+
+            return affectedObjects.Distinct();
         }
     }
 }

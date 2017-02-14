@@ -548,7 +548,7 @@ namespace Demo.Ringtoets.Commands
                                                                              demoAssessmentSection.ReferenceLine,
                                                                              Path.Combine(embeddedResourceFileWriter.TargetFolderPath,
                                                                                           "DR6_surfacelines.csv"),
-                                                                             new RingtoetsPipingSurfaceLineReplaceDataStrategy());
+                                                                             new RingtoetsPipingSurfaceLineReplaceDataStrategy(pipingFailureMechanism));
                 surfaceLinesImporter.Import();
             }
 
