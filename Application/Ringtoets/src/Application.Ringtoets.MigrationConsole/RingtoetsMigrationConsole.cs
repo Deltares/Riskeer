@@ -66,8 +66,7 @@ namespace Application.Ringtoets.MigrationConsole
 
         private static string GetApplicationDescription()
         {
-            string currentVersion = currentDatabaseVersion;
-            return string.Format(Resources.RingtoetsMigrationTool_ApplicationDescription_Version_0, currentVersion);
+            return string.Format(Resources.RingtoetsMigrationTool_ApplicationDescription_Version_0, currentDatabaseVersion);
         }
 
         #region Commands

@@ -65,7 +65,7 @@ namespace Application.Ringtoets.MigrationConsole.Test
                                                {});
 
                 // Assert
-                var expectedText = Environment.NewLine + GetConsoleFullDescription();
+                string expectedText = Environment.NewLine + GetConsoleFullDescription();
                 string consoleText = consoleOutput.GetConsoleOutput();
                 Assert.AreEqual(expectedText, consoleText);
                 Assert.AreEqual(ErrorCode.ErrorSuccess, environmentControl.ErrorCodeCalled);
@@ -90,10 +90,10 @@ namespace Application.Ringtoets.MigrationConsole.Test
                 console.ExecuteConsoleTool(invalidCommand);
 
                 // Assert
-                var expectedText = Environment.NewLine
-                                   + $"{string.Join(" ", invalidCommand)} is geen geldige opdracht."
-                                   + Environment.NewLine + Environment.NewLine
-                                   + GetConsoleFullDescription();
+                string expectedText = Environment.NewLine
+                                      + $"{string.Join(" ", invalidCommand)} is geen geldige opdracht."
+                                      + Environment.NewLine + Environment.NewLine
+                                      + GetConsoleFullDescription();
                 string consoleText = consoleOutput.GetConsoleOutput();
                 Assert.AreEqual(expectedText, consoleText);
                 Assert.AreEqual(ErrorCode.ErrorBadCommand, environmentControl.ErrorCodeCalled);
@@ -120,10 +120,10 @@ namespace Application.Ringtoets.MigrationConsole.Test
 
                 // Then
                 string consoleText = consoleOutput.GetConsoleOutput();
-                string expectedText = isSupported ?
-                                          Environment.NewLine
-                                          + $@"Het projectbestand kan gemigreerd worden naar versie '{expectedVersion}'."
-                                          + Environment.NewLine
+                string expectedText = isSupported
+                                          ? Environment.NewLine
+                                            + $@"Het projectbestand kan gemigreerd worden naar versie '{expectedVersion}'."
+                                            + Environment.NewLine
                                           : Environment.NewLine
                                             + $"Het migreren van een projectbestand met versie '{fileVersion}' naar versie '{expectedVersion}' is niet ondersteund."
                                             + Environment.NewLine;
@@ -154,9 +154,9 @@ namespace Application.Ringtoets.MigrationConsole.Test
                     });
 
                     // Then
-                    var expected = Environment.NewLine
-                                   + $"Het projectbestand '{sourceFilePath}' is succesvol gemigreerd naar '{targetFilePath}' (versie {expectedVersion})."
-                                   + Environment.NewLine;
+                    string expected = Environment.NewLine
+                                      + $"Het projectbestand '{sourceFilePath}' is succesvol gemigreerd naar '{targetFilePath}' (versie {expectedVersion})."
+                                      + Environment.NewLine;
                     string consoleText = consoleOutput.GetConsoleOutput();
                     Assert.AreEqual(expected, consoleText);
 
