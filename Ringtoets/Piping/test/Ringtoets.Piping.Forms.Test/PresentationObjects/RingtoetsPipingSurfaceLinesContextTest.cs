@@ -20,14 +20,12 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base;
 using Core.Common.Controls.PresentationObjects;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
-using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.Forms.Test.PresentationObjects
 {
@@ -44,13 +42,13 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
 
             var failureMechanism = new PipingFailureMechanism();
 
-            var surfaceLines = new ObservableCollectionWithSourcePath<RingtoetsPipingSurfaceLine>();
+            var surfaceLines = new RingtoetsPipingSurfaceLineCollection();
 
             // Call
             var context = new RingtoetsPipingSurfaceLinesContext(surfaceLines, failureMechanism, assessmentSection);
 
             // Assert
-            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<ObservableCollectionWithSourcePath<RingtoetsPipingSurfaceLine>>>(context);
+            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<RingtoetsPipingSurfaceLineCollection>>(context);
             Assert.AreSame(surfaceLines, context.WrappedData);
             Assert.AreSame(assessmentSection, context.AssessmentSection);
             mocks.VerifyAll();
@@ -60,7 +58,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
         public void ParameteredConstructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Setup
-            var surfaceLines = new ObservableCollectionWithSourcePath<RingtoetsPipingSurfaceLine>();
+            var surfaceLines = new RingtoetsPipingSurfaceLineCollection();
             var failureMechanism = new PipingFailureMechanism();
 
             // Call
@@ -79,7 +77,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var surfaceLines = new ObservableCollectionWithSourcePath<RingtoetsPipingSurfaceLine>();
+            var surfaceLines = new RingtoetsPipingSurfaceLineCollection();
 
             // Call
             TestDelegate call = () => new RingtoetsPipingSurfaceLinesContext(surfaceLines, null, assessmentSection);

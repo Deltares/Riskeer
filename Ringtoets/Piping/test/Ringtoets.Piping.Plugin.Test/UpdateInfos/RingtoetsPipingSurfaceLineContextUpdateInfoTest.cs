@@ -21,7 +21,6 @@
 
 using System.Drawing;
 using System.Linq;
-using Core.Common.Base;
 using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -29,7 +28,6 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
-using Ringtoets.Piping.Primitives;
 using PipingFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
 
 namespace Ringtoets.Piping.Plugin.Test.UpdateInfos
@@ -93,7 +91,7 @@ namespace Ringtoets.Piping.Plugin.Test.UpdateInfos
             mocks.ReplayAll();
 
             var failureMechanism = new PipingFailureMechanism();
-            var surfaceLines = new ObservableCollectionWithSourcePath<RingtoetsPipingSurfaceLine>();
+            var surfaceLines = new RingtoetsPipingSurfaceLineCollection();
 
             var context = new RingtoetsPipingSurfaceLinesContext(surfaceLines, failureMechanism, assessmentSection);
 
@@ -115,7 +113,7 @@ namespace Ringtoets.Piping.Plugin.Test.UpdateInfos
             mocks.ReplayAll();
 
             var failureMechanism = new PipingFailureMechanism();
-            var surfaceLines = new ObservableCollectionWithSourcePath<RingtoetsPipingSurfaceLine>();
+            var surfaceLines = new RingtoetsPipingSurfaceLineCollection();
 
             var context = new RingtoetsPipingSurfaceLinesContext(surfaceLines, failureMechanism, assessmentSection);
 

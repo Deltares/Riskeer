@@ -738,8 +738,14 @@ namespace Ringtoets.Piping.Forms.Test.Views
             const string arbitraryFilePath = "path";
             pipingFailureMechanism.SurfaceLines.AddRange(new[]
             {
-                new RingtoetsPipingSurfaceLine(),
-                new RingtoetsPipingSurfaceLine()
+                new RingtoetsPipingSurfaceLine
+                {
+                    Name = "Line A"
+                },
+                new RingtoetsPipingSurfaceLine
+                {
+                    Name = "Line B"
+                }
             }, arbitraryFilePath);
             pipingFailureMechanism.StochasticSoilModels.AddRange(new[]
             {
@@ -786,8 +792,14 @@ namespace Ringtoets.Piping.Forms.Test.Views
             const string arbitraryFilePath = "path";
             pipingFailureMechanism.SurfaceLines.AddRange(new[]
             {
-                new RingtoetsPipingSurfaceLine(),
-                new RingtoetsPipingSurfaceLine()
+                new RingtoetsPipingSurfaceLine
+                {
+                    Name = "Line A"
+                },
+                new RingtoetsPipingSurfaceLine
+                {
+                    Name = "Line B"
+                }
             }, arbitraryFilePath);
             pipingFailureMechanism.StochasticSoilModels.AddRange(new[]
             {
@@ -825,8 +837,14 @@ namespace Ringtoets.Piping.Forms.Test.Views
             const string arbitryFilePath = "path";
             pipingFailureMechanism.SurfaceLines.AddRange(new[]
             {
-                new RingtoetsPipingSurfaceLine(),
-                new RingtoetsPipingSurfaceLine()
+                new RingtoetsPipingSurfaceLine
+                {
+                    Name = "Line A"
+                },
+                new RingtoetsPipingSurfaceLine
+                {
+                    Name = "Line B"
+                }
             }, arbitryFilePath);
             pipingFailureMechanism.StochasticSoilModels.AddRange(new[]
             {

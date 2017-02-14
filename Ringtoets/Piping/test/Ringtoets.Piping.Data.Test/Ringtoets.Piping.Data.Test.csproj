@@ -72,6 +72,7 @@
     <Compile Include="PipingSoilLayerTest.cs" />
     <Compile Include="PipingSoilProfileExtensionsTest.cs" />
     <Compile Include="PipingSoilProfileTest.cs" />
+    <Compile Include="RingtoetsPipingSurfaceLineCollectionTest.cs" />
     <Compile Include="RingtoetsPipingSurfaceLineTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PipingProbabilityAssessmentInputTest.cs" />

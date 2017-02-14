@@ -52,7 +52,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             this.failureMechanism = failureMechanism;
         }
 
-        public IEnumerable<IObservable> UpdateSurfaceLinesWithImportedData(ObservableCollectionWithSourcePath<RingtoetsPipingSurfaceLine> targetCollection,
+        public IEnumerable<IObservable> UpdateSurfaceLinesWithImportedData(RingtoetsPipingSurfaceLineCollection targetCollection,
                                                                     IEnumerable<RingtoetsPipingSurfaceLine> readRingtoetsPipingSurfaceLines,
                                                                     string sourceFilePath)
         {
@@ -78,7 +78,15 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             {
                 affectedObjects.AddRange(PipingDataSynchronizationService.RemoveSurfaceLine(failureMechanism, surfaceLine));
             }
-            targetCollection.AddRange(readRingtoetsPipingSurfaceLines, sourceFilePath);
+
+            try
+            {
+                targetCollection.AddRange(readRingtoetsPipingSurfaceLines, sourceFilePath);
+            }
+            catch (ArgumentException e)
+            {
+                throw new RingtoetsPipingSurfaceLineUpdateException(e.Message, e);
+            }
 
             return affectedObjects.Distinct();
         }

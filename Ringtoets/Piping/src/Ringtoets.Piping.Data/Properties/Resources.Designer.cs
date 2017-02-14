@@ -198,5 +198,15 @@ namespace Ringtoets.Piping.Data.Properties {
                         "nt_at_0_to_assign_as_characteristic_point_1_", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Profielschematisaties moeten een unieke naam hebben. Gevonden dubbele namen: {0}..
+        /// </summary>
+        public static string RingtoetsPipingSurfaceLineCollection_ValidateItems_RingtoetsPipingSurfaceLine_require_unique_names_found_duplicate_items_0_ {
+            get {
+                return ResourceManager.GetString("RingtoetsPipingSurfaceLineCollection_ValidateItems_RingtoetsPipingSurfaceLine_req" +
+                        "uire_unique_names_found_duplicate_items_0_", resourceCulture);
+            }
+        }
     }
 }

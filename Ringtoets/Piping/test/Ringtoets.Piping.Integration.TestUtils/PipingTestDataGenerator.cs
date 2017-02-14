@@ -171,7 +171,8 @@ namespace Ringtoets.Piping.Integration.TestUtils
         {
             var surfaceline1 = new RingtoetsPipingSurfaceLine
             {
-                ReferenceLineIntersectionWorldPoint = new Point2D(0, 5)
+                ReferenceLineIntersectionWorldPoint = new Point2D(0, 5),
+                Name = "Line A"
             };
             surfaceline1.SetGeometry(new[]
             {
@@ -180,7 +181,8 @@ namespace Ringtoets.Piping.Integration.TestUtils
             });
             var surfaceline2 = new RingtoetsPipingSurfaceLine
             {
-                ReferenceLineIntersectionWorldPoint = new Point2D(10, 5)
+                ReferenceLineIntersectionWorldPoint = new Point2D(10, 5),
+                Name = "Line B"
             };
             surfaceline2.SetGeometry(new[]
             {

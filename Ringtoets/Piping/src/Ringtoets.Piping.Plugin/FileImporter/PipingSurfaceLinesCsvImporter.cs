@@ -23,13 +23,13 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.Base.IO;
 using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
 using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Piping.Data;
 using Ringtoets.Piping.IO.Importers;
 using Ringtoets.Piping.IO.SurfaceLines;
 using Ringtoets.Piping.Plugin.Properties;
@@ -43,7 +43,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
     /// <para><c>Id;X1;Y1;Z1;...(Xn;Yn;Zn)</c></para>
     /// <para>Where Xn;Yn;Zn form the n-th 3D point describing the geometry of the surface line.</para>
     /// </summary>
-    public class PipingSurfaceLinesCsvImporter : FileImporterBase<ObservableCollectionWithSourcePath<RingtoetsPipingSurfaceLine>>
+    public class PipingSurfaceLinesCsvImporter : FileImporterBase<RingtoetsPipingSurfaceLineCollection>
     {
         private enum ReferenceLineIntersectionsResult
         {
@@ -68,7 +68,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
         /// <param name="surfaceLineUpdateStrategy">The strategy to update the surface lines with imported data.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="importTarget"/>
         /// or <paramref name="referenceLine"/> is <c>null</c>.</exception>
-        public PipingSurfaceLinesCsvImporter(ObservableCollectionWithSourcePath<RingtoetsPipingSurfaceLine> importTarget,
+        public PipingSurfaceLinesCsvImporter(RingtoetsPipingSurfaceLineCollection importTarget,
             ReferenceLine referenceLine,
             string filePath,
             ISurfaceLineUpdateSurfaceLineStrategy surfaceLineUpdateStrategy) : base(filePath, importTarget)

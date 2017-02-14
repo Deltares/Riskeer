@@ -72,10 +72,10 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         public void Constructor_ReferenceLineNull_ThrowsArgumentNullException()
         {
             // Setup
-            var list = new ObservableCollectionWithSourcePath<RingtoetsPipingSurfaceLine>();
+            var collection = new RingtoetsPipingSurfaceLineCollection();
 
             // Call
-            TestDelegate call = () => new PipingSurfaceLinesCsvImporter(list,
+            TestDelegate call = () => new PipingSurfaceLinesCsvImporter(collection,
                 null,
                 string.Empty,
                 new TestSurfaceLineUpdateStrategy());
@@ -89,11 +89,11 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         public void Constructor_ModelUpdateStrategyNull_ThrowsArgumentNullException()
         {
             // Setup
-            var list = new ObservableCollectionWithSourcePath<RingtoetsPipingSurfaceLine>();
+            var collection = new RingtoetsPipingSurfaceLineCollection();
             var referenceLine = new ReferenceLine();
 
             // Call
-            TestDelegate call = () => new PipingSurfaceLinesCsvImporter(list,
+            TestDelegate call = () => new PipingSurfaceLinesCsvImporter(collection,
                 referenceLine,
                 string.Empty,
                 null);
@@ -106,14 +106,14 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         [Test]
         public void DefaultConstructor_ExpectedValues()
         {
-            var collection = new ObservableCollectionWithSourcePath<RingtoetsPipingSurfaceLine>();
+            var collection = new RingtoetsPipingSurfaceLineCollection();
             var referenceLine = new ReferenceLine();
 
             // Call
             var importer = new PipingSurfaceLinesCsvImporter(collection, referenceLine, "", new TestSurfaceLineUpdateStrategy());
 
             // Assert
-            Assert.IsInstanceOf<FileImporterBase<ObservableCollectionWithSourcePath<RingtoetsPipingSurfaceLine>>>(importer);
+            Assert.IsInstanceOf<FileImporterBase<RingtoetsPipingSurfaceLineCollection>>(importer);
         }
 
         [Test]
@@ -1540,7 +1540,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             public string FilePath { get; private set; }
             public RingtoetsPipingSurfaceLine[] ReadSurfaceLines { get; private set; }
 
-            public IEnumerable<IObservable> UpdateSurfaceLinesWithImportedData(ObservableCollectionWithSourcePath<RingtoetsPipingSurfaceLine> targetCollection,
+            public IEnumerable<IObservable> UpdateSurfaceLinesWithImportedData(RingtoetsPipingSurfaceLineCollection targetCollection,
                                                                                IEnumerable<RingtoetsPipingSurfaceLine> readRingtoetsPipingSurfaceLines,
                                                                                string sourceFilePath)
             {

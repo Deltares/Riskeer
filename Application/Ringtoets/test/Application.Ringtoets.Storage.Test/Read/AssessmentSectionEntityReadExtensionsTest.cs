@@ -327,11 +327,13 @@ namespace Application.Ringtoets.Storage.Test.Read
                 {
                     new SurfaceLineEntity
                     {
-                        PointsXml = emptyPointsXml
+                        PointsXml = emptyPointsXml,
+                        Name = "Line A"
                     },
                     new SurfaceLineEntity
                     {
-                        PointsXml = emptyPointsXml
+                        PointsXml = emptyPointsXml,
+                        Name = "Line B"
                     }
                 },
                 PipingFailureMechanismMetaEntities =

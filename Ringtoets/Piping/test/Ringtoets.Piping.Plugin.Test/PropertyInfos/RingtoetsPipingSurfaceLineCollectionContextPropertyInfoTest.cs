@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System.Linq;
-using Core.Common.Base;
 using Core.Common.Gui.Plugin;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -28,7 +27,6 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.PropertyClasses;
-using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.Plugin.Test.PropertyInfos
 {
@@ -69,7 +67,7 @@ namespace Ringtoets.Piping.Plugin.Test.PropertyInfos
 
             var failureMechanism = new PipingFailureMechanism();
 
-            var collection = new ObservableCollectionWithSourcePath<RingtoetsPipingSurfaceLine>();
+            var collection = new RingtoetsPipingSurfaceLineCollection();
             var context = new RingtoetsPipingSurfaceLinesContext(collection, failureMechanism, assessmentSection);
 
             // Call

@@ -20,10 +20,8 @@
 // All rights reserved.
 
 using System.Collections.Generic;
-using Core.Common.Base;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Piping.Primitives;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 using PipingDataResources = Ringtoets.Piping.Data.Properties.Resources;
 
@@ -44,7 +42,7 @@ namespace Ringtoets.Piping.Data
         {
             PipingProbabilityAssessmentInput = new PipingProbabilityAssessmentInput();
             GeneralInput = new GeneralPipingInput();
-            SurfaceLines = new ObservableCollectionWithSourcePath<RingtoetsPipingSurfaceLine>();
+            SurfaceLines = new RingtoetsPipingSurfaceLineCollection();
             StochasticSoilModels = new StochasticSoilModelCollection();
             CalculationsGroup = new CalculationGroup(RingtoetsCommonDataResources.FailureMechanism_Calculations_DisplayName, false);
 
@@ -62,7 +60,7 @@ namespace Ringtoets.Piping.Data
         /// <summary>
         /// Gets the available <see cref="RingtoetsPipingSurfaceLine"/> within the scope of the piping failure mechanism.
         /// </summary>
-        public ObservableCollectionWithSourcePath<RingtoetsPipingSurfaceLine> SurfaceLines { get; }
+        public RingtoetsPipingSurfaceLineCollection SurfaceLines { get; }
 
         /// <summary>
         /// Gets the available stochastic soil models within the scope of the piping failure mechanism.

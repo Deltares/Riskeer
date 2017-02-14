@@ -22,7 +22,6 @@
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.Base.IO;
 using Core.Common.Gui;
@@ -33,7 +32,6 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
-using Ringtoets.Piping.Primitives;
 using PipingFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
 
 namespace Ringtoets.Piping.Plugin.Test.ImportInfos
@@ -97,7 +95,7 @@ namespace Ringtoets.Piping.Plugin.Test.ImportInfos
             mocks.ReplayAll();
 
             var failureMechanism = new PipingFailureMechanism();
-            var surfaceLines = new ObservableCollectionWithSourcePath<RingtoetsPipingSurfaceLine>();
+            var surfaceLines = new RingtoetsPipingSurfaceLineCollection();
 
             var context = new RingtoetsPipingSurfaceLinesContext(surfaceLines, failureMechanism, assessmentSection);
 
@@ -119,7 +117,7 @@ namespace Ringtoets.Piping.Plugin.Test.ImportInfos
             mocks.ReplayAll();
 
             var failureMechanism = new PipingFailureMechanism();
-            var surfaceLines = new ObservableCollectionWithSourcePath<RingtoetsPipingSurfaceLine>();
+            var surfaceLines = new RingtoetsPipingSurfaceLineCollection();
 
             var context = new RingtoetsPipingSurfaceLinesContext(surfaceLines, failureMechanism, assessmentSection);
 
@@ -163,7 +161,7 @@ namespace Ringtoets.Piping.Plugin.Test.ImportInfos
             mocks.ReplayAll();
 
             var failureMechanism = new PipingFailureMechanism();
-            var surfaceLines = new ObservableCollectionWithSourcePath<RingtoetsPipingSurfaceLine>();
+            var surfaceLines = new RingtoetsPipingSurfaceLineCollection();
 
             var importTarget = new RingtoetsPipingSurfaceLinesContext(surfaceLines, failureMechanism, assessmentSection);
 

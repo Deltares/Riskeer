@@ -285,14 +285,20 @@ namespace Ringtoets.Piping.Forms.Test.Views
                     new Point2D(3.3, 4.4)
                 });
 
-                var surfaceLineA = new RingtoetsPipingSurfaceLine();
+                var surfaceLineA = new RingtoetsPipingSurfaceLine
+                {
+                    Name = "Line A"
+                };
                 surfaceLineA.SetGeometry(new[]
                 {
                     new Point3D(0.0, 0.0, 1.0),
                     new Point3D(3.0, 0.0, 1.7)
                 });
 
-                var surfaceLineB = new RingtoetsPipingSurfaceLine();
+                var surfaceLineB = new RingtoetsPipingSurfaceLine
+                {
+                    Name = "Name B"
+                };
                 surfaceLineB.SetGeometry(new[]
                 {
                     new Point3D(0.0, 0.0, 1.5),

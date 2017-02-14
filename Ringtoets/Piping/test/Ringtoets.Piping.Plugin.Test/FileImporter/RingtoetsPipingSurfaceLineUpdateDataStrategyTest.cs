@@ -79,7 +79,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var strategy = new RingtoetsPipingSurfaceLineUpdateDataStrategy(new PipingFailureMechanism());
 
             // Call
-            TestDelegate test = () => strategy.UpdateSurfaceLinesWithImportedData(new ObservableCollectionWithSourcePath<RingtoetsPipingSurfaceLine>(),
+            TestDelegate test = () => strategy.UpdateSurfaceLinesWithImportedData(new RingtoetsPipingSurfaceLineCollection(), 
                                                                                   null,
                                                                                   string.Empty);
 
@@ -95,7 +95,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var strategy = new RingtoetsPipingSurfaceLineUpdateDataStrategy(new PipingFailureMechanism());
 
             // Call
-            TestDelegate test = () => strategy.UpdateSurfaceLinesWithImportedData(new ObservableCollectionWithSourcePath<RingtoetsPipingSurfaceLine>(),
+            TestDelegate test = () => strategy.UpdateSurfaceLinesWithImportedData(new RingtoetsPipingSurfaceLineCollection(), 
                                                                                   Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                                                                   null);
 
@@ -116,11 +116,11 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                 },
                 new RingtoetsPipingSurfaceLine
                 {
-                    Name = "Name B"
+                    Name = "Line B"
                 }
             };
 
-            var targetCollection = new ObservableCollectionWithSourcePath<RingtoetsPipingSurfaceLine>();
+            var targetCollection = new RingtoetsPipingSurfaceLineCollection();
             var strategy = new RingtoetsPipingSurfaceLineUpdateDataStrategy(new PipingFailureMechanism());
 
             // Call
@@ -137,11 +137,11 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         }
 
         [Test]
-        public void UpdateSurfaceLinesWithImportedData_WithCurrentLinesAndImportedMultipleLinesWithSameNames_ThrowsRingtoetsPipingSurfaceLineUpdateException()
+        public void UpdateSurfaceLinesWithImportedData_WithCurrentLinesAndImportedMultipleLinesWithSameNames_ThrowsUpdateException()
         {
             // Setup
             const string duplicateName = "Duplicate name it is";
-            var targetCollection = new ObservableCollectionWithSourcePath<RingtoetsPipingSurfaceLine>();
+            var targetCollection = new RingtoetsPipingSurfaceLineCollection();
             targetCollection.AddRange(new[]
             {
                 new RingtoetsPipingSurfaceLine
@@ -179,7 +179,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         public void UpdateSurfaceLinesWithImportedData_WithCurrentLinesAndImportedDataEmpty_SurfaceLinesRemoved()
         {
             // Setup
-            var targetCollection = new ObservableCollectionWithSourcePath<RingtoetsPipingSurfaceLine>();
+            var targetCollection = new RingtoetsPipingSurfaceLineCollection();
             targetCollection.AddRange(new[]
             {
                 new RingtoetsPipingSurfaceLine
@@ -211,7 +211,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             {
                 Name = "Name A"
             };
-            var targetCollection = new ObservableCollectionWithSourcePath<RingtoetsPipingSurfaceLine>();
+            var targetCollection = new RingtoetsPipingSurfaceLineCollection();
             targetCollection.AddRange(new[]
             {
                 targetSurfaceLine

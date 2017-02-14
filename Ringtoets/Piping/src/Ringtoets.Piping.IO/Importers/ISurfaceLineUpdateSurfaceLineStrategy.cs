@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using Core.Common.Base;
+using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.IO.Importers
@@ -35,8 +36,7 @@ namespace Ringtoets.Piping.IO.Importers
         /// <summary>
         /// Adds the imported data to the <paramref name="targetCollection"/>.
         /// </summary>
-        /// <param name="targetCollection">The <see cref="ObservableCollectionWithSourcePath{RingtoetsPipingSurfaceLines}"/> 
-        /// which needs to be updated.</param>
+        /// <param name="targetCollection">The target collection which needs to be updated.</param>
         /// <param name="readRingtoetsPipingSurfaceLines">The imported surface lines.</param>
         /// <param name="sourceFilePath">The source path from where the surface lines were imported from.</param>
         /// <returns>An <see cref="IEnumerable{IObservable}"/> of updated instances.</returns>
@@ -45,7 +45,7 @@ namespace Ringtoets.Piping.IO.Importers
         /// <see cref="RingtoetsPipingSurfaceLineUpdateException.InnerException"/> is set with a more detailed explanation
         /// of why the exception occurs.</exception>
         IEnumerable<IObservable> UpdateSurfaceLinesWithImportedData(
-            ObservableCollectionWithSourcePath<RingtoetsPipingSurfaceLine> targetCollection,
+            RingtoetsPipingSurfaceLineCollection targetCollection,
             IEnumerable<RingtoetsPipingSurfaceLine> readRingtoetsPipingSurfaceLines,
             string sourceFilePath);
     }
