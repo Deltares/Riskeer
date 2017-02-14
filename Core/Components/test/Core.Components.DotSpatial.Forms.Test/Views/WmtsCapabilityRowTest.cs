@@ -57,6 +57,7 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
             Assert.AreEqual(format, row.Format);
             Assert.AreEqual(title, row.Title);
             Assert.AreEqual(coordinateSystem, row.CoordinateSystem);
+            Assert.AreSame(wmtsCapability, row.WmtsCapability);
         }
     }
 }

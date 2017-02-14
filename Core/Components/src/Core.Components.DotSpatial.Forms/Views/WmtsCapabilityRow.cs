@@ -28,8 +28,6 @@ namespace Core.Components.DotSpatial.Forms.Views
     /// </summary>
     public class WmtsCapabilityRow
     {
-        private readonly WmtsCapability wmtsCapability;
-
         /// <summary>
         /// Creates new instance of <see cref="WmtsCapabilityRow"/>.
         /// </summary>
@@ -42,7 +40,7 @@ namespace Core.Components.DotSpatial.Forms.Views
             {
                 throw new ArgumentNullException(nameof(wmtsCapability));
             }
-            this.wmtsCapability = wmtsCapability;
+            WmtsCapability = wmtsCapability;
         }
 
         /// <summary>
@@ -52,7 +50,7 @@ namespace Core.Components.DotSpatial.Forms.Views
         {
             get
             {
-                return wmtsCapability.Id;
+                return WmtsCapability.Id;
             }
         }
 
@@ -63,7 +61,7 @@ namespace Core.Components.DotSpatial.Forms.Views
         {
             get
             {
-                return wmtsCapability.Format;
+                return WmtsCapability.Format;
             }
         }
 
@@ -74,7 +72,7 @@ namespace Core.Components.DotSpatial.Forms.Views
         {
             get
             {
-                return wmtsCapability.Title;
+                return WmtsCapability.Title;
             }
         }
 
@@ -85,8 +83,13 @@ namespace Core.Components.DotSpatial.Forms.Views
         {
             get
             {
-                return wmtsCapability.CoordinateSystem;
+                return WmtsCapability.CoordinateSystem;
             }
         }
+
+        /// <summary>
+        /// Gets the <see cref="WmtsCapability"/> this row contains.
+        /// </summary>
+        public WmtsCapability WmtsCapability { get; }
     }
 }

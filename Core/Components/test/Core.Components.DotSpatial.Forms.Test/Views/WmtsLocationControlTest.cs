@@ -24,7 +24,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.DataGrid;
-using Core.Common.Controls.Views;
 using Core.Common.TestUtil;
 using Core.Components.DotSpatial.Forms.Views;
 using Core.Components.DotSpatial.Layer.BruTile.Configurations;
@@ -52,8 +51,9 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
             {
                 // Assert
                 Assert.IsInstanceOf<UserControl>(control);
-                Assert.IsInstanceOf<IView>(control);
-                Assert.IsInstanceOf<List<WmtsCapabilityRow>>(control.Data);
+                Assert.IsInstanceOf<IHasMapData>(control);
+                Assert.AreEqual("Web Map Tile Service (WMTS)", control.DisplayName);
+                Assert.IsNull(control.GetSelectedMapData());
             }
         }
 
@@ -145,49 +145,19 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
         }
 
         [Test]
-        public void Data_WmtsCapabilityRow_DataSet()
-        {
-            // Setup
-            using (var view = new WmtsLocationControl())
-            {
-                var capabilityRows = new List<WmtsCapabilityRow>();
-
-                // Call
-                view.Data = capabilityRows;
-
-                // Assert
-                Assert.AreSame(capabilityRows, view.Data);
-            }
-        }
-
-        [Test]
-        public void Data_OtherThanWmtsCapabilityRow_DataNull()
-        {
-            // Setup
-            using (var view = new WmtsLocationControl())
-            {
-                var data = new object();
-
-                // Call
-                view.Data = data;
-
-                // Assert
-                Assert.IsNull(view.Data);
-            }
-        }
-
-        [Test]
         public void WmtsLocationControl_WithData_DataGridViewCorrectlyInitialized()
         {
             // Setup & Call
-            using (Form form = ShowFullyConfiguredWmtsLocationControl())
+            using (WmtsLocationControl control = ShowFullyConfiguredWmtsLocationControl())
             {
+                Form form = control.FindForm();
+
                 // Assert
                 var dataGridViewControl = (DataGridViewControl) new ControlTester("dataGridViewControl", form).TheObject;
-                var rows = dataGridViewControl.Rows;
+                DataGridViewRowCollection rows = dataGridViewControl.Rows;
                 Assert.AreEqual(2, rows.Count);
 
-                var cells = rows[0].Cells;
+                DataGridViewCellCollection cells = rows[0].Cells;
                 Assert.AreEqual(4, cells.Count);
                 Assert.AreEqual("-", cells[mapLayerIdColumnIndex].FormattedValue);
                 Assert.AreEqual("image/png", cells[mapLayerFormatColumnIndex].FormattedValue);
@@ -200,6 +170,60 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
                 Assert.AreEqual("image/png8", cells[mapLayerFormatColumnIndex].FormattedValue);
                 Assert.AreEqual("brtachtergrondkaart", cells[mapLayerTitleColumnIndex].FormattedValue);
                 Assert.AreEqual("EPSG:28992", cells[mapLayerCoordinateSystemColumnIndex].FormattedValue);
+            }
+        }
+
+        [Test]
+        public void GetSelectedMapData_WithoutSelectedData_ReturnsNull()
+        {
+            // Setup
+            using (var form = new Form())
+            using (var control = new WmtsLocationControl())
+            {
+                form.Controls.Add(control);
+                form.Show();
+
+                // Call
+                MapData selectedMapData = control.GetSelectedMapData();
+
+                // Assert
+                Assert.IsNull(selectedMapData);
+            }
+        }
+
+        [Test]
+        public void GetSelectedMapData_WithSelectedComboBoxWithoutSelectedRow_ReturnsNull()
+        {
+            // Setup & Call
+            using (WmtsLocationControl control = ShowFullyConfiguredWmtsLocationControl())
+            {
+                // Assert                
+                MapData selectedMapData = control.GetSelectedMapData();
+                Assert.IsNull(selectedMapData);
+            }
+        }
+
+        [Test]
+        public void GetSelectedMapData_WithSelectedData_ReturnsSelectedMapData()
+        {
+            // Setup
+            using (WmtsLocationControl control = ShowFullyConfiguredWmtsLocationControl())
+            {
+                Form form = control.FindForm();
+                var dataGridViewControl = (DataGridViewControl) new ControlTester("dataGridViewControl", form).TheObject;
+                var dataGridView = dataGridViewControl.Controls.OfType<DataGridView>().First();
+                dataGridView.CurrentCell = dataGridView.Rows[1].Cells[0];
+
+                // Call
+                WmtsMapData selectedMapData = control.GetSelectedMapData() as WmtsMapData;
+
+                // Assert
+                Assert.IsNotNull(selectedMapData);
+                Assert.AreEqual("PDOK achtergrondkaart", selectedMapData.Name);
+                Assert.AreEqual("brtachtergrondkaart(EPSG:28992)", selectedMapData.SelectedCapabilityIdentifier);
+                Assert.AreEqual("https://geodata.nationaalgeoregister.nl/wmts/top10nlv2?VERSION=1.0.0&request=GetCapabilities",
+                                selectedMapData.SourceCapabilitiesUrl);
+                Assert.AreEqual("image/png8", selectedMapData.PreferredFormat);
             }
         }
 
@@ -365,9 +389,10 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
             WmtsMapData backgroundMapData = WmtsMapData.CreateDefaultPdokMapData();
 
             using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
-            using (Form form = ShowValidWmtsLocationControl())
+            using (WmtsLocationControl control = ShowValidWmtsLocationControl())
             {
-                form.Show();
+                Form form = control.FindForm();
+                form?.Show();
 
                 var connectToButton = new ButtonTester("connectToButton", form);
 
@@ -376,10 +401,10 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
 
                 // Then
                 var dataGridViewControl = (DataGridViewControl) new ControlTester("dataGridViewControl", form).TheObject;
-                var rows = dataGridViewControl.Rows;
+                DataGridViewRowCollection rows = dataGridViewControl.Rows;
                 Assert.AreEqual(1, rows.Count);
 
-                var cells = rows[0].Cells;
+                DataGridViewCellCollection cells = rows[0].Cells;
                 Assert.AreEqual(4, cells.Count);
                 Assert.AreEqual("brtachtergrondkaart(EPSG:28992)", cells[mapLayerIdColumnIndex].FormattedValue);
                 Assert.AreEqual("image/png", cells[mapLayerFormatColumnIndex].FormattedValue);
@@ -410,9 +435,10 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
             };
 
             using (new UseCustomTileSourceFactoryConfig(tileFactory))
-            using (Form form = ShowValidWmtsLocationControl())
+            using (WmtsLocationControl control = ShowValidWmtsLocationControl())
             {
-                form.Show();
+                Form form = control.FindForm();
+                form?.Show();
 
                 var connectToButton = new ButtonTester("connectToButton", form);
 
@@ -443,10 +469,10 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
             Assert.DoesNotThrow(call);
         }
 
-        private static Form ShowFullyConfiguredWmtsLocationControl()
+        private static WmtsLocationControl ShowFullyConfiguredWmtsLocationControl()
         {
-            var form = new Form();
-            var control = new WmtsLocationControl();
+            var control = ShowValidWmtsLocationControl();
+            Form form = control.FindForm();
 
             var capabilities = new List<WmtsCapabilityRow>
             {
@@ -454,13 +480,13 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
                 new WmtsCapabilityRow(new WmtsCapability("brtachtergrondkaart(EPSG:28992)", "image/png8", "brtachtergrondkaart", "EPSG:28992"))
             };
 
-            control.Data = capabilities;
+            var dataGridViewControl = (DataGridViewControl) new ControlTester("dataGridViewControl", form).TheObject;
+            dataGridViewControl.SetDataSource(capabilities);
 
-            form.Controls.Add(control);
-            return form;
+            return control;
         }
 
-        private static Form ShowValidWmtsLocationControl()
+        private static WmtsLocationControl ShowValidWmtsLocationControl()
         {
             var form = new Form();
             var control = new WmtsLocationControl();
@@ -474,7 +500,7 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
 
             var connectToButton = (Button) new ButtonTester("connectToButton", form).TheObject;
             connectToButton.Enabled = true;
-            return form;
+            return control;
         }
     }
 }

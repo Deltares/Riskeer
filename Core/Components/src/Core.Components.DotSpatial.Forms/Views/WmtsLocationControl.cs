@@ -23,10 +23,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using Core.Common.Controls.Views;
 using Core.Components.DotSpatial.Forms.IO;
 using Core.Components.DotSpatial.Forms.Properties;
 using Core.Components.DotSpatial.Layer.BruTile.Configurations;
+using Core.Components.Gis.Data;
 using log4net;
 using BaseResources = Core.Common.Base.Properties.Resources;
 
@@ -35,11 +35,11 @@ namespace Core.Components.DotSpatial.Forms.Views
     /// <summary>
     /// This class represents a <seealso cref="Control"/> where WMTS locations can be administrated.
     /// </summary>
-    public partial class WmtsLocationControl : UserControl, IView
+    public partial class WmtsLocationControl : UserControl, IHasMapData
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(WmtsLocationControl));
         private readonly List<WmtsConnectionInfo> wmtsConnectionInfos;
-        private List<WmtsCapabilityRow> capabilities;
+        private readonly List<WmtsCapabilityRow> capabilities;
 
         /// <summary>
         /// Creates a new instance of <see cref="WmtsLocationControl"/>.
@@ -55,17 +55,29 @@ namespace Core.Components.DotSpatial.Forms.Views
             InitializeEventHandlers();
         }
 
-        public object Data
+        public string DisplayName
         {
             get
             {
-                return capabilities;
+                return Resources.WmtsLocationControl_DisplayName;
             }
-            set
+        }
+
+        public MapData GetSelectedMapData()
+        {
+            WmtsCapabilityRow currentRow = GetSelectedWmtsCapabilityRow();
+            if (currentRow == null)
             {
-                capabilities = value as List<WmtsCapabilityRow>;
-                UpdateDataGridViewDataSource();
+                return null;
             }
+
+            WmtsConnectionInfo selectedWmtsConnectionInfo = GetSelectedWmtsConnectionInfo();
+            if (selectedWmtsConnectionInfo == null)
+            {
+                return null;
+            }
+
+            return currentRow.WmtsCapability.ToWmtsMapdata(selectedWmtsConnectionInfo.Name, selectedWmtsConnectionInfo.Url);
         }
 
         protected override void Dispose(bool disposing)
@@ -122,6 +134,11 @@ namespace Core.Components.DotSpatial.Forms.Views
             dataGridViewControl.SetDataSource(capabilities);
         }
 
+        private WmtsCapabilityRow GetSelectedWmtsCapabilityRow()
+        {
+            return dataGridViewControl.CurrentRow?.DataBoundItem as WmtsCapabilityRow;
+        }
+
         #endregion
 
         #region ComboBox
@@ -144,6 +161,11 @@ namespace Core.Components.DotSpatial.Forms.Views
             urlLocationComboBox.SelectedItem = selectedItem;
 
             UpdateConnectToButton();
+        }
+
+        private WmtsConnectionInfo GetSelectedWmtsConnectionInfo()
+        {
+            return urlLocationComboBox.SelectedItem as WmtsConnectionInfo;
         }
 
         #endregion

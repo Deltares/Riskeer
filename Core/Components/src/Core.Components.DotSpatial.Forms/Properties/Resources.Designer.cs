@@ -181,5 +181,14 @@ namespace Core.Components.DotSpatial.Forms.Properties {
                 return ResourceManager.GetString("WmtsConnectionInfoReader_Unable_To_Create_WmtsConnectionInfo", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Web Map Tile Service (WMTS).
+        /// </summary>
+        internal static string WmtsLocationControl_DisplayName {
+            get {
+                return ResourceManager.GetString("WmtsLocationControl_DisplayName", resourceCulture);
+            }
+        }
     }
 }
