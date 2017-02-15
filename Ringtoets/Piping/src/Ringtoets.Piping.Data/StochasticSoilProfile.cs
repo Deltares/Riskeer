@@ -20,6 +20,8 @@
 // All rights reserved.
 
 using System;
+using System.Globalization;
+using Core.Common.Base;
 using Core.Common.Base.Data;
 using Ringtoets.Piping.Data.Properties;
 using Ringtoets.Piping.Primitives;
@@ -80,7 +82,7 @@ namespace Ringtoets.Piping.Data
                 {
                     throw new ArgumentOutOfRangeException(nameof(value), string.Format(
                         Resources.StochasticSoilProfile_Probability_Should_be_in_range_0_,
-                        probabilityValidityRange));
+                        probabilityValidityRange.ToString(FormattableConstants.ShowAtLeastOneDecimal, CultureInfo.CurrentCulture)));
                 }
                 probability = value;
             }

@@ -21,7 +21,9 @@
 
 using System;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
+using Core.Common.Base;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Piping.KernelWrapper.TestUtil;
@@ -59,7 +61,9 @@ namespace Ringtoets.Piping.Data.Test
             TestDelegate test = () => new StochasticSoilProfile(probability, SoilProfileType.SoilProfile1D, -1);
 
             // Assert
-            var expectedMessage = "Het aandeel van de ondergrondschematisatie in het stochastische ondergrondmodel moet in het bereik [0, 1] liggen.";
+            string min = 0.0.ToString(FormattableConstants.ShowAtLeastOneDecimal);
+            string max = 1.0.ToString(FormattableConstants.ShowAtLeastOneDecimal);
+            string expectedMessage = $"Het aandeel van de ondergrondschematisatie in het stochastische ondergrondmodel moet in het bereik [{min}, {max}] liggen.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
         }
 
@@ -97,7 +101,9 @@ namespace Ringtoets.Piping.Data.Test
             TestDelegate test = () => profile.AddProbability(probabilityToAdd);
 
             // Assert
-            var expectedMessage = "Het aandeel van de ondergrondschematisatie in het stochastische ondergrondmodel moet in het bereik [0, 1] liggen.";
+            string min = 0.0.ToString(FormattableConstants.ShowAtLeastOneDecimal);
+            string max = 1.0.ToString(FormattableConstants.ShowAtLeastOneDecimal);
+            string expectedMessage = $"Het aandeel van de ondergrondschematisatie in het stochastische ondergrondmodel moet in het bereik [{min}, {max}] liggen.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
             Assert.AreEqual(startProbability, profile.Probability);
         }

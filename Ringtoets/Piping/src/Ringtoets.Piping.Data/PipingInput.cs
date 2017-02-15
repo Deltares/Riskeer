@@ -101,7 +101,7 @@ namespace Ringtoets.Piping.Data
             }
             set
             {
-                var newEntryPointL = value.ToPrecision(entryPointL.NumberOfDecimalPlaces);
+                RoundedDouble newEntryPointL = value.ToPrecision(entryPointL.NumberOfDecimalPlaces);
 
                 if (!double.IsNaN(newEntryPointL))
                 {
@@ -140,7 +140,7 @@ namespace Ringtoets.Piping.Data
             }
             set
             {
-                var newExitPointL = value.ToPrecision(exitPointL.NumberOfDecimalPlaces);
+                RoundedDouble newExitPointL = value.ToPrecision(exitPointL.NumberOfDecimalPlaces);
 
                 if (!double.IsNaN(newExitPointL))
                 {
@@ -223,8 +223,8 @@ namespace Ringtoets.Piping.Data
             if (!surfaceLine.ValidateInRange(newLocalXCoordinate))
             {
                 var validityRange = new Range<double>(surfaceLine.LocalGeometry.First().X, surfaceLine.LocalGeometry.Last().X);
-                var outOfRangeMessage = string.Format(Resources.PipingInput_ValidatePointOnSurfaceLine_Length_must_be_in_Range_0_,
-                                                      validityRange.ToString("0.0################", CultureInfo.CurrentCulture));
+                string outOfRangeMessage = string.Format(Resources.PipingInput_ValidatePointOnSurfaceLine_Length_must_be_in_Range_0_,
+                                                         validityRange.ToString(FormattableConstants.ShowAtLeastOneDecimal, CultureInfo.CurrentCulture));
                 throw new ArgumentOutOfRangeException(null, outOfRangeMessage);
             }
         }
