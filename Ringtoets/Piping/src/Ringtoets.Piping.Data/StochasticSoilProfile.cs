@@ -20,6 +20,8 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Base.Data;
+using Ringtoets.Piping.Data.Properties;
 using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.Data
@@ -29,6 +31,10 @@ namespace Ringtoets.Piping.Data
     /// </summary>
     public class StochasticSoilProfile
     {
+        private double probability;
+
+        private static readonly Range<double> probabilityValidityRange = new Range<double>(0,1);
+
         /// <summary>
         /// Creates a new instance of <see cref="StochasticSoilProfile"/>.
         /// </summary>
@@ -60,7 +66,25 @@ namespace Ringtoets.Piping.Data
         /// <summary>
         /// Gets the probability of the stochastic soil profile.
         /// </summary>
-        public double Probability { get; private set; }
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when the <paramref name="value"/> is outside the range
+        /// [0, 1].</exception>
+        public double Probability
+        {
+            get
+            {
+                return probability;
+            }
+            private set
+            {
+                if (!probabilityValidityRange.InRange(value))
+                {
+                    throw new ArgumentOutOfRangeException(nameof(value), string.Format(
+                        Resources.StochasticSoilProfile_Probability_Should_be_in_range_0_,
+                        probabilityValidityRange));
+                }
+                probability = value;
+            }
+        }
 
         /// <summary>
         /// Updates the probability of the <see cref="StochasticSoilProfile"/> 

@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Ringtoets.Piping.IO.SoilProfile;
 using Ringtoets.Piping.IO.SoilProfile.Schema;
 
 namespace Ringtoets.Piping.IO.Builders
@@ -174,6 +173,17 @@ namespace Ringtoets.Piping.IO.Builders
                 StochasticSoilModelTableColumns.AreSegmentsUnique,
                 StochasticSoilModelTableColumns.StochasticSoilModelName,
                 StochasticSoilModelTableColumns.TableName);
+        }
+
+        public static string GetStochasticSoilProfileProbabilitiesValidQuery()
+        {
+            return string.Format(
+                "SELECT COUNT({1}) == 0 as {0} " +
+                "FROM {2} " +
+                "WHERE {1} NOT BETWEEN 0 AND 1 OR {1} ISNULL;",
+                StochasticSoilProfileTableColumns.HasNoInvalidProbabilities,
+                StochasticSoilProfileTableColumns.Probability,
+                StochasticSoilProfileTableColumns.TableName);
         }
     }
 }

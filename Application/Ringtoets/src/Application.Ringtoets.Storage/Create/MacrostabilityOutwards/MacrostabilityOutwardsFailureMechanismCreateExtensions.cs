@@ -41,7 +41,7 @@ namespace Application.Ringtoets.Storage.Create.MacrostabilityOutwards
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>
         internal static FailureMechanismEntity Create(this MacrostabilityOutwardsFailureMechanism mechanism, PersistenceRegistry registry)
         {
-            var entity = mechanism.Create(FailureMechanismType.MacrostabilityOutwards, registry);
+            FailureMechanismEntity entity = mechanism.Create(FailureMechanismType.MacrostabilityOutwards, registry);
             AddEntitiesForSectionResults(mechanism.SectionResults, registry);
 
             return entity;
@@ -51,10 +51,10 @@ namespace Application.Ringtoets.Storage.Create.MacrostabilityOutwards
             IEnumerable<MacrostabilityOutwardsFailureMechanismSectionResult> sectionResults,
             PersistenceRegistry registry)
         {
-            foreach (var failureMechanismSectionResult in sectionResults)
+            foreach (MacrostabilityOutwardsFailureMechanismSectionResult failureMechanismSectionResult in sectionResults)
             {
-                var sectionResultEntity = failureMechanismSectionResult.Create();
-                var section = registry.Get(failureMechanismSectionResult.Section);
+                MacrostabilityOutwardsSectionResultEntity sectionResultEntity = failureMechanismSectionResult.Create();
+                FailureMechanismSectionEntity section = registry.Get(failureMechanismSectionResult.Section);
                 section.MacrostabilityOutwardsSectionResultEntities.Add(sectionResultEntity);
             }
         }

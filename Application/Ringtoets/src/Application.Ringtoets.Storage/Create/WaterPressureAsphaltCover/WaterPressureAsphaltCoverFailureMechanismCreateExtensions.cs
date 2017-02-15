@@ -41,7 +41,7 @@ namespace Application.Ringtoets.Storage.Create.WaterPressureAsphaltCover
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>
         internal static FailureMechanismEntity Create(this WaterPressureAsphaltCoverFailureMechanism mechanism, PersistenceRegistry registry)
         {
-            var entity = mechanism.Create(FailureMechanismType.WaterOverpressureAsphaltRevetment, registry);
+            FailureMechanismEntity entity = mechanism.Create(FailureMechanismType.WaterOverpressureAsphaltRevetment, registry);
             AddEntitiesForSectionResults(mechanism.SectionResults, registry);
 
             return entity;
@@ -51,10 +51,10 @@ namespace Application.Ringtoets.Storage.Create.WaterPressureAsphaltCover
             IEnumerable<WaterPressureAsphaltCoverFailureMechanismSectionResult> sectionResults,
             PersistenceRegistry registry)
         {
-            foreach (var failureMechanismSectionResult in sectionResults)
+            foreach (WaterPressureAsphaltCoverFailureMechanismSectionResult failureMechanismSectionResult in sectionResults)
             {
-                var sectionResultEntity = failureMechanismSectionResult.Create();
-                var section = registry.Get(failureMechanismSectionResult.Section);
+                WaterPressureAsphaltCoverSectionResultEntity sectionResultEntity = failureMechanismSectionResult.Create();
+                FailureMechanismSectionEntity section = registry.Get(failureMechanismSectionResult.Section);
                 section.WaterPressureAsphaltCoverSectionResultEntities.Add(sectionResultEntity);
             }
         }

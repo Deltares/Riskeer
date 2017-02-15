@@ -65,13 +65,84 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
         }
 
         [Test]
-        [TestCase("nonUniqueSoilModelNames.soil")]
-        public void Constructor_NonUniqueSoilModelNames_ThrowsCriticalFileReadException(string dbName)
+        public void VerifyConstraints_NonUniqueSoilModelNames_ThrowsCriticalFileReadException()
         {
             // Setup
-            string dbFile = Path.Combine(testDataPath, dbName);
+            string dbFile = Path.Combine(testDataPath, "nonUniqueSoilModelNames.soil");
             string expectedMessage = new FileReaderErrorMessageBuilder(dbFile).
                 Build("Namen van ondergrondmodellen zijn niet uniek.");
+
+            // Precondition
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile), "Precondition: file can be opened for edits.");
+
+            // Call
+            using (var versionReader = new SoilDatabaseConstraintsReader(dbFile))
+            {
+                // Call
+                TestDelegate test = () => versionReader.VerifyConstraints();
+
+                // Assert
+                CriticalFileReadException exception = Assert.Throws<CriticalFileReadException>(test);
+                Assert.AreEqual(expectedMessage, exception.Message);
+            }
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
+        }
+
+        [Test]
+        public void VerifyConstraints_MissingStochasticSoilModelTable_ThrowsCriticalFileReadException()
+        {
+            // Setup
+            string dbFile = Path.Combine(testDataPath, "missingStochasticSoilModelTable.soil");
+            string expectedMessage = new FileReaderErrorMessageBuilder(dbFile).
+                Build("Kan geen ondergrondmodellen lezen. Mogelijk bestaat de 'StochasticSoilModel' tabel niet.");
+
+            // Precondition
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile), "Precondition: file can be opened for edits.");
+
+            // Call
+            using (var versionReader = new SoilDatabaseConstraintsReader(dbFile))
+            {
+                // Call
+                TestDelegate test = () => versionReader.VerifyConstraints();
+
+                // Assert
+                CriticalFileReadException exception = Assert.Throws<CriticalFileReadException>(test);
+                Assert.AreEqual(expectedMessage, exception.Message);
+            }
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
+        }
+
+        [Test]
+        public void VerifyConstraints_MissingStochasticSoilProfileTable_ThrowsCriticalFileReadException()
+        {
+            // Setup
+            string dbFile = Path.Combine(testDataPath, "missingStochasticSoilProfileTable.soil");
+            string expectedMessage = new FileReaderErrorMessageBuilder(dbFile).
+                Build("Kan geen ondergrondschematisaties lezen. Mogelijk bestaat de 'StochasticSoilProfile' tabel niet.");
+
+            // Precondition
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile), "Precondition: file can be opened for edits.");
+
+            // Call
+            using (var versionReader = new SoilDatabaseConstraintsReader(dbFile))
+            {
+                // Call
+                TestDelegate test = () => versionReader.VerifyConstraints();
+
+                // Assert
+                CriticalFileReadException exception = Assert.Throws<CriticalFileReadException>(test);
+                Assert.AreEqual(expectedMessage, exception.Message);
+            }
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
+        }
+
+        [Test]
+        public void VerifyConstraints_MissingStochasticSoilProfileProbability_ThrowsCriticalFileReadException()
+        {
+            // Setup
+            string dbFile = Path.Combine(testDataPath, "missingStochasticSoilProfileProbability.soil");
+            string expectedMessage = new FileReaderErrorMessageBuilder(dbFile).
+                Build("Er zijn stochastische ondergrondschematisaties zonder geldige kans van voorkomen.");
 
             // Precondition
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile), "Precondition: file can be opened for edits.");

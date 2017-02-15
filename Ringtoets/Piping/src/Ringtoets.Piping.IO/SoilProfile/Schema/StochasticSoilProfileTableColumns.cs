@@ -32,5 +32,6 @@ namespace Ringtoets.Piping.IO.SoilProfile.Schema
         internal const string SoilProfile1DId = "SP1D_ID";
         internal const string SoilProfile2DId = "SP2D_ID";
         internal const string Probability = "Probability";
+        internal const string HasNoInvalidProbabilities = "HasNoInvalidProbabilities";
     }
 }

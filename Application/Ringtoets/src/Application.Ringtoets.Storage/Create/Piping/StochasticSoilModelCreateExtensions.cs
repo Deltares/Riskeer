@@ -68,9 +68,9 @@ namespace Application.Ringtoets.Storage.Create.Piping
 
         private static void AddEntitiesForStochasticSoilProfiles(StochasticSoilModel model, PersistenceRegistry registry, StochasticSoilModelEntity entity)
         {
-            for (int i = 0; i < model.StochasticSoilProfiles.Count; i++)
+            for (var i = 0; i < model.StochasticSoilProfiles.Count; i++)
             {
-                var stochasticSoilProfile = model.StochasticSoilProfiles[i];
+                StochasticSoilProfile stochasticSoilProfile = model.StochasticSoilProfiles[i];
                 entity.StochasticSoilProfileEntities.Add(stochasticSoilProfile.Create(registry, i));
             }
         }

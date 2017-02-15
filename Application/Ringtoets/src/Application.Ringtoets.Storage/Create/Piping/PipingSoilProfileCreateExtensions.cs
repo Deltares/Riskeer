@@ -64,8 +64,8 @@ namespace Application.Ringtoets.Storage.Create.Piping
 
         private static void AddEntitiesForPipingSoilLayers(PipingSoilProfile profile, SoilProfileEntity entity)
         {
-            int index = 0;
-            foreach (var pipingSoilLayer in profile.Layers)
+            var index = 0;
+            foreach (PipingSoilLayer pipingSoilLayer in profile.Layers)
             {
                 entity.SoilLayerEntities.Add(pipingSoilLayer.Create(index++));
             }

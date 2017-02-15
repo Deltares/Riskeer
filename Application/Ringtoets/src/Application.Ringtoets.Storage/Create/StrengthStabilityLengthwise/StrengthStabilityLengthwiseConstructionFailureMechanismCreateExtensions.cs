@@ -41,7 +41,7 @@ namespace Application.Ringtoets.Storage.Create.StrengthStabilityLengthwise
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>
         internal static FailureMechanismEntity Create(this StrengthStabilityLengthwiseConstructionFailureMechanism mechanism, PersistenceRegistry registry)
         {
-            var entity = mechanism.Create(FailureMechanismType.StrengthAndStabilityParallelConstruction, registry);
+            FailureMechanismEntity entity = mechanism.Create(FailureMechanismType.StrengthAndStabilityParallelConstruction, registry);
             AddEntitiesForSectionResults(mechanism.SectionResults, registry);
 
             return entity;
@@ -51,10 +51,10 @@ namespace Application.Ringtoets.Storage.Create.StrengthStabilityLengthwise
             IEnumerable<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult> sectionResults,
             PersistenceRegistry registry)
         {
-            foreach (var failureMechanismSectionResult in sectionResults)
+            foreach (StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult failureMechanismSectionResult in sectionResults)
             {
-                var sectionResultEntity = failureMechanismSectionResult.Create();
-                var section = registry.Get(failureMechanismSectionResult.Section);
+                StrengthStabilityLengthwiseConstructionSectionResultEntity sectionResultEntity = failureMechanismSectionResult.Create();
+                FailureMechanismSectionEntity section = registry.Get(failureMechanismSectionResult.Section);
                 section.StrengthStabilityLengthwiseConstructionSectionResultEntities.Add(sectionResultEntity);
             }
         }

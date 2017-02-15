@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Base.Data;
@@ -89,7 +90,7 @@ namespace Application.Ringtoets.Storage.Read.GrassCoverErosionOutwards
                 return;
             }
 
-            var waveConditionsOutputs = entity.GrassCoverErosionOutwardsWaveConditionsOutputEntities.OrderBy(e => e.Order).Select(e => e.Read()).ToList();
+            List<WaveConditionsOutput> waveConditionsOutputs = entity.GrassCoverErosionOutwardsWaveConditionsOutputEntities.OrderBy(e => e.Order).Select(e => e.Read()).ToList();
             calculation.Output = new GrassCoverErosionOutwardsWaveConditionsOutput(waveConditionsOutputs);
         }
 

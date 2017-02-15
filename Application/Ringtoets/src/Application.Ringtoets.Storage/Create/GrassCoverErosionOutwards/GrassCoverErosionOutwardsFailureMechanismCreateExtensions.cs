@@ -43,7 +43,7 @@ namespace Application.Ringtoets.Storage.Create.GrassCoverErosionOutwards
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>
         internal static FailureMechanismEntity Create(this GrassCoverErosionOutwardsFailureMechanism mechanism, PersistenceRegistry registry)
         {
-            var entity = mechanism.Create(FailureMechanismType.GrassRevetmentErosionOutwards, registry);
+            FailureMechanismEntity entity = mechanism.Create(FailureMechanismType.GrassRevetmentErosionOutwards, registry);
             AddEntitiesForSectionResults(mechanism.SectionResults, registry);
             AddEntitiesForFailureMechanismMeta(mechanism.GeneralInput, entity);
             AddEntitiesForForeshoreProfiles(mechanism.ForeshoreProfiles, entity, registry);
@@ -55,8 +55,8 @@ namespace Application.Ringtoets.Storage.Create.GrassCoverErosionOutwards
 
         private static void AddEntitiesForHydraulicBoundaryLocations(ObservableList<HydraulicBoundaryLocation> hydraulicBoundaryLocations, FailureMechanismEntity entity, PersistenceRegistry registry)
         {
-            int i = 0;
-            foreach (var location in hydraulicBoundaryLocations)
+            var i = 0;
+            foreach (HydraulicBoundaryLocation location in hydraulicBoundaryLocations)
             {
                 entity.GrassCoverErosionOutwardsHydraulicLocationEntities.Add(location.CreateGrassCoverErosionOutwardsHydraulicBoundaryLocation(registry, i++));
             }
@@ -71,10 +71,10 @@ namespace Application.Ringtoets.Storage.Create.GrassCoverErosionOutwards
             IEnumerable<GrassCoverErosionOutwardsFailureMechanismSectionResult> sectionResults,
             PersistenceRegistry registry)
         {
-            foreach (var failureMechanismSectionResult in sectionResults)
+            foreach (GrassCoverErosionOutwardsFailureMechanismSectionResult failureMechanismSectionResult in sectionResults)
             {
-                var sectionResultEntity = failureMechanismSectionResult.Create();
-                var section = registry.Get(failureMechanismSectionResult.Section);
+                GrassCoverErosionOutwardsSectionResultEntity sectionResultEntity = failureMechanismSectionResult.Create();
+                FailureMechanismSectionEntity section = registry.Get(failureMechanismSectionResult.Section);
                 section.GrassCoverErosionOutwardsSectionResultEntities.Add(sectionResultEntity);
             }
         }
@@ -84,11 +84,11 @@ namespace Application.Ringtoets.Storage.Create.GrassCoverErosionOutwards
             FailureMechanismEntity entity,
             PersistenceRegistry registry)
         {
-            int i = 0;
+            var i = 0;
 
-            foreach (var foreshoreProfile in foreshoreProfiles)
+            foreach (ForeshoreProfile foreshoreProfile in foreshoreProfiles)
             {
-                var foreshoreProfileEntity = foreshoreProfile.Create(registry, i++);
+                ForeshoreProfileEntity foreshoreProfileEntity = foreshoreProfile.Create(registry, i++);
                 entity.ForeshoreProfileEntities.Add(foreshoreProfileEntity);
             }
         }

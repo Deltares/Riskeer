@@ -145,7 +145,7 @@ namespace Application.Ringtoets.Storage
                 {
                     if (e is ArgumentException || e is IOException || e is NotSupportedException || e is UnauthorizedAccessException)
                     {
-                        var message = string.Format(
+                        string message = string.Format(
                             Resources.SafeOverwriteFileHelper_RemoveAlreadyExistingTemporaryFile_Already_existing_temporary_file_at_FilePath_0_could_not_be_removed,
                             temporaryFilePath);
                         throw new IOException(message, e);
@@ -169,7 +169,7 @@ namespace Application.Ringtoets.Storage
             {
                 if (e is ArgumentException || e is IOException || e is UnauthorizedAccessException || e is NotSupportedException)
                 {
-                    var message = string.Format(
+                    string message = string.Format(
                         Resources.SafeOverwriteFileHelper_CreateNewTemporaryFile_Cannot_create_temporary_FilePath_0_Try_change_save_location,
                         targetFilePath);
                     throw new IOException(message, e);
@@ -198,7 +198,7 @@ namespace Application.Ringtoets.Storage
             {
                 if (e is ArgumentException || e is IOException || e is NotSupportedException || e is UnauthorizedAccessException)
                 {
-                    var message = string.Format(
+                    string message = string.Format(
                         Resources.SafeOverwriteFileHelper_RestoreOriginalFile_Cannot_revert_to_original_FilePath_0_Try_reverting_manually,
                         targetFilePath);
                     throw new IOException(message, e);
@@ -221,7 +221,7 @@ namespace Application.Ringtoets.Storage
             {
                 if (e is ArgumentException || e is IOException || e is NotSupportedException || e is UnauthorizedAccessException)
                 {
-                    var message = string.Format(
+                    string message = string.Format(
                         Resources.SafeOverwriteFileHelper_DeleteTemporaryFile_Cannot_remove_temporary_FilePath_0_Try_removing_manually,
                         temporaryFilePath);
                     throw new CannotDeleteBackupFileException(message, e);

@@ -55,7 +55,7 @@ namespace Application.Ringtoets.Storage.Create.StabilityPointStructures
             IEnumerable<StabilityPointStructuresFailureMechanismSectionResult> sectionResults,
             PersistenceRegistry registry)
         {
-            foreach (var failureMechanismSectionResult in sectionResults)
+            foreach (StabilityPointStructuresFailureMechanismSectionResult failureMechanismSectionResult in sectionResults)
             {
                 StabilityPointStructuresSectionResultEntity sectionResultEntity = failureMechanismSectionResult.Create(registry);
                 FailureMechanismSectionEntity section = registry.Get(failureMechanismSectionResult.Section);
@@ -68,7 +68,7 @@ namespace Application.Ringtoets.Storage.Create.StabilityPointStructures
             FailureMechanismEntity entity,
             PersistenceRegistry registry)
         {
-            for (int i = 0; i < foreshoreProfiles.Count; i++)
+            for (var i = 0; i < foreshoreProfiles.Count; i++)
             {
                 ForeshoreProfileEntity foreshoreProfileEntity = foreshoreProfiles[i].Create(registry, i);
                 entity.ForeshoreProfileEntities.Add(foreshoreProfileEntity);
@@ -80,7 +80,7 @@ namespace Application.Ringtoets.Storage.Create.StabilityPointStructures
             FailureMechanismEntity entity,
             PersistenceRegistry registry)
         {
-            for (int i = 0; i < structures.Count; i++)
+            for (var i = 0; i < structures.Count; i++)
             {
                 StabilityPointStructureEntity structureEntity = structures[i].Create(registry, i);
                 entity.StabilityPointStructureEntities.Add(structureEntity);

@@ -41,7 +41,7 @@ namespace Application.Ringtoets.Storage.Create.WaveImpactAsphaltCover
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>
         internal static FailureMechanismEntity Create(this WaveImpactAsphaltCoverFailureMechanism mechanism, PersistenceRegistry registry)
         {
-            var entity = mechanism.Create(FailureMechanismType.WaveImpactOnAsphaltRevetment, registry);
+            FailureMechanismEntity entity = mechanism.Create(FailureMechanismType.WaveImpactOnAsphaltRevetment, registry);
             AddEntitiesForSectionResults(mechanism.SectionResults, registry);
             AddEntitiesForForeshoreProfiles(mechanism.ForeshoreProfiles, entity, registry);
             entity.CalculationGroupEntity = mechanism.WaveConditionsCalculationGroup.Create(registry, 0);
@@ -53,10 +53,10 @@ namespace Application.Ringtoets.Storage.Create.WaveImpactAsphaltCover
             IEnumerable<WaveImpactAsphaltCoverFailureMechanismSectionResult> sectionResults,
             PersistenceRegistry registry)
         {
-            foreach (var failureMechanismSectionResult in sectionResults)
+            foreach (WaveImpactAsphaltCoverFailureMechanismSectionResult failureMechanismSectionResult in sectionResults)
             {
-                var sectionResultEntity = failureMechanismSectionResult.Create();
-                var section = registry.Get(failureMechanismSectionResult.Section);
+                WaveImpactAsphaltCoverSectionResultEntity sectionResultEntity = failureMechanismSectionResult.Create();
+                FailureMechanismSectionEntity section = registry.Get(failureMechanismSectionResult.Section);
                 section.WaveImpactAsphaltCoverSectionResultEntities.Add(sectionResultEntity);
             }
         }
@@ -66,11 +66,11 @@ namespace Application.Ringtoets.Storage.Create.WaveImpactAsphaltCover
             FailureMechanismEntity entity,
             PersistenceRegistry registry)
         {
-            int i = 0;
+            var i = 0;
 
-            foreach (var foreshoreProfile in foreshoreProfiles)
+            foreach (ForeshoreProfile foreshoreProfile in foreshoreProfiles)
             {
-                var foreshoreProfileEntity = foreshoreProfile.Create(registry, i++);
+                ForeshoreProfileEntity foreshoreProfileEntity = foreshoreProfile.Create(registry, i++);
                 entity.ForeshoreProfileEntities.Add(foreshoreProfileEntity);
             }
         }

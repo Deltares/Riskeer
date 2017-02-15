@@ -63,8 +63,20 @@ namespace Ringtoets.Piping.IO.SoilProfile
             }
             catch (SQLiteException exception)
             {
+                string innerMessage = $"Kan geen ondergrondmodellen lezen. Mogelijk bestaat de '{StochasticSoilModelTableColumns.TableName}' tabel niet.";
                 throw new CriticalFileReadException(
-                    BuildMessageWithPath("Kan geen ondergrondmodellen lezen. Mogelijk bestaat de 'Segment' tabel niet."), exception);
+                    BuildMessageWithPath(innerMessage), exception);
+            }
+
+            try
+            {
+                ReadNoEmptyProbabilityValues();
+            }
+            catch (SQLiteException exception)
+            {
+                string innerMessage = $"Kan geen ondergrondschematisaties lezen. Mogelijk bestaat de '{StochasticSoilProfileTableColumns.TableName}' tabel niet.";
+                throw new CriticalFileReadException(
+                    BuildMessageWithPath(innerMessage), exception);
             }
         }
 
@@ -82,6 +94,24 @@ namespace Ringtoets.Piping.IO.SoilProfile
                 {
                     throw new CriticalFileReadException(
                         BuildMessageWithPath("Namen van ondergrondmodellen zijn niet uniek."));
+                }
+            }
+        }
+
+        private void ReadNoEmptyProbabilityValues()
+        {
+            string checkSegmentNameUniqueness = SoilDatabaseQueryBuilder.GetStochasticSoilProfileProbabilitiesValidQuery();
+            using (IDataReader dataReader = CreateDataReader(checkSegmentNameUniqueness))
+            {
+                if (!dataReader.Read())
+                {
+                    throw new CriticalFileReadException(
+                        BuildMessageWithPath("Onverwachte fout tijdens het verifiëren van kansen van voorkomen voor profielen."));
+                }
+                if (!Convert.ToBoolean(dataReader[StochasticSoilProfileTableColumns.HasNoInvalidProbabilities]))
+                {
+                    throw new CriticalFileReadException(
+                        BuildMessageWithPath("Er zijn stochastische ondergrondschematisaties zonder geldige kans van voorkomen."));
                 }
             }
         }

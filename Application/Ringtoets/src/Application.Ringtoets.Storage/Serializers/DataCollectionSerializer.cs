@@ -55,7 +55,7 @@ namespace Application.Ringtoets.Storage.Serializers
 
             var memoryStream = new MemoryStream();
 
-            using (var writer = XmlDictionaryWriter.CreateTextWriter(memoryStream, encoding, false))
+            using (XmlDictionaryWriter writer = XmlDictionaryWriter.CreateTextWriter(memoryStream, encoding, false))
             {
                 var formatter = new DataContractSerializer(serializationRootType);
                 formatter.WriteObject(writer, ToSerializableData(elements));
@@ -90,7 +90,7 @@ namespace Application.Ringtoets.Storage.Serializers
                 streamWriter.Flush();
 
                 stream.Seek(0, SeekOrigin.Begin);
-                using (var reader = XmlDictionaryReader.CreateTextReader(stream, XmlDictionaryReaderQuotas.Max))
+                using (XmlDictionaryReader reader = XmlDictionaryReader.CreateTextReader(stream, XmlDictionaryReaderQuotas.Max))
                 {
                     var serializer = new DataContractSerializer(serializationRootType);
                     return FromSerializableData((TSerializedData[]) serializer.ReadObject(reader));

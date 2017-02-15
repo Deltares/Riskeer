@@ -159,4 +159,7 @@
   <data name="RingtoetsPipingSurfaceLineCollection_ValidateItems_RingtoetsPipingSurfaceLine_require_unique_names_found_duplicate_items_0_" xml:space="preserve">
     <value>Profielschematisaties moeten een unieke naam hebben. Gevonden dubbele namen: {0}.</value>
   </data>
+  <data name="StochasticSoilProfile_Probability_Should_be_in_range_0_" xml:space="preserve">
+    <value>Het aandeel van de ondergrondschematisatie in het stochastische ondergrondmodel moet in het bereik {0} liggen.</value>
+  </data>
 </root>

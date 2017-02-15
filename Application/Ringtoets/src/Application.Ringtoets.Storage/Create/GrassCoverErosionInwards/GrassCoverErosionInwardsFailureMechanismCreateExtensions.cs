@@ -41,7 +41,7 @@ namespace Application.Ringtoets.Storage.Create.GrassCoverErosionInwards
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>
         internal static FailureMechanismEntity Create(this GrassCoverErosionInwardsFailureMechanism mechanism, PersistenceRegistry registry)
         {
-            var entity = mechanism.Create(FailureMechanismType.GrassRevetmentTopErosionAndInwards, registry);
+            FailureMechanismEntity entity = mechanism.Create(FailureMechanismType.GrassRevetmentTopErosionAndInwards, registry);
             AddEntitiesForGeneralInput(mechanism, entity);
             AddEntitiesForDikeProfiles(mechanism, registry, entity);
             entity.CalculationGroupEntity = mechanism.CalculationsGroup.Create(registry, 0);
@@ -68,10 +68,10 @@ namespace Application.Ringtoets.Storage.Create.GrassCoverErosionInwards
             IEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult> sectionResults,
             PersistenceRegistry registry)
         {
-            foreach (var failureMechanismSectionResult in sectionResults)
+            foreach (GrassCoverErosionInwardsFailureMechanismSectionResult failureMechanismSectionResult in sectionResults)
             {
-                var sectionResultEntity = failureMechanismSectionResult.Create(registry);
-                var section = registry.Get(failureMechanismSectionResult.Section);
+                GrassCoverErosionInwardsSectionResultEntity sectionResultEntity = failureMechanismSectionResult.Create(registry);
+                FailureMechanismSectionEntity section = registry.Get(failureMechanismSectionResult.Section);
                 section.GrassCoverErosionInwardsSectionResultEntities.Add(sectionResultEntity);
             }
         }

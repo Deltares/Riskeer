@@ -41,7 +41,7 @@ namespace Application.Ringtoets.Storage.Create.StabilityStoneCover
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>
         internal static FailureMechanismEntity Create(this StabilityStoneCoverFailureMechanism mechanism, PersistenceRegistry registry)
         {
-            var entity = mechanism.Create(FailureMechanismType.StabilityStoneRevetment, registry);
+            FailureMechanismEntity entity = mechanism.Create(FailureMechanismType.StabilityStoneRevetment, registry);
             AddEntitiesForSectionResults(mechanism.SectionResults, registry);
             AddEntitiesForForeshoreProfiles(mechanism.ForeshoreProfiles, entity, registry);
 
@@ -54,10 +54,10 @@ namespace Application.Ringtoets.Storage.Create.StabilityStoneCover
             IEnumerable<StabilityStoneCoverFailureMechanismSectionResult> sectionResults,
             PersistenceRegistry registry)
         {
-            foreach (var failureMechanismSectionResult in sectionResults)
+            foreach (StabilityStoneCoverFailureMechanismSectionResult failureMechanismSectionResult in sectionResults)
             {
-                var sectionResultEntity = failureMechanismSectionResult.Create();
-                var section = registry.Get(failureMechanismSectionResult.Section);
+                StabilityStoneCoverSectionResultEntity sectionResultEntity = failureMechanismSectionResult.Create();
+                FailureMechanismSectionEntity section = registry.Get(failureMechanismSectionResult.Section);
                 section.StabilityStoneCoverSectionResultEntities.Add(sectionResultEntity);
             }
         }
@@ -67,11 +67,11 @@ namespace Application.Ringtoets.Storage.Create.StabilityStoneCover
             FailureMechanismEntity entity,
             PersistenceRegistry registry)
         {
-            int i = 0;
+            var i = 0;
 
-            foreach (var foreshoreProfile in foreshoreProfiles)
+            foreach (ForeshoreProfile foreshoreProfile in foreshoreProfiles)
             {
-                var foreshoreProfileEntity = foreshoreProfile.Create(registry, i++);
+                ForeshoreProfileEntity foreshoreProfileEntity = foreshoreProfile.Create(registry, i++);
                 entity.ForeshoreProfileEntities.Add(foreshoreProfileEntity);
             }
         }

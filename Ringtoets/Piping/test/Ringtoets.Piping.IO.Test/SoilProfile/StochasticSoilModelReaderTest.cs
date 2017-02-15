@@ -60,8 +60,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
         public void Constructor_FileNullOrEmpty_ThrowsCriticalFileReadException(string fileName)
         {
             // Setup
-            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': {1}",
-                                                fileName, "bestandspad mag niet leeg of ongedefinieerd zijn.");
+            var expectedMessage = $"Fout bij het lezen van bestand '{fileName}': bestandspad mag niet leeg of ongedefinieerd zijn.";
             // Call
             TestDelegate test = () => { using (new StochasticSoilModelReader(fileName)) {} };
 
@@ -93,12 +92,12 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
         }
 
         [Test]
-        public void Constructor_InvalidSchemaThatPassesValidation_ThrowsCriticalFileReadException()
+        public void Constructor_InvalidSchemaThatPassesVersionValidation_ThrowsCriticalFileReadException()
         {
             // Setup
             string dbFile = Path.Combine(testDataPath, "withoutSoilModelTables.soil");
             string expectedMessage = new FileReaderErrorMessageBuilder(dbFile).
-                Build("Kan geen ondergrondmodellen lezen. Mogelijk bestaat de 'Segment' tabel niet.");
+                Build("Kan geen ondergrondmodellen lezen. Mogelijk bestaat de 'StochasticSoilModel' tabel niet.");
 
             // Precondition
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile), "Precondition: file can be opened for edits.");

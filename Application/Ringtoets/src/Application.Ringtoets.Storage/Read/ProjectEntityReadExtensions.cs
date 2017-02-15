@@ -50,7 +50,7 @@ namespace Application.Ringtoets.Storage.Read
                 Description = entity.Description
             };
 
-            foreach (var assessmentSectionEntity in entity.AssessmentSectionEntities.OrderBy(ase => ase.Order))
+            foreach (AssessmentSectionEntity assessmentSectionEntity in entity.AssessmentSectionEntities.OrderBy(ase => ase.Order))
             {
                 project.AssessmentSections.Add(assessmentSectionEntity.Read(collector));
             }

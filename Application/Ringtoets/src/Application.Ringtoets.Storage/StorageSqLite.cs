@@ -92,7 +92,7 @@ namespace Application.Ringtoets.Storage
 
             try
             {
-                BackedUpFileWriter writer = new BackedUpFileWriter(databaseFilePath);
+                var writer = new BackedUpFileWriter(databaseFilePath);
                 writer.Perform(() => { SaveProjectInDatabase(databaseFilePath); });
             }
             catch (IOException e)
@@ -111,7 +111,7 @@ namespace Application.Ringtoets.Storage
 
         public IProject LoadProject(string databaseFilePath)
         {
-            var connectionString = GetConnectionToExistingFile(databaseFilePath);
+            string connectionString = GetConnectionToExistingFile(databaseFilePath);
             try
             {
                 RingtoetsProject project;
@@ -157,14 +157,12 @@ namespace Application.Ringtoets.Storage
                 return true;
             }
 
-            var connectionString = GetConnectionToExistingFile(filePath);
+            string connectionString = GetConnectionToExistingFile(filePath);
             try
             {
                 byte[] originalHash;
                 using (var dbContext = new RingtoetsEntities(connectionString))
-                {
                     originalHash = dbContext.VersionEntities.Select(v => v.FingerPrint).First();
-                }
 
                 byte[] hash = FingerprintHelper.Get(stagedProject.Entity);
                 return !FingerprintHelper.AreEqual(originalHash, hash);
@@ -177,7 +175,7 @@ namespace Application.Ringtoets.Storage
 
         private void SaveProjectInDatabase(string databaseFilePath)
         {
-            var connectionString = GetConnectionToNewFile(databaseFilePath);
+            string connectionString = GetConnectionToNewFile(databaseFilePath);
             using (var dbContext = new RingtoetsEntities(connectionString))
             {
                 try
@@ -220,7 +218,7 @@ namespace Application.Ringtoets.Storage
                 {
                     string m = string.Format(Resources.StorageSqLite_ValidateDatabaseVersion_DatabaseVersion_0_is_invalid,
                                              databaseVersion);
-                    var message = new FileReaderErrorMessageBuilder(databaseFilePath).Build(m);
+                    string message = new FileReaderErrorMessageBuilder(databaseFilePath).Build(m);
                     throw new StorageValidationException(message);
                 }
 
@@ -228,13 +226,13 @@ namespace Application.Ringtoets.Storage
                 {
                     string m = string.Format(Resources.StorageSqLite_ValidateDatabaseVersion_DatabaseVersion_0_higher_then_current_DatabaseVersion_1_,
                                              databaseVersion, RingtoetsVersionHelper.GetCurrentDatabaseVersion());
-                    var message = new FileReaderErrorMessageBuilder(databaseFilePath).Build(m);
+                    string message = new FileReaderErrorMessageBuilder(databaseFilePath).Build(m);
                     throw new StorageValidationException(message);
                 }
             }
             catch (InvalidOperationException e)
             {
-                var message = new FileReaderErrorMessageBuilder(databaseFilePath).Build(Resources.StorageSqLite_ValidateDatabaseVersion_Database_must_have_one_VersionEntity_row);
+                string message = new FileReaderErrorMessageBuilder(databaseFilePath).Build(Resources.StorageSqLite_ValidateDatabaseVersion_Database_must_have_one_VersionEntity_row);
                 throw new StorageValidationException(message, e);
             }
         }
@@ -284,7 +282,7 @@ namespace Application.Ringtoets.Storage
         {
             if (!File.Exists(databaseFilePath))
             {
-                var message = new FileReaderErrorMessageBuilder(databaseFilePath).Build(UtilsResources.Error_File_does_not_exist);
+                string message = new FileReaderErrorMessageBuilder(databaseFilePath).Build(UtilsResources.Error_File_does_not_exist);
                 throw new CouldNotConnectException(message);
             }
 
@@ -298,7 +296,7 @@ namespace Application.Ringtoets.Storage
         /// <exception cref="StorageValidationException">Thrown when the database does not contain the table <c>version</c>.</exception>
         private static string GetConnectionToStorage(string databaseFilePath)
         {
-            var connectionString = SqLiteEntityConnectionStringBuilder.BuildSqLiteEntityConnectionString(databaseFilePath);
+            string connectionString = SqLiteEntityConnectionStringBuilder.BuildSqLiteEntityConnectionString(databaseFilePath);
 
             using (var dbContext = new RingtoetsEntities(connectionString))
             {
@@ -309,7 +307,7 @@ namespace Application.Ringtoets.Storage
                 }
                 catch (Exception exception)
                 {
-                    var message = new FileReaderErrorMessageBuilder(databaseFilePath).Build(Resources.StorageSqLite_LoadProject_Invalid_Ringtoets_database_file);
+                    string message = new FileReaderErrorMessageBuilder(databaseFilePath).Build(Resources.StorageSqLite_LoadProject_Invalid_Ringtoets_database_file);
                     throw new StorageValidationException(message, exception);
                 }
             }
@@ -325,7 +323,7 @@ namespace Application.Ringtoets.Storage
         /// <returns>Returns a new <see cref="StorageException"/>.</returns>
         private static StorageException CreateStorageWriterException(string databaseFilePath, string errorMessage, Exception innerException)
         {
-            var message = new FileWriterErrorMessageBuilder(databaseFilePath).Build(errorMessage);
+            string message = new FileWriterErrorMessageBuilder(databaseFilePath).Build(errorMessage);
             return new StorageException(message, innerException);
         }
 
@@ -338,7 +336,7 @@ namespace Application.Ringtoets.Storage
         /// <returns>Returns a new <see cref="StorageException"/>.</returns>
         private static StorageException CreateStorageReaderException(string databaseFilePath, string errorMessage, Exception innerException = null)
         {
-            var message = new FileReaderErrorMessageBuilder(databaseFilePath).Build(errorMessage);
+            string message = new FileReaderErrorMessageBuilder(databaseFilePath).Build(errorMessage);
             return new StorageException(message, innerException);
         }
 

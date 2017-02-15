@@ -40,7 +40,7 @@ namespace Application.Ringtoets.Storage.Create.DuneErosion
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>
         internal static FailureMechanismEntity Create(this DuneErosionFailureMechanism mechanism, PersistenceRegistry registry)
         {
-            var entity = mechanism.Create(FailureMechanismType.DuneErosion, registry);
+            FailureMechanismEntity entity = mechanism.Create(FailureMechanismType.DuneErosion, registry);
             AddEntitiesForSectionResults(mechanism.SectionResults, registry);
             AddEntitiesForFailureMechanismMeta(mechanism.GeneralInput, entity);
             AddEntitiesForDuneLocations(mechanism.DuneLocations, entity, registry);
@@ -51,10 +51,10 @@ namespace Application.Ringtoets.Storage.Create.DuneErosion
             IEnumerable<DuneErosionFailureMechanismSectionResult> sectionResults,
             PersistenceRegistry registry)
         {
-            foreach (var failureMechanismSectionResult in sectionResults)
+            foreach (DuneErosionFailureMechanismSectionResult failureMechanismSectionResult in sectionResults)
             {
-                var sectionResultEntity = failureMechanismSectionResult.Create();
-                var section = registry.Get(failureMechanismSectionResult.Section);
+                DuneErosionSectionResultEntity sectionResultEntity = failureMechanismSectionResult.Create();
+                FailureMechanismSectionEntity section = registry.Get(failureMechanismSectionResult.Section);
                 section.DuneErosionSectionResultEntities.Add(sectionResultEntity);
             }
         }

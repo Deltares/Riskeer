@@ -35,7 +35,7 @@ namespace Ringtoets.Piping.Data.Test
         [Test]
         [TestCase(0.1, SoilProfileType.SoilProfile1D, 123L)]
         [TestCase(0.26, SoilProfileType.SoilProfile2D, 123L)]
-        public void Constructor_Always_ExpectedValues(double probability, SoilProfileType soilProfileType, long soilProfileId)
+        public void Constructor_WithValidProbabilities_ExpectedValues(double probability, SoilProfileType soilProfileType, long soilProfileId)
         {
             // Call
             var stochasticSoilProfileProbability = new StochasticSoilProfile(probability, soilProfileType, soilProfileId);
@@ -48,12 +48,25 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
+        [TestCase(12.5)]
+        [TestCase(1 + 1e-6)]
+        [TestCase(0 - 1e-6)]
+        [TestCase(-66.3)]
+        [TestCase(double.NaN)]
+        public void Constructor_WithInvalidProbabilities_ThrowsArgumentOutOfRangeException(double probability)
+        {
+            // Call
+            TestDelegate test = () => new StochasticSoilProfile(probability, SoilProfileType.SoilProfile1D, -1);
+
+            // Assert
+            var expectedMessage = "Het aandeel van de ondergrondschematisatie in het stochastische ondergrondmodel moet in het bereik [0, 1] liggen.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
+        }
+
+        [Test]
         [TestCase(0)]
         [TestCase(0.23)]
         [TestCase(0.41)]
-        [TestCase(double.NaN)]
-        [TestCase(double.MaxValue)]
-        [TestCase(double.MinValue)]
         public void AddProbability_DifferentValues_ProbabilityIncreasedAsExpected(double probabilityToAdd)
         {
             // Setup
@@ -65,6 +78,28 @@ namespace Ringtoets.Piping.Data.Test
 
             // Assert
             Assert.AreEqual(startProbability + probabilityToAdd, profile.Probability);
+        }
+
+        [Test]
+        [TestCase(double.MaxValue)]
+        [TestCase(double.MinValue)]
+        [TestCase(1.0)]
+        [TestCase(-1.0)]
+        [TestCase(double.NaN)]
+
+        public void AddProbability_DifferentValuesMakingProbabilityInvalid_ThrowsArgumentOutOfRangeException(double probabilityToAdd)
+        {
+            // Setup
+            var startProbability = new Random(21).NextDouble() * 0.5;
+            var profile = new StochasticSoilProfile(startProbability, SoilProfileType.SoilProfile1D, -1);
+
+            // Call
+            TestDelegate test = () => profile.AddProbability(probabilityToAdd);
+
+            // Assert
+            var expectedMessage = "Het aandeel van de ondergrondschematisatie in het stochastische ondergrondmodel moet in het bereik [0, 1] liggen.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
+            Assert.AreEqual(startProbability, profile.Probability);
         }
 
         [Test]

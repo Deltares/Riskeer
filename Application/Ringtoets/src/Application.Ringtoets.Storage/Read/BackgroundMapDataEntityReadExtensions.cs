@@ -61,7 +61,7 @@ namespace Application.Ringtoets.Storage.Read
 
         private static WmtsMapData CreateMapData(BackgroundMapDataEntity entity)
         {
-            var mapData = WmtsMapData.CreateUnconnectedMapData();
+            WmtsMapData mapData = WmtsMapData.CreateUnconnectedMapData();
             mapData.Name = entity.Name;
 
             if (entity.SourceCapabilitiesUrl != null && entity.SelectedCapabilityName != null && entity.PreferredFormat != null)

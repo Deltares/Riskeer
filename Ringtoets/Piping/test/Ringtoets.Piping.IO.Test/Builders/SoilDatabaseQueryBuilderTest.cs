@@ -107,7 +107,22 @@ namespace Ringtoets.Piping.IO.Test.Builders
         }
 
         [Test]
-        public void GetSegmentNamesUniqueQuery_Always_ReturnsExpectedValues()
+        public void GetCheckVersionQuery_Always_ReturnsExpectedValues()
+        {
+            // Setup
+            const string expectedQuery = "SELECT Value " +
+                                         "FROM _MetaData " +
+                                         "WHERE Key = 'VERSION' AND Value = @Value;";
+
+            // Call
+            string query = SoilDatabaseQueryBuilder.GetCheckVersionQuery();
+
+            // Assert
+            Assert.AreEqual(expectedQuery, query);
+        }
+
+        [Test]
+        public void GetSoilModelNamesUniqueQuery_Always_ReturnsExpectedValues()
         {
             // Setup
             const string expectedQuery =
@@ -123,15 +138,15 @@ namespace Ringtoets.Piping.IO.Test.Builders
         }
 
         [Test]
-        public void GetCheckVersionQuery_Always_ReturnsExpectedValues()
+        public void GetStochasticSoilProfileProbabilitiesDefinedQuery_Always_ReturnsExpectedValues()
         {
             // Setup
-            const string expectedQuery = "SELECT Value " +
-                                         "FROM _MetaData " +
-                                         "WHERE Key = 'VERSION' AND Value = @Value;";
+            const string expectedQuery = "SELECT COUNT(Probability) == 0 as HasNoInvalidProbabilities " +
+                                         "FROM StochasticSoilProfile " +
+                                         "WHERE Probability NOT BETWEEN 0 AND 1 OR Probability ISNULL;";
 
             // Call
-            string query = SoilDatabaseQueryBuilder.GetCheckVersionQuery();
+            string query = SoilDatabaseQueryBuilder.GetStochasticSoilProfileProbabilitiesValidQuery();
 
             // Assert
             Assert.AreEqual(expectedQuery, query);

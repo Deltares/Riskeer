@@ -41,6 +41,7 @@ using Application.Ringtoets.Storage.Create.WaveImpactAsphaltCover;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Serializers;
 using Core.Common.Utils.Extensions;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Integration.Data;
 
 namespace Application.Ringtoets.Storage.Create
@@ -124,7 +125,7 @@ namespace Application.Ringtoets.Storage.Create
 
                 for (var i = 0; i < section.HydraulicBoundaryDatabase.Locations.Count; i++)
                 {
-                    var hydraulicBoundaryLocation = section.HydraulicBoundaryDatabase.Locations[i];
+                    HydraulicBoundaryLocation hydraulicBoundaryLocation = section.HydraulicBoundaryDatabase.Locations[i];
                     entity.HydraulicLocationEntities.Add(hydraulicBoundaryLocation.Create(registry, i));
                 }
             }

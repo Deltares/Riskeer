@@ -53,7 +53,7 @@ namespace Application.Ringtoets.Storage
 
             using (HashAlgorithm hashingAlgorithm = MD5.Create())
             using (var stream = new MemoryStream())
-            using (var writer = XmlDictionaryWriter.CreateBinaryWriter(stream))
+            using (XmlDictionaryWriter writer = XmlDictionaryWriter.CreateBinaryWriter(stream))
             {
                 var serializer = new DataContractSerializer(entity.GetType(),
                                                             Enumerable.Empty<Type>(),
@@ -77,7 +77,7 @@ namespace Application.Ringtoets.Storage
                 return false;
             }
             // Note: Do not turn this into a linq query, as that is less performance optimal!
-            for (int i = 0; i < array1.Length; i++)
+            for (var i = 0; i < array1.Length; i++)
             {
                 if (!array1[i].Equals(array2[i]))
                 {

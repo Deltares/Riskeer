@@ -46,7 +46,7 @@ namespace Application.Ringtoets.Storage.Create
                 throw new ArgumentNullException(nameof(registry));
             }
 
-            FailureMechanismEntity entity = new FailureMechanismEntity
+            var entity = new FailureMechanismEntity
             {
                 FailureMechanismType = (short) type,
                 IsRelevant = Convert.ToByte(mechanism.IsRelevant),
@@ -83,7 +83,7 @@ namespace Application.Ringtoets.Storage.Create
                 throw new ArgumentNullException(nameof(entity));
             }
 
-            foreach (var failureMechanismSection in mechanism.Sections)
+            foreach (FailureMechanismSection failureMechanismSection in mechanism.Sections)
             {
                 entity.FailureMechanismSectionEntities.Add(failureMechanismSection.Create(registry));
             }

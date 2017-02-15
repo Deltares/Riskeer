@@ -200,6 +200,15 @@ namespace Ringtoets.Piping.Data.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Het aandeel van de ondergrondschematisatie in het stochastische ondergrondmodel moet in het bereik {0} liggen..
+        /// </summary>
+        public static string StochasticSoilProfile_Probability_Should_be_in_range_0_ {
+            get {
+                return ResourceManager.GetString("StochasticSoilProfile_Probability_Should_be_in_range_0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Profielschematisaties moeten een unieke naam hebben. Gevonden dubbele namen: {0}..
         /// </summary>
         public static string RingtoetsPipingSurfaceLineCollection_ValidateItems_RingtoetsPipingSurfaceLine_require_unique_names_found_duplicate_items_0_ {

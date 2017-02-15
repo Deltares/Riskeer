@@ -22,6 +22,7 @@
 using System;
 using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Utils.Extensions;
+using Ringtoets.Revetment.Data;
 using Ringtoets.StabilityStoneCover.Data;
 
 namespace Application.Ringtoets.Storage.Create.StabilityStoneCover
@@ -89,12 +90,12 @@ namespace Application.Ringtoets.Storage.Create.StabilityStoneCover
         {
             if (calculation.HasOutput)
             {
-                int i = 0;
-                foreach (var output in calculation.Output.BlocksOutput)
+                var i = 0;
+                foreach (WaveConditionsOutput output in calculation.Output.BlocksOutput)
                 {
                     entity.StabilityStoneCoverWaveConditionsOutputEntities.Add(output.CreateStabilityStoneCoverWaveConditionsOutputEntity(WaveConditionsOutputType.Blocks, i++));
                 }
-                foreach (var output in calculation.Output.ColumnsOutput)
+                foreach (WaveConditionsOutput output in calculation.Output.ColumnsOutput)
                 {
                     entity.StabilityStoneCoverWaveConditionsOutputEntities.Add(output.CreateStabilityStoneCoverWaveConditionsOutputEntity(WaveConditionsOutputType.Columns, i++));
                 }

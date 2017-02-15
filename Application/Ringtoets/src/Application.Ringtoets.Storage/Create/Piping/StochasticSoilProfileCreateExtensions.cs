@@ -43,7 +43,7 @@ namespace Application.Ringtoets.Storage.Create.Piping
         {
             var entity = new StochasticSoilProfileEntity
             {
-                Probability = profile.Probability.ToNaNAsNull(),
+                Probability = profile.Probability,
                 SoilProfileEntity = profile.SoilProfile.Create(registry),
                 Order = order
             };

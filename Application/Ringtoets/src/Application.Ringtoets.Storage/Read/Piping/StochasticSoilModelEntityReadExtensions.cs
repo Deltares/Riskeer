@@ -64,7 +64,7 @@ namespace Application.Ringtoets.Storage.Read.Piping
 
         private static void ReadStochasticSoilProfiles(this StochasticSoilModelEntity entity, StochasticSoilModel model, ReadConversionCollector collector)
         {
-            foreach (var stochasticSoilProfileEntity in entity.StochasticSoilProfileEntities.OrderBy(ssp => ssp.Order))
+            foreach (StochasticSoilProfileEntity stochasticSoilProfileEntity in entity.StochasticSoilProfileEntities.OrderBy(ssp => ssp.Order))
             {
                 model.StochasticSoilProfiles.Add(stochasticSoilProfileEntity.Read(collector));
             }

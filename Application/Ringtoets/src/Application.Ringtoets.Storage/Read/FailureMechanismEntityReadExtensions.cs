@@ -44,6 +44,7 @@ using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.Integration.Data.StandAlone;
+using Ringtoets.Integration.Data.StandAlone.SectionResults;
 using Ringtoets.Piping.Data;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityStoneCover.Data;
@@ -79,7 +80,7 @@ namespace Application.Ringtoets.Storage.Read
                                                          IFailureMechanism failureMechanism,
                                                          ReadConversionCollector collector)
         {
-            foreach (var failureMechanismSectionEntity in entity.FailureMechanismSectionEntities)
+            foreach (FailureMechanismSectionEntity failureMechanismSectionEntity in entity.FailureMechanismSectionEntities)
             {
                 failureMechanism.AddSection(failureMechanismSectionEntity.Read(collector));
             }
@@ -143,10 +144,10 @@ namespace Application.Ringtoets.Storage.Read
                                                               PipingFailureMechanism failureMechanism,
                                                               ReadConversionCollector collector)
         {
-            foreach (var sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.PipingSectionResultEntities))
+            foreach (PipingSectionResultEntity sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.PipingSectionResultEntities))
             {
-                var failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
-                var result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
+                FailureMechanismSection failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
+                PipingFailureMechanismSectionResult result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
 
                 sectionResultEntity.Read(result);
             }
@@ -203,10 +204,10 @@ namespace Application.Ringtoets.Storage.Read
                                                                                 GrassCoverErosionInwardsFailureMechanism failureMechanism,
                                                                                 ReadConversionCollector collector)
         {
-            foreach (var sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.GrassCoverErosionInwardsSectionResultEntities))
+            foreach (GrassCoverErosionInwardsSectionResultEntity sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.GrassCoverErosionInwardsSectionResultEntities))
             {
-                var failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
-                var result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
+                FailureMechanismSection failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
+                GrassCoverErosionInwardsFailureMechanismSectionResult result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
 
                 sectionResultEntity.Read(result, collector);
             }
@@ -249,10 +250,10 @@ namespace Application.Ringtoets.Storage.Read
                                                                         HeightStructuresFailureMechanism failureMechanism,
                                                                         ReadConversionCollector collector)
         {
-            foreach (var sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.HeightStructuresSectionResultEntities))
+            foreach (HeightStructuresSectionResultEntity sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.HeightStructuresSectionResultEntities))
             {
-                var failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
-                var result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
+                FailureMechanismSection failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
+                HeightStructuresFailureMechanismSectionResult result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
 
                 sectionResultEntity.Read(result, collector);
             }
@@ -302,10 +303,10 @@ namespace Application.Ringtoets.Storage.Read
                                                                                                StrengthStabilityLengthwiseConstructionFailureMechanism failureMechanism,
                                                                                                ReadConversionCollector collector)
         {
-            foreach (var sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.StrengthStabilityLengthwiseConstructionSectionResultEntities))
+            foreach (StrengthStabilityLengthwiseConstructionSectionResultEntity sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.StrengthStabilityLengthwiseConstructionSectionResultEntities))
             {
-                var failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
-                var result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
+                FailureMechanismSection failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
+                StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
 
                 sectionResultEntity.Read(result);
             }
@@ -333,10 +334,10 @@ namespace Application.Ringtoets.Storage.Read
                                                                            TechnicalInnovationFailureMechanism failureMechanism,
                                                                            ReadConversionCollector collector)
         {
-            foreach (var sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.TechnicalInnovationSectionResultEntities))
+            foreach (TechnicalInnovationSectionResultEntity sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.TechnicalInnovationSectionResultEntities))
             {
-                var failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
-                var result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
+                FailureMechanismSection failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
+                TechnicalInnovationFailureMechanismSectionResult result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
 
                 sectionResultEntity.Read(result);
             }
@@ -364,10 +365,10 @@ namespace Application.Ringtoets.Storage.Read
                                                                                  WaterPressureAsphaltCoverFailureMechanism failureMechanism,
                                                                                  ReadConversionCollector collector)
         {
-            foreach (var sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.WaterPressureAsphaltCoverSectionResultEntities))
+            foreach (WaterPressureAsphaltCoverSectionResultEntity sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.WaterPressureAsphaltCoverSectionResultEntities))
             {
-                var failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
-                var result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
+                FailureMechanismSection failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
+                WaterPressureAsphaltCoverFailureMechanismSectionResult result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
 
                 sectionResultEntity.Read(result);
             }
@@ -399,10 +400,10 @@ namespace Application.Ringtoets.Storage.Read
                                                                          ClosingStructuresFailureMechanism failureMechanism,
                                                                          ReadConversionCollector collector)
         {
-            foreach (var sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.ClosingStructuresSectionResultEntities))
+            foreach (ClosingStructuresSectionResultEntity sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.ClosingStructuresSectionResultEntities))
             {
-                var failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
-                var result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
+                FailureMechanismSection failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
+                ClosingStructuresFailureMechanismSectionResult result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
 
                 sectionResultEntity.Read(result, collector);
             }
@@ -453,10 +454,10 @@ namespace Application.Ringtoets.Storage.Read
                                                                              MacrostabilityInwardsFailureMechanism failureMechanism,
                                                                              ReadConversionCollector collector)
         {
-            foreach (var sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.MacrostabilityInwardsSectionResultEntities))
+            foreach (MacrostabilityInwardsSectionResultEntity sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.MacrostabilityInwardsSectionResultEntities))
             {
-                var failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
-                var result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
+                FailureMechanismSection failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
+                MacrostabilityInwardsFailureMechanismSectionResult result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
 
                 sectionResultEntity.Read(result);
             }
@@ -484,10 +485,10 @@ namespace Application.Ringtoets.Storage.Read
                                                                               MacrostabilityOutwardsFailureMechanism failureMechanism,
                                                                               ReadConversionCollector collector)
         {
-            foreach (var sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.MacrostabilityOutwardsSectionResultEntities))
+            foreach (MacrostabilityOutwardsSectionResultEntity sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.MacrostabilityOutwardsSectionResultEntities))
             {
-                var failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
-                var result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
+                FailureMechanismSection failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
+                MacrostabilityOutwardsFailureMechanismSectionResult result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
 
                 sectionResultEntity.Read(result);
             }
@@ -518,10 +519,10 @@ namespace Application.Ringtoets.Storage.Read
                                                                               WaveImpactAsphaltCoverFailureMechanism failureMechanism,
                                                                               ReadConversionCollector collector)
         {
-            foreach (var sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.WaveImpactAsphaltCoverSectionResultEntities))
+            foreach (WaveImpactAsphaltCoverSectionResultEntity sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.WaveImpactAsphaltCoverSectionResultEntities))
             {
-                var failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
-                var result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
+                FailureMechanismSection failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
+                WaveImpactAsphaltCoverFailureMechanismSectionResult result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
 
                 sectionResultEntity.Read(result);
             }
@@ -571,10 +572,10 @@ namespace Application.Ringtoets.Storage.Read
                                                                                  GrassCoverErosionOutwardsFailureMechanism failureMechanism,
                                                                                  ReadConversionCollector collector)
         {
-            foreach (var sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.GrassCoverErosionOutwardsSectionResultEntities))
+            foreach (GrassCoverErosionOutwardsSectionResultEntity sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.GrassCoverErosionOutwardsSectionResultEntities))
             {
-                var failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
-                var result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
+                FailureMechanismSection failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
+                GrassCoverErosionOutwardsFailureMechanismSectionResult result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
 
                 sectionResultEntity.Read(result);
             }
@@ -623,10 +624,10 @@ namespace Application.Ringtoets.Storage.Read
                                                                                 GrassCoverSlipOffInwardsFailureMechanism failureMechanism,
                                                                                 ReadConversionCollector collector)
         {
-            foreach (var sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.GrassCoverSlipOffInwardsSectionResultEntities))
+            foreach (GrassCoverSlipOffInwardsSectionResultEntity sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.GrassCoverSlipOffInwardsSectionResultEntities))
             {
-                var failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
-                var result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
+                FailureMechanismSection failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
+                GrassCoverSlipOffInwardsFailureMechanismSectionResult result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
 
                 sectionResultEntity.Read(result);
             }
@@ -654,10 +655,10 @@ namespace Application.Ringtoets.Storage.Read
                                                                                  GrassCoverSlipOffOutwardsFailureMechanism failureMechanism,
                                                                                  ReadConversionCollector collector)
         {
-            foreach (var sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.GrassCoverSlipOffOutwardsSectionResultEntities))
+            foreach (GrassCoverSlipOffOutwardsSectionResultEntity sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.GrassCoverSlipOffOutwardsSectionResultEntities))
             {
-                var failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
-                var result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
+                FailureMechanismSection failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
+                GrassCoverSlipOffOutwardsFailureMechanismSectionResult result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
 
                 sectionResultEntity.Read(result);
             }
@@ -685,10 +686,10 @@ namespace Application.Ringtoets.Storage.Read
                                                                       MicrostabilityFailureMechanism failureMechanism,
                                                                       ReadConversionCollector collector)
         {
-            foreach (var sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.MicrostabilitySectionResultEntities))
+            foreach (MicrostabilitySectionResultEntity sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.MicrostabilitySectionResultEntities))
             {
-                var failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
-                var result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
+                FailureMechanismSection failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
+                MicrostabilityFailureMechanismSectionResult result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
 
                 sectionResultEntity.Read(result);
             }
@@ -716,10 +717,10 @@ namespace Application.Ringtoets.Storage.Read
                                                                        PipingStructureFailureMechanism failureMechanism,
                                                                        ReadConversionCollector collector)
         {
-            foreach (var sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.PipingStructureSectionResultEntities))
+            foreach (PipingStructureSectionResultEntity sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.PipingStructureSectionResultEntities))
             {
-                var failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
-                var result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
+                FailureMechanismSection failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
+                PipingStructureFailureMechanismSectionResult result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
 
                 sectionResultEntity.Read(result);
             }
@@ -754,10 +755,10 @@ namespace Application.Ringtoets.Storage.Read
                                                                    DuneErosionFailureMechanism failureMechanism,
                                                                    ReadConversionCollector collector)
         {
-            foreach (var sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.DuneErosionSectionResultEntities))
+            foreach (DuneErosionSectionResultEntity sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.DuneErosionSectionResultEntities))
             {
-                var failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
-                var result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
+                FailureMechanismSection failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
+                DuneErosionFailureMechanismSectionResult result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
 
                 sectionResultEntity.Read(result);
             }
@@ -804,10 +805,10 @@ namespace Application.Ringtoets.Storage.Read
                                                                            StabilityStoneCoverFailureMechanism failureMechanism,
                                                                            ReadConversionCollector collector)
         {
-            foreach (var sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.StabilityStoneCoverSectionResultEntities))
+            foreach (StabilityStoneCoverSectionResultEntity sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.StabilityStoneCoverSectionResultEntities))
             {
-                var failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
-                var result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
+                FailureMechanismSection failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
+                StabilityStoneCoverFailureMechanismSectionResult result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
 
                 sectionResultEntity.Read(result);
             }
@@ -850,10 +851,10 @@ namespace Application.Ringtoets.Storage.Read
                                                                                 StabilityPointStructuresFailureMechanism failureMechanism,
                                                                                 ReadConversionCollector collector)
         {
-            foreach (var sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.StabilityPointStructuresSectionResultEntities))
+            foreach (StabilityPointStructuresSectionResultEntity sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.StabilityPointStructuresSectionResultEntities))
             {
-                var failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
-                var result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
+                FailureMechanismSection failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
+                StabilityPointStructuresFailureMechanismSectionResult result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
 
                 sectionResultEntity.Read(result, collector);
             }

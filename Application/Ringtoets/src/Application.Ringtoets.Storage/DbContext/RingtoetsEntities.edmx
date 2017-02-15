@@ -941,7 +941,7 @@
           <Property Name="StochasticSoilProfileEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="SoilProfileEntityId" Type="integer" Nullable="false" />
           <Property Name="StochasticSoilModelEntityId" Type="integer" Nullable="false" />
-          <Property Name="Probability" Type="real" />
+          <Property Name="Probability" Type="real" Nullable="false" />
           <Property Name="Order" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="StrengthStabilityLengthwiseConstructionSectionResultEntity">
@@ -4085,7 +4085,7 @@
           <Property Name="StochasticSoilProfileEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="SoilProfileEntityId" Type="Int64" Nullable="false" />
           <Property Name="StochasticSoilModelEntityId" Type="Int64" Nullable="false" />
-          <Property Name="Probability" Type="Double" />
+          <Property Name="Probability" Type="Double" Nullable="false" />
           <Property Name="Order" Type="Int32" Nullable="false" />
           <NavigationProperty Name="PipingCalculationEntities" Relationship="RingtoetsEntitiesModel.FK_PipingCalculationEntity_1_0" FromRole="StochasticSoilProfileEntity" ToRole="PipingCalculationEntity" />
           <NavigationProperty Name="SoilProfileEntity" Relationship="RingtoetsEntitiesModel.FK_StochasticSoilProfileEntity_1_0" FromRole="StochasticSoilProfileEntity" ToRole="SoilProfileEntity" />

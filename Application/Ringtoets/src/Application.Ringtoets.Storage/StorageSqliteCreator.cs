@@ -52,18 +52,18 @@ namespace Application.Ringtoets.Storage
 
             if (File.Exists(databaseFilePath))
             {
-                var message = string.Format("File '{0}' already exists.", databaseFilePath);
+                string message = string.Format("File '{0}' already exists.", databaseFilePath);
                 throw new ArgumentException(message);
             }
 
             SQLiteConnection.CreateFile(databaseFilePath);
-            var connectionString = SqLiteConnectionStringBuilder.BuildSqLiteConnectionString(databaseFilePath, false);
+            string connectionString = SqLiteConnectionStringBuilder.BuildSqLiteConnectionString(databaseFilePath, false);
             try
             {
                 using (var dbContext = new SQLiteConnection(connectionString, true))
                 {
                     dbContext.Open();
-                    using (var command = dbContext.CreateCommand())
+                    using (SQLiteCommand command = dbContext.CreateCommand())
                     {
                         command.CommandText = Resources.DatabaseStructure;
                         command.ExecuteNonQuery();
@@ -72,7 +72,7 @@ namespace Application.Ringtoets.Storage
             }
             catch (SQLiteException exception)
             {
-                var message = new FileWriterErrorMessageBuilder(databaseFilePath).Build(Resources.Error_writing_structure_to_database);
+                string message = new FileWriterErrorMessageBuilder(databaseFilePath).Build(Resources.Error_writing_structure_to_database);
                 throw new StorageException(message, new UpdateStorageException("", exception));
             }
             finally

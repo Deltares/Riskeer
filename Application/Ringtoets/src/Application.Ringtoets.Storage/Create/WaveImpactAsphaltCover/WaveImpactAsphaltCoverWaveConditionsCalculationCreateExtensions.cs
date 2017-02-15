@@ -23,6 +23,7 @@ using System;
 using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Utils.Extensions;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Revetment.Data;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 
 namespace Application.Ringtoets.Storage.Create.WaveImpactAsphaltCover
@@ -91,8 +92,8 @@ namespace Application.Ringtoets.Storage.Create.WaveImpactAsphaltCover
         {
             if (calculation.HasOutput)
             {
-                int i = 0;
-                foreach (var waveConditionsOutput in calculation.Output.Items)
+                var i = 0;
+                foreach (WaveConditionsOutput waveConditionsOutput in calculation.Output.Items)
                 {
                     entity.WaveImpactAsphaltCoverWaveConditionsOutputEntities.Add(waveConditionsOutput.CreateWaveImpactAsphaltCoverWaveConditionsOutputEntity(i++));
                 }

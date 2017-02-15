@@ -41,7 +41,7 @@ namespace Application.Ringtoets.Storage.Create.GrassCoverSlipOffInwards
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>
         internal static FailureMechanismEntity Create(this GrassCoverSlipOffInwardsFailureMechanism mechanism, PersistenceRegistry registry)
         {
-            var entity = mechanism.Create(FailureMechanismType.GrassRevetmentSlidingInwards, registry);
+            FailureMechanismEntity entity = mechanism.Create(FailureMechanismType.GrassRevetmentSlidingInwards, registry);
             AddEntitiesForSectionResults(mechanism.SectionResults, registry);
 
             return entity;
@@ -51,10 +51,10 @@ namespace Application.Ringtoets.Storage.Create.GrassCoverSlipOffInwards
             IEnumerable<GrassCoverSlipOffInwardsFailureMechanismSectionResult> sectionResults,
             PersistenceRegistry registry)
         {
-            foreach (var failureMechanismSectionResult in sectionResults)
+            foreach (GrassCoverSlipOffInwardsFailureMechanismSectionResult failureMechanismSectionResult in sectionResults)
             {
-                var sectionResultEntity = failureMechanismSectionResult.Create();
-                var section = registry.Get(failureMechanismSectionResult.Section);
+                GrassCoverSlipOffInwardsSectionResultEntity sectionResultEntity = failureMechanismSectionResult.Create();
+                FailureMechanismSectionEntity section = registry.Get(failureMechanismSectionResult.Section);
                 section.GrassCoverSlipOffInwardsSectionResultEntities.Add(sectionResultEntity);
             }
         }
