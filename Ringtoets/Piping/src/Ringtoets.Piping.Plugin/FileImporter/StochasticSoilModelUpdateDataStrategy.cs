@@ -108,7 +108,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             {
                 targetCollection.AddRange(addedModels.Union(updatedModels), sourceFilePath);
             }
-            catch (Exception e)
+            catch (ArgumentException e)
             {
                 throw new StochasticSoilModelUpdateException(e.Message, e);
             }

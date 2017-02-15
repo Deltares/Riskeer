@@ -105,6 +105,7 @@ namespace Core.Common.Base
         /// <list type="bullet">
         /// <item><paramref name="items"/> contains <c>null</c>.</item>
         /// <item><paramref name="filePath"/> is not a valid file path.</item>
+        /// <item><see cref="ValidateItems"/> throws an exception.</item>
         /// </list>
         /// </exception>
         public void AddRange(IEnumerable<T> items, string filePath)
@@ -135,7 +136,7 @@ namespace Core.Common.Base
         /// Perform additional validations over <paramref name="items"/>.
         /// </summary>
         /// <param name="items">The items to validate.</param>
-        /// <exception cref="Exception">Throw an exception when validation fails.</exception>
+        /// <exception cref="ArgumentException">Throw an exception when validation fails.</exception>
         protected virtual void ValidateItems(IEnumerable<T> items)
         {
         }
