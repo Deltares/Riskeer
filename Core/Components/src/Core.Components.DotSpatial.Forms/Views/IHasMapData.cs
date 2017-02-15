@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Windows.Forms;
 using Core.Components.Gis.Data;
 
@@ -29,6 +30,11 @@ namespace Core.Components.DotSpatial.Forms.Views
     /// </summary>
     public interface IHasMapData
     {
+        /// <summary>
+        /// Fired when the <see cref="SelectedMapData"/> has been changed. 
+        /// </summary>
+        event EventHandler<EventArgs> SelectedMapDataChanged;
+
         /// <summary>
         /// Gets the display name of the user control;
         /// </summary>

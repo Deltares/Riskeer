@@ -53,6 +53,8 @@ namespace Core.Components.DotSpatial.Forms.Views
             InitializeDataGridView();
             InitializeComboBoxDataSource();
             InitializeEventHandlers();
+
+            UpdateConnectToButton();
         }
 
         public string DisplayName
@@ -112,6 +114,11 @@ namespace Core.Components.DotSpatial.Forms.Views
             }
         }
 
+        private void UpdateConnectToButton()
+        {
+            connectToButton.Enabled = urlLocationComboBox.SelectedItem != null;
+        }
+
         #region DataGridView
 
         private void InitializeDataGridView()
@@ -127,10 +134,12 @@ namespace Core.Components.DotSpatial.Forms.Views
                                                  true);
             dataGridViewControl.AddTextBoxColumn(nameof(WmtsCapabilityRow.CoordinateSystem), Resources.WmtsCapability_MapLayer_CoordinateSystem,
                                                  true);
-            dataGridViewControl.AddCurrentCellChangedHandler(DataGridViewCurrentCellChangedHandler);
         }
 
-        private void DataGridViewCurrentCellChangedHandler(object sender, EventArgs e) {}
+        private void DataGridViewCurrentCellChangedHandler(object sender, EventArgs e)
+        {
+            SelectedMapDataChanged?.Invoke(this, e);
+        }
 
         private void UpdateDataGridViewDataSource(IEnumerable<WmtsCapability> wmtsCapabilities)
         {
@@ -146,6 +155,7 @@ namespace Core.Components.DotSpatial.Forms.Views
         private void UpdateDataGridViewDataSource()
         {
             dataGridViewControl.SetDataSource(capabilities.ToArray());
+            dataGridViewControl.ClearCurrentCell();
         }
 
         private WmtsCapabilityRow GetSelectedWmtsCapabilityRow()
@@ -200,24 +210,21 @@ namespace Core.Components.DotSpatial.Forms.Views
 
         private void InitializeEventHandlers()
         {
-            UpdateConnectToButton();
-            urlLocationComboBox.SelectedIndexChanged += UrlLocation_SelectedIndexChanged;
-            connectToButton.Click += ConnectToButtonOnClick;
-            addLocationButton.Click += AddLocationButtonOnClick;
-            editLocationButton.Click += EditLocationButtonOnClick;
+            dataGridViewControl.AddCurrentCellChangedHandler(DataGridViewCurrentCellChangedHandler);
+
+            urlLocationComboBox.SelectedIndexChanged += OnUrlLocationSelectedIndexChanged;
+
+            connectToButton.Click += OnConnectToButtonClick;
+            addLocationButton.Click += OnAddLocationButtonClick;
+            editLocationButton.Click += OnEditLocationButtonClick;
         }
 
-        private void UrlLocation_SelectedIndexChanged(object sender, EventArgs e)
+        private void OnUrlLocationSelectedIndexChanged(object sender, EventArgs e)
         {
             ClearDataGridViewDataSource();
         }
 
-        private void UpdateConnectToButton()
-        {
-            connectToButton.Enabled = urlLocationComboBox.SelectedItem != null;
-        }
-
-        private void ConnectToButtonOnClick(object sender, EventArgs e)
+        private void OnConnectToButtonClick(object sender, EventArgs e)
         {
             var selectedWmtsConnectionInfo = urlLocationComboBox.SelectedItem as WmtsConnectionInfo;
 
@@ -235,7 +242,7 @@ namespace Core.Components.DotSpatial.Forms.Views
             }
         }
 
-        private void AddLocationButtonOnClick(object sender, EventArgs eventArgs)
+        private void OnAddLocationButtonClick(object sender, EventArgs eventArgs)
         {
             Form controlForm = FindForm();
             using (var dialog = new WmtsConnectionDialog(controlForm))
@@ -255,7 +262,7 @@ namespace Core.Components.DotSpatial.Forms.Views
             }
         }
 
-        private void EditLocationButtonOnClick(object sender, EventArgs eventArgs)
+        private void OnEditLocationButtonClick(object sender, EventArgs eventArgs)
         {
             var selectedWmtsConnectionInfo = urlLocationComboBox.SelectedItem as WmtsConnectionInfo;
             if (selectedWmtsConnectionInfo == null)
@@ -280,6 +287,8 @@ namespace Core.Components.DotSpatial.Forms.Views
                 }
             }
         }
+
+        public event EventHandler<EventArgs> SelectedMapDataChanged;
 
         #endregion
     }

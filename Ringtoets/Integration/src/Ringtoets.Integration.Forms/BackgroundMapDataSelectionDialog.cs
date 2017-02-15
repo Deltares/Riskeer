@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Dialogs;
@@ -55,7 +56,7 @@ namespace Ringtoets.Integration.Forms
             InitializeComponent();
             InitializeComboBox();
 
-            selectButton.Enabled = false;
+            UpdateSelectButton();
         }
 
         /// <summary>
@@ -83,15 +84,32 @@ namespace Ringtoets.Integration.Forms
             return cancelButton;
         }
 
+        private void UpdateSelectButton()
+        {
+            selectButton.Enabled = SelectedMapData != null;
+        }
+
         private void UpdatePropertiesGroupBox()
         {
             if (currentMapDataControl != null)
             {
+                var currentHasMapData = propertiesGroupBox.Controls.OfType<UserControl>().FirstOrDefault() as IHasMapData;
+                if (currentHasMapData != null)
+                {
+                    currentHasMapData.SelectedMapDataChanged -= OnSelectedMapDataChanged;
+                }
+
                 propertiesGroupBox.Controls.Clear();
                 Control userControl = currentMapDataControl.UserControl;
                 propertiesGroupBox.Controls.Add(userControl);
                 userControl.Dock = DockStyle.Fill;
+                currentMapDataControl.SelectedMapDataChanged += OnSelectedMapDataChanged;
             }
+        }
+
+        private void OnSelectedMapDataChanged(object sender, EventArgs e)
+        {
+            UpdateSelectButton();
         }
 
         #region ComboBox
