@@ -93,11 +93,10 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
         }
 
         [Test]
-        [TestCase("withoutSoilModelTables.soil")]
-        public void Constructor_InvalidSchemaThatPassesValidation_ThrowsCriticalFileReadException(string dbName)
+        public void Constructor_InvalidSchemaThatPassesValidation_ThrowsCriticalFileReadException()
         {
             // Setup
-            string dbFile = Path.Combine(testDataPath, dbName);
+            string dbFile = Path.Combine(testDataPath, "withoutSoilModelTables.soil");
             string expectedMessage = new FileReaderErrorMessageBuilder(dbFile).
                 Build("Kan geen ondergrondmodellen lezen. Mogelijk bestaat de 'Segment' tabel niet.");
 
@@ -114,11 +113,11 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
         }
 
         [Test]
-        [TestCase("nonUniqueSoilModelNames.soil")]
-        public void Constructor_NonUniqueSoilModelNames_ThrowsCriticalFileReadException(string dbName)
+        public void Constructor_NonUniqueSoilModelNames_ThrowsCriticalFileReadException()
         {
             // Setup
-            string dbFile = Path.Combine(testDataPath, dbName);
+            string path = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO.Path, "SoilDatabaseConstraintsReader"));
+            string dbFile = Path.Combine(path, "nonUniqueSoilModelNames.soil");
             string expectedMessage = new FileReaderErrorMessageBuilder(dbFile).
                 Build("Namen van ondergrondmodellen zijn niet uniek.");
 
