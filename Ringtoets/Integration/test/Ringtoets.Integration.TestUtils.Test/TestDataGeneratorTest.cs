@@ -58,7 +58,7 @@ namespace Ringtoets.Integration.TestUtils.Test
 
             DuneErosionFailureMechanism duneErosionFailureMechanism = assessmentSection.GetFailureMechanisms()
                                                                                        .OfType<DuneErosionFailureMechanism>()
-                                                                                       .First();
+                                                                                       .Single();
             AssertDuneErosionFailureMechanismCalculationConfigurationsWithoutOutputs(duneErosionFailureMechanism);
             AssertDuneErosionFailureMechanismCalculationConfigurationsWithOutputs(duneErosionFailureMechanism);
         }
@@ -81,7 +81,7 @@ namespace Ringtoets.Integration.TestUtils.Test
 
             DuneErosionFailureMechanism duneErosionFailureMechanism = assessmentSection.GetFailureMechanisms()
                                                                                        .OfType<DuneErosionFailureMechanism>()
-                                                                                       .First();
+                                                                                       .Single();
             AssertDuneErosionFailureMechanismCalculationConfigurationsWithoutOutputs(duneErosionFailureMechanism);
             AssertDuneErosionFailureMechanismCalculationConfigurationsWithOutputs(duneErosionFailureMechanism);
         }
@@ -133,7 +133,7 @@ namespace Ringtoets.Integration.TestUtils.Test
 
             DuneErosionFailureMechanism duneErosionFailureMechanism = assessmentSection.GetFailureMechanisms()
                                                                                        .OfType<DuneErosionFailureMechanism>()
-                                                                                       .First();
+                                                                                       .Single();
             AssertDuneErosionFailureMechanismCalculationConfigurationsWithoutOutputs(duneErosionFailureMechanism);
             AssertDuneErosionFailureMechanismCalculationConfigurationsWithOutputs(duneErosionFailureMechanism);
         }
@@ -157,7 +157,7 @@ namespace Ringtoets.Integration.TestUtils.Test
 
             DuneErosionFailureMechanism duneErosionFailureMechanism = assessmentSection.GetFailureMechanisms()
                                                                                        .OfType<DuneErosionFailureMechanism>()
-                                                                                       .First();
+                                                                                       .Single();
             AssertDuneErosionFailureMechanismCalculationConfigurationsWithoutOutputs(duneErosionFailureMechanism);
             AssertDuneErosionFailureMechanismCalculationConfigurationsWithOutputs(duneErosionFailureMechanism);
         }

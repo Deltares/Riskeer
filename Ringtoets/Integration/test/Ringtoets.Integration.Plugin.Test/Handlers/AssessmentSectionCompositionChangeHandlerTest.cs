@@ -174,11 +174,11 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
 
             GrassCoverErosionOutwardsFailureMechanism grassCoverErosionOutwardsFailureMechanism = assessmentSection.GetFailureMechanisms()
                                                                                                                    .OfType<GrassCoverErosionOutwardsFailureMechanism>()
-                                                                                                                   .First();
+                                                                                                                   .Single();
 
             DuneErosionFailureMechanism duneErosionFailureMechanism = assessmentSection.GetFailureMechanisms()
                                                                                        .OfType<DuneErosionFailureMechanism>()
-                                                                                       .First();
+                                                                                       .Single();
 
             IEnumerable<ICalculation> unaffectedObjects = GetDuneIrrelevantFailureMechanisms(assessmentSection)
                 .SelectMany(fm => fm.Calculations)
@@ -241,7 +241,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
 
             DuneErosionFailureMechanism duneErosionFailureMechanism = assessmentSection.GetFailureMechanisms()
                                                                                        .OfType<DuneErosionFailureMechanism>()
-                                                                                       .First();
+                                                                                       .Single();
 
             IEnumerable<ICalculation> expectedUnaffectedObjects = assessmentSection.GetFailureMechanisms()
                                                                                    .SelectMany(fm => fm.Calculations)
@@ -294,11 +294,11 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             
             GrassCoverErosionOutwardsFailureMechanism grassCoverErosionOutwardsFailureMechanism = assessmentSection.GetFailureMechanisms()
                                                                                                                    .OfType<GrassCoverErosionOutwardsFailureMechanism>()
-                                                                                                                   .First();
+                                                                                                                   .Single();
 
             DuneErosionFailureMechanism duneErosionFailureMechanism = assessmentSection.GetFailureMechanisms()
                                                                                        .OfType<DuneErosionFailureMechanism>()
-                                                                                       .First();
+                                                                                       .Single();
 
             IEnumerable<IObservable> expectedAffectedObjects =
                 duneErosionFailureMechanism.DuneLocations.Where(dl => dl.Output != null).Cast<IObservable>()
@@ -349,7 +349,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
 
             DuneErosionFailureMechanism duneErosionFailureMechanism = assessmentSection.GetFailureMechanisms()
                                                                                        .OfType<DuneErosionFailureMechanism>()
-                                                                                       .First();
+                                                                                       .Single();
 
             IEnumerable<IObservable> expectedAffectedObjects = duneErosionFailureMechanism.DuneLocations.Where(dl => dl.Output != null)
                                                                                           .Concat(new IObservable[]
