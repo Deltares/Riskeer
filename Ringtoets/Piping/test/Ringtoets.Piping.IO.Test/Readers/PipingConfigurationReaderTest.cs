@@ -22,6 +22,7 @@
 using System;
 using System.IO;
 using System.Xml;
+using System.Xml.Schema;
 using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -131,6 +132,24 @@ namespace Ringtoets.Piping.IO.Test.Readers
                 Assert.AreEqual(expectedMessage, exception.Message);
                 Assert.IsInstanceOf<IOException>(exception.InnerException);
             }
+        }
+
+        [Test]
+        [TestCase("invalidNoItems.xml")]
+        [TestCase("invalidFolderWithoutName.xml")]
+        public void Constructor_FileInvalidBasedOnSchemaDefinition_ThrowCriticalFileReadException(string fileName)
+        {
+            // Setup
+            string filePath = Path.Combine(testDirectoryPath, fileName);
+
+            // Call
+            TestDelegate call = () => new PipingConfigurationReader(filePath);
+
+            // Assert
+            string expectedMessage = $"Fout bij het lezen van bestand '{filePath}': het XML-document dat de configuratie voor de berekeningen beschrijft is niet geldig.";
+            var exception = Assert.Throws<CriticalFileReadException>(call);
+            Assert.AreEqual(expectedMessage, exception.Message);
+            Assert.IsInstanceOf<XmlSchemaValidationException>(exception.InnerException);
         }
     }
 }

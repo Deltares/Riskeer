@@ -60,7 +60,7 @@ namespace Ringtoets.Piping.IO.Readers
 
             XDocument xmlDocument = LoadDocument(xmlFilePath);
 
-            ValidateToSchema(xmlDocument);
+            ValidateToSchema(xmlDocument, xmlFilePath);
         }
 
         /// <summary>
@@ -112,8 +112,9 @@ namespace Ringtoets.Piping.IO.Readers
         /// Validates the provided XML document based on a predefined XML Schema Definition (XSD).
         /// </summary>
         /// <param name="document">The XML document to validate.</param>
+        /// <param name="xmlFilePath">The file path the XML document is loaded from.</param>
         /// <exception cref="CriticalFileReadException">Thrown when the provided XML document does not match the predefined XML Schema Definition (XSD).</exception>
-        private static void ValidateToSchema(XDocument document)
+        private static void ValidateToSchema(XDocument document, string xmlFilePath)
         {
             XmlSchemaSet schema = LoadXmlSchema();
 
@@ -121,9 +122,10 @@ namespace Ringtoets.Piping.IO.Readers
             {
                 document.Validate(schema, null);
             }
-            catch (XmlSchemaValidationException e)
+            catch (XmlSchemaValidationException exception)
             {
-                throw new CriticalFileReadException(Resources.PipingConfigurationReader_Configuration_contains_no_valid_xml, e);
+                string message = new FileReaderErrorMessageBuilder(xmlFilePath).Build(Resources.PipingConfigurationReader_Configuration_contains_no_valid_xml);
+                throw new CriticalFileReadException(message, exception);
             }
         }
 
