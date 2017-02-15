@@ -20,7 +20,10 @@
 // All rights reserved.
 
 using System.Drawing;
+using System.IO;
 using System.Linq;
+using Core.Common.Base.Geometry;
+using Core.Common.Base.IO;
 using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -135,5 +138,38 @@ namespace Ringtoets.Piping.Plugin.Test.UpdateInfos
             Assert.AreEqual("Profielschematisaties Kommagescheiden bestand (*.csv)|*.csv", fileFilter);
         }
 
+        [Test]
+        public void CreateFileImporter_ValidInput_SuccessfulImport()
+        {
+            // Setup
+            var filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO,
+                                                      Path.Combine("SurfaceLines", "TwoValidSurfaceLines.csv"));
+
+            var referenceLine = new ReferenceLine();
+            referenceLine.SetGeometry(new[]
+            {
+                new Point2D(3.3, -1),
+                new Point2D(3.3, 1),
+                new Point2D(94270, 427775.65),
+                new Point2D(94270, 427812.08)
+            });
+
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.ReferenceLine = referenceLine;
+            mocks.ReplayAll();
+
+            var failureMechanism = new PipingFailureMechanism();
+            var surfaceLines = new RingtoetsPipingSurfaceLineCollection();
+
+            var updateTarget = new RingtoetsPipingSurfaceLinesContext(surfaceLines, failureMechanism, assessmentSection);
+            
+            // Call
+            IFileImporter importer = updateInfo.CreateFileImporter(updateTarget, filePath);
+
+            // Assert
+            Assert.IsTrue(importer.Import());
+            mocks.VerifyAll();
+        }
     }
 }
