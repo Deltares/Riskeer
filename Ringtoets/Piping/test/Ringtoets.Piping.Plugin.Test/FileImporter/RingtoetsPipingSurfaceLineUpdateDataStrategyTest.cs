@@ -249,5 +249,37 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                 targetSurfaceLine
             }, affectedObjects);
         }
+
+        [Test]
+        public void UpdateSurfaceLinesWithImportedData_ImportedDataContainsDuplicateNames_ThrowsUpdateException()
+        {
+            // Setup
+            const string duplicateName = "Duplicate name it is";
+            RingtoetsPipingSurfaceLine[] importedSurfaceLines =
+            {
+                new RingtoetsPipingSurfaceLine
+                {
+                    Name = duplicateName
+                },
+                new RingtoetsPipingSurfaceLine
+                {
+                    Name = duplicateName
+                }
+            };
+
+            var failureMechanism = new PipingFailureMechanism();
+            var strategy = new RingtoetsPipingSurfaceLineReplaceDataStrategy(failureMechanism);
+
+            // Call
+            TestDelegate call = () => strategy.UpdateSurfaceLinesWithImportedData(failureMechanism.SurfaceLines,
+                                                                                  importedSurfaceLines,
+                                                                                  sourceFilePath);
+
+            // Assert
+            var exception = Assert.Throws<RingtoetsPipingSurfaceLineUpdateException>(call);
+            string expectedMessage = $"Profielschematisaties moeten een unieke naam hebben. Gevonden dubbele namen: {duplicateName}.";
+            Assert.AreEqual(expectedMessage, exception.Message);
+            Assert.IsInstanceOf<ArgumentException>(exception.InnerException);
+        }
     }
 }

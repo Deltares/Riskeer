@@ -35,8 +35,8 @@ namespace Ringtoets.Piping.Plugin.FileImporter
     /// <summary>
     /// Strategy for updating the current surface lines with the imported surface lines:
     /// - Adds imported surface lines that are not part of the current collection.
-    /// - Removes surface lines that are part of the current collection, but are not part of the imported surface line collection
-    /// - Updates the surface lines that are part of the current collection and are part of the imported surface line collection 
+    /// - Removes surface lines that are part of the current collection, but are not part of the imported surface line collection.
+    /// - Updates the surface lines that are part of the current collection and are part of the imported surface line collection. 
     /// </summary>
     public class RingtoetsPipingSurfaceLineUpdateDataStrategy : ISurfaceLineUpdateSurfaceLineStrategy
     {
@@ -84,7 +84,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             }
         }
 
-        private IEnumerable<IObservable> ModifySurfaceLineCollection(ObservableCollectionWithSourcePath<RingtoetsPipingSurfaceLine> existingCollection,
+        private IEnumerable<IObservable> ModifySurfaceLineCollection(RingtoetsPipingSurfaceLineCollection existingCollection,
                                                                      IEnumerable<RingtoetsPipingSurfaceLine> readSurfaceLines,
                                                                      string sourceFilePath)
         {
@@ -102,7 +102,15 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             affectedObjects.AddRange(RemoveSurfaceLines(removedSurfaceLines));
 
             existingCollection.Clear();
-            existingCollection.AddRange(addedSurfaceLines.Union(updatedSurfaceLines), sourceFilePath);
+
+            try
+            {
+                existingCollection.AddRange(addedSurfaceLines.Union(updatedSurfaceLines), sourceFilePath);
+            }
+            catch (ArgumentException e)
+            {
+                throw new RingtoetsPipingSurfaceLineUpdateException(e.Message, e);
+            }
 
             return affectedObjects.Distinct(new ReferenceEqualityComparer<IObservable>());
         }

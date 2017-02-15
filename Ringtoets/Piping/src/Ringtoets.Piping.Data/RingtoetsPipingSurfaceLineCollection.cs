@@ -29,7 +29,7 @@ using Ringtoets.Piping.Primitives;
 namespace Ringtoets.Piping.Data
 {
     /// <summary>
-    /// Collection to store the <see cref="RingtoetsPipingSurfaceLine"/>.
+    /// Collection to store <see cref="RingtoetsPipingSurfaceLine"/>.
     /// </summary>
     public class RingtoetsPipingSurfaceLineCollection : ObservableCollectionWithSourcePath<RingtoetsPipingSurfaceLine>
     {
