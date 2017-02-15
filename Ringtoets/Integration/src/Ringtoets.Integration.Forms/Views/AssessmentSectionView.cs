@@ -92,7 +92,7 @@ namespace Ringtoets.Integration.Forms.Views
                     SetMapDataFeatures();
 
                     Map.Data = mapDataCollection;
-                    Map.BackgroundMapData = (WmtsMapData)data.BackgroundMapData.MapData;
+                    Map.BackgroundMapData = data.BackgroundMapData;
                 }
             }
         }

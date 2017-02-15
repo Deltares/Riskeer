@@ -24,11 +24,9 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base.Geometry;
 using Core.Components.DotSpatial.Forms;
-using Core.Components.DotSpatial.TestUtil;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Forms;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -122,17 +120,8 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
         public void Data_AssessmentSectionWithBackgroundMapData_BackgroundMapDataSet()
         {
             // Setup
-            WmtsMapData backgroundMapData = WmtsMapData.CreateDefaultPdokMapData();
+            IAssessmentSection assessmentSection = new ObservableTestAssessmentSectionStub();
 
-            IAssessmentSection assessmentSection = new ObservableTestAssessmentSectionStub
-            {
-                BackgroundMapData =
-                {
-                    MapData = backgroundMapData
-                }
-            };
-
-            using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
             using (var view = new HeightStructuresFailureMechanismView())
             {
                 var failureMechanismContext = new HeightStructuresFailureMechanismContext(
@@ -142,7 +131,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                 view.Data = failureMechanismContext;
 
                 // Assert
-                Assert.AreSame(backgroundMapData, view.Map.BackgroundMapData);
+                Assert.AreSame(assessmentSection.BackgroundMapData, view.Map.BackgroundMapData);
             }
         }
 
@@ -218,10 +207,10 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
 
                 var referenceLine = new ReferenceLine();
                 referenceLine.SetGeometry(new[]
-                                          {
-                                              new Point2D(1.0, 2.0),
-                                              new Point2D(2.0, 1.0)
-                                          });
+                {
+                    new Point2D(1.0, 2.0),
+                    new Point2D(2.0, 1.0)
+                });
 
                 var assessmentSection = new ObservableTestAssessmentSectionStub
                 {
@@ -259,15 +248,15 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                 failureMechanism.AddSection(new FailureMechanismSection("C", geometryPoints.Skip(2).Take(2)));
 
                 failureMechanism.ForeshoreProfiles.Add(new TestForeshoreProfile(new[]
-                                                                                {
-                                                                                    new Point2D(0, 0),
-                                                                                    new Point2D(1, 1)
-                                                                                }));
+                {
+                    new Point2D(0, 0),
+                    new Point2D(1, 1)
+                }));
                 failureMechanism.ForeshoreProfiles.Add(new TestForeshoreProfile(new[]
-                                                                                {
-                                                                                    new Point2D(2, 2),
-                                                                                    new Point2D(3, 3)
-                                                                                }));
+                {
+                    new Point2D(2, 2),
+                    new Point2D(3, 3)
+                }));
                 failureMechanism.CalculationsGroup.Children.Add(calculationA);
                 failureMechanism.CalculationsGroup.Children.Add(calculationB);
 
@@ -491,10 +480,10 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
 
                 // Call
                 failureMechanism.AddSection(new FailureMechanismSection(string.Empty, new[]
-                                                                        {
-                                                                            new Point2D(1, 2),
-                                                                            new Point2D(1, 2)
-                                                                        }));
+                {
+                    new Point2D(1, 2),
+                    new Point2D(1, 2)
+                }));
                 failureMechanism.NotifyObservers();
 
                 // Assert
@@ -516,10 +505,10 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                 var failureMechanismContext = new HeightStructuresFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
 
                 failureMechanism.ForeshoreProfiles.Add(new TestForeshoreProfile(new[]
-                                                                                {
-                                                                                    new Point2D(0, 0),
-                                                                                    new Point2D(1, 1)
-                                                                                }));
+                {
+                    new Point2D(0, 0),
+                    new Point2D(1, 1)
+                }));
 
                 view.Data = failureMechanismContext;
 
@@ -530,10 +519,10 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
 
                 // Call
                 failureMechanism.ForeshoreProfiles.Add(new TestForeshoreProfile(new[]
-                                                                                {
-                                                                                    new Point2D(2, 2),
-                                                                                    new Point2D(3, 3)
-                                                                                }));
+                {
+                    new Point2D(2, 2),
+                    new Point2D(3, 3)
+                }));
                 failureMechanism.ForeshoreProfiles.NotifyObservers();
 
                 // Assert
@@ -802,10 +791,10 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
 
             newAssessmentSection.ReferenceLine = new ReferenceLine();
             newAssessmentSection.ReferenceLine.SetGeometry(new[]
-                                                           {
-                                                               new Point2D(2, 4),
-                                                               new Point2D(3, 4)
-                                                           });
+            {
+                new Point2D(2, 4),
+                new Point2D(3, 4)
+            });
 
             var oldHeightStructuresFailureMechanismContext = new HeightStructuresFailureMechanismContext(new HeightStructuresFailureMechanism(), oldAssessmentSection);
             var newHeightStructuresFailureMechanismContext = new HeightStructuresFailureMechanismContext(new HeightStructuresFailureMechanism(), newAssessmentSection);
@@ -860,10 +849,10 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
 
                 StructuresCalculation<HeightStructuresInput> calculation = calculationsArray[index];
                 CollectionAssert.AreEquivalent(new[]
-                                               {
-                                                   calculation.InputParameters.Structure.Location,
-                                                   calculation.InputParameters.HydraulicBoundaryLocation.Location
-                                               }, geometries[0].PointCollections.First());
+                {
+                    calculation.InputParameters.Structure.Location,
+                    calculation.InputParameters.HydraulicBoundaryLocation.Location
+                }, geometries[0].PointCollections.First());
             }
             Assert.AreEqual("Berekeningen", mapData.Name);
         }

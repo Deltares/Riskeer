@@ -22,6 +22,7 @@
 using System;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read;
+using Core.Components.Gis;
 using Core.Components.Gis.Data;
 using NUnit.Framework;
 using Ringtoets.Common.Data;

@@ -22,6 +22,7 @@
 using System;
 using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Base.Data;
+using Core.Components.Gis;
 using Core.Components.Gis.Data;
 using Ringtoets.Common.Data;
 

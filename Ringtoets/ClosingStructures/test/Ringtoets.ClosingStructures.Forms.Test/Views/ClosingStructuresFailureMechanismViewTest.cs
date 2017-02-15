@@ -24,7 +24,6 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base.Geometry;
 using Core.Components.DotSpatial.Forms;
-using Core.Components.DotSpatial.TestUtil;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Forms;
 using Core.Components.Gis.Geometries;
@@ -106,17 +105,8 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
         public void Data_AssessmentSectionWithBackgroundMapData_BackgroundMapDataSet()
         {
             // Setup
-            WmtsMapData backgroundMapData = WmtsMapData.CreateDefaultPdokMapData();
+            IAssessmentSection assessmentSection = new ObservableTestAssessmentSectionStub();
 
-            IAssessmentSection assessmentSection = new ObservableTestAssessmentSectionStub
-            {
-                BackgroundMapData =
-                {
-                    MapData = backgroundMapData
-                }
-            };
-
-            using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
             using (var view = new ClosingStructuresFailureMechanismView())
             {
                 var failureMechanismContext = new ClosingStructuresFailureMechanismContext(
@@ -126,7 +116,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                 view.Data = failureMechanismContext;
 
                 // Assert
-                Assert.AreSame(backgroundMapData, view.Map.BackgroundMapData);
+                Assert.AreSame(assessmentSection.BackgroundMapData, view.Map.BackgroundMapData);
             }
         }
 

@@ -142,7 +142,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Views
                     SetMapDataFeatures();
 
                     Map.Data = mapDataCollection;
-                    Map.BackgroundMapData = (WmtsMapData)data.Parent.BackgroundMapData.MapData;
+                    Map.BackgroundMapData = data.Parent.BackgroundMapData;
                 }
             }
         }

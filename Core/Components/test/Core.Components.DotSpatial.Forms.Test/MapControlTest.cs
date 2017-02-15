@@ -34,6 +34,7 @@ using Core.Components.DotSpatial.Layer.BruTile;
 using Core.Components.DotSpatial.Layer.BruTile.Configurations;
 using Core.Components.DotSpatial.MapFunctions;
 using Core.Components.DotSpatial.TestUtil;
+using Core.Components.Gis;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Forms;
@@ -104,14 +105,19 @@ namespace Core.Components.DotSpatial.Forms.Test
         {
             // Given
             WmtsMapData backgroundMapData = WmtsMapData.CreateDefaultPdokMapData();
-            backgroundMapData.IsVisible = isVisible;
-            backgroundMapData.Transparency = (RoundedDouble) 0.25;
+
+            var mapDataContainer = new BackgroundMapDataContainer
+            {
+                IsVisible = isVisible,
+                Transparency = (RoundedDouble) 0.25,
+                MapData = backgroundMapData
+            };
 
             using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
             using (var map = new MapControl())
             {
                 // When
-                map.BackgroundMapData = backgroundMapData;
+                map.BackgroundMapData = mapDataContainer;
 
                 // Then
                 var mapView = map.Controls.OfType<Map>().First();
@@ -134,6 +140,10 @@ namespace Core.Components.DotSpatial.Forms.Test
         {
             // Given
             WmtsMapData backgroundMapData = WmtsMapData.CreateDefaultPdokMapData();
+            var container = new BackgroundMapDataContainer
+            {
+                MapData = backgroundMapData
+            };
 
             using (new UseCustomTileSourceFactoryConfig(problematicFactory))
             using (var map = new MapControl())
@@ -142,7 +152,7 @@ namespace Core.Components.DotSpatial.Forms.Test
                 var originalProjection = mapView.Projection;
 
                 // When
-                Action call = () => map.BackgroundMapData = backgroundMapData;
+                Action call = () => map.BackgroundMapData = container;
 
                 // Then
                 const string expectedMessage = "Verbinden met WMTS is mislukt waardoor geen kaartgegevens ingeladen kunnen worden. De achtergrondkaart kan nu niet getoond worden.";
@@ -161,6 +171,11 @@ namespace Core.Components.DotSpatial.Forms.Test
             {
                 // Given
                 WmtsMapData backgroundMapData = WmtsMapData.CreateDefaultPdokMapData();
+                var mapDataContainer = new BackgroundMapDataContainer
+                {
+                    MapData = backgroundMapData
+                };
+
                 using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
                 using (var map = new MapControl())
                 {
@@ -168,7 +183,7 @@ namespace Core.Components.DotSpatial.Forms.Test
                     var originalProjection = mapView.Projection;
 
                     // When
-                    Action call = () => map.BackgroundMapData = backgroundMapData;
+                    Action call = () => map.BackgroundMapData = mapDataContainer;
 
                     // Then
                     const string expectedMessage = "Configuratie van kaartgegevens hulpbestanden is mislukt. De achtergrondkaart kan nu niet getoond worden.";
@@ -190,12 +205,16 @@ namespace Core.Components.DotSpatial.Forms.Test
         {
             // Given
             WmtsMapData backgroundMapData = WmtsMapData.CreateDefaultPdokMapData();
+            var mapDataContainer = new BackgroundMapDataContainer
+            {
+                MapData = backgroundMapData
+            };
 
             using (new UseCustomTileSourceFactoryConfig(problematicFactory))
             using (var map = new MapControl())
             {
                 // Precondition
-                Action setAndCauseFailingInitialization = () => map.BackgroundMapData = backgroundMapData;
+                Action setAndCauseFailingInitialization = () => map.BackgroundMapData = mapDataContainer;
                 const string expectedMessage = "Verbinden met WMTS is mislukt waardoor geen kaartgegevens ingeladen kunnen worden. De achtergrondkaart kan nu niet getoond worden.";
                 TestHelper.AssertLogMessageIsGenerated(setAndCauseFailingInitialization, expectedMessage, 1);
 
@@ -220,13 +239,18 @@ namespace Core.Components.DotSpatial.Forms.Test
         {
             // Given
             WmtsMapData backgroundMapData = WmtsMapData.CreateDefaultPdokMapData();
+            var mapDataContainer = new BackgroundMapDataContainer
+            {
+                MapData = backgroundMapData
+            };
+
             using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
             using (var map = new MapControl())
             {
                 DoWhileTileCacheRootLocked(() =>
                 {
                     // Precondition
-                    Action setAndCauseCacheInitializationFailure = () => map.BackgroundMapData = backgroundMapData;
+                    Action setAndCauseCacheInitializationFailure = () => map.BackgroundMapData = mapDataContainer;
                     const string expectedMessage = "Configuratie van kaartgegevens hulpbestanden is mislukt. De achtergrondkaart kan nu niet getoond worden.";
                     TestHelper.AssertLogMessageIsGenerated(setAndCauseCacheInitializationFailure, expectedMessage, 1);
                 });
@@ -253,6 +277,10 @@ namespace Core.Components.DotSpatial.Forms.Test
         {
             // Given
             WmtsMapData backgroundMapData = WmtsMapData.CreateDefaultPdokMapData();
+            var mapDataContainer = new BackgroundMapDataContainer
+            {
+                MapData = backgroundMapData
+            };
 
             using (new UseCustomTileSourceFactoryConfig(problematicFactory))
             using (var map = new MapControl())
@@ -261,7 +289,7 @@ namespace Core.Components.DotSpatial.Forms.Test
                 var originalProjection = mapView.Projection;
 
                 // Precondition
-                Action setAndCauseFailToInitializeLayer = () => map.BackgroundMapData = backgroundMapData;
+                Action setAndCauseFailToInitializeLayer = () => map.BackgroundMapData = mapDataContainer;
                 const string expectedMessage = "Verbinden met WMTS is mislukt waardoor geen kaartgegevens ingeladen kunnen worden. De achtergrondkaart kan nu niet getoond worden.";
                 TestHelper.AssertLogMessageIsGenerated(setAndCauseFailToInitializeLayer, expectedMessage, 1);
 
@@ -284,6 +312,11 @@ namespace Core.Components.DotSpatial.Forms.Test
             {
                 // Given
                 WmtsMapData backgroundMapData = WmtsMapData.CreateDefaultPdokMapData();
+                var mapDataContainer = new BackgroundMapDataContainer
+                {
+                    MapData = backgroundMapData
+                };
+
                 using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
                 using (var map = new MapControl())
                 {
@@ -291,7 +324,7 @@ namespace Core.Components.DotSpatial.Forms.Test
                     var originalProjection = mapView.Projection;
 
                     // Precondition
-                    Action setAndCauseCacheInitializationFailure = () => map.BackgroundMapData = backgroundMapData;
+                    Action setAndCauseCacheInitializationFailure = () => map.BackgroundMapData = mapDataContainer;
                     const string expectedMessage = "Configuratie van kaartgegevens hulpbestanden is mislukt. De achtergrondkaart kan nu niet getoond worden.";
                     TestHelper.AssertLogMessageIsGenerated(setAndCauseCacheInitializationFailure, expectedMessage, 1);
 
@@ -318,9 +351,13 @@ namespace Core.Components.DotSpatial.Forms.Test
                 ProjectionInfo originalProjection = mapView.Projection;
 
                 WmtsMapData backgroundMapData = WmtsMapData.CreateUnconnectedMapData();
+                var mapDataContainer = new BackgroundMapDataContainer
+                {
+                    MapData = backgroundMapData
+                };
 
                 // When
-                map.BackgroundMapData = backgroundMapData;
+                map.BackgroundMapData = mapDataContainer;
 
                 // Then
                 Assert.AreEqual(0, mapView.Layers.Count);
@@ -334,8 +371,12 @@ namespace Core.Components.DotSpatial.Forms.Test
         {
             // Given
             WmtsMapData originalBackGroundMapData = WmtsMapData.CreateDefaultPdokMapData();
-            originalBackGroundMapData.IsVisible = true;
-            originalBackGroundMapData.Transparency = (RoundedDouble) 0.25;
+            var mapDataContainer = new BackgroundMapDataContainer
+            {
+                IsVisible = true,
+                Transparency = (RoundedDouble)0.25,
+                MapData = originalBackGroundMapData
+            };
 
             using (new UseCustomTileSourceFactoryConfig(originalBackGroundMapData))
             using (var map = new MapControl())
@@ -344,7 +385,7 @@ namespace Core.Components.DotSpatial.Forms.Test
                 var mapView = map.Controls.OfType<Map>().First();
                 ProjectionInfo originalProjection = mapView.Projection;
 
-                map.BackgroundMapData = originalBackGroundMapData;
+                map.BackgroundMapData = mapDataContainer;
 
                 // Precondition
                 Assert.AreEqual(1, mapView.Layers.Count);
@@ -355,7 +396,11 @@ namespace Core.Components.DotSpatial.Forms.Test
 
                 // When
                 var newBackGroundMapData = WmtsMapData.CreateUnconnectedMapData();
-                map.BackgroundMapData = newBackGroundMapData;
+                var newMapDataContainer = new BackgroundMapDataContainer
+                {
+                    MapData = newBackGroundMapData
+                };
+                map.BackgroundMapData = newMapDataContainer;
 
                 // Then
                 Assert.AreEqual(0, mapView.Layers.Count);
@@ -368,25 +413,33 @@ namespace Core.Components.DotSpatial.Forms.Test
         {
             // Given
             var newBackGroundMapData = WmtsMapData.CreateDefaultPdokMapData();
-            newBackGroundMapData.IsVisible = true;
-            newBackGroundMapData.Transparency = (RoundedDouble) 0.75;
+            var newMapDataContainer = new BackgroundMapDataContainer
+            {
+                IsVisible = true,
+                Transparency = (RoundedDouble) 0.75,
+                MapData = newBackGroundMapData
+            };
 
             using (new UseCustomTileSourceFactoryConfig(newBackGroundMapData))
             using (var map = new MapControl())
             {
                 WmtsMapData originalBackGroundMapData = WmtsMapData.CreateUnconnectedMapData();
+                var originalMapDataContainer = new BackgroundMapDataContainer
+                {
+                    MapData = originalBackGroundMapData
+                };
 
                 var mapView = map.Controls.OfType<Map>().First();
                 ProjectionInfo originalProjection = mapView.Projection;
 
-                map.BackgroundMapData = originalBackGroundMapData;
+                map.BackgroundMapData = originalMapDataContainer;
 
                 // Precondition
                 Assert.AreEqual(0, mapView.Layers.Count);
                 Assert.IsTrue(originalProjection.Equals(mapView.Projection));
 
                 // When
-                map.BackgroundMapData = newBackGroundMapData;
+                map.BackgroundMapData = newMapDataContainer;
 
                 // Then
                 Assert.AreEqual(1, mapView.Layers.Count);
@@ -402,13 +455,17 @@ namespace Core.Components.DotSpatial.Forms.Test
         {
             // Given
             WmtsMapData backgroundMapData = WmtsMapData.CreateDefaultPdokMapData();
-            backgroundMapData.IsVisible = true;
-            backgroundMapData.Transparency = (RoundedDouble) 0.25;
+            var mapDataContainer = new BackgroundMapDataContainer
+            {
+                IsVisible = true,
+                Transparency = (RoundedDouble) 0.25,
+                MapData = backgroundMapData
+            };
 
             using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
             using (var map = new MapControl
             {
-                BackgroundMapData = backgroundMapData
+                BackgroundMapData = mapDataContainer
             })
             {
                 var mapView = map.Controls.OfType<Map>().First();
@@ -435,11 +492,15 @@ namespace Core.Components.DotSpatial.Forms.Test
             // Given
             var newBackgroundMapData = WmtsMapData.CreateAlternativePdokMapData();
             var startingBackgroundMapData = WmtsMapData.CreateUnconnectedMapData();
+            var mapDataContainer = new BackgroundMapDataContainer
+            {
+                MapData = startingBackgroundMapData
+            };
 
             using (new UseCustomTileSourceFactoryConfig(newBackgroundMapData))
             using (var map = new MapControl
             {
-                BackgroundMapData = startingBackgroundMapData
+                BackgroundMapData = mapDataContainer
             })
             {
                 var mapView = map.Controls.OfType<Map>().First();
@@ -496,11 +557,15 @@ namespace Core.Components.DotSpatial.Forms.Test
         {
             // Given
             var startingBackgroundMapData = WmtsMapData.CreateAlternativePdokMapData();
+            var mapDataContainer = new BackgroundMapDataContainer
+            {
+                MapData = startingBackgroundMapData
+            };
 
             using (new UseCustomTileSourceFactoryConfig(startingBackgroundMapData))
             using (var map = new MapControl
             {
-                BackgroundMapData = startingBackgroundMapData
+                BackgroundMapData = mapDataContainer
             })
             {
                 var mapView = map.Controls.OfType<Map>().First();
@@ -559,6 +624,10 @@ namespace Core.Components.DotSpatial.Forms.Test
         {
             // Given
             WmtsMapData backgroundMapData = WmtsMapData.CreateAlternativePdokMapData();
+            var mapDataContainer = new BackgroundMapDataContainer
+            {
+                MapData = backgroundMapData
+            };
 
             using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
             using (var map = new MapControl())
@@ -590,7 +659,7 @@ namespace Core.Components.DotSpatial.Forms.Test
                 Assert.AreEqual(2.2, pointFeatureLayer.FeatureSet.Features[0].BasicGeometry.Coordinates[0].Y);
 
                 // When
-                map.BackgroundMapData = backgroundMapData;
+                map.BackgroundMapData = mapDataContainer;
 
                 // Then
                 Assert.AreEqual(2, mapView.Layers.Count);
@@ -609,6 +678,10 @@ namespace Core.Components.DotSpatial.Forms.Test
         {
             // Given
             WmtsMapData backgroundMapData = WmtsMapData.CreateUnconnectedMapData();
+            var mapDataContainer = new BackgroundMapDataContainer
+            {
+                MapData = backgroundMapData
+            };
 
             using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
             using (var map = new MapControl())
@@ -640,7 +713,7 @@ namespace Core.Components.DotSpatial.Forms.Test
                 Assert.AreEqual(2.2, pointFeatureLayer.FeatureSet.Features[0].BasicGeometry.Coordinates[0].Y);
 
                 // When
-                map.BackgroundMapData = backgroundMapData;
+                map.BackgroundMapData = mapDataContainer;
 
                 // Then
                 Assert.AreEqual(1, mapView.Layers.Count);
@@ -656,6 +729,10 @@ namespace Core.Components.DotSpatial.Forms.Test
         {
             // Given
             WmtsMapData backgroundMapData = WmtsMapData.CreateDefaultPdokMapData();
+            var mapDataContainer = new BackgroundMapDataContainer
+            {
+                MapData = backgroundMapData
+            };
 
             using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
             using (var map = new MapControl())
@@ -678,7 +755,7 @@ namespace Core.Components.DotSpatial.Forms.Test
                     }
                 });
                 map.Data = mapDataCollection;
-                map.BackgroundMapData = backgroundMapData;
+                map.BackgroundMapData = mapDataContainer;
 
                 // Precondition
                 var mapView = map.Controls.OfType<Map>().First();
@@ -691,9 +768,13 @@ namespace Core.Components.DotSpatial.Forms.Test
 
                 // When
                 var differentBackgroundMapData = WmtsMapData.CreateAlternativePdokMapData();
+                var differentMapDataContainer = new BackgroundMapDataContainer
+                {
+                    MapData = differentBackgroundMapData
+                };
                 using (new UseCustomTileSourceFactoryConfig(differentBackgroundMapData))
                 {
-                    map.BackgroundMapData = differentBackgroundMapData;
+                    map.BackgroundMapData = differentMapDataContainer;
 
                     // Then
                     Assert.AreEqual(2, mapView.Layers.Count);
@@ -713,6 +794,10 @@ namespace Core.Components.DotSpatial.Forms.Test
         {
             // Given
             WmtsMapData backgroundMapData = WmtsMapData.CreateAlternativePdokMapData();
+            var mapDataContainer = new BackgroundMapDataContainer
+            {
+                MapData = backgroundMapData
+            };
 
             using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
             using (var map = new MapControl())
@@ -735,7 +820,7 @@ namespace Core.Components.DotSpatial.Forms.Test
                     }
                 });
                 map.Data = mapDataCollection;
-                map.BackgroundMapData = backgroundMapData;
+                map.BackgroundMapData = mapDataContainer;
 
                 // Precondition
                 var mapView = map.Controls.OfType<Map>().First();
@@ -750,9 +835,13 @@ namespace Core.Components.DotSpatial.Forms.Test
 
                 // When
                 var differentBackgroundMapData = WmtsMapData.CreateUnconnectedMapData();
+                var differentMapDataContainer = new BackgroundMapDataContainer
+                {
+                    MapData = differentBackgroundMapData
+                };
                 using (new UseCustomTileSourceFactoryConfig(differentBackgroundMapData))
                 {
-                    map.BackgroundMapData = differentBackgroundMapData;
+                    map.BackgroundMapData = differentMapDataContainer;
 
                     // Then
                     Assert.AreEqual(1, mapView.Layers.Count);
@@ -821,11 +910,15 @@ namespace Core.Components.DotSpatial.Forms.Test
         {
             // Given
             WmtsMapData backgroundMapData = WmtsMapData.CreateAlternativePdokMapData();
+            var mapDataContainer = new BackgroundMapDataContainer
+            {
+                MapData = backgroundMapData
+            };
 
             using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
             using (var map = new MapControl
             {
-                BackgroundMapData = backgroundMapData
+                BackgroundMapData = mapDataContainer
             })
             {
                 var mapPointData = new MapPointData("Points")
@@ -885,6 +978,10 @@ namespace Core.Components.DotSpatial.Forms.Test
         {
             // Given
             WmtsMapData backgroundMapData = WmtsMapData.CreateDefaultPdokMapData();
+            var mapDataContainer = new BackgroundMapDataContainer
+            {
+                MapData = backgroundMapData
+            };
 
             using (new UseCustomTileSourceFactoryConfig(problematicFactory))
             using (var map = new MapControl())
@@ -914,7 +1011,7 @@ namespace Core.Components.DotSpatial.Forms.Test
                 // When
                 Action call = () =>
                 {
-                    map.BackgroundMapData = backgroundMapData;
+                    map.BackgroundMapData = mapDataContainer;
                     map.Data = mapDataCollection;
                 };
 
@@ -938,6 +1035,10 @@ namespace Core.Components.DotSpatial.Forms.Test
             {
                 // Given
                 WmtsMapData backgroundMapData = WmtsMapData.CreateDefaultPdokMapData();
+                var mapDataContainer = new BackgroundMapDataContainer
+                {
+                    MapData = backgroundMapData
+                };
 
                 using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
                 using (var map = new MapControl())
@@ -967,7 +1068,7 @@ namespace Core.Components.DotSpatial.Forms.Test
                     // When
                     Action call = () =>
                     {
-                        map.BackgroundMapData = backgroundMapData;
+                        map.BackgroundMapData = mapDataContainer;
                         map.Data = mapDataCollection;
                     };
 
@@ -1180,11 +1281,15 @@ namespace Core.Components.DotSpatial.Forms.Test
         {
             // Given
             var backgroundMapData = WmtsMapData.CreateAlternativePdokMapData();
+            var mapDataContainer = new BackgroundMapDataContainer
+            {
+                MapData = backgroundMapData
+            };
 
             using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
             using (var map = new MapControl
             {
-                BackgroundMapData = backgroundMapData
+                BackgroundMapData = mapDataContainer
             })
             {
                 var mapView = map.Controls.OfType<Map>().First();
@@ -2036,6 +2141,11 @@ namespace Core.Components.DotSpatial.Forms.Test
             string expectedTileCachePath = Path.Combine(BruTileSettings.PersistentCacheDirectoryRoot, "wmts");
 
             string backupTileCachePath = expectedTileCachePath + "_bak";
+            if (Directory.Exists(backupTileCachePath))
+            {
+                Directory.Delete(backupTileCachePath, true);
+            }
+
             if (Directory.Exists(expectedTileCachePath))
             {
                 Directory.Move(expectedTileCachePath, backupTileCachePath);

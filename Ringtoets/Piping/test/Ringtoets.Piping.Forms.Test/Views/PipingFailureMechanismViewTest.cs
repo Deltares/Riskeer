@@ -23,7 +23,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Forms;
-using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Components.DotSpatial.Forms;
 using Core.Components.DotSpatial.TestUtil;
@@ -31,7 +30,6 @@ using Core.Components.Gis.Data;
 using Core.Components.Gis.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
@@ -149,15 +147,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void Data_EmptyPipingFailureMechanismContext_NoMapDataSet()
         {
             // Setup
-            var backgroundMapData = WmtsMapData.CreateUnconnectedMapData();
-
-            var assessmentSection = new ObservableTestAssessmentSectionStub
-            {
-                BackgroundMapData =
-                {
-                    MapData = backgroundMapData
-                }
-            };
+            var assessmentSection = new ObservableTestAssessmentSectionStub();
 
             using (var view = new PipingFailureMechanismView())
             {
@@ -170,26 +160,17 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 // Assert
                 Assert.AreSame(failureMechanismContext, view.Data);
                 AssertEmptyMapData(view.Map.Data);
-                Assert.AreSame(backgroundMapData, view.Map.BackgroundMapData);
+                Assert.AreSame(assessmentSection.BackgroundMapData, view.Map.BackgroundMapData);
             }
         }
 
         [Test]
         public void Data_AssessmentSectionWithBackgroundMapData_BackgroundMapDataSet()
         {
-            WmtsMapData backgroundMapData = WmtsMapData.CreateAlternativePdokMapData();
-
             var mocks = new MockRepository();
-            var assessmentSection = new ObservableTestAssessmentSectionStub
-            {
-                BackgroundMapData =
-                {
-                    MapData = backgroundMapData
-                }
-            };
+            var assessmentSection = new ObservableTestAssessmentSectionStub();
 
             // Setup
-            using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
             using (var view = new PipingFailureMechanismView())
             {
                 var failureMechanismContext = new PipingFailureMechanismContext(new PipingFailureMechanism(), assessmentSection);
@@ -198,7 +179,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 view.Data = failureMechanismContext;
 
                 // Assert
-                Assert.AreSame(backgroundMapData, view.Map.BackgroundMapData);
+                Assert.AreSame(assessmentSection.BackgroundMapData, view.Map.BackgroundMapData);
             }
             mocks.VerifyAll();
         }

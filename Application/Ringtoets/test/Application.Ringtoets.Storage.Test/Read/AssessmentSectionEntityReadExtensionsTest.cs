@@ -28,6 +28,7 @@ using Application.Ringtoets.Storage.Serializers;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
+using Core.Components.Gis;
 using Core.Components.Gis.Data;
 using NUnit.Framework;
 using Ringtoets.Common.Data;

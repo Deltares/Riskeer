@@ -118,17 +118,8 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
         public void Data_AssessmentSectionWithBackgroundMapData_BackgroundMapDataSet()
         {
             // Setup
-            WmtsMapData backgroundMapData = WmtsMapData.CreateDefaultPdokMapData();
+            IAssessmentSection assessmentSection = new ObservableTestAssessmentSectionStub();
 
-            IAssessmentSection assessmentSection = new ObservableTestAssessmentSectionStub
-            {
-                BackgroundMapData =
-                {
-                    MapData = backgroundMapData
-                }
-            };
-
-            using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
             using (var view = new DuneErosionFailureMechanismView())
             {
                 var failureMechanismContext = new DuneErosionFailureMechanismContext(new DuneErosionFailureMechanism(), assessmentSection);
@@ -137,7 +128,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
                 view.Data = failureMechanismContext;
 
                 // Assert
-                Assert.AreSame(backgroundMapData, view.Map.BackgroundMapData);
+                Assert.AreSame(assessmentSection.BackgroundMapData, view.Map.BackgroundMapData);
             }
         }
 

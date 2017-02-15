@@ -57,7 +57,6 @@
     <Compile Include="AssessmentSection\AssessmentSectionCompositionTest.cs" />
     <Compile Include="AssessmentSection\ReferenceLineMetaTest.cs" />
     <Compile Include="AssessmentSection\ReferenceLineTest.cs" />
-    <Compile Include="BackgroundMapDataContainerTest.cs" />
     <Compile Include="CommentTest.cs" />
     <Compile Include="DikeProfiles\BreakWaterTest.cs" />
     <Compile Include="Calculation\CalculationGroupTest.cs" />

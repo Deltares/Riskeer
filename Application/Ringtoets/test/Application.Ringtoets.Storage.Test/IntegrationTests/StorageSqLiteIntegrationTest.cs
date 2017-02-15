@@ -34,6 +34,7 @@ using Core.Common.Gui;
 using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.Settings;
 using Core.Common.TestUtil;
+using Core.Components.Gis;
 using Core.Components.Gis.Data;
 using NUnit.Framework;
 using Ringtoets.ClosingStructures.Data;

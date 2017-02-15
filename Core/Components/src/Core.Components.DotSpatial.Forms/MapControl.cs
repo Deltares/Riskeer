@@ -29,6 +29,7 @@ using Core.Components.DotSpatial.Layer;
 using Core.Components.DotSpatial.Layer.BruTile;
 using Core.Components.DotSpatial.Layer.BruTile.Configurations;
 using Core.Components.DotSpatial.MapFunctions;
+using Core.Components.Gis;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Forms;
 using DotSpatial.Controls;
@@ -57,7 +58,8 @@ namespace Core.Components.DotSpatial.Forms
         private RdNewMouseCoordinatesMapExtension mouseCoordinatesMapExtension;
         private MapDataCollection data;
 
-        private WmtsMapData backgroundMapData;
+        private BackgroundMapDataContainer backgroundMapData;
+        private WmtsMapData mapData;
 
         /// <summary>
         /// Creates a new instance of <see cref="MapControl"/>.
@@ -101,7 +103,7 @@ namespace Core.Components.DotSpatial.Forms
             }
         }
 
-        public WmtsMapData BackgroundMapData
+        public BackgroundMapDataContainer BackgroundMapData
         {
             get
             {
@@ -115,8 +117,9 @@ namespace Core.Components.DotSpatial.Forms
                 }
 
                 backgroundMapData = value;
+                mapData = (WmtsMapData)backgroundMapData?.MapData;
 
-                backGroundMapDataObserver.Observable = value;
+                backGroundMapDataObserver.Observable = mapData;
 
                 if (HasMapData)
                 {
@@ -187,7 +190,7 @@ namespace Core.Components.DotSpatial.Forms
         {
             get
             {
-                return backgroundMapData != null || data != null;
+                return mapData != null || data != null;
             }
         }
 
@@ -204,8 +207,8 @@ namespace Core.Components.DotSpatial.Forms
                 }
                 else
                 {
-                    backgroundLayerStatus.BackgroundLayer.IsVisible = backgroundMapData.IsVisible;
-                    backgroundLayerStatus.BackgroundLayer.Transparency = Convert.ToSingle(backgroundMapData.Transparency);
+                    backgroundLayerStatus.BackgroundLayer.IsVisible = mapData.IsVisible;
+                    backgroundLayerStatus.BackgroundLayer.Transparency = Convert.ToSingle(mapData.Transparency);
                 }
             }
             else
@@ -216,12 +219,12 @@ namespace Core.Components.DotSpatial.Forms
 
         private bool HasBackgroundMapDataConfigurationChanged()
         {
-            return !backgroundLayerStatus.HasSameConfiguration(BackgroundMapData);
+            return !backgroundLayerStatus.HasSameConfiguration(mapData);
         }
 
         private void InsertBackgroundLayer()
         {
-            if (backgroundMapData.IsConfigured)
+            if (mapData.IsConfigured)
             {
                 InitializeBackgroundLayer();
 
@@ -244,15 +247,15 @@ namespace Core.Components.DotSpatial.Forms
         {
             try
             {
-                WmtsLayerConfiguration configuration = WmtsLayerConfiguration.CreateInitializedConfiguration(backgroundMapData.SourceCapabilitiesUrl,
-                                                                                                             backgroundMapData.SelectedCapabilityIdentifier,
-                                                                                                             backgroundMapData.PreferredFormat);
+                WmtsLayerConfiguration configuration = WmtsLayerConfiguration.CreateInitializedConfiguration(mapData.SourceCapabilitiesUrl,
+                                                                                                             mapData.SelectedCapabilityIdentifier,
+                                                                                                             mapData.PreferredFormat);
                 var backgroundLayer = new BruTileLayer(configuration)
                 {
-                    IsVisible = backgroundMapData.IsVisible,
-                    Transparency = Convert.ToSingle(backgroundMapData.Transparency)
+                    IsVisible = mapData.IsVisible,
+                    Transparency = Convert.ToSingle(mapData.Transparency)
                 };
-                backgroundLayerStatus.SuccessfullyInitializedLayer(backgroundLayer, backgroundMapData);
+                backgroundLayerStatus.SuccessfullyInitializedLayer(backgroundLayer, mapData);
                 return true;
             }
             catch (Exception e) when (e is CannotFindTileSourceException || e is CannotReceiveTilesException)
@@ -405,7 +408,7 @@ namespace Core.Components.DotSpatial.Forms
 
         private void DrawInitialMapData()
         {
-            if (BackgroundMapData != null && BackgroundMapData.IsConfigured)
+            if (mapData != null && mapData.IsConfigured)
             {
                 if (InitializeBackgroundLayer())
                 {

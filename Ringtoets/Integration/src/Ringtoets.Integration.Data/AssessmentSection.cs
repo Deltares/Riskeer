@@ -23,6 +23,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
+using Core.Components.Gis;
 using Core.Components.Gis.Data;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data;
@@ -88,7 +89,7 @@ namespace Ringtoets.Integration.Data
             DuneErosion = new DuneErosionFailureMechanism();
             TechnicalInnovation = new TechnicalInnovationFailureMechanism();
 
-            const double norm = 1.0/30000;
+            const double norm = 1.0 / 30000;
             const int otherContribution = 30;
             FailureMechanismContribution = new FailureMechanismContribution(GetContributingFailureMechanisms(),
                                                                             otherContribution,
