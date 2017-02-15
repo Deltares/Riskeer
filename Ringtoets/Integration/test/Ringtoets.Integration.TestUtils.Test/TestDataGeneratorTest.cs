@@ -101,9 +101,9 @@ namespace Ringtoets.Integration.TestUtils.Test
         }
 
         [Test]
-        [TestCase(AssessmentSectionComposition.Dike, TestName = "GetAssessmentSectionWithAllCalculationConfigurationsWithoutHydraulicBoundaryLocationAndDuneOutput_CompositionGiven_ReturnWithOnlyCalculationOutputsAndComposition(Dike)")]
-        [TestCase(AssessmentSectionComposition.DikeAndDune, TestName = "GetAssessmentSectionWithAllCalculationConfigurationsWithoutHydraulicBoundaryLocationAndDuneOutput_CompositionGiven_ReturnWithOnlyCalculationOutputsAndComposition(DikeAndDune)")]
-        [TestCase(AssessmentSectionComposition.Dune, TestName = "GetAssessmentSectionWithAllCalculationConfigurationsWithoutHydraulicBoundaryLocationAndDuneOutput_CompositionGiven_ReturnWithOnlyCalculationOutputsAndComposition(Dune)")]
+        [TestCase(AssessmentSectionComposition.Dike, TestName = "GetAssessmentSectionWithAllCalculationConfigurationsWithoutHydraulicBoundaryLocationAndDuneOutput_Composition_CalculationsAndComposition(Dike)")]
+        [TestCase(AssessmentSectionComposition.DikeAndDune, TestName = "GetAssessmentSectionWithAllCalculationConfigurationsWithoutHydraulicBoundaryLocationAndDuneOutput_Composition_CalculationsAndComposition(DikeAndDune)")]
+        [TestCase(AssessmentSectionComposition.Dune, TestName = "GetAssessmentSectionWithAllCalculationConfigurationsWithoutHydraulicBoundaryLocationAndDuneOutput_Composition_CalculationsAndComposition(Dune)")]
         public void GetAssessmentSectionWithAllCalculationConfigurationsWithoutHydraulicBoundaryLocationAndDuneOutput_CompositionGiven_ReturnWithOnlyCalculationOutputsAndComposition(
             AssessmentSectionComposition composition)
         {
