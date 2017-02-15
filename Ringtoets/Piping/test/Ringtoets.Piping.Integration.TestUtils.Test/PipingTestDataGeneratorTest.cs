@@ -19,7 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
+using System.Linq;
 using NUnit.Framework;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Piping.Data;
 
@@ -42,7 +45,7 @@ namespace Ringtoets.Piping.Integration.TestUtils.Test
         }
 
         [Test]
-        public void SetPipingFailureMechanismWithAllCalculationConfigurations_ReturnsFailureMechanismWithAllConfigurations()
+        public void ConfigureFailureMechanismWithAllCalculationConfigurations_ReturnsFailureMechanismWithAllConfigurations()
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
@@ -56,6 +59,25 @@ namespace Ringtoets.Piping.Integration.TestUtils.Test
             PipingTestDataGeneratorHelper.AssertHasSurfaceLines(failureMechanism);
             PipingTestDataGeneratorHelper.AssertHasAllPossibleCalculationConfigurationsWithOutputs(failureMechanism);
             PipingTestDataGeneratorHelper.AssertHasAllPossibleCalculationConfigurationsWithoutOutputs(failureMechanism);
+
+            AssertCalculationsHasSameHydraulicBoundaryLocation(failureMechanism.CalculationsGroup, hydraulicBoundaryLocation);
+
+            CalculationGroup nestedCalculationGroup = failureMechanism.CalculationsGroup.Children.OfType<CalculationGroup>().First();
+            AssertCalculationsHasSameHydraulicBoundaryLocation(nestedCalculationGroup, hydraulicBoundaryLocation);
+        }
+
+        private static void AssertCalculationsHasSameHydraulicBoundaryLocation(CalculationGroup calculations,
+                                                                               TestHydraulicBoundaryLocation hydraulicBoundaryLocation)
+        {
+            IEnumerable<PipingCalculation> calculationsWithHydraulicBoundaryLocation =
+                calculations.Children
+                            .OfType<PipingCalculation>()
+                            .Where(calc => calc.InputParameters.HydraulicBoundaryLocation != null);
+
+            foreach (PipingCalculation calculation in calculationsWithHydraulicBoundaryLocation)
+            {
+                Assert.AreSame(hydraulicBoundaryLocation, calculation.InputParameters.HydraulicBoundaryLocation);
+            }
         }
     }
 }

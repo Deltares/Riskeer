@@ -295,7 +295,7 @@ namespace Ringtoets.Integration.Service.Test
         }
 
         [Test]
-        [TestCaseSource(nameof(GrassAndDuneLocations1))]
+        [TestCaseSource(nameof(GetGrassAndDuneLocations), new object[] { "Location1" })]
         public void ClearHydraulicBoundaryLocationOutputForFailureMechanisms_GrassCoverErosionOutwardsAndDuneLocations_ClearDataAndReturnAffectedLocations(
             HydraulicBoundaryLocation grassCoverErosionLocation, DuneLocation duneLocation)
         {
@@ -367,7 +367,7 @@ namespace Ringtoets.Integration.Service.Test
         }
 
         [Test]
-        [TestCaseSource(nameof(GrassAndDuneLocations2))]
+        [TestCaseSource(nameof(GetGrassAndDuneLocations), new object[] {"Location2"})]
         public void ClearHydraulicBoundaryLocationOutputForFailureMechanisms_FailureMechanismsGrassCoverErosionOutwardsAndDuneLocations_ClearDataAndReturnAffectedLocations(
             HydraulicBoundaryLocation grassCoverErosionLocation, DuneLocation duneLocation)
         {
@@ -1501,23 +1501,7 @@ namespace Ringtoets.Integration.Service.Test
 
         #region TestData
 
-        private static IEnumerable<TestCaseData> GrassAndDuneLocations1
-        {
-            get
-            {
-                return GrassAndDuneLocationSource("Location1");
-            }
-        }
-
-        private static IEnumerable<TestCaseData> GrassAndDuneLocations2
-        {
-            get
-            {
-                return GrassAndDuneLocationSource("Location2");
-            }
-        }
-
-        private static IEnumerable<TestCaseData> GrassAndDuneLocationSource(string testName)
+        private static IEnumerable<TestCaseData> GetGrassAndDuneLocations(string testName)
         {
             yield return new TestCaseData(
                 new TestHydraulicBoundaryLocation(),
