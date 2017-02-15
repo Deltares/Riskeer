@@ -82,6 +82,16 @@ namespace Core.Components.DotSpatial.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap InformationIcon {
+            get {
+                object obj = ResourceManager.GetObject("InformationIcon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} De achtergrondkaart kan nu niet getoond worden..
         /// </summary>
         internal static string MapControl_HandleBruTileInitializationException_Message_0_therefore_cannot_show_background_layer {
@@ -170,6 +180,15 @@ namespace Core.Components.DotSpatial.Forms.Properties {
         internal static string WmtsConnectionDialog_Text_Edit {
             get {
                 return ResourceManager.GetString("WmtsConnectionDialog_Text_Edit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to URL naar het WMTS dataservice inclusief &apos;capabilities&apos;..
+        /// </summary>
+        internal static string WmtsConnectionDialog_UrlErrorProvider_HelpText {
+            get {
+                return ResourceManager.GetString("WmtsConnectionDialog_UrlErrorProvider_HelpText", resourceCulture);
             }
         }
         

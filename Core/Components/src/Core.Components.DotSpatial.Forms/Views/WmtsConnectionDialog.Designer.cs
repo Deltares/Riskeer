@@ -46,9 +46,12 @@ namespace Core.Components.DotSpatial.Forms.Views
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.cancelButton = new System.Windows.Forms.Button();
             this.actionButton = new System.Windows.Forms.Button();
-            this.urlToolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.urlTooltipErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
             this.tableLayoutPanel2.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.urlTooltipErrorProvider)).BeginInit();
+            this.flowLayoutPanel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel2
@@ -57,7 +60,7 @@ namespace Core.Components.DotSpatial.Forms.Views
             this.tableLayoutPanel2.Controls.Add(this.nameTextBox, 1, 0);
             this.tableLayoutPanel2.Controls.Add(this.urlTextBox, 1, 1);
             this.tableLayoutPanel2.Controls.Add(this.nameLabel, 0, 0);
-            this.tableLayoutPanel2.Controls.Add(this.urlLabel, 0, 1);
+            this.tableLayoutPanel2.Controls.Add(this.flowLayoutPanel2, 0, 1);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             // 
             // nameTextBox
@@ -79,7 +82,6 @@ namespace Core.Components.DotSpatial.Forms.Views
             // 
             resources.ApplyResources(this.urlLabel, "urlLabel");
             this.urlLabel.Name = "urlLabel";
-            this.urlToolTip.SetToolTip(this.urlLabel, resources.GetString("urlLabel.ToolTip"));
             // 
             // flowLayoutPanel1
             // 
@@ -100,12 +102,16 @@ namespace Core.Components.DotSpatial.Forms.Views
             this.actionButton.Name = "actionButton";
             this.actionButton.UseVisualStyleBackColor = true;
             // 
-            // urlToolTip
+            // urlTooltipErrorProvider
             // 
-            this.urlToolTip.IsBalloon = true;
-            this.urlToolTip.ShowAlways = true;
-            this.urlToolTip.Tag = "";
-            this.urlToolTip.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
+            this.urlTooltipErrorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
+            this.urlTooltipErrorProvider.ContainerControl = this;
+            // 
+            // flowLayoutPanel2
+            // 
+            resources.ApplyResources(this.flowLayoutPanel2, "flowLayoutPanel2");
+            this.flowLayoutPanel2.Controls.Add(this.urlLabel);
+            this.flowLayoutPanel2.Name = "flowLayoutPanel2";
             // 
             // WmtsConnectionDialog
             // 
@@ -117,6 +123,9 @@ namespace Core.Components.DotSpatial.Forms.Views
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
             this.flowLayoutPanel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.urlTooltipErrorProvider)).EndInit();
+            this.flowLayoutPanel2.ResumeLayout(false);
+            this.flowLayoutPanel2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -131,6 +140,7 @@ namespace Core.Components.DotSpatial.Forms.Views
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.Label nameLabel;
         private System.Windows.Forms.Label urlLabel;
-        private System.Windows.Forms.ToolTip urlToolTip;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel2;
+        private System.Windows.Forms.ErrorProvider urlTooltipErrorProvider;
     }
 }

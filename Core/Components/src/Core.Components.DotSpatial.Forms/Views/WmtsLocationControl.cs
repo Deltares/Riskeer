@@ -145,12 +145,18 @@ namespace Core.Components.DotSpatial.Forms.Views
 
         private void UpdateDataGridViewDataSource()
         {
-            dataGridViewControl.SetDataSource(capabilities);
+            dataGridViewControl.SetDataSource(capabilities.ToArray());
         }
 
         private WmtsCapabilityRow GetSelectedWmtsCapabilityRow()
         {
             return dataGridViewControl.CurrentRow?.DataBoundItem as WmtsCapabilityRow;
+        }
+
+        private void ClearDataGridViewDataSource()
+        {
+            capabilities.Clear();
+            UpdateDataGridViewDataSource();
         }
 
         #endregion
@@ -166,13 +172,19 @@ namespace Core.Components.DotSpatial.Forms.Views
 
         private void UpdateComboBoxDataSource()
         {
-            object selectedItem = urlLocationComboBox.SelectedItem;
+            UpdateComboBoxDataSource(urlLocationComboBox.SelectedItem);
+        }
+
+        private void UpdateComboBoxDataSource(object selectedItem)
+        {
             urlLocationComboBox.DataSource = null;
             urlLocationComboBox.DataSource = wmtsConnectionInfos;
             urlLocationComboBox.DisplayMember = nameof(WmtsConnectionInfo.Name);
             urlLocationComboBox.ValueMember = nameof(WmtsConnectionInfo.Url);
 
             urlLocationComboBox.SelectedItem = selectedItem ?? wmtsConnectionInfos.FirstOrDefault();
+
+            ClearDataGridViewDataSource();
 
             UpdateConnectToButton();
         }
@@ -189,9 +201,15 @@ namespace Core.Components.DotSpatial.Forms.Views
         private void InitializeEventHandlers()
         {
             UpdateConnectToButton();
+            urlLocationComboBox.SelectedIndexChanged += UrlLocation_SelectedIndexChanged;
             connectToButton.Click += ConnectToButtonOnClick;
             addLocationButton.Click += AddLocationButtonOnClick;
             editLocationButton.Click += EditLocationButtonOnClick;
+        }
+
+        private void UrlLocation_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ClearDataGridViewDataSource();
         }
 
         private void UpdateConnectToButton()
@@ -232,7 +250,7 @@ namespace Core.Components.DotSpatial.Forms.Views
                 if (createdWmtsConnectionInfos != null)
                 {
                     wmtsConnectionInfos.Add(createdWmtsConnectionInfos);
-                    UpdateComboBoxDataSource();
+                    UpdateComboBoxDataSource(createdWmtsConnectionInfos);
                 }
             }
         }
@@ -258,10 +276,7 @@ namespace Core.Components.DotSpatial.Forms.Views
                 {
                     wmtsConnectionInfos.Remove(selectedWmtsConnectionInfo);
                     wmtsConnectionInfos.Add(createdWmtsConnectionInfos);
-                    UpdateComboBoxDataSource();
-
-                    urlLocationComboBox.SelectedItem = createdWmtsConnectionInfos;
-                    UpdateConnectToButton();
+                    UpdateComboBoxDataSource(createdWmtsConnectionInfos);
                 }
             }
         }

@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Drawing;
 using System.Windows.Forms;
 using Core.Common.Controls.Dialogs;
 using Core.Components.DotSpatial.Forms.Properties;
@@ -29,18 +30,20 @@ namespace Core.Components.DotSpatial.Forms.Views
     /// <summary>
     /// A dialog which allows the user to set data, which is used for <see cref="WmtsConnectionInfo"/>.
     /// </summary>
-    public partial class WmtsConnectionDialog : DialogBase
+    public partial class WmtsConnectionDialog
+        : DialogBase
     {
         /// <summary>
         /// Creates a new instance of <see cref="WmtsConnectionDialog"/>.
         /// </summary>
         /// <param name="dialogParent">The parent of the dialog.</param>
-        public WmtsConnectionDialog(IWin32Window dialogParent)
-            : base(dialogParent, Resources.MapsIcon, 400, 150)
+        public WmtsConnectionDialog(IWin32Window dialogParent) : base(dialogParent, Resources.MapsIcon, 400, 150)
         {
             InitializeComponent();
             UpdateActionButton();
             InitializeEventHandlers();
+
+            InitializeErrorProvider();
         }
 
         /// <summary>
@@ -84,6 +87,19 @@ namespace Core.Components.DotSpatial.Forms.Views
         protected override Button GetCancelButton()
         {
             return cancelButton;
+        }
+
+        private void InitializeErrorProvider()
+        {
+            urlTooltipErrorProvider.SetError(urlLabel, Resources.WmtsConnectionDialog_UrlErrorProvider_HelpText);
+            urlTooltipErrorProvider.Icon = GetIcon(Resources.InformationIcon);
+
+            urlTooltipErrorProvider.SetIconAlignment(urlLabel, ErrorIconAlignment.MiddleRight);
+        }
+
+        private static Icon GetIcon(Bitmap myBitmap)
+        {
+            return Icon.FromHandle(myBitmap.GetHicon());
         }
 
         private void UpdateActionButton()
