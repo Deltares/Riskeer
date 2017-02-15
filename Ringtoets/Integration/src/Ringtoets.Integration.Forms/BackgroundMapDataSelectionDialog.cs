@@ -54,21 +54,15 @@ namespace Ringtoets.Integration.Forms
             };
 
             InitializeComponent();
+            InitializeButtons();
             InitializeComboBox();
-
-            UpdateSelectButton();
+            InitializeEventHandlers();
         }
 
         /// <summary>
         /// Gets the <see cref="MapData"/> from the selected row in the <see cref="DataGridViewControl"/>.
         /// </summary>
-        public MapData SelectedMapData
-        {
-            get
-            {
-                return currentMapDataControl?.SelectedMapData;
-            }
-        }
+        public MapData SelectedMapData { get; private set; }
 
         protected override void Dispose(bool disposing)
         {
@@ -79,14 +73,9 @@ namespace Ringtoets.Integration.Forms
             base.Dispose(disposing);
         }
 
-        protected override Button GetCancelButton()
+        private void SetSelectedMapData()
         {
-            return cancelButton;
-        }
-
-        private void UpdateSelectButton()
-        {
-            selectButton.Enabled = SelectedMapData != null;
+            SelectedMapData = currentMapDataControl?.SelectedMapData;
         }
 
         private void UpdatePropertiesGroupBox()
@@ -107,10 +96,24 @@ namespace Ringtoets.Integration.Forms
             }
         }
 
-        private void OnSelectedMapDataChanged(object sender, EventArgs e)
+        #region Buttons
+
+        private void InitializeButtons()
         {
             UpdateSelectButton();
         }
+
+        private void UpdateSelectButton()
+        {
+            selectButton.Enabled = SelectedMapData != null;
+        }
+
+        protected override Button GetCancelButton()
+        {
+            return cancelButton;
+        }
+        
+        #endregion
 
         #region ComboBox
 
@@ -124,6 +127,32 @@ namespace Ringtoets.Integration.Forms
             mapLayerComboBox.Enabled = false;
         }
 
+        private void UpdateComboBoxDataSource()
+        {
+            mapLayerComboBox.DataSource = mapDatas;
+            mapLayerComboBox.DisplayMember = nameof(IHasMapData.DisplayName);
+        }
+
+        #endregion
+
+        #region Event handlers
+
+        private void InitializeEventHandlers()
+        {
+            selectButton.Click += OnSelectButtonClick;
+        }
+
+        private void OnSelectButtonClick(object sender, EventArgs e)
+        {
+            SetSelectedMapData();
+            Close();
+        }
+
+        private void OnSelectedMapDataChanged(object sender, EventArgs e)
+        {
+            UpdateSelectButton();
+        }
+
         private void MapLayerComboBox_OnSelectedIndexChanged(object sender, EventArgs eventArgs)
         {
             var selectedItem = mapLayerComboBox.SelectedItem as IHasMapData;
@@ -134,12 +163,6 @@ namespace Ringtoets.Integration.Forms
 
             currentMapDataControl = selectedItem;
             UpdatePropertiesGroupBox();
-        }
-
-        private void UpdateComboBoxDataSource()
-        {
-            mapLayerComboBox.DataSource = mapDatas;
-            mapLayerComboBox.DisplayMember = nameof(IHasMapData.DisplayName);
         }
 
         #endregion
