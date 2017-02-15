@@ -22,7 +22,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Schema;
@@ -40,6 +39,8 @@ namespace Ringtoets.Piping.IO.Readers
     /// </summary>
     public class PipingConfigurationReader
     {
+        private readonly XDocument xmlDocument;
+
         /// <summary>
         /// Creates a new instance of <see cref="PipingConfigurationReader"/>.
         /// </summary>
@@ -58,7 +59,7 @@ namespace Ringtoets.Piping.IO.Readers
 
             ValidateFileExists(xmlFilePath);
 
-            XDocument xmlDocument = LoadDocument(xmlFilePath);
+            xmlDocument = LoadDocument(xmlFilePath);
 
             ValidateToSchema(xmlDocument, xmlFilePath);
         }
@@ -69,7 +70,7 @@ namespace Ringtoets.Piping.IO.Readers
         /// <returns>A collection of read <see cref="IReadPipingCalculationItem"/>.</returns>
         public IEnumerable<IReadPipingCalculationItem> Read()
         {
-            return Enumerable.Empty<IReadPipingCalculationItem>();
+            return ParseReadPipingCalculationItems(xmlDocument.Root.Elements()); // Note: root element is always present due to XSD validation
         }
 
         /// <summary>
@@ -127,6 +128,36 @@ namespace Ringtoets.Piping.IO.Readers
                 string message = new FileReaderErrorMessageBuilder(xmlFilePath).Build(Resources.PipingConfigurationReader_Configuration_contains_no_valid_xml);
                 throw new CriticalFileReadException(message, exception);
             }
+        }
+
+        private static IEnumerable<IReadPipingCalculationItem> ParseReadPipingCalculationItems(IEnumerable<XElement> elements)
+        {
+            foreach (XElement element in elements)
+            {
+                if (element.Name == "berekening")
+                {
+                    yield return ParseReadPipingCalculation(element);
+                }
+
+                if (element.Name == "folder")
+                {
+                    yield return ParseReadPipingCalculationGroup(element);
+                }
+            }
+        }
+
+        private static ReadPipingCalculationGroup ParseReadPipingCalculationGroup(XElement folderElement)
+        {
+            return new ReadPipingCalculationGroup(folderElement.Attribute("naam").Value,
+                                                  ParseReadPipingCalculationItems(folderElement.Elements()));
+        }
+
+        private static ReadPipingCalculation ParseReadPipingCalculation(XElement element)
+        {
+            return new ReadPipingCalculation(new ReadPipingCalculation.ConstructionProperties
+            {
+                Name = element.Attribute("naam").Value
+            });
         }
 
         private static XmlSchemaSet LoadXmlSchema()

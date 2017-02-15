@@ -20,7 +20,9 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Xml;
 using System.Xml.Schema;
 using Core.Common.IO.Exceptions;
@@ -150,6 +152,61 @@ namespace Ringtoets.Piping.IO.Test.Readers
             var exception = Assert.Throws<CriticalFileReadException>(call);
             Assert.AreEqual(expectedMessage, exception.Message);
             Assert.IsInstanceOf<XmlSchemaValidationException>(exception.InnerException);
+        }
+
+        [Test]
+        public void Read_ValidConfigurationWithNesting_ReturnExpectedReadPipingCalculationItems()
+        {
+            // Setup
+            string filePath = Path.Combine(testDirectoryPath, "validConfigurationWithNesting.xml");
+            var pipingConfigurationReader = new PipingConfigurationReader(filePath);
+
+            // Call
+            IList<IReadPipingCalculationItem> readPipingCalculationItems = pipingConfigurationReader.Read().ToList();
+
+            // Assert
+            Assert.AreEqual(4, readPipingCalculationItems.Count);
+
+            var group1 = readPipingCalculationItems[0] as ReadPipingCalculationGroup;
+            Assert.IsNotNull(group1);
+            Assert.AreEqual("Group 1", group1.Name);
+
+            var calculation1 = readPipingCalculationItems[1] as ReadPipingCalculation;
+            Assert.IsNotNull(calculation1);
+            Assert.AreEqual("Calculation 1", calculation1.Name);
+
+            var group2 = readPipingCalculationItems[2] as ReadPipingCalculationGroup;
+            Assert.IsNotNull(group2);
+            Assert.AreEqual("Group 2", group2.Name);
+
+            var calculation2 = readPipingCalculationItems[3] as ReadPipingCalculation;
+            Assert.IsNotNull(calculation2);
+            Assert.AreEqual("Calculation 2", calculation2.Name);
+
+            List<IReadPipingCalculationItem> group1Items = group1.Items.ToList();
+            Assert.AreEqual(1, group1Items.Count);
+
+            var calculation3 = group1Items[0] as ReadPipingCalculation;
+            Assert.IsNotNull(calculation3);
+            Assert.AreEqual("Calculation 3", calculation3.Name);
+
+            List<IReadPipingCalculationItem> group2Items = group2.Items.ToList();
+            Assert.AreEqual(2, group2Items.Count);
+
+            var group3 = group2Items[0] as ReadPipingCalculationGroup;
+            Assert.IsNotNull(group3);
+            Assert.AreEqual("Group 3", group3.Name);
+
+            var calculation4 = group2Items[1] as ReadPipingCalculation;
+            Assert.IsNotNull(calculation4);
+            Assert.AreEqual("Calculation 4", calculation4.Name);
+
+            List<IReadPipingCalculationItem> group3Items = group3.Items.ToList();
+            Assert.AreEqual(1, group3Items.Count);
+
+            var calculation5 = group3Items[0] as ReadPipingCalculation;
+            Assert.IsNotNull(calculation5);
+            Assert.AreEqual("Calculation 5", calculation5.Name);
         }
     }
 }
