@@ -99,8 +99,9 @@ namespace Ringtoets.Piping.IO.Readers
             }
             catch (Exception exception)
                 when (exception is ArgumentNullException
+                      || exception is InvalidOperationException
                       || exception is XmlException
-                      || exception is InvalidOperationException)
+                      || exception is IOException)
             {
                 string message = new FileReaderErrorMessageBuilder(xmlFilePath).Build(CoreCommonUtilsResources.Error_General_IO_Import_ErrorMessage);
                 throw new CriticalFileReadException(message, exception);

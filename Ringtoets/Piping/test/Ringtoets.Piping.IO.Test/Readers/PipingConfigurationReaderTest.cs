@@ -21,6 +21,7 @@
 
 using System;
 using System.IO;
+using System.Xml;
 using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -31,6 +32,9 @@ namespace Ringtoets.Piping.IO.Test.Readers
     [TestFixture]
     public class PipingConfigurationReaderTest
     {
+        private readonly string testDirectoryPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO,
+                                                                               "PipingConfigurationReader");
+
         [Test]
         [TestCase("")]
         [TestCase("      ")]
@@ -41,7 +45,7 @@ namespace Ringtoets.Piping.IO.Test.Readers
             TestDelegate call = () => new PipingConfigurationReader(invalidFilePath);
 
             // Assert
-            var expectedMessage = $"Fout bij het lezen van bestand '{invalidFilePath}': bestandspad mag niet leeg of ongedefinieerd zijn.";
+            string expectedMessage = $"Fout bij het lezen van bestand '{invalidFilePath}': bestandspad mag niet leeg of ongedefinieerd zijn.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
 
@@ -51,15 +55,14 @@ namespace Ringtoets.Piping.IO.Test.Readers
             // Setup
             char[] invalidFileNameChars = Path.GetInvalidFileNameChars();
 
-            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO,
-                                                              "Valid piping configuration.shp");
-            string invalidFilePath = validFilePath.Replace("piping", invalidFileNameChars[3].ToString());
+            string validFilePath = Path.Combine(testDirectoryPath, "validPipingConfiguration.xml");
+            string invalidFilePath = validFilePath.Replace("Piping", invalidFileNameChars[3].ToString());
 
             // Call
             TestDelegate call = () => new PipingConfigurationReader(invalidFilePath);
 
             // Assert
-            var expectedMessage = $"Fout bij het lezen van bestand '{invalidFilePath}': bestandspad mag niet de volgende tekens bevatten: {string.Join(", ", invalidFileNameChars)}";
+            string expectedMessage = $"Fout bij het lezen van bestand '{invalidFilePath}': bestandspad mag niet de volgende tekens bevatten: {string.Join(", ", invalidFileNameChars)}";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
 
@@ -67,14 +70,13 @@ namespace Ringtoets.Piping.IO.Test.Readers
         public void Constructor_FilePathIsActuallyDirectoryPath_ThrowArgumentException()
         {
             // Setup
-            string invalidFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO,
-                                                                Path.DirectorySeparatorChar.ToString());
+            string invalidFilePath = Path.Combine(testDirectoryPath, Path.DirectorySeparatorChar.ToString());
 
             // Call
             TestDelegate call = () => new PipingConfigurationReader(invalidFilePath);
 
             // Assert
-            var expectedMessage = $"Fout bij het lezen van bestand '{invalidFilePath}': bestandspad mag niet verwijzen naar een lege bestandsnaam.";
+            string expectedMessage = $"Fout bij het lezen van bestand '{invalidFilePath}': bestandspad mag niet verwijzen naar een lege bestandsnaam.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
 
@@ -82,16 +84,53 @@ namespace Ringtoets.Piping.IO.Test.Readers
         public void Constructor_FileDoesNotExist_ThrowCriticalFileReadException()
         {
             // Setup
-            string invalidFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO,
-                                                                "I_do_not_exist.shp");
+            string invalidFilePath = Path.Combine(testDirectoryPath, "notExisting.xml");
 
             // Call
             TestDelegate call = () => new PipingConfigurationReader(invalidFilePath);
 
             // Assert
-            var expectedMessage = $"Fout bij het lezen van bestand '{invalidFilePath}': het bestand bestaat niet.";
-            var message = Assert.Throws<CriticalFileReadException>(call).Message;
+            string expectedMessage = $"Fout bij het lezen van bestand '{invalidFilePath}': het bestand bestaat niet.";
+            string message = Assert.Throws<CriticalFileReadException>(call).Message;
             Assert.AreEqual(expectedMessage, message);
+        }
+
+        [Test]
+        [TestCase("empty.xml")]
+        [TestCase("textContent.xml")]
+        [TestCase("invalidXmlContent.xml")]
+        public void Constructor_FileDoesNotContainValidXml_ThrowCriticalFileReadException(string fileName)
+        {
+            // Setup
+            string filePath = Path.Combine(testDirectoryPath, fileName);
+
+            // Call
+            TestDelegate call = () => new PipingConfigurationReader(filePath);
+
+            // Assert
+            string expectedMessage = $"Fout bij het lezen van bestand '{filePath}': het bestand kon niet worden geopend. Mogelijk is het bestand corrupt of in gebruik door een andere applicatie.";
+            var exception = Assert.Throws<CriticalFileReadException>(call);
+            Assert.AreEqual(expectedMessage, exception.Message);
+            Assert.IsInstanceOf<XmlException>(exception.InnerException);
+        }
+
+        [Test]
+        public void Constructor_FileInUse_ThrowCriticalFileReadException()
+        {
+            // Setup
+            string filePath = Path.Combine(testDirectoryPath, "validConfiguration.xml");
+
+            using (new FileStream(filePath, FileMode.Open))
+            {
+                // Call
+                TestDelegate call = () => new PipingConfigurationReader(filePath);
+
+                // Assert
+                string expectedMessage = $"Fout bij het lezen van bestand '{filePath}': het bestand kon niet worden geopend. Mogelijk is het bestand corrupt of in gebruik door een andere applicatie.";
+                var exception = Assert.Throws<CriticalFileReadException>(call);
+                Assert.AreEqual(expectedMessage, exception.Message);
+                Assert.IsInstanceOf<IOException>(exception.InnerException);
+            }
         }
     }
 }
