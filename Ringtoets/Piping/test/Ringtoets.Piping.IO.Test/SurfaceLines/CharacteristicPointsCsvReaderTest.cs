@@ -66,7 +66,7 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
 
             // Assert
             string innerErrorMessage = string.Format(UtilsResources.Error_Path_cannot_contain_Characters_0_,
-                                                     string.Join(", ", Path.GetInvalidFileNameChars()));
+                                                     string.Join(", ", Path.GetInvalidPathChars()));
             string expectedMessage = new FileReaderErrorMessageBuilder(corruptPath).Build(innerErrorMessage);
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }

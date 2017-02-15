@@ -87,18 +87,18 @@ namespace Core.Components.Gis.IO.Test.Readers
         public void ParameteredConstructor_FilePathHasInvalidPathCharacter_ThrowArgumentException()
         {
             // Setup
-            char[] invalidFileNameChars = Path.GetInvalidFileNameChars();
+            char[] invalidPathChars = Path.GetInvalidPathChars();
 
             string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO,
                                                               "traject_10-1.shp");
-            string invalidFilePath = validFilePath.Replace("_", invalidFileNameChars[0].ToString());
+            string invalidFilePath = validFilePath.Replace("_", invalidPathChars[0].ToString());
 
             // Call
             TestDelegate call = () => new TestShapeFileReaderBase(invalidFilePath);
 
             // Assert
             var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': bestandspad mag niet de volgende tekens bevatten: {1}",
-                                                invalidFilePath, string.Join(", ", invalidFileNameChars));
+                                                invalidFilePath, string.Join(", ", invalidPathChars));
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
 

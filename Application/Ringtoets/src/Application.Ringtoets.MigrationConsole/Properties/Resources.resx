@@ -144,4 +144,7 @@
   <data name="RingtoetsMigrationTool_ApplicationName" xml:space="preserve">
     <value>MIGRATIEHULPPROGRAMMA</value>
   </data>
+  <data name="CommandMigrate_Source_Or_Destination_Null_Or_Empty" xml:space="preserve">
+    <value>Bron- en doelprojectpad mogen niet leeg of ongedefinieerd zijn.</value>
+  </data>
 </root>

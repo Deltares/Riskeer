@@ -109,6 +109,15 @@ namespace Application.Ringtoets.MigrationConsole.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bron- en doelprojectpad mogen niet leeg of ongedefinieerd zijn..
+        /// </summary>
+        internal static string CommandMigrate_Source_Or_Destination_Null_Or_Empty {
+            get {
+                return ResourceManager.GetString("CommandMigrate_Source_Or_Destination_Null_Or_Empty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Het projectbestand &apos;{0}&apos; is succesvol gemigreerd naar &apos;{1}&apos; (versie {2})..
         /// </summary>
         internal static string CommandMigrate_Successful_Migration_From_Location_0_To_Location_1_Version_2 {

@@ -114,6 +114,7 @@ namespace Core.Common.Utils
         /// <item>does not contain an invalid character,</item>
         /// <item>does not end with a directory or path separator (empty file name).</item>
         /// </list></remarks>
+        /// <seealso cref="Path.GetInvalidPathChars()"/>
         public static void ValidateFilePath(string path)
         {
             if (string.IsNullOrWhiteSpace(path))
@@ -132,7 +133,7 @@ namespace Core.Common.Utils
                 var message = new FileReaderErrorMessageBuilder(path)
                     .Build(string.Format(CultureInfo.CurrentCulture,
                                          Resources.Error_Path_cannot_contain_Characters_0_,
-                                         string.Join(", ", Path.GetInvalidFileNameChars())));
+                                         string.Join(", ", Path.GetInvalidPathChars())));
                 throw new ArgumentException(message, e);
             }
             if (string.IsNullOrEmpty(name))

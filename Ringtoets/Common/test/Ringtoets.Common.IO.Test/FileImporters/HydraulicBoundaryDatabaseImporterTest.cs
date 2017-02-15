@@ -124,7 +124,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             // Assert
             var expectedMessage = new FileReaderErrorMessageBuilder(invalidPath)
                 .Build(string.Format(UtilsResources.Error_Path_cannot_contain_Characters_0_,
-                                     string.Join(", ", Path.GetInvalidFileNameChars())));
+                                     string.Join(", ", Path.GetInvalidPathChars())));
             CriticalFileReadException exception = Assert.Throws<CriticalFileReadException>(test);
             Assert.AreEqual(expectedMessage, exception.Message);
             Assert.IsInstanceOf<ArgumentException>(exception.InnerException);

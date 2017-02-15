@@ -76,11 +76,11 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
         public void ReadReferenceLine_FilePathHasInvalidPathCharacter_ThrowArgumentException()
         {
             // Setup
-            char[] invalidFileNameChars = Path.GetInvalidFileNameChars();
+            char[] invalidPathChars = Path.GetInvalidPathChars();
 
             string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                               "traject_10-1.shp");
-            string invalidFilePath = validFilePath.Replace("_", invalidFileNameChars[3].ToString());
+            string invalidFilePath = validFilePath.Replace("_", invalidPathChars[3].ToString());
 
             var reader = new ReferenceLineReader();
 
@@ -89,7 +89,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
 
             // Assert
             var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': bestandspad mag niet de volgende tekens bevatten: {1}",
-                                                invalidFilePath, string.Join(", ", invalidFileNameChars));
+                                                invalidFilePath, string.Join(", ", invalidPathChars));
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
 

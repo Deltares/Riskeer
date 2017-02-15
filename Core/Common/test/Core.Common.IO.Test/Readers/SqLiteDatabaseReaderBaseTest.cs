@@ -87,7 +87,7 @@ namespace Core.Common.IO.Test.Readers
             // Assert
             var expectedMessage = new FileReaderErrorMessageBuilder(corruptPath)
                 .Build(string.Format(UtilsResources.Error_Path_cannot_contain_Characters_0_,
-                                     string.Join(", ", Path.GetInvalidFileNameChars())));
+                                     string.Join(", ", Path.GetInvalidPathChars())));
             var exception = Assert.Throws<CriticalFileReadException>(test);
             Assert.AreEqual(expectedMessage, exception.Message);
         }

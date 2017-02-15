@@ -79,11 +79,11 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
         public void ReadReferenceLine_FilePathHasInvalidPathCharacter_ThrowArgumentException()
         {
             // Setup
-            char[] invalidFileNameChars = Path.GetInvalidFileNameChars();
+            char[] invalidPathChars = Path.GetInvalidPathChars();
 
             string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                               Path.Combine("DikeProfiles", "profiel001 - Ringtoets.prfl"));
-            string invalidFilePath = validFilePath.Replace("-", invalidFileNameChars[3].ToString());
+            string invalidFilePath = validFilePath.Replace("-", invalidPathChars[3].ToString());
 
             var reader = new DikeProfileDataReader(new string[0]);
 
@@ -92,7 +92,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
 
             // Assert
             var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': bestandspad mag niet de volgende tekens bevatten: {1}",
-                                                invalidFilePath, string.Join(", ", invalidFileNameChars));
+                                                invalidFilePath, string.Join(", ", invalidPathChars));
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
 

@@ -181,20 +181,20 @@ namespace Core.Common.Utils.Test
         }
 
         [Test]
-        public void ValidateFilePath_PathContainingInvalidFileCharacters_ThrowsArgumentException()
+        public void ValidateFilePath_PathContainingInvalidPathCharacters_ThrowsArgumentException()
         {
             // Setup
             string path = TestHelper.GetTestDataPath(TestDataPath.Core.Common.Utils, "validFile.txt");
-            char[] invalidFileNameChars = Path.GetInvalidFileNameChars();
-            string invalidPath = path.Replace('d', invalidFileNameChars[0]);
+            char[] invalidPathChars = Path.GetInvalidPathChars();
+            string invalidPath = path.Replace('d', invalidPathChars[0]);
 
             // Call
             TestDelegate call = () => IOUtils.ValidateFilePath(invalidPath);
 
             // Assert
             var exception = Assert.Throws<ArgumentException>(call);
-            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': bestandspad mag niet de volgende tekens bevatten: {1}",
-                                                invalidPath, string.Join(", ", invalidFileNameChars));
+            string invalidChars = string.Join(", ", invalidPathChars);
+            var expectedMessage = $"Fout bij het lezen van bestand '{invalidPath}': bestandspad mag niet de volgende tekens bevatten: {invalidChars}";
             Assert.AreEqual(expectedMessage, exception.Message);
         }
 

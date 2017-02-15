@@ -67,18 +67,18 @@ namespace Ringtoets.Common.IO.Test
         public void Constructor_FilePathHasInvalidPathCharacter_ThrowArgumentException()
         {
             // Setup
-            char[] invalidFileNameChars = Path.GetInvalidFileNameChars();
+            char[] invalidPathChars = Path.GetInvalidPathChars();
 
             string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                               "traject_1-1_vakken.shp");
-            string invalidFilePath = validFilePath.Replace("_", invalidFileNameChars[1].ToString());
+            string invalidFilePath = validFilePath.Replace("_", invalidPathChars[1].ToString());
 
             // Call
             TestDelegate call = () => new FailureMechanismSectionReader(invalidFilePath);
 
             // Assert
             var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': bestandspad mag niet de volgende tekens bevatten: {1}",
-                                                invalidFilePath, string.Join(", ", invalidFileNameChars));
+                                                invalidFilePath, string.Join(", ", invalidPathChars));
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
 

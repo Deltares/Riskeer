@@ -84,7 +84,7 @@ namespace Core.Components.DotSpatial.Forms.Test.IO
             const string expectedMessage = "Fout bij het lezen van bestand 'c:/\".config': bestandspad " +
                                            "mag niet de volgende tekens bevatten: \", <, >, " +
                                            "|, \0, , , , , , , \a, \b, \t, \n, \v, \f, \r, " +
-                                           ", , , , , , , , , , , , , , , , , , :, *, ?, \\, /";
+                                           ", , , , , , , , , , , , , , , , , ";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
 

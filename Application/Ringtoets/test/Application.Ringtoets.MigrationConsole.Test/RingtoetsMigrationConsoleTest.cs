@@ -101,6 +101,33 @@ namespace Application.Ringtoets.MigrationConsole.Test
         }
 
         [Test]
+        public void ExecuteConsoleTool_InvalidArgumentsForMigrate_WritesHelpToConsoleWithErrorCode()
+        {
+            // Setup
+            var console = new RingtoetsMigrationConsole();
+            string[] invalidCommand =
+            {
+                "",
+                ""
+            };
+
+            using (var consoleOutput = new ConsoleOutput())
+            {
+                // Call
+                console.ExecuteConsoleTool(invalidCommand);
+
+                // Assert
+                string expectedText = Environment.NewLine
+                                      + "Bron- en doelprojectpad mogen niet leeg of ongedefinieerd zijn."
+                                      + Environment.NewLine + Environment.NewLine
+                                      + GetConsoleFullDescription();
+                string consoleText = consoleOutput.GetConsoleOutput();
+                Assert.AreEqual(expectedText, consoleText);
+                Assert.AreEqual(ErrorCode.ErrorInvalidCommandLine, environmentControl.ErrorCodeCalled);
+            }
+        }
+
+        [Test]
         [TestCase("FullTestProject164.rtd", "5", true)]
         [TestCase("UnsupportedVersion8.rtd", "8", false)]
         public void GivenConsole_WhenVersionSupportedCall_ThenReturnedIfSupported(string file, string fileVersion, bool isSupported)

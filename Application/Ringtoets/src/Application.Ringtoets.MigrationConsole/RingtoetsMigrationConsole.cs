@@ -103,6 +103,10 @@ namespace Application.Ringtoets.MigrationConsole
 
         private static void MigrateCommand(string filepath, string toFilepath)
         {
+            if (string.IsNullOrEmpty(filepath) || string.IsNullOrEmpty(toFilepath))
+            {
+                throw new ArgumentException(Resources.CommandMigrate_Source_Or_Destination_Null_Or_Empty);
+            }
             var migrator = new RingtoetsSqLiteDatabaseFileMigrator();
             var sourceFile = new RingtoetsVersionedFile(filepath);
 

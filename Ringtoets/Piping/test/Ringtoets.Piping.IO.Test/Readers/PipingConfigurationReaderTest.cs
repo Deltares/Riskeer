@@ -53,16 +53,16 @@ namespace Ringtoets.Piping.IO.Test.Readers
         public void Constructor_FilePathHasInvalidPathCharacter_ThrowArgumentException()
         {
             // Setup
-            char[] invalidFileNameChars = Path.GetInvalidFileNameChars();
+            char[] invalidPathChars = Path.GetInvalidPathChars();
 
             string validFilePath = Path.Combine(testDirectoryPath, "validPipingConfiguration.xml");
-            string invalidFilePath = validFilePath.Replace("Piping", invalidFileNameChars[3].ToString());
+            string invalidFilePath = validFilePath.Replace("Piping", invalidPathChars[3].ToString());
 
             // Call
             TestDelegate call = () => new PipingConfigurationReader(invalidFilePath);
 
             // Assert
-            string expectedMessage = $"Fout bij het lezen van bestand '{invalidFilePath}': bestandspad mag niet de volgende tekens bevatten: {string.Join(", ", invalidFileNameChars)}";
+            string expectedMessage = $"Fout bij het lezen van bestand '{invalidFilePath}': bestandspad mag niet de volgende tekens bevatten: {string.Join(", ", invalidPathChars)}";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
 

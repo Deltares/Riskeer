@@ -421,7 +421,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             // Assert
             string internalErrorMessage = new FileReaderErrorMessageBuilder(corruptPath).Build(string.Format(UtilsResources.Error_Path_cannot_contain_Characters_0_,
-                                                                                                             string.Join(", ", Path.GetInvalidFileNameChars())));
+                                                                                                             string.Join(", ", Path.GetInvalidPathChars())));
             var expectedLogMessage = string.Format(PipingPluginResources.PipingSurfaceLinesCsvImporter_CriticalErrorMessage_0_File_Skipped,
                                                    internalErrorMessage);
             TestHelper.AssertLogMessageIsGenerated(call, expectedLogMessage, 1);
