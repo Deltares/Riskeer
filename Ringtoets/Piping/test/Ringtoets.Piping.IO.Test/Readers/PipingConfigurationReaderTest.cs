@@ -165,7 +165,7 @@ namespace Ringtoets.Piping.IO.Test.Readers
             IList<IReadPipingCalculationItem> readPipingCalculationItems = pipingConfigurationReader.Read().ToList();
 
             // Assert
-            Assert.AreEqual(4, readPipingCalculationItems.Count);
+            Assert.AreEqual(5, readPipingCalculationItems.Count);
 
             var group1 = readPipingCalculationItems[0] as ReadPipingCalculationGroup;
             Assert.IsNotNull(group1);
@@ -183,6 +183,10 @@ namespace Ringtoets.Piping.IO.Test.Readers
             Assert.IsNotNull(calculation2);
             Assert.AreEqual("Calculation 2", calculation2.Name);
 
+            var group3 = readPipingCalculationItems[4] as ReadPipingCalculationGroup;
+            Assert.IsNotNull(group3);
+            Assert.AreEqual("Group 3", group3.Name);
+
             List<IReadPipingCalculationItem> group1Items = group1.Items.ToList();
             Assert.AreEqual(1, group1Items.Count);
 
@@ -193,18 +197,21 @@ namespace Ringtoets.Piping.IO.Test.Readers
             List<IReadPipingCalculationItem> group2Items = group2.Items.ToList();
             Assert.AreEqual(2, group2Items.Count);
 
-            var group3 = group2Items[0] as ReadPipingCalculationGroup;
-            Assert.IsNotNull(group3);
-            Assert.AreEqual("Group 3", group3.Name);
+            var group4 = group2Items[0] as ReadPipingCalculationGroup;
+            Assert.IsNotNull(group4);
+            Assert.AreEqual("Group 4", group4.Name);
 
             var calculation4 = group2Items[1] as ReadPipingCalculation;
             Assert.IsNotNull(calculation4);
             Assert.AreEqual("Calculation 4", calculation4.Name);
 
             List<IReadPipingCalculationItem> group3Items = group3.Items.ToList();
-            Assert.AreEqual(1, group3Items.Count);
+            Assert.AreEqual(0, group3Items.Count);
 
-            var calculation5 = group3Items[0] as ReadPipingCalculation;
+            List<IReadPipingCalculationItem> group4Items = group4.Items.ToList();
+            Assert.AreEqual(1, group4Items.Count);
+
+            var calculation5 = group4Items[0] as ReadPipingCalculation;
             Assert.IsNotNull(calculation5);
             Assert.AreEqual("Calculation 5", calculation5.Name);
         }

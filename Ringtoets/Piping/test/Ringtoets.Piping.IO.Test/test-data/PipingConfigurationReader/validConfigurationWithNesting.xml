@@ -5,10 +5,11 @@
   </folder>
   <berekening naam="Calculation 1"/>
   <folder naam="Group 2">
-    <folder naam="Group 3">
+    <folder naam="Group 4">
       <berekening naam="Calculation 5"/>
     </folder>
     <berekening naam="Calculation 4"/>  
   </folder>
   <berekening naam="Calculation 2"/>
+  <folder naam="Group 3"/>
 </root>
