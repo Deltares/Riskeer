@@ -42,20 +42,22 @@ namespace Core.Components.DotSpatial.TestUtil
         /// Create a new instance of <see cref="TestWmtsTileSource"/> suitable to work for
         /// a given <see cref="WmtsMapData"/>.
         /// </summary>
-        /// <param name="backgroundMapData">The map data to work with.</param>
-        public TestWmtsTileSource(WmtsMapData backgroundMapData)
-            : base(CreateWmtsTileSchema(backgroundMapData), new RequestStub(), "Stub schema", null, GetStubTile)
+        /// <param name="mapData">The map data to work with.</param>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="mapData"/> isn't
+        /// a configured.</exception>
+        public TestWmtsTileSource(WmtsMapData mapData)
+            : base(CreateWmtsTileSchema(mapData), new RequestStub(), "Stub schema", null, GetStubTile)
         {
-            var imageFormatExtension = backgroundMapData.PreferredFormat.Split('/')[1];
+            var imageFormatExtension = mapData.PreferredFormat.Split('/')[1];
             if (imageFormatExtension != "png")
             {
                 throw new NotImplementedException($"Please extend this class to support the '*.{imageFormatExtension}' extension.");
             }
         }
 
-        private static WmtsTileSchema CreateWmtsTileSchema(WmtsMapData backgroundMapData)
+        private static WmtsTileSchema CreateWmtsTileSchema(WmtsMapData mapData)
         {
-            return TileSchemaFactory.CreateWmtsTileSchema(backgroundMapData);
+            return TileSchemaFactory.CreateWmtsTileSchema(mapData);
         }
 
         private static byte[] GetStubTile(Uri url)

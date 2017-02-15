@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Reflection;
 using System.Text.RegularExpressions;
 using BruTile;
 using BruTile.Wmts;
@@ -36,23 +35,31 @@ namespace Core.Components.DotSpatial.TestUtil
         /// <summary>
         /// Create a <see cref="WmtsTileSchema"/> based on a <see cref="WmtsMapData"/> instance.
         /// </summary>
-        /// <param name="backgroundMapData">The data for which the schema will be based upon.</param>
+        /// <param name="mapData">The data for which the schema will be based upon.</param>
         /// <returns>The newly created tile schema.</returns>
-        public static WmtsTileSchema CreateWmtsTileSchema(WmtsMapData backgroundMapData)
+        /// <exception cref="ArgumentException">Thrown when <paramref name="mapData"/> isn't
+        /// configured.</exception>
+        public static WmtsTileSchema CreateWmtsTileSchema(WmtsMapData mapData)
         {
+            if (!mapData.IsConfigured)
+            {
+                throw new ArgumentException($"Only configured {typeof(WmtsMapData).Name} instances can be used to create a schema for.",
+                                            nameof(mapData));
+            }
+
             WmtsTileSchema schema = ConstructWmtsTileSchema();
-            schema.Title = backgroundMapData.Name;
-            schema.Format = backgroundMapData.PreferredFormat;
+            schema.Title = mapData.Name;
+            schema.Format = mapData.PreferredFormat;
 
             schema.Resolutions["1"] = new Resolution("1", 1);
 
-            var regex1 = new Regex(@"(?<Layer>.+)\((?<TileMatrixSet>.+)\)");
-            Match match = regex1.Match(backgroundMapData.SelectedCapabilityIdentifier);
+            var capabilityIdRegex = new Regex(@"(?<Layer>.+)\((?<TileMatrixSet>.+)\)");
+            Match match = capabilityIdRegex.Match(mapData.SelectedCapabilityIdentifier);
             schema.Layer = match.Groups["Layer"].Value;
             schema.TileMatrixSet = match.Groups["TileMatrixSet"].Value;
 
-            var regex2 = new Regex(@"EPSG:(?<SrsNumber>\d+)");
-            Match potentialMatch = regex2.Match(schema.TileMatrixSet);
+            var coordinateSystemRegex = new Regex(@"EPSG:(?<SrsNumber>\d+)");
+            Match potentialMatch = coordinateSystemRegex.Match(schema.TileMatrixSet);
             schema.Srs = potentialMatch.Success ?
                              $"EPSG:{potentialMatch.Groups["SrsNumber"]}" :
                              "EPSG:3857";
@@ -62,9 +69,7 @@ namespace Core.Components.DotSpatial.TestUtil
 
         private static WmtsTileSchema ConstructWmtsTileSchema()
         {
-            return (WmtsTileSchema) typeof(WmtsTileSchema)
-                .GetConstructor(BindingFlags.NonPublic | BindingFlags.Instance, null, Type.EmptyTypes, null)
-                .Invoke(null);
+            return (WmtsTileSchema) Activator.CreateInstance(typeof(WmtsTileSchema), true);
         }
     }
 }

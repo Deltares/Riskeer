@@ -113,13 +113,13 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile.Configurations
             var targetMapData = WmtsMapData.CreateAlternativePdokMapData();
 
             IRequest nullRequest = null;
-            var fileSource1 = new HttpTileSource(TileSchemaFactory.CreateWmtsTileSchema(WmtsMapData.CreateDefaultPdokMapData()),
+            var tileSource1 = new HttpTileSource(TileSchemaFactory.CreateWmtsTileSchema(WmtsMapData.CreateDefaultPdokMapData()),
                                                  nullRequest);
             var tileSource2 = new HttpTileSource(TileSchemaFactory.CreateWmtsTileSchema(targetMapData),
                                                  nullRequest);
             var tileSources = new ITileSource[]
             {
-                fileSource1,
+                tileSource1,
                 tileSource2
             };
 
@@ -177,7 +177,7 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile.Configurations
 
                 Assert.IsFalse(clone.Initialized);
                 Assert.IsNull(clone.TileFetcher, "TileFetcher should be null because the clone hasn't been initialized yet.");
-                Assert.IsNull(clone.TileSource, "FileSource should be null because the clone hasn't been initialized yet.");
+                Assert.IsNull(clone.TileSource, "TileSource should be null because the clone hasn't been initialized yet.");
             }
             mocks.VerifyAll();
         }

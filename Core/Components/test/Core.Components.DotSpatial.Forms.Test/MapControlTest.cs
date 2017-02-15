@@ -53,42 +53,6 @@ namespace Core.Components.DotSpatial.Forms.Test
     {
         private const double padding = 0.05;
 
-        private static IEnumerable<TestCaseData> MapControlWithoutBackgroundMapDataProblematicTileSourceFactories
-        {
-            get
-            {
-                foreach (TestCaseData testCaseData in GetProblematicTileSourceFactoryTestCaseData("MapControlWithoutBackgroundMapData"))
-                    yield return testCaseData;
-            }
-        }
-
-        private static IEnumerable<TestCaseData> MapWithFailedBackgroundMapDataThenSuccessfulAtNotify
-        {
-            get
-            {
-                foreach (TestCaseData testCaseData in GetProblematicTileSourceFactoryTestCaseData("MapWithFailedBackgroundMapDataThenSuccessfulAtNotify"))
-                    yield return testCaseData;
-            }
-        }
-
-        private static IEnumerable<TestCaseData> MapWithFailedBackgroundMapDataThenFailedAgainAtNotify
-        {
-            get
-            {
-                foreach (TestCaseData testCaseData in GetProblematicTileSourceFactoryTestCaseData("MapWithFailedBackgroundMapDataThenFailedAgainAtNotify"))
-                    yield return testCaseData;
-            }
-        }
-
-        private static IEnumerable<TestCaseData> SettingBothBackgroundAndRegularMapDataWhileBackgroundFailed
-        {
-            get
-            {
-                foreach (TestCaseData testCaseData in GetProblematicTileSourceFactoryTestCaseData("SettingBothBackgroundAndRegularMapDataWhileBackgroundFailed"))
-                    yield return testCaseData;
-            }
-        }
-
         [Test]
         public void DefaultConstructor_DefaultValues()
         {
@@ -162,7 +126,10 @@ namespace Core.Components.DotSpatial.Forms.Test
         }
 
         [Test]
-        [TestCaseSource(nameof(MapControlWithoutBackgroundMapDataProblematicTileSourceFactories))]
+        [TestCaseSource(nameof(GetProblematicTileSourceFactoryTestCaseData), new object[]
+        {
+            "MapControlWithoutBackgroundMapData"
+        })]
         public void GivenMapControlWithoutBackgroundMapData_WhenTileSourceFactoryProblematic_ThenLogErrorAndDoNotAddBackgroundLayer(ITileSourceFactory problematicFactory)
         {
             // Given
@@ -215,7 +182,10 @@ namespace Core.Components.DotSpatial.Forms.Test
         }
 
         [Test]
-        [TestCaseSource(nameof(MapWithFailedBackgroundMapDataThenSuccessfulAtNotify))]
+        [TestCaseSource(nameof(GetProblematicTileSourceFactoryTestCaseData), new object[]
+        {
+            "MapWithFailedBackgroundMapDataThenSuccessfulAtNotify"
+        })]
         public void GivenMapControlWithFailingBackgroundMapData_WhenBackgroundNotifiesAndInitializationSuccessful_ThenBackgroundLayerAdded(ITileSourceFactory problematicFactory)
         {
             // Given
@@ -275,7 +245,10 @@ namespace Core.Components.DotSpatial.Forms.Test
         }
 
         [Test]
-        [TestCaseSource(nameof(MapWithFailedBackgroundMapDataThenFailedAgainAtNotify))]
+        [TestCaseSource(nameof(GetProblematicTileSourceFactoryTestCaseData), new object[]
+        {
+            "MapWithFailedBackgroundMapDataThenFailedAgainAtNotify"
+        })]
         public void GivenMapControlWithFailedBackgroundMapData_WhenBackgroundNotifiesObservers_ThenFailedInitializationShouldNotGenerateLogMessage(ITileSourceFactory problematicFactory)
         {
             // Given
@@ -904,7 +877,10 @@ namespace Core.Components.DotSpatial.Forms.Test
         }
 
         [Test]
-        [TestCaseSource(nameof(SettingBothBackgroundAndRegularMapDataWhileBackgroundFailed))]
+        [TestCaseSource(nameof(GetProblematicTileSourceFactoryTestCaseData), new object[]
+        {
+            "SettingBothBackgroundAndRegularMapDataWhileBackgroundFailed"
+        })]
         public void GivenMapControl_WhenBackgroundAndThenMapDataSetWhileTileSourceFactoryProblematic_MapControlUpdated(ITileSourceFactory problematicFactory)
         {
             // Given

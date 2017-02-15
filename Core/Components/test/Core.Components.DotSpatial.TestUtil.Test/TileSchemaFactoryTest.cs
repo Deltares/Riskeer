@@ -19,8 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using BruTile;
 using BruTile.Wmts;
+using Core.Common.TestUtil;
 using Core.Components.Gis.Data;
 using NUnit.Framework;
 
@@ -62,7 +64,6 @@ namespace Core.Components.DotSpatial.TestUtil.Test
         public void CreateWmtsTileSchema_ForWmtsMapDataWithoutClearCoordinateSystem_ReturnsWmtsTileSchemaAtWgs84()
         {
             // Setup
-            WmtsMapData wmtsMapData = WmtsMapData.CreateDefaultPdokMapData();
             var mapData = new WmtsMapData("A", "B", "C(D)", "image/jpeg");
 
             // Call
@@ -86,6 +87,21 @@ namespace Core.Components.DotSpatial.TestUtil.Test
             Assert.AreEqual(0, resolution.MatrixHeight);
             Assert.AreEqual(0, resolution.MatrixWidth);
             Assert.AreEqual(0, resolution.ScaleDenominator);
+        }
+
+        [Test]
+        public void CreateWmtsTileSchema_ForUninitializedWmtsMapData_ThrowArgumentException()
+        {
+            // Setup
+            WmtsMapData mapData = WmtsMapData.CreateUnconnectedMapData();
+
+            // Call
+            TestDelegate call = () => TileSchemaFactory.CreateWmtsTileSchema(mapData);
+
+            // Assert
+            const string message = "Only configured WmtsMapData instances can be used to create a schema for.";
+            string paramName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, message).ParamName;
+            Assert.AreEqual("mapData", paramName);
         }
     }
 }

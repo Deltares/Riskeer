@@ -314,7 +314,7 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
         public void Constructor_SrsAsUrnFormattedString_ProjectionSet()
         {
             // Setup
-            string urnCode = "urn:ogc:def:crs:EPSG:6.18.3:3857";
+            const string urnCode = "urn:ogc:def:crs:EPSG:6.18.3:3857";
 
             var mocks = new MockRepository();
             IConfiguration configuration = CreateStubConfiguration(mocks, urnCode);
@@ -334,7 +334,7 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
         public void Constructor_SrsAsProj4StringWithCorruption_ProjectionSetToCorrectedWgs84()
         {
             // Setup
-            string proj4String = "+proj=sterea +lat_0=52.15616055555555 +lon_0=corruption +k=0.9999079 +x_0=155000 +y_0=463000 +ellps=bessel +towgs84=565.417,50.3319,465.552,-0.398957,0.343988,-1.8774,4.0725 +units=m +no_defs ";
+            const string proj4String = "+proj=sterea +lat_0=52.15616055555555 +lon_0=corruption +k=0.9999079 +x_0=155000 +y_0=463000 +ellps=bessel +towgs84=565.417,50.3319,465.552,-0.398957,0.343988,-1.8774,4.0725 +units=m +no_defs ";
 
             var mocks = new MockRepository();
             IConfiguration configuration = CreateStubConfiguration(mocks, proj4String);
@@ -390,10 +390,11 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
                 TestDelegate call = () => layer.Transparency = invalidValue;
 
                 // Assert
-                string message = "Transparantie moet in het bereik [0,0, 1,0] liggen.";
+                const string message = "Transparantie moet in het bereik [0,0, 1,0] liggen.";
                 string paramName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, message).ParamName;
                 Assert.AreEqual("value", paramName);
             }
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -406,11 +407,14 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
             var mapFrameExtents = new DotSpatialExtent();
 
             var mapFrame = mocks.StrictMock<IFrame>();
-            mapFrame.ViewExtents = mapFrameExtents;
+            mapFrame.Stub(f=>f.ViewExtents).Return(mapFrameExtents);
             mapFrame.Expect(f => f.Invalidate(mapFrameExtents));
             mocks.ReplayAll();
 
-            using (var layer = new BruTileLayer(configuration))
+            using (var layer = new BruTileLayer(configuration)
+            {
+                MapFrame = mapFrame
+            })
             {
                 object itemChangedSender = null;
                 EventArgs itemChangedEventArgs = null;
@@ -430,6 +434,7 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
                 Assert.AreSame(layer, itemChangedSender);
                 Assert.AreEqual(EventArgs.Empty, itemChangedEventArgs);
             }
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -532,8 +537,8 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
             // Call
             using (var layer = new BruTileLayer(configuration))
             {
-                var originalProjection = layer.Projection;
-                var originalExtent = layer.Extent;
+                ProjectionInfo originalProjection = layer.Projection;
+                DotSpatialExtent originalExtent = layer.Extent;
 
                 ProjectionInfo targetProjection = KnownCoordinateSystems.Projected.NationalGrids.AmericanSamoa1962SamoaLambert;
 
@@ -542,7 +547,7 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
 
                 // Assert
                 Assert.AreSame(targetProjection, layer.Projection);
-                var expectedExtent = originalExtent.Reproject(originalProjection, targetProjection);
+                DotSpatialExtent expectedExtent = originalExtent.Reproject(originalProjection, targetProjection);
                 Assert.AreEqual(expectedExtent, layer.Extent);
             }
             mocks.VerifyAll();
@@ -659,7 +664,7 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
 
             using (var layer = new BruTileLayer(configuration))
             using (var mapCanvas = (Bitmap) mapCanvasSource.Clone())
-            using (var graphics = Graphics.FromImage(mapCanvas))
+            using (Graphics graphics = Graphics.FromImage(mapCanvas))
             {
                 if (reprojectLayerToWgs84)
                 {
@@ -699,12 +704,12 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
             }, 4);
 
             var mocks = new MockRepository();
-            IConfiguration configuration = CreateConfigurationForDrawingWhereFirstTileFetchNotInCacheButSecondFetchDoes(mocks, testConfig);
+            IConfiguration configuration = CreateConfigurationForDrawingWhereFirstTileFetchNotInCacheButSecondFetchIs(mocks, testConfig);
             mocks.ReplayAll();
 
             using (var layer = new BruTileLayer(configuration))
             using (var mapCanvas = (Bitmap) Resources.BackgroundLayerCanvas.Clone())
-            using (var graphics = Graphics.FromImage(mapCanvas))
+            using (Graphics graphics = Graphics.FromImage(mapCanvas))
             {
                 var mapArgs = new MapArgs(new Rectangle(0, 0, mapCanvas.Width, mapCanvas.Height),
                                           new DotSpatialExtent(-78529.9210634486, 403315.730436505, 306453.46038588, 581961.051306503),
@@ -724,7 +729,7 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void DrawRegions_FirstTileRetrieveNotInCacheSecondTileInCache_DrawMapTiles(bool trueEmptyFalseNull)
+        public void DrawRegions_TileFetcherReturningNullOrEmpty_NoMapTilesDrawn(bool trueEmptyFalseNull)
         {
             // Setup
             var testConfig = new TileInfosTestConfig(new[]
@@ -752,7 +757,7 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
 
             using (var layer = new BruTileLayer(configuration))
             using (var mapCanvas = (Bitmap) Resources.BackgroundLayerCanvas.Clone())
-            using (var graphics = Graphics.FromImage(mapCanvas))
+            using (Graphics graphics = Graphics.FromImage(mapCanvas))
             {
                 var mapArgs = new MapArgs(new Rectangle(0, 0, mapCanvas.Width, mapCanvas.Height),
                                           new DotSpatialExtent(-78529.9210634486, 403315.730436505, 306453.46038588, 581961.051306503),
@@ -816,7 +821,7 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
                 MapFrame = mapFrame
             })
             using (var mapCanvas = (Bitmap) Resources.BackgroundLayerCanvas.Clone())
-            using (var graphics = Graphics.FromImage(mapCanvas))
+            using (Graphics graphics = Graphics.FromImage(mapCanvas))
             {
                 var mapArgs = new MapArgs(new Rectangle(0, 0, mapCanvas.Width, mapCanvas.Height),
                                           mapExtent,
@@ -835,7 +840,7 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
                                                     Index = new TileIndex(0, 0, $"EPSG:28992:{zoomLevel}")
                                                 }, new byte[0]));
             }
-            // Assert
+            // Then
             mocks.VerifyAll(); // mapFrame.Invalidate should be called if extent overlaps
         }
 
@@ -845,13 +850,14 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
         public void LayerWithMapFrameAndDrawnAtLevel_TileReceivedEventAtWrongLevel_DontInvalidate(int otherZoomLevel)
         {
             // Given
+            const int currentZoomLevel = 4;
             var testConfig = new TileInfosTestConfig(new[]
             {
                 new TileInfoConfig(new Extent(99949.76, 463000.08, 155000, 518050.32),
                                    7, 7, Resources.blue_256x256),
                 new TileInfoConfig(new Extent(44899.52, 463000.08, 99949.76, 518050.32),
                                    6, 7, Resources.green_256x256)
-            }, 4);
+            }, currentZoomLevel);
 
             var mapExtent = new DotSpatialExtent(-78529.9210634486, 403315.730436505, 306453.46038588, 581961.051306503);
 
@@ -868,7 +874,7 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
                 MapFrame = mapFrame
             })
             using (var mapCanvas = (Bitmap) Resources.BackgroundLayerCanvas.Clone())
-            using (var graphics = Graphics.FromImage(mapCanvas))
+            using (Graphics graphics = Graphics.FromImage(mapCanvas))
             {
                 var mapArgs = new MapArgs(new Rectangle(0, 0, mapCanvas.Width, mapCanvas.Height),
                                           mapExtent,
@@ -887,7 +893,7 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
                                                     Index = new TileIndex(0, 0, $"EPSG:28992:{otherZoomLevel}")
                                                 }, new byte[0]));
             }
-            // Assert
+            // Then
             mocks.VerifyAll(); // mapFrame.Invalidate shouldn't be called!
         }
 
@@ -912,11 +918,11 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
                                                 configuration.TileFetcher,
                                                 EventArgs.Empty);
             }
-            // Assert
+            // Then
             mocks.VerifyAll(); // mapFrame.Invalidate should be called
         }
 
-        private static Resolution CreateResulutionForLevel(int level, string epsgCode)
+        private static Resolution CreateResolutionForLevel(int level, string epsgCode)
         {
             int numberOfImagesAtLevel = GetNumberOfImages(level);
             return new Resolution($"{epsgCode}:{level}", GetUnitsPerPixel(level),
@@ -951,7 +957,7 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
             };
 
             return levelToCreateResolutionsFor.ToDictionary(resolutionLevel => $"{epsgCode}:{resolutionLevel}",
-                                                            resolutionLevel => CreateResulutionForLevel(resolutionLevel, epsgCode));
+                                                            resolutionLevel => CreateResolutionForLevel(resolutionLevel, epsgCode));
         }
 
         public class TileInfosTestConfig
@@ -1027,7 +1033,7 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
             return configuration;
         }
 
-        private static IConfiguration CreateConfigurationForDrawingWhereFirstTileFetchNotInCacheButSecondFetchDoes(MockRepository mocks, TileInfosTestConfig config)
+        private static IConfiguration CreateConfigurationForDrawingWhereFirstTileFetchNotInCacheButSecondFetchIs(MockRepository mocks, TileInfosTestConfig config)
         {
             return CreateConfigurationForDrawing(mocks, config, TileFetcherGetsImageOnSecondAttempt);
         }
@@ -1043,7 +1049,7 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
 
         private static void TileFetcherGetsImageOnSecondAttempt(ITileFetcher tileFetcher, IDictionary<TileInfo, Bitmap> tileInfoImageLookup)
         {
-            int callCount = 0;
+            Dictionary<TileInfo, bool> getTileCalledForTileInfoLookup = tileInfoImageLookup.ToDictionary(kvp => kvp.Key, kvp => false);
             foreach (KeyValuePair<TileInfo, Bitmap> tileInfoImagePair in tileInfoImageLookup)
             {
                 // Configure persistent cache in such a way that first retrieve returns null for that tile
@@ -1052,10 +1058,10 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
                 tileFetcher.Stub(c => c.GetTile(tileInfoImagePair.Key))
                            .WhenCalled(invocation =>
                            {
-                               invocation.ReturnValue = callCount < tileInfoImageLookup.Count ?
+                               invocation.ReturnValue = getTileCalledForTileInfoLookup[(TileInfo)invocation.Arguments[0]] ?
                                                             null :
                                                             ToByteArray(tileInfoImagePair.Value);
-                               callCount++;
+                               getTileCalledForTileInfoLookup[(TileInfo) invocation.Arguments[0]] = true;
                            })
                            .Return(ToByteArray(tileInfoImagePair.Value));
             }

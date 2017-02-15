@@ -54,6 +54,20 @@ namespace Core.Components.DotSpatial.TestUtil.Test
             Assert.AreEqual(mapData.PreferredFormat, wmtsSchema.Format);
         }
 
+        [Test]
+        public void Constructor_UnconfiguredWmtsMapData_ThrowArgumentException()
+        {
+            // Setup
+            WmtsMapData mapData = WmtsMapData.CreateUnconnectedMapData();
+
+            // Call
+            TestDelegate call = () => new TestWmtsTileSource(mapData);
+
+            // Assert
+            const string message = "Only configured WmtsMapData instances can be used to create a schema for.";
+            string paramName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, message).ParamName;
+            Assert.AreEqual("mapData", paramName);
+        }
 
         [Test]
         public void GetTile_ForAnyTileInfo_ReturnsStubTileData()
@@ -67,7 +81,7 @@ namespace Core.Components.DotSpatial.TestUtil.Test
 
             // Assert
             using (var stream = new MemoryStream(tileData))
-            using(var tileImage = new Bitmap(stream))
+            using (var tileImage = new Bitmap(stream))
             {
                 Assert.AreEqual(256, tileImage.Width);
                 Assert.AreEqual(256, tileImage.Height);
