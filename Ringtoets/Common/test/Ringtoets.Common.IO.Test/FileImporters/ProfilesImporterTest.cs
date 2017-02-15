@@ -114,10 +114,10 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         public void Import_FromPathContainingInvalidPathCharacters_FalseAndLogError()
         {
             // Setup
-            string filePath = "c:\\Invalid_Characters.shp";
+            const string filePath = "c:\\Invalid_Characters.shp";
 
-            var invalidFileNameChars = Path.GetInvalidPathChars();
-            var invalidPath = filePath.Replace('_', invalidFileNameChars[0]);
+            var invalidPathChars = Path.GetInvalidPathChars();
+            var invalidPath = filePath.Replace('_', invalidPathChars[0]);
 
             var testProfilesImporter = new TestProfilesImporter(testImportTarget, testReferenceLine, invalidPath);
 
@@ -129,8 +129,9 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             TestHelper.AssertLogMessages(call, messages =>
             {
                 string message = messages.First();
+                string invalidChars = string.Join(", ", invalidPathChars);
                 string expectedMessage = new FileReaderErrorMessageBuilder(invalidPath)
-                    .Build(string.Format(CoreCommonUtilsResources.Error_Path_cannot_contain_Characters_0_, string.Join(", ", Path.GetInvalidPathChars())));
+                    .Build($"Bestandspad mag niet de volgende tekens bevatten: {invalidChars}");
                 StringAssert.StartsWith(expectedMessage, message);
             });
             Assert.IsFalse(importResult);

@@ -240,12 +240,12 @@ namespace Core.Common.Utils.Test
         }
 
         [Test]
-        public void IsValidFilePath_PathContainingInvalidFileCharacters_ReturnsFalse()
+        public void IsValidFilePath_PathContainingInvalidPathCharacters_ReturnsFalse()
         {
             // Setup
             string path = TestHelper.GetTestDataPath(TestDataPath.Core.Common.Utils, "validFile.txt");
-            char[] invalidFileNameChars = Path.GetInvalidFileNameChars();
-            string invalidPath = path.Replace('d', invalidFileNameChars[0]);
+            char[] invalidPathChars = Path.GetInvalidPathChars();
+            string invalidPath = path.Replace('d', invalidPathChars[0]);
 
             // Call
             bool valid = IOUtils.IsValidFilePath(invalidPath);

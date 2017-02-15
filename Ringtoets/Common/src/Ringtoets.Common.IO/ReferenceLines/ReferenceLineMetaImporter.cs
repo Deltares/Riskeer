@@ -113,7 +113,7 @@ namespace Ringtoets.Common.IO.ReferenceLines
             {
                 var message = new FileReaderErrorMessageBuilder(path)
                     .Build(string.Format(Resources.Error_Path_cannot_contain_Characters_0_,
-                                         string.Join(", ", Path.GetInvalidFileNameChars())));
+                                         string.Join(", ", Path.GetInvalidPathChars())));
                 throw new ArgumentException(message, e);
             }
             catch (Exception e)

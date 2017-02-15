@@ -66,18 +66,15 @@ namespace Core.Components.DotSpatial.Forms.Test.IO
         public void Constructor_FilePathHasInvalidPathCharacter_ThrowArgumentException()
         {
             // Setup
-            char[] invalidFileNameChars = Path.GetInvalidFileNameChars();
-            string invalidCharacter = invalidFileNameChars[0].ToString();
-            var filePath = "c:/_.config".Replace("_", invalidCharacter);
+            char[] invalidPathChars = Path.GetInvalidPathChars();
+            var filePath = "c:/_.config".Replace('_', invalidPathChars[0]);
 
             // Call
             TestDelegate call = () => new WmtsConnectionInfoWriter(filePath);
 
             // Assert
-            const string expectedMessage = "Fout bij het lezen van bestand 'c:/\".config': bestandspad " +
-                                           "mag niet de volgende tekens bevatten: \", <, >, " +
-                                           "|, \0, , , , , , , \a, \b, \t, \n, \v, \f, \r, " +
-                                           ", , , , , , , , , , , , , , , , , ";
+            string invalidChars = string.Join(", ", invalidPathChars);
+            var expectedMessage = $"Fout bij het lezen van bestand '{filePath}': bestandspad mag niet de volgende tekens bevatten: {invalidChars}";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
 

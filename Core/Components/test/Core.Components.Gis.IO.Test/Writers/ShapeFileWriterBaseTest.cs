@@ -116,9 +116,8 @@ namespace Core.Components.Gis.IO.Test.Writers
         public void SaveAs_FilePathHasInvalidPathCharacter_ThrowArgumentException()
         {
             // Setup
-            char[] invalidFileNameChars = Path.GetInvalidFileNameChars();
-            string invalidCharacter = invalidFileNameChars[0].ToString();
-            var filePath = "c:/_.shp".Replace("_", invalidCharacter);
+            char[] invalidPathChars = Path.GetInvalidPathChars();
+            var filePath = "c:/_.shp".Replace('_', invalidPathChars[0]);
 
             using (var writer = new TestShapeFileWriterBase())
             {
@@ -126,7 +125,8 @@ namespace Core.Components.Gis.IO.Test.Writers
                 TestDelegate call = () => writer.SaveAs(filePath);
 
                 // Assert
-                const string expectedMessage = "Fout bij het lezen van bestand 'c:/\".shp': bestandspad mag niet de volgende tekens bevatten: \", <, >, |, \0, , , , , , , \a, \b, \t, \n, \v, \f, \r, , , , , , , , , , , , , , , , , , ";
+                string invalidChars = string.Join(", ", invalidPathChars);
+                var expectedMessage = $"Fout bij het lezen van bestand 'c:/\".shp': bestandspad mag niet de volgende tekens bevatten: {invalidChars}";
                 TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
             }
         }

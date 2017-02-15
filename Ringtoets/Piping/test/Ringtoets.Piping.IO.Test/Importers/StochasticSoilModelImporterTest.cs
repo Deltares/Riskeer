@@ -124,7 +124,7 @@ namespace Ringtoets.Piping.IO.Test.Importers
         }
 
         [Test]
-        public void Import_FromInvalidFileName_LogError()
+        public void Import_FromInvalidFilePath_LogError()
         {
             // Setup
             const string file = "/";

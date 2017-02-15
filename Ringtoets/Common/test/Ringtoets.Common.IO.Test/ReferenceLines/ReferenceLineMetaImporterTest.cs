@@ -57,18 +57,18 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
         public void Constructor_FilePathHasInvalidPathCharacter_ThrowsArgumentException()
         {
             // Setup
-            char[] invalidFileNameChars = Path.GetInvalidFileNameChars();
+            char[] invalidPathChars = Path.GetInvalidPathChars();
 
             string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                               "SomeFolder");
-            string invalidFilePath = validFilePath.Replace("F", invalidFileNameChars[1].ToString());
+            string invalidFilePath = validFilePath.Replace('F', invalidPathChars.Last());
 
             // Call
             TestDelegate call = () => new ReferenceLineMetaImporter(invalidFilePath);
 
             // Assert
-            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': bestandspad mag niet de volgende tekens bevatten: {1}",
-                                                invalidFilePath, string.Join(", ", invalidFileNameChars));
+            string invalidChars = string.Join(", ", invalidPathChars);
+            var expectedMessage = $"Fout bij het lezen van bestand '{invalidFilePath}': bestandspad mag niet de volgende tekens bevatten: {invalidChars}";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
 
