@@ -145,15 +145,6 @@ namespace Ringtoets.Piping.Primitives.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Percentiel moet in het bereik [0, 1] liggen..
-        /// </summary>
-        public static string DesignVariable_Percentile_must_be_in_range {
-            get {
-                return ResourceManager.GetString("DesignVariable_Percentile_must_be_in_range", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Geen lagen gevonden voor de ondergrondschematisatie..
         /// </summary>
         public static string Error_Cannot_Construct_PipingSoilProfile_Without_Layers {
@@ -172,11 +163,11 @@ namespace Ringtoets.Piping.Primitives.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} De lokale coördinaat moet in het bereik [{1}, {2}] liggen..
+        ///   Looks up a localized string similar to {0} De lokale coördinaat moet in het bereik {1} liggen..
         /// </summary>
-        public static string RingtoetsPipingSurfaceLine_0_L_needs_to_be_in_1_2_range {
+        public static string RingtoetsPipingSurfaceLine_0_L_needs_to_be_in_Range_1_ {
             get {
-                return ResourceManager.GetString("RingtoetsPipingSurfaceLine_0_L_needs_to_be_in_1_2_range", resourceCulture);
+                return ResourceManager.GetString("RingtoetsPipingSurfaceLine_0_L_needs_to_be_in_Range_1_", resourceCulture);
             }
         }
         

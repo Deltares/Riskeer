@@ -109,11 +109,11 @@ namespace Ringtoets.ClosingStructures.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De waarde voor &apos;N2A&apos; moet in het bereik [0, 40] liggen..
+        ///   Looks up a localized string similar to De waarde voor &apos;N2A&apos; moet in het bereik {0} liggen..
         /// </summary>
-        public static string N2A_Value_should_be_in_interval_0_40 {
+        public static string N2A_Value_should_be_in_Range_0_ {
             get {
-                return ResourceManager.GetString("N2A_Value_should_be_in_interval_0_40", resourceCulture);
+                return ResourceManager.GetString("N2A_Value_should_be_in_Range_0_", resourceCulture);
             }
         }
     }

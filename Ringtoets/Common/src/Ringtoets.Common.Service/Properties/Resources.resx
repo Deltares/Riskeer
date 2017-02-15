@@ -197,11 +197,11 @@
   <data name="HydraulicBoundaryDatabaseConnectionValidator_No_hydraulic_boundary_database_imported" xml:space="preserve">
     <value>Er is geen hydraulische randvoorwaardendatabase geïmporteerd.</value>
   </data>
-  <data name="RingtoetsCommonDataCalculationService_ProfileSpecificRequiredProbability_Norm_must_be_in_interval_0_1" xml:space="preserve">
-    <value>De norm moet in het bereik [0, 1] liggen.</value>
+  <data name="RingtoetsCommonDataCalculationService_ProfileSpecificRequiredProbability_Norm_must_be_in_Range_0_" xml:space="preserve">
+    <value>De norm moet in het bereik {0} liggen.</value>
   </data>
-  <data name="RingtoetsCommonDataCalculationService_ProfileSpecificRequiredProbability_Contribution_must_be_in_interval_0_100" xml:space="preserve">
-    <value>De bijdrage van dit toetsspoor moet in het bereik [0, 100] liggen.</value>
+  <data name="RingtoetsCommonDataCalculationService_ProfileSpecificRequiredProbability_Contribution_must_be_in_Range_0_" xml:space="preserve">
+    <value>De bijdrage van dit toetsspoor moet in het bereik {0} liggen.</value>
   </data>
   <data name="RingtoetsCommonDataCalculationService_ProfileSpecificRequiredProbability_N_must_be_larger_than_0" xml:space="preserve">
     <value>De N-waarde van dit toetsspoor moet groter zijn dan 0.</value>

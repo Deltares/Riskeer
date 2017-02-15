@@ -20,6 +20,9 @@
 // All rights reserved.
 
 using System;
+using System.Globalization;
+using Core.Common.Base;
+using Core.Common.Base.Data;
 using Core.Common.Utils;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Service.Properties;
@@ -31,6 +34,9 @@ namespace Ringtoets.Common.Service
     /// </summary>
     public static class RingtoetsCommonDataCalculationService
     {
+        private static readonly Range<double> normValidityRange = new Range<double>(0, 1);
+        private static readonly Range<double> contributionValidityRange = new Range<double>(0, 100);
+
         /// <summary>
         /// Determines whether the calculated output is converged,
         /// based on the <paramref name="reliabilityIndex"/> and the <paramref name="norm"/>.
@@ -62,16 +68,19 @@ namespace Ringtoets.Common.Service
         /// </exception>
         public static double ProfileSpecificRequiredProbability(double norm, double failureMechanismContribution, int n)
         {
-            if (double.IsNaN(norm) || norm < 0.0 || norm > 1.0)
+            if (!normValidityRange.InRange(norm))
             {
-                throw new ArgumentOutOfRangeException(nameof(norm), norm,
-                                                      Resources.RingtoetsCommonDataCalculationService_ProfileSpecificRequiredProbability_Norm_must_be_in_interval_0_1);
+                string message = string.Format(Resources.RingtoetsCommonDataCalculationService_ProfileSpecificRequiredProbability_Norm_must_be_in_Range_0_,
+                                               normValidityRange.ToString(FormattableConstants.ShowAtLeastOneDecimal, CultureInfo.CurrentCulture));
+                throw new ArgumentOutOfRangeException(nameof(norm), norm, message);
             }
 
-            if (double.IsNaN(failureMechanismContribution) || failureMechanismContribution < 0 || failureMechanismContribution > 100)
+            if (!contributionValidityRange.InRange(failureMechanismContribution))
             {
+                string message = string.Format(Resources.RingtoetsCommonDataCalculationService_ProfileSpecificRequiredProbability_Contribution_must_be_in_Range_0_,
+                                               contributionValidityRange.ToString(FormattableConstants.ShowAtLeastOneDecimal, CultureInfo.CurrentCulture));
                 throw new ArgumentOutOfRangeException(nameof(failureMechanismContribution), failureMechanismContribution,
-                                                      Resources.RingtoetsCommonDataCalculationService_ProfileSpecificRequiredProbability_Contribution_must_be_in_interval_0_100);
+                                                      message);
             }
 
             if (n <= 0)

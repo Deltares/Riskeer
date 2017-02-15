@@ -74,6 +74,7 @@ namespace Ringtoets.Common.Service.Test
         }
 
         [Test]
+        [SetCulture("nl-NL")]
         public void ProfileSpecificRequiredProbability_WithInvalidNorm_ThrowsArgumentException(
             [Values(150, 1 + 1e-6, -1e-6, -150, double.NaN)] double norm)
         {
@@ -88,11 +89,12 @@ namespace Ringtoets.Common.Service.Test
             ArgumentOutOfRangeException exception = Assert.Throws<ArgumentOutOfRangeException>(action);
             Assert.AreEqual(norm, exception.ActualValue);
             Assert.AreEqual("norm", exception.ParamName);
-            StringAssert.StartsWith("De norm moet in het bereik [0, 1] liggen." +
+            StringAssert.StartsWith("De norm moet in het bereik [0,0, 1,0] liggen." +
                                     Environment.NewLine, exception.Message);
         }
 
         [Test]
+        [SetCulture("nl-NL")]
         public void ProfileSpecificRequiredProbability_WithInvalidFailureMechanismContribution_ThrowsArgumentException(
             [Values(150, 100 + 1e-6, -1e-6, -150, double.NaN)] double failureMechanismContribution)
         {
@@ -107,7 +109,7 @@ namespace Ringtoets.Common.Service.Test
             ArgumentOutOfRangeException exception = Assert.Throws<ArgumentOutOfRangeException>(action);
             Assert.AreEqual(failureMechanismContribution, exception.ActualValue);
             Assert.AreEqual("failureMechanismContribution", exception.ParamName);
-            StringAssert.StartsWith("De bijdrage van dit toetsspoor moet in het bereik [0, 100] liggen." +
+            StringAssert.StartsWith("De bijdrage van dit toetsspoor moet in het bereik [0,0, 100,0] liggen." +
                                     Environment.NewLine, exception.Message);
         }
 

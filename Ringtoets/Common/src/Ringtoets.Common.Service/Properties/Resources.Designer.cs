@@ -244,12 +244,12 @@ namespace Ringtoets.Common.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De bijdrage van dit toetsspoor moet in het bereik [0, 1] liggen..
+        ///   Looks up a localized string similar to De bijdrage van dit toetsspoor moet in het bereik {0} liggen..
         /// </summary>
-        public static string RingtoetsCommonDataCalculationService_ProfileSpecificRequiredProbability_Contribution_must_be_in_interval_0_100 {
+        public static string RingtoetsCommonDataCalculationService_ProfileSpecificRequiredProbability_Contribution_must_be_in_Range_0_ {
             get {
                 return ResourceManager.GetString("RingtoetsCommonDataCalculationService_ProfileSpecificRequiredProbability_Contribu" +
-                        "tion_must_be_in_interval_0_100", resourceCulture);
+                        "tion_must_be_in_Range_0_", resourceCulture);
             }
         }
         
@@ -264,12 +264,12 @@ namespace Ringtoets.Common.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De norm moet in het bereik [0, 1] liggen..
+        ///   Looks up a localized string similar to De norm moet in het bereik {0} liggen..
         /// </summary>
-        public static string RingtoetsCommonDataCalculationService_ProfileSpecificRequiredProbability_Norm_must_be_in_interval_0_1 {
+        public static string RingtoetsCommonDataCalculationService_ProfileSpecificRequiredProbability_Norm_must_be_in_Range_0_ {
             get {
                 return ResourceManager.GetString("RingtoetsCommonDataCalculationService_ProfileSpecificRequiredProbability_Norm_mus" +
-                        "t_be_in_interval_0_1", resourceCulture);
+                        "t_be_in_Range_0_", resourceCulture);
             }
         }
         

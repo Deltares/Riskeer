@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Data;
@@ -259,10 +260,10 @@ namespace Ringtoets.Piping.Primitives
 
             if (!ValidateInRange(l))
             {
-                var outOfRangeMessage = string.Format(Resources.RingtoetsPipingSurfaceLine_0_L_needs_to_be_in_1_2_range,
+                var localRangeL = new Range<double>(LocalGeometry.First().X, LocalGeometry.Last().X);
+                var outOfRangeMessage = string.Format(Resources.RingtoetsPipingSurfaceLine_0_L_needs_to_be_in_Range_1_,
                                                       Resources.RingtoetsPipingSurfaceLine_GetZAtL_Cannot_determine_height,
-                                                      LocalGeometry.First().X,
-                                                      LocalGeometry.Last().X);
+                                                      localRangeL.ToString(FormattableConstants.ShowAtLeastOneDecimal, CultureInfo.CurrentCulture));
                 throw new ArgumentOutOfRangeException(null, outOfRangeMessage);
             }
 

@@ -263,6 +263,7 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
+        [SetCulture("nl-NL")]
         [TestCase(-1)]
         [TestCase(-5e-3)]
         [TestCase(3.1 + 5e-3)]
@@ -284,8 +285,7 @@ namespace Ringtoets.Piping.Data.Test
             TestDelegate test = () => surfaceLine.GetZAtL((RoundedDouble) l);
 
             // Assert
-            var expectedMessage = string.Format("Kan geen hoogte bepalen. De lokale coördinaat moet in het bereik [0, {0}] liggen.",
-                                                3.1);
+            const string expectedMessage = "Kan geen hoogte bepalen. De lokale coördinaat moet in het bereik [0,0, 3,1] liggen.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
         }
 
@@ -747,7 +747,7 @@ namespace Ringtoets.Piping.Data.Test
             var surfaceLine = new RingtoetsPipingSurfaceLine();
 
             const string expectedName = "Other name";
-            Point3D[] expectedGeometry = 
+            Point3D[] expectedGeometry =
             {
                 new Point3D(0, 1, 2),
                 new Point3D(3, 4, 5),

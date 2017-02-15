@@ -31,6 +31,7 @@ namespace Ringtoets.ClosingStructures.Data
     /// </summary>
     public class GeneralClosingStructuresInput
     {
+        private static readonly Range<int> validityRangeN2A = new Range<int>(0, 40);
         private int n2A;
 
         /// <summary>
@@ -93,9 +94,11 @@ namespace Ringtoets.ClosingStructures.Data
             }
             set
             {
-                if (value < 0 || value > 40)
+                if (!validityRangeN2A.InRange(value))
                 {
-                    throw new ArgumentOutOfRangeException(nameof(value), Resources.N2A_Value_should_be_in_interval_0_40);
+                    string message = string.Format(Resources.N2A_Value_should_be_in_Range_0_,
+                                                   validityRangeN2A);
+                    throw new ArgumentOutOfRangeException(nameof(value), message);
                 }
                 n2A = value;
             }
@@ -108,7 +111,7 @@ namespace Ringtoets.ClosingStructures.Data
         {
             get
             {
-                return new RoundedDouble(2, Math.Max(1, C*N2A));
+                return new RoundedDouble(2, Math.Max(1, C * N2A));
             }
         }
 
