@@ -29,7 +29,7 @@ using Ringtoets.Piping.IO.Readers;
 namespace Ringtoets.Piping.IO.Test.Readers
 {
     [TestFixture]
-    public class PipingCalculationGroupReaderTest
+    public class PipingConfigurationReaderTest
     {
         [Test]
         [TestCase("")]
@@ -38,7 +38,7 @@ namespace Ringtoets.Piping.IO.Test.Readers
         public void Constructor_NoFilePath_ThrowArgumentException(string invalidFilePath)
         {
             // Call
-            TestDelegate call = () => new PipingCalculationGroupReader(invalidFilePath);
+            TestDelegate call = () => new PipingConfigurationReader(invalidFilePath);
 
             // Assert
             var expectedMessage = $"Fout bij het lezen van bestand '{invalidFilePath}': bestandspad mag niet leeg of ongedefinieerd zijn.";
@@ -56,7 +56,7 @@ namespace Ringtoets.Piping.IO.Test.Readers
             string invalidFilePath = validFilePath.Replace("piping", invalidFileNameChars[3].ToString());
 
             // Call
-            TestDelegate call = () => new PipingCalculationGroupReader(invalidFilePath);
+            TestDelegate call = () => new PipingConfigurationReader(invalidFilePath);
 
             // Assert
             var expectedMessage = $"Fout bij het lezen van bestand '{invalidFilePath}': bestandspad mag niet de volgende tekens bevatten: {string.Join(", ", invalidFileNameChars)}";
@@ -71,7 +71,7 @@ namespace Ringtoets.Piping.IO.Test.Readers
                                                                 Path.DirectorySeparatorChar.ToString());
 
             // Call
-            TestDelegate call = () => new PipingCalculationGroupReader(invalidFilePath);
+            TestDelegate call = () => new PipingConfigurationReader(invalidFilePath);
 
             // Assert
             var expectedMessage = $"Fout bij het lezen van bestand '{invalidFilePath}': bestandspad mag niet verwijzen naar een lege bestandsnaam.";
@@ -86,7 +86,7 @@ namespace Ringtoets.Piping.IO.Test.Readers
                                                                 "I_do_not_exist.shp");
 
             // Call
-            TestDelegate call = () => new PipingCalculationGroupReader(invalidFilePath);
+            TestDelegate call = () => new PipingConfigurationReader(invalidFilePath);
 
             // Assert
             var expectedMessage = $"Fout bij het lezen van bestand '{invalidFilePath}': het bestand bestaat niet.";

@@ -260,7 +260,7 @@ Het bestand wordt overgeslagen.</value>
     <value>{0} 
 Deze ondergrondschematisatie wordt overgeslagen.</value>
   </data>
-  <data name="PipingCalculationGroupReader_Configuration_contains_no_valid_xml" xml:space="preserve">
+  <data name="PipingConfigurationReader_Configuration_contains_no_valid_xml" xml:space="preserve">
     <value>Het XML-document dat de configuratie voor de berekeningen beschrijft is niet geldig.</value>
   </data>
 </root>

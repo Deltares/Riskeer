@@ -59,7 +59,7 @@
     <Compile Include="Importers\RingtoetsPipingSurfaceLineUpdateException.cs" />
     <Compile Include="Importers\StochasticSoilModelImporter.cs" />
     <Compile Include="Importers\StochasticSoilModelUpdateException.cs" />
-    <Compile Include="Readers\PipingCalculationGroupReader.cs" />
+    <Compile Include="Readers\PipingConfigurationReader.cs" />
     <Compile Include="Readers\IReadPipingCalculationItem.cs" />
     <Compile Include="Readers\ReadPipingCalculation.cs" />
     <Compile Include="Readers\ReadPipingCalculationGroup.cs" />

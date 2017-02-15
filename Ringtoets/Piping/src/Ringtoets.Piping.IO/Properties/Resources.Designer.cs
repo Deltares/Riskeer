@@ -195,9 +195,9 @@ namespace Ringtoets.Piping.IO.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Het XML-document dat de configuratie voor de berekeningen beschrijft is niet geldig..
         /// </summary>
-        public static string PipingCalculationGroupReader_Configuration_contains_no_valid_xml {
+        public static string PipingConfigurationReader_Configuration_contains_no_valid_xml {
             get {
-                return ResourceManager.GetString("PipingCalculationGroupReader_Configuration_contains_no_valid_xml", resourceCulture);
+                return ResourceManager.GetString("PipingConfigurationReader_Configuration_contains_no_valid_xml", resourceCulture);
             }
         }
         
