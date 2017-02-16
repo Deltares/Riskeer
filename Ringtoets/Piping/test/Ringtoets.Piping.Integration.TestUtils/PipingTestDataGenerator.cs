@@ -93,6 +93,7 @@ namespace Ringtoets.Piping.Integration.TestUtils
         {
             PipingCalculation calculation = GetPipingCalculation();
             calculation.InputParameters.StochasticSoilModel = null;
+            calculation.InputParameters.StochasticSoilProfile = null;
 
             return calculation;
         }
