@@ -50,8 +50,6 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
     [TestFixture]
     public class StochasticSoilModelCollectionContextTreeNodeInfoTest : NUnitFormTest
     {
-        private const int updateStochasticSoilModelsItemIndex = 1;
-
         private MockRepository mocks;
         private PipingPlugin plugin;
         private TreeNodeInfo info;
@@ -248,8 +246,6 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 menuBuilderMock.Expect(mb => mb.AddImportItem()).Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.AddUpdateItem()).Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddDeleteChildrenItem()).Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.AddCollapseAllItem()).Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.AddExpandAllItem()).Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
@@ -275,30 +271,6 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             }
             // Assert
             // Assert expectancies are called in TearDown()
-        }
-        private static ObservableCollectionWithSourcePath<StochasticSoilModel> CreateEmptyImportedStochasticSoilModelCollection(string existingFilePath)
-        {
-            var stochasticSoilModelCollection = new ObservableCollectionWithSourcePath<StochasticSoilModel>();
-            stochasticSoilModelCollection.AddRange(Enumerable.Empty<StochasticSoilModel>(), existingFilePath);
-            return stochasticSoilModelCollection;
-        }
-
-        private static void MakeConfirmationRequired(PipingFailureMechanism pipingFailureMechanism)
-        {
-            pipingFailureMechanism.CalculationsGroup.Children.Add(new PipingCalculationScenario(new GeneralPipingInput())
-            {
-                Output = new TestPipingOutput()
-            });
-        }
-
-        private IGui CreateGuiStub(StochasticSoilModelCollectionContext nodeData, TreeViewControl treeViewControl)
-        {
-            var gui = mocks.Stub<IGui>();
-            gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-            gui.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
-            gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
-            mocks.ReplayAll();
-            return gui;
         }
     }
 }

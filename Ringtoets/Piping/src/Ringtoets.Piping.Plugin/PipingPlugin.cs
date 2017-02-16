@@ -31,7 +31,6 @@ using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms;
 using Core.Common.Gui.Forms.ProgressDialog;
 using Core.Common.Gui.Plugin;
-using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -60,8 +59,6 @@ namespace Ringtoets.Piping.Plugin
     /// </summary>
     public class PipingPlugin : PluginBase
     {
-        private readonly ILog log = LogManager.GetLogger(typeof(PipingPlugin));
-
         public override IRibbonCommandHandler RibbonCommandHandler
         {
             get
@@ -301,15 +298,11 @@ namespace Ringtoets.Piping.Plugin
                 Image = stochasticSoilModel => PipingFormsResources.StochasticSoilModelIcon,
                 ChildNodeObjects = stochasticSoilModel => stochasticSoilModel.StochasticSoilProfiles.Cast<object>().ToArray(),
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
-                                                                                 .AddDeleteItem()
-                                                                                 .AddSeparator()
                                                                                  .AddCollapseAllItem()
                                                                                  .AddExpandAllItem()
                                                                                  .AddSeparator()
                                                                                  .AddPropertiesItem()
-                                                                                 .Build(),
-                CanRemove = CanRemoveStochasticSoilModel,
-                OnNodeRemoved = OnStochasticSoilModelRemoved
+                                                                                 .Build()
             };
 
             yield return new TreeNodeInfo<StochasticSoilProfile>
@@ -567,8 +560,6 @@ namespace Ringtoets.Piping.Plugin
                       .AddImportItem()
                       .AddUpdateItem()
                       .AddSeparator()
-                      .AddDeleteChildrenItem()
-                      .AddSeparator()
                       .AddCollapseAllItem()
                       .AddExpandAllItem()
                       .AddSeparator()
@@ -589,27 +580,6 @@ namespace Ringtoets.Piping.Plugin
         {
             var context = (RingtoetsPipingSurfaceLinesContext) parentData;
             IObservable[] changedObservables = PipingDataSynchronizationService.RemoveSurfaceLine(context.FailureMechanism, nodeData).ToArray();
-
-            foreach (IObservable observable in changedObservables)
-            {
-                observable.NotifyObservers();
-            }
-        }
-
-        #endregion
-
-        #region StochasticSoilModel TreeNodeInfo
-
-        private static bool CanRemoveStochasticSoilModel(StochasticSoilModel nodeData, object parentData)
-        {
-            return parentData is StochasticSoilModelCollectionContext;
-        }
-
-        private static void OnStochasticSoilModelRemoved(StochasticSoilModel nodeData, object parentData)
-        {
-            var context = (StochasticSoilModelCollectionContext) parentData;
-            IObservable[] changedObservables = PipingDataSynchronizationService.RemoveStochasticSoilModel(context.FailureMechanism,
-                                                                                                          nodeData).ToArray();
 
             foreach (IObservable observable in changedObservables)
             {

@@ -69,8 +69,8 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             Assert.IsNotNull(info.ChildNodeObjects);
             Assert.IsNull(info.CanRename);
             Assert.IsNull(info.OnNodeRenamed);
-            Assert.IsNotNull(info.CanRemove);
-            Assert.IsNotNull(info.OnNodeRemoved);
+            Assert.IsNull(info.CanRemove);
+            Assert.IsNull(info.OnNodeRemoved);
             Assert.IsNull(info.CanCheck);
             Assert.IsNull(info.IsChecked);
             Assert.IsNull(info.OnNodeChecked);
@@ -143,139 +143,6 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void CanRemove_Always_ReturnTrue()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var failureMechanism = new PipingFailureMechanism();
-            var parentData = new StochasticSoilModelCollectionContext(failureMechanism.StochasticSoilModels, failureMechanism, assessmentSection);
-
-            // Call
-            bool canRemove = info.CanRemove(null, parentData);
-
-            // Assert
-            Assert.IsTrue(canRemove);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void CanRemove_OtherParentData_ReturnFalse()
-        {
-            // Call
-            bool canRemove = info.CanRemove(null, null);
-
-            // Assert
-            Assert.IsFalse(canRemove);
-        }
-
-        [Test]
-        public void OnNodeRemoved_RemovingSoilModelAssignedToCalculation_SoilModelRemovedFromFailureMechanismAndCalculationModelAndProfileCleared()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            var calculation1Observer = mocks.StrictMock<IObserver>();
-            calculation1Observer.Expect(o => o.UpdateObserver());
-            var calculation2Observer = mocks.StrictMock<IObserver>();
-            calculation2Observer.Expect(o => o.UpdateObserver());
-            var calculation3Observer = mocks.StrictMock<IObserver>();
-            calculation3Observer.Expect(o => o.UpdateObserver()).Repeat.Never();
-            mocks.ReplayAll();
-
-            var nodeData = new StochasticSoilModel(1, "A", "B")
-            {
-                StochasticSoilProfiles =
-                {
-                    new StochasticSoilProfile(0.5, SoilProfileType.SoilProfile1D, 1),
-                    new StochasticSoilProfile(0.5, SoilProfileType.SoilProfile1D, 2)
-                }
-            };
-            var otherModel = new StochasticSoilModel(2, "C", "D")
-            {
-                StochasticSoilProfiles =
-                {
-                    new StochasticSoilProfile(0.8, SoilProfileType.SoilProfile2D, 3),
-                    new StochasticSoilProfile(0.2, SoilProfileType.SoilProfile2D, 4)
-                }
-            };
-
-            var generalInput = new GeneralPipingInput();
-            var calculation1 = new PipingCalculationScenario(generalInput)
-            {
-                InputParameters =
-                {
-                    StochasticSoilModel = nodeData,
-                    StochasticSoilProfile = nodeData.StochasticSoilProfiles[0]
-                }
-            };
-            calculation1.InputParameters.Attach(calculation1Observer);
-            var calculation2 = new PipingCalculationScenario(generalInput)
-            {
-                InputParameters =
-                {
-                    StochasticSoilModel = nodeData,
-                    StochasticSoilProfile = nodeData.StochasticSoilProfiles[1]
-                }
-            };
-            calculation2.InputParameters.Attach(calculation2Observer);
-            var calculation3 = new PipingCalculationScenario(generalInput)
-            {
-                InputParameters =
-                {
-                    StochasticSoilModel = otherModel,
-                    StochasticSoilProfile = otherModel.StochasticSoilProfiles[0]
-                }
-            };
-            calculation3.InputParameters.Attach(calculation3Observer);
-
-            var failureMechanism = new PipingFailureMechanism
-            {
-                CalculationsGroup =
-                {
-                    Children =
-                    {
-                        calculation1,
-                        new CalculationGroup("A", true)
-                        {
-                            Children =
-                            {
-                                calculation2
-                            }
-                        },
-                        calculation3
-                    }
-                }
-            };
-            failureMechanism.StochasticSoilModels.AddRange(new[]
-            {
-                nodeData,
-                otherModel
-            }, "path");
-            failureMechanism.StochasticSoilModels.Attach(observer);
-
-            var parentData = new StochasticSoilModelCollectionContext(failureMechanism.StochasticSoilModels, failureMechanism, assessmentSection);
-
-            // Call
-            info.OnNodeRemoved(nodeData, parentData);
-
-            // Assert
-            CollectionAssert.DoesNotContain(failureMechanism.StochasticSoilModels, nodeData);
-
-            Assert.IsNull(calculation1.InputParameters.StochasticSoilModel);
-            Assert.IsNull(calculation1.InputParameters.StochasticSoilProfile);
-            Assert.IsNull(calculation2.InputParameters.StochasticSoilModel);
-            Assert.IsNull(calculation2.InputParameters.StochasticSoilProfile);
-            Assert.IsNotNull(calculation3.InputParameters.StochasticSoilModel);
-            Assert.IsNotNull(calculation3.InputParameters.StochasticSoilProfile);
-            mocks.VerifyAll();
-        }
-
-        [Test]
         public void ContextMenuStrip_Always_CallsBuilder()
         {
             // Setup
@@ -286,8 +153,6 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
             using (mocks.Ordered())
             {
-                menuBuilderMock.Expect(mb => mb.AddDeleteItem()).Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.AddCollapseAllItem()).Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.AddExpandAllItem()).Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
