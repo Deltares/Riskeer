@@ -96,6 +96,8 @@ namespace Migration.Core.Storage
         /// <param name="toVersion">The version to upgrade to.</param>
         /// <param name="newFileLocation">The location where the migrated file needs to be saved.</param>
         /// <exception cref="ArgumentNullException">Thrown when any of the input parameters is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when the path of the <paramref name="versionedFile"/> or
+        /// the <paramref name="newFileLocation"/> is invalid.</exception>
         /// <exception cref="CriticalMigrationException">Thrown when migrating <paramref name="versionedFile"/> 
         /// to a new version on location <paramref name="newFileLocation"/> failed.</exception>
         public void Migrate(IVersionedFile versionedFile, string toVersion, string newFileLocation)
@@ -118,6 +120,12 @@ namespace Migration.Core.Storage
 
         protected abstract IEnumerable<CreateScript> GetAvailableCreateScripts();
 
+        /// <summary>
+        /// Validate the arguments of the migration command.
+        /// </summary>
+        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when the path of the <paramref name="versionedFile"/> or
+        /// the <paramref name="newFileLocation"/> is invalid.</exception>
         private static void ValidateMigrationArguments(IVersionedFile versionedFile, string toVersion, string newFileLocation)
         {
             if (versionedFile == null)

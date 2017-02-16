@@ -51,10 +51,8 @@ namespace Core.Common.Utils.Test
             // Setup
             var stringBuilder = new StringBuilder();
             stringBuilder.Append(@"C:\");
-            for (var i = 0; i < 300; i++)
-            {
-                stringBuilder.Append("A");
-            }
+            stringBuilder.Append(new string('A', 300));
+
             stringBuilder.Append(Path.DirectorySeparatorChar);
             string tooLongFolderPath = stringBuilder.ToString();
 
