@@ -29,16 +29,16 @@ All rights reserved.
 	<xs:element name="root">
 		<xs:complexType>
 			<xs:choice minOccurs="1" maxOccurs="unbounded">
-				<xs:element ref="berekening"/>
-				<xs:element ref="folder"/>
+				<xs:element ref="berekening" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="folder" minOccurs="0" maxOccurs="unbounded"/>
 			</xs:choice>
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="folder">
 		<xs:complexType>
 			<xs:choice minOccurs="0" maxOccurs="unbounded">
-				<xs:element ref="berekening"/>
-				<xs:element ref="folder"/>
+				<xs:element ref="berekening" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="folder" minOccurs="0" maxOccurs="unbounded"/>
 			</xs:choice>
 			<xs:attribute name="naam" use="required">
 				<xs:simpleType>
@@ -49,18 +49,18 @@ All rights reserved.
 	</xs:element>
 	<xs:element name="berekening">
 		<xs:complexType>
-			<xs:sequence minOccurs="0">
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
 				<xs:choice minOccurs="0" maxOccurs="1">
-					<xs:element ref="hrlocatie"/>
-					<xs:element ref="toetspeil"/>
+					<xs:element ref="hrlocatie" minOccurs="0" maxOccurs="1"/>
+					<xs:element ref="toetspeil" minOccurs="0" maxOccurs="1"/>
 				</xs:choice>
-				<xs:element ref="profielschematisatie" maxOccurs="1"/>
-				<xs:element ref="intredepunt" maxOccurs="1"/>
-				<xs:element ref="uittredepunt" maxOccurs="1"/>
-				<xs:element ref="ondergrondmodel" maxOccurs="1"/>
-				<xs:element ref="ondergrondschematisatie" maxOccurs="1"/>
-				<xs:element ref="stochast" maxOccurs="2"/>
-			</xs:sequence>
+				<xs:element ref="profielschematisatie" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="intredepunt" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="uittredepunt" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="ondergrondmodel" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="ondergrondschematisatie" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="stochast" minOccurs="0" maxOccurs="2"/>
+			</xs:choice>
 			<xs:attribute name="naam" use="required">
 				<xs:simpleType>
 					<xs:restriction base="xs:string"/>
@@ -80,17 +80,17 @@ All rights reserved.
 	</xs:element>
 	<xs:element name="toetspeil">
 		<xs:simpleType>
-			<xs:restriction base="xs:decimal"/>
+			<xs:restriction base="xs:double"/>
 		</xs:simpleType>
 	</xs:element>
 	<xs:element name="intredepunt">
 		<xs:simpleType>
-			<xs:restriction base="xs:decimal"/>
+			<xs:restriction base="xs:double"/>
 		</xs:simpleType>
 	</xs:element>
 	<xs:element name="uittredepunt">
 		<xs:simpleType>
-			<xs:restriction base="xs:decimal"/>
+			<xs:restriction base="xs:double"/>
 		</xs:simpleType>
 	</xs:element>
 	<xs:element name="ondergrondmodel">
@@ -105,10 +105,10 @@ All rights reserved.
 	</xs:element>
 	<xs:element name="stochast">
 		<xs:complexType>
-			<xs:sequence maxOccurs="1" minOccurs="1">
-				<xs:element ref="verwachtingswaarde"/>
-				<xs:element ref="standaardafwijking"/>
-			</xs:sequence>
+			<xs:choice minOccurs="2" maxOccurs="2">
+				<xs:element ref="verwachtingswaarde" minOccurs="1" maxOccurs="1"/>
+				<xs:element ref="standaardafwijking" minOccurs="1" maxOccurs="1"/>
+			</xs:choice>
 			<xs:attribute name="naam" use="required">
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
@@ -121,12 +121,12 @@ All rights reserved.
 	</xs:element>
 	<xs:element name="standaardafwijking">
 		<xs:simpleType>
-			<xs:restriction base="xs:decimal"/>
+			<xs:restriction base="xs:double"/>
 		</xs:simpleType>
 	</xs:element>
 	<xs:element name="verwachtingswaarde">
 		<xs:simpleType>
-			<xs:restriction base="xs:decimal"/>
+			<xs:restriction base="xs:double"/>
 		</xs:simpleType>
 	</xs:element>
 </xs:schema>
