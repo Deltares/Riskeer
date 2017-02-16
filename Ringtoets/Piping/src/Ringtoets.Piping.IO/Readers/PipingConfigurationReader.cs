@@ -131,6 +131,17 @@ namespace Ringtoets.Piping.IO.Readers
             }
         }
 
+        private static XmlSchemaSet LoadXmlSchema()
+        {
+            Stream schemaFile = AssemblyUtils.GetAssemblyResourceStream(typeof(PipingConfigurationReader).Assembly,
+                                                                        "Ringtoets.Piping.IO.Readers.XMLPipingConfigurationSchema.xsd");
+
+            var xmlSchema = new XmlSchemaSet();
+            xmlSchema.Add(XmlSchema.Read(schemaFile, null));
+
+            return xmlSchema;
+        }
+
         private static IEnumerable<IReadPipingCalculationItem> ParseReadPipingCalculationItems(IEnumerable<XElement> elements)
         {
             foreach (XElement element in elements)
@@ -203,17 +214,6 @@ namespace Ringtoets.Piping.IO.Readers
         private static XElement GetStochastChildElement(XElement parentElement, string stochastName)
         {
             return parentElement.Elements("stochast").FirstOrDefault(e => e.Attribute("naam")?.Value == stochastName);
-        }
-
-        private static XmlSchemaSet LoadXmlSchema()
-        {
-            Stream schemaFile = AssemblyUtils.GetAssemblyResourceStream(typeof(PipingConfigurationReader).Assembly,
-                                                                        "Ringtoets.Piping.IO.Readers.XMLPipingConfigurationSchema.xsd");
-
-            var xmlSchema = new XmlSchemaSet();
-            xmlSchema.Add(XmlSchema.Read(schemaFile, null));
-
-            return xmlSchema;
         }
     }
 }

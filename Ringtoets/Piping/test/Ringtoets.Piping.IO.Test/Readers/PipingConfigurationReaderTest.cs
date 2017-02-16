@@ -215,5 +215,34 @@ namespace Ringtoets.Piping.IO.Test.Readers
             Assert.IsNotNull(calculation5);
             Assert.AreEqual("Calculation 5", calculation5.Name);
         }
+
+        [Test]
+        public void Read_ValidConfigurationWithEmptyCalculation_ReturnExpectedReadPipingCalculationItems()
+        {
+            // Setup
+            string filePath = Path.Combine(testDirectoryPath, "validConfigurationWithEmptyCalculation.xml");
+            var pipingConfigurationReader = new PipingConfigurationReader(filePath);
+
+            // Call
+            IList<IReadPipingCalculationItem> readPipingCalculationItems = pipingConfigurationReader.Read().ToList();
+
+            // Assert
+            Assert.AreEqual(1, readPipingCalculationItems.Count);
+
+            var calculation = readPipingCalculationItems[0] as ReadPipingCalculation;
+            Assert.IsNotNull(calculation);
+            Assert.AreEqual("Calculation", calculation.Name);
+            Assert.IsNull(calculation.AssessmentLevel);
+            Assert.IsNull(calculation.HydraulicBoundaryLocation);
+            Assert.IsNull(calculation.SurfaceLine);
+            Assert.IsNull(calculation.EntryPointL);
+            Assert.IsNull(calculation.ExitPointL);
+            Assert.IsNull(calculation.StochasticSoilModel);
+            Assert.IsNull(calculation.StochasticSoilProfile);
+            Assert.IsNull(calculation.PhreaticLevelExitMean);
+            Assert.IsNull(calculation.PhreaticLevelExitStandardDeviation);
+            Assert.IsNull(calculation.DampingFactorExitMean);
+            Assert.IsNull(calculation.DampingFactorExitStandardDeviation);
+        }
     }
 }

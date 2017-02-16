@@ -29,16 +29,16 @@ All rights reserved.
 	<xs:element name="root">
 		<xs:complexType>
 			<xs:choice minOccurs="1" maxOccurs="unbounded">
-				<xs:element ref="berekening" minOccurs="0" maxOccurs="unbounded"/>
-				<xs:element ref="folder" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="berekening"/>
+				<xs:element ref="folder"/>
 			</xs:choice>
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="folder">
 		<xs:complexType>
 			<xs:choice minOccurs="0" maxOccurs="unbounded">
-				<xs:element ref="berekening" minOccurs="0" maxOccurs="unbounded"/>
-				<xs:element ref="folder" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="berekening"/>
+				<xs:element ref="folder"/>
 			</xs:choice>
 			<xs:attribute name="naam" use="required">
 				<xs:simpleType>
@@ -51,8 +51,8 @@ All rights reserved.
 		<xs:complexType>
 			<xs:choice minOccurs="0" maxOccurs="unbounded">
 				<xs:choice minOccurs="0" maxOccurs="1">
-					<xs:element ref="hrlocatie" minOccurs="0" maxOccurs="1"/>
-					<xs:element ref="toetspeil" minOccurs="0" maxOccurs="1"/>
+					<xs:element ref="hrlocatie"/>
+					<xs:element ref="toetspeil"/>
 				</xs:choice>
 				<xs:element ref="profielschematisatie" minOccurs="0" maxOccurs="1"/>
 				<xs:element ref="intredepunt" minOccurs="0" maxOccurs="1"/>
