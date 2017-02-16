@@ -101,6 +101,42 @@ namespace Core.Components.DotSpatial.Forms.Test
         [Test]
         [TestCase(true)]
         [TestCase(false)]
+        public void GivenMapControlWithEmptyBackgroundMapDataContainer_WhenMapDataSetAndNotified_ThenMapControlUpdated(bool isVisible)
+        {
+            // Given
+            WmtsMapData backgroundMapData = WmtsMapData.CreateDefaultPdokMapData();
+
+            var mapDataContainer = new BackgroundMapDataContainer
+            {
+                IsVisible = isVisible,
+                Transparency = (RoundedDouble) 0.25
+            };
+
+            using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
+            using (var map = new MapControl
+            {
+                BackgroundMapData = mapDataContainer
+            })
+            {
+                // When
+                mapDataContainer.MapData = backgroundMapData;
+                mapDataContainer.NotifyObservers();
+
+                // Then
+                var mapView = map.Controls.OfType<Map>().First();
+                Assert.AreEqual(1, mapView.Layers.Count);
+                BruTileLayer bruTileLayer = (BruTileLayer) mapView.Layers[0];
+                Assert.AreEqual(isVisible, bruTileLayer.IsVisible);
+                Assert.AreEqual(backgroundMapData.Transparency.Value, bruTileLayer.Transparency);
+
+                Assert.IsTrue(bruTileLayer.Projection.Equals(mapView.Projection),
+                              "The background layer's Project should define the Projection of 'mapView'.");
+            }
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
         public void GivenMapControlWithoutBackgroundMapData_WhenBackgroundMapDataSet_ThenMapControlUpdated(bool isVisible)
         {
             // Given
@@ -128,6 +164,44 @@ namespace Core.Components.DotSpatial.Forms.Test
 
                 Assert.IsTrue(bruTileLayer.Projection.Equals(mapView.Projection),
                               "The background layer's Project should define the Projection of 'mapView'.");
+            }
+        }
+
+        [Test]
+        [TestCaseSource(nameof(GetProblematicTileSourceFactoryTestCaseData), new object[]
+            {
+                "MapControlWithEmptyBackgroundMapData"
+            })
+        ]
+        public void GivenMapControlWithEmptyBackgroundMapDataContainer_WhenTileSourceFactoryProblematic_ThenLogErrorAndDoNotAddBackgroundLayer(ITileSourceFactory problematicFactory)
+        {
+            // Given
+            WmtsMapData backgroundMapData = WmtsMapData.CreateDefaultPdokMapData();
+            var container = new BackgroundMapDataContainer();
+
+            using (new UseCustomTileSourceFactoryConfig(problematicFactory))
+            using (var map = new MapControl
+            {
+                BackgroundMapData = container
+            })
+            {
+                var mapView = map.Controls.OfType<Map>().First();
+                var originalProjection = mapView.Projection;
+
+                // When
+                Action call = () =>
+                {
+                    container.MapData = backgroundMapData;
+                    container.NotifyObservers();
+                };
+
+                // Then
+                const string expectedMessage = "Verbinden met WMTS is mislukt waardoor geen kaartgegevens ingeladen kunnen worden. De achtergrondkaart kan nu niet getoond worden.";
+                TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
+
+                Assert.AreEqual(0, mapView.Layers.Count);
+
+                Assert.AreSame(originalProjection, mapView.Projection);
             }
         }
 
@@ -162,6 +236,42 @@ namespace Core.Components.DotSpatial.Forms.Test
 
                 Assert.AreSame(originalProjection, mapView.Projection);
             }
+        }
+
+        [Test]
+        public void GivenMapControlWithEmptyBackgroundMapDataContainer_WhenSettingBackgroundAndFailingToCreateCache_ThenLogErrorAndDoNotAddBackgroundLayer()
+        {
+            DoWhileTileCacheRootLocked(() =>
+            {
+                // Given
+                WmtsMapData backgroundMapData = WmtsMapData.CreateDefaultPdokMapData();
+                var mapDataContainer = new BackgroundMapDataContainer();
+
+                using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
+                using (var map = new MapControl
+                {
+                    BackgroundMapData = mapDataContainer
+                })
+                {
+                    var mapView = map.Controls.OfType<Map>().First();
+                    var originalProjection = mapView.Projection;
+
+                    // When
+                    Action call = () =>
+                    {
+                        mapDataContainer.MapData = backgroundMapData;
+                        mapDataContainer.NotifyObservers();
+                    };
+
+                    // Then
+                    const string expectedMessage = "Configuratie van kaartgegevens hulpbestanden is mislukt. De achtergrondkaart kan nu niet getoond worden.";
+                    TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
+
+                    Assert.AreEqual(0, mapView.Layers.Count);
+
+                    Assert.AreSame(originalProjection, mapView.Projection);
+                }
+            });
         }
 
         [Test]
@@ -342,6 +452,51 @@ namespace Core.Components.DotSpatial.Forms.Test
         }
 
         [Test]
+        public void GivenMapControlWithoutBackgroundMapData_WhenEmptyBackgroundMapDataContainerSet_NoChangedToMap()
+        {
+            // Given
+            using (var map = new MapControl())
+            {
+                var mapView = map.Controls.OfType<Map>().First();
+                ProjectionInfo originalProjection = mapView.Projection;
+
+                var mapDataContainer = new BackgroundMapDataContainer();
+
+                // When
+                map.BackgroundMapData = mapDataContainer;
+
+                // Then
+                Assert.AreEqual(0, mapView.Layers.Count);
+
+                Assert.AreEqual(originalProjection, mapView.Projection);
+            }
+        }
+
+        [Test]
+        public void GivenMapControlWithoutBackgroundMapData_WhenUnconfiguredMapDataContainerSetAndNotified_NoChangedToMap()
+        {
+            // Given
+            var mapDataContainer = new BackgroundMapDataContainer();
+            using (var map = new MapControl
+            {
+                BackgroundMapData = mapDataContainer
+            })
+            {
+                var mapView = map.Controls.OfType<Map>().First();
+                ProjectionInfo originalProjection = mapView.Projection;
+
+                // When
+                mapDataContainer.MapData = WmtsMapData.CreateUnconnectedMapData();
+                mapDataContainer.NotifyObservers();
+
+                // Then
+                Assert.AreEqual(0, mapView.Layers.Count);
+
+                Assert.AreEqual(originalProjection, mapView.Projection);
+            }
+        }
+
+        [Test]
         public void GivenMapControlWithoutBackgroundMapData_WhenUnconfiguredBackgroundMapDataSet_NoChangedToMap()
         {
             // Given
@@ -367,7 +522,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         }
 
         [Test]
-        public void GivenMapControlWithBackgroundMapData_WhenBackgroundMapDataSetToUnconfigured_ThenMapControlUpdated()
+        public void GivenMapControlWithBackgroundMapData_WhenUnconfiguredMapDataSetAndNotified_ThenMapControlUpdated()
         {
             // Given
             WmtsMapData originalBackGroundMapData = WmtsMapData.CreateDefaultPdokMapData();
@@ -375,6 +530,45 @@ namespace Core.Components.DotSpatial.Forms.Test
             {
                 IsVisible = true,
                 Transparency = (RoundedDouble)0.25,
+                MapData = originalBackGroundMapData
+            };
+
+            using (new UseCustomTileSourceFactoryConfig(originalBackGroundMapData))
+            using (var map = new MapControl())
+
+            {
+                var mapView = map.Controls.OfType<Map>().First();
+                ProjectionInfo originalProjection = mapView.Projection;
+
+                map.BackgroundMapData = mapDataContainer;
+
+                // Precondition
+                Assert.AreEqual(1, mapView.Layers.Count);
+                var layer = (BruTileLayer)mapView.Layers[0];
+                Assert.AreEqual(true, layer.IsVisible);
+                Assert.AreEqual(0.25, layer.Transparency);
+                Assert.AreEqual(layer.Projection, mapView.Projection);
+
+                // When
+                var newBackGroundMapData = WmtsMapData.CreateUnconnectedMapData();
+                mapDataContainer.MapData = newBackGroundMapData;
+                mapDataContainer.NotifyObservers();
+
+                // Then
+                Assert.AreEqual(0, mapView.Layers.Count);
+                Assert.IsTrue(originalProjection.Equals(mapView.Projection));
+            }
+        }
+
+        [Test]
+        public void GivenMapControlWithBackgroundMapData_WhenBackgroundMapDataSetToUnconfigured_ThenMapControlUpdated()
+        {
+            // Given
+            WmtsMapData originalBackGroundMapData = WmtsMapData.CreateDefaultPdokMapData();
+            var mapDataContainer = new BackgroundMapDataContainer
+            {
+                IsVisible = true,
+                Transparency = (RoundedDouble) 0.25,
                 MapData = originalBackGroundMapData
             };
 
@@ -405,6 +599,45 @@ namespace Core.Components.DotSpatial.Forms.Test
                 // Then
                 Assert.AreEqual(0, mapView.Layers.Count);
                 Assert.IsTrue(originalProjection.Equals(mapView.Projection));
+            }
+        }
+
+        [Test]
+        public void GivenContainerWithUnconfiguredMapData_WhenMapDataSetAndNotified_ThenMapControlUpdated()
+        {
+            // Given
+            var newBackGroundMapData = WmtsMapData.CreateDefaultPdokMapData();
+
+            using (new UseCustomTileSourceFactoryConfig(newBackGroundMapData))
+            using (var map = new MapControl())
+            {
+                WmtsMapData originalBackGroundMapData = WmtsMapData.CreateUnconnectedMapData();
+                var mapDataContainer = new BackgroundMapDataContainer
+                {
+                    MapData = originalBackGroundMapData
+                };
+
+                var mapView = map.Controls.OfType<Map>().First();
+                ProjectionInfo originalProjection = mapView.Projection;
+
+                map.BackgroundMapData = mapDataContainer;
+
+                // Precondition
+                Assert.AreEqual(0, mapView.Layers.Count);
+                Assert.IsTrue(originalProjection.Equals(mapView.Projection));
+
+                // When
+                mapDataContainer.MapData = newBackGroundMapData;
+                mapDataContainer.IsVisible = true;
+                mapDataContainer.Transparency = (RoundedDouble) 0.75;
+                mapDataContainer.NotifyObservers();
+
+                // Then
+                Assert.AreEqual(1, mapView.Layers.Count);
+                var layer = (BruTileLayer)mapView.Layers[0];
+                Assert.AreEqual(true, layer.IsVisible);
+                Assert.AreEqual(0.75, layer.Transparency);
+                Assert.IsTrue(layer.Projection.Equals(mapView.Projection));
             }
         }
 
@@ -487,6 +720,70 @@ namespace Core.Components.DotSpatial.Forms.Test
         }
 
         [Test]
+        public void GivenMapDataContainerWithUnconfiguredMapDataAndMapWithMapDataCollection_WhenMapDataSetAndNotified_ThenLayerIsReusedAndUpdatedFeaturesReprojected()
+        {
+            // Given
+            var newBackgroundMapData = WmtsMapData.CreateAlternativePdokMapData();
+            var startingBackgroundMapData = WmtsMapData.CreateUnconnectedMapData();
+            var mapDataContainer = new BackgroundMapDataContainer
+            {
+                MapData = startingBackgroundMapData
+            };
+
+            using (new UseCustomTileSourceFactoryConfig(newBackgroundMapData))
+            using (var map = new MapControl
+            {
+                BackgroundMapData = mapDataContainer
+            })
+            {
+                var mapView = map.Controls.OfType<Map>().First();
+
+                var mapPointData = new MapPointData("Points")
+                {
+                    Features = new[]
+                    {
+                        new MapFeature(new[]
+                        {
+                            new MapGeometry(new[]
+                            {
+                                new[]
+                                {
+                                    new Point2D(1.1, 2.2)
+                                }
+                            })
+                        })
+                    }
+                };
+                var mapDataCollection = new MapDataCollection("Root collection");
+                mapDataCollection.Add(mapPointData);
+
+                map.Data = mapDataCollection;
+
+                // Precondition
+                IMapLayer[] layersBeforeUpdate = mapView.Layers.ToArray();
+                var pointFeatureLayer = (FeatureLayer)layersBeforeUpdate[0];
+                Assert.IsTrue(mapView.Projection.Equals(pointFeatureLayer.Projection));
+                Assert.AreEqual(1.1, pointFeatureLayer.FeatureSet.Features[0].BasicGeometry.Coordinates[0].X);
+                Assert.AreEqual(2.2, pointFeatureLayer.FeatureSet.Features[0].BasicGeometry.Coordinates[0].Y);
+
+                // When
+                mapDataContainer.MapData = newBackgroundMapData;
+                mapDataContainer.NotifyObservers();
+
+                // Then
+                Assert.AreEqual(2, mapView.Layers.Count);
+                CollectionAssert.AreEqual(layersBeforeUpdate, mapView.Layers.Skip(1));
+                Assert.IsInstanceOf<BruTileLayer>(mapView.Layers[0]);
+                Assert.IsTrue(mapView.Projection.Equals(pointFeatureLayer.Projection));
+                Assert.IsTrue(mapView.Projection.Equals(pointFeatureLayer.Projection));
+                Assert.AreEqual(523414.9114786592, pointFeatureLayer.FeatureSet.Features[0].BasicGeometry.Coordinates[0].X,
+                                "Coordinate does not match. (Ball park expected value can be calculated from https://epsg.io/transform#s_srs=28992&t_srs=25831&x=1.1000000&y=2.2000000).");
+                Assert.AreEqual(5313600.4932731427, pointFeatureLayer.FeatureSet.Features[0].BasicGeometry.Coordinates[0].Y,
+                                "Coordinate does not match (Estimate of expected value can be calculated from https://epsg.io/transform#s_srs=28992&t_srs=25831&x=1.1000000&y=2.2000000).");
+            }
+        }
+
+        [Test]
         public void GivenMapWithUnconfiguredBackgroundAndMapDataCollection_WhenBackgroundMapDataConfigured_ThenLayerIsReusedAndUpdatedFeaturesReprojected()
         {
             // Given
@@ -549,6 +846,73 @@ namespace Core.Components.DotSpatial.Forms.Test
                                 "Coordinate does not match. (Ball park expected value can be calculated from https://epsg.io/transform#s_srs=28992&t_srs=25831&x=1.1000000&y=2.2000000).");
                 Assert.AreEqual(5313600.4932731427, pointFeatureLayer.FeatureSet.Features[0].BasicGeometry.Coordinates[0].Y,
                                 "Coordinate does not match (Estimate of expected value can be calculated from https://epsg.io/transform#s_srs=28992&t_srs=25831&x=1.1000000&y=2.2000000).");
+            }
+        }
+
+        [Test]
+        public void GivenContainerWithBackgroundAndMapWithMapDataCollection_WhenMapDataRemovedAndNotified_ThenLayerIsReusedAndUpdatedFeaturesReprojected()
+        {
+            // Given
+            var startingBackgroundMapData = WmtsMapData.CreateAlternativePdokMapData();
+            var mapDataContainer = new BackgroundMapDataContainer
+            {
+                MapData = startingBackgroundMapData
+            };
+
+            using (new UseCustomTileSourceFactoryConfig(startingBackgroundMapData))
+            using (var map = new MapControl
+            {
+                BackgroundMapData = mapDataContainer
+            })
+            {
+                var mapView = map.Controls.OfType<Map>().First();
+
+                var mapPointData = new MapPointData("Points")
+                {
+                    Features = new[]
+                    {
+                        new MapFeature(new[]
+                        {
+                            new MapGeometry(new[]
+                            {
+                                new[]
+                                {
+                                    new Point2D(1.1, 2.2)
+                                }
+                            })
+                        })
+                    }
+                };
+                var mapDataCollection = new MapDataCollection("Root collection");
+                mapDataCollection.Add(mapPointData);
+
+                map.Data = mapDataCollection;
+
+                // Precondition
+                Assert.AreEqual(2, mapView.Layers.Count);
+                IMapLayer[] layersBeforeUpdate = mapView.Layers.ToArray();
+                Assert.IsInstanceOf<BruTileLayer>(mapView.Layers[0]);
+                var pointFeatureLayer = (FeatureLayer)layersBeforeUpdate[1];
+                Assert.IsTrue(mapView.Projection.Equals(pointFeatureLayer.Projection));
+                Assert.IsTrue(mapView.Projection.Equals(pointFeatureLayer.Projection));
+                Assert.AreEqual(523414.9114786592, pointFeatureLayer.FeatureSet.Features[0].BasicGeometry.Coordinates[0].X,
+                                "Coordinate does not match. (Ball park expected value can be calculated from https://epsg.io/transform#s_srs=28992&t_srs=25831&x=1.1000000&y=2.2000000).");
+                Assert.AreEqual(5313600.4932731427, pointFeatureLayer.FeatureSet.Features[0].BasicGeometry.Coordinates[0].Y,
+                                "Coordinate does not match (Estimate of expected value can be calculated from https://epsg.io/transform#s_srs=28992&t_srs=25831&x=1.1000000&y=2.2000000).");
+
+                // When
+                mapDataContainer.MapData = null;
+                mapDataContainer.NotifyObservers();
+
+                // Then
+                Assert.IsTrue(MapDataConstants.FeatureBasedMapDataCoordinateSystem.Equals(mapView.Projection));
+                Assert.AreEqual(1, mapView.Layers.Count);
+                CollectionAssert.DoesNotContain(mapView.Layers, layersBeforeUpdate[0]);
+                Assert.IsTrue(mapView.Projection.Equals(pointFeatureLayer.Projection));
+                Assert.AreEqual(1.1, pointFeatureLayer.FeatureSet.Features[0].BasicGeometry.Coordinates[0].X, 1e-6,
+                                "Minimal drift is acceptable (if it becomes a problem, we need to keep original coordinates in the layer).");
+                Assert.AreEqual(2.2, pointFeatureLayer.FeatureSet.Features[0].BasicGeometry.Coordinates[0].Y, 1e-6,
+                                "Minimal drift is acceptable (if it becomes a problem, we need to keep original coordinates in the layer).");
             }
         }
 
@@ -620,6 +984,61 @@ namespace Core.Components.DotSpatial.Forms.Test
         }
 
         [Test]
+        public void GivenContainerWithoutMapData_WhenMapDataSetAndNotified_ThenDataLayersReprojected()
+        {
+            // Given
+            WmtsMapData backgroundMapData = WmtsMapData.CreateAlternativePdokMapData();
+            var mapDataContainer = new BackgroundMapDataContainer();
+
+            using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
+            using (var map = new MapControl
+            {
+                BackgroundMapData = mapDataContainer
+            })
+            {
+                var mapDataCollection = new MapDataCollection("A");
+                mapDataCollection.Add(new MapPointData("points")
+                {
+                    Features = new[]
+                    {
+                        new MapFeature(new[]
+                        {
+                            new MapGeometry(new[]
+                            {
+                                new[]
+                                {
+                                    new Point2D(1.1, 2.2)
+                                }
+                            })
+                        })
+                    }
+                });
+                map.Data = mapDataCollection;
+
+                // Precondition
+                var mapView = map.Controls.OfType<Map>().First();
+                var pointFeatureLayer = (FeatureLayer)mapView.Layers[0];
+                Assert.AreEqual(1, mapView.Layers.Count);
+                Assert.AreEqual(1.1, pointFeatureLayer.FeatureSet.Features[0].BasicGeometry.Coordinates[0].X);
+                Assert.AreEqual(2.2, pointFeatureLayer.FeatureSet.Features[0].BasicGeometry.Coordinates[0].Y);
+
+                // When
+                mapDataContainer.MapData = backgroundMapData;
+                mapDataContainer.NotifyObservers();
+
+                // Then
+                Assert.AreEqual(2, mapView.Layers.Count);
+                Assert.IsInstanceOf<BruTileLayer>(mapView.Layers[0]);
+                pointFeatureLayer = (FeatureLayer)mapView.Layers[1];
+                Assert.IsTrue(mapView.Projection.Equals(pointFeatureLayer.Projection));
+                Assert.AreEqual(523414.9114786592, pointFeatureLayer.FeatureSet.Features[0].BasicGeometry.Coordinates[0].X,
+                                "Coordinate does not match. (Ball park expected value can be calculated from https://epsg.io/transform#s_srs=28992&t_srs=25831&x=1.1000000&y=2.2000000).");
+                Assert.AreEqual(5313600.4932731427, pointFeatureLayer.FeatureSet.Features[0].BasicGeometry.Coordinates[0].Y,
+                                "Coordinate does not match (Estimate of expected value can be calculated from https://epsg.io/transform#s_srs=28992&t_srs=25831&x=1.1000000&y=2.2000000).");
+            }
+        }
+
+        [Test]
         public void GivenMapControlWithData_WhenBackgroundMapDataSet_ThenDataLayersReprojected()
         {
             // Given
@@ -674,6 +1093,58 @@ namespace Core.Components.DotSpatial.Forms.Test
         }
 
         [Test]
+        public void GivenContainerWithoutMapData_WhenUnconfiguredBackgroundMapDataSetAndNotified_NoChangesToLayerConfiguration()
+        {
+            // Given
+            WmtsMapData backgroundMapData = WmtsMapData.CreateUnconnectedMapData();
+            var mapDataContainer = new BackgroundMapDataContainer();
+
+            using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
+            using (var map = new MapControl
+            {
+                BackgroundMapData = mapDataContainer
+            })
+            {
+                var mapDataCollection = new MapDataCollection("A");
+                mapDataCollection.Add(new MapPointData("points")
+                {
+                    Features = new[]
+                    {
+                        new MapFeature(new[]
+                        {
+                            new MapGeometry(new[]
+                            {
+                                new[]
+                                {
+                                    new Point2D(1.1, 2.2)
+                                }
+                            })
+                        })
+                    }
+                });
+                map.Data = mapDataCollection;
+
+                // Precondition
+                var mapView = map.Controls.OfType<Map>().First();
+                var pointFeatureLayer = (FeatureLayer)mapView.Layers[0];
+                Assert.AreEqual(1, mapView.Layers.Count);
+                Assert.AreEqual(1.1, pointFeatureLayer.FeatureSet.Features[0].BasicGeometry.Coordinates[0].X);
+                Assert.AreEqual(2.2, pointFeatureLayer.FeatureSet.Features[0].BasicGeometry.Coordinates[0].Y);
+
+                // When
+                mapDataContainer.MapData = backgroundMapData;
+                mapDataContainer.NotifyObservers();
+
+                // Then
+                Assert.AreEqual(1, mapView.Layers.Count);
+                pointFeatureLayer = (FeatureLayer)mapView.Layers[0];
+                Assert.IsTrue(mapView.Projection.Equals(pointFeatureLayer.Projection));
+                Assert.AreEqual(1.1, pointFeatureLayer.FeatureSet.Features[0].BasicGeometry.Coordinates[0].X);
+                Assert.AreEqual(2.2, pointFeatureLayer.FeatureSet.Features[0].BasicGeometry.Coordinates[0].Y);
+            }
+        }
+
+        [Test]
         public void GivenMapControlWithData_WhenUnconfiguredBackgroundMapDataSet_NoChangesToLayerConfiguration()
         {
             // Given
@@ -721,6 +1192,68 @@ namespace Core.Components.DotSpatial.Forms.Test
                 Assert.IsTrue(mapView.Projection.Equals(pointFeatureLayer.Projection));
                 Assert.AreEqual(1.1, pointFeatureLayer.FeatureSet.Features[0].BasicGeometry.Coordinates[0].X);
                 Assert.AreEqual(2.2, pointFeatureLayer.FeatureSet.Features[0].BasicGeometry.Coordinates[0].Y);
+            }
+        }
+
+        [Test]
+        public void GivenMapControlWithDataAndBackground_WhenDifferentBackgroundMapDataSetAndNotified_LayersReprojected()
+        {
+            // Given
+            WmtsMapData backgroundMapData = WmtsMapData.CreateDefaultPdokMapData();
+            var mapDataContainer = new BackgroundMapDataContainer
+            {
+                MapData = backgroundMapData
+            };
+
+            using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
+            using (var map = new MapControl())
+            {
+                var mapDataCollection = new MapDataCollection("A");
+                mapDataCollection.Add(new MapPointData("points")
+                {
+                    Features = new[]
+                    {
+                        new MapFeature(new[]
+                        {
+                            new MapGeometry(new[]
+                            {
+                                new[]
+                                {
+                                    new Point2D(1.1, 2.2)
+                                }
+                            })
+                        })
+                    }
+                });
+                map.Data = mapDataCollection;
+                map.BackgroundMapData = mapDataContainer;
+
+                // Precondition
+                var mapView = map.Controls.OfType<Map>().First();
+                Assert.AreEqual(2, mapView.Layers.Count);
+                Assert.IsInstanceOf<BruTileLayer>(mapView.Layers[0]);
+                var pointFeatureLayer = (FeatureLayer)mapView.Layers[1];
+                Assert.IsTrue(mapView.Projection.Equals(pointFeatureLayer.Projection));
+                Assert.AreEqual(1.1, pointFeatureLayer.FeatureSet.Features[0].BasicGeometry.Coordinates[0].X);
+                Assert.AreEqual(2.2, pointFeatureLayer.FeatureSet.Features[0].BasicGeometry.Coordinates[0].Y);
+
+                // When
+                var differentBackgroundMapData = WmtsMapData.CreateAlternativePdokMapData();
+                using (new UseCustomTileSourceFactoryConfig(differentBackgroundMapData))
+                {
+                    mapDataContainer.MapData = differentBackgroundMapData;
+                    mapDataContainer.NotifyObservers();
+
+                    // Then
+                    Assert.AreEqual(2, mapView.Layers.Count);
+                    Assert.IsInstanceOf<BruTileLayer>(mapView.Layers[0]);
+                    pointFeatureLayer = (FeatureLayer)mapView.Layers[1];
+                    Assert.IsTrue(mapView.Projection.Equals(pointFeatureLayer.Projection));
+                    Assert.AreEqual(523414.9114786592, pointFeatureLayer.FeatureSet.Features[0].BasicGeometry.Coordinates[0].X,
+                                    "Coordinate does not match. (Ball park expected value can be calculated from https://epsg.io/transform#s_srs=28992&t_srs=25831&x=1.1000000&y=2.2000000).");
+                    Assert.AreEqual(5313600.4932731427, pointFeatureLayer.FeatureSet.Features[0].BasicGeometry.Coordinates[0].Y,
+                                    "Coordinate does not match (Estimate of expected value can be calculated from https://epsg.io/transform#s_srs=28992&t_srs=25831&x=1.1000000&y=2.2000000).");
+                }
             }
         }
 
@@ -785,6 +1318,69 @@ namespace Core.Components.DotSpatial.Forms.Test
                                     "Coordinate does not match. (Ball park expected value can be calculated from https://epsg.io/transform#s_srs=28992&t_srs=25831&x=1.1000000&y=2.2000000).");
                     Assert.AreEqual(5313600.4932731427, pointFeatureLayer.FeatureSet.Features[0].BasicGeometry.Coordinates[0].Y,
                                     "Coordinate does not match (Estimate of expected value can be calculated from https://epsg.io/transform#s_srs=28992&t_srs=25831&x=1.1000000&y=2.2000000).");
+                }
+            }
+        }
+
+        [Test]
+        public void GivenMapControlWithDataAndBackground_WhenUnconfiguredBackgroundMapDataSetAndNotified_LayersReprojected()
+        {
+            // Given
+            WmtsMapData backgroundMapData = WmtsMapData.CreateAlternativePdokMapData();
+            var mapDataContainer = new BackgroundMapDataContainer
+            {
+                MapData = backgroundMapData
+            };
+
+            using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
+            using (var map = new MapControl())
+            {
+                var mapDataCollection = new MapDataCollection("A");
+                mapDataCollection.Add(new MapPointData("points")
+                {
+                    Features = new[]
+                    {
+                        new MapFeature(new[]
+                        {
+                            new MapGeometry(new[]
+                            {
+                                new[]
+                                {
+                                    new Point2D(1.1, 2.2)
+                                }
+                            })
+                        })
+                    }
+                });
+                map.Data = mapDataCollection;
+                map.BackgroundMapData = mapDataContainer;
+
+                // Precondition
+                var mapView = map.Controls.OfType<Map>().First();
+                Assert.AreEqual(2, mapView.Layers.Count);
+                Assert.IsInstanceOf<BruTileLayer>(mapView.Layers[0]);
+                var pointFeatureLayer = (FeatureLayer)mapView.Layers[1];
+                Assert.IsTrue(mapView.Projection.Equals(pointFeatureLayer.Projection));
+                Assert.AreEqual(523414.9114786592, pointFeatureLayer.FeatureSet.Features[0].BasicGeometry.Coordinates[0].X,
+                                "Coordinate does not match. (Ball park expected value can be calculated from https://epsg.io/transform#s_srs=28992&t_srs=25831&x=1.1000000&y=2.2000000).");
+                Assert.AreEqual(5313600.4932731427, pointFeatureLayer.FeatureSet.Features[0].BasicGeometry.Coordinates[0].Y,
+                                "Coordinate does not match (Estimate of expected value can be calculated from https://epsg.io/transform#s_srs=28992&t_srs=25831&x=1.1000000&y=2.2000000).");
+
+                // When
+                var differentBackgroundMapData = WmtsMapData.CreateUnconnectedMapData();
+                using (new UseCustomTileSourceFactoryConfig(differentBackgroundMapData))
+                {
+                    mapDataContainer.MapData = differentBackgroundMapData;
+                    mapDataContainer.NotifyObservers();
+
+                    // Then
+                    Assert.AreEqual(1, mapView.Layers.Count);
+                    pointFeatureLayer = (FeatureLayer)mapView.Layers[0];
+                    Assert.IsTrue(mapView.Projection.Equals(pointFeatureLayer.Projection));
+                    Assert.AreEqual(1.1, pointFeatureLayer.FeatureSet.Features[0].BasicGeometry.Coordinates[0].X, 1e-8,
+                        "Layer is reprojected, so minor delta is acceptable.");
+                    Assert.AreEqual(2.2, pointFeatureLayer.FeatureSet.Features[0].BasicGeometry.Coordinates[0].Y, 1e-8,
+                        "Layer is reprojected, so minor delta is acceptable.");
                 }
             }
         }
