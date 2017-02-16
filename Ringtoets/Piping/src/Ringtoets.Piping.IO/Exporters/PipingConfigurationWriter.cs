@@ -34,7 +34,7 @@ namespace Ringtoets.Piping.IO.Exporters
     /// <summary>
     /// Xml file writer for writing <see cref="CalculationGroup"/> objects to *.xml file.
     /// </summary>
-    internal static class CalculationGroupWriter
+    internal static class PipingConfigurationWriter
     {
         /// <summary>
         /// Writes the calculation group to a xml file.
@@ -43,7 +43,7 @@ namespace Ringtoets.Piping.IO.Exporters
         /// <param name="filePath">The path to the file.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="CriticalFileWriteException">Thrown when unable to write to <paramref name="filePath"/>.</exception>
-        internal static void WriteCalculationGroups(CalculationGroup rootCalculationGroup, string filePath)
+        internal static void Write(CalculationGroup rootCalculationGroup, string filePath)
         {
             if (rootCalculationGroup == null)
             {
@@ -67,7 +67,7 @@ namespace Ringtoets.Piping.IO.Exporters
                     writer.WriteStartDocument();
                     writer.WriteStartElement("root");
 
-                    WriteChildElements(rootCalculationGroup, writer);
+                    WriteConfiguration(rootCalculationGroup, writer);
 
                     writer.WriteEndElement();
                     writer.WriteEndDocument();
@@ -79,35 +79,35 @@ namespace Ringtoets.Piping.IO.Exporters
             }
         }
 
-        private static void WriteChildElements(CalculationGroup calculationGroup, XmlWriter writer)
+        private static void WriteConfiguration(CalculationGroup calculationGroup, XmlWriter writer)
         {
             foreach (ICalculationBase child in calculationGroup.Children)
             {
                 var innerGroup = child as CalculationGroup;
                 if (innerGroup != null)
                 {
-                    WriteCalculationGroupToFile(innerGroup, writer);
+                    WriteCalculationGroup(innerGroup, writer);
                 }
 
                 var calculation = child as PipingCalculation;
                 if (calculation != null)
                 {
-                    WriteCalculationToFile(calculation, writer);
+                    WriteCalculation(calculation, writer);
                 }
             }
         }
 
-        private static void WriteCalculationGroupToFile(CalculationGroup calculationGroup, XmlWriter writer)
+        private static void WriteCalculationGroup(CalculationGroup calculationGroup, XmlWriter writer)
         {
             writer.WriteStartElement("folder");
             writer.WriteAttributeString("naam", calculationGroup.Name);
 
-            WriteChildElements(calculationGroup, writer);
+            WriteConfiguration(calculationGroup, writer);
 
             writer.WriteEndElement();
         }
 
-        private static void WriteCalculationToFile(PipingCalculation calculation, XmlWriter writer)
+        private static void WriteCalculation(PipingCalculation calculation, XmlWriter writer)
         {
             writer.WriteStartElement("berekening");
             writer.WriteAttributeString("naam", calculation.Name);

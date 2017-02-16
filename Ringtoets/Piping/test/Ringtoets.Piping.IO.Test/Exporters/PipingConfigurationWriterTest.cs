@@ -37,13 +37,13 @@ using Ringtoets.Piping.Primitives;
 namespace Ringtoets.Piping.IO.Test.Exporters
 {
     [TestFixture]
-    public class CalculationGroupWriterTest
+    public class PipingConfigurationWriterTest
     {
         [Test]
-        public void WriteCalculationGroups_CalculationGroupNull_ThrowArgumentNullException()
+        public void Write_CalculationGroupNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => CalculationGroupWriter.WriteCalculationGroups(null, string.Empty);
+            TestDelegate test = () => PipingConfigurationWriter.Write(null, string.Empty);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -51,10 +51,10 @@ namespace Ringtoets.Piping.IO.Test.Exporters
         }
 
         [Test]
-        public void WriteCalculationGroups_FilePathNull_ThrowArgumentNullException()
+        public void Write_FilePathNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => CalculationGroupWriter.WriteCalculationGroups(new CalculationGroup(), null);
+            TestDelegate test = () => PipingConfigurationWriter.Write(new CalculationGroup(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -65,10 +65,10 @@ namespace Ringtoets.Piping.IO.Test.Exporters
         [TestCase("")]
         [TestCase("   ")]
         [TestCase("c:\\>")]
-        public void WriteCalculationGroups_FilePathInvalid_ThrowCriticalFileWriteException(string filePath)
+        public void Write_FilePathInvalid_ThrowCriticalFileWriteException(string filePath)
         {
             // Call
-            TestDelegate call = () => CalculationGroupWriter.WriteCalculationGroups(new CalculationGroup(), filePath);
+            TestDelegate call = () => PipingConfigurationWriter.Write(new CalculationGroup(), filePath);
 
             // Assert
             var exception = Assert.Throws<CriticalFileWriteException>(call);
@@ -77,13 +77,13 @@ namespace Ringtoets.Piping.IO.Test.Exporters
         }
 
         [Test]
-        public void WriteCalculationGroups_FilePathTooLong_ThrowCriticalFileWriteException()
+        public void Write_FilePathTooLong_ThrowCriticalFileWriteException()
         {
             // Setup
             var filePath = new string('a', 249);
 
             // Call
-            TestDelegate call = () => CalculationGroupWriter.WriteCalculationGroups(new CalculationGroup(), filePath);
+            TestDelegate call = () => PipingConfigurationWriter.Write(new CalculationGroup(), filePath);
 
             // Assert
             var exception = Assert.Throws<CriticalFileWriteException>(call);
@@ -92,16 +92,16 @@ namespace Ringtoets.Piping.IO.Test.Exporters
         }
 
         [Test]
-        public void WriteCalculationGroups_InvalidDirectoryRights_ThrowCriticalFileWriteException()
+        public void Write_InvalidDirectoryRights_ThrowCriticalFileWriteException()
         {
             // Setup
             string directoryPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO,
-                                                              "WriteCalculationGroups_InvalidDirectoryRights_ThrowCriticalFileWriteException");
+                                                              "Write_InvalidDirectoryRights_ThrowCriticalFileWriteException");
             Directory.CreateDirectory(directoryPath);
             string filePath = Path.Combine(directoryPath, "test.xml");
 
             // Call
-            TestDelegate call = () => CalculationGroupWriter.WriteCalculationGroups(new CalculationGroup(), filePath);
+            TestDelegate call = () => PipingConfigurationWriter.Write(new CalculationGroup(), filePath);
 
             try
             {
@@ -120,11 +120,11 @@ namespace Ringtoets.Piping.IO.Test.Exporters
         }
 
         [Test]
-        public void WriteCalculationGroups_CalculationGroupsAndCalculation_ValidFile()
+        public void Write_CalculationGroupsAndCalculation_ValidFile()
         {
             // Setup
             string directoryPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO,
-                                                              "CalculationGroupWriter");
+                                                              "PipingConfigurationWriter");
             Directory.CreateDirectory(directoryPath);
             string filePath = Path.Combine(directoryPath, "test.xml");
 
@@ -173,7 +173,7 @@ namespace Ringtoets.Piping.IO.Test.Exporters
             try
             {
                 // Call
-                CalculationGroupWriter.WriteCalculationGroups(rootGroup, filePath);
+                PipingConfigurationWriter.Write(rootGroup, filePath);
 
                 // Assert
                 Assert.IsTrue(File.Exists(filePath));
@@ -192,11 +192,11 @@ namespace Ringtoets.Piping.IO.Test.Exporters
 
         [Test]
         [TestCaseSource(nameof(Calculations))]
-        public void WriteCalculationGroups_ValidCalculationCalculation_ValidFile(string expectedFileName, PipingCalculation calculation)
+        public void Write_ValidCalculationCalculation_ValidFile(string expectedFileName, PipingCalculation calculation)
         {
             // Setup
             string directoryPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO,
-                                                              "CalculationGroupWriter");
+                                                              "PipingConfigurationWriter");
             Directory.CreateDirectory(directoryPath);
             string filePath = Path.Combine(directoryPath, "test.xml");
 
@@ -206,7 +206,7 @@ namespace Ringtoets.Piping.IO.Test.Exporters
             try
             {
                 // Call
-                CalculationGroupWriter.WriteCalculationGroups(rootCalculationGroup, filePath);
+                PipingConfigurationWriter.Write(rootCalculationGroup, filePath);
 
                 // Assert
                 Assert.IsTrue(File.Exists(filePath));
