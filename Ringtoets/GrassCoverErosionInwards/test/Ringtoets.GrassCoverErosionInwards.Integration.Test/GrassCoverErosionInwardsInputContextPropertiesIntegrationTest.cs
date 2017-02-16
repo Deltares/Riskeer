@@ -21,6 +21,7 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -28,6 +29,8 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Forms.PropertyClasses;
+using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses;
@@ -84,10 +87,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
 
             var inputContext = new GrassCoverErosionInwardsInputContext(calculation.InputParameters, calculation, failureMechanism, assessmentSection);
 
-            var properties = new GrassCoverErosionInwardsInputContextProperties
-            {
-                Data = inputContext
-            };
+            var customHandler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<
+                GrassCoverErosionInwardsInput,
+                GrassCoverErosionInwardsCalculation,
+                DikeProfile>(calculation.InputParameters, calculation, dikeProfile2, Enumerable.Empty<IObservable>());
+            var properties = new GrassCoverErosionInwardsInputContextProperties(inputContext, customHandler);
 
             // Call
             properties.DikeProfile = dikeProfile2;
@@ -149,10 +153,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
 
             var inputContext = new GrassCoverErosionInwardsInputContext(calculation1.InputParameters, calculation1, failureMechanism, assessmentSection);
 
-            var properties = new GrassCoverErosionInwardsInputContextProperties
-            {
-                Data = inputContext
-            };
+            var customHandler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<
+                GrassCoverErosionInwardsInput,
+                GrassCoverErosionInwardsCalculation,
+                DikeProfile>(calculation1.InputParameters, calculation1, dikeProfile2, Enumerable.Empty<IObservable>());
+            var properties = new GrassCoverErosionInwardsInputContextProperties(inputContext, customHandler);
 
             // Call
             properties.DikeProfile = dikeProfile2;

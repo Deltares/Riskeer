@@ -28,6 +28,7 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses;
@@ -66,10 +67,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.UITypeEditors
                                                                         failureMechanism,
                                                                         assessmentSection);
 
-            var properties = new GrassCoverErosionInwardsInputContextProperties
-            {
-                Data = inputContext
-            };
+            var handler = mockRepository.Stub<ICalculationInputPropertyChangeHandler<GrassCoverErosionInwardsInput, GrassCoverErosionInwardsCalculation>>();
+            var properties = new GrassCoverErosionInwardsInputContextProperties(inputContext, handler);
             var editor = new GrassCoverErosionInwardsInputContextDikeProfileEditor();
             var propertyBag = new DynamicPropertyBag(properties);
 
@@ -115,11 +114,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.UITypeEditors
                                                                         grassCoverErosionInwardsCalculation,
                                                                         failureMechanism,
                                                                         assessmentSection);
+            
+            var handler = mockRepository.Stub<ICalculationInputPropertyChangeHandler<GrassCoverErosionInwardsInput, GrassCoverErosionInwardsCalculation>>();
+            var properties = new GrassCoverErosionInwardsInputContextProperties(inputContext, handler);
 
-            var properties = new GrassCoverErosionInwardsInputContextProperties
-            {
-                Data = inputContext
-            };
             var editor = new GrassCoverErosionInwardsInputContextDikeProfileEditor();
             var propertyBag = new DynamicPropertyBag(properties);
 

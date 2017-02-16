@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing.Design;
@@ -49,8 +50,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
     /// ViewModel of <see cref="GrassCoverErosionInwardsInputContext"/> for properties panel.
     /// </summary>
     public class GrassCoverErosionInwardsInputContextProperties : ObjectProperties<GrassCoverErosionInwardsInputContext>,
-                                                                  IHasHydraulicBoundaryLocationProperty,
-                                                                  IPropertyChangeHandler
+                                                                  IHasHydraulicBoundaryLocationProperty
     {
         private const int dikeProfilePropertyIndex = 1;
         private const int worldReferencePointPropertyIndex = 2;
@@ -62,6 +62,22 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         private const int criticalFlowRatePropertyIndex = 8;
         private const int hydraulicBoundaryLocationPropertyIndex = 9;
         private const int calculateDikeHeightPropertyIndex = 10;
+
+        private readonly ICalculationInputPropertyChangeHandler<GrassCoverErosionInwardsInput, GrassCoverErosionInwardsCalculation> propertyChangeHandler;
+
+        public GrassCoverErosionInwardsInputContextProperties(GrassCoverErosionInwardsInputContext data, ICalculationInputPropertyChangeHandler<GrassCoverErosionInwardsInput, GrassCoverErosionInwardsCalculation> handler)
+        {
+            if (data == null)
+            {
+                throw new ArgumentNullException(nameof(data));
+            }
+            if (handler == null)
+            {
+                throw new ArgumentNullException(nameof(handler));
+            }
+            Data = data;
+            propertyChangeHandler = handler;
+        }
 
         [PropertyOrder(dikeProfilePropertyIndex)]
         [Editor(typeof(GrassCoverErosionInwardsInputContextDikeProfileEditor), typeof(UITypeEditor))]
@@ -76,11 +92,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
             }
             set
             {
-                data.WrappedData.DikeProfile = value;
-                GrassCoverErosionInwardsHelper.UpdateCalculationToSectionResultAssignments(
-                    data.FailureMechanism.SectionResults,
-                    data.FailureMechanism.Calculations.Cast<GrassCoverErosionInwardsCalculation>());
-                ClearOutputAndNotifyPropertyChanged();
+                ChangePropertyValueAndNotifyAffectedObjectsAndNotifyPropertyChanged((input, v) =>
+                {
+                    input.DikeProfile = v;
+                    GrassCoverErosionInwardsHelper.UpdateCalculationToSectionResultAssignments(
+                        data.FailureMechanism.SectionResults,
+                        data.FailureMechanism.Calculations.Cast<GrassCoverErosionInwardsCalculation>());
+                }, value);
             }
         }
 
@@ -112,8 +130,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
             }
             set
             {
-                data.WrappedData.Orientation = value;
-                ClearOutputAndNotifyPropertyChanged();
+                ChangePropertyValueAndNotifyAffectedObjectsAndNotifyPropertyChanged((input, v) =>
+                    input.Orientation = v, value);
             }
         }
 
@@ -122,13 +140,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.BreakWaterProperties_DisplayName))]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.BreakWaterProperties_Description))]
-        public UseBreakWaterProperties BreakWater
+        public ConfirmingUseBreakWaterProperties<GrassCoverErosionInwardsCalculation, GrassCoverErosionInwardsInput> BreakWater
         {
             get
             {
                 return data.WrappedData.DikeProfile == null ?
-                           new UseBreakWaterProperties() :
-                           new UseBreakWaterProperties(data.WrappedData, this);
+                           new ConfirmingUseBreakWaterProperties<GrassCoverErosionInwardsCalculation, GrassCoverErosionInwardsInput>() :
+                           new ConfirmingUseBreakWaterProperties<GrassCoverErosionInwardsCalculation, GrassCoverErosionInwardsInput>(
+                               data.WrappedData, data.Calculation, propertyChangeHandler);
             }
         }
 
@@ -137,11 +156,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.ForeshoreProperties_DisplayName))]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.ForeshoreProperties_Description))]
-        public UseForeshoreProperties Foreshore
+        public ConfirmingUseForeshoreProperties<GrassCoverErosionInwardsCalculation, GrassCoverErosionInwardsInput> Foreshore
         {
             get
             {
-                return new UseForeshoreProperties(data.WrappedData, this);
+                return new ConfirmingUseForeshoreProperties<GrassCoverErosionInwardsCalculation, GrassCoverErosionInwardsInput>(
+                    data.WrappedData,
+                    data.Calculation,
+                    propertyChangeHandler);
             }
         }
 
@@ -174,8 +196,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
             }
             set
             {
-                data.WrappedData.DikeHeight = value;
-                ClearOutputAndNotifyPropertyChanged();
+                ChangePropertyValueAndNotifyAffectedObjectsAndNotifyPropertyChanged((input, v) =>
+                    input.DikeHeight = v, value);
             }
         }
 
@@ -192,8 +214,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
             }
             set
             {
-                data.WrappedData.DikeHeightCalculationType = value;
-                ClearOutputAndNotifyPropertyChanged();
+                ChangePropertyValueAndNotifyAffectedObjectsAndNotifyPropertyChanged((input, v) =>
+                    input.DikeHeightCalculationType = v, value);
             }
         }
 
@@ -202,14 +224,16 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_CriticalValues))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.CriticalFlowRate_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.CriticalFlowRate_Description))]
-        public LogNormalDistributionProperties CriticalFlowRate
+        public ConfirmingLogNormalDistributionProperties<GrassCoverErosionInwardsInput, GrassCoverErosionInwardsCalculation> CriticalFlowRate
         {
             get
             {
-                return new LogNormalDistributionProperties(DistributionPropertiesReadOnly.None, data.WrappedData, this)
-                {
-                    Data = data.WrappedData.CriticalFlowRate
-                };
+                return new ConfirmingLogNormalDistributionProperties<GrassCoverErosionInwardsInput, GrassCoverErosionInwardsCalculation>(
+                    DistributionPropertiesReadOnly.None,
+                    data.WrappedData.CriticalFlowRate,
+                    data.Calculation,
+                    data.WrappedData,
+                    propertyChangeHandler);
             }
         }
 
@@ -229,8 +253,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
             }
             set
             {
-                data.WrappedData.HydraulicBoundaryLocation = value.HydraulicBoundaryLocation;
-                ClearOutputAndNotifyPropertyChanged();
+                ChangePropertyValueAndNotifyAffectedObjectsAndNotifyPropertyChanged((input, v) =>
+                    input.HydraulicBoundaryLocation = v, value.HydraulicBoundaryLocation);
             }
         }
 
@@ -257,23 +281,23 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
                 data.AvailableHydraulicBoundaryLocations, calculationLocation);
         }
 
-        public void PropertyChanged()
+        private void ChangePropertyValueAndNotifyAffectedObjectsAndNotifyPropertyChanged<TValue>(
+            SetCalculationInputPropertyValueDelegate<GrassCoverErosionInwardsInput, TValue> setPropertyValue,
+            TValue value)
         {
-            ClearCalculationOutput();
-        }
+            IEnumerable<IObservable> affectedObjects = propertyChangeHandler.SetPropertyValueAfterConfirmation(
+                data.WrappedData,
+                data.Calculation,
+                value,
+                setPropertyValue);
 
-        private void ClearOutputAndNotifyPropertyChanged()
-        {
-            ClearCalculationOutput();
-            data.WrappedData.NotifyObservers();
+            NotifyAffectedObjects(affectedObjects);
         }
-
-        private void ClearCalculationOutput()
+        private static void NotifyAffectedObjects(IEnumerable<IObservable> affectedObjects)
         {
-            IEnumerable<IObservable> affectedCalculation = RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(data.Calculation);
-            foreach (var calculation in affectedCalculation)
+            foreach (var affectedObject in affectedObjects)
             {
-                calculation.NotifyObservers();
+                affectedObject.NotifyObservers();
             }
         }
     }

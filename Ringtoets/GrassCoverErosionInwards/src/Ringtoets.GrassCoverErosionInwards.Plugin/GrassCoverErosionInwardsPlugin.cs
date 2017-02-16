@@ -66,7 +66,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                     new FailureMechanismPropertyChangeHandler<GrassCoverErosionInwardsFailureMechanism>())
             };
             yield return new PropertyInfo<DikeProfile, DikeProfileProperties>();
-            yield return new PropertyInfo<GrassCoverErosionInwardsInputContext, GrassCoverErosionInwardsInputContextProperties>();
+            yield return new PropertyInfo<GrassCoverErosionInwardsInputContext, GrassCoverErosionInwardsInputContextProperties>
+            {
+                CreateInstance = context => new GrassCoverErosionInwardsInputContextProperties(
+                    context,
+                    new CalculationInputPropertyChangeHandler<GrassCoverErosionInwardsInput, GrassCoverErosionInwardsCalculation>())
+            };
             yield return new PropertyInfo<GrassCoverErosionInwardsOutput, GrassCoverErosionInwardsOutputProperties>();
         }
 

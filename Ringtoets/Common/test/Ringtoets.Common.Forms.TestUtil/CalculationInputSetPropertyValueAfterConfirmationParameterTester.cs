@@ -48,7 +48,7 @@ namespace Ringtoets.Common.Forms.TestUtil
         /// <param name="expectedValue">The value that is expected to be passed to the <see cref="SetPropertyValueAfterConfirmation{TValue}"/>.</param>
         /// <param name="returnedAffectedObjects">The affected object that are returned by <see cref="SetPropertyValueAfterConfirmation{TValue}"/>.</param>
         public CalculationInputSetPropertyValueAfterConfirmationParameterTester(TCalculationInput expectedCalculationInput,
-            TCalculation expectedCalculation,
+                                                                                TCalculation expectedCalculation,
                                                                                 TExpectedValue expectedValue,
                                                                                 IEnumerable<IObservable> returnedAffectedObjects)
         {

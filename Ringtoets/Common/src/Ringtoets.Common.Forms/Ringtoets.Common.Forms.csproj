@@ -78,6 +78,8 @@
     <Compile Include="PropertyClasses\ICalculationInputPropertyChangeHandler.cs" />
     <Compile Include="PropertyClasses\IPropertyChangeHandler.cs" />
     <Compile Include="PropertyClasses\IFailureMechanismPropertyChangeHandler.cs" />
+    <Compile Include="PropertyClasses\ConfirmingLogNormalDistributionProperties.cs" />
+    <Compile Include="PropertyClasses\ConfirmingDistributionPropertiesBase.cs" />
     <Compile Include="PropertyClasses\StructuresInputBaseProperties.cs" />
     <Compile Include="PresentationObjects\TreeFolderCategory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -87,7 +89,9 @@
     <Compile Include="PropertyClasses\DistributionPropertiesReadOnly.cs" />
     <Compile Include="PropertyClasses\ForeshoreProfileProperties.cs" />
     <Compile Include="PropertyClasses\TruncatedNormalDistributionProperties.cs" />
+    <Compile Include="PropertyClasses\ConfirmingUseBreakWaterProperties.cs" />
     <Compile Include="PropertyClasses\UseBreakWaterProperties.cs" />
+    <Compile Include="PropertyClasses\ConfirmingUseForeshoreProperties.cs" />
     <Compile Include="PropertyClasses\UseForeshoreProperties.cs" />
     <Compile Include="PropertyClasses\VariationCoefficientLogNormalDistributionProperties.cs" />
     <Compile Include="PropertyClasses\VariationCoefficientNormalDistributionProperties.cs" />

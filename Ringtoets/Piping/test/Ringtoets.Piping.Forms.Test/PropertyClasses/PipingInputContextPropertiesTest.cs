@@ -116,7 +116,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void DefaultConstructor_ExpectedValues()
+        public void Constructor_WithParameters_ExpectedValues()
         {
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -2019,7 +2019,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
         private void SetPropertyAndVerifyNotifcationsAndOutputForCalculation<TPropertyValue>(
             Action<PipingInputContextProperties> setProperty,
-            TPropertyValue value,
+            TPropertyValue expectedValueSet,
             PipingCalculationScenario calculation)
         {
             // Setup
@@ -2043,7 +2043,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<PipingInput, PipingCalculationScenario, TPropertyValue>(
                 inputParameters,
                 calculation,
-                value,
+                expectedValueSet,
                 new[]
                 {
                     observable
