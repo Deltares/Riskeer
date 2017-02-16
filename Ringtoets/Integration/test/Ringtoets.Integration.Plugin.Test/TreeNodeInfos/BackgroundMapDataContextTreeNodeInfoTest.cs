@@ -44,7 +44,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
     [TestFixture]
     public class BackgroundMapDataContextTreeNodeInfoTest : NUnitFormTest
     {
-        private readonly int selectContextMenuIndex = 0;
+        private const int selectContextMenuIndex = 0;
 
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
@@ -234,7 +234,6 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
                     // Then
                     Assert.AreSame(wmtsMapData, assessmentSection.BackgroundMapData.MapData);
-                    Assert.IsTrue(assessmentSection.BackgroundMapData.MapData.IsVisible);
                 }
             }
             mockRepository.VerifyAll();
@@ -342,7 +341,6 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
                     // Then
                     Assert.AreSame(wmtsMapData, assessmentSection.BackgroundMapData.MapData);
-                    Assert.IsTrue(assessmentSection.BackgroundMapData.MapData.IsVisible);
                 }
             }
             mockRepository.VerifyAll();
@@ -395,7 +393,6 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
                     // Then
                     Assert.AreEqual(wmtsMapData, assessmentSection.BackgroundMapData.MapData);
-                    Assert.IsFalse(assessmentSection.BackgroundMapData.MapData.IsVisible);
                 }
             }
             mockRepository.VerifyAll();

@@ -912,18 +912,21 @@ namespace Ringtoets.Integration.Plugin
             {
                 if (dialog.ShowDialog() == DialogResult.OK)
                 {
-                    WmtsMapData selectedMapData = dialog.SelectedMapData;
-                    if (selectedMapData == null)
-                    {
-                        return;
-                    }
-
-                    assessmentSection.BackgroundMapData.MapData = selectedMapData;
-                    assessmentSection.BackgroundMapData.NotifyObservers();
-                    assessmentSection.NotifyObservers();
-                    assessmentSection.BackgroundMapData.MapData.IsVisible = true;
+                    SetSelectedMapData(assessmentSection, dialog.SelectedMapData);
                 }
             }
+        }
+
+        private static void SetSelectedMapData(IAssessmentSection assessmentSection, ImageBasedMapData selectedMapData)
+        {
+            assessmentSection.BackgroundMapData.MapData = selectedMapData;
+            if (selectedMapData == null)
+            {
+                return;
+            }
+            assessmentSection.BackgroundMapData.NotifyObservers();
+            assessmentSection.NotifyObservers();
+            assessmentSection.BackgroundMapData.MapData.IsVisible = true;
         }
 
         #endregion
