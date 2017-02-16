@@ -20,10 +20,18 @@
 // All rights reserved.
 
 using System;
+using System.IO;
+using System.Security.AccessControl;
+using Core.Common.Base.Data;
 using Core.Common.Base.IO;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Integration.TestUtils;
 using Ringtoets.Piping.IO.Exporters;
+using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.IO.Test.Exporters
 {
@@ -62,6 +70,120 @@ namespace Ringtoets.Piping.IO.Test.Exporters
 
             // Assert
             Assert.Throws<ArgumentException>(test);
+        }
+
+        [Test]
+        public void Export_ValidData_ReturnTrueAndWritesFile()
+        {
+            // Setup
+            string directoryPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO,
+                                                              "PipingConfigurationWriter");
+            Directory.CreateDirectory(directoryPath);
+            string filePath = Path.Combine(directoryPath, "test.xml");
+
+            var calculation = PipingTestDataGenerator.GetPipingCalculation();
+            calculation.InputParameters.ExitPointL = (RoundedDouble)0.2;
+
+            var calculation2 = PipingTestDataGenerator.GetPipingCalculation();
+            calculation2.Name = "PK001_0002 W1-6_4_1D1";
+            calculation2.InputParameters.HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "PUNT_SCH_17", 0, 0);
+            calculation2.InputParameters.SurfaceLine.Name = "PK001_0002";
+            calculation2.InputParameters.ExitPointL = (RoundedDouble)0.2;
+            calculation2.InputParameters.StochasticSoilModel = new StochasticSoilModel(1, "PK001_0002_Piping", string.Empty);
+            calculation2.InputParameters.StochasticSoilProfile = new StochasticSoilProfile(0, SoilProfileType.SoilProfile1D, 0)
+            {
+                SoilProfile = new PipingSoilProfile("W1-6_4_1D1", 0, new[]
+                {
+                    new PipingSoilLayer(0)
+                }, SoilProfileType.SoilProfile1D, 0)
+            };
+
+            var calculationGroup2 = new CalculationGroup("PK001_0002", false)
+            {
+                Children =
+                {
+                    calculation2
+                }
+            };
+
+            var calculationGroup = new CalculationGroup("PK001_0001", false)
+            {
+                Children =
+                {
+                    calculation,
+                    calculationGroup2
+                }
+            };
+
+            var rootGroup = new CalculationGroup("root", false)
+            {
+                Children =
+                {
+                    calculationGroup
+                }
+            };
+
+            var expoter = new PipingConfigurationExporter(rootGroup, filePath);
+
+            try
+            {
+                // Call
+                bool isExported = expoter.Export();
+
+                // Assert
+                Assert.IsTrue(isExported);
+                Assert.IsTrue(File.Exists(filePath));
+
+                var actualXml = File.ReadAllText(filePath);
+                var expectedXml = File.ReadAllText(Path.Combine(directoryPath, "folderWithSubfolderAndCalculation.xml"));
+
+
+                Assert.AreEqual(expectedXml, actualXml);
+            }
+            finally
+            {
+                File.Delete(filePath);
+            }
+        }
+
+        [Test]
+        public void Export_InvalidDirectoryRights_LogErrorAndReturnFalse()
+        {
+            // Setup
+            var calculationGroup = new CalculationGroup
+            {
+                Children =
+                {
+                    PipingTestDataGenerator.GetPipingCalculation()
+                }
+            };
+
+            string directoryPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO,
+                                                              "Export_InvalidDirectoryRights_LogErrorAndReturnFalse");
+            Directory.CreateDirectory(directoryPath);
+            string filePath = Path.Combine(directoryPath, "test.xml");
+
+            var exporter = new PipingConfigurationExporter(calculationGroup, filePath);
+
+            try
+            {
+                using (new DirectoryPermissionsRevoker(directoryPath, FileSystemRights.Write))
+                {
+                    // Call
+                    bool isExported = true;
+                    Action call = () => isExported = exporter.Export();
+
+                    // Assert
+                    string expectedMessage = $"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{filePath}'. "
+                                             + "Er is geen configuratie geëxporteerd.";
+                    TestHelper.AssertLogMessageIsGenerated(call, expectedMessage);
+                    Assert.IsFalse(isExported);
+                }
+            }
+            finally
+            {
+                Directory.Delete(directoryPath, true);
+            }
         }
     }
 }

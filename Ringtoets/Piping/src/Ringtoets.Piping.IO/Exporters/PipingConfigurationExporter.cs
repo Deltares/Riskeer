@@ -21,8 +21,11 @@
 
 using System;
 using Core.Common.Base.IO;
+using Core.Common.IO.Exceptions;
 using Core.Common.Utils;
+using log4net;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Piping.IO.Properties;
 
 namespace Ringtoets.Piping.IO.Exporters
 {
@@ -31,6 +34,8 @@ namespace Ringtoets.Piping.IO.Exporters
     /// </summary>
     public class PipingConfigurationExporter : IFileExporter
     {
+        private static readonly ILog log = LogManager.GetLogger(typeof(PipingConfigurationExporter));
+
         private readonly CalculationGroup calculationGroup;
         private readonly string filePath;
 
@@ -56,7 +61,17 @@ namespace Ringtoets.Piping.IO.Exporters
 
         public bool Export()
         {
-            throw new System.NotImplementedException();
+            try
+            {
+                PipingConfigurationWriter.Write(calculationGroup, filePath);
+            }
+            catch (CriticalFileWriteException e)
+            {
+                log.ErrorFormat(Resources.PipingConfigurationExporter_Export_Error_exception_0_no_configuration_exported, e.Message);
+                return false;
+            }
+
+            return true;
         }
     }
 }

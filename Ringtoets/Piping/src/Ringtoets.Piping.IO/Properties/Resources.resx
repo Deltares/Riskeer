@@ -263,4 +263,7 @@ Deze ondergrondschematisatie wordt overgeslagen.</value>
   <data name="PipingConfigurationReader_Configuration_contains_no_valid_xml" xml:space="preserve">
     <value>Het XML-document dat de configuratie voor de berekeningen beschrijft is niet geldig.</value>
   </data>
+  <data name="PipingConfigurationExporter_Export_Error_exception_0_no_configuration_exported" xml:space="preserve">
+    <value>{0} Er is geen configuratie geëxporteerd.</value>
+  </data>
 </root>
