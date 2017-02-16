@@ -60,9 +60,9 @@ namespace Ringtoets.Integration.Forms
         }
 
         /// <summary>
-        /// Gets the <see cref="MapData"/> from the selected row in the <see cref="DataGridViewControl"/>.
+        /// Gets the selected <see cref="WmtsMapData"/> or <c>null</c> if none selected.
         /// </summary>
-        public MapData SelectedMapData { get; private set; }
+        public WmtsMapData SelectedMapData { get; private set; }
 
         protected override void Dispose(bool disposing)
         {
@@ -105,7 +105,7 @@ namespace Ringtoets.Integration.Forms
 
         private void UpdateSelectButton()
         {
-            selectButton.Enabled = SelectedMapData != null;
+            selectButton.Enabled = currentMapDataControl?.SelectedMapData != null;
         }
 
         protected override Button GetCancelButton()
@@ -145,6 +145,7 @@ namespace Ringtoets.Integration.Forms
         private void OnSelectButtonClick(object sender, EventArgs e)
         {
             SetSelectedMapData();
+            DialogResult = DialogResult.OK;
             Close();
         }
 

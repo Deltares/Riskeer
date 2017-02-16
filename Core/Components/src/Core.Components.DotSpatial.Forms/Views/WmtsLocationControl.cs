@@ -65,7 +65,7 @@ namespace Core.Components.DotSpatial.Forms.Views
             }
         }
 
-        public MapData SelectedMapData
+        public WmtsMapData SelectedMapData
         {
             get
             {

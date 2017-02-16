@@ -225,7 +225,7 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
                 dataGridView.CurrentCell = dataGridView.Rows[0].Cells[0];
 
                 // Call
-                WmtsMapData selectedMapData = control.SelectedMapData as WmtsMapData;
+                WmtsMapData selectedMapData = control.SelectedMapData;
 
                 // Assert
                 Assert.IsNull(selectedMapData);
@@ -244,7 +244,7 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
                 dataGridView.CurrentCell = dataGridView.Rows[1].Cells[0];
 
                 // Call
-                WmtsMapData selectedMapData = control.SelectedMapData as WmtsMapData;
+                WmtsMapData selectedMapData = control.SelectedMapData;
 
                 // Assert
                 Assert.IsNotNull(selectedMapData);

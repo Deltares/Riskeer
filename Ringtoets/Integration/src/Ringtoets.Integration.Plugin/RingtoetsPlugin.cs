@@ -70,6 +70,7 @@ using Ringtoets.HeightStructures.Forms.PresentationObjects;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
+using Ringtoets.Integration.Forms;
 using Ringtoets.Integration.Forms.Commands;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.PropertyClasses;
@@ -517,10 +518,7 @@ namespace Ringtoets.Integration.Plugin
             {
                 Text = context => RingtoetsIntegrationPluginResources.RingtoetsPlugin_BackgroundMapDataContext_Text,
                 Image = context => RingtoetsFormsResources.Map,
-                ContextMenuStrip = (nodeData, parentData, treeViewControl) =>
-                    Gui.Get(nodeData, treeViewControl)
-                       .AddPropertiesItem()
-                       .Build(),
+                ContextMenuStrip = BackgroundMapDataContextMenuStrip,
                 ForeColor = context => context.WrappedData.IsConfigured ?
                                            Color.FromKnownColor(KnownColor.ControlText) :
                                            Color.FromKnownColor(KnownColor.GrayText)
@@ -885,6 +883,50 @@ namespace Ringtoets.Integration.Plugin
             }
         }
 
+        #region BackgroundMapDataContext treeNodeInfo
+
+        private ContextMenuStrip BackgroundMapDataContextMenuStrip(BackgroundMapDataContext nodeData, object parentData, TreeViewControl treeViewControl)
+        {
+            var assessmentSection = parentData as IAssessmentSection;
+
+            var mapDataItem = new StrictContextMenuItem(
+                RingtoetsIntegrationPluginResources.BackgroundMapData_SelectMapData,
+                RingtoetsIntegrationPluginResources.BackgroundMapData_SelectMapData_Tooltip,
+                RingtoetsCommonFormsResources.MapsIcon, (sender, args) => SelectMapData(assessmentSection));
+
+            return Gui.Get(nodeData, treeViewControl)
+                      .AddCustomItem(mapDataItem)
+                      .AddPropertiesItem()
+                      .Build();
+        }
+
+        private void SelectMapData(IAssessmentSection assessmentSection)
+        {
+            if (assessmentSection == null)
+            {
+                return;
+            }
+
+            using (var dialog = new BackgroundMapDataSelectionDialog(Gui.MainWindow))
+            {
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    WmtsMapData selectedMapData = dialog.SelectedMapData;
+                    if (selectedMapData == null)
+                    {
+                        return;
+                    }
+
+                    ((WmtsMapData) assessmentSection.BackgroundMapData.MapData).Configure(selectedMapData.SourceCapabilitiesUrl,
+                                                                                          selectedMapData.SelectedCapabilityIdentifier,
+                                                                                          selectedMapData.PreferredFormat);
+                    assessmentSection.BackgroundMapData.MapData.NotifyObservers();
+                }
+            }
+        }
+
+        #endregion
+
         #region ForeshoreProfile TreeNodeInfo
 
         private static bool CanRemoveForeshoreProfile(ForeshoreProfile nodeData, object parentNodeData)
@@ -1058,7 +1100,7 @@ namespace Ringtoets.Integration.Plugin
         {
             var childNodes = new List<object>
             {
-                new BackgroundMapDataContext((WmtsMapData)nodeData.BackgroundMapData.MapData),
+                new BackgroundMapDataContext((WmtsMapData) nodeData.BackgroundMapData.MapData),
                 new ReferenceLineContext(nodeData),
                 new FailureMechanismContributionContext(nodeData.FailureMechanismContribution, nodeData),
                 new HydraulicBoundaryDatabaseContext(nodeData),

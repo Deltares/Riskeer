@@ -41,9 +41,9 @@ namespace Core.Components.DotSpatial.Forms.Views
         string DisplayName { get; }
 
         /// <summary>
-        /// Gets the selected <see cref="MapData"/> or <c>null</c> if none selected.
+        /// Gets the selected <see cref="WmtsMapData"/> or <c>null</c> if none selected.
         /// </summary>
-        MapData SelectedMapData { get; }
+        WmtsMapData SelectedMapData { get; }
 
         /// <summary>
         /// Gets the user control.

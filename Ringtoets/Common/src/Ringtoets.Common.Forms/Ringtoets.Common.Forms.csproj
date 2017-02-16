@@ -289,6 +289,7 @@
     <None Include="Resources\calculation_icon.png" />
     <None Include="Resources\PointShapefileIcon.png" />
     <None Include="Resources\Structures.png" />
+    <Resource Include="Resources\MapsIcon.png" />
     <Content Include="Resources\wand-hat.png" />
     <None Include="Resources\database.png" />
     <None Include="Resources\chart_single_line.png" />

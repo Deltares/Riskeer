@@ -104,6 +104,24 @@ namespace Ringtoets.Integration.Plugin.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Selecteren.
+        /// </summary>
+        public static string BackgroundMapData_SelectMapData {
+            get {
+                return ResourceManager.GetString("BackgroundMapData_SelectMapData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Selecteer een kaartlaag..
+        /// </summary>
+        public static string BackgroundMapData_SelectMapData_Tooltip {
+            get {
+                return ResourceManager.GetString("BackgroundMapData_SelectMapData_Tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to De resultaten van {0} berekeningen zijn verwijderd..
         /// </summary>
         public static string ChangeHandler_Results_of_NumberOfCalculations_0_calculations_cleared {

@@ -1469,6 +1469,16 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap MapsIcon {
+            get {
+                object obj = ResourceManager.GetObject("MapsIcon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Koppelingsafstand.
         /// </summary>
         public static string MetaData_Couple_distance {
