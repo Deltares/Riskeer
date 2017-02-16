@@ -63,8 +63,7 @@ namespace Ringtoets.Common.IO.Test.Structures
             TestDelegate call = () => new StructuresCharacteristicsCsvReader(corruptPath);
 
             // Assert
-            string innerExpectedMessage = string.Format(UtilsResources.Error_Path_cannot_contain_Characters_0_,
-                                                        string.Join(", ", Path.GetInvalidPathChars()));
+            string innerExpectedMessage = "Er zitten ongeldige tekens in het bestandspad. Alle tekens in het bestandspad moeten geldig zijn.";
             string expectedMessage = new FileReaderErrorMessageBuilder(corruptPath).Build(innerExpectedMessage);
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }

@@ -118,7 +118,7 @@ namespace Application.Ringtoets.MigrationConsole.Test
 
                 // Assert
                 string expectedText = Environment.NewLine
-                                      + "Bron- en doelprojectpad mogen niet leeg of ongedefinieerd zijn."
+                                      + "Bron- en doelprojectpad moeten geldige bestandspaden zijn."
                                       + Environment.NewLine + Environment.NewLine
                                       + GetConsoleFullDescription();
                 string consoleText = consoleOutput.GetConsoleOutput();

@@ -125,8 +125,8 @@ namespace Core.Components.Gis.IO.Test.Writers
                 TestDelegate call = () => writer.SaveAs(filePath);
 
                 // Assert
-                string invalidChars = string.Join(", ", invalidPathChars);
-                var expectedMessage = $"Fout bij het lezen van bestand 'c:/\".shp': bestandspad mag niet de volgende tekens bevatten: {invalidChars}";
+                var expectedMessage = "Fout bij het lezen van bestand 'c:/\".shp': "
+                                      + "er zitten ongeldige tekens in het bestandspad. Alle tekens in het bestandspad moeten geldig zijn.";
                 TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
             }
         }

@@ -24,6 +24,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Core.Common.Utils;
 using Migration.Core.Storage.Properties;
 using Migration.Scripts.Data;
 using Migration.Scripts.Data.Exceptions;
@@ -131,7 +132,7 @@ namespace Migration.Core.Storage
             {
                 throw new ArgumentNullException(nameof(newFileLocation));
             }
-            if (Path.GetFullPath(versionedFile.Location).Equals(Path.GetFullPath(newFileLocation)))
+            if (IOUtils.GetFullPath(versionedFile.Location).Equals(IOUtils.GetFullPath(newFileLocation)))
             {
                 throw new CriticalMigrationException(Resources.Migrate_Target_File_Path_Must_Differ_From_Source_File_Path);
             }

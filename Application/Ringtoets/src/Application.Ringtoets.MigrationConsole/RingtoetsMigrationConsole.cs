@@ -22,6 +22,7 @@
 using System;
 using Application.Ringtoets.Migration;
 using Application.Ringtoets.MigrationConsole.Properties;
+using Core.Common.Utils;
 using Migration.Console;
 using Ringtoets.Common.Utils;
 using MigrationCoreStorageResources = Migration.Core.Storage.Properties.Resources;
@@ -78,8 +79,10 @@ namespace Application.Ringtoets.MigrationConsole
 
         private static void IsVersionSupportedCommand(string location)
         {
+            ValidateIsVersionSupportedArgument(location);
+
+            RingtoetsVersionedFile versionedFile = new RingtoetsVersionedFile(location);
             var migrator = new RingtoetsSqLiteDatabaseFileMigrator();
-            var versionedFile = new RingtoetsVersionedFile(location);
             var version = versionedFile.GetVersion();
 
             bool isSupported = migrator.IsVersionSupported(version);
@@ -95,6 +98,14 @@ namespace Application.Ringtoets.MigrationConsole
             }
         }
 
+        private static void ValidateIsVersionSupportedArgument(string location)
+        {
+            if (!IOUtils.IsValidFilePath(location))
+            {
+                throw new ArgumentException(Migration.Properties.Resources.CommandSupported_Source_Not_Valid_Path);
+            }
+        }
+
         private static void ShowSupportedCommand()
         {
             Console.WriteLine(Resources.CommandSupported_Brief);
@@ -103,16 +114,21 @@ namespace Application.Ringtoets.MigrationConsole
 
         private static void MigrateCommand(string filepath, string toFilepath)
         {
-            if (string.IsNullOrEmpty(filepath) || string.IsNullOrEmpty(toFilepath))
-            {
-                throw new ArgumentException(Resources.CommandMigrate_Source_Or_Destination_Null_Or_Empty);
-            }
+            ValidateMigrationArguments(filepath, toFilepath);
             var migrator = new RingtoetsSqLiteDatabaseFileMigrator();
             var sourceFile = new RingtoetsVersionedFile(filepath);
 
             migrator.Migrate(sourceFile, currentDatabaseVersion, toFilepath);
             Console.WriteLine(Resources.CommandMigrate_Successful_Migration_From_Location_0_To_Location_1_Version_2,
                               filepath, toFilepath, currentDatabaseVersion);
+        }
+
+        private static void ValidateMigrationArguments(string filepath, string toFilepath)
+        {
+            if (!(IOUtils.IsValidFilePath(filepath) && IOUtils.IsValidFilePath(toFilepath)))
+            {
+                throw new ArgumentException(Resources.CommandMigrate_Source_Or_Destination_Not_Valid_Path);
+            }
         }
 
         private static void ShowMigrateCommand()

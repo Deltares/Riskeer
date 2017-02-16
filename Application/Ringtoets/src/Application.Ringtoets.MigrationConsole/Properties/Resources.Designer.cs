@@ -109,11 +109,11 @@ namespace Application.Ringtoets.MigrationConsole.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bron- en doelprojectpad mogen niet leeg of ongedefinieerd zijn..
+        ///   Looks up a localized string similar to Bron- en doelprojectpad moeten geldige bestandspaden zijn..
         /// </summary>
-        internal static string CommandMigrate_Source_Or_Destination_Null_Or_Empty {
+        internal static string CommandMigrate_Source_Or_Destination_Not_Valid_Path {
             get {
-                return ResourceManager.GetString("CommandMigrate_Source_Or_Destination_Null_Or_Empty", resourceCulture);
+                return ResourceManager.GetString("CommandMigrate_Source_Or_Destination_Not_Valid_Path", resourceCulture);
             }
         }
         

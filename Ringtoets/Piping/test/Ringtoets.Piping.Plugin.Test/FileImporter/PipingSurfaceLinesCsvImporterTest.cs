@@ -59,9 +59,9 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             // Call
             TestDelegate call = () => new PipingSurfaceLinesCsvImporter(null,
-                referenceLine,
-                string.Empty,
-                new TestSurfaceLineUpdateStrategy());
+                                                                        referenceLine,
+                                                                        string.Empty,
+                                                                        new TestSurfaceLineUpdateStrategy());
 
             // Assert
             string parameter = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -76,9 +76,9 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             // Call
             TestDelegate call = () => new PipingSurfaceLinesCsvImporter(collection,
-                null,
-                string.Empty,
-                new TestSurfaceLineUpdateStrategy());
+                                                                        null,
+                                                                        string.Empty,
+                                                                        new TestSurfaceLineUpdateStrategy());
 
             // Assert
             string parameter = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -94,9 +94,9 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             // Call
             TestDelegate call = () => new PipingSurfaceLinesCsvImporter(collection,
-                referenceLine,
-                string.Empty,
-                null);
+                                                                        referenceLine,
+                                                                        string.Empty,
+                                                                        null);
 
             // Assert
             string parameter = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -420,8 +420,8 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Action call = () => importResult = importer.Import();
 
             // Assert
-            string internalErrorMessage = new FileReaderErrorMessageBuilder(corruptPath).Build(string.Format(UtilsResources.Error_Path_cannot_contain_Characters_0_,
-                                                                                                             string.Join(", ", Path.GetInvalidPathChars())));
+            string internalErrorMessage = new FileReaderErrorMessageBuilder(corruptPath)
+                .Build("Er zitten ongeldige tekens in het bestandspad. Alle tekens in het bestandspad moeten geldig zijn.");
             var expectedLogMessage = string.Format(PipingPluginResources.PipingSurfaceLinesCsvImporter_CriticalErrorMessage_0_File_Skipped,
                                                    internalErrorMessage);
             TestHelper.AssertLogMessageIsGenerated(call, expectedLogMessage, 1);

@@ -163,11 +163,11 @@ namespace Core.Common.Utils.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bestandspad mag niet de volgende tekens bevatten: {0}.
+        ///   Looks up a localized string similar to Er zitten ongeldige tekens in het bestandspad. Alle tekens in het bestandspad moeten geldig zijn..
         /// </summary>
-        public static string Error_Path_cannot_contain_Characters_0_ {
+        public static string Error_Path_cannot_contain_invalid_characters {
             get {
-                return ResourceManager.GetString("Error_Path_cannot_contain_Characters_0_", resourceCulture);
+                return ResourceManager.GetString("Error_Path_cannot_contain_invalid_characters", resourceCulture);
             }
         }
         
@@ -227,38 +227,38 @@ namespace Core.Common.Utils.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het pad naar bestandsmap bevat een &apos;:&apos; op een ongeldige plek..
+        ///   Looks up a localized string similar to Geen toegangsrechten tot bestandspad..
         /// </summary>
-        public static string IOUtils_ValidateFolderPath_Folder_path_contains_invalid_character {
+        public static string IOUtils_No_access_rights_to_path {
             get {
-                return ResourceManager.GetString("IOUtils_ValidateFolderPath_Folder_path_contains_invalid_character", resourceCulture);
+                return ResourceManager.GetString("IOUtils_No_access_rights_to_path", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het pad naar bestandsmap is te lang..
+        ///   Looks up a localized string similar to Het bestandspad moet opgegeven zijn..
         /// </summary>
-        public static string IOUtils_ValidateFolderPath_Folder_path_too_long {
+        public static string IOUtils_Path_cannot_be_empty {
             get {
-                return ResourceManager.GetString("IOUtils_ValidateFolderPath_Folder_path_too_long", resourceCulture);
+                return ResourceManager.GetString("IOUtils_Path_cannot_be_empty", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Geen toegangsrechten tot bestandsmap..
+        ///   Looks up a localized string similar to Het bestandspad bevat een &apos;:&apos; op een ongeldige plek..
         /// </summary>
-        public static string IOUtils_ValidateFolderPath_No_access_rights_to_folder {
+        public static string IOUtils_Path_contains_invalid_character {
             get {
-                return ResourceManager.GetString("IOUtils_ValidateFolderPath_No_access_rights_to_folder", resourceCulture);
+                return ResourceManager.GetString("IOUtils_Path_contains_invalid_character", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Pad naar bestandsmap moet opgegeven zijn..
+        ///   Looks up a localized string similar to Het bestandspad is te lang..
         /// </summary>
-        public static string IOUtils_ValidateFolderPath_Path_cannot_be_empty {
+        public static string IOUtils_Path_too_long {
             get {
-                return ResourceManager.GetString("IOUtils_ValidateFolderPath_Path_cannot_be_empty", resourceCulture);
+                return ResourceManager.GetString("IOUtils_Path_too_long", resourceCulture);
             }
         }
         

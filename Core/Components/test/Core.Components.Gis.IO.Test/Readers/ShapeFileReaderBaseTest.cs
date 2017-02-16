@@ -97,8 +97,8 @@ namespace Core.Components.Gis.IO.Test.Readers
             TestDelegate call = () => new TestShapeFileReaderBase(invalidFilePath);
 
             // Assert
-            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': bestandspad mag niet de volgende tekens bevatten: {1}",
-                                                invalidFilePath, string.Join(", ", invalidPathChars));
+            var expectedMessage = $"Fout bij het lezen van bestand '{invalidFilePath}': "
+                                  + "er zitten ongeldige tekens in het bestandspad. Alle tekens in het bestandspad moeten geldig zijn.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
 

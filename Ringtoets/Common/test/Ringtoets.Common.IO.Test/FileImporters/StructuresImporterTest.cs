@@ -131,7 +131,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             {
                 string message = messages.First();
                 string expectedMessage = new FileReaderErrorMessageBuilder(invalidPath)
-                    .Build(string.Format(CoreCommonUtilsResources.Error_Path_cannot_contain_Characters_0_, string.Join(", ", invalidPathChars)));
+                    .Build("Er zitten ongeldige tekens in het bestandspad. Alle tekens in het bestandspad moeten geldig zijn.");
                 StringAssert.StartsWith(expectedMessage, message);
             });
             Assert.IsFalse(importResult);
@@ -585,7 +585,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             string message = string.Format("De variatie voor parameter '{2}' van kunstwerk '{0}' ({1}) wordt omgerekend in een standaardafwijking (regel {3}).",
                                            structureName, parameter.LocationId, parameter.ParameterId, parameter.LineNumber);
             TestHelper.AssertLogMessageIsGenerated(call, message, 1);
-            double expectedStandardDeviation = parameter.VarianceValue*Math.Abs(parameter.NumericalValue);
+            double expectedStandardDeviation = parameter.VarianceValue * Math.Abs(parameter.NumericalValue);
             Assert.AreEqual(expectedStandardDeviation, standardDeviation, standardDeviation.GetAccuracy());
         }
 
@@ -654,7 +654,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             string message = string.Format("De variatie voor parameter '{2}' van kunstwerk '{0}' ({1}) wordt omgerekend in een variatiecoëfficiënt (regel {3}).",
                                            structureName, parameter.LocationId, parameter.ParameterId, parameter.LineNumber);
             TestHelper.AssertLogMessageIsGenerated(call, message, 1);
-            double expectedStandardDeviation = parameter.VarianceValue/Math.Abs(parameter.NumericalValue);
+            double expectedStandardDeviation = parameter.VarianceValue / Math.Abs(parameter.NumericalValue);
             Assert.AreEqual(expectedStandardDeviation, coefficientOfVariation, coefficientOfVariation.GetAccuracy());
         }
 

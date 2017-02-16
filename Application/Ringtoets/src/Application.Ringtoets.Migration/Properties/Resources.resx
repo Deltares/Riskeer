@@ -133,4 +133,7 @@
   <data name="RingtoetsUpgradeScript_Upgrading_Version_0_To_Version_1_Failed" xml:space="preserve">
     <value>Het migreren van het Ringtoets projectbestand van versie '{0}' naar '{1}' is mislukt.</value>
   </data>
+  <data name="CommandSupported_Source_Not_Valid_Path" xml:space="preserve">
+    <value>Bronprojectpad moet een geldig bestandspad zijn.</value>
+  </data>
 </root>

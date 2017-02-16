@@ -129,9 +129,8 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             TestHelper.AssertLogMessages(call, messages =>
             {
                 string message = messages.First();
-                string invalidChars = string.Join(", ", invalidPathChars);
                 string expectedMessage = new FileReaderErrorMessageBuilder(invalidPath)
-                    .Build($"Bestandspad mag niet de volgende tekens bevatten: {invalidChars}");
+                    .Build("er zitten ongeldige tekens in het bestandspad. Alle tekens in het bestandspad moeten geldig zijn.");
                 StringAssert.StartsWith(expectedMessage, message);
             });
             Assert.IsFalse(importResult);

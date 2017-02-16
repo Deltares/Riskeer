@@ -72,33 +72,15 @@ namespace Core.Common.Utils
         /// </list></exception>
         public static void ValidateFolderPath(string path)
         {
-            if (string.IsNullOrWhiteSpace(path))
-            {
-                var message = new DirectoryWriterErrorMessageBuilder(path)
-                    .Build(Resources.IOUtils_ValidateFolderPath_Path_cannot_be_empty);
-                throw new ArgumentException(message);
-            }
             try
             {
-                string fullPath = Path.GetFullPath(path);
+                string fullPath = GetFullPath(path);
             }
-            catch (SecurityException e)
+            catch (ArgumentException exception)
             {
                 var message = new DirectoryWriterErrorMessageBuilder(path)
-                    .Build(Resources.IOUtils_ValidateFolderPath_No_access_rights_to_folder);
-                throw new ArgumentException(message, e);
-            }
-            catch (PathTooLongException e)
-            {
-                var message = new DirectoryWriterErrorMessageBuilder(path)
-                    .Build(Resources.IOUtils_ValidateFolderPath_Folder_path_too_long);
-                throw new ArgumentException(message, e);
-            }
-            catch (NotSupportedException e)
-            {
-                var message = new DirectoryWriterErrorMessageBuilder(path)
-                    .Build(Resources.IOUtils_ValidateFolderPath_Folder_path_contains_invalid_character);
-                throw new ArgumentException(message, e);
+                    .Build(exception.Message);
+                throw new ArgumentException(message, exception.InnerException);
             }
         }
 
@@ -128,13 +110,11 @@ namespace Core.Common.Utils
             {
                 name = Path.GetFileName(path);
             }
-            catch (ArgumentException e)
+            catch (ArgumentException exception)
             {
                 var message = new FileReaderErrorMessageBuilder(path)
-                    .Build(string.Format(CultureInfo.CurrentCulture,
-                                         Resources.Error_Path_cannot_contain_Characters_0_,
-                                         string.Join(", ", Path.GetInvalidPathChars())));
-                throw new ArgumentException(message, e);
+                    .Build(Resources.Error_Path_cannot_contain_invalid_characters);
+                throw new ArgumentException(message, exception);
             }
             if (string.IsNullOrEmpty(name))
             {
@@ -239,6 +219,50 @@ namespace Core.Common.Utils
                 {
                     throw new ArgumentException(string.Format(Resources.Error_General_output_error_0, path), nameof(path));
                 }
+            }
+        }
+
+        /// <summary>
+        /// Returns the absolute path for the specified path string.
+        /// </summary>
+        /// <param name="path">The file or directory for which to obtain absolute path information.</param>
+        /// <returns>The fully qualified location of path, such as "C:\MyFile.txt".</returns>
+        /// <exception cref="ArgumentException">Thrown when:
+        /// <list type="bullet">
+        /// <item>The path is <c>null</c>, empty or contains only whitespaces.</item>
+        /// <item>The caller has no access rights to the path.</item>
+        /// <item>The path is too long.</item>
+        /// <item>The path contains a ':' that is not part of a volume identifier.</item>
+        /// </list></exception>
+        public static string GetFullPath(string path)
+        {
+            if (string.IsNullOrWhiteSpace(path))
+            {
+                throw new ArgumentException(Resources.IOUtils_Path_cannot_be_empty);
+            }
+            try
+            {
+                return Path.GetFullPath(path);
+            }
+            catch (ArgumentException exception)
+            {
+                throw new ArgumentException(Resources.Error_Path_cannot_contain_invalid_characters,
+                                            exception);
+            }
+            catch (SecurityException exception)
+            {
+                throw new ArgumentException(Resources.IOUtils_No_access_rights_to_path,
+                                            exception);
+            }
+            catch (PathTooLongException exception)
+            {
+                throw new ArgumentException(Resources.IOUtils_Path_too_long,
+                                            exception);
+            }
+            catch (NotSupportedException exception)
+            {
+                throw new ArgumentException(Resources.IOUtils_Path_contains_invalid_character,
+                                            exception);
             }
         }
     }

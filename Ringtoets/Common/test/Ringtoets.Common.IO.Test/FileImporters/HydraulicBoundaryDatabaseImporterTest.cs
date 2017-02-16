@@ -123,8 +123,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
 
             // Assert
             var expectedMessage = new FileReaderErrorMessageBuilder(invalidPath)
-                .Build(string.Format(UtilsResources.Error_Path_cannot_contain_Characters_0_,
-                                     string.Join(", ", Path.GetInvalidPathChars())));
+                .Build("Er zitten ongeldige tekens in het bestandspad. Alle tekens in het bestandspad moeten geldig zijn.");
             CriticalFileReadException exception = Assert.Throws<CriticalFileReadException>(test);
             Assert.AreEqual(expectedMessage, exception.Message);
             Assert.IsInstanceOf<ArgumentException>(exception.InnerException);
@@ -193,8 +192,8 @@ namespace Ringtoets.Common.IO.Test.FileImporters
 
             // Assert
             string expectedMessage = new FileReaderErrorMessageBuilder(validFilePath).Build(string.Format(
-                "Kon het rekeninstellingen bestand niet openen. Fout bij het lezen van bestand '{0}': het bestand bestaat niet.",
-                HydraulicDatabaseHelper.GetHydraulicBoundarySettingsDatabase(validFilePath)));
+                                                                                                "Kon het rekeninstellingen bestand niet openen. Fout bij het lezen van bestand '{0}': het bestand bestaat niet.",
+                                                                                                HydraulicDatabaseHelper.GetHydraulicBoundarySettingsDatabase(validFilePath)));
             CriticalFileReadException exception = Assert.Throws<CriticalFileReadException>(test);
             Assert.AreEqual(expectedMessage, exception.Message);
 

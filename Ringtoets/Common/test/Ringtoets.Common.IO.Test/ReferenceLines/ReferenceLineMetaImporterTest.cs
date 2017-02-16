@@ -67,8 +67,8 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             TestDelegate call = () => new ReferenceLineMetaImporter(invalidFilePath);
 
             // Assert
-            string invalidChars = string.Join(", ", invalidPathChars);
-            var expectedMessage = $"Fout bij het lezen van bestand '{invalidFilePath}': bestandspad mag niet de volgende tekens bevatten: {invalidChars}";
+            var expectedMessage = $"Fout bij het lezen van bestand '{invalidFilePath}': "
+                                  + "er zitten ongeldige tekens in het bestandspad. Alle tekens in het bestandspad moeten geldig zijn.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
 

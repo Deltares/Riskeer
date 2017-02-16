@@ -86,8 +86,7 @@ namespace Core.Common.IO.Test.Readers
 
             // Assert
             var expectedMessage = new FileReaderErrorMessageBuilder(corruptPath)
-                .Build(string.Format(UtilsResources.Error_Path_cannot_contain_Characters_0_,
-                                     string.Join(", ", Path.GetInvalidPathChars())));
+                .Build("Er zitten ongeldige tekens in het bestandspad. Alle tekens in het bestandspad moeten geldig zijn.");
             var exception = Assert.Throws<CriticalFileReadException>(test);
             Assert.AreEqual(expectedMessage, exception.Message);
         }

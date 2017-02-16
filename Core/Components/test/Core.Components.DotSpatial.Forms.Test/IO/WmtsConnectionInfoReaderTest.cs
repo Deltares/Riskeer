@@ -80,8 +80,8 @@ namespace Core.Components.DotSpatial.Forms.Test.IO
             TestDelegate call = () => reader.ReadWmtsConnectionInfos(filePath);
 
             // Assert
-            string invalidChars = string.Join(", ", invalidPathChars);
-            var expectedMessage = $"Fout bij het lezen van bestand 'c:/\".config': bestandspad mag niet de volgende tekens bevatten: {invalidChars}";
+            var expectedMessage = "Fout bij het lezen van bestand 'c:/\".config': "
+                                  + "er zitten ongeldige tekens in het bestandspad. Alle tekens in het bestandspad moeten geldig zijn.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
 
