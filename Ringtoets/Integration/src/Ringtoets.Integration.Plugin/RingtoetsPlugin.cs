@@ -919,6 +919,8 @@ namespace Ringtoets.Integration.Plugin
 
                     assessmentSection.BackgroundMapData.MapData = selectedMapData;
                     assessmentSection.BackgroundMapData.NotifyObservers();
+                    assessmentSection.NotifyObservers();
+                    assessmentSection.BackgroundMapData.MapData.IsVisible = true;
                 }
             }
         }
