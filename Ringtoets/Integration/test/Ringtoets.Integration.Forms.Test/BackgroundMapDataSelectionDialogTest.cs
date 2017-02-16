@@ -27,8 +27,10 @@ using System.Windows.Forms;
 using Core.Common.Controls.Dialogs;
 using Core.Common.TestUtil;
 using Core.Components.DotSpatial.Forms.Views;
+using Core.Components.Gis.Data;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
+using Rhino.Mocks;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Forms.Test
@@ -66,7 +68,67 @@ namespace Ringtoets.Integration.Forms.Test
                     Bitmap actualImage = dialog.Icon.ToBitmap();
                     TestHelper.AssertImagesAreEqual(expectedImage, actualImage);
 
-                    var mapLayers = (ComboBox)new ComboBoxTester("mapLayerComboBox", dialog).TheObject;
+                    var mapLayers = (ComboBox) new ComboBoxTester("mapLayerComboBox", dialog).TheObject;
+                    Assert.AreEqual(ComboBoxStyle.DropDownList, mapLayers.DropDownStyle);
+                    Assert.IsInstanceOf<List<IHasMapData>>(mapLayers.DataSource);
+                    Assert.AreEqual("DisplayName", mapLayers.DisplayMember);
+                    Assert.IsTrue(mapLayers.Sorted);
+                }
+            }
+        }
+
+        [Test]
+        public void MapDataConstructor_MapDataNull_DefaultProperties()
+        {
+            // Setup
+            var mockRepository = new MockRepository();
+            var dialogParent = mockRepository.Stub<IWin32Window>();
+            mockRepository.ReplayAll();
+
+            // Call
+            using (var dialog = new BackgroundMapDataSelectionDialog(dialogParent, null))
+            {
+                // Assert
+                Assert.IsNull(dialog.SelectedMapData);
+            }
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void MapDataConstructor_ParentNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mapData = new WmtsMapData("1", "2", "3", "image/");
+
+            // Call
+            TestDelegate test = () => new BackgroundMapDataSelectionDialog(null, mapData);
+
+            // Assert
+            string parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("dialogParent", parameter);
+        }
+
+        [Test]
+        public void MapDataConstructor_WithParents_DefaultProperties()
+        {
+            // Setup
+            var mapData = new WmtsMapData("1", "2", "3", "image/");
+            using (var dialogParent = new Form())
+            {
+                // Call
+                using (var dialog = new BackgroundMapDataSelectionDialog(dialogParent, mapData))
+                {
+                    // Assert
+                    Assert.IsInstanceOf<DialogBase>(dialog);
+                    Assert.AreEqual(@"Selecteer achtergrondkaart", dialog.Text);
+                    Assert.AreSame(mapData, dialog.SelectedMapData);
+
+                    Icon icon = BitmapToIcon(RingtoetsCommonFormsResources.SelectionDialogIcon);
+                    Bitmap expectedImage = icon.ToBitmap();
+                    Bitmap actualImage = dialog.Icon.ToBitmap();
+                    TestHelper.AssertImagesAreEqual(expectedImage, actualImage);
+
+                    var mapLayers = (ComboBox) new ComboBoxTester("mapLayerComboBox", dialog).TheObject;
                     Assert.AreEqual(ComboBoxStyle.DropDownList, mapLayers.DropDownStyle);
                     Assert.IsInstanceOf<List<IHasMapData>>(mapLayers.DataSource);
                     Assert.AreEqual("DisplayName", mapLayers.DisplayMember);

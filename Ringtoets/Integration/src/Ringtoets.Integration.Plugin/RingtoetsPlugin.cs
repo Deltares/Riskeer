@@ -892,7 +892,7 @@ namespace Ringtoets.Integration.Plugin
             var mapDataItem = new StrictContextMenuItem(
                 RingtoetsIntegrationPluginResources.BackgroundMapData_SelectMapData,
                 RingtoetsIntegrationPluginResources.BackgroundMapData_SelectMapData_Tooltip,
-                RingtoetsCommonFormsResources.MapsIcon, (sender, args) => SelectMapData(assessmentSection));
+                RingtoetsCommonFormsResources.MapsIcon, (sender, args) => SelectMapData(assessmentSection, nodeData));
 
             return Gui.Get(nodeData, treeViewControl)
                       .AddCustomItem(mapDataItem)
@@ -900,14 +900,15 @@ namespace Ringtoets.Integration.Plugin
                       .Build();
         }
 
-        private void SelectMapData(IAssessmentSection assessmentSection)
+        private void SelectMapData(IAssessmentSection assessmentSection, BackgroundMapDataContext backgroundMapDataContext)
         {
             if (assessmentSection == null)
             {
                 return;
             }
 
-            using (var dialog = new BackgroundMapDataSelectionDialog(Gui.MainWindow))
+            WmtsMapData currentMapData = backgroundMapDataContext.WrappedData;
+            using (var dialog = new BackgroundMapDataSelectionDialog(Gui.MainWindow, currentMapData))
             {
                 if (dialog.ShowDialog() == DialogResult.OK)
                 {

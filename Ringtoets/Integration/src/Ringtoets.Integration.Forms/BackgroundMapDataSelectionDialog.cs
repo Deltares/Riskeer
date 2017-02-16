@@ -23,7 +23,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Dialogs;
 using Core.Components.DotSpatial.Forms.Views;
 using Core.Components.Gis.Data;
@@ -57,6 +56,17 @@ namespace Ringtoets.Integration.Forms
             InitializeButtons();
             InitializeComboBox();
             InitializeEventHandlers();
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="ReferenceLineMetaSelectionDialog"/>.
+        /// </summary>
+        /// <param name="dialogParent">The parent of the dialog.</param>
+        /// <param name="mapData">The active map data.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="dialogParent"/> is <c>null</c>.</exception>
+        public BackgroundMapDataSelectionDialog(IWin32Window dialogParent, WmtsMapData mapData) : this(dialogParent)
+        {
+            SelectedMapData = mapData;
         }
 
         /// <summary>
@@ -112,7 +122,7 @@ namespace Ringtoets.Integration.Forms
         {
             return cancelButton;
         }
-        
+
         #endregion
 
         #region ComboBox

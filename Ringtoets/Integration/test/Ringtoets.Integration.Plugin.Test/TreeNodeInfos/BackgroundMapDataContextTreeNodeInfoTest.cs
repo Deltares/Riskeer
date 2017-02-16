@@ -21,21 +21,31 @@
 
 using System.Drawing;
 using System.Linq;
+using System.Windows.Forms;
+using Core.Common.Base;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
+using Core.Common.Gui.Commands;
 using Core.Common.Gui.ContextMenu;
+using Core.Common.Gui.Forms.MainWindow;
+using Core.Common.Gui.TestUtil.ContextMenu;
 using Core.Common.TestUtil;
 using Core.Components.Gis.Data;
+using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Integration.Forms;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.Properties;
 
 namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class BackgroundMapDataContextTreeNodeInfoTest
+    public class BackgroundMapDataContextTreeNodeInfoTest : NUnitFormTest
     {
+        private readonly int selectContextMenuIndex = 0;
+
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
@@ -172,6 +182,222 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 }
             }
             // Assert
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void GivenNoMapDataSet_WhenSelectingValidMapDataFromContextMenu_ThenMapDataSetAndNotifiesObserver()
+        {
+            // Given
+            var mockRepository = new MockRepository();
+            var assessmentSectionObserver = mockRepository.StrictMock<IObserver>();
+            assessmentSectionObserver.Expect(o => o.UpdateObserver());
+
+            var backgroundMapDataObserver = mockRepository.StrictMock<IObserver>();
+            backgroundMapDataObserver.Expect(o => o.UpdateObserver());
+
+            var wmtsMapData = new WmtsMapData("1", "2", "3", "image/");
+            var backgroundMapDataContext = new BackgroundMapDataContext(wmtsMapData);
+
+            using (var treeViewControl = new TreeViewControl())
+            using (var plugin = new RingtoetsPlugin())
+            {
+                var viewCommands = mockRepository.Stub<IViewCommands>();
+                var mainWindow = mockRepository.Stub<IMainWindow>();
+
+                var gui = mockRepository.Stub<IGui>();
+                gui.Stub(g => g.MainWindow).Return(mainWindow);
+                gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
+                gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
+                gui.Stub(g => g.ViewCommands).Return(viewCommands);
+                gui.Stub(cmp => cmp.Get(backgroundMapDataContext, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                mockRepository.ReplayAll();
+
+                var assessmentSection = new ObservableTestAssessmentSectionStub();
+                assessmentSection.Attach(assessmentSectionObserver);
+                assessmentSection.BackgroundMapData.Attach(backgroundMapDataObserver);
+
+                DialogBoxHandler = (name, wnd) =>
+                {
+                    var tester = (BackgroundMapDataSelectionDialog) new FormTester(name).TheObject;
+                    tester.DialogResult = DialogResult.OK;
+                    tester.Close();
+                };
+
+                TreeNodeInfo info = GetInfo(plugin);
+                plugin.Gui = gui;
+
+                using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(backgroundMapDataContext, assessmentSection, treeViewControl))
+                {
+                    // When
+                    contextMenuStrip.Items[selectContextMenuIndex].PerformClick();
+
+                    // Then
+                    Assert.AreSame(wmtsMapData, assessmentSection.BackgroundMapData.MapData);
+                    Assert.IsTrue(assessmentSection.BackgroundMapData.MapData.IsVisible);
+                }
+            }
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void GivenNoMapDataSet_WhenSelectingMapDataFromContextMenuCancelled_ThenNoObserversNotified()
+        {
+            // Given
+            var mockRepository = new MockRepository();
+            var assessmentSectionObserver = mockRepository.StrictMock<IObserver>();
+            var backgroundMapDataObserver = mockRepository.StrictMock<IObserver>();
+
+            var wmtsMapData = new WmtsMapData("1", "2", "3", "image/");
+            var backgroundMapDataContext = new BackgroundMapDataContext(wmtsMapData);
+
+            using (var treeViewControl = new TreeViewControl())
+            using (var plugin = new RingtoetsPlugin())
+            {
+                var viewCommands = mockRepository.Stub<IViewCommands>();
+                var mainWindow = mockRepository.Stub<IMainWindow>();
+
+                var gui = mockRepository.Stub<IGui>();
+                gui.Stub(g => g.MainWindow).Return(mainWindow);
+                gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
+                gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
+                gui.Stub(g => g.ViewCommands).Return(viewCommands);
+                gui.Stub(cmp => cmp.Get(backgroundMapDataContext, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                mockRepository.ReplayAll();
+
+                var assessmentSection = new ObservableTestAssessmentSectionStub();
+                assessmentSection.Attach(assessmentSectionObserver);
+                assessmentSection.BackgroundMapData.Attach(backgroundMapDataObserver);
+
+                DialogBoxHandler = (name, wnd) =>
+                {
+                    var tester = (BackgroundMapDataSelectionDialog) new FormTester(name).TheObject;
+                    tester.DialogResult = DialogResult.Cancel;
+                    tester.Close();
+                };
+
+                TreeNodeInfo info = GetInfo(plugin);
+                plugin.Gui = gui;
+
+                using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(backgroundMapDataContext, assessmentSection, treeViewControl))
+                {
+                    // When
+                    contextMenuStrip.Items[selectContextMenuIndex].PerformClick();
+
+                    // Then
+                    Assert.IsNull(assessmentSection.BackgroundMapData.MapData);
+                }
+            }
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void GivenMapDataSet_WhenSelectingValidMapDataFromContextMenu_ThenMapDataSetAndNotifiesObserver()
+        {
+            // Given
+            var mockRepository = new MockRepository();
+            var assessmentSectionObserver = mockRepository.StrictMock<IObserver>();
+            assessmentSectionObserver.Expect(o => o.UpdateObserver());
+
+            var backgroundMapDataObserver = mockRepository.StrictMock<IObserver>();
+            backgroundMapDataObserver.Expect(o => o.UpdateObserver());
+
+            var wmtsMapData = new WmtsMapData("1", "2", "3", "image/");
+            var backgroundMapDataContext = new BackgroundMapDataContext(wmtsMapData);
+
+            using (var treeViewControl = new TreeViewControl())
+            using (var plugin = new RingtoetsPlugin())
+            {
+                var viewCommands = mockRepository.Stub<IViewCommands>();
+                var mainWindow = mockRepository.Stub<IMainWindow>();
+
+                var gui = mockRepository.Stub<IGui>();
+                gui.Stub(g => g.MainWindow).Return(mainWindow);
+                gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
+                gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
+                gui.Stub(g => g.ViewCommands).Return(viewCommands);
+                gui.Stub(cmp => cmp.Get(backgroundMapDataContext, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                mockRepository.ReplayAll();
+
+                var assessmentSection = new ObservableTestAssessmentSectionStub();
+                assessmentSection.Attach(assessmentSectionObserver);
+                assessmentSection.BackgroundMapData.Attach(backgroundMapDataObserver);
+
+                assessmentSection.BackgroundMapData.MapData = wmtsMapData;
+
+                DialogBoxHandler = (name, wnd) =>
+                {
+                    var tester = (BackgroundMapDataSelectionDialog) new FormTester(name).TheObject;
+                    tester.DialogResult = DialogResult.OK;
+                    tester.Close();
+                };
+
+                TreeNodeInfo info = GetInfo(plugin);
+                plugin.Gui = gui;
+
+                using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(backgroundMapDataContext, assessmentSection, treeViewControl))
+                {
+                    // When
+                    contextMenuStrip.Items[selectContextMenuIndex].PerformClick();
+
+                    // Then
+                    Assert.AreSame(wmtsMapData, assessmentSection.BackgroundMapData.MapData);
+                    Assert.IsTrue(assessmentSection.BackgroundMapData.MapData.IsVisible);
+                }
+            }
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void GivenMapDataSet_WhenSelectingMapDataFromContextMenuCancelled_ThenNoObserversNotified()
+        {
+            // Given
+            var mockRepository = new MockRepository();
+            var assessmentSectionObserver = mockRepository.StrictMock<IObserver>();
+            var backgroundMapDataObserver = mockRepository.StrictMock<IObserver>();
+
+            var wmtsMapData = new WmtsMapData("1", "2", "3", "image/");
+            var backgroundMapDataContext = new BackgroundMapDataContext(wmtsMapData);
+
+            using (var treeViewControl = new TreeViewControl())
+            using (var plugin = new RingtoetsPlugin())
+            {
+                var viewCommands = mockRepository.Stub<IViewCommands>();
+                var mainWindow = mockRepository.Stub<IMainWindow>();
+
+                var gui = mockRepository.Stub<IGui>();
+                gui.Stub(g => g.MainWindow).Return(mainWindow);
+                gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
+                gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
+                gui.Stub(g => g.ViewCommands).Return(viewCommands);
+                gui.Stub(cmp => cmp.Get(backgroundMapDataContext, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                mockRepository.ReplayAll();
+
+                var assessmentSection = new ObservableTestAssessmentSectionStub();
+                assessmentSection.Attach(assessmentSectionObserver);
+                assessmentSection.BackgroundMapData.Attach(backgroundMapDataObserver);
+                assessmentSection.BackgroundMapData.MapData = wmtsMapData;
+
+                DialogBoxHandler = (name, wnd) =>
+                {
+                    var tester = (BackgroundMapDataSelectionDialog) new FormTester(name).TheObject;
+                    tester.DialogResult = DialogResult.Cancel;
+                    tester.Close();
+                };
+
+                TreeNodeInfo info = GetInfo(plugin);
+                plugin.Gui = gui;
+
+                using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(backgroundMapDataContext, assessmentSection, treeViewControl))
+                {
+                    // When
+                    contextMenuStrip.Items[selectContextMenuIndex].PerformClick();
+
+                    // Then
+                    Assert.AreEqual(wmtsMapData, assessmentSection.BackgroundMapData.MapData);
+                    Assert.IsFalse(assessmentSection.BackgroundMapData.MapData.IsVisible);
+                }
+            }
             mockRepository.VerifyAll();
         }
 
