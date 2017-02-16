@@ -917,10 +917,8 @@ namespace Ringtoets.Integration.Plugin
                         return;
                     }
 
-                    ((WmtsMapData) assessmentSection.BackgroundMapData.MapData).Configure(selectedMapData.SourceCapabilitiesUrl,
-                                                                                          selectedMapData.SelectedCapabilityIdentifier,
-                                                                                          selectedMapData.PreferredFormat);
-                    assessmentSection.BackgroundMapData.MapData.NotifyObservers();
+                    assessmentSection.BackgroundMapData.MapData = selectedMapData;
+                    assessmentSection.BackgroundMapData.NotifyObservers();
                 }
             }
         }
