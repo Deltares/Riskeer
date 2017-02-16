@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Schema;
@@ -70,7 +71,7 @@ namespace Ringtoets.Piping.IO.Readers
         /// <returns>A collection of read <see cref="IReadPipingCalculationItem"/>.</returns>
         public IEnumerable<IReadPipingCalculationItem> Read()
         {
-            return ParseReadPipingCalculationItems(xmlDocument.Root.Elements()); // Note: root element is always present due to XSD validation
+            return ParseReadPipingCalculationItems(xmlDocument.Root?.Elements());
         }
 
         /// <summary>
@@ -148,16 +149,60 @@ namespace Ringtoets.Piping.IO.Readers
 
         private static ReadPipingCalculationGroup ParseReadPipingCalculationGroup(XElement folderElement)
         {
-            return new ReadPipingCalculationGroup(folderElement.Attribute("naam").Value,
+            return new ReadPipingCalculationGroup(folderElement.Attribute("naam")?.Value,
                                                   ParseReadPipingCalculationItems(folderElement.Elements()));
         }
 
-        private static ReadPipingCalculation ParseReadPipingCalculation(XElement element)
+        private static ReadPipingCalculation ParseReadPipingCalculation(XElement calculationElement)
         {
-            return new ReadPipingCalculation(new ReadPipingCalculation.ConstructionProperties
+            var constructionProperties = new ReadPipingCalculation.ConstructionProperties
             {
-                Name = element.Attribute("naam").Value
-            });
+                Name = calculationElement.Attribute("naam")?.Value,
+                AssessmentLevel = GetDoubleValueFromChildElement(calculationElement, "toetspeil"),
+                HydraulicBoundaryLocation = GetStringValueFromChildElement(calculationElement, "hrlocatie"),
+                SurfaceLine = GetStringValueFromChildElement(calculationElement, "profielschematisatie"),
+                EntryPointL = GetDoubleValueFromChildElement(calculationElement, "intredepunt"),
+                ExitPointL = GetDoubleValueFromChildElement(calculationElement, "uittredepunt"),
+                StochasticSoilModel = GetStringValueFromChildElement(calculationElement, "ondergrondmodel"),
+                StochasticSoilProfile = GetStringValueFromChildElement(calculationElement, "ondergrondschematisatie")
+            };
+
+            XElement phreaticLevelExitElement = GetStochastChildElement(calculationElement, "polderpeil");
+            if (phreaticLevelExitElement != null)
+            {
+                constructionProperties.PhreaticLevelExitMean = GetDoubleValueFromChildElement(phreaticLevelExitElement, "verwachtingswaarde");
+                constructionProperties.PhreaticLevelExitStandardDeviation = GetDoubleValueFromChildElement(phreaticLevelExitElement, "standaardafwijking");
+            }
+
+            XElement dampingFactorExitElement = GetStochastChildElement(calculationElement, "dempingsfactor");
+            if (dampingFactorExitElement != null)
+            {
+                constructionProperties.DampingFactorExitMean = GetDoubleValueFromChildElement(dampingFactorExitElement, "verwachtingswaarde");
+                constructionProperties.DampingFactorExitStandardDeviation = GetDoubleValueFromChildElement(dampingFactorExitElement, "standaardafwijking");
+            }
+
+            return new ReadPipingCalculation(constructionProperties);
+        }
+
+        private static double? GetDoubleValueFromChildElement(XElement parentElement, string childElementName)
+        {
+            XElement childElement = parentElement.Elements(childElementName).FirstOrDefault();
+
+            return childElement != null
+                       ? (double?) Convert.ToDouble(childElement.Value)
+                       : null;
+        }
+
+        private static string GetStringValueFromChildElement(XElement parentElement, string childElementName)
+        {
+            XElement childElement = parentElement.Elements(childElementName).FirstOrDefault();
+
+            return childElement?.Value;
+        }
+
+        private static XElement GetStochastChildElement(XElement parentElement, string stochastName)
+        {
+            return parentElement.Elements("stochast").FirstOrDefault(e => e.Attribute("naam")?.Value == stochastName);
         }
 
         private static XmlSchemaSet LoadXmlSchema()

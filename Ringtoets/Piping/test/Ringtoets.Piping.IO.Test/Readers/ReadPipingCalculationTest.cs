@@ -47,17 +47,17 @@ namespace Ringtoets.Piping.IO.Test.Readers
 
             // Assert
             Assert.IsNull(readPipingCalculation.Name);
-            Assert.AreEqual(0.0, readPipingCalculation.AssessmentLevel);
+            Assert.IsNull(readPipingCalculation.AssessmentLevel);
             Assert.IsNull(readPipingCalculation.HydraulicBoundaryLocation);
             Assert.IsNull(readPipingCalculation.SurfaceLine);
-            Assert.AreEqual(0.0, readPipingCalculation.EntryPointL);
-            Assert.AreEqual(0.0, readPipingCalculation.ExitPointL);
+            Assert.IsNull(readPipingCalculation.EntryPointL);
+            Assert.IsNull(readPipingCalculation.ExitPointL);
             Assert.IsNull(readPipingCalculation.StochasticSoilModel);
             Assert.IsNull(readPipingCalculation.StochasticSoilProfile);
-            Assert.AreEqual(0.0, readPipingCalculation.PhreaticLevelExitMean);
-            Assert.AreEqual(0.0, readPipingCalculation.PhreaticLevelExitStandardDeviation);
-            Assert.AreEqual(0.0, readPipingCalculation.DampingFactorExitMean);
-            Assert.AreEqual(0.0, readPipingCalculation.DampingFactorExitStandardDeviation);
+            Assert.IsNull(readPipingCalculation.PhreaticLevelExitMean);
+            Assert.IsNull(readPipingCalculation.PhreaticLevelExitStandardDeviation);
+            Assert.IsNull(readPipingCalculation.DampingFactorExitMean);
+            Assert.IsNull(readPipingCalculation.DampingFactorExitStandardDeviation);
         }
 
         [Test]

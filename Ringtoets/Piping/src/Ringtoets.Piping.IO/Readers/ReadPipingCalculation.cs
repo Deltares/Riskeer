@@ -57,7 +57,7 @@ namespace Ringtoets.Piping.IO.Readers
         /// <summary>
         /// Gets the assessment level of the read piping calculation.
         /// </summary>
-        public double AssessmentLevel { get; }
+        public double? AssessmentLevel { get; }
 
         /// <summary>
         /// Gets the name of the hydraulic boundary location of the read piping calculation.
@@ -72,12 +72,12 @@ namespace Ringtoets.Piping.IO.Readers
         /// <summary>
         /// Gets the l-coordinate of the entry point of the read piping calculation.
         /// </summary>
-        public double EntryPointL { get; }
+        public double? EntryPointL { get; }
 
         /// <summary>
         /// Gets the l-coordinate of the exit point of the read piping calculation.
         /// </summary>
-        public double ExitPointL { get; }
+        public double? ExitPointL { get; }
 
         /// <summary>
         /// Gets the name of the stochastic soil model of the read piping calculation.
@@ -92,22 +92,22 @@ namespace Ringtoets.Piping.IO.Readers
         /// <summary>
         /// Gets the mean of the phreatic level exit of the read piping calculation.
         /// </summary>
-        public double PhreaticLevelExitMean { get; }
+        public double? PhreaticLevelExitMean { get; }
 
         /// <summary>
         /// Gets the standard deviation of the phreatic level exit of the read piping calculation.
         /// </summary>
-        public double PhreaticLevelExitStandardDeviation { get; }
+        public double? PhreaticLevelExitStandardDeviation { get; }
 
         /// <summary>
         /// Gets the mean of the damping factor exit of the read piping calculation.
         /// </summary>
-        public double DampingFactorExitMean { get; }
+        public double? DampingFactorExitMean { get; }
 
         /// <summary>
         /// Gets the standard deviation of the damping factor exit of the read piping calculation.
         /// </summary>
-        public double DampingFactorExitStandardDeviation { get; }
+        public double? DampingFactorExitStandardDeviation { get; }
 
         public string Name { get; }
 
@@ -124,7 +124,7 @@ namespace Ringtoets.Piping.IO.Readers
             /// <summary>
             /// Gets or sets the value for <see cref="ReadPipingCalculation.AssessmentLevel"/>
             /// </summary>
-            public double AssessmentLevel { internal get; set; }
+            public double? AssessmentLevel { internal get; set; }
 
             /// <summary>
             /// Gets or sets the value for <see cref="ReadPipingCalculation.HydraulicBoundaryLocation"/>
@@ -139,12 +139,12 @@ namespace Ringtoets.Piping.IO.Readers
             /// <summary>
             /// Gets or sets the value for <see cref="ReadPipingCalculation.EntryPointL"/>
             /// </summary>
-            public double EntryPointL { internal get; set; }
+            public double? EntryPointL { internal get; set; }
 
             /// <summary>
             /// Gets or sets the value for <see cref="ReadPipingCalculation.ExitPointL"/>
             /// </summary>
-            public double ExitPointL { internal get; set; }
+            public double? ExitPointL { internal get; set; }
 
             /// <summary>
             /// Gets or sets the value for <see cref="ReadPipingCalculation.StochasticSoilModel"/>
@@ -159,22 +159,22 @@ namespace Ringtoets.Piping.IO.Readers
             /// <summary>
             /// Gets or sets the value for <see cref="ReadPipingCalculation.PhreaticLevelExitMean"/>
             /// </summary>
-            public double PhreaticLevelExitMean { internal get; set; }
+            public double? PhreaticLevelExitMean { internal get; set; }
 
             /// <summary>
             /// Gets or sets the value for <see cref="ReadPipingCalculation.PhreaticLevelExitStandardDeviation"/>
             /// </summary>
-            public double PhreaticLevelExitStandardDeviation { internal get; set; }
+            public double? PhreaticLevelExitStandardDeviation { internal get; set; }
 
             /// <summary>
             /// Gets or sets the value for <see cref="ReadPipingCalculation.DampingFactorExitMean"/>
             /// </summary>
-            public double DampingFactorExitMean { internal get; set; }
+            public double? DampingFactorExitMean { internal get; set; }
 
             /// <summary>
             /// Gets or sets the value for <see cref="ReadPipingCalculation.DampingFactorExitStandardDeviation"/>
             /// </summary>
-            public double DampingFactorExitStandardDeviation { internal get; set; }
+            public double? DampingFactorExitStandardDeviation { internal get; set; }
         }
     }
 }
