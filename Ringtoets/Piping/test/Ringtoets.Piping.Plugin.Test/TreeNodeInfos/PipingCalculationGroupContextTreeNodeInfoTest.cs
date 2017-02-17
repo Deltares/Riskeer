@@ -47,7 +47,6 @@ using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.KernelWrapper.TestUtil;
 using Ringtoets.Piping.Primitives;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
-using PipingFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 
 namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
@@ -55,22 +54,24 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
     [TestFixture]
     public class PipingCalculationGroupContextTreeNodeInfoTest : NUnitFormTest
     {
-        private const int contextMenuAddCalculationGroupIndexRootGroup = 4;
-        private const int contextMenuAddCalculationIndexRootGroup = 5;
-        private const int contextMenuValidateAllIndexRootGroup = 7;
-        private const int contextMenuCalculateAllIndexRootGroup = 8;
-        private const int contextMenuClearOutputIndexRootGroup = 10;
-        private const int contextMenuCollapseAllIndexRootGroup = 13;
-        private const int contextMenuExpandAllIndexRootGroup = 14;
-        private const int contextMenuPropertiesIndexRootGroup = 16;
+        private const int contextMenuExportCalculationGroupIndexRootGroup = 2;
+        private const int contextMenuAddCalculationGroupIndexRootGroup = 6;
+        private const int contextMenuAddCalculationIndexRootGroup = 7;
+        private const int contextMenuValidateAllIndexRootGroup = 9;
+        private const int contextMenuCalculateAllIndexRootGroup = 10;
+        private const int contextMenuClearOutputIndexRootGroup = 12;
+        private const int contextMenuCollapseAllIndexRootGroup = 15;
+        private const int contextMenuExpandAllIndexRootGroup = 16;
+        private const int contextMenuPropertiesIndexRootGroup = 18;
 
-        private const int contextMenuAddCalculationGroupIndexNestedGroup = 0;
-        private const int contextMenuAddCalculationIndexNestedGroup = 1;
-        private const int contextMenuValidateAllIndexNestedGroup = 4;
-        private const int contextMenuCalculateAllIndexNestedGroup = 5;
-        private const int contextMenuClearOutputNestedGroupIndex = 7;
+        private const int contextMenuExportCalculationGroupIndexNestedGroup = 0;
+        private const int contextMenuAddCalculationGroupIndexNestedGroup = 2;
+        private const int contextMenuAddCalculationIndexNestedGroup = 3;
+        private const int contextMenuValidateAllIndexNestedGroup = 6;
+        private const int contextMenuCalculateAllIndexNestedGroup = 7;
+        private const int contextMenuClearOutputNestedGroupIndex = 9;
 
-        private const int customOnlyContextMenuAddGenerateCalculationsIndex = 2;
+        private const int customOnlyContextMenuAddGenerateCalculationsIndex = 4;
 
         private MockRepository mocks;
         private PipingPlugin plugin;
@@ -201,10 +202,10 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                                                                    assessmentSection);
 
             var applicationFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
-            var importHandlerMock = mocks.StrictMock<IImportCommandHandler>();
-            var exportHandlerMock = mocks.StrictMock<IExportCommandHandler>();
-            var updateHandlerMock = mocks.StrictMock<IUpdateCommandHandler>();
-            var viewCommandsHandler = mocks.StrictMock<IViewCommands>();
+            var importHandlerMock = mocks.Stub<IImportCommandHandler>();
+            var exportHandlerMock = mocks.Stub<IExportCommandHandler>();
+            var updateHandlerMock = mocks.Stub<IUpdateCommandHandler>();
+            var viewCommandsHandler = mocks.Stub<IViewCommands>();
             var treeViewControl = mocks.StrictMock<TreeViewControl>();
 
             var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler,
@@ -230,26 +231,32 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
             {
                 // Assert
-                Assert.AreEqual(14, menu.Items.Count);
+                Assert.AreEqual(16, menu.Items.Count);
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuExportCalculationGroupIndexNestedGroup,
+                                                              "&Exporteren...",
+                                                              "Exporteer de gegevens naar een bestand.",
+                                                              CoreCommonGuiResources.ExportIcon,
+                                                              false);
+
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationGroupIndexNestedGroup,
-                                                              RingtoetsCommonFormsResources.CalculationGroup_Add_CalculationGroup,
+                                                              "&Map toevoegen",
                                                               "Voeg een nieuwe berekeningsmap toe aan deze berekeningsmap.",
                                                               RingtoetsCommonFormsResources.AddFolderIcon);
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationIndexNestedGroup,
-                                                              RingtoetsCommonFormsResources.CalculationGroup_Add_Calculation,
+                                                              "Berekening &toevoegen",
                                                               "Voeg een nieuwe berekening toe aan deze berekeningsmap.",
                                                               RingtoetsCommonFormsResources.CalculationIcon);
 
-                TestHelper.AssertContextMenuStripContainsItem(menu, 3,
-                                                              CoreCommonGuiResources.Rename,
-                                                              CoreCommonGuiResources.Rename_ToolTip,
+                TestHelper.AssertContextMenuStripContainsItem(menu, 5,
+                                                              "&Hernoemen",
+                                                              "Wijzig de naam van dit element.",
                                                               CoreCommonGuiResources.RenameIcon);
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateAllIndexNestedGroup,
-                                                              RingtoetsCommonFormsResources.Validate_all,
+                                                              "Alles &valideren",
                                                               "Valideer alle berekeningen binnen deze berekeningsmap.",
                                                               RingtoetsCommonFormsResources.ValidateAllIcon);
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndexNestedGroup,
-                                                              RingtoetsCommonFormsResources.Calculate_all,
+                                                              "Alles be&rekenen",
                                                               "Voer alle berekeningen binnen deze berekeningsmap uit.",
                                                               RingtoetsCommonFormsResources.CalculateAllIcon);
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuClearOutputNestedGroupIndex,
@@ -257,32 +264,33 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                                                               "Wis de uitvoer van alle berekeningen binnen deze berekeningsmap.",
                                                               RingtoetsCommonFormsResources.ClearIcon);
 
-                TestHelper.AssertContextMenuStripContainsItem(menu, 8,
-                                                              CoreCommonGuiResources.Delete,
-                                                              CoreCommonGuiResources.Delete_ToolTip,
-                                                              CoreCommonGuiResources.DeleteIcon);
                 TestHelper.AssertContextMenuStripContainsItem(menu, 10,
-                                                              CoreCommonGuiResources.Collapse_all,
-                                                              CoreCommonGuiResources.Collapse_all_ToolTip,
+                                                              "Verwij&deren...",
+                                                              "Verwijder dit element uit de boom.",
+                                                              CoreCommonGuiResources.DeleteIcon);
+                TestHelper.AssertContextMenuStripContainsItem(menu, 12,
+                                                              "Alles i&nklappen",
+                                                              "Klap dit element en alle onderliggende elementen in.",
                                                               CoreCommonGuiResources.CollapseAllIcon,
                                                               false);
-                TestHelper.AssertContextMenuStripContainsItem(menu, 11,
-                                                              CoreCommonGuiResources.Expand_all,
-                                                              CoreCommonGuiResources.Expand_all_ToolTip,
+                TestHelper.AssertContextMenuStripContainsItem(menu, 13,
+                                                              "Alles ui&tklappen",
+                                                              "Klap dit element en alle onderliggende elementen uit.",
                                                               CoreCommonGuiResources.ExpandAllIcon,
                                                               false);
-                TestHelper.AssertContextMenuStripContainsItem(menu, 13,
-                                                              CoreCommonGuiResources.Properties,
-                                                              CoreCommonGuiResources.Properties_ToolTip,
+                TestHelper.AssertContextMenuStripContainsItem(menu, 15,
+                                                              "Ei&genschappen",
+                                                              "Toon de eigenschappen in het Eigenschappenpaneel.",
                                                               CoreCommonGuiResources.PropertiesHS,
                                                               false);
 
                 CollectionAssert.AllItemsAreInstancesOfType(new[]
                 {
-                    menu.Items[2],
-                    menu.Items[6],
-                    menu.Items[9],
-                    menu.Items[12]
+                    menu.Items[1],
+                    menu.Items[4],
+                    menu.Items[8],
+                    menu.Items[11],
+                    menu.Items[14]
                 }, typeof(ToolStripSeparator));
             }
         }
@@ -308,9 +316,9 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                                                              assessmentSection);
 
             var applicationFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
-            var importHandlerMock = mocks.StrictMock<IImportCommandHandler>();
-            var exportHandlerMock = mocks.StrictMock<IExportCommandHandler>();
-            var updateHandlerMock = mocks.StrictMock<IUpdateCommandHandler>();
+            var importHandlerMock = mocks.Stub<IImportCommandHandler>();
+            var exportHandlerMock = mocks.Stub<IExportCommandHandler>();
+            var updateHandlerMock = mocks.Stub<IUpdateCommandHandler>();
 
             var viewCommandsHandler = mocks.StrictMock<IViewCommands>();
             viewCommandsHandler.Expect(vc => vc.CanOpenViewFor(nodeData)).Return(true);
@@ -337,22 +345,29 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewControl);
 
                 // Assert
-                Assert.AreEqual(17, menu.Items.Count);
+                Assert.AreEqual(19, menu.Items.Count);
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuExportCalculationGroupIndexRootGroup,
+                                                              "&Exporteren...",
+                                                              "Exporteer de gegevens naar een bestand.",
+                                                              CoreCommonGuiResources.ExportIcon,
+                                                              false);
+
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationGroupIndexRootGroup,
-                                                              RingtoetsCommonFormsResources.CalculationGroup_Add_CalculationGroup,
+                                                              "&Map toevoegen",
                                                               "Voeg een nieuwe berekeningsmap toe aan deze berekeningsmap.",
                                                               RingtoetsCommonFormsResources.AddFolderIcon);
+
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationIndexRootGroup,
-                                                              RingtoetsCommonFormsResources.CalculationGroup_Add_Calculation,
+                                                              "Berekening &toevoegen",
                                                               "Voeg een nieuwe berekening toe aan deze berekeningsmap.",
                                                               RingtoetsCommonFormsResources.CalculationIcon);
 
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateAllIndexRootGroup,
-                                                              RingtoetsCommonFormsResources.Validate_all,
+                                                              "Alles &valideren",
                                                               "Valideer alle berekeningen binnen deze berekeningsmap.",
                                                               RingtoetsCommonFormsResources.ValidateAllIcon);
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndexRootGroup,
-                                                              RingtoetsCommonFormsResources.Calculate_all,
+                                                              "Alles be&rekenen",
                                                               "Voer alle berekeningen binnen deze berekeningsmap uit.",
                                                               RingtoetsCommonFormsResources.CalculateAllIcon);
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuClearOutputIndexRootGroup,
@@ -361,29 +376,30 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                                                               RingtoetsCommonFormsResources.ClearIcon);
 
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuExpandAllIndexRootGroup,
-                                                              CoreCommonGuiResources.Expand_all,
-                                                              CoreCommonGuiResources.Expand_all_ToolTip,
+                                                              "Alles ui&tklappen",
+                                                              "Klap dit element en alle onderliggende elementen uit.",
                                                               CoreCommonGuiResources.ExpandAllIcon,
                                                               false);
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCollapseAllIndexRootGroup,
-                                                              CoreCommonGuiResources.Collapse_all,
-                                                              CoreCommonGuiResources.Collapse_all_ToolTip,
+                                                              "Alles i&nklappen",
+                                                              "Klap dit element en alle onderliggende elementen in.",
                                                               CoreCommonGuiResources.CollapseAllIcon,
                                                               false);
 
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuPropertiesIndexRootGroup,
-                                                              CoreCommonGuiResources.Properties,
-                                                              CoreCommonGuiResources.Properties_ToolTip,
+                                                              "Ei&genschappen",
+                                                              "Toon de eigenschappen in het Eigenschappenpaneel.",
                                                               CoreCommonGuiResources.PropertiesHS,
                                                               false);
                 CollectionAssert.AllItemsAreInstancesOfType(new[]
                 {
                     menu.Items[1],
                     menu.Items[3],
-                    menu.Items[6],
-                    menu.Items[9],
-                    menu.Items[12],
-                    menu.Items[15]
+                    menu.Items[5],
+                    menu.Items[8],
+                    menu.Items[11],
+                    menu.Items[14],
+                    menu.Items[17]
                 }, typeof(ToolStripSeparator));
             }
         }
@@ -421,9 +437,9 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
                     // Assert
-                    TestHelper.AssertContextMenuStripContainsItem(menu, 2,
-                                                                  RingtoetsCommonFormsResources.CalculationGroup_Generate_Scenarios,
-                                                                  PipingFormsResources.PipingCalculationGroup_Generate_PipingCalculations_NoSurfaceLinesOrSoilModels_ToolTip,
+                    TestHelper.AssertContextMenuStripContainsItem(menu, customOnlyContextMenuAddGenerateCalculationsIndex,
+                                                                  "Genereer &scenario\'s...",
+                                                                  "Er zijn geen profielschematisaties of stochastische ondergrondmodellen beschikbaar om berekeningen voor te genereren.",
                                                                   RingtoetsCommonFormsResources.GenerateScenariosIcon,
                                                                   false);
                 }
@@ -463,9 +479,9 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
                     // Assert
-                    TestHelper.AssertContextMenuStripContainsItem(menu, 2,
-                                                                  RingtoetsCommonFormsResources.CalculationGroup_Generate_Scenarios,
-                                                                  PipingFormsResources.PipingCalculationGroup_Generate_PipingCalculations_NoSurfaceLinesOrSoilModels_ToolTip,
+                    TestHelper.AssertContextMenuStripContainsItem(menu, customOnlyContextMenuAddGenerateCalculationsIndex,
+                                                                  "Genereer &scenario\'s...",
+                                                                  "Er zijn geen profielschematisaties of stochastische ondergrondmodellen beschikbaar om berekeningen voor te genereren.",
                                                                   RingtoetsCommonFormsResources.GenerateScenariosIcon,
                                                                   false);
                 }
@@ -508,9 +524,9 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
                     // Assert
-                    TestHelper.AssertContextMenuStripContainsItem(menu, 2,
-                                                                  RingtoetsCommonFormsResources.CalculationGroup_Generate_Scenarios,
-                                                                  PipingFormsResources.PipingCalculationGroup_Generate_PipingCalculations_ToolTip,
+                    TestHelper.AssertContextMenuStripContainsItem(menu, customOnlyContextMenuAddGenerateCalculationsIndex,
+                                                                  "Genereer &scenario\'s...",
+                                                                  "Genereer scenario\'s op basis van geselecteerde profielschematisaties.",
                                                                   RingtoetsCommonFormsResources.GenerateScenariosIcon);
                 }
             }

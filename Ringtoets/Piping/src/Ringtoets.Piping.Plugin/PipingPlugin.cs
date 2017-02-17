@@ -834,8 +834,15 @@ namespace Ringtoets.Piping.Plugin
             if (!isNestedGroup)
             {
                 builder.AddOpenItem()
-                       .AddSeparator()
-                       .AddCustomItem(generateCalculationsItem)
+                       .AddSeparator();
+            }
+
+            builder.AddExportItem()
+                   .AddSeparator();
+
+            if (!isNestedGroup)
+            {
+                builder.AddCustomItem(generateCalculationsItem)
                        .AddSeparator();
             }
 
