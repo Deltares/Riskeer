@@ -75,7 +75,7 @@ namespace Ringtoets.Piping.Data
 
                 if (!waterVolumetricWeightValidityRange.InRange(newValue))
                 {
-                    throw new ArgumentOutOfRangeException(nameof(value), string.Format(Resources.GeneralPipingInput_WaterVolumetricWeight_must_be_in_Range__0_,
+                    throw new ArgumentOutOfRangeException(nameof(value), string.Format(Resources.GeneralPipingInput_WaterVolumetricWeight_must_be_in_Range_0_,
                                                                                        waterVolumetricWeightValidityRange));
                 }
 

@@ -138,9 +138,9 @@ namespace Ringtoets.Piping.Data.Properties {
         /// <summary>
         ///   Looks up a localized string similar to De waarde moet binnen het bereik {0} liggen..
         /// </summary>
-        public static string GeneralPipingInput_WaterVolumetricWeight_must_be_in_Range__0_ {
+        public static string GeneralPipingInput_WaterVolumetricWeight_must_be_in_Range_0_ {
             get {
-                return ResourceManager.GetString("GeneralPipingInput_WaterVolumetricWeight_must_be_in_Range__0_", resourceCulture);
+                return ResourceManager.GetString("GeneralPipingInput_WaterVolumetricWeight_must_be_in_Range_0_", resourceCulture);
             }
         }
         
@@ -200,21 +200,21 @@ namespace Ringtoets.Piping.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het aandeel van de ondergrondschematisatie in het stochastische ondergrondmodel moet in het bereik {0} liggen..
-        /// </summary>
-        public static string StochasticSoilProfile_Probability_Should_be_in_range_0_ {
-            get {
-                return ResourceManager.GetString("StochasticSoilProfile_Probability_Should_be_in_range_0_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Profielschematisaties moeten een unieke naam hebben. Gevonden dubbele namen: {0}..
         /// </summary>
         public static string RingtoetsPipingSurfaceLineCollection_ValidateItems_RingtoetsPipingSurfaceLine_require_unique_names_found_duplicate_items_0_ {
             get {
                 return ResourceManager.GetString("RingtoetsPipingSurfaceLineCollection_ValidateItems_RingtoetsPipingSurfaceLine_req" +
                         "uire_unique_names_found_duplicate_items_0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het aandeel van de ondergrondschematisatie in het stochastische ondergrondmodel moet in het bereik {0} liggen..
+        /// </summary>
+        public static string StochasticSoilProfile_Probability_Should_be_in_range_0_ {
+            get {
+                return ResourceManager.GetString("StochasticSoilProfile_Probability_Should_be_in_range_0_", resourceCulture);
             }
         }
     }

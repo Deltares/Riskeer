@@ -108,5 +108,70 @@ namespace Ringtoets.Common.Data.Test.Probability
             // Assert
             Assert.DoesNotThrow(call);
         }
+
+        [Test]
+        public void ValidatePropability_WithInvalidCustomMessage_ThrowsArgumentException()
+        {
+            // Setup
+            const string customMessage = "Test";
+
+            // Call
+            TestDelegate call = () => ProbabilityHelper.ValidateProbability(1.0, "value", customMessage);
+
+            // Assert
+            const string expectedMessage = "The custom message should have a insert location (\"{0}\") where the validity range is to be inserted.";
+            string paramName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage).ParamName;
+            Assert.AreEqual("customMessage", paramName);
+        }
+
+        [Test]
+        [SetCulture("nl-NL")]
+        [TestCase(-123.456, "A")]
+        [TestCase(-1e-6, "b")]
+        [TestCase(1 + 1e-6, "C")]
+        [TestCase(456.789, "d")]
+        [TestCase(double.NaN, "e")]
+        public void ValidateProbability_WithCustomMessageAndInvalidProbability_ThrowsArgumentOutOfRangeException(double invalidProbabilityValue, string expectedParamName)
+        {
+            // Setup
+            const string customMessage = "Test {0}";
+
+            // Call
+            TestDelegate call = () => ProbabilityHelper.ValidateProbability(invalidProbabilityValue, expectedParamName, customMessage);
+
+            // Assert
+            const string message = "Test [0,0, 1,0]";
+            string paramName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, message).ParamName;
+            Assert.AreEqual(expectedParamName, paramName);
+        }
+
+        [Test]
+        [TestCase(0)]
+        [TestCase(0.7)]
+        [TestCase(1)]
+        public void ValidateProbability_WithCustomMessageAndValidProbability_DoesNotThrow(double probability)
+        {
+            // Setup
+            const string customMessage = "Test {0}";
+
+            // Call
+            TestDelegate call = () => ProbabilityHelper.ValidateProbability(probability, "A", customMessage);
+
+            // Assert
+            Assert.DoesNotThrow(call);
+        }
+
+        [Test]
+        public void ValidateProbability_WithCustomMessageAndAllowNaN_DoesNotThrow()
+        {
+            // Setup
+            const string customMessage = "Test {0}";
+
+            // Call
+            TestDelegate call = () => ProbabilityHelper.ValidateProbability(double.NaN, "A", customMessage, true);
+
+            // Assert
+            Assert.DoesNotThrow(call);
+        }
     }
 }

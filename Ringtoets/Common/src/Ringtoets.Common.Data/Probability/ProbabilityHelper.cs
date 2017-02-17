@@ -38,12 +38,12 @@ namespace Ringtoets.Common.Data.Probability
         /// Checks whether the given <paramref name="probability"/> is valid.
         /// </summary>
         /// <param name="probability">The probability to check.</param>
-        /// <param name="nanIsValid">Optional: <c>false</c> is <see cref="double.NaN"/> should
-        /// be considered a valid value. Default is <c>true</c>.</param>
+        /// <param name="isNaNValid">Optional: <c>true</c> is <see cref="double.NaN"/> should
+        /// be considered a valid value. Default is <c>false</c>.</param>
         /// <returns><c>true</c> when <paramref name="probability"/> is valid; <c>false</c> otherwise.</returns>
-        public static bool IsValidProbability(double probability, bool nanIsValid = false)
+        public static bool IsValidProbability(double probability, bool isNaNValid = false)
         {
-            if (nanIsValid && double.IsNaN(probability))
+            if (isNaNValid && double.IsNaN(probability))
             {
                 return true;
             }
@@ -51,19 +51,43 @@ namespace Ringtoets.Common.Data.Probability
         }
 
         /// <summary>
-        /// Checks if a argument is a valid probability value.
+        /// Checks if an argument is a valid probability value.
         /// </summary>
         /// <param name="probability">The value to be validated.</param>
         /// <param name="paramName">The name of the argument.</param>
-        /// <param name="nanIsValid">Optional: <c>false</c> is <see cref="double.NaN"/> should
-        /// be considered a valid value. Default is <c>true</c>.</param>
+        /// <param name="isNaNValid">Optional: <c>true</c> is <see cref="double.NaN"/> should
+        /// be considered a valid value. Default is <c>false</c>.</param>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="probability"/>
         /// is not a valid probability value.</exception>
-        public static void ValidateProbability(double probability, string paramName, bool nanIsValid = false)
+        public static void ValidateProbability(double probability, string paramName, bool isNaNValid = false)
         {
-            if (!IsValidProbability(probability, nanIsValid))
+            ValidateProbability(probability, paramName, Resources.Probability_Must_be_in_Range_0_, isNaNValid);
+        }
+
+        /// <summary>
+        /// Checks if an argument is a valid probability value.
+        /// </summary>
+        /// <param name="probability">The value to be validated.</param>
+        /// <param name="paramName">The name of the argument.</param>
+        /// <param name="customMessage">The custom message containing an insertion points
+        /// (specifically <c>{0}</c>) for the validity range of <paramref name="probability"/>.</param>
+        /// <param name="isNaNValid">Optional: <c>true</c> is <see cref="double.NaN"/> should
+        /// be considered a valid value. Default is <c>false</c>.</param>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="probability"/>
+        /// is not a valid probability value.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="customMessage"/>
+        /// doesn't contain a '{0}' insertion location for the range used to validate <paramref name="probability"/>.</exception>
+        public static void ValidateProbability(double probability, string paramName, string customMessage, bool isNaNValid = false)
+        {
+            if (!customMessage.Contains("{0}"))
             {
-                string message = string.Format(Resources.Probability_Must_be_in_Range_0_,
+                throw new ArgumentException("The custom message should have a insert location (\"{0}\") where the validity range is to be inserted.",
+                                            nameof(customMessage));
+            }
+
+            if (!IsValidProbability(probability, isNaNValid))
+            {
+                string message = string.Format(customMessage,
                                                probabilityValidityRange.ToString(FormattableConstants.ShowAtLeastOneDecimal, CultureInfo.CurrentCulture));
                 throw new ArgumentOutOfRangeException(paramName, message);
             }

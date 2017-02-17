@@ -35,11 +35,10 @@ namespace Core.Common.Base.Test
         public void GivenNumber_WhenFormattingToTextUsingShowAtLeastOneDecimal_ThenReturnExpectedResult(double value, string expectedText)
         {
             // When
-            var text = value.ToString(FormattableConstants.ShowAtLeastOneDecimal, CultureInfo.CurrentCulture);
+            string text = value.ToString(FormattableConstants.ShowAtLeastOneDecimal, CultureInfo.CurrentCulture);
 
             // Then
             Assert.AreEqual(expectedText, text);
         }
-        
     }
 }

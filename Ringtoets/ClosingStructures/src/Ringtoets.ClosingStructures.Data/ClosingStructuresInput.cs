@@ -20,8 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Globalization;
-using Core.Common.Base;
 using Core.Common.Base.Data;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.Probability;
@@ -270,13 +268,7 @@ namespace Ringtoets.ClosingStructures.Data
             }
             set
             {
-                if (!ProbabilityHelper.IsValidProbability(value))
-                {
-                    var probabilityValidityRange = new Range<double>(0, 1);
-                    string message = string.Format(RingtoetsCommonDataResources.FailureProbability_Value_needs_to_be_in_Range_0_,
-                                                   probabilityValidityRange.ToString(FormattableConstants.ShowAtLeastOneDecimal, CultureInfo.CurrentCulture));
-                    throw new ArgumentOutOfRangeException(nameof(value), message);
-                }
+                ProbabilityHelper.ValidateProbability(value, nameof(value), RingtoetsCommonDataResources.FailureProbability_Value_needs_to_be_in_Range_0_);
                 failureProbabilityOpenStructure = value;
             }
         }
@@ -295,13 +287,7 @@ namespace Ringtoets.ClosingStructures.Data
             }
             set
             {
-                if (!ProbabilityHelper.IsValidProbability(value))
-                {
-                    var probabilityValidityRange = new Range<double>(0, 1);
-                    string message = string.Format(RingtoetsCommonDataResources.FailureProbability_Value_needs_to_be_in_Range_0_,
-                                                   probabilityValidityRange.ToString(FormattableConstants.ShowAtLeastOneDecimal, CultureInfo.CurrentCulture));
-                    throw new ArgumentOutOfRangeException(nameof(value), message);
-                }
+                ProbabilityHelper.ValidateProbability(value, nameof(value), RingtoetsCommonDataResources.FailureProbability_Value_needs_to_be_in_Range_0_);
                 failureProbabilityReparation = value;
             }
         }
@@ -341,13 +327,7 @@ namespace Ringtoets.ClosingStructures.Data
             }
             set
             {
-                if (!ProbabilityHelper.IsValidProbability(value))
-                {
-                    var probabilityValidityRange = new Range<double>(0, 1);
-                    string message = string.Format(RingtoetsCommonDataResources.FailureProbability_Value_needs_to_be_in_Range_0_,
-                                                   probabilityValidityRange.ToString(FormattableConstants.ShowAtLeastOneDecimal, CultureInfo.CurrentCulture));
-                    throw new ArgumentOutOfRangeException(nameof(value), message);
-                }
+                ProbabilityHelper.ValidateProbability(value, nameof(value), RingtoetsCommonDataResources.FailureProbability_Value_needs_to_be_in_Range_0_);
                 probabilityOrFrequencyOpenStructureBeforeFlooding = value;
             }
         }

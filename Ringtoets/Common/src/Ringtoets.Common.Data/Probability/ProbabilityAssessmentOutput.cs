@@ -81,7 +81,7 @@ namespace Ringtoets.Common.Data.Probability
         /// Gets the probability of failure.
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when setting a value that falls
-        /// outside the [0.0, 1.0] range or isn't <see cref="double.NaN"/>.</exception>
+        /// outside the [0.0, 1.0] range and isn't <see cref="double.NaN"/>.</exception>
         public double Probability
         {
             get

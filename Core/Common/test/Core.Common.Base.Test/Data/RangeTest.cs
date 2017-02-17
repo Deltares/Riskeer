@@ -69,7 +69,7 @@ namespace Core.Common.Base.Test.Data
             TestDelegate call = () => new Range<int>(1, 0);
 
             // Assert
-            string message = "Minimum must be smaller or equal to Maximum.";
+            const string message = "Minimum must be smaller or equal to Maximum.";
             string paramName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, message).ParamName;
             Assert.AreEqual("min", paramName);
         }

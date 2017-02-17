@@ -21,6 +21,7 @@
 
 using System;
 using System.Globalization;
+using Core.Common.Base;
 using Core.Common.Base.Data;
 using Ringtoets.Piping.Data.Properties;
 
@@ -59,7 +60,7 @@ namespace Ringtoets.Piping.Data
                 if (!validityRangeA.InRange(value))
                 {
                     throw new ArgumentException(string.Format(Resources.PipingProbabilityAssessmentInput_A_Value_must_be_in_Range_0_,
-                                                              validityRangeA.ToString("0.0", CultureInfo.CurrentCulture)));
+                                                              validityRangeA.ToString(FormattableConstants.ShowAtLeastOneDecimal, CultureInfo.CurrentCulture)));
                 }
 
                 a = value;
