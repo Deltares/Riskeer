@@ -26,7 +26,7 @@ using Core.Common.Base.IO;
 namespace Core.Common.Gui.Plugin
 {
     /// <summary>
-    /// Information for creating an importer for a particular data object.
+    /// Information for creating an importer for updating a particular data object.
     /// </summary>
     public class UpdateInfo
     {
@@ -36,7 +36,8 @@ namespace Core.Common.Gui.Plugin
         public Type DataType { get; set; }
 
         /// <summary>
-        /// Gets or sets the method used to create a <see cref="IFileImporter"/>. Function arguments:
+        /// Gets or sets the method used to create a <see cref="IFileImporter"/> used to update data.
+        /// Function arguments:
         /// <list type="number">
         ///     <item>The data to import.</item>
         ///     <item>The file to import data from.</item>
@@ -53,7 +54,16 @@ namespace Core.Common.Gui.Plugin
         /// </list>
         /// </summary>
         public Func<object, bool> IsEnabled { get; set; }
+
+        /// <summary>
+        /// Gets or sets the method used to verify whether changes that are induced by the importer
+        /// are allowed.
+        /// </summary>
         public Func<object, bool> VerifyUpdates { get; set; }
+
+        /// <summary>
+        /// Gets or sets the current path from which the current data was imported.
+        /// </summary>
         public Func<object, string> CurrentPath { get; set; }
 
         /// <summary>
@@ -74,11 +84,11 @@ namespace Core.Common.Gui.Plugin
         /// <summary>
         /// Gets or sets the file filter of the import information.
         /// </summary>
-        public ExpectedFile FileFilter { get; set; }
+        public FileFilterGenerator FileFilter { get; set; }
     }
 
     /// <summary>
-    /// Information for creating an importer for a particular data object.
+    /// Information for creating an importer for updating a particular data object.
     /// </summary>
     /// <typeparam name="TData">The data type associated with this import info.</typeparam>
     public class UpdateInfo<TData>
@@ -95,7 +105,8 @@ namespace Core.Common.Gui.Plugin
         }
 
         /// <summary>
-        /// Gets or sets the method used to create a <see cref="IFileImporter"/>. Function arguments:
+        /// Gets or sets the method used to create a <see cref="IFileImporter"/> used to update data.
+        /// Function arguments:
         /// <list type="number">
         ///     <item>The data to import.</item>
         ///     <item>The path to the file to import from.</item>
@@ -112,7 +123,16 @@ namespace Core.Common.Gui.Plugin
         /// </list>
         /// </summary>
         public Func<TData, bool> IsEnabled { get; set; }
+
+        /// <summary>
+        /// Gets or sets the method used to verify whether changes that are induced by the importer
+        /// are allowed.
+        /// </summary>
         public Func<TData, bool> VerifyUpdates { get; set; }
+
+        /// <summary>
+        /// Gets or sets the current path from which the current data was imported.
+        /// </summary>
         public Func<TData, string> CurrentPath { get; set; }
 
         /// <summary>
@@ -133,7 +153,7 @@ namespace Core.Common.Gui.Plugin
         /// <summary>
         /// Gets or sets the file filter of the import information.
         /// </summary>
-        public ExpectedFile FileFilter { get; set; }
+        public FileFilterGenerator FileFilter { get; set; }
 
         /// <summary>
         /// Performs an implicit conversion from <see cref="ImportInfo{TData}"/> to <see cref="ImportInfo"/>.

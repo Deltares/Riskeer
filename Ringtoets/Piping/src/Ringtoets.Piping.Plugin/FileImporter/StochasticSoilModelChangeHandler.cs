@@ -38,6 +38,12 @@ namespace Ringtoets.Piping.Plugin.FileImporter
         private readonly PipingFailureMechanism failureMechanism;
         private readonly IInquiryHelper inquiryHandler;
 
+        /// <summary>
+        /// Creates new instance of <see cref="StochasticSoilModelChangeHandler"/>
+        /// </summary>
+        /// <param name="failureMechanism">Failure mechanism for which to handle changes in stochastic soil models.</param>
+        /// <param name="inquiryHandler">Object responsible for inquiring required data.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         public StochasticSoilModelChangeHandler(PipingFailureMechanism failureMechanism, IInquiryHelper inquiryHandler)
         {
             if (failureMechanism == null)
@@ -59,15 +65,15 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             return calculations.Any(HasOutput);
         }
 
-        private static bool HasOutput(PipingCalculationScenario calculation)
-        {
-            return calculation.HasOutput;
-        }
-
         public bool InquireConfirmation()
         {
             return inquiryHandler.InquireContinuation(
                 Resources.StochasticSoilModelChangeHandler_When_updating_StochasticSoilModel_definitions_assigned_to_calculations_output_will_be_cleared_confirm);
+        }
+
+        private static bool HasOutput(PipingCalculationScenario calculation)
+        {
+            return calculation.HasOutput;
         }
     }
 }

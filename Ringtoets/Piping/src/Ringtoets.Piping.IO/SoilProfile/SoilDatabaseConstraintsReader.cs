@@ -63,7 +63,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
             }
             catch (SQLiteException exception)
             {
-                string innerMessage = $"Kan geen ondergrondmodellen lezen. Mogelijk bestaat de '{StochasticSoilModelTableColumns.TableName}' tabel niet.";
+                string innerMessage = string.Format(Resources.SoilDatabaseConstraintsReader_VerifyConstraints_Can_not_read_StochasticSoilModel_Perhaps_table_missing, StochasticSoilModelTableColumns.TableName);
                 throw new CriticalFileReadException(
                     BuildMessageWithPath(innerMessage), exception);
             }
@@ -74,7 +74,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
             }
             catch (SQLiteException exception)
             {
-                string innerMessage = $"Kan geen ondergrondschematisaties lezen. Mogelijk bestaat de '{StochasticSoilProfileTableColumns.TableName}' tabel niet.";
+                string innerMessage = string.Format(Resources.SoilDatabaseConstraintsReader_VerifyConstraints_Can_not_read_StochasticSoilProfile_Perhaps_table_missing, StochasticSoilProfileTableColumns.TableName);
                 throw new CriticalFileReadException(
                     BuildMessageWithPath(innerMessage), exception);
             }
@@ -88,12 +88,12 @@ namespace Ringtoets.Piping.IO.SoilProfile
                 if (!dataReader.Read())
                 {
                     throw new CriticalFileReadException(
-                        BuildMessageWithPath("Onverwachte fout tijdens het verifiëren van unieke ondergrondmodelnamen."));
+                        BuildMessageWithPath(Resources.SoilDatabaseConstraintsReader_VerifyConstraints_Unexpected_error_while_verifying_unique_StochasticSoilModel_names));
                 }
                 if (!Convert.ToBoolean(dataReader[StochasticSoilModelTableColumns.AreSegmentsUnique]))
                 {
                     throw new CriticalFileReadException(
-                        BuildMessageWithPath("Namen van ondergrondmodellen zijn niet uniek."));
+                        BuildMessageWithPath(Resources.SoilDatabaseConstraintsReader_VerifyConstraints_Non_unique_StochasticSoilModel_names));
                 }
             }
         }
@@ -106,12 +106,12 @@ namespace Ringtoets.Piping.IO.SoilProfile
                 if (!dataReader.Read())
                 {
                     throw new CriticalFileReadException(
-                        BuildMessageWithPath("Onverwachte fout tijdens het verifiëren van kansen van voorkomen voor profielen."));
+                        BuildMessageWithPath(Resources.SoilDatabaseConstraintsReader_VerifyConstraints_Unexpected_error_while_verifying_valid_StochasticSoilProfile_probability));
                 }
                 if (!Convert.ToBoolean(dataReader[StochasticSoilProfileTableColumns.HasNoInvalidProbabilities]))
                 {
                     throw new CriticalFileReadException(
-                        BuildMessageWithPath("Er zijn stochastische ondergrondschematisaties zonder geldige kans van voorkomen."));
+                        BuildMessageWithPath(Resources.SoilDatabaseConstraintsReader_VerifyConstraints_Invalid_StochasticSoilProfile_probability));
                 }
             }
         }

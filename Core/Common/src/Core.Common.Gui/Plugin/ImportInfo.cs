@@ -45,6 +45,10 @@ namespace Core.Common.Gui.Plugin
         /// </summary>
         public Func<object, string, IFileImporter> CreateFileImporter { get; set; }
 
+        /// <summary>
+        /// Gets or sets the method used to verify whether changes that are induced by the importer
+        /// are allowed.
+        /// </summary>
         public Func<object, bool> VerifyUpdates { get; set; }
 
         /// <summary>
@@ -74,7 +78,7 @@ namespace Core.Common.Gui.Plugin
         /// <summary>
         /// Gets or sets the file filter of the import information.
         /// </summary>
-        public ExpectedFile FileFilter { get; set; }
+        public FileFilterGenerator FileFilter { get; set; }
     }
 
     /// <summary>
@@ -133,7 +137,7 @@ namespace Core.Common.Gui.Plugin
         /// <summary>
         /// Gets or sets the file filter of the import information.
         /// </summary>
-        public ExpectedFile FileFilter { get; set; }
+        public FileFilterGenerator FileFilter { get; set; }
 
         /// <summary>
         /// Performs an implicit conversion from <see cref="ImportInfo{TData}"/> to <see cref="ImportInfo"/>.

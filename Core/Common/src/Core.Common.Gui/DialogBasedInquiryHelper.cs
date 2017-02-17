@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Windows.Forms;
 using Core.Common.Gui.Properties;
 using CoreCommonBaseResources = Core.Common.Base.Properties.Resources;
@@ -32,17 +33,28 @@ namespace Core.Common.Gui
     {
         private readonly IWin32Window dialogParent;
 
+        /// <summary>
+        /// Creates a new instance of <see cref="DialogBasedInquiryHelper"/>.
+        /// </summary>
+        /// <param name="dialogParent">The parent window to provide to the created
+        /// dialogs.</param>
+        /// <exception cref="ArgumentNullException">Thrown when 
+        /// <paramref name="dialogParent"/> is <c>null</c>.</exception>
         public DialogBasedInquiryHelper(IWin32Window dialogParent)
         {
+            if (dialogParent == null)
+            {
+                throw new ArgumentNullException(nameof(dialogParent));
+            }
             this.dialogParent = dialogParent;
         }
 
-        public FileResult GetSourceFileLocation()
+        public string GetSourceFileLocation()
         {
-            return GetSourceFileLocation(new ExpectedFile());
+            return GetSourceFileLocation(new FileFilterGenerator());
         }
 
-        public FileResult GetSourceFileLocation(ExpectedFile filter)
+        public string GetSourceFileLocation(FileFilterGenerator filter)
         {
             string filePath = null;
             using (OpenFileDialog dialog = new OpenFileDialog
@@ -58,10 +70,10 @@ namespace Core.Common.Gui
                     filePath = dialog.FileName;
                 }
             }
-            return new FileResult(filePath);
+            return filePath;
         }
 
-        public FileResult GetTargetFileLocation()
+        public string GetTargetFileLocation()
         {
             string filePath = null;
             using (SaveFileDialog dialog = new SaveFileDialog
@@ -75,7 +87,7 @@ namespace Core.Common.Gui
                     filePath = dialog.FileName;
                 }
             }
-            return new FileResult(filePath);
+            return filePath;
         }
 
         public bool InquireContinuation(string query)

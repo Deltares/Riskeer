@@ -140,11 +140,11 @@ namespace Core.Common.Gui.Commands
 
         private void ImportItemsUsingDialog(ImportInfo importInfo, object target)
         {
-            FileResult fileDialogResult = inquiryHelper.GetSourceFileLocation(importInfo.FileFilter);
+            string fileDialogResult = inquiryHelper.GetSourceFileLocation(importInfo.FileFilter);
 
-            if (fileDialogResult.HasFilePath && importInfo.VerifyUpdates(target))
+            if (fileDialogResult != null && importInfo.VerifyUpdates(target))
             {
-                RunImportActivity(importInfo.CreateFileImporter(target, fileDialogResult.FilePath), importInfo.Name);
+                RunImportActivity(importInfo.CreateFileImporter(target, fileDialogResult), importInfo.Name);
             }
         }
 

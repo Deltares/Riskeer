@@ -133,7 +133,7 @@ namespace Core.Common.Gui.Test.Commands
             {
                 new ExportInfo<int>
                 {
-                    FileFilter = new ExpectedFile(),
+                    FileFilter = new FileFilterGenerator(),
                     CreateFileExporter = (o, s) => exporterMock
                 }
             });
@@ -171,7 +171,7 @@ namespace Core.Common.Gui.Test.Commands
             {
                 new ExportInfo<int>
                 {
-                    FileFilter = new ExpectedFile(),
+                    FileFilter = new FileFilterGenerator(),
                     CreateFileExporter = (data, filePath) =>
                     {
                         Assert.AreEqual(expectedData, data);
@@ -218,7 +218,7 @@ namespace Core.Common.Gui.Test.Commands
             {
                 new ExportInfo<int>
                 {
-                    FileFilter = new ExpectedFile(),
+                    FileFilter = new FileFilterGenerator(),
                     CreateFileExporter = (data, filePath) => exporterMock
                 }
             });

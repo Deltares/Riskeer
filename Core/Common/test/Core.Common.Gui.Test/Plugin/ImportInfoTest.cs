@@ -73,7 +73,7 @@ namespace Core.Common.Gui.Test.Plugin
             const string name = "name";
             const string category = "category";
             Bitmap image = new Bitmap(16, 16);
-            var fileFilter = new ExpectedFile();
+            var fileFilter = new FileFilterGenerator();
 
             var info = new ImportInfo<int>
             {

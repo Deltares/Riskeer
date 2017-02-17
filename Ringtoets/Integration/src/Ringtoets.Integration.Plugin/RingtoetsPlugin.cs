@@ -405,7 +405,7 @@ namespace Ringtoets.Integration.Plugin
                 Name = RingtoetsCommonDataResources.ReferenceLine_DisplayName,
                 Category = RingtoetsCommonFormsResources.Ringtoets_Category,
                 Image = RingtoetsCommonFormsResources.ReferenceLineIcon,
-                FileFilter = new ExpectedFile(RingtoetsCommonIOResources.Shape_file_filter_Extension,
+                FileFilter = new FileFilterGenerator(RingtoetsCommonIOResources.Shape_file_filter_Extension,
                                               RingtoetsCommonIOResources.Shape_file_filter_Description),
                 CreateFileImporter = (context, filePath) => new ReferenceLineImporter(context.WrappedData,
                                                                                       new ReferenceLineReplacementHandler(Gui.ViewCommands),
@@ -417,7 +417,7 @@ namespace Ringtoets.Integration.Plugin
                 Name = RingtoetsCommonFormsResources.FailureMechanism_Sections_DisplayName,
                 Category = RingtoetsCommonFormsResources.Ringtoets_Category,
                 Image = RingtoetsCommonFormsResources.SectionsIcon,
-                FileFilter = new ExpectedFile(RingtoetsCommonIOResources.Shape_file_filter_Extension,
+                FileFilter = new FileFilterGenerator(RingtoetsCommonIOResources.Shape_file_filter_Extension,
                                               RingtoetsCommonIOResources.Shape_file_filter_Description),
                 IsEnabled = context => context.ParentAssessmentSection.ReferenceLine != null,
                 CreateFileImporter = (context, filePath) => new FailureMechanismSectionsImporter(context.WrappedData,
@@ -432,7 +432,7 @@ namespace Ringtoets.Integration.Plugin
                 Name = RingtoetsIntegrationPluginResources.ForeshoreProfilesImporter_DisplayName,
                 Category = RingtoetsCommonFormsResources.Ringtoets_Category,
                 Image = RingtoetsIntegrationPluginResources.Foreshore,
-                FileFilter = new ExpectedFile(RingtoetsCommonIOResources.Shape_file_filter_Extension,
+                FileFilter = new FileFilterGenerator(RingtoetsCommonIOResources.Shape_file_filter_Extension,
                                               RingtoetsCommonIOResources.Shape_file_filter_Description),
                 IsEnabled = context => context.ParentAssessmentSection.ReferenceLine != null
             };
@@ -445,7 +445,7 @@ namespace Ringtoets.Integration.Plugin
                 Name = RingtoetsIntegrationPluginResources.DikeProfilesImporter_DisplayName,
                 Category = RingtoetsCommonFormsResources.Ringtoets_Category,
                 Image = RingtoetsCommonFormsResources.DikeProfile,
-                FileFilter = new ExpectedFile(RingtoetsCommonIOResources.Shape_file_filter_Extension,
+                FileFilter = new FileFilterGenerator(RingtoetsCommonIOResources.Shape_file_filter_Extension,
                                               RingtoetsCommonIOResources.Shape_file_filter_Description),
                 IsEnabled = context => context.ParentAssessmentSection.ReferenceLine != null
             };
@@ -457,7 +457,7 @@ namespace Ringtoets.Integration.Plugin
             {
                 CreateFileExporter = (context, filePath) => new ReferenceLineExporter(context.WrappedData.ReferenceLine, context.WrappedData.Id, filePath),
                 IsEnabled = context => context.WrappedData.ReferenceLine != null,
-                FileFilter = new ExpectedFile(RingtoetsCommonIOResources.Shape_file_filter_Extension,
+                FileFilter = new FileFilterGenerator(RingtoetsCommonIOResources.Shape_file_filter_Extension,
                                               RingtoetsCommonIOResources.Shape_file_filter_Description)
             };
 
@@ -467,7 +467,7 @@ namespace Ringtoets.Integration.Plugin
                     context.WrappedData.HydraulicBoundaryDatabase.Locations, filePath,
                     RingtoetsIntegrationPluginResources.DesignWaterLevel_Description, RingtoetsIntegrationPluginResources.WaveHeight_Description),
                 IsEnabled = context => context.WrappedData.HydraulicBoundaryDatabase != null,
-                FileFilter = new ExpectedFile(RingtoetsCommonIOResources.Shape_file_filter_Extension,
+                FileFilter = new FileFilterGenerator(RingtoetsCommonIOResources.Shape_file_filter_Extension,
                                               RingtoetsCommonIOResources.Shape_file_filter_Description)
             };
         }

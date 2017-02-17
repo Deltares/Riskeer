@@ -26,6 +26,9 @@ using Core.Common.Base;
 
 namespace Ringtoets.Piping.Data
 {
+    /// <summary>
+    /// A collection of <see cref="StochasticSoilModel"/>.
+    /// </summary>
     public class StochasticSoilModelCollection : ObservableCollectionWithSourcePath<StochasticSoilModel>
     {
         protected override void ValidateItems(IEnumerable<StochasticSoilModel> items)

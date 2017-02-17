@@ -123,8 +123,7 @@
     <Compile Include="Converters\ExpandableReadOnlyArrayConverter.cs" />
     <Compile Include="Converters\PngToIconConverter.cs" />
     <Compile Include="DialogBasedInquiryHelper.cs" />
-    <Compile Include="ExpectedFile.cs" />
-    <Compile Include="FileResult.cs" />
+    <Compile Include="FileFilterGenerator.cs" />
     <Compile Include="Forms\NativeMethods.cs" />
     <Compile Include="Forms\MainWindow\MainWindowCommands.cs" />
     <Compile Include="Forms\MessageWindow\MessageWindowDialog.cs">

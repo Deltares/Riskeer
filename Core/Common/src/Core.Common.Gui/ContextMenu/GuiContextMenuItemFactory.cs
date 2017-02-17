@@ -48,6 +48,8 @@ namespace Core.Common.Gui.ContextMenu
         /// information for creating the <see cref="ToolStripItem"/>.</param>
         /// <param name="exportCommandHandler">The <see cref="IExportCommandHandler"/> which contains
         /// information for creating the <see cref="ToolStripItem"/>.</param>
+        /// <param name="updateCommandHandler">The <see cref="IUpdateCommandHandler"/> which contains
+        /// information for creating the <see cref="ToolStripItem"/>.</param>
         /// <param name="viewCommandsHandler">The <see cref="IViewCommands"/> which contains information for
         /// creating the <see cref="ToolStripItem"/>.</param>
         /// <param name="dataObject">The data object for which to create <see cref="ToolStripItem"/>.</param>
@@ -152,12 +154,12 @@ namespace Core.Common.Gui.ContextMenu
         /// <returns>The created <see cref="ToolStripItem"/>.</returns>
         public ToolStripItem CreateUpdateItem()
         {
-            bool canImport = updateCommandHandler.CanUpdateOn(dataObject);
+            bool canUpdate = updateCommandHandler.CanUpdateOn(dataObject);
             var newItem = new ToolStripMenuItem(Resources.Update)
             {
                 ToolTipText = Resources.Update_ToolTip,
                 Image = Resources.RefreshIcon,
-                Enabled = canImport
+                Enabled = canUpdate
             };
             newItem.Click += (s, e) => updateCommandHandler.UpdateOn(dataObject);
 
@@ -178,7 +180,7 @@ namespace Core.Common.Gui.ContextMenu
         /// or <paramref name="image"/> is <c>null</c>.</exception>
         public ToolStripItem CreateCustomImportItem(string text, string toolTip, Image image)
         {
-            if(string.IsNullOrWhiteSpace(text))
+            if (string.IsNullOrWhiteSpace(text))
             {
                 throw new ArgumentException(@"Text should be set.", nameof(text));
             }

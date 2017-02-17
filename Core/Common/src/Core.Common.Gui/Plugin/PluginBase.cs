@@ -67,7 +67,7 @@ namespace Core.Common.Gui.Plugin
         }
 
         /// <summary>
-        /// Returns all <see cref="ImportInfo"/> instances provided by this plug-in.
+        /// Returns all <see cref="UpdateInfo"/> instances provided by this plug-in.
         /// </summary>
         public virtual IEnumerable<UpdateInfo> GetUpdateInfos()
         {

@@ -119,7 +119,7 @@ namespace Core.Common.Gui
 
             viewCommandHandler = new ViewCommandHandler(this, this, this);
             storageCommandHandler = new StorageCommandHandler(projectStore, projectFactory, this, MainWindow);
-            var dialogBasedInquiryHelper = new DialogBasedInquiryHelper(MainWindow);
+            
             importCommandHandler = new GuiImportHandler(MainWindow, Plugins.SelectMany(p => p.GetImportInfos()), dialogBasedInquiryHelper);
             exportCommandHandler = new GuiExportHandler(MainWindow, Plugins.SelectMany(p => p.GetExportInfos()));
             updateCommandHandler = new GuiUpdateHandler(MainWindow, Plugins.SelectMany(p => p.GetUpdateInfos()), dialogBasedInquiryHelper);
@@ -764,6 +764,7 @@ namespace Core.Common.Gui
         #region Implementation: IMainWindowController
 
         private MainWindow mainWindow;
+        private DialogBasedInquiryHelper dialogBasedInquiryHelper;
 
         public IMainWindow MainWindow
         {
@@ -775,6 +776,7 @@ namespace Core.Common.Gui
             {
                 mainWindow = (MainWindow) value;
                 mainWindow.SetGui(this);
+                dialogBasedInquiryHelper = new DialogBasedInquiryHelper(MainWindow);
             }
         }
 

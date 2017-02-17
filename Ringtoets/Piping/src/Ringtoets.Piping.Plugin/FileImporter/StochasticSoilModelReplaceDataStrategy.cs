@@ -24,7 +24,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Storage;
-using log4net;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.IO.Importers;
 using Ringtoets.Piping.Service;
@@ -36,8 +35,6 @@ namespace Ringtoets.Piping.Plugin.FileImporter
     /// </summary>
     public class StochasticSoilModelReplaceDataStrategy : IStochasticSoilModelUpdateModelStrategy
     {
-        private readonly ILog log = LogManager.GetLogger(typeof(StochasticSoilModelReplaceDataStrategy));
-
         private readonly PipingFailureMechanism failureMechanism;
 
         /// <summary>

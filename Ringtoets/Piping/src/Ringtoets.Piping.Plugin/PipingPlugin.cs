@@ -123,8 +123,8 @@ namespace Ringtoets.Piping.Plugin
                 Name = Resources.PipingPlugin_GetExportInfos_calculation_configuration_file_description,
                 Category = RingtoetsCommonFormsResources.Ringtoets_Category,
                 Image = RingtoetsCommonFormsResources.GeneralFolderIcon,
-                FileFilter = new ExpectedFile(Resources.PipingPlugin_GetExportInfos_xml_extension,
-                                              Resources.PipingPlugin_GetExportInfos_calculation_configuration_file_description),
+                FileFilter = new FileFilterGenerator(Resources.PipingPlugin_GetExportInfos_xml_extension,
+                                                     Resources.PipingPlugin_GetExportInfos_calculation_configuration_file_description),
                 CreateFileExporter = (context, filePath) => new PipingConfigurationExporter(context.WrappedData, filePath),
                 IsEnabled = context => context.WrappedData.Children.Any()
             };
@@ -167,11 +167,11 @@ namespace Ringtoets.Piping.Plugin
             return context.AssessmentSection.ReferenceLine != null;
         }
 
-        private static ExpectedFile StochasticSoilModelFileFilter
+        private static FileFilterGenerator StochasticSoilModelFileFilter
         {
             get
             {
-                return new ExpectedFile(Resources.Soil_file_Extension, Resources.Soil_file_Description);
+                return new FileFilterGenerator(Resources.Soil_file_Extension, Resources.Soil_file_Description);
             }
         }
 
@@ -984,11 +984,11 @@ namespace Ringtoets.Piping.Plugin
             return context.AssessmentSection.ReferenceLine != null;
         }
 
-        private static ExpectedFile RingtoetsPipingSurfaceLineFileFilter
+        private static FileFilterGenerator RingtoetsPipingSurfaceLineFileFilter
         {
             get
             {
-                return new ExpectedFile(
+                return new FileFilterGenerator(
                     RingtoetsCommonFormsResources.DataTypeDisplayName_csv_file_filter_Extension,
                     $"{PipingFormsResources.PipingSurfaceLinesCollection_DisplayName} {RingtoetsCommonFormsResources.DataTypeDisplayName_csv_file_filter_Description}");
             }

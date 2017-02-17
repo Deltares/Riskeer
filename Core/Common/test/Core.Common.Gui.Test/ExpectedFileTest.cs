@@ -30,7 +30,7 @@ namespace Core.Common.Gui.Test
         public void Filter_DefaultConstructor_AllFileFilter()
         {
             // Call
-            var expected = new ExpectedFile();
+            var expected = new FileFilterGenerator();
 
             // Assert
             Assert.AreEqual("Alle bestanden (*.*)|*.*", expected.Filter);
@@ -43,7 +43,7 @@ namespace Core.Common.Gui.Test
             const string someExtension = "ext";
 
             // Call
-            var expected = new ExpectedFile(someExtension);
+            var expected = new FileFilterGenerator(someExtension);
 
             // Assert
             Assert.AreEqual("EXT-bestanden (*.ext)|*.ext", expected.Filter);
@@ -57,7 +57,7 @@ namespace Core.Common.Gui.Test
             const string someDescription = "Bestanden met .ext extensie";
 
             // Call
-            var expected = new ExpectedFile(someExtension, someDescription);
+            var expected = new FileFilterGenerator(someExtension, someDescription);
 
             // Assert
             Assert.AreEqual("Bestanden met .ext extensie (*.ext)|*.ext", expected.Filter);

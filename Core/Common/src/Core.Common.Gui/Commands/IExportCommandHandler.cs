@@ -36,10 +36,10 @@ namespace Core.Common.Gui.Commands
         /// <summary>
         /// Perform the export workflow by the following steps:
         /// <list type="number">
-        /// <item>If multiple exporters are available for the source object, ask the user
+        /// <item>If multiple exporters are available for the source object, determine
         /// which exporter to use;</item>
-        /// <item>Ask the user which file or file-destination to export to;</item>
-        /// <item>Export from the source object to the specified location.</item>
+        /// <item>Create the exporter;</item>
+        /// <item>Use the exporter to export from the source object.</item>
         /// </list>
         /// </summary>
         /// <param name="source">The data object to export from.</param>

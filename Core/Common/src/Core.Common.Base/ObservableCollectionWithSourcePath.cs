@@ -105,7 +105,7 @@ namespace Core.Common.Base
         /// <list type="bullet">
         /// <item><paramref name="items"/> contains <c>null</c>.</item>
         /// <item><paramref name="filePath"/> is not a valid file path.</item>
-        /// <item><see cref="ValidateItems"/> throws an exception.</item>
+        /// <item>an element in <paramref name="items"/> is invalid.</item>
         /// </list>
         /// </exception>
         public void AddRange(IEnumerable<T> items, string filePath)
@@ -113,10 +113,6 @@ namespace Core.Common.Base
             if (items == null)
             {
                 throw new ArgumentNullException(nameof(items));
-            }
-            if (items.Contains(null))
-            {
-                throw new ArgumentException("Collection cannot contain null.", nameof(items));
             }
             if (filePath == null)
             {
@@ -126,10 +122,19 @@ namespace Core.Common.Base
             {
                 throw new ArgumentException($"'{filePath}' is not a valid filepath.", nameof(filePath));
             }
-            ValidateItems(items);
+            InternalValidateItems(items);
 
             SourcePath = filePath;
             collection.AddRange(items);
+        }
+
+        private void InternalValidateItems(IEnumerable<T> items)
+        {
+            if (items.Contains(null))
+            {
+                throw new ArgumentException("Collection cannot contain null.", nameof(items));
+            }
+            ValidateItems(items);
         }
 
         /// <summary>

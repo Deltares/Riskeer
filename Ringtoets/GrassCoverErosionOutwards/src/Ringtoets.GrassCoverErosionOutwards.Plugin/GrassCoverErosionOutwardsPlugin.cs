@@ -248,7 +248,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                     new HydraulicBoundaryLocationsExporter(context.WrappedData,
                                                            filePath, Resources.DesignWaterLevel_Description, Resources.WaveHeight_Description),
                 IsEnabled = context => context.WrappedData.Count > 0,
-                FileFilter = new ExpectedFile(RingtoetsCommonIoResources.Shape_file_filter_Extension,
+                FileFilter = new FileFilterGenerator(RingtoetsCommonIoResources.Shape_file_filter_Extension,
                                               RingtoetsCommonIoResources.Shape_file_filter_Description)
             };
 
@@ -263,7 +263,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                     return new GrassCoverErosionOutwardsWaveConditionsExporter(calculations, filePath);
                 },
                 IsEnabled = context => context.FailureMechanism.WaveConditionsCalculationGroup.GetCalculations().Any(c => c.HasOutput),
-                FileFilter = new ExpectedFile(RingtoetsCommonFormsResources.DataTypeDisplayName_csv_file_filter_Extension,
+                FileFilter = new FileFilterGenerator(RingtoetsCommonFormsResources.DataTypeDisplayName_csv_file_filter_Extension,
                                               RingtoetsCommonFormsResources.DataTypeDisplayName_csv_file_filter_Description)
             };
 
@@ -275,7 +275,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                     return new GrassCoverErosionOutwardsWaveConditionsExporter(calculations, filePath);
                 },
                 IsEnabled = context => context.WrappedData.GetCalculations().Any(c => c.HasOutput),
-                FileFilter = new ExpectedFile(RingtoetsCommonFormsResources.DataTypeDisplayName_csv_file_filter_Extension,
+                FileFilter = new FileFilterGenerator(RingtoetsCommonFormsResources.DataTypeDisplayName_csv_file_filter_Extension,
                                               RingtoetsCommonFormsResources.DataTypeDisplayName_csv_file_filter_Description)
             };
 
@@ -286,7 +286,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                     context.WrappedData
                 }, filePath),
                 IsEnabled = context => context.WrappedData.HasOutput,
-                FileFilter = new ExpectedFile(RingtoetsCommonFormsResources.DataTypeDisplayName_csv_file_filter_Extension,
+                FileFilter = new FileFilterGenerator(RingtoetsCommonFormsResources.DataTypeDisplayName_csv_file_filter_Extension,
                                               RingtoetsCommonFormsResources.DataTypeDisplayName_csv_file_filter_Description)
             };
         }

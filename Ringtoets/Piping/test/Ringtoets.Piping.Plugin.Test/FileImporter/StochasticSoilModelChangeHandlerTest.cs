@@ -129,9 +129,9 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         public void InquireConfirmation_Always_ShowsConfirmationDialogReturnResultOfInquiry(bool expectedResult)
         {
             // Setup
-            const string message = "Wanneer ondergrondschematisaties wijzigen als gevolg van het bijwerken, " +
-                                   "zullen de resultaten van berekeningen die deze ondergrondschematisaties worden " +
-                                   "verwijderd. Weet u zeker dat u wilt doorgaan?";
+            string message = "Wanneer ondergrondschematisaties wijzigen als gevolg van het bijwerken, " +
+                                   "zullen de resultaten van berekeningen die deze ondergrondschematisaties gebruiken, worden " +
+                                   $"verwijderd.{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
 
             var mockRepository = new MockRepository();
             var inquiryHandler = mockRepository.StrictMock<IInquiryHelper>();

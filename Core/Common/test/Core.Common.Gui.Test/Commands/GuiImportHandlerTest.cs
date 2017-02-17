@@ -285,10 +285,10 @@ namespace Core.Common.Gui.Test.Commands
         public void ImportOn_SupportedImportInfoAvailableVerifyUpdatesSuccesful_CreateFileImporterCalled()
         {
             // Setup
-            var filter = new ExpectedFile();
+            var filter = new FileFilterGenerator();
             var mockRepository = new MockRepository();
             var inquiryHelper = mockRepository.Stub<IInquiryHelper>();
-            inquiryHelper.Expect(ih => ih.GetSourceFileLocation(filter)).Return(new FileResult("/some/path"));
+            inquiryHelper.Expect(ih => ih.GetSourceFileLocation(filter)).Return("/some/path");
             IFileImporter fileImporterStub = CreateStubFileImporter(mockRepository);
             mockRepository.ReplayAll();
 
@@ -321,10 +321,10 @@ namespace Core.Common.Gui.Test.Commands
         public void ImportOn_SupportedImportInfoAvailableVerifyUpdatesUnsuccesful_FileImporterNotCreated()
         {
             // Setup
-            var filter = new ExpectedFile();
+            var filter = new FileFilterGenerator();
             var mockRepository = new MockRepository();
             var inquiryHelper = mockRepository.Stub<IInquiryHelper>();
-            inquiryHelper.Expect(ih => ih.GetSourceFileLocation(filter)).Return(new FileResult("/some/path"));
+            inquiryHelper.Expect(ih => ih.GetSourceFileLocation(filter)).Return("/some/path");
             mockRepository.ReplayAll();
 
             using (var form = new Form())

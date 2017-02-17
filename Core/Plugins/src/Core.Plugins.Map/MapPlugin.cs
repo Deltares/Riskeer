@@ -78,7 +78,7 @@ namespace Core.Plugins.Map
                 Name = Resources.Name_Layer,
                 Category = Resources.Categories_Layer,
                 Image = Resources.MapPlusIcon,
-                FileFilter = new ExpectedFile(
+                FileFilter = new FileFilterGenerator(
                     Resources.MapPlugin_GetImportInfos_MapDataCollection_filefilter_Extension,
                     Resources.MapPlugin_GetImportInfos_MapDataCollection_filefilter_Description),
                 IsEnabled = mapDataCollection => true,

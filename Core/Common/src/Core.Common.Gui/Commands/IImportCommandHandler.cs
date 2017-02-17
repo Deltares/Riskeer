@@ -36,10 +36,11 @@ namespace Core.Common.Gui.Commands
         /// <summary>
         /// Perform the import workflow by the following steps:
         /// <list type="number">
-        /// <item>If multiple importers are available for the target object, ask the user
+        /// <item>If multiple importers are available for the target object, determine
         /// which importer to use;</item>
-        /// <item>Ask the user which file to use to import from;</item>
-        /// <item>Import from the user specified file to the target object.</item>
+        /// <item>Create the importer;</item>
+        /// <item>Obtain data from the importer;</item>
+        /// <item>Set the imported data on the target object.</item>
         /// </list>
         /// </summary>
         /// <param name="target">The data object to import to.</param>

@@ -176,7 +176,7 @@ namespace Ringtoets.Integration.Plugin.Test.ImportInfos
                 ImportInfo importInfo = GetImportInfo(plugin);
 
                 // Call
-                ExpectedFile fileFilter = importInfo.FileFilter;
+                FileFilterGenerator fileFilter = importInfo.FileFilter;
 
                 // Assert
                 Assert.AreEqual("Shapebestand (*.shp)|*.shp", fileFilter.Filter);

@@ -69,7 +69,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ExportInfos
                 ExportInfo info = GetExportInfo(plugin);
 
                 // Call
-                ExpectedFile fileFilter = info.FileFilter;
+                FileFilterGenerator fileFilter = info.FileFilter;
 
                 // Assert
                 Assert.AreEqual("MorphAn randvoorwaarden (*.bnd)|*.bnd", fileFilter.Filter);

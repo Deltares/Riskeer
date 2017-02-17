@@ -22,7 +22,7 @@
 namespace Core.Common.Gui.Commands
 {
     /// <summary>
-    /// Interface declaring commands/methods related to importing data.
+    /// Interface declaring commands/methods related to updating data.
     /// </summary>
     public interface IUpdateCommandHandler
     {
@@ -36,11 +36,11 @@ namespace Core.Common.Gui.Commands
         /// <summary>
         /// Perform the update workflow by the following steps:
         /// <list type="number">
-        /// <item>If multiple updaters are available for the target object, ask the user
+        /// <item>If multiple updaters are available for the target object, determine
         /// which updater to use;</item>
-        /// <item>Check whether the path to the already imported file exists;</item>
-        /// <item>If not, ask the user which file to use to update from;</item>
-        /// <item>Import from the user specified file and update the target object.</item>
+        /// <item>Create the updater;</item>
+        /// <item>Obtain the data from the updater;</item>
+        /// <item>Update the data on the target object.</item>
         /// </list>
         /// </summary>
         /// <param name="target">The data object to update.</param>

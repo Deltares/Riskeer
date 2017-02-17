@@ -19,58 +19,88 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Core.Common.Base.Properties;
+
 namespace Core.Common.Gui
 {
     /// <summary>
     /// Class which produces a file filter based on the expected extension. If no specific
-    /// extension is expected, then a filter for all file types will be produced.
+    /// extension is expected, then a filter which filter out no file type will be produced.
     /// </summary>
-    public class ExpectedFile {
-
+    public class FileFilterGenerator
+    {
         private readonly string extension = "*";
-        private readonly string description = "Alle bestanden";
+        private readonly string description = Resources.FileFilterGenerator_All_Files;
 
         /// <summary>
-        /// Creates a new instance of <see cref="ExpectedFile"/> which filters
-        /// for all files.
+        /// Creates a new instance of <see cref="FileFilterGenerator"/> which filters out no
+        /// file type.
         /// </summary>
-        public ExpectedFile()
-        {
-        }
+        public FileFilterGenerator() {}
 
         /// <summary>
-        /// Creates a new instance of <see cref="ExpectedFile"/> which filters files based on
+        /// Creates a new instance of <see cref="FileFilterGenerator"/> which filters files based on
         /// a specified file extension.
         /// </summary>
         /// <param name="typeExtension">The extension of the files to filter on.</param>
-        public ExpectedFile(string typeExtension)
+        public FileFilterGenerator(string typeExtension)
         {
             extension = typeExtension;
-            description = $"{typeExtension.ToUpperInvariant()}-bestanden";
+            description = string.Format(Resources.FileFilterGenerator_Files_of_type_0_, typeExtension.ToUpperInvariant());
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="ExpectedFile"/> which filters files based on
+        /// Creates a new instance of <see cref="FileFilterGenerator"/> which filters files based on
         /// a specified file extension.
         /// </summary>
         /// <param name="typeExtension">The extension of the files to filter on.</param>
         /// <param name="typeDescription">The description of files which have 
         /// <paramref name="typeExtension"/> as their extension.</param>
-        public ExpectedFile(string typeExtension, string typeDescription)
+        public FileFilterGenerator(string typeExtension, string typeDescription)
         {
             description = typeDescription;
             extension = typeExtension;
         }
 
         /// <summary>
-        /// Gets a filter string for the <see cref="ExpectedFile"/>.
+        /// Gets a filter string for the <see cref="FileFilterGenerator"/>.
         /// </summary>
         public string Filter
         {
             get
             {
-                return $"{description} (*.{extension})|*.{extension}";
+                return string.Format(Resources.FileFilterGenerator_File_filter_format, description, extension, extension);
             }
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj))
+            {
+                return false;
+            }
+            if (ReferenceEquals(this, obj))
+            {
+                return true;
+            }
+            if (obj.GetType() != GetType())
+            {
+                return false;
+            }
+            return Equals((FileFilterGenerator) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                return ((extension?.GetHashCode() ?? 0) * 397) ^ (description?.GetHashCode() ?? 0);
+            }
+        }
+
+        protected bool Equals(FileFilterGenerator other)
+        {
+            return string.Equals(extension, other.extension) && string.Equals(description, other.description);
         }
     }
 }

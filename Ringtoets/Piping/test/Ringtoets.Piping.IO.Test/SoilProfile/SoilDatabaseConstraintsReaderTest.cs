@@ -25,7 +25,6 @@ using Core.Common.TestUtil;
 using Core.Common.Utils.Builders;
 using NUnit.Framework;
 using Ringtoets.Piping.IO.SoilProfile;
-using UtilsResources = Core.Common.Utils.Properties.Resources;
 
 namespace Ringtoets.Piping.IO.Test.SoilProfile
 {
@@ -45,7 +44,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
 
             // Assert
             CriticalFileReadException exception = Assert.Throws<CriticalFileReadException>(test);
-            string expectedMessage = new FileReaderErrorMessageBuilder(testFile).Build(UtilsResources.Error_File_does_not_exist);
+            string expectedMessage = new FileReaderErrorMessageBuilder(testFile).Build("Het bestand bestaat niet.");
             Assert.AreEqual(expectedMessage, exception.Message);
         }
 

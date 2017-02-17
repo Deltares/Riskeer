@@ -43,13 +43,22 @@ namespace Core.Common.Gui.Test
             dialogParent = mocks.StrictMock<IWin32Window>();
         }
 
-        public override void TearDown()
+        [Test]
+        public void Constructor_WithoutDialogParent_ThrowsArgumentNullException()
         {
-            mocks.VerifyAll();
+            // Setup
+            mocks.ReplayAll();
+
+            // Call
+            TestDelegate test = () => new DialogBasedInquiryHelper(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("dialogParent", exception.ParamName);
         }
 
         [Test]
-        public void DefaultConstructor_CreatesNewInquiryHelper()
+        public void Constructor_WithParent_CreatesNewInquiryHelper()
         {
             // Setup
             mocks.ReplayAll();
@@ -101,10 +110,10 @@ namespace Core.Common.Gui.Test
             };
 
             // Call
-            var result = helper.GetSourceFileLocation();
+            string result = helper.GetSourceFileLocation();
 
             // Assert
-            Assert.IsFalse(result.HasFilePath);
+            Assert.IsNull(result);
         }
 
         [Test]
@@ -126,11 +135,10 @@ namespace Core.Common.Gui.Test
             using (new FileDisposeHelper(expectedFilePath))
             {
                 // Call
-                var result = helper.GetSourceFileLocation();
+                string result = helper.GetSourceFileLocation();
 
                 // Assert
-                Assert.IsTrue(result.HasFilePath);
-                Assert.AreEqual(expectedFilePath, result.FilePath);
+                Assert.AreEqual(expectedFilePath, result);
             }
         }
 
@@ -174,10 +182,10 @@ namespace Core.Common.Gui.Test
             };
 
             // Call
-            var result = helper.GetTargetFileLocation();
+            string result = helper.GetTargetFileLocation();
 
             // Assert
-            Assert.IsFalse(result.HasFilePath);
+            Assert.IsNull(result);
         }
 
         [Test]
@@ -197,11 +205,10 @@ namespace Core.Common.Gui.Test
             };
 
             // Call
-            var result = helper.GetTargetFileLocation();
+            string result = helper.GetTargetFileLocation();
 
             // Assert
-            Assert.IsTrue(result.HasFilePath);
-            Assert.AreEqual(expectedFilePath, result.FilePath);
+            Assert.AreEqual(expectedFilePath, result);
         }
 
         [Test]
@@ -216,8 +223,8 @@ namespace Core.Common.Gui.Test
 
             var helper = new DialogBasedInquiryHelper(dialogParent);
 
-            string expectedQuery = "Are you sure you want to do this?";
-            string expectedTitle = "Bevestigen";
+            var expectedQuery = "Are you sure you want to do this?";
+            var expectedTitle = "Bevestigen";
             string query = null;
             string title = null;
 
@@ -237,12 +244,17 @@ namespace Core.Common.Gui.Test
             };
 
             // Call
-            var result = helper.InquireContinuation(expectedQuery);
+            bool result = helper.InquireContinuation(expectedQuery);
 
             // Assert
             Assert.AreEqual(expectedQuery, query);
             Assert.AreEqual(expectedTitle, title);
             Assert.AreEqual(confirm, result);
+        }
+
+        public override void TearDown()
+        {
+            mocks.VerifyAll();
         }
     }
 }

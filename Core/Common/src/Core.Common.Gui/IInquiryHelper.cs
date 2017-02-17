@@ -32,7 +32,7 @@ namespace Core.Common.Gui
         /// if the user did not cancel the inquiry.
         /// </summary>
         /// <returns>A new <see cref="FileResult"/>.</returns>
-        FileResult GetSourceFileLocation();
+        string GetSourceFileLocation();
 
         /// <summary>
         /// Returns a <see cref="FileResult"/> containing a path to an existing file
@@ -41,14 +41,14 @@ namespace Core.Common.Gui
         /// <param name="filter">A filter to which the path in the returned 
         /// <see cref="FileResult"/> complies.</param>
         /// <returns>A new <see cref="FileResult"/>.</returns>
-        FileResult GetSourceFileLocation(ExpectedFile filter);
+        string GetSourceFileLocation(FileFilterGenerator filter);
 
         /// <summary>
         /// Returns a <see cref="FileResult"/> containing a path to a (non-existing) file 
         /// if the user did not cancel the inquiry.
         /// </summary>
         /// <returns>A <see cref="FileResult"/> containing a path to a (non-existing) file.</returns>
-        FileResult GetTargetFileLocation();
+        string GetTargetFileLocation();
 
         /// <summary>
         /// Gets the confirmation of a user.

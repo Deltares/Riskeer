@@ -71,7 +71,7 @@ namespace Ringtoets.Integration.Plugin.Test.ExportInfos
                 ExportInfo exportInfo = GetExportInfo(plugin);
 
                 // Call
-                ExpectedFile fileFilter = exportInfo.FileFilter;
+                FileFilterGenerator fileFilter = exportInfo.FileFilter;
 
                 // Assert
                 Assert.AreEqual("Kommagescheiden bestand (*.csv)|*.csv", fileFilter.Filter);

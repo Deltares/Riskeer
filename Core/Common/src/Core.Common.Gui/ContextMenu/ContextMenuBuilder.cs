@@ -42,18 +42,15 @@ namespace Core.Common.Gui.ContextMenu
         /// Creates a new instance of <see cref="ContextMenuBuilder"/>.
         /// </summary>
         /// <param name="featureCommandHandler">The <see cref="IApplicationFeatureCommands"/> from which to obtain
-        ///     information to render and bind actions to the items of the <see cref="ContextMenu"/>. If <c>null</c>,
-        ///     this builder will not render items which require this type of information.</param>
+        /// information to render and bind actions to the items of the <see cref="ContextMenu"/>.</param>
         /// <param name="importCommandHandler">The <see cref="IImportCommandHandler"/> from which to obtain
-        ///     information to render and bind actions to the items of the <see cref="ContextMenu"/>. If <c>null</c>,
-        ///     this builder will not render items which require this type of information.</param>
+        /// information to render and bind actions to the items of the <see cref="ContextMenu"/>.</param>
         /// <param name="exportCommandHandler">The <see cref="IExportCommandHandler"/> from which to obtain
-        ///     information to render and bind actions to the items of the <see cref="ContextMenu"/>. If <c>null</c>,
-        ///     this builder will not render items which require this type of information.</param>
-        /// <param name="updateCommandHandler"></param>
+        /// information to render and bind actions to the items of the <see cref="ContextMenu"/>.</param>
+        /// <param name="updateCommandHandler">The <see cref="IUpdateCommandHandler"/> from which to obtain
+        /// information to render and bind actions to the items of the <see cref="ContextMenu"/>.</param>
         /// <param name="viewCommands">The <see cref="IViewCommands"/> from which to obtain information to render
-        ///     and bind actions to the items of the <see cref="ContextMenu"/>. If <c>null</c>, this builder will not
-        ///     render items which require this type of information.</param>
+        /// and bind actions to the items of the <see cref="ContextMenu"/>.</param>
         /// <param name="dataValue">The data object for which to create a <see cref="ContextMenuStrip"/>.</param>
         /// <param name="treeViewControl">The <see cref="TreeViewControl"/> to use while executing the <see cref="ContextMenuStrip"/> actions.</param>
         /// <exception cref="ContextMenuBuilderException">Thrown when any input argument is <c>null</c>.</exception>
@@ -167,7 +164,7 @@ namespace Core.Common.Gui.ContextMenu
         {
             if (contextMenu.Items.Count > 0)
             {
-                var lastIndex = contextMenu.Items.Count - 1;
+                int lastIndex = contextMenu.Items.Count - 1;
                 if (contextMenu.Items[lastIndex] is ToolStripSeparator)
                 {
                     contextMenu.Items.RemoveAt(lastIndex);

@@ -140,7 +140,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.ExportInfos
         public void HydraulicBoundaryLocationsExporterExportInfo_FileFilter_ShpFileFilter()
         {
             // Call
-            ExpectedFile fileFilter = hydraulicBoundaryLocationsExporterExportInfo.FileFilter;
+            FileFilterGenerator fileFilter = hydraulicBoundaryLocationsExporterExportInfo.FileFilter;
 
             // Assert
             Assert.AreEqual("Shapebestand (*.shp)|*.shp", fileFilter.Filter);
@@ -252,7 +252,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.ExportInfos
         public void WaveConditionsExporterExportInfo_FileFilter_CsvFileFilter()
         {
             // Call
-            ExpectedFile fileFilter = waveConditionsExporterExportInfo.FileFilter;
+            FileFilterGenerator fileFilter = waveConditionsExporterExportInfo.FileFilter;
 
             // Assert
             Assert.AreEqual("Kommagescheiden bestand (*.csv)|*.csv", fileFilter.Filter);

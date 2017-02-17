@@ -72,7 +72,7 @@ namespace Core.Common.Gui.Plugin
         /// <summary>
         /// Gets or sets the file filter of the export information.
         /// </summary>
-        public ExpectedFile FileFilter { get; set; }
+        public FileFilterGenerator FileFilter { get; set; }
     }
 
     /// <summary>
@@ -129,7 +129,7 @@ namespace Core.Common.Gui.Plugin
         /// <summary>
         /// Gets or sets the file filter of the export information.
         /// </summary>
-        public ExpectedFile FileFilter { get; set; }
+        public FileFilterGenerator FileFilter { get; set; }
 
         /// <summary>
         /// Performs an implicit conversion from <see cref="ExportInfo{TData}"/> to <see cref="ExportInfo"/>.
