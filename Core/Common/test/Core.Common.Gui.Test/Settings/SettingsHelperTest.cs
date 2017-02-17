@@ -21,10 +21,7 @@
 
 using System;
 using System.IO;
-using System.Reflection;
-using System.Security.AccessControl;
 using Core.Common.Gui.Settings;
-using Core.Common.TestUtil;
 using Core.Common.Utils.Reflection;
 using NUnit.Framework;
 
@@ -33,20 +30,6 @@ namespace Core.Common.Gui.Test.Settings
     [TestFixture]
     public class SettingsHelperTest
     {
-        private string originalLocalSettingsDirectoryPath = "";
-
-        [SetUp]
-        public void SetUp()
-        {
-            originalLocalSettingsDirectoryPath = GetLocalSettingsDirectoryPath();
-        }
-
-        [TearDown]
-        public void TearDown()
-        {
-            SetLocalSettingsDirectoryPath(originalLocalSettingsDirectoryPath);
-        }
-
         [Test]
         public void ApplicationName_ReturnsProductNameOfExecutingAssembly()
         {
@@ -89,56 +72,16 @@ namespace Core.Common.Gui.Test.Settings
         public void GetApplicationLocalUserSettingsDirectory_ValidPathFileExistsDirectoryNotWritable_ThrowsIOException()
         {
             // Setup
-            string workingDirectory = Path.Combine(".", "SettingsHelper", "NotWritable");
-            Directory.CreateDirectory(workingDirectory);
-            const string notWritableFolder = "folderToCreate";
+            const string workingDirectory = "folderToCr*eate";
 
-            SetLocalSettingsDirectoryPath(workingDirectory);
+            // Call
+            TestDelegate test = () => SettingsHelper.Instance.GetApplicationLocalUserSettingsDirectory(workingDirectory);
 
-            using (new DirectoryPermissionsRevoker(workingDirectory, FileSystemRights.Write))
-            {
-                // Call
-                TestDelegate test = () => SettingsHelper.Instance.GetApplicationLocalUserSettingsDirectory(notWritableFolder);
-
-                try
-                {
-                    // Assert
-                    var notWritableDirectory = Path.Combine(workingDirectory, notWritableFolder);
-                    var expectedMessage = string.Format("De map '{0}' kan niet aangemaakt worden.", notWritableDirectory);
-                    var message = Assert.Throws<IOException>(test).Message;
-                    Assert.AreEqual(expectedMessage, message);
-                }
-                finally
-                {
-                    Directory.Delete(workingDirectory, true);
-                }
-            }
-        }
-
-        private static void SetLocalSettingsDirectoryPath(string nonExistingFolder)
-        {
-            string localSettingsDirectoryPath = "localSettingsDirectoryPath";
-            Type settingsHelperType = typeof(SettingsHelper);
-            FieldInfo fieldInfo = settingsHelperType.GetField(localSettingsDirectoryPath, BindingFlags.NonPublic | BindingFlags.Static);
-            if (fieldInfo == null)
-            {
-                Assert.Fail("Unable to find private field '{0}'", localSettingsDirectoryPath);
-            }
-
-            fieldInfo.SetValue(null, nonExistingFolder);
-        }
-
-        private static string GetLocalSettingsDirectoryPath()
-        {
-            string localSettingsDirectoryPath = "localSettingsDirectoryPath";
-            Type settingsHelperType = typeof(SettingsHelper);
-            FieldInfo fieldInfo = settingsHelperType.GetField(localSettingsDirectoryPath, BindingFlags.NonPublic | BindingFlags.Static);
-            if (fieldInfo == null)
-            {
-                Assert.Fail("Unable to find private field '{0}'", localSettingsDirectoryPath);
-            }
-
-            return (string) fieldInfo.GetValue(null);
+            // Assert
+            string dataPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), workingDirectory);
+            var expectedMessage = $"De map '{dataPath}' kan niet aangemaakt worden.";
+            var message = Assert.Throws<IOException>(test).Message;
+            Assert.AreEqual(expectedMessage, message);
         }
     }
 }
