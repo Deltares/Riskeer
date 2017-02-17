@@ -22,6 +22,7 @@
 using System.Linq;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.PropertyBag;
+using Core.Components.Gis;
 using Core.Components.Gis.Data;
 using NUnit.Framework;
 using Ringtoets.Integration.Forms.PresentationObjects;
@@ -61,7 +62,8 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
         {
             // Setup
             WmtsMapData mapData = WmtsMapData.CreateUnconnectedMapData();
-            var context = new BackgroundMapDataContext(mapData);
+            var container = new BackgroundMapDataContainer();
+            var context = new BackgroundMapDataContext(mapData, container);
             
             // Call
             IObjectProperties objectProperties = info.CreateInstance(context);

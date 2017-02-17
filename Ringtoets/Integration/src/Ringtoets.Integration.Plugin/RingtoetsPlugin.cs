@@ -1100,7 +1100,7 @@ namespace Ringtoets.Integration.Plugin
         {
             var childNodes = new List<object>
             {
-                new BackgroundMapDataContext((WmtsMapData) nodeData.BackgroundMapData.MapData),
+                new BackgroundMapDataContext((WmtsMapData) nodeData.BackgroundMapData.MapData, nodeData.BackgroundMapData),
                 new ReferenceLineContext(nodeData),
                 new FailureMechanismContributionContext(nodeData.FailureMechanismContribution, nodeData),
                 new HydraulicBoundaryDatabaseContext(nodeData),

@@ -21,6 +21,7 @@
 
 using System;
 using Core.Common.Controls.PresentationObjects;
+using Core.Components.Gis;
 using Core.Components.Gis.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 
@@ -35,8 +36,48 @@ namespace Ringtoets.Integration.Forms.PresentationObjects
         /// Initializes a new instance of <see cref="BackgroundMapDataContext"/>.
         /// </summary>
         /// <param name="wrappedData">The wrapped data.</param>
+        /// <param name="backgroundMapData">The <see cref="BackgroundMapDataContainer"/> 
+        /// which the <see cref="BackgroundMapDataContext"/> belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="wrappedData"/>
         /// is <c>null</c>.</exception>
-        public BackgroundMapDataContext(WmtsMapData wrappedData) : base(wrappedData) {}
+        public BackgroundMapDataContext(WmtsMapData wrappedData, BackgroundMapDataContainer backgroundMapData) : base(wrappedData)
+        {
+            if (backgroundMapData == null)
+            {
+                throw new ArgumentNullException(nameof(backgroundMapData));
+            }
+            BackgroundMapData = backgroundMapData;
+        }
+
+        /// <summary>
+        /// Gets the <see cref="BackgroundMapDataContainer"/>. 
+        /// </summary>
+        public BackgroundMapDataContainer BackgroundMapData { get; private set; }
+
+        #region IEquatable members
+
+        public override bool Equals(WrappedObjectContextBase<WmtsMapData> other)
+        {
+            if (ReferenceEquals(null, other))
+            {
+                return false;
+            }
+            if (other.GetType() != GetType())
+            {
+                return false;
+            }
+            if (ReferenceEquals(this, other))
+            {
+                return true;
+            }
+            return ReferenceEquals(((BackgroundMapDataContext) other).BackgroundMapData, BackgroundMapData);
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode() ^ BackgroundMapData.GetHashCode();
+        }
+
+        #endregion
     }
 }
