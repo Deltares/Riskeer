@@ -94,6 +94,7 @@
     <Compile Include="ControlsTestHelper.cs" />
     <Compile Include="CustomExceptionDesignGuidelinesTestFixture.cs" />
     <Compile Include="DataGridViewTestHelper.cs" />
+    <Compile Include="DirectoryDisposeHelper.cs" />
     <Compile Include="DoubleWithToleranceComparer.cs" />
     <Compile Include="EnumTestFixture.cs" />
     <Compile Include="FileDisposeHelper.cs" />
