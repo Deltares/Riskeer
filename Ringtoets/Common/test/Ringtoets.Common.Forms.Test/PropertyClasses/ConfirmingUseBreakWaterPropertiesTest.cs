@@ -225,35 +225,6 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void SetProperties_IndividualProperties_UpdateData()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var calculation = mocks.Stub<ICalculation>();
-            var handler = mocks.Stub<ICalculationInputPropertyChangeHandler<TestUseBreakWater, ICalculation>>();
-            mocks.ReplayAll();
-
-            var breakWater = new BreakWater(BreakWaterType.Caisson, 2.2);
-            var testUseBreakWater = new TestUseBreakWater
-            {
-                BreakWater = breakWater
-            };
-            var properties = new ConfirmingUseBreakWaterProperties<ICalculation, TestUseBreakWater>(testUseBreakWater, calculation, handler);
-
-            // Call
-            properties.UseBreakWater = true;
-            properties.BreakWaterType = BreakWaterType.Dam;
-            properties.BreakWaterHeight = (RoundedDouble) 1.1;
-
-            // Assert
-            Assert.IsTrue(properties.UseBreakWater);
-            Assert.AreEqual(BreakWaterType.Dam, properties.BreakWaterType);
-            Assert.AreEqual(1.1, properties.BreakWaterHeight, properties.BreakWaterHeight.GetAccuracy());
-            Assert.AreEqual(string.Empty, properties.ToString());
-            mocks.VerifyAll();
-        }
-
-        [Test]
         public void DikeHeight_Always_InputNotifiedAndPropertyChangedCalled()
         {
             var breakWaterHeight = new Random(21).NextRoundedDouble();

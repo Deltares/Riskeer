@@ -110,7 +110,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             // Assert
             var message = "CalculationInput required if changes are possible.";
             var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, message);
-            Assert.AreEqual("input", exception.ParamName);
+            Assert.AreEqual("calculationInput", exception.ParamName);
             mocks.VerifyAll();
         }
 
