@@ -138,33 +138,33 @@ namespace Ringtoets.Piping.IO.Test.Readers
         }
 
         [Test]
-        [TestCase("invalidFolderWithoutName.xml")]
-        [TestCase("invalidCalculationWithoutName.xml")]
-        [TestCase("invalidAssessmentLevelEmpty.xml")]
-        [TestCase("invalidAssessmentLevelNoDouble.xml")]
-        [TestCase("invalidAssessmentLevelWrongCulture.xml")]
-        [TestCase("invalidEntryPointEmpty.xml")]
-        [TestCase("invalidEntryPointNoDouble.xml")]
-        [TestCase("invalidEntryPointWrongCulture.xml")]
-        [TestCase("invalidExitPointEmpty.xml")]
-        [TestCase("invalidExitPointNoDouble.xml")]
-        [TestCase("invalidExitPointWrongCulture.xml")]
-        [TestCase("invalidStochastWithoutName.xml")]
-        [TestCase("invalidStochastWithUnknownName.xml")]
-        [TestCase("invalidStochastWithoutMean.xml")]
-        [TestCase("invalidStochastWithoutStandardDeviation.xml")]
-        [TestCase("invalidStochastWithMultipleMean.xml")]
-        [TestCase("invalidStochastWithMultipleStandardDeviation.xml")]
-        [TestCase("invalidStochastMeanEmpty.xml")]
-        [TestCase("invalidStochastMeanNoDouble.xml")]
-        [TestCase("invalidStochastMeanWrongCulture.xml")]
-        [TestCase("invalidStochastStandardDeviationEmpty.xml")]
-        [TestCase("invalidStochastStandardDeviationNoDouble.xml")]
-        [TestCase("invalidStochastStandardDeviationWrongCulture.xml")]
-        [TestCase("invalidMultiplePhreaticLevelExitStochast.xml")]
-        [TestCase("invalidMultipleDampingFactorExitStochast.xml")]
-        [TestCase("invalidContainingBothAssessmentLevelAndHydraulicBoundaryLocation.xml")]
-        public void Constructor_FileInvalidBasedOnSchemaDefinition_ThrowCriticalFileReadException(string fileName)
+        [TestCase("invalidFolderWithoutName.xml", "The required attribute 'naam' is missing.")]
+        [TestCase("invalidCalculationWithoutName.xml", "The required attribute 'naam' is missing.")]
+        [TestCase("invalidAssessmentLevelEmpty.xml", "The 'toetspeil' element is invalid - The value '' is invalid according to its datatype 'Double' - The string '' is not a valid Double value.")]
+        [TestCase("invalidAssessmentLevelNoDouble.xml", "The 'toetspeil' element is invalid - The value 'string' is invalid according to its datatype 'Double' - The string 'string' is not a valid Double value.")]
+        [TestCase("invalidAssessmentLevelWrongCulture.xml", "The 'toetspeil' element is invalid - The value '1,2' is invalid according to its datatype 'Double' - The string '1,2' is not a valid Double value.")]
+        [TestCase("invalidEntryPointEmpty.xml", "The 'intredepunt' element is invalid - The value '' is invalid according to its datatype 'Double' - The string '' is not a valid Double value.")]
+        [TestCase("invalidEntryPointNoDouble.xml", "The 'intredepunt' element is invalid - The value 'string' is invalid according to its datatype 'Double' - The string 'string' is not a valid Double value.")]
+        [TestCase("invalidEntryPointWrongCulture.xml", "The 'intredepunt' element is invalid - The value '1,2' is invalid according to its datatype 'Double' - The string '1,2' is not a valid Double value.")]
+        [TestCase("invalidExitPointEmpty.xml", "The 'uittredepunt' element is invalid - The value '' is invalid according to its datatype 'Double' - The string '' is not a valid Double value.")]
+        [TestCase("invalidExitPointNoDouble.xml", "The 'uittredepunt' element is invalid - The value 'string' is invalid according to its datatype 'Double' - The string 'string' is not a valid Double value.")]
+        [TestCase("invalidExitPointWrongCulture.xml", "The 'uittredepunt' element is invalid - The value '1,2' is invalid according to its datatype 'Double' - The string '1,2' is not a valid Double value.")]
+        [TestCase("invalidStochastWithoutName.xml", "The required attribute 'naam' is missing.")]
+        [TestCase("invalidStochastWithUnknownName.xml", "The 'naam' attribute is invalid - The value 'Test' is invalid according to its datatype 'String' - The Enumeration constraint failed.")]
+        [TestCase("invalidStochastWithoutMean.xml", "The element 'stochast' has incomplete content. List of possible elements expected: 'verwachtingswaarde'.")]
+        [TestCase("invalidStochastWithoutStandardDeviation.xml", "The element 'stochast' has incomplete content. List of possible elements expected: 'standaardafwijking'.")]
+        [TestCase("invalidStochastWithMultipleMean.xml", "Element 'verwachtingswaarde' cannot appear more than once if content model type is \"all\".")]
+        [TestCase("invalidStochastWithMultipleStandardDeviation.xml", "Element 'standaardafwijking' cannot appear more than once if content model type is \"all\".")]
+        [TestCase("invalidStochastMeanEmpty.xml", "The 'verwachtingswaarde' element is invalid - The value '' is invalid according to its datatype 'Double' - The string '' is not a valid Double value.")]
+        [TestCase("invalidStochastMeanNoDouble.xml", "The 'verwachtingswaarde' element is invalid - The value 'string' is invalid according to its datatype 'Double' - The string 'string' is not a valid Double value.")]
+        [TestCase("invalidStochastMeanWrongCulture.xml", "The 'verwachtingswaarde' element is invalid - The value '1,2' is invalid according to its datatype 'Double' - The string '1,2' is not a valid Double value.")]
+        [TestCase("invalidStochastStandardDeviationEmpty.xml", "The 'standaardafwijking' element is invalid - The value '' is invalid according to its datatype 'Double' - The string '' is not a valid Double value.")]
+        [TestCase("invalidStochastStandardDeviationNoDouble.xml", "The 'standaardafwijking' element is invalid - The value 'string' is invalid according to its datatype 'Double' - The string 'string' is not a valid Double value.")]
+        [TestCase("invalidStochastStandardDeviationWrongCulture.xml", "The 'standaardafwijking' element is invalid - The value '1,2' is invalid according to its datatype 'Double' - The string '1,2' is not a valid Double value.")]
+        [TestCase("invalidMultiplePhreaticLevelExitStochast.xml", "There is a duplicate key sequence 'polderpeil' for the 'uniqueStochastNameConstraint' key or unique identity constraint.")]
+        [TestCase("invalidMultipleDampingFactorExitStochast.xml", "There is a duplicate key sequence 'dempingsfactor' for the 'uniqueStochastNameConstraint' key or unique identity constraint.")]
+        [TestCase("invalidContainingBothAssessmentLevelAndHydraulicBoundaryLocation.xml", "The element 'berekening' has invalid child element 'hrlocatie'.")]
+        public void Constructor_FileInvalidBasedOnSchemaDefinition_ThrowCriticalFileReadException(string fileName, string expectedInnerExceptionMessage)
         {
             // Setup
             string filePath = Path.Combine(testDirectoryPath, fileName);
@@ -177,6 +177,7 @@ namespace Ringtoets.Piping.IO.Test.Readers
             var exception = Assert.Throws<CriticalFileReadException>(call);
             Assert.AreEqual(expectedMessage, exception.Message);
             Assert.IsInstanceOf<XmlSchemaValidationException>(exception.InnerException);
+            Assert.AreEqual(expectedInnerExceptionMessage, exception.InnerException?.Message);
         }
 
         [Test]
