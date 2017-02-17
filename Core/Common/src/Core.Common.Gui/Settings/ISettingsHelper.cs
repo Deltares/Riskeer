@@ -41,9 +41,9 @@ namespace Core.Common.Gui.Settings
         /// <summary>
         /// Gets the application local user settings directory.
         /// </summary>
-        /// <param name="postfix">The postfix path to use after the local application data folder (if any).</param>
+        /// <param name="subPath">The sub path to use after the local application data folder (if any).</param>
         /// <returns>Directory path where the user settings can be found.</returns>
         /// <exception cref="IOException">Thrown when the application local user settings directory could not be created.</exception>
-        string GetApplicationLocalUserSettingsDirectory(string postfix);
+        string GetApplicationLocalUserSettingsDirectory(params string[] subPath);
     }
 }

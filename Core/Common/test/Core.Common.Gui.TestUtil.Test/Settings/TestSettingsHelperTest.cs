@@ -94,7 +94,8 @@ namespace Core.Common.Gui.TestUtil.Test.Settings
         public void GetApplicationLocalUserSettingsDirectoryWithExpectedDirectory_WithPostfix_ReturnsRootFolderWithPostfix()
         {
             // Setup
-            string postfix = Path.GetRandomFileName();
+            string subFolder = Path.GetRandomFileName();
+            string subSubFolder = Path.GetRandomFileName();
             const string userSettingsDirectory = "someFolder";
             var settingsHelper = new TestSettingsHelper
             {
@@ -102,13 +103,16 @@ namespace Core.Common.Gui.TestUtil.Test.Settings
             };
 
             // Call
-            string directory = settingsHelper.GetApplicationLocalUserSettingsDirectory(postfix);
+            string directory = settingsHelper.GetApplicationLocalUserSettingsDirectory(subFolder, subSubFolder);
 
             // Assert
-            string testDataPath = Path.Combine(userSettingsDirectory, postfix);
+            string testDataPath = Path.Combine(userSettingsDirectory, subFolder, subSubFolder);
             Assert.AreEqual(testDataPath, directory);
+
+            string testDataPathParent = Path.Combine(userSettingsDirectory, subFolder);
+            Assert.IsTrue(Directory.Exists(testDataPathParent));
             Assert.IsTrue(Directory.Exists(testDataPath));
-            Directory.Delete(testDataPath);
+            Directory.Delete(testDataPathParent, true);
         }
 
         [Test]

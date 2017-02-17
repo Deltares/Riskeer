@@ -42,6 +42,7 @@ namespace Core.Common.Gui.Test.Settings
             // Assert
             Assert.AreSame(expected, actual);
         }
+
         [Test]
         public void ApplicationName_ReturnsProductNameOfExecutingAssembly()
         {
@@ -63,21 +64,36 @@ namespace Core.Common.Gui.Test.Settings
         }
 
         [Test]
-        [TestCase(null)]
-        [TestCase("")]
-        [TestCase(" ")]
-        [TestCase("some directory name")]
-        public void GetApplicationLocalUserSettingsDirectory_VariousPostfixes_ReturnsApplicationLocalUserSettingsDirectory(string postfix)
+        public void GetApplicationLocalUserSettingsDirectory_WithoutSubFolder_ReturnsApplicationLocalUserSettingsDirectory()
         {
-            // Setup
-            var localSettingsDirectoryPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-            var appSettingsDirectoryPath = string.IsNullOrWhiteSpace(postfix) ? localSettingsDirectoryPath : Path.Combine(localSettingsDirectoryPath, postfix);
-
             // Call
-            var pathFromSettings = SettingsHelper.Instance.GetApplicationLocalUserSettingsDirectory(postfix);
+            var pathFromSettings = SettingsHelper.Instance.GetApplicationLocalUserSettingsDirectory();
 
             // Assert
-            Assert.AreEqual(appSettingsDirectoryPath, pathFromSettings);
+            var localSettingsDirectoryPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+            Assert.AreEqual(localSettingsDirectoryPath, pathFromSettings);
+        }
+
+        [Test]
+        public void GetApplicationLocalUserSettingsDirectoryWithExpectedDirectory_WithPostfix_ReturnsRootFolderWithPostfix()
+        {
+            // Setup
+            string subFolder = Path.GetRandomFileName();
+            string subSubFolder = Path.GetRandomFileName();
+
+            // Call
+            string directory = SettingsHelper.Instance.GetApplicationLocalUserSettingsDirectory(subFolder, subSubFolder);
+
+            // Assert
+            string userSettingsDirectory = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+
+            string testDataPath = Path.Combine(userSettingsDirectory, subFolder, subSubFolder);
+            Assert.AreEqual(testDataPath, directory);
+
+            string testDataPathParent = Path.Combine(userSettingsDirectory, subFolder);
+            Assert.IsTrue(Directory.Exists(testDataPathParent));
+            Assert.IsTrue(Directory.Exists(testDataPath));
+            Directory.Delete(testDataPathParent, true);
         }
 
         [Test]

@@ -20,7 +20,9 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Core.Common.Gui.Settings;
 using Core.Common.TestUtil;
 
@@ -72,11 +74,19 @@ namespace Core.Common.Gui.TestUtil.Settings
 
         public string ApplicationVersion { get; private set; }
 
-        public string GetApplicationLocalUserSettingsDirectory(string postfix)
+        public string GetApplicationLocalUserSettingsDirectory(params string[] subPath)
         {
-            var settingsDirectoryPath = string.IsNullOrWhiteSpace(postfix)
-                                            ? ExpectedApplicationLocalUserSettingsDirectory
-                                            : Path.Combine(ExpectedApplicationLocalUserSettingsDirectory, postfix);
+            var directorypath = new List<string>
+            {
+                ExpectedApplicationLocalUserSettingsDirectory
+            };
+
+            if (subPath != null)
+            {
+                directorypath.AddRange(subPath.ToList());
+            }
+
+            string settingsDirectoryPath = Path.Combine(directorypath.ToArray());
 
             if (Directory.Exists(settingsDirectoryPath))
             {

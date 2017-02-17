@@ -20,8 +20,10 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using Core.Common.Gui.Properties;
 using Core.Common.Utils.Reflection;
 
@@ -64,22 +66,32 @@ namespace Core.Common.Gui.Settings
         /// <summary>
         /// Gets the name of the application.
         /// </summary>
-        public string ApplicationName { get; private set; }
+        public string ApplicationName { get; }
 
         /// <summary>
         /// Gets the version of the application.
         /// </summary>
-        public string ApplicationVersion { get; private set; }
+        public string ApplicationVersion { get; }
 
         /// <summary>
         /// Gets the application local user settings directory.
         /// </summary>
-        /// <param name="postfix">The postfix path to use after the local application data folder (if any).</param>
+        /// <param name="subPath">The postfix path to use after the local application data folder (if any).</param>
         /// <returns>Directory path where the user settings can be found.</returns>
         /// <exception cref="IOException">Thrown when the application local user settings directory could not be created.</exception>
-        public string GetApplicationLocalUserSettingsDirectory(string postfix)
+        public string GetApplicationLocalUserSettingsDirectory(params string[] subPath)
         {
-            var appSettingsDirectoryPath = string.IsNullOrWhiteSpace(postfix) ? localSettingsDirectoryPath : Path.Combine(localSettingsDirectoryPath, postfix);
+            var directorypath = new List<string>
+            {
+                localSettingsDirectoryPath
+            };
+
+            if (subPath != null)
+            {
+                directorypath.AddRange(subPath.ToList());
+            }
+
+            string appSettingsDirectoryPath = Path.Combine(directorypath.ToArray());
 
             if (Directory.Exists(appSettingsDirectoryPath))
             {
