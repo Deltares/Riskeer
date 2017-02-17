@@ -138,8 +138,8 @@ namespace Ringtoets.Piping.IO.Test.Readers
         }
 
         [Test]
-        [TestCase("invalidNoItems.xml")]
         [TestCase("invalidFolderWithoutName.xml")]
+        [TestCase("invalidCalculationWithoutName.xml")]
         public void Constructor_FileInvalidBasedOnSchemaDefinition_ThrowCriticalFileReadException(string fileName)
         {
             // Setup
@@ -153,6 +153,20 @@ namespace Ringtoets.Piping.IO.Test.Readers
             var exception = Assert.Throws<CriticalFileReadException>(call);
             Assert.AreEqual(expectedMessage, exception.Message);
             Assert.IsInstanceOf<XmlSchemaValidationException>(exception.InnerException);
+        }
+
+        [Test]
+        public void Read_ValidConfigurationWithoutItems_ReturnEmptyReadPipingCalculationItemsCollection()
+        {
+            // Setup
+            string filePath = Path.Combine(testDirectoryPath, "validNoItems.xml");
+            var pipingConfigurationReader = new PipingConfigurationReader(filePath);
+
+            // Call
+            IList<IReadPipingCalculationItem> readPipingCalculationItems = pipingConfigurationReader.Read().ToList();
+
+            // Assert
+            CollectionAssert.IsEmpty(readPipingCalculationItems);
         }
 
         [Test]
