@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using BruTile;
 using Core.Common.Controls.DataGrid;
 using Core.Common.TestUtil;
 using Core.Components.DotSpatial.Forms.Views;
@@ -290,6 +291,11 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
             const string name = @"someName";
             const string url = @"someUrl";
 
+            var mockRepository = new MockRepository();
+            var tileFactory = mockRepository.StrictMock<ITileSourceFactory>();
+            tileFactory.Expect(tf => tf.GetWmtsTileSources(url)).Return(Enumerable.Empty<ITileSource>());
+            mockRepository.ReplayAll();
+
             DialogBoxHandler = (formName, wnd) =>
             {
                 using (var formTester = new FormTester(formName))
@@ -306,6 +312,7 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
                 }
             };
 
+            using (new UseCustomTileSourceFactoryConfig(tileFactory))
             using (var form = new Form())
             using (var control = new WmtsLocationControl())
             {
@@ -328,6 +335,8 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
                 var connectToButton = (Button) new ButtonTester("connectToButton", form).TheObject;
                 Assert.IsTrue(connectToButton.Enabled);
             }
+
+            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -390,6 +399,7 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
                 };
 
                 var editLocationButton = new ButtonTester("editLocationButton", form);
+                ((Button) editLocationButton.TheObject).Enabled = true;
 
                 // When
                 editLocationButton.Click();
@@ -410,6 +420,11 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
             const string newName = @"newName";
             const string newUrl = @"newUrl";
 
+            var mockRepository = new MockRepository();
+            var tileFactory = mockRepository.StrictMock<ITileSourceFactory>();
+            tileFactory.Expect(tf => tf.GetWmtsTileSources(newUrl)).Return(Enumerable.Empty<ITileSource>());
+            mockRepository.ReplayAll();
+
             DialogBoxHandler = (formName, wnd) =>
             {
                 using (var formTester = new FormTester(formName))
@@ -426,6 +441,7 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
                 }
             };
 
+            using (new UseCustomTileSourceFactoryConfig(tileFactory))
             using (var form = new Form())
             using (var control = new WmtsLocationControl())
             {
@@ -439,6 +455,7 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
                 };
 
                 var editLocationButton = new ButtonTester("editLocationButton", form);
+                ((Button) editLocationButton.TheObject).Enabled = true;
 
                 // When
                 editLocationButton.Click();
@@ -450,6 +467,8 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
                 Assert.AreEqual(newName, item.Name);
                 Assert.AreEqual(newUrl, item.Url);
             }
+
+            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -486,6 +505,7 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
                 };
 
                 var editLocationButton = new ButtonTester("editLocationButton", form);
+                ((Button) editLocationButton.TheObject).Enabled = true;
 
                 // When
                 editLocationButton.Click();

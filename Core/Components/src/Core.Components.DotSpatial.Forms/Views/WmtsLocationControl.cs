@@ -54,7 +54,7 @@ namespace Core.Components.DotSpatial.Forms.Views
             InitializeComboBoxDataSource();
             InitializeEventHandlers();
 
-            UpdateConnectToButton();
+            UpdateButtons();
         }
 
         public string DisplayName
@@ -114,9 +114,10 @@ namespace Core.Components.DotSpatial.Forms.Views
             }
         }
 
-        private void UpdateConnectToButton()
+        private void UpdateButtons()
         {
             connectToButton.Enabled = urlLocationComboBox.SelectedItem != null;
+            editLocationButton.Enabled = urlLocationComboBox.SelectedItem != null;
         }
 
         #region DataGridView
@@ -196,7 +197,7 @@ namespace Core.Components.DotSpatial.Forms.Views
 
             ClearDataGridViewDataSource();
 
-            UpdateConnectToButton();
+            UpdateButtons();
         }
 
         private WmtsConnectionInfo GetSelectedWmtsConnectionInfo()
@@ -227,7 +228,11 @@ namespace Core.Components.DotSpatial.Forms.Views
         private void OnConnectToButtonClick(object sender, EventArgs e)
         {
             var selectedWmtsConnectionInfo = urlLocationComboBox.SelectedItem as WmtsConnectionInfo;
+            ConnectToUrl(selectedWmtsConnectionInfo);
+        }
 
+        private void ConnectToUrl(WmtsConnectionInfo selectedWmtsConnectionInfo)
+        {
             try
             {
                 IEnumerable<WmtsCapability> wmtsCapabilities = WmtsCapabilityFactory.GetWmtsCapabilities(selectedWmtsConnectionInfo?.Url).ToArray();
@@ -258,6 +263,7 @@ namespace Core.Components.DotSpatial.Forms.Views
                 {
                     wmtsConnectionInfos.Add(createdWmtsConnectionInfos);
                     UpdateComboBoxDataSource(createdWmtsConnectionInfos);
+                    ConnectToUrl(createdWmtsConnectionInfos);
                 }
             }
         }
@@ -284,6 +290,7 @@ namespace Core.Components.DotSpatial.Forms.Views
                     wmtsConnectionInfos.Remove(selectedWmtsConnectionInfo);
                     wmtsConnectionInfos.Add(createdWmtsConnectionInfos);
                     UpdateComboBoxDataSource(createdWmtsConnectionInfos);
+                    ConnectToUrl(createdWmtsConnectionInfos);
                 }
             }
         }
