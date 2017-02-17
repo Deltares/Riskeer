@@ -81,6 +81,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.ViewInfos
                 // Assert
                 Assert.AreEqual(failureMechanism.Name, viewName);
             }
+            mocks.VerifyAll();
         }
 
         [Test]

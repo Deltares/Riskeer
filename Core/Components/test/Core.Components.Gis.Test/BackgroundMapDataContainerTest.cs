@@ -55,12 +55,14 @@ namespace Core.Components.Gis.Test
         {
             // Setup
             var container = new BackgroundMapDataContainer();
+            var originalNumberOfDecimals = container.Transparency.NumberOfDecimalPlaces;
 
             // Call
             container.Transparency = (RoundedDouble) newValue;
 
             // Assert
-            Assert.AreEqual(newValue, container.Transparency);
+            Assert.AreEqual(newValue, container.Transparency.Value);
+            Assert.AreEqual(originalNumberOfDecimals, container.Transparency.NumberOfDecimalPlaces);
         }
 
         [Test]

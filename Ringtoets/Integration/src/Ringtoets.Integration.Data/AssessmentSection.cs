@@ -61,7 +61,7 @@ namespace Ringtoets.Integration.Data
             Name = Resources.AssessmentSection_DisplayName;
             Comments = new Comment();
 
-            var mapData = WmtsMapData.CreateUnconnectedMapData();
+            WmtsMapData mapData = WmtsMapData.CreateUnconnectedMapData();
             BackgroundMapData = new BackgroundMapDataContainer
             {
                 IsVisible = mapData.IsVisible,

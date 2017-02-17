@@ -71,7 +71,7 @@ namespace Ringtoets.Common.Data.AssessmentSection
         HydraulicBoundaryDatabase HydraulicBoundaryDatabase { get; set; }
 
         /// <summary>
-        /// Gets the containers that holds the layer that represents the background for all
+        /// Gets the container that holds the layer that represents the background for all
         /// geo-referenced data.
         /// </summary>
         BackgroundMapDataContainer BackgroundMapData { get; }

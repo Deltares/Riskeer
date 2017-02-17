@@ -24,7 +24,6 @@ using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Utils.Extensions;
 using Core.Components.Gis;
 using Core.Components.Gis.Data;
-using Ringtoets.Common.Data;
 
 namespace Application.Ringtoets.Storage.Create
 {
@@ -36,7 +35,7 @@ namespace Application.Ringtoets.Storage.Create
     {
         /// <summary>
         /// Creates a <see cref="BackgroundMapDataEntity"/> based on the information of the
-        /// <see cref="BackgroundMapDataContainer"/> and it's <see cref="ImageBasedMapData"/>.
+        /// <see cref="BackgroundMapDataContainer"/> and its <see cref="ImageBasedMapData"/>.
         /// </summary>
         /// <param name="mapDataContainer">The container to create a <see cref="BackgroundMapDataEntity"/> for.</param>
         /// <returns>The entity, or <c>null</c> if <paramref name="mapDataContainer"/> contains

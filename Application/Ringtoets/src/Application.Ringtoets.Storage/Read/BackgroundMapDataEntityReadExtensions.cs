@@ -24,7 +24,6 @@ using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Base.Data;
 using Core.Components.Gis;
 using Core.Components.Gis.Data;
-using Ringtoets.Common.Data;
 
 namespace Application.Ringtoets.Storage.Read
 {
@@ -40,7 +39,7 @@ namespace Application.Ringtoets.Storage.Read
         /// </summary>
         /// <param name="entity">The <see cref="BackgroundMapDataEntity"/>
         /// to create <see cref="BackgroundMapDataContainer"/> for.</param>
-        /// <returns>A new <see cref="WmtsMapData"/>.</returns>
+        /// <returns>A new <see cref="BackgroundMapDataContainer"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when
         /// <paramref name="entity"/> is <c>null</c>.</exception>
         internal static BackgroundMapDataContainer Read(this BackgroundMapDataEntity entity)

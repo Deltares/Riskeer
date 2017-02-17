@@ -70,12 +70,14 @@ namespace Core.Components.Gis.Test.Data
         {
             // Setup
             var mapData = new SimpleImageBasedMapData("A");
+            var originalNumberOfDecimals = mapData.Transparency.NumberOfDecimalPlaces;
 
             // Call
             mapData.Transparency = (RoundedDouble)newValue;
 
             // Assert
-            Assert.AreEqual(newValue, mapData.Transparency);
+            Assert.AreEqual(newValue, mapData.Transparency.Value);
+            Assert.AreEqual(originalNumberOfDecimals, mapData.Transparency.NumberOfDecimalPlaces);
         }
 
         [Test]
