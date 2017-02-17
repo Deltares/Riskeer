@@ -156,24 +156,72 @@ namespace Ringtoets.Piping.IO.Test.Readers
         }
 
         [Test]
-        public void Read_ValidConfigurationWithoutItems_ReturnEmptyReadPipingCalculationItemsCollection()
+        public void Read_ValidConfigurationWithEmptyRoot_ReturnEmptyReadPipingCalculationItemsCollection()
         {
             // Setup
-            string filePath = Path.Combine(testDirectoryPath, "validNoItems.xml");
+            string filePath = Path.Combine(testDirectoryPath, "validEmptyRoot.xml");
             var pipingConfigurationReader = new PipingConfigurationReader(filePath);
 
             // Call
-            IList<IReadPipingCalculationItem> readPipingCalculationItems = pipingConfigurationReader.Read().ToList();
+            IEnumerable<IReadPipingCalculationItem> readPipingCalculationItems = pipingConfigurationReader.Read();
 
             // Assert
             CollectionAssert.IsEmpty(readPipingCalculationItems);
         }
 
         [Test]
+        public void Read_ValidConfigurationWithEmptyFolder_ReturnExpectedReadPipingCalculationGroup()
+        {
+            // Setup
+            string filePath = Path.Combine(testDirectoryPath, "validConfigurationEmptyFolder.xml");
+            var pipingConfigurationReader = new PipingConfigurationReader(filePath);
+
+            // Call
+            IList<IReadPipingCalculationItem> readPipingCalculationItems = pipingConfigurationReader.Read().ToList();
+
+            // Assert
+            Assert.AreEqual(1, readPipingCalculationItems.Count);
+
+            var group = readPipingCalculationItems[0] as ReadPipingCalculationGroup;
+            Assert.IsNotNull(group);
+            Assert.AreEqual("Calculation group", group.Name);
+            CollectionAssert.IsEmpty(group.Items);
+        }
+
+        [Test]
+        public void Read_ValidConfigurationWithEmptyCalculation_ReturnExpectedReadPipingCalculation()
+        {
+            // Setup
+            string filePath = Path.Combine(testDirectoryPath, "validConfigurationEmptyCalculation.xml");
+            var pipingConfigurationReader = new PipingConfigurationReader(filePath);
+
+            // Call
+            IList<IReadPipingCalculationItem> readPipingCalculationItems = pipingConfigurationReader.Read().ToList();
+
+            // Assert
+            Assert.AreEqual(1, readPipingCalculationItems.Count);
+
+            var calculation = readPipingCalculationItems[0] as ReadPipingCalculation;
+            Assert.IsNotNull(calculation);
+            Assert.AreEqual("Calculation", calculation.Name);
+            Assert.IsNull(calculation.AssessmentLevel);
+            Assert.IsNull(calculation.HydraulicBoundaryLocation);
+            Assert.IsNull(calculation.SurfaceLine);
+            Assert.IsNull(calculation.EntryPointL);
+            Assert.IsNull(calculation.ExitPointL);
+            Assert.IsNull(calculation.StochasticSoilModel);
+            Assert.IsNull(calculation.StochasticSoilProfile);
+            Assert.IsNull(calculation.PhreaticLevelExitMean);
+            Assert.IsNull(calculation.PhreaticLevelExitStandardDeviation);
+            Assert.IsNull(calculation.DampingFactorExitMean);
+            Assert.IsNull(calculation.DampingFactorExitStandardDeviation);
+        }
+
+        [Test]
         public void Read_ValidConfigurationWithNesting_ReturnExpectedReadPipingCalculationItems()
         {
             // Setup
-            string filePath = Path.Combine(testDirectoryPath, "validConfigurationWithNesting.xml");
+            string filePath = Path.Combine(testDirectoryPath, "validConfigurationNesting.xml");
             var pipingConfigurationReader = new PipingConfigurationReader(filePath);
 
             // Call
@@ -229,35 +277,6 @@ namespace Ringtoets.Piping.IO.Test.Readers
             var calculation5 = group4Items[0] as ReadPipingCalculation;
             Assert.IsNotNull(calculation5);
             Assert.AreEqual("Calculation 5", calculation5.Name);
-        }
-
-        [Test]
-        public void Read_ValidConfigurationWithEmptyCalculation_ReturnExpectedReadPipingCalculationItems()
-        {
-            // Setup
-            string filePath = Path.Combine(testDirectoryPath, "validConfigurationWithEmptyCalculation.xml");
-            var pipingConfigurationReader = new PipingConfigurationReader(filePath);
-
-            // Call
-            IList<IReadPipingCalculationItem> readPipingCalculationItems = pipingConfigurationReader.Read().ToList();
-
-            // Assert
-            Assert.AreEqual(1, readPipingCalculationItems.Count);
-
-            var calculation = readPipingCalculationItems[0] as ReadPipingCalculation;
-            Assert.IsNotNull(calculation);
-            Assert.AreEqual("Calculation", calculation.Name);
-            Assert.IsNull(calculation.AssessmentLevel);
-            Assert.IsNull(calculation.HydraulicBoundaryLocation);
-            Assert.IsNull(calculation.SurfaceLine);
-            Assert.IsNull(calculation.EntryPointL);
-            Assert.IsNull(calculation.ExitPointL);
-            Assert.IsNull(calculation.StochasticSoilModel);
-            Assert.IsNull(calculation.StochasticSoilProfile);
-            Assert.IsNull(calculation.PhreaticLevelExitMean);
-            Assert.IsNull(calculation.PhreaticLevelExitStandardDeviation);
-            Assert.IsNull(calculation.DampingFactorExitMean);
-            Assert.IsNull(calculation.DampingFactorExitStandardDeviation);
         }
     }
 }
