@@ -116,6 +116,27 @@ namespace Core.Common.Gui.TestUtil.Test.Settings
         }
 
         [Test]
+        public void GetApplicationLocalUserSettingsDirectory_ValidPathFileExistsDirectoryNotWritable_ThrowsIOException()
+        {
+            // Setup
+            const string workingDirectory = "folderToCr*eate";
+            const string userSettingsDirectory = "someFolder";
+            var settingsHelper = new TestSettingsHelper
+            {
+                ExpectedApplicationLocalUserSettingsDirectory = userSettingsDirectory
+            };
+
+            // Call
+            TestDelegate test = () => settingsHelper.GetApplicationLocalUserSettingsDirectory(workingDirectory);
+
+            // Assert
+            string dataPath = Path.Combine(userSettingsDirectory, workingDirectory);
+            var expectedMessage = $"Unable to create '{dataPath}'.";
+            var message = Assert.Throws<IOException>(test).Message;
+            Assert.AreEqual(expectedMessage, message);
+        }
+
+        [Test]
         public void ApplicationName_WithExpectedSet_ReturnsExpected()
         {
             // Setup

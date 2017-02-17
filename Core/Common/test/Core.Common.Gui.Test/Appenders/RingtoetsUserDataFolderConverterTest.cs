@@ -45,7 +45,6 @@ namespace Core.Common.Gui.Test.Appenders
         }
 
         [Test]
-        [TestCase(null)]
         [TestCase("")]
         [TestCase(" ")]
         [TestCase("some string")]

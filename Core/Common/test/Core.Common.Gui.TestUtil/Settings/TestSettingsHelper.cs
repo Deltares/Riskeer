@@ -99,7 +99,7 @@ namespace Core.Common.Gui.TestUtil.Settings
             }
             catch (Exception e)
             {
-                var message = $"Unable to create '{settingsDirectoryPath}'";
+                var message = $"Unable to create '{settingsDirectoryPath}'.";
                 throw new IOException(message, e);
             }
             return settingsDirectoryPath;
