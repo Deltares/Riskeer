@@ -30,10 +30,10 @@ namespace Core.Common.Gui.Settings
     /// <summary>
     /// Class that defines helper methods related to user settings.
     /// </summary>
-    public class SettingsHelper
+    public class SettingsHelper : ISettingsHelper
     {
         private readonly string localSettingsDirectoryPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-        private static SettingsHelper instance;
+        private static ISettingsHelper instance;
 
         /// <summary>
         /// Creates a new instance of <see cref="SettingsHelper"/>.
@@ -49,7 +49,7 @@ namespace Core.Common.Gui.Settings
         /// <summary>
         /// Gets the singleton instance of <see cref="SettingsHelper"/>.
         /// </summary>
-        public static SettingsHelper Instance
+        public static ISettingsHelper Instance
         {
             get
             {

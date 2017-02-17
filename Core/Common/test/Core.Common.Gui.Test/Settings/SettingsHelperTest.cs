@@ -31,6 +31,18 @@ namespace Core.Common.Gui.Test.Settings
     public class SettingsHelperTest
     {
         [Test]
+        public void Instance_CalledTwice_ReturnsSameInstance()
+        {
+            // Setup
+            ISettingsHelper expected = SettingsHelper.Instance;
+
+            // Call
+            ISettingsHelper actual = SettingsHelper.Instance;
+
+            // Assert
+            Assert.AreSame(expected, actual);
+        }
+        [Test]
         public void ApplicationName_ReturnsProductNameOfExecutingAssembly()
         {
             // Call
