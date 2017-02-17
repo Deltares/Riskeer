@@ -73,8 +73,30 @@ INSERT INTO StabilityPointStructuresSectionResultEntity SELECT * FROM [SOURCEPRO
 INSERT INTO StabilityStoneCoverSectionResultEntity SELECT * FROM [SOURCEPROJECT].StabilityStoneCoverSectionResultEntity;
 INSERT INTO StabilityStoneCoverWaveConditionsCalculationEntity SELECT * FROM [SOURCEPROJECT].StabilityStoneCoverWaveConditionsCalculationEntity;
 INSERT INTO StabilityStoneCoverWaveConditionsOutputEntity SELECT * FROM [SOURCEPROJECT].StabilityStoneCoverWaveConditionsOutputEntity;
-INSERT INTO StochasticSoilModelEntity SELECT * FROM [SOURCEPROJECT].StochasticSoilModelEntity;
-INSERT INTO StochasticSoilProfileEntity SELECT * FROM [SOURCEPROJECT].StochasticSoilProfileEntity;
+INSERT INTO StochasticSoilModelEntity 
+SELECT 
+	[StochasticSoilModelEntityId],
+	[FailuremechanismEntityId],
+	CASE WHEN Suffix THEN [Name] || '(' || Suffix || ')' ELSE [Name] END as [Name],
+	[SegmentName],
+	[StochasticSoilModelSegmentPointXml],
+	[Order]
+	FROM (SELECT *, (SELECT count(*)
+                     FROM [SOURCEPROJECT].StochasticSoilModelEntity
+                     WHERE SSM.StochasticSoilModelEntityId > StochasticSoilModelEntityId
+                     AND SSM.Name IS Name) as Suffix
+	FROM [SOURCEPROJECT].StochasticSoilModelEntity SSM);
+INSERT INTO StochasticSoilProfileEntity 
+SELECT
+    [StochasticSoilProfileEntityId],
+    [SoilProfileEntityId],
+    [StochasticSoilmodelEntityId], 
+    CASE
+        WHEN [Probability] BETWEEN 0 AND 1 THEN [Probability]
+        ELSE 0
+    END as [Probability],
+    [Order] 
+FROM [SOURCEPROJECT].StochasticSoilProfileEntity;
 INSERT INTO StrengthStabilityLengthwiseConstructionSectionResultEntity SELECT * FROM [SOURCEPROJECT].StrengthStabilityLengthwiseConstructionSectionResultEntity;
 INSERT INTO SurfaceLineEntity SELECT * FROM [SOURCEPROJECT].SurfaceLineEntity;
 INSERT INTO TechnicalInnovationSectionResultEntity SELECT * FROM [SOURCEPROJECT].TechnicalInnovationSectionResultEntity;
