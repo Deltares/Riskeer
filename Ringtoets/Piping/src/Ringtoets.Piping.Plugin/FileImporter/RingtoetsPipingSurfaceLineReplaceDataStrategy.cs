@@ -33,7 +33,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
     /// <summary>
     /// Strategy to replace the surface lines with the imported surface lines.
     /// </summary>
-    public class RingtoetsPipingSurfaceLineReplaceDataStrategy : ISurfaceLineUpdateSurfaceLineStrategy
+    public class RingtoetsPipingSurfaceLineReplaceDataStrategy : ISurfaceLineUpdateDataStrategy
     {
         private readonly PipingFailureMechanism failureMechanism;
 
@@ -53,8 +53,8 @@ namespace Ringtoets.Piping.Plugin.FileImporter
         }
 
         public IEnumerable<IObservable> UpdateSurfaceLinesWithImportedData(RingtoetsPipingSurfaceLineCollection targetCollection,
-                                                                    IEnumerable<RingtoetsPipingSurfaceLine> readRingtoetsPipingSurfaceLines,
-                                                                    string sourceFilePath)
+                                                                           IEnumerable<RingtoetsPipingSurfaceLine> readRingtoetsPipingSurfaceLines,
+                                                                           string sourceFilePath)
         {
             if (targetCollection == null)
             {

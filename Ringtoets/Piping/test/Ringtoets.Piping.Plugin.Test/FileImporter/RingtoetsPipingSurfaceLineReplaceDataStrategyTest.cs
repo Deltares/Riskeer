@@ -55,7 +55,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var strategy = new RingtoetsPipingSurfaceLineReplaceDataStrategy(new PipingFailureMechanism());
 
             // Assert
-            Assert.IsInstanceOf<ISurfaceLineUpdateSurfaceLineStrategy>(strategy);
+            Assert.IsInstanceOf<ISurfaceLineUpdateDataStrategy>(strategy);
         }
 
         [Test]
@@ -195,7 +195,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         }
 
         [Test]
-        public void UpdateSurfaceLinesWithImportedData_CalculationWithOutputRemovedSurfaceLine_CalculationUpdatedAndReturnsAffectedObject()
+        public void UpdateSurfaceLinesWithImportedData_CalculationWithOutputSurfaceLine_CalculationUpdatedAndReturnsAffectedObject()
         {
             // Setup
             var existingSurfaceLine = new RingtoetsPipingSurfaceLine();

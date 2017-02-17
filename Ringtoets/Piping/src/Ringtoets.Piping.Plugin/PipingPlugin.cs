@@ -971,7 +971,7 @@ namespace Ringtoets.Piping.Plugin
 
         private static PipingSurfaceLinesCsvImporter PipingSurfaceLinesCsvImporter(RingtoetsPipingSurfaceLinesContext context,
                                                                                    string filePath,
-                                                                                   ISurfaceLineUpdateSurfaceLineStrategy strategy)
+                                                                                   ISurfaceLineUpdateDataStrategy strategy)
         {
             return new PipingSurfaceLinesCsvImporter(context.WrappedData,
                                                      context.AssessmentSection.ReferenceLine,

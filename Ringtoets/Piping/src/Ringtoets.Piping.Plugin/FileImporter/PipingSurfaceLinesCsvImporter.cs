@@ -54,7 +54,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
 
         private const string characteristicPointsFileSubExtension = ".krp";
         private const string csvFileExtension = ".csv";
-        private readonly ISurfaceLineUpdateSurfaceLineStrategy surfaceLineUpdateStrategy;
+        private readonly ISurfaceLineUpdateDataStrategy surfaceLineUpdateStrategy;
         private readonly ILog log = LogManager.GetLogger(typeof(PipingSurfaceLinesCsvImporter));
 
         private readonly ReferenceLine referenceLine;
@@ -71,7 +71,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
         public PipingSurfaceLinesCsvImporter(RingtoetsPipingSurfaceLineCollection importTarget,
             ReferenceLine referenceLine,
             string filePath,
-            ISurfaceLineUpdateSurfaceLineStrategy surfaceLineUpdateStrategy) : base(filePath, importTarget)
+            ISurfaceLineUpdateDataStrategy surfaceLineUpdateStrategy) : base(filePath, importTarget)
         {
             if (importTarget == null)
             {

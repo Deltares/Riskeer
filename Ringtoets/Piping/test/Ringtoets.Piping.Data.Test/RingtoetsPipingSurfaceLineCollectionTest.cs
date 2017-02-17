@@ -41,6 +41,33 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
+        public void AddRange_SurfaceLinesWithDifferentNames_AddsSurfaceLines()
+        {
+            // Setup
+            var surfaceLinesToAdd = new[]
+            {
+                new RingtoetsPipingSurfaceLine
+                {
+                    Name = "Name A"
+                },
+                new RingtoetsPipingSurfaceLine
+                {
+                    Name = "Name B"
+                }
+            };
+
+            var collection = new RingtoetsPipingSurfaceLineCollection();
+            const string expectedFilePath = "other/path";
+            
+            // Call
+            collection.AddRange(surfaceLinesToAdd, expectedFilePath);
+
+            // Assert
+            Assert.AreEqual(expectedFilePath, collection.SourcePath);
+            CollectionAssert.AreEqual(surfaceLinesToAdd, collection);
+        }
+
+        [Test]
         public void AddRange_SurfaceLinesWithSameNames_ThrowsArgumentException()
         {
             // Setup

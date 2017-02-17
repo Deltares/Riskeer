@@ -34,11 +34,14 @@ namespace Ringtoets.Piping.Plugin.FileImporter
 {
     /// <summary>
     /// Strategy for updating the current stochastic soil models with the imported stochastic soil models.
-    /// Adds stochastic soil models that are imported and are not part of current stochastic soil model collection.
-    /// Removes stochastic soil models that are part of the current stochastic soil model collection, but were not
+    /// <list type="bullet">
+    /// <item>Adds stochastic soil models that are imported and are not part of current stochastic soil model collection.</item>
+    /// <item>Removes stochastic soil models that are part of the current stochastic soil model collection, but were not
     /// amongst the imported stochastic soil models.
-    /// Updates stochastic soil models that are part of the current stochastic soil model collection and are also
-    /// imported.
+    /// </item>
+    /// <item>Updates stochastic soil models that are part of the current stochastic soil model collection and are also
+    /// imported.</item>
+    /// </list>
     /// </summary>
     public class StochasticSoilModelUpdateDataStrategy : IStochasticSoilModelUpdateModelStrategy
     {

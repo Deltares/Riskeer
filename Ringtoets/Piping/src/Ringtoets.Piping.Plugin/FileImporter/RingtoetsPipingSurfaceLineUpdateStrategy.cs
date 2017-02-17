@@ -34,11 +34,13 @@ namespace Ringtoets.Piping.Plugin.FileImporter
 {
     /// <summary>
     /// Strategy for updating the current surface lines with the imported surface lines:
-    /// - Adds imported surface lines that are not part of the current collection.
-    /// - Removes surface lines that are part of the current collection, but are not part of the imported surface line collection.
-    /// - Updates the surface lines that are part of the current collection and are part of the imported surface line collection. 
+    /// <list type="bullet">
+    /// <item>Adds imported surface lines that are not part of the current collection.</item>
+    /// <item>Removes surface lines that are part of the current collection, but are not part of the imported surface line collection.</item>
+    /// <item>Updates the surface lines that are part of the current collection and are part of the imported surface line collection.</item>
+    /// </list>
     /// </summary>
-    public class RingtoetsPipingSurfaceLineUpdateDataStrategy : ISurfaceLineUpdateSurfaceLineStrategy
+    public class RingtoetsPipingSurfaceLineUpdateDataStrategy : ISurfaceLineUpdateDataStrategy
     {
         private readonly PipingFailureMechanism failureMechanism;
 

@@ -40,6 +40,27 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
+        public void AddRange_SurfaceLinesWithDifferentNames_AddsSurfaceLines()
+        {
+            // Setup
+            var stochasticSoilModelsToAdd = new[]
+            {
+                new StochasticSoilModel(5, "Model A", "segmentA"),
+                new StochasticSoilModel(6, "Model B", "segmentA")
+            };
+
+            var collection = new StochasticSoilModelCollection();
+            const string expectedFilePath = "other/path";
+
+            // Call
+            collection.AddRange(stochasticSoilModelsToAdd, expectedFilePath);
+
+            // Assert
+            Assert.AreEqual(expectedFilePath, collection.SourcePath);
+            CollectionAssert.AreEqual(stochasticSoilModelsToAdd, collection);
+        }
+
+        [Test]
         public void AddRange_WithStochasticSoilModelsWithEqualNames_ThrowsArgumentException()
         {
             // Setup

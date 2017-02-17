@@ -55,7 +55,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var strategy = new RingtoetsPipingSurfaceLineUpdateDataStrategy(new PipingFailureMechanism());
 
             // Assert
-            Assert.IsInstanceOf<ISurfaceLineUpdateSurfaceLineStrategy>(strategy);
+            Assert.IsInstanceOf<ISurfaceLineUpdateDataStrategy>(strategy);
         }
 
         [Test]
@@ -79,7 +79,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var strategy = new RingtoetsPipingSurfaceLineUpdateDataStrategy(new PipingFailureMechanism());
 
             // Call
-            TestDelegate test = () => strategy.UpdateSurfaceLinesWithImportedData(new RingtoetsPipingSurfaceLineCollection(), 
+            TestDelegate test = () => strategy.UpdateSurfaceLinesWithImportedData(new RingtoetsPipingSurfaceLineCollection(),
                                                                                   null,
                                                                                   string.Empty);
 
@@ -95,7 +95,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var strategy = new RingtoetsPipingSurfaceLineUpdateDataStrategy(new PipingFailureMechanism());
 
             // Call
-            TestDelegate test = () => strategy.UpdateSurfaceLinesWithImportedData(new RingtoetsPipingSurfaceLineCollection(), 
+            TestDelegate test = () => strategy.UpdateSurfaceLinesWithImportedData(new RingtoetsPipingSurfaceLineCollection(),
                                                                                   Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                                                                   null);
 
@@ -141,14 +141,26 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         {
             // Setup
             const string duplicateName = "Duplicate name it is";
-            var targetCollection = new RingtoetsPipingSurfaceLineCollection();
-            targetCollection.AddRange(new[]
+
+            var expectedSurfaceLine = new RingtoetsPipingSurfaceLine
             {
-                new RingtoetsPipingSurfaceLine
-                {
-                    Name = duplicateName
-                }
-            }, sourceFilePath);
+                Name = duplicateName
+            };
+            Point3D[] expectedGeometry =
+            {
+                new Point3D(0, 1, 2),
+                new Point3D(3, 4, 5),
+                new Point3D(6, 7, 8)
+            };
+            expectedSurfaceLine.SetGeometry(expectedGeometry);
+
+            var expectedCollection = new[]
+            {
+                expectedSurfaceLine
+            };
+
+            var targetCollection = new RingtoetsPipingSurfaceLineCollection();
+            targetCollection.AddRange(expectedCollection, sourceFilePath);
 
             RingtoetsPipingSurfaceLine[] importedSurfaceLines =
             {
@@ -173,6 +185,11 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var exception = Assert.Throws<RingtoetsPipingSurfaceLineUpdateException>(call);
             Assert.AreEqual("Het bijwerken van de profielschematisaties is mislukt.", exception.Message);
             Assert.IsInstanceOf<InvalidOperationException>(exception.InnerException);
+
+            CollectionAssert.AreEqual(expectedCollection, targetCollection);
+            RingtoetsPipingSurfaceLine actualSurfaceLine = targetCollection[0];
+            Assert.AreEqual(expectedSurfaceLine.Name, actualSurfaceLine.Name);
+            CollectionAssert.AreEqual(expectedGeometry, actualSurfaceLine.Points);
         }
 
         [Test]
@@ -248,38 +265,6 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             {
                 targetSurfaceLine
             }, affectedObjects);
-        }
-
-        [Test]
-        public void UpdateSurfaceLinesWithImportedData_ImportedDataContainsDuplicateNames_ThrowsUpdateException()
-        {
-            // Setup
-            const string duplicateName = "Duplicate name it is";
-            RingtoetsPipingSurfaceLine[] importedSurfaceLines =
-            {
-                new RingtoetsPipingSurfaceLine
-                {
-                    Name = duplicateName
-                },
-                new RingtoetsPipingSurfaceLine
-                {
-                    Name = duplicateName
-                }
-            };
-
-            var failureMechanism = new PipingFailureMechanism();
-            var strategy = new RingtoetsPipingSurfaceLineReplaceDataStrategy(failureMechanism);
-
-            // Call
-            TestDelegate call = () => strategy.UpdateSurfaceLinesWithImportedData(failureMechanism.SurfaceLines,
-                                                                                  importedSurfaceLines,
-                                                                                  sourceFilePath);
-
-            // Assert
-            var exception = Assert.Throws<RingtoetsPipingSurfaceLineUpdateException>(call);
-            string expectedMessage = $"Profielschematisaties moeten een unieke naam hebben. Gevonden dubbele namen: {duplicateName}.";
-            Assert.AreEqual(expectedMessage, exception.Message);
-            Assert.IsInstanceOf<ArgumentException>(exception.InnerException);
         }
     }
 }

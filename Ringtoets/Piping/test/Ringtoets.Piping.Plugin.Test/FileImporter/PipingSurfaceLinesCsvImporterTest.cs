@@ -181,7 +181,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             bool importResult = importer.Import();
 
             // Assert
-            RingtoetsPipingSurfaceLine[] importTargetArray = AssertSuccesfulImport(importResult, expectedNumberOfSurfaceLines, validFilePath, surfaceLineUpdateStrategy);
+            RingtoetsPipingSurfaceLine[] importTargetArray = AssertSuccessfulImport(importResult, expectedNumberOfSurfaceLines, validFilePath, surfaceLineUpdateStrategy);
 
             // Sample some of the imported data:
             RingtoetsPipingSurfaceLine firstSurfaceLine = importTargetArray[0];
@@ -240,7 +240,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             };
 
             TestHelper.AssertLogMessagesAreGenerated(call, mesages, 4);
-            RingtoetsPipingSurfaceLine[] importTargetArray = AssertSuccesfulImport(importResult, 1, validFilePath, surfaceLineUpdateStrategy);
+            RingtoetsPipingSurfaceLine[] importTargetArray = AssertSuccessfulImport(importResult, 1, validFilePath, surfaceLineUpdateStrategy);
 
             // Sample some of the imported data:
             RingtoetsPipingSurfaceLine firstSurfaceLine = importTargetArray[0];
@@ -400,7 +400,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             importResult = importer.Import();
 
             // Assert
-            AssertSuccesfulImport(importResult, expectedNumberOfSurfaceLines, validFilePath, surfaceLineUpdateStrategy);
+            AssertSuccessfulImport(importResult, expectedNumberOfSurfaceLines, validFilePath, surfaceLineUpdateStrategy);
         }
 
         [Test]
@@ -610,7 +610,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             TestHelper.AssertLogMessagesAreGenerated(call, expectedLogMessages, 4);
 
-            RingtoetsPipingSurfaceLine[] importedSurfaceLines = AssertSuccesfulImport(importResult, 1, corruptPath, surfaceLineUpdateStrategy);
+            RingtoetsPipingSurfaceLine[] importedSurfaceLines = AssertSuccessfulImport(importResult, 1, corruptPath, surfaceLineUpdateStrategy);
             Assert.AreEqual(1, importedSurfaceLines.Count(sl => sl.Name == "Rotterdam1"));
             Assert.AreEqual(3, importedSurfaceLines.First(sl => sl.Name == "Rotterdam1").Points.Length, "First line should have been added to the model.");
         }
@@ -661,7 +661,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             };
             TestHelper.AssertLogMessagesAreGenerated(call, expectedLogMessages, 4);
 
-            RingtoetsPipingSurfaceLine[] importedSurfaceLines = AssertSuccesfulImport(importResult, 2, corruptPath, surfaceLineUpdateStrategy);
+            RingtoetsPipingSurfaceLine[] importedSurfaceLines = AssertSuccessfulImport(importResult, 2, corruptPath, surfaceLineUpdateStrategy);
             Assert.AreEqual(1, importedSurfaceLines.Count(sl => sl.Name == "Rotterdam1"));
             Assert.AreEqual(1, importedSurfaceLines.Count(sl => sl.Name == "ArtifcialLocal"));
 
@@ -715,7 +715,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                               Path.Combine(ioTestDataPath, "InvalidRow_DuplicatePointsCausingRecline.krp.csv"))
             };
             TestHelper.AssertLogMessagesAreGenerated(call, expectedLogMessages, 4);
-            AssertSuccesfulImport(importResult, 0, path, surfaceLineUpdateStrategy);
+            AssertSuccessfulImport(importResult, 0, path, surfaceLineUpdateStrategy);
 
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(path));
         }
@@ -757,7 +757,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                               Path.Combine(ioTestDataPath, "InvalidRow_DuplicatePointsCausingZeroLength.krp.csv"))
             };
             TestHelper.AssertLogMessagesAreGenerated(call, expectedLogMessages, 4);
-            AssertSuccesfulImport(importResult, 0, path, surfaceLineUpdateStrategy);
+            AssertSuccessfulImport(importResult, 0, path, surfaceLineUpdateStrategy);
 
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(path));
         }
@@ -798,7 +798,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                                                    nonExistingCharacteristicFile);
             TestHelper.AssertLogMessageIsGenerated(call, expectedLogMessage, 3);
 
-            AssertSuccesfulImport(importResult, 2, surfaceLinesFile, surfaceLineUpdateStrategy);
+            AssertSuccessfulImport(importResult, 2, surfaceLinesFile, surfaceLineUpdateStrategy);
         }
 
         [Test]
@@ -992,7 +992,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             };
             TestHelper.AssertLogMessagesAreGenerated(call, expectedLogMessages, 5);
 
-            RingtoetsPipingSurfaceLine[] importedSurfaceLines = AssertSuccesfulImport(importResult, 2, surfaceLinesFile, surfaceLineUpdateStrategy);
+            RingtoetsPipingSurfaceLine[] importedSurfaceLines = AssertSuccessfulImport(importResult, 2, surfaceLinesFile, surfaceLineUpdateStrategy);
             Assert.AreEqual(1, importedSurfaceLines.Count(sl => sl.Name == "Rotterdam1"));
             Assert.AreEqual(-1.02, importedSurfaceLines.First(sl => sl.Name == "Rotterdam1").DitchPolderSide.Z, "First characteristic points definition should be added to data model.");
             Assert.AreEqual(1, importedSurfaceLines.Count(sl => sl.Name == "ArtifcialLocal"));
@@ -1049,7 +1049,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             };
             TestHelper.AssertLogMessagesAreGenerated(call, expectedLogMessages, 6);
 
-            RingtoetsPipingSurfaceLine[] importedSurfaceLines = AssertSuccesfulImport(importResult, 2, surfaceLinesFile, surfaceLineUpdateStrategy);
+            RingtoetsPipingSurfaceLine[] importedSurfaceLines = AssertSuccessfulImport(importResult, 2, surfaceLinesFile, surfaceLineUpdateStrategy);
             Assert.AreEqual(1, importedSurfaceLines.Count(sl => sl.Name == "Rotterdam1Invalid"));
             Assert.AreEqual(1, importedSurfaceLines.Count(sl => sl.Name == "ArtifcialLocal"));
 
@@ -1112,7 +1112,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             };
             TestHelper.AssertLogMessagesAreGenerated(call, expectedLogMessages, 5);
 
-            RingtoetsPipingSurfaceLine[] importedSurfaceLines = AssertSuccesfulImport(importResult, 2, surfaceLinesPath, surfaceLineUpdateStrategy);
+            RingtoetsPipingSurfaceLine[] importedSurfaceLines = AssertSuccessfulImport(importResult, 2, surfaceLinesPath, surfaceLineUpdateStrategy);
             Assert.AreEqual(1, importedSurfaceLines.Count(sl => sl.Name == "Rotterdam1"));
             Assert.AreEqual(1, importedSurfaceLines.Count(sl => sl.Name == "ArtifcialLocal"));
 
@@ -1175,7 +1175,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             };
             TestHelper.AssertLogMessagesAreGenerated(call, expectedLogMessages, 5);
 
-            RingtoetsPipingSurfaceLine[] importedSurfaceLines = AssertSuccesfulImport(importResult, 2, surfaceLinesPath, surfaceLineUpdateStrategy);
+            RingtoetsPipingSurfaceLine[] importedSurfaceLines = AssertSuccessfulImport(importResult, 2, surfaceLinesPath, surfaceLineUpdateStrategy);
             Assert.AreEqual(1, importedSurfaceLines.Count(sl => sl.Name == "Rotterdam1"));
             Assert.AreEqual(1, importedSurfaceLines.Count(sl => sl.Name == "ArtifcialLocal"));
 
@@ -1247,7 +1247,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             };
             TestHelper.AssertLogMessagesAreGenerated(call, expectedLogMessages);
 
-            RingtoetsPipingSurfaceLine[] importedSurfaceLines = AssertSuccesfulImport(importResult, 2, surfaceLinesPath, surfaceLineUpdateStrategy);
+            RingtoetsPipingSurfaceLine[] importedSurfaceLines = AssertSuccessfulImport(importResult, 2, surfaceLinesPath, surfaceLineUpdateStrategy);
             Assert.AreEqual(1, importedSurfaceLines.Count(sl => sl.Name == "Rotterdam1Invalid"));
             Assert.AreEqual(1, importedSurfaceLines.Count(sl => sl.Name == "ArtifcialLocal"));
 
@@ -1341,7 +1341,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             bool importResult = importer.Import();
 
             // Assert
-            RingtoetsPipingSurfaceLine[] importTargetArray = AssertSuccesfulImport(importResult, expectedNumberOfSurfaceLines, validSurfaceLinesFilePath, surfaceLineUpdateStrategy);
+            RingtoetsPipingSurfaceLine[] importTargetArray = AssertSuccessfulImport(importResult, expectedNumberOfSurfaceLines, validSurfaceLinesFilePath, surfaceLineUpdateStrategy);
 
             // Sample some of the imported data:
             RingtoetsPipingSurfaceLine firstSurfaceLine = importTargetArray[0];
@@ -1404,7 +1404,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var message = "Profielschematisatie ArtifcialLocal doorkruist de huidige referentielijn niet of op meer dan één punt en kan niet worden geïmporteerd. Dit kan komen doordat de profielschematisatie een lokaal coördinaatsysteem heeft.";
             TestHelper.AssertLogMessageIsGenerated(call, message);
 
-            RingtoetsPipingSurfaceLine[] importTargetArray = AssertSuccesfulImport(importResult, expectedNumberOfSurfaceLines, validFilePath, surfaceLineUpdateStrategy);
+            RingtoetsPipingSurfaceLine[] importTargetArray = AssertSuccessfulImport(importResult, expectedNumberOfSurfaceLines, validFilePath, surfaceLineUpdateStrategy);
 
             // Sample some of the imported data:
             RingtoetsPipingSurfaceLine firstSurfaceLine = importTargetArray[0];
@@ -1451,7 +1451,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var mesagge = "Profielschematisatie Rotterdam1 doorkruist de huidige referentielijn niet of op meer dan één punt en kan niet worden geïmporteerd.";
             TestHelper.AssertLogMessageIsGenerated(call, mesagge);
 
-            RingtoetsPipingSurfaceLine[] importTargetArray = AssertSuccesfulImport(importResult, expectedNumberOfSurfaceLines, validFilePath, surfaceLineUpdateStrategy);
+            RingtoetsPipingSurfaceLine[] importTargetArray = AssertSuccessfulImport(importResult, expectedNumberOfSurfaceLines, validFilePath, surfaceLineUpdateStrategy);
 
             // Sample some of the imported data:
             RingtoetsPipingSurfaceLine firstSurfaceLine = importTargetArray[0];
@@ -1496,7 +1496,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                                         "ArtifcialLocal");
             TestHelper.AssertLogMessageIsGenerated(call, message);
 
-            RingtoetsPipingSurfaceLine[] importTargetArray = AssertSuccesfulImport(importResult, 1, validFilePath, surfaceLineUpdateStrategy);
+            RingtoetsPipingSurfaceLine[] importTargetArray = AssertSuccessfulImport(importResult, 1, validFilePath, surfaceLineUpdateStrategy);
 
             // Sample some of the imported data:
             RingtoetsPipingSurfaceLine firstSurfaceLine = importTargetArray[0];
@@ -1505,7 +1505,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Assert.AreEqual(427776.654093, firstSurfaceLine.StartingWorldPoint.Y);
         }
 
-        private static RingtoetsPipingSurfaceLine[] AssertSuccesfulImport(bool importResult,
+        private static RingtoetsPipingSurfaceLine[] AssertSuccessfulImport(bool importResult,
                                                                           int expectedSurfaceLineCount,
                                                                           string expectedFilePath,
                                                                           TestSurfaceLineUpdateStrategy updateStrategy)
@@ -1534,7 +1534,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                                         expectedPoint, actualPoint));
         }
 
-        private class TestSurfaceLineUpdateStrategy : ISurfaceLineUpdateSurfaceLineStrategy
+        private class TestSurfaceLineUpdateStrategy : ISurfaceLineUpdateDataStrategy
         {
             public bool Updated { get; private set; }
             public string FilePath { get; private set; }
