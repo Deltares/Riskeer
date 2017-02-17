@@ -163,6 +163,7 @@ namespace Ringtoets.Piping.IO.Test.Readers
         [TestCase("invalidStochastStandardDeviationWrongCulture.xml")]
         [TestCase("invalidMultiplePhreaticLevelExitStochast.xml")]
         [TestCase("invalidMultipleDampingFactorExitStochast.xml")]
+        [TestCase("invalidContainingBothAssessmentLevelAndHydraulicBoundaryLocation.xml")]
         public void Constructor_FileInvalidBasedOnSchemaDefinition_ThrowCriticalFileReadException(string fileName)
         {
             // Setup

@@ -47,7 +47,7 @@ All rights reserved.
 	</xs:element>
 	<xs:element name="berekening">
 		<xs:complexType>
-			<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:choice>
 				<xs:choice minOccurs="0" maxOccurs="1">
 					<xs:element ref="hrlocatie"/>
 					<xs:element ref="toetspeil"/>
