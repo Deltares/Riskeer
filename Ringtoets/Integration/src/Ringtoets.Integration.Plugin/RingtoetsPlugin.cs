@@ -920,13 +920,9 @@ namespace Ringtoets.Integration.Plugin
         private static void SetSelectedMapData(IAssessmentSection assessmentSection, ImageBasedMapData selectedMapData)
         {
             assessmentSection.BackgroundMapData.MapData = selectedMapData;
-            if (selectedMapData == null)
-            {
-                return;
-            }
+            assessmentSection.BackgroundMapData.IsVisible = selectedMapData != null;
             assessmentSection.BackgroundMapData.NotifyObservers();
             assessmentSection.NotifyObservers();
-            assessmentSection.BackgroundMapData.MapData.IsVisible = true;
         }
 
         #endregion

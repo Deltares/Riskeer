@@ -104,7 +104,7 @@ namespace Ringtoets.Integration.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Selecteren.
+        ///   Looks up a localized string similar to Selecteren....
         /// </summary>
         public static string BackgroundMapData_SelectMapData {
             get {
