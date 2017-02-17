@@ -30,30 +30,46 @@ namespace Core.Common.Gui.Settings
     /// <summary>
     /// Class that defines helper methods related to user settings.
     /// </summary>
-    public static class SettingsHelper
+    public class SettingsHelper
     {
-        private static readonly string localSettingsDirectoryPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+        private readonly string localSettingsDirectoryPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+        private static SettingsHelper instance;
 
         /// <summary>
-        /// Initializes the <see cref="SettingsHelper"/> static properties.
+        /// Creates a new instance of <see cref="SettingsHelper"/>.
         /// </summary>
-        static SettingsHelper()
+        private SettingsHelper()
         {
-            //set defaults based on executing assembly
-            var info = AssemblyUtils.GetExecutingAssemblyInfo();
+            // set defaults based on executing assembly
+            AssemblyUtils.AssemblyInfo info = AssemblyUtils.GetExecutingAssemblyInfo();
             ApplicationName = info.Product;
             ApplicationVersion = info.Version;
         }
 
         /// <summary>
+        /// Gets the singleton instance of <see cref="SettingsHelper"/>.
+        /// </summary>
+        public static SettingsHelper Instance
+        {
+            get
+            {
+                return instance ?? (instance = new SettingsHelper());
+            }
+            set
+            {
+                instance = value;
+            }
+        }
+
+        /// <summary>
         /// Gets the name of the application.
         /// </summary>
-        public static string ApplicationName { get; private set; }
+        public string ApplicationName { get; private set; }
 
         /// <summary>
         /// Gets the version of the application.
         /// </summary>
-        public static string ApplicationVersion { get; private set; }
+        public string ApplicationVersion { get; private set; }
 
         /// <summary>
         /// Gets the application local user settings directory.
@@ -61,27 +77,25 @@ namespace Core.Common.Gui.Settings
         /// <param name="postfix">The postfix path to use after the local application data folder (if any).</param>
         /// <returns>Directory path where the user settings can be found.</returns>
         /// <exception cref="IOException">Thrown when the application local user settings directory could not be created.</exception>
-        public static string GetApplicationLocalUserSettingsDirectory(string postfix)
+        public string GetApplicationLocalUserSettingsDirectory(string postfix)
         {
             var appSettingsDirectoryPath = string.IsNullOrWhiteSpace(postfix) ? localSettingsDirectoryPath : Path.Combine(localSettingsDirectoryPath, postfix);
 
-            if (!Directory.Exists(appSettingsDirectoryPath))
+            if (Directory.Exists(appSettingsDirectoryPath))
             {
-                try
-                {
-                    Directory.CreateDirectory(appSettingsDirectoryPath);
-                }
-                catch (Exception e)
-                {
-                    if (e is ArgumentException || e is IOException || e is NotSupportedException || e is UnauthorizedAccessException)
-                    {
-                        var message = string.Format(CultureInfo.CurrentCulture,
-                                                    Resources.SettingsHelper_GetApplicationLocalUserSettingsDirectory_Folder_0_Cannot_be_created,
-                                                    appSettingsDirectoryPath);
-                        throw new IOException(message, e);
-                    }
-                    throw;
-                }
+                return appSettingsDirectoryPath;
+            }
+
+            try
+            {
+                Directory.CreateDirectory(appSettingsDirectoryPath);
+            }
+            catch (Exception e) when (e is ArgumentException || e is IOException || e is NotSupportedException || e is UnauthorizedAccessException)
+            {
+                var message = string.Format(CultureInfo.CurrentCulture,
+                                            Resources.SettingsHelper_GetApplicationLocalUserSettingsDirectory_Folder_0_Cannot_be_created,
+                                            appSettingsDirectoryPath);
+                throw new IOException(message, e);
             }
             return appSettingsDirectoryPath;
         }

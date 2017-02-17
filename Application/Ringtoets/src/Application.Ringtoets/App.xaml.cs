@@ -88,7 +88,7 @@ namespace Application.Ringtoets
 
             string userDisplay = UserDisplay();
             log.Info(string.Format(CoreCommonGuiResources.App_Starting_Ringtoets_version_0_by_user_0,
-                                   SettingsHelper.ApplicationVersion,
+                                   SettingsHelper.Instance.ApplicationVersion,
                                    userDisplay));
         }
 

@@ -644,7 +644,7 @@ namespace Core.Common.Gui.Forms.MainWindow
         {
             var aboutDialog = new SplashScreen.SplashScreen
             {
-                VersionText = SettingsHelper.ApplicationVersion,
+                VersionText = SettingsHelper.Instance.ApplicationVersion,
                 SupportEmail = settings.FixedSettings.SupportEmailAddress,
                 SupportPhoneNumber = settings.FixedSettings.SupportPhoneNumber,
                 AllowsTransparency = false,

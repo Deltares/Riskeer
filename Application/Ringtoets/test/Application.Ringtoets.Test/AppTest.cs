@@ -81,8 +81,7 @@ namespace Application.Ringtoets.Test
                 {
                     var msgs = messages.ToArray();
                     Assert.AreEqual(1, msgs.Length);
-                    Assert.AreEqual(string.Format("Ringtoets versie {0} wordt gestart door {1}...",
-                                                  SettingsHelper.ApplicationVersion, userDisplayInfo), msgs[0]);
+                    Assert.AreEqual($"Ringtoets versie {SettingsHelper.Instance.ApplicationVersion} wordt gestart door {userDisplayInfo}...", msgs[0]);
                 });
             });
         }
@@ -91,8 +90,7 @@ namespace Application.Ringtoets.Test
         {
             try
             {
-                return string.Format("{0} ({1})", UserPrincipal.Current.DisplayName,
-                                     UserPrincipal.Current.SamAccountName);
+                return $"{UserPrincipal.Current.DisplayName} ({UserPrincipal.Current.SamAccountName})";
             }
             catch (SystemException)
             {

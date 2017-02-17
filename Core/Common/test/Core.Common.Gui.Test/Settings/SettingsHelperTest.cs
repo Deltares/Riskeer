@@ -51,7 +51,7 @@ namespace Core.Common.Gui.Test.Settings
         public void ApplicationName_ReturnsProductNameOfExecutingAssembly()
         {
             // Call
-            var settings = SettingsHelper.ApplicationName;
+            var settings = SettingsHelper.Instance.ApplicationName;
 
             // Assert
             Assert.AreEqual(AssemblyUtils.GetExecutingAssemblyInfo().Product, settings);
@@ -61,7 +61,7 @@ namespace Core.Common.Gui.Test.Settings
         public void ApplicationVersion_ReturnsVersionOfExecutingAssembly()
         {
             // Call
-            var settings = SettingsHelper.ApplicationVersion;
+            var settings = SettingsHelper.Instance.ApplicationVersion;
 
             // Assert
             Assert.AreEqual(AssemblyUtils.GetExecutingAssemblyInfo().Version, settings);
@@ -79,7 +79,7 @@ namespace Core.Common.Gui.Test.Settings
             var appSettingsDirectoryPath = string.IsNullOrWhiteSpace(postfix) ? localSettingsDirectoryPath : Path.Combine(localSettingsDirectoryPath, postfix);
 
             // Call
-            var pathFromSettings = SettingsHelper.GetApplicationLocalUserSettingsDirectory(postfix);
+            var pathFromSettings = SettingsHelper.Instance.GetApplicationLocalUserSettingsDirectory(postfix);
 
             // Assert
             Assert.AreEqual(appSettingsDirectoryPath, pathFromSettings);
@@ -98,7 +98,7 @@ namespace Core.Common.Gui.Test.Settings
             using (new DirectoryPermissionsRevoker(workingDirectory, FileSystemRights.Write))
             {
                 // Call
-                TestDelegate test = () => SettingsHelper.GetApplicationLocalUserSettingsDirectory(notWritableFolder);
+                TestDelegate test = () => SettingsHelper.Instance.GetApplicationLocalUserSettingsDirectory(notWritableFolder);
 
                 try
                 {

@@ -527,8 +527,7 @@ namespace Core.Common.Gui.Test
                 Assert.AreEqual(fileName, gui.Project.Name,
                                 "Project name should be updated to the name of the file.");
 
-                var expectedTitle = string.Format("{0} - {1} {2}",
-                                                  fileName, fixedSettings.MainWindowTitle, SettingsHelper.ApplicationVersion);
+                var expectedTitle = $"{fileName} - {fixedSettings.MainWindowTitle} {SettingsHelper.Instance.ApplicationVersion}";
                 Assert.AreEqual(expectedTitle, mainWindow.Title);
             }
             mocks.VerifyAll();
@@ -576,8 +575,7 @@ namespace Core.Common.Gui.Test
                 TestHelper.AssertLogMessagesAreGenerated(call, expectedMessages);
 
                 Assert.IsNull(gui.ProjectFilePath);
-                var expectedTitle = string.Format("{0} - {1} {2}",
-                                                  expectedProjectName, fixedSettings.MainWindowTitle, SettingsHelper.ApplicationVersion);
+                var expectedTitle = $"{expectedProjectName} - {fixedSettings.MainWindowTitle} {SettingsHelper.Instance.ApplicationVersion}";
                 Assert.AreEqual(expectedTitle, mainWindow.Title);
             }
             mocks.VerifyAll();
@@ -615,8 +613,7 @@ namespace Core.Common.Gui.Test
                 // Assert
                 Assert.IsNull(gui.ProjectFilePath);
                 Assert.AreSame(project, gui.Project);
-                var expectedTitle = string.Format("{0} - {1} {2}",
-                                                  expectedProjectName, fixedSettings.MainWindowTitle, SettingsHelper.ApplicationVersion);
+                var expectedTitle = $"{expectedProjectName} - {fixedSettings.MainWindowTitle} {SettingsHelper.Instance.ApplicationVersion}";
                 Assert.AreEqual(expectedTitle, mainWindow.Title);
             }
             mocks.VerifyAll();

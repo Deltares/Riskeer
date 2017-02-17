@@ -425,7 +425,7 @@ namespace Core.Common.Gui
         {
             splashScreen = new SplashScreen
             {
-                VersionText = SettingsHelper.ApplicationVersion
+                VersionText = SettingsHelper.Instance.ApplicationVersion
             };
 
             splashScreen.IsVisibleChanged += delegate
@@ -786,7 +786,7 @@ namespace Core.Common.Gui
                                                  "{0} - {1} {2}",
                                                  Project.Name,
                                                  FixedSettings.MainWindowTitle,
-                                                 SettingsHelper.ApplicationVersion);
+                                                 SettingsHelper.Instance.ApplicationVersion);
             }
         }
 
