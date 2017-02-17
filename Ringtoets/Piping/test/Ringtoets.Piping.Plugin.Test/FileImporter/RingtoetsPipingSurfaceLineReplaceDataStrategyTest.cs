@@ -136,19 +136,20 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                 new RingtoetsPipingSurfaceLine()
             };
 
-            var targetCollection = new RingtoetsPipingSurfaceLineCollection();
-            var strategy = new RingtoetsPipingSurfaceLineReplaceDataStrategy(new PipingFailureMechanism());
+            var failureMechanism = new PipingFailureMechanism();
+            var strategy = new RingtoetsPipingSurfaceLineReplaceDataStrategy(failureMechanism);
 
             // Call
-            IEnumerable<IObservable> affectedObjects = strategy.UpdateSurfaceLinesWithImportedData(targetCollection,
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateSurfaceLinesWithImportedData(failureMechanism.SurfaceLines,
                                                                                                    importedSurfaceLines,
                                                                                                    sourceFilePath);
 
             // Assert
-            CollectionAssert.AreEqual(importedSurfaceLines, targetCollection);
+            RingtoetsPipingSurfaceLineCollection actualCollection = failureMechanism.SurfaceLines;
+            CollectionAssert.AreEqual(importedSurfaceLines, actualCollection);
             CollectionAssert.AreEqual(new[]
             {
-                targetCollection
+                actualCollection
             }, affectedObjects);
         }
 

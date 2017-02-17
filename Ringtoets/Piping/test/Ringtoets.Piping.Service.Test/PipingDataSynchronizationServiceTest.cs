@@ -240,7 +240,7 @@ namespace Ringtoets.Piping.Service.Test
         }
 
         [Test]
-        public void RemoveSurfaceLine_FullyConfiguredPipingFailureMechanism_RemoveProfileAndClearDependentData()
+        public void RemoveSurfaceLine_FullyConfiguredPipingFailureMechanism_RemoveSurfaceLineAndClearDependentData()
         {
             // Setup
             PipingFailureMechanism failureMechanism = PipingTestDataGenerator.GetPipingFailureMechanismWithAllCalculationConfigurations();
@@ -262,6 +262,63 @@ namespace Ringtoets.Piping.Service.Test
             // Note: To make sure the clear is performed regardless of what is done with
             // the return result, no ToArray() should be called before these assertions:
             CollectionAssert.DoesNotContain(failureMechanism.SurfaceLines, surfaceLine);
+            foreach (PipingCalculation calculation in calculationsWithSurfaceLine)
+            {
+                Assert.IsNull(calculation.InputParameters.SurfaceLine);
+            }
+
+            IObservable[] array = observables.ToArray();
+            var expectedAffectedObjectCount = 1 + calculationsWithOutput.Length + calculationsWithSurfaceLine.Length;
+            Assert.AreEqual(expectedAffectedObjectCount, array.Length);
+
+            CollectionAssert.Contains(array, failureMechanism.SurfaceLines);
+            foreach (PipingCalculation calculation in calculationsWithSurfaceLine)
+            {
+                CollectionAssert.Contains(array, calculation.InputParameters);
+            }
+            foreach (PipingCalculation calculation in calculationsWithOutput)
+            {
+                Assert.IsFalse(calculation.HasOutput);
+                CollectionAssert.Contains(array, calculation);
+            }
+        }
+
+        [Test]
+        public void RemoveAllSurfaceLine_PipingFailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            PipingFailureMechanism failureMechanism = null;
+
+            // Call
+            TestDelegate call = () => PipingDataSynchronizationService.RemoveAllSurfaceLines(failureMechanism);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("failureMechanism", paramName);
+        }
+
+        [Test]
+        public void RemoveAllSurfaceLines_FullyConfiguredPipingFailureMechanism_RemoveAllSurfaceLinesAndClearDependentData()
+        {
+            // Setup
+            PipingFailureMechanism failureMechanism = PipingTestDataGenerator.GetPipingFailureMechanismWithAllCalculationConfigurations();
+            PipingCalculation[] calculationsWithSurfaceLine = failureMechanism.Calculations
+                                                                              .Cast<PipingCalculation>()
+                                                                              .Where(calc => calc.InputParameters.SurfaceLine != null)
+                                                                              .ToArray();
+            PipingCalculation[] calculationsWithOutput = calculationsWithSurfaceLine.Where(c => c.HasOutput)
+                                                                                    .ToArray();
+
+            // Precondition
+            CollectionAssert.IsNotEmpty(calculationsWithSurfaceLine);
+
+            // Call
+            IEnumerable<IObservable> observables = PipingDataSynchronizationService.RemoveAllSurfaceLines(failureMechanism);
+
+            // Assert
+            // Note: To make sure the clear is performed regardless of what is done with
+            // the return result, no ToArray() should be called before these assertions:
+            CollectionAssert.IsEmpty(failureMechanism.SurfaceLines);
             foreach (PipingCalculation calculation in calculationsWithSurfaceLine)
             {
                 Assert.IsNull(calculation.InputParameters.SurfaceLine);

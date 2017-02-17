@@ -181,6 +181,38 @@ namespace Ringtoets.Piping.Service
         }
 
         /// <summary>
+        /// Removes all <see cref="RingtoetsPipingSurfaceLine"/> from the <see cref="PipingFailureMechanism"/>
+        /// and clears all data that depends on it, either directly or indirectly.
+        /// </summary>
+        /// <param name="failureMechanism">The failure mechanism.</param>
+        /// <returns>All objects that are affected by this operation.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
+        /// is <c>null</c>.</exception>
+        public static IEnumerable<IObservable> RemoveAllSurfaceLines(PipingFailureMechanism failureMechanism)
+        {
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
+
+            IEnumerable<PipingCalculation> affectedCalculationScenarios =
+               failureMechanism.Calculations
+                               .Cast<PipingCalculation>()
+                               .Where(calc => calc.InputParameters.SurfaceLine != null).ToArray();
+
+            var affectedObjects = new List<IObservable>();
+            foreach (PipingCalculation calculation in affectedCalculationScenarios)
+            {
+                affectedObjects.AddRange(RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(calculation));
+                affectedObjects.AddRange(ClearSurfaceLine(calculation.InputParameters));
+            }
+
+            failureMechanism.SurfaceLines.Clear();
+            affectedObjects.Add(failureMechanism.SurfaceLines);
+            return affectedObjects;
+        }
+
+        /// <summary>
         /// Removes a given <see cref="StochasticSoilModel"/> from the <see cref="PipingFailureMechanism"/>
         /// and clears all data that depends on it, either directly or indirectly.
         /// </summary>

@@ -69,15 +69,8 @@ namespace Ringtoets.Piping.Plugin.FileImporter
                 throw new ArgumentNullException(nameof(sourceFilePath));
             }
 
-            var affectedObjects = new List<IObservable>
-            {
-                targetCollection
-            };
-
-            foreach (RingtoetsPipingSurfaceLine surfaceLine in targetCollection.ToArray())
-            {
-                affectedObjects.AddRange(PipingDataSynchronizationService.RemoveSurfaceLine(failureMechanism, surfaceLine));
-            }
+            var affectedObjects = new List<IObservable>();
+            affectedObjects.AddRange(PipingDataSynchronizationService.RemoveAllSurfaceLines(failureMechanism));
 
             try
             {
@@ -88,7 +81,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
                 throw new RingtoetsPipingSurfaceLineUpdateException(e.Message, e);
             }
 
-            return affectedObjects.Distinct();
+            return affectedObjects;
         }
     }
 }
