@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <berekening naam="Calculation">
+    <hrlocatie>HRlocatie</hrlocatie>
+    <profielschematisatie>Profielschematisatie</profielschematisatie>
+    <intredepunt>1.1</intredepunt>
+    <uittredepunt>2.2</uittredepunt>
+    <ondergrondmodel>Ondergrondmodel</ondergrondmodel>
+    <ondergrondschematisatie>Ondergrondschematisatie</ondergrondschematisatie>
+    <stochast naam="polderpeil">
+      <verwachtingswaarde>3.3</verwachtingswaarde>
+      <standaardafwijking>4.4</standaardafwijking>
+    </stochast>
+    <stochast naam="dempingsfactor">
+      <verwachtingswaarde>5.5</verwachtingswaarde>
+      <standaardafwijking>6.6</standaardafwijking>
+    </stochast>
+  </berekening>
+</root>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <berekening naam="Calculation">
+    <toetspeil>NaN</toetspeil>
+    <intredepunt>NaN</intredepunt>
+    <uittredepunt>NaN</uittredepunt>
+    <stochast naam="polderpeil">
+      <verwachtingswaarde>NaN</verwachtingswaarde>
+      <standaardafwijking>NaN</standaardafwijking>
+    </stochast>
+    <stochast naam="dempingsfactor">
+      <verwachtingswaarde>NaN</verwachtingswaarde>
+      <standaardafwijking>NaN</standaardafwijking>
+    </stochast>
+  </berekening>
+</root>

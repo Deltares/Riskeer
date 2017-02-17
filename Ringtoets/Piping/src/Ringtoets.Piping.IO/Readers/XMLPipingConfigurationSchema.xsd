@@ -65,6 +65,10 @@ All rights reserved.
 				</xs:simpleType>
 			</xs:attribute>
 		</xs:complexType>
+		<xs:unique name="uniqueStochastNameConstraint">
+			<xs:selector xpath="stochast"/>
+			<xs:field xpath="@naam"/>
+		</xs:unique>
 	</xs:element>
 	<xs:element name="profielschematisatie">
 		<xs:simpleType>

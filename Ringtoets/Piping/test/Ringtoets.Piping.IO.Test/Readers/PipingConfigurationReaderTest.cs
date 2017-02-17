@@ -122,7 +122,7 @@ namespace Ringtoets.Piping.IO.Test.Readers
         public void Constructor_FileInUse_ThrowCriticalFileReadException()
         {
             // Setup
-            string filePath = Path.Combine(testDirectoryPath, "validConfiguration.xml");
+            string filePath = Path.Combine(testDirectoryPath, "validEmptyRoot.xml");
 
             using (new FileStream(filePath, FileMode.Open))
             {
@@ -161,6 +161,8 @@ namespace Ringtoets.Piping.IO.Test.Readers
         [TestCase("invalidStochastStandardDeviationEmpty.xml")]
         [TestCase("invalidStochastStandardDeviationNoDouble.xml")]
         [TestCase("invalidStochastStandardDeviationWrongCulture.xml")]
+        [TestCase("invalidMultiplePhreaticLevelExitStochast.xml")]
+        [TestCase("invalidMultipleDampingFactorExitStochast.xml")]
         public void Constructor_FileInvalidBasedOnSchemaDefinition_ThrowCriticalFileReadException(string fileName)
         {
             // Setup
@@ -298,6 +300,109 @@ namespace Ringtoets.Piping.IO.Test.Readers
             var calculation5 = group4Items[0] as ReadPipingCalculation;
             Assert.IsNotNull(calculation5);
             Assert.AreEqual("Calculation 5", calculation5.Name);
+        }
+
+        [Test]
+        public void Read_ValidConfigurationWithCalculationContainingEmptyStrings_ReturnExpectedReadPipingCalculation()
+        {
+            // Setup
+            string filePath = Path.Combine(testDirectoryPath, "validConfigurationCalculationContainingEmptyStrings.xml");
+            var pipingConfigurationReader = new PipingConfigurationReader(filePath);
+
+            // Call
+            IList<IReadPipingCalculationItem> readPipingCalculationItems = pipingConfigurationReader.Read().ToList();
+
+            // Assert
+            Assert.AreEqual(1, readPipingCalculationItems.Count);
+
+            var calculation = readPipingCalculationItems[0] as ReadPipingCalculation;
+            Assert.IsNotNull(calculation);
+            Assert.IsEmpty(calculation.HydraulicBoundaryLocation);
+            Assert.IsEmpty(calculation.SurfaceLine);
+            Assert.IsEmpty(calculation.StochasticSoilModel);
+            Assert.IsEmpty(calculation.StochasticSoilProfile);
+        }
+
+        [Test]
+        public void Read_ValidConfigurationWithCalculationContainingNaNs_ReturnExpectedReadPipingCalculation()
+        {
+            // Setup
+            string filePath = Path.Combine(testDirectoryPath, "validConfigurationCalculationContainingNaNs.xml");
+            var pipingConfigurationReader = new PipingConfigurationReader(filePath);
+
+            // Call
+            IList<IReadPipingCalculationItem> readPipingCalculationItems = pipingConfigurationReader.Read().ToList();
+
+            // Assert
+            Assert.AreEqual(1, readPipingCalculationItems.Count);
+
+            var calculation = readPipingCalculationItems[0] as ReadPipingCalculation;
+            Assert.IsNotNull(calculation);
+            Assert.IsNaN(calculation.AssessmentLevel);
+            Assert.IsNaN(calculation.EntryPointL);
+            Assert.IsNaN(calculation.ExitPointL);
+            Assert.IsNaN(calculation.PhreaticLevelExitMean);
+            Assert.IsNaN(calculation.PhreaticLevelExitStandardDeviation);
+            Assert.IsNaN(calculation.DampingFactorExitMean);
+            Assert.IsNaN(calculation.DampingFactorExitStandardDeviation);
+        }
+
+        [Test]
+        public void Read_ValidConfigurationWithFullCalculationContainingHydraulicBoundaryLocation_ReturnExpectedReadPipingCalculation()
+        {
+            // Setup
+            string filePath = Path.Combine(testDirectoryPath, "validConfigurationFullCalculationContainingHydraulicBoundaryLocation.xml");
+            var pipingConfigurationReader = new PipingConfigurationReader(filePath);
+
+            // Call
+            IList<IReadPipingCalculationItem> readPipingCalculationItems = pipingConfigurationReader.Read().ToList();
+
+            // Assert
+            Assert.AreEqual(1, readPipingCalculationItems.Count);
+
+            var calculation = readPipingCalculationItems[0] as ReadPipingCalculation;
+            Assert.IsNotNull(calculation);
+            Assert.AreEqual("Calculation", calculation.Name);
+            Assert.IsNull(calculation.AssessmentLevel);
+            Assert.AreEqual("HRlocatie", calculation.HydraulicBoundaryLocation);
+            Assert.AreEqual("Profielschematisatie", calculation.SurfaceLine);
+            Assert.AreEqual(1.1, calculation.EntryPointL);
+            Assert.AreEqual(2.2, calculation.ExitPointL);
+            Assert.AreEqual("Ondergrondmodel", calculation.StochasticSoilModel);
+            Assert.AreEqual("Ondergrondschematisatie", calculation.StochasticSoilProfile);
+            Assert.AreEqual(3.3, calculation.PhreaticLevelExitMean);
+            Assert.AreEqual(4.4, calculation.PhreaticLevelExitStandardDeviation);
+            Assert.AreEqual(5.5, calculation.DampingFactorExitMean);
+            Assert.AreEqual(6.6, calculation.DampingFactorExitStandardDeviation);
+        }
+
+        [Test]
+        public void Read_ValidConfigurationWithFullCalculationContainingAssessmentLevel_ReturnExpectedReadPipingCalculation()
+        {
+            // Setup
+            string filePath = Path.Combine(testDirectoryPath, "validConfigurationFullCalculationContainingAssessmentLevel.xml");
+            var pipingConfigurationReader = new PipingConfigurationReader(filePath);
+
+            // Call
+            IList<IReadPipingCalculationItem> readPipingCalculationItems = pipingConfigurationReader.Read().ToList();
+
+            // Assert
+            Assert.AreEqual(1, readPipingCalculationItems.Count);
+
+            var calculation = readPipingCalculationItems[0] as ReadPipingCalculation;
+            Assert.IsNotNull(calculation);
+            Assert.AreEqual("Calculation", calculation.Name);
+            Assert.AreEqual(1.1, calculation.AssessmentLevel);
+            Assert.IsNull(calculation.HydraulicBoundaryLocation);
+            Assert.AreEqual("Profielschematisatie", calculation.SurfaceLine);
+            Assert.AreEqual(2.2, calculation.EntryPointL);
+            Assert.AreEqual(3.3, calculation.ExitPointL);
+            Assert.AreEqual("Ondergrondmodel", calculation.StochasticSoilModel);
+            Assert.AreEqual("Ondergrondschematisatie", calculation.StochasticSoilProfile);
+            Assert.AreEqual(4.4, calculation.PhreaticLevelExitMean);
+            Assert.AreEqual(5.5, calculation.PhreaticLevelExitStandardDeviation);
+            Assert.AreEqual(6.6, calculation.DampingFactorExitMean);
+            Assert.AreEqual(7.7, calculation.DampingFactorExitStandardDeviation);
         }
     }
 }
