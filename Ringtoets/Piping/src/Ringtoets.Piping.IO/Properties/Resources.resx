@@ -266,4 +266,14 @@ Deze ondergrondschematisatie wordt overgeslagen.</value>
   <data name="PipingConfigurationExporter_Export_Error_exception_0_no_configuration_exported" xml:space="preserve">
     <value>{0} Er is geen configuratie geëxporteerd.</value>
   </data>
+  <data name="PipingConfigurationImporter_LogImportCanceledMessage_Import_canceled&#x1F;_no_data_read" xml:space="preserve">
+    <value>Berekening configuratie importeren afgebroken. Geen data ingelezen.</value>
+  </data>
+  <data name="PipingConfigurationImporter_LogImportCanceledMessage_import_canceled_no_data_read" xml:space="preserve">
+    <value>Berekening configuratie importeren afgebroken. Geen data ingelezen.</value>
+  </data>
+  <data name="PipingConfigurationImporter_HandleCriticalFileReadError_Error_0_no_configuration_imported" xml:space="preserve">
+    <value>{0} 
+Er is geen berekening configuratie geïmporteerd.</value>
+  </data>
 </root>

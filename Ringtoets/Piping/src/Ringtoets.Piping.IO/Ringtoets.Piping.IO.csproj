@@ -57,6 +57,7 @@
     <Compile Include="Importers\IStochasticSoilModelChangeHandler.cs" />
     <Compile Include="Importers\IStochasticSoilModelUpdateModelStrategy.cs" />
     <Compile Include="Importers\ISurfaceLineUpdateDataStrategy.cs" />
+    <Compile Include="Importers\PipingConfigurationImporter.cs" />
     <Compile Include="Importers\RingtoetsPipingSurfaceLineUpdateException.cs" />
     <Compile Include="Importers\StochasticSoilModelImporter.cs" />
     <Compile Include="Importers\StochasticSoilModelUpdateException.cs" />

@@ -202,6 +202,27 @@ namespace Ringtoets.Piping.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} 
+        ///Er is geen berekening configuratie geïmporteerd..
+        /// </summary>
+        public static string PipingConfigurationImporter_HandleCriticalFileReadError_Error_0_no_configuration_imported {
+            get {
+                return ResourceManager.GetString("PipingConfigurationImporter_HandleCriticalFileReadError_Error_0_no_configuration_" +
+                        "imported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Berekening configuratie importeren afgebroken. Geen data ingelezen..
+        /// </summary>
+        public static string PipingConfigurationImporter_LogImportCanceledMessage_import_canceled_no_data_read {
+            get {
+                return ResourceManager.GetString("PipingConfigurationImporter_LogImportCanceledMessage_import_canceled_no_data_read" +
+                        "", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Het XML-document dat de configuratie voor de berekeningen beschrijft is niet geldig..
         /// </summary>
         public static string PipingConfigurationReader_Configuration_contains_no_valid_xml {
