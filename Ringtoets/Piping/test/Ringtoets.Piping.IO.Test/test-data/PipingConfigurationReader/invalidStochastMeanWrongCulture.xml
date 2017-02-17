@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <berekening naam="Calculation">
+    <stochast naam="polderpeil">
+      <verwachtingswaarde>1,2</verwachtingswaarde>
+      <standaardafwijking>0.100</standaardafwijking>
+    </stochast>
+  </berekening>
+</root>

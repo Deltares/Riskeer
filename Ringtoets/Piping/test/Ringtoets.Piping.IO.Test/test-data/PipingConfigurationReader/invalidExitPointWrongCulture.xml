@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <berekening naam="Calculation">
+    <uittredepunt>1,2</uittredepunt>
+  </berekening>
+</root>

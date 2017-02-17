@@ -103,10 +103,10 @@ All rights reserved.
 	</xs:element>
 	<xs:element name="stochast">
 		<xs:complexType>
-			<xs:choice minOccurs="2" maxOccurs="2">
-				<xs:element ref="verwachtingswaarde" minOccurs="1" maxOccurs="1"/>
-				<xs:element ref="standaardafwijking" minOccurs="1" maxOccurs="1"/>
-			</xs:choice>
+			<xs:all>
+				<xs:element ref="verwachtingswaarde"/>
+				<xs:element ref="standaardafwijking"/>
+			</xs:all>
 			<xs:attribute name="naam" use="required">
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
