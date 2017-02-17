@@ -82,6 +82,24 @@ namespace Ringtoets.Piping.Plugin.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ringtoets berekeningen configuratie..
+        /// </summary>
+        public static string PipingPlugin_GetExportInfos_calculation_configuration_file_description {
+            get {
+                return ResourceManager.GetString("PipingPlugin_GetExportInfos_calculation_configuration_file_description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to xml.
+        /// </summary>
+        public static string PipingPlugin_GetExportInfos_xml_extension {
+            get {
+                return ResourceManager.GetString("PipingPlugin_GetExportInfos_xml_extension", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Bijwerken van stochastische ondergrondmodellen..
         /// </summary>
         public static string PipingPlugin_RunUpdateStochasticSoilModel_Update_StochasticSoilModels {

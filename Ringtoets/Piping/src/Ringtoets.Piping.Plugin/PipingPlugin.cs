@@ -43,14 +43,15 @@ using Ringtoets.Piping.Forms;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.PropertyClasses;
 using Ringtoets.Piping.Forms.Views;
+using Ringtoets.Piping.IO.Exporters;
 using Ringtoets.Piping.IO.Importers;
 using Ringtoets.Piping.Plugin.FileImporter;
+using Ringtoets.Piping.Plugin.Properties;
 using Ringtoets.Piping.Primitives;
 using Ringtoets.Piping.Service;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 using PipingFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
-using PipingPluginResources = Ringtoets.Piping.Plugin.Properties.Resources;
 
 namespace Ringtoets.Piping.Plugin
 {
@@ -115,6 +116,20 @@ namespace Ringtoets.Piping.Plugin
             };
         }
 
+        public override IEnumerable<ExportInfo> GetExportInfos()
+        {
+            yield return new ExportInfo<PipingCalculationGroupContext>
+            {
+                Name = Resources.PipingPlugin_GetExportInfos_calculation_configuration_file_description,
+                Category = RingtoetsCommonFormsResources.Ringtoets_Category,
+                Image = RingtoetsCommonFormsResources.GeneralFolderIcon,
+                FileFilter = new ExpectedFile(Resources.PipingPlugin_GetExportInfos_xml_extension,
+                                              Resources.PipingPlugin_GetExportInfos_calculation_configuration_file_description),
+                CreateFileExporter = (context, filePath) => new PipingConfigurationExporter(context.WrappedData, filePath),
+                IsEnabled = context => context.WrappedData.Children.Any()
+            };
+        }
+
         public override IEnumerable<UpdateInfo> GetUpdateInfos()
         {
             yield return new UpdateInfo<RingtoetsPipingSurfaceLinesContext>
@@ -156,7 +171,7 @@ namespace Ringtoets.Piping.Plugin
         {
             get
             {
-                return new ExpectedFile(PipingPluginResources.Soil_file_Extension, PipingPluginResources.Soil_file_Description);
+                return new ExpectedFile(Resources.Soil_file_Extension, Resources.Soil_file_Description);
             }
         }
 

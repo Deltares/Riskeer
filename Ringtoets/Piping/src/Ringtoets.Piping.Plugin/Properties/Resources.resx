@@ -225,4 +225,10 @@ Deze locatie met karakteristieke punten wordt overgeslagen.</value>
   <data name="RingtoetsPipingSurfaceLineUpdateDataStrategy_UpdateSurfaceLinesWithImportedData_Update_of_RingtoetsPipingSurfaceLine_has_failed" xml:space="preserve">
     <value>Het bijwerken van de profielschematisaties is mislukt.</value>
   </data>
+  <data name="PipingPlugin_GetExportInfos_xml_extension" xml:space="preserve">
+    <value>xml</value>
+  </data>
+  <data name="PipingPlugin_GetExportInfos_calculation_configuration_file_description" xml:space="preserve">
+    <value>Ringtoets berekeningen configuratie.</value>
+  </data>
 </root>
