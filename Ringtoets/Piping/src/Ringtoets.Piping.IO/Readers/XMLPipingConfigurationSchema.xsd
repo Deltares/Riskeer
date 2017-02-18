@@ -47,17 +47,17 @@ All rights reserved.
 	</xs:element>
 	<xs:element name="berekening">
 		<xs:complexType>
-			<xs:choice>
-				<xs:choice minOccurs="0" maxOccurs="1">
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:choice>
 					<xs:element ref="hrlocatie"/>
 					<xs:element ref="toetspeil"/>
 				</xs:choice>
-				<xs:element ref="profielschematisatie" minOccurs="0" maxOccurs="1"/>
-				<xs:element ref="intredepunt" minOccurs="0" maxOccurs="1"/>
-				<xs:element ref="uittredepunt" minOccurs="0" maxOccurs="1"/>
-				<xs:element ref="ondergrondmodel" minOccurs="0" maxOccurs="1"/>
-				<xs:element ref="ondergrondschematisatie" minOccurs="0" maxOccurs="1"/>
-				<xs:element ref="stochast" minOccurs="0" maxOccurs="2"/>
+				<xs:element ref="profielschematisatie"/>
+				<xs:element ref="intredepunt"/>
+				<xs:element ref="uittredepunt"/>
+				<xs:element ref="ondergrondmodel"/>
+				<xs:element ref="ondergrondschematisatie"/>
+				<xs:element ref="stochast"/>
 			</xs:choice>
 			<xs:attribute name="naam" use="required">
 				<xs:simpleType>
