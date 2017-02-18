@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<root>
-  <berekening naam="Calculation">
-    <stochast naam="Test">
-      <verwachtingswaarde>0.000</verwachtingswaarde>
-      <standaardafwijking>0.100</standaardafwijking>
-    </stochast>
-  </berekening>
-</root>

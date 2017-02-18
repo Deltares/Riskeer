@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <root>
   <berekening naam="Calculation">
-    <stochast naam="polderpeil">
-      <verwachtingswaarde>0.000</verwachtingswaarde>
-    </stochast>
+    <toetspeil>1.1</toetspeil>
+    <toetspeil>2.2</toetspeil>
   </berekening>
 </root>

@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <root>
   <berekening naam="Calculation">
-    <stochast naam="polderpeil">
-      <standaardafwijking>0.100</standaardafwijking>
-    </stochast>
+    <intredepunt>1.1</intredepunt>
+    <intredepunt>2.2</intredepunt>
   </berekening>
 </root>
