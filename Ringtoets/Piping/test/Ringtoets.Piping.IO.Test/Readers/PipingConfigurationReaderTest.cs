@@ -487,5 +487,34 @@ namespace Ringtoets.Piping.IO.Test.Readers
             Assert.AreEqual(6.6, calculation.DampingFactorExitMean);
             Assert.AreEqual(7.7, calculation.DampingFactorExitStandardDeviation);
         }
+
+        [Test]
+        public void Read_ValidConfigurationWithPartialCalculation_ReturnExpectedReadPipingCalculation()
+        {
+            // Setup
+            string filePath = Path.Combine(testDirectoryPath, "validConfigurationPartialCalculation.xml");
+            var pipingConfigurationReader = new PipingConfigurationReader(filePath);
+
+            // Call
+            IList<IReadPipingCalculationItem> readPipingCalculationItems = pipingConfigurationReader.Read().ToList();
+
+            // Assert
+            Assert.AreEqual(1, readPipingCalculationItems.Count);
+
+            var calculation = readPipingCalculationItems[0] as ReadPipingCalculation;
+            Assert.IsNotNull(calculation);
+            Assert.AreEqual("Calculation", calculation.Name);
+            Assert.AreEqual(1.1, calculation.AssessmentLevel);
+            Assert.IsNull(calculation.HydraulicBoundaryLocation);
+            Assert.IsNull(calculation.SurfaceLine);
+            Assert.IsNull(calculation.EntryPointL);
+            Assert.AreEqual(2.2, calculation.ExitPointL);
+            Assert.IsNull(calculation.StochasticSoilModel);
+            Assert.AreEqual("Ondergrondschematisatie", calculation.StochasticSoilProfile);
+            Assert.AreEqual(3.3, calculation.PhreaticLevelExitMean);
+            Assert.AreEqual(4.4, calculation.PhreaticLevelExitStandardDeviation);
+            Assert.IsNull(calculation.DampingFactorExitMean);
+            Assert.IsNull(calculation.DampingFactorExitStandardDeviation);
+        }
     }
 }
