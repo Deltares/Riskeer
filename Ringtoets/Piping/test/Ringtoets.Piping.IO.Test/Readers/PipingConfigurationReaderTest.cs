@@ -42,12 +42,12 @@ namespace Ringtoets.Piping.IO.Test.Readers
         {
             get
             {
-                yield return new TestCaseData("invalidFolderWithoutName.xml",
+                yield return new TestCaseData("invalidFolderNoName.xml",
                                               "The required attribute 'naam' is missing.")
-                    .SetName("invalidFolderWithoutName");
-                yield return new TestCaseData("invalidCalculationWithoutName.xml",
+                    .SetName("invalidFolderNoName");
+                yield return new TestCaseData("invalidCalculationNoName.xml",
                                               "The required attribute 'naam' is missing.")
-                    .SetName("invalidCalculationWithoutName");
+                    .SetName("invalidCalculationNoName");
                 yield return new TestCaseData("invalidAssessmentLevelEmpty.xml",
                                               "The 'toetspeil' element is invalid - The value '' is invalid according to its datatype 'Double' - The string '' is not a valid Double value.")
                     .SetName("invalidAssessmentLevelEmpty");
@@ -75,24 +75,24 @@ namespace Ringtoets.Piping.IO.Test.Readers
                 yield return new TestCaseData("invalidExitPointWrongCulture.xml",
                                               "The 'uittredepunt' element is invalid - The value '1,2' is invalid according to its datatype 'Double' - The string '1,2' is not a valid Double value.")
                     .SetName("invalidExitPointWrongCulture");
-                yield return new TestCaseData("invalidStochastWithoutName.xml",
+                yield return new TestCaseData("invalidStochastNoName.xml",
                                               "The required attribute 'naam' is missing.")
-                    .SetName("invalidStochastWithoutName");
-                yield return new TestCaseData("invalidStochastWithUnknownName.xml",
+                    .SetName("invalidStochastNoName");
+                yield return new TestCaseData("invalidStochastUnknownName.xml",
                                               "The 'naam' attribute is invalid - The value 'Test' is invalid according to its datatype 'String' - The Enumeration constraint failed.")
-                    .SetName("invalidStochastWithUnknownName");
-                yield return new TestCaseData("invalidStochastWithoutMean.xml",
+                    .SetName("invalidStochastUnknownName");
+                yield return new TestCaseData("invalidStochastNoMean.xml",
                                               "The element 'stochast' has incomplete content. List of possible elements expected: 'verwachtingswaarde'.")
-                    .SetName("invalidStochastWithoutMean");
-                yield return new TestCaseData("invalidStochastWithoutStandardDeviation.xml",
+                    .SetName("invalidStochastNoMean");
+                yield return new TestCaseData("invalidStochastNoStandardDeviation.xml",
                                               "The element 'stochast' has incomplete content. List of possible elements expected: 'standaardafwijking'.")
-                    .SetName("invalidStochastWithoutStandardDeviation");
-                yield return new TestCaseData("invalidStochastWithMultipleMean.xml",
+                    .SetName("invalidStochastNoStandardDeviation");
+                yield return new TestCaseData("invalidStochastMultipleMean.xml",
                                               "Element 'verwachtingswaarde' cannot appear more than once if content model type is \"all\".")
-                    .SetName("invalidStochastWithMultipleMean");
-                yield return new TestCaseData("invalidStochastWithMultipleStandardDeviation.xml",
+                    .SetName("invalidStochastMultipleMean");
+                yield return new TestCaseData("invalidStochastMultipleStandardDeviation.xml",
                                               "Element 'standaardafwijking' cannot appear more than once if content model type is \"all\".")
-                    .SetName("invalidStochastWithMultipleStandardDeviation");
+                    .SetName("invalidStochastMultipleStandardDeviation");
                 yield return new TestCaseData("invalidStochastMeanEmpty.xml",
                                               "The 'verwachtingswaarde' element is invalid - The value '' is invalid according to its datatype 'Double' - The string '' is not a valid Double value.")
                     .SetName("invalidStochastMeanEmpty");
