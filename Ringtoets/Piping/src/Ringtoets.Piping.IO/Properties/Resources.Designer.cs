@@ -223,11 +223,12 @@ namespace Ringtoets.Piping.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het XML-document dat de configuratie voor de berekeningen beschrijft is niet geldig..
+        ///   Looks up a localized string similar to Het XML-document dat de configuratie voor de berekeningen beschrijft is niet geldig. De validatie geeft de volgende melding op regel {0}, positie {1}: {2}.
         /// </summary>
-        public static string PipingConfigurationReader_Configuration_contains_no_valid_xml {
+        public static string PipingConfigurationReader_Configuration_contains_no_valid_xml_line_0_position_1_reason_2 {
             get {
-                return ResourceManager.GetString("PipingConfigurationReader_Configuration_contains_no_valid_xml", resourceCulture);
+                return ResourceManager.GetString("PipingConfigurationReader_Configuration_contains_no_valid_xml_line_0_position_1_r" +
+                        "eason_2", resourceCulture);
             }
         }
         

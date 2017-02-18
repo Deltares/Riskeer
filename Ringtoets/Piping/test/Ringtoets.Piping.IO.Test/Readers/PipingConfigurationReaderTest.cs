@@ -245,7 +245,7 @@ namespace Ringtoets.Piping.IO.Test.Readers
 
         [Test]
         [TestCaseSource(nameof(InvalidConfigurations))]
-        public void Constructor_FileInvalidBasedOnSchemaDefinition_ThrowCriticalFileReadException(string fileName, string expectedInnerExceptionMessage)
+        public void Constructor_FileInvalidBasedOnSchemaDefinition_ThrowCriticalFileReadException(string fileName, string expectedParsingMessage)
         {
             // Setup
             string filePath = Path.Combine(testDirectoryPath, fileName);
@@ -254,11 +254,26 @@ namespace Ringtoets.Piping.IO.Test.Readers
             TestDelegate call = () => new PipingConfigurationReader(filePath);
 
             // Assert
-            string expectedMessage = $"Fout bij het lezen van bestand '{filePath}': het XML-document dat de configuratie voor de berekeningen beschrijft is niet geldig.";
+            var exception = Assert.Throws<CriticalFileReadException>(call);
+            Assert.IsInstanceOf<XmlSchemaValidationException>(exception.InnerException);
+            Assert.IsTrue(exception.InnerException?.Message.Contains(expectedParsingMessage));
+        }
+
+        [Test]
+        public void Constructor_FileInvalidBasedOnSchemaDefinition_ThrowCriticalFileReadExceptionWithExpectedMessage()
+        {
+            // Setup
+            string filePath = Path.Combine(testDirectoryPath, "invalidFolderNoName.xml");
+
+            // Call
+            TestDelegate call = () => new PipingConfigurationReader(filePath);
+
+            // Assert
+            string expectedMessage = $"Fout bij het lezen van bestand '{filePath}': het XML-document dat de configuratie" +
+                                     " voor de berekeningen beschrijft is niet geldig. De validatie geeft de volgende melding" +
+                                     " op regel 3, positie 4: The required attribute \'naam\' is missing.";
             var exception = Assert.Throws<CriticalFileReadException>(call);
             Assert.AreEqual(expectedMessage, exception.Message);
-            Assert.IsInstanceOf<XmlSchemaValidationException>(exception.InnerException);
-            Assert.IsTrue(exception.InnerException?.Message.Contains(expectedInnerExceptionMessage));
         }
 
         [Test]

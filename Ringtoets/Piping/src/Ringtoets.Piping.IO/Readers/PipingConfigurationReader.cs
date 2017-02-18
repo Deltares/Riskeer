@@ -97,7 +97,7 @@ namespace Ringtoets.Piping.IO.Readers
         {
             try
             {
-                return XDocument.Load(xmlFilePath);
+                return XDocument.Load(xmlFilePath, LoadOptions.PreserveWhitespace | LoadOptions.SetLineInfo | LoadOptions.SetBaseUri);
             }
             catch (Exception exception)
                 when (exception is ArgumentNullException
@@ -126,8 +126,12 @@ namespace Ringtoets.Piping.IO.Readers
             }
             catch (XmlSchemaValidationException exception)
             {
-                string message = new FileReaderErrorMessageBuilder(xmlFilePath).Build(Resources.PipingConfigurationReader_Configuration_contains_no_valid_xml);
-                throw new CriticalFileReadException(message, exception);
+                string message = string.Format(Resources.PipingConfigurationReader_Configuration_contains_no_valid_xml_line_0_position_1_reason_2,
+                                               exception.LineNumber,
+                                               exception.LinePosition,
+                                               exception.Message);
+
+                throw new CriticalFileReadException(new FileReaderErrorMessageBuilder(xmlFilePath).Build(message), exception);
             }
         }
 
