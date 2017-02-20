@@ -16,6 +16,6 @@
         <verwachtingswaarde>6.6</verwachtingswaarde>
         <standaardafwijking>7.7</standaardafwijking>
       </stochast>
-    <stochasten>
+    </stochasten>
   </berekening>
 </root>

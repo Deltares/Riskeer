@@ -141,6 +141,9 @@ namespace Ringtoets.Piping.IO.Test.Readers
                 yield return new TestCaseData("invalidCalculationMultipleStochasticSoilProfile.xml",
                                               "The element 'berekening' has invalid child element 'ondergrondschematisatie'.")
                     .SetName("invalidCalculationMultipleStochasticSoilProfile");
+                yield return new TestCaseData("invalidCalculationMultipleStochasts.xml",
+                                              "The element 'berekening' has invalid child element 'stochasts'.")
+                    .SetName("invalidCalculationMultipleStochasts");
             }
         }
 
