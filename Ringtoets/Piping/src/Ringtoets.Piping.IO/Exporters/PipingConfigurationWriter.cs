@@ -151,6 +151,15 @@ namespace Ringtoets.Piping.IO.Exporters
                 }
             }
 
+            WriteDistributions(calculationInputParameters, writer);
+
+            writer.WriteEndElement();
+        }
+
+        private static void WriteDistributions(PipingInput calculationInputParameters, XmlWriter writer)
+        {
+            writer.WriteStartElement(PipingConfigurationSchemaIdentifiers.StochastsElement);
+
             WriteDistribution(calculationInputParameters.PhreaticLevelExit,
                               PipingConfigurationSchemaIdentifiers.PhreaticLevelExitStochastName, writer);
             WriteDistribution(calculationInputParameters.DampingFactorExit,

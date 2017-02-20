@@ -5,13 +5,15 @@
 		<profielschematisatie>PK001_0001</profielschematisatie>
 		<intredepunt>0.00</intredepunt>
 		<uittredepunt>10.00</uittredepunt>
-		<stochast naam="polderpeil">
-			<verwachtingswaarde>0.000</verwachtingswaarde>
-			<standaardafwijking>0.100</standaardafwijking>
-		</stochast>
-		<stochast naam="dempingsfactor">
-			<verwachtingswaarde>0.700</verwachtingswaarde>
-			<standaardafwijking>0.100</standaardafwijking>
-		</stochast>
+		<stochasten>
+			<stochast naam="polderpeil">
+				<verwachtingswaarde>0.000</verwachtingswaarde>
+				<standaardafwijking>0.100</standaardafwijking>
+			</stochast>
+			<stochast naam="dempingsfactor">
+				<verwachtingswaarde>0.700</verwachtingswaarde>
+				<standaardafwijking>0.100</standaardafwijking>
+			</stochast>
+		</stochasten>
 	</berekening>
 </root>
