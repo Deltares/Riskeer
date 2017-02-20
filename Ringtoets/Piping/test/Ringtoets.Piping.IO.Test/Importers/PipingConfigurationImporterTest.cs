@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Core.Common.Base.Geometry;
@@ -29,6 +30,7 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Integration.TestUtils;
 using Ringtoets.Piping.IO.Importers;
 using Ringtoets.Piping.Primitives;
 
@@ -333,10 +335,12 @@ namespace Ringtoets.Piping.IO.Test.Importers
         }
 
         [Test]
-        public void Import_ValidData_DataAddedToModel()
+        [TestCase("validConfigurationFullCalculationContainingHydraulicBoundaryLocation.xml", false)]
+        [TestCase("validConfigurationFullCalculationContainingAssessmentLevel.xml", true)]
+        public void Import_ValidData_DataAddedToModel(string file, bool manualAssessmentLevel)
         {
             // Setup
-            string filePath = Path.Combine(path, "validConfigurationFullCalculationContainingHydraulicBoundaryLocation.xml");
+            string filePath = Path.Combine(path, file);
 
             var calculationGroup = new CalculationGroup();
             var surfaceLine = new RingtoetsPipingSurfaceLine
@@ -347,7 +351,7 @@ namespace Ringtoets.Piping.IO.Test.Importers
             {
                 new Point3D(3.5, 2.3, 8.0),
                 new Point3D(6.9, 2.0, 2.0)
-            });            
+            });
             var stochasticSoilProfile = new StochasticSoilProfile(0, SoilProfileType.SoilProfile1D, 1)
             {
                 SoilProfile = new PipingSoilProfile("Ondergrondschematisatie", 0, new[]
@@ -387,10 +391,18 @@ namespace Ringtoets.Piping.IO.Test.Importers
             PipingCalculation calculation = calculationGroup.Children[0] as PipingCalculation;
 
             Assert.AreEqual("Calculation", calculation.Name);
-            Assert.AreSame(hydraulicBoundaryLocation, calculation.InputParameters.HydraulicBoundaryLocation);
+            Assert.AreEqual(manualAssessmentLevel, calculation.InputParameters.UseAssessmentLevelManualInput);
+            if (manualAssessmentLevel)
+            {
+                Assert.AreEqual(1.1, calculation.InputParameters.AssessmentLevel.Value);
+            }
+            else
+            {
+                Assert.AreSame(hydraulicBoundaryLocation, calculation.InputParameters.HydraulicBoundaryLocation);
+            }
             Assert.AreSame(surfaceLine, calculation.InputParameters.SurfaceLine);
-            Assert.AreEqual(1.1, calculation.InputParameters.EntryPointL.Value);
-            Assert.AreEqual(2.2, calculation.InputParameters.ExitPointL.Value);
+            Assert.AreEqual(2.2, calculation.InputParameters.EntryPointL.Value);
+            Assert.AreEqual(3.3, calculation.InputParameters.ExitPointL.Value);
             Assert.AreSame(stochasticSoilModel, calculation.InputParameters.StochasticSoilModel);
             Assert.AreSame(stochasticSoilProfile, calculation.InputParameters.StochasticSoilProfile);
         }

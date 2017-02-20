@@ -466,14 +466,14 @@ namespace Ringtoets.Piping.IO.Test.Readers
             Assert.IsNull(calculation.AssessmentLevel);
             Assert.AreEqual("HRlocatie", calculation.HydraulicBoundaryLocation);
             Assert.AreEqual("Profielschematisatie", calculation.SurfaceLine);
-            Assert.AreEqual(1.1, calculation.EntryPointL);
-            Assert.AreEqual(2.2, calculation.ExitPointL);
+            Assert.AreEqual(2.2, calculation.EntryPointL);
+            Assert.AreEqual(3.3, calculation.ExitPointL);
             Assert.AreEqual("Ondergrondmodel", calculation.StochasticSoilModel);
             Assert.AreEqual("Ondergrondschematisatie", calculation.StochasticSoilProfile);
-            Assert.AreEqual(3.3, calculation.PhreaticLevelExitMean);
-            Assert.AreEqual(4.4, calculation.PhreaticLevelExitStandardDeviation);
-            Assert.AreEqual(5.5, calculation.DampingFactorExitMean);
-            Assert.AreEqual(6.6, calculation.DampingFactorExitStandardDeviation);
+            Assert.AreEqual(4.4, calculation.PhreaticLevelExitMean);
+            Assert.AreEqual(5.5, calculation.PhreaticLevelExitStandardDeviation);
+            Assert.AreEqual(6.6, calculation.DampingFactorExitMean);
+            Assert.AreEqual(7.7, calculation.DampingFactorExitStandardDeviation);
         }
 
         [Test]

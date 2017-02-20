@@ -152,15 +152,24 @@ namespace Ringtoets.Piping.IO.Importers
                     pipingCalculation.InputParameters.HydraulicBoundaryLocation = location;
                 }
                 else
-                { 
+                {
                     log.Warn("Hydraulische randvoorwaarde locatie bestaat niet. Berekening overgeslagen.");
                     return;
+                }
+            }
+            else
+            {
+                if (readCalculation.AssessmentLevel.HasValue)
+                {
+                    pipingCalculation.InputParameters.UseAssessmentLevelManualInput = true;
+                    pipingCalculation.InputParameters.AssessmentLevel = (RoundedDouble) readCalculation.AssessmentLevel.Value;
                 }
             }
 
             if (readCalculation.SurfaceLine != null)
             {
-                RingtoetsPipingSurfaceLine surfaceLine = failureMechanism.SurfaceLines.FirstOrDefault(sl => sl.Name == readCalculation.SurfaceLine);
+                RingtoetsPipingSurfaceLine surfaceLine = failureMechanism.SurfaceLines
+                                                                         .FirstOrDefault(sl => sl.Name == readCalculation.SurfaceLine);
 
                 if (surfaceLine != null)
                 {
@@ -185,7 +194,8 @@ namespace Ringtoets.Piping.IO.Importers
 
             if (readCalculation.StochasticSoilModel != null)
             {
-                StochasticSoilModel soilModel = failureMechanism.StochasticSoilModels.FirstOrDefault(ssm => ssm.Name == readCalculation.StochasticSoilModel);
+                StochasticSoilModel soilModel = failureMechanism.StochasticSoilModels
+                                                                .FirstOrDefault(ssm => ssm.Name == readCalculation.StochasticSoilModel);
 
                 if (soilModel != null)
                 {
@@ -193,7 +203,8 @@ namespace Ringtoets.Piping.IO.Importers
 
                     if (readCalculation.StochasticSoilProfile != null)
                     {
-                        StochasticSoilProfile soilProfile = soilModel.StochasticSoilProfiles.FirstOrDefault(ssp => ssp.SoilProfile.Name == readCalculation.StochasticSoilProfile);
+                        StochasticSoilProfile soilProfile = soilModel.StochasticSoilProfiles
+                                                                     .FirstOrDefault(ssp => ssp.SoilProfile.Name == readCalculation.StochasticSoilProfile);
 
                         if (soilProfile != null)
                         {

@@ -282,9 +282,7 @@ namespace Ringtoets.Piping.Data
             {
                 if (!UseAssessmentLevelManualInput)
                 {
-                    return HydraulicBoundaryLocation != null
-                               ? HydraulicBoundaryLocation.DesignWaterLevel
-                               : new RoundedDouble(2, double.NaN);
+                    return HydraulicBoundaryLocation?.DesignWaterLevel ?? new RoundedDouble(2, double.NaN);
                 }
 
                 return assessmentLevel;
