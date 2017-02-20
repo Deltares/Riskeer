@@ -190,6 +190,21 @@ namespace Ringtoets.Piping.IO.Importers
                 if (soilModel != null)
                 {
                     pipingCalculation.InputParameters.StochasticSoilModel = soilModel;
+
+                    if (readCalculation.StochasticSoilProfile != null)
+                    {
+                        StochasticSoilProfile soilProfile = soilModel.StochasticSoilProfiles.FirstOrDefault(ssp => ssp.SoilProfile.Name == readCalculation.StochasticSoilProfile);
+
+                        if (soilProfile != null)
+                        {
+                            pipingCalculation.InputParameters.StochasticSoilProfile = soilProfile;
+                        }
+                        else
+                        {
+                            log.Warn("Ondergrondprofiel bestaat niet. Berekening overgeslagen.");
+                            return;
+                        }
+                    }
                 }
                 else
                 {
@@ -205,9 +220,9 @@ namespace Ringtoets.Piping.IO.Importers
             // - Surface line X
             // - Entry/Exit point X
             // - Stochastic soil model X
-            // - Stochastic soil profile
+            // - Stochastic soil profile X
             // Validate the stochastic soil model crosses the surface line when set
-            // Validate the stochastic soil profile is part of the soil model
+            // Validate the stochastic soil profile is part of the soil model X
         }
 
         private static void ValidateCalculationGroup(ReadPipingCalculationGroup readCalculationGroup)

@@ -286,7 +286,7 @@ namespace Ringtoets.Piping.IO.Test.Importers
         }
 
         [Test]
-        public void Import_ValidData_DataAddedToModel()
+        public void Import_StochastichSoilProfileInvalid_LogMessageAndContinueImport()
         {
             // Setup
             string filePath = Path.Combine(path, "validConfigurationFullCalculationContainingHydraulicBoundaryLocation.xml");
@@ -323,6 +323,62 @@ namespace Ringtoets.Piping.IO.Test.Importers
                                                            pipingFailureMechanism);
 
             // Call
+            bool succesful = false;
+            Action call = () => succesful = importer.Import();
+
+            // Assert
+            TestHelper.AssertLogMessageIsGenerated(call, "Ondergrondprofiel bestaat niet. Berekening overgeslagen.", 1);
+            Assert.IsTrue(succesful);
+            CollectionAssert.IsEmpty(calculationGroup.Children);
+        }
+
+        [Test]
+        public void Import_ValidData_DataAddedToModel()
+        {
+            // Setup
+            string filePath = Path.Combine(path, "validConfigurationFullCalculationContainingHydraulicBoundaryLocation.xml");
+
+            var calculationGroup = new CalculationGroup();
+            var surfaceLine = new RingtoetsPipingSurfaceLine
+            {
+                Name = "Profielschematisatie"
+            };
+            surfaceLine.SetGeometry(new[]
+            {
+                new Point3D(3.5, 2.3, 8.0),
+                new Point3D(6.9, 2.0, 2.0)
+            });            
+            var stochasticSoilProfile = new StochasticSoilProfile(0, SoilProfileType.SoilProfile1D, 1)
+            {
+                SoilProfile = new PipingSoilProfile("Ondergrondschematisatie", 0, new[]
+                {
+                    new PipingSoilLayer(0)
+                }, SoilProfileType.SoilProfile1D, 0)
+            };
+
+            var stochasticSoilModel = new StochasticSoilModel(1, "Ondergrondmodel", "Segment");
+            stochasticSoilModel.StochasticSoilProfiles.Add(stochasticSoilProfile);
+
+            var pipingFailureMechanism = new PipingFailureMechanism();
+            pipingFailureMechanism.SurfaceLines.AddRange(new[]
+            {
+                surfaceLine
+            }, "path");
+            pipingFailureMechanism.StochasticSoilModels.AddRange(new[]
+            {
+                stochasticSoilModel
+            }, "path");
+
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "HRlocatie", 10, 20);
+            var importer = new PipingConfigurationImporter(filePath,
+                                                           calculationGroup,
+                                                           new[]
+                                                           {
+                                                               hydraulicBoundaryLocation
+                                                           },
+                                                           pipingFailureMechanism);
+
+            // Call
             bool succesful = importer.Import();
 
             // Assert
@@ -336,6 +392,7 @@ namespace Ringtoets.Piping.IO.Test.Importers
             Assert.AreEqual(1.1, calculation.InputParameters.EntryPointL.Value);
             Assert.AreEqual(2.2, calculation.InputParameters.ExitPointL.Value);
             Assert.AreSame(stochasticSoilModel, calculation.InputParameters.StochasticSoilModel);
+            Assert.AreSame(stochasticSoilProfile, calculation.InputParameters.StochasticSoilProfile);
         }
 
         private class ExpectedProgressNotification
