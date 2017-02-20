@@ -50,14 +50,14 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         {
             // Setup
             var someFilePath = "location/to/a/file";
-            var collection = new ObservableCollectionWithSourcePath<StochasticSoilModel>();
+            var collection = new ObservableUniqueItemCollectionWithSourcePath<StochasticSoilModel>();
             collection.AddRange(Enumerable.Empty<StochasticSoilModel>(), someFilePath);
 
             // Call
             var properties = new StochasticSoilModelCollectionProperties(collection);
 
             // Assert
-            Assert.IsInstanceOf<ObjectProperties<ObservableCollectionWithSourcePath<StochasticSoilModel>>>(properties);
+            Assert.IsInstanceOf<ObjectProperties<ObservableUniqueItemCollectionWithSourcePath<StochasticSoilModel>>>(properties);
             Assert.AreSame(collection, properties.Data);
             Assert.AreEqual(someFilePath, properties.SourcePath);
         }
@@ -66,7 +66,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         public void Constructor_WithData_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
-            var collection = new ObservableCollectionWithSourcePath<StochasticSoilModel>();
+            var collection = new ObservableUniqueItemCollectionWithSourcePath<StochasticSoilModel>();
 
             // Call
             var properties = new StochasticSoilModelCollectionProperties(collection);

@@ -52,7 +52,7 @@ namespace Ringtoets.Piping.Data.TestUtil.Test
             // Assert
             Assert.AreEqual(24, failureMechanism.Contribution);
 
-            ObservableCollectionWithSourcePath<RingtoetsPipingSurfaceLine> surfaceLines = failureMechanism.SurfaceLines;
+            ObservableUniqueItemCollectionWithSourcePath<RingtoetsPipingSurfaceLine> surfaceLines = failureMechanism.SurfaceLines;
             Assert.AreEqual("path/to/surfaceLines", surfaceLines.SourcePath);
             Assert.AreEqual(1, surfaceLines.Count);
             RingtoetsPipingSurfaceLine[] surfaceLineArray = surfaceLines.ToArray();

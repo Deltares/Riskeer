@@ -105,7 +105,7 @@
     <Compile Include="IO\OnProgressChanged.cs" />
     <Compile Include="Observer.cs" />
     <Compile Include="RecursiveObserver.cs" />
-    <Compile Include="ObservableCollectionWithSourcePath.cs" />
+    <Compile Include="ObservableUniqueItemCollectionWithSourcePath.cs" />
     <Compile Include="Storage\StorageException.cs" />
     <Compile Include="Storage\StorageValidationException.cs" />
     <Compile Include="Storage\CouldNotConnectException.cs" />

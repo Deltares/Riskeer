@@ -19,11 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using Core.Common.Base;
-using Ringtoets.Piping.Data.Properties;
 using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.Data
@@ -31,24 +28,11 @@ namespace Ringtoets.Piping.Data
     /// <summary>
     /// Collection to store <see cref="RingtoetsPipingSurfaceLine"/>.
     /// </summary>
-    public class RingtoetsPipingSurfaceLineCollection : ObservableCollectionWithSourcePath<RingtoetsPipingSurfaceLine>
+    public class RingtoetsPipingSurfaceLineCollection : ObservableUniqueItemCollectionWithSourcePath<RingtoetsPipingSurfaceLine>
     {
-        private const string separator = ", ";
-
         protected override void ValidateItems(IEnumerable<RingtoetsPipingSurfaceLine> items)
         {
-            IEnumerable<IGrouping<string, RingtoetsPipingSurfaceLine>> duplicateItems =
-                items.GroupBy(item => item.Name)
-                     .Where(group => group.Count() > 1);
-
-            if (duplicateItems.Any())
-            {
-                var names = string.Join(separator, duplicateItems.Select(group => group.First()));
-                string message = string.Format(
-                    Resources.RingtoetsPipingSurfaceLineCollection_ValidateItems_RingtoetsPipingSurfaceLine_require_unique_names_found_duplicate_items_0_,
-                    names);
-                throw new ArgumentException(message);
-            }
+            ValidateListOnDuplicateFeature(items, line => line.Name, "Profielschematisaties", "naam");
         }
     }
 }

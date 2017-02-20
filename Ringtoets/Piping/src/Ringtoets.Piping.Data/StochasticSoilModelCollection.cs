@@ -19,9 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using Core.Common.Base;
 
 namespace Ringtoets.Piping.Data
@@ -29,16 +27,11 @@ namespace Ringtoets.Piping.Data
     /// <summary>
     /// A collection of <see cref="StochasticSoilModel"/>.
     /// </summary>
-    public class StochasticSoilModelCollection : ObservableCollectionWithSourcePath<StochasticSoilModel>
+    public class StochasticSoilModelCollection : ObservableUniqueItemCollectionWithSourcePath<StochasticSoilModel>
     {
         protected override void ValidateItems(IEnumerable<StochasticSoilModel> items)
         {
-            IEnumerable<IGrouping<string, StochasticSoilModel>> duplicates = items.GroupBy(m => m.Name).Where(g => g.Count() > 1);
-            if(duplicates.Any())
-            {
-                var names = string.Join(", ", duplicates.Select(g => g.First()));
-                throw new ArgumentException($@"Ondergrondmodellen moeten een unieke naam hebben. Gevonden dubbele namen: {names}.");
-            }
+            ValidateListOnDuplicateFeature(items, model => model.Name, "Ondergrondmodellen", "naam");
         }
     }
 }

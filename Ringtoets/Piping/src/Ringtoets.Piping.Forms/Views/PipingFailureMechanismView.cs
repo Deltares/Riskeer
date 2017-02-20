@@ -197,8 +197,8 @@ namespace Ringtoets.Piping.Forms.Views
         {
             ReferenceLine referenceLine = data.Parent.ReferenceLine;
             IEnumerable<FailureMechanismSection> failureMechanismSections = data.WrappedData.Sections;
-            ObservableCollectionWithSourcePath<StochasticSoilModel> stochasticSoilModels = data.WrappedData.StochasticSoilModels;
-            ObservableCollectionWithSourcePath<RingtoetsPipingSurfaceLine> ringtoetsPipingSurfaceLines = data.WrappedData.SurfaceLines;
+            ObservableUniqueItemCollectionWithSourcePath<StochasticSoilModel> stochasticSoilModels = data.WrappedData.StochasticSoilModels;
+            ObservableUniqueItemCollectionWithSourcePath<RingtoetsPipingSurfaceLine> ringtoetsPipingSurfaceLines = data.WrappedData.SurfaceLines;
             HydraulicBoundaryDatabase hydraulicBoundaryDatabase = data.Parent.HydraulicBoundaryDatabase;
             IEnumerable<PipingCalculationScenario> calculations =
                 data.WrappedData.CalculationsGroup.GetCalculations().Cast<PipingCalculationScenario>();

@@ -28,13 +28,13 @@ using Rhino.Mocks;
 namespace Core.Common.Base.Test
 {
     [TestFixture]
-    public class ObservableCollectionWithSourcePathTest
+    public class ObservableUniqueItemCollectionWithSourcePathTest
     {
         [Test]
         public void DefaultConstructor_ReturnObservableCollectionWithSourcePath()
         {
             // Call
-            var collection = new ObservableCollectionWithSourcePath<object>();
+            var collection = new ObservableUniqueItemCollectionWithSourcePath<object>();
 
             // Assert
             Assert.IsInstanceOf<Observable>(collection);
@@ -47,7 +47,7 @@ namespace Core.Common.Base.Test
         public void AddRange_ItemsNull_ThrowArgumentNullException()
         {
             // Setup
-            var collection = new ObservableCollectionWithSourcePath<object>();
+            var collection = new ObservableUniqueItemCollectionWithSourcePath<object>();
 
             // Call
             TestDelegate call = () => collection.AddRange(null, "path");
@@ -61,7 +61,7 @@ namespace Core.Common.Base.Test
         public void AddRange_ItemsHasNullElement_ThrowArgumentException()
         {
             // Setup
-            var collection = new ObservableCollectionWithSourcePath<object>();
+            var collection = new ObservableUniqueItemCollectionWithSourcePath<object>();
             var items = new[]
             {
                 new object(),
@@ -82,7 +82,7 @@ namespace Core.Common.Base.Test
         public void AddRange_FilePathNull_ThrowArgumentNullException()
         {
             // Setup
-            var collection = new ObservableCollectionWithSourcePath<object>();
+            var collection = new ObservableUniqueItemCollectionWithSourcePath<object>();
 
             // Call
             TestDelegate call = () => collection.AddRange(Enumerable.Empty<object>(), null);
@@ -96,7 +96,7 @@ namespace Core.Common.Base.Test
         public void AddRange_NotAnActualFilePath_ThrowArgumentNull()
         {
             // Setup
-            var collection = new ObservableCollectionWithSourcePath<object>();
+            var collection = new ObservableUniqueItemCollectionWithSourcePath<object>();
 
             const string invalidFilePath = @"            ";
 
@@ -113,7 +113,7 @@ namespace Core.Common.Base.Test
         public void AddRange_AddNewItem_CollectionContainsItem()
         {
             // Setup
-            var collection = new ObservableCollectionWithSourcePath<object>();
+            var collection = new ObservableUniqueItemCollectionWithSourcePath<object>();
             var item = new object();
 
             // Call 
@@ -132,7 +132,7 @@ namespace Core.Common.Base.Test
         public void AddRange_AddingNewItems_CollectionContainsExpectedElements()
         {
             // Setup
-            var collection = new ObservableCollectionWithSourcePath<object>();
+            var collection = new ObservableUniqueItemCollectionWithSourcePath<object>();
             var expectedCollection = new[]
             {
                 new object(),
@@ -155,7 +155,7 @@ namespace Core.Common.Base.Test
         public void Count_CollectionFilledWithElements_ReturnsExpectedNumberOfElements()
         {
             // Setup
-            var collection = new ObservableCollectionWithSourcePath<object>();
+            var collection = new ObservableUniqueItemCollectionWithSourcePath<object>();
             collection.AddRange(new[]
             {
                 new object(),
@@ -177,7 +177,7 @@ namespace Core.Common.Base.Test
         public void Indexer_GetItemAtIndexOutOfRange_ThrowsArgumentOutOfRangeException(int invalidIndex)
         {
             // Setup
-            var collection = new ObservableCollectionWithSourcePath<object>();
+            var collection = new ObservableUniqueItemCollectionWithSourcePath<object>();
 
             // Call
             TestDelegate call = () =>
@@ -194,7 +194,7 @@ namespace Core.Common.Base.Test
         {
             // Setup
             var elementToRetrieve = new object();
-            var collection = new ObservableCollectionWithSourcePath<object>();
+            var collection = new ObservableUniqueItemCollectionWithSourcePath<object>();
             collection.AddRange(new[]
             {
                 new object(),
@@ -217,7 +217,7 @@ namespace Core.Common.Base.Test
             // Setup
             var element = new object();
 
-            var collection = new ObservableCollectionWithSourcePath<object>();
+            var collection = new ObservableUniqueItemCollectionWithSourcePath<object>();
             var expectedCollection = new[]
             {
                 new object(),
@@ -242,7 +242,7 @@ namespace Core.Common.Base.Test
             // Setup
             var elementToBeRemoved = new object();
 
-            var collection = new ObservableCollectionWithSourcePath<object>();
+            var collection = new ObservableUniqueItemCollectionWithSourcePath<object>();
             var expectedCollections = new[]
             {
                 new object(),
@@ -270,7 +270,7 @@ namespace Core.Common.Base.Test
             // Setup
             var elementToBeRemoved = new object();
 
-            var collection = new ObservableCollectionWithSourcePath<object>();
+            var collection = new ObservableUniqueItemCollectionWithSourcePath<object>();
             var removeElementCollection = new[]
             {
                 elementToBeRemoved
@@ -299,7 +299,7 @@ namespace Core.Common.Base.Test
         {
             // Setup
             var elementToBeRemoved = new object();
-            var collection = new ObservableCollectionWithSourcePath<object>();
+            var collection = new ObservableUniqueItemCollectionWithSourcePath<object>();
             collection.AddRange(new[]
             {
                 elementToBeRemoved
@@ -320,7 +320,7 @@ namespace Core.Common.Base.Test
         public void Clear_CollectionFullyDefined_ClearsSourcePathAndCollection()
         {
             // Setup
-            var collection = new ObservableCollectionWithSourcePath<object>();
+            var collection = new ObservableUniqueItemCollectionWithSourcePath<object>();
             var expectedObjectCollection = new[]
             {
                 new object(),
@@ -349,7 +349,7 @@ namespace Core.Common.Base.Test
             observer.Expect(o => o.UpdateObserver()); // Expect to be called once
             mocks.ReplayAll();
 
-            var observableCollection = new ObservableCollectionWithSourcePath<object>();
+            var observableCollection = new ObservableUniqueItemCollectionWithSourcePath<object>();
             observableCollection.Attach(observer);
 
             // Call
@@ -367,7 +367,7 @@ namespace Core.Common.Base.Test
             var observer = mocks.StrictMock<IObserver>();
             mocks.ReplayAll();
 
-            var observableCollection = new ObservableCollectionWithSourcePath<object>();
+            var observableCollection = new ObservableUniqueItemCollectionWithSourcePath<object>();
             observableCollection.Attach(observer);
             observableCollection.Detach(observer);
 
@@ -383,7 +383,7 @@ namespace Core.Common.Base.Test
         {
             // Setup
             var mocks = new MockRepository();
-            var observableCollection = new ObservableCollectionWithSourcePath<object>();
+            var observableCollection = new ObservableUniqueItemCollectionWithSourcePath<object>();
 
             var observer1 = mocks.Stub<IObserver>();
             var observer2 = mocks.Stub<IObserver>();

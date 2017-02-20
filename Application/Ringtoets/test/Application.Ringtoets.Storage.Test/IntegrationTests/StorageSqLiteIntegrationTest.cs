@@ -535,8 +535,8 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             CollectionAssert.AreEqual(expectedReferenceLine.Points, actualReferenceLine.Points);
         }
 
-        private static void AssertStochasticSoilModels(ObservableCollectionWithSourcePath<StochasticSoilModel> expectedModels,
-                                                       ObservableCollectionWithSourcePath<StochasticSoilModel> actualModels)
+        private static void AssertStochasticSoilModels(ObservableUniqueItemCollectionWithSourcePath<StochasticSoilModel> expectedModels,
+                                                       ObservableUniqueItemCollectionWithSourcePath<StochasticSoilModel> actualModels)
         {
             // Precondition:
             Assert.Less(0, actualModels.Count);
@@ -605,8 +605,8 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             }
         }
 
-        private static void AssertSurfaceLines(ObservableCollectionWithSourcePath<RingtoetsPipingSurfaceLine> expectedSurfaceLines,
-                                               ObservableCollectionWithSourcePath<RingtoetsPipingSurfaceLine> actualSurfaceLines)
+        private static void AssertSurfaceLines(ObservableUniqueItemCollectionWithSourcePath<RingtoetsPipingSurfaceLine> expectedSurfaceLines,
+                                               ObservableUniqueItemCollectionWithSourcePath<RingtoetsPipingSurfaceLine> actualSurfaceLines)
         {
             // Precondition:
             Assert.Greater(expectedSurfaceLines.Count, 0);

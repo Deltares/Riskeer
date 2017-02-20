@@ -37,7 +37,7 @@ namespace Ringtoets.Piping.Data.Test
             var collection = new RingtoetsPipingSurfaceLineCollection();
 
             // Assert
-            Assert.IsInstanceOf<ObservableCollectionWithSourcePath<RingtoetsPipingSurfaceLine>>(collection);
+            Assert.IsInstanceOf<ObservableUniqueItemCollectionWithSourcePath<RingtoetsPipingSurfaceLine>>(collection);
         }
 
         [Test]
@@ -90,7 +90,7 @@ namespace Ringtoets.Piping.Data.Test
             TestDelegate call = () => collection.AddRange(surfaceLinesToAdd, "path");
 
             // Assert
-            string message = $"Profielschematisaties moeten een unieke naam hebben. Gevonden dubbele namen: {duplicateName}.";
+            string message = $"Profielschematisaties moeten een unieke naam hebben. Gevonden dubbele elementen: {duplicateName}.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, message);
         }
 
@@ -126,7 +126,7 @@ namespace Ringtoets.Piping.Data.Test
             TestDelegate call = () => collection.AddRange(surfaceLinesToAdd, "path");
 
             // Assert
-            string message = $"Profielschematisaties moeten een unieke naam hebben. Gevonden dubbele namen: {duplicateNameOne}, {duplicateNameTwo}.";
+            string message = $"Profielschematisaties moeten een unieke naam hebben. Gevonden dubbele elementen: {duplicateNameOne}, {duplicateNameTwo}.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, message);
         }
     }

@@ -265,7 +265,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             // Assert
             var exception = Assert.Throws<RingtoetsPipingSurfaceLineUpdateException>(call);
-            string expectedMessage = $"Profielschematisaties moeten een unieke naam hebben. Gevonden dubbele namen: {duplicateName}.";
+            string expectedMessage = $"Profielschematisaties moeten een unieke naam hebben. Gevonden dubbele elementen: {duplicateName}.";
             Assert.AreEqual(expectedMessage, exception.Message);
             Assert.IsInstanceOf<ArgumentException>(exception.InnerException);
         }

@@ -50,14 +50,14 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         {
             // Setup
             var someFilePath = "location/to/a/file";
-            var collection = new ObservableCollectionWithSourcePath<RingtoetsPipingSurfaceLine>();
+            var collection = new ObservableUniqueItemCollectionWithSourcePath<RingtoetsPipingSurfaceLine>();
             collection.AddRange(Enumerable.Empty<RingtoetsPipingSurfaceLine>(), someFilePath);
 
             // Call
             var properties = new RingtoetsPipingSurfaceLineCollectionProperties(collection);
 
             // Assert
-            Assert.IsInstanceOf<ObjectProperties<ObservableCollectionWithSourcePath<RingtoetsPipingSurfaceLine>>>(properties);
+            Assert.IsInstanceOf<ObjectProperties<ObservableUniqueItemCollectionWithSourcePath<RingtoetsPipingSurfaceLine>>>(properties);
             Assert.AreSame(collection, properties.Data);
             Assert.AreEqual(someFilePath, properties.SourcePath);
         }
@@ -66,7 +66,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         public void Constructor_WithData_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
-            var collection = new ObservableCollectionWithSourcePath<RingtoetsPipingSurfaceLine>();
+            var collection = new ObservableUniqueItemCollectionWithSourcePath<RingtoetsPipingSurfaceLine>();
 
             // Call
             var properties = new RingtoetsPipingSurfaceLineCollectionProperties(collection);

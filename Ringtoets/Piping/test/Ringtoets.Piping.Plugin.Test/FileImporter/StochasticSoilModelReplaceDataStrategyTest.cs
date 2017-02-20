@@ -225,7 +225,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             // Assert
             var exception = Assert.Throws<StochasticSoilModelUpdateException>(test);
-            Assert.AreEqual("Ondergrondmodellen moeten een unieke naam hebben. Gevonden dubbele namen: B.", exception.Message);
+            Assert.AreEqual("Ondergrondmodellen moeten een unieke naam hebben. Gevonden dubbele elementen: B.", exception.Message);
             Assert.IsInstanceOf<ArgumentException>(exception.InnerException);
         }
     }
