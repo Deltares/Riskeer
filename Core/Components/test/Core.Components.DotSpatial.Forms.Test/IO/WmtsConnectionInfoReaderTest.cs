@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Xml;
@@ -33,7 +34,7 @@ namespace Core.Components.DotSpatial.Forms.Test.IO
     [TestFixture]
     public class WmtsConnectionInfoReaderTest
     {
-        private static readonly string testPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Forms, "WmtsConnectionInfo");
+        private static readonly string testPath = TestHelper.GetTestDataPath(TestDataPath.Core.Components.DotSpatial.Forms, "WmtsConnectionInfo");
 
         [Test]
         [TestCase("")]
@@ -86,19 +87,17 @@ namespace Core.Components.DotSpatial.Forms.Test.IO
         }
 
         [Test]
-        public void ReadWmtsConnectionInfos_FileMissing_ThrowsCriticalFileReadException()
+        public void ReadWmtsConnectionInfos_FileMissing_ReturnsEmptyList()
         {
             // Setup
             string filePath = Path.Combine(testPath, Path.GetRandomFileName());
             var reader = new WmtsConnectionInfoReader();
 
             // Call
-            TestDelegate call = () => reader.ReadWmtsConnectionInfos(filePath);
+            IEnumerable<WmtsConnectionInfo> readInfos = reader.ReadWmtsConnectionInfos(filePath);
 
             // Assert
-            var expectedMessage = $"Fout bij het lezen van bestand '{filePath}': het bestand bestaat niet.";
-            string actualMessage = Assert.Throws<CriticalFileReadException>(call).Message;
-            Assert.AreEqual(expectedMessage, actualMessage);
+            Assert.IsEmpty(readInfos);
         }
 
         [Test]

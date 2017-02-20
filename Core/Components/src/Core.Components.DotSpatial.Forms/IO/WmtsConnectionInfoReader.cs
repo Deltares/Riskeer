@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Xml;
 using System.Xml.Linq;
 using Core.Common.IO.Exceptions;
@@ -45,6 +46,7 @@ namespace Core.Components.DotSpatial.Forms.IO
         /// Reads the WMTS Connection info objects from <paramref name="path"/>.
         /// </summary>
         /// <param name="path">The file path that contains the <see cref="Forms.WmtsConnectionInfo"/> information.</param>
+        /// <returns>The read <see cref="Forms.WmtsConnectionInfo"/> information.</returns>
         /// <exception cref="ArgumentException">Thrown when <paramref name="path"/> is invalid.</exception>
         /// <exception cref="CriticalFileReadException">Thrown when <paramref name="path"/> could not successfully be read.</exception>
         /// <remarks>A valid path:
@@ -57,7 +59,12 @@ namespace Core.Components.DotSpatial.Forms.IO
         public IEnumerable<WmtsConnectionInfo> ReadWmtsConnectionInfos(string path)
         {
             filePath = path;
-            ValidateFilePath();
+            IOUtils.ValidateFilePath(filePath);
+
+            if (!File.Exists(filePath))
+            {
+                return Enumerable.Empty<WmtsConnectionInfo>();
+            }
 
             try
             {
@@ -68,16 +75,6 @@ namespace Core.Components.DotSpatial.Forms.IO
                 string message = new FileReaderErrorMessageBuilder(filePath)
                     .Build(CoreCommonUtilsResources.Error_General_IO_Import_ErrorMessage);
                 throw new CriticalFileReadException(message, exception);
-            }
-        }
-
-        private void ValidateFilePath()
-        {
-            IOUtils.ValidateFilePath(filePath);
-            if (!File.Exists(filePath))
-            {
-                string message = new FileReaderErrorMessageBuilder(filePath).Build(CoreCommonUtilsResources.Error_File_does_not_exist);
-                throw new CriticalFileReadException(message);
             }
         }
 

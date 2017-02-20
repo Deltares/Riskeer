@@ -40,12 +40,14 @@ namespace Core.Components.DotSpatial.Forms.Views
     /// </summary>
     public partial class WmtsLocationControl : UserControl, IHasMapData
     {
-        private const string wmtsConnectionInfoFileName = "wmtsConnectionInfo.config";
         private static readonly ILog log = LogManager.GetLogger(typeof(WmtsLocationControl));
+
+        private const string wmtsConnectionInfoFileName = "wmtsConnectionInfo.config";
         private readonly List<WmtsConnectionInfo> wmtsConnectionInfos;
-        private readonly List<WmtsCapabilityRow> capabilities;
         private string wmtsConnectionInfoFilePath;
 
+        private readonly List<WmtsCapabilityRow> capabilities;
+        
         /// <summary>
         /// Creates a new instance of <see cref="WmtsLocationControl"/>.
         /// </summary>
@@ -124,7 +126,10 @@ namespace Core.Components.DotSpatial.Forms.Views
                 var reader = new WmtsConnectionInfoReader();
                 return reader.ReadWmtsConnectionInfos(wmtsConnectionInfoFilePath);
             }
-            catch (CriticalFileReadException exception) {}
+            catch (CriticalFileReadException exception)
+            {
+                log.Error(exception.Message, exception);
+            }
             return Enumerable.Empty<WmtsConnectionInfo>();
         }
 
@@ -135,7 +140,10 @@ namespace Core.Components.DotSpatial.Forms.Views
                 var writer = new WmtsConnectionInfoWriter(wmtsConnectionInfoFilePath);
                 writer.WriteWmtsConnectionInfo(wmtsConnectionInfos);
             }
-            catch (CriticalFileWriteException exception) {}
+            catch (CriticalFileWriteException exception)
+            {
+                log.Error(exception.Message, exception);
+            }
         }
 
         private WmtsConnectionInfo TryCreateWmtsConnectionInfo(string wmtsConnectionName, string wmtsConnectionUrl)

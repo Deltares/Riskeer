@@ -318,6 +318,41 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
 
         [Test]
         [Apartment(ApartmentState.STA)]
+        public void GivenInvalidWmtsConnectionInfos_WhenConstructed_ThenLogGenerated()
+        {
+            // Given
+            SettingsHelper.Instance = new TestSettingsHelper
+            {
+                ExpectedApplicationVersion = "WmtsConnectionInfosWithoutWmtsConnectionsElement",
+                ExpectedApplicationLocalUserSettingsDirectory = TestHelper.GetTestDataPath(testPath)
+            };
+
+            // When
+            Action action = () =>
+            {
+                using (var control = new WmtsLocationControl())
+                using (var form = new Form())
+                {
+                    form.Controls.Add(control);
+
+                    // Then
+                    var comboBox = (ComboBox) new ComboBoxTester("urlLocationComboBox", form).TheObject;
+                    var dataSource = (List<WmtsConnectionInfo>) comboBox.DataSource;
+                    Assert.AreEqual(0, dataSource.Count);
+                }
+            };
+
+            string wmtsConnectionInfoConfig = Path.Combine(TestHelper.GetTestDataPath(
+                                                               testPath,
+                                                               "WmtsConnectionInfosWithoutWmtsConnectionsElement"),
+                                                           "wmtsConnectionInfo.config");
+            var expectedMessage = $"Fout bij het lezen van bestand '{wmtsConnectionInfoConfig}': "
+                                  + "het bestand kon niet worden geopend. Mogelijk is het bestand corrupt of in gebruik door een andere applicatie.";
+            TestHelper.AssertLogMessageWithLevelIsGenerated(action, Tuple.Create(expectedMessage, LogLevelConstant.Error));
+        }
+
+        [Test]
+        [Apartment(ApartmentState.STA)]
         public void GivenWmtsLocationControlAndAddLocationClicked_WhenDialogCanceled_ThenWmtsLocationsNotUpdated()
         {
             // Given
@@ -454,6 +489,68 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
                 var connectToButton = (Button) new ButtonTester("connectToButton", form).TheObject;
                 Assert.IsFalse(connectToButton.Enabled);
             }
+        }
+
+        [Test]
+        [Apartment(ApartmentState.STA)]
+        public void GivenWmtsLocationControlAndAddLocationClicked_WhenConfigFileInUse_ThenWmtsLocationsNotUpdatedAndLoggenerated()
+        {
+            // Given
+            const string name = @"someName";
+            const string url = @"someUrl";
+
+            SettingsHelper.Instance = new TestSettingsHelper
+            {
+                ExpectedApplicationLocalUserSettingsDirectory = TestHelper.GetTestDataPath(testPath, "noConfig")
+            };
+
+            var mockRepository = new MockRepository();
+            var tileFactory = mockRepository.StrictMock<ITileSourceFactory>();
+            tileFactory.Expect(tf => tf.GetWmtsTileSources(url)).Return(Enumerable.Empty<ITileSource>());
+            mockRepository.ReplayAll();
+
+            DialogBoxHandler = (formName, wnd) =>
+            {
+                using (var formTester = new FormTester(formName))
+                {
+                    var dialog = (WmtsConnectionDialog) formTester.TheObject;
+                    var nameTextBox = (TextBox) new TextBoxTester("nameTextBox", dialog).TheObject;
+                    var urlTextBox = (TextBox) new TextBoxTester("urlTextBox", dialog).TheObject;
+                    var actionButton = new ButtonTester("actionButton", dialog);
+
+                    nameTextBox.Text = name;
+                    urlTextBox.Text = url;
+
+                    actionButton.Click();
+                }
+            };
+
+            string configFilePath = Path.Combine(SettingsHelper.Instance.GetApplicationLocalUserSettingsDirectory(),
+                                                 wmtsconnectioninfoConfigFile);
+            using (var fileDisposeHelper = new FileDisposeHelper(configFilePath))
+            using (new UseCustomTileSourceFactoryConfig(tileFactory))
+            using (var form = new Form())
+            using (var control = new WmtsLocationControl())
+            {
+                form.Controls.Add(control);
+                form.Show();
+
+                fileDisposeHelper.LockFiles();
+
+                var buttonAddLocation = new ButtonTester("addLocationButton", form);
+
+                // When
+                Action action = () => { buttonAddLocation.Click(); };
+
+                // Then
+                string exceptionMessage = $"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{configFilePath}'.";
+                TestHelper.AssertLogMessageWithLevelIsGenerated(action, Tuple.Create(exceptionMessage, LogLevelConstant.Error));
+                var comboBox = (ComboBox) new ComboBoxTester("urlLocationComboBox", form).TheObject;
+                var dataSource = (List<WmtsConnectionInfo>) comboBox.DataSource;
+                Assert.AreEqual(1, dataSource.Count);
+            }
+
+            mockRepository.VerifyAll();
         }
 
         [Test]
