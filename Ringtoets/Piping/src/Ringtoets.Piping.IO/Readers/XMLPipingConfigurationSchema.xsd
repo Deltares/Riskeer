@@ -24,111 +24,118 @@ All rights reserved.
 -->
 
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
-	<xs:element name="root">
-		<xs:complexType>
-			<xs:choice minOccurs="0" maxOccurs="unbounded">
-				<xs:element ref="berekening"/>
-				<xs:element ref="map"/>
-			</xs:choice>
-		</xs:complexType>
-	</xs:element>
-	<xs:element name="map">
-		<xs:complexType>
-			<xs:choice minOccurs="0" maxOccurs="unbounded">
-				<xs:element ref="berekening"/>
-				<xs:element ref="map"/>
-			</xs:choice>
-			<xs:attribute name="naam" use="required">
-				<xs:simpleType>
-					<xs:restriction base="xs:string"/>
-				</xs:simpleType>
-			</xs:attribute>
-		</xs:complexType>
-	</xs:element>
-	<xs:element name="berekening">
-		<xs:complexType>
-			<xs:sequence>
-				<xs:choice minOccurs="0">
-					<xs:element ref="hrlocatie"/>
-					<xs:element ref="toetspeil"/>
-				</xs:choice>
-				<xs:element ref="profielschematisatie" minOccurs="0"/>
-				<xs:element ref="intredepunt" minOccurs="0"/>
-				<xs:element ref="uittredepunt" minOccurs="0"/>
-				<xs:element ref="ondergrondmodel" minOccurs="0"/>
-				<xs:element ref="ondergrondschematisatie" minOccurs="0"/>
-				<xs:element ref="stochast" minOccurs="0" maxOccurs="2"/>
-			</xs:sequence>
-			<xs:attribute name="naam" use="required">
-				<xs:simpleType>
-					<xs:restriction base="xs:string"/>
-				</xs:simpleType>
-			</xs:attribute>
-		</xs:complexType>
-		<xs:unique name="uniqueStochastNameConstraint">
-			<xs:selector xpath="stochast"/>
-			<xs:field xpath="@naam"/>
-		</xs:unique>
-	</xs:element>
-	<xs:element name="profielschematisatie">
-		<xs:simpleType>
-			<xs:restriction base="xs:string"/>
-		</xs:simpleType>
-	</xs:element>
-	<xs:element name="hrlocatie">
-		<xs:simpleType>
-			<xs:restriction base="xs:string"/>
-		</xs:simpleType>
-	</xs:element>
-	<xs:element name="toetspeil">
-		<xs:simpleType>
-			<xs:restriction base="xs:double"/>
-		</xs:simpleType>
-	</xs:element>
-	<xs:element name="intredepunt">
-		<xs:simpleType>
-			<xs:restriction base="xs:double"/>
-		</xs:simpleType>
-	</xs:element>
-	<xs:element name="uittredepunt">
-		<xs:simpleType>
-			<xs:restriction base="xs:double"/>
-		</xs:simpleType>
-	</xs:element>
-	<xs:element name="ondergrondmodel">
-		<xs:simpleType>
-			<xs:restriction base="xs:string"/>
-		</xs:simpleType>
-	</xs:element>
-	<xs:element name="ondergrondschematisatie">
-		<xs:simpleType>
-			<xs:restriction base="xs:string"/>
-		</xs:simpleType>
-	</xs:element>
-	<xs:element name="stochast">
-		<xs:complexType>
-			<xs:sequence>
-				<xs:element ref="verwachtingswaarde"/>
-				<xs:element ref="standaardafwijking"/>
-			</xs:sequence>
-			<xs:attribute name="naam" use="required">
-				<xs:simpleType>
-					<xs:restriction base="xs:string">
-						<xs:enumeration value="polderpeil"/>
-						<xs:enumeration value="dempingsfactor"/>
-					</xs:restriction>
-				</xs:simpleType>
-			</xs:attribute>
-		</xs:complexType>
-	</xs:element>
-	<xs:element name="standaardafwijking">
-		<xs:simpleType>
-			<xs:restriction base="xs:double"/>
-		</xs:simpleType>
-	</xs:element>
-	<xs:element name="verwachtingswaarde">
-		<xs:simpleType>
-			<xs:restriction base="xs:double"/>
-		</xs:simpleType>
-	</xs:element>
+  <xs:element name="root">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element ref="berekening"/>
+        <xs:element ref="map"/>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="map">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element ref="berekening"/>
+        <xs:element ref="map"/>
+      </xs:choice>
+      <xs:attribute name="naam" use="required">
+        <xs:simpleType>
+          <xs:restriction base="xs:string"/>
+        </xs:simpleType>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="berekening">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:choice minOccurs="0">
+          <xs:element ref="hrlocatie"/>
+          <xs:element ref="toetspeil"/>
+        </xs:choice>
+        <xs:element ref="profielschematisatie" minOccurs="0"/>
+        <xs:element ref="intredepunt" minOccurs="0"/>
+        <xs:element ref="uittredepunt" minOccurs="0"/>
+        <xs:element ref="ondergrondmodel" minOccurs="0"/>
+        <xs:element ref="ondergrondschematisatie" minOccurs="0"/>
+        <xs:element ref="stochasten" minOccurs="0"/>
+      </xs:sequence>
+      <xs:attribute name="naam" use="required">
+        <xs:simpleType>
+          <xs:restriction base="xs:string"/>
+        </xs:simpleType>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="profielschematisatie">
+    <xs:simpleType>
+      <xs:restriction base="xs:string"/>
+    </xs:simpleType>
+  </xs:element>
+  <xs:element name="intredepunt">
+    <xs:simpleType>
+      <xs:restriction base="xs:double"/>
+    </xs:simpleType>
+  </xs:element>
+  <xs:element name="uittredepunt">
+    <xs:simpleType>
+      <xs:restriction base="xs:double"/>
+    </xs:simpleType>
+  </xs:element>
+  <xs:element name="ondergrondmodel">
+    <xs:simpleType>
+      <xs:restriction base="xs:string"/>
+    </xs:simpleType>
+  </xs:element>
+  <xs:element name="ondergrondschematisatie">
+    <xs:simpleType>
+      <xs:restriction base="xs:string"/>
+    </xs:simpleType>
+  </xs:element>
+  <xs:element name="hrlocatie">
+    <xs:simpleType>
+      <xs:restriction base="xs:string"/>
+    </xs:simpleType>
+  </xs:element>
+  <xs:element name="toetspeil">
+    <xs:simpleType>
+      <xs:restriction base="xs:double"/>
+    </xs:simpleType>
+  </xs:element>
+  <xs:element name="stochasten">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element ref="stochast"/>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="uniqueStochastNameConstraint">
+      <xs:selector xpath="stochast"/>
+      <xs:field xpath="@naam"/>
+    </xs:unique>
+  </xs:element>
+  <xs:element name="stochast">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="verwachtingswaarde"/>
+        <xs:element ref="standaardafwijking"/>
+      </xs:sequence>
+      <xs:attribute name="naam" use="required">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="polderpeil"/>
+            <xs:enumeration value="dempingsfactor"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="standaardafwijking">
+    <xs:simpleType>
+      <xs:restriction base="xs:double"/>
+    </xs:simpleType>
+  </xs:element>
+  <xs:element name="verwachtingswaarde">
+    <xs:simpleType>
+      <xs:restriction base="xs:double"/>
+    </xs:simpleType>
+  </xs:element>
 </xs:schema>

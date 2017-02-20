@@ -4,9 +4,11 @@
     <toetspeil>1.1</toetspeil>
     <uittredepunt>2.2</uittredepunt>
     <ondergrondschematisatie>Ondergrondschematisatie</ondergrondschematisatie>
-    <stochast naam="polderpeil">
-      <verwachtingswaarde>3.3</verwachtingswaarde>
-      <standaardafwijking>4.4</standaardafwijking>
-    </stochast>
+    <stochasten>
+      <stochast naam="polderpeil">
+        <verwachtingswaarde>3.3</verwachtingswaarde>
+        <standaardafwijking>4.4</standaardafwijking>
+      </stochast>
+    </stochasten>
   </berekening>
 </root>

@@ -82,6 +82,11 @@ namespace Ringtoets.Piping.IO.Schema
         public static string StochasticSoilProfileElement => "ondergrondschematisatie";
 
         /// <summary>
+        /// Gets the identifier for stochasts elements.
+        /// </summary>
+        public static string StochastsElement => "stochasten";
+
+        /// <summary>
         /// Gets the identifier for stochast elements.
         /// </summary>
         public static string StochastElement => "stochast";

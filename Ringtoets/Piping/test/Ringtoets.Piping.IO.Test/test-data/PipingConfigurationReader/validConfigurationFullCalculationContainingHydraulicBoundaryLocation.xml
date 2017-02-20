@@ -7,13 +7,15 @@
     <uittredepunt>3.3</uittredepunt>
     <ondergrondmodel>Ondergrondmodel</ondergrondmodel>
     <ondergrondschematisatie>Ondergrondschematisatie</ondergrondschematisatie>
-    <stochast naam="polderpeil">
-      <verwachtingswaarde>4.4</verwachtingswaarde>
-      <standaardafwijking>5.5</standaardafwijking>
-    </stochast>
-    <stochast naam="dempingsfactor">
-      <verwachtingswaarde>6.6</verwachtingswaarde>
-      <standaardafwijking>7.7</standaardafwijking>
-    </stochast>
+    <stochasten>
+      <stochast naam="polderpeil">
+        <verwachtingswaarde>4.4</verwachtingswaarde>
+        <standaardafwijking>5.5</standaardafwijking>
+      </stochast>
+      <stochast naam="dempingsfactor">
+        <verwachtingswaarde>6.6</verwachtingswaarde>
+        <standaardafwijking>7.7</standaardafwijking>
+      </stochast>
+    <stochasten>
   </berekening>
 </root>

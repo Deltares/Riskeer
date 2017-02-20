@@ -41,6 +41,7 @@ namespace Ringtoets.Piping.IO.Test.Schema
             Assert.AreEqual("uittredepunt", PipingConfigurationSchemaIdentifiers.ExitPointElement);
             Assert.AreEqual("ondergrondmodel", PipingConfigurationSchemaIdentifiers.StochasticSoilModelElement);
             Assert.AreEqual("ondergrondschematisatie", PipingConfigurationSchemaIdentifiers.StochasticSoilProfileElement);
+            Assert.AreEqual("stochasten", PipingConfigurationSchemaIdentifiers.StochastsElement);
             Assert.AreEqual("stochast", PipingConfigurationSchemaIdentifiers.StochastElement);
             Assert.AreEqual("verwachtingswaarde", PipingConfigurationSchemaIdentifiers.MeanElement);
             Assert.AreEqual("standaardafwijking", PipingConfigurationSchemaIdentifiers.StandardDeviationElement);

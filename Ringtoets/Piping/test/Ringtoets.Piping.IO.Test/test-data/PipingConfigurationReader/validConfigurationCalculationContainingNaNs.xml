@@ -4,13 +4,15 @@
     <toetspeil>NaN</toetspeil>
     <intredepunt>NaN</intredepunt>
     <uittredepunt>NaN</uittredepunt>
-    <stochast naam="polderpeil">
-      <verwachtingswaarde>NaN</verwachtingswaarde>
-      <standaardafwijking>NaN</standaardafwijking>
-    </stochast>
-    <stochast naam="dempingsfactor">
-      <verwachtingswaarde>NaN</verwachtingswaarde>
-      <standaardafwijking>NaN</standaardafwijking>
-    </stochast>
+    <stochasten>
+      <stochast naam="polderpeil">
+        <verwachtingswaarde>NaN</verwachtingswaarde>
+        <standaardafwijking>NaN</standaardafwijking>
+      </stochast>
+      <stochast naam="dempingsfactor">
+        <verwachtingswaarde>NaN</verwachtingswaarde>
+        <standaardafwijking>NaN</standaardafwijking>
+      </stochast>
+    </stochasten>
   </berekening>
 </root>

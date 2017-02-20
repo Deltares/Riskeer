@@ -255,7 +255,9 @@ namespace Ringtoets.Piping.IO.Readers
 
         private static XElement GetStochastChildElement(XElement parentElement, string stochastName)
         {
-            return parentElement.Elements(PipingConfigurationSchemaIdentifiers.StochastElement)
+            return parentElement.Elements(PipingConfigurationSchemaIdentifiers.StochastsElement)
+                                .FirstOrDefault()?
+                                .Elements(PipingConfigurationSchemaIdentifiers.StochastElement)
                                 .FirstOrDefault(e => e.Attribute(PipingConfigurationSchemaIdentifiers.NameAttribute)?.Value == stochastName);
         }
     }
