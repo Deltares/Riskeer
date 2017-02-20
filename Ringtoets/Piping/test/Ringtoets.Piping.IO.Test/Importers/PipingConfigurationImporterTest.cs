@@ -405,6 +405,10 @@ namespace Ringtoets.Piping.IO.Test.Importers
             Assert.AreEqual(3.3, calculation.InputParameters.ExitPointL.Value);
             Assert.AreSame(stochasticSoilModel, calculation.InputParameters.StochasticSoilModel);
             Assert.AreSame(stochasticSoilProfile, calculation.InputParameters.StochasticSoilProfile);
+            Assert.AreEqual(4.4, calculation.InputParameters.PhreaticLevelExit.Mean.Value);
+            Assert.AreEqual(5.5, calculation.InputParameters.PhreaticLevelExit.StandardDeviation.Value);
+            Assert.AreEqual(6.6, calculation.InputParameters.DampingFactorExit.Mean.Value);
+            Assert.AreEqual(7.7, calculation.InputParameters.DampingFactorExit.StandardDeviation.Value);
         }
 
         private class ExpectedProgressNotification

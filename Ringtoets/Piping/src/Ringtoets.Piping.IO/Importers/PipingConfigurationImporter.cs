@@ -29,6 +29,7 @@ using Core.Common.IO.Readers;
 using log4net;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.IO.Properties;
 using Ringtoets.Piping.IO.Readers;
@@ -224,20 +225,33 @@ namespace Ringtoets.Piping.IO.Importers
                 }
             }
 
-            validCalculationItems.Add(pipingCalculation);
+            if (readCalculation.DampingFactorExitMean.HasValue && readCalculation.DampingFactorExitStandardDeviation.HasValue)
+            {
+                pipingCalculation.InputParameters.DampingFactorExit = new LogNormalDistribution
+                {
+                    Mean = (RoundedDouble) readCalculation.DampingFactorExitMean.Value,
+                    StandardDeviation = (RoundedDouble) readCalculation.DampingFactorExitStandardDeviation.Value
+                };
+            }
 
-            // Validate when set:
-            // - HR location X
-            // - Surface line X
-            // - Entry/Exit point X
-            // - Stochastic soil model X
-            // - Stochastic soil profile X
+            if (readCalculation.PhreaticLevelExitMean.HasValue && readCalculation.PhreaticLevelExitStandardDeviation.HasValue)
+            {
+                pipingCalculation.InputParameters.PhreaticLevelExit = new NormalDistribution
+                {
+                    Mean = (RoundedDouble) readCalculation.PhreaticLevelExitMean.Value,
+                    StandardDeviation = (RoundedDouble) readCalculation.PhreaticLevelExitStandardDeviation.Value
+                };
+            }
+
+            validCalculationItems.Add(pipingCalculation);
+            
             // Validate the stochastic soil model crosses the surface line when set
-            // Validate the stochastic soil profile is part of the soil model X
+            // Warn user when double name
         }
 
         private static void ValidateCalculationGroup(ReadPipingCalculationGroup readCalculationGroup)
         {
+            // Warn user when double name
         }
 
         private ReadResult<IReadPipingCalculationItem> ReadConfiguration()
