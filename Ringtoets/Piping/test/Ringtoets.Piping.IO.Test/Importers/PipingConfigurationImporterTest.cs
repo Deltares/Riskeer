@@ -290,6 +290,8 @@ namespace Ringtoets.Piping.IO.Test.Importers
 
             Assert.AreSame(hydraulicBoundaryLocation, calculation.InputParameters.HydraulicBoundaryLocation);
             Assert.AreSame(surfaceLine, calculation.InputParameters.SurfaceLine);
+            Assert.AreEqual(1.1, calculation.InputParameters.EntryPointL.Value);
+            Assert.AreEqual(2.2, calculation.InputParameters.ExitPointL.Value);
         }
 
         private class ExpectedProgressNotification

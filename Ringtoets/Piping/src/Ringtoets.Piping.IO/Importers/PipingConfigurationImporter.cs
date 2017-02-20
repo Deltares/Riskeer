@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base.Data;
 using Core.Common.Base.IO;
 using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
@@ -172,11 +173,22 @@ namespace Ringtoets.Piping.IO.Importers
                 }
             }
 
+            if (readCalculation.EntryPointL.HasValue)
+            {
+                pipingCalculation.InputParameters.EntryPointL = (RoundedDouble) readCalculation.EntryPointL.Value;
+            }
+
+            if (readCalculation.ExitPointL.HasValue)
+            {
+                pipingCalculation.InputParameters.ExitPointL = (RoundedDouble) readCalculation.ExitPointL.Value;
+            }
+
             validCalculationItems.Add(pipingCalculation);
 
             // Validate when set:
             // - HR location X
             // - Surface line X
+            // - Entry/Exit point X
             // - Stochastic soil model
             // - Stochastic soil profile
             // Validate the stochastic soil model crosses the surface line when set
