@@ -41,7 +41,6 @@ using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.Common.Forms.UITypeEditors;
 using Ringtoets.GrassCoverErosionInwards.Data;
-using Ringtoets.GrassCoverErosionInwards.Data.TestUtil;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses;
 
@@ -82,7 +81,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             TestDelegate test = () => new GrassCoverErosionInwardsInputContextProperties(null, handler);
 
             // Assert
-            ArgumentNullException exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(test);
             Assert.AreEqual("data", exception.ParamName);
             mockRepository.VerifyAll();
         }
@@ -93,12 +92,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             // Setup
             mockRepository.ReplayAll();
 
-            GrassCoverErosionInwardsCalculation calculationItem = new GrassCoverErosionInwardsCalculation();
-            GrassCoverErosionInwardsFailureMechanism failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var calculationItem = new GrassCoverErosionInwardsCalculation();
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
-            GrassCoverErosionInwardsInput inputParameters = new GrassCoverErosionInwardsInput();
+            var inputParameters = new GrassCoverErosionInwardsInput();
 
-            GrassCoverErosionInwardsInputContext context = new GrassCoverErosionInwardsInputContext(inputParameters,
+            var context = new GrassCoverErosionInwardsInputContext(inputParameters,
                                                                    calculationItem,
                                                                    failureMechanism,
                                                                    assessmentSection);
@@ -107,7 +106,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             TestDelegate test = () => new GrassCoverErosionInwardsInputContextProperties(context, null);
 
             // Assert
-            ArgumentNullException exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(test);
             Assert.AreEqual("handler", exception.ParamName);
             mockRepository.VerifyAll();
         }
@@ -118,18 +117,18 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             // Setup
             mockRepository.ReplayAll();
 
-            GrassCoverErosionInwardsCalculation calculationItem = new GrassCoverErosionInwardsCalculation();
-            GrassCoverErosionInwardsFailureMechanism failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var calculationItem = new GrassCoverErosionInwardsCalculation();
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
-            GrassCoverErosionInwardsInput inputParameters = new GrassCoverErosionInwardsInput();
+            var inputParameters = new GrassCoverErosionInwardsInput();
 
-            GrassCoverErosionInwardsInputContext context = new GrassCoverErosionInwardsInputContext(inputParameters,
+            var context = new GrassCoverErosionInwardsInputContext(inputParameters,
                                                                    calculationItem,
                                                                    failureMechanism,
                                                                    assessmentSection);
 
             // Call
-            GrassCoverErosionInwardsInputContextProperties properties = new GrassCoverErosionInwardsInputContextProperties(context, handler);
+            var properties = new GrassCoverErosionInwardsInputContextProperties(context, handler);
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<GrassCoverErosionInwardsInputContext>>(properties);
@@ -141,18 +140,18 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         public void Constructor_WithInputContextInstance_ReturnCorrectPropertyValues()
         {
             // Setup
-            GrassCoverErosionInwardsFailureMechanism failureMechanism = mockRepository.Stub<GrassCoverErosionInwardsFailureMechanism>();
-            GrassCoverErosionInwardsCalculation calculation = mockRepository.Stub<GrassCoverErosionInwardsCalculation>();
+            var failureMechanism = mockRepository.Stub<GrassCoverErosionInwardsFailureMechanism>();
+            var calculation = mockRepository.Stub<GrassCoverErosionInwardsCalculation>();
             mockRepository.ReplayAll();
 
-            GrassCoverErosionInwardsInput input = new GrassCoverErosionInwardsInput
+            var input = new GrassCoverErosionInwardsInput
             {
                 DikeHeightCalculationType = DikeHeightCalculationType.NoCalculation
             };
-            GrassCoverErosionInwardsInputContext inputContext = new GrassCoverErosionInwardsInputContext(input, calculation, failureMechanism, assessmentSection);
+            var inputContext = new GrassCoverErosionInwardsInputContext(input, calculation, failureMechanism, assessmentSection);
 
             // Call
-            GrassCoverErosionInwardsInputContextProperties properties = new GrassCoverErosionInwardsInputContextProperties(inputContext, handler);
+            var properties = new GrassCoverErosionInwardsInputContextProperties(inputContext, handler);
 
             // Assert
             Assert.AreEqual(2, properties.Orientation.NumberOfDecimalPlaces);
@@ -179,19 +178,19 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         public void Constructor_WithInputContextInstanceWithDikeProfile_ReturnCorrectPropertyValues()
         {
             // Setup
-            GrassCoverErosionInwardsFailureMechanism failureMechanism = mockRepository.Stub<GrassCoverErosionInwardsFailureMechanism>();
-            GrassCoverErosionInwardsCalculation calculation = mockRepository.Stub<GrassCoverErosionInwardsCalculation>();
+            var failureMechanism = mockRepository.Stub<GrassCoverErosionInwardsFailureMechanism>();
+            var calculation = mockRepository.Stub<GrassCoverErosionInwardsCalculation>();
             mockRepository.ReplayAll();
 
-            GrassCoverErosionInwardsInput input = new GrassCoverErosionInwardsInput
+            var input = new GrassCoverErosionInwardsInput
             {
                 DikeProfile = new TestDikeProfile(new Point2D(12.34, 56.78)),
                 HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "", 0, 0)
             };
-            GrassCoverErosionInwardsInputContext inputContext = new GrassCoverErosionInwardsInputContext(input, calculation, failureMechanism, assessmentSection);
+            var inputContext = new GrassCoverErosionInwardsInputContext(input, calculation, failureMechanism, assessmentSection);
 
             // Call
-            GrassCoverErosionInwardsInputContextProperties properties = new GrassCoverErosionInwardsInputContextProperties(inputContext, handler);
+            var properties = new GrassCoverErosionInwardsInputContextProperties(inputContext, handler);
 
             // Assert
             Assert.AreEqual(2, properties.Orientation.NumberOfDecimalPlaces);
@@ -232,23 +231,23 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         [Test]
         public void DikeHeightCalculationType_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput()
         {
-            DikeHeightCalculationType dikeHeightCalculationType = new Random(21).NextEnumValue<DikeHeightCalculationType>();
+            var dikeHeightCalculationType = new Random(21).NextEnumValue<DikeHeightCalculationType>();
             SetPropertyAndVerifyNotifcationsAndOutput(properties => properties.DikeHeightCalculationType = dikeHeightCalculationType, dikeHeightCalculationType);
         }
 
         [Test]
         public void DikeProfile_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput()
         {
-            TestDikeProfile dikeProfile = new TestDikeProfile();
+            var dikeProfile = new TestDikeProfile();
             SetPropertyAndVerifyNotifcationsAndOutput(properties => properties.DikeProfile = dikeProfile, dikeProfile);
         }
 
         [Test]
         public void SelectedHydraulicBoundaryLocation_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput()
         {
-            SelectableHydraulicBoundaryLocation selectableLocation = new SelectableHydraulicBoundaryLocation(new TestHydraulicBoundaryLocation(), new Point2D(0, 0));
+            var selectableLocation = new SelectableHydraulicBoundaryLocation(new TestHydraulicBoundaryLocation(), new Point2D(0, 0));
             SetPropertyAndVerifyNotifcationsAndOutput(
-                properties => properties.SelectedHydraulicBoundaryLocation = selectableLocation, 
+                properties => properties.SelectedHydraulicBoundaryLocation = selectableLocation,
                 selectableLocation.HydraulicBoundaryLocation);
         }
 
@@ -277,17 +276,17 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         public void SelectedHydraulicBoundaryLocation_InputNoLocation_ReturnsNull()
         {
             // Setup
-            IAssessmentSection assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
 
-            GrassCoverErosionInwardsInput calculationInput = new GrassCoverErosionInwardsInput();
-            GrassCoverErosionInwardsCalculation calculation = new GrassCoverErosionInwardsCalculation();
-            GrassCoverErosionInwardsFailureMechanism failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            GrassCoverErosionInwardsInputContext inputContext = new GrassCoverErosionInwardsInputContext(calculationInput,
+            var calculationInput = new GrassCoverErosionInwardsInput();
+            var calculation = new GrassCoverErosionInwardsCalculation();
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var inputContext = new GrassCoverErosionInwardsInputContext(calculationInput,
                                                                         calculation,
                                                                         failureMechanism,
                                                                         assessmentSectionStub);
-            GrassCoverErosionInwardsInputContextProperties properties = new GrassCoverErosionInwardsInputContextProperties(inputContext, handler);
+            var properties = new GrassCoverErosionInwardsInputContextProperties(inputContext, handler);
 
             SelectableHydraulicBoundaryLocation selectedHydraulicBoundaryLocation = null;
 
@@ -304,7 +303,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         public void GetSelectableHydraulicBoundaryLocations_InputWithLocationsDikeProfile_CalculatesDistanceWithCorrectReferencePoint()
         {
             // Setup
-            HydraulicBoundaryLocation hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "A", 200643.312, 503347.25);
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "A", 200643.312, 503347.25);
             assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
                 Locations =
@@ -314,14 +313,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             };
             mockRepository.ReplayAll();
 
-            GrassCoverErosionInwardsInput input = new GrassCoverErosionInwardsInput
+            var input = new GrassCoverErosionInwardsInput
             {
                 DikeProfile = new TestDikeProfile(new Point2D(200620.173572981, 503401.652985217))
             };
-            GrassCoverErosionInwardsCalculation calculation = new GrassCoverErosionInwardsCalculation();
-            GrassCoverErosionInwardsFailureMechanism failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            GrassCoverErosionInwardsInputContext inputContext = new GrassCoverErosionInwardsInputContext(input, calculation, failureMechanism, assessmentSection);
-            GrassCoverErosionInwardsInputContextProperties properties = new GrassCoverErosionInwardsInputContextProperties(inputContext, handler);
+            var calculation = new GrassCoverErosionInwardsCalculation();
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var inputContext = new GrassCoverErosionInwardsInputContext(input, calculation, failureMechanism, assessmentSection);
+            var properties = new GrassCoverErosionInwardsInputContextProperties(inputContext, handler);
 
             // Call 
             IEnumerable<SelectableHydraulicBoundaryLocation> availableHydraulicBoundaryLocations =
@@ -346,19 +345,19 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         public void SelectedHydraulicBoundaryLocation_InputWithLocationsDikeProfile_CalculatesDistanceWithCorrectReferencePoint()
         {
             // Setup
-            HydraulicBoundaryLocation hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "A", 200643.312, 503347.25);
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "A", 200643.312, 503347.25);
 
             mockRepository.ReplayAll();
 
-            GrassCoverErosionInwardsInput input = new GrassCoverErosionInwardsInput
+            var input = new GrassCoverErosionInwardsInput
             {
                 HydraulicBoundaryLocation = hydraulicBoundaryLocation,
                 DikeProfile = new TestDikeProfile(new Point2D(200620.173572981, 503401.652985217))
             };
-            GrassCoverErosionInwardsCalculation calculation = new GrassCoverErosionInwardsCalculation();
-            GrassCoverErosionInwardsFailureMechanism failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            GrassCoverErosionInwardsInputContext inputContext = new GrassCoverErosionInwardsInputContext(input, calculation, failureMechanism, assessmentSection);
-            GrassCoverErosionInwardsInputContextProperties properties = new GrassCoverErosionInwardsInputContextProperties(inputContext, handler);
+            var calculation = new GrassCoverErosionInwardsCalculation();
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var inputContext = new GrassCoverErosionInwardsInputContext(input, calculation, failureMechanism, assessmentSection);
+            var properties = new GrassCoverErosionInwardsInputContextProperties(inputContext, handler);
 
             // Call 
             SelectableHydraulicBoundaryLocation selectedHydraulicBoundaryLocation = properties.SelectedHydraulicBoundaryLocation;
@@ -381,7 +380,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         public void GivenPropertiesWithDikeProfileAndLocations_WhenSelectingLocation_ThenSelectedLocationDistanceSameAsLocationItem()
         {
             // Setup
-            HydraulicBoundaryLocation hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "A", 200643.312, 503347.25);
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "A", 200643.312, 503347.25);
             assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
                 Locations =
@@ -391,15 +390,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             };
             mockRepository.ReplayAll();
 
-            GrassCoverErosionInwardsInput input = new GrassCoverErosionInwardsInput
+            var input = new GrassCoverErosionInwardsInput
             {
                 HydraulicBoundaryLocation = hydraulicBoundaryLocation,
                 DikeProfile = new TestDikeProfile(new Point2D(200620.173572981, 503401.652985217))
             };
-            GrassCoverErosionInwardsCalculation calculation = new GrassCoverErosionInwardsCalculation();
-            GrassCoverErosionInwardsFailureMechanism failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            GrassCoverErosionInwardsInputContext inputContext = new GrassCoverErosionInwardsInputContext(input, calculation, failureMechanism, assessmentSection);
-            GrassCoverErosionInwardsInputContextProperties properties = new GrassCoverErosionInwardsInputContextProperties(inputContext, handler);
+            var calculation = new GrassCoverErosionInwardsCalculation();
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var inputContext = new GrassCoverErosionInwardsInputContext(input, calculation, failureMechanism, assessmentSection);
+            var properties = new GrassCoverErosionInwardsInputContextProperties(inputContext, handler);
 
             // Call
             IEnumerable<SelectableHydraulicBoundaryLocation> availableHydraulicBoundaryLocations =
@@ -430,11 +429,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             };
             mockRepository.ReplayAll();
 
-            GrassCoverErosionInwardsInput input = new GrassCoverErosionInwardsInput();
-            GrassCoverErosionInwardsCalculation calculation = new GrassCoverErosionInwardsCalculation();
-            GrassCoverErosionInwardsFailureMechanism failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            GrassCoverErosionInwardsInputContext inputContext = new GrassCoverErosionInwardsInputContext(input, calculation, failureMechanism, assessmentSection);
-            GrassCoverErosionInwardsInputContextProperties properties = new GrassCoverErosionInwardsInputContextProperties(inputContext, handler);
+            var input = new GrassCoverErosionInwardsInput();
+            var calculation = new GrassCoverErosionInwardsCalculation();
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var inputContext = new GrassCoverErosionInwardsInputContext(input, calculation, failureMechanism, assessmentSection);
+            var properties = new GrassCoverErosionInwardsInputContextProperties(inputContext, handler);
 
             // Call
             IEnumerable<SelectableHydraulicBoundaryLocation> availableHydraulicBoundaryLocations =
@@ -468,14 +467,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             };
             mockRepository.ReplayAll();
 
-            GrassCoverErosionInwardsInput input = new GrassCoverErosionInwardsInput()
+            var input = new GrassCoverErosionInwardsInput()
             {
                 DikeProfile = new TestDikeProfile()
             };
-            GrassCoverErosionInwardsCalculation calculation = new GrassCoverErosionInwardsCalculation();
-            GrassCoverErosionInwardsFailureMechanism failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            GrassCoverErosionInwardsInputContext inputContext = new GrassCoverErosionInwardsInputContext(input, calculation, failureMechanism, assessmentSection);
-            GrassCoverErosionInwardsInputContextProperties properties = new GrassCoverErosionInwardsInputContextProperties(inputContext, handler);
+            var calculation = new GrassCoverErosionInwardsCalculation();
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var inputContext = new GrassCoverErosionInwardsInputContext(input, calculation, failureMechanism, assessmentSection);
+            var properties = new GrassCoverErosionInwardsInputContextProperties(inputContext, handler);
 
             // Call
             IEnumerable<SelectableHydraulicBoundaryLocation> availableHydraulicBoundaryLocations =
@@ -510,21 +509,21 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
                 }
             };
             mockRepository.ReplayAll();
-            GrassCoverErosionInwardsInput input = new GrassCoverErosionInwardsInput()
+            var input = new GrassCoverErosionInwardsInput()
             {
                 DikeProfile = new TestDikeProfile()
             };
             var otherProfile = new TestDikeProfile(new Point2D(0.0, 190.0));
 
-            GrassCoverErosionInwardsCalculation calculation = new GrassCoverErosionInwardsCalculation();
-            GrassCoverErosionInwardsFailureMechanism failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            GrassCoverErosionInwardsInputContext inputContext = new GrassCoverErosionInwardsInputContext(input, calculation, failureMechanism, assessmentSection);
+            var calculation = new GrassCoverErosionInwardsCalculation();
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var inputContext = new GrassCoverErosionInwardsInputContext(input, calculation, failureMechanism, assessmentSection);
 
             var customHandler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<
                 GrassCoverErosionInwardsInput,
                 GrassCoverErosionInwardsCalculation,
                 DikeProfile>(input, calculation, otherProfile, Enumerable.Empty<IObservable>());
-            GrassCoverErosionInwardsInputContextProperties properties = new GrassCoverErosionInwardsInputContextProperties(inputContext, customHandler);
+            var properties = new GrassCoverErosionInwardsInputContextProperties(inputContext, customHandler);
 
             IEnumerable<SelectableHydraulicBoundaryLocation> originalList =
                 properties.GetSelectableHydraulicBoundaryLocations().ToList();
@@ -554,10 +553,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             // Setup
             mockRepository.ReplayAll();
 
-            GrassCoverErosionInwardsInput input = new GrassCoverErosionInwardsInput();
-            GrassCoverErosionInwardsCalculation calculation = new GrassCoverErosionInwardsCalculation();
+            var input = new GrassCoverErosionInwardsInput();
+            var calculation = new GrassCoverErosionInwardsCalculation();
 
-            GrassCoverErosionInwardsFailureMechanism failureMechanism = new GrassCoverErosionInwardsFailureMechanism()
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism()
             {
                 DikeProfiles =
                 {
@@ -565,8 +564,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
                 }
             };
 
-            GrassCoverErosionInwardsInputContext inputContext = new GrassCoverErosionInwardsInputContext(input, calculation, failureMechanism, assessmentSection);
-            GrassCoverErosionInwardsInputContextProperties properties = new GrassCoverErosionInwardsInputContextProperties(inputContext, handler);
+            var inputContext = new GrassCoverErosionInwardsInputContext(input, calculation, failureMechanism, assessmentSection);
+            var properties = new GrassCoverErosionInwardsInputContextProperties(inputContext, handler);
 
             // Call
             IEnumerable<DikeProfile> availableDikeProfiles = properties.GetAvailableDikeProfiles();
@@ -584,9 +583,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             // Setup
             mockRepository.ReplayAll();
 
-            GrassCoverErosionInwardsFailureMechanism failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            GrassCoverErosionInwardsCalculation calculation = new GrassCoverErosionInwardsCalculation();
-            GrassCoverErosionInwardsInput input = new GrassCoverErosionInwardsInput();
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var calculation = new GrassCoverErosionInwardsCalculation();
+            var input = new GrassCoverErosionInwardsInput();
 
             if (withDikeProfile)
             {
@@ -594,8 +593,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             }
 
             // Call
-            GrassCoverErosionInwardsInputContext inputContext = new GrassCoverErosionInwardsInputContext(input, calculation, failureMechanism, assessmentSection);
-            GrassCoverErosionInwardsInputContextProperties properties = new GrassCoverErosionInwardsInputContextProperties(inputContext, handler);
+            var inputContext = new GrassCoverErosionInwardsInputContext(input, calculation, failureMechanism, assessmentSection);
+            var properties = new GrassCoverErosionInwardsInputContextProperties(inputContext, handler);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -675,21 +674,21 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         }
 
         private void SetPropertyAndVerifyNotifcationsAndOutput<TPropertyValue>(
-            Action<GrassCoverErosionInwardsInputContextProperties> setProperty, 
+            Action<GrassCoverErosionInwardsInputContextProperties> setProperty,
             TPropertyValue expectedValueSet)
         {
             // Setup
-            IObservable observable = mockRepository.StrictMock<IObservable>();
+            var observable = mockRepository.StrictMock<IObservable>();
             observable.Expect(o => o.NotifyObservers());
             mockRepository.ReplayAll();
 
-            GrassCoverErosionInwardsCalculation calculation = new GrassCoverErosionInwardsCalculation();
+            var calculation = new GrassCoverErosionInwardsCalculation();
             GrassCoverErosionInwardsInput input = calculation.InputParameters;
             input.DikeProfile = new TestDikeProfile();
 
-            GrassCoverErosionInwardsFailureMechanism failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
-            CalculationInputSetPropertyValueAfterConfirmationParameterTester<GrassCoverErosionInwardsInput, GrassCoverErosionInwardsCalculation, TPropertyValue> customHandler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<GrassCoverErosionInwardsInput, GrassCoverErosionInwardsCalculation, TPropertyValue>(
+            var customHandler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<GrassCoverErosionInwardsInput, GrassCoverErosionInwardsCalculation, TPropertyValue>(
                 input,
                 calculation,
                 expectedValueSet,
@@ -698,8 +697,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
                     observable
                 });
 
-            GrassCoverErosionInwardsInputContext inputContext = new GrassCoverErosionInwardsInputContext(input, calculation, failureMechanism, assessmentSection);
-            GrassCoverErosionInwardsInputContextProperties properties = new GrassCoverErosionInwardsInputContextProperties(inputContext, customHandler);
+            var inputContext = new GrassCoverErosionInwardsInputContext(input, calculation, failureMechanism, assessmentSection);
+            var properties = new GrassCoverErosionInwardsInputContextProperties(inputContext, customHandler);
 
             // Call
             setProperty(properties);

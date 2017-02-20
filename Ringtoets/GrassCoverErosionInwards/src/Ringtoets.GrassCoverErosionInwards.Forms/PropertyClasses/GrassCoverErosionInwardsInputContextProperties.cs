@@ -36,7 +36,6 @@ using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Forms.UITypeEditors;
-using Ringtoets.Common.Service;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.Forms.Properties;
@@ -130,8 +129,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
             }
             set
             {
-                ChangePropertyValueAndNotifyAffectedObjectsAndNotifyPropertyChanged((input, v) =>
-                    input.Orientation = v, value);
+                ChangePropertyValueAndNotifyAffectedObjectsAndNotifyPropertyChanged(
+                    (input, v) => input.Orientation = v, value);
             }
         }
 
@@ -197,7 +196,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
             set
             {
                 ChangePropertyValueAndNotifyAffectedObjectsAndNotifyPropertyChanged((input, v) =>
-                    input.DikeHeight = v, value);
+                                                                                        input.DikeHeight = v, value);
             }
         }
 
@@ -215,7 +214,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
             set
             {
                 ChangePropertyValueAndNotifyAffectedObjectsAndNotifyPropertyChanged((input, v) =>
-                    input.DikeHeightCalculationType = v, value);
+                                                                                        input.DikeHeightCalculationType = v, value);
             }
         }
 
@@ -254,7 +253,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
             set
             {
                 ChangePropertyValueAndNotifyAffectedObjectsAndNotifyPropertyChanged((input, v) =>
-                    input.HydraulicBoundaryLocation = v, value.HydraulicBoundaryLocation);
+                                                                                        input.HydraulicBoundaryLocation = v, value.HydraulicBoundaryLocation);
             }
         }
 
@@ -293,9 +292,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
 
             NotifyAffectedObjects(affectedObjects);
         }
+
         private static void NotifyAffectedObjects(IEnumerable<IObservable> affectedObjects)
         {
-            foreach (var affectedObject in affectedObjects)
+            foreach (IObservable affectedObject in affectedObjects)
             {
                 affectedObject.NotifyObservers();
             }
