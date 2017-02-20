@@ -32,7 +32,7 @@ namespace Ringtoets.Piping.IO.Test.Schema
         {
             Assert.AreEqual("root", PipingConfigurationSchemaIdentifiers.RootElement);
             Assert.AreEqual("berekening", PipingConfigurationSchemaIdentifiers.CalculationElement);
-            Assert.AreEqual("folder", PipingConfigurationSchemaIdentifiers.FolderElement);
+            Assert.AreEqual("map", PipingConfigurationSchemaIdentifiers.FolderElement);
             Assert.AreEqual("naam", PipingConfigurationSchemaIdentifiers.NameAttribute);
             Assert.AreEqual("toetspeil", PipingConfigurationSchemaIdentifiers.AssessmentLevelElement);
             Assert.AreEqual("hrlocatie", PipingConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElement);

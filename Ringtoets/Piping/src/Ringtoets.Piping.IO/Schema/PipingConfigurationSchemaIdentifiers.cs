@@ -39,7 +39,7 @@ namespace Ringtoets.Piping.IO.Schema
         /// <summary>
         /// Gets the identifier for folder elements.
         /// </summary>
-        public static string FolderElement => "folder";
+        public static string FolderElement => "map";
 
         /// <summary>
         /// Gets the identifier for name attributes.

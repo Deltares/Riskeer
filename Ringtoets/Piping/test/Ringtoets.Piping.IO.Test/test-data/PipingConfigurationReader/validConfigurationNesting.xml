@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <root>
-  <folder naam="Group 1">
+  <map naam="Group 1">
     <berekening naam="Calculation 3"/>
-  </folder>
+  </map>
   <berekening naam="Calculation 1"/>
-  <folder naam="Group 2">
-    <folder naam="Group 4">
+  <map naam="Group 2">
+    <map naam="Group 4">
       <berekening naam="Calculation 5"/>
-    </folder>
+    </map>
     <berekening naam="Calculation 4"/>  
-  </folder>
+  </map>
   <berekening naam="Calculation 2"/>
-  <folder naam="Group 3"/>
+  <map naam="Group 3"/>
 </root>

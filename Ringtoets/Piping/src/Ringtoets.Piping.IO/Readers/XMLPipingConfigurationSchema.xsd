@@ -28,15 +28,15 @@ All rights reserved.
 		<xs:complexType>
 			<xs:choice minOccurs="0" maxOccurs="unbounded">
 				<xs:element ref="berekening"/>
-				<xs:element ref="folder"/>
+				<xs:element ref="map"/>
 			</xs:choice>
 		</xs:complexType>
 	</xs:element>
-	<xs:element name="folder">
+	<xs:element name="map">
 		<xs:complexType>
 			<xs:choice minOccurs="0" maxOccurs="unbounded">
 				<xs:element ref="berekening"/>
-				<xs:element ref="folder"/>
+				<xs:element ref="map"/>
 			</xs:choice>
 			<xs:attribute name="naam" use="required">
 				<xs:simpleType>

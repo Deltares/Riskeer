@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <root>
-  <folder naam="Group 1">
+  <map naam="Group 1">
     <berekening naam="Calculation 1">
       <hrlocatie>PUNT_KAT_18</hrlocatie>
       <profielschematisatie>PK001_0001</profielschematisatie>
@@ -17,7 +17,7 @@
         <standaardafwijking>0.100</standaardafwijking>
       </stochast>
     </berekening>
-  <folder>
+  <map>
   <berekening naam="Calculation 2">
     <hrlocatie>PUNT_SCH_17</hrlocatie>
     <profielschematisatie>PK001_0002</profielschematisatie>
