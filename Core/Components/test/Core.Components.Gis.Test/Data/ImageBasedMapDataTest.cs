@@ -43,6 +43,7 @@ namespace Core.Components.Gis.Test.Data
             Assert.IsInstanceOf<MapData>(mapData);
             Assert.AreEqual(name, mapData.Name);
             Assert.IsTrue(mapData.IsVisible);
+            Assert.IsFalse(mapData.IsConfigured);
 
             Assert.AreEqual(2, mapData.Transparency.NumberOfDecimalPlaces);
             Assert.AreEqual(0, mapData.Transparency.Value);

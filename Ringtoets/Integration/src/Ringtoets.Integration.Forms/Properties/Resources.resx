@@ -291,28 +291,37 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="FailureMechanismContributionView_AssessmentSectionCompositionLabelText_AssessmentSectionComposition_0_" xml:space="preserve">
     <value>Trajecttype: {0}</value>
   </data>
-  <data name="BackgroundMapDataContextProperties_IsVisible_Description" xml:space="preserve">
+  <data name="BackgroundMapDataContainerProperties_IsVisible_Description" xml:space="preserve">
     <value>Geeft aan of de geselecteerde achtergrond kaartlaag in alle kaarten van dit traject wordt weergegeven.</value>
   </data>
-  <data name="BackgroundMapDataContextProperties_IsVisible_DisplayName" xml:space="preserve">
+  <data name="BackgroundMapDataContainerProperties_IsVisible_DisplayName" xml:space="preserve">
     <value>Weergeven</value>
   </data>
-  <data name="BackgroundMapDataContextProperties_Name_Description" xml:space="preserve">
+  <data name="BackgroundMapDataContainerProperties_Name_Description" xml:space="preserve">
     <value>Omschrijving van de achtergrond kaartlaag.</value>
   </data>
-  <data name="BackgroundMapDataContextProperties_Name_DisplayName" xml:space="preserve">
+  <data name="BackgroundMapDataContainerProperties_Name_DisplayName" xml:space="preserve">
     <value>Omschrijving</value>
   </data>
-  <data name="BackgroundMapDataContextProperties_Transparency_Description" xml:space="preserve">
+  <data name="BackgroundMapDataContainerProperties_Transparency_Description" xml:space="preserve">
     <value>Transparantie waarmee de achtergrond kaartlaag wordt weergegeven.</value>
   </data>
-  <data name="BackgroundMapDataContextProperties_Transparency_DisplayName" xml:space="preserve">
+  <data name="BackgroundMapDataContainerProperties_Transparency_DisplayName" xml:space="preserve">
     <value>Transparantie</value>
   </data>
-  <data name="BackgroundMapDataContextProperties_Url_Description" xml:space="preserve">
+  <data name="BackgroundWmtsMapDataContainerProperties_Url_Description" xml:space="preserve">
     <value>Volledige URL naar de Web Map Tile Service (WMTS) die als achtergrond kaartlaag gebruikt wordt.</value>
   </data>
-  <data name="BackgroundMapDataContextProperties_Url_DisplayName" xml:space="preserve">
+  <data name="BackgroundWmtsMapDataContainerProperties_Url_DisplayName" xml:space="preserve">
     <value>URL</value>
+  </data>
+  <data name="BackgroundWmtsMapDataContainerProperties_PreferredFormat_Description" xml:space="preserve">
+    <value>Het type afbeelding die door de geselecteerde kaartlaag aangeleverd wordt.</value>
+  </data>
+  <data name="BackgroundWmtsMapDataContainerProperties_SelectedCapabilityIdentifier_Description" xml:space="preserve">
+    <value>De naam van de geselecteerde kaartlaag.</value>
+  </data>
+  <data name="BackgroundWmtsMapDataContainerProperties_WMTS_Category" xml:space="preserve">
+    <value>WMTS</value>
   </data>
 </root>

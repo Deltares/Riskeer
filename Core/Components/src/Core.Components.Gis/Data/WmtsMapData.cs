@@ -72,11 +72,6 @@ namespace Core.Components.Gis.Data
         public string SelectedCapabilityIdentifier { get; private set; }
 
         /// <summary>
-        /// Gets a value indicating if the map data is configured to use a particular WMTS.
-        /// </summary>
-        public bool IsConfigured { get; private set; }
-
-        /// <summary>
         /// Gets the MIME-type specification of the preferred tile image format.
         /// </summary>
         public string PreferredFormat { get; private set; }

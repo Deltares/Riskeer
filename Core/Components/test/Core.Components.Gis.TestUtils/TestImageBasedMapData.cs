@@ -19,28 +19,27 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.ComponentModel;
-using Core.Common.Utils.Reflection;
+using System;
+using Core.Components.Gis.Data;
 
-namespace Core.Components.Gis.Data
+namespace Core.Components.Gis.TestUtil
 {
     /// <summary>
-    /// Class for representing an map tile source that for which that is built-in support.
+    /// A class representing a <see cref="ImageBasedMapData"/> implementation which is
+    /// not in the regular codebase.
     /// </summary>
-    public class WellKnownTileSourceMapData : ImageBasedMapData
+    public class TestImageBasedMapData : ImageBasedMapData
     {
         /// <summary>
-        /// Initializes a new instance of <see cref="WellKnownTileSourceMapData"/>.
+        /// 
         /// </summary>
-        /// <param name="source">The tile source.</param>
-        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="source"/>
-        /// isn't a member of <see cref="WellKnownTileSource"/>.</exception>
-        public WellKnownTileSourceMapData(WellKnownTileSource source) : base(TypeUtils.GetDisplayName(source))
+        /// <param name="name">The name of the map data.</param>
+        /// <param name="isConfigured">The value for <see cref="ImageBasedMapData.IsConfigured"/>.</param>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="name"/>
+        /// is <c>null</c> or whitespace.</exception>
+        public TestImageBasedMapData(string name, bool isConfigured) : base(name)
         {
-            TileSource = source;
-            IsConfigured = true;
+            IsConfigured = isConfigured;
         }
-
-        public WellKnownTileSource TileSource { get; }
     }
 }

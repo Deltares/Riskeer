@@ -43,6 +43,7 @@ namespace Core.Components.Gis.Test.Data
 
             Assert.AreEqual("Bing Maps - Satelliet", mapData.Name);
             Assert.IsTrue(mapData.IsVisible);
+            Assert.IsTrue(mapData.IsConfigured);
             Assert.AreEqual(0, mapData.Transparency.Value);
             Assert.AreEqual(value, mapData.TileSource);
         }

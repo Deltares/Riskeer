@@ -45,6 +45,7 @@
     <Compile Include="..\..\..\..\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
+    <Compile Include="BackgroundMapDataContainerObjectPropertiesFactory.cs" />
     <Compile Include="BackgroundMapDataSelectionDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -54,14 +55,14 @@
     <Compile Include="Commands\AddAssessmentSectionCommand.cs" />
     <Compile Include="Commands\AssessmentSectionFromFileCommandHandler.cs" />
     <Compile Include="Commands\IAssessmentSectionFromFileCommandHandler.cs" />
-    <Compile Include="PresentationObjects\BackgroundMapDataContext.cs" />
     <Compile Include="PresentationObjects\DesignWaterLevelLocationContext.cs" />
     <Compile Include="PresentationObjects\DesignWaterLevelLocationsContext.cs" />
     <Compile Include="PresentationObjects\HydraulicBoundaryDatabaseContext.cs" />
     <Compile Include="PresentationObjects\HydraulicBoundaryLocationContext.cs" />
     <Compile Include="PresentationObjects\WaveHeightLocationContext.cs" />
     <Compile Include="PresentationObjects\WaveHeightLocationsContext.cs" />
-    <Compile Include="PropertyClasses\BackgroundWmtsMapDataProperties.cs" />
+    <Compile Include="PropertyClasses\BackgroundMapDataContainerProperties.cs" />
+    <Compile Include="PropertyClasses\BackgroundWmtsMapDataContainerProperties.cs" />
     <Compile Include="PropertyClasses\CalculationContextProperties.cs" />
     <Compile Include="PropertyClasses\CalculationGroupContextProperties.cs" />
     <Compile Include="PropertyClasses\DesignWaterLevelLocationsContextProperties.cs" />

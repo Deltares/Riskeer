@@ -25,6 +25,7 @@ using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.TestUtil;
+using Core.Components.Gis;
 using Core.Components.Gis.Data;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -181,8 +182,8 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
                 // Assert
                 Assert.AreEqual(23, objects.Length);
-                var backgroundMapData = (BackgroundMapDataContext) objects[0];
-                Assert.AreSame(assessmentSection.BackgroundMapData.MapData, backgroundMapData.WrappedData);
+                var backgroundMapData = (BackgroundMapDataContainer) objects[0];
+                Assert.AreSame(assessmentSection.BackgroundMapData, backgroundMapData);
 
                 var referenceLineContext = (ReferenceLineContext) objects[1];
                 Assert.AreSame(assessmentSection, referenceLineContext.WrappedData);

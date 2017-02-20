@@ -43,7 +43,7 @@ namespace Core.Components.DotSpatial.Forms.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -57,7 +57,7 @@ namespace Core.Components.DotSpatial.Forms.Properties {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Core.Components.DotSpatial.Forms.Properties.Resources", typeof(Resources).Assembly);
@@ -72,7 +72,7 @@ namespace Core.Components.DotSpatial.Forms.Properties {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -84,7 +84,7 @@ namespace Core.Components.DotSpatial.Forms.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap InformationIcon {
+        public static System.Drawing.Bitmap InformationIcon {
             get {
                 object obj = ResourceManager.GetObject("InformationIcon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -94,7 +94,7 @@ namespace Core.Components.DotSpatial.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to {0} De achtergrondkaart kan nu niet getoond worden..
         /// </summary>
-        internal static string MapControl_HandleBruTileInitializationException_Message_0_therefore_cannot_show_background_layer {
+        public static string MapControl_HandleBruTileInitializationException_Message_0_therefore_cannot_show_background_layer {
             get {
                 return ResourceManager.GetString("MapControl_HandleBruTileInitializationException_Message_0_therefore_cannot_show_b" +
                         "ackground_layer", resourceCulture);
@@ -104,7 +104,7 @@ namespace Core.Components.DotSpatial.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Configuratie van kaartgegevens hulpbestanden is mislukt..
         /// </summary>
-        internal static string MapControl_InitializeBackgroundLayer_Persistent_cache_creation_failed {
+        public static string MapControl_InitializeBackgroundLayer_Persistent_cache_creation_failed {
             get {
                 return ResourceManager.GetString("MapControl_InitializeBackgroundLayer_Persistent_cache_creation_failed", resourceCulture);
             }
@@ -113,7 +113,7 @@ namespace Core.Components.DotSpatial.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Verbinden met WMTS is mislukt waardoor geen kaartgegevens ingeladen kunnen worden..
         /// </summary>
-        internal static string MapControl_InitializeBackgroundLayer_Wmts_connection_failed {
+        public static string MapControl_InitializeBackgroundLayer_Wmts_connection_failed {
             get {
                 return ResourceManager.GetString("MapControl_InitializeBackgroundLayer_Wmts_connection_failed", resourceCulture);
             }
@@ -122,7 +122,7 @@ namespace Core.Components.DotSpatial.Forms.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap MapsIcon {
+        public static System.Drawing.Bitmap MapsIcon {
             get {
                 object obj = ResourceManager.GetObject("MapsIcon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -132,7 +132,7 @@ namespace Core.Components.DotSpatial.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Coördinatenstelsel.
         /// </summary>
-        internal static string WmtsCapability_MapLayer_CoordinateSystem {
+        public static string WmtsCapability_MapLayer_CoordinateSystem {
             get {
                 return ResourceManager.GetString("WmtsCapability_MapLayer_CoordinateSystem", resourceCulture);
             }
@@ -141,7 +141,7 @@ namespace Core.Components.DotSpatial.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Formaat.
         /// </summary>
-        internal static string WmtsCapability_MapLayer_Format {
+        public static string WmtsCapability_MapLayer_Format {
             get {
                 return ResourceManager.GetString("WmtsCapability_MapLayer_Format", resourceCulture);
             }
@@ -150,7 +150,7 @@ namespace Core.Components.DotSpatial.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Kaartlaag.
         /// </summary>
-        internal static string WmtsCapability_MapLayer_Id {
+        public static string WmtsCapability_MapLayer_Id {
             get {
                 return ResourceManager.GetString("WmtsCapability_MapLayer_Id", resourceCulture);
             }
@@ -159,7 +159,7 @@ namespace Core.Components.DotSpatial.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Titel.
         /// </summary>
-        internal static string WmtsCapability_MapLayer_Title {
+        public static string WmtsCapability_MapLayer_Title {
             get {
                 return ResourceManager.GetString("WmtsCapability_MapLayer_Title", resourceCulture);
             }
@@ -168,7 +168,7 @@ namespace Core.Components.DotSpatial.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Bewerken.
         /// </summary>
-        internal static string WmtsConnectionDialog_ActionButton_Edit {
+        public static string WmtsConnectionDialog_ActionButton_Edit {
             get {
                 return ResourceManager.GetString("WmtsConnectionDialog_ActionButton_Edit", resourceCulture);
             }
@@ -177,7 +177,7 @@ namespace Core.Components.DotSpatial.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to WMTS locatie aanpassen.
         /// </summary>
-        internal static string WmtsConnectionDialog_Text_Edit {
+        public static string WmtsConnectionDialog_Text_Edit {
             get {
                 return ResourceManager.GetString("WmtsConnectionDialog_Text_Edit", resourceCulture);
             }
@@ -186,7 +186,7 @@ namespace Core.Components.DotSpatial.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to URL naar het WMTS dataservice inclusief &apos;capabilities&apos;..
         /// </summary>
-        internal static string WmtsConnectionDialog_UrlErrorProvider_HelpText {
+        public static string WmtsConnectionDialog_UrlErrorProvider_HelpText {
             get {
                 return ResourceManager.GetString("WmtsConnectionDialog_UrlErrorProvider_HelpText", resourceCulture);
             }
@@ -195,7 +195,7 @@ namespace Core.Components.DotSpatial.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Het is niet mogelijk om WMTS connectie {0} aan te maken met URL &apos;{1}&apos;..
         /// </summary>
-        internal static string WmtsConnectionInfoReader_Unable_To_Create_WmtsConnectionInfo {
+        public static string WmtsConnectionInfoReader_Unable_To_Create_WmtsConnectionInfo {
             get {
                 return ResourceManager.GetString("WmtsConnectionInfoReader_Unable_To_Create_WmtsConnectionInfo", resourceCulture);
             }
@@ -204,7 +204,7 @@ namespace Core.Components.DotSpatial.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Web Map Tile Service (WMTS).
         /// </summary>
-        internal static string WmtsLocationControl_DisplayName {
+        public static string WmtsLocationControl_DisplayName {
             get {
                 return ResourceManager.GetString("WmtsLocationControl_DisplayName", resourceCulture);
             }

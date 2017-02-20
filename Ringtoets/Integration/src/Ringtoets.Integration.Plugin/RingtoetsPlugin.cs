@@ -37,6 +37,7 @@ using Core.Common.Gui.Plugin;
 using Core.Common.Gui.Settings;
 using Core.Common.IO.Exceptions;
 using Core.Common.Utils.Extensions;
+using Core.Components.Gis;
 using Core.Components.Gis.Data;
 using log4net;
 using Ringtoets.ClosingStructures.Data;
@@ -277,9 +278,9 @@ namespace Ringtoets.Integration.Plugin
         {
             yield return new PropertyInfo<IProject, RingtoetsProjectProperties>();
             yield return new PropertyInfo<IAssessmentSection, AssessmentSectionProperties>();
-            yield return new PropertyInfo<BackgroundMapDataContext, BackgroundWmtsMapDataProperties>
+            yield return new PropertyInfo<BackgroundMapDataContainer, BackgroundMapDataContainerProperties>
             {
-                CreateInstance = context => new BackgroundWmtsMapDataProperties(context.WrappedData)
+                CreateInstance = container => BackgroundMapDataContainerObjectPropertiesFactory.GetObjectProperties(container)
             };
             yield return new PropertyInfo<HydraulicBoundaryDatabaseContext, HydraulicBoundaryDatabaseProperties>();
             yield return new PropertyInfo<FailureMechanismContributionContext, FailureMechanismContributionProperties>
@@ -517,12 +518,12 @@ namespace Ringtoets.Integration.Plugin
                 OnNodeRemoved = AssessmentSectionOnNodeRemoved
             };
 
-            yield return new TreeNodeInfo<BackgroundMapDataContext>
+            yield return new TreeNodeInfo<BackgroundMapDataContainer>
             {
-                Text = context => RingtoetsIntegrationPluginResources.RingtoetsPlugin_BackgroundMapDataContext_Text,
-                Image = context => RingtoetsFormsResources.Map,
-                ContextMenuStrip = BackgroundMapDataContextMenuStrip,
-                ForeColor = context => context.WrappedData.IsConfigured ?
+                Text = container => RingtoetsIntegrationPluginResources.RingtoetsPlugin_BackgroundMapDataContext_Text,
+                Image = container => RingtoetsFormsResources.Map,
+                ContextMenuStrip = BackgroundMapDataContainerMenuStrip,
+                ForeColor = container => container.MapData != null && container.MapData.IsConfigured ?
                                            Color.FromKnownColor(KnownColor.ControlText) :
                                            Color.FromKnownColor(KnownColor.GrayText)
             };
@@ -888,7 +889,7 @@ namespace Ringtoets.Integration.Plugin
 
         #region BackgroundMapDataContext treeNodeInfo
 
-        private ContextMenuStrip BackgroundMapDataContextMenuStrip(BackgroundMapDataContext nodeData, object parentData, TreeViewControl treeViewControl)
+        private ContextMenuStrip BackgroundMapDataContainerMenuStrip(BackgroundMapDataContainer nodeData, object parentData, TreeViewControl treeViewControl)
         {
             var assessmentSection = parentData as IAssessmentSection;
 
@@ -903,14 +904,14 @@ namespace Ringtoets.Integration.Plugin
                       .Build();
         }
 
-        private void SelectMapData(IAssessmentSection assessmentSection, BackgroundMapDataContext backgroundMapDataContext)
+        private void SelectMapData(IAssessmentSection assessmentSection, BackgroundMapDataContainer container)
         {
             if (assessmentSection == null)
             {
                 return;
             }
 
-            WmtsMapData currentMapData = backgroundMapDataContext.WrappedData;
+            WmtsMapData currentMapData = container.MapData as WmtsMapData;
             using (var dialog = new BackgroundMapDataSelectionDialog(Gui.MainWindow, currentMapData))
             {
                 if (dialog.ShowDialog() == DialogResult.OK)
@@ -1103,7 +1104,7 @@ namespace Ringtoets.Integration.Plugin
         {
             var childNodes = new List<object>
             {
-                new BackgroundMapDataContext((WmtsMapData) nodeData.BackgroundMapData.MapData, nodeData.BackgroundMapData),
+                nodeData.BackgroundMapData,
                 new ReferenceLineContext(nodeData),
                 new FailureMechanismContributionContext(nodeData.FailureMechanismContribution, nodeData),
                 new HydraulicBoundaryDatabaseContext(nodeData),

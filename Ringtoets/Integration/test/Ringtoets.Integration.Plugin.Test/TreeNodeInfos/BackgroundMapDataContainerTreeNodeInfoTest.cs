@@ -45,7 +45,7 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class BackgroundMapDataContextTreeNodeInfoTest : NUnitFormTest
+    public class BackgroundMapDataContainerTreeNodeInfoTest : NUnitFormTest
     {
         private const int selectContextMenuIndex = 0;
 
@@ -83,16 +83,14 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         public void Text_Always_ReturnsName()
         {
             // Setup
-            WmtsMapData mapData = WmtsMapData.CreateUnconnectedMapData();
             var container = new BackgroundMapDataContainer();
-            var context = new BackgroundMapDataContext(mapData, container);
 
             using (var plugin = new RingtoetsPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);
 
                 // Call
-                string text = info.Text(context);
+                string text = info.Text(container);
 
                 // Assert
                 Assert.AreEqual("Achtergrondkaart", text);
@@ -103,16 +101,14 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         public void Image_Always_ReturnsSetImage()
         {
             // Setup
-            WmtsMapData mapData = WmtsMapData.CreateUnconnectedMapData();
             var container = new BackgroundMapDataContainer();
-            var context = new BackgroundMapDataContext(mapData, container);
 
             using (var plugin = new RingtoetsPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);
 
                 // Call
-                Image image = info.Image(context);
+                Image image = info.Image(container);
 
                 // Assert
                 TestHelper.AssertImagesAreEqual(Resources.Map, image);
@@ -123,15 +119,17 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         public void ForeColor_ConnectedMapData_ReturnControlText()
         {
             WmtsMapData mapData = WmtsMapData.CreateDefaultPdokMapData();
-            var container = new BackgroundMapDataContainer();
-            var context = new BackgroundMapDataContext(mapData, container);
+            var container = new BackgroundMapDataContainer
+            {
+                MapData = mapData
+            };
 
             using (var plugin = new RingtoetsPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);
 
                 // Call
-                Color image = info.ForeColor(context);
+                Color image = info.ForeColor(container);
 
                 // Assert
                 Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), image);
@@ -139,18 +137,40 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ForeColor_UnconnectedMapData_ReturnControlText()
+        public void ForeColor_UnconnectedMapData_ReturnGrayText()
         {
             WmtsMapData mapData = WmtsMapData.CreateUnconnectedMapData();
-            var container = new BackgroundMapDataContainer();
-            var context = new BackgroundMapDataContext(mapData, container);
+            var container = new BackgroundMapDataContainer
+            {
+                MapData = mapData
+            };
 
             using (var plugin = new RingtoetsPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);
 
                 // Call
-                Color image = info.ForeColor(context);
+                Color image = info.ForeColor(container);
+
+                // Assert
+                Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), image);
+            }
+        }
+
+        [Test]
+        public void ForeColor_MapDataNull_ReturnGrayText()
+        {
+            var container = new BackgroundMapDataContainer
+            {
+                MapData = null
+            };
+
+            using (var plugin = new RingtoetsPlugin())
+            {
+                TreeNodeInfo info = GetInfo(plugin);
+
+                // Call
+                Color image = info.ForeColor(container);
 
                 // Assert
                 Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), image);
@@ -197,15 +217,13 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var mockRepository = new MockRepository();
-            WmtsMapData mapData = WmtsMapData.CreateUnconnectedMapData();
             var container = new BackgroundMapDataContainer();
-            var context = new BackgroundMapDataContext(mapData, container);
 
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             using (var treeViewControl = new TreeViewControl())
             {
                 var gui = mockRepository.Stub<IGui>();
-                gui.Stub(g => g.Get(context, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                gui.Stub(g => g.Get(container, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
                 gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
                 gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
                 mockRepository.ReplayAll();
@@ -216,7 +234,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                     plugin.Gui = gui;
 
                     // Call
-                    using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, assessmentSection, treeViewControl))
+                    using (ContextMenuStrip contextMenu = info.ContextMenuStrip(container, assessmentSection, treeViewControl))
                     {
                         const string expectedItemText = "Selecteren...";
                         const string expectedItemTooltip = "Selecteer een kaartlaag.";
@@ -242,8 +260,10 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             backgroundMapDataObserver.Expect(o => o.UpdateObserver());
 
             WmtsMapData mapData = WmtsMapData.CreateUnconnectedMapData();
-            var container = new BackgroundMapDataContainer();
-            var backgroundMapDataContext = new BackgroundMapDataContext(mapData, container);
+            var container = new BackgroundMapDataContainer
+            {
+                MapData = mapData
+            };
 
             using (var treeViewControl = new TreeViewControl())
             using (var plugin = new RingtoetsPlugin())
@@ -256,7 +276,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
                 gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
                 gui.Stub(g => g.ViewCommands).Return(viewCommands);
-                gui.Stub(cmp => cmp.Get(backgroundMapDataContext, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                gui.Stub(cmp => cmp.Get(container, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
                 mockRepository.ReplayAll();
 
                 var assessmentSection = new ObservableTestAssessmentSectionStub();
@@ -273,7 +293,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 TreeNodeInfo info = GetInfo(plugin);
                 plugin.Gui = gui;
 
-                using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(backgroundMapDataContext, assessmentSection, treeViewControl))
+                using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(container, assessmentSection, treeViewControl))
                 {
                     // When
                     contextMenuStrip.Items[selectContextMenuIndex].PerformClick();
@@ -293,9 +313,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             var assessmentSectionObserver = mockRepository.StrictMock<IObserver>();
             var backgroundMapDataObserver = mockRepository.StrictMock<IObserver>();
 
-            WmtsMapData mapData = WmtsMapData.CreateUnconnectedMapData();
             var container = new BackgroundMapDataContainer();
-            var backgroundMapDataContext = new BackgroundMapDataContext(mapData, container);
 
             using (var treeViewControl = new TreeViewControl())
             using (var plugin = new RingtoetsPlugin())
@@ -308,7 +326,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
                 gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
                 gui.Stub(g => g.ViewCommands).Return(viewCommands);
-                gui.Stub(cmp => cmp.Get(backgroundMapDataContext, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                gui.Stub(cmp => cmp.Get(container, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
                 mockRepository.ReplayAll();
 
                 var assessmentSection = new ObservableTestAssessmentSectionStub();
@@ -325,7 +343,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 TreeNodeInfo info = GetInfo(plugin);
                 plugin.Gui = gui;
 
-                using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(backgroundMapDataContext, assessmentSection, treeViewControl))
+                using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(container, assessmentSection, treeViewControl))
                 {
                     // When
                     contextMenuStrip.Items[selectContextMenuIndex].PerformClick();
@@ -349,8 +367,8 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             backgroundMapDataObserver.Expect(o => o.UpdateObserver());
 
             WmtsMapData mapData = WmtsMapData.CreateUnconnectedMapData();
-            var container = new BackgroundMapDataContainer();
-            var backgroundMapDataContext = new BackgroundMapDataContext(mapData, container);
+
+            var assessmentSection = new ObservableTestAssessmentSectionStub();
 
             using (var treeViewControl = new TreeViewControl())
             using (var plugin = new RingtoetsPlugin())
@@ -363,13 +381,11 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
                 gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
                 gui.Stub(g => g.ViewCommands).Return(viewCommands);
-                gui.Stub(cmp => cmp.Get(backgroundMapDataContext, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                gui.Stub(cmp => cmp.Get(assessmentSection.BackgroundMapData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
                 mockRepository.ReplayAll();
 
-                var assessmentSection = new ObservableTestAssessmentSectionStub();
                 assessmentSection.Attach(assessmentSectionObserver);
                 assessmentSection.BackgroundMapData.Attach(backgroundMapDataObserver);
-
                 assessmentSection.BackgroundMapData.MapData = mapData;
 
                 DialogBoxHandler = (name, wnd) =>
@@ -382,7 +398,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 TreeNodeInfo info = GetInfo(plugin);
                 plugin.Gui = gui;
 
-                using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(backgroundMapDataContext, assessmentSection, treeViewControl))
+                using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(assessmentSection.BackgroundMapData, assessmentSection, treeViewControl))
                 {
                     // When
                     contextMenuStrip.Items[selectContextMenuIndex].PerformClick();
@@ -404,7 +420,6 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
             WmtsMapData mapData = WmtsMapData.CreateUnconnectedMapData();
             var container = new BackgroundMapDataContainer();
-            var backgroundMapDataContext = new BackgroundMapDataContext(mapData, container);
 
             using (var treeViewControl = new TreeViewControl())
             using (var plugin = new RingtoetsPlugin())
@@ -417,7 +432,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
                 gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
                 gui.Stub(g => g.ViewCommands).Return(viewCommands);
-                gui.Stub(cmp => cmp.Get(backgroundMapDataContext, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                gui.Stub(cmp => cmp.Get(container, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
                 mockRepository.ReplayAll();
 
                 var assessmentSection = new ObservableTestAssessmentSectionStub();
@@ -435,7 +450,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 TreeNodeInfo info = GetInfo(plugin);
                 plugin.Gui = gui;
 
-                using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(backgroundMapDataContext, assessmentSection, treeViewControl))
+                using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(container, assessmentSection, treeViewControl))
                 {
                     // When
                     contextMenuStrip.Items[selectContextMenuIndex].PerformClick();
@@ -449,7 +464,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
         private static TreeNodeInfo GetInfo(RingtoetsPlugin plugin)
         {
-            return plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(BackgroundMapDataContext));
+            return plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(BackgroundMapDataContainer));
         }
     }
 }

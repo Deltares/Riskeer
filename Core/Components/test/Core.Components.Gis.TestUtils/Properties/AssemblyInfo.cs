@@ -19,28 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.ComponentModel;
-using Core.Common.Utils.Reflection;
+using System.Reflection;
+using System.Runtime.InteropServices;
 
-namespace Core.Components.Gis.Data
-{
-    /// <summary>
-    /// Class for representing an map tile source that for which that is built-in support.
-    /// </summary>
-    public class WellKnownTileSourceMapData : ImageBasedMapData
-    {
-        /// <summary>
-        /// Initializes a new instance of <see cref="WellKnownTileSourceMapData"/>.
-        /// </summary>
-        /// <param name="source">The tile source.</param>
-        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="source"/>
-        /// isn't a member of <see cref="WellKnownTileSource"/>.</exception>
-        public WellKnownTileSourceMapData(WellKnownTileSource source) : base(TypeUtils.GetDisplayName(source))
-        {
-            TileSource = source;
-            IsConfigured = true;
-        }
-
-        public WellKnownTileSource TileSource { get; }
-    }
-}
+[assembly: AssemblyTitle("Core.Components.Gis.TestUtil")]
+[assembly: AssemblyProduct("Core.Components.Gis.TestUtil")]
+[assembly: Guid("f0fb401a-3494-4237-9e6d-02cdf77912a8")]

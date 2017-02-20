@@ -25,7 +25,9 @@ using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
+using Core.Components.Gis;
 using Core.Components.Gis.Data;
+using Core.Components.Gis.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.TestUtil;
@@ -34,86 +36,120 @@ using Ringtoets.Integration.Forms.PropertyClasses;
 namespace Ringtoets.Integration.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class BackgroundWmtsMapDataPropertiesTest
+    public class BackgroundMapDataContainerPropertiesTest
     {
         private const int requiredNamePropertyIndex = 0;
-        private const int requiredUrlPropertyIndex = 1;
-        private const int requiredTransparencyPropertyIndex = 2;
-        private const int requiredVisibilityPropertyIndex = 3;
+        private const int requiredTransparencyPropertyIndex = 1;
+        private const int requiredVisibilityPropertyIndex = 2;
 
         [Test]
-        public void Constructor_DataNull_ThrowArgumentNullException()
+        public void Constructor_ContainerNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new BackgroundWmtsMapDataProperties(null);
+            TestDelegate call = () => new BackgroundMapDataContainerProperties(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("data", paramName);
+            Assert.AreEqual("container", paramName);
         }
 
         [Test]
-        public void GetProperties_ConfiguredMapData_ReturnsExpectedValues()
+        public void Constructor_ValidContainer_ExpectedValues()
         {
             // Setup
-            WmtsMapData mapData = WmtsMapData.CreateDefaultPdokMapData();
+            var container = new BackgroundMapDataContainer();
 
             // Call
-            var properties = new BackgroundWmtsMapDataProperties(mapData);
+            var properties = new BackgroundMapDataContainerProperties(container);
 
             // Assert
-            Assert.IsInstanceOf<ObjectProperties<WmtsMapData>>(properties);
-
-            Assert.AreSame(mapData, properties.Data);
-
-            Assert.AreEqual(mapData.Name, properties.Name);
-            Assert.AreEqual(mapData.SourceCapabilitiesUrl, properties.Url);
-
-            Assert.AreEqual(2, properties.Transparency.NumberOfDecimalPlaces);
-            Assert.AreEqual(mapData.Transparency, properties.Transparency);
-            Assert.AreEqual(mapData.IsVisible, properties.IsVisible);
+            Assert.IsInstanceOf<ObjectProperties<BackgroundMapDataContainer>>(properties);
+            Assert.AreSame(container, properties.Data);
         }
 
         [Test]
-        public void GetProperties_UnconfiguredMapData_ReturnsExpectedValues()
+        public void GetProperties_ContainerWithoutMapData_ReturnExpectedValues()
         {
             // Setup
-            WmtsMapData mapData = WmtsMapData.CreateUnconnectedMapData();
+            var container = new BackgroundMapDataContainer
+            {
+                MapData = null
+            };
 
             // Call
-            var properties = new BackgroundWmtsMapDataProperties(mapData);
+            var properties = new BackgroundMapDataContainerProperties(container);
 
             // Assert
-            Assert.IsInstanceOf<ObjectProperties<WmtsMapData>>(properties);
-
-            Assert.AreSame(mapData, properties.Data);
-
+            Assert.AreEqual(container.IsVisible, properties.IsVisible);
+            Assert.AreEqual(container.Transparency, properties.Transparency);
             Assert.AreEqual(string.Empty, properties.Name);
-            Assert.AreEqual(mapData.SourceCapabilitiesUrl, properties.Url);
+        }
 
-            Assert.AreEqual(2, properties.Transparency.NumberOfDecimalPlaces);
-            Assert.AreEqual(mapData.Transparency, properties.Transparency);
-            Assert.AreEqual(mapData.IsVisible, properties.IsVisible);
+        [Test]
+        public void GetProperties_ContainerWithConfiguredMapData_ReturnExpectedValues()
+        {
+            // Setup
+            const string name = "A";
+
+            var mapData = new TestImageBasedMapData(name, true);
+
+            var container = new BackgroundMapDataContainer
+            {
+                MapData = mapData,
+                IsVisible = false,
+                Transparency = (RoundedDouble)0.5
+            };
+
+            // Call
+            var properties = new BackgroundMapDataContainerProperties(container);
+
+            // Assert
+            Assert.AreEqual(container.IsVisible, properties.IsVisible);
+            Assert.AreEqual(container.Transparency, properties.Transparency);
+            Assert.AreEqual(name, properties.Name);
+        }
+
+        [Test]
+        public void GetProperties_ContainerWithUnconfiguredMapData_ReturnExpectedValues()
+        {
+            // Setup
+            const string name = "A";
+
+            var mapData = new TestImageBasedMapData(name, false);
+
+            var container = new BackgroundMapDataContainer
+            {
+                MapData = mapData
+            };
+
+            // Call
+            var properties = new BackgroundMapDataContainerProperties(container);
+
+            // Assert
+            Assert.AreEqual(container.IsVisible, properties.IsVisible);
+            Assert.AreEqual(container.Transparency, properties.Transparency);
+            Assert.AreEqual(string.Empty, properties.Name);
         }
 
         [Test]
         public void SetProperties_IndividualProperties_UpdateDataAndNotifyObservers()
         {
             // Setup
+            const int numberOfChangedProperties = 2;
+
             var mockRepository = new MockRepository();
             var observer = mockRepository.StrictMock<IObserver>();
-            const int numberOfChangedProperties = 2;
             observer.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChangedProperties);
             mockRepository.ReplayAll();
 
-            var random = new Random(21);
-            var newTransparency = (RoundedDouble) random.NextDouble();
-            var newVisibility = random.NextBoolean();
+            var container = new BackgroundMapDataContainer();
+            container.Attach(observer);
 
-            WmtsMapData mapData = WmtsMapData.CreateDefaultPdokMapData();
-            mapData.Attach(observer);
+            var properties = new BackgroundMapDataContainerProperties(container);
 
-            var properties = new BackgroundWmtsMapDataProperties(mapData);
+            var random = new Random(123);
+            bool newVisibility = random.NextBoolean();
+            RoundedDouble newTransparency = random.NextRoundedDouble();
 
             // Call
             properties.IsVisible = newVisibility;
@@ -130,27 +166,20 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
-            WmtsMapData mapData = WmtsMapData.CreateUnconnectedMapData();
+            var container = new BackgroundMapDataContainer();
 
             // Call
-            var properties = new BackgroundWmtsMapDataProperties(mapData);
+            var properties = new BackgroundMapDataContainerProperties(container);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(4, dynamicProperties.Count);
+            Assert.AreEqual(3, dynamicProperties.Count);
 
             PropertyDescriptor nameProperty = dynamicProperties[requiredNamePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
                                                                             "Algemeen",
                                                                             "Omschrijving",
                                                                             "Omschrijving van de achtergrond kaartlaag.",
-                                                                            true);
-
-            PropertyDescriptor urlProperty = dynamicProperties[requiredUrlPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(urlProperty,
-                                                                            "Algemeen",
-                                                                            "URL",
-                                                                            "Volledige URL naar de Web Map Tile Service (WMTS) die als achtergrond kaartlaag gebruikt wordt.",
                                                                             true);
 
             PropertyDescriptor transparencyPropertyIndex = dynamicProperties[requiredTransparencyPropertyIndex];

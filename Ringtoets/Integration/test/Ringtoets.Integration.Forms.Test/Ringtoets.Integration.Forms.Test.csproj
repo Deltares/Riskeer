@@ -64,11 +64,12 @@
     <Compile Include="..\..\..\..\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
+    <Compile Include="BackgroundMapDataContainerObjectPropertiesFactoryTest.cs" />
     <Compile Include="BackgroundMapDataSelectionDialogTest.cs" />
     <Compile Include="Commands\AddAssessmentSectionCommandTest.cs" />
     <Compile Include="Commands\AssessmentSectionFromFileCommandHandlerTest.cs" />
-    <Compile Include="PresentationObjects\BackgroundMapDataContextTest.cs" />
-    <Compile Include="PropertyClasses\BackgroundWmtsMapDataPropertiesTest.cs" />
+    <Compile Include="PropertyClasses\BackgroundMapDataContainerPropertiesTest.cs" />
+    <Compile Include="PropertyClasses\BackgroundWmtsMapDataContainerPropertiesTest.cs" />
     <Compile Include="PropertyClasses\FailureMechanismContributionPropertiesIntegrationTest.cs" />
     <Compile Include="PresentationObjects\DesignWaterLevelLocationContextTest.cs" />
     <Compile Include="PresentationObjects\DesignWaterLevelLocationsContextTest.cs" />
@@ -149,6 +150,10 @@
     <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Gis\Core.Components.Gis.csproj">
       <Project>{318ba582-88c9-4816-a54a-a7e431461de3}</Project>
       <Name>Core.Components.Gis</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Components\test\Core.Components.Gis.TestUtils\Core.Components.Gis.TestUtils.csproj">
+      <Project>{f0fb401a-3494-4237-9e6d-02cdf77912a8}</Project>
+      <Name>Core.Components.Gis.TestUtils</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\GrassCoverErosionInwards\test\Ringtoets.GrassCoverErosionInwards.Data.TestUtil\Ringtoets.GrassCoverErosionInwards.Data.TestUtil.csproj">
       <Project>{BF753DB5-973B-4ADF-B0F6-9437325C3466}</Project>

@@ -71,5 +71,10 @@ namespace Core.Components.Gis.Data
                 transparency = newValue;
             }
         }
+
+        /// <summary>
+        /// Gets a value indicating if the map data is configured to use a tile source.
+        /// </summary>
+        public bool IsConfigured { get; protected set; }
     }
 }
