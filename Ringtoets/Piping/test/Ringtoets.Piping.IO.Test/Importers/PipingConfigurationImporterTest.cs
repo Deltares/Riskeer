@@ -27,6 +27,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Piping.Data;
 using Ringtoets.Piping.IO.Importers;
 
 namespace Ringtoets.Piping.IO.Test.Importers
@@ -175,12 +176,13 @@ namespace Ringtoets.Piping.IO.Test.Importers
         }
 
         [Test]
-        public void Import_HydraulicBoundaryLocationInvalid_LogMessage()
+        public void Import_HydraulicBoundaryLocationInvalid_LogMessageAndContinueImport()
         {
             // Setup
+            var calculationGroup = new CalculationGroup();
             string filePath = Path.Combine(path, "validConfigurationFullCalculationContainingHydraulicBoundaryLocation.xml");
             var importer = new PipingConfigurationImporter(filePath,
-                                                           new CalculationGroup(),
+                                                           calculationGroup,
                                                            Enumerable.Empty<HydraulicBoundaryLocation>());
 
             // Call
@@ -190,6 +192,34 @@ namespace Ringtoets.Piping.IO.Test.Importers
             // Assert
             TestHelper.AssertLogMessageIsGenerated(call, "Hydraulische randvoorwaarde locatie bestaat niet. Berekening overgeslagen.", 1);
             Assert.IsTrue(succesful);
+            CollectionAssert.IsEmpty(calculationGroup.Children);
+        }
+
+        [Test]
+        public void Import_ValidData_DataAddedToModel()
+        {
+            // Setup
+            var calculationGroup = new CalculationGroup();
+            string filePath = Path.Combine(path, "validConfigurationFullCalculationContainingHydraulicBoundaryLocation.xml");
+            var importer = new PipingConfigurationImporter(filePath,
+                                                           calculationGroup,
+                                                           new []
+                                                           {
+                                                               new HydraulicBoundaryLocation(1, "HRlocatie", 10, 20), 
+                                                           });
+
+            // Call
+            bool succesful = importer.Import();
+
+            // Assert
+            Assert.IsTrue(succesful);
+            Assert.AreEqual(1, calculationGroup.Children.Count);
+            PipingCalculation calculation = calculationGroup.Children[0] as PipingCalculation;
+
+            Assert.AreEqual(1, calculation.InputParameters.HydraulicBoundaryLocation.Id);
+            Assert.AreEqual("HRlocatie", calculation.InputParameters.HydraulicBoundaryLocation.Name);
+            Assert.AreEqual(10, calculation.InputParameters.HydraulicBoundaryLocation.Location.X);
+            Assert.AreEqual(20, calculation.InputParameters.HydraulicBoundaryLocation.Location.Y);
         }
 
         private class ExpectedProgressNotification

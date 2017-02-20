@@ -44,7 +44,7 @@ namespace Ringtoets.Piping.IO.Importers
 
         private readonly IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations;
 
-        private List<IReadPipingCalculationItem> validCalculationItems;
+        private readonly List<ICalculationBase> validCalculationItems;
 
         /// <summary>
         /// Creates a new instance of <see cref="PipingConfigurationImporter"/>.
@@ -65,7 +65,7 @@ namespace Ringtoets.Piping.IO.Importers
             }
             this.hydraulicBoundaryLocations = hydraulicBoundaryLocations;
 
-            validCalculationItems = new List<IReadPipingCalculationItem>();
+            validCalculationItems = new List<ICalculationBase>();
         }
 
         protected override void LogImportCanceledMessage()
@@ -96,10 +96,18 @@ namespace Ringtoets.Piping.IO.Importers
             }
 
             NotifyProgress(RingtoetsCommonIOResources.Importer_ProgressText_Adding_imported_data_to_DataModel, 3, 3);
-//            AddItemsToModel();
+            AddItemsToModel();
 
             return true;
-        }        
+        }
+
+        private void AddItemsToModel()
+        {
+            foreach (ICalculationBase validCalculationItem in validCalculationItems)
+            {
+                ImportTarget.Children.Add(validCalculationItem);
+            }
+        }
 
         private void ValidateReadItems(IReadPipingCalculationItem readItem)
         {
@@ -119,15 +127,27 @@ namespace Ringtoets.Piping.IO.Importers
 
         private void ValidateCalculation(ReadPipingCalculation readCalculation)
         {
+            var pipingCalculation = new PipingCalculation(new GeneralPipingInput())
+            {
+                Name = readCalculation.Name
+            };
+
             if (readCalculation.HydraulicBoundaryLocation != null)
             {
-                if (hydraulicBoundaryLocations.All(hbl => hbl.Name != readCalculation.HydraulicBoundaryLocation))
+                HydraulicBoundaryLocation location = hydraulicBoundaryLocations.FirstOrDefault(l => l.Name == readCalculation.HydraulicBoundaryLocation);
+
+                if (location != null)
                 {
+                    pipingCalculation.InputParameters.HydraulicBoundaryLocation = location;
+                }
+                else
+                { 
                     log.Warn("Hydraulische randvoorwaarde locatie bestaat niet. Berekening overgeslagen.");
+                    return;
                 }
             }
 
-            validCalculationItems.Add(readCalculation);
+            validCalculationItems.Add(pipingCalculation);
 
             // Validate when set:
             // - HR location
