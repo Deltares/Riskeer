@@ -22,7 +22,6 @@
 using System;
 using System.ComponentModel;
 using System.Linq;
-using Core.Common.Base;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -50,14 +49,14 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         {
             // Setup
             var someFilePath = "location/to/a/file";
-            var collection = new ObservableUniqueItemCollectionWithSourcePath<StochasticSoilModel>();
+            var collection = new StochasticSoilModelCollection();
             collection.AddRange(Enumerable.Empty<StochasticSoilModel>(), someFilePath);
 
             // Call
             var properties = new StochasticSoilModelCollectionProperties(collection);
 
             // Assert
-            Assert.IsInstanceOf<ObjectProperties<ObservableUniqueItemCollectionWithSourcePath<StochasticSoilModel>>>(properties);
+            Assert.IsInstanceOf<ObjectProperties<StochasticSoilModelCollection>>(properties);
             Assert.AreSame(collection, properties.Data);
             Assert.AreEqual(someFilePath, properties.SourcePath);
         }
@@ -66,7 +65,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         public void Constructor_WithData_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
-            var collection = new ObservableUniqueItemCollectionWithSourcePath<StochasticSoilModel>();
+            var collection = new StochasticSoilModelCollection();
 
             // Call
             var properties = new StochasticSoilModelCollectionProperties(collection);

@@ -190,6 +190,15 @@ namespace Ringtoets.Piping.Data.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Profielschematisaties.
+        /// </summary>
+        public static string RingtoetsPipingSurfaceLineCollection_TypeDescriptor {
+            get {
+                return ResourceManager.GetString("PipingSurfaceLineCollection_TypeDescriptor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to De geometrie bevat geen punt op locatie {0} om als &apos;{1}&apos; in te stellen..
         /// </summary>
         public static string RingtoetsPipingSurfaceLine_SetCharacteristicPointAt_Geometry_does_not_contain_point_at_0_to_assign_as_characteristic_point_1_ {
@@ -210,11 +219,29 @@ namespace Ringtoets.Piping.Data.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Stochastische ondergrondmodellen.
+        /// </summary>
+        public static string StochasticSoilModelCollection_TypeDescriptor {
+            get {
+                return ResourceManager.GetString("StochasticSoilModelCollection_TypeDescriptor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Het aandeel van de ondergrondschematisatie in het stochastische ondergrondmodel moet in het bereik {0} liggen..
         /// </summary>
         public static string StochasticSoilProfile_Probability_Should_be_in_range_0_ {
             get {
                 return ResourceManager.GetString("StochasticSoilProfile_Probability_Should_be_in_range_0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to naam.
+        /// </summary>
+        public static string UniqueFeature_Name_FeatureDescription {
+            get {
+                return ResourceManager.GetString("UniqueFeature_Name_FeatureDescription", resourceCulture);
             }
         }
     }

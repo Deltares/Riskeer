@@ -20,19 +20,18 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
-using Ringtoets.Piping.Primitives;
+using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.Properties;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Piping.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of <see cref="ObservableUniqueItemCollectionWithSourcePath{TObject}"/> of <see cref="RingtoetsPipingSurfaceLine"/> for properties panel.
+    /// ViewModel of <see cref="RingtoetsPipingSurfaceLineCollection"/> for properties panel.
     /// </summary>
-    public class RingtoetsPipingSurfaceLineCollectionProperties : ObjectProperties<ObservableUniqueItemCollectionWithSourcePath<RingtoetsPipingSurfaceLine>>
+    public class RingtoetsPipingSurfaceLineCollectionProperties : ObjectProperties<RingtoetsPipingSurfaceLineCollection>
     {
         /// <summary>
         /// Creates a new instance of <see cref="RingtoetsPipingSurfaceLineCollectionProperties"/>.
@@ -40,7 +39,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         /// <param name="collection">The collection for which the properties are shown.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="collection"/>
         /// is <c>null</c>.</exception>
-        public RingtoetsPipingSurfaceLineCollectionProperties(ObservableUniqueItemCollectionWithSourcePath<RingtoetsPipingSurfaceLine> collection)
+        public RingtoetsPipingSurfaceLineCollectionProperties(RingtoetsPipingSurfaceLineCollection collection)
         {
             if (collection == null)
             {

@@ -21,7 +21,6 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -52,7 +51,7 @@ namespace Ringtoets.Piping.Data.TestUtil.Test
             // Assert
             Assert.AreEqual(24, failureMechanism.Contribution);
 
-            ObservableUniqueItemCollectionWithSourcePath<RingtoetsPipingSurfaceLine> surfaceLines = failureMechanism.SurfaceLines;
+            RingtoetsPipingSurfaceLineCollection surfaceLines = failureMechanism.SurfaceLines;
             Assert.AreEqual("path/to/surfaceLines", surfaceLines.SourcePath);
             Assert.AreEqual(1, surfaceLines.Count);
             RingtoetsPipingSurfaceLine[] surfaceLineArray = surfaceLines.ToArray();

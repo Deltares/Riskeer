@@ -36,7 +36,7 @@ namespace Ringtoets.Piping.Data.Test
             var collection = new StochasticSoilModelCollection();
 
             // Assert
-            Assert.IsInstanceOf<ObservableUniqueItemCollectionWithSourcePath<StochasticSoilModel>>(collection);
+            Assert.IsInstanceOf<ObservableUniqueItemCollectionWithSourcePath<StochasticSoilModel, string>>(collection);
         }
 
         [Test]
@@ -76,7 +76,7 @@ namespace Ringtoets.Piping.Data.Test
             TestDelegate call = () => collection.AddRange(modelsToAdd, "valid/file/path");
 
             // Assert
-            string message = $"Ondergrondmodellen moeten een unieke naam hebben. Gevonden dubbele elementen: {someName}.";
+            string message = $"Stochastische ondergrondmodellen moeten een unieke naam hebben. Gevonden dubbele elementen: {someName}.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, message);
         }
 
@@ -100,7 +100,7 @@ namespace Ringtoets.Piping.Data.Test
             TestDelegate call = () => collection.AddRange(modelsToAdd, "valid/file/path");
 
             // Assert
-            string message = $"Ondergrondmodellen moeten een unieke naam hebben. Gevonden dubbele elementen: {someName}, {someOtherName}.";
+            string message = $"Stochastische ondergrondmodellen moeten een unieke naam hebben. Gevonden dubbele elementen: {someName}, {someOtherName}.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, message);
         }
     }

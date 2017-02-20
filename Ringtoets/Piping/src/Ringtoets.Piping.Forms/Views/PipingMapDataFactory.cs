@@ -24,8 +24,8 @@ using System.Drawing.Drawing2D;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Style;
 using Ringtoets.Piping.Data;
-using Ringtoets.Piping.Forms.Properties;
 using Ringtoets.Piping.Primitives;
+using PipingDataResources = Ringtoets.Piping.Data.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Piping.Forms.Views
@@ -41,7 +41,7 @@ namespace Ringtoets.Piping.Forms.Views
         /// <returns>The created <see cref="MapLineData"/>.</returns>
         public static MapLineData CreateSurfaceLinesMapData()
         {
-            return new MapLineData(Resources.PipingSurfaceLinesCollection_DisplayName)
+            return new MapLineData(PipingDataResources.RingtoetsPipingSurfaceLineCollection_TypeDescriptor)
             {
                 Style = new LineStyle(Color.DarkSeaGreen, 2, DashStyle.Solid),
                 SelectedMetaDataAttribute = RingtoetsCommonFormsResources.MetaData_Name
@@ -54,7 +54,7 @@ namespace Ringtoets.Piping.Forms.Views
         /// <returns>The created <see cref="MapLineData"/>.</returns>
         public static MapLineData CreateStochasticSoilModelsMapData()
         {
-            return new MapLineData(Resources.StochasticSoilModelCollection_DisplayName)
+            return new MapLineData(PipingDataResources.StochasticSoilModelCollection_TypeDescriptor)
             {
                 Style = new LineStyle(Color.FromArgb(70, Color.SaddleBrown), 5, DashStyle.Solid),
                 SelectedMetaDataAttribute = RingtoetsCommonFormsResources.MetaData_Name

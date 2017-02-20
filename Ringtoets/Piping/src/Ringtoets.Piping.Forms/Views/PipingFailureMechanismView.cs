@@ -32,7 +32,6 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
-using Ringtoets.Piping.Primitives;
 using PipingDataResources = Ringtoets.Piping.Data.Properties.Resources;
 
 namespace Ringtoets.Piping.Forms.Views
@@ -197,8 +196,8 @@ namespace Ringtoets.Piping.Forms.Views
         {
             ReferenceLine referenceLine = data.Parent.ReferenceLine;
             IEnumerable<FailureMechanismSection> failureMechanismSections = data.WrappedData.Sections;
-            ObservableUniqueItemCollectionWithSourcePath<StochasticSoilModel> stochasticSoilModels = data.WrappedData.StochasticSoilModels;
-            ObservableUniqueItemCollectionWithSourcePath<RingtoetsPipingSurfaceLine> ringtoetsPipingSurfaceLines = data.WrappedData.SurfaceLines;
+            StochasticSoilModelCollection stochasticSoilModels = data.WrappedData.StochasticSoilModels;
+            RingtoetsPipingSurfaceLineCollection ringtoetsPipingSurfaceLines = data.WrappedData.SurfaceLines;
             HydraulicBoundaryDatabase hydraulicBoundaryDatabase = data.Parent.HydraulicBoundaryDatabase;
             IEnumerable<PipingCalculationScenario> calculations =
                 data.WrappedData.CalculationsGroup.GetCalculations().Cast<PipingCalculationScenario>();

@@ -116,7 +116,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             string text = info.Text(stochasticSoilModelCollectionContext);
 
             // Assert
-            Assert.AreEqual(Resources.StochasticSoilModelCollection_DisplayName, text);
+            Assert.AreEqual("Stochastische ondergrondmodellen", text);
         }
 
         [Test]

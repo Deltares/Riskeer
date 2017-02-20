@@ -51,6 +51,7 @@ using Ringtoets.Piping.Primitives;
 using Ringtoets.Piping.Service;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
+using PipingDataResources = Ringtoets.Piping.Data.Properties.Resources;
 using PipingFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
 
 namespace Ringtoets.Piping.Plugin
@@ -96,7 +97,7 @@ namespace Ringtoets.Piping.Plugin
         {
             yield return new ImportInfo<RingtoetsPipingSurfaceLinesContext>
             {
-                Name = PipingFormsResources.PipingSurfaceLinesCollection_DisplayName,
+                Name = PipingDataResources.RingtoetsPipingSurfaceLineCollection_TypeDescriptor,
                 Category = RingtoetsCommonFormsResources.Ringtoets_Category,
                 Image = PipingFormsResources.PipingSurfaceLineIcon,
                 FileFilter = RingtoetsPipingSurfaceLineFileFilter,
@@ -106,7 +107,7 @@ namespace Ringtoets.Piping.Plugin
 
             yield return new ImportInfo<StochasticSoilModelCollectionContext>
             {
-                Name = PipingFormsResources.StochasticSoilModelCollection_DisplayName,
+                Name = PipingDataResources.StochasticSoilModelCollection_TypeDescriptor,
                 Category = RingtoetsCommonFormsResources.Ringtoets_Category,
                 Image = PipingFormsResources.PipingSoilProfileIcon,
                 FileFilter = StochasticSoilModelFileFilter,
@@ -134,7 +135,7 @@ namespace Ringtoets.Piping.Plugin
         {
             yield return new UpdateInfo<RingtoetsPipingSurfaceLinesContext>
             {
-                Name = PipingFormsResources.PipingSurfaceLinesCollection_DisplayName,
+                Name = PipingDataResources.RingtoetsPipingSurfaceLineCollection_TypeDescriptor,
                 Category = RingtoetsCommonFormsResources.Ringtoets_Category,
                 Image = PipingFormsResources.PipingSurfaceLineIcon,
                 FileFilter = RingtoetsPipingSurfaceLineFileFilter,
@@ -144,7 +145,7 @@ namespace Ringtoets.Piping.Plugin
 
             yield return new UpdateInfo<StochasticSoilModelCollectionContext>
             {
-                Name = PipingFormsResources.StochasticSoilModelCollection_DisplayName,
+                Name = PipingDataResources.StochasticSoilModelCollection_TypeDescriptor,
                 Category = RingtoetsCommonFormsResources.Ringtoets_Category,
                 Image = PipingFormsResources.PipingSoilProfileIcon,
                 FileFilter = StochasticSoilModelFileFilter,
@@ -153,32 +154,6 @@ namespace Ringtoets.Piping.Plugin
                 CreateFileImporter = (context, filePath) => StochasticSoilModelImporter(context, filePath, new StochasticSoilModelUpdateDataStrategy(context.FailureMechanism)),
                 VerifyUpdates = VerifyStochasticSoilModelUpdates
             };
-        }
-
-        private static StochasticSoilModelImporter StochasticSoilModelImporter(StochasticSoilModelCollectionContext context, string filePath, IStochasticSoilModelUpdateModelStrategy updateStrategy)
-        {
-            return new StochasticSoilModelImporter(context.WrappedData,
-                                                   filePath,
-                                                   updateStrategy);
-        }
-
-        private static bool StochasticSoilModelImporterEnabled(StochasticSoilModelCollectionContext context)
-        {
-            return context.AssessmentSection.ReferenceLine != null;
-        }
-
-        private static FileFilterGenerator StochasticSoilModelFileFilter
-        {
-            get
-            {
-                return new FileFilterGenerator(Resources.Soil_file_Extension, Resources.Soil_file_Description);
-            }
-        }
-
-        private bool VerifyStochasticSoilModelUpdates(StochasticSoilModelCollectionContext context)
-        {
-            var changeHandler = new StochasticSoilModelChangeHandler(context.FailureMechanism, new DialogBasedInquiryHelper(Gui.MainWindow));
-            return !changeHandler.RequireConfirmation() || changeHandler.InquireConfirmation();
         }
 
         public override IEnumerable<ViewInfo> GetViewInfos()
@@ -277,7 +252,7 @@ namespace Ringtoets.Piping.Plugin
 
             yield return new TreeNodeInfo<RingtoetsPipingSurfaceLinesContext>
             {
-                Text = ringtoetsPipingSurfaceLine => PipingFormsResources.PipingSurfaceLinesCollection_DisplayName,
+                Text = ringtoetsPipingSurfaceLine => PipingDataResources.RingtoetsPipingSurfaceLineCollection_TypeDescriptor,
                 Image = ringtoetsPipingSurfaceLine => RingtoetsCommonFormsResources.GeneralFolderIcon,
                 ForeColor = ringtoetsPipingSurfaceLine => ringtoetsPipingSurfaceLine.WrappedData.Any() ? Color.FromKnownColor(KnownColor.ControlText) : Color.FromKnownColor(KnownColor.GrayText),
                 ChildNodeObjects = ringtoetsPipingSurfaceLine => ringtoetsPipingSurfaceLine.WrappedData.Cast<object>().ToArray(),
@@ -299,7 +274,7 @@ namespace Ringtoets.Piping.Plugin
 
             yield return new TreeNodeInfo<StochasticSoilModelCollectionContext>
             {
-                Text = stochasticSoilModelContext => PipingFormsResources.StochasticSoilModelCollection_DisplayName,
+                Text = stochasticSoilModelContext => PipingDataResources.StochasticSoilModelCollection_TypeDescriptor,
                 Image = stochasticSoilModelContext => RingtoetsCommonFormsResources.GeneralFolderIcon,
                 ForeColor = stochasticSoilModelContext => stochasticSoilModelContext.WrappedData.Any() ?
                                                               Color.FromKnownColor(KnownColor.ControlText) : Color.FromKnownColor(KnownColor.GrayText),
@@ -356,6 +331,32 @@ namespace Ringtoets.Piping.Plugin
                                                                                  .AddPropertiesItem()
                                                                                  .Build()
             };
+        }
+
+        private static FileFilterGenerator StochasticSoilModelFileFilter
+        {
+            get
+            {
+                return new FileFilterGenerator(Resources.Soil_file_Extension, Resources.Soil_file_Description);
+            }
+        }
+
+        private static StochasticSoilModelImporter StochasticSoilModelImporter(StochasticSoilModelCollectionContext context, string filePath, IStochasticSoilModelUpdateModelStrategy updateStrategy)
+        {
+            return new StochasticSoilModelImporter(context.WrappedData,
+                                                   filePath,
+                                                   updateStrategy);
+        }
+
+        private static bool StochasticSoilModelImporterEnabled(StochasticSoilModelCollectionContext context)
+        {
+            return context.AssessmentSection.ReferenceLine != null;
+        }
+
+        private bool VerifyStochasticSoilModelUpdates(StochasticSoilModelCollectionContext context)
+        {
+            var changeHandler = new StochasticSoilModelChangeHandler(context.FailureMechanism, new DialogBasedInquiryHelper(Gui.MainWindow));
+            return !changeHandler.RequireConfirmation() || changeHandler.InquireConfirmation();
         }
 
         #region PipingFailureMechanismView ViewInfo
@@ -990,7 +991,7 @@ namespace Ringtoets.Piping.Plugin
             {
                 return new FileFilterGenerator(
                     RingtoetsCommonFormsResources.DataTypeDisplayName_csv_file_filter_Extension,
-                    $"{PipingFormsResources.PipingSurfaceLinesCollection_DisplayName} {RingtoetsCommonFormsResources.DataTypeDisplayName_csv_file_filter_Description}");
+                    $"{PipingDataResources.RingtoetsPipingSurfaceLineCollection_TypeDescriptor} {RingtoetsCommonFormsResources.DataTypeDisplayName_csv_file_filter_Description}");
             }
         }
 

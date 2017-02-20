@@ -19,19 +19,18 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Collections.Generic;
 using Core.Common.Base;
+using Ringtoets.Piping.Data.Properties;
 
 namespace Ringtoets.Piping.Data
 {
     /// <summary>
     /// A collection of <see cref="StochasticSoilModel"/>.
     /// </summary>
-    public class StochasticSoilModelCollection : ObservableUniqueItemCollectionWithSourcePath<StochasticSoilModel>
+    public class StochasticSoilModelCollection : ObservableUniqueItemCollectionWithSourcePath<StochasticSoilModel, string>
     {
-        protected override void ValidateItems(IEnumerable<StochasticSoilModel> items)
-        {
-            ValidateListOnDuplicateFeature(items, model => model.Name, "Ondergrondmodellen", "naam");
-        }
+        public StochasticSoilModelCollection() : base(model => model.Name,
+                                                      Resources.StochasticSoilModelCollection_TypeDescriptor,
+                                                      Resources.UniqueFeature_Name_FeatureDescription) {}
     }
 }

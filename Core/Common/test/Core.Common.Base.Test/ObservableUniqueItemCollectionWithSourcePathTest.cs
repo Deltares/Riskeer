@@ -30,11 +30,52 @@ namespace Core.Common.Base.Test
     [TestFixture]
     public class ObservableUniqueItemCollectionWithSourcePathTest
     {
+        private readonly Func<TestItem, string> getUniqueFeature = (item => item.Name);
+        private const string typeDescriptor = "TestItems";
+        private const string featureDescription = "Feature";
+
         [Test]
-        public void DefaultConstructor_ReturnObservableCollectionWithSourcePath()
+        public void DefaultConstructor_getUniqueFeatureNull_ThrowsArgumentNullException()
         {
             // Call
-            var collection = new ObservableUniqueItemCollectionWithSourcePath<object>();
+            TestDelegate call = () => new ObservableUniqueItemCollectionWithSourcePath<object, object>(
+                null, string.Empty, string.Empty);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("getUniqueFeature", paramName);
+        }
+
+        [Test]
+        public void DefaultConstructor_TypeDescriptionNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => new ObservableUniqueItemCollectionWithSourcePath<TestItem, string>(
+                getUniqueFeature, null, string.Empty);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("typeDescriptor", paramName);
+        }
+
+        [Test]
+        public void DefaultConstructor_FeatureDescriptionNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => new ObservableUniqueItemCollectionWithSourcePath<TestItem, string>(
+                getUniqueFeature, string.Empty, null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("featureDescription", paramName);
+        }
+
+        [Test]
+        public void DefaultConstructor_ReturnObservableUniqueItemCollectionWithSourcePath()
+        {
+            // Call
+            var collection = new ObservableUniqueItemCollectionWithSourcePath<TestItem, string>(
+                getUniqueFeature, typeDescriptor, featureDescription);
 
             // Assert
             Assert.IsInstanceOf<Observable>(collection);
@@ -47,7 +88,8 @@ namespace Core.Common.Base.Test
         public void AddRange_ItemsNull_ThrowArgumentNullException()
         {
             // Setup
-            var collection = new ObservableUniqueItemCollectionWithSourcePath<object>();
+            var collection = new ObservableUniqueItemCollectionWithSourcePath<TestItem, string>(
+                getUniqueFeature, typeDescriptor, featureDescription);
 
             // Call
             TestDelegate call = () => collection.AddRange(null, "path");
@@ -61,12 +103,13 @@ namespace Core.Common.Base.Test
         public void AddRange_ItemsHasNullElement_ThrowArgumentException()
         {
             // Setup
-            var collection = new ObservableUniqueItemCollectionWithSourcePath<object>();
+            var collection = new ObservableUniqueItemCollectionWithSourcePath<TestItem, string>(
+                getUniqueFeature, typeDescriptor, featureDescription);
             var items = new[]
             {
-                new object(),
+                new TestItem("Item A"),
                 null,
-                new object()
+                new TestItem("Item B")
             };
 
             // Call
@@ -82,10 +125,11 @@ namespace Core.Common.Base.Test
         public void AddRange_FilePathNull_ThrowArgumentNullException()
         {
             // Setup
-            var collection = new ObservableUniqueItemCollectionWithSourcePath<object>();
+            var collection = new ObservableUniqueItemCollectionWithSourcePath<TestItem, string>(
+                getUniqueFeature, typeDescriptor, featureDescription);
 
             // Call
-            TestDelegate call = () => collection.AddRange(Enumerable.Empty<object>(), null);
+            TestDelegate call = () => collection.AddRange(Enumerable.Empty<TestItem>(), null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -96,12 +140,13 @@ namespace Core.Common.Base.Test
         public void AddRange_NotAnActualFilePath_ThrowArgumentNull()
         {
             // Setup
-            var collection = new ObservableUniqueItemCollectionWithSourcePath<object>();
+            var collection = new ObservableUniqueItemCollectionWithSourcePath<TestItem, string>(
+                getUniqueFeature, typeDescriptor, featureDescription);
 
             const string invalidFilePath = @"            ";
 
             // Call
-            TestDelegate call = () => collection.AddRange(Enumerable.Empty<object>(), invalidFilePath);
+            TestDelegate call = () => collection.AddRange(Enumerable.Empty<TestItem>(), invalidFilePath);
 
             // Assert
             string message = $"'{invalidFilePath}' is not a valid filepath.";
@@ -113,8 +158,9 @@ namespace Core.Common.Base.Test
         public void AddRange_AddNewItem_CollectionContainsItem()
         {
             // Setup
-            var collection = new ObservableUniqueItemCollectionWithSourcePath<object>();
-            var item = new object();
+            var collection = new ObservableUniqueItemCollectionWithSourcePath<TestItem, string>(
+                getUniqueFeature, typeDescriptor, featureDescription);
+            var item = new TestItem("Item A");
 
             // Call 
             const string filePath = "some/file/path";
@@ -132,13 +178,14 @@ namespace Core.Common.Base.Test
         public void AddRange_AddingNewItems_CollectionContainsExpectedElements()
         {
             // Setup
-            var collection = new ObservableUniqueItemCollectionWithSourcePath<object>();
+            var collection = new ObservableUniqueItemCollectionWithSourcePath<TestItem, string>(
+                getUniqueFeature, typeDescriptor, featureDescription);
             var expectedCollection = new[]
             {
-                new object(),
-                new object(),
-                new object(),
-                new object()
+                new TestItem("Item A"),
+                new TestItem("Item B"),
+                new TestItem("Item C"),
+                new TestItem("Item D")
             };
 
             const string filePath = "some/file/path";
@@ -152,16 +199,66 @@ namespace Core.Common.Base.Test
         }
 
         [Test]
+        public void AddRange_AddDuplicateItems_ThrowsArgumentException()
+        {
+            // Setup
+            const string duplicateNameOne = "Duplicate name it is";
+
+            var itemsToAdd = new[]
+            {
+                new TestItem(duplicateNameOne),
+                new TestItem(duplicateNameOne)
+            };
+
+            var collection = new ObservableUniqueItemCollectionWithSourcePath<TestItem, string>(
+                getUniqueFeature, typeDescriptor, featureDescription);
+
+            // Call
+            TestDelegate call = () => collection.AddRange(itemsToAdd, "some/path");
+
+            // Assert
+            string message = $"{typeDescriptor} moeten een unieke {featureDescription} hebben. Gevonden dubbele elementen: {duplicateNameOne}.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, message);
+        }
+
+        [Test]
+        public void AddRange_AddMultipleDuplicateItems_ThrowsArgumentException()
+        {
+            // Setup
+            const string duplicateNameOne = "Duplicate name it is";
+            const string duplicateNameTwo = "Duplicate name again";
+
+            var itemsToAdd = new[]
+            {
+                new TestItem(duplicateNameOne),
+                new TestItem(duplicateNameOne),
+                new TestItem(duplicateNameTwo),
+                new TestItem(duplicateNameTwo)
+            };
+
+            var collection = new ObservableUniqueItemCollectionWithSourcePath<TestItem, string>(
+                getUniqueFeature, typeDescriptor, featureDescription);
+
+            // Call
+            TestDelegate call = () => collection.AddRange(itemsToAdd, "some/path");
+
+            // Assert
+            string message = $"{typeDescriptor} moeten een unieke {featureDescription} hebben. Gevonden dubbele elementen: {duplicateNameOne}, {duplicateNameTwo}.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, message);
+        }
+
+        [Test]
         public void Count_CollectionFilledWithElements_ReturnsExpectedNumberOfElements()
         {
             // Setup
-            var collection = new ObservableUniqueItemCollectionWithSourcePath<object>();
+            var collection = new ObservableUniqueItemCollectionWithSourcePath<TestItem, string>(
+                getUniqueFeature, typeDescriptor, featureDescription);
             collection.AddRange(new[]
             {
-                new object(),
-                new object(),
-                new object(),
-                new object()
+                new TestItem("Item A"),
+                new TestItem("Item B"),
+                new TestItem("Item C"),
+                new TestItem("Item D")
             }, "path");
 
             // Call
@@ -177,7 +274,8 @@ namespace Core.Common.Base.Test
         public void Indexer_GetItemAtIndexOutOfRange_ThrowsArgumentOutOfRangeException(int invalidIndex)
         {
             // Setup
-            var collection = new ObservableUniqueItemCollectionWithSourcePath<object>();
+            var collection = new ObservableUniqueItemCollectionWithSourcePath<TestItem, string>(
+                getUniqueFeature, typeDescriptor, featureDescription);
 
             // Call
             TestDelegate call = () =>
@@ -193,14 +291,15 @@ namespace Core.Common.Base.Test
         public void Indexer_GetElementAtIndex_ReturnsExpectedElement()
         {
             // Setup
-            var elementToRetrieve = new object();
-            var collection = new ObservableUniqueItemCollectionWithSourcePath<object>();
+            var elementToRetrieve = new TestItem("Item X");
+            var collection = new ObservableUniqueItemCollectionWithSourcePath<TestItem, string>(
+                getUniqueFeature, typeDescriptor, featureDescription);
             collection.AddRange(new[]
             {
-                new object(),
-                new object(),
-                new object(),
-                new object(),
+                new TestItem("Item A"),
+                new TestItem("Item B"),
+                new TestItem("Item C"),
+                new TestItem("Item D"),
                 elementToRetrieve
             }, "path");
 
@@ -215,15 +314,16 @@ namespace Core.Common.Base.Test
         public void Remove_ElementNotInList_ReturnsFalse()
         {
             // Setup
-            var element = new object();
+            var element = new TestItem("Item X");
 
-            var collection = new ObservableUniqueItemCollectionWithSourcePath<object>();
+            var collection = new ObservableUniqueItemCollectionWithSourcePath<TestItem, string>(
+                getUniqueFeature, typeDescriptor, featureDescription);
             var expectedCollection = new[]
             {
-                new object(),
-                new object(),
-                new object(),
-                new object()
+                new TestItem("Item A"),
+                new TestItem("Item B"),
+                new TestItem("Item C"),
+                new TestItem("Item D")
             };
 
             collection.AddRange(expectedCollection, "path");
@@ -240,15 +340,16 @@ namespace Core.Common.Base.Test
         public void Remove_ElementInCollection_ReturnsTrue()
         {
             // Setup
-            var elementToBeRemoved = new object();
+            var elementToBeRemoved = new TestItem("Item X");
 
-            var collection = new ObservableUniqueItemCollectionWithSourcePath<object>();
+            var collection = new ObservableUniqueItemCollectionWithSourcePath<TestItem, string>(
+                getUniqueFeature, typeDescriptor, featureDescription);
             var expectedCollections = new[]
             {
-                new object(),
-                new object(),
-                new object(),
-                new object()
+                new TestItem("Item A"),
+                new TestItem("Item B"),
+                new TestItem("Item C"),
+                new TestItem("Item D")
             };
 
             collection.AddRange(expectedCollections.Concat(new[]
@@ -265,41 +366,12 @@ namespace Core.Common.Base.Test
         }
 
         [Test]
-        public void Remove_ElementToRemoveMultiplesInCollection_ReturnsTrueAndRemovesFirstOccurence()
-        {
-            // Setup
-            var elementToBeRemoved = new object();
-
-            var collection = new ObservableUniqueItemCollectionWithSourcePath<object>();
-            var removeElementCollection = new[]
-            {
-                elementToBeRemoved
-            };
-            var expectedCollection = new[]
-            {
-                new object(),
-                new object(),
-                new object(),
-                new object(),
-                elementToBeRemoved
-            };
-
-            collection.AddRange(removeElementCollection.Concat(expectedCollection), "path");
-
-            // Call
-            bool removeSuccessful = collection.Remove(elementToBeRemoved);
-
-            // Assert
-            Assert.IsTrue(removeSuccessful);
-            CollectionAssert.AreEqual(expectedCollection, collection);
-        }
-
-        [Test]
         public void Remove_RemoveLastElement_ReturnsTrueAndClearSourcePath()
         {
             // Setup
-            var elementToBeRemoved = new object();
-            var collection = new ObservableUniqueItemCollectionWithSourcePath<object>();
+            var elementToBeRemoved = new TestItem("Item X");
+            var collection = new ObservableUniqueItemCollectionWithSourcePath<TestItem, string>(
+                getUniqueFeature, typeDescriptor, featureDescription);
             collection.AddRange(new[]
             {
                 elementToBeRemoved
@@ -320,13 +392,14 @@ namespace Core.Common.Base.Test
         public void Clear_CollectionFullyDefined_ClearsSourcePathAndCollection()
         {
             // Setup
-            var collection = new ObservableUniqueItemCollectionWithSourcePath<object>();
+            var collection = new ObservableUniqueItemCollectionWithSourcePath<TestItem, string>(
+                getUniqueFeature, typeDescriptor, featureDescription);
             var expectedObjectCollection = new[]
             {
-                new object(),
-                new object(),
-                new object(),
-                new object()
+                new TestItem("Item A"),
+                new TestItem("Item B"),
+                new TestItem("Item C"),
+                new TestItem("Item D")
             };
 
             collection.AddRange(expectedObjectCollection, "path");
@@ -349,7 +422,8 @@ namespace Core.Common.Base.Test
             observer.Expect(o => o.UpdateObserver()); // Expect to be called once
             mocks.ReplayAll();
 
-            var observableCollection = new ObservableUniqueItemCollectionWithSourcePath<object>();
+            var observableCollection = new ObservableUniqueItemCollectionWithSourcePath<TestItem, string>(
+                getUniqueFeature, typeDescriptor, featureDescription);
             observableCollection.Attach(observer);
 
             // Call
@@ -367,7 +441,8 @@ namespace Core.Common.Base.Test
             var observer = mocks.StrictMock<IObserver>();
             mocks.ReplayAll();
 
-            var observableCollection = new ObservableUniqueItemCollectionWithSourcePath<object>();
+            var observableCollection = new ObservableUniqueItemCollectionWithSourcePath<TestItem, string>(
+                getUniqueFeature, typeDescriptor, featureDescription);
             observableCollection.Attach(observer);
             observableCollection.Detach(observer);
 
@@ -383,7 +458,8 @@ namespace Core.Common.Base.Test
         {
             // Setup
             var mocks = new MockRepository();
-            var observableCollection = new ObservableUniqueItemCollectionWithSourcePath<object>();
+            var observableCollection = new ObservableUniqueItemCollectionWithSourcePath<TestItem, string>(
+                getUniqueFeature, typeDescriptor, featureDescription);
 
             var observer1 = mocks.Stub<IObserver>();
             var observer2 = mocks.Stub<IObserver>();
@@ -412,6 +488,21 @@ namespace Core.Common.Base.Test
 
             // Assert
             mocks.VerifyAll();
+        }
+
+        private class TestItem
+        {
+            public string Name { get; }
+
+            public TestItem(string name)
+            {
+                Name = name;
+            }
+
+            public override string ToString()
+            {
+                return Name;
+            }
         }
     }
 }

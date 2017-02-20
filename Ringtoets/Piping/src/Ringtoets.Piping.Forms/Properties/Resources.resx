@@ -243,9 +243,6 @@
   <data name="PipingOutputContext_UpliftFactorOfSafety_DisplayName" xml:space="preserve">
     <value>Veiligheidsfactor [-]</value>
   </data>
-  <data name="PipingSurfaceLinesCollection_DisplayName" xml:space="preserve">
-    <value>Profielschematisaties</value>
-  </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="PipingSurfaceLineIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\u48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -555,9 +552,6 @@
   </data>
   <data name="PipingCalculationsView_InitializeDataGridView_Stochastic_soil_profile_probability" xml:space="preserve">
     <value>Aandeel van schematisatie in het stochastische ondergrondmodel [%]</value>
-  </data>
-  <data name="StochasticSoilModelCollection_DisplayName" xml:space="preserve">
-    <value>Stochastische ondergrondmodellen</value>
   </data>
   <data name="PipingScenarioView_PipingScenarioRow_FailureProbabilityHeave" xml:space="preserve">
     <value>Kans op heave [1/jaar]</value>

@@ -1303,15 +1303,6 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Profielschematisaties.
-        /// </summary>
-        public static string PipingSurfaceLinesCollection_DisplayName {
-            get {
-                return ResourceManager.GetString("PipingSurfaceLinesCollection_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Selecteer profielschematisaties.
         /// </summary>
         public static string PipingSurfaceLineSelectionDialog_Select_SurfaceLines {
@@ -1569,15 +1560,6 @@ namespace Ringtoets.Piping.Forms.Properties {
         public static string StochasticSoilModel_StochasticSoilProfiles_DisplayName {
             get {
                 return ResourceManager.GetString("StochasticSoilModel_StochasticSoilProfiles_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Stochastische ondergrondmodellen.
-        /// </summary>
-        public static string StochasticSoilModelCollection_DisplayName {
-            get {
-                return ResourceManager.GetString("StochasticSoilModelCollection_DisplayName", resourceCulture);
             }
         }
         

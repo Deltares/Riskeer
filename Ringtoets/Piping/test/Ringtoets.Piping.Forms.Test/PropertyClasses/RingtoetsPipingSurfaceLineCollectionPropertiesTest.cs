@@ -22,10 +22,10 @@
 using System;
 using System.ComponentModel;
 using System.Linq;
-using Core.Common.Base;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PropertyClasses;
 using Ringtoets.Piping.Primitives;
 
@@ -50,14 +50,14 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         {
             // Setup
             var someFilePath = "location/to/a/file";
-            var collection = new ObservableUniqueItemCollectionWithSourcePath<RingtoetsPipingSurfaceLine>();
+            var collection = new RingtoetsPipingSurfaceLineCollection();
             collection.AddRange(Enumerable.Empty<RingtoetsPipingSurfaceLine>(), someFilePath);
 
             // Call
             var properties = new RingtoetsPipingSurfaceLineCollectionProperties(collection);
 
             // Assert
-            Assert.IsInstanceOf<ObjectProperties<ObservableUniqueItemCollectionWithSourcePath<RingtoetsPipingSurfaceLine>>>(properties);
+            Assert.IsInstanceOf<ObjectProperties<RingtoetsPipingSurfaceLineCollection>>(properties);
             Assert.AreSame(collection, properties.Data);
             Assert.AreEqual(someFilePath, properties.SourcePath);
         }
@@ -66,7 +66,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         public void Constructor_WithData_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
-            var collection = new ObservableUniqueItemCollectionWithSourcePath<RingtoetsPipingSurfaceLine>();
+            var collection = new RingtoetsPipingSurfaceLineCollection();
 
             // Call
             var properties = new RingtoetsPipingSurfaceLineCollectionProperties(collection);

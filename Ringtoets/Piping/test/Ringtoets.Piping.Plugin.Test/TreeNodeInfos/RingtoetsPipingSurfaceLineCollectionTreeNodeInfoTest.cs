@@ -100,7 +100,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             var text = info.Text(ringtoetsPipingSurfaceLines);
 
             // Assert
-            Assert.AreEqual(Resources.PipingSurfaceLinesCollection_DisplayName, text);
+            Assert.AreEqual("Profielschematisaties", text);
         }
 
         [Test]
