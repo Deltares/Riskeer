@@ -233,6 +233,15 @@ namespace Ringtoets.Piping.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Het XML-document dat de configuratie voor de berekeningen beschrijft bevat geen berekeningselementen.
+        /// </summary>
+        public static string PipingConfigurationReader_No_calculation_items_found {
+            get {
+                return ResourceManager.GetString("PipingConfigurationReader_No_calculation_items_found", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database..
         /// </summary>
         public static string PipingSoilProfileReader_Critical_Unexpected_value_on_column {

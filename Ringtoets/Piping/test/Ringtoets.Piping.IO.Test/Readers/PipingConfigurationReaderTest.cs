@@ -228,7 +228,7 @@ namespace Ringtoets.Piping.IO.Test.Readers
         public void Constructor_FileInUse_ThrowCriticalFileReadException()
         {
             // Setup
-            string filePath = Path.Combine(testDirectoryPath, "validEmptyRoot.xml");
+            string filePath = Path.Combine(testDirectoryPath, "validConfigurationNesting.xml");
 
             using (new FileStream(filePath, FileMode.Open))
             {
@@ -277,17 +277,19 @@ namespace Ringtoets.Piping.IO.Test.Readers
         }
 
         [Test]
-        public void Read_ValidConfigurationWithEmptyRoot_ReturnEmptyReadPipingCalculationItemsCollection()
+        public void Constructor_FileInvalidBasedOnEmptyRoot_ThrowCriticalFileReadException()
         {
             // Setup
-            string filePath = Path.Combine(testDirectoryPath, "validEmptyRoot.xml");
-            var pipingConfigurationReader = new PipingConfigurationReader(filePath);
+            string filePath = Path.Combine(testDirectoryPath, "invalidEmptyRoot.xml");
 
             // Call
-            IEnumerable<IReadPipingCalculationItem> readPipingCalculationItems = pipingConfigurationReader.Read();
+            TestDelegate call = () => new PipingConfigurationReader(filePath);
 
             // Assert
-            CollectionAssert.IsEmpty(readPipingCalculationItems);
+            string expectedMessage = $"Fout bij het lezen van bestand '{filePath}': het XML-document dat de configuratie" +
+                                     " voor de berekeningen beschrijft bevat geen berekeningselementen.";
+            var exception = Assert.Throws<CriticalFileReadException>(call);
+            Assert.AreEqual(expectedMessage, exception.Message);
         }
 
         [Test]

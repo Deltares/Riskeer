@@ -294,4 +294,7 @@ Deze ondergrondschematisatie wordt overgeslagen.</value>
     <value>{0} 
 Er is geen berekening configuratie geïmporteerd.</value>
   </data>
+  <data name="PipingConfigurationReader_No_calculation_items_found" xml:space="preserve">
+    <value>Het XML-document dat de configuratie voor de berekeningen beschrijft bevat geen berekeningselementen.</value>
+  </data>
 </root>

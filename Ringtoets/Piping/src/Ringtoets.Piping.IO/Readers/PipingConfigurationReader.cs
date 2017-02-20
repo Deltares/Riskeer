@@ -65,6 +65,8 @@ namespace Ringtoets.Piping.IO.Readers
             xmlDocument = LoadDocument(xmlFilePath);
 
             ValidateToSchema(xmlDocument, xmlFilePath);
+
+            ValidateNotEmpty(xmlDocument, xmlFilePath);
         }
 
         /// <summary>
@@ -150,6 +152,25 @@ namespace Ringtoets.Piping.IO.Readers
             xmlSchema.Add(XmlSchema.Read(schemaFile, null));
 
             return xmlSchema;
+        }
+
+        /// <summary>
+        /// Validates whether or not the provided XML document is empty.
+        /// </summary>
+        /// <param name="document">The XML document to validate.</param>
+        /// <param name="xmlFilePath">The file path the XML document is loaded from.</param>
+        /// <exception cref="CriticalFileReadException">Thrown when the provided XML document does not contain calculation items.</exception>
+        private static void ValidateNotEmpty(XDocument document, string xmlFilePath)
+        {
+            if (!document.Descendants()
+                         .Any(d => d.Name == PipingConfigurationSchemaIdentifiers.CalculationElement
+                                   || d.Name == PipingConfigurationSchemaIdentifiers.FolderElement))
+            {
+                string message = new FileReaderErrorMessageBuilder(xmlFilePath)
+                    .Build(Resources.PipingConfigurationReader_No_calculation_items_found);
+
+                throw new CriticalFileReadException(message);
+            }
         }
 
         private static IEnumerable<IReadPipingCalculationItem> ParseReadPipingCalculationItems(IEnumerable<XElement> elements)

@@ -85,7 +85,7 @@ namespace Ringtoets.Piping.IO.Test.Importers
             // Setup
             var calculationGroup = new CalculationGroup();
 
-            string path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO, Path.Combine("PipingConfigurationReader", "validEmptyRoot.xml"));
+            string path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO, Path.Combine("PipingConfigurationReader", "validConfigurationNesting.xml"));
             var importer = new PipingConfigurationImporter(path, calculationGroup);
             importer.SetProgressChanged((description, step, steps) =>
             {
