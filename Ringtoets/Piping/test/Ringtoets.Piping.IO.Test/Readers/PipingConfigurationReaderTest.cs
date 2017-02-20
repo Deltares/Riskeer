@@ -344,6 +344,27 @@ namespace Ringtoets.Piping.IO.Test.Readers
         }
 
         [Test]
+        public void Read_ValidConfigurationWithCalculationContainingEmptyStochasts_ReturnExpectedReadPipingCalculation()
+        {
+            // Setup
+            string filePath = Path.Combine(testDirectoryPath, "validConfigurationCalculationContainingEmptyStochasts.xml");
+            var pipingConfigurationReader = new PipingConfigurationReader(filePath);
+
+            // Call
+            IList<IReadPipingCalculationItem> readPipingCalculationItems = pipingConfigurationReader.Read().ToList();
+
+            // Assert
+            Assert.AreEqual(1, readPipingCalculationItems.Count);
+
+            var calculation = readPipingCalculationItems[0] as ReadPipingCalculation;
+            Assert.IsNotNull(calculation);
+            Assert.IsNull(calculation.PhreaticLevelExitMean);
+            Assert.IsNull(calculation.PhreaticLevelExitStandardDeviation);
+            Assert.IsNull(calculation.DampingFactorExitMean);
+            Assert.IsNull(calculation.DampingFactorExitStandardDeviation);
+        }
+
+        [Test]
         public void Read_ValidConfigurationWithNesting_ReturnExpectedReadPipingCalculationItems()
         {
             // Setup
