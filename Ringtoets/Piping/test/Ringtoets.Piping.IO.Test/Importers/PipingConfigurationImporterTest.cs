@@ -22,6 +22,7 @@
 using System;
 using System.IO;
 using System.Linq;
+using Core.Common.Base.Geometry;
 using Core.Common.Base.IO;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -29,6 +30,7 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.IO.Importers;
+using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.IO.Test.Importers
 {
@@ -43,7 +45,8 @@ namespace Ringtoets.Piping.IO.Test.Importers
             // Call
             var importer = new PipingConfigurationImporter("",
                                                            new CalculationGroup(),
-                                                           Enumerable.Empty<HydraulicBoundaryLocation>());
+                                                           Enumerable.Empty<HydraulicBoundaryLocation>(),
+                                                           new PipingFailureMechanism());
 
             // Assert
             Assert.IsInstanceOf<FileImporterBase<CalculationGroup>>(importer);
@@ -55,11 +58,26 @@ namespace Ringtoets.Piping.IO.Test.Importers
             // Call
             TestDelegate test = () => new PipingConfigurationImporter("",
                                                                       new CalculationGroup(),
-                                                                      null);
+                                                                      null,
+                                                                      new PipingFailureMechanism());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
             Assert.AreEqual("hydraulicBoundaryLocations", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_FailureMechanismNull_ThrowArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => new PipingConfigurationImporter("",
+                                                                      new CalculationGroup(),
+                                                                      Enumerable.Empty<HydraulicBoundaryLocation>(),
+                                                                      null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
         }
 
         [Test]
@@ -70,7 +88,8 @@ namespace Ringtoets.Piping.IO.Test.Importers
 
             var importer = new PipingConfigurationImporter(filePath,
                                                            new CalculationGroup(),
-                                                           Enumerable.Empty<HydraulicBoundaryLocation>());
+                                                           Enumerable.Empty<HydraulicBoundaryLocation>(),
+                                                           new PipingFailureMechanism());
 
             // Call
             bool importSuccesful = true;
@@ -90,7 +109,8 @@ namespace Ringtoets.Piping.IO.Test.Importers
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO, "I_dont_exist");
             var importer = new PipingConfigurationImporter(filePath,
                                                            new CalculationGroup(),
-                                                           Enumerable.Empty<HydraulicBoundaryLocation>());
+                                                           Enumerable.Empty<HydraulicBoundaryLocation>(),
+                                                           new PipingFailureMechanism());
 
             // Call
             bool importSuccesful = true;
@@ -114,7 +134,8 @@ namespace Ringtoets.Piping.IO.Test.Importers
             string filePath = Path.Combine(path, "validConfigurationNesting.xml");
             var importer = new PipingConfigurationImporter(filePath,
                                                            calculationGroup,
-                                                           Enumerable.Empty<HydraulicBoundaryLocation>());
+                                                           Enumerable.Empty<HydraulicBoundaryLocation>(),
+                                                           new PipingFailureMechanism());
 
             importer.SetProgressChanged((description, step, steps) =>
             {
@@ -141,10 +162,11 @@ namespace Ringtoets.Piping.IO.Test.Importers
             string filePath = Path.Combine(path, "validConfigurationNesting.xml");
             var importer = new PipingConfigurationImporter(filePath,
                                                            new CalculationGroup(),
-                                                           Enumerable.Empty<HydraulicBoundaryLocation>());
+                                                           Enumerable.Empty<HydraulicBoundaryLocation>(),
+                                                           new PipingFailureMechanism());
 
             var expectedProgressMessages = new[]
-           {
+            {
                 new ExpectedProgressNotification
                 {
                     Text = "Inlezen berekening configuratie.", CurrentStep = 1, MaxNrOfSteps = 3
@@ -183,7 +205,8 @@ namespace Ringtoets.Piping.IO.Test.Importers
             string filePath = Path.Combine(path, "validConfigurationFullCalculationContainingHydraulicBoundaryLocation.xml");
             var importer = new PipingConfigurationImporter(filePath,
                                                            calculationGroup,
-                                                           Enumerable.Empty<HydraulicBoundaryLocation>());
+                                                           Enumerable.Empty<HydraulicBoundaryLocation>(),
+                                                           new PipingFailureMechanism());
 
             // Call
             bool succesful = false;
@@ -196,17 +219,66 @@ namespace Ringtoets.Piping.IO.Test.Importers
         }
 
         [Test]
-        public void Import_ValidData_DataAddedToModel()
+        public void Import_SurfaceLineInvalid_LogMessageAndContinueImport()
         {
             // Setup
             var calculationGroup = new CalculationGroup();
+            var pipingFailureMechanism = new PipingFailureMechanism();
+            pipingFailureMechanism.SurfaceLines.AddRange(new[]
+            {
+                new RingtoetsPipingSurfaceLine()
+            }, "path");
+
             string filePath = Path.Combine(path, "validConfigurationFullCalculationContainingHydraulicBoundaryLocation.xml");
             var importer = new PipingConfigurationImporter(filePath,
                                                            calculationGroup,
-                                                           new []
+                                                           new[]
                                                            {
-                                                               new HydraulicBoundaryLocation(1, "HRlocatie", 10, 20), 
-                                                           });
+                                                               new HydraulicBoundaryLocation(1, "HRlocatie", 10, 20),
+                                                           },
+                                                           pipingFailureMechanism);
+
+            // Call
+            bool succesful = false;
+            Action call = () => succesful = importer.Import();
+
+            // Assert
+            TestHelper.AssertLogMessageIsGenerated(call, "Profielschematisatie bestaat niet. Berekening overgeslagen.", 1);
+            Assert.IsTrue(succesful);
+            CollectionAssert.IsEmpty(calculationGroup.Children);
+        }
+
+        [Test]
+        public void Import_ValidData_DataAddedToModel()
+        {
+            // Setup
+            string filePath = Path.Combine(path, "validConfigurationFullCalculationContainingHydraulicBoundaryLocation.xml");
+
+            var calculationGroup = new CalculationGroup();
+            var surfaceLine = new RingtoetsPipingSurfaceLine
+            {
+                Name = "Profielschematisatie"
+            };
+            surfaceLine.SetGeometry(new[]
+            {
+                new Point3D(3.5, 2.3, 8.0),
+                new Point3D(6.9, 2.0, 2.0)
+            });
+
+            var pipingFailureMechanism = new PipingFailureMechanism();
+            pipingFailureMechanism.SurfaceLines.AddRange(new[]
+            {
+                surfaceLine
+            }, "path");
+
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "HRlocatie", 10, 20);
+            var importer = new PipingConfigurationImporter(filePath,
+                                                           calculationGroup,
+                                                           new[]
+                                                           {
+                                                               hydraulicBoundaryLocation
+                                                           },
+                                                           pipingFailureMechanism);
 
             // Call
             bool succesful = importer.Import();
@@ -216,10 +288,8 @@ namespace Ringtoets.Piping.IO.Test.Importers
             Assert.AreEqual(1, calculationGroup.Children.Count);
             PipingCalculation calculation = calculationGroup.Children[0] as PipingCalculation;
 
-            Assert.AreEqual(1, calculation.InputParameters.HydraulicBoundaryLocation.Id);
-            Assert.AreEqual("HRlocatie", calculation.InputParameters.HydraulicBoundaryLocation.Name);
-            Assert.AreEqual(10, calculation.InputParameters.HydraulicBoundaryLocation.Location.X);
-            Assert.AreEqual(20, calculation.InputParameters.HydraulicBoundaryLocation.Location.Y);
+            Assert.AreSame(hydraulicBoundaryLocation, calculation.InputParameters.HydraulicBoundaryLocation);
+            Assert.AreSame(surfaceLine, calculation.InputParameters.SurfaceLine);
         }
 
         private class ExpectedProgressNotification

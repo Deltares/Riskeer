@@ -31,6 +31,7 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.IO.Properties;
 using Ringtoets.Piping.IO.Readers;
+using Ringtoets.Piping.Primitives;
 using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 
 namespace Ringtoets.Piping.IO.Importers
@@ -43,6 +44,7 @@ namespace Ringtoets.Piping.IO.Importers
         private static readonly ILog log = LogManager.GetLogger(typeof(PipingConfigurationImporter));
 
         private readonly IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations;
+        private readonly PipingFailureMechanism failureMechanism;
 
         private readonly List<ICalculationBase> validCalculationItems;
 
@@ -51,19 +53,27 @@ namespace Ringtoets.Piping.IO.Importers
         /// </summary>
         /// <param name="filePath">The path to the file to import from.</param>
         /// <param name="importTarget">The calculation group to update.</param>
-        /// <param name="hydraulicBoundaryLocations">The hydraulic boundary locations used to check if
-        ///     the imported objects contain the right location.</param>
+        /// <param name="hydraulicBoundaryLocations">The hydraulic boundary locations used to check if 
+        /// the imported objects contain the right location.</param>
+        /// <param name="failureMechanism">The piping failure mechanism used to check
+        /// if the imported objects contain the right data.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public PipingConfigurationImporter(string filePath,
                                            CalculationGroup importTarget,
-                                           IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations)
+                                           IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations,
+                                           PipingFailureMechanism failureMechanism)
             : base(filePath, importTarget)
         {
             if (hydraulicBoundaryLocations == null)
             {
                 throw new ArgumentNullException(nameof(hydraulicBoundaryLocations));
             }
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
             this.hydraulicBoundaryLocations = hydraulicBoundaryLocations;
+            this.failureMechanism = failureMechanism;
 
             validCalculationItems = new List<ICalculationBase>();
         }
@@ -147,11 +157,26 @@ namespace Ringtoets.Piping.IO.Importers
                 }
             }
 
+            if (readCalculation.SurfaceLine != null)
+            {
+                RingtoetsPipingSurfaceLine surfaceLine = failureMechanism.SurfaceLines.FirstOrDefault(sl => sl.Name == readCalculation.SurfaceLine);
+
+                if (surfaceLine != null)
+                {
+                    pipingCalculation.InputParameters.SurfaceLine = surfaceLine;
+                }
+                else
+                {
+                    log.Warn("Profielschematisatie bestaat niet. Berekening overgeslagen.");
+                    return;
+                }
+            }
+
             validCalculationItems.Add(pipingCalculation);
 
             // Validate when set:
-            // - HR location
-            // - Surface line
+            // - HR location X
+            // - Surface line X
             // - Stochastic soil model
             // - Stochastic soil profile
             // Validate the stochastic soil model crosses the surface line when set
