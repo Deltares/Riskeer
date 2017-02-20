@@ -107,10 +107,10 @@ All rights reserved.
 	</xs:element>
 	<xs:element name="stochast">
 		<xs:complexType>
-			<xs:all>
+			<xs:sequence>
 				<xs:element ref="verwachtingswaarde"/>
 				<xs:element ref="standaardafwijking"/>
-			</xs:all>
+			</xs:sequence>
 			<xs:attribute name="naam" use="required">
 				<xs:simpleType>
 					<xs:restriction base="xs:string">

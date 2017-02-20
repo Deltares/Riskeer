@@ -82,16 +82,16 @@ namespace Ringtoets.Piping.IO.Test.Readers
                                               "The 'naam' attribute is invalid - The value 'Test' is invalid according to its datatype 'String'")
                     .SetName("invalidStochastUnknownName");
                 yield return new TestCaseData("invalidStochastNoMean.xml",
-                                              "The element 'stochast' has incomplete content. List of possible elements expected: 'verwachtingswaarde'.")
+                                              "The element 'stochast' has invalid child element 'standaardafwijking'.")
                     .SetName("invalidStochastNoMean");
                 yield return new TestCaseData("invalidStochastNoStandardDeviation.xml",
-                                              "The element 'stochast' has incomplete content. List of possible elements expected: 'standaardafwijking'.")
+                                              "The element 'stochast' has incomplete content.")
                     .SetName("invalidStochastNoStandardDeviation");
                 yield return new TestCaseData("invalidStochastMultipleMean.xml",
-                                              "Element 'verwachtingswaarde' cannot appear more than once if content model type is \"all\".")
+                                              "The element 'stochast' has invalid child element 'verwachtingswaarde'.")
                     .SetName("invalidStochastMultipleMean");
                 yield return new TestCaseData("invalidStochastMultipleStandardDeviation.xml",
-                                              "Element 'standaardafwijking' cannot appear more than once if content model type is \"all\".")
+                                              "The element 'stochast' has invalid child element 'standaardafwijking'.")
                     .SetName("invalidStochastMultipleStandardDeviation");
                 yield return new TestCaseData("invalidStochastMeanEmpty.xml",
                                               "The 'verwachtingswaarde' element is invalid - The value '' is invalid according to its datatype 'Double'")
