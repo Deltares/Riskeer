@@ -170,7 +170,7 @@
       <Link>Copying.licenseheader</Link>
     </None>
     <None Include="packages.config" />
-    <EmbeddedResource Include="Readers\XMLPipingConfigurationSchema.xsd">
+    <EmbeddedResource Include="Schema\PipingConfigurationSchema.xsd">
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>

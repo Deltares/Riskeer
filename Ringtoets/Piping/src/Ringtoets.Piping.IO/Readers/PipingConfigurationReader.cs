@@ -146,7 +146,7 @@ namespace Ringtoets.Piping.IO.Readers
         private static XmlSchemaSet LoadXmlSchema()
         {
             Stream schemaFile = AssemblyUtils.GetAssemblyResourceStream(typeof(PipingConfigurationReader).Assembly,
-                                                                        "Ringtoets.Piping.IO.Readers.XMLPipingConfigurationSchema.xsd");
+                                                                        "Ringtoets.Piping.IO.Schema.PipingConfigurationSchema.xsd");
 
             var xmlSchema = new XmlSchemaSet();
             xmlSchema.Add(XmlSchema.Read(schemaFile, null));
