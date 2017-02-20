@@ -32,6 +32,7 @@ using Core.Common.Utils;
 using Core.Common.Utils.Builders;
 using Core.Common.Utils.Reflection;
 using Ringtoets.Piping.IO.Properties;
+using Ringtoets.Piping.IO.Schema;
 using CoreCommonUtilsResources = Core.Common.Utils.Properties.Resources;
 
 namespace Ringtoets.Piping.IO.Readers
@@ -151,12 +152,12 @@ namespace Ringtoets.Piping.IO.Readers
         {
             foreach (XElement element in elements)
             {
-                if (element.Name == "berekening")
+                if (element.Name == PipingConfigurationSchemaIdentifiers.CalculationElement)
                 {
                     yield return ParseReadPipingCalculation(element);
                 }
 
-                if (element.Name == "folder")
+                if (element.Name == PipingConfigurationSchemaIdentifiers.FolderElement)
                 {
                     yield return ParseReadPipingCalculationGroup(element);
                 }
@@ -165,7 +166,7 @@ namespace Ringtoets.Piping.IO.Readers
 
         private static ReadPipingCalculationGroup ParseReadPipingCalculationGroup(XElement folderElement)
         {
-            return new ReadPipingCalculationGroup(folderElement.Attribute("naam")?.Value,
+            return new ReadPipingCalculationGroup(folderElement.Attribute(PipingConfigurationSchemaIdentifiers.NameAttribute)?.Value,
                                                   ParseReadPipingCalculationItems(folderElement.Elements()));
         }
 
@@ -173,24 +174,24 @@ namespace Ringtoets.Piping.IO.Readers
         {
             var constructionProperties = new ReadPipingCalculation.ConstructionProperties
             {
-                Name = calculationElement.Attribute("naam")?.Value,
-                AssessmentLevel = GetDoubleValueFromChildElement(calculationElement, "toetspeil"),
-                HydraulicBoundaryLocation = GetStringValueFromChildElement(calculationElement, "hrlocatie"),
-                SurfaceLine = GetStringValueFromChildElement(calculationElement, "profielschematisatie"),
-                EntryPointL = GetDoubleValueFromChildElement(calculationElement, "intredepunt"),
-                ExitPointL = GetDoubleValueFromChildElement(calculationElement, "uittredepunt"),
-                StochasticSoilModel = GetStringValueFromChildElement(calculationElement, "ondergrondmodel"),
-                StochasticSoilProfile = GetStringValueFromChildElement(calculationElement, "ondergrondschematisatie")
+                Name = calculationElement.Attribute(PipingConfigurationSchemaIdentifiers.NameAttribute)?.Value,
+                AssessmentLevel = GetDoubleValueFromChildElement(calculationElement, PipingConfigurationSchemaIdentifiers.AssessmentLevelElement),
+                HydraulicBoundaryLocation = GetStringValueFromChildElement(calculationElement, PipingConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElement),
+                SurfaceLine = GetStringValueFromChildElement(calculationElement, PipingConfigurationSchemaIdentifiers.SurfaceLineElement),
+                EntryPointL = GetDoubleValueFromChildElement(calculationElement, PipingConfigurationSchemaIdentifiers.EntryPointElement),
+                ExitPointL = GetDoubleValueFromChildElement(calculationElement, PipingConfigurationSchemaIdentifiers.ExitPointElement),
+                StochasticSoilModel = GetStringValueFromChildElement(calculationElement, PipingConfigurationSchemaIdentifiers.StochasticSoilModelElement),
+                StochasticSoilProfile = GetStringValueFromChildElement(calculationElement, PipingConfigurationSchemaIdentifiers.StochasticSoilProfileElement)
             };
 
-            XElement phreaticLevelExitElement = GetStochastChildElement(calculationElement, "polderpeil");
+            XElement phreaticLevelExitElement = GetStochastChildElement(calculationElement, PipingConfigurationSchemaIdentifiers.PhreaticLevelExitStochastName);
             if (phreaticLevelExitElement != null)
             {
                 constructionProperties.PhreaticLevelExitMean = GetDoubleValueFromChildElement(phreaticLevelExitElement, "verwachtingswaarde");
                 constructionProperties.PhreaticLevelExitStandardDeviation = GetDoubleValueFromChildElement(phreaticLevelExitElement, "standaardafwijking");
             }
 
-            XElement dampingFactorExitElement = GetStochastChildElement(calculationElement, "dempingsfactor");
+            XElement dampingFactorExitElement = GetStochastChildElement(calculationElement, PipingConfigurationSchemaIdentifiers.DampingFactorExitStochastName);
             if (dampingFactorExitElement != null)
             {
                 constructionProperties.DampingFactorExitMean = GetDoubleValueFromChildElement(dampingFactorExitElement, "verwachtingswaarde");
@@ -218,7 +219,8 @@ namespace Ringtoets.Piping.IO.Readers
 
         private static XElement GetStochastChildElement(XElement parentElement, string stochastName)
         {
-            return parentElement.Elements("stochast").FirstOrDefault(e => e.Attribute("naam")?.Value == stochastName);
+            return parentElement.Elements(PipingConfigurationSchemaIdentifiers.StochastElement)
+                                .FirstOrDefault(e => e.Attribute(PipingConfigurationSchemaIdentifiers.NameAttribute)?.Value == stochastName);
         }
     }
 }
