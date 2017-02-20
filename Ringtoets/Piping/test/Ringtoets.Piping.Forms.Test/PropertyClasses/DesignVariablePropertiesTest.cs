@@ -78,7 +78,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                                                                 handler);
 
             // Assert
-            Assert.IsInstanceOf<PipingDistributionPropertiesBase<LogNormalDistribution, PipingInput, PipingCalculationScenario>>(properties);
+            Assert.IsInstanceOf<ConfirmingDistributionPropertiesBase<LogNormalDistribution, PipingInput, PipingCalculationScenario>>(properties);
             Assert.AreEqual(designVariable.GetDesignValue(), properties.DesignValue);
             mockRepository.VerifyAll();
         }
