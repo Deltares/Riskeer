@@ -25,6 +25,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.Common.Forms.ChangeHandlers;
 using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Forms.PropertyClasses;
@@ -40,7 +41,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
         public void Constructor_WithoutContext_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new WaveImpactAsphaltCoverWaveConditionsInputContextProperties(null);
+            TestDelegate test = () => new WaveImpactAsphaltCoverWaveConditionsInputContextProperties(null, new CalculationInputPropertyChangeHandler());
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -62,7 +63,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
                 assessmentSection);
 
             // Call
-            var properties = new WaveImpactAsphaltCoverWaveConditionsInputContextProperties(context);
+            var properties = new WaveImpactAsphaltCoverWaveConditionsInputContextProperties(context, new CalculationInputPropertyChangeHandler());
 
             // Assert
             Assert.IsInstanceOf<WaveConditionsInputContextProperties<WaveImpactAsphaltCoverWaveConditionsInputContext>>(properties);

@@ -71,16 +71,25 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
         private const int foreshoreGeometryPropertyIndex = 13;
         private const int revetmentTypePropertyIndex = 14;
 
+        private readonly ICalculationInputPropertyChangeHandler handler;
+
         /// <summary>
         /// Creates a new instance of <see cref="WaveConditionsInputContextProperties{T}"/>.
         /// </summary>
         /// <param name="context">The <see cref="WaveConditionsInputContext"/> for which the properties are shown.</param>
-        protected WaveConditionsInputContextProperties(T context)
+        /// <param name="handler">The handler responsible for handling effects of a property change.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        protected WaveConditionsInputContextProperties(T context, ICalculationInputPropertyChangeHandler handler)
         {
             if (context == null)
             {
                 throw new ArgumentNullException(nameof(context));
             }
+            if (handler == null)
+            {
+                throw new ArgumentNullException(nameof(handler));
+            }
+            this.handler = handler;
             Data = context;
         }
 

@@ -38,25 +38,24 @@ namespace Ringtoets.Common.Forms.PropertyClasses
     /// <summary>
     /// ViewModel of <see cref="IUseBreakWater"/>.
     /// </summary>
-    public class ConfirmingUseBreakWaterProperties<TCalculation, TCalculationInput>
-        where TCalculation : ICalculation
+    public class ConfirmingUseBreakWaterProperties<TCalculationInput>
         where TCalculationInput : ICalculationInput, IUseBreakWater
     {
         private const int useBreakWaterPropertyIndex = 1;
         private const int breakWaterTypePropertyIndex = 2;
         private const int breakWaterHeightPropertyIndex = 3;
         private readonly TCalculationInput data;
-        private readonly TCalculation calculation;
+        private readonly ICalculation calculation;
         private readonly ICalculationInputPropertyChangeHandler changeHandler;
 
         /// <summary>
-        /// Creates a new instance of <see cref="ConfirmingUseBreakWaterProperties{TCalculation,TCalculationInput}"/>, in which
+        /// Creates a new instance of <see cref="ConfirmingUseBreakWaterProperties{TCalculationInput}"/>, in which
         /// all the properties are read only.
         /// </summary>
         public ConfirmingUseBreakWaterProperties() { }
 
         /// <summary>
-        /// Creates a new instance of <see cref="ConfirmingUseBreakWaterProperties{TCalculation,TCalculationInput}"/>in which the 
+        /// Creates a new instance of <see cref="ConfirmingUseBreakWaterProperties{TCalculationInput}"/>in which the 
         /// properties are editable.
         /// </summary>
         /// <param name="useBreakWaterData">The data to use for the properties.</param>
@@ -65,7 +64,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         public ConfirmingUseBreakWaterProperties(
             TCalculationInput useBreakWaterData, 
-            TCalculation calculation,
+            ICalculation calculation,
             ICalculationInputPropertyChangeHandler handler)
         {
             if (useBreakWaterData == null)

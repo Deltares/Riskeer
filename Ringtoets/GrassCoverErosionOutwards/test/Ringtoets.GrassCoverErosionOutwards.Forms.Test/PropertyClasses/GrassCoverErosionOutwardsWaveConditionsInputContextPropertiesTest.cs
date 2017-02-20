@@ -23,6 +23,8 @@ using System;
 using System.ComponentModel;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Rhino.Mocks;
+using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
@@ -35,15 +37,48 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
     [TestFixture]
     public class GrassCoverErosionOutwardsWaveConditionsInputContextPropertiesTest
     {
+        private MockRepository mockRepository;
+        private ICalculationInputPropertyChangeHandler handler;
+
+        [SetUp]
+        public void SetUp()
+        {
+            mockRepository = new MockRepository();
+            handler = mockRepository.Stub<ICalculationInputPropertyChangeHandler>();
+        }
+
         [Test]
         public void Constructor_WithoutContext_ThrowsArgumentNullException()
         {
+            // Setup
+            mockRepository.ReplayAll();
+
             // Call
-            TestDelegate test = () => new GrassCoverErosionOutwardsWaveConditionsInputContextProperties(null);
+            TestDelegate test = () => new GrassCoverErosionOutwardsWaveConditionsInputContextProperties(null, handler);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("context", paramName);
+        }
+
+        [Test]
+        public void Constructor_WithoutHandler_ThrowArgumentNullException()
+        {
+            // Setup
+            mockRepository.ReplayAll();
+
+            var context = new GrassCoverErosionOutwardsWaveConditionsInputContext(
+                new WaveConditionsInput(),
+                new TestCalculation(),
+                new GrassCoverErosionOutwardsFailureMechanism());
+
+            // Call
+            TestDelegate test = () => new GrassCoverErosionOutwardsWaveConditionsInputContextProperties(context, null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("handler", exception.ParamName);
+            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -56,7 +91,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
                 new GrassCoverErosionOutwardsFailureMechanism());
 
             // Call
-            var properties = new GrassCoverErosionOutwardsWaveConditionsInputContextProperties(context);
+            var properties = new GrassCoverErosionOutwardsWaveConditionsInputContextProperties(context, handler);
 
             // Assert
             Assert.IsInstanceOf<WaveConditionsInputContextProperties<GrassCoverErosionOutwardsWaveConditionsInputContext>>(properties);
@@ -74,7 +109,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
                 new GrassCoverErosionOutwardsFailureMechanism());
 
             // Call
-            var properties = new GrassCoverErosionOutwardsWaveConditionsInputContextProperties(context);
+            var properties = new GrassCoverErosionOutwardsWaveConditionsInputContextProperties(context, handler);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);

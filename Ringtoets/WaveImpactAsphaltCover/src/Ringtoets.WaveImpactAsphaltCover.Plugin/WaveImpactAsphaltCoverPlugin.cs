@@ -33,6 +33,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Forms;
+using Ringtoets.Common.Forms.ChangeHandlers;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TreeNodeInfos;
@@ -66,7 +67,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
             yield return new PropertyInfo<WaveImpactAsphaltCoverWaveConditionsOutput, WaveImpactAsphaltCoverWaveConditionsOutputProperties>();
             yield return new PropertyInfo<WaveImpactAsphaltCoverWaveConditionsInputContext, WaveImpactAsphaltCoverWaveConditionsInputContextProperties>
             {
-                CreateInstance = context => new WaveImpactAsphaltCoverWaveConditionsInputContextProperties(context)
+                CreateInstance = context => new WaveImpactAsphaltCoverWaveConditionsInputContextProperties(context, new CalculationInputPropertyChangeHandler())
             };
         }
 

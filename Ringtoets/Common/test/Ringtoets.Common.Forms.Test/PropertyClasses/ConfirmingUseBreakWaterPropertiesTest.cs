@@ -44,7 +44,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         public void DefaultConstructor_ExpectedValues()
         {
             // Call
-            var properties = new ConfirmingUseBreakWaterProperties<ICalculation, TestUseBreakWater>();
+            var properties = new ConfirmingUseBreakWaterProperties<TestUseBreakWater>();
 
             // Assert
             Assert.IsFalse(properties.UseBreakWater);
@@ -57,7 +57,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         public void DefaultConstructor_Always_ReadOnlyProperties()
         {
             // Call
-            var properties = new ConfirmingUseBreakWaterProperties<ICalculation, TestUseBreakWater>();
+            var properties = new ConfirmingUseBreakWaterProperties<TestUseBreakWater>();
 
             // Assert
             var dynamicPropertyBag = new DynamicPropertyBag(properties);
@@ -108,7 +108,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             };
 
             // Call
-            var properties = new ConfirmingUseBreakWaterProperties<ICalculation, TestUseBreakWater>(testUseBreakWater, calculation, handler);
+            var properties = new ConfirmingUseBreakWaterProperties<TestUseBreakWater>(testUseBreakWater, calculation, handler);
 
             // Assert
             var dynamicPropertyBag = new DynamicPropertyBag(properties);
@@ -152,7 +152,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => new ConfirmingUseBreakWaterProperties<ICalculation, TestUseBreakWater>(null, calculation, handler);
+            TestDelegate test = () => new ConfirmingUseBreakWaterProperties<TestUseBreakWater>(null, calculation, handler);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -171,7 +171,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => new ConfirmingUseBreakWaterProperties<ICalculation, TestUseBreakWater>(testUseBreakWater, null, handler);
+            TestDelegate test = () => new ConfirmingUseBreakWaterProperties<TestUseBreakWater>(testUseBreakWater, null, handler);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -190,7 +190,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => new ConfirmingUseBreakWaterProperties<ICalculation, TestUseBreakWater>(testUseBreakWater, calculation, null);
+            TestDelegate test = () => new ConfirmingUseBreakWaterProperties<TestUseBreakWater>(testUseBreakWater, calculation, null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -214,7 +214,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             };
 
             // Call
-            var properties = new ConfirmingUseBreakWaterProperties<ICalculation, TestUseBreakWater>(useBreakWaterData, calculation, handler);
+            var properties = new ConfirmingUseBreakWaterProperties<TestUseBreakWater>(useBreakWaterData, calculation, handler);
 
             // Assert
             Assert.IsTrue(properties.UseBreakWater);
@@ -263,7 +263,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         }
 
         private void SetPropertyAndVerifyNotifcationsAndOutputForCalculation<TPropertyValue>(
-            Action<ConfirmingUseBreakWaterProperties<ICalculation, TestUseBreakWater>> setProperty,
+            Action<ConfirmingUseBreakWaterProperties<TestUseBreakWater>> setProperty,
             TPropertyValue expectedValueSet,
             TestUseBreakWater input)
         {
@@ -283,7 +283,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                     observable
                 });
 
-            var properties = new ConfirmingUseBreakWaterProperties<ICalculation, TestUseBreakWater>(input, calculation, handler);
+            var properties = new ConfirmingUseBreakWaterProperties<TestUseBreakWater>(input, calculation, handler);
 
             // Call
             setProperty(properties);

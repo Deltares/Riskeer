@@ -157,7 +157,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.AreEqual(2, properties.Orientation.NumberOfDecimalPlaces);
             Assert.IsNull(properties.DikeProfile);
             Assert.IsNaN(properties.Orientation.Value);
-            Assert.IsInstanceOf<ConfirmingUseBreakWaterProperties<GrassCoverErosionInwardsCalculation, GrassCoverErosionInwardsInput>>(
+            Assert.IsInstanceOf<ConfirmingUseBreakWaterProperties<GrassCoverErosionInwardsInput>>(
                 properties.BreakWater);
             Assert.IsInstanceOf<ConfirmingUseForeshoreProperties<GrassCoverErosionInwardsCalculation, GrassCoverErosionInwardsInput>>(
                 properties.Foreshore);
@@ -196,7 +196,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.AreEqual(2, properties.Orientation.NumberOfDecimalPlaces);
             Assert.AreSame(input.DikeProfile, properties.DikeProfile);
             Assert.AreEqual(0.0, properties.Orientation.Value);
-            Assert.IsInstanceOf<ConfirmingUseBreakWaterProperties<GrassCoverErosionInwardsCalculation, GrassCoverErosionInwardsInput>>(
+            Assert.IsInstanceOf<ConfirmingUseBreakWaterProperties<GrassCoverErosionInwardsInput>>(
                 properties.BreakWater);
             Assert.IsInstanceOf<ConfirmingUseForeshoreProperties<GrassCoverErosionInwardsCalculation, GrassCoverErosionInwardsInput>>(
                 properties.Foreshore);

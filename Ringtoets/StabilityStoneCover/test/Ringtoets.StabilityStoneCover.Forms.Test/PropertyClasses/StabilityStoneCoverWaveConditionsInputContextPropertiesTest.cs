@@ -25,6 +25,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.Common.Forms.ChangeHandlers;
 using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Forms.PropertyClasses;
@@ -40,7 +41,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PropertyClasses
         public void Constructor_WithoutContext_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new StabilityStoneCoverWaveConditionsInputContextProperties(null);
+            TestDelegate test = () => new StabilityStoneCoverWaveConditionsInputContextProperties(null, new CalculationInputPropertyChangeHandler());
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -62,7 +63,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PropertyClasses
                 assessmentSection);
 
             // Call
-            var properties = new StabilityStoneCoverWaveConditionsInputContextProperties(context);
+            var properties = new StabilityStoneCoverWaveConditionsInputContextProperties(context, new CalculationInputPropertyChangeHandler());
 
             // Assert
             Assert.IsInstanceOf<WaveConditionsInputContextProperties<StabilityStoneCoverWaveConditionsInputContext>>(properties);

@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using Ringtoets.Common.Forms.ChangeHandlers;
 using Ringtoets.Revetment.Forms.PropertyClasses;
 using Ringtoets.StabilityStoneCover.Forms.PresentationObjects;
 using Ringtoets.StabilityStoneCover.Forms.Properties;
@@ -36,8 +38,10 @@ namespace Ringtoets.StabilityStoneCover.Forms.PropertyClasses
         /// </summary>
         /// <param name="context">The <see cref="StabilityStoneCoverWaveConditionsInputContext"/> for which 
         /// the properties are shown.</param>
-        public StabilityStoneCoverWaveConditionsInputContextProperties(StabilityStoneCoverWaveConditionsInputContext context)
-            : base(context) { }
+        /// <param name="handler">The handler responsible for handling effects of a property change.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public StabilityStoneCoverWaveConditionsInputContextProperties(StabilityStoneCoverWaveConditionsInputContext context, CalculationInputPropertyChangeHandler handler)
+            : base(context, handler) { }
 
         public override string RevetmentType
         {

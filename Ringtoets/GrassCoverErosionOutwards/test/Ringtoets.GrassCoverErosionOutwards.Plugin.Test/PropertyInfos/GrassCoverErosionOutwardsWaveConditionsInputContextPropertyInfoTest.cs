@@ -29,7 +29,7 @@ using Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses;
 namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.PropertyInfos
 {
     [TestFixture]
-    public class GrassCoverErosionOutwardsWaveConditionsInputContextPropertiesTest
+    public class GrassCoverErosionOutwardsWaveConditionsInputContextPropertyInfoTest
     {
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()

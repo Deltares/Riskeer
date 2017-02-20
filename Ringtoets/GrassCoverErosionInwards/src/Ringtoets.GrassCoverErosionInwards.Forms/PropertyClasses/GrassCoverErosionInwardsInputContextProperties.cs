@@ -64,6 +64,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
 
         private readonly ICalculationInputPropertyChangeHandler propertyChangeHandler;
 
+        /// <summary>
+        /// Creates a new instance of <see cref="GrassCoverErosionInwardsInputContextProperties"/>.
+        /// </summary>
+        /// <param name="data">The instance to show the properties for.</param>
+        /// <param name="handler">The handler responsible for handling effects of a property change.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public GrassCoverErosionInwardsInputContextProperties(GrassCoverErosionInwardsInputContext data, ICalculationInputPropertyChangeHandler handler)
         {
             if (data == null)
@@ -139,13 +145,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.BreakWaterProperties_DisplayName))]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.BreakWaterProperties_Description))]
-        public ConfirmingUseBreakWaterProperties<GrassCoverErosionInwardsCalculation, GrassCoverErosionInwardsInput> BreakWater
+        public ConfirmingUseBreakWaterProperties<GrassCoverErosionInwardsInput> BreakWater
         {
             get
             {
                 return data.WrappedData.DikeProfile == null ?
-                           new ConfirmingUseBreakWaterProperties<GrassCoverErosionInwardsCalculation, GrassCoverErosionInwardsInput>() :
-                           new ConfirmingUseBreakWaterProperties<GrassCoverErosionInwardsCalculation, GrassCoverErosionInwardsInput>(
+                           new ConfirmingUseBreakWaterProperties<GrassCoverErosionInwardsInput>() :
+                           new ConfirmingUseBreakWaterProperties<GrassCoverErosionInwardsInput>(
                                data.WrappedData, data.Calculation, propertyChangeHandler);
             }
         }
