@@ -37,24 +37,22 @@ namespace Ringtoets.Common.Forms.PropertyClasses
     /// <summary>
     /// ViewModel of <see cref="IUseForeshore"/>.
     /// </summary>
-    public class ConfirmingUseForeshoreProperties<TCalculation, TCalculationInput>
-        where TCalculation : ICalculation
-        where TCalculationInput : ICalculationInput, IUseForeshore
+    public class ConfirmingUseForeshoreProperties<TCalculationInput> where TCalculationInput : ICalculationInput, IUseForeshore
     {
         private const int useForeshorePropertyIndex = 1;
         private const int coordinatesPropertyIndex = 2;
         private readonly TCalculationInput data;
         private readonly ICalculationInputPropertyChangeHandler changeHandler;
-        private readonly TCalculation calculation;
+        private readonly ICalculation calculation;
 
         /// <summary>
-        /// Creates a new instance of <see cref="ConfirmingUseForeshoreProperties{TCalculation,TCalculationInput}"/>, in which
+        /// Creates a new instance of <see cref="ConfirmingUseForeshoreProperties{TCalculationInput}"/>, in which
         /// all the properties are read only.
         /// </summary>
         public ConfirmingUseForeshoreProperties() { }
 
         /// <summary>
-        /// Creates a new instance of <see cref="ConfirmingUseForeshoreProperties{TCalculation,TCalculationInput}"/>.
+        /// Creates a new instance of <see cref="ConfirmingUseForeshoreProperties{TCalculationInput}"/>.
         /// </summary>
         /// <param name="useForeshoreData">The data to use for the properties. </param>
         /// <param name="calculation">The calculation to which the <paramref name="useForeshoreData"/> belongs.</param>
@@ -62,7 +60,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         public ConfirmingUseForeshoreProperties(
             TCalculationInput useForeshoreData,
-            TCalculation calculation,
+            ICalculation calculation,
             ICalculationInputPropertyChangeHandler handler)
         {
             if (useForeshoreData == null)

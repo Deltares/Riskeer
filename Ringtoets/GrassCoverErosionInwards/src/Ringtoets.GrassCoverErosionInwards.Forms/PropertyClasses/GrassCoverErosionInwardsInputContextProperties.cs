@@ -161,11 +161,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.ForeshoreProperties_DisplayName))]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.ForeshoreProperties_Description))]
-        public ConfirmingUseForeshoreProperties<GrassCoverErosionInwardsCalculation, GrassCoverErosionInwardsInput> Foreshore
+        public ConfirmingUseForeshoreProperties<GrassCoverErosionInwardsInput> Foreshore
         {
             get
             {
-                return new ConfirmingUseForeshoreProperties<GrassCoverErosionInwardsCalculation, GrassCoverErosionInwardsInput>(
+                return new ConfirmingUseForeshoreProperties<GrassCoverErosionInwardsInput>(
                     data.WrappedData,
                     data.Calculation,
                     propertyChangeHandler);

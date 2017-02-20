@@ -116,7 +116,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             };
 
             // Assert
-            var expectedString = string.Format("{0} {1}", name, new Point2D(x, y));
+            var expectedString = $"{name} {new Point2D(x, y)}";
             Assert.AreEqual(expectedString, locationProperties.ToString());
         }
 

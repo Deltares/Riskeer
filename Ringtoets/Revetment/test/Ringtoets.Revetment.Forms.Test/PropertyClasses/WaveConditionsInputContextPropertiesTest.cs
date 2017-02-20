@@ -167,8 +167,8 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             Assert.AreEqual(2, properties.LowerBoundaryWaterLevels.NumberOfDecimalPlaces);
             Assert.AreEqual(0.5, properties.StepSize.AsValue());
             CollectionAssert.AreEqual(input.WaterLevels, properties.WaterLevels);
-            Assert.IsInstanceOf<UseBreakWaterProperties>(properties.BreakWater);
-            Assert.IsInstanceOf<UseForeshoreProperties>(properties.ForeshoreGeometry);
+            Assert.IsInstanceOf<ConfirmingUseBreakWaterProperties<WaveConditionsInput>>(properties.BreakWater);
+            Assert.IsInstanceOf<ConfirmingUseForeshoreProperties<WaveConditionsInput>>(properties.ForeshoreGeometry);
             Assert.AreEqual("Test", properties.RevetmentType);
 
             Assert.AreSame(hydraulicBoundaryLocation, properties.SelectedHydraulicBoundaryLocation.HydraulicBoundaryLocation);
@@ -325,88 +325,94 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void SelectedHydraulicBoundaryLocation_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput(bool hasOutput)
+        public void SelectedHydraulicBoundaryLocation_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput()
         {
-            SetPropertyAndVerifyNotifcationsAndOutput(hasOutput, properties => properties.SelectedHydraulicBoundaryLocation = new SelectableHydraulicBoundaryLocation(
-                                                                                   new TestHydraulicBoundaryLocation(), new Point2D(0, 0)));
+            var propertiesSelectedHydraulicBoundaryLocation = new SelectableHydraulicBoundaryLocation(
+                new TestHydraulicBoundaryLocation(), new Point2D(0, 0));
+            SetPropertyAndVerifyNotifcationsAndOutputForCalculation(
+                properties => properties.SelectedHydraulicBoundaryLocation = propertiesSelectedHydraulicBoundaryLocation,
+                propertiesSelectedHydraulicBoundaryLocation);
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void ForeshoreProfile_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput(bool hasOutput)
+        public void ForeshoreProfile_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput()
         {
-            SetPropertyAndVerifyNotifcationsAndOutput(hasOutput, properties => properties.ForeshoreProfile = new TestForeshoreProfile());
+            var foreshoreProfile = new TestForeshoreProfile();
+            SetPropertyAndVerifyNotifcationsAndOutputForCalculation(
+                properties => properties.ForeshoreProfile = foreshoreProfile,
+                foreshoreProfile);
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void LowerBoundaryRevetment_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput(bool hasOutput)
+        public void LowerBoundaryRevetment_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput()
         {
-            SetPropertyAndVerifyNotifcationsAndOutput(hasOutput, properties => properties.LowerBoundaryRevetment = new Random(21).NextRoundedDouble());
+            RoundedDouble lowerBoundaryRevetment = new Random(21).NextRoundedDouble();
+            SetPropertyAndVerifyNotifcationsAndOutputForCalculation(
+                properties => properties.LowerBoundaryRevetment = lowerBoundaryRevetment,
+                lowerBoundaryRevetment);
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void UpperBoundaryRevetment_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput(bool hasOutput)
+        public void UpperBoundaryRevetment_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput()
         {
-            SetPropertyAndVerifyNotifcationsAndOutput(hasOutput, properties => properties.UpperBoundaryRevetment = new Random(21).NextRoundedDouble());
+            RoundedDouble upperBoundaryRevetment = new Random(21).NextRoundedDouble();
+            SetPropertyAndVerifyNotifcationsAndOutputForCalculation(
+                properties => properties.UpperBoundaryRevetment = upperBoundaryRevetment,
+                upperBoundaryRevetment);
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void LowerBoundaryWaterLevels_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput(bool hasOutput)
+        public void LowerBoundaryWaterLevels_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput()
         {
-            SetPropertyAndVerifyNotifcationsAndOutput(hasOutput, properties => properties.LowerBoundaryWaterLevels = new Random(21).NextRoundedDouble());
+            RoundedDouble lowerBoundaryWaterLevels = new Random(21).NextRoundedDouble();
+            SetPropertyAndVerifyNotifcationsAndOutputForCalculation(
+                properties => properties.LowerBoundaryWaterLevels = lowerBoundaryWaterLevels,
+                lowerBoundaryWaterLevels);
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void UpperBoundaryWaterLevels_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput(bool hasOutput)
+        public void UpperBoundaryWaterLevels_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput()
         {
-            SetPropertyAndVerifyNotifcationsAndOutput(hasOutput, properties => properties.UpperBoundaryWaterLevels = new Random(21).NextRoundedDouble());
+            RoundedDouble upperBoundaryWaterLevels = new Random(21).NextRoundedDouble();
+            SetPropertyAndVerifyNotifcationsAndOutputForCalculation(
+                properties => properties.UpperBoundaryWaterLevels = upperBoundaryWaterLevels,
+                upperBoundaryWaterLevels);
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void StepSize_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput(bool hasOutput)
+        public void StepSize_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput()
         {
-            SetPropertyAndVerifyNotifcationsAndOutput(hasOutput, properties => properties.StepSize = new Random(21).NextEnumValue<WaveConditionsInputStepSize>());
+            var waveConditionsInputStepSize = new Random(21).NextEnumValue<WaveConditionsInputStepSize>();
+            SetPropertyAndVerifyNotifcationsAndOutputForCalculation(
+                properties => properties.StepSize = waveConditionsInputStepSize,
+                waveConditionsInputStepSize);
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void UpperBoundaryDesignWaterLevel_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput(bool hasOutput)
+        public void Orientation_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput()
         {
-            SetPropertyAndVerifyNotifcationsAndOutput(hasOutput, properties => properties.Orientation = new Random(21).NextRoundedDouble());
+            RoundedDouble upperBoundaryDesignWaterLevel = new Random(21).NextRoundedDouble();
+            SetPropertyAndVerifyNotifcationsAndOutputForCalculation(
+                properties => properties.Orientation = upperBoundaryDesignWaterLevel,
+                upperBoundaryDesignWaterLevel);
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void UseBreakWater_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput(bool hasOutput)
+        public void UseBreakWater_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput()
         {
-            SetPropertyAndVerifyNotifcationsAndOutput(
-                hasOutput,
-                properties => properties.BreakWater.UseBreakWater = new Random(21).NextBoolean());
+            bool breakWaterUseBreakWater = new Random(21).NextBoolean();
+            SetPropertyAndVerifyNotifcationsAndOutputForCalculation(
+                properties => properties.BreakWater.UseBreakWater = breakWaterUseBreakWater,
+                breakWaterUseBreakWater);
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void UseForeshore_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput(bool hasOutput)
+        public void UseForeshore_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput()
         {
-            SetPropertyAndVerifyNotifcationsAndOutput(
-                hasOutput,
-                properties => properties.ForeshoreGeometry.UseForeshore = true);
+            bool foreshoreGeometryUseForeshore = new Random(21).NextBoolean();
+            SetPropertyAndVerifyNotifcationsAndOutputForCalculation(
+                properties => properties.ForeshoreGeometry.UseForeshore = foreshoreGeometryUseForeshore,
+                foreshoreGeometryUseForeshore);
         }
 
         [Test]
@@ -598,15 +604,19 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             {
                 ForeshoreProfile = new TestForeshoreProfile(string.Empty)
             };
-            var inputContext = new TestWaveConditionsInputContext(input, new ForeshoreProfile[0], locations);
 
-            var properties = new TestWaveConditionsInputContextProperties(inputContext, handler);
+            var calculation = new TestCalculation();
+            var inputContext = new TestWaveConditionsInputContext(input, calculation, new ForeshoreProfile[0], locations);
+
+            var otherProfile = new TestForeshoreProfile(new Point2D(0, 190));
+            var customHandler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<ForeshoreProfile>(input, calculation, otherProfile, Enumerable.Empty<IObservable>());
+            var properties = new TestWaveConditionsInputContextProperties(inputContext, customHandler);
 
             IEnumerable<SelectableHydraulicBoundaryLocation> originalList = properties.GetSelectableHydraulicBoundaryLocations()
                                                                                       .ToList();
 
             // When
-            properties.ForeshoreProfile = new TestForeshoreProfile(new Point2D(0, 190));
+            properties.ForeshoreProfile = otherProfile;
 
             // Then
             IEnumerable<SelectableHydraulicBoundaryLocation> availableHydraulicBoundaryLocations =
@@ -642,43 +652,42 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             // Assert
             Assert.AreSame(locations, availableForeshoreProfiles);
         }
-
-        private void SetPropertyAndVerifyNotifcationsAndOutput(bool hasOutput, Action<TestWaveConditionsInputContextProperties> setProperty)
+        
+        private void SetPropertyAndVerifyNotifcationsAndOutputForCalculation<TPropertyValue>(
+            Action<TestWaveConditionsInputContextProperties> setProperty,
+            TPropertyValue expectedValueSet)
         {
             // Setup
             var mocks = new MockRepository();
-
-            var calculationObserver = mocks.StrictMock<IObserver>();
-            int numberOfChangedProperties = hasOutput ? 1 : 0;
-            calculationObserver.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChangedProperties);
-
-            var inputObserver = mocks.StrictMock<IObserver>();
-            inputObserver.Expect(o => o.UpdateObserver());
-
+            var observable = mocks.StrictMock<IObservable>();
+            observable.Expect(o => o.NotifyObservers());
             mocks.ReplayAll();
 
             var calculation = new TestCalculation();
-
-            if (hasOutput)
-            {
-                calculation.Output = new object();
-            }
-            calculation.Attach(calculationObserver);
-
             var input = new WaveConditionsInput();
             input.ForeshoreProfile = new TestForeshoreProfile();
-            input.Attach(inputObserver);
 
-            var properties = new TestWaveConditionsInputContextProperties(
-                new TestWaveConditionsInputContext(input, calculation, new ForeshoreProfile[0], new HydraulicBoundaryLocation[0]),
-                handler);
+            var context = new TestWaveConditionsInputContext(input,
+                                                 calculation, 
+                                                 new ForeshoreProfile[0], 
+                                                 new HydraulicBoundaryLocation[0]);
+
+            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<TPropertyValue>(
+                input,
+                calculation,
+                expectedValueSet,
+                new[]
+                {
+                    observable
+                });
+
+            var properties = new TestWaveConditionsInputContextProperties(context, handler);
 
             // Call
             setProperty(properties);
 
             // Assert
-            Assert.IsFalse(calculation.HasOutput);
-
+            Assert.IsTrue(handler.Called);
             mocks.VerifyAll();
         }
 

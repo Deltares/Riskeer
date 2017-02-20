@@ -37,7 +37,6 @@ using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Forms.UITypeEditors;
-using Ringtoets.Common.Service;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Forms.PresentationObjects;
 using Ringtoets.Revetment.Forms.Properties;
@@ -50,8 +49,7 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
     /// </summary>
     public abstract class WaveConditionsInputContextProperties<T> : ObjectProperties<T>,
                                                                     IHasHydraulicBoundaryLocationProperty,
-                                                                    IHasForeshoreProfileProperty,
-                                                                    IPropertyChangeHandler
+                                                                    IHasForeshoreProfileProperty
         where T : WaveConditionsInputContext
     {
         private const int hydraulicBoundaryLocationPropertyIndex = 0;
@@ -71,7 +69,7 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
         private const int foreshoreGeometryPropertyIndex = 13;
         private const int revetmentTypePropertyIndex = 14;
 
-        private readonly ICalculationInputPropertyChangeHandler handler;
+        private readonly ICalculationInputPropertyChangeHandler propertyChangeHandler;
 
         /// <summary>
         /// Creates a new instance of <see cref="WaveConditionsInputContextProperties{T}"/>.
@@ -89,7 +87,7 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
             {
                 throw new ArgumentNullException(nameof(handler));
             }
-            this.handler = handler;
+            propertyChangeHandler = handler;
             Data = context;
         }
 
@@ -129,8 +127,7 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
             }
             set
             {
-                data.WrappedData.UpperBoundaryRevetment = value;
-                ClearOutputAndNotifyPropertyChanged();
+                ChangePropertyValueAndNotifyAffectedObjects((input, d) => input.UpperBoundaryRevetment = d, value);
             }
         }
 
@@ -146,8 +143,7 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
             }
             set
             {
-                data.WrappedData.LowerBoundaryRevetment = value;
-                ClearOutputAndNotifyPropertyChanged();
+                ChangePropertyValueAndNotifyAffectedObjects((input, d) => input.LowerBoundaryRevetment = d, value);
             }
         }
 
@@ -163,8 +159,7 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
             }
             set
             {
-                data.WrappedData.UpperBoundaryWaterLevels = value;
-                ClearOutputAndNotifyPropertyChanged();
+                ChangePropertyValueAndNotifyAffectedObjects((input, d) => input.UpperBoundaryWaterLevels = d, value);
             }
         }
 
@@ -180,8 +175,7 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
             }
             set
             {
-                data.WrappedData.LowerBoundaryWaterLevels = value;
-                ClearOutputAndNotifyPropertyChanged();
+                ChangePropertyValueAndNotifyAffectedObjects((input, d) => input.LowerBoundaryWaterLevels = d, value);
             }
         }
 
@@ -198,8 +192,7 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
             }
             set
             {
-                data.WrappedData.StepSize = value;
-                ClearOutputAndNotifyPropertyChanged();
+                ChangePropertyValueAndNotifyAffectedObjects((input, d) => input.StepSize = d, value);
             }
         }
 
@@ -243,8 +236,7 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
             }
             set
             {
-                data.WrappedData.Orientation = value;
-                ClearOutputAndNotifyPropertyChanged();
+                ChangePropertyValueAndNotifyAffectedObjects((input, d) => input.Orientation = d, value);
             }
         }
 
@@ -253,13 +245,13 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.BreakWaterProperties_DisplayName))]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.BreakWaterProperties_Description))]
-        public UseBreakWaterProperties BreakWater
+        public ConfirmingUseBreakWaterProperties<WaveConditionsInput> BreakWater
         {
             get
             {
                 return data.WrappedData.ForeshoreProfile == null ?
-                           new UseBreakWaterProperties() :
-                           new UseBreakWaterProperties(data.WrappedData, this);
+                           new ConfirmingUseBreakWaterProperties<WaveConditionsInput>() :
+                           new ConfirmingUseBreakWaterProperties<WaveConditionsInput>(data.WrappedData, data.Calculation, propertyChangeHandler);
             }
         }
 
@@ -268,11 +260,11 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.ForeshoreProperties_DisplayName))]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.ForeshoreProperties_Description))]
-        public UseForeshoreProperties ForeshoreGeometry
+        public ConfirmingUseForeshoreProperties<WaveConditionsInput> ForeshoreGeometry
         {
             get
             {
-                return new UseForeshoreProperties(data.WrappedData, this);
+                return new ConfirmingUseForeshoreProperties<WaveConditionsInput>(data.WrappedData, data.Calculation, propertyChangeHandler);
             }
         }
 
@@ -295,8 +287,7 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
             }
             set
             {
-                data.WrappedData.ForeshoreProfile = value;
-                ClearOutputAndNotifyPropertyChanged();
+                ChangePropertyValueAndNotifyAffectedObjects((input, d) => input.ForeshoreProfile = d, value);
             }
         }
 
@@ -317,14 +308,8 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
             }
             set
             {
-                data.WrappedData.HydraulicBoundaryLocation = value.HydraulicBoundaryLocation;
-                ClearOutputAndNotifyPropertyChanged();
+                ChangePropertyValueAndNotifyAffectedObjects((input, d) => input.HydraulicBoundaryLocation = d.HydraulicBoundaryLocation, value);
             }
-        }
-
-        public void PropertyChanged()
-        {
-            ClearCalculationOutput();
         }
 
         public virtual IEnumerable<ForeshoreProfile> GetAvailableForeshoreProfiles()
@@ -339,18 +324,24 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
                 data.HydraulicBoundaryLocations, referenceLocation);
         }
 
-        private void ClearOutputAndNotifyPropertyChanged()
+        private void ChangePropertyValueAndNotifyAffectedObjects<TValue>(
+            SetCalculationInputPropertyValueDelegate<WaveConditionsInput, TValue> setPropertyValue,
+            TValue value)
         {
-            ClearCalculationOutput();
-            data.WrappedData.NotifyObservers();
+            IEnumerable<IObservable> affectedObjects = propertyChangeHandler.SetPropertyValueAfterConfirmation(
+                data.WrappedData,
+                data.Calculation,
+                value,
+                setPropertyValue);
+
+            NotifyAffectedObjects(affectedObjects);
         }
 
-        private void ClearCalculationOutput()
+        private static void NotifyAffectedObjects(IEnumerable<IObservable> affectedObjects)
         {
-            IEnumerable<IObservable> affectedCalculation = RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(data.Calculation);
-            foreach (var calculation in affectedCalculation)
+            foreach (var affectedObject in affectedObjects)
             {
-                calculation.NotifyObservers();
+                affectedObject.NotifyObservers();
             }
         }
     }

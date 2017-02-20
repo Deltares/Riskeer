@@ -49,7 +49,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => new ConfirmingUseForeshoreProperties<ICalculation, TestUseForeshore>(null, calculation, handler);
+            TestDelegate test = () => new ConfirmingUseForeshoreProperties<TestUseForeshore>(null, calculation, handler);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -68,7 +68,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => new ConfirmingUseForeshoreProperties<ICalculation, TestUseForeshore>(testUseForeshore, null, handler);
+            TestDelegate test = () => new ConfirmingUseForeshoreProperties<TestUseForeshore>(testUseForeshore, null, handler);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -86,7 +86,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => new ConfirmingUseForeshoreProperties<ICalculation, TestUseForeshore>(testUseForeshore, calculation, null);
+            TestDelegate test = () => new ConfirmingUseForeshoreProperties<TestUseForeshore>(testUseForeshore, calculation, null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -111,7 +111,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             };
 
             // Call
-            var properties = new ConfirmingUseForeshoreProperties<ICalculation, TestUseForeshore>(useForeshoreData, calculation, handler);
+            var properties = new ConfirmingUseForeshoreProperties<TestUseForeshore>(useForeshoreData, calculation, handler);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -143,7 +143,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             var useForeshoreData = new TestUseForeshore();
 
             // Call
-            var properties = new ConfirmingUseForeshoreProperties<ICalculation, TestUseForeshore>(useForeshoreData, calculation, handler);
+            var properties = new ConfirmingUseForeshoreProperties<TestUseForeshore>(useForeshoreData, calculation, handler);
 
             // Assert
             Assert.IsFalse(properties.UseForeshore);
@@ -165,7 +165,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             };
 
             // Call
-            var properties = new ConfirmingUseForeshoreProperties<ICalculation, TestUseForeshore>(useForeshoreData, calculation, handler);
+            var properties = new ConfirmingUseForeshoreProperties<TestUseForeshore>(useForeshoreData, calculation, handler);
 
             // Assert
             Assert.IsTrue(properties.UseForeshore);
@@ -193,7 +193,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             };
 
             // Call
-            var properties = new ConfirmingUseForeshoreProperties<ICalculation, TestUseForeshore>(useForeshoreData, calculation, handler);
+            var properties = new ConfirmingUseForeshoreProperties<TestUseForeshore>(useForeshoreData, calculation, handler);
 
             // Assert
             Assert.IsTrue(properties.UseForeshore);
@@ -210,7 +210,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         }
 
         private void SetPropertyAndVerifyNotifcationsAndOutputForCalculation<TPropertyValue>(
-            Action<ConfirmingUseForeshoreProperties<ICalculation, TestUseForeshore>> setProperty,
+            Action<ConfirmingUseForeshoreProperties<TestUseForeshore>> setProperty,
             TPropertyValue expectedValueSet,
             TestUseForeshore input)
         {
@@ -230,7 +230,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                     observable
                 });
 
-            var properties = new ConfirmingUseForeshoreProperties<ICalculation, TestUseForeshore>(input, calculation, handler);
+            var properties = new ConfirmingUseForeshoreProperties<TestUseForeshore>(input, calculation, handler);
 
             // Call
             setProperty(properties);
