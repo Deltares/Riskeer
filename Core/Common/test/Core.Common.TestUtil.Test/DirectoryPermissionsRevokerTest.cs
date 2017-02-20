@@ -31,7 +31,7 @@ namespace Core.Common.TestUtil.Test
     [TestFixture]
     public class DirectoryPermissionsRevokerTest
     {
-        private readonly string testWorkDir = Path.Combine(".", "DirectoryPermissionsRevokerTest");
+        private readonly TestDataPath testWorkDir = TestDataPath.Core.Common.TestUtils;
 
         [Test]
         [TestCase(null)]
@@ -65,20 +65,17 @@ namespace Core.Common.TestUtil.Test
         {
             // Setup
             const FileSystemRights rights = FileSystemRights.Synchronize;
-            string accessDirectory = Path.Combine(testWorkDir, "Constructor_UnsupportedRight_ThrowsNotSupportedException", rights.ToString());
-            Directory.CreateDirectory(accessDirectory);
+            string rootFolder = TestHelper.GetTestDataPath(testWorkDir);
+            string subfolder = "UnsupportedRight" + rights;
+            string folderPath = Path.Combine(rootFolder, subfolder);
 
-            try
+            using (new DirectoryDisposeHelper(rootFolder, subfolder))
             {
                 // Call
-                TestDelegate test = () => new DirectoryPermissionsRevoker(accessDirectory, rights);
+                TestDelegate test = () => new DirectoryPermissionsRevoker(folderPath, rights);
 
                 // Assert
                 Assert.Throws<NotSupportedException>(test);
-            }
-            finally
-            {
-                Directory.Delete(accessDirectory, true);
             }
         }
 
@@ -106,23 +103,20 @@ namespace Core.Common.TestUtil.Test
         public void Constructor_ValidPathDenyRight_SetsDenyRight(FileSystemRights rights)
         {
             // Setup
-            string accessDirectory = Path.Combine(testWorkDir, "Constructor_ValidPathDenyRight_SetsDenyRight", rights.ToString());
-            Directory.CreateDirectory(accessDirectory);
+            string rootFolder = TestHelper.GetTestDataPath(testWorkDir);
+            string subfolder = "ValidPathDenyRight_SetsDenyRight" + rights;
+            string folderPath = Path.Combine(rootFolder, subfolder);
 
-            try
+            using (new DirectoryDisposeHelper(rootFolder, subfolder))
             {
                 // Call
-                using (new DirectoryPermissionsRevoker(accessDirectory, rights))
+                using (new DirectoryPermissionsRevoker(folderPath, rights))
                 {
                     // Assert
-                    AssertPathHasAccessRuleSet(accessDirectory, rights);
+                    AssertPathHasAccessRuleSet(folderPath, rights);
                 }
 
-                AssertPathHasAccessRuleNotSet(accessDirectory, rights);
-            }
-            finally
-            {
-                Directory.Delete(accessDirectory, true);
+                AssertPathHasAccessRuleNotSet(folderPath, rights);
             }
         }
 
@@ -150,29 +144,32 @@ namespace Core.Common.TestUtil.Test
         public void Dispose_RightAlreadySet_DoesNotRemoveRight(FileSystemRights rights)
         {
             // Setup
-            string accessDirectory = Path.Combine(testWorkDir, "Dispose_RightAlreadySet_DoesNotRemoveRight", rights.ToString());
-            Directory.CreateDirectory(accessDirectory);
+            string rootFolder = TestHelper.GetTestDataPath(testWorkDir);
+            string subfolder = "RightAlreadySet" + rights;
+            string folderPath = Path.Combine(rootFolder, subfolder);
 
-            AddDirectoryAccessRule(accessDirectory, rights);
-
-            // Precondition
-            AssertPathHasAccessRuleSet(accessDirectory, rights);
-
-            try
+            using (new DirectoryDisposeHelper(rootFolder, subfolder))
             {
-                // Call
-                using (new DirectoryPermissionsRevoker(accessDirectory, rights))
+                AddDirectoryAccessRule(folderPath, rights);
+
+                // Precondition
+                AssertPathHasAccessRuleSet(folderPath, rights);
+
+                try
                 {
-                    // Assert
-                    AssertPathHasAccessRuleSet(accessDirectory, rights);
-                }
+                    // Call
+                    using (new DirectoryPermissionsRevoker(folderPath, rights))
+                    {
+                        // Assert
+                        AssertPathHasAccessRuleSet(folderPath, rights);
+                    }
 
-                AssertPathHasAccessRuleSet(accessDirectory, rights);
-            }
-            finally
-            {
-                RemoveDirectoryAccessRule(accessDirectory, rights);
-                Directory.Delete(accessDirectory, true);
+                    AssertPathHasAccessRuleSet(folderPath, rights);
+                }
+                finally
+                {
+                    RemoveDirectoryAccessRule(folderPath, rights);
+                }
             }
         }
 
@@ -180,20 +177,24 @@ namespace Core.Common.TestUtil.Test
         public void Dispose_DirectoryAlreadyRemoved_DoesNotThrowException()
         {
             // Setup
-            string accessDirectory = Path.Combine(testWorkDir, "Deleted");
-            Directory.CreateDirectory(accessDirectory);
+            string rootFolder = TestHelper.GetTestDataPath(testWorkDir);
+            string subfolder = "Deleted";
+            string folderPath = Path.Combine(rootFolder, subfolder);
 
-            TestDelegate test = () =>
+            using (new DirectoryDisposeHelper(rootFolder, subfolder))
             {
-                // Call
-                using (new DirectoryPermissionsRevoker(accessDirectory, FileSystemRights.Write))
+                TestDelegate test = () =>
                 {
-                    Directory.Delete(accessDirectory, true);
-                }
-            };
+                    // Call
+                    using (new DirectoryPermissionsRevoker(folderPath, FileSystemRights.Write))
+                    {
+                        Directory.Delete(folderPath, true);
+                    }
+                };
 
-            // Assert
-            Assert.DoesNotThrow(test);
+                // Assert
+                Assert.DoesNotThrow(test);
+            }
         }
 
         #region Assert access rules
@@ -202,16 +203,14 @@ namespace Core.Common.TestUtil.Test
         {
             FileSystemRights supportedFileSystemRights = GetSupportedFileSystemRights(rights);
             FileSystemAccessRule fileSystemAccessRule = GetFirstFileSystemAccessRuleForRights(filePath, supportedFileSystemRights);
-            Assert.IsNull(fileSystemAccessRule, string.Format("Rights '{0} {1}' are set for '{2}'",
-                                                              AccessControlType.Deny, supportedFileSystemRights, filePath));
+            Assert.IsNull(fileSystemAccessRule, $"Rights '{AccessControlType.Deny} {supportedFileSystemRights}' are set for '{filePath}'");
         }
 
-        private void AssertPathHasAccessRuleSet(string filePath, FileSystemRights rights)
+        private static void AssertPathHasAccessRuleSet(string filePath, FileSystemRights rights)
         {
             FileSystemRights supportedFileSystemRights = GetSupportedFileSystemRights(rights);
             FileSystemAccessRule fileSystemAccessRule = GetFirstFileSystemAccessRuleForRights(filePath, supportedFileSystemRights);
-            Assert.IsNotNull(fileSystemAccessRule, string.Format("Rights '{0} {1}' not set for '{2}'",
-                                                                 AccessControlType.Deny, (supportedFileSystemRights), filePath));
+            Assert.IsNotNull(fileSystemAccessRule, $"Rights '{AccessControlType.Deny} {supportedFileSystemRights}' not set for '{filePath}'");
         }
 
         private static FileSystemRights GetSupportedFileSystemRights(FileSystemRights rights)

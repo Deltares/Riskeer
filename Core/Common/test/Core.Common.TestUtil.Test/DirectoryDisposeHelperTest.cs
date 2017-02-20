@@ -21,6 +21,7 @@
 
 using System;
 using System.IO;
+using System.Security.AccessControl;
 using NUnit.Framework;
 
 namespace Core.Common.TestUtil.Test
@@ -31,17 +32,75 @@ namespace Core.Common.TestUtil.Test
         private static readonly TestDataPath testPath = TestDataPath.Core.Common.TestUtils;
 
         [Test]
+        public void Constructor_NullRoot_ThrowsArgumentNullException()
+        {
+            // Setup
+            string subfolder = "sub folder";
+
+            // Call
+            TestDelegate test = () => new DirectoryDisposeHelper(null, subfolder);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("rootFolder", paramName);
+        }
+
+        [Test]
+        public void Constructor_NullSubfolder_ThrowsArgumentException()
+        {
+            // Setup
+            string rootfolder = "root folder";
+
+            // Call
+            TestDelegate test = () => new DirectoryDisposeHelper(rootfolder, null);
+
+            // Assert
+            ArgumentException exception = Assert.Throws<ArgumentException>(test);
+            Assert.AreEqual("subFolders", exception.ParamName);
+        }
+
+        [Test]
         public void Constructor_NotExistingFolder_CreatesFolder()
         {
             // Setup
-            string folderPath = TestHelper.GetTestDataPath(testPath, Path.GetRandomFileName());
-            var folderExists = false;
+            string rootFolder = TestHelper.GetTestDataPath(testPath);
+            string subFolder = Path.GetRandomFileName();
+            string folderPath = Path.Combine(rootFolder, subFolder);
+            bool folderExists = false;
 
             // Precondition
             Assert.IsFalse(Directory.Exists(folderPath), $"Precondition failed: Folder '{folderPath}' should not exist");
 
             // Call
-            using (new DirectoryDisposeHelper(folderPath))
+            using (new DirectoryDisposeHelper(rootFolder, subFolder))
+            {
+                folderExists = Directory.Exists(folderPath);
+            }
+
+            // Assert
+            Assert.IsTrue(folderExists);
+            if (Directory.Exists(folderPath))
+            {
+                Directory.Delete(folderPath, true);
+                Assert.Fail($"Folder path '{folderPath}' was not removed.");
+            }
+        }
+
+        [Test]
+        public void Constructor_NotExistingFolders_CreatesFolders()
+        {
+            // Setup
+            string rootFolder = TestHelper.GetTestDataPath(testPath);
+            string subFolder = Path.GetRandomFileName();
+            string subSubFolder = Path.GetRandomFileName();
+            string folderPath = Path.Combine(rootFolder, subFolder, subSubFolder);
+            bool folderExists = false;
+
+            // Precondition
+            Assert.IsFalse(Directory.Exists(folderPath), $"Precondition failed: Folder '{folderPath}' should not exist");
+
+            // Call
+            using (new DirectoryDisposeHelper(rootFolder, subFolder, subSubFolder))
             {
                 folderExists = Directory.Exists(folderPath);
             }
@@ -59,15 +118,17 @@ namespace Core.Common.TestUtil.Test
         public void Constructor_ExistingFolder_DoesNotThrowException()
         {
             // Setup
-            string folderPath = TestHelper.GetTestDataPath(testPath, Path.GetRandomFileName());
-            DirectoryDisposeHelper disposeHelper = null;
+            string rootFolder = TestHelper.GetTestDataPath(testPath);
+            string subFolder = Path.GetRandomFileName();
+            string folderPath = Path.Combine(rootFolder, subFolder);
 
+            DirectoryDisposeHelper disposeHelper = null;
             try
             {
                 Directory.CreateDirectory(folderPath);
 
                 // Call
-                TestDelegate test = () => disposeHelper = new DirectoryDisposeHelper(folderPath);
+                TestDelegate test = () => disposeHelper = new DirectoryDisposeHelper(rootFolder, subFolder);
 
                 // Assert
                 Assert.DoesNotThrow(test);
@@ -88,12 +149,14 @@ namespace Core.Common.TestUtil.Test
         }
 
         [Test]
-        [TestCase("/fo:der/")]
-        [TestCase("f*lder")]
-        public void Constructor_InvalidFolderPath_ThrowsArgumentException(string folderPath)
+        [TestCase("/fo:der/", "valid")]
+        [TestCase("valid", "/fo:der/")]
+        [TestCase("f*lder", "valid")]
+        [TestCase("valid", "f*lder")]
+        public void Constructor_InvalidFolderPath_ThrowsArgumentException(string rootFolder, string subfolder)
         {
             // Call
-            TestDelegate test = () => new DirectoryDisposeHelper(folderPath);
+            TestDelegate test = () => new DirectoryDisposeHelper(rootFolder, subfolder);
 
             // Assert
             Assert.Throws<ArgumentException>(test);
@@ -103,12 +166,13 @@ namespace Core.Common.TestUtil.Test
         public void Dispose_AlreadyDisposed_DoesNotThrowException()
         {
             // Setup
-            string folderPath = TestHelper.GetTestDataPath(testPath, Path.GetRandomFileName());
+            string rootFolder = TestHelper.GetTestDataPath(testPath);
+            string subfolder = Path.GetRandomFileName();
 
             // Call
             TestDelegate test = () =>
             {
-                using (var directoryDisposeHelper = new DirectoryDisposeHelper(folderPath))
+                using (var directoryDisposeHelper = new DirectoryDisposeHelper(rootFolder, subfolder))
                 {
                     directoryDisposeHelper.Dispose();
                 }
@@ -122,12 +186,14 @@ namespace Core.Common.TestUtil.Test
         public void Dispose_FolderAlreadyRemoved_DoesNotThrowException()
         {
             // Setup
-            string folderPath = TestHelper.GetTestDataPath(testPath, Path.GetRandomFileName());
+            string rootFolder = TestHelper.GetTestDataPath(testPath);
+            string subfolder = Path.GetRandomFileName();
+            string folderPath = Path.Combine(rootFolder, subfolder);
 
             // Call
             TestDelegate test = () =>
             {
-                using (new DirectoryDisposeHelper(folderPath))
+                using (new DirectoryDisposeHelper(rootFolder, subfolder))
                 {
                     Directory.Delete(folderPath, true);
                 }
@@ -135,6 +201,124 @@ namespace Core.Common.TestUtil.Test
 
             // Assert
             Assert.DoesNotThrow(test);
+        }
+
+        [Test]
+        public void LockDirectory_ValidPath_LocksDirectory()
+        {
+            // Setup
+            string rootFolder = TestHelper.GetTestDataPath(testPath);
+            string subfolder = Path.GetRandomFileName();
+            string folderPath = Path.Combine(rootFolder, subfolder);
+
+            try
+            {
+                using (var disposeHelper = new DirectoryDisposeHelper(rootFolder, subfolder))
+                {
+                    // Call
+                    disposeHelper.LockDirectory(FileSystemRights.Write);
+
+                    // Assert
+                    Assert.IsFalse(IsDirectoryWritable(folderPath), $"'{folderPath}' is not locked for writing.");
+                }
+
+                Assert.IsFalse(Directory.Exists(folderPath), $"'{folderPath}' should have been deleted.");
+            }
+            catch (Exception exception)
+            {
+                RemoveDirectoryAndFail(folderPath, exception);
+            }
+        }
+
+        [Test]
+        public void LockDirectory_RightNotSupported_ThrowsInvalidOperationException()
+        {
+            // Setup
+            string rootFolder = TestHelper.GetTestDataPath(testPath);
+            string subfolder = Path.GetRandomFileName();
+            string folderPath = Path.Combine(rootFolder, subfolder);
+
+            try
+            {
+                using (var disposeHelper = new DirectoryDisposeHelper(rootFolder, subfolder))
+                using (new DirectoryPermissionsRevoker(folderPath, FileSystemRights.Write))
+                {
+                    // Call
+                    TestDelegate call = () => disposeHelper.LockDirectory(FileSystemRights.Synchronize);
+
+                    // Assert
+                    InvalidOperationException exception = Assert.Throws<InvalidOperationException>(call);
+                    Assert.AreEqual($"Unable to lock '{folderPath}'.", exception.Message);
+                    Assert.IsNotNull(exception.InnerException);
+                }
+
+                Assert.IsFalse(Directory.Exists(folderPath), $"'{folderPath}' should have been deleted.");
+            }
+            catch (Exception exception)
+            {
+                RemoveDirectoryAndFail(folderPath, exception);
+            }
+        }
+
+        [Test]
+        public void LockDirectory_DirectoryAlreadyLocked_DoesNotThrowException()
+        {
+            // Setup
+            string rootFolder = TestHelper.GetTestDataPath(testPath);
+            string subfolder = Path.GetRandomFileName();
+            string folderPath = Path.Combine(rootFolder, subfolder);
+
+            try
+            {
+                using (var disposeHelper = new DirectoryDisposeHelper(rootFolder, subfolder))
+                using (new DirectoryPermissionsRevoker(folderPath, FileSystemRights.Write))
+                {
+                    // Call
+                    TestDelegate call = () => disposeHelper.LockDirectory(FileSystemRights.Write);
+
+                    // Assert
+                    Assert.DoesNotThrow(call);
+                }
+
+                Assert.IsFalse(Directory.Exists(folderPath), $"'{folderPath}' should have been deleted.");
+            }
+            catch (Exception exception)
+            {
+                RemoveDirectoryAndFail(folderPath, exception);
+            }
+        }
+
+        private static void RemoveDirectoryAndFail(string folderPath, Exception exception)
+        {
+            try
+            {
+                Directory.Delete(folderPath);
+            }
+            catch
+            {
+                // Ignore
+            }
+            Assert.Fail(exception.Message, exception.InnerException);
+        }
+
+        private static bool IsDirectoryWritable(string folderPath)
+        {
+            string filePath = Path.Combine(folderPath, Path.GetRandomFileName());
+            try
+            {
+                using (File.OpenWrite(filePath)) {}
+            }
+            catch (SystemException)
+            {
+                return false;
+            }
+
+            if (File.Exists(filePath))
+            {
+                File.Delete(filePath);
+            }
+
+            return true;
         }
     }
 }

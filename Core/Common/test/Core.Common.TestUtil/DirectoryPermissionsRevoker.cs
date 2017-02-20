@@ -36,6 +36,7 @@ namespace Core.Common.TestUtil
         private readonly IList<FileSystemAccessRule> appliedFileSystemAccessRules = new List<FileSystemAccessRule>();
         private readonly string folderPath;
         private readonly DirectoryInfo directoryInfo;
+        private bool disposed;
 
         /// <summary>
         /// Creates an instance of <see cref="DirectoryPermissionsRevoker"/>.
@@ -44,6 +45,12 @@ namespace Core.Common.TestUtil
         /// </summary>
         /// <param name="folderPath">The path of the file to change the right for.</param>
         /// <param name="rights">The right to deny.</param>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="folderPath"/> is <c>null</c> 
+        /// or empty.</exception>
+        /// <exception cref="DirectoryNotFoundException">Thrown when <paramref name="folderPath"/> 
+        /// does not exist.</exception>
+        /// <exception cref="NotSupportedException">Thrown when the <paramref name="rights"/> is 
+        /// not supported to set on the folder.</exception>
         public DirectoryPermissionsRevoker(string folderPath, FileSystemRights rights)
         {
             if (string.IsNullOrWhiteSpace(folderPath))
@@ -68,14 +75,26 @@ namespace Core.Common.TestUtil
 
         public void Dispose()
         {
-            if (!Directory.Exists(folderPath))
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposed)
             {
                 return;
             }
-            foreach (var appliedFileSystemAccessRule in appliedFileSystemAccessRules)
+
+            if (Directory.Exists(folderPath))
             {
-                RevertDenyDirectoryInfoRight(appliedFileSystemAccessRule);
+                foreach (FileSystemAccessRule appliedFileSystemAccessRule in appliedFileSystemAccessRules)
+                {
+                    RevertDenyDirectoryInfoRight(appliedFileSystemAccessRule);
+                }
             }
+
+            disposed = true;
         }
 
         private void AddDenyDirectoryInfoRight(FileSystemRights rights)
@@ -120,6 +139,11 @@ namespace Core.Common.TestUtil
         {
             SecurityIdentifier id = WindowsIdentity.GetCurrent().User.AccountDomainSid;
             return new SecurityIdentifier(WellKnownSidType.WorldSid, id);
+        }
+
+        ~DirectoryPermissionsRevoker()
+        {
+            Dispose(false);
         }
     }
 }

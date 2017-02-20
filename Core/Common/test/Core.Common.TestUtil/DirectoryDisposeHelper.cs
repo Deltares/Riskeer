@@ -21,36 +21,72 @@
 
 using System;
 using System.IO;
+using System.Linq;
+using System.Security.AccessControl;
 
 namespace Core.Common.TestUtil
 {
     /// <summary>
     /// This class can be used to set temporary folders while testing. 
-    /// Disposing an instance of this class will delete the folder(s).
+    /// Disposing an instance of this class will delete the subfolder(s).
     /// </summary>
     /// <example>
     /// The following is an example for how to use this class:
     /// <code>
-    /// using(new DirectoryDisposeHelper("path")) {
+    /// using(new DirectoryDisposeHelper("root path", "sub folder to create" 
+    ///     [, "sub sub folder to create"])) {
     ///     // Perform tests with folders
     /// }
     /// </code>
     /// </example>
     public class DirectoryDisposeHelper : IDisposable
     {
-        private readonly string folderPath;
+        private readonly string rootPathToTemp;
+        private readonly string fullPath;
         private bool disposed;
+        private DirectoryPermissionsRevoker directoryPermissionsRevoker;
 
         /// <summary>
         /// Creates a new instance of <see cref="DirectoryDisposeHelper"/>.
         /// </summary>
-        /// <param name="folderPath">Paths that will be created, if the path is valid.</param>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="folderPath"/> could 
+        /// <param name="rootFolder">Root folder to create the temporary folders in.</param>
+        /// <param name="subFolders">Path that will temporarily be created.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="rootFolder"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="subFolders"/> is <c>null</c>, empty, or could 
         /// not be created by the system.</exception>
-        public DirectoryDisposeHelper(string folderPath)
+        public DirectoryDisposeHelper(string rootFolder, params string[] subFolders)
         {
-            this.folderPath = folderPath;
+            if (rootFolder == null)
+            {
+                throw new ArgumentNullException(nameof(rootFolder));
+            }
+            if (subFolders == null || !subFolders.Any())
+            {
+                throw new ArgumentException(@"Must have at least one sub folder.", nameof(subFolders));
+            }
+
+            rootPathToTemp = Path.Combine(rootFolder, subFolders[0]);
+            fullPath = Path.Combine(rootFolder, Path.Combine(subFolders));
             CreatePath();
+        }
+
+        /// <summary>
+        /// Adds a <paramref name="rights"/> of type <see cref="AccessControlType.Deny"/> to the access
+        /// rule set for the folder at <see cref="rootPathToTemp"/>.
+        /// </summary>
+        /// <param name="rights">The right to deny.</param>
+        /// <exception cref="InvalidOperationException">Thrown when the directory could not be locked.</exception>
+        /// <seealso cref="DirectoryPermissionsRevoker"/>
+        public void LockDirectory(FileSystemRights rights)
+        {
+            try
+            {
+                directoryPermissionsRevoker = new DirectoryPermissionsRevoker(rootPathToTemp, rights);
+            }
+            catch (Exception exception)
+            {
+                throw new InvalidOperationException($"Unable to lock '{rootPathToTemp}'.", exception);
+            }
         }
 
         public void Dispose()
@@ -66,13 +102,20 @@ namespace Core.Common.TestUtil
                 return;
             }
 
+            directoryPermissionsRevoker?.Dispose();
+
             try
             {
-                Directory.Delete(folderPath, true);
+                Directory.Delete(rootPathToTemp, true);
             }
             catch
             {
                 // ignored
+            }
+
+            if (disposing)
+            {
+                directoryPermissionsRevoker = null;
             }
 
             disposed = true;
@@ -86,12 +129,20 @@ namespace Core.Common.TestUtil
         {
             try
             {
-                Directory.CreateDirectory(folderPath);
+                Directory.CreateDirectory(fullPath);
             }
-            catch (Exception e) when (e is DirectoryNotFoundException || e is IOException || e is NotSupportedException || e is UnauthorizedAccessException)
+            catch (Exception e) when (e is DirectoryNotFoundException
+                                      || e is IOException
+                                      || e is NotSupportedException
+                                      || e is UnauthorizedAccessException)
             {
                 throw new ArgumentException(e.Message, e);
             }
+        }
+
+        ~DirectoryDisposeHelper()
+        {
+            Dispose(false);
         }
     }
 }
