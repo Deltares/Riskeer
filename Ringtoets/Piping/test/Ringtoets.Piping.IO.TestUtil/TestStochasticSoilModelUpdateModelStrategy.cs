@@ -27,11 +27,31 @@ using Ringtoets.Piping.IO.Importers;
 
 namespace Ringtoets.Piping.IO.TestUtil
 {
+    /// <summary>
+    /// Implementation of a <see cref="IStochasticSoilModelChangeHandler"/> which can be used for
+    /// testing.
+    /// </summary>
     public class TestStochasticSoilModelUpdateModelStrategy : IStochasticSoilModelUpdateModelStrategy
     {
+        /// <summary>
+        /// Gets a value which indicates whether <see cref="UpdateModelWithImportedData"/> has
+        /// been called.
+        /// </summary>
         public bool Updated { get; private set; }
+
+        /// <summary>
+        /// Gets the models that were passed to <see cref="UpdateModelWithImportedData"/> as the read models.
+        /// </summary>
         public StochasticSoilModel[] ReadModels { get; private set; }
+
+        /// <summary>
+        /// Gets the file path that was passed to <see cref="UpdateModelWithImportedData"/>.
+        /// </summary>
         public string FilePath { get; private set; }
+
+        /// <summary>
+        /// Gets or sets the instances that will be returned by <see cref="UpdateModelWithImportedData"/>.
+        /// </summary>
         public IEnumerable<IObservable> UpdatedInstances { get; set; } = Enumerable.Empty<IObservable>();
 
         public IEnumerable<IObservable> UpdateModelWithImportedData(StochasticSoilModelCollection targetCollection,

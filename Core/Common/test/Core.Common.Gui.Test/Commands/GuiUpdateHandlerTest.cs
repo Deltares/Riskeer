@@ -99,10 +99,10 @@ namespace Core.Common.Gui.Test.Commands
             var commandHandler = new GuiUpdateHandler(dialogParent, Enumerable.Empty<UpdateInfo>(), inquiryHelper);
 
             // Call
-            bool isImportPossible = commandHandler.CanUpdateOn(new object());
+            bool isUpdatePossible = commandHandler.CanUpdateOn(new object());
 
             // Assert
-            Assert.IsFalse(isImportPossible);
+            Assert.IsFalse(isUpdatePossible);
             mocks.VerifyAll();
         }
 
@@ -123,10 +123,10 @@ namespace Core.Common.Gui.Test.Commands
             }, inquiryHelper);
 
             // Call
-            bool isImportPossible = commandHandler.CanUpdateOn(target);
+            bool isUpdatePossible = commandHandler.CanUpdateOn(target);
 
             // Assert
-            Assert.IsTrue(isImportPossible);
+            Assert.IsTrue(isUpdatePossible);
             mocks.VerifyAll();
         }
 
@@ -149,10 +149,10 @@ namespace Core.Common.Gui.Test.Commands
             }, inquiryHelper);
 
             // Call
-            bool isImportPossible = commandHandler.CanUpdateOn(target);
+            bool isUpdatePossible = commandHandler.CanUpdateOn(target);
 
             // Assert
-            Assert.IsFalse(isImportPossible);
+            Assert.IsFalse(isUpdatePossible);
             mocks.VerifyAll();
         }
 
@@ -179,15 +179,15 @@ namespace Core.Common.Gui.Test.Commands
             }, inquiryHelper);
 
             // Call
-            bool isImportPossible = commandHandler.CanUpdateOn(target);
+            bool isUpdatePossible = commandHandler.CanUpdateOn(target);
 
             // Assert
-            Assert.IsTrue(isImportPossible);
+            Assert.IsTrue(isUpdatePossible);
             mocks.VerifyAll();
         }
 
         [Test]
-        public void CanUpdateOn_HasMultipleUpdateInfosForTargetThatCannotBeUsedForImporting_ReturnFalse()
+        public void CanUpdateOn_HasMultipleUpdateInfosForTargetThatCannotBeUsedForUpdating_ReturnFalse()
         {
             // Setup
             var target = new object();
@@ -209,10 +209,10 @@ namespace Core.Common.Gui.Test.Commands
             }, inquiryHelper);
 
             // Call
-            bool isImportPossible = commandHandler.CanUpdateOn(target);
+            bool isUpdatePossible = commandHandler.CanUpdateOn(target);
 
             // Assert
-            Assert.IsFalse(isImportPossible);
+            Assert.IsFalse(isUpdatePossible);
             mocks.VerifyAll();
         }
 
@@ -236,10 +236,10 @@ namespace Core.Common.Gui.Test.Commands
                 messageBox.ClickOk();
             };
 
-            var importHandler = new GuiUpdateHandler(mainWindow, Enumerable.Empty<UpdateInfo>(), inquiryHelper);
+            var updateHandler = new GuiUpdateHandler(mainWindow, Enumerable.Empty<UpdateInfo>(), inquiryHelper);
 
             // Call
-            importHandler.UpdateOn(3);
+            updateHandler.UpdateOn(3);
 
             // Assert
             Assert.AreEqual("Fout", messageBoxTitle);
@@ -267,13 +267,13 @@ namespace Core.Common.Gui.Test.Commands
                 messageBox.ClickOk();
             };
 
-            var importHandler = new GuiUpdateHandler(mainWindow, new UpdateInfo[]
+            var updateHandler = new GuiUpdateHandler(mainWindow, new UpdateInfo[]
             {
                 new UpdateInfo<double>()
             }, inquiryHelper);
 
             // Call
-            importHandler.UpdateOn(string.Empty);
+            updateHandler.UpdateOn(string.Empty);
 
             // Assert
             Assert.AreEqual("Fout", messageBoxTitle);
@@ -282,15 +282,21 @@ namespace Core.Common.Gui.Test.Commands
         }
 
         [Test]
-        public void UpdateOn_SupportedUpdateInfoAvailableVerifyUpdatesSuccesful_CreateFileImporterCalled()
+        public void UpdateOn_SupportedUpdateInfoAvailableVerifyUpdatesSuccesful_ExpectedUpdateInfoFunctionsCalledActivityCreated()
         {
             // Setup
+            const string filePath = "/some/path";
             var filter = new FileFilterGenerator();
+            var targetObject = new object();
+
             var mockRepository = new MockRepository();
             var inquiryHelper = mockRepository.Stub<IInquiryHelper>();
-            inquiryHelper.Expect(ih => ih.GetSourceFileLocation(filter)).Return("/some/path");
-            IFileImporter fileImporterStub = CreateStubFileImporter(mockRepository);
+            inquiryHelper.Expect(ih => ih.GetSourceFileLocation(filter)).Return(filePath);
+            IFileImporter fileImporter = mockRepository.Stub<IFileImporter>();
             mockRepository.ReplayAll();
+
+            var isCreateFileImporterCalled = false;
+            var isVerifyUpdatedCalled = false;
 
             DialogBoxHandler = (name, wnd) =>
             {
@@ -299,60 +305,130 @@ namespace Core.Common.Gui.Test.Commands
 
             using (var form = new Form())
             {
-                var importHandler = new GuiUpdateHandler(form, new UpdateInfo[]
+                var updateHandler = new GuiUpdateHandler(form, new UpdateInfo[]
                 {
-                    new UpdateInfo<double>
+                    new UpdateInfo<object>
                     {
-                        CreateFileImporter = (d, s) => fileImporterStub,
+                        CreateFileImporter = (o, s) =>
+                        {
+                            Assert.AreSame(o, targetObject);
+                            Assert.AreEqual(filePath, s);
+                            isCreateFileImporterCalled = true;
+                            return fileImporter;
+                        },
                         FileFilter = filter,
-                        VerifyUpdates = d => true
+                        VerifyUpdates = o =>
+                        {
+                            Assert.AreSame(o, targetObject);
+                            isVerifyUpdatedCalled = true;
+                            return true;
+                        }
                     }
                 }, inquiryHelper);
 
                 // Call
-                importHandler.UpdateOn(3.2);
+                updateHandler.UpdateOn(targetObject);
             }
 
             // Assert
+            Assert.IsTrue(isCreateFileImporterCalled);
+            Assert.IsTrue(isVerifyUpdatedCalled);
             mockRepository.VerifyAll();
         }
 
         [Test]
-        public void UpdateOn_SupportedUpdateInfoAvailableVerifyUpdatesUnsuccesful_FileImporterNotCreated()
+        public void UpdateOn_SupportedUpdateInfoAvailableVerifyUpdatesUnsuccesful_ActivityNotCreated()
         {
             // Setup
             var filter = new FileFilterGenerator();
+            var targetObject = new object();
             var mockRepository = new MockRepository();
             var inquiryHelper = mockRepository.Stub<IInquiryHelper>();
             inquiryHelper.Expect(ih => ih.GetSourceFileLocation(filter)).Return("/some/path");
+            var fileImporter = mockRepository.Stub<IFileImporter>();
             mockRepository.ReplayAll();
+
+            var isVerifyUpdatedCalled = false;
 
             using (var form = new Form())
             {
-                var importHandler = new GuiUpdateHandler(form, new UpdateInfo[]
+                var updateHandler = new GuiUpdateHandler(form, new UpdateInfo[]
                 {
-                    new UpdateInfo<double>
+                    new UpdateInfo<object>
                     {
+                        CreateFileImporter = (o, s) =>
+                        {
+                            Assert.Fail("CreateFileImporter is not expected to be called when VerifyUpdates function returns false.");
+                            return fileImporter;
+                        },
                         FileFilter = filter,
-                        VerifyUpdates = d => false
+                        VerifyUpdates = o =>
+                        {
+                            Assert.AreSame(o, targetObject);
+                            isVerifyUpdatedCalled = true;
+                            return false;
+                        }
                     }
                 }, inquiryHelper);
 
                 // Call
-                importHandler.UpdateOn(3.2);
+                updateHandler.UpdateOn(targetObject);
+            }
+
+            // Assert
+            Assert.IsTrue(isVerifyUpdatedCalled);
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void UpdateOn_MultipleSupportedUpdateInfoAvailable_ShowsDialogWithOptions()
+        {
+            // Setup
+            const string updateInfoAName = "nameA";
+            var updateInfoA = new UpdateInfo<object>
+            {
+                Name = updateInfoAName
+            };
+            const string updateInfoBName = "nameB";
+            var updateInfoB = new UpdateInfo<object>
+            {
+                Name = updateInfoBName
+            };
+
+            var mockRepository = new MockRepository();
+            var inquiryHelper = mockRepository.Stub<IInquiryHelper>();
+            mockRepository.ReplayAll();
+
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var formTester = new FormTester(name);
+                var listView = (ListView)new ControlTester("listViewItemTypes").TheObject;
+                try
+                {
+                    Assert.AreEqual(2, listView.Items.Count);
+                    Assert.AreEqual(updateInfoAName, listView.Items[0].Name);
+                    Assert.AreEqual(updateInfoBName, listView.Items[1].Name);
+                }
+                finally
+                {
+                    formTester.Close();
+                }
+            };
+
+            using (var form = new Form())
+            {
+                var updateHandler = new GuiUpdateHandler(form, new UpdateInfo[]
+                {
+                    updateInfoA,
+                    updateInfoB
+                }, inquiryHelper);
+
+                // Call
+                updateHandler.UpdateOn(new object());
             }
 
             // Assert
             mockRepository.VerifyAll();
-        }
-
-        private static IFileImporter CreateStubFileImporter(MockRepository mockRepository)
-        {
-            var fileImporterStub = mockRepository.Stub<IFileImporter>();
-            fileImporterStub.Expect(fi => fi.Import());
-            fileImporterStub.Expect(fi => fi.DoPostImport());
-            fileImporterStub.Expect(fi => fi.SetProgressChanged(null)).IgnoreArguments();
-            return fileImporterStub;
         }
     }
 }

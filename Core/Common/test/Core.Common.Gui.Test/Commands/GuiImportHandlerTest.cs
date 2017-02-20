@@ -282,15 +282,21 @@ namespace Core.Common.Gui.Test.Commands
         }
 
         [Test]
-        public void ImportOn_SupportedImportInfoAvailableVerifyUpdatesSuccesful_CreateFileImporterCalled()
+        public void ImportOn_SupportedImportInfoAvailableVerifyUpdatesSuccessful_ExpectedImportInfoFunctionsCalledActivityCreated()
         {
             // Setup
+            const string filePath = "/some/path";
             var filter = new FileFilterGenerator();
+            var targetObject = new object();
+
             var mockRepository = new MockRepository();
             var inquiryHelper = mockRepository.Stub<IInquiryHelper>();
-            inquiryHelper.Expect(ih => ih.GetSourceFileLocation(filter)).Return("/some/path");
-            IFileImporter fileImporterStub = CreateStubFileImporter(mockRepository);
+            inquiryHelper.Expect(ih => ih.GetSourceFileLocation(filter)).Return(filePath);
+            var fileImporter = mockRepository.Stub<IFileImporter>();
             mockRepository.ReplayAll();
+
+            var isCreateFileImporterCalled = false;
+            var isVerifyUpdatedCalled = false;
 
             DialogBoxHandler = (name, wnd) =>
             {
@@ -301,58 +307,129 @@ namespace Core.Common.Gui.Test.Commands
             {
                 var importHandler = new GuiImportHandler(form, new ImportInfo[]
                 {
-                    new ImportInfo<double>
+                    new ImportInfo<object>
                     {
-                        CreateFileImporter = (d, s) => fileImporterStub,
+                        CreateFileImporter = (o, s) =>
+                        {
+                            Assert.AreSame(o, targetObject);
+                            Assert.AreEqual(filePath, s);
+                            isCreateFileImporterCalled = true;
+                            return fileImporter;
+                        },
                         FileFilter = filter,
-                        VerifyUpdates = d => true
+                        VerifyUpdates = o =>
+                        {
+                            Assert.AreSame(o, targetObject);
+                            isVerifyUpdatedCalled = true;
+                            return true;
+                        }
                     }
                 }, inquiryHelper);
 
                 // Call
-                importHandler.ImportOn(3.2);
+                importHandler.ImportOn(targetObject);
             }
 
             // Assert
+            Assert.IsTrue(isCreateFileImporterCalled);
+            Assert.IsTrue(isVerifyUpdatedCalled);
             mockRepository.VerifyAll();
         }
 
         [Test]
-        public void ImportOn_SupportedImportInfoAvailableVerifyUpdatesUnsuccesful_FileImporterNotCreated()
+        public void ImportOn_MultipleSupportedImportInfoAvailableVerifyUpdatesUnsuccesful_ActivityNotCreated()
         {
             // Setup
             var filter = new FileFilterGenerator();
+            var targetObject = new object();
+
             var mockRepository = new MockRepository();
             var inquiryHelper = mockRepository.Stub<IInquiryHelper>();
-            inquiryHelper.Expect(ih => ih.GetSourceFileLocation(filter)).Return("/some/path");
+            inquiryHelper.Stub(ih => ih.GetSourceFileLocation(filter)).Return("/some/path");
+            var fileImporter = mockRepository.Stub<IFileImporter>();
             mockRepository.ReplayAll();
+
+            var isVerifyUpdatedCalled = false;
 
             using (var form = new Form())
             {
                 var importHandler = new GuiImportHandler(form, new ImportInfo[]
                 {
-                    new ImportInfo<double>
+                    new ImportInfo<object>
                     {
+                        CreateFileImporter = (o, s) =>
+                        {
+                            Assert.Fail("CreateFileImporter is not expected to be called when VerifyUpdates function returns false.");
+                            return fileImporter;
+                        },
                         FileFilter = filter,
-                        VerifyUpdates = d => false
+                        VerifyUpdates = o =>
+                        {
+                            Assert.AreSame(o, targetObject);
+                            isVerifyUpdatedCalled = true;
+                            return false;
+                        }
                     }
                 }, inquiryHelper);
 
                 // Call
-                importHandler.ImportOn(3.2);
+                importHandler.ImportOn(targetObject);
+            }
+
+            // Assert
+            Assert.IsTrue(isVerifyUpdatedCalled);
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void ImportOn_MultipleSupportedImportInfoAvailable_ShowsDialogWithOptions()
+        {
+            // Setup
+            const string importInfoAName = "nameA";
+            var importInfoA = new ImportInfo<object>
+            {
+                Name = importInfoAName
+            };
+            const string importInfoBName = "nameB";
+            var importInfoB = new ImportInfo<object>
+            {
+                Name = importInfoBName
+            };
+
+            var mockRepository = new MockRepository();
+            var inquiryHelper = mockRepository.Stub<IInquiryHelper>();
+            mockRepository.ReplayAll();
+
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var formTester = new FormTester(name);
+                var listView = (ListView) new ControlTester("listViewItemTypes").TheObject;
+                try
+                {
+                    Assert.AreEqual(2, listView.Items.Count);
+                    Assert.AreEqual(importInfoAName, listView.Items[0].Name);
+                    Assert.AreEqual(importInfoBName, listView.Items[1].Name);
+                }
+                finally
+                {
+                    formTester.Close();
+                }
+            };
+
+            using (var form = new Form())
+            {
+                var importHandler = new GuiImportHandler(form, new ImportInfo[]
+                {
+                    importInfoA,
+                    importInfoB
+                }, inquiryHelper);
+
+                // Call
+                importHandler.ImportOn(new object());
             }
 
             // Assert
             mockRepository.VerifyAll();
-        }
-
-        private static IFileImporter CreateStubFileImporter(MockRepository mockRepository)
-        {
-            var fileImporterStub = mockRepository.Stub<IFileImporter>();
-            fileImporterStub.Expect(fi => fi.Import());
-            fileImporterStub.Expect(fi => fi.DoPostImport());
-            fileImporterStub.Expect(fi => fi.SetProgressChanged(null)).IgnoreArguments();
-            return fileImporterStub;
         }
     }
 }
