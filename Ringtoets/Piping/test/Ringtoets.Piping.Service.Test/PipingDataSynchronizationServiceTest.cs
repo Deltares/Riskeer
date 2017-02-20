@@ -68,9 +68,9 @@ namespace Ringtoets.Piping.Service.Test
             Assert.IsNull(calculation.SemiProbabilisticOutput);
 
             CollectionAssert.AreEqual(new[]
-                                      {
-                                          calculation
-                                      }, changedObjects);
+            {
+                calculation
+            }, changedObjects);
         }
 
         [Test]
@@ -404,6 +404,63 @@ namespace Ringtoets.Piping.Service.Test
 
             CollectionAssert.Contains(array, failureMechanism.StochasticSoilModels);
             foreach (PipingCalculation calculation in calculationsWithSoilModel)
+            {
+                CollectionAssert.Contains(array, calculation.InputParameters);
+            }
+            foreach (PipingCalculation calculation in calculationsWithOutput)
+            {
+                Assert.IsFalse(calculation.HasOutput);
+                CollectionAssert.Contains(array, calculation);
+            }
+        }
+
+        [Test]
+        public void RemoveAllStochasticSoilModel_FailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            PipingFailureMechanism failureMechanism = null;
+
+            // Call
+            TestDelegate call = () => PipingDataSynchronizationService.RemoveAllStochasticSoilModels(failureMechanism);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("failureMechanism", paramName);
+        }
+
+        [Test]
+        public void RemoveAllStochastiSoilModel_FullyConfiguredPipingFailureMechanism_RemovesAllSoilModelAndClearDependendentData()
+        {
+            // Setup
+            PipingFailureMechanism failureMechanism = PipingTestDataGenerator.GetPipingFailureMechanismWithAllCalculationConfigurations();
+            PipingCalculation[] calculationsWithStochasticSoilModel = failureMechanism.Calculations
+                                                                                      .Cast<PipingCalculation>()
+                                                                                      .Where(calc => calc.InputParameters.StochasticSoilModel != null)
+                                                                                      .ToArray();
+            PipingCalculation[] calculationsWithOutput = calculationsWithStochasticSoilModel.Where(c => c.HasOutput)
+                                                                                            .ToArray();
+
+            // Precondition
+            CollectionAssert.IsNotEmpty(calculationsWithStochasticSoilModel);
+
+            // Call
+            IEnumerable<IObservable> observables = PipingDataSynchronizationService.RemoveAllStochasticSoilModels(failureMechanism);
+
+            // Assert
+            // Note: To make sure the clear is performed regardless of what is done with
+            // the return result, no ToArray() should be called before these assertions:
+            CollectionAssert.IsEmpty(failureMechanism.StochasticSoilModels);
+            foreach (PipingCalculation calculation in calculationsWithStochasticSoilModel)
+            {
+                Assert.IsNull(calculation.InputParameters.StochasticSoilModel);
+            }
+
+            IObservable[] array = observables.ToArray();
+            var expectedAffectedObjectCount = 1 + calculationsWithOutput.Length + calculationsWithStochasticSoilModel.Length;
+            Assert.AreEqual(expectedAffectedObjectCount, array.Length);
+
+            CollectionAssert.Contains(array, failureMechanism.StochasticSoilModels);
+            foreach (PipingCalculation calculation in calculationsWithStochasticSoilModel)
             {
                 CollectionAssert.Contains(array, calculation.InputParameters);
             }

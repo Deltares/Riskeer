@@ -99,6 +99,7 @@
     <Compile Include="Structures\StructuresCalculation.cs" />
     <Compile Include="Structures\StructuresFailureMechanismSectionResult.cs" />
     <Compile Include="Structures\StructuresInputBase.cs" />
+    <Compile Include="UpdateDataStrategies\ReplaceDataStrategyBase.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">

@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using NUnit.Framework;
+using Ringtoets.Common.Data.UpdateDataStrategies;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.IO.Importers;
@@ -55,6 +56,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             // Assert
             Assert.IsInstanceOf<IStochasticSoilModelUpdateModelStrategy>(strategy);
+            Assert.IsInstanceOf<ReplaceDataStrategyBase<StochasticSoilModel, string, PipingFailureMechanism>>(strategy);
         }
 
         [Test]
@@ -68,7 +70,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("readStochasticSoilModels", paramName);
+            Assert.AreEqual("importedDataCollection", paramName);
         }
 
         [Test]
@@ -108,17 +110,20 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                 new TestStochasticSoilModel("A"),
                 new TestStochasticSoilModel("B")
             };
-            var strategy = new StochasticSoilModelReplaceDataStrategy(new PipingFailureMechanism());
-            var targetCollection = new StochasticSoilModelCollection();
+            var pipingFailureMechanism = new PipingFailureMechanism();
+            pipingFailureMechanism.StochasticSoilModels.AddRange(importedStochasticSoilModels, sourceFilePath);
+            var strategy = new StochasticSoilModelReplaceDataStrategy(pipingFailureMechanism);
 
             // Call
-            IEnumerable<IObservable> affectedObjects = strategy.UpdateModelWithImportedData(targetCollection, importedStochasticSoilModels, "path");
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateModelWithImportedData(pipingFailureMechanism.StochasticSoilModels,
+                                                                                            importedStochasticSoilModels,
+                                                                                            "path");
 
             // Assert
-            CollectionAssert.AreEqual(importedStochasticSoilModels, targetCollection);
+            CollectionAssert.AreEqual(importedStochasticSoilModels, pipingFailureMechanism.StochasticSoilModels);
             CollectionAssert.AreEqual(new[]
             {
-                targetCollection
+                pipingFailureMechanism.StochasticSoilModels
             }, affectedObjects);
         }
 

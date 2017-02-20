@@ -25,6 +25,7 @@ using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
+using Ringtoets.Common.Data.UpdateDataStrategies;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.IO.Importers;
 using Ringtoets.Piping.Plugin.FileImporter;
@@ -56,6 +57,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             // Assert
             Assert.IsInstanceOf<ISurfaceLineUpdateDataStrategy>(strategy);
+            Assert.IsInstanceOf<ReplaceDataStrategyBase<RingtoetsPipingSurfaceLine, string, PipingFailureMechanism>>(strategy);
         }
 
         [Test]
@@ -85,7 +87,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("readRingtoetsPipingSurfaceLines", paramName);
+            Assert.AreEqual("importedDataCollection", paramName);
         }
 
         [Test]

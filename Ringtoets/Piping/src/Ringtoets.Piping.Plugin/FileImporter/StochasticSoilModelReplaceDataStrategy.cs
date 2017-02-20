@@ -21,8 +21,8 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Core.Common.Base;
+using Ringtoets.Common.Data.UpdateDataStrategies;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.IO.Importers;
 using Ringtoets.Piping.Service;
@@ -32,58 +32,37 @@ namespace Ringtoets.Piping.Plugin.FileImporter
     /// <summary>
     /// Strategy for replacing the stochastic soil models with the imported stochastic soil models. 
     /// </summary>
-    public class StochasticSoilModelReplaceDataStrategy : IStochasticSoilModelUpdateModelStrategy
+    public class StochasticSoilModelReplaceDataStrategy : ReplaceDataStrategyBase<StochasticSoilModel, string, PipingFailureMechanism>,
+                                                          IStochasticSoilModelUpdateModelStrategy
     {
-        private readonly PipingFailureMechanism failureMechanism;
-
         /// <summary>
         /// Creates a new instance of <see cref="StochasticSoilModelUpdateDataStrategy"/>.
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism in which the models are updated.</param>
-        public StochasticSoilModelReplaceDataStrategy(PipingFailureMechanism failureMechanism)
-        {
-            if (failureMechanism == null)
-            {
-                throw new ArgumentNullException(nameof(failureMechanism));
-            }
-            this.failureMechanism = failureMechanism;
-        }
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> is <c>null</c>.</exception>
+        public StochasticSoilModelReplaceDataStrategy(PipingFailureMechanism failureMechanism) : base(failureMechanism) {}
 
         public IEnumerable<IObservable> UpdateModelWithImportedData(StochasticSoilModelCollection targetCollection,
                                                                     IEnumerable<StochasticSoilModel> readStochasticSoilModels,
                                                                     string sourceFilePath)
         {
-            if (targetCollection == null)
-            {
-                throw new ArgumentNullException(nameof(targetCollection));
-            }
-            if (readStochasticSoilModels == null)
-            {
-                throw new ArgumentNullException(nameof(readStochasticSoilModels));
-            }
-            if (sourceFilePath == null)
-            {
-                throw new ArgumentNullException(nameof(sourceFilePath));
-            }
-
-            var affectedObjects = new List<IObservable>
-            {
-                targetCollection
-            };
-
-            foreach (StochasticSoilModel model in targetCollection.ToArray())
-            {
-                affectedObjects.AddRange(PipingDataSynchronizationService.RemoveStochasticSoilModel(failureMechanism, model));
-            }
             try
             {
-                targetCollection.AddRange(readStochasticSoilModels.ToList(), sourceFilePath);
+                return ReplaceTargetCollectionWithImportedData(targetCollection, readStochasticSoilModels, sourceFilePath);
+            }
+            catch (ArgumentNullException)
+            {
+                throw;
             }
             catch (ArgumentException e)
             {
                 throw new StochasticSoilModelUpdateException(e.Message, e);
             }
-            return affectedObjects.Distinct();
+        }
+
+        protected override IEnumerable<IObservable> ClearData(PipingFailureMechanism failureMechanism)
+        {
+            return PipingDataSynchronizationService.RemoveAllStochasticSoilModels(failureMechanism);
         }
     }
 }
