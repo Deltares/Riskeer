@@ -59,7 +59,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
                                                                     DesignVariable<LogNormalDistribution> designVariable,
                                                                     PipingCalculationScenario calculation,
                                                                     PipingInput calculationInput,
-                                                                    ICalculationInputPropertyChangeHandler<PipingInput, PipingCalculationScenario> handler)
+                                                                    ICalculationInputPropertyChangeHandler handler)
             : base(propertiesReadOnly, designVariable, calculation, calculationInput, handler) {}
 
         [PropertyOrder(4)]

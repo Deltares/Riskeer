@@ -47,7 +47,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         private readonly bool isStandardDeviationReadOnly;
         private readonly TCalculationInput calculationInput;
         private readonly TCalculation calculation;
-        private readonly ICalculationInputPropertyChangeHandler<TCalculationInput, TCalculation> changeHandler;
+        private readonly ICalculationInputPropertyChangeHandler changeHandler;
 
         /// <summary>
         /// Creates a new instance of <see cref="ConfirmingDistributionPropertiesBase{TDistribution,TCalculationInput,TCalculation}"/>.
@@ -63,7 +63,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
                                                    TDistribution data,
                                                    TCalculation calculation,
                                                    TCalculationInput calculationInput,
-                                                   ICalculationInputPropertyChangeHandler<TCalculationInput, TCalculation> handler)
+                                                   ICalculationInputPropertyChangeHandler handler)
         {
             if (data == null)
             {

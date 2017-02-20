@@ -54,7 +54,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             LogNormalDistribution distribution,
             TCalculation calculation,
             TCalculationInput calculationInput,
-            ICalculationInputPropertyChangeHandler<TCalculationInput, TCalculation> handler)
+            ICalculationInputPropertyChangeHandler handler)
             : base(propertiesReadOnly, distribution, calculation, calculationInput, handler) {}
 
         public override string DistributionType

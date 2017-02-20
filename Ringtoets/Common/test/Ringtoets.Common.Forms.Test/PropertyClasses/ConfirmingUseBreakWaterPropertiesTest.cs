@@ -99,7 +99,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             // Setup
             var mocks = new MockRepository();
             var calculation = mocks.Stub<ICalculation>();
-            var handler = mocks.Stub<ICalculationInputPropertyChangeHandler<TestUseBreakWater, ICalculation>>();
+            var handler = mocks.Stub<ICalculationInputPropertyChangeHandler>();
             mocks.ReplayAll();
 
             TestUseBreakWater testUseBreakWater = new TestUseBreakWater
@@ -148,7 +148,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             // Setup
             var mocks = new MockRepository();
             var calculation = mocks.Stub<ICalculation>();
-            var handler = mocks.Stub<ICalculationInputPropertyChangeHandler<TestUseBreakWater, ICalculation>>();
+            var handler = mocks.Stub<ICalculationInputPropertyChangeHandler>();
             mocks.ReplayAll();
 
             // Call
@@ -167,7 +167,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             TestUseBreakWater testUseBreakWater = new TestUseBreakWater();
 
             var mocks = new MockRepository();
-            var handler = mocks.Stub<ICalculationInputPropertyChangeHandler<TestUseBreakWater, ICalculation>>();
+            var handler = mocks.Stub<ICalculationInputPropertyChangeHandler>();
             mocks.ReplayAll();
 
             // Call
@@ -204,7 +204,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             // Setup
             var mocks = new MockRepository();
             var calculation = mocks.Stub<ICalculation>();
-            var handler = mocks.Stub<ICalculationInputPropertyChangeHandler<TestUseBreakWater, ICalculation>>();
+            var handler = mocks.Stub<ICalculationInputPropertyChangeHandler>();
             mocks.ReplayAll();
 
             var useBreakWaterData = new TestUseBreakWater
@@ -274,7 +274,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             observable.Expect(o => o.NotifyObservers());
             mocks.ReplayAll();
 
-            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<TestUseBreakWater, ICalculation, TPropertyValue>(
+            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<TPropertyValue>(
                 input,
                 calculation,
                 expectedValueSet,

@@ -37,7 +37,7 @@ namespace Ringtoets.Piping.Forms.Views
     /// </summary>
     internal class PipingCalculationRow
     {
-        private readonly ICalculationInputPropertyChangeHandler<PipingInput, PipingCalculationScenario> propertyChangeHandler;
+        private readonly ICalculationInputPropertyChangeHandler propertyChangeHandler;
 
         /// <summary>
         /// Creates a new instance of <see cref="PipingCalculationRow"/>.
@@ -46,7 +46,7 @@ namespace Ringtoets.Piping.Forms.Views
         /// <param name="handler">The handler responsible for handling effects of a property change.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public PipingCalculationRow(PipingCalculationScenario pipingCalculation,
-            ICalculationInputPropertyChangeHandler<PipingInput, PipingCalculationScenario> handler)
+            ICalculationInputPropertyChangeHandler handler)
         {            
             if (pipingCalculation == null)
             {

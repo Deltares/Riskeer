@@ -25,7 +25,6 @@ using System.Collections.Generic;
 using Core.Common.Base;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Forms.ChangeHandlers;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Forms.TestUtil;
@@ -39,20 +38,20 @@ namespace Ringtoets.Common.Forms.Test.ChangeHandlers
         public void Constructor_Expectedvalues()
         {
             // Call
-            var changeHandler = new CalculationInputPropertyChangeHandler<ICalculationInput, ICalculation>();
+            var changeHandler = new CalculationInputPropertyChangeHandler();
 
             // Assert
-            Assert.IsInstanceOf<ICalculationInputPropertyChangeHandler<ICalculationInput, ICalculation>>(changeHandler);
+            Assert.IsInstanceOf<ICalculationInputPropertyChangeHandler>(changeHandler);
         }
 
         [Test]
         public void SetPropertyValueAfterConfirmation_CalculationInputNull_ThrowArgumentNullException()
         {
             // Setup
-            var changeHandler = new CalculationInputPropertyChangeHandler<ICalculationInput, ICalculation>();
+            var changeHandler = new CalculationInputPropertyChangeHandler();
 
             // Call
-            TestDelegate test = () => changeHandler.SetPropertyValueAfterConfirmation(null, new TestCalculation(), 3, (input, value) => { });
+            TestDelegate test = () => changeHandler.SetPropertyValueAfterConfirmation((TestCalculationInput)null, new TestCalculation(), 3, (input, value) => { });
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -63,7 +62,7 @@ namespace Ringtoets.Common.Forms.Test.ChangeHandlers
         public void SetPropertyValueAfterConfirmation_CalculationNull_ThrowArgumentNullException()
         {
             // Setup
-            var changeHandler = new CalculationInputPropertyChangeHandler<ICalculationInput, ICalculation>();
+            var changeHandler = new CalculationInputPropertyChangeHandler();
 
             // Call
             TestDelegate test = () => changeHandler.SetPropertyValueAfterConfirmation(new TestCalculationInput(), null, 3, (input, value) => { });
@@ -77,7 +76,7 @@ namespace Ringtoets.Common.Forms.Test.ChangeHandlers
         public void SetPropertyValueAfterConfirmation_SetValueNull_ThrowArgumentNullException()
         {
             // Setup
-            var changeHandler = new CalculationInputPropertyChangeHandler<ICalculationInput, ICalculation>();
+            var changeHandler = new CalculationInputPropertyChangeHandler();
 
             // Call
             TestDelegate test = () => changeHandler.SetPropertyValueAfterConfirmation(new TestCalculationInput(),
@@ -114,7 +113,7 @@ namespace Ringtoets.Common.Forms.Test.ChangeHandlers
             var calculationInput = new TestCalculationInput();
             var propertySet = 0;
 
-            var changeHandler = new CalculationInputPropertyChangeHandler<ICalculationInput, ICalculation>();
+            var changeHandler = new CalculationInputPropertyChangeHandler();
 
             // Precondition
             Assert.AreEqual(dialogBoxWillBeShown, testCase.Calculation.HasOutput);
@@ -159,7 +158,7 @@ namespace Ringtoets.Common.Forms.Test.ChangeHandlers
 
             var propertySet = 0;
 
-            var changeHandler = new CalculationInputPropertyChangeHandler<ICalculationInput, ICalculation>();
+            var changeHandler = new CalculationInputPropertyChangeHandler();
 
             // Precondition
             Assert.IsTrue(calculation.HasOutput);
@@ -189,7 +188,7 @@ namespace Ringtoets.Common.Forms.Test.ChangeHandlers
 
             TestCalculation calculation = CalculationTestHelper.CreateCalculationWithOutput();
 
-            var changeHandler = new CalculationInputPropertyChangeHandler<ICalculationInput, ICalculation>();
+            var changeHandler = new CalculationInputPropertyChangeHandler();
             var expectedException = new Exception();
 
             // Call
@@ -210,7 +209,7 @@ namespace Ringtoets.Common.Forms.Test.ChangeHandlers
             // Setup
             TestCalculation calculation = CalculationTestHelper.CreateCalculationWithoutOutput();
 
-            var changeHandler = new CalculationInputPropertyChangeHandler<ICalculationInput, ICalculation>();
+            var changeHandler = new CalculationInputPropertyChangeHandler();
             var expectedException = new Exception();
 
             // Call

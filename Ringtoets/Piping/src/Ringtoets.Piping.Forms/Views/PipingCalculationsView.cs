@@ -52,7 +52,7 @@ namespace Ringtoets.Piping.Forms.Views
         private const int stochasticSoilProfileColumnIndex = 2;
         private const int selectableHydraulicBoundaryLocationColumnIndex = 4;
 
-        private readonly ICalculationInputPropertyChangeHandler<PipingInput, PipingCalculationScenario> propertyChangeHandler;
+        private readonly ICalculationInputPropertyChangeHandler propertyChangeHandler;
         private readonly Observer assessmentSectionObserver;
         private readonly RecursiveObserver<CalculationGroup, PipingInput> pipingInputObserver;
         private readonly RecursiveObserver<CalculationGroup, CalculationGroup> pipingCalculationGroupObserver;
@@ -72,7 +72,7 @@ namespace Ringtoets.Piping.Forms.Views
         /// </summary>
         /// <param name="handler">The handler responsible for handling effects of a property change.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="handler"/> is <c>null</c>.</exception>
-        public PipingCalculationsView(ICalculationInputPropertyChangeHandler<PipingInput, PipingCalculationScenario> handler)
+        public PipingCalculationsView(ICalculationInputPropertyChangeHandler handler)
         {
             if (handler == null)
             {

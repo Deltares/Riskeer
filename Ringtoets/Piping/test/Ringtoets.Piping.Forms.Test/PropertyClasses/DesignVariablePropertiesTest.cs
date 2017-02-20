@@ -39,7 +39,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         {
             // Setup
             var mocks = new MockRepository();
-            var handler = mocks.Stub<ICalculationInputPropertyChangeHandler<PipingInput, PipingCalculationScenario>>();
+            var handler = mocks.Stub<ICalculationInputPropertyChangeHandler>();
             mocks.ReplayAll();
 
             PipingCalculationScenario calculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
@@ -62,7 +62,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         {
             // Setup
             var mockRepository = new MockRepository();
-            var handler = mockRepository.Stub<ICalculationInputPropertyChangeHandler<PipingInput, PipingCalculationScenario>>();
+            var handler = mockRepository.Stub<ICalculationInputPropertyChangeHandler>();
             mockRepository.ReplayAll();
 
             var distribution = new LogNormalDistribution();
@@ -89,7 +89,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         {
             // Setup
             var mockRepository = new MockRepository();
-            var handler = mockRepository.Stub<ICalculationInputPropertyChangeHandler<PipingInput, PipingCalculationScenario>>();
+            var handler = mockRepository.Stub<ICalculationInputPropertyChangeHandler>();
             mockRepository.ReplayAll();
 
             var distribution = new LogNormalDistribution(2)
@@ -121,7 +121,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                                                   DesignVariable<LogNormalDistribution> designVariable,
                                                   PipingCalculationScenario calculation,
                                                   PipingInput calculationInput,
-                                                  ICalculationInputPropertyChangeHandler<PipingInput, PipingCalculationScenario> handler)
+                                                  ICalculationInputPropertyChangeHandler handler)
                 : base(propertiesReadOnly, designVariable, calculation, calculationInput, handler) {}
 
             public override string DistributionType { get; }

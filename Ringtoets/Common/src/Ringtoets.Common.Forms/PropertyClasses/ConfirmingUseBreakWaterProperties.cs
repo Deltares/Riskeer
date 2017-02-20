@@ -47,7 +47,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         private const int breakWaterHeightPropertyIndex = 3;
         private readonly TCalculationInput data;
         private readonly TCalculation calculation;
-        private readonly ICalculationInputPropertyChangeHandler<TCalculationInput, TCalculation> changeHandler;
+        private readonly ICalculationInputPropertyChangeHandler changeHandler;
 
         /// <summary>
         /// Creates a new instance of <see cref="ConfirmingUseBreakWaterProperties{TCalculation,TCalculationInput}"/>, in which
@@ -66,7 +66,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         public ConfirmingUseBreakWaterProperties(
             TCalculationInput useBreakWaterData, 
             TCalculation calculation,
-            ICalculationInputPropertyChangeHandler<TCalculationInput, TCalculation> handler)
+            ICalculationInputPropertyChangeHandler handler)
         {
             if (useBreakWaterData == null)
             {

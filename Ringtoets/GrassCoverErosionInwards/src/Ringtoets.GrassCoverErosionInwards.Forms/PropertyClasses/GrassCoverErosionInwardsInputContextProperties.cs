@@ -62,9 +62,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         private const int hydraulicBoundaryLocationPropertyIndex = 9;
         private const int calculateDikeHeightPropertyIndex = 10;
 
-        private readonly ICalculationInputPropertyChangeHandler<GrassCoverErosionInwardsInput, GrassCoverErosionInwardsCalculation> propertyChangeHandler;
+        private readonly ICalculationInputPropertyChangeHandler propertyChangeHandler;
 
-        public GrassCoverErosionInwardsInputContextProperties(GrassCoverErosionInwardsInputContext data, ICalculationInputPropertyChangeHandler<GrassCoverErosionInwardsInput, GrassCoverErosionInwardsCalculation> handler)
+        public GrassCoverErosionInwardsInputContextProperties(GrassCoverErosionInwardsInputContext data, ICalculationInputPropertyChangeHandler handler)
         {
             if (data == null)
             {

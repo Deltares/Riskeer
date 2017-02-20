@@ -41,11 +41,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
     /// Interface for an object that can properly handle data model changes due
     /// to a change of a calculation input property.
     /// </summary>
-    /// <typeparam name="TCalculationInput">The type of the calculation input.</typeparam>
-    /// <typeparam name="TCalculation">The type of the calculation.</typeparam>
-    public interface ICalculationInputPropertyChangeHandler<TCalculationInput, in TCalculation>
-        where TCalculationInput : ICalculationInput
-        where TCalculation : ICalculation
+    public interface ICalculationInputPropertyChangeHandler
     {
         /// <summary>
         /// Find out whether the property can be updated with or without confirmation. If confirmation is required,
@@ -53,6 +49,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         /// was required, the value will be set for the property.
         /// </summary>
         /// <typeparam name="TValue">The type of the value that is set on a property of the calculation input.</typeparam>
+        /// <typeparam name="TCalculationInput">The type of the calculation input.</typeparam>
         /// <param name="calculationInput">The calculation input for which the property is supposed to be set.</param>
         /// <param name="calculation">The calculation which the <paramref name="calculationInput"/> belongs to.</param>
         /// <param name="value">The new value of the calculation input property.</param>
@@ -63,10 +60,11 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         /// or <paramref name="setValue"/> is <c>null</c>.</exception>
         /// <exception cref="Exception">Thrown when calling <paramref name="setValue"/> results in an exception being
         /// thrown.</exception>
-        IEnumerable<IObservable> SetPropertyValueAfterConfirmation<TValue>(
+        IEnumerable<IObservable> SetPropertyValueAfterConfirmation<TCalculationInput, TValue>(
             TCalculationInput calculationInput,
-            TCalculation calculation,
+            ICalculation calculation,
             TValue value,
-            SetCalculationInputPropertyValueDelegate<TCalculationInput, TValue> setValue);
+            SetCalculationInputPropertyValueDelegate<TCalculationInput, TValue> setValue)
+            where TCalculationInput : ICalculationInput;
     }
 }

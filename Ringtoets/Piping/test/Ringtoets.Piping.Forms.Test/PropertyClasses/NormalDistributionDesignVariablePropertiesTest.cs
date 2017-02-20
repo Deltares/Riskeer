@@ -41,7 +41,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         {
             // Setup
             var mocks = new MockRepository();
-            var handler = mocks.Stub<ICalculationInputPropertyChangeHandler<PipingInput, PipingCalculationScenario>>();
+            var handler = mocks.Stub<ICalculationInputPropertyChangeHandler>();
             mocks.ReplayAll();
 
             PipingCalculationScenario calculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
@@ -64,7 +64,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         {
             // Setup
             var mockRepository = new MockRepository();
-            var handler = mockRepository.Stub<ICalculationInputPropertyChangeHandler<PipingInput, PipingCalculationScenario>>();
+            var handler = mockRepository.Stub<ICalculationInputPropertyChangeHandler>();
             mockRepository.ReplayAll();
 
             var distribution = new NormalDistribution();
@@ -93,7 +93,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         {
             // Setup
             var mockRepository = new MockRepository();
-            var handler = mockRepository.Stub<ICalculationInputPropertyChangeHandler<PipingInput, PipingCalculationScenario>>();
+            var handler = mockRepository.Stub<ICalculationInputPropertyChangeHandler>();
             mockRepository.ReplayAll();
 
             var distribution = new NormalDistribution();
@@ -145,7 +145,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         {
             // Setup
             var mockRepository = new MockRepository();
-            var handler = mockRepository.Stub<ICalculationInputPropertyChangeHandler<PipingInput, PipingCalculationScenario>>();
+            var handler = mockRepository.Stub<ICalculationInputPropertyChangeHandler>();
             mockRepository.ReplayAll();
 
             var distribution = new NormalDistribution(2)

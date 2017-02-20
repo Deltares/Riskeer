@@ -30,25 +30,21 @@ namespace Ringtoets.Common.Forms.TestUtil
 {
     /// <summary>
     /// This class can be used in tests to verify that the correct arguments 
-    /// are passed to the <see cref="ICalculationInputPropertyChangeHandler{TCalculationInput,TCalculation}.SetPropertyValueAfterConfirmation{TValue}"/> method.
+    /// are passed to the <see cref="ICalculationInputPropertyChangeHandler.SetPropertyValueAfterConfirmation{TCalculationInput, TValue}"/> method.
     /// </summary>
-    /// <typeparam name="TCalculationInput">The type of the calculation input that is expected to be passed to the method.</typeparam>
-    /// <typeparam name="TCalculation">The type of  the calculation that is expected to be passed to the method.</typeparam>
     /// <typeparam name="TExpectedValue">The type of the value that is expected to be passed to the method.</typeparam>    
-    public class CalculationInputSetPropertyValueAfterConfirmationParameterTester<TCalculationInput, TCalculation, TExpectedValue>
-        : ICalculationInputPropertyChangeHandler<TCalculationInput, TCalculation>
-        where TCalculationInput : ICalculationInput
-        where TCalculation : ICalculation
+    public class CalculationInputSetPropertyValueAfterConfirmationParameterTester<TExpectedValue>
+        : ICalculationInputPropertyChangeHandler
     {
         /// <summary>
-        /// Creates a new instance of <see cref="CalculationInputSetPropertyValueAfterConfirmationParameterTester{TCalculationInput,TCalculation,TExpectedValue}"/>.
+        /// Creates a new instance of <see cref="CalculationInputSetPropertyValueAfterConfirmationParameterTester{TExpectedValue}"/>.
         /// </summary>
-        /// <param name="expectedCalculationInput">The calculation input that is expected to be passed to the <see cref="SetPropertyValueAfterConfirmation{TValue}"/>.</param>
-        /// <param name="expectedCalculation">The calculation that is expected to be passed to the <see cref="SetPropertyValueAfterConfirmation{TValue}"/>. </param>
-        /// <param name="expectedValue">The value that is expected to be passed to the <see cref="SetPropertyValueAfterConfirmation{TValue}"/>.</param>
-        /// <param name="returnedAffectedObjects">The affected object that are returned by <see cref="SetPropertyValueAfterConfirmation{TValue}"/>.</param>
-        public CalculationInputSetPropertyValueAfterConfirmationParameterTester(TCalculationInput expectedCalculationInput,
-                                                                                TCalculation expectedCalculation,
+        /// <param name="expectedCalculationInput">The calculation input that is expected to be passed to the <see cref="SetPropertyValueAfterConfirmation{TCalculationInput, TValue}"/>.</param>
+        /// <param name="expectedCalculation">The calculation that is expected to be passed to the <see cref="SetPropertyValueAfterConfirmation{TCalculationInput, TValue}"/>. </param>
+        /// <param name="expectedValue">The value that is expected to be passed to the <see cref="SetPropertyValueAfterConfirmation{TCalculationInput, TValue}"/>.</param>
+        /// <param name="returnedAffectedObjects">The affected object that are returned by <see cref="SetPropertyValueAfterConfirmation{TCalculationInput, TValue}"/>.</param>
+        public CalculationInputSetPropertyValueAfterConfirmationParameterTester(ICalculationInput expectedCalculationInput,
+                                                                                ICalculation expectedCalculation,
                                                                                 TExpectedValue expectedValue,
                                                                                 IEnumerable<IObservable> returnedAffectedObjects)
         {
@@ -59,35 +55,36 @@ namespace Ringtoets.Common.Forms.TestUtil
         }
 
         /// <summary>
-        /// Gets a value representing whether <see cref="SetPropertyValueAfterConfirmation{TValue}"/> was called.
+        /// Gets a value representing whether <see cref="SetPropertyValueAfterConfirmation{TCalculationInput, TValue}"/> was called.
         /// </summary>
         public bool Called { get; private set; }
 
         /// <summary>
-        /// Gets the calculation input that is expected to be passed to the <see cref="SetPropertyValueAfterConfirmation{TValue}"/>.
+        /// Gets the calculation input that is expected to be passed to the <see cref="SetPropertyValueAfterConfirmation{TCalculationInput, TValue}"/>.
         /// </summary>
-        public TCalculationInput ExpectedCalculationInput { get; }
+        public ICalculationInput ExpectedCalculationInput { get; }
 
         /// <summary>
-        /// Gets the calculation that is expected to be passed to the <see cref="SetPropertyValueAfterConfirmation{TValue}"/>.
+        /// Gets the calculation that is expected to be passed to the <see cref="SetPropertyValueAfterConfirmation{TCalculationInput, TValue}"/>.
         /// </summary>
-        public TCalculation ExpectedCalculation { get; }
+        public ICalculation ExpectedCalculation { get; }
 
         /// <summary>
-        /// Gets the value that is expected to be passed to the <see cref="SetPropertyValueAfterConfirmation{TValue}"/>.
+        /// Gets the value that is expected to be passed to the <see cref="SetPropertyValueAfterConfirmation{TCalculationInput, TValue}"/>.
         /// </summary>
         public TExpectedValue ExpectedValue { get; }
 
         /// <summary>
-        /// Gets the affected object that are returned by <see cref="SetPropertyValueAfterConfirmation{TValue}"/>.
+        /// Gets the affected object that are returned by <see cref="SetPropertyValueAfterConfirmation{TCalculationInput, TValue}"/>.
         /// </summary>
         public IEnumerable<IObservable> ReturnedAffectedObjects { get; }
 
-        public IEnumerable<IObservable> SetPropertyValueAfterConfirmation<TValue>(
+        public IEnumerable<IObservable> SetPropertyValueAfterConfirmation<TCalculationInput, TValue>(
             TCalculationInput calculationInput,
-            TCalculation calculation,
+            ICalculation calculation,
             TValue value,
             SetCalculationInputPropertyValueDelegate<TCalculationInput, TValue> setValue)
+            where TCalculationInput : ICalculationInput
         {
             Called = true;
             Assert.AreSame(ExpectedCalculationInput, calculationInput);

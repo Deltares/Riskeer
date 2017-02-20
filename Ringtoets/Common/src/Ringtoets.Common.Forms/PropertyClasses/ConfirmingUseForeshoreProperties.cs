@@ -44,7 +44,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         private const int useForeshorePropertyIndex = 1;
         private const int coordinatesPropertyIndex = 2;
         private readonly TCalculationInput data;
-        private readonly ICalculationInputPropertyChangeHandler<TCalculationInput, TCalculation> changeHandler;
+        private readonly ICalculationInputPropertyChangeHandler changeHandler;
         private readonly TCalculation calculation;
 
         /// <summary>
@@ -63,7 +63,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         public ConfirmingUseForeshoreProperties(
             TCalculationInput useForeshoreData,
             TCalculation calculation,
-            ICalculationInputPropertyChangeHandler<TCalculationInput, TCalculation> handler)
+            ICalculationInputPropertyChangeHandler handler)
         {
             if (useForeshoreData == null)
             {

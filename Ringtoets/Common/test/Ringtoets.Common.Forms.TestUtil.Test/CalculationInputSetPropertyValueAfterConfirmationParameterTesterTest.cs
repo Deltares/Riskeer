@@ -23,7 +23,6 @@ using System;
 using System.Linq;
 using Core.Common.Base;
 using NUnit.Framework;
-using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Forms.PropertyClasses;
 
 namespace Ringtoets.Common.Forms.TestUtil.Test
@@ -41,11 +40,11 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
             var returnedAffectedObjects = Enumerable.Empty<IObservable>();
 
             // Call
-            var tester = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<ICalculationInput, ICalculation, double>(
+            var tester = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<double>(
                 testCalculationInput, testCalculation, value, returnedAffectedObjects);
 
             // Assert
-            Assert.IsInstanceOf<ICalculationInputPropertyChangeHandler<ICalculationInput, ICalculation>>(tester);
+            Assert.IsInstanceOf<ICalculationInputPropertyChangeHandler>(tester);
             Assert.AreSame(testCalculationInput, tester.ExpectedCalculationInput);
             Assert.AreSame(testCalculation, tester.ExpectedCalculation);
             Assert.AreEqual(value, tester.ExpectedValue);
@@ -63,7 +62,7 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
             var testCalculation = new TestCalculation();
             var returnedAffectedObjects = Enumerable.Empty<IObservable>();
 
-            var tester = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<ICalculationInput, ICalculation, double>(
+            var tester = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<double>(
                 testCalculationInput, testCalculation, value, returnedAffectedObjects);
 
             // Call
@@ -84,7 +83,7 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
             var passedCalculation = new TestCalculation();
             var returnedAffectedObjects = Enumerable.Empty<IObservable>();
 
-            var tester = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<ICalculationInput, ICalculation, double>(
+            var tester = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<double>(
                 testCalculationInput, testCalculation, value, returnedAffectedObjects);
 
             // Call
@@ -105,7 +104,7 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
             var testCalculation = new TestCalculation();
             var returnedAffectedObjects = Enumerable.Empty<IObservable>();
 
-            var tester = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<ICalculationInput, ICalculation, double>(
+            var tester = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<double>(
                 testCalculationInput, testCalculation, expectedValue, returnedAffectedObjects);
 
             // Call
@@ -127,7 +126,7 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
             var testCalculation = new TestCalculation();
             var called = 0;
 
-            var tester = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<ICalculationInput, ICalculation, double>(
+            var tester = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<double>(
                 testCalculationInput, testCalculation, value, returnedAffectedObjects);
 
             // Call
@@ -149,7 +148,7 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
             var testCalculationInput = new TestCalculationInput();
             var testCalculation = new TestCalculation();
 
-             var tester = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<ICalculationInput, ICalculation, double>(
+             var tester = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<double>(
                 testCalculationInput, testCalculation, value, returnedAffectedObjects);
 
             var expectedException = new Exception();

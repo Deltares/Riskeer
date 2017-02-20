@@ -74,7 +74,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         {
             // Setup
             var mocks = new MockRepository();
-            var handler = mocks.Stub<ICalculationInputPropertyChangeHandler<PipingInput, PipingCalculationScenario>>();
+            var handler = mocks.Stub<ICalculationInputPropertyChangeHandler>();
             mocks.ReplayAll();
 
             // Call
@@ -120,7 +120,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         {
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var handler = mocks.Stub<ICalculationInputPropertyChangeHandler<PipingInput, PipingCalculationScenario>>();
+            var handler = mocks.Stub<ICalculationInputPropertyChangeHandler>();
             mocks.ReplayAll();
 
             PipingCalculationScenario calculationItem = new PipingCalculationScenario(new GeneralPipingInput());
@@ -166,7 +166,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                                                  failureMechanism,
                                                  assessmentSection);
 
-            var handler = new CalculationInputPropertyChangeHandler<PipingInput, PipingCalculationScenario>();
+            var handler = new CalculationInputPropertyChangeHandler();
 
             PipingInputContextProperties properties = new PipingInputContextProperties(context, handler)
             {
@@ -338,7 +338,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                                                  failureMechanism,
                                                  assessmentSection);
 
-            var handler = new CalculationInputPropertyChangeHandler<PipingInput, PipingCalculationScenario>();
+            var handler = new CalculationInputPropertyChangeHandler();
 
             // Call
             PipingInputContextProperties properties = new PipingInputContextProperties(context, handler)
@@ -387,7 +387,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var handler = mocks.Stub<ICalculationInputPropertyChangeHandler<PipingInput, PipingCalculationScenario>>();
+            var handler = mocks.Stub<ICalculationInputPropertyChangeHandler>();
             mocks.ReplayAll();
 
             var random = new Random(22);
@@ -492,7 +492,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                                                  failureMechanism,
                                                  assessmentSection);
 
-            var handler = new CalculationInputPropertyChangeHandler<PipingInput, PipingCalculationScenario>();
+            var handler = new CalculationInputPropertyChangeHandler();
             PipingInputContextProperties properties = new PipingInputContextProperties(context, handler);
 
             const double assessmentLevel = 0.36;
@@ -700,7 +700,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                                                  failureMechanism,
                                                  assessmentSection);
 
-            var handler = new CalculationInputPropertyChangeHandler<PipingInput, PipingCalculationScenario>();
+            var handler = new CalculationInputPropertyChangeHandler();
 
             // Call
             PipingInputContextProperties properties = new PipingInputContextProperties(context, handler)
@@ -745,7 +745,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                                                  failureMechanism,
                                                  assessmentSection);
 
-            var handler = new CalculationInputPropertyChangeHandler<PipingInput, PipingCalculationScenario>();
+            var handler = new CalculationInputPropertyChangeHandler();
 
             // Call
             PipingInputContextProperties properties = new PipingInputContextProperties(context, handler)
@@ -791,7 +791,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                                                  assessmentSection);
 
             RoundedDouble newExitPointL = (RoundedDouble) newExitPoint;
-            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<PipingInput, PipingCalculationScenario, RoundedDouble>(
+            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<RoundedDouble>(
                 inputParameters,
                 calculationItem,
                 newExitPointL,
@@ -841,7 +841,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                                                  failureMechanism,
                                                  assessmentSection);
 
-            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<PipingInput, PipingCalculationScenario, RoundedDouble>(
+            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<RoundedDouble>(
                 inputParameters,
                 calculationItem,
                 entryPoint,
@@ -891,7 +891,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             RoundedDouble entryPointL = (RoundedDouble) (-15.0);
 
-            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<PipingInput, PipingCalculationScenario, RoundedDouble>(
+            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<RoundedDouble>(
                 inputParameters,
                 calculationItem,
                 entryPointL,
@@ -940,7 +940,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             RoundedDouble exitPointL = (RoundedDouble) 10.0;
 
-            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<PipingInput, PipingCalculationScenario, RoundedDouble>(
+            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<RoundedDouble>(
                 inputParameters,
                 calculationItem,
                 exitPointL,
@@ -983,7 +983,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                                                  failureMechanism,
                                                  assessmentSection);
 
-            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<PipingInput, PipingCalculationScenario, HydraulicBoundaryLocation>(
+            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<HydraulicBoundaryLocation>(
                 calculationItem.InputParameters,
                 calculationItem,
                 hydraulicBoundaryLocation,
@@ -1027,7 +1027,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                                                  failureMechanism,
                                                  assessmentSection);
 
-            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<PipingInput, PipingCalculationScenario, HydraulicBoundaryLocation>(
+            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<HydraulicBoundaryLocation>(
                 calculationItem.InputParameters,
                 calculationItem,
                 hydraulicBoundaryLocation,
@@ -1071,7 +1071,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                                                  failureMechanism,
                                                  assessmentSection);
 
-            var handler = new CalculationInputPropertyChangeHandler<PipingInput, PipingCalculationScenario>();
+            var handler = new CalculationInputPropertyChangeHandler();
 
             PipingInputContextProperties properties = new PipingInputContextProperties(context, handler)
             {
@@ -1121,7 +1121,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                                                  failureMechanism,
                                                  assessmentSection);
 
-            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<PipingInput, PipingCalculationScenario, double>(
+            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<double>(
                 inputParameters,
                 calculationItem,
                 testLevel,
@@ -1168,7 +1168,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                                                  failureMechanism,
                                                  assessmentSection);
 
-            var handler = new CalculationInputPropertyChangeHandler<PipingInput, PipingCalculationScenario>();
+            var handler = new CalculationInputPropertyChangeHandler();
 
             PipingInputContextProperties properties = new PipingInputContextProperties(context, handler);
 
@@ -1217,7 +1217,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             RingtoetsPipingSurfaceLine newSurfaceLine = ValidSurfaceLine(0, 2);
 
-            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<PipingInput, PipingCalculationScenario, RingtoetsPipingSurfaceLine>(
+            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<RingtoetsPipingSurfaceLine>(
                 inputParameters,
                 calculationItem,
                 newSurfaceLine,
@@ -1245,7 +1245,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var handler = mocks.Stub<ICalculationInputPropertyChangeHandler<PipingInput, PipingCalculationScenario>>();
+            var handler = mocks.Stub<ICalculationInputPropertyChangeHandler>();
             mocks.ReplayAll();
 
             RingtoetsPipingSurfaceLine testSurfaceLine = ValidSurfaceLine(0, 2);
@@ -1325,7 +1325,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             RingtoetsPipingSurfaceLine newSurfaceLine = ValidSurfaceLine(0, 2);
 
-            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<PipingInput, PipingCalculationScenario, RingtoetsPipingSurfaceLine>(
+            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<RingtoetsPipingSurfaceLine>(
                 inputParameters,
                 calculationItem,
                 newSurfaceLine,
@@ -1383,7 +1383,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                                                  failureMechanism,
                                                  assessmentSection);
 
-            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<PipingInput, PipingCalculationScenario, StochasticSoilModel>(
+            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<StochasticSoilModel>(
                 inputParameters,
                 calculationItem,
                 stochasticSoilModel2,
@@ -1422,7 +1422,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                                                  failureMechanism,
                                                  assessmentSection);
 
-            var handler = new CalculationInputPropertyChangeHandler<PipingInput, PipingCalculationScenario>();
+            var handler = new CalculationInputPropertyChangeHandler();
 
             PipingInputContextProperties contextProperties = new PipingInputContextProperties(context, handler);
             inputParameters.HydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(1.0);
@@ -1451,7 +1451,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var handler = mocks.Stub<ICalculationInputPropertyChangeHandler<PipingInput, PipingCalculationScenario>>();
+            var handler = mocks.Stub<ICalculationInputPropertyChangeHandler>();
             mocks.ReplayAll();
 
             var failureMechanism = new PipingFailureMechanism();
@@ -1475,7 +1475,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var handler = mocks.Stub<ICalculationInputPropertyChangeHandler<PipingInput, PipingCalculationScenario>>();
+            var handler = mocks.Stub<ICalculationInputPropertyChangeHandler>();
             mocks.ReplayAll();
 
             var failureMechanism = new PipingFailureMechanism();
@@ -1502,7 +1502,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var handler = mocks.Stub<ICalculationInputPropertyChangeHandler<PipingInput, PipingCalculationScenario>>();
+            var handler = mocks.Stub<ICalculationInputPropertyChangeHandler>();
             mocks.ReplayAll();
 
             var surfaceLine = new RingtoetsPipingSurfaceLine();
@@ -1585,7 +1585,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var handler = mocks.Stub<ICalculationInputPropertyChangeHandler<PipingInput, PipingCalculationScenario>>();
+            var handler = mocks.Stub<ICalculationInputPropertyChangeHandler>();
             mocks.ReplayAll();
 
             var failureMechanism = new PipingFailureMechanism();
@@ -1612,7 +1612,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var handler = mocks.Stub<ICalculationInputPropertyChangeHandler<PipingInput, PipingCalculationScenario>>();
+            var handler = mocks.Stub<ICalculationInputPropertyChangeHandler>();
             mocks.ReplayAll();
 
             var failureMechanism = new PipingFailureMechanism();
@@ -1652,7 +1652,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var handler = mocks.Stub<ICalculationInputPropertyChangeHandler<PipingInput, PipingCalculationScenario>>();
+            var handler = mocks.Stub<ICalculationInputPropertyChangeHandler>();
             mocks.ReplayAll();
 
             var failureMechanism = new PipingFailureMechanism();
@@ -1687,7 +1687,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                     hydraulicBoundaryLocation
                 }
             };
-            var handler = mockRepository.Stub<ICalculationInputPropertyChangeHandler<PipingInput, PipingCalculationScenario>>();
+            var handler = mockRepository.Stub<ICalculationInputPropertyChangeHandler>();
             mockRepository.ReplayAll();
 
             var failureMechanism = new PipingFailureMechanism();
@@ -1741,7 +1741,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
-            var handler = mocks.Stub<ICalculationInputPropertyChangeHandler<PipingInput, PipingCalculationScenario>>();
+            var handler = mocks.Stub<ICalculationInputPropertyChangeHandler>();
             mocks.ReplayAll();
 
             var failureMechanism = new PipingFailureMechanism();
@@ -1783,7 +1783,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
-            var handler = mocks.Stub<ICalculationInputPropertyChangeHandler<PipingInput, PipingCalculationScenario>>();
+            var handler = mocks.Stub<ICalculationInputPropertyChangeHandler>();
             mocks.ReplayAll();
 
             var failureMechanism = new PipingFailureMechanism();
@@ -1859,7 +1859,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var newSurfaceLine = ValidSurfaceLine(0.0, 5.0);
             newSurfaceLine.ReferenceLineIntersectionWorldPoint = new Point2D(0, 190);
 
-            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<PipingInput, PipingCalculationScenario, RingtoetsPipingSurfaceLine>(
+            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<RingtoetsPipingSurfaceLine>(
                 calculation.InputParameters,
                 calculation,
                 newSurfaceLine,
@@ -1900,7 +1900,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var handler = mocks.Stub<ICalculationInputPropertyChangeHandler<PipingInput, PipingCalculationScenario>>();
+            var handler = mocks.Stub<ICalculationInputPropertyChangeHandler>();
             mocks.ReplayAll();
 
             var failureMechanism = new PipingFailureMechanism();
@@ -1933,7 +1933,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var handler = mocks.Stub<ICalculationInputPropertyChangeHandler<PipingInput, PipingCalculationScenario>>();
+            var handler = mocks.Stub<ICalculationInputPropertyChangeHandler>();
             mocks.ReplayAll();
 
             var failureMechanism = new PipingFailureMechanism();
@@ -1963,7 +1963,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var handler = mocks.Stub<ICalculationInputPropertyChangeHandler<PipingInput, PipingCalculationScenario>>();
+            var handler = mocks.Stub<ICalculationInputPropertyChangeHandler>();
             mocks.ReplayAll();
 
             var failureMechanism = new PipingFailureMechanism();
@@ -1996,7 +1996,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var handler = mocks.Stub<ICalculationInputPropertyChangeHandler<PipingInput, PipingCalculationScenario>>();
+            var handler = mocks.Stub<ICalculationInputPropertyChangeHandler>();
             mocks.ReplayAll();
 
             var failureMechanism = new PipingFailureMechanism();
@@ -2040,7 +2040,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                                                  failureMechanism,
                                                  assessmentSection);
 
-            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<PipingInput, PipingCalculationScenario, TPropertyValue>(
+            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<TPropertyValue>(
                 inputParameters,
                 calculation,
                 expectedValueSet,

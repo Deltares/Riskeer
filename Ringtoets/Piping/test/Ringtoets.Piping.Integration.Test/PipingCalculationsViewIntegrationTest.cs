@@ -51,7 +51,7 @@ namespace Ringtoets.Piping.Integration.Test
             // Setup
             using (var form = new Form())
             {
-                var handler = new CalculationInputPropertyChangeHandler<PipingInput, PipingCalculationScenario>();
+                var handler = new CalculationInputPropertyChangeHandler();
 
                 // Show the view
                 var pipingCalculationsView = new PipingCalculationsView(handler);
