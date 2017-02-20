@@ -183,13 +183,28 @@ namespace Ringtoets.Piping.IO.Importers
                 pipingCalculation.InputParameters.ExitPointL = (RoundedDouble) readCalculation.ExitPointL.Value;
             }
 
+            if (readCalculation.StochasticSoilModel != null)
+            {
+                StochasticSoilModel soilModel = failureMechanism.StochasticSoilModels.FirstOrDefault(ssm => ssm.Name == readCalculation.StochasticSoilModel);
+
+                if (soilModel != null)
+                {
+                    pipingCalculation.InputParameters.StochasticSoilModel = soilModel;
+                }
+                else
+                {
+                    log.Warn("Ondergrondmodel bestaat niet. Berekening overgeslagen.");
+                    return;
+                }
+            }
+
             validCalculationItems.Add(pipingCalculation);
 
             // Validate when set:
             // - HR location X
             // - Surface line X
             // - Entry/Exit point X
-            // - Stochastic soil model
+            // - Stochastic soil model X
             // - Stochastic soil profile
             // Validate the stochastic soil model crosses the surface line when set
             // Validate the stochastic soil profile is part of the soil model
