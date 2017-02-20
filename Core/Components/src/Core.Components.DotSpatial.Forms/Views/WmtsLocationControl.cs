@@ -21,8 +21,11 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Gui.Settings;
+using Core.Common.IO.Exceptions;
 using Core.Components.DotSpatial.Forms.IO;
 using Core.Components.DotSpatial.Forms.Properties;
 using Core.Components.DotSpatial.Layer.BruTile.Configurations;
@@ -47,6 +50,7 @@ namespace Core.Components.DotSpatial.Forms.Views
         public WmtsLocationControl()
         {
             wmtsConnectionInfos = new List<WmtsConnectionInfo>();
+            wmtsConnectionInfos.AddRange(GetSavedWmtsConnectionInfos());
             capabilities = new List<WmtsCapabilityRow>();
 
             InitializeComponent();
@@ -100,6 +104,23 @@ namespace Core.Components.DotSpatial.Forms.Views
                 components?.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        private static IEnumerable<WmtsConnectionInfo> GetSavedWmtsConnectionInfos()
+        {
+            string applicationVersion = SettingsHelper.Instance.ApplicationVersion;
+            const string wmtsConnectionInfoFileName = "wmtsConnectionInfo.config";
+
+            string folderPath = SettingsHelper.Instance.GetApplicationLocalUserSettingsDirectory(applicationVersion);
+            string filePath = Path.Combine(folderPath, wmtsConnectionInfoFileName);
+
+            try
+            {
+                var reader = new WmtsConnectionInfoReader();
+                return reader.ReadWmtsConnectionInfos(filePath);
+            }
+            catch (CriticalFileReadException exception) {}
+            return Enumerable.Empty<WmtsConnectionInfo>();
         }
 
         private WmtsConnectionInfo TryCreateWmtsConnectionInfo(string wmtsConnectionName, string wmtsConnectionUrl)

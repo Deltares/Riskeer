@@ -40,7 +40,7 @@ namespace Core.Common.Gui.Settings
         /// <summary>
         /// Creates a new instance of <see cref="SettingsHelper"/>.
         /// </summary>
-        private SettingsHelper()
+        protected SettingsHelper()
         {
             // set defaults based on executing assembly
             AssemblyUtils.AssemblyInfo info = AssemblyUtils.GetExecutingAssemblyInfo();
@@ -79,7 +79,7 @@ namespace Core.Common.Gui.Settings
         /// <param name="subPath">The postfix path to use after the local application data folder (if any).</param>
         /// <returns>Directory path where the user settings can be found.</returns>
         /// <exception cref="IOException">Thrown when the application local user settings directory could not be created.</exception>
-        public string GetApplicationLocalUserSettingsDirectory(params string[] subPath)
+        public virtual string GetApplicationLocalUserSettingsDirectory(params string[] subPath)
         {
             var directorypath = new List<string>
             {

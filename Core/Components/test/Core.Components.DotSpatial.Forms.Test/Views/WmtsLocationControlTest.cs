@@ -22,9 +22,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Windows.Forms;
 using BruTile;
 using Core.Common.Controls.DataGrid;
+using Core.Common.Gui.Settings;
+using Core.Common.Gui.TestUtil.Settings;
 using Core.Common.TestUtil;
 using Core.Components.DotSpatial.Forms.Views;
 using Core.Components.DotSpatial.Layer.BruTile.Configurations;
@@ -43,6 +46,8 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
         private const int mapLayerFormatColumnIndex = 1;
         private const int mapLayerTitleColumnIndex = 2;
         private const int mapLayerCoordinateSystemColumnIndex = 3;
+
+        private static readonly TestDataPath testPath = TestDataPath.Core.Components.DotSpatial.Forms;
 
         [Test]
         public void Constructor_DefaultValues()
@@ -148,9 +153,16 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
         }
 
         [Test]
+        [Apartment(ApartmentState.STA)]
         public void WmtsLocationControl_WithData_DataGridViewCorrectlyInitialized()
         {
-            // Setup & Call
+            // Setup
+            SettingsHelper.Instance = new TestSettingsHelper
+            {
+                ExpectedApplicationLocalUserSettingsDirectory = TestHelper.GetTestDataPath(testPath, "noConfig")
+            };
+
+            // Call
             using (WmtsLocationControl control = ShowFullyConfiguredWmtsLocationControl())
             {
                 Form form = control.FindForm();
@@ -197,7 +209,13 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
         [Test]
         public void GetSelectedMapData_WithSelectedComboBoxWithoutSelectedRow_ReturnsNull()
         {
-            // Setup & Call
+            // Setup
+            SettingsHelper.Instance = new TestSettingsHelper
+            {
+                ExpectedApplicationLocalUserSettingsDirectory = TestHelper.GetTestDataPath(testPath, "noConfig")
+            };
+
+            // Call
             using (WmtsLocationControl control = ShowFullyConfiguredWmtsLocationControl())
             {
                 // Assert                
@@ -237,6 +255,11 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
         public void GetSelectedMapData_WithSelectedData_ReturnsSelectedMapData()
         {
             // Setup
+            SettingsHelper.Instance = new TestSettingsHelper
+            {
+                ExpectedApplicationLocalUserSettingsDirectory = TestHelper.GetTestDataPath(testPath, "noConfig")
+            };
+
             using (WmtsLocationControl control = ShowFullyConfiguredWmtsLocationControl())
             {
                 Form form = control.FindForm();
@@ -258,9 +281,49 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
         }
 
         [Test]
+        [Apartment(ApartmentState.STA)]
+        public void GivenValidWmtsConnectionInfos_WhenConstructed_ThenExpectedProperties()
+        {
+            // Given
+            SettingsHelper.Instance = new TestSettingsHelper
+            {
+                ExpectedApplicationVersion = "twoValidWmtsConnectionInfos",
+                ExpectedApplicationLocalUserSettingsDirectory = TestHelper.GetTestDataPath(testPath)
+            };
+
+            // When
+            using (var control = new WmtsLocationControl())
+            using (var form = new Form())
+            {
+                form.Controls.Add(control);
+
+                // Then
+                var comboBox = (ComboBox) new ComboBoxTester("urlLocationComboBox", form).TheObject;
+                var dataSource = (List<WmtsConnectionInfo>) comboBox.DataSource;
+                Assert.AreEqual(2, dataSource.Count);
+
+                var firstWmtsConnectionInfo = (WmtsConnectionInfo) comboBox.Items[0];
+                Assert.AreEqual("Actueel Hoogtebestand Nederland (AHN1)", firstWmtsConnectionInfo.Name);
+                Assert.AreEqual("https://geodata.nationaalgeoregister.nl/tiles/service/wmts/ahn1?request=GetCapabilities",
+                                firstWmtsConnectionInfo.Url);
+
+                var secondWmtsConnectionInfo = (WmtsConnectionInfo) comboBox.Items[1];
+                Assert.AreEqual("Zeegraskartering", secondWmtsConnectionInfo.Name);
+                Assert.AreEqual("https://geodata.nationaalgeoregister.nl/zeegraskartering/wfs?request=GetCapabilities",
+                                secondWmtsConnectionInfo.Url);
+            }
+        }
+
+        [Test]
+        [Apartment(ApartmentState.STA)]
         public void GivenWmtsLocationControlAndAddLocationClicked_WhenDialogCanceled_ThenWmtsLocationsNotUpdated()
         {
             // Given
+            SettingsHelper.Instance = new TestSettingsHelper
+            {
+                ExpectedApplicationLocalUserSettingsDirectory = TestHelper.GetTestDataPath(testPath, "noConfig")
+            };
+
             DialogBoxHandler = (formName, wnd) =>
             {
                 using (new FormTester(formName)) {}
@@ -285,11 +348,17 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
         }
 
         [Test]
+        [Apartment(ApartmentState.STA)]
         public void GivenWmtsLocationControlAndAddLocationClicked_WhenValidDataInDialog_ThenWmtsLocationsUpdated()
         {
             // Given
             const string name = @"someName";
             const string url = @"someUrl";
+
+            SettingsHelper.Instance = new TestSettingsHelper
+            {
+                ExpectedApplicationLocalUserSettingsDirectory = TestHelper.GetTestDataPath(testPath, "noConfig")
+            };
 
             var mockRepository = new MockRepository();
             var tileFactory = mockRepository.StrictMock<ITileSourceFactory>();
@@ -340,9 +409,15 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
         }
 
         [Test]
+        [Apartment(ApartmentState.STA)]
         public void GivenWmtsLocationControlAndAddLocationClicked_WhenInValidDataInDialog_ThenWmtsLocationsNotUpdated()
         {
             // Given
+            SettingsHelper.Instance = new TestSettingsHelper
+            {
+                ExpectedApplicationLocalUserSettingsDirectory = TestHelper.GetTestDataPath(testPath, "noConfig")
+            };
+
             DialogBoxHandler = (formName, wnd) =>
             {
                 using (var formTester = new FormTester(formName))
@@ -378,9 +453,15 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
         }
 
         [Test]
+        [Apartment(ApartmentState.STA)]
         public void GivenWmtsLocationControlAndEditLocationClicked_WhenDialogCanceled_ThenWmtsLocationsNotUpdated()
         {
             // Given
+            SettingsHelper.Instance = new TestSettingsHelper
+            {
+                ExpectedApplicationLocalUserSettingsDirectory = TestHelper.GetTestDataPath(testPath, "noConfig")
+            };
+
             DialogBoxHandler = (formName, wnd) =>
             {
                 using (new FormTester(formName)) {}
@@ -414,11 +495,17 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
         }
 
         [Test]
+        [Apartment(ApartmentState.STA)]
         public void GivenWmtsLocationControlAndEditLocationClicked_WhenValidDataInDialog_ThenWmtsLocationsUpdated()
         {
             // Given
             const string newName = @"newName";
             const string newUrl = @"newUrl";
+
+            SettingsHelper.Instance = new TestSettingsHelper
+            {
+                ExpectedApplicationLocalUserSettingsDirectory = TestHelper.GetTestDataPath(testPath, "noConfig")
+            };
 
             var mockRepository = new MockRepository();
             var tileFactory = mockRepository.StrictMock<ITileSourceFactory>();
@@ -472,9 +559,15 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
         }
 
         [Test]
+        [Apartment(ApartmentState.STA)]
         public void GivenWmtsLocationControlAndEditLocationClicked_WhenInValidDataInDialog_ThenWmtsLocationsNotUpdated()
         {
             // Given
+            SettingsHelper.Instance = new TestSettingsHelper
+            {
+                ExpectedApplicationLocalUserSettingsDirectory = TestHelper.GetTestDataPath(testPath, "noConfig")
+            };
+
             DialogBoxHandler = (formName, wnd) =>
             {
                 using (var formTester = new FormTester(formName))

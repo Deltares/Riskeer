@@ -21,6 +21,8 @@
 
 using System;
 using System.IO;
+using Core.Common.Gui.Settings;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 
 namespace Ringtoets.Integration.Forms.Test
@@ -28,6 +30,50 @@ namespace Ringtoets.Integration.Forms.Test
     [TestFixture]
     public class RingtoetsSettingsHelperTest
     {
+        [Test]
+        public void Constructor_ExpectedProperties()
+        {
+            // Call
+            var settingsHelper = new RingtoetsSettingsHelper();
+
+            // Assert
+            Assert.IsInstanceOf<SettingsHelper>(settingsHelper);
+        }
+
+        [Test]
+        public void GetApplicationLocalUserSettingsDirectory_WithoutParams_ReturnsExpectedDirectory()
+        {
+            // Setup
+            var settingsHelper = new RingtoetsSettingsHelper();
+
+            // Call
+            string ringtoetsLocalApplicationDataPath = settingsHelper.GetApplicationLocalUserSettingsDirectory();
+
+            // Assert
+            string localApplicationDataPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+            string expectedPath = Path.Combine(localApplicationDataPath, "WTI", "Ringtoets");
+            Assert.AreEqual(expectedPath, ringtoetsLocalApplicationDataPath);
+        }
+
+        [Test]
+        public void GetApplicationLocalUserSettingsDirectory_WithParams_ReturnsExpectedDirectory()
+        {
+            // Setup
+            var settingsHelper = new RingtoetsSettingsHelper();
+            string localApplicationDataPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+            string rootPath = Path.Combine(localApplicationDataPath, "WTI", "Ringtoets");
+
+            using (new DirectoryDisposeHelper(rootPath, "subFolder"))
+            {
+                // Call
+                string ringtoetsLocalApplicationDataPath = settingsHelper.GetApplicationLocalUserSettingsDirectory("subFolder", "subSubFolder");
+
+                // Assert
+                string expectedPath = Path.Combine(rootPath, "subFolder", "subSubFolder");
+                Assert.AreEqual(expectedPath, ringtoetsLocalApplicationDataPath);
+            }
+        }
+
         [Test]
         public void GetCommonDocumentsRingtoetsDirectory_ReturnsExpectedDirectory()
         {

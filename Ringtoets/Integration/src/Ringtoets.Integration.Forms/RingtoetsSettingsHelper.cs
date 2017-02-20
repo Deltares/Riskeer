@@ -20,15 +20,27 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.IO;
+using Core.Common.Gui.Settings;
 
 namespace Ringtoets.Integration.Forms
 {
     /// <summary>
     /// Class that defines helper methods related to Ringtoets settings.
     /// </summary>
-    public static class RingtoetsSettingsHelper
+    public class RingtoetsSettingsHelper : SettingsHelper
     {
+        public override string GetApplicationLocalUserSettingsDirectory(params string[] subPath)
+        {
+            var ringtoetsApplicationPath = new List<string>
+            {
+                "WTI", "Ringtoets"
+            };
+            ringtoetsApplicationPath.AddRange(subPath);
+            return base.GetApplicationLocalUserSettingsDirectory(ringtoetsApplicationPath.ToArray());
+        }
+
         /// <summary>
         /// Gets the directory of the "NBPW" shape file within the common documents directory.
         /// </summary>

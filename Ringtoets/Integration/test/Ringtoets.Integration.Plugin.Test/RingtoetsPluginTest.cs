@@ -52,6 +52,7 @@ using Ringtoets.Common.Forms.Views;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
+using Ringtoets.Integration.Forms;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.PropertyClasses;
 using Ringtoets.Integration.Forms.Views;
@@ -526,7 +527,7 @@ namespace Ringtoets.Integration.Plugin.Test
 
         [Test]
         [Apartment(ApartmentState.STA)] // Due to creating fluent Ribbon
-        public void Activate_WithGui_DoesNotThrowException()
+        public void Activate_WithGui_ExpectedProperties()
         {
             // Setup
             var mockRepository = new MockRepository();
@@ -544,11 +545,11 @@ namespace Ringtoets.Integration.Plugin.Test
                 plugin.Gui = guiMock;
 
                 // Call
-                TestDelegate test = () => plugin.Activate();
+                plugin.Activate();
 
                 // Assert
-                Assert.DoesNotThrow(test);
                 Assert.IsInstanceOf<RingtoetsRibbon>(plugin.RibbonCommandHandler);
+                Assert.IsInstanceOf<RingtoetsSettingsHelper>(SettingsHelper.Instance);
             }
 
             mockRepository.VerifyAll();
