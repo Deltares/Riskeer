@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using System;
-using Ringtoets.Common.Forms.ChangeHandlers;
+using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Revetment.Forms.PropertyClasses;
 using Ringtoets.StabilityStoneCover.Forms.PresentationObjects;
 using Ringtoets.StabilityStoneCover.Forms.Properties;
@@ -40,7 +40,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.PropertyClasses
         /// the properties are shown.</param>
         /// <param name="handler">The handler responsible for handling effects of a property change.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public StabilityStoneCoverWaveConditionsInputContextProperties(StabilityStoneCoverWaveConditionsInputContext context, CalculationInputPropertyChangeHandler handler)
+        public StabilityStoneCoverWaveConditionsInputContextProperties(StabilityStoneCoverWaveConditionsInputContext context, ICalculationInputPropertyChangeHandler handler)
             : base(context, handler) { }
 
         public override string RevetmentType

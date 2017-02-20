@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using System;
-using Ringtoets.Common.Forms.ChangeHandlers;
+using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Revetment.Forms.PropertyClasses;
 using Ringtoets.WaveImpactAsphaltCover.Forms.PresentationObjects;
 using Ringtoets.WaveImpactAsphaltCover.Forms.Properties;
@@ -40,7 +40,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.PropertyClasses
         /// the properties are shown.</param>
         /// <param name="handler">The handler responsible for handling effects of a property change.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public WaveImpactAsphaltCoverWaveConditionsInputContextProperties(WaveImpactAsphaltCoverWaveConditionsInputContext context, CalculationInputPropertyChangeHandler handler)
+        public WaveImpactAsphaltCoverWaveConditionsInputContextProperties(WaveImpactAsphaltCoverWaveConditionsInputContext context, ICalculationInputPropertyChangeHandler handler)
             : base(context, handler) { }
 
         public override string RevetmentType
