@@ -20,14 +20,18 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.IO;
 using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
 using log4net;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Piping.Data;
 using Ringtoets.Piping.IO.Properties;
 using Ringtoets.Piping.IO.Readers;
+using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 
 namespace Ringtoets.Piping.IO.Importers
 {
@@ -38,14 +42,31 @@ namespace Ringtoets.Piping.IO.Importers
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(PipingConfigurationImporter));
 
+        private readonly IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations;
+
+        private List<IReadPipingCalculationItem> validCalculationItems;
+
         /// <summary>
         /// Creates a new instance of <see cref="PipingConfigurationImporter"/>.
         /// </summary>
         /// <param name="filePath">The path to the file to import from.</param>
         /// <param name="importTarget">The calculation group to update.</param>
+        /// <param name="hydraulicBoundaryLocations">The hydraulic boundary locations used to check if
+        ///     the imported objects contain the right location.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public PipingConfigurationImporter(string filePath, CalculationGroup importTarget)
-            : base(filePath, importTarget) {}
+        public PipingConfigurationImporter(string filePath,
+                                           CalculationGroup importTarget,
+                                           IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations)
+            : base(filePath, importTarget)
+        {
+            if (hydraulicBoundaryLocations == null)
+            {
+                throw new ArgumentNullException(nameof(hydraulicBoundaryLocations));
+            }
+            this.hydraulicBoundaryLocations = hydraulicBoundaryLocations;
+
+            validCalculationItems = new List<IReadPipingCalculationItem>();
+        }
 
         protected override void LogImportCanceledMessage()
         {
@@ -62,7 +83,63 @@ namespace Ringtoets.Piping.IO.Importers
                 return false;
             }
 
+            NotifyProgress("Valideren berekening configuratie.", 2, 3);
+
+            foreach (IReadPipingCalculationItem readItem in readResult.ImportedItems)
+            {
+                if (Canceled)
+                {
+                    return false;
+                }
+
+                ValidateReadItems(readItem);
+            }
+
+            NotifyProgress(RingtoetsCommonIOResources.Importer_ProgressText_Adding_imported_data_to_DataModel, 3, 3);
+//            AddItemsToModel();
+
             return true;
+        }        
+
+        private void ValidateReadItems(IReadPipingCalculationItem readItem)
+        {
+            var readCalculation = readItem as ReadPipingCalculation;
+            var readCalculationGroup = readItem as ReadPipingCalculationGroup;
+
+            if (readCalculation != null)
+            {
+                ValidateCalculation(readCalculation);
+            }
+
+            if (readCalculationGroup != null)
+            {
+                ValidateCalculationGroup(readCalculationGroup);
+            }
+        }
+
+        private void ValidateCalculation(ReadPipingCalculation readCalculation)
+        {
+            if (readCalculation.HydraulicBoundaryLocation != null)
+            {
+                if (hydraulicBoundaryLocations.All(hbl => hbl.Name != readCalculation.HydraulicBoundaryLocation))
+                {
+                    log.Warn("Hydraulische randvoorwaarde locatie bestaat niet. Berekening overgeslagen.");
+                }
+            }
+
+            validCalculationItems.Add(readCalculation);
+
+            // Validate when set:
+            // - HR location
+            // - Surface line
+            // - Stochastic soil model
+            // - Stochastic soil profile
+            // Validate the stochastic soil model crosses the surface line when set
+            // Validate the stochastic soil profile is part of the soil model
+        }
+
+        private static void ValidateCalculationGroup(ReadPipingCalculationGroup readCalculationGroup)
+        {
         }
 
         private ReadResult<IReadPipingCalculationItem> ReadConfiguration()

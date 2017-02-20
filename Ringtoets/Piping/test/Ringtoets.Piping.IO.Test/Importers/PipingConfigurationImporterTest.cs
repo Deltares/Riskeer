@@ -21,10 +21,12 @@
 
 using System;
 using System.IO;
+using System.Linq;
 using Core.Common.Base.IO;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Piping.IO.Importers;
 
 namespace Ringtoets.Piping.IO.Test.Importers
@@ -32,30 +34,49 @@ namespace Ringtoets.Piping.IO.Test.Importers
     [TestFixture]
     public class PipingConfigurationImporterTest
     {
+        private readonly string path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO, "PipingConfigurationReader");
+
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Call
-            var importer = new PipingConfigurationImporter("", new CalculationGroup());
+            var importer = new PipingConfigurationImporter("",
+                                                           new CalculationGroup(),
+                                                           Enumerable.Empty<HydraulicBoundaryLocation>());
 
             // Assert
             Assert.IsInstanceOf<FileImporterBase<CalculationGroup>>(importer);
         }
 
         [Test]
+        public void Constructor_HydraulicBoundaryLocationsNull_ThrowArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => new PipingConfigurationImporter("",
+                                                                      new CalculationGroup(),
+                                                                      null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("hydraulicBoundaryLocations", exception.ParamName);
+        }
+
+        [Test]
         public void Import_FilePathIsDirectory_CancelImportWithErrorMessage()
         {
             // Setup
-            string path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO, Path.DirectorySeparatorChar.ToString());
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO, Path.DirectorySeparatorChar.ToString());
 
-            var importer = new PipingConfigurationImporter(path, new CalculationGroup());
+            var importer = new PipingConfigurationImporter(filePath,
+                                                           new CalculationGroup(),
+                                                           Enumerable.Empty<HydraulicBoundaryLocation>());
 
             // Call
             bool importSuccesful = true;
             Action call = () => importSuccesful = importer.Import();
 
             // Assert
-            var expectedMessage = $"Fout bij het lezen van bestand '{path}': bestandspad mag niet verwijzen naar een lege bestandsnaam. " + Environment.NewLine +
+            var expectedMessage = $"Fout bij het lezen van bestand '{filePath}': bestandspad mag niet verwijzen naar een lege bestandsnaam. " + Environment.NewLine +
                                   "Er is geen berekening configuratie geïmporteerd.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
             Assert.IsFalse(importSuccesful);
@@ -65,31 +86,41 @@ namespace Ringtoets.Piping.IO.Test.Importers
         public void Import_FileDoesNotExist_CancelImportWithErrorMessage()
         {
             // Setup
-            string path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO, "I_dont_exist");
-            var importer = new PipingConfigurationImporter(path, new CalculationGroup());
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO, "I_dont_exist");
+            var importer = new PipingConfigurationImporter(filePath,
+                                                           new CalculationGroup(),
+                                                           Enumerable.Empty<HydraulicBoundaryLocation>());
 
             // Call
             bool importSuccesful = true;
             Action call = () => importSuccesful = importer.Import();
 
             // Assert
-            var expectedMessage = $"Fout bij het lezen van bestand '{path}': het bestand bestaat niet. " + Environment.NewLine +
+            var expectedMessage = $"Fout bij het lezen van bestand '{filePath}': het bestand bestaat niet. " + Environment.NewLine +
                                   "Er is geen berekening configuratie geïmporteerd.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
             Assert.IsFalse(importSuccesful);
         }
 
         [Test]
-        public void Import_CancelingImport_CancelImportAndLog()
+        [TestCase("Inlezen")]
+        [TestCase("Valideren")]
+        public void Import_CancelingImport_CancelImportAndLog(string expectedProgressMessage)
         {
             // Setup
             var calculationGroup = new CalculationGroup();
 
-            string path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO, Path.Combine("PipingConfigurationReader", "validConfigurationNesting.xml"));
-            var importer = new PipingConfigurationImporter(path, calculationGroup);
+            string filePath = Path.Combine(path, "validConfigurationNesting.xml");
+            var importer = new PipingConfigurationImporter(filePath,
+                                                           calculationGroup,
+                                                           Enumerable.Empty<HydraulicBoundaryLocation>());
+
             importer.SetProgressChanged((description, step, steps) =>
             {
-                importer.Cancel();
+                if (description.Contains(expectedProgressMessage))
+                {
+                    importer.Cancel();
+                }
             });
 
             // Call
@@ -106,14 +137,24 @@ namespace Ringtoets.Piping.IO.Test.Importers
         public void GivenImport_WhenImporting_ThenExpectedProgressMessagesGenerated()
         {
             // Given
-            string path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO, Path.Combine("PipingConfigurationReader", "validConfiguration.xml"));
-            var importer = new PipingConfigurationImporter(path, new CalculationGroup());
+            string filePath = Path.Combine(path, "validConfigurationNesting.xml");
+            var importer = new PipingConfigurationImporter(filePath,
+                                                           new CalculationGroup(),
+                                                           Enumerable.Empty<HydraulicBoundaryLocation>());
 
             var expectedProgressMessages = new[]
            {
                 new ExpectedProgressNotification
                 {
                     Text = "Inlezen berekening configuratie.", CurrentStep = 1, MaxNrOfSteps = 3
+                },
+                new ExpectedProgressNotification
+                {
+                    Text = "Valideren berekening configuratie.", CurrentStep = 2, MaxNrOfSteps = 3
+                },
+                new ExpectedProgressNotification
+                {
+                    Text = "Geïmporteerde data toevoegen aan het toetsspoor.", CurrentStep = 3, MaxNrOfSteps = 3
                 }
             };
 
@@ -131,6 +172,24 @@ namespace Ringtoets.Piping.IO.Test.Importers
 
             // Then
             Assert.AreEqual(expectedProgressMessages.Length, progressChangedCallCount);
+        }
+
+        [Test]
+        public void Import_HydraulicBoundaryLocationInvalid_LogMessage()
+        {
+            // Setup
+            string filePath = Path.Combine(path, "validConfigurationFullCalculationContainingHydraulicBoundaryLocation.xml");
+            var importer = new PipingConfigurationImporter(filePath,
+                                                           new CalculationGroup(),
+                                                           Enumerable.Empty<HydraulicBoundaryLocation>());
+
+            // Call
+            bool succesful = false;
+            Action call = () => succesful = importer.Import();
+
+            // Assert
+            TestHelper.AssertLogMessageIsGenerated(call, "Hydraulische randvoorwaarde locatie bestaat niet. Berekening overgeslagen.", 1);
+            Assert.IsTrue(succesful);
         }
 
         private class ExpectedProgressNotification
