@@ -27,6 +27,7 @@ using Core.Common.IO.Exceptions;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.IO.Schema;
 using CoreCommonUtilsResources = Core.Common.Utils.Properties.Resources;
 
 namespace Ringtoets.Piping.IO.Exporters
@@ -99,8 +100,8 @@ namespace Ringtoets.Piping.IO.Exporters
 
         private static void WriteCalculationGroup(CalculationGroup calculationGroup, XmlWriter writer)
         {
-            writer.WriteStartElement("folder");
-            writer.WriteAttributeString("naam", calculationGroup.Name);
+            writer.WriteStartElement(PipingConfigurationSchemaIdentifiers.FolderElement);
+            writer.WriteAttributeString(PipingConfigurationSchemaIdentifiers.NameAttribute, calculationGroup.Name);
 
             WriteConfiguration(calculationGroup, writer);
 
@@ -109,53 +110,64 @@ namespace Ringtoets.Piping.IO.Exporters
 
         private static void WriteCalculation(PipingCalculation calculation, XmlWriter writer)
         {
-            writer.WriteStartElement("berekening");
-            writer.WriteAttributeString("naam", calculation.Name);
+            writer.WriteStartElement(PipingConfigurationSchemaIdentifiers.CalculationElement);
+            writer.WriteAttributeString(PipingConfigurationSchemaIdentifiers.NameAttribute, calculation.Name);
 
             PipingInput calculationInputParameters = calculation.InputParameters;
 
             if (calculationInputParameters.UseAssessmentLevelManualInput)
             {
-                writer.WriteElementString("toetspeil", ToStringInvariantCulture(calculationInputParameters.AssessmentLevel));
+                writer.WriteElementString(PipingConfigurationSchemaIdentifiers.AssessmentLevelElement,
+                                          ToStringInvariantCulture(calculationInputParameters.AssessmentLevel));
             }
             else
             {
                 if (calculationInputParameters.HydraulicBoundaryLocation != null)
                 {
-                    writer.WriteElementString("hrlocatie", calculationInputParameters.HydraulicBoundaryLocation.Name);
+                    writer.WriteElementString(PipingConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElement,
+                                              calculationInputParameters.HydraulicBoundaryLocation.Name);
                 }
             }
 
             if (calculationInputParameters.SurfaceLine != null)
             {
-                writer.WriteElementString("profielschematisatie", calculationInputParameters.SurfaceLine.Name);
-                writer.WriteElementString("intredepunt", ToStringInvariantCulture(calculationInputParameters.EntryPointL));
-                writer.WriteElementString("uittredepunt", ToStringInvariantCulture(calculationInputParameters.ExitPointL));
+                writer.WriteElementString(PipingConfigurationSchemaIdentifiers.SurfaceLineElement,
+                                          calculationInputParameters.SurfaceLine.Name);
+                writer.WriteElementString(PipingConfigurationSchemaIdentifiers.EntryPointElement,
+                                          ToStringInvariantCulture(calculationInputParameters.EntryPointL));
+                writer.WriteElementString(PipingConfigurationSchemaIdentifiers.ExitPointElement,
+                                          ToStringInvariantCulture(calculationInputParameters.ExitPointL));
             }
 
             if (calculationInputParameters.StochasticSoilModel != null)
             {
-                writer.WriteElementString("ondergrondmodel", calculationInputParameters.StochasticSoilModel.Name);
+                writer.WriteElementString(PipingConfigurationSchemaIdentifiers.StochasticSoilModelElement,
+                                          calculationInputParameters.StochasticSoilModel.Name);
 
                 if (calculationInputParameters.StochasticSoilProfile?.SoilProfile != null)
                 {
-                    writer.WriteElementString("ondergrondschematisatie", calculationInputParameters.StochasticSoilProfile.SoilProfile.Name);
+                    writer.WriteElementString(PipingConfigurationSchemaIdentifiers.StochasticSoilProfileElement,
+                                              calculationInputParameters.StochasticSoilProfile.SoilProfile.Name);
                 }
             }
 
-            WriteDistribution(calculationInputParameters.PhreaticLevelExit, "polderpeil", writer);
-            WriteDistribution(calculationInputParameters.DampingFactorExit, "dempingsfactor", writer);
+            WriteDistribution(calculationInputParameters.PhreaticLevelExit,
+                              PipingConfigurationSchemaIdentifiers.PhreaticLevelExitStochastName, writer);
+            WriteDistribution(calculationInputParameters.DampingFactorExit,
+                              PipingConfigurationSchemaIdentifiers.DampingFactorExitStochastName, writer);
 
             writer.WriteEndElement();
         }
 
         private static void WriteDistribution(IDistribution distribution, string elementName, XmlWriter writer)
         {
-            writer.WriteStartElement("stochast");
-            writer.WriteAttributeString("naam", elementName);
+            writer.WriteStartElement(PipingConfigurationSchemaIdentifiers.StochastElement);
+            writer.WriteAttributeString(PipingConfigurationSchemaIdentifiers.NameAttribute, elementName);
 
-            writer.WriteElementString("verwachtingswaarde", ToStringInvariantCulture(distribution.Mean));
-            writer.WriteElementString("standaardafwijking", ToStringInvariantCulture(distribution.StandardDeviation));
+            writer.WriteElementString(PipingConfigurationSchemaIdentifiers.MeanElement,
+                                      ToStringInvariantCulture(distribution.Mean));
+            writer.WriteElementString(PipingConfigurationSchemaIdentifiers.StandardDeviationElement,
+                                      ToStringInvariantCulture(distribution.StandardDeviation));
 
             writer.WriteEndElement();
         }

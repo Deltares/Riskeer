@@ -27,6 +27,11 @@ namespace Ringtoets.Piping.IO.Schema
     public static class PipingConfigurationSchemaIdentifiers
     {
         /// <summary>
+        /// Gets the identifier for root elements.
+        /// </summary>
+        public static string RootElement => "root";
+
+        /// <summary>
         /// Gets the identifier for calculation elements.
         /// </summary>
         public static string CalculationElement => "berekening";
@@ -80,6 +85,16 @@ namespace Ringtoets.Piping.IO.Schema
         /// Gets the identifier for stochast elements.
         /// </summary>
         public static string StochastElement => "stochast";
+
+        /// <summary>
+        /// Gets the identifier for mean elements.
+        /// </summary>
+        public static string MeanElement => "verwachtingswaarde";
+
+        /// <summary>
+        /// Gets the identifier for standard deviation elements.
+        /// </summary>
+        public static string StandardDeviationElement => "standaardafwijking";
 
         /// <summary>
         /// Gets the identifier for the phreatic level exit stochast names.

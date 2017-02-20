@@ -30,6 +30,7 @@ namespace Ringtoets.Piping.IO.Test.Schema
         [Test]
         public void PipingConfigurationSchemaIdentifiers_ExpectedValues()
         {
+            Assert.AreEqual("root", PipingConfigurationSchemaIdentifiers.RootElement);
             Assert.AreEqual("berekening", PipingConfigurationSchemaIdentifiers.CalculationElement);
             Assert.AreEqual("folder", PipingConfigurationSchemaIdentifiers.FolderElement);
             Assert.AreEqual("naam", PipingConfigurationSchemaIdentifiers.NameAttribute);
@@ -41,6 +42,8 @@ namespace Ringtoets.Piping.IO.Test.Schema
             Assert.AreEqual("ondergrondmodel", PipingConfigurationSchemaIdentifiers.StochasticSoilModelElement);
             Assert.AreEqual("ondergrondschematisatie", PipingConfigurationSchemaIdentifiers.StochasticSoilProfileElement);
             Assert.AreEqual("stochast", PipingConfigurationSchemaIdentifiers.StochastElement);
+            Assert.AreEqual("verwachtingswaarde", PipingConfigurationSchemaIdentifiers.MeanElement);
+            Assert.AreEqual("standaardafwijking", PipingConfigurationSchemaIdentifiers.StandardDeviationElement);
             Assert.AreEqual("polderpeil", PipingConfigurationSchemaIdentifiers.PhreaticLevelExitStochastName);
             Assert.AreEqual("dempingsfactor", PipingConfigurationSchemaIdentifiers.DampingFactorExitStochastName);
         }

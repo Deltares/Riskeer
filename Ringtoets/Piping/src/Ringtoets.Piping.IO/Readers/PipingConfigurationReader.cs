@@ -85,7 +85,9 @@ namespace Ringtoets.Piping.IO.Readers
         {
             if (!File.Exists(xmlFilePath))
             {
-                string message = new FileReaderErrorMessageBuilder(xmlFilePath).Build(CoreCommonUtilsResources.Error_File_does_not_exist);
+                string message = new FileReaderErrorMessageBuilder(xmlFilePath)
+                    .Build(CoreCommonUtilsResources.Error_File_does_not_exist);
+
                 throw new CriticalFileReadException(message);
             }
         }
@@ -107,7 +109,9 @@ namespace Ringtoets.Piping.IO.Readers
                       || exception is XmlException
                       || exception is IOException)
             {
-                string message = new FileReaderErrorMessageBuilder(xmlFilePath).Build(CoreCommonUtilsResources.Error_General_IO_Import_ErrorMessage);
+                string message = new FileReaderErrorMessageBuilder(xmlFilePath)
+                    .Build(CoreCommonUtilsResources.Error_General_IO_Import_ErrorMessage);
+
                 throw new CriticalFileReadException(message, exception);
             }
         }
@@ -175,27 +179,38 @@ namespace Ringtoets.Piping.IO.Readers
             var constructionProperties = new ReadPipingCalculation.ConstructionProperties
             {
                 Name = calculationElement.Attribute(PipingConfigurationSchemaIdentifiers.NameAttribute)?.Value,
-                AssessmentLevel = GetDoubleValueFromChildElement(calculationElement, PipingConfigurationSchemaIdentifiers.AssessmentLevelElement),
-                HydraulicBoundaryLocation = GetStringValueFromChildElement(calculationElement, PipingConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElement),
-                SurfaceLine = GetStringValueFromChildElement(calculationElement, PipingConfigurationSchemaIdentifiers.SurfaceLineElement),
-                EntryPointL = GetDoubleValueFromChildElement(calculationElement, PipingConfigurationSchemaIdentifiers.EntryPointElement),
-                ExitPointL = GetDoubleValueFromChildElement(calculationElement, PipingConfigurationSchemaIdentifiers.ExitPointElement),
-                StochasticSoilModel = GetStringValueFromChildElement(calculationElement, PipingConfigurationSchemaIdentifiers.StochasticSoilModelElement),
-                StochasticSoilProfile = GetStringValueFromChildElement(calculationElement, PipingConfigurationSchemaIdentifiers.StochasticSoilProfileElement)
+                AssessmentLevel = GetDoubleValueFromChildElement(calculationElement,
+                                                                 PipingConfigurationSchemaIdentifiers.AssessmentLevelElement),
+                HydraulicBoundaryLocation = GetStringValueFromChildElement(calculationElement,
+                                                                           PipingConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElement),
+                SurfaceLine = GetStringValueFromChildElement(calculationElement,
+                                                             PipingConfigurationSchemaIdentifiers.SurfaceLineElement),
+                EntryPointL = GetDoubleValueFromChildElement(calculationElement,
+                                                             PipingConfigurationSchemaIdentifiers.EntryPointElement),
+                ExitPointL = GetDoubleValueFromChildElement(calculationElement,
+                                                            PipingConfigurationSchemaIdentifiers.ExitPointElement),
+                StochasticSoilModel = GetStringValueFromChildElement(calculationElement,
+                                                                     PipingConfigurationSchemaIdentifiers.StochasticSoilModelElement),
+                StochasticSoilProfile = GetStringValueFromChildElement(calculationElement,
+                                                                       PipingConfigurationSchemaIdentifiers.StochasticSoilProfileElement)
             };
 
             XElement phreaticLevelExitElement = GetStochastChildElement(calculationElement, PipingConfigurationSchemaIdentifiers.PhreaticLevelExitStochastName);
             if (phreaticLevelExitElement != null)
             {
-                constructionProperties.PhreaticLevelExitMean = GetDoubleValueFromChildElement(phreaticLevelExitElement, "verwachtingswaarde");
-                constructionProperties.PhreaticLevelExitStandardDeviation = GetDoubleValueFromChildElement(phreaticLevelExitElement, "standaardafwijking");
+                constructionProperties.PhreaticLevelExitMean = GetDoubleValueFromChildElement(phreaticLevelExitElement,
+                                                                                              PipingConfigurationSchemaIdentifiers.MeanElement);
+                constructionProperties.PhreaticLevelExitStandardDeviation = GetDoubleValueFromChildElement(phreaticLevelExitElement,
+                                                                                                           PipingConfigurationSchemaIdentifiers.StandardDeviationElement);
             }
 
             XElement dampingFactorExitElement = GetStochastChildElement(calculationElement, PipingConfigurationSchemaIdentifiers.DampingFactorExitStochastName);
             if (dampingFactorExitElement != null)
             {
-                constructionProperties.DampingFactorExitMean = GetDoubleValueFromChildElement(dampingFactorExitElement, "verwachtingswaarde");
-                constructionProperties.DampingFactorExitStandardDeviation = GetDoubleValueFromChildElement(dampingFactorExitElement, "standaardafwijking");
+                constructionProperties.DampingFactorExitMean = GetDoubleValueFromChildElement(dampingFactorExitElement,
+                                                                                              PipingConfigurationSchemaIdentifiers.MeanElement);
+                constructionProperties.DampingFactorExitStandardDeviation = GetDoubleValueFromChildElement(dampingFactorExitElement,
+                                                                                                           PipingConfigurationSchemaIdentifiers.StandardDeviationElement);
             }
 
             return new ReadPipingCalculation(constructionProperties);
