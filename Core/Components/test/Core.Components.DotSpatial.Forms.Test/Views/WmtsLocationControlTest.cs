@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
@@ -46,6 +47,7 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
         private const int mapLayerFormatColumnIndex = 1;
         private const int mapLayerTitleColumnIndex = 2;
         private const int mapLayerCoordinateSystemColumnIndex = 3;
+        private const string wmtsconnectioninfoConfigFile = "wmtsConnectionInfo.config";
 
         private static readonly TestDataPath testPath = TestDataPath.Core.Components.DotSpatial.Forms;
 
@@ -381,6 +383,8 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
                 }
             };
 
+            using (new FileDisposeHelper(Path.Combine(SettingsHelper.Instance.GetApplicationLocalUserSettingsDirectory(),
+                                                      wmtsconnectioninfoConfigFile)))
             using (new UseCustomTileSourceFactoryConfig(tileFactory))
             using (var form = new Form())
             using (var control = new WmtsLocationControl())
@@ -528,6 +532,8 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
                 }
             };
 
+            using (new FileDisposeHelper(Path.Combine(SettingsHelper.Instance.GetApplicationLocalUserSettingsDirectory(),
+                                                      wmtsconnectioninfoConfigFile)))
             using (new UseCustomTileSourceFactoryConfig(tileFactory))
             using (var form = new Form())
             using (var control = new WmtsLocationControl())

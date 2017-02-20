@@ -40,9 +40,11 @@ namespace Core.Components.DotSpatial.Forms.Views
     /// </summary>
     public partial class WmtsLocationControl : UserControl, IHasMapData
     {
+        private const string wmtsConnectionInfoFileName = "wmtsConnectionInfo.config";
         private static readonly ILog log = LogManager.GetLogger(typeof(WmtsLocationControl));
         private readonly List<WmtsConnectionInfo> wmtsConnectionInfos;
         private readonly List<WmtsCapabilityRow> capabilities;
+        private string wmtsConnectionInfoFilePath;
 
         /// <summary>
         /// Creates a new instance of <see cref="WmtsLocationControl"/>.
@@ -50,10 +52,10 @@ namespace Core.Components.DotSpatial.Forms.Views
         public WmtsLocationControl()
         {
             wmtsConnectionInfos = new List<WmtsConnectionInfo>();
-            wmtsConnectionInfos.AddRange(GetSavedWmtsConnectionInfos());
             capabilities = new List<WmtsCapabilityRow>();
 
             InitializeComponent();
+            InitializeWmtsConnectionInfos();
             InitializeDataGridView();
             InitializeComboBoxDataSource();
             InitializeEventHandlers();
@@ -106,21 +108,34 @@ namespace Core.Components.DotSpatial.Forms.Views
             base.Dispose(disposing);
         }
 
-        private static IEnumerable<WmtsConnectionInfo> GetSavedWmtsConnectionInfos()
+        private void InitializeWmtsConnectionInfos()
         {
             string applicationVersion = SettingsHelper.Instance.ApplicationVersion;
-            const string wmtsConnectionInfoFileName = "wmtsConnectionInfo.config";
-
             string folderPath = SettingsHelper.Instance.GetApplicationLocalUserSettingsDirectory(applicationVersion);
-            string filePath = Path.Combine(folderPath, wmtsConnectionInfoFileName);
 
+            wmtsConnectionInfoFilePath = Path.Combine(folderPath, wmtsConnectionInfoFileName);
+            wmtsConnectionInfos.AddRange(TryGetSavedWmtsConnectionInfos());
+        }
+
+        private IEnumerable<WmtsConnectionInfo> TryGetSavedWmtsConnectionInfos()
+        {
             try
             {
                 var reader = new WmtsConnectionInfoReader();
-                return reader.ReadWmtsConnectionInfos(filePath);
+                return reader.ReadWmtsConnectionInfos(wmtsConnectionInfoFilePath);
             }
             catch (CriticalFileReadException exception) {}
             return Enumerable.Empty<WmtsConnectionInfo>();
+        }
+
+        private void TrySaveWmtsConnectionInfos()
+        {
+            try
+            {
+                var writer = new WmtsConnectionInfoWriter(wmtsConnectionInfoFilePath);
+                writer.WriteWmtsConnectionInfo(wmtsConnectionInfos);
+            }
+            catch (CriticalFileWriteException exception) {}
         }
 
         private WmtsConnectionInfo TryCreateWmtsConnectionInfo(string wmtsConnectionName, string wmtsConnectionUrl)
@@ -283,6 +298,7 @@ namespace Core.Components.DotSpatial.Forms.Views
                 if (createdWmtsConnectionInfos != null)
                 {
                     wmtsConnectionInfos.Add(createdWmtsConnectionInfos);
+                    TrySaveWmtsConnectionInfos();
                     UpdateComboBoxDataSource(createdWmtsConnectionInfos);
                     ConnectToUrl(createdWmtsConnectionInfos);
                 }
@@ -310,6 +326,7 @@ namespace Core.Components.DotSpatial.Forms.Views
                 {
                     wmtsConnectionInfos.Remove(selectedWmtsConnectionInfo);
                     wmtsConnectionInfos.Add(createdWmtsConnectionInfos);
+                    TrySaveWmtsConnectionInfos();
                     UpdateComboBoxDataSource(createdWmtsConnectionInfos);
                     ConnectToUrl(createdWmtsConnectionInfos);
                 }
