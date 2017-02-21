@@ -80,6 +80,7 @@
     <Compile Include="PropertyClasses\IFailureMechanismPropertyChangeHandler.cs" />
     <Compile Include="PropertyClasses\ConfirmingLogNormalDistributionProperties.cs" />
     <Compile Include="PropertyClasses\ConfirmingDistributionPropertiesBase.cs" />
+    <Compile Include="PropertyClasses\ConfirmingNormalDistributionProperties.cs" />
     <Compile Include="PropertyClasses\StructuresInputBaseProperties.cs" />
     <Compile Include="PresentationObjects\TreeFolderCategory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

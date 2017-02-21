@@ -70,7 +70,7 @@ namespace Ringtoets.ClosingStructures.Plugin
             yield return new PropertyInfo<ClosingStructure, ClosingStructureProperties>();
             yield return new PropertyInfo<ClosingStructuresInputContext, ClosingStructuresInputContextProperties>
             {
-                CreateInstance = context => new ClosingStructuresInputContextProperties(context)
+                CreateInstance = context => new ClosingStructuresInputContextProperties(context, new CalculationInputPropertyChangeHandler())
             };
         }
 

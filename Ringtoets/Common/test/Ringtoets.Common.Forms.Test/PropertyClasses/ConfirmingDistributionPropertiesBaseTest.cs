@@ -49,7 +49,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             var properties = new SimpleDistributionProperties(DistributionPropertiesReadOnly.All, distribution, null, null, null);
 
             // Assert
-            Assert.IsInstanceOf<ConfirmingDistributionPropertiesBase<IDistribution, ICalculationInput, ICalculation>>(properties);
+            Assert.IsInstanceOf<ConfirmingDistributionPropertiesBase<IDistribution, ICalculationInput>>(properties);
             Assert.AreSame(distribution, properties.Data);
             mocks.VerifyAll();
         }
@@ -358,10 +358,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             mocks.VerifyAll();
         }
 
-        private class SimpleDistributionProperties : ConfirmingDistributionPropertiesBase<
-            IDistribution,
-            ICalculationInput,
-            ICalculation>
+        private class SimpleDistributionProperties : ConfirmingDistributionPropertiesBase<IDistribution, ICalculationInput>
         {
             public SimpleDistributionProperties(DistributionPropertiesReadOnly propertiesReadOnly,
                                                 IDistribution distribution, ICalculation calculation,

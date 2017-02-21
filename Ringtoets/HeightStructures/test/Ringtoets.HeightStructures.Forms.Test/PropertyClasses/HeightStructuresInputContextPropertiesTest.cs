@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
@@ -32,6 +33,7 @@ using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PropertyClasses;
+using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Data.TestUtil;
 using Ringtoets.HeightStructures.Forms.PresentationObjects;
@@ -70,8 +72,12 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
         [Test]
         public void Constructor_WithoutData_ExpectedValues()
         {
+            // Setup
+            var handler = mockRepository.Stub<ICalculationInputPropertyChangeHandler>();
+            mockRepository.ReplayAll();
+
             // Call
-            TestDelegate test = () => new HeightStructuresInputContextProperties(null);
+            TestDelegate test = () => new HeightStructuresInputContextProperties(null, handler);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -79,7 +85,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void Constructor_WithData_ExpectedValues()
+        public void Constructor_WithoutHandler_ExpectedValues()
         {
             // Setup
             var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
@@ -94,7 +100,31 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
                                                                 assessmentSectionStub);
 
             // Call
-            var properties = new HeightStructuresInputContextProperties(inputContext);
+            TestDelegate test = () => new HeightStructuresInputContextProperties(inputContext, null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("propertyChangeHandler", paramName);
+        }
+
+        [Test]
+        public void Constructor_WithDataAndHandler_ExpectedValues()
+        {
+            // Setup
+            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            var handler = mockRepository.Stub<ICalculationInputPropertyChangeHandler>();
+            mockRepository.ReplayAll();
+
+            var failureMechanism = new HeightStructuresFailureMechanism();
+            var calculation = new StructuresCalculation<HeightStructuresInput>();
+
+            var inputContext = new HeightStructuresInputContext(calculation.InputParameters,
+                                                                calculation,
+                                                                failureMechanism,
+                                                                assessmentSectionStub);
+
+            // Call
+            var properties = new HeightStructuresInputContextProperties(inputContext, handler);
 
             // Assert
             Assert.IsInstanceOf<StructuresInputBaseProperties<HeightStructure, HeightStructuresInput, StructuresCalculation<HeightStructuresInput>, HeightStructuresFailureMechanism>>(properties);
@@ -111,6 +141,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
         {
             // Setup
             var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            var handler = mockRepository.Stub<ICalculationInputPropertyChangeHandler>();
             mockRepository.ReplayAll();
 
             var failureMechanism = new HeightStructuresFailureMechanism();
@@ -121,7 +152,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
                                                                 assessmentSectionStub);
 
             // Call
-            var properties = new HeightStructuresInputContextProperties(inputContext);
+            var properties = new HeightStructuresInputContextProperties(inputContext, handler);
 
             // Assert
             const string schematizationCategory = "Schematisatie";
@@ -164,6 +195,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
         {
             // Setup
             var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            var handler = mockRepository.Stub<ICalculationInputPropertyChangeHandler>();
             mockRepository.ReplayAll();
 
             var failureMechanism = new HeightStructuresFailureMechanism
@@ -178,7 +210,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
                                                                 calculation,
                                                                 failureMechanism,
                                                                 assessmentSectionStub);
-            var properties = new HeightStructuresInputContextProperties(inputContext);
+            var properties = new HeightStructuresInputContextProperties(inputContext, handler);
 
             // Call
             var availableForeshoreProfiles = properties.GetAvailableForeshoreProfiles();
@@ -193,6 +225,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
         {
             // Setup
             var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            var handler = mockRepository.Stub<ICalculationInputPropertyChangeHandler>();
             mockRepository.ReplayAll();
 
             var failureMechanism = new HeightStructuresFailureMechanism
@@ -207,7 +240,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
                                                                 calculation,
                                                                 failureMechanism,
                                                                 assessmentSectionStub);
-            var properties = new HeightStructuresInputContextProperties(inputContext);
+            var properties = new HeightStructuresInputContextProperties(inputContext, handler);
 
             // Call
             var availableStructures = properties.GetAvailableStructures();
@@ -230,7 +263,14 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
                                                                 calculation,
                                                                 failureMechanism,
                                                                 assessmentSectionStub);
-            var properties = new HeightStructuresInputContextProperties(inputContext);
+
+            var newStructure = new TestHeightStructure();
+            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<HeightStructure>(
+                calculation.InputParameters,
+                calculation,
+                newStructure,
+                Enumerable.Empty<IObservable>());
+            var properties = new HeightStructuresInputContextProperties(inputContext, handler);
 
             failureMechanism.AddSection(new FailureMechanismSection("Section", new List<Point2D>
             {
@@ -240,7 +280,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             failureMechanism.CalculationsGroup.Children.Add(calculation);
 
             // Call
-            properties.Structure = new TestHeightStructure();
+            properties.Structure = newStructure;
 
             // Assert
             Assert.AreSame(calculation, failureMechanism.SectionResults.ElementAt(0).Calculation);

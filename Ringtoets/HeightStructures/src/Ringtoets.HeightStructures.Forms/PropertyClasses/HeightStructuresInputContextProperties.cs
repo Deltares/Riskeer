@@ -27,6 +27,7 @@ using Core.Common.Gui.Attributes;
 using Core.Common.Utils.Attributes;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Structures;
+using Ringtoets.Common.Forms.ChangeHandlers;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Utils;
 using Ringtoets.HeightStructures.Data;
@@ -65,26 +66,27 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
         /// Creates a new instance of the <see cref="HeightStructuresInputContextProperties"/> class.
         /// </summary>
         /// <param name="data">The instance to show the properties of.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="data"/> is <c>null</c>.</exception>
-        public HeightStructuresInputContextProperties(HeightStructuresInputContext data)
+        /// <param name="propertyChangeHandler">The handler responsible for handling effects of a property change.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public HeightStructuresInputContextProperties(HeightStructuresInputContext data, ICalculationInputPropertyChangeHandler propertyChangeHandler)
             : base(data, new ConstructionProperties
-                   {
-                       StructurePropertyIndex = structurePropertyIndex,
-                       StructureLocationPropertyIndex = structureLocationPropertyIndex,
-                       StructureNormalOrientationPropertyIndex = structureNormalOrientationPropertyIndex,
-                       FlowWidthAtBottomProtectionPropertyIndex = flowWidthAtBottomProtectionPropertyIndex,
-                       WidthFlowAperturesPropertyIndex = widthFlowAperturesPropertyIndex,
-                       StorageStructureAreaPropertyIndex = storageStructureAreaPropertyIndex,
-                       AllowedLevelIncreaseStoragePropertyIndex = allowedLevelIncreaseStoragePropertyIndex,
-                       CriticalOvertoppingDischargePropertyIndex = criticalOvertoppingDischargePropertyIndex,
-                       FailureProbabilityStructureWithErosionPropertyIndex = failureProbabilityStructureWithErosionPropertyIndex,
-                       ForeshoreProfilePropertyIndex = foreshoreProfilePropertyIndex,
-                       UseBreakWaterPropertyIndex = useBreakWaterPropertyIndex,
-                       UseForeshorePropertyIndex = useForeshorePropertyIndex,
-                       ModelFactorSuperCriticalFlowPropertyIndex = modelFactorSuperCriticalFlowPropertyIndex,
-                       HydraulicBoundaryLocationPropertyIndex = hydraulicBoundaryLocationPropertyIndex,
-                       StormDurationPropertyIndex = stormDurationPropertyIndex
-                   }) {}
+            {
+                StructurePropertyIndex = structurePropertyIndex,
+                StructureLocationPropertyIndex = structureLocationPropertyIndex,
+                StructureNormalOrientationPropertyIndex = structureNormalOrientationPropertyIndex,
+                FlowWidthAtBottomProtectionPropertyIndex = flowWidthAtBottomProtectionPropertyIndex,
+                WidthFlowAperturesPropertyIndex = widthFlowAperturesPropertyIndex,
+                StorageStructureAreaPropertyIndex = storageStructureAreaPropertyIndex,
+                AllowedLevelIncreaseStoragePropertyIndex = allowedLevelIncreaseStoragePropertyIndex,
+                CriticalOvertoppingDischargePropertyIndex = criticalOvertoppingDischargePropertyIndex,
+                FailureProbabilityStructureWithErosionPropertyIndex = failureProbabilityStructureWithErosionPropertyIndex,
+                ForeshoreProfilePropertyIndex = foreshoreProfilePropertyIndex,
+                UseBreakWaterPropertyIndex = useBreakWaterPropertyIndex,
+                UseForeshorePropertyIndex = useForeshorePropertyIndex,
+                ModelFactorSuperCriticalFlowPropertyIndex = modelFactorSuperCriticalFlowPropertyIndex,
+                HydraulicBoundaryLocationPropertyIndex = hydraulicBoundaryLocationPropertyIndex,
+                StormDurationPropertyIndex = stormDurationPropertyIndex
+            }, propertyChangeHandler) {}
 
         #region Schematization
 

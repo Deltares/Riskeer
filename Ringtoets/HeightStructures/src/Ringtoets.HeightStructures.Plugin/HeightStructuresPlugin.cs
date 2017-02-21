@@ -70,7 +70,7 @@ namespace Ringtoets.HeightStructures.Plugin
             yield return new PropertyInfo<HeightStructure, HeightStructureProperties>();
             yield return new PropertyInfo<HeightStructuresInputContext, HeightStructuresInputContextProperties>
             {
-                CreateInstance = context => new HeightStructuresInputContextProperties(context)
+                CreateInstance = context => new HeightStructuresInputContextProperties(context, new CalculationInputPropertyChangeHandler())
             };
         }
 

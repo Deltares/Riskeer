@@ -230,11 +230,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_CriticalValues))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.CriticalFlowRate_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.CriticalFlowRate_Description))]
-        public ConfirmingLogNormalDistributionProperties<GrassCoverErosionInwardsInput, GrassCoverErosionInwardsCalculation> CriticalFlowRate
+        public ConfirmingLogNormalDistributionProperties<GrassCoverErosionInwardsInput> CriticalFlowRate
         {
             get
             {
-                return new ConfirmingLogNormalDistributionProperties<GrassCoverErosionInwardsInput, GrassCoverErosionInwardsCalculation>(
+                return new ConfirmingLogNormalDistributionProperties<GrassCoverErosionInwardsInput>(
                     DistributionPropertiesReadOnly.None,
                     data.WrappedData.CriticalFlowRate,
                     data.Calculation,

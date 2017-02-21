@@ -33,6 +33,7 @@ using Ringtoets.ClosingStructures.Forms.PresentationObjects;
 using Ringtoets.ClosingStructures.Forms.Properties;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Structures;
+using Ringtoets.Common.Forms.ChangeHandlers;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Utils;
@@ -80,8 +81,9 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
         /// Creates a new instance of the <see cref="ClosingStructuresInputContextProperties"/> class.
         /// </summary>
         /// <param name="data">The instance to show the properties of.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="data"/> is <c>null</c>.</exception>
-        public ClosingStructuresInputContextProperties(ClosingStructuresInputContext data) :
+        /// <param name="propertyChangeHandler">The handler responsible for handling effects of a property change.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public ClosingStructuresInputContextProperties(ClosingStructuresInputContext data, ICalculationInputPropertyChangeHandler propertyChangeHandler) :
             base(data, new ConstructionProperties
             {
                 StructurePropertyIndex = structurePropertyIndex,
@@ -99,7 +101,7 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
                 ModelFactorSuperCriticalFlowPropertyIndex = modelFactorSuperCriticalFlowPropertyIndex,
                 HydraulicBoundaryLocationPropertyIndex = hydraulicBoundaryLocationPropertyIndex,
                 StormDurationPropertyIndex = stormDurationPropertyIndex
-            }) {}
+            }, propertyChangeHandler) {}
 
         #region Hydraulic data
 
@@ -187,7 +189,7 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
         #region Model factors
 
         [DynamicVisible]
-        public override NormalDistributionProperties ModelFactorSuperCriticalFlow
+        public override ConfirmingNormalDistributionProperties<ClosingStructuresInput> ModelFactorSuperCriticalFlow
         {
             get
             {
@@ -224,8 +226,8 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
             }
             set
             {
-                data.WrappedData.FactorStormDurationOpenStructure = value;
-                ClearOutputAndNotifyPropertyChanged();
+                ChangePropertyAndNotify(
+                    (input, newValue) => data.WrappedData.FactorStormDurationOpenStructure = newValue, value);
             }
         }
 
@@ -268,8 +270,8 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
             }
             set
             {
-                data.WrappedData.InflowModelType = value;
-                ClearOutputAndNotifyPropertyChanged();
+                ChangePropertyAndNotify(
+                    (input, newValue) => data.WrappedData.InflowModelType = newValue, value);
             }
         }
 
@@ -319,8 +321,13 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
             }
             set
             {
-                SetProbabilityValue(value, data.WrappedData, (wrappedData, parsedValue) => wrappedData.FailureProbabilityOpenStructure = parsedValue);
-                ClearOutputAndNotifyPropertyChanged();
+                ChangePropertyAndNotify(
+                    (input, newValue) =>
+                        SetProbabilityValue(
+                            newValue,
+                            data.WrappedData,
+                            (wrappedData, parsedValue) => wrappedData.FailureProbabilityOpenStructure = parsedValue),
+                    value);
             }
         }
 
@@ -336,8 +343,13 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
             }
             set
             {
-                SetProbabilityValue(value, data.WrappedData, (wrappedData, parsedValue) => wrappedData.FailureProbabilityReparation = parsedValue);
-                ClearOutputAndNotifyPropertyChanged();
+                ChangePropertyAndNotify(
+                    (input, newValue) =>
+                        SetProbabilityValue(
+                            newValue, 
+                            data.WrappedData, 
+                            (wrappedData, parsedValue) => wrappedData.FailureProbabilityReparation = parsedValue),
+                    value);
             }
         }
 
@@ -353,8 +365,8 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
             }
             set
             {
-                data.WrappedData.IdenticalApertures = value;
-                ClearOutputAndNotifyPropertyChanged();
+                ChangePropertyAndNotify(
+                    (input, newValue) => data.WrappedData.IdenticalApertures = newValue, value);
             }
         }
 
@@ -387,8 +399,13 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
             }
             set
             {
-                SetProbabilityValue(value, data.WrappedData, (wrappedData, parsedValue) => wrappedData.ProbabilityOrFrequencyOpenStructureBeforeFlooding = parsedValue);
-                ClearOutputAndNotifyPropertyChanged();
+                ChangePropertyAndNotify(
+                    (input, newValue) =>
+                        SetProbabilityValue(
+                            newValue, 
+                            data.WrappedData, 
+                            (wrappedData, parsedValue) => wrappedData.ProbabilityOrFrequencyOpenStructureBeforeFlooding = parsedValue),
+                    value);
             }
         }
 

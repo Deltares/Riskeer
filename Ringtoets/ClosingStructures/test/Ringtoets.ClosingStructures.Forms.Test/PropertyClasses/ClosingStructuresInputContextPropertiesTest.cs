@@ -43,6 +43,7 @@ using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PropertyClasses;
+using Ringtoets.Common.Forms.TestUtil;
 
 namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
 {
@@ -50,29 +51,65 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
     public class ClosingStructuresInputContextPropertiesTest
     {
         private MockRepository mockRepository;
+        private IAssessmentSection assessmentSection;
 
         [SetUp]
         public void SetUp()
         {
             mockRepository = new MockRepository();
+            assessmentSection = mockRepository.Stub<IAssessmentSection>();
         }
 
         [Test]
-        public void Constructor_WithoutData_ExpectedValues()
+        public void Constructor_WithoutData_ThrowsArgumentNullException()
         {
+            // Setup
+            var handler = mockRepository.Stub<ICalculationInputPropertyChangeHandler>();
+            mockRepository.ReplayAll();
+
             // Call
-            TestDelegate test = () => new ClosingStructuresInputContextProperties(null);
+            TestDelegate test = () => new ClosingStructuresInputContextProperties(null, handler);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("data", paramName);
+            mockRepository.VerifyAll();
         }
 
         [Test]
-        public void Constructor_WithData_ExpectedValues()
+        public void Constructor_WithoutHandler_ThrowsArgumentNullException()
+        {
+            // Setup
+            mockRepository.ReplayAll();
+
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+            var calculation = new StructuresCalculation<ClosingStructuresInput>
+            {
+                InputParameters =
+                {
+                    Structure = new TestClosingStructure(ClosingStructureInflowModelType.VerticalWall)
+                }
+            };
+            var inputContext = new ClosingStructuresInputContext(calculation.InputParameters,
+                                                                 calculation,
+                                                                 failureMechanism,
+                                                                 assessmentSection);
+
+            // Call
+            TestDelegate test = () => new ClosingStructuresInputContextProperties(inputContext, null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("propertyChangeHandler", paramName);
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_WithDataAndHandler_ExpectedValues()
         {
             // Setup
             var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            var handler = mockRepository.Stub<ICalculationInputPropertyChangeHandler>();
             mockRepository.ReplayAll();
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
@@ -89,7 +126,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
                                                                  assessmentSectionStub);
 
             // Call
-            var properties = new ClosingStructuresInputContextProperties(inputContext);
+            var properties = new ClosingStructuresInputContextProperties(inputContext, handler);
 
             // Assert
             Assert.IsInstanceOf<StructuresInputBaseProperties<ClosingStructure, ClosingStructuresInput,
@@ -123,6 +160,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         {
             // Setup
             var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            var handler = mockRepository.Stub<ICalculationInputPropertyChangeHandler>();
             mockRepository.ReplayAll();
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
@@ -139,7 +177,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
                                                                  assessmentSectionStub);
 
             // Call
-            var properties = new ClosingStructuresInputContextProperties(inputContext);
+            var properties = new ClosingStructuresInputContextProperties(inputContext, handler);
 
             // Assert
             const string schematizationCategory = "Schematisatie";
@@ -219,6 +257,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         {
             // Setup
             var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            var handler = mockRepository.Stub<ICalculationInputPropertyChangeHandler>();
             mockRepository.ReplayAll();
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
@@ -235,7 +274,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
                                                                  assessmentSectionStub);
 
             // Call
-            var properties = new ClosingStructuresInputContextProperties(inputContext);
+            var properties = new ClosingStructuresInputContextProperties(inputContext, handler);
 
             // Assert
             const string schematizationCategory = "Schematisatie";
@@ -325,6 +364,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         {
             // Setup
             var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            var handler = mockRepository.Stub<ICalculationInputPropertyChangeHandler>();
             mockRepository.ReplayAll();
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
@@ -341,7 +381,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
                                                                  assessmentSectionStub);
 
             // Call
-            var properties = new ClosingStructuresInputContextProperties(inputContext);
+            var properties = new ClosingStructuresInputContextProperties(inputContext, handler);
 
             // Assert
             const string schematizationCategory = "Schematisatie";
@@ -427,6 +467,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         {
             // Setup
             var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            var handler = mockRepository.Stub<ICalculationInputPropertyChangeHandler>();
             mockRepository.ReplayAll();
 
             var failureMechanism = new ClosingStructuresFailureMechanism
@@ -441,7 +482,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
                                                                  calculation,
                                                                  failureMechanism,
                                                                  assessmentSectionStub);
-            var properties = new ClosingStructuresInputContextProperties(inputContext);
+            var properties = new ClosingStructuresInputContextProperties(inputContext, handler);
 
             // Call
             var availableForeshoreProfiles = properties.GetAvailableForeshoreProfiles();
@@ -456,6 +497,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         {
             // Setup
             var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            var handler = mockRepository.Stub<ICalculationInputPropertyChangeHandler>();
             mockRepository.ReplayAll();
 
             var failureMechanism = new ClosingStructuresFailureMechanism
@@ -470,7 +512,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
                                                                  calculation,
                                                                  failureMechanism,
                                                                  assessmentSectionStub);
-            var properties = new ClosingStructuresInputContextProperties(inputContext);
+            var properties = new ClosingStructuresInputContextProperties(inputContext, handler);
 
             // Call
             var availableStructures = properties.GetAvailableStructures();
@@ -479,116 +521,59 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             Assert.AreSame(failureMechanism.ClosingStructures, availableStructures);
             mockRepository.VerifyAll();
         }
-
+        
         [Test]
-        public void SetProperties_IndividualProperties_UpdateDataAndNotifyObservers()
+        public void FactorStormDurationOpenStructure_Always_InputChangedAndObsevablesNotified()
         {
-            // Setup
-            const int numberOfChangedProperties = 6;
-            var observerMock = mockRepository.StrictMock<IObserver>();
-            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
-
-            observerMock.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChangedProperties);
-
-            mockRepository.ReplayAll();
-
-            var failureMechanism = new ClosingStructuresFailureMechanism();
-            var calculation = new StructuresCalculation<ClosingStructuresInput>();
-            ClosingStructuresInput input = calculation.InputParameters;
-            var inputContext = new ClosingStructuresInputContext(input,
-                                                                 calculation,
-                                                                 failureMechanism,
-                                                                 assessmentSectionStub);
-            var properties = new ClosingStructuresInputContextProperties(inputContext);
-
-            input.Attach(observerMock);
-
-            var random = new Random(100);
-            double newFactorStormDurationOpenStructure = random.NextDouble();
-            var newInflowModelType = ClosingStructureInflowModelType.FloodedCulvert;
-            var newIdenticalApertures = 2;
-
-            // Call
-            properties.FactorStormDurationOpenStructure = (RoundedDouble) newFactorStormDurationOpenStructure;
-            properties.InflowModelType = newInflowModelType;
-            properties.ProbabilityOrFrequencyOpenStructureBeforeFlooding = "1e-2";
-            properties.FailureProbabilityOpenStructure = "1e-3";
-            properties.FailureProbabilityReparation = "1e-4";
-            properties.IdenticalApertures = newIdenticalApertures;
-
-            // Assert
-            var expectedProbabilityOrFrequencyOpenStructureBeforeFlooding = ProbabilityFormattingHelper.Format(0.01);
-            var expectedFailureProbabilityOpenStructure = ProbabilityFormattingHelper.Format(0.001);
-            var expectedFailureProbabilityReparation = ProbabilityFormattingHelper.Format(0.0001);
-
-            Assert.AreEqual(newFactorStormDurationOpenStructure, properties.FactorStormDurationOpenStructure, properties.FactorStormDurationOpenStructure.GetAccuracy());
-            Assert.AreEqual(newInflowModelType, properties.InflowModelType);
-            Assert.AreEqual(expectedProbabilityOrFrequencyOpenStructureBeforeFlooding, properties.ProbabilityOrFrequencyOpenStructureBeforeFlooding);
-            Assert.AreEqual(expectedFailureProbabilityOpenStructure, properties.FailureProbabilityOpenStructure);
-            Assert.AreEqual(expectedFailureProbabilityReparation, properties.FailureProbabilityReparation);
-            Assert.AreEqual(newIdenticalApertures, properties.IdenticalApertures);
-
-            mockRepository.VerifyAll();
+            RoundedDouble factor = new Random(21).NextRoundedDouble();
+            SetPropertyAndVerifyNotifcationsAndOutput(
+                properties => properties.FactorStormDurationOpenStructure = factor,
+                factor);
         }
 
         [Test]
-        [TestCase(true, TestName = "FactorStormDurationOpenStructure_WithOutput_InputAndCalculationNotified")]
-        [TestCase(false, TestName = "FactorStormDurationOpenStructure_WithoutOutput_InputNotified")]
-        public void FactorStormDurationOpenStructure_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput(bool hasOutput)
+        public void InflowModelType_Always_InputChangedAndObsevablesNotified()
         {
+            var inflowModelType = new Random(21).NextEnumValue<ClosingStructureInflowModelType>();
             SetPropertyAndVerifyNotifcationsAndOutput(
-                hasOutput, 
-                properties => properties.FactorStormDurationOpenStructure = new Random(21).NextRoundedDouble());
+                properties => properties.InflowModelType = inflowModelType,
+                inflowModelType);
         }
 
         [Test]
-        [TestCase(true, TestName = "InflowModelType_WithOutput_InputAndCalculationNotified")]
-        [TestCase(false, TestName = "InflowModelType_WithoutOutput_InputNotified")]
-        public void InflowModelType_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput(bool hasOutput)
+        public void ProbabilityOrFrequencyOpenStructureBeforeFlooding_Always_InputChangedAndObsevablesNotified()
         {
+            string probability = new Random(21).NextDouble().ToString(CultureInfo.CurrentCulture);
             SetPropertyAndVerifyNotifcationsAndOutput(
-                hasOutput, 
-                properties => properties.InflowModelType = new Random(21).NextEnumValue<ClosingStructureInflowModelType>());
+                properties => properties.ProbabilityOrFrequencyOpenStructureBeforeFlooding = probability,
+                probability);
         }
 
         [Test]
-        [TestCase(true, TestName = "ProbabilityOrFrequencyOpenStructureBeforeFlooding_WithOutput_InputAndCalculationNotified")]
-        [TestCase(false, TestName = "ProbabilityOrFrequencyOpenStructureBeforeFlooding_WithoutOutput_InputNotified")]
-        public void ProbabilityOrFrequencyOpenStructureBeforeFlooding_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput(bool hasOutput)
+        public void FailureProbabilityOpenStructure_Always_InputChangedAndObsevablesNotified()
         {
+            string probability = new Random(21).NextDouble().ToString(CultureInfo.CurrentCulture);
             SetPropertyAndVerifyNotifcationsAndOutput(
-                hasOutput,
-                properties => properties.ProbabilityOrFrequencyOpenStructureBeforeFlooding = new Random(21).NextDouble().ToString(CultureInfo.CurrentCulture));
+                properties => properties.FailureProbabilityOpenStructure = probability,
+                probability);
         }
 
         [Test]
-        [TestCase(true, TestName = "FailureProbabilityOpenStructure_WithOutput_InputAndCalculationNotified")]
-        [TestCase(false, TestName = "FailureProbabilityOpenStructure_WithoutOutput_InputNotified")]
-        public void FailureProbabilityOpenStructure_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput(bool hasOutput)
+        public void FailureProbabilityReparation_Always_InputChangedAndObsevablesNotified()
         {
+            string probability = new Random(21).NextDouble().ToString(CultureInfo.CurrentCulture);
             SetPropertyAndVerifyNotifcationsAndOutput(
-                hasOutput, 
-                properties => properties.FailureProbabilityOpenStructure = new Random(21).NextDouble().ToString(CultureInfo.CurrentCulture));
+                properties => properties.FailureProbabilityReparation = probability,
+                probability);
         }
 
         [Test]
-        [TestCase(true, TestName = "FailureProbabilityReparation_WithOutput_InputAndCalculationNotified")]
-        [TestCase(false, TestName = "FailureProbabilityReparation_WithoutOutput_InputNotified")]
-        public void FailureProbabilityReparation_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput(bool hasOutput)
+        public void IdenticalApertures_Always_InputChangedAndObsevablesNotified()
         {
+            int propertiesIdenticalApertures = new Random(21).Next();
             SetPropertyAndVerifyNotifcationsAndOutput(
-                hasOutput,
-                properties => properties.FailureProbabilityReparation = new Random(21).NextDouble().ToString(CultureInfo.CurrentCulture));
-        }
-
-        [Test]
-        [TestCase(true, TestName = "IdenticalApertures_WithOutput_InputAndCalculationNotified")]
-        [TestCase(false, TestName = "IdenticalApertures_WithoutOutput_InputNotified")]
-        public void IdenticalApertures_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput(bool hasOutput)
-        {
-            SetPropertyAndVerifyNotifcationsAndOutput(
-                hasOutput, 
-                properties => properties.IdenticalApertures = new Random(21).Next());
+                properties => properties.IdenticalApertures = propertiesIdenticalApertures,
+                propertiesIdenticalApertures);
         }
 
         [Test]
@@ -607,10 +592,16 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
                                                                  calculation,
                                                                  failureMechanism,
                                                                  assessmentSectionStub);
-            var properties = new ClosingStructuresInputContextProperties(inputContext);
 
             const int overflow = 1;
             string newProbabilityString = string.Concat(newValue.ToString("r", CultureInfo.CurrentCulture), overflow);
+
+            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<string>(
+                calculation.InputParameters,
+                calculation,
+                newProbabilityString,
+                Enumerable.Empty<IObservable>());
+            var properties = new ClosingStructuresInputContextProperties(inputContext, handler);
 
             // Call
             TestDelegate call = () => properties.ProbabilityOrFrequencyOpenStructureBeforeFlooding = newProbabilityString;
@@ -639,9 +630,14 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
                                                                  calculation,
                                                                  failureMechanism,
                                                                  assessmentSectionStub);
-            var properties = new ClosingStructuresInputContextProperties(inputContext);
 
             string newProbabilityString = newValue.ToString("r", CultureInfo.CurrentCulture);
+            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<string>(
+                calculation.InputParameters,
+                calculation,
+                newProbabilityString,
+                Enumerable.Empty<IObservable>());
+            var properties = new ClosingStructuresInputContextProperties(inputContext, handler);
 
             // Call
             TestDelegate call = () => properties.ProbabilityOrFrequencyOpenStructureBeforeFlooding = newProbabilityString;
@@ -669,7 +665,13 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
                                                                  calculation,
                                                                  failureMechanism,
                                                                  assessmentSectionStub);
-            var properties = new ClosingStructuresInputContextProperties(inputContext);
+
+            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<string>(
+                calculation.InputParameters,
+                calculation,
+                newValue,
+                Enumerable.Empty<IObservable>());
+            var properties = new ClosingStructuresInputContextProperties(inputContext, handler);
 
             // Call
             TestDelegate call = () => properties.ProbabilityOrFrequencyOpenStructureBeforeFlooding = newValue;
@@ -695,7 +697,13 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
                                                                  calculation,
                                                                  failureMechanism,
                                                                  assessmentSectionStub);
-            var properties = new ClosingStructuresInputContextProperties(inputContext);
+
+            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<string>(
+                calculation.InputParameters,
+                calculation,
+                null,
+                Enumerable.Empty<IObservable>());
+            var properties = new ClosingStructuresInputContextProperties(inputContext, handler);
 
             // Call
             TestDelegate call = () => properties.ProbabilityOrFrequencyOpenStructureBeforeFlooding = null;
@@ -723,10 +731,17 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
                                                                  calculation,
                                                                  failureMechanism,
                                                                  assessmentSectionStub);
-            var properties = new ClosingStructuresInputContextProperties(inputContext);
 
             const int overflow = 1;
             string newProbabilityString = string.Concat(newValue.ToString("r", CultureInfo.CurrentCulture), overflow);
+
+            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<string>(
+                calculation.InputParameters,
+                calculation,
+                newProbabilityString,
+                Enumerable.Empty<IObservable>());
+            var properties = new ClosingStructuresInputContextProperties(inputContext, handler);
+
 
             // Call
             TestDelegate call = () => properties.FailureProbabilityOpenStructure = newProbabilityString;
@@ -754,7 +769,13 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
                                                                  calculation,
                                                                  failureMechanism,
                                                                  assessmentSectionStub);
-            var properties = new ClosingStructuresInputContextProperties(inputContext);
+
+            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<string>(
+                calculation.InputParameters,
+                calculation,
+                newValue,
+                Enumerable.Empty<IObservable>());
+            var properties = new ClosingStructuresInputContextProperties(inputContext, handler);
 
             // Call
             TestDelegate call = () => properties.FailureProbabilityOpenStructure = newValue;
@@ -780,7 +801,13 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
                                                                  calculation,
                                                                  failureMechanism,
                                                                  assessmentSectionStub);
-            var properties = new ClosingStructuresInputContextProperties(inputContext);
+
+            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<string>(
+                calculation.InputParameters,
+                calculation,
+                null,
+                Enumerable.Empty<IObservable>());
+            var properties = new ClosingStructuresInputContextProperties(inputContext, handler);
 
             // Call
             TestDelegate call = () => properties.FailureProbabilityOpenStructure = null;
@@ -808,10 +835,17 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
                                                                  calculation,
                                                                  failureMechanism,
                                                                  assessmentSectionStub);
-            var properties = new ClosingStructuresInputContextProperties(inputContext);
 
             const int overflow = 1;
             string newProbabilityString = string.Concat(newValue.ToString("r", CultureInfo.CurrentCulture), overflow);
+
+            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<string>(
+                calculation.InputParameters,
+                calculation,
+                newProbabilityString,
+                Enumerable.Empty<IObservable>());
+            var properties = new ClosingStructuresInputContextProperties(inputContext, handler);
+
 
             // Call
             TestDelegate call = () => properties.FailureProbabilityReparation = newProbabilityString;
@@ -839,7 +873,13 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
                                                                  calculation,
                                                                  failureMechanism,
                                                                  assessmentSectionStub);
-            var properties = new ClosingStructuresInputContextProperties(inputContext);
+
+            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<string>(
+                calculation.InputParameters,
+                calculation,
+                newValue,
+                Enumerable.Empty<IObservable>());
+            var properties = new ClosingStructuresInputContextProperties(inputContext, handler);
 
             // Call
             TestDelegate call = () => properties.FailureProbabilityReparation = newValue;
@@ -865,7 +905,13 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
                                                                  calculation,
                                                                  failureMechanism,
                                                                  assessmentSectionStub);
-            var properties = new ClosingStructuresInputContextProperties(inputContext);
+
+            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<string>(
+                calculation.InputParameters,
+                calculation,
+                null,
+                Enumerable.Empty<IObservable>());
+            var properties = new ClosingStructuresInputContextProperties(inputContext, handler);
 
             // Call
             TestDelegate call = () => properties.FailureProbabilityReparation = null;
@@ -890,7 +936,14 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
                                                                  calculation,
                                                                  failureMechanism,
                                                                  assessmentSectionStub);
-            var properties = new ClosingStructuresInputContextProperties(inputContext);
+
+            var newStructure = new TestClosingStructure();
+            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<ClosingStructure>(
+                calculation.InputParameters,
+                calculation,
+                newStructure,
+                Enumerable.Empty<IObservable>());
+            var properties = new ClosingStructuresInputContextProperties(inputContext, handler);
 
             failureMechanism.AddSection(new FailureMechanismSection("Section", new List<Point2D>
             {
@@ -900,7 +953,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             failureMechanism.CalculationsGroup.Children.Add(calculation);
 
             // Call
-            properties.Structure = new TestClosingStructure();
+            properties.Structure = newStructure;
 
             // Assert
             Assert.AreSame(calculation, failureMechanism.SectionResults.ElementAt(0).Calculation);
@@ -912,6 +965,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         {
             // Setup
             var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            var handler = mockRepository.Stub<ICalculationInputPropertyChangeHandler>();
             mockRepository.ReplayAll();
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
@@ -926,17 +980,17 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
                                                                  calculation,
                                                                  failureMechanism,
                                                                  assessmentSectionStub);
-            var properties = new ClosingStructuresInputContextProperties(inputContext);
+            var properties = new ClosingStructuresInputContextProperties(inputContext, handler);
 
             // Call & Assert
-            Assert.IsFalse(properties.DynamicVisibleValidationMethod(TypeUtils.GetMemberName<ClosingStructuresInputContextProperties>(p => p.InsideWaterLevel)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(TypeUtils.GetMemberName<ClosingStructuresInputContextProperties>(p => p.ModelFactorSuperCriticalFlow)));
-            Assert.IsFalse(properties.DynamicVisibleValidationMethod(TypeUtils.GetMemberName<ClosingStructuresInputContextProperties>(p => p.DrainCoefficient)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(TypeUtils.GetMemberName<ClosingStructuresInputContextProperties>(p => p.StructureNormalOrientation)));
-            Assert.IsFalse(properties.DynamicVisibleValidationMethod(TypeUtils.GetMemberName<ClosingStructuresInputContextProperties>(p => p.ThresholdHeightOpenWeir)));
-            Assert.IsFalse(properties.DynamicVisibleValidationMethod(TypeUtils.GetMemberName<ClosingStructuresInputContextProperties>(p => p.AreaFlowApertures)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(TypeUtils.GetMemberName<ClosingStructuresInputContextProperties>(p => p.LevelCrestStructureNotClosing)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(TypeUtils.GetMemberName<ClosingStructuresInputContextProperties>(p => p.WidthFlowApertures)));
+            Assert.IsFalse(properties.DynamicVisibleValidationMethod(nameof(ClosingStructuresInputContextProperties.InsideWaterLevel)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(ClosingStructuresInputContextProperties.ModelFactorSuperCriticalFlow)));
+            Assert.IsFalse(properties.DynamicVisibleValidationMethod(nameof(ClosingStructuresInputContextProperties.DrainCoefficient)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(ClosingStructuresInputContextProperties.StructureNormalOrientation)));
+            Assert.IsFalse(properties.DynamicVisibleValidationMethod(nameof(ClosingStructuresInputContextProperties.ThresholdHeightOpenWeir)));
+            Assert.IsFalse(properties.DynamicVisibleValidationMethod(nameof(ClosingStructuresInputContextProperties.AreaFlowApertures)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(ClosingStructuresInputContextProperties.LevelCrestStructureNotClosing)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(ClosingStructuresInputContextProperties.WidthFlowApertures)));
 
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(null));
         }
@@ -946,6 +1000,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         {
             // Setup
             var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            var handler = mockRepository.Stub<ICalculationInputPropertyChangeHandler>();
             mockRepository.ReplayAll();
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
@@ -960,17 +1015,17 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
                                                                  calculation,
                                                                  failureMechanism,
                                                                  assessmentSectionStub);
-            var properties = new ClosingStructuresInputContextProperties(inputContext);
+            var properties = new ClosingStructuresInputContextProperties(inputContext, handler);
 
             // Call & Assert
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(TypeUtils.GetMemberName<ClosingStructuresInputContextProperties>(p => p.InsideWaterLevel)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(TypeUtils.GetMemberName<ClosingStructuresInputContextProperties>(p => p.ModelFactorSuperCriticalFlow)));
-            Assert.IsFalse(properties.DynamicVisibleValidationMethod(TypeUtils.GetMemberName<ClosingStructuresInputContextProperties>(p => p.DrainCoefficient)));
-            Assert.IsFalse(properties.DynamicVisibleValidationMethod(TypeUtils.GetMemberName<ClosingStructuresInputContextProperties>(p => p.StructureNormalOrientation)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(TypeUtils.GetMemberName<ClosingStructuresInputContextProperties>(p => p.ThresholdHeightOpenWeir)));
-            Assert.IsFalse(properties.DynamicVisibleValidationMethod(TypeUtils.GetMemberName<ClosingStructuresInputContextProperties>(p => p.AreaFlowApertures)));
-            Assert.IsFalse(properties.DynamicVisibleValidationMethod(TypeUtils.GetMemberName<ClosingStructuresInputContextProperties>(p => p.LevelCrestStructureNotClosing)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(TypeUtils.GetMemberName<ClosingStructuresInputContextProperties>(p => p.WidthFlowApertures)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(ClosingStructuresInputContextProperties.InsideWaterLevel)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(ClosingStructuresInputContextProperties.ModelFactorSuperCriticalFlow)));
+            Assert.IsFalse(properties.DynamicVisibleValidationMethod(nameof(ClosingStructuresInputContextProperties.DrainCoefficient)));
+            Assert.IsFalse(properties.DynamicVisibleValidationMethod(nameof(ClosingStructuresInputContextProperties.StructureNormalOrientation)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(ClosingStructuresInputContextProperties.ThresholdHeightOpenWeir)));
+            Assert.IsFalse(properties.DynamicVisibleValidationMethod(nameof(ClosingStructuresInputContextProperties.AreaFlowApertures)));
+            Assert.IsFalse(properties.DynamicVisibleValidationMethod(nameof(ClosingStructuresInputContextProperties.LevelCrestStructureNotClosing)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(ClosingStructuresInputContextProperties.WidthFlowApertures)));
 
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(null));
         }
@@ -980,6 +1035,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         {
             // Setup
             var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            var handler = mockRepository.Stub<ICalculationInputPropertyChangeHandler>();
             mockRepository.ReplayAll();
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
@@ -994,17 +1050,17 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
                                                                  calculation,
                                                                  failureMechanism,
                                                                  assessmentSectionStub);
-            var properties = new ClosingStructuresInputContextProperties(inputContext);
+            var properties = new ClosingStructuresInputContextProperties(inputContext, handler);
 
             // Call & Assert
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(TypeUtils.GetMemberName<ClosingStructuresInputContextProperties>(p => p.InsideWaterLevel)));
-            Assert.IsFalse(properties.DynamicVisibleValidationMethod(TypeUtils.GetMemberName<ClosingStructuresInputContextProperties>(p => p.ModelFactorSuperCriticalFlow)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(TypeUtils.GetMemberName<ClosingStructuresInputContextProperties>(p => p.DrainCoefficient)));
-            Assert.IsFalse(properties.DynamicVisibleValidationMethod(TypeUtils.GetMemberName<ClosingStructuresInputContextProperties>(p => p.StructureNormalOrientation)));
-            Assert.IsFalse(properties.DynamicVisibleValidationMethod(TypeUtils.GetMemberName<ClosingStructuresInputContextProperties>(p => p.ThresholdHeightOpenWeir)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(TypeUtils.GetMemberName<ClosingStructuresInputContextProperties>(p => p.AreaFlowApertures)));
-            Assert.IsFalse(properties.DynamicVisibleValidationMethod(TypeUtils.GetMemberName<ClosingStructuresInputContextProperties>(p => p.LevelCrestStructureNotClosing)));
-            Assert.IsFalse(properties.DynamicVisibleValidationMethod(TypeUtils.GetMemberName<ClosingStructuresInputContextProperties>(p => p.WidthFlowApertures)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(ClosingStructuresInputContextProperties.InsideWaterLevel)));
+            Assert.IsFalse(properties.DynamicVisibleValidationMethod(nameof(ClosingStructuresInputContextProperties.ModelFactorSuperCriticalFlow)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(ClosingStructuresInputContextProperties.DrainCoefficient)));
+            Assert.IsFalse(properties.DynamicVisibleValidationMethod(nameof(ClosingStructuresInputContextProperties.StructureNormalOrientation)));
+            Assert.IsFalse(properties.DynamicVisibleValidationMethod(nameof(ClosingStructuresInputContextProperties.ThresholdHeightOpenWeir)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(ClosingStructuresInputContextProperties.AreaFlowApertures)));
+            Assert.IsFalse(properties.DynamicVisibleValidationMethod(nameof(ClosingStructuresInputContextProperties.LevelCrestStructureNotClosing)));
+            Assert.IsFalse(properties.DynamicVisibleValidationMethod(nameof(ClosingStructuresInputContextProperties.WidthFlowApertures)));
 
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(null));
         }
@@ -1022,17 +1078,18 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
                                                                  calculation,
                                                                  failureMechanism,
                                                                  assessmentSectionStub);
-            var properties = new ClosingStructuresInputContextProperties(inputContext);
+            var handler = mockRepository.Stub<ICalculationInputPropertyChangeHandler>();
+            var properties = new ClosingStructuresInputContextProperties(inputContext, handler);
 
             // Call & Assert
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(TypeUtils.GetMemberName<ClosingStructuresInputContextProperties>(p => p.InsideWaterLevel)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(TypeUtils.GetMemberName<ClosingStructuresInputContextProperties>(p => p.ModelFactorSuperCriticalFlow)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(TypeUtils.GetMemberName<ClosingStructuresInputContextProperties>(p => p.DrainCoefficient)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(TypeUtils.GetMemberName<ClosingStructuresInputContextProperties>(p => p.StructureNormalOrientation)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(TypeUtils.GetMemberName<ClosingStructuresInputContextProperties>(p => p.ThresholdHeightOpenWeir)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(TypeUtils.GetMemberName<ClosingStructuresInputContextProperties>(p => p.AreaFlowApertures)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(TypeUtils.GetMemberName<ClosingStructuresInputContextProperties>(p => p.LevelCrestStructureNotClosing)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(TypeUtils.GetMemberName<ClosingStructuresInputContextProperties>(p => p.WidthFlowApertures)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(ClosingStructuresInputContextProperties.InsideWaterLevel)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(ClosingStructuresInputContextProperties.ModelFactorSuperCriticalFlow)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(ClosingStructuresInputContextProperties.DrainCoefficient)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(ClosingStructuresInputContextProperties.StructureNormalOrientation)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(ClosingStructuresInputContextProperties.ThresholdHeightOpenWeir)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(ClosingStructuresInputContextProperties.AreaFlowApertures)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(ClosingStructuresInputContextProperties.LevelCrestStructureNotClosing)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(ClosingStructuresInputContextProperties.WidthFlowApertures)));
 
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(null));
         }
@@ -1121,41 +1178,34 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
 
         #endregion
 
-        private void SetPropertyAndVerifyNotifcationsAndOutput(
-            bool hasOutput,
-            Action<ClosingStructuresInputContextProperties> setProperty)
+        private void SetPropertyAndVerifyNotifcationsAndOutput<TPropertyValue>(
+            Action<ClosingStructuresInputContextProperties> setProperty,
+            TPropertyValue expectedValueSet)
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-
-            var calculationObserver = mocks.StrictMock<IObserver>();
-            int numberOfChangedProperties = hasOutput ? 1 : 0;
-            calculationObserver.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChangedProperties);
-
-            var inputObserver = mocks.StrictMock<IObserver>();
-            inputObserver.Expect(o => o.UpdateObserver());
-
-            mocks.ReplayAll();
-
-            var calculation = new StructuresCalculation<ClosingStructuresInput>();
-
-            if (hasOutput)
-            {
-                calculation.Output = new TestStructuresOutput();
-            }
-            calculation.Attach(calculationObserver);
-
-            ClosingStructuresInput inputParameters = calculation.InputParameters;
-            inputParameters.Attach(inputObserver);
+            var observable = mockRepository.StrictMock<IObservable>();
+            observable.Expect(o => o.NotifyObservers());
+            mockRepository.ReplayAll();
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
+            var calculation = new StructuresCalculation<ClosingStructuresInput>();
+            ClosingStructuresInput input = calculation.InputParameters;
+            input.ForeshoreProfile = new TestForeshoreProfile();
 
-            var properties = new ClosingStructuresInputContextProperties( new ClosingStructuresInputContext(inputParameters,
-                                              calculation,
-                                              failureMechanism,
-                                              assessmentSection)
-            );
+            var customHandler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<TPropertyValue>(
+                input,
+                calculation,
+                expectedValueSet,
+                new[]
+                {
+                    observable
+                });
+
+            var inputContext = new ClosingStructuresInputContext(input,
+                                                      calculation,
+                                                      failureMechanism,
+                                                      assessmentSection);
+            var properties = new ClosingStructuresInputContextProperties(inputContext, customHandler);
 
             // Call
             setProperty(properties);
@@ -1163,7 +1213,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             // Assert
             Assert.IsFalse(calculation.HasOutput);
 
-            mocks.VerifyAll();
+            mockRepository.VerifyAll();
         }
     }
 }

@@ -29,7 +29,6 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
-using Core.Common.Utils.Reflection;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -37,8 +36,10 @@ using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Forms.ChangeHandlers;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PropertyClasses;
+using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityPointStructures.Data.TestUtil;
 using Ringtoets.StabilityPointStructures.Forms.PresentationObjects;
@@ -50,22 +51,57 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
     public class StabilityPointStructuresInputContextPropertiesTest
     {
         private MockRepository mockRepository;
+        private IAssessmentSection assessmentSection;
 
         [SetUp]
         public void SetUp()
         {
             mockRepository = new MockRepository();
+            assessmentSection = mockRepository.Stub<IAssessmentSection>();
         }
 
         [Test]
-        public void Constructor_WithoutData_ExpectedValues()
+        public void Constructor_WithoutData_ThrowsArgumentNullException()
         {
+            // Setup
+            var handler = mockRepository.Stub<ICalculationInputPropertyChangeHandler>();
+            mockRepository.ReplayAll();
+
             // Call
-            TestDelegate test = () => new StabilityPointStructuresInputContextProperties(null);
+            TestDelegate test = () => new StabilityPointStructuresInputContextProperties(null, handler);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("data", paramName);
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_WithoutHandler_ThrowsArgumentNullException()
+        {
+            // Setup
+            mockRepository.ReplayAll();
+
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+            var calculation = new StructuresCalculation<StabilityPointStructuresInput>
+            {
+                InputParameters =
+                {
+                    Structure = new TestStabilityPointStructure()
+                }
+            };
+            var inputContext = new StabilityPointStructuresInputContext(calculation.InputParameters,
+                                                                        calculation,
+                                                                        failureMechanism,
+                                                                        assessmentSection);
+
+            // Call
+            TestDelegate test = () => new StabilityPointStructuresInputContextProperties(inputContext, null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("propertyChangeHandler", paramName);
+            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -73,6 +109,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         {
             // Setup
             var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            var handler = mockRepository.Stub<ICalculationInputPropertyChangeHandler>();
             mockRepository.ReplayAll();
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
@@ -84,15 +121,15 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
                                                                         assessmentSectionStub);
 
             // Call            
-            var properties = new StabilityPointStructuresInputContextProperties(inputContext);
+            var properties = new StabilityPointStructuresInputContextProperties(inputContext, handler);
 
             // Assert
             Assert.IsInstanceOf<StructuresInputBaseProperties<StabilityPointStructure, StabilityPointStructuresInput, StructuresCalculation<StabilityPointStructuresInput>, StabilityPointStructuresFailureMechanism>>(properties);
             Assert.AreSame(inputContext, properties.Data);
 
             StabilityPointStructuresInput input = calculation.InputParameters;
-            var expectedFailureProbabilityRepairClosure = ProbabilityFormattingHelper.Format(input.FailureProbabilityRepairClosure);
-            var expectedProbabilityCollisionSecondaryStructure = ProbabilityFormattingHelper.Format(input.ProbabilityCollisionSecondaryStructure);
+            string expectedFailureProbabilityRepairClosure = ProbabilityFormattingHelper.Format(input.FailureProbabilityRepairClosure);
+            string expectedProbabilityCollisionSecondaryStructure = ProbabilityFormattingHelper.Format(input.ProbabilityCollisionSecondaryStructure);
 
             Assert.AreSame(input.ModelFactorSuperCriticalFlow, properties.ModelFactorSuperCriticalFlow.Data);
             Assert.AreEqual(input.StructureNormalOrientation, properties.StructureNormalOrientation);
@@ -129,6 +166,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         {
             // Setup
             var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            var handler = mockRepository.Stub<ICalculationInputPropertyChangeHandler>();
             mockRepository.ReplayAll();
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
@@ -146,7 +184,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
                                                                         assessmentSectionStub);
 
             // Call
-            var properties = new StabilityPointStructuresInputContextProperties(inputContext);
+            var properties = new StabilityPointStructuresInputContextProperties(inputContext, handler);
 
             // Assert
             const string schematizationCategory = "Schematisatie";
@@ -305,6 +343,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         {
             // Setup
             var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            var handler = mockRepository.Stub<ICalculationInputPropertyChangeHandler>();
             mockRepository.ReplayAll();
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
@@ -322,7 +361,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
                                                                         assessmentSectionStub);
 
             // Call
-            var properties = new StabilityPointStructuresInputContextProperties(inputContext);
+            var properties = new StabilityPointStructuresInputContextProperties(inputContext, handler);
 
             // Assert
             const string schematizationCategory = "Schematisatie";
@@ -481,6 +520,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         {
             // Setup
             var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            var handler = mockRepository.Stub<ICalculationInputPropertyChangeHandler>();
             mockRepository.ReplayAll();
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
@@ -498,7 +538,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
                                                                         assessmentSectionStub);
 
             // Call
-            var properties = new StabilityPointStructuresInputContextProperties(inputContext);
+            var properties = new StabilityPointStructuresInputContextProperties(inputContext, handler);
 
             // Assert
             const string schematizationCategory = "Schematisatie";
@@ -667,6 +707,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         {
             // Setup
             var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            var handler = mockRepository.Stub<ICalculationInputPropertyChangeHandler>();
             mockRepository.ReplayAll();
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
@@ -684,7 +725,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
                                                                         assessmentSectionStub);
 
             // Call
-            var properties = new StabilityPointStructuresInputContextProperties(inputContext);
+            var properties = new StabilityPointStructuresInputContextProperties(inputContext, handler);
 
             // Assert
             const string schematizationCategory = "Schematisatie";
@@ -853,6 +894,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         {
             // Setup
             var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            var handler = mockRepository.Stub<ICalculationInputPropertyChangeHandler>();
             mockRepository.ReplayAll();
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism
@@ -867,7 +909,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
                                                                         calculation,
                                                                         failureMechanism,
                                                                         assessmentSectionStub);
-            var properties = new StabilityPointStructuresInputContextProperties(inputContext);
+            var properties = new StabilityPointStructuresInputContextProperties(inputContext, handler);
 
             // Call
             IEnumerable<ForeshoreProfile> availableForeshoreProfiles = properties.GetAvailableForeshoreProfiles();
@@ -882,6 +924,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         {
             // Setup
             var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            var handler = mockRepository.Stub<ICalculationInputPropertyChangeHandler>();
             mockRepository.ReplayAll();
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism
@@ -896,7 +939,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
                                                                         calculation,
                                                                         failureMechanism,
                                                                         assessmentSectionStub);
-            var properties = new StabilityPointStructuresInputContextProperties(inputContext);
+            var properties = new StabilityPointStructuresInputContextProperties(inputContext, handler);
 
             // Call
             IEnumerable<StabilityPointStructure> availableStructures = properties.GetAvailableStructures();
@@ -907,153 +950,84 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void SetProperties_IndividualProperties_UpdateDataAndNotifyObservers()
+        public void VolumicWeightWater_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput()
         {
-            // Setup
-            const int numberOfChangedProperties = 9;
-            var observerMock = mockRepository.StrictMock<IObserver>();
-            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
-
-            observerMock.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChangedProperties);
-
-            mockRepository.ReplayAll();
-
-            var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
-            StabilityPointStructuresInput input = calculation.InputParameters;
-            var inputContext = new StabilityPointStructuresInputContext(input,
-                                                                        calculation,
-                                                                        failureMechanism,
-                                                                        assessmentSectionStub);
-            var properties = new StabilityPointStructuresInputContextProperties(inputContext);
-
-            input.Attach(observerMock);
-
-            var random = new Random(100);
-            double newVolumicWeightWater = random.NextDouble();
-            double newFactorStormDurationOpenStructure = random.NextDouble();
-            var newInflowModelType = StabilityPointStructureInflowModelType.FloodedCulvert;
-            var newLoadSchematizationType = LoadSchematizationType.Quadratic;
-            var newLevellingCount = 2;
-            double newEvaluationLevel = random.NextDouble();
-            double newVerticalDistance = random.NextDouble();
-
-            // Call
-            properties.VolumicWeightWater = (RoundedDouble) newVolumicWeightWater;
-            properties.FactorStormDurationOpenStructure = (RoundedDouble) newFactorStormDurationOpenStructure;
-            properties.InflowModelType = newInflowModelType;
-            properties.LoadSchematizationType = newLoadSchematizationType;
-            properties.FailureProbabilityRepairClosure = "1e-2";
-            properties.LevellingCount = newLevellingCount;
-            properties.ProbabilityCollisionSecondaryStructure = "1e-3";
-            properties.EvaluationLevel = (RoundedDouble) newEvaluationLevel;
-            properties.VerticalDistance = (RoundedDouble) newVerticalDistance;
-
-            // Assert
-            var expectedFailureProbabilityRepairClosure = ProbabilityFormattingHelper.Format(0.01);
-            var expectedProbabilityCollisionSecondaryStructure = ProbabilityFormattingHelper.Format(0.001);
-
-            Assert.AreEqual(newVolumicWeightWater, properties.VolumicWeightWater, properties.VolumicWeightWater.GetAccuracy());
-            Assert.AreEqual(newFactorStormDurationOpenStructure, properties.FactorStormDurationOpenStructure, properties.FactorStormDurationOpenStructure.GetAccuracy());
-            Assert.AreEqual(newInflowModelType, properties.InflowModelType);
-            Assert.AreEqual(newLoadSchematizationType, properties.LoadSchematizationType);
-            Assert.AreEqual(expectedFailureProbabilityRepairClosure, properties.FailureProbabilityRepairClosure);
-            Assert.AreEqual(newLevellingCount, properties.LevellingCount);
-            Assert.AreEqual(expectedProbabilityCollisionSecondaryStructure, properties.ProbabilityCollisionSecondaryStructure);
-            Assert.AreEqual(newEvaluationLevel, properties.EvaluationLevel, properties.EvaluationLevel.GetAccuracy());
-            Assert.AreEqual(newVerticalDistance, properties.VerticalDistance, properties.VerticalDistance.GetAccuracy());
-
-            mockRepository.VerifyAll();
+            RoundedDouble height = new Random(21).NextRoundedDouble();
+            SetPropertyAndVerifyNotifcationsAndOutput(
+                properties => properties.VolumicWeightWater = height,
+                height);
         }
 
         [Test]
-        [TestCase(true, TestName = "VolumicWeightWater_WithOutput_InputAndCalculationNotified")]
-        [TestCase(false, TestName = "VolumicWeightWater_WithoutOutput_InputNotified")]
-        public void VolumicWeightWater_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput(bool hasOutput)
+        public void FactorStormDurationOpenStructure_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput()
         {
+            RoundedDouble factor = new Random(21).NextRoundedDouble();
             SetPropertyAndVerifyNotifcationsAndOutput(
-                hasOutput,
-                properties => properties.VolumicWeightWater = new Random(21).NextRoundedDouble());
+                properties => properties.FactorStormDurationOpenStructure = factor,
+                factor);
         }
 
         [Test]
-        [TestCase(true, TestName = "FactorStormDurationOpenStructure_WithOutput_InputAndCalculationNotified")]
-        [TestCase(false, TestName = "FactorStormDurationOpenStructure_WithoutOutput_InputNotified")]
-        public void FactorStormDurationOpenStructure_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput(bool hasOutput)
+        public void InflowModelType_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput()
         {
+            var type = new Random(21).NextEnumValue<StabilityPointStructureInflowModelType>();
             SetPropertyAndVerifyNotifcationsAndOutput(
-                hasOutput,
-                properties => properties.FactorStormDurationOpenStructure = new Random(21).NextRoundedDouble());
+                properties => properties.InflowModelType = type,
+                type);
         }
 
         [Test]
-        [TestCase(true, TestName = "InflowModelType_WithOutput_InputAndCalculationNotified")]
-        [TestCase(false, TestName = "InflowModelType_WithoutOutput_InputNotified")]
-        public void InflowModelType_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput(bool hasOutput)
+        public void FailureProbabilityOpenStructure_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput()
         {
+            var type = new Random(21).NextEnumValue<LoadSchematizationType>();
             SetPropertyAndVerifyNotifcationsAndOutput(
-                hasOutput,
-                properties => properties.InflowModelType = new Random(21).NextEnumValue<StabilityPointStructureInflowModelType>());
+                properties => properties.LoadSchematizationType = type,
+                type);
         }
 
         [Test]
-        [TestCase(true, TestName = "LoadSchematizationType_WithOutput_InputAndCalculationNotified")]
-        [TestCase(false, TestName = "LoadSchematizationType_WithoutOutput_InputNotified")]
-        public void FailureProbabilityOpenStructure_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput(bool hasOutput)
+        public void FailureProbabilityRepairClosure_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput()
         {
+            string probability = new Random(21).NextDouble().ToString(CultureInfo.CurrentCulture);
             SetPropertyAndVerifyNotifcationsAndOutput(
-                hasOutput,
-                properties => properties.LoadSchematizationType = new Random(21).NextEnumValue<LoadSchematizationType>());
+                properties => properties.FailureProbabilityRepairClosure = probability,
+                probability);
         }
 
         [Test]
-        [TestCase(true, TestName = "FailureProbabilityRepairClosure_WithOutput_InputAndCalculationNotified")]
-        [TestCase(false, TestName = "FailureProbabilityRepairClosure_WithoutOutput_InputNotified")]
-        public void FailureProbabilityRepairClosure_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput(bool hasOutput)
+        public void LevellingCount_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput()
         {
+            int count = new Random(21).Next();
             SetPropertyAndVerifyNotifcationsAndOutput(
-                hasOutput,
-                properties => properties.FailureProbabilityRepairClosure = new Random(21).NextDouble().ToString(CultureInfo.CurrentCulture));
+                properties => properties.LevellingCount = count,
+                count);
         }
 
         [Test]
-        [TestCase(true, TestName = "LevellingCount_WithOutput_InputAndCalculationNotified")]
-        [TestCase(false, TestName = "LevellingCount_WithoutOutput_InputNotified")]
-        public void LevellingCount_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput(bool hasOutput)
+        public void ProbabilityCollisionSecondaryStructure_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput()
         {
+            string probability = new Random(21).NextDouble().ToString(CultureInfo.CurrentCulture);
             SetPropertyAndVerifyNotifcationsAndOutput(
-                hasOutput,
-                properties => properties.LevellingCount = new Random(21).Next());
+                properties => properties.ProbabilityCollisionSecondaryStructure = probability,
+                probability);
         }
 
         [Test]
-        [TestCase(true, TestName = "ProbabilityCollisionSecondaryStructure_WithOutput_InputAndCalculationNotified")]
-        [TestCase(false, TestName = "ProbabilityCollisionSecondaryStructure_WithoutOutput_InputNotified")]
-        public void ProbabilityCollisionSecondaryStructure_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput(bool hasOutput)
+        public void EvaluationLevel_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput()
         {
+            RoundedDouble evaluationLevel = new Random(21).NextRoundedDouble();
             SetPropertyAndVerifyNotifcationsAndOutput(
-                hasOutput,
-                properties => properties.ProbabilityCollisionSecondaryStructure = new Random(21).NextDouble().ToString(CultureInfo.CurrentCulture));
+                properties => properties.EvaluationLevel = evaluationLevel,
+                evaluationLevel);
         }
 
         [Test]
-        [TestCase(true, TestName = "EvaluationLevel_WithOutput_InputAndCalculationNotified")]
-        [TestCase(false, TestName = "EvaluationLevel_WithoutOutput_InputNotified")]
-        public void EvaluationLevel_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput(bool hasOutput)
+        public void VerticalDistance_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput()
         {
+            RoundedDouble verticalDistance = new Random(21).NextRoundedDouble();
             SetPropertyAndVerifyNotifcationsAndOutput(
-                hasOutput,
-                properties => properties.EvaluationLevel = new Random(21).NextRoundedDouble());
-        }
-
-        [Test]
-        [TestCase(true, TestName = "VerticalDistance_WithOutput_InputAndCalculationNotified")]
-        [TestCase(false, TestName = "VerticalDistance_WithoutOutput_InputNotified")]
-        public void VerticalDistance_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput(bool hasOutput)
-        {
-            SetPropertyAndVerifyNotifcationsAndOutput(
-                hasOutput,
-                properties => properties.VerticalDistance = new Random(21).NextRoundedDouble());
+                properties => properties.VerticalDistance = verticalDistance,
+                verticalDistance);
         }
 
         [Test]
@@ -1072,10 +1046,16 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
                                                                         calculation,
                                                                         failureMechanism,
                                                                         assessmentSectionStub);
-            var properties = new StabilityPointStructuresInputContextProperties(inputContext);
 
             const int overflow = 1;
             string newProbabilityString = string.Concat(newValue.ToString("r", CultureInfo.CurrentCulture), overflow);
+
+            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<string>(
+                calculation.InputParameters,
+                calculation,
+                newProbabilityString,
+                Enumerable.Empty<IObservable>());
+            var properties = new StabilityPointStructuresInputContextProperties(inputContext, handler);
 
             // Call
             TestDelegate call = () => properties.FailureProbabilityRepairClosure = newProbabilityString;
@@ -1103,7 +1083,13 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
                                                                         calculation,
                                                                         failureMechanism,
                                                                         assessmentSectionStub);
-            var properties = new StabilityPointStructuresInputContextProperties(inputContext);
+
+            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<string>(
+                calculation.InputParameters,
+                calculation,
+                newValue,
+                Enumerable.Empty<IObservable>());
+            var properties = new StabilityPointStructuresInputContextProperties(inputContext, handler);
 
             // Call
             TestDelegate call = () => properties.FailureProbabilityRepairClosure = newValue;
@@ -1129,7 +1115,13 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
                                                                         calculation,
                                                                         failureMechanism,
                                                                         assessmentSectionStub);
-            var properties = new StabilityPointStructuresInputContextProperties(inputContext);
+
+            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<string>(
+                calculation.InputParameters,
+                calculation,
+                null,
+                Enumerable.Empty<IObservable>());
+            var properties = new StabilityPointStructuresInputContextProperties(inputContext, handler);
 
             // Call
             TestDelegate call = () => properties.FailureProbabilityRepairClosure = null;
@@ -1157,10 +1149,16 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
                                                                         calculation,
                                                                         failureMechanism,
                                                                         assessmentSectionStub);
-            var properties = new StabilityPointStructuresInputContextProperties(inputContext);
 
             const int overflow = 1;
             string newProbabilityString = string.Concat(newValue.ToString("r", CultureInfo.CurrentCulture), overflow);
+
+            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<string>(
+                calculation.InputParameters,
+                calculation,
+                newProbabilityString,
+                Enumerable.Empty<IObservable>());
+            var properties = new StabilityPointStructuresInputContextProperties(inputContext, handler);
 
             // Call
             TestDelegate call = () => properties.ProbabilityCollisionSecondaryStructure = newProbabilityString;
@@ -1188,7 +1186,13 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
                                                                         calculation,
                                                                         failureMechanism,
                                                                         assessmentSectionStub);
-            var properties = new StabilityPointStructuresInputContextProperties(inputContext);
+
+            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<string>(
+                calculation.InputParameters,
+                calculation,
+                newValue,
+                Enumerable.Empty<IObservable>());
+            var properties = new StabilityPointStructuresInputContextProperties(inputContext, handler);
 
             // Call
             TestDelegate call = () => properties.ProbabilityCollisionSecondaryStructure = newValue;
@@ -1214,7 +1218,13 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
                                                                         calculation,
                                                                         failureMechanism,
                                                                         assessmentSectionStub);
-            var properties = new StabilityPointStructuresInputContextProperties(inputContext);
+
+            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<string>(
+                calculation.InputParameters,
+                calculation,
+                null,
+                Enumerable.Empty<IObservable>());
+            var properties = new StabilityPointStructuresInputContextProperties(inputContext, handler);
 
             // Call
             TestDelegate call = () => properties.ProbabilityCollisionSecondaryStructure = null;
@@ -1239,7 +1249,14 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
                                                                         calculation,
                                                                         failureMechanism,
                                                                         assessmentSectionStub);
-            var properties = new StabilityPointStructuresInputContextProperties(inputContext);
+
+            var newStructure = new TestStabilityPointStructure();
+            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<StabilityPointStructure>(
+                calculation.InputParameters,
+                calculation,
+                newStructure,
+                Enumerable.Empty<IObservable>());
+            var properties = new StabilityPointStructuresInputContextProperties(inputContext, handler);
 
             failureMechanism.AddSection(new FailureMechanismSection("Section", new List<Point2D>
             {
@@ -1249,7 +1266,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             failureMechanism.CalculationsGroup.Children.Add(calculation);
 
             // Call
-            properties.Structure = new TestStabilityPointStructure();
+            properties.Structure = newStructure;
 
             // Assert
             Assert.AreSame(calculation, failureMechanism.SectionResults.ElementAt(0).Calculation);
@@ -1261,6 +1278,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         {
             // Setup
             var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            var handler = mockRepository.Stub<ICalculationInputPropertyChangeHandler>();
             mockRepository.ReplayAll();
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
@@ -1269,13 +1287,13 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
                                                                         calculation,
                                                                         failureMechanism,
                                                                         assessmentSectionStub);
-            var properties = new StabilityPointStructuresInputContextProperties(inputContext);
+            var properties = new StabilityPointStructuresInputContextProperties(inputContext, handler);
 
             // Call & Assert
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(TypeUtils.GetMemberName<StabilityPointStructuresInputContextProperties>(p => p.ModelFactorSuperCriticalFlow)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(TypeUtils.GetMemberName<StabilityPointStructuresInputContextProperties>(p => p.DrainCoefficient)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(TypeUtils.GetMemberName<StabilityPointStructuresInputContextProperties>(p => p.AreaFlowApertures)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(TypeUtils.GetMemberName<StabilityPointStructuresInputContextProperties>(p => p.WidthFlowApertures)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(StabilityPointStructuresInputContextProperties.ModelFactorSuperCriticalFlow)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(StabilityPointStructuresInputContextProperties.DrainCoefficient)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(StabilityPointStructuresInputContextProperties.AreaFlowApertures)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(StabilityPointStructuresInputContextProperties.WidthFlowApertures)));
 
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(null));
         }
@@ -1287,6 +1305,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         {
             // Setup
             var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            var handler = mockRepository.Stub<ICalculationInputPropertyChangeHandler>();
             mockRepository.ReplayAll();
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
@@ -1302,13 +1321,13 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
                                                                         calculation,
                                                                         failureMechanism,
                                                                         assessmentSectionStub);
-            var properties = new StabilityPointStructuresInputContextProperties(inputContext);
+            var properties = new StabilityPointStructuresInputContextProperties(inputContext, handler);
 
             // Call & Assert
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(TypeUtils.GetMemberName<StabilityPointStructuresInputContextProperties>(p => p.ModelFactorSuperCriticalFlow)));
-            Assert.IsFalse(properties.DynamicVisibleValidationMethod(TypeUtils.GetMemberName<StabilityPointStructuresInputContextProperties>(p => p.DrainCoefficient)));
-            Assert.IsFalse(properties.DynamicVisibleValidationMethod(TypeUtils.GetMemberName<StabilityPointStructuresInputContextProperties>(p => p.AreaFlowApertures)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(TypeUtils.GetMemberName<StabilityPointStructuresInputContextProperties>(p => p.WidthFlowApertures)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(StabilityPointStructuresInputContextProperties.ModelFactorSuperCriticalFlow)));
+            Assert.IsFalse(properties.DynamicVisibleValidationMethod(nameof(StabilityPointStructuresInputContextProperties.DrainCoefficient)));
+            Assert.IsFalse(properties.DynamicVisibleValidationMethod(nameof(StabilityPointStructuresInputContextProperties.AreaFlowApertures)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(StabilityPointStructuresInputContextProperties.WidthFlowApertures)));
 
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(null));
         }
@@ -1320,6 +1339,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         {
             // Setup
             var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            var handler = mockRepository.Stub<ICalculationInputPropertyChangeHandler>();
             mockRepository.ReplayAll();
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
@@ -1335,13 +1355,13 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
                                                                         calculation,
                                                                         failureMechanism,
                                                                         assessmentSectionStub);
-            var properties = new StabilityPointStructuresInputContextProperties(inputContext);
+            var properties = new StabilityPointStructuresInputContextProperties(inputContext, handler);
 
             // Call & Assert
-            Assert.IsFalse(properties.DynamicVisibleValidationMethod(TypeUtils.GetMemberName<StabilityPointStructuresInputContextProperties>(p => p.ModelFactorSuperCriticalFlow)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(TypeUtils.GetMemberName<StabilityPointStructuresInputContextProperties>(p => p.DrainCoefficient)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(TypeUtils.GetMemberName<StabilityPointStructuresInputContextProperties>(p => p.AreaFlowApertures)));
-            Assert.IsFalse(properties.DynamicVisibleValidationMethod(TypeUtils.GetMemberName<StabilityPointStructuresInputContextProperties>(p => p.WidthFlowApertures)));
+            Assert.IsFalse(properties.DynamicVisibleValidationMethod(nameof(StabilityPointStructuresInputContextProperties.ModelFactorSuperCriticalFlow)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(StabilityPointStructuresInputContextProperties.DrainCoefficient)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(StabilityPointStructuresInputContextProperties.AreaFlowApertures)));
+            Assert.IsFalse(properties.DynamicVisibleValidationMethod(nameof(StabilityPointStructuresInputContextProperties.WidthFlowApertures)));
 
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(null));
         }
@@ -1353,6 +1373,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         {
             // Setup
             var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            var handler = mockRepository.Stub<ICalculationInputPropertyChangeHandler>();
             mockRepository.ReplayAll();
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
@@ -1368,13 +1389,13 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
                                                                         calculation,
                                                                         failureMechanism,
                                                                         assessmentSectionStub);
-            var properties = new StabilityPointStructuresInputContextProperties(inputContext);
+            var properties = new StabilityPointStructuresInputContextProperties(inputContext, handler);
 
             // Call & Assert
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(TypeUtils.GetMemberName<StabilityPointStructuresInputContextProperties>(p => p.ConstructiveStrengthLinearLoadModel)));
-            Assert.IsFalse(properties.DynamicVisibleValidationMethod(TypeUtils.GetMemberName<StabilityPointStructuresInputContextProperties>(p => p.ConstructiveStrengthQuadraticLoadModel)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(TypeUtils.GetMemberName<StabilityPointStructuresInputContextProperties>(p => p.StabilityLinearLoadModel)));
-            Assert.IsFalse(properties.DynamicVisibleValidationMethod(TypeUtils.GetMemberName<StabilityPointStructuresInputContextProperties>(p => p.StabilityQuadraticLoadModel)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(StabilityPointStructuresInputContextProperties.ConstructiveStrengthLinearLoadModel)));
+            Assert.IsFalse(properties.DynamicVisibleValidationMethod(nameof(StabilityPointStructuresInputContextProperties.ConstructiveStrengthQuadraticLoadModel)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(StabilityPointStructuresInputContextProperties.StabilityLinearLoadModel)));
+            Assert.IsFalse(properties.DynamicVisibleValidationMethod(nameof(StabilityPointStructuresInputContextProperties.StabilityQuadraticLoadModel)));
 
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(null));
         }
@@ -1386,6 +1407,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         {
             // Setup
             var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            var handler = mockRepository.Stub<ICalculationInputPropertyChangeHandler>();
             mockRepository.ReplayAll();
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
@@ -1401,52 +1423,45 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
                                                                         calculation,
                                                                         failureMechanism,
                                                                         assessmentSectionStub);
-            var properties = new StabilityPointStructuresInputContextProperties(inputContext);
+            var properties = new StabilityPointStructuresInputContextProperties(inputContext, handler);
 
             // Call & Assert
-            Assert.IsFalse(properties.DynamicVisibleValidationMethod(TypeUtils.GetMemberName<StabilityPointStructuresInputContextProperties>(p => p.ConstructiveStrengthLinearLoadModel)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(TypeUtils.GetMemberName<StabilityPointStructuresInputContextProperties>(p => p.ConstructiveStrengthQuadraticLoadModel)));
-            Assert.IsFalse(properties.DynamicVisibleValidationMethod(TypeUtils.GetMemberName<StabilityPointStructuresInputContextProperties>(p => p.StabilityLinearLoadModel)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(TypeUtils.GetMemberName<StabilityPointStructuresInputContextProperties>(p => p.StabilityQuadraticLoadModel)));
+            Assert.IsFalse(properties.DynamicVisibleValidationMethod(nameof(StabilityPointStructuresInputContextProperties.ConstructiveStrengthLinearLoadModel)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(StabilityPointStructuresInputContextProperties.ConstructiveStrengthQuadraticLoadModel)));
+            Assert.IsFalse(properties.DynamicVisibleValidationMethod(nameof(StabilityPointStructuresInputContextProperties.StabilityLinearLoadModel)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(StabilityPointStructuresInputContextProperties.StabilityQuadraticLoadModel)));
 
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(null));
         }
 
-        private void SetPropertyAndVerifyNotifcationsAndOutput(
-            bool hasOutput,
-            Action<StabilityPointStructuresInputContextProperties> setProperty)
+        private void SetPropertyAndVerifyNotifcationsAndOutput<TPropertyValue>(
+            Action<StabilityPointStructuresInputContextProperties> setProperty,
+            TPropertyValue expectedValueSet)
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-
-            var calculationObserver = mocks.StrictMock<IObserver>();
-            int numberOfChangedProperties = hasOutput ? 1 : 0;
-            calculationObserver.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChangedProperties);
-
-            var inputObserver = mocks.StrictMock<IObserver>();
-            inputObserver.Expect(o => o.UpdateObserver());
-
-            mocks.ReplayAll();
-
-            var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
-
-            if (hasOutput)
-            {
-                calculation.Output = new TestStructuresOutput();
-            }
-            calculation.Attach(calculationObserver);
-
-            StabilityPointStructuresInput inputParameters = calculation.InputParameters;
-            inputParameters.Attach(inputObserver);
+            var observable = mockRepository.StrictMock<IObservable>();
+            observable.Expect(o => o.NotifyObservers());
+            mockRepository.ReplayAll();
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
+            var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
+            StabilityPointStructuresInput input = calculation.InputParameters;
+            input.ForeshoreProfile = new TestForeshoreProfile();
 
-            var properties = new StabilityPointStructuresInputContextProperties(new StabilityPointStructuresInputContext(inputParameters,
-                                                                                                                         calculation,
-                                                                                                                         failureMechanism,
-                                                                                                                         assessmentSection)
-            );
+            var customHandler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<TPropertyValue>(
+                input,
+                calculation,
+                expectedValueSet,
+                new[]
+                {
+                    observable
+                });
+
+            var inputContext = new StabilityPointStructuresInputContext(input,
+                                                                        calculation,
+                                                                        failureMechanism,
+                                                                        assessmentSection);
+            var properties = new StabilityPointStructuresInputContextProperties(inputContext, customHandler);
 
             // Call
             setProperty(properties);
@@ -1454,7 +1469,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             // Assert
             Assert.IsFalse(calculation.HasOutput);
 
-            mocks.VerifyAll();
+            mockRepository.VerifyAll();
         }
 
         #region LowSill + Linear Model property Indices

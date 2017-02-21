@@ -35,21 +35,20 @@ namespace Ringtoets.Common.Forms.PropertyClasses
     /// <summary>
     /// Properties class for implementations of <see cref="IDistribution"/>.
     /// </summary>
-    public abstract class ConfirmingDistributionPropertiesBase<TDistribution, TCalculationInput, TCalculation> : ObjectProperties<TDistribution>
+    public abstract class ConfirmingDistributionPropertiesBase<TDistribution, TCalculationInput> : ObjectProperties<TDistribution>
         where TDistribution : IDistribution
         where TCalculationInput : ICalculationInput
-        where TCalculation : ICalculation
     {
         private const string meanPropertyName = nameof(Mean);
         private const string standardDeviationPropertyName = nameof(StandardDeviation);
         private readonly bool isMeanReadOnly;
         private readonly bool isStandardDeviationReadOnly;
         private readonly TCalculationInput calculationInput;
-        private readonly TCalculation calculation;
+        private readonly ICalculation calculation;
         private readonly ICalculationInputPropertyChangeHandler changeHandler;
 
         /// <summary>
-        /// Creates a new instance of <see cref="ConfirmingDistributionPropertiesBase{TDistribution,TCalculationInput,TCalculation}"/>.
+        /// Creates a new instance of <see cref="ConfirmingDistributionPropertiesBase{TDistribution,TCalculationInput}"/>.
         /// </summary>
         /// <param name="propertiesReadOnly">Indicates which properties, if any, should be marked as read-only.</param>
         /// <param name="data">The data of the <see cref="TDistribution"/> to create the properties for.</param>
@@ -60,7 +59,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         /// or when any number of properties in this class is editable and any other parameter is <c>null</c>.</exception>
         protected ConfirmingDistributionPropertiesBase(DistributionPropertiesReadOnly propertiesReadOnly,
                                                        TDistribution data,
-                                                       TCalculation calculation,
+                                                       ICalculation calculation,
                                                        TCalculationInput calculationInput,
                                                        ICalculationInputPropertyChangeHandler handler)
         {

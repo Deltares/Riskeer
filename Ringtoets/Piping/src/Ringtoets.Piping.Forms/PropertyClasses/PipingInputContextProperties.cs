@@ -174,7 +174,8 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
             set
             {
-                ChangePropertyValueAndNotifyAffectedObjects((input, v) => input.HydraulicBoundaryLocation = v, value.HydraulicBoundaryLocation);
+                ChangePropertyAndNotify(
+                    (input, newValue) => input.HydraulicBoundaryLocation = newValue, value.HydraulicBoundaryLocation);
             }
         }
 
@@ -191,7 +192,8 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
             set
             {
-                ChangePropertyValueAndNotifyAffectedObjects((input, v) => input.AssessmentLevel = v, value);
+                ChangePropertyAndNotify(
+                    (input, newValue) => input.AssessmentLevel = newValue, value);
             }
         }
 
@@ -207,7 +209,8 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
             set
             {
-                ChangePropertyValueAndNotifyAffectedObjects((input, v) => input.UseAssessmentLevelManualInput = v, value);
+                ChangePropertyAndNotify(
+                    (input, newValue) => input.UseAssessmentLevelManualInput = newValue, value);
             }
         }
 
@@ -276,7 +279,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             {
                 if (!ReferenceEquals(value, data.WrappedData.SurfaceLine))
                 {
-                    ChangePropertyValueAndNotifyAffectedObjects((input, v) =>
+                    ChangePropertyAndNotify((input, v) =>
                     {
                         input.SurfaceLine = v;
                         PipingInputService.SetMatchingStochasticSoilModel(input, GetAvailableStochasticSoilModels());
@@ -300,7 +303,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             {
                 if (!ReferenceEquals(value, data.WrappedData.StochasticSoilModel))
                 {
-                    ChangePropertyValueAndNotifyAffectedObjects((input, v) =>
+                    ChangePropertyAndNotify((input, v) =>
                     {
                         input.StochasticSoilModel = v;
                         PipingInputService.SyncStochasticSoilProfileWithStochasticSoilModel(input);
@@ -324,7 +327,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             {
                 if (!ReferenceEquals(value, data.WrappedData.StochasticSoilProfile))
                 {
-                    ChangePropertyValueAndNotifyAffectedObjects((input, v) => input.StochasticSoilProfile = v, value);
+                    ChangePropertyAndNotify((input, v) => input.StochasticSoilProfile = v, value);
                 }
             }
         }
@@ -341,7 +344,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
             set
             {
-                ChangePropertyValueAndNotifyAffectedObjects((input, v) => input.EntryPointL = v, value);
+                ChangePropertyAndNotify((input, v) => input.EntryPointL = v, value);
             }
         }
 
@@ -357,7 +360,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
             set
             {
-                ChangePropertyValueAndNotifyAffectedObjects((input, v) => input.ExitPointL = v, value);
+                ChangePropertyAndNotify((input, v) => input.ExitPointL = v, value);
             }
         }
 
@@ -456,7 +459,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
 
         #endregion
 
-        private void ChangePropertyValueAndNotifyAffectedObjects<TValue>(
+        private void ChangePropertyAndNotify<TValue>(
             SetCalculationInputPropertyValueDelegate<PipingInput, TValue> setPropertyValue,
             TValue value)
         {

@@ -325,7 +325,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void SelectedHydraulicBoundaryLocation_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput()
+        public void SelectedHydraulicBoundaryLocation_Always_InputChangedAndObsevablesNotified()
         {
             var propertiesSelectedHydraulicBoundaryLocation = new SelectableHydraulicBoundaryLocation(
                 new TestHydraulicBoundaryLocation(), new Point2D(0, 0));
@@ -335,7 +335,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void ForeshoreProfile_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput()
+        public void ForeshoreProfile_Always_InputChangedAndObsevablesNotified()
         {
             var foreshoreProfile = new TestForeshoreProfile();
             SetPropertyAndVerifyNotifcationsAndOutputForCalculation(
@@ -344,7 +344,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void LowerBoundaryRevetment_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput()
+        public void LowerBoundaryRevetment_Always_InputChangedAndObsevablesNotified()
         {
             RoundedDouble lowerBoundaryRevetment = new Random(21).NextRoundedDouble();
             SetPropertyAndVerifyNotifcationsAndOutputForCalculation(
@@ -353,7 +353,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void UpperBoundaryRevetment_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput()
+        public void UpperBoundaryRevetment_Always_InputChangedAndObsevablesNotified()
         {
             RoundedDouble upperBoundaryRevetment = new Random(21).NextRoundedDouble();
             SetPropertyAndVerifyNotifcationsAndOutputForCalculation(
@@ -362,7 +362,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void LowerBoundaryWaterLevels_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput()
+        public void LowerBoundaryWaterLevels_Always_InputChangedAndObsevablesNotified()
         {
             RoundedDouble lowerBoundaryWaterLevels = new Random(21).NextRoundedDouble();
             SetPropertyAndVerifyNotifcationsAndOutputForCalculation(
@@ -371,7 +371,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void UpperBoundaryWaterLevels_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput()
+        public void UpperBoundaryWaterLevels_Always_InputChangedAndObsevablesNotified()
         {
             RoundedDouble upperBoundaryWaterLevels = new Random(21).NextRoundedDouble();
             SetPropertyAndVerifyNotifcationsAndOutputForCalculation(
@@ -380,7 +380,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void StepSize_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput()
+        public void StepSize_Always_InputChangedAndObsevablesNotified()
         {
             var waveConditionsInputStepSize = new Random(21).NextEnumValue<WaveConditionsInputStepSize>();
             SetPropertyAndVerifyNotifcationsAndOutputForCalculation(
@@ -389,7 +389,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void Orientation_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput()
+        public void Orientation_Always_InputChangedAndObsevablesNotified()
         {
             RoundedDouble upperBoundaryDesignWaterLevel = new Random(21).NextRoundedDouble();
             SetPropertyAndVerifyNotifcationsAndOutputForCalculation(
@@ -398,7 +398,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void UseBreakWater_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput()
+        public void UseBreakWater_Always_InputChangedAndObsevablesNotified()
         {
             bool breakWaterUseBreakWater = new Random(21).NextBoolean();
             SetPropertyAndVerifyNotifcationsAndOutputForCalculation(
@@ -407,7 +407,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void UseForeshore_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput()
+        public void UseForeshore_Always_InputChangedAndObsevablesNotified()
         {
             bool foreshoreGeometryUseForeshore = new Random(21).NextBoolean();
             SetPropertyAndVerifyNotifcationsAndOutputForCalculation(

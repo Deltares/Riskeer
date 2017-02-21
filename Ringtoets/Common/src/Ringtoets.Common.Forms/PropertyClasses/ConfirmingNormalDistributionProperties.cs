@@ -30,41 +30,41 @@ using Ringtoets.Common.Forms.Properties;
 namespace Ringtoets.Common.Forms.PropertyClasses
 {
     /// <summary>
-    /// An <see cref="ObjectProperties{T}"/> implementation for <see cref="LogNormalDistribution"/>
+    /// An <see cref="ObjectProperties{T}"/> implementation for <see cref="NormalDistribution"/>
     /// properties.
     /// </summary>
-    public class ConfirmingLogNormalDistributionProperties<TCalculationInput>
-        : ConfirmingDistributionPropertiesBase<LogNormalDistribution, TCalculationInput>
+    public class ConfirmingNormalDistributionProperties<TCalculationInput> 
+        : ConfirmingDistributionPropertiesBase<NormalDistribution, TCalculationInput>
         where TCalculationInput : ICalculationInput
     {
         /// <summary>
-        /// Creates a new instance of <see cref="ConfirmingLogNormalDistributionProperties{TCalculationInput}"/>.
+        /// Creates a new instance of <see cref="ConfirmingNormalDistributionProperties{TCalculationInput}"/>.
         /// </summary>
         /// <param name="propertiesReadOnly">Indicates which properties, if any, should be
         /// marked as read-only.</param>
-        /// <param name="distribution">The <see cref="LogNormalDistribution"/> to create the properties for.</param>
+        /// <param name="distribution">The <see cref="NormalDistribution"/> to create the properties for.</param>
         /// <param name="calculation">The calculation the <paramref name="distribution"/> belongs to.</param>
         /// <param name="calculationInput">The calculation input the <paramref name="distribution"/> belongs to.</param>
         /// <param name="handler">Optional handler that is used to handle property changes.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="distribution"/> is null 
         /// or when any number of properties in this class is editable and any other parameter is <c>null</c>.</exception>
-        public ConfirmingLogNormalDistributionProperties(
-            DistributionPropertiesReadOnly propertiesReadOnly,
-            LogNormalDistribution distribution,
+        public ConfirmingNormalDistributionProperties(
+            DistributionPropertiesReadOnly propertiesReadOnly, 
+            NormalDistribution distribution,
             ICalculation calculation,
             TCalculationInput calculationInput,
-            ICalculationInputPropertyChangeHandler handler)
-            : base(propertiesReadOnly, distribution, calculation, calculationInput, handler) {}
+            ICalculationInputPropertyChangeHandler handler) :
+            base(propertiesReadOnly, distribution, calculation, calculationInput, handler) {}
 
         public override string DistributionType
         {
             get
             {
-                return Resources.DistributionType_LogNormal;
+                return Resources.DistributionType_Normal;
             }
         }
 
-        [ResourcesDescription(typeof(Resources), nameof(Resources.LogNormalDistribution_Mean_Description))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.NormalDistribution_Mean_Description))]
         public override RoundedDouble Mean
         {
             get
@@ -77,7 +77,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             }
         }
 
-        [ResourcesDescription(typeof(Resources), nameof(Resources.LogNormalDistribution_StandardDeviation_Description))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.NormalDistribution_StandardDeviation_Description))]
         public override RoundedDouble StandardDeviation
         {
             get
