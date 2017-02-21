@@ -30,7 +30,7 @@ using Ringtoets.Piping.IO.Properties;
 namespace Ringtoets.Piping.IO.Exporters
 {
     /// <summary>
-    /// Exports a piping configuration and stores it as a xml file.
+    /// Exports a piping configuration and stores it as a XML file.
     /// </summary>
     public class PipingConfigurationExporter : IFileExporter
     {
@@ -43,7 +43,7 @@ namespace Ringtoets.Piping.IO.Exporters
         /// Creates a new instance of <see cref="PipingConfigurationExporter"/>.
         /// </summary>
         /// <param name="calculationGroup">The calculation group to export.</param>
-        /// <param name="filePath">The path of the file to export to.</param>
+        /// <param name="filePath">The path of the XML file to export to.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculationGroup"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>
         public PipingConfigurationExporter(CalculationGroup calculationGroup, string filePath)

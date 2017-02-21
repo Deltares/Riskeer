@@ -69,7 +69,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
         private const int contextMenuAddCalculationIndexNestedGroup = 3;
         private const int contextMenuValidateAllIndexNestedGroup = 6;
         private const int contextMenuCalculateAllIndexNestedGroup = 7;
-        private const int contextMenuClearOutputNestedGroupIndex = 9;
+        private const int contextMenuClearOutputIndexNestedGroup = 9;
 
         private const int customOnlyContextMenuAddGenerateCalculationsIndex = 4;
 
@@ -202,16 +202,16 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                                                                    assessmentSection);
 
             var applicationFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
-            var importHandlerMock = mocks.Stub<IImportCommandHandler>();
-            var exportHandlerMock = mocks.Stub<IExportCommandHandler>();
-            var updateHandlerMock = mocks.Stub<IUpdateCommandHandler>();
+            var importHandler = mocks.Stub<IImportCommandHandler>();
+            var exportHandler = mocks.Stub<IExportCommandHandler>();
+            var updateHandler = mocks.Stub<IUpdateCommandHandler>();
             var viewCommandsHandler = mocks.Stub<IViewCommands>();
             var treeViewControl = mocks.StrictMock<TreeViewControl>();
 
             var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler,
-                                                     importHandlerMock,
-                                                     exportHandlerMock,
-                                                     updateHandlerMock,
+                                                     importHandler,
+                                                     exportHandler,
+                                                     updateHandler,
                                                      viewCommandsHandler,
                                                      nodeData,
                                                      treeViewControl);
@@ -259,7 +259,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                                                               "Alles be&rekenen",
                                                               "Voer alle berekeningen binnen deze berekeningsmap uit.",
                                                               RingtoetsCommonFormsResources.CalculateAllIcon);
-                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuClearOutputNestedGroupIndex,
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuClearOutputIndexNestedGroup,
                                                               "&Wis alle uitvoer...",
                                                               "Wis de uitvoer van alle berekeningen binnen deze berekeningsmap.",
                                                               RingtoetsCommonFormsResources.ClearIcon);
@@ -316,9 +316,9 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                                                              assessmentSection);
 
             var applicationFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
-            var importHandlerMock = mocks.Stub<IImportCommandHandler>();
-            var exportHandlerMock = mocks.Stub<IExportCommandHandler>();
-            var updateHandlerMock = mocks.Stub<IUpdateCommandHandler>();
+            var importHandler = mocks.Stub<IImportCommandHandler>();
+            var exportHandler = mocks.Stub<IExportCommandHandler>();
+            var updateHandler = mocks.Stub<IUpdateCommandHandler>();
 
             var viewCommandsHandler = mocks.StrictMock<IViewCommands>();
             viewCommandsHandler.Expect(vc => vc.CanOpenViewFor(nodeData)).Return(true);
@@ -326,9 +326,9 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler,
-                                                         importHandlerMock,
-                                                         exportHandlerMock,
-                                                         updateHandlerMock,
+                                                         importHandler,
+                                                         exportHandler,
+                                                         updateHandler,
                                                          viewCommandsHandler,
                                                          nodeData,
                                                          treeViewControl);
@@ -951,7 +951,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
                 {
                     // Call
-                    contextMenu.Items[contextMenuClearOutputNestedGroupIndex].PerformClick();
+                    contextMenu.Items[contextMenuClearOutputIndexNestedGroup].PerformClick();
 
                     // Assert
                     Assert.AreNotEqual(confirm, calculation1.HasOutput);

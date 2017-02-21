@@ -33,17 +33,18 @@ using CoreCommonUtilsResources = Core.Common.Utils.Properties.Resources;
 namespace Ringtoets.Piping.IO.Exporters
 {
     /// <summary>
-    /// Xml file writer for writing <see cref="CalculationGroup"/> objects to *.xml file.
+    /// Writer for writing a piping configuration to XML.
     /// </summary>
     internal static class PipingConfigurationWriter
     {
         /// <summary>
-        /// Writes the calculation group to a xml file.
+        /// Writes a piping configuration to a XML file.
         /// </summary>
-        /// <param name="rootCalculationGroup">The root calculation group to be written to the file.</param>
-        /// <param name="filePath">The path to the file.</param>
+        /// <param name="rootCalculationGroup">The root calculation group containing the piping configuration to write.</param>
+        /// <param name="filePath">The path to the target XML file.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="CriticalFileWriteException">Thrown when unable to write to <paramref name="filePath"/>.</exception>
+        /// <remarks>The <paramref name="rootCalculationGroup"/> itself will not be part of the written XML, only its children.</remarks>
         internal static void Write(CalculationGroup rootCalculationGroup, string filePath)
         {
             if (rootCalculationGroup == null)
@@ -66,7 +67,7 @@ namespace Ringtoets.Piping.IO.Exporters
                 using (XmlWriter writer = XmlWriter.Create(filePath, settings))
                 {
                     writer.WriteStartDocument();
-                    writer.WriteStartElement("root");
+                    writer.WriteStartElement(PipingConfigurationSchemaIdentifiers.RootElement);
 
                     WriteConfiguration(rootCalculationGroup, writer);
 
@@ -120,13 +121,10 @@ namespace Ringtoets.Piping.IO.Exporters
                 writer.WriteElementString(PipingConfigurationSchemaIdentifiers.AssessmentLevelElement,
                                           ToStringInvariantCulture(calculationInputParameters.AssessmentLevel));
             }
-            else
+            else if (calculationInputParameters.HydraulicBoundaryLocation != null)
             {
-                if (calculationInputParameters.HydraulicBoundaryLocation != null)
-                {
-                    writer.WriteElementString(PipingConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElement,
-                                              calculationInputParameters.HydraulicBoundaryLocation.Name);
-                }
+                writer.WriteElementString(PipingConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElement,
+                                          calculationInputParameters.HydraulicBoundaryLocation.Name);
             }
 
             if (calculationInputParameters.SurfaceLine != null)
