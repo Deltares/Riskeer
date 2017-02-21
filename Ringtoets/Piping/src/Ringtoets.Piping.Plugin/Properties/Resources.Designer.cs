@@ -82,7 +82,7 @@ namespace Ringtoets.Piping.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ringtoets berekeningen configuratie..
+        ///   Looks up a localized string similar to Ringtoets berekeningenconfiguratie.
         /// </summary>
         public static string PipingPlugin_GetExportInfos_calculation_configuration_file_description {
             get {

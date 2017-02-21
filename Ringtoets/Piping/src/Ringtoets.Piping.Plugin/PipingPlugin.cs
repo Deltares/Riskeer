@@ -121,9 +121,6 @@ namespace Ringtoets.Piping.Plugin
         {
             yield return new ExportInfo<PipingCalculationGroupContext>
             {
-                Name = Resources.PipingPlugin_GetExportInfos_calculation_configuration_file_description,
-                Category = RingtoetsCommonFormsResources.Ringtoets_Category,
-                Image = RingtoetsCommonFormsResources.GeneralFolderIcon,
                 FileFilterGenerator = new FileFilterGenerator(Resources.PipingPlugin_GetExportInfos_xml_extension,
                                                      Resources.PipingPlugin_GetExportInfos_calculation_configuration_file_description),
                 CreateFileExporter = (context, filePath) => new PipingConfigurationExporter(context.WrappedData, filePath),

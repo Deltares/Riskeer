@@ -231,6 +231,6 @@ Weet u zeker dat u wilt doorgaan?</value>
     <value>xml</value>
   </data>
   <data name="PipingPlugin_GetExportInfos_calculation_configuration_file_description" xml:space="preserve">
-    <value>Ringtoets berekeningen configuratie.</value>
+    <value>Ringtoets berekeningenconfiguratie</value>
   </data>
 </root>
