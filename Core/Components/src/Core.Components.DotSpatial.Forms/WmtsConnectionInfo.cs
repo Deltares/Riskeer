@@ -26,7 +26,7 @@ namespace Core.Components.DotSpatial.Forms
     /// <summary>
     /// This class defines properties for a WMTS connection.
     /// </summary>
-    public class WmtsConnectionInfo
+    public class WmtsConnectionInfo : IEquatable<WmtsConnectionInfo>
     {
         /// <summary>
         /// Creates a new instance of <see cref="WmtsConnectionInfo"/>.
@@ -60,5 +60,32 @@ namespace Core.Components.DotSpatial.Forms
         /// Gets the URL.
         /// </summary>
         public string Url { get; }
+
+        #region IEquatable members
+
+        public override int GetHashCode()
+        {
+            return GetType().GetHashCode() ^ Name.GetHashCode() ^ Url.GetHashCode();
+        }
+
+        public bool Equals(WmtsConnectionInfo other)
+        {
+            if (ReferenceEquals(null, other))
+            {
+                return false;
+            }
+            if (ReferenceEquals(this, other))
+            {
+                return true;
+            }
+            return Name.Equals(other.Name) && string.Equals(Url, other.Url);
+        }
+
+        public override bool Equals(object obj)
+        {
+            return Equals(obj as WmtsConnectionInfo);
+        }
+
+        #endregion
     }
 }

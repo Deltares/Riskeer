@@ -63,5 +63,110 @@ namespace Core.Components.DotSpatial.Forms.Test.IO
             Assert.AreEqual(name, connectionInfo.Name);
             Assert.AreEqual(url, connectionInfo.Url);
         }
+
+        [Test]
+        public void Equals_ToNull_ReturnFalse()
+        {
+            // Setup
+            var info = new WmtsConnectionInfo("name", "url");
+
+            // Call
+            var isEqual = info.Equals(null);
+
+            // Assert
+            Assert.IsFalse(isEqual);
+        }
+
+        [Test]
+        public void Equals_ToOtherObject_ReturnFalse()
+        {
+            // Setup
+            var info = new WmtsConnectionInfo("name", "url");
+
+            // Call
+            var isEqual = info.Equals(new object());
+
+            // Assert
+            Assert.IsFalse(isEqual);
+        }
+
+        [Test]
+        public void Equals_ToItself_ReturnTrue()
+        {
+            // Setup
+            var info = new WmtsConnectionInfo("name", "url");
+
+            // Call
+            var isEqual = info.Equals(info);
+
+            // Assert
+            Assert.IsTrue(isEqual);
+        }
+
+        [Test]
+        public void Equals_ToOtherWithSameNameDifferentUrl_ReturnsFalse()
+        {
+            // Setup
+            var info = new WmtsConnectionInfo("name", "url");
+            var other = new WmtsConnectionInfo("name", "otherUrl");
+
+            // Call
+            var isEqual = info.Equals(other);
+            var otherIsEqual = info.Equals(other);
+
+            // Assert
+            Assert.IsFalse(isEqual);
+            Assert.IsFalse(otherIsEqual);
+        }
+
+        [Test]
+        public void Equals_ToOtherWithDifferentNameSameUrl_ReturnsFalse()
+        {
+            // Setup
+            var info = new WmtsConnectionInfo("name", "url");
+            var other = new WmtsConnectionInfo("otherName", "url");
+
+            // Call
+            var isEqual = info.Equals(other);
+            var otherIsEqual = info.Equals(other);
+
+            // Assert
+            Assert.IsFalse(isEqual);
+            Assert.IsFalse(otherIsEqual);
+        }
+
+        [Test]
+        public void Equals_ToOtherWithSameData_ReturnsTrue()
+        {
+            // Setup
+            var info = new WmtsConnectionInfo("name", "url");
+            var other = new WmtsConnectionInfo("name", "url");
+
+            // Call
+            var isEqual = info.Equals(other);
+            var otherIsEqual = info.Equals(other);
+
+            // Assert
+            Assert.IsTrue(isEqual);
+            Assert.IsTrue(otherIsEqual);
+        }
+
+        [Test]
+        public void GetHashCode_EqualObjects_ReturnSameHashCode()
+        {
+            // Setup
+            var info = new WmtsConnectionInfo("name", "url");
+            var other = new WmtsConnectionInfo("name", "url");
+
+            // Precondition
+            Assert.AreEqual(info, other);
+
+            // Call
+            int hashCode = info.GetHashCode();
+            int otherHashCode = other.GetHashCode();
+
+            // Assert
+            Assert.AreEqual(hashCode, otherHashCode);
+        }
     }
 }
