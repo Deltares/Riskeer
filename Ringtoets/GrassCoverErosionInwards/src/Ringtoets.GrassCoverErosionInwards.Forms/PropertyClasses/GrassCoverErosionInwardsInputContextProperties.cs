@@ -70,7 +70,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         /// <param name="data">The instance to show the properties for.</param>
         /// <param name="handler">The handler responsible for handling effects of a property change.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public GrassCoverErosionInwardsInputContextProperties(GrassCoverErosionInwardsInputContext data, ICalculationInputPropertyChangeHandler handler)
+        public GrassCoverErosionInwardsInputContextProperties(GrassCoverErosionInwardsInputContext data,
+                                                              ICalculationInputPropertyChangeHandler handler)
         {
             if (data == null)
             {
@@ -97,7 +98,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
             }
             set
             {
-                ChangePropertyValueAndNotifyAffectedObjectsAndNotifyPropertyChanged((input, v) =>
+                ChangePropertyAndNotify((input, v) =>
                 {
                     input.DikeProfile = v;
                     GrassCoverErosionInwardsHelper.UpdateCalculationToSectionResultAssignments(
@@ -135,8 +136,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
             }
             set
             {
-                ChangePropertyValueAndNotifyAffectedObjectsAndNotifyPropertyChanged(
-                    (input, v) => input.Orientation = v, value);
+                ChangePropertyAndNotify(
+                    (input, newValue) => input.Orientation = newValue, value);
             }
         }
 
@@ -201,8 +202,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
             }
             set
             {
-                ChangePropertyValueAndNotifyAffectedObjectsAndNotifyPropertyChanged((input, v) =>
-                                                                                        input.DikeHeight = v, value);
+                ChangePropertyAndNotify(
+                    (input, newValue) => input.DikeHeight = newValue, value);
             }
         }
 
@@ -219,8 +220,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
             }
             set
             {
-                ChangePropertyValueAndNotifyAffectedObjectsAndNotifyPropertyChanged((input, v) =>
-                                                                                        input.DikeHeightCalculationType = v, value);
+                ChangePropertyAndNotify(
+                    (input, newValue) => input.DikeHeightCalculationType = newValue, value);
             }
         }
 
@@ -258,8 +259,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
             }
             set
             {
-                ChangePropertyValueAndNotifyAffectedObjectsAndNotifyPropertyChanged((input, v) =>
-                                                                                        input.HydraulicBoundaryLocation = v, value.HydraulicBoundaryLocation);
+                ChangePropertyAndNotify(
+                    (input, newValue) => input.HydraulicBoundaryLocation = newValue,
+                    value.HydraulicBoundaryLocation);
             }
         }
 
@@ -286,7 +288,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
                 data.AvailableHydraulicBoundaryLocations, calculationLocation);
         }
 
-        private void ChangePropertyValueAndNotifyAffectedObjectsAndNotifyPropertyChanged<TValue>(
+        private void ChangePropertyAndNotify<TValue>(
             SetCalculationInputPropertyValueDelegate<GrassCoverErosionInwardsInput, TValue> setPropertyValue,
             TValue value)
         {

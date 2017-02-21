@@ -261,7 +261,8 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
 
             // Assert
             const string expectedMessage = "Mean is set to be read-only.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
+            string actualMessage = Assert.Throws<InvalidOperationException>(test).Message;
+            Assert.AreEqual(expectedMessage, actualMessage);
             mocks.VerifyAll();
         }
 
@@ -279,7 +280,10 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
 
             var newMeanValue = new RoundedDouble(3, 20);
             var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<RoundedDouble>(
-                input, calculation, newMeanValue, new [] { observerableMock });
+                input, calculation, newMeanValue, new[]
+                {
+                    observerableMock
+                });
 
             var properties = new SimpleDistributionProperties(DistributionPropertiesReadOnly.None, distribution, calculation, input, handler)
             {
@@ -317,7 +321,8 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
 
             // Assert
             const string expectedMessage = "StandardDeviation is set to be read-only.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
+            string actualMessage = Assert.Throws<InvalidOperationException>(test).Message;
+            Assert.AreEqual(expectedMessage, actualMessage);
             mocks.VerifyAll();
         }
 
@@ -335,7 +340,10 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
 
             var newStandardDeviationValue = new RoundedDouble(3, 20);
             var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<RoundedDouble>(
-                input, calculation, newStandardDeviationValue, new[] { observerableMock });
+                input, calculation, newStandardDeviationValue, new[]
+                {
+                    observerableMock
+                });
 
             var properties = new SimpleDistributionProperties(DistributionPropertiesReadOnly.None, distribution, calculation, input, handler)
             {
@@ -355,7 +363,9 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             ICalculationInput,
             ICalculation>
         {
-            public SimpleDistributionProperties(DistributionPropertiesReadOnly propertiesReadOnly, IDistribution distribution, ICalculation calculation, ICalculationInput input, ICalculationInputPropertyChangeHandler handler)
+            public SimpleDistributionProperties(DistributionPropertiesReadOnly propertiesReadOnly,
+                                                IDistribution distribution, ICalculation calculation,
+                                                ICalculationInput input, ICalculationInputPropertyChangeHandler handler)
                 : base(propertiesReadOnly, distribution, calculation, input, handler) {}
 
             public override string DistributionType

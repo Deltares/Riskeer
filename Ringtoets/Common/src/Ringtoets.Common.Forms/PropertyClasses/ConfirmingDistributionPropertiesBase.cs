@@ -26,7 +26,6 @@ using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
-using Core.Common.Utils.Reflection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Probabilistics;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -41,8 +40,8 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         where TCalculationInput : ICalculationInput
         where TCalculation : ICalculation
     {
-        private readonly string meanPropertyName;
-        private readonly string standardDeviationPropertyName;
+        private const string meanPropertyName = nameof(Mean);
+        private const string standardDeviationPropertyName = nameof(StandardDeviation);
         private readonly bool isMeanReadOnly;
         private readonly bool isStandardDeviationReadOnly;
         private readonly TCalculationInput calculationInput;
@@ -60,10 +59,10 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="data"/> is <c>null</c>
         /// or when any number of properties in this class is editable and any other parameter is <c>null</c>.</exception>
         protected ConfirmingDistributionPropertiesBase(DistributionPropertiesReadOnly propertiesReadOnly,
-                                                   TDistribution data,
-                                                   TCalculation calculation,
-                                                   TCalculationInput calculationInput,
-                                                   ICalculationInputPropertyChangeHandler handler)
+                                                       TDistribution data,
+                                                       TCalculation calculation,
+                                                       TCalculationInput calculationInput,
+                                                       ICalculationInputPropertyChangeHandler handler)
         {
             if (data == null)
             {
@@ -85,9 +84,6 @@ namespace Ringtoets.Common.Forms.PropertyClasses
                 }
             }
             Data = data;
-
-            meanPropertyName = TypeUtils.GetMemberName<ConfirmingDistributionPropertiesBase<TDistribution, TCalculationInput, TCalculation>>(dpb => dpb.Mean);
-            standardDeviationPropertyName = TypeUtils.GetMemberName<ConfirmingDistributionPropertiesBase<TDistribution, TCalculationInput, TCalculation>>(dpb => dpb.StandardDeviation);
 
             isMeanReadOnly = propertiesReadOnly.HasFlag(DistributionPropertiesReadOnly.Mean);
             isStandardDeviationReadOnly = propertiesReadOnly.HasFlag(DistributionPropertiesReadOnly.StandardDeviation);
@@ -115,11 +111,10 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             {
                 if (isMeanReadOnly)
                 {
-                    throw new ArgumentException("Mean is set to be read-only.");
+                    throw new InvalidOperationException("Mean is set to be read-only.");
                 }
 
-                IEnumerable<IObservable> affectedObjects = changeHandler.SetPropertyValueAfterConfirmation(calculationInput, calculation, value, (input, d) => data.Mean = d);
-                NotifyAffectedObjects(affectedObjects);
+                ChangePropertyAndNotify((input, newValue) => data.Mean = newValue, value);
             }
         }
 
@@ -136,11 +131,10 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             {
                 if (isStandardDeviationReadOnly)
                 {
-                    throw new ArgumentException("StandardDeviation is set to be read-only.");
+                    throw new InvalidOperationException("StandardDeviation is set to be read-only.");
                 }
 
-                IEnumerable<IObservable> affectedObjects = changeHandler.SetPropertyValueAfterConfirmation(calculationInput, calculation, value, (input, d) => data.StandardDeviation = d);
-                NotifyAffectedObjects(affectedObjects);
+                ChangePropertyAndNotify((input, newValue) => data.StandardDeviation = newValue, value);
             }
         }
 
@@ -158,9 +152,19 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             return $"{Mean} ({RingtoetsCommonFormsResources.NormalDistribution_StandardDeviation_DisplayName} = {StandardDeviation})";
         }
 
+        private void ChangePropertyAndNotify(SetCalculationInputPropertyValueDelegate<TCalculationInput, RoundedDouble> setPropertyValue,
+                                             RoundedDouble value)
+        {
+            IEnumerable<IObservable> affectedObjects = changeHandler.SetPropertyValueAfterConfirmation(calculationInput,
+                                                                                                       calculation,
+                                                                                                       value,
+                                                                                                       setPropertyValue);
+            NotifyAffectedObjects(affectedObjects);
+        }
+
         private static void NotifyAffectedObjects(IEnumerable<IObservable> affectedObjects)
         {
-            foreach (var affectedObject in affectedObjects)
+            foreach (IObservable affectedObject in affectedObjects)
             {
                 affectedObject.NotifyObservers();
             }
