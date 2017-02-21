@@ -111,7 +111,7 @@ namespace Core.Plugins.Map.Test
         }
 
         [Test]
-        public void GetPropertyInfos_ReturnsSupportedPropertyClassesWithExpectedValues()
+        public void GetPropertyInfos_ReturnsSupportedPropertyInfos()
         {
             // Setup
             using (var plugin = new MapPlugin())
@@ -145,7 +145,7 @@ namespace Core.Plugins.Map.Test
         }
 
         [Test]
-        public void GetImportInfos_ReturnSupportedImportClassesWithExpectedValues()
+        public void GetImportInfos_ReturnsSupportedImportInfos()
         {
             // Setup
             using (var plugin = new MapPlugin())

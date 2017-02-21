@@ -65,14 +65,7 @@ namespace Core.Common.Gui.Test.Plugin
         public void Activate_DoesNotThrow()
         {
             // Setup
-            var mocks = new MockRepository();
-            var gui = mocks.StrictMock<IGui>();
-            mocks.ReplayAll();
-
-            using (var plugin = new SimplePlugin
-            {
-                Gui = gui
-            })
+            using (var plugin = new SimplePlugin())
             {
                 // Call
                 TestDelegate call = () => plugin.Activate();
@@ -80,21 +73,13 @@ namespace Core.Common.Gui.Test.Plugin
                 // Assert
                 Assert.DoesNotThrow(call);
             }
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Deactivate_DoesNotThrow()
         {
             // Setup
-            var mocks = new MockRepository();
-            var gui = mocks.StrictMock<IGui>();
-            mocks.ReplayAll();
-
-            using (var plugin = new SimplePlugin
-            {
-                Gui = gui
-            })
+            using (var plugin = new SimplePlugin())
             {
                 // Call
                 TestDelegate call = () => plugin.Deactivate();
@@ -102,21 +87,13 @@ namespace Core.Common.Gui.Test.Plugin
                 // Assert
                 Assert.DoesNotThrow(call);
             }
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GetPropertyInfos_ReturnsEmpty()
         {
             // Setup
-            var mocks = new MockRepository();
-            var gui = mocks.StrictMock<IGui>();
-            mocks.ReplayAll();
-
-            using (var plugin = new SimplePlugin
-            {
-                Gui = gui
-            })
+            using (var plugin = new SimplePlugin())
             {
                 // Call
                 IEnumerable<PropertyInfo> infos = plugin.GetPropertyInfos();
@@ -124,21 +101,13 @@ namespace Core.Common.Gui.Test.Plugin
                 // Assert
                 CollectionAssert.IsEmpty(infos);
             }
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GetViewInfos_ReturnsEmpty()
         {
             // Setup
-            var mocks = new MockRepository();
-            var gui = mocks.StrictMock<IGui>();
-            mocks.ReplayAll();
-
-            using (var plugin = new SimplePlugin
-            {
-                Gui = gui
-            })
+            using (var plugin = new SimplePlugin())
             {
                 // Call
                 IEnumerable<ViewInfo> infos = plugin.GetViewInfos();
@@ -146,21 +115,13 @@ namespace Core.Common.Gui.Test.Plugin
                 // Assert
                 CollectionAssert.IsEmpty(infos);
             }
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GetTreeNodeInfos_ReturnsEmpty()
         {
             // Setup
-            var mocks = new MockRepository();
-            var gui = mocks.StrictMock<IGui>();
-            mocks.ReplayAll();
-
-            using (var plugin = new SimplePlugin
-            {
-                Gui = gui
-            })
+            using (var plugin = new SimplePlugin())
             {
                 // Call
                 IEnumerable<TreeNodeInfo> infos = plugin.GetTreeNodeInfos();
@@ -168,21 +129,13 @@ namespace Core.Common.Gui.Test.Plugin
                 // Assert
                 CollectionAssert.IsEmpty(infos);
             }
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GetChildDataWithViewDefinitions_ReturnsEmpty()
         {
             // Setup
-            var mocks = new MockRepository();
-            var gui = mocks.StrictMock<IGui>();
-            mocks.ReplayAll();
-
-            using (var plugin = new SimplePlugin
-            {
-                Gui = gui
-            })
+            using (var plugin = new SimplePlugin())
             {
                 // Call
                 IEnumerable<object> chidrenWithViewDefinitions = plugin.GetChildDataWithViewDefinitions(null);
@@ -190,21 +143,13 @@ namespace Core.Common.Gui.Test.Plugin
                 // Assert
                 CollectionAssert.IsEmpty(chidrenWithViewDefinitions);
             }
-            mocks.VerifyAll();
         }
 
         [Test]
-        public void GetImportInfos_ReturnsEmptyEnumerable()
+        public void GetImportInfos_ReturnsEmpty()
         {
             // Setup
-            var mocks = new MockRepository();
-            var gui = mocks.StrictMock<IGui>();
-            mocks.ReplayAll();
-
-            using (var plugin = new SimplePlugin
-            {
-                Gui = gui
-            })
+            using (var plugin = new SimplePlugin())
             {
                 // Call
                 IEnumerable<ImportInfo> infos = plugin.GetImportInfos();
@@ -212,21 +157,13 @@ namespace Core.Common.Gui.Test.Plugin
                 // Assert
                 CollectionAssert.IsEmpty(infos);
             }
-            mocks.VerifyAll();
         }
 
         [Test]
-        public void GetExportInfos_ReturnsEmptyEnumerable()
+        public void GetExportInfos_ReturnsEmpty()
         {
             // Setup
-            var mocks = new MockRepository();
-            var gui = mocks.StrictMock<IGui>();
-            mocks.ReplayAll();
-
-            using (var plugin = new SimplePlugin
-            {
-                Gui = gui
-            })
+            using (var plugin = new SimplePlugin())
             {
                 // Call
                 IEnumerable<ExportInfo> infos = plugin.GetExportInfos();
@@ -234,7 +171,6 @@ namespace Core.Common.Gui.Test.Plugin
                 // Assert
                 CollectionAssert.IsEmpty(infos);
             }
-            mocks.VerifyAll();
         }
 
         [Test]

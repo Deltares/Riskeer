@@ -48,7 +48,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test
         }
 
         [Test]
-        public void GetPropertiesInfos_ReturnsSupportedPropertyClasses()
+        public void GetPropertyInfos_ReturnsSupportedPropertyInfos()
         {
             // Setup
             using (var plugin = new WaveImpactAsphaltCoverPlugin())
@@ -77,7 +77,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test
         }
 
         [Test]
-        public void GetViewInfos_ReturnsSupportedViewInfoClasses()
+        public void GetViewInfos_ReturnsSupportedViewInfos()
         {
             // Setup
             using (var plugin = new WaveImpactAsphaltCoverPlugin())

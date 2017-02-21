@@ -22,12 +22,9 @@
 using System.Linq;
 using System.Threading;
 using Core.Common.Controls.TreeView;
-using Core.Common.Gui;
-using Core.Common.Gui.Commands;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.TestUtil;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
@@ -54,15 +51,12 @@ namespace Ringtoets.Piping.Plugin.Test
         }
 
         [Test]
-        public void GetPropertyInfos_ReturnsSupportedPropertyClassesWithExpectedValues()
+        public void GetPropertyInfos_ReturnsSupportedPropertyInfos()
         {
             // Setup
             using (var plugin = new PipingPlugin())
             {
                 // Call
-                var mocks = new MockRepository();
-                mocks.ReplayAll();
-
                 PropertyInfo[] propertyInfos = plugin.GetPropertyInfos().ToArray();
 
                 // Assert
@@ -107,8 +101,6 @@ namespace Ringtoets.Piping.Plugin.Test
                     propertyInfos,
                     typeof(StochasticSoilProfile),
                     typeof(StochasticSoilProfileProperties));
-
-                mocks.VerifyAll();
             }
         }
 
@@ -116,15 +108,7 @@ namespace Ringtoets.Piping.Plugin.Test
         public void GetTreeNodeInfos_ReturnsSupportedTreeNodeInfos()
         {
             // Setup
-            var mocks = new MockRepository();
-            var guiStub = mocks.Stub<IGui>();
-            guiStub.Stub(g => g.ApplicationCommands).Return(mocks.Stub<IApplicationFeatureCommands>());
-            mocks.ReplayAll();
-
-            using (var plugin = new PipingPlugin
-            {
-                Gui = guiStub
-            })
+            using (var plugin = new PipingPlugin())
             {
                 // Call
                 TreeNodeInfo[] treeNodeInfos = plugin.GetTreeNodeInfos().ToArray();
@@ -145,22 +129,13 @@ namespace Ringtoets.Piping.Plugin.Test
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(PipingScenariosContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(EmptyPipingOutput)));
             }
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GetViewInfos_ReturnsSupportedViewInfos()
         {
             // Setup
-            var mocks = new MockRepository();
-            var guiStub = mocks.Stub<IGui>();
-            guiStub.Stub(g => g.ApplicationCommands).Return(mocks.Stub<IApplicationFeatureCommands>());
-            mocks.ReplayAll();
-
-            using (var plugin = new PipingPlugin
-            {
-                Gui = guiStub
-            })
+            using (var plugin = new PipingPlugin())
             {
                 // Call
                 ViewInfo[] viewInfos = plugin.GetViewInfos().ToArray();
@@ -174,22 +149,13 @@ namespace Ringtoets.Piping.Plugin.Test
                 Assert.IsTrue(viewInfos.Any(vi => vi.ViewType == typeof(PipingInputView)));
                 Assert.IsTrue(viewInfos.Any(vi => vi.ViewType == typeof(PipingScenariosView)));
             }
-            mocks.VerifyAll();
         }
 
         [Test]
-        public void GetFileInfos_Always_ReturnsExpectedFileInfos()
+        public void GetFileInfos_ReturnsSupportedFileInfos()
         {
             // Setup
-            var mocks = new MockRepository();
-            var guiStub = mocks.Stub<IGui>();
-            guiStub.Stub(g => g.ApplicationCommands).Return(mocks.Stub<IApplicationFeatureCommands>());
-            mocks.ReplayAll();
-
-            using (var plugin = new PipingPlugin
-            {
-                Gui = guiStub
-            })
+            using (var plugin = new PipingPlugin())
             {
                 // Call
                 ImportInfo[] importInfos = plugin.GetImportInfos().ToArray();
@@ -199,22 +165,13 @@ namespace Ringtoets.Piping.Plugin.Test
                 Assert.AreEqual(1, importInfos.Count(i => i.DataType == typeof(RingtoetsPipingSurfaceLinesContext)));
                 Assert.AreEqual(1, importInfos.Count(i => i.DataType == typeof(StochasticSoilModelCollectionContext)));
             }
-            mocks.VerifyAll();
         }
 
         [Test]
-        public void GetUpdateInfos_Always_ReturnsExpectedUpdateInfos()
+        public void GetUpdateInfos_ReturnsSupportedUpdateInfos()
         {
             // Setup
-            var mocks = new MockRepository();
-            var gui = mocks.Stub<IGui>();
-            gui.Stub(g => g.ApplicationCommands).Return(mocks.Stub<IApplicationFeatureCommands>());
-            mocks.ReplayAll();
-
-            using (var plugin = new PipingPlugin
-            {
-                Gui = gui
-            })
+            using (var plugin = new PipingPlugin())
             {
                 // Call
                 UpdateInfo[] updateInfos = plugin.GetUpdateInfos().ToArray();
@@ -224,7 +181,37 @@ namespace Ringtoets.Piping.Plugin.Test
                 Assert.AreEqual(1, updateInfos.Count(updateInfo => updateInfo.DataType == typeof(RingtoetsPipingSurfaceLinesContext)));
                 Assert.AreEqual(1, updateInfos.Count(updateInfo => updateInfo.DataType == typeof(StochasticSoilModelCollectionContext)));
             }
-            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GetImportInfos_ReturnsSupportedImportInfos()
+        {
+            // Setup
+            using (var plugin = new PipingPlugin())
+            {
+                // Call
+                ImportInfo[] importInfos = plugin.GetImportInfos().ToArray();
+
+                // Assert
+                Assert.AreEqual(2, importInfos.Length);
+                Assert.IsTrue(importInfos.Any(i => i.DataType == typeof(RingtoetsPipingSurfaceLinesContext)));
+                Assert.IsTrue(importInfos.Any(i => i.DataType == typeof(StochasticSoilModelCollectionContext)));
+            }
+        }
+
+        [Test]
+        public void GetExportInfos_ReturnsSupportedExportInfos()
+        {
+            // Setup
+            using (var plugin = new PipingPlugin())
+            {
+                // Call
+                ExportInfo[] exportInfos = plugin.GetExportInfos().ToArray();
+
+                // Assert
+                Assert.AreEqual(1, exportInfos.Length);
+                Assert.IsTrue(exportInfos.Any(tni => tni.DataType == typeof(PipingCalculationGroupContext)));
+            }
         }
     }
 }

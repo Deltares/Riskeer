@@ -52,7 +52,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test
         }
 
         [Test]
-        public void GetPropertyInfos_ReturnsSupportedPropertyClassesWithExpectedValues()
+        public void GetPropertyInfos_ReturnsSupportedPropertyInfos()
         {
             // Setup
             using (var plugin = new StabilityPointStructuresPlugin())
@@ -84,15 +84,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test
         public void GetTreeNodeInfos_ReturnsSupportedTreeNodeInfos()
         {
             // Setup
-            var mocks = new MockRepository();
-            var guiStub = mocks.Stub<IGui>();
-            guiStub.Stub(g => g.ApplicationCommands).Return(mocks.Stub<IApplicationFeatureCommands>());
-            mocks.ReplayAll();
-
-            using (var plugin = new StabilityPointStructuresPlugin
-            {
-                Gui = guiStub
-            })
+            using (var plugin = new StabilityPointStructuresPlugin())
             {
                 // Call
                 TreeNodeInfo[] treeNodeInfos = plugin.GetTreeNodeInfos().ToArray();
@@ -108,8 +100,6 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(StabilityPointStructuresCalculationContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(StabilityPointStructuresInputContext)));
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -144,7 +134,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test
         }
 
         [Test]
-        public void GetImportInfos_ReturnsExpectedImportInfos()
+        public void GetImportInfos_ReturnsSupportedImportInfos()
         {
             // Setup
             using (var plugin = new StabilityPointStructuresPlugin())

@@ -52,7 +52,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test
         }
 
         [Test]
-        public void GetPropertyInfos_ReturnsSupportedPropertyClassesWithExpectedValues()
+        public void GetPropertyInfos_ReturnsSupportedPropertyInfos()
         {
             // Setup
             using (var plugin = new HeightStructuresPlugin())
@@ -84,22 +84,13 @@ namespace Ringtoets.HeightStructures.Plugin.Test
         public void GetTreeNodeInfos_ReturnsSupportedTreeNodeInfos()
         {
             // Setup
-            var mocks = new MockRepository();
-            var guiStub = mocks.Stub<IGui>();
-            guiStub.Stub(g => g.ApplicationCommands).Return(mocks.Stub<IApplicationFeatureCommands>());
-            mocks.ReplayAll();
-
-            using (var plugin = new HeightStructuresPlugin
-            {
-                Gui = guiStub
-            })
+            using (var plugin = new HeightStructuresPlugin())
             {
                 // Call
                 TreeNodeInfo[] treeNodeInfos = plugin.GetTreeNodeInfos().ToArray();
 
                 // Assert
                 Assert.AreEqual(8, treeNodeInfos.Length);
-
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(HeightStructuresFailureMechanismContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(HeightStructuresCalculationGroupContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(HeightStructuresCalculationContext)));
@@ -109,23 +100,13 @@ namespace Ringtoets.HeightStructures.Plugin.Test
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(HeightStructuresScenariosContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(FailureMechanismSectionResultContext<HeightStructuresFailureMechanismSectionResult>)));
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GetViewInfos_ReturnsSupportedViewInfos()
         {
             // Setup
-            var mocks = new MockRepository();
-            var guiStub = mocks.Stub<IGui>();
-            guiStub.Stub(g => g.ApplicationCommands).Return(mocks.Stub<IApplicationFeatureCommands>());
-            mocks.ReplayAll();
-
-            using (var plugin = new HeightStructuresPlugin
-            {
-                Gui = guiStub
-            })
+            using (var plugin = new HeightStructuresPlugin())
             {
                 // Call
                 ViewInfo[] viewInfos = plugin.GetViewInfos().ToArray();
@@ -150,11 +131,10 @@ namespace Ringtoets.HeightStructures.Plugin.Test
                     typeof(CalculationGroup),
                     typeof(HeightStructuresScenariosView));
             }
-            mocks.VerifyAll();
         }
 
         [Test]
-        public void GetImportInfos_ReturnsExpectedImportInfos()
+        public void GetImportInfos_ReturnsSupportedImportInfos()
         {
             // Setup
             using (var plugin = new HeightStructuresPlugin())

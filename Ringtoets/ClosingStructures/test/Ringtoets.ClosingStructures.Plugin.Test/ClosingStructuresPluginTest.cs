@@ -49,7 +49,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test
         }
 
         [Test]
-        public void GetPropertyInfos_ReturnsSupportedPropertyClassesWithExpectedValues()
+        public void GetPropertyInfos_ReturnsSupportedPropertyInfos()
         {
             // Setup
             using (var plugin = new ClosingStructuresPlugin())
@@ -131,7 +131,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test
         }
 
         [Test]
-        public void GetImportInfos_ReturnsExpectedImportInfos()
+        public void GetImportInfos_ReturnsSupportedImportInfos()
         {
             // Setup
             using (var plugin = new ClosingStructuresPlugin())

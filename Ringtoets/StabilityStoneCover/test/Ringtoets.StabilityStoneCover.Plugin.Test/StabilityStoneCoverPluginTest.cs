@@ -37,7 +37,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test
     public class StabilityStoneCoverPluginTest
     {
         [Test]
-        public void GetPropertiesInfos_ReturnSupportedPropertyInfos()
+        public void GetPropertyInfos_ReturnsSupportedPropertyInfos()
         {
             // Setup
             using (var plugin = new StabilityStoneCoverPlugin())
@@ -64,7 +64,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test
         }
 
         [Test]
-        public void GetViewInfos_ReturnsSupportedViewInfoClasses()
+        public void GetViewInfos_ReturnsSupportedViewInfos()
         {
             // Setup
             using (var plugin = new StabilityStoneCoverPlugin())
@@ -106,6 +106,22 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(FailureMechanismSectionResultContext<StabilityStoneCoverFailureMechanismSectionResult>)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(StabilityStoneCoverWaveConditionsOutput)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(StabilityStoneCoverWaveConditionsInputContext)));
+            }
+        }
+
+        [Test]
+        public void GetExportInfos_ReturnsSupportedExportInfos()
+        {
+            // Setup
+            using (var plugin = new StabilityStoneCoverPlugin())
+            {
+                // Call
+                ExportInfo[] exportInfos = plugin.GetExportInfos().ToArray();
+
+                // Assert
+                Assert.AreEqual(2, exportInfos.Length);
+                Assert.IsTrue(exportInfos.Any(ei => ei.DataType == typeof(StabilityStoneCoverWaveConditionsCalculationGroupContext)));
+                Assert.IsTrue(exportInfos.Any(ei => ei.DataType == typeof(StabilityStoneCoverWaveConditionsCalculationContext)));
             }
         }
     }

@@ -50,7 +50,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test
         }
 
         [Test]
-        public void GetViewInfos_ReturnsSupportedViewInfoClasses()
+        public void GetViewInfos_ReturnsSupportedViewInfos()
         {
             // Setup
             using (var plugin = new GrassCoverErosionOutwardsPlugin())

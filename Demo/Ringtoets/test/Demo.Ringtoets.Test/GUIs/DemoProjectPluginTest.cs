@@ -59,7 +59,7 @@ namespace Demo.Ringtoets.Test.GUIs
         }
 
         [Test]
-        public void GetViewInfoObjects_Always_ReturnsChartDataViewInfo()
+        public void GetViewInfos_ReturnsSupportedViewInfos()
         {
             // Setup
             using (var plugin = new DemoProjectPlugin())

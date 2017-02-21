@@ -64,7 +64,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test
         }
 
         [Test]
-        public void GetPropertiesInfos_ReturnSupportedPropertyInfos()
+        public void GetPropertyInfos_ReturnsSupportedPropertyInfos()
         {
             // Setup
             using (var plugin = new DuneErosionPlugin())
@@ -139,7 +139,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test
         }
 
         [Test]
-        public void GetExportInfos_ReturnSupportedExportInfo()
+        public void GetExportInfos_ReturnsSupportedExportInfo()
         {
             // Setup
             using (var plugin = new DuneErosionPlugin())

@@ -48,7 +48,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test
         }
 
         [Test]
-        public void GetPropertyInfos_ReturnsSupportedPropertyClassesWithExpectedValues()
+        public void GetPropertyInfos_ReturnsSupportedPropertyInfos()
         {
             // Setup
             using (var plugin = new GrassCoverErosionInwardsPlugin())

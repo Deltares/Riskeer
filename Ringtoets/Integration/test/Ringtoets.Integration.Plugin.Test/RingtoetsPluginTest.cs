@@ -192,7 +192,7 @@ namespace Ringtoets.Integration.Plugin.Test
         }
 
         [Test]
-        public void GetPropertyInfos_ReturnsSupportedPropertyClassesWithExpectedValues()
+        public void GetPropertyInfos_ReturnsSupportedPropertyInfos()
         {
             // Setup
             using (var plugin = new RingtoetsPlugin())
@@ -286,19 +286,13 @@ namespace Ringtoets.Integration.Plugin.Test
 
                 // Assert
                 Assert.AreEqual(2, exportInfos.Length);
-                var referenceLineExportInfo = exportInfos.Single(ei => ei.DataType == typeof(ReferenceLineContext));
-                Assert.IsNull(referenceLineExportInfo.Name);
-                Assert.IsNull(referenceLineExportInfo.Image);
-                Assert.IsNull(referenceLineExportInfo.Category);
-                var hydraulicBoundaryExportInfo = exportInfos.Single(ei => ei.DataType == typeof(HydraulicBoundaryDatabaseContext));
-                Assert.IsNull(hydraulicBoundaryExportInfo.Name);
-                Assert.IsNull(hydraulicBoundaryExportInfo.Image);
-                Assert.IsNull(hydraulicBoundaryExportInfo.Category);
+                Assert.IsTrue(exportInfos.Any(ei => ei.DataType == typeof(ReferenceLineContext)));
+                Assert.IsTrue(exportInfos.Any(ei => ei.DataType == typeof(HydraulicBoundaryDatabaseContext)));
             }
         }
 
         [Test]
-        public void GetViewInfos_ReturnsSupportedViewInfoClasses()
+        public void GetViewInfos_ReturnsSupportedViewInfos()
         {
             // Setup
             using (var plugin = new RingtoetsPlugin())
@@ -495,7 +489,7 @@ namespace Ringtoets.Integration.Plugin.Test
         }
 
         [Test]
-        public void GetImportInfos_ReturnsExpectedImportInfos()
+        public void GetImportInfos_ReturnsSupportedImportInfos()
         {
             // Setup
             using (var plugin = new RingtoetsPlugin())
