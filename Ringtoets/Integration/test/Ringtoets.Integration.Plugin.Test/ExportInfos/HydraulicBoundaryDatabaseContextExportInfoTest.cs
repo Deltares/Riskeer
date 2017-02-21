@@ -36,6 +36,25 @@ namespace Ringtoets.Integration.Plugin.Test.ExportInfos
     public class HydraulicBoundaryDatabaseContextExportInfoTest
     {
         [Test]
+        public void Initialized_Always_ExpectedPropertiesSet()
+        {
+            // Setup
+            using (var plugin = new RingtoetsPlugin())
+            {
+                // Call
+                ExportInfo info = GetExportInfo(plugin);
+
+                // Assert
+                Assert.IsNotNull(info.CreateFileExporter);
+                Assert.IsNotNull(info.IsEnabled);
+                Assert.IsNull(info.Name);
+                Assert.IsNull(info.Category);
+                Assert.IsNull(info.Image);
+                Assert.IsNotNull(info.FileFilterGenerator);
+            }
+        }
+
+        [Test]
         public void CreateFileExporter_Always_ReturnFileExporter()
         {
             // Setup
@@ -51,7 +70,7 @@ namespace Ringtoets.Integration.Plugin.Test.ExportInfos
 
             using (var plugin = new RingtoetsPlugin())
             {
-                ExportInfo info = GetInfo(plugin);
+                ExportInfo info = GetExportInfo(plugin);
 
                 // Call
                 IFileExporter fileExporter = info.CreateFileExporter(context, filePath);
@@ -67,7 +86,7 @@ namespace Ringtoets.Integration.Plugin.Test.ExportInfos
             // Setup
             using (var plugin = new RingtoetsPlugin())
             {
-                ExportInfo info = GetInfo(plugin);
+                ExportInfo info = GetExportInfo(plugin);
 
                 // Call
                 FileFilterGenerator fileFilterGenerator = info.FileFilterGenerator;
@@ -86,7 +105,7 @@ namespace Ringtoets.Integration.Plugin.Test.ExportInfos
 
             using (var plugin = new RingtoetsPlugin())
             {
-                ExportInfo info = GetInfo(plugin);
+                ExportInfo info = GetExportInfo(plugin);
 
                 // Call
                 bool isEnabled = info.IsEnabled(context);
@@ -108,7 +127,7 @@ namespace Ringtoets.Integration.Plugin.Test.ExportInfos
 
             using (var plugin = new RingtoetsPlugin())
             {
-                ExportInfo info = GetInfo(plugin);
+                ExportInfo info = GetExportInfo(plugin);
 
                 // Call
                 bool isEnabled = info.IsEnabled(context);
@@ -118,7 +137,7 @@ namespace Ringtoets.Integration.Plugin.Test.ExportInfos
             }
         }
 
-        private static ExportInfo GetInfo(RingtoetsPlugin plugin)
+        private static ExportInfo GetExportInfo(RingtoetsPlugin plugin)
         {
             return plugin.GetExportInfos().First(ei => ei.DataType == typeof(HydraulicBoundaryDatabaseContext));
         }

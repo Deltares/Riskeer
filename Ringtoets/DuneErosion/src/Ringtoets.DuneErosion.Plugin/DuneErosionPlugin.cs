@@ -74,8 +74,7 @@ namespace Ringtoets.DuneErosion.Plugin
                 FailureMechanismEnabledChildNodeObjects,
                 FailureMechanismDisabledChildNodeObjects,
                 FailureMechanismEnabledContextMenuStrip,
-                FailureMechanismDisabledContextMenuStrip
-                );
+                FailureMechanismDisabledContextMenuStrip);
 
             yield return new TreeNodeInfo<FailureMechanismSectionResultContext<DuneErosionFailureMechanismSectionResult>>
             {
@@ -356,7 +355,7 @@ namespace Ringtoets.DuneErosion.Plugin
 
             if (assessmentSection != null)
             {
-                failureMechanism = ((IAssessmentSection)dataToCloseFor).GetFailureMechanisms().OfType<DuneErosionFailureMechanism>().Single();
+                failureMechanism = ((IAssessmentSection) dataToCloseFor).GetFailureMechanisms().OfType<DuneErosionFailureMechanism>().Single();
             }
 
             if (failureMechanismContext != null)

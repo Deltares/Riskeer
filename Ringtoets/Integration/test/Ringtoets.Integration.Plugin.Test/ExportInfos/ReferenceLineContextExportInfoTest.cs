@@ -35,6 +35,25 @@ namespace Ringtoets.Integration.Plugin.Test.ExportInfos
     public class ReferenceLineContextExportInfoTest
     {
         [Test]
+        public void Initialized_Always_ExpectedPropertiesSet()
+        {
+            // Setup
+            using (var plugin = new RingtoetsPlugin())
+            {
+                // Call
+                ExportInfo info = GetExportInfo(plugin);
+
+                // Assert
+                Assert.IsNotNull(info.CreateFileExporter);
+                Assert.IsNotNull(info.IsEnabled);
+                Assert.IsNull(info.Name);
+                Assert.IsNull(info.Category);
+                Assert.IsNull(info.Image);
+                Assert.IsNotNull(info.FileFilterGenerator);
+            }
+        }
+
+        [Test]
         public void CreateFileExporter_Always_ReturnFileExporter()
         {
             // Setup

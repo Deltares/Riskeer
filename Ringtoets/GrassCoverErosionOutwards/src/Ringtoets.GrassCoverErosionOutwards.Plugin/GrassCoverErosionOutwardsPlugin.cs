@@ -250,7 +250,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                                                            filePath, Resources.DesignWaterLevel_Description, Resources.WaveHeight_Description),
                 IsEnabled = context => context.WrappedData.Count > 0,
                 FileFilterGenerator = new FileFilterGenerator(RingtoetsCommonIoResources.Shape_file_filter_Extension,
-                                              RingtoetsCommonIoResources.Shape_file_filter_Description)
+                                                              RingtoetsCommonIoResources.Shape_file_filter_Description)
             };
 
             yield return new ExportInfo<HydraulicBoundariesGroupContext>
@@ -265,7 +265,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                 },
                 IsEnabled = context => context.FailureMechanism.WaveConditionsCalculationGroup.GetCalculations().Any(c => c.HasOutput),
                 FileFilterGenerator = new FileFilterGenerator(RingtoetsCommonFormsResources.DataTypeDisplayName_csv_file_filter_Extension,
-                                              RingtoetsCommonFormsResources.DataTypeDisplayName_csv_file_filter_Description)
+                                                              RingtoetsCommonFormsResources.DataTypeDisplayName_csv_file_filter_Description)
             };
 
             yield return new ExportInfo<GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext>
@@ -277,7 +277,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                 },
                 IsEnabled = context => context.WrappedData.GetCalculations().Any(c => c.HasOutput),
                 FileFilterGenerator = new FileFilterGenerator(RingtoetsCommonFormsResources.DataTypeDisplayName_csv_file_filter_Extension,
-                                              RingtoetsCommonFormsResources.DataTypeDisplayName_csv_file_filter_Description)
+                                                              RingtoetsCommonFormsResources.DataTypeDisplayName_csv_file_filter_Description)
             };
 
             yield return new ExportInfo<GrassCoverErosionOutwardsWaveConditionsCalculationContext>
@@ -288,7 +288,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                 }, filePath),
                 IsEnabled = context => context.WrappedData.HasOutput,
                 FileFilterGenerator = new FileFilterGenerator(RingtoetsCommonFormsResources.DataTypeDisplayName_csv_file_filter_Extension,
-                                              RingtoetsCommonFormsResources.DataTypeDisplayName_csv_file_filter_Description)
+                                                              RingtoetsCommonFormsResources.DataTypeDisplayName_csv_file_filter_Description)
             };
         }
 

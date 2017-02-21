@@ -122,7 +122,7 @@ namespace Ringtoets.Piping.Plugin
             yield return new ExportInfo<PipingCalculationGroupContext>
             {
                 FileFilterGenerator = new FileFilterGenerator(Resources.PipingPlugin_GetExportInfos_xml_extension,
-                                                     Resources.PipingPlugin_GetExportInfos_calculation_configuration_file_description),
+                                                              Resources.PipingPlugin_GetExportInfos_calculation_configuration_file_description),
                 CreateFileExporter = (context, filePath) => new PipingConfigurationExporter(context.WrappedData, filePath),
                 IsEnabled = context => context.WrappedData.Children.Any()
             };
