@@ -51,7 +51,7 @@ namespace Ringtoets.Piping.Plugin.Test.ExportInfos
                                                             new PipingFailureMechanism(),
                                                             assessmentSection);
 
-            using (PipingPlugin plugin = new PipingPlugin())
+            using (var plugin = new PipingPlugin())
             {
                 ExportInfo info = GetExportInfo(plugin);
 
@@ -68,7 +68,7 @@ namespace Ringtoets.Piping.Plugin.Test.ExportInfos
         public void FileFilter_Always_ReturnFileFilter()
         {
             // Setup
-            using (PipingPlugin plugin = new PipingPlugin())
+            using (var plugin = new PipingPlugin())
             {
                 ExportInfo info = GetExportInfo(plugin);
 
@@ -94,7 +94,7 @@ namespace Ringtoets.Piping.Plugin.Test.ExportInfos
                                                             new PipingFailureMechanism(),
                                                             assessmentSection);
 
-            using (PipingPlugin plugin = new PipingPlugin())
+            using (var plugin = new PipingPlugin())
             {
                 ExportInfo info = GetExportInfo(plugin);
 
@@ -104,6 +104,7 @@ namespace Ringtoets.Piping.Plugin.Test.ExportInfos
                 // Assert
                 Assert.IsFalse(isEnabled);
             }
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -134,7 +135,7 @@ namespace Ringtoets.Piping.Plugin.Test.ExportInfos
                                                             new PipingFailureMechanism(),
                                                             assessmentSection);
 
-            using (PipingPlugin plugin = new PipingPlugin())
+            using (var plugin = new PipingPlugin())
             {
                 ExportInfo info = GetExportInfo(plugin);
 
@@ -144,6 +145,7 @@ namespace Ringtoets.Piping.Plugin.Test.ExportInfos
                 // Assert
                 Assert.IsTrue(isEnabled);
             }
+            mocks.VerifyAll();
         }
 
         private static ExportInfo GetExportInfo(PipingPlugin plugin)

@@ -29,7 +29,6 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.IO.Hydraulics;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.PresentationObjects;
-using RingtoetsCommonIoResources = Ringtoets.Common.IO.Properties.Resources;
 
 namespace Ringtoets.Integration.Plugin.Test.ExportInfos
 {
@@ -40,17 +39,17 @@ namespace Ringtoets.Integration.Plugin.Test.ExportInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Setup
-            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
             hydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(1, "test", 0, 0));
 
-            AssessmentSection assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
                 HydraulicBoundaryDatabase = hydraulicBoundaryDatabase
             };
-            HydraulicBoundaryDatabaseContext context = new HydraulicBoundaryDatabaseContext(assessmentSection);
-            string filePath = "test";
+            var context = new HydraulicBoundaryDatabaseContext(assessmentSection);
+            var filePath = "test";
 
-            using (RingtoetsPlugin plugin = new RingtoetsPlugin())
+            using (var plugin = new RingtoetsPlugin())
             {
                 ExportInfo info = GetInfo(plugin);
 
@@ -66,7 +65,7 @@ namespace Ringtoets.Integration.Plugin.Test.ExportInfos
         public void FileFilter_Always_ReturnsFileFilter()
         {
             // Setup
-            using (RingtoetsPlugin plugin = new RingtoetsPlugin())
+            using (var plugin = new RingtoetsPlugin())
             {
                 ExportInfo info = GetInfo(plugin);
 
@@ -82,10 +81,10 @@ namespace Ringtoets.Integration.Plugin.Test.ExportInfos
         public void IsEnabled_NoHydraulicBoundaryDatabaseSet_ReturnsFalse()
         {
             // Setup
-            AssessmentSection assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-            HydraulicBoundaryDatabaseContext context = new HydraulicBoundaryDatabaseContext(assessmentSection);
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var context = new HydraulicBoundaryDatabaseContext(assessmentSection);
 
-            using (RingtoetsPlugin plugin = new RingtoetsPlugin())
+            using (var plugin = new RingtoetsPlugin())
             {
                 ExportInfo info = GetInfo(plugin);
 
@@ -101,13 +100,13 @@ namespace Ringtoets.Integration.Plugin.Test.ExportInfos
         public void IsEnabled_HydraulicBoundaryDatabaseSet_ReturnsTrue()
         {
             // Setup
-            AssessmentSection assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
                 HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase()
             };
-            HydraulicBoundaryDatabaseContext context = new HydraulicBoundaryDatabaseContext(assessmentSection);
+            var context = new HydraulicBoundaryDatabaseContext(assessmentSection);
 
-            using (RingtoetsPlugin plugin = new RingtoetsPlugin())
+            using (var plugin = new RingtoetsPlugin())
             {
                 ExportInfo info = GetInfo(plugin);
 

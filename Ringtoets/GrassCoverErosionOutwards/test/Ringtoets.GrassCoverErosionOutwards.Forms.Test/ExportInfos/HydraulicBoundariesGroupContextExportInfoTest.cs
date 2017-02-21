@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Drawing;
 using System.Linq;
 using Core.Common.Base.IO;
 using Core.Common.Gui;
@@ -34,7 +35,6 @@ using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionOutwards.IO;
 using Ringtoets.GrassCoverErosionOutwards.Plugin;
 using Ringtoets.Revetment.Data;
-using RingtoetsCommonIoResources = Ringtoets.Common.IO.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.ExportInfos
@@ -48,7 +48,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.ExportInfos
         [SetUp]
         public void Setup()
         {
-            using (GrassCoverErosionOutwardsPlugin plugin = new GrassCoverErosionOutwardsPlugin())
+            using (var plugin = new GrassCoverErosionOutwardsPlugin())
             {
                 ExportInfo[] exportInfos = plugin.GetExportInfos().Where(ei => ei.DataType == typeof(HydraulicBoundariesGroupContext)).ToArray();
                 hydraulicBoundaryLocationsExporterExportInfo = exportInfos.FirstOrDefault(ei => ei.Name.Equals("Waterstanden en golfhoogtes uit marginale statistiek (*.shp)."));
@@ -74,7 +74,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.ExportInfos
         public void HydraulicBoundaryLocationsExporterExportInfo_Image_ReturnsPointShapefileIcon()
         {
             // Call
-            var icon = hydraulicBoundaryLocationsExporterExportInfo.Image;
+            Image icon = hydraulicBoundaryLocationsExporterExportInfo.Image;
 
             // Assert
             TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.PointShapefileIcon, icon);
@@ -115,6 +115,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.ExportInfos
 
             // Assert
             Assert.IsFalse(isEnabled);
+            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -134,6 +135,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.ExportInfos
 
             // Assert
             Assert.IsTrue(isEnabled);
+            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -164,7 +166,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.ExportInfos
         public void WaveConditionsExporterExportInfo_Image_ReturnsCsvFileIcon()
         {
             // Call
-            var icon = waveConditionsExporterExportInfo.Image;
+            Image icon = waveConditionsExporterExportInfo.Image;
 
             // Assert
             TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GeneralOutputIcon, icon);
@@ -205,6 +207,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.ExportInfos
 
             // Assert
             Assert.IsFalse(isEnabled);
+            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -224,6 +227,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.ExportInfos
 
             // Assert
             Assert.IsFalse(isEnabled);
+            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -246,6 +250,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.ExportInfos
 
             // Assert
             Assert.IsTrue(isEnabled);
+            mockRepository.VerifyAll();
         }
 
         [Test]

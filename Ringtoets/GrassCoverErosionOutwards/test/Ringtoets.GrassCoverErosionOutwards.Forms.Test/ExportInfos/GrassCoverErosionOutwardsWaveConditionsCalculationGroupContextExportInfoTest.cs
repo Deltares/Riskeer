@@ -50,7 +50,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.ExportInfos
             var calculationGroup = new CalculationGroup();
 
             var context = new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(calculationGroup, failureMechanism, assessmentSection);
-            using (GrassCoverErosionOutwardsPlugin plugin = new GrassCoverErosionOutwardsPlugin())
+            using (var plugin = new GrassCoverErosionOutwardsPlugin())
             {
                 ExportInfo exportInfo = GetExportInfo(plugin);
 
@@ -67,7 +67,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.ExportInfos
         public void FileFilter_Always_ReturnsFileFilter()
         {
             // Setup
-            using (GrassCoverErosionOutwardsPlugin plugin = new GrassCoverErosionOutwardsPlugin())
+            using (var plugin = new GrassCoverErosionOutwardsPlugin())
             {
                 ExportInfo exportInfo = GetExportInfo(plugin);
 
@@ -91,7 +91,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.ExportInfos
             var calculationGroup = new CalculationGroup();
 
             var context = new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(calculationGroup, failureMechanism, assessmentSection);
-            using (GrassCoverErosionOutwardsPlugin plugin = new GrassCoverErosionOutwardsPlugin())
+            using (var plugin = new GrassCoverErosionOutwardsPlugin())
             {
                 ExportInfo exportInfo = GetExportInfo(plugin);
 
@@ -131,7 +131,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.ExportInfos
             calculationGroup.Children.Add(calculation);
 
             var context = new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(calculationGroup, failureMechanism, assessmentSection);
-            using (GrassCoverErosionOutwardsPlugin plugin = new GrassCoverErosionOutwardsPlugin())
+            using (var plugin = new GrassCoverErosionOutwardsPlugin())
             {
                 ExportInfo exportInfo = GetExportInfo(plugin);
 
@@ -179,7 +179,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.ExportInfos
                 });
 
             var context = new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(calculationGroup, failureMechanism, assessmentSection);
-            using (GrassCoverErosionOutwardsPlugin plugin = new GrassCoverErosionOutwardsPlugin())
+            using (var plugin = new GrassCoverErosionOutwardsPlugin())
             {
                 ExportInfo exportInfo = GetExportInfo(plugin);
 

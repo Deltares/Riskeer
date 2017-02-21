@@ -38,14 +38,14 @@ namespace Ringtoets.Integration.Plugin.Test.ExportInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Setup
-            AssessmentSection assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
                 ReferenceLine = new ReferenceLine()
             };
-            ReferenceLineContext context = new ReferenceLineContext(assessmentSection);
-            string filePath = "test";
+            var context = new ReferenceLineContext(assessmentSection);
+            var filePath = "test";
 
-            using (RingtoetsPlugin plugin = new RingtoetsPlugin())
+            using (var plugin = new RingtoetsPlugin())
             {
                 ExportInfo info = GetExportInfo(plugin);
 
@@ -61,7 +61,7 @@ namespace Ringtoets.Integration.Plugin.Test.ExportInfos
         public void FileFilter_Always_ReturnsFileFilter()
         {
             // Setup
-            using (RingtoetsPlugin plugin = new RingtoetsPlugin())
+            using (var plugin = new RingtoetsPlugin())
             {
                 ExportInfo info = GetExportInfo(plugin);
 
@@ -77,10 +77,10 @@ namespace Ringtoets.Integration.Plugin.Test.ExportInfos
         public void IsEnabled_NoReferenceLineSet_ReturnsFalse()
         {
             // Setup
-            AssessmentSection assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-            ReferenceLineContext context = new ReferenceLineContext(assessmentSection);
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var context = new ReferenceLineContext(assessmentSection);
 
-            using (RingtoetsPlugin plugin = new RingtoetsPlugin())
+            using (var plugin = new RingtoetsPlugin())
             {
                 ExportInfo info = GetExportInfo(plugin);
 
@@ -96,13 +96,13 @@ namespace Ringtoets.Integration.Plugin.Test.ExportInfos
         public void IsEnabled_ReferenceLineSet_ReturnsTrue()
         {
             // Setup
-            AssessmentSection assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
                 ReferenceLine = new ReferenceLine()
             };
-            ReferenceLineContext context = new ReferenceLineContext(assessmentSection);
+            var context = new ReferenceLineContext(assessmentSection);
 
-            using (RingtoetsPlugin plugin = new RingtoetsPlugin())
+            using (var plugin = new RingtoetsPlugin())
             {
                 ExportInfo info = GetExportInfo(plugin);
 

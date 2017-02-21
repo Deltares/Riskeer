@@ -49,7 +49,7 @@ namespace Ringtoets.Integration.Plugin.Test.ExportInfos
 
             var context = new WaveImpactAsphaltCoverWaveConditionsCalculationContext(new WaveImpactAsphaltCoverWaveConditionsCalculation(),
                                                                                      failureMechanism, assessmentSection);
-            using (WaveImpactAsphaltCoverPlugin plugin = new WaveImpactAsphaltCoverPlugin())
+            using (var plugin = new WaveImpactAsphaltCoverPlugin())
             {
                 ExportInfo exportInfo = GetExportInfo(plugin);
 
@@ -66,7 +66,7 @@ namespace Ringtoets.Integration.Plugin.Test.ExportInfos
         public void FileFilter_Always_ReturnsFileFilter()
         {
             // Setup
-            using (WaveImpactAsphaltCoverPlugin plugin = new WaveImpactAsphaltCoverPlugin())
+            using (var plugin = new WaveImpactAsphaltCoverPlugin())
             {
                 ExportInfo exportInfo = GetExportInfo(plugin);
 
@@ -90,7 +90,7 @@ namespace Ringtoets.Integration.Plugin.Test.ExportInfos
 
             var context = new WaveImpactAsphaltCoverWaveConditionsCalculationContext(new WaveImpactAsphaltCoverWaveConditionsCalculation(),
                                                                                      failureMechanism, assessmentSection);
-            using (WaveImpactAsphaltCoverPlugin plugin = new WaveImpactAsphaltCoverPlugin())
+            using (var plugin = new WaveImpactAsphaltCoverPlugin())
             {
                 ExportInfo exportInfo = GetExportInfo(plugin);
 
@@ -124,7 +124,7 @@ namespace Ringtoets.Integration.Plugin.Test.ExportInfos
                 },
                 failureMechanism, assessmentSection);
 
-            using (WaveImpactAsphaltCoverPlugin plugin = new WaveImpactAsphaltCoverPlugin())
+            using (var plugin = new WaveImpactAsphaltCoverPlugin())
             {
                 ExportInfo exportInfo = GetExportInfo(plugin);
 
@@ -139,7 +139,7 @@ namespace Ringtoets.Integration.Plugin.Test.ExportInfos
 
         private static ExportInfo GetExportInfo(WaveImpactAsphaltCoverPlugin plugin)
         {
-            return Enumerable.First<ExportInfo>(plugin.GetExportInfos(), ei => ei.DataType == typeof(WaveImpactAsphaltCoverWaveConditionsCalculationContext));
+            return plugin.GetExportInfos().First(ei => ei.DataType == typeof(WaveImpactAsphaltCoverWaveConditionsCalculationContext));
         }
     }
 }

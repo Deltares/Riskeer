@@ -49,7 +49,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.ExportInfos
 
             var context = new GrassCoverErosionOutwardsWaveConditionsCalculationContext(new GrassCoverErosionOutwardsWaveConditionsCalculation(),
                                                                                         failureMechanism, assessmentSection);
-            using (GrassCoverErosionOutwardsPlugin plugin = new GrassCoverErosionOutwardsPlugin())
+            using (var plugin = new GrassCoverErosionOutwardsPlugin())
             {
                 ExportInfo exportInfo = GetExportInfo(plugin);
 
@@ -66,7 +66,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.ExportInfos
         public void FileFilter_Always_ReturnsFileFilter()
         {
             // Setup
-            using (GrassCoverErosionOutwardsPlugin plugin = new GrassCoverErosionOutwardsPlugin())
+            using (var plugin = new GrassCoverErosionOutwardsPlugin())
             {
                 ExportInfo exportInfo = GetExportInfo(plugin);
 
@@ -90,7 +90,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.ExportInfos
 
             var context = new GrassCoverErosionOutwardsWaveConditionsCalculationContext(new GrassCoverErosionOutwardsWaveConditionsCalculation(),
                                                                                         failureMechanism, assessmentSection);
-            using (GrassCoverErosionOutwardsPlugin plugin = new GrassCoverErosionOutwardsPlugin())
+            using (var plugin = new GrassCoverErosionOutwardsPlugin())
             {
                 ExportInfo exportInfo = GetExportInfo(plugin);
 
@@ -124,7 +124,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.ExportInfos
                 },
                 failureMechanism, assessmentSection);
 
-            using (GrassCoverErosionOutwardsPlugin plugin = new GrassCoverErosionOutwardsPlugin())
+            using (var plugin = new GrassCoverErosionOutwardsPlugin())
             {
                 ExportInfo exportInfo = GetExportInfo(plugin);
 

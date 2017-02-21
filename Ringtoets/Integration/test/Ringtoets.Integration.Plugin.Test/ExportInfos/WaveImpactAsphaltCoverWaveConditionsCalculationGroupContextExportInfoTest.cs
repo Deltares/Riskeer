@@ -50,7 +50,7 @@ namespace Ringtoets.Integration.Plugin.Test.ExportInfos
             var calculationGroup = new CalculationGroup();
 
             var context = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(calculationGroup, failureMechanism, assessmentSection);
-            using (WaveImpactAsphaltCoverPlugin plugin = new WaveImpactAsphaltCoverPlugin())
+            using (var plugin = new WaveImpactAsphaltCoverPlugin())
             {
                 ExportInfo exportInfo = GetExportInfo(plugin);
 
@@ -67,7 +67,7 @@ namespace Ringtoets.Integration.Plugin.Test.ExportInfos
         public void FileFilter_Always_ReturnsFileFilter()
         {
             // Setup
-            using (WaveImpactAsphaltCoverPlugin plugin = new WaveImpactAsphaltCoverPlugin())
+            using (var plugin = new WaveImpactAsphaltCoverPlugin())
             {
                 ExportInfo exportInfo = GetExportInfo(plugin);
 
@@ -91,7 +91,7 @@ namespace Ringtoets.Integration.Plugin.Test.ExportInfos
             var calculationGroup = new CalculationGroup();
 
             var context = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(calculationGroup, failureMechanism, assessmentSection);
-            using (WaveImpactAsphaltCoverPlugin plugin = new WaveImpactAsphaltCoverPlugin())
+            using (var plugin = new WaveImpactAsphaltCoverPlugin())
             {
                 ExportInfo exportInfo = GetExportInfo(plugin);
 
@@ -117,7 +117,7 @@ namespace Ringtoets.Integration.Plugin.Test.ExportInfos
             calculationGroup.Children.Add(new WaveImpactAsphaltCoverWaveConditionsCalculation());
 
             var context = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(calculationGroup, failureMechanism, assessmentSection);
-            using (WaveImpactAsphaltCoverPlugin plugin = new WaveImpactAsphaltCoverPlugin())
+            using (var plugin = new WaveImpactAsphaltCoverPlugin())
             {
                 ExportInfo exportInfo = GetExportInfo(plugin);
 
@@ -151,7 +151,7 @@ namespace Ringtoets.Integration.Plugin.Test.ExportInfos
             });
 
             var context = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(calculationGroup, failureMechanism, assessmentSection);
-            using (WaveImpactAsphaltCoverPlugin plugin = new WaveImpactAsphaltCoverPlugin())
+            using (var plugin = new WaveImpactAsphaltCoverPlugin())
             {
                 ExportInfo exportInfo = GetExportInfo(plugin);
 
@@ -199,7 +199,7 @@ namespace Ringtoets.Integration.Plugin.Test.ExportInfos
                 });
 
             var context = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(calculationGroup, failureMechanism, assessmentSection);
-            using (WaveImpactAsphaltCoverPlugin plugin = new WaveImpactAsphaltCoverPlugin())
+            using (var plugin = new WaveImpactAsphaltCoverPlugin())
             {
                 ExportInfo exportInfo = GetExportInfo(plugin);
 
@@ -214,7 +214,7 @@ namespace Ringtoets.Integration.Plugin.Test.ExportInfos
 
         private static ExportInfo GetExportInfo(WaveImpactAsphaltCoverPlugin plugin)
         {
-            return Enumerable.First<ExportInfo>(plugin.GetExportInfos(), ei => ei.DataType == typeof(WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext));
+            return plugin.GetExportInfos().First(ei => ei.DataType == typeof(WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext));
         }
     }
 }

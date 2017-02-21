@@ -49,7 +49,7 @@ namespace Ringtoets.Integration.Plugin.Test.ExportInfos
 
             var context = new StabilityStoneCoverWaveConditionsCalculationContext(new StabilityStoneCoverWaveConditionsCalculation(),
                                                                                   failureMechanism, assessmentSection);
-            using (StabilityStoneCoverPlugin plugin = new StabilityStoneCoverPlugin())
+            using (var plugin = new StabilityStoneCoverPlugin())
             {
                 ExportInfo exportInfo = GetExportInfo(plugin);
 
@@ -66,7 +66,7 @@ namespace Ringtoets.Integration.Plugin.Test.ExportInfos
         public void FileFilter_Always_ReturnsFileFilter()
         {
             // Setup
-            using (StabilityStoneCoverPlugin plugin = new StabilityStoneCoverPlugin())
+            using (var plugin = new StabilityStoneCoverPlugin())
             {
                 ExportInfo exportInfo = GetExportInfo(plugin);
 
@@ -90,7 +90,7 @@ namespace Ringtoets.Integration.Plugin.Test.ExportInfos
 
             var context = new StabilityStoneCoverWaveConditionsCalculationContext(new StabilityStoneCoverWaveConditionsCalculation(),
                                                                                   failureMechanism, assessmentSection);
-            using (StabilityStoneCoverPlugin plugin = new StabilityStoneCoverPlugin())
+            using (var plugin = new StabilityStoneCoverPlugin())
             {
                 ExportInfo exportInfo = GetExportInfo(plugin);
 
@@ -129,7 +129,7 @@ namespace Ringtoets.Integration.Plugin.Test.ExportInfos
                 },
                 failureMechanism, assessmentSection);
 
-            using (StabilityStoneCoverPlugin plugin = new StabilityStoneCoverPlugin())
+            using (var plugin = new StabilityStoneCoverPlugin())
             {
                 ExportInfo exportInfo = GetExportInfo(plugin);
 
@@ -144,7 +144,7 @@ namespace Ringtoets.Integration.Plugin.Test.ExportInfos
 
         private static ExportInfo GetExportInfo(StabilityStoneCoverPlugin plugin)
         {
-            return Enumerable.First<ExportInfo>(plugin.GetExportInfos(), ei => ei.DataType == typeof(StabilityStoneCoverWaveConditionsCalculationContext));
+            return plugin.GetExportInfos().First(ei => ei.DataType == typeof(StabilityStoneCoverWaveConditionsCalculationContext));
         }
     }
 }

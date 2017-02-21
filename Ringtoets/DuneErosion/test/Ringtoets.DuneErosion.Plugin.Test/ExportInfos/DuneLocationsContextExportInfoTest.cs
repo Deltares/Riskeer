@@ -47,7 +47,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ExportInfos
             var failureMechanism = new DuneErosionFailureMechanism();
             var context = new DuneLocationsContext(failureMechanism.DuneLocations, failureMechanism, assessmentSection);
 
-            using (DuneErosionPlugin plugin = new DuneErosionPlugin())
+            using (var plugin = new DuneErosionPlugin())
             {
                 ExportInfo info = GetExportInfo(plugin);
 
@@ -64,7 +64,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ExportInfos
         public void FileFilter_Always_ReturnFileFilter()
         {
             // Setup
-            using (DuneErosionPlugin plugin = new DuneErosionPlugin())
+            using (var plugin = new DuneErosionPlugin())
             {
                 ExportInfo info = GetExportInfo(plugin);
 
@@ -88,7 +88,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ExportInfos
             failureMechanism.DuneLocations.Add(new TestDuneLocation());
             var context = new DuneLocationsContext(failureMechanism.DuneLocations, failureMechanism, assessmentSection);
 
-            using (DuneErosionPlugin plugin = new DuneErosionPlugin())
+            using (var plugin = new DuneErosionPlugin())
             {
                 ExportInfo info = GetExportInfo(plugin);
 
@@ -98,6 +98,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ExportInfos
                 // Assert
                 Assert.IsFalse(isEnabled);
             }
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -115,7 +116,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ExportInfos
                                                });
             var context = new DuneLocationsContext(failureMechanism.DuneLocations, failureMechanism, assessmentSection);
 
-            using (DuneErosionPlugin plugin = new DuneErosionPlugin())
+            using (var plugin = new DuneErosionPlugin())
             {
                 ExportInfo info = GetExportInfo(plugin);
 
@@ -125,6 +126,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ExportInfos
                 // Assert
                 Assert.IsTrue(isEnabled);
             }
+            mocks.VerifyAll();
         }
 
         private static ExportInfo GetExportInfo(DuneErosionPlugin plugin)
