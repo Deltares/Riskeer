@@ -286,12 +286,12 @@ namespace Core.Common.Gui.Test.Commands
         {
             // Setup
             const string filePath = "/some/path";
-            var filter = new FileFilterGenerator();
+            var generator = new FileFilterGenerator();
             var targetObject = new object();
 
             var mockRepository = new MockRepository();
             var inquiryHelper = mockRepository.Stub<IInquiryHelper>();
-            inquiryHelper.Expect(ih => ih.GetSourceFileLocation(filter)).Return(filePath);
+            inquiryHelper.Expect(ih => ih.GetSourceFileLocation(generator)).Return(filePath);
             IFileImporter fileImporter = mockRepository.Stub<IFileImporter>();
             mockRepository.ReplayAll();
 
@@ -316,7 +316,7 @@ namespace Core.Common.Gui.Test.Commands
                             isCreateFileImporterCalled = true;
                             return fileImporter;
                         },
-                        FileFilter = filter,
+                        FileFilterGenerator = generator,
                         VerifyUpdates = o =>
                         {
                             Assert.AreSame(o, targetObject);
@@ -340,11 +340,11 @@ namespace Core.Common.Gui.Test.Commands
         public void UpdateOn_SupportedUpdateInfoAvailableVerifyUpdatesUnsuccesful_ActivityNotCreated()
         {
             // Setup
-            var filter = new FileFilterGenerator();
+            var generator = new FileFilterGenerator();
             var targetObject = new object();
             var mockRepository = new MockRepository();
             var inquiryHelper = mockRepository.Stub<IInquiryHelper>();
-            inquiryHelper.Expect(ih => ih.GetSourceFileLocation(filter)).Return("/some/path");
+            inquiryHelper.Expect(ih => ih.GetSourceFileLocation(generator)).Return("/some/path");
             var fileImporter = mockRepository.Stub<IFileImporter>();
             mockRepository.ReplayAll();
 
@@ -361,7 +361,7 @@ namespace Core.Common.Gui.Test.Commands
                             Assert.Fail("CreateFileImporter is not expected to be called when VerifyUpdates function returns false.");
                             return fileImporter;
                         },
-                        FileFilter = filter,
+                        FileFilterGenerator = generator,
                         VerifyUpdates = o =>
                         {
                             Assert.AreSame(o, targetObject);

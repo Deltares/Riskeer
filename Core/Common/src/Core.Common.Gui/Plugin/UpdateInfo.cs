@@ -31,7 +31,7 @@ namespace Core.Common.Gui.Plugin
     public class UpdateInfo
     {
         /// <summary>
-        /// Gets or sets the data type associated with this import info.
+        /// Gets or sets the data type associated with this update info.
         /// </summary>
         public Type DataType { get; set; }
 
@@ -47,10 +47,10 @@ namespace Core.Common.Gui.Plugin
         public Func<object, string, IFileImporter> CreateFileImporter { get; set; }
 
         /// <summary>
-        /// Gets or sets the method used to determine whether or not the import routine should be enabled. Function arguments:
+        /// Gets or sets the method used to determine whether or not the update routine should be enabled. Function arguments:
         /// <list type="number">
-        ///     <item>The data to import.</item>
-        ///     <item>out - <c>true</c> if the import should be enabled, <c>false</c> otherwise.</item>
+        ///     <item>The data to update.</item>
+        ///     <item>out - <c>true</c> if the update should be enabled, <c>false</c> otherwise.</item>
         /// </list>
         /// </summary>
         public Func<object, bool> IsEnabled { get; set; }
@@ -67,34 +67,34 @@ namespace Core.Common.Gui.Plugin
         public Func<object, string> CurrentPath { get; set; }
 
         /// <summary>
-        /// Gets or sets the name of the import information.
+        /// Gets or sets the name of the update information.
         /// </summary>
         public string Name { get; set; }
 
         /// <summary>
-        /// Gets or sets the category of the import information.
+        /// Gets or sets the category of the update information.
         /// </summary>
         public string Category { get; set; }
 
         /// <summary>
-        /// Gets or sets the image of the import information.
+        /// Gets or sets the image of the update information.
         /// </summary>
         public Image Image { get; set; }
 
         /// <summary>
-        /// Gets or sets the file filter of the import information.
+        /// Gets or sets the file filter generator of the update information used to make file filters.
         /// </summary>
-        public FileFilterGenerator FileFilter { get; set; }
+        public FileFilterGenerator FileFilterGenerator { get; set; }
     }
 
     /// <summary>
     /// Information for creating an importer for updating a particular data object.
     /// </summary>
-    /// <typeparam name="TData">The data type associated with this import info.</typeparam>
+    /// <typeparam name="TData">The data type associated with this update info.</typeparam>
     public class UpdateInfo<TData>
     {
         /// <summary>
-        /// Gets the data type associated with this import info.
+        /// Gets the data type associated with this update info.
         /// </summary>
         public Type DataType
         {
@@ -116,10 +116,10 @@ namespace Core.Common.Gui.Plugin
         public Func<TData, string, IFileImporter> CreateFileImporter { get; set; }
 
         /// <summary>
-        /// Gets or sets the method used to determine whether or not the import routine should be enabled. Function arguments:
+        /// Gets or sets the method used to determine whether or not the update routine should be enabled. Function arguments:
         /// <list type="number">
-        ///     <item>The data to import.</item>
-        ///     <item>out - <c>true</c> if the import should be enabled, <c>false</c> otherwise.</item>
+        ///     <item>The data to update.</item>
+        ///     <item>out - <c>true</c> if the update should be enabled, <c>false</c> otherwise.</item>
         /// </list>
         /// </summary>
         public Func<TData, bool> IsEnabled { get; set; }
@@ -136,43 +136,43 @@ namespace Core.Common.Gui.Plugin
         public Func<TData, string> CurrentPath { get; set; }
 
         /// <summary>
-        /// Gets or sets the name of the import information.
+        /// Gets or sets the name of the update information.
         /// </summary>
         public string Name { get; set; }
 
         /// <summary>
-        /// Gets or sets the category of the import information.
+        /// Gets or sets the category of the update information.
         /// </summary>
         public string Category { get; set; }
 
         /// <summary>
-        /// Gets or sets the image of the import information.
+        /// Gets or sets the image of the update information.
         /// </summary>
         public Image Image { get; set; }
 
         /// <summary>
-        /// Gets or sets the file filter of the import information.
+        /// Gets or sets the file filter generator of the update information used to make file filters.
         /// </summary>
-        public FileFilterGenerator FileFilter { get; set; }
+        public FileFilterGenerator FileFilterGenerator { get; set; }
 
         /// <summary>
-        /// Performs an implicit conversion from <see cref="ImportInfo{TData}"/> to <see cref="ImportInfo"/>.
+        /// Performs an implicit conversion from <see cref="UpdateInfo{TData}"/> to <see cref="UpdateInfo"/>.
         /// </summary>
-        /// <param name="importInfo">The import information to convert.</param>
+        /// <param name="updateInfo">The update information to convert.</param>
         /// <returns>The result of the conversion.</returns>
-        public static implicit operator UpdateInfo(UpdateInfo<TData> importInfo)
+        public static implicit operator UpdateInfo(UpdateInfo<TData> updateInfo)
         {
             return new UpdateInfo
             {
-                DataType = importInfo.DataType,
-                CreateFileImporter = (data, path) => importInfo.CreateFileImporter?.Invoke((TData) data, path),
-                IsEnabled = data => importInfo.IsEnabled == null || importInfo.IsEnabled((TData) data),
-                VerifyUpdates = data => importInfo.VerifyUpdates == null || importInfo.VerifyUpdates((TData) data),
-                CurrentPath = data => importInfo.CurrentPath?.Invoke((TData) data),
-                Name = importInfo.Name,
-                Category = importInfo.Category,
-                Image = importInfo.Image,
-                FileFilter = importInfo.FileFilter
+                DataType = updateInfo.DataType,
+                CreateFileImporter = (data, path) => updateInfo.CreateFileImporter?.Invoke((TData) data, path),
+                IsEnabled = data => updateInfo.IsEnabled == null || updateInfo.IsEnabled((TData) data),
+                VerifyUpdates = data => updateInfo.VerifyUpdates == null || updateInfo.VerifyUpdates((TData) data),
+                CurrentPath = data => updateInfo.CurrentPath?.Invoke((TData) data),
+                Name = updateInfo.Name,
+                Category = updateInfo.Category,
+                Image = updateInfo.Image,
+                FileFilterGenerator = updateInfo.FileFilterGenerator
             };
         }
     }

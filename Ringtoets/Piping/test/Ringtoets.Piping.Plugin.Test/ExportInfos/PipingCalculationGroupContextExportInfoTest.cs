@@ -73,7 +73,7 @@ namespace Ringtoets.Piping.Plugin.Test.ExportInfos
                 ExportInfo info = GetExportInfo(plugin);
 
                 // Call
-                FileFilterGenerator fileFilter = info.FileFilter;
+                FileFilterGenerator fileFilter = info.FileFilterGenerator;
 
                 // Assert
                 Assert.AreEqual("Ringtoets berekeningen configuratie. (*.xml)|*.xml", fileFilter.Filter);

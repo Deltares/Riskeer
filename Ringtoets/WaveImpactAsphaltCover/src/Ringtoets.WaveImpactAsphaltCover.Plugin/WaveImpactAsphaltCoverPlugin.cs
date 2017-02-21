@@ -159,7 +159,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
                     return new WaveImpactAsphaltCoverWaveConditionsExporter(calculations, filePath);
                 },
                 IsEnabled = context => context.WrappedData.GetCalculations().Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>().Any(c => c.HasOutput),
-                FileFilter = new FileFilterGenerator(RingtoetsCommonFormsResources.DataTypeDisplayName_csv_file_filter_Extension,
+                FileFilterGenerator = new FileFilterGenerator(RingtoetsCommonFormsResources.DataTypeDisplayName_csv_file_filter_Extension,
                                               RingtoetsCommonFormsResources.DataTypeDisplayName_csv_file_filter_Description)
             };
 
@@ -170,7 +170,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
                     context.WrappedData
                 }, filePath),
                 IsEnabled = context => context.WrappedData.HasOutput,
-                FileFilter = new FileFilterGenerator(RingtoetsCommonFormsResources.DataTypeDisplayName_csv_file_filter_Extension,
+                FileFilterGenerator = new FileFilterGenerator(RingtoetsCommonFormsResources.DataTypeDisplayName_csv_file_filter_Extension,
                                               RingtoetsCommonFormsResources.DataTypeDisplayName_csv_file_filter_Description)
             };
         }

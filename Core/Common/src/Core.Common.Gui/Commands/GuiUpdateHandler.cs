@@ -143,7 +143,7 @@ namespace Core.Common.Gui.Commands
             string filePath = updateInfo.CurrentPath(target);
             if (!File.Exists(filePath))
             {
-                filePath = inquiryHelper.GetSourceFileLocation(updateInfo.FileFilter);
+                filePath = inquiryHelper.GetSourceFileLocation(updateInfo.FileFilterGenerator);
             }
             if (filePath != null && updateInfo.VerifyUpdates(target))
             {

@@ -66,7 +66,7 @@ namespace Ringtoets.Integration.Plugin.Test.ExportInfos
                 ExportInfo info = GetExportInfo(plugin);
 
                 // Call
-                FileFilterGenerator fileFilter = info.FileFilter;
+                FileFilterGenerator fileFilter = info.FileFilterGenerator;
 
                 // Assert
                 Assert.AreEqual("Shapebestand (*.shp)|*.shp", fileFilter.Filter);

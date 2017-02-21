@@ -43,7 +43,7 @@ namespace Core.Common.Gui.Test.Plugin
             Assert.IsNull(info.Name);
             Assert.IsNull(info.Category);
             Assert.IsNull(info.Image);
-            Assert.IsNull(info.FileFilter);
+            Assert.IsNull(info.FileFilterGenerator);
         }
 
         [Test]
@@ -59,7 +59,7 @@ namespace Core.Common.Gui.Test.Plugin
             Assert.IsNull(info.Name);
             Assert.IsNull(info.Category);
             Assert.IsNull(info.Image);
-            Assert.IsNull(info.FileFilter);
+            Assert.IsNull(info.FileFilterGenerator);
         }
 
         [Test]
@@ -73,7 +73,7 @@ namespace Core.Common.Gui.Test.Plugin
             const string name = "name";
             const string category = "category";
             Bitmap image = new Bitmap(16, 16);
-            var fileFilter = new FileFilterGenerator();
+            var generator = new FileFilterGenerator();
 
             var info = new ImportInfo<int>
             {
@@ -82,7 +82,7 @@ namespace Core.Common.Gui.Test.Plugin
                 Name = name,
                 Category = category,
                 Image = image,
-                FileFilter = fileFilter
+                FileFilterGenerator = generator
             };
 
             // Precondition
@@ -101,7 +101,7 @@ namespace Core.Common.Gui.Test.Plugin
             Assert.AreEqual(name, info.Name);
             Assert.AreEqual(category, info.Category);
             Assert.AreSame(image, info.Image);
-            Assert.AreEqual(fileFilter, info.FileFilter);
+            Assert.AreEqual(generator, info.FileFilterGenerator);
 
             mocks.VerifyAll();
         }
@@ -128,7 +128,7 @@ namespace Core.Common.Gui.Test.Plugin
             Assert.IsNull(info.Name);
             Assert.IsNull(info.Category);
             Assert.IsNull(info.Image);
-            Assert.IsNull(info.FileFilter);
+            Assert.IsNull(info.FileFilterGenerator);
         }
     }
 }

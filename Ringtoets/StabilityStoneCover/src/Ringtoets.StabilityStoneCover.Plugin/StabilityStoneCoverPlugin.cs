@@ -155,7 +155,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin
             {
                 CreateFileExporter = (context, filePath) => new StabilityStoneCoverWaveConditionsExporter(context.WrappedData.GetCalculations().Cast<StabilityStoneCoverWaveConditionsCalculation>(), filePath),
                 IsEnabled = context => context.WrappedData.GetCalculations().Cast<StabilityStoneCoverWaveConditionsCalculation>().Any(c => c.HasOutput),
-                FileFilter = new FileFilterGenerator(
+                FileFilterGenerator = new FileFilterGenerator(
                     RingtoetsCommonFormsResources.DataTypeDisplayName_csv_file_filter_Extension,
                     RingtoetsCommonFormsResources.DataTypeDisplayName_csv_file_filter_Description)
             };
@@ -167,7 +167,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin
                     context.WrappedData
                 }, filePath),
                 IsEnabled = context => context.WrappedData.HasOutput,
-                FileFilter = new FileFilterGenerator(
+                FileFilterGenerator = new FileFilterGenerator(
                     RingtoetsCommonFormsResources.DataTypeDisplayName_csv_file_filter_Extension,
                     RingtoetsCommonFormsResources.DataTypeDisplayName_csv_file_filter_Description)
             };

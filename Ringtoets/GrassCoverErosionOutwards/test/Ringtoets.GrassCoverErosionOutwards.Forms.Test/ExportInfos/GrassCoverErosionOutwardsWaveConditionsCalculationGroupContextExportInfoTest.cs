@@ -72,7 +72,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.ExportInfos
                 ExportInfo exportInfo = GetExportInfo(plugin);
 
                 // Call
-                FileFilterGenerator fileFilter = exportInfo.FileFilter;
+                FileFilterGenerator fileFilter = exportInfo.FileFilterGenerator;
 
                 // Assert
                 Assert.AreEqual("Kommagescheiden bestand (*.csv)|*.csv", fileFilter.Filter);

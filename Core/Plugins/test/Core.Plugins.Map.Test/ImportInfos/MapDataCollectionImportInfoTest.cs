@@ -94,7 +94,7 @@ namespace Core.Plugins.Map.Test.ImportInfos
         public void FileFilter_Always_ReturnExpectedFileFilter()
         {
             // Call
-            FileFilterGenerator fileFilter = importInfo.FileFilter;
+            FileFilterGenerator fileFilter = importInfo.FileFilterGenerator;
 
             // Assert
             Assert.AreEqual("Shapebestand (*.shp)|*.shp", fileFilter.Filter);

@@ -63,7 +63,9 @@ namespace Ringtoets.Piping.IO.SoilProfile
             }
             catch (SQLiteException exception)
             {
-                string innerMessage = string.Format(Resources.SoilDatabaseConstraintsReader_VerifyConstraints_Can_not_read_StochasticSoilModel_Perhaps_table_missing, StochasticSoilModelTableColumns.TableName);
+                string innerMessage = string.Format(
+                    Resources.SoilDatabaseConstraintsReader_VerifyConstraints_Can_not_read_StochasticSoilModel_Perhaps_table_missing, 
+                    StochasticSoilModelTableColumns.TableName);
                 throw new CriticalFileReadException(
                     BuildMessageWithPath(innerMessage), exception);
             }
@@ -74,7 +76,9 @@ namespace Ringtoets.Piping.IO.SoilProfile
             }
             catch (SQLiteException exception)
             {
-                string innerMessage = string.Format(Resources.SoilDatabaseConstraintsReader_VerifyConstraints_Can_not_read_StochasticSoilProfile_Perhaps_table_missing, StochasticSoilProfileTableColumns.TableName);
+                string innerMessage = string.Format(
+                    Resources.SoilDatabaseConstraintsReader_VerifyConstraints_Can_not_read_StochasticSoilProfile_Perhaps_table_missing, 
+                    StochasticSoilProfileTableColumns.TableName);
                 throw new CriticalFileReadException(
                     BuildMessageWithPath(innerMessage), exception);
             }

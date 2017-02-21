@@ -76,9 +76,9 @@ namespace Core.Common.Gui.Plugin
         public Image Image { get; set; }
 
         /// <summary>
-        /// Gets or sets the file filter of the import information.
+        /// Gets or sets the file filter generator of the import information used to make file filters.
         /// </summary>
-        public FileFilterGenerator FileFilter { get; set; }
+        public FileFilterGenerator FileFilterGenerator { get; set; }
     }
 
     /// <summary>
@@ -117,6 +117,10 @@ namespace Core.Common.Gui.Plugin
         /// </summary>
         public Func<TData, bool> IsEnabled { get; set; }
 
+        /// <summary>
+        /// Gets or sets the method used to verify whether changes that are induced by the importer
+        /// are allowed.
+        /// </summary>
         public Func<TData, bool> VerifyUpdates { get; set; }
 
         /// <summary>
@@ -135,9 +139,9 @@ namespace Core.Common.Gui.Plugin
         public Image Image { get; set; }
 
         /// <summary>
-        /// Gets or sets the file filter of the import information.
+        /// Gets or sets the file filter generator of the import information used to make file filters.
         /// </summary>
-        public FileFilterGenerator FileFilter { get; set; }
+        public FileFilterGenerator FileFilterGenerator { get; set; }
 
         /// <summary>
         /// Performs an implicit conversion from <see cref="ImportInfo{TData}"/> to <see cref="ImportInfo"/>.
@@ -155,7 +159,7 @@ namespace Core.Common.Gui.Plugin
                 Name = importInfo.Name,
                 Category = importInfo.Category,
                 Image = importInfo.Image,
-                FileFilter = importInfo.FileFilter
+                FileFilterGenerator = importInfo.FileFilterGenerator
             };
         }
     }

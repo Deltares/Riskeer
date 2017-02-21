@@ -25,7 +25,8 @@ using Ringtoets.Piping.Data.Properties;
 namespace Ringtoets.Piping.Data
 {
     /// <summary>
-    /// A collection of <see cref="StochasticSoilModel"/>.
+    /// A collection of <see cref="StochasticSoilModel"/>. The names of the <see cref="StochasticSoilModel"/> elements are
+    /// unique within the collection.
     /// </summary>
     public class StochasticSoilModelCollection : ObservableUniqueItemCollectionWithSourcePath<StochasticSoilModel, string>
     {

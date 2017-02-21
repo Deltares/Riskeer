@@ -70,9 +70,9 @@ namespace Core.Common.Gui.Plugin
         public Image Image { get; set; }
 
         /// <summary>
-        /// Gets or sets the file filter of the export information.
+        /// Gets or sets the file filter generator of the export information used to make file filters.
         /// </summary>
-        public FileFilterGenerator FileFilter { get; set; }
+        public FileFilterGenerator FileFilterGenerator { get; set; }
     }
 
     /// <summary>
@@ -127,9 +127,9 @@ namespace Core.Common.Gui.Plugin
         public Image Image { get; set; }
 
         /// <summary>
-        /// Gets or sets the file filter of the export information.
+        /// Gets or sets the file filter generator of the export information used to make file filters.
         /// </summary>
-        public FileFilterGenerator FileFilter { get; set; }
+        public FileFilterGenerator FileFilterGenerator { get; set; }
 
         /// <summary>
         /// Performs an implicit conversion from <see cref="ExportInfo{TData}"/> to <see cref="ExportInfo"/>.
@@ -148,7 +148,7 @@ namespace Core.Common.Gui.Plugin
                 Name = exportInfo.Name,
                 Category = exportInfo.Category,
                 Image = exportInfo.Image,
-                FileFilter = exportInfo.FileFilter
+                FileFilterGenerator = exportInfo.FileFilterGenerator
             };
         }
     }

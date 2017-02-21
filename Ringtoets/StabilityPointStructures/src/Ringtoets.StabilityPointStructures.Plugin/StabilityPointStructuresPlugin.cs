@@ -190,7 +190,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin
                 Name = RingtoetsCommonFormsResources.StructuresImporter_DisplayName,
                 Category = RingtoetsCommonFormsResources.Ringtoets_Category,
                 Image = RingtoetsCommonFormsResources.StructuresIcon,
-                FileFilter = new FileFilterGenerator(RingtoetsCommonIOResources.Shape_file_filter_Extension,
+                FileFilterGenerator = new FileFilterGenerator(RingtoetsCommonIOResources.Shape_file_filter_Extension,
                                               RingtoetsCommonIOResources.Shape_file_filter_Description),
                 IsEnabled = context => context.AssessmentSection.ReferenceLine != null
             };
