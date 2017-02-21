@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using NUnit.Framework;
+using Ringtoets.Common.Data.UpdateDataStrategies;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.IO.Importers;
@@ -57,6 +58,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             // Assert
             Assert.IsInstanceOf<IStochasticSoilModelUpdateModelStrategy>(strategy);
+            Assert.IsInstanceOf<UpdateDataStrategyBase<StochasticSoilModel, string, PipingFailureMechanism>>(strategy);
         }
 
         [Test]
@@ -70,7 +72,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("readStochasticSoilModels", paramName);
+            Assert.AreEqual("importedDataCollection", paramName);
         }
 
         [Test]
@@ -98,7 +100,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("targetCollection", paramName);
+            Assert.AreEqual("targetDataCollection", paramName);
         }
 
         [Test]

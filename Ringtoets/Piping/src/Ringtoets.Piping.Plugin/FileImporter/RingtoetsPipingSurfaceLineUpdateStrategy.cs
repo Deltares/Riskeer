@@ -23,7 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
-using Core.Common.Utils;
+using Ringtoets.Common.Data.UpdateDataStrategies;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms;
 using Ringtoets.Piping.IO.Importers;
@@ -41,131 +41,66 @@ namespace Ringtoets.Piping.Plugin.FileImporter
     /// <item>Updates the surface lines that are part of the current collection and are part of the imported surface line collection.</item>
     /// </list>
     /// </summary>
-    public class RingtoetsPipingSurfaceLineUpdateDataStrategy : ISurfaceLineUpdateDataStrategy
+    public class RingtoetsPipingSurfaceLineUpdateDataStrategy : UpdateDataStrategyBase<RingtoetsPipingSurfaceLine, string, PipingFailureMechanism>,
+                                                                ISurfaceLineUpdateDataStrategy
     {
-        private readonly PipingFailureMechanism failureMechanism;
-
         /// <summary>
         /// Creates a new instance of <see cref="RingtoetsPipingSurfaceLineUpdateDataStrategy"/>.
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism in which the surface lines are updated.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> is <c>null</c>.</exception>
         public RingtoetsPipingSurfaceLineUpdateDataStrategy(PipingFailureMechanism failureMechanism)
-        {
-            if (failureMechanism == null)
-            {
-                throw new ArgumentNullException(nameof(failureMechanism));
-            }
-
-            this.failureMechanism = failureMechanism;
-        }
+            : base(failureMechanism, new RingtoetsPipingSurfaceLineNameEqualityComparer()) {}
 
         public IEnumerable<IObservable> UpdateSurfaceLinesWithImportedData(RingtoetsPipingSurfaceLineCollection targetCollection,
                                                                            IEnumerable<RingtoetsPipingSurfaceLine> readRingtoetsPipingSurfaceLines,
                                                                            string sourceFilePath)
         {
-            if (targetCollection == null)
-            {
-                throw new ArgumentNullException(nameof(targetCollection));
-            }
-            if (readRingtoetsPipingSurfaceLines == null)
-            {
-                throw new ArgumentNullException(nameof(readRingtoetsPipingSurfaceLines));
-            }
-            if (sourceFilePath == null)
-            {
-                throw new ArgumentNullException(nameof(sourceFilePath));
-            }
-
             try
             {
-                return ModifySurfaceLineCollection(targetCollection, readRingtoetsPipingSurfaceLines, sourceFilePath);
+                return UpdateTargetCollectionData(targetCollection, readRingtoetsPipingSurfaceLines, sourceFilePath);
             }
-            catch (InvalidOperationException e)
+            catch (ArgumentNullException)
             {
-                var message = Resources.RingtoetsPipingSurfaceLineUpdateDataStrategy_UpdateSurfaceLinesWithImportedData_Update_of_RingtoetsPipingSurfaceLine_has_failed;
-                throw new RingtoetsPipingSurfaceLineUpdateException(message, e);
-            }
-        }
-
-        private IEnumerable<IObservable> ModifySurfaceLineCollection(RingtoetsPipingSurfaceLineCollection existingCollection,
-                                                                     IEnumerable<RingtoetsPipingSurfaceLine> readSurfaceLines,
-                                                                     string sourceFilePath)
-        {
-            List<RingtoetsPipingSurfaceLine> readSurfaceLineList = readSurfaceLines.ToList();
-            List<RingtoetsPipingSurfaceLine> addedSurfaceLines = GetAddedReadSurfaceLines(existingCollection, readSurfaceLineList).ToList();
-            List<RingtoetsPipingSurfaceLine> updatedSurfaceLines = GetUpdatedSurfaceLines(existingCollection, readSurfaceLineList).ToList();
-            List<RingtoetsPipingSurfaceLine> removedSurfaceLines = GetRemovedSurfaceLines(existingCollection, readSurfaceLineList).ToList();
-
-            var affectedObjects = new List<IObservable>();
-            if (addedSurfaceLines.Any())
-            {
-                affectedObjects.Add(existingCollection);
-            }
-            affectedObjects.AddRange(UpdateSurfaceLines(updatedSurfaceLines, readSurfaceLineList));
-            affectedObjects.AddRange(RemoveSurfaceLines(removedSurfaceLines));
-
-            existingCollection.Clear();
-
-            try
-            {
-                existingCollection.AddRange(addedSurfaceLines.Union(updatedSurfaceLines), sourceFilePath);
+                throw;
             }
             catch (ArgumentException e)
             {
                 throw new RingtoetsPipingSurfaceLineUpdateException(e.Message, e);
             }
-
-            return affectedObjects.Distinct(new ReferenceEqualityComparer<IObservable>());
-        }
-
-        private static IEnumerable<RingtoetsPipingSurfaceLine> GetRemovedSurfaceLines(IEnumerable<RingtoetsPipingSurfaceLine> existingCollection,
-                                                                                      IEnumerable<RingtoetsPipingSurfaceLine> readSurfaceLine)
-        {
-            return existingCollection.Except(readSurfaceLine, new RingtoetsPipingSurfaceLineNameEqualityComparer());
-        }
-
-        private static IEnumerable<RingtoetsPipingSurfaceLine> GetUpdatedSurfaceLines(IEnumerable<RingtoetsPipingSurfaceLine> existingCollection,
-                                                                                      IEnumerable<RingtoetsPipingSurfaceLine> readSurfaceLines)
-        {
-            return existingCollection.Intersect(readSurfaceLines, new RingtoetsPipingSurfaceLineNameEqualityComparer());
-        }
-
-        private static IEnumerable<RingtoetsPipingSurfaceLine> GetAddedReadSurfaceLines(IEnumerable<RingtoetsPipingSurfaceLine> existingCollection,
-                                                                                        IEnumerable<RingtoetsPipingSurfaceLine> readSurfaceLines)
-        {
-            return readSurfaceLines.Except(existingCollection, new RingtoetsPipingSurfaceLineNameEqualityComparer());
-        }
-
-        #region Removing surface line helpers
-
-        private IEnumerable<IObservable> RemoveSurfaceLines(IEnumerable<RingtoetsPipingSurfaceLine> removedSurfaceLines)
-        {
-            var affectedObjects = new List<IObservable>();
-
-            foreach (RingtoetsPipingSurfaceLine surfaceLine in removedSurfaceLines)
+            catch (InvalidOperationException e)
             {
-                affectedObjects.AddRange(ClearSurfaceLineDependentData(surfaceLine));
+                string message = Resources.RingtoetsPipingSurfaceLineUpdateDataStrategy_UpdateSurfaceLinesWithImportedData_Update_of_RingtoetsPipingSurfaceLine_has_failed;
+                throw new RingtoetsPipingSurfaceLineUpdateException(message, e);
             }
-            return affectedObjects;
         }
 
-        private IEnumerable<IObservable> ClearSurfaceLineDependentData(RingtoetsPipingSurfaceLine surfaceLine)
+        /// <summary>
+        /// Class for comparing <see cref="RingtoetsPipingSurfaceLine"/> by only the name.
+        /// </summary>
+        private class RingtoetsPipingSurfaceLineNameEqualityComparer : IEqualityComparer<RingtoetsPipingSurfaceLine>
         {
-            return PipingDataSynchronizationService.RemoveSurfaceLine(failureMechanism, surfaceLine);
+            public bool Equals(RingtoetsPipingSurfaceLine x, RingtoetsPipingSurfaceLine y)
+            {
+                return x.Name == y.Name;
+            }
+
+            public int GetHashCode(RingtoetsPipingSurfaceLine obj)
+            {
+                return obj.Name.GetHashCode();
+            }
         }
 
-        #endregion
+        #region Updating Data Functions
 
-        #region Updating surface line helper
-
-        private IEnumerable<IObservable> UpdateSurfaceLines(IEnumerable<RingtoetsPipingSurfaceLine> updatedSurfaceLines,
-                                                            IList<RingtoetsPipingSurfaceLine> readSurfaceLines)
+        protected override IEnumerable<IObservable> UpdateData(IEnumerable<RingtoetsPipingSurfaceLine> objectsToUpdate,
+                                                               IEnumerable<RingtoetsPipingSurfaceLine> importedDataCollection)
         {
             var affectedObjects = new List<IObservable>();
 
-            foreach (RingtoetsPipingSurfaceLine updatedSurfaceLine in updatedSurfaceLines)
+            foreach (RingtoetsPipingSurfaceLine updatedSurfaceLine in objectsToUpdate)
             {
-                RingtoetsPipingSurfaceLine matchingSurfaceLine = readSurfaceLines.Single(sl => sl.Name == updatedSurfaceLine.Name);
+                RingtoetsPipingSurfaceLine matchingSurfaceLine = importedDataCollection.Single(sl => sl.Name == updatedSurfaceLine.Name);
                 updatedSurfaceLine.Update(matchingSurfaceLine);
 
                 affectedObjects.Add(updatedSurfaceLine);
@@ -201,20 +136,24 @@ namespace Ringtoets.Piping.Plugin.FileImporter
 
         #endregion
 
-        /// <summary>
-        /// Class for comparing <see cref="RingtoetsPipingSurfaceLine"/> by only the name.
-        /// </summary>
-        private class RingtoetsPipingSurfaceLineNameEqualityComparer : IEqualityComparer<RingtoetsPipingSurfaceLine>
-        {
-            public bool Equals(RingtoetsPipingSurfaceLine x, RingtoetsPipingSurfaceLine y)
-            {
-                return x.Name == y.Name;
-            }
+        #region Removing Data Functions
 
-            public int GetHashCode(RingtoetsPipingSurfaceLine obj)
+        protected override IEnumerable<IObservable> RemoveData(IEnumerable<RingtoetsPipingSurfaceLine> removedObjects)
+        {
+            var affectedObjects = new List<IObservable>();
+
+            foreach (RingtoetsPipingSurfaceLine surfaceLine in removedObjects)
             {
-                return obj.Name.GetHashCode();
+                affectedObjects.AddRange(ClearSurfaceLineDependentData(surfaceLine));
             }
+            return affectedObjects;
         }
+
+        private IEnumerable<IObservable> ClearSurfaceLineDependentData(RingtoetsPipingSurfaceLine surfaceLine)
+        {
+            return PipingDataSynchronizationService.RemoveSurfaceLine(failureMechanism, surfaceLine);
+        }
+
+        #endregion
     }
 }

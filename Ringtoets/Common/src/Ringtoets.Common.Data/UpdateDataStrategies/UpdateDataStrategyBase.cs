@@ -147,7 +147,7 @@ namespace Ringtoets.Common.Data.UpdateDataStrategies
             {
                 affectedObjects.Add(targetDataCollection);
             }
-            affectedObjects.AddRange(UpdateData(targetDataCollection, importedObjects));
+            affectedObjects.AddRange(UpdateData(updatedObjects, importedObjects));
             affectedObjects.AddRange(RemoveData(removedObjects));
             
             targetDataCollection.Clear();
