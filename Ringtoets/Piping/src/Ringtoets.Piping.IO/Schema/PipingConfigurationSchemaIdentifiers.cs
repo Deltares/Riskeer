@@ -24,91 +24,91 @@ namespace Ringtoets.Piping.IO.Schema
     /// <summary>
     /// Container of identifiers related to the piping configuration schema definition.
     /// </summary>
-    public static class PipingConfigurationSchemaIdentifiers
+    internal static class PipingConfigurationSchemaIdentifiers
     {
         /// <summary>
         /// Gets the identifier for root elements.
         /// </summary>
-        public static string RootElement => "root";
+        internal static string RootElement => "root";
 
         /// <summary>
         /// Gets the identifier for calculation elements.
         /// </summary>
-        public static string CalculationElement => "berekening";
+        internal static string CalculationElement => "berekening";
 
         /// <summary>
         /// Gets the identifier for folder elements.
         /// </summary>
-        public static string FolderElement => "map";
+        internal static string FolderElement => "map";
 
         /// <summary>
         /// Gets the identifier for name attributes.
         /// </summary>
-        public static string NameAttribute => "naam";
+        internal static string NameAttribute => "naam";
 
         /// <summary>
         /// Gets the identifier for assessment level elements.
         /// </summary>
-        public static string AssessmentLevelElement => "toetspeil";
+        internal static string AssessmentLevelElement => "toetspeil";
 
         /// <summary>
         /// Gets the identifier for hydraulic boundary location elements.
         /// </summary>
-        public static string HydraulicBoundaryLocationElement => "hrlocatie";
+        internal static string HydraulicBoundaryLocationElement => "hrlocatie";
 
         /// <summary>
         /// Gets the identifier for surface line elements.
         /// </summary>
-        public static string SurfaceLineElement => "profielschematisatie";
+        internal static string SurfaceLineElement => "profielschematisatie";
 
         /// <summary>
         /// Gets the identifier for entry point elements.
         /// </summary>
-        public static string EntryPointElement => "intredepunt";
+        internal static string EntryPointElement => "intredepunt";
 
         /// <summary>
         /// Gets the identifier for exit point elements.
         /// </summary>
-        public static string ExitPointElement => "uittredepunt";
+        internal static string ExitPointElement => "uittredepunt";
 
         /// <summary>
         /// Gets the identifier for stochastic soil model elements.
         /// </summary>
-        public static string StochasticSoilModelElement => "ondergrondmodel";
+        internal static string StochasticSoilModelElement => "ondergrondmodel";
 
         /// <summary>
         /// Gets the identifier for stochastic soil profile elements.
         /// </summary>
-        public static string StochasticSoilProfileElement => "ondergrondschematisatie";
+        internal static string StochasticSoilProfileElement => "ondergrondschematisatie";
 
         /// <summary>
         /// Gets the identifier for stochasts elements.
         /// </summary>
-        public static string StochastsElement => "stochasten";
+        internal static string StochastsElement => "stochasten";
 
         /// <summary>
         /// Gets the identifier for stochast elements.
         /// </summary>
-        public static string StochastElement => "stochast";
+        internal static string StochastElement => "stochast";
 
         /// <summary>
         /// Gets the identifier for mean elements.
         /// </summary>
-        public static string MeanElement => "verwachtingswaarde";
+        internal static string MeanElement => "verwachtingswaarde";
 
         /// <summary>
         /// Gets the identifier for standard deviation elements.
         /// </summary>
-        public static string StandardDeviationElement => "standaardafwijking";
+        internal static string StandardDeviationElement => "standaardafwijking";
 
         /// <summary>
         /// Gets the identifier for the phreatic level exit stochast names.
         /// </summary>
-        public static string PhreaticLevelExitStochastName => "polderpeil";
+        internal static string PhreaticLevelExitStochastName => "polderpeil";
 
         /// <summary>
         /// Gets the identifier for the damping factor exit stochast names.
         /// </summary>
-        public static string DampingFactorExitStochastName => "dempingsfactor";
+        internal static string DampingFactorExitStochastName => "dempingsfactor";
     }
 }

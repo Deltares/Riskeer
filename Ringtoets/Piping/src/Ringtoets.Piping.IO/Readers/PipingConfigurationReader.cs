@@ -40,7 +40,7 @@ namespace Ringtoets.Piping.IO.Readers
     /// <summary>
     /// This class reads a piping configuration from XML and creates a collection of corresponding <see cref="IReadPipingCalculationItem"/>.
     /// </summary>
-    public class PipingConfigurationReader
+    internal class PipingConfigurationReader
     {
         private readonly XDocument xmlDocument;
 
@@ -56,7 +56,7 @@ namespace Ringtoets.Piping.IO.Readers
         /// <item><paramref name="xmlFilePath"/> points to a file that does not pass the schema validation.</item>
         /// </list>
         /// </exception>
-        public PipingConfigurationReader(string xmlFilePath)
+        internal PipingConfigurationReader(string xmlFilePath)
         {
             IOUtils.ValidateFilePath(xmlFilePath);
 
@@ -73,7 +73,7 @@ namespace Ringtoets.Piping.IO.Readers
         /// Reads the piping configuration from the XML and creates a collection of corresponding <see cref="IReadPipingCalculationItem"/>.
         /// </summary>
         /// <returns>A collection of read <see cref="IReadPipingCalculationItem"/>.</returns>
-        public IEnumerable<IReadPipingCalculationItem> Read()
+        internal IEnumerable<IReadPipingCalculationItem> Read()
         {
             return ParseReadPipingCalculationItems(xmlDocument.Root?.Elements());
         }
