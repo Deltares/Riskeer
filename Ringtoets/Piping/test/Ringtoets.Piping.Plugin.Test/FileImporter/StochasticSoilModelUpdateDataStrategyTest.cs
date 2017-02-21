@@ -211,7 +211,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var pipingFailureMechanism = new PipingFailureMechanism();
             pipingFailureMechanism.StochasticSoilModels.AddRange(new[]
             {
-                existingModel,
+                existingModel
             }, sourceFilePath);
             var strategy = new StochasticSoilModelUpdateDataStrategy(pipingFailureMechanism);
             var readModel = new TestStochasticSoilModel("read");
@@ -242,7 +242,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var targetCollection = new StochasticSoilModelCollection();
             targetCollection.AddRange(new[]
             {
-                existingModel,
+                existingModel
             }, sourceFilePath);
 
             var strategy = new StochasticSoilModelUpdateDataStrategy(new PipingFailureMechanism());
@@ -273,7 +273,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var targetCollection = new StochasticSoilModelCollection();
             targetCollection.AddRange(new[]
             {
-                existingModel,
+                existingModel
             }, sourceFilePath);
 
             var strategy = new StochasticSoilModelUpdateDataStrategy(new PipingFailureMechanism());
@@ -305,7 +305,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var targetCollection = new StochasticSoilModelCollection();
             targetCollection.AddRange(new[]
             {
-                existingModel,
+                existingModel
             }, sourceFilePath);
 
             StochasticSoilProfile firstExistingProfile = existingModel.StochasticSoilProfiles[0];
@@ -359,7 +359,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var targetCollection = new StochasticSoilModelCollection();
             targetCollection.AddRange(new[]
             {
-                existingModel,
+                existingModel
             }, sourceFilePath);
 
             StochasticSoilModel readModel = new TestStochasticSoilModel(modelsName);
@@ -427,7 +427,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var targetCollection = new StochasticSoilModelCollection();
             targetCollection.AddRange(new[]
             {
-                existingModel,
+                existingModel
             }, sourceFilePath);
 
             // Call

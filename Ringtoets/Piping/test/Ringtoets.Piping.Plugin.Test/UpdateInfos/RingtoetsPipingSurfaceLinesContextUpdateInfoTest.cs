@@ -37,7 +37,7 @@ using PipingFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
 namespace Ringtoets.Piping.Plugin.Test.UpdateInfos
 {
     [TestFixture]
-    public class RingtoetsPipingSurfaceLineContextUpdateInfoTest
+    public class RingtoetsPipingSurfaceLinesContextUpdateInfoTest
     {
         private UpdateInfo updateInfo;
         private PipingPlugin plugin;

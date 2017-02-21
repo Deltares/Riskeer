@@ -101,7 +101,8 @@
     <Compile Include="TreeNodeInfos\StochasticSoilModelCollectionContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\StochasticSoilModelTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\StochasticSoilProfileTreeNodeInfoTest.cs" />
-    <Compile Include="UpdateInfos\RingtoetsPipingSurfaceLineContextUpdateInfoTest.cs" />
+    <Compile Include="UpdateInfos\RingtoetsPipingSurfaceLinesContextUpdateInfoTest.cs" />
+    <Compile Include="UpdateInfos\StochasticSoilModelCollectionContextUpdateInfoTest.cs" />
     <Compile Include="ViewInfos\PipingInputViewInfoTest.cs" />
     <Compile Include="ViewInfos\PipingFailureMechanismResultViewInfoTest.cs" />
     <Compile Include="ViewInfos\PipingCalculationsViewInfoTest.cs" />
