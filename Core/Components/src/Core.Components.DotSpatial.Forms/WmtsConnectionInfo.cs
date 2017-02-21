@@ -78,7 +78,7 @@ namespace Core.Components.DotSpatial.Forms
             {
                 return true;
             }
-            return Name.Equals(other.Name) && string.Equals(Url, other.Url);
+            return string.Equals(Name, other.Name) && string.Equals(Url, other.Url);
         }
 
         public override bool Equals(object obj)

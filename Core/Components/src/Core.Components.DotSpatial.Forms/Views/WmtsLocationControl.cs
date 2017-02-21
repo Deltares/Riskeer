@@ -116,7 +116,7 @@ namespace Core.Components.DotSpatial.Forms.Views
         {
             WmtsConnectionInfo suggestedInfo = TryCreateWmtsConnectionInfo(activeWmtsMapData?.Name,
                                                                            activeWmtsMapData?.SourceCapabilitiesUrl);
-            if (suggestedInfo == null)
+            if (activeWmtsMapData == null || suggestedInfo == null)
             {
                 return;
             }
@@ -127,6 +127,23 @@ namespace Core.Components.DotSpatial.Forms.Views
             }
 
             UpdateComboBoxDataSource(suggestedInfo);
+
+            DataGridViewRow dataGridViewRow = dataGridViewControl.Rows.OfType<DataGridViewRow>()
+                                                                 .FirstOrDefault(row => IsMatch(
+                                                                                     (WmtsCapabilityRow) row.DataBoundItem, 
+                                                                                     activeWmtsMapData));
+            if (dataGridViewRow == null)
+            {
+                return;
+            }
+            DataGridViewCell cell = dataGridViewControl.Rows[dataGridViewRow.Index].Cells[0];
+            dataGridViewControl.SetCurrentCell(cell);
+        }
+
+        private static bool IsMatch(WmtsCapabilityRow wmtsCapabilityRow, WmtsMapData wmtsMapData)
+        {
+            return string.Equals(wmtsCapabilityRow.Id, wmtsMapData.SelectedCapabilityIdentifier)
+                   && string.Equals(wmtsCapabilityRow.Format, wmtsMapData.PreferredFormat);
         }
 
         private void InitializeWmtsConnectionInfos()

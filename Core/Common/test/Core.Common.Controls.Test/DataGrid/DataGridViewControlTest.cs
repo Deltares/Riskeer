@@ -516,7 +516,7 @@ namespace Core.Common.Controls.Test.DataGrid
                 form.Controls.Add(control);
                 form.Show();
 
-                var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
                 // Precondition
                 Assert.AreEqual(0, dataGridView.ColumnCount);
@@ -527,7 +527,7 @@ namespace Core.Common.Controls.Test.DataGrid
                 // Assert
                 Assert.AreEqual(1, dataGridView.ColumnCount);
 
-                DataGridViewColorColumn columnData = (DataGridViewColorColumn)dataGridView.Columns[0];
+                DataGridViewColorColumn columnData = (DataGridViewColorColumn) dataGridView.Columns[0];
                 Assert.AreEqual(propertyName, columnData.DataPropertyName);
                 Assert.AreEqual($"column_{propertyName}", columnData.Name);
                 Assert.AreEqual(headerText, columnData.HeaderText);
@@ -549,7 +549,7 @@ namespace Core.Common.Controls.Test.DataGrid
                 form.Controls.Add(control);
                 form.Show();
 
-                var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
                 // Precondition
                 Assert.AreEqual(0, dataGridView.ColumnCount);
@@ -560,7 +560,7 @@ namespace Core.Common.Controls.Test.DataGrid
                 // Assert
                 Assert.AreEqual(1, dataGridView.ColumnCount);
 
-                DataGridViewColorColumn columnData = (DataGridViewColorColumn)dataGridView.Columns[0];
+                DataGridViewColorColumn columnData = (DataGridViewColorColumn) dataGridView.Columns[0];
                 Assert.AreEqual(propertyName, columnData.DataPropertyName);
                 Assert.AreEqual($"column_{propertyName}", columnData.Name);
                 Assert.AreEqual(headerText, columnData.HeaderText);
@@ -1125,6 +1125,95 @@ namespace Core.Common.Controls.Test.DataGrid
 
                 // Assert
                 Assert.IsNull(dataGridView.CurrentCell);
+            }
+        }
+
+        [Test]
+        public void SetCurrentCell_ValidCell_SetsCurrentCell()
+        {
+            // Setup
+            using (var form = new Form())
+            using (var control = new DataGridViewControl())
+            {
+                form.Controls.Add(control);
+                form.Show();
+
+                control.AddTextBoxColumn("Test property", "Test header");
+
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+                dataGridView.DataSource = new[]
+                {
+                    ""
+                };
+
+                dataGridView.CurrentCell = null;
+                DataGridViewCell firstcell = dataGridView.Rows[0].Cells[0];
+
+                // Call
+                control.SetCurrentCell(firstcell);
+
+                // Assert
+                Assert.AreSame(firstcell, dataGridView.CurrentCell);
+            }
+        }
+
+        [Test]
+        public void SetCurrentCell_CellIsHeaderCell_ThrowsArgumentException()
+        {
+            // Setup
+            using (var form = new Form())
+            using (var control = new DataGridViewControl())
+            {
+                form.Controls.Add(control);
+                form.Show();
+
+                control.AddTextBoxColumn("Test property", "Test header");
+
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+                dataGridView.DataSource = new[]
+                {
+                    ""
+                };
+
+                DataGridViewCell firstcell = dataGridView.Rows[0].HeaderCell;
+
+                // Call
+                TestDelegate test = () => control.SetCurrentCell(firstcell);
+
+                // Assert
+                string paramName = Assert.Throws<ArgumentException>(test).ParamName;
+                Assert.AreEqual("cell", paramName);
+            }
+        }
+
+        [Test]
+        public void SetCurrentCell_ValidCellButRowIsHidden_ThrowsArgumentException()
+        {
+            // Setup
+            using (var form = new Form())
+            using (var control = new DataGridViewControl())
+            {
+                form.Controls.Add(control);
+                form.Show();
+
+                control.AddTextBoxColumn("Test property", "Test header");
+
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+                dataGridView.DataSource = new[]
+                {
+                    "",
+                    ""
+                };
+
+                DataGridViewRow dataGridViewRow = dataGridView.Rows[1];
+                dataGridViewRow.Visible = false;
+
+                // Call
+                TestDelegate test = () => control.SetCurrentCell(dataGridViewRow.Cells[0]);
+
+                // Assert
+                string paramName = Assert.Throws<ArgumentException>(test).ParamName;
+                Assert.AreEqual("cell", paramName);
             }
         }
 

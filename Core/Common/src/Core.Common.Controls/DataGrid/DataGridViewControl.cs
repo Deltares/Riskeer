@@ -117,6 +117,36 @@ namespace Core.Common.Controls.DataGrid
         }
 
         /// <summary>
+        /// Clears the current cell.
+        /// </summary>
+        public void ClearCurrentCell()
+        {
+            dataGridView.CurrentCell = null;
+        }
+
+        /// <summary>
+        /// Sets the currently active cell.
+        /// </summary>
+        /// <param name="cell">Sets the cell to be set active.</param>
+        /// <exception cref="ArgumentException">Thrown when:<list type="bullet">
+        /// <item><paramref name="cell"/> is not in the DataGridView;</item>
+        /// <item><paramref name="cell"/> cannot be 
+        /// set because changes to the current cell cannot be committed or canceled.</item>
+        /// </list>
+        /// </exception>
+        public void SetCurrentCell(DataGridViewCell cell)
+        {
+            try
+            {
+                dataGridView.CurrentCell = cell;
+            }
+            catch (Exception e) when (e is ArgumentException || e is InvalidOperationException)
+            {
+                throw new ArgumentException(@"Unable to set the cell active.", nameof(cell));
+            }
+        }
+
+        /// <summary>
         /// Adds a new <see cref="DataGridViewTextBoxColumn"/> to the <see cref="DataGridView"/> with the given data.
         /// </summary>
         /// <param name="dataPropertyName">The <see cref="DataGridViewColumn.DataPropertyName"/> of the column.</param>
@@ -422,14 +452,6 @@ namespace Core.Common.Controls.DataGrid
         public void RemoveCellValueChangedHandler(DataGridViewCellEventHandler handler)
         {
             dataGridView.CellValueChanged -= handler;
-        }
-
-        /// <summary>
-        /// Clears the current cell.
-        /// </summary>
-        public void ClearCurrentCell()
-        {
-            dataGridView.CurrentCell = null;
         }
 
         private void SubscribeEvents()
