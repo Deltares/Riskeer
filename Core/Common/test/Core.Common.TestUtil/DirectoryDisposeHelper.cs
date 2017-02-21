@@ -104,9 +104,11 @@ namespace Core.Common.TestUtil
 
             directoryPermissionsRevoker?.Dispose();
 
+            var directoryDeleted = false;
             try
             {
                 Directory.Delete(rootPathToTemp, true);
+                directoryDeleted = true;
             }
             catch
             {
@@ -118,7 +120,7 @@ namespace Core.Common.TestUtil
                 directoryPermissionsRevoker = null;
             }
 
-            disposed = true;
+            disposed = !directoryDeleted;
         }
 
         /// <summary>

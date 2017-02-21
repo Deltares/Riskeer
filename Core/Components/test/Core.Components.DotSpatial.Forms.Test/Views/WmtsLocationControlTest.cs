@@ -159,34 +159,35 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
         public void WmtsLocationControl_WithData_DataGridViewCorrectlyInitialized()
         {
             // Setup
-            SettingsHelper.Instance = new TestSettingsHelper
+            using (new UseCustomSettingsHelper(new TestSettingsHelper
             {
                 ExpectedApplicationLocalUserSettingsDirectory = TestHelper.GetTestDataPath(testPath, "noConfig")
-            };
-
-            // Call
-            using (WmtsLocationControl control = ShowFullyConfiguredWmtsLocationControl())
+            }))
             {
-                Form form = control.FindForm();
+                // Call
+                using (WmtsLocationControl control = ShowFullyConfiguredWmtsLocationControl())
+                {
+                    Form form = control.FindForm();
 
-                // Assert
-                var dataGridViewControl = (DataGridViewControl) new ControlTester("dataGridViewControl", form).TheObject;
-                DataGridViewRowCollection rows = dataGridViewControl.Rows;
-                Assert.AreEqual(2, rows.Count);
+                    // Assert
+                    var dataGridViewControl = (DataGridViewControl) new ControlTester("dataGridViewControl", form).TheObject;
+                    DataGridViewRowCollection rows = dataGridViewControl.Rows;
+                    Assert.AreEqual(2, rows.Count);
 
-                DataGridViewCellCollection cells = rows[0].Cells;
-                Assert.AreEqual(4, cells.Count);
-                Assert.AreEqual("-", cells[mapLayerIdColumnIndex].FormattedValue);
-                Assert.AreEqual("image/png", cells[mapLayerFormatColumnIndex].FormattedValue);
-                Assert.AreEqual("-", cells[mapLayerTitleColumnIndex].FormattedValue);
-                Assert.AreEqual("-", cells[mapLayerCoordinateSystemColumnIndex].FormattedValue);
+                    DataGridViewCellCollection cells = rows[0].Cells;
+                    Assert.AreEqual(4, cells.Count);
+                    Assert.AreEqual("-", cells[mapLayerIdColumnIndex].FormattedValue);
+                    Assert.AreEqual("image/png", cells[mapLayerFormatColumnIndex].FormattedValue);
+                    Assert.AreEqual("-", cells[mapLayerTitleColumnIndex].FormattedValue);
+                    Assert.AreEqual("-", cells[mapLayerCoordinateSystemColumnIndex].FormattedValue);
 
-                cells = rows[1].Cells;
-                Assert.AreEqual(4, cells.Count);
-                Assert.AreEqual("brtachtergrondkaart(EPSG:28992)", cells[mapLayerIdColumnIndex].FormattedValue);
-                Assert.AreEqual("image/png8", cells[mapLayerFormatColumnIndex].FormattedValue);
-                Assert.AreEqual("brtachtergrondkaart", cells[mapLayerTitleColumnIndex].FormattedValue);
-                Assert.AreEqual("EPSG:28992", cells[mapLayerCoordinateSystemColumnIndex].FormattedValue);
+                    cells = rows[1].Cells;
+                    Assert.AreEqual(4, cells.Count);
+                    Assert.AreEqual("brtachtergrondkaart(EPSG:28992)", cells[mapLayerIdColumnIndex].FormattedValue);
+                    Assert.AreEqual("image/png8", cells[mapLayerFormatColumnIndex].FormattedValue);
+                    Assert.AreEqual("brtachtergrondkaart", cells[mapLayerTitleColumnIndex].FormattedValue);
+                    Assert.AreEqual("EPSG:28992", cells[mapLayerCoordinateSystemColumnIndex].FormattedValue);
+                }
             }
         }
 
@@ -212,16 +213,16 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
         public void GetSelectedMapData_WithSelectedComboBoxWithoutSelectedRow_ReturnsNull()
         {
             // Setup
-            SettingsHelper.Instance = new TestSettingsHelper
+            using (new UseCustomSettingsHelper(new TestSettingsHelper
             {
                 ExpectedApplicationLocalUserSettingsDirectory = TestHelper.GetTestDataPath(testPath, "noConfig")
-            };
-
-            // Call
+            }))
             using (WmtsLocationControl control = ShowFullyConfiguredWmtsLocationControl())
             {
-                // Assert                
+                // Call                
                 MapData selectedMapData = control.SelectedMapData;
+
+                // Assert
                 Assert.IsNull(selectedMapData);
             }
         }
@@ -257,11 +258,10 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
         public void GetSelectedMapData_WithSelectedData_ReturnsSelectedMapData()
         {
             // Setup
-            SettingsHelper.Instance = new TestSettingsHelper
+            using (new UseCustomSettingsHelper(new TestSettingsHelper
             {
                 ExpectedApplicationLocalUserSettingsDirectory = TestHelper.GetTestDataPath(testPath, "noConfig")
-            };
-
+            }))
             using (WmtsLocationControl control = ShowFullyConfiguredWmtsLocationControl())
             {
                 Form form = control.FindForm();
@@ -287,49 +287,13 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
         public void GivenValidWmtsConnectionInfos_WhenConstructed_ThenExpectedProperties()
         {
             // Given
-            SettingsHelper.Instance = new TestSettingsHelper
+            using (new UseCustomSettingsHelper(new TestSettingsHelper
             {
                 ExpectedApplicationVersion = "twoValidWmtsConnectionInfos",
                 ExpectedApplicationLocalUserSettingsDirectory = TestHelper.GetTestDataPath(testPath)
-            };
-
-            // When
-            using (var control = new WmtsLocationControl())
-            using (var form = new Form())
+            }))
             {
-                form.Controls.Add(control);
-
-                // Then
-                var comboBox = (ComboBox) new ComboBoxTester("urlLocationComboBox", form).TheObject;
-                var dataSource = (List<WmtsConnectionInfo>) comboBox.DataSource;
-                Assert.AreEqual(2, dataSource.Count);
-
-                var firstWmtsConnectionInfo = (WmtsConnectionInfo) comboBox.Items[0];
-                Assert.AreEqual("Actueel Hoogtebestand Nederland (AHN1)", firstWmtsConnectionInfo.Name);
-                Assert.AreEqual("https://geodata.nationaalgeoregister.nl/tiles/service/wmts/ahn1?request=GetCapabilities",
-                                firstWmtsConnectionInfo.Url);
-
-                var secondWmtsConnectionInfo = (WmtsConnectionInfo) comboBox.Items[1];
-                Assert.AreEqual("Zeegraskartering", secondWmtsConnectionInfo.Name);
-                Assert.AreEqual("https://geodata.nationaalgeoregister.nl/zeegraskartering/wfs?request=GetCapabilities",
-                                secondWmtsConnectionInfo.Url);
-            }
-        }
-
-        [Test]
-        [Apartment(ApartmentState.STA)]
-        public void GivenInvalidWmtsConnectionInfos_WhenConstructed_ThenLogGenerated()
-        {
-            // Given
-            SettingsHelper.Instance = new TestSettingsHelper
-            {
-                ExpectedApplicationVersion = "WmtsConnectionInfosWithoutWmtsConnectionsElement",
-                ExpectedApplicationLocalUserSettingsDirectory = TestHelper.GetTestDataPath(testPath)
-            };
-
-            // When
-            Action action = () =>
-            {
+                // When
                 using (var control = new WmtsLocationControl())
                 using (var form = new Form())
                 {
@@ -338,17 +302,55 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
                     // Then
                     var comboBox = (ComboBox) new ComboBoxTester("urlLocationComboBox", form).TheObject;
                     var dataSource = (List<WmtsConnectionInfo>) comboBox.DataSource;
-                    Assert.AreEqual(0, dataSource.Count);
-                }
-            };
+                    Assert.AreEqual(2, dataSource.Count);
 
-            string wmtsConnectionInfoConfig = Path.Combine(TestHelper.GetTestDataPath(
-                                                               testPath,
-                                                               "WmtsConnectionInfosWithoutWmtsConnectionsElement"),
-                                                           "wmtsConnectionInfo.config");
-            var expectedMessage = $"Fout bij het lezen van bestand '{wmtsConnectionInfoConfig}': "
-                                  + "het bestand kon niet worden geopend. Mogelijk is het bestand corrupt of in gebruik door een andere applicatie.";
-            TestHelper.AssertLogMessageWithLevelIsGenerated(action, Tuple.Create(expectedMessage, LogLevelConstant.Error));
+                    var firstWmtsConnectionInfo = (WmtsConnectionInfo) comboBox.Items[0];
+                    Assert.AreEqual("Actueel Hoogtebestand Nederland (AHN1)", firstWmtsConnectionInfo.Name);
+                    Assert.AreEqual("https://geodata.nationaalgeoregister.nl/tiles/service/wmts/ahn1?request=GetCapabilities",
+                                    firstWmtsConnectionInfo.Url);
+
+                    var secondWmtsConnectionInfo = (WmtsConnectionInfo) comboBox.Items[1];
+                    Assert.AreEqual("Zeegraskartering", secondWmtsConnectionInfo.Name);
+                    Assert.AreEqual("https://geodata.nationaalgeoregister.nl/zeegraskartering/wfs?request=GetCapabilities",
+                                    secondWmtsConnectionInfo.Url);
+                }
+            }
+        }
+
+        [Test]
+        [Apartment(ApartmentState.STA)]
+        public void GivenInvalidWmtsConnectionInfos_WhenConstructed_ThenLogGenerated()
+        {
+            // Given
+            using (new UseCustomSettingsHelper(new TestSettingsHelper
+            {
+                ExpectedApplicationVersion = "WmtsConnectionInfosWithoutWmtsConnectionsElement",
+                ExpectedApplicationLocalUserSettingsDirectory = TestHelper.GetTestDataPath(testPath)
+            }))
+            {
+                // When
+                Action action = () =>
+                {
+                    using (var control = new WmtsLocationControl())
+                    using (var form = new Form())
+                    {
+                        form.Controls.Add(control);
+
+                        // Then
+                        var comboBox = (ComboBox) new ComboBoxTester("urlLocationComboBox", form).TheObject;
+                        var dataSource = (List<WmtsConnectionInfo>) comboBox.DataSource;
+                        Assert.AreEqual(0, dataSource.Count);
+                    }
+                };
+
+                string wmtsConnectionInfoConfig = Path.Combine(TestHelper.GetTestDataPath(
+                                                                   testPath,
+                                                                   "WmtsConnectionInfosWithoutWmtsConnectionsElement"),
+                                                               "wmtsConnectionInfo.config");
+                var expectedMessage = $"Fout bij het lezen van bestand '{wmtsConnectionInfoConfig}': "
+                                      + "het bestand kon niet worden geopend. Mogelijk is het bestand corrupt of in gebruik door een andere applicatie.";
+                TestHelper.AssertLogMessageWithLevelIsGenerated(action, Tuple.Create(expectedMessage, LogLevelConstant.Error));
+            }
         }
 
         [Test]
@@ -356,16 +358,15 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
         public void GivenWmtsLocationControlAndAddLocationClicked_WhenDialogCanceled_ThenWmtsLocationsNotUpdated()
         {
             // Given
-            SettingsHelper.Instance = new TestSettingsHelper
-            {
-                ExpectedApplicationLocalUserSettingsDirectory = TestHelper.GetTestDataPath(testPath, "noConfig")
-            };
-
             DialogBoxHandler = (formName, wnd) =>
             {
                 using (new FormTester(formName)) {}
             };
 
+            using (new UseCustomSettingsHelper(new TestSettingsHelper
+            {
+                ExpectedApplicationLocalUserSettingsDirectory = TestHelper.GetTestDataPath(testPath, "noConfig")
+            }))
             using (var form = new Form())
             using (var control = new WmtsLocationControl())
             {
@@ -392,11 +393,6 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
             const string name = @"someName";
             const string url = @"someUrl";
 
-            SettingsHelper.Instance = new TestSettingsHelper
-            {
-                ExpectedApplicationLocalUserSettingsDirectory = TestHelper.GetTestDataPath(testPath, "noConfig")
-            };
-
             var mockRepository = new MockRepository();
             var tileFactory = mockRepository.StrictMock<ITileSourceFactory>();
             tileFactory.Expect(tf => tf.GetWmtsTileSources(url)).Return(Enumerable.Empty<ITileSource>());
@@ -418,6 +414,10 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
                 }
             };
 
+            using (new UseCustomSettingsHelper(new TestSettingsHelper
+            {
+                ExpectedApplicationLocalUserSettingsDirectory = TestHelper.GetTestDataPath(testPath, "noConfig")
+            }))
             using (new FileDisposeHelper(Path.Combine(SettingsHelper.Instance.GetApplicationLocalUserSettingsDirectory(),
                                                       wmtsconnectioninfoConfigFile)))
             using (new UseCustomTileSourceFactoryConfig(tileFactory))
@@ -452,11 +452,6 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
         public void GivenWmtsLocationControlAndAddLocationClicked_WhenInValidDataInDialog_ThenWmtsLocationsNotUpdated()
         {
             // Given
-            SettingsHelper.Instance = new TestSettingsHelper
-            {
-                ExpectedApplicationLocalUserSettingsDirectory = TestHelper.GetTestDataPath(testPath, "noConfig")
-            };
-
             DialogBoxHandler = (formName, wnd) =>
             {
                 using (var formTester = new FormTester(formName))
@@ -470,6 +465,10 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
                 }
             };
 
+            using (new UseCustomSettingsHelper(new TestSettingsHelper
+            {
+                ExpectedApplicationLocalUserSettingsDirectory = TestHelper.GetTestDataPath(testPath, "noConfig")
+            }))
             using (var form = new Form())
             using (var control = new WmtsLocationControl())
             {
@@ -499,11 +498,6 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
             const string name = @"someName";
             const string url = @"someUrl";
 
-            SettingsHelper.Instance = new TestSettingsHelper
-            {
-                ExpectedApplicationLocalUserSettingsDirectory = TestHelper.GetTestDataPath(testPath, "noConfig")
-            };
-
             var mockRepository = new MockRepository();
             var tileFactory = mockRepository.StrictMock<ITileSourceFactory>();
             tileFactory.Expect(tf => tf.GetWmtsTileSources(url)).Return(Enumerable.Empty<ITileSource>());
@@ -525,29 +519,36 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
                 }
             };
 
-            string configFilePath = Path.Combine(SettingsHelper.Instance.GetApplicationLocalUserSettingsDirectory(),
-                                                 wmtsconnectioninfoConfigFile);
-            using (var fileDisposeHelper = new FileDisposeHelper(configFilePath))
-            using (new UseCustomTileSourceFactoryConfig(tileFactory))
-            using (var form = new Form())
-            using (var control = new WmtsLocationControl())
+            using (new UseCustomSettingsHelper(new TestSettingsHelper
             {
-                form.Controls.Add(control);
-                form.Show();
+                ExpectedApplicationLocalUserSettingsDirectory = TestHelper.GetTestDataPath(testPath, "noConfig")
+            }))
+            {
+                string configFilePath = Path.Combine(SettingsHelper.Instance.GetApplicationLocalUserSettingsDirectory(),
+                                                     wmtsconnectioninfoConfigFile);
 
-                fileDisposeHelper.LockFiles();
+                using (var fileDisposeHelper = new FileDisposeHelper(configFilePath))
+                using (new UseCustomTileSourceFactoryConfig(tileFactory))
+                using (var form = new Form())
+                using (var control = new WmtsLocationControl())
+                {
+                    form.Controls.Add(control);
+                    form.Show();
 
-                var buttonAddLocation = new ButtonTester("addLocationButton", form);
+                    fileDisposeHelper.LockFiles();
 
-                // When
-                Action action = () => { buttonAddLocation.Click(); };
+                    var buttonAddLocation = new ButtonTester("addLocationButton", form);
 
-                // Then
-                string exceptionMessage = $"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{configFilePath}'.";
-                TestHelper.AssertLogMessageWithLevelIsGenerated(action, Tuple.Create(exceptionMessage, LogLevelConstant.Error));
-                var comboBox = (ComboBox) new ComboBoxTester("urlLocationComboBox", form).TheObject;
-                var dataSource = (List<WmtsConnectionInfo>) comboBox.DataSource;
-                Assert.AreEqual(1, dataSource.Count);
+                    // When
+                    Action action = () => { buttonAddLocation.Click(); };
+
+                    // Then
+                    string exceptionMessage = $"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{configFilePath}'.";
+                    TestHelper.AssertLogMessageWithLevelIsGenerated(action, Tuple.Create(exceptionMessage, LogLevelConstant.Error));
+                    var comboBox = (ComboBox) new ComboBoxTester("urlLocationComboBox", form).TheObject;
+                    var dataSource = (List<WmtsConnectionInfo>) comboBox.DataSource;
+                    Assert.AreEqual(1, dataSource.Count);
+                }
             }
 
             mockRepository.VerifyAll();
@@ -558,16 +559,15 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
         public void GivenWmtsLocationControlAndEditLocationClicked_WhenDialogCanceled_ThenWmtsLocationsNotUpdated()
         {
             // Given
-            SettingsHelper.Instance = new TestSettingsHelper
-            {
-                ExpectedApplicationLocalUserSettingsDirectory = TestHelper.GetTestDataPath(testPath, "noConfig")
-            };
-
             DialogBoxHandler = (formName, wnd) =>
             {
                 using (new FormTester(formName)) {}
             };
 
+            using (new UseCustomSettingsHelper(new TestSettingsHelper
+            {
+                ExpectedApplicationLocalUserSettingsDirectory = TestHelper.GetTestDataPath(testPath, "noConfig")
+            }))
             using (var form = new Form())
             using (var control = new WmtsLocationControl())
             {
@@ -603,11 +603,6 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
             const string newName = @"newName";
             const string newUrl = @"newUrl";
 
-            SettingsHelper.Instance = new TestSettingsHelper
-            {
-                ExpectedApplicationLocalUserSettingsDirectory = TestHelper.GetTestDataPath(testPath, "noConfig")
-            };
-
             var mockRepository = new MockRepository();
             var tileFactory = mockRepository.StrictMock<ITileSourceFactory>();
             tileFactory.Expect(tf => tf.GetWmtsTileSources(newUrl)).Return(Enumerable.Empty<ITileSource>());
@@ -629,6 +624,10 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
                 }
             };
 
+            using (new UseCustomSettingsHelper(new TestSettingsHelper
+            {
+                ExpectedApplicationLocalUserSettingsDirectory = TestHelper.GetTestDataPath(testPath, "noConfig")
+            }))
             using (new FileDisposeHelper(Path.Combine(SettingsHelper.Instance.GetApplicationLocalUserSettingsDirectory(),
                                                       wmtsconnectioninfoConfigFile)))
             using (new UseCustomTileSourceFactoryConfig(tileFactory))
@@ -666,11 +665,6 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
         public void GivenWmtsLocationControlAndEditLocationClicked_WhenInValidDataInDialog_ThenWmtsLocationsNotUpdated()
         {
             // Given
-            SettingsHelper.Instance = new TestSettingsHelper
-            {
-                ExpectedApplicationLocalUserSettingsDirectory = TestHelper.GetTestDataPath(testPath, "noConfig")
-            };
-
             DialogBoxHandler = (formName, wnd) =>
             {
                 using (var formTester = new FormTester(formName))
@@ -688,6 +682,10 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
                 }
             };
 
+            using (new UseCustomSettingsHelper(new TestSettingsHelper
+            {
+                ExpectedApplicationLocalUserSettingsDirectory = TestHelper.GetTestDataPath(testPath, "noConfig")
+            }))
             using (var form = new Form())
             using (var control = new WmtsLocationControl())
             {

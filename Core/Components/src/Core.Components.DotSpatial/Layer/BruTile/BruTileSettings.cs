@@ -62,6 +62,12 @@ namespace Core.Components.DotSpatial.Layer.BruTile
         /// <summary>
         /// Gets the root directory path for the persistent cache.
         /// </summary>
-        public static string PersistentCacheDirectoryRoot { get; } = SettingsHelper.Instance.GetApplicationLocalUserSettingsDirectory("tilecaches");
+        public static string PersistentCacheDirectoryRoot
+        {
+            get
+            {
+                return SettingsHelper.Instance.GetApplicationLocalUserSettingsDirectory("tilecaches");
+            }
+        }
     }
 }
