@@ -43,8 +43,9 @@ namespace Ringtoets.Integration.Forms
         /// Creates a new instance of <see cref="ReferenceLineMetaSelectionDialog"/>.
         /// </summary>
         /// <param name="dialogParent">The parent of the dialog.</param>
+        /// <param name="mapData">The active map data or <c>null</c> if none is active.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="dialogParent"/> is <c>null</c>.</exception>
-        public BackgroundMapDataSelectionDialog(IWin32Window dialogParent)
+        public BackgroundMapDataSelectionDialog(IWin32Window dialogParent, WmtsMapData mapData)
             : base(dialogParent, RingtoetsCommonFormsResources.SelectionDialogIcon, 500, 350)
         {
             mapDatas = new List<IHasMapData>
@@ -52,21 +53,12 @@ namespace Ringtoets.Integration.Forms
                 new WmtsLocationControl()
             };
 
+            SelectedMapData = mapData;
+
             InitializeComponent();
             InitializeButtons();
             InitializeComboBox();
             InitializeEventHandlers();
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="ReferenceLineMetaSelectionDialog"/>.
-        /// </summary>
-        /// <param name="dialogParent">The parent of the dialog.</param>
-        /// <param name="mapData">The active map data.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="dialogParent"/> is <c>null</c>.</exception>
-        public BackgroundMapDataSelectionDialog(IWin32Window dialogParent, WmtsMapData mapData) : this(dialogParent)
-        {
-            SelectedMapData = mapData;
         }
 
         /// <summary>

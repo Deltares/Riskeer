@@ -41,8 +41,11 @@ namespace Ringtoets.Integration.Forms.Test
         [Test]
         public void Constructor_WithoutParent_ThrowsArgumentNullException()
         {
+            // Setup
+            WmtsMapData mapData = WmtsMapData.CreateDefaultPdokMapData();
+
             // Call
-            TestDelegate test = () => new BackgroundMapDataSelectionDialog(null);
+            TestDelegate test = () => new BackgroundMapDataSelectionDialog(null, mapData);
 
             // Assert
             string parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -50,18 +53,19 @@ namespace Ringtoets.Integration.Forms.Test
         }
 
         [Test]
-        public void Constructor_WithParent_DefaultProperties()
+        public void Constructor_WithValidArguments_DefaultProperties()
         {
             // Setup
+            WmtsMapData mapData = WmtsMapData.CreateDefaultPdokMapData();
             using (var dialogParent = new Form())
             {
                 // Call
-                using (var dialog = new BackgroundMapDataSelectionDialog(dialogParent))
+                using (var dialog = new BackgroundMapDataSelectionDialog(dialogParent, mapData))
                 {
                     // Assert
                     Assert.IsInstanceOf<DialogBase>(dialog);
                     Assert.AreEqual(@"Selecteer achtergrondkaart", dialog.Text);
-                    Assert.IsNull(dialog.SelectedMapData);
+                    Assert.AreSame(mapData, dialog.SelectedMapData);
 
                     Icon icon = BitmapToIcon(RingtoetsCommonFormsResources.SelectionDialogIcon);
                     Bitmap expectedImage = icon.ToBitmap();
@@ -78,7 +82,7 @@ namespace Ringtoets.Integration.Forms.Test
         }
 
         [Test]
-        public void MapDataConstructor_MapDataNull_DefaultProperties()
+        public void Constructor_MapDataNull_DefaultProperties()
         {
             // Setup
             var mockRepository = new MockRepository();
@@ -98,7 +102,7 @@ namespace Ringtoets.Integration.Forms.Test
         public void MapDataConstructor_ParentNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mapData = new WmtsMapData("1", "2", "3", "image/");
+            WmtsMapData mapData = WmtsMapData.CreateDefaultPdokMapData();
 
             // Call
             TestDelegate test = () => new BackgroundMapDataSelectionDialog(null, mapData);
@@ -112,7 +116,7 @@ namespace Ringtoets.Integration.Forms.Test
         public void MapDataConstructor_WithParents_DefaultProperties()
         {
             // Setup
-            var mapData = new WmtsMapData("1", "2", "3", "image/");
+            WmtsMapData mapData = WmtsMapData.CreateDefaultPdokMapData();
             using (var dialogParent = new Form())
             {
                 // Call
@@ -148,7 +152,7 @@ namespace Ringtoets.Integration.Forms.Test
             };
 
             using (var dialogParent = new Form())
-            using (var dialog = new BackgroundMapDataSelectionDialog(dialogParent))
+            using (var dialog = new BackgroundMapDataSelectionDialog(dialogParent, null))
             {
                 // Call
                 dialog.ShowDialog();
@@ -193,7 +197,7 @@ namespace Ringtoets.Integration.Forms.Test
             };
 
             using (var dialogParent = new Form())
-            using (var dialog = new BackgroundMapDataSelectionDialog(dialogParent))
+            using (var dialog = new BackgroundMapDataSelectionDialog(dialogParent, null))
             {
                 // When
                 dialog.ShowDialog();
@@ -211,7 +215,7 @@ namespace Ringtoets.Integration.Forms.Test
             TestDelegate call = () =>
             {
                 using (var dialogParent = new Form())
-                using (var dialog = new BackgroundMapDataSelectionDialog(dialogParent))
+                using (var dialog = new BackgroundMapDataSelectionDialog(dialogParent, null))
                 {
                     dialog.Dispose();
                 }
