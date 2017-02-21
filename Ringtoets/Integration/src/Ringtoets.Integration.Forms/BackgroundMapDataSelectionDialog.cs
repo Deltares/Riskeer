@@ -50,7 +50,7 @@ namespace Ringtoets.Integration.Forms
         {
             mapDatas = new List<IHasMapData>
             {
-                new WmtsLocationControl()
+                new WmtsLocationControl(mapData)
             };
 
             SelectedMapData = mapData;

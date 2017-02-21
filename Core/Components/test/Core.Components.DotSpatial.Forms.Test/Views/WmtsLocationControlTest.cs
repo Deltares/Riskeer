@@ -52,10 +52,28 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
         private static readonly TestDataPath testPath = TestDataPath.Core.Components.DotSpatial.Forms;
 
         [Test]
-        public void Constructor_DefaultValues()
+        public void Constructor_ActiveWmtsMapDataNull_DefaultValues()
         {
             // Call
-            using (var control = new WmtsLocationControl())
+            using (var control = new WmtsLocationControl(null))
+            {
+                // Assert
+                Assert.IsInstanceOf<UserControl>(control);
+                Assert.IsInstanceOf<IHasMapData>(control);
+                Assert.AreEqual("Web Map Tile Service (WMTS)", control.DisplayName);
+                Assert.IsNull(control.SelectedMapData);
+                Assert.AreSame(control, control.UserControl);
+            }
+        }
+
+        [Test]
+        public void Constructor_ValidWmtsMapData_DefaultValues()
+        {
+            // Setup
+            WmtsMapData activeWmtsMapData = WmtsMapData.CreateDefaultPdokMapData();
+
+            // Call
+            using (var control = new WmtsLocationControl(activeWmtsMapData))
             {
                 // Assert
                 Assert.IsInstanceOf<UserControl>(control);
@@ -70,7 +88,7 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
         public void Show_AddedToForm_DefaultProperties()
         {
             // Setup
-            using (var control = new WmtsLocationControl())
+            using (var control = new WmtsLocationControl(null))
             using (var form = new Form())
             {
                 // Call
@@ -86,6 +104,7 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
                 Assert.AreEqual("Name", urlLocations.DisplayMember);
                 Assert.AreEqual("Url", urlLocations.ValueMember);
                 Assert.IsTrue(urlLocations.Sorted);
+                Assert.IsNull(urlLocations.SelectedItem);
 
                 var buttonConnectTo = (Button) new ButtonTester("connectToButton", form).TheObject;
                 Assert.AreEqual("Verbinding maken", buttonConnectTo.Text);
@@ -100,10 +119,43 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
         }
 
         [Test]
+        public void Show_AddedToFormWithWmtsMapData_DefaultProperties()
+        {
+            // Setup
+            WmtsMapData activeWmtsMapData = WmtsMapData.CreateDefaultPdokMapData();
+            var activeWmtsConnectionInfo = new WmtsConnectionInfo(activeWmtsMapData.Name, activeWmtsMapData.SourceCapabilitiesUrl);
+
+            using (var control = new WmtsLocationControl(activeWmtsMapData))
+            using (var form = new Form())
+            {
+                // Call
+                form.Controls.Add(control);
+
+                // Assert
+                var urlLocationLabel = new LabelTester("urlLocationLabel", form);
+                Assert.AreEqual("Locatie (URL)", urlLocationLabel.Text);
+
+                var urlLocations = (ComboBox) new ComboBoxTester("urlLocationComboBox", form).TheObject;
+                Assert.AreEqual(ComboBoxStyle.DropDownList, urlLocations.DropDownStyle);
+                var connectionInfos = (List<WmtsConnectionInfo>) urlLocations.DataSource;
+                Assert.Contains(activeWmtsConnectionInfo, connectionInfos);
+
+                Assert.AreEqual("Name", urlLocations.DisplayMember);
+                Assert.AreEqual("Url", urlLocations.ValueMember);
+                Assert.IsTrue(urlLocations.Sorted);
+                Assert.IsNotNull(urlLocations.SelectedItem);
+
+                var buttonConnectTo = (Button) new ButtonTester("connectToButton", form).TheObject;
+                Assert.AreEqual("Verbinding maken", buttonConnectTo.Text);
+                Assert.IsTrue(buttonConnectTo.Enabled);
+            }
+        }
+
+        [Test]
         public void Constructor_DataGridViewCorrectlyInitialized()
         {
             // Call
-            using (var control = new WmtsLocationControl())
+            using (var control = new WmtsLocationControl(null))
             using (var form = new Form())
             {
                 form.Controls.Add(control);
@@ -144,7 +196,7 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
             // Call
             TestDelegate call = () =>
             {
-                using (var control = new WmtsLocationControl())
+                using (var control = new WmtsLocationControl(null))
                 {
                     control.Dispose();
                 }
@@ -196,7 +248,7 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
         {
             // Setup
             using (var form = new Form())
-            using (var control = new WmtsLocationControl())
+            using (var control = new WmtsLocationControl(null))
             {
                 form.Controls.Add(control);
                 form.Show();
@@ -232,7 +284,7 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
         {
             // Setup
             using (var form = new Form())
-            using (var control = new WmtsLocationControl())
+            using (var control = new WmtsLocationControl(null))
             {
                 form.Controls.Add(control);
                 form.Show();
@@ -294,7 +346,7 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
             }))
             {
                 // When
-                using (var control = new WmtsLocationControl())
+                using (var control = new WmtsLocationControl(null))
                 using (var form = new Form())
                 {
                     form.Controls.Add(control);
@@ -331,7 +383,7 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
                 // When
                 Action action = () =>
                 {
-                    using (var control = new WmtsLocationControl())
+                    using (var control = new WmtsLocationControl(null))
                     using (var form = new Form())
                     {
                         form.Controls.Add(control);
@@ -368,7 +420,7 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
                 ExpectedApplicationLocalUserSettingsDirectory = TestHelper.GetTestDataPath(testPath, "noConfig")
             }))
             using (var form = new Form())
-            using (var control = new WmtsLocationControl())
+            using (var control = new WmtsLocationControl(null))
             {
                 form.Controls.Add(control);
                 form.Show();
@@ -422,7 +474,7 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
                                                       wmtsconnectioninfoConfigFile)))
             using (new UseCustomTileSourceFactoryConfig(tileFactory))
             using (var form = new Form())
-            using (var control = new WmtsLocationControl())
+            using (var control = new WmtsLocationControl(null))
             {
                 form.Controls.Add(control);
                 form.Show();
@@ -470,7 +522,7 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
                 ExpectedApplicationLocalUserSettingsDirectory = TestHelper.GetTestDataPath(testPath, "noConfig")
             }))
             using (var form = new Form())
-            using (var control = new WmtsLocationControl())
+            using (var control = new WmtsLocationControl(null))
             {
                 form.Controls.Add(control);
                 form.Show();
@@ -530,7 +582,7 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
                 using (var fileDisposeHelper = new FileDisposeHelper(configFilePath))
                 using (new UseCustomTileSourceFactoryConfig(tileFactory))
                 using (var form = new Form())
-                using (var control = new WmtsLocationControl())
+                using (var control = new WmtsLocationControl(null))
                 {
                     form.Controls.Add(control);
                     form.Show();
@@ -559,6 +611,11 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
         public void GivenWmtsLocationControlAndEditLocationClicked_WhenDialogCanceled_ThenWmtsLocationsNotUpdated()
         {
             // Given
+            var mockRepository = new MockRepository();
+            var tileFactory = mockRepository.StrictMock<ITileSourceFactory>();
+            tileFactory.Expect(tf => tf.GetWmtsTileSources(null)).IgnoreArguments().Return(Enumerable.Empty<ITileSource>());
+            mockRepository.ReplayAll();
+
             DialogBoxHandler = (formName, wnd) =>
             {
                 using (new FormTester(formName)) {}
@@ -568,8 +625,9 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
             {
                 ExpectedApplicationLocalUserSettingsDirectory = TestHelper.GetTestDataPath(testPath, "noConfig")
             }))
+            using (new UseCustomTileSourceFactoryConfig(tileFactory))
             using (var form = new Form())
-            using (var control = new WmtsLocationControl())
+            using (var control = new WmtsLocationControl(null))
             {
                 form.Controls.Add(control);
                 form.Show();
@@ -593,6 +651,8 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
                 Assert.AreEqual("oldName", item.Name);
                 Assert.AreEqual("oldUrl", item.Url);
             }
+
+            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -605,6 +665,7 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
 
             var mockRepository = new MockRepository();
             var tileFactory = mockRepository.StrictMock<ITileSourceFactory>();
+            tileFactory.Expect(tf => tf.GetWmtsTileSources("oldUrl")).Return(Enumerable.Empty<ITileSource>());
             tileFactory.Expect(tf => tf.GetWmtsTileSources(newUrl)).Return(Enumerable.Empty<ITileSource>());
             mockRepository.ReplayAll();
 
@@ -632,7 +693,7 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
                                                       wmtsconnectioninfoConfigFile)))
             using (new UseCustomTileSourceFactoryConfig(tileFactory))
             using (var form = new Form())
-            using (var control = new WmtsLocationControl())
+            using (var control = new WmtsLocationControl(null))
             {
                 form.Controls.Add(control);
                 form.Show();
@@ -665,6 +726,11 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
         public void GivenWmtsLocationControlAndEditLocationClicked_WhenInValidDataInDialog_ThenWmtsLocationsNotUpdated()
         {
             // Given
+            var mockRepository = new MockRepository();
+            var tileFactory = mockRepository.StrictMock<ITileSourceFactory>();
+            tileFactory.Expect(tf => tf.GetWmtsTileSources(null)).IgnoreArguments().Return(Enumerable.Empty<ITileSource>());
+            mockRepository.ReplayAll();
+
             DialogBoxHandler = (formName, wnd) =>
             {
                 using (var formTester = new FormTester(formName))
@@ -686,8 +752,9 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
             {
                 ExpectedApplicationLocalUserSettingsDirectory = TestHelper.GetTestDataPath(testPath, "noConfig")
             }))
+            using (new UseCustomTileSourceFactoryConfig(tileFactory))
             using (var form = new Form())
-            using (var control = new WmtsLocationControl())
+            using (var control = new WmtsLocationControl(null))
             {
                 form.Controls.Add(control);
                 form.Show();
@@ -714,6 +781,8 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
                 var connectToButton = (Button) new ButtonTester("connectToButton", form).TheObject;
                 Assert.IsFalse(connectToButton.Enabled);
             }
+
+            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -755,6 +824,7 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
 
             var mockRepository = new MockRepository();
             var tileFactory = mockRepository.StrictMock<ITileSourceFactory>();
+            tileFactory.Expect(tf => tf.GetWmtsTileSources(null)).IgnoreArguments().Return(Enumerable.Empty<ITileSource>());
             tileFactory.Expect(tf => tf.GetWmtsTileSources(null)).IgnoreArguments().Throw(new CannotFindTileSourceException(exceptionMessage));
             mockRepository.ReplayAll();
 
@@ -793,7 +863,7 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
             // Call
             TestDelegate call = () =>
             {
-                using (var control = new WmtsLocationControl())
+                using (var control = new WmtsLocationControl(null))
                 {
                     control.Dispose();
                 }
@@ -823,7 +893,7 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
         private static WmtsLocationControl ShowValidWmtsLocationControl()
         {
             var form = new Form();
-            var control = new WmtsLocationControl();
+            var control = new WmtsLocationControl(null);
             form.Controls.Add(control);
 
             var comboBox = (ComboBox) new ComboBoxTester("urlLocationComboBox", form).TheObject;

@@ -33,7 +33,7 @@ namespace Core.Components.DotSpatial.Forms.Test.IO
     [TestFixture]
     public class WmtsConnectionInfoWriterTest
     {
-        private static readonly string testPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Forms, "WmtsConnectionInfo");
+        private static readonly string testPath = TestHelper.GetTestDataPath(TestDataPath.Core.Components.DotSpatial.Forms, "WmtsConnectionInfo");
 
         [Test]
         [TestCase("")]

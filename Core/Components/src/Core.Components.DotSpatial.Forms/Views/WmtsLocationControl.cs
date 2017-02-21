@@ -36,22 +36,22 @@ using BaseResources = Core.Common.Base.Properties.Resources;
 namespace Core.Components.DotSpatial.Forms.Views
 {
     /// <summary>
-    /// This class represents a <seealso cref="Control"/> where WMTS locations can be administrated.
+    /// This class represents a <see cref="Control"/> where WMTS locations can be administrated.
     /// </summary>
     public partial class WmtsLocationControl : UserControl, IHasMapData
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(WmtsLocationControl));
-
         private const string wmtsConnectionInfoFileName = "wmtsConnectionInfo.config";
+        private static readonly ILog log = LogManager.GetLogger(typeof(WmtsLocationControl));
         private readonly List<WmtsConnectionInfo> wmtsConnectionInfos;
-        private string wmtsConnectionInfoFilePath;
 
         private readonly List<WmtsCapabilityRow> capabilities;
-        
+        private string wmtsConnectionInfoFilePath;
+
         /// <summary>
         /// Creates a new instance of <see cref="WmtsLocationControl"/>.
         /// </summary>
-        public WmtsLocationControl()
+        /// <param name="activeWmtsMapData">The active <see cref="WmtsMapData"/> or <c>null</c> if none active.</param>
+        public WmtsLocationControl(WmtsMapData activeWmtsMapData)
         {
             wmtsConnectionInfos = new List<WmtsConnectionInfo>();
             capabilities = new List<WmtsCapabilityRow>();
@@ -61,6 +61,8 @@ namespace Core.Components.DotSpatial.Forms.Views
             InitializeDataGridView();
             InitializeComboBoxDataSource();
             InitializeEventHandlers();
+
+            SetActiveWmtsMapData(activeWmtsMapData);
 
             UpdateButtons();
         }
@@ -110,6 +112,23 @@ namespace Core.Components.DotSpatial.Forms.Views
             base.Dispose(disposing);
         }
 
+        private void SetActiveWmtsMapData(WmtsMapData activeWmtsMapData)
+        {
+            WmtsConnectionInfo suggestedInfo = TryCreateWmtsConnectionInfo(activeWmtsMapData?.Name,
+                                                                           activeWmtsMapData?.SourceCapabilitiesUrl);
+            if (suggestedInfo == null)
+            {
+                return;
+            }
+
+            if (!wmtsConnectionInfos.Any(wi => wi.Equals(suggestedInfo)))
+            {
+                wmtsConnectionInfos.Add(suggestedInfo);
+            }
+
+            UpdateComboBoxDataSource(suggestedInfo);
+        }
+
         private void InitializeWmtsConnectionInfos()
         {
             string applicationVersion = SettingsHelper.Instance.ApplicationVersion;
@@ -146,7 +165,7 @@ namespace Core.Components.DotSpatial.Forms.Views
             }
         }
 
-        private WmtsConnectionInfo TryCreateWmtsConnectionInfo(string wmtsConnectionName, string wmtsConnectionUrl)
+        private static WmtsConnectionInfo TryCreateWmtsConnectionInfo(string wmtsConnectionName, string wmtsConnectionUrl)
         {
             try
             {
@@ -189,7 +208,7 @@ namespace Core.Components.DotSpatial.Forms.Views
         private void UpdateDataGridViewDataSource(IEnumerable<WmtsCapability> wmtsCapabilities)
         {
             capabilities.Clear();
-            foreach (var wmtsCapability in wmtsCapabilities)
+            foreach (WmtsCapability wmtsCapability in wmtsCapabilities)
             {
                 capabilities.Add(new WmtsCapabilityRow(wmtsCapability));
             }
@@ -237,9 +256,10 @@ namespace Core.Components.DotSpatial.Forms.Views
             urlLocationComboBox.DisplayMember = nameof(WmtsConnectionInfo.Name);
             urlLocationComboBox.ValueMember = nameof(WmtsConnectionInfo.Url);
 
-            urlLocationComboBox.SelectedItem = selectedItem ?? wmtsConnectionInfos.FirstOrDefault();
-
-            ClearDataGridViewDataSource();
+            if (selectedItem != null)
+            {
+                urlLocationComboBox.SelectedItem = selectedItem;
+            }
 
             UpdateButtons();
         }
@@ -267,6 +287,9 @@ namespace Core.Components.DotSpatial.Forms.Views
         private void OnUrlLocationSelectedIndexChanged(object sender, EventArgs e)
         {
             ClearDataGridViewDataSource();
+
+            var selectedWmtsConnectionInfo = urlLocationComboBox.SelectedItem as WmtsConnectionInfo;
+            ConnectToUrl(selectedWmtsConnectionInfo);
         }
 
         private void OnConnectToButtonClick(object sender, EventArgs e)
@@ -277,9 +300,13 @@ namespace Core.Components.DotSpatial.Forms.Views
 
         private void ConnectToUrl(WmtsConnectionInfo selectedWmtsConnectionInfo)
         {
+            if (selectedWmtsConnectionInfo == null)
+            {
+                return;
+            }
             try
             {
-                IEnumerable<WmtsCapability> wmtsCapabilities = WmtsCapabilityFactory.GetWmtsCapabilities(selectedWmtsConnectionInfo?.Url).ToArray();
+                IEnumerable<WmtsCapability> wmtsCapabilities = WmtsCapabilityFactory.GetWmtsCapabilities(selectedWmtsConnectionInfo.Url).ToArray();
                 UpdateDataGridViewDataSource(wmtsCapabilities);
             }
             catch (CannotFindTileSourceException exception)
@@ -308,7 +335,6 @@ namespace Core.Components.DotSpatial.Forms.Views
                     wmtsConnectionInfos.Add(createdWmtsConnectionInfos);
                     TrySaveWmtsConnectionInfos();
                     UpdateComboBoxDataSource(createdWmtsConnectionInfos);
-                    ConnectToUrl(createdWmtsConnectionInfos);
                 }
             }
         }
@@ -336,7 +362,6 @@ namespace Core.Components.DotSpatial.Forms.Views
                     wmtsConnectionInfos.Add(createdWmtsConnectionInfos);
                     TrySaveWmtsConnectionInfos();
                     UpdateComboBoxDataSource(createdWmtsConnectionInfos);
-                    ConnectToUrl(createdWmtsConnectionInfos);
                 }
             }
         }
