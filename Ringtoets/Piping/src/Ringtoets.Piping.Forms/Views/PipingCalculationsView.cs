@@ -180,18 +180,18 @@ namespace Ringtoets.Piping.Forms.Views
 
         protected override void Dispose(bool disposing)
         {
-            assessmentSectionObserver.Dispose();
-            pipingFailureMechanismObserver.Dispose();
-            pipingInputObserver.Dispose();
-            pipingCalculationObserver.Dispose();
-            pipingCalculationGroupObserver.Dispose();
-            pipingStochasticSoilModelsObserver.Dispose();
-
-            dataGridViewControl.RemoveCellFormattingHandler(OnCellFormatting);
-
-            if (disposing && (components != null))
+            if (disposing)
             {
-                components.Dispose();
+                dataGridViewControl.RemoveCellFormattingHandler(OnCellFormatting);
+
+                assessmentSectionObserver.Dispose();
+                pipingFailureMechanismObserver.Dispose();
+                pipingInputObserver.Dispose();
+                pipingCalculationObserver.Dispose();
+                pipingCalculationGroupObserver.Dispose();
+                pipingStochasticSoilModelsObserver.Dispose();
+
+                components?.Dispose();
             }
 
             base.Dispose(disposing);
