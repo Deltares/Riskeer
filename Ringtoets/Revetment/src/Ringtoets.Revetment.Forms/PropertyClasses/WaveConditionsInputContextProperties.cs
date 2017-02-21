@@ -127,7 +127,7 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
             }
             set
             {
-                ChangePropertyValueAndNotifyAffectedObjects((input, d) => input.UpperBoundaryRevetment = d, value);
+                ChangePropertyAndNotify((input, newValue) => input.UpperBoundaryRevetment = newValue, value);
             }
         }
 
@@ -143,7 +143,7 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
             }
             set
             {
-                ChangePropertyValueAndNotifyAffectedObjects((input, d) => input.LowerBoundaryRevetment = d, value);
+                ChangePropertyAndNotify((input, newValue) => input.LowerBoundaryRevetment = newValue, value);
             }
         }
 
@@ -159,7 +159,7 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
             }
             set
             {
-                ChangePropertyValueAndNotifyAffectedObjects((input, d) => input.UpperBoundaryWaterLevels = d, value);
+                ChangePropertyAndNotify((input, newValue) => input.UpperBoundaryWaterLevels = newValue, value);
             }
         }
 
@@ -175,7 +175,7 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
             }
             set
             {
-                ChangePropertyValueAndNotifyAffectedObjects((input, d) => input.LowerBoundaryWaterLevels = d, value);
+                ChangePropertyAndNotify((input, newValue) => input.LowerBoundaryWaterLevels = newValue, value);
             }
         }
 
@@ -192,7 +192,7 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
             }
             set
             {
-                ChangePropertyValueAndNotifyAffectedObjects((input, d) => input.StepSize = d, value);
+                ChangePropertyAndNotify((input, newValue) => input.StepSize = newValue, value);
             }
         }
 
@@ -236,7 +236,7 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
             }
             set
             {
-                ChangePropertyValueAndNotifyAffectedObjects((input, d) => input.Orientation = d, value);
+                ChangePropertyAndNotify((input, newValue) => input.Orientation = newValue, value);
             }
         }
 
@@ -287,7 +287,7 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
             }
             set
             {
-                ChangePropertyValueAndNotifyAffectedObjects((input, d) => input.ForeshoreProfile = d, value);
+                ChangePropertyAndNotify((input, newValue) => input.ForeshoreProfile = newValue, value);
             }
         }
 
@@ -308,7 +308,7 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
             }
             set
             {
-                ChangePropertyValueAndNotifyAffectedObjects((input, d) => input.HydraulicBoundaryLocation = d.HydraulicBoundaryLocation, value);
+                ChangePropertyAndNotify((input, newValue) => input.HydraulicBoundaryLocation = newValue.HydraulicBoundaryLocation, value);
             }
         }
 
@@ -324,7 +324,7 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
                 data.HydraulicBoundaryLocations, referenceLocation);
         }
 
-        private void ChangePropertyValueAndNotifyAffectedObjects<TValue>(
+        private void ChangePropertyAndNotify<TValue>(
             SetCalculationInputPropertyValueDelegate<WaveConditionsInput, TValue> setPropertyValue,
             TValue value)
         {
