@@ -95,6 +95,7 @@
     <Compile Include="Structures\StructuresFailureMechanismSectionResultTest.cs" />
     <Compile Include="Structures\StructuresInputBaseTest.cs" />
     <Compile Include="UpdateDataStrategies\ReplaceDataStrategyBaseTest.cs" />
+    <Compile Include="UpdateDataStrategies\UpdateDataStrategyBaseTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj">
