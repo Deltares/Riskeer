@@ -48,6 +48,36 @@ namespace Core.Common.TestUtil
         }
 
         /// <summary>
+        /// Returns the location on disk that can be used safely for writing to disk temporarily.
+        /// </summary>
+        /// <returns>The folder path.</returns>
+        /// <remarks>Caller is responsible for cleaning up files put in the folder.</remarks>
+        /// <exception cref="IOException">Thrown when the folder doesn't exist.</exception>
+        /// <seealso cref="GetScratchPadPath(string)"/>
+        public static string GetScratchPadPath()
+        {
+            string scratchPadPath = Path.Combine(Path.GetDirectoryName(SolutionRoot), "Scratchpad");
+            if (!Directory.Exists(scratchPadPath))
+            {
+                throw new IOException("The 'Scratchpad' folder has been deleted from the trunk, while tests require the existence of this folder for writing to disk temporarily.");
+            }
+            return scratchPadPath;
+        }
+
+        /// <summary>
+        /// Returns the location on disk that can be used safely for writing to disk temporarily.
+        /// </summary>
+        /// <param name="path">The filepath or folderpath inside the 'scratchpad' folder.</param>
+        /// <returns>The folder path.</returns>
+        /// <remarks>Caller is responsible for cleaning up files put in the folder.</remarks>
+        /// <exception cref="IOException">Thrown when the folder doesn't exist.</exception>
+        /// <seealso cref="GetScratchPadPath()"/>
+        public static string GetScratchPadPath(string path)
+        {
+            return Path.Combine(GetScratchPadPath(), path);
+        }
+
+        /// <summary>
         /// Returns a full path to a test data directory given the <paramref name="testDataPath"/>.
         /// </summary>
         /// <param name="testDataPath">The path to construct a full test data path for.</param>

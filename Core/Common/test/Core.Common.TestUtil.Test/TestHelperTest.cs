@@ -80,6 +80,88 @@ namespace Core.Common.TestUtil.Test
         }
 
         [Test]
+        public void GetScratchPadPath_WithoutPath_ReturnRootFolder()
+        {
+            // Call
+            string actualPath = TestHelper.GetScratchPadPath();
+
+            // Assert
+            var expectedPath = Path.Combine(TestHelper.SolutionRoot, "Scratchpad");
+            Assert.AreEqual(expectedPath, actualPath);
+            Assert.IsTrue(Directory.Exists(actualPath),
+                          $"The directory '{expectedPath}' should exist, such that unit tests have a clean environment to temporarily write files and directories to.");
+        }
+
+
+        [Test]
+        public void GetScratchPadPath_WithoutPathAndFolderDoesntExist_ThrowIOException()
+        {
+            // Setup
+            string actualPath = TestHelper.GetScratchPadPath();
+
+            Directory.Delete(actualPath, true);
+
+            try
+            {
+                // Call
+                TestDelegate call = () => TestHelper.GetScratchPadPath();
+
+                // Assert
+                string message = Assert.Throws<IOException>(call).Message;
+                const string expectedMessage = "The 'Scratchpad' folder has been deleted from the trunk, while tests require the existence of this folder for writing to disk temporarily.";
+                Assert.AreEqual(expectedMessage, message);
+            }
+            finally
+            {
+                Directory.CreateDirectory(actualPath);
+            }
+        }
+
+        [Test]
+        public void GetScratchPadPath_WithSubPath_ReturnPathInScratchPad()
+        {
+            // Setup
+            string subPath = Path.Combine("test", "1.234");
+
+            // Call
+            string actualPath = TestHelper.GetScratchPadPath(subPath);
+
+            // Assert
+            var expectedPath = Path.Combine(TestHelper.SolutionRoot, "Scratchpad", subPath);
+            Assert.AreEqual(expectedPath, actualPath);
+            Assert.IsFalse(File.Exists(actualPath),
+                           $"The file '{expectedPath}' should not exist, as the folder should always be empty at the start of any unit test.");
+            Assert.IsFalse(Directory.Exists(actualPath),
+                           $"The directory '{expectedPath}' should not exist, as the folder should always be empty at the start of any unit test.");
+        }
+
+        [Test]
+        public void GetScratchPadPath_WithSubPathAndScratchPadFolderDoesntExist_ThrowIOException()
+        {
+            // Setup
+            string actualPath = TestHelper.GetScratchPadPath();
+
+            Directory.Delete(actualPath, true);
+
+            try
+            {
+                string subPath = Path.Combine("test", "1.234");
+
+                // Call
+                TestDelegate call = () => TestHelper.GetScratchPadPath(subPath);
+
+                // Assert
+                string message = Assert.Throws<IOException>(call).Message;
+                const string expectedMessage = "The 'Scratchpad' folder has been deleted from the trunk, while tests require the existence of this folder for writing to disk temporarily.";
+                Assert.AreEqual(expectedMessage, message);
+            }
+            finally
+            {
+                Directory.CreateDirectory(actualPath);
+            }
+        }
+
+        [Test]
         public void GetTestDataPath_Always_VerifiedTestPaths()
         {
             string path = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Storage);
