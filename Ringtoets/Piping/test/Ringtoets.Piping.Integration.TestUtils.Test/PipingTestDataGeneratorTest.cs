@@ -23,9 +23,9 @@ using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Piping.Data;
-using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.Integration.TestUtils.Test
 {
@@ -50,7 +50,7 @@ namespace Ringtoets.Piping.Integration.TestUtils.Test
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
-            var hydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateFullyCalculated();
+            HydraulicBoundaryLocation hydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateFullyCalculated();
 
             // Call
             PipingTestDataGenerator.ConfigureFailureMechanismWithAllCalculationConfigurations(failureMechanism, hydraulicBoundaryLocation);
@@ -190,13 +190,13 @@ namespace Ringtoets.Piping.Integration.TestUtils.Test
             Assert.AreEqual(0.1, calculation.InputParameters.DampingFactorExit.StandardDeviation.Value);
         }
 
-        private static void AssertCalculationsHasSameHydraulicBoundaryLocation(CalculationGroup calculations,
-                                                                               TestHydraulicBoundaryLocation hydraulicBoundaryLocation)
+        private static void AssertCalculationsHasSameHydraulicBoundaryLocation(CalculationGroup calculationGroup,
+                                                                               HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
             IEnumerable<PipingCalculation> calculationsWithHydraulicBoundaryLocation =
-                calculations.Children
-                            .OfType<PipingCalculation>()
-                            .Where(calc => calc.InputParameters.HydraulicBoundaryLocation != null);
+                calculationGroup.Children
+                                .OfType<PipingCalculation>()
+                                .Where(calc => calc.InputParameters.HydraulicBoundaryLocation != null);
 
             foreach (PipingCalculation calculation in calculationsWithHydraulicBoundaryLocation)
             {

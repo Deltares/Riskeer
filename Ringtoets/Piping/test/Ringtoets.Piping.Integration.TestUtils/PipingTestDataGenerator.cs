@@ -70,7 +70,7 @@ namespace Ringtoets.Piping.Integration.TestUtils
             calculation.InputParameters.UseAssessmentLevelManualInput = true;
             calculation.InputParameters.AssessmentLevel = (RoundedDouble) 3.0;
 
-            return calculation; 
+            return calculation;
         }
 
         /// <summary>
@@ -168,7 +168,7 @@ namespace Ringtoets.Piping.Integration.TestUtils
         /// <remarks>This method assumes <paramref name="failureMechanism"/> is a newly
         /// created instance.</remarks>
         public static void ConfigureFailureMechanismWithAllCalculationConfigurations(PipingFailureMechanism failureMechanism,
-                                                              HydraulicBoundaryLocation hydraulicBoundaryLocation)
+                                                                                     HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
             var surfaceline1 = new RingtoetsPipingSurfaceLine
             {

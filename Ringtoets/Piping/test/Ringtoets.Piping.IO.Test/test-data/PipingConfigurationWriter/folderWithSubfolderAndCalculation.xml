@@ -4,7 +4,7 @@
 		<berekening naam="PK001_0001 W1-6_0_1D1">
 			<hrlocatie>PUNT_KAT_18</hrlocatie>
 			<profielschematisatie>PK001_0001</profielschematisatie>
-			<intredepunt>0.00</intredepunt>
+			<intredepunt>0.10</intredepunt>
 			<uittredepunt>0.20</uittredepunt>
 			<ondergrondmodel>PK001_0001_Piping</ondergrondmodel>
 			<ondergrondschematisatie>W1-6_0_1D1</ondergrondschematisatie>
@@ -23,8 +23,8 @@
 			<berekening naam="PK001_0002 W1-6_4_1D1">
 				<hrlocatie>PUNT_SCH_17</hrlocatie>
 				<profielschematisatie>PK001_0002</profielschematisatie>
-				<intredepunt>0.00</intredepunt>
-				<uittredepunt>0.20</uittredepunt>
+				<intredepunt>0.30</intredepunt>
+				<uittredepunt>0.40</uittredepunt>
 				<ondergrondmodel>PK001_0002_Piping</ondergrondmodel>
 				<ondergrondschematisatie>W1-6_4_1D1</ondergrondschematisatie>
 				<stochasten>
