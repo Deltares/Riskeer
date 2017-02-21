@@ -37,7 +37,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ExportInfos
     public class DuneLocationsContextExportInfoTest
     {
         [Test]
-        public void Initialized_Always_ExpectedPropertiesSet()
+        public void CreateFileExporter_Always_ReturnFileExporter()
         {
             // Setup
             var mocks = new MockRepository();
@@ -61,7 +61,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ExportInfos
         }
 
         [Test]
-        public void FileFilter_Always_ReturnFileFilter()
+        public void FileFilterGenerator_Always_ReturnFileFilter()
         {
             // Setup
             using (var plugin = new DuneErosionPlugin())
@@ -69,10 +69,10 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ExportInfos
                 ExportInfo info = GetExportInfo(plugin);
 
                 // Call
-                FileFilterGenerator fileFilter = info.FileFilterGenerator;
+                FileFilterGenerator fileFilterGenerator = info.FileFilterGenerator;
 
                 // Assert
-                Assert.AreEqual("MorphAn randvoorwaarden (*.bnd)|*.bnd", fileFilter.Filter);
+                Assert.AreEqual("MorphAn randvoorwaarden (*.bnd)|*.bnd", fileFilterGenerator.Filter);
             }
         }
 
@@ -111,9 +111,9 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ExportInfos
 
             var failureMechanism = new DuneErosionFailureMechanism();
             failureMechanism.DuneLocations.Add(new TestDuneLocation
-                                               {
-                                                   Output = new TestDuneLocationOutput()
-                                               });
+            {
+                Output = new TestDuneLocationOutput()
+            });
             var context = new DuneLocationsContext(failureMechanism.DuneLocations, failureMechanism, assessmentSection);
 
             using (var plugin = new DuneErosionPlugin())

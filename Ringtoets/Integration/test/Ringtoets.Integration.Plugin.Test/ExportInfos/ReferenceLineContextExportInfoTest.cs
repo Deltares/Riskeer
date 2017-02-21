@@ -35,7 +35,7 @@ namespace Ringtoets.Integration.Plugin.Test.ExportInfos
     public class ReferenceLineContextExportInfoTest
     {
         [Test]
-        public void Initialized_Always_ExpectedPropertiesSet()
+        public void CreateFileExporter_Always_ReturnFileExporter()
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
@@ -58,7 +58,7 @@ namespace Ringtoets.Integration.Plugin.Test.ExportInfos
         }
 
         [Test]
-        public void FileFilter_Always_ReturnsFileFilter()
+        public void FileFilterGenerator_Always_ReturnsFileFilter()
         {
             // Setup
             using (var plugin = new RingtoetsPlugin())
@@ -66,10 +66,10 @@ namespace Ringtoets.Integration.Plugin.Test.ExportInfos
                 ExportInfo info = GetExportInfo(plugin);
 
                 // Call
-                FileFilterGenerator fileFilter = info.FileFilterGenerator;
+                FileFilterGenerator fileFilterGenerator = info.FileFilterGenerator;
 
                 // Assert
-                Assert.AreEqual("Shapebestand (*.shp)|*.shp", fileFilter.Filter);
+                Assert.AreEqual("Shapebestand (*.shp)|*.shp", fileFilterGenerator.Filter);
             }
         }
 

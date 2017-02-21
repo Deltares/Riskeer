@@ -38,7 +38,7 @@ namespace Ringtoets.Piping.Plugin.Test.ExportInfos
     public class PipingCalculationGroupContextExportInfoTest
     {
         [Test]
-        public void Initialized_Always_ExpectedPropertiesSet()
+        public void CreateFileExporter_Always_ReturnFileExporter()
         {
             // Setup
             var mocks = new MockRepository();
@@ -65,7 +65,7 @@ namespace Ringtoets.Piping.Plugin.Test.ExportInfos
         }
 
         [Test]
-        public void FileFilter_Always_ReturnFileFilter()
+        public void FileFilterGenerator_Always_ReturnFileFilter()
         {
             // Setup
             using (var plugin = new PipingPlugin())
@@ -73,10 +73,10 @@ namespace Ringtoets.Piping.Plugin.Test.ExportInfos
                 ExportInfo info = GetExportInfo(plugin);
 
                 // Call
-                FileFilterGenerator fileFilter = info.FileFilterGenerator;
+                FileFilterGenerator fileFilterGenerator = info.FileFilterGenerator;
 
                 // Assert
-                Assert.AreEqual("Ringtoets berekeningenconfiguratie (*.xml)|*.xml", fileFilter.Filter);
+                Assert.AreEqual("Ringtoets berekeningenconfiguratie (*.xml)|*.xml", fileFilterGenerator.Filter);
             }
         }
 

@@ -36,7 +36,7 @@ namespace Ringtoets.Integration.Plugin.Test.ExportInfos
     public class HydraulicBoundaryDatabaseContextExportInfoTest
     {
         [Test]
-        public void Initialized_Always_ExpectedPropertiesSet()
+        public void CreateFileExporter_Always_ReturnFileExporter()
         {
             // Setup
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
@@ -62,7 +62,7 @@ namespace Ringtoets.Integration.Plugin.Test.ExportInfos
         }
 
         [Test]
-        public void FileFilter_Always_ReturnsFileFilter()
+        public void FileFilterGenerator_Always_ReturnsFileFilter()
         {
             // Setup
             using (var plugin = new RingtoetsPlugin())
@@ -70,10 +70,10 @@ namespace Ringtoets.Integration.Plugin.Test.ExportInfos
                 ExportInfo info = GetInfo(plugin);
 
                 // Call
-                FileFilterGenerator fileFilter = info.FileFilterGenerator;
+                FileFilterGenerator fileFilterGenerator = info.FileFilterGenerator;
 
                 // Assert
-                Assert.AreEqual("Shapebestand (*.shp)|*.shp", fileFilter.Filter);
+                Assert.AreEqual("Shapebestand (*.shp)|*.shp", fileFilterGenerator.Filter);
             }
         }
 

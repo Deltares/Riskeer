@@ -126,7 +126,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.ExportInfos
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            failureMechanism.SetGrassCoverErosionOutwardsHydraulicBoundaryLocations(new[] { new HydraulicBoundaryLocation(0, "aName", 0, 0) });
+            failureMechanism.SetGrassCoverErosionOutwardsHydraulicBoundaryLocations(new[]
+            {
+                new HydraulicBoundaryLocation(0, "aName", 0, 0)
+            });
 
             var context = new HydraulicBoundariesGroupContext(failureMechanism.HydraulicBoundaryLocations, failureMechanism, assessmentSection);
 
@@ -139,13 +142,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.ExportInfos
         }
 
         [Test]
-        public void HydraulicBoundaryLocationsExporterExportInfo_FileFilter_ShpFileFilter()
+        public void HydraulicBoundaryLocationsExporterExportInfo_FileFilterGenerator_ShpFileFilter()
         {
             // Call
-            FileFilterGenerator fileFilter = hydraulicBoundaryLocationsExporterExportInfo.FileFilterGenerator;
+            FileFilterGenerator fileFilterGenerator = hydraulicBoundaryLocationsExporterExportInfo.FileFilterGenerator;
 
             // Assert
-            Assert.AreEqual("Shapebestand (*.shp)|*.shp", fileFilter.Filter);
+            Assert.AreEqual("Shapebestand (*.shp)|*.shp", fileFilterGenerator.Filter);
         }
 
         [Test]
@@ -254,13 +257,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.ExportInfos
         }
 
         [Test]
-        public void WaveConditionsExporterExportInfo_FileFilter_CsvFileFilter()
+        public void WaveConditionsExporterExportInfo_FileFilterGenerator_CsvFileFilter()
         {
             // Call
-            FileFilterGenerator fileFilter = waveConditionsExporterExportInfo.FileFilterGenerator;
+            FileFilterGenerator fileFilterGenerator = waveConditionsExporterExportInfo.FileFilterGenerator;
 
             // Assert
-            Assert.AreEqual("Kommagescheiden bestand (*.csv)|*.csv", fileFilter.Filter);
+            Assert.AreEqual("Kommagescheiden bestand (*.csv)|*.csv", fileFilterGenerator.Filter);
         }
     }
 }

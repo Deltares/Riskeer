@@ -39,7 +39,7 @@ namespace Ringtoets.Integration.Plugin.Test.ExportInfos
     public class WaveImpactAsphaltCoverWaveConditionsCalculationGroupContextExportInfoTest
     {
         [Test]
-        public void CreateFileExporter_Always_ExpectedPropertiesSet()
+        public void CreateFileExporter_Always_ReturnFileExporter()
         {
             // Setup
             var mocks = new MockRepository();
@@ -64,7 +64,7 @@ namespace Ringtoets.Integration.Plugin.Test.ExportInfos
         }
 
         [Test]
-        public void FileFilter_Always_ReturnsFileFilter()
+        public void FileFilterGenerator_Always_ReturnsFileFilter()
         {
             // Setup
             using (var plugin = new WaveImpactAsphaltCoverPlugin())
@@ -72,10 +72,10 @@ namespace Ringtoets.Integration.Plugin.Test.ExportInfos
                 ExportInfo exportInfo = GetExportInfo(plugin);
 
                 // Call
-                FileFilterGenerator fileFilter = exportInfo.FileFilterGenerator;
+                FileFilterGenerator fileFilterGenerator = exportInfo.FileFilterGenerator;
 
                 // Assert
-                Assert.AreEqual("Kommagescheiden bestand (*.csv)|*.csv", fileFilter.Filter);
+                Assert.AreEqual("Kommagescheiden bestand (*.csv)|*.csv", fileFilterGenerator.Filter);
             }
         }
 
