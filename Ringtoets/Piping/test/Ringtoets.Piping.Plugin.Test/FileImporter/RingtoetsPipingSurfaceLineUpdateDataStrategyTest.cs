@@ -266,5 +266,295 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                 targetSurfaceLine
             }, affectedObjects);
         }
+
+        [Test]
+        public void UpdateSurfaceLinesWithImportedData_WithCalculationAssignedToUpdatedLine_UpdatesCalculationAndStochasticSoilModel()
+        {
+            // Setup
+            RingtoetsPipingSurfaceLine surfaceLine = CreateValidSurfaceLineForCalculations();
+            var calculation = new PipingCalculation(new GeneralPipingInput())
+            {
+                InputParameters =
+                {
+                    SurfaceLine = surfaceLine
+                }
+            };
+
+            var soilModels = new[]
+            {
+                new StochasticSoilModel(1, "A", "B")
+                {
+                    Geometry =
+                    {
+                        new Point2D(2, -1),
+                        new Point2D(2, 1)
+                    },
+                    StochasticSoilProfiles =
+                    {
+                        new StochasticSoilProfile(0.2, SoilProfileType.SoilProfile1D, 1)
+                    }
+                },
+                new StochasticSoilModel(2, "C", "D")
+                {
+                    Geometry =
+                    {
+                        new Point2D(-2, -1),
+                        new Point2D(-2, 1)
+                    },
+                    StochasticSoilProfiles =
+                    {
+                        new StochasticSoilProfile(0.3, SoilProfileType.SoilProfile1D, 2)
+                    }
+                }
+            };
+
+            var failureMechanism = new PipingFailureMechanism();
+            failureMechanism.SurfaceLines.AddRange(new[]
+            {
+                surfaceLine
+            }, "path");
+            failureMechanism.StochasticSoilModels.AddRange(soilModels, "path");
+            failureMechanism.CalculationsGroup.Children.Add(calculation);
+
+            var importedSurfaceLine = new RingtoetsPipingSurfaceLine
+            {
+                Name = "Name A"
+            };
+            importedSurfaceLine.SetGeometry(new[]
+            {
+                new Point3D(0, 0, 0),
+                new Point3D(10, 0, 0)
+            });
+
+            var strategy = new RingtoetsPipingSurfaceLineUpdateDataStrategy(failureMechanism);
+
+            // Call
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateSurfaceLinesWithImportedData(failureMechanism.SurfaceLines,
+                                                                                                   new[]
+                                                                                                   {
+                                                                                                       importedSurfaceLine
+                                                                                                   }, "path").ToArray();
+
+            // Assert
+            PipingInput calculationInput = calculation.InputParameters;
+            CollectionAssert.Contains(affectedObjects, calculation);
+            CollectionAssert.Contains(affectedObjects, calculationInput);
+            Assert.AreSame(surfaceLine, calculationInput.SurfaceLine);
+            CollectionAssert.AreEqual(importedSurfaceLine.Points, surfaceLine.Points);
+            Assert.AreEqual(soilModels[0], calculationInput.StochasticSoilModel);
+        }
+
+        [Test]
+        public void UpdateSurfaceLinesWithImportedData_WithCalculationAssignedToUpdatedLineAndMultipleMatchingSoilModels_UpdatesCalculationAndStochasticSoilModelToNull()
+        {
+            // Setup
+            var soilModels = new[]
+            {
+                new StochasticSoilModel(1, "A", "B")
+                {
+                    Geometry =
+                    {
+                        new Point2D(2, -1),
+                        new Point2D(2, 1)
+                    },
+                    StochasticSoilProfiles =
+                    {
+                        new StochasticSoilProfile(0.2, SoilProfileType.SoilProfile1D, 1)
+                    }
+                },
+                new StochasticSoilModel(2, "C", "D")
+                {
+                    Geometry =
+                    {
+                        new Point2D(-2, -1),
+                        new Point2D(-2, 1)
+                    },
+                    StochasticSoilProfiles =
+                    {
+                        new StochasticSoilProfile(0.3, SoilProfileType.SoilProfile1D, 2)
+                    }
+                },
+                new StochasticSoilModel(3, "E", "F")
+                {
+                    Geometry =
+                    {
+                        new Point2D(6, -1),
+                        new Point2D(6, 1)
+                    },
+                    StochasticSoilProfiles =
+                    {
+                        new StochasticSoilProfile(0.3, SoilProfileType.SoilProfile1D, 3)
+                    }
+                }
+            };
+
+            RingtoetsPipingSurfaceLine surfaceLine = CreateValidSurfaceLineForCalculations();
+            var calculation = new PipingCalculation(new GeneralPipingInput())
+            {
+                InputParameters =
+                {
+                    SurfaceLine = surfaceLine,
+                    StochasticSoilModel = soilModels[1]
+                }
+            };
+            
+            var failureMechanism = new PipingFailureMechanism();
+            failureMechanism.CalculationsGroup.Children.Add(calculation);
+            failureMechanism.SurfaceLines.AddRange(new[]
+            {
+                surfaceLine
+            }, "path");
+            failureMechanism.StochasticSoilModels.AddRange(soilModels, "path");
+
+            var importedSurfaceLine = new RingtoetsPipingSurfaceLine
+            {
+                Name = "Name A"
+            };
+            importedSurfaceLine.SetGeometry(new[]
+            {
+                new Point3D(0, 0, 0),
+                new Point3D(10, 0, 0)
+            });
+
+            var strategy = new RingtoetsPipingSurfaceLineUpdateDataStrategy(failureMechanism);
+
+            // Call
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateSurfaceLinesWithImportedData(failureMechanism.SurfaceLines,
+                                                                                                   new[]
+                                                                                                   {
+                                                                                                       importedSurfaceLine
+                                                                                                   }, "path").ToArray();
+
+            // Assert
+            PipingInput calculationInput = calculation.InputParameters;
+            CollectionAssert.Contains(affectedObjects, calculation);
+            CollectionAssert.Contains(affectedObjects, calculationInput);
+            Assert.AreSame(surfaceLine, calculationInput.SurfaceLine);
+            CollectionAssert.AreEqual(importedSurfaceLine.Points, surfaceLine.Points);
+            Assert.IsNull(calculationInput.StochasticSoilModel);
+        }
+
+        [Test]
+        public void UpdateSurfaceLinesWithImportedData_MultipleCalculations_OnlyUpdatesCalculationWithUpdatedSurfaceLine()
+        {
+            // Setup
+            var affectedSurfaceLine = new RingtoetsPipingSurfaceLine
+            {
+                Name = "Name A"
+            };
+            affectedSurfaceLine.SetGeometry(new[]
+            {
+                new Point3D(1, 2, 3),
+                new Point3D(4, 5, 6)
+            });
+            var affectedCalculation = new PipingCalculation(new GeneralPipingInput())
+            {
+                InputParameters =
+                {
+                    SurfaceLine = affectedSurfaceLine
+                }
+            };
+
+            var unaffectedGeometry = new[]
+            {
+                new Point3D(10, 9, 8),
+                new Point3D(7, 6, 5)
+            };
+            var unaffectedSurfaceLine = new RingtoetsPipingSurfaceLine();
+            unaffectedSurfaceLine.SetGeometry(unaffectedGeometry);
+            var unAffectedCalculation = new PipingCalculation(new GeneralPipingInput())
+            {
+                InputParameters =
+                {
+                    SurfaceLine = unaffectedSurfaceLine
+                }
+            };
+
+            var soilModels = new[]
+            {
+                new StochasticSoilModel(1, "A", "B")
+                {
+                    Geometry =
+                    {
+                        new Point2D(2, -1),
+                        new Point2D(2, 1)
+                    },
+                    StochasticSoilProfiles =
+                    {
+                        new StochasticSoilProfile(0.2, SoilProfileType.SoilProfile1D, 1)
+                    }
+                },
+                new StochasticSoilModel(2, "C", "D")
+                {
+                    Geometry =
+                    {
+                        new Point2D(-2, -1),
+                        new Point2D(-2, 1)
+                    },
+                    StochasticSoilProfiles =
+                    {
+                        new StochasticSoilProfile(0.3, SoilProfileType.SoilProfile1D, 2)
+                    }
+                }
+            };
+
+            var failureMechanism = new PipingFailureMechanism();
+            failureMechanism.CalculationsGroup.Children.Add(affectedCalculation);
+            failureMechanism.CalculationsGroup.Children.Add(unAffectedCalculation);
+
+            failureMechanism.SurfaceLines.AddRange(new[]
+            {
+                affectedSurfaceLine
+            }, "path");
+            failureMechanism.StochasticSoilModels.AddRange(soilModels, "path");
+
+            var importedSurfaceLine = new RingtoetsPipingSurfaceLine
+            {
+                Name = "Name A"
+            };
+            importedSurfaceLine.SetGeometry(new[]
+            {
+                new Point3D(0, 0, 0),
+                new Point3D(10, 0, 0)
+            });
+
+            var strategy = new RingtoetsPipingSurfaceLineUpdateDataStrategy(failureMechanism);
+
+            // Call
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateSurfaceLinesWithImportedData(failureMechanism.SurfaceLines,
+                                                                                                   new[]
+                                                                                                   {
+                                                                                                       importedSurfaceLine
+                                                                                                   }, "path").ToArray();
+
+            // Assert
+            PipingInput unaffectedInput = unAffectedCalculation.InputParameters;
+            CollectionAssert.DoesNotContain(affectedObjects, unAffectedCalculation);
+            CollectionAssert.DoesNotContain(affectedObjects, unaffectedInput);
+            Assert.AreSame(unaffectedSurfaceLine, unaffectedInput.SurfaceLine);
+            CollectionAssert.AreEqual(unaffectedGeometry, unaffectedSurfaceLine.Points);
+            Assert.IsNull(unaffectedInput.StochasticSoilModel);
+
+            PipingInput affectedInput = affectedCalculation.InputParameters;
+            CollectionAssert.Contains(affectedObjects, affectedCalculation);
+            CollectionAssert.Contains(affectedObjects, affectedInput);
+            Assert.AreSame(affectedSurfaceLine, affectedInput.SurfaceLine);
+            CollectionAssert.AreEqual(importedSurfaceLine.Points, affectedSurfaceLine.Points);
+            Assert.AreEqual(soilModels[0], affectedInput.StochasticSoilModel);
+        }
+
+        private static RingtoetsPipingSurfaceLine CreateValidSurfaceLineForCalculations()
+        {
+            var surfaceLine = new RingtoetsPipingSurfaceLine
+            {
+                Name = "Name A"
+            };
+            surfaceLine.SetGeometry(new[]
+            {
+                new Point3D(1, 2, 3),
+                new Point3D(4, 5, 6)
+            });
+            return surfaceLine;
+        }
     }
 }

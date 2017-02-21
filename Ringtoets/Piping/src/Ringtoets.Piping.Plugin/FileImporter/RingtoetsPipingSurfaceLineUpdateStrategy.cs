@@ -25,6 +25,7 @@ using System.Linq;
 using Core.Common.Base;
 using Core.Common.Utils;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Forms;
 using Ringtoets.Piping.IO.Importers;
 using Ringtoets.Piping.Plugin.Properties;
 using Ringtoets.Piping.Primitives;
@@ -166,10 +167,36 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             {
                 RingtoetsPipingSurfaceLine matchingSurfaceLine = readSurfaceLines.Single(sl => sl.Name == updatedSurfaceLine.Name);
                 updatedSurfaceLine.Update(matchingSurfaceLine);
+
                 affectedObjects.Add(updatedSurfaceLine);
+                affectedObjects.AddRange(UpdateAvailableStochasticSoilModels(updatedSurfaceLine));
             }
 
             return affectedObjects;
+        }
+
+        private IEnumerable<IObservable> UpdateAvailableStochasticSoilModels(RingtoetsPipingSurfaceLine updatedSurfaceLine)
+        {
+            IEnumerable<PipingCalculation> affectedCalculations =
+                failureMechanism.Calculations
+                                .Cast<PipingCalculation>()
+                                .Where(calc => ReferenceEquals(updatedSurfaceLine, calc.InputParameters.SurfaceLine));
+
+            var affectedObjects = new List<IObservable>();
+            foreach (PipingCalculation affectedCalculation in affectedCalculations)
+            {
+                IEnumerable<StochasticSoilModel> matchingSoilModels = GetAvailableStochasticSoilModels(updatedSurfaceLine);
+                PipingInputService.SetMatchingStochasticSoilModel(affectedCalculation.InputParameters, matchingSoilModels);
+                affectedObjects.Add(affectedCalculation);
+                affectedObjects.Add(affectedCalculation.InputParameters);
+            }
+            return affectedObjects;
+        }
+
+        private IEnumerable<StochasticSoilModel> GetAvailableStochasticSoilModels(RingtoetsPipingSurfaceLine surfaceLine)
+        {
+            return PipingCalculationConfigurationHelper.GetStochasticSoilModelsForSurfaceLine(surfaceLine,
+                                                                                              failureMechanism.StochasticSoilModels);
         }
 
         #endregion
