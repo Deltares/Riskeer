@@ -31,6 +31,7 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
+using Ringtoets.Piping.Primitives;
 using PipingFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
 
 namespace Ringtoets.Piping.Plugin.Test.UpdateInfos
@@ -136,6 +137,31 @@ namespace Ringtoets.Piping.Plugin.Test.UpdateInfos
 
             // Assert
             Assert.AreEqual("Profielschematisaties Kommagescheiden bestand (*.csv)|*.csv", fileFilter);
+        }
+
+        [Test]
+        public void CurrentPath_SurfaceLineCollectionHasPathSet_ReturnsExpectedPath()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.ReferenceLine = new ReferenceLine();
+            mocks.ReplayAll();
+
+            const string expectedFilePath = "some/path";
+            var surfaceLines = new RingtoetsPipingSurfaceLineCollection();
+            surfaceLines.AddRange(new [] {new RingtoetsPipingSurfaceLine()}, expectedFilePath);
+
+            var failureMechanism = new PipingFailureMechanism();
+
+            var context = new RingtoetsPipingSurfaceLinesContext(surfaceLines, failureMechanism, assessmentSection);
+
+            // Call
+            string currentPath = updateInfo.CurrentPath(context);
+
+            // Assert
+            Assert.AreEqual(expectedFilePath, currentPath);
+            mocks.VerifyAll();
         }
 
         [Test]

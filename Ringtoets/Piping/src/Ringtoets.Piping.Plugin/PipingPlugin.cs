@@ -140,6 +140,7 @@ namespace Ringtoets.Piping.Plugin
                 Image = PipingFormsResources.PipingSurfaceLineIcon,
                 FileFilter = RingtoetsPipingSurfaceLineFileFilter,
                 IsEnabled = IsSurfaceLineImporterEnabled,
+                CurrentPath = context => context.WrappedData.SourcePath,
                 CreateFileImporter = (context, filePath) => PipingSurfaceLinesCsvImporter(context, filePath, new RingtoetsPipingSurfaceLineUpdateDataStrategy(context.FailureMechanism))
             };
 
