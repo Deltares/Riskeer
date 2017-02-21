@@ -55,7 +55,7 @@ namespace Core.Components.DotSpatial.Forms.Test
     {
         private const double padding = 0.05;
         private const string tileCachesFolder = "tilecaches";
-        private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Core.Components.DotSpatial.Forms);
+        private static readonly string rootPath = TestHelper.GetScratchPadPath();
 
         [Test]
         public void DefaultConstructor_DefaultValues()
@@ -252,9 +252,9 @@ namespace Core.Components.DotSpatial.Forms.Test
 
             using (new UseCustomSettingsHelper(new TestSettingsHelper
             {
-                ExpectedApplicationLocalUserSettingsDirectory = Path.Combine(testDataPath, folderWithoutPermission)
+                ExpectedApplicationLocalUserSettingsDirectory = Path.Combine(rootPath, folderWithoutPermission)
             }))
-            using (var disposeHelper = new DirectoryDisposeHelper(testDataPath, folderWithoutPermission, tileCachesFolder))
+            using (var disposeHelper = new DirectoryDisposeHelper(rootPath, folderWithoutPermission, tileCachesFolder))
             using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
             using (var map = new MapControl
             {
@@ -297,9 +297,9 @@ namespace Core.Components.DotSpatial.Forms.Test
 
             using (new UseCustomSettingsHelper(new TestSettingsHelper
             {
-                ExpectedApplicationLocalUserSettingsDirectory = Path.Combine(testDataPath, folderWithoutPermission)
+                ExpectedApplicationLocalUserSettingsDirectory = Path.Combine(rootPath, folderWithoutPermission)
             }))
-            using (var disposeHelper = new DirectoryDisposeHelper(testDataPath, folderWithoutPermission, tileCachesFolder))
+            using (var disposeHelper = new DirectoryDisposeHelper(rootPath, folderWithoutPermission, tileCachesFolder))
             using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
             using (var map = new MapControl())
             {
@@ -366,7 +366,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         {
             // Given
             string folderWithoutPermission = Path.GetRandomFileName();
-            string settingsDirectory = Path.Combine(testDataPath, folderWithoutPermission);
+            string settingsDirectory = Path.Combine(rootPath, folderWithoutPermission);
 
             WmtsMapData backgroundMapData = WmtsMapData.CreateDefaultPdokMapData();
             var mapDataContainer = new BackgroundMapDataContainer
@@ -378,7 +378,7 @@ namespace Core.Components.DotSpatial.Forms.Test
             {
                 ExpectedApplicationLocalUserSettingsDirectory = settingsDirectory
             }))
-            using (new DirectoryDisposeHelper(testDataPath, folderWithoutPermission, tileCachesFolder))
+            using (new DirectoryDisposeHelper(rootPath, folderWithoutPermission, tileCachesFolder))
             using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
             using (var map = new MapControl())
             {
@@ -456,9 +456,9 @@ namespace Core.Components.DotSpatial.Forms.Test
 
             using (new UseCustomSettingsHelper(new TestSettingsHelper
             {
-                ExpectedApplicationLocalUserSettingsDirectory = Path.Combine(testDataPath, folderWithoutPermission)
+                ExpectedApplicationLocalUserSettingsDirectory = Path.Combine(rootPath, folderWithoutPermission)
             }))
-            using (var disposeHelper = new DirectoryDisposeHelper(testDataPath, folderWithoutPermission, tileCachesFolder))
+            using (var disposeHelper = new DirectoryDisposeHelper(rootPath, folderWithoutPermission, tileCachesFolder))
             using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
             using (var map = new MapControl())
             {
@@ -1672,9 +1672,9 @@ namespace Core.Components.DotSpatial.Forms.Test
 
             using (new UseCustomSettingsHelper(new TestSettingsHelper
             {
-                ExpectedApplicationLocalUserSettingsDirectory = Path.Combine(testDataPath, folderWithoutPermission)
+                ExpectedApplicationLocalUserSettingsDirectory = Path.Combine(rootPath, folderWithoutPermission)
             }))
-            using (var disposeHelper = new DirectoryDisposeHelper(testDataPath, folderWithoutPermission, tileCachesFolder))
+            using (var disposeHelper = new DirectoryDisposeHelper(rootPath, folderWithoutPermission, tileCachesFolder))
             using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
             using (var map = new MapControl())
             {

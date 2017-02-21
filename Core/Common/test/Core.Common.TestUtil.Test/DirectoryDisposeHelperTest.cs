@@ -29,7 +29,7 @@ namespace Core.Common.TestUtil.Test
     [TestFixture]
     public class DirectoryDisposeHelperTest
     {
-        private static readonly TestDataPath testPath = TestDataPath.Core.Common.TestUtils;
+        private static readonly string rootFolder = TestHelper.GetScratchPadPath();
 
         [Test]
         public void Constructor_NullRoot_ThrowsArgumentNullException()
@@ -48,11 +48,8 @@ namespace Core.Common.TestUtil.Test
         [Test]
         public void Constructor_NullSubfolder_ThrowsArgumentException()
         {
-            // Setup
-            string rootfolder = "root folder";
-
             // Call
-            TestDelegate test = () => new DirectoryDisposeHelper(rootfolder, null);
+            TestDelegate test = () => new DirectoryDisposeHelper(rootFolder, null);
 
             // Assert
             ArgumentException exception = Assert.Throws<ArgumentException>(test);
@@ -63,7 +60,6 @@ namespace Core.Common.TestUtil.Test
         public void Constructor_NotExistingFolder_CreatesFolder()
         {
             // Setup
-            string rootFolder = TestHelper.GetTestDataPath(testPath);
             string subFolder = Path.GetRandomFileName();
             string folderPath = Path.Combine(rootFolder, subFolder);
             bool folderExists = false;
@@ -90,7 +86,6 @@ namespace Core.Common.TestUtil.Test
         public void Constructor_NotExistingFolders_CreatesFolders()
         {
             // Setup
-            string rootFolder = TestHelper.GetTestDataPath(testPath);
             string subFolder = Path.GetRandomFileName();
             string subSubFolder = Path.GetRandomFileName();
             string folderPath = Path.Combine(rootFolder, subFolder, subSubFolder);
@@ -118,7 +113,6 @@ namespace Core.Common.TestUtil.Test
         public void Constructor_ExistingFolder_DoesNotThrowException()
         {
             // Setup
-            string rootFolder = TestHelper.GetTestDataPath(testPath);
             string subFolder = Path.GetRandomFileName();
             string folderPath = Path.Combine(rootFolder, subFolder);
 
@@ -166,7 +160,6 @@ namespace Core.Common.TestUtil.Test
         public void Dispose_AlreadyDisposed_DoesNotThrowException()
         {
             // Setup
-            string rootFolder = TestHelper.GetTestDataPath(testPath);
             string subfolder = Path.GetRandomFileName();
 
             // Call
@@ -186,7 +179,6 @@ namespace Core.Common.TestUtil.Test
         public void Dispose_FolderAlreadyRemoved_DoesNotThrowException()
         {
             // Setup
-            string rootFolder = TestHelper.GetTestDataPath(testPath);
             string subfolder = Path.GetRandomFileName();
             string folderPath = Path.Combine(rootFolder, subfolder);
 
@@ -207,7 +199,6 @@ namespace Core.Common.TestUtil.Test
         public void LockDirectory_ValidPath_LocksDirectory()
         {
             // Setup
-            string rootFolder = TestHelper.GetTestDataPath(testPath);
             string subfolder = Path.GetRandomFileName();
             string folderPath = Path.Combine(rootFolder, subfolder);
 
@@ -234,7 +225,6 @@ namespace Core.Common.TestUtil.Test
         public void LockDirectory_RightNotSupported_ThrowsInvalidOperationException()
         {
             // Setup
-            string rootFolder = TestHelper.GetTestDataPath(testPath);
             string subfolder = Path.GetRandomFileName();
             string folderPath = Path.Combine(rootFolder, subfolder);
 
@@ -264,7 +254,6 @@ namespace Core.Common.TestUtil.Test
         public void LockDirectory_DirectoryAlreadyLocked_DoesNotThrowException()
         {
             // Setup
-            string rootFolder = TestHelper.GetTestDataPath(testPath);
             string subfolder = Path.GetRandomFileName();
             string folderPath = Path.Combine(rootFolder, subfolder);
 

@@ -31,7 +31,7 @@ namespace Core.Common.TestUtil.Test
     [TestFixture]
     public class DirectoryPermissionsRevokerTest
     {
-        private readonly TestDataPath testWorkDir = TestDataPath.Core.Common.TestUtils;
+        private readonly string rootFolder = TestHelper.GetScratchPadPath();
 
         [Test]
         [TestCase(null)]
@@ -65,7 +65,6 @@ namespace Core.Common.TestUtil.Test
         {
             // Setup
             const FileSystemRights rights = FileSystemRights.Synchronize;
-            string rootFolder = TestHelper.GetTestDataPath(testWorkDir);
             string subfolder = "UnsupportedRight" + rights;
             string folderPath = Path.Combine(rootFolder, subfolder);
 
@@ -103,7 +102,6 @@ namespace Core.Common.TestUtil.Test
         public void Constructor_ValidPathDenyRight_SetsDenyRight(FileSystemRights rights)
         {
             // Setup
-            string rootFolder = TestHelper.GetTestDataPath(testWorkDir);
             string subfolder = "ValidPathDenyRight_SetsDenyRight" + rights;
             string folderPath = Path.Combine(rootFolder, subfolder);
 
@@ -144,7 +142,6 @@ namespace Core.Common.TestUtil.Test
         public void Dispose_RightAlreadySet_DoesNotRemoveRight(FileSystemRights rights)
         {
             // Setup
-            string rootFolder = TestHelper.GetTestDataPath(testWorkDir);
             string subfolder = "RightAlreadySet" + rights;
             string folderPath = Path.Combine(rootFolder, subfolder);
 
@@ -177,7 +174,6 @@ namespace Core.Common.TestUtil.Test
         public void Dispose_DirectoryAlreadyRemoved_DoesNotThrowException()
         {
             // Setup
-            string rootFolder = TestHelper.GetTestDataPath(testWorkDir);
             string subfolder = "Deleted";
             string folderPath = Path.Combine(rootFolder, subfolder);
 

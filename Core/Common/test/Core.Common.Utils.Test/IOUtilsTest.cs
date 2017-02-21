@@ -98,7 +98,7 @@ namespace Core.Common.Utils.Test
         public void GetFullPath_ValidPath_ReturnsFullPath()
         {
             // Setup
-            string path = TestHelper.GetTestDataPath(TestDataPath.Core.Common.Utils);
+            string path = TestHelper.GetScratchPadPath();
 
             // Call
             string actualFilePath = IOUtils.GetFullPath(path);
@@ -172,7 +172,7 @@ namespace Core.Common.Utils.Test
         public void IsValidFolderPath_ValidPath_ReturnTrue()
         {
             // Setup
-            string path = TestHelper.GetTestDataPath(TestDataPath.Core.Common.Utils);
+            string path = TestHelper.GetScratchPadPath();
 
             // Call
             bool isFolderPathValid = IOUtils.IsValidFilePath(path);
@@ -234,7 +234,7 @@ namespace Core.Common.Utils.Test
         public void ValidateFolderPath_ValidPath_DoesNotThrow()
         {
             // Setup
-            string path = TestHelper.GetTestDataPath(TestDataPath.Core.Common.Utils);
+            string path = TestHelper.GetScratchPadPath();
 
             // Call
             TestDelegate call = () => IOUtils.ValidateFolderPath(path);
@@ -293,7 +293,7 @@ namespace Core.Common.Utils.Test
         public void ValidateFilePath_PathEndsWithEmptyFileName_ThrowsArgumentException()
         {
             // Setup
-            string folderPath = TestHelper.GetTestDataPath(TestDataPath.Core.Common.Utils) + Path.DirectorySeparatorChar;
+            string folderPath = TestHelper.GetScratchPadPath() + Path.DirectorySeparatorChar;
 
             // Call
             TestDelegate call = () => IOUtils.ValidateFilePath(folderPath);
@@ -349,7 +349,7 @@ namespace Core.Common.Utils.Test
         public void IsValidFilePath_PathIsActuallyFolder_ReturnsFalse()
         {
             // Setup
-            string folderPath = TestHelper.GetTestDataPath(TestDataPath.Core.Common.Utils) + Path.DirectorySeparatorChar;
+            string folderPath = TestHelper.GetScratchPadPath() + Path.DirectorySeparatorChar;
 
             // Call
             bool valid = IOUtils.IsValidFilePath(folderPath);
@@ -379,7 +379,7 @@ namespace Core.Common.Utils.Test
         public void DeleteOldFiles_InvalidSearchPattern_ThrowsArgumentException(string invalidSearchPattern)
         {
             // Setup
-            string path = TestHelper.GetTestDataPath(TestDataPath.Core.Common.Utils);
+            string path = TestHelper.GetScratchPadPath();
 
             // Call
             TestDelegate call = () => IOUtils.DeleteOldFiles(path, invalidSearchPattern, 0);
@@ -403,7 +403,7 @@ namespace Core.Common.Utils.Test
 
             // Assert
             IOException exception = Assert.Throws<IOException>(call);
-            var message = string.Format("Er is een fout opgetreden bij het verwijderen van bestanden in de map '{0}'.", path);
+            var message = $"Er is een fout opgetreden bij het verwijderen van bestanden in de map '{path}'.";
             Assert.AreEqual(message, exception.Message);
             Assert.IsInstanceOf<IOException>(exception.InnerException);
         }
@@ -412,7 +412,7 @@ namespace Core.Common.Utils.Test
         public void DeleteOldFiles_ValidPathWithFile_DeletesFile()
         {
             // Setup
-            string path = TestHelper.GetTestDataPath(TestDataPath.Core.Common.Utils);
+            string path = TestHelper.GetScratchPadPath();
             string filePath = Path.Combine(path, "fileToDelete.log");
 
             using (new FileDisposeHelper(filePath))

@@ -28,13 +28,11 @@ namespace Core.Common.TestUtil.Test
     [TestFixture]
     public class FileDisposeHelperTest
     {
-        private static readonly TestDataPath testPath = TestDataPath.Core.Common.TestUtils;
-
         [Test]
         public void Constructor_NotExistingFile_DoesNotThrowException()
         {
             // Setup
-            string filePath = TestHelper.GetTestDataPath(testPath, Path.GetRandomFileName());
+            string filePath = TestHelper.GetScratchPadPath(Path.GetRandomFileName());
             FileDisposeHelper disposeHelper = null;
 
             // Precondition
@@ -53,7 +51,7 @@ namespace Core.Common.TestUtil.Test
         public void Constructor_ExistingFile_DoesNotThrowException()
         {
             // Setup
-            string filePath = TestHelper.GetTestDataPath(testPath, Path.GetRandomFileName());
+            string filePath = TestHelper.GetScratchPadPath(Path.GetRandomFileName());
             FileDisposeHelper disposeHelper = null;
 
             try
@@ -79,7 +77,7 @@ namespace Core.Common.TestUtil.Test
         public void Constructor_FileDoesNotExist_Createsfile()
         {
             // Setup
-            string filePath = TestHelper.GetTestDataPath(testPath, Path.GetRandomFileName());
+            string filePath = TestHelper.GetScratchPadPath(Path.GetRandomFileName());
 
             try
             {
@@ -120,8 +118,8 @@ namespace Core.Common.TestUtil.Test
             // Setup
             var filePaths = new[]
             {
-                TestHelper.GetTestDataPath(testPath, Path.GetRandomFileName()),
-                TestHelper.GetTestDataPath(testPath, Path.GetRandomFileName())
+                TestHelper.GetScratchPadPath(Path.GetRandomFileName()),
+                TestHelper.GetScratchPadPath(Path.GetRandomFileName())
             };
 
             try
@@ -150,7 +148,7 @@ namespace Core.Common.TestUtil.Test
         public void Constructor_FilePathThatCannotBeCreated_ThrowsArgumentException()
         {
             // Setup
-            string filePath = Path.Combine(TestHelper.GetTestDataPath(testPath), "nonExistingPath", "fileThatCannotBeCreated");
+            string filePath = TestHelper.GetScratchPadPath(Path.Combine("nonExistingPath", "fileThatCannotBeCreated"));
 
             // Call
             TestDelegate test = () => new FileDisposeHelper(filePath);
@@ -165,7 +163,7 @@ namespace Core.Common.TestUtil.Test
             // Setup
             var filePaths = new[]
             {
-                Path.Combine(TestHelper.GetTestDataPath(testPath), "nonExistingPath", "fileThatCannotBeCreated")
+                TestHelper.GetScratchPadPath(Path.Combine("nonExistingPath", "fileThatCannotBeCreated"))
             };
 
             // Call
@@ -179,7 +177,7 @@ namespace Core.Common.TestUtil.Test
         public void LockFiles_ValidFilePath_LocksFile()
         {
             // Setup
-            string filePath = TestHelper.GetTestDataPath(testPath, Path.GetRandomFileName());
+            string filePath = TestHelper.GetScratchPadPath(Path.GetRandomFileName());
 
             try
             {
@@ -205,7 +203,7 @@ namespace Core.Common.TestUtil.Test
         public void LockFiles_FileAlreadyLocked_ThrowsInvalidOperationException()
         {
             // Setup
-            string filePath = TestHelper.GetTestDataPath(testPath, Path.GetRandomFileName());
+            string filePath = TestHelper.GetScratchPadPath(Path.GetRandomFileName());
 
             try
             {
@@ -232,7 +230,7 @@ namespace Core.Common.TestUtil.Test
         public void LockFiles_DirectoryAlreadyDeleted_ThrowsInvalidOperationException()
         {
             // Setup
-            string directoryPath = TestHelper.GetTestDataPath(testPath, Path.GetRandomFileName());
+            string directoryPath = TestHelper.GetScratchPadPath(Path.GetRandomFileName());
             string filePath = Path.Combine(directoryPath, Path.GetRandomFileName());
 
             try
@@ -268,7 +266,7 @@ namespace Core.Common.TestUtil.Test
         public void LockedFiles_LockFilesCalledAlready_DoesNotThrowException()
         {
             // Setup
-            string filePath = TestHelper.GetTestDataPath(testPath, Path.GetRandomFileName());
+            string filePath = TestHelper.GetScratchPadPath(Path.GetRandomFileName());
 
             try
             {
@@ -309,7 +307,7 @@ namespace Core.Common.TestUtil.Test
         public void Dispose_ExistingFile_DeletesFile()
         {
             // Setup
-            string filePath = TestHelper.GetTestDataPath(testPath, Path.GetRandomFileName());
+            string filePath = TestHelper.GetScratchPadPath(Path.GetRandomFileName());
 
             try
             {
@@ -337,8 +335,8 @@ namespace Core.Common.TestUtil.Test
             // Setup
             var filePaths = new[]
             {
-                TestHelper.GetTestDataPath(testPath, Path.GetRandomFileName()),
-                TestHelper.GetTestDataPath(testPath, Path.GetRandomFileName())
+                TestHelper.GetScratchPadPath(Path.GetRandomFileName()),
+                TestHelper.GetScratchPadPath(Path.GetRandomFileName())
             };
 
             try
@@ -374,7 +372,7 @@ namespace Core.Common.TestUtil.Test
         public void Dispose_FileAlreadyDeleted_DoesNotThrowException()
         {
             // Setup
-            string directoryPath = TestHelper.GetTestDataPath(testPath, "willBeRemoved");
+            string directoryPath = TestHelper.GetScratchPadPath("willBeRemoved");
             string filePath = Path.Combine(directoryPath, Path.GetRandomFileName());
 
             // Call

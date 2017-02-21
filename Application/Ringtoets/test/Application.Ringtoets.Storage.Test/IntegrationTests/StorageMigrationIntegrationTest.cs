@@ -36,13 +36,11 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
     [TestFixture]
     public class StorageMigrationIntegrationTest
     {
-        private static readonly string testPath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration);
-
         [Test]
         [Apartment(ApartmentState.STA)]
         public void GivenRingtoetsGuiWithStorageSql_WhenRunWithMigratedFile_MigratedProjectSet()
         {
-            string targetFilePath = Path.Combine(testPath, Path.GetRandomFileName());
+            string targetFilePath = TestHelper.GetScratchPadPath(Path.GetRandomFileName());
             using (new FileDisposeHelper(targetFilePath))
             {
                 string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration, "FullTestProject164.rtd");

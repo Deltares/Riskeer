@@ -52,7 +52,7 @@ namespace Core.Common.Gui.TestUtil.Test.Settings
             string directory = settingsHelper.GetApplicationLocalUserSettingsDirectory(null);
 
             // Assert
-            string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Core.Common.Gui.Path);
+            string testDataPath = TestHelper.GetScratchPadPath();
             Assert.AreEqual(testDataPath, directory);
         }
 
@@ -84,7 +84,7 @@ namespace Core.Common.Gui.TestUtil.Test.Settings
             string directory = settingsHelper.GetApplicationLocalUserSettingsDirectory(postfix);
 
             // Assert
-            string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Core.Common.Gui.Path, postfix);
+            string testDataPath = TestHelper.GetScratchPadPath(postfix);
             Assert.AreEqual(testDataPath, directory);
             Assert.IsTrue(Directory.Exists(testDataPath));
             Directory.Delete(testDataPath);

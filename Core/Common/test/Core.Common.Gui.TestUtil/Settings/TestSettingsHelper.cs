@@ -38,7 +38,7 @@ namespace Core.Common.Gui.TestUtil.Settings
         /// </summary>
         public TestSettingsHelper()
         {
-            ExpectedApplicationLocalUserSettingsDirectory = TestHelper.GetTestDataPath(TestDataPath.Core.Common.Gui.Path);
+            ExpectedApplicationLocalUserSettingsDirectory = TestHelper.GetScratchPadPath();
             ApplicationName = string.Empty;
             ApplicationVersion = string.Empty;
         }
