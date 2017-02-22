@@ -38,7 +38,7 @@ namespace Ringtoets.Common.Data.Probability
         /// Checks whether the given <paramref name="probability"/> is valid.
         /// </summary>
         /// <param name="probability">The probability to check.</param>
-        /// <param name="isNaNValid">Optional: <c>true</c> is <see cref="double.NaN"/> should
+        /// <param name="isNaNValid">Optional: <c>true</c> if <see cref="double.NaN"/> should
         /// be considered a valid value. Default is <c>false</c>.</param>
         /// <returns><c>true</c> when <paramref name="probability"/> is valid; <c>false</c> otherwise.</returns>
         public static bool IsValidProbability(double probability, bool isNaNValid = false)
@@ -55,7 +55,7 @@ namespace Ringtoets.Common.Data.Probability
         /// </summary>
         /// <param name="probability">The value to be validated.</param>
         /// <param name="paramName">The name of the argument.</param>
-        /// <param name="isNaNValid">Optional: <c>true</c> is <see cref="double.NaN"/> should
+        /// <param name="isNaNValid">Optional: <c>true</c> if <see cref="double.NaN"/> should
         /// be considered a valid value. Default is <c>false</c>.</param>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="probability"/>
         /// is not a valid probability value.</exception>
@@ -71,7 +71,7 @@ namespace Ringtoets.Common.Data.Probability
         /// <param name="paramName">The name of the argument.</param>
         /// <param name="customMessage">The custom message containing an insertion points
         /// (specifically <c>{0}</c>) for the validity range of <paramref name="probability"/>.</param>
-        /// <param name="isNaNValid">Optional: <c>true</c> is <see cref="double.NaN"/> should
+        /// <param name="isNaNValid">Optional: <c>true</c> if <see cref="double.NaN"/> should
         /// be considered a valid value. Default is <c>false</c>.</param>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="probability"/>
         /// is not a valid probability value.</exception>
@@ -81,7 +81,7 @@ namespace Ringtoets.Common.Data.Probability
         {
             if (!customMessage.Contains("{0}"))
             {
-                throw new ArgumentException("The custom message should have a insert location (\"{0}\") where the validity range is to be inserted.",
+                throw new ArgumentException(@"The custom message should have a insert location (""{0}"") where the validity range is to be inserted.",
                                             nameof(customMessage));
             }
 
