@@ -30,6 +30,7 @@ using log4net;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Probabilistics;
+using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.IO.Properties;
 using Ringtoets.Piping.IO.Readers;
@@ -144,6 +145,32 @@ namespace Ringtoets.Piping.IO.Importers
                 Name = readCalculation.Name
             };
 
+            try
+            {
+                ReadHydraulicBoundaryLocation(readCalculation, pipingCalculation);
+                ReadSurfaceLine(readCalculation, pipingCalculation);
+                ReadEntryExitPoint(readCalculation, pipingCalculation);
+                ReadStochasticSoilModel(readCalculation, pipingCalculation);
+                ReadStochastics(readCalculation, pipingCalculation);
+            }
+            catch (CriticalFileValidationException e)
+            {
+                log.ErrorFormat("{0} Berekening overgeslagen.", e.Message);
+                return;
+            }
+
+            validCalculationItems.Add(pipingCalculation);
+
+            // Warn user when double name
+        }
+
+        /// <summary>
+        /// Reads the hydraulic boundary location or the assessment level that is manually set.
+        /// </summary>
+        /// <param name="readCalculation">The read calculation</param>
+        /// <param name="pipingCalculation"></param>
+        private void ReadHydraulicBoundaryLocation(ReadPipingCalculation readCalculation, PipingCalculationScenario pipingCalculation)
+        {
             if (readCalculation.HydraulicBoundaryLocation != null)
             {
                 HydraulicBoundaryLocation location = hydraulicBoundaryLocations.FirstOrDefault(l => l.Name == readCalculation.HydraulicBoundaryLocation);
@@ -154,19 +181,18 @@ namespace Ringtoets.Piping.IO.Importers
                 }
                 else
                 {
-                    log.Warn("Hydraulische randvoorwaarde locatie bestaat niet. Berekening overgeslagen.");
-                    return;
+                    throw new CriticalFileValidationException("Hydraulische randvoorwaarde locatie bestaat niet.");
                 }
             }
-            else
+            else if (readCalculation.AssessmentLevel.HasValue)
             {
-                if (readCalculation.AssessmentLevel.HasValue)
-                {
-                    pipingCalculation.InputParameters.UseAssessmentLevelManualInput = true;
-                    pipingCalculation.InputParameters.AssessmentLevel = (RoundedDouble) readCalculation.AssessmentLevel.Value;
-                }
+                pipingCalculation.InputParameters.UseAssessmentLevelManualInput = true;
+                pipingCalculation.InputParameters.AssessmentLevel = (RoundedDouble)readCalculation.AssessmentLevel.Value;
             }
+        }
 
+        private void ReadSurfaceLine(ReadPipingCalculation readCalculation, PipingCalculationScenario pipingCalculation)
+        {
             if (readCalculation.SurfaceLine != null)
             {
                 RingtoetsPipingSurfaceLine surfaceLine = failureMechanism.SurfaceLines
@@ -178,21 +204,25 @@ namespace Ringtoets.Piping.IO.Importers
                 }
                 else
                 {
-                    log.Warn("Profielschematisatie bestaat niet. Berekening overgeslagen.");
-                    return;
+                    throw new CriticalFileValidationException("Profielschematisatie bestaat niet.");
                 }
             }
-
+        }
+        private static void ReadEntryExitPoint(ReadPipingCalculation readCalculation, PipingCalculationScenario pipingCalculation)
+        {
             if (readCalculation.EntryPointL.HasValue)
             {
-                pipingCalculation.InputParameters.EntryPointL = (RoundedDouble) readCalculation.EntryPointL.Value;
+                pipingCalculation.InputParameters.EntryPointL = (RoundedDouble)readCalculation.EntryPointL.Value;
             }
 
             if (readCalculation.ExitPointL.HasValue)
             {
-                pipingCalculation.InputParameters.ExitPointL = (RoundedDouble) readCalculation.ExitPointL.Value;
+                pipingCalculation.InputParameters.ExitPointL = (RoundedDouble)readCalculation.ExitPointL.Value;
             }
+        }
 
+        private void ReadStochasticSoilModel(ReadPipingCalculation readCalculation, PipingCalculationScenario pipingCalculation)
+        {
             if (readCalculation.StochasticSoilModel != null)
             {
                 StochasticSoilModel soilModel = failureMechanism.StochasticSoilModels
@@ -204,42 +234,49 @@ namespace Ringtoets.Piping.IO.Importers
                     {
                         if (!soilModel.IntersectsWithSurfaceLineGeometry(pipingCalculation.InputParameters.SurfaceLine))
                         {
-                            log.Warn("Ondergrondmodel kruist niet met de profielschematisatie. Berekening overgeslagen.");
-                            return;
+                            throw new CriticalFileValidationException("Ondergrondmodel kruist niet met de profielschematisatie.");
                         }
                     }
 
                     pipingCalculation.InputParameters.StochasticSoilModel = soilModel;
 
-                    if (readCalculation.StochasticSoilProfile != null)
-                    {
-                        StochasticSoilProfile soilProfile = soilModel.StochasticSoilProfiles
-                                                                     .FirstOrDefault(ssp => ssp.SoilProfile.Name == readCalculation.StochasticSoilProfile);
-
-                        if (soilProfile != null)
-                        {
-                            pipingCalculation.InputParameters.StochasticSoilProfile = soilProfile;
-                        }
-                        else
-                        {
-                            log.Warn("Ondergrondprofiel bestaat niet. Berekening overgeslagen.");
-                            return;
-                        }
-                    }
+                    ReadStochasticSoilProfile(readCalculation, pipingCalculation, soilModel);
                 }
                 else
                 {
-                    log.Warn("Ondergrondmodel bestaat niet. Berekening overgeslagen.");
-                    return;
+                    throw new CriticalFileValidationException("Ondergrondmodel bestaat niet.");
                 }
             }
+        }
 
+        private static void ReadStochasticSoilProfile(ReadPipingCalculation readCalculation,
+                                                      PipingCalculationScenario pipingCalculation,
+                                                      StochasticSoilModel soilModel)
+        {
+            if (readCalculation.StochasticSoilProfile != null)
+            {
+                StochasticSoilProfile soilProfile = soilModel.StochasticSoilProfiles
+                                                             .FirstOrDefault(ssp => ssp.SoilProfile.Name == readCalculation.StochasticSoilProfile);
+
+                if (soilProfile != null)
+                {
+                    pipingCalculation.InputParameters.StochasticSoilProfile = soilProfile;
+                }
+                else
+                {
+                    throw new CriticalFileValidationException("Ondergrondprofiel bestaat niet.");
+                }
+            }
+        }
+
+        private static void ReadStochastics(ReadPipingCalculation readCalculation, PipingCalculationScenario pipingCalculation)
+        {
             if (readCalculation.DampingFactorExitMean.HasValue && readCalculation.DampingFactorExitStandardDeviation.HasValue)
             {
                 pipingCalculation.InputParameters.DampingFactorExit = new LogNormalDistribution
                 {
-                    Mean = (RoundedDouble) readCalculation.DampingFactorExitMean.Value,
-                    StandardDeviation = (RoundedDouble) readCalculation.DampingFactorExitStandardDeviation.Value
+                    Mean = (RoundedDouble)readCalculation.DampingFactorExitMean.Value,
+                    StandardDeviation = (RoundedDouble)readCalculation.DampingFactorExitStandardDeviation.Value
                 };
             }
 
@@ -247,15 +284,10 @@ namespace Ringtoets.Piping.IO.Importers
             {
                 pipingCalculation.InputParameters.PhreaticLevelExit = new NormalDistribution
                 {
-                    Mean = (RoundedDouble) readCalculation.PhreaticLevelExitMean.Value,
-                    StandardDeviation = (RoundedDouble) readCalculation.PhreaticLevelExitStandardDeviation.Value
+                    Mean = (RoundedDouble)readCalculation.PhreaticLevelExitMean.Value,
+                    StandardDeviation = (RoundedDouble)readCalculation.PhreaticLevelExitStandardDeviation.Value
                 };
             }
-
-            validCalculationItems.Add(pipingCalculation);
-            
-            // Validate the stochastic soil model crosses the surface line when set
-            // Warn user when double name
         }
 
         private static void ValidateCalculationGroup(ReadPipingCalculationGroup readCalculationGroup)
