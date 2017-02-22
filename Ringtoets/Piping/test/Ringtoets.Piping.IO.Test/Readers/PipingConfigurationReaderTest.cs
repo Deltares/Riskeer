@@ -144,6 +144,9 @@ namespace Ringtoets.Piping.IO.Test.Readers
                 yield return new TestCaseData("invalidCalculationMultipleStochasts.xml",
                                               "The element 'berekening' has invalid child element 'stochasts'.")
                     .SetName("invalidCalculationMultipleStochasts");
+                yield return new TestCaseData("invalidConfigurationCalculationContainingEmptyStrings.xml",
+                    "The 'hrlocatie' element is invalid - The value '' is invalid according to its datatype 'Token' - The actual length is less than the MinLength value.")
+                    .SetName("invalidConfigurationCalculationContainingEmptyStrings");
             }
         }
 
@@ -424,27 +427,6 @@ namespace Ringtoets.Piping.IO.Test.Readers
             var calculation5 = group4Items[0] as ReadPipingCalculation;
             Assert.IsNotNull(calculation5);
             Assert.AreEqual("Calculation 5", calculation5.Name);
-        }
-
-        [Test]
-        public void Read_ValidConfigurationWithCalculationContainingEmptyStrings_ReturnExpectedReadPipingCalculation()
-        {
-            // Setup
-            string filePath = Path.Combine(testDirectoryPath, "validConfigurationCalculationContainingEmptyStrings.xml");
-            var pipingConfigurationReader = new PipingConfigurationReader(filePath);
-
-            // Call
-            IList<IReadPipingCalculationItem> readPipingCalculationItems = pipingConfigurationReader.Read().ToList();
-
-            // Assert
-            Assert.AreEqual(1, readPipingCalculationItems.Count);
-
-            var calculation = readPipingCalculationItems[0] as ReadPipingCalculation;
-            Assert.IsNotNull(calculation);
-            Assert.IsEmpty(calculation.HydraulicBoundaryLocation);
-            Assert.IsEmpty(calculation.SurfaceLine);
-            Assert.IsEmpty(calculation.StochasticSoilModel);
-            Assert.IsEmpty(calculation.StochasticSoilProfile);
         }
 
         [Test]

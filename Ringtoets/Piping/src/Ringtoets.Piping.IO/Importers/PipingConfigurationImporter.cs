@@ -105,7 +105,11 @@ namespace Ringtoets.Piping.IO.Importers
                     return false;
                 }
 
-                ValidateReadItems(readItem);
+                ICalculationBase processedItem = ProcessReadItem(readItem);
+                if (processedItem != null)
+                {
+                    validCalculationItems.Add(processedItem);
+                }
             }
 
             NotifyProgress(RingtoetsCommonIOResources.Importer_ProgressText_Adding_imported_data_to_DataModel, 3, 3);
@@ -122,23 +126,43 @@ namespace Ringtoets.Piping.IO.Importers
             }
         }
 
-        private void ValidateReadItems(IReadPipingCalculationItem readItem)
+        private ICalculationBase ProcessReadItem(IReadPipingCalculationItem readItem)
         {
-            var readCalculation = readItem as ReadPipingCalculation;
-            var readCalculationGroup = readItem as ReadPipingCalculationGroup;
+            ICalculationBase processedCalculationItem = null;
 
-            if (readCalculation != null)
-            {
-                ValidateCalculation(readCalculation);
-            }
+            var readCalculationGroup = readItem as ReadPipingCalculationGroup;
+            var readCalculation = readItem as ReadPipingCalculation;
 
             if (readCalculationGroup != null)
             {
-                ValidateCalculationGroup(readCalculationGroup);
+                processedCalculationItem = ProcessCalculationGroup(readCalculationGroup);
             }
+
+            if (readCalculation != null)
+            {
+                processedCalculationItem = ProcessCalculation(readCalculation);
+            }
+
+            return processedCalculationItem;
         }
 
-        private void ValidateCalculation(ReadPipingCalculation readCalculation)
+        private CalculationGroup ProcessCalculationGroup(ReadPipingCalculationGroup readCalculationGroup)
+        {
+            var group = new CalculationGroup(readCalculationGroup.Name, true);
+
+            foreach (IReadPipingCalculationItem item in readCalculationGroup.Items)
+            {
+                ICalculationBase processedItem = ProcessReadItem(item);
+                if (processedItem != null)
+                {
+                    group.Children.Add(processedItem);
+                }
+            }
+
+            return group;
+        }
+
+        private PipingCalculationScenario ProcessCalculation(ReadPipingCalculation readCalculation)
         {
             var pipingCalculation = new PipingCalculationScenario(new GeneralPipingInput())
             {
@@ -156,12 +180,10 @@ namespace Ringtoets.Piping.IO.Importers
             catch (CriticalFileValidationException e)
             {
                 log.ErrorFormat(Resources.PipingConfigurationImporter_ValidateCalculation_Error_message_0_calculation_1_skipped, e.Message, readCalculation.Name);
-                return;
+                return null;
             }
 
-            validCalculationItems.Add(pipingCalculation);
-
-            // Warn user when double name
+            return pipingCalculation;
         }
 
         /// <summary>
@@ -323,11 +345,6 @@ namespace Ringtoets.Piping.IO.Importers
                     StandardDeviation = (RoundedDouble)readCalculation.PhreaticLevelExitStandardDeviation.Value
                 };
             }
-        }
-
-        private static void ValidateCalculationGroup(ReadPipingCalculationGroup readCalculationGroup)
-        {
-            // Warn user when double name
         }
 
         private ReadResult<IReadPipingCalculationItem> ReadConfiguration()

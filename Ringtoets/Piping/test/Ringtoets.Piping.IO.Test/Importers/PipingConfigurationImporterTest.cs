@@ -20,8 +20,10 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Base.IO;
 using Core.Common.TestUtil;
@@ -38,6 +40,15 @@ namespace Ringtoets.Piping.IO.Test.Importers
     public class PipingConfigurationImporterTest
     {
         private readonly string path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO, "PipingConfigurationReader");
+
+        private static IEnumerable<TestCaseData> NestedOrNaNData
+        {
+            get
+            {
+                yield return new TestCaseData("validConfigurationNesting.xml", GetNestedData());
+                yield return new TestCaseData("validConfigurationCalculationContainingNaNs.xml", GetNaNData());                
+            }
+        }
 
         [Test]
         public void Constructor_ExpectedValues()
@@ -120,6 +131,31 @@ namespace Ringtoets.Piping.IO.Test.Importers
             var expectedMessage = $"Fout bij het lezen van bestand '{filePath}': het bestand bestaat niet. " + Environment.NewLine +
                                   "Er is geen berekening configuratie geïmporteerd.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
+            Assert.IsFalse(importSuccesful);
+        }
+
+        [Test]
+        public void Import_InvalidFile_CancelImportWithErrorMessage()
+        {
+            // Setup
+            string filePath = Path.Combine(path, "invalidConfigurationCalculationContainingEmptyStrings.xml");
+            var importer = new PipingConfigurationImporter(filePath,
+                                                           new CalculationGroup(),
+                                                           Enumerable.Empty<HydraulicBoundaryLocation>(),
+                                                           new PipingFailureMechanism());
+
+            // Call
+            bool importSuccesful = true;
+            Action call = () => importSuccesful = importer.Import();
+
+            // Assert
+            TestHelper.AssertLogMessages(call, messages =>
+            {
+                var msgs = messages.ToArray();
+                Assert.AreEqual(1, msgs.Length);
+                StringAssert.StartsWith($"Fout bij het lezen van bestand '{filePath}': het XML-document dat de configuratie voor de berekeningen beschrijft is niet geldig.", msgs[0]);
+            });
+            
             Assert.IsFalse(importSuccesful);
         }
 
@@ -320,7 +356,7 @@ namespace Ringtoets.Piping.IO.Test.Importers
             pipingFailureMechanism.StochasticSoilModels.AddRange(new[]
             {
                 stochasticSoilModel
-            }, "path");            
+            }, "path");
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "HRlocatie", 10, 20);
             var importer = new PipingConfigurationImporter(filePath,
@@ -455,28 +491,190 @@ namespace Ringtoets.Piping.IO.Test.Importers
 
             // Assert
             Assert.IsTrue(succesful);
-            Assert.AreEqual(1, calculationGroup.Children.Count);
-            PipingCalculation calculation = calculationGroup.Children[0] as PipingCalculation;
 
-            Assert.AreEqual("Calculation", calculation.Name);
-            Assert.AreEqual(manualAssessmentLevel, calculation.InputParameters.UseAssessmentLevelManualInput);
+            var expectedCalculation = new PipingCalculationScenario(new GeneralPipingInput())
+            {
+                Name = "Calculation",
+                InputParameters =
+                {
+                    UseAssessmentLevelManualInput = manualAssessmentLevel,
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
+                    SurfaceLine = surfaceLine,
+                    EntryPointL = (RoundedDouble) 2.2,
+                    ExitPointL = (RoundedDouble) 3.3,
+                    StochasticSoilModel = stochasticSoilModel,
+                    StochasticSoilProfile = stochasticSoilProfile,
+                    PhreaticLevelExit =
+                    {
+                        Mean = (RoundedDouble) 4.4,
+                        StandardDeviation = (RoundedDouble) 5.5
+                    },
+                    DampingFactorExit =
+                    {
+                        Mean = (RoundedDouble) 6.6,
+                        StandardDeviation = (RoundedDouble) 7.7
+                    }
+                }
+            };
             if (manualAssessmentLevel)
             {
-                Assert.AreEqual(1.1, calculation.InputParameters.AssessmentLevel.Value);
+                expectedCalculation.InputParameters.AssessmentLevel = (RoundedDouble) 1.1;
+            }
+
+            AssertCalculationGroup(new CalculationGroup
+            {
+                Children =
+                {
+                    expectedCalculation
+                }
+            }, calculationGroup);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(NestedOrNaNData))]
+        public void Import_NestedOrEmptyCalculations_DataAddedToModel(string file, CalculationGroup expectedCalculationGroup)
+        {
+            // Setup
+            string filePath = Path.Combine(path, file);
+
+            var calculationGroup = new CalculationGroup();
+            var pipingFailureMechanism = new PipingFailureMechanism();
+
+            var importer = new PipingConfigurationImporter(filePath,
+                                                           calculationGroup,
+                                                           Enumerable.Empty<HydraulicBoundaryLocation>(),
+                                                           pipingFailureMechanism);
+
+            // Call
+            bool succesful = importer.Import();
+
+            // Assert
+            Assert.IsTrue(succesful);
+            AssertCalculationGroup(expectedCalculationGroup, calculationGroup);
+        }
+
+        private static CalculationGroup GetNestedData()
+        {
+            return new CalculationGroup("Root", false)
+            {
+                Children =
+                {
+                    new CalculationGroup("Group 1", false)
+                    {
+                        Children =
+                        {
+                            new PipingCalculationScenario(new GeneralPipingInput())
+                            {
+                                Name = "Calculation 3"
+                            }
+                        }
+                    },
+                    new PipingCalculationScenario(new GeneralPipingInput())
+                    {
+                        Name = "Calculation 1"
+                    },
+                    new CalculationGroup("Group 2", false)
+                    {
+                        Children =
+                        {
+                            new CalculationGroup("Group 4", false)
+                            {
+                                Children =
+                                {
+                                    new PipingCalculationScenario(new GeneralPipingInput())
+                                    {
+                                        Name = "Calculation 5"
+                                    }
+                                }
+                            },
+                            new PipingCalculationScenario(new GeneralPipingInput())
+                            {
+                                Name = "Calculation 4"
+                            }
+                        }
+                    },
+                    new PipingCalculationScenario(new GeneralPipingInput())
+                    {
+                        Name = "Calculation 2"
+                    },
+                    new CalculationGroup("Group 3", false)
+                }
+            };
+        }
+
+        private static CalculationGroup GetNaNData()
+        {
+            return new CalculationGroup("Root", false)
+            {
+                Children =
+                {
+                    new PipingCalculationScenario(new GeneralPipingInput())
+                    {
+                        Name = "Calculation",
+                        InputParameters =
+                        {
+                            UseAssessmentLevelManualInput = true,
+                            AssessmentLevel = RoundedDouble.NaN,
+                            EntryPointL = RoundedDouble.NaN,
+                            ExitPointL = RoundedDouble.NaN,
+                            PhreaticLevelExit =
+                            {
+                                Mean = RoundedDouble.NaN,
+                                StandardDeviation = RoundedDouble.NaN
+                            },
+                            DampingFactorExit =
+                            {
+                                Mean = RoundedDouble.NaN,
+                                StandardDeviation = RoundedDouble.NaN
+                            }
+                        }
+                    }
+                }
+            };
+        }
+
+        private static void AssertCalculationGroup(CalculationGroup expectedCalculationGroup, CalculationGroup actualCalculationGroup)
+        {
+            Assert.AreEqual(expectedCalculationGroup.Children.Count, actualCalculationGroup.Children.Count);
+
+            for (var i = 0; i < expectedCalculationGroup.Children.Count; i++)
+            {
+                Assert.AreEqual(expectedCalculationGroup.Children[i].Name, actualCalculationGroup.Children[i].Name);
+                var innerCalculationgroup = expectedCalculationGroup.Children[i] as CalculationGroup;
+                var innerCalculation = expectedCalculationGroup.Children[i] as PipingCalculationScenario;
+
+                if (innerCalculationgroup != null)
+                {
+                    AssertCalculationGroup(innerCalculationgroup, (CalculationGroup) actualCalculationGroup.Children[i]);
+                }
+
+                if (innerCalculation != null)
+                {
+                    AssertCalculation(innerCalculation, (PipingCalculationScenario) actualCalculationGroup.Children[i]);
+                }
+            }
+        }
+
+        private static void AssertCalculation(PipingCalculationScenario expectedCalculation, PipingCalculationScenario actualCalculation)
+        {
+            Assert.AreEqual(expectedCalculation.InputParameters.UseAssessmentLevelManualInput, actualCalculation.InputParameters.UseAssessmentLevelManualInput);
+            if (expectedCalculation.InputParameters.UseAssessmentLevelManualInput)
+            {
+                Assert.AreEqual(expectedCalculation.InputParameters.AssessmentLevel.Value, actualCalculation.InputParameters.AssessmentLevel.Value);
             }
             else
             {
-                Assert.AreSame(hydraulicBoundaryLocation, calculation.InputParameters.HydraulicBoundaryLocation);
+                Assert.AreSame(expectedCalculation.InputParameters.HydraulicBoundaryLocation, actualCalculation.InputParameters.HydraulicBoundaryLocation);
             }
-            Assert.AreSame(surfaceLine, calculation.InputParameters.SurfaceLine);
-            Assert.AreEqual(2.2, calculation.InputParameters.EntryPointL.Value);
-            Assert.AreEqual(3.3, calculation.InputParameters.ExitPointL.Value);
-            Assert.AreSame(stochasticSoilModel, calculation.InputParameters.StochasticSoilModel);
-            Assert.AreSame(stochasticSoilProfile, calculation.InputParameters.StochasticSoilProfile);
-            Assert.AreEqual(4.4, calculation.InputParameters.PhreaticLevelExit.Mean.Value);
-            Assert.AreEqual(5.5, calculation.InputParameters.PhreaticLevelExit.StandardDeviation.Value);
-            Assert.AreEqual(6.6, calculation.InputParameters.DampingFactorExit.Mean.Value);
-            Assert.AreEqual(7.7, calculation.InputParameters.DampingFactorExit.StandardDeviation.Value);
+            Assert.AreSame(expectedCalculation.InputParameters.SurfaceLine, actualCalculation.InputParameters.SurfaceLine);
+            Assert.AreEqual(expectedCalculation.InputParameters.EntryPointL.Value, actualCalculation.InputParameters.EntryPointL.Value);
+            Assert.AreEqual(expectedCalculation.InputParameters.ExitPointL.Value, actualCalculation.InputParameters.ExitPointL.Value);
+            Assert.AreSame(expectedCalculation.InputParameters.StochasticSoilModel, actualCalculation.InputParameters.StochasticSoilModel);
+            Assert.AreSame(expectedCalculation.InputParameters.StochasticSoilProfile, actualCalculation.InputParameters.StochasticSoilProfile);
+            Assert.AreEqual(expectedCalculation.InputParameters.PhreaticLevelExit.Mean.Value, actualCalculation.InputParameters.PhreaticLevelExit.Mean.Value);
+            Assert.AreEqual(expectedCalculation.InputParameters.PhreaticLevelExit.StandardDeviation.Value, actualCalculation.InputParameters.PhreaticLevelExit.StandardDeviation.Value);
+            Assert.AreEqual(expectedCalculation.InputParameters.DampingFactorExit.Mean.Value, actualCalculation.InputParameters.DampingFactorExit.Mean.Value);
+            Assert.AreEqual(expectedCalculation.InputParameters.DampingFactorExit.StandardDeviation.Value, actualCalculation.InputParameters.DampingFactorExit.StandardDeviation.Value);
         }
 
         private class ExpectedProgressNotification
