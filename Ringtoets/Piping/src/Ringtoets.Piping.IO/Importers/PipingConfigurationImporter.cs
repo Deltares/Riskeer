@@ -200,6 +200,15 @@ namespace Ringtoets.Piping.IO.Importers
 
                 if (soilModel != null)
                 {
+                    if (pipingCalculation.InputParameters.SurfaceLine != null)
+                    {
+                        if (!soilModel.IntersectsWithSurfaceLineGeometry(pipingCalculation.InputParameters.SurfaceLine))
+                        {
+                            log.Warn("Ondergrondmodel kruist niet met de profielschematisatie. Berekening overgeslagen.");
+                            return;
+                        }
+                    }
+
                     pipingCalculation.InputParameters.StochasticSoilModel = soilModel;
 
                     if (readCalculation.StochasticSoilProfile != null)

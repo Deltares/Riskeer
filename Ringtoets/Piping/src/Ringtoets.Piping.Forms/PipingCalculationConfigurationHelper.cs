@@ -23,7 +23,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Data;
-using Core.Common.Base.Geometry;
 using log4net;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Forms.Helpers;
@@ -104,34 +103,9 @@ namespace Ringtoets.Piping.Forms
                 return Enumerable.Empty<StochasticSoilModel>();
             }
 
-            Segment2D[] surfaceLineSegments = Math2D.ConvertLinePointsToLineSegments(surfaceLine.Points.Select(p => new Point2D(p.X, p.Y))).ToArray();
-
             return availableSoilModels.Where(stochasticSoilModel => stochasticSoilModel.StochasticSoilProfiles.Any() &&
-                                                                    DoesSoilModelGeometryIntersectWithSurfaceLineGeometry(stochasticSoilModel, surfaceLineSegments))
+                                                                    stochasticSoilModel.IntersectsWithSurfaceLineGeometry(surfaceLine))
                                       .ToList();
-        }
-
-        /// <summary>
-        /// Indicates whether a stochastic soil model intersects with a surface line.
-        /// </summary>
-        /// <param name="stochasticSoilModel">The stochastic soil model used to match a surface line.</param>
-        /// <param name="surfaceLine">The surface line used to match a stochastic soil model.</param>
-        /// <returns><c>true</c> when the <paramref name="stochasticSoilModel"/> intersects with the <paramref name="surfaceLine"/>;
-        /// <c>false</c> otherwise.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        public static bool DoesSoilModelGeometryIntersectWithSurfaceLineGeometry(StochasticSoilModel stochasticSoilModel, RingtoetsPipingSurfaceLine surfaceLine)
-        {
-            if (stochasticSoilModel == null)
-            {
-                throw new ArgumentNullException(nameof(stochasticSoilModel));
-            }
-            if (surfaceLine == null)
-            {
-                throw new ArgumentNullException(nameof(surfaceLine));
-            }
-            Segment2D[] surfaceLineSegments = Math2D.ConvertLinePointsToLineSegments(surfaceLine.Points.Select(p => new Point2D(p.X, p.Y))).ToArray();
-
-            return DoesSoilModelGeometryIntersectWithSurfaceLineGeometry(stochasticSoilModel, surfaceLineSegments);
         }
 
         private static CalculationGroup CreateCalculationGroup(RingtoetsPipingSurfaceLine surfaceLine, IEnumerable<StochasticSoilModel> soilModels, GeneralPipingInput generalInput)
@@ -165,18 +139,6 @@ namespace Ringtoets.Piping.Forms
                 },
                 Contribution = (RoundedDouble) stochasticSoilProfile.Probability
             };
-        }
-
-        private static bool DoesSoilModelGeometryIntersectWithSurfaceLineGeometry(StochasticSoilModel stochasticSoilModel, Segment2D[] surfaceLineSegments)
-        {
-            IEnumerable<Segment2D> soilProfileGeometrySegments = Math2D.ConvertLinePointsToLineSegments(stochasticSoilModel.Geometry);
-            return soilProfileGeometrySegments.Any(s => DoesSegmentIntersectWithSegmentArray(s, surfaceLineSegments));
-        }
-
-        private static bool DoesSegmentIntersectWithSegmentArray(Segment2D segment, Segment2D[] segmentArray)
-        {
-            // Consider intersections and overlaps similarly
-            return segmentArray.Any(sls => Math2D.GetIntersectionBetweenSegments(segment, sls).IntersectionType != Intersection2DType.DoesNotIntersect);
         }
     }
 }

@@ -68,6 +68,7 @@
     <Compile Include="RingtoetsPipingSurfaceLineCollection.cs" />
     <Compile Include="StochasticSoilModel.cs" />
     <Compile Include="StochasticSoilModelCollection.cs" />
+    <Compile Include="StochasticSoilModelExtensions.cs" />
     <Compile Include="StochasticSoilModelProfileDifference.cs" />
     <Compile Include="StochasticSoilProfile.cs" />
   </ItemGroup>

@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Core.Common.Base.Geometry;
@@ -30,7 +29,6 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Piping.Data;
-using Ringtoets.Piping.Integration.TestUtils;
 using Ringtoets.Piping.IO.Importers;
 using Ringtoets.Piping.Primitives;
 
@@ -288,6 +286,59 @@ namespace Ringtoets.Piping.IO.Test.Importers
         }
 
         [Test]
+        public void Import_StochasticSoilModelNotIntersectingWithSurfaceLine_LogMessageAndContinueImport()
+        {
+            // Setup
+            string filePath = Path.Combine(path, "validConfigurationFullCalculationContainingHydraulicBoundaryLocation.xml");
+
+            var calculationGroup = new CalculationGroup();
+            var surfaceLine = new RingtoetsPipingSurfaceLine
+            {
+                Name = "Profielschematisatie"
+            };
+            surfaceLine.SetGeometry(new[]
+            {
+                new Point3D(0.0, 1.0, 0.0),
+                new Point3D(2.5, 1.0, 1.0),
+                new Point3D(5.0, 1.0, 0.0)
+            });
+            var stochasticSoilModel = new StochasticSoilModel(1, "Ondergrondmodel", "Segment");
+            stochasticSoilModel.Geometry.AddRange(new[]
+            {
+                new Point2D(1.0, 0.0),
+                new Point2D(5.0, 0.0)
+            });
+
+            var pipingFailureMechanism = new PipingFailureMechanism();
+            pipingFailureMechanism.SurfaceLines.AddRange(new[]
+            {
+                surfaceLine
+            }, "path");
+            pipingFailureMechanism.StochasticSoilModels.AddRange(new[]
+            {
+                stochasticSoilModel
+            }, "path");            
+
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "HRlocatie", 10, 20);
+            var importer = new PipingConfigurationImporter(filePath,
+                                                           calculationGroup,
+                                                           new[]
+                                                           {
+                                                               hydraulicBoundaryLocation
+                                                           },
+                                                           pipingFailureMechanism);
+
+            // Call
+            bool succesful = false;
+            Action call = () => succesful = importer.Import();
+
+            // Assert
+            TestHelper.AssertLogMessageIsGenerated(call, "Ondergrondmodel kruist niet met de profielschematisatie. Berekening overgeslagen.", 1);
+            Assert.IsTrue(succesful);
+            CollectionAssert.IsEmpty(calculationGroup.Children);
+        }
+
+        [Test]
         public void Import_StochastichSoilProfileInvalid_LogMessageAndContinueImport()
         {
             // Setup
@@ -300,10 +351,16 @@ namespace Ringtoets.Piping.IO.Test.Importers
             };
             surfaceLine.SetGeometry(new[]
             {
-                new Point3D(3.5, 2.3, 8.0),
-                new Point3D(6.9, 2.0, 2.0)
+                new Point3D(3.0, 5.0, 0.0),
+                new Point3D(3.0, 0.0, 1.0),
+                new Point3D(3.0, -5.0, 0.0)
             });
             var stochasticSoilModel = new StochasticSoilModel(1, "Ondergrondmodel", "Segment");
+            stochasticSoilModel.Geometry.AddRange(new[]
+            {
+                new Point2D(1.0, 0.0),
+                new Point2D(5.0, 0.0)
+            });
 
             var pipingFailureMechanism = new PipingFailureMechanism();
             pipingFailureMechanism.SurfaceLines.AddRange(new[]
@@ -349,8 +406,9 @@ namespace Ringtoets.Piping.IO.Test.Importers
             };
             surfaceLine.SetGeometry(new[]
             {
-                new Point3D(3.5, 2.3, 8.0),
-                new Point3D(6.9, 2.0, 2.0)
+                new Point3D(3.0, 5.0, 0.0),
+                new Point3D(3.0, 0.0, 1.0),
+                new Point3D(3.0, -5.0, 0.0)
             });
             var stochasticSoilProfile = new StochasticSoilProfile(0, SoilProfileType.SoilProfile1D, 1)
             {
@@ -362,6 +420,11 @@ namespace Ringtoets.Piping.IO.Test.Importers
 
             var stochasticSoilModel = new StochasticSoilModel(1, "Ondergrondmodel", "Segment");
             stochasticSoilModel.StochasticSoilProfiles.Add(stochasticSoilProfile);
+            stochasticSoilModel.Geometry.AddRange(new[]
+            {
+                new Point2D(1.0, 0.0),
+                new Point2D(5.0, 0.0)
+            });
 
             var pipingFailureMechanism = new PipingFailureMechanism();
             pipingFailureMechanism.SurfaceLines.AddRange(new[]
