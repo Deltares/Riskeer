@@ -139,7 +139,7 @@ namespace Ringtoets.Piping.IO.Importers
 
         private void ValidateCalculation(ReadPipingCalculation readCalculation)
         {
-            var pipingCalculation = new PipingCalculation(new GeneralPipingInput())
+            var pipingCalculation = new PipingCalculationScenario(new GeneralPipingInput())
             {
                 Name = readCalculation.Name
             };

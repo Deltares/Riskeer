@@ -84,18 +84,18 @@ namespace Ringtoets.Piping.Plugin.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Ringtoets berekeningenconfiguratie.
         /// </summary>
-        public static string PipingPlugin_GetExportInfos_calculation_configuration_file_description {
+        public static string PipingPlugin_PipingConfigurationFileFilter_calculation_configuration_description {
             get {
-                return ResourceManager.GetString("PipingPlugin_GetExportInfos_calculation_configuration_file_description", resourceCulture);
+                return ResourceManager.GetString("PipingPlugin_PipingConfigurationFileFilter_calculation_configuration_description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to xml.
         /// </summary>
-        public static string PipingPlugin_GetExportInfos_xml_extension {
+        public static string PipingPlugin_PipingConfigurationFileFilter_xml_extension {
             get {
-                return ResourceManager.GetString("PipingPlugin_GetExportInfos_xml_extension", resourceCulture);
+                return ResourceManager.GetString("PipingPlugin_PipingConfigurationFileFilter_xml_extension", resourceCulture);
             }
         }
         

@@ -115,14 +115,28 @@ namespace Ringtoets.Piping.Plugin
                 CreateFileImporter = (context, filePath) => StochasticSoilModelImporter(context, filePath, new StochasticSoilModelReplaceDataStrategy(context.FailureMechanism)),
                 VerifyUpdates = VerifyStochasticSoilModelUpdates
             };
+
+            yield return new ImportInfo<PipingCalculationGroupContext>
+            {
+                Name = Resources.PipingPlugin_PipingConfigurationFileFilter_calculation_configuration_description,
+                Category = RingtoetsCommonFormsResources.Ringtoets_Category,
+                Image = RingtoetsCommonFormsResources.GeneralFolderIcon,
+                FileFilterGenerator = PipingConfigurationFileFilter,
+                IsEnabled = context => context.AvailableHydraulicBoundaryLocations.Any()
+                                       && context.AvailableStochasticSoilModels.Any()
+                                       && context.AvailablePipingSurfaceLines.Any(),
+                CreateFileImporter = (context, filePath) => new PipingConfigurationImporter(filePath,
+                                                                                            context.WrappedData,
+                                                                                            context.AvailableHydraulicBoundaryLocations,
+                                                                                            context.FailureMechanism)
+            };
         }
 
         public override IEnumerable<ExportInfo> GetExportInfos()
         {
             yield return new ExportInfo<PipingCalculationGroupContext>
             {
-                FileFilterGenerator = new FileFilterGenerator(Resources.PipingPlugin_GetExportInfos_xml_extension,
-                                                              Resources.PipingPlugin_GetExportInfos_calculation_configuration_file_description),
+                FileFilterGenerator = PipingConfigurationFileFilter,
                 CreateFileExporter = (context, filePath) => new PipingConfigurationExporter(context.WrappedData, filePath),
                 IsEnabled = context => context.WrappedData.Children.Any()
             };
@@ -329,6 +343,15 @@ namespace Ringtoets.Piping.Plugin
                                                                                  .AddPropertiesItem()
                                                                                  .Build()
             };
+        }
+
+        private static FileFilterGenerator PipingConfigurationFileFilter
+        {
+            get
+            {
+                return new FileFilterGenerator(Resources.PipingPlugin_PipingConfigurationFileFilter_xml_extension,
+                                               Resources.PipingPlugin_PipingConfigurationFileFilter_calculation_configuration_description);
+            }
         }
 
         private static FileFilterGenerator StochasticSoilModelFileFilter
@@ -837,7 +860,9 @@ namespace Ringtoets.Piping.Plugin
             return childNodeObjects.ToArray();
         }
 
-        private ContextMenuStrip PipingCalculationGroupContextContextMenuStrip(PipingCalculationGroupContext nodeData, object parentData, TreeViewControl treeViewControl)
+        private ContextMenuStrip PipingCalculationGroupContextContextMenuStrip(PipingCalculationGroupContext nodeData,
+                                                                               object parentData,
+                                                                               TreeViewControl treeViewControl)
         {
             var group = nodeData.WrappedData;
             var builder = new RingtoetsContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
@@ -851,7 +876,8 @@ namespace Ringtoets.Piping.Plugin
                        .AddSeparator();
             }
 
-            builder.AddExportItem()
+            builder.AddImportItem()
+                   .AddExportItem()
                    .AddSeparator();
 
             if (!isNestedGroup)

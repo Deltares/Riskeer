@@ -152,22 +152,6 @@ namespace Ringtoets.Piping.Plugin.Test
         }
 
         [Test]
-        public void GetFileInfos_ReturnsSupportedFileInfos()
-        {
-            // Setup
-            using (var plugin = new PipingPlugin())
-            {
-                // Call
-                ImportInfo[] importInfos = plugin.GetImportInfos().ToArray();
-
-                // Assert
-                Assert.AreEqual(2, importInfos.Length);
-                Assert.AreEqual(1, importInfos.Count(i => i.DataType == typeof(RingtoetsPipingSurfaceLinesContext)));
-                Assert.AreEqual(1, importInfos.Count(i => i.DataType == typeof(StochasticSoilModelCollectionContext)));
-            }
-        }
-
-        [Test]
         public void GetUpdateInfos_ReturnsSupportedUpdateInfos()
         {
             // Setup
@@ -193,9 +177,10 @@ namespace Ringtoets.Piping.Plugin.Test
                 ImportInfo[] importInfos = plugin.GetImportInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(2, importInfos.Length);
+                Assert.AreEqual(3, importInfos.Length);
                 Assert.IsTrue(importInfos.Any(i => i.DataType == typeof(RingtoetsPipingSurfaceLinesContext)));
                 Assert.IsTrue(importInfos.Any(i => i.DataType == typeof(StochasticSoilModelCollectionContext)));
+                Assert.IsTrue(importInfos.Any(i => i.DataType == typeof(PipingCalculationGroupContext)));
             }
         }
 

@@ -80,6 +80,7 @@
     <Compile Include="FileImporter\RingtoetsPipingSurfaceLineExtensionsTest.cs" />
     <Compile Include="FileImporter\StochasticSoilModelReplaceDataStrategyTest.cs" />
     <Compile Include="FileImporter\StochasticSoilModelUpdateDataStrategyTest.cs" />
+    <Compile Include="ImportInfos\PipingCalculationGroupContextImportInfoTest.cs" />
     <Compile Include="ImportInfos\RingtoetsPipingSurfaceLinesContextImportInfoTest.cs" />
     <Compile Include="ImportInfos\StochasticSoilModelCollectionContextImportInfoTest.cs" />
     <Compile Include="PipingPluginTest.cs" />
