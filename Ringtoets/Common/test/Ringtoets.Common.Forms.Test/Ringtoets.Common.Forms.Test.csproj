@@ -83,6 +83,7 @@
     <Compile Include="PropertyClasses\BreakWaterPropertiesTest.cs" />
     <Compile Include="PropertyClasses\ConfirmingVariationCoefficientDistributionPropertiesBaseTest.cs" />
     <Compile Include="PropertyClasses\ConfirmingDistributionPropertiesBaseTest.cs" />
+    <Compile Include="PropertyClasses\ConfirmingVariationCoefficientNormalDistributionPropertiesTest.cs" />
     <Compile Include="PropertyClasses\ConfirmingVariationCoefficientLogNormalDistributionPropertiesTest.cs" />
     <Compile Include="PropertyClasses\ConformingNormalDistributionPropertiesTest.cs" />
     <Compile Include="PropertyClasses\ForeshoreGeometryPropertiesTest.cs" />

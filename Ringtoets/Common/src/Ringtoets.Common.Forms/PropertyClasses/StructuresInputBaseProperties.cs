@@ -59,7 +59,6 @@ namespace Ringtoets.Common.Forms.PropertyClasses
                                where TCalculation : ICalculation
                                where TFailureMechanism : IFailureMechanism
     {
-        private readonly ICalculationInputPropertyChangeHandler propertyChangeHandler;
         private readonly Dictionary<string, int> propertyIndexLookup;
 
         /// <summary>
@@ -84,7 +83,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
                 throw new ArgumentNullException(nameof(propertyChangeHandler));
             }
 
-            this.propertyChangeHandler = propertyChangeHandler;
+            PropertyChangeHandler = propertyChangeHandler;
             Data = data;
             propertyIndexLookup = new Dictionary<string, int>
             {
@@ -136,6 +135,28 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             };
         }
 
+        #region Model factors
+
+        [DynamicPropertyOrder]
+        [TypeConverter(typeof(ExpandableObjectConverter))]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_ModelSettings))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_ModelFactorSuperCriticalFlow_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_ModelFactorSuperCriticalFlow_Description))]
+        public virtual ConfirmingNormalDistributionProperties<TStructureInput> ModelFactorSuperCriticalFlow
+        {
+            get
+            {
+                return new ConfirmingNormalDistributionProperties<TStructureInput>(
+                    DistributionPropertiesReadOnly.StandardDeviation,
+                    data.WrappedData.ModelFactorSuperCriticalFlow,
+                    data.Calculation,
+                    data.WrappedData,
+                    PropertyChangeHandler);
+            }
+        }
+
+        #endregion
+
         [DynamicPropertyOrderEvaluationMethod]
         public int DynamicPropertyOrderEvaluationMethod(string propertyName)
         {
@@ -161,6 +182,11 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         {
             ClearCalculationOutput();
         }
+
+        /// <summary>
+        /// The change handler responsible for handling effects of a property change.
+        /// </summary>
+        protected ICalculationInputPropertyChangeHandler PropertyChangeHandler { get; }
 
         /// <summary>
         /// Sets a probability value to one of the properties of a wrapped data object.
@@ -201,7 +227,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             SetCalculationInputPropertyValueDelegate<TStructureInput, TValue> setPropertyValue,
             TValue value)
         {
-            IEnumerable<IObservable> affectedObjects = propertyChangeHandler.SetPropertyValueAfterConfirmation(
+            IEnumerable<IObservable> affectedObjects = PropertyChangeHandler.SetPropertyValueAfterConfirmation(
                 data.WrappedData,
                 data.Calculation,
                 value,
@@ -221,7 +247,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         private void ClearCalculationOutput()
         {
             IEnumerable<IObservable> affectedCalculation = RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(data.Calculation);
-            foreach (var calculation in affectedCalculation)
+            foreach (IObservable calculation in affectedCalculation)
             {
                 calculation.NotifyObservers();
             }
@@ -320,28 +346,6 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             #endregion
         }
 
-        #region Model factors
-
-        [DynamicPropertyOrder]
-        [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_ModelSettings))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_ModelFactorSuperCriticalFlow_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_ModelFactorSuperCriticalFlow_Description))]
-        public virtual ConfirmingNormalDistributionProperties<TStructureInput> ModelFactorSuperCriticalFlow
-        {
-            get
-            {
-                return new ConfirmingNormalDistributionProperties<TStructureInput>(
-                    DistributionPropertiesReadOnly.StandardDeviation, 
-                    data.WrappedData.ModelFactorSuperCriticalFlow, 
-                    data.Calculation,
-                    data.WrappedData, 
-                    propertyChangeHandler);
-            }
-        }
-
-        #endregion
-
         #region Schematization
 
         [DynamicPropertyOrder]
@@ -358,11 +362,11 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             set
             {
                 ChangePropertyAndNotify((input, newValue) =>
-                {
-                    data.WrappedData.Structure = newValue;
-                    AfterSettingStructure();
-                },
-                value);
+                                        {
+                                            data.WrappedData.Structure = newValue;
+                                            AfterSettingStructure();
+                                        },
+                                        value);
             }
         }
 
@@ -410,9 +414,9 @@ namespace Ringtoets.Common.Forms.PropertyClasses
                 return new ConfirmingLogNormalDistributionProperties<TStructureInput>(
                     DistributionPropertiesReadOnly.None,
                     data.WrappedData.FlowWidthAtBottomProtection,
-                    data.Calculation, 
-                    data.WrappedData, 
-                    propertyChangeHandler);
+                    data.Calculation,
+                    data.WrappedData,
+                    PropertyChangeHandler);
             }
         }
 
@@ -430,7 +434,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
                     data.WrappedData.WidthFlowApertures,
                     data.Calculation,
                     data.WrappedData,
-                    propertyChangeHandler);
+                    PropertyChangeHandler);
             }
         }
 
@@ -448,7 +452,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
                     data.WrappedData.StorageStructureArea,
                     data.Calculation,
                     data.WrappedData,
-                    propertyChangeHandler);
+                    PropertyChangeHandler);
             }
         }
 
@@ -466,7 +470,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
                     data.WrappedData.AllowedLevelIncreaseStorage,
                     data.Calculation,
                     data.WrappedData,
-                    propertyChangeHandler);
+                    PropertyChangeHandler);
             }
         }
 
@@ -484,7 +488,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
                     data.WrappedData.CriticalOvertoppingDischarge,
                     data.Calculation,
                     data.WrappedData,
-                    propertyChangeHandler);
+                    PropertyChangeHandler);
             }
         }
 
@@ -503,8 +507,8 @@ namespace Ringtoets.Common.Forms.PropertyClasses
                 ChangePropertyAndNotify(
                     (input, newValue) =>
                         SetProbabilityValue(
-                            newValue, 
-                            data.WrappedData, 
+                            newValue,
+                            data.WrappedData,
                             (wrappedData, parsedValue) => wrappedData.FailureProbabilityStructureWithErosion = parsedValue)
                     , value);
             }
@@ -539,7 +543,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             {
                 return data.WrappedData.ForeshoreProfile == null ?
                            new ConfirmingUseBreakWaterProperties<TStructureInput>() :
-                           new ConfirmingUseBreakWaterProperties<TStructureInput>(data.WrappedData, data.Calculation, propertyChangeHandler);
+                           new ConfirmingUseBreakWaterProperties<TStructureInput>(data.WrappedData, data.Calculation, PropertyChangeHandler);
             }
         }
 
@@ -552,7 +556,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         {
             get
             {
-                return new ConfirmingUseForeshoreProperties<TStructureInput>(data.WrappedData, data.Calculation, propertyChangeHandler);
+                return new ConfirmingUseForeshoreProperties<TStructureInput>(data.WrappedData, data.Calculation, PropertyChangeHandler);
             }
         }
 
@@ -595,7 +599,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
                     data.WrappedData.StormDuration,
                     data.Calculation,
                     data.WrappedData,
-                    propertyChangeHandler);
+                    PropertyChangeHandler);
             }
         }
 

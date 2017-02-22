@@ -27,7 +27,6 @@ using Core.Common.Gui.Attributes;
 using Core.Common.Utils.Attributes;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Structures;
-using Ringtoets.Common.Forms.ChangeHandlers;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Utils;
 using Ringtoets.HeightStructures.Data;
@@ -95,14 +94,16 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Structure_LevelCrestStructure_DisplayName))]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Structure_LevelCrestStructure_Description))]
-        public NormalDistributionProperties LevelCrestStructure
+        public ConfirmingNormalDistributionProperties<HeightStructuresInput> LevelCrestStructure
         {
             get
             {
-                return new NormalDistributionProperties(DistributionPropertiesReadOnly.None, data.WrappedData, this)
-                {
-                    Data = data.WrappedData.LevelCrestStructure
-                };
+                return new ConfirmingNormalDistributionProperties<HeightStructuresInput>(
+                    DistributionPropertiesReadOnly.None,
+                    data.WrappedData.LevelCrestStructure,
+                    data.Calculation,
+                    data.WrappedData,
+                    PropertyChangeHandler);
             }
         }
 

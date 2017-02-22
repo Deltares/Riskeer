@@ -24,8 +24,10 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using Core.Common.Base;
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Gui.PropertyBag;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -284,6 +286,54 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
 
             // Assert
             Assert.AreSame(calculation, failureMechanism.SectionResults.ElementAt(0).Calculation);
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void LevelCrestStructure_MeanChanged_InputChangedAndObsevablesNotified()
+        {
+            RoundedDouble newMean = new Random(21).NextRoundedDouble();
+            SetPropertyAndVerifyNotifcationsAndOutput(
+                properties => properties.LevelCrestStructure.Mean = newMean,
+                newMean);
+        }
+
+        private void SetPropertyAndVerifyNotifcationsAndOutput<TPropertyValue>(
+            Action<HeightStructuresInputContextProperties> setProperty,
+            TPropertyValue expectedValueSet)
+        {
+            // Setup
+            var observable = mockRepository.StrictMock<IObservable>();
+            var assessmentSection = mockRepository.StrictMock<IAssessmentSection>();
+            observable.Expect(o => o.NotifyObservers());
+            mockRepository.ReplayAll();
+
+            var failureMechanism = new HeightStructuresFailureMechanism();
+            var calculation = new StructuresCalculation<HeightStructuresInput>();
+            HeightStructuresInput input = calculation.InputParameters;
+            input.ForeshoreProfile = new TestForeshoreProfile();
+
+            var customHandler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<TPropertyValue>(
+                input,
+                calculation,
+                expectedValueSet,
+                new[]
+                {
+                    observable
+                });
+
+            var inputContext = new HeightStructuresInputContext(input,
+                                                                 calculation,
+                                                                 failureMechanism,
+                                                                 assessmentSection);
+            var properties = new HeightStructuresInputContextProperties(inputContext, customHandler);
+
+            // Call
+            setProperty(properties);
+
+            // Assert
+            Assert.IsFalse(calculation.HasOutput);
+
             mockRepository.VerifyAll();
         }
     }

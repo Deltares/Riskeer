@@ -36,7 +36,6 @@ using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.Forms.ChangeHandlers;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Forms.TestUtil;
@@ -1028,6 +1027,159 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             SetPropertyAndVerifyNotifcationsAndOutput(
                 properties => properties.VerticalDistance = verticalDistance,
                 verticalDistance);
+        }
+
+        [Test]
+        public void ModelFactorSuperCriticalFlow_MeanChanged_InputChangedAndObsevablesNotified()
+        {
+            RoundedDouble newMean = new Random(21).NextRoundedDouble();
+            SetPropertyAndVerifyNotifcationsAndOutput(
+                properties => properties.ModelFactorSuperCriticalFlow.Mean = newMean,
+                newMean);
+        }
+
+        [Test]
+        public void WidthFlowApertures_MeanChanged_InputChangedAndObsevablesNotified()
+        {
+            RoundedDouble newMean = new Random(21).NextRoundedDouble();
+            SetPropertyAndVerifyNotifcationsAndOutput(
+                properties => properties.WidthFlowApertures.Mean = newMean,
+                newMean);
+        }
+
+        [Test]
+        public void InsideWaterLevelFailureConstruction_MeanChanged_InputChangedAndObsevablesNotified()
+        {
+            RoundedDouble newMean = new Random(21).NextRoundedDouble();
+            SetPropertyAndVerifyNotifcationsAndOutput(
+                properties => properties.InsideWaterLevelFailureConstruction.Mean = newMean,
+                newMean);
+        }
+
+        [Test]
+        public void InsideWaterLevel_MeanChanged_InputChangedAndObsevablesNotified()
+        {
+            RoundedDouble newMean = new Random(21).NextRoundedDouble();
+            SetPropertyAndVerifyNotifcationsAndOutput(
+                properties => properties.InsideWaterLevel.Mean = newMean,
+                newMean);
+        }
+
+        [Test]
+        public void DrainCoefficient_MeanChanged_InputChangedAndObsevablesNotified()
+        {
+            RoundedDouble newMean = new Random(21).NextRoundedDouble();
+            SetPropertyAndVerifyNotifcationsAndOutput(
+                properties => properties.DrainCoefficient.Mean = newMean,
+                newMean);
+        }
+
+        [Test]
+        public void LevelCrestStructure_MeanChanged_InputChangedAndObsevablesNotified()
+        {
+            RoundedDouble newMean = new Random(21).NextRoundedDouble();
+            SetPropertyAndVerifyNotifcationsAndOutput(
+                properties => properties.LevelCrestStructure.Mean = newMean,
+                newMean);
+        }
+
+        [Test]
+        public void ThresholdHeightOpenWeir_MeanChanged_InputChangedAndObsevablesNotified()
+        {
+            RoundedDouble newMean = new Random(21).NextRoundedDouble();
+            SetPropertyAndVerifyNotifcationsAndOutput(
+                properties => properties.ThresholdHeightOpenWeir.Mean = newMean,
+                newMean);
+        }
+
+        [Test]
+        public void FlowVelocityStructureClosable_MeanChanged_InputChangedAndObsevablesNotified()
+        {
+            RoundedDouble newMean = new Random(21).NextRoundedDouble();
+            SetPropertyAndVerifyNotifcationsAndOutput(
+                properties => properties.FlowVelocityStructureClosable.Mean = newMean,
+                newMean);
+        }
+
+        [Test]
+        public void AreaFlowApertures_MeanChanged_InputChangedAndObsevablesNotified()
+        {
+            RoundedDouble newMean = new Random(21).NextRoundedDouble();
+            SetPropertyAndVerifyNotifcationsAndOutput(
+                properties => properties.AreaFlowApertures.Mean = newMean,
+                newMean);
+        }
+
+        [Test]
+        public void ConstructiveStrengthLinearLoadModel_MeanChanged_InputChangedAndObsevablesNotified()
+        {
+            RoundedDouble newMean = new Random(21).NextRoundedDouble();
+            SetPropertyAndVerifyNotifcationsAndOutput(
+                properties => properties.ConstructiveStrengthLinearLoadModel.Mean = newMean,
+                newMean);
+        }
+
+        [Test]
+        public void ConstructiveStrengthQuadraticLoadModel_MeanChanged_InputChangedAndObsevablesNotified()
+        {
+            RoundedDouble newMean = new Random(21).NextRoundedDouble();
+            SetPropertyAndVerifyNotifcationsAndOutput(
+                properties => properties.ConstructiveStrengthQuadraticLoadModel.Mean = newMean,
+                newMean);
+        }
+
+        [Test]
+        public void StabilityLinearLoadModel_MeanChanged_InputChangedAndObsevablesNotified()
+        {
+            RoundedDouble newMean = new Random(21).NextRoundedDouble();
+            SetPropertyAndVerifyNotifcationsAndOutput(
+                properties => properties.StabilityLinearLoadModel.Mean = newMean,
+                newMean);
+        }
+
+        [Test]
+        public void StabilityQuadraticLoadModel_MeanChanged_InputChangedAndObsevablesNotified()
+        {
+            RoundedDouble newMean = new Random(21).NextRoundedDouble();
+            SetPropertyAndVerifyNotifcationsAndOutput(
+                properties => properties.StabilityQuadraticLoadModel.Mean = newMean,
+                newMean);
+        }
+
+        [Test]
+        public void FailureCollisionEnergy_MeanChanged_InputChangedAndObsevablesNotified()
+        {
+            RoundedDouble newMean = new Random(21).NextRoundedDouble();
+            SetPropertyAndVerifyNotifcationsAndOutput(
+                properties => properties.FailureCollisionEnergy.Mean = newMean,
+                newMean);
+        }
+
+        [Test]
+        public void ShipMass_MeanChanged_InputChangedAndObsevablesNotified()
+        {
+            RoundedDouble newMean = new Random(21).NextRoundedDouble();
+            SetPropertyAndVerifyNotifcationsAndOutput(
+                properties => properties.ShipMass.Mean = newMean,
+                newMean);
+        }
+
+        [Test]
+        public void ShipVelocity_MeanChanged_InputChangedAndObsevablesNotified()
+        {
+            RoundedDouble newMean = new Random(21).NextRoundedDouble();
+            SetPropertyAndVerifyNotifcationsAndOutput(
+                properties => properties.ShipVelocity.Mean = newMean,
+                newMean);
+        }
+
+        [Test]
+        public void BankWidth_MeanChanged_InputChangedAndObsevablesNotified()
+        {
+            RoundedDouble newMean = new Random(21).NextRoundedDouble();
+            SetPropertyAndVerifyNotifcationsAndOutput(
+                properties => properties.BankWidth.Mean = newMean,
+                newMean);
         }
 
         [Test]

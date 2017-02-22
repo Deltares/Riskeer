@@ -102,27 +102,6 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
                 StormDurationPropertyIndex = stormDurationPropertyIndex
             }, propertyChangeHandler) {}
 
-        #region Hydraulic data
-
-        [DynamicVisible]
-        [PropertyOrder(insideWaterLevelPropertyIndex)]
-        [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_HydraulicData))]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Structure_InsideWaterLevel_DisplayName))]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Structure_InsideWaterLevel_Description))]
-        public NormalDistributionProperties InsideWaterLevel
-        {
-            get
-            {
-                return new NormalDistributionProperties(DistributionPropertiesReadOnly.None, data.WrappedData, this)
-                {
-                    Data = data.WrappedData.InsideWaterLevel
-                };
-            }
-        }
-
-        #endregion
-
         [DynamicVisibleValidationMethod]
         public bool DynamicVisibleValidationMethod(string propertyName)
         {
@@ -185,6 +164,27 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
                 data.FailureMechanism.Calculations.Cast<StructuresCalculation<ClosingStructuresInput>>());
         }
 
+        #region Hydraulic data
+
+        [DynamicVisible]
+        [PropertyOrder(insideWaterLevelPropertyIndex)]
+        [TypeConverter(typeof(ExpandableObjectConverter))]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_HydraulicData))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Structure_InsideWaterLevel_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Structure_InsideWaterLevel_Description))]
+        public NormalDistributionProperties InsideWaterLevel
+        {
+            get
+            {
+                return new NormalDistributionProperties(DistributionPropertiesReadOnly.None, data.WrappedData, this)
+                {
+                    Data = data.WrappedData.InsideWaterLevel
+                };
+            }
+        }
+
+        #endregion
+
         #region Model factors
 
         [DynamicVisible]
@@ -202,14 +202,16 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_ModelSettings))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Structure_DrainCoefficient_DisplayName))]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Structure_DrainCoefficient_Description))]
-        public NormalDistributionProperties DrainCoefficient
+        public ConfirmingNormalDistributionProperties<ClosingStructuresInput> DrainCoefficient
         {
             get
             {
-                return new NormalDistributionProperties(DistributionPropertiesReadOnly.StandardDeviation, data.WrappedData, this)
-                {
-                    Data = data.WrappedData.DrainCoefficient
-                };
+                return new ConfirmingNormalDistributionProperties<ClosingStructuresInput>(
+                    DistributionPropertiesReadOnly.StandardDeviation,
+                    data.WrappedData.DrainCoefficient,
+                    data.Calculation,
+                    data.WrappedData,
+                    PropertyChangeHandler);
             }
         }
 
@@ -280,14 +282,16 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Structure_ThresholdHeightOpenWeir_DisplayName))]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Structure_ThresholdHeightOpenWeir_Description))]
-        public NormalDistributionProperties ThresholdHeightOpenWeir
+        public ConfirmingNormalDistributionProperties<ClosingStructuresInput> ThresholdHeightOpenWeir
         {
             get
             {
-                return new NormalDistributionProperties(DistributionPropertiesReadOnly.None, data.WrappedData, this)
-                {
-                    Data = data.WrappedData.ThresholdHeightOpenWeir
-                };
+                return new ConfirmingNormalDistributionProperties<ClosingStructuresInput>(
+                    DistributionPropertiesReadOnly.None,
+                    data.WrappedData.ThresholdHeightOpenWeir,
+                    data.Calculation,
+                    data.WrappedData,
+                    PropertyChangeHandler);
             }
         }
 
@@ -297,14 +301,16 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Structure_AreaFlowApertures_DisplayName))]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Structure_AreaFlowApertures_Description))]
-        public LogNormalDistributionProperties AreaFlowApertures
+        public ConfirmingLogNormalDistributionProperties<ClosingStructuresInput> AreaFlowApertures
         {
             get
             {
-                return new LogNormalDistributionProperties(DistributionPropertiesReadOnly.None, data.WrappedData, this)
-                {
-                    Data = data.WrappedData.AreaFlowApertures
-                };
+                return new ConfirmingLogNormalDistributionProperties<ClosingStructuresInput>(
+                    DistributionPropertiesReadOnly.None,
+                    data.WrappedData.AreaFlowApertures,
+                    data.Calculation,
+                    data.WrappedData,
+                    PropertyChangeHandler);
             }
         }
 
@@ -375,14 +381,16 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.LevelCrestStructureNotClosing_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.LevelCrestStructureNotClosing_Description))]
-        public NormalDistributionProperties LevelCrestStructureNotClosing
+        public ConfirmingNormalDistributionProperties<ClosingStructuresInput> LevelCrestStructureNotClosing
         {
             get
             {
-                return new NormalDistributionProperties(DistributionPropertiesReadOnly.None, data.WrappedData, this)
-                {
-                    Data = data.WrappedData.LevelCrestStructureNotClosing
-                };
+                return new ConfirmingNormalDistributionProperties<ClosingStructuresInput>(
+                    DistributionPropertiesReadOnly.None,
+                    data.WrappedData.LevelCrestStructureNotClosing,
+                    data.Calculation,
+                    data.WrappedData,
+                    PropertyChangeHandler);
             }
         }
 

@@ -76,6 +76,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="PropertyClasses\ConfirmingVariationCoefficientDistributionPropertiesBase.cs" />
+    <Compile Include="PropertyClasses\ConfirmingVariationCoefficientNormalDistributionProperties.cs" />
     <Compile Include="PropertyClasses\ICalculationInputPropertyChangeHandler.cs" />
     <Compile Include="PropertyClasses\IPropertyChangeHandler.cs" />
     <Compile Include="PropertyClasses\IFailureMechanismPropertyChangeHandler.cs" />

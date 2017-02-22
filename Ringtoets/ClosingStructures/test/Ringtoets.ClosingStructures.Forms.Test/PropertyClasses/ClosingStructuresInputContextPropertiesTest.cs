@@ -29,7 +29,6 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
-using Core.Common.Utils.Reflection;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.ClosingStructures.Data;
@@ -37,8 +36,8 @@ using Ringtoets.ClosingStructures.Data.TestUtil;
 using Ringtoets.ClosingStructures.Forms.PresentationObjects;
 using Ringtoets.ClosingStructures.Forms.PropertyClasses;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.Helpers;
@@ -134,9 +133,9 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             Assert.AreSame(inputContext, properties.Data);
 
             ClosingStructuresInput input = calculation.InputParameters;
-            var expectedProbabilityOrFrequencyOpenStructureBeforeFlooding = ProbabilityFormattingHelper.Format(input.ProbabilityOrFrequencyOpenStructureBeforeFlooding);
-            var expectedFailureProbabilityOpenStructure = ProbabilityFormattingHelper.Format(input.FailureProbabilityOpenStructure);
-            var expectedFailureProbabilityReparation = ProbabilityFormattingHelper.Format(input.FailureProbabilityReparation);
+            string expectedProbabilityOrFrequencyOpenStructureBeforeFlooding = ProbabilityFormattingHelper.Format(input.ProbabilityOrFrequencyOpenStructureBeforeFlooding);
+            string expectedFailureProbabilityOpenStructure = ProbabilityFormattingHelper.Format(input.FailureProbabilityOpenStructure);
+            string expectedFailureProbabilityReparation = ProbabilityFormattingHelper.Format(input.FailureProbabilityReparation);
 
             Assert.AreSame(input.ModelFactorSuperCriticalFlow, properties.ModelFactorSuperCriticalFlow.Data);
             Assert.AreEqual(input.StructureNormalOrientation, properties.StructureNormalOrientation);
@@ -185,9 +184,9 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
 
             var dynamicPropertyBag = new DynamicPropertyBag(properties);
             PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties(new Attribute[]
-                                                                                              {
-                                                                                                  new BrowsableAttribute(true)
-                                                                                              });
+            {
+                new BrowsableAttribute(true)
+            });
             Assert.AreEqual(22, dynamicProperties.Count);
 
             PropertyDescriptor inflowModelTypeProperty = dynamicProperties[verticalWallInflowModelTypePropertyIndex];
@@ -283,9 +282,9 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
 
             var dynamicPropertyBag = new DynamicPropertyBag(properties);
             PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties(new Attribute[]
-                                                                                              {
-                                                                                                  new BrowsableAttribute(true)
-                                                                                              });
+            {
+                new BrowsableAttribute(true)
+            });
             Assert.AreEqual(21, dynamicProperties.Count);
 
             PropertyDescriptor insideWaterLevelProperty = dynamicProperties[floodedCulvertInsideWaterLevelPropertyIndex];
@@ -390,9 +389,9 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
 
             var dynamicPropertyBag = new DynamicPropertyBag(properties);
             PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties(new Attribute[]
-                                                                                              {
-                                                                                                  new BrowsableAttribute(true)
-                                                                                              });
+            {
+                new BrowsableAttribute(true)
+            });
             Assert.AreEqual(22, dynamicProperties.Count);
 
             PropertyDescriptor insideWaterLevelProperty = dynamicProperties[lowSillInsideWaterLevelPropertyIndex];
@@ -485,7 +484,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             var properties = new ClosingStructuresInputContextProperties(inputContext, handler);
 
             // Call
-            var availableForeshoreProfiles = properties.GetAvailableForeshoreProfiles();
+            IEnumerable<ForeshoreProfile> availableForeshoreProfiles = properties.GetAvailableForeshoreProfiles();
 
             // Assert
             Assert.AreSame(failureMechanism.ForeshoreProfiles, availableForeshoreProfiles);
@@ -515,13 +514,13 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             var properties = new ClosingStructuresInputContextProperties(inputContext, handler);
 
             // Call
-            var availableStructures = properties.GetAvailableStructures();
+            IEnumerable<ClosingStructure> availableStructures = properties.GetAvailableStructures();
 
             // Assert
             Assert.AreSame(failureMechanism.ClosingStructures, availableStructures);
             mockRepository.VerifyAll();
         }
-        
+
         [Test]
         public void FactorStormDurationOpenStructure_Always_InputChangedAndObsevablesNotified()
         {
@@ -574,6 +573,60 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             SetPropertyAndVerifyNotifcationsAndOutput(
                 properties => properties.IdenticalApertures = propertiesIdenticalApertures,
                 propertiesIdenticalApertures);
+        }
+
+        [Test]
+        public void ModelFactorSuperCriticalFlow_MeanChanged_InputChangedAndObsevablesNotified()
+        {
+            RoundedDouble newMean = new Random(21).NextRoundedDouble();
+            SetPropertyAndVerifyNotifcationsAndOutput(
+                properties => properties.ModelFactorSuperCriticalFlow.Mean = newMean,
+                newMean);
+        }
+
+        [Test]
+        public void WidthFlowApertures_MeanChanged_InputChangedAndObsevablesNotified()
+        {
+            RoundedDouble newMean = new Random(21).NextRoundedDouble();
+            SetPropertyAndVerifyNotifcationsAndOutput(
+                properties => properties.WidthFlowApertures.Mean = newMean,
+                newMean);
+        }
+
+        [Test]
+        public void ThresholdHeightOpenWeir_MeanChanged_InputChangedAndObsevablesNotified()
+        {
+            RoundedDouble newMean = new Random(21).NextRoundedDouble();
+            SetPropertyAndVerifyNotifcationsAndOutput(
+                properties => properties.ThresholdHeightOpenWeir.Mean = newMean,
+                newMean);
+        }
+
+        [Test]
+        public void AreaFlowApertures_MeanChanged_InputChangedAndObsevablesNotified()
+        {
+            RoundedDouble newMean = new Random(21).NextRoundedDouble();
+            SetPropertyAndVerifyNotifcationsAndOutput(
+                properties => properties.AreaFlowApertures.Mean = newMean,
+                newMean);
+        }
+
+        [Test]
+        public void DrainCoefficient_MeanChanged_InputChangedAndObsevablesNotified()
+        {
+            RoundedDouble newMean = new Random(21).NextRoundedDouble();
+            SetPropertyAndVerifyNotifcationsAndOutput(
+                properties => properties.DrainCoefficient.Mean = newMean,
+                newMean);
+        }
+
+        [Test]
+        public void LevelCrestStructureNotClosing_MeanChanged_InputChangedAndObsevablesNotified()
+        {
+            RoundedDouble newMean = new Random(21).NextRoundedDouble();
+            SetPropertyAndVerifyNotifcationsAndOutput(
+                properties => properties.LevelCrestStructureNotClosing.Mean = newMean,
+                newMean);
         }
 
         [Test]
@@ -742,7 +795,6 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
                 Enumerable.Empty<IObservable>());
             var properties = new ClosingStructuresInputContextProperties(inputContext, handler);
 
-
             // Call
             TestDelegate call = () => properties.FailureProbabilityOpenStructure = newProbabilityString;
 
@@ -845,7 +897,6 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
                 newProbabilityString,
                 Enumerable.Empty<IObservable>());
             var properties = new ClosingStructuresInputContextProperties(inputContext, handler);
-
 
             // Call
             TestDelegate call = () => properties.FailureProbabilityReparation = newProbabilityString;
@@ -1094,6 +1145,44 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(null));
         }
 
+        private void SetPropertyAndVerifyNotifcationsAndOutput<TPropertyValue>(
+            Action<ClosingStructuresInputContextProperties> setProperty,
+            TPropertyValue expectedValueSet)
+        {
+            // Setup
+            var observable = mockRepository.StrictMock<IObservable>();
+            observable.Expect(o => o.NotifyObservers());
+            mockRepository.ReplayAll();
+
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+            var calculation = new StructuresCalculation<ClosingStructuresInput>();
+            ClosingStructuresInput input = calculation.InputParameters;
+            input.ForeshoreProfile = new TestForeshoreProfile();
+
+            var customHandler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<TPropertyValue>(
+                input,
+                calculation,
+                expectedValueSet,
+                new[]
+                {
+                    observable
+                });
+
+            var inputContext = new ClosingStructuresInputContext(input,
+                                                                 calculation,
+                                                                 failureMechanism,
+                                                                 assessmentSection);
+            var properties = new ClosingStructuresInputContextProperties(inputContext, customHandler);
+
+            // Call
+            setProperty(properties);
+
+            // Assert
+            Assert.IsFalse(calculation.HasOutput);
+
+            mockRepository.VerifyAll();
+        }
+
         #region Property indices
 
         #region VerticalWall structures indices
@@ -1177,43 +1266,5 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         #endregion
 
         #endregion
-
-        private void SetPropertyAndVerifyNotifcationsAndOutput<TPropertyValue>(
-            Action<ClosingStructuresInputContextProperties> setProperty,
-            TPropertyValue expectedValueSet)
-        {
-            // Setup
-            var observable = mockRepository.StrictMock<IObservable>();
-            observable.Expect(o => o.NotifyObservers());
-            mockRepository.ReplayAll();
-
-            var failureMechanism = new ClosingStructuresFailureMechanism();
-            var calculation = new StructuresCalculation<ClosingStructuresInput>();
-            ClosingStructuresInput input = calculation.InputParameters;
-            input.ForeshoreProfile = new TestForeshoreProfile();
-
-            var customHandler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<TPropertyValue>(
-                input,
-                calculation,
-                expectedValueSet,
-                new[]
-                {
-                    observable
-                });
-
-            var inputContext = new ClosingStructuresInputContext(input,
-                                                      calculation,
-                                                      failureMechanism,
-                                                      assessmentSection);
-            var properties = new ClosingStructuresInputContextProperties(inputContext, customHandler);
-
-            // Call
-            setProperty(properties);
-
-            // Assert
-            Assert.IsFalse(calculation.HasOutput);
-
-            mockRepository.VerifyAll();
-        }
     }
 }
