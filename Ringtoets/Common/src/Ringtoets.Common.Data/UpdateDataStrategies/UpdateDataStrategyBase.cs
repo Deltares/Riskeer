@@ -44,7 +44,7 @@ namespace Ringtoets.Common.Data.UpdateDataStrategies
         where TFeature : class
         where TFailureMechanism : IFailureMechanism
     {
-        protected TFailureMechanism failureMechanism;
+        protected readonly TFailureMechanism failureMechanism;
         private readonly IEqualityComparer<TTargetData> equalityComparer;
 
         /// <summary>

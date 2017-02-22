@@ -27,7 +27,9 @@ using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.UpdateDataStrategies;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.IO.Importers;
+using Ringtoets.Piping.KernelWrapper.TestUtil;
 using Ringtoets.Piping.Plugin.FileImporter;
 using Ringtoets.Piping.Primitives;
 
@@ -315,6 +317,142 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         }
 
         [Test]
+        public void UpdateSurfaceLinesWithImportedData_CalculationWithOutputAndAssignedLineDeleted_ClearsCalculationOutput()
+        {
+            // Setup
+            RingtoetsPipingSurfaceLine surfaceLine = CreateValidSurfaceLineForCalculations();
+            var calculation = new PipingCalculation(new GeneralPipingInput())
+            {
+                InputParameters =
+                {
+                    SurfaceLine = surfaceLine
+                },
+                Output = new TestPipingOutput(),
+                SemiProbabilisticOutput = new TestPipingSemiProbabilisticOutput()
+            };
+
+            var failureMechanism = new PipingFailureMechanism();
+            failureMechanism.CalculationsGroup.Children.Add(calculation);
+
+            var strategy = new RingtoetsPipingSurfaceLineUpdateDataStrategy(failureMechanism);
+
+            var collection = new RingtoetsPipingSurfaceLineCollection();
+            collection.AddRange(new[]
+            {
+                surfaceLine
+            }, sourceFilePath);
+
+            // Call
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateSurfaceLinesWithImportedData(collection,
+                                                                                                   Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                                                   sourceFilePath).ToArray();
+
+            // Assert
+            Assert.IsFalse(calculation.HasOutput);
+            Assert.IsNull(calculation.InputParameters.SurfaceLine);
+            CollectionAssert.Contains(affectedObjects, calculation);
+            CollectionAssert.Contains(affectedObjects, calculation.InputParameters);
+        }
+
+        [Test]
+        public void UpdateSurfaceLinesWithImportedData_MultipleCalculationsWithSurfaceLines_OnlyUpdatesCalculationWithUpdatedSurfaceLine()
+        {
+            // Setup
+            var affectedSurfaceLine = new RingtoetsPipingSurfaceLine
+            {
+                Name = "Name A"
+            };
+            affectedSurfaceLine.SetGeometry(new[]
+            {
+                new Point3D(1, 2, 3),
+                new Point3D(4, 5, 6)
+            });
+            var affectedCalculation = new PipingCalculation(new GeneralPipingInput())
+            {
+                InputParameters =
+                {
+                    SurfaceLine = affectedSurfaceLine
+                },
+                Output = new TestPipingOutput(),
+                SemiProbabilisticOutput = new TestPipingSemiProbabilisticOutput()
+            };
+
+            var unaffectedGeometry = new[]
+            {
+                new Point3D(10, 9, 8),
+                new Point3D(7, 6, 5)
+            };
+            var unaffectedSurfaceLine = new RingtoetsPipingSurfaceLine()
+            {
+                Name = "Name B"
+            };
+            unaffectedSurfaceLine.SetGeometry(unaffectedGeometry);
+            var unAffectedCalculation = new PipingCalculation(new GeneralPipingInput())
+            {
+                InputParameters =
+                {
+                    SurfaceLine = unaffectedSurfaceLine
+                },
+                Output = new TestPipingOutput(),
+                SemiProbabilisticOutput = new TestPipingSemiProbabilisticOutput()
+            };
+
+            var collection = new RingtoetsPipingSurfaceLineCollection();
+            collection.AddRange(new[]
+            {
+                affectedSurfaceLine,
+                unaffectedSurfaceLine
+            }, sourceFilePath);
+
+            var failureMechanism = new PipingFailureMechanism();
+            failureMechanism.CalculationsGroup.Children.Add(affectedCalculation);
+            failureMechanism.CalculationsGroup.Children.Add(unAffectedCalculation);
+
+            var importedAffectedSurfaceLine = new RingtoetsPipingSurfaceLine
+            {
+                Name = "Name A"
+            };
+            importedAffectedSurfaceLine.SetGeometry(new[]
+            {
+                new Point3D(0, 0, 0),
+                new Point3D(10, 0, 0)
+            });
+            var importedUnaffectedSurfaceLine = new RingtoetsPipingSurfaceLine
+            {
+                Name = "Name B"
+            };
+            importedUnaffectedSurfaceLine.SetGeometry(unaffectedGeometry);
+
+            var strategy = new RingtoetsPipingSurfaceLineUpdateDataStrategy(failureMechanism);
+
+            // Call
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateSurfaceLinesWithImportedData(collection,
+                                                                                                   new[]
+                                                                                                   {
+                                                                                                       importedAffectedSurfaceLine,
+                                                                                                       importedUnaffectedSurfaceLine
+                                                                                                   }, "path").ToArray();
+
+            // Assert
+            Assert.IsTrue(unAffectedCalculation.HasOutput);
+            PipingInput unaffectedInput = unAffectedCalculation.InputParameters;
+            Assert.AreSame(unaffectedSurfaceLine, unaffectedInput.SurfaceLine);
+            CollectionAssert.AreEqual(unaffectedGeometry, unaffectedSurfaceLine.Points);
+
+            Assert.IsFalse(affectedCalculation.HasOutput);
+            PipingInput affectedInput = affectedCalculation.InputParameters;
+            Assert.AreSame(affectedSurfaceLine, affectedInput.SurfaceLine);
+            CollectionAssert.AreEqual(importedAffectedSurfaceLine.Points, affectedSurfaceLine.Points);
+
+            CollectionAssert.AreEquivalent(new IObservable[]
+            {
+                affectedCalculation,
+                affectedInput,
+                affectedSurfaceLine
+            }, affectedObjects);
+        }
+
+        [Test]
         public void UpdateSurfaceLinesWithImportedData_WithCalculationAssignedToUpdatedLine_UpdatesCalculationAndStochasticSoilModel()
         {
             // Setup
@@ -384,7 +522,6 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             // Assert
             PipingInput calculationInput = calculation.InputParameters;
-            CollectionAssert.Contains(affectedObjects, calculation);
             CollectionAssert.Contains(affectedObjects, calculationInput);
             Assert.AreSame(surfaceLine, calculationInput.SurfaceLine);
             CollectionAssert.AreEqual(importedSurfaceLine.Points, surfaceLine.Points);
@@ -474,7 +611,6 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             // Assert
             PipingInput calculationInput = calculation.InputParameters;
-            CollectionAssert.Contains(affectedObjects, calculation);
             CollectionAssert.Contains(affectedObjects, calculationInput);
             Assert.AreSame(surfaceLine, calculationInput.SurfaceLine);
             CollectionAssert.AreEqual(importedSurfaceLine.Points, surfaceLine.Points);
@@ -576,14 +712,12 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             // Assert
             PipingInput unaffectedInput = unAffectedCalculation.InputParameters;
-            CollectionAssert.DoesNotContain(affectedObjects, unAffectedCalculation);
             CollectionAssert.DoesNotContain(affectedObjects, unaffectedInput);
             Assert.AreSame(unaffectedSurfaceLine, unaffectedInput.SurfaceLine);
             CollectionAssert.AreEqual(unaffectedGeometry, unaffectedSurfaceLine.Points);
             Assert.IsNull(unaffectedInput.StochasticSoilModel);
 
             PipingInput affectedInput = affectedCalculation.InputParameters;
-            CollectionAssert.Contains(affectedObjects, affectedCalculation);
             CollectionAssert.Contains(affectedObjects, affectedInput);
             Assert.AreSame(affectedSurfaceLine, affectedInput.SurfaceLine);
             CollectionAssert.AreEqual(importedSurfaceLine.Points, affectedSurfaceLine.Points);

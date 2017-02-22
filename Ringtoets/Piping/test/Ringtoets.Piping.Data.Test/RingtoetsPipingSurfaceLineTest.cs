@@ -768,6 +768,258 @@ namespace Ringtoets.Piping.Data.Test
             CollectionAssert.AreEqual(expectedGeometry, surfaceLine.Points);
         }
 
+        [Test]
+        public void Equals_ToItself_ReturnsTrue()
+        {
+            // Setup
+            var surfaceLineOne = new RingtoetsPipingSurfaceLine();
+
+            // Call
+            bool isLineOneEqualToLineOne = surfaceLineOne.Equals(surfaceLineOne);
+
+            // Assert
+            Assert.IsTrue(isLineOneEqualToLineOne);
+        }
+
+        [Test]
+        public void Equal_SameReference_ReturnsTrue()
+        {
+            // Setup
+            var surfaceLineOne = new RingtoetsPipingSurfaceLine();
+            var surfaceLineTwo = surfaceLineOne;
+
+            // Call
+            bool isLineOneEqualToLineTwo = surfaceLineOne.Equals(surfaceLineTwo);
+            bool isLineTwoEqualToLineOne = surfaceLineTwo.Equals(surfaceLineOne);
+
+            // Assert
+            Assert.IsTrue(isLineOneEqualToLineTwo);
+            Assert.IsTrue(isLineTwoEqualToLineOne);
+        }
+
+        [Test]
+        public void Equals_ToNull_ReturnsFalse()
+        {
+            // Setup
+            var surfaceLineOne = new RingtoetsPipingSurfaceLine
+            {
+                Name = "Name A"
+            };
+
+            // Call
+            bool isLineOneEqualToNull = surfaceLineOne.Equals(null);
+
+            // Assert
+            Assert.IsFalse(isLineOneEqualToNull);
+        }
+
+        [Test]
+        public void Equals_ToDifferentType_ReturnsFalse()
+        {
+            // Setup
+            var surfaceLineOne = new RingtoetsPipingSurfaceLine
+            {
+                Name = "Name A"
+            };
+
+            var differentType = new object();
+
+            // Call
+            bool isSurfaceLineEqualToDifferentType = surfaceLineOne.Equals(differentType);
+            bool isDifferentTypeEqualToSurfaceLine = differentType.Equals(surfaceLineOne);
+
+            // Assert
+            Assert.IsFalse(isSurfaceLineEqualToDifferentType);
+            Assert.IsFalse(isDifferentTypeEqualToSurfaceLine);
+        }
+
+        [Test]
+        public void Equals_DifferentNames_ReturnsFalse()
+        {
+            // Setup
+            var surfaceLineOne = new RingtoetsPipingSurfaceLine
+            {
+                Name = "Name A"
+            };
+
+            var surfaceLineTwo = new RingtoetsPipingSurfaceLine
+            {
+                Name = "Name B"
+            };
+
+            // Call
+            bool isLineOneEqualToLineTwo = surfaceLineOne.Equals(surfaceLineTwo);
+            bool isLineTwoEqualToLineOne = surfaceLineTwo.Equals(surfaceLineOne);
+
+            // Assert
+            Assert.IsFalse(isLineOneEqualToLineTwo);
+            Assert.IsFalse(isLineTwoEqualToLineOne);
+        }
+
+        [Test]
+        public void Equals_DifferentGeometries_ReturnsFalse()
+        {
+            // Setup
+            var surfaceLineOne = new RingtoetsPipingSurfaceLine
+            {
+                Name = "Name A"
+            };
+            surfaceLineOne.SetGeometry(new[]
+            {
+                new Point3D(1, 2, 3)
+            });
+
+            var surfaceLineTwo = new RingtoetsPipingSurfaceLine
+            {
+                Name = "Name A"
+            };
+            surfaceLineTwo.SetGeometry(new[]
+            {
+                new Point3D(3, 4, 5)
+            });
+
+            // Call
+            bool isLineOneEqualToLineTwo = surfaceLineOne.Equals(surfaceLineTwo);
+            bool isLineTwoEqualToLineOne = surfaceLineTwo.Equals(surfaceLineOne);
+
+            // Assert
+            Assert.IsFalse(isLineOneEqualToLineTwo);
+            Assert.IsFalse(isLineTwoEqualToLineOne);
+        }
+
+        [Test]
+        public void Equals_NamesAndGeometriesEqual_ReturnsTrue()
+        {
+            // Setup
+            var surfaceLineOne = new RingtoetsPipingSurfaceLine
+            {
+                Name = "Name A"
+            };
+            surfaceLineOne.SetGeometry(new[]
+            {
+                new Point3D(1, 2, 3)
+            });
+
+            var surfaceLineTwo = new RingtoetsPipingSurfaceLine
+            {
+                Name = "Name A"
+            };
+            surfaceLineTwo.SetGeometry(new[]
+            {
+                new Point3D(1, 2, 3)
+            });
+
+            // Call
+            bool isLineOneEqualToLineTwo = surfaceLineOne.Equals(surfaceLineTwo);
+            bool isLineTwoEqualToLineOne = surfaceLineTwo.Equals(surfaceLineOne);
+
+            // Assert
+            Assert.IsTrue(isLineOneEqualToLineTwo);
+            Assert.IsTrue(isLineTwoEqualToLineOne);
+        }
+
+        [Test]
+        public void Equals_TransitivePropertyWithSameNamesAndGeometry_ReturnsTrue()
+        {
+            // Setup
+            var surfaceLineOne = new RingtoetsPipingSurfaceLine
+            {
+                Name = "Name A"
+            };
+            surfaceLineOne.SetGeometry(new[]
+            {
+                new Point3D(1, 2, 3)
+            });
+
+            var surfaceLineTwo = new RingtoetsPipingSurfaceLine
+            {
+                Name = "Name A"
+            };
+            surfaceLineTwo.SetGeometry(new[]
+            {
+                new Point3D(1, 2, 3)
+            });
+
+            var surfaceLineThree = new RingtoetsPipingSurfaceLine
+            {
+                Name = "Name A"
+            };
+            surfaceLineThree.SetGeometry(new[]
+            {
+                new Point3D(1, 2, 3)
+            });
+
+            // Call
+            bool isLineOneEqualToLineTwo = surfaceLineOne.Equals(surfaceLineTwo);
+            bool isLineTwoEqualToLineThree = surfaceLineTwo.Equals(surfaceLineThree);
+            bool isLineOneEqualToLineThree = surfaceLineOne.Equals(surfaceLineThree);
+
+            // Assert
+            Assert.IsTrue(isLineOneEqualToLineTwo);
+            Assert.IsTrue(isLineTwoEqualToLineThree);
+            Assert.IsTrue(isLineOneEqualToLineThree);
+        }
+
+        [Test]
+        public void GetHashCode_EqualSurfaceLines_ReturnSameHashCode()
+        {
+            // Setup
+            var surfaceLineOne = new RingtoetsPipingSurfaceLine
+            {
+                Name = "Name A"
+            };
+            surfaceLineOne.SetGeometry(new[]
+            {
+                new Point3D(1, 2, 3)
+            });
+
+            var surfaceLineTwo = new RingtoetsPipingSurfaceLine
+            {
+                Name = "Name A"
+            };
+            surfaceLineTwo.SetGeometry(new[]
+            {
+                new Point3D(1, 2, 3)
+            });
+
+            // Call
+            int hashCodeOne = surfaceLineOne.GetHashCode();
+            int hashCodeTwo = surfaceLineTwo.GetHashCode();
+
+            // Assert
+            Assert.AreEqual(hashCodeOne, hashCodeTwo);
+        }
+
+        [Test]
+        public void GetHashCode_DifferentSurfaceLines_ReturnDifferentHashCode()
+        {
+            // Setup
+            var surfaceLineOne = new RingtoetsPipingSurfaceLine
+            {
+                Name = "Name A"
+            };
+            surfaceLineOne.SetGeometry(new[]
+            {
+                new Point3D(1, 2, 3)
+            });
+
+            var surfaceLineTwo = new RingtoetsPipingSurfaceLine
+            {
+                Name = "Name A"
+            };
+            surfaceLineTwo.SetGeometry(new[]
+            {
+                new Point3D(3, 4, 5)
+            });
+
+            // Call
+            int hashCodeOne = surfaceLineOne.GetHashCode();
+            int hashCodeTwo = surfaceLineTwo.GetHashCode();
+
+            // Assert
+            Assert.AreNotEqual(hashCodeOne, hashCodeTwo);
+        }
+
         private static void CreateTestGeometry(Point3D testPoint, RingtoetsPipingSurfaceLine surfaceLine)
         {
             var random = new Random(21);

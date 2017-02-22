@@ -371,6 +371,62 @@ namespace Ringtoets.Piping.Primitives
             SetGeometry(fromSurfaceLine.Points);
         }
 
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj))
+            {
+                return false;
+            }
+            if (ReferenceEquals(this, obj))
+            {
+                return true;
+            }
+            if (obj.GetType() != GetType())
+            {
+                return false;
+            }
+            return Equals((RingtoetsPipingSurfaceLine) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                int hashCode = Name.GetHashCode();
+                foreach (Point3D point in Points)
+                {
+                    hashCode = (hashCode * 397) ^ point.GetHashCode();
+                }
+                return hashCode;
+            }
+        }
+
+        private bool Equals(RingtoetsPipingSurfaceLine other)
+        {
+            return string.Equals(Name, other.Name)
+                   && EqualPoints(other.Points);
+        }
+
+        private bool EqualPoints(Point3D[] otherPoints)
+        {
+            int nrOfOtherPoints = otherPoints.Length;
+            if (Points.Length != nrOfOtherPoints)
+            {
+                return false;
+            }
+
+            int i = 0;
+            foreach (Point3D point in Points)
+            {
+                if (!point.Equals(otherPoints[i]))
+                {
+                    return false;
+                }
+                i++;
+            }
+            return true;
+        }
+
         public override string ToString()
         {
             return Name;

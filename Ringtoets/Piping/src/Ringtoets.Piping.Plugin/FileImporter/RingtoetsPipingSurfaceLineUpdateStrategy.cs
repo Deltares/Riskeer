@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using Ringtoets.Common.Data.UpdateDataStrategies;
+using Ringtoets.Common.Service;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms;
 using Ringtoets.Piping.IO.Importers;
@@ -101,31 +102,44 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             foreach (RingtoetsPipingSurfaceLine updatedSurfaceLine in objectsToUpdate)
             {
                 RingtoetsPipingSurfaceLine matchingSurfaceLine = importedDataCollection.Single(sl => sl.Name == updatedSurfaceLine.Name);
-                updatedSurfaceLine.Update(matchingSurfaceLine);
 
-                affectedObjects.Add(updatedSurfaceLine);
-                affectedObjects.AddRange(UpdateAvailableStochasticSoilModels(updatedSurfaceLine));
+                if (!updatedSurfaceLine.Equals(matchingSurfaceLine))
+                {
+                    updatedSurfaceLine.Update(matchingSurfaceLine);
+                    affectedObjects.Add(updatedSurfaceLine);
+
+                    affectedObjects.AddRange(UpdateAffectedCalculations(updatedSurfaceLine));
+                }
             }
 
             return affectedObjects;
         }
 
-        private IEnumerable<IObservable> UpdateAvailableStochasticSoilModels(RingtoetsPipingSurfaceLine updatedSurfaceLine)
+        private IEnumerable<IObservable> UpdateAffectedCalculations(RingtoetsPipingSurfaceLine surfaceLine)
         {
             IEnumerable<PipingCalculation> affectedCalculations =
                 failureMechanism.Calculations
                                 .Cast<PipingCalculation>()
-                                .Where(calc => ReferenceEquals(updatedSurfaceLine, calc.InputParameters.SurfaceLine));
+                                .Where(calc => ReferenceEquals(calc.InputParameters.SurfaceLine, surfaceLine));
 
             var affectedObjects = new List<IObservable>();
             foreach (PipingCalculation affectedCalculation in affectedCalculations)
             {
-                IEnumerable<StochasticSoilModel> matchingSoilModels = GetAvailableStochasticSoilModels(updatedSurfaceLine);
-                PipingInputService.SetMatchingStochasticSoilModel(affectedCalculation.InputParameters, matchingSoilModels);
-                affectedObjects.Add(affectedCalculation);
-                affectedObjects.Add(affectedCalculation.InputParameters);
+                affectedObjects.AddRange(RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(affectedCalculation));
+                affectedObjects.AddRange(UpdateStochasticSoilModel(surfaceLine, affectedCalculation.InputParameters));
             }
             return affectedObjects;
+        }
+
+        private IEnumerable<IObservable> UpdateStochasticSoilModel(RingtoetsPipingSurfaceLine updatedSurfaceLine, PipingInput pipingInput)
+        {
+            IEnumerable<StochasticSoilModel> matchingSoilModels = GetAvailableStochasticSoilModels(updatedSurfaceLine);
+            PipingInputService.SetMatchingStochasticSoilModel(pipingInput, matchingSoilModels);
+
+            return new[]
+            {
+                pipingInput
+            };
         }
 
         private IEnumerable<StochasticSoilModel> GetAvailableStochasticSoilModels(RingtoetsPipingSurfaceLine surfaceLine)

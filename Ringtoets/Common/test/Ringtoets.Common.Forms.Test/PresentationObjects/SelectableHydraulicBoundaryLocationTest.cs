@@ -32,7 +32,7 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
     public class SelectableHydraulicBoundaryLocationTest
     {
         [Test]
-        [TestCaseSource("ReferencePointLocations")]
+        [TestCaseSource(nameof(ReferencePointLocations))]
         public void Constructor_ArgumentsNotNull_ReturnsRightData(Point2D referencePoint, double expectedDistance)
         {
             // Setup 
@@ -76,7 +76,7 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
         }
 
         [Test]
-        [TestCaseSource("EqualityReferencePoints")]
+        [TestCaseSource(nameof(EqualityReferencePoints))]
         public void Equals_ToOtherWithSameHydraulicBoundaryLocationsAndVaryingReferencePoints_ReturnsTrue(Point2D referencePoint1,
                                                                                                           Point2D referencePoint2)
         {
@@ -95,7 +95,7 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
         }
 
         [Test]
-        [TestCaseSource("EqualityReferencePoints")]
+        [TestCaseSource(nameof(EqualityReferencePoints))]
         public void Equals_ToOtherWithDifferentHydraulicBoundaryLocationsAndVaryingReferencePoints_ReturnsTrue(Point2D referencePoint1,
                                                                                                                Point2D referencePoint2)
         {
@@ -190,7 +190,7 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
         }
 
         [Test]
-        [TestCaseSource("EqualityReferencePoints")]
+        [TestCaseSource(nameof(EqualityReferencePoints))]
         public void GetHashCode_EqualObjects_ReturnsSameHashCode(Point2D referencePoint1,
                                                                  Point2D referencePoint2)
         {
@@ -211,7 +211,7 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
         }
 
         [Test]
-        [TestCaseSource("EqualityReferencePoints")]
+        [TestCaseSource(nameof(EqualityReferencePoints))]
         public void GetHashCode_NotEqualObjects_ReturnsDifferenHashCode(Point2D referencePoint1,
                                                                         Point2D referencePoint2)
         {
@@ -233,7 +233,7 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
         }
 
         [Test]
-        [TestCaseSource("StringRepresentations")]
+        [TestCaseSource(nameof(StringRepresentations))]
         public void ToString_DifferentReferencePoints_ReturnsExpectedString(HydraulicBoundaryLocation location,
                                                                             Point2D referencePoint, string expectedString)
         {
