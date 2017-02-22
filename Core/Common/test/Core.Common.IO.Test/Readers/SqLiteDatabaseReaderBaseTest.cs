@@ -41,12 +41,12 @@ namespace Core.Common.IO.Test.Readers
         {
             // Setup
             const string fileName = "temp.sqlite";
-            var localPath = Path.Combine(@"c:\", fileName);
-            var uncPath = Path.Combine(@"\\localhost\c$", fileName);
+            var localPath = TestHelper.GetScratchPadPath(fileName);
+            var uncPath = TestHelper.ToUncPath(localPath);
 
-            // Call
             using (new FileDisposeHelper(localPath))
             {
+                // Call
                 using (var reader = new TestReader(uncPath))
                 {
                     // Assert
@@ -112,8 +112,7 @@ namespace Core.Common.IO.Test.Readers
         public void Constructor_FileNullOrEmpty_ThrowsCriticalFileReadException(string fileName)
         {
             // Setup
-            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': {1}",
-                                                fileName, "bestandspad mag niet leeg of ongedefinieerd zijn.");
+            var expectedMessage = $"Fout bij het lezen van bestand '{fileName}': {"bestandspad mag niet leeg of ongedefinieerd zijn."}";
 
             // Call
             TestDelegate test = () => new TestReader(fileName).Dispose();

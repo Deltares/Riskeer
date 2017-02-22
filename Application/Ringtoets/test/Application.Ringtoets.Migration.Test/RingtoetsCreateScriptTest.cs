@@ -104,7 +104,7 @@ namespace Application.Ringtoets.Migration.Test
             string version = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
 
             string targetFilename = Path.GetRandomFileName();
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration, targetFilename);
+            string filePath = TestHelper.GetScratchPadPath(targetFilename);
             var createScript = new RingtoetsCreateScript(version, query);
 
             // Call
@@ -112,7 +112,7 @@ namespace Application.Ringtoets.Migration.Test
 
             // Assert
             Assert.IsTrue(File.Exists(versionedFile.Location));
-            using (new FileDisposeHelper(filePath)) {}
+            File.Delete(filePath);
         }
 
         [Test]
@@ -123,7 +123,7 @@ namespace Application.Ringtoets.Migration.Test
             string version = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
 
             string filename = Path.GetRandomFileName();
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration, filename);
+            string filePath = TestHelper.GetScratchPadPath(filename);
             var createScript = new RingtoetsCreateScript(version, query);
 
             using (new FileDisposeHelper(filePath))
@@ -149,7 +149,7 @@ namespace Application.Ringtoets.Migration.Test
             string version = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
 
             string targetFilename = Path.GetRandomFileName();
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration, targetFilename);
+            string filePath = TestHelper.GetScratchPadPath(targetFilename);
             var createScript = new RingtoetsCreateScript(version, query);
 
             // Call

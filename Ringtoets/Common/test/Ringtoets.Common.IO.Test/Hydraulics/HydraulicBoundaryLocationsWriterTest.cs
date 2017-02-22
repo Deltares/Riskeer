@@ -59,9 +59,8 @@ namespace Ringtoets.Common.IO.Test.Hydraulics
         public void WriteHydraulicBoundaryLocations_HydraulicBoundaryLocationsNull_ThrowArgumentNullException()
         {
             // Setup
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                         Path.Combine("WriteHydraulicBoundaryLocations_NullhydraulicBoundaryLocations_ThrowArgumentNullException",
-                                                                      "test.shp"));
+            string filePath = TestHelper.GetScratchPadPath(Path.Combine("WriteHydraulicBoundaryLocations_NullhydraulicBoundaryLocations_ThrowArgumentNullException",
+                                                                        "test.shp"));
 
             var writer = new HydraulicBoundaryLocationsWriter("aName", "bName");
 
@@ -95,8 +94,7 @@ namespace Ringtoets.Common.IO.Test.Hydraulics
                 WaveHeightOutput = new TestHydraulicBoundaryLocationOutput(222.222)
             };
 
-            string directoryPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                              "WriteHydraulicBoundaryLocations_ValidData_WritesShapeFile");
+            string directoryPath = TestHelper.GetScratchPadPath("WriteHydraulicBoundaryLocations_ValidData_WritesShapeFile");
             Directory.CreateDirectory(directoryPath);
             string filePath = Path.Combine(directoryPath, "test.shp");
             var baseName = "test";

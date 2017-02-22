@@ -138,8 +138,6 @@ namespace Application.Ringtoets.Migration.Test
         public void Upgrade_UpgradeFails_ThrowsCriticalMigrationException()
         {
             // Setup
-            string filename = Path.GetRandomFileName();
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration, filename);
             string fromVersion = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
             string toVersion = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
 
@@ -149,13 +147,10 @@ namespace Application.Ringtoets.Migration.Test
             TestDelegate call = () => upgradeScript.Upgrade("c:\\file.ext", "c:\\file.ext");
 
             // Assert
-            using (new FileDisposeHelper(filePath))
-            {
-                CriticalMigrationException exception = Assert.Throws<CriticalMigrationException>(call);
-                Assert.AreEqual($"Het migreren van het Ringtoets projectbestand van versie '{fromVersion}' naar '{fromVersion}' is mislukt.",
-                                exception.Message);
-                Assert.IsInstanceOf<SQLiteException>(exception.InnerException);
-            }
+            CriticalMigrationException exception = Assert.Throws<CriticalMigrationException>(call);
+            Assert.AreEqual($"Het migreren van het Ringtoets projectbestand van versie '{fromVersion}' naar '{fromVersion}' is mislukt.",
+                            exception.Message);
+            Assert.IsInstanceOf<SQLiteException>(exception.InnerException);
         }
 
         [Test]
@@ -163,7 +158,7 @@ namespace Application.Ringtoets.Migration.Test
         {
             // Setup
             string filename = Path.GetRandomFileName();
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration, filename);
+            string filePath = TestHelper.GetScratchPadPath(filename);
             string fromVersion = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
             string toVersion = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
 
@@ -174,7 +169,7 @@ namespace Application.Ringtoets.Migration.Test
 
             // Assert
             Assert.IsTrue(File.Exists(filePath));
-            using (new FileDisposeHelper(filePath)) {}
+            File.Delete(filePath);
         }
     }
 }

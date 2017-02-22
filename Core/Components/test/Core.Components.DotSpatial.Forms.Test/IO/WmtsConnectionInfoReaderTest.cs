@@ -232,7 +232,7 @@ namespace Core.Components.DotSpatial.Forms.Test.IO
         public void ReadWmtsConnectionInfos_FileLocked_ThrowsCriticalFileReadException()
         {
             // Setup
-            string filePath = Path.Combine(testPath, Path.GetRandomFileName());
+            string filePath = TestHelper.GetScratchPadPath(Path.GetRandomFileName());
             var reader = new WmtsConnectionInfoReader();
 
             using (var fileDisposeHelper = new FileDisposeHelper(filePath))

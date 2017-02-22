@@ -33,8 +33,6 @@ namespace Core.Components.DotSpatial.Forms.Test.IO
     [TestFixture]
     public class WmtsConnectionInfoWriterTest
     {
-        private static readonly string testPath = TestHelper.GetTestDataPath(TestDataPath.Core.Components.DotSpatial.Forms, "WmtsConnectionInfo");
-
         [Test]
         [TestCase("")]
         [TestCase("      ")]
@@ -82,7 +80,7 @@ namespace Core.Components.DotSpatial.Forms.Test.IO
         public void WriteWmtsConnectionInfo_InvalidDirectoryRights_ThrowCriticalFileWriteException()
         {
             // Setup
-            string directoryPath = Path.Combine(testPath, "InvalidDirectoryRights");
+            string directoryPath = TestHelper.GetScratchPadPath("InvalidDirectoryRights");
             Directory.CreateDirectory(directoryPath);
             string filePath = Path.Combine(directoryPath, Path.GetRandomFileName());
             var wmtsConfigurationWriter = new WmtsConnectionInfoWriter(filePath);
@@ -110,7 +108,7 @@ namespace Core.Components.DotSpatial.Forms.Test.IO
         public void WriteWmtsConnectionInfo_WmtsConnectionInfosNull_ThrowArgumentNullException()
         {
             // Setup
-            string filePath = Path.Combine(testPath, Path.GetRandomFileName());
+            string filePath = TestHelper.GetScratchPadPath(Path.GetRandomFileName());
             var wmtsConfigurationWriter = new WmtsConnectionInfoWriter(filePath);
 
             // Call
@@ -125,7 +123,7 @@ namespace Core.Components.DotSpatial.Forms.Test.IO
         public void WriteWmtsConnectionInfo_ValidWmtsConnectionInfo_SavesWmtsConnectionInfoToFile()
         {
             // Setup
-            string filePath = Path.Combine(testPath, Path.GetRandomFileName());
+            string filePath = TestHelper.GetScratchPadPath(Path.GetRandomFileName());
             var wmtsConfigurationWriter = new WmtsConnectionInfoWriter(filePath);
 
             var wmtsConnectionInfos = new[]

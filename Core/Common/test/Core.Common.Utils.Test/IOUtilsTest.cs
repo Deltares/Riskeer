@@ -267,7 +267,7 @@ namespace Core.Common.Utils.Test
 
             // Assert
             var exception = Assert.Throws<ArgumentException>(call);
-            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': bestandspad mag niet leeg of ongedefinieerd zijn.", invalidPath);
+            var expectedMessage = $"Fout bij het lezen van bestand '{invalidPath}': bestandspad mag niet leeg of ongedefinieerd zijn.";
             Assert.AreEqual(expectedMessage, exception.Message);
         }
 
@@ -284,8 +284,8 @@ namespace Core.Common.Utils.Test
 
             // Assert
             var exception = Assert.Throws<ArgumentException>(call);
-            var expectedMessage = $"Fout bij het lezen van bestand '{invalidPath}': er zitten ongeldige tekens in het bestandspad. " 
-                + "Alle tekens in het bestandspad moeten geldig zijn.";
+            var expectedMessage = $"Fout bij het lezen van bestand '{invalidPath}': er zitten ongeldige tekens in het bestandspad. "
+                                  + "Alle tekens in het bestandspad moeten geldig zijn.";
             Assert.AreEqual(expectedMessage, exception.Message);
         }
 
@@ -300,7 +300,7 @@ namespace Core.Common.Utils.Test
 
             // Assert
             var exception = Assert.Throws<ArgumentException>(call);
-            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': bestandspad mag niet verwijzen naar een lege bestandsnaam.", folderPath);
+            var expectedMessage = $"Fout bij het lezen van bestand '{folderPath}': bestandspad mag niet verwijzen naar een lege bestandsnaam.";
             Assert.AreEqual(expectedMessage, exception.Message);
         }
 
@@ -393,7 +393,7 @@ namespace Core.Common.Utils.Test
         public void DeleteOldFiles_PathDoesNotExist_ThrowsIOException()
         {
             // Setup
-            string path = TestHelper.GetTestDataPath(TestDataPath.Core.Common.Utils, "doesNotExist");
+            string path = TestHelper.GetScratchPadPath("doesNotExist");
 
             // Precondition
             Assert.IsFalse(Directory.Exists(path));
@@ -447,7 +447,7 @@ namespace Core.Common.Utils.Test
         {
             // Setup
             string filename = Path.GetRandomFileName();
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Core.Common.Utils, filename);
+            string filePath = TestHelper.GetScratchPadPath(filename);
 
             using (new FileDisposeHelper(filePath))
             {
@@ -470,7 +470,7 @@ namespace Core.Common.Utils.Test
         {
             // Setup
             string filename = Path.GetRandomFileName();
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Core.Common.Utils, filename);
+            string filePath = TestHelper.GetScratchPadPath(filename);
 
             using (new FileDisposeHelper(filePath))
             {

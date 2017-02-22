@@ -165,7 +165,7 @@ namespace Application.Ringtoets.MigrationConsole.Test
         {
             // Given
             string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration, "FullTestProject164.rtd");
-            string targetFilePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration, Path.GetRandomFileName());
+            string targetFilePath = TestHelper.GetScratchPadPath(Path.GetRandomFileName());
             var console = new RingtoetsMigrationConsole();
             string expectedVersion = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
 
@@ -199,7 +199,7 @@ namespace Application.Ringtoets.MigrationConsole.Test
         {
             // Given
             string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration, "FullTestProject164.rtd");
-            string targetFilePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration, Path.GetRandomFileName());
+            string targetFilePath = TestHelper.GetScratchPadPath(Path.GetRandomFileName());
 
             var console = new RingtoetsMigrationConsole();
 

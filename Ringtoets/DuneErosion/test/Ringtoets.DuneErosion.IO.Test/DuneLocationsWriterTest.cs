@@ -91,8 +91,7 @@ namespace Ringtoets.DuneErosion.IO.Test
         public void WriteDuneLocations_InvalidDirectoryRights_ThrowCriticalFileWriteException()
         {
             // Setup
-            string directoryPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.DuneErosion.IO,
-                                                              "WriteDuneLocations_InvalidDirectoryRights_ThrowCriticalFileWriteException");
+            string directoryPath = TestHelper.GetScratchPadPath("WriteDuneLocations_InvalidDirectoryRights_ThrowCriticalFileWriteException");
             Directory.CreateDirectory(directoryPath);
             string filePath = Path.Combine(directoryPath, "test.bnd");
 
@@ -134,8 +133,7 @@ namespace Ringtoets.DuneErosion.IO.Test
                 locationCalculatedOutput
             };
 
-            string directoryPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.DuneErosion.IO,
-                                                              "WriteDuneLocations_ValidData_ValidFile");
+            string directoryPath = TestHelper.GetScratchPadPath("WriteDuneLocations_ValidData_ValidFile");
             Directory.CreateDirectory(directoryPath);
             string filePath = Path.Combine(directoryPath, "test.bnd");
 

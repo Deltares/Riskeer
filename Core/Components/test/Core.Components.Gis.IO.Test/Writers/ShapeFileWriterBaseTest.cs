@@ -134,8 +134,7 @@ namespace Core.Components.Gis.IO.Test.Writers
         [Test]
         public void SaveAs_InvalidDirectoryRights_ThrowCriticalFileWriteException()
         {
-            string directoryPath = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO,
-                                                              "SaveAs_InvalidDirectoryRights_ThrowCriticalFileWriteException");
+            string directoryPath = TestHelper.GetScratchPadPath("SaveAs_InvalidDirectoryRights_ThrowCriticalFileWriteException");
             Directory.CreateDirectory(directoryPath);
             string filePath = Path.Combine(directoryPath, "test.shp");
 
@@ -148,7 +147,7 @@ namespace Core.Components.Gis.IO.Test.Writers
                     TestDelegate call = () => writer.SaveAs(filePath);
 
                     // Assert
-                    var expectedMessage = string.Format("Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{0}'.", filePath);
+                    var expectedMessage = $"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{filePath}'.";
                     var message = Assert.Throws<CriticalFileWriteException>(call).Message;
                     Assert.AreEqual(expectedMessage, message);
                 }

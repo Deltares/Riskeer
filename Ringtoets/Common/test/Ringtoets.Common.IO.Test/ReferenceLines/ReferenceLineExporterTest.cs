@@ -39,7 +39,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
         {
             // Setup
             var referenceLine = new ReferenceLine();
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "test.shp");
+            string filePath = TestHelper.GetScratchPadPath("test.shp");
 
             // Call
             var referenceLineExporter = new ReferenceLineExporter(referenceLine, "anId", filePath);
@@ -72,8 +72,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
                 new Point2D(11.11, 22.22)
             });
 
-            string directoryPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                              "Export_ValidData_ReturnTrue");
+            string directoryPath = TestHelper.GetScratchPadPath("Export_ValidData_ReturnTrue");
             Directory.CreateDirectory(directoryPath);
             string filePath = Path.Combine(directoryPath, "test.shp");
 
@@ -105,8 +104,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
                 new Point2D(11.11, 22.22)
             });
 
-            string directoryPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                              "Export_InvalidDirectoryRights_LogErrorAndReturnFalse");
+            string directoryPath = TestHelper.GetScratchPadPath("Export_InvalidDirectoryRights_LogErrorAndReturnFalse");
             Directory.CreateDirectory(directoryPath);
             string filePath = Path.Combine(directoryPath, "test.shp");
 

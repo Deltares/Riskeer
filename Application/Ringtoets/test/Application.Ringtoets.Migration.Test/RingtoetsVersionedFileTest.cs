@@ -30,8 +30,6 @@ namespace Application.Ringtoets.Migration.Test
     [TestFixture]
     public class RingtoetsVersionedFileTest
     {
-        private static readonly TestDataPath testPath = TestDataPath.Application.Ringtoets.Migration;
-
         [Test]
         [TestCase("")]
         [TestCase("   ")]
@@ -64,7 +62,7 @@ namespace Application.Ringtoets.Migration.Test
         {
             // Setup
             string file = Path.GetRandomFileName();
-            string filePath = TestHelper.GetTestDataPath(testPath, file);
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration, file);
 
             var sourceFile = new RingtoetsVersionedFile(filePath);
 
@@ -83,7 +81,7 @@ namespace Application.Ringtoets.Migration.Test
         {
             // Setup
             string file = Path.GetRandomFileName();
-            string filePath = TestHelper.GetTestDataPath(testPath, file);
+            string filePath = TestHelper.GetScratchPadPath(file);
 
             var sourceFile = new RingtoetsVersionedFile(filePath);
 
@@ -104,7 +102,7 @@ namespace Application.Ringtoets.Migration.Test
         public void GetVersion_ParameteredConstructor_ExptectedProperties(string file, string expectedVersion)
         {
             // Setup
-            string filePath = TestHelper.GetTestDataPath(testPath, file);
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration, file);
             var sourceFile = new RingtoetsVersionedFile(filePath);
 
             // Call

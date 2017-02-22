@@ -69,7 +69,7 @@ namespace Ringtoets.Revetment.IO.Test
 
             // Assert
             var exception = Assert.Throws<CriticalFileWriteException>(call);
-            Assert.AreEqual(string.Format("Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{0}'.", filePath), exception.Message);
+            Assert.AreEqual($"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{filePath}'.", exception.Message);
             Assert.IsInstanceOf<ArgumentException>(exception.InnerException);
         }
 
@@ -84,7 +84,7 @@ namespace Ringtoets.Revetment.IO.Test
 
             // Assert
             var exception = Assert.Throws<CriticalFileWriteException>(call);
-            Assert.AreEqual(string.Format("Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{0}'.", filePath), exception.Message);
+            Assert.AreEqual($"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{filePath}'.", exception.Message);
             Assert.IsInstanceOf<PathTooLongException>(exception.InnerException);
         }
 
@@ -92,8 +92,7 @@ namespace Ringtoets.Revetment.IO.Test
         public void WriteWaveConditions_InvalidDirectoryRights_ThrowCriticalFileWriteException()
         {
             // Setup
-            string directoryPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Revetment.IO,
-                                                              "WriteWaveConditions_InvalidDirectoryRights_ThrowCriticalFileWriteException");
+            string directoryPath = TestHelper.GetScratchPadPath("WriteWaveConditions_InvalidDirectoryRights_ThrowCriticalFileWriteException");
             Directory.CreateDirectory(directoryPath);
             string filePath = Path.Combine(directoryPath, "test.csv");
 
@@ -106,7 +105,7 @@ namespace Ringtoets.Revetment.IO.Test
                 {
                     // Assert
                     var exception = Assert.Throws<CriticalFileWriteException>(call);
-                    Assert.AreEqual(string.Format("Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{0}'.", filePath), exception.Message);
+                    Assert.AreEqual($"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{filePath}'.", exception.Message);
                     Assert.IsInstanceOf<UnauthorizedAccessException>(exception.InnerException);
                 }
             }
@@ -149,8 +148,7 @@ namespace Ringtoets.Revetment.IO.Test
                 }, CreateWaveConditionsOutputForExport(3.33333, 1.11111, 4.44444, 2.2, 6.66666), CoverType.StoneCoverColumns)
             };
 
-            string directoryPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Revetment.IO,
-                                                              "WriteWaveConditions_ValidData_ValidFile");
+            string directoryPath = TestHelper.GetScratchPadPath("WriteWaveConditions_ValidData_ValidFile");
             Directory.CreateDirectory(directoryPath);
             string filePath = Path.Combine(directoryPath, "test.csv");
 

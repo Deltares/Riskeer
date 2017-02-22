@@ -31,8 +31,6 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
     [TestFixture]
     public class SqLiteDatabaseHelperTest
     {
-        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Storage, "DatabaseFiles");
-
         [Test]
         [TestCase("")]
         [TestCase("    ")]
@@ -50,22 +48,23 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
         public void CreateCorruptDatabaseFile_ValidArguments_CreatedDatabaseFile()
         {
             // Setup
-            string validPath = Path.Combine(testDataPath, "tempFile.rtd");
+            string validPath = TestHelper.GetScratchPadPath("tempFile.rtd");
 
-            FileDisposeHelper fileDisposeHelper = new FileDisposeHelper(validPath);
-            try
+            using (new FileDisposeHelper(validPath))
             {
-                // Call
-                TestDelegate test = () => SqLiteDatabaseHelper.CreateCorruptDatabaseFile(validPath);
+                try
+                {
+                    // Call
+                    TestDelegate test = () => SqLiteDatabaseHelper.CreateCorruptDatabaseFile(validPath);
 
-                // Assert
-                Assert.DoesNotThrow(test);
-                Assert.IsTrue(File.Exists(validPath));
-            }
-            finally
-            {
-                CallGarbageCollector();
-                fileDisposeHelper.Dispose();
+                    // Assert
+                    Assert.DoesNotThrow(test);
+                    Assert.IsTrue(File.Exists(validPath));
+                }
+                finally
+                {
+                    CallGarbageCollector();
+                }
             }
         }
 
@@ -86,22 +85,23 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
         public void CreateCompleteDatabaseFileWithoutProjectData_ValidArguments_CreatedDatabaseFile()
         {
             // Setup
-            string validPath = Path.Combine(testDataPath, "tempFile.rtd");
+            string validPath = TestHelper.GetScratchPadPath("tempFile.rtd");
 
-            FileDisposeHelper fileDisposeHelper = new FileDisposeHelper(validPath);
-            try
+            using (new FileDisposeHelper(validPath))
             {
-                // Call
-                TestDelegate test = () => SqLiteDatabaseHelper.CreateCompleteDatabaseFileWithoutProjectData(validPath);
+                try
+                {
+                    // Call
+                    TestDelegate test = () => SqLiteDatabaseHelper.CreateCompleteDatabaseFileWithoutProjectData(validPath);
 
-                // Assert
-                Assert.DoesNotThrow(test);
-                Assert.IsTrue(File.Exists(validPath));
-            }
-            finally
-            {
-                CallGarbageCollector();
-                fileDisposeHelper.Dispose();
+                    // Assert
+                    Assert.DoesNotThrow(test);
+                    Assert.IsTrue(File.Exists(validPath));
+                }
+                finally
+                {
+                    CallGarbageCollector();
+                }
             }
         }
 
@@ -122,22 +122,23 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
         public void CreateCompleteDatabaseFileEmpty_ValidArguments_CreatedDatabaseFile()
         {
             // Setup
-            string validPath = Path.Combine(testDataPath, "tempFile.rtd");
+            string validPath = TestHelper.GetScratchPadPath("tempFile.rtd");
 
-            FileDisposeHelper fileDisposeHelper = new FileDisposeHelper(validPath);
-            try
+            using (new FileDisposeHelper(validPath))
             {
-                // Call
-                TestDelegate test = () => SqLiteDatabaseHelper.CreateCompleteDatabaseFileEmpty(validPath);
+                try
+                {
+                    // Call
+                    TestDelegate test = () => SqLiteDatabaseHelper.CreateCompleteDatabaseFileEmpty(validPath);
 
-                // Assert
-                Assert.DoesNotThrow(test);
-                Assert.IsTrue(File.Exists(validPath));
-            }
-            finally
-            {
-                CallGarbageCollector();
-                fileDisposeHelper.Dispose();
+                    // Assert
+                    Assert.DoesNotThrow(test);
+                    Assert.IsTrue(File.Exists(validPath));
+                }
+                finally
+                {
+                    CallGarbageCollector();
+                }
             }
         }
 
@@ -171,7 +172,7 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
         public void CreateDatabaseFile_ValidPathInvalidScript_ThrowsSQLiteException()
         {
             // Setup
-            string validPath = Path.Combine(testDataPath, "tempFile.rtd");
+            string validPath = TestHelper.GetScratchPadPath("tempFile.rtd");
             const string invalidScript = "SELECT '' FROM *;";
 
             using (new FileDisposeHelper(validPath))
@@ -188,7 +189,7 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
         public void CreateDatabaseFile_ValidPathValidScript_CreatesValidFile()
         {
             // Setup
-            string validPath = Path.Combine(testDataPath, "tempFile.rtd");
+            string validPath = TestHelper.GetScratchPadPath("tempFile.rtd");
             const string validScript = "select * from sqlite_master;";
 
             using (new FileDisposeHelper(validPath))
@@ -206,7 +207,7 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
         public void CreateDatabaseFile_FileAlreadyExists_OverwriteFile()
         {
             // Setup
-            string validPath = Path.Combine(testDataPath, "tempFile.rtd");
+            string validPath = TestHelper.GetScratchPadPath("tempFile.rtd");
             const string validScript = "select * from sqlite_master;";
 
             using (new FileDisposeHelper(validPath))
@@ -227,7 +228,7 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
         public void CreateDatabaseFile_FileAlreadyExistsAndLocked_Fail()
         {
             // Setup
-            string validPath = Path.Combine(testDataPath, Path.GetRandomFileName());
+            string validPath = TestHelper.GetScratchPadPath(Path.GetRandomFileName());
             const string validScript = ";";
 
             using (var fileDisposeHelper = new FileDisposeHelper(validPath))
@@ -246,7 +247,7 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
         public void CreateValidRingtoetsDatabase_ValidArguments_SavesProjectToFile()
         {
             // Setup
-            string validPath = Path.Combine(testDataPath, "tempFile.rtd");
+            string validPath = TestHelper.GetScratchPadPath("tempFile.rtd");
             var project = new RingtoetsProject();
 
             FileDisposeHelper fileDisposeHelper = new FileDisposeHelper(validPath);

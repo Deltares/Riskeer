@@ -37,9 +37,8 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
         public void WriteReferenceLine_NullReferenceLine_ThrowArgumentNullException()
         {
             // Setup
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                         Path.Combine("WriteReferenceLine_NullReferenceLine_ThrowArgumentNullException",
-                                                                      "test.shp"));
+            string filePath = TestHelper.GetScratchPadPath(Path.Combine("WriteReferenceLine_NullReferenceLine_ThrowArgumentNullException",
+                                                                        "test.shp"));
 
             var writer = new ReferenceLineWriter();
 
@@ -61,9 +60,8 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
                 new Point2D(11.11, 22.22)
             });
 
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                         Path.Combine("WriteReferenceLine_NullId_ThrowArgumentNullException",
-                                                                      "test.shp"));
+            string filePath = TestHelper.GetScratchPadPath(Path.Combine("WriteReferenceLine_NullId_ThrowArgumentNullException",
+                                                                        "test.shp"));
 
             var writer = new ReferenceLineWriter();
 
@@ -88,9 +86,8 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
                 new Point2D(11.11, 22.22)
             });
 
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                         Path.Combine("WriteReferenceLine_InvalidId_ThrowArgumentException",
-                                                                      "test.shp"));
+            string filePath = TestHelper.GetScratchPadPath(Path.Combine("WriteReferenceLine_InvalidId_ThrowArgumentException",
+                                                                        "test.shp"));
 
             var writer = new ReferenceLineWriter();
 
@@ -132,8 +129,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
                 new Point2D(11.11, 22.22)
             });
 
-            string directoryPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                              "WriteReferenceLine_ValidData_WritesShapeFile");
+            string directoryPath = TestHelper.GetScratchPadPath("WriteReferenceLine_ValidData_WritesShapeFile");
             Directory.CreateDirectory(directoryPath);
             string filePath = Path.Combine(directoryPath, "test.shp");
             var baseName = "test";

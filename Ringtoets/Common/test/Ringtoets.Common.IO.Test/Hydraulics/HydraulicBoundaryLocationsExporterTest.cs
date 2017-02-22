@@ -39,8 +39,7 @@ namespace Ringtoets.Common.IO.Test.Hydraulics
         public void Constructor_ValidParameters_ExpectedValues()
         {
             // Setup
-
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "test.shp");
+            string filePath = TestHelper.GetScratchPadPath(Path.Combine("export", "test.shp"));
 
             // Call
             var hydraulicBoundaryLocationsExporter = new HydraulicBoundaryLocationsExporter(Enumerable.Empty<HydraulicBoundaryLocation>(), filePath, "Toetspeil", "Golfhoogte");
@@ -53,7 +52,7 @@ namespace Ringtoets.Common.IO.Test.Hydraulics
         public void Constructor_HydraulicBoundaryLocationsNull_ThrowsArgumentNullException()
         {
             // Setup
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "test.shp");
+            string filePath = TestHelper.GetScratchPadPath(Path.Combine("export", "test.shp"));
 
             // Call
             TestDelegate call = () => new HydraulicBoundaryLocationsExporter(null, filePath, "Toetspeil", "Golfhoogte");
@@ -93,7 +92,7 @@ namespace Ringtoets.Common.IO.Test.Hydraulics
                 WaveHeightOutput = new TestHydraulicBoundaryLocationOutput(222.222)
             };
 
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "test.shp");
+            string filePath = TestHelper.GetScratchPadPath(Path.Combine("export", "test.shp"));
 
             // Call
             TestDelegate call = () => new HydraulicBoundaryLocationsExporter(new[]
@@ -116,7 +115,7 @@ namespace Ringtoets.Common.IO.Test.Hydraulics
                 WaveHeightOutput = new TestHydraulicBoundaryLocationOutput(222.222)
             };
 
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "test.shp");
+            string filePath = TestHelper.GetScratchPadPath(Path.Combine("export", "test.shp"));
 
             // Call
             TestDelegate call = () => new HydraulicBoundaryLocationsExporter(new[]
@@ -139,8 +138,7 @@ namespace Ringtoets.Common.IO.Test.Hydraulics
                 WaveHeightOutput = new TestHydraulicBoundaryLocationOutput(222.222)
             };
 
-            string directoryPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                              "Export_ValidData_ReturnTrue");
+            string directoryPath = TestHelper.GetScratchPadPath("Export_ValidData_ReturnTrue");
             Directory.CreateDirectory(directoryPath);
             string filePath = Path.Combine(directoryPath, "test.shp");
             var baseName = "test";
@@ -177,8 +175,7 @@ namespace Ringtoets.Common.IO.Test.Hydraulics
                 WaveHeightOutput = new TestHydraulicBoundaryLocationOutput(222.222)
             };
 
-            string directoryPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                              "Export_ValidData_ReturnTrue");
+            string directoryPath = TestHelper.GetScratchPadPath("Export_ValidData_ReturnTrue");
             Directory.CreateDirectory(directoryPath);
             string filePath = Path.Combine(directoryPath, "test.shp");
             var baseName = "test";
@@ -216,8 +213,7 @@ namespace Ringtoets.Common.IO.Test.Hydraulics
                 WaveHeightOutput = new TestHydraulicBoundaryLocationOutput(222.222)
             };
 
-            string directoryPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                              "Export_InvalidDirectoryRights_LogErrorAndReturnFalse");
+            string directoryPath = TestHelper.GetScratchPadPath("Export_InvalidDirectoryRights_LogErrorAndReturnFalse");
             Directory.CreateDirectory(directoryPath);
             string filePath = Path.Combine(directoryPath, "test.shp");
 
@@ -235,8 +231,8 @@ namespace Ringtoets.Common.IO.Test.Hydraulics
                     Action call = () => isExported = exporter.Export();
 
                     // Assert
-                    string expectedMessage = string.Format("Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{0}'. " +
-                                                           "Er zijn geen hydraulische randvoorwaarden locaties geëxporteerd.", filePath);
+                    string expectedMessage = $"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{filePath}'. " +
+                                             "Er zijn geen hydraulische randvoorwaarden locaties geëxporteerd.";
                     TestHelper.AssertLogMessageIsGenerated(call, expectedMessage);
                     Assert.IsFalse(isExported);
                 }

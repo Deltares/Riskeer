@@ -76,9 +76,7 @@ namespace Ringtoets.Piping.IO.Test.Exporters
         public void Export_ValidData_ReturnTrueAndWritesFile()
         {
             // Setup
-            string directoryPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO,
-                                                              "PipingConfigurationWriter");
-            string filePath = Path.Combine(directoryPath, "test.xml");
+            string filePath = TestHelper.GetScratchPadPath("test.xml");
 
             PipingCalculation calculation = PipingTestDataGenerator.GetPipingCalculation();
             calculation.InputParameters.EntryPointL = (RoundedDouble) 0.1;
@@ -136,7 +134,9 @@ namespace Ringtoets.Piping.IO.Test.Exporters
                 Assert.IsTrue(File.Exists(filePath));
 
                 string actualXml = File.ReadAllText(filePath);
-                string expectedXml = File.ReadAllText(Path.Combine(directoryPath, "folderWithSubfolderAndCalculation.xml"));
+                string expectedXmlFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO,
+                                                                        Path.Combine("PipingConfigurationWriter", "folderWithSubfolderAndCalculation.xml"));
+                string expectedXml = File.ReadAllText(expectedXmlFilePath);
 
                 Assert.AreEqual(expectedXml, actualXml);
             }
@@ -158,8 +158,7 @@ namespace Ringtoets.Piping.IO.Test.Exporters
                 }
             };
 
-            string directoryPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO,
-                                                              "Export_InvalidDirectoryRights_LogErrorAndReturnFalse");
+            string directoryPath = TestHelper.GetScratchPadPath("Export_InvalidDirectoryRights_LogErrorAndReturnFalse");
             Directory.CreateDirectory(directoryPath);
             string filePath = Path.Combine(directoryPath, "test.xml");
 

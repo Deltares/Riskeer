@@ -36,13 +36,11 @@ namespace Ringtoets.DuneErosion.IO.Test
     [TestFixture]
     public class DuneLocationsExporterTest
     {
-        private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.DuneErosion.IO, "DuneLocationsExporter");
-
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var filePath = Path.Combine(testDataPath, "test.bnd");
+            var filePath = TestHelper.GetScratchPadPath(Path.Combine("DuneLocationsExporter", "test.bnd"));
 
             // Call
             var exporter = new DuneLocationsExporter(Enumerable.Empty<DuneLocation>(), filePath);
@@ -55,7 +53,7 @@ namespace Ringtoets.DuneErosion.IO.Test
         public void Constructor_LocationsNull_ThrowArgumentNullException()
         {
             // Setup
-            var filePath = Path.Combine(testDataPath, "test.bnd");
+            var filePath = TestHelper.GetScratchPadPath(Path.Combine("DuneLocationsExporter", "test.bnd"));
 
             // Call
             TestDelegate test = () => new DuneLocationsExporter(null, filePath);
@@ -97,8 +95,7 @@ namespace Ringtoets.DuneErosion.IO.Test
                 locationCalculatedOutput
             };
 
-            string directoryPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.DuneErosion.IO,
-                                                              "Export_ValidData_ReturnTrue");
+            string directoryPath = TestHelper.GetScratchPadPath("Export_ValidData_ReturnTrue");
             Directory.CreateDirectory(directoryPath);
             string filePath = Path.Combine(directoryPath, "test.bnd");
 
@@ -142,8 +139,7 @@ namespace Ringtoets.DuneErosion.IO.Test
                 }
             };
 
-            string directoryPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.DuneErosion.IO,
-                                                              "Export_InvalidDirectoryRights_LogErrorAndReturnFalse");
+            string directoryPath = TestHelper.GetScratchPadPath("Export_InvalidDirectoryRights_LogErrorAndReturnFalse");
             Directory.CreateDirectory(directoryPath);
             string filePath = Path.Combine(directoryPath, "test.bnd");
 
@@ -173,21 +169,21 @@ namespace Ringtoets.DuneErosion.IO.Test
         private static DuneLocationOutput CreateDuneLocationOutputForExport(double waterLevel, double wavePeriod, double waveHeight)
         {
             return new DuneLocationOutput(CalculationConvergence.CalculatedConverged, new DuneLocationOutput.ConstructionProperties
-                                          {
-                                              WaterLevel = waterLevel,
-                                              WavePeriod = wavePeriod,
-                                              WaveHeight = waveHeight
-                                          });
+            {
+                WaterLevel = waterLevel,
+                WavePeriod = wavePeriod,
+                WaveHeight = waveHeight
+            });
         }
 
         private static DuneLocation CreateDuneLocationForExport(int coastalAreaId, double offset, double d50)
         {
             return new DuneLocation(0, string.Empty, new Point2D(0.0, 0.0), new DuneLocation.ConstructionProperties
-                                    {
-                                        CoastalAreaId = coastalAreaId,
-                                        Offset = offset,
-                                        D50 = d50
-                                    });
+            {
+                CoastalAreaId = coastalAreaId,
+                Offset = offset,
+                D50 = d50
+            });
         }
     }
 }

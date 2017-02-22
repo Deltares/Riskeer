@@ -30,13 +30,14 @@ namespace Ringtoets.WaveImpactAsphaltCover.IO.Test
     [TestFixture]
     public class WaveImpactAsphaltCoverWaveConditionsExporterTest
     {
-        private readonly string testFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.WaveImpactAsphaltCover.IO, "test.csv");
-
         [Test]
         public void Constructor_ValidParameters_ExpectedValues()
         {
+            // Setup
+            string filePath = TestHelper.GetScratchPadPath("test.csv");
+
             // Call
-            var waveConditionsExporter = new WaveImpactAsphaltCoverWaveConditionsExporter(new WaveImpactAsphaltCoverWaveConditionsCalculation[0], testFilePath);
+            var waveConditionsExporter = new WaveImpactAsphaltCoverWaveConditionsExporter(new WaveImpactAsphaltCoverWaveConditionsCalculation[0], filePath);
 
             // Assert
             Assert.IsInstanceOf<WaveConditionsExporterBase>(waveConditionsExporter);
@@ -45,8 +46,11 @@ namespace Ringtoets.WaveImpactAsphaltCover.IO.Test
         [Test]
         public void Constructor_CalculationNull_ThrowArgumentNullException()
         {
+            // Setup
+            string filePath = TestHelper.GetScratchPadPath("test.csv");
+
             // Call
-            TestDelegate call = () => new WaveImpactAsphaltCoverWaveConditionsExporter(null, testFilePath);
+            TestDelegate call = () => new WaveImpactAsphaltCoverWaveConditionsExporter(null, filePath);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

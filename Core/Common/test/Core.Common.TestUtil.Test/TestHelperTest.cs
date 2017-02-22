@@ -92,7 +92,6 @@ namespace Core.Common.TestUtil.Test
                           $"The directory '{expectedPath}' should exist, such that unit tests have a clean environment to temporarily write files and directories to.");
         }
 
-
         [Test]
         public void GetScratchPadPath_WithoutPathAndFolderDoesntExist_ThrowIOException()
         {
@@ -221,6 +220,60 @@ namespace Core.Common.TestUtil.Test
 
             path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.WaveImpactAsphaltCover.IO);
             Assert.IsTrue(Directory.Exists(path));
+        }
+
+        [Test]
+        [TestCase("")]
+        [TestCase("   ")]
+        [TestCase(null)]
+        public void ToUncPath_InvalidPath_ThrowArgumentException(string invalidPath)
+        {
+            // Call
+            TestDelegate call = () => TestHelper.ToUncPath(invalidPath);
+
+            // Assert
+            Assert.Throws<ArgumentException>(call);
+        }
+
+        [Test]
+        public void ToUncPath_NonRootedPath_ThrowArgumentException()
+        {
+            // Setup
+            string unrootedPath = Path.Combine("a", "b.c");
+
+            // Call
+            TestDelegate call = () => TestHelper.ToUncPath(unrootedPath);
+
+            // Assert
+            const string expectedMessage = "Must be a rooted path.";
+            string paramName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage).ParamName;
+            Assert.AreEqual("rootedPath", paramName);
+        }
+
+        [Test]
+        public void ToUncPath_ForRootedFilePath_ReturnUncPath()
+        {
+            // Setup
+            const string rootedFilePath = @"C:\a\b.c";
+
+            // Call
+            string uncPath = TestHelper.ToUncPath(rootedFilePath);
+
+            // Assert
+            Assert.AreEqual(@"\\localhost\C$\a\b.c", uncPath);
+        }
+
+        [Test]
+        public void ToUncPath_ForRootedFolderPath_ReturnUncPath()
+        {
+            // Setup
+            const string rootedFolderPath = @"D:\e\f\g";
+
+            // Call
+            string uncPath = TestHelper.ToUncPath(rootedFolderPath);
+
+            // Assert
+            Assert.AreEqual(@"\\localhost\D$\e\f\g", uncPath);
         }
 
         [Test]

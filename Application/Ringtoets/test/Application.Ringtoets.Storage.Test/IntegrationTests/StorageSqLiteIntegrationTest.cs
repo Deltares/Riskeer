@@ -66,7 +66,6 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
     public class StorageSqLiteIntegrationTest
     {
         private const string tempExtension = ".temp";
-        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Storage, "DatabaseFiles");
 
         [Test]
         public void SaveProjectAs_SaveAsNewFile_ProjectAsEntitiesInBothFiles()
@@ -214,7 +213,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         [OneTimeTearDown]
         public void TearDownTempRingtoetsFile()
         {
-            IEnumerable<string> filesToDelete = Directory.EnumerateFiles(testDataPath, "*.temp");
+            IEnumerable<string> filesToDelete = Directory.EnumerateFiles(TestHelper.GetScratchPadPath(), $"*{tempExtension}");
 
             foreach (string fileToDelete in filesToDelete)
             {
@@ -225,7 +224,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
 
         private static string GetRandomRingtoetsFile()
         {
-            return Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Storage, "DatabaseFiles"),
+            return Path.Combine(TestHelper.GetScratchPadPath(),
                                 string.Concat(Path.GetRandomFileName(), tempExtension));
         }
 

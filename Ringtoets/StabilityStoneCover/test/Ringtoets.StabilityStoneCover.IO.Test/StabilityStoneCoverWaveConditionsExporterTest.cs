@@ -37,13 +37,14 @@ namespace Ringtoets.StabilityStoneCover.IO.Test
     [TestFixture]
     public class StabilityStoneCoverWaveConditionsExporterTest
     {
-        private readonly string testFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.StabilityStoneCover.IO, "test.csv");
-
         [Test]
         public void Constructor_ValidParameters_ExpectedValues()
         {
+            // Setup
+            string filePath = TestHelper.GetScratchPadPath("test.csv");
+
             // Call
-            var exporter = new StabilityStoneCoverWaveConditionsExporter(new StabilityStoneCoverWaveConditionsCalculation[0], testFilePath);
+            var exporter = new StabilityStoneCoverWaveConditionsExporter(new StabilityStoneCoverWaveConditionsCalculation[0], filePath);
 
             // Assert
             Assert.IsInstanceOf<WaveConditionsExporterBase>(exporter);
@@ -52,8 +53,11 @@ namespace Ringtoets.StabilityStoneCover.IO.Test
         [Test]
         public void Constructor_CalculationsNull_ExpectedValues()
         {
+            // Setup
+            string filePath = TestHelper.GetScratchPadPath("test.csv");
+
             // Call
-            TestDelegate call = () => new StabilityStoneCoverWaveConditionsExporter(null, testFilePath);
+            TestDelegate call = () => new StabilityStoneCoverWaveConditionsExporter(null, filePath);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -64,8 +68,7 @@ namespace Ringtoets.StabilityStoneCover.IO.Test
         public void Export_CalculationsWithoutOutput_FileWithOnlyHeader()
         {
             // Setup
-            string directoryPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.StabilityStoneCover.IO,
-                                                              "Export_CalculationsWithoutOutput_FileWithOnlyHeader");
+            string directoryPath = TestHelper.GetScratchPadPath("Export_CalculationsWithoutOutput_FileWithOnlyHeader");
             Directory.CreateDirectory(directoryPath);
             string filePath = Path.Combine(directoryPath, "test.csv");
 
@@ -97,8 +100,7 @@ namespace Ringtoets.StabilityStoneCover.IO.Test
         public void Export_CalculationsWithoutHydraulicBoundaryLocation_FileWithOnlyHeader()
         {
             // Setup
-            string directoryPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.StabilityStoneCover.IO,
-                                                              "Export_CalculationsWithoutHydraulicBoundaryLocation_FileWithOnlyHeader");
+            string directoryPath = TestHelper.GetScratchPadPath("Export_CalculationsWithoutHydraulicBoundaryLocation_FileWithOnlyHeader");
             Directory.CreateDirectory(directoryPath);
             string filePath = Path.Combine(directoryPath, "test.csv");
 
@@ -133,8 +135,7 @@ namespace Ringtoets.StabilityStoneCover.IO.Test
         public void Export_ValidData_ValidFile()
         {
             // Setup
-            string directoryPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.StabilityStoneCover.IO,
-                                                              "Export_ValidData_ValidFile");
+            string directoryPath = TestHelper.GetScratchPadPath("Export_ValidData_ValidFile");
             Directory.CreateDirectory(directoryPath);
             string filePath = Path.Combine(directoryPath, "test.csv");
 

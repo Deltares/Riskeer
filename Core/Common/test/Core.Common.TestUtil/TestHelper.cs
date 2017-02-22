@@ -126,6 +126,28 @@ namespace Core.Common.TestUtil
         }
 
         /// <summary>
+        /// Converts a rooted file or folder path into a UNC-path.
+        /// </summary>
+        /// <param name="rootedPath">The rooted path.</param>
+        /// <returns>The UNC-path.</returns>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="rootedPath"/>
+        /// contains invalid characters, is null or empty or wasn't a rooted path.</exception>
+        public static string ToUncPath(string rootedPath)
+        {
+            var root = Path.GetPathRoot(rootedPath);
+            if (string.IsNullOrEmpty(root))
+            {
+                throw new ArgumentException("Must be a rooted path.", nameof(rootedPath));
+            }
+
+            var relativePath = rootedPath.Replace(root, "");
+            var drive = root.Remove(1);
+
+            var uncPath = new Uri(Path.Combine(@"\\localhost", drive + "$", relativePath));
+            return uncPath.LocalPath;
+        }
+
+        /// <summary>
         /// Asserts that the execution of some implementation of a functionality runs faster than a given allowed time.
         /// </summary>
         /// <param name="maxMilliseconds">The maximum time in milliseconds that the functionality is allowed to run.</param>

@@ -35,13 +35,14 @@ namespace Ringtoets.Revetment.IO.Test
     [TestFixture]
     public class WaveConditionsExporterBaseTest
     {
-        private readonly string testFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Revetment.IO, "test.csv");
-
         [Test]
         public void Constructor_ValidParameters_ExpectedValues()
         {
+            // Setup
+            string filePath = TestHelper.GetScratchPadPath("test.csv");
+
             // Call
-            var waveConditionsExporter = new TestWaveConditionsExporter(new ExportableWaveConditions[0], testFilePath);
+            var waveConditionsExporter = new TestWaveConditionsExporter(new ExportableWaveConditions[0], filePath);
 
             // Assert
             Assert.IsInstanceOf<IFileExporter>(waveConditionsExporter);
@@ -50,8 +51,11 @@ namespace Ringtoets.Revetment.IO.Test
         [Test]
         public void Constructor_ExportableWaveConditionsCollectionNull_ThrowArgumentNullException()
         {
+            // Setup
+            string filePath = TestHelper.GetScratchPadPath("test.csv");
+
             // Call
-            TestDelegate call = () => new TestWaveConditionsExporter(null, testFilePath);
+            TestDelegate call = () => new TestWaveConditionsExporter(null, filePath);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -73,7 +77,7 @@ namespace Ringtoets.Revetment.IO.Test
         public void Export_InvalidData_LogErrorAndFalse()
         {
             // Setup
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Revetment.IO, "test_.csv");
+            string filePath = TestHelper.GetScratchPadPath("test_.csv");
             string invalidFilePath = filePath.Replace("_", ">");
             var waveConditionsExporter = new TestWaveConditionsExporter(new ExportableWaveConditions[0], invalidFilePath);
 
@@ -82,8 +86,8 @@ namespace Ringtoets.Revetment.IO.Test
             Action call = () => isExported = waveConditionsExporter.Export();
 
             // Assert
-            string expectedMessage = string.Format("Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{0}'. " +
-                                                   "Er zijn geen golfrandvoorwaarden geëxporteerd.", invalidFilePath);
+            string expectedMessage = $"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{invalidFilePath}'. " +
+                                     "Er zijn geen golfrandvoorwaarden geëxporteerd.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage);
             Assert.IsFalse(isExported);
         }
@@ -92,8 +96,7 @@ namespace Ringtoets.Revetment.IO.Test
         public void Export_ValidData_ReturnTrue()
         {
             // Setup
-            string directoryPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Revetment.IO,
-                                                              "Export_ValidData_ReturnTrue");
+            string directoryPath = TestHelper.GetScratchPadPath("Export_ValidData_ReturnTrue");
             Directory.CreateDirectory(directoryPath);
             string filePath = Path.Combine(directoryPath, "test.csv");
 
@@ -145,8 +148,7 @@ namespace Ringtoets.Revetment.IO.Test
                 }, CreateWaveConditionsOutputForExport(3.33333, 1.11111, 4.44444, 2.2, 6.66666), CoverType.StoneCoverColumns)
             };
 
-            string directoryPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Revetment.IO,
-                                                              "Export_ValidData_ValidFile");
+            string directoryPath = TestHelper.GetScratchPadPath("Export_ValidData_ValidFile");
             Directory.CreateDirectory(directoryPath);
             string filePath = Path.Combine(directoryPath, "test.csv");
 
@@ -171,7 +173,8 @@ namespace Ringtoets.Revetment.IO.Test
 
         private class TestWaveConditionsExporter : WaveConditionsExporterBase
         {
-            public TestWaveConditionsExporter(IEnumerable<ExportableWaveConditions> exportableWaveConditionsCollection, string filePath) : base(exportableWaveConditionsCollection, filePath) {}
+            public TestWaveConditionsExporter(IEnumerable<ExportableWaveConditions> exportableWaveConditionsCollection, string filePath) :
+                base(exportableWaveConditionsCollection, filePath) {}
         }
 
         private static WaveConditionsOutput CreateWaveConditionsOutputForExport(double waterLevel, double waveHeight,

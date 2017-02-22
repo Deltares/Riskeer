@@ -145,8 +145,7 @@ namespace Core.Components.Gis.IO.Test.Writers
         public void SaveAs_ValidMapPointData_WritesShapeFile()
         {
             // Setup
-            string directoryPath = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO,
-                                                              "SaveAs_ValidMapPointData_WritesShapeFile");
+            string directoryPath = TestHelper.GetScratchPadPath("SaveAs_ValidMapPointData_WritesShapeFile");
             Directory.CreateDirectory(directoryPath);
             string filePath = Path.Combine(directoryPath, "test.shp");
             var baseName = "test";

@@ -121,8 +121,7 @@ namespace Ringtoets.Piping.IO.Test.Exporters
         public void Write_InvalidDirectoryRights_ThrowCriticalFileWriteException()
         {
             // Setup
-            string directoryPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO,
-                                                              "Write_InvalidDirectoryRights_ThrowCriticalFileWriteException");
+            string directoryPath = TestHelper.GetScratchPadPath("Write_InvalidDirectoryRights_ThrowCriticalFileWriteException");
             Directory.CreateDirectory(directoryPath);
             string filePath = Path.Combine(directoryPath, "test.xml");
 
@@ -149,9 +148,7 @@ namespace Ringtoets.Piping.IO.Test.Exporters
         public void Write_CalculationGroupsAndCalculation_ValidFile()
         {
             // Setup
-            string directoryPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO,
-                                                              "PipingConfigurationWriter");
-            string filePath = Path.Combine(directoryPath, "test.xml");
+            string filePath = TestHelper.GetScratchPadPath("test.xml");
 
             PipingCalculation calculation = PipingTestDataGenerator.GetPipingCalculation();
             calculation.InputParameters.EntryPointL = (RoundedDouble) 0.1;
@@ -206,7 +203,10 @@ namespace Ringtoets.Piping.IO.Test.Exporters
                 Assert.IsTrue(File.Exists(filePath));
 
                 string actualXml = File.ReadAllText(filePath);
-                string expectedXml = File.ReadAllText(Path.Combine(directoryPath, "folderWithSubfolderAndCalculation.xml"));
+                string expectedXmlFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO,
+                                                                        Path.Combine("PipingConfigurationWriter",
+                                                                                     "folderWithSubfolderAndCalculation.xml"));
+                string expectedXml = File.ReadAllText(expectedXmlFilePath);
 
                 Assert.AreEqual(expectedXml, actualXml);
             }
@@ -221,9 +221,7 @@ namespace Ringtoets.Piping.IO.Test.Exporters
         public void Write_ValidCalculationCalculation_ValidFile(string expectedFileName, PipingCalculation calculation)
         {
             // Setup
-            string directoryPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO,
-                                                              "PipingConfigurationWriter");
-            string filePath = Path.Combine(directoryPath, "test.xml");
+            string filePath = TestHelper.GetScratchPadPath("test.xml");
 
             var rootCalculationGroup = new CalculationGroup("group", false)
             {
@@ -242,7 +240,8 @@ namespace Ringtoets.Piping.IO.Test.Exporters
                 Assert.IsTrue(File.Exists(filePath));
 
                 string actualXml = File.ReadAllText(filePath);
-                string expectedXml = File.ReadAllText(Path.Combine(directoryPath, $"{expectedFileName}.xml"));
+                string expectedXmlFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO, Path.Combine("PipingConfigurationWriter", $"{expectedFileName}.xml"));
+                string expectedXml = File.ReadAllText(expectedXmlFilePath);
 
                 Assert.AreEqual(expectedXml, actualXml);
             }

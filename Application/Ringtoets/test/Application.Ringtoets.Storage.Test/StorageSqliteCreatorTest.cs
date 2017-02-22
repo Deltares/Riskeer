@@ -29,9 +29,6 @@ namespace Application.Ringtoets.Storage.Test
     [TestFixture]
     public class StorageSqliteCreatorTest
     {
-        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Storage, "DatabaseFiles");
-        private readonly string tempRingtoetsFile = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Storage, "DatabaseFiles"), "tempProjectFile.rtd");
-
         [Test]
         [TestCase(null)]
         [TestCase("")]
@@ -51,7 +48,7 @@ namespace Application.Ringtoets.Storage.Test
         {
             // Setup
             const string fileName = "DoesNotExist.sqlite";
-            var fullPath = Path.GetFullPath(Path.Combine(testDataPath, fileName));
+            var fullPath = TestHelper.GetScratchPadPath(fileName);
 
             // Precondition
             Assert.IsFalse(File.Exists(fullPath));
@@ -80,8 +77,8 @@ namespace Application.Ringtoets.Storage.Test
         {
             // Setup
             const string fileName = "DoesNotExist.sqlite";
-            var fullPath = Path.GetFullPath(Path.Combine(testDataPath, fileName));
-            var uncPath = GetUncPath(fullPath);
+            var fullPath = TestHelper.GetScratchPadPath(fileName);
+            var uncPath = TestHelper.ToUncPath(fullPath);
 
             // Precondition
             Assert.IsFalse(File.Exists(fullPath));
@@ -108,6 +105,7 @@ namespace Application.Ringtoets.Storage.Test
         [Test]
         public void CreateDatabaseStructure_ValidExistingFile_ThrowsStorageException()
         {
+            string tempRingtoetsFile = TestHelper.GetScratchPadPath("tempProjectFile.rtd");
             using (new FileDisposeHelper(tempRingtoetsFile))
             {
                 // Call
@@ -120,21 +118,9 @@ namespace Application.Ringtoets.Storage.Test
                 }
 
                 // Assert
-                var expectedMessage = string.Format(@"File '{0}' already exists.", tempRingtoetsFile);
+                var expectedMessage = $@"File '{tempRingtoetsFile}' already exists.";
                 Assert.AreEqual(expectedMessage, exception.Message);
             }
-        }
-
-        private static string GetUncPath(string fullPath)
-        {
-            var root = Path.GetPathRoot(fullPath);
-            Assert.IsNotNull(root);
-
-            var relativePath = fullPath.Replace(root, "");
-            var drive = root.Remove(1);
-
-            var uncPath = new Uri(Path.Combine(@"\\localhost", drive + "$", relativePath));
-            return uncPath.LocalPath;
         }
     }
 }

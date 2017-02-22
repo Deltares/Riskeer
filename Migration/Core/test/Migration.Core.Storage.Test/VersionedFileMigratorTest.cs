@@ -35,8 +35,6 @@ namespace Migration.Core.Storage.Test
     [TestFixture]
     public class VersionedFileMigratorTest
     {
-        private static readonly TestDataPath testPath = TestDataPath.Migration.Core.Storage;
-
         [Test]
         public void Constructor_ComparerNull_ThrowsArgumentNullException()
         {
@@ -330,7 +328,7 @@ namespace Migration.Core.Storage.Test
             const string fromLocation = "fromLocation";
             const string toVersion = "toVersion";
 
-            string toLocation = TestHelper.GetTestDataPath(testPath, Path.GetRandomFileName());
+            string toLocation = TestHelper.GetScratchPadPath(Path.GetRandomFileName());
 
             var mockRepository = new MockRepository();
             var comparer = mockRepository.Stub<IComparer>();
@@ -368,7 +366,7 @@ namespace Migration.Core.Storage.Test
             const string fromVersion = "0";
             const string toVersion = "2";
 
-            string toLocation = TestHelper.GetTestDataPath(testPath, Path.GetRandomFileName());
+            string toLocation = TestHelper.GetScratchPadPath(Path.GetRandomFileName());
 
             var mockRepository = new MockRepository();
             var versionedFile = mockRepository.Stub<IVersionedFile>();
@@ -395,7 +393,8 @@ namespace Migration.Core.Storage.Test
 
             // Assert
             Assert.IsTrue(File.Exists(toLocation), $"File at location {toLocation} has not been created");
-            using (new FileDisposeHelper(toLocation)) {}
+            File.Delete(toLocation);
+
             mockRepository.VerifyAll();
         }
 
@@ -407,7 +406,7 @@ namespace Migration.Core.Storage.Test
             const string fromLocation = "fromLocation";
             const string toVersion = "toVersion";
 
-            string toLocation = TestHelper.GetTestDataPath(testPath, Path.GetRandomFileName());
+            string toLocation = TestHelper.GetScratchPadPath(Path.GetRandomFileName());
 
             var mockRepository = new MockRepository();
             var comparer = mockRepository.Stub<IComparer>();
