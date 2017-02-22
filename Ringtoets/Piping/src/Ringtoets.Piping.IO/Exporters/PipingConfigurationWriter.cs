@@ -60,8 +60,7 @@ namespace Ringtoets.Piping.IO.Exporters
             {
                 var settings = new XmlWriterSettings
                 {
-                    Indent = true,
-                    IndentChars = "\t"
+                    Indent = true
                 };
 
                 using (XmlWriter writer = XmlWriter.Create(filePath, settings))

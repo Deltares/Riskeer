@@ -1,43 +1,43 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-	<map naam="PK001_0001">
-		<berekening naam="PK001_0001 W1-6_0_1D1">
-			<hrlocatie>PUNT_KAT_18</hrlocatie>
-			<profielschematisatie>PK001_0001</profielschematisatie>
-			<intredepunt>0.10</intredepunt>
-			<uittredepunt>0.20</uittredepunt>
-			<ondergrondmodel>PK001_0001_Piping</ondergrondmodel>
-			<ondergrondschematisatie>W1-6_0_1D1</ondergrondschematisatie>
-			<stochasten>
-				<stochast naam="polderpeil">
-					<verwachtingswaarde>0.000</verwachtingswaarde>
-					<standaardafwijking>0.100</standaardafwijking>
-				</stochast>
-				<stochast naam="dempingsfactor">
-					<verwachtingswaarde>0.700</verwachtingswaarde>
-					<standaardafwijking>0.100</standaardafwijking>
-				</stochast>
-			</stochasten>
-		</berekening>
-		<map naam="PK001_0002">
-			<berekening naam="PK001_0002 W1-6_4_1D1">
-				<hrlocatie>PUNT_SCH_17</hrlocatie>
-				<profielschematisatie>PK001_0002</profielschematisatie>
-				<intredepunt>0.30</intredepunt>
-				<uittredepunt>0.40</uittredepunt>
-				<ondergrondmodel>PK001_0002_Piping</ondergrondmodel>
-				<ondergrondschematisatie>W1-6_4_1D1</ondergrondschematisatie>
-				<stochasten>
-					<stochast naam="polderpeil">
-						<verwachtingswaarde>0.000</verwachtingswaarde>
-						<standaardafwijking>0.100</standaardafwijking>
-					</stochast>
-					<stochast naam="dempingsfactor">
-						<verwachtingswaarde>0.700</verwachtingswaarde>
-						<standaardafwijking>0.100</standaardafwijking>
-					</stochast>
-				</stochasten>
-			</berekening>
-		</map>
-	</map>
+  <map naam="PK001_0001">
+    <berekening naam="PK001_0001 W1-6_0_1D1">
+      <hrlocatie>PUNT_KAT_18</hrlocatie>
+      <profielschematisatie>PK001_0001</profielschematisatie>
+      <intredepunt>0.10</intredepunt>
+      <uittredepunt>0.20</uittredepunt>
+      <ondergrondmodel>PK001_0001_Piping</ondergrondmodel>
+      <ondergrondschematisatie>W1-6_0_1D1</ondergrondschematisatie>
+      <stochasten>
+        <stochast naam="polderpeil">
+          <verwachtingswaarde>0.000</verwachtingswaarde>
+          <standaardafwijking>0.100</standaardafwijking>
+        </stochast>
+        <stochast naam="dempingsfactor">
+          <verwachtingswaarde>0.700</verwachtingswaarde>
+          <standaardafwijking>0.100</standaardafwijking>
+        </stochast>
+      </stochasten>
+    </berekening>
+    <map naam="PK001_0002">
+      <berekening naam="PK001_0002 W1-6_4_1D1">
+        <hrlocatie>PUNT_SCH_17</hrlocatie>
+        <profielschematisatie>PK001_0002</profielschematisatie>
+        <intredepunt>0.30</intredepunt>
+        <uittredepunt>0.40</uittredepunt>
+        <ondergrondmodel>PK001_0002_Piping</ondergrondmodel>
+        <ondergrondschematisatie>W1-6_4_1D1</ondergrondschematisatie>
+        <stochasten>
+          <stochast naam="polderpeil">
+            <verwachtingswaarde>0.000</verwachtingswaarde>
+            <standaardafwijking>0.100</standaardafwijking>
+          </stochast>
+          <stochast naam="dempingsfactor">
+            <verwachtingswaarde>0.700</verwachtingswaarde>
+            <standaardafwijking>0.100</standaardafwijking>
+          </stochast>
+        </stochasten>
+      </berekening>
+    </map>
+  </map>
 </root>
