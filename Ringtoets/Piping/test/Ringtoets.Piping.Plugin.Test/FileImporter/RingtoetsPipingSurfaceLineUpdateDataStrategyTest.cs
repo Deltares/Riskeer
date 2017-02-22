@@ -106,6 +106,51 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Assert.AreEqual("sourceFilePath", paramName);
         }
 
+
+        [Test]
+        public void UpdateSurfaceLinesWithImportedData_WithoutCurrentSurfaceLinesAndReadLinesHaveDuplicateNames_ThrowsUpdateException()
+        {
+            // Setup
+            const string duplicateName = "Duplicate name it is";
+            var lineOne = new RingtoetsPipingSurfaceLine
+            {
+                Name = duplicateName
+            };
+            lineOne.SetGeometry(new[]
+            {
+                new Point3D(1, 2, 3)
+            });
+            var lineTwo = new RingtoetsPipingSurfaceLine
+            {
+                Name = duplicateName
+            };
+            lineTwo.SetGeometry(new[]
+            {
+                new Point3D(4, 5, 6)
+            });
+            var importedSurfaceLines = new[]
+            {
+                lineOne,
+                lineTwo
+            };
+
+            var targetCollection = new RingtoetsPipingSurfaceLineCollection();
+            var strategy = new RingtoetsPipingSurfaceLineUpdateDataStrategy(new PipingFailureMechanism());
+
+            // Call
+            TestDelegate call = () => strategy.UpdateSurfaceLinesWithImportedData(targetCollection,
+                                                                                  importedSurfaceLines,
+                                                                                  sourceFilePath);
+
+            // Assert
+            var exception = Assert.Throws<RingtoetsPipingSurfaceLineUpdateException>(call);
+            string message = $"Profielschematisaties moeten een unieke naam hebben. Gevonden dubbele elementen: {duplicateName}.";
+            Assert.AreEqual(message, exception.Message);
+            Assert.IsInstanceOf<ArgumentException>(exception.InnerException);
+
+            CollectionAssert.IsEmpty(targetCollection);
+        }
+
         [Test]
         public void UpdateSurfaceLinesWithImportedData_ReadSurfaceLinesNotInTargetCollection_NewSurfaceLinesAdded()
         {
