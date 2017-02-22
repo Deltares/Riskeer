@@ -155,7 +155,7 @@ namespace Ringtoets.Piping.IO.Importers
             }
             catch (CriticalFileValidationException e)
             {
-                log.ErrorFormat("{0} Berekening overgeslagen.", e.Message);
+                log.ErrorFormat(Resources.PipingConfigurationImporter_ValidateCalculation_Error_message_0_calculation_1_skipped, e.Message, readCalculation.Name);
                 return;
             }
 
@@ -167,8 +167,10 @@ namespace Ringtoets.Piping.IO.Importers
         /// <summary>
         /// Reads the hydraulic boundary location or the assessment level that is manually set.
         /// </summary>
-        /// <param name="readCalculation">The read calculation</param>
-        /// <param name="pipingCalculation"></param>
+        /// <param name="readCalculation">The read calculation from the imported file.</param>
+        /// <param name="pipingCalculation">The calculation to configure.</param>
+        /// <exception cref="CriticalFileValidationException">Thrown when the <paramref name="readCalculation"/>
+        /// has an <see cref="HydraulicBoundaryLocation"/> set which is not available in the <see cref="hydraulicBoundaryLocations"/>.</exception>
         private void ReadHydraulicBoundaryLocation(ReadPipingCalculation readCalculation, PipingCalculationScenario pipingCalculation)
         {
             if (readCalculation.HydraulicBoundaryLocation != null)
@@ -181,7 +183,8 @@ namespace Ringtoets.Piping.IO.Importers
                 }
                 else
                 {
-                    throw new CriticalFileValidationException("Hydraulische randvoorwaarde locatie bestaat niet.");
+                    throw new CriticalFileValidationException(string.Format(Resources.PipingConfigurationImporter_ReadHydraulicBoundaryLocation_Hydraulic_boundary_location_0_does_not_exist,
+                                                                            readCalculation.HydraulicBoundaryLocation));
                 }
             }
             else if (readCalculation.AssessmentLevel.HasValue)
@@ -191,6 +194,13 @@ namespace Ringtoets.Piping.IO.Importers
             }
         }
 
+        /// <summary>
+        /// Reads the surface line.
+        /// </summary>
+        /// <param name="readCalculation">The read calculation from the imported file.</param>
+        /// <param name="pipingCalculation">The calculation to configure.</param>
+        /// <exception cref="CriticalFileValidationException">Thrown when the <paramref name="readCalculation"/>
+        /// has an <see cref="RingtoetsPipingSurfaceLine"/> set which is not available in the failure mechanism.</exception>
         private void ReadSurfaceLine(ReadPipingCalculation readCalculation, PipingCalculationScenario pipingCalculation)
         {
             if (readCalculation.SurfaceLine != null)
@@ -204,7 +214,8 @@ namespace Ringtoets.Piping.IO.Importers
                 }
                 else
                 {
-                    throw new CriticalFileValidationException("Profielschematisatie bestaat niet.");
+                    throw new CriticalFileValidationException(string.Format(Resources.PipingConfigurationImporter_ReadSurfaceLine_SurfaceLine_0_does_not_exist,
+                                                                            readCalculation.SurfaceLine));
                 }
             }
         }
@@ -221,6 +232,18 @@ namespace Ringtoets.Piping.IO.Importers
             }
         }
 
+        /// <summary>
+        /// Reads the stochastic soil model.
+        /// </summary>
+        /// <param name="readCalculation">The read calculation from the imported file.</param>
+        /// <param name="pipingCalculation">The calculation to configure.</param>
+        /// <exception cref="CriticalFileValidationException">Thrown when
+        /// <list type="bullet">
+        /// <item>the <paramref name="readCalculation"/> has an <see cref="StochasticSoilModel"/> set
+        /// which is not available in the failure mechanism.</item>
+        /// <item>The <see cref="StochasticSoilModel"/> does not intersect with the <see cref="RingtoetsPipingSurfaceLine"/>
+        /// when this is set.</item>
+        /// </list></exception>
         private void ReadStochasticSoilModel(ReadPipingCalculation readCalculation, PipingCalculationScenario pipingCalculation)
         {
             if (readCalculation.StochasticSoilModel != null)
@@ -234,7 +257,9 @@ namespace Ringtoets.Piping.IO.Importers
                     {
                         if (!soilModel.IntersectsWithSurfaceLineGeometry(pipingCalculation.InputParameters.SurfaceLine))
                         {
-                            throw new CriticalFileValidationException("Ondergrondmodel kruist niet met de profielschematisatie.");
+                            throw new CriticalFileValidationException(string.Format(Resources.PipingConfigurationImporter_ReadStochasticSoilModel_Stochastische_soil_model_0_does_not_intersect_with_surfaceLine_1,
+                                                                                    readCalculation.StochasticSoilModel,
+                                                                                    readCalculation.SurfaceLine));
                         }
                     }
 
@@ -244,11 +269,20 @@ namespace Ringtoets.Piping.IO.Importers
                 }
                 else
                 {
-                    throw new CriticalFileValidationException("Ondergrondmodel bestaat niet.");
+                    throw new CriticalFileValidationException(string.Format(Resources.PipingConfigurationImporter_ReadStochasticSoilModel_Stochastische_soil_model_0_does_not_exist,
+                                                                            readCalculation.StochasticSoilModel));
                 }
             }
         }
 
+        /// <summary>
+        /// Reads the stochastic soil profile.
+        /// </summary>
+        /// <param name="readCalculation">The read calculation from the imported file.</param>
+        /// <param name="pipingCalculation">The calculation to configure.</param>
+        /// <param name="soilModel">The <see cref="StochasticSoilModel"/> to get the soil profile from.</param>
+        /// <exception cref="CriticalFileValidationException">Thrown when the <paramref name="readCalculation"/>
+        /// has an <see cref="StochasticSoilProfile"/> set which is not available in the <see cref="StochasticSoilModel"/>.</exception>
         private static void ReadStochasticSoilProfile(ReadPipingCalculation readCalculation,
                                                       PipingCalculationScenario pipingCalculation,
                                                       StochasticSoilModel soilModel)
@@ -264,7 +298,8 @@ namespace Ringtoets.Piping.IO.Importers
                 }
                 else
                 {
-                    throw new CriticalFileValidationException("Ondergrondprofiel bestaat niet.");
+                    throw new CriticalFileValidationException(string.Format(Resources.PipingConfigurationImporter_ReadStochasticSoilProfile_Stochastic_soil_profile_0_does_not_exist,
+                                                                            readCalculation.StochasticSoilProfile));
                 }
             }
         }

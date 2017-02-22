@@ -297,4 +297,22 @@ Er is geen berekening configuratie geïmporteerd.</value>
   <data name="PipingConfigurationReader_No_calculation_items_found" xml:space="preserve">
     <value>Het XML-document dat de configuratie voor de berekeningen beschrijft bevat geen berekeningselementen.</value>
   </data>
+  <data name="PipingConfigurationImporter_ValidateCalculation_Error_message_0_calculation_1_skipped" xml:space="preserve">
+    <value>{0} Berekening '{1}' is overgeslagen.</value>
+  </data>
+  <data name="PipingConfigurationImporter_ReadHydraulicBoundaryLocation_Hydraulic_boundary_location_0_does_not_exist" xml:space="preserve">
+    <value>De locatie met hydraulische randvoorwaarden '{0}' bestaat niet.</value>
+  </data>
+  <data name="PipingConfigurationImporter_ReadSurfaceLine_SurfaceLine_0_does_not_exist" xml:space="preserve">
+    <value>De profielschematisatie '{0}' bestaat niet.</value>
+  </data>
+  <data name="PipingConfigurationImporter_ReadStochasticSoilModel_Stochastische_soil_model_0_does_not_intersect_with_surfaceLine_1" xml:space="preserve">
+    <value>Het stochastische ondergrondmodel '{0}'doorkruist de profielschematisatie '{1}' niet.</value>
+  </data>
+  <data name="PipingConfigurationImporter_ReadStochasticSoilModel_Stochastische_soil_model_0_does_not_exist" xml:space="preserve">
+    <value>Het stochastische ondergrondmodel '{0}' bestaat niet.</value>
+  </data>
+  <data name="PipingConfigurationImporter_ReadStochasticSoilProfile_Stochastic_soil_profile_0_does_not_exist" xml:space="preserve">
+    <value>De ondergrondschematisatie '{0}' bestaat niet.</value>
+  </data>
 </root>

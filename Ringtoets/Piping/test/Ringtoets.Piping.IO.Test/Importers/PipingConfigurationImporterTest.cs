@@ -213,7 +213,8 @@ namespace Ringtoets.Piping.IO.Test.Importers
             Action call = () => succesful = importer.Import();
 
             // Assert
-            TestHelper.AssertLogMessageIsGenerated(call, "Hydraulische randvoorwaarde locatie bestaat niet. Berekening overgeslagen.", 1);
+            const string expectedMessage = "De locatie met hydraulische randvoorwaarden 'HRlocatie' bestaat niet. Berekening 'Calculation' is overgeslagen.";
+            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
             Assert.IsTrue(succesful);
             CollectionAssert.IsEmpty(calculationGroup.Children);
         }
@@ -238,13 +239,14 @@ namespace Ringtoets.Piping.IO.Test.Importers
             Action call = () => succesful = importer.Import();
 
             // Assert
-            TestHelper.AssertLogMessageIsGenerated(call, "Profielschematisatie bestaat niet. Berekening overgeslagen.", 1);
+            const string expectedMessage = "De profielschematisatie 'Profielschematisatie' bestaat niet. Berekening 'Calculation' is overgeslagen.";
+            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
             Assert.IsTrue(succesful);
             CollectionAssert.IsEmpty(calculationGroup.Children);
         }
 
         [Test]
-        public void Import_StochastichSoilModelInvalid_LogMessageAndContinueImport()
+        public void Import_StochasticSoilModelInvalid_LogMessageAndContinueImport()
         {
             // Setup
             string filePath = Path.Combine(path, "validConfigurationFullCalculationContainingHydraulicBoundaryLocation.xml");
@@ -280,7 +282,8 @@ namespace Ringtoets.Piping.IO.Test.Importers
             Action call = () => succesful = importer.Import();
 
             // Assert
-            TestHelper.AssertLogMessageIsGenerated(call, "Ondergrondmodel bestaat niet. Berekening overgeslagen.", 1);
+            const string expectedMessage = "Het stochastische ondergrondmodel 'Ondergrondmodel' bestaat niet. Berekening 'Calculation' is overgeslagen.";
+            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
             Assert.IsTrue(succesful);
             CollectionAssert.IsEmpty(calculationGroup.Children);
         }
@@ -333,13 +336,14 @@ namespace Ringtoets.Piping.IO.Test.Importers
             Action call = () => succesful = importer.Import();
 
             // Assert
-            TestHelper.AssertLogMessageIsGenerated(call, "Ondergrondmodel kruist niet met de profielschematisatie. Berekening overgeslagen.", 1);
+            const string expectedMessage = "Het stochastische ondergrondmodel 'Ondergrondmodel'doorkruist de profielschematisatie 'Profielschematisatie' niet. Berekening 'Calculation' is overgeslagen.";
+            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
             Assert.IsTrue(succesful);
             CollectionAssert.IsEmpty(calculationGroup.Children);
         }
 
         [Test]
-        public void Import_StochastichSoilProfileInvalid_LogMessageAndContinueImport()
+        public void Import_StochasticSoilProfileInvalid_LogMessageAndContinueImport()
         {
             // Setup
             string filePath = Path.Combine(path, "validConfigurationFullCalculationContainingHydraulicBoundaryLocation.xml");
@@ -386,7 +390,8 @@ namespace Ringtoets.Piping.IO.Test.Importers
             Action call = () => succesful = importer.Import();
 
             // Assert
-            TestHelper.AssertLogMessageIsGenerated(call, "Ondergrondprofiel bestaat niet. Berekening overgeslagen.", 1);
+            const string expectedMessage = "De ondergrondschematisatie 'Ondergrondschematisatie' bestaat niet. Berekening 'Calculation' is overgeslagen.";
+            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
             Assert.IsTrue(succesful);
             CollectionAssert.IsEmpty(calculationGroup.Children);
         }

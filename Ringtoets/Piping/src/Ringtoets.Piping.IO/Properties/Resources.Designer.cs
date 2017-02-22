@@ -223,6 +223,65 @@ namespace Ringtoets.Piping.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to De locatie met hydraulische randvoorwaarden &apos;{0}&apos; bestaat niet..
+        /// </summary>
+        public static string PipingConfigurationImporter_ReadHydraulicBoundaryLocation_Hydraulic_boundary_location_0_does_not_exist {
+            get {
+                return ResourceManager.GetString("PipingConfigurationImporter_ReadHydraulicBoundaryLocation_Hydraulic_boundary_loca" +
+                        "tion_0_does_not_exist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het stochastische ondergrondmodel &apos;{0}&apos; bestaat niet..
+        /// </summary>
+        public static string PipingConfigurationImporter_ReadStochasticSoilModel_Stochastische_soil_model_0_does_not_exist {
+            get {
+                return ResourceManager.GetString("PipingConfigurationImporter_ReadStochasticSoilModel_Stochastische_soil_model_0_do" +
+                        "es_not_exist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het stochastische ondergrondmodel &apos;{0}&apos;doorkruist de profielschematisatie &apos;{1}&apos; niet..
+        /// </summary>
+        public static string PipingConfigurationImporter_ReadStochasticSoilModel_Stochastische_soil_model_0_does_not_intersect_with_surfaceLine_1 {
+            get {
+                return ResourceManager.GetString("PipingConfigurationImporter_ReadStochasticSoilModel_Stochastische_soil_model_0_do" +
+                        "es_not_intersect_with_surfaceLine_1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De ondergrondschematisatie &apos;{0}&apos; bestaat niet..
+        /// </summary>
+        public static string PipingConfigurationImporter_ReadStochasticSoilProfile_Stochastic_soil_profile_0_does_not_exist {
+            get {
+                return ResourceManager.GetString("PipingConfigurationImporter_ReadStochasticSoilProfile_Stochastic_soil_profile_0_d" +
+                        "oes_not_exist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De profielschematisatie &apos;{0}&apos; bestaat niet..
+        /// </summary>
+        public static string PipingConfigurationImporter_ReadSurfaceLine_SurfaceLine_0_does_not_exist {
+            get {
+                return ResourceManager.GetString("PipingConfigurationImporter_ReadSurfaceLine_SurfaceLine_0_does_not_exist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} Berekening &apos;{1}&apos; is overgeslagen..
+        /// </summary>
+        public static string PipingConfigurationImporter_ValidateCalculation_Error_message_0_calculation_1_skipped {
+            get {
+                return ResourceManager.GetString("PipingConfigurationImporter_ValidateCalculation_Error_message_0_calculation_1_ski" +
+                        "pped", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Het XML-document dat de configuratie voor de berekeningen beschrijft is niet geldig. De validatie geeft de volgende melding op regel {0}, positie {1}: {2}.
         /// </summary>
         public static string PipingConfigurationReader_Configuration_contains_no_valid_xml_line_0_position_1_reason_2 {
@@ -233,7 +292,7 @@ namespace Ringtoets.Piping.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het XML-document dat de configuratie voor de berekeningen beschrijft bevat geen berekeningselementen.
+        ///   Looks up a localized string similar to Het XML-document dat de configuratie voor de berekeningen beschrijft bevat geen berekeningselementen..
         /// </summary>
         public static string PipingConfigurationReader_No_calculation_items_found {
             get {
