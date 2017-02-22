@@ -83,7 +83,7 @@ namespace Ringtoets.Piping.IO.Importers
 
         protected override void LogImportCanceledMessage()
         {
-            log.Info(Resources.PipingConfigurationImporter_LogImportCanceledMessage_import_canceled_no_data_read);
+            log.Info(Resources.PipingConfigurationImporter_LogImportCanceledMessage_Import_canceled_no_data_read);
         }
 
         protected override bool OnImport()

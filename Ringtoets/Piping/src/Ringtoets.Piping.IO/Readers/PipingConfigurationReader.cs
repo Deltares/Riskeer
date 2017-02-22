@@ -95,7 +95,7 @@ namespace Ringtoets.Piping.IO.Readers
         }
 
         /// <summary>
-        /// Loads a XML document from the provided <see cref="xmlFilePath"/>.
+        /// Loads an XML document from the provided <see cref="xmlFilePath"/>.
         /// </summary>
         /// <param name="xmlFilePath">The file path to load the XML document from.</param>
         /// <exception cref="CriticalFileReadException">Thrown when the XML document cannot be loaded.</exception>
@@ -106,8 +106,7 @@ namespace Ringtoets.Piping.IO.Readers
                 return XDocument.Load(xmlFilePath, LoadOptions.PreserveWhitespace | LoadOptions.SetLineInfo | LoadOptions.SetBaseUri);
             }
             catch (Exception exception)
-                when (exception is ArgumentNullException
-                      || exception is InvalidOperationException
+                when (exception is InvalidOperationException
                       || exception is XmlException
                       || exception is IOException)
             {

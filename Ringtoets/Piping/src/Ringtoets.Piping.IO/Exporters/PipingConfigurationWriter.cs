@@ -38,7 +38,7 @@ namespace Ringtoets.Piping.IO.Exporters
     internal static class PipingConfigurationWriter
     {
         /// <summary>
-        /// Writes a piping configuration to a XML file.
+        /// Writes a piping configuration to an XML file.
         /// </summary>
         /// <param name="rootCalculationGroup">The root calculation group containing the piping configuration to write.</param>
         /// <param name="filePath">The path to the target XML file.</param>

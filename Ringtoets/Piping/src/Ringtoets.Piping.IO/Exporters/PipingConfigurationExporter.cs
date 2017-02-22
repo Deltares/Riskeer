@@ -30,7 +30,7 @@ using Ringtoets.Piping.IO.Properties;
 namespace Ringtoets.Piping.IO.Exporters
 {
     /// <summary>
-    /// Exports a piping configuration and stores it as a XML file.
+    /// Exports a piping configuration and stores it as an XML file.
     /// </summary>
     public class PipingConfigurationExporter : IFileExporter
     {

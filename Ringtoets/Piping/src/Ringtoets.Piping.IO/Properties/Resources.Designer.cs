@@ -215,9 +215,9 @@ namespace Ringtoets.Piping.IO.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Berekening configuratie importeren afgebroken. Geen data ingelezen..
         /// </summary>
-        public static string PipingConfigurationImporter_LogImportCanceledMessage_import_canceled_no_data_read {
+        public static string PipingConfigurationImporter_LogImportCanceledMessage_Import_canceled_no_data_read {
             get {
-                return ResourceManager.GetString("PipingConfigurationImporter_LogImportCanceledMessage_import_canceled_no_data_read" +
+                return ResourceManager.GetString("PipingConfigurationImporter_LogImportCanceledMessage_Import_canceled_no_data_read" +
                         "", resourceCulture);
             }
         }

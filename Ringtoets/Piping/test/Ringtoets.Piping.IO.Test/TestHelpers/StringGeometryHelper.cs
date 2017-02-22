@@ -33,7 +33,7 @@ namespace Ringtoets.Piping.IO.Test.TestHelpers
     public static class StringGeometryHelper
     {
         /// <summary>
-        /// Takes a <paramref name="str"/> which describes a XML document and returns 
+        /// Takes a <paramref name="str"/> which describes an XML document and returns 
         /// an <see cref="XDocument"/> from this.
         /// </summary>
         /// <param name="str">The <see cref="string"/> to convert to an <see cref="XDocument"/>.</param>

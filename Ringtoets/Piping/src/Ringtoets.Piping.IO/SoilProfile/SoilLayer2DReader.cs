@@ -38,7 +38,7 @@ using Ringtoets.Piping.Primitives;
 namespace Ringtoets.Piping.IO.SoilProfile
 {
     /// <summary>
-    /// This class is responsible for reading an array of bytes and interpret this as a XML document, which contains information about
+    /// This class is responsible for reading an array of bytes and interpret this as an XML document, which contains information about
     /// the geometry of a <see cref="PipingSoilLayer"/>.
     /// </summary>
     internal class SoilLayer2DReader
