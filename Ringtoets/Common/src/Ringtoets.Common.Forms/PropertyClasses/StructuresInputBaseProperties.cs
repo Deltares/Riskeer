@@ -522,13 +522,13 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Schematization))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.BreakWaterProperties_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.BreakWaterProperties_Description))]
-        public ConfirmingUseBreakWaterProperties<TStructureInput> UseBreakWater
+        public UseBreakWaterProperties<TStructureInput> UseBreakWater
         {
             get
             {
                 return data.WrappedData.ForeshoreProfile == null ?
-                           new ConfirmingUseBreakWaterProperties<TStructureInput>() :
-                           new ConfirmingUseBreakWaterProperties<TStructureInput>(data.WrappedData, data.Calculation, PropertyChangeHandler);
+                           new UseBreakWaterProperties<TStructureInput>() :
+                           new UseBreakWaterProperties<TStructureInput>(data.WrappedData, data.Calculation, PropertyChangeHandler);
             }
         }
 
@@ -537,11 +537,11 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Schematization))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.ForeshoreProperties_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.ForeshoreProperties_Description))]
-        public ConfirmingUseForeshoreProperties<TStructureInput> UseForeshore
+        public UseForeshoreProperties<TStructureInput> UseForeshore
         {
             get
             {
-                return new ConfirmingUseForeshoreProperties<TStructureInput>(data.WrappedData, data.Calculation, PropertyChangeHandler);
+                return new UseForeshoreProperties<TStructureInput>(data.WrappedData, data.Calculation, PropertyChangeHandler);
             }
         }
 

@@ -20,12 +20,15 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.Converters;
 using Core.Common.Utils.Attributes;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Forms.Properties;
 
@@ -34,33 +37,40 @@ namespace Ringtoets.Common.Forms.PropertyClasses
     /// <summary>
     /// ViewModel of <see cref="IUseForeshore"/>.
     /// </summary>
-    public class UseForeshoreProperties
+    public class UseForeshoreProperties<TCalculationInput> where TCalculationInput : ICalculationInput, IUseForeshore
     {
         private const int useForeshorePropertyIndex = 1;
         private const int coordinatesPropertyIndex = 2;
-        private readonly IUseForeshore data;
-        private readonly IPropertyChangeHandler changeHandler;
+        private readonly TCalculationInput data;
+        private readonly ICalculationInputPropertyChangeHandler changeHandler;
+        private readonly ICalculation calculation;
 
         /// <summary>
-        /// Creates a new instance of <see cref="UseForeshoreProperties"/>, in which
-        /// all the properties are read only.
-        /// </summary>
-        public UseForeshoreProperties() { }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="UseForeshoreProperties"/>.
+        /// Creates a new instance of <see cref="UseForeshoreProperties{TCalculationInput}"/>.
         /// </summary>
         /// <param name="useForeshoreData">The data to use for the properties. </param>
+        /// <param name="calculation">The calculation to which the <paramref name="useForeshoreData"/> belongs.</param>
         /// <param name="handler">Optional handler that is used to handle property changes.</param>
-        /// <remarks>If <paramref name="useForeshoreData"/> is <c>null</c>, all properties will 
-        /// be set to <see cref="ReadOnlyAttribute"/>.</remarks>
-        public UseForeshoreProperties(IUseForeshore useForeshoreData, IPropertyChangeHandler handler)
+        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
+        public UseForeshoreProperties(
+            TCalculationInput useForeshoreData,
+            ICalculation calculation,
+            ICalculationInputPropertyChangeHandler handler)
         {
             if (useForeshoreData == null)
             {
                 throw new ArgumentNullException(nameof(useForeshoreData));
             }
+            if (calculation == null)
+            {
+                throw new ArgumentNullException(nameof(calculation));
+            }
+            if (handler == null)
+            {
+                throw new ArgumentNullException(nameof(handler));
+            }
             data = useForeshoreData;
+            this.calculation = calculation;
             changeHandler = handler;
         }
 
@@ -76,8 +86,12 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             }
             set
             {
-                data.UseForeshore = value;
-                NotifyPropertyChanged();
+                IEnumerable<IObservable> affectedObjects = changeHandler.SetPropertyValueAfterConfirmation(
+                    data, 
+                    calculation,
+                    value, 
+                    (input, d) => data.UseForeshore = d);
+                NotifyAffectedObjects(affectedObjects);
             }
         }
 
@@ -104,10 +118,12 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             return string.Empty;
         }
 
-        private void NotifyPropertyChanged()
+        private static void NotifyAffectedObjects(IEnumerable<IObservable> affectedObjects)
         {
-            changeHandler?.PropertyChanged();
-            data.NotifyObservers();
+            foreach (var affectedObject in affectedObjects)
+            {
+                affectedObject.NotifyObservers();
+            }
         }
     }
 }

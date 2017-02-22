@@ -20,12 +20,14 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
 using Core.Common.Utils;
 using Core.Common.Utils.Attributes;
-using Core.Common.Utils.Reflection;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Forms.Properties;
 using Ringtoets.Common.Forms.TypeConverters;
@@ -35,34 +37,49 @@ namespace Ringtoets.Common.Forms.PropertyClasses
     /// <summary>
     /// ViewModel of <see cref="IUseBreakWater"/>.
     /// </summary>
-    public class UseBreakWaterProperties
+    public class UseBreakWaterProperties<TCalculationInput>
+        where TCalculationInput : ICalculationInput, IUseBreakWater
     {
         private const int useBreakWaterPropertyIndex = 1;
         private const int breakWaterTypePropertyIndex = 2;
         private const int breakWaterHeightPropertyIndex = 3;
-        private readonly IUseBreakWater data;
-        private readonly IPropertyChangeHandler changeHandler;
+        private readonly TCalculationInput data;
+        private readonly ICalculation calculation;
+        private readonly ICalculationInputPropertyChangeHandler changeHandler;
 
         /// <summary>
-        /// Creates a new instance of <see cref="UseBreakWaterProperties"/>, in which
-        /// all the properties are read only.
+        /// Creates a new instance of <see cref="UseBreakWaterProperties{TCalculationInput}"/>, in which
+        /// all the properties are read-only and empty.
         /// </summary>
         public UseBreakWaterProperties() { }
 
         /// <summary>
-        /// Creates a new instance of <see cref="UseBreakWaterProperties"/>in which the 
+        /// Creates a new instance of <see cref="UseBreakWaterProperties{TCalculationInput}"/>in which the 
         /// properties are editable.
         /// </summary>
         /// <param name="useBreakWaterData">The data to use for the properties.</param>
+        /// <param name="calculation">The calculation to which the <paramref name="useBreakWaterData"/> belongs.</param>
         /// <param name="handler">Optional handler that is used to handle property changes.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        public UseBreakWaterProperties(IUseBreakWater useBreakWaterData, IPropertyChangeHandler handler)
+        public UseBreakWaterProperties(
+            TCalculationInput useBreakWaterData, 
+            ICalculation calculation,
+            ICalculationInputPropertyChangeHandler handler)
         {
             if (useBreakWaterData == null)
             {
                 throw new ArgumentNullException(nameof(useBreakWaterData));
             }
+            if (calculation == null)
+            {
+                throw new ArgumentNullException(nameof(calculation));
+            }
+            if (handler == null)
+            {
+                throw new ArgumentNullException(nameof(handler));
+            }
             data = useBreakWaterData;
+            this.calculation = calculation;
             changeHandler = handler;
         }
 
@@ -78,8 +95,12 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             }
             set
             {
-                data.UseBreakWater = value;
-                NotifyPropertyChanged();
+                IEnumerable<IObservable> affectedObjects = changeHandler.SetPropertyValueAfterConfirmation(
+                    data, 
+                    calculation,
+                    value, 
+                    (input, d) => data.UseBreakWater = d);
+                NotifyAffectedObjects(affectedObjects);
             }
         }
 
@@ -98,8 +119,12 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             {
                 if (value.HasValue)
                 {
-                    data.BreakWater.Type = value.Value;
-                    NotifyPropertyChanged();
+                    IEnumerable<IObservable> affectedObjects = changeHandler.SetPropertyValueAfterConfirmation(
+                        data, 
+                        calculation, 
+                        value.Value, 
+                        (input, d) => data.BreakWater.Type = d);
+                    NotifyAffectedObjects(affectedObjects);
                 }
             }
         }
@@ -117,8 +142,12 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             }
             set
             {
-                data.BreakWater.Height = value;
-                NotifyPropertyChanged();
+                IEnumerable<IObservable> affectedObjects = changeHandler.SetPropertyValueAfterConfirmation(
+                    data, 
+                    calculation, 
+                    value, 
+                    (input, d) => data.BreakWater.Height = d);
+                NotifyAffectedObjects(affectedObjects);
             }
         }
 
@@ -126,7 +155,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         public bool DynamicReadOnlyValidationMethod(string propertyName)
         {
             return data == null ||
-                   !propertyName.Equals(TypeUtils.GetMemberName<UseBreakWaterProperties>(i => i.UseBreakWater)) &&
+                   !propertyName.Equals(nameof(UseBreakWater)) &&
                    !UseBreakWater;
         }
 
@@ -135,10 +164,12 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             return string.Empty;
         }
 
-        private void NotifyPropertyChanged()
+        private static void NotifyAffectedObjects(IEnumerable<IObservable> affectedObjects)
         {
-            changeHandler?.PropertyChanged();
-            data.NotifyObservers();
+            foreach (var affectedObject in affectedObjects)
+            {
+                affectedObject.NotifyObservers();
+            }
         }
     }
 }

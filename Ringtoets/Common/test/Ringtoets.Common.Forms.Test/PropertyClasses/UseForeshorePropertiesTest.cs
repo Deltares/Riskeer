@@ -28,6 +28,7 @@ using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Forms.TestUtil;
@@ -38,64 +39,57 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
     public class UseForeshorePropertiesTest
     {
         [Test]
-        public void DefaultConstructor_ExpectedValues()
+        public void Constructor_UseForeshoreDataNull_ThrowsArgumentNullException()
         {
+            // Setup
+            var mocks = new MockRepository();
+            var calculation = mocks.Stub<ICalculation>();
+            var handler = mocks.Stub<ICalculationInputPropertyChangeHandler>();
+            mocks.ReplayAll();
+
             // Call
-            var properties = new UseForeshoreProperties();
+            TestDelegate test = () => new UseForeshoreProperties<TestUseForeshore>(null, calculation, handler);
 
             // Assert
-            Assert.IsFalse(properties.UseForeshore);
-            Assert.IsNull(properties.Coordinates);
-            Assert.AreEqual(string.Empty, properties.ToString());
-
-            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(2, dynamicProperties.Count);
-
-            PropertyDescriptor useForeshoreProperty = dynamicProperties[0];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(useForeshoreProperty,
-                                                                            "Misc",
-                                                                            "Gebruik",
-                                                                            "Moet de voorlandgeometrie worden gebruikt tijdens de berekening?",
-                                                                            true);
-
-            PropertyDescriptor coordinatesProperty = dynamicProperties[1];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(coordinatesProperty,
-                                                                            "Misc",
-                                                                            "Coördinaten [m]",
-                                                                            "Lijst met punten in lokale coördinaten.",
-                                                                            true);
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("useForeshoreData", paramName);
+            mocks.VerifyAll();
         }
 
         [Test]
-        public void Constructor_WithDataWithoutForeshoreGeometryExpectedValues()
+        public void Constructor_CalculationNull_ThrowsArgumentNullException()
         {
             // Setup
-            var useForeshoreData = new TestUseForeshore();
+            TestUseForeshore testUseForeshore = new TestUseForeshore();
+
+            var mocks = new MockRepository();
+            var handler = mocks.Stub<ICalculationInputPropertyChangeHandler>();
+            mocks.ReplayAll();
 
             // Call
-            var properties = new UseForeshoreProperties(useForeshoreData, null);
+            TestDelegate test = () => new UseForeshoreProperties<TestUseForeshore>(testUseForeshore, null, handler);
 
             // Assert
-            Assert.IsFalse(properties.UseForeshore);
-            Assert.IsNull(properties.Coordinates);
-            Assert.AreEqual(string.Empty, properties.ToString());
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("calculation", paramName);
+        }
 
-            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(2, dynamicProperties.Count);
+        [Test]
+        public void Constructor_HandlerNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            TestUseForeshore testUseForeshore = new TestUseForeshore();
 
-            PropertyDescriptor useForeshoreProperty = dynamicProperties[0];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(useForeshoreProperty,
-                                                                            "Misc",
-                                                                            "Gebruik",
-                                                                            "Moet de voorlandgeometrie worden gebruikt tijdens de berekening?",
-                                                                            true);
+            var mocks = new MockRepository();
+            var calculation = mocks.Stub<ICalculation>();
+            mocks.ReplayAll();
 
-            PropertyDescriptor coordinatesProperty = dynamicProperties[1];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(coordinatesProperty,
-                                                                            "Misc",
-                                                                            "Coördinaten [m]",
-                                                                            "Lijst met punten in lokale coördinaten.",
-                                                                            true);
+            // Call
+            TestDelegate test = () => new UseForeshoreProperties<TestUseForeshore>(testUseForeshore, calculation, null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("handler", paramName);
         }
 
         [TestCase(0, false)]
@@ -104,6 +98,11 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         public void Constructor_WithDataWithForeshoreGeometryVariousNumberOfElements_ReturnExpectedValues(int numberOfPoint2D, bool isEnabled)
         {
             // Setup
+            var mocks = new MockRepository();
+            var calculation = mocks.Stub<ICalculation>();
+            var handler = mocks.Stub<ICalculationInputPropertyChangeHandler>();
+            mocks.ReplayAll();
+
             var useForeshoreData = new TestUseForeshore
             {
                 ForeshoreGeometry = new RoundedPoint2DCollection(
@@ -111,7 +110,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             };
 
             // Call
-            var properties = new UseForeshoreProperties(useForeshoreData, null);
+            var properties = new UseForeshoreProperties<TestUseForeshore>(useForeshoreData, calculation, handler);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -131,29 +130,41 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                                                                             "Lijst met punten in lokale coördinaten.",
                                                                             true);
         }
-
         [Test]
-        public void Constructor_WithUseForeshoreDataNull_ThrowsArgumentNullException()
+        public void Constructor_WithDataWithoutForeshoreGeometry_CoordinatesNull()
         {
+            // Setup
+            var mocks = new MockRepository();
+            var calculation = mocks.Stub<ICalculation>();
+            var handler = mocks.Stub<ICalculationInputPropertyChangeHandler>();
+            mocks.ReplayAll();
+
+            var useForeshoreData = new TestUseForeshore();
+
             // Call
-            TestDelegate test = () => new UseForeshoreProperties(null, null);
+            var properties = new UseForeshoreProperties<TestUseForeshore>(useForeshoreData, calculation, handler);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("useForeshoreData", paramName);
+            Assert.IsFalse(properties.UseForeshore);
+            Assert.IsNull(properties.Coordinates);
         }
 
         [Test]
         public void Constructor_ValidData_ExpectedValues()
         {
             // Setup
+            var mocks = new MockRepository();
+            var calculation = mocks.Stub<ICalculation>();
+            var handler = mocks.Stub<ICalculationInputPropertyChangeHandler>();
+            mocks.ReplayAll();
+
             var useForeshoreData = new TestUseForeshore
             {
                 UseForeshore = true
             };
 
             // Call
-            var properties = new UseForeshoreProperties(useForeshoreData, null);
+            var properties = new UseForeshoreProperties<TestUseForeshore>(useForeshoreData, calculation, handler);
 
             // Assert
             Assert.IsTrue(properties.UseForeshore);
@@ -165,6 +176,11 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         public void GetProperties_ValidUseForeshore_ExpectedValues()
         {
             // Setup
+            var mocks = new MockRepository();
+            var calculation = mocks.Stub<ICalculation>();
+            var handler = mocks.Stub<ICalculationInputPropertyChangeHandler>();
+            mocks.ReplayAll();
+
             var geometry = new[]
             {
                 new Point2D(1, 1)
@@ -176,7 +192,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             };
 
             // Call
-            var properties = new UseForeshoreProperties(useForeshoreData, null);
+            var properties = new UseForeshoreProperties<TestUseForeshore>(useForeshoreData, calculation, handler);
 
             // Assert
             Assert.IsTrue(properties.UseForeshore);
@@ -184,55 +200,46 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void SetProperties_IndividualProperties_UpdateData()
+        public void UseForeshore_Always_InputNotifiedAndPropertyChangedCalled()
         {
-            // Setup
-            var useForeshoreData = new TestUseForeshore();
-            var properties = new UseForeshoreProperties(useForeshoreData, null);
-
-            // Call
-            properties.UseForeshore = true;
-
-            // Assert
-            Assert.IsTrue(properties.UseForeshore);
-            Assert.IsNull(properties.Coordinates);
-            Assert.AreEqual(string.Empty, properties.ToString());
+            var useForeshore = new Random(21).NextBoolean();
+            SetPropertyAndVerifyNotifcationsAndOutputForCalculation(properties => properties.UseForeshore = useForeshore,
+                                                                    useForeshore,
+                                                                    new TestUseForeshore());
         }
 
-        [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void UseForeshore_WithOrWithoutOutput_InputNotifiedAndPropertyChangedCalled(bool hasOutput)
+        private void SetPropertyAndVerifyNotifcationsAndOutputForCalculation<TPropertyValue>(
+            Action<UseForeshoreProperties<TestUseForeshore>> setProperty,
+            TPropertyValue expectedValueSet,
+            TestUseForeshore input)
         {
             // Setup
             var mocks = new MockRepository();
-            var calculationObserver = mocks.StrictMock<IObserver>();
-            var inputObserver = mocks.StrictMock<IObserver>();
-            inputObserver.Expect(o => o.UpdateObserver());
-            var handler = mocks.StrictMock<IPropertyChangeHandler>();
-            handler.Expect(o => o.PropertyChanged());
+            var calculation = mocks.Stub<ICalculation>();
+            var observable = mocks.StrictMock<IObservable>();
+            observable.Expect(o => o.NotifyObservers());
             mocks.ReplayAll();
 
-            var calculation = new TestCalculation();
-            if (hasOutput)
-            {
-                calculation.Output = new object();
-            }
+            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<TPropertyValue>(
+                input,
+                calculation,
+                expectedValueSet,
+                new[]
+                {
+                    observable
+                });
 
-            calculation.Attach(calculationObserver);
-            var input = new TestUseForeshore();
-            input.Attach(inputObserver);
-
-            var properties = new UseForeshoreProperties(input, handler);
+            var properties = new UseForeshoreProperties<TestUseForeshore>(input, calculation, handler);
 
             // Call
-            properties.UseForeshore = true;
+            setProperty(properties);
 
             // Assert
+            Assert.IsTrue(handler.Called);
             mocks.VerifyAll();
         }
 
-        private class TestUseForeshore : Observable, IUseForeshore
+        public class TestUseForeshore : Observable, ICalculationInput, IUseForeshore
         {
             public bool UseForeshore { get; set; }
             public RoundedPoint2DCollection ForeshoreGeometry { get; set; }

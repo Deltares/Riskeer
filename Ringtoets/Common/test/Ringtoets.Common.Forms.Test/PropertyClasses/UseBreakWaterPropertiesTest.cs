@@ -28,6 +28,7 @@ using Core.Common.TestUtil;
 using Core.Common.Utils;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PropertyClasses;
@@ -43,7 +44,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         public void DefaultConstructor_ExpectedValues()
         {
             // Call
-            var properties = new UseBreakWaterProperties();
+            var properties = new UseBreakWaterProperties<TestUseBreakWater>();
 
             // Assert
             Assert.IsFalse(properties.UseBreakWater);
@@ -56,7 +57,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         public void DefaultConstructor_Always_ReadOnlyProperties()
         {
             // Call
-            var properties = new UseBreakWaterProperties();
+            var properties = new UseBreakWaterProperties<TestUseBreakWater>();
 
             // Assert
             var dynamicPropertyBag = new DynamicPropertyBag(properties);
@@ -91,49 +92,23 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void Constructor_UseBreakWaterDataNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate test = () => new UseBreakWaterProperties(null, null);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("useBreakWaterData", paramName);
-        }
-
-        [Test]
-        public void Constructor_WithUseBreakWaterData_ExpectedValues()
-        {
-            // Setup
-            var useBreakWaterData = new TestUseBreakWater
-            {
-                UseBreakWater = true,
-                BreakWater = new BreakWater(BreakWaterType.Caisson, 10)
-            };
-
-            // Call
-            var properties = new UseBreakWaterProperties(useBreakWaterData, null);
-
-            // Assert
-            Assert.IsTrue(properties.UseBreakWater);
-            Assert.AreEqual(BreakWaterType.Caisson, properties.BreakWaterType);
-            Assert.AreEqual(10, properties.BreakWaterHeight, properties.BreakWaterHeight.GetAccuracy());
-            Assert.AreEqual(string.Empty, properties.ToString());
-        }
-
-        [Test]
         [TestCase(true)]
         [TestCase(false)]
         public void Constructor_WithBreakWaterAndCalculationUseBreakWater_ReturnExpectedProperties(bool useBreakWater)
         {
             // Setup
+            var mocks = new MockRepository();
+            var calculation = mocks.Stub<ICalculation>();
+            var handler = mocks.Stub<ICalculationInputPropertyChangeHandler>();
+            mocks.ReplayAll();
+
             TestUseBreakWater testUseBreakWater = new TestUseBreakWater
             {
                 UseBreakWater = useBreakWater
             };
 
             // Call
-            var properties = new UseBreakWaterProperties(testUseBreakWater, null);
+            var properties = new UseBreakWaterProperties<TestUseBreakWater>(testUseBreakWater, calculation, handler);
 
             // Assert
             var dynamicPropertyBag = new DynamicPropertyBag(properties);
@@ -164,91 +139,157 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                                                                             "Hoogte [m+NAP]",
                                                                             "De hoogte van de dam.",
                                                                             !useBreakWater);
+            mocks.VerifyAll();
         }
 
         [Test]
-        public void SetProperties_IndividualProperties_UpdateData()
+        public void Constructor_UseBreakWaterDataNull_ThrowsArgumentNullException()
         {
             // Setup
-            var breakWater = new BreakWater(BreakWaterType.Caisson, 2.2);
-            var testUseBreakWater = new TestUseBreakWater
-            {
-                BreakWater = breakWater
-            };
-            var properties = new UseBreakWaterProperties(testUseBreakWater, null);
+            var mocks = new MockRepository();
+            var calculation = mocks.Stub<ICalculation>();
+            var handler = mocks.Stub<ICalculationInputPropertyChangeHandler>();
+            mocks.ReplayAll();
 
             // Call
-            properties.UseBreakWater = true;
-            properties.BreakWaterType = BreakWaterType.Dam;
-            properties.BreakWaterHeight = (RoundedDouble) 1.1;
+            TestDelegate test = () => new UseBreakWaterProperties<TestUseBreakWater>(null, calculation, handler);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("useBreakWaterData", paramName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_CalculationNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            TestUseBreakWater testUseBreakWater = new TestUseBreakWater();
+
+            var mocks = new MockRepository();
+            var handler = mocks.Stub<ICalculationInputPropertyChangeHandler>();
+            mocks.ReplayAll();
+
+            // Call
+            TestDelegate test = () => new UseBreakWaterProperties<TestUseBreakWater>(testUseBreakWater, null, handler);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("calculation", paramName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_HandlerNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            TestUseBreakWater testUseBreakWater = new TestUseBreakWater();
+
+            var mocks = new MockRepository();
+            var calculation = mocks.Stub<ICalculation>();
+            mocks.ReplayAll();
+
+            // Call
+            TestDelegate test = () => new UseBreakWaterProperties<TestUseBreakWater>(testUseBreakWater, calculation, null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("handler", paramName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_WithUseBreakWaterData_ExpectedValues()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var calculation = mocks.Stub<ICalculation>();
+            var handler = mocks.Stub<ICalculationInputPropertyChangeHandler>();
+            mocks.ReplayAll();
+
+            var useBreakWaterData = new TestUseBreakWater
+            {
+                UseBreakWater = true,
+                BreakWater = new BreakWater(BreakWaterType.Caisson, 10)
+            };
+
+            // Call
+            var properties = new UseBreakWaterProperties<TestUseBreakWater>(useBreakWaterData, calculation, handler);
 
             // Assert
             Assert.IsTrue(properties.UseBreakWater);
-            Assert.AreEqual(BreakWaterType.Dam, properties.BreakWaterType);
-            Assert.AreEqual(1.1, properties.BreakWaterHeight, properties.BreakWaterHeight.GetAccuracy());
+            Assert.AreEqual(BreakWaterType.Caisson, properties.BreakWaterType);
+            Assert.AreEqual(10, properties.BreakWaterHeight, properties.BreakWaterHeight.GetAccuracy());
             Assert.AreEqual(string.Empty, properties.ToString());
+            mocks.VerifyAll();
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void DikeHeight_WithOrWithoutOutput_InputNotifiedAndPropertyChangedCalled(bool hasOutput)
+        public void DikeHeight_Always_InputNotifiedAndPropertyChangedCalled()
         {
-            SetPropertyAndVerifyNotifcationsAndHandlerCall(hasOutput, properties => properties.BreakWaterHeight = new Random(21).NextRoundedDouble());
+            var breakWaterHeight = new Random(21).NextRoundedDouble();
+            SetPropertyAndVerifyNotifcationsAndOutputForCalculation(properties => properties.BreakWaterHeight = breakWaterHeight,
+                                                                    breakWaterHeight,
+                                                                    new TestUseBreakWater());
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void BreakWaterType_WithOrWithoutOutput_InputNotifiedAndPropertyChangedCalled(bool hasOutput)
+        public void BreakWaterType_Always_InputNotifiedAndPropertyChangedCalled()
         {
-            SetPropertyAndVerifyNotifcationsAndHandlerCall(hasOutput, properties => properties.BreakWaterType = new Random(21).NextEnumValue<BreakWaterType>());
+            var type = new Random(21).NextEnumValue<BreakWaterType>();
+            SetPropertyAndVerifyNotifcationsAndOutputForCalculation(properties => properties.BreakWaterType = type,
+                                                                    type,
+                                                                    new TestUseBreakWater());
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void UseBreakWater_WithOrWithoutOutput_InputNotifiedAndPropertyChangedCalled(bool hasOutput)
+        public void UseBreakWater_Always_InputNotifiedAndPropertyChangedCalled()
         {
-            SetPropertyAndVerifyNotifcationsAndHandlerCall(hasOutput, properties => properties.UseBreakWater = new Random(21).NextBoolean());
+            var useBreakWater = new Random(21).NextBoolean();
+            SetPropertyAndVerifyNotifcationsAndOutputForCalculation(properties => properties.UseBreakWater = useBreakWater,
+                                                                    useBreakWater,
+                                                                    new TestUseBreakWater());
         }
 
-        private class TestUseBreakWater : Observable, IUseBreakWater
+        public class TestUseBreakWater : Observable, ICalculationInput, IUseBreakWater
         {
+            public TestUseBreakWater()
+            {
+                BreakWater = new BreakWater(BreakWaterType.Caisson, 2);
+            }
+
             public bool UseBreakWater { get; set; }
             public BreakWater BreakWater { get; set; }
         }
 
-        private void SetPropertyAndVerifyNotifcationsAndHandlerCall(
-            bool hasOutput,
-            Action<UseBreakWaterProperties> setProperty)
+        private void SetPropertyAndVerifyNotifcationsAndOutputForCalculation<TPropertyValue>(
+            Action<UseBreakWaterProperties<TestUseBreakWater>> setProperty,
+            TPropertyValue expectedValueSet,
+            TestUseBreakWater input)
         {
             // Setup
             var mocks = new MockRepository();
-            var calculationObserver = mocks.StrictMock<IObserver>();
-            var inputObserver = mocks.StrictMock<IObserver>();
-            inputObserver.Expect(o => o.UpdateObserver());
-            var handler = mocks.StrictMock<IPropertyChangeHandler>();
-            handler.Expect(o => o.PropertyChanged());
+            var calculation = mocks.Stub<ICalculation>();
+            var observable = mocks.StrictMock<IObservable>();
+            observable.Expect(o => o.NotifyObservers());
             mocks.ReplayAll();
 
-            var calculation = new TestCalculation();
-            if (hasOutput)
-            {
-                calculation.Output = new object();
-            }
+            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<TPropertyValue>(
+                input,
+                calculation,
+                expectedValueSet,
+                new[]
+                {
+                    observable
+                });
 
-            calculation.Attach(calculationObserver);
-            var input = new TestUseBreakWater();
-            input.Attach(inputObserver);
-            input.BreakWater = new BreakWater(BreakWaterType.Caisson, 3.2);
-
-            var properties = new UseBreakWaterProperties(input, handler);
+            var properties = new UseBreakWaterProperties<TestUseBreakWater>(input, calculation, handler);
 
             // Call
             setProperty(properties);
 
             // Assert
+            Assert.IsTrue(handler.Called);
             mocks.VerifyAll();
         }
     }

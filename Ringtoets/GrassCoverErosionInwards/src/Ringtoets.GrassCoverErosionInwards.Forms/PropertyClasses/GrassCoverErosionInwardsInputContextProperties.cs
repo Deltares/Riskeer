@@ -146,13 +146,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.BreakWaterProperties_DisplayName))]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.BreakWaterProperties_Description))]
-        public ConfirmingUseBreakWaterProperties<GrassCoverErosionInwardsInput> BreakWater
+        public UseBreakWaterProperties<GrassCoverErosionInwardsInput> BreakWater
         {
             get
             {
                 return data.WrappedData.DikeProfile == null ?
-                           new ConfirmingUseBreakWaterProperties<GrassCoverErosionInwardsInput>() :
-                           new ConfirmingUseBreakWaterProperties<GrassCoverErosionInwardsInput>(
+                           new UseBreakWaterProperties<GrassCoverErosionInwardsInput>() :
+                           new UseBreakWaterProperties<GrassCoverErosionInwardsInput>(
                                data.WrappedData, data.Calculation, propertyChangeHandler);
             }
         }
@@ -162,11 +162,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.ForeshoreProperties_DisplayName))]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.ForeshoreProperties_Description))]
-        public ConfirmingUseForeshoreProperties<GrassCoverErosionInwardsInput> Foreshore
+        public UseForeshoreProperties<GrassCoverErosionInwardsInput> Foreshore
         {
             get
             {
-                return new ConfirmingUseForeshoreProperties<GrassCoverErosionInwardsInput>(
+                return new UseForeshoreProperties<GrassCoverErosionInwardsInput>(
                     data.WrappedData,
                     data.Calculation,
                     propertyChangeHandler);

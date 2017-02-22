@@ -245,13 +245,13 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.BreakWaterProperties_DisplayName))]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.BreakWaterProperties_Description))]
-        public ConfirmingUseBreakWaterProperties<WaveConditionsInput> BreakWater
+        public UseBreakWaterProperties<WaveConditionsInput> BreakWater
         {
             get
             {
                 return data.WrappedData.ForeshoreProfile == null ?
-                           new ConfirmingUseBreakWaterProperties<WaveConditionsInput>() :
-                           new ConfirmingUseBreakWaterProperties<WaveConditionsInput>(data.WrappedData, data.Calculation, propertyChangeHandler);
+                           new UseBreakWaterProperties<WaveConditionsInput>() :
+                           new UseBreakWaterProperties<WaveConditionsInput>(data.WrappedData, data.Calculation, propertyChangeHandler);
             }
         }
 
@@ -260,11 +260,11 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.ForeshoreProperties_DisplayName))]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.ForeshoreProperties_Description))]
-        public ConfirmingUseForeshoreProperties<WaveConditionsInput> ForeshoreGeometry
+        public UseForeshoreProperties<WaveConditionsInput> ForeshoreGeometry
         {
             get
             {
-                return new ConfirmingUseForeshoreProperties<WaveConditionsInput>(data.WrappedData, data.Calculation, propertyChangeHandler);
+                return new UseForeshoreProperties<WaveConditionsInput>(data.WrappedData, data.Calculation, propertyChangeHandler);
             }
         }
 

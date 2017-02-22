@@ -92,9 +92,7 @@
     <Compile Include="PropertyClasses\DistributionPropertiesReadOnly.cs" />
     <Compile Include="PropertyClasses\ForeshoreProfileProperties.cs" />
     <Compile Include="PropertyClasses\TruncatedNormalDistributionProperties.cs" />
-    <Compile Include="PropertyClasses\ConfirmingUseBreakWaterProperties.cs" />
     <Compile Include="PropertyClasses\UseBreakWaterProperties.cs" />
-    <Compile Include="PropertyClasses\ConfirmingUseForeshoreProperties.cs" />
     <Compile Include="PropertyClasses\UseForeshoreProperties.cs" />
     <Compile Include="PropertyClasses\ConfirmingVariationCoefficientLogNormalDistributionProperties.cs" />
     <Compile Include="PropertyClasses\VariationCoefficientLogNormalDistributionProperties.cs" />
