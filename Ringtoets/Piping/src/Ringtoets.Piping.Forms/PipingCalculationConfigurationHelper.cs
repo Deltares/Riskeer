@@ -111,6 +111,29 @@ namespace Ringtoets.Piping.Forms
                                       .ToList();
         }
 
+        /// <summary>
+        /// Indicates whether a stochastic soil model intersects with a surface line.
+        /// </summary>
+        /// <param name="stochasticSoilModel">The stochastic soil model used to match a surface line.</param>
+        /// <param name="surfaceLine">The surface line used to match a stochastic soil model.</param>
+        /// <returns><c>true</c> when the <paramref name="stochasticSoilModel"/> intersects with the <paramref name="surfaceLine"/>;
+        /// <c>false</c> otherwise.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
+        public static bool DoesSoilModelGeometryIntersectWithSurfaceLineGeometry(StochasticSoilModel stochasticSoilModel, RingtoetsPipingSurfaceLine surfaceLine)
+        {
+            if (stochasticSoilModel == null)
+            {
+                throw new ArgumentNullException(nameof(stochasticSoilModel));
+            }
+            if (surfaceLine == null)
+            {
+                throw new ArgumentNullException(nameof(surfaceLine));
+            }
+            Segment2D[] surfaceLineSegments = Math2D.ConvertLinePointsToLineSegments(surfaceLine.Points.Select(p => new Point2D(p.X, p.Y))).ToArray();
+
+            return DoesSoilModelGeometryIntersectWithSurfaceLineGeometry(stochasticSoilModel, surfaceLineSegments);
+        }
+
         private static CalculationGroup CreateCalculationGroup(RingtoetsPipingSurfaceLine surfaceLine, IEnumerable<StochasticSoilModel> soilModels, GeneralPipingInput generalInput)
         {
             var calculationGroup = new CalculationGroup(surfaceLine.Name, true);
@@ -128,7 +151,7 @@ namespace Ringtoets.Piping.Forms
 
         private static ICalculationBase CreatePipingCalculation(RingtoetsPipingSurfaceLine surfaceLine, StochasticSoilModel stochasticSoilModel, StochasticSoilProfile stochasticSoilProfile, IEnumerable<ICalculationBase> calculations, GeneralPipingInput generalInput)
         {
-            var nameBase = string.Format("{0} {1}", surfaceLine.Name, stochasticSoilProfile);
+            var nameBase = $"{surfaceLine.Name} {stochasticSoilProfile}";
             var name = NamingHelper.GetUniqueName(calculations, nameBase, c => c.Name);
 
             return new PipingCalculationScenario(generalInput)
