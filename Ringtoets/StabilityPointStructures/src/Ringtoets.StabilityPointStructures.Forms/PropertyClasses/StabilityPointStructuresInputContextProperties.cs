@@ -285,7 +285,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
         #region Schematization
 
         [DynamicVisible]
-        public override NormalDistributionProperties WidthFlowApertures
+        public override ConfirmingNormalDistributionProperties<StabilityPointStructuresInput> WidthFlowApertures
         {
             get
             {

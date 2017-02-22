@@ -710,10 +710,64 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         [Test]
         public void ModelFactorSuperCriticalFlow_MeanChanged_InputChangedAndObsevablesNotified()
         {
-            RoundedDouble modelFactorSuperCriticalFlowMean = new Random(21).NextRoundedDouble();
+            RoundedDouble newMean = new Random(21).NextRoundedDouble();
             SetPropertyAndVerifyNotifcationsAndOutput(
-                properties => properties.ModelFactorSuperCriticalFlow.Mean = modelFactorSuperCriticalFlowMean,
-                modelFactorSuperCriticalFlowMean);
+                properties => properties.ModelFactorSuperCriticalFlow.Mean = newMean,
+                newMean);
+        }
+
+        [Test]
+        public void FlowWidthAtBottomProtection_MeanChanged_InputChangedAndObsevablesNotified()
+        {
+            RoundedDouble newMean = new Random(21).NextRoundedDouble();
+            SetPropertyAndVerifyNotifcationsAndOutput(
+                properties => properties.FlowWidthAtBottomProtection.Mean = newMean,
+                newMean);
+        }
+
+        [Test]
+        public void WidthFlowApertures_MeanChanged_InputChangedAndObsevablesNotified()
+        {
+            RoundedDouble newMean = new Random(21).NextRoundedDouble();
+            SetPropertyAndVerifyNotifcationsAndOutput(
+                properties => properties.WidthFlowApertures.Mean = newMean,
+                newMean);
+        }
+
+        [Test]
+        public void StorageStructureArea_MeanChanged_InputChangedAndObsevablesNotified()
+        {
+            RoundedDouble newMean = new Random(21).NextRoundedDouble();
+            SetPropertyAndVerifyNotifcationsAndOutput(
+                properties => properties.StorageStructureArea.Mean = newMean,
+                newMean);
+        }
+
+        [Test]
+        public void AllowedLevelIncreaseStorage_MeanChanged_InputChangedAndObsevablesNotified()
+        {
+            RoundedDouble newMean = new Random(21).NextRoundedDouble();
+            SetPropertyAndVerifyNotifcationsAndOutput(
+                properties => properties.AllowedLevelIncreaseStorage.Mean = newMean,
+                newMean);
+        }
+
+        [Test]
+        public void CriticalOvertoppingDischarge_MeanChanged_InputChangedAndObsevablesNotified()
+        {
+            RoundedDouble newMean = new Random(21).NextRoundedDouble();
+            SetPropertyAndVerifyNotifcationsAndOutput(
+                properties => properties.CriticalOvertoppingDischarge.Mean = newMean,
+                newMean);
+        }
+
+        [Test]
+        public void StormDuration_MeanChanged_InputChangedAndObsevablesNotified()
+        {
+            RoundedDouble newMean = new Random(21).NextRoundedDouble();
+            SetPropertyAndVerifyNotifcationsAndOutput(
+                properties => properties.StormDuration.Mean = newMean,
+                newMean);
         }
 
         [Test]

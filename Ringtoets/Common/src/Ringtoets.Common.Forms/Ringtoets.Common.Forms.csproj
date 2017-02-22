@@ -75,6 +75,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="PropertyClasses\ConfirmingVariationCoefficientDistributionPropertiesBase.cs" />
     <Compile Include="PropertyClasses\ICalculationInputPropertyChangeHandler.cs" />
     <Compile Include="PropertyClasses\IPropertyChangeHandler.cs" />
     <Compile Include="PropertyClasses\IFailureMechanismPropertyChangeHandler.cs" />
@@ -94,6 +95,7 @@
     <Compile Include="PropertyClasses\UseBreakWaterProperties.cs" />
     <Compile Include="PropertyClasses\ConfirmingUseForeshoreProperties.cs" />
     <Compile Include="PropertyClasses\UseForeshoreProperties.cs" />
+    <Compile Include="PropertyClasses\ConfirmingVariationCoefficientLogNormalDistributionProperties.cs" />
     <Compile Include="PropertyClasses\VariationCoefficientLogNormalDistributionProperties.cs" />
     <Compile Include="PropertyClasses\VariationCoefficientNormalDistributionProperties.cs" />
     <Compile Include="PropertyClasses\ProbabilityAssessmentOutputProperties.cs" />
