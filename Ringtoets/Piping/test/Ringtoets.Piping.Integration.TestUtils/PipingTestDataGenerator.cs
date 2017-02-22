@@ -23,6 +23,7 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.KernelWrapper.TestUtil;
@@ -153,6 +154,30 @@ namespace Ringtoets.Piping.Integration.TestUtils
                         StandardDeviation = (RoundedDouble) 0.1
                     }
                 }
+            };
+
+            return calculation;
+        }
+
+        /// <summary>
+        /// Gets a <see cref="PipingCalculation"/> with <c>double.NaN</c> values set.
+        /// </summary>
+        /// <returns>A <see cref="PipingCalculation"/> with <c>double.NaN</c> values.</returns>
+        public static PipingCalculation GetPipingCalculationWithNaNs()
+        {
+            PipingCalculation calculation = GetPipingCalculationWithAssessmentLevel();
+            calculation.InputParameters.AssessmentLevel = RoundedDouble.NaN;
+            calculation.InputParameters.EntryPointL = RoundedDouble.NaN;
+            calculation.InputParameters.ExitPointL = RoundedDouble.NaN;
+            calculation.InputParameters.PhreaticLevelExit = new NormalDistribution
+            {
+                Mean = RoundedDouble.NaN,
+                StandardDeviation = RoundedDouble.NaN
+            };
+            calculation.InputParameters.DampingFactorExit = new LogNormalDistribution
+            {
+                Mean = RoundedDouble.NaN,
+                StandardDeviation = RoundedDouble.NaN
             };
 
             return calculation;

@@ -115,6 +115,24 @@ namespace Ringtoets.DuneErosion.IO.Test
         }
 
         [Test]
+        public void WriteDuneLocations_FileInUse_ThrowCriticalFileWriteException()
+        {
+            // Setup
+            string filePath = TestHelper.GetScratchPadPath(Path.GetRandomFileName());
+            using (new FileDisposeHelper(filePath))
+            using (new FileStream(filePath, FileMode.Open))
+            {
+                // Call
+                TestDelegate call = () => DuneLocationsWriter.WriteDuneLocations(Enumerable.Empty<DuneLocation>(), filePath);
+
+                // Assert
+                var exception = Assert.Throws<CriticalFileWriteException>(call);
+                Assert.AreEqual($"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{filePath}'.", exception.Message);
+                Assert.IsInstanceOf<IOException>(exception.InnerException);
+            }
+        }
+
+        [Test]
         public void WriteDuneLocations_ValidData_ValidFile()
         {
             // Setup

@@ -62,6 +62,10 @@ namespace Ringtoets.Piping.IO.Test.Exporters
                 yield return new TestCaseData("calculationWithoutSoilProfile",
                                               PipingTestDataGenerator.GetPipingCalculationWithoutSoilProfile())
                     .SetName("calculationWithoutSoilProfile");
+
+                yield return new TestCaseData("calculationWithNaNs",
+                                              PipingTestDataGenerator.GetPipingCalculationWithNaNs())
+                    .SetName("calculationWithNaNs");
             }
         }
 
@@ -141,6 +145,24 @@ namespace Ringtoets.Piping.IO.Test.Exporters
             finally
             {
                 Directory.Delete(directoryPath, true);
+            }
+        }
+
+        [Test]
+        public void Write_FileInUse_ThrowCriticalFileWriteException()
+        {
+            // Setup
+            string filePath = TestHelper.GetScratchPadPath(Path.GetRandomFileName());
+            using (new FileDisposeHelper(filePath))
+            using (new FileStream(filePath, FileMode.Open))
+            {
+                // Call
+                TestDelegate call = () => PipingConfigurationWriter.Write(new CalculationGroup(), filePath);
+
+                // Assert
+                var exception = Assert.Throws<CriticalFileWriteException>(call);
+                Assert.AreEqual($"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{filePath}'.", exception.Message);
+                Assert.IsInstanceOf<IOException>(exception.InnerException);
             }
         }
 
