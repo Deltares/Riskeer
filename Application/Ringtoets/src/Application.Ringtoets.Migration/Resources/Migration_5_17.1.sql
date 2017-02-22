@@ -98,7 +98,20 @@ SELECT
     [Order] 
 FROM [SOURCEPROJECT].StochasticSoilProfileEntity;
 INSERT INTO StrengthStabilityLengthwiseConstructionSectionResultEntity SELECT * FROM [SOURCEPROJECT].StrengthStabilityLengthwiseConstructionSectionResultEntity;
-INSERT INTO SurfaceLineEntity SELECT * FROM [SOURCEPROJECT].SurfaceLineEntity;
+INSERT INTO SurfaceLineEntity
+SELECT 
+	[SurfaceLineEntityId],
+	[FailuremechanismEntityId],
+	CASE WHEN Suffix THEN [Name] || '(' || Suffix || ')' ELSE [Name] END as [Name],
+	[ReferenceLineIntersectionX],
+	[ReferenceLineIntersectionY],
+	[PointsXml],
+	[Order]
+	FROM (SELECT *, (SELECT count(*)
+                     FROM [SOURCEPROJECT].SurfaceLineEntity
+                     WHERE SSM.SurfaceLineEntityId > SurfaceLineEntityId
+                     AND SSM.Name IS Name) as Suffix
+	FROM [SOURCEPROJECT].SurfaceLineEntity SSM);
 INSERT INTO TechnicalInnovationSectionResultEntity SELECT * FROM [SOURCEPROJECT].TechnicalInnovationSectionResultEntity;
 INSERT INTO VersionEntity (
 	[VersionId], 
