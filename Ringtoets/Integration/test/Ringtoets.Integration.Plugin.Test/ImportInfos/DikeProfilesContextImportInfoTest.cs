@@ -41,17 +41,16 @@ namespace Ringtoets.Integration.Plugin.Test.ImportInfos
     public class DikeProfilesContextImportInfoTest
     {
         [Test]
-        public void CreateFileImporter_Always_ExpectedPropertiesSet()
+        public void CreateFileImporter_Always_ReturnFileImporter()
         {
             // Setup
             var mocks = new MockRepository();
-            ReferenceLine referenceLine = mocks.Stub<ReferenceLine>();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.ReferenceLine = referenceLine;
             mocks.ReplayAll();
 
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            assessmentSection.ReferenceLine = new ReferenceLine();
 
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             var importTarget = new DikeProfilesContext(failureMechanism.DikeProfiles, failureMechanism, assessmentSection);
 
             using (var plugin = new RingtoetsPlugin())

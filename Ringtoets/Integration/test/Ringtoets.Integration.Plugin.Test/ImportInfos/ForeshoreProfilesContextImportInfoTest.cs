@@ -41,15 +41,15 @@ namespace Ringtoets.Integration.Plugin.Test.ImportInfos
     public class ForeshoreProfilesContextImportInfoTest
     {
         [Test]
-        public void CreateFileImporter_Always_ExpectedPropertiesSet()
+        public void CreateFileImporter_Always_ReturnFileImporter()
         {
             // Setup
             var mocks = new MockRepository();
-            ReferenceLine referenceLine = mocks.Stub<ReferenceLine>();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.ReferenceLine = referenceLine;
             var failureMechanism = mocks.Stub<IFailureMechanism>();
             mocks.ReplayAll();
+
+            assessmentSection.ReferenceLine = new ReferenceLine();
 
             var list = new ObservableList<ForeshoreProfile>();
 

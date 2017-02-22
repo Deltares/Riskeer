@@ -39,16 +39,16 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.ImportInfos
     public class ClosingStructuresContextImportInfoTest
     {
         [Test]
-        public void CreateFileImporter_Always_ExpectedPropertiesSet()
+        public void CreateFileImporter_Always_ReturnFileImporter()
         {
             // Setup
             var mocks = new MockRepository();
             var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
-            assessmentSectionStub.ReferenceLine = new ReferenceLine();
             mocks.ReplayAll();
 
-            var failureMechanism = new ClosingStructuresFailureMechanism();
+            assessmentSectionStub.ReferenceLine = new ReferenceLine();
 
+            var failureMechanism = new ClosingStructuresFailureMechanism();
             var importTarget = new ClosingStructuresContext(failureMechanism.ClosingStructures, failureMechanism, assessmentSectionStub);
 
             using (var plugin = new ClosingStructuresPlugin())

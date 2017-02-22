@@ -39,13 +39,14 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.ImportInfos
     public class StabilityPointStructuresContextImportInfoTest
     {
         [Test]
-        public void CreateFileImporter_Always_ExpectedPropertiesSet()
+        public void CreateFileImporter_Always_ReturnFileImporter()
         {
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.ReferenceLine = new ReferenceLine();
             mocks.ReplayAll();
+
+            assessmentSection.ReferenceLine = new ReferenceLine();
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 

@@ -26,6 +26,7 @@ using Core.Common.Gui;
 using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
 using Core.Components.Gis.Data;
+using Core.Components.Gis.IO.Importers;
 using Core.Plugins.Map.Properties;
 using NUnit.Framework;
 
@@ -101,18 +102,16 @@ namespace Core.Plugins.Map.Test.ImportInfos
         }
 
         [Test]
-        public void CreateFileImporter_ValidInput_SuccessfulImport()
+        public void CreateFileImporter_Always_ReturnFileImporter()
         {
             // Setup
-            var path = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO, "Single_Point_with_ID.shp");
-
             var importTarget = new MapDataCollection("test");
 
             // Call
-            IFileImporter importer = importInfo.CreateFileImporter(importTarget, path);
+            IFileImporter importer = importInfo.CreateFileImporter(importTarget, "");
 
             // Assert
-            Assert.IsTrue(importer.Import());            
+            Assert.IsInstanceOf<FeatureBasedMapDataImporter>(importer);
         }
     }
 }

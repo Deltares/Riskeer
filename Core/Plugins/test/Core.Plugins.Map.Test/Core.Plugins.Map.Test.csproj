@@ -150,6 +150,10 @@
       <Project>{4a06df0d-5d75-4bad-a95a-a3db9b7c4ad5}</Project>
       <Name>Core.Components.Gis.Forms</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\Components\src\Core.Components.Gis.IO\Core.Components.Gis.IO.csproj">
+      <Project>{FD264FAD-E6F9-47CC-97CD-770199A8E629}</Project>
+      <Name>Core.Components.Gis.IO</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\Components\src\Core.Components.Gis\Core.Components.Gis.csproj">
       <Project>{318ba582-88c9-4816-a54a-a7e431461de3}</Project>
       <Name>Core.Components.Gis</Name>

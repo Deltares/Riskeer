@@ -39,17 +39,16 @@ namespace Ringtoets.HeightStructures.Plugin.Test.ImportInfos
     public class HeightStructuresContextImportInfoTest
     {
         [Test]
-        public void CreateFileImporter_Always_ExpectedPropertiesSet()
+        public void CreateFileImporter_Always_ReturnFileImporter()
         {
             // Setup
             var mocks = new MockRepository();
-            ReferenceLine referenceLine = mocks.Stub<ReferenceLine>();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.ReferenceLine = referenceLine;
             mocks.ReplayAll();
 
-            var failureMechanism = new HeightStructuresFailureMechanism();
+            assessmentSection.ReferenceLine = new ReferenceLine();
 
+            var failureMechanism = new HeightStructuresFailureMechanism();
             var importTarget = new HeightStructuresContext(failureMechanism.HeightStructures, failureMechanism, assessmentSection);
 
             using (var plugin = new HeightStructuresPlugin())

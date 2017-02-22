@@ -20,9 +20,7 @@
 // All rights reserved.
 
 using System.Drawing;
-using System.IO;
 using System.Linq;
-using Core.Common.Base.Geometry;
 using Core.Common.Base.IO;
 using Core.Common.Gui;
 using Core.Common.Gui.Plugin;
@@ -32,6 +30,7 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
+using Ringtoets.Piping.Plugin.FileImporter;
 using PipingFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
 
 namespace Ringtoets.Piping.Plugin.Test.ImportInfos
@@ -140,25 +139,14 @@ namespace Ringtoets.Piping.Plugin.Test.ImportInfos
         }
 
         [Test]
-        public void CreateFileImporter_ValidInput_SuccessfulImport()
+        public void CreateFileImporter_Always_ReturnFileImporter()
         {
             // Setup
-            var filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO,
-                                                      Path.Combine("SurfaceLines", "TwoValidSurfaceLines.csv"));
-
-            var referenceLine = new ReferenceLine();
-            referenceLine.SetGeometry(new[]
-            {
-                new Point2D(3.3, -1),
-                new Point2D(3.3, 1),
-                new Point2D(94270, 427775.65),
-                new Point2D(94270, 427812.08)
-            });
-
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.ReferenceLine = referenceLine;
             mocks.ReplayAll();
+
+            assessmentSection.ReferenceLine = new ReferenceLine();
 
             var failureMechanism = new PipingFailureMechanism();
             var surfaceLines = new RingtoetsPipingSurfaceLineCollection();
@@ -166,10 +154,10 @@ namespace Ringtoets.Piping.Plugin.Test.ImportInfos
             var importTarget = new RingtoetsPipingSurfaceLinesContext(surfaceLines, failureMechanism, assessmentSection);
 
             // Call
-            IFileImporter importer = importInfo.CreateFileImporter(importTarget, filePath);
+            IFileImporter importer = importInfo.CreateFileImporter(importTarget, "'");
 
             // Assert
-            Assert.IsTrue(importer.Import());
+            Assert.IsInstanceOf<PipingSurfaceLinesCsvImporter>(importer);
             mocks.VerifyAll();
         }
     }

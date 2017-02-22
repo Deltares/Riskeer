@@ -19,12 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.IO;
 using System.Linq;
-using Core.Common.Base;
 using Core.Common.Base.IO;
 using Core.Common.Gui;
 using Core.Common.Gui.Plugin;
@@ -32,10 +28,9 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.PresentationObjects;
-using Ringtoets.Common.IO.ReferenceLines;
+using Ringtoets.Common.IO.FileImporters;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Plugin.Test.ImportInfos
@@ -140,54 +135,24 @@ namespace Ringtoets.Integration.Plugin.Test.ImportInfos
         }
 
         [Test]
-        public void CreateFileImporter_ValidInput_SuccessfulImport()
+        public void CreateFileImporter_Always_ReturnFileImporter()
         {
             // Setup
-            var referenceLineFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                                   Path.Combine("ReferenceLine", "traject_1-1.shp"));
-            var sectionsFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                              Path.Combine("FailureMechanismSections", "traject_1-1_vakken.shp"));
-
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var handler = mocks.Stub<IReferenceLineReplaceHandler>();
-            handler.Stub(h => h.ConfirmReplace()).Return(true);
-            handler.Stub(h => h.Replace(Arg<IAssessmentSection>.Is.Same(assessmentSection),
-                                        Arg<ReferenceLine>.Is.NotNull))
-                   .WhenCalled(invocation =>
-                   {
-                       var importedReferenceLine = (ReferenceLine) invocation.Arguments[1];
-                       assessmentSection.ReferenceLine = importedReferenceLine;
-                   })
-                   .Return(Enumerable.Empty<IObservable>());
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
             mocks.ReplayAll();
 
-            var failureMechanism = new Simple();
-
-            var referenceLineImporter = new ReferenceLineImporter(assessmentSection, handler, referenceLineFilePath);
-            referenceLineImporter.Import();
+            assessmentSection.ReferenceLine = new ReferenceLine();
 
             var importTarget = new FailureMechanismSectionsContext(failureMechanism, assessmentSection);
 
             // Call
-            IFileImporter importer = importInfo.CreateFileImporter(importTarget, sectionsFilePath);
+            IFileImporter importer = importInfo.CreateFileImporter(importTarget, "");
 
             // Assert
-            Assert.IsTrue(importer.Import());
+            Assert.IsInstanceOf<FailureMechanismSectionsImporter>(importer);
             mocks.VerifyAll();
-        }
-
-        private class Simple : FailureMechanismBase
-        {
-            public Simple() : base("Stubbed name", "Stubbed code") {}
-
-            public override IEnumerable<ICalculation> Calculations
-            {
-                get
-                {
-                    throw new NotImplementedException();
-                }
-            }
         }
     }
 }

@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System.Drawing;
-using System.IO;
 using System.Linq;
 using Core.Common.Base.IO;
 using Core.Common.Gui;
@@ -30,8 +29,8 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.PresentationObjects;
+using Ringtoets.Common.IO.ReferenceLines;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Plugin.Test.ImportInfos
@@ -118,25 +117,19 @@ namespace Ringtoets.Integration.Plugin.Test.ImportInfos
         }
 
         [Test]
-        public void CreateFileImporter_ValidInput_SuccessfulImport()
+        public void CreateFileImporter_Always_ReturnFileImporter()
         {
             // Setup
-            var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(section => section.GetFailureMechanisms()).Return(Enumerable.Empty<IFailureMechanism>());
             mocks.ReplayAll();
-
-            var path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                  Path.Combine("ReferenceLine", "traject_10-2.shp"));
-
+            
             var importTarget = new ReferenceLineContext(assessmentSection);
 
             // Call
-            IFileImporter importer = importInfo.CreateFileImporter(importTarget, path);
+            IFileImporter importer = importInfo.CreateFileImporter(importTarget, "");
 
             // Assert
-            Assert.IsTrue(importer.Import());
-            mocks.VerifyAll();
+            Assert.IsInstanceOf<ReferenceLineImporter>(importer);
         }
     }
 }
