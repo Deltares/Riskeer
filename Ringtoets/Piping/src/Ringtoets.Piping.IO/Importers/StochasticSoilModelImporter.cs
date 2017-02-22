@@ -51,9 +51,8 @@ namespace Ringtoets.Piping.IO.Importers
         /// <param name="importTarget">The collection to update.</param>
         /// <param name="filePath">The path to the file to import from.</param>
         /// <param name="modelUpdateStrategy">The <see cref="IStochasticSoilModelUpdateModelStrategy"/> to use
-        ///     when updating the <paramref name="importTarget"/>.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="importTarget"/> or
-        /// <paramref name="modelUpdateStrategy"/> is <c>null</c>.</exception>
+        /// when updating the <paramref name="importTarget"/>.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any of the input parameters is <c>null</c>.</exception>
         public StochasticSoilModelImporter(StochasticSoilModelCollection importTarget, string filePath, IStochasticSoilModelUpdateModelStrategy modelUpdateStrategy)
             : base(filePath, importTarget)
         {
@@ -185,7 +184,7 @@ namespace Ringtoets.Piping.IO.Importers
                     if (currentProfile.SoilProfileId == previousProfile.SoilProfileId &&
                         currentProfile.SoilProfileType == previousProfile.SoilProfileType)
                     {
-                        log.Warn(string.Format(Resources.StochasticSoilModelImporter_MergeStochasticSoilProfiles_Multiple_SoilProfile_0_used_in_StochasticSoilModel_1_Probabilities_added_,
+                        log.Warn(string.Format(Resources.StochasticSoilModelImporter_MergeStochasticSoilProfiles_Multiple_SoilProfile_0_used_in_StochasticSoilModel_1_Probabilities_added,
                                                previousProfile.SoilProfile.Name,
                                                stochasticSoilModel.Name));
 
@@ -228,7 +227,9 @@ namespace Ringtoets.Piping.IO.Importers
             try
             {
                 using (var stochasticSoilModelReader = new StochasticSoilModelReader(FilePath))
+                {
                     return GetStochasticSoilModelReadResult(stochasticSoilModelReader);
+                }
             }
             catch (CriticalFileReadException e)
             {
@@ -276,7 +277,9 @@ namespace Ringtoets.Piping.IO.Importers
             try
             {
                 using (var soilProfileReader = new PipingSoilProfileReader(FilePath))
+                {
                     return GetProfileReadResult(soilProfileReader);
+                }
             }
             catch (CriticalFileReadException e)
             {

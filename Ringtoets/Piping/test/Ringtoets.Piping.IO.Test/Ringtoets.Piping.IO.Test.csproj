@@ -65,18 +65,18 @@
     </Compile>
     <Compile Include="Builders\GenericSoilLayerParametersTest.cs" />
     <Compile Include="Builders\SoilLayer1DTest.cs" />
-    <Compile Include="Builders\SoilLayerConversionExceptionTest.cs" />
+    <Compile Include="Exceptions\SoilLayerConversionExceptionTest.cs" />
     <Compile Include="Builders\SoilLayer2DTest.cs" />
     <Compile Include="Builders\SoilProfileBuilder1DTest.cs" />
     <Compile Include="Builders\SoilProfileBuilder2DTest.cs" />
-    <Compile Include="Builders\SoilProfileBuilderExceptionTest.cs" />
+    <Compile Include="Exceptions\SoilProfileBuilderExceptionTest.cs" />
     <Compile Include="Builders\SoilDatabaseQueryBuilderTest.cs" />
     <Compile Include="Exceptions\StochasticSoilProfileReadExceptionTest.cs" />
     <Compile Include="Exporters\PipingConfigurationExporterTest.cs" />
     <Compile Include="Exporters\PipingConfigurationWriterTest.cs" />
     <Compile Include="Importers\PipingConfigurationImporterTest.cs" />
-    <Compile Include="Importers\RingtoetsPipingSurfaceLineUpdateExceptionTest.cs" />
-    <Compile Include="Importers\StochasticSoilModelUpdateExceptionTest.cs" />
+    <Compile Include="Exceptions\RingtoetsPipingSurfaceLineUpdateExceptionTest.cs" />
+    <Compile Include="Exceptions\StochasticSoilModelUpdateExceptionTest.cs" />
     <Compile Include="Readers\PipingConfigurationReaderTest.cs" />
     <Compile Include="Readers\ReadPipingCalculationGroupTest.cs" />
     <Compile Include="Readers\ReadPipingCalculationTest.cs" />

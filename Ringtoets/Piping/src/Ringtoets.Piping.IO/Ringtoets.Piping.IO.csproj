@@ -45,9 +45,9 @@
     <Compile Include="Builders\SoilLayer1D.cs" />
     <Compile Include="Builders\SoilLayerColorConversionHelper.cs" />
     <Compile Include="Builders\SoilLayerConstants.cs" />
-    <Compile Include="Builders\SoilProfileBuilderException.cs" />
+    <Compile Include="Exceptions\SoilProfileBuilderException.cs" />
     <Compile Include="Builders\SoilLayer2D.cs" />
-    <Compile Include="Builders\SoilLayerConversionException.cs" />
+    <Compile Include="Exceptions\SoilLayerConversionException.cs" />
     <Compile Include="Builders\SoilProfileBuilder1D.cs" />
     <Compile Include="Builders\SoilProfileBuilder2D.cs" />
     <Compile Include="Builders\SoilDatabaseQueryBuilder.cs" />
@@ -57,9 +57,9 @@
     <Compile Include="Importers\IStochasticSoilModelUpdateModelStrategy.cs" />
     <Compile Include="Importers\ISurfaceLineUpdateDataStrategy.cs" />
     <Compile Include="Importers\PipingConfigurationImporter.cs" />
-    <Compile Include="Importers\RingtoetsPipingSurfaceLineUpdateException.cs" />
+    <Compile Include="Exceptions\RingtoetsPipingSurfaceLineUpdateException.cs" />
     <Compile Include="Importers\StochasticSoilModelImporter.cs" />
-    <Compile Include="Importers\StochasticSoilModelUpdateException.cs" />
+    <Compile Include="Exceptions\StochasticSoilModelUpdateException.cs" />
     <Compile Include="Readers\PipingConfigurationReader.cs" />
     <Compile Include="Readers\IReadPipingCalculationItem.cs" />
     <Compile Include="Schema\PipingConfigurationSchemaIdentifiers.cs" />

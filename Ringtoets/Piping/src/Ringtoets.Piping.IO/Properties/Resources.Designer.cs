@@ -612,10 +612,10 @@ namespace Ringtoets.Piping.IO.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Ondergrondschematisatie &apos;{0}&apos; is meerdere keren gevonden in ondergrondmodel &apos;{1}&apos;. Kansen van voorkomen worden opgeteld..
         /// </summary>
-        public static string StochasticSoilModelImporter_MergeStochasticSoilProfiles_Multiple_SoilProfile_0_used_in_StochasticSoilModel_1_Probabilities_added_ {
+        public static string StochasticSoilModelImporter_MergeStochasticSoilProfiles_Multiple_SoilProfile_0_used_in_StochasticSoilModel_1_Probabilities_added {
             get {
                 return ResourceManager.GetString("StochasticSoilModelImporter_MergeStochasticSoilProfiles_Multiple_SoilProfile_0_us" +
-                        "ed_in_StochasticSoilModel_1_Probabilities_added.", resourceCulture);
+                        "ed_in_StochasticSoilModel_1_Probabilities_added", resourceCulture);
             }
         }
         

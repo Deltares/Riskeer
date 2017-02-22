@@ -22,7 +22,7 @@
 using System;
 using System.Runtime.Serialization;
 
-namespace Ringtoets.Piping.IO.Importers
+namespace Ringtoets.Piping.IO.Exceptions
 {
     /// <summary>
     /// Exception that is thrown when applying the surface line update strategy has failed.

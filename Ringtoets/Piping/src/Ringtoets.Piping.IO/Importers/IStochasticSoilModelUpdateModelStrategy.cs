@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using Core.Common.Base;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.IO.Exceptions;
 
 namespace Ringtoets.Piping.IO.Importers
 {
@@ -35,7 +36,7 @@ namespace Ringtoets.Piping.IO.Importers
         /// <summary>
         /// Adds the imported data to the <paramref name="targetCollection"/>.
         /// </summary>
-        /// <param name="targetCollection">The <see cref="ObservableUniqueItemCollectionWithSourcePath{TObject}"/> to which the imported data
+        /// <param name="targetCollection">The <see cref="ObservableUniqueItemCollectionWithSourcePath{TObject, TFeature}"/> to which the imported data
         /// is added.</param>
         /// <param name="readStochasticSoilModels">The stochastic soil models which were imported.</param>
         /// <param name="sourceFilePath">The path to the source file from which the soil models were imported.</param>
@@ -45,8 +46,8 @@ namespace Ringtoets.Piping.IO.Importers
         /// exception.</exception>
         /// <returns>A <see cref="IEnumerable{IObservable}"/> of updated instances.</returns>
         IEnumerable<IObservable> UpdateModelWithImportedData(
-            StochasticSoilModelCollection targetCollection, 
-            IEnumerable<StochasticSoilModel> readStochasticSoilModels, 
+            StochasticSoilModelCollection targetCollection,
+            IEnumerable<StochasticSoilModel> readStochasticSoilModels,
             string sourceFilePath);
     }
 }

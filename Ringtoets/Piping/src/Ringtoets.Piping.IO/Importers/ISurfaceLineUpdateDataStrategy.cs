@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using Core.Common.Base;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.IO.Exceptions;
 using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.IO.Importers

@@ -22,11 +22,11 @@
 using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Piping.IO.Importers;
+using Ringtoets.Piping.IO.Exceptions;
 
-namespace Ringtoets.Piping.IO.Test.Importers
+namespace Ringtoets.Piping.IO.Test.Exceptions
 {
     [TestFixture]
-    public class StochasticSoilModelUpdateExceptionTest :
-        CustomExceptionDesignGuidelinesTestFixture<StochasticSoilModelUpdateException, Exception> {}
+    public class SoilLayerConversionExceptionTest :
+        CustomExceptionDesignGuidelinesTestFixture<SoilLayerConversionException, Exception> {}
 }

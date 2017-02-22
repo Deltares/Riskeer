@@ -31,6 +31,7 @@ using System.Xml.XPath;
 using Core.Common.Base.Geometry;
 using Core.Common.Utils.Reflection;
 using Ringtoets.Piping.IO.Builders;
+using Ringtoets.Piping.IO.Exceptions;
 using Ringtoets.Piping.IO.Properties;
 using Ringtoets.Piping.Primitives;
 

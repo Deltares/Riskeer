@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.ObjectModel;
+using Ringtoets.Piping.IO.Exceptions;
 using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.IO.Builders

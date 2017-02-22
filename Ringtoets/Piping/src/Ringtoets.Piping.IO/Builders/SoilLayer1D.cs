@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Ringtoets.Piping.IO.Exceptions;
 using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.IO.Builders

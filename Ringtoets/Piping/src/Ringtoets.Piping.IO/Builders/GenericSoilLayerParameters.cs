@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Ringtoets.Piping.IO.Exceptions;
 using Ringtoets.Piping.IO.Properties;
 using Ringtoets.Piping.Primitives;
 

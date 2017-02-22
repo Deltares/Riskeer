@@ -22,9 +22,9 @@
 using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Piping.IO.Builders;
+using Ringtoets.Piping.IO.Exceptions;
 
-namespace Ringtoets.Piping.IO.Test.Builders
+namespace Ringtoets.Piping.IO.Test.Exceptions
 {
     [TestFixture]
     public class SoilProfileBuilderExceptionTest :
