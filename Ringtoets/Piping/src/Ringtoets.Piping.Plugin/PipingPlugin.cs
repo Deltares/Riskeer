@@ -25,6 +25,7 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
+using Core.Common.Base.Data;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
@@ -38,6 +39,7 @@ using Ringtoets.Common.Forms.ChangeHandlers;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TreeNodeInfos;
+using Ringtoets.Common.Service;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms;
 using Ringtoets.Piping.Forms.PresentationObjects;
@@ -742,7 +744,10 @@ namespace Ringtoets.Piping.Plugin
 
             PipingCalculation calculation = nodeData.WrappedData;
 
+            StrictContextMenuItem updateEntryAndExitPoint = CreateUpdateEntryAndExitPointItem(nodeData);
+
             return builder.AddRenameItem()
+                          .AddCustomItem(updateEntryAndExitPoint)
                           .AddValidateCalculationItem(
                               nodeData,
                               Validate,
@@ -822,6 +827,51 @@ namespace Ringtoets.Piping.Plugin
                                                                            context.FailureMechanism.PipingProbabilityAssessmentInput,
                                                                            context.AssessmentSection.FailureMechanismContribution.Norm,
                                                                            context.FailureMechanism.Contribution));
+        }
+
+        private static StrictContextMenuItem CreateUpdateEntryAndExitPointItem(PipingCalculationScenarioContext context)
+        {
+            bool hasSurfaceLine = context.WrappedData.InputParameters.SurfaceLine != null;
+
+            var updateEntryAndExitPointItem = new StrictContextMenuItem(
+                "Bijwerken intrede- en uittredepunt",
+                "", // TODO WTI-1076: update tooltip
+                null, // TODO WTI-1076: update icon
+                (o, args) => { UpdateSurfaceLineDependentData(context.WrappedData); })
+            {
+                Enabled = hasSurfaceLine
+            };
+            return updateEntryAndExitPointItem;
+        }
+
+        private static void UpdateSurfaceLineDependentData(PipingCalculation scenario)
+        {
+            PipingInput inputParameters = scenario.InputParameters;
+            RingtoetsPipingSurfaceLine currentSurfaceLine = inputParameters.SurfaceLine;
+            RoundedDouble oldEntryPointL = inputParameters.EntryPointL;
+            RoundedDouble oldExitPointL = inputParameters.ExitPointL;
+
+            inputParameters.SurfaceLine = currentSurfaceLine;
+
+            var affectedObjects = new List<IObservable>();
+            if (AreEntryAndExitPointsUpdated(oldEntryPointL, oldExitPointL, inputParameters))
+            {
+                affectedObjects.Add(inputParameters);
+                affectedObjects.AddRange(RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(scenario));
+            }
+
+            foreach (IObservable affectedObject in affectedObjects)
+            {
+                affectedObject.NotifyObservers();
+            }
+        }
+
+        private static bool AreEntryAndExitPointsUpdated(RoundedDouble oldEntryPointL,
+                                                         RoundedDouble oldExitPointL,
+                                                         PipingInput inputParameters)
+        {
+            return !(oldEntryPointL == inputParameters.EntryPointL)
+                   || !(oldExitPointL == inputParameters.ExitPointL);
         }
 
         #endregion

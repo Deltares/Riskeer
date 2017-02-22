@@ -23,6 +23,7 @@ using System;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
@@ -50,9 +51,11 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
     [TestFixture]
     public class PipingCalculationScenarioContextTreeNodeInfoTest : NUnitFormTest
     {
-        private const int contextMenuValidateIndex = 1;
-        private const int contextMenuCalculateIndex = 2;
-        private const int contextMenuClearIndex = 4;
+        private const int contextMenuUpdateEntryAndExitPointIndex = 1;
+
+        private const int contextMenuValidateIndex = 2;
+        private const int contextMenuCalculateIndex = 3;
+        private const int contextMenuClearIndex = 5;
 
         private MockRepository mocks;
         private PipingPlugin plugin;
@@ -358,6 +361,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                     menuBuilderMock.Expect(mb => mb.AddRenameItem()).Return(menuBuilderMock);
                     menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
                     menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
+                    menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
                     menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
                     menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
                     menuBuilderMock.Expect(mb => mb.AddDeleteItem()).Return(menuBuilderMock);
@@ -381,6 +385,298 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
 
             // Assert
             // Assert expectancies are called in TearDown()
+        }
+
+        [Test]
+        public void UpdateEntryAndExitPoint_CalculationHasNoSurfaceLine_ItemDisabled()
+        {
+            // Setup
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var calculation = new PipingCalculationScenario(new GeneralPipingInput());
+                var pipingFailureMechanism = new TestPipingFailureMechanism();
+                var assessmentSection = mocks.Stub<IAssessmentSection>();
+                var nodeData = new PipingCalculationScenarioContext(calculation,
+                                                                    Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                    Enumerable.Empty<StochasticSoilModel>(),
+                                                                    pipingFailureMechanism,
+                                                                    assessmentSection);
+
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                // Call
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                {
+                    // Assert
+                    TestHelper.AssertContextMenuStripContainsItem(contextMenu,
+                                                                  contextMenuUpdateEntryAndExitPointIndex,
+                                                                  "Bijwerken intrede- en uittredepunt",
+                                                                  "", // TODO WTI-1076: update tooltip
+                                                                  null, // TODO WTI-1076: update icon
+                                                                  false);
+                }
+            }
+        }
+
+        [Test]
+        public void UpdateEntryAndExitPoint_CalculationHasSurfaceLine_ItemEnabled()
+        {
+            // Setup
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var surfaceLine = new RingtoetsPipingSurfaceLine();
+                surfaceLine.SetGeometry(new[]
+                {
+                    new Point3D(1, 2, 3),
+                    new Point3D(4, 5, 6)
+                });
+                var calculation = new PipingCalculationScenario(new GeneralPipingInput())
+                {
+                    InputParameters =
+                    {
+                        SurfaceLine = surfaceLine
+                    }
+                };
+                var pipingFailureMechanism = new TestPipingFailureMechanism();
+                var assessmentSection = mocks.Stub<IAssessmentSection>();
+                var nodeData = new PipingCalculationScenarioContext(calculation,
+                                                                    Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                    Enumerable.Empty<StochasticSoilModel>(),
+                                                                    pipingFailureMechanism,
+                                                                    assessmentSection);
+
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                // Call
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                {
+                    // Assert
+                    TestHelper.AssertContextMenuStripContainsItem(contextMenu,
+                                                                  contextMenuUpdateEntryAndExitPointIndex,
+                                                                  "Bijwerken intrede- en uittredepunt",
+                                                                  "", // TODO WTI-1076: update tooltip
+                                                                  null); // TODO WTI-1076: update icon
+                }
+            }
+        }
+
+        [Test]
+        public void GivenCalculationWithSurfaceLine_WhenSurfaceLineUpdatedAndUpdateEntryAndExitPointClicked__ThenPointsUpdatedAndObserversNotified()
+        {
+            using (var treeViewControl = new TreeViewControl())
+            {
+                // Given
+                var surfaceLine = new RingtoetsPipingSurfaceLine();
+                surfaceLine.SetGeometry(new[]
+                {
+                    new Point3D(1, 2, 3),
+                    new Point3D(4, 5, 6)
+                });
+                var calculation = new PipingCalculationScenario(new GeneralPipingInput())
+                {
+                    InputParameters =
+                    {
+                        SurfaceLine = surfaceLine,
+                        EntryPointL = (RoundedDouble) 0,
+                        ExitPointL = (RoundedDouble) 1
+                    }
+                };
+
+                var pipingFailureMechanism = new TestPipingFailureMechanism();
+                var assessmentSection = mocks.Stub<IAssessmentSection>();
+                var nodeData = new PipingCalculationScenarioContext(calculation,
+                                                                    Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                    Enumerable.Empty<StochasticSoilModel>(),
+                                                                    pipingFailureMechanism,
+                                                                    assessmentSection);
+
+                var inputObserver = mocks.StrictMock<IObserver>();
+                inputObserver.Expect(obs => obs.UpdateObserver());
+                nodeData.WrappedData.InputParameters.Attach(inputObserver);
+                
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                {
+                    // When
+                    surfaceLine.SetGeometry(new[]
+                    {
+                        new Point3D(0, 0, 0),
+                        new Point3D(1, 0, 2),
+                        new Point3D(2, 0, 3),
+                        new Point3D(3, 0, 0),
+                        new Point3D(4, 0, 2),
+                        new Point3D(5, 0, 3)
+                    });
+                    surfaceLine.SetDikeToeAtRiverAt(new Point3D(2, 0, 3));
+                    surfaceLine.SetDikeToeAtPolderAt(new Point3D(3, 0, 0));
+                    
+                    contextMenuStrip.Items[contextMenuUpdateEntryAndExitPointIndex].PerformClick();
+
+                    // Then
+                    PipingInput inputParameters = calculation.InputParameters;
+                    Assert.AreEqual(new RoundedDouble(2, 2), inputParameters.EntryPointL);
+                    Assert.AreEqual(new RoundedDouble(3, 3), inputParameters.ExitPointL);
+                    
+                    // Note: observer assertions are verified in Teardown
+                }
+            }
+        }
+        
+        [Test]
+        public void GivenCalculationWithSurfaceLineAndOutput_WhenSurfaceLineUpdatedAndUpdateEntryAndExitPointClicked__ThenPointsUpdatedOutputsRemovedAndObserversNotified()
+        {
+            using (var treeViewControl = new TreeViewControl())
+            {
+                // Given
+                var surfaceLine = new RingtoetsPipingSurfaceLine();
+                surfaceLine.SetGeometry(new[]
+                {
+                    new Point3D(1, 2, 3),
+                    new Point3D(4, 5, 6)
+                });
+                var calculation = new PipingCalculationScenario(new GeneralPipingInput())
+                {
+                    InputParameters =
+                    {
+                        SurfaceLine = surfaceLine,
+                        EntryPointL = (RoundedDouble) 0,
+                        ExitPointL = (RoundedDouble) 1
+                    },
+                    Output = new TestPipingOutput()
+                };
+
+                var pipingFailureMechanism = new TestPipingFailureMechanism();
+                var assessmentSection = mocks.Stub<IAssessmentSection>();
+                var nodeData = new PipingCalculationScenarioContext(calculation,
+                                                                    Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                    Enumerable.Empty<StochasticSoilModel>(),
+                                                                    pipingFailureMechanism,
+                                                                    assessmentSection);
+
+                var inputObserver = mocks.StrictMock<IObserver>();
+                inputObserver.Expect(obs => obs.UpdateObserver());
+                nodeData.WrappedData.InputParameters.Attach(inputObserver);
+
+                var calculationObserver = mocks.StrictMock<IObserver>();
+                calculationObserver.Expect(obs => obs.UpdateObserver());
+                nodeData.WrappedData.Attach(calculationObserver);
+
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                {
+                    // When
+                    surfaceLine.SetGeometry(new[]
+                    {
+                        new Point3D(0, 0, 0),
+                        new Point3D(1, 0, 2),
+                        new Point3D(2, 0, 3),
+                        new Point3D(3, 0, 0),
+                        new Point3D(4, 0, 2),
+                        new Point3D(5, 0, 3)
+                    });
+                    surfaceLine.SetDikeToeAtRiverAt(new Point3D(2, 0, 3));
+                    surfaceLine.SetDikeToeAtPolderAt(new Point3D(3, 0, 0));
+
+                    contextMenuStrip.Items[contextMenuUpdateEntryAndExitPointIndex].PerformClick();
+
+                    // Then
+                    PipingInput inputParameters = calculation.InputParameters;
+                    Assert.AreEqual(new RoundedDouble(2, 2), inputParameters.EntryPointL);
+                    Assert.AreEqual(new RoundedDouble(3, 3), inputParameters.ExitPointL);
+                    Assert.IsFalse(calculation.HasOutput);
+
+                    // Note: observer assertions are verified in Teardown
+                }
+            }
+        }
+
+        [Test]
+        public void GivenCalculationWithSurfaceLineAndOutput_WhenUpdatedSurfaceLineHasNoChangeAndUpdateEntryAndExitPointClicked__ThenOutputNotRemovedAndObserversNotNotified()
+        {
+            using (var treeViewControl = new TreeViewControl())
+            {
+                // Given
+                var surfaceLine = new RingtoetsPipingSurfaceLine();
+                surfaceLine.SetGeometry(new[]
+                {
+                    new Point3D(1, 2, 3),
+                    new Point3D(4, 5, 6)
+                });
+                var calculation = new PipingCalculationScenario(new GeneralPipingInput())
+                {
+                    InputParameters =
+                    {
+                        SurfaceLine = surfaceLine,
+                        EntryPointL = (RoundedDouble) 2,
+                        ExitPointL = (RoundedDouble) 3
+                    },
+                    Output = new TestPipingOutput()
+                };
+
+                var pipingFailureMechanism = new TestPipingFailureMechanism();
+                var assessmentSection = mocks.Stub<IAssessmentSection>();
+                var nodeData = new PipingCalculationScenarioContext(calculation,
+                                                                    Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                    Enumerable.Empty<StochasticSoilModel>(),
+                                                                    pipingFailureMechanism,
+                                                                    assessmentSection);
+
+                var inputObserver = mocks.StrictMock<IObserver>();
+                nodeData.WrappedData.InputParameters.Attach(inputObserver);
+
+                var calculationObserver = mocks.StrictMock<IObserver>();
+                nodeData.WrappedData.Attach(calculationObserver);
+
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                {
+                    // When
+                    surfaceLine.SetGeometry(new[]
+                    {
+                        new Point3D(0, 0, 0),
+                        new Point3D(1, 0, 2),
+                        new Point3D(2, 0, 3),
+                        new Point3D(3, 0, 0),
+                        new Point3D(4, 0, 2),
+                        new Point3D(5, 0, 3)
+                    });
+                    surfaceLine.SetDikeToeAtRiverAt(new Point3D(2, 0, 3));
+                    surfaceLine.SetDikeToeAtPolderAt(new Point3D(3, 0, 0));
+
+                    contextMenuStrip.Items[contextMenuUpdateEntryAndExitPointIndex].PerformClick();
+
+                    // Then
+                    PipingInput inputParameters = calculation.InputParameters;
+                    Assert.AreEqual(new RoundedDouble(2, 2), inputParameters.EntryPointL);
+                    Assert.AreEqual(new RoundedDouble(3, 3), inputParameters.ExitPointL);
+                    Assert.IsTrue(calculation.HasOutput);
+
+                    // Note: observer assertions are verified in Teardown
+                }
+            }
         }
 
         [Test]
