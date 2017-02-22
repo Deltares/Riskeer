@@ -786,7 +786,7 @@ namespace Ringtoets.Piping.Data.Test
         {
             // Setup
             var surfaceLineOne = new RingtoetsPipingSurfaceLine();
-            var surfaceLineTwo = surfaceLineOne;
+            RingtoetsPipingSurfaceLine surfaceLineTwo = surfaceLineOne;
 
             // Call
             bool isLineOneEqualToLineTwo = surfaceLineOne.Equals(surfaceLineTwo);

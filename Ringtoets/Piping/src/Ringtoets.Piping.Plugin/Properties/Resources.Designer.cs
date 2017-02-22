@@ -382,6 +382,19 @@ namespace Ringtoets.Piping.Plugin.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Wanneer profielschematisaties wijzigen als gevolg van het bijwerken, zullen de resultaten van berekeningen die deze profielschematisaties gebruiken, worden verwijderd.
+        ///
+        ///Weet u zeker dat u wilt doorgaan?.
+        /// </summary>
+        public static string RingtoetsPipingSurfaceLineChangeHandler_InquireConfirmation_When_updating_RingtoetsSurfaceLines_definitions_assigned_to_calculations_output_will_be_cleared_confirm {
+            get {
+                return ResourceManager.GetString("RingtoetsPipingSurfaceLineChangeHandler_InquireConfirmation_When_updating_Ringtoe" +
+                        "tsSurfaceLines_definitions_assigned_to_calculations_output_will_be_cleared_confi" +
+                        "rm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Het bijwerken van de profielschematisaties is mislukt..
         /// </summary>
         public static string RingtoetsPipingSurfaceLineUpdateDataStrategy_UpdateSurfaceLinesWithImportedData_Update_of_RingtoetsPipingSurfaceLine_has_failed {

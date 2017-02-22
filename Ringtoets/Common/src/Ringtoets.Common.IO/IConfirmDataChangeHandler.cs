@@ -19,25 +19,24 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.Piping.IO.Importers
+namespace Ringtoets.Common.IO
 {
     /// <summary>
-    /// Interface for verifying and handling changes as an effect of a change to the stochastic 
-    /// soil model collection.
+    /// Interface for verifying and handling changes as an effect of a change to the target data.
     /// </summary>
-    public interface IStochasticSoilModelChangeHandler
+    public interface IConfirmDataChangeHandler
     {
         /// <summary>
-        /// Verifies whether the change to the stochastic soil model collections has side-effects;
+        /// Verifies whether the change to the data has side-effects;
         /// and therefore a confirmation is required.
         /// </summary>
-        /// <returns><c>true</c> if confirmation is required, <c>false</c> otherwise.</returns>
+        /// <returns><c>True</c> if confirmation is required, <c>False</c> otherwise.</returns>
         bool RequireConfirmation();
 
         /// <summary>
-        /// Inquires for a confirmation.
+        /// Inquires for a confirmation on whether changing the data should be continued.
         /// </summary>
-        /// <returns><c>true</c> if confirmation is given; <c>false</c> otherwise.</returns>
+        /// <returns><c>True</c> if confirmation is given; <c>False</c> otherwise.</returns>
         /// <remarks>Should only be called when <see cref="RequireConfirmation"/> returns <c>true</c>.
         /// </remarks>
         bool InquireConfirmation();

@@ -20,10 +20,10 @@
 // All rights reserved.
 
 using System.Drawing;
-using System.IO;
 using System.Linq;
-using Core.Common.Base.Geometry;
 using Core.Common.Base.IO;
+using Core.Common.Gui;
+using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -31,6 +31,7 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
+using Ringtoets.Piping.Plugin.FileImporter;
 using Ringtoets.Piping.Primitives;
 using PipingFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
 
@@ -140,6 +141,35 @@ namespace Ringtoets.Piping.Plugin.Test.UpdateInfos
         }
 
         [Test]
+        public void VerifyUpdates_CalculationWithoutOutputs_ReturnsTrue()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.ReferenceLine = new ReferenceLine();
+
+            var mainWindow = mocks.Stub<IMainWindow>();
+            var gui = mocks.Stub<IGui>();
+            gui.Stub(g => g.MainWindow).Return(mainWindow);
+            mocks.ReplayAll();
+
+            plugin.Gui = gui;
+
+            var failureMechanism = new PipingFailureMechanism();
+            failureMechanism.CalculationsGroup.Children.Add(new PipingCalculationScenario(new GeneralPipingInput()));
+
+            var surfaceLines = new RingtoetsPipingSurfaceLineCollection();
+            var context = new RingtoetsPipingSurfaceLinesContext(surfaceLines, failureMechanism, assessmentSection);
+
+            // Call
+            bool requiresUpdateConfirmation = updateInfo.VerifyUpdates(context);
+
+            // Assert
+            Assert.IsTrue(requiresUpdateConfirmation);
+            mocks.VerifyAll();
+        }
+
+        [Test]
         public void CurrentPath_SurfaceLineCollectionHasPathSet_ReturnsExpectedPath()
         {
             // Setup
@@ -150,7 +180,10 @@ namespace Ringtoets.Piping.Plugin.Test.UpdateInfos
 
             const string expectedFilePath = "some/path";
             var surfaceLines = new RingtoetsPipingSurfaceLineCollection();
-            surfaceLines.AddRange(new [] {new RingtoetsPipingSurfaceLine()}, expectedFilePath);
+            surfaceLines.AddRange(new[]
+            {
+                new RingtoetsPipingSurfaceLine()
+            }, expectedFilePath);
 
             var failureMechanism = new PipingFailureMechanism();
 
@@ -165,36 +198,25 @@ namespace Ringtoets.Piping.Plugin.Test.UpdateInfos
         }
 
         [Test]
-        public void CreateFileImporter_ValidInput_SuccessfulImport()
+        public void CreateFileImporter_Always_ReturnsFileImporter()
         {
             // Setup
-            var filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO,
-                                                      Path.Combine("SurfaceLines", "TwoValidSurfaceLines.csv"));
-
-            var referenceLine = new ReferenceLine();
-            referenceLine.SetGeometry(new[]
-            {
-                new Point2D(3.3, -1),
-                new Point2D(3.3, 1),
-                new Point2D(94270, 427775.65),
-                new Point2D(94270, 427812.08)
-            });
-
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.ReferenceLine = referenceLine;
             mocks.ReplayAll();
+
+            assessmentSection.ReferenceLine = new ReferenceLine();
 
             var failureMechanism = new PipingFailureMechanism();
             var surfaceLines = new RingtoetsPipingSurfaceLineCollection();
 
-            var updateTarget = new RingtoetsPipingSurfaceLinesContext(surfaceLines, failureMechanism, assessmentSection);
-            
+            var importTarget = new RingtoetsPipingSurfaceLinesContext(surfaceLines, failureMechanism, assessmentSection);
+
             // Call
-            IFileImporter importer = updateInfo.CreateFileImporter(updateTarget, filePath);
+            IFileImporter importer = updateInfo.CreateFileImporter(importTarget, "'");
 
             // Assert
-            Assert.IsTrue(importer.Import());
+            Assert.IsInstanceOf<PipingSurfaceLinesCsvImporter>(importer);
             mocks.VerifyAll();
         }
     }

@@ -233,4 +233,9 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="PipingPlugin_PipingConfigurationFileFilter_calculation_configuration_description" xml:space="preserve">
     <value>Ringtoets berekeningenconfiguratie</value>
   </data>
+  <data name="RingtoetsPipingSurfaceLineChangeHandler_InquireConfirmation_When_updating_RingtoetsSurfaceLines_definitions_assigned_to_calculations_output_will_be_cleared_confirm" xml:space="preserve">
+    <value>Wanneer profielschematisaties wijzigen als gevolg van het bijwerken, zullen de resultaten van berekeningen die deze profielschematisaties gebruiken, worden verwijderd.
+
+Weet u zeker dat u wilt doorgaan?</value>
+  </data>
 </root>

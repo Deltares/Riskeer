@@ -19,20 +19,20 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Drawing;
-using System.IO;
 using System.Linq;
-using Core.Common.Base.Geometry;
 using Core.Common.Base.IO;
 using Core.Common.Gui;
+using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.Forms.PresentationObjects;
+using Ringtoets.Piping.IO.Importers;
 using PipingFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
 
 namespace Ringtoets.Piping.Plugin.Test.UpdateInfos
@@ -139,45 +139,81 @@ namespace Ringtoets.Piping.Plugin.Test.UpdateInfos
         }
 
         [Test]
-        public void VerifyUpdates_Always_IsDefined()
+        public void VerifyUpdates_CalculationWithoutOutputs_ReturnsTrue()
         {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.ReferenceLine = new ReferenceLine();
+
+            var mainWindow = mocks.Stub<IMainWindow>();
+            var gui = mocks.Stub<IGui>();
+            gui.Stub(g => g.MainWindow).Return(mainWindow);
+            mocks.ReplayAll();
+
+            plugin.Gui = gui;
+
+            var failureMechanism = new PipingFailureMechanism();
+            failureMechanism.CalculationsGroup.Children.Add(new PipingCalculationScenario(new GeneralPipingInput()));
+
+            var stochasticSoilModelCollection = new StochasticSoilModelCollection();
+            var context = new StochasticSoilModelCollectionContext(stochasticSoilModelCollection, failureMechanism, assessmentSection);
+
             // Call
-            Func<object, bool> verifyUpdated = updateInfo.VerifyUpdates;
+            bool requiresUpdateConfirmation = updateInfo.VerifyUpdates(context);
 
             // Assert
-            Assert.IsNotNull(verifyUpdated);
+            Assert.IsTrue(requiresUpdateConfirmation);
+            mocks.VerifyAll();
         }
 
         [Test]
-        public void CreateFileImporter_ValidInput_SuccessfulImport()
+        public void CurrentPath_StochasticSoilModelCollectionHasPathSet_ReturnsExpectedPath()
         {
             // Setup
-            var filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO,
-                                                      Path.Combine("PipingSoilProfilesReader", "complete.soil"));
-
-            var referenceLine = new ReferenceLine();
-            referenceLine.SetGeometry(new[]
-            {
-                new Point2D(3.3, -1),
-                new Point2D(3.3, 1),
-                new Point2D(94270, 427775.65),
-                new Point2D(94270, 427812.08)
-            });
-
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.ReferenceLine = referenceLine;
+            assessmentSection.ReferenceLine = new ReferenceLine();
             mocks.ReplayAll();
+
+            const string expectedFilePath = "some/path";
+            var stochasticSoilModelCollection = new StochasticSoilModelCollection();
+            stochasticSoilModelCollection.AddRange(new[]
+            {
+                new TestStochasticSoilModel()
+            }, expectedFilePath);
+
+            var failureMechanism = new PipingFailureMechanism();
+
+            var context = new StochasticSoilModelCollectionContext(stochasticSoilModelCollection, failureMechanism, assessmentSection);
+
+            // Call
+            string currentPath = updateInfo.CurrentPath(context);
+
+            // Assert
+            Assert.AreEqual(expectedFilePath, currentPath);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CreateFileImporter_Always_ReturnsFileImporter()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            assessmentSection.ReferenceLine = new ReferenceLine();
 
             var failureMechanism = new PipingFailureMechanism();
 
             var importTarget = new StochasticSoilModelCollectionContext(failureMechanism.StochasticSoilModels, failureMechanism, assessmentSection);
 
             // Call
-            IFileImporter importer = updateInfo.CreateFileImporter(importTarget, filePath);
+            IFileImporter importer = updateInfo.CreateFileImporter(importTarget, "");
 
             // Assert
-            Assert.IsTrue(importer.Import());
+            Assert.IsInstanceOf<StochasticSoilModelImporter>(importer);
             mocks.VerifyAll();
         }
     }

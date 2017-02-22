@@ -28,7 +28,7 @@ using Ringtoets.Piping.IO.Importers;
 namespace Ringtoets.Piping.IO.TestUtil
 {
     /// <summary>
-    /// Implementation of a <see cref="IStochasticSoilModelChangeHandler"/> which can be used for
+    /// Implementation of a <see cref="IStochasticSoilModelUpdateModelStrategy"/> which can be used for
     /// testing.
     /// </summary>
     public class TestStochasticSoilModelUpdateModelStrategy : IStochasticSoilModelUpdateModelStrategy

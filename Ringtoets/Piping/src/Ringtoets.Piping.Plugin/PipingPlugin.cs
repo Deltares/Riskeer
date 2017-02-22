@@ -102,7 +102,8 @@ namespace Ringtoets.Piping.Plugin
                 Image = PipingFormsResources.PipingSurfaceLineIcon,
                 FileFilterGenerator = RingtoetsPipingSurfaceLineFileFilter,
                 IsEnabled = IsSurfaceLineImporterEnabled,
-                CreateFileImporter = (context, filePath) => PipingSurfaceLinesCsvImporter(context, filePath, new RingtoetsPipingSurfaceLineReplaceDataStrategy(context.FailureMechanism))
+                CreateFileImporter = (context, filePath) => PipingSurfaceLinesCsvImporter(context, filePath, new RingtoetsPipingSurfaceLineReplaceDataStrategy(context.FailureMechanism)),
+                VerifyUpdates = VerifyPipingSurfaceLineUpdates
             };
 
             yield return new ImportInfo<StochasticSoilModelCollectionContext>
@@ -152,7 +153,8 @@ namespace Ringtoets.Piping.Plugin
                 FileFilterGenerator = RingtoetsPipingSurfaceLineFileFilter,
                 IsEnabled = IsSurfaceLineImporterEnabled,
                 CurrentPath = context => context.WrappedData.SourcePath,
-                CreateFileImporter = (context, filePath) => PipingSurfaceLinesCsvImporter(context, filePath, new RingtoetsPipingSurfaceLineUpdateDataStrategy(context.FailureMechanism))
+                CreateFileImporter = (context, filePath) => PipingSurfaceLinesCsvImporter(context, filePath, new RingtoetsPipingSurfaceLineUpdateDataStrategy(context.FailureMechanism)),
+                VerifyUpdates = VerifyPipingSurfaceLineUpdates
             };
 
             yield return new UpdateInfo<StochasticSoilModelCollectionContext>
@@ -1017,6 +1019,14 @@ namespace Ringtoets.Piping.Plugin
                     RingtoetsCommonFormsResources.DataTypeDisplayName_csv_file_filter_Extension,
                     $"{PipingDataResources.RingtoetsPipingSurfaceLineCollection_TypeDescriptor} {RingtoetsCommonFormsResources.DataTypeDisplayName_csv_file_filter_Description}");
             }
+        }
+
+        private bool VerifyPipingSurfaceLineUpdates(RingtoetsPipingSurfaceLinesContext context)
+        {
+            var changeHandler = new RingtoetsPipingSurfaceLineChangeHandler(context.FailureMechanism,
+                                                                            new DialogBasedInquiryHelper(Gui.MainWindow));
+
+            return !changeHandler.RequireConfirmation() || changeHandler.InquireConfirmation();
         }
 
         #endregion

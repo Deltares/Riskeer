@@ -23,6 +23,7 @@ using System.Drawing;
 using System.Linq;
 using Core.Common.Base.IO;
 using Core.Common.Gui;
+using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -137,7 +138,36 @@ namespace Ringtoets.Piping.Plugin.Test.ImportInfos
         }
 
         [Test]
-        public void CreateFileImporter_ValidInput_SuccessfulImport()
+        public void VerifyUpdates_CalculationWithoutOutputs_ReturnsTrue()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.ReferenceLine = new ReferenceLine();
+
+            var mainWindow = mocks.Stub<IMainWindow>();
+            var gui = mocks.Stub<IGui>();
+            gui.Stub(g => g.MainWindow).Return(mainWindow);
+            mocks.ReplayAll();
+
+            plugin.Gui = gui;
+
+            var failureMechanism = new PipingFailureMechanism();
+            failureMechanism.CalculationsGroup.Children.Add(new PipingCalculationScenario(new GeneralPipingInput()));
+
+            var stochasticSoilModelCollection = new StochasticSoilModelCollection();
+            var context = new StochasticSoilModelCollectionContext(stochasticSoilModelCollection, failureMechanism, assessmentSection);
+
+            // Call
+            bool requiresUpdateConfirmation = importInfo.VerifyUpdates(context);
+
+            // Assert
+            Assert.IsTrue(requiresUpdateConfirmation);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CreateFileImporter_Always_ReturnsFileImporter()
         {
             // Setup
             var mocks = new MockRepository();
