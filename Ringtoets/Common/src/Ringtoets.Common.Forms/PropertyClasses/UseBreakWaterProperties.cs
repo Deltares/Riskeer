@@ -45,7 +45,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         private const int breakWaterHeightPropertyIndex = 3;
         private readonly TCalculationInput data;
         private readonly ICalculation calculation;
-        private readonly ICalculationInputPropertyChangeHandler changeHandler;
+        private readonly IObservablePropertyChangeHandler changeHandler;
 
         /// <summary>
         /// Creates a new instance of <see cref="UseBreakWaterProperties{TCalculationInput}"/>, in which
@@ -64,7 +64,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         public UseBreakWaterProperties(
             TCalculationInput useBreakWaterData, 
             ICalculation calculation,
-            ICalculationInputPropertyChangeHandler handler)
+            IObservablePropertyChangeHandler handler)
         {
             if (useBreakWaterData == null)
             {
@@ -97,7 +97,6 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             {
                 IEnumerable<IObservable> affectedObjects = changeHandler.SetPropertyValueAfterConfirmation(
                     data, 
-                    calculation,
                     value, 
                     (input, d) => data.UseBreakWater = d);
                 NotifyAffectedObjects(affectedObjects);
@@ -121,7 +120,6 @@ namespace Ringtoets.Common.Forms.PropertyClasses
                 {
                     IEnumerable<IObservable> affectedObjects = changeHandler.SetPropertyValueAfterConfirmation(
                         data, 
-                        calculation, 
                         value.Value, 
                         (input, d) => data.BreakWater.Type = d);
                     NotifyAffectedObjects(affectedObjects);
@@ -144,7 +142,6 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             {
                 IEnumerable<IObservable> affectedObjects = changeHandler.SetPropertyValueAfterConfirmation(
                     data, 
-                    calculation, 
                     value, 
                     (input, d) => data.BreakWater.Height = d);
                 NotifyAffectedObjects(affectedObjects);

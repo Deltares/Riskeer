@@ -91,10 +91,10 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
         public void GetViewName_Always_ReturnsCalculationGroupName()
         {
             // Setup
-            var handler = mocks.Stub<ICalculationInputPropertyChangeHandler>();
+            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
-            var calculationsView = new PipingCalculationsView(handler);
+            var calculationsView = new PipingCalculationsView();
             var calculationGroup = new CalculationGroup
             {
                 Name = "Test"
@@ -159,10 +159,10 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[0]);
-            var handler = mocks.Stub<ICalculationInputPropertyChangeHandler>();
+            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
-            var view = new PipingCalculationsView(handler)
+            var view = new PipingCalculationsView()
             {
                 Data = new CalculationGroup()
             };
@@ -184,10 +184,10 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
             {
                 new PipingFailureMechanism()
             });
-            var handler = mocks.Stub<ICalculationInputPropertyChangeHandler>();
+            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
-            var view = new PipingCalculationsView(handler)
+            var view = new PipingCalculationsView()
             {
                 Data = new CalculationGroup()
             };
@@ -210,10 +210,10 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
             {
                 failureMechanism
             });
-            var handler = mocks.Stub<ICalculationInputPropertyChangeHandler>();
+            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
-            var view = new PipingCalculationsView(handler)
+            var view = new PipingCalculationsView()
             {
                 Data = failureMechanism.CalculationsGroup
             };
@@ -230,10 +230,10 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
         public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanism_ReturnsFalse()
         {
             // Setup
-            var handler = mocks.Stub<ICalculationInputPropertyChangeHandler>();
+            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
-            var view = new PipingCalculationsView(handler);
+            var view = new PipingCalculationsView();
             var failureMechanism = new PipingFailureMechanism();
 
             view.Data = new CalculationGroup();
@@ -250,10 +250,10 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
         public void CloseForData_ViewCorrespondingToRemovedFailureMechanism_ReturnsTrue()
         {
             // Setup
-            var handler = mocks.Stub<ICalculationInputPropertyChangeHandler>();
+            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
-            var view = new PipingCalculationsView(handler);
+            var view = new PipingCalculationsView();
             var failureMechanism = new PipingFailureMechanism();
 
             view.Data = failureMechanism.CalculationsGroup;
@@ -271,10 +271,10 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var handler = mocks.Stub<ICalculationInputPropertyChangeHandler>();
+            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
-            var view = new PipingCalculationsView(handler);
+            var view = new PipingCalculationsView();
             var failureMechanism = new PipingFailureMechanism();
             var failureMechanismContext = new PipingFailureMechanismContext(new PipingFailureMechanism(), assessmentSection);
 
@@ -293,10 +293,10 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var handler = mocks.Stub<ICalculationInputPropertyChangeHandler>();
+            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
-            var view = new PipingCalculationsView(handler);
+            var view = new PipingCalculationsView();
             var failureMechanism = new PipingFailureMechanism();
             var failureMechanismContext = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
 

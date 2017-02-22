@@ -150,7 +150,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             var distribution = mocks.Stub<IVariationCoefficientDistribution>();
             var calculation = mocks.Stub<ICalculation>();
             var input = mocks.Stub<ICalculationInput>();
-            var handler = mocks.Stub<ICalculationInputPropertyChangeHandler>();
+            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
             // Call
@@ -195,7 +195,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             var distribution = mocks.Stub<IVariationCoefficientDistribution>();
             var calculation = mocks.Stub<ICalculation>();
             var input = mocks.Stub<ICalculationInput>();
-            var handler = mocks.Stub<ICalculationInputPropertyChangeHandler>();
+            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
             var properties = new SimpleDistributionProperties(propertiesReadOnly, distribution, calculation, input, handler);
@@ -223,7 +223,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
 
             var calculation = mocks.Stub<ICalculation>();
             var input = mocks.Stub<ICalculationInput>();
-            var handler = mocks.Stub<ICalculationInputPropertyChangeHandler>();
+            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
             var properties = new SimpleDistributionProperties(VariationCoefficientDistributionPropertiesReadOnly.None, distribution, calculation, input, handler);
@@ -250,7 +250,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             var distribution = mocks.Stub<IVariationCoefficientDistribution>();
             var calculation = mocks.Stub<ICalculation>();
             var input = mocks.Stub<ICalculationInput>();
-            var handler = mocks.Stub<ICalculationInputPropertyChangeHandler>();
+            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
             var properties = new SimpleDistributionProperties(
@@ -283,8 +283,8 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             var newMeanValue = new RoundedDouble(3, 20);
-            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<RoundedDouble>(
-                input, calculation, newMeanValue, new[]
+            var handler = new ObservableSetPropertyValueAfterConfirmationParameterTester<RoundedDouble>(
+                input, newMeanValue, new[]
                 {
                     observerableMock
                 });
@@ -314,7 +314,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             var distribution = mocks.Stub<IVariationCoefficientDistribution>();
             var calculation = mocks.Stub<ICalculation>();
             var input = mocks.Stub<ICalculationInput>();
-            var handler = mocks.Stub<ICalculationInputPropertyChangeHandler>();
+            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
             var properties = new SimpleDistributionProperties(propertiesReadOnly, distribution, calculation, input, handler);
@@ -342,8 +342,8 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             var newCoefficientOfVariation = new RoundedDouble(3, 20);
-            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<RoundedDouble>(
-                input, calculation, newCoefficientOfVariation, new[]
+            var handler = new ObservableSetPropertyValueAfterConfirmationParameterTester<RoundedDouble>(
+                input, newCoefficientOfVariation, new[]
                 {
                     observerableMock
                 });
@@ -365,7 +365,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         {
             public SimpleDistributionProperties(VariationCoefficientDistributionPropertiesReadOnly propertiesReadOnly,
                                                 IVariationCoefficientDistribution distribution, ICalculation calculation,
-                                                ICalculationInput input, ICalculationInputPropertyChangeHandler handler)
+                                                ICalculationInput input, IObservablePropertyChangeHandler handler)
                 : base(propertiesReadOnly, distribution, calculation, input, handler) {}
 
             public override string DistributionType

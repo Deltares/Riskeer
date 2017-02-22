@@ -67,7 +67,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
             yield return new PropertyInfo<WaveImpactAsphaltCoverWaveConditionsOutput, WaveImpactAsphaltCoverWaveConditionsOutputProperties>();
             yield return new PropertyInfo<WaveImpactAsphaltCoverWaveConditionsInputContext, WaveImpactAsphaltCoverWaveConditionsInputContextProperties>
             {
-                CreateInstance = context => new WaveImpactAsphaltCoverWaveConditionsInputContextProperties(context, new CalculationInputPropertyChangeHandler())
+                CreateInstance = context => new WaveImpactAsphaltCoverWaveConditionsInputContextProperties(context, new ObservablePropertyChangeHandler(context.Calculation))
             };
         }
 

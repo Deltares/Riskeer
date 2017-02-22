@@ -45,7 +45,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         private readonly bool isStandardDeviationReadOnly;
         private readonly TCalculationInput calculationInput;
         private readonly ICalculation calculation;
-        private readonly ICalculationInputPropertyChangeHandler changeHandler;
+        private readonly IObservablePropertyChangeHandler changeHandler;
 
         /// <summary>
         /// Creates a new instance of <see cref="ConfirmingDistributionPropertiesBase{TDistribution,TCalculationInput}"/>.
@@ -61,7 +61,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
                                                        TDistribution data,
                                                        ICalculation calculation,
                                                        TCalculationInput calculationInput,
-                                                       ICalculationInputPropertyChangeHandler handler)
+                                                       IObservablePropertyChangeHandler handler)
         {
             if (data == null)
             {
@@ -151,11 +151,10 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             return $"{Mean} ({RingtoetsCommonFormsResources.NormalDistribution_StandardDeviation_DisplayName} = {StandardDeviation})";
         }
 
-        private void ChangePropertyAndNotify(SetCalculationInputPropertyValueDelegate<TCalculationInput, RoundedDouble> setPropertyValue,
+        private void ChangePropertyAndNotify(SetObservablePropertyValueDelegate<TCalculationInput, RoundedDouble> setPropertyValue,
                                              RoundedDouble value)
         {
             IEnumerable<IObservable> affectedObjects = changeHandler.SetPropertyValueAfterConfirmation(calculationInput,
-                                                                                                       calculation,
                                                                                                        value,
                                                                                                        setPropertyValue);
             NotifyAffectedObjects(affectedObjects);

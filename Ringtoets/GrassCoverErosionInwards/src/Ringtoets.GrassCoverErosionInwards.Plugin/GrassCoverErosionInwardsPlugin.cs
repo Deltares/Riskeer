@@ -70,7 +70,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             {
                 CreateInstance = context => new GrassCoverErosionInwardsInputContextProperties(
                     context,
-                    new CalculationInputPropertyChangeHandler())
+                    new ObservablePropertyChangeHandler(context.Calculation))
             };
             yield return new PropertyInfo<GrassCoverErosionInwardsOutput, GrassCoverErosionInwardsOutputProperties>();
         }

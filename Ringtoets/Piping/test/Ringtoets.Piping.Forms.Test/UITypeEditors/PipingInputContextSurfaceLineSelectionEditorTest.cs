@@ -49,7 +49,7 @@ namespace Ringtoets.Piping.Forms.Test.UITypeEditors
             var service = mockRepository.DynamicMock<IWindowsFormsEditorService>();
             var context = mockRepository.DynamicMock<ITypeDescriptorContext>();
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            var handler = mockRepository.Stub<ICalculationInputPropertyChangeHandler>();
+            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
 
             var calculationItem = new PipingCalculationScenario(new GeneralPipingInput());
             var failureMechanism = new PipingFailureMechanism();
@@ -98,7 +98,7 @@ namespace Ringtoets.Piping.Forms.Test.UITypeEditors
             var service = mockRepository.DynamicMock<IWindowsFormsEditorService>();
             var context = mockRepository.DynamicMock<ITypeDescriptorContext>();
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            var handler = mockRepository.Stub<ICalculationInputPropertyChangeHandler>();
+            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
 
             var surfaceLine = new RingtoetsPipingSurfaceLine();
             surfaceLine.SetGeometry(new[]

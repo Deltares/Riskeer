@@ -38,13 +38,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
     public class GrassCoverErosionOutwardsWaveConditionsInputContextPropertiesTest
     {
         private MockRepository mockRepository;
-        private ICalculationInputPropertyChangeHandler handler;
+        private IObservablePropertyChangeHandler handler;
 
         [SetUp]
         public void SetUp()
         {
             mockRepository = new MockRepository();
-            handler = mockRepository.Stub<ICalculationInputPropertyChangeHandler>();
+            handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
         }
 
         [Test]

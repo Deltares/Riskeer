@@ -37,7 +37,7 @@ namespace Ringtoets.Piping.Forms.Views
     /// </summary>
     internal class PipingCalculationRow
     {
-        private readonly ICalculationInputPropertyChangeHandler propertyChangeHandler;
+        private readonly IObservablePropertyChangeHandler propertyChangeHandler;
 
         /// <summary>
         /// Creates a new instance of <see cref="PipingCalculationRow"/>.
@@ -46,7 +46,7 @@ namespace Ringtoets.Piping.Forms.Views
         /// <param name="handler">The handler responsible for handling effects of a property change.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public PipingCalculationRow(PipingCalculationScenario pipingCalculation,
-            ICalculationInputPropertyChangeHandler handler)
+            IObservablePropertyChangeHandler handler)
         {            
             if (pipingCalculation == null)
             {
@@ -233,12 +233,11 @@ namespace Ringtoets.Piping.Forms.Views
         }
 
         private void ChangePropertyValueAndNotifyAffectedObjects<TValue>(
-           SetCalculationInputPropertyValueDelegate<PipingInput, TValue> setPropertyValue,
+           SetObservablePropertyValueDelegate<PipingInput, TValue> setPropertyValue,
            TValue value)
         {
             IEnumerable<IObservable> affectedObjects = propertyChangeHandler.SetPropertyValueAfterConfirmation(
                 PipingCalculation.InputParameters,
-                PipingCalculation,
                 value,
                 setPropertyValue);
 

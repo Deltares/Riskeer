@@ -42,7 +42,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         private const int useForeshorePropertyIndex = 1;
         private const int coordinatesPropertyIndex = 2;
         private readonly TCalculationInput data;
-        private readonly ICalculationInputPropertyChangeHandler changeHandler;
+        private readonly IObservablePropertyChangeHandler changeHandler;
         private readonly ICalculation calculation;
 
         /// <summary>
@@ -55,7 +55,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         public UseForeshoreProperties(
             TCalculationInput useForeshoreData,
             ICalculation calculation,
-            ICalculationInputPropertyChangeHandler handler)
+            IObservablePropertyChangeHandler handler)
         {
             if (useForeshoreData == null)
             {
@@ -88,7 +88,6 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             {
                 IEnumerable<IObservable> affectedObjects = changeHandler.SetPropertyValueAfterConfirmation(
                     data, 
-                    calculation,
                     value, 
                     (input, d) => data.UseForeshore = d);
                 NotifyAffectedObjects(affectedObjects);

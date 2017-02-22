@@ -63,7 +63,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         public void Constructor_WithoutData_ThrowsArgumentNullException()
         {
             // Setup
-            var handler = mockRepository.Stub<ICalculationInputPropertyChangeHandler>();
+            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
             mockRepository.ReplayAll();
 
             // Call
@@ -108,7 +108,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         {
             // Setup
             var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
-            var handler = mockRepository.Stub<ICalculationInputPropertyChangeHandler>();
+            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
             mockRepository.ReplayAll();
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
@@ -159,7 +159,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         {
             // Setup
             var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
-            var handler = mockRepository.Stub<ICalculationInputPropertyChangeHandler>();
+            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
             mockRepository.ReplayAll();
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
@@ -256,7 +256,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         {
             // Setup
             var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
-            var handler = mockRepository.Stub<ICalculationInputPropertyChangeHandler>();
+            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
             mockRepository.ReplayAll();
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
@@ -363,7 +363,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         {
             // Setup
             var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
-            var handler = mockRepository.Stub<ICalculationInputPropertyChangeHandler>();
+            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
             mockRepository.ReplayAll();
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
@@ -466,7 +466,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         {
             // Setup
             var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
-            var handler = mockRepository.Stub<ICalculationInputPropertyChangeHandler>();
+            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
             mockRepository.ReplayAll();
 
             var failureMechanism = new ClosingStructuresFailureMechanism
@@ -496,7 +496,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         {
             // Setup
             var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
-            var handler = mockRepository.Stub<ICalculationInputPropertyChangeHandler>();
+            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
             mockRepository.ReplayAll();
 
             var failureMechanism = new ClosingStructuresFailureMechanism
@@ -658,9 +658,8 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             const int overflow = 1;
             string newProbabilityString = string.Concat(newValue.ToString("r", CultureInfo.CurrentCulture), overflow);
 
-            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<string>(
+            var handler = new ObservableSetPropertyValueAfterConfirmationParameterTester<string>(
                 calculation.InputParameters,
-                calculation,
                 newProbabilityString,
                 Enumerable.Empty<IObservable>());
             var properties = new ClosingStructuresInputContextProperties(inputContext, handler);
@@ -694,9 +693,8 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
                                                                  assessmentSectionStub);
 
             string newProbabilityString = newValue.ToString("r", CultureInfo.CurrentCulture);
-            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<string>(
+            var handler = new ObservableSetPropertyValueAfterConfirmationParameterTester<string>(
                 calculation.InputParameters,
-                calculation,
                 newProbabilityString,
                 Enumerable.Empty<IObservable>());
             var properties = new ClosingStructuresInputContextProperties(inputContext, handler);
@@ -728,9 +726,8 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
                                                                  failureMechanism,
                                                                  assessmentSectionStub);
 
-            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<string>(
+            var handler = new ObservableSetPropertyValueAfterConfirmationParameterTester<string>(
                 calculation.InputParameters,
-                calculation,
                 newValue,
                 Enumerable.Empty<IObservable>());
             var properties = new ClosingStructuresInputContextProperties(inputContext, handler);
@@ -760,9 +757,8 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
                                                                  failureMechanism,
                                                                  assessmentSectionStub);
 
-            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<string>(
+            var handler = new ObservableSetPropertyValueAfterConfirmationParameterTester<string>(
                 calculation.InputParameters,
-                calculation,
                 null,
                 Enumerable.Empty<IObservable>());
             var properties = new ClosingStructuresInputContextProperties(inputContext, handler);
@@ -797,9 +793,8 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             const int overflow = 1;
             string newProbabilityString = string.Concat(newValue.ToString("r", CultureInfo.CurrentCulture), overflow);
 
-            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<string>(
+            var handler = new ObservableSetPropertyValueAfterConfirmationParameterTester<string>(
                 calculation.InputParameters,
-                calculation,
                 newProbabilityString,
                 Enumerable.Empty<IObservable>());
             var properties = new ClosingStructuresInputContextProperties(inputContext, handler);
@@ -831,9 +826,8 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
                                                                  failureMechanism,
                                                                  assessmentSectionStub);
 
-            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<string>(
+            var handler = new ObservableSetPropertyValueAfterConfirmationParameterTester<string>(
                 calculation.InputParameters,
-                calculation,
                 newValue,
                 Enumerable.Empty<IObservable>());
             var properties = new ClosingStructuresInputContextProperties(inputContext, handler);
@@ -863,9 +857,8 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
                                                                  failureMechanism,
                                                                  assessmentSectionStub);
 
-            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<string>(
+            var handler = new ObservableSetPropertyValueAfterConfirmationParameterTester<string>(
                 calculation.InputParameters,
-                calculation,
                 null,
                 Enumerable.Empty<IObservable>());
             var properties = new ClosingStructuresInputContextProperties(inputContext, handler);
@@ -900,9 +893,8 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             const int overflow = 1;
             string newProbabilityString = string.Concat(newValue.ToString("r", CultureInfo.CurrentCulture), overflow);
 
-            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<string>(
+            var handler = new ObservableSetPropertyValueAfterConfirmationParameterTester<string>(
                 calculation.InputParameters,
-                calculation,
                 newProbabilityString,
                 Enumerable.Empty<IObservable>());
             var properties = new ClosingStructuresInputContextProperties(inputContext, handler);
@@ -934,9 +926,8 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
                                                                  failureMechanism,
                                                                  assessmentSectionStub);
 
-            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<string>(
+            var handler = new ObservableSetPropertyValueAfterConfirmationParameterTester<string>(
                 calculation.InputParameters,
-                calculation,
                 newValue,
                 Enumerable.Empty<IObservable>());
             var properties = new ClosingStructuresInputContextProperties(inputContext, handler);
@@ -966,9 +957,8 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
                                                                  failureMechanism,
                                                                  assessmentSectionStub);
 
-            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<string>(
+            var handler = new ObservableSetPropertyValueAfterConfirmationParameterTester<string>(
                 calculation.InputParameters,
-                calculation,
                 null,
                 Enumerable.Empty<IObservable>());
             var properties = new ClosingStructuresInputContextProperties(inputContext, handler);
@@ -998,9 +988,8 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
                                                                  assessmentSectionStub);
 
             var newStructure = new TestClosingStructure();
-            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<ClosingStructure>(
+            var handler = new ObservableSetPropertyValueAfterConfirmationParameterTester<ClosingStructure>(
                 calculation.InputParameters,
-                calculation,
                 newStructure,
                 Enumerable.Empty<IObservable>());
             var properties = new ClosingStructuresInputContextProperties(inputContext, handler);
@@ -1025,7 +1014,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         {
             // Setup
             var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
-            var handler = mockRepository.Stub<ICalculationInputPropertyChangeHandler>();
+            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
             mockRepository.ReplayAll();
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
@@ -1060,7 +1049,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         {
             // Setup
             var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
-            var handler = mockRepository.Stub<ICalculationInputPropertyChangeHandler>();
+            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
             mockRepository.ReplayAll();
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
@@ -1095,7 +1084,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         {
             // Setup
             var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
-            var handler = mockRepository.Stub<ICalculationInputPropertyChangeHandler>();
+            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
             mockRepository.ReplayAll();
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
@@ -1138,7 +1127,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
                                                                  calculation,
                                                                  failureMechanism,
                                                                  assessmentSectionStub);
-            var handler = mockRepository.Stub<ICalculationInputPropertyChangeHandler>();
+            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
             var properties = new ClosingStructuresInputContextProperties(inputContext, handler);
 
             // Call & Assert
@@ -1168,9 +1157,8 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             ClosingStructuresInput input = calculation.InputParameters;
             input.ForeshoreProfile = new TestForeshoreProfile();
 
-            var customHandler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<TPropertyValue>(
+            var customHandler = new ObservableSetPropertyValueAfterConfirmationParameterTester<TPropertyValue>(
                 input,
-                calculation,
                 expectedValueSet,
                 new[]
                 {

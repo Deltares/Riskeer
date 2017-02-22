@@ -77,7 +77,7 @@ namespace Ringtoets.Piping.Plugin
             };
             yield return new PropertyInfo<PipingInputContext, PipingInputContextProperties>
             {
-                CreateInstance = context => new PipingInputContextProperties(context, new CalculationInputPropertyChangeHandler())
+                CreateInstance = context => new PipingInputContextProperties(context, new ObservablePropertyChangeHandler(context.PipingCalculation))
             };
             yield return new PropertyInfo<PipingOutputContext, PipingOutputContextProperties>();
             yield return new PropertyInfo<RingtoetsPipingSurfaceLinesContext, RingtoetsPipingSurfaceLineCollectionProperties>
@@ -204,7 +204,7 @@ namespace Ringtoets.Piping.Plugin
                     view.AssessmentSection = context.AssessmentSection;
                     view.PipingFailureMechanism = context.FailureMechanism;
                 },
-                CreateInstance = () => new PipingCalculationsView(new CalculationInputPropertyChangeHandler())
+                CreateInstance = () => new PipingCalculationsView()
             };
 
             yield return new ViewInfo<PipingInputContext, PipingCalculationScenario, PipingInputView>

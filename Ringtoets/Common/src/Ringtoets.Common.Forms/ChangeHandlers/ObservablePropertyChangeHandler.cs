@@ -34,14 +34,20 @@ namespace Ringtoets.Common.Forms.ChangeHandlers
     /// Class which properly handles data model changes due to a change of a
     /// calculation input property.
     /// </summary>
-    public class CalculationInputPropertyChangeHandler : ICalculationInputPropertyChangeHandler
+    public class ObservablePropertyChangeHandler : IObservablePropertyChangeHandler
     {
-        public IEnumerable<IObservable> SetPropertyValueAfterConfirmation<TCalculationInput, TValue>(
-            TCalculationInput calculationInput,
-            ICalculation calculation,
+        private readonly ICalculation calculation;
+
+        public ObservablePropertyChangeHandler(ICalculation calculation)
+        {
+            this.calculation = calculation;
+        }
+
+        public IEnumerable<IObservable> SetPropertyValueAfterConfirmation<TPropertyOwner, TValue>(
+            TPropertyOwner calculationInput,
             TValue value,
-            SetCalculationInputPropertyValueDelegate<TCalculationInput, TValue> setValue)
-            where TCalculationInput : ICalculationInput
+            SetObservablePropertyValueDelegate<TPropertyOwner, TValue> setValue) 
+            where TPropertyOwner : IObservable
         {
             if (calculationInput == null)
             {

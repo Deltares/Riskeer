@@ -69,7 +69,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         private const int diameter70PropertyIndex = 17;
         private const int saturatedVolumicWeightOfCoverageLayerPropertyIndex = 18;
 
-        private readonly ICalculationInputPropertyChangeHandler propertyChangeHandler;
+        private readonly IObservablePropertyChangeHandler propertyChangeHandler;
 
         /// <summary>
         /// Creates a new instance of <see cref="PipingInputContextProperties"/>.
@@ -78,7 +78,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         /// <param name="handler">The handler responsible for handling effects of a property change.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public PipingInputContextProperties(PipingInputContext data,
-            ICalculationInputPropertyChangeHandler handler)
+            IObservablePropertyChangeHandler handler)
         {
             if (data == null)
             {
@@ -460,12 +460,11 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         #endregion
 
         private void ChangePropertyAndNotify<TValue>(
-            SetCalculationInputPropertyValueDelegate<PipingInput, TValue> setPropertyValue,
+            SetObservablePropertyValueDelegate<PipingInput, TValue> setPropertyValue,
             TValue value)
         {
             IEnumerable<IObservable> affectedObjects = propertyChangeHandler.SetPropertyValueAfterConfirmation(
                 data.WrappedData,
-                data.PipingCalculation,
                 value,
                 setPropertyValue);
 

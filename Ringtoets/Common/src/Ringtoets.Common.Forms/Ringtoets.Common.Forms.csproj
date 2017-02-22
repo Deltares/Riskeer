@@ -47,7 +47,7 @@
     <Compile Include="..\..\..\..\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
-    <Compile Include="ChangeHandlers\CalculationInputPropertyChangeHandler.cs" />
+    <Compile Include="ChangeHandlers\ObservablePropertyChangeHandler.cs" />
     <Compile Include="ChangeHandlers\FailureMechanismPropertyChangeHandler.cs" />
     <Compile Include="GuiServices\HydraulicBoundaryLocationCalculationGuiService.cs" />
     <Compile Include="GuiServices\IHydraulicBoundaryLocationCalculationGuiService.cs" />
@@ -77,7 +77,7 @@
     </Compile>
     <Compile Include="PropertyClasses\ConfirmingVariationCoefficientDistributionPropertiesBase.cs" />
     <Compile Include="PropertyClasses\ConfirmingVariationCoefficientNormalDistributionProperties.cs" />
-    <Compile Include="PropertyClasses\ICalculationInputPropertyChangeHandler.cs" />
+    <Compile Include="PropertyClasses\IObservablePropertyChangeHandler.cs" />
     <Compile Include="PropertyClasses\IPropertyChangeHandler.cs" />
     <Compile Include="PropertyClasses\IFailureMechanismPropertyChangeHandler.cs" />
     <Compile Include="PropertyClasses\ConfirmingLogNormalDistributionProperties.cs" />

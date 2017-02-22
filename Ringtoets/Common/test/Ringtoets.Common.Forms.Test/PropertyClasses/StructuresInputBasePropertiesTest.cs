@@ -51,7 +51,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
     public class StructuresInputBasePropertiesTest
     {
         private MockRepository mockRepository;
-        private ICalculationInputPropertyChangeHandler handler;
+        private IObservablePropertyChangeHandler handler;
         private IAssessmentSection assessmentSection;
         private IFailureMechanism failureMechanism;
 
@@ -59,7 +59,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         public void SetUp()
         {
             mockRepository = new MockRepository();
-            handler = mockRepository.Stub<ICalculationInputPropertyChangeHandler>();
+            handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
             assessmentSection = mockRepository.Stub<IAssessmentSection>();
             failureMechanism = mockRepository.Stub<IFailureMechanism>();
         }
@@ -560,7 +560,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
 
             var newStructure = new SimpleStructure(new Point2D(0, 190));
 
-            CalculationInputSetPropertyValueAfterConfirmationParameterTester<SimpleStructure> customHandler =
+            ObservableSetPropertyValueAfterConfirmationParameterTester<SimpleStructure> customHandler =
                 CreateCustomHandlerForCalculationReturningNoObservables(calculation, newStructure);
 
             var properties = new SimpleStructuresInputProperties(
@@ -616,7 +616,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             var properties = new SimpleStructuresInputProperties(
                 inputContext,
                 new StructuresInputBaseProperties<SimpleStructure, SimpleStructureInput, StructuresCalculation<SimpleStructureInput>, IFailureMechanism>.ConstructionProperties(),
-                new CalculationInputPropertyChangeHandler());
+                new ObservablePropertyChangeHandler(inputContext.Calculation));
 
             inputContext.Attach(observerMock);
 
@@ -842,7 +842,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                                                       assessmentSection);
 
             string newStringValue = newValue.ToString(CultureInfo.InvariantCulture);
-            CalculationInputSetPropertyValueAfterConfirmationParameterTester<string> customHandler = 
+            ObservableSetPropertyValueAfterConfirmationParameterTester<string> customHandler = 
                 CreateCustomHandlerForCalculationReturningNoObservables(calculation, newStringValue);
 
             var properties = new SimpleStructuresInputProperties(
@@ -874,7 +874,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                                                       failureMechanism,
                                                       assessmentSection);
 
-            CalculationInputSetPropertyValueAfterConfirmationParameterTester<string> customHandler = 
+            ObservableSetPropertyValueAfterConfirmationParameterTester<string> customHandler = 
                 CreateCustomHandlerForCalculationReturningNoObservables(calculation, newValue);
 
             var properties = new SimpleStructuresInputProperties(
@@ -904,7 +904,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                                                       failureMechanism,
                                                       assessmentSection);
 
-            CalculationInputSetPropertyValueAfterConfirmationParameterTester<string> customHandler = 
+            ObservableSetPropertyValueAfterConfirmationParameterTester<string> customHandler = 
                 CreateCustomHandlerForCalculationReturningNoObservables<string>(calculation, null);
 
             var properties = new SimpleStructuresInputProperties(
@@ -922,12 +922,11 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             mockRepository.VerifyAll();
         }
 
-        private static CalculationInputSetPropertyValueAfterConfirmationParameterTester<T> CreateCustomHandlerForCalculationReturningNoObservables<T>(
+        private static ObservableSetPropertyValueAfterConfirmationParameterTester<T> CreateCustomHandlerForCalculationReturningNoObservables<T>(
             StructuresCalculation<SimpleStructureInput> calculation, T expectedValue)
         {
-            return new CalculationInputSetPropertyValueAfterConfirmationParameterTester<T>(
+            return new ObservableSetPropertyValueAfterConfirmationParameterTester<T>(
                 calculation.InputParameters,
-                calculation,
                 expectedValue,
                 Enumerable.Empty<IObservable>());
         }
@@ -1014,7 +1013,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             StructuresCalculation<SimpleStructureInput>,
             IFailureMechanism>
         {
-            public SimpleStructuresInputProperties(SimpleInputContext context, ConstructionProperties constructionProperties, ICalculationInputPropertyChangeHandler handler) : base(context, constructionProperties, handler) {}
+            public SimpleStructuresInputProperties(SimpleInputContext context, ConstructionProperties constructionProperties, IObservablePropertyChangeHandler handler) : base(context, constructionProperties, handler) {}
 
             [Browsable(false)]
             public bool AfterSettingStructureCalled { get; private set; }
@@ -1054,9 +1053,8 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             SimpleStructureInput input = calculation.InputParameters;
             input.ForeshoreProfile = new TestForeshoreProfile();
 
-            var customHandler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<TPropertyValue>(
+            var customHandler = new ObservableSetPropertyValueAfterConfirmationParameterTester<TPropertyValue>(
                 input,
-                calculation,
                 expectedValueSet,
                 new[]
                 {

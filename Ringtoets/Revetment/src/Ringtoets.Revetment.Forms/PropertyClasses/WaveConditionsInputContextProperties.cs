@@ -69,7 +69,7 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
         private const int foreshoreGeometryPropertyIndex = 13;
         private const int revetmentTypePropertyIndex = 14;
 
-        private readonly ICalculationInputPropertyChangeHandler propertyChangeHandler;
+        private readonly IObservablePropertyChangeHandler propertyChangeHandler;
 
         /// <summary>
         /// Creates a new instance of <see cref="WaveConditionsInputContextProperties{T}"/>.
@@ -77,7 +77,7 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
         /// <param name="context">The <see cref="WaveConditionsInputContext"/> for which the properties are shown.</param>
         /// <param name="handler">The handler responsible for handling effects of a property change.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        protected WaveConditionsInputContextProperties(T context, ICalculationInputPropertyChangeHandler handler)
+        protected WaveConditionsInputContextProperties(T context, IObservablePropertyChangeHandler handler)
         {
             if (context == null)
             {
@@ -325,12 +325,11 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
         }
 
         private void ChangePropertyAndNotify<TValue>(
-            SetCalculationInputPropertyValueDelegate<WaveConditionsInput, TValue> setPropertyValue,
+            SetObservablePropertyValueDelegate<WaveConditionsInput, TValue> setPropertyValue,
             TValue value)
         {
             IEnumerable<IObservable> affectedObjects = propertyChangeHandler.SetPropertyValueAfterConfirmation(
                 data.WrappedData,
-                data.Calculation,
                 value,
                 setPropertyValue);
 

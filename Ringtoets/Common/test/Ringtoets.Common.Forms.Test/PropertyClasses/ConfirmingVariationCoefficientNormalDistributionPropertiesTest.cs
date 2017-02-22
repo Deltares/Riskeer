@@ -47,7 +47,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             var mocks = new MockRepository();
             var calculation = mocks.Stub<ICalculation>();
             var input = mocks.Stub<ICalculationInput>();
-            var handler = mocks.Stub<ICalculationInputPropertyChangeHandler>();
+            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
             mockRepository.ReplayAll();
 
             var distribution = new VariationCoefficientNormalDistribution();

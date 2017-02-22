@@ -40,7 +40,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.PropertyClasses
         /// the properties are shown.</param>
         /// <param name="handler">The handler responsible for handling effects of a property change.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public StabilityStoneCoverWaveConditionsInputContextProperties(StabilityStoneCoverWaveConditionsInputContext context, ICalculationInputPropertyChangeHandler handler)
+        public StabilityStoneCoverWaveConditionsInputContextProperties(StabilityStoneCoverWaveConditionsInputContext context, IObservablePropertyChangeHandler handler)
             : base(context, handler) { }
 
         public override string RevetmentType

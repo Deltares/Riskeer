@@ -62,7 +62,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         private const int hydraulicBoundaryLocationPropertyIndex = 9;
         private const int calculateDikeHeightPropertyIndex = 10;
 
-        private readonly ICalculationInputPropertyChangeHandler propertyChangeHandler;
+        private readonly IObservablePropertyChangeHandler propertyChangeHandler;
 
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionInwardsInputContextProperties"/>.
@@ -71,7 +71,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         /// <param name="handler">The handler responsible for handling effects of a property change.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public GrassCoverErosionInwardsInputContextProperties(GrassCoverErosionInwardsInputContext data,
-                                                              ICalculationInputPropertyChangeHandler handler)
+                                                              IObservablePropertyChangeHandler handler)
         {
             if (data == null)
             {
@@ -289,12 +289,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         }
 
         private void ChangePropertyAndNotify<TValue>(
-            SetCalculationInputPropertyValueDelegate<GrassCoverErosionInwardsInput, TValue> setPropertyValue,
+            SetObservablePropertyValueDelegate<GrassCoverErosionInwardsInput, TValue> setPropertyValue,
             TValue value)
         {
             IEnumerable<IObservable> affectedObjects = propertyChangeHandler.SetPropertyValueAfterConfirmation(
                 data.WrappedData,
-                data.Calculation,
                 value,
                 setPropertyValue);
 

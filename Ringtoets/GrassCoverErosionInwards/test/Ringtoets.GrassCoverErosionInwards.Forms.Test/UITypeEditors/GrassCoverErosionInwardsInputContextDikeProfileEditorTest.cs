@@ -67,7 +67,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.UITypeEditors
                                                                         failureMechanism,
                                                                         assessmentSection);
 
-            var handler = mockRepository.Stub<ICalculationInputPropertyChangeHandler>();
+            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
             var properties = new GrassCoverErosionInwardsInputContextProperties(inputContext, handler);
             var editor = new GrassCoverErosionInwardsInputContextDikeProfileEditor();
             var propertyBag = new DynamicPropertyBag(properties);
@@ -115,7 +115,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.UITypeEditors
                                                                         failureMechanism,
                                                                         assessmentSection);
             
-            var handler = mockRepository.Stub<ICalculationInputPropertyChangeHandler>();
+            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
             var properties = new GrassCoverErosionInwardsInputContextProperties(inputContext, handler);
 
             var editor = new GrassCoverErosionInwardsInputContextDikeProfileEditor();

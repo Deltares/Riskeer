@@ -47,7 +47,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         {
             // Setup
             var mocks = new MockRepository();
-            var handler = mocks.Stub<ICalculationInputPropertyChangeHandler>();
+            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
             // Call
@@ -75,7 +75,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         {
             // Setup
             var mocks = new MockRepository();
-            var handler = mocks.Stub<ICalculationInputPropertyChangeHandler>();
+            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
             
             PipingCalculationScenario calculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
@@ -102,7 +102,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         {
             // Setup
             var mocks = new MockRepository();
-            var handler = mocks.Stub<ICalculationInputPropertyChangeHandler>();
+            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
             PipingCalculationScenario calculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithInvalidInput();
@@ -126,7 +126,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var mockRepository = new MockRepository();
             var observer = mockRepository.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
-            var handler = mockRepository.Stub<ICalculationInputPropertyChangeHandler>();
+            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
             mockRepository.ReplayAll();
 
             var newValue = "Test new name";
@@ -480,7 +480,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             {
                 calculationObserver.Expect(o => o.UpdateObserver());
             }
-            var handler = mockRepository.Stub<ICalculationInputPropertyChangeHandler>();
+            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
             mockRepository.ReplayAll();
 
             TestPipingOutput assignedOutput = null;
@@ -523,9 +523,8 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var observable = mocks.StrictMock<IObservable>();
             mocks.ReplayAll();
 
-            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<TPropertyValue>(
+            var handler = new ObservableSetPropertyValueAfterConfirmationParameterTester<TPropertyValue>(
                 calculation.InputParameters,
-                calculation,
                 value,
                 new[]
                 {
@@ -554,9 +553,8 @@ namespace Ringtoets.Piping.Forms.Test.Views
             observable.Expect(o => o.NotifyObservers());
             mocks.ReplayAll();
 
-            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<TPropertyValue>(
+            var handler = new ObservableSetPropertyValueAfterConfirmationParameterTester<TPropertyValue>(
                 calculation.InputParameters,
-                calculation,
                 value,
                 new[]
                 {

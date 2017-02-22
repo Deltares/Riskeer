@@ -99,7 +99,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             // Setup
             var mocks = new MockRepository();
             var calculation = mocks.Stub<ICalculation>();
-            var handler = mocks.Stub<ICalculationInputPropertyChangeHandler>();
+            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
             TestUseBreakWater testUseBreakWater = new TestUseBreakWater
@@ -148,7 +148,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             // Setup
             var mocks = new MockRepository();
             var calculation = mocks.Stub<ICalculation>();
-            var handler = mocks.Stub<ICalculationInputPropertyChangeHandler>();
+            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
             // Call
@@ -167,7 +167,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             TestUseBreakWater testUseBreakWater = new TestUseBreakWater();
 
             var mocks = new MockRepository();
-            var handler = mocks.Stub<ICalculationInputPropertyChangeHandler>();
+            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
             // Call
@@ -204,7 +204,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             // Setup
             var mocks = new MockRepository();
             var calculation = mocks.Stub<ICalculation>();
-            var handler = mocks.Stub<ICalculationInputPropertyChangeHandler>();
+            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
             var useBreakWaterData = new TestUseBreakWater
@@ -274,9 +274,8 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             observable.Expect(o => o.NotifyObservers());
             mocks.ReplayAll();
 
-            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<TPropertyValue>(
+            var handler = new ObservableSetPropertyValueAfterConfirmationParameterTester<TPropertyValue>(
                 input,
-                calculation,
                 expectedValueSet,
                 new[]
                 {

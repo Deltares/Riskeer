@@ -26,6 +26,7 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Forms.ChangeHandlers;
+using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Forms.PropertyClasses;
@@ -40,12 +41,17 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
         [Test]
         public void Constructor_WithoutContext_ThrowsArgumentNullException()
         {
+            var mockRepository = new MockRepository();
+            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
+            mockRepository.ReplayAll();
+
             // Call
-            TestDelegate test = () => new WaveImpactAsphaltCoverWaveConditionsInputContextProperties(null, new CalculationInputPropertyChangeHandler());
+            TestDelegate test = () => new WaveImpactAsphaltCoverWaveConditionsInputContextProperties(null, handler);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("context", paramName);
+            mockRepository.ReplayAll();
         }
 
         [Test]
@@ -54,6 +60,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
             // Setup
             var mockRepository = new MockRepository();
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
+            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
             mockRepository.ReplayAll();
 
             var context = new WaveImpactAsphaltCoverWaveConditionsInputContext(
@@ -63,7 +70,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
                 assessmentSection);
 
             // Call
-            var properties = new WaveImpactAsphaltCoverWaveConditionsInputContextProperties(context, new CalculationInputPropertyChangeHandler());
+            var properties = new WaveImpactAsphaltCoverWaveConditionsInputContextProperties(context, handler);
 
             // Assert
             Assert.IsInstanceOf<WaveConditionsInputContextProperties<WaveImpactAsphaltCoverWaveConditionsInputContext>>(properties);

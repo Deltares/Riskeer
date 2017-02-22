@@ -36,17 +36,15 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
             // Setup
             const double value = 3.0;
             var testCalculationInput = new TestCalculationInput();
-            var testCalculation = new TestCalculation();
             var returnedAffectedObjects = Enumerable.Empty<IObservable>();
 
             // Call
-            var tester = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<double>(
-                testCalculationInput, testCalculation, value, returnedAffectedObjects);
+            var tester = new ObservableSetPropertyValueAfterConfirmationParameterTester<double>(
+                testCalculationInput, value, returnedAffectedObjects);
 
             // Assert
-            Assert.IsInstanceOf<ICalculationInputPropertyChangeHandler>(tester);
+            Assert.IsInstanceOf<IObservablePropertyChangeHandler>(tester);
             Assert.AreSame(testCalculationInput, tester.ExpectedCalculationInput);
-            Assert.AreSame(testCalculation, tester.ExpectedCalculation);
             Assert.AreEqual(value, tester.ExpectedValue);
             Assert.AreSame(returnedAffectedObjects, tester.ReturnedAffectedObjects);
             Assert.IsFalse(tester.Called);
@@ -59,35 +57,13 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
             const double value = 3.0;
             var testCalculationInput = new TestCalculationInput();
             var passedCalculationInput = new TestCalculationInput();
-            var testCalculation = new TestCalculation();
             var returnedAffectedObjects = Enumerable.Empty<IObservable>();
 
-            var tester = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<double>(
-                testCalculationInput, testCalculation, value, returnedAffectedObjects);
+            var tester = new ObservableSetPropertyValueAfterConfirmationParameterTester<double>(
+                testCalculationInput, value, returnedAffectedObjects);
 
             // Call
-            TestDelegate test = () => tester.SetPropertyValueAfterConfirmation(passedCalculationInput, testCalculation, value, (input, v) => { });
-
-            // Assert
-            Assert.Throws<AssertionException>(test);
-            Assert.IsTrue(tester.Called);
-        }
-
-        [Test]
-        public void SetPropertyValueAfterConfirmation_CalculationPassedNotSame_ThrowsAssertionException()
-        {
-            // Setup
-            const double value = 3.0;
-            var testCalculationInput = new TestCalculationInput();
-            var testCalculation = new TestCalculation();
-            var passedCalculation = new TestCalculation();
-            var returnedAffectedObjects = Enumerable.Empty<IObservable>();
-
-            var tester = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<double>(
-                testCalculationInput, testCalculation, value, returnedAffectedObjects);
-
-            // Call
-            TestDelegate test = () => tester.SetPropertyValueAfterConfirmation(testCalculationInput, passedCalculation, value, (input, v) => { });
+            TestDelegate test = () => tester.SetPropertyValueAfterConfirmation(passedCalculationInput, value, (input, v) => { });
 
             // Assert
             Assert.Throws<AssertionException>(test);
@@ -101,14 +77,13 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
             const double expectedValue = 3.0;
             const double passedValue = 2.0;
             var testCalculationInput = new TestCalculationInput();
-            var testCalculation = new TestCalculation();
             var returnedAffectedObjects = Enumerable.Empty<IObservable>();
 
-            var tester = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<double>(
-                testCalculationInput, testCalculation, expectedValue, returnedAffectedObjects);
+            var tester = new ObservableSetPropertyValueAfterConfirmationParameterTester<double>(
+                testCalculationInput, expectedValue, returnedAffectedObjects);
 
             // Call
-            TestDelegate test = () => tester.SetPropertyValueAfterConfirmation(testCalculationInput, testCalculation, passedValue, (input, v) => { });
+            TestDelegate test = () => tester.SetPropertyValueAfterConfirmation(testCalculationInput, passedValue, (input, v) => { });
 
             // Assert
             Assert.Throws<AssertionException>(test);
@@ -123,14 +98,13 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
 
             var returnedAffectedObjects = Enumerable.Empty<IObservable>();
             var testCalculationInput = new TestCalculationInput();
-            var testCalculation = new TestCalculation();
             var called = 0;
 
-            var tester = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<double>(
-                testCalculationInput, testCalculation, value, returnedAffectedObjects);
+            var tester = new ObservableSetPropertyValueAfterConfirmationParameterTester<double>(
+                testCalculationInput, value, returnedAffectedObjects);
 
             // Call
-            var affectedObjects = tester.SetPropertyValueAfterConfirmation(testCalculationInput, testCalculation, value, (m, v) => called++);
+            var affectedObjects = tester.SetPropertyValueAfterConfirmation(testCalculationInput, value, (m, v) => called++);
 
             // Assert
             Assert.AreEqual(1, called);
@@ -146,15 +120,14 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
 
             var returnedAffectedObjects = Enumerable.Empty<IObservable>();
             var testCalculationInput = new TestCalculationInput();
-            var testCalculation = new TestCalculation();
 
-             var tester = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<double>(
-                testCalculationInput, testCalculation, value, returnedAffectedObjects);
+             var tester = new ObservableSetPropertyValueAfterConfirmationParameterTester<double>(
+                testCalculationInput, value, returnedAffectedObjects);
 
             var expectedException = new Exception();
 
             // Call
-            TestDelegate test = () => tester.SetPropertyValueAfterConfirmation(testCalculationInput, testCalculation, value, (input, v) => { throw expectedException; });
+            TestDelegate test = () => tester.SetPropertyValueAfterConfirmation(testCalculationInput, value, (input, v) => { throw expectedException; });
 
             // Assert
             var exception = Assert.Throws<Exception>(test);

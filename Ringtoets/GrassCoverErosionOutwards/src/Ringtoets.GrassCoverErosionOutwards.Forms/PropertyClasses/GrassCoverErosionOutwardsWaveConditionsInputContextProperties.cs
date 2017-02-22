@@ -42,7 +42,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
         /// the properties are shown.</param>
         /// <param name="handler">The handler responsible for handling effects of a property change.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public GrassCoverErosionOutwardsWaveConditionsInputContextProperties(GrassCoverErosionOutwardsWaveConditionsInputContext context, ICalculationInputPropertyChangeHandler handler)
+        public GrassCoverErosionOutwardsWaveConditionsInputContextProperties(GrassCoverErosionOutwardsWaveConditionsInputContext context, IObservablePropertyChangeHandler handler)
             : base(context, handler) { }
 
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.GrassCoverErosionOutwardsHydraulicBoundaryLocation_DesignWaterLevel_DisplayName))]

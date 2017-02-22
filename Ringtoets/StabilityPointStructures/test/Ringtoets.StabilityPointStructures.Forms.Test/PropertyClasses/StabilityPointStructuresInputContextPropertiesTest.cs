@@ -63,7 +63,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         public void Constructor_WithoutData_ThrowsArgumentNullException()
         {
             // Setup
-            var handler = mockRepository.Stub<ICalculationInputPropertyChangeHandler>();
+            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
             mockRepository.ReplayAll();
 
             // Call
@@ -108,7 +108,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         {
             // Setup
             var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
-            var handler = mockRepository.Stub<ICalculationInputPropertyChangeHandler>();
+            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
             mockRepository.ReplayAll();
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
@@ -165,7 +165,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         {
             // Setup
             var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
-            var handler = mockRepository.Stub<ICalculationInputPropertyChangeHandler>();
+            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
             mockRepository.ReplayAll();
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
@@ -342,7 +342,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         {
             // Setup
             var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
-            var handler = mockRepository.Stub<ICalculationInputPropertyChangeHandler>();
+            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
             mockRepository.ReplayAll();
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
@@ -519,7 +519,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         {
             // Setup
             var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
-            var handler = mockRepository.Stub<ICalculationInputPropertyChangeHandler>();
+            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
             mockRepository.ReplayAll();
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
@@ -706,7 +706,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         {
             // Setup
             var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
-            var handler = mockRepository.Stub<ICalculationInputPropertyChangeHandler>();
+            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
             mockRepository.ReplayAll();
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
@@ -893,7 +893,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         {
             // Setup
             var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
-            var handler = mockRepository.Stub<ICalculationInputPropertyChangeHandler>();
+            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
             mockRepository.ReplayAll();
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism
@@ -923,7 +923,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         {
             // Setup
             var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
-            var handler = mockRepository.Stub<ICalculationInputPropertyChangeHandler>();
+            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
             mockRepository.ReplayAll();
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism
@@ -1202,9 +1202,8 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             const int overflow = 1;
             string newProbabilityString = string.Concat(newValue.ToString("r", CultureInfo.CurrentCulture), overflow);
 
-            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<string>(
+            var handler = new ObservableSetPropertyValueAfterConfirmationParameterTester<string>(
                 calculation.InputParameters,
-                calculation,
                 newProbabilityString,
                 Enumerable.Empty<IObservable>());
             var properties = new StabilityPointStructuresInputContextProperties(inputContext, handler);
@@ -1236,9 +1235,8 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
                                                                         failureMechanism,
                                                                         assessmentSectionStub);
 
-            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<string>(
+            var handler = new ObservableSetPropertyValueAfterConfirmationParameterTester<string>(
                 calculation.InputParameters,
-                calculation,
                 newValue,
                 Enumerable.Empty<IObservable>());
             var properties = new StabilityPointStructuresInputContextProperties(inputContext, handler);
@@ -1268,9 +1266,8 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
                                                                         failureMechanism,
                                                                         assessmentSectionStub);
 
-            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<string>(
+            var handler = new ObservableSetPropertyValueAfterConfirmationParameterTester<string>(
                 calculation.InputParameters,
-                calculation,
                 null,
                 Enumerable.Empty<IObservable>());
             var properties = new StabilityPointStructuresInputContextProperties(inputContext, handler);
@@ -1305,9 +1302,8 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             const int overflow = 1;
             string newProbabilityString = string.Concat(newValue.ToString("r", CultureInfo.CurrentCulture), overflow);
 
-            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<string>(
+            var handler = new ObservableSetPropertyValueAfterConfirmationParameterTester<string>(
                 calculation.InputParameters,
-                calculation,
                 newProbabilityString,
                 Enumerable.Empty<IObservable>());
             var properties = new StabilityPointStructuresInputContextProperties(inputContext, handler);
@@ -1339,9 +1335,8 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
                                                                         failureMechanism,
                                                                         assessmentSectionStub);
 
-            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<string>(
+            var handler = new ObservableSetPropertyValueAfterConfirmationParameterTester<string>(
                 calculation.InputParameters,
-                calculation,
                 newValue,
                 Enumerable.Empty<IObservable>());
             var properties = new StabilityPointStructuresInputContextProperties(inputContext, handler);
@@ -1371,9 +1366,8 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
                                                                         failureMechanism,
                                                                         assessmentSectionStub);
 
-            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<string>(
+            var handler = new ObservableSetPropertyValueAfterConfirmationParameterTester<string>(
                 calculation.InputParameters,
-                calculation,
                 null,
                 Enumerable.Empty<IObservable>());
             var properties = new StabilityPointStructuresInputContextProperties(inputContext, handler);
@@ -1403,9 +1397,8 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
                                                                         assessmentSectionStub);
 
             var newStructure = new TestStabilityPointStructure();
-            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<StabilityPointStructure>(
+            var handler = new ObservableSetPropertyValueAfterConfirmationParameterTester<StabilityPointStructure>(
                 calculation.InputParameters,
-                calculation,
                 newStructure,
                 Enumerable.Empty<IObservable>());
             var properties = new StabilityPointStructuresInputContextProperties(inputContext, handler);
@@ -1430,7 +1423,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         {
             // Setup
             var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
-            var handler = mockRepository.Stub<ICalculationInputPropertyChangeHandler>();
+            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
             mockRepository.ReplayAll();
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
@@ -1457,7 +1450,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         {
             // Setup
             var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
-            var handler = mockRepository.Stub<ICalculationInputPropertyChangeHandler>();
+            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
             mockRepository.ReplayAll();
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
@@ -1491,7 +1484,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         {
             // Setup
             var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
-            var handler = mockRepository.Stub<ICalculationInputPropertyChangeHandler>();
+            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
             mockRepository.ReplayAll();
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
@@ -1525,7 +1518,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         {
             // Setup
             var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
-            var handler = mockRepository.Stub<ICalculationInputPropertyChangeHandler>();
+            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
             mockRepository.ReplayAll();
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
@@ -1559,7 +1552,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         {
             // Setup
             var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
-            var handler = mockRepository.Stub<ICalculationInputPropertyChangeHandler>();
+            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
             mockRepository.ReplayAll();
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
@@ -1600,9 +1593,8 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             StabilityPointStructuresInput input = calculation.InputParameters;
             input.ForeshoreProfile = new TestForeshoreProfile();
 
-            var customHandler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<TPropertyValue>(
+            var customHandler = new ObservableSetPropertyValueAfterConfirmationParameterTester<TPropertyValue>(
                 input,
-                calculation,
                 expectedValueSet,
                 new[]
                 {

@@ -29,19 +29,19 @@ namespace Ringtoets.Common.Forms.PropertyClasses
     /// <summary>
     /// Action in which a property of the <paramref name="calculationInput"/> is set to the given <paramref name="value"/>.
     /// </summary>
-    /// <typeparam name="TCalculationInput">The type of the calculation input that is passed as argument.</typeparam>
+    /// <typeparam name="TPropertyOwner">The type of the owner of the property that is passed as argument.</typeparam>
     /// <typeparam name="TValue">The type of the value that is set on a property of the calculation input.</typeparam>
     /// <param name="calculationInput">The calculation for which the property will be set.</param>
     /// <param name="value">The new value of the calculation input property.</param>
     /// <exception cref="Exception">Thrown when setting the property value results in an exception being thrown.</exception>
-    public delegate void SetCalculationInputPropertyValueDelegate<in TCalculationInput, in TValue>(TCalculationInput calculationInput, TValue value)
-        where TCalculationInput : ICalculationInput;
+    public delegate void SetObservablePropertyValueDelegate<in TPropertyOwner, in TValue>(TPropertyOwner calculationInput, TValue value)
+            where TPropertyOwner : IObservable;
 
     /// <summary>
     /// Interface for an object that can properly handle data model changes due
     /// to a change of a calculation input property.
     /// </summary>
-    public interface ICalculationInputPropertyChangeHandler
+    public interface IObservablePropertyChangeHandler
     {
         /// <summary>
         /// Find out whether the property can be updated with or without confirmation. If confirmation is required,
@@ -49,22 +49,20 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         /// was required, the value will be set for the property.
         /// </summary>
         /// <typeparam name="TValue">The type of the value that is set on a property of the calculation input.</typeparam>
-        /// <typeparam name="TCalculationInput">The type of the calculation input.</typeparam>
-        /// <param name="calculationInput">The calculation input for which the property is supposed to be set.</param>
-        /// <param name="calculation">The calculation which the <paramref name="calculationInput"/> belongs to.</param>
+        /// <typeparam name="TPropertyOwner">The type of the owner of the property that is passed as argument.</typeparam>
+        /// <param name="propertyOwner">The calculation input for which the property is supposed to be set.</param>
         /// <param name="value">The new value of the calculation input property.</param>
         /// <param name="setValue">The operation which is performed to set the new property <paramref name="value"/>
-        /// on the <paramref name="calculationInput"/>.</param>
+        /// on the <paramref name="propertyOwner"/>.</param>
         /// <returns>All objects that are affected by setting the calculation input property.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculationInput"/>, <paramref name="calculation"/>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="propertyOwner"/>
         /// or <paramref name="setValue"/> is <c>null</c>.</exception>
         /// <exception cref="Exception">Thrown when calling <paramref name="setValue"/> results in an exception being
         /// thrown.</exception>
-        IEnumerable<IObservable> SetPropertyValueAfterConfirmation<TCalculationInput, TValue>(
-            TCalculationInput calculationInput,
-            ICalculation calculation,
+        IEnumerable<IObservable> SetPropertyValueAfterConfirmation<TPropertyOwner, TValue>(
+            TPropertyOwner propertyOwner,
             TValue value,
-            SetCalculationInputPropertyValueDelegate<TCalculationInput, TValue> setValue)
-            where TCalculationInput : ICalculationInput;
+            SetObservablePropertyValueDelegate<TPropertyOwner, TValue> setValue)
+            where TPropertyOwner : IObservable;
     }
 }

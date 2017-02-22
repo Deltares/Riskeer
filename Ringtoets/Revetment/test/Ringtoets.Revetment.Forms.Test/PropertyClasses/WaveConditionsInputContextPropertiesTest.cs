@@ -67,13 +67,13 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
         private const int revetmentTypePropertyIndex = 14;
 
         private MockRepository mockRepository;
-        private ICalculationInputPropertyChangeHandler handler;
+        private IObservablePropertyChangeHandler handler;
 
         [SetUp]
         public void SetUp()
         {
             mockRepository = new MockRepository();
-            handler = mockRepository.Stub<ICalculationInputPropertyChangeHandler>();
+            handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
         }
 
         [Test]
@@ -609,7 +609,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             var inputContext = new TestWaveConditionsInputContext(input, calculation, new ForeshoreProfile[0], locations);
 
             var otherProfile = new TestForeshoreProfile(new Point2D(0, 190));
-            var customHandler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<ForeshoreProfile>(input, calculation, otherProfile, Enumerable.Empty<IObservable>());
+            var customHandler = new ObservableSetPropertyValueAfterConfirmationParameterTester<ForeshoreProfile>(input, otherProfile, Enumerable.Empty<IObservable>());
             var properties = new TestWaveConditionsInputContextProperties(inputContext, customHandler);
 
             IEnumerable<SelectableHydraulicBoundaryLocation> originalList = properties.GetSelectableHydraulicBoundaryLocations()
@@ -672,9 +672,8 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
                                                  new ForeshoreProfile[0], 
                                                  new HydraulicBoundaryLocation[0]);
 
-            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<TPropertyValue>(
+            var handler = new ObservableSetPropertyValueAfterConfirmationParameterTester<TPropertyValue>(
                 input,
-                calculation,
                 expectedValueSet,
                 new[]
                 {
@@ -715,7 +714,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
 
         private class TestWaveConditionsInputContextProperties : WaveConditionsInputContextProperties<WaveConditionsInputContext>
         {
-            public TestWaveConditionsInputContextProperties(WaveConditionsInputContext context, ICalculationInputPropertyChangeHandler handler) : base(context, handler) {}
+            public TestWaveConditionsInputContextProperties(WaveConditionsInputContext context, IObservablePropertyChangeHandler handler) : base(context, handler) {}
 
             public override string RevetmentType
             {

@@ -30,26 +30,21 @@ namespace Ringtoets.Common.Forms.TestUtil
 {
     /// <summary>
     /// This class can be used in tests to verify that the correct arguments 
-    /// are passed to the <see cref="ICalculationInputPropertyChangeHandler.SetPropertyValueAfterConfirmation{TCalculationInput, TValue}"/> method.
+    /// are passed to the <see cref="IObservablePropertyChangeHandler.SetPropertyValueAfterConfirmation{TCalculationInput, TValue}"/> method.
     /// </summary>
     /// <typeparam name="TExpectedValue">The type of the value that is expected to be passed to the method.</typeparam>    
-    public class CalculationInputSetPropertyValueAfterConfirmationParameterTester<TExpectedValue>
-        : ICalculationInputPropertyChangeHandler
+    public class ObservableSetPropertyValueAfterConfirmationParameterTester<TExpectedValue>
+        : IObservablePropertyChangeHandler
     {
         /// <summary>
-        /// Creates a new instance of <see cref="CalculationInputSetPropertyValueAfterConfirmationParameterTester{TExpectedValue}"/>.
+        /// Creates a new instance of <see cref="ObservableSetPropertyValueAfterConfirmationParameterTester{TExpectedValue}"/>.
         /// </summary>
         /// <param name="expectedCalculationInput">The calculation input that is expected to be passed to the <see cref="SetPropertyValueAfterConfirmation{TCalculationInput, TValue}"/>.</param>
-        /// <param name="expectedCalculation">The calculation that is expected to be passed to the <see cref="SetPropertyValueAfterConfirmation{TCalculationInput, TValue}"/>. </param>
         /// <param name="expectedValue">The value that is expected to be passed to the <see cref="SetPropertyValueAfterConfirmation{TCalculationInput, TValue}"/>.</param>
         /// <param name="returnedAffectedObjects">The affected object that are returned by <see cref="SetPropertyValueAfterConfirmation{TCalculationInput, TValue}"/>.</param>
-        public CalculationInputSetPropertyValueAfterConfirmationParameterTester(ICalculationInput expectedCalculationInput,
-                                                                                ICalculation expectedCalculation,
-                                                                                TExpectedValue expectedValue,
-                                                                                IEnumerable<IObservable> returnedAffectedObjects)
+        public ObservableSetPropertyValueAfterConfirmationParameterTester(ICalculationInput expectedCalculationInput, TExpectedValue expectedValue, IEnumerable<IObservable> returnedAffectedObjects)
         {
             ExpectedCalculationInput = expectedCalculationInput;
-            ExpectedCalculation = expectedCalculation;
             ExpectedValue = expectedValue;
             ReturnedAffectedObjects = returnedAffectedObjects;
         }
@@ -65,11 +60,6 @@ namespace Ringtoets.Common.Forms.TestUtil
         public ICalculationInput ExpectedCalculationInput { get; }
 
         /// <summary>
-        /// Gets the calculation that is expected to be passed to the <see cref="SetPropertyValueAfterConfirmation{TCalculationInput, TValue}"/>.
-        /// </summary>
-        public ICalculation ExpectedCalculation { get; }
-
-        /// <summary>
         /// Gets the value that is expected to be passed to the <see cref="SetPropertyValueAfterConfirmation{TCalculationInput, TValue}"/>.
         /// </summary>
         public TExpectedValue ExpectedValue { get; }
@@ -81,14 +71,12 @@ namespace Ringtoets.Common.Forms.TestUtil
 
         public IEnumerable<IObservable> SetPropertyValueAfterConfirmation<TCalculationInput, TValue>(
             TCalculationInput calculationInput,
-            ICalculation calculation,
             TValue value,
-            SetCalculationInputPropertyValueDelegate<TCalculationInput, TValue> setValue)
-            where TCalculationInput : ICalculationInput
+            SetObservablePropertyValueDelegate<TCalculationInput, TValue> setValue)
+            where TCalculationInput : IObservable
         {
             Called = true;
             Assert.AreSame(ExpectedCalculationInput, calculationInput);
-            Assert.AreSame(ExpectedCalculation, calculation);
             Assert.AreEqual(ExpectedValue, value);
             setValue(calculationInput, value);
             return ReturnedAffectedObjects;

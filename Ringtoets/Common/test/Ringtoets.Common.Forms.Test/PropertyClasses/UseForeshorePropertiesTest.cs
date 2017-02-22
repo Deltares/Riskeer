@@ -44,7 +44,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             // Setup
             var mocks = new MockRepository();
             var calculation = mocks.Stub<ICalculation>();
-            var handler = mocks.Stub<ICalculationInputPropertyChangeHandler>();
+            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
             // Call
@@ -63,7 +63,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             TestUseForeshore testUseForeshore = new TestUseForeshore();
 
             var mocks = new MockRepository();
-            var handler = mocks.Stub<ICalculationInputPropertyChangeHandler>();
+            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
             // Call
@@ -100,7 +100,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             // Setup
             var mocks = new MockRepository();
             var calculation = mocks.Stub<ICalculation>();
-            var handler = mocks.Stub<ICalculationInputPropertyChangeHandler>();
+            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
             var useForeshoreData = new TestUseForeshore
@@ -136,7 +136,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             // Setup
             var mocks = new MockRepository();
             var calculation = mocks.Stub<ICalculation>();
-            var handler = mocks.Stub<ICalculationInputPropertyChangeHandler>();
+            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
             var useForeshoreData = new TestUseForeshore();
@@ -155,7 +155,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             // Setup
             var mocks = new MockRepository();
             var calculation = mocks.Stub<ICalculation>();
-            var handler = mocks.Stub<ICalculationInputPropertyChangeHandler>();
+            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
             var useForeshoreData = new TestUseForeshore
@@ -178,7 +178,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             // Setup
             var mocks = new MockRepository();
             var calculation = mocks.Stub<ICalculation>();
-            var handler = mocks.Stub<ICalculationInputPropertyChangeHandler>();
+            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
             var geometry = new[]
@@ -220,9 +220,8 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             observable.Expect(o => o.NotifyObservers());
             mocks.ReplayAll();
 
-            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<TPropertyValue>(
+            var handler = new ObservableSetPropertyValueAfterConfirmationParameterTester<TPropertyValue>(
                 input,
-                calculation,
                 expectedValueSet,
                 new[]
                 {

@@ -75,7 +75,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
         public void Constructor_WithoutData_ExpectedValues()
         {
             // Setup
-            var handler = mockRepository.Stub<ICalculationInputPropertyChangeHandler>();
+            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
             mockRepository.ReplayAll();
 
             // Call
@@ -114,7 +114,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
         {
             // Setup
             var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
-            var handler = mockRepository.Stub<ICalculationInputPropertyChangeHandler>();
+            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
             mockRepository.ReplayAll();
 
             var failureMechanism = new HeightStructuresFailureMechanism();
@@ -143,7 +143,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
         {
             // Setup
             var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
-            var handler = mockRepository.Stub<ICalculationInputPropertyChangeHandler>();
+            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
             mockRepository.ReplayAll();
 
             var failureMechanism = new HeightStructuresFailureMechanism();
@@ -197,7 +197,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
         {
             // Setup
             var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
-            var handler = mockRepository.Stub<ICalculationInputPropertyChangeHandler>();
+            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
             mockRepository.ReplayAll();
 
             var failureMechanism = new HeightStructuresFailureMechanism
@@ -227,7 +227,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
         {
             // Setup
             var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
-            var handler = mockRepository.Stub<ICalculationInputPropertyChangeHandler>();
+            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
             mockRepository.ReplayAll();
 
             var failureMechanism = new HeightStructuresFailureMechanism
@@ -267,9 +267,8 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
                                                                 assessmentSectionStub);
 
             var newStructure = new TestHeightStructure();
-            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<HeightStructure>(
+            var handler = new ObservableSetPropertyValueAfterConfirmationParameterTester<HeightStructure>(
                 calculation.InputParameters,
-                calculation,
                 newStructure,
                 Enumerable.Empty<IObservable>());
             var properties = new HeightStructuresInputContextProperties(inputContext, handler);
@@ -313,9 +312,8 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             HeightStructuresInput input = calculation.InputParameters;
             input.ForeshoreProfile = new TestForeshoreProfile();
 
-            var customHandler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<TPropertyValue>(
+            var customHandler = new ObservableSetPropertyValueAfterConfirmationParameterTester<TPropertyValue>(
                 input,
-                calculation,
                 expectedValueSet,
                 new[]
                 {

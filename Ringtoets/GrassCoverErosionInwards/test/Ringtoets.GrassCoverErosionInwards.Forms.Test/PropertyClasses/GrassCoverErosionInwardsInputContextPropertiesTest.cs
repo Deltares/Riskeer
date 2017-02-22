@@ -60,14 +60,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         private const int hydraulicBoundaryLocationPropertyIndex = 8;
         private const int calculateDikeHeightPropertyIndex = 9;
         private MockRepository mockRepository;
-        private ICalculationInputPropertyChangeHandler handler;
+        private IObservablePropertyChangeHandler handler;
         private IAssessmentSection assessmentSection;
 
         [SetUp]
         public void SetUp()
         {
             mockRepository = new MockRepository();
-            handler = mockRepository.Stub<ICalculationInputPropertyChangeHandler>();
+            handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
             assessmentSection = mockRepository.Stub<IAssessmentSection>();
         }
 
@@ -519,7 +519,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             var inputContext = new GrassCoverErosionInwardsInputContext(input, calculation, failureMechanism, assessmentSection);
 
-            var customHandler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<DikeProfile>(input, calculation, otherProfile, Enumerable.Empty<IObservable>());
+            var customHandler = new ObservableSetPropertyValueAfterConfirmationParameterTester<DikeProfile>(input, otherProfile, Enumerable.Empty<IObservable>());
             var properties = new GrassCoverErosionInwardsInputContextProperties(inputContext, customHandler);
 
             IEnumerable<SelectableHydraulicBoundaryLocation> originalList =
@@ -685,9 +685,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
-            var customHandler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester<TPropertyValue>(
+            var customHandler = new ObservableSetPropertyValueAfterConfirmationParameterTester<TPropertyValue>(
                 input,
-                calculation,
                 expectedValueSet,
                 new[]
                 {

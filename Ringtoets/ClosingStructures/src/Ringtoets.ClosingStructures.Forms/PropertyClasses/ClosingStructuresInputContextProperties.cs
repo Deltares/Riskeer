@@ -82,7 +82,7 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
         /// <param name="data">The instance to show the properties of.</param>
         /// <param name="propertyChangeHandler">The handler responsible for handling effects of a property change.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public ClosingStructuresInputContextProperties(ClosingStructuresInputContext data, ICalculationInputPropertyChangeHandler propertyChangeHandler) :
+        public ClosingStructuresInputContextProperties(ClosingStructuresInputContext data, IObservablePropertyChangeHandler propertyChangeHandler) :
             base(data, new ConstructionProperties
             {
                 StructurePropertyIndex = structurePropertyIndex,

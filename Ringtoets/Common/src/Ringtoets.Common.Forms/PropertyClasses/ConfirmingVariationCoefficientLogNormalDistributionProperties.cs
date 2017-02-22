@@ -52,7 +52,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             VariationCoefficientLogNormalDistribution distribution,
             ICalculation calculation,
             TCalculationInput calculationInput,
-            ICalculationInputPropertyChangeHandler handler)
+            IObservablePropertyChangeHandler handler)
             : base(propertiesReadOnly, distribution, calculation, calculationInput, handler) {}
 
         public override string DistributionType

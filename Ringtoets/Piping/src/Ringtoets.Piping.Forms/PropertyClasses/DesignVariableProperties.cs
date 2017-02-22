@@ -53,7 +53,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
                                            DesignVariable<TDistribution> designVariable,
                                            PipingCalculationScenario calculation,
                                            PipingInput calculationInput,
-                                           ICalculationInputPropertyChangeHandler handler)
+                                           IObservablePropertyChangeHandler handler)
             : base(propertiesReadOnly, GetDistribution(designVariable), calculation, calculationInput, handler)
         {
             DesignVariable = designVariable;

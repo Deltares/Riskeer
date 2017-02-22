@@ -32,9 +32,9 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Forms.ChangeHandlers;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PresentationObjects;
-using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.Properties;
@@ -51,8 +51,7 @@ namespace Ringtoets.Piping.Forms.Views
         private const int stochasticSoilModelColumnIndex = 1;
         private const int stochasticSoilProfileColumnIndex = 2;
         private const int selectableHydraulicBoundaryLocationColumnIndex = 4;
-
-        private readonly ICalculationInputPropertyChangeHandler propertyChangeHandler;
+        
         private readonly Observer assessmentSectionObserver;
         private readonly RecursiveObserver<CalculationGroup, PipingInput> pipingInputObserver;
         private readonly RecursiveObserver<CalculationGroup, CalculationGroup> pipingCalculationGroupObserver;
@@ -70,17 +69,8 @@ namespace Ringtoets.Piping.Forms.Views
         /// <summary>
         /// Creates a new instance of <see cref="PipingCalculationsView"/>.
         /// </summary>
-        /// <param name="handler">The handler responsible for handling effects of a property change.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="handler"/> is <c>null</c>.</exception>
-        public PipingCalculationsView(ICalculationInputPropertyChangeHandler handler)
+        public PipingCalculationsView()
         {
-            if (handler == null)
-            {
-                throw new ArgumentNullException(nameof(handler));
-            }
-                
-            propertyChangeHandler = handler;
-
             InitializeComponent();
             InitializeDataGridView();
             InitializeListBox();
@@ -339,7 +329,7 @@ namespace Ringtoets.Piping.Forms.Views
 
             PrefillComboBoxListItemsAtColumnLevel();
 
-            var dataSource = pipingCalculations.Select(pc => new PipingCalculationRow(pc, propertyChangeHandler)).ToList();
+            var dataSource = pipingCalculations.Select(pc => new PipingCalculationRow(pc, new ObservablePropertyChangeHandler(pc))).ToList();
             dataGridViewControl.SetDataSource(dataSource);
             dataGridViewControl.ClearCurrentCell();
 
