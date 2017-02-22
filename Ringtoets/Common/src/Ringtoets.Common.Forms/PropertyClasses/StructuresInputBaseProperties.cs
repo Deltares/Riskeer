@@ -38,7 +38,6 @@ using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.Properties;
 using Ringtoets.Common.Forms.UITypeEditors;
-using Ringtoets.Common.Service;
 
 namespace Ringtoets.Common.Forms.PropertyClasses
 {
@@ -53,11 +52,11 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         ObjectProperties<InputContextBase<TStructureInput, TCalculation, TFailureMechanism>>,
         IHasHydraulicBoundaryLocationProperty,
         IHasStructureProperty<TStructure>,
-        IHasForeshoreProfileProperty,
-        IPropertyChangeHandler where TStructure : StructureBase
-                               where TStructureInput : StructuresInputBase<TStructure>
-                               where TCalculation : ICalculation
-                               where TFailureMechanism : IFailureMechanism
+        IHasForeshoreProfileProperty
+        where TStructure : StructureBase
+        where TStructureInput : StructuresInputBase<TStructure>
+        where TCalculation : ICalculation
+        where TFailureMechanism : IFailureMechanism
     {
         private readonly Dictionary<string, int> propertyIndexLookup;
 
@@ -178,11 +177,6 @@ namespace Ringtoets.Common.Forms.PropertyClasses
 
         public abstract IEnumerable<TStructure> GetAvailableStructures();
 
-        public void PropertyChanged()
-        {
-            ClearCalculationOutput();
-        }
-
         /// <summary>
         /// The change handler responsible for handling effects of a property change.
         /// </summary>
@@ -241,15 +235,6 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             foreach (IObservable affectedObject in affectedObjects)
             {
                 affectedObject.NotifyObservers();
-            }
-        }
-
-        private void ClearCalculationOutput()
-        {
-            IEnumerable<IObservable> affectedCalculation = RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(data.Calculation);
-            foreach (IObservable calculation in affectedCalculation)
-            {
-                calculation.NotifyObservers();
             }
         }
 

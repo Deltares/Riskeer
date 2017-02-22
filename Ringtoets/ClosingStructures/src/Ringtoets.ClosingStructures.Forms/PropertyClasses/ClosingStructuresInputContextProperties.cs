@@ -172,14 +172,16 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_HydraulicData))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Structure_InsideWaterLevel_DisplayName))]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Structure_InsideWaterLevel_Description))]
-        public NormalDistributionProperties InsideWaterLevel
+        public ConfirmingNormalDistributionProperties<ClosingStructuresInput> InsideWaterLevel
         {
             get
             {
-                return new NormalDistributionProperties(DistributionPropertiesReadOnly.None, data.WrappedData, this)
-                {
-                    Data = data.WrappedData.InsideWaterLevel
-                };
+                return new ConfirmingNormalDistributionProperties<ClosingStructuresInput>(
+                    DistributionPropertiesReadOnly.None,
+                    data.WrappedData.InsideWaterLevel,
+                    data.Calculation,
+                    data.WrappedData,
+                    PropertyChangeHandler);
             }
         }
 

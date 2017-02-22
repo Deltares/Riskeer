@@ -576,6 +576,15 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         }
 
         [Test]
+        public void InsideWaterLevel_MeanChanged_InputChangedAndObsevablesNotified()
+        {
+            RoundedDouble newMean = new Random(21).NextRoundedDouble();
+            SetPropertyAndVerifyNotifcationsAndOutput(
+                properties => properties.InsideWaterLevel.Mean = newMean,
+                newMean);
+        }
+
+        [Test]
         public void ModelFactorSuperCriticalFlow_MeanChanged_InputChangedAndObsevablesNotified()
         {
             RoundedDouble newMean = new Random(21).NextRoundedDouble();
