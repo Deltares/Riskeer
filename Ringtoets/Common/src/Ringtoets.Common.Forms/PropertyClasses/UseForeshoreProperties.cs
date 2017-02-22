@@ -28,7 +28,6 @@ using Core.Common.Base.Geometry;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.Converters;
 using Core.Common.Utils.Attributes;
-using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Forms.Properties;
 
@@ -37,40 +36,33 @@ namespace Ringtoets.Common.Forms.PropertyClasses
     /// <summary>
     /// ViewModel of <see cref="IUseForeshore"/>.
     /// </summary>
-    public class UseForeshoreProperties<TCalculationInput> where TCalculationInput : ICalculationInput, IUseForeshore
+    public class UseForeshoreProperties<TPropertyOwner>
+        where TPropertyOwner : IUseForeshore
     {
         private const int useForeshorePropertyIndex = 1;
         private const int coordinatesPropertyIndex = 2;
-        private readonly TCalculationInput data;
+        private readonly TPropertyOwner data;
         private readonly IObservablePropertyChangeHandler changeHandler;
-        private readonly ICalculation calculation;
 
         /// <summary>
-        /// Creates a new instance of <see cref="UseForeshoreProperties{TCalculationInput}"/>.
+        /// Creates a new instance of <see cref="UseForeshoreProperties{TPropertyOwner}"/>.
         /// </summary>
         /// <param name="useForeshoreData">The data to use for the properties. </param>
-        /// <param name="calculation">The calculation to which the <paramref name="useForeshoreData"/> belongs.</param>
         /// <param name="handler">Optional handler that is used to handle property changes.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         public UseForeshoreProperties(
-            TCalculationInput useForeshoreData,
-            ICalculation calculation,
+            TPropertyOwner useForeshoreData,
             IObservablePropertyChangeHandler handler)
         {
             if (useForeshoreData == null)
             {
                 throw new ArgumentNullException(nameof(useForeshoreData));
             }
-            if (calculation == null)
-            {
-                throw new ArgumentNullException(nameof(calculation));
-            }
             if (handler == null)
             {
                 throw new ArgumentNullException(nameof(handler));
             }
             data = useForeshoreData;
-            this.calculation = calculation;
             changeHandler = handler;
         }
 

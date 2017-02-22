@@ -98,7 +98,6 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         {
             // Setup
             var mocks = new MockRepository();
-            var calculation = mocks.Stub<ICalculation>();
             var handler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
@@ -108,7 +107,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             };
 
             // Call
-            var properties = new UseBreakWaterProperties<TestUseBreakWater>(testUseBreakWater, calculation, handler);
+            var properties = new UseBreakWaterProperties<TestUseBreakWater>(testUseBreakWater, handler);
 
             // Assert
             var dynamicPropertyBag = new DynamicPropertyBag(properties);
@@ -147,35 +146,15 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         {
             // Setup
             var mocks = new MockRepository();
-            var calculation = mocks.Stub<ICalculation>();
             var handler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => new UseBreakWaterProperties<TestUseBreakWater>(null, calculation, handler);
+            TestDelegate test = () => new UseBreakWaterProperties<TestUseBreakWater>(null, handler);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("useBreakWaterData", paramName);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Constructor_CalculationNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            TestUseBreakWater testUseBreakWater = new TestUseBreakWater();
-
-            var mocks = new MockRepository();
-            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
-            mocks.ReplayAll();
-
-            // Call
-            TestDelegate test = () => new UseBreakWaterProperties<TestUseBreakWater>(testUseBreakWater, null, handler);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("calculation", paramName);
             mocks.VerifyAll();
         }
 
@@ -185,17 +164,12 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             // Setup
             TestUseBreakWater testUseBreakWater = new TestUseBreakWater();
 
-            var mocks = new MockRepository();
-            var calculation = mocks.Stub<ICalculation>();
-            mocks.ReplayAll();
-
             // Call
-            TestDelegate test = () => new UseBreakWaterProperties<TestUseBreakWater>(testUseBreakWater, calculation, null);
+            TestDelegate test = () => new UseBreakWaterProperties<TestUseBreakWater>(testUseBreakWater, null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("handler", paramName);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -203,7 +177,6 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         {
             // Setup
             var mocks = new MockRepository();
-            var calculation = mocks.Stub<ICalculation>();
             var handler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
@@ -214,7 +187,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             };
 
             // Call
-            var properties = new UseBreakWaterProperties<TestUseBreakWater>(useBreakWaterData, calculation, handler);
+            var properties = new UseBreakWaterProperties<TestUseBreakWater>(useBreakWaterData, handler);
 
             // Assert
             Assert.IsTrue(properties.UseBreakWater);
@@ -269,7 +242,6 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         {
             // Setup
             var mocks = new MockRepository();
-            var calculation = mocks.Stub<ICalculation>();
             var observable = mocks.StrictMock<IObservable>();
             observable.Expect(o => o.NotifyObservers());
             mocks.ReplayAll();
@@ -282,7 +254,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                     observable
                 });
 
-            var properties = new UseBreakWaterProperties<TestUseBreakWater>(input, calculation, handler);
+            var properties = new UseBreakWaterProperties<TestUseBreakWater>(input, handler);
 
             // Call
             setProperty(properties);

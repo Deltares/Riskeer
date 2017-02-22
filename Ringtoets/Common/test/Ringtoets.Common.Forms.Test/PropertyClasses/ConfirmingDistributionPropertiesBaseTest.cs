@@ -66,36 +66,14 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("data", paramName);
+            Assert.AreEqual("distribution", paramName);
         }
-
+        
         [Test]
         [TestCase(DistributionPropertiesReadOnly.Mean)]
         [TestCase(DistributionPropertiesReadOnly.StandardDeviation)]
         [TestCase(DistributionPropertiesReadOnly.None)]
-        public void Constructor_NoCalculationSetWhileChangesPossible_ThrowArgumentException(
-            DistributionPropertiesReadOnly flags)
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var distribution = mocks.Stub<IDistribution>();
-            mocks.ReplayAll();
-
-            // Call
-            TestDelegate call = () => new SimpleDistributionProperties(flags, distribution, null, null, null);
-
-            // Assert
-            var message = "Calculation required if changes are possible.";
-            var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, message);
-            Assert.AreEqual("calculation", exception.ParamName);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        [TestCase(DistributionPropertiesReadOnly.Mean)]
-        [TestCase(DistributionPropertiesReadOnly.StandardDeviation)]
-        [TestCase(DistributionPropertiesReadOnly.None)]
-        public void Constructor_NoInputSetWhileChangesPossible_ThrowArgumentException(
+        public void Constructor_NoPropertyOwnerSetWhileChangesPossible_ThrowArgumentException(
             DistributionPropertiesReadOnly flags)
         {
             // Setup
@@ -108,9 +86,9 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             TestDelegate call = () => new SimpleDistributionProperties(flags, distribution, calculation, null, null);
 
             // Assert
-            var message = "CalculationInput required if changes are possible.";
+            var message = "PropertyOwner required if changes are possible.";
             var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, message);
-            Assert.AreEqual("calculationInput", exception.ParamName);
+            Assert.AreEqual("propertyOwner", exception.ParamName);
             mocks.VerifyAll();
         }
 
@@ -371,7 +349,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             public SimpleDistributionProperties(DistributionPropertiesReadOnly propertiesReadOnly,
                                                 IDistribution distribution, ICalculation calculation,
                                                 ICalculationInput input, IObservablePropertyChangeHandler handler)
-                : base(propertiesReadOnly, distribution, calculation, input, handler) {}
+                : base(propertiesReadOnly, distribution, input, handler) {}
 
             public override string DistributionType
             {

@@ -148,7 +148,6 @@ namespace Ringtoets.Common.Forms.PropertyClasses
                 return new ConfirmingNormalDistributionProperties<TStructureInput>(
                     DistributionPropertiesReadOnly.StandardDeviation,
                     data.WrappedData.ModelFactorSuperCriticalFlow,
-                    data.Calculation,
                     data.WrappedData,
                     PropertyChangeHandler);
             }
@@ -398,7 +397,6 @@ namespace Ringtoets.Common.Forms.PropertyClasses
                 return new ConfirmingLogNormalDistributionProperties<TStructureInput>(
                     DistributionPropertiesReadOnly.None,
                     data.WrappedData.FlowWidthAtBottomProtection,
-                    data.Calculation,
                     data.WrappedData,
                     PropertyChangeHandler);
             }
@@ -416,7 +414,6 @@ namespace Ringtoets.Common.Forms.PropertyClasses
                 return new ConfirmingNormalDistributionProperties<TStructureInput>(
                     DistributionPropertiesReadOnly.None,
                     data.WrappedData.WidthFlowApertures,
-                    data.Calculation,
                     data.WrappedData,
                     PropertyChangeHandler);
             }
@@ -434,7 +431,6 @@ namespace Ringtoets.Common.Forms.PropertyClasses
                 return new ConfirmingVariationCoefficientLogNormalDistributionProperties<TStructureInput>(
                     VariationCoefficientDistributionPropertiesReadOnly.None,
                     data.WrappedData.StorageStructureArea,
-                    data.Calculation,
                     data.WrappedData,
                     PropertyChangeHandler);
             }
@@ -452,7 +448,6 @@ namespace Ringtoets.Common.Forms.PropertyClasses
                 return new ConfirmingLogNormalDistributionProperties<TStructureInput>(
                     DistributionPropertiesReadOnly.None,
                     data.WrappedData.AllowedLevelIncreaseStorage,
-                    data.Calculation,
                     data.WrappedData,
                     PropertyChangeHandler);
             }
@@ -470,7 +465,6 @@ namespace Ringtoets.Common.Forms.PropertyClasses
                 return new ConfirmingVariationCoefficientLogNormalDistributionProperties<TStructureInput>(
                     VariationCoefficientDistributionPropertiesReadOnly.None,
                     data.WrappedData.CriticalOvertoppingDischarge,
-                    data.Calculation,
                     data.WrappedData,
                     PropertyChangeHandler);
             }
@@ -527,7 +521,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             {
                 return data.WrappedData.ForeshoreProfile == null ?
                            new UseBreakWaterProperties<TStructureInput>() :
-                           new UseBreakWaterProperties<TStructureInput>(data.WrappedData, data.Calculation, PropertyChangeHandler);
+                           new UseBreakWaterProperties<TStructureInput>(data.WrappedData, PropertyChangeHandler);
             }
         }
 
@@ -540,7 +534,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         {
             get
             {
-                return new UseForeshoreProperties<TStructureInput>(data.WrappedData, data.Calculation, PropertyChangeHandler);
+                return new UseForeshoreProperties<TStructureInput>(data.WrappedData, PropertyChangeHandler);
             }
         }
 
@@ -581,7 +575,6 @@ namespace Ringtoets.Common.Forms.PropertyClasses
                 return new ConfirmingVariationCoefficientLogNormalDistributionProperties<TStructureInput>(
                     VariationCoefficientDistributionPropertiesReadOnly.CoefficientOfVariation,
                     data.WrappedData.StormDuration,
-                    data.Calculation,
                     data.WrappedData,
                     PropertyChangeHandler);
             }

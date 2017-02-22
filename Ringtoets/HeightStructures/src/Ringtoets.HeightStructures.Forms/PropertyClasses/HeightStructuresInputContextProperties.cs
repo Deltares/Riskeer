@@ -101,7 +101,6 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
                 return new ConfirmingNormalDistributionProperties<HeightStructuresInput>(
                     DistributionPropertiesReadOnly.None,
                     data.WrappedData.LevelCrestStructure,
-                    data.Calculation,
                     data.WrappedData,
                     PropertyChangeHandler);
             }

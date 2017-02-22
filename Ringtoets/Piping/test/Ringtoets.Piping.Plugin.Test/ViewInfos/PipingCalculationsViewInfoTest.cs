@@ -91,7 +91,6 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
         public void GetViewName_Always_ReturnsCalculationGroupName()
         {
             // Setup
-            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
             var calculationsView = new PipingCalculationsView();
@@ -159,7 +158,6 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[0]);
-            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
             var view = new PipingCalculationsView()
@@ -184,7 +182,6 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
             {
                 new PipingFailureMechanism()
             });
-            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
             var view = new PipingCalculationsView()
@@ -210,7 +207,6 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
             {
                 failureMechanism
             });
-            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
             var view = new PipingCalculationsView()
@@ -230,7 +226,6 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
         public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanism_ReturnsFalse()
         {
             // Setup
-            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
             var view = new PipingCalculationsView();
@@ -250,7 +245,6 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
         public void CloseForData_ViewCorrespondingToRemovedFailureMechanism_ReturnsTrue()
         {
             // Setup
-            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
             var view = new PipingCalculationsView();
@@ -271,7 +265,6 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
             var view = new PipingCalculationsView();
@@ -293,7 +286,6 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
             var view = new PipingCalculationsView();

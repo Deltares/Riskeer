@@ -153,7 +153,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
                 return data.WrappedData.DikeProfile == null ?
                            new UseBreakWaterProperties<GrassCoverErosionInwardsInput>() :
                            new UseBreakWaterProperties<GrassCoverErosionInwardsInput>(
-                               data.WrappedData, data.Calculation, propertyChangeHandler);
+                               data.WrappedData, propertyChangeHandler);
             }
         }
 
@@ -168,7 +168,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
             {
                 return new UseForeshoreProperties<GrassCoverErosionInwardsInput>(
                     data.WrappedData,
-                    data.Calculation,
                     propertyChangeHandler);
             }
         }
@@ -237,7 +236,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
                 return new ConfirmingLogNormalDistributionProperties<GrassCoverErosionInwardsInput>(
                     DistributionPropertiesReadOnly.None,
                     data.WrappedData.CriticalFlowRate,
-                    data.Calculation,
                     data.WrappedData,
                     propertyChangeHandler);
             }

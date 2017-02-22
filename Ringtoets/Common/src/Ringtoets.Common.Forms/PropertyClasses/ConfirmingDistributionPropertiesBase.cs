@@ -26,7 +26,6 @@ using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
-using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Probabilistics;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
@@ -35,60 +34,52 @@ namespace Ringtoets.Common.Forms.PropertyClasses
     /// <summary>
     /// Properties class for implementations of <see cref="IDistribution"/>.
     /// </summary>
-    public abstract class ConfirmingDistributionPropertiesBase<TDistribution, TCalculationInput> : ObjectProperties<TDistribution>
+    public abstract class ConfirmingDistributionPropertiesBase<TDistribution, TPropertyOwner> : ObjectProperties<TDistribution>
         where TDistribution : IDistribution
-        where TCalculationInput : ICalculationInput
+        where TPropertyOwner : IObservable
     {
         private const string meanPropertyName = nameof(Mean);
         private const string standardDeviationPropertyName = nameof(StandardDeviation);
         private readonly bool isMeanReadOnly;
         private readonly bool isStandardDeviationReadOnly;
-        private readonly TCalculationInput calculationInput;
-        private readonly ICalculation calculation;
+        private readonly TPropertyOwner propertyOwner;
         private readonly IObservablePropertyChangeHandler changeHandler;
 
         /// <summary>
         /// Creates a new instance of <see cref="ConfirmingDistributionPropertiesBase{TDistribution,TCalculationInput}"/>.
         /// </summary>
         /// <param name="propertiesReadOnly">Indicates which properties, if any, should be marked as read-only.</param>
-        /// <param name="data">The data of the <see cref="TDistribution"/> to create the properties for.</param>
-        /// <param name="calculation">The calculation the <paramref name="data"/> belongs to.</param>
-        /// <param name="calculationInput">The calculation input the <paramref name="data"/> belongs to.</param>
+        /// <param name="distribution">The data of the <see cref="TDistribution"/> to create the properties for.</param>
+        /// <param name="propertyOwner">The owner of the <paramref name="distribution"/> property.</param>
         /// <param name="handler">The handler responsible for handling effects of a property change.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="data"/> is <c>null</c>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="distribution"/> is <c>null</c>
         /// or when any number of properties in this class is editable and any other parameter is <c>null</c>.</exception>
         protected ConfirmingDistributionPropertiesBase(DistributionPropertiesReadOnly propertiesReadOnly,
-                                                       TDistribution data,
-                                                       ICalculation calculation,
-                                                       TCalculationInput calculationInput,
+                                                       TDistribution distribution,
+                                                       TPropertyOwner propertyOwner,
                                                        IObservablePropertyChangeHandler handler)
         {
-            if (data == null)
+            if (distribution == null)
             {
-                throw new ArgumentNullException(nameof(data));
+                throw new ArgumentNullException(nameof(distribution));
             }
             if (!propertiesReadOnly.HasFlag(DistributionPropertiesReadOnly.All))
             {
-                if (calculation == null)
+                if (propertyOwner == null)
                 {
-                    throw new ArgumentException(@"Calculation required if changes are possible.", nameof(calculation));
-                }
-                if (calculationInput == null)
-                {
-                    throw new ArgumentException(@"CalculationInput required if changes are possible.", nameof(calculationInput));
+                    throw new ArgumentException(@"PropertyOwner required if changes are possible.", nameof(propertyOwner));
                 }
                 if (handler == null)
                 {
                     throw new ArgumentException(@"Change handler required if changes are possible.", nameof(handler));
                 }
             }
-            Data = data;
+            Data = distribution;
 
             isMeanReadOnly = propertiesReadOnly.HasFlag(DistributionPropertiesReadOnly.Mean);
             isStandardDeviationReadOnly = propertiesReadOnly.HasFlag(DistributionPropertiesReadOnly.StandardDeviation);
 
-            this.calculationInput = calculationInput;
-            this.calculation = calculation;
+            this.propertyOwner = propertyOwner;
             changeHandler = handler;
         }
 
@@ -151,10 +142,10 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             return $"{Mean} ({RingtoetsCommonFormsResources.NormalDistribution_StandardDeviation_DisplayName} = {StandardDeviation})";
         }
 
-        private void ChangePropertyAndNotify(SetObservablePropertyValueDelegate<TCalculationInput, RoundedDouble> setPropertyValue,
+        private void ChangePropertyAndNotify(SetObservablePropertyValueDelegate<TPropertyOwner, RoundedDouble> setPropertyValue,
                                              RoundedDouble value)
         {
-            IEnumerable<IObservable> affectedObjects = changeHandler.SetPropertyValueAfterConfirmation(calculationInput,
+            IEnumerable<IObservable> affectedObjects = changeHandler.SetPropertyValueAfterConfirmation(propertyOwner,
                                                                                                        value,
                                                                                                        setPropertyValue);
             NotifyAffectedObjects(affectedObjects);

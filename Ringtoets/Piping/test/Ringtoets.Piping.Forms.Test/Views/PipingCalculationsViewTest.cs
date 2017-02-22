@@ -81,11 +81,6 @@ namespace Ringtoets.Piping.Forms.Test.Views
         [Test]
         public void Constructor_DefaultValues()
         {
-            // Setup
-            var mocks = new MockRepository();
-            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
-            mocks.ReplayAll();
-
             // Call
             using (var pipingCalculationsView = new PipingCalculationsView())
             {
@@ -96,7 +91,6 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 Assert.IsNull(pipingCalculationsView.PipingFailureMechanism);
                 Assert.IsNull(pipingCalculationsView.AssessmentSection);
             }
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -148,43 +142,6 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
                 // Assert
                 Assert.AreEqual(0, listBox.Items.Count);
-            }
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void ParameteredConstructor_ValidHandler_DataGridViewCorrectlyInitialized()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
-            mocks.ReplayAll();
-
-            // Call
-            using (var pipingCalculationsView = new PipingCalculationsView())
-            {
-                testForm.Controls.Add(pipingCalculationsView);
-                testForm.Show();
-
-                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-
-                // Assert
-                Assert.IsFalse(dataGridView.AutoGenerateColumns);
-                Assert.AreEqual(9, dataGridView.ColumnCount);
-
-                foreach (var column in dataGridView.Columns.OfType<DataGridViewComboBoxColumn>())
-                {
-                    Assert.AreEqual("This", column.ValueMember);
-                    Assert.AreEqual("DisplayName", column.DisplayMember);
-                }
-
-                var soilProfilesCombobox = (DataGridViewComboBoxColumn) dataGridView.Columns[stochasticSoilProfilesColumnIndex];
-                var soilProfilesComboboxItems = soilProfilesCombobox.Items;
-                Assert.AreEqual(0, soilProfilesComboboxItems.Count); // Row dependent
-
-                var hydraulicBoundaryLocationCombobox = (DataGridViewComboBoxColumn) dataGridView.Columns[selectableHydraulicBoundaryLocationsColumnIndex];
-                var hydraulicBoundaryLocationComboboxItems = hydraulicBoundaryLocationCombobox.Items;
-                Assert.AreEqual(0, hydraulicBoundaryLocationComboboxItems.Count); // Row dependent
             }
             mocks.VerifyAll();
         }

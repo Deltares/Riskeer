@@ -19,9 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.ComponentModel;
-using Core.Common.Base;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -47,7 +45,6 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         {
             // Setup
             var mocks = new MockRepository();
-            var calculation = mocks.Stub<ICalculation>();
             var input = mocks.Stub<ICalculationInput>();
             var handler = mocks.Stub<IObservablePropertyChangeHandler>();
             mockRepository.ReplayAll();
@@ -56,7 +53,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
 
             // Call
             var properties = new ConfirmingLogNormalDistributionProperties<ICalculationInput>(
-                DistributionPropertiesReadOnly.None, distribution, calculation, input, handler);
+                DistributionPropertiesReadOnly.None, distribution, input, handler);
 
             // Assert
             Assert.IsInstanceOf<ConfirmingDistributionPropertiesBase<LogNormalDistribution, ICalculationInput>>(properties);

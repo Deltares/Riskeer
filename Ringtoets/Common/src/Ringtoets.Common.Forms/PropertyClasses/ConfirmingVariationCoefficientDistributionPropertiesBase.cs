@@ -26,7 +26,6 @@ using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
-using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Forms.Properties;
 
@@ -35,60 +34,53 @@ namespace Ringtoets.Common.Forms.PropertyClasses
     /// <summary>
     /// Properties class for implementations of <see cref="IDistribution"/>.
     /// </summary>
-    public abstract class ConfirmingVariationCoefficientDistributionPropertiesBase<TDistribution, TCalculationInput> : ObjectProperties<TDistribution>
+    public abstract class ConfirmingVariationCoefficientDistributionPropertiesBase<TDistribution, TPropertyOwner> : ObjectProperties<TDistribution>
         where TDistribution : IVariationCoefficientDistribution
-        where TCalculationInput : ICalculationInput
+        where TPropertyOwner : IObservable
     {
         private const string meanPropertyName = nameof(Mean);
         private readonly string variationCoefficientPropertyName = nameof(CoefficientOfVariation);
         private readonly bool isMeanReadOnly;
         private readonly bool isVariationCoefficientReadOnly;
-        private readonly TCalculationInput calculationInput;
-        private readonly ICalculation calculation;
+        private readonly TPropertyOwner propertyOwner;
         private readonly IObservablePropertyChangeHandler changeHandler;
 
         /// <summary>
         /// Creates a new instance of <see cref="ConfirmingVariationCoefficientDistributionPropertiesBase{TDistribution,TCalculationInput}"/>.
         /// </summary>
         /// <param name="propertiesReadOnly">Indicates which properties, if any, should be marked as read-only.</param>
-        /// <param name="data">The data of the <see cref="TDistribution"/> to create the properties for.</param>
-        /// <param name="calculation">The calculation the <paramref name="data"/> belongs to.</param>
-        /// <param name="calculationInput">The calculation input the <paramref name="data"/> belongs to.</param>
+        /// <param name="distribution">The data of the <see cref="TDistribution"/> to create the properties for.</param>
+        /// <param name="propertyOwner">The owner of the <paramref name="distribution"/> property.</param>
         /// <param name="handler">The handler responsible for handling effects of a property change.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="data"/> is <c>null</c>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="distribution"/> is <c>null</c>
         /// or when any number of properties in this class is editable and any other parameter is <c>null</c>.</exception>
-        protected ConfirmingVariationCoefficientDistributionPropertiesBase(VariationCoefficientDistributionPropertiesReadOnly propertiesReadOnly,
-                                                       TDistribution data,
-                                                       ICalculation calculation,
-                                                       TCalculationInput calculationInput,
-                                                       IObservablePropertyChangeHandler handler)
+        protected ConfirmingVariationCoefficientDistributionPropertiesBase(
+            VariationCoefficientDistributionPropertiesReadOnly propertiesReadOnly,
+            TDistribution distribution,
+            TPropertyOwner propertyOwner,
+            IObservablePropertyChangeHandler handler)
         {
-            if (data == null)
+            if (distribution == null)
             {
-                throw new ArgumentNullException(nameof(data));
+                throw new ArgumentNullException(nameof(distribution));
             }
             if (!propertiesReadOnly.HasFlag(VariationCoefficientDistributionPropertiesReadOnly.All))
             {
-                if (calculation == null)
+                if (propertyOwner == null)
                 {
-                    throw new ArgumentException(@"Calculation required if changes are possible.", nameof(calculation));
-                }
-                if (calculationInput == null)
-                {
-                    throw new ArgumentException(@"CalculationInput required if changes are possible.", nameof(calculationInput));
+                    throw new ArgumentException(@"PropertyOwner required if changes are possible.", nameof(propertyOwner));
                 }
                 if (handler == null)
                 {
                     throw new ArgumentException(@"Change handler required if changes are possible.", nameof(handler));
                 }
             }
-            Data = data;
+            Data = distribution;
 
             isMeanReadOnly = propertiesReadOnly.HasFlag(VariationCoefficientDistributionPropertiesReadOnly.Mean);
             isVariationCoefficientReadOnly = propertiesReadOnly.HasFlag(VariationCoefficientDistributionPropertiesReadOnly.CoefficientOfVariation);
 
-            this.calculationInput = calculationInput;
-            this.calculation = calculation;
+            this.propertyOwner = propertyOwner;
             changeHandler = handler;
         }
 
@@ -157,10 +149,10 @@ namespace Ringtoets.Common.Forms.PropertyClasses
                        $"{Mean} ({Resources.Distribution_VariationCoefficient_DisplayName} = {CoefficientOfVariation})";
         }
 
-        private void ChangePropertyAndNotify(SetObservablePropertyValueDelegate<TCalculationInput, RoundedDouble> setPropertyValue,
+        private void ChangePropertyAndNotify(SetObservablePropertyValueDelegate<TPropertyOwner, RoundedDouble> setPropertyValue,
                                              RoundedDouble value)
         {
-            IEnumerable<IObservable> affectedObjects = changeHandler.SetPropertyValueAfterConfirmation(calculationInput,
+            IEnumerable<IObservable> affectedObjects = changeHandler.SetPropertyValueAfterConfirmation(propertyOwner,
                                                                                                        value,
                                                                                                        setPropertyValue);
             NotifyAffectedObjects(affectedObjects);

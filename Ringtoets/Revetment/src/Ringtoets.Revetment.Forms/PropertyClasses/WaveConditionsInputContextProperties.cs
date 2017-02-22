@@ -251,7 +251,7 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
             {
                 return data.WrappedData.ForeshoreProfile == null ?
                            new UseBreakWaterProperties<WaveConditionsInput>() :
-                           new UseBreakWaterProperties<WaveConditionsInput>(data.WrappedData, data.Calculation, propertyChangeHandler);
+                           new UseBreakWaterProperties<WaveConditionsInput>(data.WrappedData, propertyChangeHandler);
             }
         }
 
@@ -264,7 +264,7 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
         {
             get
             {
-                return new UseForeshoreProperties<WaveConditionsInput>(data.WrappedData, data.Calculation, propertyChangeHandler);
+                return new UseForeshoreProperties<WaveConditionsInput>(data.WrappedData, propertyChangeHandler);
             }
         }
 

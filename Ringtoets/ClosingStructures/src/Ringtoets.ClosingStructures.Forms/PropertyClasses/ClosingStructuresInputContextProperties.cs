@@ -179,7 +179,6 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
                 return new ConfirmingNormalDistributionProperties<ClosingStructuresInput>(
                     DistributionPropertiesReadOnly.None,
                     data.WrappedData.InsideWaterLevel,
-                    data.Calculation,
                     data.WrappedData,
                     PropertyChangeHandler);
             }
@@ -211,7 +210,6 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
                 return new ConfirmingNormalDistributionProperties<ClosingStructuresInput>(
                     DistributionPropertiesReadOnly.StandardDeviation,
                     data.WrappedData.DrainCoefficient,
-                    data.Calculation,
                     data.WrappedData,
                     PropertyChangeHandler);
             }
@@ -291,7 +289,6 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
                 return new ConfirmingNormalDistributionProperties<ClosingStructuresInput>(
                     DistributionPropertiesReadOnly.None,
                     data.WrappedData.ThresholdHeightOpenWeir,
-                    data.Calculation,
                     data.WrappedData,
                     PropertyChangeHandler);
             }
@@ -310,7 +307,6 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
                 return new ConfirmingLogNormalDistributionProperties<ClosingStructuresInput>(
                     DistributionPropertiesReadOnly.None,
                     data.WrappedData.AreaFlowApertures,
-                    data.Calculation,
                     data.WrappedData,
                     PropertyChangeHandler);
             }
@@ -390,7 +386,6 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
                 return new ConfirmingNormalDistributionProperties<ClosingStructuresInput>(
                     DistributionPropertiesReadOnly.None,
                     data.WrappedData.LevelCrestStructureNotClosing,
-                    data.Calculation,
                     data.WrappedData,
                     PropertyChangeHandler);
             }

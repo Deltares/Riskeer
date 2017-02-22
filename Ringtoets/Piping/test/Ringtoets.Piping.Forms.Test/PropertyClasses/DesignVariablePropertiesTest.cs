@@ -120,9 +120,9 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             public SimpleDesignVariableProperties(DistributionPropertiesReadOnly propertiesReadOnly,
                                                   DesignVariable<LogNormalDistribution> designVariable,
                                                   PipingCalculationScenario calculation,
-                                                  PipingInput calculationInput,
+                                                  PipingInput propertyOwner,
                                                   IObservablePropertyChangeHandler handler)
-                : base(propertiesReadOnly, designVariable, calculation, calculationInput, handler) {}
+                : base(propertiesReadOnly, designVariable, calculation, propertyOwner, handler) {}
 
             public override string DistributionType { get; }
         }

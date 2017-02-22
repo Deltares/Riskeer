@@ -43,35 +43,16 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         {
             // Setup
             var mocks = new MockRepository();
-            var calculation = mocks.Stub<ICalculation>();
             var handler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => new UseForeshoreProperties<TestUseForeshore>(null, calculation, handler);
+            TestDelegate test = () => new UseForeshoreProperties<TestUseForeshore>(null, handler);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("useForeshoreData", paramName);
             mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Constructor_CalculationNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            TestUseForeshore testUseForeshore = new TestUseForeshore();
-
-            var mocks = new MockRepository();
-            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
-            mocks.ReplayAll();
-
-            // Call
-            TestDelegate test = () => new UseForeshoreProperties<TestUseForeshore>(testUseForeshore, null, handler);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("calculation", paramName);
         }
 
         [Test]
@@ -81,11 +62,10 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             TestUseForeshore testUseForeshore = new TestUseForeshore();
 
             var mocks = new MockRepository();
-            var calculation = mocks.Stub<ICalculation>();
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => new UseForeshoreProperties<TestUseForeshore>(testUseForeshore, calculation, null);
+            TestDelegate test = () => new UseForeshoreProperties<TestUseForeshore>(testUseForeshore, null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -99,7 +79,6 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         {
             // Setup
             var mocks = new MockRepository();
-            var calculation = mocks.Stub<ICalculation>();
             var handler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
@@ -110,7 +89,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             };
 
             // Call
-            var properties = new UseForeshoreProperties<TestUseForeshore>(useForeshoreData, calculation, handler);
+            var properties = new UseForeshoreProperties<TestUseForeshore>(useForeshoreData, handler);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -135,14 +114,13 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         {
             // Setup
             var mocks = new MockRepository();
-            var calculation = mocks.Stub<ICalculation>();
             var handler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
             var useForeshoreData = new TestUseForeshore();
 
             // Call
-            var properties = new UseForeshoreProperties<TestUseForeshore>(useForeshoreData, calculation, handler);
+            var properties = new UseForeshoreProperties<TestUseForeshore>(useForeshoreData, handler);
 
             // Assert
             Assert.IsFalse(properties.UseForeshore);
@@ -154,7 +132,6 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         {
             // Setup
             var mocks = new MockRepository();
-            var calculation = mocks.Stub<ICalculation>();
             var handler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
@@ -164,7 +141,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             };
 
             // Call
-            var properties = new UseForeshoreProperties<TestUseForeshore>(useForeshoreData, calculation, handler);
+            var properties = new UseForeshoreProperties<TestUseForeshore>(useForeshoreData, handler);
 
             // Assert
             Assert.IsTrue(properties.UseForeshore);
@@ -177,7 +154,6 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         {
             // Setup
             var mocks = new MockRepository();
-            var calculation = mocks.Stub<ICalculation>();
             var handler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
@@ -192,7 +168,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             };
 
             // Call
-            var properties = new UseForeshoreProperties<TestUseForeshore>(useForeshoreData, calculation, handler);
+            var properties = new UseForeshoreProperties<TestUseForeshore>(useForeshoreData, handler);
 
             // Assert
             Assert.IsTrue(properties.UseForeshore);
@@ -215,7 +191,6 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         {
             // Setup
             var mocks = new MockRepository();
-            var calculation = mocks.Stub<ICalculation>();
             var observable = mocks.StrictMock<IObservable>();
             observable.Expect(o => o.NotifyObservers());
             mocks.ReplayAll();
@@ -228,7 +203,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                     observable
                 });
 
-            var properties = new UseForeshoreProperties<TestUseForeshore>(input, calculation, handler);
+            var properties = new UseForeshoreProperties<TestUseForeshore>(input, handler);
 
             // Call
             setProperty(properties);

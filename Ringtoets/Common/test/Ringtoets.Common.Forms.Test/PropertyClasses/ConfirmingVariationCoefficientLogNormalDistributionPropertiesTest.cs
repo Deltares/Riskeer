@@ -45,7 +45,6 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         {
             // Setup
             var mocks = new MockRepository();
-            var calculation = mocks.Stub<ICalculation>();
             var input = mocks.Stub<ICalculationInput>();
             var handler = mocks.Stub<IObservablePropertyChangeHandler>();
             mockRepository.ReplayAll();
@@ -54,7 +53,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
 
             // Call
             var properties = new ConfirmingVariationCoefficientLogNormalDistributionProperties<ICalculationInput>(
-                VariationCoefficientDistributionPropertiesReadOnly.None, distribution, calculation, input, handler);
+                VariationCoefficientDistributionPropertiesReadOnly.None, distribution, input, handler);
 
             // Assert
             Assert.IsInstanceOf<ConfirmingVariationCoefficientDistributionPropertiesBase<VariationCoefficientLogNormalDistribution, ICalculationInput>>(properties);

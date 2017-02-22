@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
@@ -33,9 +34,9 @@ namespace Ringtoets.Common.Forms.PropertyClasses
     /// An <see cref="ObjectProperties{T}"/> implementation for <see cref="LogNormalDistribution"/>
     /// properties.
     /// </summary>
-    public class ConfirmingLogNormalDistributionProperties<TCalculationInput>
-        : ConfirmingDistributionPropertiesBase<LogNormalDistribution, TCalculationInput>
-        where TCalculationInput : ICalculationInput
+    public class ConfirmingLogNormalDistributionProperties<TPropertyOwner>
+        : ConfirmingDistributionPropertiesBase<LogNormalDistribution, TPropertyOwner>
+        where TPropertyOwner : IObservable
     {
         /// <summary>
         /// Creates a new instance of <see cref="ConfirmingLogNormalDistributionProperties{TCalculationInput}"/>.
@@ -43,18 +44,16 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         /// <param name="propertiesReadOnly">Indicates which properties, if any, should be
         /// marked as read-only.</param>
         /// <param name="distribution">The <see cref="LogNormalDistribution"/> to create the properties for.</param>
-        /// <param name="calculation">The calculation the <paramref name="distribution"/> belongs to.</param>
-        /// <param name="calculationInput">The calculation input the <paramref name="distribution"/> belongs to.</param>
+        /// <param name="propertyOwner">The owner of the <paramref name="distribution"/> property.</param>
         /// <param name="handler">Optional handler that is used to handle property changes.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="distribution"/> is null 
         /// or when any number of properties in this class is editable and any other parameter is <c>null</c>.</exception>
         public ConfirmingLogNormalDistributionProperties(
             DistributionPropertiesReadOnly propertiesReadOnly,
             LogNormalDistribution distribution,
-            ICalculation calculation,
-            TCalculationInput calculationInput,
+            TPropertyOwner propertyOwner,
             IObservablePropertyChangeHandler handler)
-            : base(propertiesReadOnly, distribution, calculation, calculationInput, handler) {}
+            : base(propertiesReadOnly, distribution, propertyOwner, handler) {}
 
         public override string DistributionType
         {

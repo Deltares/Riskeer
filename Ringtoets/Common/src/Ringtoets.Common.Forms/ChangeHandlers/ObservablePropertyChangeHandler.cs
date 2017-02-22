@@ -40,6 +40,10 @@ namespace Ringtoets.Common.Forms.ChangeHandlers
 
         public ObservablePropertyChangeHandler(ICalculation calculation)
         {
+            if (calculation == null)
+            {
+                throw new ArgumentNullException(nameof(calculation));
+            }
             this.calculation = calculation;
         }
 
@@ -52,10 +56,6 @@ namespace Ringtoets.Common.Forms.ChangeHandlers
             if (calculationInput == null)
             {
                 throw new ArgumentNullException(nameof(calculationInput));
-            }
-            if (calculation == null)
-            {
-                throw new ArgumentNullException(nameof(calculation));
             }
             if (setValue == null)
             {
