@@ -527,7 +527,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         public void Import_FileDeletedDuringRead_AbortImportAndLog()
         {
             // Setup
-            var copyTargetPath = "Import_FileDeletedDuringRead_AbortImportAndLog.csv";
+            var copyTargetPath = TestHelper.GetScratchPadPath("Import_FileDeletedDuringRead_AbortImportAndLog.csv");
             string validFilePath = Path.Combine(ioTestDataPath, "TwoValidSurfaceLines.csv");
             File.Copy(validFilePath, copyTargetPath);
 
@@ -889,10 +889,13 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             const string target = "Import_FileDeletedDuringRead_AbortImportAndLog";
             const string source = "TwoValidSurfaceLines_WithCharacteristicPoints";
 
-            var copyTargetPath = string.Format(surfaceLineFormat, target);
-            var copyCharacteristicPointsTargetPath = string.Format(krpFormat, target);
+            string copyTargetPath = TestHelper.GetScratchPadPath(string.Format(surfaceLineFormat, target));
+            string copyCharacteristicPointsTargetFileName = string.Format(krpFormat, target);
+            string copyCharacteristicPointsTargetPath = TestHelper.GetScratchPadPath(copyCharacteristicPointsTargetFileName);
+
             string surfaceLinesPath = Path.Combine(pluginSurfaceLinesTestDataPath, string.Format(surfaceLineFormat, source));
             string validFilePath = Path.Combine(pluginSurfaceLinesTestDataPath, string.Format(krpFormat, source));
+
             File.Copy(surfaceLinesPath, copyTargetPath);
             File.Copy(validFilePath, copyCharacteristicPointsTargetPath);
 
@@ -905,7 +908,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                 {
                     // Delete the file being read by the import during the import itself:
                     if (name == string.Format(PipingPluginResources.PipingSurfaceLinesCsvImporter_Read_PipingCharacteristicPoints_0_,
-                                              copyCharacteristicPointsTargetPath))
+                                              copyCharacteristicPointsTargetFileName))
                     {
                         File.Delete(copyCharacteristicPointsTargetPath);
                     }
@@ -1506,9 +1509,9 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         }
 
         private static RingtoetsPipingSurfaceLine[] AssertSuccessfulImport(bool importResult,
-                                                                          int expectedSurfaceLineCount,
-                                                                          string expectedFilePath,
-                                                                          TestSurfaceLineUpdateStrategy updateStrategy)
+                                                                           int expectedSurfaceLineCount,
+                                                                           string expectedFilePath,
+                                                                           TestSurfaceLineUpdateStrategy updateStrategy)
         {
             Assert.IsTrue(importResult);
             Assert.IsTrue(updateStrategy.Updated);

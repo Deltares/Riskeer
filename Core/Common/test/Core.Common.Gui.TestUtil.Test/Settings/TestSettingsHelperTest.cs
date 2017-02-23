@@ -96,7 +96,7 @@ namespace Core.Common.Gui.TestUtil.Test.Settings
             // Setup
             string subFolder = Path.GetRandomFileName();
             string subSubFolder = Path.GetRandomFileName();
-            const string userSettingsDirectory = "someFolder";
+            string userSettingsDirectory = TestHelper.GetScratchPadPath();
             var settingsHelper = new TestSettingsHelper
             {
                 ExpectedApplicationLocalUserSettingsDirectory = userSettingsDirectory

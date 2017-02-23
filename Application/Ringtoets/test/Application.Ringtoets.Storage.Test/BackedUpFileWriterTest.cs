@@ -31,7 +31,7 @@ namespace Application.Ringtoets.Storage.Test
     [TestFixture]
     public class BackedUpFileWriterTest
     {
-        private readonly string testWorkDir = Path.Combine(".", "SafeOverwriteFileHelperTest");
+        private readonly string testWorkDir = TestHelper.GetScratchPadPath("SafeOverwriteFileHelperTest");
 
         [OneTimeSetUp]
         public void SetUpFixture()
@@ -153,9 +153,7 @@ namespace Application.Ringtoets.Storage.Test
             {
                 // Assert
                 var message = Assert.Throws<IOException>(test).Message;
-                var expectedMessage = string.Format(
-                    "Er bestaat al een tijdelijk bestand ({0}) dat niet verwijderd kan worden. Dit bestand dient handmatig verwijderd te worden.",
-                    temporaryFilePath);
+                var expectedMessage = $"Er bestaat al een tijdelijk bestand ({temporaryFilePath}) dat niet verwijderd kan worden. Dit bestand dient handmatig verwijderd te worden.";
                 Assert.AreEqual(message, expectedMessage);
                 temporaryFileStream.Dispose();
             }
@@ -188,8 +186,7 @@ namespace Application.Ringtoets.Storage.Test
                 using (new DirectoryPermissionsRevoker(notWritableDirectory, FileSystemRights.Write))
                 {
                     // Assert
-                    var expectedMessage = string.Format("Kan geen tijdelijk bestand maken van het originele bestand ({0}).",
-                                                        filePath);
+                    var expectedMessage = $"Kan geen tijdelijk bestand maken van het originele bestand ({filePath}).";
                     var message = Assert.Throws<IOException>(test).Message;
                     Assert.AreEqual(expectedMessage, message);
                 }
@@ -248,18 +245,13 @@ namespace Application.Ringtoets.Storage.Test
                 TestDelegate test = () => helper.Perform(() => { fileStream = File.Open(temporaryFilePath, FileMode.Open); });
 
                 // Assert
-                var expectedMessage = string.Format(
-                    "Kan het tijdelijke bestand ({0}) niet opruimen. Het tijdelijke bestand dient handmatig verwijderd te worden.",
-                    temporaryFilePath);
+                var expectedMessage = $"Kan het tijdelijke bestand ({temporaryFilePath}) niet opruimen. Het tijdelijke bestand dient handmatig verwijderd te worden.";
                 var message = Assert.Throws<CannotDeleteBackupFileException>(test).Message;
                 Assert.AreEqual(expectedMessage, message);
             }
             finally
             {
-                if (fileStream != null)
-                {
-                    fileStream.Dispose();
-                }
+                fileStream?.Dispose();
                 Directory.Delete(noAccessDirectory, true);
             }
         }
@@ -289,18 +281,13 @@ namespace Application.Ringtoets.Storage.Test
                 });
 
                 // Assert
-                var expectedMessage = string.Format(
-                    "Kan het originele bestand ({0}) niet herstellen. Het tijdelijke bestand dient handmatig hersteld te worden.",
-                    filePath);
+                var expectedMessage = $"Kan het originele bestand ({filePath}) niet herstellen. Het tijdelijke bestand dient handmatig hersteld te worden.";
                 var message = Assert.Throws<IOException>(test).Message;
                 Assert.AreEqual(expectedMessage, message);
             }
             finally
             {
-                if (fileStream != null)
-                {
-                    fileStream.Dispose();
-                }
+                fileStream?.Dispose();
                 Directory.Delete(noAccessDirectory, true);
             }
         }
@@ -328,18 +315,13 @@ namespace Application.Ringtoets.Storage.Test
                 });
 
                 // Assert
-                var expectedMessage = string.Format(
-                    "Kan het originele bestand ({0}) niet herstellen. Het tijdelijke bestand dient handmatig hersteld te worden.",
-                    filePath);
+                var expectedMessage = $"Kan het originele bestand ({filePath}) niet herstellen. Het tijdelijke bestand dient handmatig hersteld te worden.";
                 var message = Assert.Throws<IOException>(test).Message;
                 Assert.AreEqual(expectedMessage, message);
             }
             finally
             {
-                if (fileRightsHelper != null)
-                {
-                    fileRightsHelper.Dispose();
-                }
+                fileRightsHelper?.Dispose();
                 Directory.Delete(noAccessDirectory, true);
             }
         }

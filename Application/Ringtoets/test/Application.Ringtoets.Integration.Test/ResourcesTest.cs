@@ -26,6 +26,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 
 namespace Application.Ringtoets.Integration.Test
@@ -52,8 +53,8 @@ namespace Application.Ringtoets.Integration.Test
         public void UnusedResourceSearcher_Always_WritesFileWithEmbeddedResources()
         {
             // Setup
-            string solution = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.Parent.Parent.Parent.FullName;
-            string outputPath = Directory.GetCurrentDirectory();
+            string solution = TestHelper.SolutionRoot;
+            string outputPath = TestHelper.GetScratchPadPath();
             const string resource = "Resources.resx";
             const string sourceCode = "*.cs;*.xaml";
             const string filters = "Resources.designer.cs;test";
@@ -90,9 +91,7 @@ namespace Application.Ringtoets.Integration.Test
                 }
             }
 
-            var message = string.Format("The following resources are marked as unused:{0}{1}",
-                                        Environment.NewLine,
-                                        string.Join(Environment.NewLine, lines.OrderBy(s => s).ToList()));
+            var message = $"The following resources are marked as unused:{Environment.NewLine}{string.Join(Environment.NewLine, lines.OrderBy(s => s).ToList())}";
             Assert.AreEqual(0, lines.Count, message);
         }
     }

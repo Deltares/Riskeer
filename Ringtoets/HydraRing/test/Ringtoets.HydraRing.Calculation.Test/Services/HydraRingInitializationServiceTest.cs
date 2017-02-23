@@ -22,6 +22,7 @@
 using System;
 using System.IO;
 using System.Reflection;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Services;
@@ -54,7 +55,10 @@ namespace Ringtoets.HydraRing.Calculation.Test.Services
         public void GenerateInitializationScript_ReturnsExpectedInitializationScript()
         {
             // Setup
-            var hydraRingInitializationService = new HydraRingInitializationService(HydraRingFailureMechanismType.StructuresStructuralFailure, 700001, "D:\\hlcd", "");
+            string path = TestHelper.GetScratchPadPath();
+            string filePath = Path.Combine(path, "HLCD.sqlite");
+
+            var hydraRingInitializationService = new HydraRingInitializationService(HydraRingFailureMechanismType.StructuresStructuralFailure, 700001, path, "");
             var configurationDatabaseFilePath = Path.Combine(hydraRingDirectory, "config.sqlite");
 
             var expectedInitializationScript = "section             = 700001" + Environment.NewLine +
@@ -67,15 +71,21 @@ namespace Ringtoets.HydraRing.Calculation.Test.Services
                                                "projectdbfilename   = 700001.sql" + Environment.NewLine +
                                                "outputfilename      = designTable.txt" + Environment.NewLine +
                                                "configdbfilename    = " + configurationDatabaseFilePath + Environment.NewLine +
-                                               "hydraulicdbfilename = D:\\hlcd\\HLCD.sqlite";
+                                               "hydraulicdbfilename = " + filePath;
 
-            // Call
-            hydraRingInitializationService.WriteInitializationScript();
+            try
+            {
+                // Call
+                hydraRingInitializationService.WriteInitializationScript();
 
-            // Assert
-            var initializationScript = File.ReadAllText(hydraRingInitializationService.IniFilePath);
-            Assert.AreEqual(expectedInitializationScript, initializationScript);
-            File.Delete(hydraRingInitializationService.IniFilePath);
+                // Assert
+                var initializationScript = File.ReadAllText(hydraRingInitializationService.IniFilePath);
+                Assert.AreEqual(expectedInitializationScript, initializationScript);
+            }
+            finally
+            {
+                File.Delete(filePath);
+            }
         }
     }
 }

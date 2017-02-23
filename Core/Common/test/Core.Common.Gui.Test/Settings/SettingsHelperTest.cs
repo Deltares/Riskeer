@@ -81,19 +81,26 @@ namespace Core.Common.Gui.Test.Settings
             string subFolder = Path.GetRandomFileName();
             string subSubFolder = Path.GetRandomFileName();
 
-            // Call
-            string directory = SettingsHelper.Instance.GetApplicationLocalUserSettingsDirectory(subFolder, subSubFolder);
+            try
+            {
+                // Call
+                string directory = SettingsHelper.Instance.GetApplicationLocalUserSettingsDirectory(subFolder, subSubFolder);
 
-            // Assert
-            string userSettingsDirectory = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+                // Assert
+                string userSettingsDirectory = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+                string testDataPathParent = Path.Combine(userSettingsDirectory, subFolder);
 
-            string testDataPath = Path.Combine(userSettingsDirectory, subFolder, subSubFolder);
-            Assert.AreEqual(testDataPath, directory);
+                string testDataPath = Path.Combine(userSettingsDirectory, subFolder, subSubFolder);
+                Assert.AreEqual(testDataPath, directory);
 
-            string testDataPathParent = Path.Combine(userSettingsDirectory, subFolder);
-            Assert.IsTrue(Directory.Exists(testDataPathParent));
-            Assert.IsTrue(Directory.Exists(testDataPath));
-            Directory.Delete(testDataPathParent, true);
+                Assert.IsTrue(Directory.Exists(testDataPathParent));
+                Assert.IsTrue(Directory.Exists(testDataPath));
+            }
+            finally
+            {
+                string testDataPathParent = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), subFolder);
+                Directory.Delete(testDataPathParent, true);
+            }
         }
 
         [Test]
