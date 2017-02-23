@@ -141,11 +141,11 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_ModelSettings))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_ModelFactorSuperCriticalFlow_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_ModelFactorSuperCriticalFlow_Description))]
-        public virtual ConfirmingNormalDistributionProperties ModelFactorSuperCriticalFlow
+        public virtual NormalDistributionProperties ModelFactorSuperCriticalFlow
         {
             get
             {
-                return new ConfirmingNormalDistributionProperties(
+                return new NormalDistributionProperties(
                     DistributionPropertiesReadOnly.StandardDeviation,
                     data.WrappedData.ModelFactorSuperCriticalFlow,
                     PropertyChangeHandler);
@@ -382,11 +382,11 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Schematization))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_FlowWidthAtBottomProtection_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_FlowWidthAtBottomProtection_Description))]
-        public ConfirmingLogNormalDistributionProperties FlowWidthAtBottomProtection
+        public LogNormalDistributionProperties FlowWidthAtBottomProtection
         {
             get
             {
-                return new ConfirmingLogNormalDistributionProperties(
+                return new LogNormalDistributionProperties(
                     DistributionPropertiesReadOnly.None,
                     data.WrappedData.FlowWidthAtBottomProtection,
                     PropertyChangeHandler);
@@ -398,11 +398,11 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Schematization))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_WidthFlowApertures_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_WidthFlowApertures_Description))]
-        public virtual ConfirmingNormalDistributionProperties WidthFlowApertures
+        public virtual NormalDistributionProperties WidthFlowApertures
         {
             get
             {
-                return new ConfirmingNormalDistributionProperties(
+                return new NormalDistributionProperties(
                     DistributionPropertiesReadOnly.None,
                     data.WrappedData.WidthFlowApertures,
                     PropertyChangeHandler);
@@ -414,11 +414,11 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Schematization))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_StorageStructureArea_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_StorageStructureArea_Description))]
-        public ConfirmingVariationCoefficientLogNormalDistributionProperties StorageStructureArea
+        public VariationCoefficientLogNormalDistributionProperties StorageStructureArea
         {
             get
             {
-                return new ConfirmingVariationCoefficientLogNormalDistributionProperties(
+                return new VariationCoefficientLogNormalDistributionProperties(
                     VariationCoefficientDistributionPropertiesReadOnly.None,
                     data.WrappedData.StorageStructureArea,
                     PropertyChangeHandler);
@@ -430,11 +430,11 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Schematization))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_AllowedLevelIncreaseStorage_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_AllowedLevelIncreaseStorage_Description))]
-        public ConfirmingLogNormalDistributionProperties AllowedLevelIncreaseStorage
+        public LogNormalDistributionProperties AllowedLevelIncreaseStorage
         {
             get
             {
-                return new ConfirmingLogNormalDistributionProperties(
+                return new LogNormalDistributionProperties(
                     DistributionPropertiesReadOnly.None,
                     data.WrappedData.AllowedLevelIncreaseStorage,
                     PropertyChangeHandler);
@@ -446,11 +446,11 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Schematization))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_CriticalOvertoppingDischarge_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_CriticalOvertoppingDischarge_Description))]
-        public ConfirmingVariationCoefficientLogNormalDistributionProperties CriticalOvertoppingDischarge
+        public VariationCoefficientLogNormalDistributionProperties CriticalOvertoppingDischarge
         {
             get
             {
-                return new ConfirmingVariationCoefficientLogNormalDistributionProperties(
+                return new VariationCoefficientLogNormalDistributionProperties(
                     VariationCoefficientDistributionPropertiesReadOnly.None,
                     data.WrappedData.CriticalOvertoppingDischarge,
                     PropertyChangeHandler);
@@ -500,13 +500,13 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Schematization))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.BreakWaterProperties_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.BreakWaterProperties_Description))]
-        public UseBreakWaterProperties<TStructureInput> UseBreakWater
+        public UseBreakWaterProperties UseBreakWater
         {
             get
             {
                 return data.WrappedData.ForeshoreProfile == null ?
-                           new UseBreakWaterProperties<TStructureInput>() :
-                           new UseBreakWaterProperties<TStructureInput>(data.WrappedData, PropertyChangeHandler);
+                           new UseBreakWaterProperties() :
+                           new UseBreakWaterProperties(data.WrappedData, PropertyChangeHandler);
             }
         }
 
@@ -515,11 +515,11 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Schematization))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.ForeshoreProperties_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.ForeshoreProperties_Description))]
-        public UseForeshoreProperties<TStructureInput> UseForeshore
+        public UseForeshoreProperties UseForeshore
         {
             get
             {
-                return new UseForeshoreProperties<TStructureInput>(data.WrappedData, PropertyChangeHandler);
+                return new UseForeshoreProperties(data.WrappedData, PropertyChangeHandler);
             }
         }
 
@@ -552,11 +552,11 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_HydraulicData))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_StormDuration_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_StormDuration_Description))]
-        public ConfirmingVariationCoefficientLogNormalDistributionProperties StormDuration
+        public VariationCoefficientLogNormalDistributionProperties StormDuration
         {
             get
             {
-                return new ConfirmingVariationCoefficientLogNormalDistributionProperties(
+                return new VariationCoefficientLogNormalDistributionProperties(
                     VariationCoefficientDistributionPropertiesReadOnly.CoefficientOfVariation,
                     data.WrappedData.StormDuration,
                     PropertyChangeHandler);

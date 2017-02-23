@@ -44,7 +44,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         public void DefaultConstructor_ExpectedValues()
         {
             // Call
-            var properties = new UseBreakWaterProperties<TestUseBreakWater>();
+            var properties = new UseBreakWaterProperties();
 
             // Assert
             Assert.IsFalse(properties.UseBreakWater);
@@ -57,7 +57,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         public void DefaultConstructor_Always_ReadOnlyProperties()
         {
             // Call
-            var properties = new UseBreakWaterProperties<TestUseBreakWater>();
+            var properties = new UseBreakWaterProperties();
 
             // Assert
             var dynamicPropertyBag = new DynamicPropertyBag(properties);
@@ -107,7 +107,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             };
 
             // Call
-            var properties = new UseBreakWaterProperties<TestUseBreakWater>(testUseBreakWater, handler);
+            var properties = new UseBreakWaterProperties(testUseBreakWater, handler);
 
             // Assert
             var dynamicPropertyBag = new DynamicPropertyBag(properties);
@@ -150,7 +150,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => new UseBreakWaterProperties<TestUseBreakWater>(null, handler);
+            TestDelegate test = () => new UseBreakWaterProperties(null, handler);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -165,7 +165,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             TestUseBreakWater testUseBreakWater = new TestUseBreakWater();
 
             // Call
-            TestDelegate test = () => new UseBreakWaterProperties<TestUseBreakWater>(testUseBreakWater, null);
+            TestDelegate test = () => new UseBreakWaterProperties(testUseBreakWater, null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -187,7 +187,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             };
 
             // Call
-            var properties = new UseBreakWaterProperties<TestUseBreakWater>(useBreakWaterData, handler);
+            var properties = new UseBreakWaterProperties(useBreakWaterData, handler);
 
             // Assert
             Assert.IsTrue(properties.UseBreakWater);
@@ -233,7 +233,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         }
 
         private void SetPropertyAndVerifyNotifcationsAndOutputForCalculation(
-            Action<UseBreakWaterProperties<TestUseBreakWater>> setProperty,
+            Action<UseBreakWaterProperties> setProperty,
             TestUseBreakWater input)
         {
             // Setup
@@ -247,7 +247,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                 observable
             });
 
-            var properties = new UseBreakWaterProperties<TestUseBreakWater>(input, handler);
+            var properties = new UseBreakWaterProperties(input, handler);
 
             // Call
             setProperty(properties);

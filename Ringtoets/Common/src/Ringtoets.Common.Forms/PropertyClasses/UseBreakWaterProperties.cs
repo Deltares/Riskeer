@@ -36,30 +36,29 @@ namespace Ringtoets.Common.Forms.PropertyClasses
     /// <summary>
     /// ViewModel of <see cref="IUseBreakWater"/>.
     /// </summary>
-    public class UseBreakWaterProperties<TPropertyOwner>
-        where TPropertyOwner : IUseBreakWater
+    public class UseBreakWaterProperties
     {
         private const int useBreakWaterPropertyIndex = 1;
         private const int breakWaterTypePropertyIndex = 2;
         private const int breakWaterHeightPropertyIndex = 3;
-        private readonly TPropertyOwner data;
+        private readonly IUseBreakWater data;
         private readonly IObservablePropertyChangeHandler changeHandler;
 
         /// <summary>
-        /// Creates a new instance of <see cref="UseBreakWaterProperties{TPropertyOwner}"/>, in which
+        /// Creates a new instance of <see cref="UseBreakWaterProperties"/>, in which
         /// all the properties are read-only and empty.
         /// </summary>
         public UseBreakWaterProperties() { }
 
         /// <summary>
-        /// Creates a new instance of <see cref="UseBreakWaterProperties{TPropertyOwner}"/>in which the 
+        /// Creates a new instance of <see cref="UseBreakWaterProperties"/>in which the 
         /// properties are editable.
         /// </summary>
         /// <param name="useBreakWaterData">The data to use for the properties.</param>
         /// <param name="handler">Optional handler that is used to handle property changes.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         public UseBreakWaterProperties(
-            TPropertyOwner useBreakWaterData,
+            IUseBreakWater useBreakWaterData,
             IObservablePropertyChangeHandler handler)
         {
             if (useBreakWaterData == null)

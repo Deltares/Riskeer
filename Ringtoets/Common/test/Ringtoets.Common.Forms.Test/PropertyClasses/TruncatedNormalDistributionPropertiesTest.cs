@@ -22,6 +22,7 @@
 using System;
 using System.ComponentModel;
 using Core.Common.Base;
+using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -34,60 +35,47 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
     public class TruncatedNormalDistributionPropertiesTest
     {
         [Test]
-        public void Constructor_WithoutParameters_ExpectedValues()
+        public void Constructor_WithDistribution_ExpectedValues()
         {
+            // Setup
+            var distribution = new TruncatedNormalDistribution(new Random(21).Next(3, RoundedDouble.MaximumNumberOfDecimalPlaces));
+
             // Call
-            var properties = new TruncatedNormalDistributionProperties();
+            var properties = new TruncatedNormalDistributionProperties(distribution);
 
             // Assert
             Assert.IsInstanceOf<DistributionPropertiesBase<TruncatedNormalDistribution>>(properties);
-            Assert.IsNull(properties.Data);
+            Assert.AreSame(distribution, properties.Data);
             Assert.AreEqual("Normaal (afgekapt)", properties.DistributionType);
-        }
 
-        [Test]
-        [TestCase(DistributionPropertiesReadOnly.Mean)]
-        [TestCase(DistributionPropertiesReadOnly.StandardDeviation)]
-        [TestCase(DistributionPropertiesReadOnly.None)]
-        public void Constructor_NoObservableSetWhileChangesPossible_ThrowArgumentException(
-            DistributionPropertiesReadOnly flags)
-        {
-            // Call
-            TestDelegate call = () => new TruncatedNormalDistributionProperties(flags, null, null);
-
-            // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, "Observable must be specified unless no property can be set.");
+            AssertPropertiesInState(properties, true, true);
         }
 
         [Test]
         public void Constructor_WithParameters_ExpectedValues()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var observerableMock = mockRepository.StrictMock<IObservable>();
-            mockRepository.ReplayAll();
+            var mocks = new MockRepository();
+            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
+            mocks.ReplayAll();
+
+            var distribution = new TruncatedNormalDistribution(new Random(21).Next(3, RoundedDouble.MaximumNumberOfDecimalPlaces));
 
             // Call
-            var properties = new TruncatedNormalDistributionProperties(DistributionPropertiesReadOnly.None, observerableMock, null);
+            var properties = new TruncatedNormalDistributionProperties(DistributionPropertiesReadOnly.None, distribution, handler);
 
             // Assert
             Assert.IsInstanceOf<DistributionPropertiesBase<TruncatedNormalDistribution>>(properties);
-            Assert.IsNull(properties.Data);
+            Assert.AreSame(distribution, properties.Data);
             Assert.AreEqual("Normaal (afgekapt)", properties.DistributionType);
-            mockRepository.VerifyAll();
+
+            AssertPropertiesInState(properties, false, false);
+
+            mocks.VerifyAll();
         }
 
-        [Test]
-        public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
+        private static void AssertPropertiesInState(TruncatedNormalDistributionProperties properties, bool meanReadOnly, bool deviationReadOnly)
         {
-            // Setup
-            var mockRepository = new MockRepository();
-            var observerableMock = mockRepository.StrictMock<IObservable>();
-            mockRepository.ReplayAll();
-
-            // Call
-            var properties = new TruncatedNormalDistributionProperties(DistributionPropertiesReadOnly.None, observerableMock, null);
-
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
             Assert.AreEqual(5, dynamicProperties.Count);
@@ -103,13 +91,15 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(meanProperty,
                                                                             "Misc",
                                                                             "Verwachtingswaarde",
-                                                                            "De gemiddelde waarde van de afgekapte normale verdeling.");
+                                                                            "De gemiddelde waarde van de afgekapte normale verdeling.",
+                                                                            meanReadOnly);
 
             PropertyDescriptor standardProperty = dynamicProperties[2];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(standardProperty,
                                                                             "Misc",
                                                                             "Standaardafwijking",
-                                                                            "De standaardafwijking van de afgekapte normale verdeling.");
+                                                                            "De standaardafwijking van de afgekapte normale verdeling.",
+                                                                            deviationReadOnly);
 
             PropertyDescriptor lowerBoundaryProperty = dynamicProperties[3];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(lowerBoundaryProperty,
@@ -124,7 +114,6 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                                                                             "Bovengrens",
                                                                             "De bovengrens van de afgekapte normale verdeling.",
                                                                             true);
-            mockRepository.VerifyAll();
         }
     }
 }

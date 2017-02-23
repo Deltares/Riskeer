@@ -167,8 +167,8 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             Assert.AreEqual(2, properties.LowerBoundaryWaterLevels.NumberOfDecimalPlaces);
             Assert.AreEqual(0.5, properties.StepSize.AsValue());
             CollectionAssert.AreEqual(input.WaterLevels, properties.WaterLevels);
-            Assert.IsInstanceOf<UseBreakWaterProperties<WaveConditionsInput>>(properties.BreakWater);
-            Assert.IsInstanceOf<UseForeshoreProperties<WaveConditionsInput>>(properties.ForeshoreGeometry);
+            Assert.IsInstanceOf<UseBreakWaterProperties>(properties.BreakWater);
+            Assert.IsInstanceOf<UseForeshoreProperties>(properties.ForeshoreGeometry);
             Assert.AreEqual("Test", properties.RevetmentType);
 
             Assert.AreSame(hydraulicBoundaryLocation, properties.SelectedHydraulicBoundaryLocation.HydraulicBoundaryLocation);

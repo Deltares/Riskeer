@@ -94,10 +94,7 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
         {
             get
             {
-                return new LogNormalDistributionProperties
-                {
-                    Data = data.FlowWidthAtBottomProtection
-                };
+                return new LogNormalDistributionProperties(data.FlowWidthAtBottomProtection);
             }
         }
 
@@ -110,10 +107,7 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
         {
             get
             {
-                return new NormalDistributionProperties
-                {
-                    Data = data.WidthFlowApertures
-                };
+                return new NormalDistributionProperties(data.WidthFlowApertures);
             }
         }
 
@@ -126,10 +120,7 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
         {
             get
             {
-                return new VariationCoefficientLogNormalDistributionProperties
-                {
-                    Data = data.StorageStructureArea
-                };
+                return new VariationCoefficientLogNormalDistributionProperties(data.StorageStructureArea);
             }
         }
 
@@ -142,10 +133,7 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
         {
             get
             {
-                return new LogNormalDistributionProperties
-                {
-                    Data = data.AllowedLevelIncreaseStorage
-                };
+                return new LogNormalDistributionProperties(data.AllowedLevelIncreaseStorage);
             }
         }
 
@@ -158,10 +146,7 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
         {
             get
             {
-                return new NormalDistributionProperties
-                {
-                    Data = data.LevelCrestStructure
-                };
+                return new NormalDistributionProperties(data.LevelCrestStructure);
             }
         }
 
@@ -174,10 +159,7 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
         {
             get
             {
-                return new VariationCoefficientLogNormalDistributionProperties
-                {
-                    Data = data.CriticalOvertoppingDischarge
-                };
+                return new VariationCoefficientLogNormalDistributionProperties(data.CriticalOvertoppingDischarge);
             }
         }
 

@@ -36,7 +36,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
     /// </summary>
     /// <typeparam name="TDistribution">The type of the distribution.</typeparam>
     public abstract class DesignVariableProperties<TDistribution> 
-        : ConfirmingDistributionPropertiesBase<TDistribution>
+        : DistributionPropertiesBase<TDistribution>
         where TDistribution : IDistribution
     {
         /// <summary>

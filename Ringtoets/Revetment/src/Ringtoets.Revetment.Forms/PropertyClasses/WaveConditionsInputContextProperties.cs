@@ -245,13 +245,13 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.BreakWaterProperties_DisplayName))]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.BreakWaterProperties_Description))]
-        public UseBreakWaterProperties<WaveConditionsInput> BreakWater
+        public UseBreakWaterProperties BreakWater
         {
             get
             {
                 return data.WrappedData.ForeshoreProfile == null ?
-                           new UseBreakWaterProperties<WaveConditionsInput>() :
-                           new UseBreakWaterProperties<WaveConditionsInput>(data.WrappedData, propertyChangeHandler);
+                           new UseBreakWaterProperties() :
+                           new UseBreakWaterProperties(data.WrappedData, propertyChangeHandler);
             }
         }
 
@@ -260,11 +260,11 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.ForeshoreProperties_DisplayName))]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.ForeshoreProperties_Description))]
-        public UseForeshoreProperties<WaveConditionsInput> ForeshoreGeometry
+        public UseForeshoreProperties ForeshoreGeometry
         {
             get
             {
-                return new UseForeshoreProperties<WaveConditionsInput>(data.WrappedData, propertyChangeHandler);
+                return new UseForeshoreProperties(data.WrappedData, propertyChangeHandler);
             }
         }
 

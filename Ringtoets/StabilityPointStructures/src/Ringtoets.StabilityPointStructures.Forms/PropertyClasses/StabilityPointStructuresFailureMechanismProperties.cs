@@ -156,10 +156,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
         {
             get
             {
-                return new LogNormalDistributionProperties
-                {
-                    Data = data.GeneralInput.ModelFactorStorageVolume
-                };
+                return new LogNormalDistributionProperties(data.GeneralInput.ModelFactorStorageVolume);
             }
         }
 
@@ -172,10 +169,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
         {
             get
             {
-                return new VariationCoefficientNormalDistributionProperties
-                {
-                    Data = data.GeneralInput.ModelFactorSubCriticalFlow
-                };
+                return new VariationCoefficientNormalDistributionProperties(data.GeneralInput.ModelFactorSubCriticalFlow);
             }
         }
 
@@ -188,10 +182,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
         {
             get
             {
-                return new VariationCoefficientNormalDistributionProperties
-                {
-                    Data = data.GeneralInput.ModelFactorCollisionLoad
-                };
+                return new VariationCoefficientNormalDistributionProperties(data.GeneralInput.ModelFactorCollisionLoad);
             }
         }
 
@@ -204,10 +195,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
         {
             get
             {
-                return new NormalDistributionProperties
-                {
-                    Data = data.GeneralInput.ModelFactorLoadEffect
-                };
+                return new NormalDistributionProperties(data.GeneralInput.ModelFactorLoadEffect);
             }
         }
 

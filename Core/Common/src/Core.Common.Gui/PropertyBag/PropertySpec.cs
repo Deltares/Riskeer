@@ -149,7 +149,7 @@ namespace Core.Common.Gui.PropertyBag
             }
             catch (TargetException e)
             {
-                object type = instance == null ? null : instance.GetType();
+                object type = instance?.GetType();
                 var message = string.Format(CultureInfo.CurrentCulture,
                                             "Are you calling GetValue on the correct instance? Expected '{0}', but was '{1}'",
                                             propertyInfo.DeclaringType, type);

@@ -37,22 +37,24 @@ namespace Ringtoets.Common.Forms.PropertyClasses
     public class TruncatedNormalDistributionProperties : DistributionPropertiesBase<TruncatedNormalDistribution>
     {
         /// <summary>
-        /// Creates a new read-only instance of <see cref="TruncatedNormalDistributionProperties"/>.
+        /// Creates a new instance of <see cref="TruncatedNormalDistributionProperties"/>
+        /// in which the properties of <paramref name="distribution"/> are displayed read-only.
         /// </summary>
-        public TruncatedNormalDistributionProperties() : this(DistributionPropertiesReadOnly.All, null, null) {}
+        /// <param name="distribution">The <see cref="TruncatedNormalDistribution"/> to create the properties for.</param>
+        public TruncatedNormalDistributionProperties(TruncatedNormalDistribution distribution) : this(DistributionPropertiesReadOnly.All, distribution, null) {}
 
         /// <summary>
         /// Creates a new instance of <see cref="TruncatedNormalDistributionProperties"/>.
         /// </summary>
         /// <param name="propertiesReadOnly">Indicates which properties, if any, should be
         /// marked as read-only.</param>
-        /// <param name="observable">The object to be notified of changes to properties.
-        /// Can be null if all properties are marked as read-only by <paramref name="propertiesReadOnly"/>.</param>
+        /// <param name="distribution">The <see cref="TruncatedNormalDistribution"/> to create the properties for.</param>
         /// <param name="handler">Optional handler that is used to handle property changes.</param>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="observable"/>
-        /// is null and any number of properties in this class is editable.</exception>
-        public TruncatedNormalDistributionProperties(DistributionPropertiesReadOnly propertiesReadOnly, IObservable observable, IPropertyChangeHandler handler) :
-            base(propertiesReadOnly, observable, handler) {}
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="distribution"/> is <c>null</c></exception>
+        /// <exception cref="ArgumentException">Any number of properties in this class is editable and the 
+        /// <paramref name="handler"/> is <c>null</c>.</exception>
+        public TruncatedNormalDistributionProperties(DistributionPropertiesReadOnly propertiesReadOnly, TruncatedNormalDistribution distribution, IObservablePropertyChangeHandler handler) :
+            base(propertiesReadOnly, distribution, handler) {}
 
         public override string DistributionType
         {

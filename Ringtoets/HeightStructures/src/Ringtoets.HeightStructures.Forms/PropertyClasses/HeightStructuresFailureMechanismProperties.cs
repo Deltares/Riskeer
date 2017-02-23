@@ -145,10 +145,7 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
         {
             get
             {
-                return new LogNormalDistributionProperties
-                {
-                    Data = data.GeneralInput.ModelFactorOvertoppingFlow
-                };
+                return new LogNormalDistributionProperties(data.GeneralInput.ModelFactorOvertoppingFlow);
             }
         }
 
@@ -161,10 +158,7 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
         {
             get
             {
-                return new LogNormalDistributionProperties
-                {
-                    Data = data.GeneralInput.ModelFactorStorageVolume
-                };
+                return new LogNormalDistributionProperties(data.GeneralInput.ModelFactorStorageVolume);
             }
         }
 

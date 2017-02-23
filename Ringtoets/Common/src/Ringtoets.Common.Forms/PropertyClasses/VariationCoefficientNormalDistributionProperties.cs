@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
@@ -30,31 +29,32 @@ using Ringtoets.Common.Forms.Properties;
 namespace Ringtoets.Common.Forms.PropertyClasses
 {
     /// <summary>
-    /// An <see cref="ObjectProperties{T}"/> implementation for <see cref="NormalDistribution"/>
-    /// properties that displays variation coefficient.
+    /// An <see cref="ObjectProperties{T}"/> implementation for <see cref="VariationCoefficientNormalDistribution"/>.
     /// </summary>
     public class VariationCoefficientNormalDistributionProperties : VariationCoefficientDistributionPropertiesBase<VariationCoefficientNormalDistribution>
     {
         /// <summary>
-        /// Creates a new read-only instance of <see cref="VariationCoefficientNormalDistributionProperties"/>.
+        /// Creates a new instance of <see cref="VariationCoefficientNormalDistributionProperties"/>
+        /// in which the properties of <paramref name="distribution"/> are displayed read-only.
         /// </summary>
-        public VariationCoefficientNormalDistributionProperties() : this(VariationCoefficientDistributionPropertiesReadOnly.All, null, null) {}
+        /// <param name="distribution">The <see cref="VariationCoefficientNormalDistribution"/> to create the properties for.</param>
+        public VariationCoefficientNormalDistributionProperties(VariationCoefficientNormalDistribution distribution) : base(distribution) { }
 
         /// <summary>
         /// Creates a new instance of <see cref="VariationCoefficientNormalDistributionProperties"/>.
         /// </summary>
         /// <param name="propertiesReadOnly">Indicates which properties, if any, should be
         /// marked as read-only.</param>
-        /// <param name="observable">The object to be notified of changes to properties.
-        /// Can be null if all properties are marked as read-only by <paramref name="propertiesReadOnly"/>.</param>
+        /// <param name="distribution">The <see cref="VariationCoefficientNormalDistribution"/> to create the properties for.</param>
         /// <param name="handler">Optional handler that is used to handle property changes.</param>
-        /// <exception cref="InvalidOperationException">Thrown when <paramref name="observable"/>
-        /// is null and any number of properties in this class is editable.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="distribution"/> is <c>null</c></exception>
+        /// <exception cref="ArgumentException">Any number of properties in this class is editable and the 
+        /// <paramref name="handler"/> is <c>null</c>.</exception>
         public VariationCoefficientNormalDistributionProperties(
-            VariationCoefficientDistributionPropertiesReadOnly propertiesReadOnly, 
-            IObservable observable,
-            IPropertyChangeHandler handler)
-            : base(propertiesReadOnly, observable, handler) {}
+            VariationCoefficientDistributionPropertiesReadOnly propertiesReadOnly,
+            VariationCoefficientNormalDistribution distribution,
+            IObservablePropertyChangeHandler handler)
+            : base(propertiesReadOnly, distribution, handler) {}
 
         public override string DistributionType
         {

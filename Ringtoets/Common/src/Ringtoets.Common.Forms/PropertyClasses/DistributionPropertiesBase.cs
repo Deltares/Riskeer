@@ -20,67 +20,77 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
-using Core.Common.Utils.Reflection;
 using Ringtoets.Common.Data.Probabilistics;
-using Ringtoets.Common.Forms.Properties;
+using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Common.Forms.PropertyClasses
 {
     /// <summary>
     /// Properties class for implementations of <see cref="IDistribution"/>.
     /// </summary>
-    public abstract class DistributionPropertiesBase<T> : ObjectProperties<T> where T : IDistribution
+    public abstract class DistributionPropertiesBase<TDistribution> : ObjectProperties<TDistribution>
+        where TDistribution : IDistribution
     {
-        private readonly string meanPropertyName;
-        private readonly string standardDeviationPropertyName;
+        private const string meanPropertyName = nameof(Mean);
+        private const string standardDeviationPropertyName = nameof(StandardDeviation);
         private readonly bool isMeanReadOnly;
         private readonly bool isStandardDeviationReadOnly;
-        private readonly IObservable observable;
-        private readonly IPropertyChangeHandler changeHandler;
+        private readonly IObservablePropertyChangeHandler changeHandler;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DistributionPropertiesBase{T}"/> class.
+        /// Creates a new instance of <see cref="DistributionPropertiesBase{TDistribution}"/>
+        /// in which the properties of <paramref name="distribution"/> are displayed read-only.
         /// </summary>
-        /// <param name="propertiesReadOnly">Indicates which properties, if any, should be
-        /// marked as read-only.</param>
-        /// <param name="observable">The object to be notified of changes to properties.
-        /// Can be null if all properties are marked as read-only by <paramref name="propertiesReadOnly"/>.</param>
-        /// <param name="handler">Optional handler that is used to handle property changes.</param>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="observable"/>
-        /// is <c>null</c> and any number of properties in this class is editable.</exception>
-        protected DistributionPropertiesBase(
-            DistributionPropertiesReadOnly propertiesReadOnly,
-            IObservable observable,
-            IPropertyChangeHandler handler)
+        /// <param name="distribution">The <see cref="TDistribution"/> to create the properties for.</param>
+        protected DistributionPropertiesBase(TDistribution distribution)
+            : this(DistributionPropertiesReadOnly.All, distribution, null) {}
+
+        /// <summary>
+        /// Creates a new instance of <see cref="DistributionPropertiesBase{TDistribution}"/>.
+        /// </summary>
+        /// <param name="propertiesReadOnly">Indicates which properties, if any, should be marked as read-only.</param>
+        /// <param name="distribution">The <see cref="TDistribution"/> to create the properties for.</param>
+        /// <param name="handler">The handler responsible for handling effects of a property change.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="distribution"/> is <c>null</c></exception>
+        /// <exception cref="ArgumentException">Any number of properties in this class is editable and the 
+        /// <paramref name="handler"/> is <c>null</c>.</exception>
+        protected DistributionPropertiesBase(DistributionPropertiesReadOnly propertiesReadOnly,
+                                                       TDistribution distribution,
+                                                       IObservablePropertyChangeHandler handler)
         {
-            if (observable == null && !propertiesReadOnly.HasFlag(DistributionPropertiesReadOnly.All))
+            if (distribution == null)
             {
-                throw new ArgumentException(@"Observable must be specified unless no property can be set.", nameof(observable));
+                throw new ArgumentNullException(nameof(distribution));
             }
+            if (!propertiesReadOnly.HasFlag(DistributionPropertiesReadOnly.All))
+            {
+                if (handler == null)
+                {
+                    throw new ArgumentException(@"Change handler required if changes are possible.", nameof(handler));
+                }
+            }
+            Data = distribution;
 
             isMeanReadOnly = propertiesReadOnly.HasFlag(DistributionPropertiesReadOnly.Mean);
             isStandardDeviationReadOnly = propertiesReadOnly.HasFlag(DistributionPropertiesReadOnly.StandardDeviation);
 
-            meanPropertyName = TypeUtils.GetMemberName<DistributionPropertiesBase<T>>(rd => rd.Mean);
-            standardDeviationPropertyName = TypeUtils.GetMemberName<DistributionPropertiesBase<T>>(rd => rd.StandardDeviation);
-
-            this.observable = observable;
             changeHandler = handler;
         }
 
         [PropertyOrder(1)]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.Distribution_DistributionType_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.Distribution_DistributionType_Description))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Distribution_DistributionType_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Distribution_DistributionType_Description))]
         public abstract string DistributionType { get; }
 
         [PropertyOrder(2)]
         [DynamicReadOnly]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.NormalDistribution_Mean_DisplayName))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.NormalDistribution_Mean_DisplayName))]
         public virtual RoundedDouble Mean
         {
             get
@@ -91,16 +101,16 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             {
                 if (isMeanReadOnly)
                 {
-                    throw new ArgumentException("Mean is set to be read-only.");
+                    throw new InvalidOperationException("Mean is set to be read-only.");
                 }
-                data.Mean = value;
-                NotifyPropertyChanged();
+
+                ChangePropertyAndNotify(() => data.Mean = value);
             }
         }
 
         [PropertyOrder(3)]
         [DynamicReadOnly]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.NormalDistribution_StandardDeviation_DisplayName))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.NormalDistribution_StandardDeviation_DisplayName))]
         public virtual RoundedDouble StandardDeviation
         {
             get
@@ -111,44 +121,39 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             {
                 if (isStandardDeviationReadOnly)
                 {
-                    throw new ArgumentException("StandardDeviation is set to be read-only.");
+                    throw new InvalidOperationException("StandardDeviation is set to be read-only.");
                 }
-                data.StandardDeviation = value;
-                NotifyPropertyChanged();
+
+                ChangePropertyAndNotify(() => data.StandardDeviation = value);
             }
         }
 
         [DynamicReadOnlyValidationMethod]
         public bool DynamicReadOnlyValidationMethod(string propertyName)
         {
-            if (propertyName == meanPropertyName)
-            {
-                return isMeanReadOnly;
-            }
-            if (propertyName == standardDeviationPropertyName)
-            {
-                return isStandardDeviationReadOnly;
-            }
-            return false;
+            return propertyName == meanPropertyName
+                       ? isMeanReadOnly
+                       : propertyName == standardDeviationPropertyName
+                         && isStandardDeviationReadOnly;
         }
 
         public override string ToString()
         {
-            return data == null ? string.Empty :
-                       string.Format("{0} ({1} = {2})",
-                                     Mean, Resources.NormalDistribution_StandardDeviation_DisplayName, StandardDeviation);
+            return $"{Mean} ({RingtoetsCommonFormsResources.NormalDistribution_StandardDeviation_DisplayName} = {StandardDeviation})";
         }
 
-        /// <summary>
-        /// Sends notifications due to a change of a property.
-        /// </summary>
-        protected void NotifyPropertyChanged()
+        private void ChangePropertyAndNotify(SetObservablePropertyValueDelegate setPropertyValue)
         {
-            if (changeHandler != null)
+            IEnumerable<IObservable> affectedObjects = changeHandler.SetPropertyValueAfterConfirmation(setPropertyValue);
+            NotifyAffectedObjects(affectedObjects);
+        }
+
+        private static void NotifyAffectedObjects(IEnumerable<IObservable> affectedObjects)
+        {
+            foreach (IObservable affectedObject in affectedObjects)
             {
-                changeHandler.PropertyChanged();
+                affectedObject.NotifyObservers();
             }
-            observable.NotifyObservers();
         }
     }
 }

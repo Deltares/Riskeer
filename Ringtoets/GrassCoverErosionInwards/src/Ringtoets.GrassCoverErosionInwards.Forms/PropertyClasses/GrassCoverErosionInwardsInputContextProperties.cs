@@ -145,13 +145,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.BreakWaterProperties_DisplayName))]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.BreakWaterProperties_Description))]
-        public UseBreakWaterProperties<GrassCoverErosionInwardsInput> BreakWater
+        public UseBreakWaterProperties BreakWater
         {
             get
             {
                 return data.WrappedData.DikeProfile == null ?
-                           new UseBreakWaterProperties<GrassCoverErosionInwardsInput>() :
-                           new UseBreakWaterProperties<GrassCoverErosionInwardsInput>(
+                           new UseBreakWaterProperties() :
+                           new UseBreakWaterProperties(
                                data.WrappedData, propertyChangeHandler);
             }
         }
@@ -161,11 +161,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.ForeshoreProperties_DisplayName))]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.ForeshoreProperties_Description))]
-        public UseForeshoreProperties<GrassCoverErosionInwardsInput> Foreshore
+        public UseForeshoreProperties Foreshore
         {
             get
             {
-                return new UseForeshoreProperties<GrassCoverErosionInwardsInput>(
+                return new UseForeshoreProperties(
                     data.WrappedData,
                     propertyChangeHandler);
             }
@@ -226,11 +226,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_CriticalValues))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.CriticalFlowRate_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.CriticalFlowRate_Description))]
-        public ConfirmingLogNormalDistributionProperties CriticalFlowRate
+        public LogNormalDistributionProperties CriticalFlowRate
         {
             get
             {
-                return new ConfirmingLogNormalDistributionProperties(
+                return new LogNormalDistributionProperties(
                     DistributionPropertiesReadOnly.None,
                     data.WrappedData.CriticalFlowRate,
                     propertyChangeHandler);

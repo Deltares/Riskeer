@@ -67,7 +67,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             var properties = new SimpleDistributionProperties(VariationCoefficientDistributionPropertiesReadOnly.All, distribution, null);
 
             // Assert
-            Assert.IsInstanceOf<ConfirmingVariationCoefficientDistributionPropertiesBase<IVariationCoefficientDistribution>>(properties);
+            Assert.IsInstanceOf<VariationCoefficientDistributionPropertiesBase<IVariationCoefficientDistribution>>(properties);
             Assert.AreSame(distribution, properties.Data);
             mocks.VerifyAll();
         }
@@ -292,7 +292,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
 
         private static void AssertPropertiesInState(SimpleDistributionProperties properties, bool meanReadOnly, bool variationCoefficientReadOnly)
         {
-            Assert.IsInstanceOf<ConfirmingVariationCoefficientDistributionPropertiesBase<IVariationCoefficientDistribution>>(properties);
+            Assert.IsInstanceOf<VariationCoefficientDistributionPropertiesBase<IVariationCoefficientDistribution>>(properties);
 
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
             Assert.AreEqual(3, dynamicProperties.Count);
@@ -319,7 +319,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                                                                             variationCoefficientReadOnly);
         }
 
-        private class SimpleDistributionProperties : ConfirmingVariationCoefficientDistributionPropertiesBase<IVariationCoefficientDistribution>
+        private class SimpleDistributionProperties : VariationCoefficientDistributionPropertiesBase<IVariationCoefficientDistribution>
         {
             public SimpleDistributionProperties(IVariationCoefficientDistribution distribution) : base(distribution) {}
 

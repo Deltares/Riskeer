@@ -204,11 +204,11 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_HydraulicData))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_InsideWaterLevelFailureConstruction_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_InsideWaterLevelFailureConstruction_Description))]
-        public ConfirmingNormalDistributionProperties InsideWaterLevelFailureConstruction
+        public NormalDistributionProperties InsideWaterLevelFailureConstruction
         {
             get
             {
-                return new ConfirmingNormalDistributionProperties(
+                return new NormalDistributionProperties(
                     DistributionPropertiesReadOnly.None,
                     data.WrappedData.InsideWaterLevelFailureConstruction,
                     PropertyChangeHandler);
@@ -220,11 +220,11 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_HydraulicData))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Structure_InsideWaterLevel_DisplayName))]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Structure_InsideWaterLevel_Description))]
-        public ConfirmingNormalDistributionProperties InsideWaterLevel
+        public NormalDistributionProperties InsideWaterLevel
         {
             get
             {
-                return new ConfirmingNormalDistributionProperties(
+                return new NormalDistributionProperties(
                     DistributionPropertiesReadOnly.None,
                     data.WrappedData.InsideWaterLevel,
                     PropertyChangeHandler);
@@ -236,7 +236,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
         #region Model factors and critical values
 
         [DynamicVisible]
-        public override ConfirmingNormalDistributionProperties ModelFactorSuperCriticalFlow
+        public override NormalDistributionProperties ModelFactorSuperCriticalFlow
         {
             get
             {
@@ -250,11 +250,11 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_ModelSettings))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Structure_DrainCoefficient_DisplayName))]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Structure_DrainCoefficient_Description))]
-        public ConfirmingNormalDistributionProperties DrainCoefficient
+        public NormalDistributionProperties DrainCoefficient
         {
             get
             {
-                return new ConfirmingNormalDistributionProperties(
+                return new NormalDistributionProperties(
                     DistributionPropertiesReadOnly.StandardDeviation,
                     data.WrappedData.DrainCoefficient,
                     PropertyChangeHandler);
@@ -282,7 +282,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
         #region Schematization
 
         [DynamicVisible]
-        public override ConfirmingNormalDistributionProperties WidthFlowApertures
+        public override NormalDistributionProperties WidthFlowApertures
         {
             get
             {
@@ -329,11 +329,11 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Structure_LevelCrestStructure_DisplayName))]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Structure_LevelCrestStructure_Description))]
-        public ConfirmingNormalDistributionProperties LevelCrestStructure
+        public NormalDistributionProperties LevelCrestStructure
         {
             get
             {
-                return new ConfirmingNormalDistributionProperties(
+                return new NormalDistributionProperties(
                     DistributionPropertiesReadOnly.None,
                     data.WrappedData.LevelCrestStructure,
                     PropertyChangeHandler);
@@ -345,11 +345,11 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Structure_ThresholdHeightOpenWeir_DisplayName))]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Structure_ThresholdHeightOpenWeir_Description))]
-        public ConfirmingNormalDistributionProperties ThresholdHeightOpenWeir
+        public NormalDistributionProperties ThresholdHeightOpenWeir
         {
             get
             {
-                return new ConfirmingNormalDistributionProperties(
+                return new NormalDistributionProperties(
                     DistributionPropertiesReadOnly.None,
                     data.WrappedData.ThresholdHeightOpenWeir,
                     PropertyChangeHandler);
@@ -361,11 +361,11 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
         [ResourcesDisplayName(typeof(Resources), "Structure_FlowVelocityStructureClosable_DisplayName")]
         [ResourcesDescription(typeof(Resources), "Structure_FlowVelocityStructureClosable_Description")]
-        public ConfirmingVariationCoefficientNormalDistributionProperties FlowVelocityStructureClosable
+        public VariationCoefficientNormalDistributionProperties FlowVelocityStructureClosable
         {
             get
             {
-                return new ConfirmingVariationCoefficientNormalDistributionProperties(
+                return new VariationCoefficientNormalDistributionProperties(
                     VariationCoefficientDistributionPropertiesReadOnly.CoefficientOfVariation,
                     data.WrappedData.FlowVelocityStructureClosable,
                     PropertyChangeHandler);
@@ -378,11 +378,11 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Structure_AreaFlowApertures_DisplayName))]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Structure_AreaFlowApertures_Description))]
-        public ConfirmingLogNormalDistributionProperties AreaFlowApertures
+        public LogNormalDistributionProperties AreaFlowApertures
         {
             get
             {
-                return new ConfirmingLogNormalDistributionProperties(
+                return new LogNormalDistributionProperties(
                     DistributionPropertiesReadOnly.None,
                     data.WrappedData.AreaFlowApertures,
                     PropertyChangeHandler);
@@ -395,11 +395,11 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_ConstructiveStrengthLinearLoadModel_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_ConstructiveStrengthLinearLoadModel_Description))]
-        public ConfirmingVariationCoefficientLogNormalDistributionProperties ConstructiveStrengthLinearLoadModel
+        public VariationCoefficientLogNormalDistributionProperties ConstructiveStrengthLinearLoadModel
         {
             get
             {
-                return new ConfirmingVariationCoefficientLogNormalDistributionProperties(
+                return new VariationCoefficientLogNormalDistributionProperties(
                     VariationCoefficientDistributionPropertiesReadOnly.None,
                     data.WrappedData.ConstructiveStrengthLinearLoadModel,
                     PropertyChangeHandler);
@@ -412,11 +412,11 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_ConstructiveStrengthQuadraticLoadModel_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_ConstructiveStrengthQuadraticLoadModel_Description))]
-        public ConfirmingVariationCoefficientLogNormalDistributionProperties ConstructiveStrengthQuadraticLoadModel
+        public VariationCoefficientLogNormalDistributionProperties ConstructiveStrengthQuadraticLoadModel
         {
             get
             {
-                return new ConfirmingVariationCoefficientLogNormalDistributionProperties(
+                return new VariationCoefficientLogNormalDistributionProperties(
                     VariationCoefficientDistributionPropertiesReadOnly.None,
                     data.WrappedData.ConstructiveStrengthQuadraticLoadModel,
                     PropertyChangeHandler);
@@ -429,11 +429,11 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_StabilityLinearLoadModel_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_StabilityLinearLoadModel_Description))]
-        public ConfirmingVariationCoefficientLogNormalDistributionProperties StabilityLinearLoadModel
+        public VariationCoefficientLogNormalDistributionProperties StabilityLinearLoadModel
         {
             get
             {
-                return new ConfirmingVariationCoefficientLogNormalDistributionProperties(
+                return new VariationCoefficientLogNormalDistributionProperties(
                     VariationCoefficientDistributionPropertiesReadOnly.None,
                     data.WrappedData.StabilityLinearLoadModel,
                     PropertyChangeHandler);
@@ -446,11 +446,11 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_StabilityQuadraticLoadModel_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_StabilityQuadraticLoadModel_Description))]
-        public ConfirmingVariationCoefficientLogNormalDistributionProperties StabilityQuadraticLoadModel
+        public VariationCoefficientLogNormalDistributionProperties StabilityQuadraticLoadModel
         {
             get
             {
-                return new ConfirmingVariationCoefficientLogNormalDistributionProperties(
+                return new VariationCoefficientLogNormalDistributionProperties(
                     VariationCoefficientDistributionPropertiesReadOnly.None,
                     data.WrappedData.StabilityQuadraticLoadModel,
                     PropertyChangeHandler);
@@ -482,11 +482,11 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_FailureCollisionEnergy_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_FailureCollisionEnergy_Description))]
-        public ConfirmingVariationCoefficientLogNormalDistributionProperties FailureCollisionEnergy
+        public VariationCoefficientLogNormalDistributionProperties FailureCollisionEnergy
         {
             get
             {
-                return new ConfirmingVariationCoefficientLogNormalDistributionProperties(
+                return new VariationCoefficientLogNormalDistributionProperties(
                     VariationCoefficientDistributionPropertiesReadOnly.None,
                     data.WrappedData.FailureCollisionEnergy,
                     PropertyChangeHandler);
@@ -498,11 +498,11 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_ShipMass_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_ShipMass_Description))]
-        public ConfirmingVariationCoefficientNormalDistributionProperties ShipMass
+        public VariationCoefficientNormalDistributionProperties ShipMass
         {
             get
             {
-                return new ConfirmingVariationCoefficientNormalDistributionProperties(
+                return new VariationCoefficientNormalDistributionProperties(
                     VariationCoefficientDistributionPropertiesReadOnly.None,
                     data.WrappedData.ShipMass,
                     PropertyChangeHandler);
@@ -514,11 +514,11 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_ShipVelocity_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_ShipVelocity_Description))]
-        public ConfirmingVariationCoefficientNormalDistributionProperties ShipVelocity
+        public VariationCoefficientNormalDistributionProperties ShipVelocity
         {
             get
             {
-                return new ConfirmingVariationCoefficientNormalDistributionProperties(
+                return new VariationCoefficientNormalDistributionProperties(
                     VariationCoefficientDistributionPropertiesReadOnly.None,
                     data.WrappedData.ShipVelocity,
                     PropertyChangeHandler);
@@ -566,11 +566,11 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_BankWidth_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_BankWidth_Description))]
-        public ConfirmingNormalDistributionProperties BankWidth
+        public NormalDistributionProperties BankWidth
         {
             get
             {
-                return new ConfirmingNormalDistributionProperties(
+                return new NormalDistributionProperties(
                     DistributionPropertiesReadOnly.None,
                     data.WrappedData.BankWidth,
                     PropertyChangeHandler);

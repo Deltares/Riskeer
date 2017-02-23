@@ -135,10 +135,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         {
             get
             {
-                return new TruncatedNormalDistributionProperties
-                {
-                    Data = data.WrappedData.GeneralInput.FrunupModelFactor
-                };
+                return new TruncatedNormalDistributionProperties(data.WrappedData.GeneralInput.FrunupModelFactor);
             }
         }
 
@@ -151,10 +148,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         {
             get
             {
-                return new TruncatedNormalDistributionProperties
-                {
-                    Data = data.WrappedData.GeneralInput.FbFactor
-                };
+                return new TruncatedNormalDistributionProperties(data.WrappedData.GeneralInput.FbFactor);
             }
         }
 
@@ -167,10 +161,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         {
             get
             {
-                return new TruncatedNormalDistributionProperties
-                {
-                    Data = data.WrappedData.GeneralInput.FnFactor
-                };
+                return new TruncatedNormalDistributionProperties(data.WrappedData.GeneralInput.FnFactor);
             }
         }
 
@@ -183,10 +174,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         {
             get
             {
-                return new TruncatedNormalDistributionProperties
-                {
-                    Data = data.WrappedData.GeneralInput.FshallowModelFactor
-                };
+                return new TruncatedNormalDistributionProperties(data.WrappedData.GeneralInput.FshallowModelFactor);
             }
         }
 

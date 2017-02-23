@@ -116,10 +116,7 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
         {
             get
             {
-                return new NormalDistributionProperties
-                {
-                    Data = data.WidthFlowApertures
-                };
+                return new NormalDistributionProperties(data.WidthFlowApertures);
             }
         }
 
@@ -132,10 +129,7 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
         {
             get
             {
-                return new LogNormalDistributionProperties
-                {
-                    Data = data.AreaFlowApertures
-                };
+                return new LogNormalDistributionProperties(data.AreaFlowApertures);
             }
         }
 
@@ -160,10 +154,7 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
         {
             get
             {
-                return new LogNormalDistributionProperties
-                {
-                    Data = data.FlowWidthAtBottomProtection
-                };
+                return new LogNormalDistributionProperties(data.FlowWidthAtBottomProtection);
             }
         }
 
@@ -176,10 +167,7 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
         {
             get
             {
-                return new VariationCoefficientLogNormalDistributionProperties
-                {
-                    Data = data.StorageStructureArea
-                };
+                return new VariationCoefficientLogNormalDistributionProperties(data.StorageStructureArea);
             }
         }
 
@@ -192,10 +180,7 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
         {
             get
             {
-                return new LogNormalDistributionProperties
-                {
-                    Data = data.AllowedLevelIncreaseStorage
-                };
+                return new LogNormalDistributionProperties(data.AllowedLevelIncreaseStorage);
             }
         }
 
@@ -208,10 +193,7 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
         {
             get
             {
-                return new NormalDistributionProperties
-                {
-                    Data = data.LevelCrestStructureNotClosing
-                };
+                return new NormalDistributionProperties(data.LevelCrestStructureNotClosing);
             }
         }
 
@@ -224,10 +206,7 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
         {
             get
             {
-                return new NormalDistributionProperties
-                {
-                    Data = data.ThresholdHeightOpenWeir
-                };
+                return new NormalDistributionProperties(data.ThresholdHeightOpenWeir);
             }
         }
 
@@ -240,10 +219,7 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
         {
             get
             {
-                return new NormalDistributionProperties
-                {
-                    Data = data.InsideWaterLevel
-                };
+                return new NormalDistributionProperties(data.InsideWaterLevel);
             }
         }
 
@@ -256,10 +232,7 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
         {
             get
             {
-                return new VariationCoefficientLogNormalDistributionProperties
-                {
-                    Data = data.CriticalOvertoppingDischarge
-                };
+                return new VariationCoefficientLogNormalDistributionProperties(data.CriticalOvertoppingDischarge);
             }
         }
 

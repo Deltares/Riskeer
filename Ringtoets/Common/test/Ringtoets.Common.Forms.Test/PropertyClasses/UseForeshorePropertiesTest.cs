@@ -47,7 +47,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => new UseForeshoreProperties<TestUseForeshore>(null, handler);
+            TestDelegate test = () => new UseForeshoreProperties(null, handler);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -65,7 +65,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => new UseForeshoreProperties<TestUseForeshore>(testUseForeshore, null);
+            TestDelegate test = () => new UseForeshoreProperties(testUseForeshore, null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -89,7 +89,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             };
 
             // Call
-            var properties = new UseForeshoreProperties<TestUseForeshore>(useForeshoreData, handler);
+            var properties = new UseForeshoreProperties(useForeshoreData, handler);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -120,7 +120,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             var useForeshoreData = new TestUseForeshore();
 
             // Call
-            var properties = new UseForeshoreProperties<TestUseForeshore>(useForeshoreData, handler);
+            var properties = new UseForeshoreProperties(useForeshoreData, handler);
 
             // Assert
             Assert.IsFalse(properties.UseForeshore);
@@ -141,7 +141,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             };
 
             // Call
-            var properties = new UseForeshoreProperties<TestUseForeshore>(useForeshoreData, handler);
+            var properties = new UseForeshoreProperties(useForeshoreData, handler);
 
             // Assert
             Assert.IsTrue(properties.UseForeshore);
@@ -168,7 +168,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             };
 
             // Call
-            var properties = new UseForeshoreProperties<TestUseForeshore>(useForeshoreData, handler);
+            var properties = new UseForeshoreProperties(useForeshoreData, handler);
 
             // Assert
             Assert.IsTrue(properties.UseForeshore);
@@ -184,7 +184,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         }
 
         private void SetPropertyAndVerifyNotifcationsAndOutputForCalculation(
-            Action<UseForeshoreProperties<TestUseForeshore>> setProperty,
+            Action<UseForeshoreProperties> setProperty,
             TestUseForeshore input)
         {
             // Setup
@@ -198,7 +198,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                     observable
                 });
 
-            var properties = new UseForeshoreProperties<TestUseForeshore>(input, handler);
+            var properties = new UseForeshoreProperties(input, handler);
 
             // Call
             setProperty(properties);

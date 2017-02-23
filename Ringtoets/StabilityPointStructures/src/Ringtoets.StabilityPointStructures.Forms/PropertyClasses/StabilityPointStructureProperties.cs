@@ -108,10 +108,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
         {
             get
             {
-                return new NormalDistributionProperties
-                {
-                    Data = data.InsideWaterLevel
-                };
+                return new NormalDistributionProperties(data.InsideWaterLevel);
             }
         }
 
@@ -124,10 +121,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
         {
             get
             {
-                return new NormalDistributionProperties
-                {
-                    Data = data.InsideWaterLevelFailureConstruction
-                };
+                return new NormalDistributionProperties(data.InsideWaterLevelFailureConstruction);
             }
         }
 
@@ -169,10 +163,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
         {
             get
             {
-                return new NormalDistributionProperties
-                {
-                    Data = data.WidthFlowApertures
-                };
+                return new NormalDistributionProperties(data.WidthFlowApertures);
             }
         }
 
@@ -185,10 +176,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
         {
             get
             {
-                return new LogNormalDistributionProperties
-                {
-                    Data = data.AreaFlowApertures
-                };
+                return new LogNormalDistributionProperties(data.AreaFlowApertures);
             }
         }
 
@@ -201,10 +189,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
         {
             get
             {
-                return new LogNormalDistributionProperties
-                {
-                    Data = data.FlowWidthAtBottomProtection
-                };
+                return new LogNormalDistributionProperties(data.FlowWidthAtBottomProtection);
             }
         }
 
@@ -217,10 +202,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
         {
             get
             {
-                return new VariationCoefficientLogNormalDistributionProperties
-                {
-                    Data = data.StorageStructureArea
-                };
+                return new VariationCoefficientLogNormalDistributionProperties(data.StorageStructureArea);
             }
         }
 
@@ -233,10 +215,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
         {
             get
             {
-                return new LogNormalDistributionProperties
-                {
-                    Data = data.AllowedLevelIncreaseStorage
-                };
+                return new LogNormalDistributionProperties(data.AllowedLevelIncreaseStorage);
             }
         }
 
@@ -249,10 +228,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
         {
             get
             {
-                return new NormalDistributionProperties
-                {
-                    Data = data.LevelCrestStructure
-                };
+                return new NormalDistributionProperties(data.LevelCrestStructure);
             }
         }
 
@@ -265,10 +241,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
         {
             get
             {
-                return new NormalDistributionProperties
-                {
-                    Data = data.ThresholdHeightOpenWeir
-                };
+                return new NormalDistributionProperties(data.ThresholdHeightOpenWeir);
             }
         }
 
@@ -281,10 +254,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
         {
             get
             {
-                return new VariationCoefficientLogNormalDistributionProperties
-                {
-                    Data = data.CriticalOvertoppingDischarge
-                };
+                return new VariationCoefficientLogNormalDistributionProperties(data.CriticalOvertoppingDischarge);
             }
         }
 
@@ -297,10 +267,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
         {
             get
             {
-                return new VariationCoefficientNormalDistributionProperties
-                {
-                    Data = data.FlowVelocityStructureClosable
-                };
+                return new VariationCoefficientNormalDistributionProperties(data.FlowVelocityStructureClosable);
             }
         }
 
@@ -313,10 +280,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
         {
             get
             {
-                return new VariationCoefficientLogNormalDistributionProperties
-                {
-                    Data = data.ConstructiveStrengthLinearLoadModel
-                };
+                return new VariationCoefficientLogNormalDistributionProperties(data.ConstructiveStrengthLinearLoadModel);
             }
         }
 
@@ -329,10 +293,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
         {
             get
             {
-                return new VariationCoefficientLogNormalDistributionProperties
-                {
-                    Data = data.ConstructiveStrengthQuadraticLoadModel
-                };
+                return new VariationCoefficientLogNormalDistributionProperties(data.ConstructiveStrengthQuadraticLoadModel);
             }
         }
 
@@ -345,10 +306,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
         {
             get
             {
-                return new NormalDistributionProperties
-                {
-                    Data = data.BankWidth
-                };
+                return new NormalDistributionProperties(data.BankWidth);
             }
         }
 
@@ -397,10 +355,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
         {
             get
             {
-                return new VariationCoefficientLogNormalDistributionProperties
-                {
-                    Data = data.FailureCollisionEnergy
-                };
+                return new VariationCoefficientLogNormalDistributionProperties(data.FailureCollisionEnergy);
             }
         }
 
@@ -413,10 +368,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
         {
             get
             {
-                return new VariationCoefficientNormalDistributionProperties
-                {
-                    Data = data.ShipMass
-                };
+                return new VariationCoefficientNormalDistributionProperties(data.ShipMass);
             }
         }
 
@@ -429,10 +381,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
         {
             get
             {
-                return new VariationCoefficientNormalDistributionProperties
-                {
-                    Data = data.ShipVelocity
-                };
+                return new VariationCoefficientNormalDistributionProperties(data.ShipVelocity);
             }
         }
 
@@ -469,10 +418,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
         {
             get
             {
-                return new VariationCoefficientLogNormalDistributionProperties
-                {
-                    Data = data.StabilityLinearLoadModel
-                };
+                return new VariationCoefficientLogNormalDistributionProperties(data.StabilityLinearLoadModel);
             }
         }
 
@@ -485,10 +431,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
         {
             get
             {
-                return new VariationCoefficientLogNormalDistributionProperties
-                {
-                    Data = data.StabilityQuadraticLoadModel
-                };
+                return new VariationCoefficientLogNormalDistributionProperties(data.StabilityQuadraticLoadModel);
             }
         }
 

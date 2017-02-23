@@ -36,22 +36,21 @@ namespace Ringtoets.Common.Forms.PropertyClasses
     /// <summary>
     /// ViewModel of <see cref="IUseForeshore"/>.
     /// </summary>
-    public class UseForeshoreProperties<TPropertyOwner>
-        where TPropertyOwner : IUseForeshore
+    public class UseForeshoreProperties
     {
         private const int useForeshorePropertyIndex = 1;
         private const int coordinatesPropertyIndex = 2;
-        private readonly TPropertyOwner data;
+        private readonly IUseForeshore data;
         private readonly IObservablePropertyChangeHandler changeHandler;
 
         /// <summary>
-        /// Creates a new instance of <see cref="UseForeshoreProperties{TPropertyOwner}"/>.
+        /// Creates a new instance of <see cref="UseForeshoreProperties"/>.
         /// </summary>
         /// <param name="useForeshoreData">The data to use for the properties. </param>
         /// <param name="handler">Optional handler that is used to handle property changes.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         public UseForeshoreProperties(
-            TPropertyOwner useForeshoreData,
+            IUseForeshore useForeshoreData,
             IObservablePropertyChangeHandler handler)
         {
             if (useForeshoreData == null)

@@ -31,14 +31,6 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
     [TestFixture]
     public class ConfirmingNormalDistributionPropertiesTest
     {
-        private MockRepository mockRepository;
-
-        [SetUp]
-        public void SetUp()
-        {
-            mockRepository = new MockRepository();
-        }
-
         [Test]
         public void Constructor_WithDistribution_ExpectedValues()
         {
@@ -46,10 +38,10 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             var distribution = new NormalDistribution();
 
             // Call
-            var properties = new ConfirmingNormalDistributionProperties(distribution);
+            var properties = new NormalDistributionProperties(distribution);
 
             // Assert
-            Assert.IsInstanceOf<ConfirmingDistributionPropertiesBase<NormalDistribution>>(properties);
+            Assert.IsInstanceOf<DistributionPropertiesBase<NormalDistribution>>(properties);
             Assert.AreSame(distribution, properties.Data);
             Assert.AreEqual("Normaal", properties.DistributionType);
 
@@ -62,25 +54,25 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             // Setup
             var mocks = new MockRepository();
             var handler = mocks.Stub<IObservablePropertyChangeHandler>();
-            mockRepository.ReplayAll();
+            mocks.ReplayAll();
 
             var distribution = new NormalDistribution();
 
             // Call
-            var properties = new ConfirmingNormalDistributionProperties(
+            var properties = new NormalDistributionProperties(
                 DistributionPropertiesReadOnly.None, distribution, handler);
 
             // Assert
-            Assert.IsInstanceOf<ConfirmingDistributionPropertiesBase<NormalDistribution>>(properties);
+            Assert.IsInstanceOf<DistributionPropertiesBase<NormalDistribution>>(properties);
             Assert.AreSame(distribution, properties.Data);
             Assert.AreEqual("Normaal", properties.DistributionType);
 
             AssertPropertiesInState(properties, false, false);
 
-            mockRepository.VerifyAll();
+            mocks.VerifyAll();
         }
 
-        private static void AssertPropertiesInState(ConfirmingNormalDistributionProperties properties, bool meanReadOnly, bool deviationReadOnly)
+        private static void AssertPropertiesInState(NormalDistributionProperties properties, bool meanReadOnly, bool deviationReadOnly)
         {
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
             Assert.AreEqual(3, dynamicProperties.Count);

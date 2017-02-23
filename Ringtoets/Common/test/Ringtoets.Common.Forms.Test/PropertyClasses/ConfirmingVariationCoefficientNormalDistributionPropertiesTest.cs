@@ -31,14 +31,6 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
     [TestFixture]
     public class ConfirmingVariationCoefficientNormalDistributionPropertiesTest
     {
-        private MockRepository mockRepository;
-
-        [SetUp]
-        public void SetUp()
-        {
-            mockRepository = new MockRepository();
-        }
-
         [Test]
         public void Constructor_WithData_ReadOnlyProperties()
         {
@@ -46,10 +38,10 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             var distribution = new VariationCoefficientNormalDistribution();
 
             // Call
-            var properties = new ConfirmingVariationCoefficientNormalDistributionProperties(distribution);
+            var properties = new VariationCoefficientNormalDistributionProperties(distribution);
 
             // Assert
-            Assert.IsInstanceOf<ConfirmingVariationCoefficientDistributionPropertiesBase<VariationCoefficientNormalDistribution>>(properties);
+            Assert.IsInstanceOf<VariationCoefficientDistributionPropertiesBase<VariationCoefficientNormalDistribution>>(properties);
             Assert.AreSame(distribution, properties.Data);
 
             AssertPropertiesInState(properties, true, true);
@@ -61,23 +53,23 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             // Setup
             var mocks = new MockRepository();
             var handler = mocks.Stub<IObservablePropertyChangeHandler>();
-            mockRepository.ReplayAll();
+            mocks.ReplayAll();
 
             var distribution = new VariationCoefficientNormalDistribution();
 
             // Call
-            var properties = new ConfirmingVariationCoefficientNormalDistributionProperties(
+            var properties = new VariationCoefficientNormalDistributionProperties(
                 VariationCoefficientDistributionPropertiesReadOnly.None, distribution, handler);
 
             // Assert
-            Assert.IsInstanceOf<ConfirmingVariationCoefficientDistributionPropertiesBase<VariationCoefficientNormalDistribution>>(properties);
+            Assert.IsInstanceOf<VariationCoefficientDistributionPropertiesBase<VariationCoefficientNormalDistribution>>(properties);
             Assert.AreSame(distribution, properties.Data);
             Assert.AreEqual("Normaal", properties.DistributionType);
             AssertPropertiesInState(properties, false, false);
-            mockRepository.VerifyAll();
+            mocks.VerifyAll();
         }
 
-        private static void AssertPropertiesInState(ConfirmingVariationCoefficientNormalDistributionProperties properties, bool meanReadOnly, bool variationCoefficientReadOnly)
+        private static void AssertPropertiesInState(VariationCoefficientNormalDistributionProperties properties, bool meanReadOnly, bool variationCoefficientReadOnly)
         {
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
             Assert.AreEqual(3, dynamicProperties.Count);

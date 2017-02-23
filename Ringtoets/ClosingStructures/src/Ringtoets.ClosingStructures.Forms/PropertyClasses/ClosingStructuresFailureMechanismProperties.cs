@@ -184,10 +184,7 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
         {
             get
             {
-                return new LogNormalDistributionProperties
-                {
-                    Data = data.GeneralInput.ModelFactorOvertoppingFlow
-                };
+                return new LogNormalDistributionProperties(data.GeneralInput.ModelFactorOvertoppingFlow);
             }
         }
 
@@ -200,10 +197,7 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
         {
             get
             {
-                return new LogNormalDistributionProperties
-                {
-                    Data = data.GeneralInput.ModelFactorStorageVolume
-                };
+                return new LogNormalDistributionProperties(data.GeneralInput.ModelFactorStorageVolume);
             }
         }
 
@@ -216,10 +210,7 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
         {
             get
             {
-                return new VariationCoefficientNormalDistributionProperties
-                {
-                    Data = data.GeneralInput.ModelFactorSubCriticalFlow
-                };
+                return new VariationCoefficientNormalDistributionProperties(data.GeneralInput.ModelFactorSubCriticalFlow);
             }
         }
 

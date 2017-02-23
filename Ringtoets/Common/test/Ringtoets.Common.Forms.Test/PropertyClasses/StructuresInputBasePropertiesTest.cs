@@ -159,8 +159,8 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             Assert.AreSame(input.WidthFlowApertures, properties.WidthFlowApertures.Data);
             Assert.AreSame(input.CriticalOvertoppingDischarge, properties.CriticalOvertoppingDischarge.Data);
             Assert.IsNull(properties.ForeshoreProfile);
-            Assert.IsInstanceOf<UseBreakWaterProperties<SimpleStructureInput>>(properties.UseBreakWater);
-            Assert.IsInstanceOf<UseForeshoreProperties<SimpleStructureInput>>(properties.UseForeshore);
+            Assert.IsInstanceOf<UseBreakWaterProperties>(properties.UseBreakWater);
+            Assert.IsInstanceOf<UseForeshoreProperties>(properties.UseForeshore);
             Assert.AreEqual(expectedFailureProbabilityStructureWithErosion, properties.FailureProbabilityStructureWithErosion);
             Assert.IsNull(properties.SelectedHydraulicBoundaryLocation);
             Assert.AreSame(input.StormDuration, properties.StormDuration.Data);
