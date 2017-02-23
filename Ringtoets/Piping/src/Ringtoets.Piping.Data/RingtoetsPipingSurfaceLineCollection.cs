@@ -26,7 +26,8 @@ using Ringtoets.Piping.Data.Properties;
 namespace Ringtoets.Piping.Data
 {
     /// <summary>
-    /// Collection to store <see cref="RingtoetsPipingSurfaceLine"/>.
+    /// Collection to store <see cref="RingtoetsPipingSurfaceLine"/> items. The 
+    /// names of the items are unique within the collection.
     /// </summary>
     public class RingtoetsPipingSurfaceLineCollection : ObservableUniqueItemCollectionWithSourcePath<RingtoetsPipingSurfaceLine, string>
     {

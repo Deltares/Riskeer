@@ -36,12 +36,7 @@ using Ringtoets.Piping.Service;
 namespace Ringtoets.Piping.Plugin.FileImporter
 {
     /// <summary>
-    /// Strategy for updating the current surface lines with the imported surface lines:
-    /// <list type="bullet">
-    /// <item>Adds imported surface lines that are not part of the current collection.</item>
-    /// <item>Removes surface lines that are part of the current collection, but are not part of the imported surface line collection.</item>
-    /// <item>Updates the surface lines that are part of the current collection and are part of the imported surface line collection.</item>
-    /// </list>
+    /// An <see cref="UpdateDataStrategyBase{TTargetData,TFeature,TFailureMechanism}"/> for updating surface lines based on imported data.
     /// </summary>
     public class RingtoetsPipingSurfaceLineUpdateDataStrategy : UpdateDataStrategyBase<RingtoetsPipingSurfaceLine, string, PipingFailureMechanism>,
                                                                 ISurfaceLineUpdateDataStrategy

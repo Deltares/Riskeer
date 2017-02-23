@@ -51,7 +51,7 @@ namespace Ringtoets.Common.Data.UpdateDataStrategies
         /// Instantiates a <see cref="UpdateDataStrategyBase{TObject,TFeature,TFailureMechanism}"/> object.
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism which needs to be updated.</param>
-        /// <param name="equalityComparer">The comparer which should be used to determine when two objects are equal</param>
+        /// <param name="equalityComparer">The comparer which should be used to determine when two objects are equal.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         protected UpdateDataStrategyBase(TFailureMechanism failureMechanism, IEqualityComparer<TTargetData> equalityComparer)
         {
@@ -98,7 +98,7 @@ namespace Ringtoets.Common.Data.UpdateDataStrategies
         /// <exception cref="ArgumentException">Thrown when duplicate items are being added to the 
         /// <paramref name="targetDataCollection"/>.</exception>
         /// <exception cref="InvalidOperationException">Thrown when duplicate items are found during the 
-        /// update of the items to be updatd in the <paramref name="targetDataCollection"/>.</exception>
+        /// update of the items in the <paramref name="targetDataCollection"/>.</exception>
         protected IEnumerable<IObservable> UpdateTargetCollectionData(ObservableUniqueItemCollectionWithSourcePath<TTargetData, TFeature> targetDataCollection,
                                                                       IEnumerable<TTargetData> importedDataCollection,
                                                                       string sourceFilePath)
@@ -120,7 +120,7 @@ namespace Ringtoets.Common.Data.UpdateDataStrategies
         }
 
         /// <summary>
-        /// Identifies which models were changed, removed and added to the target collection 
+        /// Identifies which items were changed, removed and added to the target collection 
         /// when compared with the imported data and performs the necessary operations for 
         /// the dependent data of the affected elements. 
         /// </summary>
@@ -134,39 +134,39 @@ namespace Ringtoets.Common.Data.UpdateDataStrategies
         /// <exception cref="InvalidOperationException">Thrown when duplicate items are found during the 
         /// update of the items to be updatd in the <paramref name="targetDataCollection"/>.</exception>
         private IEnumerable<IObservable> ModifyDataCollection(ObservableUniqueItemCollectionWithSourcePath<TTargetData, TFeature> targetDataCollection,
-                                                          IEnumerable<TTargetData> importedDataCollection,
-                                                          string sourceFilePath)
+                                                              IEnumerable<TTargetData> importedDataCollection,
+                                                              string sourceFilePath)
         {
             TTargetData[] importedObjects = importedDataCollection.ToArray();
-            TTargetData[] addedObjects = GetAddedObjects(targetDataCollection, importedObjects).ToArray();
-            TTargetData[] removedObjects = GetRemovedObjects(targetDataCollection, importedObjects).ToArray();
-            TTargetData[] updatedObjects = GetUpdatedObjects(targetDataCollection, importedObjects).ToArray();
+            TTargetData[] objectsToBeAdded = GetObjectsToBeAdded(targetDataCollection, importedObjects).ToArray();
+            TTargetData[] objectsToBeRemoved = GetObjectsToBeRemoved(targetDataCollection, importedObjects).ToArray();
+            TTargetData[] objectsToBeUpdated = GetObjectsToBeUpdated(targetDataCollection, importedObjects).ToArray();
 
             var affectedObjects = new List<IObservable>();
-            if (addedObjects.Any())
+            if (objectsToBeAdded.Any())
             {
                 affectedObjects.Add(targetDataCollection);
             }
-            affectedObjects.AddRange(UpdateData(updatedObjects, importedObjects));
-            affectedObjects.AddRange(RemoveData(removedObjects));
+            affectedObjects.AddRange(UpdateData(objectsToBeUpdated, importedObjects));
+            affectedObjects.AddRange(RemoveData(objectsToBeRemoved));
             
             targetDataCollection.Clear();
-            targetDataCollection.AddRange(addedObjects.Union(updatedObjects), sourceFilePath);
+            targetDataCollection.AddRange(objectsToBeAdded.Union(objectsToBeUpdated), sourceFilePath);
 
             return affectedObjects.Distinct(new ReferenceEqualityComparer<IObservable>());
         }
 
-        private IEnumerable<TTargetData> GetRemovedObjects(IEnumerable<TTargetData> existingCollection, IEnumerable<TTargetData> importedDataOjects)
+        private IEnumerable<TTargetData> GetObjectsToBeRemoved(IEnumerable<TTargetData> existingCollection, IEnumerable<TTargetData> importedDataOjects)
         {
             return existingCollection.Except(importedDataOjects, equalityComparer);
         }
 
-        private IEnumerable<TTargetData> GetUpdatedObjects(IEnumerable<TTargetData> existingCollection, IEnumerable<TTargetData> importedDataObjects)
+        private IEnumerable<TTargetData> GetObjectsToBeUpdated(IEnumerable<TTargetData> existingCollection, IEnumerable<TTargetData> importedDataObjects)
         {
             return existingCollection.Intersect(importedDataObjects, equalityComparer);
         }
 
-        private IEnumerable<TTargetData> GetAddedObjects(IEnumerable<TTargetData> existingCollection, IEnumerable<TTargetData> importedDataObjects)
+        private IEnumerable<TTargetData> GetObjectsToBeAdded(IEnumerable<TTargetData> existingCollection, IEnumerable<TTargetData> importedDataObjects)
         {
             return importedDataObjects.Where(source => !existingCollection.Contains(source, equalityComparer));
         }

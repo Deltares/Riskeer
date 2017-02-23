@@ -104,7 +104,7 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
         }
 
         [Test]
-        public void ReplaceData_CallsClearData()
+        public void ReplaceData_CallsClearData_ReturnsTrue()
         {
             // Setup
             var strategy = new ConcreteStrategyClass(new TestFailureMechanism());
@@ -215,6 +215,26 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
             Assert.AreEqual(expectedSourcePath, collection.SourcePath);
         }
 
+        [Test]
+        public void ReplaceData_ClearDataCalled_ReturnsExpectedItems()
+        {
+            // Setup
+            var failureMechanism = new TestFailureMechanism();
+            var strategy = new ConcreteStrategyClass(failureMechanism);
+
+            var collection = new ObservableUniqueItemCollectionWithSourcePath<TestItem, string>(
+               getUniqueFeature, typeDescriptor, featureDescription);
+
+            // Call
+            IObservable[] affectedObjects = strategy.ConcreteReplaceData(collection,
+                                                                         Enumerable.Empty<TestItem>(),
+                                                                         "some/source").ToArray();
+
+            // Assert
+            Assert.AreEqual(1, affectedObjects.Length);
+            Assert.AreSame(failureMechanism, affectedObjects[0]);
+        }
+
         #region Helper classes
 
         private class ConcreteStrategyClass : ReplaceDataStrategyBase<TestItem, string, TestFailureMechanism>
@@ -232,7 +252,10 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
             protected override IEnumerable<IObservable> ClearData(TestFailureMechanism failureMechanism)
             {
                 IsClearDataCalled = true;
-                return Enumerable.Empty<IObservable>();
+                return new []
+                {
+                    failureMechanism
+                };
             }
         }
 

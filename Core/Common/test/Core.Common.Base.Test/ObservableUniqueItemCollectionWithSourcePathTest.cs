@@ -30,7 +30,7 @@ namespace Core.Common.Base.Test
     [TestFixture]
     public class ObservableUniqueItemCollectionWithSourcePathTest
     {
-        private readonly Func<TestItem, string> getUniqueFeature = (item => item.Name);
+        private readonly Func<TestItem, string> getUniqueFeature = item => item.Name;
         private const string typeDescriptor = "TestItems";
         private const string featureDescription = "Feature";
 
@@ -243,7 +243,7 @@ namespace Core.Common.Base.Test
             TestDelegate call = () => collection.AddRange(itemsToAdd, "some/path");
 
             // Assert
-            string message = $"{typeDescriptor} moeten een unieke {featureDescription} hebben. Gevonden dubbele elementen: {duplicateNameOne}, {duplicateNameTwo}.";
+            string message = $"TestItems moeten een unieke Feature hebben. Gevonden dubbele elementen: {duplicateNameOne}, {duplicateNameTwo}.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, message);
         }
 

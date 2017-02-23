@@ -115,24 +115,26 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
         }
 
         [Test]
-        public void UpdateTargetCollectionData_WithCollectionAndImportedDataEmpty_ClearsTargetCollection()
+        public void UpdateTargetCollectionData_WithNonEmtpyCollectionAndImportedDataEmpty_ClearsTargetCollection()
         {
             // Setup
             var collection = new ObservableUniqueItemCollectionWithSourcePath<TestItem, string>(
                 getUniqueFeature, typeDescriptor, featureDescription);
             const string filePath = "path";
-            collection.AddRange(new[]
+            var itemsRemoved = new[]
             {
                 new TestItem("Name A"),
                 new TestItem("Name B")
-            }, filePath);
+            };
+            collection.AddRange(itemsRemoved, filePath);
 
             var strategy = new ConcreteUpdateDataStrategy(new TestFailureMechanism());
 
             // Call
-            strategy.ConcreteUpdateData(collection, Enumerable.Empty<TestItem>(), filePath);
+            IEnumerable<IObservable> affectedObjects = strategy.ConcreteUpdateData(collection, Enumerable.Empty<TestItem>(), filePath);
 
             // Assert
+            CollectionAssert.AreEquivalent(itemsRemoved, affectedObjects);
             CollectionAssert.IsEmpty(collection);
             Assert.AreEqual(filePath, collection.SourcePath);
         }
@@ -142,7 +144,7 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
         {
             // Setup
             var collection = new ObservableUniqueItemCollectionWithSourcePath<TestItem, string>(
-               getUniqueFeature, typeDescriptor, featureDescription);
+                getUniqueFeature, typeDescriptor, featureDescription);
 
             var strategy = new ConcreteUpdateDataStrategy(new TestFailureMechanism());
 
@@ -155,12 +157,70 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
         }
 
         [Test]
+        public void UpdateTargetCollectionData_GetObjectsToRemoveCall_ReturnsExpectedAffectedItems()
+        {
+            // Setup
+            var collection = new ObservableUniqueItemCollectionWithSourcePath<TestItem, string>(
+                getUniqueFeature, typeDescriptor, featureDescription);
+            const string filePath = "path";
+            var expectedAffectedItems = new[]
+            {
+                new TestItem("Name A"),
+                new TestItem("Name B")
+            };
+            collection.AddRange(expectedAffectedItems, filePath);
+
+            var strategy = new ConcreteUpdateDataStrategy(new TestFailureMechanism());
+
+            // Call
+            IObservable[] affectedObjects = strategy.ConcreteUpdateData(collection, Enumerable.Empty<TestItem>(), filePath).ToArray();
+
+            // Assert
+            CollectionAssert.AreEquivalent(expectedAffectedItems, affectedObjects);
+            CollectionAssert.IsEmpty(collection);
+            Assert.AreEqual(filePath, collection.SourcePath);
+        }
+
+        [Test]
+        public void UpdateTargetCollectionData_GetObjectsToUpdateCall_ReturnsExpectedAffectedItems()
+        {
+            // Setup
+            var collection = new ObservableUniqueItemCollectionWithSourcePath<TestItem, string>(
+                getUniqueFeature, typeDescriptor, featureDescription);
+            const string filePath = "path";
+            var updatedItems = new[]
+            {
+                new TestItem("Name A"),
+                new TestItem("Name B")
+            };
+            collection.AddRange(updatedItems, filePath);
+
+            var strategy = new ConcreteUpdateDataStrategy(new TestFailureMechanism());
+
+            var importedItems = new[]
+            {
+                new TestItem("Name A"),
+                new TestItem("Name B")
+            };
+
+            // Call
+            IObservable[] affectedObjects = strategy.ConcreteUpdateData(collection, importedItems, filePath).ToArray();
+
+            // Assert
+            IEnumerable<IObservable> expectedAffectedObjects = updatedItems.Concat(importedItems);
+
+            CollectionAssert.AreEquivalent(expectedAffectedObjects, affectedObjects);
+            CollectionAssert.AreEqual(updatedItems, collection);
+            Assert.AreEqual(filePath, collection.SourcePath);
+        }
+
+        [Test]
         public void UpdateTargetCollectionData_WithEmptyCollectionAndImportedDataCollectionNotEmpty_AddsNewItems()
         {
             // Setup
             var collection = new ObservableUniqueItemCollectionWithSourcePath<TestItem, string>(
                 getUniqueFeature, typeDescriptor, featureDescription);
-            var importedCollection = new[]
+            var importedItems = new[]
             {
                 new TestItem("Name A"),
                 new TestItem("Name B")
@@ -169,11 +229,15 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
             var strategy = new ConcreteUpdateDataStrategy(new TestFailureMechanism());
 
             // Call
-            IEnumerable<IObservable> affectedObjects = strategy.ConcreteUpdateData(collection, importedCollection, "path");
+            IEnumerable<IObservable> affectedObjects = strategy.ConcreteUpdateData(collection, importedItems, "path");
 
             // Assert
-            CollectionAssert.AreEqual(importedCollection, collection);
-            CollectionAssert.Contains(affectedObjects, collection);
+            CollectionAssert.AreEqual(importedItems, collection);
+            IEnumerable<IObservable> expectedAffectedObjects = importedItems.Concat(new IObservable[]
+            {
+                collection
+            });
+            CollectionAssert.AreEquivalent(expectedAffectedObjects, affectedObjects);
             Assert.AreEqual("path", collection.SourcePath);
         }
 
@@ -183,6 +247,10 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
             // Setup
             var collection = new ObservableUniqueItemCollectionWithSourcePath<TestItem, string>(
                 getUniqueFeature, typeDescriptor, featureDescription);
+            collection.AddRange(new[]
+            {
+                new TestItem("I am an expected item")
+            }, "path");
 
             const string duplicateName = "Duplicate Name";
             var importedCollection = new[]
@@ -203,7 +271,7 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
 
             CollectionAssert.IsEmpty(collection);
         }
-        
+
         private class ConcreteUpdateDataStrategy : UpdateDataStrategyBase<TestItem, string, TestFailureMechanism>
         {
             public bool IsUpdateDataCalled { get; private set; }
@@ -225,13 +293,19 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
             protected override IEnumerable<IObservable> UpdateData(IEnumerable<TestItem> objectsToUpdate, IEnumerable<TestItem> importedDataCollection)
             {
                 IsUpdateDataCalled = true;
-                return Enumerable.Empty<IObservable>();
+                var affectedObjects = new List<IObservable>();
+                affectedObjects.AddRange(objectsToUpdate);
+                affectedObjects.AddRange(importedDataCollection);
+                return affectedObjects;
             }
 
             protected override IEnumerable<IObservable> RemoveData(IEnumerable<TestItem> removedObjects)
             {
                 IsRemoveDataCalled = true;
-                return Enumerable.Empty<IObservable>();
+
+                var affectedObjects = new List<IObservable>();
+                affectedObjects.AddRange(removedObjects);
+                return affectedObjects;
             }
 
             private class NameComparer : IEqualityComparer<TestItem>
@@ -248,7 +322,7 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
             }
         }
 
-        private class TestItem
+        private class TestItem : Observable
         {
             public string Name { get; }
 

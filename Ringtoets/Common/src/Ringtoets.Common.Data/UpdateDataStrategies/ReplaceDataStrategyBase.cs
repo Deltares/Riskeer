@@ -27,7 +27,7 @@ using Ringtoets.Common.Data.FailureMechanism;
 namespace Ringtoets.Common.Data.UpdateDataStrategies
 {
     /// <summary>
-    /// Base class of the replace strategy algorithm to replace data from a 
+    /// Base class of the algorithm that replaces data from a 
     /// target collection with the data that was imported.
     /// </summary>
     /// <typeparam name="TTargetData">The target data type.</typeparam>

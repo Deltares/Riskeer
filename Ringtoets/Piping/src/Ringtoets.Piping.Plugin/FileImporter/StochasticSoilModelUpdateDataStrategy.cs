@@ -35,15 +35,7 @@ using Ringtoets.Piping.Service;
 namespace Ringtoets.Piping.Plugin.FileImporter
 {
     /// <summary>
-    /// Strategy for updating the current stochastic soil models with the imported stochastic soil models.
-    /// <list type="bullet">
-    /// <item>Adds stochastic soil models that are imported and are not part of current stochastic soil model collection.</item>
-    /// <item>Removes stochastic soil models that are part of the current stochastic soil model collection, but were not
-    /// amongst the imported stochastic soil models.
-    /// </item>
-    /// <item>Updates stochastic soil models that are part of the current stochastic soil model collection and are also
-    /// imported.</item>
-    /// </list>
+    /// An <see cref="UpdateDataStrategyBase{TTargetData,TFeature,TFailureMechanism}"/> for updating stochastic soil models based on imported data.
     /// </summary>
     public class StochasticSoilModelUpdateDataStrategy : UpdateDataStrategyBase<StochasticSoilModel, string, PipingFailureMechanism>,
                                                          IStochasticSoilModelUpdateModelStrategy

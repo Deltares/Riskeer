@@ -109,9 +109,9 @@ SELECT
 	[Order]
 	FROM (SELECT *, (SELECT count(*)
                      FROM [SOURCEPROJECT].SurfaceLineEntity
-                     WHERE SSM.SurfaceLineEntityId > SurfaceLineEntityId
-                     AND SSM.Name IS Name) as Suffix
-	FROM [SOURCEPROJECT].SurfaceLineEntity SSM);
+                     WHERE SL.SurfaceLineEntityId > SurfaceLineEntityId
+                     AND SL.Name IS Name) as Suffix
+	FROM [SOURCEPROJECT].SurfaceLineEntity SL);
 INSERT INTO TechnicalInnovationSectionResultEntity SELECT * FROM [SOURCEPROJECT].TechnicalInnovationSectionResultEntity;
 INSERT INTO VersionEntity (
 	[VersionId], 
