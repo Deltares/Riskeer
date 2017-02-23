@@ -953,8 +953,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         {
             RoundedDouble height = new Random(21).NextRoundedDouble();
             SetPropertyAndVerifyNotifcationsAndOutput(
-                properties => properties.VolumicWeightWater = height,
-                height);
+                properties => properties.VolumicWeightWater = height);
         }
 
         [Test]
@@ -962,8 +961,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         {
             RoundedDouble factor = new Random(21).NextRoundedDouble();
             SetPropertyAndVerifyNotifcationsAndOutput(
-                properties => properties.FactorStormDurationOpenStructure = factor,
-                factor);
+                properties => properties.FactorStormDurationOpenStructure = factor);
         }
 
         [Test]
@@ -971,8 +969,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         {
             var type = new Random(21).NextEnumValue<StabilityPointStructureInflowModelType>();
             SetPropertyAndVerifyNotifcationsAndOutput(
-                properties => properties.InflowModelType = type,
-                type);
+                properties => properties.InflowModelType = type);
         }
 
         [Test]
@@ -980,8 +977,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         {
             var type = new Random(21).NextEnumValue<LoadSchematizationType>();
             SetPropertyAndVerifyNotifcationsAndOutput(
-                properties => properties.LoadSchematizationType = type,
-                type);
+                properties => properties.LoadSchematizationType = type);
         }
 
         [Test]
@@ -989,8 +985,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         {
             string probability = new Random(21).NextDouble().ToString(CultureInfo.CurrentCulture);
             SetPropertyAndVerifyNotifcationsAndOutput(
-                properties => properties.FailureProbabilityRepairClosure = probability,
-                probability);
+                properties => properties.FailureProbabilityRepairClosure = probability);
         }
 
         [Test]
@@ -998,8 +993,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         {
             int count = new Random(21).Next();
             SetPropertyAndVerifyNotifcationsAndOutput(
-                properties => properties.LevellingCount = count,
-                count);
+                properties => properties.LevellingCount = count);
         }
 
         [Test]
@@ -1007,8 +1001,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         {
             string probability = new Random(21).NextDouble().ToString(CultureInfo.CurrentCulture);
             SetPropertyAndVerifyNotifcationsAndOutput(
-                properties => properties.ProbabilityCollisionSecondaryStructure = probability,
-                probability);
+                properties => properties.ProbabilityCollisionSecondaryStructure = probability);
         }
 
         [Test]
@@ -1016,8 +1009,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         {
             RoundedDouble evaluationLevel = new Random(21).NextRoundedDouble();
             SetPropertyAndVerifyNotifcationsAndOutput(
-                properties => properties.EvaluationLevel = evaluationLevel,
-                evaluationLevel);
+                properties => properties.EvaluationLevel = evaluationLevel);
         }
 
         [Test]
@@ -1025,8 +1017,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         {
             RoundedDouble verticalDistance = new Random(21).NextRoundedDouble();
             SetPropertyAndVerifyNotifcationsAndOutput(
-                properties => properties.VerticalDistance = verticalDistance,
-                verticalDistance);
+                properties => properties.VerticalDistance = verticalDistance);
         }
 
         [Test]
@@ -1034,8 +1025,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         {
             RoundedDouble newMean = new Random(21).NextRoundedDouble();
             SetPropertyAndVerifyNotifcationsAndOutput(
-                properties => properties.ModelFactorSuperCriticalFlow.Mean = newMean,
-                newMean);
+                properties => properties.ModelFactorSuperCriticalFlow.Mean = newMean);
         }
 
         [Test]
@@ -1043,8 +1033,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         {
             RoundedDouble newMean = new Random(21).NextRoundedDouble();
             SetPropertyAndVerifyNotifcationsAndOutput(
-                properties => properties.WidthFlowApertures.Mean = newMean,
-                newMean);
+                properties => properties.WidthFlowApertures.Mean = newMean);
         }
 
         [Test]
@@ -1052,8 +1041,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         {
             RoundedDouble newMean = new Random(21).NextRoundedDouble();
             SetPropertyAndVerifyNotifcationsAndOutput(
-                properties => properties.InsideWaterLevelFailureConstruction.Mean = newMean,
-                newMean);
+                properties => properties.InsideWaterLevelFailureConstruction.Mean = newMean);
         }
 
         [Test]
@@ -1061,8 +1049,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         {
             RoundedDouble newMean = new Random(21).NextRoundedDouble();
             SetPropertyAndVerifyNotifcationsAndOutput(
-                properties => properties.InsideWaterLevel.Mean = newMean,
-                newMean);
+                properties => properties.InsideWaterLevel.Mean = newMean);
         }
 
         [Test]
@@ -1070,8 +1057,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         {
             RoundedDouble newMean = new Random(21).NextRoundedDouble();
             SetPropertyAndVerifyNotifcationsAndOutput(
-                properties => properties.DrainCoefficient.Mean = newMean,
-                newMean);
+                properties => properties.DrainCoefficient.Mean = newMean);
         }
 
         [Test]
@@ -1079,8 +1065,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         {
             RoundedDouble newMean = new Random(21).NextRoundedDouble();
             SetPropertyAndVerifyNotifcationsAndOutput(
-                properties => properties.LevelCrestStructure.Mean = newMean,
-                newMean);
+                properties => properties.LevelCrestStructure.Mean = newMean);
         }
 
         [Test]
@@ -1088,8 +1073,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         {
             RoundedDouble newMean = new Random(21).NextRoundedDouble();
             SetPropertyAndVerifyNotifcationsAndOutput(
-                properties => properties.ThresholdHeightOpenWeir.Mean = newMean,
-                newMean);
+                properties => properties.ThresholdHeightOpenWeir.Mean = newMean);
         }
 
         [Test]
@@ -1097,8 +1081,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         {
             RoundedDouble newMean = new Random(21).NextRoundedDouble();
             SetPropertyAndVerifyNotifcationsAndOutput(
-                properties => properties.FlowVelocityStructureClosable.Mean = newMean,
-                newMean);
+                properties => properties.FlowVelocityStructureClosable.Mean = newMean);
         }
 
         [Test]
@@ -1106,8 +1089,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         {
             RoundedDouble newMean = new Random(21).NextRoundedDouble();
             SetPropertyAndVerifyNotifcationsAndOutput(
-                properties => properties.AreaFlowApertures.Mean = newMean,
-                newMean);
+                properties => properties.AreaFlowApertures.Mean = newMean);
         }
 
         [Test]
@@ -1115,8 +1097,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         {
             RoundedDouble newMean = new Random(21).NextRoundedDouble();
             SetPropertyAndVerifyNotifcationsAndOutput(
-                properties => properties.ConstructiveStrengthLinearLoadModel.Mean = newMean,
-                newMean);
+                properties => properties.ConstructiveStrengthLinearLoadModel.Mean = newMean);
         }
 
         [Test]
@@ -1124,8 +1105,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         {
             RoundedDouble newMean = new Random(21).NextRoundedDouble();
             SetPropertyAndVerifyNotifcationsAndOutput(
-                properties => properties.ConstructiveStrengthQuadraticLoadModel.Mean = newMean,
-                newMean);
+                properties => properties.ConstructiveStrengthQuadraticLoadModel.Mean = newMean);
         }
 
         [Test]
@@ -1133,8 +1113,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         {
             RoundedDouble newMean = new Random(21).NextRoundedDouble();
             SetPropertyAndVerifyNotifcationsAndOutput(
-                properties => properties.StabilityLinearLoadModel.Mean = newMean,
-                newMean);
+                properties => properties.StabilityLinearLoadModel.Mean = newMean);
         }
 
         [Test]
@@ -1142,8 +1121,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         {
             RoundedDouble newMean = new Random(21).NextRoundedDouble();
             SetPropertyAndVerifyNotifcationsAndOutput(
-                properties => properties.StabilityQuadraticLoadModel.Mean = newMean,
-                newMean);
+                properties => properties.StabilityQuadraticLoadModel.Mean = newMean);
         }
 
         [Test]
@@ -1151,8 +1129,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         {
             RoundedDouble newMean = new Random(21).NextRoundedDouble();
             SetPropertyAndVerifyNotifcationsAndOutput(
-                properties => properties.FailureCollisionEnergy.Mean = newMean,
-                newMean);
+                properties => properties.FailureCollisionEnergy.Mean = newMean);
         }
 
         [Test]
@@ -1160,8 +1137,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         {
             RoundedDouble newMean = new Random(21).NextRoundedDouble();
             SetPropertyAndVerifyNotifcationsAndOutput(
-                properties => properties.ShipMass.Mean = newMean,
-                newMean);
+                properties => properties.ShipMass.Mean = newMean);
         }
 
         [Test]
@@ -1169,8 +1145,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         {
             RoundedDouble newMean = new Random(21).NextRoundedDouble();
             SetPropertyAndVerifyNotifcationsAndOutput(
-                properties => properties.ShipVelocity.Mean = newMean,
-                newMean);
+                properties => properties.ShipVelocity.Mean = newMean);
         }
 
         [Test]
@@ -1178,8 +1153,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         {
             RoundedDouble newMean = new Random(21).NextRoundedDouble();
             SetPropertyAndVerifyNotifcationsAndOutput(
-                properties => properties.BankWidth.Mean = newMean,
-                newMean);
+                properties => properties.BankWidth.Mean = newMean);
         }
 
         [Test]
@@ -1202,10 +1176,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             const int overflow = 1;
             string newProbabilityString = string.Concat(newValue.ToString("r", CultureInfo.CurrentCulture), overflow);
 
-            var handler = new ObservableSetPropertyValueAfterConfirmationParameterTester<string>(
-                calculation.InputParameters,
-                newProbabilityString,
-                Enumerable.Empty<IObservable>());
+            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(Enumerable.Empty<IObservable>());
             var properties = new StabilityPointStructuresInputContextProperties(inputContext, handler);
 
             // Call
@@ -1235,10 +1206,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
                                                                         failureMechanism,
                                                                         assessmentSectionStub);
 
-            var handler = new ObservableSetPropertyValueAfterConfirmationParameterTester<string>(
-                calculation.InputParameters,
-                newValue,
-                Enumerable.Empty<IObservable>());
+            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(Enumerable.Empty<IObservable>());
             var properties = new StabilityPointStructuresInputContextProperties(inputContext, handler);
 
             // Call
@@ -1266,10 +1234,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
                                                                         failureMechanism,
                                                                         assessmentSectionStub);
 
-            var handler = new ObservableSetPropertyValueAfterConfirmationParameterTester<string>(
-                calculation.InputParameters,
-                null,
-                Enumerable.Empty<IObservable>());
+            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(Enumerable.Empty<IObservable>());
             var properties = new StabilityPointStructuresInputContextProperties(inputContext, handler);
 
             // Call
@@ -1302,10 +1267,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             const int overflow = 1;
             string newProbabilityString = string.Concat(newValue.ToString("r", CultureInfo.CurrentCulture), overflow);
 
-            var handler = new ObservableSetPropertyValueAfterConfirmationParameterTester<string>(
-                calculation.InputParameters,
-                newProbabilityString,
-                Enumerable.Empty<IObservable>());
+            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(Enumerable.Empty<IObservable>());
             var properties = new StabilityPointStructuresInputContextProperties(inputContext, handler);
 
             // Call
@@ -1335,10 +1297,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
                                                                         failureMechanism,
                                                                         assessmentSectionStub);
 
-            var handler = new ObservableSetPropertyValueAfterConfirmationParameterTester<string>(
-                calculation.InputParameters,
-                newValue,
-                Enumerable.Empty<IObservable>());
+            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(Enumerable.Empty<IObservable>());
             var properties = new StabilityPointStructuresInputContextProperties(inputContext, handler);
 
             // Call
@@ -1366,10 +1325,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
                                                                         failureMechanism,
                                                                         assessmentSectionStub);
 
-            var handler = new ObservableSetPropertyValueAfterConfirmationParameterTester<string>(
-                calculation.InputParameters,
-                null,
-                Enumerable.Empty<IObservable>());
+            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(Enumerable.Empty<IObservable>());
             var properties = new StabilityPointStructuresInputContextProperties(inputContext, handler);
 
             // Call
@@ -1397,10 +1353,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
                                                                         assessmentSectionStub);
 
             var newStructure = new TestStabilityPointStructure();
-            var handler = new ObservableSetPropertyValueAfterConfirmationParameterTester<StabilityPointStructure>(
-                calculation.InputParameters,
-                newStructure,
-                Enumerable.Empty<IObservable>());
+            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(Enumerable.Empty<IObservable>());
             var properties = new StabilityPointStructuresInputContextProperties(inputContext, handler);
 
             failureMechanism.AddSection(new FailureMechanismSection("Section", new List<Point2D>
@@ -1579,9 +1532,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(null));
         }
 
-        private void SetPropertyAndVerifyNotifcationsAndOutput<TPropertyValue>(
-            Action<StabilityPointStructuresInputContextProperties> setProperty,
-            TPropertyValue expectedValueSet)
+        private void SetPropertyAndVerifyNotifcationsAndOutput(Action<StabilityPointStructuresInputContextProperties> setProperty)
         {
             // Setup
             var observable = mockRepository.StrictMock<IObservable>();
@@ -1593,13 +1544,10 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             StabilityPointStructuresInput input = calculation.InputParameters;
             input.ForeshoreProfile = new TestForeshoreProfile();
 
-            var customHandler = new ObservableSetPropertyValueAfterConfirmationParameterTester<TPropertyValue>(
-                input,
-                expectedValueSet,
-                new[]
-                {
-                    observable
-                });
+            var customHandler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(new[]
+            {
+                observable
+            });
 
             var inputContext = new StabilityPointStructuresInputContext(input,
                                                                         calculation,

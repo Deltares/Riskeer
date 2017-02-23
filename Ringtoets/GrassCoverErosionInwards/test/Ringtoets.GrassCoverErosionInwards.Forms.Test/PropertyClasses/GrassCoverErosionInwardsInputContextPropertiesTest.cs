@@ -218,28 +218,28 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             RoundedDouble orientation = new Random(21).NextRoundedDouble();
 
             // Call & Assert
-            SetPropertyAndVerifyNotifcationsAndOutput(properties => properties.Orientation = orientation, orientation);
+            SetPropertyAndVerifyNotifcationsAndOutput(properties => properties.Orientation = orientation);
         }
 
         [Test]
         public void DikeHeight_Always_InputChangedAndObsevablesNotified()
         {
             RoundedDouble dikeHeight = new Random(21).NextRoundedDouble();
-            SetPropertyAndVerifyNotifcationsAndOutput(properties => properties.DikeHeight = dikeHeight, dikeHeight);
+            SetPropertyAndVerifyNotifcationsAndOutput(properties => properties.DikeHeight = dikeHeight);
         }
 
         [Test]
         public void DikeHeightCalculationType_Always_InputChangedAndObsevablesNotified()
         {
             var dikeHeightCalculationType = new Random(21).NextEnumValue<DikeHeightCalculationType>();
-            SetPropertyAndVerifyNotifcationsAndOutput(properties => properties.DikeHeightCalculationType = dikeHeightCalculationType, dikeHeightCalculationType);
+            SetPropertyAndVerifyNotifcationsAndOutput(properties => properties.DikeHeightCalculationType = dikeHeightCalculationType);
         }
 
         [Test]
         public void DikeProfile_Always_InputChangedAndObsevablesNotified()
         {
             var dikeProfile = new TestDikeProfile();
-            SetPropertyAndVerifyNotifcationsAndOutput(properties => properties.DikeProfile = dikeProfile, dikeProfile);
+            SetPropertyAndVerifyNotifcationsAndOutput(properties => properties.DikeProfile = dikeProfile);
         }
 
         [Test]
@@ -247,29 +247,28 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         {
             var selectableLocation = new SelectableHydraulicBoundaryLocation(new TestHydraulicBoundaryLocation(), new Point2D(0, 0));
             SetPropertyAndVerifyNotifcationsAndOutput(
-                properties => properties.SelectedHydraulicBoundaryLocation = selectableLocation,
-                selectableLocation.HydraulicBoundaryLocation);
+                properties => properties.SelectedHydraulicBoundaryLocation = selectableLocation);
         }
 
         [Test]
         public void BreakWater_UseBreakWaterChangedAlways_InputChangedAndObsevablesNotified()
         {
             bool useBreakWater = new Random(21).NextBoolean();
-            SetPropertyAndVerifyNotifcationsAndOutput(properties => properties.BreakWater.UseBreakWater = useBreakWater, useBreakWater);
+            SetPropertyAndVerifyNotifcationsAndOutput(properties => properties.BreakWater.UseBreakWater = useBreakWater);
         }
 
         [Test]
         public void UseForeshore_Always_InputChangedAndObsevablesNotified()
         {
             bool useForeshore = new Random(21).NextBoolean();
-            SetPropertyAndVerifyNotifcationsAndOutput(properties => properties.Foreshore.UseForeshore = useForeshore, useForeshore);
+            SetPropertyAndVerifyNotifcationsAndOutput(properties => properties.Foreshore.UseForeshore = useForeshore);
         }
 
         [Test]
         public void CriticalFlowRate_MeanChanged_InputChangedAndObsevablesNotified()
         {
             RoundedDouble criticalFlowMean = new Random(21).NextRoundedDouble();
-            SetPropertyAndVerifyNotifcationsAndOutput(properties => properties.CriticalFlowRate.Mean = criticalFlowMean, criticalFlowMean);
+            SetPropertyAndVerifyNotifcationsAndOutput(properties => properties.CriticalFlowRate.Mean = criticalFlowMean);
         }
 
         [Test]
@@ -519,7 +518,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             var inputContext = new GrassCoverErosionInwardsInputContext(input, calculation, failureMechanism, assessmentSection);
 
-            var customHandler = new ObservableSetPropertyValueAfterConfirmationParameterTester<DikeProfile>(input, otherProfile, Enumerable.Empty<IObservable>());
+            var customHandler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(Enumerable.Empty<IObservable>());
             var properties = new GrassCoverErosionInwardsInputContextProperties(inputContext, customHandler);
 
             IEnumerable<SelectableHydraulicBoundaryLocation> originalList =
@@ -670,9 +669,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             mockRepository.VerifyAll();
         }
 
-        private void SetPropertyAndVerifyNotifcationsAndOutput<TPropertyValue>(
-            Action<GrassCoverErosionInwardsInputContextProperties> setProperty,
-            TPropertyValue expectedValueSet)
+        private void SetPropertyAndVerifyNotifcationsAndOutput(Action<GrassCoverErosionInwardsInputContextProperties> setProperty)
         {
             // Setup
             var observable = mockRepository.StrictMock<IObservable>();
@@ -685,13 +682,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
-            var customHandler = new ObservableSetPropertyValueAfterConfirmationParameterTester<TPropertyValue>(
-                input,
-                expectedValueSet,
-                new[]
-                {
-                    observable
-                });
+            var customHandler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(new[]
+            {
+                observable
+            });
 
             var inputContext = new GrassCoverErosionInwardsInputContext(input, calculation, failureMechanism, assessmentSection);
             var properties = new GrassCoverErosionInwardsInputContextProperties(inputContext, customHandler);

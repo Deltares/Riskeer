@@ -87,7 +87,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
 
             var inputContext = new GrassCoverErosionInwardsInputContext(calculation.InputParameters, calculation, failureMechanism, assessmentSection);
 
-            var customHandler = new ObservableSetPropertyValueAfterConfirmationParameterTester<DikeProfile>(calculation.InputParameters, dikeProfile2, Enumerable.Empty<IObservable>());
+            var customHandler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(Enumerable.Empty<IObservable>());
             var properties = new GrassCoverErosionInwardsInputContextProperties(inputContext, customHandler);
 
             // Call
@@ -150,7 +150,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
 
             var inputContext = new GrassCoverErosionInwardsInputContext(calculation1.InputParameters, calculation1, failureMechanism, assessmentSection);
 
-            var customHandler = new ObservableSetPropertyValueAfterConfirmationParameterTester<DikeProfile>(calculation1.InputParameters, dikeProfile2, Enumerable.Empty<IObservable>());
+            var customHandler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(Enumerable.Empty<IObservable>());
             var properties = new GrassCoverErosionInwardsInputContextProperties(inputContext, customHandler);
 
             // Call

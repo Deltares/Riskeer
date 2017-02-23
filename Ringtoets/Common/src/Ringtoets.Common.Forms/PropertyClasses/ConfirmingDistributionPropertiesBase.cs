@@ -104,7 +104,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
                     throw new InvalidOperationException("Mean is set to be read-only.");
                 }
 
-                ChangePropertyAndNotify((input, newValue) => data.Mean = newValue, value);
+                ChangePropertyAndNotify(() => data.Mean = value);
             }
         }
 
@@ -124,7 +124,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
                     throw new InvalidOperationException("StandardDeviation is set to be read-only.");
                 }
 
-                ChangePropertyAndNotify((input, newValue) => data.StandardDeviation = newValue, value);
+                ChangePropertyAndNotify(() => data.StandardDeviation = value);
             }
         }
 
@@ -142,12 +142,9 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             return $"{Mean} ({RingtoetsCommonFormsResources.NormalDistribution_StandardDeviation_DisplayName} = {StandardDeviation})";
         }
 
-        private void ChangePropertyAndNotify(SetObservablePropertyValueDelegate<TPropertyOwner, RoundedDouble> setPropertyValue,
-                                             RoundedDouble value)
+        private void ChangePropertyAndNotify(SetObservablePropertyValueDelegate setPropertyValue)
         {
-            IEnumerable<IObservable> affectedObjects = changeHandler.SetPropertyValueAfterConfirmation(propertyOwner,
-                                                                                                       value,
-                                                                                                       setPropertyValue);
+            IEnumerable<IObservable> affectedObjects = changeHandler.SetPropertyValueAfterConfirmation(setPropertyValue);
             NotifyAffectedObjects(affectedObjects);
         }
 

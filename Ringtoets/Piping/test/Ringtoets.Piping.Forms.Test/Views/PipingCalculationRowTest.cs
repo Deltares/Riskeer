@@ -361,8 +361,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             // Call & Assert
             const string expectedMessage = "Het uittredepunt moet landwaarts van het intredepunt liggen.";
-            SetPropertyToInvalidValueAndVerifyException(row => row.EntryPointL = entryPointL,
-                                                        entryPointL, calculation,
+            SetPropertyToInvalidValueAndVerifyException(row => row.EntryPointL = entryPointL, calculation,
                                                         expectedMessage);
         }
 
@@ -376,8 +375,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             // Call & Assert
             const string expectedMessage = "Het gespecificeerde punt moet op het profiel liggen (bereik [0,0, 1,0]).";
-            SetPropertyToInvalidValueAndVerifyException(row => row.EntryPointL = entryPointL,
-                                                        entryPointL, calculation,
+            SetPropertyToInvalidValueAndVerifyException(row => row.EntryPointL = entryPointL, calculation,
                                                         expectedMessage);
         }
 
@@ -425,8 +423,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             // Call & Assert
             const string expectedMessage = "Het uittredepunt moet landwaarts van het intredepunt liggen.";
-            SetPropertyToInvalidValueAndVerifyException(row => row.ExitPointL = exitPointL,
-                                                        exitPointL, calculation,
+            SetPropertyToInvalidValueAndVerifyException(row => row.ExitPointL = exitPointL, calculation,
                                                         expectedMessage);
         }
 
@@ -440,8 +437,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             // Call & Assert
             const string expectedMessage = "Het gespecificeerde punt moet op het profiel liggen (bereik [0,0, 1,0]).";
-            SetPropertyToInvalidValueAndVerifyException(row => row.ExitPointL = exitPointL,
-                                                        exitPointL, calculation,
+            SetPropertyToInvalidValueAndVerifyException(row => row.ExitPointL = exitPointL, calculation,
                                                         expectedMessage);
         }
 
@@ -512,9 +508,8 @@ namespace Ringtoets.Piping.Forms.Test.Views
             mockRepository.VerifyAll();
         }
 
-        private static void SetPropertyToInvalidValueAndVerifyException<TPropertyValue>(
+        private static void SetPropertyToInvalidValueAndVerifyException(
            Action<PipingCalculationRow> setProperty,
-           TPropertyValue value,
            PipingCalculationScenario calculation,
            string expectedMessage)
         {
@@ -523,10 +518,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var observable = mocks.StrictMock<IObservable>();
             mocks.ReplayAll();
 
-            var handler = new ObservableSetPropertyValueAfterConfirmationParameterTester<TPropertyValue>(
-                calculation.InputParameters,
-                value,
-                new[]
+            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(new[]
                 {
                     observable
                 });
@@ -553,10 +545,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             observable.Expect(o => o.NotifyObservers());
             mocks.ReplayAll();
 
-            var handler = new ObservableSetPropertyValueAfterConfirmationParameterTester<TPropertyValue>(
-                calculation.InputParameters,
-                value,
-                new[]
+            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(new[]
                 {
                     observable
                 });

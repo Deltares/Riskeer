@@ -329,7 +329,7 @@ namespace Ringtoets.Piping.Forms.Views
 
             PrefillComboBoxListItemsAtColumnLevel();
 
-            var dataSource = pipingCalculations.Select(pc => new PipingCalculationRow(pc, new ObservablePropertyChangeHandler(pc))).ToList();
+            var dataSource = pipingCalculations.Select(pc => new PipingCalculationRow(pc, new ObservablePropertyChangeHandler(pc, pc.InputParameters))).ToList();
             dataGridViewControl.SetDataSource(dataSource);
             dataGridViewControl.ClearCurrentCell();
 

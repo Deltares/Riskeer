@@ -78,10 +78,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             }
             set
             {
-                IEnumerable<IObservable> affectedObjects = changeHandler.SetPropertyValueAfterConfirmation(
-                    data, 
-                    value, 
-                    (input, d) => data.UseForeshore = d);
+                IEnumerable<IObservable> affectedObjects = changeHandler.SetPropertyValueAfterConfirmation(() => data.UseForeshore = value);
                 NotifyAffectedObjects(affectedObjects);
             }
         }

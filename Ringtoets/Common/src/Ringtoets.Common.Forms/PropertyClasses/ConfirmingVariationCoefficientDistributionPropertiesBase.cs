@@ -105,7 +105,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
                     throw new InvalidOperationException("Mean is set to be read-only.");
                 }
 
-                ChangePropertyAndNotify((input, newValue) => data.Mean = newValue, value);
+                ChangePropertyAndNotify(() => data.Mean = value);
             }
         }
 
@@ -125,7 +125,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
                     throw new InvalidOperationException($"{nameof(CoefficientOfVariation)} is set to be read-only.");
                 }
 
-                ChangePropertyAndNotify((input, newValue) => data.CoefficientOfVariation = newValue, value);
+                ChangePropertyAndNotify(() => data.CoefficientOfVariation = value);
             }
         }
 
@@ -149,12 +149,9 @@ namespace Ringtoets.Common.Forms.PropertyClasses
                        $"{Mean} ({Resources.Distribution_VariationCoefficient_DisplayName} = {CoefficientOfVariation})";
         }
 
-        private void ChangePropertyAndNotify(SetObservablePropertyValueDelegate<TPropertyOwner, RoundedDouble> setPropertyValue,
-                                             RoundedDouble value)
+        private void ChangePropertyAndNotify(SetObservablePropertyValueDelegate setPropertyValue)
         {
-            IEnumerable<IObservable> affectedObjects = changeHandler.SetPropertyValueAfterConfirmation(propertyOwner,
-                                                                                                       value,
-                                                                                                       setPropertyValue);
+            IEnumerable<IObservable> affectedObjects = changeHandler.SetPropertyValueAfterConfirmation(setPropertyValue);
             NotifyAffectedObjects(affectedObjects);
         }
 

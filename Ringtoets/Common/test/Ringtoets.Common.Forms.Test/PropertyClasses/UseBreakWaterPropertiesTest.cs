@@ -202,7 +202,6 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         {
             var breakWaterHeight = new Random(21).NextRoundedDouble();
             SetPropertyAndVerifyNotifcationsAndOutputForCalculation(properties => properties.BreakWaterHeight = breakWaterHeight,
-                                                                    breakWaterHeight,
                                                                     new TestUseBreakWater());
         }
 
@@ -211,7 +210,6 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         {
             var type = new Random(21).NextEnumValue<BreakWaterType>();
             SetPropertyAndVerifyNotifcationsAndOutputForCalculation(properties => properties.BreakWaterType = type,
-                                                                    type,
                                                                     new TestUseBreakWater());
         }
 
@@ -220,7 +218,6 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         {
             var useBreakWater = new Random(21).NextBoolean();
             SetPropertyAndVerifyNotifcationsAndOutputForCalculation(properties => properties.UseBreakWater = useBreakWater,
-                                                                    useBreakWater,
                                                                     new TestUseBreakWater());
         }
 
@@ -235,9 +232,8 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             public BreakWater BreakWater { get; set; }
         }
 
-        private void SetPropertyAndVerifyNotifcationsAndOutputForCalculation<TPropertyValue>(
+        private void SetPropertyAndVerifyNotifcationsAndOutputForCalculation(
             Action<UseBreakWaterProperties<TestUseBreakWater>> setProperty,
-            TPropertyValue expectedValueSet,
             TestUseBreakWater input)
         {
             // Setup
@@ -246,13 +242,10 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             observable.Expect(o => o.NotifyObservers());
             mocks.ReplayAll();
 
-            var handler = new ObservableSetPropertyValueAfterConfirmationParameterTester<TPropertyValue>(
-                input,
-                expectedValueSet,
-                new[]
-                {
-                    observable
-                });
+            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(new[]
+            {
+                observable
+            });
 
             var properties = new UseBreakWaterProperties<TestUseBreakWater>(input, handler);
 

@@ -86,10 +86,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             }
             set
             {
-                IEnumerable<IObservable> affectedObjects = changeHandler.SetPropertyValueAfterConfirmation(
-                    data, 
-                    value, 
-                    (input, d) => data.UseBreakWater = d);
+                IEnumerable<IObservable> affectedObjects = changeHandler.SetPropertyValueAfterConfirmation(() => data.UseBreakWater = value);
                 NotifyAffectedObjects(affectedObjects);
             }
         }
@@ -109,10 +106,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             {
                 if (value.HasValue)
                 {
-                    IEnumerable<IObservable> affectedObjects = changeHandler.SetPropertyValueAfterConfirmation(
-                        data, 
-                        value.Value, 
-                        (input, d) => data.BreakWater.Type = d);
+                    IEnumerable<IObservable> affectedObjects = changeHandler.SetPropertyValueAfterConfirmation(() => data.BreakWater.Type = value.Value);
                     NotifyAffectedObjects(affectedObjects);
                 }
             }
@@ -131,10 +125,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             }
             set
             {
-                IEnumerable<IObservable> affectedObjects = changeHandler.SetPropertyValueAfterConfirmation(
-                    data, 
-                    value, 
-                    (input, d) => data.BreakWater.Height = d);
+                IEnumerable<IObservable> affectedObjects = changeHandler.SetPropertyValueAfterConfirmation(() => data.BreakWater.Height = value);
                 NotifyAffectedObjects(affectedObjects);
             }
         }

@@ -526,8 +526,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         {
             RoundedDouble factor = new Random(21).NextRoundedDouble();
             SetPropertyAndVerifyNotifcationsAndOutput(
-                properties => properties.FactorStormDurationOpenStructure = factor,
-                factor);
+                properties => properties.FactorStormDurationOpenStructure = factor);
         }
 
         [Test]
@@ -535,8 +534,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         {
             var inflowModelType = new Random(21).NextEnumValue<ClosingStructureInflowModelType>();
             SetPropertyAndVerifyNotifcationsAndOutput(
-                properties => properties.InflowModelType = inflowModelType,
-                inflowModelType);
+                properties => properties.InflowModelType = inflowModelType);
         }
 
         [Test]
@@ -544,8 +542,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         {
             string probability = new Random(21).NextDouble().ToString(CultureInfo.CurrentCulture);
             SetPropertyAndVerifyNotifcationsAndOutput(
-                properties => properties.ProbabilityOrFrequencyOpenStructureBeforeFlooding = probability,
-                probability);
+                properties => properties.ProbabilityOrFrequencyOpenStructureBeforeFlooding = probability);
         }
 
         [Test]
@@ -553,8 +550,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         {
             string probability = new Random(21).NextDouble().ToString(CultureInfo.CurrentCulture);
             SetPropertyAndVerifyNotifcationsAndOutput(
-                properties => properties.FailureProbabilityOpenStructure = probability,
-                probability);
+                properties => properties.FailureProbabilityOpenStructure = probability);
         }
 
         [Test]
@@ -562,8 +558,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         {
             string probability = new Random(21).NextDouble().ToString(CultureInfo.CurrentCulture);
             SetPropertyAndVerifyNotifcationsAndOutput(
-                properties => properties.FailureProbabilityReparation = probability,
-                probability);
+                properties => properties.FailureProbabilityReparation = probability);
         }
 
         [Test]
@@ -571,8 +566,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         {
             int propertiesIdenticalApertures = new Random(21).Next();
             SetPropertyAndVerifyNotifcationsAndOutput(
-                properties => properties.IdenticalApertures = propertiesIdenticalApertures,
-                propertiesIdenticalApertures);
+                properties => properties.IdenticalApertures = propertiesIdenticalApertures);
         }
 
         [Test]
@@ -580,8 +574,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         {
             RoundedDouble newMean = new Random(21).NextRoundedDouble();
             SetPropertyAndVerifyNotifcationsAndOutput(
-                properties => properties.InsideWaterLevel.Mean = newMean,
-                newMean);
+                properties => properties.InsideWaterLevel.Mean = newMean);
         }
 
         [Test]
@@ -589,8 +582,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         {
             RoundedDouble newMean = new Random(21).NextRoundedDouble();
             SetPropertyAndVerifyNotifcationsAndOutput(
-                properties => properties.ModelFactorSuperCriticalFlow.Mean = newMean,
-                newMean);
+                properties => properties.ModelFactorSuperCriticalFlow.Mean = newMean);
         }
 
         [Test]
@@ -598,8 +590,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         {
             RoundedDouble newMean = new Random(21).NextRoundedDouble();
             SetPropertyAndVerifyNotifcationsAndOutput(
-                properties => properties.WidthFlowApertures.Mean = newMean,
-                newMean);
+                properties => properties.WidthFlowApertures.Mean = newMean);
         }
 
         [Test]
@@ -607,8 +598,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         {
             RoundedDouble newMean = new Random(21).NextRoundedDouble();
             SetPropertyAndVerifyNotifcationsAndOutput(
-                properties => properties.ThresholdHeightOpenWeir.Mean = newMean,
-                newMean);
+                properties => properties.ThresholdHeightOpenWeir.Mean = newMean);
         }
 
         [Test]
@@ -616,8 +606,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         {
             RoundedDouble newMean = new Random(21).NextRoundedDouble();
             SetPropertyAndVerifyNotifcationsAndOutput(
-                properties => properties.AreaFlowApertures.Mean = newMean,
-                newMean);
+                properties => properties.AreaFlowApertures.Mean = newMean);
         }
 
         [Test]
@@ -625,8 +614,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         {
             RoundedDouble newMean = new Random(21).NextRoundedDouble();
             SetPropertyAndVerifyNotifcationsAndOutput(
-                properties => properties.DrainCoefficient.Mean = newMean,
-                newMean);
+                properties => properties.DrainCoefficient.Mean = newMean);
         }
 
         [Test]
@@ -634,8 +622,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         {
             RoundedDouble newMean = new Random(21).NextRoundedDouble();
             SetPropertyAndVerifyNotifcationsAndOutput(
-                properties => properties.LevelCrestStructureNotClosing.Mean = newMean,
-                newMean);
+                properties => properties.LevelCrestStructureNotClosing.Mean = newMean);
         }
 
         [Test]
@@ -658,10 +645,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             const int overflow = 1;
             string newProbabilityString = string.Concat(newValue.ToString("r", CultureInfo.CurrentCulture), overflow);
 
-            var handler = new ObservableSetPropertyValueAfterConfirmationParameterTester<string>(
-                calculation.InputParameters,
-                newProbabilityString,
-                Enumerable.Empty<IObservable>());
+            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(Enumerable.Empty<IObservable>());
             var properties = new ClosingStructuresInputContextProperties(inputContext, handler);
 
             // Call
@@ -693,10 +677,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
                                                                  assessmentSectionStub);
 
             string newProbabilityString = newValue.ToString("r", CultureInfo.CurrentCulture);
-            var handler = new ObservableSetPropertyValueAfterConfirmationParameterTester<string>(
-                calculation.InputParameters,
-                newProbabilityString,
-                Enumerable.Empty<IObservable>());
+            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(Enumerable.Empty<IObservable>());
             var properties = new ClosingStructuresInputContextProperties(inputContext, handler);
 
             // Call
@@ -726,10 +707,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
                                                                  failureMechanism,
                                                                  assessmentSectionStub);
 
-            var handler = new ObservableSetPropertyValueAfterConfirmationParameterTester<string>(
-                calculation.InputParameters,
-                newValue,
-                Enumerable.Empty<IObservable>());
+            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(Enumerable.Empty<IObservable>());
             var properties = new ClosingStructuresInputContextProperties(inputContext, handler);
 
             // Call
@@ -757,10 +735,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
                                                                  failureMechanism,
                                                                  assessmentSectionStub);
 
-            var handler = new ObservableSetPropertyValueAfterConfirmationParameterTester<string>(
-                calculation.InputParameters,
-                null,
-                Enumerable.Empty<IObservable>());
+            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(Enumerable.Empty<IObservable>());
             var properties = new ClosingStructuresInputContextProperties(inputContext, handler);
 
             // Call
@@ -793,10 +768,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             const int overflow = 1;
             string newProbabilityString = string.Concat(newValue.ToString("r", CultureInfo.CurrentCulture), overflow);
 
-            var handler = new ObservableSetPropertyValueAfterConfirmationParameterTester<string>(
-                calculation.InputParameters,
-                newProbabilityString,
-                Enumerable.Empty<IObservable>());
+            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(Enumerable.Empty<IObservable>());
             var properties = new ClosingStructuresInputContextProperties(inputContext, handler);
 
             // Call
@@ -826,10 +798,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
                                                                  failureMechanism,
                                                                  assessmentSectionStub);
 
-            var handler = new ObservableSetPropertyValueAfterConfirmationParameterTester<string>(
-                calculation.InputParameters,
-                newValue,
-                Enumerable.Empty<IObservable>());
+            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(Enumerable.Empty<IObservable>());
             var properties = new ClosingStructuresInputContextProperties(inputContext, handler);
 
             // Call
@@ -857,10 +826,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
                                                                  failureMechanism,
                                                                  assessmentSectionStub);
 
-            var handler = new ObservableSetPropertyValueAfterConfirmationParameterTester<string>(
-                calculation.InputParameters,
-                null,
-                Enumerable.Empty<IObservable>());
+            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(Enumerable.Empty<IObservable>());
             var properties = new ClosingStructuresInputContextProperties(inputContext, handler);
 
             // Call
@@ -893,10 +859,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             const int overflow = 1;
             string newProbabilityString = string.Concat(newValue.ToString("r", CultureInfo.CurrentCulture), overflow);
 
-            var handler = new ObservableSetPropertyValueAfterConfirmationParameterTester<string>(
-                calculation.InputParameters,
-                newProbabilityString,
-                Enumerable.Empty<IObservable>());
+            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(Enumerable.Empty<IObservable>());
             var properties = new ClosingStructuresInputContextProperties(inputContext, handler);
 
             // Call
@@ -926,10 +889,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
                                                                  failureMechanism,
                                                                  assessmentSectionStub);
 
-            var handler = new ObservableSetPropertyValueAfterConfirmationParameterTester<string>(
-                calculation.InputParameters,
-                newValue,
-                Enumerable.Empty<IObservable>());
+            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(Enumerable.Empty<IObservable>());
             var properties = new ClosingStructuresInputContextProperties(inputContext, handler);
 
             // Call
@@ -957,10 +917,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
                                                                  failureMechanism,
                                                                  assessmentSectionStub);
 
-            var handler = new ObservableSetPropertyValueAfterConfirmationParameterTester<string>(
-                calculation.InputParameters,
-                null,
-                Enumerable.Empty<IObservable>());
+            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(Enumerable.Empty<IObservable>());
             var properties = new ClosingStructuresInputContextProperties(inputContext, handler);
 
             // Call
@@ -988,10 +945,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
                                                                  assessmentSectionStub);
 
             var newStructure = new TestClosingStructure();
-            var handler = new ObservableSetPropertyValueAfterConfirmationParameterTester<ClosingStructure>(
-                calculation.InputParameters,
-                newStructure,
-                Enumerable.Empty<IObservable>());
+            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(Enumerable.Empty<IObservable>());
             var properties = new ClosingStructuresInputContextProperties(inputContext, handler);
 
             failureMechanism.AddSection(new FailureMechanismSection("Section", new List<Point2D>
@@ -1143,9 +1097,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(null));
         }
 
-        private void SetPropertyAndVerifyNotifcationsAndOutput<TPropertyValue>(
-            Action<ClosingStructuresInputContextProperties> setProperty,
-            TPropertyValue expectedValueSet)
+        private void SetPropertyAndVerifyNotifcationsAndOutput(Action<ClosingStructuresInputContextProperties> setProperty)
         {
             // Setup
             var observable = mockRepository.StrictMock<IObservable>();
@@ -1157,10 +1109,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             ClosingStructuresInput input = calculation.InputParameters;
             input.ForeshoreProfile = new TestForeshoreProfile();
 
-            var customHandler = new ObservableSetPropertyValueAfterConfirmationParameterTester<TPropertyValue>(
-                input,
-                expectedValueSet,
-                new[]
+            var customHandler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(new[]
                 {
                     observable
                 });

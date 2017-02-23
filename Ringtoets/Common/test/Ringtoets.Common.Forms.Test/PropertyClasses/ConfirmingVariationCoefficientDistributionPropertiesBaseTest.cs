@@ -253,8 +253,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             var newMeanValue = new RoundedDouble(3, 20);
-            var handler = new ObservableSetPropertyValueAfterConfirmationParameterTester<RoundedDouble>(
-                input, newMeanValue, new[]
+            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(new[]
                 {
                     observerableMock
                 });
@@ -309,8 +308,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             var newCoefficientOfVariation = new RoundedDouble(3, 20);
-            var handler = new ObservableSetPropertyValueAfterConfirmationParameterTester<RoundedDouble>(
-                input, newCoefficientOfVariation, new[]
+            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(new[]
                 {
                     observerableMock
                 });
@@ -332,7 +330,8 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         {
             public SimpleDistributionProperties(VariationCoefficientDistributionPropertiesReadOnly propertiesReadOnly,
                                                 IVariationCoefficientDistribution distribution,
-                                                ICalculationInput input, IObservablePropertyChangeHandler handler)
+                                                ICalculationInput input, 
+                                                IObservablePropertyChangeHandler handler)
                 : base(propertiesReadOnly, distribution, input, handler) {}
 
             public override string DistributionType

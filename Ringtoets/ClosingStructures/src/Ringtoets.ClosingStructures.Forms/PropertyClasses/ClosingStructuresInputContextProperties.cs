@@ -227,8 +227,7 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
             }
             set
             {
-                ChangePropertyAndNotify(
-                    (input, newValue) => data.WrappedData.FactorStormDurationOpenStructure = newValue, value);
+                ChangePropertyAndNotify(() => data.WrappedData.FactorStormDurationOpenStructure = value);
             }
         }
 
@@ -271,8 +270,7 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
             }
             set
             {
-                ChangePropertyAndNotify(
-                    (input, newValue) => data.WrappedData.InflowModelType = newValue, value);
+                ChangePropertyAndNotify(() => data.WrappedData.InflowModelType = value);
             }
         }
 
@@ -325,12 +323,10 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
             set
             {
                 ChangePropertyAndNotify(
-                    (input, newValue) =>
-                        SetProbabilityValue(
-                            newValue,
-                            data.WrappedData,
-                            (wrappedData, parsedValue) => wrappedData.FailureProbabilityOpenStructure = parsedValue),
-                    value);
+                    () => SetProbabilityValue(
+                        value,
+                        data.WrappedData,
+                        (wrappedData, parsedValue) => wrappedData.FailureProbabilityOpenStructure = parsedValue));
             }
         }
 
@@ -347,12 +343,10 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
             set
             {
                 ChangePropertyAndNotify(
-                    (input, newValue) =>
-                        SetProbabilityValue(
-                            newValue, 
-                            data.WrappedData, 
-                            (wrappedData, parsedValue) => wrappedData.FailureProbabilityReparation = parsedValue),
-                    value);
+                    () => SetProbabilityValue(
+                        value,
+                        data.WrappedData,
+                        (wrappedData, parsedValue) => wrappedData.FailureProbabilityReparation = parsedValue));
             }
         }
 
@@ -368,8 +362,7 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
             }
             set
             {
-                ChangePropertyAndNotify(
-                    (input, newValue) => data.WrappedData.IdenticalApertures = newValue, value);
+                ChangePropertyAndNotify(() => data.WrappedData.IdenticalApertures = value);
             }
         }
 
@@ -404,12 +397,10 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
             set
             {
                 ChangePropertyAndNotify(
-                    (input, newValue) =>
-                        SetProbabilityValue(
-                            newValue, 
-                            data.WrappedData, 
-                            (wrappedData, parsedValue) => wrappedData.ProbabilityOrFrequencyOpenStructureBeforeFlooding = parsedValue),
-                    value);
+                    () => SetProbabilityValue(
+                        value,
+                        data.WrappedData,
+                        (wrappedData, parsedValue) => wrappedData.ProbabilityOrFrequencyOpenStructureBeforeFlooding = parsedValue));
             }
         }
 

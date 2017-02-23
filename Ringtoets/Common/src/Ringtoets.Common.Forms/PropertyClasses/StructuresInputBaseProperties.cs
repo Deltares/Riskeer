@@ -216,14 +216,9 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         /// </summary>
         protected abstract void AfterSettingStructure();
 
-        protected void ChangePropertyAndNotify<TValue>(
-            SetObservablePropertyValueDelegate<TStructureInput, TValue> setPropertyValue,
-            TValue value)
+        protected void ChangePropertyAndNotify(SetObservablePropertyValueDelegate setPropertyValue)
         {
-            IEnumerable<IObservable> affectedObjects = PropertyChangeHandler.SetPropertyValueAfterConfirmation(
-                data.WrappedData,
-                value,
-                setPropertyValue);
+            IEnumerable<IObservable> affectedObjects = PropertyChangeHandler.SetPropertyValueAfterConfirmation(setPropertyValue);
 
             NotifyAffectedObjects(affectedObjects);
         }
@@ -344,12 +339,11 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             }
             set
             {
-                ChangePropertyAndNotify((input, newValue) =>
-                                        {
-                                            data.WrappedData.Structure = newValue;
-                                            AfterSettingStructure();
-                                        },
-                                        value);
+                ChangePropertyAndNotify(() =>
+                {
+                    data.WrappedData.Structure = value;
+                    AfterSettingStructure();
+                });
             }
         }
 
@@ -380,8 +374,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             }
             set
             {
-                ChangePropertyAndNotify(
-                    (input, newValue) => data.WrappedData.StructureNormalOrientation = newValue, value);
+                ChangePropertyAndNotify(() => data.WrappedData.StructureNormalOrientation = value);
             }
         }
 
@@ -483,12 +476,11 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             set
             {
                 ChangePropertyAndNotify(
-                    (input, newValue) =>
-                        SetProbabilityValue(
-                            newValue,
-                            data.WrappedData,
-                            (wrappedData, parsedValue) => wrappedData.FailureProbabilityStructureWithErosion = parsedValue)
-                    , value);
+                    () => SetProbabilityValue(
+                        value,
+                        data.WrappedData,
+                        (wrappedData, parsedValue) => wrappedData.FailureProbabilityStructureWithErosion = parsedValue)
+                );
             }
         }
 
@@ -505,8 +497,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             }
             set
             {
-                ChangePropertyAndNotify(
-                    (input, newValue) => data.WrappedData.ForeshoreProfile = newValue, value);
+                ChangePropertyAndNotify(() => data.WrappedData.ForeshoreProfile = value);
             }
         }
 
@@ -558,8 +549,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             }
             set
             {
-                ChangePropertyAndNotify(
-                    (input, newValue) => data.WrappedData.HydraulicBoundaryLocation = newValue.HydraulicBoundaryLocation, value);
+                ChangePropertyAndNotify(() => data.WrappedData.HydraulicBoundaryLocation = value.HydraulicBoundaryLocation);
             }
         }
 

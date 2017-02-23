@@ -507,14 +507,9 @@ namespace Ringtoets.Piping.Forms.Test.Views
             PipingFailureMechanism failureMechanism = ConfigureFailuremechanism();
             CalculationGroup calculationGroup = ConfigureCalculationGroup(assessmentSection, failureMechanism);
 
-            PipingCalculationScenario calculation = (PipingCalculationScenario) calculationGroup.Children.First();
-
             RoundedDouble newRoundedvalue = (RoundedDouble) newValue;
 
-            var handler = new ObservableSetPropertyValueAfterConfirmationParameterTester<RoundedDouble>(
-                calculation.InputParameters,
-                newRoundedvalue,
-                new IObservable[0]);
+            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(new IObservable[0]);
 
             using (ShowFullyConfiguredPipingCalculationsView(assessmentSection, failureMechanism, calculationGroup, handler))
             {
@@ -1074,10 +1069,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             RoundedDouble value = (RoundedDouble) newValue;
 
-            var handler = new ObservableSetPropertyValueAfterConfirmationParameterTester<RoundedDouble>(
-                calculation.InputParameters,
-                value,
-                new Observable[]
+            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(new Observable[]
                 {
                     calculation.InputParameters,
                     calculation
@@ -1123,12 +1115,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             CalculationGroup calculationGroup = ConfigureCalculationGroup(assessmentSection, failureMechanism);
             PipingCalculationScenario calculation = (PipingCalculationScenario) calculationGroup.Children.First();
 
-            RoundedDouble value = (RoundedDouble) newValue;
-
-            var handler = new ObservableSetPropertyValueAfterConfirmationParameterTester<RoundedDouble>(
-                calculation.InputParameters,
-                value,
-                new Observable[]
+            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(new Observable[]
                 {
                     calculation.InputParameters,
                     calculation

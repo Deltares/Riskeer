@@ -180,13 +180,11 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         {
             var useForeshore = new Random(21).NextBoolean();
             SetPropertyAndVerifyNotifcationsAndOutputForCalculation(properties => properties.UseForeshore = useForeshore,
-                                                                    useForeshore,
                                                                     new TestUseForeshore());
         }
 
-        private void SetPropertyAndVerifyNotifcationsAndOutputForCalculation<TPropertyValue>(
+        private void SetPropertyAndVerifyNotifcationsAndOutputForCalculation(
             Action<UseForeshoreProperties<TestUseForeshore>> setProperty,
-            TPropertyValue expectedValueSet,
             TestUseForeshore input)
         {
             // Setup
@@ -195,10 +193,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             observable.Expect(o => o.NotifyObservers());
             mocks.ReplayAll();
 
-            var handler = new ObservableSetPropertyValueAfterConfirmationParameterTester<TPropertyValue>(
-                input,
-                expectedValueSet,
-                new[]
+            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(new[]
                 {
                     observable
                 });

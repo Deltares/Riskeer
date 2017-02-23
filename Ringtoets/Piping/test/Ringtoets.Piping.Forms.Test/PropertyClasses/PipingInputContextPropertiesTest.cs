@@ -166,7 +166,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                                                  failureMechanism,
                                                  assessmentSection);
 
-            var handler = new ObservablePropertyChangeHandler(calculationItem);
+            var handler = new ObservablePropertyChangeHandler(calculationItem, calculationItem.InputParameters);
 
             PipingInputContextProperties properties = new PipingInputContextProperties(context, handler)
             {
@@ -338,7 +338,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                                                  failureMechanism,
                                                  assessmentSection);
 
-            var handler = new ObservablePropertyChangeHandler(calculationItem);
+            var handler = new ObservablePropertyChangeHandler(calculationItem, calculationItem.InputParameters);
 
             // Call
             PipingInputContextProperties properties = new PipingInputContextProperties(context, handler)
@@ -492,7 +492,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                                                  failureMechanism,
                                                  assessmentSection);
 
-            var handler = new ObservablePropertyChangeHandler(calculationItem);
+            var handler = new ObservablePropertyChangeHandler(calculationItem, calculationItem.InputParameters);
             PipingInputContextProperties properties = new PipingInputContextProperties(context, handler);
 
             const double assessmentLevel = 0.36;
@@ -547,7 +547,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var calculation = new PipingCalculationScenario(new GeneralPipingInput());
 
             // Call & Assert
-            SetPropertyAndVerifyNotifcationsAndOutputForCalculation(p => p.SurfaceLine = newSurfaceLine, newSurfaceLine, calculation);
+            SetPropertyAndVerifyNotifcationsAndOutputForCalculation(p => p.SurfaceLine = newSurfaceLine, calculation);
         }
 
         [Test]
@@ -558,7 +558,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var calculation = new PipingCalculationScenario(new GeneralPipingInput());
 
             // Call & Assert
-            SetPropertyAndVerifyNotifcationsAndOutputForCalculation(properties => properties.StochasticSoilModel = newSoilModel, newSoilModel, calculation);
+            SetPropertyAndVerifyNotifcationsAndOutputForCalculation(properties => properties.StochasticSoilModel = newSoilModel, calculation);
         }
 
         [Test]
@@ -569,7 +569,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var calculation = new PipingCalculationScenario(new GeneralPipingInput());
 
             // Call & Assert
-            SetPropertyAndVerifyNotifcationsAndOutputForCalculation(properties => properties.StochasticSoilProfile = newSoilProfile, newSoilProfile, calculation);
+            SetPropertyAndVerifyNotifcationsAndOutputForCalculation(properties => properties.StochasticSoilProfile = newSoilProfile, calculation);
         }
 
         [Test]
@@ -586,7 +586,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             };
 
             // Call & Assert
-            SetPropertyAndVerifyNotifcationsAndOutputForCalculation(properties => properties.AssessmentLevel = newAssessmentLevel, newAssessmentLevel, calculation);
+            SetPropertyAndVerifyNotifcationsAndOutputForCalculation(properties => properties.AssessmentLevel = newAssessmentLevel, calculation);
         }
 
         [Test]
@@ -597,7 +597,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var calculation = new PipingCalculationScenario(new GeneralPipingInput());
 
             // Call & Assert
-            SetPropertyAndVerifyNotifcationsAndOutputForCalculation(properties => properties.DampingFactorExit.Mean = mean, mean, calculation);
+            SetPropertyAndVerifyNotifcationsAndOutputForCalculation(properties => properties.DampingFactorExit.Mean = mean, calculation);
         }
 
         [Test]
@@ -608,7 +608,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var calculation = new PipingCalculationScenario(new GeneralPipingInput());
 
             // Call & Assert
-            SetPropertyAndVerifyNotifcationsAndOutputForCalculation(properties => properties.DampingFactorExit.StandardDeviation = standardDeviation, standardDeviation, calculation);
+            SetPropertyAndVerifyNotifcationsAndOutputForCalculation(properties => properties.DampingFactorExit.StandardDeviation = standardDeviation, calculation);
         }
 
         [Test]
@@ -619,7 +619,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var calculation = new PipingCalculationScenario(new GeneralPipingInput());
 
             // Call & Assert
-            SetPropertyAndVerifyNotifcationsAndOutputForCalculation(properties => properties.PhreaticLevelExit.Mean = mean, mean, calculation);
+            SetPropertyAndVerifyNotifcationsAndOutputForCalculation(properties => properties.PhreaticLevelExit.Mean = mean, calculation);
         }
 
         [Test]
@@ -630,7 +630,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var calculation = new PipingCalculationScenario(new GeneralPipingInput());
 
             // Call & Assert
-            SetPropertyAndVerifyNotifcationsAndOutputForCalculation(properties => properties.PhreaticLevelExit.StandardDeviation = standardDeviation, standardDeviation, calculation);
+            SetPropertyAndVerifyNotifcationsAndOutputForCalculation(properties => properties.PhreaticLevelExit.StandardDeviation = standardDeviation, calculation);
         }
 
         [Test]
@@ -641,7 +641,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var calculation = new PipingCalculationScenario(new GeneralPipingInput());
 
             // Call & Assert
-            SetPropertyAndVerifyNotifcationsAndOutputForCalculation(properties => properties.EntryPointL = newEntryPointL, newEntryPointL, calculation);
+            SetPropertyAndVerifyNotifcationsAndOutputForCalculation(properties => properties.EntryPointL = newEntryPointL, calculation);
         }
 
         [Test]
@@ -652,7 +652,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var calculation = new PipingCalculationScenario(new GeneralPipingInput());
 
             // Call & Assert
-            SetPropertyAndVerifyNotifcationsAndOutputForCalculation(properties => properties.ExitPointL = newExitPointL, newExitPointL, calculation);
+            SetPropertyAndVerifyNotifcationsAndOutputForCalculation(properties => properties.ExitPointL = newExitPointL, calculation);
         }
 
         [Test]
@@ -663,7 +663,6 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             // Call & Assert
             SetPropertyAndVerifyNotifcationsAndOutputForCalculation(properties => properties.UseAssessmentLevelManualInput = true,
-                                                                    true,
                                                                     calculation);
         }
 
@@ -687,10 +686,8 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             PipingCalculationScenario calculationItem = new PipingCalculationScenario(new GeneralPipingInput());
             PipingFailureMechanism failureMechanism = new PipingFailureMechanism();
 
-            PipingInput inputParameters = new PipingInput(new GeneralPipingInput())
-            {
-                SurfaceLine = surfaceLine
-            };
+            PipingInput inputParameters = calculationItem.InputParameters;
+            inputParameters.SurfaceLine = surfaceLine;
             inputParameters.Attach(inputObserver);
 
             var context = new PipingInputContext(inputParameters,
@@ -700,7 +697,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                                                  failureMechanism,
                                                  assessmentSection);
 
-            var handler = new ObservablePropertyChangeHandler(calculationItem);
+            var handler = new ObservablePropertyChangeHandler(calculationItem, calculationItem.InputParameters);
 
             // Call
             PipingInputContextProperties properties = new PipingInputContextProperties(context, handler)
@@ -732,10 +729,8 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             PipingCalculationScenario calculationItem = new PipingCalculationScenario(new GeneralPipingInput());
             PipingFailureMechanism failureMechanism = new PipingFailureMechanism();
 
-            PipingInput inputParameters = new PipingInput(new GeneralPipingInput())
-            {
-                SurfaceLine = surfaceLine
-            };
+            PipingInput inputParameters = calculationItem.InputParameters;
+            inputParameters.SurfaceLine = surfaceLine;
             inputParameters.Attach(inputObserver);
 
             var context = new PipingInputContext(inputParameters,
@@ -745,7 +740,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                                                  failureMechanism,
                                                  assessmentSection);
 
-            var handler = new ObservablePropertyChangeHandler(calculationItem);
+            var handler = new ObservablePropertyChangeHandler(calculationItem, calculationItem.InputParameters);
 
             // Call
             PipingInputContextProperties properties = new PipingInputContextProperties(context, handler)
@@ -791,13 +786,10 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                                                  assessmentSection);
 
             RoundedDouble newExitPointL = (RoundedDouble) newExitPoint;
-            var handler = new ObservableSetPropertyValueAfterConfirmationParameterTester<RoundedDouble>(
-                inputParameters,
-                newExitPointL,
-                new[]
-                {
-                    observable
-                });
+            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(new[]
+            {
+                observable
+            });
 
             PipingInputContextProperties properties = new PipingInputContextProperties(context, handler);
 
@@ -840,13 +832,10 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                                                  failureMechanism,
                                                  assessmentSection);
 
-            var handler = new ObservableSetPropertyValueAfterConfirmationParameterTester<RoundedDouble>(
-                inputParameters,
-                entryPoint,
-                new[]
-                {
-                    observable
-                });
+            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(new[]
+            {
+                observable
+            });
 
             PipingInputContextProperties properties = new PipingInputContextProperties(context, handler);
 
@@ -889,13 +878,10 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             RoundedDouble entryPointL = (RoundedDouble) (-15.0);
 
-            var handler = new ObservableSetPropertyValueAfterConfirmationParameterTester<RoundedDouble>(
-                inputParameters,
-                entryPointL,
-                new[]
-                {
-                    observable
-                });
+            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(new[]
+            {
+                observable
+            });
 
             PipingInputContextProperties properties = new PipingInputContextProperties(context, handler);
 
@@ -937,13 +923,10 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             RoundedDouble exitPointL = (RoundedDouble) 10.0;
 
-            var handler = new ObservableSetPropertyValueAfterConfirmationParameterTester<RoundedDouble>(
-                inputParameters,
-                exitPointL,
-                new[]
-                {
-                    observable
-                });
+            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(new[]
+            {
+                observable
+            });
 
             var properties = new PipingInputContextProperties(context, handler);
 
@@ -979,13 +962,10 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                                                  failureMechanism,
                                                  assessmentSection);
 
-            var handler = new ObservableSetPropertyValueAfterConfirmationParameterTester<HydraulicBoundaryLocation>(
-                calculationItem.InputParameters,
-                hydraulicBoundaryLocation,
-                new[]
-                {
-                    observable
-                });
+            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(new[]
+            {
+                observable
+            });
 
             PipingInputContextProperties properties = new PipingInputContextProperties(context, handler);
 
@@ -1022,13 +1002,10 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                                                  failureMechanism,
                                                  assessmentSection);
 
-            var handler = new ObservableSetPropertyValueAfterConfirmationParameterTester<HydraulicBoundaryLocation>(
-                calculationItem.InputParameters,
-                hydraulicBoundaryLocation,
-                new[]
-                {
-                    observable
-                });
+            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(new[]
+            {
+                observable
+            });
 
             PipingInputContextProperties properties = new PipingInputContextProperties(context, handler);
 
@@ -1065,7 +1042,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                                                  failureMechanism,
                                                  assessmentSection);
 
-            var handler = new ObservablePropertyChangeHandler(calculationItem);
+            var handler = new ObservablePropertyChangeHandler(calculationItem, calculationItem.InputParameters);
 
             PipingInputContextProperties properties = new PipingInputContextProperties(context, handler)
             {
@@ -1115,13 +1092,10 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                                                  failureMechanism,
                                                  assessmentSection);
 
-            var handler = new ObservableSetPropertyValueAfterConfirmationParameterTester<double>(
-                inputParameters,
-                testLevel,
-                new[]
-                {
-                    observable
-                });
+            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(new[]
+            {
+                observable
+            });
 
             PipingInputContextProperties properties = new PipingInputContextProperties(context, handler);
 
@@ -1161,7 +1135,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                                                  failureMechanism,
                                                  assessmentSection);
 
-            var handler = new ObservablePropertyChangeHandler(calculationItem);
+            var handler = new ObservablePropertyChangeHandler(calculationItem, calculationItem.InputParameters);
 
             PipingInputContextProperties properties = new PipingInputContextProperties(context, handler);
 
@@ -1210,10 +1184,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             RingtoetsPipingSurfaceLine newSurfaceLine = ValidSurfaceLine(0, 2);
 
-            var handler = new ObservableSetPropertyValueAfterConfirmationParameterTester<RingtoetsPipingSurfaceLine>(
-                inputParameters,
-                newSurfaceLine,
-                new IObservable[0]);
+            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(new IObservable[0]);
 
             PipingInputContextProperties properties = new PipingInputContextProperties(context, handler);
 
@@ -1317,10 +1288,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             RingtoetsPipingSurfaceLine newSurfaceLine = ValidSurfaceLine(0, 2);
 
-            var handler = new ObservableSetPropertyValueAfterConfirmationParameterTester<RingtoetsPipingSurfaceLine>(
-                inputParameters,
-                newSurfaceLine,
-                new IObservable[0]);
+            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(new IObservable[0]);
 
             PipingInputContextProperties properties = new PipingInputContextProperties(context, handler);
 
@@ -1374,13 +1342,10 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                                                  failureMechanism,
                                                  assessmentSection);
 
-            var handler = new ObservableSetPropertyValueAfterConfirmationParameterTester<StochasticSoilModel>(
-                inputParameters,
-                stochasticSoilModel2,
-                new[]
-                {
-                    observable
-                });
+            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(new[]
+            {
+                observable
+            });
 
             PipingInputContextProperties properties = new PipingInputContextProperties(context, handler);
 
@@ -1412,7 +1377,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                                                  failureMechanism,
                                                  assessmentSection);
 
-            var handler = new ObservablePropertyChangeHandler(calculationItem);
+            var handler = new ObservablePropertyChangeHandler(calculationItem, calculationItem.InputParameters);
 
             PipingInputContextProperties contextProperties = new PipingInputContextProperties(context, handler);
             inputParameters.HydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(1.0);
@@ -1849,13 +1814,10 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var newSurfaceLine = ValidSurfaceLine(0.0, 5.0);
             newSurfaceLine.ReferenceLineIntersectionWorldPoint = new Point2D(0, 190);
 
-            var handler = new ObservableSetPropertyValueAfterConfirmationParameterTester<RingtoetsPipingSurfaceLine>(
-                calculation.InputParameters,
-                newSurfaceLine,
-                new[]
-                {
-                    observable
-                });
+            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(new[]
+            {
+                observable
+            });
 
             var properties = new PipingInputContextProperties(context, handler);
 
@@ -2006,9 +1968,8 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             Assert.IsFalse(result);
         }
 
-        private void SetPropertyAndVerifyNotifcationsAndOutputForCalculation<TPropertyValue>(
+        private void SetPropertyAndVerifyNotifcationsAndOutputForCalculation(
             Action<PipingInputContextProperties> setProperty,
-            TPropertyValue expectedValueSet,
             PipingCalculationScenario calculation)
         {
             // Setup
@@ -2029,13 +1990,10 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                                                  failureMechanism,
                                                  assessmentSection);
 
-            var handler = new ObservableSetPropertyValueAfterConfirmationParameterTester<TPropertyValue>(
-                inputParameters,
-                expectedValueSet,
-                new[]
-                {
-                    observable
-                });
+            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(new[]
+            {
+                observable
+            });
 
             var properties = new PipingInputContextProperties(context, handler);
 

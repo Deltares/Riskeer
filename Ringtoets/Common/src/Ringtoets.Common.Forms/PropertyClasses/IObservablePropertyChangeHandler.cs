@@ -22,20 +22,14 @@
 using System;
 using System.Collections.Generic;
 using Core.Common.Base;
-using Ringtoets.Common.Data.Calculation;
 
 namespace Ringtoets.Common.Forms.PropertyClasses
 {
     /// <summary>
-    /// Action in which a property of the <paramref name="calculationInput"/> is set to the given <paramref name="value"/>.
+    /// Action in which a property is set to its new value.
     /// </summary>
-    /// <typeparam name="TPropertyOwner">The type of the owner of the property that is passed as argument.</typeparam>
-    /// <typeparam name="TValue">The type of the value that is set on a property of the calculation input.</typeparam>
-    /// <param name="calculationInput">The calculation for which the property will be set.</param>
-    /// <param name="value">The new value of the calculation input property.</param>
     /// <exception cref="Exception">Thrown when setting the property value results in an exception being thrown.</exception>
-    public delegate void SetObservablePropertyValueDelegate<in TPropertyOwner, in TValue>(TPropertyOwner calculationInput, TValue value)
-            where TPropertyOwner : IObservable;
+    public delegate void SetObservablePropertyValueDelegate();
 
     /// <summary>
     /// Interface for an object that can properly handle data model changes due
@@ -48,21 +42,10 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         /// the confirmation is obtained, after which the property is set if confirmation is given. If no confirmation
         /// was required, the value will be set for the property.
         /// </summary>
-        /// <typeparam name="TValue">The type of the value that is set on a property of the calculation input.</typeparam>
-        /// <typeparam name="TPropertyOwner">The type of the owner of the property that is passed as argument.</typeparam>
-        /// <param name="propertyOwner">The calculation input for which the property is supposed to be set.</param>
-        /// <param name="value">The new value of the calculation input property.</param>
-        /// <param name="setValue">The operation which is performed to set the new property <paramref name="value"/>
-        /// on the <paramref name="propertyOwner"/>.</param>
         /// <returns>All objects that are affected by setting the calculation input property.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="propertyOwner"/>
-        /// or <paramref name="setValue"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="setValue"/> is <c>null</c>.</exception>
         /// <exception cref="Exception">Thrown when calling <paramref name="setValue"/> results in an exception being
         /// thrown.</exception>
-        IEnumerable<IObservable> SetPropertyValueAfterConfirmation<TPropertyOwner, TValue>(
-            TPropertyOwner propertyOwner,
-            TValue value,
-            SetObservablePropertyValueDelegate<TPropertyOwner, TValue> setValue)
-            where TPropertyOwner : IObservable;
+        IEnumerable<IObservable> SetPropertyValueAfterConfirmation(SetObservablePropertyValueDelegate setValue);
     }
 }

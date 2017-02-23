@@ -29,7 +29,6 @@ using Core.Common.Utils;
 using Core.Common.Utils.Attributes;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Structures;
-using Ringtoets.Common.Forms.ChangeHandlers;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Utils;
@@ -196,8 +195,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
             }
             set
             {
-                ChangePropertyAndNotify(
-                    (input, newValue) => data.WrappedData.VolumicWeightWater = newValue, value);
+                ChangePropertyAndNotify(() => data.WrappedData.VolumicWeightWater = value);
             }
         }
 
@@ -278,8 +276,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
             }
             set
             {
-                ChangePropertyAndNotify(
-                    (input, newValue) => data.WrappedData.FactorStormDurationOpenStructure = newValue, value);
+                ChangePropertyAndNotify(() => data.WrappedData.FactorStormDurationOpenStructure = value);
             }
         }
 
@@ -309,8 +306,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
             }
             set
             {
-                ChangePropertyAndNotify(
-                    (input, newValue) => data.WrappedData.InflowModelType = newValue, value);
+                ChangePropertyAndNotify(() => data.WrappedData.InflowModelType = value);
             }
         }
 
@@ -327,8 +323,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
             }
             set
             {
-                ChangePropertyAndNotify(
-                    (input, newValue) => data.WrappedData.LoadSchematizationType = newValue, value);
+                ChangePropertyAndNotify(() => data.WrappedData.LoadSchematizationType = value);
             }
         }
 
@@ -486,12 +481,10 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
             set
             {
                 ChangePropertyAndNotify(
-                    (input, newValue) =>
-                        SetProbabilityValue(
-                            newValue, 
-                            data.WrappedData, 
-                            (wrappedData, parsedValue) => wrappedData.FailureProbabilityRepairClosure = parsedValue),
-                    value);
+                    () => SetProbabilityValue(
+                        value,
+                        data.WrappedData,
+                        (wrappedData, parsedValue) => wrappedData.FailureProbabilityRepairClosure = parsedValue));
             }
         }
 
@@ -558,8 +551,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
             }
             set
             {
-                ChangePropertyAndNotify(
-                    (input, newValue) => data.WrappedData.LevellingCount = newValue, value);
+                ChangePropertyAndNotify(() => data.WrappedData.LevellingCount = value);
             }
         }
 
@@ -576,12 +568,10 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
             set
             {
                 ChangePropertyAndNotify(
-                    (input, newValue) =>
-                        SetProbabilityValue(
-                            newValue,
-                            data.WrappedData,
-                            (wrappedData, parsedValue) => wrappedData.ProbabilityCollisionSecondaryStructure = parsedValue),
-                    value);
+                    () => SetProbabilityValue(
+                        value,
+                        data.WrappedData,
+                        (wrappedData, parsedValue) => wrappedData.ProbabilityCollisionSecondaryStructure = parsedValue));
             }
         }
 
@@ -614,8 +604,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
             }
             set
             {
-                ChangePropertyAndNotify(
-                    (input, newValue) => data.WrappedData.EvaluationLevel = newValue, value);
+                ChangePropertyAndNotify(() => data.WrappedData.EvaluationLevel = value);
             }
         }
 
@@ -631,8 +620,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
             }
             set
             {
-                ChangePropertyAndNotify(
-                    (input, newValue) => data.WrappedData.VerticalDistance = newValue, value);
+                ChangePropertyAndNotify(() => data.WrappedData.VerticalDistance = value);
             }
         }
 

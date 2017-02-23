@@ -267,10 +267,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
                                                                 assessmentSectionStub);
 
             var newStructure = new TestHeightStructure();
-            var handler = new ObservableSetPropertyValueAfterConfirmationParameterTester<HeightStructure>(
-                calculation.InputParameters,
-                newStructure,
-                Enumerable.Empty<IObservable>());
+            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(Enumerable.Empty<IObservable>());
             var properties = new HeightStructuresInputContextProperties(inputContext, handler);
 
             failureMechanism.AddSection(new FailureMechanismSection("Section", new List<Point2D>
@@ -293,13 +290,10 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
         {
             RoundedDouble newMean = new Random(21).NextRoundedDouble();
             SetPropertyAndVerifyNotifcationsAndOutput(
-                properties => properties.LevelCrestStructure.Mean = newMean,
-                newMean);
+                properties => properties.LevelCrestStructure.Mean = newMean);
         }
 
-        private void SetPropertyAndVerifyNotifcationsAndOutput<TPropertyValue>(
-            Action<HeightStructuresInputContextProperties> setProperty,
-            TPropertyValue expectedValueSet)
+        private void SetPropertyAndVerifyNotifcationsAndOutput(Action<HeightStructuresInputContextProperties> setProperty)
         {
             // Setup
             var observable = mockRepository.StrictMock<IObservable>();
@@ -312,10 +306,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             HeightStructuresInput input = calculation.InputParameters;
             input.ForeshoreProfile = new TestForeshoreProfile();
 
-            var customHandler = new ObservableSetPropertyValueAfterConfirmationParameterTester<TPropertyValue>(
-                input,
-                expectedValueSet,
-                new[]
+            var customHandler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(new[]
                 {
                     observable
                 });

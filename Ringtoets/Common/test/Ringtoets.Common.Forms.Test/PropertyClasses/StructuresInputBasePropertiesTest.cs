@@ -560,7 +560,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
 
             var newStructure = new SimpleStructure(new Point2D(0, 190));
 
-            ObservableSetPropertyValueAfterConfirmationParameterTester<SimpleStructure> customHandler =
+            CalculationInputSetPropertyValueAfterConfirmationParameterTester customHandler =
                 CreateCustomHandlerForCalculationReturningNoObservables(calculation, newStructure);
 
             var properties = new SimpleStructuresInputProperties(
@@ -616,7 +616,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             var properties = new SimpleStructuresInputProperties(
                 inputContext,
                 new StructuresInputBaseProperties<SimpleStructure, SimpleStructureInput, StructuresCalculation<SimpleStructureInput>, IFailureMechanism>.ConstructionProperties(),
-                new ObservablePropertyChangeHandler(inputContext.Calculation));
+                new ObservablePropertyChangeHandler(inputContext.Calculation, calculation.InputParameters));
 
             inputContext.Attach(observerMock);
 
@@ -649,8 +649,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         {
             var structure = new SimpleStructure();
             SetPropertyAndVerifyNotifcationsAndOutput(
-                properties => properties.Structure = structure,
-                structure);
+                properties => properties.Structure = structure);
         }
 
         [Test]
@@ -658,8 +657,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         {
             RoundedDouble orientation = new Random(21).NextRoundedDouble();
             SetPropertyAndVerifyNotifcationsAndOutput(
-                properties => properties.StructureNormalOrientation = orientation,
-                orientation);
+                properties => properties.StructureNormalOrientation = orientation);
         }
 
         [Test]
@@ -667,8 +665,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         {
             string failureProbability = new Random(21).NextDouble().ToString(CultureInfo.CurrentCulture);
             SetPropertyAndVerifyNotifcationsAndOutput(
-                properties => properties.FailureProbabilityStructureWithErosion = failureProbability,
-                failureProbability);
+                properties => properties.FailureProbabilityStructureWithErosion = failureProbability);
         }
 
         [Test]
@@ -676,8 +673,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         {
             var location = new SelectableHydraulicBoundaryLocation(CreateHydraulicBoundaryLocation(), null);
             SetPropertyAndVerifyNotifcationsAndOutput(
-                properties => properties.SelectedHydraulicBoundaryLocation = location,
-                location);
+                properties => properties.SelectedHydraulicBoundaryLocation = location);
         }
 
         [Test]
@@ -685,8 +681,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         {
             var profile = new TestForeshoreProfile();
             SetPropertyAndVerifyNotifcationsAndOutput(
-                properties => properties.ForeshoreProfile = profile,
-                profile);
+                properties => properties.ForeshoreProfile = profile);
         }
 
         [Test]
@@ -694,8 +689,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         {
             bool useBreakWater = new Random(21).NextBoolean();
             SetPropertyAndVerifyNotifcationsAndOutput(
-                properties => properties.UseBreakWater.UseBreakWater = useBreakWater,
-                useBreakWater);
+                properties => properties.UseBreakWater.UseBreakWater = useBreakWater);
         }
 
         [Test]
@@ -703,8 +697,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         {
             bool useForeshore = new Random(21).NextBoolean();
             SetPropertyAndVerifyNotifcationsAndOutput(
-                properties => properties.UseForeshore.UseForeshore = useForeshore,
-                useForeshore);
+                properties => properties.UseForeshore.UseForeshore = useForeshore);
         }
 
         [Test]
@@ -712,8 +705,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         {
             RoundedDouble newMean = new Random(21).NextRoundedDouble();
             SetPropertyAndVerifyNotifcationsAndOutput(
-                properties => properties.ModelFactorSuperCriticalFlow.Mean = newMean,
-                newMean);
+                properties => properties.ModelFactorSuperCriticalFlow.Mean = newMean);
         }
 
         [Test]
@@ -721,8 +713,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         {
             RoundedDouble newMean = new Random(21).NextRoundedDouble();
             SetPropertyAndVerifyNotifcationsAndOutput(
-                properties => properties.FlowWidthAtBottomProtection.Mean = newMean,
-                newMean);
+                properties => properties.FlowWidthAtBottomProtection.Mean = newMean);
         }
 
         [Test]
@@ -730,8 +721,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         {
             RoundedDouble newMean = new Random(21).NextRoundedDouble();
             SetPropertyAndVerifyNotifcationsAndOutput(
-                properties => properties.WidthFlowApertures.Mean = newMean,
-                newMean);
+                properties => properties.WidthFlowApertures.Mean = newMean);
         }
 
         [Test]
@@ -739,8 +729,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         {
             RoundedDouble newMean = new Random(21).NextRoundedDouble();
             SetPropertyAndVerifyNotifcationsAndOutput(
-                properties => properties.StorageStructureArea.Mean = newMean,
-                newMean);
+                properties => properties.StorageStructureArea.Mean = newMean);
         }
 
         [Test]
@@ -748,8 +737,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         {
             RoundedDouble newMean = new Random(21).NextRoundedDouble();
             SetPropertyAndVerifyNotifcationsAndOutput(
-                properties => properties.AllowedLevelIncreaseStorage.Mean = newMean,
-                newMean);
+                properties => properties.AllowedLevelIncreaseStorage.Mean = newMean);
         }
 
         [Test]
@@ -757,8 +745,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         {
             RoundedDouble newMean = new Random(21).NextRoundedDouble();
             SetPropertyAndVerifyNotifcationsAndOutput(
-                properties => properties.CriticalOvertoppingDischarge.Mean = newMean,
-                newMean);
+                properties => properties.CriticalOvertoppingDischarge.Mean = newMean);
         }
 
         [Test]
@@ -766,8 +753,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         {
             RoundedDouble newMean = new Random(21).NextRoundedDouble();
             SetPropertyAndVerifyNotifcationsAndOutput(
-                properties => properties.StormDuration.Mean = newMean,
-                newMean);
+                properties => properties.StormDuration.Mean = newMean);
         }
 
         [Test]
@@ -842,7 +828,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                                                       assessmentSection);
 
             string newStringValue = newValue.ToString(CultureInfo.InvariantCulture);
-            ObservableSetPropertyValueAfterConfirmationParameterTester<string> customHandler = 
+            CalculationInputSetPropertyValueAfterConfirmationParameterTester customHandler = 
                 CreateCustomHandlerForCalculationReturningNoObservables(calculation, newStringValue);
 
             var properties = new SimpleStructuresInputProperties(
@@ -874,7 +860,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                                                       failureMechanism,
                                                       assessmentSection);
 
-            ObservableSetPropertyValueAfterConfirmationParameterTester<string> customHandler = 
+            CalculationInputSetPropertyValueAfterConfirmationParameterTester customHandler = 
                 CreateCustomHandlerForCalculationReturningNoObservables(calculation, newValue);
 
             var properties = new SimpleStructuresInputProperties(
@@ -904,7 +890,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                                                       failureMechanism,
                                                       assessmentSection);
 
-            ObservableSetPropertyValueAfterConfirmationParameterTester<string> customHandler = 
+            CalculationInputSetPropertyValueAfterConfirmationParameterTester customHandler = 
                 CreateCustomHandlerForCalculationReturningNoObservables<string>(calculation, null);
 
             var properties = new SimpleStructuresInputProperties(
@@ -922,13 +908,10 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             mockRepository.VerifyAll();
         }
 
-        private static ObservableSetPropertyValueAfterConfirmationParameterTester<T> CreateCustomHandlerForCalculationReturningNoObservables<T>(
+        private static CalculationInputSetPropertyValueAfterConfirmationParameterTester CreateCustomHandlerForCalculationReturningNoObservables<T>(
             StructuresCalculation<SimpleStructureInput> calculation, T expectedValue)
         {
-            return new ObservableSetPropertyValueAfterConfirmationParameterTester<T>(
-                calculation.InputParameters,
-                expectedValue,
-                Enumerable.Empty<IObservable>());
+            return new CalculationInputSetPropertyValueAfterConfirmationParameterTester(Enumerable.Empty<IObservable>());
         }
 
         private static StructuresInputBaseProperties<SimpleStructure, SimpleStructureInput, StructuresCalculation<SimpleStructureInput>, IFailureMechanism>.ConstructionProperties GetRandomConstructionProperties()
@@ -1040,9 +1023,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                 : base(wrappedData, calculation, failureMechanism, assessmentSection) {}
         }
 
-        private void SetPropertyAndVerifyNotifcationsAndOutput<TPropertyValue>(
-            Action<SimpleStructuresInputProperties> setProperty,
-            TPropertyValue expectedValueSet)
+        private void SetPropertyAndVerifyNotifcationsAndOutput(Action<SimpleStructuresInputProperties> setProperty)
         {
             // Setup
             var observable = mockRepository.StrictMock<IObservable>();
@@ -1053,10 +1034,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             SimpleStructureInput input = calculation.InputParameters;
             input.ForeshoreProfile = new TestForeshoreProfile();
 
-            var customHandler = new ObservableSetPropertyValueAfterConfirmationParameterTester<TPropertyValue>(
-                input,
-                expectedValueSet,
-                new[]
+            var customHandler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(new[]
                 {
                     observable
                 });

@@ -37,26 +37,24 @@ namespace Ringtoets.Common.Forms.ChangeHandlers
     public class ObservablePropertyChangeHandler : IObservablePropertyChangeHandler
     {
         private readonly ICalculation calculation;
+        private readonly ICalculationInput calculationInput;
 
-        public ObservablePropertyChangeHandler(ICalculation calculation)
+        public ObservablePropertyChangeHandler(ICalculation calculation, ICalculationInput calculationInput)
         {
             if (calculation == null)
             {
                 throw new ArgumentNullException(nameof(calculation));
             }
-            this.calculation = calculation;
-        }
-
-        public IEnumerable<IObservable> SetPropertyValueAfterConfirmation<TPropertyOwner, TValue>(
-            TPropertyOwner calculationInput,
-            TValue value,
-            SetObservablePropertyValueDelegate<TPropertyOwner, TValue> setValue) 
-            where TPropertyOwner : IObservable
-        {
             if (calculationInput == null)
             {
                 throw new ArgumentNullException(nameof(calculationInput));
             }
+            this.calculation = calculation;
+            this.calculationInput = calculationInput;
+        }
+
+        public IEnumerable<IObservable> SetPropertyValueAfterConfirmation(SetObservablePropertyValueDelegate setValue)
+        {
             if (setValue == null)
             {
                 throw new ArgumentNullException(nameof(setValue));
@@ -68,7 +66,7 @@ namespace Ringtoets.Common.Forms.ChangeHandlers
             {
                 if (ConfirmPropertyChange())
                 {
-                    setValue(calculationInput, value);
+                    setValue();
                     PropertyChanged(calculation);
                     changedObjects.Add(calculation);
                     changedObjects.Add(calculationInput);
@@ -76,7 +74,7 @@ namespace Ringtoets.Common.Forms.ChangeHandlers
             }
             else
             {
-                setValue(calculationInput, value);
+                setValue();
                 changedObjects.Add(calculationInput);
             }
 

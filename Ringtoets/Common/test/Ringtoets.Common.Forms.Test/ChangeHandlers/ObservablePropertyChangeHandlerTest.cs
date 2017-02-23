@@ -38,7 +38,7 @@ namespace Ringtoets.Common.Forms.Test.ChangeHandlers
         public void Constructor_WithCalculation_Expectedvalues()
         {
             // Call
-            var changeHandler = new ObservablePropertyChangeHandler(new TestCalculation());
+            var changeHandler = new ObservablePropertyChangeHandler(new TestCalculation(), new TestCalculationInput());
 
             // Assert
             Assert.IsInstanceOf<IObservablePropertyChangeHandler>(changeHandler);
@@ -48,7 +48,7 @@ namespace Ringtoets.Common.Forms.Test.ChangeHandlers
         public void Constructor_CalculationNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new ObservablePropertyChangeHandler(null);
+            TestDelegate test = () => new ObservablePropertyChangeHandler(null, new TestCalculationInput());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -56,13 +56,10 @@ namespace Ringtoets.Common.Forms.Test.ChangeHandlers
         }
 
         [Test]
-        public void SetPropertyValueAfterConfirmation_CalculationInputNull_ThrowArgumentNullException()
+        public void Constructor_CalculationInputNull_ThrowArgumentNullException()
         {
-            // Setup
-            var changeHandler = new ObservablePropertyChangeHandler(new TestCalculation());
-
             // Call
-            TestDelegate test = () => changeHandler.SetPropertyValueAfterConfirmation((TestCalculationInput)null, 3, (input, value) => { });
+            TestDelegate test = () => new ObservablePropertyChangeHandler(new TestCalculation(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -73,12 +70,10 @@ namespace Ringtoets.Common.Forms.Test.ChangeHandlers
         public void SetPropertyValueAfterConfirmation_SetValueNull_ThrowArgumentNullException()
         {
             // Setup
-            var changeHandler = new ObservablePropertyChangeHandler(new TestCalculation());
+            var changeHandler = new ObservablePropertyChangeHandler(new TestCalculation(), new TestCalculationInput());
 
             // Call
-            TestDelegate test = () => changeHandler.SetPropertyValueAfterConfirmation(new TestCalculationInput(),
-                                                                                      3,
-                                                                                      null);
+            TestDelegate test = () => changeHandler.SetPropertyValueAfterConfirmation(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -109,16 +104,13 @@ namespace Ringtoets.Common.Forms.Test.ChangeHandlers
             var calculationInput = new TestCalculationInput();
             var propertySet = 0;
 
-            var changeHandler = new ObservablePropertyChangeHandler(testCase.Calculation);
+            var changeHandler = new ObservablePropertyChangeHandler(testCase.Calculation, calculationInput);
 
             // Precondition
             Assert.AreEqual(dialogBoxWillBeShown, testCase.Calculation.HasOutput);
 
             // Call
-            var affectedObjects = changeHandler.SetPropertyValueAfterConfirmation(
-                calculationInput,
-                3,
-                (f, v) => propertySet++);
+            var affectedObjects = changeHandler.SetPropertyValueAfterConfirmation(() => propertySet++);
 
             // Assert
             var expectedAffectedObjects = new List<IObservable>();
@@ -153,16 +145,13 @@ namespace Ringtoets.Common.Forms.Test.ChangeHandlers
 
             var propertySet = 0;
 
-            var changeHandler = new ObservablePropertyChangeHandler(calculation);
+            var changeHandler = new ObservablePropertyChangeHandler(calculation, new TestCalculationInput());
 
             // Precondition
             Assert.IsTrue(calculation.HasOutput);
 
             // Call
-            var affectedObjects = changeHandler.SetPropertyValueAfterConfirmation(
-                new TestCalculationInput(),
-                3,
-                (f, v) => propertySet++);
+            var affectedObjects = changeHandler.SetPropertyValueAfterConfirmation(() => propertySet++);
 
             // Assert
             Assert.AreEqual(0, propertySet);
@@ -182,14 +171,11 @@ namespace Ringtoets.Common.Forms.Test.ChangeHandlers
 
             TestCalculation calculation = CalculationTestHelper.CreateCalculationWithOutput();
 
-            var changeHandler = new ObservablePropertyChangeHandler(calculation);
+            var changeHandler = new ObservablePropertyChangeHandler(calculation, new TestCalculationInput());
             var expectedException = new Exception();
 
             // Call
-            TestDelegate test = () => changeHandler.SetPropertyValueAfterConfirmation(
-                new TestCalculationInput(),
-                3,
-                (f, v) => { throw expectedException; });
+            TestDelegate test = () => changeHandler.SetPropertyValueAfterConfirmation(() => { throw expectedException; });
 
             // Assert
             var exception = Assert.Throws<Exception>(test);
@@ -202,14 +188,11 @@ namespace Ringtoets.Common.Forms.Test.ChangeHandlers
             // Setup
             TestCalculation calculation = CalculationTestHelper.CreateCalculationWithoutOutput();
 
-            var changeHandler = new ObservablePropertyChangeHandler(calculation);
+            var changeHandler = new ObservablePropertyChangeHandler(calculation, new TestCalculationInput());
             var expectedException = new Exception();
 
             // Call
-            TestDelegate test = () => changeHandler.SetPropertyValueAfterConfirmation(
-                new TestCalculationInput(),
-                3,
-                (f, v) => { throw expectedException; });
+            TestDelegate test = () => changeHandler.SetPropertyValueAfterConfirmation(() => { throw expectedException; });
 
             // Assert
             var exception = Assert.Throws<Exception>(test);
