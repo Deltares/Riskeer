@@ -24,9 +24,9 @@ using Core.Common.Base.IO;
 using Core.Common.Gui;
 using Core.Common.Gui.Plugin;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Integration.Data;
 using Ringtoets.Revetment.IO;
 using Ringtoets.Revetment.TestUtil;
 using Ringtoets.WaveImpactAsphaltCover.Data;
@@ -61,10 +61,7 @@ namespace Ringtoets.Integration.Plugin.Test.ExportInfos
         public void CreateFileExporter_Always_ReturnFileExporter()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             var calculationGroup = new CalculationGroup();
 
@@ -79,7 +76,6 @@ namespace Ringtoets.Integration.Plugin.Test.ExportInfos
                 // Assert
                 Assert.IsInstanceOf<WaveConditionsExporterBase>(fileExporter);
             }
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -102,10 +98,7 @@ namespace Ringtoets.Integration.Plugin.Test.ExportInfos
         public void IsEnabled_NoWaveImpactAsphaltCoverWaveConditionsCalculation_ReturnsFalse()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             var calculationGroup = new CalculationGroup();
 
@@ -120,17 +113,13 @@ namespace Ringtoets.Integration.Plugin.Test.ExportInfos
                 // Assert
                 Assert.IsFalse(isEnabled);
             }
-            mocks.VerifyAll();
         }
 
         [Test]
         public void IsEnabled_WaveImpactAsphaltCoverWaveConditionsCalculationHasOutputFalse_ReturnsFalse()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             var calculationGroup = new CalculationGroup();
             calculationGroup.Children.Add(new WaveImpactAsphaltCoverWaveConditionsCalculation());
@@ -146,17 +135,13 @@ namespace Ringtoets.Integration.Plugin.Test.ExportInfos
                 // Assert
                 Assert.IsFalse(isEnabled);
             }
-            mocks.VerifyAll();
         }
 
         [Test]
         public void IsEnabled_WaveImpactAsphaltCoverWaveConditionsCalculationHasOutputTrue_ReturnsTrue()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             var calculationGroup = new CalculationGroup();
             var output = new[]
@@ -180,7 +165,6 @@ namespace Ringtoets.Integration.Plugin.Test.ExportInfos
                 // Assert
                 Assert.IsTrue(isEnabled);
             }
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -189,10 +173,7 @@ namespace Ringtoets.Integration.Plugin.Test.ExportInfos
         public void IsEnabled_WaveImpactAsphaltCoverWaveConditionsCalculationInSubFolder_ReturnsTrueIfHasOutput(bool hasOutput)
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             var calculationGroup = new CalculationGroup();
 
@@ -228,7 +209,6 @@ namespace Ringtoets.Integration.Plugin.Test.ExportInfos
                 // Assert
                 Assert.AreEqual(hasOutput, isEnabled);
             }
-            mocks.VerifyAll();
         }
 
         private static ExportInfo GetExportInfo(WaveImpactAsphaltCoverPlugin plugin)
