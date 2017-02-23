@@ -44,10 +44,18 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         private readonly IObservablePropertyChangeHandler changeHandler;
 
         /// <summary>
+        /// Creates a new instance of <see cref="ConfirmingDistributionPropertiesBase{TDistribution}"/>
+        /// in which the properties of <paramref name="distribution"/> are displayed read-only.
+        /// </summary>
+        /// <param name="distribution">The <see cref="TDistribution"/> to create the properties for.</param>
+        protected ConfirmingDistributionPropertiesBase(TDistribution distribution)
+            : this(DistributionPropertiesReadOnly.All, distribution, null) {}
+
+        /// <summary>
         /// Creates a new instance of <see cref="ConfirmingDistributionPropertiesBase{TDistribution}"/>.
         /// </summary>
         /// <param name="propertiesReadOnly">Indicates which properties, if any, should be marked as read-only.</param>
-        /// <param name="distribution">The data of the <see cref="TDistribution"/> to create the properties for.</param>
+        /// <param name="distribution">The <see cref="TDistribution"/> to create the properties for.</param>
         /// <param name="handler">The handler responsible for handling effects of a property change.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="distribution"/> is <c>null</c>
         /// or when any number of properties in this class is editable and any other parameter is <c>null</c>.</exception>

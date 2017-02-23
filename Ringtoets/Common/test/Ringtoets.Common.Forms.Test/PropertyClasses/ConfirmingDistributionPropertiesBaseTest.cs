@@ -37,6 +37,25 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
     public class ConfirmingDistributionPropertiesBaseTest
     {
         [Test]
+        public void Constructor_WithData_ReadOnlyProperties()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var distribution = mocks.Stub<IDistribution>();
+            mocks.ReplayAll();
+
+            // Call
+            var properties = new SimpleDistributionProperties(distribution);
+
+            // Assert
+            Assert.IsInstanceOf<ConfirmingDistributionPropertiesBase<IDistribution>>(properties);
+            Assert.AreSame(distribution, properties.Data);
+
+            AssertPropertiesInState(properties, true, true);
+            mocks.VerifyAll();
+        }
+
+        [Test]
         public void Constructor_ReadOnlyWithData_ExpectedValues()
         {
             // Setup
@@ -107,29 +126,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             var properties = new SimpleDistributionProperties(propertiesReadOnly, distribution, handler);
 
             // Assert
-            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(3, dynamicProperties.Count);
-
-            PropertyDescriptor distributionTypeProperty = dynamicProperties[0];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(distributionTypeProperty,
-                                                                            "Misc",
-                                                                            "Type verdeling",
-                                                                            "Het soort kansverdeling waarin deze parameter gedefinieerd wordt.",
-                                                                            true);
-
-            PropertyDescriptor meanProperty = dynamicProperties[1];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(meanProperty,
-                                                                            "Misc",
-                                                                            "Verwachtingswaarde",
-                                                                            "",
-                                                                            expectMeanReadOnly);
-
-            PropertyDescriptor standardDeviationProperty = dynamicProperties[2];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(standardDeviationProperty,
-                                                                            "Misc",
-                                                                            "Standaardafwijking",
-                                                                            "",
-                                                                            expectStandardDeviationReadOnly);
+            AssertPropertiesInState(properties, expectMeanReadOnly, expectStandardDeviationReadOnly);
             mocks.VerifyAll();
         }
 
@@ -222,9 +219,9 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
 
             var newMeanValue = new RoundedDouble(3, 20);
             var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(new[]
-                {
-                    observerableMock
-                });
+            {
+                observerableMock
+            });
 
             var properties = new SimpleDistributionProperties(
                 DistributionPropertiesReadOnly.None,
@@ -277,9 +274,9 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
 
             var newStandardDeviationValue = new RoundedDouble(3, 20);
             var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(new[]
-                {
-                    observerableMock
-                });
+            {
+                observerableMock
+            });
 
             var properties = new SimpleDistributionProperties(
                 DistributionPropertiesReadOnly.None,
@@ -294,10 +291,39 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             mocks.VerifyAll();
         }
 
+        private static void AssertPropertiesInState(SimpleDistributionProperties properties, bool meanReadOnly, bool deviationReadOnly)
+        {
+            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
+            Assert.AreEqual(3, dynamicProperties.Count);
+
+            PropertyDescriptor distributionTypeProperty = dynamicProperties[0];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(distributionTypeProperty,
+                                                                            "Misc",
+                                                                            "Type verdeling",
+                                                                            "Het soort kansverdeling waarin deze parameter gedefinieerd wordt.",
+                                                                            true);
+
+            PropertyDescriptor meanProperty = dynamicProperties[1];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(meanProperty,
+                                                                            "Misc",
+                                                                            "Verwachtingswaarde",
+                                                                            "",
+                                                                            meanReadOnly);
+
+            PropertyDescriptor standardDeviationProperty = dynamicProperties[2];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(standardDeviationProperty,
+                                                                            "Misc",
+                                                                            "Standaardafwijking",
+                                                                            "",
+                                                                            deviationReadOnly);
+        }
+
         private class SimpleDistributionProperties : ConfirmingDistributionPropertiesBase<IDistribution>
         {
+            public SimpleDistributionProperties(IDistribution distribution) : base(distribution) {}
+
             public SimpleDistributionProperties(DistributionPropertiesReadOnly propertiesReadOnly,
-                                                IDistribution distribution, 
+                                                IDistribution distribution,
                                                 IObservablePropertyChangeHandler handler)
                 : base(propertiesReadOnly, distribution, handler) {}
 

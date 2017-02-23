@@ -40,6 +40,22 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         }
 
         [Test]
+        public void Constructor_WithData_ReadOnlyProperties()
+        {
+            // Setup
+            var distribution = new VariationCoefficientLogNormalDistribution();
+
+            // Call
+            var properties = new ConfirmingVariationCoefficientLogNormalDistributionProperties(distribution);
+
+            // Assert
+            Assert.IsInstanceOf<ConfirmingVariationCoefficientDistributionPropertiesBase<VariationCoefficientLogNormalDistribution>>(properties);
+            Assert.AreSame(distribution, properties.Data);
+
+            AssertPropertiesInState(properties, true, true);
+        }
+
+        [Test]
         public void Constructor_WithParameters_ExpectedValues()
         {
             // Setup
@@ -56,6 +72,15 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             // Assert
             Assert.IsInstanceOf<ConfirmingVariationCoefficientDistributionPropertiesBase<VariationCoefficientLogNormalDistribution>>(properties);
             Assert.AreSame(distribution, properties.Data);
+
+            AssertPropertiesInState(properties, false, false);
+
+            mockRepository.VerifyAll();
+        }
+
+        private static void AssertPropertiesInState(ConfirmingVariationCoefficientLogNormalDistributionProperties properties, bool meanReadOnly, bool variationCoefficientReadOnly)
+        {
+            Assert.IsInstanceOf<ConfirmingVariationCoefficientDistributionPropertiesBase<VariationCoefficientLogNormalDistribution>>(properties);
             Assert.AreEqual("Lognormaal", properties.DistributionType);
 
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -72,15 +97,16 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(meanProperty,
                                                                             "Misc",
                                                                             "Verwachtingswaarde",
-                                                                            "De gemiddelde waarde van de lognormale verdeling.");
+                                                                            "De gemiddelde waarde van de lognormale verdeling.",
+                                                                            meanReadOnly);
 
             PropertyDescriptor variationCoefficientProperty = dynamicProperties[2];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(variationCoefficientProperty,
                                                                             "Misc",
                                                                             "Variatiecoëfficiënt",
-                                                                            "De variatiecoëfficiënt van de lognormale verdeling.");
+                                                                            "De variatiecoëfficiënt van de lognormale verdeling.",
+                                                                            variationCoefficientReadOnly);
 
-            mockRepository.VerifyAll();
         }
     }
 }

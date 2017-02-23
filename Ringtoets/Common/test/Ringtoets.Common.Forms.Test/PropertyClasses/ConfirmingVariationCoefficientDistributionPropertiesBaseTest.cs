@@ -37,6 +37,25 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
     public class ConfirmingVariationCoefficientDistributionPropertiesBaseTest
     {
         [Test]
+        public void Constructor_WithData_ReadOnlyProperties()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var distribution = mocks.Stub<IVariationCoefficientDistribution>();
+            mocks.ReplayAll();
+
+            // Call
+            var properties = new SimpleDistributionProperties(distribution);
+
+            // Assert
+            Assert.AreSame(distribution, properties.Data);
+
+            AssertPropertiesInState(properties, true, true);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
         public void Constructor_ReadOnlyWithData_ExpectedValues()
         {
             // Setup
@@ -107,29 +126,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             var properties = new SimpleDistributionProperties(propertiesReadOnly, distribution, handler);
 
             // Assert
-            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(3, dynamicProperties.Count);
-
-            PropertyDescriptor distributionTypeProperty = dynamicProperties[0];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(distributionTypeProperty,
-                                                                            "Misc",
-                                                                            "Type verdeling",
-                                                                            "Het soort kansverdeling waarin deze parameter gedefinieerd wordt.",
-                                                                            true);
-
-            PropertyDescriptor meanProperty = dynamicProperties[1];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(meanProperty,
-                                                                            "Misc",
-                                                                            "Verwachtingswaarde",
-                                                                            "",
-                                                                            expectMeanReadOnly);
-
-            PropertyDescriptor coefficientOfVariationProperty = dynamicProperties[2];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(coefficientOfVariationProperty,
-                                                                            "Misc",
-                                                                            "Variatiecoëfficiënt",
-                                                                            "",
-                                                                            expectCoefficientOfVariationReadOnly);
+            AssertPropertiesInState(properties, expectMeanReadOnly, expectCoefficientOfVariationReadOnly);
             mocks.VerifyAll();
         }
 
@@ -181,8 +178,8 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             Assert.AreEqual(distribution.Mean, properties.Mean);
             Assert.AreEqual(distribution.CoefficientOfVariation, properties.CoefficientOfVariation);
             string expectedToString = string.Format("{0} ({1} = {2})",
-                                                    distribution.Mean, 
-                                                    Resources.Distribution_VariationCoefficient_DisplayName, 
+                                                    distribution.Mean,
+                                                    Resources.Distribution_VariationCoefficient_DisplayName,
                                                     distribution.CoefficientOfVariation);
             Assert.AreEqual(expectedToString, properties.ToString());
             mocks.VerifyAll();
@@ -224,9 +221,9 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
 
             var newMeanValue = new RoundedDouble(3, 20);
             var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(new[]
-                {
-                    observerableMock
-                });
+            {
+                observerableMock
+            });
 
             var properties = new SimpleDistributionProperties(
                 VariationCoefficientDistributionPropertiesReadOnly.None,
@@ -276,9 +273,9 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
 
             var newCoefficientOfVariation = new RoundedDouble(3, 20);
             var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(new[]
-                {
-                    observerableMock
-                });
+            {
+                observerableMock
+            });
 
             var properties = new SimpleDistributionProperties(VariationCoefficientDistributionPropertiesReadOnly.None, distribution, handler)
             {
@@ -293,10 +290,41 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             mocks.VerifyAll();
         }
 
+        private static void AssertPropertiesInState(SimpleDistributionProperties properties, bool meanReadOnly, bool variationCoefficientReadOnly)
+        {
+            Assert.IsInstanceOf<ConfirmingVariationCoefficientDistributionPropertiesBase<IVariationCoefficientDistribution>>(properties);
+
+            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
+            Assert.AreEqual(3, dynamicProperties.Count);
+
+            PropertyDescriptor distributionTypeProperty = dynamicProperties[0];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(distributionTypeProperty,
+                                                                            "Misc",
+                                                                            "Type verdeling",
+                                                                            "Het soort kansverdeling waarin deze parameter gedefinieerd wordt.",
+                                                                            true);
+
+            PropertyDescriptor meanProperty = dynamicProperties[1];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(meanProperty,
+                                                                            "Misc",
+                                                                            "Verwachtingswaarde",
+                                                                            "",
+                                                                            meanReadOnly);
+
+            PropertyDescriptor coefficientOfVariationProperty = dynamicProperties[2];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(coefficientOfVariationProperty,
+                                                                            "Misc",
+                                                                            "Variatiecoëfficiënt",
+                                                                            "",
+                                                                            variationCoefficientReadOnly);
+        }
+
         private class SimpleDistributionProperties : ConfirmingVariationCoefficientDistributionPropertiesBase<IVariationCoefficientDistribution>
         {
+            public SimpleDistributionProperties(IVariationCoefficientDistribution distribution) : base(distribution) {}
+
             public SimpleDistributionProperties(VariationCoefficientDistributionPropertiesReadOnly propertiesReadOnly,
-                                                IVariationCoefficientDistribution distribution, 
+                                                IVariationCoefficientDistribution distribution,
                                                 IObservablePropertyChangeHandler handler)
                 : base(propertiesReadOnly, distribution, handler) {}
 

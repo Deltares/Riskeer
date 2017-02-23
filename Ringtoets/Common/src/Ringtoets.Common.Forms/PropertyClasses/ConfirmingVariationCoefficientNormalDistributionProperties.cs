@@ -34,6 +34,13 @@ namespace Ringtoets.Common.Forms.PropertyClasses
     public class ConfirmingVariationCoefficientNormalDistributionProperties : ConfirmingVariationCoefficientDistributionPropertiesBase<VariationCoefficientNormalDistribution>
     {
         /// <summary>
+        /// Creates a new instance of <see cref="ConfirmingVariationCoefficientNormalDistributionProperties"/>
+        /// in which the properties of <paramref name="distribution"/> are displayed read-only.
+        /// </summary>
+        /// <param name="distribution">The <see cref="VariationCoefficientNormalDistribution"/> to create the properties for.</param>
+        public ConfirmingVariationCoefficientNormalDistributionProperties(VariationCoefficientNormalDistribution distribution) : base(distribution) { }
+
+        /// <summary>
         /// Creates a new instance of <see cref="ConfirmingVariationCoefficientNormalDistributionProperties"/>.
         /// </summary>
         /// <param name="propertiesReadOnly">Indicates which properties, if any, should be

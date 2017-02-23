@@ -40,6 +40,23 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         }
 
         [Test]
+        public void Constructor_WithDistribution_ExpectedValues()
+        {
+            // Setup
+            var distribution = new NormalDistribution();
+
+            // Call
+            var properties = new ConfirmingNormalDistributionProperties(distribution);
+
+            // Assert
+            Assert.IsInstanceOf<ConfirmingDistributionPropertiesBase<NormalDistribution>>(properties);
+            Assert.AreSame(distribution, properties.Data);
+            Assert.AreEqual("Normaal", properties.DistributionType);
+
+            AssertPropertiesInState(properties, true, true);
+        }
+
+        [Test]
         public void Constructor_WithParameters_ExpectedValues()
         {
             // Setup
@@ -58,6 +75,13 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             Assert.AreSame(distribution, properties.Data);
             Assert.AreEqual("Normaal", properties.DistributionType);
 
+            AssertPropertiesInState(properties, false, false);
+
+            mockRepository.VerifyAll();
+        }
+
+        private static void AssertPropertiesInState(ConfirmingNormalDistributionProperties properties, bool meanReadOnly, bool deviationReadOnly)
+        {
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
             Assert.AreEqual(3, dynamicProperties.Count);
 
@@ -72,15 +96,15 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(meanProperty,
                                                                             "Misc",
                                                                             "Verwachtingswaarde",
-                                                                            "De gemiddelde waarde van de normale verdeling.");
+                                                                            "De gemiddelde waarde van de normale verdeling.",
+                                                                            meanReadOnly);
 
             PropertyDescriptor standardDeviationProperty = dynamicProperties[2];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(standardDeviationProperty,
                                                                             "Misc",
                                                                             "Standaardafwijking",
-                                                                            "De standaardafwijking van de normale verdeling.");
-
-            mockRepository.VerifyAll();
+                                                                            "De standaardafwijking van de normale verdeling.",
+                                                                            deviationReadOnly);
         }
     }
 }

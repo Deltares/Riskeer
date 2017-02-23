@@ -35,6 +35,13 @@ namespace Ringtoets.Common.Forms.PropertyClasses
     public class ConfirmingNormalDistributionProperties : ConfirmingDistributionPropertiesBase<NormalDistribution>
     {
         /// <summary>
+        /// Creates a new instance of <see cref="ConfirmingNormalDistributionProperties"/>
+        /// in which the properties of <paramref name="distribution"/> are displayed read-only.
+        /// </summary>
+        /// <param name="distribution">The <see cref="NormalDistribution"/> to create the properties for.</param>
+        public ConfirmingNormalDistributionProperties(NormalDistribution distribution) : base(distribution) { }
+
+        /// <summary>
         /// Creates a new instance of <see cref="ConfirmingNormalDistributionProperties"/>.
         /// </summary>
         /// <param name="propertiesReadOnly">Indicates which properties, if any, should be

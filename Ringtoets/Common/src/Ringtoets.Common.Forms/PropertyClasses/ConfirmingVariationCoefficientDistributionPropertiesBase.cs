@@ -44,6 +44,14 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         private readonly IObservablePropertyChangeHandler changeHandler;
 
         /// <summary>
+        /// Creates a new instance of <see cref="ConfirmingVariationCoefficientDistributionPropertiesBase{TDistribution}"/>
+        /// in which the properties of <paramref name="distribution"/> are displayed read-only.
+        /// </summary>
+        /// <param name="distribution">The <see cref="TDistribution"/> to create the properties for.</param>
+        public ConfirmingVariationCoefficientDistributionPropertiesBase(TDistribution distribution)
+            : this(VariationCoefficientDistributionPropertiesReadOnly.All, distribution, null) {}
+
+        /// <summary>
         /// Creates a new instance of <see cref="ConfirmingVariationCoefficientDistributionPropertiesBase{TDistribution}"/>.
         /// </summary>
         /// <param name="propertiesReadOnly">Indicates which properties, if any, should be marked as read-only.</param>
