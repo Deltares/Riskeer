@@ -145,16 +145,16 @@ namespace Ringtoets.Piping.IO.Test.Readers
                                               "The element 'berekening' has invalid child element 'stochasts'.")
                     .SetName("invalidCalculationMultipleStochasts");
                 yield return new TestCaseData("invalidConfigurationCalculationContainingEmptyHydraulicBoundaryLocation.xml",
-                                              "The 'hrlocatie' element is invalid - The value '' is invalid according to its datatype 'Token' - The actual length is less than the MinLength value.")
+                                              "The 'hrlocatie' element is invalid - The value '' is invalid according to its datatype 'String' - The actual length is less than the MinLength value.")
                     .SetName("invalidConfigurationCalculationContainingEmptyHydraulicBoundaryLocation");
                 yield return new TestCaseData("invalidConfigurationCalculationContainingEmptySurfaceLine.xml",
-                                              "The 'profielschematisatie' element is invalid - The value '' is invalid according to its datatype 'Token' - The actual length is less than the MinLength value.")
+                                              "The 'profielschematisatie' element is invalid - The value '' is invalid according to its datatype 'String' - The actual length is less than the MinLength value.")
                     .SetName("invalidConfigurationCalculationContainingEmptySurfaceLine");
                 yield return new TestCaseData("invalidConfigurationCalculationContainingEmptySoilModel.xml",
-                                              "The 'ondergrondmodel' element is invalid - The value '' is invalid according to its datatype 'Token' - The actual length is less than the MinLength value.")
+                                              "The 'ondergrondmodel' element is invalid - The value '' is invalid according to its datatype 'String' - The actual length is less than the MinLength value.")
                     .SetName("invalidConfigurationCalculationContainingEmptySoilModel");
                 yield return new TestCaseData("invalidConfigurationCalculationContainingEmptySoilProfile.xml",
-                                              "The 'ondergrondschematisatie' element is invalid - The value '' is invalid according to its datatype 'Token' - The actual length is less than the MinLength value.")
+                                              "The 'ondergrondschematisatie' element is invalid - The value '' is invalid according to its datatype 'String' - The actual length is less than the MinLength value.")
                     .SetName("invalidConfigurationCalculationContainingEmptySoilProfile");
             }
         }

@@ -66,7 +66,7 @@ All rights reserved.
   </xs:element>
   <xs:element name="profielschematisatie">
     <xs:simpleType>
-      <xs:restriction base="xs:token">
+      <xs:restriction base="xs:string">
         <xs:minLength value="1"/>
       </xs:restriction>
     </xs:simpleType>
@@ -83,21 +83,21 @@ All rights reserved.
   </xs:element>
   <xs:element name="ondergrondmodel">
     <xs:simpleType>
-      <xs:restriction base="xs:token">
+      <xs:restriction base="xs:string">
         <xs:minLength value="1"/>
       </xs:restriction>
     </xs:simpleType>
   </xs:element>
   <xs:element name="ondergrondschematisatie">
     <xs:simpleType>
-      <xs:restriction base="xs:token">
+      <xs:restriction base="xs:string">
         <xs:minLength value="1"/>
       </xs:restriction>
     </xs:simpleType>
   </xs:element>
   <xs:element name="hrlocatie">
     <xs:simpleType>
-      <xs:restriction base="xs:token">
+      <xs:restriction base="xs:string">
         <xs:minLength value="1"/>
       </xs:restriction>
     </xs:simpleType>
