@@ -177,7 +177,7 @@ namespace Ringtoets.Piping.IO.Importers
                 ReadStochasticSoilModel(readCalculation, pipingCalculation);
                 ReadStochastics(readCalculation, pipingCalculation);
             }
-            catch (CriticalFileValidationException e)
+            catch (Exception e) when (e is CriticalFileValidationException || e is ArgumentOutOfRangeException)
             {
                 log.ErrorFormat(Resources.PipingConfigurationImporter_ValidateCalculation_Error_message_0_calculation_1_skipped, e.Message, readCalculation.Name);
                 return null;
@@ -212,7 +212,7 @@ namespace Ringtoets.Piping.IO.Importers
             else if (readCalculation.AssessmentLevel.HasValue)
             {
                 pipingCalculation.InputParameters.UseAssessmentLevelManualInput = true;
-                pipingCalculation.InputParameters.AssessmentLevel = (RoundedDouble)readCalculation.AssessmentLevel.Value;
+                pipingCalculation.InputParameters.AssessmentLevel = (RoundedDouble) readCalculation.AssessmentLevel.Value;
             }
         }
 
@@ -241,16 +241,17 @@ namespace Ringtoets.Piping.IO.Importers
                 }
             }
         }
+
         private static void ReadEntryExitPoint(ReadPipingCalculation readCalculation, PipingCalculationScenario pipingCalculation)
         {
             if (readCalculation.EntryPointL.HasValue)
             {
-                pipingCalculation.InputParameters.EntryPointL = (RoundedDouble)readCalculation.EntryPointL.Value;
+                pipingCalculation.InputParameters.EntryPointL = (RoundedDouble) readCalculation.EntryPointL.Value;
             }
 
             if (readCalculation.ExitPointL.HasValue)
             {
-                pipingCalculation.InputParameters.ExitPointL = (RoundedDouble)readCalculation.ExitPointL.Value;
+                pipingCalculation.InputParameters.ExitPointL = (RoundedDouble) readCalculation.ExitPointL.Value;
             }
         }
 
@@ -332,8 +333,8 @@ namespace Ringtoets.Piping.IO.Importers
             {
                 pipingCalculation.InputParameters.DampingFactorExit = new LogNormalDistribution
                 {
-                    Mean = (RoundedDouble)readCalculation.DampingFactorExitMean.Value,
-                    StandardDeviation = (RoundedDouble)readCalculation.DampingFactorExitStandardDeviation.Value
+                    Mean = (RoundedDouble) readCalculation.DampingFactorExitMean.Value,
+                    StandardDeviation = (RoundedDouble) readCalculation.DampingFactorExitStandardDeviation.Value
                 };
             }
 
@@ -341,8 +342,8 @@ namespace Ringtoets.Piping.IO.Importers
             {
                 pipingCalculation.InputParameters.PhreaticLevelExit = new NormalDistribution
                 {
-                    Mean = (RoundedDouble)readCalculation.PhreaticLevelExitMean.Value,
-                    StandardDeviation = (RoundedDouble)readCalculation.PhreaticLevelExitStandardDeviation.Value
+                    Mean = (RoundedDouble) readCalculation.PhreaticLevelExitMean.Value,
+                    StandardDeviation = (RoundedDouble) readCalculation.PhreaticLevelExitStandardDeviation.Value
                 };
             }
         }

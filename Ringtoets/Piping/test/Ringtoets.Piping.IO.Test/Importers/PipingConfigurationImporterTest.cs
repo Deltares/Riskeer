@@ -45,8 +45,13 @@ namespace Ringtoets.Piping.IO.Test.Importers
         {
             get
             {
-                yield return new TestCaseData("validConfigurationNesting.xml", GetNestedData());
-                yield return new TestCaseData("validConfigurationCalculationContainingNaNs.xml", GetNaNData());                
+                yield return new TestCaseData("validConfigurationNesting.xml",
+                                              GetNestedData())
+                    .SetName("validConfigurationNesting");
+
+                yield return new TestCaseData("validConfigurationCalculationContainingNaNs.xml",
+                                              GetNaNData())
+                    .SetName("validConfigurationCalculationContainingNaNs");
             }
         }
 
@@ -155,8 +160,73 @@ namespace Ringtoets.Piping.IO.Test.Importers
                 Assert.AreEqual(1, msgs.Length);
                 StringAssert.StartsWith($"Fout bij het lezen van bestand '{filePath}': het XML-document dat de configuratie voor de berekeningen beschrijft is niet geldig.", msgs[0]);
             });
-            
+
             Assert.IsFalse(importSuccesful);
+        }
+
+        [Test]
+        [TestCase("validConfigurationInvalidEntryExitPoint.xml", "Het uittredepunt moet landwaarts van het intredepunt liggen.")]
+        [TestCase("validConfigurationExitPointNotOnSurfaceLine.xml", "Het gespecificeerde punt moet op het profiel liggen (bereik [0.0, 10.0]).")]
+        public void Import_EntryExitPointNotValid_LogMessageAndContinueImport(string file, string expectedErrorMessage)
+        {
+            // Setup
+            string filePath = Path.Combine(path, file);
+
+            var calculationGroup = new CalculationGroup();
+            var surfaceLine = new RingtoetsPipingSurfaceLine
+            {
+                Name = "Profielschematisatie"
+            };
+            surfaceLine.SetGeometry(new[]
+            {
+                new Point3D(3.0, 5.0, 0.0),
+                new Point3D(3.0, 0.0, 1.0),
+                new Point3D(3.0, -5.0, 0.0)
+            });
+            var stochasticSoilProfile = new StochasticSoilProfile(0, SoilProfileType.SoilProfile1D, 1)
+            {
+                SoilProfile = new PipingSoilProfile("Ondergrondschematisatie", 0, new[]
+                {
+                    new PipingSoilLayer(0)
+                }, SoilProfileType.SoilProfile1D, 0)
+            };
+
+            var stochasticSoilModel = new StochasticSoilModel(1, "Ondergrondmodel", "Segment");
+            stochasticSoilModel.StochasticSoilProfiles.Add(stochasticSoilProfile);
+            stochasticSoilModel.Geometry.AddRange(new[]
+            {
+                new Point2D(1.0, 0.0),
+                new Point2D(5.0, 0.0)
+            });
+
+            var pipingFailureMechanism = new PipingFailureMechanism();
+            pipingFailureMechanism.SurfaceLines.AddRange(new[]
+            {
+                surfaceLine
+            }, "path");
+            pipingFailureMechanism.StochasticSoilModels.AddRange(new[]
+            {
+                stochasticSoilModel
+            }, "path");
+
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "HRlocatie", 10, 20);
+            var importer = new PipingConfigurationImporter(filePath,
+                                                           calculationGroup,
+                                                           new[]
+                                                           {
+                                                               hydraulicBoundaryLocation
+                                                           },
+                                                           pipingFailureMechanism);
+
+            // Call
+            bool succesful = false;
+            Action call = () => succesful = importer.Import();
+
+            // Assert
+            string expectedMessage = $"{expectedErrorMessage} Berekening 'Calculation' is overgeslagen.";
+            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
+            Assert.IsTrue(succesful);
+            CollectionAssert.IsEmpty(calculationGroup.Children);
         }
 
         [Test]
