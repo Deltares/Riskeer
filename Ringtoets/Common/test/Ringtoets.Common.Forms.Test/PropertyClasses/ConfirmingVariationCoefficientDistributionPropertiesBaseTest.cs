@@ -26,7 +26,6 @@ using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Forms.Properties;
 using Ringtoets.Common.Forms.PropertyClasses;
@@ -46,10 +45,10 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             // Call
-            var properties = new SimpleDistributionProperties(VariationCoefficientDistributionPropertiesReadOnly.All, distribution, null, null);
+            var properties = new SimpleDistributionProperties(VariationCoefficientDistributionPropertiesReadOnly.All, distribution, null);
 
             // Assert
-            Assert.IsInstanceOf<ConfirmingVariationCoefficientDistributionPropertiesBase<IVariationCoefficientDistribution, ICalculationInput>>(properties);
+            Assert.IsInstanceOf<ConfirmingVariationCoefficientDistributionPropertiesBase<IVariationCoefficientDistribution>>(properties);
             Assert.AreSame(distribution, properties.Data);
             mocks.VerifyAll();
         }
@@ -62,33 +61,11 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             VariationCoefficientDistributionPropertiesReadOnly flags)
         {
             // Call
-            TestDelegate call = () => new SimpleDistributionProperties(flags, null, null, null);
+            TestDelegate call = () => new SimpleDistributionProperties(flags, null, null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
             Assert.AreEqual("distribution", paramName);
-        }
-
-        [Test]
-        [TestCase(VariationCoefficientDistributionPropertiesReadOnly.Mean)]
-        [TestCase(VariationCoefficientDistributionPropertiesReadOnly.CoefficientOfVariation)]
-        [TestCase(VariationCoefficientDistributionPropertiesReadOnly.None)]
-        public void Constructor_NoPropertyOwnerSetWhileChangesPossible_ThrowArgumentException(
-            VariationCoefficientDistributionPropertiesReadOnly flags)
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var distribution = mocks.Stub<IVariationCoefficientDistribution>();
-            mocks.ReplayAll();
-
-            // Call
-            TestDelegate call = () => new SimpleDistributionProperties(flags, distribution, null, null);
-
-            // Assert
-            var message = "PropertyOwner required if changes are possible.";
-            var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, message);
-            Assert.AreEqual("propertyOwner", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -101,11 +78,10 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             // Setup
             var mocks = new MockRepository();
             var distribution = mocks.Stub<IVariationCoefficientDistribution>();
-            var input = mocks.Stub<ICalculationInput>();
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => new SimpleDistributionProperties(flags, distribution, input, null);
+            TestDelegate call = () => new SimpleDistributionProperties(flags, distribution, null);
 
             // Assert
             var message = "Change handler required if changes are possible.";
@@ -124,12 +100,11 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             // Setup
             var mocks = new MockRepository();
             var distribution = mocks.Stub<IVariationCoefficientDistribution>();
-            var input = mocks.Stub<ICalculationInput>();
             var handler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
             // Call
-            var properties = new SimpleDistributionProperties(propertiesReadOnly, distribution, input, handler);
+            var properties = new SimpleDistributionProperties(propertiesReadOnly, distribution, handler);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -168,11 +143,10 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             // Setup
             var mocks = new MockRepository();
             var distribution = mocks.Stub<IVariationCoefficientDistribution>();
-            var input = mocks.Stub<ICalculationInput>();
             var handler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
-            var properties = new SimpleDistributionProperties(propertiesReadOnly, distribution, input, handler);
+            var properties = new SimpleDistributionProperties(propertiesReadOnly, distribution, handler);
 
             // Call
             bool meanIsReadOnly = properties.DynamicReadOnlyValidationMethod("Mean");
@@ -195,11 +169,10 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             distribution.Mean = new RoundedDouble(1, 1.1);
             distribution.CoefficientOfVariation = new RoundedDouble(2, 2.2);
 
-            var input = mocks.Stub<ICalculationInput>();
             var handler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
-            var properties = new SimpleDistributionProperties(VariationCoefficientDistributionPropertiesReadOnly.None, distribution, input, handler);
+            var properties = new SimpleDistributionProperties(VariationCoefficientDistributionPropertiesReadOnly.None, distribution, handler);
 
             // Call
             properties.Data = distribution;
@@ -221,14 +194,12 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             // Setup
             var mocks = new MockRepository();
             var distribution = mocks.Stub<IVariationCoefficientDistribution>();
-            var input = mocks.Stub<ICalculationInput>();
             var handler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
             var properties = new SimpleDistributionProperties(
                 VariationCoefficientDistributionPropertiesReadOnly.All,
                 distribution,
-                input,
                 handler);
 
             // Call
@@ -247,7 +218,6 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             // Setup
             var mocks = new MockRepository();
             var distribution = mocks.Stub<IVariationCoefficientDistribution>();
-            var input = mocks.Stub<ICalculationInput>();
             var observerableMock = mocks.StrictMock<IObservable>();
             observerableMock.Expect(o => o.NotifyObservers());
             mocks.ReplayAll();
@@ -261,7 +231,6 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             var properties = new SimpleDistributionProperties(
                 VariationCoefficientDistributionPropertiesReadOnly.None,
                 distribution,
-                input,
                 handler);
 
             // Call
@@ -280,11 +249,10 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             // Setup
             var mocks = new MockRepository();
             var distribution = mocks.Stub<IVariationCoefficientDistribution>();
-            var input = mocks.Stub<ICalculationInput>();
             var handler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
-            var properties = new SimpleDistributionProperties(propertiesReadOnly, distribution, input, handler);
+            var properties = new SimpleDistributionProperties(propertiesReadOnly, distribution, handler);
 
             // Call
             TestDelegate test = () => properties.CoefficientOfVariation = new RoundedDouble(2, 20);
@@ -302,7 +270,6 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             // Setup
             var mocks = new MockRepository();
             var distribution = mocks.Stub<IVariationCoefficientDistribution>();
-            var input = mocks.Stub<ICalculationInput>();
             var observerableMock = mocks.StrictMock<IObservable>();
             observerableMock.Expect(o => o.NotifyObservers());
             mocks.ReplayAll();
@@ -313,7 +280,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                     observerableMock
                 });
 
-            var properties = new SimpleDistributionProperties(VariationCoefficientDistributionPropertiesReadOnly.None, distribution, input, handler)
+            var properties = new SimpleDistributionProperties(VariationCoefficientDistributionPropertiesReadOnly.None, distribution, handler)
             {
                 Data = distribution
             };
@@ -326,13 +293,12 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             mocks.VerifyAll();
         }
 
-        private class SimpleDistributionProperties : ConfirmingVariationCoefficientDistributionPropertiesBase<IVariationCoefficientDistribution, ICalculationInput>
+        private class SimpleDistributionProperties : ConfirmingVariationCoefficientDistributionPropertiesBase<IVariationCoefficientDistribution>
         {
             public SimpleDistributionProperties(VariationCoefficientDistributionPropertiesReadOnly propertiesReadOnly,
-                                                IVariationCoefficientDistribution distribution,
-                                                ICalculationInput input, 
+                                                IVariationCoefficientDistribution distribution, 
                                                 IObservablePropertyChangeHandler handler)
-                : base(propertiesReadOnly, distribution, input, handler) {}
+                : base(propertiesReadOnly, distribution, handler) {}
 
             public override string DistributionType
             {

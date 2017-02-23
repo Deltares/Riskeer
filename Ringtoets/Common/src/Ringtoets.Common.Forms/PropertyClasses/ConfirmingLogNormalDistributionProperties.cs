@@ -20,11 +20,9 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
-using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Forms.Properties;
 
@@ -34,26 +32,22 @@ namespace Ringtoets.Common.Forms.PropertyClasses
     /// An <see cref="ObjectProperties{T}"/> implementation for <see cref="LogNormalDistribution"/>
     /// properties.
     /// </summary>
-    public class ConfirmingLogNormalDistributionProperties<TPropertyOwner>
-        : ConfirmingDistributionPropertiesBase<LogNormalDistribution, TPropertyOwner>
-        where TPropertyOwner : IObservable
+    public class ConfirmingLogNormalDistributionProperties : ConfirmingDistributionPropertiesBase<LogNormalDistribution>
     {
         /// <summary>
-        /// Creates a new instance of <see cref="ConfirmingLogNormalDistributionProperties{TCalculationInput}"/>.
+        /// Creates a new instance of <see cref="ConfirmingLogNormalDistributionProperties"/>.
         /// </summary>
         /// <param name="propertiesReadOnly">Indicates which properties, if any, should be
         /// marked as read-only.</param>
         /// <param name="distribution">The <see cref="LogNormalDistribution"/> to create the properties for.</param>
-        /// <param name="propertyOwner">The owner of the <paramref name="distribution"/> property.</param>
         /// <param name="handler">Optional handler that is used to handle property changes.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="distribution"/> is null 
         /// or when any number of properties in this class is editable and any other parameter is <c>null</c>.</exception>
         public ConfirmingLogNormalDistributionProperties(
             DistributionPropertiesReadOnly propertiesReadOnly,
             LogNormalDistribution distribution,
-            TPropertyOwner propertyOwner,
             IObservablePropertyChangeHandler handler)
-            : base(propertiesReadOnly, distribution, propertyOwner, handler) {}
+            : base(propertiesReadOnly, distribution, handler) {}
 
         public override string DistributionType
         {

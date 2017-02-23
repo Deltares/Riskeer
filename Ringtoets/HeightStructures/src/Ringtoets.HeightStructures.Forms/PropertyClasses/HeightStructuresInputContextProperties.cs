@@ -94,14 +94,13 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Structure_LevelCrestStructure_DisplayName))]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Structure_LevelCrestStructure_Description))]
-        public ConfirmingNormalDistributionProperties<HeightStructuresInput> LevelCrestStructure
+        public ConfirmingNormalDistributionProperties LevelCrestStructure
         {
             get
             {
-                return new ConfirmingNormalDistributionProperties<HeightStructuresInput>(
+                return new ConfirmingNormalDistributionProperties(
                     DistributionPropertiesReadOnly.None,
                     data.WrappedData.LevelCrestStructure,
-                    data.WrappedData,
                     PropertyChangeHandler);
             }
         }

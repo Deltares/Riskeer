@@ -85,7 +85,7 @@
     <Compile Include="PropertyClasses\ConfirmingDistributionPropertiesBaseTest.cs" />
     <Compile Include="PropertyClasses\ConfirmingVariationCoefficientNormalDistributionPropertiesTest.cs" />
     <Compile Include="PropertyClasses\ConfirmingVariationCoefficientLogNormalDistributionPropertiesTest.cs" />
-    <Compile Include="PropertyClasses\ConformingNormalDistributionPropertiesTest.cs" />
+    <Compile Include="PropertyClasses\ConfirmingNormalDistributionPropertiesTest.cs" />
     <Compile Include="PropertyClasses\ForeshoreGeometryPropertiesTest.cs" />
     <Compile Include="PropertyClasses\DistributionPropertiesBaseTest.cs" />
     <Compile Include="PropertyClasses\ForeshoreProfilePropertiesTest.cs" />

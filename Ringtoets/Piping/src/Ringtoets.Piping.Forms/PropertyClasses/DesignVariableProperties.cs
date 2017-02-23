@@ -36,7 +36,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
     /// </summary>
     /// <typeparam name="TDistribution">The type of the distribution.</typeparam>
     public abstract class DesignVariableProperties<TDistribution> 
-        : ConfirmingDistributionPropertiesBase<TDistribution, PipingInput>
+        : ConfirmingDistributionPropertiesBase<TDistribution>
         where TDistribution : IDistribution
     {
         /// <summary>
@@ -54,7 +54,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
                                            PipingCalculationScenario calculation,
                                            PipingInput propertyOwner,
                                            IObservablePropertyChangeHandler handler)
-            : base(propertiesReadOnly, GetDistribution(designVariable), propertyOwner, handler)
+            : base(propertiesReadOnly, GetDistribution(designVariable), handler)
         {
             DesignVariable = designVariable;
         }

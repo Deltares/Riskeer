@@ -34,30 +34,26 @@ namespace Ringtoets.Common.Forms.PropertyClasses
     /// <summary>
     /// Properties class for implementations of <see cref="IDistribution"/>.
     /// </summary>
-    public abstract class ConfirmingVariationCoefficientDistributionPropertiesBase<TDistribution, TPropertyOwner> : ObjectProperties<TDistribution>
+    public abstract class ConfirmingVariationCoefficientDistributionPropertiesBase<TDistribution> : ObjectProperties<TDistribution>
         where TDistribution : IVariationCoefficientDistribution
-        where TPropertyOwner : IObservable
     {
         private const string meanPropertyName = nameof(Mean);
         private readonly string variationCoefficientPropertyName = nameof(CoefficientOfVariation);
         private readonly bool isMeanReadOnly;
         private readonly bool isVariationCoefficientReadOnly;
-        private readonly TPropertyOwner propertyOwner;
         private readonly IObservablePropertyChangeHandler changeHandler;
 
         /// <summary>
-        /// Creates a new instance of <see cref="ConfirmingVariationCoefficientDistributionPropertiesBase{TDistribution,TCalculationInput}"/>.
+        /// Creates a new instance of <see cref="ConfirmingVariationCoefficientDistributionPropertiesBase{TDistribution}"/>.
         /// </summary>
         /// <param name="propertiesReadOnly">Indicates which properties, if any, should be marked as read-only.</param>
         /// <param name="distribution">The data of the <see cref="TDistribution"/> to create the properties for.</param>
-        /// <param name="propertyOwner">The owner of the <paramref name="distribution"/> property.</param>
         /// <param name="handler">The handler responsible for handling effects of a property change.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="distribution"/> is <c>null</c>
         /// or when any number of properties in this class is editable and any other parameter is <c>null</c>.</exception>
         protected ConfirmingVariationCoefficientDistributionPropertiesBase(
             VariationCoefficientDistributionPropertiesReadOnly propertiesReadOnly,
             TDistribution distribution,
-            TPropertyOwner propertyOwner,
             IObservablePropertyChangeHandler handler)
         {
             if (distribution == null)
@@ -66,10 +62,6 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             }
             if (!propertiesReadOnly.HasFlag(VariationCoefficientDistributionPropertiesReadOnly.All))
             {
-                if (propertyOwner == null)
-                {
-                    throw new ArgumentException(@"PropertyOwner required if changes are possible.", nameof(propertyOwner));
-                }
                 if (handler == null)
                 {
                     throw new ArgumentException(@"Change handler required if changes are possible.", nameof(handler));
@@ -80,7 +72,6 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             isMeanReadOnly = propertiesReadOnly.HasFlag(VariationCoefficientDistributionPropertiesReadOnly.Mean);
             isVariationCoefficientReadOnly = propertiesReadOnly.HasFlag(VariationCoefficientDistributionPropertiesReadOnly.CoefficientOfVariation);
 
-            this.propertyOwner = propertyOwner;
             changeHandler = handler;
         }
 

@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
@@ -33,26 +32,22 @@ namespace Ringtoets.Common.Forms.PropertyClasses
     /// An <see cref="ObjectProperties{T}"/> implementation for <see cref="NormalDistribution"/>
     /// properties.
     /// </summary>
-    public class ConfirmingNormalDistributionProperties<TPropertyOwner> 
-        : ConfirmingDistributionPropertiesBase<NormalDistribution, TPropertyOwner>
-        where TPropertyOwner : IObservable
+    public class ConfirmingNormalDistributionProperties : ConfirmingDistributionPropertiesBase<NormalDistribution>
     {
         /// <summary>
-        /// Creates a new instance of <see cref="ConfirmingNormalDistributionProperties{TCalculationInput}"/>.
+        /// Creates a new instance of <see cref="ConfirmingNormalDistributionProperties"/>.
         /// </summary>
         /// <param name="propertiesReadOnly">Indicates which properties, if any, should be
         /// marked as read-only.</param>
         /// <param name="distribution">The <see cref="NormalDistribution"/> to create the properties for.</param>
-        /// <param name="propertyOwner">The owner of the <paramref name="distribution"/> property.</param>
         /// <param name="handler">Optional handler that is used to handle property changes.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="distribution"/> is null 
         /// or when any number of properties in this class is editable and any other parameter is <c>null</c>.</exception>
         public ConfirmingNormalDistributionProperties(
             DistributionPropertiesReadOnly propertiesReadOnly, 
             NormalDistribution distribution,
-            TPropertyOwner propertyOwner,
             IObservablePropertyChangeHandler handler) :
-            base(propertiesReadOnly, distribution, propertyOwner, handler) {}
+            base(propertiesReadOnly, distribution, handler) {}
 
         public override string DistributionType
         {

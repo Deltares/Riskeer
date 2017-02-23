@@ -172,14 +172,13 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_HydraulicData))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Structure_InsideWaterLevel_DisplayName))]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Structure_InsideWaterLevel_Description))]
-        public ConfirmingNormalDistributionProperties<ClosingStructuresInput> InsideWaterLevel
+        public ConfirmingNormalDistributionProperties InsideWaterLevel
         {
             get
             {
-                return new ConfirmingNormalDistributionProperties<ClosingStructuresInput>(
+                return new ConfirmingNormalDistributionProperties(
                     DistributionPropertiesReadOnly.None,
                     data.WrappedData.InsideWaterLevel,
-                    data.WrappedData,
                     PropertyChangeHandler);
             }
         }
@@ -189,7 +188,7 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
         #region Model factors
 
         [DynamicVisible]
-        public override ConfirmingNormalDistributionProperties<ClosingStructuresInput> ModelFactorSuperCriticalFlow
+        public override ConfirmingNormalDistributionProperties ModelFactorSuperCriticalFlow
         {
             get
             {
@@ -203,14 +202,13 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_ModelSettings))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Structure_DrainCoefficient_DisplayName))]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Structure_DrainCoefficient_Description))]
-        public ConfirmingNormalDistributionProperties<ClosingStructuresInput> DrainCoefficient
+        public ConfirmingNormalDistributionProperties DrainCoefficient
         {
             get
             {
-                return new ConfirmingNormalDistributionProperties<ClosingStructuresInput>(
+                return new ConfirmingNormalDistributionProperties(
                     DistributionPropertiesReadOnly.StandardDeviation,
                     data.WrappedData.DrainCoefficient,
-                    data.WrappedData,
                     PropertyChangeHandler);
             }
         }
@@ -249,7 +247,7 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
         }
 
         [DynamicVisible]
-        public override ConfirmingNormalDistributionProperties<ClosingStructuresInput> WidthFlowApertures
+        public override ConfirmingNormalDistributionProperties WidthFlowApertures
         {
             get
             {
@@ -280,14 +278,13 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Structure_ThresholdHeightOpenWeir_DisplayName))]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Structure_ThresholdHeightOpenWeir_Description))]
-        public ConfirmingNormalDistributionProperties<ClosingStructuresInput> ThresholdHeightOpenWeir
+        public ConfirmingNormalDistributionProperties ThresholdHeightOpenWeir
         {
             get
             {
-                return new ConfirmingNormalDistributionProperties<ClosingStructuresInput>(
+                return new ConfirmingNormalDistributionProperties(
                     DistributionPropertiesReadOnly.None,
                     data.WrappedData.ThresholdHeightOpenWeir,
-                    data.WrappedData,
                     PropertyChangeHandler);
             }
         }
@@ -298,14 +295,13 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Structure_AreaFlowApertures_DisplayName))]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Structure_AreaFlowApertures_Description))]
-        public ConfirmingLogNormalDistributionProperties<ClosingStructuresInput> AreaFlowApertures
+        public ConfirmingLogNormalDistributionProperties AreaFlowApertures
         {
             get
             {
-                return new ConfirmingLogNormalDistributionProperties<ClosingStructuresInput>(
+                return new ConfirmingLogNormalDistributionProperties(
                     DistributionPropertiesReadOnly.None,
                     data.WrappedData.AreaFlowApertures,
-                    data.WrappedData,
                     PropertyChangeHandler);
             }
         }
@@ -372,14 +368,13 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.LevelCrestStructureNotClosing_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.LevelCrestStructureNotClosing_Description))]
-        public ConfirmingNormalDistributionProperties<ClosingStructuresInput> LevelCrestStructureNotClosing
+        public ConfirmingNormalDistributionProperties LevelCrestStructureNotClosing
         {
             get
             {
-                return new ConfirmingNormalDistributionProperties<ClosingStructuresInput>(
+                return new ConfirmingNormalDistributionProperties(
                     DistributionPropertiesReadOnly.None,
                     data.WrappedData.LevelCrestStructureNotClosing,
-                    data.WrappedData,
                     PropertyChangeHandler);
             }
         }

@@ -23,7 +23,6 @@ using System.ComponentModel;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Forms.PropertyClasses;
 
@@ -45,18 +44,17 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         {
             // Setup
             var mocks = new MockRepository();
-            var input = mocks.Stub<ICalculationInput>();
             var handler = mocks.Stub<IObservablePropertyChangeHandler>();
             mockRepository.ReplayAll();
 
             var distribution = new LogNormalDistribution();
 
             // Call
-            var properties = new ConfirmingLogNormalDistributionProperties<ICalculationInput>(
-                DistributionPropertiesReadOnly.None, distribution, input, handler);
+            var properties = new ConfirmingLogNormalDistributionProperties(
+                DistributionPropertiesReadOnly.None, distribution, handler);
 
             // Assert
-            Assert.IsInstanceOf<ConfirmingDistributionPropertiesBase<LogNormalDistribution, ICalculationInput>>(properties);
+            Assert.IsInstanceOf<ConfirmingDistributionPropertiesBase<LogNormalDistribution>>(properties);
             Assert.AreSame(distribution, properties.Data);
             Assert.AreEqual("Lognormaal", properties.DistributionType);
 
