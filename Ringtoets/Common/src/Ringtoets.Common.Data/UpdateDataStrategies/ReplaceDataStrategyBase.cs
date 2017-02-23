@@ -31,17 +31,14 @@ namespace Ringtoets.Common.Data.UpdateDataStrategies
     /// target collection with the data that was imported.
     /// </summary>
     /// <typeparam name="TTargetData">The target data type.</typeparam>
-    /// <typeparam name="TFeature">The feature of the target data that should be validated on for the uniqueness of elements.</typeparam>
     /// <typeparam name="TFailureMechanism">The failure mechanism in which the target collection should be updated.</typeparam>
-    public abstract class ReplaceDataStrategyBase<TTargetData, TFeature, TFailureMechanism>
-        where TTargetData : class
-        where TFeature : class
-        where TFailureMechanism : IFailureMechanism
+    public abstract class ReplaceDataStrategyBase<TTargetData, TFailureMechanism>
+        where TTargetData : class where TFailureMechanism : IFailureMechanism
     {
         private readonly TFailureMechanism failureMechanism;
 
         /// <summary>
-        /// Initializes a <see cref="ReplaceDataStrategyBase{TTargetData,TFeature,TFailureMechanism}"/>
+        /// Initializes a <see cref="ReplaceDataStrategyBase{TTargetData,TFailureMechanism}"/>
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism in which the target collection should be updated.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> is <c>null</c></exception>
@@ -79,7 +76,7 @@ namespace Ringtoets.Common.Data.UpdateDataStrategies
         /// <item><paramref name="sourceFilePath"/> is not a valid file path</item>
         /// </list></exception>
         protected IEnumerable<IObservable> ReplaceTargetCollectionWithImportedData(
-            ObservableUniqueItemCollectionWithSourcePath<TTargetData, TFeature> targetCollection,
+            ObservableUniqueItemCollectionWithSourcePath<TTargetData> targetCollection,
             IEnumerable<TTargetData> importedDataCollection,
             string sourceFilePath)
         {
@@ -103,7 +100,7 @@ namespace Ringtoets.Common.Data.UpdateDataStrategies
             return affectedObjects;
         }
 
-        private static void AddData(ObservableUniqueItemCollectionWithSourcePath<TTargetData, TFeature> targetCollection,
+        private static void AddData(ObservableUniqueItemCollectionWithSourcePath<TTargetData> targetCollection,
                                     IEnumerable<TTargetData> readData, string sourceFilePath)
         {
             targetCollection.AddRange(readData, sourceFilePath);

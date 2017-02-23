@@ -37,7 +37,7 @@ namespace Ringtoets.Piping.Data.Test
             var collection = new RingtoetsPipingSurfaceLineCollection();
 
             // Assert
-            Assert.IsInstanceOf<ObservableUniqueItemCollectionWithSourcePath<RingtoetsPipingSurfaceLine, string>>(collection);
+            Assert.IsInstanceOf<ObservableUniqueItemCollectionWithSourcePath<RingtoetsPipingSurfaceLine>>(collection);
         }
 
         [Test]

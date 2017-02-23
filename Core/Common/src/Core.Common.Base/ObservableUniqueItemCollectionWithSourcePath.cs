@@ -32,23 +32,21 @@ namespace Core.Common.Base
     /// they were imported from.
     /// </summary>
     /// <typeparam name="TObject">The type of elements in the collection.</typeparam>
-    /// <typeparam name="TFeature">The unique feature on which the items are validated on.</typeparam>
-    public class ObservableUniqueItemCollectionWithSourcePath<TObject, TFeature> : Observable, IEnumerable<TObject>
+    public abstract class ObservableUniqueItemCollectionWithSourcePath<TObject> : Observable, IEnumerable<TObject>
         where TObject : class
-        where TFeature : class
     {
         private readonly List<TObject> collection = new List<TObject>();
-        private readonly Func<TObject, TFeature> getUniqueFeature;
+        private readonly Func<TObject, object> getUniqueFeature;
         private readonly string typeDescriptor;
         private readonly string featureDescription;
 
         /// <summary>
-        /// Instantiates a <see cref="ObservableUniqueItemCollectionWithSourcePath{TObject,TFeature}"/>.
+        /// Instantiates a <see cref="ObservableUniqueItemCollectionWithSourcePath{TObject}"/>.
         /// </summary>
         /// <param name="getUniqueFeature">A function to retrieve the unique feature of the items it stores.</param>
         /// <param name="typeDescriptor">The description of the item that is validated.</param>
         /// <param name="featureDescription">The description of the feature of the item to be validated on.</param>
-        public ObservableUniqueItemCollectionWithSourcePath(Func<TObject, TFeature> getUniqueFeature,
+        public ObservableUniqueItemCollectionWithSourcePath(Func<TObject, object> getUniqueFeature,
                                                             string typeDescriptor,
                                                             string featureDescription)
         {
@@ -187,26 +185,17 @@ namespace Core.Common.Base
         /// <exception cref="ArgumentException">Throw an exception when validation fails.</exception>
         private void ValidateItems(IEnumerable<TObject> items)
         {
-            ValidateListOnDuplicateFeature(items, getUniqueFeature, typeDescriptor, featureDescription);
+            ValidateListOnDuplicateFeature(items);
         }
 
         /// <summary>
-        /// Validates the items of an <see cref="IEnumerable{TObject}"/> based on their names.
+        /// Validates the items of an <see cref="IEnumerable{TObject}"/> based on their feature.
         /// </summary>
-        /// <typeparam name="TUniqueFeature">The feautre that needs to be validated on.</typeparam>
-        /// <param name="items">The collection that needs to be validated.</param>
-        /// <param name="getUniqueFeature">The feature of the items contained by the collection 
-        /// that needs to be validated on.</param>
-        /// <param name="typeDescriptor">The description of the item which was validated.</param>
-        /// <param name="featureDescription">The description of the feature which was validated on.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameters are <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when a duplicate item was found.</exception>
-        private static void ValidateListOnDuplicateFeature<TUniqueFeature>(IEnumerable<TObject> items,
-                                                                           Func<TObject, TUniqueFeature> getUniqueFeature,
-                                                                           string typeDescriptor,
-                                                                           string featureDescription)
+        private void ValidateListOnDuplicateFeature(IEnumerable<TObject> items)
         {
-            IEnumerable<IGrouping<TUniqueFeature, TObject>> duplicateItems =
+            IEnumerable<IGrouping<object, TObject>> duplicateItems =
                 items.GroupBy(getUniqueFeature)
                      .Where(group => group.Count() > 1);
 

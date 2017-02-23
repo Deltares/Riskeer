@@ -32,10 +32,6 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
     [TestFixture]
     public class ReplaceDataStrategyBaseTest
     {
-        private const string typeDescriptor = "TestItem";
-        private const string featureDescription = "Name";
-        private readonly Func<TestItem, string> getUniqueFeature = item => item.Name;
-
         [Test]
         public void DefaultConstructor_FailureMechanismNull_ThrowsArgumentNullException()
         {
@@ -76,8 +72,7 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
         {
             // Setup
             var strategy = new ConcreteStrategyClass(new TestFailureMechanism());
-            var collection = new ObservableUniqueItemCollectionWithSourcePath<TestItem, string>(
-                getUniqueFeature, typeDescriptor, featureDescription);
+            var collection = new TestUniqueItemCollection();
 
             // Call
             TestDelegate call = () => strategy.ConcreteReplaceData(collection, null, string.Empty);
@@ -92,8 +87,7 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
         {
             // Setup
             var strategy = new ConcreteStrategyClass(new TestFailureMechanism());
-            var collection = new ObservableUniqueItemCollectionWithSourcePath<TestItem, string>(
-                getUniqueFeature, typeDescriptor, featureDescription);
+            var collection = new TestUniqueItemCollection();
 
             // Call
             TestDelegate call = () => strategy.ConcreteReplaceData(collection, Enumerable.Empty<TestItem>(), null);
@@ -108,8 +102,7 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
         {
             // Setup
             var strategy = new ConcreteStrategyClass(new TestFailureMechanism());
-            var collection = new ObservableUniqueItemCollectionWithSourcePath<TestItem, string>(
-                getUniqueFeature, typeDescriptor, featureDescription);
+            var collection = new TestUniqueItemCollection();
 
             // Call
             strategy.ConcreteReplaceData(collection, Enumerable.Empty<TestItem>(), "some/source");
@@ -123,8 +116,7 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
         {
             // Setup
             var strategy = new ConcreteStrategyClass(new TestFailureMechanism());
-            var collection = new ObservableUniqueItemCollectionWithSourcePath<TestItem, string>(
-                getUniqueFeature, typeDescriptor, featureDescription);
+            var collection = new TestUniqueItemCollection();
 
             const string duplicateName = "Item A";
             var itemsToAdd = new[]
@@ -139,7 +131,7 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
             // Assert
             CollectionAssert.IsEmpty(collection);
             var exception = Assert.Throws<ArgumentException>(call);
-            string expectedMessage = $"{typeDescriptor} moeten een unieke {featureDescription} hebben. Gevonden dubbele elementen: {duplicateName}.";
+            string expectedMessage = $"TestItem moeten een unieke naam hebben. Gevonden dubbele elementen: {duplicateName}.";
             Assert.AreEqual(expectedMessage, exception.Message);
         }
 
@@ -148,8 +140,7 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
         {
             // Setup
             var strategy = new ConcreteStrategyClass(new TestFailureMechanism());
-            var collection = new ObservableUniqueItemCollectionWithSourcePath<TestItem, string>(
-                getUniqueFeature, typeDescriptor, featureDescription);
+            var collection = new TestUniqueItemCollection();
 
             var itemsToAdd = new[]
             {
@@ -173,8 +164,7 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
         {
             // Setup
             var strategy = new ConcreteStrategyClass(new TestFailureMechanism());
-            var collection = new ObservableUniqueItemCollectionWithSourcePath<TestItem, string>(
-                getUniqueFeature, typeDescriptor, featureDescription);
+            var collection = new TestUniqueItemCollection();
 
             const string duplicateName = "Item A";
             var itemsToAdd = new[]
@@ -196,8 +186,7 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
         {
             // Setup
             var strategy = new ConcreteStrategyClass(new TestFailureMechanism());
-            var collection = new ObservableUniqueItemCollectionWithSourcePath<TestItem, string>(
-                getUniqueFeature, typeDescriptor, featureDescription);
+            var collection = new TestUniqueItemCollection();
 
             var itemsToAdd = new[]
             {
@@ -222,8 +211,7 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
             var failureMechanism = new TestFailureMechanism();
             var strategy = new ConcreteStrategyClass(failureMechanism);
 
-            var collection = new ObservableUniqueItemCollectionWithSourcePath<TestItem, string>(
-               getUniqueFeature, typeDescriptor, featureDescription);
+            var collection = new TestUniqueItemCollection();
 
             // Call
             IObservable[] affectedObjects = strategy.ConcreteReplaceData(collection,
@@ -237,12 +225,12 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
 
         #region Helper classes
 
-        private class ConcreteStrategyClass : ReplaceDataStrategyBase<TestItem, string, TestFailureMechanism>
+        private class ConcreteStrategyClass : ReplaceDataStrategyBase<TestItem, TestFailureMechanism>
         {
             public ConcreteStrategyClass(TestFailureMechanism failureMechanism) : base(failureMechanism) {}
             public bool IsClearDataCalled { get; private set; }
 
-            public IEnumerable<IObservable> ConcreteReplaceData(ObservableUniqueItemCollectionWithSourcePath<TestItem, string> items,
+            public IEnumerable<IObservable> ConcreteReplaceData(ObservableUniqueItemCollectionWithSourcePath<TestItem> items,
                                                                 IEnumerable<TestItem> readItems,
                                                                 string sourceFilePath)
             {
@@ -252,12 +240,18 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
             protected override IEnumerable<IObservable> ClearData(TestFailureMechanism failureMechanism)
             {
                 IsClearDataCalled = true;
-                return new []
+                return new[]
                 {
                     failureMechanism
                 };
             }
         }
+
+        private class TestUniqueItemCollection : ObservableUniqueItemCollectionWithSourcePath<TestItem>
+        {
+            public TestUniqueItemCollection() : base(item => item.Name, "TestItem", "naam") {}
+        }
+
 
         private class TestItem
         {

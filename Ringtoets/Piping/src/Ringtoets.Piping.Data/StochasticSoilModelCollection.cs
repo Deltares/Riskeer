@@ -28,7 +28,7 @@ namespace Ringtoets.Piping.Data
     /// A collection of <see cref="StochasticSoilModel"/>. The names of the <see cref="StochasticSoilModel"/> elements are
     /// unique within the collection.
     /// </summary>
-    public class StochasticSoilModelCollection : ObservableUniqueItemCollectionWithSourcePath<StochasticSoilModel, string>
+    public class StochasticSoilModelCollection : ObservableUniqueItemCollectionWithSourcePath<StochasticSoilModel>
     {
         public StochasticSoilModelCollection() : base(model => model.Name,
                                                       Resources.StochasticSoilModelCollection_TypeDescriptor,

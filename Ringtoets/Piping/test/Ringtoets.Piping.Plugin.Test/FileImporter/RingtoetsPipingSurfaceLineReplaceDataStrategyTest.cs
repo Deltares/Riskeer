@@ -58,7 +58,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             // Assert
             Assert.IsInstanceOf<ISurfaceLineUpdateDataStrategy>(strategy);
-            Assert.IsInstanceOf<ReplaceDataStrategyBase<RingtoetsPipingSurfaceLine, string, PipingFailureMechanism>>(strategy);
+            Assert.IsInstanceOf<ReplaceDataStrategyBase<RingtoetsPipingSurfaceLine, PipingFailureMechanism>>(strategy);
         }
 
         [Test]

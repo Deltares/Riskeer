@@ -36,7 +36,7 @@ namespace Ringtoets.Piping.Data.Test
             var collection = new StochasticSoilModelCollection();
 
             // Assert
-            Assert.IsInstanceOf<ObservableUniqueItemCollectionWithSourcePath<StochasticSoilModel, string>>(collection);
+            Assert.IsInstanceOf<ObservableUniqueItemCollectionWithSourcePath<StochasticSoilModel>>(collection);
         }
 
         [Test]

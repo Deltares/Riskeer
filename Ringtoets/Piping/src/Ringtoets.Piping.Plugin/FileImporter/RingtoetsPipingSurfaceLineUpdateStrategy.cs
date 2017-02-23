@@ -36,9 +36,9 @@ using Ringtoets.Piping.Service;
 namespace Ringtoets.Piping.Plugin.FileImporter
 {
     /// <summary>
-    /// An <see cref="UpdateDataStrategyBase{TTargetData,TFeature,TFailureMechanism}"/> for updating surface lines based on imported data.
+    /// An <see cref="UpdateDataStrategyBase{TTargetData,TFailureMechanism}"/> for updating surface lines based on imported data.
     /// </summary>
-    public class RingtoetsPipingSurfaceLineUpdateDataStrategy : UpdateDataStrategyBase<RingtoetsPipingSurfaceLine, string, PipingFailureMechanism>,
+    public class RingtoetsPipingSurfaceLineUpdateDataStrategy : UpdateDataStrategyBase<RingtoetsPipingSurfaceLine, PipingFailureMechanism>,
                                                                 ISurfaceLineUpdateDataStrategy
     {
         /// <summary>

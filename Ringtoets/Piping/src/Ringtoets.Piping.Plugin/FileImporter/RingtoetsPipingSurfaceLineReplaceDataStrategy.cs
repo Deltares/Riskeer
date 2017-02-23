@@ -34,7 +34,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
     /// <summary>
     /// Strategy to replace the surface lines with the imported surface lines.
     /// </summary>
-    public class RingtoetsPipingSurfaceLineReplaceDataStrategy : ReplaceDataStrategyBase<RingtoetsPipingSurfaceLine, string, PipingFailureMechanism>,
+    public class RingtoetsPipingSurfaceLineReplaceDataStrategy : ReplaceDataStrategyBase<RingtoetsPipingSurfaceLine, PipingFailureMechanism>,
                                                                  ISurfaceLineUpdateDataStrategy
     {
         /// <summary>

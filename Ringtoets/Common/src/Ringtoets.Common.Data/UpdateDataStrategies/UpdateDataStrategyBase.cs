@@ -37,18 +37,16 @@ namespace Ringtoets.Common.Data.UpdateDataStrategies
     /// </list>
     /// </summary>
     /// <typeparam name="TTargetData">The target data type.</typeparam>
-    /// <typeparam name="TFeature">The feature of the target data that should be validated on for the uniqueness of elements.</typeparam>
     /// <typeparam name="TFailureMechanism">The failure mechanism in which the target collection should be updated.</typeparam>
-    public abstract class UpdateDataStrategyBase<TTargetData, TFeature, TFailureMechanism>
-        where TTargetData : class
-        where TFeature : class
-        where TFailureMechanism : IFailureMechanism
+    public abstract class UpdateDataStrategyBase<TTargetData, TFailureMechanism>
+        where TTargetData : class 
+		where TFailureMechanism : IFailureMechanism
     {
         protected readonly TFailureMechanism failureMechanism;
         private readonly IEqualityComparer<TTargetData> equalityComparer;
 
         /// <summary>
-        /// Instantiates a <see cref="UpdateDataStrategyBase{TObject,TFeature,TFailureMechanism}"/> object.
+        /// Instantiates a <see cref="UpdateDataStrategyBase{TTargetData,TFailureMechanism}"/> object.
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism which needs to be updated.</param>
         /// <param name="equalityComparer">The comparer which should be used to determine when two objects are equal.</param>
@@ -99,7 +97,7 @@ namespace Ringtoets.Common.Data.UpdateDataStrategies
         /// <paramref name="targetDataCollection"/>.</exception>
         /// <exception cref="InvalidOperationException">Thrown when duplicate items are found during the 
         /// update of the items in the <paramref name="targetDataCollection"/>.</exception>
-        protected IEnumerable<IObservable> UpdateTargetCollectionData(ObservableUniqueItemCollectionWithSourcePath<TTargetData, TFeature> targetDataCollection,
+        protected IEnumerable<IObservable> UpdateTargetCollectionData(ObservableUniqueItemCollectionWithSourcePath<TTargetData> targetDataCollection,
                                                                       IEnumerable<TTargetData> importedDataCollection,
                                                                       string sourceFilePath)
         {
@@ -133,7 +131,7 @@ namespace Ringtoets.Common.Data.UpdateDataStrategies
         /// <paramref name="targetDataCollection"/>.</exception>
         /// <exception cref="InvalidOperationException">Thrown when duplicate items are found during the 
         /// update of the items to be updatd in the <paramref name="targetDataCollection"/>.</exception>
-        private IEnumerable<IObservable> ModifyDataCollection(ObservableUniqueItemCollectionWithSourcePath<TTargetData, TFeature> targetDataCollection,
+        private IEnumerable<IObservable> ModifyDataCollection(ObservableUniqueItemCollectionWithSourcePath<TTargetData> targetDataCollection,
                                                               IEnumerable<TTargetData> importedDataCollection,
                                                               string sourceFilePath)
         {

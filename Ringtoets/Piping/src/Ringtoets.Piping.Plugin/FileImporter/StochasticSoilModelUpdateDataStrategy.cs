@@ -35,9 +35,9 @@ using Ringtoets.Piping.Service;
 namespace Ringtoets.Piping.Plugin.FileImporter
 {
     /// <summary>
-    /// An <see cref="UpdateDataStrategyBase{TTargetData,TFeature,TFailureMechanism}"/> for updating stochastic soil models based on imported data.
+    /// An <see cref="UpdateDataStrategyBase{TTargetData,TFailureMechanism}"/> for updating stochastic soil models based on imported data.
     /// </summary>
-    public class StochasticSoilModelUpdateDataStrategy : UpdateDataStrategyBase<StochasticSoilModel, string, PipingFailureMechanism>,
+    public class StochasticSoilModelUpdateDataStrategy : UpdateDataStrategyBase<StochasticSoilModel, PipingFailureMechanism>,
                                                          IStochasticSoilModelUpdateModelStrategy
     {
         /// <summary>

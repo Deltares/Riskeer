@@ -38,7 +38,7 @@ namespace Core.Common.Base.Test
         public void DefaultConstructor_getUniqueFeatureNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new ObservableUniqueItemCollectionWithSourcePath<object, object>(
+            TestDelegate call = () => new ConcreteObservableUniqueItemCollectionWithSourcePath<object>(
                 null, string.Empty, string.Empty);
 
             // Assert
@@ -50,7 +50,7 @@ namespace Core.Common.Base.Test
         public void DefaultConstructor_TypeDescriptionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new ObservableUniqueItemCollectionWithSourcePath<TestItem, string>(
+            TestDelegate call = () => new ConcreteObservableUniqueItemCollectionWithSourcePath<TestItem>(
                 getUniqueFeature, null, string.Empty);
 
             // Assert
@@ -62,7 +62,7 @@ namespace Core.Common.Base.Test
         public void DefaultConstructor_FeatureDescriptionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new ObservableUniqueItemCollectionWithSourcePath<TestItem, string>(
+            TestDelegate call = () => new ConcreteObservableUniqueItemCollectionWithSourcePath<TestItem>(
                 getUniqueFeature, string.Empty, null);
 
             // Assert
@@ -74,7 +74,7 @@ namespace Core.Common.Base.Test
         public void DefaultConstructor_ReturnObservableUniqueItemCollectionWithSourcePath()
         {
             // Call
-            var collection = new ObservableUniqueItemCollectionWithSourcePath<TestItem, string>(
+            var collection = new ConcreteObservableUniqueItemCollectionWithSourcePath<TestItem>(
                 getUniqueFeature, typeDescriptor, featureDescription);
 
             // Assert
@@ -88,7 +88,7 @@ namespace Core.Common.Base.Test
         public void AddRange_ItemsNull_ThrowArgumentNullException()
         {
             // Setup
-            var collection = new ObservableUniqueItemCollectionWithSourcePath<TestItem, string>(
+            var collection = new ConcreteObservableUniqueItemCollectionWithSourcePath<TestItem>(
                 getUniqueFeature, typeDescriptor, featureDescription);
 
             // Call
@@ -103,7 +103,7 @@ namespace Core.Common.Base.Test
         public void AddRange_ItemsHasNullElement_ThrowArgumentException()
         {
             // Setup
-            var collection = new ObservableUniqueItemCollectionWithSourcePath<TestItem, string>(
+            var collection = new ConcreteObservableUniqueItemCollectionWithSourcePath<TestItem>(
                 getUniqueFeature, typeDescriptor, featureDescription);
             var items = new[]
             {
@@ -125,7 +125,7 @@ namespace Core.Common.Base.Test
         public void AddRange_FilePathNull_ThrowArgumentNullException()
         {
             // Setup
-            var collection = new ObservableUniqueItemCollectionWithSourcePath<TestItem, string>(
+            var collection = new ConcreteObservableUniqueItemCollectionWithSourcePath<TestItem>(
                 getUniqueFeature, typeDescriptor, featureDescription);
 
             // Call
@@ -140,7 +140,7 @@ namespace Core.Common.Base.Test
         public void AddRange_NotAnActualFilePath_ThrowArgumentNull()
         {
             // Setup
-            var collection = new ObservableUniqueItemCollectionWithSourcePath<TestItem, string>(
+            var collection = new ConcreteObservableUniqueItemCollectionWithSourcePath<TestItem>(
                 getUniqueFeature, typeDescriptor, featureDescription);
 
             const string invalidFilePath = @"            ";
@@ -158,7 +158,7 @@ namespace Core.Common.Base.Test
         public void AddRange_AddNewItem_CollectionContainsItem()
         {
             // Setup
-            var collection = new ObservableUniqueItemCollectionWithSourcePath<TestItem, string>(
+            var collection = new ConcreteObservableUniqueItemCollectionWithSourcePath<TestItem>(
                 getUniqueFeature, typeDescriptor, featureDescription);
             var item = new TestItem("Item A");
 
@@ -178,7 +178,7 @@ namespace Core.Common.Base.Test
         public void AddRange_AddingNewItems_CollectionContainsExpectedElements()
         {
             // Setup
-            var collection = new ObservableUniqueItemCollectionWithSourcePath<TestItem, string>(
+            var collection = new ConcreteObservableUniqueItemCollectionWithSourcePath<TestItem>(
                 getUniqueFeature, typeDescriptor, featureDescription);
             var expectedCollection = new[]
             {
@@ -210,7 +210,7 @@ namespace Core.Common.Base.Test
                 new TestItem(duplicateNameOne)
             };
 
-            var collection = new ObservableUniqueItemCollectionWithSourcePath<TestItem, string>(
+            var collection = new ConcreteObservableUniqueItemCollectionWithSourcePath<TestItem>(
                 getUniqueFeature, typeDescriptor, featureDescription);
 
             // Call
@@ -236,7 +236,7 @@ namespace Core.Common.Base.Test
                 new TestItem(duplicateNameTwo)
             };
 
-            var collection = new ObservableUniqueItemCollectionWithSourcePath<TestItem, string>(
+            var collection = new ConcreteObservableUniqueItemCollectionWithSourcePath<TestItem>(
                 getUniqueFeature, typeDescriptor, featureDescription);
 
             // Call
@@ -251,7 +251,7 @@ namespace Core.Common.Base.Test
         public void Count_CollectionFilledWithElements_ReturnsExpectedNumberOfElements()
         {
             // Setup
-            var collection = new ObservableUniqueItemCollectionWithSourcePath<TestItem, string>(
+            var collection = new ConcreteObservableUniqueItemCollectionWithSourcePath<TestItem>(
                 getUniqueFeature, typeDescriptor, featureDescription);
             collection.AddRange(new[]
             {
@@ -274,7 +274,7 @@ namespace Core.Common.Base.Test
         public void Indexer_GetItemAtIndexOutOfRange_ThrowsArgumentOutOfRangeException(int invalidIndex)
         {
             // Setup
-            var collection = new ObservableUniqueItemCollectionWithSourcePath<TestItem, string>(
+            var collection = new ConcreteObservableUniqueItemCollectionWithSourcePath<TestItem>(
                 getUniqueFeature, typeDescriptor, featureDescription);
 
             // Call
@@ -292,7 +292,7 @@ namespace Core.Common.Base.Test
         {
             // Setup
             var elementToRetrieve = new TestItem("Item X");
-            var collection = new ObservableUniqueItemCollectionWithSourcePath<TestItem, string>(
+            var collection = new ConcreteObservableUniqueItemCollectionWithSourcePath<TestItem>(
                 getUniqueFeature, typeDescriptor, featureDescription);
             collection.AddRange(new[]
             {
@@ -316,7 +316,7 @@ namespace Core.Common.Base.Test
             // Setup
             var element = new TestItem("Item X");
 
-            var collection = new ObservableUniqueItemCollectionWithSourcePath<TestItem, string>(
+            var collection = new ConcreteObservableUniqueItemCollectionWithSourcePath<TestItem>(
                 getUniqueFeature, typeDescriptor, featureDescription);
             var expectedCollection = new[]
             {
@@ -342,7 +342,7 @@ namespace Core.Common.Base.Test
             // Setup
             var elementToBeRemoved = new TestItem("Item X");
 
-            var collection = new ObservableUniqueItemCollectionWithSourcePath<TestItem, string>(
+            var collection = new ConcreteObservableUniqueItemCollectionWithSourcePath<TestItem>(
                 getUniqueFeature, typeDescriptor, featureDescription);
             var expectedCollections = new[]
             {
@@ -370,7 +370,7 @@ namespace Core.Common.Base.Test
         {
             // Setup
             var elementToBeRemoved = new TestItem("Item X");
-            var collection = new ObservableUniqueItemCollectionWithSourcePath<TestItem, string>(
+            var collection = new ConcreteObservableUniqueItemCollectionWithSourcePath<TestItem>(
                 getUniqueFeature, typeDescriptor, featureDescription);
             collection.AddRange(new[]
             {
@@ -392,7 +392,7 @@ namespace Core.Common.Base.Test
         public void Clear_CollectionFullyDefined_ClearsSourcePathAndCollection()
         {
             // Setup
-            var collection = new ObservableUniqueItemCollectionWithSourcePath<TestItem, string>(
+            var collection = new ConcreteObservableUniqueItemCollectionWithSourcePath<TestItem>(
                 getUniqueFeature, typeDescriptor, featureDescription);
             var expectedObjectCollection = new[]
             {
@@ -422,7 +422,7 @@ namespace Core.Common.Base.Test
             observer.Expect(o => o.UpdateObserver()); // Expect to be called once
             mocks.ReplayAll();
 
-            var observableCollection = new ObservableUniqueItemCollectionWithSourcePath<TestItem, string>(
+            var observableCollection = new ConcreteObservableUniqueItemCollectionWithSourcePath<TestItem>(
                 getUniqueFeature, typeDescriptor, featureDescription);
             observableCollection.Attach(observer);
 
@@ -441,7 +441,7 @@ namespace Core.Common.Base.Test
             var observer = mocks.StrictMock<IObserver>();
             mocks.ReplayAll();
 
-            var observableCollection = new ObservableUniqueItemCollectionWithSourcePath<TestItem, string>(
+            var observableCollection = new ConcreteObservableUniqueItemCollectionWithSourcePath<TestItem>(
                 getUniqueFeature, typeDescriptor, featureDescription);
             observableCollection.Attach(observer);
             observableCollection.Detach(observer);
@@ -458,7 +458,7 @@ namespace Core.Common.Base.Test
         {
             // Setup
             var mocks = new MockRepository();
-            var observableCollection = new ObservableUniqueItemCollectionWithSourcePath<TestItem, string>(
+            var observableCollection = new ConcreteObservableUniqueItemCollectionWithSourcePath<TestItem>(
                 getUniqueFeature, typeDescriptor, featureDescription);
 
             var observer1 = mocks.Stub<IObserver>();
@@ -488,6 +488,13 @@ namespace Core.Common.Base.Test
 
             // Assert
             mocks.VerifyAll();
+        }
+
+        private class ConcreteObservableUniqueItemCollectionWithSourcePath<TObject> : ObservableUniqueItemCollectionWithSourcePath<TObject>
+            where TObject : class
+        {
+            public ConcreteObservableUniqueItemCollectionWithSourcePath(Func<TObject, object> getUniqueFeature, string typeDescriptor, string featureDescription) 
+                : base(getUniqueFeature, typeDescriptor, featureDescription) {}
         }
 
         private class TestItem

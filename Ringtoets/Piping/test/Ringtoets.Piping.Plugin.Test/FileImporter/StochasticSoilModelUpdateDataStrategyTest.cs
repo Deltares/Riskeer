@@ -59,7 +59,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             // Assert
             Assert.IsInstanceOf<IStochasticSoilModelUpdateModelStrategy>(strategy);
-            Assert.IsInstanceOf<UpdateDataStrategyBase<StochasticSoilModel, string, PipingFailureMechanism>>(strategy);
+            Assert.IsInstanceOf<UpdateDataStrategyBase<StochasticSoilModel, PipingFailureMechanism>>(strategy);
         }
 
         [Test]
