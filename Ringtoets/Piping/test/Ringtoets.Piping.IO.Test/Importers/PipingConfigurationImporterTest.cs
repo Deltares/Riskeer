@@ -165,8 +165,9 @@ namespace Ringtoets.Piping.IO.Test.Importers
         }
 
         [Test]
+        [SetCulture("nl-NL")]
         [TestCase("validConfigurationInvalidEntryExitPoint.xml", "Het uittredepunt moet landwaarts van het intredepunt liggen.")]
-        [TestCase("validConfigurationExitPointNotOnSurfaceLine.xml", "Het gespecificeerde punt moet op het profiel liggen (bereik [0.0, 10.0]).")]
+        [TestCase("validConfigurationExitPointNotOnSurfaceLine.xml", "Het gespecificeerde punt moet op het profiel liggen (bereik [0,0, 10,0]).")]
         public void Import_EntryExitPointNotValid_LogMessageAndContinueImport(string file, string expectedErrorMessage)
         {
             // Setup
