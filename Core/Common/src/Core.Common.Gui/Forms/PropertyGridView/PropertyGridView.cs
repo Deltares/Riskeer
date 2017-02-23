@@ -77,9 +77,6 @@ namespace Core.Common.Gui.Forms.PropertyGridView
             }
             else
             {
-                DetachObservable();
-                AttachObservable();
-
                 Refresh();
             }
         }

@@ -164,7 +164,7 @@ namespace Core.Common.Gui.Test.Forms.PropertyGridView
             objectProperties.Data = observerable;
 
             var propertyResolverStub = mockRepository.StrictMock<IPropertyResolver>();
-            propertyResolverStub.Expect(prs => prs.GetObjectProperties(dataObject)).Return(new DynamicPropertyBag(objectProperties)).Repeat.Twice();
+            propertyResolverStub.Expect(prs => prs.GetObjectProperties(dataObject)).Return(new DynamicPropertyBag(objectProperties));
             mockRepository.ReplayAll();
 
             using (var propertyGridView = new TestGuiPropertyGridView(propertyResolverStub))
