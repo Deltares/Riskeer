@@ -22,11 +22,15 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
+using BruTile;
 using Core.Common.Controls.Dialogs;
 using Core.Common.TestUtil;
 using Core.Components.DotSpatial.Forms.Views;
+using Core.Components.DotSpatial.Layer.BruTile.Configurations;
+using Core.Components.DotSpatial.TestUtil;
 using Core.Components.Gis.Data;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
@@ -38,10 +42,28 @@ namespace Ringtoets.Integration.Forms.Test
     [TestFixture]
     public class BackgroundMapDataSelectionDialogTest : NUnitFormTest
     {
+        private MockRepository mockRepository;
+        private ITileSourceFactory tileFactory;
+
+        [SetUp]
+        public void SetUp()
+        {
+            mockRepository = new MockRepository();
+            tileFactory = mockRepository.StrictMock<ITileSourceFactory>();
+        }
+
+        [TearDown]
+        public override void TearDown()
+        {
+            mockRepository.VerifyAll();
+            base.TearDown();
+        }
+
         [Test]
         public void Constructor_WithoutParent_ThrowsArgumentNullException()
         {
             // Setup
+            mockRepository.ReplayAll();
             WmtsMapData mapData = WmtsMapData.CreateDefaultPdokMapData();
 
             // Call
@@ -53,39 +75,9 @@ namespace Ringtoets.Integration.Forms.Test
         }
 
         [Test]
-        public void Constructor_WithValidArguments_DefaultProperties()
-        {
-            // Setup
-            WmtsMapData mapData = WmtsMapData.CreateDefaultPdokMapData();
-            using (var dialogParent = new Form())
-            {
-                // Call
-                using (var dialog = new BackgroundMapDataSelectionDialog(dialogParent, mapData))
-                {
-                    // Assert
-                    Assert.IsInstanceOf<DialogBase>(dialog);
-                    Assert.AreEqual(@"Selecteer achtergrondkaart", dialog.Text);
-                    Assert.AreSame(mapData, dialog.SelectedMapData);
-
-                    Icon icon = BitmapToIcon(RingtoetsCommonFormsResources.SelectionDialogIcon);
-                    Bitmap expectedImage = icon.ToBitmap();
-                    Bitmap actualImage = dialog.Icon.ToBitmap();
-                    TestHelper.AssertImagesAreEqual(expectedImage, actualImage);
-
-                    var mapLayers = (ComboBox) new ComboBoxTester("mapLayerComboBox", dialog).TheObject;
-                    Assert.AreEqual(ComboBoxStyle.DropDownList, mapLayers.DropDownStyle);
-                    Assert.IsInstanceOf<List<IHasMapData>>(mapLayers.DataSource);
-                    Assert.AreEqual("DisplayName", mapLayers.DisplayMember);
-                    Assert.IsTrue(mapLayers.Sorted);
-                }
-            }
-        }
-
-        [Test]
         public void Constructor_MapDataNull_DefaultProperties()
         {
             // Setup
-            var mockRepository = new MockRepository();
             var dialogParent = mockRepository.Stub<IWin32Window>();
             mockRepository.ReplayAll();
 
@@ -95,13 +87,13 @@ namespace Ringtoets.Integration.Forms.Test
                 // Assert
                 Assert.IsNull(dialog.SelectedMapData);
             }
-            mockRepository.VerifyAll();
         }
 
         [Test]
         public void MapDataConstructor_ParentNull_ThrowsArgumentNullException()
         {
             // Setup
+            mockRepository.ReplayAll();
             WmtsMapData mapData = WmtsMapData.CreateDefaultPdokMapData();
 
             // Call
@@ -117,6 +109,10 @@ namespace Ringtoets.Integration.Forms.Test
         {
             // Setup
             WmtsMapData mapData = WmtsMapData.CreateDefaultPdokMapData();
+            tileFactory.Expect(tf => tf.GetWmtsTileSources(mapData.SourceCapabilitiesUrl)).Return(Enumerable.Empty<ITileSource>());
+            mockRepository.ReplayAll();
+
+            using (new UseCustomTileSourceFactoryConfig(tileFactory))
             using (var dialogParent = new Form())
             {
                 // Call
@@ -146,6 +142,7 @@ namespace Ringtoets.Integration.Forms.Test
         public void ShowDialog_Always_DefaultProperties()
         {
             // Setup
+            mockRepository.ReplayAll();
             DialogBoxHandler = (name, wnd) =>
             {
                 using (new FormTester(name)) {}
@@ -184,6 +181,7 @@ namespace Ringtoets.Integration.Forms.Test
         public void GivenValidDialog_WhenCancelPressed_ThenSelectedMapDataNull()
         {
             // Given
+            mockRepository.ReplayAll();
             Button cancelButton = null;
 
             DialogBoxHandler = (name, wnd) =>
@@ -211,6 +209,9 @@ namespace Ringtoets.Integration.Forms.Test
         [Test]
         public void Dispose_DisposedAlreadyCalled_DoesNotThrowException()
         {
+            // Setup
+            mockRepository.ReplayAll();
+
             // Call
             TestDelegate call = () =>
             {

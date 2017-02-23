@@ -39,6 +39,10 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BruTile, Version=0.19.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\packages\BruTile.0.19.0\lib\net40\BruTile.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="nunit.framework, Version=3.6.0.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
       <HintPath>..\..\..\..\packages\NUnit.3.6.0\lib\net40\nunit.framework.dll</HintPath>
       <Private>True</Private>
@@ -143,6 +147,10 @@
       <Project>{5A91174A-FB95-4C9D-9CA5-81C0B8D4361A}</Project>
       <Name>Core.Components.DotSpatial.Forms</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.DotSpatial\Core.Components.DotSpatial.csproj">
+      <Project>{AA47E858-A2A7-470E-8B2D-C76AE8ED9CCD}</Project>
+      <Name>Core.Components.DotSpatial</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Gis.Forms\Core.Components.Gis.Forms.csproj">
       <Project>{4a06df0d-5d75-4bad-a95a-a3db9b7c4ad5}</Project>
       <Name>Core.Components.Gis.Forms</Name>
@@ -150,6 +158,10 @@
     <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Gis\Core.Components.Gis.csproj">
       <Project>{318ba582-88c9-4816-a54a-a7e431461de3}</Project>
       <Name>Core.Components.Gis</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Components\test\Core.Components.DotSpatial.TestUtil\Core.Components.DotSpatial.TestUtil.csproj">
+      <Project>{9B6F3987-EAF7-4733-80C1-3DCAB44D87AE}</Project>
+      <Name>Core.Components.DotSpatial.TestUtil</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Core\Components\test\Core.Components.Gis.TestUtils\Core.Components.Gis.TestUtils.csproj">
       <Project>{f0fb401a-3494-4237-9e6d-02cdf77912a8}</Project>
