@@ -179,7 +179,10 @@ namespace Ringtoets.Piping.IO.Importers
             }
             catch (Exception e) when (e is CriticalFileValidationException || e is ArgumentOutOfRangeException)
             {
-                log.ErrorFormat(Resources.PipingConfigurationImporter_ValidateCalculation_Error_message_0_calculation_1_skipped, e.Message, readCalculation.Name);
+                string message = string.Format(Resources.PipingConfigurationImporter_ValidateCalculation_Error_message_0_calculation_1_skipped,
+                                               e.Message,
+                                               readCalculation.Name);
+                log.Error(message, e);
                 return null;
             }
 
@@ -371,7 +374,7 @@ namespace Ringtoets.Piping.IO.Importers
         {
             var errorMessage = string.Format(Resources.PipingConfigurationImporter_HandleCriticalFileReadError_Error_0_no_configuration_imported,
                                              e.Message);
-            log.Error(errorMessage);
+            log.Error(errorMessage, e);
             return new ReadResult<IReadPipingCalculationItem>(true);
         }
     }
