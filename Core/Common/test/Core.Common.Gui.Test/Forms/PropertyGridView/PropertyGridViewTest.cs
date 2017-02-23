@@ -20,10 +20,12 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls.Views;
 using Core.Common.Gui.Forms.PropertyGridView;
+using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
 using Rhino.Mocks;
 
@@ -58,6 +60,67 @@ namespace Core.Common.Gui.Test.Forms.PropertyGridView
                 Assert.IsInstanceOf<IView>(propertyGridView);
                 Assert.IsInstanceOf<IObserver>(propertyGridView);
                 Assert.IsNull(propertyGridView.Data);
+                Assert.AreEqual(PropertySort.Categorized, propertyGridView.PropertySort);
+
+                ToolStrip toolStrip = propertyGridView.Controls.OfType<ToolStrip>().First();
+                Assert.AreEqual("Gecategoriseerd", toolStrip.Items[0].ToolTipText);
+                Assert.AreEqual("Alfabetisch", toolStrip.Items[1].ToolTipText);
+            }
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void Show_ValidParameter_ExpectedProperties()
+        {
+            // Setup
+            var mockRepository = new MockRepository();
+            var propertyResolverStub = mockRepository.Stub<IPropertyResolver>();
+            mockRepository.ReplayAll();
+
+            using (var form = new Form())
+            using (var propertyGridView = new Gui.Forms.PropertyGridView.PropertyGridView(propertyResolverStub))
+            {
+                form.Controls.Add(propertyGridView);
+
+                // Call
+                form.Show();
+
+                // Assert
+                ToolStrip toolStrip = propertyGridView.Controls.OfType<ToolStrip>().First();
+                Assert.AreEqual(5, toolStrip.Items.Count);
+                Assert.IsTrue(toolStrip.Items[0].Visible);
+                Assert.IsTrue(toolStrip.Items[1].Visible);
+                Assert.IsFalse(toolStrip.Items[2].Visible);
+                Assert.IsFalse(toolStrip.Items[3].Visible);
+                Assert.IsFalse(toolStrip.Items[4].Visible);
+            }
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void Data_SetNull_UpdateView()
+        {
+            // Setup
+            var dataObject = new object();
+
+            var mockRepository = new MockRepository();
+            var propertyResolverStub = mockRepository.StrictMock<IPropertyResolver>();
+            propertyResolverStub.Expect(prs => prs.GetObjectProperties(dataObject)).Return(null);
+            propertyResolverStub.Expect(prs => prs.GetObjectProperties(null)).Return(null);
+            mockRepository.ReplayAll();
+
+            using (var propertyGridView = new TestGuiPropertyGridView(propertyResolverStub))
+            {
+                propertyGridView.Data = dataObject;
+
+                var selectedObject = propertyGridView.SelectedObject;
+
+                // Call
+                propertyGridView.Data = null;
+
+                // Assert
+                Assert.AreSame(selectedObject, propertyGridView.SelectedObject);
+                Assert.AreEqual(0, propertyGridView.RefreshCalled);
             }
             mockRepository.VerifyAll();
         }
@@ -66,13 +129,14 @@ namespace Core.Common.Gui.Test.Forms.PropertyGridView
         public void Data_SetSameDataObject_NoRedundantViewUpdate()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var propertyResolverStub = mockRepository.Stub<IPropertyResolver>();
-            mockRepository.ReplayAll();
-
             var dataObject = new object();
 
-            using (var propertyGridView = new Gui.Forms.PropertyGridView.PropertyGridView(propertyResolverStub))
+            var mockRepository = new MockRepository();
+            var propertyResolverStub = mockRepository.StrictMock<IPropertyResolver>();
+            propertyResolverStub.Expect(prs => prs.GetObjectProperties(dataObject)).Return(null);
+            mockRepository.ReplayAll();
+
+            using (var propertyGridView = new TestGuiPropertyGridView(propertyResolverStub))
             {
                 propertyGridView.Data = dataObject;
 
@@ -83,8 +147,73 @@ namespace Core.Common.Gui.Test.Forms.PropertyGridView
 
                 // Assert
                 Assert.AreSame(selectedObject, propertyGridView.SelectedObject);
+                Assert.AreEqual(0, propertyGridView.RefreshCalled);
             }
             mockRepository.VerifyAll();
         }
+
+        [Test]
+        public void GivenPropertyGridViewWithObservableSet_WhenNotifyObserverCalled_ThenRefreshTriggered()
+        {
+            // Given
+            var dataObject = new object();
+            var observerable = new SimpleObservable();
+
+            var mockRepository = new MockRepository();
+            var objectProperties = mockRepository.Stub<IObjectProperties>();
+            objectProperties.Data = observerable;
+
+            var propertyResolverStub = mockRepository.StrictMock<IPropertyResolver>();
+            propertyResolverStub.Expect(prs => prs.GetObjectProperties(dataObject)).Return(new DynamicPropertyBag(objectProperties)).Repeat.Twice();
+            mockRepository.ReplayAll();
+
+            using (var propertyGridView = new TestGuiPropertyGridView(propertyResolverStub))
+            {
+                // When
+                propertyGridView.Data = dataObject;
+
+                // Then
+                observerable.NotifyObservers();
+                Assert.AreEqual(1, propertyGridView.RefreshCalled);
+            }
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void Dispose_AlreadyDisposed_DoesNotThrowException()
+        {
+            // Setup
+            var mockRepository = new MockRepository();
+            var propertyResolverStub = mockRepository.Stub<IPropertyResolver>();
+            mockRepository.ReplayAll();
+
+            // Call
+            TestDelegate call = () =>
+            {
+                using (var control = new Gui.Forms.PropertyGridView.PropertyGridView(propertyResolverStub))
+                {
+                    control.Dispose();
+                }
+            };
+
+            // Assert
+            Assert.DoesNotThrow(call);
+            mockRepository.VerifyAll();
+        }
+
+        private class TestGuiPropertyGridView : Gui.Forms.PropertyGridView.PropertyGridView
+        {
+            public TestGuiPropertyGridView(IPropertyResolver propertyResolver) : base(propertyResolver) {}
+
+            public int RefreshCalled { get; private set; }
+
+            public override void Refresh()
+            {
+                RefreshCalled++;
+                base.Refresh();
+            }
+        }
+
+        private class SimpleObservable : Observable {}
     }
 }

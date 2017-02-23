@@ -202,6 +202,8 @@ namespace Core.Components.DotSpatial.Forms
             if (!ReferenceEquals(backgroundMapData, backgroundMapDataContainer.MapData))
             {
                 backgroundMapData = (WmtsMapData) backgroundMapDataContainer.MapData;
+                backGroundMapDataObserver.Observable = backgroundMapData;
+
                 if (backgroundMapData != null)
                 {
                     HandleBackgroundMapDataChange();

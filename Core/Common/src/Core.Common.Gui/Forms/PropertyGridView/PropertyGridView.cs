@@ -38,9 +38,7 @@ namespace Core.Common.Gui.Forms.PropertyGridView
     public class PropertyGridView : PropertyGrid, IView, IObserver
     {
         private readonly IPropertyResolver propertyResolver;
-
         private object data;
-
         private IObservable observable;
 
         /// <summary>
@@ -79,6 +77,9 @@ namespace Core.Common.Gui.Forms.PropertyGridView
             }
             else
             {
+                DetachObservable();
+                AttachObservable();
+
                 Refresh();
             }
         }
@@ -96,10 +97,7 @@ namespace Core.Common.Gui.Forms.PropertyGridView
 
         protected override void Dispose(bool disposing)
         {
-            if (observable != null)
-            {
-                observable.Detach(this);
-            }
+            observable?.Detach(this);
 
             base.Dispose(disposing);
         }
@@ -120,29 +118,32 @@ namespace Core.Common.Gui.Forms.PropertyGridView
                     return;
                 }
 
-                if (observable != null)
-                {
-                    observable.Detach(this);
-                    observable = null;
-                }
+                DetachObservable();
 
                 data = value;
-                SelectedObject = GetObjectProperties(value);
+                AttachObservable();
+            }
+        }
 
-                var dynamicPropertyBag = SelectedObject as DynamicPropertyBag;
-                if (dynamicPropertyBag != null)
-                {
-                    var objectProperties = dynamicPropertyBag.WrappedObject as IObjectProperties;
-                    if (objectProperties != null)
-                    {
-                        observable = objectProperties.Data as IObservable;
+        private void DetachObservable()
+        {
+            if (observable != null)
+            {
+                observable.Detach(this);
+                observable = null;
+            }
+        }
 
-                        if (observable != null)
-                        {
-                            observable.Attach(this);
-                        }
-                    }
-                }
+        private void AttachObservable()
+        {
+            SelectedObject = GetObjectProperties(data);
+
+            var dynamicPropertyBag = SelectedObject as DynamicPropertyBag;
+            var objectProperties = dynamicPropertyBag?.WrappedObject as IObjectProperties;
+            if (objectProperties != null)
+            {
+                observable = objectProperties.Data as IObservable;
+                observable?.Attach(this);
             }
         }
 

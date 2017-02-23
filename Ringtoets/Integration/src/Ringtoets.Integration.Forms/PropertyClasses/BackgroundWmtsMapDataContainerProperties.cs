@@ -55,7 +55,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         /// object.
         /// </summary>
         /// <param name="container">The data to be used.</param>
-        /// <returns><paramref name="container"/> if it's valid.</returns>
+        /// <returns><paramref name="container"/> if it is valid.</returns>
         /// <exception cref="ArgumentException">Thrown when <paramref name="container"/>
         /// is not suitable for this object.</exception>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="container"/>

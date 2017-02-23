@@ -1292,6 +1292,51 @@ namespace Core.Components.DotSpatial.Forms.Test
         }
 
         [Test]
+        [TestCase(false, 0)]
+        [TestCase(true, 1)]
+        public void GivenMapControlWithDataDifferentMapDataSet_WhenNotified_LayerVisibilityAsExpected(bool newMapDataNotify, int layerVisibilityChanged)
+        {
+            // Given
+            var actualLayerVisibilityChanged = 0;
+            WmtsMapData backgroundMapData = WmtsMapData.CreateDefaultPdokMapData();
+            WmtsMapData differentBackgroundMapData = WmtsMapData.CreateDefaultPdokMapData();
+            var mapDataContainer = new BackgroundMapDataContainer
+            {
+                MapData = backgroundMapData
+            };
+
+            using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
+            using (new UseCustomTileSourceFactoryConfig(differentBackgroundMapData))
+            using (var map = new MapControl())
+            {
+                map.BackgroundMapData = mapDataContainer;
+                mapDataContainer.IsVisible = false;
+
+                mapDataContainer.MapData = differentBackgroundMapData;
+                mapDataContainer.NotifyObservers();
+
+                IMapLayerCollection layers = map.Controls.OfType<DotSpatialMap>().First().Layers;
+                layers.LayerVisibleChanged += (sender, args) => { actualLayerVisibilityChanged++; };
+
+                differentBackgroundMapData.IsVisible = true;
+                backgroundMapData.IsVisible = true;
+
+                // When
+                if (newMapDataNotify)
+                {
+                    differentBackgroundMapData.NotifyObservers();
+                }
+                else
+                {
+                    backgroundMapData.NotifyObservers();
+                }
+
+                // Then
+                Assert.AreEqual(layerVisibilityChanged, actualLayerVisibilityChanged);
+            }
+        }
+
+        [Test]
         public void GivenMapControlWithDataAndBackground_WhenDifferentBackgroundMapDataSet_LayersReprojected()
         {
             // Given
