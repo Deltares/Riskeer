@@ -119,7 +119,7 @@ namespace Ringtoets.Revetment.IO.Test
         public void WriteWaveConditions_FileInUse_ThrowCriticalFileWriteException()
         {
             // Setup
-            string path = TestHelper.GetScratchPadPath(Path.GetRandomFileName());
+            string path = TestHelper.GetScratchPadPath(nameof(WriteWaveConditions_FileInUse_ThrowCriticalFileWriteException));
 
             using (var fileDisposeHelper = new FileDisposeHelper(path))
             {

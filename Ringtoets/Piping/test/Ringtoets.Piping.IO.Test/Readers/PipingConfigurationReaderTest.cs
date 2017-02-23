@@ -243,7 +243,7 @@ namespace Ringtoets.Piping.IO.Test.Readers
         public void Constructor_FileInUse_ThrowCriticalFileReadException()
         {
             // Setup
-            string path = TestHelper.GetScratchPadPath(Path.GetRandomFileName());
+            string path = TestHelper.GetScratchPadPath($"{nameof(PipingConfigurationReaderTest)}.{nameof(Constructor_FileInUse_ThrowCriticalFileReadException)}");
 
             using (var fileDisposeHelper = new FileDisposeHelper(path))
             {

@@ -124,7 +124,7 @@ namespace Core.Components.Gis.IO.Test.Readers
         public void ParameteredConstructor_ShapeFileIsInUse_ThrowsCriticalFileReadException()
         {
             // Setup
-            string path = TestHelper.GetScratchPadPath(Path.GetRandomFileName());
+            string path = TestHelper.GetScratchPadPath($"{nameof(PointShapeFileReaderTest)}.{nameof(ParameteredConstructor_ShapeFileIsInUse_ThrowsCriticalFileReadException)}");
 
             using (var fileDisposeHelper = new FileDisposeHelper(path))
             {

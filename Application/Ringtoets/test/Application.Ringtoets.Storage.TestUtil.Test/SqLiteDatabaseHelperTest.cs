@@ -228,7 +228,7 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
         public void CreateDatabaseFile_FileAlreadyExistsAndLocked_Fail()
         {
             // Setup
-            string validPath = TestHelper.GetScratchPadPath(Path.GetRandomFileName());
+            string validPath = TestHelper.GetScratchPadPath(nameof(CreateDatabaseFile_FileAlreadyExistsAndLocked_Fail));
             const string validScript = ";";
 
             using (var fileDisposeHelper = new FileDisposeHelper(validPath))

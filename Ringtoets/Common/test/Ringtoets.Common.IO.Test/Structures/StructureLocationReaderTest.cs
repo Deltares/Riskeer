@@ -157,7 +157,7 @@ namespace Ringtoets.Common.IO.Test.Structures
         public void Constructor_FileInUse_ThrowCriticalFileReadException()
         {
             // Setup
-            string path = TestHelper.GetScratchPadPath(Path.GetRandomFileName());
+            string path = TestHelper.GetScratchPadPath($"{nameof(StructureLocationReaderTest)}.{nameof(Constructor_FileInUse_ThrowCriticalFileReadException)}");
 
             using (var fileDisposeHelper = new FileDisposeHelper(path))
             {

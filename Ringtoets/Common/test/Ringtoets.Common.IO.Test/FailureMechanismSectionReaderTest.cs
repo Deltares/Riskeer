@@ -321,7 +321,7 @@ namespace Ringtoets.Common.IO.Test
         public void ReadFailureMechanismSection_FileInUse_ThrowCriticalFileReadException()
         {
             // Setup
-            string path = TestHelper.GetScratchPadPath(Path.GetRandomFileName());
+            string path = TestHelper.GetScratchPadPath(nameof(ReadFailureMechanismSection_FileInUse_ThrowCriticalFileReadException));
 
             using (var fileDisposeHelper = new FileDisposeHelper(path))
             {

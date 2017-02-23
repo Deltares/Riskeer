@@ -125,7 +125,7 @@ namespace Application.Ringtoets.MigrationConsole.Test
         {
             // Given
             string sourceFilePath = TestHelper.GetTestDataPath(testPath, "FullTestProject164.rtd");
-            string targetFilePath = TestHelper.GetScratchPadPath(Path.GetRandomFileName());
+            string targetFilePath = TestHelper.GetScratchPadPath($"{nameof(RingtoetsMigrationToolTest)}.{nameof(GivenConsole_WhenMigrateCalledWithArguments_MigratesToNewVersion)}");
             string expectedVersion = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
 
             using (new FileDisposeHelper(targetFilePath))
@@ -158,7 +158,7 @@ namespace Application.Ringtoets.MigrationConsole.Test
         {
             // Given
             string sourceFilePath = TestHelper.GetTestDataPath(testPath, "FullTestProject164.rtd");
-            string targetFilePath = TestHelper.GetScratchPadPath(Path.GetRandomFileName());
+            string targetFilePath = TestHelper.GetScratchPadPath($"{nameof(RingtoetsMigrationToolTest)}.{nameof(GivenConsole_WhenMigrateCalledUnableToSaveTarget_ThenExitWithErrorCode)}");
 
             using (var fileDisposeHelper = new FileDisposeHelper(targetFilePath))
             using (var consoleOutput = new ConsoleOutput())

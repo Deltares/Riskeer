@@ -163,7 +163,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
         public void Constructor_FileInUse_ThrowCriticalFileReadException()
         {
             // Setup
-            string path = TestHelper.GetScratchPadPath(Path.GetRandomFileName());
+            string path = TestHelper.GetScratchPadPath($"{nameof(ProfileLocationReaderTest)}.{nameof(Constructor_FileInUse_ThrowCriticalFileReadException)}");
 
             using (var fileDisposeHelper = new FileDisposeHelper(path))
             {

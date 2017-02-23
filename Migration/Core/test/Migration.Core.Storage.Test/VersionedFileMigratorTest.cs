@@ -328,7 +328,7 @@ namespace Migration.Core.Storage.Test
             const string fromLocation = "fromLocation";
             const string toVersion = "toVersion";
 
-            string toLocation = TestHelper.GetScratchPadPath(Path.GetRandomFileName());
+            string toLocation = TestHelper.GetScratchPadPath(nameof(Migrate_ValidMigration_CreatesNewVersion));
 
             var mockRepository = new MockRepository();
             var comparer = mockRepository.Stub<IComparer>();
@@ -366,7 +366,7 @@ namespace Migration.Core.Storage.Test
             const string fromVersion = "0";
             const string toVersion = "2";
 
-            string toLocation = TestHelper.GetScratchPadPath(Path.GetRandomFileName());
+            string toLocation = TestHelper.GetScratchPadPath(nameof(Migrate_ValidChainingMigration_CreatesNewVersion));
 
             var mockRepository = new MockRepository();
             var versionedFile = mockRepository.Stub<IVersionedFile>();
@@ -406,7 +406,7 @@ namespace Migration.Core.Storage.Test
             const string fromLocation = "fromLocation";
             const string toVersion = "toVersion";
 
-            string toLocation = TestHelper.GetScratchPadPath(Path.GetRandomFileName());
+            string toLocation = TestHelper.GetScratchPadPath(nameof(Migrate_ValidMigrationFileInUse_ThrowsCriticalMigrationException));
 
             var mockRepository = new MockRepository();
             var comparer = mockRepository.Stub<IComparer>();

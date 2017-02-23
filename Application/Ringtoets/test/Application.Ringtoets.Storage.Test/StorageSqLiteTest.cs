@@ -102,7 +102,7 @@ namespace Application.Ringtoets.Storage.Test
         public void LoadProject_RingtoetsFileWithTwoProjects_ThrowsStorageExceptionAndStorageValidationException()
         {
             // Setup
-            string tempRingtoetsFile = TestHelper.GetScratchPadPath(Path.GetRandomFileName());
+            string tempRingtoetsFile = TestHelper.GetScratchPadPath(nameof(LoadProject_RingtoetsFileWithTwoProjects_ThrowsStorageExceptionAndStorageValidationException));
             using (new FileDisposeHelper(tempRingtoetsFile))
             {
                 try
@@ -131,7 +131,7 @@ namespace Application.Ringtoets.Storage.Test
         public void LoadProject_CorruptRingtoetsFileThatPassesValidation_ThrowsStorageExceptionWithFullStackTrace()
         {
             // Setup
-            string tempRingtoetsFile = TestHelper.GetScratchPadPath(Path.GetRandomFileName());
+            string tempRingtoetsFile = TestHelper.GetScratchPadPath(nameof(LoadProject_CorruptRingtoetsFileThatPassesValidation_ThrowsStorageExceptionWithFullStackTrace));
             using (new FileDisposeHelper(tempRingtoetsFile))
             {
                 try
@@ -167,7 +167,7 @@ namespace Application.Ringtoets.Storage.Test
         public void LoadProject_DatabaseWithoutVersionEntities_ThrowStorageValidationException()
         {
             // Setup
-            string tempRingtoetsFile = TestHelper.GetScratchPadPath(Path.GetRandomFileName());
+            string tempRingtoetsFile = TestHelper.GetScratchPadPath(nameof(LoadProject_DatabaseWithoutVersionEntities_ThrowStorageValidationException));
             using (new FileDisposeHelper(tempRingtoetsFile))
             {
                 try
@@ -196,7 +196,7 @@ namespace Application.Ringtoets.Storage.Test
         public void LoadProject_DatabaseWithMultipleVersionEntities_ThrowStorageValidationException()
         {
             // Setup
-            string tempRingtoetsFile = TestHelper.GetScratchPadPath(Path.GetRandomFileName());
+            string tempRingtoetsFile = TestHelper.GetScratchPadPath(nameof(LoadProject_DatabaseWithMultipleVersionEntities_ThrowStorageValidationException));
             string currentDatabaseVersion = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
             using (new FileDisposeHelper(tempRingtoetsFile))
             {
@@ -233,7 +233,7 @@ namespace Application.Ringtoets.Storage.Test
         public void LoadProject_DatabaseFromFutureVersion_ThrowStorageValidationException(int additionalVersionNumber)
         {
             // Setup
-            string tempRingtoetsFile = TestHelper.GetScratchPadPath(Path.GetRandomFileName());
+            string tempRingtoetsFile = TestHelper.GetScratchPadPath($"{nameof(LoadProject_DatabaseFromFutureVersion_ThrowStorageValidationException)}_{Path.GetRandomFileName()}");
             string currentDatabaseVersion = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
             var versionCode = additionalVersionNumber + currentDatabaseVersion;
 
@@ -272,7 +272,7 @@ namespace Application.Ringtoets.Storage.Test
         public void LoadProject_DatabaseWithInvalidVersionCode_ThrowStorageValidationException(string versionCode)
         {
             // Setup
-            string tempRingtoetsFile = TestHelper.GetScratchPadPath(Path.GetRandomFileName());
+            string tempRingtoetsFile = TestHelper.GetScratchPadPath($"{nameof(LoadProject_DatabaseWithInvalidVersionCode_ThrowStorageValidationException)}_{Path.GetRandomFileName()}");
 
             using (new FileDisposeHelper(tempRingtoetsFile))
             {
@@ -306,7 +306,7 @@ namespace Application.Ringtoets.Storage.Test
         public void LoadProject_ValidDatabase_ReturnsProject()
         {
             // Setup
-            string tempRingtoetsFile = TestHelper.GetScratchPadPath(Path.GetRandomFileName());
+            string tempRingtoetsFile = TestHelper.GetScratchPadPath(nameof(LoadProject_ValidDatabase_ReturnsProject));
             var projectName = Path.GetFileNameWithoutExtension(tempRingtoetsFile);
             var storage = new StorageSqLite();
             var mockRepository = new MockRepository();
@@ -373,7 +373,7 @@ namespace Application.Ringtoets.Storage.Test
         public void SaveProjectAs_ValidPathToNonExistingFile_DoesNotThrowException()
         {
             // Setup
-            string tempRingtoetsFile = TestHelper.GetScratchPadPath(Path.GetRandomFileName());
+            string tempRingtoetsFile = TestHelper.GetScratchPadPath(nameof(SaveProjectAs_ValidPathToNonExistingFile_DoesNotThrowException));
             var project = new RingtoetsProject();
             var storage = new StorageSqLite();
             storage.StageProject(project);
@@ -400,7 +400,7 @@ namespace Application.Ringtoets.Storage.Test
         public void SaveProjectAs_ValidPathToExistingFile_DoesNotThrowException()
         {
             // Setup
-            string tempRingtoetsFile = TestHelper.GetScratchPadPath(Path.GetRandomFileName());
+            string tempRingtoetsFile = TestHelper.GetScratchPadPath(nameof(SaveProjectAs_ValidPathToExistingFile_DoesNotThrowException));
             var project = new RingtoetsProject();
             var storage = new StorageSqLite();
             storage.StageProject(project);
@@ -429,7 +429,7 @@ namespace Application.Ringtoets.Storage.Test
         public void SaveProjectAs_ValidPathToLockedFile_ThrowsUpdateStorageException()
         {
             // Setup
-            string tempRingtoetsFile = TestHelper.GetScratchPadPath(Path.GetRandomFileName());
+            string tempRingtoetsFile = TestHelper.GetScratchPadPath(nameof(SaveProjectAs_ValidPathToLockedFile_ThrowsUpdateStorageException));
             var project = new RingtoetsProject();
             var storage = new StorageSqLite();
             storage.StageProject(project);
@@ -463,7 +463,7 @@ namespace Application.Ringtoets.Storage.Test
         public void SaveProjectAs_NoStagedProject_ThrowInvalidOperationException()
         {
             // Setup
-            string tempRingtoetsFile = Path.Combine(testPath, Path.GetRandomFileName());
+            string tempRingtoetsFile = TestHelper.GetScratchPadPath(nameof(SaveProjectAs_NoStagedProject_ThrowInvalidOperationException));
             var storage = new StorageSqLite();
 
             // Precondition
@@ -532,7 +532,7 @@ namespace Application.Ringtoets.Storage.Test
             // Setup
             StorageSqLite storageSqLite = new StorageSqLite();
             RingtoetsProject storedProject = new RingtoetsProject();
-            string tempRingtoetsFile = TestHelper.GetScratchPadPath(Path.GetRandomFileName());
+            string tempRingtoetsFile = TestHelper.GetScratchPadPath(nameof(HasStagedProjectChanges_ValidProjectLoaded_ReturnsFalse));
 
             using (new FileDisposeHelper(tempRingtoetsFile))
             {
@@ -562,7 +562,7 @@ namespace Application.Ringtoets.Storage.Test
             StorageSqLite storageSqLite = new StorageSqLite();
             RingtoetsProject storedProject = new RingtoetsProject();
             var changedName = "some name";
-            string tempRingtoetsFile = TestHelper.GetScratchPadPath(Path.GetRandomFileName());
+            string tempRingtoetsFile = TestHelper.GetScratchPadPath(nameof(HasStagedProjectChanges_ValidProjectLoadedWithUnaffectedChange_ReturnsFalse));
 
             using (new FileDisposeHelper(tempRingtoetsFile))
             {
@@ -593,7 +593,7 @@ namespace Application.Ringtoets.Storage.Test
             StorageSqLite storageSqLite = new StorageSqLite();
             RingtoetsProject storedProject = RingtoetsProjectTestHelper.GetFullTestProject();
             var changedDescription = "some description";
-            string tempRingtoetsFile = TestHelper.GetScratchPadPath(Path.GetRandomFileName());
+            string tempRingtoetsFile = TestHelper.GetScratchPadPath(nameof(HasStagedProjectChanges_ValidProjectLoadedWithAffectedChange_ReturnsTrue));
 
             using (new FileDisposeHelper(tempRingtoetsFile))
             {
@@ -626,7 +626,7 @@ namespace Application.Ringtoets.Storage.Test
             var projectMock = mockRepository.StrictMock<RingtoetsProject>();
             mockRepository.ReplayAll();
             var storage = new StorageSqLite();
-            string tempRingtoetsFile = TestHelper.GetScratchPadPath(Path.GetRandomFileName());
+            string tempRingtoetsFile = TestHelper.GetScratchPadPath(nameof(HasStagedProjectChanges_SavedToEmptyDatabaseFile_ReturnsFalse));
 
             using (new FileDisposeHelper(tempRingtoetsFile))
             {

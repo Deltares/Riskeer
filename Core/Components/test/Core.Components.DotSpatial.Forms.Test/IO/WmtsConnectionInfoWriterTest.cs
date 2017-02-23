@@ -108,7 +108,7 @@ namespace Core.Components.DotSpatial.Forms.Test.IO
         public void WriteWmtsConnectionInfo_WmtsConnectionInfosNull_ThrowArgumentNullException()
         {
             // Setup
-            string filePath = TestHelper.GetScratchPadPath(Path.GetRandomFileName());
+            string filePath = TestHelper.GetScratchPadPath(nameof(WriteWmtsConnectionInfo_WmtsConnectionInfosNull_ThrowArgumentNullException));
             var wmtsConfigurationWriter = new WmtsConnectionInfoWriter(filePath);
 
             // Call
@@ -123,7 +123,7 @@ namespace Core.Components.DotSpatial.Forms.Test.IO
         public void WriteWmtsConnectionInfo_ValidWmtsConnectionInfo_SavesWmtsConnectionInfoToFile()
         {
             // Setup
-            string filePath = TestHelper.GetScratchPadPath(Path.GetRandomFileName());
+            string filePath = TestHelper.GetScratchPadPath(nameof(WriteWmtsConnectionInfo_ValidWmtsConnectionInfo_SavesWmtsConnectionInfoToFile));
             var wmtsConfigurationWriter = new WmtsConnectionInfoWriter(filePath);
 
             var wmtsConnectionInfos = new[]

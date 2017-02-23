@@ -40,7 +40,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         [Apartment(ApartmentState.STA)]
         public void GivenRingtoetsGuiWithStorageSql_WhenRunWithMigratedFile_MigratedProjectSet()
         {
-            string targetFilePath = TestHelper.GetScratchPadPath(Path.GetRandomFileName());
+            string targetFilePath = TestHelper.GetScratchPadPath(nameof(GivenRingtoetsGuiWithStorageSql_WhenRunWithMigratedFile_MigratedProjectSet));
             using (new FileDisposeHelper(targetFilePath))
             {
                 string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration, "FullTestProject164.rtd");

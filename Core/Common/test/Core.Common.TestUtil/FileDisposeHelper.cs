@@ -90,23 +90,15 @@ namespace Core.Common.TestUtil
             GC.SuppressFinalize(this);
         }
 
-        private void LockFile(string filePath)
-        {
-            try
-            {
-                filePathStreams[filePath] = File.OpenWrite(filePath);
-            }
-            catch (IOException exception)
-            {
-                throw new InvalidOperationException($"Unable to lock '{filePath}'.", exception);
-            }
-        }
-
         /// <summary>
         /// Frees the unmanaged resources and deletes the files defined in <see cref="filePathStreams"/>.
         /// When <paramref name="disposing"/> is <c>true</c>, the managed resources are freed as well.
         /// </summary>
         /// <param name="disposing">Indicates whether the method call comes from the <see cref="Dispose"/> method.</param>
+        /// <exception cref="IOException">Thrown when any of the files in <see cref="filePathStreams"/> is in use. 
+        /// -or- There is an open handle on the file, 
+        /// and the operating system is Windows XP or earlier. This open handle can result from enumerating 
+        /// directories and files. For more information, see How to: Enumerate Directories and Files.</exception>
         protected virtual void Dispose(bool disposing)
         {
             if (disposed)
@@ -124,7 +116,7 @@ namespace Core.Common.TestUtil
                 {
                     DeleteFile(filePathStream.Key);
                 }
-                catch
+                catch (ArgumentException)
                 {
                     // ignored
                 }
@@ -135,6 +127,18 @@ namespace Core.Common.TestUtil
                 filePathStreams.Clear();
             }
             disposed = true;
+        }
+
+        private void LockFile(string filePath)
+        {
+            try
+            {
+                filePathStreams[filePath] = File.OpenWrite(filePath);
+            }
+            catch (IOException exception)
+            {
+                throw new InvalidOperationException($"Unable to lock '{filePath}'.", exception);
+            }
         }
 
         /// <summary>
@@ -191,9 +195,6 @@ namespace Core.Common.TestUtil
         /// <exception cref="ArgumentException">Thrown when either:
         /// <list type="bullet">
         /// <item>The specified <paramref name="filePath"/> is invalid (for example, it is on an unmapped drive).</item>
-        /// <item>The specified <paramref name="filePath"/> is in use. -or-There is an open handle on the file, 
-        /// and the operating system is Windows XP or earlier. This open handle can result from enumerating 
-        /// directories and files. For more information, see How to: Enumerate Directories and Files.</item>
         /// <item><paramref name="filePath"/> is in an invalid format.</item>
         /// <item>The specified <paramref name="filePath"/> exceed the system-defined 
         /// maximum length. For example, on Windows-based platforms, paths must be less than 248 characters, and 
@@ -202,6 +203,9 @@ namespace Core.Common.TestUtil
         /// <paramref name="filePath"/> is a directory.-or- <paramref name="filePath"/> specified a read-only file.</item>
         /// </list>
         /// </exception>
+        /// <exception cref="IOException">Thrown when the specified <paramref name="filePath"/> is in use. -or- There is an open handle on the file, 
+        /// and the operating system is Windows XP or earlier. This open handle can result from enumerating 
+        /// directories and files. For more information, see How to: Enumerate Directories and Files.</exception>
         private static void DeleteFile(string filePath)
         {
             if (IOUtils.IsValidFilePath(filePath))
@@ -210,13 +214,9 @@ namespace Core.Common.TestUtil
                 {
                     File.Delete(filePath);
                 }
-                catch (Exception e)
+                catch (Exception e) when (e is DirectoryNotFoundException || e is NotSupportedException || e is UnauthorizedAccessException)
                 {
-                    if (e is DirectoryNotFoundException || e is IOException || e is NotSupportedException || e is UnauthorizedAccessException)
-                    {
-                        throw new ArgumentException(e.Message);
-                    }
-                    throw;
+                    throw new ArgumentException(e.Message);
                 }
             }
         }

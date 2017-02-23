@@ -199,7 +199,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
         {
             // Setup
             var reader = new ReferenceLineReader();
-            string path = TestHelper.GetScratchPadPath(Path.GetRandomFileName());
+            string path = TestHelper.GetScratchPadPath(nameof(ReadReferenceLine_FileInUse_ThrowCriticalFileReadException));
 
             using (var fileDisposeHelper = new FileDisposeHelper(path))
             {

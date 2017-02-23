@@ -118,7 +118,7 @@ namespace Ringtoets.DuneErosion.IO.Test
         public void WriteDuneLocations_FileInUse_ThrowCriticalFileWriteException()
         {
             // Setup
-            string path = TestHelper.GetScratchPadPath(Path.GetRandomFileName());
+            string path = TestHelper.GetScratchPadPath(nameof(WriteDuneLocations_FileInUse_ThrowCriticalFileWriteException));
 
             using (var fileDisposeHelper = new FileDisposeHelper(path))
             {

@@ -144,8 +144,7 @@ namespace Core.Components.Gis.IO.Test.Writers
         public void SaveAs_ValidMapLineData_WritesShapeFile()
         {
             // Setup
-            string directoryPath = TestHelper.GetScratchPadPath("SaveAs_ValidMapLineData_WritesShapeFile");
-            Directory.CreateDirectory(directoryPath);
+            string directoryPath = TestHelper.GetScratchPadPath(nameof(SaveAs_ValidMapLineData_WritesShapeFile));
             string filePath = Path.Combine(directoryPath, "test.shp");
             var baseName = "test";
 
@@ -157,26 +156,20 @@ namespace Core.Components.Gis.IO.Test.Writers
             };
 
             mapLineData.Features.First().MetaData["<some key>"] = 123;
-
-            try
+            
+            using(new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), nameof(SaveAs_ValidMapLineData_WritesShapeFile)))
+            using (var writer = new PolylineShapeFileWriter())
             {
-                using (var writer = new PolylineShapeFileWriter())
-                {
-                    writer.CopyToFeature(mapLineData);
+                writer.CopyToFeature(mapLineData);
+                
+                // Call
+                writer.SaveAs(filePath);
 
-                    // Precondition
-                    AssertEssentialShapefileExists(directoryPath, baseName, false);
-
-                    // Call
-                    writer.SaveAs(filePath);
-
-                    // Assert
-                    AssertEssentialShapefileExists(directoryPath, baseName, true);
-                }
-            }
-            finally
-            {
-                Directory.Delete(directoryPath, true);
+                // Assert
+                string pathName = Path.Combine(directoryPath, baseName);
+                Assert.IsTrue(File.Exists(pathName + ".shp"));
+                Assert.IsTrue(File.Exists(pathName + ".shx"));
+                Assert.IsTrue(File.Exists(pathName + ".dbf"));
             }
         }
 
@@ -197,14 +190,6 @@ namespace Core.Components.Gis.IO.Test.Writers
                     })
                 })
             };
-        }
-
-        private static void AssertEssentialShapefileExists(string directoryPath, string baseName, bool shouldExist)
-        {
-            string pathName = Path.Combine(directoryPath, baseName);
-            Assert.AreEqual(shouldExist, File.Exists(pathName + ".shp"));
-            Assert.AreEqual(shouldExist, File.Exists(pathName + ".shx"));
-            Assert.AreEqual(shouldExist, File.Exists(pathName + ".dbf"));
         }
     }
 }

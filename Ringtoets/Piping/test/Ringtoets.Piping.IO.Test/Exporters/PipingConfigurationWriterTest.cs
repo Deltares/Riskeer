@@ -152,7 +152,7 @@ namespace Ringtoets.Piping.IO.Test.Exporters
         public void Write_FileInUse_ThrowCriticalFileWriteException()
         {
             // Setup
-            string path = TestHelper.GetScratchPadPath(Path.GetRandomFileName());
+            string path = TestHelper.GetScratchPadPath(nameof(Write_FileInUse_ThrowCriticalFileWriteException));
 
             using (var fileDisposeHelper = new FileDisposeHelper(path))
             {

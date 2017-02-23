@@ -134,27 +134,21 @@ namespace Core.Components.Gis.IO.Test.Writers
         [Test]
         public void SaveAs_InvalidDirectoryRights_ThrowCriticalFileWriteException()
         {
-            string directoryPath = TestHelper.GetScratchPadPath("SaveAs_InvalidDirectoryRights_ThrowCriticalFileWriteException");
-            Directory.CreateDirectory(directoryPath);
+            string directoryPath = TestHelper.GetScratchPadPath(nameof(SaveAs_InvalidDirectoryRights_ThrowCriticalFileWriteException));
             string filePath = Path.Combine(directoryPath, "test.shp");
-
-            try
+            
+            using (var disposeHelper = new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), nameof(SaveAs_InvalidDirectoryRights_ThrowCriticalFileWriteException)))
+            using (var writer = new TestShapeFileWriterBase())
             {
-                using (new DirectoryPermissionsRevoker(directoryPath, FileSystemRights.Write))
-                using (var writer = new TestShapeFileWriterBase())
-                {
-                    // Call
-                    TestDelegate call = () => writer.SaveAs(filePath);
+                disposeHelper.LockDirectory(FileSystemRights.Write);
 
-                    // Assert
-                    var expectedMessage = $"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{filePath}'.";
-                    var message = Assert.Throws<CriticalFileWriteException>(call).Message;
-                    Assert.AreEqual(expectedMessage, message);
-                }
-            }
-            finally
-            {
-                Directory.Delete(directoryPath, true);
+                // Call
+                TestDelegate call = () => writer.SaveAs(filePath);
+
+                // Assert
+                var expectedMessage = $"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{filePath}'.";
+                var message = Assert.Throws<CriticalFileWriteException>(call).Message;
+                Assert.AreEqual(expectedMessage, message);
             }
         }
 

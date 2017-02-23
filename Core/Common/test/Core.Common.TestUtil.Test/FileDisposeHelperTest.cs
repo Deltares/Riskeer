@@ -32,7 +32,7 @@ namespace Core.Common.TestUtil.Test
         public void Constructor_NotExistingFile_DoesNotThrowException()
         {
             // Setup
-            string filePath = TestHelper.GetScratchPadPath(Path.GetRandomFileName());
+            string filePath = TestHelper.GetScratchPadPath(nameof(Constructor_NotExistingFile_DoesNotThrowException));
             FileDisposeHelper disposeHelper = null;
 
             // Precondition
@@ -51,7 +51,7 @@ namespace Core.Common.TestUtil.Test
         public void Constructor_ExistingFile_DoesNotThrowException()
         {
             // Setup
-            string filePath = TestHelper.GetScratchPadPath(Path.GetRandomFileName());
+            string filePath = TestHelper.GetScratchPadPath(nameof(Constructor_ExistingFile_DoesNotThrowException));
             FileDisposeHelper disposeHelper = null;
 
             try
@@ -77,7 +77,7 @@ namespace Core.Common.TestUtil.Test
         public void Constructor_FileDoesNotExist_Createsfile()
         {
             // Setup
-            string filePath = TestHelper.GetScratchPadPath(Path.GetRandomFileName());
+            string filePath = TestHelper.GetScratchPadPath(nameof(Constructor_FileDoesNotExist_Createsfile));
 
             try
             {
@@ -118,8 +118,8 @@ namespace Core.Common.TestUtil.Test
             // Setup
             var filePaths = new[]
             {
-                TestHelper.GetScratchPadPath(Path.GetRandomFileName()),
-                TestHelper.GetScratchPadPath(Path.GetRandomFileName())
+                TestHelper.GetScratchPadPath($"{nameof(Constructor_MultipleFiles_CreatesFiles)}_0"),
+                TestHelper.GetScratchPadPath($"{nameof(Constructor_MultipleFiles_CreatesFiles)}_1")
             };
 
             try
@@ -177,7 +177,7 @@ namespace Core.Common.TestUtil.Test
         public void LockFiles_ValidFilePath_LocksFile()
         {
             // Setup
-            string filePath = TestHelper.GetScratchPadPath(Path.GetRandomFileName());
+            string filePath = TestHelper.GetScratchPadPath(nameof(LockFiles_ValidFilePath_LocksFile));
 
             try
             {
@@ -203,7 +203,7 @@ namespace Core.Common.TestUtil.Test
         public void LockFiles_FileAlreadyLocked_ThrowsInvalidOperationException()
         {
             // Setup
-            string filePath = TestHelper.GetScratchPadPath(Path.GetRandomFileName());
+            string filePath = TestHelper.GetScratchPadPath(nameof(LockFiles_FileAlreadyLocked_ThrowsInvalidOperationException));
 
             try
             {
@@ -231,7 +231,7 @@ namespace Core.Common.TestUtil.Test
         {
             // Setup
             string directoryPath = TestHelper.GetScratchPadPath(Path.GetRandomFileName());
-            string filePath = Path.Combine(directoryPath, Path.GetRandomFileName());
+            string filePath = Path.Combine(directoryPath, nameof(LockFiles_DirectoryAlreadyDeleted_ThrowsInvalidOperationException));
 
             try
             {
@@ -266,7 +266,7 @@ namespace Core.Common.TestUtil.Test
         public void LockedFiles_LockFilesCalledAlready_DoesNotThrowException()
         {
             // Setup
-            string filePath = TestHelper.GetScratchPadPath(Path.GetRandomFileName());
+            string filePath = TestHelper.GetScratchPadPath(nameof(LockedFiles_LockFilesCalledAlready_DoesNotThrowException));
 
             try
             {
@@ -307,7 +307,7 @@ namespace Core.Common.TestUtil.Test
         public void Dispose_ExistingFile_DeletesFile()
         {
             // Setup
-            string filePath = TestHelper.GetScratchPadPath(Path.GetRandomFileName());
+            string filePath = TestHelper.GetScratchPadPath(nameof(Dispose_ExistingFile_DeletesFile));
 
             try
             {
@@ -335,8 +335,8 @@ namespace Core.Common.TestUtil.Test
             // Setup
             var filePaths = new[]
             {
-                TestHelper.GetScratchPadPath(Path.GetRandomFileName()),
-                TestHelper.GetScratchPadPath(Path.GetRandomFileName())
+                TestHelper.GetScratchPadPath($"{nameof(Dispose_MultipleFiles_DeletesFiles)}_0"),
+                TestHelper.GetScratchPadPath($"{nameof(Dispose_MultipleFiles_DeletesFiles)}_1")
             };
 
             try
@@ -393,6 +393,32 @@ namespace Core.Common.TestUtil.Test
                     Directory.Delete(directoryPath, true);
                     Assert.Fail("File was not deleted: {0}", filePath);
                 }
+            }
+        }
+
+        [Test]
+        public void Dispose_FileInUse_ThrowsIOException()
+        {
+            // Setup
+            string filePath = TestHelper.GetScratchPadPath(nameof(Dispose_FileInUse_ThrowsIOException));
+
+            try
+            {
+                var disposeHelper = new FileDisposeHelper(filePath);
+
+                using (File.OpenWrite(filePath))
+                {
+                    // Call
+                    TestDelegate test = () => disposeHelper.Dispose();
+
+                    // Assert
+                    Assert.Throws<IOException>(test);
+                    Assert.True(File.Exists(filePath), $"'{filePath}' should still exist.");
+                }
+            }
+            finally
+            {
+                File.Delete(filePath);
             }
         }
 

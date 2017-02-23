@@ -90,7 +90,7 @@ namespace Core.Common.Gui.Test.Commands
         public void SaveProject_SavingProjectThrowsStorageException_AbortSaveAndReturnFalse()
         {
             // Setup
-            string someValidFilePath = TestHelper.GetScratchPadPath(Path.GetRandomFileName());
+            string someValidFilePath = TestHelper.GetScratchPadPath(nameof(SaveProject_SavingProjectThrowsStorageException_AbortSaveAndReturnFalse));
             using (new FileDisposeHelper(someValidFilePath))
             {
                 var projectStub = mocks.Stub<IProject>();
@@ -136,7 +136,7 @@ namespace Core.Common.Gui.Test.Commands
         public void SaveProject_SavingProjectIsSuccessful_LogSuccessAndReturnTrue()
         {
             // Setup
-            string someValidFilePath = TestHelper.GetScratchPadPath(Path.GetRandomFileName());
+            string someValidFilePath = TestHelper.GetScratchPadPath(nameof(SaveProject_SavingProjectIsSuccessful_LogSuccessAndReturnTrue));
             using (new FileDisposeHelper(someValidFilePath))
             {
                 var projectStub = mocks.Stub<IProject>();
@@ -474,7 +474,7 @@ namespace Core.Common.Gui.Test.Commands
             // Setup
             const string projectName = "Project";
             string messageBoxText = null;
-            string someValidFilePath = TestHelper.GetScratchPadPath(Path.GetRandomFileName());
+            string someValidFilePath = TestHelper.GetScratchPadPath(nameof(AskConfirmationUnsavedChanges_ProjectSetWithChangeYesPressed_ReturnsTrue));
             using (new FileDisposeHelper(someValidFilePath))
             {
                 var mainWindowController = mocks.Stub<IWin32Window>();
@@ -527,7 +527,7 @@ namespace Core.Common.Gui.Test.Commands
             // Setup
             const string projectName = "Project";
             string messageBoxText = null;
-            string someValidFilePath = TestHelper.GetScratchPadPath(Path.GetRandomFileName());
+            string someValidFilePath = TestHelper.GetScratchPadPath(nameof(AskConfirmationUnsavedChanges_ProjectSetWithChangeYesFileDoesNotExist_ReturnsTrue));
 
             var mainWindowController = mocks.Stub<IWin32Window>();
             var projectFactory = mocks.Stub<IProjectFactory>();
