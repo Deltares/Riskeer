@@ -72,9 +72,8 @@ namespace Core.Components.Gis.IO.Test.Readers
             TestDelegate call = () => new PolygonShapeFileReader(nonPolygonShapeFile);
 
             // Assert
-            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': kon geen polygonen vinden in dit bestand.",
-                                                nonPolygonShapeFile);
-            var message = Assert.Throws<CriticalFileReadException>(call).Message;
+            string expectedMessage = $"Fout bij het lezen van bestand '{nonPolygonShapeFile}': kon geen polygonen vinden in dit bestand.";
+            string message = Assert.Throws<CriticalFileReadException>(call).Message;
             Assert.AreEqual(expectedMessage, message);
         }
 
@@ -82,17 +81,18 @@ namespace Core.Components.Gis.IO.Test.Readers
         public void ParameteredConstructor_ShapeFileIsInUse_ThrowsCriticalFileReadException()
         {
             // Setup
-            string testFilePath = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO, "Single_Multi-Polygon_with_ID.shp");
+            string path = TestHelper.GetScratchPadPath(Path.GetRandomFileName());
 
-            using (File.Open(testFilePath, FileMode.Open, FileAccess.ReadWrite))
+            using (var fileDisposeHelper = new FileDisposeHelper(path))
             {
+                fileDisposeHelper.LockFiles();
+
                 // Call
-                TestDelegate call = () => new PolygonShapeFileReader(testFilePath);
+                TestDelegate call = () => new PolygonShapeFileReader(path);
 
                 // Assert
-                var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': het bestand kon niet worden geopend. Mogelijk is het bestand corrupt of in gebruik door een andere applicatie.",
-                                                    testFilePath);
-                CriticalFileReadException exception = Assert.Throws<CriticalFileReadException>(call);
+                string expectedMessage = $"Fout bij het lezen van bestand '{path}': het bestand kon niet worden geopend. Mogelijk is het bestand corrupt of in gebruik door een andere applicatie.";
+                var exception = Assert.Throws<CriticalFileReadException>(call);
                 Assert.AreEqual(expectedMessage, exception.Message);
                 Assert.IsInstanceOf<IOException>(exception.InnerException);
             }
@@ -107,7 +107,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             using (var reader = new PolygonShapeFileReader(shapeWithOnePolygon))
             {
                 // Call
-                var count = reader.GetNumberOfFeatures();
+                int count = reader.GetNumberOfFeatures();
 
                 // Assert
                 Assert.AreEqual(0, count);
@@ -123,7 +123,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             using (var reader = new PolygonShapeFileReader(shapeWithOnePolygon))
             {
                 // Call
-                var count = reader.GetNumberOfFeatures();
+                int count = reader.GetNumberOfFeatures();
 
                 // Assert
                 Assert.AreEqual(1, count);
@@ -139,7 +139,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             using (var reader = new PolygonShapeFileReader(shapeWithOnePolygonWithHoles))
             {
                 // Call
-                var count = reader.GetNumberOfFeatures();
+                int count = reader.GetNumberOfFeatures();
 
                 // Assert
                 Assert.AreEqual(1, count);
@@ -156,7 +156,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             using (var reader = new PolygonShapeFileReader(shapeWithMultiplePolygons))
             {
                 // Call
-                var count = reader.GetNumberOfFeatures();
+                int count = reader.GetNumberOfFeatures();
 
                 // Assert
                 Assert.AreEqual(4, count);
@@ -174,7 +174,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             using (var reader = new PolygonShapeFileReader(shapeWithOnePolygon))
             {
                 // Call
-                MapPolygonData polygon = (MapPolygonData) reader.ReadFeature(name);
+                var polygon = (MapPolygonData) reader.ReadFeature(name);
 
                 // Assert
                 Assert.AreEqual(name, polygon.Name);
@@ -193,7 +193,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             using (var reader = new PolygonShapeFileReader(shapeWithOnePolygon))
             {
                 // Call
-                MapPolygonData polygon = (MapPolygonData) reader.ReadFeature(name);
+                var polygon = (MapPolygonData) reader.ReadFeature(name);
 
                 // Assert
                 Assert.AreEqual("Polygoon", polygon.Name);
@@ -209,7 +209,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             using (var reader = new PolygonShapeFileReader(shapeWithOnePolygon))
             {
                 // Call
-                MapPolygonData polygon = (MapPolygonData) reader.ReadFeature();
+                var polygon = (MapPolygonData) reader.ReadFeature();
 
                 // Assert
                 Assert.IsNotNull(polygon);
@@ -238,7 +238,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             using (var reader = new PolygonShapeFileReader(shapeWithOnePolygonWithHoles))
             {
                 // Call
-                MapPolygonData polygon = (MapPolygonData) reader.ReadFeature();
+                var polygon = (MapPolygonData) reader.ReadFeature();
 
                 // Assert
                 Assert.IsNotNull(polygon);
@@ -301,7 +301,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             using (var reader = new PolygonShapeFileReader(shape))
             {
                 // Call
-                MapPolygonData polygon = (MapPolygonData) reader.ReadFeature();
+                var polygon = (MapPolygonData) reader.ReadFeature();
 
                 // Assert
                 Assert.IsNotNull(polygon);
@@ -333,10 +333,10 @@ namespace Core.Components.Gis.IO.Test.Readers
                 Assert.AreEqual(4, reader.GetNumberOfFeatures());
 
                 // Call
-                MapPolygonData polygons1 = (MapPolygonData) reader.ReadFeature();
-                MapPolygonData polygons2 = (MapPolygonData) reader.ReadFeature();
-                MapPolygonData polygons3 = (MapPolygonData) reader.ReadFeature();
-                MapPolygonData polygons4 = (MapPolygonData) reader.ReadFeature();
+                var polygons1 = (MapPolygonData) reader.ReadFeature();
+                var polygons2 = (MapPolygonData) reader.ReadFeature();
+                var polygons3 = (MapPolygonData) reader.ReadFeature();
+                var polygons4 = (MapPolygonData) reader.ReadFeature();
 
                 // Assert
 
@@ -427,7 +427,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             using (var reader = new PolygonShapeFileReader(shapeWithOnePolygon))
             {
                 // Call
-                MapPolygonData polygon = (MapPolygonData) reader.ReadShapeFile();
+                var polygon = (MapPolygonData) reader.ReadShapeFile();
 
                 // Assert
                 Assert.IsNotNull(polygon);
@@ -461,7 +461,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             using (var reader = new PolygonShapeFileReader(shape))
             {
                 // Call
-                MapPolygonData polygon = (MapPolygonData) reader.ReadShapeFile();
+                var polygon = (MapPolygonData) reader.ReadShapeFile();
 
                 // Assert
                 Assert.IsNotNull(polygon);
@@ -496,7 +496,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             using (var reader = new PolygonShapeFileReader(shapeWithOnePolygon))
             {
                 // Call
-                MapPolygonData polygon = (MapPolygonData) reader.ReadShapeFile(name);
+                var polygon = (MapPolygonData) reader.ReadShapeFile(name);
 
                 // Assert
                 Assert.AreEqual(name, polygon.Name);
@@ -515,7 +515,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             using (var reader = new PolygonShapeFileReader(shapeWithOnePolygon))
             {
                 // Call
-                MapPolygonData polygon = (MapPolygonData) reader.ReadShapeFile(name);
+                var polygon = (MapPolygonData) reader.ReadShapeFile(name);
 
                 // Assert
                 Assert.AreEqual("Polygoon", polygon.Name);
@@ -534,7 +534,7 @@ namespace Core.Components.Gis.IO.Test.Readers
                 Assert.AreEqual(4, reader.GetNumberOfFeatures());
 
                 // Call
-                MapPolygonData polygons = (MapPolygonData) reader.ReadShapeFile();
+                var polygons = (MapPolygonData) reader.ReadShapeFile();
 
                 // Assert
                 MapFeature[] features = polygons.Features.ToArray();
@@ -631,13 +631,13 @@ namespace Core.Components.Gis.IO.Test.Readers
                                                          fileName);
             using (var reader = new PolygonShapeFileReader(filePath))
             {
-                for (int i = 0; i < reader.GetNumberOfFeatures(); i++)
+                for (var i = 0; i < reader.GetNumberOfFeatures(); i++)
                 {
                     reader.ReadFeature();
                 }
 
                 // Call
-                MapPolygonData polygon = reader.ReadFeature() as MapPolygonData;
+                var polygon = reader.ReadFeature() as MapPolygonData;
 
                 // Assert
                 Assert.IsNull(polygon);

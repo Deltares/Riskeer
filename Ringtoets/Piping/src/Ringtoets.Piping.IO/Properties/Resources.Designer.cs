@@ -301,6 +301,27 @@ namespace Ringtoets.Piping.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+        ///&lt;!--
+        ///Copyright (C) Stichting Deltares 2016. All rights reserved.
+        ///
+        ///This file is part of Ringtoets.
+        ///
+        ///Ringtoets is free software: you can redistribute it and/or modify
+        ///it under the terms of the GNU General Public License as published by
+        ///the Free Software Foundation, either version 3 of the License, or
+        ///(at your option) any later version.
+        ///
+        ///This program is distributed in the hope that it will be useful,
+        ///but WITHOUT ANY WARRANTY; without even the implied warranty  [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string PipingConfigurationSchema {
+            get {
+                return ResourceManager.GetString("PipingConfigurationSchema", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database..
         /// </summary>
         public static string PipingSoilProfileReader_Critical_Unexpected_value_on_column {
@@ -684,6 +705,29 @@ namespace Ringtoets.Piping.IO.Properties {
         public static string StochasticSoilProfileDatabaseReader_StochasticSoilProfile_has_invalid_value {
             get {
                 return ResourceManager.GetString("StochasticSoilProfileDatabaseReader_StochasticSoilProfile_has_invalid_value", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot;?&gt;
+        ///
+        ///&lt;!--
+        ///Copyright (C) Stichting Deltares 2016. All rights reserved.
+        ///
+        ///This file is part of Ringtoets.
+        ///
+        ///Ringtoets is free software: you can redistribute it and/or modify
+        ///it under the terms of the GNU General Public License as published by
+        ///the Free Software Foundation, either version 3 of the License, or
+        ///(at your option) any later version.
+        ///
+        ///This program is distributed in the hope that it will be useful,
+        ///but WITHOUT ANY WARRANTY; without even the implied warranty of
+        ///MERCHANTABI [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string XmlGeometrySchema {
+            get {
+                return ResourceManager.GetString("XmlGeometrySchema", resourceCulture);
             }
         }
     }

@@ -66,9 +66,8 @@ namespace Core.Components.Gis.IO.Test.Readers
             TestDelegate call = () => new PolylineShapeFileReader(nonLineShapeFile);
 
             // Assert
-            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': kon geen lijnen vinden in dit bestand.",
-                                                nonLineShapeFile);
-            var message = Assert.Throws<CriticalFileReadException>(call).Message;
+            string expectedMessage = $"Fout bij het lezen van bestand '{nonLineShapeFile}': kon geen lijnen vinden in dit bestand.";
+            string message = Assert.Throws<CriticalFileReadException>(call).Message;
             Assert.AreEqual(expectedMessage, message);
         }
 
@@ -76,17 +75,18 @@ namespace Core.Components.Gis.IO.Test.Readers
         public void ParameteredConstructor_ShapeFileIsInUse_ThrowsCriticalFileReadException()
         {
             // Setup
-            string testFilePath = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO, "traject_10-1.shp");
+            string path = TestHelper.GetScratchPadPath(Path.GetRandomFileName());
 
-            using (File.Open(testFilePath, FileMode.Open, FileAccess.ReadWrite))
+            using (var fileDisposeHelper = new FileDisposeHelper(path))
             {
+                fileDisposeHelper.LockFiles();
+
                 // Call
-                TestDelegate call = () => new PolylineShapeFileReader(testFilePath);
+                TestDelegate call = () => new PolylineShapeFileReader(path);
 
                 // Assert
-                var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': het bestand kon niet worden geopend. Mogelijk is het bestand corrupt of in gebruik door een andere applicatie.",
-                                                    testFilePath);
-                CriticalFileReadException exception = Assert.Throws<CriticalFileReadException>(call);
+                string expectedMessage = $"Fout bij het lezen van bestand '{path}': het bestand kon niet worden geopend. Mogelijk is het bestand corrupt of in gebruik door een andere applicatie.";
+                var exception = Assert.Throws<CriticalFileReadException>(call);
                 Assert.AreEqual(expectedMessage, exception.Message);
                 Assert.IsInstanceOf<IOException>(exception.InnerException);
             }
@@ -101,7 +101,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             using (var reader = new PolylineShapeFileReader(shapeWithOneLine))
             {
                 // Call
-                var count = reader.GetNumberOfFeatures();
+                int count = reader.GetNumberOfFeatures();
 
                 // Assert
                 Assert.AreEqual(0, count);
@@ -117,7 +117,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             using (var reader = new PolylineShapeFileReader(shapeWithOneLine))
             {
                 // Call
-                var count = reader.GetNumberOfFeatures();
+                int count = reader.GetNumberOfFeatures();
 
                 // Assert
                 Assert.AreEqual(1, count);
@@ -134,7 +134,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             using (var reader = new PolylineShapeFileReader(shapeWithMultipleLines))
             {
                 // Call
-                var count = reader.GetNumberOfFeatures();
+                int count = reader.GetNumberOfFeatures();
 
                 // Assert
                 Assert.AreEqual(4, count);
@@ -152,7 +152,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             using (var reader = new PolylineShapeFileReader(shapeWithOneLine))
             {
                 // Call
-                MapLineData line = (MapLineData) reader.ReadFeature(name);
+                var line = (MapLineData) reader.ReadFeature(name);
 
                 // Assert
                 Assert.AreEqual(name, line.Name);
@@ -171,7 +171,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             using (var reader = new PolylineShapeFileReader(shapeWithOneLine))
             {
                 // Call
-                MapLineData line = (MapLineData) reader.ReadFeature(name);
+                var line = (MapLineData) reader.ReadFeature(name);
 
                 // Assert
                 Assert.AreEqual("Lijn", line.Name);
@@ -187,7 +187,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             using (var reader = new PolylineShapeFileReader(shapeWithOneLine))
             {
                 // Call
-                MapLineData line = (MapLineData) reader.ReadFeature();
+                var line = (MapLineData) reader.ReadFeature();
 
                 // Assert
                 Assert.IsNotNull(line);
@@ -228,10 +228,10 @@ namespace Core.Components.Gis.IO.Test.Readers
                 Assert.AreEqual(4, reader.GetNumberOfFeatures());
 
                 // Call
-                MapLineData line1 = (MapLineData) reader.ReadFeature();
-                MapLineData line2 = (MapLineData) reader.ReadFeature();
-                MapLineData line3 = (MapLineData) reader.ReadFeature();
-                MapLineData line4 = (MapLineData) reader.ReadFeature();
+                var line1 = (MapLineData) reader.ReadFeature();
+                var line2 = (MapLineData) reader.ReadFeature();
+                var line3 = (MapLineData) reader.ReadFeature();
+                var line4 = (MapLineData) reader.ReadFeature();
 
                 // Assert
 
@@ -332,7 +332,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             using (var reader = new PolylineShapeFileReader(shapeWithOneLine))
             {
                 // Call
-                MapLineData line = (MapLineData) reader.ReadShapeFile(name);
+                var line = (MapLineData) reader.ReadShapeFile(name);
 
                 // Assert
                 Assert.AreEqual(name, line.Name);
@@ -351,7 +351,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             using (var reader = new PolylineShapeFileReader(shapeWithOneLine))
             {
                 // Call
-                MapLineData line = (MapLineData) reader.ReadShapeFile(name);
+                var line = (MapLineData) reader.ReadShapeFile(name);
 
                 // Assert
                 Assert.AreEqual("Lijn", line.Name);
@@ -367,7 +367,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             using (var reader = new PolylineShapeFileReader(shapeWithOneLine))
             {
                 // Call
-                MapLineData line = (MapLineData) reader.ReadShapeFile();
+                var line = (MapLineData) reader.ReadShapeFile();
 
                 // Assert
                 Assert.IsNotNull(line);
@@ -409,7 +409,7 @@ namespace Core.Components.Gis.IO.Test.Readers
                 Assert.AreEqual(4, reader.GetNumberOfFeatures());
 
                 // Call
-                MapLineData lines = (MapLineData) reader.ReadShapeFile();
+                var lines = (MapLineData) reader.ReadShapeFile();
 
                 // Assert
                 MapFeature[] features = lines.Features.ToArray();
@@ -502,13 +502,13 @@ namespace Core.Components.Gis.IO.Test.Readers
                                                                        shapeFileName);
             using (var reader = new PolylineShapeFileReader(linesShapefileFilePath))
             {
-                for (int i = 0; i < reader.GetNumberOfFeatures(); i++)
+                for (var i = 0; i < reader.GetNumberOfFeatures(); i++)
                 {
                     reader.ReadFeature();
                 }
 
                 // Call
-                MapLineData line = reader.ReadFeature() as MapLineData;
+                var line = reader.ReadFeature() as MapLineData;
 
                 // Assert
                 Assert.IsNull(line);

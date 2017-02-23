@@ -67,9 +67,8 @@ namespace Core.Components.Gis.IO.Test.Readers
             TestDelegate call = () => new PointShapeFileReader(nonPointShapeFile);
 
             // Assert
-            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': kon geen punten vinden in dit bestand.",
-                                                nonPointShapeFile);
-            var message = Assert.Throws<CriticalFileReadException>(call).Message;
+            string expectedMessage = $"Fout bij het lezen van bestand '{nonPointShapeFile}': kon geen punten vinden in dit bestand.";
+            string message = Assert.Throws<CriticalFileReadException>(call).Message;
             Assert.AreEqual(expectedMessage, message);
         }
 
@@ -84,9 +83,8 @@ namespace Core.Components.Gis.IO.Test.Readers
             TestDelegate call = () => new PointShapeFileReader(nonExistingPointShapeFile);
 
             // Assert 
-            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': het bestand bestaat niet.",
-                                                nonExistingPointShapeFile);
-            var message = Assert.Throws<CriticalFileReadException>(call).Message;
+            string expectedMessage = $"Fout bij het lezen van bestand '{nonExistingPointShapeFile}': het bestand bestaat niet.";
+            string message = Assert.Throws<CriticalFileReadException>(call).Message;
             Assert.AreEqual(expectedMessage, message);
         }
 
@@ -101,9 +99,8 @@ namespace Core.Components.Gis.IO.Test.Readers
             TestDelegate call = () => new PointShapeFileReader(emptyPointShapeFile);
 
             // Assert
-            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': kon geen punten vinden in dit bestand.",
-                                                emptyPointShapeFile);
-            var message = Assert.Throws<CriticalFileReadException>(call).Message;
+            string expectedMessage = $"Fout bij het lezen van bestand '{emptyPointShapeFile}': kon geen punten vinden in dit bestand.";
+            string message = Assert.Throws<CriticalFileReadException>(call).Message;
             Assert.AreEqual(expectedMessage, message);
         }
 
@@ -118,9 +115,8 @@ namespace Core.Components.Gis.IO.Test.Readers
             TestDelegate call = () => new PointShapeFileReader(corruptPointShapeFile);
 
             // Assert
-            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': het bestand kon niet worden geopend. Mogelijk is het bestand corrupt of in gebruik door een andere applicatie.",
-                                                corruptPointShapeFile);
-            var message = Assert.Throws<CriticalFileReadException>(call).Message;
+            string expectedMessage = $"Fout bij het lezen van bestand '{corruptPointShapeFile}': het bestand kon niet worden geopend. Mogelijk is het bestand corrupt of in gebruik door een andere applicatie.";
+            string message = Assert.Throws<CriticalFileReadException>(call).Message;
             Assert.AreEqual(expectedMessage, message);
         }
 
@@ -128,17 +124,18 @@ namespace Core.Components.Gis.IO.Test.Readers
         public void ParameteredConstructor_ShapeFileIsInUse_ThrowsCriticalFileReadException()
         {
             // Setup
-            string testFilePath = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO, "Single_Point_with_ID.shp");
+            string path = TestHelper.GetScratchPadPath(Path.GetRandomFileName());
 
-            using (File.Open(testFilePath, FileMode.Open, FileAccess.ReadWrite))
+            using (var fileDisposeHelper = new FileDisposeHelper(path))
             {
+                fileDisposeHelper.LockFiles();
+
                 // Call
-                TestDelegate call = () => new PointShapeFileReader(testFilePath);
+                TestDelegate call = () => new PointShapeFileReader(path);
 
                 // Assert
-                var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': het bestand kon niet worden geopend. Mogelijk is het bestand corrupt of in gebruik door een andere applicatie.",
-                                                    testFilePath);
-                CriticalFileReadException exception = Assert.Throws<CriticalFileReadException>(call);
+                string expectedMessage = $"Fout bij het lezen van bestand '{path}': het bestand kon niet worden geopend. Mogelijk is het bestand corrupt of in gebruik door een andere applicatie.";
+                var exception = Assert.Throws<CriticalFileReadException>(call);
                 Assert.AreEqual(expectedMessage, exception.Message);
                 Assert.IsInstanceOf<IOException>(exception.InnerException);
             }
@@ -153,7 +150,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             using (var reader = new PointShapeFileReader(shapeWithOneLine))
             {
                 // Call
-                var count = reader.GetNumberOfFeatures();
+                int count = reader.GetNumberOfFeatures();
 
                 // Assert
                 Assert.AreEqual(0, count);
@@ -169,7 +166,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             using (var reader = new PointShapeFileReader(shapeWithOnePoint))
             {
                 // Call
-                var count = reader.GetNumberOfFeatures();
+                int count = reader.GetNumberOfFeatures();
 
                 // Assert
                 Assert.AreEqual(1, count);
@@ -186,7 +183,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             using (var reader = new PointShapeFileReader(shapeWithMultiplePoints))
             {
                 // Call
-                var count = reader.GetNumberOfFeatures();
+                int count = reader.GetNumberOfFeatures();
 
                 // Assert
                 Assert.AreEqual(6, count);
@@ -204,7 +201,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             using (var reader = new PointShapeFileReader(shapeWithOnePoint))
             {
                 // Call
-                MapPointData pointData = (MapPointData) reader.ReadFeature(name);
+                var pointData = (MapPointData) reader.ReadFeature(name);
 
                 // Assert
                 Assert.AreEqual(name, pointData.Name);
@@ -223,7 +220,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             using (var reader = new PointShapeFileReader(shapeWithOnePoint))
             {
                 // Call
-                MapPointData pointData = (MapPointData) reader.ReadFeature(name);
+                var pointData = (MapPointData) reader.ReadFeature(name);
 
                 // Assert
                 Assert.AreEqual("Punten", pointData.Name);
@@ -239,7 +236,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             using (var reader = new PointShapeFileReader(shapeWithOnePoint))
             {
                 // Call
-                MapPointData pointData = reader.ReadFeature() as MapPointData;
+                var pointData = reader.ReadFeature() as MapPointData;
 
                 // Assert
                 Assert.IsNotNull(pointData);
@@ -270,12 +267,12 @@ namespace Core.Components.Gis.IO.Test.Readers
                 Assert.AreEqual(6, reader.GetNumberOfFeatures());
 
                 // Call
-                MapPointData points1 = (MapPointData) reader.ReadFeature();
-                MapPointData points2 = (MapPointData) reader.ReadFeature();
-                MapPointData points3 = (MapPointData) reader.ReadFeature();
-                MapPointData points4 = (MapPointData) reader.ReadFeature();
-                MapPointData points5 = (MapPointData) reader.ReadFeature();
-                MapPointData points6 = (MapPointData) reader.ReadFeature();
+                var points1 = (MapPointData) reader.ReadFeature();
+                var points2 = (MapPointData) reader.ReadFeature();
+                var points3 = (MapPointData) reader.ReadFeature();
+                var points4 = (MapPointData) reader.ReadFeature();
+                var points5 = (MapPointData) reader.ReadFeature();
+                var points6 = (MapPointData) reader.ReadFeature();
 
                 // Assert
 
@@ -406,7 +403,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             using (var reader = new PointShapeFileReader(shapeWithOnePoint))
             {
                 // Call
-                MapPointData pointData = (MapPointData) reader.ReadShapeFile(name);
+                var pointData = (MapPointData) reader.ReadShapeFile(name);
 
                 // Assert
                 Assert.AreEqual(name, pointData.Name);
@@ -425,7 +422,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             using (var reader = new PointShapeFileReader(shapeWithOnePoint))
             {
                 // Call
-                MapPointData pointData = (MapPointData) reader.ReadShapeFile(name);
+                var pointData = (MapPointData) reader.ReadShapeFile(name);
 
                 // Assert
                 Assert.AreEqual("Punten", pointData.Name);
@@ -444,7 +441,7 @@ namespace Core.Components.Gis.IO.Test.Readers
                 Assert.AreEqual(6, reader.GetNumberOfFeatures());
 
                 // Call
-                MapPointData points = (MapPointData) reader.ReadShapeFile();
+                var points = (MapPointData) reader.ReadShapeFile();
 
                 // Assert
                 var features = points.Features.ToArray();
@@ -578,13 +575,13 @@ namespace Core.Components.Gis.IO.Test.Readers
                                                          fileName);
             using (var reader = new PointShapeFileReader(filePath))
             {
-                for (int i = 0; i < reader.GetNumberOfFeatures(); i++)
+                for (var i = 0; i < reader.GetNumberOfFeatures(); i++)
                 {
                     reader.ReadFeature();
                 }
 
                 // Call
-                MapPointData feature = reader.ReadFeature() as MapPointData;
+                var feature = reader.ReadFeature() as MapPointData;
 
                 // Assert
                 Assert.IsNull(feature);

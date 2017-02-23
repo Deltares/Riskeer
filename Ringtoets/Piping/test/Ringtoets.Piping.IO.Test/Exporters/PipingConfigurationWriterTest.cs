@@ -152,16 +152,18 @@ namespace Ringtoets.Piping.IO.Test.Exporters
         public void Write_FileInUse_ThrowCriticalFileWriteException()
         {
             // Setup
-            string filePath = TestHelper.GetScratchPadPath(Path.GetRandomFileName());
-            using (new FileDisposeHelper(filePath))
-            using (new FileStream(filePath, FileMode.Open))
+            string path = TestHelper.GetScratchPadPath(Path.GetRandomFileName());
+
+            using (var fileDisposeHelper = new FileDisposeHelper(path))
             {
+                fileDisposeHelper.LockFiles();
+
                 // Call
-                TestDelegate call = () => PipingConfigurationWriter.Write(new CalculationGroup(), filePath);
+                TestDelegate call = () => PipingConfigurationWriter.Write(new CalculationGroup(), path);
 
                 // Assert
                 var exception = Assert.Throws<CriticalFileWriteException>(call);
-                Assert.AreEqual($"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{filePath}'.", exception.Message);
+                Assert.AreEqual($"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{path}'.", exception.Message);
                 Assert.IsInstanceOf<IOException>(exception.InnerException);
             }
         }

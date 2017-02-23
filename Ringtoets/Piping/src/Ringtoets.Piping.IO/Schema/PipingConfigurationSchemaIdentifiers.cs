@@ -27,88 +27,88 @@ namespace Ringtoets.Piping.IO.Schema
     internal static class PipingConfigurationSchemaIdentifiers
     {
         /// <summary>
-        /// Gets the identifier for root elements.
+        /// The identifier for root elements.
         /// </summary>
-        internal static string RootElement => "root";
+        internal const string RootElement = "root";
 
         /// <summary>
-        /// Gets the identifier for calculation elements.
+        /// The identifier for calculation elements.
         /// </summary>
-        internal static string CalculationElement => "berekening";
+        internal const string CalculationElement = "berekening";
 
         /// <summary>
-        /// Gets the identifier for folder elements.
+        /// The identifier for folder elements.
         /// </summary>
-        internal static string FolderElement => "map";
+        internal const string FolderElement = "map";
 
         /// <summary>
-        /// Gets the identifier for name attributes.
+        /// The identifier for name attributes.
         /// </summary>
-        internal static string NameAttribute => "naam";
+        internal const string NameAttribute = "naam";
 
         /// <summary>
-        /// Gets the identifier for assessment level elements.
+        /// The identifier for assessment level elements.
         /// </summary>
-        internal static string AssessmentLevelElement => "toetspeil";
+        internal const string AssessmentLevelElement = "toetspeil";
 
         /// <summary>
-        /// Gets the identifier for hydraulic boundary location elements.
+        /// The identifier for hydraulic boundary location elements.
         /// </summary>
-        internal static string HydraulicBoundaryLocationElement => "hrlocatie";
+        internal const string HydraulicBoundaryLocationElement = "hrlocatie";
 
         /// <summary>
-        /// Gets the identifier for surface line elements.
+        /// The identifier for surface line elements.
         /// </summary>
-        internal static string SurfaceLineElement => "profielschematisatie";
+        internal const string SurfaceLineElement = "profielschematisatie";
 
         /// <summary>
-        /// Gets the identifier for entry point elements.
+        /// The identifier for entry point elements.
         /// </summary>
-        internal static string EntryPointElement => "intredepunt";
+        internal const string EntryPointLElement = "intredepunt";
 
         /// <summary>
-        /// Gets the identifier for exit point elements.
+        /// The identifier for exit point elements.
         /// </summary>
-        internal static string ExitPointElement => "uittredepunt";
+        internal const string ExitPointLElement = "uittredepunt";
 
         /// <summary>
-        /// Gets the identifier for stochastic soil model elements.
+        /// The identifier for stochastic soil model elements.
         /// </summary>
-        internal static string StochasticSoilModelElement => "ondergrondmodel";
+        internal const string StochasticSoilModelElement = "ondergrondmodel";
 
         /// <summary>
-        /// Gets the identifier for stochastic soil profile elements.
+        /// The identifier for stochastic soil profile elements.
         /// </summary>
-        internal static string StochasticSoilProfileElement => "ondergrondschematisatie";
+        internal const string StochasticSoilProfileElement = "ondergrondschematisatie";
 
         /// <summary>
-        /// Gets the identifier for stochasts elements.
+        /// The identifier for stochasts elements.
         /// </summary>
-        internal static string StochastsElement => "stochasten";
+        internal const string StochastsElement = "stochasten";
 
         /// <summary>
-        /// Gets the identifier for stochast elements.
+        /// The identifier for stochast elements.
         /// </summary>
-        internal static string StochastElement => "stochast";
+        internal const string StochastElement = "stochast";
 
         /// <summary>
-        /// Gets the identifier for mean elements.
+        /// The identifier for mean elements.
         /// </summary>
-        internal static string MeanElement => "verwachtingswaarde";
+        internal const string MeanElement = "verwachtingswaarde";
 
         /// <summary>
-        /// Gets the identifier for standard deviation elements.
+        /// The identifier for standard deviation elements.
         /// </summary>
-        internal static string StandardDeviationElement => "standaardafwijking";
+        internal const string StandardDeviationElement = "standaardafwijking";
 
         /// <summary>
-        /// Gets the identifier for the phreatic level exit stochast names.
+        /// The identifier for the phreatic level exit stochast names.
         /// </summary>
-        internal static string PhreaticLevelExitStochastName => "polderpeil";
+        internal const string PhreaticLevelExitStochastName = "polderpeil";
 
         /// <summary>
-        /// Gets the identifier for the damping factor exit stochast names.
+        /// The identifier for the damping factor exit stochast names.
         /// </summary>
-        internal static string DampingFactorExitStochastName => "dempingsfactor";
+        internal const string DampingFactorExitStochastName = "dempingsfactor";
     }
 }

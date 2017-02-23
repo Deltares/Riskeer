@@ -163,17 +163,17 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
         public void Constructor_FileInUse_ThrowCriticalFileReadException()
         {
             // Setup
-            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                              Path.Combine("DikeProfiles", "Voorlanden 12-2.shp"));
+            string path = TestHelper.GetScratchPadPath(Path.GetRandomFileName());
 
-            using (new FileStream(validFilePath, FileMode.Open))
+            using (var fileDisposeHelper = new FileDisposeHelper(path))
             {
+                fileDisposeHelper.LockFiles();
+
                 // Call
-                TestDelegate call = () => new ProfileLocationReader(validFilePath);
+                TestDelegate call = () => new ProfileLocationReader(path);
 
                 // Assert
-                var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': het bestand kon niet worden geopend. Mogelijk is het bestand corrupt of in gebruik door een andere applicatie.",
-                                                    validFilePath);
+                string expectedMessage = $"Fout bij het lezen van bestand '{path}': het bestand kon niet worden geopend. Mogelijk is het bestand corrupt of in gebruik door een andere applicatie.";
                 var exception = Assert.Throws<CriticalFileReadException>(call);
                 Assert.AreEqual(expectedMessage, exception.Message);
                 Assert.IsInstanceOf<IOException>(exception.InnerException);

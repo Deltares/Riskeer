@@ -144,13 +144,9 @@ namespace Ringtoets.Piping.IO.Readers
 
         private static XmlSchemaSet LoadXmlSchema()
         {
-            Stream schemaFile = AssemblyUtils.GetAssemblyResourceStream(typeof(PipingConfigurationReader).Assembly,
-                                                                        "Ringtoets.Piping.IO.Schema.PipingConfigurationSchema.xsd");
-
-            var xmlSchema = new XmlSchemaSet();
-            xmlSchema.Add(XmlSchema.Read(schemaFile, null));
-
-            return xmlSchema;
+            var xmlSchemaSet = new XmlSchemaSet();
+            xmlSchemaSet.Add(XmlSchema.Read(new StringReader(Resources.PipingConfigurationSchema), null));
+            return xmlSchemaSet;
         }
 
         /// <summary>
@@ -206,9 +202,9 @@ namespace Ringtoets.Piping.IO.Readers
                 SurfaceLine = GetStringValueFromChildElement(calculationElement,
                                                              PipingConfigurationSchemaIdentifiers.SurfaceLineElement),
                 EntryPointL = GetDoubleValueFromChildElement(calculationElement,
-                                                             PipingConfigurationSchemaIdentifiers.EntryPointElement),
+                                                             PipingConfigurationSchemaIdentifiers.EntryPointLElement),
                 ExitPointL = GetDoubleValueFromChildElement(calculationElement,
-                                                            PipingConfigurationSchemaIdentifiers.ExitPointElement),
+                                                            PipingConfigurationSchemaIdentifiers.ExitPointLElement),
                 StochasticSoilModel = GetStringValueFromChildElement(calculationElement,
                                                                      PipingConfigurationSchemaIdentifiers.StochasticSoilModelElement),
                 StochasticSoilProfile = GetStringValueFromChildElement(calculationElement,

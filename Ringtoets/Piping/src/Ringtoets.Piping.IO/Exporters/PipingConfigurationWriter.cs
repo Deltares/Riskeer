@@ -130,9 +130,9 @@ namespace Ringtoets.Piping.IO.Exporters
             {
                 writer.WriteElementString(PipingConfigurationSchemaIdentifiers.SurfaceLineElement,
                                           calculationInputParameters.SurfaceLine.Name);
-                writer.WriteElementString(PipingConfigurationSchemaIdentifiers.EntryPointElement,
+                writer.WriteElementString(PipingConfigurationSchemaIdentifiers.EntryPointLElement,
                                           ToStringInvariantCulture(calculationInputParameters.EntryPointL));
-                writer.WriteElementString(PipingConfigurationSchemaIdentifiers.ExitPointElement,
+                writer.WriteElementString(PipingConfigurationSchemaIdentifiers.ExitPointLElement,
                                           ToStringInvariantCulture(calculationInputParameters.ExitPointL));
             }
 

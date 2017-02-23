@@ -29,7 +29,6 @@ using System.Xml.Linq;
 using System.Xml.Schema;
 using System.Xml.XPath;
 using Core.Common.Base.Geometry;
-using Core.Common.Utils.Reflection;
 using Ringtoets.Piping.IO.Builders;
 using Ringtoets.Piping.IO.Exceptions;
 using Ringtoets.Piping.IO.Properties;
@@ -134,13 +133,11 @@ namespace Ringtoets.Piping.IO.SoilProfile
             }
         }
 
-        private XmlSchemaSet LoadXmlSchema()
+        private static XmlSchemaSet LoadXmlSchema()
         {
-            var schemaFile = AssemblyUtils.GetAssemblyResourceStream(GetType().Assembly,
-                                                                     "Ringtoets.Piping.IO.SoilProfile.XmlGeometrySchema.xsd");
-            var xmlSchema = new XmlSchemaSet();
-            xmlSchema.Add(XmlSchema.Read(schemaFile, null));
-            return xmlSchema;
+            var xmlSchemaSet = new XmlSchemaSet();
+            xmlSchemaSet.Add(XmlSchema.Read(new StringReader(Resources.XmlGeometrySchema), null));
+            return xmlSchemaSet;
         }
 
         /// <summary>
@@ -198,7 +195,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
                 return new Segment2D(
                     ParsePoint(headDefinition),
                     ParsePoint(endDefinition)
-                    );
+                );
             }
             throw new SoilLayerConversionException(Resources.SoilLayer2DReader_Geometry_contains_no_valid_xml);
         }

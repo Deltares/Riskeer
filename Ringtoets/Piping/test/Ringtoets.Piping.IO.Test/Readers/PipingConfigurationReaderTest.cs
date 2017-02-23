@@ -234,15 +234,17 @@ namespace Ringtoets.Piping.IO.Test.Readers
         public void Constructor_FileInUse_ThrowCriticalFileReadException()
         {
             // Setup
-            string filePath = Path.Combine(testDirectoryPath, "validConfigurationNesting.xml");
+            string path = TestHelper.GetScratchPadPath(Path.GetRandomFileName());
 
-            using (new FileStream(filePath, FileMode.Open))
+            using (var fileDisposeHelper = new FileDisposeHelper(path))
             {
+                fileDisposeHelper.LockFiles();
+
                 // Call
-                TestDelegate call = () => new PipingConfigurationReader(filePath);
+                TestDelegate call = () => new PipingConfigurationReader(path);
 
                 // Assert
-                string expectedMessage = $"Fout bij het lezen van bestand '{filePath}': het bestand kon niet worden geopend. Mogelijk is het bestand corrupt of in gebruik door een andere applicatie.";
+                string expectedMessage = $"Fout bij het lezen van bestand '{path}': het bestand kon niet worden geopend. Mogelijk is het bestand corrupt of in gebruik door een andere applicatie.";
                 var exception = Assert.Throws<CriticalFileReadException>(call);
                 Assert.AreEqual(expectedMessage, exception.Message);
                 Assert.IsInstanceOf<IOException>(exception.InnerException);

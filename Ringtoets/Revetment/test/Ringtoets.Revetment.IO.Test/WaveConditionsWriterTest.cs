@@ -119,16 +119,18 @@ namespace Ringtoets.Revetment.IO.Test
         public void WriteWaveConditions_FileInUse_ThrowCriticalFileWriteException()
         {
             // Setup
-            string filePath = TestHelper.GetScratchPadPath(Path.GetRandomFileName());
-            using (new FileDisposeHelper(filePath))
-            using (new FileStream(filePath, FileMode.Open))
+            string path = TestHelper.GetScratchPadPath(Path.GetRandomFileName());
+
+            using (var fileDisposeHelper = new FileDisposeHelper(path))
             {
+                fileDisposeHelper.LockFiles();
+
                 // Call
-                TestDelegate call = () => WaveConditionsWriter.WriteWaveConditions(Enumerable.Empty<ExportableWaveConditions>(), filePath);
+                TestDelegate call = () => WaveConditionsWriter.WriteWaveConditions(Enumerable.Empty<ExportableWaveConditions>(), path);
 
                 // Assert
                 var exception = Assert.Throws<CriticalFileWriteException>(call);
-                Assert.AreEqual($"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{filePath}'.", exception.Message);
+                Assert.AreEqual($"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{path}'.", exception.Message);
                 Assert.IsInstanceOf<IOException>(exception.InnerException);
             }
         }
@@ -139,7 +141,7 @@ namespace Ringtoets.Revetment.IO.Test
             // Setup
             ExportableWaveConditions[] exportableWaveConditions =
             {
-                new ExportableWaveConditions("blocksName", new WaveConditionsInput()
+                new ExportableWaveConditions("blocksName", new WaveConditionsInput
                 {
                     HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0)
                     {

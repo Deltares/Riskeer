@@ -118,16 +118,18 @@ namespace Ringtoets.DuneErosion.IO.Test
         public void WriteDuneLocations_FileInUse_ThrowCriticalFileWriteException()
         {
             // Setup
-            string filePath = TestHelper.GetScratchPadPath(Path.GetRandomFileName());
-            using (new FileDisposeHelper(filePath))
-            using (new FileStream(filePath, FileMode.Open))
+            string path = TestHelper.GetScratchPadPath(Path.GetRandomFileName());
+
+            using (var fileDisposeHelper = new FileDisposeHelper(path))
             {
+                fileDisposeHelper.LockFiles();
+
                 // Call
-                TestDelegate call = () => DuneLocationsWriter.WriteDuneLocations(Enumerable.Empty<DuneLocation>(), filePath);
+                TestDelegate call = () => DuneLocationsWriter.WriteDuneLocations(Enumerable.Empty<DuneLocation>(), path);
 
                 // Assert
                 var exception = Assert.Throws<CriticalFileWriteException>(call);
-                Assert.AreEqual($"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{filePath}'.", exception.Message);
+                Assert.AreEqual($"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{path}'.", exception.Message);
                 Assert.IsInstanceOf<IOException>(exception.InnerException);
             }
         }
@@ -136,12 +138,12 @@ namespace Ringtoets.DuneErosion.IO.Test
         public void WriteDuneLocations_ValidData_ValidFile()
         {
             // Setup
-            var locationNoOutput = CreateDuneLocationForExport(9, 9740, 1.9583e-4);
+            DuneLocation locationNoOutput = CreateDuneLocationForExport(9, 9740, 1.9583e-4);
 
-            var locationUncalculatedOutput = CreateDuneLocationForExport(10, 9770.1, 1.9583e-4);
+            DuneLocation locationUncalculatedOutput = CreateDuneLocationForExport(10, 9770.1, 1.9583e-4);
             locationUncalculatedOutput.Output = CreateDuneLocationOutputForExport(double.NaN, double.NaN, double.NaN);
 
-            var locationCalculatedOutput = CreateDuneLocationForExport(11, 9771.34, 1.337e-4);
+            DuneLocation locationCalculatedOutput = CreateDuneLocationForExport(11, 9771.34, 1.337e-4);
             locationCalculatedOutput.Output = CreateDuneLocationOutputForExport(5.89, 14.11, 8.53);
 
             DuneLocation[] duneLocations =

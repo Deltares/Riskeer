@@ -37,8 +37,8 @@ namespace Ringtoets.Piping.IO.Test.Schema
             Assert.AreEqual("toetspeil", PipingConfigurationSchemaIdentifiers.AssessmentLevelElement);
             Assert.AreEqual("hrlocatie", PipingConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElement);
             Assert.AreEqual("profielschematisatie", PipingConfigurationSchemaIdentifiers.SurfaceLineElement);
-            Assert.AreEqual("intredepunt", PipingConfigurationSchemaIdentifiers.EntryPointElement);
-            Assert.AreEqual("uittredepunt", PipingConfigurationSchemaIdentifiers.ExitPointElement);
+            Assert.AreEqual("intredepunt", PipingConfigurationSchemaIdentifiers.EntryPointLElement);
+            Assert.AreEqual("uittredepunt", PipingConfigurationSchemaIdentifiers.ExitPointLElement);
             Assert.AreEqual("ondergrondmodel", PipingConfigurationSchemaIdentifiers.StochasticSoilModelElement);
             Assert.AreEqual("ondergrondschematisatie", PipingConfigurationSchemaIdentifiers.StochasticSoilProfileElement);
             Assert.AreEqual("stochasten", PipingConfigurationSchemaIdentifiers.StochastsElement);
