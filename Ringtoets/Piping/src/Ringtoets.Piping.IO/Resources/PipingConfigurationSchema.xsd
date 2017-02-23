@@ -22,7 +22,7 @@ Stichting Deltares and remain full property of Stichting Deltares at all times.
 All rights reserved.
 -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:element name="root">
+  <xs:element name="configuratie">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
         <xs:element ref="berekening"/>

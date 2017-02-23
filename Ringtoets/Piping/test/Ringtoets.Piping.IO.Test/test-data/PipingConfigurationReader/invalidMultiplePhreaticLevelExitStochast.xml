@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<root>
+<configuratie>
   <berekening naam="Calculation 2">
     <stochasten>
       <stochast naam="polderpeil">
@@ -12,4 +12,4 @@
       </stochast>
     </stochasten>
   </berekening>
-</root>
+</configuratie>

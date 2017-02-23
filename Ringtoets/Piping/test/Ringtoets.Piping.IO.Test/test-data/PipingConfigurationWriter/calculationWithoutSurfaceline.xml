@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<root>
+<configuratie>
   <berekening naam="PK001_0001 W1-6_0_1D1">
     <hrlocatie>PUNT_KAT_18</hrlocatie>
     <ondergrondmodel>PK001_0001_Piping</ondergrondmodel>
@@ -15,4 +15,4 @@
       </stochast>
     </stochasten>
   </berekening>
-</root>
+</configuratie>

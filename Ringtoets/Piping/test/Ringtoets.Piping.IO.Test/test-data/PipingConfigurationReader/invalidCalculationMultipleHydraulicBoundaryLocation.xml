@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<root>
+<configuratie>
   <berekening naam="Calculation">
     <hrlocatie>HRlocatie 1</hrlocatie>
     <hrlocatie>HRlocatie 2</hrlocatie>
   </berekening>
-</root>
+</configuratie>

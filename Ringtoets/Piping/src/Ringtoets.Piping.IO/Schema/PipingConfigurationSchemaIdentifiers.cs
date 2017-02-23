@@ -27,9 +27,9 @@ namespace Ringtoets.Piping.IO.Schema
     internal static class PipingConfigurationSchemaIdentifiers
     {
         /// <summary>
-        /// The identifier for root elements.
+        /// The identifier for configuration elements.
         /// </summary>
-        internal const string RootElement = "root";
+        internal const string ConfigurationElement = "configuratie";
 
         /// <summary>
         /// The identifier for calculation elements.

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<root>
+<configuratie>
   <berekening naam="Calculation">
     <stochasts/>
     <stochasts/>
   </berekening>
-</root>
+</configuratie>

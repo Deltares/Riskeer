@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<root>
+<configuratie>
   <berekening naam="Calculation">
     <uittredepunt>1.1</uittredepunt>
     <uittredepunt>2.2</uittredepunt>
   </berekening>
-</root>
+</configuratie>

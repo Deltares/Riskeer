@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<root>
+<configuratie>
   <berekening naam="PK001_0001 W1-6_0_1D1">
     <toetspeil>NaN</toetspeil>
     <profielschematisatie>PK001_0001</profielschematisatie>
@@ -18,4 +18,4 @@
       </stochast>
     </stochasten>
   </berekening>
-</root>
+</configuratie>

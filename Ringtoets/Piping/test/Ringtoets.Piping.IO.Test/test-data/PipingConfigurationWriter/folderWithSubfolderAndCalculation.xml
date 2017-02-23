@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<root>
+<configuratie>
   <map naam="PK001_0001">
     <berekening naam="PK001_0001 W1-6_0_1D1">
       <hrlocatie>PUNT_KAT_18</hrlocatie>
@@ -40,4 +40,4 @@
       </berekening>
     </map>
   </map>
-</root>
+</configuratie>

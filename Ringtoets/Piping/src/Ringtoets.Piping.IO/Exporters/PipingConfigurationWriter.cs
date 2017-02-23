@@ -66,7 +66,7 @@ namespace Ringtoets.Piping.IO.Exporters
                 using (XmlWriter writer = XmlWriter.Create(filePath, settings))
                 {
                     writer.WriteStartDocument();
-                    writer.WriteStartElement(PipingConfigurationSchemaIdentifiers.RootElement);
+                    writer.WriteStartElement(PipingConfigurationSchemaIdentifiers.ConfigurationElement);
 
                     WriteConfiguration(rootCalculationGroup, writer);
 
