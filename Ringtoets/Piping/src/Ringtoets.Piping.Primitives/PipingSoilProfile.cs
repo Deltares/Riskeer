@@ -142,7 +142,6 @@ namespace Ringtoets.Piping.Primitives
             unchecked
             {
                 int hashCode = layers?.GetHashCode() ?? 0;
-                hashCode = (hashCode * 397) ^ PipingSoilProfileId.GetHashCode();
                 hashCode = (hashCode * 397) ^ Bottom.GetHashCode();
                 hashCode = (hashCode * 397) ^ (Name?.GetHashCode() ?? 0);
                 hashCode = (hashCode * 397) ^ (int) SoilProfileType;
@@ -153,7 +152,6 @@ namespace Ringtoets.Piping.Primitives
         private bool Equals(PipingSoilProfile other)
         {
             return AreLayersEqual(other.layers)
-                   && PipingSoilProfileId == other.PipingSoilProfileId
                    && Bottom.Equals(other.Bottom)
                    && string.Equals(Name, other.Name)
                    && SoilProfileType == other.SoilProfileType;

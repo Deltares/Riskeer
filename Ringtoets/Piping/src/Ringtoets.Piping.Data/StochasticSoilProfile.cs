@@ -35,7 +35,7 @@ namespace Ringtoets.Piping.Data
     {
         private double probability;
 
-        private static readonly Range<double> probabilityValidityRange = new Range<double>(0,1);
+        private static readonly Range<double> probabilityValidityRange = new Range<double>(0, 1);
 
         /// <summary>
         /// Creates a new instance of <see cref="StochasticSoilProfile"/>.
@@ -80,9 +80,11 @@ namespace Ringtoets.Piping.Data
             {
                 if (!probabilityValidityRange.InRange(value))
                 {
-                    throw new ArgumentOutOfRangeException(nameof(value), string.Format(
-                        Resources.StochasticSoilProfile_Probability_Should_be_in_range_0_,
-                        probabilityValidityRange.ToString(FormattableConstants.ShowAtLeastOneDecimal, CultureInfo.CurrentCulture)));
+                    throw new ArgumentOutOfRangeException(
+                        nameof(value),
+                        string.Format(
+                            Resources.StochasticSoilProfile_Probability_Should_be_in_range_0_,
+                            probabilityValidityRange.ToString(FormattableConstants.ShowAtLeastOneDecimal, CultureInfo.CurrentCulture)));
                 }
                 probability = value;
             }
@@ -130,10 +132,9 @@ namespace Ringtoets.Piping.Data
 
         protected bool Equals(StochasticSoilProfile other)
         {
-            return Probability.Equals(other.Probability) 
-                && SoilProfileType == other.SoilProfileType 
-                && SoilProfileId == other.SoilProfileId 
-                && Equals(SoilProfile, other.SoilProfile);
+            return Probability.Equals(other.Probability)
+                   && SoilProfileType == other.SoilProfileType
+                   && Equals(SoilProfile, other.SoilProfile);
         }
 
         public override bool Equals(object obj)
@@ -150,7 +151,6 @@ namespace Ringtoets.Piping.Data
             {
                 int hashCode = Probability.GetHashCode();
                 hashCode = (hashCode * 397) ^ (int) SoilProfileType;
-                hashCode = (hashCode * 397) ^ SoilProfileId.GetHashCode();
                 hashCode = (hashCode * 397) ^ (SoilProfile?.GetHashCode() ?? 0);
                 return hashCode;
             }

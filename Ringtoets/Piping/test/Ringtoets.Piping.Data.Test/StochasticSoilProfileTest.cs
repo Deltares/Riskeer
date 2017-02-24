@@ -31,6 +31,8 @@ namespace Ringtoets.Piping.Data.Test
     [TestFixture]
     public class StochasticSoilProfileTest
     {
+        private static readonly Random profileIdRandom = new Random(32);
+
         [Test]
         [TestCase(0.1, SoilProfileType.SoilProfile1D, 123L)]
         [TestCase(0.26, SoilProfileType.SoilProfile2D, 123L)]
@@ -237,6 +239,8 @@ namespace Ringtoets.Piping.Data.Test
             StochasticSoilProfile profileA = CreateRandomStochasticProfile(21);
             StochasticSoilProfile profileB = CreateRandomStochasticProfile(21);
             StochasticSoilProfile profileC = CreateRandomStochasticProfile(73);
+            StochasticSoilProfile profileE = new StochasticSoilProfile(0.5, SoilProfileType.SoilProfile1D, 25);
+            StochasticSoilProfile profileF = new StochasticSoilProfile(0.5, SoilProfileType.SoilProfile1D, 45);
 
             return new[]
             {
@@ -247,6 +251,10 @@ namespace Ringtoets.Piping.Data.Test
                 new TestCaseData(profileB, profileC, false)
                 {
                     TestName = "Equals_ProfileBProfileC_False"
+                },
+                new TestCaseData(profileE, profileF, true)
+                {
+                    TestName = "Equals_DifferentIds_True"
                 }
             };
         }
@@ -254,7 +262,7 @@ namespace Ringtoets.Piping.Data.Test
         private static StochasticSoilProfile CreateRandomStochasticProfile(int randomSeed)
         {
             var random = new Random(randomSeed);
-            return new StochasticSoilProfile(random.NextDouble(), SoilProfileType.SoilProfile1D, random.Next())
+            return new StochasticSoilProfile(random.NextDouble(), SoilProfileType.SoilProfile1D, profileIdRandom.Next())
             {
                 SoilProfile = CreateRandomProfile(random)
             };

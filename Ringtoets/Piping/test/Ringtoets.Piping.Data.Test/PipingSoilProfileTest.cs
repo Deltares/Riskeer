@@ -34,6 +34,8 @@ namespace Ringtoets.Piping.Data.Test
     [TestFixture]
     public class PipingSoilProfileTest
     {
+        private static readonly Random profileIdRandom = new Random(32);
+
         [Test]
         [TestCase(SoilProfileType.SoilProfile1D)]
         [TestCase(SoilProfileType.SoilProfile2D)]
@@ -255,7 +257,10 @@ namespace Ringtoets.Piping.Data.Test
                 CreateRandomLayer(random),
                 CreateRandomLayer(random)
             }, random.NextEnumValue<SoilProfileType>(), random.Next());
-            
+
+            var profileJ = new PipingSoilProfile("A", -3, new [] { new PipingSoilLayer(-2) }, SoilProfileType.SoilProfile1D, 35);
+            var profileK = new PipingSoilProfile("A", -3, new [] { new PipingSoilLayer(-2) }, SoilProfileType.SoilProfile1D, 56);
+
             return new[]
             {
                 new TestCaseData(profileA, profileB, true) { TestName = "Equals_ProfileAProfileB_True"},
@@ -264,12 +269,13 @@ namespace Ringtoets.Piping.Data.Test
                 new TestCaseData(profileD, profileF, false) { TestName = "Equals_ProfileDProfileF_False"},
                 new TestCaseData(profileD, profileG, false) { TestName = "Equals_ProfileDProfileG_False"},
                 new TestCaseData(profileH, profileI, false) { TestName = "Equals_ProfileHProfileI_False"},
+                new TestCaseData(profileJ, profileK, true) { TestName = "Equals_DifferentIds_True"},
             };
         }
 
         private static PipingSoilProfile CreateSingleLayerProfile(string name, double bottom, SoilProfileType type)
         {
-            return new PipingSoilProfile(name, bottom, new [] { new PipingSoilLayer(bottom + 1.0) }, type, -200);
+            return new PipingSoilProfile(name, bottom, new [] { new PipingSoilLayer(bottom + 1.0) }, type, profileIdRandom.Next());
         }
 
         private static PipingSoilProfile CreateRandomProfile(int randomSeed)
@@ -280,7 +286,7 @@ namespace Ringtoets.Piping.Data.Test
             {
                 layers.Add(CreateRandomLayer(random));
             }
-            return new PipingSoilProfile(GetRandomName(random), -1.0 - random.NextDouble(), layers, random.NextEnumValue<SoilProfileType>(), random.Next());
+            return new PipingSoilProfile(GetRandomName(random), -1.0 - random.NextDouble(), layers, random.NextEnumValue<SoilProfileType>(), profileIdRandom.Next());
         }
 
         private static PipingSoilLayer CreateRandomLayer(Random random)
