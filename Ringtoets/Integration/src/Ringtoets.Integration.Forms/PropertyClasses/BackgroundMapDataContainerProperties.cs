@@ -20,12 +20,17 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Core.Common.Base.Data;
+using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
 using Core.Components.Gis;
+using Core.Components.Gis.Data;
 using Ringtoets.Integration.Forms.Properties;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using DotspatialFormsResources = Core.Components.DotSpatial.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Forms.PropertyClasses
 {
@@ -93,9 +98,70 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
             }
         }
 
+        [DynamicVisibleValidationMethod]
+        public bool DynamicVisibleValidationMethod(string propertyName)
+        {
+            if (data.MapData == null)
+            {
+                return false;
+            }
+
+            return data.MapData.IsConfigured && data.MapData is WmtsMapData && WmtsProperties.Contains(propertyName);
+        }
+
         private bool HasConfiguredMapData()
         {
             return data.MapData != null && data.MapData.IsConfigured;
         }
+
+        #region Wmts MapData
+
+        [DynamicVisible]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.BackgroundWmtsMapDataContainerProperties_WMTS_Category))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.BackgroundWmtsMapDataContainerProperties_Url_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.BackgroundWmtsMapDataContainerProperties_Url_Description))]
+        public string Url
+        {
+            get
+            {
+                return (data.MapData as WmtsMapData)?.SourceCapabilitiesUrl ?? string.Empty;
+            }
+        }
+
+        [DynamicVisible]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.BackgroundWmtsMapDataContainerProperties_WMTS_Category))]
+        [ResourcesDisplayName(typeof(DotspatialFormsResources), nameof(DotspatialFormsResources.WmtsCapability_MapLayer_Id))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.BackgroundWmtsMapDataContainerProperties_SelectedCapabilityIdentifier_Description))]
+        public string SelectedCapabilityIdentifier
+        {
+            get
+            {
+                return (data.MapData as WmtsMapData)?.SelectedCapabilityIdentifier ?? string.Empty;
+            }
+        }
+
+        [DynamicVisible]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.BackgroundWmtsMapDataContainerProperties_WMTS_Category))]
+        [ResourcesDisplayName(typeof(DotspatialFormsResources), nameof(DotspatialFormsResources.WmtsCapability_MapLayer_Format))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.BackgroundWmtsMapDataContainerProperties_PreferredFormat_Description))]
+        public string PreferredFormat
+        {
+            get
+            {
+                return (data.MapData as WmtsMapData)?.PreferredFormat ?? string.Empty;
+            }
+        }
+
+        private IEnumerable<string> WmtsProperties
+        {
+            get
+            {
+                yield return nameof(Url);
+                yield return nameof(SelectedCapabilityIdentifier);
+                yield return nameof(PreferredFormat);
+            }
+        }
+
+        #endregion
     }
 }

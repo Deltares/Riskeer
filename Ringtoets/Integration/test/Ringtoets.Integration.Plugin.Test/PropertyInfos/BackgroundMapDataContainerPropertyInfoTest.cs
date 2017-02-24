@@ -89,7 +89,7 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
         }
 
         [Test]
-        public void CreateInstance_ContainerWithWmtsMapData_ReturnBackgroundWmtsMapDataContainerProperties()
+        public void CreateInstance_ContainerWithWmtsMapData_ReturnBackgroundMapDataContainerProperties()
         {
             // Setup
             var container = new BackgroundMapDataContainer
@@ -101,7 +101,7 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
             IObjectProperties objectProperties = info.CreateInstance(container);
 
             // Assert
-            Assert.AreEqual(typeof(BackgroundWmtsMapDataContainerProperties), objectProperties.GetType());
+            Assert.AreEqual(typeof(BackgroundMapDataContainerProperties), objectProperties.GetType());
             Assert.AreSame(container, objectProperties.Data);
         }
     }

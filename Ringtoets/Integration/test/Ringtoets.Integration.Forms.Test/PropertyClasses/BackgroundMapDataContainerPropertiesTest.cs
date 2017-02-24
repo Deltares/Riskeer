@@ -42,6 +42,10 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         private const int requiredTransparencyPropertyIndex = 1;
         private const int requiredVisibilityPropertyIndex = 2;
 
+        private const int wmtsUrlPropertyIndex = 3;
+        private const int wmtsSelectedCapabilityPropertyIndex = 4;
+        private const int wmtsPreferredFormatPropertyIndex = 5;
+
         [Test]
         public void Constructor_ContainerNull_ThrowArgumentNullException()
         {
@@ -83,6 +87,9 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             Assert.AreEqual(container.IsVisible, properties.IsVisible);
             Assert.AreEqual(container.Transparency, properties.Transparency);
             Assert.AreEqual(string.Empty, properties.Name);
+            Assert.AreEqual(string.Empty, properties.Url);
+            Assert.AreEqual(string.Empty, properties.SelectedCapabilityIdentifier);
+            Assert.AreEqual(string.Empty, properties.PreferredFormat);
         }
 
         [Test]
@@ -97,7 +104,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             {
                 MapData = mapData,
                 IsVisible = false,
-                Transparency = (RoundedDouble)0.5
+                Transparency = (RoundedDouble) 0.5
             };
 
             // Call
@@ -107,6 +114,34 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             Assert.AreEqual(container.IsVisible, properties.IsVisible);
             Assert.AreEqual(container.Transparency, properties.Transparency);
             Assert.AreEqual(name, properties.Name);
+            Assert.AreEqual(string.Empty, properties.Url);
+            Assert.AreEqual(string.Empty, properties.SelectedCapabilityIdentifier);
+            Assert.AreEqual(string.Empty, properties.PreferredFormat);
+        }
+
+        [Test]
+        public void GetProperties_ContainerWithWmtsMapData_ReturnExpectedValues()
+        {
+            // Setup
+            var mapData = WmtsMapData.CreateDefaultPdokMapData();
+
+            var container = new BackgroundMapDataContainer
+            {
+                MapData = mapData,
+                IsVisible = false,
+                Transparency = (RoundedDouble) 0.5
+            };
+
+            // Call
+            var properties = new BackgroundMapDataContainerProperties(container);
+
+            // Assert
+            Assert.AreEqual(container.IsVisible, properties.IsVisible);
+            Assert.AreEqual(container.Transparency, properties.Transparency);
+            Assert.AreEqual(mapData.Name, properties.Name);
+            Assert.AreEqual(mapData.SourceCapabilitiesUrl, properties.Url);
+            Assert.AreEqual(mapData.SelectedCapabilityIdentifier, properties.SelectedCapabilityIdentifier);
+            Assert.AreEqual(mapData.PreferredFormat, properties.PreferredFormat);
         }
 
         [Test]
@@ -163,7 +198,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
+        public void Constructor_WithoutMapData_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
             var container = new BackgroundMapDataContainer();
@@ -193,6 +228,100 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
                                                                             "Algemeen",
                                                                             "Weergeven",
                                                                             "Geeft aan of de geselecteerde achtergrond kaartlaag in alle kaarten van dit traject wordt weergegeven.");
+        }
+
+        [Test]
+        public void Constructor_WithMapData_PropertiesHaveExpectedAttributesValues()
+        {
+            // Setup
+            var container = new BackgroundMapDataContainer
+            {
+                MapData = new TestImageBasedMapData("name", true)
+            };
+
+            // Call
+            var properties = new BackgroundMapDataContainerProperties(container);
+
+            // Assert
+            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
+            Assert.AreEqual(3, dynamicProperties.Count);
+
+            PropertyDescriptor nameProperty = dynamicProperties[requiredNamePropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
+                                                                            "Algemeen",
+                                                                            "Omschrijving",
+                                                                            "Omschrijving van de achtergrond kaartlaag.",
+                                                                            true);
+
+            PropertyDescriptor transparencyPropertyIndex = dynamicProperties[requiredTransparencyPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(transparencyPropertyIndex,
+                                                                            "Algemeen",
+                                                                            "Transparantie",
+                                                                            "Transparantie waarmee de achtergrond kaartlaag wordt weergegeven.");
+
+            PropertyDescriptor visibilityProperty = dynamicProperties[requiredVisibilityPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(visibilityProperty,
+                                                                            "Algemeen",
+                                                                            "Weergeven",
+                                                                            "Geeft aan of de geselecteerde achtergrond kaartlaag in alle kaarten van dit traject wordt weergegeven.");
+        }
+
+        [Test]
+        public void Constructor_WithWmtsMapData_PropertiesHaveExpectedAttributesValues()
+        {
+            // Setup
+            var container = new BackgroundMapDataContainer
+            {
+                MapData = WmtsMapData.CreateDefaultPdokMapData()
+            };
+
+            // Call
+            var properties = new BackgroundMapDataContainerProperties(container);
+
+            // Assert
+            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
+            Assert.AreEqual(6, dynamicProperties.Count);
+
+            PropertyDescriptor nameProperty = dynamicProperties[requiredNamePropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
+                                                                            "Algemeen",
+                                                                            "Omschrijving",
+                                                                            "Omschrijving van de achtergrond kaartlaag.",
+                                                                            true);
+
+            PropertyDescriptor transparencyPropertyIndex = dynamicProperties[requiredTransparencyPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(transparencyPropertyIndex,
+                                                                            "Algemeen",
+                                                                            "Transparantie",
+                                                                            "Transparantie waarmee de achtergrond kaartlaag wordt weergegeven.");
+
+            PropertyDescriptor visibilityProperty = dynamicProperties[requiredVisibilityPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(visibilityProperty,
+                                                                            "Algemeen",
+                                                                            "Weergeven",
+                                                                            "Geeft aan of de geselecteerde achtergrond kaartlaag in alle kaarten van dit traject wordt weergegeven.");
+
+            const string wmtsCategory = "WMTS";
+            PropertyDescriptor urlProperty = dynamicProperties[wmtsUrlPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(urlProperty,
+                                                                            wmtsCategory,
+                                                                            "URL",
+                                                                            "Volledige URL naar de Web Map Tile Service (WMTS) die als achtergrond kaartlaag gebruikt wordt.",
+                                                                            true);
+
+            PropertyDescriptor selectedCapabilityProperty = dynamicProperties[wmtsSelectedCapabilityPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(selectedCapabilityProperty,
+                                                                            wmtsCategory,
+                                                                            "Kaartlaag",
+                                                                            "De naam van de geselecteerde kaartlaag.",
+                                                                            true);
+
+            PropertyDescriptor preferredFormatProperty = dynamicProperties[wmtsPreferredFormatPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(preferredFormatProperty,
+                                                                            wmtsCategory,
+                                                                            "Formaat",
+                                                                            "Het type afbeelding die door de geselecteerde kaartlaag aangeleverd wordt.",
+                                                                            true);
         }
     }
 }

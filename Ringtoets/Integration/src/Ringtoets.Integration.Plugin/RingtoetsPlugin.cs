@@ -280,7 +280,7 @@ namespace Ringtoets.Integration.Plugin
             yield return new PropertyInfo<IAssessmentSection, AssessmentSectionProperties>();
             yield return new PropertyInfo<BackgroundMapDataContainer, BackgroundMapDataContainerProperties>
             {
-                CreateInstance = container => BackgroundMapDataContainerObjectPropertiesFactory.GetObjectProperties(container)
+                CreateInstance = container => new BackgroundMapDataContainerProperties(container)
             };
             yield return new PropertyInfo<HydraulicBoundaryDatabaseContext, HydraulicBoundaryDatabaseProperties>();
             yield return new PropertyInfo<FailureMechanismContributionContext, FailureMechanismContributionProperties>
