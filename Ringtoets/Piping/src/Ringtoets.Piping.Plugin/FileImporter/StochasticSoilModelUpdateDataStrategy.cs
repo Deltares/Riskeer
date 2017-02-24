@@ -121,6 +121,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
                 {
                     affectedObjects.AddRange(PipingDataSynchronizationService.ClearStochasticSoilProfileDependentData(failureMechanism, updatedProfile));
                 }
+                affectedObjects.Add(updatedProfile);
             }
             return affectedObjects;
         }

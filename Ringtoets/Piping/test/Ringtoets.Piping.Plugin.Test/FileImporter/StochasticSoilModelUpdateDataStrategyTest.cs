@@ -408,7 +408,8 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             {
                 firstSoilModel,
                 calculationWithUpdatedProfile,
-                calculationWithUpdatedProfile.InputParameters
+                calculationWithUpdatedProfile.InputParameters,
+                calculationWithUpdatedProfile.InputParameters.StochasticSoilProfile
             }, affectedObjects);
         }
 
@@ -440,8 +441,12 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Assert.IsFalse(calculation.HasOutput);
             Assert.IsNull(calculation.InputParameters.StochasticSoilModel);
             Assert.IsNull(calculation.InputParameters.StochasticSoilProfile);
-            CollectionAssert.Contains(affectedObjects, calculation);
-            CollectionAssert.Contains(affectedObjects, calculation.InputParameters);
+            CollectionAssert.AreEquivalent(new IObservable[]
+            {
+                targetCollection,
+                calculation,
+                calculation.InputParameters
+            }, affectedObjects);
         }
 
         /// <summary>

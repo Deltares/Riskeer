@@ -21,6 +21,7 @@
 
 using System;
 using System.Drawing;
+using Core.Common.Base;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Piping.KernelWrapper.TestUtil;
@@ -42,7 +43,7 @@ namespace Ringtoets.Piping.Data.Test
             var stochasticSoilProfileProbability = new StochasticSoilProfile(probability, soilProfileType, soilProfileId);
 
             // Assert
-            Assert.IsInstanceOf<StochasticSoilProfile>(stochasticSoilProfileProbability);
+            Assert.IsInstanceOf<Observable>(stochasticSoilProfileProbability);
             Assert.AreEqual(probability, stochasticSoilProfileProbability.Probability);
             Assert.AreEqual(soilProfileType, stochasticSoilProfileProbability.SoilProfileType);
             Assert.AreEqual(soilProfileId, stochasticSoilProfileProbability.SoilProfileId);

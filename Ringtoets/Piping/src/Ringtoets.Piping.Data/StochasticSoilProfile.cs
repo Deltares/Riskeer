@@ -31,7 +31,7 @@ namespace Ringtoets.Piping.Data
     /// <summary>
     /// This class couples a SoilProfile to a probability of occurrence.
     /// </summary>
-    public class StochasticSoilProfile
+    public class StochasticSoilProfile : Observable
     {
         private double probability;
 

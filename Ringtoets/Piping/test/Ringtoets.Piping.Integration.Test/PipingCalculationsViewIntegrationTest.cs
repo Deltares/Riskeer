@@ -42,6 +42,7 @@ namespace Ringtoets.Piping.Integration.Test
         private const int nameColumnIndex = 0;
         private const int stochasticSoilModelsColumnIndex = 1;
         private const int stochasticSoilProfilesColumnIndex = 2;
+        private const int stochasticSoilProfilesProbabilityColumnIndex = 3;
         private const int hydraulicBoundaryLocationsColumnIndex = 4;
         private const int exitPointLColumnIndex = 8;
 
@@ -98,7 +99,8 @@ namespace Ringtoets.Piping.Integration.Test
 
                 // Import soil models and profiles and ensure the corresponding combobox items are updated
                 DataImportHelper.ImportPipingStochasticSoilModels(assessmentSection);
-                pipingCalculation1.InputParameters.StochasticSoilModel = assessmentSection.PipingFailureMechanism.StochasticSoilModels.First(sl => sl.Name == "PK001_0001_Piping");
+                StochasticSoilModelCollection stochasticSoilModelCollection = assessmentSection.PipingFailureMechanism.StochasticSoilModels;
+                pipingCalculation1.InputParameters.StochasticSoilModel = stochasticSoilModelCollection.First(sl => sl.Name == "PK001_0001_Piping");
                 Assert.AreEqual(1, ((DataGridViewComboBoxCell) dataGridView.Rows[0].Cells[stochasticSoilModelsColumnIndex]).Items.Count);
                 Assert.AreEqual("PK001_0001_Piping", dataGridView.Rows[0].Cells[stochasticSoilModelsColumnIndex].FormattedValue);
                 Assert.AreEqual(1, ((DataGridViewComboBoxCell) dataGridView.Rows[0].Cells[stochasticSoilProfilesColumnIndex]).Items.Count);
@@ -138,6 +140,73 @@ namespace Ringtoets.Piping.Integration.Test
                 pipingCalculation2.InputParameters.ExitPointL = (RoundedDouble) 111.11;
                 pipingCalculation2.InputParameters.NotifyObservers();
                 Assert.AreEqual(111.11.ToString(CultureInfo.CurrentCulture), dataGridView.Rows[1].Cells[exitPointLColumnIndex].FormattedValue);
+
+                // Add another calculation and assign all soil models
+                var pipingCalculation4 = new PipingCalculationScenario(new GeneralPipingInput());
+                assessmentSection.PipingFailureMechanism.CalculationsGroup.Children.Add(pipingCalculation4);
+                assessmentSection.PipingFailureMechanism.CalculationsGroup.NotifyObservers();
+                pipingCalculation4.InputParameters.SurfaceLine = assessmentSection.PipingFailureMechanism.SurfaceLines.First(sl => sl.Name == "PK001_0001");
+                pipingCalculation4.InputParameters.NotifyObservers();
+                Assert.AreEqual(4, dataGridView.Rows.Count);
+
+                listBox.SelectedItem = assessmentSection.PipingFailureMechanism.Sections.First(s => s.Name == "6-3_22");
+                pipingCalculation1.InputParameters.StochasticSoilModel = stochasticSoilModelCollection[0];
+                pipingCalculation1.InputParameters.StochasticSoilProfile = stochasticSoilModelCollection[0].StochasticSoilProfiles[0];
+                pipingCalculation1.InputParameters.NotifyObservers();
+                Assert.AreEqual("PK001_0001_Piping", dataGridView.Rows[0].Cells[stochasticSoilModelsColumnIndex].FormattedValue);
+                Assert.AreEqual("W1-6_0_1D1", dataGridView.Rows[0].Cells[stochasticSoilProfilesColumnIndex].FormattedValue);
+                Assert.AreEqual("100", dataGridView.Rows[0].Cells[stochasticSoilProfilesProbabilityColumnIndex].FormattedValue);
+
+                listBox.SelectedItem = assessmentSection.PipingFailureMechanism.Sections.First(s => s.Name == "6-3_19");
+                pipingCalculation2.InputParameters.SurfaceLine = assessmentSection.PipingFailureMechanism.SurfaceLines.First(sl => sl.Name == "PK001_0002");
+                pipingCalculation2.InputParameters.StochasticSoilModel = stochasticSoilModelCollection[1];
+                pipingCalculation2.InputParameters.StochasticSoilProfile = stochasticSoilModelCollection[1].StochasticSoilProfiles[0];
+                pipingCalculation2.InputParameters.NotifyObservers();
+                Assert.AreEqual("PK001_0002_Piping", dataGridView.Rows[0].Cells[stochasticSoilModelsColumnIndex].FormattedValue);
+                Assert.AreEqual("W1-6_4_1D1", dataGridView.Rows[0].Cells[stochasticSoilProfilesColumnIndex].FormattedValue);
+                Assert.AreEqual("100", dataGridView.Rows[0].Cells[stochasticSoilProfilesProbabilityColumnIndex].FormattedValue);
+
+                listBox.SelectedItem = assessmentSection.PipingFailureMechanism.Sections.First(s => s.Name == "6-3_16");
+                pipingCalculation3.InputParameters.SurfaceLine = assessmentSection.PipingFailureMechanism.SurfaceLines.First(sl => sl.Name == "PK001_0003");
+                pipingCalculation3.InputParameters.StochasticSoilModel = stochasticSoilModelCollection[2];
+                pipingCalculation3.InputParameters.StochasticSoilProfile = stochasticSoilModelCollection[2].StochasticSoilProfiles[0];
+                pipingCalculation3.InputParameters.NotifyObservers();
+                Assert.AreEqual("PK001_0003_Piping", dataGridView.Rows[0].Cells[stochasticSoilModelsColumnIndex].FormattedValue);
+                Assert.AreEqual("W1-7_0_1D1", dataGridView.Rows[0].Cells[stochasticSoilProfilesColumnIndex].FormattedValue);
+                Assert.AreEqual("100", dataGridView.Rows[0].Cells[stochasticSoilProfilesProbabilityColumnIndex].FormattedValue);
+
+                listBox.SelectedItem = assessmentSection.PipingFailureMechanism.Sections.First(s => s.Name == "6-3_8");
+                pipingCalculation4.InputParameters.SurfaceLine = assessmentSection.PipingFailureMechanism.SurfaceLines.First(sl => sl.Name == "PK001_0004");
+                pipingCalculation4.InputParameters.StochasticSoilModel = stochasticSoilModelCollection[3];
+                pipingCalculation4.InputParameters.StochasticSoilProfile = stochasticSoilModelCollection[3].StochasticSoilProfiles[0];
+                pipingCalculation4.InputParameters.NotifyObservers();
+                Assert.AreEqual("PK001_0004_Piping", dataGridView.Rows[0].Cells[stochasticSoilModelsColumnIndex].FormattedValue);
+                Assert.AreEqual("W1-8_6_1D1", dataGridView.Rows[0].Cells[stochasticSoilProfilesColumnIndex].FormattedValue);
+                Assert.AreEqual("100", dataGridView.Rows[0].Cells[stochasticSoilProfilesProbabilityColumnIndex].FormattedValue);
+
+                // Update stochastic soil models
+                DataUpdateHelper.UpdatePipingStochasticSoilModels(assessmentSection);
+
+                listBox.SelectedItem = assessmentSection.PipingFailureMechanism.Sections.First(s => s.Name == "6-3_22");
+                Assert.AreEqual("PK001_0001_Piping", dataGridView.Rows[0].Cells[stochasticSoilModelsColumnIndex].FormattedValue);
+                Assert.AreEqual("W1-6_0_1D1", dataGridView.Rows[0].Cells[stochasticSoilProfilesColumnIndex].FormattedValue);
+                Assert.AreEqual("50", dataGridView.Rows[0].Cells[stochasticSoilProfilesProbabilityColumnIndex].FormattedValue);
+
+                listBox.SelectedItem = assessmentSection.PipingFailureMechanism.Sections.First(s => s.Name == "6-3_19");
+                Assert.AreEqual("PK001_0002_Piping", dataGridView.Rows[0].Cells[stochasticSoilModelsColumnIndex].FormattedValue);
+                Assert.AreEqual("<geen>", dataGridView.Rows[0].Cells[stochasticSoilProfilesColumnIndex].FormattedValue);
+                Assert.AreEqual("0", dataGridView.Rows[0].Cells[stochasticSoilProfilesProbabilityColumnIndex].FormattedValue);
+
+                listBox.SelectedItem = assessmentSection.PipingFailureMechanism.Sections.First(s => s.Name == "6-3_16");
+                Assert.AreEqual("PK001_0003_Piping", dataGridView.Rows[0].Cells[stochasticSoilModelsColumnIndex].FormattedValue);
+                Assert.AreEqual("W1-7_0_1D1", dataGridView.Rows[0].Cells[stochasticSoilProfilesColumnIndex].FormattedValue);
+                Assert.AreEqual("100", dataGridView.Rows[0].Cells[stochasticSoilProfilesProbabilityColumnIndex].FormattedValue);
+
+                listBox.SelectedItem = assessmentSection.PipingFailureMechanism.Sections.First(s => s.Name == "6-3_8");
+                Assert.AreEqual("<geen>", dataGridView.Rows[0].Cells[stochasticSoilModelsColumnIndex].FormattedValue);
+                Assert.AreEqual("<geen>", dataGridView.Rows[0].Cells[stochasticSoilProfilesColumnIndex].FormattedValue);
+                Assert.AreEqual("0", dataGridView.Rows[0].Cells[stochasticSoilProfilesProbabilityColumnIndex].FormattedValue);
+
             }
         }
     }

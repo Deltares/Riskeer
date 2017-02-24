@@ -58,6 +58,7 @@ namespace Ringtoets.Piping.Forms.Views
         private readonly RecursiveObserver<CalculationGroup, PipingCalculationScenario> pipingCalculationObserver;
         private readonly Observer pipingFailureMechanismObserver;
         private readonly Observer pipingStochasticSoilModelsObserver;
+        private readonly RecursiveObserver<StochasticSoilModelCollection, StochasticSoilProfile> stochasticSoilProfileObserver;
         private IAssessmentSection assessmentSection;
         private CalculationGroup calculationGroup;
         private PipingFailureMechanism pipingFailureMechanism;
@@ -75,13 +76,15 @@ namespace Ringtoets.Piping.Forms.Views
             InitializeDataGridView();
             InitializeListBox();
 
-            pipingStochasticSoilModelsObserver = new Observer(OnStochasticSoilModelsUpdate);
             pipingFailureMechanismObserver = new Observer(OnPipingFailureMechanismUpdate);
             assessmentSectionObserver = new Observer(UpdateSelectableHydraulicBoundaryLocationsColumn);
             // The concat is needed to observe the input of calculations in child groups.
             pipingInputObserver = new RecursiveObserver<CalculationGroup, PipingInput>(UpdateDataGridViewDataSource, pcg => pcg.Children.Concat<object>(pcg.Children.OfType<PipingCalculationScenario>().Select(pc => pc.InputParameters)));
             pipingCalculationGroupObserver = new RecursiveObserver<CalculationGroup, CalculationGroup>(UpdateDataGridViewDataSource, pcg => pcg.Children);
             pipingCalculationObserver = new RecursiveObserver<CalculationGroup, PipingCalculationScenario>(dataGridViewControl.RefreshDataGridView, pcg => pcg.Children);
+
+            pipingStochasticSoilModelsObserver = new Observer(OnStochasticSoilModelsUpdate);
+            stochasticSoilProfileObserver = new RecursiveObserver<StochasticSoilModelCollection, StochasticSoilProfile>(dataGridViewControl.RefreshDataGridView, ssmc => ssmc.SelectMany(ssm => ssm.StochasticSoilProfiles));
         }
 
         /// <summary>
@@ -98,6 +101,7 @@ namespace Ringtoets.Piping.Forms.Views
                 pipingFailureMechanism = value;
                 pipingStochasticSoilModelsObserver.Observable = pipingFailureMechanism?.StochasticSoilModels;
                 pipingFailureMechanismObserver.Observable = pipingFailureMechanism;
+                stochasticSoilProfileObserver.Observable = pipingFailureMechanism?.StochasticSoilModels;
 
                 UpdateStochasticSoilModelColumn();
                 UpdateStochasticSoilProfileColumn();

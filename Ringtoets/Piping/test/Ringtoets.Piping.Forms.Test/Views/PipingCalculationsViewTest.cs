@@ -1070,10 +1070,10 @@ namespace Ringtoets.Piping.Forms.Test.Views
             RoundedDouble value = (RoundedDouble) newValue;
 
             var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(new Observable[]
-                {
-                    calculation.InputParameters,
-                    calculation
-                });
+            {
+                calculation.InputParameters,
+                calculation
+            });
 
             using (PipingCalculationsView pipingCalculationView = ShowFullyConfiguredPipingCalculationsView(
                 assessmentSection, failureMechanism, calculationGroup, handler))
@@ -1116,10 +1116,10 @@ namespace Ringtoets.Piping.Forms.Test.Views
             PipingCalculationScenario calculation = (PipingCalculationScenario) calculationGroup.Children.First();
 
             var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(new Observable[]
-                {
-                    calculation.InputParameters,
-                    calculation
-                });
+            {
+                calculation.InputParameters,
+                calculation
+            });
 
             using (PipingCalculationsView pipingCalculationView = ShowFullyConfiguredPipingCalculationsView(
                 assessmentSection, failureMechanism, calculationGroup, handler))
@@ -1313,6 +1313,51 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 var hydraulicBoundaryLocationComboboxItems = currentCellUpdated.Items;
                 Assert.AreEqual(1, hydraulicBoundaryLocationComboboxItems.Count);
                 Assert.AreEqual("<geen>", hydraulicBoundaryLocationComboboxItems[0].ToString());
+            }
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GivenPipingCalculationWithStochasticSoilProfile_WhenProbabilityChangesAndNotified_ThenNewProbabilityVisible()
+        {
+            // Given
+            MockRepository mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
+            mocks.ReplayAll();
+
+            using (PipingCalculationsView pipingCalculationView = ShowFullyConfiguredPipingCalculationsView(
+                assessmentSection, handler))
+            {
+                var data = (CalculationGroup) pipingCalculationView.Data;
+                var pipingCalculation = (PipingCalculationScenario) data.Children[1];
+
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+
+                int refreshed = 0;
+
+                // Precondition
+                var currentCell = (DataGridViewTextBoxCell) dataGridView.Rows[1].Cells[stochasticSoilProfilesProbabilityColumnIndex];
+                Assert.AreEqual("30", currentCell.FormattedValue);
+
+                StochasticSoilProfile stochasticSoilProfileToChange = pipingCalculation.InputParameters.StochasticSoilProfile;
+                var updatedProfile = new StochasticSoilProfile(
+                    0.5,
+                    stochasticSoilProfileToChange.SoilProfileType,
+                    stochasticSoilProfileToChange.SoilProfileId)
+                {
+                    SoilProfile = stochasticSoilProfileToChange.SoilProfile
+                };
+                dataGridView.Invalidated += (sender, args) => refreshed++;
+
+                // When
+                stochasticSoilProfileToChange.Update(updatedProfile);
+                stochasticSoilProfileToChange.NotifyObservers();
+
+                // Then
+                Assert.AreEqual(1, refreshed);
+                var cell = (DataGridViewTextBoxCell) dataGridView.Rows[1].Cells[stochasticSoilProfilesProbabilityColumnIndex];
+                Assert.AreEqual("50", cell.FormattedValue);
             }
             mocks.VerifyAll();
         }
