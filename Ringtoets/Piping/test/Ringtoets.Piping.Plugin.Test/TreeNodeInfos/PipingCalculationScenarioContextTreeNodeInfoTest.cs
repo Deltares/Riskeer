@@ -415,8 +415,8 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                     TestHelper.AssertContextMenuStripContainsItem(contextMenu,
                                                                   contextMenuUpdateEntryAndExitPointIndex,
                                                                   "Bijwerken intrede- en uittredepunt",
-                                                                  "", // TODO WTI-1076: update tooltip
-                                                                  null, // TODO WTI-1076: update icon
+                                                                  "Er moet een profielschematisatie geselecteerd zijn.",
+                                                                  RingtoetsCommonFormsResources.UpdateItemIcon,
                                                                   false);
                 }
             }
@@ -462,8 +462,8 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                     TestHelper.AssertContextMenuStripContainsItem(contextMenu,
                                                                   contextMenuUpdateEntryAndExitPointIndex,
                                                                   "Bijwerken intrede- en uittredepunt",
-                                                                  "", // TODO WTI-1076: update tooltip
-                                                                  null); // TODO WTI-1076: update icon
+                                                                  "Berekening bijwerken met de karakteristieke punten.",
+                                                                  RingtoetsCommonFormsResources.UpdateItemIcon);
                 }
             }
         }
@@ -501,7 +501,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 var inputObserver = mocks.StrictMock<IObserver>();
                 inputObserver.Expect(obs => obs.UpdateObserver());
                 nodeData.WrappedData.InputParameters.Attach(inputObserver);
-                
+
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
                 mocks.ReplayAll();
@@ -522,19 +522,19 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                     });
                     surfaceLine.SetDikeToeAtRiverAt(new Point3D(2, 0, 3));
                     surfaceLine.SetDikeToeAtPolderAt(new Point3D(3, 0, 0));
-                    
+
                     contextMenuStrip.Items[contextMenuUpdateEntryAndExitPointIndex].PerformClick();
 
                     // Then
                     PipingInput inputParameters = calculation.InputParameters;
                     Assert.AreEqual(new RoundedDouble(2, 2), inputParameters.EntryPointL);
                     Assert.AreEqual(new RoundedDouble(3, 3), inputParameters.ExitPointL);
-                    
+
                     // Note: observer assertions are verified in Teardown
                 }
             }
         }
-        
+
         [Test]
         public void GivenCalculationWithSurfaceLineAndOutput_WhenSurfaceLineUpdatedAndUpdateEntryAndExitPointClicked__ThenPointsUpdatedOutputsRemovedAndObserversNotified()
         {

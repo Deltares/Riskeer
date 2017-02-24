@@ -815,8 +815,8 @@ namespace Ringtoets.Piping.Plugin
             PipingCalculationService.Validate(context.WrappedData);
         }
 
-        private static string ValidateAllDataAvailableAndGetErrorMessage(PipingCalculationScenarioContext context)
-        {
+                      private static string ValidateAllDataAvailableAndGetErrorMessage(PipingCalculationScenarioContext context)
+        { 
             return ValidateAllDataAvailableAndGetErrorMessage(context.FailureMechanism);
         }
 
@@ -833,10 +833,14 @@ namespace Ringtoets.Piping.Plugin
         {
             bool hasSurfaceLine = context.WrappedData.InputParameters.SurfaceLine != null;
 
+            string toolTipMessage = hasSurfaceLine
+                                        ? Resources.PipingPlugin_CreateUpdateEntryAndExitPointItem_Update_calculation_with_characteristic_points_ToolTip
+                                        : Resources.PipingPlugin_CreateUpdateEntryAndExitPointItem_Update_calculation_requires_surface_line_selected_ToolTip;
+
             var updateEntryAndExitPointItem = new StrictContextMenuItem(
-                "Bijwerken intrede- en uittredepunt",
-                "", // TODO WTI-1076: update tooltip
-                null, // TODO WTI-1076: update icon
+                Resources.PipingPlugin_CreateUpdateEntryAndExitPointItem_Update_entry_and_exit_point,
+                toolTipMessage,
+                RingtoetsCommonFormsResources.UpdateItemIcon, 
                 (o, args) => { UpdateSurfaceLineDependentData(context.WrappedData); })
             {
                 Enabled = hasSurfaceLine
