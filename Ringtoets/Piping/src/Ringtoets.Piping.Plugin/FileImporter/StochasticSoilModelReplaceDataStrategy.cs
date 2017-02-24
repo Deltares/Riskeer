@@ -31,7 +31,8 @@ using Ringtoets.Piping.Service;
 namespace Ringtoets.Piping.Plugin.FileImporter
 {
     /// <summary>
-    /// Strategy for replacing the stochastic soil models with the imported stochastic soil models. 
+    /// A <see cref="ReplaceDataStrategyBase{TTargetData,TFailureMechanism}"/> to replace the stochastic 
+    /// soil models with the imported stochastic soil models. 
     /// </summary>
     public class StochasticSoilModelReplaceDataStrategy : ReplaceDataStrategyBase<StochasticSoilModel, PipingFailureMechanism>,
                                                           IStochasticSoilModelUpdateModelStrategy

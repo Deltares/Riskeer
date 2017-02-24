@@ -33,7 +33,8 @@ namespace Ringtoets.Common.Data.UpdateDataStrategies
     /// <typeparam name="TTargetData">The target data type.</typeparam>
     /// <typeparam name="TFailureMechanism">The failure mechanism in which the target collection should be updated.</typeparam>
     public abstract class ReplaceDataStrategyBase<TTargetData, TFailureMechanism>
-        where TTargetData : class where TFailureMechanism : IFailureMechanism
+        where TTargetData : class 
+		where TFailureMechanism : IFailureMechanism
     {
         private readonly TFailureMechanism failureMechanism;
 

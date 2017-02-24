@@ -39,8 +39,8 @@ namespace Ringtoets.Common.Data.UpdateDataStrategies
     /// <typeparam name="TTargetData">The target data type.</typeparam>
     /// <typeparam name="TFailureMechanism">The failure mechanism in which the target collection should be updated.</typeparam>
     public abstract class UpdateDataStrategyBase<TTargetData, TFailureMechanism>
-        where TTargetData : class 
-		where TFailureMechanism : IFailureMechanism
+        where TTargetData : class
+        where TFailureMechanism : IFailureMechanism
     {
         protected readonly TFailureMechanism failureMechanism;
         private readonly IEqualityComparer<TTargetData> equalityComparer;
@@ -147,9 +147,8 @@ namespace Ringtoets.Common.Data.UpdateDataStrategies
             }
             affectedObjects.AddRange(UpdateData(objectsToBeUpdated, importedObjects));
             affectedObjects.AddRange(RemoveData(objectsToBeRemoved));
-            
             targetDataCollection.Clear();
-            targetDataCollection.AddRange(objectsToBeAdded.Union(objectsToBeUpdated), sourceFilePath);
+            targetDataCollection.AddRange(objectsToBeUpdated.Union(objectsToBeAdded), sourceFilePath);
 
             return affectedObjects.Distinct(new ReferenceEqualityComparer<IObservable>());
         }
