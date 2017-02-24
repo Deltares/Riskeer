@@ -67,21 +67,21 @@ namespace Ringtoets.Common.Data.UpdateDataStrategies
         }
 
         /// <summary>
-        /// Updates the (dependent) objects with new data from the imported data.
+        /// Updates the object and its dependent data with data from the imported data.
         /// </summary>
-        /// <param name="objectsToUpdate">Objects that need to be updated.</param>
-        /// <param name="importedDataCollection">The data that was imported.</param>
+        /// <param name="objectToUpdate">Object that needs to be updated.</param>
+        /// <param name="objectToUpdateFrom">The object to update from.</param>
         /// <returns>An <see cref="IEnumerable{IObservable}"/> with affected objects.</returns>
         /// <exception cref="InvalidOperationException">Thrown when duplicate items are found.</exception>
-        protected abstract IEnumerable<IObservable> UpdateData(IEnumerable<TTargetData> objectsToUpdate,
-                                                               IEnumerable<TTargetData> importedDataCollection);
+        protected abstract IEnumerable<IObservable> UpdateObjectAndDependentData(TTargetData objectToUpdate,
+                                                                                 TTargetData objectToUpdateFrom);
 
         /// <summary>
         /// Removes the objects and their dependent data.
         /// </summary>
-        /// <param name="removedObjects">The objects that are removed.</param>
+        /// <param name="removedObject">The object that is removed.</param>
         /// <returns>An <see cref="IEnumerable{T}"/> with affected objects.</returns>
-        protected abstract IEnumerable<IObservable> RemoveData(IEnumerable<TTargetData> removedObjects);
+        protected abstract IEnumerable<IObservable> RemoveObjectAndDependentData(TTargetData removedObject);
 
         /// <summary>
         /// Updates the items and their associated data within the target collection with the data contained 
@@ -141,7 +141,7 @@ namespace Ringtoets.Common.Data.UpdateDataStrategies
             TTargetData[] objectsToBeUpdated = GetObjectsToBeUpdated(targetDataCollection, importedObjects).ToArray();
 
             var affectedObjects = new List<IObservable>();
-            if (objectsToBeAdded.Any())
+            if (objectsToBeAdded.Any() || objectsToBeRemoved.Any())
             {
                 affectedObjects.Add(targetDataCollection);
             }
@@ -166,6 +166,43 @@ namespace Ringtoets.Common.Data.UpdateDataStrategies
         private IEnumerable<TTargetData> GetObjectsToBeAdded(IEnumerable<TTargetData> existingCollection, IEnumerable<TTargetData> importedDataObjects)
         {
             return importedDataObjects.Where(source => !existingCollection.Contains(source, equalityComparer));
+        }
+
+        /// <summary>
+        /// Updates all the objects and their dependent data that needs to be updated with data from the imported data collection.
+        /// </summary>
+        /// <param name="objectsToUpdate">The objects that need to be updated.</param>
+        /// <param name="importedDataCollection">The data to update from.</param>
+        /// <returns>A <see cref="IEnumerable{T}"/> of affected items.</returns>
+        private IEnumerable<IObservable> UpdateData(IEnumerable<TTargetData> objectsToUpdate,
+                                                    IEnumerable<TTargetData> importedDataCollection)
+        {
+            var affectedObjects = new List<IObservable>();
+
+            foreach (TTargetData objectToUpdate in objectsToUpdate)
+            {
+                TTargetData objectToUpdateFrom = importedDataCollection.Single(importedObject =>
+                                                                                   equalityComparer.Equals(importedObject, objectToUpdate));
+                affectedObjects.AddRange(UpdateObjectAndDependentData(objectToUpdate, objectToUpdateFrom));
+            }
+
+            return affectedObjects;
+        }
+
+        /// <summary>
+        /// Removes all the objects and their dependent data.
+        /// </summary>
+        /// <param name="objectsToRemove">The objects that need to be removed.</param>
+        /// <returns>A <see cref="IEnumerable{T}"/> of affected items.</returns>
+        private IEnumerable<IObservable> RemoveData(IEnumerable<TTargetData> objectsToRemove)
+        {
+            var affectedObjects = new List<IObservable>();
+
+            foreach (TTargetData objectToRemove in objectsToRemove)
+            {
+                affectedObjects.AddRange(RemoveObjectAndDependentData(objectToRemove));
+            }
+            return affectedObjects;
         }
     }
 }

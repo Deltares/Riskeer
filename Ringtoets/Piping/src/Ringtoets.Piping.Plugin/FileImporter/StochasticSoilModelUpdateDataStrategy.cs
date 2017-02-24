@@ -89,28 +89,25 @@ namespace Ringtoets.Piping.Plugin.FileImporter
 
         #region Update Data Functions
 
-        protected override IEnumerable<IObservable> UpdateData(IEnumerable<StochasticSoilModel> objectsToUpdate,
-                                                               IEnumerable<StochasticSoilModel> importedDataCollection)
+        protected override IEnumerable<IObservable> UpdateObjectAndDependentData(StochasticSoilModel soilModelToUpdate,
+                                                                                 StochasticSoilModel soilModelToUpdateFrom)
         {
             var affectedObjects = new List<IObservable>();
-            foreach (StochasticSoilModel updatedModel in objectsToUpdate)
-            {
-                affectedObjects.Add(updatedModel);
-                StochasticSoilModel readModel = importedDataCollection.Single(r => r.Name.Equals(updatedModel.Name));
-                affectedObjects.AddRange(UpdateStochasticSoilModel(updatedModel, readModel));
-            }
+            affectedObjects.AddRange(UpdateStochasticSoilModel(soilModelToUpdate, soilModelToUpdateFrom));
+
             return affectedObjects;
         }
 
-        private IEnumerable<IObservable> UpdateStochasticSoilModel(StochasticSoilModel existingModel, StochasticSoilModel readModel)
+        private IEnumerable<IObservable> UpdateStochasticSoilModel(StochasticSoilModel modelToUpdate, StochasticSoilModel modelToUpdateFrom)
         {
-            Dictionary<StochasticSoilProfile, PipingSoilProfile> oldProfiles = existingModel
+            Dictionary<StochasticSoilProfile, PipingSoilProfile> oldProfiles = modelToUpdate
                 .StochasticSoilProfiles
                 .ToDictionary(ssp => ssp, ssp => ssp.SoilProfile, new ReferenceEqualityComparer<StochasticSoilProfile>());
 
-            StochasticSoilModelProfileDifference difference = existingModel.Update(readModel);
+            StochasticSoilModelProfileDifference difference = modelToUpdate.Update(modelToUpdateFrom);
 
             var affectedObjects = new List<IObservable>();
+            affectedObjects.Add(modelToUpdate);
             foreach (StochasticSoilProfile removedProfile in difference.RemovedProfiles)
             {
                 affectedObjects.AddRange(PipingDataSynchronizationService.RemoveStochasticSoilProfileFromInput(failureMechanism, removedProfile));
@@ -130,18 +127,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
 
         #region Remove Data Functions
 
-        protected override IEnumerable<IObservable> RemoveData(IEnumerable<StochasticSoilModel> removedObjects)
-        {
-            var affectedObjects = new List<IObservable>();
-
-            foreach (StochasticSoilModel model in removedObjects)
-            {
-                affectedObjects.AddRange(ClearStochasticSoilModelDependentData(model));
-            }
-            return affectedObjects;
-        }
-
-        private IEnumerable<IObservable> ClearStochasticSoilModelDependentData(StochasticSoilModel removedModel)
+        protected override IEnumerable<IObservable> RemoveObjectAndDependentData(StochasticSoilModel removedModel)
         {
             return PipingDataSynchronizationService.RemoveStochasticSoilModel(failureMechanism, removedModel);
         }

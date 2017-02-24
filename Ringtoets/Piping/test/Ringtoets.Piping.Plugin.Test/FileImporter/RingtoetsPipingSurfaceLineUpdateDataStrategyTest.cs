@@ -264,9 +264,11 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         public void UpdateSurfaceLinesWithImportedData_WithCurrentLinesAndImportedDataEmpty_SurfaceLinesRemoved()
         {
             // Setup
-            var targetCollection = new RingtoetsPipingSurfaceLineCollection();
             const string collectionSurfaceLineName = "Name A";
-            targetCollection.AddRange(new[]
+
+            var failureMechanism = new PipingFailureMechanism();
+            RingtoetsPipingSurfaceLineCollection surfaceLineCollection = failureMechanism.SurfaceLines;
+            surfaceLineCollection.AddRange(new[]
             {
                 new RingtoetsPipingSurfaceLine
                 {
@@ -274,18 +276,18 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                 }
             }, sourceFilePath);
 
-            var strategy = new RingtoetsPipingSurfaceLineUpdateDataStrategy(new PipingFailureMechanism());
+            var strategy = new RingtoetsPipingSurfaceLineUpdateDataStrategy(failureMechanism);
 
             // Call
-            IEnumerable<IObservable> affectedObjects = strategy.UpdateSurfaceLinesWithImportedData(targetCollection,
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateSurfaceLinesWithImportedData(surfaceLineCollection,
                                                                                                    Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                                                                                    sourceFilePath);
 
             // Assert
-            CollectionAssert.IsEmpty(targetCollection);
+            CollectionAssert.IsEmpty(surfaceLineCollection);
             CollectionAssert.AreEqual(new[]
             {
-                targetCollection
+                surfaceLineCollection
             }, affectedObjects);
         }
 
@@ -453,17 +455,16 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             var failureMechanism = new PipingFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculation);
-
-            var strategy = new RingtoetsPipingSurfaceLineUpdateDataStrategy(failureMechanism);
-
-            var collection = new RingtoetsPipingSurfaceLineCollection();
-            collection.AddRange(new[]
-            {
+            RingtoetsPipingSurfaceLineCollection surfaceLineCollection = failureMechanism.SurfaceLines;
+            surfaceLineCollection.AddRange(new[]
+{
                 surfaceLine
             }, sourceFilePath);
 
+            var strategy = new RingtoetsPipingSurfaceLineUpdateDataStrategy(failureMechanism);
+            
             // Call
-            IEnumerable<IObservable> affectedObjects = strategy.UpdateSurfaceLinesWithImportedData(collection,
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateSurfaceLinesWithImportedData(surfaceLineCollection,
                                                                                                    Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                                                                                    sourceFilePath).ToArray();
 
@@ -472,7 +473,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Assert.IsNull(calculation.InputParameters.SurfaceLine);
             CollectionAssert.AreEquivalent(new IObservable[]
             {
-                collection,
+                surfaceLineCollection,
                 calculation,
                 calculation.InputParameters
             }, affectedObjects);

@@ -90,22 +90,17 @@ namespace Ringtoets.Piping.Plugin.FileImporter
 
         #region Updating Data Functions
 
-        protected override IEnumerable<IObservable> UpdateData(IEnumerable<RingtoetsPipingSurfaceLine> objectsToUpdate,
-                                                               IEnumerable<RingtoetsPipingSurfaceLine> importedDataCollection)
+        protected override IEnumerable<IObservable> UpdateObjectAndDependentData(RingtoetsPipingSurfaceLine surfaceLineToUpdate,
+                                                                                 RingtoetsPipingSurfaceLine matchingSurfaceLine)
         {
             var affectedObjects = new List<IObservable>();
 
-            foreach (RingtoetsPipingSurfaceLine updatedSurfaceLine in objectsToUpdate)
+            if (!surfaceLineToUpdate.Equals(matchingSurfaceLine))
             {
-                RingtoetsPipingSurfaceLine matchingSurfaceLine = importedDataCollection.Single(sl => sl.Name == updatedSurfaceLine.Name);
+                surfaceLineToUpdate.Update(matchingSurfaceLine);
 
-                if (!updatedSurfaceLine.Equals(matchingSurfaceLine))
-                {
-                    updatedSurfaceLine.Update(matchingSurfaceLine);
-
-                    affectedObjects.AddRange(UpdateSurfaceLineDependentData(updatedSurfaceLine));
-                    affectedObjects.AddRange(UpdateStochasticSoilModel(updatedSurfaceLine));
-                }
+                affectedObjects.AddRange(UpdateSurfaceLineDependentData(surfaceLineToUpdate));
+                affectedObjects.AddRange(UpdateStochasticSoilModel(surfaceLineToUpdate));
             }
 
             return affectedObjects;
@@ -162,20 +157,9 @@ namespace Ringtoets.Piping.Plugin.FileImporter
 
         #region Removing Data Functions
 
-        protected override IEnumerable<IObservable> RemoveData(IEnumerable<RingtoetsPipingSurfaceLine> removedObjects)
+        protected override IEnumerable<IObservable> RemoveObjectAndDependentData(RingtoetsPipingSurfaceLine removedSurfaceLine)
         {
-            var affectedObjects = new List<IObservable>();
-
-            foreach (RingtoetsPipingSurfaceLine surfaceLine in removedObjects)
-            {
-                affectedObjects.AddRange(ClearSurfaceLineDependentData(surfaceLine));
-            }
-            return affectedObjects;
-        }
-
-        private IEnumerable<IObservable> ClearSurfaceLineDependentData(RingtoetsPipingSurfaceLine surfaceLine)
-        {
-            return PipingDataSynchronizationService.RemoveSurfaceLine(failureMechanism, surfaceLine);
+            return PipingDataSynchronizationService.RemoveSurfaceLine(failureMechanism, removedSurfaceLine);
         }
 
         #endregion

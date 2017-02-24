@@ -185,23 +185,26 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         public void UpdateModelWithImportedData_WithCurrentModelsAndImportedDataEmpty_ModelsRemoved()
         {
             // Setup
-            var targetCollection = new StochasticSoilModelCollection();
-            targetCollection.AddRange(new[]
+            var failureMechanism = new PipingFailureMechanism();
+            StochasticSoilModelCollection stochasticSoilModelCollection = failureMechanism.StochasticSoilModels;
+            stochasticSoilModelCollection.AddRange(new[]
             {
                 new TestStochasticSoilModel("A"),
                 new TestStochasticSoilModel("B")
             }, sourceFilePath);
 
-            var strategy = new StochasticSoilModelUpdateDataStrategy(new PipingFailureMechanism());
+            var strategy = new StochasticSoilModelUpdateDataStrategy(failureMechanism);
 
             // Call
-            IEnumerable<IObservable> affectedObjects = strategy.UpdateModelWithImportedData(targetCollection, new List<StochasticSoilModel>(), sourceFilePath);
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateModelWithImportedData(stochasticSoilModelCollection,
+                                                                                            new List<StochasticSoilModel>(),
+                                                                                            sourceFilePath);
 
             // Assert
-            CollectionAssert.IsEmpty(targetCollection);
-            CollectionAssert.AreEqual(new[]
+            CollectionAssert.IsEmpty(stochasticSoilModelCollection);
+            CollectionAssert.AreEquivalent(new[]
             {
-                targetCollection
+                stochasticSoilModelCollection
             }, affectedObjects);
         }
 
@@ -425,17 +428,16 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             var failureMechanism = new PipingFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculation);
-
-            var strategy = new StochasticSoilModelUpdateDataStrategy(failureMechanism);
-
-            var targetCollection = new StochasticSoilModelCollection();
-            targetCollection.AddRange(new[]
+            StochasticSoilModelCollection stochasticSoilModelCollection = failureMechanism.StochasticSoilModels;
+            stochasticSoilModelCollection.AddRange(new[]
             {
                 existingModel
             }, sourceFilePath);
 
+            var strategy = new StochasticSoilModelUpdateDataStrategy(failureMechanism);
+
             // Call
-            IEnumerable<IObservable> affectedObjects = strategy.UpdateModelWithImportedData(targetCollection, new List<StochasticSoilModel>(), sourceFilePath).ToArray();
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateModelWithImportedData(stochasticSoilModelCollection, new List<StochasticSoilModel>(), sourceFilePath).ToArray();
 
             // Assert
             Assert.IsFalse(calculation.HasOutput);
@@ -443,7 +445,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Assert.IsNull(calculation.InputParameters.StochasticSoilProfile);
             CollectionAssert.AreEquivalent(new IObservable[]
             {
-                targetCollection,
+                stochasticSoilModelCollection,
                 calculation,
                 calculation.InputParameters
             }, affectedObjects);
