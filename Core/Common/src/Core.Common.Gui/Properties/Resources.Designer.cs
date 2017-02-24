@@ -889,11 +889,20 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Importeren van gegevens is door de gebruiker geannuleerd..
+        /// </summary>
+        public static string GuiImportHandler_ImportItemsUsingDialog_Importing_cancelled {
+            get {
+                return ResourceManager.GetString("GuiImportHandler_ImportItemsUsingDialog_Importing_cancelled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Begonnen met het importeren van gegevens..
         /// </summary>
-        public static string GuiImportHandler_ImportItemsUsingDialog_Start_importing_data {
+        public static string GuiImportHandler_RunImportActivity_Start_importing_data {
             get {
-                return ResourceManager.GetString("GuiImportHandler_ImportItemsUsingDialog_Start_importing_data", resourceCulture);
+                return ResourceManager.GetString("GuiImportHandler_RunImportActivity_Start_importing_data", resourceCulture);
             }
         }
         
@@ -941,6 +950,24 @@ namespace Core.Common.Gui.Properties {
         public static string GuiUpdateHandler_GetSupportedUpdaterUsingDialog_Select_updater {
             get {
                 return ResourceManager.GetString("GuiUpdateHandler_GetSupportedUpdaterUsingDialog_Select_updater", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Begonnen met het bijwerken van gegevens..
+        /// </summary>
+        public static string GuiUpdateHandler_RunUpdateActivity_Start_importing_data {
+            get {
+                return ResourceManager.GetString("GuiUpdateHandler_RunUpdateActivity_Start_importing_data", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bijwerken van gegevens in &apos;{0}&apos; is door de gebruiker geannuleerd..
+        /// </summary>
+        public static string GuiUpdateHandler_UpdateItemsUsingDialog_Updating_from_Path_0_cancelled {
+            get {
+                return ResourceManager.GetString("GuiUpdateHandler_UpdateItemsUsingDialog_Updating_from_Path_0_cancelled", resourceCulture);
             }
         }
         

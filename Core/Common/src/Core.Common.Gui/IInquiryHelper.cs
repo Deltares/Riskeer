@@ -28,26 +28,23 @@ namespace Core.Common.Gui
     public interface IInquiryHelper
     {
         /// <summary>
-        /// Returns a <see cref="FileResult"/> containing a path to an existing file
-        /// if the user did not cancel the inquiry.
+        /// Returns the path of an existing file if the user did not cancel the inquiry.
         /// </summary>
-        /// <returns>A new <see cref="FileResult"/>.</returns>
+        /// <returns>A file location, or <c>null</c> if no location was chosen.</returns>
         string GetSourceFileLocation();
 
         /// <summary>
-        /// Returns a <see cref="FileResult"/> containing a path to an existing file
-        /// if the user did not cancel the inquiry.
+        /// Returns the path of an existing file if the user did not cancel the inquiry.
         /// </summary>
-        /// <param name="filter">A filter to which the path in the returned 
-        /// <see cref="FileResult"/> complies.</param>
-        /// <returns>A new <see cref="FileResult"/>.</returns>
+        /// <param name="filter">A filter to which the path returned complies.</param>
+        /// <returns>A file location, or <c>null</c> if no location was chosen.</returns>
         string GetSourceFileLocation(FileFilterGenerator filter);
 
         /// <summary>
-        /// Returns a <see cref="FileResult"/> containing a path to a (non-existing) file 
-        /// if the user did not cancel the inquiry.
+        /// Returns the path to a (non-existing) file if the user did not cancel the inquiry.
         /// </summary>
-        /// <returns>A <see cref="FileResult"/> containing a path to a (non-existing) file.</returns>
+        /// <returns>A path to a (non-existing) file, or <c>null</c> if no location
+        /// was chosen.</returns>
         string GetTargetFileLocation();
 
         /// <summary>

@@ -140,7 +140,8 @@ namespace Core.Common.Gui.Commands
 
         private void UpdateItemsUsingDialog(UpdateInfo updateInfo, object target)
         {
-            string filePath = updateInfo.CurrentPath(target);
+            string oldPath = updateInfo.CurrentPath(target);
+            string filePath = oldPath;
             if (!File.Exists(filePath))
             {
                 filePath = inquiryHelper.GetSourceFileLocation(updateInfo.FileFilterGenerator);
@@ -149,11 +150,15 @@ namespace Core.Common.Gui.Commands
             {
                 RunUpdateActivity(updateInfo.CreateFileImporter(target, filePath), updateInfo.Name);
             }
+            else
+            {
+                log.InfoFormat(Resources.GuiUpdateHandler_UpdateItemsUsingDialog_Updating_from_Path_0_cancelled, oldPath);
+            }
         }
 
         private void RunUpdateActivity(IFileImporter importer, string importName)
         {
-            log.Info(Resources.GuiImportHandler_ImportItemsUsingDialog_Start_importing_data);
+            log.Info(Resources.GuiUpdateHandler_RunUpdateActivity_Start_importing_data);
 
             var activity = new FileImportActivity(importer, importName ?? string.Empty);
             ActivityProgressDialogRunner.Run(dialogParent, activity);

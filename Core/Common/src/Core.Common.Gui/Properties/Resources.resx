@@ -247,8 +247,11 @@
   <data name="error" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\error.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="GuiImportHandler_ImportItemsUsingDialog_Start_importing_data" xml:space="preserve">
+  <data name="GuiImportHandler_RunImportActivity_Start_importing_data" xml:space="preserve">
     <value>Begonnen met het importeren van gegevens.</value>
+  </data>
+  <data name="GuiUpdateHandler_RunUpdateActivity_Start_importing_data" xml:space="preserve">
+    <value>Begonnen met het bijwerken van gegevens.</value>
   </data>
   <data name="SelectItemDialog_buttonOk_Click_Error" xml:space="preserve">
     <value>Fout</value>
@@ -594,5 +597,11 @@
   </data>
   <data name="RefreshIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\table_refresh.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="GuiUpdateHandler_UpdateItemsUsingDialog_Updating_from_Path_0_cancelled" xml:space="preserve">
+    <value>Bijwerken van gegevens in '{0}' is door de gebruiker geannuleerd.</value>
+  </data>
+  <data name="GuiImportHandler_ImportItemsUsingDialog_Importing_cancelled" xml:space="preserve">
+    <value>Importeren van gegevens is door de gebruiker geannuleerd.</value>
   </data>
 </root>

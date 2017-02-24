@@ -146,11 +146,15 @@ namespace Core.Common.Gui.Commands
             {
                 RunImportActivity(importInfo.CreateFileImporter(target, fileDialogResult), importInfo.Name);
             }
+            else
+            {
+                log.InfoFormat(Resources.GuiImportHandler_ImportItemsUsingDialog_Importing_cancelled);
+            }
         }
 
         private void RunImportActivity(IFileImporter importer, string importName)
         {
-            log.Info(Resources.GuiImportHandler_ImportItemsUsingDialog_Start_importing_data);
+            log.Info(Resources.GuiImportHandler_RunImportActivity_Start_importing_data);
 
             var activity = new FileImportActivity(importer, importName ?? string.Empty);
             ActivityProgressDialogRunner.Run(dialogParent, activity);

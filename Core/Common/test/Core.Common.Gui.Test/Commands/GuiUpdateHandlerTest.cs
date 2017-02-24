@@ -26,6 +26,7 @@ using Core.Common.Base.IO;
 using Core.Common.Gui.Commands;
 using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.Plugin;
+using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -327,12 +328,53 @@ namespace Core.Common.Gui.Test.Commands
                 }, inquiryHelper);
 
                 // Call
-                updateHandler.UpdateOn(targetObject);
+                Action call = () => updateHandler.UpdateOn(targetObject);
+
+                // Assert
+                TestHelper.AssertLogMessageIsGenerated(call, "Begonnen met het bijwerken van gegevens.");
             }
 
             // Assert
             Assert.IsTrue(isCreateFileImporterCalled);
             Assert.IsTrue(isVerifyUpdatedCalled);
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void UpdateOn_InquiryHelperReturnsNoPath_UpdateCancelledWithLogMessage()
+        {
+            // Setup
+            var generator = new FileFilterGenerator();
+            var targetObject = new object();
+
+            var mockRepository = new MockRepository();
+            var inquiryHelper = mockRepository.Stub<IInquiryHelper>();
+            inquiryHelper.Expect(ih => ih.GetSourceFileLocation(generator)).Return(null);
+            IFileImporter fileImporter = mockRepository.Stub<IFileImporter>();
+            mockRepository.ReplayAll();
+
+            using (var form = new Form())
+            {
+                var updateHandler = new GuiUpdateHandler(form, new UpdateInfo[]
+                {
+                    new UpdateInfo<object>
+                    {
+                        CreateFileImporter = (o, s) =>
+                        {
+                            Assert.Fail("CreateFileImporter is not expected to be called when no file path is chosen.");
+                            return fileImporter;
+                        },
+                        FileFilterGenerator = generator,
+                        VerifyUpdates = o => true
+                    }
+                }, inquiryHelper);
+
+                // Call
+                Action call = () => updateHandler.UpdateOn(targetObject);
+
+                // Assert
+                TestHelper.AssertLogMessageIsGenerated(call, "Bijwerken van gegevens in '' is door de gebruiker geannuleerd.");
+            }
             mockRepository.VerifyAll();
         }
 
