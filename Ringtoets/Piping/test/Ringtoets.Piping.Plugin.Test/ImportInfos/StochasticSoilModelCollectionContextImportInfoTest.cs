@@ -167,11 +167,11 @@ namespace Ringtoets.Piping.Plugin.Test.ImportInfos
         }
 
         [Test]
-        public void CreateFileImporter_Always_ReturnsFileImporter()
+        public void CreateFileImporter_Always_ReturnFileImporter()
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();            
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             assessmentSection.ReferenceLine = new ReferenceLine();

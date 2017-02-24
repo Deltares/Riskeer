@@ -223,6 +223,24 @@ namespace Ringtoets.Piping.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Inlezen berekening configuratie..
+        /// </summary>
+        public static string PipingConfigurationImporter_ProgressText_Reading_configuration {
+            get {
+                return ResourceManager.GetString("PipingConfigurationImporter_ProgressText_Reading_configuration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Valideren berekening configuratie..
+        /// </summary>
+        public static string PipingConfigurationImporter_ProgressText_Validating_imported_data {
+            get {
+                return ResourceManager.GetString("PipingConfigurationImporter_ProgressText_Validating_imported_data", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to De locatie met hydraulische randvoorwaarden &apos;{0}&apos; bestaat niet..
         /// </summary>
         public static string PipingConfigurationImporter_ReadHydraulicBoundaryLocation_Hydraulic_boundary_location_0_does_not_exist {

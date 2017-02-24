@@ -196,7 +196,7 @@ namespace Ringtoets.Piping.Plugin.Test.UpdateInfos
         }
 
         [Test]
-        public void CreateFileImporter_Always_ReturnsFileImporter()
+        public void CreateFileImporter_Always_ReturnFileImporter()
         {
             // Setup
             var mocks = new MockRepository();

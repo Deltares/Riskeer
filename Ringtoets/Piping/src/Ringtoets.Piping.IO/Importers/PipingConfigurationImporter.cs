@@ -49,18 +49,17 @@ namespace Ringtoets.Piping.IO.Importers
         private readonly IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations;
         private readonly PipingFailureMechanism failureMechanism;
 
-        private readonly List<ICalculationBase> validCalculationItems;
-
         /// <summary>
         /// Creates a new instance of <see cref="PipingConfigurationImporter"/>.
         /// </summary>
         /// <param name="filePath">The path to the file to import from.</param>
         /// <param name="importTarget">The calculation group to update.</param>
-        /// <param name="hydraulicBoundaryLocations">The hydraulic boundary locations used to check if 
-        /// the imported objects contain the right location.</param>
+        /// <param name="hydraulicBoundaryLocations">The hydraulic boundary locations
+        /// used to check if the imported objects contain the right location.</param>
         /// <param name="failureMechanism">The piping failure mechanism used to check
         /// if the imported objects contain the right data.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is
+        /// <c>null</c>.</exception>
         public PipingConfigurationImporter(string filePath,
                                            CalculationGroup importTarget,
                                            IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations,
@@ -76,9 +75,7 @@ namespace Ringtoets.Piping.IO.Importers
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
             this.hydraulicBoundaryLocations = hydraulicBoundaryLocations;
-            this.failureMechanism = failureMechanism;
-
-            validCalculationItems = new List<ICalculationBase>();
+            this.failureMechanism = failureMechanism;            
         }
 
         protected override void LogImportCanceledMessage()
@@ -88,7 +85,7 @@ namespace Ringtoets.Piping.IO.Importers
 
         protected override bool OnImport()
         {
-            NotifyProgress("Inlezen berekening configuratie.", 1, 3);
+            NotifyProgress(Resources.PipingConfigurationImporter_ProgressText_Reading_configuration, 1, 3);
 
             ReadResult<IReadPipingCalculationItem> readResult = ReadConfiguration();
             if (readResult.CriticalErrorOccurred || Canceled)
@@ -96,7 +93,9 @@ namespace Ringtoets.Piping.IO.Importers
                 return false;
             }
 
-            NotifyProgress("Valideren berekening configuratie.", 2, 3);
+            NotifyProgress(Resources.PipingConfigurationImporter_ProgressText_Validating_imported_data, 2, 3);
+
+            var validCalculationItems = new List<ICalculationBase>();
 
             foreach (IReadPipingCalculationItem readItem in readResult.ImportedItems)
             {
@@ -113,12 +112,12 @@ namespace Ringtoets.Piping.IO.Importers
             }
 
             NotifyProgress(RingtoetsCommonIOResources.Importer_ProgressText_Adding_imported_data_to_DataModel, 3, 3);
-            AddItemsToModel();
+            AddItemsToModel(validCalculationItems);
 
             return true;
         }
 
-        private void AddItemsToModel()
+        private void AddItemsToModel(IEnumerable<ICalculationBase> validCalculationItems)
         {
             foreach (ICalculationBase validCalculationItem in validCalculationItems)
             {
@@ -128,22 +127,19 @@ namespace Ringtoets.Piping.IO.Importers
 
         private ICalculationBase ProcessReadItem(IReadPipingCalculationItem readItem)
         {
-            ICalculationBase processedCalculationItem = null;
-
             var readCalculationGroup = readItem as ReadPipingCalculationGroup;
-            var readCalculation = readItem as ReadPipingCalculation;
-
             if (readCalculationGroup != null)
             {
-                processedCalculationItem = ProcessCalculationGroup(readCalculationGroup);
+                return ProcessCalculationGroup(readCalculationGroup);
             }
 
+            var readCalculation = readItem as ReadPipingCalculation;
             if (readCalculation != null)
             {
-                processedCalculationItem = ProcessCalculation(readCalculation);
+                return ProcessCalculation(readCalculation);
             }
 
-            return processedCalculationItem;
+            return null;
         }
 
         private CalculationGroup ProcessCalculationGroup(ReadPipingCalculationGroup readCalculationGroup)
@@ -171,11 +167,11 @@ namespace Ringtoets.Piping.IO.Importers
 
             try
             {
-                ReadHydraulicBoundaryLocation(readCalculation, pipingCalculation);
+                ReadHydraulicBoundaryData(readCalculation, pipingCalculation);
                 ReadSurfaceLine(readCalculation, pipingCalculation);
                 ReadEntryExitPoint(readCalculation, pipingCalculation);
                 ReadStochasticSoilModel(readCalculation, pipingCalculation);
-                ReadStochastics(readCalculation, pipingCalculation);
+                ReadStochasts(readCalculation, pipingCalculation);
             }
             catch (Exception e) when (e is CriticalFileValidationException || e is ArgumentOutOfRangeException)
             {
@@ -192,11 +188,11 @@ namespace Ringtoets.Piping.IO.Importers
         /// <summary>
         /// Reads the hydraulic boundary location or the assessment level that is manually set.
         /// </summary>
-        /// <param name="readCalculation">The read calculation from the imported file.</param>
+        /// <param name="readCalculation">The calculation read from the imported file.</param>
         /// <param name="pipingCalculation">The calculation to configure.</param>
         /// <exception cref="CriticalFileValidationException">Thrown when the <paramref name="readCalculation"/>
-        /// has an <see cref="HydraulicBoundaryLocation"/> set which is not available in the <see cref="hydraulicBoundaryLocations"/>.</exception>
-        private void ReadHydraulicBoundaryLocation(ReadPipingCalculation readCalculation, PipingCalculationScenario pipingCalculation)
+        /// has a <see cref="HydraulicBoundaryLocation"/> set which is not available in <see cref="hydraulicBoundaryLocations"/>.</exception>
+        private void ReadHydraulicBoundaryData(ReadPipingCalculation readCalculation, PipingCalculationScenario pipingCalculation)
         {
             if (readCalculation.HydraulicBoundaryLocation != null)
             {
@@ -215,17 +211,17 @@ namespace Ringtoets.Piping.IO.Importers
             else if (readCalculation.AssessmentLevel.HasValue)
             {
                 pipingCalculation.InputParameters.UseAssessmentLevelManualInput = true;
-                pipingCalculation.InputParameters.AssessmentLevel = (RoundedDouble) readCalculation.AssessmentLevel.Value;
+                pipingCalculation.InputParameters.AssessmentLevel = (RoundedDouble) readCalculation.AssessmentLevel;
             }
         }
 
         /// <summary>
         /// Reads the surface line.
         /// </summary>
-        /// <param name="readCalculation">The read calculation from the imported file.</param>
+        /// <param name="readCalculation">The calculation read from the imported file.</param>
         /// <param name="pipingCalculation">The calculation to configure.</param>
         /// <exception cref="CriticalFileValidationException">Thrown when the <paramref name="readCalculation"/>
-        /// has an <see cref="RingtoetsPipingSurfaceLine"/> set which is not available in the failure mechanism.</exception>
+        /// has a <see cref="RingtoetsPipingSurfaceLine"/> set which is not available in the failure mechanism.</exception>
         private void ReadSurfaceLine(ReadPipingCalculation readCalculation, PipingCalculationScenario pipingCalculation)
         {
             if (readCalculation.SurfaceLine != null)
@@ -249,23 +245,23 @@ namespace Ringtoets.Piping.IO.Importers
         {
             if (readCalculation.EntryPointL.HasValue)
             {
-                pipingCalculation.InputParameters.EntryPointL = (RoundedDouble) readCalculation.EntryPointL.Value;
+                pipingCalculation.InputParameters.EntryPointL = (RoundedDouble) readCalculation.EntryPointL;
             }
 
             if (readCalculation.ExitPointL.HasValue)
             {
-                pipingCalculation.InputParameters.ExitPointL = (RoundedDouble) readCalculation.ExitPointL.Value;
+                pipingCalculation.InputParameters.ExitPointL = (RoundedDouble) readCalculation.ExitPointL;
             }
         }
 
         /// <summary>
         /// Reads the stochastic soil model.
         /// </summary>
-        /// <param name="readCalculation">The read calculation from the imported file.</param>
+        /// <param name="readCalculation">The calculation read from the imported file.</param>
         /// <param name="pipingCalculation">The calculation to configure.</param>
         /// <exception cref="CriticalFileValidationException">Thrown when
         /// <list type="bullet">
-        /// <item>the <paramref name="readCalculation"/> has an <see cref="StochasticSoilModel"/> set
+        /// <item>the <paramref name="readCalculation"/> has a <see cref="StochasticSoilModel"/> set
         /// which is not available in the failure mechanism.</item>
         /// <item>The <see cref="StochasticSoilModel"/> does not intersect with the <see cref="RingtoetsPipingSurfaceLine"/>
         /// when this is set.</item>
@@ -304,11 +300,11 @@ namespace Ringtoets.Piping.IO.Importers
         /// <summary>
         /// Reads the stochastic soil profile.
         /// </summary>
-        /// <param name="readCalculation">The read calculation from the imported file.</param>
+        /// <param name="readCalculation">The calculation read from the imported file.</param>
         /// <param name="pipingCalculation">The calculation to configure.</param>
         /// <param name="soilModel">The <see cref="StochasticSoilModel"/> to get the soil profile from.</param>
         /// <exception cref="CriticalFileValidationException">Thrown when the <paramref name="readCalculation"/>
-        /// has an <see cref="StochasticSoilProfile"/> set which is not available in the <see cref="StochasticSoilModel"/>.</exception>
+        /// has a <see cref="StochasticSoilProfile"/> set which is not available in the <see cref="StochasticSoilModel"/>.</exception>
         private static void ReadStochasticSoilProfile(ReadPipingCalculation readCalculation,
                                                       PipingCalculationScenario pipingCalculation,
                                                       StochasticSoilModel soilModel)
@@ -330,14 +326,14 @@ namespace Ringtoets.Piping.IO.Importers
             }
         }
 
-        private static void ReadStochastics(ReadPipingCalculation readCalculation, PipingCalculationScenario pipingCalculation)
+        private static void ReadStochasts(ReadPipingCalculation readCalculation, PipingCalculationScenario pipingCalculation)
         {
             if (readCalculation.DampingFactorExitMean.HasValue && readCalculation.DampingFactorExitStandardDeviation.HasValue)
             {
                 pipingCalculation.InputParameters.DampingFactorExit = new LogNormalDistribution
                 {
-                    Mean = (RoundedDouble) readCalculation.DampingFactorExitMean.Value,
-                    StandardDeviation = (RoundedDouble) readCalculation.DampingFactorExitStandardDeviation.Value
+                    Mean = (RoundedDouble) readCalculation.DampingFactorExitMean,
+                    StandardDeviation = (RoundedDouble) readCalculation.DampingFactorExitStandardDeviation
                 };
             }
 
@@ -345,8 +341,8 @@ namespace Ringtoets.Piping.IO.Importers
             {
                 pipingCalculation.InputParameters.PhreaticLevelExit = new NormalDistribution
                 {
-                    Mean = (RoundedDouble) readCalculation.PhreaticLevelExitMean.Value,
-                    StandardDeviation = (RoundedDouble) readCalculation.PhreaticLevelExitStandardDeviation.Value
+                    Mean = (RoundedDouble) readCalculation.PhreaticLevelExitMean,
+                    StandardDeviation = (RoundedDouble) readCalculation.PhreaticLevelExitStandardDeviation
                 };
             }
         }
@@ -360,22 +356,14 @@ namespace Ringtoets.Piping.IO.Importers
                     ImportedItems = new PipingConfigurationReader(FilePath).Read().ToList()
                 };
             }
-            catch (ArgumentException e)
+            catch (Exception exception) when (exception is ArgumentException
+                                              || exception is CriticalFileReadException)
             {
-                return HandleCriticalFileReadError(e);
+                string errorMessage = string.Format(Resources.PipingConfigurationImporter_HandleCriticalFileReadError_Error_0_no_configuration_imported,
+                                                    exception.Message);
+                log.Error(errorMessage, exception);
+                return new ReadResult<IReadPipingCalculationItem>(true);
             }
-            catch (CriticalFileReadException e)
-            {
-                return HandleCriticalFileReadError(e);
-            }
-        }
-
-        private static ReadResult<IReadPipingCalculationItem> HandleCriticalFileReadError(Exception e)
-        {
-            var errorMessage = string.Format(Resources.PipingConfigurationImporter_HandleCriticalFileReadError_Error_0_no_configuration_imported,
-                                             e.Message);
-            log.Error(errorMessage, e);
-            return new ReadResult<IReadPipingCalculationItem>(true);
         }
     }
 }
