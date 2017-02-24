@@ -267,20 +267,24 @@ namespace Ringtoets.Piping.Service.Test
                 Assert.IsNull(calculation.InputParameters.SurfaceLine);
             }
 
-            IObservable[] array = observables.ToArray();
+            IObservable[] affectedObjectsArray = observables.ToArray();
             var expectedAffectedObjectCount = 1 + calculationsWithOutput.Length + calculationsWithSurfaceLine.Length;
-            Assert.AreEqual(expectedAffectedObjectCount, array.Length);
+            Assert.AreEqual(expectedAffectedObjectCount, affectedObjectsArray.Length);
 
-            CollectionAssert.Contains(array, failureMechanism.SurfaceLines);
-            foreach (PipingCalculation calculation in calculationsWithSurfaceLine)
-            {
-                CollectionAssert.Contains(array, calculation.InputParameters);
-            }
             foreach (PipingCalculation calculation in calculationsWithOutput)
             {
                 Assert.IsFalse(calculation.HasOutput);
-                CollectionAssert.Contains(array, calculation);
             }
+
+            IEnumerable<IObservable> expectedAffectedObjects =
+                calculationsWithSurfaceLine.Select(calc => calc.InputParameters)
+                                           .Cast<IObservable>()
+                                           .Concat(calculationsWithOutput)
+                                           .Concat(new IObservable[]
+                                           {
+                                               failureMechanism.SurfaceLines
+                                           });
+            CollectionAssert.AreEquivalent(expectedAffectedObjects, affectedObjectsArray);
         }
 
         [Test]
@@ -324,20 +328,24 @@ namespace Ringtoets.Piping.Service.Test
                 Assert.IsNull(calculation.InputParameters.SurfaceLine);
             }
 
-            IObservable[] array = observables.ToArray();
+            IObservable[] affectedObjectsArray = observables.ToArray();
             var expectedAffectedObjectCount = 1 + calculationsWithOutput.Length + calculationsWithSurfaceLine.Length;
-            Assert.AreEqual(expectedAffectedObjectCount, array.Length);
+            Assert.AreEqual(expectedAffectedObjectCount, affectedObjectsArray.Length);
 
-            CollectionAssert.Contains(array, failureMechanism.SurfaceLines);
-            foreach (PipingCalculation calculation in calculationsWithSurfaceLine)
-            {
-                CollectionAssert.Contains(array, calculation.InputParameters);
-            }
             foreach (PipingCalculation calculation in calculationsWithOutput)
             {
                 Assert.IsFalse(calculation.HasOutput);
-                CollectionAssert.Contains(array, calculation);
             }
+
+            IEnumerable<IObservable> expectedAffectedObjects =
+                calculationsWithSurfaceLine.Select(calc => calc.InputParameters)
+                                           .Cast<IObservable>()
+                                           .Concat(calculationsWithOutput)
+                                           .Concat(new IObservable[]
+                                           {
+                                               failureMechanism.SurfaceLines
+                                           });
+            CollectionAssert.AreEquivalent(expectedAffectedObjects, affectedObjectsArray);
         }
 
         [Test]
@@ -398,20 +406,24 @@ namespace Ringtoets.Piping.Service.Test
                 Assert.IsNull(calculation.InputParameters.StochasticSoilModel);
             }
 
-            IObservable[] array = observables.ToArray();
+            IObservable[] affectedObjectsArray = observables.ToArray();
             var expectedAffectedObjectCount = 1 + calculationsWithOutput.Length + calculationsWithSoilModel.Length;
-            Assert.AreEqual(expectedAffectedObjectCount, array.Length);
+            Assert.AreEqual(expectedAffectedObjectCount, affectedObjectsArray.Length);
 
-            CollectionAssert.Contains(array, failureMechanism.StochasticSoilModels);
-            foreach (PipingCalculation calculation in calculationsWithSoilModel)
-            {
-                CollectionAssert.Contains(array, calculation.InputParameters);
-            }
             foreach (PipingCalculation calculation in calculationsWithOutput)
             {
                 Assert.IsFalse(calculation.HasOutput);
-                CollectionAssert.Contains(array, calculation);
             }
+
+            IEnumerable<IObservable> expectedAffectedObjects =
+                calculationsWithSoilModel.Select(calc => calc.InputParameters)
+                                         .Cast<IObservable>()
+                                         .Concat(calculationsWithOutput)
+                                         .Concat(new IObservable[]
+                                         {
+                                             failureMechanism.StochasticSoilModels
+                                         });
+            CollectionAssert.AreEquivalent(expectedAffectedObjects, affectedObjectsArray);
         }
 
         [Test]
@@ -455,20 +467,24 @@ namespace Ringtoets.Piping.Service.Test
                 Assert.IsNull(calculation.InputParameters.StochasticSoilModel);
             }
 
-            IObservable[] array = observables.ToArray();
+            IObservable[] affectedObjectsArray = observables.ToArray();
             var expectedAffectedObjectCount = 1 + calculationsWithOutput.Length + calculationsWithStochasticSoilModel.Length;
-            Assert.AreEqual(expectedAffectedObjectCount, array.Length);
+            Assert.AreEqual(expectedAffectedObjectCount, affectedObjectsArray.Length);
 
-            CollectionAssert.Contains(array, failureMechanism.StochasticSoilModels);
-            foreach (PipingCalculation calculation in calculationsWithStochasticSoilModel)
-            {
-                CollectionAssert.Contains(array, calculation.InputParameters);
-            }
             foreach (PipingCalculation calculation in calculationsWithOutput)
             {
                 Assert.IsFalse(calculation.HasOutput);
-                CollectionAssert.Contains(array, calculation);
             }
+
+            IEnumerable<IObservable> expectedAffectedObjects =
+                calculationsWithStochasticSoilModel.Select(calc => calc.InputParameters)
+                                                   .Cast<IObservable>()
+                                                   .Concat(calculationsWithOutput)
+                                                   .Concat(new IObservable[]
+                                                   {
+                                                       failureMechanism.StochasticSoilModels
+                                                   });
+            CollectionAssert.AreEquivalent(expectedAffectedObjects, affectedObjectsArray);
         }
     }
 }
