@@ -39,7 +39,7 @@ namespace Core.Common.Gui.TestUtil.Settings
         /// <seealso cref="UseCustomSettingsHelper"/>
         public TestSettingsHelper()
         {
-            ExpectedApplicationLocalUserSettingsDirectory = TestHelper.GetScratchPadPath();
+            ApplicationLocalUserSettingsDirectory = TestHelper.GetScratchPadPath();
             ApplicationName = string.Empty;
             ApplicationVersion = string.Empty;
         }
@@ -47,29 +47,23 @@ namespace Core.Common.Gui.TestUtil.Settings
         /// <summary>
         /// Sets the <see cref="ApplicationName"/>.
         /// </summary>
-        public string ExpectedApplicationName
+        public void SetApplicationName(string value)
         {
-            set
-            {
-                ApplicationName = value;
-            }
+            ApplicationName = value;
         }
 
         /// <summary>
         /// Sets the <see cref="ApplicationVersion"/>.
         /// </summary>
-        public string ExpectedApplicationVersion
+        public void SetApplicationVersion(string value)
         {
-            set
-            {
-                ApplicationVersion = value;
-            }
+            ApplicationVersion = value;
         }
 
         /// <summary>
         /// Gets or sets the directory to use in <see cref="GetApplicationLocalUserSettingsDirectory"/>.
         /// </summary>
-        public string ExpectedApplicationLocalUserSettingsDirectory { private get; set; }
+        public string ApplicationLocalUserSettingsDirectory { private get; set; }
 
         public string ApplicationName { get; private set; }
 
@@ -79,7 +73,7 @@ namespace Core.Common.Gui.TestUtil.Settings
         {
             var directorypath = new List<string>
             {
-                ExpectedApplicationLocalUserSettingsDirectory
+                ApplicationLocalUserSettingsDirectory
             };
 
             if (subPath != null)

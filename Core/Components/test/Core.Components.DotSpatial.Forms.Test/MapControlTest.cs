@@ -252,7 +252,7 @@ namespace Core.Components.DotSpatial.Forms.Test
 
             using (new UseCustomSettingsHelper(new TestSettingsHelper
             {
-                ExpectedApplicationLocalUserSettingsDirectory = Path.Combine(rootPath, folderWithoutPermission)
+                ApplicationLocalUserSettingsDirectory = Path.Combine(rootPath, folderWithoutPermission)
             }))
             using (var disposeHelper = new DirectoryDisposeHelper(rootPath, folderWithoutPermission, tileCachesFolder))
             using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
@@ -297,7 +297,7 @@ namespace Core.Components.DotSpatial.Forms.Test
 
             using (new UseCustomSettingsHelper(new TestSettingsHelper
             {
-                ExpectedApplicationLocalUserSettingsDirectory = Path.Combine(rootPath, folderWithoutPermission)
+                ApplicationLocalUserSettingsDirectory = Path.Combine(rootPath, folderWithoutPermission)
             }))
             using (var disposeHelper = new DirectoryDisposeHelper(rootPath, folderWithoutPermission, tileCachesFolder))
             using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
@@ -376,7 +376,7 @@ namespace Core.Components.DotSpatial.Forms.Test
 
             using (new UseCustomSettingsHelper(new TestSettingsHelper
             {
-                ExpectedApplicationLocalUserSettingsDirectory = settingsDirectory
+                ApplicationLocalUserSettingsDirectory = settingsDirectory
             }))
             using (new DirectoryDisposeHelper(rootPath, folderWithoutPermission, tileCachesFolder))
             using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
@@ -456,7 +456,7 @@ namespace Core.Components.DotSpatial.Forms.Test
 
             using (new UseCustomSettingsHelper(new TestSettingsHelper
             {
-                ExpectedApplicationLocalUserSettingsDirectory = Path.Combine(rootPath, folderWithoutPermission)
+                ApplicationLocalUserSettingsDirectory = Path.Combine(rootPath, folderWithoutPermission)
             }))
             using (var disposeHelper = new DirectoryDisposeHelper(rootPath, folderWithoutPermission, tileCachesFolder))
             using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
@@ -1717,7 +1717,7 @@ namespace Core.Components.DotSpatial.Forms.Test
 
             using (new UseCustomSettingsHelper(new TestSettingsHelper
             {
-                ExpectedApplicationLocalUserSettingsDirectory = Path.Combine(rootPath, folderWithoutPermission)
+                ApplicationLocalUserSettingsDirectory = Path.Combine(rootPath, folderWithoutPermission)
             }))
             using (var disposeHelper = new DirectoryDisposeHelper(rootPath, folderWithoutPermission, tileCachesFolder))
             using (new UseCustomTileSourceFactoryConfig(backgroundMapData))

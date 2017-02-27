@@ -43,13 +43,13 @@ namespace Core.Common.Gui.TestUtil.Test.Settings
         }
 
         [Test]
-        public void GetApplicationLocalUserSettingsDirectory_NullPostfix_ReturnsRootFolder()
+        public void GetApplicationLocalUserSettingsDirectory_NoPostfix_ReturnsRootFolder()
         {
             // Setup
             var settingsHelper = new TestSettingsHelper();
 
             // Call
-            string directory = settingsHelper.GetApplicationLocalUserSettingsDirectory(null);
+            string directory = settingsHelper.GetApplicationLocalUserSettingsDirectory();
 
             // Assert
             string testDataPath = TestHelper.GetScratchPadPath();
@@ -63,7 +63,7 @@ namespace Core.Common.Gui.TestUtil.Test.Settings
             const string userSettingsDirectory = "someFolder";
             var settingsHelper = new TestSettingsHelper
             {
-                ExpectedApplicationLocalUserSettingsDirectory = userSettingsDirectory
+                ApplicationLocalUserSettingsDirectory = userSettingsDirectory
             };
 
             // Call
@@ -78,16 +78,22 @@ namespace Core.Common.Gui.TestUtil.Test.Settings
         {
             // Setup
             var settingsHelper = new TestSettingsHelper();
-            string postfix = Path.GetRandomFileName();
+            string postfix = nameof(GetApplicationLocalUserSettingsDirectory_WithPostfix_ReturnsRootFolderWithPostfix);
 
             // Call
             string directory = settingsHelper.GetApplicationLocalUserSettingsDirectory(postfix);
 
             // Assert
-            string testDataPath = TestHelper.GetScratchPadPath(postfix);
-            Assert.AreEqual(testDataPath, directory);
-            Assert.IsTrue(Directory.Exists(testDataPath));
-            Directory.Delete(testDataPath);
+            string testDataPath = Path.Combine(TestHelper.GetScratchPadPath(), postfix);
+            try
+            {
+                Assert.AreEqual(testDataPath, directory);
+                Assert.IsTrue(Directory.Exists(testDataPath));
+            }
+            finally
+            {
+                Directory.Delete(testDataPath);
+            }
         }
 
         [Test]
@@ -99,7 +105,7 @@ namespace Core.Common.Gui.TestUtil.Test.Settings
             string userSettingsDirectory = TestHelper.GetScratchPadPath();
             var settingsHelper = new TestSettingsHelper
             {
-                ExpectedApplicationLocalUserSettingsDirectory = userSettingsDirectory
+                ApplicationLocalUserSettingsDirectory = userSettingsDirectory
             };
 
             // Call
@@ -107,12 +113,17 @@ namespace Core.Common.Gui.TestUtil.Test.Settings
 
             // Assert
             string testDataPath = Path.Combine(userSettingsDirectory, subFolder, subSubFolder);
-            Assert.AreEqual(testDataPath, directory);
-
             string testDataPathParent = Path.Combine(userSettingsDirectory, subFolder);
-            Assert.IsTrue(Directory.Exists(testDataPathParent));
-            Assert.IsTrue(Directory.Exists(testDataPath));
-            Directory.Delete(testDataPathParent, true);
+            try
+            {
+                Assert.AreEqual(testDataPath, directory);
+                Assert.IsTrue(Directory.Exists(testDataPathParent));
+                Assert.IsTrue(Directory.Exists(testDataPath));
+            }
+            finally
+            {
+                Directory.Delete(testDataPathParent, true);
+            }
         }
 
         [Test]
@@ -120,20 +131,29 @@ namespace Core.Common.Gui.TestUtil.Test.Settings
         {
             // Setup
             const string workingDirectory = "folderToCr*eate";
-            const string userSettingsDirectory = "someFolder";
+            string userSettingsDirectory = TestHelper.GetScratchPadPath();
+            string subFolder = nameof(GetApplicationLocalUserSettingsDirectory_ValidPathFileExistsDirectoryNotWritable_ThrowsIOException);
             var settingsHelper = new TestSettingsHelper
             {
-                ExpectedApplicationLocalUserSettingsDirectory = userSettingsDirectory
+                ApplicationLocalUserSettingsDirectory = userSettingsDirectory
             };
 
             // Call
-            TestDelegate test = () => settingsHelper.GetApplicationLocalUserSettingsDirectory(workingDirectory);
+            TestDelegate test = () => settingsHelper.GetApplicationLocalUserSettingsDirectory(subFolder, workingDirectory);
 
             // Assert
-            string dataPath = Path.Combine(userSettingsDirectory, workingDirectory);
+            string dataPath = Path.Combine(userSettingsDirectory, subFolder, workingDirectory);
             var expectedMessage = $"Unable to create '{dataPath}'.";
+
             var message = Assert.Throws<IOException>(test).Message;
             Assert.AreEqual(expectedMessage, message);
+
+            string testDataPath = Path.Combine(userSettingsDirectory, subFolder);
+            if (Directory.Exists(testDataPath))
+            {
+                Directory.Delete(testDataPath, true);
+                Assert.Fail($"Path should not have been created '{testDataPath}'");
+            }
         }
 
         [Test]
@@ -141,10 +161,8 @@ namespace Core.Common.Gui.TestUtil.Test.Settings
         {
             // Setup
             const string expectedApplicationName = "some name";
-            var settingsHelper = new TestSettingsHelper
-            {
-                ExpectedApplicationName = expectedApplicationName
-            };
+            var settingsHelper = new TestSettingsHelper();
+            settingsHelper.SetApplicationName(expectedApplicationName);
 
             // Call
             string applicationName = settingsHelper.ApplicationName;
@@ -158,10 +176,8 @@ namespace Core.Common.Gui.TestUtil.Test.Settings
         {
             // Setup
             const string expectedApplicationVersion = "some version";
-            var settingsHelper = new TestSettingsHelper
-            {
-                ExpectedApplicationVersion = expectedApplicationVersion
-            };
+            var settingsHelper = new TestSettingsHelper();
+            settingsHelper.SetApplicationVersion(expectedApplicationVersion);
 
             // Call
             string applicationVersion = settingsHelper.ApplicationVersion;

@@ -320,7 +320,7 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
             using (new UseCustomTileSourceFactoryConfig(tileFactory))
             using (new UseCustomSettingsHelper(new TestSettingsHelper
             {
-                ExpectedApplicationLocalUserSettingsDirectory = TestHelper.GetTestDataPath(testPath, "noConfig")
+                ApplicationLocalUserSettingsDirectory = TestHelper.GetTestDataPath(testPath, "noConfig")
             }))
             {
                 // Call
@@ -381,7 +381,7 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
             using (new UseCustomTileSourceFactoryConfig(tileFactory))
             using (new UseCustomSettingsHelper(new TestSettingsHelper
             {
-                ExpectedApplicationLocalUserSettingsDirectory = TestHelper.GetTestDataPath(testPath, "noConfig")
+                ApplicationLocalUserSettingsDirectory = TestHelper.GetTestDataPath(testPath, "noConfig")
             }))
             using (WmtsLocationControl control = ShowFullyConfiguredWmtsLocationControl())
             {
@@ -433,7 +433,7 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
             using (new UseCustomTileSourceFactoryConfig(tileFactory))
             using (new UseCustomSettingsHelper(new TestSettingsHelper
             {
-                ExpectedApplicationLocalUserSettingsDirectory = TestHelper.GetTestDataPath(testPath, "noConfig")
+                ApplicationLocalUserSettingsDirectory = TestHelper.GetTestDataPath(testPath, "noConfig")
             }))
             using (WmtsLocationControl control = ShowFullyConfiguredWmtsLocationControl())
             {
@@ -462,12 +462,14 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
             // Given
             mockRepository.ReplayAll();
 
-            using (new UseCustomTileSourceFactoryConfig(tileFactory))
-            using (new UseCustomSettingsHelper(new TestSettingsHelper
+            var settingsHelper = new TestSettingsHelper
             {
-                ExpectedApplicationVersion = "twoValidWmtsConnectionInfos",
-                ExpectedApplicationLocalUserSettingsDirectory = TestHelper.GetTestDataPath(testPath)
-            }))
+                ApplicationLocalUserSettingsDirectory = TestHelper.GetTestDataPath(testPath)
+            };
+            settingsHelper.SetApplicationVersion("twoValidWmtsConnectionInfos");
+
+            using (new UseCustomTileSourceFactoryConfig(tileFactory))
+            using (new UseCustomSettingsHelper(settingsHelper))
             {
                 // When
                 using (var control = new WmtsLocationControl(null))
@@ -500,12 +502,14 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
             // Given
             mockRepository.ReplayAll();
 
-            using (new UseCustomTileSourceFactoryConfig(tileFactory))
-            using (new UseCustomSettingsHelper(new TestSettingsHelper
+            var settingsHelper = new TestSettingsHelper
             {
-                ExpectedApplicationVersion = "WmtsConnectionInfosWithoutWmtsConnectionsElement",
-                ExpectedApplicationLocalUserSettingsDirectory = TestHelper.GetTestDataPath(testPath)
-            }))
+                ApplicationLocalUserSettingsDirectory = TestHelper.GetTestDataPath(testPath)
+            };
+            settingsHelper.SetApplicationVersion("WmtsConnectionInfosWithoutWmtsConnectionsElement");
+
+            using (new UseCustomTileSourceFactoryConfig(tileFactory))
+            using (new UseCustomSettingsHelper(settingsHelper))
             {
                 // When
                 Action action = () =>
@@ -547,7 +551,7 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
             using (new UseCustomTileSourceFactoryConfig(tileFactory))
             using (new UseCustomSettingsHelper(new TestSettingsHelper
             {
-                ExpectedApplicationLocalUserSettingsDirectory = TestHelper.GetTestDataPath(testPath, "noConfig")
+                ApplicationLocalUserSettingsDirectory = TestHelper.GetTestDataPath(testPath, "noConfig")
             }))
             using (var form = new Form())
             using (var control = new WmtsLocationControl(null))
@@ -596,7 +600,7 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
 
             using (new UseCustomSettingsHelper(new TestSettingsHelper
             {
-                ExpectedApplicationLocalUserSettingsDirectory = TestHelper.GetTestDataPath(testPath, "noConfig")
+                ApplicationLocalUserSettingsDirectory = TestHelper.GetTestDataPath(testPath, "noConfig")
             }))
             using (new FileDisposeHelper(Path.Combine(SettingsHelper.Instance.GetApplicationLocalUserSettingsDirectory(),
                                                       wmtsconnectioninfoConfigFile)))
@@ -648,7 +652,7 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
             using (new UseCustomTileSourceFactoryConfig(tileFactory))
             using (new UseCustomSettingsHelper(new TestSettingsHelper
             {
-                ExpectedApplicationLocalUserSettingsDirectory = TestHelper.GetTestDataPath(testPath, "noConfig")
+                ApplicationLocalUserSettingsDirectory = TestHelper.GetTestDataPath(testPath, "noConfig")
             }))
             using (var form = new Form())
             using (var control = new WmtsLocationControl(null))
@@ -700,7 +704,7 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
 
             using (new UseCustomSettingsHelper(new TestSettingsHelper
             {
-                ExpectedApplicationLocalUserSettingsDirectory = TestHelper.GetTestDataPath(testPath, "noConfig")
+                ApplicationLocalUserSettingsDirectory = TestHelper.GetTestDataPath(testPath, "noConfig")
             }))
             {
                 string configFilePath = Path.Combine(SettingsHelper.Instance.GetApplicationLocalUserSettingsDirectory(),
@@ -746,7 +750,7 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
 
             using (new UseCustomSettingsHelper(new TestSettingsHelper
             {
-                ExpectedApplicationLocalUserSettingsDirectory = TestHelper.GetTestDataPath(testPath, "noConfig")
+                ApplicationLocalUserSettingsDirectory = TestHelper.GetTestDataPath(testPath, "noConfig")
             }))
             using (new UseCustomTileSourceFactoryConfig(tileFactory))
             using (var form = new Form())
@@ -806,7 +810,7 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
 
             using (new UseCustomSettingsHelper(new TestSettingsHelper
             {
-                ExpectedApplicationLocalUserSettingsDirectory = TestHelper.GetTestDataPath(testPath, "noConfig")
+                ApplicationLocalUserSettingsDirectory = TestHelper.GetTestDataPath(testPath, "noConfig")
             }))
             using (new FileDisposeHelper(Path.Combine(SettingsHelper.Instance.GetApplicationLocalUserSettingsDirectory(),
                                                       wmtsconnectioninfoConfigFile)))
@@ -865,7 +869,7 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
 
             using (new UseCustomSettingsHelper(new TestSettingsHelper
             {
-                ExpectedApplicationLocalUserSettingsDirectory = TestHelper.GetTestDataPath(testPath, "noConfig")
+                ApplicationLocalUserSettingsDirectory = TestHelper.GetTestDataPath(testPath, "noConfig")
             }))
             using (new UseCustomTileSourceFactoryConfig(tileFactory))
             using (var form = new Form())
