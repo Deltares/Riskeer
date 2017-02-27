@@ -20,18 +20,12 @@
 // All rights reserved.
 
 using System.Linq;
-using Core.Common.Base;
-using Core.Common.Base.Geometry;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Piping.Data;
-using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.Properties;
 using Ringtoets.Piping.Primitives;
 
@@ -75,8 +69,8 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             Assert.IsNull(info.ChildNodeObjects);
             Assert.IsNull(info.CanRename);
             Assert.IsNull(info.OnNodeRenamed);
-            Assert.IsNotNull(info.CanRemove);
-            Assert.IsNotNull(info.OnNodeRemoved);
+            Assert.IsNull(info.CanRemove);
+            Assert.IsNull(info.OnNodeRemoved);
             Assert.IsNull(info.CanCheck);
             Assert.IsNull(info.IsChecked);
             Assert.IsNull(info.OnNodeChecked);
@@ -119,131 +113,11 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void CanRemove_ParentDataIsRingtoetsSurfaceLinesContext_ReturnTrue()
-        {
-            // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var failureMechanism = new PipingFailureMechanism();
-
-            var parentData = new RingtoetsPipingSurfaceLinesContext(failureMechanism.SurfaceLines, failureMechanism, assessmentSection);
-
-            // Call
-            bool canRemove = info.CanRemove(null, parentData);
-
-            // Assert
-            Assert.IsTrue(canRemove);
-        }
-
-        [Test]
-        public void CanRemove_OtherParentData_ReturnFalse()
-        {
-            // Call
-            bool canRemove = info.CanRemove(null, null);
-
-            // Assert
-            Assert.IsFalse(canRemove);
-        }
-
-        [Test]
-        public void OnNodeRemoved_RemovedSurfaceLineAssignedToCalculationInput_SurfaceLineRemovedFromFailureMechanismAndCalculationSurfaceLineCleared()
-        {
-            // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            var calculation1Observer = mocks.StrictMock<IObserver>();
-            calculation1Observer.Expect(o => o.UpdateObserver());
-            var calculation2Observer = mocks.StrictMock<IObserver>();
-            calculation2Observer.Expect(o => o.UpdateObserver());
-            var calculation3Observer = mocks.StrictMock<IObserver>();
-            calculation3Observer.Expect(o => o.UpdateObserver()).Repeat.Never();
-            mocks.ReplayAll();
-
-            var nodeData = new RingtoetsPipingSurfaceLine();
-            nodeData.SetGeometry(new[]
-            {
-                new Point3D(1, 2, 3),
-                new Point3D(4, 5, 6)
-            });
-            var failureMechanism = new PipingFailureMechanism();
-            failureMechanism.SurfaceLines.AddRange(new[]
-            {
-                nodeData
-            }, "path");
-            var otherSurfaceline = new RingtoetsPipingSurfaceLine();
-            otherSurfaceline.SetGeometry(new[]
-            {
-                new Point3D(7, 8, 9),
-                new Point3D(0, 1, 2)
-            });
-            failureMechanism.SurfaceLines.AddRange(new[]
-            {
-                otherSurfaceline
-            }, "path");
-            failureMechanism.SurfaceLines.Attach(observer);
-
-            var generalInputs = new GeneralPipingInput();
-            var calculation1 = new PipingCalculationScenario(generalInputs)
-            {
-                InputParameters =
-                {
-                    SurfaceLine = nodeData
-                }
-            };
-            calculation1.InputParameters.Attach(calculation1Observer);
-            var calculation2 = new PipingCalculationScenario(generalInputs)
-            {
-                InputParameters =
-                {
-                    SurfaceLine = nodeData
-                }
-            };
-            calculation2.InputParameters.Attach(calculation2Observer);
-            var calculation3 = new PipingCalculationScenario(generalInputs)
-            {
-                InputParameters =
-                {
-                    SurfaceLine = otherSurfaceline
-                }
-            };
-            calculation3.InputParameters.Attach(calculation3Observer);
-
-            var groupWithCalculation = new CalculationGroup("A", true)
-            {
-                Children =
-                {
-                    calculation2
-                }
-            };
-
-            failureMechanism.CalculationsGroup.Children.Add(calculation1);
-            failureMechanism.CalculationsGroup.Children.Add(groupWithCalculation);
-            failureMechanism.CalculationsGroup.Children.Add(calculation3);
-
-            var parentNodeData = new RingtoetsPipingSurfaceLinesContext(failureMechanism.SurfaceLines, failureMechanism, assessmentSection);
-
-            // Call
-            info.OnNodeRemoved(nodeData, parentNodeData);
-
-            // Assert
-            CollectionAssert.DoesNotContain(failureMechanism.SurfaceLines, nodeData);
-
-            Assert.IsNull(calculation1.InputParameters.SurfaceLine);
-            Assert.IsNull(calculation2.InputParameters.SurfaceLine);
-            Assert.IsNotNull(calculation3.InputParameters.SurfaceLine,
-                             "Calculation with different surfaceline should not be affected.");
-            // Assert expectancies are called in TearDown()
-        }
-
-        [Test]
         public void ContextMenuStrip_Always_CallsBuilder()
         {
             // Setup
             var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
 
-            menuBuilderMock.Expect(mb => mb.AddDeleteItem()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.Build()).Return(null);

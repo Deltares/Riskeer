@@ -30,7 +30,6 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
-using Ringtoets.Piping.Forms.Properties;
 using Ringtoets.Piping.Primitives;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
@@ -219,7 +218,6 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 menuBuilderMock.Expect(mb => mb.AddImportItem()).Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.AddUpdateItem()).Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddDeleteChildrenItem()).Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.AddCollapseAllItem()).Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.AddExpandAllItem()).Return(menuBuilderMock);

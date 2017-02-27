@@ -278,12 +278,9 @@ namespace Ringtoets.Piping.Plugin
                 Text = pipingSurfaceLine => pipingSurfaceLine.Name,
                 Image = pipingSurfaceLine => PipingFormsResources.PipingSurfaceLineIcon,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
-                                                                                 .AddDeleteItem()
                                                                                  .AddSeparator()
                                                                                  .AddPropertiesItem()
-                                                                                 .Build(),
-                CanRemove = CanRemoveSurfaceLine,
-                OnNodeRemoved = OnSurfaceLineRemoved
+                                                                                 .Build()
             };
 
             yield return new TreeNodeInfo<StochasticSoilModelCollectionContext>
@@ -587,7 +584,6 @@ namespace Ringtoets.Piping.Plugin
                       .AddImportItem()
                       .AddUpdateItem()
                       .AddSeparator()
-                      .AddDeleteChildrenItem()
                       .AddSeparator()
                       .AddCollapseAllItem()
                       .AddExpandAllItem()
@@ -611,26 +607,6 @@ namespace Ringtoets.Piping.Plugin
                       .AddSeparator()
                       .AddPropertiesItem()
                       .Build();
-        }
-
-        #endregion
-
-        #region RingtoetsPipingSurfaceLine TreeNodeInfo
-
-        private static bool CanRemoveSurfaceLine(RingtoetsPipingSurfaceLine nodeData, object parentData)
-        {
-            return parentData is RingtoetsPipingSurfaceLinesContext;
-        }
-
-        private static void OnSurfaceLineRemoved(RingtoetsPipingSurfaceLine nodeData, object parentData)
-        {
-            var context = (RingtoetsPipingSurfaceLinesContext) parentData;
-            IObservable[] changedObservables = PipingDataSynchronizationService.RemoveSurfaceLine(context.FailureMechanism, nodeData).ToArray();
-
-            foreach (IObservable observable in changedObservables)
-            {
-                observable.NotifyObservers();
-            }
         }
 
         #endregion
