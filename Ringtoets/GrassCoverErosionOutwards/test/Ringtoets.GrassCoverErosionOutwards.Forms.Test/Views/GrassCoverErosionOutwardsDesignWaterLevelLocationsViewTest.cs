@@ -283,14 +283,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 
             locations.ForEach(loc => loc.DesignWaterLevelOutput = null);
 
-            int refreshed = 0;
-            dataGridView.Invalidated += (sender, args) => refreshed++;
+            bool refreshed = false;
+            dataGridView.Invalidated += (sender, args) => refreshed = true;
 
             // Call
             locations.NotifyObservers();
 
             // Assert
-            Assert.AreEqual(1, refreshed);
+            Assert.IsTrue(refreshed);
             Assert.AreEqual(3, rows.Count);
             Assert.AreEqual("-", rows[0].Cells[locationDesignWaterlevelColumnIndex].FormattedValue);
             Assert.AreEqual("-", rows[1].Cells[locationDesignWaterlevelColumnIndex].FormattedValue);
