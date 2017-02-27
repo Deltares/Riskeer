@@ -62,7 +62,7 @@ namespace Core.Components.Gis.IO.Importers
                 return false;
             }
 
-            AddFeatureBasedMapDataToMapDataCollection(readResult.ImportedItems.First());
+            AddFeatureBasedMapDataToMapDataCollection(readResult.Items.First());
 
             return true;
         }
@@ -113,7 +113,7 @@ namespace Core.Components.Gis.IO.Importers
 
                 return new ReadResult<FeatureBasedMapData>(false)
                 {
-                    ImportedItems = new[]
+                    Items = new[]
                     {
                         importedData
                     }

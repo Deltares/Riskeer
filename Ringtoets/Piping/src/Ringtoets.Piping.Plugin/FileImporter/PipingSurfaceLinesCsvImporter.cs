@@ -104,8 +104,8 @@ namespace Ringtoets.Piping.Plugin.FileImporter
                 return false;
             }
 
-            RingtoetsPipingSurfaceLine[] importResults = ProcessImportedDataToModel(importSurfaceLinesResult.ImportedItems,
-                                                                                    importCharacteristicPointsResult.ImportedItems).ToArray();
+            RingtoetsPipingSurfaceLine[] importResults = ProcessImportedDataToModel(importSurfaceLinesResult.Items,
+                                                                                    importCharacteristicPointsResult.Items).ToArray();
             if (Canceled)
             {
                 return false;
@@ -343,7 +343,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
 
             return new ReadResult<RingtoetsPipingSurfaceLine>(false)
             {
-                ImportedItems = readSurfaceLines
+                Items = readSurfaceLines
             };
         }
 
@@ -501,7 +501,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
 
             return new ReadResult<CharacteristicPoints>(false)
             {
-                ImportedItems = readCharacteristicPointsLocations
+                Items = readCharacteristicPointsLocations
             };
         }
 

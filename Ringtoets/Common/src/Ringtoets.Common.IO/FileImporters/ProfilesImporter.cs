@@ -74,7 +74,7 @@ namespace Ringtoets.Common.IO.FileImporters
             }
 
             string folderPath = Path.GetDirectoryName(FilePath);
-            string[] acceptedIds = importDikeProfilesResult.ImportedItems.Select(dp => dp.Id).ToArray();
+            string[] acceptedIds = importDikeProfilesResult.Items.Select(dp => dp.Id).ToArray();
             ReadResult<DikeProfileData> importDikeProfileDataResult = ReadDikeProfileData(folderPath, acceptedIds);
             if (importDikeProfileDataResult.CriticalErrorOccurred || Canceled)
             {
@@ -187,7 +187,7 @@ namespace Ringtoets.Common.IO.FileImporters
             }
             return new ReadResult<ProfileLocation>(false)
             {
-                ImportedItems = profileLocations
+                Items = profileLocations
             };
         }
 
@@ -282,7 +282,7 @@ namespace Ringtoets.Common.IO.FileImporters
                        ? new ReadResult<DikeProfileData>(true)
                        : new ReadResult<DikeProfileData>(false)
                        {
-                           ImportedItems = dikeProfileData
+                           Items = dikeProfileData
                        };
         }
 

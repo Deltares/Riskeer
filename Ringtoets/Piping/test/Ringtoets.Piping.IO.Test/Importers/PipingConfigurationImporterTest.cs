@@ -39,7 +39,8 @@ namespace Ringtoets.Piping.IO.Test.Importers
     [TestFixture]
     public class PipingConfigurationImporterTest
     {
-        private readonly string path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO, "PipingConfigurationReader");
+        private readonly string readerPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO, "PipingConfigurationReader");
+        private readonly string importerPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO, "PipingConfigurationImporter");
 
         private static IEnumerable<TestCaseData> ValidConfigurationsWithValidData
         {
@@ -112,7 +113,7 @@ namespace Ringtoets.Piping.IO.Test.Importers
 
             // Assert
             string expectedMessage = $"Fout bij het lezen van bestand '{filePath}': bestandspad mag niet verwijzen naar een lege bestandsnaam. " + Environment.NewLine +
-                                  "Er is geen berekening configuratie geïmporteerd.";
+                                  "Er is geen berekeningenconfiguratie geïmporteerd.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
             Assert.IsFalse(importSuccessful);
         }
@@ -133,7 +134,7 @@ namespace Ringtoets.Piping.IO.Test.Importers
 
             // Assert
             string expectedMessage = $"Fout bij het lezen van bestand '{filePath}': het bestand bestaat niet. " + Environment.NewLine +
-                                  "Er is geen berekening configuratie geïmporteerd.";
+                                  "Er is geen berekeningenconfiguratie geïmporteerd.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
             Assert.IsFalse(importSuccessful);
         }
@@ -142,7 +143,7 @@ namespace Ringtoets.Piping.IO.Test.Importers
         public void Import_InvalidFile_CancelImportWithErrorMessage()
         {
             // Setup
-            string filePath = Path.Combine(path, "invalidConfigurationCalculationContainingEmptyStrings.xml");
+            string filePath = Path.Combine(readerPath, "invalidConfigurationCalculationContainingEmptyStrings.xml");
             var importer = new PipingConfigurationImporter(filePath,
                                                            new CalculationGroup(),
                                                            Enumerable.Empty<HydraulicBoundaryLocation>(),
@@ -167,10 +168,11 @@ namespace Ringtoets.Piping.IO.Test.Importers
         [SetCulture("nl-NL")]
         [TestCase("validConfigurationInvalidEntryExitPoint.xml", "Het uittredepunt moet landwaarts van het intredepunt liggen.")]
         [TestCase("validConfigurationExitPointNotOnSurfaceLine.xml", "Het gespecificeerde punt moet op het profiel liggen (bereik [0,0, 10,0]).")]
+        [TestCase("validConfigurationEntryPointNotOnSurfaceLine.xml", "Het gespecificeerde punt moet op het profiel liggen (bereik [0,0, 10,0]).")]
         public void Import_ValidConfigurationInvalidData_LogMessageAndContinueImport(string file, string expectedErrorMessage)
         {
             // Setup
-            string filePath = Path.Combine(path, file);
+            string filePath = Path.Combine(importerPath, file);
 
             var calculationGroup = new CalculationGroup();
             var surfaceLine = new RingtoetsPipingSurfaceLine
@@ -203,11 +205,11 @@ namespace Ringtoets.Piping.IO.Test.Importers
             pipingFailureMechanism.SurfaceLines.AddRange(new[]
             {
                 surfaceLine
-            }, "path");
+            }, "readerPath");
             pipingFailureMechanism.StochasticSoilModels.AddRange(new[]
             {
                 stochasticSoilModel
-            }, "path");
+            }, "readerPath");
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "HRlocatie", 10, 20);
             var importer = new PipingConfigurationImporter(filePath,
@@ -237,7 +239,7 @@ namespace Ringtoets.Piping.IO.Test.Importers
             // Setup
             var calculationGroup = new CalculationGroup();
 
-            string filePath = Path.Combine(path, "validConfigurationNesting.xml");
+            string filePath = Path.Combine(readerPath, "validConfigurationNesting.xml");
             var importer = new PipingConfigurationImporter(filePath,
                                                            calculationGroup,
                                                            Enumerable.Empty<HydraulicBoundaryLocation>(),
@@ -256,7 +258,7 @@ namespace Ringtoets.Piping.IO.Test.Importers
             Action call = () => importSuccessful = importer.Import();
 
             // Assert
-            TestHelper.AssertLogMessageIsGenerated(call, "Berekening configuratie importeren afgebroken. Geen data ingelezen.", 1);
+            TestHelper.AssertLogMessageIsGenerated(call, "Berekeningenconfiguratie importeren afgebroken. Geen data ingelezen.", 1);
             CollectionAssert.IsEmpty(calculationGroup.Children);
             Assert.IsFalse(importSuccessful);
         }
@@ -265,7 +267,7 @@ namespace Ringtoets.Piping.IO.Test.Importers
         public void GivenImport_WhenImporting_ThenExpectedProgressMessagesGenerated()
         {
             // Given
-            string filePath = Path.Combine(path, "validConfigurationNesting.xml");
+            string filePath = Path.Combine(readerPath, "validConfigurationNesting.xml");
             var importer = new PipingConfigurationImporter(filePath,
                                                            new CalculationGroup(),
                                                            Enumerable.Empty<HydraulicBoundaryLocation>(),
@@ -275,11 +277,11 @@ namespace Ringtoets.Piping.IO.Test.Importers
             {
                 new ExpectedProgressNotification
                 {
-                    Text = "Inlezen berekening configuratie.", CurrentStep = 1, TotalNumberOfSteps = 3
+                    Text = "Inlezen berekeningenconfiguratie.", CurrentStep = 1, TotalNumberOfSteps = 3
                 },
                 new ExpectedProgressNotification
                 {
-                    Text = "Valideren berekening configuratie.", CurrentStep = 2, TotalNumberOfSteps = 3
+                    Text = "Valideren berekeningenconfiguratie.", CurrentStep = 2, TotalNumberOfSteps = 3
                 },
                 new ExpectedProgressNotification
                 {
@@ -308,7 +310,7 @@ namespace Ringtoets.Piping.IO.Test.Importers
         {
             // Setup
             var calculationGroup = new CalculationGroup();
-            string filePath = Path.Combine(path, "validConfigurationFullCalculationContainingHydraulicBoundaryLocation.xml");
+            string filePath = Path.Combine(readerPath, "validConfigurationFullCalculationContainingHydraulicBoundaryLocation.xml");
             var importer = new PipingConfigurationImporter(filePath,
                                                            calculationGroup,
                                                            Enumerable.Empty<HydraulicBoundaryLocation>(),
@@ -331,7 +333,7 @@ namespace Ringtoets.Piping.IO.Test.Importers
             // Setup
             var calculationGroup = new CalculationGroup();
 
-            string filePath = Path.Combine(path, "validConfigurationFullCalculationContainingHydraulicBoundaryLocation.xml");
+            string filePath = Path.Combine(readerPath, "validConfigurationFullCalculationContainingHydraulicBoundaryLocation.xml");
             var importer = new PipingConfigurationImporter(filePath,
                                                            calculationGroup,
                                                            new[]
@@ -355,7 +357,7 @@ namespace Ringtoets.Piping.IO.Test.Importers
         public void Import_StochasticSoilModelInvalid_LogMessageAndContinueImport()
         {
             // Setup
-            string filePath = Path.Combine(path, "validConfigurationFullCalculationContainingHydraulicBoundaryLocation.xml");
+            string filePath = Path.Combine(readerPath, "validConfigurationFullCalculationContainingHydraulicBoundaryLocation.xml");
 
             var calculationGroup = new CalculationGroup();
             var surfaceLine = new RingtoetsPipingSurfaceLine
@@ -372,7 +374,7 @@ namespace Ringtoets.Piping.IO.Test.Importers
             pipingFailureMechanism.SurfaceLines.AddRange(new[]
             {
                 surfaceLine
-            }, "path");
+            }, "readerPath");
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "HRlocatie", 10, 20);
             var importer = new PipingConfigurationImporter(filePath,
@@ -398,7 +400,7 @@ namespace Ringtoets.Piping.IO.Test.Importers
         public void Import_StochasticSoilModelNotIntersectingWithSurfaceLine_LogMessageAndContinueImport()
         {
             // Setup
-            string filePath = Path.Combine(path, "validConfigurationFullCalculationContainingHydraulicBoundaryLocation.xml");
+            string filePath = Path.Combine(readerPath, "validConfigurationFullCalculationContainingHydraulicBoundaryLocation.xml");
 
             var calculationGroup = new CalculationGroup();
             var surfaceLine = new RingtoetsPipingSurfaceLine
@@ -422,11 +424,11 @@ namespace Ringtoets.Piping.IO.Test.Importers
             pipingFailureMechanism.SurfaceLines.AddRange(new[]
             {
                 surfaceLine
-            }, "path");
+            }, "readerPath");
             pipingFailureMechanism.StochasticSoilModels.AddRange(new[]
             {
                 stochasticSoilModel
-            }, "path");
+            }, "readerPath");
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "HRlocatie", 10, 20);
             var importer = new PipingConfigurationImporter(filePath,
@@ -452,7 +454,7 @@ namespace Ringtoets.Piping.IO.Test.Importers
         public void Import_StochasticSoilProfileInvalid_LogMessageAndContinueImport()
         {
             // Setup
-            string filePath = Path.Combine(path, "validConfigurationFullCalculationContainingHydraulicBoundaryLocation.xml");
+            string filePath = Path.Combine(readerPath, "validConfigurationFullCalculationContainingHydraulicBoundaryLocation.xml");
 
             var calculationGroup = new CalculationGroup();
             var surfaceLine = new RingtoetsPipingSurfaceLine
@@ -476,11 +478,11 @@ namespace Ringtoets.Piping.IO.Test.Importers
             pipingFailureMechanism.SurfaceLines.AddRange(new[]
             {
                 surfaceLine
-            }, "path");
+            }, "readerPath");
             pipingFailureMechanism.StochasticSoilModels.AddRange(new[]
             {
                 stochasticSoilModel
-            }, "path");
+            }, "readerPath");
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "HRlocatie", 10, 20);
             var importer = new PipingConfigurationImporter(filePath,
@@ -508,7 +510,7 @@ namespace Ringtoets.Piping.IO.Test.Importers
         public void Import_ValidConfigurationWithValidHydraulicBoundaryData_DataAddedToModel(string file, bool manualAssessmentLevel)
         {
             // Setup
-            string filePath = Path.Combine(path, file);
+            string filePath = Path.Combine(readerPath, file);
 
             var calculationGroup = new CalculationGroup();
             var surfaceLine = new RingtoetsPipingSurfaceLine
@@ -541,11 +543,11 @@ namespace Ringtoets.Piping.IO.Test.Importers
             pipingFailureMechanism.SurfaceLines.AddRange(new[]
             {
                 surfaceLine
-            }, "path");
+            }, "readerPath");
             pipingFailureMechanism.StochasticSoilModels.AddRange(new[]
             {
                 stochasticSoilModel
-            }, "path");
+            }, "readerPath");
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "HRlocatie", 10, 20);
             var importer = new PipingConfigurationImporter(filePath,
@@ -605,7 +607,7 @@ namespace Ringtoets.Piping.IO.Test.Importers
         public void Import_ValidConfigurationWithValidData_DataAddedToModel(string file, CalculationGroup expectedCalculationGroup)
         {
             // Setup
-            string filePath = Path.Combine(path, file);
+            string filePath = Path.Combine(readerPath, file);
 
             var calculationGroup = new CalculationGroup();
             var pipingFailureMechanism = new PipingFailureMechanism();

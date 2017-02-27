@@ -138,11 +138,11 @@ namespace Ringtoets.Common.IO.FileImporters
                                       ReadResult<StructuresParameterRow> importStructureParameterRowsDataResult)
         {
             Dictionary<string, List<StructuresParameterRow>> groupedRows =
-                importStructureParameterRowsDataResult.ImportedItems
+                importStructureParameterRowsDataResult.Items
                                                       .GroupBy(row => row.LocationId)
                                                       .ToDictionary(g => g.Key, g => g.ToList());
 
-            CreateSpecificStructures(importStructureLocationsResult.ImportedItems, groupedRows);
+            CreateSpecificStructures(importStructureLocationsResult.Items, groupedRows);
         }
 
         private ReadResult<StructuresParameterRow> ReadStructureParameterRowsData()
@@ -193,7 +193,7 @@ namespace Ringtoets.Common.IO.FileImporters
 
                 return new ReadResult<StructuresParameterRow>(false)
                 {
-                    ImportedItems = rows
+                    Items = rows
                 };
             }
         }
@@ -247,7 +247,7 @@ namespace Ringtoets.Common.IO.FileImporters
             }
             return new ReadResult<StructureLocation>(false)
             {
-                ImportedItems = structureLocations
+                Items = structureLocations
             };
         }
 

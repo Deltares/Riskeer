@@ -52,7 +52,7 @@ namespace Ringtoets.Common.IO.FileImporters
                                                ReadResult<DikeProfileData> importDikeProfileDataResult)
         {
             IEnumerable<ForeshoreProfile> importedForeshoreProfiles =
-                CreateForeshoreProfiles(importProfileLocationResult.ImportedItems, importDikeProfileDataResult.ImportedItems);
+                CreateForeshoreProfiles(importProfileLocationResult.Items, importDikeProfileDataResult.Items);
 
             foreach (ForeshoreProfile foreshoreProfile in importedForeshoreProfiles)
             {

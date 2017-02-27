@@ -142,7 +142,7 @@ namespace Ringtoets.Piping.IO.Test.Readers
                                               "The element 'berekening' has invalid child element 'ondergrondschematisatie'.")
                     .SetName("invalidCalculationMultipleStochasticSoilProfile");
                 yield return new TestCaseData("invalidCalculationMultipleStochasts.xml",
-                                              "The element 'berekening' has invalid child element 'stochasts'.")
+                                              "The element 'berekening' has invalid child element 'stochasten'.")
                     .SetName("invalidCalculationMultipleStochasts");
                 yield return new TestCaseData("invalidConfigurationCalculationContainingEmptyHydraulicBoundaryLocation.xml",
                                               "The 'hrlocatie' element is invalid - The value '' is invalid according to its datatype 'String' - The actual length is less than the MinLength value.")

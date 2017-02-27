@@ -85,9 +85,9 @@ namespace Ringtoets.Piping.IO.Importers
                 return false;
             }
 
-            AddSoilProfilesToStochasticSoilModels(importSoilProfileResult.ImportedItems, importStochasticSoilModelResult.ImportedItems);
-            MergeStochasticSoilProfiles(importStochasticSoilModelResult.ImportedItems);
-            CheckIfAllProfilesAreUsed(importSoilProfileResult.ImportedItems, importStochasticSoilModelResult.ImportedItems);
+            AddSoilProfilesToStochasticSoilModels(importSoilProfileResult.Items, importStochasticSoilModelResult.Items);
+            MergeStochasticSoilProfiles(importStochasticSoilModelResult.Items);
+            CheckIfAllProfilesAreUsed(importSoilProfileResult.Items, importStochasticSoilModelResult.Items);
             if (Canceled)
             {
                 return false;
@@ -137,7 +137,7 @@ namespace Ringtoets.Piping.IO.Importers
         private IEnumerable<StochasticSoilModel> GetValidStochasticSoilModels(ReadResult<StochasticSoilModel> importStochasticSoilModelResult)
         {
             var currentStep = 1;
-            StochasticSoilModel[] importedModels = importStochasticSoilModelResult.ImportedItems.ToArray();
+            StochasticSoilModel[] importedModels = importStochasticSoilModelResult.Items.ToArray();
             foreach (StochasticSoilModel importedModel in importedModels)
             {
                 NotifyProgress(RingtoestCommonIOResources.Importer_ProgressText_Adding_imported_data_to_DataModel, currentStep, importedModels.Length);
@@ -263,7 +263,7 @@ namespace Ringtoets.Piping.IO.Importers
             }
             return new ReadResult<StochasticSoilModel>(false)
             {
-                ImportedItems = soilModels
+                Items = soilModels
             };
         }
 
@@ -321,7 +321,7 @@ namespace Ringtoets.Piping.IO.Importers
             }
             return new ReadResult<PipingSoilProfile>(false)
             {
-                ImportedItems = profiles
+                Items = profiles
             };
         }
 

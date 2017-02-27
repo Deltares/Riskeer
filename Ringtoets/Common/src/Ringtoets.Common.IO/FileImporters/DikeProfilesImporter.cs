@@ -51,8 +51,8 @@ namespace Ringtoets.Common.IO.FileImporters
         protected override void CreateProfiles(ReadResult<ProfileLocation> importProfileLocationResult,
                                                ReadResult<DikeProfileData> importDikeProfileDataResult)
         {
-            IEnumerable<DikeProfile> importedDikeProfiles = CreateDikeProfiles(importProfileLocationResult.ImportedItems,
-                                                                               importDikeProfileDataResult.ImportedItems);
+            IEnumerable<DikeProfile> importedDikeProfiles = CreateDikeProfiles(importProfileLocationResult.Items,
+                                                                               importDikeProfileDataResult.Items);
 
             foreach (DikeProfile dikeProfile in importedDikeProfiles)
             {

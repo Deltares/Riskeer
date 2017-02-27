@@ -203,7 +203,7 @@ namespace Ringtoets.Piping.IO.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to {0} 
-        ///Er is geen berekening configuratie geïmporteerd..
+        ///Er is geen berekeningenconfiguratie geïmporteerd..
         /// </summary>
         public static string PipingConfigurationImporter_HandleCriticalFileReadError_Error_0_no_configuration_imported {
             get {
@@ -213,7 +213,7 @@ namespace Ringtoets.Piping.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Berekening configuratie importeren afgebroken. Geen data ingelezen..
+        ///   Looks up a localized string similar to Berekeningenconfiguratie importeren afgebroken. Geen data ingelezen..
         /// </summary>
         public static string PipingConfigurationImporter_LogImportCanceledMessage_Import_canceled_no_data_read {
             get {
@@ -223,7 +223,7 @@ namespace Ringtoets.Piping.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Inlezen berekening configuratie..
+        ///   Looks up a localized string similar to Inlezen berekeningenconfiguratie..
         /// </summary>
         public static string PipingConfigurationImporter_ProgressText_Reading_configuration {
             get {
@@ -232,7 +232,7 @@ namespace Ringtoets.Piping.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Valideren berekening configuratie..
+        ///   Looks up a localized string similar to Valideren berekeningenconfiguratie..
         /// </summary>
         public static string PipingConfigurationImporter_ProgressText_Validating_imported_data {
             get {

@@ -78,7 +78,7 @@ namespace Ringtoets.Common.IO.ReferenceLines
                 return false;
             }
 
-            AddReferenceLineToDataModel(readResult.ImportedItems.First(), clearReferenceLineDependentData);
+            AddReferenceLineToDataModel(readResult.Items.First(), clearReferenceLineDependentData);
             return true;
         }
 
@@ -123,7 +123,7 @@ namespace Ringtoets.Common.IO.ReferenceLines
             {
                 return new ReadResult<ReferenceLine>(false)
                 {
-                    ImportedItems = new[]
+                    Items = new[]
                     {
                         new ReferenceLineReader().ReadReferenceLine(FilePath)
                     }

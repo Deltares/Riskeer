@@ -39,18 +39,18 @@ namespace Core.Common.IO.Readers
         public ReadResult(bool errorOccurred)
         {
             CriticalErrorOccurred = errorOccurred;
-            ImportedItems = new T[0];
+            Items = new T[0];
         }
 
         /// <summary>
-        /// Gets or sets the <see cref="ICollection{T}"/> of items that were imported. 
+        /// Gets or sets the <see cref="ICollection{T}"/> of items that were read. 
         /// </summary>
-        public ICollection<T> ImportedItems { get; set; }
+        public ICollection<T> Items { get; set; }
 
         /// <summary>
         /// Gets or sets the <see cref="bool"/> representing whether an critical error has occurred during
         /// import.
         /// </summary>
-        public bool CriticalErrorOccurred { get; private set; }
+        public bool CriticalErrorOccurred { get; }
     }
 }

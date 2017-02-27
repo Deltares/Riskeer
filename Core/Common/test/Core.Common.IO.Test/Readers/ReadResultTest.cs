@@ -36,7 +36,7 @@ namespace Core.Common.IO.Test.Readers
             var readResult = new ReadResult<object>(errorOccurred);
 
             // Assert
-            CollectionAssert.IsEmpty(readResult.ImportedItems);
+            CollectionAssert.IsEmpty(readResult.Items);
             Assert.AreEqual(errorOccurred, readResult.CriticalErrorOccurred);
         }
     }

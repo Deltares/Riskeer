@@ -97,7 +97,7 @@ namespace Ringtoets.Piping.IO.Importers
 
             var validCalculationItems = new List<ICalculationBase>();
 
-            foreach (IReadPipingCalculationItem readItem in readResult.ImportedItems)
+            foreach (IReadPipingCalculationItem readItem in readResult.Items)
             {
                 if (Canceled)
                 {
@@ -354,7 +354,7 @@ namespace Ringtoets.Piping.IO.Importers
             {
                 return new ReadResult<IReadPipingCalculationItem>(false)
                 {
-                    ImportedItems = new PipingConfigurationReader(FilePath).Read().ToList()
+                    Items = new PipingConfigurationReader(FilePath).Read().ToList()
                 };
             }
             catch (Exception exception) when (exception is ArgumentException

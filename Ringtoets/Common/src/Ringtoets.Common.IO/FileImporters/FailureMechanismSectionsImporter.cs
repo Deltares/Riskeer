@@ -81,7 +81,7 @@ namespace Ringtoets.Common.IO.FileImporters
             }
 
             NotifyProgress(Resources.FailureMechanismSectionsImporter_ProgressText_Validating_imported_sections, 2, 3);
-            ICollection<FailureMechanismSection> readFailureMechanismSections = readResults.ImportedItems;
+            ICollection<FailureMechanismSection> readFailureMechanismSections = readResults.Items;
             if (HasStartOrEndPointsTooFarFromReferenceLine(referenceLine, readFailureMechanismSections))
             {
                 LogCriticalFileReadError(Resources.FailureMechanismSectionsImporter_Import_Imported_sections_too_far_from_current_referenceline);
@@ -157,7 +157,7 @@ namespace Ringtoets.Common.IO.FileImporters
 
                 return new ReadResult<FailureMechanismSection>(false)
                 {
-                    ImportedItems = importedSections
+                    Items = importedSections
                 };
             }
             catch (CriticalFileReadException e)
