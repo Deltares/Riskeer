@@ -470,7 +470,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void GivenCalculationWithSurfaceLine_WhenEntryAndExitPointUpdatedAndUpdateEntryAndExitPointClicked__ThenPointsUpdatedAndObserversNotified()
+        public void GivenCalculationWithSurfaceLineWithoutOutput_WhenEntryAndExitPointUpdatedAndUpdateEntryAndExitPointClicked_ThenPointsUpdatedAndInputObserverNotified()
         {
             using (var treeViewControl = new TreeViewControl())
             {
@@ -541,7 +541,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void GivenCalculationWithSurfaceLineAndOutput_WhenEntryAndExitPointsUpdatedAndUpdateEntryAndExitPointClicked__ThenPointsUpdatedOutputsRemovedAndObserversNotified()
+        public void GivenCalculationWithSurfaceLineAndOutput_WhenEntryAndExitPointsUpdatedAndUpdateEntryAndExitPointClicked_ThenPointsUpdatedOutputsRemovedAndObserversNotified()
         {
             using (var treeViewControl = new TreeViewControl())
             {
@@ -615,7 +615,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void GivenCalculationWithSurfaceLineAndOutput_WhenUpdatedEntryAndExitPointsHasNoChangeAndUpdateEntryAndExitPointClicked__ThenOutputNotRemovedAndObserversNotNotified()
+        public void GivenCalculationWithSurfaceLineAndOutput_WhenUpdatedEntryAndExitPointsHasNoChangeAndUpdateEntryAndExitPointClicked_ThenOutputNotRemovedAndObserversNotNotified()
         {
             using (var treeViewControl = new TreeViewControl())
             {
