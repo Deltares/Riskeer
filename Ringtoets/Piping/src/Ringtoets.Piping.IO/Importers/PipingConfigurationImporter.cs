@@ -265,7 +265,8 @@ namespace Ringtoets.Piping.IO.Importers
         /// which is not available in the failure mechanism.</item>
         /// <item>The <see cref="StochasticSoilModel"/> does not intersect with the <see cref="RingtoetsPipingSurfaceLine"/>
         /// when this is set.</item>
-        /// </list></exception>
+        /// </list>
+        /// </exception>
         private void ReadStochasticSoilModel(ReadPipingCalculation readCalculation, PipingCalculationScenario pipingCalculation)
         {
             if (readCalculation.StochasticSoilModel != null)
@@ -320,8 +321,8 @@ namespace Ringtoets.Piping.IO.Importers
                 }
                 else
                 {
-                    throw new CriticalFileValidationException(string.Format(Resources.PipingConfigurationImporter_ReadStochasticSoilProfile_Stochastic_soil_profile_0_does_not_exist,
-                                                                            readCalculation.StochasticSoilProfile));
+                    throw new CriticalFileValidationException(string.Format(Resources.PipingConfigurationImporter_ReadStochasticSoilProfile_Stochastic_soil_profile_0_does_not_exist_within_soil_model_1,
+                                                                            readCalculation.StochasticSoilProfile, readCalculation.StochasticSoilModel));
                 }
             }
         }

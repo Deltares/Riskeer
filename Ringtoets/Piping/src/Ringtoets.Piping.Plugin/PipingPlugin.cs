@@ -121,13 +121,11 @@ namespace Ringtoets.Piping.Plugin
 
             yield return new ImportInfo<PipingCalculationGroupContext>
             {
-                Name = Resources.PipingPlugin_PipingConfigurationFileFilter_calculation_configuration_description,
+                Name = Resources.PipingPlugin_PipingConfigurationFileFilter_description,
                 Category = RingtoetsCommonFormsResources.Ringtoets_Category,
                 Image = RingtoetsCommonFormsResources.GeneralFolderIcon,
                 FileFilterGenerator = PipingConfigurationFileFilter,
-                IsEnabled = context => context.AvailableHydraulicBoundaryLocations.Any()
-                                       && context.AvailableStochasticSoilModels.Any()
-                                       && context.AvailablePipingSurfaceLines.Any(),
+                IsEnabled = PipingConfigurationImporterEnabled,
                 CreateFileImporter = (context, filePath) => new PipingConfigurationImporter(filePath,
                                                                                             context.WrappedData,
                                                                                             context.AvailableHydraulicBoundaryLocations,
@@ -354,7 +352,7 @@ namespace Ringtoets.Piping.Plugin
             get
             {
                 return new FileFilterGenerator(Resources.PipingPlugin_PipingConfigurationFileFilter_xml_extension,
-                                               Resources.PipingPlugin_PipingConfigurationFileFilter_calculation_configuration_description);
+                                               Resources.PipingPlugin_PipingConfigurationFileFilter_description);
             }
         }
 
@@ -364,6 +362,13 @@ namespace Ringtoets.Piping.Plugin
             {
                 return new FileFilterGenerator(Resources.Soil_file_Extension, Resources.Soil_file_Description);
             }
+        }
+
+        private static bool PipingConfigurationImporterEnabled(PipingCalculationGroupContext context)
+        {
+            return context.AvailableHydraulicBoundaryLocations.Any()
+                   && context.AvailableStochasticSoilModels.Any()
+                   && context.AvailablePipingSurfaceLines.Any();
         }
 
         private static StochasticSoilModelImporter StochasticSoilModelImporter(StochasticSoilModelCollectionContext context, string filePath, IStochasticSoilModelUpdateModelStrategy updateStrategy)
@@ -815,8 +820,8 @@ namespace Ringtoets.Piping.Plugin
             PipingCalculationService.Validate(context.WrappedData);
         }
 
-                      private static string ValidateAllDataAvailableAndGetErrorMessage(PipingCalculationScenarioContext context)
-        { 
+        private static string ValidateAllDataAvailableAndGetErrorMessage(PipingCalculationScenarioContext context)
+        {
             return ValidateAllDataAvailableAndGetErrorMessage(context.FailureMechanism);
         }
 
@@ -840,7 +845,7 @@ namespace Ringtoets.Piping.Plugin
             var updateEntryAndExitPointItem = new StrictContextMenuItem(
                 Resources.PipingPlugin_CreateUpdateEntryAndExitPointItem_Update_entry_and_exit_point,
                 toolTipMessage,
-                RingtoetsCommonFormsResources.UpdateItemIcon, 
+                RingtoetsCommonFormsResources.UpdateItemIcon,
                 (o, args) => { UpdateSurfaceLineDependentData(context.WrappedData); })
             {
                 Enabled = hasSurfaceLine

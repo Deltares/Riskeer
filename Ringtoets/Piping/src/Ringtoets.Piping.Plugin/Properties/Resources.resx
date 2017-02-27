@@ -230,7 +230,7 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="PipingPlugin_PipingConfigurationFileFilter_xml_extension" xml:space="preserve">
     <value>xml</value>
   </data>
-  <data name="PipingPlugin_PipingConfigurationFileFilter_calculation_configuration_description" xml:space="preserve">
+  <data name="PipingPlugin_PipingConfigurationFileFilter_description" xml:space="preserve">
     <value>Ringtoets berekeningenconfiguratie</value>
   </data>
   <data name="RingtoetsPipingSurfaceLineChangeHandler_InquireConfirmation_When_updating_RingtoetsSurfaceLines_definitions_assigned_to_calculations_output_will_be_cleared_confirm" xml:space="preserve">

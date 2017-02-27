@@ -271,12 +271,12 @@ namespace Ringtoets.Piping.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De ondergrondschematisatie &apos;{0}&apos; bestaat niet..
+        ///   Looks up a localized string similar to De ondergrondschematisatie &apos;{0}&apos; bestaat niet binnen het stochastische ondergrondmodel &apos;{1}&apos;..
         /// </summary>
-        public static string PipingConfigurationImporter_ReadStochasticSoilProfile_Stochastic_soil_profile_0_does_not_exist {
+        public static string PipingConfigurationImporter_ReadStochasticSoilProfile_Stochastic_soil_profile_0_does_not_exist_within_soil_model_1 {
             get {
                 return ResourceManager.GetString("PipingConfigurationImporter_ReadStochasticSoilProfile_Stochastic_soil_profile_0_d" +
-                        "oes_not_exist", resourceCulture);
+                        "oes_not_exist_within_soil_model_1", resourceCulture);
             }
         }
         

@@ -113,9 +113,9 @@ namespace Ringtoets.Piping.Plugin.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Ringtoets berekeningenconfiguratie.
         /// </summary>
-        public static string PipingPlugin_PipingConfigurationFileFilter_calculation_configuration_description {
+        public static string PipingPlugin_PipingConfigurationFileFilter_description {
             get {
-                return ResourceManager.GetString("PipingPlugin_PipingConfigurationFileFilter_calculation_configuration_description", resourceCulture);
+                return ResourceManager.GetString("PipingPlugin_PipingConfigurationFileFilter_description", resourceCulture);
             }
         }
         

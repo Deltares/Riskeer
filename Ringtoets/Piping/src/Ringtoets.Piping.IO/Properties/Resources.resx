@@ -309,8 +309,8 @@ Er is geen berekening configuratie geïmporteerd.</value>
   <data name="PipingConfigurationImporter_ReadStochasticSoilModel_Stochastische_soil_model_0_does_not_exist" xml:space="preserve">
     <value>Het stochastische ondergrondmodel '{0}' bestaat niet.</value>
   </data>
-  <data name="PipingConfigurationImporter_ReadStochasticSoilProfile_Stochastic_soil_profile_0_does_not_exist" xml:space="preserve">
-    <value>De ondergrondschematisatie '{0}' bestaat niet.</value>
+  <data name="PipingConfigurationImporter_ReadStochasticSoilProfile_Stochastic_soil_profile_0_does_not_exist_within_soil_model_1" xml:space="preserve">
+    <value>De ondergrondschematisatie '{0}' bestaat niet binnen het stochastische ondergrondmodel '{1}'.</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="PipingConfigurationSchema" type="System.Resources.ResXFileRef, System.Windows.Forms">
