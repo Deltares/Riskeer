@@ -81,7 +81,7 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
                 {
                     // Assert
                     Assert.IsInstanceOf<UserControl>(control);
-                    Assert.IsInstanceOf<IHasMapData>(control);
+                    Assert.IsInstanceOf<IBackgroundMapDataSelectionControl>(control);
                     Assert.AreEqual("Web Map Tile Service (WMTS)", control.DisplayName);
                     Assert.IsNull(control.SelectedMapData);
                     Assert.AreSame(control, control.UserControl);

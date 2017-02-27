@@ -130,7 +130,7 @@ namespace Ringtoets.Integration.Forms.Test
 
                     var mapLayers = (ComboBox) new ComboBoxTester("mapLayerComboBox", dialog).TheObject;
                     Assert.AreEqual(ComboBoxStyle.DropDownList, mapLayers.DropDownStyle);
-                    Assert.IsInstanceOf<List<IHasMapData>>(mapLayers.DataSource);
+                    Assert.IsInstanceOf<List<IBackgroundMapDataSelectionControl>>(mapLayers.DataSource);
                     Assert.AreEqual("DisplayName", mapLayers.DisplayMember);
                     Assert.IsTrue(mapLayers.Sorted);
                 }

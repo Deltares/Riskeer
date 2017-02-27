@@ -26,9 +26,9 @@ using Core.Components.Gis.Data;
 namespace Core.Components.DotSpatial.Forms.Views
 {
     /// <summary>
-    /// Interface for a user control that has a MapData.
+    /// Interface for a user control that has a background MapData.
     /// </summary>
-    public interface IHasMapData
+    public interface IBackgroundMapDataSelectionControl
     {
         /// <summary>
         /// Fired when the <see cref="SelectedMapData"/> has been changed. 

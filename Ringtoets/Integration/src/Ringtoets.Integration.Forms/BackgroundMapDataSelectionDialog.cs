@@ -36,8 +36,8 @@ namespace Ringtoets.Integration.Forms
     /// </summary>
     public partial class BackgroundMapDataSelectionDialog : DialogBase
     {
-        private readonly List<IHasMapData> mapDatas;
-        private IHasMapData currentMapDataControl;
+        private readonly List<IBackgroundMapDataSelectionControl> mapDatas;
+        private IBackgroundMapDataSelectionControl currentMapDataControl;
 
         /// <summary>
         /// Creates a new instance of <see cref="ReferenceLineMetaSelectionDialog"/>.
@@ -48,7 +48,7 @@ namespace Ringtoets.Integration.Forms
         public BackgroundMapDataSelectionDialog(IWin32Window dialogParent, WmtsMapData mapData)
             : base(dialogParent, RingtoetsCommonFormsResources.SelectionDialogIcon, 500, 350)
         {
-            mapDatas = new List<IHasMapData>
+            mapDatas = new List<IBackgroundMapDataSelectionControl>
             {
                 new WmtsLocationControl(mapData)
             };
@@ -84,7 +84,7 @@ namespace Ringtoets.Integration.Forms
         {
             if (currentMapDataControl != null)
             {
-                var currentHasMapData = propertiesGroupBox.Controls.OfType<UserControl>().FirstOrDefault() as IHasMapData;
+                var currentHasMapData = propertiesGroupBox.Controls.OfType<UserControl>().FirstOrDefault() as IBackgroundMapDataSelectionControl;
                 if (currentHasMapData != null)
                 {
                     currentHasMapData.SelectedMapDataChanged -= OnSelectedMapDataChanged;
@@ -132,7 +132,7 @@ namespace Ringtoets.Integration.Forms
         private void UpdateComboBoxDataSource()
         {
             mapLayerComboBox.DataSource = mapDatas;
-            mapLayerComboBox.DisplayMember = nameof(IHasMapData.DisplayName);
+            mapLayerComboBox.DisplayMember = nameof(IBackgroundMapDataSelectionControl.DisplayName);
         }
 
         #endregion
@@ -158,7 +158,7 @@ namespace Ringtoets.Integration.Forms
 
         private void MapLayerComboBox_OnSelectedIndexChanged(object sender, EventArgs eventArgs)
         {
-            var selectedItem = mapLayerComboBox.SelectedItem as IHasMapData;
+            var selectedItem = mapLayerComboBox.SelectedItem as IBackgroundMapDataSelectionControl;
             if (selectedItem == null)
             {
                 return;

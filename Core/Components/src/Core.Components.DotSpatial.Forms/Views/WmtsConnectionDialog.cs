@@ -28,15 +28,15 @@ using Core.Components.DotSpatial.Forms.Properties;
 namespace Core.Components.DotSpatial.Forms.Views
 {
     /// <summary>
-    /// A dialog which allows the user to set data, which is used for <see cref="WmtsConnectionInfo"/>.
+    /// A dialog allowing the user to create an instance of <see cref="WmtsConnectionInfo"/>.
     /// </summary>
-    public partial class WmtsConnectionDialog
-        : DialogBase
+    public partial class WmtsConnectionDialog : DialogBase
     {
         /// <summary>
         /// Creates a new instance of <see cref="WmtsConnectionDialog"/>.
         /// </summary>
         /// <param name="dialogParent">The parent of the dialog.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="dialogParent"/> is <c>null</c>.</exception>
         public WmtsConnectionDialog(IWin32Window dialogParent) : base(dialogParent, Resources.MapsIcon, 400, 150)
         {
             InitializeComponent();
@@ -66,12 +66,12 @@ namespace Core.Components.DotSpatial.Forms.Views
         }
 
         /// <summary>
-        /// Gets the name that was set in the dialog.
+        /// Gets the name of the WMTS.
         /// </summary>
         public string WmtsConnectionName { get; private set; }
 
         /// <summary>
-        /// Gets the URL that was set in the dialog.
+        /// Gets the URL to the GetCapabilities() of the WMTS.
         /// </summary>
         public string WmtsConnectionUrl { get; private set; }
 

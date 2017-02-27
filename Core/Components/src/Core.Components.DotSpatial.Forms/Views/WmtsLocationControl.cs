@@ -38,7 +38,7 @@ namespace Core.Components.DotSpatial.Forms.Views
     /// <summary>
     /// This class represents a <see cref="Control"/> where WMTS locations can be administrated.
     /// </summary>
-    public partial class WmtsLocationControl : UserControl, IHasMapData
+    public partial class WmtsLocationControl : UserControl, IBackgroundMapDataSelectionControl
     {
         private const string wmtsConnectionInfoFileName = "wmtsConnectionInfo.config";
         private static readonly ILog log = LogManager.GetLogger(typeof(WmtsLocationControl));

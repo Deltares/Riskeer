@@ -90,7 +90,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Views\IHasMapData.cs" />
+    <Compile Include="Views\IBackgroundMapDataSelectionControl.cs" />
     <Compile Include="WmtsBackgroundLayerStatus.cs" />
     <Compile Include="WmtsCapability.cs" />
     <Compile Include="Views\WmtsCapabilityRow.cs" />
