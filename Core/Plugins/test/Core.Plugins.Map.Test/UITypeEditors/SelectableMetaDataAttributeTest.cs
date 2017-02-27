@@ -147,24 +147,6 @@ namespace Core.Plugins.Map.Test.UITypeEditors
         }
 
         [Test]
-        public void GetHashCode_NotEqualObjects_ReturnDifferentHashCode()
-        {
-            // Setup
-            var selectableAttribute1 = new SelectableMetaDataAttribute("Test");
-            var selectableAttribute2 = new SelectableMetaDataAttribute("Test2");
-
-            // Pre-condition
-            Assert.IsFalse(selectableAttribute1.Equals(selectableAttribute2));
-
-            // Call
-            int hashCode1 = selectableAttribute1.GetHashCode();
-            int hashCode2 = selectableAttribute2.GetHashCode();
-
-            // Assert
-            Assert.AreNotEqual(hashCode1, hashCode2);
-        }
-
-        [Test]
         public void ToString_Always_ReturnMetaDataAttribute()
         {
             // Setup

@@ -990,36 +990,6 @@ namespace Ringtoets.Piping.Data.Test
             Assert.AreEqual(hashCodeOne, hashCodeTwo);
         }
 
-        [Test]
-        public void GetHashCode_DifferentSurfaceLines_ReturnDifferentHashCode()
-        {
-            // Setup
-            var surfaceLineOne = new RingtoetsPipingSurfaceLine
-            {
-                Name = "Name A"
-            };
-            surfaceLineOne.SetGeometry(new[]
-            {
-                new Point3D(1, 2, 3)
-            });
-
-            var surfaceLineTwo = new RingtoetsPipingSurfaceLine
-            {
-                Name = "Name A"
-            };
-            surfaceLineTwo.SetGeometry(new[]
-            {
-                new Point3D(3, 4, 5)
-            });
-
-            // Call
-            int hashCodeOne = surfaceLineOne.GetHashCode();
-            int hashCodeTwo = surfaceLineTwo.GetHashCode();
-
-            // Assert
-            Assert.AreNotEqual(hashCodeOne, hashCodeTwo);
-        }
-
         private static void CreateTestGeometry(Point3D testPoint, RingtoetsPipingSurfaceLine surfaceLine)
         {
             var random = new Random(21);

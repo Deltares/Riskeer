@@ -211,28 +211,6 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
         }
 
         [Test]
-        [TestCaseSource(nameof(EqualityReferencePoints))]
-        public void GetHashCode_NotEqualObjects_ReturnsDifferenHashCode(Point2D referencePoint1,
-                                                                        Point2D referencePoint2)
-        {
-            // Setup
-            var inputItem1 = new SelectableHydraulicBoundaryLocation(new HydraulicBoundaryLocation(1, "Name", 0, 1),
-                                                                     referencePoint1);
-            var inputItem2 = new SelectableHydraulicBoundaryLocation(new HydraulicBoundaryLocation(2, "Name", 0, 1),
-                                                                     referencePoint2);
-
-            // Pre-condition
-            Assert.AreNotEqual(inputItem1, inputItem2);
-
-            // Call
-            int hashCodeItem1 = inputItem1.GetHashCode();
-            int hashCodeItem2 = inputItem2.GetHashCode();
-
-            // Assert
-            Assert.AreNotEqual(hashCodeItem1, hashCodeItem2);
-        }
-
-        [Test]
         [TestCaseSource(nameof(StringRepresentations))]
         public void ToString_DifferentReferencePoints_ReturnsExpectedString(HydraulicBoundaryLocation location,
                                                                             Point2D referencePoint, string expectedString)
@@ -289,9 +267,9 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
 
             var distance = location.Location.GetEuclideanDistanceTo(referencePoint);
 
-            return distance/1000 < 1
+            return distance / 1000 < 1
                        ? string.Format("{0} ({1:f0} m)", location.Name, distance)
-                       : string.Format("{0} ({1:f1} km)", location.Name, distance/1000);
+                       : string.Format("{0} ({1:f1} km)", location.Name, distance / 1000);
         }
     }
 }

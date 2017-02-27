@@ -61,7 +61,7 @@
     </Compile>
     <Compile Include="FileImporter\RingtoetsPipingSurfaceLineChangeHandler.cs" />
     <Compile Include="FileImporter\RingtoetsPipingSurfaceLineReplaceDataStrategy.cs" />
-    <Compile Include="FileImporter\RingtoetsPipingSurfaceLineUpdateStrategy.cs" />
+    <Compile Include="FileImporter\RingtoetsPipingSurfaceLineUpdateDataStrategy.cs" />
     <Compile Include="FileImporter\StochasticSoilModelChangeHandler.cs" />
     <Compile Include="FileImporter\StochasticSoilModelUpdateDataStrategy.cs" />
     <Compile Include="FileImporter\StochasticSoilModelReplaceDataStrategy.cs" />

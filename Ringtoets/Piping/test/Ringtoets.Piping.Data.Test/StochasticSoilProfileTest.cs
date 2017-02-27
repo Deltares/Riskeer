@@ -196,6 +196,21 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
+        public void GetHashCode_EqualStochasticSoilProfile_ReturnSameHashCode()
+        {
+            // Setup
+            var stochasticSoilProfileA = new StochasticSoilProfile(0.2, SoilProfileType.SoilProfile1D, 234);
+            var stochasticSoilProfileB = new StochasticSoilProfile(0.2, SoilProfileType.SoilProfile1D, 234);
+
+            // Call
+            int hashCodeOne = stochasticSoilProfileA.GetHashCode();
+            int hashCodeTwo = stochasticSoilProfileB.GetHashCode();
+
+            // Assert
+            Assert.AreEqual(hashCodeOne, hashCodeTwo);
+        }
+
+        [Test]
         public void ToString_WithNullName_ReturnsStringEmpty()
         {
             // Setup

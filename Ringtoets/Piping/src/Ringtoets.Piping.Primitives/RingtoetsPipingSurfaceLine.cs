@@ -415,14 +415,12 @@ namespace Ringtoets.Piping.Primitives
                 return false;
             }
 
-            int i = 0;
-            foreach (Point3D point in Points)
+            for (var index = 0; index < Points.Length; index++)
             {
-                if (!point.Equals(otherPoints[i]))
+                if (!Points[index].Equals(otherPoints[index]))
                 {
                     return false;
                 }
-                i++;
             }
             return true;
         }
