@@ -128,10 +128,6 @@ namespace Core.Common.TestUtil.Test
                 Assert.DoesNotThrow(test);
                 disposeHelper.Dispose();
             }
-            catch (Exception exception)
-            {
-                Assert.Fail(exception.Message);
-            }
             finally
             {
                 if (Directory.Exists(folderPath))
@@ -147,10 +143,10 @@ namespace Core.Common.TestUtil.Test
         [TestCase("valid", "/fo:der/")]
         [TestCase("f*lder", "valid")]
         [TestCase("valid", "f*lder")]
-        public void Constructor_InvalidFolderPath_ThrowsArgumentException(string rootFolder, string subfolder)
+        public void Constructor_InvalidFolderPath_ThrowsArgumentException(string someRootFolder, string subfolder)
         {
             // Call
-            TestDelegate test = () => new DirectoryDisposeHelper(rootFolder, subfolder);
+            TestDelegate test = () => new DirectoryDisposeHelper(someRootFolder, subfolder);
 
             // Assert
             Assert.Throws<ArgumentException>(test);
@@ -210,7 +206,7 @@ namespace Core.Common.TestUtil.Test
                     disposeHelper.LockDirectory(FileSystemRights.Write);
 
                     // Assert
-                    Assert.IsFalse(IsDirectoryWritable(folderPath), $"'{folderPath}' is not locked for writing.");
+                    Assert.IsFalse(TestHelper.CanWriteInDirectory(folderPath), $"'{folderPath}' should have been locked for writing.");
                 }
 
                 Assert.IsFalse(Directory.Exists(folderPath), $"'{folderPath}' should have been deleted.");
@@ -276,6 +272,95 @@ namespace Core.Common.TestUtil.Test
                 RemoveDirectoryAndFail(folderPath, exception);
             }
         }
+        
+        [Test]
+        public void UnlockDirectory_DirectoryNotLocked_Unlocksdirectory()
+        {
+            // Setup
+            string subfolder = nameof(UnlockDirectory_DirectoryNotLocked_Unlocksdirectory);
+            string folderPath = Path.Combine(rootFolder, subfolder);
+
+            using (var disposeHelper = new DirectoryDisposeHelper(rootFolder, subfolder))
+            {
+                // Call
+                TestDelegate test = () => disposeHelper.UnlockDirectory();
+
+                // Assert
+                string actualMessage = Assert.Throws<InvalidOperationException>(test).Message;
+                Assert.AreEqual($"Directory '{folderPath}' is not locked.", actualMessage);
+            }
+
+            try
+            {
+                Assert.IsFalse(Directory.Exists(folderPath), $"'{folderPath}' should have been deleted.");
+            }
+            catch (Exception exception)
+            {
+                RemoveDirectoryAndFail(folderPath, exception);
+            }
+        }
+
+        [Test]
+        public void UnlockDirectory_DirectoryLocked_Unlocksdirectory()
+        {
+            // Setup
+            string subfolder = nameof(UnlockDirectory_DirectoryLocked_Unlocksdirectory);
+            string folderPath = Path.Combine(rootFolder, subfolder);
+
+            using (var disposeHelper = new DirectoryDisposeHelper(rootFolder, subfolder))
+            {
+                disposeHelper.LockDirectory(FileSystemRights.Write);
+
+                // Call
+                disposeHelper.UnlockDirectory();
+
+                // Assert
+                TestDelegate createFile = () =>
+                {
+                    using (File.Create(folderPath)) {}
+                };
+                Assert.Throws<UnauthorizedAccessException>(createFile);
+            }
+
+            try
+            {
+                bool exists = Directory.Exists(folderPath);
+                Assert.IsFalse(exists, $"'{folderPath}' should have been deleted.");
+            }
+            catch (Exception exception)
+            {
+                RemoveDirectoryAndFail(folderPath, exception);
+            }
+        }
+
+        [Test]
+        public void UnlockDirectory_DirectoryAlreadyUnlocked_DoesNotThrowException()
+        {
+            // Setup
+            string subfolder = nameof(UnlockDirectory_DirectoryAlreadyUnlocked_DoesNotThrowException);
+            string folderPath = Path.Combine(rootFolder, subfolder);
+
+            try
+            {
+                using (var disposeHelper = new DirectoryDisposeHelper(rootFolder, subfolder))
+                {
+                    disposeHelper.LockDirectory(FileSystemRights.Write);
+                    disposeHelper.UnlockDirectory();
+
+                    // Call
+                    TestDelegate call = () => disposeHelper.UnlockDirectory();
+
+                    // Assert
+                    Assert.DoesNotThrow(call);
+                }
+
+                Assert.IsFalse(Directory.Exists(folderPath), $"'{folderPath}' should have been deleted.");
+            }
+            catch (Exception exception)
+            {
+                RemoveDirectoryAndFail(folderPath, exception);
+            }
+        }
 
         private static void RemoveDirectoryAndFail(string folderPath, Exception exception)
         {
@@ -288,26 +373,6 @@ namespace Core.Common.TestUtil.Test
                 // Ignore
             }
             Assert.Fail(exception.Message, exception.InnerException);
-        }
-
-        private static bool IsDirectoryWritable(string folderPath)
-        {
-            string filePath = Path.Combine(folderPath, Path.GetRandomFileName());
-            try
-            {
-                using (File.OpenWrite(filePath)) {}
-            }
-            catch (SystemException)
-            {
-                return false;
-            }
-
-            if (File.Exists(filePath))
-            {
-                File.Delete(filePath);
-            }
-
-            return true;
         }
     }
 }

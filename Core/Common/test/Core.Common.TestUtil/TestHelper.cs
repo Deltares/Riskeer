@@ -106,23 +106,43 @@ namespace Core.Common.TestUtil
         /// <returns><c>true</c> if the file could be opened with write permissions. <c>false</c> otherwise.</returns>
         public static bool CanOpenFileForWrite(string pathToFile)
         {
-            FileStream file = null;
             try
             {
-                file = File.OpenWrite(pathToFile);
+                using (File.OpenWrite(pathToFile)) {}
                 return true;
             }
             catch (IOException)
             {
                 return false;
             }
-            finally
+        }
+
+        /// <summary>
+        /// Checks whether the directory pointed at by <paramref name="pathToDirectory"/> can be used
+        /// for writing a file.
+        /// </summary>
+        /// <param name="pathToDirectory">The location of the directory to open for writing.</param>
+        /// <returns><c>true</c> if the file could be opened with write permissions. <c>false</c> otherwise.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="pathToDirectory"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="pathToDirectory"/> contains invalid characters.</exception>
+        public static bool CanWriteInDirectory(string pathToDirectory)
+        {
+            string filePath = Path.Combine(pathToDirectory, nameof(CanWriteInDirectory));
+            try
             {
-                if (file != null)
-                {
-                    file.Close();
-                }
+                using (File.OpenWrite(filePath)){}
             }
+            catch (SystemException)
+            {
+                return false;
+            }
+
+            if (File.Exists(filePath))
+            {
+                File.Delete(filePath);
+            }
+
+            return true;
         }
 
         /// <summary>

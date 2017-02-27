@@ -22,6 +22,8 @@
 using System;
 using System.Drawing;
 using System.IO;
+using System.Security.AccessControl;
+using System.Threading;
 using System.Windows.Forms;
 using Core.Common.TestUtil.Test.Properties;
 using log4net;
@@ -35,9 +37,9 @@ namespace Core.Common.TestUtil.Test
         private static readonly ILog log = LogManager.GetLogger(typeof(TestHelperTest));
 
         [Test]
-        public void CanOpenFileForWrite_InvalidPath_DoesNotThrowAnyExceptions()
+        public void CanOpenFileForWrite_PathDoesNotExist_DoesNotThrowAnyExceptions()
         {
-            const string invalidPath = @".\DirectoryDoesNotExist\fileDoesNotExist";
+            const string invalidPath = @".\DirectoryDoesotExist\fileDoesNotExist";
             var canOpenForWrite = true;
 
             // Call
@@ -80,6 +82,76 @@ namespace Core.Common.TestUtil.Test
         }
 
         [Test]
+        public void CanWriteInDirectory_PathNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => TestHelper.CanWriteInDirectory(null);
+
+            // Assert
+            Assert.Throws<ArgumentNullException>(call);
+        }
+
+        [Test]
+        public void CanWriteInDirectory_InvalidDirectory_ThrowsArgumentException()
+        {
+            // Setup
+            char[] invalidPathChars = Path.GetInvalidPathChars();
+            string invalidPath = $"f*l{invalidPathChars[2]}er";
+
+            // Call
+            TestDelegate call = () => TestHelper.CanWriteInDirectory(invalidPath);
+
+            // Assert
+            Assert.Throws<ArgumentException>(call);
+        }
+
+        [Test]
+        public void CanWriteInDirectory_DirectoryDoesNotExist_ReturnsFalse()
+        {
+            // Setup
+            string validPath = Path.Combine(TestHelper.GetScratchPadPath(), nameof(CanWriteInDirectory_CanWriteInDirectory_ReturnsTrue));
+
+            // Call
+            bool canWrite = TestHelper.CanWriteInDirectory(validPath);
+
+            // Assert
+            Assert.IsFalse(canWrite);
+        }
+
+        [Test]
+        public void CanWriteInDirectory_CanWriteInDirectory_ReturnsTrue()
+        {
+            // Setup
+            using (new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), nameof(CanWriteInDirectory_CanWriteInDirectory_ReturnsTrue)))
+            {
+                string validPath = TestHelper.GetScratchPadPath(nameof(CanWriteInDirectory_CanWriteInDirectory_ReturnsTrue));
+
+                // Call
+                bool canWrite = TestHelper.CanWriteInDirectory(validPath);
+
+                // Assert
+                Assert.IsTrue(canWrite);
+            }
+        }
+
+        [Test]
+        public void CanWriteInDirectory_CanNotWriteInDirectory_ReturnsFalse()
+        {
+            // Setup
+            using (var helper = new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), nameof(CanWriteInDirectory_CanWriteInDirectory_ReturnsTrue)))
+            {
+                string validPath = TestHelper.GetScratchPadPath(nameof(CanWriteInDirectory_CanWriteInDirectory_ReturnsTrue));
+                helper.LockDirectory(FileSystemRights.Write);
+
+                // Call
+                bool canWrite = TestHelper.CanWriteInDirectory(validPath);
+
+                // Assert
+                Assert.IsFalse(canWrite);
+            }
+        }
+
+        [Test]
         public void GetScratchPadPath_WithoutPath_ReturnRootFolder()
         {
             // Call
@@ -93,15 +165,16 @@ namespace Core.Common.TestUtil.Test
         }
 
         [Test]
+        [Apartment(ApartmentState.STA)]
         public void GetScratchPadPath_WithoutPathAndFolderDoesntExist_ThrowIOException()
         {
             // Setup
-            string actualPath = TestHelper.GetScratchPadPath();
-
-            Directory.Delete(actualPath, true);
+            string actualPath = Path.Combine(Path.GetDirectoryName(TestHelper.SolutionRoot), "Scratchpad");
 
             try
             {
+                Directory.Delete(actualPath, true);
+
                 // Call
                 TestDelegate call = () => TestHelper.GetScratchPadPath();
 

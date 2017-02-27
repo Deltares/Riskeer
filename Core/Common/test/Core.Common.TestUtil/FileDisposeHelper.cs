@@ -75,6 +75,7 @@ namespace Core.Common.TestUtil
         /// </summary>
         /// <exception cref="InvalidOperationException">Thrown when one of the files could not be locked.</exception>
         /// <seealso cref="FileShare.None"/>
+        /// <remarks>Files are unlocked when disposing the instance.</remarks>
         public void LockFiles()
         {
             IEnumerable<KeyValuePair<string, FileStream>> notLockedFiles = filePathStreams.Where(f => f.Value == null).ToArray();

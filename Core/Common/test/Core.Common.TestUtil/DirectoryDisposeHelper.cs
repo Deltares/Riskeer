@@ -72,11 +72,11 @@ namespace Core.Common.TestUtil
 
         /// <summary>
         /// Adds a <paramref name="rights"/> of type <see cref="AccessControlType.Deny"/> to the access
-        /// rule set for the folder at <see cref="rootPathToTemp"/>.
+        /// rule set for the folder at the set directory path.
         /// </summary>
         /// <param name="rights">The right to deny.</param>
         /// <exception cref="InvalidOperationException">Thrown when the directory could not be locked.</exception>
-        /// <seealso cref="DirectoryPermissionsRevoker"/>
+        /// <remarks>The lock is removed when disposing the instance.</remarks>
         public void LockDirectory(FileSystemRights rights)
         {
             try
@@ -87,6 +87,19 @@ namespace Core.Common.TestUtil
             {
                 throw new InvalidOperationException($"Unable to lock '{rootPathToTemp}'.", exception);
             }
+        }
+
+        /// <summary>
+        /// Unlocks the directory that was locked by <see cref="LockDirectory"/>.
+        /// </summary>
+        /// <exception cref="InvalidOperationException">Thrown when the directory was not locked.</exception>
+        public void UnlockDirectory()
+        {
+            if (directoryPermissionsRevoker == null)
+            {
+                throw new InvalidOperationException($"Directory '{rootPathToTemp}' is not locked.");
+            }
+            directoryPermissionsRevoker.Dispose();
         }
 
         public void Dispose()
@@ -102,7 +115,10 @@ namespace Core.Common.TestUtil
                 return;
             }
 
-            directoryPermissionsRevoker?.Dispose();
+            if (disposing)
+            {
+                directoryPermissionsRevoker?.Dispose();
+            }
 
             var directoryDeleted = false;
             try
@@ -113,11 +129,6 @@ namespace Core.Common.TestUtil
             catch
             {
                 // ignored
-            }
-
-            if (disposing)
-            {
-                directoryPermissionsRevoker = null;
             }
 
             disposed = !directoryDeleted;
