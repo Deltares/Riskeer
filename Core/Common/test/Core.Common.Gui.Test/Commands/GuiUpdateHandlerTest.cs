@@ -283,7 +283,7 @@ namespace Core.Common.Gui.Test.Commands
         }
 
         [Test]
-        public void UpdateOn_SupportedUpdateInfoAvailableVerifyUpdatesSuccesful_ExpectedUpdateInfoFunctionsCalledActivityCreated()
+        public void UpdateOn_SupportedUpdateInfoAvailableVerifyUpdatesSuccessful_ExpectedUpdateInfoFunctionsCalledActivityCreated()
         {
             // Setup
             const string filePath = "/some/path";
@@ -379,7 +379,7 @@ namespace Core.Common.Gui.Test.Commands
         }
 
         [Test]
-        public void UpdateOn_SupportedUpdateInfoAvailableVerifyUpdatesUnsuccesful_ActivityNotCreated()
+        public void UpdateOn_SupportedUpdateInfoAvailableVerifyUpdatesUnsuccessful_ActivityNotCreated()
         {
             // Setup
             var generator = new FileFilterGenerator();

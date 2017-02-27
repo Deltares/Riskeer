@@ -57,14 +57,14 @@ namespace Core.Components.Gis.IO.Test.Importers
             var importer = new FeatureBasedMapDataImporter(mapDataCollection, path);
 
             // Call
-            bool importSuccesful = true;
-            Action call = () => importSuccesful = importer.Import();
+            bool importSuccessful = true;
+            Action call = () => importSuccessful = importer.Import();
 
             // Assert
             var expectedMessage = string.Format(@"Fout bij het lezen van bestand '{0}': het bestand of andere benodigde bestanden zijn niet gevonden.", path) + Environment.NewLine +
                                   "Er is geen kaartlaag geïmporteerd.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
-            Assert.IsFalse(importSuccesful);
+            Assert.IsFalse(importSuccessful);
         }
 
         [Test]
@@ -76,14 +76,14 @@ namespace Core.Components.Gis.IO.Test.Importers
             var importer = new FeatureBasedMapDataImporter(mapDataCollection, path);
 
             // Call
-            bool importSuccesful = true;
-            Action call = () => importSuccesful = importer.Import();
+            bool importSuccessful = true;
+            Action call = () => importSuccessful = importer.Import();
 
             // Assert
             var expectedMessage = string.Format(@"Fout bij het lezen van bestand '{0}': kon geen geometrieën vinden in dit bestand.", path) + Environment.NewLine +
                                   "Er is geen kaartlaag geïmporteerd.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
-            Assert.IsFalse(importSuccesful);
+            Assert.IsFalse(importSuccessful);
         }
 
         [Test]
@@ -95,15 +95,15 @@ namespace Core.Components.Gis.IO.Test.Importers
             var importer = new FeatureBasedMapDataImporter(mapDataCollection, path);
 
             // Call
-            bool importSuccesful = true;
-            Action call = () => importSuccesful = importer.Import();
+            bool importSuccessful = true;
+            Action call = () => importSuccessful = importer.Import();
 
             // Assert
             const string message = @"Fout bij het lezen van bestand '{0}': het bestand kon niet worden geopend. Mogelijk is het bestand corrupt of in gebruik door een andere applicatie.";
             var expectedMessage = string.Format(message, path) + Environment.NewLine +
                                   "Er is geen kaartlaag geïmporteerd.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
-            Assert.IsFalse(importSuccesful);
+            Assert.IsFalse(importSuccessful);
         }
 
         [Test]
@@ -117,15 +117,15 @@ namespace Core.Components.Gis.IO.Test.Importers
             using (new StreamReader(new FileStream(path, FileMode.Open)))
             {
                 // Call
-                bool importSuccesful = true;
-                Action call = () => importSuccesful = importer.Import();
+                bool importSuccessful = true;
+                Action call = () => importSuccessful = importer.Import();
 
                 // Assert
                 const string message = @"Fout bij het lezen van bestand '{0}': het bestand kon niet worden geopend. Mogelijk is het bestand corrupt of in gebruik door een andere applicatie.";
                 var expectedMessage = string.Format(message, path) + Environment.NewLine +
                                       "Er is geen kaartlaag geïmporteerd.";
                 TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
-                Assert.IsFalse(importSuccesful);
+                Assert.IsFalse(importSuccessful);
             }
         }
 
@@ -144,15 +144,15 @@ namespace Core.Components.Gis.IO.Test.Importers
             CollectionAssert.IsEmpty(mapDataCollection.Collection);
 
             // Call
-            bool importSuccesful = importer.Import();
+            bool importSuccessful = importer.Import();
 
             // Assert
-            Assert.IsTrue(importSuccesful);
+            Assert.IsTrue(importSuccessful);
             Assert.AreEqual(1, mapDataCollection.Collection.Count());
         }
 
         [Test]
-        public void DoPostImportUpdates_ImportSuccesful_NotifiesMapDataCollection()
+        public void DoPostImportUpdates_ImportSuccessful_NotifiesMapDataCollection()
         {
             // Setup
             var mocks = new MockRepository();

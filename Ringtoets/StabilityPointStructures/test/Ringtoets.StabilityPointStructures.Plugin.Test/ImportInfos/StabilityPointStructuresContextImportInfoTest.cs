@@ -116,7 +116,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.ImportInfos
         }
 
         [Test]
-        public void FileFilter_Always_ReturnExpectedFileFilter()
+        public void FileFilterGenerator_Always_ReturnExpectedFileFilter()
         {
             // Setup
             using (var plugin = new StabilityPointStructuresPlugin())

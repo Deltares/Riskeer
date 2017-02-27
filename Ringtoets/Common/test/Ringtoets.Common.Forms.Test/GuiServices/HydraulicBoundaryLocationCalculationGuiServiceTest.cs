@@ -448,10 +448,10 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
                 var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
 
                 // Call
-                bool succesfulCalculation = guiService.CalculateWaveHeights(validDatabasePath, Enumerable.Empty<HydraulicBoundaryLocation>(), 1, calculationMessageProviderMock);
+                bool successfulCalculation = guiService.CalculateWaveHeights(validDatabasePath, Enumerable.Empty<HydraulicBoundaryLocation>(), 1, calculationMessageProviderMock);
 
                 // Assert
-                Assert.IsTrue(succesfulCalculation);
+                Assert.IsTrue(successfulCalculation);
             }
             mockRepository.VerifyAll();
         }

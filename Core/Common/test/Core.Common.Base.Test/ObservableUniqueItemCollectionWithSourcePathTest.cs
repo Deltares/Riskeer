@@ -381,10 +381,10 @@ namespace Core.Common.Base.Test
             Assert.IsNotNull(collection.SourcePath);
 
             // Call
-            bool removeSuccesful = collection.Remove(elementToBeRemoved);
+            bool removeSuccessful = collection.Remove(elementToBeRemoved);
 
             // Assert
-            Assert.IsTrue(removeSuccesful);
+            Assert.IsTrue(removeSuccessful);
             Assert.IsNull(collection.SourcePath);
         }
 

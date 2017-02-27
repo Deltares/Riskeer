@@ -72,10 +72,10 @@ namespace Ringtoets.Integration.Test
             };
 
             // When
-            bool importSuccesful = importer.Import();
+            bool importSuccessful = importer.Import();
 
             // Then
-            Assert.IsFalse(importSuccesful);
+            Assert.IsFalse(importSuccessful);
             Assert.AreSame(originalReferenceLine, assessmentSection.ReferenceLine);
 
             Assert.AreEqual("Bevestigen", messageBoxTitle);
@@ -137,11 +137,11 @@ namespace Ringtoets.Integration.Test
             assessmentSection.PipingFailureMechanism.SurfaceLines.Attach(surfaceLinesObserver);
 
             // When
-            bool importSuccesful = importer.Import();
+            bool importSuccessful = importer.Import();
             importer.DoPostImport();
 
             // Then
-            Assert.IsTrue(importSuccesful);
+            Assert.IsTrue(importSuccessful);
             Assert.AreNotSame(originalReferenceLine, assessmentSection.ReferenceLine);
             Point2D[] point2Ds = assessmentSection.ReferenceLine.Points.ToArray();
             Assert.AreEqual(803, point2Ds.Length);

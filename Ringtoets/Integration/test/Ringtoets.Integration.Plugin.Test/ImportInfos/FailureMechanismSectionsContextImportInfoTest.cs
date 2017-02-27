@@ -125,7 +125,7 @@ namespace Ringtoets.Integration.Plugin.Test.ImportInfos
         }
 
         [Test]
-        public void FileFilter_Always_ReturnExpectedFileFilter()
+        public void FileFilterGenerator_Always_ReturnExpectedFileFilter()
         {
             // Call
             FileFilterGenerator fileFilter = importInfo.FileFilterGenerator;

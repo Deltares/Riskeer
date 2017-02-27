@@ -379,7 +379,7 @@ namespace Core.Common.Gui.Test.Commands
         }
 
         [Test]
-        public void ImportOn_MultipleSupportedImportInfoAvailableVerifyUpdatesUnsuccesful_ActivityNotCreated()
+        public void ImportOn_MultipleSupportedImportInfoAvailableVerifyUpdatesUnsuccessful_ActivityNotCreated()
         {
             // Setup
             var generator = new FileFilterGenerator();

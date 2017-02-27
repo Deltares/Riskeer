@@ -41,16 +41,15 @@ namespace Ringtoets.Piping.IO.Test.Importers
     {
         private readonly string path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO, "PipingConfigurationReader");
 
-        private static IEnumerable<TestCaseData> NestedOrNaNData
+        private static IEnumerable<TestCaseData> ValidConfigurationsWithValidData
         {
             get
             {
                 yield return new TestCaseData("validConfigurationNesting.xml",
-                                              GetNestedData())
+                                              GetExpectedNestedData())
                     .SetName("validConfigurationNesting");
-
                 yield return new TestCaseData("validConfigurationCalculationContainingNaNs.xml",
-                                              GetNaNData())
+                                              GetExpectedNaNData())
                     .SetName("validConfigurationCalculationContainingNaNs");
             }
         }
@@ -108,14 +107,14 @@ namespace Ringtoets.Piping.IO.Test.Importers
                                                            new PipingFailureMechanism());
 
             // Call
-            bool importSuccesful = true;
-            Action call = () => importSuccesful = importer.Import();
+            var importSuccessful = true;
+            Action call = () => importSuccessful = importer.Import();
 
             // Assert
-            var expectedMessage = $"Fout bij het lezen van bestand '{filePath}': bestandspad mag niet verwijzen naar een lege bestandsnaam. " + Environment.NewLine +
+            string expectedMessage = $"Fout bij het lezen van bestand '{filePath}': bestandspad mag niet verwijzen naar een lege bestandsnaam. " + Environment.NewLine +
                                   "Er is geen berekening configuratie geïmporteerd.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
-            Assert.IsFalse(importSuccesful);
+            Assert.IsFalse(importSuccessful);
         }
 
         [Test]
@@ -129,14 +128,14 @@ namespace Ringtoets.Piping.IO.Test.Importers
                                                            new PipingFailureMechanism());
 
             // Call
-            bool importSuccesful = true;
-            Action call = () => importSuccesful = importer.Import();
+            var importSuccessful = true;
+            Action call = () => importSuccessful = importer.Import();
 
             // Assert
-            var expectedMessage = $"Fout bij het lezen van bestand '{filePath}': het bestand bestaat niet. " + Environment.NewLine +
+            string expectedMessage = $"Fout bij het lezen van bestand '{filePath}': het bestand bestaat niet. " + Environment.NewLine +
                                   "Er is geen berekening configuratie geïmporteerd.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
-            Assert.IsFalse(importSuccesful);
+            Assert.IsFalse(importSuccessful);
         }
 
         [Test]
@@ -150,8 +149,8 @@ namespace Ringtoets.Piping.IO.Test.Importers
                                                            new PipingFailureMechanism());
 
             // Call
-            bool importSuccesful = true;
-            Action call = () => importSuccesful = importer.Import();
+            var importSuccessful = true;
+            Action call = () => importSuccessful = importer.Import();
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -161,14 +160,14 @@ namespace Ringtoets.Piping.IO.Test.Importers
                 StringAssert.StartsWith($"Fout bij het lezen van bestand '{filePath}': het XML-document dat de configuratie voor de berekeningen beschrijft is niet geldig.", msgs[0]);
             });
 
-            Assert.IsFalse(importSuccesful);
+            Assert.IsFalse(importSuccessful);
         }
 
         [Test]
         [SetCulture("nl-NL")]
         [TestCase("validConfigurationInvalidEntryExitPoint.xml", "Het uittredepunt moet landwaarts van het intredepunt liggen.")]
         [TestCase("validConfigurationExitPointNotOnSurfaceLine.xml", "Het gespecificeerde punt moet op het profiel liggen (bereik [0,0, 10,0]).")]
-        public void Import_EntryExitPointNotValid_LogMessageAndContinueImport(string file, string expectedErrorMessage)
+        public void Import_ValidConfigurationInvalidData_LogMessageAndContinueImport(string file, string expectedErrorMessage)
         {
             // Setup
             string filePath = Path.Combine(path, file);
@@ -220,13 +219,13 @@ namespace Ringtoets.Piping.IO.Test.Importers
                                                            pipingFailureMechanism);
 
             // Call
-            bool succesful = false;
-            Action call = () => succesful = importer.Import();
+            var successful = false;
+            Action call = () => successful = importer.Import();
 
             // Assert
             string expectedMessage = $"{expectedErrorMessage} Berekening 'Calculation' is overgeslagen.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
-            Assert.IsTrue(succesful);
+            Assert.IsTrue(successful);
             CollectionAssert.IsEmpty(calculationGroup.Children);
         }
 
@@ -253,13 +252,13 @@ namespace Ringtoets.Piping.IO.Test.Importers
             });
 
             // Call
-            bool importSuccesful = true;
-            Action call = () => importSuccesful = importer.Import();
+            var importSuccessful = true;
+            Action call = () => importSuccessful = importer.Import();
 
             // Assert
             TestHelper.AssertLogMessageIsGenerated(call, "Berekening configuratie importeren afgebroken. Geen data ingelezen.", 1);
             CollectionAssert.IsEmpty(calculationGroup.Children);
-            Assert.IsFalse(importSuccesful);
+            Assert.IsFalse(importSuccessful);
         }
 
         [Test]
@@ -276,15 +275,15 @@ namespace Ringtoets.Piping.IO.Test.Importers
             {
                 new ExpectedProgressNotification
                 {
-                    Text = "Inlezen berekening configuratie.", CurrentStep = 1, MaxNrOfSteps = 3
+                    Text = "Inlezen berekening configuratie.", CurrentStep = 1, TotalNumberOfSteps = 3
                 },
                 new ExpectedProgressNotification
                 {
-                    Text = "Valideren berekening configuratie.", CurrentStep = 2, MaxNrOfSteps = 3
+                    Text = "Valideren berekening configuratie.", CurrentStep = 2, TotalNumberOfSteps = 3
                 },
                 new ExpectedProgressNotification
                 {
-                    Text = "Geïmporteerde data toevoegen aan het toetsspoor.", CurrentStep = 3, MaxNrOfSteps = 3
+                    Text = "Geïmporteerde data toevoegen aan het toetsspoor.", CurrentStep = 3, TotalNumberOfSteps = 3
                 }
             };
 
@@ -293,7 +292,7 @@ namespace Ringtoets.Piping.IO.Test.Importers
             {
                 Assert.AreEqual(expectedProgressMessages[progressChangedCallCount].Text, description);
                 Assert.AreEqual(expectedProgressMessages[progressChangedCallCount].CurrentStep, step);
-                Assert.AreEqual(expectedProgressMessages[progressChangedCallCount].MaxNrOfSteps, steps);
+                Assert.AreEqual(expectedProgressMessages[progressChangedCallCount].TotalNumberOfSteps, steps);
                 progressChangedCallCount++;
             });
 
@@ -316,13 +315,13 @@ namespace Ringtoets.Piping.IO.Test.Importers
                                                            new PipingFailureMechanism());
 
             // Call
-            bool succesful = false;
-            Action call = () => succesful = importer.Import();
+            var successful = false;
+            Action call = () => successful = importer.Import();
 
             // Assert
             const string expectedMessage = "De locatie met hydraulische randvoorwaarden 'HRlocatie' bestaat niet. Berekening 'Calculation' is overgeslagen.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
-            Assert.IsTrue(succesful);
+            Assert.IsTrue(successful);
             CollectionAssert.IsEmpty(calculationGroup.Children);
         }
 
@@ -342,13 +341,13 @@ namespace Ringtoets.Piping.IO.Test.Importers
                                                            new PipingFailureMechanism());
 
             // Call
-            bool succesful = false;
-            Action call = () => succesful = importer.Import();
+            var successful = false;
+            Action call = () => successful = importer.Import();
 
             // Assert
             const string expectedMessage = "De profielschematisatie 'Profielschematisatie' bestaat niet. Berekening 'Calculation' is overgeslagen.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
-            Assert.IsTrue(succesful);
+            Assert.IsTrue(successful);
             CollectionAssert.IsEmpty(calculationGroup.Children);
         }
 
@@ -385,13 +384,13 @@ namespace Ringtoets.Piping.IO.Test.Importers
                                                            pipingFailureMechanism);
 
             // Call
-            bool succesful = false;
-            Action call = () => succesful = importer.Import();
+            var successful = false;
+            Action call = () => successful = importer.Import();
 
             // Assert
             const string expectedMessage = "Het stochastische ondergrondmodel 'Ondergrondmodel' bestaat niet. Berekening 'Calculation' is overgeslagen.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
-            Assert.IsTrue(succesful);
+            Assert.IsTrue(successful);
             CollectionAssert.IsEmpty(calculationGroup.Children);
         }
 
@@ -439,13 +438,13 @@ namespace Ringtoets.Piping.IO.Test.Importers
                                                            pipingFailureMechanism);
 
             // Call
-            bool succesful = false;
-            Action call = () => succesful = importer.Import();
+            var successful = false;
+            Action call = () => successful = importer.Import();
 
             // Assert
             const string expectedMessage = "Het stochastische ondergrondmodel 'Ondergrondmodel'doorkruist de profielschematisatie 'Profielschematisatie' niet. Berekening 'Calculation' is overgeslagen.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
-            Assert.IsTrue(succesful);
+            Assert.IsTrue(successful);
             CollectionAssert.IsEmpty(calculationGroup.Children);
         }
 
@@ -493,20 +492,20 @@ namespace Ringtoets.Piping.IO.Test.Importers
                                                            pipingFailureMechanism);
 
             // Call
-            bool succesful = false;
-            Action call = () => succesful = importer.Import();
+            var successful = false;
+            Action call = () => successful = importer.Import();
 
             // Assert
             const string expectedMessage = "De ondergrondschematisatie 'Ondergrondschematisatie' bestaat niet binnen het stochastische ondergrondmodel 'Ondergrondmodel'. Berekening 'Calculation' is overgeslagen.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
-            Assert.IsTrue(succesful);
+            Assert.IsTrue(successful);
             CollectionAssert.IsEmpty(calculationGroup.Children);
         }
 
         [Test]
         [TestCase("validConfigurationFullCalculationContainingHydraulicBoundaryLocation.xml", false)]
         [TestCase("validConfigurationFullCalculationContainingAssessmentLevel.xml", true)]
-        public void Import_ValidData_DataAddedToModel(string file, bool manualAssessmentLevel)
+        public void Import_ValidConfigurationWithValidHydraulicBoundaryData_DataAddedToModel(string file, bool manualAssessmentLevel)
         {
             // Setup
             string filePath = Path.Combine(path, file);
@@ -558,18 +557,18 @@ namespace Ringtoets.Piping.IO.Test.Importers
                                                            pipingFailureMechanism);
 
             // Call
-            bool succesful = importer.Import();
+            bool successful = importer.Import();
 
             // Assert
-            Assert.IsTrue(succesful);
+            Assert.IsTrue(successful);
 
             var expectedCalculation = new PipingCalculationScenario(new GeneralPipingInput())
             {
                 Name = "Calculation",
                 InputParameters =
                 {
-                    UseAssessmentLevelManualInput = manualAssessmentLevel,
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation,
+                    UseAssessmentLevelManualInput = manualAssessmentLevel,
                     SurfaceLine = surfaceLine,
                     EntryPointL = (RoundedDouble) 2.2,
                     ExitPointL = (RoundedDouble) 3.3,
@@ -602,8 +601,8 @@ namespace Ringtoets.Piping.IO.Test.Importers
         }
 
         [Test]
-        [TestCaseSource(nameof(NestedOrNaNData))]
-        public void Import_NestedOrEmptyCalculations_DataAddedToModel(string file, CalculationGroup expectedCalculationGroup)
+        [TestCaseSource(nameof(ValidConfigurationsWithValidData))]
+        public void Import_ValidConfigurationWithValidData_DataAddedToModel(string file, CalculationGroup expectedCalculationGroup)
         {
             // Setup
             string filePath = Path.Combine(path, file);
@@ -617,14 +616,14 @@ namespace Ringtoets.Piping.IO.Test.Importers
                                                            pipingFailureMechanism);
 
             // Call
-            bool succesful = importer.Import();
+            bool successful = importer.Import();
 
             // Assert
-            Assert.IsTrue(succesful);
+            Assert.IsTrue(successful);
             AssertCalculationGroup(expectedCalculationGroup, calculationGroup);
         }
 
-        private static CalculationGroup GetNestedData()
+        private static CalculationGroup GetExpectedNestedData()
         {
             return new CalculationGroup("Root", false)
             {
@@ -673,7 +672,7 @@ namespace Ringtoets.Piping.IO.Test.Importers
             };
         }
 
-        private static CalculationGroup GetNaNData()
+        private static CalculationGroup GetExpectedNaNData()
         {
             return new CalculationGroup("Root", false)
             {
@@ -707,6 +706,7 @@ namespace Ringtoets.Piping.IO.Test.Importers
         private static void AssertCalculationGroup(CalculationGroup expectedCalculationGroup, CalculationGroup actualCalculationGroup)
         {
             Assert.AreEqual(expectedCalculationGroup.Children.Count, actualCalculationGroup.Children.Count);
+            Assert.IsTrue(actualCalculationGroup.IsNameEditable);
 
             for (var i = 0; i < expectedCalculationGroup.Children.Count; i++)
             {
@@ -752,7 +752,7 @@ namespace Ringtoets.Piping.IO.Test.Importers
         {
             public string Text { get; set; }
             public int CurrentStep { get; set; }
-            public int MaxNrOfSteps { get; set; }
+            public int TotalNumberOfSteps { get; set; }
         }
     }
 }

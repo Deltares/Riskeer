@@ -148,13 +148,13 @@ namespace Core.Common.Base.Test.IO
         }
 
         [Test]
-        public void Import_CancelGivesSuccesfulImport_LogsMessage()
+        public void Import_CancelGivesSuccessfulImport_LogsMessage()
         {
             //  Setup
             var importTarget = new object();
             var simpleImporter = new SimpleFileImporter<object>(importTarget)
             {
-                ImportSuccesful = true
+                ImportSuccessful = true
             };
 
             simpleImporter.SetProgressChanged((description, step, steps) => simpleImporter.Cancel());
@@ -167,13 +167,13 @@ namespace Core.Common.Base.Test.IO
         }
 
         [Test]
-        public void Import_CancelGivesUnsuccesfulImport_CallsLogImportoverigensCanceledMessage()
+        public void Import_CancelGivesUnsuccessfulImport_CallsLogImportoverigensCanceledMessage()
         {
             //  Setup
             var importTarget = new object();
             var simpleImporter = new SimpleFileImporter<object>(importTarget)
             {
-                ImportSuccesful = false
+                ImportSuccessful = false
             };
 
             simpleImporter.SetProgressChanged((description, step, steps) => simpleImporter.Cancel());
@@ -194,7 +194,7 @@ namespace Core.Common.Base.Test.IO
                 LogCanceledMessageCalled = false;
             }
 
-            public bool ImportSuccesful { private get; set; }
+            public bool ImportSuccessful { private get; set; }
 
             public bool LogCanceledMessageCalled { get; private set; }
 
@@ -206,7 +206,7 @@ namespace Core.Common.Base.Test.IO
             protected override bool OnImport()
             {
                 TestNotifyProgress(string.Empty, 1, 1);
-                return ImportSuccesful;
+                return ImportSuccessful;
             }
 
             protected override void LogImportCanceledMessage()

@@ -328,7 +328,7 @@ namespace Ringtoets.Piping.IO.Test.Importers
         }
 
         [Test]
-        public void Import_CancelOfImportWhenAddingDataToModel_ImportCompletedSuccesfullyNonetheless()
+        public void Import_CancelOfImportWhenAddingDataToModel_ImportCompletedSuccessfullyNonetheless()
         {
             // Setup
             string validFilePath = Path.Combine(testDataPath, "complete.soil");

@@ -130,7 +130,7 @@ namespace Ringtoets.Piping.Plugin.Test.ImportInfos
         }
 
         [Test]
-        public void FileFilter_Always_ReturnExpectedFileFilter()
+        public void FileFilterGenerator_Always_ReturnExpectedFileFilter()
         {
             // Call
             FileFilterGenerator fileFilter = importInfo.FileFilterGenerator;
@@ -184,7 +184,7 @@ namespace Ringtoets.Piping.Plugin.Test.ImportInfos
             var importTarget = new RingtoetsPipingSurfaceLinesContext(surfaceLines, failureMechanism, assessmentSection);
 
             // Call
-            IFileImporter importer = importInfo.CreateFileImporter(importTarget, "'");
+            IFileImporter importer = importInfo.CreateFileImporter(importTarget, "");
 
             // Assert
             Assert.IsInstanceOf<PipingSurfaceLinesCsvImporter>(importer);

@@ -96,10 +96,10 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             var importer = new ReferenceLineImporter(assessmentSection, handler, path);
 
             // Call
-            bool importSuccesful = importer.Import();
+            bool importSuccessful = importer.Import();
 
             // Assert
-            Assert.IsTrue(importSuccesful);
+            Assert.IsTrue(importSuccessful);
             mocks.VerifyAll();
         }
 
@@ -122,11 +122,11 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             {
                 new ExpectedProgressNotification
                 {
-                    Text = "Inlezen referentielijn.", CurrentStep = 1, MaxNrOfSteps = 2
+                    Text = "Inlezen referentielijn.", CurrentStep = 1, TotalNumberOfSteps = 2
                 },
                 new ExpectedProgressNotification
                 {
-                    Text = "Geïmporteerde data toevoegen aan het toetsspoor.", CurrentStep = 2, MaxNrOfSteps = 2
+                    Text = "Geïmporteerde data toevoegen aan het toetsspoor.", CurrentStep = 2, TotalNumberOfSteps = 2
                 }
             };
             var progressChangedCallCount = 0;
@@ -135,7 +135,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             {
                 Assert.AreEqual(expectedProgressMessages[progressChangedCallCount].Text, description);
                 Assert.AreEqual(expectedProgressMessages[progressChangedCallCount].CurrentStep, step);
-                Assert.AreEqual(expectedProgressMessages[progressChangedCallCount].MaxNrOfSteps, steps);
+                Assert.AreEqual(expectedProgressMessages[progressChangedCallCount].TotalNumberOfSteps, steps);
                 progressChangedCallCount++;
             });
 
@@ -166,14 +166,14 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             var importer = new ReferenceLineImporter(assessmentSection, handler, path);
 
             // Call
-            bool importSuccesful = true;
-            Action call = () => importSuccesful = importer.Import();
+            bool importSuccessful = true;
+            Action call = () => importSuccessful = importer.Import();
 
             // Assert
             var expectedMessage = string.Format(@"Fout bij het lezen van bestand '{0}': bestandspad mag niet verwijzen naar een lege bestandsnaam. ", path) + Environment.NewLine +
                                   "Er is geen referentielijn geïmporteerd.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
-            Assert.IsFalse(importSuccesful);
+            Assert.IsFalse(importSuccessful);
             mocks.VerifyAll();
         }
 
@@ -196,14 +196,14 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             var importer = new ReferenceLineImporter(assessmentSection, handler, path);
 
             // Call
-            bool importSuccesful = true;
-            Action call = () => importSuccesful = importer.Import();
+            bool importSuccessful = true;
+            Action call = () => importSuccessful = importer.Import();
 
             // Assert
             var expectedMessage = string.Format(@"Fout bij het lezen van bestand '{0}': het bestand bestaat niet. ", path) + Environment.NewLine +
                                   "Er is geen referentielijn geïmporteerd.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
-            Assert.IsFalse(importSuccesful);
+            Assert.IsFalse(importSuccessful);
             mocks.VerifyAll();
         }
 
@@ -228,10 +228,10 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             var importer = new ReferenceLineImporter(assessmentSection, handler, path);
 
             // Call
-            bool importSuccesful = importer.Import();
+            bool importSuccessful = importer.Import();
 
             // Assert
-            Assert.IsFalse(importSuccesful);
+            Assert.IsFalse(importSuccessful);
             mocks.VerifyAll();
         }
 
@@ -371,15 +371,15 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             importer.SetProgressChanged((description, step, steps) => importer.Cancel());
 
             // Pre-condition
-            bool importSuccesful = importer.Import();
-            Assert.IsFalse(importSuccesful);
+            bool importSuccessful = importer.Import();
+            Assert.IsFalse(importSuccessful);
             importer.SetProgressChanged(null);
 
             // Call
-            importSuccesful = importer.Import();
+            importSuccessful = importer.Import();
 
             // Assert
-            Assert.IsTrue(importSuccesful);
+            Assert.IsTrue(importSuccessful);
             mocks.VerifyAll();
         }
 
@@ -533,7 +533,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
         {
             public string Text { get; set; }
             public int CurrentStep { get; set; }
-            public int MaxNrOfSteps { get; set; }
+            public int TotalNumberOfSteps { get; set; }
         }
     }
 }

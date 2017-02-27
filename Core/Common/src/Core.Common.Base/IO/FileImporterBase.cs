@@ -133,7 +133,7 @@ namespace Core.Common.Base.IO
         /// <summary>
         /// This method returns the result of the import action.
         /// </summary>
-        /// <returns><c>True</c> if the import was succesful, <c>false</c> if otherwise.</returns>
+        /// <returns><c>True</c> if the import was successful, <c>false</c> if otherwise.</returns>
         protected abstract bool OnImport();
 
         protected void NotifyProgress(string currentStepName, int currentStep, int totalNumberOfSteps)
