@@ -34,7 +34,7 @@ using Ringtoets.Common.Forms.TestUtil;
 namespace Ringtoets.Common.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class ConfirmingDistributionPropertiesBaseTest
+    public class DistributionPropertiesBaseTest
     {
         [Test]
         public void Constructor_WithData_ReadOnlyProperties()

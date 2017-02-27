@@ -29,7 +29,7 @@ using Ringtoets.Common.Forms.PropertyClasses;
 namespace Ringtoets.Common.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class ConfirmingVariationCoefficientNormalDistributionPropertiesTest
+    public class VariationCoefficientNormalDistributionPropertiesTest
     {
         [Test]
         public void Constructor_WithData_ReadOnlyProperties()

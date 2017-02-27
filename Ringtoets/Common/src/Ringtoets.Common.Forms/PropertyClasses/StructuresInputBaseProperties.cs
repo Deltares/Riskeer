@@ -34,6 +34,7 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Structures;
+using Ringtoets.Common.Forms.ChangeHandlers;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.Properties;
@@ -215,21 +216,6 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         /// </summary>
         protected abstract void AfterSettingStructure();
 
-        protected void ChangePropertyAndNotify(SetObservablePropertyValueDelegate setPropertyValue)
-        {
-            IEnumerable<IObservable> affectedObjects = PropertyChangeHandler.SetPropertyValueAfterConfirmation(setPropertyValue);
-
-            NotifyAffectedObjects(affectedObjects);
-        }
-
-        private static void NotifyAffectedObjects(IEnumerable<IObservable> affectedObjects)
-        {
-            foreach (IObservable affectedObject in affectedObjects)
-            {
-                affectedObject.NotifyObservers();
-            }
-        }
-
         /// <summary>
         /// Class holding the various construction parameters for <see cref="StructuresInputBaseProperties{TStructure, TStructureInput, TCalculation, TFailureMechanism}"/>.
         /// </summary>
@@ -338,11 +324,11 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             }
             set
             {
-                ChangePropertyAndNotify(() =>
+                PropertyChangeHelper.ChangePropertyAndNotify(() =>
                 {
                     data.WrappedData.Structure = value;
                     AfterSettingStructure();
-                });
+                }, PropertyChangeHandler);
             }
         }
 
@@ -373,7 +359,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             }
             set
             {
-                ChangePropertyAndNotify(() => data.WrappedData.StructureNormalOrientation = value);
+                PropertyChangeHelper.ChangePropertyAndNotify(() => data.WrappedData.StructureNormalOrientation = value, PropertyChangeHandler);
             }
         }
 
@@ -469,12 +455,10 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             }
             set
             {
-                ChangePropertyAndNotify(
-                    () => SetProbabilityValue(
-                        value,
-                        data.WrappedData,
-                        (wrappedData, parsedValue) => wrappedData.FailureProbabilityStructureWithErosion = parsedValue)
-                );
+                PropertyChangeHelper.ChangePropertyAndNotify(() => SetProbabilityValue(
+                                                                 value,
+                                                                 data.WrappedData,
+                                                                 (wrappedData, parsedValue) => wrappedData.FailureProbabilityStructureWithErosion = parsedValue), PropertyChangeHandler);
             }
         }
 
@@ -491,7 +475,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             }
             set
             {
-                ChangePropertyAndNotify(() => data.WrappedData.ForeshoreProfile = value);
+                PropertyChangeHelper.ChangePropertyAndNotify(() => data.WrappedData.ForeshoreProfile = value, PropertyChangeHandler);
             }
         }
 
@@ -543,7 +527,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             }
             set
             {
-                ChangePropertyAndNotify(() => data.WrappedData.HydraulicBoundaryLocation = value.HydraulicBoundaryLocation);
+                PropertyChangeHelper.ChangePropertyAndNotify(() => data.WrappedData.HydraulicBoundaryLocation = value.HydraulicBoundaryLocation, PropertyChangeHandler);
             }
         }
 

@@ -20,13 +20,12 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
-using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
 using Ringtoets.Common.Data.Probabilistics;
+using Ringtoets.Common.Forms.ChangeHandlers;
 using Ringtoets.Common.Forms.Properties;
 
 namespace Ringtoets.Common.Forms.PropertyClasses
@@ -105,7 +104,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
                     throw new InvalidOperationException("Mean is set to be read-only.");
                 }
 
-                ChangePropertyAndNotify(() => data.Mean = value);
+                PropertyChangeHelper.ChangePropertyAndNotify(() => data.Mean = value, changeHandler);
             }
         }
 
@@ -125,7 +124,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
                     throw new InvalidOperationException($"{nameof(CoefficientOfVariation)} is set to be read-only.");
                 }
 
-                ChangePropertyAndNotify(() => data.CoefficientOfVariation = value);
+                PropertyChangeHelper.ChangePropertyAndNotify(() => data.CoefficientOfVariation = value, changeHandler);
             }
         }
 
@@ -147,20 +146,6 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         {
             return data == null ? string.Empty :
                        $"{Mean} ({Resources.Distribution_VariationCoefficient_DisplayName} = {CoefficientOfVariation})";
-        }
-
-        private void ChangePropertyAndNotify(SetObservablePropertyValueDelegate setPropertyValue)
-        {
-            IEnumerable<IObservable> affectedObjects = changeHandler.SetPropertyValueAfterConfirmation(setPropertyValue);
-            NotifyAffectedObjects(affectedObjects);
-        }
-
-        private static void NotifyAffectedObjects(IEnumerable<IObservable> affectedObjects)
-        {
-            foreach (IObservable affectedObject in affectedObjects)
-            {
-                affectedObject.NotifyObservers();
-            }
         }
     }
 }

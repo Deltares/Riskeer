@@ -29,21 +29,21 @@ using Ringtoets.Common.Forms.PropertyClasses;
 namespace Ringtoets.Common.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class ConfirmingNormalDistributionPropertiesTest
+    public class LogNormalDistributionPropertiesTest
     {
         [Test]
         public void Constructor_WithDistribution_ExpectedValues()
         {
             // Setup
-            var distribution = new NormalDistribution();
+            var distribution = new LogNormalDistribution();
 
             // Call
-            var properties = new NormalDistributionProperties(distribution);
+            var properties = new LogNormalDistributionProperties(distribution);
 
             // Assert
-            Assert.IsInstanceOf<DistributionPropertiesBase<NormalDistribution>>(properties);
+            Assert.IsInstanceOf<DistributionPropertiesBase<LogNormalDistribution>>(properties);
             Assert.AreSame(distribution, properties.Data);
-            Assert.AreEqual("Normaal", properties.DistributionType);
+            Assert.AreEqual("Lognormaal", properties.DistributionType);
 
             AssertPropertiesInState(properties, true, true);
         }
@@ -56,23 +56,23 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             var handler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
-            var distribution = new NormalDistribution();
+            var distribution = new LogNormalDistribution();
 
             // Call
-            var properties = new NormalDistributionProperties(
+            var properties = new LogNormalDistributionProperties(
                 DistributionPropertiesReadOnly.None, distribution, handler);
 
             // Assert
-            Assert.IsInstanceOf<DistributionPropertiesBase<NormalDistribution>>(properties);
+            Assert.IsInstanceOf<DistributionPropertiesBase<LogNormalDistribution>>(properties);
             Assert.AreSame(distribution, properties.Data);
-            Assert.AreEqual("Normaal", properties.DistributionType);
+            Assert.AreEqual("Lognormaal", properties.DistributionType);
 
             AssertPropertiesInState(properties, false, false);
 
             mocks.VerifyAll();
         }
 
-        private static void AssertPropertiesInState(NormalDistributionProperties properties, bool meanReadOnly, bool deviationReadOnly)
+        private static void AssertPropertiesInState(LogNormalDistributionProperties properties, bool meanReadOnly, bool deviationReadOnly)
         {
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
             Assert.AreEqual(3, dynamicProperties.Count);
@@ -88,14 +88,14 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(meanProperty,
                                                                             "Misc",
                                                                             "Verwachtingswaarde",
-                                                                            "De gemiddelde waarde van de normale verdeling.",
+                                                                            "De gemiddelde waarde van de lognormale verdeling.",
                                                                             meanReadOnly);
 
             PropertyDescriptor standardDeviationProperty = dynamicProperties[2];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(standardDeviationProperty,
                                                                             "Misc",
                                                                             "Standaardafwijking",
-                                                                            "De standaardafwijking van de normale verdeling.",
+                                                                            "De standaardafwijking van de lognormale verdeling.",
                                                                             deviationReadOnly);
         }
     }

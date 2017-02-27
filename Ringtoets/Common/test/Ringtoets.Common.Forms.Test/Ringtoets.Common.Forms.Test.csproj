@@ -65,6 +65,7 @@
     </Compile>
     <Compile Include="ChangeHandlers\ObservablePropertyChangeHandlerTest.cs" />
     <Compile Include="ChangeHandlers\FailureMechanismPropertyChangeHandlerTest.cs" />
+    <Compile Include="ChangeHandlers\PropertyChangeHelperTest.cs" />
     <Compile Include="GuiServices\HydraulicBoundaryLocationCalculationGuiServiceTest.cs" />
     <Compile Include="Helpers\NamingHelperTest.cs" />
     <Compile Include="Helpers\ProbabilityFormattingHelperTest.cs" />
@@ -81,14 +82,14 @@
     <Compile Include="PresentationObjects\FailureMechanismItemContextBaseTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyClasses\BreakWaterPropertiesTest.cs" />
-    <Compile Include="PropertyClasses\ConfirmingVariationCoefficientDistributionPropertiesBaseTest.cs" />
-    <Compile Include="PropertyClasses\ConfirmingDistributionPropertiesBaseTest.cs" />
-    <Compile Include="PropertyClasses\ConfirmingVariationCoefficientNormalDistributionPropertiesTest.cs" />
-    <Compile Include="PropertyClasses\ConfirmingVariationCoefficientLogNormalDistributionPropertiesTest.cs" />
-    <Compile Include="PropertyClasses\ConfirmingNormalDistributionPropertiesTest.cs" />
+    <Compile Include="PropertyClasses\VariationCoefficientDistributionPropertiesBaseTest.cs" />
+    <Compile Include="PropertyClasses\DistributionPropertiesBaseTest.cs" />
+    <Compile Include="PropertyClasses\VariationCoefficientNormalDistributionPropertiesTest.cs" />
+    <Compile Include="PropertyClasses\VariationCoefficientLogNormalDistributionPropertiesTest.cs" />
+    <Compile Include="PropertyClasses\NormalDistributionPropertiesTest.cs" />
     <Compile Include="PropertyClasses\ForeshoreGeometryPropertiesTest.cs" />
     <Compile Include="PropertyClasses\ForeshoreProfilePropertiesTest.cs" />
-    <Compile Include="PropertyClasses\ConfirmingLogNormalDistributionPropertiesTest.cs" />
+    <Compile Include="PropertyClasses\LogNormalDistributionPropertiesTest.cs" />
     <Compile Include="PropertyClasses\StructuresInputBasePropertiesTest.cs" />
     <Compile Include="PropertyClasses\TruncatedNormalDistributionPropertiesTest.cs" />
     <Compile Include="PropertyClasses\UseBreakWaterPropertiesTest.cs" />

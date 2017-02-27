@@ -33,6 +33,7 @@ using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils;
 using Core.Common.Utils.Attributes;
 using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.Common.Forms.ChangeHandlers;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.PropertyClasses;
@@ -127,7 +128,7 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
             }
             set
             {
-                ChangePropertyAndNotify(() => data.WrappedData.UpperBoundaryRevetment = value);
+                PropertyChangeHelper.ChangePropertyAndNotify(() => data.WrappedData.UpperBoundaryRevetment = value, propertyChangeHandler);
             }
         }
 
@@ -143,7 +144,7 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
             }
             set
             {
-                ChangePropertyAndNotify(() => data.WrappedData.LowerBoundaryRevetment = value);
+                PropertyChangeHelper.ChangePropertyAndNotify(() => data.WrappedData.LowerBoundaryRevetment = value, propertyChangeHandler);
             }
         }
 
@@ -159,7 +160,7 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
             }
             set
             {
-                ChangePropertyAndNotify(() => data.WrappedData.UpperBoundaryWaterLevels = value);
+                PropertyChangeHelper.ChangePropertyAndNotify(() => data.WrappedData.UpperBoundaryWaterLevels = value, propertyChangeHandler);
             }
         }
 
@@ -175,7 +176,7 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
             }
             set
             {
-                ChangePropertyAndNotify(() => data.WrappedData.LowerBoundaryWaterLevels = value);
+                PropertyChangeHelper.ChangePropertyAndNotify(() => data.WrappedData.LowerBoundaryWaterLevels = value, propertyChangeHandler);
             }
         }
 
@@ -192,7 +193,7 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
             }
             set
             {
-                ChangePropertyAndNotify(() => data.WrappedData.StepSize = value);
+                PropertyChangeHelper.ChangePropertyAndNotify(() => data.WrappedData.StepSize = value, propertyChangeHandler);
             }
         }
 
@@ -236,7 +237,7 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
             }
             set
             {
-                ChangePropertyAndNotify(() => data.WrappedData.Orientation = value);
+                PropertyChangeHelper.ChangePropertyAndNotify(() => data.WrappedData.Orientation = value, propertyChangeHandler);
             }
         }
 
@@ -287,7 +288,7 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
             }
             set
             {
-                ChangePropertyAndNotify(() => data.WrappedData.ForeshoreProfile = value);
+                PropertyChangeHelper.ChangePropertyAndNotify(() => data.WrappedData.ForeshoreProfile = value, propertyChangeHandler);
             }
         }
 
@@ -308,7 +309,7 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
             }
             set
             {
-                ChangePropertyAndNotify(() => data.WrappedData.HydraulicBoundaryLocation = value.HydraulicBoundaryLocation);
+                PropertyChangeHelper.ChangePropertyAndNotify(() => data.WrappedData.HydraulicBoundaryLocation = value.HydraulicBoundaryLocation, propertyChangeHandler);
             }
         }
 
@@ -322,21 +323,6 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
             Point2D referenceLocation = data.WrappedData.ForeshoreProfile?.WorldReferencePoint;
             return SelectableHydraulicBoundaryLocationHelper.GetSortedSelectableHydraulicBoundaryLocations(
                 data.HydraulicBoundaryLocations, referenceLocation);
-        }
-
-        private void ChangePropertyAndNotify(SetObservablePropertyValueDelegate setPropertyValue)
-        {
-            IEnumerable<IObservable> affectedObjects = propertyChangeHandler.SetPropertyValueAfterConfirmation(setPropertyValue);
-
-            NotifyAffectedObjects(affectedObjects);
-        }
-
-        private static void NotifyAffectedObjects(IEnumerable<IObservable> affectedObjects)
-        {
-            foreach (var affectedObject in affectedObjects)
-            {
-                affectedObject.NotifyObservers();
-            }
         }
     }
 }

@@ -34,7 +34,7 @@ using Ringtoets.Common.Forms.TestUtil;
 namespace Ringtoets.Common.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class ConfirmingVariationCoefficientDistributionPropertiesBaseTest
+    public class VariationCoefficientDistributionPropertiesBaseTest
     {
         [Test]
         public void Constructor_WithData_ReadOnlyProperties()

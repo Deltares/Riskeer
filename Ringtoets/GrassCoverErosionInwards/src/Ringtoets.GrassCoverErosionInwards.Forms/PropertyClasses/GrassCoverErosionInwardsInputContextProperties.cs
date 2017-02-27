@@ -32,6 +32,7 @@ using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils;
 using Core.Common.Utils.Attributes;
 using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.Common.Forms.ChangeHandlers;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.PropertyClasses;
@@ -98,13 +99,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
             }
             set
             {
-                ChangePropertyAndNotify(() =>
+                PropertyChangeHelper.ChangePropertyAndNotify(() =>
                 {
                     data.WrappedData.DikeProfile = value;
                     GrassCoverErosionInwardsHelper.UpdateCalculationToSectionResultAssignments(
                         data.FailureMechanism.SectionResults,
                         data.FailureMechanism.Calculations.Cast<GrassCoverErosionInwardsCalculation>());
-                });
+                }, propertyChangeHandler);
             }
         }
 
@@ -136,7 +137,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
             }
             set
             {
-                ChangePropertyAndNotify(() => data.WrappedData.Orientation = value);
+                PropertyChangeHelper.ChangePropertyAndNotify(() => data.WrappedData.Orientation = value, propertyChangeHandler);
             }
         }
 
@@ -200,7 +201,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
             }
             set
             {
-                ChangePropertyAndNotify(() => data.WrappedData.DikeHeight = value);
+                PropertyChangeHelper.ChangePropertyAndNotify(() => data.WrappedData.DikeHeight = value, propertyChangeHandler);
             }
         }
 
@@ -217,7 +218,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
             }
             set
             {
-                ChangePropertyAndNotify(() => data.WrappedData.DikeHeightCalculationType = value);
+                PropertyChangeHelper.ChangePropertyAndNotify(() => data.WrappedData.DikeHeightCalculationType = value, propertyChangeHandler);
             }
         }
 
@@ -253,8 +254,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
             }
             set
             {
-                ChangePropertyAndNotify(
-                    () => data.WrappedData.HydraulicBoundaryLocation = value.HydraulicBoundaryLocation);
+                PropertyChangeHelper.ChangePropertyAndNotify(() => data.WrappedData.HydraulicBoundaryLocation = value.HydraulicBoundaryLocation, propertyChangeHandler);
             }
         }
 
@@ -279,21 +279,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
 
             return SelectableHydraulicBoundaryLocationHelper.GetSortedSelectableHydraulicBoundaryLocations(
                 data.AvailableHydraulicBoundaryLocations, calculationLocation);
-        }
-
-        private void ChangePropertyAndNotify(SetObservablePropertyValueDelegate setPropertyValue)
-        {
-            IEnumerable<IObservable> affectedObjects = propertyChangeHandler.SetPropertyValueAfterConfirmation(setPropertyValue);
-
-            NotifyAffectedObjects(affectedObjects);
-        }
-
-        private static void NotifyAffectedObjects(IEnumerable<IObservable> affectedObjects)
-        {
-            foreach (IObservable affectedObject in affectedObjects)
-            {
-                affectedObject.NotifyObservers();
-            }
         }
     }
 }

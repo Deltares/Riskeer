@@ -29,21 +29,20 @@ using Ringtoets.Common.Forms.PropertyClasses;
 namespace Ringtoets.Common.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class ConfirmingLogNormalDistributionPropertiesTest
+    public class VariationCoefficientLogNormalDistributionPropertiesTest
     {
         [Test]
-        public void Constructor_WithDistribution_ExpectedValues()
+        public void Constructor_WithData_ReadOnlyProperties()
         {
             // Setup
-            var distribution = new LogNormalDistribution();
+            var distribution = new VariationCoefficientLogNormalDistribution();
 
             // Call
-            var properties = new LogNormalDistributionProperties(distribution);
+            var properties = new VariationCoefficientLogNormalDistributionProperties(distribution);
 
             // Assert
-            Assert.IsInstanceOf<DistributionPropertiesBase<LogNormalDistribution>>(properties);
+            Assert.IsInstanceOf<VariationCoefficientDistributionPropertiesBase<VariationCoefficientLogNormalDistribution>>(properties);
             Assert.AreSame(distribution, properties.Data);
-            Assert.AreEqual("Lognormaal", properties.DistributionType);
 
             AssertPropertiesInState(properties, true, true);
         }
@@ -56,24 +55,26 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             var handler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
-            var distribution = new LogNormalDistribution();
+            var distribution = new VariationCoefficientLogNormalDistribution();
 
             // Call
-            var properties = new LogNormalDistributionProperties(
-                DistributionPropertiesReadOnly.None, distribution, handler);
+            var properties = new VariationCoefficientLogNormalDistributionProperties(
+                VariationCoefficientDistributionPropertiesReadOnly.None, distribution, handler);
 
             // Assert
-            Assert.IsInstanceOf<DistributionPropertiesBase<LogNormalDistribution>>(properties);
+            Assert.IsInstanceOf<VariationCoefficientDistributionPropertiesBase<VariationCoefficientLogNormalDistribution>>(properties);
             Assert.AreSame(distribution, properties.Data);
-            Assert.AreEqual("Lognormaal", properties.DistributionType);
 
             AssertPropertiesInState(properties, false, false);
 
             mocks.VerifyAll();
         }
 
-        private static void AssertPropertiesInState(LogNormalDistributionProperties properties, bool meanReadOnly, bool deviationReadOnly)
+        private static void AssertPropertiesInState(VariationCoefficientLogNormalDistributionProperties properties, bool meanReadOnly, bool variationCoefficientReadOnly)
         {
+            Assert.IsInstanceOf<VariationCoefficientDistributionPropertiesBase<VariationCoefficientLogNormalDistribution>>(properties);
+            Assert.AreEqual("Lognormaal", properties.DistributionType);
+
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
             Assert.AreEqual(3, dynamicProperties.Count);
 
@@ -91,12 +92,13 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                                                                             "De gemiddelde waarde van de lognormale verdeling.",
                                                                             meanReadOnly);
 
-            PropertyDescriptor standardDeviationProperty = dynamicProperties[2];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(standardDeviationProperty,
+            PropertyDescriptor variationCoefficientProperty = dynamicProperties[2];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(variationCoefficientProperty,
                                                                             "Misc",
-                                                                            "Standaardafwijking",
-                                                                            "De standaardafwijking van de lognormale verdeling.",
-                                                                            deviationReadOnly);
+                                                                            "Variatiecoëfficiënt",
+                                                                            "De variatiecoëfficiënt van de lognormale verdeling.",
+                                                                            variationCoefficientReadOnly);
+
         }
     }
 }

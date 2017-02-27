@@ -94,7 +94,7 @@ namespace Ringtoets.Common.Forms.ChangeHandlers
         private static bool ConfirmPropertyChange()
         {
             DialogResult result = MessageBox.Show(
-                Resources.CalculationInputPropertyChangeHandler_ConfirmPropertyChange_Confirm_change_input_parameter_and_clear_calculation_output,
+                Resources.ObservablePropertyChangeHandler_ConfirmPropertyChange_Confirm_change_input_parameter_and_clear_calculation_output,
                 CoreCommonBaseResources.Confirm,
                 MessageBoxButtons.OKCancel);
 

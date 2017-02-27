@@ -33,6 +33,7 @@ using Ringtoets.ClosingStructures.Forms.PresentationObjects;
 using Ringtoets.ClosingStructures.Forms.Properties;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Structures;
+using Ringtoets.Common.Forms.ChangeHandlers;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Utils;
@@ -225,7 +226,7 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
             }
             set
             {
-                ChangePropertyAndNotify(() => data.WrappedData.FactorStormDurationOpenStructure = value);
+                PropertyChangeHelper.ChangePropertyAndNotify(() => data.WrappedData.FactorStormDurationOpenStructure = value, PropertyChangeHandler);
             }
         }
 
@@ -268,7 +269,7 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
             }
             set
             {
-                ChangePropertyAndNotify(() => data.WrappedData.InflowModelType = value);
+                PropertyChangeHelper.ChangePropertyAndNotify(() => data.WrappedData.InflowModelType = value, PropertyChangeHandler);
             }
         }
 
@@ -318,11 +319,10 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
             }
             set
             {
-                ChangePropertyAndNotify(
-                    () => SetProbabilityValue(
-                        value,
-                        data.WrappedData,
-                        (wrappedData, parsedValue) => wrappedData.FailureProbabilityOpenStructure = parsedValue));
+                PropertyChangeHelper.ChangePropertyAndNotify(() => SetProbabilityValue(
+                                                                 value,
+                                                                 data.WrappedData,
+                                                                 (wrappedData, parsedValue) => wrappedData.FailureProbabilityOpenStructure = parsedValue), PropertyChangeHandler);
             }
         }
 
@@ -338,11 +338,10 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
             }
             set
             {
-                ChangePropertyAndNotify(
-                    () => SetProbabilityValue(
-                        value,
-                        data.WrappedData,
-                        (wrappedData, parsedValue) => wrappedData.FailureProbabilityReparation = parsedValue));
+                PropertyChangeHelper.ChangePropertyAndNotify(() => SetProbabilityValue(
+                                                                 value,
+                                                                 data.WrappedData,
+                                                                 (wrappedData, parsedValue) => wrappedData.FailureProbabilityReparation = parsedValue), PropertyChangeHandler);
             }
         }
 
@@ -358,7 +357,7 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
             }
             set
             {
-                ChangePropertyAndNotify(() => data.WrappedData.IdenticalApertures = value);
+                PropertyChangeHelper.ChangePropertyAndNotify(() => data.WrappedData.IdenticalApertures = value, PropertyChangeHandler);
             }
         }
 
@@ -391,11 +390,10 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
             }
             set
             {
-                ChangePropertyAndNotify(
-                    () => SetProbabilityValue(
-                        value,
-                        data.WrappedData,
-                        (wrappedData, parsedValue) => wrappedData.ProbabilityOrFrequencyOpenStructureBeforeFlooding = parsedValue));
+                PropertyChangeHelper.ChangePropertyAndNotify(() => SetProbabilityValue(
+                                                                 value,
+                                                                 data.WrappedData,
+                                                                 (wrappedData, parsedValue) => wrappedData.ProbabilityOrFrequencyOpenStructureBeforeFlooding = parsedValue), PropertyChangeHandler);
             }
         }
 

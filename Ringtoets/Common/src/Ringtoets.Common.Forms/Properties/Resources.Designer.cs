@@ -473,18 +473,6 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Als u een parameter in deze berekening wijzigt, zal de uitvoer van deze berekening verwijderd worden.
-        ///
-        ///Weet u zeker dat u wilt doorgaan?.
-        /// </summary>
-        public static string CalculationInputPropertyChangeHandler_ConfirmPropertyChange_Confirm_change_input_parameter_and_clear_calculation_output {
-            get {
-                return ResourceManager.GetString("CalculationInputPropertyChangeHandler_ConfirmPropertyChange_Confirm_change_input_" +
-                        "parameter_and_clear_calculation_output", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to De berekende kans van voorkomen van het berekende resultaat..
         /// </summary>
         public static string CalculationOutput_CalculatedProbability_Description {
@@ -1583,6 +1571,18 @@ namespace Ringtoets.Common.Forms.Properties {
         public static string ObservableCollectionWithSourcePath_SourcePath_DisplayName {
             get {
                 return ResourceManager.GetString("ObservableCollectionWithSourcePath_SourcePath_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Als u een parameter in deze berekening wijzigt, zal de uitvoer van deze berekening verwijderd worden.
+        ///
+        ///Weet u zeker dat u wilt doorgaan?.
+        /// </summary>
+        public static string ObservablePropertyChangeHandler_ConfirmPropertyChange_Confirm_change_input_parameter_and_clear_calculation_output {
+            get {
+                return ResourceManager.GetString("ObservablePropertyChangeHandler_ConfirmPropertyChange_Confirm_change_input_parame" +
+                        "ter_and_clear_calculation_output", resourceCulture);
             }
         }
         

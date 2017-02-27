@@ -30,6 +30,7 @@ using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
 using Core.Common.Utils.Reflection;
+using Ringtoets.Common.Forms.ChangeHandlers;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.PropertyClasses;
@@ -174,7 +175,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
             set
             {
-                ChangePropertyAndNotify(() => data.WrappedData.HydraulicBoundaryLocation = value.HydraulicBoundaryLocation);
+                PropertyChangeHelper.ChangePropertyAndNotify(() => data.WrappedData.HydraulicBoundaryLocation = value.HydraulicBoundaryLocation, propertyChangeHandler);
             }
         }
 
@@ -191,7 +192,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
             set
             {
-                ChangePropertyAndNotify(() => data.WrappedData.AssessmentLevel = value);
+                PropertyChangeHelper.ChangePropertyAndNotify(() => data.WrappedData.AssessmentLevel = value, propertyChangeHandler);
             }
         }
 
@@ -207,7 +208,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
             set
             {
-                ChangePropertyAndNotify(() => data.WrappedData.UseAssessmentLevelManualInput = value);
+                PropertyChangeHelper.ChangePropertyAndNotify(() => data.WrappedData.UseAssessmentLevelManualInput = value, propertyChangeHandler);
             }
         }
 
@@ -276,11 +277,11 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             {
                 if (!ReferenceEquals(value, data.WrappedData.SurfaceLine))
                 {
-                    ChangePropertyAndNotify(() =>
+                    PropertyChangeHelper.ChangePropertyAndNotify(() =>
                     {
                         data.WrappedData.SurfaceLine = value;
                         PipingInputService.SetMatchingStochasticSoilModel(data.WrappedData, GetAvailableStochasticSoilModels());
-                    });
+                    }, propertyChangeHandler);
                 }
             }
         }
@@ -300,11 +301,11 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             {
                 if (!ReferenceEquals(value, data.WrappedData.StochasticSoilModel))
                 {
-                    ChangePropertyAndNotify(() =>
+                    PropertyChangeHelper.ChangePropertyAndNotify(() =>
                     {
                         data.WrappedData.StochasticSoilModel = value;
                         PipingInputService.SyncStochasticSoilProfileWithStochasticSoilModel(data.WrappedData);
-                    });
+                    }, propertyChangeHandler);
                 }
             }
         }
@@ -324,7 +325,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             {
                 if (!ReferenceEquals(value, data.WrappedData.StochasticSoilProfile))
                 {
-                    ChangePropertyAndNotify(() => data.WrappedData.StochasticSoilProfile = value);
+                    PropertyChangeHelper.ChangePropertyAndNotify(() => data.WrappedData.StochasticSoilProfile = value, propertyChangeHandler);
                 }
             }
         }
@@ -341,7 +342,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
             set
             {
-                ChangePropertyAndNotify(() => data.WrappedData.EntryPointL = value);
+                PropertyChangeHelper.ChangePropertyAndNotify(() => data.WrappedData.EntryPointL = value, propertyChangeHandler);
             }
         }
 
@@ -357,7 +358,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
             set
             {
-                ChangePropertyAndNotify(() => data.WrappedData.ExitPointL = value);
+                PropertyChangeHelper.ChangePropertyAndNotify(() => data.WrappedData.ExitPointL = value, propertyChangeHandler);
             }
         }
 
@@ -454,20 +455,5 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         }
 
         #endregion
-
-        private void ChangePropertyAndNotify(SetObservablePropertyValueDelegate setPropertyValue)
-        {
-            IEnumerable<IObservable> affectedObjects = propertyChangeHandler.SetPropertyValueAfterConfirmation(setPropertyValue);
-
-            NotifyAffectedObjects(affectedObjects);
-        }
-
-        private static void NotifyAffectedObjects(IEnumerable<IObservable> affectedObjects)
-        {
-            foreach (var affectedObject in affectedObjects)
-            {
-                affectedObject.NotifyObservers();
-            }
-        }
     }
 }
