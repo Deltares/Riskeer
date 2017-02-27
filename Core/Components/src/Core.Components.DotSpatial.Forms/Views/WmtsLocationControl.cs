@@ -36,7 +36,7 @@ using BaseResources = Core.Common.Base.Properties.Resources;
 namespace Core.Components.DotSpatial.Forms.Views
 {
     /// <summary>
-    /// This class represents a <see cref="Control"/> where WMTS locations can be administrated.
+    /// This class represents a <see cref="Control"/> where a WMTS layer can be selected.
     /// </summary>
     public partial class WmtsLocationControl : UserControl, IBackgroundMapDataSelectionControl
     {
@@ -136,7 +136,7 @@ namespace Core.Components.DotSpatial.Forms.Views
             {
                 return;
             }
-            DataGridViewCell cell = dataGridViewControl.Rows[dataGridViewRow.Index].Cells[0];
+            DataGridViewCell cell = dataGridViewControl.GetCell(dataGridViewRow.Index, 0);
             dataGridViewControl.SetCurrentCell(cell);
         }
 

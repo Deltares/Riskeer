@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Linq;
 using System.Xml;
 using System.Xml.Linq;
 using Core.Common.IO.Exceptions;
@@ -61,14 +62,15 @@ namespace Core.Components.DotSpatial.Forms.IO
             filePath = path;
             IOUtils.ValidateFilePath(filePath);
 
+            var readConnectionInfos = new WmtsConnectionInfo[0];
             if (!File.Exists(filePath))
             {
-                return new ReadOnlyCollection<WmtsConnectionInfo>(new List<WmtsConnectionInfo>());
+                return new ReadOnlyCollection<WmtsConnectionInfo>(readConnectionInfos);
             }
 
             try
             {
-                return ReadWmtsConnectionInfos();
+                readConnectionInfos = ReadWmtsConnectionInfos().ToArray();
             }
             catch (Exception exception) when (exception is XmlException || exception is IOException)
             {
@@ -76,6 +78,7 @@ namespace Core.Components.DotSpatial.Forms.IO
                     .Build(CoreCommonUtilsResources.Error_General_IO_Import_ErrorMessage);
                 throw new CriticalFileReadException(message, exception);
             }
+            return new ReadOnlyCollection<WmtsConnectionInfo>(readConnectionInfos);
         }
 
         /// <summary>
@@ -83,7 +86,7 @@ namespace Core.Components.DotSpatial.Forms.IO
         /// </summary>
         /// <returns>The read collection.</returns>
         /// <exception cref="XmlException">Thrown when an error occurred while parsing the XML.</exception>
-        private ReadOnlyCollection<WmtsConnectionInfo> ReadWmtsConnectionInfos()
+        private IEnumerable<WmtsConnectionInfo> ReadWmtsConnectionInfos()
         {
             var connectionInfos = new List<WmtsConnectionInfo>();
             using (XmlReader reader = XmlReader.Create(filePath))
@@ -99,7 +102,7 @@ namespace Core.Components.DotSpatial.Forms.IO
                     }
                 }
             }
-            return connectionInfos.AsReadOnly();
+            return connectionInfos;
         }
 
         /// <summary>
