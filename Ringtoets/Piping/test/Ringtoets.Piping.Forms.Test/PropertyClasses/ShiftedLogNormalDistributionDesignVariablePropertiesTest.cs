@@ -27,8 +27,6 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Forms.PropertyClasses;
-using Ringtoets.Piping.Data;
-using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.Forms.PropertyClasses;
 
 namespace Ringtoets.Piping.Forms.Test.PropertyClasses
@@ -73,13 +71,9 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var handler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
-            PipingCalculationScenario calculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
-
             // Call
             TestDelegate test = () => new ShiftedLogNormalDistributionDesignVariableProperties(DistributionPropertiesReadOnly.None,
                                                                                         null,
-                                                                                        calculation,
-                                                                                        calculation.InputParameters,
                                                                                         handler);
 
             // Assert
@@ -99,13 +93,9 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var distribution = new LogNormalDistribution();
             var designVariable = new LogNormalDistributionDesignVariable(distribution);
 
-            PipingCalculationScenario calculationScenario = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
-
             // Call
             var properties = new ShiftedLogNormalDistributionDesignVariableProperties(DistributionPropertiesReadOnly.All,
                                                               designVariable,
-                                                              calculationScenario,
-                                                              calculationScenario.InputParameters,
                                                               handler);
 
             // Assert
@@ -128,13 +118,9 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var distribution = new LogNormalDistribution();
             var designVariable = new LogNormalDistributionDesignVariable(distribution);
 
-            PipingCalculationScenario calculationScenario = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
-
             // Call
             var properties = new ShiftedLogNormalDistributionDesignVariableProperties(DistributionPropertiesReadOnly.None,
                                                                                designVariable,
-                                                                               calculationScenario,
-                                                                               calculationScenario.InputParameters,
                                                                                handler);
 
             // Assert
@@ -191,13 +177,9 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             };
             var designVariable = new LogNormalDistributionDesignVariable(distribution);
 
-            PipingCalculationScenario calculationScenario = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
-
             // Call
             var properties = new ShiftedLogNormalDistributionDesignVariableProperties(DistributionPropertiesReadOnly.None,
                                                                                designVariable,
-                                                                               calculationScenario,
-                                                                               calculationScenario.InputParameters,
                                                                                handler);
 
             // Assert
@@ -224,13 +206,9 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             };
             var designVariable = new LogNormalDistributionDesignVariable(distribution);
 
-            PipingCalculationScenario calculationScenario = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
-
             // Call
             var properties = new ShiftedLogNormalDistributionDesignVariableProperties(DistributionPropertiesReadOnly.None,
                                                                                designVariable,
-                                                                               calculationScenario,
-                                                                               calculationScenario.InputParameters,
                                                                                handler);
 
             // Call

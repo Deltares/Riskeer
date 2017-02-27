@@ -221,7 +221,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                                                                     new TestUseBreakWater());
         }
 
-        public class TestUseBreakWater : Observable, ICalculationInput, IUseBreakWater
+        private class TestUseBreakWater : Observable, ICalculationInput, IUseBreakWater
         {
             public TestUseBreakWater()
             {

@@ -21,7 +21,6 @@
 
 using System;
 using Core.Common.Base.Data;
-using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Forms.Properties;
@@ -29,12 +28,12 @@ using Ringtoets.Common.Forms.Properties;
 namespace Ringtoets.Common.Forms.PropertyClasses
 {
     /// <summary>
-    /// An <see cref="ObjectProperties{T}"/> implementation for <see cref="VariationCoefficientLogNormalDistribution"/>.
+    /// Properties class for implementations of <see cref="VariationCoefficientLogNormalDistribution"/>.
     /// </summary>
     public class VariationCoefficientLogNormalDistributionProperties : VariationCoefficientDistributionPropertiesBase<VariationCoefficientLogNormalDistribution>
     {
         /// <summary>
-        /// Creates a new instance of <see cref="NormalDistributionProperties"/>
+        /// Creates a new instance of <see cref="VariationCoefficientLogNormalDistribution"/>
         /// in which the properties of <paramref name="distribution"/> are displayed read-only.
         /// </summary>
         /// <param name="distribution">The <see cref="VariationCoefficientLogNormalDistribution"/> to create the properties for.</param>

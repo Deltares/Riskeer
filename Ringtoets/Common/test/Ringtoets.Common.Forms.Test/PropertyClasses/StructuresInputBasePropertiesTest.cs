@@ -303,6 +303,8 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         public void GetSelectableHydraulicBoundaryLocations_InputWithLocationsStructure_CalculatesDistanceWithCorrectReferencePoint()
         {
             // Setup
+            mockRepository.ReplayAll();
+
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "A", 200643.312, 503347.25);
             assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
@@ -311,7 +313,6 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                     hydraulicBoundaryLocation
                 }
             };
-            mockRepository.ReplayAll();
 
             var calculation = new StructuresCalculation<SimpleStructureInput>
             {
@@ -395,6 +396,8 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         public void GivenPropertiesWithStructureAndLocations_WhenSelectingLocation_ThenSelectedLocationDistanceSameAsLocationItem()
         {
             // Given
+            mockRepository.ReplayAll();
+
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "A", 200643.312, 503347.25);
             assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
@@ -403,7 +406,6 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                     hydraulicBoundaryLocation
                 }
             };
-            mockRepository.ReplayAll();
 
             var calculation = new StructuresCalculation<SimpleStructureInput>
             {
@@ -440,6 +442,8 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         public void GetSelectableHydraulicBoundaryLocations_InputWithLocationsAndNoStructure_ReturnsLocationsSortedById()
         {
             // Setup
+            mockRepository.ReplayAll();
+
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
                 Locations =
@@ -451,8 +455,6 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                 }
             };
             assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
-
-            mockRepository.ReplayAll();
 
             var calculation = new StructuresCalculation<SimpleStructureInput>();
             var inputContext = new SimpleInputContext(calculation.InputParameters,
@@ -480,6 +482,8 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         public void GetSelectableHydraulicBoundaryLocations_InputWithLocationsAndStructure_ReturnsLocationsSortByDistanceThenById()
         {
             // Setup
+            mockRepository.ReplayAll();
+
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
                 Locations =
@@ -493,8 +497,6 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                 }
             };
             assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
-
-            mockRepository.ReplayAll();
 
             var calculation = new StructuresCalculation<SimpleStructureInput>
             {
@@ -531,6 +533,8 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         public void GivenLocationAndReferencePoint_WhenUpdatingStructure_ThenUpdateSelectableBoundaryLocations()
         {
             // Given
+            mockRepository.ReplayAll();
+
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
                 Locations =
@@ -544,7 +548,6 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                 }
             };
             assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
-            mockRepository.ReplayAll();
 
             var calculation = new StructuresCalculation<SimpleStructureInput>
             {
@@ -768,7 +771,9 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                                                       failureMechanism,
                                                       assessmentSection);
 
-            var customHandler = CreateCustomHandlerForCalculationReturningNoObservables<SimpleStructure>(calculation, null);
+            CalculationInputSetPropertyValueAfterConfirmationParameterTester customHandler =
+                CreateCustomHandlerForCalculationReturningNoObservables<SimpleStructure>(calculation, null);
+
             var properties = new SimpleStructuresInputProperties(
                 inputContext,
                 new StructuresInputBaseProperties<SimpleStructure, SimpleStructureInput, StructuresCalculation<SimpleStructureInput>, IFailureMechanism>.ConstructionProperties(),
@@ -797,7 +802,9 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                                                       assessmentSection);
 
             var newStructure = new SimpleStructure();
-            var customHandler = CreateCustomHandlerForCalculationReturningNoObservables(calculation, newStructure);
+            CalculationInputSetPropertyValueAfterConfirmationParameterTester customHandler =
+                CreateCustomHandlerForCalculationReturningNoObservables(calculation, newStructure);
+
             var properties = new SimpleStructuresInputProperties(
                 inputContext,
                 new StructuresInputBaseProperties<SimpleStructure, SimpleStructureInput, StructuresCalculation<SimpleStructureInput>, IFailureMechanism>.ConstructionProperties(),
@@ -828,7 +835,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                                                       assessmentSection);
 
             string newStringValue = newValue.ToString(CultureInfo.InvariantCulture);
-            CalculationInputSetPropertyValueAfterConfirmationParameterTester customHandler = 
+            CalculationInputSetPropertyValueAfterConfirmationParameterTester customHandler =
                 CreateCustomHandlerForCalculationReturningNoObservables(calculation, newStringValue);
 
             var properties = new SimpleStructuresInputProperties(
@@ -860,7 +867,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                                                       failureMechanism,
                                                       assessmentSection);
 
-            CalculationInputSetPropertyValueAfterConfirmationParameterTester customHandler = 
+            CalculationInputSetPropertyValueAfterConfirmationParameterTester customHandler =
                 CreateCustomHandlerForCalculationReturningNoObservables(calculation, newValue);
 
             var properties = new SimpleStructuresInputProperties(
@@ -890,7 +897,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                                                       failureMechanism,
                                                       assessmentSection);
 
-            CalculationInputSetPropertyValueAfterConfirmationParameterTester customHandler = 
+            CalculationInputSetPropertyValueAfterConfirmationParameterTester customHandler =
                 CreateCustomHandlerForCalculationReturningNoObservables<string>(calculation, null);
 
             var properties = new SimpleStructuresInputProperties(
@@ -1035,9 +1042,9 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             input.ForeshoreProfile = new TestForeshoreProfile();
 
             var customHandler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(new[]
-                {
-                    observable
-                });
+            {
+                observable
+            });
 
             var inputContext = new SimpleInputContext(input,
                                                       calculation,

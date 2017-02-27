@@ -20,10 +20,8 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
-using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Forms.Properties;
@@ -31,8 +29,7 @@ using Ringtoets.Common.Forms.Properties;
 namespace Ringtoets.Common.Forms.PropertyClasses
 {
     /// <summary>
-    /// An <see cref="ObjectProperties{T}"/> implementation for <see cref="TruncatedNormalDistribution"/>
-    /// properties.
+    /// Properties class for implementations of <see cref="TruncatedNormalDistribution"/>.
     /// </summary>
     public class TruncatedNormalDistributionProperties : DistributionPropertiesBase<TruncatedNormalDistribution>
     {
@@ -41,7 +38,8 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         /// in which the properties of <paramref name="distribution"/> are displayed read-only.
         /// </summary>
         /// <param name="distribution">The <see cref="TruncatedNormalDistribution"/> to create the properties for.</param>
-        public TruncatedNormalDistributionProperties(TruncatedNormalDistribution distribution) : this(DistributionPropertiesReadOnly.All, distribution, null) {}
+        public TruncatedNormalDistributionProperties(TruncatedNormalDistribution distribution)
+            : this(DistributionPropertiesReadOnly.All, distribution, null) {}
 
         /// <summary>
         /// Creates a new instance of <see cref="TruncatedNormalDistributionProperties"/>.
@@ -53,7 +51,10 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="distribution"/> is <c>null</c></exception>
         /// <exception cref="ArgumentException">Any number of properties in this class is editable and the 
         /// <paramref name="handler"/> is <c>null</c>.</exception>
-        public TruncatedNormalDistributionProperties(DistributionPropertiesReadOnly propertiesReadOnly, TruncatedNormalDistribution distribution, IObservablePropertyChangeHandler handler) :
+        public TruncatedNormalDistributionProperties(
+            DistributionPropertiesReadOnly propertiesReadOnly,
+            TruncatedNormalDistribution distribution,
+            IObservablePropertyChangeHandler handler) :
             base(propertiesReadOnly, distribution, handler) {}
 
         public override string DistributionType

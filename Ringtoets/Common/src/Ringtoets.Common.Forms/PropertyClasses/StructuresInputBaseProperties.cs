@@ -68,7 +68,10 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         /// <param name="constructionProperties">The property values required to create an instance of <see cref="StructuresInputBaseProperties{TStructure, TStructureInput, TCalculation, TFailureMechanism}"/>.</param>
         /// <param name="propertyChangeHandler">The handler responsible for handling effects of a property change.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        protected StructuresInputBaseProperties(InputContextBase<TStructureInput, TCalculation, TFailureMechanism> data, ConstructionProperties constructionProperties, IObservablePropertyChangeHandler propertyChangeHandler)
+        protected StructuresInputBaseProperties(
+            InputContextBase<TStructureInput, TCalculation, TFailureMechanism> data,
+            ConstructionProperties constructionProperties,
+            IObservablePropertyChangeHandler propertyChangeHandler)
         {
             if (data == null)
             {

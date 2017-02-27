@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using NUnit.Framework;
@@ -34,7 +35,7 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
         public void Constructructed_Always_PropertiesSet()
         {
             // Setup
-            var returnedAffectedObjects = Enumerable.Empty<IObservable>();
+            IEnumerable<IObservable> returnedAffectedObjects = Enumerable.Empty<IObservable>();
 
             // Call
             var tester = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(returnedAffectedObjects);
@@ -49,13 +50,13 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
         public void SetPropertyValueAfterConfirmation_ParametersAreSameAndEqual_SetValueCalledReturnsGivenAffectedObjects()
         {
             // Setup
-            var returnedAffectedObjects = Enumerable.Empty<IObservable>();
+            IEnumerable<IObservable> returnedAffectedObjects = Enumerable.Empty<IObservable>();
             var called = 0;
 
             var tester = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(returnedAffectedObjects);
 
             // Call
-            var affectedObjects = tester.SetPropertyValueAfterConfirmation(() => called++);
+            IEnumerable<IObservable> affectedObjects = tester.SetPropertyValueAfterConfirmation(() => called++);
 
             // Assert
             Assert.AreEqual(1, called);
@@ -67,9 +68,9 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
         public void SetPropertyValueAfterConfirmation_SetValueThrowsException_BubblesException()
         {
             // Setup
-            var returnedAffectedObjects = Enumerable.Empty<IObservable>();
+            IEnumerable<IObservable> returnedAffectedObjects = Enumerable.Empty<IObservable>();
 
-             var tester = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(returnedAffectedObjects);
+            var tester = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(returnedAffectedObjects);
 
             var expectedException = new Exception();
 

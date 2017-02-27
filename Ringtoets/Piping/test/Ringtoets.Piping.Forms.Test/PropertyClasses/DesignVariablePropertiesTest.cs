@@ -47,8 +47,6 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             // Call
             TestDelegate test = () => new SimpleDesignVariableProperties(DistributionPropertiesReadOnly.None,
                                                                          null,
-                                                                         calculation,
-                                                                         calculation.InputParameters,
                                                                          handler);
 
             // Assert
@@ -73,8 +71,6 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             // Call
             var properties = new SimpleDesignVariableProperties(DistributionPropertiesReadOnly.All,
                                                                 designVariable,
-                                                                calculationScenario,
-                                                                calculationScenario.InputParameters,
                                                                 handler);
 
             // Assert
@@ -104,8 +100,6 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             // Call
             var properties = new SimpleDesignVariableProperties(DistributionPropertiesReadOnly.None,
                                                                 designVariable,
-                                                                calculationScenario,
-                                                                calculationScenario.InputParameters,
                                                                 handler);
 
             // Call
@@ -119,10 +113,8 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         {
             public SimpleDesignVariableProperties(DistributionPropertiesReadOnly propertiesReadOnly,
                                                   DesignVariable<LogNormalDistribution> designVariable,
-                                                  PipingCalculationScenario calculation,
-                                                  PipingInput propertyOwner,
                                                   IObservablePropertyChangeHandler handler)
-                : base(propertiesReadOnly, designVariable, calculation, propertyOwner, handler) {}
+                : base(propertiesReadOnly, designVariable, handler) {}
 
             public override string DistributionType { get; }
         }

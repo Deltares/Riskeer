@@ -25,7 +25,6 @@ using Core.Common.Gui.Attributes;
 using Core.Common.Utils.Attributes;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Forms.PropertyClasses;
-using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.Properties;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
@@ -35,24 +34,20 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
     /// ViewModel base of <see cref="DesignVariable{TDistribution}"/> for properties panel.
     /// </summary>
     /// <typeparam name="TDistribution">The type of the distribution.</typeparam>
-    public abstract class DesignVariableProperties<TDistribution> 
+    public abstract class DesignVariableProperties<TDistribution>
         : DistributionPropertiesBase<TDistribution>
         where TDistribution : IDistribution
     {
         /// <summary>
-        /// Creates a new <see cref="DesignVariableProperties{TDistribution}"/>
+        /// Creates a new <see cref="DesignVariableProperties{TDistribution}"/>.
         /// </summary>
         /// <param name="propertiesReadOnly">Indicates which properties, if any, should be marked as read-only.</param>
         /// <param name="designVariable">The data of the <see cref="TDistribution"/> to create the properties for.</param>
-        /// <param name="calculation">The calculation the <paramref name="designVariable"/> belongs to.</param>
-        /// <param name="propertyOwner">The calculation input the <paramref name="designVariable"/> belongs to.</param>
         /// <param name="handler">The handler responsible for handling effects of a property change.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="designVariable"/> is <c>null</c>
         /// or when any number of properties in this class is editable and any other parameter is <c>null</c>.</exception>
         protected DesignVariableProperties(DistributionPropertiesReadOnly propertiesReadOnly,
                                            DesignVariable<TDistribution> designVariable,
-                                           PipingCalculationScenario calculation,
-                                           PipingInput propertyOwner,
                                            IObservablePropertyChangeHandler handler)
             : base(propertiesReadOnly, GetDistribution(designVariable), handler)
         {

@@ -208,7 +208,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             mocks.VerifyAll();
         }
 
-        public class TestUseForeshore : Observable, ICalculationInput, IUseForeshore
+        private class TestUseForeshore : Observable, ICalculationInput, IUseForeshore
         {
             public bool UseForeshore { get; set; }
             public RoundedPoint2DCollection ForeshoreGeometry { get; set; }

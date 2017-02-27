@@ -24,7 +24,6 @@ using Core.Common.Base.Data;
 using Core.Common.Utils.Attributes;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Forms.PropertyClasses;
-using Ringtoets.Piping.Data;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Piping.Forms.PropertyClasses
@@ -40,27 +39,21 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         /// <param name="designVariable">The <see cref="DesignVariable{T}"/> to create the properties for.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="designVariable"/> is <c>null</c>.</exception>
         public LogNormalDistributionDesignVariableProperties(DesignVariable<LogNormalDistribution> designVariable)
-            : this(DistributionPropertiesReadOnly.All, designVariable, null, null, null) {}
+            : this(DistributionPropertiesReadOnly.All, designVariable, null) {}
 
         /// <summary>
         /// Creates a new <see cref="LogNormalDistributionDesignVariableProperties"/>.
         /// </summary>
         /// <param name="propertiesReadOnly">Indicates which properties, if any, should be marked as read-only.</param>
         /// <param name="designVariable">The <see cref="DesignVariable{T}"/> to create the properties for.</param>
-        /// <param name="calculation">The calculation the <paramref name="designVariable"/> belongs to.</param>
-        /// <param name="propertyOwner">The calculation input the <paramref name="designVariable"/> belongs to.</param>
         /// <param name="handler">The handler responsible for handling effects of a property change.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="designVariable"/> is <c>null</c>
         /// or when any number of properties in this class is editable and any other parameter is <c>null</c>.</exception>
         public LogNormalDistributionDesignVariableProperties(DistributionPropertiesReadOnly propertiesReadOnly,
                                                              DesignVariable<LogNormalDistribution> designVariable,
-                                                             PipingCalculationScenario calculation,
-                                                             PipingInput propertyOwner,
                                                              IObservablePropertyChangeHandler handler)
             : base(propertiesReadOnly,
                    designVariable,
-                   calculation,
-                   propertyOwner,
                    handler) {}
 
         public override string DistributionType { get; } = RingtoetsCommonFormsResources.DistributionType_LogNormal;

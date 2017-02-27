@@ -37,7 +37,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         where TDistribution : IVariationCoefficientDistribution
     {
         private const string meanPropertyName = nameof(Mean);
-        private readonly string variationCoefficientPropertyName = nameof(CoefficientOfVariation);
+        private const string variationCoefficientPropertyName = nameof(CoefficientOfVariation);
         private readonly bool isMeanReadOnly;
         private readonly bool isVariationCoefficientReadOnly;
         private readonly IObservablePropertyChangeHandler changeHandler;
@@ -47,7 +47,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         /// in which the properties of <paramref name="distribution"/> are displayed read-only.
         /// </summary>
         /// <param name="distribution">The <see cref="TDistribution"/> to create the properties for.</param>
-        public VariationCoefficientDistributionPropertiesBase(TDistribution distribution)
+        protected VariationCoefficientDistributionPropertiesBase(TDistribution distribution)
             : this(VariationCoefficientDistributionPropertiesReadOnly.All, distribution, null) {}
 
         /// <summary>

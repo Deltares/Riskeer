@@ -21,7 +21,6 @@
 
 using System;
 using Core.Common.Base.Data;
-using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Forms.Properties;
@@ -29,8 +28,7 @@ using Ringtoets.Common.Forms.Properties;
 namespace Ringtoets.Common.Forms.PropertyClasses
 {
     /// <summary>
-    /// An <see cref="ObjectProperties{T}"/> implementation for <see cref="NormalDistribution"/>
-    /// properties.
+    /// Properties class for implementations of <see cref="NormalDistribution"/>.
     /// </summary>
     public class NormalDistributionProperties : DistributionPropertiesBase<NormalDistribution>
     {

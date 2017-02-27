@@ -23,7 +23,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing.Design;
-using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Gui.Attributes;
@@ -223,8 +222,6 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             {
                 return new LogNormalDistributionDesignVariableProperties(DistributionPropertiesReadOnly.None,
                                                                          PipingSemiProbabilisticDesignValueFactory.GetDampingFactorExit(data.WrappedData),
-                                                                         data.PipingCalculation,
-                                                                         data.WrappedData,
                                                                          propertyChangeHandler);
             }
         }
@@ -240,8 +237,6 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             {
                 return new NormalDistributionDesignVariableProperties(DistributionPropertiesReadOnly.None,
                                                                       PipingSemiProbabilisticDesignValueFactory.GetPhreaticLevelExit(data.WrappedData),
-                                                                      data.PipingCalculation,
-                                                                      data.WrappedData,
                                                                       propertyChangeHandler);
             }
         }
