@@ -30,7 +30,6 @@ using System.Xml.Schema;
 using Core.Common.IO.Exceptions;
 using Core.Common.Utils;
 using Core.Common.Utils.Builders;
-using Core.Common.Utils.Reflection;
 using Ringtoets.Piping.IO.Properties;
 using Ringtoets.Piping.IO.Schema;
 using CoreCommonUtilsResources = Core.Common.Utils.Properties.Resources;

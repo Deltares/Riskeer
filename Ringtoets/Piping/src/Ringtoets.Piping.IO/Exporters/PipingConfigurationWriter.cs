@@ -180,7 +180,7 @@ namespace Ringtoets.Piping.IO.Exporters
 
         private static string ToStringInvariantCulture(RoundedDouble roundedDouble)
         {
-            return roundedDouble.ToString(null, CultureInfo.InvariantCulture);
+            return XmlConvert.ToString(roundedDouble);
         }
     }
 }
