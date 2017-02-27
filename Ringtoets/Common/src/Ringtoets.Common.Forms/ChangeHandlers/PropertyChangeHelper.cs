@@ -37,6 +37,7 @@ namespace Ringtoets.Common.Forms.ChangeHandlers
         /// </summary>
         /// <param name="setPropertyDelegate">The property change action.</param>
         /// <param name="changeHandler">The handler which is responsible for determining changes due to the property change.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public static void ChangePropertyAndNotify(SetObservablePropertyValueDelegate setPropertyDelegate, IObservablePropertyChangeHandler changeHandler)
         {
             if (setPropertyDelegate == null)

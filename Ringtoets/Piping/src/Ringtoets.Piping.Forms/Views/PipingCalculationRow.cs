@@ -20,12 +20,11 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.Globalization;
-using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Controls.DataGrid;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Forms.ChangeHandlers;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Piping.Data;
@@ -97,7 +96,7 @@ namespace Ringtoets.Piping.Forms.Views
                 StochasticSoilModel valueToSet = value?.WrappedObject;
                 if (!ReferenceEquals(PipingCalculation.InputParameters.StochasticSoilModel, valueToSet))
                 {
-                    ChangePropertyValueAndNotifyAffectedObjects(() => PipingCalculation.InputParameters.StochasticSoilModel = valueToSet);
+                    PropertyChangeHelper.ChangePropertyAndNotify(() => PipingCalculation.InputParameters.StochasticSoilModel = valueToSet, propertyChangeHandler);
                 }
             }
         }
@@ -116,7 +115,7 @@ namespace Ringtoets.Piping.Forms.Views
                 StochasticSoilProfile valueToSet = value?.WrappedObject;
                 if (!ReferenceEquals(PipingCalculation.InputParameters.StochasticSoilProfile, valueToSet))
                 {
-                    ChangePropertyValueAndNotifyAffectedObjects(() => PipingCalculation.InputParameters.StochasticSoilProfile = valueToSet);
+                    PropertyChangeHelper.ChangePropertyAndNotify(() => PipingCalculation.InputParameters.StochasticSoilProfile = valueToSet, propertyChangeHandler);
                 }
             }
         }
@@ -155,7 +154,7 @@ namespace Ringtoets.Piping.Forms.Views
                 HydraulicBoundaryLocation valueToSet = value?.WrappedObject?.HydraulicBoundaryLocation;
                 if (!ReferenceEquals(PipingCalculation.InputParameters.HydraulicBoundaryLocation, valueToSet))
                 {
-                    ChangePropertyValueAndNotifyAffectedObjects(() => PipingCalculation.InputParameters.HydraulicBoundaryLocation = valueToSet);
+                    PropertyChangeHelper.ChangePropertyAndNotify(() => PipingCalculation.InputParameters.HydraulicBoundaryLocation = valueToSet, propertyChangeHandler);
                 }
             }
         }
@@ -173,7 +172,7 @@ namespace Ringtoets.Piping.Forms.Views
             {
                 if (!PipingCalculation.InputParameters.DampingFactorExit.Mean.Equals(value))
                 {
-                    ChangePropertyValueAndNotifyAffectedObjects(() => PipingCalculation.InputParameters.DampingFactorExit.Mean = value);
+                    PropertyChangeHelper.ChangePropertyAndNotify(() => PipingCalculation.InputParameters.DampingFactorExit.Mean = value, propertyChangeHandler);
                 }
             }
         }
@@ -191,7 +190,7 @@ namespace Ringtoets.Piping.Forms.Views
             {
                 if (!PipingCalculation.InputParameters.PhreaticLevelExit.Mean.Equals(value))
                 {
-                    ChangePropertyValueAndNotifyAffectedObjects(() => PipingCalculation.InputParameters.PhreaticLevelExit.Mean = value);
+                    PropertyChangeHelper.ChangePropertyAndNotify(() => PipingCalculation.InputParameters.PhreaticLevelExit.Mean = value, propertyChangeHandler);                    
                 }
             }
         }
@@ -209,7 +208,7 @@ namespace Ringtoets.Piping.Forms.Views
             {
                 if (!PipingCalculation.InputParameters.EntryPointL.Equals(value))
                 {
-                    ChangePropertyValueAndNotifyAffectedObjects(() => PipingCalculation.InputParameters.EntryPointL = value);
+                    PropertyChangeHelper.ChangePropertyAndNotify(() => PipingCalculation.InputParameters.EntryPointL = value, propertyChangeHandler);
                 }
             }
         }
@@ -227,23 +226,8 @@ namespace Ringtoets.Piping.Forms.Views
             {
                 if (!PipingCalculation.InputParameters.ExitPointL.Equals(value))
                 {
-                    ChangePropertyValueAndNotifyAffectedObjects(() => PipingCalculation.InputParameters.ExitPointL = value);
+                    PropertyChangeHelper.ChangePropertyAndNotify(() => PipingCalculation.InputParameters.ExitPointL = value, propertyChangeHandler);
                 }
-            }
-        }
-
-        private void ChangePropertyValueAndNotifyAffectedObjects(SetObservablePropertyValueDelegate setPropertyValue)
-        {
-            IEnumerable<IObservable> affectedObjects = propertyChangeHandler.SetPropertyValueAfterConfirmation(setPropertyValue);
-
-            NotifyAffectedObjects(affectedObjects);
-        }
-
-        private static void NotifyAffectedObjects(IEnumerable<IObservable> affectedObjects)
-        {
-            foreach (var affectedObject in affectedObjects)
-            {
-                affectedObject.NotifyObservers();
             }
         }
     }
