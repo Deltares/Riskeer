@@ -239,7 +239,7 @@ Weet u zeker dat u wilt doorgaan?</value>
 Weet u zeker dat u wilt doorgaan?</value>
   </data>
   <data name="PipingPlugin_CreateUpdateEntryAndExitPointItem_Update_entry_and_exit_point" xml:space="preserve">
-    <value>Bijwerken intrede- en uittredepunt</value>
+    <value>&amp;Bijwerken intrede- en uittredepunt</value>
   </data>
   <data name="PipingPlugin_CreateUpdateEntryAndExitPointItem_Update_calculation_with_characteristic_points_ToolTip" xml:space="preserve">
     <value>Berekening bijwerken met de karakteristieke punten.</value>
