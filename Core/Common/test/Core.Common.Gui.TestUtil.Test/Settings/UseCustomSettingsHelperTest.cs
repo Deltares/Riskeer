@@ -20,10 +20,11 @@
 // All rights reserved.
 
 using Core.Common.Gui.Settings;
+using Core.Common.Gui.TestUtil.Settings;
 using NUnit.Framework;
 using Rhino.Mocks;
 
-namespace Core.Components.DotSpatial.TestUtil.Test
+namespace Core.Common.Gui.TestUtil.Test.Settings
 {
     [TestFixture]
     public class UseCustomSettingsHelperTest

@@ -142,7 +142,7 @@ namespace Core.Common.Controls.DataGrid
             }
             catch (Exception e) when (e is ArgumentException || e is InvalidOperationException)
             {
-                throw new ArgumentException(@"Unable to set the cell active.", nameof(cell));
+                throw new ArgumentException(@"Unable to set the cell active.", nameof(cell), e);
             }
         }
 

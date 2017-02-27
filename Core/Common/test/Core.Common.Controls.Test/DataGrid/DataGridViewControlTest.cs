@@ -28,6 +28,7 @@ using System.Windows.Forms;
 using Core.Common.Base.Data;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Test.Properties;
+using Core.Common.TestUtil;
 using Core.Common.Utils;
 using Core.Common.Utils.Attributes;
 using Core.Common.Utils.Reflection;
@@ -1110,8 +1111,10 @@ namespace Core.Common.Controls.Test.DataGrid
                 TestDelegate test = () => control.SetCurrentCell(firstcell);
 
                 // Assert
-                string paramName = Assert.Throws<ArgumentException>(test).ParamName;
-                Assert.AreEqual("cell", paramName);
+                const string message = "Unable to set the cell active.";
+                ArgumentException exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, message);
+                Assert.AreEqual("cell", exception.ParamName);
+                Assert.IsInstanceOf<ArgumentOutOfRangeException>(exception.InnerException);
             }
         }
 
@@ -1139,8 +1142,10 @@ namespace Core.Common.Controls.Test.DataGrid
                 TestDelegate test = () => control.SetCurrentCell(dataGridViewRow.Cells[0]);
 
                 // Assert
-                string paramName = Assert.Throws<ArgumentException>(test).ParamName;
-                Assert.AreEqual("cell", paramName);
+                const string message = "Unable to set the cell active.";
+                ArgumentException exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, message);
+                Assert.AreEqual("cell", exception.ParamName);
+                Assert.IsInstanceOf<InvalidOperationException>(exception.InnerException);
             }
         }
 

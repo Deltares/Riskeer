@@ -36,6 +36,7 @@ namespace Core.Common.Gui.TestUtil.Settings
         /// <summary>
         /// Creates a new instance of <see cref="TestSettingsHelper"/>.
         /// </summary>
+        /// <seealso cref="UseCustomSettingsHelper"/>
         public TestSettingsHelper()
         {
             ExpectedApplicationLocalUserSettingsDirectory = TestHelper.GetScratchPadPath();

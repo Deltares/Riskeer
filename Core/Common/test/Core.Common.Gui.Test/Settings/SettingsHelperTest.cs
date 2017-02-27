@@ -47,7 +47,7 @@ namespace Core.Common.Gui.Test.Settings
         public void ApplicationName_ReturnsProductNameOfExecutingAssembly()
         {
             // Call
-            var settings = SettingsHelper.Instance.ApplicationName;
+            string settings = SettingsHelper.Instance.ApplicationName;
 
             // Assert
             Assert.AreEqual(AssemblyUtils.GetExecutingAssemblyInfo().Product, settings);
@@ -57,7 +57,7 @@ namespace Core.Common.Gui.Test.Settings
         public void ApplicationVersion_ReturnsVersionOfExecutingAssembly()
         {
             // Call
-            var settings = SettingsHelper.Instance.ApplicationVersion;
+            string settings = SettingsHelper.Instance.ApplicationVersion;
 
             // Assert
             Assert.AreEqual(AssemblyUtils.GetExecutingAssemblyInfo().Version, settings);
@@ -67,10 +67,10 @@ namespace Core.Common.Gui.Test.Settings
         public void GetApplicationLocalUserSettingsDirectory_WithoutSubFolder_ReturnsApplicationLocalUserSettingsDirectory()
         {
             // Call
-            var pathFromSettings = SettingsHelper.Instance.GetApplicationLocalUserSettingsDirectory();
+            string pathFromSettings = SettingsHelper.Instance.GetApplicationLocalUserSettingsDirectory();
 
             // Assert
-            var localSettingsDirectoryPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+            string localSettingsDirectoryPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
             Assert.AreEqual(localSettingsDirectoryPath, pathFromSettings);
         }
 
@@ -115,7 +115,7 @@ namespace Core.Common.Gui.Test.Settings
             // Assert
             string dataPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), workingDirectory);
             var expectedMessage = $"De map '{dataPath}' kan niet aangemaakt worden.";
-            var message = Assert.Throws<IOException>(test).Message;
+            string message = Assert.Throws<IOException>(test).Message;
             Assert.AreEqual(expectedMessage, message);
         }
     }

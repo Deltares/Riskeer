@@ -88,6 +88,7 @@
     <Compile Include="PluginTestHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Settings\TestSettingsHelper.cs" />
+    <Compile Include="Settings\UseCustomSettingsHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\Core.Common.Gui\Core.Common.Gui.csproj">

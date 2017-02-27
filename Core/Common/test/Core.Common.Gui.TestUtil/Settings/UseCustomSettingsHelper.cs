@@ -22,7 +22,7 @@
 using System;
 using Core.Common.Gui.Settings;
 
-namespace Core.Components.DotSpatial.TestUtil
+namespace Core.Common.Gui.TestUtil.Settings
 {
     /// <summary>
     /// Configures <see cref="SettingsHelper.Instance"/> to temporarily use a different
@@ -58,11 +58,6 @@ namespace Core.Components.DotSpatial.TestUtil
 
             SettingsHelper.Instance = originalHelper;
             disposed = true;
-        }
-
-        ~UseCustomSettingsHelper()
-        {
-            Dispose(false);
         }
     }
 }
