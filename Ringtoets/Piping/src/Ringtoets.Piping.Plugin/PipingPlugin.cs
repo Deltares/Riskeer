@@ -753,6 +753,7 @@ namespace Ringtoets.Piping.Plugin
 
             return builder.AddRenameItem()
                           .AddCustomItem(updateEntryAndExitPoint)
+                          .AddSeparator()
                           .AddValidateCalculationItem(
                               nodeData,
                               Validate,
@@ -840,9 +841,9 @@ namespace Ringtoets.Piping.Plugin
 
             string toolTipMessage = hasSurfaceLine
                                         ? Resources.PipingPlugin_CreateUpdateEntryAndExitPointItem_Update_calculation_with_characteristic_points_ToolTip
-                                        : Resources.PipingPlugin_CreateUpdateEntryAndExitPointItem_Update_calculation_requires_surface_line_selected_ToolTip;
+                                        : Resources.PipingPlugin_CreateUpdateEntryAndExitPointItem_Update_calculation_no_surface_line_ToolTip;
 
-            var updateEntryAndExitPointItem = new StrictContextMenuItem(
+            return new StrictContextMenuItem(
                 Resources.PipingPlugin_CreateUpdateEntryAndExitPointItem_Update_entry_and_exit_point,
                 toolTipMessage,
                 RingtoetsCommonFormsResources.UpdateItemIcon,
@@ -850,20 +851,20 @@ namespace Ringtoets.Piping.Plugin
             {
                 Enabled = hasSurfaceLine
             };
-            return updateEntryAndExitPointItem;
         }
 
         private static void UpdateSurfaceLineDependentData(PipingCalculation scenario)
         {
             PipingInput inputParameters = scenario.InputParameters;
             RingtoetsPipingSurfaceLine currentSurfaceLine = inputParameters.SurfaceLine;
-            RoundedDouble oldEntryPointL = inputParameters.EntryPointL;
-            RoundedDouble oldExitPointL = inputParameters.ExitPointL;
+            RoundedDouble currentEntryPointL = inputParameters.EntryPointL;
+            RoundedDouble currentExitPointL = inputParameters.ExitPointL;
 
+            // Setting the surfaceLine will trigger to update the entry and exit points.
             inputParameters.SurfaceLine = currentSurfaceLine;
 
             var affectedObjects = new List<IObservable>();
-            if (AreEntryAndExitPointsUpdated(oldEntryPointL, oldExitPointL, inputParameters))
+            if (AreEntryAndExitPointsUpdated(currentEntryPointL, currentExitPointL, inputParameters.EntryPointL, inputParameters.ExitPointL))
             {
                 affectedObjects.Add(inputParameters);
                 affectedObjects.AddRange(RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(scenario));
@@ -875,12 +876,13 @@ namespace Ringtoets.Piping.Plugin
             }
         }
 
-        private static bool AreEntryAndExitPointsUpdated(RoundedDouble oldEntryPointL,
-                                                         RoundedDouble oldExitPointL,
-                                                         PipingInput inputParameters)
+        private static bool AreEntryAndExitPointsUpdated(RoundedDouble currentEntryPointL,
+                                                         RoundedDouble currentExitPointL,
+                                                         RoundedDouble updatedEntryPointL,
+                                                         RoundedDouble updatedExitPointL)
         {
-            return !(oldEntryPointL == inputParameters.EntryPointL)
-                   || !(oldExitPointL == inputParameters.ExitPointL);
+            return !(currentEntryPointL == updatedEntryPointL)
+                   || !(currentExitPointL == updatedExitPointL);
         }
 
         #endregion

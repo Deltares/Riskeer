@@ -244,7 +244,7 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="PipingPlugin_CreateUpdateEntryAndExitPointItem_Update_calculation_with_characteristic_points_ToolTip" xml:space="preserve">
     <value>Berekening bijwerken met de karakteristieke punten.</value>
   </data>
-  <data name="PipingPlugin_CreateUpdateEntryAndExitPointItem_Update_calculation_requires_surface_line_selected_ToolTip" xml:space="preserve">
+  <data name="PipingPlugin_CreateUpdateEntryAndExitPointItem_Update_calculation_no_surface_line_ToolTip" xml:space="preserve">
     <value>Er moet een profielschematisatie geselecteerd zijn.</value>
   </data>
 </root>

@@ -84,10 +84,10 @@ namespace Ringtoets.Piping.Plugin.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Er moet een profielschematisatie geselecteerd zijn..
         /// </summary>
-        public static string PipingPlugin_CreateUpdateEntryAndExitPointItem_Update_calculation_requires_surface_line_selected_ToolTip {
+        public static string PipingPlugin_CreateUpdateEntryAndExitPointItem_Update_calculation_no_surface_line_ToolTip {
             get {
-                return ResourceManager.GetString("PipingPlugin_CreateUpdateEntryAndExitPointItem_Update_calculation_requires_surfac" +
-                        "e_line_selected_ToolTip", resourceCulture);
+                return ResourceManager.GetString("PipingPlugin_CreateUpdateEntryAndExitPointItem_Update_calculation_no_surface_line" +
+                        "_ToolTip", resourceCulture);
             }
         }
         
