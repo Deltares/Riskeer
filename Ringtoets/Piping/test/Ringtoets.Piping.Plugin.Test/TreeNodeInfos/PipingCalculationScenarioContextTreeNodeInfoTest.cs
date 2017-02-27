@@ -470,7 +470,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void GivenCalculationWithSurfaceLine_WhenSurfaceLineUpdatedAndUpdateEntryAndExitPointClicked__ThenPointsUpdatedAndObserversNotified()
+        public void GivenCalculationWithSurfaceLine_WhenEntryAndExitPointUpdatedAndUpdateEntryAndExitPointClicked__ThenPointsUpdatedAndObserversNotified()
         {
             using (var treeViewControl = new TreeViewControl())
             {
@@ -501,7 +501,10 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
 
                 var inputObserver = mocks.StrictMock<IObserver>();
                 inputObserver.Expect(obs => obs.UpdateObserver());
-                nodeData.WrappedData.InputParameters.Attach(inputObserver);
+                calculation.InputParameters.Attach(inputObserver);
+
+                var calculationObserver = mocks.StrictMock<IObserver>();
+                calculation.Attach(calculationObserver);
 
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
@@ -528,6 +531,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
 
                     // Then
                     PipingInput inputParameters = calculation.InputParameters;
+                    Assert.AreSame(surfaceLine, inputParameters.SurfaceLine);
                     Assert.AreEqual(new RoundedDouble(2, 2), inputParameters.EntryPointL);
                     Assert.AreEqual(new RoundedDouble(3, 3), inputParameters.ExitPointL);
 
@@ -537,7 +541,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void GivenCalculationWithSurfaceLineAndOutput_WhenSurfaceLineUpdatedAndUpdateEntryAndExitPointClicked__ThenPointsUpdatedOutputsRemovedAndObserversNotified()
+        public void GivenCalculationWithSurfaceLineAndOutput_WhenEntryAndExitPointsUpdatedAndUpdateEntryAndExitPointClicked__ThenPointsUpdatedOutputsRemovedAndObserversNotified()
         {
             using (var treeViewControl = new TreeViewControl())
             {
@@ -569,11 +573,11 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
 
                 var inputObserver = mocks.StrictMock<IObserver>();
                 inputObserver.Expect(obs => obs.UpdateObserver());
-                nodeData.WrappedData.InputParameters.Attach(inputObserver);
+                calculation.InputParameters.Attach(inputObserver);
 
                 var calculationObserver = mocks.StrictMock<IObserver>();
                 calculationObserver.Expect(obs => obs.UpdateObserver());
-                nodeData.WrappedData.Attach(calculationObserver);
+                calculation.Attach(calculationObserver);
 
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
@@ -600,6 +604,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
 
                     // Then
                     PipingInput inputParameters = calculation.InputParameters;
+                    Assert.AreSame(surfaceLine, inputParameters.SurfaceLine);
                     Assert.AreEqual(new RoundedDouble(2, 2), inputParameters.EntryPointL);
                     Assert.AreEqual(new RoundedDouble(3, 3), inputParameters.ExitPointL);
                     Assert.IsFalse(calculation.HasOutput);
@@ -610,7 +615,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void GivenCalculationWithSurfaceLineAndOutput_WhenUpdatedSurfaceLineHasNoChangeAndUpdateEntryAndExitPointClicked__ThenOutputNotRemovedAndObserversNotNotified()
+        public void GivenCalculationWithSurfaceLineAndOutput_WhenUpdatedEntryAndExitPointsHasNoChangeAndUpdateEntryAndExitPointClicked__ThenOutputNotRemovedAndObserversNotNotified()
         {
             using (var treeViewControl = new TreeViewControl())
             {
@@ -641,10 +646,10 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                                                                     assessmentSection);
 
                 var inputObserver = mocks.StrictMock<IObserver>();
-                nodeData.WrappedData.InputParameters.Attach(inputObserver);
+                calculation.InputParameters.Attach(inputObserver);
 
                 var calculationObserver = mocks.StrictMock<IObserver>();
-                nodeData.WrappedData.Attach(calculationObserver);
+                calculation.Attach(calculationObserver);
 
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
@@ -671,6 +676,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
 
                     // Then
                     PipingInput inputParameters = calculation.InputParameters;
+                    Assert.AreSame(surfaceLine, inputParameters.SurfaceLine);
                     Assert.AreEqual(new RoundedDouble(2, 2), inputParameters.EntryPointL);
                     Assert.AreEqual(new RoundedDouble(3, 3), inputParameters.ExitPointL);
                     Assert.IsTrue(calculation.HasOutput);

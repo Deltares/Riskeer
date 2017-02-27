@@ -82,6 +82,25 @@ namespace Ringtoets.Piping.Plugin.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Alle berekeningen bijwerken met de karakteristieke punten..
+        /// </summary>
+        public static string PipingPlugin_CreateUpdateEntryAndExitPointItem_Update_all_calculations_with_characteristic_points_ToolTip {
+            get {
+                return ResourceManager.GetString("PipingPlugin_CreateUpdateEntryAndExitPointItem_Update_all_calculations_with_chara" +
+                        "cteristic_points_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &amp;Bijwerken alle intrede- en uittredepunten.
+        /// </summary>
+        public static string PipingPlugin_CreateUpdateEntryAndExitPointItem_Update_all_entry_and_exit_points {
+            get {
+                return ResourceManager.GetString("PipingPlugin_CreateUpdateEntryAndExitPointItem_Update_all_entry_and_exit_points", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Er moet een profielschematisatie geselecteerd zijn..
         /// </summary>
         public static string PipingPlugin_CreateUpdateEntryAndExitPointItem_Update_calculation_no_surface_line_ToolTip {

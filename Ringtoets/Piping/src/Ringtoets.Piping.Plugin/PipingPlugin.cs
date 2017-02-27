@@ -932,6 +932,7 @@ namespace Ringtoets.Piping.Plugin
             var isNestedGroup = parentData is PipingCalculationGroupContext;
 
             StrictContextMenuItem generateCalculationsItem = CreateGeneratePipingCalculationsItem(nodeData);
+            StrictContextMenuItem updateEntryAndExitPointsItem = CreateUpdateEntryAndExitPointItem(nodeData);
 
             if (!isNestedGroup)
             {
@@ -958,7 +959,9 @@ namespace Ringtoets.Piping.Plugin
                 builder.AddRenameItem();
             }
 
-            builder.AddValidateAllCalculationsInGroupItem(
+            builder.AddCustomItem(updateEntryAndExitPointsItem)
+                   .AddSeparator()
+                   .AddValidateAllCalculationsInGroupItem(
                        nodeData,
                        ValidateAll,
                        ValidateAllDataAvailableAndGetErrorMessage)
@@ -1011,14 +1014,13 @@ namespace Ringtoets.Piping.Plugin
                                                                                  ? PipingFormsResources.PipingCalculationGroup_Generate_PipingCalculations_ToolTip
                                                                                  : PipingFormsResources.PipingCalculationGroup_Generate_PipingCalculations_NoSurfaceLinesOrSoilModels_ToolTip;
 
-            var generateCalculationsItem = new StrictContextMenuItem(
+            return new StrictContextMenuItem(
                 RingtoetsCommonFormsResources.CalculationGroup_Generate_Scenarios,
                 pipingCalculationGroupGeneratePipingCalculationsToolTip,
                 RingtoetsCommonFormsResources.GenerateScenariosIcon, (o, args) => { ShowSurfaceLineSelectionDialog(nodeData); })
             {
                 Enabled = surfaceLineAvailable
             };
-            return generateCalculationsItem;
         }
 
         private static string ValidateAllDataAvailableAndGetErrorMessage(PipingCalculationGroupContext context)
@@ -1051,6 +1053,24 @@ namespace Ringtoets.Piping.Plugin
             parentGroupContext.WrappedData.Children.Remove(nodeData.WrappedData);
 
             parentGroupContext.NotifyObservers();
+        }
+
+        private static StrictContextMenuItem CreateUpdateEntryAndExitPointItem(PipingCalculationGroupContext nodeData)
+        {
+            return new StrictContextMenuItem(
+                Resources.PipingPlugin_CreateUpdateEntryAndExitPointItem_Update_all_entry_and_exit_points,
+                Resources.PipingPlugin_CreateUpdateEntryAndExitPointItem_Update_all_calculations_with_characteristic_points_ToolTip,
+                RingtoetsCommonFormsResources.UpdateItemIcon,
+                (sender, args) => UpdateAllEntryAndExitPointsOfAllCalculations(nodeData));
+        }
+
+        private static void UpdateAllEntryAndExitPointsOfAllCalculations(PipingCalculationGroupContext nodeData)
+        {
+            IEnumerable<PipingCalculationScenario> calculations = nodeData.WrappedData.GetCalculations().OfType<PipingCalculationScenario>();
+            foreach (PipingCalculationScenario calculation in calculations)
+            {
+                UpdateSurfaceLineDependentData(calculation);
+            }
         }
 
         #endregion
