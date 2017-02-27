@@ -457,12 +457,12 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             failureMechanism.CalculationsGroup.Children.Add(calculation);
             RingtoetsPipingSurfaceLineCollection surfaceLineCollection = failureMechanism.SurfaceLines;
             surfaceLineCollection.AddRange(new[]
-{
+            {
                 surfaceLine
             }, sourceFilePath);
 
             var strategy = new RingtoetsPipingSurfaceLineUpdateDataStrategy(failureMechanism);
-            
+
             // Call
             IEnumerable<IObservable> affectedObjects = strategy.UpdateSurfaceLinesWithImportedData(surfaceLineCollection,
                                                                                                    Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
@@ -646,7 +646,6 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                 surfaceLine,
                 calculationInput
             }, affectedObjects);
-            Assert.AreSame(surfaceLine, calculationInput.SurfaceLine);
             Assert.AreSame(surfaceLine, calculationInput.SurfaceLine);
             CollectionAssert.AreEqual(importedSurfaceLine.Points, surfaceLine.Points);
             Assert.AreEqual(soilModels[0], calculationInput.StochasticSoilModel);

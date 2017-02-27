@@ -129,7 +129,7 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
         }
 
         [Test]
-        public void UpdateTargetCollectionData_WithNonEmtpyCollectionAndImportedDataEmpty_ClearsTargetCollection()
+        public void UpdateTargetCollectionData_WithNonEmptyCollectionAndImportedDataEmpty_ClearsTargetCollection()
         {
             // Setup
             var collection = new TestUniqueItemCollection();
@@ -147,11 +147,10 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
             IEnumerable<IObservable> affectedObjects = strategy.ConcreteUpdateData(collection, Enumerable.Empty<TestItem>(), filePath);
 
             // Assert
-            IEnumerable<IObservable> expectedAffectedItems = itemsRemoved.Concat(new IObservable[]
+            CollectionAssert.AreEquivalent(new IObservable[]
             {
                 collection
-            });
-            CollectionAssert.AreEquivalent(expectedAffectedItems, affectedObjects);
+            }, affectedObjects);
             CollectionAssert.IsEmpty(collection);
             Assert.AreEqual(filePath, collection.SourcePath);
         }
@@ -164,8 +163,7 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
             const string filePath = "path";
             var currentCollection = new[]
             {
-                new TestItem("Name A"),
-                new TestItem("Name B")
+                new TestItem("Name A")
             };
             collection.AddRange(currentCollection, filePath);
 
@@ -176,12 +174,12 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
 
             // Assert
             Assert.IsTrue(strategy.IsRemoveObjectAndDependentDataCalled);
+            Assert.AreSame(currentCollection[0], strategy.ObjectRemoved);
 
-            IEnumerable<IObservable> expectedAffectedObjects = currentCollection.Concat(new IObservable[]
+            CollectionAssert.AreEquivalent(new IObservable[]
             {
                 collection
-            });
-            CollectionAssert.AreEquivalent(expectedAffectedObjects, affectedObjects);
+            }, affectedObjects);
             CollectionAssert.IsEmpty(collection);
             Assert.AreEqual(filePath, collection.SourcePath);
         }
@@ -194,8 +192,7 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
             const string filePath = "path";
             var updatedItems = new[]
             {
-                new TestItem("Name A"),
-                new TestItem("Name B")
+                new TestItem("Name A")
             };
             collection.AddRange(updatedItems, filePath);
 
@@ -203,18 +200,17 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
 
             var importedItems = new[]
             {
-                DeepCloneTestItem(updatedItems[0]),
-                DeepCloneTestItem(updatedItems[1])
+                updatedItems[0].DeepClone()
             };
 
             // Call
-            IObservable[] affectedObjects = strategy.ConcreteUpdateData(collection, importedItems, filePath).ToArray();
+            strategy.ConcreteUpdateData(collection, importedItems, filePath);
 
             // Assert
             Assert.IsTrue(strategy.IsUpdateDataCalled);
+            Assert.AreSame(updatedItems[0], strategy.ObjectToUpdate);
+            Assert.AreSame(importedItems[0], strategy.ObjectToUpdateFrom);
 
-            IEnumerable<IObservable> expectedAffectedObjects = updatedItems.Concat(importedItems);
-            CollectionAssert.AreEquivalent(expectedAffectedObjects, affectedObjects);
             CollectionAssert.AreEqual(updatedItems, collection);
             Assert.AreEqual(filePath, collection.SourcePath);
         }
@@ -290,8 +286,8 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
 
             var importedItems = new[]
             {
-                DeepCloneTestItem(currentCollection[0]),
-                DeepCloneTestItem(currentCollection[1])
+                currentCollection[0].DeepClone(),
+                currentCollection[1].DeepClone()
             };
 
             var strategy = new ConcreteUpdateDataStrategy(new TestFailureMechanism());
@@ -303,9 +299,7 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
 
             // Assert
             CollectionAssert.AreEqual(currentCollection, collection);
-
-            IEnumerable<TestItem> expectedAffectedObjects = currentCollection.Concat(importedItems);
-            CollectionAssert.AreEquivalent(expectedAffectedObjects, affectedObjects);
+            CollectionAssert.IsEmpty(affectedObjects);
         }
 
         [Test]
@@ -324,7 +318,7 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
 
             var importedItems = new[]
             {
-                DeepCloneTestItem(currentCollection[0]),
+                currentCollection[0].DeepClone(),
                 new TestItem("Item Four")
             };
 
@@ -342,15 +336,10 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
                 importedItems[1]
             };
             CollectionAssert.AreEqual(expectedCollection, collection);
-
-            var expectedAffectedItems = new IObservable[]
+            CollectionAssert.AreEquivalent(new IObservable[]
             {
-                collection,
-                currentCollection[0],
-                currentCollection[1],
-                importedItems[0]
-            };
-            CollectionAssert.AreEquivalent(expectedAffectedItems, affectedObjects);
+                collection
+            }, affectedObjects);
         }
 
         [Test]
@@ -380,11 +369,10 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
 
             // Assert
             CollectionAssert.AreEqual(importedItems, collection);
-            IEnumerable<IObservable> expectedAffectedObjects = currentCollection                                                                                .Concat(new IObservable[]
-                                                                                {
-                                                                                    collection
-                                                                                });
-            CollectionAssert.AreEquivalent(expectedAffectedObjects, affectedObjects);
+            CollectionAssert.AreEquivalent(new IObservable[]
+            {
+                collection
+            }, affectedObjects);
         }
 
         [Test]
@@ -407,7 +395,11 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
                 itemTwo
             };
 
-            var strategy = new ConcreteUpdateDataStrategy(new TestFailureMechanism());
+            var strategy = new ConcreteUpdateDataStrategy(new TestFailureMechanism())
+            {
+                ItemsToUpdate = currentCollection,
+                ItemsToUpdateFrom = importedItems
+            };
 
             // Call
             IEnumerable<IObservable> affectedObjects = strategy.ConcreteUpdateData(collection,
@@ -434,6 +426,13 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
             public bool IsUpdateDataCalled { get; private set; }
             public bool IsRemoveObjectAndDependentDataCalled { get; private set; }
 
+            public TestItem ObjectToUpdate { get; private set; }
+            public TestItem ObjectToUpdateFrom { get; private set; }
+            public TestItem ObjectRemoved { get; private set; }
+
+            public IEnumerable<IObservable> ItemsToUpdate { private get; set; } = Enumerable.Empty<IObservable>();
+            public IEnumerable<IObservable> ItemsToUpdateFrom { private get; set; } = Enumerable.Empty<IObservable>();
+
             public IEnumerable<IObservable> ConcreteUpdateData(ObservableUniqueItemCollectionWithSourcePath<TestItem> targetCollection,
                                                                IEnumerable<TestItem> importedDataCollection,
                                                                string sourceFilePath)
@@ -444,22 +443,18 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
             protected override IEnumerable<IObservable> UpdateObjectAndDependentData(TestItem objectToUpdate, TestItem objectToUpdateFrom)
             {
                 IsUpdateDataCalled = true;
+                ObjectToUpdateFrom = objectToUpdateFrom;
+                ObjectToUpdate = objectToUpdate;
 
-                return new []
-                {
-                    objectToUpdate,
-                    objectToUpdateFrom
-                };
+                return ItemsToUpdate.Concat(ItemsToUpdateFrom);
             }
 
             protected override IEnumerable<IObservable> RemoveObjectAndDependentData(TestItem removedObject)
             {
                 IsRemoveObjectAndDependentDataCalled = true;
+                ObjectRemoved = removedObject;
 
-                return new []
-                {
-                    removedObject
-                };
+                return Enumerable.Empty<IObservable>();
             }
 
             private class NameComparer : IEqualityComparer<TestItem>
@@ -490,16 +485,15 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
 
             public string Name { get; }
 
+            public TestItem DeepClone()
+            {
+                return new TestItem(Name);
+            }
+
             public override string ToString()
             {
                 return Name;
             }
-        }
-
-        private static TestItem DeepCloneTestItem(TestItem item)
-        {
-            var newItem = new TestItem(item.Name);
-            return newItem;
         }
     }
 }

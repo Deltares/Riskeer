@@ -106,8 +106,10 @@ namespace Ringtoets.Piping.Plugin.FileImporter
 
             StochasticSoilModelProfileDifference difference = modelToUpdate.Update(modelToUpdateFrom);
 
-            var affectedObjects = new List<IObservable>();
-            affectedObjects.Add(modelToUpdate);
+            var affectedObjects = new List<IObservable>
+            {
+                modelToUpdate
+            };
             foreach (StochasticSoilProfile removedProfile in difference.RemovedProfiles)
             {
                 affectedObjects.AddRange(PipingDataSynchronizationService.RemoveStochasticSoilProfileFromInput(failureMechanism, removedProfile));

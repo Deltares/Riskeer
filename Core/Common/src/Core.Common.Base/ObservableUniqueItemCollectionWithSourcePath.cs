@@ -31,12 +31,12 @@ namespace Core.Common.Base
     /// A collection to store unique elements based on their feature and the source path
     /// they were imported from.
     /// </summary>
-    /// <typeparam name="TObject">The type of elements in the collection.</typeparam>
-    public abstract class ObservableUniqueItemCollectionWithSourcePath<TObject> : Observable, IEnumerable<TObject>
-        where TObject : class
+    /// <typeparam name="TElement">The type of elements in the collection.</typeparam>
+    public abstract class ObservableUniqueItemCollectionWithSourcePath<TElement> : Observable, IEnumerable<TElement>
+        where TElement : class
     {
-        private readonly List<TObject> collection = new List<TObject>();
-        private readonly Func<TObject, object> getUniqueFeature;
+        private readonly List<TElement> collection = new List<TElement>();
+        private readonly Func<TElement, object> getUniqueFeature;
         private readonly string typeDescriptor;
         private readonly string featureDescription;
 
@@ -46,7 +46,7 @@ namespace Core.Common.Base
         /// <param name="getUniqueFeature">A function to retrieve the unique feature of the items it stores.</param>
         /// <param name="typeDescriptor">The description of the item that is validated.</param>
         /// <param name="featureDescription">The description of the feature of the item to be validated on.</param>
-        public ObservableUniqueItemCollectionWithSourcePath(Func<TObject, object> getUniqueFeature,
+        public ObservableUniqueItemCollectionWithSourcePath(Func<TElement, object> getUniqueFeature,
                                                             string typeDescriptor,
                                                             string featureDescription)
         {
@@ -75,7 +75,7 @@ namespace Core.Common.Base
         /// <returns>The element at index <paramref name="i"/> in the collection.</returns>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="i"/> is not 
         /// between [0, <see cref="Count"/>)</exception>
-        public TObject this[int i]
+        public TElement this[int i]
         {
             get
             {
@@ -104,10 +104,10 @@ namespace Core.Common.Base
         /// <summary>
         /// Removes the first occurrence of <paramref name="item"/> in the collection.
         /// </summary>
-        /// <param name="item">The item of type <see cref="TObject"/> to be removed.</param>
+        /// <param name="item">The item of type <see cref="TElement"/> to be removed.</param>
         /// <returns><c>True</c> if the <paramref name="item"/> was successfully removed from the collection;
         /// <c>False</c> if otherwise or if the <paramref name="item"/> was not found in the collection. </returns>
-        public bool Remove(TObject item)
+        public bool Remove(TElement item)
         {
             bool remove = collection.Remove(item);
             if (remove && Count == 0)
@@ -139,7 +139,7 @@ namespace Core.Common.Base
         /// <item>an element in <paramref name="items"/> is invalid.</item>
         /// </list>
         /// </exception>
-        public void AddRange(IEnumerable<TObject> items, string filePath)
+        public void AddRange(IEnumerable<TElement> items, string filePath)
         {
             if (items == null)
             {
@@ -159,7 +159,7 @@ namespace Core.Common.Base
             collection.AddRange(items);
         }
 
-        public IEnumerator<TObject> GetEnumerator()
+        public IEnumerator<TElement> GetEnumerator()
         {
             return collection.GetEnumerator();
         }
@@ -169,7 +169,7 @@ namespace Core.Common.Base
             return GetEnumerator();
         }
 
-        private void InternalValidateItems(IEnumerable<TObject> items)
+        private void InternalValidateItems(IEnumerable<TElement> items)
         {
             if (items.Contains(null))
             {
@@ -179,23 +179,13 @@ namespace Core.Common.Base
         }
 
         /// <summary>
-        /// Perform additional validations over <paramref name="items"/>.
-        /// </summary>
-        /// <param name="items">The items to validate.</param>
-        /// <exception cref="ArgumentException">Throw an exception when validation fails.</exception>
-        private void ValidateItems(IEnumerable<TObject> items)
-        {
-            ValidateListOnDuplicateFeature(items);
-        }
-
-        /// <summary>
         /// Validates the items of an <see cref="IEnumerable{TObject}"/> based on their feature.
         /// </summary>
         /// <exception cref="ArgumentNullException">Thrown when any parameters are <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when a duplicate item was found.</exception>
-        private void ValidateListOnDuplicateFeature(IEnumerable<TObject> items)
+        private void ValidateItems(IEnumerable<TElement> items)
         {
-            IEnumerable<IGrouping<object, TObject>> duplicateItems =
+            IEnumerable<IGrouping<object, TElement>> duplicateItems =
                 items.GroupBy(getUniqueFeature)
                      .Where(group => group.Count() > 1);
 
