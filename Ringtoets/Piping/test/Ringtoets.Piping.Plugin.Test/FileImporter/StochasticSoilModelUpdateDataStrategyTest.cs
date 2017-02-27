@@ -159,6 +159,22 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         }
 
         [Test]
+        public void UpdateModelWithImportedData_WithoutCurrentModelAndNoImportedModels_NoChangeNoNotification()
+        {
+            // Setup
+            var importedStochasticSoilModels = Enumerable.Empty<TestStochasticSoilModel>();
+            var strategy = new StochasticSoilModelUpdateDataStrategy(new PipingFailureMechanism());
+            var targetCollection = new StochasticSoilModelCollection();
+
+            // Call
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateModelWithImportedData(targetCollection, importedStochasticSoilModels, "path");
+
+            // Assert
+            Assert.IsEmpty(targetCollection);
+            Assert.IsEmpty(affectedObjects);
+        }
+
+        [Test]
         public void UpdateModelWithImportedData_WithoutCurrentModelAndModelsImported_NewModelsAdded()
         {
             // Setup

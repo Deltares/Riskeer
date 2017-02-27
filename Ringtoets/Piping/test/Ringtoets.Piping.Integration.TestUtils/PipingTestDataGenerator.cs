@@ -270,7 +270,8 @@ namespace Ringtoets.Piping.Integration.TestUtils
                 {
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation,
                     SurfaceLine = surfaceline1,
-                    StochasticSoilModel = stochasticSoilModel1
+                    StochasticSoilModel = stochasticSoilModel1,
+                    StochasticSoilProfile = stochasticSoilModel1.StochasticSoilProfiles[0]
                 }
             };
             var calculationWithOutputAndHydraulicBoundaryLocation = new PipingCalculationScenario(new GeneralPipingInput())
@@ -296,7 +297,8 @@ namespace Ringtoets.Piping.Integration.TestUtils
                 InputParameters =
                 {
                     SurfaceLine = surfaceline1,
-                    StochasticSoilModel = stochasticSoilModel2
+                    StochasticSoilModel = stochasticSoilModel2,
+                    StochasticSoilProfile = stochasticSoilModel2.StochasticSoilProfiles[0]
                 }
             };
 
@@ -307,7 +309,8 @@ namespace Ringtoets.Piping.Integration.TestUtils
                 {
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation,
                     SurfaceLine = surfaceline2,
-                    StochasticSoilModel = stochasticSoilModel2
+                    StochasticSoilModel = stochasticSoilModel2,
+                    StochasticSoilProfile = stochasticSoilModel2.StochasticSoilProfiles[0]
                 },
                 Output = new TestPipingOutput(),
                 SemiProbabilisticOutput = new TestPipingSemiProbabilisticOutput()
@@ -318,7 +321,8 @@ namespace Ringtoets.Piping.Integration.TestUtils
                 {
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation,
                     SurfaceLine = surfaceline1,
-                    StochasticSoilModel = stochasticSoilModel1
+                    StochasticSoilModel = stochasticSoilModel1,
+                    StochasticSoilProfile = stochasticSoilModel1.StochasticSoilProfiles[0]
                 },
                 Output = new TestPipingOutput(),
                 SemiProbabilisticOutput = new TestPipingSemiProbabilisticOutput()
@@ -335,7 +339,8 @@ namespace Ringtoets.Piping.Integration.TestUtils
                 InputParameters =
                 {
                     SurfaceLine = surfaceline1,
-                    StochasticSoilModel = stochasticSoilModel2
+                    StochasticSoilModel = stochasticSoilModel2,
+                    StochasticSoilProfile = stochasticSoilModel2.StochasticSoilProfiles[0]
                 }
             };
 

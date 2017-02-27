@@ -486,5 +486,267 @@ namespace Ringtoets.Piping.Service.Test
                                                    });
             CollectionAssert.AreEquivalent(expectedAffectedObjects, affectedObjectsArray);
         }
+
+        [Test]
+        public void RemoveStochasticSoilProfileFromInput_WithoutFailureMechanism_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => PipingDataSynchronizationService.RemoveStochasticSoilProfileFromInput(
+                null, 
+                new StochasticSoilProfile(0.5, SoilProfileType.SoilProfile1D, -1));
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
+        }
+
+        [Test]
+        public void RemoveStochasticSoilProfileFromInput_WithoutSoilProfile_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => PipingDataSynchronizationService.RemoveStochasticSoilProfileFromInput(
+                new PipingFailureMechanism(), 
+                null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("soilProfile", exception.ParamName);
+        }
+
+        [Test]
+        public void RemoveStochasticSoilProfileFromInput_NoCalculationsWithProfile_ReturnNoAffectedObjects()
+        {
+            // Setup
+            PipingFailureMechanism failureMechanism = PipingTestDataGenerator.GetPipingFailureMechanismWithAllCalculationConfigurations();
+            IEnumerable<PipingCalculationScenario> calculations = failureMechanism
+                .Calculations
+                .Cast<PipingCalculationScenario>();
+            StochasticSoilProfile profileToDelete = null;
+
+            foreach (PipingCalculationScenario pipingCalculationScenario in calculations)
+            {
+                PipingInput input = pipingCalculationScenario.InputParameters;
+                StochasticSoilProfile currentProfile = input.StochasticSoilProfile;
+                if (profileToDelete == null)
+                {
+                    profileToDelete = currentProfile;
+                }
+                if (profileToDelete != null && ReferenceEquals(profileToDelete, currentProfile))
+                {
+                    input.StochasticSoilProfile = null;
+                }
+            }
+
+            // Call
+            IEnumerable<IObservable> affected = PipingDataSynchronizationService.RemoveStochasticSoilProfileFromInput(failureMechanism, profileToDelete);
+
+            // Assert
+            Assert.IsEmpty(affected);
+        }
+
+        [Test]
+        public void RemoveStochasticSoilProfileFromInput_NoCalculationsWithOutputWithProfile_ReturnInputWithoutProfile()
+        {
+            // Setup
+            PipingFailureMechanism failureMechanism = PipingTestDataGenerator.GetPipingFailureMechanismWithAllCalculationConfigurations();
+            IEnumerable<PipingCalculationScenario> calculations = failureMechanism
+                .Calculations
+                .Cast<PipingCalculationScenario>();
+            StochasticSoilProfile profileToDelete = null;
+
+            var expectedInputs = new List<PipingInput>();
+
+            foreach (PipingCalculationScenario pipingCalculationScenario in calculations)
+            {
+                PipingInput input = pipingCalculationScenario.InputParameters;
+                StochasticSoilProfile currentProfile = input.StochasticSoilProfile;
+                if (profileToDelete == null)
+                {
+                    profileToDelete = currentProfile;
+                }
+                if (profileToDelete != null && ReferenceEquals(profileToDelete, currentProfile))
+                {
+                    pipingCalculationScenario.ClearOutput();
+                    expectedInputs.Add(input);
+                }
+            }
+
+            // Call
+            IEnumerable<IObservable> affected = PipingDataSynchronizationService.RemoveStochasticSoilProfileFromInput(failureMechanism, profileToDelete);
+
+            // Assert
+            CollectionAssert.AreEquivalent(expectedInputs, affected);
+            CollectionAssert.IsEmpty(affected.Cast<PipingInput>().Where(a => a.StochasticSoilProfile != null));
+        }
+
+        [Test]
+        public void RemoveStochasticSoilProfileFromInput_CalculationWithOutputWithProfile_ReturnInputWithoutProfileAndCalculation()
+        {
+            // Setup
+            PipingFailureMechanism failureMechanism = PipingTestDataGenerator.GetPipingFailureMechanismWithAllCalculationConfigurations();
+            IEnumerable<PipingCalculationScenario> calculations = failureMechanism
+                .Calculations
+                .Cast<PipingCalculationScenario>();
+
+            var expectedAffectedObjects = new List<IObservable>();
+
+            StochasticSoilProfile profileToDelete = null;
+
+            foreach (PipingCalculationScenario pipingCalculationScenario in calculations)
+            {
+                PipingInput input = pipingCalculationScenario.InputParameters;
+                StochasticSoilProfile currentProfile = input.StochasticSoilProfile;
+                if (profileToDelete == null)
+                {
+                    profileToDelete = currentProfile;
+                }
+                if (profileToDelete != null && ReferenceEquals(profileToDelete, currentProfile))
+                {
+                    if (pipingCalculationScenario.HasOutput)
+                    {
+                        expectedAffectedObjects.Add(pipingCalculationScenario);
+                    }
+                    expectedAffectedObjects.Add(input);
+                }
+            }
+            // Call
+            IEnumerable<IObservable> affected = PipingDataSynchronizationService.RemoveStochasticSoilProfileFromInput(failureMechanism, profileToDelete);
+
+            // Assert
+            CollectionAssert.AreEquivalent(expectedAffectedObjects, affected);
+            CollectionAssert.IsEmpty(affected.OfType<PipingInput>().Where(a => a.StochasticSoilProfile != null));
+            CollectionAssert.IsEmpty(affected.OfType<PipingCalculation>().Where(a => a.HasOutput));
+        }
+
+        [Test]
+        public void ClearStochasticSoilProfileDependentData_WithoutFailureMechanism_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => PipingDataSynchronizationService.ClearStochasticSoilProfileDependentData(
+                null,
+                new StochasticSoilProfile(0.5, SoilProfileType.SoilProfile1D, -1));
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
+        }
+
+        [Test]
+        public void ClearStochasticSoilProfileDependentData_WithoutSoilProfile_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => PipingDataSynchronizationService.ClearStochasticSoilProfileDependentData(
+                new PipingFailureMechanism(),
+                null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("soilProfile", exception.ParamName);
+        }
+
+        [Test]
+        public void ClearStochasticSoilProfileDependentData_NoCalculationsWithProfile_ReturnNoAffectedObjects()
+        {
+            // Setup
+            PipingFailureMechanism failureMechanism = PipingTestDataGenerator.GetPipingFailureMechanismWithAllCalculationConfigurations();
+            IEnumerable<PipingCalculationScenario> calculations = failureMechanism
+                .Calculations
+                .Cast<PipingCalculationScenario>();
+            StochasticSoilProfile profileToDelete = null;
+
+            foreach (PipingCalculationScenario pipingCalculationScenario in calculations)
+            {
+                PipingInput input = pipingCalculationScenario.InputParameters;
+                StochasticSoilProfile currentProfile = input.StochasticSoilProfile;
+                if (profileToDelete == null)
+                {
+                    profileToDelete = currentProfile;
+                }
+                if (profileToDelete != null && ReferenceEquals(profileToDelete, currentProfile))
+                {
+                    input.StochasticSoilProfile = null;
+                }
+            }
+
+            // Call
+            IEnumerable<IObservable> affected = PipingDataSynchronizationService.ClearStochasticSoilProfileDependentData(failureMechanism, profileToDelete);
+
+            // Assert
+            Assert.IsEmpty(affected);
+        }
+
+        [Test]
+        public void ClearStochasticSoilProfileDependentData_NoCalculationsWithOutputWithProfile_ReturnInput()
+        {
+            // Setup
+            PipingFailureMechanism failureMechanism = PipingTestDataGenerator.GetPipingFailureMechanismWithAllCalculationConfigurations();
+            IEnumerable<PipingCalculationScenario> calculations = failureMechanism
+                .Calculations
+                .Cast<PipingCalculationScenario>();
+            StochasticSoilProfile profileToDelete = null;
+
+            var expectedInputs = new List<PipingInput>();
+
+            foreach (PipingCalculationScenario pipingCalculationScenario in calculations)
+            {
+                PipingInput input = pipingCalculationScenario.InputParameters;
+                StochasticSoilProfile currentProfile = input.StochasticSoilProfile;
+                if (profileToDelete == null)
+                {
+                    profileToDelete = currentProfile;
+                }
+                if (profileToDelete != null && ReferenceEquals(profileToDelete, currentProfile))
+                {
+                    pipingCalculationScenario.ClearOutput();
+                    expectedInputs.Add(input);
+                }
+            }
+
+            // Call
+            IEnumerable<IObservable> affected = PipingDataSynchronizationService.ClearStochasticSoilProfileDependentData(failureMechanism, profileToDelete);
+
+            // Assert
+            CollectionAssert.AreEquivalent(expectedInputs, affected);
+            CollectionAssert.IsEmpty(affected.Cast<PipingInput>().Where(a => a.StochasticSoilProfile == null));
+        }
+
+        [Test]
+        public void ClearStochasticSoilProfileDependentData_CalculationWithOutputWithProfile_ReturnInputAndCalculation()
+        {
+            // Setup
+            PipingFailureMechanism failureMechanism = PipingTestDataGenerator.GetPipingFailureMechanismWithAllCalculationConfigurations();
+            IEnumerable<PipingCalculationScenario> calculations = failureMechanism
+                .Calculations
+                .Cast<PipingCalculationScenario>();
+
+            var expectedAffectedObjects = new List<IObservable>();
+
+            StochasticSoilProfile profileToDelete = null;
+
+            foreach (PipingCalculationScenario pipingCalculationScenario in calculations)
+            {
+                PipingInput input = pipingCalculationScenario.InputParameters;
+                StochasticSoilProfile currentProfile = input.StochasticSoilProfile;
+                if (profileToDelete == null)
+                {
+                    profileToDelete = currentProfile;
+                }
+                if (profileToDelete != null && ReferenceEquals(profileToDelete, currentProfile))
+                {
+                    if (pipingCalculationScenario.HasOutput)
+                    {
+                        expectedAffectedObjects.Add(pipingCalculationScenario);
+                    }
+                    expectedAffectedObjects.Add(input);
+                }
+            }
+            // Call
+            IEnumerable<IObservable> affected = PipingDataSynchronizationService.ClearStochasticSoilProfileDependentData(failureMechanism, profileToDelete);
+
+            // Assert
+            CollectionAssert.AreEquivalent(expectedAffectedObjects, affected);
+            CollectionAssert.IsEmpty(affected.OfType<PipingInput>().Where(a => a.StochasticSoilProfile == null));
+            CollectionAssert.IsEmpty(affected.OfType<PipingCalculation>().Where(a => a.HasOutput));
+        }
     }
 }
