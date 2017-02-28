@@ -123,6 +123,9 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
             IEnumerable<IObservable> affectedObjects = strategy.ConcreteUpdateData(collection, Enumerable.Empty<TestItem>(), filePath);
 
             // Assert
+            Assert.IsFalse(strategy.IsUpdateDataCalled);
+            Assert.IsFalse(strategy.IsRemoveObjectAndDependentDataCalled);
+
             CollectionAssert.IsEmpty(affectedObjects);
             CollectionAssert.IsEmpty(collection);
             Assert.AreEqual(filePath, collection.SourcePath);
@@ -142,76 +145,30 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
             collection.AddRange(itemsRemoved, filePath);
 
             var strategy = new ConcreteUpdateDataStrategy(new TestFailureMechanism());
+            strategy.ItemsToRemove = itemsRemoved;
 
             // Call
             IEnumerable<IObservable> affectedObjects = strategy.ConcreteUpdateData(collection, Enumerable.Empty<TestItem>(), filePath);
 
             // Assert
-            CollectionAssert.AreEquivalent(new IObservable[]
-            {
-                collection
-            }, affectedObjects);
-            CollectionAssert.IsEmpty(collection);
-            Assert.AreEqual(filePath, collection.SourcePath);
-        }
-
-        [Test]
-        public void UpdateTargetCollectionData_GetObjectsToRemoveCall_ReturnsExpectedAffectedItems()
-        {
-            // Setup
-            var collection = new TestUniqueItemCollection();
-            const string filePath = "path";
-            var currentCollection = new[]
-            {
-                new TestItem("Name A")
-            };
-            collection.AddRange(currentCollection, filePath);
-
-            var strategy = new ConcreteUpdateDataStrategy(new TestFailureMechanism());
-
-            // Call
-            IEnumerable<IObservable> affectedObjects = strategy.ConcreteUpdateData(collection, Enumerable.Empty<TestItem>(), filePath).ToArray();
-
-            // Assert
+            Assert.IsFalse(strategy.IsUpdateDataCalled);
             Assert.IsTrue(strategy.IsRemoveObjectAndDependentDataCalled);
-            Assert.AreSame(currentCollection[0], strategy.ObjectRemoved);
 
-            CollectionAssert.AreEquivalent(new IObservable[]
+            CollectionAssert.IsEmpty(strategy.UpdateDataCallArguments);
+            int nrOfExpectedRemovedDataCalls = itemsRemoved.Length;
+            List<Tuple<TestItem>> removeDataCallArguments = strategy.RemoveDataCallArguments;
+            Assert.AreEqual(nrOfExpectedRemovedDataCalls, removeDataCallArguments.Count);
+            for (var i = 0; i < nrOfExpectedRemovedDataCalls; i++)
+            {
+                Assert.AreSame(itemsRemoved[i], removeDataCallArguments[i].Item1);
+            }
+
+            IEnumerable<IObservable> expectedAffectedObjects = itemsRemoved.Concat(new IObservable[]
             {
                 collection
-            }, affectedObjects);
+            });
+            CollectionAssert.AreEquivalent(expectedAffectedObjects, affectedObjects);
             CollectionAssert.IsEmpty(collection);
-            Assert.AreEqual(filePath, collection.SourcePath);
-        }
-
-        [Test]
-        public void UpdateTargetCollectionData_GetObjectsToUpdateCall_ReturnsExpectedAffectedItems()
-        {
-            // Setup
-            var collection = new TestUniqueItemCollection();
-            const string filePath = "path";
-            var updatedItems = new[]
-            {
-                new TestItem("Name A")
-            };
-            collection.AddRange(updatedItems, filePath);
-
-            var strategy = new ConcreteUpdateDataStrategy(new TestFailureMechanism());
-
-            var importedItems = new[]
-            {
-                updatedItems[0].DeepClone()
-            };
-
-            // Call
-            strategy.ConcreteUpdateData(collection, importedItems, filePath);
-
-            // Assert
-            Assert.IsTrue(strategy.IsUpdateDataCalled);
-            Assert.AreSame(updatedItems[0], strategy.ObjectToUpdate);
-            Assert.AreSame(importedItems[0], strategy.ObjectToUpdateFrom);
-
-            CollectionAssert.AreEqual(updatedItems, collection);
             Assert.AreEqual(filePath, collection.SourcePath);
         }
 
@@ -232,6 +189,12 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
             IEnumerable<IObservable> affectedObjects = strategy.ConcreteUpdateData(collection, importedItems, sourceFilePath);
 
             // Assert
+            Assert.IsFalse(strategy.IsUpdateDataCalled);
+            Assert.IsFalse(strategy.IsRemoveObjectAndDependentDataCalled);
+
+            CollectionAssert.IsEmpty(strategy.UpdateDataCallArguments);
+            CollectionAssert.IsEmpty(strategy.RemoveDataCallArguments);
+
             CollectionAssert.AreEqual(importedItems, collection);
             CollectionAssert.AreEquivalent(new[]
             {
@@ -291,6 +254,7 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
             };
 
             var strategy = new ConcreteUpdateDataStrategy(new TestFailureMechanism());
+            strategy.ItemsToUpdate = currentCollection;
 
             // Call
             IEnumerable<IObservable> affectedObjects = strategy.ConcreteUpdateData(collection,
@@ -298,31 +262,52 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
                                                                                    sourceFilePath);
 
             // Assert
+            Assert.IsTrue(strategy.IsUpdateDataCalled);
+            Assert.IsFalse(strategy.IsRemoveObjectAndDependentDataCalled);
+
+            int expectedNrOfUpdateCalls = currentCollection.Length;
+            List<Tuple<TestItem, TestItem>> updateArgumentCalls = strategy.UpdateDataCallArguments;
+            Assert.AreEqual(currentCollection.Length, updateArgumentCalls.Count);
+            for (var i = 0; i < expectedNrOfUpdateCalls; i++)
+            {
+                Assert.AreSame(currentCollection[i], updateArgumentCalls[i].Item1);
+                Assert.AreSame(importedItems[i], updateArgumentCalls[i].Item2);
+            }
+            CollectionAssert.IsEmpty(strategy.RemoveDataCallArguments);
+
             CollectionAssert.AreEqual(currentCollection, collection);
-            CollectionAssert.IsEmpty(affectedObjects);
+            CollectionAssert.AreEqual(currentCollection, affectedObjects);
         }
 
         [Test]
         public void UpdateTargetCollectionData_CollectionNotEmptyAndImportedDataPartiallyOverlaps_UpdatesCollection()
         {
             // Setup
-            const string updateItemName = "Item one";
-
-            var currentCollection = new[]
-            {
-                new TestItem(updateItemName),
-                new TestItem("Item Two")
-            };
+            var itemToUpdate = new TestItem("Item one");
+            var itemToRemove = new TestItem("Item Two");
             var collection = new TestUniqueItemCollection();
-            collection.AddRange(currentCollection, sourceFilePath);
+            collection.AddRange(new[]
+            {
+                itemToUpdate,
+                itemToRemove
+            }, sourceFilePath);
 
+            var itemToAdd = new TestItem("Item Four");
             var importedItems = new[]
             {
-                currentCollection[0].DeepClone(),
-                new TestItem("Item Four")
+                itemToUpdate.DeepClone(),
+                itemToAdd
             };
 
             var strategy = new ConcreteUpdateDataStrategy(new TestFailureMechanism());
+            strategy.ItemsToUpdate = new[]
+            {
+                itemToUpdate
+            };
+            strategy.ItemsToRemove = new[]
+            {
+                itemToRemove
+            };
 
             // Call
             IEnumerable<IObservable> affectedObjects = strategy.ConcreteUpdateData(collection,
@@ -330,14 +315,29 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
                                                                                    sourceFilePath);
 
             // Assert
+            Assert.IsTrue(strategy.IsUpdateDataCalled);
+            Assert.IsTrue(strategy.IsRemoveObjectAndDependentDataCalled);
+
+            const int expectedNrOfUpdateCalls = 1;
+            List<Tuple<TestItem, TestItem>> updateDataCallArguments = strategy.UpdateDataCallArguments;
+            Assert.AreEqual(expectedNrOfUpdateCalls, updateDataCallArguments.Count);
+            Assert.AreSame(itemToUpdate, updateDataCallArguments[0].Item1);
+            Assert.AreSame(importedItems[0], updateDataCallArguments[0].Item2);
+
+            List<Tuple<TestItem>> removeDataCallArguments = strategy.RemoveDataCallArguments;
+            Assert.AreEqual(1, removeDataCallArguments.Count);
+            Assert.AreSame(itemToRemove, removeDataCallArguments[0].Item1);
+
             var expectedCollection = new[]
             {
-                currentCollection[0],
-                importedItems[1]
+                itemToUpdate,
+                itemToAdd
             };
             CollectionAssert.AreEqual(expectedCollection, collection);
             CollectionAssert.AreEquivalent(new IObservable[]
             {
+                itemToUpdate,
+                itemToRemove,
                 collection
             }, affectedObjects);
         }
@@ -361,6 +361,7 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
             };
 
             var strategy = new ConcreteUpdateDataStrategy(new TestFailureMechanism());
+            strategy.ItemsToRemove = currentCollection;
 
             // Call
             IEnumerable<IObservable> affectedObjects = strategy.ConcreteUpdateData(collection,
@@ -368,11 +369,24 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
                                                                                    sourceFilePath);
 
             // Assert
+            Assert.IsFalse(strategy.IsUpdateDataCalled);
+            Assert.IsTrue(strategy.IsRemoveObjectAndDependentDataCalled);
+
             CollectionAssert.AreEqual(importedItems, collection);
-            CollectionAssert.AreEquivalent(new IObservable[]
+            IEnumerable<IObservable> expectedAffectedObjects = currentCollection.Concat(new IObservable[]
             {
                 collection
-            }, affectedObjects);
+            });
+            CollectionAssert.AreEquivalent(expectedAffectedObjects, affectedObjects);
+
+            CollectionAssert.IsEmpty(strategy.UpdateDataCallArguments);
+            int nrOfExpectedRemoveCalls = currentCollection.Length;
+            List<Tuple<TestItem>> removeDataCallArguments = strategy.RemoveDataCallArguments;
+            Assert.AreEqual(nrOfExpectedRemoveCalls, removeDataCallArguments.Count);
+            for (var i = 0; i < nrOfExpectedRemoveCalls; i++)
+            {
+                Assert.AreSame(currentCollection[i], removeDataCallArguments[i].Item1);
+            }
         }
 
         [Test]
@@ -426,12 +440,19 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
             public bool IsUpdateDataCalled { get; private set; }
             public bool IsRemoveObjectAndDependentDataCalled { get; private set; }
 
-            public TestItem ObjectToUpdate { get; private set; }
-            public TestItem ObjectToUpdateFrom { get; private set; }
-            public TestItem ObjectRemoved { get; private set; }
-
             public IEnumerable<IObservable> ItemsToUpdate { private get; set; } = Enumerable.Empty<IObservable>();
             public IEnumerable<IObservable> ItemsToUpdateFrom { private get; set; } = Enumerable.Empty<IObservable>();
+            public IEnumerable<IObservable> ItemsToRemove { private get; set; } = Enumerable.Empty<IObservable>();
+
+            /// <summary>
+            /// Keeps track of which arguments were used when the <see cref="UpdateObjectAndDependentData"/> is called.
+            /// </summary>
+            public List<Tuple<TestItem, TestItem>> UpdateDataCallArguments { get; } = new List<Tuple<TestItem, TestItem>>();
+
+            /// <summary>
+            /// Keeps track of which argument parameters were used when the <see cref="RemoveObjectAndDependentData"/> is called.
+            /// </summary>
+            public List<Tuple<TestItem>> RemoveDataCallArguments { get; } = new List<Tuple<TestItem>>();
 
             public IEnumerable<IObservable> ConcreteUpdateData(ObservableUniqueItemCollectionWithSourcePath<TestItem> targetCollection,
                                                                IEnumerable<TestItem> importedDataCollection,
@@ -443,8 +464,7 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
             protected override IEnumerable<IObservable> UpdateObjectAndDependentData(TestItem objectToUpdate, TestItem objectToUpdateFrom)
             {
                 IsUpdateDataCalled = true;
-                ObjectToUpdateFrom = objectToUpdateFrom;
-                ObjectToUpdate = objectToUpdate;
+                UpdateDataCallArguments.Add(new Tuple<TestItem, TestItem>(objectToUpdate, objectToUpdateFrom));
 
                 return ItemsToUpdate.Concat(ItemsToUpdateFrom);
             }
@@ -452,9 +472,10 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
             protected override IEnumerable<IObservable> RemoveObjectAndDependentData(TestItem removedObject)
             {
                 IsRemoveObjectAndDependentDataCalled = true;
-                ObjectRemoved = removedObject;
 
-                return Enumerable.Empty<IObservable>();
+                RemoveDataCallArguments.Add(new Tuple<TestItem>(removedObject));
+
+                return ItemsToRemove;
             }
 
             private class NameComparer : IEqualityComparer<TestItem>
