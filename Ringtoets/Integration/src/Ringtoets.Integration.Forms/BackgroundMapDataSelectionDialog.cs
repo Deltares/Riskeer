@@ -37,7 +37,7 @@ namespace Ringtoets.Integration.Forms
     public partial class BackgroundMapDataSelectionDialog : DialogBase
     {
         private readonly List<IBackgroundMapDataSelectionControl> mapDatas;
-        private IBackgroundMapDataSelectionControl currentMapDataControl;
+        private IBackgroundMapDataSelectionControl currentBackgroundMapDataSelectionControl;
 
         /// <summary>
         /// Creates a new instance of <see cref="ReferenceLineMetaSelectionDialog"/>.
@@ -58,7 +58,6 @@ namespace Ringtoets.Integration.Forms
             InitializeComponent();
             InitializeButtons();
             InitializeComboBox();
-            InitializeEventHandlers();
         }
 
         /// <summary>
@@ -75,27 +74,20 @@ namespace Ringtoets.Integration.Forms
             base.Dispose(disposing);
         }
 
-        private void SetSelectedMapData()
+        private void UpdatePropertiesGroupBox(IBackgroundMapDataSelectionControl newBackgroundMapDataSelectionControl)
         {
-            SelectedMapData = currentMapDataControl?.SelectedMapData;
-        }
-
-        private void UpdatePropertiesGroupBox()
-        {
-            if (currentMapDataControl != null)
+            if (currentBackgroundMapDataSelectionControl != null)
             {
-                var currentHasMapData = propertiesGroupBox.Controls.OfType<UserControl>().FirstOrDefault() as IBackgroundMapDataSelectionControl;
-                if (currentHasMapData != null)
-                {
-                    currentHasMapData.SelectedMapDataChanged -= OnSelectedMapDataChanged;
-                }
-
-                propertiesGroupBox.Controls.Clear();
-                Control userControl = currentMapDataControl.UserControl;
-                propertiesGroupBox.Controls.Add(userControl);
-                userControl.Dock = DockStyle.Fill;
-                currentMapDataControl.SelectedMapDataChanged += OnSelectedMapDataChanged;
+                currentBackgroundMapDataSelectionControl.SelectedMapDataChanged -= OnSelectedMapDataSelectionChanged;
             }
+
+            propertiesGroupBox.Controls.Clear();
+            Control userControl = newBackgroundMapDataSelectionControl.UserControl;
+            propertiesGroupBox.Controls.Add(userControl);
+            userControl.Dock = DockStyle.Fill;
+            newBackgroundMapDataSelectionControl.SelectedMapDataChanged += OnSelectedMapDataSelectionChanged;
+
+            currentBackgroundMapDataSelectionControl = newBackgroundMapDataSelectionControl;
         }
 
         #region Buttons
@@ -107,7 +99,7 @@ namespace Ringtoets.Integration.Forms
 
         private void UpdateSelectButton()
         {
-            selectButton.Enabled = currentMapDataControl?.SelectedMapData != null;
+            selectButton.Enabled = currentBackgroundMapDataSelectionControl?.SelectedMapData != null;
         }
 
         protected override Button GetCancelButton()
@@ -121,9 +113,6 @@ namespace Ringtoets.Integration.Forms
 
         private void InitializeComboBox()
         {
-            mapLayerComboBox.SelectedIndexChanged += MapLayerComboBox_OnSelectedIndexChanged;
-            mapLayerComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
-            mapLayerComboBox.Sorted = true;
             UpdateComboBoxDataSource();
 
             mapLayerComboBox.Enabled = false;
@@ -133,25 +122,22 @@ namespace Ringtoets.Integration.Forms
         {
             mapLayerComboBox.DataSource = mapDatas;
             mapLayerComboBox.DisplayMember = nameof(IBackgroundMapDataSelectionControl.DisplayName);
+
+            currentBackgroundMapDataSelectionControl = mapDatas.FirstOrDefault();
         }
 
         #endregion
 
         #region Event handlers
 
-        private void InitializeEventHandlers()
-        {
-            selectButton.Click += OnSelectButtonClick;
-        }
-
         private void OnSelectButtonClick(object sender, EventArgs e)
         {
-            SetSelectedMapData();
+            SelectedMapData = currentBackgroundMapDataSelectionControl?.SelectedMapData;
             DialogResult = DialogResult.OK;
             Close();
         }
 
-        private void OnSelectedMapDataChanged(object sender, EventArgs e)
+        private void OnSelectedMapDataSelectionChanged(object sender, EventArgs e)
         {
             UpdateSelectButton();
         }
@@ -164,8 +150,7 @@ namespace Ringtoets.Integration.Forms
                 return;
             }
 
-            currentMapDataControl = selectedItem;
-            UpdatePropertiesGroupBox();
+            UpdatePropertiesGroupBox(selectedItem);
         }
 
         #endregion

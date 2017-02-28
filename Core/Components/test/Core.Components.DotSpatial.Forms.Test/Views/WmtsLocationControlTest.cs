@@ -328,7 +328,7 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
                 using (ShowFullyConfiguredWmtsLocationControl(form))
                 {
                     // Assert
-                    var dataGridViewControl = (DataGridViewControl)new ControlTester("dataGridViewControl", form).TheObject;
+                    var dataGridViewControl = (DataGridViewControl) new ControlTester("dataGridViewControl", form).TheObject;
                     DataGridViewRowCollection rows = dataGridViewControl.Rows;
                     Assert.AreEqual(2, rows.Count);
 
@@ -408,7 +408,7 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
             using (var form = new Form())
             using (WmtsLocationControl control = ShowFullyConfiguredWmtsLocationControl(form))
             {
-                var dataGridViewControl = (DataGridViewControl)new ControlTester("dataGridViewControl", form).TheObject;
+                var dataGridViewControl = (DataGridViewControl) new ControlTester("dataGridViewControl", form).TheObject;
                 dataGridViewControl.SetCurrentCell(dataGridViewControl.GetCell(1, 0));
 
                 // Call
@@ -646,7 +646,7 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void GivenWmtsLocationControlAndAddLocationClicked_WhenConfigFileInUse_ThenWmtsLocationsNotUpdatedAndLoggenerated()
+        public void GivenWmtsLocationControlAndAddLocationClicked_WhenConfigFileInUse_ThenWmtsLocationsNotUpdatedAndLogGenerated()
         {
             // Given
             const string name = @"someName";
@@ -830,7 +830,7 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
                 connectToButton.Click();
 
                 // Then
-                var dataGridViewControl = (DataGridViewControl)new ControlTester("dataGridViewControl", form).TheObject;
+                var dataGridViewControl = (DataGridViewControl) new ControlTester("dataGridViewControl", form).TheObject;
                 DataGridViewRowCollection rows = dataGridViewControl.Rows;
                 Assert.AreEqual(1, rows.Count);
 

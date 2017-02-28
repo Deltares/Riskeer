@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Windows.Forms;
+
 namespace Ringtoets.Integration.Forms
 {
     partial class BackgroundMapDataSelectionDialog
@@ -72,9 +74,12 @@ namespace Ringtoets.Integration.Forms
             // 
             // mapLayerComboBox
             // 
+            this.mapLayerComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.mapLayerComboBox.FormattingEnabled = true;
             resources.ApplyResources(this.mapLayerComboBox, "mapLayerComboBox");
             this.mapLayerComboBox.Name = "mapLayerComboBox";
+            this.mapLayerComboBox.Sorted = true;
+            this.mapLayerComboBox.SelectedIndexChanged += new System.EventHandler(this.MapLayerComboBox_OnSelectedIndexChanged);
             // 
             // flowLayoutPanel1
             // 
@@ -95,6 +100,7 @@ namespace Ringtoets.Integration.Forms
             resources.ApplyResources(this.selectButton, "selectButton");
             this.selectButton.Name = "selectButton";
             this.selectButton.UseVisualStyleBackColor = true;
+            this.selectButton.Click += new System.EventHandler(this.OnSelectButtonClick);
             // 
             // propertiesGroupBox
             // 
