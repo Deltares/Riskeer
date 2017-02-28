@@ -245,12 +245,20 @@ namespace Ringtoets.Piping.IO.Importers
         {
             if (readCalculation.EntryPointL.HasValue)
             {
-                pipingCalculation.InputParameters.EntryPointL = (RoundedDouble) readCalculation.EntryPointL;
+                var valueToSet = (double) readCalculation.EntryPointL;
+
+                PerformActionHandlingAnyArgumentOutOfRangeException(
+                    () => pipingCalculation.InputParameters.EntryPointL = (RoundedDouble) valueToSet,
+                    string.Format(Resources.PipingConfigurationImporter_ReadEntryExitPoint_Entry_point_invalid, valueToSet));
             }
 
             if (readCalculation.ExitPointL.HasValue)
             {
-                pipingCalculation.InputParameters.ExitPointL = (RoundedDouble) readCalculation.ExitPointL;
+                var valueToSet = (double) readCalculation.ExitPointL;
+
+                PerformActionHandlingAnyArgumentOutOfRangeException(
+                    () => pipingCalculation.InputParameters.ExitPointL = (RoundedDouble) valueToSet,
+                    string.Format(Resources.PipingConfigurationImporter_ReadEntryExitPoint_Exit_point_invalid, valueToSet));
             }
         }
 
@@ -345,6 +353,24 @@ namespace Ringtoets.Piping.IO.Importers
                     Mean = (RoundedDouble) readCalculation.PhreaticLevelExitMean,
                     StandardDeviation = (RoundedDouble) readCalculation.PhreaticLevelExitStandardDeviation
                 };
+            }
+        }
+
+        /// <summary>
+        /// Performs the provided <paramref name="action"/> and handles any thrown <see cref="ArgumentOutOfRangeException"/>.
+        /// </summary>
+        /// <param name="action">The action to perform.</param>
+        /// <param name="errorMessage">The error message to provide when rethrowing any thrown <see cref="ArgumentOutOfRangeException"/>.</param>
+        /// <exception cref="CriticalFileValidationException">Thrown when <paramref name="action"/> throws an <see cref="ArgumentOutOfRangeException"/>.</exception>
+        private static void PerformActionHandlingAnyArgumentOutOfRangeException(Action action, string errorMessage)
+        {
+            try
+            {
+                action();
+            }
+            catch (ArgumentOutOfRangeException e)
+            {
+                throw new CriticalFileValidationException($"{errorMessage} {e.Message}");
             }
         }
 

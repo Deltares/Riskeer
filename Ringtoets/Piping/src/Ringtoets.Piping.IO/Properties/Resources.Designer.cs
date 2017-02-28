@@ -241,6 +241,24 @@ namespace Ringtoets.Piping.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Een waarde van &apos;{0}&apos; als intredepunt is ongeldig..
+        /// </summary>
+        public static string PipingConfigurationImporter_ReadEntryExitPoint_Entry_point_invalid {
+            get {
+                return ResourceManager.GetString("PipingConfigurationImporter_ReadEntryExitPoint_Entry_point_invalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Een waarde van &apos;{0}&apos; als uittredepunt is ongeldig..
+        /// </summary>
+        public static string PipingConfigurationImporter_ReadEntryExitPoint_Exit_point_invalid {
+            get {
+                return ResourceManager.GetString("PipingConfigurationImporter_ReadEntryExitPoint_Exit_point_invalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to De locatie met hydraulische randvoorwaarden &apos;{0}&apos; bestaat niet..
         /// </summary>
         public static string PipingConfigurationImporter_ReadHydraulicBoundaryLocation_Hydraulic_boundary_location_0_does_not_exist {

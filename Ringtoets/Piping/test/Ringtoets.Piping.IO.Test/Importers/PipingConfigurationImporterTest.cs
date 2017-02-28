@@ -169,9 +169,12 @@ namespace Ringtoets.Piping.IO.Test.Importers
 
         [Test]
         [SetCulture("nl-NL")]
-        [TestCase("validConfigurationInvalidEntryExitPoint.xml", "Het uittredepunt moet landwaarts van het intredepunt liggen.")]
-        [TestCase("validConfigurationExitPointNotOnSurfaceLine.xml", "Het gespecificeerde punt moet op het profiel liggen (bereik [0,0, 10,0]).")]
-        [TestCase("validConfigurationEntryPointNotOnSurfaceLine.xml", "Het gespecificeerde punt moet op het profiel liggen (bereik [0,0, 10,0]).")]
+        [TestCase("validConfigurationInvalidEntryExitPoint.xml",
+            "Een waarde van '2,2' als uittredepunt is ongeldig. Het uittredepunt moet landwaarts van het intredepunt liggen.")]
+        [TestCase("validConfigurationExitPointNotOnSurfaceLine.xml",
+            "Een waarde van '200,2' als uittredepunt is ongeldig. Het gespecificeerde punt moet op het profiel liggen (bereik [0,0, 10,0]).")]
+        [TestCase("validConfigurationEntryPointNotOnSurfaceLine.xml",
+            "Een waarde van '-10' als intredepunt is ongeldig. Het gespecificeerde punt moet op het profiel liggen (bereik [0,0, 10,0]).")]
         public void Import_ValidConfigurationInvalidData_LogMessageAndContinueImport(string file, string expectedErrorMessage)
         {
             // Setup
