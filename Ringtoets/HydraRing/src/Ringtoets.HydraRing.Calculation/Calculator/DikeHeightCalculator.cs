@@ -34,6 +34,7 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
     internal class DikeHeightCalculator : HydraRingCalculatorBase, IDikeHeightCalculator
     {
         private readonly ReliabilityIndexCalculationParser targetProbabilityParser;
+        private readonly ConvergenceParser convergenceParser;
 
         /// <summary>
         /// Create a new instance of <see cref="DikeHeightCalculator"/>.
@@ -45,6 +46,7 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
             : base(hlcdDirectory, ringId)
         {
             targetProbabilityParser = new ReliabilityIndexCalculationParser();
+            convergenceParser = new ConvergenceParser();
 
             DikeHeight = double.NaN;
             ReliabilityIndex = double.NaN;
@@ -53,6 +55,7 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
         public double DikeHeight { get; private set; }
 
         public double ReliabilityIndex { get; private set; }
+        public bool? Converged { get; private set; }
 
         public void Calculate(DikeHeightCalculationInput input)
         {
@@ -62,6 +65,7 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
         protected override IEnumerable<IHydraRingFileParser> GetParsers()
         {
             yield return targetProbabilityParser;
+            yield return convergenceParser;
         }
 
         protected override void SetOutputs()
@@ -71,6 +75,8 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
                 DikeHeight = targetProbabilityParser.Output.Result;
                 ReliabilityIndex = targetProbabilityParser.Output.CalculatedReliabilityIndex;
             }
+
+            Converged = convergenceParser.Output;
         }
     }
 }

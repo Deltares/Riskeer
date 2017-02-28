@@ -35,6 +35,7 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
     {
         private readonly WaveConditionsCalculationParser waveConditionsCalculationParser;
         private readonly ReliabilityIndexCalculationParser reliabilityIndexCalculationParser;
+        private readonly ConvergenceParser convergenceParser;
 
         /// <summary>
         /// Create a new instance of <see cref="WaveConditionsCosineCalculator"/>.
@@ -47,6 +48,7 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
         {
             waveConditionsCalculationParser = new WaveConditionsCalculationParser();
             reliabilityIndexCalculationParser = new ReliabilityIndexCalculationParser();
+            convergenceParser = new ConvergenceParser();
 
             WaveHeight = double.NaN;
             WaveAngle = double.NaN;
@@ -60,6 +62,7 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
         public double WavePeakPeriod { get; private set; }
         public double WaveDirection { get; private set; }
         public double ReliabilityIndex { get; private set; }
+        public bool? Converged { get; private set; }
 
         public void Calculate(WaveConditionsCosineCalculationInput input)
         {
@@ -70,6 +73,7 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
         {
             yield return waveConditionsCalculationParser;
             yield return reliabilityIndexCalculationParser;
+            yield return convergenceParser;
         }
 
         protected override void SetOutputs()
@@ -86,6 +90,8 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
             {
                 ReliabilityIndex = reliabilityIndexCalculationParser.Output.CalculatedReliabilityIndex;
             }
+
+            Converged = convergenceParser.Output;
         }
     }
 }

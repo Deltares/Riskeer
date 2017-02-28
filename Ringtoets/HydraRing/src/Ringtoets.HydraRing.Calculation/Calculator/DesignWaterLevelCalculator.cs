@@ -34,6 +34,7 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
     internal class DesignWaterLevelCalculator : HydraRingCalculatorBase, IDesignWaterLevelCalculator
     {
         private readonly ReliabilityIndexCalculationParser targetProbabilityParser;
+        private readonly ConvergenceParser convergenceParser;
 
         /// <summary>
         /// Create a new instance of <see cref="DesignWaterLevelCalculator"/>.
@@ -45,6 +46,7 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
             : base(hlcdDirectory, ringId)
         {
             targetProbabilityParser = new ReliabilityIndexCalculationParser();
+            convergenceParser = new ConvergenceParser();
 
             DesignWaterLevel = double.NaN;
             ReliabilityIndex = double.NaN;
@@ -54,6 +56,8 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
 
         public double ReliabilityIndex { get; private set; }
 
+        public bool? Converged { get; private set; }
+
         public void Calculate(AssessmentLevelCalculationInput input)
         {
             Calculate(HydraRingUncertaintiesType.All, input);
@@ -62,6 +66,7 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
         protected override IEnumerable<IHydraRingFileParser> GetParsers()
         {
             yield return targetProbabilityParser;
+            yield return convergenceParser;
         }
 
         protected override void SetOutputs()
@@ -71,6 +76,7 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
                 DesignWaterLevel = targetProbabilityParser.Output.Result;
                 ReliabilityIndex = targetProbabilityParser.Output.CalculatedReliabilityIndex;
             }
+            Converged = convergenceParser.Output;
         }
     }
 }

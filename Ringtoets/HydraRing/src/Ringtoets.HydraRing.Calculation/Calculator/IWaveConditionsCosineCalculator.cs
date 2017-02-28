@@ -60,6 +60,11 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
         double ReliabilityIndex { get; }
 
         /// <summary>
+        /// Gets the value indicating whether the calculation converged.
+        /// </summary>
+        bool? Converged { get; }
+
+        /// <summary>
         /// Gets the temporary output directory that is generated during the Hydra-Ring calculation.s
         /// </summary>
         string OutputDirectory { get; }

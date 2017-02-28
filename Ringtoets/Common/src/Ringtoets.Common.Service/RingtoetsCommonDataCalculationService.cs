@@ -46,6 +46,22 @@ namespace Ringtoets.Common.Service
         }
 
         /// <summary>
+        /// Determines whether the calculated output is converged.
+        /// </summary>
+        /// <param name="converged">The value indicating whether convergence has been reached.</param>
+        /// <returns><see cref="CalculationConvergence.CalculatedConverged"/> if the calculated output converged,
+        /// <see cref="CalculationConvergence.CalculatedNotConverged"/> if the calculated output did not converge,
+        /// <see cref="CalculationConvergence.NotCalculated"/> if no convergence was determined.</returns>
+        public static CalculationConvergence CalculationConverged(bool? converged)
+        {
+            return converged.HasValue
+                       ? converged.Value
+                             ? CalculationConvergence.CalculatedConverged
+                             : CalculationConvergence.CalculatedNotConverged
+                       : CalculationConvergence.NotCalculated;
+        }
+
+        /// <summary>
         /// Gets the required probability which is needed in profile specific calculations.
         /// </summary>
         /// <param name="norm">The assessment section norm.</param>
@@ -66,7 +82,7 @@ namespace Ringtoets.Common.Service
                 throw new ArgumentOutOfRangeException("n", n, Resources.RingtoetsCommonDataCalculationService_ProfileSpecificRequiredProbability_N_is_zero);
             }
 
-            return norm*(failureMechanismContribution/100)/n;
+            return norm * (failureMechanismContribution / 100) / n;
         }
     }
 }
