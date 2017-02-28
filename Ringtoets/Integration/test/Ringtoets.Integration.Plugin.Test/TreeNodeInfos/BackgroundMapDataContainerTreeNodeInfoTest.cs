@@ -160,10 +160,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         [Test]
         public void ForeColor_MapDataNull_ReturnGrayText()
         {
-            var container = new BackgroundMapDataContainer
-            {
-                MapData = null
-            };
+            var container = new BackgroundMapDataContainer();
 
             using (var plugin = new RingtoetsPlugin())
             {

@@ -19,13 +19,13 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.PropertyBag;
 using Core.Components.Gis;
 using Core.Components.Gis.Data;
 using NUnit.Framework;
-using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.PropertyClasses;
 
 namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
@@ -35,6 +35,22 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
     {
         private RingtoetsPlugin plugin;
         private PropertyInfo info;
+
+        private static IEnumerable<TestCaseData> ValidationBackgroundMapDataContainers
+        {
+            get
+            {
+                yield return new TestCaseData(new BackgroundMapDataContainer());
+                yield return new TestCaseData(new BackgroundMapDataContainer
+                {
+                    MapData = new WellKnownTileSourceMapData(WellKnownTileSource.BingRoads)
+                });
+                yield return new TestCaseData(new BackgroundMapDataContainer
+                {
+                    MapData = WmtsMapData.CreateDefaultPdokMapData()
+                });
+            }
+        }
 
         [SetUp]
         public void SetUp()
@@ -58,50 +74,14 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
         }
 
         [Test]
-        public void CreateInstance_ContainerWithoutMapData_ReturnBackgroundMapDataContainerProperties()
+        [TestCaseSource(nameof(ValidationBackgroundMapDataContainers))]
+        public void CreateInstance_ContainerWithoutMapData_ReturnBackgroundMapDataContainerProperties(BackgroundMapDataContainer container)
         {
-            // Setup
-            var container = new BackgroundMapDataContainer();
-            
             // Call
             IObjectProperties objectProperties = info.CreateInstance(container);
 
             // Assert
-            Assert.AreEqual(typeof(BackgroundMapDataContainerProperties), objectProperties.GetType());
-            Assert.AreSame(container, objectProperties.Data);
-        }
-
-        [Test]
-        public void CreateInstance_ContainerWithWellKnownTileSourceMapData_ReturnBackgroundMapDataContainerProperties()
-        {
-            // Setup
-            var container = new BackgroundMapDataContainer
-            {
-                MapData = new WellKnownTileSourceMapData(WellKnownTileSource.BingRoads)
-            };
-
-            // Call
-            IObjectProperties objectProperties = info.CreateInstance(container);
-
-            // Assert
-            Assert.AreEqual(typeof(BackgroundMapDataContainerProperties), objectProperties.GetType());
-            Assert.AreSame(container, objectProperties.Data);
-        }
-
-        [Test]
-        public void CreateInstance_ContainerWithWmtsMapData_ReturnBackgroundMapDataContainerProperties()
-        {
-            // Setup
-            var container = new BackgroundMapDataContainer
-            {
-                MapData = WmtsMapData.CreateDefaultPdokMapData()
-            };
-
-            // Call
-            IObjectProperties objectProperties = info.CreateInstance(container);
-
-            // Assert
-            Assert.AreEqual(typeof(BackgroundMapDataContainerProperties), objectProperties.GetType());
+            Assert.IsInstanceOf<BackgroundMapDataContainerProperties>(objectProperties);
             Assert.AreSame(container, objectProperties.Data);
         }
     }

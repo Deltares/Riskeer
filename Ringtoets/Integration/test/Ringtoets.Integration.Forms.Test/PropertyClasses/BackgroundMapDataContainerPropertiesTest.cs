@@ -75,10 +75,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         public void GetProperties_ContainerWithoutMapData_ReturnExpectedValues()
         {
             // Setup
-            var container = new BackgroundMapDataContainer
-            {
-                MapData = null
-            };
+            var container = new BackgroundMapDataContainer();
 
             // Call
             var properties = new BackgroundMapDataContainerProperties(container);
