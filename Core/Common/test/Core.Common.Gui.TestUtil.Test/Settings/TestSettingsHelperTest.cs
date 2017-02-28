@@ -57,10 +57,25 @@ namespace Core.Common.Gui.TestUtil.Test.Settings
         }
 
         [Test]
+        public void GetApplicationLocalUserSettingsDirectory_WithPostfix_ReturnsRootFolderWithPostfix()
+        {
+            // Setup
+            var settingsHelper = new TestSettingsHelper();
+            const string postfix = nameof(GetApplicationLocalUserSettingsDirectory_WithPostfix_ReturnsRootFolderWithPostfix);
+
+            // Call
+            string directory = settingsHelper.GetApplicationLocalUserSettingsDirectory(postfix);
+
+            // Assert
+            string testDataPath = Path.Combine(TestHelper.GetScratchPadPath(), postfix);
+            Assert.AreEqual(testDataPath, directory);
+        }
+
+        [Test]
         public void GetApplicationLocalUserSettingsDirectoryWithExpectedDirectory_NullPostfix_ReturnsRootFolder()
         {
             // Setup
-            const string userSettingsDirectory = "someFolder";
+            const string userSettingsDirectory = nameof(GetApplicationLocalUserSettingsDirectoryWithExpectedDirectory_NullPostfix_ReturnsRootFolder);
             var settingsHelper = new TestSettingsHelper
             {
                 ApplicationLocalUserSettingsDirectory = userSettingsDirectory
@@ -74,86 +89,49 @@ namespace Core.Common.Gui.TestUtil.Test.Settings
         }
 
         [Test]
-        public void GetApplicationLocalUserSettingsDirectory_WithPostfix_ReturnsRootFolderWithPostfix()
+        public void GetCommonDocumentsDirectory_NoPostfix_ReturnsRootFolder()
         {
             // Setup
             var settingsHelper = new TestSettingsHelper();
-            string postfix = nameof(GetApplicationLocalUserSettingsDirectory_WithPostfix_ReturnsRootFolderWithPostfix);
 
             // Call
-            string directory = settingsHelper.GetApplicationLocalUserSettingsDirectory(postfix);
+            string directory = settingsHelper.GetCommonDocumentsDirectory();
+
+            // Assert
+            string testDataPath = TestHelper.GetScratchPadPath();
+            Assert.AreEqual(testDataPath, directory);
+        }
+
+        [Test]
+        public void GetCommonDocumentsDirectory_WithPostfix_ReturnsRootFolderWithPostfix()
+        {
+            // Setup
+            var settingsHelper = new TestSettingsHelper();
+            const string postfix = nameof(GetCommonDocumentsDirectory_WithPostfix_ReturnsRootFolderWithPostfix);
+
+            // Call
+            string directory = settingsHelper.GetCommonDocumentsDirectory(postfix);
 
             // Assert
             string testDataPath = Path.Combine(TestHelper.GetScratchPadPath(), postfix);
-            try
-            {
-                Assert.AreEqual(testDataPath, directory);
-                Assert.IsTrue(Directory.Exists(testDataPath));
-            }
-            finally
-            {
-                Directory.Delete(testDataPath);
-            }
+            Assert.AreEqual(testDataPath, directory);
         }
 
         [Test]
-        public void GetApplicationLocalUserSettingsDirectoryWithExpectedDirectory_WithPostfix_ReturnsRootFolderWithPostfix()
+        public void GetCommonDocumentsDirectoryWithExpectedDirectory_NullPostfix_ReturnsRootFolder()
         {
             // Setup
-            string subFolder = Path.GetRandomFileName();
-            string subSubFolder = Path.GetRandomFileName();
-            string userSettingsDirectory = TestHelper.GetScratchPadPath();
+            const string userSettingsDirectory = nameof(GetCommonDocumentsDirectoryWithExpectedDirectory_NullPostfix_ReturnsRootFolder);
             var settingsHelper = new TestSettingsHelper
             {
-                ApplicationLocalUserSettingsDirectory = userSettingsDirectory
+                CommonDocumentsDirectory = userSettingsDirectory
             };
 
             // Call
-            string directory = settingsHelper.GetApplicationLocalUserSettingsDirectory(subFolder, subSubFolder);
+            string directory = settingsHelper.GetCommonDocumentsDirectory(null);
 
             // Assert
-            string testDataPath = Path.Combine(userSettingsDirectory, subFolder, subSubFolder);
-            string testDataPathParent = Path.Combine(userSettingsDirectory, subFolder);
-            try
-            {
-                Assert.AreEqual(testDataPath, directory);
-                Assert.IsTrue(Directory.Exists(testDataPathParent));
-                Assert.IsTrue(Directory.Exists(testDataPath));
-            }
-            finally
-            {
-                Directory.Delete(testDataPathParent, true);
-            }
-        }
-
-        [Test]
-        public void GetApplicationLocalUserSettingsDirectory_ValidPathFileExistsDirectoryNotWritable_ThrowsIOException()
-        {
-            // Setup
-            const string workingDirectory = "folderToCr*eate";
-            string userSettingsDirectory = TestHelper.GetScratchPadPath();
-            string subFolder = nameof(GetApplicationLocalUserSettingsDirectory_ValidPathFileExistsDirectoryNotWritable_ThrowsIOException);
-            var settingsHelper = new TestSettingsHelper
-            {
-                ApplicationLocalUserSettingsDirectory = userSettingsDirectory
-            };
-
-            // Call
-            TestDelegate test = () => settingsHelper.GetApplicationLocalUserSettingsDirectory(subFolder, workingDirectory);
-
-            // Assert
-            string dataPath = Path.Combine(userSettingsDirectory, subFolder, workingDirectory);
-            var expectedMessage = $"Unable to create '{dataPath}'.";
-
-            var message = Assert.Throws<IOException>(test).Message;
-            Assert.AreEqual(expectedMessage, message);
-
-            string testDataPath = Path.Combine(userSettingsDirectory, subFolder);
-            if (Directory.Exists(testDataPath))
-            {
-                Directory.Delete(testDataPath, true);
-                Assert.Fail($"Path should not have been created '{testDataPath}'");
-            }
+            Assert.AreEqual(userSettingsDirectory, directory);
         }
 
         [Test]

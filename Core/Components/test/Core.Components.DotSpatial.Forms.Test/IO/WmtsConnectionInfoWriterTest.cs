@@ -77,10 +77,32 @@ namespace Core.Components.DotSpatial.Forms.Test.IO
         }
 
         [Test]
+        public void WriteWmtsConnectionInfo_DirectoryDoesNotExist_CreatesDirectoryAndFile()
+        {
+            // Setup
+            string directoryPath = TestHelper.GetScratchPadPath(nameof(WriteWmtsConnectionInfo_DirectoryDoesNotExist_CreatesDirectoryAndFile));
+            string filePath = Path.Combine(directoryPath, Path.GetRandomFileName());
+            var wmtsConfigurationWriter = new WmtsConnectionInfoWriter(filePath);
+
+            try
+            {
+                // Call
+                wmtsConfigurationWriter.WriteWmtsConnectionInfo(Enumerable.Empty<WmtsConnectionInfo>());
+
+                // Assert
+                Assert.IsTrue(File.Exists(filePath));
+            }
+            finally
+            {
+                Directory.Delete(directoryPath, true);
+            }
+        }
+
+        [Test]
         public void WriteWmtsConnectionInfo_InvalidDirectoryRights_ThrowCriticalFileWriteException()
         {
             // Setup
-            string directoryPath = TestHelper.GetScratchPadPath("InvalidDirectoryRights");
+            string directoryPath = TestHelper.GetScratchPadPath(nameof(WriteWmtsConnectionInfo_InvalidDirectoryRights_ThrowCriticalFileWriteException));
             Directory.CreateDirectory(directoryPath);
             string filePath = Path.Combine(directoryPath, Path.GetRandomFileName());
             var wmtsConfigurationWriter = new WmtsConnectionInfoWriter(filePath);

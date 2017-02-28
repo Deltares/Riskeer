@@ -75,48 +75,48 @@ namespace Core.Common.Gui.Test.Settings
         }
 
         [Test]
-        public void GetApplicationLocalUserSettingsDirectoryWithExpectedDirectory_WithPostfix_ReturnsRootFolderWithPostfix()
+        public void GetApplicationLocalUserSettingsDirectory_WithPostfix_ReturnsRootFolderWithPostfix()
         {
             // Setup
-            string subFolder = Path.GetRandomFileName();
-            string subSubFolder = Path.GetRandomFileName();
+            const string subFolder = nameof(GetApplicationLocalUserSettingsDirectory_WithPostfix_ReturnsRootFolderWithPostfix);
+            const string subSubFolder = "subSubFolder";
 
-            try
-            {
-                // Call
-                string directory = SettingsHelper.Instance.GetApplicationLocalUserSettingsDirectory(subFolder, subSubFolder);
+            // Call
+            string directory = SettingsHelper.Instance.GetApplicationLocalUserSettingsDirectory(subFolder, subSubFolder);
 
-                // Assert
-                string userSettingsDirectory = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-                string testDataPathParent = Path.Combine(userSettingsDirectory, subFolder);
+            // Assert
+            string userSettingsDirectory = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
 
-                string testDataPath = Path.Combine(userSettingsDirectory, subFolder, subSubFolder);
-                Assert.AreEqual(testDataPath, directory);
-
-                Assert.IsTrue(Directory.Exists(testDataPathParent));
-                Assert.IsTrue(Directory.Exists(testDataPath));
-            }
-            finally
-            {
-                string testDataPathParent = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), subFolder);
-                Directory.Delete(testDataPathParent, true);
-            }
+            string testDataPath = Path.Combine(userSettingsDirectory, subFolder, subSubFolder);
+            Assert.AreEqual(testDataPath, directory);
         }
 
         [Test]
-        public void GetApplicationLocalUserSettingsDirectory_ValidPathFileExistsDirectoryNotWritable_ThrowsIOException()
+        public void GetCommonDocumentsDirectory_WithoutSubFolder_ReturnsCommonDocuments()
         {
-            // Setup
-            const string workingDirectory = "folderToCr*eate";
-
             // Call
-            TestDelegate test = () => SettingsHelper.Instance.GetApplicationLocalUserSettingsDirectory(workingDirectory);
+            string pathFromSettings = SettingsHelper.Instance.GetCommonDocumentsDirectory();
 
             // Assert
-            string dataPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), workingDirectory);
-            var expectedMessage = $"De map '{dataPath}' kan niet aangemaakt worden.";
-            string message = Assert.Throws<IOException>(test).Message;
-            Assert.AreEqual(expectedMessage, message);
+            string localSettingsDirectoryPath = Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments);
+            Assert.AreEqual(localSettingsDirectoryPath, pathFromSettings);
+        }
+
+        [Test]
+        public void GetCommonDocumentsDirectory_WithPostfix_ReturnsRootFolderWithPostfix()
+        {
+            // Setup
+            const string subFolder = nameof(GetCommonDocumentsDirectory_WithPostfix_ReturnsRootFolderWithPostfix);
+            const string subSubFolder = "subSubFolder";
+
+            // Call
+            string directory = SettingsHelper.Instance.GetCommonDocumentsDirectory(subFolder, subSubFolder);
+
+            // Assert
+            string userSettingsDirectory = Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments);
+
+            string testDataPath = Path.Combine(userSettingsDirectory, subFolder, subSubFolder);
+            Assert.AreEqual(testDataPath, directory);
         }
     }
 }

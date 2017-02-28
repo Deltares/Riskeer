@@ -130,7 +130,7 @@ namespace Core.Components.DotSpatial.Forms.Views
 
             DataGridViewRow dataGridViewRow = dataGridViewControl.Rows.OfType<DataGridViewRow>()
                                                                  .FirstOrDefault(row => IsMatch(
-                                                                                     (WmtsCapabilityRow) row.DataBoundItem, 
+                                                                                     (WmtsCapabilityRow) row.DataBoundItem,
                                                                                      activeWmtsMapData));
             if (dataGridViewRow == null)
             {
@@ -148,10 +148,9 @@ namespace Core.Components.DotSpatial.Forms.Views
 
         private void InitializeWmtsConnectionInfos()
         {
-            string applicationVersion = SettingsHelper.Instance.ApplicationVersion;
-            string folderPath = SettingsHelper.Instance.GetApplicationLocalUserSettingsDirectory(applicationVersion);
+            string localUserSettingsDirectory = SettingsHelper.Instance.GetApplicationLocalUserSettingsDirectory(SettingsHelper.Instance.ApplicationVersion);
 
-            wmtsConnectionInfoFilePath = Path.Combine(folderPath, wmtsConnectionInfoFileName);
+            wmtsConnectionInfoFilePath = Path.Combine(localUserSettingsDirectory, wmtsConnectionInfoFileName);
             wmtsConnectionInfos.AddRange(TryGetSavedWmtsConnectionInfos());
         }
 

@@ -21,10 +21,8 @@
 
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
 using System.Linq;
-using Core.Common.Gui.Properties;
 using Core.Common.Utils.Reflection;
 
 namespace Core.Common.Gui.Settings
@@ -34,8 +32,9 @@ namespace Core.Common.Gui.Settings
     /// </summary>
     public class SettingsHelper : ISettingsHelper
     {
-        private readonly string localSettingsDirectoryPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
         private static ISettingsHelper instance;
+        private readonly string localSettingsDirectoryPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+        private readonly string commonDocumentsPath = Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments);
 
         /// <summary>
         /// Creates a new instance of <see cref="SettingsHelper"/>.
@@ -63,27 +62,25 @@ namespace Core.Common.Gui.Settings
             }
         }
 
-        /// <summary>
-        /// Gets the name of the application.
-        /// </summary>
         public string ApplicationName { get; }
 
-        /// <summary>
-        /// Gets the version of the application.
-        /// </summary>
         public string ApplicationVersion { get; }
 
-        /// <summary>
-        /// Gets the application local user settings directory.
-        /// </summary>
-        /// <param name="subPath">The postfix path to use after the local application data folder (if any).</param>
-        /// <returns>Directory path where the user settings can be found.</returns>
-        /// <exception cref="IOException">Thrown when the application local user settings directory could not be created.</exception>
         public virtual string GetApplicationLocalUserSettingsDirectory(params string[] subPath)
+        {
+            return GetFullPath(localSettingsDirectoryPath, subPath);
+        }
+
+        public virtual string GetCommonDocumentsDirectory(params string[] subPath)
+        {
+            return GetFullPath(commonDocumentsPath, subPath);
+        }
+
+        private static string GetFullPath(string rootPath, string[] subPath)
         {
             var directorypath = new List<string>
             {
-                localSettingsDirectoryPath
+                rootPath
             };
 
             if (subPath != null)
@@ -91,25 +88,7 @@ namespace Core.Common.Gui.Settings
                 directorypath.AddRange(subPath.ToList());
             }
 
-            string appSettingsDirectoryPath = Path.Combine(directorypath.ToArray());
-
-            if (Directory.Exists(appSettingsDirectoryPath))
-            {
-                return appSettingsDirectoryPath;
-            }
-
-            try
-            {
-                Directory.CreateDirectory(appSettingsDirectoryPath);
-            }
-            catch (Exception e) when (e is ArgumentException || e is IOException || e is NotSupportedException || e is UnauthorizedAccessException)
-            {
-                var message = string.Format(CultureInfo.CurrentCulture,
-                                            Resources.SettingsHelper_GetApplicationLocalUserSettingsDirectory_Folder_0_Cannot_be_created,
-                                            appSettingsDirectoryPath);
-                throw new IOException(message, e);
-            }
-            return appSettingsDirectoryPath;
+            return Path.Combine(directorypath.ToArray());
         }
     }
 }

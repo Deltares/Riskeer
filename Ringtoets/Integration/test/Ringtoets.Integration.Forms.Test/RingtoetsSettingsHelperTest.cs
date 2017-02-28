@@ -22,7 +22,6 @@
 using System;
 using System.IO;
 using Core.Common.Gui.Settings;
-using Core.Common.TestUtil;
 using NUnit.Framework;
 
 namespace Ringtoets.Integration.Forms.Test
@@ -63,27 +62,39 @@ namespace Ringtoets.Integration.Forms.Test
             string localApplicationDataPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
             string rootPath = Path.Combine(localApplicationDataPath, "WTI", "Ringtoets");
 
-            using (new DirectoryDisposeHelper(rootPath, "subFolder"))
-            {
-                // Call
-                string ringtoetsLocalApplicationDataPath = settingsHelper.GetApplicationLocalUserSettingsDirectory("subFolder", "subSubFolder");
+            // Call
+            string ringtoetsLocalApplicationDataPath = settingsHelper.GetApplicationLocalUserSettingsDirectory("subFolder", "subSubFolder");
 
-                // Assert
-                string expectedPath = Path.Combine(rootPath, "subFolder", "subSubFolder");
-                Assert.AreEqual(expectedPath, ringtoetsLocalApplicationDataPath);
-            }
+            // Assert
+            string expectedPath = Path.Combine(rootPath, "subFolder", "subSubFolder");
+            Assert.AreEqual(expectedPath, ringtoetsLocalApplicationDataPath);
         }
 
         [Test]
-        public void GetCommonDocumentsRingtoetsDirectory_ReturnsExpectedDirectory()
+        public void GetCommonDocumentsRingtoetsDirectory_WithoutParams_ReturnsExpectedDirectory()
         {
             // Setup
-            var expectedPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments), "WTI", "Ringtoets");
+            var settingsHelper = new RingtoetsSettingsHelper();
 
             // Call
-            var pathFromSettings = RingtoetsSettingsHelper.GetCommonDocumentsRingtoetsDirectory();
+            var pathFromSettings = settingsHelper.GetCommonDocumentsDirectory();
 
             // Assert
+            var expectedPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments), "WTI", "Ringtoets");
+            Assert.AreEqual(expectedPath, pathFromSettings);
+        }
+
+        [Test]
+        public void GetCommonDocumentsRingtoetsDirectory_WithParams_ReturnsExpectedDirectory()
+        {
+            // Setup
+            var settingsHelper = new RingtoetsSettingsHelper();
+
+            // Call
+            var pathFromSettings = settingsHelper.GetCommonDocumentsDirectory("some folder");
+
+            // Assert
+            var expectedPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments), "WTI", "Ringtoets", "some folder");
             Assert.AreEqual(expectedPath, pathFromSettings);
         }
 

@@ -51,7 +51,7 @@ namespace Core.Common.Gui.Test.Appenders
         public void Convert_Always_WriteLocalUserDataDirectory(string infix)
         {
             // Setup
-            var settingsDirectory = SettingsHelper.Instance.GetApplicationLocalUserSettingsDirectory(infix);
+            string settingsDirectory = SettingsHelper.Instance.GetApplicationLocalUserSettingsDirectory(infix);
 
             var mocks = new MockRepository();
             var textWriter = mocks.StrictMock<TextWriter>();

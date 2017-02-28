@@ -31,6 +31,26 @@ namespace Ringtoets.Integration.Forms
     /// </summary>
     public class RingtoetsSettingsHelper : SettingsHelper
     {
+        /// <summary>
+        /// Gets the directory of the "NBPW" shape file within the common documents directory.
+        /// </summary>
+        /// <returns>Directory path where the "NBPW" shape file can be found.</returns>
+        public static string GetCommonDocumentsRingtoetsShapeFileDirectory()
+        {
+            string commonDocuments = new RingtoetsSettingsHelper().GetCommonDocumentsDirectory();
+            return Path.Combine(commonDocuments, "NBPW");
+        }
+
+        public override string GetCommonDocumentsDirectory(params string[] subPath)
+        {
+            var ringtoetsCommonDocumentsPath = new List<string>
+            {
+                "WTI", "Ringtoets"
+            };
+            ringtoetsCommonDocumentsPath.AddRange(subPath);
+            return base.GetCommonDocumentsDirectory(ringtoetsCommonDocumentsPath.ToArray());
+        }
+
         public override string GetApplicationLocalUserSettingsDirectory(params string[] subPath)
         {
             var ringtoetsApplicationPath = new List<string>
@@ -39,24 +59,6 @@ namespace Ringtoets.Integration.Forms
             };
             ringtoetsApplicationPath.AddRange(subPath);
             return base.GetApplicationLocalUserSettingsDirectory(ringtoetsApplicationPath.ToArray());
-        }
-
-        /// <summary>
-        /// Gets the directory of the "NBPW" shape file within the common documents directory.
-        /// </summary>
-        /// <returns>Directory path where the "NBPW" shape file can be found.</returns>
-        public static string GetCommonDocumentsRingtoetsShapeFileDirectory()
-        {
-            return Path.Combine(GetCommonDocumentsRingtoetsDirectory(), "NBPW");
-        }
-
-        /// <summary>
-        /// Gets the "Ringtoets" folder within the common documents directory.
-        /// </summary>
-        /// <returns>Directory path where the "Ringtoets" folder within the common documents can be found.</returns>
-        public static string GetCommonDocumentsRingtoetsDirectory()
-        {
-            return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments), "WTI", "Ringtoets");
         }
     }
 }

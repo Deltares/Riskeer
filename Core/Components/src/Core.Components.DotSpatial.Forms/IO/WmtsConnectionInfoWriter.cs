@@ -21,10 +21,10 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Xml;
 using Core.Common.IO.Exceptions;
 using Core.Common.Utils;
-using Core.Components.DotSpatial.Forms.IO;
 using CoreCommonUtilsResources = Core.Common.Utils.Properties.Resources;
 
 namespace Core.Components.DotSpatial.Forms.IO
@@ -71,7 +71,7 @@ namespace Core.Components.DotSpatial.Forms.IO
             {
                 WriteWmtsConnectionInfosToXml(wmtsConnectionInfos);
             }
-            catch (Exception exception)
+            catch (SystemException exception)
             {
                 throw new CriticalFileWriteException(string.Format(CoreCommonUtilsResources.Error_General_output_error_0, filePath), exception);
             }
@@ -79,6 +79,7 @@ namespace Core.Components.DotSpatial.Forms.IO
 
         private void WriteWmtsConnectionInfosToXml(IEnumerable<WmtsConnectionInfo> wmtsConnectionInfos)
         {
+            EnsureParentDirectoryExists();
             using (XmlWriter writer = XmlWriter.Create(filePath))
             {
                 writer.WriteStartDocument();
@@ -95,6 +96,20 @@ namespace Core.Components.DotSpatial.Forms.IO
                 writer.Flush();
                 writer.Close();
             }
+        }
+
+        /// <summary>
+        /// Creates the parent folder of <see cref="filePath"/> if it does not exist.
+        /// </summary>
+        /// <exception cref="IOException">Thrown when the network name is not known. </exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown when the caller does not have the 
+        /// required permission.</exception>
+        /// <exception cref="PathTooLongException">Thrown when the specified path, file name, or 
+        /// both exceed the system-defined maximum length.</exception>
+        /// <exception cref="DirectoryNotFoundException">Thrown when the specified path is invalid.</exception>
+        private void EnsureParentDirectoryExists()
+        {
+            Directory.CreateDirectory(Path.GetDirectoryName(filePath));
         }
 
         private static void WriteWmtsConnectionInfoToXml(XmlWriter writer, WmtsConnectionInfo wmtsConnectionInfo)

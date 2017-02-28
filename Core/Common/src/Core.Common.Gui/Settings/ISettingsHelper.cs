@@ -19,8 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.IO;
-
 namespace Core.Common.Gui.Settings
 {
     /// <summary>
@@ -36,14 +34,20 @@ namespace Core.Common.Gui.Settings
         /// <summary>
         /// Gets the version of the application.
         /// </summary>
-        string ApplicationVersion { get;  }
+        string ApplicationVersion { get; }
 
         /// <summary>
         /// Gets the application local user settings directory.
         /// </summary>
         /// <param name="subPath">The sub path to use after the local application data folder (if any).</param>
         /// <returns>Directory path where the user settings can be found.</returns>
-        /// <exception cref="IOException">Thrown when the application local user settings directory could not be created.</exception>
         string GetApplicationLocalUserSettingsDirectory(params string[] subPath);
+
+        /// <summary>
+        /// Gets the common documents directory.
+        /// </summary>
+        /// <param name="subPath">The sub path to use after the common documents folder (if any).</param>
+        /// <returns>Directory path where the common documents can be found.</returns>
+        string GetCommonDocumentsDirectory(params string[] subPath);
     }
 }

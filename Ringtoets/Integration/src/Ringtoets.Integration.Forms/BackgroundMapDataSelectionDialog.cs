@@ -40,7 +40,7 @@ namespace Ringtoets.Integration.Forms
         private IBackgroundMapDataSelectionControl currentBackgroundMapDataSelectionControl;
 
         /// <summary>
-        /// Creates a new instance of <see cref="ReferenceLineMetaSelectionDialog"/>.
+        /// Creates a new instance of <see cref="BackgroundMapDataSelectionDialog"/>.
         /// </summary>
         /// <param name="dialogParent">The parent of the dialog.</param>
         /// <param name="mapData">The active map data or <c>null</c> if none is active.</param>

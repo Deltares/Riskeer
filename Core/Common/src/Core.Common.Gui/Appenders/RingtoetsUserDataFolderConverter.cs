@@ -32,7 +32,7 @@ namespace Core.Common.Gui.Appenders
     {
         protected override void Convert(TextWriter writer, object state)
         {
-            var settingsDirectory = SettingsHelper.Instance.GetApplicationLocalUserSettingsDirectory(Option);
+            string settingsDirectory = SettingsHelper.Instance.GetApplicationLocalUserSettingsDirectory(Option);
             writer.Write(settingsDirectory);
         }
     }

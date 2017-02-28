@@ -880,28 +880,6 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
             }
         }
 
-        [Test]
-        public void Dispose_DisposedAlreadyCalled_DoesNotThrowException()
-        {
-            // Setup
-            mockRepository.ReplayAll();
-
-            using (new UseCustomTileSourceFactoryConfig(tileFactory))
-            {
-                // Call
-                TestDelegate call = () =>
-                {
-                    using (var control = new WmtsLocationControl(null))
-                    {
-                        control.Dispose();
-                    }
-                };
-
-                // Assert
-                Assert.DoesNotThrow(call);
-            }
-        }
-
         private static void AssertAreEqual(WmtsMapData expected, WmtsMapData actual)
         {
             if (expected == null)

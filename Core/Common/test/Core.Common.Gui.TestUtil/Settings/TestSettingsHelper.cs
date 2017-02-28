@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -40,9 +39,24 @@ namespace Core.Common.Gui.TestUtil.Settings
         public TestSettingsHelper()
         {
             ApplicationLocalUserSettingsDirectory = TestHelper.GetScratchPadPath();
+            CommonDocumentsDirectory = TestHelper.GetScratchPadPath();
             ApplicationName = string.Empty;
             ApplicationVersion = string.Empty;
         }
+
+        /// <summary>
+        /// Gets or sets the directory to use in <see cref="GetApplicationLocalUserSettingsDirectory"/>.
+        /// </summary>
+        public string ApplicationLocalUserSettingsDirectory { private get; set; }
+
+        /// <summary>
+        /// Gets or sets the directory to use in <see cref="GetCommonDocumentsDirectory"/>.
+        /// </summary>
+        public string CommonDocumentsDirectory { private get; set; }
+
+        public string ApplicationName { get; private set; }
+
+        public string ApplicationVersion { get; private set; }
 
         /// <summary>
         /// Sets the <see cref="ApplicationName"/>.
@@ -60,20 +74,21 @@ namespace Core.Common.Gui.TestUtil.Settings
             ApplicationVersion = value;
         }
 
-        /// <summary>
-        /// Gets or sets the directory to use in <see cref="GetApplicationLocalUserSettingsDirectory"/>.
-        /// </summary>
-        public string ApplicationLocalUserSettingsDirectory { private get; set; }
-
-        public string ApplicationName { get; private set; }
-
-        public string ApplicationVersion { get; private set; }
-
         public string GetApplicationLocalUserSettingsDirectory(params string[] subPath)
+        {
+            return GetFullPath(ApplicationLocalUserSettingsDirectory, subPath);
+        }
+
+        public string GetCommonDocumentsDirectory(params string[] subPath)
+        {
+            return GetFullPath(CommonDocumentsDirectory, subPath);
+        }
+
+        private static string GetFullPath(string rootPath, string[] subPath)
         {
             var directorypath = new List<string>
             {
-                ApplicationLocalUserSettingsDirectory
+                rootPath
             };
 
             if (subPath != null)
@@ -81,23 +96,7 @@ namespace Core.Common.Gui.TestUtil.Settings
                 directorypath.AddRange(subPath.ToList());
             }
 
-            string settingsDirectoryPath = Path.Combine(directorypath.ToArray());
-
-            if (Directory.Exists(settingsDirectoryPath))
-            {
-                return settingsDirectoryPath;
-            }
-
-            try
-            {
-                Directory.CreateDirectory(settingsDirectoryPath);
-            }
-            catch (Exception e)
-            {
-                var message = $"Unable to create '{settingsDirectoryPath}'.";
-                throw new IOException(message, e);
-            }
-            return settingsDirectoryPath;
+            return Path.Combine(directorypath.ToArray());
         }
     }
 }
