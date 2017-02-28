@@ -52,6 +52,9 @@ namespace Ringtoets.Piping.IO.Test.Importers
                 yield return new TestCaseData("validConfigurationCalculationContainingNaNs.xml",
                                               GetExpectedNaNData())
                     .SetName("validConfigurationCalculationContainingNaNs");
+                yield return new TestCaseData("validConfigurationCalculationContainingInfinities.xml",
+                                              GetExpectedInfinityData())
+                    .SetName("validConfigurationCalculationContainingInfinities");
             }
         }
 
@@ -113,7 +116,7 @@ namespace Ringtoets.Piping.IO.Test.Importers
 
             // Assert
             string expectedMessage = $"Fout bij het lezen van bestand '{filePath}': bestandspad mag niet verwijzen naar een lege bestandsnaam. " + Environment.NewLine +
-                                  "Er is geen berekeningenconfiguratie geïmporteerd.";
+                                     "Er is geen berekeningenconfiguratie geïmporteerd.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
             Assert.IsFalse(importSuccessful);
         }
@@ -134,7 +137,7 @@ namespace Ringtoets.Piping.IO.Test.Importers
 
             // Assert
             string expectedMessage = $"Fout bij het lezen van bestand '{filePath}': het bestand bestaat niet. " + Environment.NewLine +
-                                  "Er is geen berekeningenconfiguratie geïmporteerd.";
+                                     "Er is geen berekeningenconfiguratie geïmporteerd.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
             Assert.IsFalse(importSuccessful);
         }
@@ -698,6 +701,37 @@ namespace Ringtoets.Piping.IO.Test.Importers
                             {
                                 Mean = RoundedDouble.NaN,
                                 StandardDeviation = RoundedDouble.NaN
+                            }
+                        }
+                    }
+                }
+            };
+        }
+
+        private static CalculationGroup GetExpectedInfinityData()
+        {
+            return new CalculationGroup("Root", false)
+            {
+                Children =
+                {
+                    new PipingCalculationScenario(new GeneralPipingInput())
+                    {
+                        Name = "Calculation",
+                        InputParameters =
+                        {
+                            UseAssessmentLevelManualInput = true,
+                            AssessmentLevel = (RoundedDouble) double.NegativeInfinity,
+                            EntryPointL = (RoundedDouble) double.NegativeInfinity,
+                            ExitPointL = (RoundedDouble) double.PositiveInfinity,
+                            PhreaticLevelExit =
+                            {
+                                Mean = (RoundedDouble) double.NegativeInfinity,
+                                StandardDeviation = (RoundedDouble) double.PositiveInfinity
+                            },
+                            DampingFactorExit =
+                            {
+                                Mean = (RoundedDouble) double.PositiveInfinity,
+                                StandardDeviation = (RoundedDouble) double.PositiveInfinity
                             }
                         }
                     }
