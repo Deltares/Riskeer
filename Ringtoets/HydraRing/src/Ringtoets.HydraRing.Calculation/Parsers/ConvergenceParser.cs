@@ -38,9 +38,9 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
         private const string convergedColumnName = "Converged";
 
         private readonly string getLastResultQuery =
-            $"SELECT ConvOnBeta OR ConvOnValue AS {convergedColumnName} " +
+            string.Format("SELECT ConvOnBeta OR ConvOnValue AS {0} ", convergedColumnName) +
             "FROM IterateToGivenBetaConvergence " +
-            $"WHERE SectionId = {sectionIdParameterName} " +
+            string.Format("WHERE SectionId = {0} ", sectionIdParameterName) +
             "AND IterationNr = (SELECT MAX(IterationNr) FROM IterateToGivenBetaConvergence);";
 
         /// <summary>

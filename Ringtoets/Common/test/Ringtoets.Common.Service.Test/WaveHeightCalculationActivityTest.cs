@@ -134,9 +134,9 @@ namespace Ringtoets.Common.Service.Test
             {
                 var msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                StringAssert.StartsWith($"Validatie van '{calculationName}' gestart om: ", msgs[0]);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", calculationName), msgs[0]);
                 StringAssert.StartsWith("Herstellen van de verbinding met de hydraulische randvoorwaardendatabase is mislukt. Fout bij het lezen van bestand", msgs[1]);
-                StringAssert.StartsWith($"Validatie van '{calculationName}' beëindigd om: ", msgs[2]);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", calculationName), msgs[2]);
             });
             Assert.AreEqual(ActivityState.Failed, activity.State);
         }
@@ -177,11 +177,11 @@ namespace Ringtoets.Common.Service.Test
                 {
                     var messages = m.ToArray();
                     Assert.AreEqual(5, messages.Length);
-                    StringAssert.StartsWith($"Validatie van '{calculationName}' gestart om: ", messages[0]);
-                    StringAssert.StartsWith($"Validatie van '{calculationName}' beëindigd om: ", messages[1]);
-                    StringAssert.StartsWith($"Berekening van '{calculationName}' gestart om: ", messages[2]);
+                    StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", calculationName), messages[0]);
+                    StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", calculationName), messages[1]);
+                    StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculationName), messages[2]);
                     StringAssert.StartsWith("Golfhoogte berekening is uitgevoerd op de tijdelijke locatie", messages[3]);
-                    StringAssert.StartsWith($"Berekening van '{calculationName}' beëindigd om: ", messages[4]);
+                    StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculationName), messages[4]);
                 });
                 var waveHeightCalculationInput = testWaveHeightCalculator.ReceivedInputs.First();
 
