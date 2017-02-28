@@ -20,9 +20,7 @@
 // All rights reserved.
 
 using System;
-using System.Globalization;
 using System.Xml;
-using Core.Common.Base.Data;
 using Core.Common.IO.Exceptions;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Probabilistics;
@@ -118,7 +116,7 @@ namespace Ringtoets.Piping.IO.Exporters
             if (calculationInputParameters.UseAssessmentLevelManualInput)
             {
                 writer.WriteElementString(PipingConfigurationSchemaIdentifiers.AssessmentLevelElement,
-                                          ToStringInvariantCulture(calculationInputParameters.AssessmentLevel));
+                                          XmlConvert.ToString(calculationInputParameters.AssessmentLevel));
             }
             else if (calculationInputParameters.HydraulicBoundaryLocation != null)
             {
@@ -131,9 +129,9 @@ namespace Ringtoets.Piping.IO.Exporters
                 writer.WriteElementString(PipingConfigurationSchemaIdentifiers.SurfaceLineElement,
                                           calculationInputParameters.SurfaceLine.Name);
                 writer.WriteElementString(PipingConfigurationSchemaIdentifiers.EntryPointLElement,
-                                          ToStringInvariantCulture(calculationInputParameters.EntryPointL));
+                                          XmlConvert.ToString(calculationInputParameters.EntryPointL));
                 writer.WriteElementString(PipingConfigurationSchemaIdentifiers.ExitPointLElement,
-                                          ToStringInvariantCulture(calculationInputParameters.ExitPointL));
+                                          XmlConvert.ToString(calculationInputParameters.ExitPointL));
             }
 
             if (calculationInputParameters.StochasticSoilModel != null)
@@ -171,16 +169,11 @@ namespace Ringtoets.Piping.IO.Exporters
             writer.WriteAttributeString(PipingConfigurationSchemaIdentifiers.NameAttribute, elementName);
 
             writer.WriteElementString(PipingConfigurationSchemaIdentifiers.MeanElement,
-                                      ToStringInvariantCulture(distribution.Mean));
+                                      XmlConvert.ToString(distribution.Mean));
             writer.WriteElementString(PipingConfigurationSchemaIdentifiers.StandardDeviationElement,
-                                      ToStringInvariantCulture(distribution.StandardDeviation));
+                                      XmlConvert.ToString(distribution.StandardDeviation));
 
             writer.WriteEndElement();
-        }
-
-        private static string ToStringInvariantCulture(RoundedDouble roundedDouble)
-        {
-            return XmlConvert.ToString(roundedDouble);
         }
     }
 }

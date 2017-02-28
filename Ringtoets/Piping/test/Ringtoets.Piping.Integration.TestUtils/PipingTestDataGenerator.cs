@@ -184,6 +184,37 @@ namespace Ringtoets.Piping.Integration.TestUtils
         }
 
         /// <summary>
+        /// Gets a <see cref="PipingCalculation"/> with <c>double.NegativeInfinity</c> and <c>double.PositiveInfinity</c> values set.
+        /// </summary>
+        /// <returns>A <see cref="PipingCalculation"/> with <c>double.NegativeInfinity</c> and <c>double.PositiveInfinity</c> values.</returns>
+        public static PipingCalculation GetPipingCalculationWithInfinities()
+        {
+            PipingCalculation calculation = GetPipingCalculationWithAssessmentLevel();
+
+            calculation.InputParameters.SurfaceLine.SetGeometry(new[]
+            {
+                new Point3D(0, double.NegativeInfinity, 0),
+                new Point3D(0, double.PositiveInfinity, 0)
+            });
+
+            calculation.InputParameters.AssessmentLevel = (RoundedDouble) double.NegativeInfinity;
+            calculation.InputParameters.EntryPointL = (RoundedDouble) double.NegativeInfinity;
+            calculation.InputParameters.ExitPointL = (RoundedDouble) double.PositiveInfinity;
+            calculation.InputParameters.PhreaticLevelExit = new NormalDistribution
+            {
+                Mean = (RoundedDouble) double.NegativeInfinity,
+                StandardDeviation = (RoundedDouble) double.PositiveInfinity
+            };
+            calculation.InputParameters.DampingFactorExit = new LogNormalDistribution
+            {
+                Mean = (RoundedDouble) double.PositiveInfinity,
+                StandardDeviation = (RoundedDouble) double.PositiveInfinity
+            };
+
+            return calculation;
+        }
+
+        /// <summary>
         /// Configures a <see cref="PipingFailureMechanism"/> to a fully configured failure
         /// mechanism with all possible parent and nested calculation configurations.
         /// </summary>

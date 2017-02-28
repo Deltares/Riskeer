@@ -46,26 +46,24 @@ namespace Ringtoets.Piping.IO.Test.Exporters
                 yield return new TestCaseData("calculationWithoutHydraulicLocation",
                                               PipingTestDataGenerator.GetPipingCalculationWithoutHydraulicLocationAndAssessmentLevel())
                     .SetName("calculationWithoutHydraulicLocation");
-
                 yield return new TestCaseData("calculationWithAssessmentLevel",
                                               PipingTestDataGenerator.GetPipingCalculationWithAssessmentLevel())
                     .SetName("calculationWithAssessmentLevel");
-
                 yield return new TestCaseData("calculationWithoutSurfaceLine",
                                               PipingTestDataGenerator.GetPipingCalculationWithoutSurfaceLine())
                     .SetName("calculationWithoutSurfaceLine");
-
                 yield return new TestCaseData("calculationWithoutSoilModel",
                                               PipingTestDataGenerator.GetPipingCalculationWithoutSoilModel())
                     .SetName("calculationWithoutSoilModel");
-
                 yield return new TestCaseData("calculationWithoutSoilProfile",
                                               PipingTestDataGenerator.GetPipingCalculationWithoutSoilProfile())
                     .SetName("calculationWithoutSoilProfile");
-
                 yield return new TestCaseData("calculationWithNaNs",
                                               PipingTestDataGenerator.GetPipingCalculationWithNaNs())
                     .SetName("calculationWithNaNs");
+                yield return new TestCaseData("calculationWithInfinities",
+                                              PipingTestDataGenerator.GetPipingCalculationWithInfinities())
+                    .SetName("calculationWithInfinities");
             }
         }
 

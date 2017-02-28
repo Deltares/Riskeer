@@ -147,6 +147,26 @@ namespace Ringtoets.Piping.Integration.TestUtils.Test
             Assert.AreEqual(double.NaN, calculation.InputParameters.DampingFactorExit.StandardDeviation.Value);
         }
 
+        [Test]
+        public void GetPipingCalculationWithInfinities_Always_ReturnCalculationWithInfinities()
+        {
+            // Call
+            PipingCalculation calculation = PipingTestDataGenerator.GetPipingCalculationWithInfinities();
+
+            // Assert
+            Assert.AreEqual("PK001_0001 W1-6_0_1D1", calculation.Name);
+            Assert.AreEqual(double.NegativeInfinity, calculation.InputParameters.AssessmentLevel.Value);
+            Assert.AreEqual("PK001_0001", calculation.InputParameters.SurfaceLine.Name);
+            Assert.AreEqual(double.NegativeInfinity, calculation.InputParameters.EntryPointL.Value);
+            Assert.AreEqual(double.PositiveInfinity, calculation.InputParameters.ExitPointL.Value);
+            Assert.AreEqual("PK001_0001_Piping", calculation.InputParameters.StochasticSoilModel.Name);
+            Assert.AreEqual("W1-6_0_1D1", calculation.InputParameters.StochasticSoilProfile.SoilProfile.Name);
+            Assert.AreEqual(double.NegativeInfinity, calculation.InputParameters.PhreaticLevelExit.Mean.Value);
+            Assert.AreEqual(double.PositiveInfinity, calculation.InputParameters.PhreaticLevelExit.StandardDeviation.Value);
+            Assert.AreEqual(double.PositiveInfinity, calculation.InputParameters.DampingFactorExit.Mean.Value);
+            Assert.AreEqual(double.PositiveInfinity, calculation.InputParameters.DampingFactorExit.StandardDeviation.Value);
+        }
+
         private static void AssertCalculation(PipingCalculation calculation,
                                               bool hasHydraulicLocation = true,
                                               bool hasAssessmentLevel = false,
