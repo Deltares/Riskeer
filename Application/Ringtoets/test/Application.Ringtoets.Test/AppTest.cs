@@ -25,6 +25,7 @@ using System.Linq;
 using Core.Common.Gui.Settings;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Ringtoets.Integration.Forms;
 
 namespace Application.Ringtoets.Test
 {
@@ -57,6 +58,7 @@ namespace Application.Ringtoets.Test
 
                 // Assert
                 Assert.IsInstanceOf<System.Windows.Application>(app);
+                Assert.IsInstanceOf<RingtoetsSettingsHelper>(SettingsHelper.Instance);
                 app.Shutdown();
             });
         }

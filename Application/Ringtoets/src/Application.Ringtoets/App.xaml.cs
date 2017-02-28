@@ -85,6 +85,7 @@ namespace Application.Ringtoets
 
         static App()
         {
+            SettingsHelper.Instance = new RingtoetsSettingsHelper();
             SetLanguage();
 
             string userDisplay = UserDisplay();
@@ -144,7 +145,6 @@ namespace Application.Ringtoets
 
             Resources.Add(SystemParameters.MenuPopupAnimationKey, PopupAnimation.None);
 
-            SettingsHelper.Instance = new RingtoetsSettingsHelper();
             var settings = new GuiCoreSettings
             {
                 SupportEmailAddress = "www.helpdeskwater.nl",
