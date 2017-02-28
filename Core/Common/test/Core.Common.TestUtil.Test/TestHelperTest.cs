@@ -23,7 +23,6 @@ using System;
 using System.Drawing;
 using System.IO;
 using System.Security.AccessControl;
-using System.Threading;
 using System.Windows.Forms;
 using Core.Common.TestUtil.Test.Properties;
 using log4net;
@@ -162,31 +161,6 @@ namespace Core.Common.TestUtil.Test
             Assert.AreEqual(expectedPath, actualPath);
             Assert.IsTrue(Directory.Exists(actualPath),
                           $"The directory '{expectedPath}' should exist, such that unit tests have a clean environment to temporarily write files and directories to.");
-        }
-
-        [Test]
-        [Apartment(ApartmentState.STA)]
-        public void GetScratchPadPath_WithoutPathAndFolderDoesntExist_ThrowIOException()
-        {
-            // Setup
-            string actualPath = Path.Combine(Path.GetDirectoryName(TestHelper.SolutionRoot), "Scratchpad");
-
-            try
-            {
-                Directory.Delete(actualPath, true);
-
-                // Call
-                TestDelegate call = () => TestHelper.GetScratchPadPath();
-
-                // Assert
-                string message = Assert.Throws<IOException>(call).Message;
-                const string expectedMessage = "The 'Scratchpad' folder has been deleted from the trunk, while tests require the existence of this folder for writing to disk temporarily.";
-                Assert.AreEqual(expectedMessage, message);
-            }
-            finally
-            {
-                Directory.CreateDirectory(actualPath);
-            }
         }
 
         [Test]

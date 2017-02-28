@@ -51,6 +51,7 @@ using Ringtoets.GrassCoverErosionInwards.Plugin;
 using Ringtoets.GrassCoverErosionOutwards.Plugin;
 using Ringtoets.HeightStructures.Plugin;
 using Ringtoets.Integration.Data;
+using Ringtoets.Integration.Forms;
 using Ringtoets.Integration.Plugin;
 using Ringtoets.Piping.Plugin;
 using Ringtoets.StabilityPointStructures.Plugin;
@@ -143,6 +144,7 @@ namespace Application.Ringtoets
 
             Resources.Add(SystemParameters.MenuPopupAnimationKey, PopupAnimation.None);
 
+            SettingsHelper.Instance = new RingtoetsSettingsHelper();
             var settings = new GuiCoreSettings
             {
                 SupportEmailAddress = "www.helpdeskwater.nl",

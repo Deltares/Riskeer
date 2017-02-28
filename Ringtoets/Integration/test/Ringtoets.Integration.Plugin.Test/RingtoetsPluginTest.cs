@@ -544,7 +544,6 @@ namespace Ringtoets.Integration.Plugin.Test
 
                 // Assert
                 Assert.IsInstanceOf<RingtoetsRibbon>(plugin.RibbonCommandHandler);
-                Assert.IsInstanceOf<RingtoetsSettingsHelper>(SettingsHelper.Instance);
             }
 
             mockRepository.VerifyAll();

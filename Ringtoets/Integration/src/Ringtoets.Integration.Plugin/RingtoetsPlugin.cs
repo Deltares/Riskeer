@@ -34,7 +34,6 @@ using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms;
 using Core.Common.Gui.Plugin;
-using Core.Common.Gui.Settings;
 using Core.Common.IO.Exceptions;
 using Core.Common.Utils.Extensions;
 using Core.Components.Gis;
@@ -262,8 +261,6 @@ namespace Ringtoets.Integration.Plugin
             }
             assessmentSectionFromFileCommandHandler = new AssessmentSectionFromFileCommandHandler(Gui.MainWindow, Gui, Gui.DocumentViewController);
             hydraulicBoundaryLocationCalculationGuiService = new HydraulicBoundaryLocationCalculationGuiService(Gui.MainWindow);
-
-            SettingsHelper.Instance = new RingtoetsSettingsHelper();
 
             ribbonCommandHandler = new RingtoetsRibbon
             {
