@@ -433,8 +433,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                         Action action = () => contextMenuAdapter.Items[contextMenuRunDesignWaterLevelCalculationsIndex].PerformClick();
 
                         // Then
-                        string message = string.Format("Berekeningen konden niet worden gestart. Fout bij het lezen van bestand '{0}': het bestand bestaat niet.",
-                                                       filePath);
+                        string message = $"Berekeningen konden niet worden gestart. Fout bij het lezen van bestand '{filePath}': het bestand bestaat niet.";
                         TestHelper.AssertLogMessageWithLevelIsGenerated(action, new Tuple<string, LogLevelConstant>(message, LogLevelConstant.Error));
 
                         Assert.IsNaN(grassCoverErosionOutwardsHydraulicBoundaryLocation1.DesignWaterLevel); // No result set
@@ -482,6 +481,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                     using (ContextMenuStrip contextMenuAdapter = info.ContextMenuStrip(context, null, treeViewControl))
                     using (new HydraRingCalculatorFactoryConfig())
                     {
+                        var testDesignWaterLevelCalculator = ((TestHydraRingCalculatorFactory)HydraRingCalculatorFactory.Instance).DesignWaterLevelCalculator;
+                        testDesignWaterLevelCalculator.Converged = false;
+
                         // When
                         Action call = () => contextMenuAdapter.Items[contextMenuRunDesignWaterLevelCalculationsIndex].PerformClick();
 
@@ -490,20 +492,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                         {
                             var msgs = messages.ToArray();
                             Assert.AreEqual(7, msgs.Length);
-                            StringAssert.StartsWith(string.Format("Validatie van 'Waterstand bij doorsnede-eis voor locatie '{0}'' gestart om: ",
-                                                                  hydraulicBoundaryLocation.Name), msgs[0]);
-                            StringAssert.StartsWith(string.Format("Validatie van 'Waterstand bij doorsnede-eis voor locatie '{0}'' beëindigd om: ",
-                                                                  hydraulicBoundaryLocation.Name), msgs[1]);
-                            StringAssert.StartsWith(string.Format("Berekening van 'Waterstand bij doorsnede-eis voor locatie '{0}'' gestart om: ",
-                                                                  hydraulicBoundaryLocation.Name), msgs[2]);
-                            Assert.AreEqual(string.Format("Waterstand bij doorsnede-eis berekening voor locatie '{0}' is niet geconvergeerd.",
-                                                          hydraulicBoundaryLocation.Name), msgs[3]);
+                            StringAssert.StartsWith($"Validatie van 'Waterstand bij doorsnede-eis voor locatie '{hydraulicBoundaryLocation.Name}'' gestart om: ", msgs[0]);
+                            StringAssert.StartsWith($"Validatie van 'Waterstand bij doorsnede-eis voor locatie '{hydraulicBoundaryLocation.Name}'' beëindigd om: ", msgs[1]);
+                            StringAssert.StartsWith($"Berekening van 'Waterstand bij doorsnede-eis voor locatie '{hydraulicBoundaryLocation.Name}'' gestart om: ", msgs[2]);
+                            Assert.AreEqual($"Waterstand bij doorsnede-eis berekening voor locatie '{hydraulicBoundaryLocation.Name}' is niet geconvergeerd.", msgs[3]);
                             StringAssert.StartsWith("Toetspeil berekening is uitgevoerd op de tijdelijke locatie",
                                                     msgs[4]);
-                            StringAssert.StartsWith(string.Format("Berekening van 'Waterstand bij doorsnede-eis voor locatie '{0}'' beëindigd om: ",
-                                                                  hydraulicBoundaryLocation.Name), msgs[5]);
-                            StringAssert.AreNotEqualIgnoringCase(string.Format("Uitvoeren van '{0}' is gelukt.",
-                                                                               hydraulicBoundaryLocation.Name), msgs[6]);
+                            StringAssert.StartsWith($"Berekening van 'Waterstand bij doorsnede-eis voor locatie '{hydraulicBoundaryLocation.Name}'' beëindigd om: ", msgs[5]);
+                            StringAssert.AreNotEqualIgnoringCase($"Uitvoeren van '{hydraulicBoundaryLocation.Name}' is gelukt.", msgs[6]);
                         });
                         Assert.AreEqual(0, hydraulicBoundaryLocation.DesignWaterLevel,
                                         hydraulicBoundaryLocation.DesignWaterLevel.GetAccuracy());

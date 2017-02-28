@@ -234,7 +234,8 @@ namespace Ringtoets.Revetment.Service
                                                                               calculator.WaveAngle,
                                                                               calculator.WaveDirection,
                                                                               norm,
-                                                                              calculator.ReliabilityIndex);
+                                                                              calculator.ReliabilityIndex,
+                                                                              calculator.Converged);
                 return output;
             }
             catch (HydraRingFileParserException)

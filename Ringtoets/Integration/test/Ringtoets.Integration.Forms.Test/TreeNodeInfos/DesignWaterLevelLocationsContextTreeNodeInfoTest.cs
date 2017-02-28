@@ -38,6 +38,7 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.HydraRing.Calculation.Calculator.Factory;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.PresentationObjects;
@@ -290,8 +291,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                         Action action = () => contextMenuAdapter.Items[contextMenuRunAssessmentLevelCalculationsIndex].PerformClick();
 
                         // Then
-                        string message = string.Format("Berekeningen konden niet worden gestart. Fout bij het lezen van bestand '{0}': het bestand bestaat niet.",
-                                                       hydraulicBoundaryDatabase.FilePath);
+                        string message = $"Berekeningen konden niet worden gestart. Fout bij het lezen van bestand '{hydraulicBoundaryDatabase.FilePath}': het bestand bestaat niet.";
                         TestHelper.AssertLogMessageWithLevelIsGenerated(action, new Tuple<string, LogLevelConstant>(message, LogLevelConstant.Error));
 
                         Assert.IsNaN(hydraulicBoundaryLocation1.DesignWaterLevel); // No result set
@@ -347,6 +347,9 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                     using (ContextMenuStrip contextMenuAdapter = info.ContextMenuStrip(context, null, treeViewControl))
                     using (new HydraRingCalculatorFactoryConfig())
                     {
+                        var testDesignWaterLevelCalculator = ((TestHydraRingCalculatorFactory)HydraRingCalculatorFactory.Instance).DesignWaterLevelCalculator;
+                        testDesignWaterLevelCalculator.Converged = false;
+
                         // When
                         Action call = () => contextMenuAdapter.Items[contextMenuRunAssessmentLevelCalculationsIndex].PerformClick();
 
@@ -355,13 +358,13 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                         {
                             var msgs = messages.ToArray();
                             Assert.AreEqual(7, msgs.Length);
-                            StringAssert.StartsWith(string.Format("Validatie van 'Toetspeil berekenen voor locatie '{0}'' gestart om:", location.Name), msgs[0]);
-                            StringAssert.StartsWith(string.Format("Validatie van 'Toetspeil berekenen voor locatie '{0}'' beëindigd om:", location.Name), msgs[1]);
-                            StringAssert.StartsWith(string.Format("Berekening van 'Toetspeil berekenen voor locatie '{0}'' gestart om:", location.Name), msgs[2]);
-                            StringAssert.StartsWith(string.Format("Toetspeil berekening voor locatie {0} is niet geconvergeerd.", location.Name), msgs[3]);
+                            StringAssert.StartsWith($"Validatie van 'Toetspeil berekenen voor locatie '{location.Name}'' gestart om:", msgs[0]);
+                            StringAssert.StartsWith($"Validatie van 'Toetspeil berekenen voor locatie '{location.Name}'' beëindigd om:", msgs[1]);
+                            StringAssert.StartsWith($"Berekening van 'Toetspeil berekenen voor locatie '{location.Name}'' gestart om:", msgs[2]);
+                            StringAssert.StartsWith($"Toetspeil berekening voor locatie {location.Name} is niet geconvergeerd.", msgs[3]);
                             StringAssert.StartsWith("Toetspeil berekening is uitgevoerd op de tijdelijke locatie", msgs[4]);
-                            StringAssert.StartsWith(string.Format("Berekening van 'Toetspeil berekenen voor locatie '{0}'' beëindigd om:", location.Name), msgs[5]);
-                            StringAssert.StartsWith(string.Format("Uitvoeren van 'Toetspeil berekenen voor locatie '{0}'' is gelukt.", location.Name), msgs[6]);
+                            StringAssert.StartsWith($"Berekening van 'Toetspeil berekenen voor locatie '{location.Name}'' beëindigd om:", msgs[5]);
+                            StringAssert.StartsWith($"Uitvoeren van 'Toetspeil berekenen voor locatie '{location.Name}'' is gelukt.", msgs[6]);
                         });
                         Assert.AreEqual(0, location.DesignWaterLevel, location.DesignWaterLevel.GetAccuracy());
                         Assert.AreEqual(CalculationConvergence.CalculatedNotConverged, location.DesignWaterLevelCalculationConvergence);

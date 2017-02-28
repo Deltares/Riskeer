@@ -101,7 +101,7 @@ namespace Ringtoets.Common.Service
                 if (string.IsNullOrEmpty(calculator.LastErrorFileContent))
                 {
                     hydraulicBoundaryLocation.DesignWaterLevelOutput = CreateHydraulicBoundaryLocationOutput(
-                        messageProvider, hydraulicBoundaryLocation.Name, calculationInput.Beta, norm);
+                        messageProvider, hydraulicBoundaryLocation.Name, calculationInput.Beta, norm, calculator.Converged);
                 }
             }
             catch (HydraRingFileParserException)
@@ -148,17 +148,18 @@ namespace Ringtoets.Common.Service
             }
         }
 
-        private HydraulicBoundaryLocationOutput CreateHydraulicBoundaryLocationOutput(ICalculationMessageProvider messageProvider,
-                                                                                      string hydraulicBoundaryLocationName,
-                                                                                      double targetReliability,
-                                                                                      double targetProbability)
+        private HydraulicBoundaryLocationOutput CreateHydraulicBoundaryLocationOutput(
+            ICalculationMessageProvider messageProvider,
+            string hydraulicBoundaryLocationName,
+            double targetReliability,
+            double targetProbability,
+            bool? calculatorConverged)
         {
             var designWaterLevel = calculator.DesignWaterLevel;
             var reliability = calculator.ReliabilityIndex;
             var probability = StatisticsConverter.ReliabilityToProbability(reliability);
 
-            CalculationConvergence converged = RingtoetsCommonDataCalculationService.CalculationConverged(
-                calculator.ReliabilityIndex, targetProbability);
+            CalculationConvergence converged = RingtoetsCommonDataCalculationService.CalculationConverged(calculatorConverged);
 
             if (converged != CalculationConvergence.CalculatedConverged)
             {

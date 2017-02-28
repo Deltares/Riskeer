@@ -42,7 +42,7 @@ namespace Ringtoets.Revetment.Service.Test
 
             // Call 
             WaveConditionsOutput output = WaveConditionsService.Calculate(waterLevel, waveHeight, wavePeakPeriod,
-                                                                          waveAngle, waveDirection, double.MinValue, double.NaN);
+                                                                          waveAngle, waveDirection, double.MinValue, double.NaN, null);
 
             // Assert
             Assert.AreEqual(waterLevel, output.WaterLevel, output.WaterLevel.GetAccuracy());
@@ -50,32 +50,21 @@ namespace Ringtoets.Revetment.Service.Test
             Assert.AreEqual(wavePeakPeriod, output.WavePeakPeriod, output.WavePeakPeriod.GetAccuracy());
             Assert.AreEqual(waveAngle, output.WaveAngle, output.WaveAngle.GetAccuracy());
             Assert.AreEqual(waveDirection, output.WaveDirection, output.WaveDirection.GetAccuracy());
+            Assert.AreEqual(CalculationConvergence.NotCalculated, output.CalculationConvergence);
         }
 
         [Test]
-        public void CalculationConverged_WithConvergedResults_CalculationConvergedTrue()
+        [TestCase(true, CalculationConvergence.CalculatedConverged)]
+        [TestCase(false, CalculationConvergence.CalculatedNotConverged)]
+        [TestCase(null, CalculationConvergence.NotCalculated)]
+        public void CalculationConverged_WithConvergedResults_CalculationConvergedTrue(bool? convergence, CalculationConvergence expectedConvergence)
         {
-            // Setup
-            const double norm = 0.001;
-            double calculatedReliability = StatisticsConverter.ProbabilityToReliability(norm);
-
             // Call
             WaveConditionsOutput output = WaveConditionsService.Calculate(double.NaN, double.NaN, double.NaN, double.NaN,
-                                                                          double.NaN, norm, calculatedReliability);
+                                                                          double.NaN, double.NaN, double.NaN, convergence);
 
             // Assert
-            Assert.AreEqual(CalculationConvergence.CalculatedConverged, output.CalculationConvergence);
-        }
-
-        [Test]
-        public void CalculationConverged_WithoutConvergedResults_CalculationConvergedFalse()
-        {
-            // Call 
-            WaveConditionsOutput output = WaveConditionsService.Calculate(double.NaN, double.NaN, double.NaN, double.NaN,
-                                                                          double.NaN, 1, 5.0e-3);
-
-            // Assert
-            Assert.AreEqual(CalculationConvergence.CalculatedNotConverged, output.CalculationConvergence);
+            Assert.AreEqual(expectedConvergence, output.CalculationConvergence);
         }
 
         [Test]
@@ -93,7 +82,7 @@ namespace Ringtoets.Revetment.Service.Test
 
             // Call 
             WaveConditionsOutput output = WaveConditionsService.Calculate(double.NaN, double.NaN, double.NaN, double.NaN,
-                                                                          double.NaN, norm, double.NaN);
+                                                                          double.NaN, norm, double.NaN, null);
 
             // Assert
             Assert.AreEqual(expectedReliability, output.TargetReliability, output.TargetReliability.GetAccuracy());
@@ -114,7 +103,7 @@ namespace Ringtoets.Revetment.Service.Test
 
             // Call 
             WaveConditionsOutput output = WaveConditionsService.Calculate(double.NaN, double.NaN, double.NaN, double.NaN,
-                                                                          double.NaN, norm, double.NaN);
+                                                                          double.NaN, norm, double.NaN, null);
 
             // Assert
             Assert.AreEqual(expectedProbability, output.TargetProbability, 1e-6);
@@ -127,7 +116,7 @@ namespace Ringtoets.Revetment.Service.Test
         {
             // Call 
             WaveConditionsOutput output = WaveConditionsService.Calculate(double.NaN, double.NaN, double.NaN, double.NaN,
-                                                                          double.NaN, double.MinValue, reliability);
+                                                                          double.NaN, double.MinValue, reliability, null);
 
             // Assert
             Assert.AreEqual(expectedReliability, output.CalculatedReliability, output.CalculatedReliability.GetAccuracy());
@@ -145,7 +134,7 @@ namespace Ringtoets.Revetment.Service.Test
         {
             // Call 
             WaveConditionsOutput output = WaveConditionsService.Calculate(double.NaN, double.NaN, double.NaN, double.NaN,
-                                                                          double.NaN, double.MinValue, reliability);
+                                                                          double.NaN, double.MinValue, reliability, null);
 
             // Assert
             Assert.AreEqual(expectedProbability, output.CalculatedProbability, 1e-6);

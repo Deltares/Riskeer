@@ -102,7 +102,7 @@ namespace Ringtoets.Common.Service
                 if (string.IsNullOrEmpty(calculator.LastErrorFileContent))
                 {
                     hydraulicBoundaryLocation.WaveHeightOutput = CreateHydraulicBoundaryLocationOutput(
-                        messageProvider, hydraulicBoundaryLocation.Name, calculationInput.Beta, norm);
+                        messageProvider, hydraulicBoundaryLocation.Name, calculationInput.Beta, norm, calculator.Converged);
                 }
             }
             catch (HydraRingFileParserException)
@@ -149,17 +149,18 @@ namespace Ringtoets.Common.Service
             }
         }
 
-        private HydraulicBoundaryLocationOutput CreateHydraulicBoundaryLocationOutput(ICalculationMessageProvider messageProvider,
-                                                                                      string hydraulicBoundaryLocationName,
-                                                                                      double targetReliability,
-                                                                                      double targetProbability)
+        private HydraulicBoundaryLocationOutput CreateHydraulicBoundaryLocationOutput(
+            ICalculationMessageProvider messageProvider, 
+            string hydraulicBoundaryLocationName, 
+            double targetReliability, 
+            double targetProbability, 
+            bool? calculatorConverged)
         {
             double waveHeight = calculator.WaveHeight;
             double reliability = calculator.ReliabilityIndex;
             double probability = StatisticsConverter.ReliabilityToProbability(reliability);
 
-            CalculationConvergence converged = RingtoetsCommonDataCalculationService.CalculationConverged(
-                reliability, targetProbability);
+            CalculationConvergence converged = RingtoetsCommonDataCalculationService.CalculationConverged(calculatorConverged);
 
             if (converged != CalculationConvergence.CalculatedConverged)
             {

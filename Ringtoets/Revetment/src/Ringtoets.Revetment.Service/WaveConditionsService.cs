@@ -41,17 +41,16 @@ namespace Ringtoets.Revetment.Service
         /// <param name="waveDirection">The calculated wave direction w.r.t. North.</param>
         /// <param name="norm">The target norm to calculate for.</param>
         /// <param name="calculatedReliability">The calculated reliability.</param>
+        /// <param name="calculatedConvergence">The calculated convergence value.</param>
         /// <returns>The calculated <see cref="WaveConditionsOutput"/>.</returns>
-        public static WaveConditionsOutput Calculate(double waterLevel, double waveHeight, double wavePeakPeriod,
-                                                     double waveAngle, double waveDirection,
-                                                     double norm, double calculatedReliability)
+        public static WaveConditionsOutput Calculate(double waterLevel, double waveHeight, double wavePeakPeriod, double waveAngle, double waveDirection, double norm, double calculatedReliability, bool? calculatedConvergence)
         {
             double targetReliability = StatisticsConverter.ProbabilityToReliability(norm);
             double targetProbability = StatisticsConverter.ReliabilityToProbability(targetReliability);
 
             double calculatedProbability = StatisticsConverter.ReliabilityToProbability(calculatedReliability);
 
-            CalculationConvergence convergence = RingtoetsCommonDataCalculationService.CalculationConverged(calculatedReliability, norm);
+            CalculationConvergence convergence = RingtoetsCommonDataCalculationService.CalculationConverged(calculatedConvergence);
 
             return new WaveConditionsOutput(waterLevel, waveHeight, wavePeakPeriod, waveAngle, waveDirection, targetProbability,
                                             targetReliability, calculatedProbability, calculatedReliability, convergence);

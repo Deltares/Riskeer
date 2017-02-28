@@ -38,6 +38,7 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.HydraRing.Calculation.Calculator.Factory;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.PresentationObjects;
@@ -336,8 +337,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                         Action action = () => contextMenuAdapter.Items[contextMenuRunWaveHeightCalculationsIndex].PerformClick();
 
                         // Then
-                        string message = string.Format("Berekeningen konden niet worden gestart. Fout bij het lezen van bestand '{0}': het bestand bestaat niet.",
-                                                       hydraulicBoundaryDatabase.FilePath);
+                        string message = $"Berekeningen konden niet worden gestart. Fout bij het lezen van bestand '{hydraulicBoundaryDatabase.FilePath}': het bestand bestaat niet.";
                         TestHelper.AssertLogMessageWithLevelIsGenerated(action, new Tuple<string, LogLevelConstant>(message, LogLevelConstant.Error));
 
                         Assert.IsNaN(hydraulicBoundaryLocation1.WaveHeight); // No result set
@@ -395,6 +395,9 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                     using (ContextMenuStrip contextMenuAdapter = info.ContextMenuStrip(context, null, treeViewControl))
                     using (new HydraRingCalculatorFactoryConfig())
                     {
+                        var testWaveHeightCalculator = ((TestHydraRingCalculatorFactory)HydraRingCalculatorFactory.Instance).WaveHeightCalculator;
+                        testWaveHeightCalculator.Converged = false;
+
                         // When
                         Action action = () => contextMenuAdapter.Items[contextMenuRunWaveHeightCalculationsIndex].PerformClick();
 
@@ -403,13 +406,13 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                         {
                             var msgs = messages.ToArray();
                             Assert.AreEqual(7, msgs.Length);
-                            StringAssert.StartsWith(string.Format("Validatie van 'Golfhoogte berekenen voor locatie '{0}'' gestart om:", locationName), msgs[0]);
-                            StringAssert.StartsWith(string.Format("Validatie van 'Golfhoogte berekenen voor locatie '{0}'' beëindigd om:", locationName), msgs[1]);
-                            StringAssert.StartsWith(string.Format("Berekening van 'Golfhoogte berekenen voor locatie '{0}'' gestart om:", locationName), msgs[2]);
-                            StringAssert.StartsWith(string.Format("Golfhoogte berekening voor locatie {0} is niet geconvergeerd.", locationName), msgs[3]);
+                            StringAssert.StartsWith($"Validatie van 'Golfhoogte berekenen voor locatie '{locationName}'' gestart om:", msgs[0]);
+                            StringAssert.StartsWith($"Validatie van 'Golfhoogte berekenen voor locatie '{locationName}'' beëindigd om:", msgs[1]);
+                            StringAssert.StartsWith($"Berekening van 'Golfhoogte berekenen voor locatie '{locationName}'' gestart om:", msgs[2]);
+                            StringAssert.StartsWith($"Golfhoogte berekening voor locatie {locationName} is niet geconvergeerd.", msgs[3]);
                             StringAssert.StartsWith("Golfhoogte berekening is uitgevoerd op de tijdelijke locatie", msgs[4]);
-                            StringAssert.StartsWith(string.Format("Berekening van 'Golfhoogte berekenen voor locatie '{0}'' beëindigd om:", locationName), msgs[5]);
-                            StringAssert.StartsWith(string.Format("Uitvoeren van 'Golfhoogte berekenen voor locatie '{0}'' is gelukt.", locationName), msgs[6]);
+                            StringAssert.StartsWith($"Berekening van 'Golfhoogte berekenen voor locatie '{locationName}'' beëindigd om:", msgs[5]);
+                            StringAssert.StartsWith($"Uitvoeren van 'Golfhoogte berekenen voor locatie '{locationName}'' is gelukt.", msgs[6]);
                         });
                         Assert.AreEqual(CalculationConvergence.CalculatedNotConverged, location.WaveHeightCalculationConvergence);
                     }

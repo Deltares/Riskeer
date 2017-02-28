@@ -178,8 +178,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
             var reliability = dikeHeightCalculator.ReliabilityIndex;
             var probability = StatisticsConverter.ReliabilityToProbability(reliability);
 
-            CalculationConvergence converged = RingtoetsCommonDataCalculationService.CalculationConverged(
-                reliability, targetProbability);
+            CalculationConvergence converged = RingtoetsCommonDataCalculationService.CalculationConverged(dikeHeightCalculator.Converged);
 
             if (converged != CalculationConvergence.CalculatedConverged)
             {

@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Utils;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Service.Properties;
 
@@ -31,20 +30,6 @@ namespace Ringtoets.Common.Service
     /// </summary>
     public static class RingtoetsCommonDataCalculationService
     {
-        /// <summary>
-        /// Determines whether the calculated output is converged,
-        /// based on the <paramref name="reliabilityIndex"/> and the <paramref name="norm"/>.
-        /// </summary>
-        /// <param name="reliabilityIndex">The resultant reliability index after a calculation.</param>
-        /// <param name="norm">The norm used during the calculation.</param>
-        /// <returns><c>True</c> if the solution converged, <c>false</c> if otherwise.</returns>
-        public static CalculationConvergence CalculationConverged(double reliabilityIndex, double norm)
-        {
-            return Math.Abs(reliabilityIndex - StatisticsConverter.ProbabilityToReliability(norm)) <= 1.0e-3 ?
-                       CalculationConvergence.CalculatedConverged :
-                       CalculationConvergence.CalculatedNotConverged;
-        }
-
         /// <summary>
         /// Determines whether the calculated output is converged.
         /// </summary>
@@ -74,7 +59,7 @@ namespace Ringtoets.Common.Service
         {
             if (!(failureMechanismContribution > 0))
             {
-                throw new ArgumentOutOfRangeException("failureMechanismContribution", failureMechanismContribution,
+                throw new ArgumentOutOfRangeException(nameof(failureMechanismContribution), failureMechanismContribution,
                                                       Resources.RingtoetsCommonDataCalculationService_ProfileSpecificRequiredProbability_Contribution_is_zero_or_negative);
             }
             if (n == 0)
