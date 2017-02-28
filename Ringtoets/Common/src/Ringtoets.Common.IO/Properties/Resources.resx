@@ -498,7 +498,7 @@ Er is geen vakindeling geïmporteerd.</value>
   <data name="FailureMechanismSectionsImporter_Import_Imported_sections_too_different_from_referenceline_length" xml:space="preserve">
     <value>De opgetelde lengte van de vakken moet overeenkomen met de trajectlengte.</value>
   </data>
-  <data name="Importer_ProgressText_Adding_imported_data_to_DataModel" xml:space="preserve">
+  <data name="Importer_ProgressText_Adding_imported_data_to_data_model" xml:space="preserve">
     <value>Geïmporteerde data toevoegen aan het toetsspoor.</value>
   </data>
 </root>

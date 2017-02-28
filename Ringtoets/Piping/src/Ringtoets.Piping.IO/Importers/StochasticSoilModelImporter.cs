@@ -140,7 +140,7 @@ namespace Ringtoets.Piping.IO.Importers
             StochasticSoilModel[] importedModels = importStochasticSoilModelResult.Items.ToArray();
             foreach (StochasticSoilModel importedModel in importedModels)
             {
-                NotifyProgress(RingtoestCommonIOResources.Importer_ProgressText_Adding_imported_data_to_DataModel, currentStep, importedModels.Length);
+                NotifyProgress(RingtoestCommonIOResources.Importer_ProgressText_Adding_imported_data_to_data_model, currentStep, importedModels.Length);
                 if (ValidateStochasticSoilModel(importedModel))
                 {
                     yield return importedModel;

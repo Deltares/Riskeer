@@ -149,7 +149,7 @@ namespace Ringtoets.Common.IO.ReferenceLines
 
         private void AddReferenceLineToDataModel(ReferenceLine importedReferenceLine, bool clearReferenceLineDependentData)
         {
-            NotifyProgress(RingtoetsCommonIOResources.Importer_ProgressText_Adding_imported_data_to_DataModel,
+            NotifyProgress(RingtoetsCommonIOResources.Importer_ProgressText_Adding_imported_data_to_data_model,
                            2, clearReferenceLineDependentData ? 3 : 2);
             if (clearReferenceLineDependentData)
             {

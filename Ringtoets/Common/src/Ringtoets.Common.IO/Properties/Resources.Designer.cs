@@ -676,9 +676,9 @@ namespace Ringtoets.Common.IO.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Geïmporteerde data toevoegen aan het toetsspoor..
         /// </summary>
-        public static string Importer_ProgressText_Adding_imported_data_to_DataModel {
+        public static string Importer_ProgressText_Adding_imported_data_to_data_model {
             get {
-                return ResourceManager.GetString("Importer_ProgressText_Adding_imported_data_to_DataModel", resourceCulture);
+                return ResourceManager.GetString("Importer_ProgressText_Adding_imported_data_to_data_model", resourceCulture);
             }
         }
         

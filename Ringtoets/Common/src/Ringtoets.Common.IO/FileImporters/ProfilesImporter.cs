@@ -81,7 +81,7 @@ namespace Ringtoets.Common.IO.FileImporters
                 return false;
             }
 
-            NotifyProgress(Resources.Importer_ProgressText_Adding_imported_data_to_DataModel, 1, 1);
+            NotifyProgress(Resources.Importer_ProgressText_Adding_imported_data_to_data_model, 1, 1);
             CreateProfiles(importDikeProfilesResult, importDikeProfileDataResult);
 
             return true;

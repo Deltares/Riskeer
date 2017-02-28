@@ -48,7 +48,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
         }
 
         [Test]
-        public void Constructor_EmptyAcceptedIds_successfullyInitialzed()
+        public void Constructor_EmptyAcceptedIds_SuccessfullyInitialzed()
         {
             // Call
             TestDelegate call = () => new DikeProfileDataReader(new string[0]);

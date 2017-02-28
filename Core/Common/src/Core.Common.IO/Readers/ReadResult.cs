@@ -35,7 +35,7 @@ namespace Core.Common.IO.Readers
         /// is set to <paramref name="errorOccurred"/>.
         /// </summary>
         /// <param name="errorOccurred"><see cref="bool"/> value indicating whether an error has occurred while collecting
-        /// the import items for this <see cref="ReadResult{T}"/>.</param>
+        /// the items for this <see cref="ReadResult{T}"/>.</param>
         public ReadResult(bool errorOccurred)
         {
             CriticalErrorOccurred = errorOccurred;
@@ -43,13 +43,13 @@ namespace Core.Common.IO.Readers
         }
 
         /// <summary>
-        /// Gets or sets the <see cref="ICollection{T}"/> of items that were read. 
+        /// Gets or sets the <see cref="ICollection{T}"/> of items that were read.
         /// </summary>
         public ICollection<T> Items { get; set; }
 
         /// <summary>
-        /// Gets or sets the <see cref="bool"/> representing whether an critical error has occurred during
-        /// import.
+        /// Gets the <see cref="bool"/> representing whether an critical error has occurred during
+        /// read.
         /// </summary>
         public bool CriticalErrorOccurred { get; }
     }

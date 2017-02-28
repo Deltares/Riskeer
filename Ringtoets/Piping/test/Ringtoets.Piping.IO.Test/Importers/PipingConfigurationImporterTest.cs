@@ -338,7 +338,7 @@ namespace Ringtoets.Piping.IO.Test.Importers
                                                            calculationGroup,
                                                            new[]
                                                            {
-                                                               new HydraulicBoundaryLocation(1, "HRlocatie", 10, 20),
+                                                               new HydraulicBoundaryLocation(1, "HRlocatie", 10, 20)
                                                            },
                                                            new PipingFailureMechanism());
 

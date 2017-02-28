@@ -130,13 +130,13 @@ namespace Ringtoets.Piping.Plugin.FileImporter
         private IEnumerable<RingtoetsPipingSurfaceLine> ProcessImportedDataToModel(ICollection<RingtoetsPipingSurfaceLine> readSurfaceLines,
                                                                                    ICollection<CharacteristicPoints> readCharacteristicPointsLocations)
         {
-            NotifyProgress(RingtoetsCommonIOResources.Importer_ProgressText_Adding_imported_data_to_DataModel, 0, readSurfaceLines.Count);
+            NotifyProgress(RingtoetsCommonIOResources.Importer_ProgressText_Adding_imported_data_to_data_model, 0, readSurfaceLines.Count);
 
             List<string> readCharacteristicPointsLocationNames = readCharacteristicPointsLocations.Select(cpl => cpl.Name).ToList();
             int surfaceLineNumber = 1;
             foreach (var readSurfaceLine in readSurfaceLines)
             {
-                NotifyProgress(RingtoetsCommonIOResources.Importer_ProgressText_Adding_imported_data_to_DataModel,
+                NotifyProgress(RingtoetsCommonIOResources.Importer_ProgressText_Adding_imported_data_to_data_model,
                                surfaceLineNumber++, readSurfaceLines.Count);
 
                 if (Canceled)

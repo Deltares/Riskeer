@@ -91,10 +91,10 @@ namespace Ringtoets.Piping.Plugin.Test.ImportInfos
         public void FileFilterGenerator_Always_ReturnExpectedFileFilter()
         {
             // Call
-            FileFilterGenerator fileFilter = importInfo.FileFilterGenerator;
+            FileFilterGenerator fileFilterGenerator = importInfo.FileFilterGenerator;
 
             // Assert
-            Assert.AreEqual("Ringtoets berekeningenconfiguratie (*.xml)|*.xml", fileFilter.Filter);
+            Assert.AreEqual("Ringtoets berekeningenconfiguratie (*.xml)|*.xml", fileFilterGenerator.Filter);
         }
 
         [Test]

@@ -110,10 +110,10 @@ namespace Ringtoets.Integration.Plugin.Test.ImportInfos
         public void FileFilterGenerator_Always_ReturnExpectedFileFilter()
         {
             // Call
-            FileFilterGenerator fileFilter = importInfo.FileFilterGenerator;
+            FileFilterGenerator fileFilterGenerator = importInfo.FileFilterGenerator;
 
             // Assert
-            Assert.AreEqual("Shapebestand (*.shp)|*.shp", fileFilter.Filter);
+            Assert.AreEqual("Shapebestand (*.shp)|*.shp", fileFilterGenerator.Filter);
         }
 
         [Test]

@@ -98,7 +98,7 @@ namespace Ringtoets.Common.IO.FileImporters
                 return false;
             }
 
-            NotifyProgress(Resources.Importer_ProgressText_Adding_imported_data_to_DataModel, 3, 3);
+            NotifyProgress(Resources.Importer_ProgressText_Adding_imported_data_to_data_model, 3, 3);
             AddImportedDataToModel(readFailureMechanismSections);
             return true;
         }

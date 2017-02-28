@@ -132,10 +132,10 @@ namespace Ringtoets.Piping.Plugin.Test.UpdateInfos
         public void FileFilterGenerator_Always_ReturnExpectedFileFilter()
         {
             // Call
-            FileFilterGenerator fileFilter = updateInfo.FileFilterGenerator;
+            FileFilterGenerator fileFilterGenerator = updateInfo.FileFilterGenerator;
 
             // Assert
-            Assert.AreEqual("D-Soil Model bestand (*.soil)|*.soil", fileFilter.Filter);
+            Assert.AreEqual("D-Soil Model bestand (*.soil)|*.soil", fileFilterGenerator.Filter);
         }
 
         [Test]

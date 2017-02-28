@@ -75,7 +75,7 @@ namespace Ringtoets.Piping.IO.Importers
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
             this.hydraulicBoundaryLocations = hydraulicBoundaryLocations;
-            this.failureMechanism = failureMechanism;            
+            this.failureMechanism = failureMechanism;
         }
 
         protected override void LogImportCanceledMessage()
@@ -111,7 +111,7 @@ namespace Ringtoets.Piping.IO.Importers
                 }
             }
 
-            NotifyProgress(RingtoetsCommonIOResources.Importer_ProgressText_Adding_imported_data_to_DataModel, 3, 3);
+            NotifyProgress(RingtoetsCommonIOResources.Importer_ProgressText_Adding_imported_data_to_data_model, 3, 3);
             AddItemsToModel(validCalculationItems);
 
             return true;

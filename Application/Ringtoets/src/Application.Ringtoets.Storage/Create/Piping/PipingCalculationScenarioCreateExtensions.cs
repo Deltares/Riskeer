@@ -89,10 +89,8 @@ namespace Application.Ringtoets.Storage.Create.Piping
                 entity.StochasticSoilProfileEntity = registry.Get(inputParameters.StochasticSoilProfile);
             }
 
-            double tempQualifier = inputParameters.ExitPointL.Value;
-            entity.ExitPointL = tempQualifier.ToNaNAsNull();
-            double tempQualifier1 = inputParameters.EntryPointL.Value;
-            entity.EntryPointL = tempQualifier1.ToNaNAsNull();
+            entity.ExitPointL = inputParameters.ExitPointL.Value.ToNaNAsNull();
+            entity.EntryPointL = inputParameters.EntryPointL.Value.ToNaNAsNull();
 
             entity.PhreaticLevelExitMean = inputParameters.PhreaticLevelExit.Mean.ToNaNAsNull();
             entity.PhreaticLevelExitStandardDeviation = inputParameters.PhreaticLevelExit.StandardDeviation.ToNaNAsNull();

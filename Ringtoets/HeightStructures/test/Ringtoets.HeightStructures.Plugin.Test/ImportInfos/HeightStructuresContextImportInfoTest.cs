@@ -121,10 +121,10 @@ namespace Ringtoets.HeightStructures.Plugin.Test.ImportInfos
                 ImportInfo importInfo = GetImportInfo(plugin);
 
                 // Call
-                FileFilterGenerator fileFilter = importInfo.FileFilterGenerator;
+                FileFilterGenerator fileFilterGenerator = importInfo.FileFilterGenerator;
 
                 // Assert
-                Assert.AreEqual("Shapebestand (*.shp)|*.shp", fileFilter.Filter);
+                Assert.AreEqual("Shapebestand (*.shp)|*.shp", fileFilterGenerator.Filter);
             }
         }
 

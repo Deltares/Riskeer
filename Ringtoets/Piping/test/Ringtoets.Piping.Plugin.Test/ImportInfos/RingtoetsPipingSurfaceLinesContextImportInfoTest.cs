@@ -133,10 +133,10 @@ namespace Ringtoets.Piping.Plugin.Test.ImportInfos
         public void FileFilterGenerator_Always_ReturnExpectedFileFilter()
         {
             // Call
-            FileFilterGenerator fileFilter = importInfo.FileFilterGenerator;
+            FileFilterGenerator fileFilterGenerator = importInfo.FileFilterGenerator;
 
             // Assert
-            Assert.AreEqual("Profielschematisaties Kommagescheiden bestand (*.csv)|*.csv", fileFilter.Filter);
+            Assert.AreEqual("Profielschematisaties Kommagescheiden bestand (*.csv)|*.csv", fileFilterGenerator.Filter);
         }
 
         [Test]
