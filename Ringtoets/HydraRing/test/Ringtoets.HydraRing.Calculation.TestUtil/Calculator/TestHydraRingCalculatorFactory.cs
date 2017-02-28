@@ -135,7 +135,7 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.Calculator
         public double ReliabilityIndex { get; set; }
         public string OutputDirectory { get; set; }
         public string LastErrorFileContent { get; set; }
-        public bool? Converged { get; }
+        public bool? Converged { get; set; }
     }
 
     public class TestDesignWaterLevelCalculator : TestHydraRingCalculator<AssessmentLevelCalculationInput>, IDesignWaterLevelCalculator
