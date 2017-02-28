@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Data;
 using System.Data.SQLite;
 using System.IO;
 using Core.Common.TestUtil;
