@@ -59,23 +59,6 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
         }
 
         [Test]
-        public void WmtsConnectionInfoConstructor_WithoutWmtsConnectionInfo_ThrowsArgumentNullException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var dialogParent = mocks.StrictMock<IWin32Window>();
-            mocks.ReplayAll();
-
-            // Call
-            TestDelegate test = () => new WmtsConnectionDialog(dialogParent, null);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("wmtsConnectionInfo", paramName);
-            mocks.VerifyAll();
-        }
-
-        [Test]
         public void Constructor_WithDialogParent_ExpectedProperties()
         {
             // Setup

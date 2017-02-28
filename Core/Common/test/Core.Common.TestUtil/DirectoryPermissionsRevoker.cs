@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security;
 using System.Security.AccessControl;
 using System.Security.Principal;
 
@@ -51,6 +52,9 @@ namespace Core.Common.TestUtil
         /// does not exist.</exception>
         /// <exception cref="NotSupportedException">Thrown when the <paramref name="rights"/> is 
         /// not supported to set on the folder.</exception>
+        /// <exception cref="PathTooLongException">Thrown when <paramref name="folderPath"/> exceed the 
+        /// system-defined maximum length.</exception>
+        /// <exception cref="SecurityException">Thrown when the caller does not have the required permissions.</exception>
         public DirectoryPermissionsRevoker(string folderPath, FileSystemRights rights)
         {
             if (string.IsNullOrWhiteSpace(folderPath))
@@ -68,7 +72,7 @@ namespace Core.Common.TestUtil
             if ((rights ^ FileSystemRights.Synchronize) == 0)
             {
                 // The FileSystemRights Synchronize by itself cannot be set.
-                throw new NotSupportedException(string.Format("Setting the right {0} is not supported.", rights));
+                throw new NotSupportedException($"Setting the right {rights} is not supported.");
             }
             AddDenyDirectoryInfoRight(GetSupportedFileSystemRights(rights));
         }
@@ -90,7 +94,7 @@ namespace Core.Common.TestUtil
             {
                 foreach (FileSystemAccessRule appliedFileSystemAccessRule in appliedFileSystemAccessRules)
                 {
-                    RevertDenyDirectoryInfoRight(appliedFileSystemAccessRule);
+                    TryRevertDenyDirectoryInfoRight(appliedFileSystemAccessRule);
                 }
             }
 
@@ -126,13 +130,20 @@ namespace Core.Common.TestUtil
             return rights & ~FileSystemRights.Synchronize;
         }
 
-        private void RevertDenyDirectoryInfoRight(FileSystemAccessRule rule)
+        private void TryRevertDenyDirectoryInfoRight(FileSystemAccessRule rule)
         {
-            DirectorySecurity directorySecurity = directoryInfo.GetAccessControl();
+            try
+            {
+                DirectorySecurity directorySecurity = directoryInfo.GetAccessControl();
 
-            directorySecurity.RemoveAccessRule(rule);
+                directorySecurity.RemoveAccessRule(rule);
 
-            directoryInfo.SetAccessControl(directorySecurity);
+                directoryInfo.SetAccessControl(directorySecurity);
+            }
+            catch (SystemException)
+            {
+                // Ignored
+            }
         }
 
         private static SecurityIdentifier GetSecurityIdentifier()

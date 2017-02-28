@@ -33,36 +33,24 @@ namespace Core.Components.DotSpatial.Forms.Views
     public partial class WmtsConnectionDialog : DialogBase
     {
         /// <summary>
-        /// Creates a new instance of <see cref="WmtsConnectionDialog"/>.
-        /// </summary>
-        /// <param name="dialogParent">The parent of the dialog.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="dialogParent"/> is <c>null</c>.</exception>
-        public WmtsConnectionDialog(IWin32Window dialogParent) : base(dialogParent, Resources.MapsIcon, 400, 150)
-        {
-            InitializeComponent();
-            UpdateActionButton();
-            InitializeEventHandlers();
-
-            InitializeErrorProvider();
-        }
-
-        /// <summary>
         /// Creates a new instance of <see cref="WmtsConnectionDialog"/> in edit mode.
         /// </summary>
         /// <param name="dialogParent">The parent of the dialog.</param>
         /// <param name="wmtsConnectionInfo">The information to set in the input boxes.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any of the input parameters is <c>null</c>.</exception>
-        public WmtsConnectionDialog(IWin32Window dialogParent, WmtsConnectionInfo wmtsConnectionInfo) : this(dialogParent)
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="dialogParent"/> is <c>null</c>.</exception>
+        public WmtsConnectionDialog(IWin32Window dialogParent, WmtsConnectionInfo wmtsConnectionInfo = null)
+            : base(dialogParent, Resources.MapsIcon, 400, 150)
         {
-            if (wmtsConnectionInfo == null)
+            InitializeComponent();
+
+            if (wmtsConnectionInfo != null)
             {
-                throw new ArgumentNullException(nameof(wmtsConnectionInfo));
+                SetWmtsConnectionInfo(wmtsConnectionInfo);
             }
 
-            nameTextBox.Text = wmtsConnectionInfo.Name;
-            urlTextBox.Text = wmtsConnectionInfo.Url;
-            actionButton.Text = Resources.WmtsConnectionDialog_ActionButton_Edit;
-            Text = Resources.WmtsConnectionDialog_Text_Edit;
+            UpdateActionButton();
+            InitializeEventHandlers();
+            InitializeErrorProvider();
         }
 
         /// <summary>
@@ -87,6 +75,14 @@ namespace Core.Components.DotSpatial.Forms.Views
         protected override Button GetCancelButton()
         {
             return cancelButton;
+        }
+
+        private void SetWmtsConnectionInfo(WmtsConnectionInfo wmtsConnectionInfo)
+        {
+            nameTextBox.Text = wmtsConnectionInfo.Name;
+            urlTextBox.Text = wmtsConnectionInfo.Url;
+            actionButton.Text = Resources.WmtsConnectionDialog_ActionButton_Edit;
+            Text = Resources.WmtsConnectionDialog_Text_Edit;
         }
 
         private void InitializeErrorProvider()
