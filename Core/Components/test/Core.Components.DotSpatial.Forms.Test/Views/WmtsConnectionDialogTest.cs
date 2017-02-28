@@ -247,11 +247,10 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
             // Setup
             const string urltextbox = @"urlTextBox";
             const string nametextbox = @"nameTextBox";
-            var dialogResult = DialogResult.None;
 
             DialogBoxHandler = (formName, wnd) =>
             {
-                using (var formTester = new FormTester(formName))
+                using (new FormTester(formName))
                 {
                     var nameTextBox = (TextBox) new TextBoxTester("nameTextBox", formName).TheObject;
                     var urlTextBox = (TextBox) new TextBoxTester("urlTextBox", formName).TheObject;
@@ -262,15 +261,13 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
 
                     // Call
                     actionButton.Click();
-
-                    dialogResult = formTester.DialogResult;
                 }
             };
 
             using (var dialogParent = new Form())
             using (var dialog = new WmtsConnectionDialog(dialogParent))
             {
-                dialog.ShowDialog();
+                DialogResult dialogResult = dialog.ShowDialog();
 
                 // Assert
                 Assert.AreEqual(nametextbox, dialog.WmtsConnectionName);
@@ -300,13 +297,14 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
             using (var dialog = new WmtsConnectionDialog(dialogParent))
             {
                 // When
-                dialog.ShowDialog();
+                DialogResult dialogResult = dialog.ShowDialog();
 
                 // Then
                 Assert.IsNull(dialog.WmtsConnectionName);
                 Assert.IsNull(dialog.WmtsConnectionUrl);
 
                 Assert.AreEqual(dialog.CancelButton, cancelButton);
+                Assert.AreEqual(DialogResult.Cancel, dialogResult);
             }
         }
 

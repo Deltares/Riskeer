@@ -208,32 +208,6 @@ namespace Core.Common.TestUtil.Test
         }
 
         [Test]
-        public void GetScratchPadPath_WithSubPathAndScratchPadFolderDoesntExist_ThrowIOException()
-        {
-            // Setup
-            string actualPath = TestHelper.GetScratchPadPath();
-
-            Directory.Delete(actualPath, true);
-
-            try
-            {
-                string subPath = Path.Combine("test", "1.234");
-
-                // Call
-                TestDelegate call = () => TestHelper.GetScratchPadPath(subPath);
-
-                // Assert
-                string message = Assert.Throws<IOException>(call).Message;
-                const string expectedMessage = "The 'Scratchpad' folder has been deleted from the trunk, while tests require the existence of this folder for writing to disk temporarily.";
-                Assert.AreEqual(expectedMessage, message);
-            }
-            finally
-            {
-                Directory.CreateDirectory(actualPath);
-            }
-        }
-
-        [Test]
         public void GetTestDataPath_Always_VerifiedTestPaths()
         {
             string path = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Storage);

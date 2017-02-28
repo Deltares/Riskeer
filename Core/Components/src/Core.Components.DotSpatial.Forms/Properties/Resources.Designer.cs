@@ -193,7 +193,7 @@ namespace Core.Components.DotSpatial.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het is niet mogelijk om WMTS connectie {0} aan te maken met URL &apos;{1}&apos;..
+        ///   Looks up a localized string similar to Het is niet mogelijk om WMTS connectie &apos;{0}&apos; aan te maken met URL &apos;{1}&apos;..
         /// </summary>
         public static string WmtsConnectionInfoReader_Unable_To_Create_WmtsConnectionInfo {
             get {

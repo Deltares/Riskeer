@@ -145,7 +145,7 @@
     <value>WMTS locatie aanpassen</value>
   </data>
   <data name="WmtsConnectionInfoReader_Unable_To_Create_WmtsConnectionInfo" xml:space="preserve">
-    <value>Het is niet mogelijk om WMTS connectie {0} aan te maken met URL '{1}'.</value>
+    <value>Het is niet mogelijk om WMTS connectie '{0}' aan te maken met URL '{1}'.</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="MapsIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">

@@ -130,7 +130,7 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
 
                 var urlLocations = (ComboBox) new ComboBoxTester("urlLocationComboBox", form).TheObject;
                 Assert.AreEqual(ComboBoxStyle.DropDownList, urlLocations.DropDownStyle);
-                Assert.IsInstanceOf<List<WmtsConnectionInfo>>(urlLocations.DataSource);
+                Assert.IsInstanceOf<ICollection<WmtsConnectionInfo>>(urlLocations.DataSource);
                 Assert.AreEqual("Name", urlLocations.DisplayMember);
                 Assert.AreEqual("Url", urlLocations.ValueMember);
                 Assert.IsTrue(urlLocations.Sorted);
@@ -204,26 +204,26 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
                 var dataGridViewControl = (DataGridViewControl) new ControlTester("dataGridViewControl", form).TheObject;
                 var dataGridView = dataGridViewControl.Controls.OfType<DataGridView>().First();
 
-                Assert.AreEqual(DataGridViewSelectionMode.FullRowSelect, dataGridView.SelectionMode);
-                Assert.IsFalse(dataGridView.MultiSelect);
+                Assert.AreEqual(DataGridViewSelectionMode.FullRowSelect, dataGridViewControl.SelectionMode);
+                Assert.IsFalse(dataGridViewControl.MultiSelect);
                 Assert.AreEqual(4, dataGridView.ColumnCount);
 
-                var mapLayerIdColumn = (DataGridViewTextBoxColumn) dataGridView.Columns[mapLayerIdColumnIndex];
+                var mapLayerIdColumn = (DataGridViewTextBoxColumn) dataGridViewControl.GetColumnFromIndex(mapLayerIdColumnIndex);
                 Assert.AreEqual("Kaartlaag", mapLayerIdColumn.HeaderText);
                 Assert.AreEqual("Id", mapLayerIdColumn.DataPropertyName);
                 Assert.IsTrue(mapLayerIdColumn.ReadOnly);
 
-                var mapLayerFormatColumn = (DataGridViewTextBoxColumn) dataGridView.Columns[mapLayerFormatColumnIndex];
+                var mapLayerFormatColumn = (DataGridViewTextBoxColumn) dataGridViewControl.GetColumnFromIndex(mapLayerFormatColumnIndex);
                 Assert.AreEqual("Formaat", mapLayerFormatColumn.HeaderText);
                 Assert.AreEqual("Format", mapLayerFormatColumn.DataPropertyName);
                 Assert.IsTrue(mapLayerFormatColumn.ReadOnly);
 
-                var mapLayerTitleColumn = (DataGridViewTextBoxColumn) dataGridView.Columns[mapLayerTitleColumnIndex];
+                var mapLayerTitleColumn = (DataGridViewTextBoxColumn) dataGridViewControl.GetColumnFromIndex(mapLayerTitleColumnIndex);
                 Assert.AreEqual("Titel", mapLayerTitleColumn.HeaderText);
                 Assert.AreEqual("Title", mapLayerTitleColumn.DataPropertyName);
                 Assert.IsTrue(mapLayerTitleColumn.ReadOnly);
 
-                var mapLayerCoordinateSystemColumn = (DataGridViewTextBoxColumn) dataGridView.Columns[mapLayerCoordinateSystemColumnIndex];
+                var mapLayerCoordinateSystemColumn = (DataGridViewTextBoxColumn) dataGridViewControl.GetColumnFromIndex(mapLayerCoordinateSystemColumnIndex);
                 Assert.AreEqual("Coördinatenstelsel", mapLayerCoordinateSystemColumn.HeaderText);
                 Assert.AreEqual("CoordinateSystem", mapLayerCoordinateSystemColumn.DataPropertyName);
                 Assert.IsTrue(mapLayerCoordinateSystemColumn.ReadOnly);
@@ -322,14 +322,13 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
             {
                 ApplicationLocalUserSettingsDirectory = TestHelper.GetTestDataPath(testPath, "noConfig")
             }))
+            using (var form = new Form())
             {
                 // Call
-                using (WmtsLocationControl control = ShowFullyConfiguredWmtsLocationControl())
+                using (ShowFullyConfiguredWmtsLocationControl(form))
                 {
-                    Form form = control.FindForm();
-
                     // Assert
-                    var dataGridViewControl = (DataGridViewControl) new ControlTester("dataGridViewControl", form).TheObject;
+                    var dataGridViewControl = (DataGridViewControl)new ControlTester("dataGridViewControl", form).TheObject;
                     DataGridViewRowCollection rows = dataGridViewControl.Rows;
                     Assert.AreEqual(2, rows.Count);
 
@@ -383,40 +382,11 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
             {
                 ApplicationLocalUserSettingsDirectory = TestHelper.GetTestDataPath(testPath, "noConfig")
             }))
-            using (WmtsLocationControl control = ShowFullyConfiguredWmtsLocationControl())
+            using (var form = new Form())
+            using (WmtsLocationControl control = ShowFullyConfiguredWmtsLocationControl(form))
             {
                 // Call                
                 MapData selectedMapData = control.SelectedMapData;
-
-                // Assert
-                Assert.IsNull(selectedMapData);
-            }
-        }
-
-        [Test]
-        public void GetSelectedMapData_WithoutSelectedComboBoxWithSelectedRow_ReturnsNull()
-        {
-            // Setup
-            mockRepository.ReplayAll();
-
-            using (new UseCustomTileSourceFactoryConfig(tileFactory))
-            using (var form = new Form())
-            using (var control = new WmtsLocationControl(null))
-            {
-                form.Controls.Add(control);
-                form.Show();
-
-                var dataGridViewControl = (DataGridViewControl) new ControlTester("dataGridViewControl", form).TheObject;
-                dataGridViewControl.SetDataSource(new[]
-                {
-                    new WmtsCapabilityRow(new WmtsCapability("-", "image/png", "-", "-"))
-                });
-
-                var dataGridView = dataGridViewControl.Controls.OfType<DataGridView>().First();
-                dataGridView.CurrentCell = dataGridView.Rows[0].Cells[0];
-
-                // Call
-                WmtsMapData selectedMapData = control.SelectedMapData;
 
                 // Assert
                 Assert.IsNull(selectedMapData);
@@ -435,12 +405,11 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
             {
                 ApplicationLocalUserSettingsDirectory = TestHelper.GetTestDataPath(testPath, "noConfig")
             }))
-            using (WmtsLocationControl control = ShowFullyConfiguredWmtsLocationControl())
+            using (var form = new Form())
+            using (WmtsLocationControl control = ShowFullyConfiguredWmtsLocationControl(form))
             {
-                Form form = control.FindForm();
-                var dataGridViewControl = (DataGridViewControl) new ControlTester("dataGridViewControl", form).TheObject;
-                var dataGridView = dataGridViewControl.Controls.OfType<DataGridView>().First();
-                dataGridView.CurrentCell = dataGridView.Rows[1].Cells[0];
+                var dataGridViewControl = (DataGridViewControl)new ControlTester("dataGridViewControl", form).TheObject;
+                dataGridViewControl.SetCurrentCell(dataGridViewControl.GetCell(1, 0));
 
                 // Call
                 WmtsMapData selectedMapData = control.SelectedMapData;
@@ -843,66 +812,6 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
         }
 
         [Test]
-        [Apartment(ApartmentState.STA)]
-        public void GivenWmtsLocationControlAndEditLocationClicked_WhenInValidDataInDialog_ThenWmtsLocationsNotUpdated()
-        {
-            // Given
-            tileFactory.Expect(tf => tf.GetWmtsTileSources(null)).IgnoreArguments().Return(Enumerable.Empty<ITileSource>());
-            mockRepository.ReplayAll();
-
-            DialogBoxHandler = (formName, wnd) =>
-            {
-                using (var formTester = new FormTester(formName))
-                {
-                    var dialog = (WmtsConnectionDialog) formTester.TheObject;
-                    var nameTextBox = (TextBox) new TextBoxTester("nameTextBox", dialog).TheObject;
-                    var urlTextBox = (TextBox) new TextBoxTester("urlTextBox", dialog).TheObject;
-                    var actionButtonTester = new ButtonTester("actionButton", dialog);
-                    var actionButton = (Button) actionButtonTester.TheObject;
-
-                    nameTextBox.Text = "";
-                    urlTextBox.Text = "";
-                    actionButton.Enabled = true;
-                    actionButtonTester.Click();
-                }
-            };
-
-            using (new UseCustomSettingsHelper(new TestSettingsHelper
-            {
-                ApplicationLocalUserSettingsDirectory = TestHelper.GetTestDataPath(testPath, "noConfig")
-            }))
-            using (new UseCustomTileSourceFactoryConfig(tileFactory))
-            using (var form = new Form())
-            using (var control = new WmtsLocationControl(null))
-            {
-                form.Controls.Add(control);
-                form.Show();
-
-                var comboBox = (ComboBox) new ComboBoxTester("urlLocationComboBox", form).TheObject;
-                comboBox.DataSource = new List<WmtsConnectionInfo>
-                {
-                    new WmtsConnectionInfo("oldName", "oldUrl")
-                };
-
-                var editLocationButton = new ButtonTester("editLocationButton", form);
-                ((Button) editLocationButton.TheObject).Enabled = true;
-
-                // When
-                editLocationButton.Click();
-
-                // Then
-                var dataSource = (List<WmtsConnectionInfo>) comboBox.DataSource;
-                Assert.AreEqual(1, dataSource.Count);
-                var item = (WmtsConnectionInfo) comboBox.Items[0];
-                Assert.AreEqual("oldName", item.Name);
-                Assert.AreEqual("oldUrl", item.Url);
-
-                var connectToButton = (Button) new ButtonTester("connectToButton", form).TheObject;
-                Assert.IsFalse(connectToButton.Enabled);
-            }
-        }
-
-        [Test]
         public void GivenWmtsLocationControlAndConnectClicked_WhenValidDataFromUrl_ThenDataGridUpdated()
         {
             // Given
@@ -911,18 +820,17 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
             WmtsMapData backgroundMapData = WmtsMapData.CreateDefaultPdokMapData();
 
             using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
-            using (WmtsLocationControl control = ShowValidWmtsLocationControl())
+            using (var form = new Form())
+            using (ShowValidWmtsLocationControl(form))
             {
-                Form form = control.FindForm();
-                form?.Show();
-
+                form.Show();
                 var connectToButton = new ButtonTester("connectToButton", form);
 
                 // When
                 connectToButton.Click();
 
                 // Then
-                var dataGridViewControl = (DataGridViewControl) new ControlTester("dataGridViewControl", form).TheObject;
+                var dataGridViewControl = (DataGridViewControl)new ControlTester("dataGridViewControl", form).TheObject;
                 DataGridViewRowCollection rows = dataGridViewControl.Rows;
                 Assert.AreEqual(1, rows.Count);
 
@@ -956,11 +864,10 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
             };
 
             using (new UseCustomTileSourceFactoryConfig(tileFactory))
-            using (WmtsLocationControl control = ShowValidWmtsLocationControl())
+            using (var form = new Form())
+            using (ShowValidWmtsLocationControl(form))
             {
-                Form form = control.FindForm();
-                form?.Show();
-
+                form.Show();
                 var connectToButton = new ButtonTester("connectToButton", form);
 
                 // When
@@ -1008,10 +915,9 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
             Assert.AreEqual(expected.SourceCapabilitiesUrl, actual.SourceCapabilitiesUrl);
         }
 
-        private WmtsLocationControl ShowFullyConfiguredWmtsLocationControl()
+        private static WmtsLocationControl ShowFullyConfiguredWmtsLocationControl(Form form)
         {
-            WmtsLocationControl control = ShowValidWmtsLocationControl();
-            Form form = control.FindForm();
+            WmtsLocationControl control = ShowValidWmtsLocationControl(form);
 
             var capabilities = new List<WmtsCapabilityRow>
             {
@@ -1025,9 +931,8 @@ namespace Core.Components.DotSpatial.Forms.Test.Views
             return control;
         }
 
-        private WmtsLocationControl ShowValidWmtsLocationControl()
+        private static WmtsLocationControl ShowValidWmtsLocationControl(Form form)
         {
-            var form = new Form();
             var control = new WmtsLocationControl(null);
             form.Controls.Add(control);
 

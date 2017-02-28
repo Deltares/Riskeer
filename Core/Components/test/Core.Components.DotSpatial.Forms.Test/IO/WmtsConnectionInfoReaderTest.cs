@@ -81,7 +81,7 @@ namespace Core.Components.DotSpatial.Forms.Test.IO
             TestDelegate call = () => reader.ReadWmtsConnectionInfos(filePath);
 
             // Assert
-            var expectedMessage = "Fout bij het lezen van bestand 'c:/\".config': "
+            var expectedMessage = $"Fout bij het lezen van bestand '{filePath}': "
                                   + "er zitten ongeldige tekens in het bestandspad. Alle tekens in het bestandspad moeten geldig zijn.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
@@ -184,7 +184,7 @@ namespace Core.Components.DotSpatial.Forms.Test.IO
             Action action = () => { readConnectionInfos = reader.ReadWmtsConnectionInfos(filePath).ToArray(); };
 
             // Assert
-            string expectedMessage = $"Fout bij het lezen van bestand '{filePath}': het is niet mogelijk om WMTS connectie First name aan te maken met URL ''.";
+            string expectedMessage = $"Fout bij het lezen van bestand '{filePath}': het is niet mogelijk om WMTS connectie 'First name' aan te maken met URL ''.";
             TestHelper.AssertLogMessageWithLevelIsGenerated(action, Tuple.Create(expectedMessage, LogLevelConstant.Warn));
 
             Assert.IsNotNull(readConnectionInfos);
