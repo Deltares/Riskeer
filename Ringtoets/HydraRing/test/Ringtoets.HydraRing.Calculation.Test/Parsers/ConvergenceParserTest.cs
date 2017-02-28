@@ -40,7 +40,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
         private const string convergenceOnBothForSection1 = "ConvergenceOnBothSection1";
         private const string noConvergenceForSection1 = "NoConvergenceSection1";
         private const string convergenceOnAllButLastIterationForSection1 = "ConvergenceOnAllButLastIteration";
-        private static readonly string testDirectory = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.Calculation, Path.Combine("Parsers", nameof(ConvergenceParser)));
+        private static readonly string testDirectory = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.Calculation, Path.Combine("Parsers", "ConvergenceParser"));
 
         [Test]
         public void DefaultConstrutor_Always_CreatesNewHydraRingFileParser()

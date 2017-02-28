@@ -52,7 +52,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
         {
             if (workingDirectory == null)
             {
-                throw new ArgumentNullException(nameof(workingDirectory));
+                throw new ArgumentNullException("workingDirectory");
             }
             FileUtils.ValidateFilePath(workingDirectory);
 

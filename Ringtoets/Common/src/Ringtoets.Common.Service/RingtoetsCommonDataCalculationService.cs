@@ -59,7 +59,7 @@ namespace Ringtoets.Common.Service
         {
             if (!(failureMechanismContribution > 0))
             {
-                throw new ArgumentOutOfRangeException(nameof(failureMechanismContribution), failureMechanismContribution,
+                throw new ArgumentOutOfRangeException("failureMechanismContribution", failureMechanismContribution,
                                                       Resources.RingtoetsCommonDataCalculationService_ProfileSpecificRequiredProbability_Contribution_is_zero_or_negative);
             }
             if (n == 0)
