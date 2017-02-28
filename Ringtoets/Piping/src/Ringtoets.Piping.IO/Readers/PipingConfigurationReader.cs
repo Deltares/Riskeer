@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Xml;
@@ -236,7 +235,7 @@ namespace Ringtoets.Piping.IO.Readers
             XElement childElement = parentElement.Elements(childElementName).FirstOrDefault();
 
             return childElement != null
-                       ? (double?) Convert.ToDouble(childElement.Value, CultureInfo.InvariantCulture)
+                       ? (double?) XmlConvert.ToDouble(childElement.Value)
                        : null;
         }
 

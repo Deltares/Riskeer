@@ -465,6 +465,30 @@ namespace Ringtoets.Piping.IO.Test.Readers
         }
 
         [Test]
+        public void Read_ValidConfigurationWithCalculationContainingInfinities_ReturnExpectedReadPipingCalculation()
+        {
+            // Setup
+            string filePath = Path.Combine(testDirectoryPath, "validConfigurationCalculationContainingInfinities.xml");
+            var pipingConfigurationReader = new PipingConfigurationReader(filePath);
+
+            // Call
+            IList<IReadPipingCalculationItem> readPipingCalculationItems = pipingConfigurationReader.Read().ToList();
+
+            // Assert
+            Assert.AreEqual(1, readPipingCalculationItems.Count);
+
+            var calculation = readPipingCalculationItems[0] as ReadPipingCalculation;
+            Assert.IsNotNull(calculation);
+            Assert.IsTrue(calculation.AssessmentLevel != null && double.IsNegativeInfinity((double) calculation.AssessmentLevel));
+            Assert.IsTrue(calculation.EntryPointL != null && double.IsNegativeInfinity(calculation.EntryPointL.Value));
+            Assert.IsTrue(calculation.ExitPointL != null && double.IsPositiveInfinity((double) calculation.ExitPointL));
+            Assert.IsTrue(calculation.PhreaticLevelExitMean != null && double.IsNegativeInfinity((double) calculation.PhreaticLevelExitMean));
+            Assert.IsTrue(calculation.PhreaticLevelExitStandardDeviation != null && double.IsPositiveInfinity((double) calculation.PhreaticLevelExitStandardDeviation));
+            Assert.IsTrue(calculation.DampingFactorExitMean != null && double.IsPositiveInfinity((double) calculation.DampingFactorExitMean));
+            Assert.IsTrue(calculation.DampingFactorExitStandardDeviation != null && double.IsPositiveInfinity((double) calculation.DampingFactorExitStandardDeviation));
+        }
+
+        [Test]
         public void Read_ValidConfigurationWithFullCalculationContainingHydraulicBoundaryLocation_ReturnExpectedReadPipingCalculation()
         {
             // Setup
