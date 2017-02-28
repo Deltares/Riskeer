@@ -299,6 +299,26 @@ namespace Ringtoets.Piping.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Een gemiddelde van &apos;{0}&apos; is ongeldig voor stochast &apos;{1}&apos;..
+        /// </summary>
+        public static string PipingConfigurationImporter_ReadStochasts_Invalid_mean_0_for_stochast_with_name_1 {
+            get {
+                return ResourceManager.GetString("PipingConfigurationImporter_ReadStochasts_Invalid_mean_0_for_stochast_with_name_1" +
+                        "", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Een standaardafwijking van &apos;{0}&apos; is ongeldig voor stochast &apos;{1}&apos;..
+        /// </summary>
+        public static string PipingConfigurationImporter_ReadStochasts_Invalid_standard_deviation_0_for_stochast_with_name_1 {
+            get {
+                return ResourceManager.GetString("PipingConfigurationImporter_ReadStochasts_Invalid_standard_deviation_0_for_stocha" +
+                        "st_with_name_1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to De profielschematisatie &apos;{0}&apos; bestaat niet..
         /// </summary>
         public static string PipingConfigurationImporter_ReadSurfaceLine_SurfaceLine_0_does_not_exist {

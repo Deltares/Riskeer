@@ -34,6 +34,7 @@ using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.IO.Properties;
 using Ringtoets.Piping.IO.Readers;
+using Ringtoets.Piping.IO.Schema;
 using Ringtoets.Piping.Primitives;
 using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 
@@ -245,20 +246,20 @@ namespace Ringtoets.Piping.IO.Importers
         {
             if (readCalculation.EntryPointL.HasValue)
             {
-                var valueToSet = (double) readCalculation.EntryPointL;
+                var entryPoint = (double) readCalculation.EntryPointL;
 
                 PerformActionHandlingAnyArgumentOutOfRangeException(
-                    () => pipingCalculation.InputParameters.EntryPointL = (RoundedDouble) valueToSet,
-                    string.Format(Resources.PipingConfigurationImporter_ReadEntryExitPoint_Entry_point_invalid, valueToSet));
+                    () => pipingCalculation.InputParameters.EntryPointL = (RoundedDouble) entryPoint,
+                    string.Format(Resources.PipingConfigurationImporter_ReadEntryExitPoint_Entry_point_invalid, entryPoint));
             }
 
             if (readCalculation.ExitPointL.HasValue)
             {
-                var valueToSet = (double) readCalculation.ExitPointL;
+                var exitPoint = (double) readCalculation.ExitPointL;
 
                 PerformActionHandlingAnyArgumentOutOfRangeException(
-                    () => pipingCalculation.InputParameters.ExitPointL = (RoundedDouble) valueToSet,
-                    string.Format(Resources.PipingConfigurationImporter_ReadEntryExitPoint_Exit_point_invalid, valueToSet));
+                    () => pipingCalculation.InputParameters.ExitPointL = (RoundedDouble) exitPoint,
+                    string.Format(Resources.PipingConfigurationImporter_ReadEntryExitPoint_Exit_point_invalid, exitPoint));
             }
         }
 
@@ -337,22 +338,42 @@ namespace Ringtoets.Piping.IO.Importers
 
         private static void ReadStochasts(ReadPipingCalculation readCalculation, PipingCalculationScenario pipingCalculation)
         {
-            if (readCalculation.DampingFactorExitMean.HasValue && readCalculation.DampingFactorExitStandardDeviation.HasValue)
-            {
-                pipingCalculation.InputParameters.DampingFactorExit = new LogNormalDistribution
-                {
-                    Mean = (RoundedDouble) readCalculation.DampingFactorExitMean,
-                    StandardDeviation = (RoundedDouble) readCalculation.DampingFactorExitStandardDeviation
-                };
-            }
-
             if (readCalculation.PhreaticLevelExitMean.HasValue && readCalculation.PhreaticLevelExitStandardDeviation.HasValue)
             {
-                pipingCalculation.InputParameters.PhreaticLevelExit = new NormalDistribution
-                {
-                    Mean = (RoundedDouble) readCalculation.PhreaticLevelExitMean,
-                    StandardDeviation = (RoundedDouble) readCalculation.PhreaticLevelExitStandardDeviation
-                };
+                var normalDistribution = new NormalDistribution();
+
+                var mean = (double) readCalculation.PhreaticLevelExitMean;
+                PerformActionHandlingAnyArgumentOutOfRangeException(
+                    () => normalDistribution.Mean = (RoundedDouble) mean,
+                    string.Format(Resources.PipingConfigurationImporter_ReadStochasts_Invalid_mean_0_for_stochast_with_name_1, mean,
+                                  PipingConfigurationSchemaIdentifiers.PhreaticLevelExitStochastName));
+
+                var standardDeviation = (double) readCalculation.PhreaticLevelExitStandardDeviation;
+                PerformActionHandlingAnyArgumentOutOfRangeException(
+                    () => normalDistribution.StandardDeviation = (RoundedDouble) standardDeviation,
+                    string.Format(Resources.PipingConfigurationImporter_ReadStochasts_Invalid_standard_deviation_0_for_stochast_with_name_1, mean,
+                                  PipingConfigurationSchemaIdentifiers.PhreaticLevelExitStochastName));
+
+                pipingCalculation.InputParameters.PhreaticLevelExit = normalDistribution;
+            }
+
+            if (readCalculation.DampingFactorExitMean.HasValue && readCalculation.DampingFactorExitStandardDeviation.HasValue)
+            {
+                var logNormalDistribution = new LogNormalDistribution();
+
+                var mean = (double) readCalculation.DampingFactorExitMean;
+                PerformActionHandlingAnyArgumentOutOfRangeException(
+                    () => logNormalDistribution.Mean = (RoundedDouble) mean,
+                    string.Format(Resources.PipingConfigurationImporter_ReadStochasts_Invalid_mean_0_for_stochast_with_name_1, mean,
+                                  PipingConfigurationSchemaIdentifiers.DampingFactorExitStochastName));
+
+                var standardDeviation = (double) readCalculation.DampingFactorExitStandardDeviation;
+                PerformActionHandlingAnyArgumentOutOfRangeException(
+                    () => logNormalDistribution.StandardDeviation = (RoundedDouble) standardDeviation,
+                    string.Format(Resources.PipingConfigurationImporter_ReadStochasts_Invalid_standard_deviation_0_for_stochast_with_name_1, mean,
+                                  PipingConfigurationSchemaIdentifiers.DampingFactorExitStochastName));
+
+                pipingCalculation.InputParameters.DampingFactorExit = logNormalDistribution;
             }
         }
 

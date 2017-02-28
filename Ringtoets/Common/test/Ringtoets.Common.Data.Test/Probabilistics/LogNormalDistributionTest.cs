@@ -184,8 +184,8 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
             TestDelegate call = () => distribution.Shift = new RoundedDouble(2, 100.0);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentOutOfRangeException>(call).ParamName;
-            Assert.AreEqual("De verschuiving mag niet groter zijn dan de verwachtingswaarde.", paramName);
+            const string expectedMessage = "De verschuiving mag niet groter zijn dan de verwachtingswaarde.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
         }
     }
 }

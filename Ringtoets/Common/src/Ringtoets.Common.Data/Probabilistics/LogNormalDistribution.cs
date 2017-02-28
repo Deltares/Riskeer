@@ -80,7 +80,7 @@ namespace Ringtoets.Common.Data.Probabilistics
                 RoundedDouble newShift = value.ToPrecision(shift.NumberOfDecimalPlaces);
                 if (newShift > Mean)
                 {
-                    throw new ArgumentOutOfRangeException(Resources.LogNormalDistribution_Shift_may_not_exceed_Mean);
+                    throw new ArgumentOutOfRangeException(null, Resources.LogNormalDistribution_Shift_may_not_exceed_Mean);
                 }
                 shift = newShift;
             }
@@ -104,11 +104,11 @@ namespace Ringtoets.Common.Data.Probabilistics
 
                 if (roundedValue <= 0)
                 {
-                    throw new ArgumentOutOfRangeException(nameof(value), Resources.LogNormalDistribution_Mean_must_be_greater_than_zero);
+                    throw new ArgumentOutOfRangeException(null, Resources.LogNormalDistribution_Mean_must_be_greater_than_zero);
                 }
                 if (Shift > roundedValue)
                 {
-                    throw new ArgumentOutOfRangeException(Resources.LogNormalDistribution_Shift_may_not_exceed_Mean);
+                    throw new ArgumentOutOfRangeException(null, Resources.LogNormalDistribution_Shift_may_not_exceed_Mean);
                 }
 
                 mean = roundedValue;
@@ -133,7 +133,7 @@ namespace Ringtoets.Common.Data.Probabilistics
 
                 if (roundedValue < 0)
                 {
-                    throw new ArgumentOutOfRangeException(nameof(value), Resources.StandardDeviation_Should_be_greater_or_equal_zero);
+                    throw new ArgumentOutOfRangeException(null, Resources.StandardDeviation_Should_be_greater_or_equal_zero);
                 }
 
                 standardDeviation = roundedValue;
