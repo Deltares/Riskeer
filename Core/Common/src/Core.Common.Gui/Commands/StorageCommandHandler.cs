@@ -101,7 +101,7 @@ namespace Core.Common.Gui.Commands
             log.Info(Resources.Created_new_project_successful);
         }
 
-        public bool OpenExistingProject()
+        public string GetExistingProjectFilePath()
         {
             using (var openFileDialog = new OpenFileDialog
             {
@@ -111,12 +111,12 @@ namespace Core.Common.Gui.Commands
             {
                 if (openFileDialog.ShowDialog(dialogParent) != DialogResult.Cancel && HandleUnsavedChanges())
                 {
-                    return OpenExistingProject(openFileDialog.FileName);
+                    return openFileDialog.FileName;
                 }
             }
 
             log.Info(Resources.StorageCommandHandler_OpenExistingProject_Opening_existing_project_canceled);
-            return false;
+            return null;
         }
 
         public bool OpenExistingProject(string filePath)

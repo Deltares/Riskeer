@@ -342,6 +342,81 @@ namespace Core.Common.Gui.Test.Commands
         }
 
         [Test]
+        [Apartment(ApartmentState.STA)]
+        public void GetExistingProjectFilePath_FilePathSelectedAndOkClicked_ReturnsSelectedFilePath()
+        {
+            // Setup
+            var mainWindowController = mocks.Stub<IWin32Window>();
+            var projectFactory = mocks.Stub<IProjectFactory>();
+            var projectStorage = mocks.Stub<IStoreProject>();
+            var projectOwner = mocks.Stub<IProjectOwner>();
+            var project = mocks.Stub<IProject>();
+
+            projectOwner.Stub(po => po.Project).Return(project);
+            projectFactory.Stub(pf => pf.CreateNewProject()).Return(project);
+            projectStorage.Stub(ps => ps.HasStagedProjectChanges(null)).IgnoreArguments().Return(false);
+            projectStorage.Stub(ps => ps.FileFilter).Return(string.Empty);
+
+            mocks.ReplayAll();
+
+            string projectPath = TestHelper.GetScratchPadPath(
+                nameof(GetExistingProjectFilePath_FilePathSelectedAndOkClicked_ReturnsSelectedFilePath));
+            using (new FileDisposeHelper(projectPath))
+            {
+                var storageCommandHandler = new StorageCommandHandler(
+                    projectStorage,
+                    projectFactory,
+                    projectOwner,
+                    mainWindowController);
+
+                DialogBoxHandler = (name, wnd) =>
+                {
+                    var helper = new OpenFileDialogTester(wnd);
+                    helper.OpenFile(projectPath);
+                };
+
+                // Call
+                string returnedPath = storageCommandHandler.GetExistingProjectFilePath();
+
+                // Assert
+                Assert.AreEqual(projectPath, returnedPath);
+            }
+        }
+
+        [Test]
+        [Apartment(ApartmentState.STA)]
+        public void GetExistingProjectFilePath_NoFilePathSelectedAndCancelClicked_ReturnsFilePathNull()
+        {
+            // Setup
+            var mainWindowController = mocks.Stub<IWin32Window>();
+            var projectFactory = mocks.Stub<IProjectFactory>();
+            var projectStorage = mocks.Stub<IStoreProject>();
+            var projectOwner = mocks.Stub<IProjectOwner>();
+            mocks.ReplayAll();
+
+            var storageCommandHandler = new StorageCommandHandler(
+                projectStorage,
+                projectFactory,
+                projectOwner,
+                mainWindowController);
+
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var helper = new OpenFileDialogTester(wnd);
+                helper.ClickCancel();
+            };
+
+            string returnedPath = string.Empty;
+
+            // Call
+            Action call = () => returnedPath = storageCommandHandler.GetExistingProjectFilePath();
+
+            // Assert
+            TestHelper.AssertLogMessageIsGenerated(call, "Openen van bestaand Ringtoetsproject geannuleerd.");
+            Assert.IsNull(returnedPath);
+        }
+
+        [Test]
         public void AskConfirmationUnsavedChanges_ProjectSetNoChange_ReturnsTrue()
         {
             // Setup

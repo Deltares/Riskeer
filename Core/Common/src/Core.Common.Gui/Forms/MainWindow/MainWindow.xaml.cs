@@ -426,7 +426,11 @@ namespace Core.Common.Gui.Forms.MainWindow
 
         private void OnFileOpenClicked(object sender, RoutedEventArgs e)
         {
-            commands.StorageCommands.OpenExistingProject();
+            string projectPath = commands.StorageCommands.GetExistingProjectFilePath();
+            if (!string.IsNullOrEmpty(projectPath))
+            {
+                commands.StorageCommands.OpenExistingProject(projectPath);
+            }
         }
 
         private void OnFileNewClicked(object sender, RoutedEventArgs e)

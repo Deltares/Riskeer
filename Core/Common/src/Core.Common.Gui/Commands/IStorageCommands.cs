@@ -56,12 +56,11 @@ namespace Core.Common.Gui.Commands
         bool SaveProject();
 
         /// <summary>
-        /// Asks the user to select the file to load a project from, then proceeds to perform
-        /// the read of the project data.
+        /// Asks the user to select the file to load a project from, then returns the selected filepath
+        /// of the selected file.
         /// </summary>
-        /// <returns><c>true</c> if an existing <see cref="IProject"/> has been loaded, 
-        /// <c>false</c> otherwise (for example, user canceled).</returns>
-        bool OpenExistingProject();
+        /// <returns>The file path of the selected file.</returns>
+        string GetExistingProjectFilePath();
 
         /// <summary>
         /// Loads a project from a given file-location.
