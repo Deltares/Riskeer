@@ -119,7 +119,7 @@ namespace Ringtoets.Common.Service
                 if (string.IsNullOrEmpty(calculator.LastErrorFileContent))
                 {
                     hydraulicBoundaryLocation.WaveHeightOutput = CreateHydraulicBoundaryLocationOutput(
-                        messageProvider, hydraulicBoundaryLocation.Name, calculationInput.Beta, norm);
+                        messageProvider, hydraulicBoundaryLocation.Name, calculationInput.Beta, norm, calculator.Converged);
                 }
             }
             catch (HydraRingCalculationException)
@@ -170,20 +170,22 @@ namespace Ringtoets.Common.Service
         /// <param name="hydraulicBoundaryLocationName">The name of the hydraulic boundary location.</param>
         /// <param name="targetReliability">The target reliability for the calculation.</param>
         /// <param name="targetProbability">The target probability for the calculation.</param>
+        /// <param name="calculatorConverged">The value indicating whether the calculation converged.</param>
         /// <returns>A <see cref="HydraulicBoundaryLocationOutput"/>.</returns>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="targetProbability"/> 
         /// or the calculated propability falls outside the [0.0, 1.0] range and is not <see cref="double.NaN"/>.</exception>
-        private HydraulicBoundaryLocationOutput CreateHydraulicBoundaryLocationOutput(ICalculationMessageProvider messageProvider,
-                                                                                      string hydraulicBoundaryLocationName,
-                                                                                      double targetReliability,
-                                                                                      double targetProbability)
+        private HydraulicBoundaryLocationOutput CreateHydraulicBoundaryLocationOutput(
+            ICalculationMessageProvider messageProvider, 
+            string hydraulicBoundaryLocationName, 
+            double targetReliability, 
+            double targetProbability, 
+            bool? calculatorConverged)
         {
             double waveHeight = calculator.WaveHeight;
             double reliability = calculator.ReliabilityIndex;
             double probability = StatisticsConverter.ReliabilityToProbability(reliability);
 
-            CalculationConvergence converged = RingtoetsCommonDataCalculationService.GetCalculationConvergence(
-                reliability, targetProbability);
+            CalculationConvergence converged = RingtoetsCommonDataCalculationService.GetCalculationConvergence(calculatorConverged);
 
             if (converged != CalculationConvergence.CalculatedConverged)
             {

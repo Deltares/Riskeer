@@ -147,9 +147,9 @@ namespace Ringtoets.Common.Service.Test
             {
                 var msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", calculationName), msgs[0]);
+                StringAssert.StartsWith($"Validatie van '{calculationName}' gestart om: ", msgs[0]);
                 StringAssert.StartsWith("Herstellen van de verbinding met de hydraulische randvoorwaardendatabase is mislukt. Fout bij het lezen van bestand", msgs[1]);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", calculationName), msgs[2]);
+                StringAssert.StartsWith($"Validatie van '{calculationName}' beëindigd om: ", msgs[2]);
             });
             Assert.AreEqual(ActivityState.Failed, activity.State);
             mockRepository.VerifyAll();
@@ -180,7 +180,7 @@ namespace Ringtoets.Common.Service.Test
             using (new HydraRingCalculatorFactoryConfig())
             {
                 var testDesignWaterLevelCalculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).DesignWaterLevelCalculator;
-                testDesignWaterLevelCalculator.ReliabilityIndex = StatisticsConverter.ProbabilityToReliability(norm);
+                testDesignWaterLevelCalculator.Converged = true;
 
                 // Call
                 Action call = () => activity.Run();
@@ -190,11 +190,11 @@ namespace Ringtoets.Common.Service.Test
                 {
                     var messages = m.ToArray();
                     Assert.AreEqual(5, messages.Length);
-                    StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", calculationName), messages[0]);
-                    StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", calculationName), messages[1]);
-                    StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculationName), messages[2]);
+                    StringAssert.StartsWith($"Validatie van '{calculationName}' gestart om: ", messages[0]);
+                    StringAssert.StartsWith($"Validatie van '{calculationName}' beëindigd om: ", messages[1]);
+                    StringAssert.StartsWith($"Berekening van '{calculationName}' gestart om: ", messages[2]);
                     StringAssert.StartsWith("Toetspeil berekening is uitgevoerd op de tijdelijke locatie", messages[3]);
-                    StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculationName), messages[4]);
+                    StringAssert.StartsWith($"Berekening van '{calculationName}' beëindigd om: ", messages[4]);
                 });
 
                 var designWaterLevelCalculationInput = testDesignWaterLevelCalculator.ReceivedInputs.First();
@@ -268,7 +268,7 @@ namespace Ringtoets.Common.Service.Test
             {
                 var testDesignWaterLevelCalculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).DesignWaterLevelCalculator;
                 testDesignWaterLevelCalculator.DesignWaterLevel = expectedDesignWaterLevel;
-                testDesignWaterLevelCalculator.ReliabilityIndex = StatisticsConverter.ProbabilityToReliability(norm);
+                testDesignWaterLevelCalculator.Converged = true;
 
                 // Call
                 activity.Run();
@@ -354,7 +354,7 @@ namespace Ringtoets.Common.Service.Test
             using (new HydraRingCalculatorFactoryConfig())
             {
                 var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).DesignWaterLevelCalculator;
-                calculator.ReliabilityIndex = 3;
+                calculator.Converged = false;
 
                 Action call = () => activity.Run();
 

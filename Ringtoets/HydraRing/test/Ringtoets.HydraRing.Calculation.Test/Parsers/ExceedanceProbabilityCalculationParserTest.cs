@@ -73,7 +73,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
             // Assert
             Assert.Throws<HydraRingFileParserException>(test);
             Assert.IsNull(exceedanceProbabilityCalculationExceptionParser.Output);
-            Assert.IsTrue(TestHelper.CanOpenFileForWrite(Path.Combine(workingDirectory, HydraRingFileConstants.OutputDatabaseFileName)));
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(Path.Combine(workingDirectory, HydraRingFileConstants.WorkingDatabaseFileName)));
         }
 
         [Test]
@@ -89,7 +89,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
             // Assert
             Assert.Throws<HydraRingFileParserException>(test);
             Assert.IsNull(exceedanceProbabilityCalculationExceptionParser.Output);
-            Assert.IsTrue(TestHelper.CanOpenFileForWrite(Path.Combine(workingDirectory, HydraRingFileConstants.OutputDatabaseFileName)));
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(Path.Combine(workingDirectory, HydraRingFileConstants.WorkingDatabaseFileName)));
         }
 
         [Test]
@@ -106,7 +106,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
             // Assert
             Assert.Throws<HydraRingFileParserException>(test);
             Assert.IsNull(exceedanceProbabilityCalculationExceptionParser.Output);
-            Assert.IsTrue(TestHelper.CanOpenFileForWrite(Path.Combine(workingDirectory, HydraRingFileConstants.OutputDatabaseFileName)));
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(Path.Combine(workingDirectory, HydraRingFileConstants.WorkingDatabaseFileName)));
         }
 
         [Test]
@@ -169,7 +169,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
                 Assert.AreEqual(expectedAlpha.Alpha, actualAlpha.Alpha);
             }
 
-            Assert.IsTrue(TestHelper.CanOpenFileForWrite(Path.Combine(workingDirectory, HydraRingFileConstants.OutputDatabaseFileName)));
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(Path.Combine(workingDirectory, HydraRingFileConstants.WorkingDatabaseFileName)));
         }
     }
 }

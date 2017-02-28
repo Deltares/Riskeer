@@ -23,7 +23,6 @@ using System;
 using System.Globalization;
 using Core.Common.Base;
 using Core.Common.Base.Data;
-using Core.Common.Utils;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Service.Properties;
 
@@ -38,17 +37,19 @@ namespace Ringtoets.Common.Service
         private static readonly Range<double> contributionValidityRange = new Range<double>(0, 100);
 
         /// <summary>
-        /// Determines whether the calculated output is converged,
-        /// based on the <paramref name="reliabilityIndex"/> and the <paramref name="norm"/>.
+        /// Determines whether the calculated output is converged.
         /// </summary>
-        /// <param name="reliabilityIndex">The resultant reliability index after a calculation.</param>
-        /// <param name="norm">The norm used during the calculation.</param>
-        /// <returns><c>True</c> if the solution converged, <c>false</c> if otherwise.</returns>
-        public static CalculationConvergence GetCalculationConvergence(double reliabilityIndex, double norm)
+        /// <param name="converged">The value indicating whether convergence has been reached.</param>
+        /// <returns><see cref="CalculationConvergence.CalculatedConverged"/> if the calculated output converged,
+        /// <see cref="CalculationConvergence.CalculatedNotConverged"/> if the calculated output did not converge,
+        /// <see cref="CalculationConvergence.NotCalculated"/> if no convergence was determined.</returns>
+        public static CalculationConvergence GetCalculationConvergence(bool? converged)
         {
-            return Math.Abs(reliabilityIndex - StatisticsConverter.ProbabilityToReliability(norm)) <= 1.0e-3 ?
-                       CalculationConvergence.CalculatedConverged :
-                       CalculationConvergence.CalculatedNotConverged;
+            return converged.HasValue
+                       ? converged.Value
+                             ? CalculationConvergence.CalculatedConverged
+                             : CalculationConvergence.CalculatedNotConverged
+                       : CalculationConvergence.NotCalculated;
         }
 
         /// <summary>

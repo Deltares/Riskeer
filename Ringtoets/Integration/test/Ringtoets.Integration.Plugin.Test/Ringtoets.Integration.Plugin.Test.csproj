@@ -232,6 +232,10 @@
       <Project>{F0BCF06A-3D01-4D65-A249-E2A14AEC6EFD}</Project>
       <Name>Ringtoets.HeightStructures.Forms</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\HydraRing\src\Ringtoets.HydraRing.Calculation\Ringtoets.HydraRing.Calculation.csproj">
+      <Project>{888D4097-8BC2-4703-9FB1-8744C94D525E}</Project>
+      <Name>Ringtoets.HydraRing.Calculation</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\HydraRing\test\Ringtoets.HydraRing.Calculation.TestUtil\Ringtoets.HydraRing.Calculation.TestUtil.csproj">
       <Project>{74CBA865-9338-447F-BAD9-28312446AE84}</Project>
       <Name>Ringtoets.HydraRing.Calculation.TestUtil</Name>

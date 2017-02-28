@@ -118,7 +118,7 @@ namespace Ringtoets.Common.Service
                 if (string.IsNullOrEmpty(calculator.LastErrorFileContent))
                 {
                     hydraulicBoundaryLocation.DesignWaterLevelOutput = CreateHydraulicBoundaryLocationOutput(
-                        messageProvider, hydraulicBoundaryLocation.Name, calculationInput.Beta, norm);
+                        messageProvider, hydraulicBoundaryLocation.Name, calculationInput.Beta, norm, calculator.Converged);
                 }
             }
             catch (HydraRingCalculationException)
@@ -172,17 +172,18 @@ namespace Ringtoets.Common.Service
         /// <returns>A <see cref="HydraulicBoundaryLocationOutput"/>.</returns>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="targetProbability"/> 
         /// or the calculated propability falls outside the [0.0, 1.0] range and is not <see cref="double.NaN"/>.</exception>
-        private HydraulicBoundaryLocationOutput CreateHydraulicBoundaryLocationOutput(ICalculationMessageProvider messageProvider,
-                                                                                      string hydraulicBoundaryLocationName,
-                                                                                      double targetReliability,
-                                                                                      double targetProbability)
+        private HydraulicBoundaryLocationOutput CreateHydraulicBoundaryLocationOutput(
+            ICalculationMessageProvider messageProvider,
+            string hydraulicBoundaryLocationName,
+            double targetReliability,
+            double targetProbability,
+            bool? calculatorConverged)
         {
             var designWaterLevel = calculator.DesignWaterLevel;
             var reliability = calculator.ReliabilityIndex;
             var probability = StatisticsConverter.ReliabilityToProbability(reliability);
 
-            CalculationConvergence converged = RingtoetsCommonDataCalculationService.GetCalculationConvergence(
-                calculator.ReliabilityIndex, targetProbability);
+            CalculationConvergence converged = RingtoetsCommonDataCalculationService.GetCalculationConvergence(calculatorConverged);
 
             if (converged != CalculationConvergence.CalculatedConverged)
             {

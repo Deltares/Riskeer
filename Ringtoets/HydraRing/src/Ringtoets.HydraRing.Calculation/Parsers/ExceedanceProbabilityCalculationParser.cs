@@ -56,7 +56,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
         {
             try
             {
-                Output = DoParse(Path.Combine(workingDirectory, HydraRingFileConstants.OutputDatabaseFileName), sectionId);
+                Output = DoParse(Path.Combine(workingDirectory, HydraRingFileConstants.WorkingDatabaseFileName), sectionId);
             }
             catch
             {

@@ -35,6 +35,7 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
     {
         private readonly DunesBoundaryConditionsCalculationParser dunesBoundaryParser;
         private readonly ReliabilityIndexCalculationParser targetProbabilityParser;
+        private readonly ConvergenceParser convergenceParser;
 
         /// <summary>
         /// Create a new instance of <see cref="DesignWaterLevelCalculator"/>.
@@ -46,6 +47,7 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
         {
             dunesBoundaryParser = new DunesBoundaryConditionsCalculationParser();
             targetProbabilityParser = new ReliabilityIndexCalculationParser();
+            convergenceParser = new ConvergenceParser();
 
             WaterLevel = double.NaN;
             WaveHeight = double.NaN;
@@ -61,6 +63,8 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
 
         public double ReliabilityIndex { get; private set; }
 
+        public bool? Converged { get; private set; }
+
         public void Calculate(DunesBoundaryConditionsCalculationInput input)
         {
             Calculate(HydraRingUncertaintiesType.All, input);
@@ -68,11 +72,9 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
 
         protected override IEnumerable<IHydraRingFileParser> GetParsers()
         {
-            return new IHydraRingFileParser[]
-            {
-                dunesBoundaryParser,
-                targetProbabilityParser
-            };
+            yield return dunesBoundaryParser;
+            yield return targetProbabilityParser;
+            yield return convergenceParser;
         }
 
         protected override void SetOutputs()
@@ -88,6 +90,9 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
             {
                 ReliabilityIndex = targetProbabilityParser.Output.CalculatedReliabilityIndex;
             }
+
+            Converged = convergenceParser.Output;
         }
+
     }
 }

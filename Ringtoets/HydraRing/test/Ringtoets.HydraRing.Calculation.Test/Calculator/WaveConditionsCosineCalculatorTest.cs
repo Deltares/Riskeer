@@ -40,6 +40,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Calculator
             Assert.IsNaN(calculator.WaveDirection);
             Assert.IsNaN(calculator.WavePeakPeriod);
             Assert.IsNaN(calculator.ReliabilityIndex);
+            Assert.IsNull(calculator.Converged);
             Assert.IsNull(calculator.OutputDirectory);
         }
     }

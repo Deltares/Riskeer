@@ -42,19 +42,21 @@ namespace Ringtoets.Revetment.Service
         /// <param name="waveDirection">The calculated wave direction w.r.t. North.</param>
         /// <param name="norm">The target norm to calculate for.</param>
         /// <param name="calculatedReliability">The calculated reliability.</param>
+        /// <param name="calculatedConvergence">The calculated convergence value.</param>
         /// <returns>The calculated <see cref="WaveConditionsOutput"/>.</returns>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when the target probability or 
         /// calculated probability falls outside the [0.0, 1.0] range and is not <see cref="double.NaN"/>.</exception>
-        public static WaveConditionsOutput Calculate(double waterLevel, double waveHeight, double wavePeakPeriod,
-                                                     double waveAngle, double waveDirection,
-                                                     double norm, double calculatedReliability)
+        public static WaveConditionsOutput Calculate(double waterLevel, double waveHeight,
+                                                     double wavePeakPeriod, double waveAngle,
+                                                     double waveDirection, double norm,
+                                                     double calculatedReliability, bool? calculatedConvergence)
         {
             double targetReliability = StatisticsConverter.ProbabilityToReliability(norm);
             double targetProbability = StatisticsConverter.ReliabilityToProbability(targetReliability);
 
             double calculatedProbability = StatisticsConverter.ReliabilityToProbability(calculatedReliability);
 
-            CalculationConvergence convergence = RingtoetsCommonDataCalculationService.GetCalculationConvergence(calculatedReliability, norm);
+            CalculationConvergence convergence = RingtoetsCommonDataCalculationService.GetCalculationConvergence(calculatedConvergence);
 
             return new WaveConditionsOutput(waterLevel, waveHeight, wavePeakPeriod, waveAngle, waveDirection, targetProbability,
                                             targetReliability, calculatedProbability, calculatedReliability, convergence);

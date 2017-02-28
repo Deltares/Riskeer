@@ -137,6 +137,7 @@ namespace Ringtoets.DuneErosion.Service.Test
                 testCalculator.WaterLevel = 4.82912;
                 testCalculator.WaveHeight = 2.88936;
                 testCalculator.WavePeriod = 10.65437;
+                testCalculator.Converged = true;
 
                 // Call
                 Action test = () => new DuneErosionBoundaryCalculationService().Calculate(duneLocation,

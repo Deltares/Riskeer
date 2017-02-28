@@ -124,7 +124,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
         {
             get
             {
-                return Path.Combine(TemporaryWorkingDirectory, HydraRingFileConstants.OutputDatabaseFileName);
+                return Path.Combine(TemporaryWorkingDirectory, HydraRingFileConstants.WorkingDatabaseFileName);
             }
         }
 

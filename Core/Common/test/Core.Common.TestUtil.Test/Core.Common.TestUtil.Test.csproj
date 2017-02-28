@@ -66,6 +66,7 @@
     <Compile Include="EnumTestFixtureTest.cs" />
     <Compile Include="FileDisposeHelperTest.cs" />
     <Compile Include="DirectoryPermissionsRevokerTest.cs" />
+    <Compile Include="InvalidPathHelperTest.cs" />
     <Compile Include="Point2DComparerWithToleranceTest.cs" />
     <Compile Include="PropertiesTestHelperTest.cs" />
     <Compile Include="Properties\Resources.Designer.cs">

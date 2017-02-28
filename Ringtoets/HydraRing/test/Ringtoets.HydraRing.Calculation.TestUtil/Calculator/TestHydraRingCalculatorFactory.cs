@@ -104,6 +104,7 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.Calculator
         public string LastErrorFileContent { get; set; }
         public double WaveHeight { get; set; }
         public double ReliabilityIndex { get; set; }
+        public bool? Converged { get; set;  }
     }
 
     public class TestWaveConditionsCosineCalculator : TestHydraRingCalculator<WaveConditionsCosineCalculationInput>, IWaveConditionsCosineCalculator
@@ -115,6 +116,7 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.Calculator
         public double WaveHeight { get; set; }
         public double WaveAngle { get; set; }
         public double WavePeakPeriod { get; set; }
+        public bool? Converged { get; set; }
     }
 
     public class TestOvertoppingCalculator : TestHydraRingCalculator<OvertoppingCalculationInput>, IOvertoppingCalculator
@@ -132,6 +134,7 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.Calculator
         public double ReliabilityIndex { get; set; }
         public string OutputDirectory { get; set; }
         public string LastErrorFileContent { get; set; }
+        public bool? Converged { get; set; }
     }
 
     public class TestDesignWaterLevelCalculator : TestHydraRingCalculator<AssessmentLevelCalculationInput>, IDesignWaterLevelCalculator
@@ -140,6 +143,7 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.Calculator
         public string LastErrorFileContent { get; set; }
         public double DesignWaterLevel { get; set; }
         public double ReliabilityIndex { get; set; }
+        public bool? Converged { get; set; }
     }
 
     public class TestStructuresOvertoppingCalculator : TestHydraRingCalculator<StructuresOvertoppingCalculationInput>, IStructuresOvertoppingCalculator
@@ -171,6 +175,7 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.Calculator
         public double ReliabilityIndex { get; set; }
         public string OutputDirectory { get; set; }
         public string LastErrorFileContent { get; set; }
+        public bool? Converged { get; set; }
     }
 
     public class TestHydraRingCalculator<T>
