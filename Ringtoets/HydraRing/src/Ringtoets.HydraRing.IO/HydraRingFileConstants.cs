@@ -39,7 +39,12 @@ namespace Ringtoets.HydraRing.IO
         /// <summary>
         /// The file name of the working database which contains input and output.
         /// </summary>
-        internal const string OutputDatabaseFileName = "temp.sqlite";
+        internal const string WorkingDatabaseFileName = "temp.sqlite";
+
+        /// <summary>
+        /// The file name of the output database which contains output for a calculation.
+        /// </summary>
+        internal const string OutputDatabaseFileName = "output.sqlite";
 
         /// <summary>
         /// The file name of the HLCD database.
