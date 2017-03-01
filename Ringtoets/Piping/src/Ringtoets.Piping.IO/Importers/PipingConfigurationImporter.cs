@@ -239,7 +239,7 @@ namespace Ringtoets.Piping.IO.Importers
             if (readCalculation.SurfaceLine != null)
             {
                 RingtoetsPipingSurfaceLine surfaceLine = failureMechanism.SurfaceLines
-                    .FirstOrDefault(sl => sl.Name == readCalculation.SurfaceLine);
+                                                                         .FirstOrDefault(sl => sl.Name == readCalculation.SurfaceLine);
 
                 if (surfaceLine == null)
                 {
@@ -290,7 +290,7 @@ namespace Ringtoets.Piping.IO.Importers
             if (readCalculation.StochasticSoilModel != null)
             {
                 StochasticSoilModel soilModel = failureMechanism.StochasticSoilModels
-                    .FirstOrDefault(ssm => ssm.Name == readCalculation.StochasticSoilModel);
+                                                                .FirstOrDefault(ssm => ssm.Name == readCalculation.StochasticSoilModel);
 
                 if (soilModel == null)
                 {

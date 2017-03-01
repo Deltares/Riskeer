@@ -517,6 +517,30 @@ namespace Ringtoets.Piping.IO.Test.Importers
         }
 
         [Test]
+        public void Import_StochasticSoilProfileValidButNoSoilModelSpecified_LogMessageAndContinueImport()
+        {
+            // Setup
+            string filePath = Path.Combine(importerPath, "validConfigurationCalculationContainingSoilProfileWithoutSoilModel.xml");
+
+            var calculationGroup = new CalculationGroup();
+            var pipingFailureMechanism = new PipingFailureMechanism();
+            var importer = new PipingConfigurationImporter(filePath,
+                                                           calculationGroup,
+                                                           new HydraulicBoundaryLocation[0],
+                                                           pipingFailureMechanism);
+
+            // Call
+            var successful = false;
+            Action call = () => successful = importer.Import();
+
+            // Assert
+            const string expectedMessage = "Er is geen stochastisch ondergrondmodel opgegeven bij de ondergrondschematisatie 'Ondergrondschematisatie'. Berekening 'Calculation' is overgeslagen.";
+            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
+            Assert.IsTrue(successful);
+            CollectionAssert.IsEmpty(calculationGroup.Children);
+        }
+
+        [Test]
         [TestCase("validConfigurationFullCalculationContainingHydraulicBoundaryLocation.xml", false)]
         [TestCase("validConfigurationFullCalculationContainingAssessmentLevel.xml", true)]
         public void Import_ValidConfigurationWithValidHydraulicBoundaryData_DataAddedToModel(string file, bool manualAssessmentLevel)
