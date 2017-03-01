@@ -186,7 +186,7 @@ namespace Ringtoets.Piping.IO.Importers
                 ReadStochasticSoilProfile(readCalculation, pipingCalculation);
                 ReadStochasts(readCalculation, pipingCalculation);
             }
-            catch (Exception e) when (e is CriticalFileValidationException || e is ArgumentOutOfRangeException)
+            catch (CriticalFileValidationException e)
             {
                 string message = string.Format(Resources.PipingConfigurationImporter_ValidateCalculation_Error_message_0_calculation_1_skipped,
                                                e.Message,
