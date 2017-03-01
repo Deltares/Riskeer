@@ -60,12 +60,12 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
         private const int contextMenuAddCalculationGroupIndexRootGroup = 7;
         private const int contextMenuAddCalculationIndexRootGroup = 8;
         private const int contextMenuUpdateEntryAndExitPointsAllIndexRootGroup = 10;
-        private const int contextMenuValidateAllIndexRootGroup = 12;
-        private const int contextMenuCalculateAllIndexRootGroup = 13;
-        private const int contextMenuClearOutputIndexRootGroup = 15;
-        private const int contextMenuCollapseAllIndexRootGroup = 18;
-        private const int contextMenuExpandAllIndexRootGroup = 19;
-        private const int contextMenuPropertiesIndexRootGroup = 21;
+        private const int contextMenuValidateAllIndexRootGroup = 11;
+        private const int contextMenuCalculateAllIndexRootGroup = 12;
+        private const int contextMenuClearOutputIndexRootGroup = 14;
+        private const int contextMenuCollapseAllIndexRootGroup = 17;
+        private const int contextMenuExpandAllIndexRootGroup = 18;
+        private const int contextMenuPropertiesIndexRootGroup = 20;
 
         private const int contextMenuImportCalculationGroupIndexNestedGroup = 0;
         private const int contextMenuExportCalculationGroupIndexNestedGroup = 1;
@@ -73,13 +73,13 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
         private const int contextMenuAddCalculationIndexNestedGroup = 4;
         private const int contextMenuRenameCalculationGroupIndexNestedGroup = 6;
         private const int contextMenuUpdateEntryAndExitPointsAllIndexNestedGroup = 7;
-        private const int contextMenuValidateAllIndexNestedGroup = 9;
-        private const int contextMenuCalculateAllIndexNestedGroup = 10;
-        private const int contextMenuClearOutputIndexNestedGroup = 12;
-        private const int contextMenuDeleteCalculationGroupIndexNestedGroup = 13;
-        private const int contextMenuCollapseAllIndexNestedGroup = 15;
-        private const int contextMenuExpandAllIndexNestedGroup = 16;
-        private const int contextMenuPropertiesIndexNestedGroup = 18;
+        private const int contextMenuValidateAllIndexNestedGroup = 8;
+        private const int contextMenuCalculateAllIndexNestedGroup = 9;
+        private const int contextMenuClearOutputIndexNestedGroup = 11;
+        private const int contextMenuDeleteCalculationGroupIndexNestedGroup = 12;
+        private const int contextMenuCollapseAllIndexNestedGroup = 14;
+        private const int contextMenuExpandAllIndexNestedGroup = 15;
+        private const int contextMenuPropertiesIndexNestedGroup = 17;
 
         private const int customOnlyContextMenuAddGenerateCalculationsIndex = 5;
 
@@ -241,7 +241,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
             {
                 // Assert
-                Assert.AreEqual(19, menu.Items.Count);
+                Assert.AreEqual(18, menu.Items.Count);
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuImportCalculationGroupIndexNestedGroup,
                                                               "&Importeren...",
                                                               "Importeer de gegevens vanuit een bestand.",
@@ -308,10 +308,9 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 {
                     menu.Items[2],
                     menu.Items[5],
-                    menu.Items[8],
-                    menu.Items[11],
-                    menu.Items[14],
-                    menu.Items[17]
+                    menu.Items[10],
+                    menu.Items[13],
+                    menu.Items[16]
                 }, typeof(ToolStripSeparator));
             }
         }
@@ -366,7 +365,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewControl);
 
                 // Assert
-                Assert.AreEqual(22, menu.Items.Count);
+                Assert.AreEqual(21, menu.Items.Count);
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuImportCalculationGroupIndexRootGroup,
                                                               "&Importeren...",
                                                               "Importeer de gegevens vanuit een bestand.",
@@ -425,13 +424,11 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 CollectionAssert.AllItemsAreInstancesOfType(new[]
                 {
                     menu.Items[1],
-                    menu.Items[4],
                     menu.Items[6],
                     menu.Items[9],
-                    menu.Items[11],
-                    menu.Items[14],
-                    menu.Items[17],
-                    menu.Items[20]
+                    menu.Items[13],
+                    menu.Items[16],
+                    menu.Items[19]
                 }, typeof(ToolStripSeparator));
             }
         }

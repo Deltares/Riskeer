@@ -729,7 +729,6 @@ namespace Ringtoets.Piping.Plugin
 
             return builder.AddRenameItem()
                           .AddCustomItem(updateEntryAndExitPoint)
-                          .AddSeparator()
                           .AddValidateCalculationItem(
                               nodeData,
                               Validate,
@@ -936,7 +935,6 @@ namespace Ringtoets.Piping.Plugin
             }
 
             builder.AddCustomItem(updateEntryAndExitPointsItem)
-                   .AddSeparator()
                    .AddValidateAllCalculationsInGroupItem(
                        nodeData,
                        ValidateAll,
