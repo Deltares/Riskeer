@@ -482,7 +482,7 @@ namespace Ringtoets.Piping.IO.Test.Importers
             Action call = () => successful = importer.Import();
 
             // Assert
-            const string expectedMessage = "Er is geen stochastisch ondergrondmodel opgegeven bij de ondergrondschematisatie 'Ondergrondschematisatie'. Berekening 'Calculation' is overgeslagen.";
+            const string expectedMessage = "Er is geen stochastisch ondergrondmodel opgegeven bij ondergrondschematisatie 'Ondergrondschematisatie'. Berekening 'Calculation' is overgeslagen.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
             Assert.IsTrue(successful);
             CollectionAssert.IsEmpty(calculationGroup.Children);

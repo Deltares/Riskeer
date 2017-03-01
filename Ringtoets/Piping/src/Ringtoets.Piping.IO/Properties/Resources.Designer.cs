@@ -289,7 +289,7 @@ namespace Ringtoets.Piping.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Er is geen stochastisch ondergrondmodel opgegeven bij de ondergrondschematisatie &apos;{0}&apos;..
+        ///   Looks up a localized string similar to Er is geen stochastisch ondergrondmodel opgegeven bij ondergrondschematisatie &apos;{0}&apos;..
         /// </summary>
         public static string PipingConfigurationImporter_ReadStochasticSoilProfile_No_soil_model_provided_for_soil_profile_with_name_0 {
             get {

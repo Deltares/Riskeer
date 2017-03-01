@@ -338,6 +338,6 @@ Er is geen berekeningenconfiguratie geïmporteerd.</value>
     <value>Een standaardafwijking van '{0}' is ongeldig voor stochast '{1}'.</value>
   </data>
   <data name="PipingConfigurationImporter_ReadStochasticSoilProfile_No_soil_model_provided_for_soil_profile_with_name_0" xml:space="preserve">
-    <value>Er is geen stochastisch ondergrondmodel opgegeven bij de ondergrondschematisatie '{0}'.</value>
+    <value>Er is geen stochastisch ondergrondmodel opgegeven bij ondergrondschematisatie '{0}'.</value>
   </data>
 </root>
