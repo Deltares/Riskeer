@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Data;
 using System.Data.SQLite;
 using System.IO;
 using Core.Common.TestUtil;
@@ -52,7 +51,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
             // Assert
             Assert.IsInstanceOf<IHydraRingFileParser>(parser);
             Assert.IsNull(parser.Output);
-        }   
+        }
 
         [Test]
         public void Parse_WithoutWorkingDirectory_ThrowsArgumentNullException()
@@ -82,7 +81,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
 
             // Assert
             Assert.Throws<ArgumentException>(test);
-        }    
+        }
 
         [Test]
         public void Parse_WithWorkingDirectoryWithoutExpectedFile_ThrowsHydraRingFileParserException()
@@ -97,7 +96,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
             // Assert
             var exception = Assert.Throws<HydraRingFileParserException>(test);
             Assert.IsInstanceOf<SQLiteException>(exception.InnerException);
-        }   
+        }
 
         [Test]
         public void Parse_WithWorkingDirectoryWithInvalidOutputFile_ThrowsHydraRingFileParserException()

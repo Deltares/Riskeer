@@ -25,6 +25,7 @@ using System.Data.SQLite;
 using System.IO;
 using Core.Common.Utils;
 using Ringtoets.HydraRing.Calculation.Exceptions;
+using Ringtoets.HydraRing.Calculation.Properties;
 using Ringtoets.HydraRing.IO;
 
 namespace Ringtoets.HydraRing.Calculation.Parsers
@@ -38,10 +39,10 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
         private const string convergedColumnName = "Converged";
 
         private readonly string getLastResultQuery =
-            string.Format("SELECT ConvOnBeta OR ConvOnValue AS {0} ", convergedColumnName) +
-            "FROM IterateToGivenBetaConvergence " +
-            string.Format("WHERE SectionId = {0} ", sectionIdParameterName) +
-            "AND IterationNr = (SELECT MAX(IterationNr) FROM IterateToGivenBetaConvergence);";
+            string.Format("SELECT ConvOnBeta OR ConvOnValue AS {0} " +
+                          "FROM IterateToGivenBetaConvergence WHERE SectionId = {1} " +
+                          "AND IterationNr = (SELECT MAX(IterationNr) FROM IterateToGivenBetaConvergence);",
+                          convergedColumnName, sectionIdParameterName);
 
         /// <summary>
         /// Gets the value indicating whether the calculation for a section has converged.
@@ -81,16 +82,28 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
             return new SQLiteConnection(connectionStringBuilder);
         }
 
+        /// <summary>
+        /// Reads the value indicating whether the calculation for a section has converged.
+        /// </summary>
+        /// <param name="sqLiteConnection">The connection to the database.</param>
+        /// <param name="sectionId">The section id to get the output for.</param>
+        /// <exception cref="HydraRingFileParserException">Thrown when: <list type="bullet">
+        /// <item>the output file does not exist.</item>
+        /// <item>the convergence result could not be read from the output file.</item>
+        /// </list>
+        /// </exception>
         private void ReadIsConverged(SQLiteConnection sqLiteConnection, int sectionId)
         {
             try
             {
-                SQLiteDataReader reader = CreateReader(sqLiteConnection, sectionId);
-                SetOutput(reader);
+                using (SQLiteDataReader reader = CreateReader(sqLiteConnection, sectionId))
+                {
+                    SetOutput(reader);
+                }
             }
             catch (SQLiteException e)
             {
-                throw new HydraRingFileParserException("Er kon geen resultaat voor convergentie gelezen worden uit de Hydra-Ring uitvoerdatabase.", e);
+                throw new HydraRingFileParserException(Resources.Parse_Cannot_read_convergence_in_output_file, e);
             }
         }
 
@@ -115,6 +128,11 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
             return command;
         }
 
+        /// <summary>
+        /// Opens the connection using <paramref name="connection"/>.
+        /// </summary>
+        /// <param name="connection">The connection to open.</param>
+        /// <exception cref="HydraRingFileParserException">Thrown when <paramref name="connection"/> could not be opened.</exception>
         private static void OpenConnection(SQLiteConnection connection)
         {
             try
@@ -127,6 +145,11 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
             }
         }
 
+        /// <summary>
+        /// Sets <see cref="Output"/> with the value read in the <paramref name="reader"/>.
+        /// </summary>
+        /// <param name="reader">The reader to use.</param>
+        /// <exception cref="HydraRingFileParserException">Thrown when no result could be read using the <paramref name="reader"/>.</exception>
         private void SetOutput(SQLiteDataReader reader)
         {
             if (reader.Read())
@@ -135,7 +158,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
             }
             else
             {
-                throw new HydraRingFileParserException("Er is geen resultaat voor convergentie gevonden in de Hydra-Ring uitvoerdatabase.");
+                throw new HydraRingFileParserException(Resources.Parse_No_convergence_found_in_output_file);
             }
         }
     }

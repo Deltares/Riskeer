@@ -82,11 +82,29 @@ namespace Ringtoets.HydraRing.Calculation.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Er kon geen resultaat voor convergentie gelezen worden uit de Hydra-Ring uitvoerdatabase..
+        /// </summary>
+        internal static string Parse_Cannot_read_convergence_in_output_file {
+            get {
+                return ResourceManager.GetString("Parse_Cannot_read_convergence_in_output_file", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kan het Hydra-Ring last_error bestand {0} niet lezen uit de map {1}..
         /// </summary>
         internal static string Parse_Cannot_read_last_error_Filename_0_from_FolderPath_1_ {
             get {
                 return ResourceManager.GetString("Parse_Cannot_read_last_error_Filename_0_from_FolderPath_1_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Er is geen resultaat voor convergentie gevonden in de Hydra-Ring uitvoerdatabase..
+        /// </summary>
+        internal static string Parse_No_convergence_found_in_output_file {
+            get {
+                return ResourceManager.GetString("Parse_No_convergence_found_in_output_file", resourceCulture);
             }
         }
     }
