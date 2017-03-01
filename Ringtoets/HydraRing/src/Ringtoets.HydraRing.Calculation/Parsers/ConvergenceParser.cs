@@ -87,7 +87,8 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
         /// </summary>
         /// <param name="sqLiteConnection">The connection to the database.</param>
         /// <param name="sectionId">The section id to get the output for.</param>
-        /// <exception cref="HydraRingFileParserException">Thrown when: <list type="bullet">
+        /// <exception cref="HydraRingFileParserException">Thrown when: 
+        /// <list type="bullet">
         /// <item>the output file does not exist.</item>
         /// <item>the convergence result could not be read from the output file.</item>
         /// </list>
