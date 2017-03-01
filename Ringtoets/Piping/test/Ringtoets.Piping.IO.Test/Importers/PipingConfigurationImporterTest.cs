@@ -168,82 +168,6 @@ namespace Ringtoets.Piping.IO.Test.Importers
         }
 
         [Test]
-        [SetCulture("nl-NL")]
-        [TestCase("validConfigurationInvalidEntryExitPoint.xml",
-            "Een waarde van '2,2' als uittredepunt is ongeldig. Het uittredepunt moet landwaarts van het intredepunt liggen.")]
-        [TestCase("validConfigurationExitPointNotOnSurfaceLine.xml",
-            "Een waarde van '200,2' als uittredepunt is ongeldig. Het gespecificeerde punt moet op het profiel liggen (bereik [0,0, 10,0]).")]
-        [TestCase("validConfigurationEntryPointNotOnSurfaceLine.xml",
-            "Een waarde van '-10' als intredepunt is ongeldig. Het gespecificeerde punt moet op het profiel liggen (bereik [0,0, 10,0]).")]
-        [TestCase("validConfigurationInvalidStandardDeviationPhreaticLevelExit.xml",
-            "Een standaardafwijking van '0' is ongeldig voor stochast 'polderpeil'. Standaardafwijking (σ) moet groter zijn dan of gelijk zijn aan 0.")]
-        [TestCase("validConfigurationInvalidMeanDampingFactorExit.xml",
-            "Een gemiddelde van '-1' is ongeldig voor stochast 'dempingsfactor'. Gemiddelde moet groter zijn dan 0.")]
-        [TestCase("validConfigurationInvalidStandardDeviationDampingFactorExit.xml",
-            "Een standaardafwijking van '1' is ongeldig voor stochast 'dempingsfactor'. Standaardafwijking (σ) moet groter zijn dan of gelijk zijn aan 0.")]
-        public void Import_ValidConfigurationInvalidData_LogMessageAndContinueImport(string file, string expectedErrorMessage)
-        {
-            // Setup
-            string filePath = Path.Combine(importerPath, file);
-
-            var calculationGroup = new CalculationGroup();
-            var surfaceLine = new RingtoetsPipingSurfaceLine
-            {
-                Name = "Profielschematisatie"
-            };
-            surfaceLine.SetGeometry(new[]
-            {
-                new Point3D(3.0, 5.0, 0.0),
-                new Point3D(3.0, 0.0, 1.0),
-                new Point3D(3.0, -5.0, 0.0)
-            });
-            var stochasticSoilProfile = new StochasticSoilProfile(0, SoilProfileType.SoilProfile1D, 1)
-            {
-                SoilProfile = new PipingSoilProfile("Ondergrondschematisatie", 0, new[]
-                {
-                    new PipingSoilLayer(0)
-                }, SoilProfileType.SoilProfile1D, 0)
-            };
-
-            var stochasticSoilModel = new StochasticSoilModel(1, "Ondergrondmodel", "Segment");
-            stochasticSoilModel.StochasticSoilProfiles.Add(stochasticSoilProfile);
-            stochasticSoilModel.Geometry.AddRange(new[]
-            {
-                new Point2D(1.0, 0.0),
-                new Point2D(5.0, 0.0)
-            });
-
-            var pipingFailureMechanism = new PipingFailureMechanism();
-            pipingFailureMechanism.SurfaceLines.AddRange(new[]
-            {
-                surfaceLine
-            }, "readerPath");
-            pipingFailureMechanism.StochasticSoilModels.AddRange(new[]
-            {
-                stochasticSoilModel
-            }, "readerPath");
-
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "HRlocatie", 10, 20);
-            var importer = new PipingConfigurationImporter(filePath,
-                                                           calculationGroup,
-                                                           new[]
-                                                           {
-                                                               hydraulicBoundaryLocation
-                                                           },
-                                                           pipingFailureMechanism);
-
-            // Call
-            var successful = false;
-            Action call = () => successful = importer.Import();
-
-            // Assert
-            string expectedMessage = $"{expectedErrorMessage} Berekening 'Calculation' is overgeslagen.";
-            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
-            Assert.IsTrue(successful);
-            CollectionAssert.IsEmpty(calculationGroup.Children);
-        }
-
-        [Test]
         [TestCase("Inlezen")]
         [TestCase("Valideren")]
         public void Import_CancelingImport_CancelImportAndLog(string expectedProgressMessage)
@@ -318,11 +242,65 @@ namespace Ringtoets.Piping.IO.Test.Importers
         }
 
         [Test]
-        public void Import_HydraulicBoundaryLocationInvalid_LogMessageAndContinueImport()
+        [SetCulture("nl-NL")]
+        [TestCase("validConfigurationInvalidEntryExitPoint.xml",
+            "Een waarde van '2,2' als uittredepunt is ongeldig. Het uittredepunt moet landwaarts van het intredepunt liggen.")]
+        [TestCase("validConfigurationExitPointNotOnSurfaceLine.xml",
+            "Een waarde van '200,2' als uittredepunt is ongeldig. Het gespecificeerde punt moet op het profiel liggen (bereik [0,0, 10,0]).")]
+        [TestCase("validConfigurationEntryPointNotOnSurfaceLine.xml",
+            "Een waarde van '-10' als intredepunt is ongeldig. Het gespecificeerde punt moet op het profiel liggen (bereik [0,0, 10,0]).")]
+        [TestCase("validConfigurationInvalidStandardDeviationPhreaticLevelExit.xml",
+            "Een standaardafwijking van '0' is ongeldig voor stochast 'polderpeil'. Standaardafwijking (σ) moet groter zijn dan of gelijk zijn aan 0.")]
+        [TestCase("validConfigurationInvalidMeanDampingFactorExit.xml",
+            "Een gemiddelde van '-1' is ongeldig voor stochast 'dempingsfactor'. Gemiddelde moet groter zijn dan 0.")]
+        [TestCase("validConfigurationInvalidStandardDeviationDampingFactorExit.xml",
+            "Een standaardafwijking van '1' is ongeldig voor stochast 'dempingsfactor'. Standaardafwijking (σ) moet groter zijn dan of gelijk zijn aan 0.")]
+        public void Import_ValidConfigurationInvalidData_LogMessageAndContinueImport(string file, string expectedErrorMessage)
         {
             // Setup
+            string filePath = Path.Combine(importerPath, file);
+
             var calculationGroup = new CalculationGroup();
-            string filePath = Path.Combine(readerPath, "validConfigurationFullCalculationContainingHydraulicBoundaryLocation.xml");
+            var surfaceLine = new RingtoetsPipingSurfaceLine
+            {
+                Name = "Profielschematisatie"
+            };
+            surfaceLine.SetGeometry(new[]
+            {
+                new Point3D(3.0, 5.0, 0.0),
+                new Point3D(3.0, 0.0, 1.0),
+                new Point3D(3.0, -5.0, 0.0)
+            });
+
+            var pipingFailureMechanism = new PipingFailureMechanism();
+            pipingFailureMechanism.SurfaceLines.AddRange(new[]
+            {
+                surfaceLine
+            }, "readerPath");
+
+            var importer = new PipingConfigurationImporter(filePath,
+                                                           calculationGroup,
+                                                           new HydraulicBoundaryLocation[0],
+                                                           pipingFailureMechanism);
+
+            // Call
+            var successful = false;
+            Action call = () => successful = importer.Import();
+
+            // Assert
+            string expectedMessage = $"{expectedErrorMessage} Berekening 'Calculation' is overgeslagen.";
+            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
+            Assert.IsTrue(successful);
+            CollectionAssert.IsEmpty(calculationGroup.Children);
+        }
+
+        [Test]
+        public void Import_HydraulicBoundaryLocationUnknown_LogMessageAndContinueImport()
+        {
+            // Setup
+            string filePath = Path.Combine(importerPath, "validConfigurationCalculationContainingUnknownHydraulicBoundaryLocation.xml");
+
+            var calculationGroup = new CalculationGroup();
             var importer = new PipingConfigurationImporter(filePath,
                                                            calculationGroup,
                                                            Enumerable.Empty<HydraulicBoundaryLocation>(),
@@ -340,18 +318,15 @@ namespace Ringtoets.Piping.IO.Test.Importers
         }
 
         [Test]
-        public void Import_SurfaceLineInvalid_LogMessageAndContinueImport()
+        public void Import_SurfaceLineUnknown_LogMessageAndContinueImport()
         {
             // Setup
-            var calculationGroup = new CalculationGroup();
+            string filePath = Path.Combine(importerPath, "validConfigurationCalculationContainingUnknownSurfaceLine.xml");
 
-            string filePath = Path.Combine(readerPath, "validConfigurationFullCalculationContainingHydraulicBoundaryLocation.xml");
+            var calculationGroup = new CalculationGroup();
             var importer = new PipingConfigurationImporter(filePath,
                                                            calculationGroup,
-                                                           new[]
-                                                           {
-                                                               new HydraulicBoundaryLocation(1, "HRlocatie", 10, 20)
-                                                           },
+                                                           new HydraulicBoundaryLocation[0],
                                                            new PipingFailureMechanism());
 
             // Call
@@ -366,35 +341,16 @@ namespace Ringtoets.Piping.IO.Test.Importers
         }
 
         [Test]
-        public void Import_StochasticSoilModelInvalid_LogMessageAndContinueImport()
+        public void Import_StochasticSoilModelUnknown_LogMessageAndContinueImport()
         {
             // Setup
-            string filePath = Path.Combine(readerPath, "validConfigurationFullCalculationContainingHydraulicBoundaryLocation.xml");
+            string filePath = Path.Combine(importerPath, "validConfigurationCalculationContainingUnknownSoilModel.xml");
 
             var calculationGroup = new CalculationGroup();
-            var surfaceLine = new RingtoetsPipingSurfaceLine
-            {
-                Name = "Profielschematisatie"
-            };
-            surfaceLine.SetGeometry(new[]
-            {
-                new Point3D(3.5, 2.3, 8.0),
-                new Point3D(6.9, 2.0, 2.0)
-            });
-
             var pipingFailureMechanism = new PipingFailureMechanism();
-            pipingFailureMechanism.SurfaceLines.AddRange(new[]
-            {
-                surfaceLine
-            }, "readerPath");
-
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "HRlocatie", 10, 20);
             var importer = new PipingConfigurationImporter(filePath,
                                                            calculationGroup,
-                                                           new[]
-                                                           {
-                                                               hydraulicBoundaryLocation
-                                                           },
+                                                           new HydraulicBoundaryLocation[0],
                                                            pipingFailureMechanism);
 
             // Call
@@ -412,7 +368,7 @@ namespace Ringtoets.Piping.IO.Test.Importers
         public void Import_StochasticSoilModelNotIntersectingWithSurfaceLine_LogMessageAndContinueImport()
         {
             // Setup
-            string filePath = Path.Combine(readerPath, "validConfigurationFullCalculationContainingHydraulicBoundaryLocation.xml");
+            string filePath = Path.Combine(importerPath, "validConfigurationCalculationContainingNonIntersectingSurfaceLineAndSoilModel.xml");
 
             var calculationGroup = new CalculationGroup();
             var surfaceLine = new RingtoetsPipingSurfaceLine
@@ -442,13 +398,9 @@ namespace Ringtoets.Piping.IO.Test.Importers
                 stochasticSoilModel
             }, "readerPath");
 
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "HRlocatie", 10, 20);
             var importer = new PipingConfigurationImporter(filePath,
                                                            calculationGroup,
-                                                           new[]
-                                                           {
-                                                               hydraulicBoundaryLocation
-                                                           },
+                                                           new HydraulicBoundaryLocation[0],
                                                            pipingFailureMechanism);
 
             // Call
@@ -463,10 +415,10 @@ namespace Ringtoets.Piping.IO.Test.Importers
         }
 
         [Test]
-        public void Import_StochasticSoilProfileInvalid_LogMessageAndContinueImport()
+        public void Import_StochasticSoilProfileUnknown_LogMessageAndContinueImport()
         {
             // Setup
-            string filePath = Path.Combine(readerPath, "validConfigurationFullCalculationContainingHydraulicBoundaryLocation.xml");
+            string filePath = Path.Combine(importerPath, "validConfigurationCalculationContainingUnknownSoilProfile.xml");
 
             var calculationGroup = new CalculationGroup();
             var surfaceLine = new RingtoetsPipingSurfaceLine
@@ -496,13 +448,9 @@ namespace Ringtoets.Piping.IO.Test.Importers
                 stochasticSoilModel
             }, "readerPath");
 
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "HRlocatie", 10, 20);
             var importer = new PipingConfigurationImporter(filePath,
                                                            calculationGroup,
-                                                           new[]
-                                                           {
-                                                               hydraulicBoundaryLocation
-                                                           },
+                                                           new HydraulicBoundaryLocation[0],
                                                            pipingFailureMechanism);
 
             // Call
@@ -517,7 +465,7 @@ namespace Ringtoets.Piping.IO.Test.Importers
         }
 
         [Test]
-        public void Import_StochasticSoilProfileValidButNoSoilModelSpecified_LogMessageAndContinueImport()
+        public void Import_StochasticSoilProfileSpecifiedWithoutSoilModel_LogMessageAndContinueImport()
         {
             // Setup
             string filePath = Path.Combine(importerPath, "validConfigurationCalculationContainingSoilProfileWithoutSoilModel.xml");
