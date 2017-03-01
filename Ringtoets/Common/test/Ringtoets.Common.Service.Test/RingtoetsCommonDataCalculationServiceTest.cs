@@ -20,10 +20,8 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Utils;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.HydraRing.Calculation.Data.Output;
 
 namespace Ringtoets.Common.Service.Test
 {
@@ -70,7 +68,7 @@ namespace Ringtoets.Common.Service.Test
             // Call
             TestDelegate action = () => RingtoetsCommonDataCalculationService.ProfileSpecificRequiredProbability(norm, failureMechanismContribution, n);
 
-            // Asserty
+            // Assert
             ArgumentOutOfRangeException exception = Assert.Throws<ArgumentOutOfRangeException>(action);
             Assert.AreEqual(norm, exception.ActualValue);
             Assert.AreEqual("norm", exception.ParamName);

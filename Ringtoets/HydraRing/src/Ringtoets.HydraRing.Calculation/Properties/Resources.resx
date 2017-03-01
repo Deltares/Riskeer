@@ -129,4 +129,10 @@
   <data name="DunesBoundaryConditionsCalculationParser_Parse_Error_while_parsing_output" xml:space="preserve">
     <value>Er is een fout opgetreden bij het lezen van het uitvoerbestand.</value>
   </data>
+  <data name="Parse_Cannot_read_convergence_in_output_file" xml:space="preserve">
+    <value>Er kon geen resultaat voor convergentie gelezen worden uit de Hydra-Ring uitvoerdatabase.</value>
+  </data>
+  <data name="Parse_No_convergence_found_in_output_file" xml:space="preserve">
+    <value>Er is geen resultaat voor convergentie gevonden in de Hydra-Ring uitvoerdatabase.</value>
+  </data>
 </root>
