@@ -99,8 +99,8 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
             {
                 using (SQLiteDataReader reader = CreateReader(sqLiteConnection, sectionId))
                 {
-                SetOutput(reader);
-            }
+                    SetOutput(reader);
+                }
             }
             catch (SQLiteException e)
             {
