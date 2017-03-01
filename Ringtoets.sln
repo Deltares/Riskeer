@@ -35,6 +35,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.Ringtoets", "Ap
 		{3D4B9740-8348-4434-8D77-B611FC6EE57F} = {3D4B9740-8348-4434-8D77-B611FC6EE57F}
 		{D4200F43-3F72-4F42-AF0A-8CED416A38EC} = {D4200F43-3F72-4F42-AF0A-8CED416A38EC}
 		{24043F46-406D-4719-B94B-033D63D61153} = {24043F46-406D-4719-B94B-033D63D61153}
+		{AC4F7F48-F674-4E32-AB35-9C726605F684} = {AC4F7F48-F674-4E32-AB35-9C726605F684}
 		{5A91174A-FB95-4C9D-9CA5-81C0B8D4361A} = {5A91174A-FB95-4C9D-9CA5-81C0B8D4361A}
 		{28811C4A-6C18-42C1-88B2-A03A3784E2D0} = {28811C4A-6C18-42C1-88B2-A03A3784E2D0}
 		{1AC97B51-88C2-437D-89E6-65C69AB3CCAD} = {1AC97B51-88C2-437D-89E6-65C69AB3CCAD}
@@ -1330,22 +1331,22 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Migration.Console.TestUtil.
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.Ringtoets.Migration", "Application\Ringtoets\src\Application.Ringtoets.Migration\Application.Ringtoets.Migration.csproj", "{FAC55B92-E259-43D6-B9A1-5BDA6C834359}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.Ringtoets.Migration.Core", "Application\Ringtoets\src\Application.Ringtoets.Migration.Core\Application.Ringtoets.Migration.Core.csproj", "{FAC55B92-E259-43D6-B9A1-5BDA6C834359}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.Ringtoets.Migration.Test", "Application\Ringtoets\test\Application.Ringtoets.Migration.Test\Application.Ringtoets.Migration.Test.csproj", "{40CF9BC7-3CDE-4AC0-B31A-851694821772}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.Ringtoets.Migration.Core.Test", "Application\Ringtoets\test\Application.Ringtoets.Migration.Core.Test\Application.Ringtoets.Migration.Core.Test.csproj", "{40CF9BC7-3CDE-4AC0-B31A-851694821772}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.Ringtoets.MigrationConsole", "Application\Ringtoets\src\Application.Ringtoets.MigrationConsole\Application.Ringtoets.MigrationConsole.csproj", "{23C45BFD-0A07-400F-B216-DF0C74CC99A1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.Ringtoets.Migration.Console", "Application\Ringtoets\src\Application.Ringtoets.Migration.Console\Application.Ringtoets.Migration.Console.csproj", "{23C45BFD-0A07-400F-B216-DF0C74CC99A1}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.Ringtoets.MigrationConsole.Test", "Application\Ringtoets\test\Application.Ringtoets.MigrationConsole.Test\Application.Ringtoets.MigrationConsole.Test.csproj", "{1D3C098B-1EED-488C-900D-B71155C2D6AB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.Ringtoets.Migration.Console.Test", "Application\Ringtoets\test\Application.Ringtoets.Migration.Console.Test\Application.Ringtoets.Migration.Console.Test.csproj", "{1D3C098B-1EED-488C-900D-B71155C2D6AB}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
@@ -1453,6 +1454,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Components.Gis.Forms.T
 	ProjectSection(ProjectDependencies) = postProject
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.Ringtoets.Migration", "Application\Ringtoets\src\Application.Ringtoets.Migration\Application.Ringtoets.Migration.csproj", "{AC4F7F48-F674-4E32-AB35-9C726605F684}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.Ringtoets.Migration.Test", "Application\Ringtoets\test\Application.Ringtoets.Migration.Test\Application.Ringtoets.Migration.Test.csproj", "{408F6A6B-7BF7-4F59-A5D4-893A777921D3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -3653,6 +3658,24 @@ Global
 		{FC8F3315-E129-44AD-8A0E-F7979094EE4C}.Release|x86.Build.0 = Release|x86
 		{FC8F3315-E129-44AD-8A0E-F7979094EE4C}.ReleaseForCodeCoverage|x86.ActiveCfg = ReleaseForCodeCoverage|x86
 		{FC8F3315-E129-44AD-8A0E-F7979094EE4C}.ReleaseForCodeCoverage|x86.Build.0 = ReleaseForCodeCoverage|x86
+		{AC4F7F48-F674-4E32-AB35-9C726605F684}.CreateInstaller|x86.ActiveCfg = Release|x86
+		{AC4F7F48-F674-4E32-AB35-9C726605F684}.CreateInstaller|x86.Build.0 = Release|x86
+		{AC4F7F48-F674-4E32-AB35-9C726605F684}.CreateInstallerWithDemoProject|x86.ActiveCfg = Release|x86
+		{AC4F7F48-F674-4E32-AB35-9C726605F684}.CreateInstallerWithDemoProject|x86.Build.0 = Release|x86
+		{AC4F7F48-F674-4E32-AB35-9C726605F684}.Debug|x86.ActiveCfg = Debug|x86
+		{AC4F7F48-F674-4E32-AB35-9C726605F684}.Debug|x86.Build.0 = Debug|x86
+		{AC4F7F48-F674-4E32-AB35-9C726605F684}.Release|x86.ActiveCfg = Release|x86
+		{AC4F7F48-F674-4E32-AB35-9C726605F684}.Release|x86.Build.0 = Release|x86
+		{AC4F7F48-F674-4E32-AB35-9C726605F684}.ReleaseForCodeCoverage|x86.ActiveCfg = ReleaseForCodeCoverage|x86
+		{AC4F7F48-F674-4E32-AB35-9C726605F684}.ReleaseForCodeCoverage|x86.Build.0 = ReleaseForCodeCoverage|x86
+		{408F6A6B-7BF7-4F59-A5D4-893A777921D3}.CreateInstaller|x86.ActiveCfg = Release|x86
+		{408F6A6B-7BF7-4F59-A5D4-893A777921D3}.CreateInstallerWithDemoProject|x86.ActiveCfg = Release|x86
+		{408F6A6B-7BF7-4F59-A5D4-893A777921D3}.Debug|x86.ActiveCfg = Debug|x86
+		{408F6A6B-7BF7-4F59-A5D4-893A777921D3}.Debug|x86.Build.0 = Debug|x86
+		{408F6A6B-7BF7-4F59-A5D4-893A777921D3}.Release|x86.ActiveCfg = Release|x86
+		{408F6A6B-7BF7-4F59-A5D4-893A777921D3}.Release|x86.Build.0 = Release|x86
+		{408F6A6B-7BF7-4F59-A5D4-893A777921D3}.ReleaseForCodeCoverage|x86.ActiveCfg = ReleaseForCodeCoverage|x86
+		{408F6A6B-7BF7-4F59-A5D4-893A777921D3}.ReleaseForCodeCoverage|x86.Build.0 = ReleaseForCodeCoverage|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -3971,6 +3994,8 @@ Global
 		{1081336C-D919-4249-AB33-9AF15F4D19EC} = {D9DC93FF-DCF3-44A4-9193-9911966CDFF4}
 		{69B97F30-F52B-4A31-A250-7280123CFF3D} = {D9DC93FF-DCF3-44A4-9193-9911966CDFF4}
 		{FC8F3315-E129-44AD-8A0E-F7979094EE4C} = {D9DC93FF-DCF3-44A4-9193-9911966CDFF4}
+		{AC4F7F48-F674-4E32-AB35-9C726605F684} = {39EB5D07-C076-484C-9621-B34C4E5BF64C}
+		{408F6A6B-7BF7-4F59-A5D4-893A777921D3} = {EE8D5A6C-4871-452A-A69B-F04E374D715E}
 	EndGlobalSection
 	GlobalSection(TextTemplating) = postSolution
 		TextTemplating = 1

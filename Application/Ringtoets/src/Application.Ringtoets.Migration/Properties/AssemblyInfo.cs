@@ -24,4 +24,4 @@ using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("Application.Ringtoets.Migration")]
 [assembly: AssemblyProduct("Application.Ringtoets.Migration")]
-[assembly: Guid("fac55b92-e259-43d6-b9a1-5bda6c834359")]
+[assembly: Guid("ac4f7f48-f674-4e32-ab35-9c726605f684")]

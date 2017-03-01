@@ -22,7 +22,7 @@
 using System;
 using System.IO;
 using System.Threading;
-using Application.Ringtoets.Migration;
+using Application.Ringtoets.Migration.Core;
 using Core.Common.Gui;
 using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.Settings;
