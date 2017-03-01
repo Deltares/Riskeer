@@ -955,10 +955,10 @@ namespace Core.Components.Gis.Forms.Test.Views
         {
             WmtsLocationControl control = ShowValidWmtsLocationControl(form, wmtsCapabilityFactory);
 
-            var capabilities = new List<WmtsCapabilityRow>
+            var capabilities = new[]
             {
-                new WmtsCapabilityRow(new WmtsCapability("-", "image/png", "-", "-")),
-                new WmtsCapabilityRow(new WmtsCapability("brtachtergrondkaart(EPSG:28992)", "image/png8", "brtachtergrondkaart", "EPSG:28992"))
+                new WmtsCapability("-", "image/png", "-", "-"),
+                new WmtsCapability("brtachtergrondkaart(EPSG:28992)", "image/png8", "brtachtergrondkaart", "EPSG:28992")
             };
 
             var dataGridViewControl = (DataGridViewControl) new ControlTester("dataGridViewControl", form).TheObject;

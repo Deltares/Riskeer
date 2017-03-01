@@ -61,7 +61,6 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Views\WmtsCapabilityRowTest.cs" />
     <Compile Include="Views\WmtsConnectionDialogTest.cs" />
     <Compile Include="Views\WmtsLocationControlTest.cs" />
     <Compile Include="WmtsCapabilityTest.cs" />

@@ -55,7 +55,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Views\IBackgroundMapDataSelectionControl.cs" />
-    <Compile Include="Views\WmtsCapabilityRow.cs" />
     <Compile Include="Views\WmtsConnectionDialog.cs">
       <SubType>Form</SubType>
     </Compile>

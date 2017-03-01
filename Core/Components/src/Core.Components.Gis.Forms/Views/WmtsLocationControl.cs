@@ -41,12 +41,12 @@ namespace Core.Components.Gis.Forms.Views
     /// </summary>
     public partial class WmtsLocationControl : UserControl, IBackgroundMapDataSelectionControl
     {
-        private readonly IWmtsCapabilityFactory wmtsCapabilityFactory;
         private const string wmtsConnectionInfoFileName = "wmtsConnectionInfo.config";
         private static readonly ILog log = LogManager.GetLogger(typeof(WmtsLocationControl));
+        private readonly IWmtsCapabilityFactory wmtsCapabilityFactory;
         private readonly HashSet<WmtsConnectionInfo> wmtsConnectionInfos;
 
-        private readonly List<WmtsCapabilityRow> capabilities;
+        private readonly List<WmtsCapability> capabilities;
         private string wmtsConnectionInfoFilePath;
 
         /// <summary>
@@ -65,7 +65,7 @@ namespace Core.Components.Gis.Forms.Views
             this.wmtsCapabilityFactory = wmtsCapabilityFactory;
 
             wmtsConnectionInfos = new HashSet<WmtsConnectionInfo>();
-            capabilities = new List<WmtsCapabilityRow>();
+            capabilities = new List<WmtsCapability>();
 
             InitializeComponent();
             InitializeWmtsConnectionInfos();
@@ -90,7 +90,7 @@ namespace Core.Components.Gis.Forms.Views
         {
             get
             {
-                WmtsCapabilityRow currentRow = GetSelectedWmtsCapabilityRow();
+                WmtsCapability currentRow = GetSelectedWmtsCapability();
                 if (currentRow == null)
                 {
                     return null;
@@ -102,7 +102,7 @@ namespace Core.Components.Gis.Forms.Views
                     return null;
                 }
 
-                return currentRow.WmtsCapability.ToWmtsMapdata(selectedWmtsConnectionInfo.Name, selectedWmtsConnectionInfo.Url);
+                return currentRow.ToWmtsMapdata(selectedWmtsConnectionInfo.Name, selectedWmtsConnectionInfo.Url);
             }
         }
 
@@ -141,7 +141,7 @@ namespace Core.Components.Gis.Forms.Views
 
             DataGridViewRow dataGridViewRow = dataGridViewControl.Rows.OfType<DataGridViewRow>()
                                                                  .FirstOrDefault(row => IsMatch(
-                                                                                     (WmtsCapabilityRow) row.DataBoundItem, 
+                                                                                     (WmtsCapability) row.DataBoundItem,
                                                                                      activeWmtsMapData));
             if (dataGridViewRow == null)
             {
@@ -151,10 +151,10 @@ namespace Core.Components.Gis.Forms.Views
             dataGridViewControl.SetCurrentCell(cell);
         }
 
-        private static bool IsMatch(WmtsCapabilityRow wmtsCapabilityRow, WmtsMapData wmtsMapData)
+        private static bool IsMatch(WmtsCapability wmtsCapability, WmtsMapData wmtsMapData)
         {
-            return string.Equals(wmtsCapabilityRow.Id, wmtsMapData.SelectedCapabilityIdentifier)
-                   && string.Equals(wmtsCapabilityRow.Format, wmtsMapData.PreferredFormat);
+            return string.Equals(wmtsCapability.Id, wmtsMapData.SelectedCapabilityIdentifier)
+                   && string.Equals(wmtsCapability.Format, wmtsMapData.PreferredFormat);
         }
 
         private void InitializeWmtsConnectionInfos()
@@ -212,13 +212,13 @@ namespace Core.Components.Gis.Forms.Views
 
         private void InitializeDataGridView()
         {
-            dataGridViewControl.AddTextBoxColumn(nameof(WmtsCapabilityRow.Id), Resources.WmtsCapability_MapLayer_Id,
+            dataGridViewControl.AddTextBoxColumn(nameof(WmtsCapability.Id), Resources.WmtsCapability_MapLayer_Id,
                                                  true);
-            dataGridViewControl.AddTextBoxColumn(nameof(WmtsCapabilityRow.Format), Resources.WmtsCapability_MapLayer_Format,
+            dataGridViewControl.AddTextBoxColumn(nameof(WmtsCapability.Format), Resources.WmtsCapability_MapLayer_Format,
                                                  true);
-            dataGridViewControl.AddTextBoxColumn(nameof(WmtsCapabilityRow.Title), Resources.WmtsCapability_MapLayer_Title,
+            dataGridViewControl.AddTextBoxColumn(nameof(WmtsCapability.Title), Resources.WmtsCapability_MapLayer_Title,
                                                  true);
-            dataGridViewControl.AddTextBoxColumn(nameof(WmtsCapabilityRow.CoordinateSystem), Resources.WmtsCapability_MapLayer_CoordinateSystem,
+            dataGridViewControl.AddTextBoxColumn(nameof(WmtsCapability.CoordinateSystem), Resources.WmtsCapability_MapLayer_CoordinateSystem,
                                                  true);
         }
 
@@ -232,7 +232,7 @@ namespace Core.Components.Gis.Forms.Views
             capabilities.Clear();
             foreach (WmtsCapability wmtsCapability in wmtsCapabilities)
             {
-                capabilities.Add(new WmtsCapabilityRow(wmtsCapability));
+                capabilities.Add(wmtsCapability);
             }
 
             UpdateDataGridViewDataSource();
@@ -244,9 +244,9 @@ namespace Core.Components.Gis.Forms.Views
             dataGridViewControl.ClearCurrentCell();
         }
 
-        private WmtsCapabilityRow GetSelectedWmtsCapabilityRow()
+        private WmtsCapability GetSelectedWmtsCapability()
         {
-            return dataGridViewControl.CurrentRow?.DataBoundItem as WmtsCapabilityRow;
+            return dataGridViewControl.CurrentRow?.DataBoundItem as WmtsCapability;
         }
 
         private void ClearDataGridViewDataSource()
