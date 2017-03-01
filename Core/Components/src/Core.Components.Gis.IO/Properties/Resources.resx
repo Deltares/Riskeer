@@ -160,4 +160,7 @@ Er is geen kaartlaag geïmporteerd.</value>
   <data name="FeatureBasedMapDataImporter_HandleUserCancelingImport_Import_canceled_no_data_read" xml:space="preserve">
     <value>Kaartlaag toevoegen afgebroken. Geen data ingelezen.</value>
   </data>
+  <data name="WmtsConnectionInfoReader_Unable_To_Create_WmtsConnectionInfo" xml:space="preserve">
+    <value>Het is niet mogelijk om WMTS connectie '{0}' aan te maken met URL '{1}'.</value>
+  </data>
 </root>

@@ -117,38 +117,8 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AsyncTileFetcher_Number_of_tiles_for_memory_cache_cannot_be_negative" xml:space="preserve">
-    <value>Het aantal kaart tegels voor de geheugen cache moeten positief zijn.</value>
-  </data>
-  <data name="AsyncTileFetcher_Minimum_number_of_tiles_in_memory_cache_must_be_less_than_maximum" xml:space="preserve">
-    <value>Het minimale aantal kaart tegels voor de geheugen cache moet kleiner zijn dan het maximale aantal kaart tegels.</value>
-  </data>
   <data name="WorldFile_Not_invertable_transformation_arguments_error" xml:space="preserve">
     <value>Ongeldige transformatie parameters: transformatie moet omkeerbaar zijn.</value>
-  </data>
-  <data name="Configuration_InitializeFromTileSource_TileSource_does_not_allow_access_to_provider" xml:space="preserve">
-    <value>Bron staat het niet toe om toegang te krijgen tot de kaart tegels.</value>
-  </data>
-  <data name="PersistentCacheConfiguration_CreateTileCache_Critical_error_while_creating_tile_cache" xml:space="preserve">
-    <value>Een kritieke fout is opgetreden bij het aanmaken van de cache.</value>
-  </data>
-  <data name="PersistentCacheConfiguration_Invalid_path_for_persistent_cache" xml:space="preserve">
-    <value>Het pad naar bestandsmap '{0}' is niet geschikt om de kaart tegels in op te slaan.</value>
-  </data>
-  <data name="TileSourceFactory_ParseWmtsTileSources_Cannot_connect_to_WMTS_0_" xml:space="preserve">
-    <value>Niet in staat om de databronnen op te halen bij de WMTS url '{0}'.</value>
-  </data>
-  <data name="WmtsLayerConfiguration_ValidateConfigurationParameters_PreferredFormat_must_be_mimetype" xml:space="preserve">
-    <value>Afbeelding formaat moet opgegeven worden als MIME-type.</value>
-  </data>
-  <data name="WmtsLayerConfiguration_GetConfiguredTileSource_Cannot_find_LayerId_0_at_WmtsUrl_1_" xml:space="preserve">
-    <value>Niet in staat om de databron met naam '{0}' te kunnen vinden bij de WMTS url '{1}'.</value>
-  </data>
-  <data name="WmtsLayerConfiguration_ValidateTileSource_TileSource_must_have_WmtsTileSchema" xml:space="preserve">
-    <value>Bron bevat geen WMTS schema.</value>
-  </data>
-  <data name="TileSourceFactory_GetWmtsTileSources_TileSource_without_WmtsTileSchema_error" xml:space="preserve">
-    <value>Een databron is niet volgens het WMTS protocol aangeleverd.</value>
   </data>
   <data name="BruTileLayer_Transparency_Value_out_of_Range_0_" xml:space="preserve">
     <value>Transparantie moet in het bereik {0} liggen.</value>

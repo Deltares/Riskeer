@@ -24,8 +24,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.Dialogs;
-using Core.Components.DotSpatial.Forms.Views;
+using Core.Components.BruTile.Forms;
 using Core.Components.Gis.Data;
+using Core.Components.Gis.Forms.Views;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Forms
@@ -50,7 +51,7 @@ namespace Ringtoets.Integration.Forms
         {
             mapDatas = new List<IBackgroundMapDataSelectionControl>
             {
-                new WmtsLocationControl(mapData)
+                new WmtsLocationControl(mapData, new BruTileWmtsCapabilityFactory())
             };
 
             SelectedMapData = mapData;

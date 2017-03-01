@@ -50,6 +50,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
     <Reference Include="System.XML" />
+    <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\..\..\Common\src\Core.Common.Version\GlobalAssembly.cs">
@@ -66,9 +67,12 @@
     <Compile Include="Readers\PolygonShapeFileReader.cs" />
     <Compile Include="Readers\PolylineShapeFileReader.cs" />
     <Compile Include="Readers\ShapeFileReaderBase.cs" />
+    <Compile Include="Readers\WmtsConnectionInfoReader.cs" />
+    <Compile Include="WmtsConnectionInfoXmlDefinitions.cs" />
     <Compile Include="Writers\PointShapeFileWriter.cs" />
     <Compile Include="Writers\PolylineShapeFileWriter.cs" />
     <Compile Include="Writers\ShapeFileWriterBase.cs" />
+    <Compile Include="Writers\WmtsConnectionInfoWriter.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\Common\src\Core.Common.Base\Core.Common.Base.csproj">

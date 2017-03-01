@@ -80,16 +80,8 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="DotSpatialMapTest.cs" />
-    <Compile Include="IO\WmtsConnectionInfoReaderTest.cs" />
-    <Compile Include="IO\WmtsConnectionInfoTest.cs" />
-    <Compile Include="IO\WmtsConnectionInfoWriterTest.cs" />
-    <Compile Include="IO\WmtsCapabilityFactoryTest.cs" />
     <Compile Include="MapControlTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Views\WmtsCapabilityRowTest.cs" />
-    <Compile Include="Views\WmtsCapabilityTest.cs" />
-    <Compile Include="Views\WmtsConnectionDialogTest.cs" />
-    <Compile Include="Views\WmtsLocationControlTest.cs" />
     <Compile Include="WmtsBackgroundLayerStatusTest.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -124,6 +116,14 @@
       <Project>{d749ee4c-ce50-4c17-bf01-9a953028c126}</Project>
       <Name>Core.Common.TestUtil</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\src\Core.Components.BruTile.IO\Core.Components.BruTile.IO.csproj">
+      <Project>{6B280C25-DB18-4F80-86D3-1CBA65208F9D}</Project>
+      <Name>Core.Components.BruTile.IO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Core.Components.BruTile\Core.Components.BruTile.csproj">
+      <Project>{e02482c7-f12b-42f0-bb2b-c7ec17503a72}</Project>
+      <Name>Core.Components.BruTile</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\src\Core.Components.DotSpatial.Forms\Core.Components.DotSpatial.Forms.csproj">
       <Project>{5a91174a-fb95-4c9d-9ca5-81c0b8d4361a}</Project>
       <Name>Core.Components.DotSpatial.Forms</Name>
@@ -139,6 +139,10 @@
     <ProjectReference Include="..\..\src\Core.Components.Gis\Core.Components.Gis.csproj">
       <Project>{318ba582-88c9-4816-a54a-a7e431461de3}</Project>
       <Name>Core.Components.Gis</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Core.Components.BruTile.TestUtil\Core.Components.BruTile.TestUtil.csproj">
+      <Project>{1081336C-D919-4249-AB33-9AF15F4D19EC}</Project>
+      <Name>Core.Components.BruTile.TestUtil</Name>
     </ProjectReference>
     <ProjectReference Include="..\Core.Components.DotSpatial.TestUtil\Core.Components.DotSpatial.TestUtil.csproj">
       <Project>{9b6f3987-eaf7-4733-80c1-3dcab44d87ae}</Project>

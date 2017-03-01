@@ -52,6 +52,9 @@
     <Compile Include="Data\WellKnownTileSource.cs" />
     <Compile Include="Data\WellKnownTileSourceMapData.cs" />
     <Compile Include="Data\WmtsMapData.cs" />
+    <Compile Include="Exceptions\CannotCreateTileCacheException.cs" />
+    <Compile Include="Exceptions\CannotFindTileSourceException.cs" />
+    <Compile Include="Exceptions\CannotReceiveTilesException.cs" />
     <Compile Include="Features\MapFeature.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -64,6 +67,7 @@
     <Compile Include="Style\PointStyle.cs" />
     <Compile Include="Style\PointSymbol.cs" />
     <Compile Include="Style\PolygonStyle.cs" />
+    <Compile Include="WmtsConnectionInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.Lesser.licenseheader">
@@ -88,6 +92,9 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\mapsicon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

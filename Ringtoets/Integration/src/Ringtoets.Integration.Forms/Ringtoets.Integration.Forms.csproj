@@ -176,6 +176,11 @@
       <Name>Core.Common.Utils</Name>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.BruTile.Forms\Core.Components.BruTile.Forms.csproj">
+      <Project>{1BA9EBD0-AA64-4BE3-9791-B2EE344EC938}</Project>
+      <Name>Core.Components.BruTile.Forms</Name>
+      <Private>False</Private>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.DotSpatial.Forms\Core.Components.DotSpatial.Forms.csproj">
       <Project>{5A91174A-FB95-4C9D-9CA5-81C0B8D4361A}</Project>
       <Name>Core.Components.DotSpatial.Forms</Name>

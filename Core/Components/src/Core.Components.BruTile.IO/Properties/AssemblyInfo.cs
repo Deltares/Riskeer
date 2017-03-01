@@ -20,8 +20,10 @@
 // All rights reserved.
 
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("Core.Components.BruTile.IO")]
 [assembly: AssemblyProduct("Core.Components.BruTile.IO")]
 [assembly: Guid("6b280c25-db18-4f80-86d3-1cba65208f9d")]
+[assembly: InternalsVisibleTo("Core.Components.BruTile.IO.Test")]

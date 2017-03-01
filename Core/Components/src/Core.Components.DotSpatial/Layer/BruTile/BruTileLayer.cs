@@ -58,10 +58,11 @@ using System.Runtime.CompilerServices;
 using System.Threading;
 using BruTile;
 using Core.Common.Base.Data;
-using Core.Components.DotSpatial.Layer.BruTile.Configurations;
-using Core.Components.DotSpatial.Layer.BruTile.Projections;
-using Core.Components.DotSpatial.Layer.BruTile.TileFetching;
+using Core.Components.BruTile.Configurations;
+using Core.Components.BruTile.IO;
+using Core.Components.DotSpatial.Projections;
 using Core.Components.DotSpatial.Properties;
+using Core.Components.Gis.Exceptions;
 using DotSpatial.Controls;
 using DotSpatial.Projections;
 using DotSpatial.Projections.AuthorityCodes;
@@ -114,7 +115,7 @@ namespace Core.Components.DotSpatial.Layer.BruTile
         /// Creates an instance of this class using some tile source configuration.
         /// </summary>
         /// <param name="configuration">The tile source configuration. If the configuration
-        /// hasn't been initialized yet, <see cref="IConfiguration.Initialize"/> will
+        /// hasn't been initialized yet, <see cref="Core.Components.BruTile.Configurations.IConfiguration.Initialize"/> will
         /// be called.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="configuration"/>
         /// is <c>null</c>.</exception>

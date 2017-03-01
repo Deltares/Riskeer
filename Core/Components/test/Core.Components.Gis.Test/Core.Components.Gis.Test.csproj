@@ -62,12 +62,16 @@
     <Compile Include="Data\WellKnownTileSourceMapDataTest.cs" />
     <Compile Include="Data\WellKnownTileSourceTest.cs" />
     <Compile Include="Data\WmtsMapDataTest.cs" />
+    <Compile Include="Exceptions\CannotCreateTileCacheExceptionTest.cs" />
+    <Compile Include="Exceptions\CannotFindTileSourceExceptionTest.cs" />
+    <Compile Include="Exceptions\CannotReceiveTilesExceptionTest.cs" />
     <Compile Include="Features\MapFeatureTest.cs" />
     <Compile Include="Geometries\MapGeometryTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Style\LineStyleTest.cs" />
     <Compile Include="Style\PointStyleTest.cs" />
     <Compile Include="Style\PolygonStyleTest.cs" />
+    <Compile Include="WmtsConnectionInfoTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.Lesser.licenseheader">

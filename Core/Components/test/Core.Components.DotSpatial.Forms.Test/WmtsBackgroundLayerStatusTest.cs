@@ -22,9 +22,9 @@
 using System;
 using System.Collections.Generic;
 using BruTile;
+using Core.Components.BruTile.Configurations;
+using Core.Components.BruTile.IO;
 using Core.Components.DotSpatial.Layer.BruTile;
-using Core.Components.DotSpatial.Layer.BruTile.Configurations;
-using Core.Components.DotSpatial.Layer.BruTile.TileFetching;
 using Core.Components.Gis.Data;
 using NUnit.Framework;
 using Rhino.Mocks;

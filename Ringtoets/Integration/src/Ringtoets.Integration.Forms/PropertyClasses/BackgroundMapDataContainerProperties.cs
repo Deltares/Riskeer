@@ -30,7 +30,7 @@ using Core.Components.Gis;
 using Core.Components.Gis.Data;
 using Ringtoets.Integration.Forms.Properties;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
-using DotSpatialFormsResources = Core.Components.DotSpatial.Forms.Properties.Resources;
+using GisFormsResources = Core.Components.Gis.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Forms.PropertyClasses
 {
@@ -125,7 +125,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
 
         [DynamicVisible]
         [ResourcesCategory(typeof(Resources), nameof(Resources.BackgroundWmtsMapDataContainerProperties_WMTS_Category))]
-        [ResourcesDisplayName(typeof(DotSpatialFormsResources), nameof(DotSpatialFormsResources.WmtsCapability_MapLayer_Id))]
+        [ResourcesDisplayName(typeof(GisFormsResources), nameof(GisFormsResources.WmtsCapability_MapLayer_Id))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.BackgroundWmtsMapDataContainerProperties_SelectedCapabilityIdentifier_Description))]
         public string SelectedCapabilityIdentifier
         {
@@ -137,7 +137,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
 
         [DynamicVisible]
         [ResourcesCategory(typeof(Resources), nameof(Resources.BackgroundWmtsMapDataContainerProperties_WMTS_Category))]
-        [ResourcesDisplayName(typeof(DotSpatialFormsResources), nameof(DotSpatialFormsResources.WmtsCapability_MapLayer_Format))]
+        [ResourcesDisplayName(typeof(GisFormsResources), nameof(GisFormsResources.WmtsCapability_MapLayer_Format))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.BackgroundWmtsMapDataContainerProperties_PreferredFormat_Description))]
         public string PreferredFormat
         {

@@ -52,6 +52,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\..\..\Common\src\Core.Common.Version\GlobalAssembly.cs">
@@ -63,9 +64,11 @@
     <Compile Include="Readers\PolygonShapeFileReaderTest.cs" />
     <Compile Include="Readers\PolylineShapeFileReaderTest.cs" />
     <Compile Include="Readers\ShapeFileReaderBaseTest.cs" />
+    <Compile Include="Readers\WmtsConnectionInfoReaderTest.cs" />
     <Compile Include="Writers\PointShapeFileWriterTest.cs" />
     <Compile Include="Writers\PolylineShapeFileWriterTest.cs" />
     <Compile Include="Writers\ShapeFileWriterBaseTest.cs" />
+    <Compile Include="Writers\WmtsConnectionInfoWriterTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\Common\src\Core.Common.Base\Core.Common.Base.csproj">

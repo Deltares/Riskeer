@@ -211,5 +211,14 @@ namespace Core.Components.Gis.IO.Properties {
                 return ResourceManager.GetString("ShapeFileWriterBase_CopyToFeature_Mapdata_can_only_contain_one_feature", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het is niet mogelijk om WMTS connectie &apos;{0}&apos; aan te maken met URL &apos;{1}&apos;..
+        /// </summary>
+        internal static string WmtsConnectionInfoReader_Unable_To_Create_WmtsConnectionInfo {
+            get {
+                return ResourceManager.GetString("WmtsConnectionInfoReader_Unable_To_Create_WmtsConnectionInfo", resourceCulture);
+            }
+        }
     }
 }

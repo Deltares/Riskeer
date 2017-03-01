@@ -141,6 +141,10 @@
       <Project>{d749ee4c-ce50-4c17-bf01-9a953028c126}</Project>
       <Name>Core.Common.TestUtil</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.BruTile\Core.Components.BruTile.csproj">
+      <Project>{E02482C7-F12B-42F0-BB2B-C7EC17503A72}</Project>
+      <Name>Core.Components.BruTile</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.DotSpatial.Forms\Core.Components.DotSpatial.Forms.csproj">
       <Project>{5A91174A-FB95-4C9D-9CA5-81C0B8D4361A}</Project>
       <Name>Core.Components.DotSpatial.Forms</Name>
@@ -156,6 +160,10 @@
     <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Gis\Core.Components.Gis.csproj">
       <Project>{318ba582-88c9-4816-a54a-a7e431461de3}</Project>
       <Name>Core.Components.Gis</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Components\test\Core.Components.BruTile.TestUtil\Core.Components.BruTile.TestUtil.csproj">
+      <Project>{1081336C-D919-4249-AB33-9AF15F4D19EC}</Project>
+      <Name>Core.Components.BruTile.TestUtil</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Core\Components\test\Core.Components.DotSpatial.TestUtil\Core.Components.DotSpatial.TestUtil.csproj">
       <Project>{9B6F3987-EAF7-4733-80C1-3DCAB44D87AE}</Project>

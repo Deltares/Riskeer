@@ -24,6 +24,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base.Geometry;
+using Core.Components.BruTile.TestUtil;
 using Core.Components.DotSpatial.Forms;
 using Core.Components.DotSpatial.TestUtil;
 using Core.Components.Gis.Data;

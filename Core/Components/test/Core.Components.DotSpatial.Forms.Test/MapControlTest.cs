@@ -31,12 +31,13 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Gui.TestUtil.Settings;
 using Core.Common.TestUtil;
+using Core.Components.BruTile.Configurations;
+using Core.Components.BruTile.TestUtil;
 using Core.Components.DotSpatial.Layer.BruTile;
-using Core.Components.DotSpatial.Layer.BruTile.Configurations;
 using Core.Components.DotSpatial.MapFunctions;
-using Core.Components.DotSpatial.TestUtil;
 using Core.Components.Gis;
 using Core.Components.Gis.Data;
+using Core.Components.Gis.Exceptions;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Forms;
 using Core.Components.Gis.Geometries;
@@ -2794,7 +2795,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         }
 
         /// <summary>
-        /// Generates <see cref="TestCaseData"/> containing problematic <see cref="ITileSourceFactory"/>.
+        /// Generates <see cref="TestCaseData"/> containing problematic <see cref="Core.Components.BruTile.Configurations.ITileSourceFactory"/>.
         /// </summary>
         /// <param name="prefix">The test-name prefix.</param>
         /// <returns>The data for the test cases.</returns>
