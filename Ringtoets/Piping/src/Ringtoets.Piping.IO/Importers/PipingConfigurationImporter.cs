@@ -251,6 +251,12 @@ namespace Ringtoets.Piping.IO.Importers
             }
         }
 
+        /// <summary>
+        /// Reads the entry point and exit point.
+        /// </summary>
+        /// <param name="readCalculation">The calculation read from the imported file.</param>
+        /// <param name="pipingCalculation">The calculation to configure.</param>
+        /// <exception cref="CriticalFileValidationException">Thrown when the entry point or exit point is invalid.</exception>
         private static void ReadEntryExitPoint(ReadPipingCalculation readCalculation, PipingCalculationScenario pipingCalculation)
         {
             if (readCalculation.EntryPointL.HasValue)
@@ -315,10 +321,13 @@ namespace Ringtoets.Piping.IO.Importers
         /// </summary>
         /// <param name="readCalculation">The calculation read from the imported file.</param>
         /// <param name="pipingCalculation">The calculation to configure.</param>
-        /// <exception cref="CriticalFileValidationException">Thrown when the <paramref name="readCalculation"/>
-        /// has a <see cref="StochasticSoilProfile"/> set which is not available in the <see cref="StochasticSoilModel"/>.</exception>
-        private static void ReadStochasticSoilProfile(ReadPipingCalculation readCalculation,
-                                                      PipingCalculationScenario pipingCalculation)
+        /// <exception cref="CriticalFileValidationException">Thrown when the <paramref name="readCalculation"/> has:
+        /// <list type="bullet">
+        /// <item>a <see cref="StochasticSoilProfile"/> set but no <see cref="StochasticSoilModel"/> is specified;</item>
+        /// <item>a <see cref="StochasticSoilProfile"/> set which is not available in the <see cref="StochasticSoilModel"/>.</item>
+        /// </list>
+        /// </exception>
+        private static void ReadStochasticSoilProfile(ReadPipingCalculation readCalculation, PipingCalculationScenario pipingCalculation)
         {
             if (readCalculation.StochasticSoilProfile != null)
             {
@@ -341,6 +350,12 @@ namespace Ringtoets.Piping.IO.Importers
             }
         }
 
+        /// <summary>
+        /// Reads the stochasts.
+        /// </summary>
+        /// <param name="readCalculation">The calculation read from the imported file.</param>
+        /// <param name="pipingCalculation">The calculation to configure.</param>
+        /// <exception cref="CriticalFileValidationException">Thrown when a stochast value (mean or standard deviation) is invalid.</exception>
         private static void ReadStochasts(ReadPipingCalculation readCalculation, PipingCalculationScenario pipingCalculation)
         {
             if (readCalculation.PhreaticLevelExitMean.HasValue && readCalculation.PhreaticLevelExitStandardDeviation.HasValue)
