@@ -120,7 +120,7 @@ namespace Ringtoets.Integration.Forms.Test
                 {
                     // Assert
                     Assert.IsInstanceOf<DialogBase>(dialog);
-                    Assert.AreEqual(@"Selecteer achtergrondkaart", dialog.Text);
+                    Assert.AreEqual("Selecteer achtergrondkaart", dialog.Text);
                     Assert.AreSame(mapData, dialog.SelectedMapData);
 
                     Icon icon = BitmapToIcon(RingtoetsCommonFormsResources.SelectionDialogIcon);

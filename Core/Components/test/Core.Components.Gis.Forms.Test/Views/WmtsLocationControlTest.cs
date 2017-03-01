@@ -193,7 +193,7 @@ namespace Core.Components.Gis.Forms.Test.Views
 
                 var urlLocations = (ComboBox) new ComboBoxTester("urlLocationComboBox", form).TheObject;
                 Assert.AreEqual(ComboBoxStyle.DropDownList, urlLocations.DropDownStyle);
-                var connectionInfos = (List<WmtsConnectionInfo>) urlLocations.DataSource;
+                var connectionInfos = (WmtsConnectionInfo[]) urlLocations.DataSource;
                 Assert.Contains(activeWmtsConnectionInfo, connectionInfos);
 
                 Assert.AreEqual("Name", urlLocations.DisplayMember);
@@ -450,6 +450,8 @@ namespace Core.Components.Gis.Forms.Test.Views
         public void GivenValidWmtsConnectionInfos_WhenConstructed_ThenExpectedProperties()
         {
             // Given
+            const string url = "https://geodata.nationaalgeoregister.nl/tiles/service/wmts/ahn1?request=GetCapabilities";
+            wmtsCapabilityFactory.Expect(wcf => wcf.GetWmtsCapabilities(url)).Return(Enumerable.Empty<WmtsCapability>());
             mockRepository.ReplayAll();
 
             var settingsHelper = new TestSettingsHelper
@@ -469,13 +471,12 @@ namespace Core.Components.Gis.Forms.Test.Views
 
                     // Then
                     var comboBox = (ComboBox) new ComboBoxTester("urlLocationComboBox", form).TheObject;
-                    var dataSource = (List<WmtsConnectionInfo>) comboBox.DataSource;
-                    Assert.AreEqual(2, dataSource.Count);
+                    var dataSource = (WmtsConnectionInfo[]) comboBox.DataSource;
+                    Assert.AreEqual(2, dataSource.Length);
 
                     var firstWmtsConnectionInfo = (WmtsConnectionInfo) comboBox.Items[0];
                     Assert.AreEqual("Actueel Hoogtebestand Nederland (AHN1)", firstWmtsConnectionInfo.Name);
-                    Assert.AreEqual("https://geodata.nationaalgeoregister.nl/tiles/service/wmts/ahn1?request=GetCapabilities",
-                                    firstWmtsConnectionInfo.Url);
+                    Assert.AreEqual(url, firstWmtsConnectionInfo.Url);
 
                     var secondWmtsConnectionInfo = (WmtsConnectionInfo) comboBox.Items[1];
                     Assert.AreEqual("Zeegraskartering", secondWmtsConnectionInfo.Name);
@@ -511,8 +512,8 @@ namespace Core.Components.Gis.Forms.Test.Views
 
                         // Then
                         var comboBox = (ComboBox) new ComboBoxTester("urlLocationComboBox", form).TheObject;
-                        var dataSource = (List<WmtsConnectionInfo>) comboBox.DataSource;
-                        Assert.AreEqual(0, dataSource.Count);
+                        var dataSource = (WmtsConnectionInfo[]) comboBox.DataSource;
+                        Assert.AreEqual(0, dataSource.Length);
                     }
                 };
 
@@ -556,8 +557,8 @@ namespace Core.Components.Gis.Forms.Test.Views
 
                 // Then
                 var comboBox = (ComboBox) new ComboBoxTester("urlLocationComboBox", form).TheObject;
-                var dataSource = (List<WmtsConnectionInfo>) comboBox.DataSource;
-                Assert.AreEqual(0, dataSource.Count);
+                var dataSource = (WmtsConnectionInfo[]) comboBox.DataSource;
+                Assert.AreEqual(0, dataSource.Length);
             }
         }
 
@@ -608,8 +609,8 @@ namespace Core.Components.Gis.Forms.Test.Views
 
                 // Then
                 var comboBox = (ComboBox) new ComboBoxTester("urlLocationComboBox", form).TheObject;
-                var dataSource = (List<WmtsConnectionInfo>) comboBox.DataSource;
-                Assert.AreEqual(1, dataSource.Count);
+                var dataSource = (WmtsConnectionInfo[]) comboBox.DataSource;
+                Assert.AreEqual(1, dataSource.Length);
                 var item = (WmtsConnectionInfo) comboBox.Items[0];
                 Assert.AreEqual(name, item.Name);
                 Assert.AreEqual(url, item.Url);
@@ -657,8 +658,8 @@ namespace Core.Components.Gis.Forms.Test.Views
 
                 // Then
                 var comboBox = (ComboBox) new ComboBoxTester("urlLocationComboBox", form).TheObject;
-                var dataSource = (List<WmtsConnectionInfo>) comboBox.DataSource;
-                Assert.AreEqual(0, dataSource.Count);
+                var dataSource = (WmtsConnectionInfo[]) comboBox.DataSource;
+                Assert.AreEqual(0, dataSource.Length);
 
                 var connectToButton = (Button) new ButtonTester("connectToButton", form).TheObject;
                 Assert.IsFalse(connectToButton.Enabled);
@@ -719,8 +720,8 @@ namespace Core.Components.Gis.Forms.Test.Views
                     string exceptionMessage = $"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{configFilePath}'.";
                     TestHelper.AssertLogMessageWithLevelIsGenerated(action, Tuple.Create(exceptionMessage, LogLevelConstant.Error));
                     var comboBox = (ComboBox) new ComboBoxTester("urlLocationComboBox", form).TheObject;
-                    var dataSource = (List<WmtsConnectionInfo>) comboBox.DataSource;
-                    Assert.AreEqual(1, dataSource.Count);
+                    var dataSource = (WmtsConnectionInfo[]) comboBox.DataSource;
+                    Assert.AreEqual(1, dataSource.Length);
                 }
             }
         }
@@ -752,7 +753,7 @@ namespace Core.Components.Gis.Forms.Test.Views
                 form.Show();
 
                 var comboBox = (ComboBox) new ComboBoxTester("urlLocationComboBox", form).TheObject;
-                comboBox.DataSource = new List<WmtsConnectionInfo>
+                comboBox.DataSource = new[]
                 {
                     new WmtsConnectionInfo("oldName", "oldUrl")
                 };
@@ -764,8 +765,8 @@ namespace Core.Components.Gis.Forms.Test.Views
                 editLocationButton.Click();
 
                 // Then
-                var dataSource = (List<WmtsConnectionInfo>) comboBox.DataSource;
-                Assert.AreEqual(1, dataSource.Count);
+                var dataSource = (WmtsConnectionInfo[]) comboBox.DataSource;
+                Assert.AreEqual(1, dataSource.Length);
                 var item = (WmtsConnectionInfo) comboBox.Items[0];
                 Assert.AreEqual("oldName", item.Name);
                 Assert.AreEqual("oldUrl", item.Url);
@@ -826,8 +827,8 @@ namespace Core.Components.Gis.Forms.Test.Views
                 editLocationButton.Click();
 
                 // Then
-                var dataSource = (List<WmtsConnectionInfo>) comboBox.DataSource;
-                Assert.AreEqual(1, dataSource.Count);
+                var dataSource = (WmtsConnectionInfo[]) comboBox.DataSource;
+                Assert.AreEqual(1, dataSource.Length);
                 var item = (WmtsConnectionInfo) comboBox.Items[0];
                 Assert.AreEqual(newName, item.Name);
                 Assert.AreEqual(newUrl, item.Url);

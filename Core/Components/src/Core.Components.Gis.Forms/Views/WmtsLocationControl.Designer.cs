@@ -74,8 +74,11 @@ namespace Core.Components.Gis.Forms.Views
             // urlLocationComboBox
             // 
             resources.ApplyResources(this.urlLocationComboBox, "urlLocationComboBox");
+            this.urlLocationComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.urlLocationComboBox.FormattingEnabled = true;
             this.urlLocationComboBox.Name = "urlLocationComboBox";
+            this.urlLocationComboBox.Sorted = true;
+            this.urlLocationComboBox.SelectedIndexChanged += new System.EventHandler(this.OnUrlLocationSelectedIndexChanged);
             // 
             // flowLayoutPanel2
             // 
@@ -90,31 +93,35 @@ namespace Core.Components.Gis.Forms.Views
             resources.ApplyResources(this.connectToButton, "connectToButton");
             this.connectToButton.Name = "connectToButton";
             this.connectToButton.UseVisualStyleBackColor = true;
+            this.connectToButton.Click += new System.EventHandler(this.OnConnectToButtonClick);
             // 
-            // addButton
+            // addLocationButton
             // 
             resources.ApplyResources(this.addLocationButton, "addLocationButton");
             this.addLocationButton.Name = "addLocationButton";
             this.addLocationButton.UseVisualStyleBackColor = true;
+            this.addLocationButton.Click += new System.EventHandler(this.OnAddLocationButtonClick);
             // 
-            // editButton
+            // editLocationButton
             // 
             resources.ApplyResources(this.editLocationButton, "editLocationButton");
             this.editLocationButton.Name = "editLocationButton";
             this.editLocationButton.UseVisualStyleBackColor = true;
+            this.editLocationButton.Click += new System.EventHandler(this.OnEditLocationButtonClick);
             // 
-            // dataGridView
+            // dataGridViewControl
             // 
-            this.dataGridViewControl.Dock = System.Windows.Forms.DockStyle.Fill;
             resources.ApplyResources(this.dataGridViewControl, "dataGridViewControl");
+            this.dataGridViewControl.MultiSelect = false;
             this.dataGridViewControl.Name = "dataGridViewControl";
+            this.dataGridViewControl.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             // 
-            // WmtsLayerControl
+            // WmtsLocationControl
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.tableLayoutPanel1);
-            this.Name = "WmtsLayerControl";
+            this.Name = "WmtsLocationControl";
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.tableLayoutPanel2.ResumeLayout(false);
