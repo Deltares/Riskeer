@@ -441,19 +441,14 @@ namespace Core.Common.Gui.Test.Commands
             var inquiryHelper = mockRepository.Stub<IInquiryHelper>();
             mockRepository.ReplayAll();
 
+            var listViewItems = new ListViewItem[0];
+
             DialogBoxHandler = (name, wnd) =>
             {
-                var formTester = new FormTester(name);
-                var listView = (ListView)new ControlTester("listViewItemTypes").TheObject;
-                try
+                using (new FormTester(name))
                 {
-                    Assert.AreEqual(2, listView.Items.Count);
-                    Assert.AreEqual(updateInfoAName, listView.Items[0].Name);
-                    Assert.AreEqual(updateInfoBName, listView.Items[1].Name);
-                }
-                finally
-                {
-                    formTester.Close();
+                    var listView = (ListView) new ControlTester("listViewItemTypes").TheObject;
+                    listViewItems = listView.Items.OfType<ListViewItem>().ToArray();
                 }
             };
 
@@ -470,6 +465,9 @@ namespace Core.Common.Gui.Test.Commands
             }
 
             // Assert
+            Assert.AreEqual(2, listViewItems.Length);
+            Assert.AreEqual(updateInfoAName, listViewItems[0].Name);
+            Assert.AreEqual(updateInfoBName, listViewItems[1].Name);
             mockRepository.VerifyAll();
         }
     }
