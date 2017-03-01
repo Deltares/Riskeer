@@ -25,7 +25,6 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
-using BruTile;
 using BruTile.Wmts;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Gui.Settings;
@@ -152,12 +151,12 @@ namespace Core.Components.Gis.Forms.Test.Views
                 Assert.IsInstanceOf<ICollection<WmtsConnectionInfo>>(urlLocations.DataSource);
                 Assert.AreEqual("Name", urlLocations.DisplayMember);
                 Assert.AreEqual("Url", urlLocations.ValueMember);
-                Assert.IsTrue((bool) urlLocations.Sorted);
+                Assert.IsTrue(urlLocations.Sorted);
                 Assert.IsNull(urlLocations.SelectedItem);
 
                 var buttonConnectTo = (Button) new ButtonTester("connectToButton", form).TheObject;
                 Assert.AreEqual("Verbinding maken", buttonConnectTo.Text);
-                Assert.IsFalse((bool) buttonConnectTo.Enabled);
+                Assert.IsFalse(buttonConnectTo.Enabled);
 
                 var buttonAddLocation = new ButtonTester("addLocationButton", form);
                 Assert.AreEqual("Locatie toevoegen...", buttonAddLocation.Text);

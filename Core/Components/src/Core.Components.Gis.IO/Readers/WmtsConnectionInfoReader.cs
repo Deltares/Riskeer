@@ -106,7 +106,7 @@ namespace Core.Components.Gis.IO.Readers
         }
 
         /// <summary>
-        /// Validates if the reader points to the <see cref="Core.Components.DotSpatial.Forms.IO.WmtsConnectionInfoXmlDefinitions.WmtsConnectionElement"/> element.
+        /// Validates if the reader points to the <see cref="WmtsConnectionInfoXmlDefinitions.WmtsConnectionElement"/> element.
         /// </summary>
         /// <param name="reader">The reader to use.</param>
         /// <returns><c>true</c> if the reader points to the WMTS connection element, <c>false</c> otherwise.</returns>

@@ -71,9 +71,9 @@ namespace Core.Components.BruTile.Configurations
         /// </summary>
         /// <param name="wmtsCapabilitiesUrl">The capabilities url of the WMTS.</param>
         /// <param name="tileSource">The tile source.</param>
-        /// <exception cref="Core.Components.Gis.Exceptions.CannotCreateTileCacheException">Thrown when creating the file
+        /// <exception cref="CannotCreateTileCacheException">Thrown when creating the file
         /// cache failed.</exception>
-        /// <exception cref="Core.Components.Gis.Exceptions.CannotReceiveTilesException">Thrown when <paramref name="tileSource"/>
+        /// <exception cref="CannotReceiveTilesException">Thrown when <paramref name="tileSource"/>
         /// doesn't contain a <see cref="WmtsTileSchema"/>.</exception>
         private WmtsLayerConfiguration(string wmtsCapabilitiesUrl, ITileSource tileSource)
             : base(SuggestTileCachePath(ValidateTileSource(tileSource)))
@@ -95,7 +95,7 @@ namespace Core.Components.BruTile.Configurations
         /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="preferredFormat"/>
         /// is not an image MIME-type.</exception>
-        /// <exception cref="Core.Components.Gis.Exceptions.CannotFindTileSourceException">Thrown when it has become impossible
+        /// <exception cref="CannotFindTileSourceException">Thrown when it has become impossible
         /// to create an <see cref="ITileSource"/> based on the given information (for example:
         /// unable to connect to server).</exception>
         public static WmtsLayerConfiguration CreateInitializedConfiguration(string wmtsCapabilitiesUrl, string capabilityIdentifier, string preferredFormat)
@@ -132,7 +132,7 @@ namespace Core.Components.BruTile.Configurations
         /// </summary>
         /// <param name="tileSource">The source to be validated.</param>
         /// <returns>Returns <paramref name="tileSource"/>.</returns>
-        /// <exception cref="Core.Components.Gis.Exceptions.CannotCreateTileCacheException">Thrown when <paramref name="tileSource"/>
+        /// <exception cref="CannotCreateTileCacheException">Thrown when <paramref name="tileSource"/>
         /// doesn't contain a <see cref="WmtsTileSchema"/>.</exception>
         private static ITileSource ValidateTileSource(ITileSource tileSource)
         {
@@ -180,7 +180,7 @@ namespace Core.Components.BruTile.Configurations
         /// <param name="capabilityIdentifier">The identifier of the tile source.</param>
         /// <param name="preferredFormat">The preferred tile image format, as MIME-type.</param>
         /// <returns>The tile source with <see cref="WmtsTileSchema"/>.</returns>
-        /// <exception cref="Core.Components.Gis.Exceptions.CannotFindTileSourceException">Thrown when unable to retrieve
+        /// <exception cref="CannotFindTileSourceException">Thrown when unable to retrieve
         /// the configured tile source.</exception>
         private static ITileSource GetConfiguredTileSource(string capabilitiesUri, string capabilityIdentifier, string preferredFormat)
         {

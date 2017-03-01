@@ -28,7 +28,7 @@ using Core.Components.Gis.Forms.Properties;
 namespace Core.Components.Gis.Forms.Views
 {
     /// <summary>
-    /// A dialog allowing the user to create an instance of <see cref="Core.Components.DotSpatial.Forms.WmtsConnectionInfo"/>.
+    /// A dialog allowing the user to create an instance of <see cref="WmtsConnectionInfo"/>.
     /// </summary>
     public partial class WmtsConnectionDialog : DialogBase
     {

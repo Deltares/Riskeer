@@ -25,6 +25,7 @@ using BruTile;
 using BruTile.Predefined;
 using BruTile.Web;
 using Core.Components.BruTile.Data;
+using Core.Components.Gis.Exceptions;
 
 namespace Core.Components.BruTile.Configurations
 {
@@ -48,7 +49,7 @@ namespace Core.Components.BruTile.Configurations
         /// is an invalid folder path</exception>
         /// <exception cref="NotSupportedException">Thrown when <paramref name="knownTileSource"/>
         /// isn't a supported member.</exception>
-        /// <exception cref="Core.Components.Gis.Exceptions.CannotCreateTileCacheException">Thrown when creating the file
+        /// <exception cref="CannotCreateTileCacheException">Thrown when creating the file
         /// cache failed.</exception>
         private WellKnownTileSourceLayerConfiguration(string persistentCacheDirectoryPath, KnownTileSource knownTileSource)
             : base(persistentCacheDirectoryPath)
@@ -64,7 +65,7 @@ namespace Core.Components.BruTile.Configurations
         /// </summary>
         /// <param name="knownTileSource">The built-in tile provider to be used.</param>
         /// <param name="tileSource">The tile source corresponding to <paramref name="knownTileSource"/>.</param>
-        /// <exception cref="Core.Components.Gis.Exceptions.CannotCreateTileCacheException">Thrown when creating the file
+        /// <exception cref="CannotCreateTileCacheException">Thrown when creating the file
         /// cache failed.</exception>
         private WellKnownTileSourceLayerConfiguration(KnownTileSource knownTileSource, ITileSource tileSource)
             : base(SuggestTileCachePath(tileSource, knownTileSource))
@@ -81,7 +82,7 @@ namespace Core.Components.BruTile.Configurations
         /// <returns>The new <see cref="WellKnownTileSourceLayerConfiguration"/>.</returns>
         /// <exception cref="NotSupportedException">Thrown when <paramref name="knownTileSource"/>
         /// isn't a supported member.</exception>
-        /// <exception cref="Core.Components.Gis.Exceptions.CannotCreateTileCacheException">Thrown when creating the file
+        /// <exception cref="CannotCreateTileCacheException">Thrown when creating the file
         /// cache failed.</exception>
         public static WellKnownTileSourceLayerConfiguration CreateInitializedConfiguration(KnownTileSource knownTileSource)
         {

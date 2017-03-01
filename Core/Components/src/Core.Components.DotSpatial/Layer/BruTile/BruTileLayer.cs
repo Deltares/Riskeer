@@ -115,7 +115,7 @@ namespace Core.Components.DotSpatial.Layer.BruTile
         /// Creates an instance of this class using some tile source configuration.
         /// </summary>
         /// <param name="configuration">The tile source configuration. If the configuration
-        /// hasn't been initialized yet, <see cref="Core.Components.BruTile.Configurations.IConfiguration.Initialize"/> will
+        /// hasn't been initialized yet, <see cref="IConfiguration.Initialize"/> will
         /// be called.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="configuration"/>
         /// is <c>null</c>.</exception>
