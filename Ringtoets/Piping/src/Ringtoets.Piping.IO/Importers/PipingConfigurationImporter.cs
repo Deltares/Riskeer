@@ -118,11 +118,22 @@ namespace Ringtoets.Piping.IO.Importers
             return true;
         }
 
-        private void AddItemsToModel(IEnumerable<ICalculationBase> validCalculationItems)
+        private ReadResult<IReadPipingCalculationItem> ReadConfiguration()
         {
-            foreach (ICalculationBase validCalculationItem in validCalculationItems)
+            try
             {
-                ImportTarget.Children.Add(validCalculationItem);
+                return new ReadResult<IReadPipingCalculationItem>(false)
+                {
+                    Items = new PipingConfigurationReader(FilePath).Read().ToList()
+                };
+            }
+            catch (Exception exception) when (exception is ArgumentException
+                                              || exception is CriticalFileReadException)
+            {
+                string errorMessage = string.Format(Resources.PipingConfigurationImporter_HandleCriticalFileReadError_Error_0_no_configuration_imported,
+                                                    exception.Message);
+                log.Error(errorMessage, exception);
+                return new ReadResult<IReadPipingCalculationItem>(true);
             }
         }
 
@@ -172,6 +183,7 @@ namespace Ringtoets.Piping.IO.Importers
                 ReadSurfaceLine(readCalculation, pipingCalculation);
                 ReadEntryExitPoint(readCalculation, pipingCalculation);
                 ReadStochasticSoilModel(readCalculation, pipingCalculation);
+                ReadStochasticSoilProfile(readCalculation, pipingCalculation);
                 ReadStochasts(readCalculation, pipingCalculation);
             }
             catch (Exception e) when (e is CriticalFileValidationException || e is ArgumentOutOfRangeException)
@@ -197,17 +209,16 @@ namespace Ringtoets.Piping.IO.Importers
         {
             if (readCalculation.HydraulicBoundaryLocation != null)
             {
-                HydraulicBoundaryLocation location = hydraulicBoundaryLocations.FirstOrDefault(l => l.Name == readCalculation.HydraulicBoundaryLocation);
+                HydraulicBoundaryLocation location = hydraulicBoundaryLocations
+                    .FirstOrDefault(l => l.Name == readCalculation.HydraulicBoundaryLocation);
 
-                if (location != null)
-                {
-                    pipingCalculation.InputParameters.HydraulicBoundaryLocation = location;
-                }
-                else
+                if (location == null)
                 {
                     throw new CriticalFileValidationException(string.Format(Resources.PipingConfigurationImporter_ReadHydraulicBoundaryLocation_Hydraulic_boundary_location_0_does_not_exist,
                                                                             readCalculation.HydraulicBoundaryLocation));
                 }
+
+                pipingCalculation.InputParameters.HydraulicBoundaryLocation = location;
             }
             else if (readCalculation.AssessmentLevel.HasValue)
             {
@@ -228,17 +239,15 @@ namespace Ringtoets.Piping.IO.Importers
             if (readCalculation.SurfaceLine != null)
             {
                 RingtoetsPipingSurfaceLine surfaceLine = failureMechanism.SurfaceLines
-                                                                         .FirstOrDefault(sl => sl.Name == readCalculation.SurfaceLine);
+                    .FirstOrDefault(sl => sl.Name == readCalculation.SurfaceLine);
 
-                if (surfaceLine != null)
-                {
-                    pipingCalculation.InputParameters.SurfaceLine = surfaceLine;
-                }
-                else
+                if (surfaceLine == null)
                 {
                     throw new CriticalFileValidationException(string.Format(Resources.PipingConfigurationImporter_ReadSurfaceLine_SurfaceLine_0_does_not_exist,
                                                                             readCalculation.SurfaceLine));
                 }
+
+                pipingCalculation.InputParameters.SurfaceLine = surfaceLine;
             }
         }
 
@@ -281,29 +290,23 @@ namespace Ringtoets.Piping.IO.Importers
             if (readCalculation.StochasticSoilModel != null)
             {
                 StochasticSoilModel soilModel = failureMechanism.StochasticSoilModels
-                                                                .FirstOrDefault(ssm => ssm.Name == readCalculation.StochasticSoilModel);
+                    .FirstOrDefault(ssm => ssm.Name == readCalculation.StochasticSoilModel);
 
-                if (soilModel != null)
-                {
-                    if (pipingCalculation.InputParameters.SurfaceLine != null)
-                    {
-                        if (!soilModel.IntersectsWithSurfaceLineGeometry(pipingCalculation.InputParameters.SurfaceLine))
-                        {
-                            throw new CriticalFileValidationException(string.Format(Resources.PipingConfigurationImporter_ReadStochasticSoilModel_Stochastische_soil_model_0_does_not_intersect_with_surfaceLine_1,
-                                                                                    readCalculation.StochasticSoilModel,
-                                                                                    readCalculation.SurfaceLine));
-                        }
-                    }
-
-                    pipingCalculation.InputParameters.StochasticSoilModel = soilModel;
-
-                    ReadStochasticSoilProfile(readCalculation, pipingCalculation, soilModel);
-                }
-                else
+                if (soilModel == null)
                 {
                     throw new CriticalFileValidationException(string.Format(Resources.PipingConfigurationImporter_ReadStochasticSoilModel_Stochastische_soil_model_0_does_not_exist,
                                                                             readCalculation.StochasticSoilModel));
                 }
+
+                if (pipingCalculation.InputParameters.SurfaceLine != null
+                    && !soilModel.IntersectsWithSurfaceLineGeometry(pipingCalculation.InputParameters.SurfaceLine))
+                {
+                    throw new CriticalFileValidationException(string.Format(Resources.PipingConfigurationImporter_ReadStochasticSoilModel_Stochastische_soil_model_0_does_not_intersect_with_surfaceLine_1,
+                                                                            readCalculation.StochasticSoilModel,
+                                                                            readCalculation.SurfaceLine));
+                }
+
+                pipingCalculation.InputParameters.StochasticSoilModel = soilModel;
             }
         }
 
@@ -312,27 +315,29 @@ namespace Ringtoets.Piping.IO.Importers
         /// </summary>
         /// <param name="readCalculation">The calculation read from the imported file.</param>
         /// <param name="pipingCalculation">The calculation to configure.</param>
-        /// <param name="soilModel">The <see cref="StochasticSoilModel"/> to get the soil profile from.</param>
         /// <exception cref="CriticalFileValidationException">Thrown when the <paramref name="readCalculation"/>
         /// has a <see cref="StochasticSoilProfile"/> set which is not available in the <see cref="StochasticSoilModel"/>.</exception>
         private static void ReadStochasticSoilProfile(ReadPipingCalculation readCalculation,
-                                                      PipingCalculationScenario pipingCalculation,
-                                                      StochasticSoilModel soilModel)
+                                                      PipingCalculationScenario pipingCalculation)
         {
             if (readCalculation.StochasticSoilProfile != null)
             {
-                StochasticSoilProfile soilProfile = soilModel.StochasticSoilProfiles
-                                                             .FirstOrDefault(ssp => ssp.SoilProfile.Name == readCalculation.StochasticSoilProfile);
-
-                if (soilProfile != null)
+                if (pipingCalculation.InputParameters.StochasticSoilModel == null)
                 {
-                    pipingCalculation.InputParameters.StochasticSoilProfile = soilProfile;
+                    throw new CriticalFileValidationException(string.Format(Resources.PipingConfigurationImporter_ReadStochasticSoilProfile_No_soil_model_provided_for_soil_profile_with_name_0,
+                                                                            readCalculation.StochasticSoilProfile));
                 }
-                else
+
+                StochasticSoilProfile soilProfile = pipingCalculation.InputParameters.StochasticSoilModel.StochasticSoilProfiles
+                                                                     .FirstOrDefault(ssp => ssp.SoilProfile.Name == readCalculation.StochasticSoilProfile);
+
+                if (soilProfile == null)
                 {
                     throw new CriticalFileValidationException(string.Format(Resources.PipingConfigurationImporter_ReadStochasticSoilProfile_Stochastic_soil_profile_0_does_not_exist_within_soil_model_1,
                                                                             readCalculation.StochasticSoilProfile, readCalculation.StochasticSoilModel));
                 }
+
+                pipingCalculation.InputParameters.StochasticSoilProfile = soilProfile;
             }
         }
 
@@ -395,22 +400,11 @@ namespace Ringtoets.Piping.IO.Importers
             }
         }
 
-        private ReadResult<IReadPipingCalculationItem> ReadConfiguration()
+        private void AddItemsToModel(IEnumerable<ICalculationBase> validCalculationItems)
         {
-            try
+            foreach (ICalculationBase validCalculationItem in validCalculationItems)
             {
-                return new ReadResult<IReadPipingCalculationItem>(false)
-                {
-                    Items = new PipingConfigurationReader(FilePath).Read().ToList()
-                };
-            }
-            catch (Exception exception) when (exception is ArgumentException
-                                              || exception is CriticalFileReadException)
-            {
-                string errorMessage = string.Format(Resources.PipingConfigurationImporter_HandleCriticalFileReadError_Error_0_no_configuration_imported,
-                                                    exception.Message);
-                log.Error(errorMessage, exception);
-                return new ReadResult<IReadPipingCalculationItem>(true);
+                ImportTarget.Children.Add(validCalculationItem);
             }
         }
     }
