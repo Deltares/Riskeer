@@ -47,6 +47,7 @@ using Ringtoets.Piping.Forms.PropertyClasses;
 using Ringtoets.Piping.Forms.Views;
 using Ringtoets.Piping.IO.Exporters;
 using Ringtoets.Piping.IO.Importers;
+using Ringtoets.Piping.Plugin.ChangeHandlers;
 using Ringtoets.Piping.Plugin.FileImporter;
 using Ringtoets.Piping.Plugin.Properties;
 using Ringtoets.Piping.Primitives;
@@ -1029,22 +1030,55 @@ namespace Ringtoets.Piping.Plugin
             parentGroupContext.NotifyObservers();
         }
 
-        private static StrictContextMenuItem CreateUpdateEntryAndExitPointItem(PipingCalculationGroupContext nodeData)
-        {
-            return new StrictContextMenuItem(
-                Resources.PipingPlugin_CreateUpdateEntryAndExitPointItem_Update_all_entry_and_exit_points,
-                Resources.PipingPlugin_CreateUpdateEntryAndExitPointItem_Update_all_calculations_with_characteristic_points_ToolTip,
-                RingtoetsCommonFormsResources.UpdateItemIcon,
-                (sender, args) => UpdateAllEntryAndExitPointsOfAllCalculations(nodeData));
-        }
-
-        private static void UpdateAllEntryAndExitPointsOfAllCalculations(PipingCalculationGroupContext nodeData)
+        private StrictContextMenuItem CreateUpdateEntryAndExitPointItem(PipingCalculationGroupContext nodeData)
         {
             IEnumerable<PipingCalculationScenario> calculations = nodeData.WrappedData.GetCalculations().OfType<PipingCalculationScenario>();
-            foreach (PipingCalculationScenario calculation in calculations)
+
+            var isItemEnabled = true;
+            string toolTipText = Resources.PipingPlugin_CreateUpdateEntryAndExitPointItem_Update_all_calculations_with_characteristic_points_ToolTip;
+            if (!calculations.Any())
             {
-                UpdateSurfaceLineDependentData(calculation);
+                isItemEnabled = false;
+                toolTipText = Resources.PipingPlugin_CreateUpdateEntryAndExitPointItem_No_calculations_to_update_ToolTip;
             }
+            else
+            {
+                if (calculations.All(calc => calc.InputParameters.SurfaceLine == null))
+                {
+                    isItemEnabled = false;
+                    toolTipText = Resources.PipingPlugin_CreateUpdateEntryAndExitPointItem_No_calculations_with_surfaceline_Tooltip;
+                }
+            }
+
+            return new StrictContextMenuItem(
+                Resources.PipingPlugin_CreateUpdateEntryAndExitPointItem_Update_all_entry_and_exit_points,
+                toolTipText,
+                RingtoetsCommonFormsResources.UpdateItemIcon,
+                (sender, args) => UpdateAllEntryAndExitPointsOfAllCalculations(nodeData))
+            {
+                Enabled = isItemEnabled
+            };
+        }
+
+        private void UpdateAllEntryAndExitPointsOfAllCalculations(PipingCalculationGroupContext nodeData)
+        {
+            PipingCalculationScenario[] calculations = nodeData.WrappedData.GetCalculations().OfType<PipingCalculationScenario>().ToArray();
+
+            if (VerifyEntryAndExitPointUpdates(calculations))
+            {
+                foreach (PipingCalculationScenario calculation in calculations)
+                {
+                    UpdateSurfaceLineDependentData(calculation);
+                }
+            }
+        }
+
+        private bool VerifyEntryAndExitPointUpdates(IEnumerable<PipingCalculation> calculations)
+        {
+            var changeHandler = new UpdateEntryAndExitPointsCalculationGroupChangeHandler(calculations,
+                                                                                          new DialogBasedInquiryHelper(Gui.MainWindow));
+
+            return !changeHandler.RequireConfirmation() || changeHandler.InquireConfirmation();
         }
 
         #endregion

@@ -21,17 +21,18 @@
 
 using System;
 using Core.Common.Gui;
+using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.IO;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.KernelWrapper.TestUtil;
-using Ringtoets.Piping.Plugin.FileImporter;
+using Ringtoets.Piping.Plugin.ChangeHandlers;
 
-namespace Ringtoets.Piping.Plugin.Test.FileImporter
+namespace Ringtoets.Piping.Plugin.Test.ChangeHandlers
 {
     [TestFixture]
-    public class RingtoetsPipingSurfaceLineChangeHandlerTest
+    public class StochasticSoilModelChangeHandlerTest : NUnitFormTest
     {
         [Test]
         public void Constructor_WithoutFailureMechanism_ThrowsArgumentNullException()
@@ -42,7 +43,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             mockRepository.ReplayAll();
 
             // Call
-            TestDelegate test = () => new RingtoetsPipingSurfaceLineChangeHandler(null, inquiryHandler);
+            TestDelegate test = () => new StochasticSoilModelChangeHandler(null, inquiryHandler);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -54,7 +55,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         public void Constructor_WithoutInquiryHandler_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new RingtoetsPipingSurfaceLineChangeHandler(new PipingFailureMechanism(), null);
+            TestDelegate test = () => new StochasticSoilModelChangeHandler(new PipingFailureMechanism(), null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -70,7 +71,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             mockRepository.ReplayAll();
 
             // Call
-            var handler = new RingtoetsPipingSurfaceLineChangeHandler(new PipingFailureMechanism(), inquiryHandler);
+            var handler = new StochasticSoilModelChangeHandler(new PipingFailureMechanism(), inquiryHandler);
 
             // Assert
             Assert.IsInstanceOf<IConfirmDataChangeHandler>(handler);
@@ -88,7 +89,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var failureMechanism = new PipingFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(new PipingCalculationScenario(new GeneralPipingInput()));
 
-            var handler = new RingtoetsPipingSurfaceLineChangeHandler(failureMechanism, inquiryHandler);
+            var handler = new StochasticSoilModelChangeHandler(failureMechanism, inquiryHandler);
 
             // Call
             bool requireConfirmation = handler.RequireConfirmation();
@@ -112,7 +113,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                 Output = new TestPipingOutput()
             });
 
-            var handler = new RingtoetsPipingSurfaceLineChangeHandler(failureMechanism, inquiryHandler);
+            var handler = new StochasticSoilModelChangeHandler(failureMechanism, inquiryHandler);
 
             // Call
             bool requireConfirmation = handler.RequireConfirmation();
@@ -128,8 +129,8 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         public void InquireConfirmation_Always_ShowsConfirmationDialogReturnResultOfInquiry(bool expectedResult)
         {
             // Setup
-            string message = "Wanneer profielschematisaties wijzigen als gevolg van het bijwerken, " +
-                                   "zullen de resultaten van berekeningen die deze profielschematisaties gebruiken, worden " +
+            string message = "Wanneer ondergrondschematisaties wijzigen als gevolg van het bijwerken, " +
+                                   "zullen de resultaten van berekeningen die deze ondergrondschematisaties gebruiken, worden " +
                                    $"verwijderd.{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
 
             var mockRepository = new MockRepository();
@@ -137,7 +138,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             inquiryHandler.Expect(ih => ih.InquireContinuation(message)).Return(expectedResult);
             mockRepository.ReplayAll();
 
-            var handler = new RingtoetsPipingSurfaceLineChangeHandler(new PipingFailureMechanism(), inquiryHandler);
+            var handler = new StochasticSoilModelChangeHandler(new PipingFailureMechanism(), inquiryHandler);
 
             // Call
             bool result = handler.InquireConfirmation();

@@ -27,24 +27,24 @@ using Ringtoets.Common.IO;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Plugin.Properties;
 
-namespace Ringtoets.Piping.Plugin.FileImporter
+namespace Ringtoets.Piping.Plugin.ChangeHandlers
 {
     /// <summary>
     /// Class which can, if required, inquire the user for a confirmation when a change to the
-    /// surface line collection requires calculation results to be altered.
+    /// stochastic soil model collection requires calculation results to be altered.
     /// </summary>
-    public class RingtoetsPipingSurfaceLineChangeHandler : IConfirmDataChangeHandler
+    public class StochasticSoilModelChangeHandler : IConfirmDataChangeHandler
     {
-        private readonly IInquiryHelper inquiryHandler;
         private readonly PipingFailureMechanism failureMechanism;
+        private readonly IInquiryHelper inquiryHandler;
 
         /// <summary>
-        /// Creates a new instance of <see cref="RingtoetsPipingSurfaceLineChangeHandler"/>.
+        /// Creates new instance of <see cref="StochasticSoilModelChangeHandler"/>
         /// </summary>
         /// <param name="failureMechanism">Failure mechanism for which to handle changes in stochastic soil models.</param>
         /// <param name="inquiryHandler">Object responsible for inquiring required data.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        public RingtoetsPipingSurfaceLineChangeHandler(PipingFailureMechanism failureMechanism, IInquiryHelper inquiryHandler)
+        public StochasticSoilModelChangeHandler(PipingFailureMechanism failureMechanism, IInquiryHelper inquiryHandler)
         {
             if (failureMechanism == null)
             {
@@ -54,14 +54,13 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             {
                 throw new ArgumentNullException(nameof(inquiryHandler));
             }
-
             this.failureMechanism = failureMechanism;
             this.inquiryHandler = inquiryHandler;
         }
 
         public bool RequireConfirmation()
         {
-            IEnumerable<PipingCalculation> calculations = failureMechanism.Calculations.Cast<PipingCalculation>();
+            IEnumerable<PipingCalculationScenario> calculations = failureMechanism.Calculations.Cast<PipingCalculationScenario>();
 
             return calculations.Any(HasOutput);
         }
@@ -69,10 +68,10 @@ namespace Ringtoets.Piping.Plugin.FileImporter
         public bool InquireConfirmation()
         {
             return inquiryHandler.InquireContinuation(
-                Resources.RingtoetsPipingSurfaceLineChangeHandler_InquireConfirmation_When_updating_RingtoetsSurfaceLines_definitions_assigned_to_calculations_output_will_be_cleared_confirm);
+                Resources.StochasticSoilModelChangeHandler_When_updating_StochasticSoilModel_definitions_assigned_to_calculations_output_will_be_cleared_confirm);
         }
 
-        private static bool HasOutput(PipingCalculation calculation)
+        private static bool HasOutput(PipingCalculationScenario calculation)
         {
             return calculation.HasOutput;
         }

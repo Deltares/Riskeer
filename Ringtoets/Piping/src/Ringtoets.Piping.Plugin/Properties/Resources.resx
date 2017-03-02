@@ -253,4 +253,15 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="PipingPlugin_CreateUpdateEntryAndExitPointItem_Update_all_entry_and_exit_points" xml:space="preserve">
     <value>&amp;Bijwerken alle intrede- en uittredepunten</value>
   </data>
+  <data name="PipingPlugin_CreateUpdateEntryAndExitPointItem_No_calculations_to_update_ToolTip" xml:space="preserve">
+    <value>Er zijn geen berekeningen om bij te werken.</value>
+  </data>
+  <data name="PipingPlugin_CreateUpdateEntryAndExitPointItem_No_calculations_with_surfaceline_Tooltip" xml:space="preserve">
+    <value>Er zijn geen berekeningen met een profielschematisatie.</value>
+  </data>
+  <data name="UpdateEntryAndExitPointsCalculationGroupChangeHandler_InquireConfirmation_When_updating_entry_and_exit_points_definitions_assigned_to_calculations_output_will_be_cleared_confirm" xml:space="preserve">
+    <value>Wanneer de intrede- en uittrede punten wijzigen als gevolg van het bijwerken, zullen de resultaten van berekeningen die deze profielschematisaties gebruiken, worden verwijderd.
+
+Weet u zeker dat u wilt doorgaan?</value>
+  </data>
 </root>

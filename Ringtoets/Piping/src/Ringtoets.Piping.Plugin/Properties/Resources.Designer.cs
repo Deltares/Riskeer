@@ -82,6 +82,25 @@ namespace Ringtoets.Piping.Plugin.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Er zijn geen berekeningen om bij te werken..
+        /// </summary>
+        public static string PipingPlugin_CreateUpdateEntryAndExitPointItem_No_calculations_to_update_ToolTip {
+            get {
+                return ResourceManager.GetString("PipingPlugin_CreateUpdateEntryAndExitPointItem_No_calculations_to_update_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Er zijn geen berekeningen met een profielschematisatie..
+        /// </summary>
+        public static string PipingPlugin_CreateUpdateEntryAndExitPointItem_No_calculations_with_surfaceline_Tooltip {
+            get {
+                return ResourceManager.GetString("PipingPlugin_CreateUpdateEntryAndExitPointItem_No_calculations_with_surfaceline_T" +
+                        "ooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Alle berekeningen bijwerken met de karakteristieke punten..
         /// </summary>
         public static string PipingPlugin_CreateUpdateEntryAndExitPointItem_Update_all_calculations_with_characteristic_points_ToolTip {
@@ -499,6 +518,19 @@ namespace Ringtoets.Piping.Plugin.Properties {
             get {
                 return ResourceManager.GetString("StochasticSoilModelUpdateDataStrategy_UpdateModelWithImportedData_Update_of_Stoch" +
                         "asticSoilModel_failed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wanneer de intrede- en uittrede punten wijzigen als gevolg van het bijwerken, zullen de resultaten van berekeningen die deze profielschematisaties gebruiken, worden verwijderd.
+        ///
+        ///Weet u zeker dat u wilt doorgaan?.
+        /// </summary>
+        public static string UpdateEntryAndExitPointsCalculationGroupChangeHandler_InquireConfirmation_When_updating_entry_and_exit_points_definitions_assigned_to_calculations_output_will_be_cleared_confirm {
+            get {
+                return ResourceManager.GetString("UpdateEntryAndExitPointsCalculationGroupChangeHandler_InquireConfirmation_When_up" +
+                        "dating_entry_and_exit_points_definitions_assigned_to_calculations_output_will_be" +
+                        "_cleared_confirm", resourceCulture);
             }
         }
     }
