@@ -265,7 +265,7 @@ Weet u zeker dat u wilt doorgaan?</value>
 Weet u zeker dat u wilt doorgaan?</value>
   </data>
   <data name="PipingPlugin_VerifyEntryAndExitPointUpdates_When_updating_entry_and_exit_points_definitions_assigned_to_calculation_output_will_be_cleared_confirm" xml:space="preserve">
-    <value>Wanneer de intrede- of uittredepunten wijzigen als gevolg van het bijwerken, zal het resultaat van de berekening die deze profielschematisatie gebruikt, worden verwijderd.
+    <value>Wanneer het intrede- of uittredepunt wijzigt als gevolg van het bijwerken, zal het resultaat van deze berekening worden verwijderd.
 
 Weet u zeker dat u wilt doorgaan?</value>
   </data>

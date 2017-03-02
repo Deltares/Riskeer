@@ -579,8 +579,8 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                     Assert.AreEqual(new RoundedDouble(3, 3), inputParameters.ExitPointL);
                     Assert.IsFalse(calculation.HasOutput);
 
-                    string expectedMessage = "Wanneer de intrede- of uittredepunten wijzigen als gevolg van het bijwerken, " +
-                                             "zal het resultaat van de berekening die deze profielschematisatie gebruikt, worden " +
+                    string expectedMessage = "Wanneer het intrede- of uittredepunt wijzigt als gevolg van het bijwerken, " +
+                                             "zal het resultaat van deze berekening worden " +
                                              $"verwijderd.{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
                     Assert.AreEqual(expectedMessage, textBoxMessage);
 
@@ -656,8 +656,8 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                     Assert.AreEqual(new RoundedDouble(3, 3), inputParameters.ExitPointL);
                     Assert.IsTrue(calculation.HasOutput);
 
-                    string expectedMessage = "Wanneer de intrede- of uittredepunten wijzigen als gevolg van het bijwerken, " +
-                                             "zal het resultaat van de berekening die deze profielschematisatie gebruikt, worden " +
+                    string expectedMessage = "Wanneer het intrede- of uittredepunt wijzigt als gevolg van het bijwerken, " +
+                                             "zal het resultaat van deze berekening worden " +
                                              $"verwijderd.{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
                     Assert.AreEqual(expectedMessage, textBoxMessage);
 
@@ -721,8 +721,8 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                     Assert.AreEqual(new RoundedDouble(3, 1), inputParameters.ExitPointL);
                     Assert.IsTrue(calculation.HasOutput);
 
-                    string expectedMessage = "Wanneer de intrede- of uittredepunten wijzigen als gevolg van het bijwerken, " +
-                                             "zal het resultaat van de berekening die deze profielschematisatie gebruikt, worden " +
+                    string expectedMessage = "Wanneer het intrede- of uittredepunt wijzigt als gevolg van het bijwerken, " +
+                                             "zal het resultaat van deze berekening worden " +
                                              $"verwijderd.{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
                     Assert.AreEqual(expectedMessage, textBoxMessage);
 
