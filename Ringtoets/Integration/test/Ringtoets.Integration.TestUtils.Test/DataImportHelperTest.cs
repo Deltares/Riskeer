@@ -1,0 +1,197 @@
+﻿// Copyright (C) Stichting Deltares 2016. All rights reserved.
+//
+// This file is part of Ringtoets.
+//
+// Ringtoets is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+// 
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program. If not, see <http://www.gnu.org/licenses/>.
+//
+// All names, logos, and references to "Deltares" are registered trademarks of
+// Stichting Deltares and remain full property of Stichting Deltares at all times.
+// All rights reserved.
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using NUnit.Framework;
+using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Integration.Data;
+
+namespace Ringtoets.Integration.TestUtils.Test
+{
+    [TestFixture]
+    public class DataImportHelperTest
+    {
+        private AssessmentSection dikeSection;
+
+        [SetUp]
+        public void SetUp()
+        {
+            dikeSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+        }
+
+        [Test]
+        public void ImportReferenceLine_Always_AddsReferenceLineGeometry()
+        {
+            // Call
+            DataImportHelper.ImportReferenceLine(dikeSection);
+
+            // Assert
+            Assert.AreEqual(2380, dikeSection.ReferenceLine.Points.Count());
+        }
+
+        [Test]
+        public void ImportFailureMechanismSections_WithoutReferenceLine_ArgumentNullException()
+        {
+            // Setup
+            IFailureMechanism failureMechanism = dikeSection.GetFailureMechanisms().ElementAt(new Random(21).Next(0, 18));
+
+            // Call
+            TestDelegate test = () => DataImportHelper.ImportFailureMechanismSections(dikeSection, failureMechanism);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("referenceLine", exception.ParamName);
+        }
+
+        [Test]
+        public void ImportFailureMechanismSections_WithReferenceLine_AddsSectionsToSuppliedFailureMechanismOnly()
+        {
+            // Setup
+            DataImportHelper.ImportReferenceLine(dikeSection);
+            var failureMechanismCount = 18;
+            int chosenFailureMechanismIndex = new Random(21).Next(0, failureMechanismCount);
+            IFailureMechanism failureMechanism = dikeSection.GetFailureMechanisms().ElementAt(chosenFailureMechanismIndex);
+
+            // Call
+            DataImportHelper.ImportFailureMechanismSections(dikeSection, failureMechanism);
+
+            // Assert
+            int[] expectedSectionCounts = Enumerable.Repeat(0, failureMechanismCount).ToArray();
+            expectedSectionCounts[chosenFailureMechanismIndex] = 283;
+            CollectionAssert.AreEqual(expectedSectionCounts, dikeSection.GetFailureMechanisms().Select(fm => fm.Sections.Count()));
+        }
+
+        [Test]
+        public void ImportFailureMechanismSections_MultipleFailureMechanismsWithoutReferenceLine_ArgumentNullException()
+        {
+            // Setup
+            IFailureMechanism failureMechanism = dikeSection.GetFailureMechanisms().ElementAt(new Random(21).Next(0, 18));
+
+            // Call
+            TestDelegate test = () => DataImportHelper.ImportFailureMechanismSections(dikeSection, new [] { failureMechanism });
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("referenceLine", exception.ParamName);
+        }
+
+        [Test]
+        public void ImportFailureMechanismSections_MultipleFailureMechanismsWithReferenceLine_AddsSectionsToSuppliedFailureMechanismOnly()
+        {
+            // Setup
+            DataImportHelper.ImportReferenceLine(dikeSection);
+            var failureMechanismCount = 18;
+            var random = new Random(21);
+            var chosenNumbers = new[]
+            {
+                random.Next(failureMechanismCount),
+                random.Next(failureMechanismCount),
+                random.Next(failureMechanismCount),
+            }.Distinct();
+            IEnumerable<IFailureMechanism> sectionFailureMechanisms = dikeSection.GetFailureMechanisms().ToArray();
+            IEnumerable<IFailureMechanism> failureMechanisms = sectionFailureMechanisms.Where((fm, i) => chosenNumbers.Contains(i));
+
+            // Call
+            DataImportHelper.ImportFailureMechanismSections(dikeSection, failureMechanisms);
+
+            // Assert
+            int[] expectedSectionCounts = Enumerable.Repeat(0, failureMechanismCount).ToArray();
+            foreach (int chosenNumber in chosenNumbers)
+            {
+                expectedSectionCounts[chosenNumber] = 283;
+            }
+            CollectionAssert.AreEqual(expectedSectionCounts, sectionFailureMechanisms.Select(fm => fm.Sections.Count()));
+        }
+
+        [Test]
+        public void ImportHydraulicBoundaryDatabase_Always_AddsFourSurfaceLines()
+        {
+            // Call
+            DataImportHelper.ImportHydraulicBoundaryDatabase(dikeSection);
+
+            // Assert
+            Assert.AreEqual(18, dikeSection.HydraulicBoundaryDatabase.Locations.Count);
+        }
+
+        [Test]
+        public void ImportPipingSurfaceLines_WithoutReferenceLine_ArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => DataImportHelper.ImportPipingSurfaceLines(dikeSection);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("referenceLine", exception.ParamName);
+        }
+
+        [Test]
+        public void ImportPipingSurfaceLines_WithReferenceLine_AddsFourSurfaceLines()
+        {
+            // Setup
+            DataImportHelper.ImportReferenceLine(dikeSection);
+
+            // Call
+            DataImportHelper.ImportPipingSurfaceLines(dikeSection);
+
+            // Assert
+            CollectionAssert.AreEqual(new[]
+            {
+                "PK001_0001",
+                "PK001_0002",
+                "PK001_0003",
+                "PK001_0004"
+            }, dikeSection.PipingFailureMechanism.SurfaceLines.Select(sm => sm.Name));
+        }
+
+        [Test]
+        public void ImportPipingStochasticSoilModels_Always_AddsFourSoilModelsWithProfiles()
+        {
+            // Call
+            DataImportHelper.ImportPipingStochasticSoilModels(dikeSection);
+
+            // Assert
+            CollectionAssert.AreEqual(new[]
+            {
+                "PK001_0001_Piping",
+                "PK001_0002_Piping",
+                "PK001_0003_Piping",
+                "PK001_0004_Piping"
+            }, dikeSection.PipingFailureMechanism.StochasticSoilModels.Select(sm => sm.Name));
+            CollectionAssert.AreEqual(new[]
+            {
+                1,
+                1,
+                1,
+                1
+            }, dikeSection.PipingFailureMechanism.StochasticSoilModels.SelectMany(sm => sm.StochasticSoilProfiles.Select(sp => sp.Probability)));
+            CollectionAssert.AreEqual(new[]
+            {
+                "W1-6_0_1D1",
+                "W1-6_4_1D1",
+                "W1-7_0_1D1",
+                "W1-8_6_1D1"
+            }, dikeSection.PipingFailureMechanism.StochasticSoilModels.SelectMany(sm => sm.StochasticSoilProfiles.Select(sp => sp.SoilProfile.Name)));
+        }
+    }
+}

@@ -350,7 +350,7 @@ namespace Core.Common.Gui.Test.Commands
             var mockRepository = new MockRepository();
             var inquiryHelper = mockRepository.Stub<IInquiryHelper>();
             inquiryHelper.Expect(ih => ih.GetSourceFileLocation(generator)).Return(null);
-            IFileImporter fileImporter = mockRepository.Stub<IFileImporter>();
+            var fileImporter = mockRepository.Stub<IFileImporter>();
             mockRepository.ReplayAll();
 
             using (var form = new Form())

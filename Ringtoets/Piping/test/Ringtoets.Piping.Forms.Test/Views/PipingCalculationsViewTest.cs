@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -36,7 +35,6 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Forms.ChangeHandlers;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.Piping.Data;
@@ -110,18 +108,18 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 Assert.IsFalse(dataGridView.AutoGenerateColumns);
                 Assert.AreEqual(9, dataGridView.ColumnCount);
 
-                foreach (var column in dataGridView.Columns.OfType<DataGridViewComboBoxColumn>())
+                foreach (DataGridViewComboBoxColumn column in dataGridView.Columns.OfType<DataGridViewComboBoxColumn>())
                 {
                     Assert.AreEqual("This", column.ValueMember);
                     Assert.AreEqual("DisplayName", column.DisplayMember);
                 }
 
                 var soilProfilesCombobox = (DataGridViewComboBoxColumn) dataGridView.Columns[stochasticSoilProfilesColumnIndex];
-                var soilProfilesComboboxItems = soilProfilesCombobox.Items;
+                DataGridViewComboBoxCell.ObjectCollection soilProfilesComboboxItems = soilProfilesCombobox.Items;
                 Assert.AreEqual(0, soilProfilesComboboxItems.Count); // Row dependent
 
                 var hydraulicBoundaryLocationCombobox = (DataGridViewComboBoxColumn) dataGridView.Columns[selectableHydraulicBoundaryLocationsColumnIndex];
-                var hydraulicBoundaryLocationComboboxItems = hydraulicBoundaryLocationCombobox.Items;
+                DataGridViewComboBoxCell.ObjectCollection hydraulicBoundaryLocationComboboxItems = hydraulicBoundaryLocationCombobox.Items;
                 Assert.AreEqual(0, hydraulicBoundaryLocationComboboxItems.Count); // Row dependent
             }
             mocks.VerifyAll();
@@ -183,7 +181,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 // Assert
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
                 var hydraulicBoundaryLocationCombobox = (DataGridViewComboBoxColumn) dataGridView.Columns[selectableHydraulicBoundaryLocationsColumnIndex];
-                var hydraulicBoundaryLocationComboboxItems = hydraulicBoundaryLocationCombobox.Items;
+                DataGridViewComboBoxCell.ObjectCollection hydraulicBoundaryLocationComboboxItems = hydraulicBoundaryLocationCombobox.Items;
                 Assert.AreEqual(3, hydraulicBoundaryLocationComboboxItems.Count);
                 Assert.AreEqual("<geen>", hydraulicBoundaryLocationComboboxItems[0].ToString());
                 Assert.AreEqual("Location 1", hydraulicBoundaryLocationComboboxItems[1].ToString());
@@ -210,7 +208,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 // Assert
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
                 var hydraulicBoundaryLocationCombobox = (DataGridViewComboBoxColumn) dataGridView.Columns[selectableHydraulicBoundaryLocationsColumnIndex];
-                var hydraulicBoundaryLocationComboboxItems = hydraulicBoundaryLocationCombobox.Items;
+                DataGridViewComboBoxCell.ObjectCollection hydraulicBoundaryLocationComboboxItems = hydraulicBoundaryLocationCombobox.Items;
                 Assert.AreEqual(1, hydraulicBoundaryLocationComboboxItems.Count);
                 Assert.AreEqual("<geen>", hydraulicBoundaryLocationComboboxItems[0].ToString());
             }
@@ -235,7 +233,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 // Assert
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
                 var hydraulicBoundaryLocationCombobox = (DataGridViewComboBoxColumn) dataGridView.Columns[selectableHydraulicBoundaryLocationsColumnIndex];
-                var hydraulicBoundaryLocationComboboxItems = hydraulicBoundaryLocationCombobox.Items;
+                DataGridViewComboBoxCell.ObjectCollection hydraulicBoundaryLocationComboboxItems = hydraulicBoundaryLocationCombobox.Items;
                 Assert.AreEqual(7, hydraulicBoundaryLocationComboboxItems.Count);
                 Assert.AreEqual("<geen>", hydraulicBoundaryLocationComboboxItems[0].ToString());
                 Assert.AreEqual("Location 1", hydraulicBoundaryLocationComboboxItems[1].ToString());
@@ -296,7 +294,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void PipingCalculationsView_CalculationsWithCorrespondingStochasticSoilModel_StochasticSoilModelsComboboxCorrectlyInitialized()
         {
             // Setup & Call
-            MockRepository mocks = new MockRepository();
+            var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var handler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
@@ -306,7 +304,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
                 // Assert
-                var stochasticSoilModelsComboboxItems = ((DataGridViewComboBoxCell) dataGridView.Rows[0].Cells[stochasticSoilModelsColumnIndex]).Items;
+                DataGridViewComboBoxCell.ObjectCollection stochasticSoilModelsComboboxItems = ((DataGridViewComboBoxCell) dataGridView.Rows[0].Cells[stochasticSoilModelsColumnIndex]).Items;
                 Assert.AreEqual(1, stochasticSoilModelsComboboxItems.Count);
                 Assert.AreEqual("Model A", stochasticSoilModelsComboboxItems[0].ToString());
 
@@ -323,7 +321,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void PipingCalculationsView_CalculationsWithCorrespondingSoilProfiles_SoilProfilesComboboxCorrectlyInitialized()
         {
             // Setup & Call
-            MockRepository mocks = new MockRepository();
+            var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var handler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
@@ -333,7 +331,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
                 // Assert
-                var soilProfilesComboboxItems = ((DataGridViewComboBoxCell) dataGridView.Rows[0].Cells[stochasticSoilProfilesColumnIndex]).Items;
+                DataGridViewComboBoxCell.ObjectCollection soilProfilesComboboxItems = ((DataGridViewComboBoxCell) dataGridView.Rows[0].Cells[stochasticSoilProfilesColumnIndex]).Items;
                 Assert.AreEqual(3, soilProfilesComboboxItems.Count);
                 Assert.AreEqual("<geen>", soilProfilesComboboxItems[0].ToString());
                 Assert.AreEqual("Profile 1", soilProfilesComboboxItems[1].ToString());
@@ -360,10 +358,10 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
                 // Assert
-                var rows = dataGridView.Rows;
+                DataGridViewRowCollection rows = dataGridView.Rows;
                 Assert.AreEqual(2, rows.Count);
 
-                var cells = rows[0].Cells;
+                DataGridViewCellCollection cells = rows[0].Cells;
                 Assert.AreEqual(9, cells.Count);
                 Assert.AreEqual("Calculation 1", cells[nameColumnIndex].FormattedValue);
                 Assert.AreEqual("Model A", cells[stochasticSoilModelsColumnIndex].FormattedValue);
@@ -463,7 +461,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void PipingCalculationsView_EditValueInvalid_ShowsErrorTooltip(string newValue, int cellIndex)
         {
             // Setup
-            MockRepository mocks = new MockRepository();
+            var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var handler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
@@ -499,7 +497,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void FailureMechanismResultView_EditValueValid_DoNotShowErrorToolTipAndEditValue(double newValue, int cellIndex)
         {
             // Setup
-            MockRepository mocks = new MockRepository();
+            var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
@@ -507,7 +505,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             PipingFailureMechanism failureMechanism = ConfigureFailuremechanism();
             CalculationGroup calculationGroup = ConfigureCalculationGroup(assessmentSection, failureMechanism);
 
-            RoundedDouble newRoundedvalue = (RoundedDouble) newValue;
+            var newRoundedvalue = (RoundedDouble) newValue;
 
             var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(new IObservable[0]);
 
@@ -546,7 +544,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 var button = (Button) pipingCalculationsView.Controls.Find("buttonGenerateScenarios", true)[0];
 
                 // Call
-                var state = button.Enabled;
+                bool state = button.Enabled;
 
                 // Assert
                 Assert.IsFalse(state);
@@ -574,7 +572,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 var button = (Button) pipingCalculationsView.Controls.Find("buttonGenerateScenarios", true)[0];
 
                 // Call
-                var state = button.Enabled;
+                bool state = button.Enabled;
 
                 // Assert
                 Assert.IsFalse(state);
@@ -641,7 +639,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 new Point2D(15.0, 0.0)
             });
 
-            using (var pipingCalculationsView = ShowPipingCalculationsView(handler))
+            using (PipingCalculationsView pipingCalculationsView = ShowPipingCalculationsView(handler))
             {
                 pipingCalculationsView.PipingFailureMechanism = pipingFailureMechanismWithSections;
 
@@ -825,7 +823,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             using (PipingCalculationsView pipingCalculationsView = ShowPipingCalculationsView(handler))
             {
-                var pipingFailureMechanism = ConfigureSimpleFailureMechanism();
+                PipingFailureMechanism pipingFailureMechanism = ConfigureSimpleFailureMechanism();
 
                 pipingCalculationsView.PipingFailureMechanism = pipingFailureMechanism;
                 pipingCalculationsView.Data = pipingFailureMechanism.CalculationsGroup;
@@ -846,9 +844,9 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 button.Click();
 
                 // Then
-                var pipingCalculationScenarios = pipingFailureMechanism.Calculations.OfType<PipingCalculationScenario>().ToArray();
-                var failureMechanismSectionResult1 = pipingCalculationsView.PipingFailureMechanism.SectionResults.First();
-                var failureMechanismSectionResult2 = pipingCalculationsView.PipingFailureMechanism.SectionResults.ElementAt(1);
+                PipingCalculationScenario[] pipingCalculationScenarios = pipingFailureMechanism.Calculations.OfType<PipingCalculationScenario>().ToArray();
+                PipingFailureMechanismSectionResult failureMechanismSectionResult1 = pipingCalculationsView.PipingFailureMechanism.SectionResults.First();
+                PipingFailureMechanismSectionResult failureMechanismSectionResult2 = pipingCalculationsView.PipingFailureMechanism.SectionResults.ElementAt(1);
 
                 Assert.AreEqual(2, failureMechanismSectionResult1.GetCalculationScenarios(pipingCalculationScenarios).Count());
 
@@ -872,7 +870,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             using (PipingCalculationsView pipingCalculationsView = ShowPipingCalculationsView(handler))
             {
-                var pipingFailureMechanism = ConfigureSimpleFailureMechanism();
+                PipingFailureMechanism pipingFailureMechanism = ConfigureSimpleFailureMechanism();
 
                 pipingCalculationsView.PipingFailureMechanism = pipingFailureMechanism;
                 pipingCalculationsView.Data = pipingFailureMechanism.CalculationsGroup;
@@ -1065,9 +1063,9 @@ namespace Ringtoets.Piping.Forms.Test.Views
             ConfigureHydraulicBoundaryDatabase(assessmentSection);
             PipingFailureMechanism failureMechanism = ConfigureFailuremechanism();
             CalculationGroup calculationGroup = ConfigureCalculationGroup(assessmentSection, failureMechanism);
-            PipingCalculationScenario calculation = (PipingCalculationScenario) calculationGroup.Children.First();
+            var calculation = (PipingCalculationScenario) calculationGroup.Children.First();
 
-            RoundedDouble value = (RoundedDouble) newValue;
+            var value = (RoundedDouble) newValue;
 
             var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(new Observable[]
             {
@@ -1113,7 +1111,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             ConfigureHydraulicBoundaryDatabase(assessmentSection);
             PipingFailureMechanism failureMechanism = ConfigureFailuremechanism();
             CalculationGroup calculationGroup = ConfigureCalculationGroup(assessmentSection, failureMechanism);
-            PipingCalculationScenario calculation = (PipingCalculationScenario) calculationGroup.Children.First();
+            var calculation = (PipingCalculationScenario) calculationGroup.Children.First();
 
             var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(new Observable[]
             {
@@ -1161,7 +1159,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 dataGridView.CurrentCell = dataGridView.Rows[selectedRow].Cells[0];
 
                 // Call
-                var selection = pipingCalculationView.Selection;
+                object selection = pipingCalculationView.Selection;
 
                 // Assert
                 Assert.IsInstanceOf<PipingInputContext>(selection);
@@ -1285,7 +1283,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void GivenPipingCalculationWithHydraulicLocation_WhenLocationManualDesignWaterLevel_SelectableHydraulicLocationReadonly()
         {
             // Given
-            MockRepository mocks = new MockRepository();
+            var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var handler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
@@ -1310,7 +1308,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 var currentCellUpdated = (DataGridViewComboBoxCell) dataGridView.Rows[0].Cells[selectableHydraulicBoundaryLocationsColumnIndex];
                 Assert.IsTrue(currentCellUpdated.ReadOnly);
 
-                var hydraulicBoundaryLocationComboboxItems = currentCellUpdated.Items;
+                DataGridViewComboBoxCell.ObjectCollection hydraulicBoundaryLocationComboboxItems = currentCellUpdated.Items;
                 Assert.AreEqual(1, hydraulicBoundaryLocationComboboxItems.Count);
                 Assert.AreEqual("<geen>", hydraulicBoundaryLocationComboboxItems[0].ToString());
             }
@@ -1321,7 +1319,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void GivenPipingCalculationWithStochasticSoilProfile_WhenProbabilityChangesAndNotified_ThenNewProbabilityVisible()
         {
             // Given
-            MockRepository mocks = new MockRepository();
+            var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var handler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
@@ -1334,7 +1332,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
-                int refreshed = 0;
+                var refreshed = 0;
 
                 // Precondition
                 var currentCell = (DataGridViewTextBoxCell) dataGridView.Rows[1].Cells[stochasticSoilProfilesProbabilityColumnIndex];
@@ -1503,7 +1501,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 new Point2D(10.0, 0.0)
             }));
 
-            var pipingCalculationsView = ShowPipingCalculationsView(handler);
+            PipingCalculationsView pipingCalculationsView = ShowPipingCalculationsView(handler);
 
             pipingCalculationsView.Data = new CalculationGroup("Group", true)
             {

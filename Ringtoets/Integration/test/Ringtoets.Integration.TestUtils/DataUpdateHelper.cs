@@ -41,9 +41,9 @@ namespace Ringtoets.Integration.TestUtils
         /// data.
         /// </summary>
         /// <param name="assessmentSection">The <see cref="AssessmentSection"/> to import on.</param>
-        /// <remarks>When data from <see cref="DataImportHelper.ImportPipingStochasticSoilModels"/> is used,
-        /// this will remove 1 soil models, 1 stochastic soil profile and update the probability of another
-        /// stochastic soil profile.</remarks>
+        /// <remarks>When data from <see cref="DataImportHelper.ImportPipingStochasticSoilModels"/> is added first,
+        /// then calling this method will remove soil model 'PK001_0004_Piping', stochastic soil profile 'W1-6_4_1D1'
+        /// and update the probability of stochastic soil profile '6-3_22' (100% to 50%).</remarks>
         public static void UpdatePipingStochasticSoilModels(AssessmentSection assessmentSection)
         {
             using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(typeof(DataUpdateHelper).Assembly,

@@ -58,6 +58,8 @@
     <Compile Include="..\..\..\..\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
+    <Compile Include="DataImportHelperTest.cs" />
+    <Compile Include="DataUpdateHelperTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestDataGeneratorTest.cs" />
   </ItemGroup>
@@ -100,6 +102,10 @@
     <ProjectReference Include="..\..\..\Piping\src\Ringtoets.Piping.Data\Ringtoets.Piping.Data.csproj">
       <Project>{ce994cc9-6f6a-48ac-b4be-02c30a21f4db}</Project>
       <Name>Ringtoets.Piping.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Piping\src\Ringtoets.Piping.Primitives\Ringtoets.Piping.Primitives.csproj">
+      <Project>{14C6F716-64E2-4BC4-A1EF-05865FCEFA4C}</Project>
+      <Name>Ringtoets.Piping.Primitives</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Piping\test\Ringtoets.Piping.Integration.TestUtils\Ringtoets.Piping.Integration.TestUtils.csproj">
       <Project>{A4972765-DDBB-4A1E-B17C-7185577E5591}</Project>

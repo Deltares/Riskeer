@@ -28,22 +28,22 @@ namespace Core.Common.Gui
     public interface IInquiryHelper
     {
         /// <summary>
-        /// Returns the path of an existing file if the user did not cancel the inquiry.
+        /// Returns the path of an existing file that the user has chosen.
         /// </summary>
         /// <returns>A file location, or <c>null</c> if no location was chosen.</returns>
         string GetSourceFileLocation();
 
         /// <summary>
-        /// Returns the path of an existing file if the user did not cancel the inquiry.
+        /// Returns the path of an existing file that the user has chosen.
         /// </summary>
         /// <param name="filter">A filter to which the path returned complies.</param>
         /// <returns>A file location, or <c>null</c> if no location was chosen.</returns>
         string GetSourceFileLocation(FileFilterGenerator filter);
 
         /// <summary>
-        /// Returns the path to a (non-existing) file if the user did not cancel the inquiry.
+        /// Returns the path to a file, which may or may not exist yet, that the user has chosen.
         /// </summary>
-        /// <returns>A path to a (non-existing) file, or <c>null</c> if no location
+        /// <returns>A path to a file, which may or may not exist yet, or <c>null</c> if no location
         /// was chosen.</returns>
         string GetTargetFileLocation();
 
