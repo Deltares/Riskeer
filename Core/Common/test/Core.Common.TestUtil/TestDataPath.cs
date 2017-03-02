@@ -68,14 +68,6 @@ namespace Core.Common.TestUtil
             }
         }
 
-        public static class Migration
-        {
-            public static class Core
-            {
-                public static readonly TestDataPath Storage = System.IO.Path.Combine("Migration", "Core", "test", "Migration.Core.Storage.Test");
-            }
-        }
-
         public static class Ringtoets
         {
             public static class ClosingStructures

@@ -94,8 +94,7 @@ namespace Migration.Scripts.Data.Test
         public void Upgrade_ValidParameters_ExpectedProperties()
         {
             // Setup
-            string targetFilename = Path.GetRandomFileName();
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Migration.Core.Storage, targetFilename);
+            string filePath = TestHelper.GetScratchPadPath(nameof(Upgrade_ValidParameters_ExpectedProperties));
 
             var mockRepository = new MockRepository();
             var versionedFile = mockRepository.Stub<IVersionedFile>();
