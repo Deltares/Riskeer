@@ -46,7 +46,6 @@ namespace Core.Common.Gui.TestUtil.Settings
         public void Dispose()
         {
             Dispose(true);
-            GC.SuppressFinalize(this);
         }
 
         private void Dispose(bool disposing)

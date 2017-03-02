@@ -38,7 +38,7 @@ namespace Core.Common.TestUtil.Test
         [Test]
         public void CanOpenFileForWrite_PathDoesNotExist_DoesNotThrowAnyExceptions()
         {
-            const string invalidPath = @".\DirectoryDoesotExist\fileDoesNotExist";
+            const string invalidPath = @".\DirectoryDoesNotExist\fileDoesNotExist";
             var canOpenForWrite = true;
 
             // Call
