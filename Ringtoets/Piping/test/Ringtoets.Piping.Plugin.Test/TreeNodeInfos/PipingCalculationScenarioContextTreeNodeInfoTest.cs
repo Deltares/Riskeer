@@ -625,7 +625,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                     Assert.IsFalse(calculation.HasOutput);
 
                     string expectedMessage = "Wanneer de intrede- of uittredepunten wijzigen als gevolg van het bijwerken, " +
-                                             "zal het resultaat van de berekening die deze profielschematisaties gebruikt, worden " +
+                                             "zal het resultaat van de berekening die deze profielschematisatie gebruikt, worden " +
                                              $"verwijderd.{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
                     Assert.AreEqual(expectedMessage, textBoxMessage);
 
@@ -713,7 +713,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                     Assert.IsTrue(calculation.HasOutput);
 
                     string expectedMessage = "Wanneer de intrede- of uittredepunten wijzigen als gevolg van het bijwerken, " +
-                                             "zal het resultaat van de berekening die deze profielschematisaties gebruikt, worden " +
+                                             "zal het resultaat van de berekening die deze profielschematisatie gebruikt, worden " +
                                              $"verwijderd.{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
                     Assert.AreEqual(expectedMessage, textBoxMessage);
 
@@ -801,7 +801,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                     Assert.IsTrue(calculation.HasOutput);
 
                     string expectedMessage = "Wanneer de intrede- of uittredepunten wijzigen als gevolg van het bijwerken, " +
-                                             "zal het resultaat van de berekening die deze profielschematisaties gebruikt, worden " +
+                                             "zal het resultaat van de berekening die deze profielschematisatie gebruikt, worden " +
                                              $"verwijderd.{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
                     Assert.AreEqual(expectedMessage, textBoxMessage);
 
