@@ -36,7 +36,7 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
         private RingtoetsPlugin plugin;
         private PropertyInfo info;
 
-        private static IEnumerable<TestCaseData> ValidationBackgroundMapDataContainers
+        private static IEnumerable<TestCaseData> ValidBackgroundMapDataContainers
         {
             get
             {
@@ -74,8 +74,8 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
         }
 
         [Test]
-        [TestCaseSource(nameof(ValidationBackgroundMapDataContainers))]
-        public void CreateInstance_ContainerWithoutMapData_ReturnBackgroundMapDataContainerProperties(BackgroundMapDataContainer container)
+        [TestCaseSource(nameof(ValidBackgroundMapDataContainers))]
+        public void CreateInstance_ValidContainerData_ReturnBackgroundMapDataContainerProperties(BackgroundMapDataContainer container)
         {
             // Call
             IObjectProperties objectProperties = info.CreateInstance(container);
