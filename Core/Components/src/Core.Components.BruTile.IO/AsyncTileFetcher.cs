@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Concurrent;
+using System.IO;
 using System.Threading;
 using Amib.Threading;
 using BruTile;
@@ -93,10 +94,17 @@ namespace Core.Components.BruTile.IO
         {
             ThrowExceptionIfDisposed();
 
-            byte[] res = GetTileFromCache(tileInfo);
-            if (res != null)
+            try
             {
-                return res;
+                byte[] res = GetTileFromCache(tileInfo);
+                if (res != null)
+                {
+                    return res;
+                }
+            }
+            catch (IOException)
+            {
+                return null;
             }
 
             ScheduleTileRequest(tileInfo);

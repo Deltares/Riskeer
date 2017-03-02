@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.IO;
 using System.Threading;
 using BruTile;
 using BruTile.Cache;
@@ -232,6 +233,41 @@ namespace Core.Components.BruTile.IO.Test
 
                 // Assert
                 Assert.AreSame(data, fetchedData);
+
+                if (fetcherFiredAsyncEvent.WaitOne(allowedTileFetchTime))
+                {
+                    Assert.Fail("TileFetcher should not fire asynchronous events if tile is retrieved from cache.");
+                }
+
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        public void GetTile_TileInPersistentCacheInUse_ReturnNull()
+        {
+            // Setup
+            var info = new TileInfo();
+            var data = new byte[0];
+
+            var mocks = new MockRepository();
+            var tileProvider = mocks.Stub<ITileProvider>();
+            tileProvider.Stub(tp => tp.GetTile(info)).Return(data);
+
+            var persistentCache = mocks.Stub<ITileCache<byte[]>>();
+            persistentCache.Stub(c => c.Find(info.Index)).Throw(new IOException());
+            mocks.ReplayAll();
+
+            using (var fetcherFiredAsyncEvent = new AutoResetEvent(false))
+            using (var fetcher = new AsyncTileFetcher(tileProvider, 100, 200, persistentCache))
+            {
+                fetcher.TileReceived += (sender, args) => { fetcherFiredAsyncEvent.Set(); };
+                fetcher.QueueEmpty += (sender, args) => { fetcherFiredAsyncEvent.Set(); };
+
+                byte[] fetchedData = fetcher.GetTile(info);
+
+                // Assert
+                Assert.IsNull(fetchedData);
 
                 if (fetcherFiredAsyncEvent.WaitOne(allowedTileFetchTime))
                 {
