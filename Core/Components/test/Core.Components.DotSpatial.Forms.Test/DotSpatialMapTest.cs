@@ -32,9 +32,9 @@ namespace Core.Components.DotSpatial.Forms.Test
     {
         [Test]
         [Apartment(ApartmentState.STA)]
-        [TestCase(1e-5)]
-        [TestCase(1e-6)]
-        [TestCase(1e-7)]
+        [TestCase(1e-2)]
+        [TestCase(1e-3)]
+        [TestCase(1e-4)]
         [TestCase(1e+8)]
         [TestCase(1e+9)]
         [TestCase(1e+10)]

@@ -29,18 +29,18 @@ namespace Core.Components.DotSpatial.Forms
     /// The DotSpatial Map Control for 2D applications.
     /// </summary>
     /// <remarks>This class was introduced to prevent a <see cref="StackOverflowException"/> when zooming in on 
-    /// an extent smaller than 1e-6 and should be removed when DotSpatial solved the issue.</remarks>
+    /// an extent smaller than 1e-3 and should be removed when DotSpatial solved the issue.</remarks>
     public class DotSpatialMap : Map
     {
-        private const double minExt = 1e-6;
+        private const double minExt = 1e-3;
 
         /// <summary>
-        /// Fires the ViewExtentsChanged event. Corrects the ViewExtent if it is smaller than 1e-6. If ZoomOutFartherThanMaxExtent is set, it corrects the 
+        /// Fires the ViewExtentsChanged event. Corrects the ViewExtent if it is smaller than 1e-3. If ZoomOutFartherThanMaxExtent is set, it corrects the 
         /// ViewExtent if it is bigger then 1e+9. Otherwise it corrects the ViewExtent if it is bigger than the Maps extent + 10%.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="args">An object that contains extent data.</param>
-        /// <remarks>Corrects the <see cref="Map.OnViewExtentsChanged"/> with a minimum extent of 1e-6.</remarks>
+        /// <remarks>Corrects the <see cref="Map.OnViewExtentsChanged"/> with a minimum extent of 1e-3.</remarks>
         protected override void OnViewExtentsChanged(object sender, ExtentArgs args)
         {
             if (ViewExtents.Width < minExt || ViewExtents.Height < minExt) // the current height or width is smaller than minExt
