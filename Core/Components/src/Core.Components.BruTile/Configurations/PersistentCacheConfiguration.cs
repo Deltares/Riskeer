@@ -42,6 +42,8 @@ namespace Core.Components.BruTile.Configurations
     {
         protected readonly string PersistentCacheDirectoryPath;
 
+        private FileCache fileCache;
+
         /// <summary>
         /// Initialized a new instance of <see cref="PersistentCacheConfiguration"/>.
         /// </summary>
@@ -83,6 +85,10 @@ namespace Core.Components.BruTile.Configurations
 
             if (disposing)
             {
+                if (fileCache != null)
+                {
+                    FileCacheManager.Instance.UnsubscribeFileCache(fileCache);
+                }
                 TileFetcher?.Dispose();
             }
 
@@ -138,7 +144,7 @@ namespace Core.Components.BruTile.Configurations
         /// Creates the tile cache.
         /// </summary>
         /// <returns>The file cache.</returns>
-        /// <exception cref="Core.Components.Gis.Exceptions.CannotCreateTileCacheException">Thrown when a critical error
+        /// <exception cref="CannotCreateTileCacheException">Thrown when a critical error
         /// occurs when creating the tile cache.</exception>
         /// <exception cref="ObjectDisposedException">Thrown when calling this method while
         /// this instance is disposed.</exception>
@@ -159,8 +165,8 @@ namespace Core.Components.BruTile.Configurations
                 }
             }
 
-            return new FileCache(PersistentCacheDirectoryPath, BruTileSettings.PersistentCacheFormat,
-                                 TimeSpan.FromDays(BruTileSettings.PersistentCacheExpireInDays));
+            fileCache = FileCacheManager.Instance.GetfileChache(PersistentCacheDirectoryPath);
+            return fileCache;
         }
 
         private bool IsDisposed { get; set; }

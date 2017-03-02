@@ -75,6 +75,7 @@
     <Compile Include="Configurations\TileSourceFactoryTest.cs" />
     <Compile Include="Configurations\WellKnownTileSourceLayerConfigurationTest.cs" />
     <Compile Include="Configurations\WmtsLayerConfigurationTest.cs" />
+    <Compile Include="FileCacheManagerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

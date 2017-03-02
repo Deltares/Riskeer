@@ -130,8 +130,8 @@ namespace Ringtoets.Piping.Forms.Views
                     calculationGroupObserver.Observable = null;
                     calculationObserver.Observable = null;
 
-                    Map.BackgroundMapData = null;
                     Map.Data = null;
+                    Map.BackgroundMapData = null;
                 }
                 else
                 {
@@ -146,8 +146,8 @@ namespace Ringtoets.Piping.Forms.Views
 
                     SetMapDataFeatures();
 
-                    Map.BackgroundMapData = data.Parent.BackgroundMapData;
                     Map.Data = mapDataCollection;
+                    Map.BackgroundMapData = data.Parent.BackgroundMapData;
                 }
             }
         }
