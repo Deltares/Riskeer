@@ -1584,17 +1584,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
                 {
                     // When
-                    surfaceLine.SetGeometry(new[]
-                    {
-                        new Point3D(0, 0, 0),
-                        new Point3D(1, 0, 2),
-                        new Point3D(2, 0, 3),
-                        new Point3D(3, 0, 0),
-                        new Point3D(4, 0, 2),
-                        new Point3D(5, 0, 3)
-                    });
-                    surfaceLine.SetDikeToeAtRiverAt(new Point3D(2, 0, 3));
-                    surfaceLine.SetDikeToeAtPolderAt(new Point3D(3, 0, 0));
+                    UpdateSurfaceLine(surfaceLine);
 
                     contextMenu.Items[contextMenuUpdateEntryAndExitPointsAllIndexNestedGroup].PerformClick();
 
@@ -1705,17 +1695,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
                 {
                     // When
-                    surfaceLine.SetGeometry(new[]
-                    {
-                        new Point3D(0, 0, 0),
-                        new Point3D(1, 0, 2),
-                        new Point3D(2, 0, 3),
-                        new Point3D(3, 0, 0),
-                        new Point3D(4, 0, 2),
-                        new Point3D(5, 0, 3)
-                    });
-                    surfaceLine.SetDikeToeAtRiverAt(new Point3D(2, 0, 3));
-                    surfaceLine.SetDikeToeAtPolderAt(new Point3D(3, 0, 0));
+                    UpdateSurfaceLine(surfaceLine);
 
                     contextMenu.Items[contextMenuUpdateEntryAndExitPointsAllIndexNestedGroup].PerformClick();
 
@@ -1827,17 +1807,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
                 {
                     // When
-                    surfaceLine.SetGeometry(new[]
-                    {
-                        new Point3D(0, 0, 0),
-                        new Point3D(1, 0, 2),
-                        new Point3D(2, 0, 3),
-                        new Point3D(3, 0, 0),
-                        new Point3D(4, 0, 2),
-                        new Point3D(5, 0, 3)
-                    });
-                    surfaceLine.SetDikeToeAtRiverAt(new Point3D(2, 0, 3));
-                    surfaceLine.SetDikeToeAtPolderAt(new Point3D(3, 0, 0));
+                    UpdateSurfaceLine(surfaceLine);
 
                     contextMenu.Items[contextMenuUpdateEntryAndExitPointsAllIndexNestedGroup].PerformClick();
 
@@ -1957,17 +1927,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
                 {
                     // When
-                    surfaceLine.SetGeometry(new[]
-                    {
-                        new Point3D(0, 0, 0),
-                        new Point3D(1, 0, 2),
-                        new Point3D(2, 0, 3),
-                        new Point3D(3, 0, 0),
-                        new Point3D(4, 0, 2),
-                        new Point3D(5, 0, 3)
-                    });
-                    surfaceLine.SetDikeToeAtRiverAt(new Point3D(2, 0, 3));
-                    surfaceLine.SetDikeToeAtPolderAt(new Point3D(3, 0, 0));
+                    UpdateSurfaceLine(surfaceLine);
 
                     contextMenu.Items[contextMenuUpdateEntryAndExitPointsAllIndexNestedGroup].PerformClick();
 
@@ -2075,17 +2035,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
                 {
                     // When
-                    surfaceLine.SetGeometry(new[]
-                    {
-                        new Point3D(0, 0, 0),
-                        new Point3D(1, 0, 2),
-                        new Point3D(2, 0, 3),
-                        new Point3D(3, 0, 0),
-                        new Point3D(4, 0, 2),
-                        new Point3D(5, 0, 3)
-                    });
-                    surfaceLine.SetDikeToeAtRiverAt(new Point3D(2, 0, 3));
-                    surfaceLine.SetDikeToeAtPolderAt(new Point3D(3, 0, 0));
+                    UpdateSurfaceLine(surfaceLine);
 
                     contextMenu.Items[contextMenuUpdateEntryAndExitPointsAllIndexNestedGroup].PerformClick();
 
@@ -2104,6 +2054,21 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                     Assert.AreEqual(new RoundedDouble(3, 3), inputParameters2.ExitPointL);
                 }
             }
+        }
+
+        private static void UpdateSurfaceLine(RingtoetsPipingSurfaceLine surfaceLine)
+        {
+            surfaceLine.SetGeometry(new[]
+            {
+                new Point3D(0, 0, 0),
+                new Point3D(1, 0, 2),
+                new Point3D(2, 0, 3),
+                new Point3D(3, 0, 0),
+                new Point3D(4, 0, 2),
+                new Point3D(5, 0, 3)
+            });
+            surfaceLine.SetDikeToeAtRiverAt(new Point3D(2, 0, 3));
+            surfaceLine.SetDikeToeAtPolderAt(new Point3D(3, 0, 0));
         }
 
         public override void TearDown()

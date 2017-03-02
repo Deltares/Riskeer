@@ -20,6 +20,8 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
@@ -27,7 +29,6 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
-using Core.Common.Gui.Commands;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.TestUtil.ContextMenu;
@@ -104,7 +105,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             // Call
-            var image = info.Image(null);
+            Image image = info.Image(null);
 
             // Assert
             TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.CalculationIcon, image);
@@ -137,7 +138,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                                                                                 assessmentSection);
 
             // Call
-            var children = info.ChildNodeObjects(pipingCalculationContext).ToArray();
+            object[] children = info.ChildNodeObjects(pipingCalculationContext).ToArray();
 
             // Assert
             Assert.AreEqual(3, children.Length);
@@ -172,7 +173,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             Assert.IsFalse(pipingCalculationContext.WrappedData.HasOutput);
 
             // Call
-            var children = info.ChildNodeObjects(pipingCalculationContext).ToArray();
+            object[] children = info.ChildNodeObjects(pipingCalculationContext).ToArray();
 
             // Assert
             Assert.AreEqual(3, children.Length);
@@ -475,21 +476,9 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 // Given
-                var surfaceLine = new RingtoetsPipingSurfaceLine();
-                surfaceLine.SetGeometry(new[]
-                {
-                    new Point3D(1, 2, 3),
-                    new Point3D(4, 5, 6)
-                });
-                var calculation = new PipingCalculationScenario(new GeneralPipingInput())
-                {
-                    InputParameters =
-                    {
-                        SurfaceLine = surfaceLine,
-                        EntryPointL = (RoundedDouble) 0,
-                        ExitPointL = (RoundedDouble) 1
-                    }
-                };
+                RingtoetsPipingSurfaceLine surfaceLine;
+                PipingCalculationScenario calculation;
+                CreateCalculationWithSurfaceLine(out calculation, out surfaceLine);
 
                 var pipingFailureMechanism = new TestPipingFailureMechanism();
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -510,7 +499,6 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
                 gui.Stub(g => g.MainWindow).Return(mainWindow);
-                gui.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
@@ -518,17 +506,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
                     // When
-                    surfaceLine.SetGeometry(new[]
-                    {
-                        new Point3D(0, 0, 0),
-                        new Point3D(1, 0, 2),
-                        new Point3D(2, 0, 3),
-                        new Point3D(3, 0, 0),
-                        new Point3D(4, 0, 2),
-                        new Point3D(5, 0, 3)
-                    });
-                    surfaceLine.SetDikeToeAtRiverAt(new Point3D(2, 0, 3));
-                    surfaceLine.SetDikeToeAtPolderAt(new Point3D(3, 0, 0));
+                    UpdateSurfaceLine(surfaceLine);
 
                     contextMenuStrip.Items[contextMenuUpdateEntryAndExitPointIndex].PerformClick();
 
@@ -550,22 +528,10 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 // Given
-                var surfaceLine = new RingtoetsPipingSurfaceLine();
-                surfaceLine.SetGeometry(new[]
-                {
-                    new Point3D(1, 2, 3),
-                    new Point3D(4, 5, 6)
-                });
-                var calculation = new PipingCalculationScenario(new GeneralPipingInput())
-                {
-                    InputParameters =
-                    {
-                        SurfaceLine = surfaceLine,
-                        EntryPointL = (RoundedDouble) 0,
-                        ExitPointL = (RoundedDouble) 1
-                    },
-                    Output = new TestPipingOutput()
-                };
+                RingtoetsPipingSurfaceLine surfaceLine;
+                PipingCalculationScenario calculation;
+                CreateCalculationWithSurfaceLine(out calculation, out surfaceLine);
+                calculation.Output = new TestPipingOutput();
 
                 var pipingFailureMechanism = new TestPipingFailureMechanism();
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -587,7 +553,6 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
                 gui.Stub(g => g.MainWindow).Return(mainWindow);
-                gui.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
@@ -603,17 +568,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
                     // When
-                    surfaceLine.SetGeometry(new[]
-                    {
-                        new Point3D(0, 0, 0),
-                        new Point3D(1, 0, 2),
-                        new Point3D(2, 0, 3),
-                        new Point3D(3, 0, 0),
-                        new Point3D(4, 0, 2),
-                        new Point3D(5, 0, 3)
-                    });
-                    surfaceLine.SetDikeToeAtRiverAt(new Point3D(2, 0, 3));
-                    surfaceLine.SetDikeToeAtPolderAt(new Point3D(3, 0, 0));
+                    UpdateSurfaceLine(surfaceLine);
 
                     contextMenuStrip.Items[contextMenuUpdateEntryAndExitPointIndex].PerformClick();
 
@@ -675,7 +630,6 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
                 gui.Stub(g => g.MainWindow).Return(mainWindow);
-                gui.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
@@ -691,17 +645,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
                     // When
-                    surfaceLine.SetGeometry(new[]
-                    {
-                        new Point3D(0, 0, 0),
-                        new Point3D(1, 0, 2),
-                        new Point3D(2, 0, 3),
-                        new Point3D(3, 0, 0),
-                        new Point3D(4, 0, 2),
-                        new Point3D(5, 0, 3)
-                    });
-                    surfaceLine.SetDikeToeAtRiverAt(new Point3D(2, 0, 3));
-                    surfaceLine.SetDikeToeAtPolderAt(new Point3D(3, 0, 0));
+                    UpdateSurfaceLine(surfaceLine);
 
                     contextMenuStrip.Items[contextMenuUpdateEntryAndExitPointIndex].PerformClick();
 
@@ -728,22 +672,10 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 // Given
-                var surfaceLine = new RingtoetsPipingSurfaceLine();
-                surfaceLine.SetGeometry(new[]
-                {
-                    new Point3D(1, 2, 3),
-                    new Point3D(4, 5, 6)
-                });
-                var calculation = new PipingCalculationScenario(new GeneralPipingInput())
-                {
-                    InputParameters =
-                    {
-                        SurfaceLine = surfaceLine,
-                        EntryPointL = (RoundedDouble) 0,
-                        ExitPointL = (RoundedDouble) 1
-                    },
-                    Output = new TestPipingOutput()
-                };
+                RingtoetsPipingSurfaceLine surfaceLine;
+                PipingCalculationScenario calculation;
+                CreateCalculationWithSurfaceLine(out calculation, out surfaceLine);
+                calculation.Output = new TestPipingOutput();
 
                 var pipingFailureMechanism = new TestPipingFailureMechanism();
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -763,7 +695,6 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
                 gui.Stub(g => g.MainWindow).Return(mainWindow);
-                gui.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
@@ -779,17 +710,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
                     // When
-                    surfaceLine.SetGeometry(new[]
-                    {
-                        new Point3D(0, 0, 0),
-                        new Point3D(1, 0, 2),
-                        new Point3D(2, 0, 3),
-                        new Point3D(3, 0, 0),
-                        new Point3D(4, 0, 2),
-                        new Point3D(5, 0, 3)
-                    });
-                    surfaceLine.SetDikeToeAtRiverAt(new Point3D(2, 0, 3));
-                    surfaceLine.SetDikeToeAtPolderAt(new Point3D(3, 0, 0));
+                    UpdateSurfaceLine(surfaceLine);
 
                     contextMenuStrip.Items[contextMenuUpdateEntryAndExitPointIndex].PerformClick();
 
@@ -862,8 +783,8 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
 
-            var pipingFailureMechanism = TestPipingFailureMechanism.GetFailureMechanismWithSurfaceLinesAndStochasticSoilModels();
-            var surfaceLines = pipingFailureMechanism.SurfaceLines.ToArray();
+            TestPipingFailureMechanism pipingFailureMechanism = TestPipingFailureMechanism.GetFailureMechanismWithSurfaceLinesAndStochasticSoilModels();
+            RingtoetsPipingSurfaceLine[] surfaceLines = pipingFailureMechanism.SurfaceLines.ToArray();
 
             var elementToBeRemoved = new PipingCalculationScenario(new GeneralPipingInput())
             {
@@ -896,7 +817,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             // Precondition
             Assert.IsTrue(info.CanRemove(calculationContext, groupContext));
             Assert.AreEqual(2, group.Children.Count);
-            var sectionResults = pipingFailureMechanism.SectionResults.ToArray();
+            PipingFailureMechanismSectionResult[] sectionResults = pipingFailureMechanism.SectionResults.ToArray();
             CollectionAssert.Contains(sectionResults[0].GetCalculationScenarios(pipingFailureMechanism.Calculations.OfType<PipingCalculationScenario>()), elementToBeRemoved);
 
             // Call
@@ -957,10 +878,10 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                     var expectedValidationMessageCount = 5;
                     TestHelper.AssertLogMessages(action, messages =>
                     {
-                        var msgs = messages.GetEnumerator();
+                        IEnumerator<string> msgs = messages.GetEnumerator();
                         Assert.IsTrue(msgs.MoveNext());
                         StringAssert.StartsWith("Validatie van 'Nieuwe berekening' gestart om: ", msgs.Current);
-                        for (int i = 0; i < expectedValidationMessageCount; i++)
+                        for (var i = 0; i < expectedValidationMessageCount; i++)
                         {
                             Assert.IsTrue(msgs.MoveNext());
                             StringAssert.StartsWith("Validatie mislukt: ", msgs.Current);
@@ -1010,7 +931,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                     // Then
                     var expectedValidationMessageCount = 5;
                     var expectedStatusMessageCount = 2;
-                    var expectedLogMessageCount = expectedValidationMessageCount + expectedStatusMessageCount;
+                    int expectedLogMessageCount = expectedValidationMessageCount + expectedStatusMessageCount;
                     TestHelper.AssertLogMessagesCount(action, expectedLogMessageCount);
                 }
             }
@@ -1057,7 +978,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                     // Expect an activity dialog which is automatically closed
                 };
 
-                using (var contextMenuAdapter = info.ContextMenuStrip(pipingCalculationContext, null, treeViewControl))
+                using (ContextMenuStrip contextMenuAdapter = info.ContextMenuStrip(pipingCalculationContext, null, treeViewControl))
                 {
                     // When
                     Action action = () => contextMenuAdapter.Items[contextMenuCalculateIndex].PerformClick();
@@ -1065,7 +986,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                     // Then
                     TestHelper.AssertLogMessages(action, messages =>
                     {
-                        var msgs = messages.GetEnumerator();
+                        IEnumerator<string> msgs = messages.GetEnumerator();
                         Assert.IsTrue(msgs.MoveNext());
                         StringAssert.StartsWith("Validatie van 'Nieuwe berekening' gestart om: ", msgs.Current);
                         Assert.IsTrue(msgs.MoveNext());
@@ -1144,6 +1065,40 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                     Assert.AreEqual("Weet u zeker dat u de uitvoer van deze berekening wilt wissen?", messageBoxText);
                 }
             }
+        }
+
+        private static void UpdateSurfaceLine(RingtoetsPipingSurfaceLine surfaceLine)
+        {
+            surfaceLine.SetGeometry(new[]
+            {
+                new Point3D(0, 0, 0),
+                new Point3D(1, 0, 2),
+                new Point3D(2, 0, 3),
+                new Point3D(3, 0, 0),
+                new Point3D(4, 0, 2),
+                new Point3D(5, 0, 3)
+            });
+            surfaceLine.SetDikeToeAtRiverAt(new Point3D(2, 0, 3));
+            surfaceLine.SetDikeToeAtPolderAt(new Point3D(3, 0, 0));
+        }
+
+        private void CreateCalculationWithSurfaceLine(out PipingCalculationScenario calculation, out RingtoetsPipingSurfaceLine surfaceLine)
+        {
+            surfaceLine = new RingtoetsPipingSurfaceLine();
+            surfaceLine.SetGeometry(new[]
+            {
+                new Point3D(1, 2, 3),
+                new Point3D(4, 5, 6)
+            });
+            calculation = new PipingCalculationScenario(new GeneralPipingInput())
+            {
+                InputParameters =
+                {
+                    SurfaceLine = surfaceLine,
+                    EntryPointL = (RoundedDouble) 0,
+                    ExitPointL = (RoundedDouble) 1
+                }
+            };
         }
 
         public override void TearDown()
