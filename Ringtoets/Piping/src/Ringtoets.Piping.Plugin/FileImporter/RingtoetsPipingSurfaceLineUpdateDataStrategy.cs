@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
+using Core.Common.Base.Data;
 using Ringtoets.Common.Data.UpdateDataStrategies;
 using Ringtoets.Common.Service;
 using Ringtoets.Piping.Data;
@@ -101,6 +102,8 @@ namespace Ringtoets.Piping.Plugin.FileImporter
 
                 affectedObjects.AddRange(UpdateSurfaceLineDependentData(surfaceLineToUpdate));
                 affectedObjects.AddRange(UpdateStochasticSoilModel(surfaceLineToUpdate));
+
+                ValidateEntryAndExitPoints(surfaceLineToUpdate);
             }
 
             return affectedObjects;
@@ -151,6 +154,28 @@ namespace Ringtoets.Piping.Plugin.FileImporter
         {
             return PipingCalculationConfigurationHelper.GetStochasticSoilModelsForSurfaceLine(surfaceLine,
                                                                                               failureMechanism.StochasticSoilModels);
+        }
+
+        private void ValidateEntryAndExitPoints(RingtoetsPipingSurfaceLine surfaceLine)
+        {
+            IEnumerable<PipingCalculation> affectedCalculations = GetAffectedCalculationWithSurfaceLine(surfaceLine);
+            foreach (PipingCalculation affectedCalculation in affectedCalculations)
+            {
+                PipingInput inputParameters = affectedCalculation.InputParameters;
+                if (!ValidateLocalCoordinateOnSurfaceLine(surfaceLine, inputParameters.EntryPointL))
+                {
+                    inputParameters.EntryPointL = RoundedDouble.NaN;
+                }
+                if (!ValidateLocalCoordinateOnSurfaceLine(surfaceLine, inputParameters.ExitPointL))
+                {
+                    inputParameters.ExitPointL = RoundedDouble.NaN;
+                }
+            }
+        }
+
+        private static bool ValidateLocalCoordinateOnSurfaceLine(RingtoetsPipingSurfaceLine surfaceLine, double localCoordinateL)
+        {
+            return surfaceLine.ValidateInRange(localCoordinateL);
         }
 
         #endregion
