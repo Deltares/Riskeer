@@ -232,13 +232,34 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             dikeProfilesImporter.Import();
 
             // Assert
-            DikeProfile dikeProfile = dikeProfiles[4];
-            Assert.AreEqual(new Point2D(136039.49100000039, 533920.28050000477), dikeProfile.WorldReferencePoint);
-            Assert.AreEqual("profiel005", dikeProfile.Name);
-            Assert.AreEqual(15.56165507, dikeProfile.X0);
-            Assert.AreEqual(new RoundedDouble(2, 330.0), dikeProfile.Orientation);
-            Assert.IsTrue(dikeProfile.HasBreakWater);
-            Assert.AreEqual(new RoundedDouble(2, 6.0), dikeProfile.DikeHeight);
+            DikeProfile dikeProfile1 = dikeProfiles[0];
+            Assert.AreEqual("profiel001", dikeProfile1.Id);
+            Assert.AreEqual("profiel001", dikeProfile1.Name);
+
+            DikeProfile dikeProfile2 = dikeProfiles[1];
+            Assert.AreEqual("profiel002", dikeProfile2.Id);
+            Assert.AreEqual("profiel002", dikeProfile2.Name);
+
+            DikeProfile dikeProfile3 = dikeProfiles[2];
+            Assert.AreEqual("profiel003", dikeProfile3.Id);
+            Assert.AreEqual("profiel003", dikeProfile3.Name);
+
+            DikeProfile dikeProfile4 = dikeProfiles[3];
+            Assert.AreEqual(new Point2D(136432.12250000238, 538235.26300000318), dikeProfile4.WorldReferencePoint);
+            Assert.AreEqual("profiel004", dikeProfile4.Id);
+            Assert.AreEqual("Valide naam", dikeProfile4.Name);
+            Assert.AreEqual(-17.93475471, dikeProfile4.X0);
+            Assert.AreEqual(new RoundedDouble(2, 330.0), dikeProfile4.Orientation);
+            Assert.IsFalse(dikeProfile4.HasBreakWater);
+
+            DikeProfile dikeProfile5 = dikeProfiles[4];
+            Assert.AreEqual(new Point2D(136039.49100000039, 533920.28050000477), dikeProfile5.WorldReferencePoint);
+            Assert.AreEqual("profiel005", dikeProfile5.Id);
+            Assert.AreEqual("Heeeeeeeeeeeeeeeeeeeeeeeele laaaaaaaaaaaaaaaaaaaange naaaaaaaaaaam", dikeProfile5.Name);
+            Assert.AreEqual(15.56165507, dikeProfile5.X0);
+            Assert.AreEqual(new RoundedDouble(2, 330.0), dikeProfile5.Orientation);
+            Assert.IsTrue(dikeProfile5.HasBreakWater);
+            Assert.AreEqual(new RoundedDouble(2, 6.0), dikeProfile5.DikeHeight);
         }
 
         [Test]

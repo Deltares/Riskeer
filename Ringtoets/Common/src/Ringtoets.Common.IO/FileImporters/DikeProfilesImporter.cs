@@ -105,7 +105,7 @@ namespace Ringtoets.Common.IO.FileImporters
                                               new DikeProfile.ConstructionProperties
                                               {
                                                   Id = dikeProfileData.Id,
-                                                  Name = dikeProfileData.Id,
+                                                  Name = dikeProfileLocation.Name,
                                                   X0 = dikeProfileLocation.Offset,
                                                   Orientation = dikeProfileData.Orientation,
                                                   DikeHeight = dikeProfileData.DikeHeight

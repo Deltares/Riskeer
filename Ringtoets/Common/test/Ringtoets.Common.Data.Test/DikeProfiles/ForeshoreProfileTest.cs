@@ -158,9 +158,9 @@ namespace Ringtoets.Common.Data.Test.DikeProfiles
         }
 
         [Test]
-        [TestCase("")]
+        [TestCase("It has a name")]
         [TestCase("Cool new name!")]
-        public void Name_SetNameDifferentFromId_GetsGivenNameValue(string name)
+        public void Constructor_NonEmptyOrWhitespaceNameDifferentFromId_NameValueSet(string name)
         {
             // Call
             var foreshoreProfile = new ForeshoreProfile(new Point2D(0, 0), new Point2D[0],
@@ -172,6 +172,26 @@ namespace Ringtoets.Common.Data.Test.DikeProfiles
 
             // Assert
             Assert.AreEqual(name, foreshoreProfile.Name);
+        }
+
+        [Test]
+        [TestCase("")]
+        [TestCase("   ")]
+        [TestCase(null)]
+        public void Constructor_NullOrWhitespaceName_NameSetToId(string name)
+        {
+            // Setup
+            var id = "id";
+
+            // Call
+            var foreshoreProfile = new ForeshoreProfile(new Point2D(0, 0), new Point2D[0], null, new ForeshoreProfile.ConstructionProperties
+            {
+                Id = id,
+                Name = name
+            });
+
+            // Assert
+            Assert.AreEqual(id, foreshoreProfile.Name);
         }
 
         [Test]

@@ -129,7 +129,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
                 DataGridViewCell dataGridViewCell = dataGridView.Rows[13].Cells[1];
                 Assert.AreEqual(2, ((DataGridViewComboBoxCell) dataGridViewCell).Items.Count);
                 Assert.AreEqual("<geen>", ((DataGridViewComboBoxCell) dataGridViewCell).Items[0].ToString());
-                Assert.AreEqual("profiel63p1ID", ((DataGridViewComboBoxCell) dataGridViewCell).Items[1].ToString());
+                Assert.AreEqual("profiel63p1Naam", ((DataGridViewComboBoxCell) dataGridViewCell).Items[1].ToString());
             }
         }
 
@@ -184,7 +184,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
                 DataGridViewCell dataGridViewCell = dataGridView.Rows[13].Cells[1];
                 Assert.AreEqual(2, ((DataGridViewComboBoxCell) dataGridViewCell).Items.Count);
                 Assert.AreEqual("<geen>", ((DataGridViewComboBoxCell) dataGridViewCell).Items[0].ToString());
-                Assert.AreEqual("profiel63p1ID_changed", ((DataGridViewComboBoxCell) dataGridViewCell).Items[1].ToString());
+                Assert.AreEqual("profiel63p1Naam_changed", ((DataGridViewComboBoxCell) dataGridViewCell).Items[1].ToString());
             }
         }
 
@@ -236,8 +236,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
                 DataGridViewCell dataGridViewCell = dataGridView.Rows[13].Cells[1];
                 Assert.AreEqual(3, ((DataGridViewComboBoxCell) dataGridViewCell).Items.Count);
                 Assert.AreEqual("<geen>", ((DataGridViewComboBoxCell) dataGridViewCell).Items[0].ToString());
-                Assert.AreEqual("profiel63p1IDCalculation", ((DataGridViewComboBoxCell) dataGridViewCell).Items[1].ToString());
-                Assert.AreEqual("profiel63p2IDCalculation", ((DataGridViewComboBoxCell) dataGridViewCell).Items[2].ToString());
+                Assert.AreEqual("profiel63p1NaamCalculation", ((DataGridViewComboBoxCell) dataGridViewCell).Items[1].ToString());
+                Assert.AreEqual("profiel63p2NaamCalculation", ((DataGridViewComboBoxCell) dataGridViewCell).Items[2].ToString());
 
                 DataGridViewCell dataGridViewCellWithRemovedCalculation = dataGridView.Rows[56].Cells[1];
                 Assert.AreEqual(1, ((DataGridViewComboBoxCell) dataGridViewCellWithRemovedCalculation).Items.Count);

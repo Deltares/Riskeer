@@ -70,7 +70,7 @@ namespace Ringtoets.Common.Data.DikeProfiles
 
             BreakWater = breakWater;
             Id = properties.Id;
-            Name = properties.Name ?? properties.Id;
+            Name = string.IsNullOrWhiteSpace(properties.Name) ? properties.Id : properties.Name;
             WorldReferencePoint = worldCoordinate;
             X0 = properties.X0;
         }

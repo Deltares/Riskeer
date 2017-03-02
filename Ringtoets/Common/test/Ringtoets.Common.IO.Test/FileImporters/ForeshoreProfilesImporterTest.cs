@@ -259,14 +259,38 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             foreshoreProfilesImporter.Import();
 
             // Assert
-            ForeshoreProfile foreshoreProfile = foreshoreProfiles[4];
-            Assert.AreEqual(new Point2D(136039.49100000039, 533920.28050000477), foreshoreProfile.WorldReferencePoint);
-            Assert.AreEqual("profiel005", foreshoreProfile.Name);
-            Assert.AreEqual(15.56165507, foreshoreProfile.X0);
-            Assert.AreEqual(new RoundedDouble(2, 330.0), foreshoreProfile.Orientation);
-            Assert.IsTrue(foreshoreProfile.HasBreakWater);
+            ForeshoreProfile foreshoreProfile1 = foreshoreProfiles[0];
+            Assert.AreEqual("profiel001", foreshoreProfile1.Id);
+            Assert.AreEqual("profiel001", foreshoreProfile1.Name);
+
+            ForeshoreProfile foreshoreProfile2 = foreshoreProfiles[1];
+            Assert.AreEqual("profiel002", foreshoreProfile2.Id);
+            Assert.AreEqual("profiel002", foreshoreProfile2.Name);
+
+            ForeshoreProfile foreshoreProfile3 = foreshoreProfiles[2];
+            Assert.AreEqual("profiel003", foreshoreProfile3.Id);
+            Assert.AreEqual("profiel003", foreshoreProfile3.Name);
+
+            ForeshoreProfile foreshoreProfile4 = foreshoreProfiles[3];
+            Assert.AreEqual(new Point2D(136432.12250000238, 538235.26300000318), foreshoreProfile4.WorldReferencePoint);
+            Assert.AreEqual("profiel004", foreshoreProfile4.Id);
+            Assert.AreEqual("Valide naam", foreshoreProfile4.Name);
+            Assert.AreEqual(-17.93475471, foreshoreProfile4.X0);
+            Assert.AreEqual(new RoundedDouble(2, 330.0), foreshoreProfile4.Orientation);
+            Assert.IsFalse(foreshoreProfile4.HasBreakWater);
+
+            ForeshoreProfile foreshoreProfile5 = foreshoreProfiles[4];
+            Assert.AreEqual(new Point2D(136039.49100000039, 533920.28050000477), foreshoreProfile5.WorldReferencePoint);
+            Assert.AreEqual("profiel005", foreshoreProfile5.Id);
+            Assert.AreEqual("Heeeeeeeeeeeeeeeeeeeeeeeele laaaaaaaaaaaaaaaaaaaange naaaaaaaaaaam", foreshoreProfile5.Name);
+            Assert.AreEqual(15.56165507, foreshoreProfile5.X0);
+            Assert.AreEqual(new RoundedDouble(2, 330.0), foreshoreProfile5.Orientation);
+            Assert.IsTrue(foreshoreProfile5.HasBreakWater);
+
             mockRepository.VerifyAll(); // 'observer' should not be notified
         }
+
+
 
         [Test]
         public void Import_AllDamTypes_TrueAndLogMessagesAndFiveForeshoreProfiles()
