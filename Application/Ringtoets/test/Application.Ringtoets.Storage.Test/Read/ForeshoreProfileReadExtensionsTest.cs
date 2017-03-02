@@ -53,6 +53,7 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             var entity = new ForeshoreProfileEntity
             {
+                Id = "id",
                 GeometryXml = new Point2DXmlSerializer().ToXml(new Point2D[0])
             };
 
@@ -89,10 +90,12 @@ namespace Application.Ringtoets.Storage.Test.Read
         public void Read_EmptyGeometryBreakWaterTypeAndNullableValuesAreNull_ForeshoreProfileWithoutBreakWaterNaNValues()
         {
             // Setup
-            string name = "testName";
+            const string name = "testName";
+            const string id = "testId";
             string pointXml = new Point2DXmlSerializer().ToXml(Enumerable.Empty<Point2D>());
             var entity = new ForeshoreProfileEntity
             {
+                Id = id,
                 Name = name,
                 GeometryXml = pointXml
             };
@@ -104,6 +107,7 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             // Assert
             Assert.IsNotNull(foreshoreProfile);
+            Assert.AreEqual(id, foreshoreProfile.Id);
             Assert.AreEqual(name, foreshoreProfile.Name);
             Assert.IsNaN(foreshoreProfile.Orientation);
             Assert.IsNaN(foreshoreProfile.X0);
@@ -116,7 +120,8 @@ namespace Application.Ringtoets.Storage.Test.Read
         public void Read_WithGeometryAndBreakWaterTypeAndValues_CompleteForeshoreProfile()
         {
             // Setup
-            string name = "testName";
+            const string name = "testName";
+            const string id = "testId";
             var random = new Random(21);
             int order = random.Next();
             double orientation = random.NextDouble();
@@ -132,6 +137,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var entity = new ForeshoreProfileEntity
             {
                 Order = order,
+                Id = id,
                 Name = name,
                 Orientation = orientation,
                 X0 = x0,
@@ -149,6 +155,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.IsNotNull(foreshoreProfile);
             Assert.AreEqual(name, foreshoreProfile.Name);
             Assert.AreEqual(order, entity.Order);
+            Assert.AreEqual(id, foreshoreProfile.Id);
             Assert.AreEqual(name, entity.Name);
             Assert.AreEqual(orientation, foreshoreProfile.Orientation, foreshoreProfile.Orientation.GetAccuracy());
             Assert.AreEqual(x0, entity.X0);

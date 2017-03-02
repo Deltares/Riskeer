@@ -30,6 +30,9 @@
 
 namespace Application.Ringtoets.Storage.DbContext
 {
+    using System;
+    using System.Collections.Generic;
+    
     public partial class BackgroundMapDataEntity
     {
         public long BackgroundMapDataEntityId { get; set; }
@@ -40,7 +43,7 @@ namespace Application.Ringtoets.Storage.DbContext
         public string PreferredFormat { get; set; }
         public byte IsVisible { get; set; }
         public double Transparency { get; set; }
-
+    
         public virtual AssessmentSectionEntity AssessmentSectionEntity { get; set; }
     }
 }

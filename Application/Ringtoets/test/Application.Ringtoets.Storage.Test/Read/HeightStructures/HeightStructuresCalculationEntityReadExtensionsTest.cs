@@ -153,6 +153,7 @@ namespace Application.Ringtoets.Storage.Test.Read.HeightStructures
             string pointXml = new Point2DXmlSerializer().ToXml(points);
             var foreshoreEntity = new ForeshoreProfileEntity
             {
+                Id = "id",
                 BreakWaterHeight = breakWaterHeight,
                 BreakWaterType = Convert.ToByte(type),
                 GeometryXml = pointXml

@@ -62,7 +62,7 @@ namespace Application.Ringtoets.Storage.Read
                                                         CreateBreakWater(entity.BreakWaterType, entity.BreakWaterHeight),
                                                         new ForeshoreProfile.ConstructionProperties
                                                         {
-                                                            Id = "fixthis",
+                                                            Id = entity.Id.DeepClone(),
                                                             Name = entity.Name.DeepClone(),
                                                             Orientation = entity.Orientation.ToNullAsNaN(),
                                                             X0 = entity.X0.ToNullAsNaN()

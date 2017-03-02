@@ -53,6 +53,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         {
             // Setup
             var name = "testName";
+            var id = "fpid";
             var random = new Random(21);
             int order = random.Next();
             double orientation = random.NextDouble();
@@ -60,7 +61,7 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             var foreshoreProfile = new ForeshoreProfile(new Point2D(0, 0), Enumerable.Empty<Point2D>(), null, new ForeshoreProfile.ConstructionProperties
             {
-                Id = "fpid",
+                Id = id,
                 Name = name,
                 Orientation = orientation,
                 X0 = x0
@@ -73,6 +74,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             // Assert
             Assert.IsNotNull(entity);
             Assert.AreEqual(order, entity.Order);
+            Assert.AreEqual(id, entity.Id);
             Assert.AreEqual(name, entity.Name);
             Assert.AreEqual(orientation, entity.Orientation, foreshoreProfile.Orientation.GetAccuracy());
             Assert.AreEqual(x0, entity.X0);
@@ -150,8 +152,16 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void Create_StringPropertiesDoNotShareReference()
         {
             // Setup
-            string testName = "original name";
-            var foreshoreProfile = new TestForeshoreProfile(testName);
+            const string testName = "original name";
+            const string testId = "test id";
+            var foreshoreProfile = new ForeshoreProfile(new Point2D(0, 0),
+                                                        Enumerable.Empty<Point2D>(),
+                                                        null,
+                                                        new ForeshoreProfile.ConstructionProperties
+                                                        {
+                                                            Id = testId,
+                                                            Name = testName
+                                                        });
             var registry = new PersistenceRegistry();
 
             // Call
@@ -161,6 +171,9 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.AreNotSame(testName, entity.Name,
                               "To create stable binary representations/fingerprints, it's really important that strings are not shared.");
             Assert.AreEqual(testName, entity.Name);
+            Assert.AreNotSame(testId, entity.Id,
+                              "To create stable binary representations/fingerprints, it's really important that strings are not shared.");
+            Assert.AreEqual(testId, entity.Id);
         }
 
         [Test]

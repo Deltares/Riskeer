@@ -652,8 +652,8 @@ namespace Application.Ringtoets.Storage.Test.Read
             // Setup
             var entity = CreateAssessmentSectionEntity();
 
-            var profileAName = "profileA";
-            var profileBName = "profileB";
+            var profileAId = "profileA";
+            var profileBId = "profileB";
             var failureMechanismEntity = new FailureMechanismEntity
             {
                 FailureMechanismType = (int) FailureMechanismType.GrassRevetmentErosionOutwards,
@@ -670,13 +670,13 @@ namespace Application.Ringtoets.Storage.Test.Read
                     new ForeshoreProfileEntity
                     {
                         Order = 1,
-                        Name = profileAName,
+                        Id = profileAId,
                         GeometryXml = new Point2DXmlSerializer().ToXml(Enumerable.Empty<Point2D>())
                     },
                     new ForeshoreProfileEntity
                     {
                         Order = 0,
-                        Name = profileBName,
+                        Id = profileBId,
                         GeometryXml = new Point2DXmlSerializer().ToXml(Enumerable.Empty<Point2D>())
                     }
                 }
@@ -693,9 +693,9 @@ namespace Application.Ringtoets.Storage.Test.Read
             ObservableList<ForeshoreProfile> foreshoreProfiles = section.GrassCoverErosionOutwards.ForeshoreProfiles;
             CollectionAssert.AreEqual(new[]
             {
-                profileBName,
-                profileAName
-            }, foreshoreProfiles.Select(fp => fp.Name));
+                profileBId,
+                profileAId
+            }, foreshoreProfiles.Select(fp => fp.Id));
         }
 
         [Test]
@@ -778,8 +778,8 @@ namespace Application.Ringtoets.Storage.Test.Read
             // Setup
             var entity = CreateAssessmentSectionEntity();
 
-            var profileAName = "profileA";
-            var profileBName = "profileB";
+            var profileAId = "profileA";
+            var profileBId = "profileB";
             var failureMechanismEntity = new FailureMechanismEntity
             {
                 FailureMechanismType = (int) FailureMechanismType.StabilityStoneRevetment,
@@ -789,13 +789,13 @@ namespace Application.Ringtoets.Storage.Test.Read
                     new ForeshoreProfileEntity
                     {
                         Order = 1,
-                        Name = profileAName,
+                        Id = profileAId,
                         GeometryXml = new Point2DXmlSerializer().ToXml(Enumerable.Empty<Point2D>())
                     },
                     new ForeshoreProfileEntity
                     {
                         Order = 0,
-                        Name = profileBName,
+                        Id = profileBId,
                         GeometryXml = new Point2DXmlSerializer().ToXml(Enumerable.Empty<Point2D>())
                     }
                 },
@@ -813,9 +813,9 @@ namespace Application.Ringtoets.Storage.Test.Read
             ObservableList<ForeshoreProfile> foreshoreProfiles = section.StabilityStoneCover.ForeshoreProfiles;
             CollectionAssert.AreEqual(new[]
             {
-                profileBName,
-                profileAName
-            }, foreshoreProfiles.Select(fp => fp.Name));
+                profileBId,
+                profileAId
+            }, foreshoreProfiles.Select(fp => fp.Id));
         }
 
         [Test]
@@ -859,8 +859,8 @@ namespace Application.Ringtoets.Storage.Test.Read
             // Setup
             var entity = CreateAssessmentSectionEntity();
 
-            var profileAName = "profileA";
-            var profileBName = "profileB";
+            var profileAId = "profileA";
+            var profileBId = "profileB";
             var failureMechanismEntity = new FailureMechanismEntity
             {
                 FailureMechanismType = (int) FailureMechanismType.WaveImpactOnAsphaltRevetment,
@@ -870,13 +870,13 @@ namespace Application.Ringtoets.Storage.Test.Read
                     new ForeshoreProfileEntity
                     {
                         Order = 1,
-                        Name = profileAName,
+                        Id = profileAId,
                         GeometryXml = new Point2DXmlSerializer().ToXml(Enumerable.Empty<Point2D>())
                     },
                     new ForeshoreProfileEntity
                     {
                         Order = 0,
-                        Name = profileBName,
+                        Id = profileBId,
                         GeometryXml = new Point2DXmlSerializer().ToXml(Enumerable.Empty<Point2D>())
                     }
                 }
@@ -893,9 +893,9 @@ namespace Application.Ringtoets.Storage.Test.Read
             ObservableList<ForeshoreProfile> foreshoreProfiles = section.WaveImpactAsphaltCover.ForeshoreProfiles;
             CollectionAssert.AreEqual(new[]
             {
-                profileBName,
-                profileAName
-            }, foreshoreProfiles.Select(fp => fp.Name));
+                profileBId,
+                profileAId
+            }, foreshoreProfiles.Select(fp => fp.Id));
         }
 
         [Test]

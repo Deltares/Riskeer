@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="RingtoetsEntitiesModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=D:\repos\WettelijkToetsInstrumentarium\Application\Ringtoets\src\Application.Ringtoets.Storage\Ringtoets.rtd" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="RingtoetsEntitiesModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=D:\repos\WettelijkToetsInstrumentarium\Scratchpad\Ringtoets.rtd" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AssessmentSectionEntity">
           <Key>
             <PropertyRef Name="AssessmentSectionEntityId" />
@@ -174,6 +174,7 @@
           </Key>
           <Property Name="DikeProfileEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FailureMechanismEntityId" Type="integer" Nullable="false" />
+          <Property Name="Id" Type="varchar" MaxLength="260" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="260" Nullable="false" />
           <Property Name="Orientation" Type="real" />
           <Property Name="BreakWaterType" Type="tinyint" />
@@ -263,7 +264,8 @@
           </Key>
           <Property Name="ForeshoreProfileEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FailureMechanismEntityId" Type="integer" Nullable="false" />
-          <Property Name="Name" Type="varchar" MaxLength="260" />
+          <Property Name="Id" Type="varchar" MaxLength="260" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="260" Nullable="false" />
           <Property Name="Orientation" Type="real" />
           <Property Name="BreakWaterType" Type="tinyint" />
           <Property Name="BreakWaterHeight" Type="real" />
@@ -3182,6 +3184,7 @@
           </Key>
           <Property Name="DikeProfileEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FailureMechanismEntityId" Type="Int64" Nullable="false" />
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="260" FixedLength="false" Unicode="false" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="260" FixedLength="false" Unicode="false" />
           <Property Name="Orientation" Type="Double" />
           <Property Name="BreakWaterType" Type="Byte" />
@@ -3316,7 +3319,8 @@
           </Key>
           <Property Name="ForeshoreProfileEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FailureMechanismEntityId" Type="Int64" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="260" FixedLength="false" Unicode="false" />
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="260" FixedLength="false" Unicode="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="260" FixedLength="false" Unicode="false" />
           <Property Name="Orientation" Type="Double" />
           <Property Name="BreakWaterType" Type="Byte" />
           <Property Name="BreakWaterHeight" Type="Double" />
@@ -5473,6 +5477,7 @@
                 <ScalarProperty Name="BreakWaterType" ColumnName="BreakWaterType" />
                 <ScalarProperty Name="Orientation" ColumnName="Orientation" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="FailureMechanismEntityId" ColumnName="FailureMechanismEntityId" />
                 <ScalarProperty Name="DikeProfileEntityId" ColumnName="DikeProfileEntityId" />
               </MappingFragment>
@@ -5567,6 +5572,7 @@
                 <ScalarProperty Name="BreakWaterType" ColumnName="BreakWaterType" />
                 <ScalarProperty Name="Orientation" ColumnName="Orientation" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="FailureMechanismEntityId" ColumnName="FailureMechanismEntityId" />
                 <ScalarProperty Name="ForeshoreProfileEntityId" ColumnName="ForeshoreProfileEntityId" />
               </MappingFragment>

@@ -530,11 +530,13 @@ namespace Application.Ringtoets.Storage.Test.Read
                 {
                     new DikeProfileEntity
                     {
+                        Id = "idA",
                         DikeGeometryXml = emptyDikeGeometryXml,
                         ForeshoreXml = emptyForeshoreBinaryXml
                     },
                     new DikeProfileEntity
                     {
+                        Id = "idB",
                         DikeGeometryXml = emptyDikeGeometryXml,
                         ForeshoreXml = emptyForeshoreBinaryXml
                     }
@@ -859,13 +861,13 @@ namespace Application.Ringtoets.Storage.Test.Read
                 {
                     new ForeshoreProfileEntity
                     {
-                        Name = "Child1",
+                        Id = "Child1",
                         GeometryXml = new Point2DXmlSerializer().ToXml(Enumerable.Empty<Point2D>()),
                         Order = 1
                     },
                     new ForeshoreProfileEntity
                     {
-                        Name = "Child2",
+                        Id = "Child2",
                         GeometryXml = new Point2DXmlSerializer().ToXml(Enumerable.Empty<Point2D>()),
                         Order = 0
                     },
@@ -881,10 +883,10 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.AreEqual(2, failureMechanism.ForeshoreProfiles.Count);
 
             ForeshoreProfile child1 = failureMechanism.ForeshoreProfiles[0];
-            Assert.AreEqual("Child2", child1.Name);
+            Assert.AreEqual("Child2", child1.Id);
 
             ForeshoreProfile child2 = failureMechanism.ForeshoreProfiles[1];
-            Assert.AreEqual("Child1", child2.Name);
+            Assert.AreEqual("Child1", child2.Id);
         }
 
         #endregion
@@ -943,13 +945,13 @@ namespace Application.Ringtoets.Storage.Test.Read
                 {
                     new ForeshoreProfileEntity
                     {
-                        Name = "Child1",
+                        Id = "Child1",
                         GeometryXml = new Point2DXmlSerializer().ToXml(Enumerable.Empty<Point2D>()),
                         Order = 1
                     },
                     new ForeshoreProfileEntity
                     {
-                        Name = "Child2",
+                        Id = "Child2",
                         GeometryXml = new Point2DXmlSerializer().ToXml(Enumerable.Empty<Point2D>()),
                         Order = 0
                     },
@@ -965,10 +967,10 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.AreEqual(2, failureMechanism.ForeshoreProfiles.Count);
 
             ForeshoreProfile child1 = failureMechanism.ForeshoreProfiles[0];
-            Assert.AreEqual("Child2", child1.Name);
+            Assert.AreEqual("Child2", child1.Id);
 
             ForeshoreProfile child2 = failureMechanism.ForeshoreProfiles[1];
-            Assert.AreEqual("Child1", child2.Name);
+            Assert.AreEqual("Child1", child2.Id);
         }
 
         #endregion
@@ -987,13 +989,13 @@ namespace Application.Ringtoets.Storage.Test.Read
                 {
                     new ForeshoreProfileEntity
                     {
-                        Name = "Child1",
+                        Id = "Child1",
                         GeometryXml = new Point2DXmlSerializer().ToXml(Enumerable.Empty<Point2D>()),
                         Order = 1
                     },
                     new ForeshoreProfileEntity
                     {
-                        Name = "Child2",
+                        Id = "Child2",
                         GeometryXml = new Point2DXmlSerializer().ToXml(Enumerable.Empty<Point2D>()),
                         Order = 0
                     },
@@ -1016,10 +1018,10 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.AreEqual(2, failureMechanism.ForeshoreProfiles.Count);
 
             ForeshoreProfile child1 = failureMechanism.ForeshoreProfiles[0];
-            Assert.AreEqual("Child2", child1.Name);
+            Assert.AreEqual("Child2", child1.Id);
 
             ForeshoreProfile child2 = failureMechanism.ForeshoreProfiles[1];
-            Assert.AreEqual("Child1", child2.Name);
+            Assert.AreEqual("Child1", child2.Id);
 
             Assert.AreEqual(generalInputN, failureMechanism.GeneralInput.N);
         }
@@ -1087,13 +1089,13 @@ namespace Application.Ringtoets.Storage.Test.Read
                 {
                     new ForeshoreProfileEntity
                     {
-                        Name = "Child1",
+                        Id = "Child1",
                         GeometryXml = new Point2DXmlSerializer().ToXml(Enumerable.Empty<Point2D>()),
                         Order = 1
                     },
                     new ForeshoreProfileEntity
                     {
-                        Name = "Child2",
+                        Id = "Child2",
                         GeometryXml = new Point2DXmlSerializer().ToXml(Enumerable.Empty<Point2D>()),
                         Order = 0
                     }
@@ -1116,10 +1118,10 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.AreEqual(2, failureMechanism.ForeshoreProfiles.Count);
 
             ForeshoreProfile child1 = failureMechanism.ForeshoreProfiles[0];
-            Assert.AreEqual("Child2", child1.Name);
+            Assert.AreEqual("Child2", child1.Id);
 
             ForeshoreProfile child2 = failureMechanism.ForeshoreProfiles[1];
-            Assert.AreEqual("Child1", child2.Name);
+            Assert.AreEqual("Child1", child2.Id);
 
             Assert.AreEqual(generalInputN2A, failureMechanism.GeneralInput.N2A);
         }
@@ -1232,13 +1234,13 @@ namespace Application.Ringtoets.Storage.Test.Read
                 {
                     new ForeshoreProfileEntity
                     {
-                        Name = "Child1",
+                        Id = "Child1",
                         GeometryXml = new Point2DXmlSerializer().ToXml(Enumerable.Empty<Point2D>()),
                         Order = 1
                     },
                     new ForeshoreProfileEntity
                     {
-                        Name = "Child2",
+                        Id = "Child2",
                         GeometryXml = new Point2DXmlSerializer().ToXml(Enumerable.Empty<Point2D>()),
                         Order = 0
                     }
@@ -1261,10 +1263,10 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.AreEqual(2, failureMechanism.ForeshoreProfiles.Count);
 
             ForeshoreProfile child1 = failureMechanism.ForeshoreProfiles[0];
-            Assert.AreEqual("Child2", child1.Name);
+            Assert.AreEqual("Child2", child1.Id);
 
             ForeshoreProfile child2 = failureMechanism.ForeshoreProfiles[1];
-            Assert.AreEqual("Child1", child2.Name);
+            Assert.AreEqual("Child1", child2.Id);
 
             Assert.AreEqual(generalInputN, failureMechanism.GeneralInput.N);
         }

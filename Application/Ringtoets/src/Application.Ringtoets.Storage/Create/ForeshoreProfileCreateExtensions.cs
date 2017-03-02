@@ -53,6 +53,7 @@ namespace Application.Ringtoets.Storage.Create
 
             var foreshoreProfileEntity = new ForeshoreProfileEntity
             {
+                Id = foreshoreProfile.Id.DeepClone(),
                 Name = foreshoreProfile.Name.DeepClone(),
                 GeometryXml = new Point2DXmlSerializer().ToXml(foreshoreProfile.Geometry),
                 X = foreshoreProfile.WorldReferencePoint.X,

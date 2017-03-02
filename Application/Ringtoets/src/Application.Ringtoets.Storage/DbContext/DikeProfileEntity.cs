@@ -28,22 +28,22 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-
 namespace Application.Ringtoets.Storage.DbContext
 {
+    using System;
+    using System.Collections.Generic;
+    
     public partial class DikeProfileEntity
     {
-        [SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public DikeProfileEntity()
         {
             GrassCoverErosionInwardsCalculationEntities = new HashSet<GrassCoverErosionInwardsCalculationEntity>();
         }
-
+    
         public long DikeProfileEntityId { get; set; }
         public long FailureMechanismEntityId { get; set; }
+        public string Id { get; set; }
         public string Name { get; set; }
         public Nullable<double> Orientation { get; set; }
         public Nullable<byte> BreakWaterType { get; set; }
@@ -55,10 +55,9 @@ namespace Application.Ringtoets.Storage.DbContext
         public Nullable<double> Y { get; set; }
         public Nullable<double> X0 { get; set; }
         public int Order { get; set; }
-
+    
         public virtual FailureMechanismEntity FailureMechanismEntity { get; set; }
-
-        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<GrassCoverErosionInwardsCalculationEntity> GrassCoverErosionInwardsCalculationEntities { get; set; }
     }
 }

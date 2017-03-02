@@ -62,6 +62,7 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
 
             var entity = new DikeProfileEntity
             {
+                Id = "id",
                 ForeshoreXml = new Point2DXmlSerializer().ToXml(new Point2D[0]),
                 DikeGeometryXml = new RoughnessPointXmlSerializer().ToXml(new RoughnessPoint[0]),
             };
@@ -132,6 +133,7 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
             };
             var entity = new DikeProfileEntity
             {
+                Id = "saved",
                 Name = "Just saved",
                 Orientation = 45.67,
                 BreakWaterHeight = null,
@@ -150,6 +152,7 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
             DikeProfile dikeProfile = entity.Read(collector);
 
             // Assert
+            Assert.AreEqual(entity.Id, dikeProfile.Id);
             Assert.AreEqual(entity.Name, dikeProfile.Name);
             Assert.AreEqual(entity.Orientation, dikeProfile.Orientation.Value);
             CollectionAssert.AreEqual(foreshorePoints, dikeProfile.ForeshoreGeometry);
@@ -178,6 +181,7 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
             };
             var entity = new DikeProfileEntity
             {
+                Id = "with_breakwater",
                 Name = "I have a Breakwater!",
                 Orientation = 360.0,
                 BreakWaterHeight = height,
@@ -196,6 +200,7 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
             DikeProfile dikeProfile = entity.Read(collector);
 
             // Assert
+            Assert.AreEqual(entity.Id, dikeProfile.Id);
             Assert.AreEqual(entity.Name, dikeProfile.Name);
             Assert.AreEqual(entity.Orientation, dikeProfile.Orientation.Value);
             CollectionAssert.AreEqual(foreshorePoints, dikeProfile.ForeshoreGeometry);

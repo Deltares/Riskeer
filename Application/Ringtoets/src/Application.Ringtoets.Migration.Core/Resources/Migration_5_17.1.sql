@@ -15,11 +15,67 @@ INSERT INTO ClosingStructuresFailureMechanismMetaEntity SELECT * FROM [SOURCEPRO
 INSERT INTO ClosingStructuresCalculationEntity SELECT * FROM [SOURCEPROJECT].ClosingStructuresCalculationEntity;
 INSERT INTO ClosingStructuresOutputEntity SELECT * FROM [SOURCEPROJECT].ClosingStructuresOutputEntity;
 INSERT INTO ClosingStructuresSectionResultEntity SELECT * FROM [SOURCEPROJECT].ClosingStructuresSectionResultEntity;
-INSERT INTO DikeProfileEntity SELECT * FROM [SOURCEPROJECT].DikeProfileEntity;
+INSERT INTO DikeProfileEntity (
+	[DikeProfileEntityId],
+	[FailureMechanismEntityId],
+	[Id],
+	[Name],
+	[Orientation],
+	[BreakWaterType],
+	[BreakWaterHeight],
+	[ForeshoreXml],
+	[DikeGeometryXml],
+	[DikeHeight],
+	[X],
+	[Y],
+	[X0],
+	[Order])
+SELECT
+	[DikeProfileEntityId],
+	[FailureMechanismEntityId],
+	[Name],
+	[Name],
+	[Orientation],
+	[BreakWaterType],
+	[BreakWaterHeight],
+	[ForeshoreXml],
+	[DikeGeometryXml],
+	[DikeHeight],
+	[X],
+	[Y],
+	[X0],
+	[Order] 
+	FROM [SOURCEPROJECT].DikeProfileEntity;
 INSERT INTO DuneErosionSectionResultEntity SELECT * FROM [SOURCEPROJECT].DuneErosionSectionResultEntity;
 INSERT INTO FailureMechanismEntity SELECT * FROM [SOURCEPROJECT].FailureMechanismEntity;
 INSERT INTO FailureMechanismSectionEntity SELECT * FROM [SOURCEPROJECT].FailureMechanismSectionEntity;
-INSERT INTO ForeshoreProfileEntity SELECT * FROM [SOURCEPROJECT].ForeshoreProfileEntity;
+INSERT INTO ForeshoreProfileEntity (
+	[ForeshoreProfileEntityId],
+	[FailureMechanismEntityId],
+	[Id],
+	[Name],
+	[Orientation],
+	[BreakWaterType],
+	[BreakWaterHeight],
+	[GeometryXml],
+	[X],
+	[Y],
+	[X0],
+	[Order])
+SELECT 
+	[ForeshoreProfileEntityId],
+	[FailureMechanismEntityId],
+	[Name],
+	[Name],
+	[Orientation],
+	[BreakWaterType],
+	[BreakWaterHeight],
+	[GeometryXml],
+	[X],
+	[Y],
+	[X0],
+	[Order]
+	FROM [SOURCEPROJECT].ForeshoreProfileEntity;
 INSERT INTO GrassCoverErosionInwardsCalculationEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionInwardsCalculationEntity;
 INSERT INTO GrassCoverErosionInwardsDikeHeightOutputEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionInwardsDikeHeightOutputEntity;
 INSERT INTO GrassCoverErosionInwardsFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionInwardsFailureMechanismMetaEntity;
@@ -45,7 +101,7 @@ INSERT INTO MacrostabilityOutwardsSectionResultEntity SELECT * FROM [SOURCEPROJE
 INSERT INTO MicrostabilitySectionResultEntity SELECT * FROM [SOURCEPROJECT].MicrostabilitySectionResultEntity;
 INSERT INTO PipingCalculationEntity SELECT * FROM [SOURCEPROJECT].PipingCalculationEntity;
 INSERT INTO PipingCalculationOutputEntity SELECT * FROM [SOURCEPROJECT].PipingCalculationOutputEntity;
-	INSERT INTO PipingFailureMechanismMetaEntity (
+INSERT INTO PipingFailureMechanismMetaEntity (
 	[PipingFailureMechanismMetaEntityId],
 	[FailureMechanismEntityId],
 	[A],
@@ -58,7 +114,8 @@ SELECT
 	[A],
 	[WaterVolumetricWeight], 
 	"Onbekend", 
-	"Onbekend" FROM [SOURCEPROJECT].PipingFailureMechanismMetaEntity;
+	"Onbekend" 
+	FROM [SOURCEPROJECT].PipingFailureMechanismMetaEntity;
 INSERT INTO PipingSectionResultEntity SELECT * FROM [SOURCEPROJECT].PipingSectionResultEntity;
 INSERT INTO PipingSemiProbabilisticOutputEntity SELECT * FROM [SOURCEPROJECT].PipingSemiProbabilisticOutputEntity;
 INSERT INTO PipingStructureSectionResultEntity SELECT * FROM [SOURCEPROJECT].PipingStructureSectionResultEntity;

@@ -67,7 +67,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
                                               null,
                                               new DikeProfile.ConstructionProperties
                                               {
-                                                  Id = "fixme",
+                                                  Id = "no_breakwater",
                                                   Name = "Dike profile without break water.",
                                                   DikeHeight = 11.11,
                                                   Orientation = 12.12,
@@ -89,6 +89,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
             Assert.AreEqual(convertedForeshoreGeometry, entity.ForeshoreXml);
             Assert.AreEqual(dikeProfile.Orientation.Value, entity.Orientation);
             Assert.AreEqual(dikeProfile.DikeHeight.Value, entity.DikeHeight);
+            Assert.AreEqual(dikeProfile.Id, entity.Id);
             Assert.AreEqual(dikeProfile.Name, entity.Name);
 
             Assert.IsNull(entity.BreakWaterHeight);
@@ -99,6 +100,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
         public void Create_StringPropertiesDoNotShareReference()
         {
             // Setup
+            const string originalId = "no_breakwater";
             const string originalName = "Dike profile without break water.";
             var dikeProfile = new DikeProfile(new Point2D(1.1, 2.2),
                                               new RoughnessPoint[0],
@@ -106,7 +108,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
                                               null,
                                               new DikeProfile.ConstructionProperties
                                               {
-                                                  Id = "fixme",
+                                                  Id = originalId,
                                                   Name = originalName
                                               });
             var registry = new PersistenceRegistry();
@@ -118,6 +120,9 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
             Assert.AreNotSame(originalName, entity.Name,
                               "To create stable binary representations/fingerprints, it's really important that strings are not shared.");
             Assert.AreEqual(originalName, entity.Name);
+            Assert.AreNotSame(originalId, entity.Id,
+                              "To create stable binary representations/fingerprints, it's really important that strings are not shared.");
+            Assert.AreEqual(originalId, entity.Id);
         }
 
         [Test]
@@ -142,7 +147,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
                                               new BreakWater(type, height),
                                               new DikeProfile.ConstructionProperties
                                               {
-                                                  Id = "fixme",
+                                                  Id = "no_breakwater",
                                                   Name = "Dike profile without break water.",
                                                   DikeHeight = 98.76,
                                                   Orientation = 76.54,
@@ -164,6 +169,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
             Assert.AreEqual(convertedForeshoreGeometry, entity.ForeshoreXml);
             Assert.AreEqual(dikeProfile.Orientation.Value, entity.Orientation);
             Assert.AreEqual(dikeProfile.DikeHeight.Value, entity.DikeHeight);
+            Assert.AreEqual(dikeProfile.Id, entity.Id);
             Assert.AreEqual(dikeProfile.Name, entity.Name);
 
             Assert.AreEqual((byte) type, entity.BreakWaterType);

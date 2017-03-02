@@ -186,10 +186,10 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionOutwards
         public void Read_EntityWithForeshoreProfileNotYetInCollector_CalculationWithCreatedForeshoreProfileAndRegisteredNewEntities()
         {
             // Setup
-            string name = "foreshore profile";
+            const string id = "profile";
             var foreshoreProfileEntity = new ForeshoreProfileEntity
             {
-                Name = name,
+                Id = id,
                 GeometryXml = new Point2DXmlSerializer().ToXml(Enumerable.Empty<Point2D>())
             };
 
@@ -205,7 +205,7 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionOutwards
 
             // Assert
             Assert.IsTrue(collector.Contains(foreshoreProfileEntity));
-            CollectionAssert.AreEqual(name, calculation.InputParameters.ForeshoreProfile.Name);
+            CollectionAssert.AreEqual(id, calculation.InputParameters.ForeshoreProfile.Id);
         }
 
         [Test]

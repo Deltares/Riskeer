@@ -60,6 +60,7 @@ namespace Application.Ringtoets.Storage.Create.GrassCoverErosionInwards
                 ForeshoreXml = new Point2DXmlSerializer().ToXml(dikeProfile.ForeshoreGeometry),
                 Orientation = dikeProfile.Orientation,
                 DikeHeight = dikeProfile.DikeHeight,
+                Id = dikeProfile.Id.DeepClone(),
                 Name = dikeProfile.Name.DeepClone(),
                 Order = order
             };
