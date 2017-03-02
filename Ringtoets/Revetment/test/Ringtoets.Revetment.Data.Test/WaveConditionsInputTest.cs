@@ -208,6 +208,7 @@ namespace Ringtoets.Revetment.Data.Test
                                                         breakWater,
                                                         new ForeshoreProfile.ConstructionProperties
                                                         {
+                                                            Id = "id",
                                                             Orientation = orientation
                                                         });
 
@@ -244,6 +245,7 @@ namespace Ringtoets.Revetment.Data.Test
                                                         new BreakWater(BreakWaterType.Caisson, 2.2),
                                                         new ForeshoreProfile.ConstructionProperties
                                                         {
+                                                            Id = "id",
                                                             Orientation = 96
                                                         });
 

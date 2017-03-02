@@ -53,27 +53,38 @@ namespace Ringtoets.Common.Data.TestUtil
         /// a specified foreshore profile geometry.
         /// </summary>
         /// <param name="foreshoreProfileGeometry">The geometry of the <see cref="ForeshoreProfile"/>.</param>
-        public TestDikeProfile(IEnumerable<Point2D> foreshoreProfileGeometry) 
-            : this(null, new Point2D(0, 0), foreshoreProfileGeometry) {}
+        public TestDikeProfile(IEnumerable<Point2D> foreshoreProfileGeometry)
+            : this("id", null, new Point2D(0, 0), Enumerable.Empty<RoughnessPoint>(), foreshoreProfileGeometry) {}
+
+        /// <summary>
+        /// Initializes default <see cref="DikeProfile"/> at the world origin with 
+        /// a specified dike profile geometry.
+        /// </summary>
+        /// <param name="dikeGeometry">The geometry of the <see cref="ForeshoreProfile"/>.</param>
+        public TestDikeProfile(IEnumerable<RoughnessPoint> dikeGeometry)
+            : this("id", null, new Point2D(0, 0), dikeGeometry, Enumerable.Empty<Point2D>()) {}
 
         /// <summary>
         /// Initializes default <see cref="DikeProfile"/> at the world location.
         /// </summary>
         /// <param name="name">The name of the dike profile.</param>
         /// <param name="point">The world coordinate of the dike profile.</param>
-        public TestDikeProfile(string name, Point2D point) : this(name, point, Enumerable.Empty<Point2D>()) {}
+        public TestDikeProfile(string name, Point2D point) : this("id", name, point, Enumerable.Empty<RoughnessPoint>(), Enumerable.Empty<Point2D>()) {}
 
         /// <summary>
         /// Initializes default <see cref="DikeProfile"/>at the world location with 
         /// a specified foreshore profile geometry.
         /// </summary>
+        /// <param name="id">The ID of the dike profile.</param>
         /// <param name="name">The name of the dike profile.</param>
         /// <param name="point">The world coordinate of the dike profile.</param>
+        /// <param name="dikeGeometry">The geometry of the dike.</param>
         /// <param name="foreshoreProfileGeometry">The geometry of the <see cref="ForeshoreProfile"/>.</param>
-        private TestDikeProfile(string name, Point2D point, IEnumerable<Point2D> foreshoreProfileGeometry) 
-            : base(point, Enumerable.Empty<RoughnessPoint>(), foreshoreProfileGeometry, null, new ConstructionProperties
-        {
-            Name = name
-        }) {}
+        private TestDikeProfile(string id, string name, Point2D point, IEnumerable<RoughnessPoint> dikeGeometry, IEnumerable<Point2D> foreshoreProfileGeometry)
+            : base(point, dikeGeometry, foreshoreProfileGeometry, null, new ConstructionProperties
+            {
+                Id = id,
+                Name = name
+            }) {}
     }
 }

@@ -57,6 +57,7 @@ namespace Ringtoets.Common.Data.DikeProfiles
             ForeshoreProfile = new ForeshoreProfile(worldCoordinate, foreshoreGeometry, breakWater,
                                                     new ForeshoreProfile.ConstructionProperties
                                                     {
+                                                        Id = properties.Id,
                                                         Name = properties.Name,
                                                         Orientation = properties.Orientation,
                                                         X0 = properties.X0
@@ -69,7 +70,18 @@ namespace Ringtoets.Common.Data.DikeProfiles
         /// <summary>
         /// Gets the foreshore profile.
         /// </summary>
-        public ForeshoreProfile ForeshoreProfile { get; private set; }
+        public ForeshoreProfile ForeshoreProfile { get; }
+
+        /// <summary>
+        /// Gets the ID of the dike profile.
+        /// </summary>
+        public string Id
+        {
+            get
+            {
+                return ForeshoreProfile.Id;
+            }
+        }
 
         /// <summary>
         /// Gets the name of the dike profile.
@@ -191,6 +203,11 @@ namespace Ringtoets.Common.Data.DikeProfiles
         /// </summary>
         public class ConstructionProperties
         {
+            /// <summary>
+            /// Gets or sets the value for <see cref="DikeProfile.Id"/>.
+            /// </summary>
+            public string Id { internal get; set; }
+
             /// <summary>
             /// Gets or sets the value for <see cref="DikeProfile.Name"/>.
             /// </summary>

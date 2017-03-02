@@ -177,7 +177,7 @@ namespace Ringtoets.Common.IO.FileImporters
                         Resources.ProfilesImporter_GetProfileLocationReadResult_Error_reading_Profile_LineNumber_0_Error_1_The_Profile_is_skipped,
                         i + 1,
                         exception.Message);
-                    Log.Warn(message);
+                    Log.Error(message, exception);
                 }
                 catch (CriticalFileReadException exception)
                 {
@@ -288,11 +288,7 @@ namespace Ringtoets.Common.IO.FileImporters
 
         private void LogDuplicate(DikeProfileData data, string prflFilePath)
         {
-            var message = String.Format(
-                Resources.ProfilesImporter_LogDuplicateDikeProfileData_Multiple_DikeProfileData_found_for_DikeProfile_0_File_1_skipped,
-                data.Id,
-                prflFilePath);
-            Log.Error(message);
+            Log.WarnFormat(Resources.ProfilesImporter_LogDuplicateDikeProfileData_Multiple_DikeProfileData_found_for_DikeProfile_0_File_1_skipped, data.Id, prflFilePath);
         }
 
         private double GetDistanceToReferenceLine(Point2D point)

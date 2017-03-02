@@ -25,6 +25,7 @@ using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PropertyClasses;
 
 namespace Ringtoets.Common.Forms.Test.PropertyClasses
@@ -51,8 +52,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             var properties = new ForeshoreGeometryProperties();
 
             // Call
-            properties.Data = new ForeshoreProfile(new Point2D(0, 0), new Point2D[0], null,
-                                                   new ForeshoreProfile.ConstructionProperties());
+            properties.Data = new TestForeshoreProfile();
 
             // Assert
             CollectionAssert.IsEmpty(properties.Coordinates);
@@ -62,12 +62,11 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         public void Data_SetForeshoreProfileInstanceWithData_ReturnCorrectPropertyValues()
         {
             // Setup
-            var foreshoreProfile = new ForeshoreProfile(new Point2D(0, 0),
-                                                        new[]
-                                                        {
-                                                            new Point2D(0, 0),
-                                                            new Point2D(1, 1)
-                                                        }, null, new ForeshoreProfile.ConstructionProperties());
+            var foreshoreProfile = new TestForeshoreProfile(new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(1, 1)
+            });
 
             var properties = new ForeshoreGeometryProperties();
 
@@ -87,8 +86,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
-            var foreshoreProfile = new ForeshoreProfile(new Point2D(0, 0), new Point2D[0], null,
-                                                        new ForeshoreProfile.ConstructionProperties());
+            var foreshoreProfile = new TestForeshoreProfile();
 
             // Call
             var properties = new ForeshoreGeometryProperties

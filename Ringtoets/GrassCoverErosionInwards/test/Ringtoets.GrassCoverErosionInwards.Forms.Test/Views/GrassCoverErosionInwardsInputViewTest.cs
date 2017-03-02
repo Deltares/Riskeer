@@ -471,6 +471,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             return new DikeProfile(new Point2D(0.0, 0.0), dikeGeometry, foreshoreGeometry,
                                    null, new DikeProfile.ConstructionProperties
                                    {
+                                       Id = "id",
                                        Name = "Dike profile test",
                                        DikeHeight = 10.0
                                    });

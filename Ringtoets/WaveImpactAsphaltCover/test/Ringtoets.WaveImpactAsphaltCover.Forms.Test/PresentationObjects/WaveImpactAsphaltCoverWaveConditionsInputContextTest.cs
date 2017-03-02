@@ -28,6 +28,7 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Forms.PresentationObjects;
@@ -44,7 +45,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.PresentationObjects
         {
             // Setup
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, string.Empty, 0, 0);
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase()
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
                 Locations =
                 {
@@ -57,14 +58,11 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.PresentationObjects
             assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
             mocks.ReplayAll();
 
-            var foreshoreProfile = new ForeshoreProfile(new Point2D(0, 0), Enumerable.Empty<Point2D>(),
-                                                        null, new ForeshoreProfile.ConstructionProperties());
-
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism
             {
                 ForeshoreProfiles =
                 {
-                    foreshoreProfile
+                    new TestForeshoreProfile()
                 }
             };
 

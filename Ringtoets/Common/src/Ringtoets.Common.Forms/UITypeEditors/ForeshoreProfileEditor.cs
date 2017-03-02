@@ -44,6 +44,7 @@ namespace Ringtoets.Common.Forms.UITypeEditors
             DisplayMember = nameof(ForeshoreProfile.Name);
             NullItem = new ForeshoreProfile(new Point2D(0, 0), Enumerable.Empty<Point2D>(), null, new ForeshoreProfile.ConstructionProperties
             {
+                Id = CoreCommonControlsResources.DisplayName_None,
                 Name = CoreCommonControlsResources.DisplayName_None
             });
         }

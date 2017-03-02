@@ -32,6 +32,7 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PresentationObjects;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
@@ -132,7 +133,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
             var emptyCollection = new ObservableList<ForeshoreProfile>
             {
-                new ForeshoreProfile(new Point2D(0, 0), new Point2D[0], null, new ForeshoreProfile.ConstructionProperties())
+                new TestForeshoreProfile()
             };
             var context = new ForeshoreProfilesContext(emptyCollection, failureMechanism, assessmentSection);
 
@@ -153,9 +154,9 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             var failureMechanism = mocks.Stub<IFailureMechanism>();
             mocks.ReplayAll();
 
-            var profile1 = new ForeshoreProfile(new Point2D(0, 0), new Point2D[0], null, new ForeshoreProfile.ConstructionProperties());
-            var profile2 = new ForeshoreProfile(new Point2D(1, 1), new Point2D[0], null, new ForeshoreProfile.ConstructionProperties());
-            var profile3 = new ForeshoreProfile(new Point2D(2, 2), new Point2D[0], null, new ForeshoreProfile.ConstructionProperties());
+            var profile1 = new TestForeshoreProfile(new Point2D(0, 0));
+            var profile2 = new TestForeshoreProfile(new Point2D(1, 1));
+            var profile3 = new TestForeshoreProfile(new Point2D(2, 2));
             var emptyCollection = new ObservableList<ForeshoreProfile>
             {
                 profile1,

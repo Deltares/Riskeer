@@ -104,6 +104,7 @@ namespace Ringtoets.Common.IO.FileImporters
                                               CreateBreakWater(dikeProfileData),
                                               new DikeProfile.ConstructionProperties
                                               {
+                                                  Id = dikeProfileData.Id,
                                                   Name = dikeProfileData.Id,
                                                   X0 = dikeProfileLocation.Offset,
                                                   Orientation = dikeProfileData.Orientation,

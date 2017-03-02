@@ -30,6 +30,7 @@ using Ringtoets.ClosingStructures.Data.TestUtil;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Structures;
+using Ringtoets.Common.Data.TestUtil;
 
 namespace Application.Ringtoets.Storage.Test.Read.ClosingStructures
 {
@@ -275,8 +276,7 @@ namespace Application.Ringtoets.Storage.Test.Read.ClosingStructures
         public void Read_EntityWithForeshoreProfileEntity_ReturnCalculationWithForeshoreProfile()
         {
             // Setup
-            var profile = new ForeshoreProfile(new Point2D(0, 0), new Point2D[0],
-                                               null, new ForeshoreProfile.ConstructionProperties());
+            var profile = new TestForeshoreProfile();
             var profileEntity = new ForeshoreProfileEntity();
             var entity = new ClosingStructuresCalculationEntity
             {

@@ -271,6 +271,7 @@ namespace Ringtoets.Integration.TestUtils
                                                new BreakWater(BreakWaterType.Caisson, 1.3),
                                                new DikeProfile.ConstructionProperties
                                                {
+                                                   Id = "aid",
                                                    Name = "A",
                                                    DikeHeight = 5,
                                                    Orientation = 20,
@@ -294,6 +295,7 @@ namespace Ringtoets.Integration.TestUtils
                                                new BreakWater(BreakWaterType.Caisson, 1.3),
                                                new DikeProfile.ConstructionProperties
                                                {
+                                                   Id = "bid",
                                                    Name = "B",
                                                    DikeHeight = 3,
                                                    Orientation = 20,
@@ -422,6 +424,7 @@ namespace Ringtoets.Integration.TestUtils
                                                 },
                                                 new BreakWater(BreakWaterType.Caisson, 1.1), new ForeshoreProfile.ConstructionProperties
                                                 {
+                                                    Id = "aid",
                                                     Name = "A",
                                                     Orientation = 30,
                                                     X0 = 0
@@ -434,6 +437,7 @@ namespace Ringtoets.Integration.TestUtils
                                                 },
                                                 new BreakWater(BreakWaterType.Dam, 2.2), new ForeshoreProfile.ConstructionProperties
                                                 {
+                                                    Id = "bid",
                                                     Name = "B",
                                                     Orientation = 50,
                                                     X0 = 10
@@ -455,6 +459,7 @@ namespace Ringtoets.Integration.TestUtils
                                                 },
                                                 new BreakWater(BreakWaterType.Caisson, 1.1), new ForeshoreProfile.ConstructionProperties
                                                 {
+                                                    Id = "aid",
                                                     Name = "A",
                                                     Orientation = 30,
                                                     X0 = 0
@@ -467,6 +472,7 @@ namespace Ringtoets.Integration.TestUtils
                                                 },
                                                 new BreakWater(BreakWaterType.Dam, 2.2), new ForeshoreProfile.ConstructionProperties
                                                 {
+                                                    Id = "bid",
                                                     Name = "B",
                                                     Orientation = 50,
                                                     X0 = 10
@@ -488,6 +494,7 @@ namespace Ringtoets.Integration.TestUtils
                                                 },
                                                 new BreakWater(BreakWaterType.Caisson, 1.1), new ForeshoreProfile.ConstructionProperties
                                                 {
+                                                    Id = "aid",
                                                     Name = "A",
                                                     Orientation = 30,
                                                     X0 = 0
@@ -500,6 +507,7 @@ namespace Ringtoets.Integration.TestUtils
                                                 },
                                                 new BreakWater(BreakWaterType.Dam, 2.2), new ForeshoreProfile.ConstructionProperties
                                                 {
+                                                    Id = "bid",
                                                     Name = "B",
                                                     Orientation = 50,
                                                     X0 = 10
@@ -615,6 +623,7 @@ namespace Ringtoets.Integration.TestUtils
                                                 },
                                                 new BreakWater(BreakWaterType.Caisson, 1.1), new ForeshoreProfile.ConstructionProperties
                                                 {
+                                                    Id = "aid",
                                                     Name = "A",
                                                     Orientation = 30,
                                                     X0 = 0
@@ -627,6 +636,7 @@ namespace Ringtoets.Integration.TestUtils
                                                 },
                                                 new BreakWater(BreakWaterType.Dam, 2.2), new ForeshoreProfile.ConstructionProperties
                                                 {
+                                                    Id = "bid",
                                                     Name = "B",
                                                     Orientation = 50,
                                                     X0 = 10
@@ -735,6 +745,7 @@ namespace Ringtoets.Integration.TestUtils
                                                 },
                                                 new BreakWater(BreakWaterType.Caisson, 1.1), new ForeshoreProfile.ConstructionProperties
                                                 {
+                                                    Id = "aid",
                                                     Name = "A",
                                                     Orientation = 30,
                                                     X0 = 0
@@ -747,6 +758,7 @@ namespace Ringtoets.Integration.TestUtils
                                                 },
                                                 new BreakWater(BreakWaterType.Dam, 2.2), new ForeshoreProfile.ConstructionProperties
                                                 {
+                                                    Id = "bid",
                                                     Name = "B",
                                                     Orientation = 50,
                                                     X0 = 10
@@ -865,6 +877,7 @@ namespace Ringtoets.Integration.TestUtils
                                                 },
                                                 new BreakWater(BreakWaterType.Caisson, 1.1), new ForeshoreProfile.ConstructionProperties
                                                 {
+                                                    Id = "aid",
                                                     Name = "A",
                                                     Orientation = 30,
                                                     X0 = 0
@@ -877,6 +890,7 @@ namespace Ringtoets.Integration.TestUtils
                                                 },
                                                 new BreakWater(BreakWaterType.Dam, 2.2), new ForeshoreProfile.ConstructionProperties
                                                 {
+                                                    Id = "bid",
                                                     Name = "B",
                                                     Orientation = 50,
                                                     X0 = 10

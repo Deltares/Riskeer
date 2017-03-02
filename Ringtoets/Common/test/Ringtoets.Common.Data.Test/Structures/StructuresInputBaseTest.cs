@@ -535,6 +535,7 @@ namespace Ringtoets.Common.Data.Test.Structures
                                                         breakWater,
                                                         new ForeshoreProfile.ConstructionProperties
                                                         {
+                                                            Id = "id",
                                                             Orientation = orientation
                                                         });
 
@@ -569,6 +570,7 @@ namespace Ringtoets.Common.Data.Test.Structures
                                                         new BreakWater(BreakWaterType.Caisson, 2.2),
                                                         new ForeshoreProfile.ConstructionProperties
                                                         {
+                                                            Id = "id",
                                                             Orientation = 96
                                                         });
 

@@ -20,11 +20,11 @@
 // All rights reserved.
 
 using System.ComponentModel;
-using Core.Common.Base.Geometry;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PropertyClasses;
 
 namespace Ringtoets.Common.Forms.Test.PropertyClasses
@@ -48,9 +48,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         public void Data_SetForeshoreProfileInstanceWithBreakWater_ReturnCorrectPropertyValues()
         {
             // Setup
-            var foreshoreProfile = new ForeshoreProfile(new Point2D(0, 0), new Point2D[0],
-                                                        new BreakWater(BreakWaterType.Wall, 10.0),
-                                                        new ForeshoreProfile.ConstructionProperties());
+            var foreshoreProfile = new TestForeshoreProfile(new BreakWater(BreakWaterType.Wall, 10.0));
 
             var properties = new BreakWaterProperties();
 
@@ -67,8 +65,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         public void Data_SetForeshoreProfileInstanceWithoutBreakWater_ReturnCorrectPropertyValues()
         {
             // Setup
-            var foreshoreProfile = new ForeshoreProfile(new Point2D(0, 0), new Point2D[0],
-                                                        null, new ForeshoreProfile.ConstructionProperties());
+            var foreshoreProfile = new TestForeshoreProfile();
 
             var properties = new BreakWaterProperties();
 
@@ -83,9 +80,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         public void PropertyAttributes_SetForeshoreProfileInstanceWithBreakWater_ReturnExpectedValues()
         {
             // Setup
-            var foreshoreProfile = new ForeshoreProfile(new Point2D(0, 0), new Point2D[0],
-                                                        new BreakWater(BreakWaterType.Caisson, 10.0),
-                                                        new ForeshoreProfile.ConstructionProperties());
+            var foreshoreProfile = new TestForeshoreProfile(new BreakWater(BreakWaterType.Caisson, 10.0));
 
             // Call
             var properties = new BreakWaterProperties
@@ -123,8 +118,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         public void PropertyAttributes_SetForeshoreProfileInstanceWithoutBreakWater_ReturnExpectedValues()
         {
             // Setup
-            var foreshoreProfile = new ForeshoreProfile(new Point2D(0, 0), new Point2D[0],
-                                                        null, new ForeshoreProfile.ConstructionProperties());
+            var foreshoreProfile = new TestForeshoreProfile();
 
             // Call
             var properties = new BreakWaterProperties

@@ -283,12 +283,16 @@ namespace Application.Ringtoets.Storage.TestUtil
                                           new Point2D(8, 5)
                                       }, new BreakWater(BreakWaterType.Caisson, 2.5), new ForeshoreProfile.ConstructionProperties
                                       {
+                                          Id = "fpid",
                                           Name = "FP",
                                           Orientation = 95.5,
                                           X0 = 22.1
                                       }));
             foreshoreProfiles.Add(new ForeshoreProfile(
-                                      new Point2D(2, 5), Enumerable.Empty<Point2D>(), null, new ForeshoreProfile.ConstructionProperties()));
+                                      new Point2D(2, 5), Enumerable.Empty<Point2D>(), null, new ForeshoreProfile.ConstructionProperties
+                                      {
+                                          Id = "fpid",
+                                      }));
         }
 
         private static ReferenceLine GetReferenceLine()
@@ -852,6 +856,7 @@ namespace Application.Ringtoets.Storage.TestUtil
                                               new BreakWater(BreakWaterType.Caisson, 15),
                                               new DikeProfile.ConstructionProperties
                                               {
+                                                  Id = "id",
                                                   DikeHeight = 1.1,
                                                   Name = "2.2",
                                                   Orientation = 3.3,
@@ -868,6 +873,7 @@ namespace Application.Ringtoets.Storage.TestUtil
                                                               null,
                                                               new DikeProfile.ConstructionProperties
                                                               {
+                                                                  Id = "id",
                                                                   DikeHeight = 5.5,
                                                                   Name = "6.6",
                                                                   Orientation = 7.7,

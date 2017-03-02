@@ -25,6 +25,7 @@ using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PropertyClasses;
 
 namespace Ringtoets.Common.Forms.Test.PropertyClasses
@@ -57,6 +58,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             var foreshoreProfile = new ForeshoreProfile(new Point2D(12.34, 56.78), new Point2D[0],
                                                         null, new ForeshoreProfile.ConstructionProperties
                                                         {
+                                                            Id = "id",
                                                             Name = name
                                                         });
 
@@ -79,8 +81,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
-            var foreshoreProfile = new ForeshoreProfile(new Point2D(0, 0), new Point2D[0],
-                                                        null, new ForeshoreProfile.ConstructionProperties());
+            var foreshoreProfile = new TestForeshoreProfile();
 
             // Call
             var properties = new ForeshoreProfileProperties

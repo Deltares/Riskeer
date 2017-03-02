@@ -174,8 +174,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         public void Read_EntityWithForeshoreProfileEntity_InputObjectUpdatedWithForeshoreProfile()
         {
             // Setup
-            var foreshoreProfile = new ForeshoreProfile(new Point2D(0, 0), new Point2D[0],
-                                                        null, new ForeshoreProfile.ConstructionProperties());
+            var foreshoreProfile = new TestForeshoreProfile();
             var foreshoreEntity = new ForeshoreProfileEntity();
 
             var mocks = new MockRepository();

@@ -24,6 +24,7 @@ using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.TestUtil;
 
@@ -125,10 +126,7 @@ namespace Ringtoets.Revetment.IO.Test
         {
             // Setup
             WaveConditionsInput waveConditionsInput = CreateValidWaveConditionsInput();
-            waveConditionsInput.ForeshoreProfile = new ForeshoreProfile(new Point2D(8.7, 7.8), new Point2D[0], null, new ForeshoreProfile.ConstructionProperties
-            {
-                Name = "profile"
-            });
+            waveConditionsInput.ForeshoreProfile = new TestForeshoreProfile("profile");
             waveConditionsInput.UseBreakWater = useBreakWater;
             waveConditionsInput.UseForeshore = useForeshore;
 

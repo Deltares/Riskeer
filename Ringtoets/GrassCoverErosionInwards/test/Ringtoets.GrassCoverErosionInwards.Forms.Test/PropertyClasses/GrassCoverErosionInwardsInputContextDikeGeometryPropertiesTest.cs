@@ -28,6 +28,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses;
@@ -88,12 +89,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             mockRepository.ReplayAll();
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            var dikeProfile = new DikeProfile(new Point2D(0, 0),
-                                              new[]
-                                              {
-                                                  new RoughnessPoint(new Point2D(1.1, 2.2), 0.6),
-                                                  new RoughnessPoint(new Point2D(3.3, 4.4), 0.7)
-                                              }, new Point2D[0], null, new DikeProfile.ConstructionProperties());
+            var dikeProfile = new TestDikeProfile(new[]
+            {
+                new RoughnessPoint(new Point2D(1.1, 2.2), 0.6),
+                new RoughnessPoint(new Point2D(3.3, 4.4), 0.7)
+            });
 
             var calculation = new GrassCoverErosionInwardsCalculation
             {

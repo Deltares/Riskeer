@@ -651,10 +651,11 @@ namespace Ringtoets.Common.Forms.Test.Views
             {
                 new DikeProfile(new Point2D(5, 4), roughnessPointsOne, pointsOne, null, new DikeProfile.ConstructionProperties
                 {
-                    Name = "A"
+                    Id = "A"
                 }),
                 new DikeProfile(new Point2D(2, 1), roughnessPointsTwo, Enumerable.Empty<Point2D>(), null, new DikeProfile.ConstructionProperties
                 {
+                    Id = "bid",
                     Name = "B"
                 })
             };
@@ -738,14 +739,16 @@ namespace Ringtoets.Common.Forms.Test.Views
             {
                 new ForeshoreProfile(new Point2D(5, 4), pointsOne, null, new ForeshoreProfile.ConstructionProperties
                 {
-                    Name = "A"
+                    Id = "A"
                 }),
                 new ForeshoreProfile(new Point2D(3, 3), Enumerable.Empty<Point2D>(), null, new ForeshoreProfile.ConstructionProperties()
                 {
+                    Id = "bid",
                     Name = "B"
                 }),
                 new ForeshoreProfile(new Point2D(2, 1), pointsTwo, null, new ForeshoreProfile.ConstructionProperties
                 {
+                    Id = "cid",
                     Name = "C"
                 })
             };

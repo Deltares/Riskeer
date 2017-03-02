@@ -62,7 +62,10 @@ namespace Application.Ringtoets.Storage.Test.Create
                                        new Point2D(5, 6),
                                        new Point2D(7, 8)
                                    },
-                                   null, new DikeProfile.ConstructionProperties());
+                                   null, new DikeProfile.ConstructionProperties
+                                   {
+                                       Id = "id"
+                                   });
         }
 
         #region Contains methods

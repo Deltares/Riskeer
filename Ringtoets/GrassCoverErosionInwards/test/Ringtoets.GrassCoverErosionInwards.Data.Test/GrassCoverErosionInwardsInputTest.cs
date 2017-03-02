@@ -116,7 +116,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
                                               }, foreshoreGeometry.ToArray(), breakWater,
                                               new DikeProfile.ConstructionProperties
                                               {
-                                                  Orientation = 1.1, DikeHeight = 4.4
+                                                  Id = "id", Orientation = 1.1, DikeHeight = 4.4
                                               });
 
             // Call
@@ -158,6 +158,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
                                               new BreakWater(BreakWaterType.Caisson, 2.2),
                                               new DikeProfile.ConstructionProperties
                                               {
+                                                  Id = "id",
                                                   Orientation = 1.1,
                                                   DikeHeight = 9.9
                                               });

@@ -59,37 +59,47 @@ namespace Ringtoets.Common.Data.DikeProfiles
             {
                 throw new ArgumentNullException(nameof(properties));
             }
+            if (string.IsNullOrWhiteSpace(properties.Id))
+            {
+                throw new ArgumentException(@"Id is null, empty or consists of whitespace.", nameof(properties));
+            }
 
             SetGeometry(geometry);
 
             Orientation = new RoundedDouble(2, properties.Orientation);
 
             BreakWater = breakWater;
-            Name = properties.Name;
+            Id = properties.Id;
+            Name = properties.Name ?? properties.Id;
             WorldReferencePoint = worldCoordinate;
             X0 = properties.X0;
         }
 
         /// <summary>
+        /// Gets the ID of the foreshore profile.
+        /// </summary>
+        public string Id { get; }
+
+        /// <summary>
         /// Gets the name of the foreshore profile.
         /// </summary>
-        public string Name { get; private set; }
+        public string Name { get; }
 
         /// <summary>
         /// Gets the reference point in world coordinates corresponding to the local coordinate <see cref="X0"/>.
         /// </summary>
-        public Point2D WorldReferencePoint { get; private set; }
+        public Point2D WorldReferencePoint { get; }
 
         /// <summary>
         /// Gets the local x-coordinate corresponding to the world reference point <see cref="WorldReferencePoint"/>.
         /// </summary>
-        public double X0 { get; private set; }
+        public double X0 { get; }
 
         /// <summary>
         /// Gets the orientation of the foreshore profile geometry with respect to North
         /// in degrees. A positive value equals a clockwise rotation.
         /// </summary>
-        public RoundedDouble Orientation { get; private set; }
+        public RoundedDouble Orientation { get; }
 
         /// <summary>
         /// Gets a value indicating if there is a break water object available.
@@ -105,7 +115,7 @@ namespace Ringtoets.Common.Data.DikeProfiles
         /// <summary>
         /// Gets the break water object of the foreshore profile, if any.
         /// </summary>
-        public BreakWater BreakWater { get; private set; }
+        public BreakWater BreakWater { get; }
 
         /// <summary>
         /// Gets the geometry of the foreshore profile.
@@ -133,6 +143,11 @@ namespace Ringtoets.Common.Data.DikeProfiles
         /// </summary>
         public class ConstructionProperties
         {
+            /// <summary>
+            /// Gets or sets the value for <see cref="ForeshoreProfile.Id"/>.
+            /// </summary>
+            public string Id { internal get; set; }
+
             /// <summary>
             /// Gets or sets the value for <see cref="ForeshoreProfile.Name"/>.
             /// </summary>

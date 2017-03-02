@@ -69,6 +69,7 @@ namespace Application.Ringtoets.Storage.Read.GrassCoverErosionInwards
         {
             return new DikeProfile.ConstructionProperties
             {
+                Id = "fixme",
                 Name = entity.Name,
                 Orientation = entity.Orientation.ToNullAsNaN(),
                 DikeHeight = entity.DikeHeight.ToNullAsNaN(),

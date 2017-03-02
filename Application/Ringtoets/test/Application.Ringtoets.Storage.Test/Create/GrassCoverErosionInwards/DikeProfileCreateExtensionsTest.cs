@@ -27,6 +27,7 @@ using Application.Ringtoets.Storage.Serializers;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.Common.Data.TestUtil;
 
 namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
 {
@@ -37,19 +38,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
         public void Create_RegistryIsNull_ThrowArgumentNullException()
         {
             // Setup
-            var dikeProfile = new DikeProfile(new Point2D(1.1, 2.2),
-                                              new[]
-                                              {
-                                                  new RoughnessPoint(new Point2D(3.3, 4.4), 0.75),
-                                                  new RoughnessPoint(new Point2D(5.5, 6.6), 0.75)
-                                              },
-                                              new[]
-                                              {
-                                                  new Point2D(7.7, 8.8),
-                                                  new Point2D(9.9, 10.10)
-                                              },
-                                              null,
-                                              new DikeProfile.ConstructionProperties());
+            var dikeProfile = new TestDikeProfile();
 
             // Call
             TestDelegate call = () => dikeProfile.Create(null, 0);
@@ -78,6 +67,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
                                               null,
                                               new DikeProfile.ConstructionProperties
                                               {
+                                                  Id = "fixme",
                                                   Name = "Dike profile without break water.",
                                                   DikeHeight = 11.11,
                                                   Orientation = 12.12,
@@ -116,6 +106,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
                                               null,
                                               new DikeProfile.ConstructionProperties
                                               {
+                                                  Id = "fixme",
                                                   Name = originalName
                                               });
             var registry = new PersistenceRegistry();
@@ -151,6 +142,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
                                               new BreakWater(type, height),
                                               new DikeProfile.ConstructionProperties
                                               {
+                                                  Id = "fixme",
                                                   Name = "Dike profile without break water.",
                                                   DikeHeight = 98.76,
                                                   Orientation = 76.54,
@@ -182,17 +174,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
         public void Create_DikeProfileAlreadyRegistered_ReturnRegisteredEntity()
         {
             // Setup
-            var dikeProfile = new DikeProfile(new Point2D(1.1, 2.2),
-                                              new[]
-                                              {
-                                                  new RoughnessPoint(new Point2D(3.3, 4.4), 0.75),
-                                                  new RoughnessPoint(new Point2D(5.5, 6.6), 0.75)
-                                              },
-                                              new[]
-                                              {
-                                                  new Point2D(7.7, 8.8),
-                                                  new Point2D(9.9, 10.10)
-                                              }, null, new DikeProfile.ConstructionProperties());
+            var dikeProfile = new TestDikeProfile();
             var registry = new PersistenceRegistry();
             DikeProfileEntity entity1 = dikeProfile.Create(registry, 0);
 

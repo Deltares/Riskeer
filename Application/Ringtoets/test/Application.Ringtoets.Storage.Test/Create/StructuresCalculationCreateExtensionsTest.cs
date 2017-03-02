@@ -698,10 +698,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void CreateForClosingStructures_CalculationWithForeshoreProfile_ReturnEntityWithForeshoreProfileEntity()
         {
             // Setup
-            var alreadyRegisteredForeshoreProfile = new ForeshoreProfile(new Point2D(0, 0),
-                                                                         new Point2D[0],
-                                                                         null,
-                                                                         new ForeshoreProfile.ConstructionProperties());
+            var alreadyRegisteredForeshoreProfile = new TestForeshoreProfile();
             var calculation = new StructuresCalculation<ClosingStructuresInput>
             {
                 InputParameters =
@@ -1212,10 +1209,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void CreateForStabilityPointStructures_CalculationWithForeshoreProfile_ReturnEntityWithForeshoreProfileEntity()
         {
             // Setup
-            var alreadyRegisteredForeshoreProfile = new ForeshoreProfile(new Point2D(0, 0),
-                                                                         new Point2D[0],
-                                                                         null,
-                                                                         new ForeshoreProfile.ConstructionProperties());
+            var alreadyRegisteredForeshoreProfile = new TestForeshoreProfile();
             var calculation = new StructuresCalculation<StabilityPointStructuresInput>
             {
                 InputParameters =

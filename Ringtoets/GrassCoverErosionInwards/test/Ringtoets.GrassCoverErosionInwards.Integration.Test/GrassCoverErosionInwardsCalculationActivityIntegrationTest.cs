@@ -1070,6 +1070,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
                                    new BreakWater(BreakWaterType.Dam, 10.0),
                                    new DikeProfile.ConstructionProperties
                                    {
+                                       Id = "id",
                                        Orientation = 5.5,
                                        DikeHeight = 10
                                    });

@@ -35,6 +35,7 @@ namespace Ringtoets.Common.Data.Test.DikeProfiles
         public void Constructor_ValidParameters_ExpectedValues()
         {
             // Setup
+            string validId = "id";
             var worldCoordinate = new Point2D(1.1, 2.2);
 
             var foreshoreGeometry = new[]
@@ -45,13 +46,17 @@ namespace Ringtoets.Common.Data.Test.DikeProfiles
 
             // Call
             var foreshoreProfile = new ForeshoreProfile(worldCoordinate, foreshoreGeometry,
-                                                        null, new ForeshoreProfile.ConstructionProperties());
+                                                        null, new ForeshoreProfile.ConstructionProperties
+                                                        {
+                                                            Id = validId
+                                                        });
 
             // Assert
             Assert.IsInstanceOf<RoundedDouble>(foreshoreProfile.Orientation);
             Assert.IsInstanceOf<double>(foreshoreProfile.X0);
 
-            Assert.IsNull(foreshoreProfile.Name);
+            Assert.AreEqual(validId, foreshoreProfile.Id);
+            Assert.AreEqual(validId, foreshoreProfile.Name);
             Assert.AreSame(worldCoordinate, foreshoreProfile.WorldReferencePoint);
             Assert.AreEqual(0.0, foreshoreProfile.X0);
             Assert.AreEqual(0.0, foreshoreProfile.Orientation.Value);
@@ -62,10 +67,30 @@ namespace Ringtoets.Common.Data.Test.DikeProfiles
         }
 
         [Test]
+        [TestCase("")]
+        [TestCase("   ")]
+        [TestCase(null)]
+        public void Constructor_InvalidId_ThrowNullException(string id)
+        {
+            // Call
+            TestDelegate call = () => new ForeshoreProfile(new Point2D(0, 0), new Point2D[0], null, new ForeshoreProfile.ConstructionProperties
+            {
+                Id = id
+            });
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentException>(call).ParamName;
+            Assert.AreEqual("properties", paramName);
+        }
+
+        [Test]
         public void Constructor_WorldCoordinateNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new ForeshoreProfile(null, new Point2D[0], null, new ForeshoreProfile.ConstructionProperties());
+            TestDelegate call = () => new ForeshoreProfile(null, new Point2D[0], null, new ForeshoreProfile.ConstructionProperties
+            {
+                Id = "id"
+            });
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -76,7 +101,10 @@ namespace Ringtoets.Common.Data.Test.DikeProfiles
         public void Constructor_ForeshoreGeometryNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new ForeshoreProfile(new Point2D(0, 0), null, null, new ForeshoreProfile.ConstructionProperties());
+            TestDelegate call = () => new ForeshoreProfile(new Point2D(0, 0), null, null, new ForeshoreProfile.ConstructionProperties
+            {
+                Id = "id"
+            });
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -103,7 +131,10 @@ namespace Ringtoets.Common.Data.Test.DikeProfiles
                                                            {
                                                                null
                                                            },
-                                                           null, new ForeshoreProfile.ConstructionProperties());
+                                                           null, new ForeshoreProfile.ConstructionProperties
+                                                           {
+                                                               Id = "id"
+                                                           });
 
             // Assert
             var expectedMessage = "Een punt in de geometrie voor het voorlandprofiel heeft geen waarde.";
@@ -117,6 +148,7 @@ namespace Ringtoets.Common.Data.Test.DikeProfiles
             var foreshoreProfile = new ForeshoreProfile(new Point2D(0, 0), new Point2D[0],
                                                         null, new ForeshoreProfile.ConstructionProperties
                                                         {
+                                                            Id = "id",
                                                             Orientation = 1.23456
                                                         });
 
@@ -126,15 +158,15 @@ namespace Ringtoets.Common.Data.Test.DikeProfiles
         }
 
         [Test]
-        [TestCase(null)]
         [TestCase("")]
         [TestCase("Cool new name!")]
-        public void Name_SetNewValue_GetsNewValue(string name)
+        public void Name_SetNameDifferentFromId_GetsGivenNameValue(string name)
         {
             // Call
             var foreshoreProfile = new ForeshoreProfile(new Point2D(0, 0), new Point2D[0],
                                                         null, new ForeshoreProfile.ConstructionProperties
                                                         {
+                                                            Id = "id",
                                                             Name = name
                                                         });
 
@@ -147,7 +179,10 @@ namespace Ringtoets.Common.Data.Test.DikeProfiles
         {
             // Call
             var foreshoreProfile = new ForeshoreProfile(new Point2D(0, 0), new Point2D[0],
-                                                        null, new ForeshoreProfile.ConstructionProperties());
+                                                        null, new ForeshoreProfile.ConstructionProperties
+                                                        {
+                                                            Id = "id"
+                                                        });
 
             // Assert
             Assert.IsNull(foreshoreProfile.BreakWater);
@@ -161,7 +196,10 @@ namespace Ringtoets.Common.Data.Test.DikeProfiles
 
             // Call
             var foreshoreProfile = new ForeshoreProfile(new Point2D(0, 0), new Point2D[0],
-                                                        newBreakWater, new ForeshoreProfile.ConstructionProperties());
+                                                        newBreakWater, new ForeshoreProfile.ConstructionProperties
+                                                        {
+                                                            Id = "id"
+                                                        });
 
             // Assert
             Assert.AreSame(newBreakWater, foreshoreProfile.BreakWater);
@@ -172,7 +210,10 @@ namespace Ringtoets.Common.Data.Test.DikeProfiles
         {
             // Setup
             var foreshoreProfile = new ForeshoreProfile(new Point2D(0, 0), new Point2D[0],
-                                                        null, new ForeshoreProfile.ConstructionProperties());
+                                                        null, new ForeshoreProfile.ConstructionProperties
+                                                        {
+                                                            Id = "id"
+                                                        });
 
             // Call
             bool hasBreakWater = foreshoreProfile.HasBreakWater;
@@ -187,7 +228,10 @@ namespace Ringtoets.Common.Data.Test.DikeProfiles
             // Setup
             var breakWater = new BreakWater(BreakWaterType.Dam, 12.34);
             var foreshoreProfile = new ForeshoreProfile(new Point2D(0, 0), new Point2D[0],
-                                                        breakWater, new ForeshoreProfile.ConstructionProperties());
+                                                        breakWater, new ForeshoreProfile.ConstructionProperties
+                                                        {
+                                                            Id = "id"
+                                                        });
 
             // Call
             bool hasBreakWater = foreshoreProfile.HasBreakWater;
@@ -204,6 +248,7 @@ namespace Ringtoets.Common.Data.Test.DikeProfiles
             var foreshoreProfile = new ForeshoreProfile(new Point2D(0, 0), new Point2D[0],
                                                         null, new ForeshoreProfile.ConstructionProperties
                                                         {
+                                                            Id = "id",
                                                             Name = testName
                                                         });
 

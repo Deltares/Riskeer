@@ -277,6 +277,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                     DikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0],
                                                   null, new DikeProfile.ConstructionProperties
                                                   {
+                                                      Id = "id",
                                                       Orientation = RoundedDouble.NaN
                                                   })
                 }
@@ -326,6 +327,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                     DikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0],
                                                   null, new DikeProfile.ConstructionProperties
                                                   {
+                                                      Id = "id",
                                                       DikeHeight = dikeHeight
                                                   })
                 }
@@ -1168,6 +1170,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                     new Point2D(-1.0, -1.0)
                 }, null, new DikeProfile.ConstructionProperties
                 {
+                    Id = "id",
                     Orientation = 5.5,
                     DikeHeight = 10
                 });
@@ -1186,7 +1189,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                                                   new RoughnessPoint[0],
                                                   new Point2D[0],
                                                   new BreakWater(BreakWaterType.Dam, breakWaterHeight),
-                                                  new DikeProfile.ConstructionProperties())
+                                                  new DikeProfile.ConstructionProperties
+                                                  {
+                                                      Id = "id"
+                                                  })
                 }
             };
         }

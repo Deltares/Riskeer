@@ -173,10 +173,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             {
                 Output = null
             };
-            var foreshoreProfile = new ForeshoreProfile(new Point2D(0, 0),
-                                                        Enumerable.Empty<Point2D>(),
-                                                        new BreakWater(BreakWaterType.Caisson, 1),
-                                                        new ForeshoreProfile.ConstructionProperties());
+            var foreshoreProfile = new TestForeshoreProfile(new BreakWater(BreakWaterType.Caisson, 1));
 
             var failureMechanism = new StabilityStoneCoverFailureMechanism
             {
@@ -233,10 +230,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 Output = new StabilityStoneCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>(),
                                                                      Enumerable.Empty<WaveConditionsOutput>())
             };
-            var foreshoreProfile = new ForeshoreProfile(new Point2D(0, 0),
-                                                        Enumerable.Empty<Point2D>(),
-                                                        new BreakWater(BreakWaterType.Caisson, 1),
-                                                        new ForeshoreProfile.ConstructionProperties());
+            var foreshoreProfile = new TestForeshoreProfile(new BreakWater(BreakWaterType.Caisson, 1));
 
             var failureMechanism = new StabilityStoneCoverFailureMechanism
             {

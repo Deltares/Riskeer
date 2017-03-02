@@ -130,6 +130,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
                 new BreakWater(BreakWaterType.Dam, damHeight),
                 new ForeshoreProfile.ConstructionProperties
                 {
+                    Id = "id",
                     Name = string.Empty,
                     Orientation = foreshoreProfileOrientation,
                     X0 = -3
@@ -189,11 +190,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
         {
             // Setup
             var input = new WaveConditionsInput();
-            var foreshoreProfile = new ForeshoreProfile(
-                new Point2D(0, 0),
-                Enumerable.Empty<Point2D>(),
-                null,
-                new ForeshoreProfile.ConstructionProperties());
+            var foreshoreProfile = new TestForeshoreProfile();
 
             if (withForeshoreProfile)
             {

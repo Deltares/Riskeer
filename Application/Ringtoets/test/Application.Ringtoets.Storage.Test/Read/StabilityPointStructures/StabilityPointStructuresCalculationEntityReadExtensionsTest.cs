@@ -28,6 +28,7 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Structures;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityPointStructures.Data.TestUtil;
 
@@ -359,8 +360,7 @@ namespace Application.Ringtoets.Storage.Test.Read.StabilityPointStructures
         public void Read_EntityWithForeshoreProfileEntity_ReturnCalculationWithForeshoreProfile()
         {
             // Setup
-            var profile = new ForeshoreProfile(new Point2D(0, 0), new Point2D[0],
-                                               null, new ForeshoreProfile.ConstructionProperties());
+            var profile = new TestForeshoreProfile();
             var profileEntity = new ForeshoreProfileEntity();
             var entity = new StabilityPointStructuresCalculationEntity
             {

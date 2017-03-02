@@ -197,10 +197,7 @@ namespace Application.Ringtoets.Storage.Test.Create.StabilityStoneCover
             {
                 InputParameters =
                 {
-                    ForeshoreProfile = new ForeshoreProfile(new Point2D(1, 2),
-                                                            Enumerable.Empty<Point2D>(),
-                                                            new BreakWater(BreakWaterType.Caisson, 2),
-                                                            new ForeshoreProfile.ConstructionProperties())
+                    ForeshoreProfile = new TestForeshoreProfile()
                 }
             };
 

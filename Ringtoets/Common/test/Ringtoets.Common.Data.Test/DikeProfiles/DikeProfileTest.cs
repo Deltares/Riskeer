@@ -35,6 +35,7 @@ namespace Ringtoets.Common.Data.Test.DikeProfiles
         public void Constructor_ValidParameters_ExpectedValues()
         {
             // Setup
+            string validId = "id";
             var worldCoordinate = new Point2D(1.1, 2.2);
             var dikeGeometry = new[]
             {
@@ -50,14 +51,18 @@ namespace Ringtoets.Common.Data.Test.DikeProfiles
 
             // Call
             var dikeProfile = new DikeProfile(worldCoordinate, dikeGeometry, foreshoreGeometry,
-                                              null, new DikeProfile.ConstructionProperties());
+                                              null, new DikeProfile.ConstructionProperties
+                                              {
+                                                  Id = validId
+                                              });
 
             // Assert
             Assert.IsInstanceOf<RoundedDouble>(dikeProfile.Orientation);
             Assert.IsInstanceOf<RoundedDouble>(dikeProfile.DikeHeight);
             Assert.IsInstanceOf<double>(dikeProfile.X0);
 
-            Assert.IsNull(dikeProfile.Name);
+            Assert.AreEqual(validId, dikeProfile.Id);
+            Assert.AreEqual(validId, dikeProfile.Name);
             Assert.AreSame(worldCoordinate, dikeProfile.WorldReferencePoint);
             Assert.AreEqual(0.0, dikeProfile.X0);
             Assert.AreEqual(0.0, dikeProfile.Orientation.Value);
@@ -75,7 +80,10 @@ namespace Ringtoets.Common.Data.Test.DikeProfiles
         {
             // Call
             TestDelegate call = () => new DikeProfile(null, new RoughnessPoint[0], new Point2D[0],
-                                                      null, new DikeProfile.ConstructionProperties());
+                                                      null, new DikeProfile.ConstructionProperties
+                                                      {
+                                                          Id = "id"
+                                                      });
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -87,7 +95,10 @@ namespace Ringtoets.Common.Data.Test.DikeProfiles
         {
             // Call
             TestDelegate call = () => new DikeProfile(new Point2D(0, 0), null, new Point2D[0],
-                                                      null, new DikeProfile.ConstructionProperties());
+                                                      null, new DikeProfile.ConstructionProperties
+                                                      {
+                                                          Id = "id"
+                                                      });
 
             // Assert
             var expectedMessage = "De geometrie die opgegeven werd voor het dijkprofiel heeft geen waarde.";
@@ -105,7 +116,10 @@ namespace Ringtoets.Common.Data.Test.DikeProfiles
                                                           null
                                                       },
                                                       new Point2D[0],
-                                                      null, new DikeProfile.ConstructionProperties());
+                                                      null, new DikeProfile.ConstructionProperties
+                                                      {
+                                                          Id = "id"
+                                                      });
 
             // Assert
             var expectedMessage = "Een punt in de geometrie voor het dijkprofiel heeft geen waarde.";
@@ -117,7 +131,10 @@ namespace Ringtoets.Common.Data.Test.DikeProfiles
         {
             // Call
             TestDelegate call = () => new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], null,
-                                                      null, new DikeProfile.ConstructionProperties());
+                                                      null, new DikeProfile.ConstructionProperties
+                                                      {
+                                                          Id = "id"
+                                                      });
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -132,7 +149,10 @@ namespace Ringtoets.Common.Data.Test.DikeProfiles
                                                       new Point2D[]
                                                       {
                                                           null
-                                                      }, null, new DikeProfile.ConstructionProperties());
+                                                      }, null, new DikeProfile.ConstructionProperties
+                                                      {
+                                                          Id = "id"
+                                                      });
 
             // Assert
             var expectedMessage = "Een punt in de geometrie voor het voorlandprofiel heeft geen waarde.";
@@ -157,6 +177,7 @@ namespace Ringtoets.Common.Data.Test.DikeProfiles
             var dikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0],
                                               null, new DikeProfile.ConstructionProperties
                                               {
+                                                  Id = "id",
                                                   Orientation = 1.23456
                                               });
 
@@ -172,6 +193,7 @@ namespace Ringtoets.Common.Data.Test.DikeProfiles
             var dikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0],
                                               null, new DikeProfile.ConstructionProperties
                                               {
+                                                  Id = "id",
                                                   DikeHeight = 1.23456
                                               });
 
@@ -181,15 +203,15 @@ namespace Ringtoets.Common.Data.Test.DikeProfiles
         }
 
         [Test]
-        [TestCase(null)]
         [TestCase("")]
         [TestCase("Cool new name!")]
-        public void Name_SetNewValue_GetsNewValue(string name)
+        public void Name_SetNameDifferentFromId_GetsGivenNameValue(string name)
         {
             // Call
             var dikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0],
                                               null, new DikeProfile.ConstructionProperties
                                               {
+                                                  Id = "id",
                                                   Name = name
                                               });
 
@@ -202,7 +224,10 @@ namespace Ringtoets.Common.Data.Test.DikeProfiles
         {
             // Call
             var dikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0],
-                                              null, new DikeProfile.ConstructionProperties());
+                                              null, new DikeProfile.ConstructionProperties
+                                              {
+                                                  Id = "id"
+                                              });
 
             // Assert
             Assert.IsNull(dikeProfile.BreakWater);
@@ -216,7 +241,10 @@ namespace Ringtoets.Common.Data.Test.DikeProfiles
 
             // Call
             var dikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0],
-                                              newBreakWater, new DikeProfile.ConstructionProperties());
+                                              newBreakWater, new DikeProfile.ConstructionProperties
+                                              {
+                                                  Id = "id"
+                                              });
 
             // Assert
             Assert.AreSame(newBreakWater, dikeProfile.BreakWater);
@@ -227,7 +255,10 @@ namespace Ringtoets.Common.Data.Test.DikeProfiles
         {
             // Setup
             var dikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0],
-                                              null, new DikeProfile.ConstructionProperties());
+                                              null, new DikeProfile.ConstructionProperties
+                                              {
+                                                  Id = "id"
+                                              });
 
             // Call
             bool hasBreakWater = dikeProfile.HasBreakWater;
@@ -242,7 +273,10 @@ namespace Ringtoets.Common.Data.Test.DikeProfiles
             // Setup
             var breakWater = new BreakWater(BreakWaterType.Dam, 12.34);
             var dikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0],
-                                              breakWater, new DikeProfile.ConstructionProperties());
+                                              breakWater, new DikeProfile.ConstructionProperties
+                                              {
+                                                  Id = "id"
+                                              });
 
             // Call
             bool hasBreakWater = dikeProfile.HasBreakWater;
@@ -259,6 +293,7 @@ namespace Ringtoets.Common.Data.Test.DikeProfiles
             var dikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0],
                                               null, new DikeProfile.ConstructionProperties
                                               {
+                                                  Id = "id",
                                                   Name = testName
                                               });
 

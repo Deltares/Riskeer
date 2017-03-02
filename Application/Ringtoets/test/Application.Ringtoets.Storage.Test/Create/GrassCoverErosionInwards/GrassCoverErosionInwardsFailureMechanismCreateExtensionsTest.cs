@@ -29,6 +29,7 @@ using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.GrassCoverErosionInwards.Data;
 
 namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
@@ -180,33 +181,8 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
         {
             // Setup
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            failureMechanism.DikeProfiles.Add(new DikeProfile(new Point2D(0, 0),
-                                                              new[]
-                                                              {
-                                                                  new RoughnessPoint(new Point2D(1, 1), 0.75),
-                                                                  new RoughnessPoint(new Point2D(2, 2), 0.75),
-                                                              },
-                                                              new[]
-                                                              {
-                                                                  new Point2D(3, 3),
-                                                                  new Point2D(4, 4),
-                                                              },
-                                                              null, new DikeProfile.ConstructionProperties()));
-            failureMechanism.DikeProfiles.Add(new DikeProfile(new Point2D(5, 5),
-                                                              new[]
-                                                              {
-                                                                  new RoughnessPoint(new Point2D(6, 6), 1),
-                                                                  new RoughnessPoint(new Point2D(7, 7), 1),
-                                                              },
-                                                              new Point2D[0],
-                                                              new BreakWater(BreakWaterType.Caisson, 8),
-                                                              new DikeProfile.ConstructionProperties
-                                                              {
-                                                                  Name = "A",
-                                                                  DikeHeight = 9,
-                                                                  Orientation = 10,
-                                                                  X0 = 11
-                                                              }));
+            failureMechanism.DikeProfiles.Add(new TestDikeProfile());
+            failureMechanism.DikeProfiles.Add(new TestDikeProfile());
             var registry = new PersistenceRegistry();
 
             // Call

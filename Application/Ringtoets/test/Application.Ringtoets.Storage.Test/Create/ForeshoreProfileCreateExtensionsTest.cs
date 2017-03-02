@@ -60,6 +60,7 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             var foreshoreProfile = new ForeshoreProfile(new Point2D(0, 0), Enumerable.Empty<Point2D>(), null, new ForeshoreProfile.ConstructionProperties
             {
+                Id = "fpid",
                 Name = name,
                 Orientation = orientation,
                 X0 = x0
@@ -89,6 +90,7 @@ namespace Application.Ringtoets.Storage.Test.Create
                 new BreakWater(BreakWaterType.Caisson, double.NaN),
                 new ForeshoreProfile.ConstructionProperties
                 {
+                    Id = "id",
                     Orientation = double.NaN,
                     X0 = double.NaN
                 });
@@ -114,7 +116,7 @@ namespace Application.Ringtoets.Storage.Test.Create
                 new Point2D(0, 0),
                 new Point2D(0, 0)
             };
-            var foreshoreProfile = new ForeshoreProfile(new Point2D(0, 0), geometryPoints, null, new ForeshoreProfile.ConstructionProperties());
+            var foreshoreProfile = new TestForeshoreProfile(geometryPoints);
             var registry = new PersistenceRegistry();
 
             // Call
@@ -132,10 +134,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             // Setup
             double height = new Random(21).NextDouble();
             var breakWaterType = BreakWaterType.Caisson;
-            var foreshoreProfile = new ForeshoreProfile(new Point2D(0, 0),
-                                                        Enumerable.Empty<Point2D>(),
-                                                        new BreakWater(breakWaterType, height),
-                                                        new ForeshoreProfile.ConstructionProperties());
+            var foreshoreProfile = new TestForeshoreProfile(new BreakWater(breakWaterType, height));
             var registry = new PersistenceRegistry();
 
             // Call
@@ -152,10 +151,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         {
             // Setup
             string testName = "original name";
-            var foreshoreProfile = new ForeshoreProfile(new Point2D(0, 0), Enumerable.Empty<Point2D>(), null, new ForeshoreProfile.ConstructionProperties
-            {
-                Name = testName
-            });
+            var foreshoreProfile = new TestForeshoreProfile(testName);
             var registry = new PersistenceRegistry();
 
             // Call

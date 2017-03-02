@@ -43,7 +43,8 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             Assert.AreEqual(0, testProfile.DikeHeight.Value);
             CollectionAssert.IsEmpty(testProfile.ForeshoreGeometry);
             Assert.IsFalse(testProfile.HasBreakWater);
-            Assert.IsNull(testProfile.Name);
+            Assert.AreEqual("id", testProfile.Id);
+            Assert.AreEqual("id", testProfile.Name);
             Assert.AreEqual(0, testProfile.Orientation.Value);
             Assert.AreEqual(new Point2D(0, 0), testProfile.WorldReferencePoint);
             Assert.AreEqual(0, testProfile.X0);
@@ -66,6 +67,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             Assert.AreEqual(0, testProfile.DikeHeight.Value);
             CollectionAssert.IsEmpty(testProfile.ForeshoreGeometry);
             Assert.IsFalse(testProfile.HasBreakWater);
+            Assert.AreEqual("id", testProfile.Id);
             Assert.AreEqual(name, testProfile.Name);
             Assert.AreEqual(0, testProfile.Orientation.Value);
             Assert.AreEqual(new Point2D(0, 0), testProfile.WorldReferencePoint);
@@ -89,7 +91,8 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             Assert.AreEqual(0, testProfile.DikeHeight.Value);
             CollectionAssert.IsEmpty(testProfile.ForeshoreGeometry);
             Assert.IsFalse(testProfile.HasBreakWater);
-            Assert.IsNull(testProfile.Name);
+            Assert.AreEqual("id", testProfile.Id);
+            Assert.AreEqual("id", testProfile.Name);
             Assert.AreEqual(0, testProfile.Orientation.Value);
             Assert.AreEqual(point, testProfile.WorldReferencePoint);
             Assert.AreEqual(0, testProfile.X0);
@@ -113,6 +116,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             Assert.AreEqual(0, testProfile.DikeHeight.Value);
             CollectionAssert.IsEmpty(testProfile.ForeshoreGeometry);
             Assert.IsFalse(testProfile.HasBreakWater);
+            Assert.AreEqual("id", testProfile.Id);
             Assert.AreEqual(name, testProfile.Name);
             Assert.AreEqual(0, testProfile.Orientation.Value);
             Assert.AreEqual(point, testProfile.WorldReferencePoint);
@@ -141,7 +145,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             Assert.AreEqual(0, testProfile.DikeHeight.Value);
             CollectionAssert.AreEqual(foreshoreProfileGeometry, testProfile.ForeshoreGeometry);
             Assert.IsFalse(testProfile.HasBreakWater);
-            Assert.IsNull(testProfile.Name);
+            Assert.AreEqual("id", testProfile.Name);
             Assert.AreEqual(0, testProfile.Orientation.Value);
             Assert.AreEqual(new Point2D(0, 0), testProfile.WorldReferencePoint);
             Assert.AreEqual(0, testProfile.X0);

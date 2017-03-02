@@ -28,6 +28,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Forms.PropertyClasses;
 
@@ -72,12 +73,11 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             // Setup
             var input = new WaveConditionsInput()
             {
-                ForeshoreProfile = new ForeshoreProfile(new Point2D(0, 0),
-                                                        new[]
-                                                        {
-                                                            new Point2D(1.1, 2.2),
-                                                            new Point2D(3.3, 4.4)
-                                                        }, null, new ForeshoreProfile.ConstructionProperties())
+                ForeshoreProfile = new TestForeshoreProfile(new[]
+                {
+                    new Point2D(1.1, 2.2),
+                    new Point2D(3.3, 4.4)
+                })
             };
             var properties = new WaveConditionsInputForeshoreProfileProperties();
 
@@ -137,8 +137,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
                     point2Ds.Add(new Point2D(i, i));
                 }
 
-                input.ForeshoreProfile = new ForeshoreProfile(new Point2D(0, 0),
-                                                              point2Ds, null, new ForeshoreProfile.ConstructionProperties());
+                input.ForeshoreProfile = new TestForeshoreProfile(point2Ds);
             }
 
             // Call

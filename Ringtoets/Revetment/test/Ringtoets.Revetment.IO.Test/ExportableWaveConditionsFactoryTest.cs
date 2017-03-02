@@ -26,6 +26,7 @@ using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.TestUtil;
 
@@ -120,7 +121,7 @@ namespace Ringtoets.Revetment.IO.Test
             var waveConditionsInput = new WaveConditionsInput()
             {
                 HydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, "hblName", 1.0, 8.0),
-                ForeshoreProfile = new ForeshoreProfile(new Point2D(8.7, 7.8), Enumerable.Empty<Point2D>(), null, new ForeshoreProfile.ConstructionProperties()),
+                ForeshoreProfile = new TestForeshoreProfile(),
                 UseForeshore = true
             };
 
@@ -141,7 +142,7 @@ namespace Ringtoets.Revetment.IO.Test
             Assert.AreEqual("hblName", exportableWaveConditions.LocationName);
             Assert.AreEqual(1.0, exportableWaveConditions.LocationXCoordinate);
             Assert.AreEqual(8.0, exportableWaveConditions.LocationYCoordinate);
-            Assert.AreEqual(null, exportableWaveConditions.ForeshoreName);
+            Assert.AreEqual("id", exportableWaveConditions.ForeshoreName);
             Assert.AreEqual(false, exportableWaveConditions.UseBreakWater);
             Assert.AreEqual(true, exportableWaveConditions.UseForeshore);
             Assert.AreEqual(CoverType.StoneCoverColumns, exportableWaveConditions.CoverType);
@@ -219,7 +220,7 @@ namespace Ringtoets.Revetment.IO.Test
             var waveConditionsInput = new WaveConditionsInput()
             {
                 HydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, "hblName", 1.0, 8.0),
-                ForeshoreProfile = new ForeshoreProfile(new Point2D(8.7, 7.8), Enumerable.Empty<Point2D>(), null, new ForeshoreProfile.ConstructionProperties()),
+                ForeshoreProfile = new TestForeshoreProfile(),
                 UseForeshore = true
             };
 
@@ -237,7 +238,7 @@ namespace Ringtoets.Revetment.IO.Test
             Assert.AreEqual("hblName", exportableWaveConditions.LocationName);
             Assert.AreEqual(1.0, exportableWaveConditions.LocationXCoordinate);
             Assert.AreEqual(8.0, exportableWaveConditions.LocationYCoordinate);
-            Assert.AreEqual(null, exportableWaveConditions.ForeshoreName);
+            Assert.AreEqual("id", exportableWaveConditions.ForeshoreName);
             Assert.AreEqual(false, exportableWaveConditions.UseBreakWater);
             Assert.AreEqual(true, exportableWaveConditions.UseForeshore);
             Assert.AreEqual(CoverType.Grass, exportableWaveConditions.CoverType);
