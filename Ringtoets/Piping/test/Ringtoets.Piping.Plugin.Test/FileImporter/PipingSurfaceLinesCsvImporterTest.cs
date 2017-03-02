@@ -30,6 +30,7 @@ using Core.Common.Base.IO;
 using Core.Common.TestUtil;
 using Core.Common.Utils.Builders;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.IO.Importers;
@@ -1508,6 +1509,50 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Assert.AreEqual(427776.654093, firstSurfaceLine.StartingWorldPoint.Y);
         }
 
+        [Test]
+        public void DoPostImport_AfterImport_ObserversNotified()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var observableA = mocks.StrictMock<IObservable>();
+            observableA.Expect(o => o.NotifyObservers());
+            var observableB = mocks.StrictMock<IObservable>();
+            observableB.Expect(o => o.NotifyObservers());
+            mocks.ReplayAll();
+
+            const string fileName = "TwoValidSurfaceLines_WithCharacteristicPoints";
+            string twovalidsurfacelinesCsv = string.Format(surfaceLineFormat, fileName);
+            string validSurfaceLinesFilePath = Path.Combine(pluginSurfaceLinesTestDataPath, twovalidsurfacelinesCsv);
+
+            var referenceLine = new ReferenceLine();
+            referenceLine.SetGeometry(new[]
+            {
+                new Point2D(3.3, -1),
+                new Point2D(3.3, 1),
+                new Point2D(94270, 427775.65),
+                new Point2D(94270, 427812.08)
+            });
+
+            var updateStrategy = new TestSurfaceLineUpdateStrategy();
+            updateStrategy.UpdatedInstances = new[]
+            {
+                observableA,
+                observableB
+            };
+            var importer = new PipingSurfaceLinesCsvImporter(
+                new RingtoetsPipingSurfaceLineCollection(),
+                referenceLine,
+                validSurfaceLinesFilePath,
+                updateStrategy);
+            importer.Import();
+
+            // Call
+            importer.DoPostImport();
+
+            // Assert
+            mocks.VerifyAll();
+        }
+
         private static RingtoetsPipingSurfaceLine[] AssertSuccessfulImport(bool importResult,
                                                                            int expectedSurfaceLineCount,
                                                                            string expectedFilePath,
@@ -1542,6 +1587,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             public bool Updated { get; private set; }
             public string FilePath { get; private set; }
             public RingtoetsPipingSurfaceLine[] ReadSurfaceLines { get; private set; }
+            public IEnumerable<IObservable> UpdatedInstances { private get; set; } = Enumerable.Empty<IObservable>();
 
             public IEnumerable<IObservable> UpdateSurfaceLinesWithImportedData(RingtoetsPipingSurfaceLineCollection targetCollection,
                                                                                IEnumerable<RingtoetsPipingSurfaceLine> readRingtoetsPipingSurfaceLines,
@@ -1550,7 +1596,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                 Updated = true;
                 FilePath = sourceFilePath;
                 ReadSurfaceLines = readRingtoetsPipingSurfaceLines.ToArray();
-                return Enumerable.Empty<IObservable>();
+                return UpdatedInstances;
             }
         }
     }

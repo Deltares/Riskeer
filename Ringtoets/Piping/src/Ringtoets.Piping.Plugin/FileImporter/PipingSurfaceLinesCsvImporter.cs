@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.Base.IO;
 using Core.Common.IO.Exceptions;
@@ -69,9 +70,9 @@ namespace Ringtoets.Piping.Plugin.FileImporter
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="importTarget"/>
         /// or <paramref name="referenceLine"/> is <c>null</c>.</exception>
         public PipingSurfaceLinesCsvImporter(RingtoetsPipingSurfaceLineCollection importTarget,
-            ReferenceLine referenceLine,
-            string filePath,
-            ISurfaceLineUpdateDataStrategy surfaceLineUpdateStrategy) : base(filePath, importTarget)
+                                             ReferenceLine referenceLine,
+                                             string filePath,
+                                             ISurfaceLineUpdateDataStrategy surfaceLineUpdateStrategy) : base(filePath, importTarget)
         {
             if (importTarget == null)
             {
@@ -111,7 +112,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
                 return false;
             }
 
-            surfaceLineUpdateStrategy.UpdateSurfaceLinesWithImportedData(ImportTarget, importResults, FilePath);
+            UpdatedInstances = surfaceLineUpdateStrategy.UpdateSurfaceLinesWithImportedData(ImportTarget, importResults, FilePath);
             return true;
         }
 
@@ -119,6 +120,16 @@ namespace Ringtoets.Piping.Plugin.FileImporter
         {
             log.Info(Resources.PipingSurfaceLinesCsvImporter_Import_Import_canceled);
         }
+
+        protected override void DoPostImportUpdates()
+        {
+            foreach (IObservable observable in UpdatedInstances)
+            {
+                observable.NotifyObservers();
+            }
+        }
+
+        private IEnumerable<IObservable> UpdatedInstances { get; set; } = Enumerable.Empty<IObservable>();
 
         private ReadResult<T> HandleCriticalReadError<T>(Exception e)
         {
