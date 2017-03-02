@@ -138,7 +138,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                                                                  assessmentSection);
 
             // Call
-            var children = info.ChildNodeObjects(groupContext);
+            object[] children = info.ChildNodeObjects(groupContext);
 
             // Assert
             CollectionAssert.IsEmpty(children);
@@ -171,7 +171,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                                                              assessmentSection);
 
             // Call
-            var children = info.ChildNodeObjects(nodeData).ToArray();
+            object[] children = info.ChildNodeObjects(nodeData).ToArray();
 
             // Assert
             Assert.AreEqual(group.Children.Count, children.Length);
@@ -828,7 +828,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
 
                     // Assert
                     Assert.AreEqual(2, group.Children.Count);
-                    var newlyAddedItem = group.Children.Last();
+                    ICalculationBase newlyAddedItem = group.Children.Last();
                     Assert.IsInstanceOf<CalculationGroup>(newlyAddedItem);
                     Assert.AreEqual("Nieuwe map (1)", newlyAddedItem.Name,
                                     "An item with the same name default name already exists, therefore '(1)' needs to be appended.");
@@ -886,7 +886,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
 
                     // Assert
                     Assert.AreEqual(2, group.Children.Count);
-                    var newlyAddedItem = group.Children.Last();
+                    ICalculationBase newlyAddedItem = group.Children.Last();
                     Assert.IsInstanceOf<PipingCalculation>(newlyAddedItem);
                     Assert.AreEqual("Nieuwe berekening (1)", newlyAddedItem.Name,
                                     "An item with the same name default name already exists, therefore '(1)' needs to be appended.");
@@ -946,7 +946,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                     // Assert
                     TestHelper.AssertLogMessages(call, messages =>
                     {
-                        var msgs = messages.ToArray();
+                        string[] msgs = messages.ToArray();
                         Assert.AreEqual(9, msgs.Length);
                         StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", validCalculation.Name), msgs[0]);
                         StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", validCalculation.Name), msgs[1]);
@@ -1156,7 +1156,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
 
                 PipingSurfaceLineSelectionDialog selectionDialog = null;
                 DataGridViewControl grid = null;
-                int rowCount = 0;
+                var rowCount = 0;
                 DialogBoxHandler = (name, wnd) =>
                 {
                     selectionDialog = (PipingSurfaceLineSelectionDialog) new FormTester(name).TheObject;
@@ -1272,13 +1272,13 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                     contextMenu.Items[customOnlyContextMenuAddGenerateCalculationsIndex].PerformClick();
 
                     // Then
-                    var failureMechanismSectionResult1 = pipingFailureMechanism.SectionResults.First();
-                    var failureMechanismSectionResult2 = pipingFailureMechanism.SectionResults.ElementAt(1);
+                    PipingFailureMechanismSectionResult failureMechanismSectionResult1 = pipingFailureMechanism.SectionResults.First();
+                    PipingFailureMechanismSectionResult failureMechanismSectionResult2 = pipingFailureMechanism.SectionResults.ElementAt(1);
 
-                    var pipingCalculationScenarios = pipingFailureMechanism.Calculations.OfType<PipingCalculationScenario>().ToArray();
+                    PipingCalculationScenario[] pipingCalculationScenarios = pipingFailureMechanism.Calculations.OfType<PipingCalculationScenario>().ToArray();
                     Assert.AreEqual(2, failureMechanismSectionResult1.GetCalculationScenarios(pipingCalculationScenarios).Count());
 
-                    foreach (var calculationScenario in failureMechanismSectionResult1.GetCalculationScenarios(pipingCalculationScenarios))
+                    foreach (PipingCalculationScenario calculationScenario in failureMechanismSectionResult1.GetCalculationScenarios(pipingCalculationScenarios))
                     {
                         Assert.IsInstanceOf<ICalculationScenario>(calculationScenario);
                     }
@@ -1369,7 +1369,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 plugin.Gui = gui;
 
                 // Precondition
-                foreach (var failureMechanismSectionResult in pipingFailureMechanism.SectionResults)
+                foreach (PipingFailureMechanismSectionResult failureMechanismSectionResult in pipingFailureMechanism.SectionResults)
                 {
                     CollectionAssert.IsEmpty(failureMechanismSectionResult.GetCalculationScenarios(pipingFailureMechanism.Calculations.OfType<PipingCalculationScenario>()));
                 }
@@ -1390,7 +1390,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                     contextMenu.Items[customOnlyContextMenuAddGenerateCalculationsIndex].PerformClick();
 
                     // Then
-                    foreach (var failureMechanismSectionResult in pipingFailureMechanism.SectionResults)
+                    foreach (PipingFailureMechanismSectionResult failureMechanismSectionResult in pipingFailureMechanism.SectionResults)
                     {
                         CollectionAssert.IsEmpty(failureMechanismSectionResult.GetCalculationScenarios(pipingFailureMechanism.Calculations.OfType<PipingCalculationScenario>()));
                     }
@@ -1441,8 +1441,8 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
             var group = new CalculationGroup();
-            var pipingFailureMechanism = TestPipingFailureMechanism.GetFailureMechanismWithSurfaceLinesAndStochasticSoilModels();
-            var surfaceLines = pipingFailureMechanism.SurfaceLines.ToArray();
+            TestPipingFailureMechanism pipingFailureMechanism = TestPipingFailureMechanism.GetFailureMechanismWithSurfaceLinesAndStochasticSoilModels();
+            RingtoetsPipingSurfaceLine[] surfaceLines = pipingFailureMechanism.SurfaceLines.ToArray();
 
             var calculation = new PipingCalculationScenario(new GeneralPipingInput())
             {
@@ -1463,7 +1463,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                                                              pipingFailureMechanism,
                                                              assessmentSection);
 
-            var parentGroup = pipingFailureMechanism.CalculationsGroup;
+            CalculationGroup parentGroup = pipingFailureMechanism.CalculationsGroup;
             parentGroup.Children.Add(group);
             var parentNodeData = new PipingCalculationGroupContext(parentGroup,
                                                                    Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
@@ -1474,7 +1474,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
 
             // Precondition
             Assert.IsTrue(info.CanRemove(nodeData, parentNodeData));
-            var sectionResults = pipingFailureMechanism.SectionResults.ToArray();
+            PipingFailureMechanismSectionResult[] sectionResults = pipingFailureMechanism.SectionResults.ToArray();
             CollectionAssert.Contains(sectionResults[0].GetCalculationScenarios(pipingFailureMechanism.Calculations.OfType<PipingCalculationScenario>()), calculation);
 
             // Call
@@ -1577,8 +1577,8 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 DialogBoxHandler = (name, wnd) =>
                 {
                     var helper = new MessageBoxTester(wnd);
-                    helper.ClickOk();
                     textBoxMessage = helper.Text;
+                    helper.ClickOk();
                 };
 
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
@@ -1612,7 +1612,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                     Assert.AreEqual(new RoundedDouble(2, 2), inputParameters2.EntryPointL);
                     Assert.AreEqual(new RoundedDouble(3, 3), inputParameters2.ExitPointL);
 
-                    string expectedMessage = "Wanneer de intrede- en uittrede punten wijzigen als gevolg van het bijwerken, " +
+                    string expectedMessage = "Wanneer de intrede- of uittredepunten wijzigen als gevolg van het bijwerken, " +
                                              "zullen de resultaten van berekeningen die deze profielschematisaties gebruiken, worden " +
                                              $"verwijderd.{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
                     Assert.AreEqual(expectedMessage, textBoxMessage);
@@ -1820,8 +1820,8 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 DialogBoxHandler = (name, wnd) =>
                 {
                     var helper = new MessageBoxTester(wnd);
-                    helper.ClickOk();
                     textBoxMessage = helper.Text;
+                    helper.ClickOk();
                 };
 
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
@@ -1855,7 +1855,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                     Assert.AreEqual(new RoundedDouble(2, 2), inputParameters2.EntryPointL);
                     Assert.AreEqual(new RoundedDouble(3, 3), inputParameters2.ExitPointL);
 
-                    string expectedMessage = "Wanneer de intrede- en uittrede punten wijzigen als gevolg van het bijwerken, " +
+                    string expectedMessage = "Wanneer de intrede- of uittredepunten wijzigen als gevolg van het bijwerken, " +
                                              "zullen de resultaten van berekeningen die deze profielschematisaties gebruiken, worden " +
                                              $"verwijderd.{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
                     Assert.AreEqual(expectedMessage, textBoxMessage);
@@ -1950,8 +1950,8 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 DialogBoxHandler = (name, wnd) =>
                 {
                     var helper = new MessageBoxTester(wnd);
-                    helper.ClickCancel();
                     textBoxMessage = helper.Text;
+                    helper.ClickCancel();
                 };
 
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
@@ -1985,7 +1985,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                     Assert.AreEqual(new RoundedDouble(2, 0), inputParameters2.EntryPointL);
                     Assert.AreEqual(new RoundedDouble(3, 1), inputParameters2.ExitPointL);
 
-                    string expectedMessage = "Wanneer de intrede- en uittrede punten wijzigen als gevolg van het bijwerken, " +
+                    string expectedMessage = "Wanneer de intrede- of uittredepunten wijzigen als gevolg van het bijwerken, " +
                                              "zullen de resultaten van berekeningen die deze profielschematisaties gebruiken, worden " +
                                              $"verwijderd.{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
                     Assert.AreEqual(expectedMessage, textBoxMessage);

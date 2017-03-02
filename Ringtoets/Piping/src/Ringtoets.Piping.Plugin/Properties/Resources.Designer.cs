@@ -222,7 +222,7 @@ namespace Ringtoets.Piping.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Wanneer de intrede- en/of uittredepunten wijzigen als gevolg van het bijwerken, zal het resultaat van de berekening die deze profielschematisaties gebruikt, worden verwijderd.
+        ///   Looks up a localized string similar to Wanneer de intrede- of uittredepunten wijzigen als gevolg van het bijwerken, zal het resultaat van de berekening die deze profielschematisaties gebruikt, worden verwijderd.
         ///
         ///Weet u zeker dat u wilt doorgaan?.
         /// </summary>
@@ -234,7 +234,7 @@ namespace Ringtoets.Piping.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Wanneer de intrede- en uittrede punten wijzigen als gevolg van het bijwerken, zullen de resultaten van berekeningen die deze profielschematisaties gebruiken, worden verwijderd.
+        ///   Looks up a localized string similar to Wanneer de intrede- of uittredepunten wijzigen als gevolg van het bijwerken, zullen de resultaten van berekeningen die deze profielschematisaties gebruiken, worden verwijderd.
         ///
         ///Weet u zeker dat u wilt doorgaan?.
         /// </summary>

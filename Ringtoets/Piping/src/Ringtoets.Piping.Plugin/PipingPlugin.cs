@@ -395,7 +395,7 @@ namespace Ringtoets.Piping.Plugin
             var pipingFailureMechanism = o as PipingFailureMechanism;
 
             var viewPipingFailureMechanismContext = (PipingFailureMechanismContext) view.Data;
-            var viewPipingFailureMechanism = viewPipingFailureMechanismContext.WrappedData;
+            PipingFailureMechanism viewPipingFailureMechanism = viewPipingFailureMechanismContext.WrappedData;
 
             return assessmentSection != null
                        ? ReferenceEquals(viewPipingFailureMechanismContext.Parent, assessmentSection)
@@ -528,20 +528,20 @@ namespace Ringtoets.Piping.Plugin
 
         private void CalculateAll(PipingFailureMechanismContext failureMechanismContext)
         {
-            var calculations = GetAllPipingCalculations(failureMechanismContext.WrappedData);
-            var assessmentInput = failureMechanismContext.WrappedData.PipingProbabilityAssessmentInput;
-            var norm = failureMechanismContext.Parent.FailureMechanismContribution.Norm;
-            var contribution = failureMechanismContext.WrappedData.Contribution;
+            IEnumerable<PipingCalculation> calculations = GetAllPipingCalculations(failureMechanismContext.WrappedData);
+            PipingProbabilityAssessmentInput assessmentInput = failureMechanismContext.WrappedData.PipingProbabilityAssessmentInput;
+            double norm = failureMechanismContext.Parent.FailureMechanismContribution.Norm;
+            double contribution = failureMechanismContext.WrappedData.Contribution;
 
             CalculateAll(calculations, assessmentInput, norm, contribution);
         }
 
         private void CalculateAll(CalculationGroup group, PipingCalculationGroupContext context)
         {
-            var calculations = group.GetCalculations().OfType<PipingCalculation>().ToArray();
-            var assessmentInput = context.FailureMechanism.PipingProbabilityAssessmentInput;
-            var norm = context.AssessmentSection.FailureMechanismContribution.Norm;
-            var contribution = context.FailureMechanism.Contribution;
+            PipingCalculation[] calculations = group.GetCalculations().OfType<PipingCalculation>().ToArray();
+            PipingProbabilityAssessmentInput assessmentInput = context.FailureMechanism.PipingProbabilityAssessmentInput;
+            double norm = context.AssessmentSection.FailureMechanismContribution.Norm;
+            double contribution = context.FailureMechanism.Contribution;
 
             CalculateAll(calculations, assessmentInput, norm, contribution);
         }
@@ -916,9 +916,9 @@ namespace Ringtoets.Piping.Plugin
                                                                                object parentData,
                                                                                TreeViewControl treeViewControl)
         {
-            var group = nodeData.WrappedData;
+            CalculationGroup group = nodeData.WrappedData;
             var builder = new RingtoetsContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
-            var isNestedGroup = parentData is PipingCalculationGroupContext;
+            bool isNestedGroup = parentData is PipingCalculationGroupContext;
 
             StrictContextMenuItem generateCalculationsItem = CreateGeneratePipingCalculationsItem(nodeData);
             StrictContextMenuItem updateEntryAndExitPointsItem = CreateUpdateEntryAndExitPointItem(nodeData);
@@ -1028,7 +1028,7 @@ namespace Ringtoets.Piping.Plugin
 
         private static void GeneratePipingCalculations(CalculationGroup target, IEnumerable<RingtoetsPipingSurfaceLine> surfaceLines, IEnumerable<StochasticSoilModel> soilModels, GeneralPipingInput generalInput)
         {
-            foreach (var group in PipingCalculationConfigurationHelper.GenerateCalculationItemsStructure(surfaceLines, soilModels, generalInput))
+            foreach (ICalculationBase group in PipingCalculationConfigurationHelper.GenerateCalculationItemsStructure(surfaceLines, soilModels, generalInput))
             {
                 target.Children.Add(group);
             }
@@ -1054,13 +1054,10 @@ namespace Ringtoets.Piping.Plugin
                 isItemEnabled = false;
                 toolTipText = Resources.PipingPlugin_CreateUpdateEntryAndExitPointItem_No_calculations_to_update_ToolTip;
             }
-            else
+            else if (calculations.All(calc => calc.InputParameters.SurfaceLine == null))
             {
-                if (calculations.All(calc => calc.InputParameters.SurfaceLine == null))
-                {
-                    isItemEnabled = false;
-                    toolTipText = Resources.PipingPlugin_CreateUpdateEntryAndExitPointItem_No_calculations_with_surfaceline_Tooltip;
-                }
+                isItemEnabled = false;
+                toolTipText = Resources.PipingPlugin_CreateUpdateEntryAndExitPointItem_No_calculations_with_surfaceline_Tooltip;
             }
 
             return new StrictContextMenuItem(
