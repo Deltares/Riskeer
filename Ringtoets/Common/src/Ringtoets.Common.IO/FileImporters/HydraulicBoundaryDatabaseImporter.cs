@@ -51,6 +51,7 @@ namespace Ringtoets.Common.IO.FileImporters
         /// created <see cref="HydraulicBoundaryDatabase"/>.</param>
         /// <param name="filePath">The path of the hydraulic boundary database file to import from.</param>
         /// <returns><c>True</c> if the import was successful, <c>false</c> otherwise.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="targetItem"/> is <c>null</c>.</exception>
         /// <exception cref="CriticalFileReadException">Thrown when:
         /// <list type="bullet">
         /// <item>The given file at <paramref name="filePath"/> cannot be read.</item>
@@ -59,6 +60,10 @@ namespace Ringtoets.Common.IO.FileImporters
         /// </exception>
         public bool Import(IAssessmentSection targetItem, string filePath)
         {
+            if (targetItem == null)
+            {
+                throw new ArgumentNullException(nameof(targetItem));
+            }
             ValidateAndConnectTo(filePath);
 
             var hydraulicBoundaryDatabase = targetItem.HydraulicBoundaryDatabase;

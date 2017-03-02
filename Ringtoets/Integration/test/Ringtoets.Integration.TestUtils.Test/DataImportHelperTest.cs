@@ -41,7 +41,18 @@ namespace Ringtoets.Integration.TestUtils.Test
         }
 
         [Test]
-        public void ImportReferenceLine_Always_AddsReferenceLineGeometry()
+        public void ImportReferenceLine_AssesmentSectionNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => DataImportHelper.ImportReferenceLine(null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("importTarget", paramName);
+        }
+
+        [Test]
+        public void ImportReferenceLine_ValidAssessmentSection_AddsReferenceLineGeometry()
         {
             // Call
             DataImportHelper.ImportReferenceLine(dikeSection);
@@ -89,7 +100,10 @@ namespace Ringtoets.Integration.TestUtils.Test
             IFailureMechanism failureMechanism = dikeSection.GetFailureMechanisms().ElementAt(new Random(21).Next(0, 18));
 
             // Call
-            TestDelegate test = () => DataImportHelper.ImportFailureMechanismSections(dikeSection, new [] { failureMechanism });
+            TestDelegate test = () => DataImportHelper.ImportFailureMechanismSections(dikeSection, new[]
+            {
+                failureMechanism
+            });
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -101,13 +115,13 @@ namespace Ringtoets.Integration.TestUtils.Test
         {
             // Setup
             DataImportHelper.ImportReferenceLine(dikeSection);
-            var failureMechanismCount = 18;
+            const int failureMechanismCount = 18;
             var random = new Random(21);
             var chosenNumbers = new[]
             {
                 random.Next(failureMechanismCount),
                 random.Next(failureMechanismCount),
-                random.Next(failureMechanismCount),
+                random.Next(failureMechanismCount)
             }.Distinct();
             IEnumerable<IFailureMechanism> sectionFailureMechanisms = dikeSection.GetFailureMechanisms().ToArray();
             IEnumerable<IFailureMechanism> failureMechanisms = sectionFailureMechanisms.Where((fm, i) => chosenNumbers.Contains(i));
@@ -125,7 +139,18 @@ namespace Ringtoets.Integration.TestUtils.Test
         }
 
         [Test]
-        public void ImportHydraulicBoundaryDatabase_Always_AddsFourSurfaceLines()
+        public void ImportHydraulicBoundaryDatabase_AssessmentSectionNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => DataImportHelper.ImportHydraulicBoundaryDatabase(null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("targetItem", paramName);
+        }
+
+        [Test]
+        public void ImportHydraulicBoundaryDatabase_ValidAssessmentSection_AddsFourSurfaceLines()
         {
             // Call
             DataImportHelper.ImportHydraulicBoundaryDatabase(dikeSection);

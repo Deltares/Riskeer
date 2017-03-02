@@ -65,6 +65,20 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         }
 
         [Test]
+        public void Import_AssessmentSectionNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
+
+            // Call
+            TestDelegate test = () => importer.Import(null, validFilePath);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("targetItem", paramName);
+        }
+
+        [Test]
         public void Import_ExistingFile_DoesNotThrowException()
         {
             // Setup

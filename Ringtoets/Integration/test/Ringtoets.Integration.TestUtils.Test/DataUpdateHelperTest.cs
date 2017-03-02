@@ -38,7 +38,7 @@ namespace Ringtoets.Integration.TestUtils.Test
         }
 
         [Test]
-        public void ImportPipingStochasticSoilModels_Always_AddsThreeSoilModelsWithProfiles()
+        public void ImportPipingStochasticSoilModels_ValidAssessmentSection_AddsThreeSoilModelsWithProfiles()
         {
             // Call
             DataUpdateHelper.UpdatePipingStochasticSoilModels(dikeSection);
