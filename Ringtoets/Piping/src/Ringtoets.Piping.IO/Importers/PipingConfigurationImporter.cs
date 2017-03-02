@@ -371,7 +371,7 @@ namespace Ringtoets.Piping.IO.Importers
                 var standardDeviation = (double) readCalculation.PhreaticLevelExitStandardDeviation;
                 PerformActionHandlingAnyArgumentOutOfRangeException(
                     () => normalDistribution.StandardDeviation = (RoundedDouble) standardDeviation,
-                    string.Format(Resources.PipingConfigurationImporter_ReadStochasts_Invalid_standard_deviation_0_for_stochast_with_name_1, mean,
+                    string.Format(Resources.PipingConfigurationImporter_ReadStochasts_Invalid_standard_deviation_0_for_stochast_with_name_1, standardDeviation,
                                   PipingConfigurationSchemaIdentifiers.PhreaticLevelExitStochastName));
 
                 pipingCalculation.InputParameters.PhreaticLevelExit = normalDistribution;
@@ -390,7 +390,7 @@ namespace Ringtoets.Piping.IO.Importers
                 var standardDeviation = (double) readCalculation.DampingFactorExitStandardDeviation;
                 PerformActionHandlingAnyArgumentOutOfRangeException(
                     () => logNormalDistribution.StandardDeviation = (RoundedDouble) standardDeviation,
-                    string.Format(Resources.PipingConfigurationImporter_ReadStochasts_Invalid_standard_deviation_0_for_stochast_with_name_1, mean,
+                    string.Format(Resources.PipingConfigurationImporter_ReadStochasts_Invalid_standard_deviation_0_for_stochast_with_name_1, standardDeviation,
                                   PipingConfigurationSchemaIdentifiers.DampingFactorExitStochastName));
 
                 pipingCalculation.InputParameters.DampingFactorExit = logNormalDistribution;
