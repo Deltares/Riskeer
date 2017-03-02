@@ -811,7 +811,7 @@ namespace Ringtoets.Piping.Plugin
                                                                            context.FailureMechanism.Contribution));
         }
 
-        private static StrictContextMenuItem CreateUpdateEntryAndExitPointItem(PipingCalculationScenarioContext context)
+        private StrictContextMenuItem CreateUpdateEntryAndExitPointItem(PipingCalculationScenarioContext context)
         {
             bool hasSurfaceLine = context.WrappedData.InputParameters.SurfaceLine != null;
 
@@ -823,10 +823,23 @@ namespace Ringtoets.Piping.Plugin
                 Resources.PipingPlugin_CreateUpdateEntryAndExitPointItem_Update_entry_and_exit_point,
                 toolTipMessage,
                 RingtoetsCommonFormsResources.UpdateItemIcon,
-                (o, args) => { UpdateSurfaceLineDependentData(context.WrappedData); })
+                (o, args) => { UpdatedSurfaceLineDependentDataOfCalculation(context.WrappedData); })
             {
                 Enabled = hasSurfaceLine
             };
+        }
+
+        private void UpdatedSurfaceLineDependentDataOfCalculation(PipingCalculation scenario)
+        {
+            string message =
+                Resources.PipingPlugin_VerifyEntryAndExitPointUpdates_When_updating_entry_and_exit_points_definitions_assigned_to_calculation_output_will_be_cleared_confirm;
+            if (VerifyEntryAndExitPointUpdates(new[]
+            {
+                scenario
+            }, message))
+            {
+                UpdateSurfaceLineDependentData(scenario);
+            }
         }
 
         private static void UpdateSurfaceLineDependentData(PipingCalculation scenario)
@@ -1064,7 +1077,9 @@ namespace Ringtoets.Piping.Plugin
         {
             PipingCalculationScenario[] calculations = nodeData.WrappedData.GetCalculations().OfType<PipingCalculationScenario>().ToArray();
 
-            if (VerifyEntryAndExitPointUpdates(calculations))
+            string message =
+                Resources.PipingPlugin_VerifyEntryAndExitPointUpdates_When_updating_entry_and_exit_points_definitions_assigned_to_calculations_output_will_be_cleared_confirm;
+            if (VerifyEntryAndExitPointUpdates(calculations, message))
             {
                 foreach (PipingCalculationScenario calculation in calculations)
                 {
@@ -1073,10 +1088,10 @@ namespace Ringtoets.Piping.Plugin
             }
         }
 
-        private bool VerifyEntryAndExitPointUpdates(IEnumerable<PipingCalculation> calculations)
+        private bool VerifyEntryAndExitPointUpdates(IEnumerable<PipingCalculation> calculations, string query)
         {
-            var changeHandler = new UpdateEntryAndExitPointsCalculationGroupChangeHandler(calculations,
-                                                                                          new DialogBasedInquiryHelper(Gui.MainWindow));
+            var changeHandler = new UpdateEntryAndExitPointsOfCalculationsChangeHandler(calculations, query,
+                                                                                        new DialogBasedInquiryHelper(Gui.MainWindow));
 
             return !changeHandler.RequireConfirmation() || changeHandler.InquireConfirmation();
         }

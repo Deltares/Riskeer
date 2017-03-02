@@ -25,29 +25,37 @@ using System.Linq;
 using Core.Common.Gui;
 using Ringtoets.Common.IO;
 using Ringtoets.Piping.Data;
-using Ringtoets.Piping.Plugin.Properties;
 
 namespace Ringtoets.Piping.Plugin.ChangeHandlers
 {
     /// <summary>
-    /// 
+    /// Class which can, if required, inquire the user for a confirmation when a change to the
+    /// entry and exit points requires calculation results to be altered.
     /// </summary>
-    public class UpdateEntryAndExitPointsCalculationGroupChangeHandler : IConfirmDataChangeHandler
+    public class UpdateEntryAndExitPointsOfCalculationsChangeHandler : IConfirmDataChangeHandler
     {
         private readonly IEnumerable<PipingCalculation> calculations;
         private readonly IInquiryHelper inquiryHandler;
-        
+        private readonly string query;
+
         /// <summary>
-        /// Instantiates a <see cref="UpdateEntryAndExitPointsCalculationGroupChangeHandler"/>.
+        /// Instantiates a <see cref="UpdateEntryAndExitPointsOfCalculationsChangeHandler"/>.
         /// </summary>
         /// <param name="calculations">The calculations for which to handle the changes in the entry and exit points.</param>
+        /// <param name="query">The query which should be displayed when inquiring for a confirmation.</param>
         /// <param name="inquiryHandler">Object responsible for inquiring required data.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        public UpdateEntryAndExitPointsCalculationGroupChangeHandler(IEnumerable<PipingCalculation> calculations, IInquiryHelper inquiryHandler)
+        public UpdateEntryAndExitPointsOfCalculationsChangeHandler(IEnumerable<PipingCalculation> calculations,
+                                                                   string query,
+                                                                   IInquiryHelper inquiryHandler)
         {
             if (calculations == null)
             {
                 throw new ArgumentNullException(nameof(calculations));
+            }
+            if (query == null)
+            {
+                throw new ArgumentNullException(nameof(query));
             }
             if (inquiryHandler == null)
             {
@@ -55,6 +63,7 @@ namespace Ringtoets.Piping.Plugin.ChangeHandlers
             }
 
             this.calculations = calculations;
+            this.query = query;
             this.inquiryHandler = inquiryHandler;
         }
 
@@ -65,8 +74,7 @@ namespace Ringtoets.Piping.Plugin.ChangeHandlers
 
         public bool InquireConfirmation()
         {
-            return inquiryHandler.InquireContinuation(
-                Resources.UpdateEntryAndExitPointsCalculationGroupChangeHandler_InquireConfirmation_When_updating_entry_and_exit_points_definitions_assigned_to_calculations_output_will_be_cleared_confirm);
+            return inquiryHandler.InquireContinuation(query);
         }
     }
 }

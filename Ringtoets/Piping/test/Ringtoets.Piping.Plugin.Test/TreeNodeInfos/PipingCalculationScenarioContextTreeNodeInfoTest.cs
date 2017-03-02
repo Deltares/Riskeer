@@ -27,6 +27,7 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
+using Core.Common.Gui.Commands;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.TestUtil.ContextMenu;
@@ -469,7 +470,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void GivenCalculationWithSurfaceLineWithoutOutput_WhenEntryAndExitPointUpdatedAndUpdateEntryAndExitPointClicked_ThenPointsUpdatedAndInputObserverNotified()
+        public void GivenCalculationWithSurfaceLineWithoutOutput_WhenEntryAndExitPointUpdatedAndUpdateEntryAndExitPointClicked_ThenNoInquiryAndPointsUpdatedAndInputObserverNotified()
         {
             using (var treeViewControl = new TreeViewControl())
             {
@@ -505,8 +506,11 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 var calculationObserver = mocks.StrictMock<IObserver>();
                 calculation.Attach(calculationObserver);
 
+                var mainWindow = mocks.Stub<IMainWindow>();
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                gui.Stub(g => g.MainWindow).Return(mainWindow);
+                gui.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
@@ -533,6 +537,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                     Assert.AreSame(surfaceLine, inputParameters.SurfaceLine);
                     Assert.AreEqual(new RoundedDouble(2, 2), inputParameters.EntryPointL);
                     Assert.AreEqual(new RoundedDouble(3, 3), inputParameters.ExitPointL);
+                    Assert.IsFalse(calculation.HasOutput);
 
                     // Note: observer assertions are verified in Teardown
                 }
@@ -540,7 +545,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void GivenCalculationWithSurfaceLineAndOutput_WhenEntryAndExitPointsUpdatedAndUpdateEntryAndExitPointClicked_ThenPointsUpdatedOutputsRemovedAndObserversNotified()
+        public void GivenCalculationWithSurfaceLineAndOutput_WhenEntryAndExitPointsUpdatedAndUpdateEntryAndExitPointClickedAndContinued_ThenPointsUpdatedOutputsRemovedAndObserversNotified()
         {
             using (var treeViewControl = new TreeViewControl())
             {
@@ -578,11 +583,22 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 calculationObserver.Expect(obs => obs.UpdateObserver());
                 calculation.Attach(calculationObserver);
 
+                var mainWindow = mocks.Stub<IMainWindow>();
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                gui.Stub(g => g.MainWindow).Return(mainWindow);
+                gui.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
+
+                string textBoxMessage = null;
+                DialogBoxHandler = (name, wnd) =>
+                {
+                    var helper = new MessageBoxTester(wnd);
+                    textBoxMessage = helper.Text;
+                    helper.ClickOk();
+                };
 
                 using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
@@ -608,13 +624,18 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                     Assert.AreEqual(new RoundedDouble(3, 3), inputParameters.ExitPointL);
                     Assert.IsFalse(calculation.HasOutput);
 
+                    string expectedMessage = "Wanneer de intrede- en/of uittredepunten wijzigen als gevolg van het bijwerken, " +
+                                             "zal het resultaat van de berekening die deze profielschematisaties gebruikt, worden " +
+                                             $"verwijderd.{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
+                    Assert.AreEqual(expectedMessage, textBoxMessage);
+
                     // Note: observer assertions are verified in Teardown
                 }
             }
         }
 
         [Test]
-        public void GivenCalculationWithSurfaceLineAndOutput_WhenUpdatedEntryAndExitPointsHasNoChangeAndUpdateEntryAndExitPointClicked_ThenOutputNotRemovedAndObserversNotNotified()
+        public void GivenCalculationWithSurfaceLineAndOutput_WhenUpdatedEntryAndExitPointsHasNoChangeAndUpdateEntryAndExitPointClickedAndContinued_ThenOutputNotRemovedAndObserversNotNotified()
         {
             using (var treeViewControl = new TreeViewControl())
             {
@@ -650,11 +671,22 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 var calculationObserver = mocks.StrictMock<IObserver>();
                 calculation.Attach(calculationObserver);
 
+                var mainWindow = mocks.Stub<IMainWindow>();
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                gui.Stub(g => g.MainWindow).Return(mainWindow);
+                gui.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
+
+                string textBoxMessage = null;
+                DialogBoxHandler = (name, wnd) =>
+                {
+                    var helper = new MessageBoxTester(wnd);
+                    textBoxMessage = helper.Text;
+                    helper.ClickOk();
+                };
 
                 using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
@@ -679,6 +711,99 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                     Assert.AreEqual(new RoundedDouble(2, 2), inputParameters.EntryPointL);
                     Assert.AreEqual(new RoundedDouble(3, 3), inputParameters.ExitPointL);
                     Assert.IsTrue(calculation.HasOutput);
+
+                    string expectedMessage = "Wanneer de intrede- en/of uittredepunten wijzigen als gevolg van het bijwerken, " +
+                                             "zal het resultaat van de berekening die deze profielschematisaties gebruikt, worden " +
+                                             $"verwijderd.{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
+                    Assert.AreEqual(expectedMessage, textBoxMessage);
+
+                    // Note: observer assertions are verified in Teardown
+                }
+            }
+        }
+
+        [Test]
+        public void GivenCalculationWithSurfaceLineAndOutput_WhenEntryAndExitPointsUpdatedAndUpdateEntryAndExitPointClickedAndDiscontinued_ThenCalculationNotUpdatedAndObserversNotUpdated()
+        {
+            using (var treeViewControl = new TreeViewControl())
+            {
+                // Given
+                var surfaceLine = new RingtoetsPipingSurfaceLine();
+                surfaceLine.SetGeometry(new[]
+                {
+                    new Point3D(1, 2, 3),
+                    new Point3D(4, 5, 6)
+                });
+                var calculation = new PipingCalculationScenario(new GeneralPipingInput())
+                {
+                    InputParameters =
+                    {
+                        SurfaceLine = surfaceLine,
+                        EntryPointL = (RoundedDouble) 0,
+                        ExitPointL = (RoundedDouble) 1
+                    },
+                    Output = new TestPipingOutput()
+                };
+
+                var pipingFailureMechanism = new TestPipingFailureMechanism();
+                var assessmentSection = mocks.Stub<IAssessmentSection>();
+                var nodeData = new PipingCalculationScenarioContext(calculation,
+                                                                    Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                    Enumerable.Empty<StochasticSoilModel>(),
+                                                                    pipingFailureMechanism,
+                                                                    assessmentSection);
+
+                var inputObserver = mocks.StrictMock<IObserver>();
+                calculation.InputParameters.Attach(inputObserver);
+
+                var calculationObserver = mocks.StrictMock<IObserver>();
+                calculation.Attach(calculationObserver);
+
+                var mainWindow = mocks.Stub<IMainWindow>();
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                gui.Stub(g => g.MainWindow).Return(mainWindow);
+                gui.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                string textBoxMessage = null;
+                DialogBoxHandler = (name, wnd) =>
+                {
+                    var helper = new MessageBoxTester(wnd);
+                    textBoxMessage = helper.Text;
+                    helper.ClickCancel();
+                };
+
+                using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                {
+                    // When
+                    surfaceLine.SetGeometry(new[]
+                    {
+                        new Point3D(0, 0, 0),
+                        new Point3D(1, 0, 2),
+                        new Point3D(2, 0, 3),
+                        new Point3D(3, 0, 0),
+                        new Point3D(4, 0, 2),
+                        new Point3D(5, 0, 3)
+                    });
+                    surfaceLine.SetDikeToeAtRiverAt(new Point3D(2, 0, 3));
+                    surfaceLine.SetDikeToeAtPolderAt(new Point3D(3, 0, 0));
+
+                    contextMenuStrip.Items[contextMenuUpdateEntryAndExitPointIndex].PerformClick();
+
+                    // Then
+                    PipingInput inputParameters = calculation.InputParameters;
+                    Assert.AreSame(surfaceLine, inputParameters.SurfaceLine);
+                    Assert.AreEqual(new RoundedDouble(2, 0), inputParameters.EntryPointL);
+                    Assert.AreEqual(new RoundedDouble(3, 1), inputParameters.ExitPointL);
+                    Assert.IsTrue(calculation.HasOutput);
+
+                    string expectedMessage = "Wanneer de intrede- en/of uittredepunten wijzigen als gevolg van het bijwerken, " +
+                                             "zal het resultaat van de berekening die deze profielschematisaties gebruikt, worden " +
+                                             $"verwijderd.{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
+                    Assert.AreEqual(expectedMessage, textBoxMessage);
 
                     // Note: observer assertions are verified in Teardown
                 }

@@ -22,7 +22,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Core.Common.Gui;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -34,7 +33,7 @@ using Ringtoets.Piping.Plugin.ChangeHandlers;
 namespace Ringtoets.Piping.Plugin.Test.ChangeHandlers
 {
     [TestFixture]
-    public class UpdateCharacteristicPointsCalculationGroupChangeHandlerTest
+    public class UpdateCharacteristicPointsOfCalculationsChangeHandlerTest
     {
         [Test]
         public void Constructor_WithoutCalculations_ThrowsArgumentNullException()
@@ -45,7 +44,7 @@ namespace Ringtoets.Piping.Plugin.Test.ChangeHandlers
             mockRepository.ReplayAll();
 
             // Call
-            TestDelegate test = () => new UpdateEntryAndExitPointsCalculationGroupChangeHandler(null, inquiryHandler);
+            TestDelegate test = () => new UpdateEntryAndExitPointsOfCalculationsChangeHandler(null, string.Empty, inquiryHandler);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -57,11 +56,27 @@ namespace Ringtoets.Piping.Plugin.Test.ChangeHandlers
         public void Constructor_WithoutInquiryHandler_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new UpdateEntryAndExitPointsCalculationGroupChangeHandler(Enumerable.Empty<PipingCalculation>(), null);
+            TestDelegate test = () => new UpdateEntryAndExitPointsOfCalculationsChangeHandler(Enumerable.Empty<PipingCalculation>(), string.Empty, null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("inquiryHandler", paramName);
+        }
+
+        [Test]
+        public void Constructor_WithoutQuery_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mockRepository = new MockRepository();
+            var inquiryHandler = mockRepository.StrictMock<IInquiryHelper>();
+            mockRepository.ReplayAll();
+
+            // Call
+            TestDelegate test = () => new UpdateEntryAndExitPointsOfCalculationsChangeHandler(Enumerable.Empty<PipingCalculation>(), null, inquiryHandler);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("query", paramName);
         }
 
         [Test]
@@ -73,7 +88,7 @@ namespace Ringtoets.Piping.Plugin.Test.ChangeHandlers
             mockRepository.ReplayAll();
 
             // Call
-            var handler = new UpdateEntryAndExitPointsCalculationGroupChangeHandler(Enumerable.Empty<PipingCalculation>(), inquiryHandler);
+            var handler = new UpdateEntryAndExitPointsOfCalculationsChangeHandler(Enumerable.Empty<PipingCalculation>(), string.Empty, inquiryHandler);
 
             // Assert
             Assert.IsInstanceOf<IConfirmDataChangeHandler>(handler);
@@ -93,7 +108,7 @@ namespace Ringtoets.Piping.Plugin.Test.ChangeHandlers
                 new PipingCalculationScenario(new GeneralPipingInput())
             };
 
-            var handler = new UpdateEntryAndExitPointsCalculationGroupChangeHandler(calculations, inquiryHandler);
+            var handler = new UpdateEntryAndExitPointsOfCalculationsChangeHandler(calculations, string.Empty, inquiryHandler);
 
             // Call
             bool requireConfirmation = handler.RequireConfirmation();
@@ -120,7 +135,7 @@ namespace Ringtoets.Piping.Plugin.Test.ChangeHandlers
                 new PipingCalculationScenario(new GeneralPipingInput())
             };
 
-            var handler = new UpdateEntryAndExitPointsCalculationGroupChangeHandler(calculations, inquiryHandler);
+            var handler = new UpdateEntryAndExitPointsOfCalculationsChangeHandler(calculations, string.Empty, inquiryHandler);
 
             // Call
             bool requireConfirmation = handler.RequireConfirmation();
@@ -131,21 +146,21 @@ namespace Ringtoets.Piping.Plugin.Test.ChangeHandlers
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void InquireConfirmation_Always_ShowsConfirmationDialogReturnResultOfInquiry(bool expectedResult)
+        [TestCase("I am a query", true)]
+        [TestCase("I am a query", false)]
+        [TestCase("", true)]
+        [TestCase("", false)]
+        [TestCase("     ", true)]
+        [TestCase("     ", false)]
+        public void InquireConfirmation_Always_ShowsConfirmationDialogReturnResultOfInquiry(string message, bool expectedResult)
         {
             // Setup
-            string message = "Wanneer de intrede- en uittrede punten wijzigen als gevolg van het bijwerken, " +
-                             "zullen de resultaten van berekeningen die deze profielschematisaties gebruiken, worden " +
-                             $"verwijderd.{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
-
             var mockRepository = new MockRepository();
             var inquiryHandler = mockRepository.StrictMock<IInquiryHelper>();
             inquiryHandler.Expect(ih => ih.InquireContinuation(message)).Return(expectedResult);
             mockRepository.ReplayAll();
 
-            var handler = new UpdateEntryAndExitPointsCalculationGroupChangeHandler(Enumerable.Empty<PipingCalculation>(), inquiryHandler);
+            var handler = new UpdateEntryAndExitPointsOfCalculationsChangeHandler(Enumerable.Empty<PipingCalculation>(), message, inquiryHandler);
 
             // Call
             bool result = handler.InquireConfirmation();

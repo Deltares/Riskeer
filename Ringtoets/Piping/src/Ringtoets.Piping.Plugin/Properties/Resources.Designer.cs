@@ -222,6 +222,30 @@ namespace Ringtoets.Piping.Plugin.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Wanneer de intrede- en/of uittredepunten wijzigen als gevolg van het bijwerken, zal het resultaat van de berekening die deze profielschematisaties gebruikt, worden verwijderd.
+        ///
+        ///Weet u zeker dat u wilt doorgaan?.
+        /// </summary>
+        public static string PipingPlugin_VerifyEntryAndExitPointUpdates_When_updating_entry_and_exit_points_definitions_assigned_to_calculation_output_will_be_cleared_confirm {
+            get {
+                return ResourceManager.GetString("PipingPlugin_VerifyEntryAndExitPointUpdates_When_updating_entry_and_exit_points_d" +
+                        "efinitions_assigned_to_calculation_output_will_be_cleared_confirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wanneer de intrede- en uittrede punten wijzigen als gevolg van het bijwerken, zullen de resultaten van berekeningen die deze profielschematisaties gebruiken, worden verwijderd.
+        ///
+        ///Weet u zeker dat u wilt doorgaan?.
+        /// </summary>
+        public static string PipingPlugin_VerifyEntryAndExitPointUpdates_When_updating_entry_and_exit_points_definitions_assigned_to_calculations_output_will_be_cleared_confirm {
+            get {
+                return ResourceManager.GetString("PipingPlugin_VerifyEntryAndExitPointUpdates_When_updating_entry_and_exit_points_d" +
+                        "efinitions_assigned_to_calculations_output_will_be_cleared_confirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Karakteristieke punten gevonden zonder bijbehorende profielschematisatie voor locatie &apos;{0}&apos;..
         /// </summary>
         public static string PipingSurfaceLinesCsvImporter_AddImportedDataToModel_Characteristic_points_found_for_unknown_SurfaceLine_0_ {
@@ -518,19 +542,6 @@ namespace Ringtoets.Piping.Plugin.Properties {
             get {
                 return ResourceManager.GetString("StochasticSoilModelUpdateDataStrategy_UpdateModelWithImportedData_Update_of_Stoch" +
                         "asticSoilModel_failed", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Wanneer de intrede- en uittrede punten wijzigen als gevolg van het bijwerken, zullen de resultaten van berekeningen die deze profielschematisaties gebruiken, worden verwijderd.
-        ///
-        ///Weet u zeker dat u wilt doorgaan?.
-        /// </summary>
-        public static string UpdateEntryAndExitPointsCalculationGroupChangeHandler_InquireConfirmation_When_updating_entry_and_exit_points_definitions_assigned_to_calculations_output_will_be_cleared_confirm {
-            get {
-                return ResourceManager.GetString("UpdateEntryAndExitPointsCalculationGroupChangeHandler_InquireConfirmation_When_up" +
-                        "dating_entry_and_exit_points_definitions_assigned_to_calculations_output_will_be" +
-                        "_cleared_confirm", resourceCulture);
             }
         }
     }

@@ -60,7 +60,7 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="ChangeHandlers\RingtoetsPipingSurfaceLineChangeHandler.cs" />
-    <Compile Include="ChangeHandlers\UpdateEntryAndExitPointsCalculationGroupChangeHandler.cs" />
+    <Compile Include="ChangeHandlers\UpdateEntryAndExitPointsOfCalculationsChangeHandler.cs" />
     <Compile Include="FileImporter\RingtoetsPipingSurfaceLineReplaceDataStrategy.cs" />
     <Compile Include="FileImporter\RingtoetsPipingSurfaceLineUpdateDataStrategy.cs" />
     <Compile Include="ChangeHandlers\StochasticSoilModelChangeHandler.cs" />

@@ -392,7 +392,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuUpdateEntryAndExitPointsAllIndexRootGroup,
                                                               "&Bijwerken alle intrede- en uittredepunten",
                                                               "Er zijn geen berekeningen met een profielschematisatie.",
-                                                              RingtoetsCommonFormsResources.UpdateItemIcon, 
+                                                              RingtoetsCommonFormsResources.UpdateItemIcon,
                                                               false);
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateAllIndexRootGroup,
                                                               "Alles &valideren",

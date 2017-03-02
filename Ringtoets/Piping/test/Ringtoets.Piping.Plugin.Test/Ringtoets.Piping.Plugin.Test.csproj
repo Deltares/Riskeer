@@ -72,7 +72,7 @@
     <Compile Include="..\..\..\..\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
-    <Compile Include="ChangeHandlers\UpdateCharacteristicPointsCalculationGroupChangeHandlerTest.cs" />
+    <Compile Include="ChangeHandlers\UpdateCharacteristicPointsOfCalculationsChangeHandlerTest.cs" />
     <Compile Include="ExportInfos\PipingCalculationGroupContextExportInfoTest.cs" />
     <Compile Include="ChangeHandlers\RingtoetsPipingSurfaceLineChangeHandlerTest.cs" />
     <Compile Include="FileImporter\RingtoetsPipingSurfaceLineReplaceDataStrategyTest.cs" />
