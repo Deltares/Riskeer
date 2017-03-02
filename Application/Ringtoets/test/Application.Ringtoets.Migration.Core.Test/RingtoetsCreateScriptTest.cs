@@ -103,8 +103,7 @@ namespace Application.Ringtoets.Migration.Core.Test
             const string query = ";";
             string version = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
 
-            string targetFilename = Path.GetRandomFileName();
-            string filePath = TestHelper.GetScratchPadPath(targetFilename);
+            string filePath = TestHelper.GetScratchPadPath(nameof(CreateEmptyVersionedFile_FileDoesNotExist_ReturnsVersionedFile));
             var createScript = new RingtoetsCreateScript(version, query);
 
             // Call
@@ -122,8 +121,7 @@ namespace Application.Ringtoets.Migration.Core.Test
             const string query = ";";
             string version = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
 
-            string filename = Path.GetRandomFileName();
-            string filePath = TestHelper.GetScratchPadPath(filename);
+            string filePath = TestHelper.GetScratchPadPath(nameof(CreateEmptyVersionedFile_FileExistsButNotWritable_ThrowsArgumentException));
             var createScript = new RingtoetsCreateScript(version, query);
 
             using (new FileDisposeHelper(filePath))
@@ -148,8 +146,7 @@ namespace Application.Ringtoets.Migration.Core.Test
             const string query = "THIS WILL FAIL";
             string version = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
 
-            string targetFilename = Path.GetRandomFileName();
-            string filePath = TestHelper.GetScratchPadPath(targetFilename);
+            string filePath = TestHelper.GetScratchPadPath(nameof(CreateEmptyVersionedFile_QueryFails_ThrowsCriticalMigrationException));
             var createScript = new RingtoetsCreateScript(version, query);
 
             // Call

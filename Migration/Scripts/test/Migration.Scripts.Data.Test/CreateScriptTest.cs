@@ -62,8 +62,7 @@ namespace Migration.Scripts.Data.Test
             // Setup
             const string version = "Valid version";
 
-            string targetFilename = Path.GetRandomFileName();
-            string filePath = TestHelper.GetScratchPadPath(targetFilename);
+            string filePath = TestHelper.GetScratchPadPath(nameof(CreateEmptyVersionedFile_FileDoesNotExist_ReturnsVersionedFile));
             var createScript = new TestCreateScript(version);
 
             // Call
@@ -98,14 +97,12 @@ namespace Migration.Scripts.Data.Test
             // Setup
             const string version = "Valid version";
 
-            string filename = Path.GetRandomFileName();
-            string filePath = TestHelper.GetScratchPadPath(filename);
+            string filePath = TestHelper.GetScratchPadPath(nameof(CreateEmptyVersionedFile_FileExistsButNotWritable_ThrowsArgumentException));
             var createScript = new TestCreateScript(version);
 
-            using (new FileDisposeHelper(filePath))
+            using (var disposeHelper = new FileDisposeHelper(filePath))
             {
-                FileAttributes attributes = File.GetAttributes(filePath);
-                File.SetAttributes(filePath, attributes | FileAttributes.ReadOnly);
+                disposeHelper.LockFiles();
 
                 // Call
                 TestDelegate call = () => createScript.CreateEmptyVersionedFile(filePath);
@@ -113,7 +110,6 @@ namespace Migration.Scripts.Data.Test
                 // Assert
                 ArgumentException exception = Assert.Throws<ArgumentException>(call);
                 Assert.AreEqual("path", exception.ParamName);
-                File.SetAttributes(filePath, attributes);
             }
         }
     }

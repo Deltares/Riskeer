@@ -37,7 +37,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
         public void WriteReferenceLine_NullReferenceLine_ThrowArgumentNullException()
         {
             // Setup
-            string filePath = TestHelper.GetScratchPadPath(Path.Combine("WriteReferenceLine_NullReferenceLine_ThrowArgumentNullException",
+            string filePath = TestHelper.GetScratchPadPath(Path.Combine(nameof(WriteReferenceLine_NullReferenceLine_ThrowArgumentNullException),
                                                                         "test.shp"));
 
             var writer = new ReferenceLineWriter();
@@ -60,7 +60,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
                 new Point2D(11.11, 22.22)
             });
 
-            string filePath = TestHelper.GetScratchPadPath(Path.Combine("WriteReferenceLine_NullId_ThrowArgumentNullException",
+            string filePath = TestHelper.GetScratchPadPath(Path.Combine(nameof(WriteReferenceLine_NullId_ThrowArgumentNullException),
                                                                         "test.shp"));
 
             var writer = new ReferenceLineWriter();
@@ -86,7 +86,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
                 new Point2D(11.11, 22.22)
             });
 
-            string filePath = TestHelper.GetScratchPadPath(Path.Combine("WriteReferenceLine_InvalidId_ThrowArgumentException",
+            string filePath = TestHelper.GetScratchPadPath(Path.Combine(nameof(WriteReferenceLine_InvalidId_ThrowArgumentException),
                                                                         "test.shp"));
 
             var writer = new ReferenceLineWriter();
@@ -129,28 +129,24 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
                 new Point2D(11.11, 22.22)
             });
 
-            string directoryPath = TestHelper.GetScratchPadPath("WriteReferenceLine_ValidData_WritesShapeFile");
-            Directory.CreateDirectory(directoryPath);
-            string filePath = Path.Combine(directoryPath, "test.shp");
-            var baseName = "test";
-
-            var writer = new ReferenceLineWriter();
-
-            // Precondition
-            AssertEssentialShapefileExists(directoryPath, baseName, false);
-
-            // Call
-            try
+            string directoryPath = TestHelper.GetScratchPadPath(nameof(WriteReferenceLine_ValidData_WritesShapeFile));
+            using (new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), nameof(WriteReferenceLine_ValidData_WritesShapeFile)))
             {
+                Directory.CreateDirectory(directoryPath);
+                string filePath = Path.Combine(directoryPath, "test.shp");
+                var baseName = "test";
+
+                var writer = new ReferenceLineWriter();
+
+                // Precondition
+                AssertEssentialShapefileExists(directoryPath, baseName, false);
+
+                // Call
                 writer.WriteReferenceLine(referenceLine, "anId", filePath);
 
                 // Assert
                 AssertEssentialShapefileExists(directoryPath, baseName, true);
                 AssertEssentialShapefileMd5Hashes(directoryPath, baseName);
-            }
-            finally
-            {
-                Directory.Delete(directoryPath, true);
             }
         }
 

@@ -39,7 +39,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
         {
             // Setup
             var referenceLine = new ReferenceLine();
-            string filePath = TestHelper.GetScratchPadPath("test.shp");
+            string filePath = TestHelper.GetScratchPadPath(nameof(ParameteredConstructor_ValidParameters_ExpectedValues));
 
             // Call
             var referenceLineExporter = new ReferenceLineExporter(referenceLine, "anId", filePath);
@@ -72,25 +72,19 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
                 new Point2D(11.11, 22.22)
             });
 
-            string directoryPath = TestHelper.GetScratchPadPath("Export_ValidData_ReturnTrue");
-            Directory.CreateDirectory(directoryPath);
-            string filePath = Path.Combine(directoryPath, "test.shp");
-
-            var exporter = new ReferenceLineExporter(referenceLine, "anId", filePath);
-
-            bool isExported;
-            try
+            string directoryPath = TestHelper.GetScratchPadPath(nameof(Export_ValidData_ReturnTrue));
+            using (new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), nameof(Export_ValidData_ReturnTrue)))
             {
+                string filePath = Path.Combine(directoryPath, "test.shp");
+
+                var exporter = new ReferenceLineExporter(referenceLine, "anId", filePath);
+
                 // Call
-                isExported = exporter.Export();
-            }
-            finally
-            {
-                Directory.Delete(directoryPath, true);
-            }
+                bool isExported = exporter.Export();
 
-            // Assert
-            Assert.IsTrue(isExported);
+                // Assert
+                Assert.IsTrue(isExported);
+            }
         }
 
         [Test]
@@ -104,29 +98,23 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
                 new Point2D(11.11, 22.22)
             });
 
-            string directoryPath = TestHelper.GetScratchPadPath("Export_InvalidDirectoryRights_LogErrorAndReturnFalse");
-            Directory.CreateDirectory(directoryPath);
-            string filePath = Path.Combine(directoryPath, "test.shp");
-
-            var exporter = new ReferenceLineExporter(referenceLine, "anId", filePath);
-
-            try
+            string directoryPath = TestHelper.GetScratchPadPath(nameof(Export_InvalidDirectoryRights_LogErrorAndReturnFalse));
+            using (var disposeHelper = new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), nameof(Export_InvalidDirectoryRights_LogErrorAndReturnFalse)))
             {
-                using (new DirectoryPermissionsRevoker(directoryPath, FileSystemRights.Write))
-                {
-                    // Call
-                    bool isExported = true;
-                    Action call = () => isExported = exporter.Export();
+                string filePath = Path.Combine(directoryPath, "test.shp");
+                var exporter = new ReferenceLineExporter(referenceLine, "anId", filePath);
 
-                    // Assert
-                    string expectedMessage = string.Format("Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{0}'.\r\nEr is geen referentielijn geëxporteerd.", filePath);
-                    TestHelper.AssertLogMessageIsGenerated(call, expectedMessage);
-                    Assert.IsFalse(isExported);
-                }
-            }
-            finally
-            {
-                Directory.Delete(directoryPath, true);
+                disposeHelper.LockDirectory(FileSystemRights.Write);
+                var isExported = true;
+
+                // Call
+
+                Action call = () => isExported = exporter.Export();
+
+                // Assert
+                string expectedMessage = $"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{filePath}'.\r\nEr is geen referentielijn geëxporteerd.";
+                TestHelper.AssertLogMessageIsGenerated(call, expectedMessage);
+                Assert.IsFalse(isExported);
             }
         }
     }

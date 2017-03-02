@@ -91,26 +91,19 @@ namespace Ringtoets.DuneErosion.IO.Test
         public void WriteDuneLocations_InvalidDirectoryRights_ThrowCriticalFileWriteException()
         {
             // Setup
-            string directoryPath = TestHelper.GetScratchPadPath("WriteDuneLocations_InvalidDirectoryRights_ThrowCriticalFileWriteException");
-            Directory.CreateDirectory(directoryPath);
-            string filePath = Path.Combine(directoryPath, "test.bnd");
-
-            // Call
-            TestDelegate call = () => DuneLocationsWriter.WriteDuneLocations(Enumerable.Empty<DuneLocation>(), filePath);
-
-            try
+            string directoryPath = TestHelper.GetScratchPadPath(nameof(WriteDuneLocations_InvalidDirectoryRights_ThrowCriticalFileWriteException));
+            using (var disposeHelper = new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), nameof(WriteDuneLocations_InvalidDirectoryRights_ThrowCriticalFileWriteException)))
             {
-                using (new DirectoryPermissionsRevoker(directoryPath, FileSystemRights.Write))
-                {
-                    // Assert
-                    var exception = Assert.Throws<CriticalFileWriteException>(call);
-                    Assert.AreEqual($"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{filePath}'.", exception.Message);
-                    Assert.IsInstanceOf<UnauthorizedAccessException>(exception.InnerException);
-                }
-            }
-            finally
-            {
-                Directory.Delete(directoryPath, true);
+                string filePath = Path.Combine(directoryPath, "test.bnd");
+
+                // Call
+                TestDelegate call = () => DuneLocationsWriter.WriteDuneLocations(Enumerable.Empty<DuneLocation>(), filePath);
+
+                disposeHelper.LockDirectory(FileSystemRights.Write);
+                // Assert
+                var exception = Assert.Throws<CriticalFileWriteException>(call);
+                Assert.AreEqual($"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{filePath}'.", exception.Message);
+                Assert.IsInstanceOf<UnauthorizedAccessException>(exception.InnerException);
             }
         }
 

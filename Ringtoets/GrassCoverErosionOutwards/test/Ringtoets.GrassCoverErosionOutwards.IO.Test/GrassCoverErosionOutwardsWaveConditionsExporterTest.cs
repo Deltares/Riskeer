@@ -30,7 +30,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Test
     [TestFixture]
     public class GrassCoverErosionOutwardsWaveConditionsExporterTest
     {
-        private readonly string testFilePath = TestHelper.GetScratchPadPath("test.csv");
+        private readonly string testFilePath = TestHelper.GetScratchPadPath($"{nameof(GrassCoverErosionOutwardsWaveConditionsExporterTest)}.csv");
 
         [Test]
         public void Constructor_ValidParameters_ExpectedValues()

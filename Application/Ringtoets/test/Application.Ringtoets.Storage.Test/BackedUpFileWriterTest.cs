@@ -31,19 +31,7 @@ namespace Application.Ringtoets.Storage.Test
     [TestFixture]
     public class BackedUpFileWriterTest
     {
-        private readonly string testWorkDir = TestHelper.GetScratchPadPath("SafeOverwriteFileHelperTest");
-
-        [OneTimeSetUp]
-        public void SetUpFixture()
-        {
-            Directory.CreateDirectory(testWorkDir);
-        }
-
-        [OneTimeTearDown]
-        public void TearDownFixture()
-        {
-            Directory.Delete(testWorkDir);
-        }
+        private readonly string testWorkDir = TestHelper.GetScratchPadPath(nameof(BackedUpFileWriterTest));
 
         [Test]
         [TestCase("")]
@@ -63,20 +51,18 @@ namespace Application.Ringtoets.Storage.Test
         public void Perform_ValidFile_TemporaryFileCreatedFromOriginalAndDeletedAfterwards()
         {
             // Setup
-            var writableDirectory = Path.Combine(testWorkDir, "Writable");
-            var filePath = Path.Combine(writableDirectory, "iDoExist.txt");
-            var temporaryFilePath = filePath + "~";
-            var testContent = "Some test text to write into file.";
+            string writableDirectory = Path.Combine(testWorkDir, nameof(Perform_ValidFile_TemporaryFileCreatedFromOriginalAndDeletedAfterwards));
+            string filePath = Path.Combine(writableDirectory, "iDoExist.txt");
+            string temporaryFilePath = filePath + "~";
+            const string testContent = "Some test text to write into file.";
 
-            Directory.CreateDirectory(writableDirectory);
-            File.WriteAllText(filePath, testContent);
-
-            var writer = new BackedUpFileWriter(filePath);
-
-            try
+            using (new DirectoryDisposeHelper(writableDirectory, nameof(Perform_ValidFile_TemporaryFileCreatedFromOriginalAndDeletedAfterwards)))
+            using (new FileDisposeHelper(filePath))
+            using (new FileDisposeHelper(temporaryFilePath))
             {
-                // Precondition
-                Assert.IsTrue(File.Exists(filePath));
+                File.WriteAllText(filePath, testContent);
+
+                var writer = new BackedUpFileWriter(filePath);
 
                 // Call
                 writer.Perform(() =>
@@ -88,32 +74,27 @@ namespace Application.Ringtoets.Storage.Test
                 });
                 Assert.False(File.Exists(temporaryFilePath));
             }
-            finally
-            {
-                Directory.Delete(writableDirectory, true);
-            }
         }
 
         [Test]
         public void Perform_ActionThrowsExceptionValidPathFileExists_OriginalFileRevertedAndExceptionThrown()
         {
             // Setup
-            var writableDirectory = Path.Combine(testWorkDir, "Writable");
-            var filePath = Path.Combine(writableDirectory, "iDoExist.txt");
-            var temporaryFilePath = filePath + "~";
-            var testContent = "Some test text to write into file.";
+            string writableDirectory = Path.Combine(testWorkDir, nameof(Perform_ActionThrowsExceptionValidPathFileExists_OriginalFileRevertedAndExceptionThrown));
+            string filePath = Path.Combine(writableDirectory, "iDoExist.txt");
+            string temporaryFilePath = filePath + "~";
+            const string testContent = "Some test text to write into file.";
 
-            Directory.CreateDirectory(writableDirectory);
-            File.WriteAllText(filePath, testContent);
-
-            var writer = new BackedUpFileWriter(filePath);
-            var exception = new IOException();
-
-            // Precondition
-            Assert.IsTrue(File.Exists(filePath));
-
-            try
+            using (new DirectoryDisposeHelper(writableDirectory, nameof(Perform_ActionThrowsExceptionValidPathFileExists_OriginalFileRevertedAndExceptionThrown)))
             {
+                File.WriteAllText(filePath, testContent);
+
+                var writer = new BackedUpFileWriter(filePath);
+                var exception = new IOException();
+
+                // Precondition
+                Assert.IsTrue(File.Exists(filePath));
+
                 // Call
                 TestDelegate test = () => writer.Perform(() => { throw exception; });
 
@@ -124,43 +105,29 @@ namespace Application.Ringtoets.Storage.Test
                 Assert.IsTrue(File.Exists(filePath));
                 Assert.AreEqual(testContent, File.ReadAllText(filePath));
             }
-            finally
-            {
-                Directory.Delete(writableDirectory, true);
-            }
         }
 
         [Test]
         public void Perform_ValidPathFileExistsTemporaryFileExistsAndCannotBeDeleted_ThrowsIOException()
         {
             // Setup
-            var filePath = Path.Combine(testWorkDir, "iDoExist.txt");
+            string filePath = Path.Combine(testWorkDir, "iDoExist.txt");
             var temporaryFilePath = filePath + "~";
 
-            using (File.Create(filePath)) {}
-            var temporaryFileStream = File.Create(temporaryFilePath);
-
-            var writer = new BackedUpFileWriter(filePath);
-
-            // Precondition
-            Assert.IsTrue(File.Exists(filePath));
-            Assert.IsTrue(File.Exists(temporaryFilePath));
-
-            // Call
-            TestDelegate test = () => writer.Perform(() => { });
-
-            try
+            using (new FileDisposeHelper(filePath))
+            using (var tempFileHelper = new FileDisposeHelper(temporaryFilePath))
             {
+                tempFileHelper.LockFiles();
+
+                var writer = new BackedUpFileWriter(filePath);
+
+                // Call
+                TestDelegate test = () => writer.Perform(() => { });
+
                 // Assert
                 var message = Assert.Throws<IOException>(test).Message;
                 var expectedMessage = $"Er bestaat al een tijdelijk bestand ({temporaryFilePath}) dat niet verwijderd kan worden. Dit bestand dient handmatig verwijderd te worden.";
                 Assert.AreEqual(message, expectedMessage);
-                temporaryFileStream.Dispose();
-            }
-            finally
-            {
-                File.Delete(filePath);
-                File.Delete(temporaryFilePath);
             }
         }
 
@@ -168,32 +135,22 @@ namespace Application.Ringtoets.Storage.Test
         public void Perform_ValidPathFileExistsDirectoryNotWritable_ThrowsIOException()
         {
             // Setup
-            var notWritableDirectory = Path.Combine(testWorkDir, "NotWritable");
-            var filePath = Path.Combine(notWritableDirectory, "iDoExist.txt");
+            string notWritableDirectory = Path.Combine(testWorkDir, nameof(Perform_ValidPathFileExistsDirectoryNotWritable_ThrowsIOException));
+            string filePath = Path.Combine(notWritableDirectory, "iDoExist.txt");
 
-            Directory.CreateDirectory(notWritableDirectory);
-            using (File.Create(filePath)) {}
-            var writer = new BackedUpFileWriter(filePath);
-
-            // Precondition
-            Assert.IsTrue(File.Exists(filePath));
-
-            // Call
-            TestDelegate test = () => writer.Perform(() => { });
-
-            try
+            using (var directoryHelper = new DirectoryDisposeHelper(testWorkDir, nameof(Perform_ValidPathFileExistsDirectoryNotWritable_ThrowsIOException)))
+            using (new FileDisposeHelper(filePath))
             {
-                using (new DirectoryPermissionsRevoker(notWritableDirectory, FileSystemRights.Write))
-                {
-                    // Assert
-                    var expectedMessage = $"Kan geen tijdelijk bestand maken van het originele bestand ({filePath}).";
-                    var message = Assert.Throws<IOException>(test).Message;
-                    Assert.AreEqual(expectedMessage, message);
-                }
-            }
-            finally
-            {
-                Directory.Delete(notWritableDirectory, true);
+                var writer = new BackedUpFileWriter(filePath);
+
+                // Call
+                TestDelegate test = () => writer.Perform(() => { });
+
+                directoryHelper.LockDirectory(FileSystemRights.Write);
+                // Assert
+                var expectedMessage = $"Kan geen tijdelijk bestand maken van het originele bestand ({filePath}).";
+                var message = Assert.Throws<IOException>(test).Message;
+                Assert.AreEqual(expectedMessage, message);
             }
         }
 
@@ -201,26 +158,19 @@ namespace Application.Ringtoets.Storage.Test
         public void Perform_TargetFileDoesNotExistDeleteRightsRevoked_DoesNotThrow()
         {
             // Setup
-            var noAccessDirectory = Path.Combine(testWorkDir, "NoAccess");
-            var filePath = Path.Combine(noAccessDirectory, "iDoNotExist.txt");
+            string noAccessDirectory = Path.Combine(testWorkDir, nameof(Perform_TargetFileDoesNotExistDeleteRightsRevoked_DoesNotThrow));
+            string filePath = Path.Combine(noAccessDirectory, "iDoNotExist.txt");
 
-            Directory.CreateDirectory(noAccessDirectory);
-            var helper = new BackedUpFileWriter(filePath);
-
-            // Call
-            TestDelegate test = () => helper.Perform(() => { });
-
-            try
+            using (var directoryHelper = new DirectoryDisposeHelper(testWorkDir, nameof(Perform_TargetFileDoesNotExistDeleteRightsRevoked_DoesNotThrow)))
             {
-                using (new DirectoryPermissionsRevoker(noAccessDirectory, FileSystemRights.Delete))
-                {
-                    // Assert
-                    Assert.DoesNotThrow(test);
-                }
-            }
-            finally
-            {
-                Directory.Delete(noAccessDirectory, true);
+                var helper = new BackedUpFileWriter(filePath);
+
+                // Call
+                TestDelegate test = () => helper.Perform(() => { });
+
+                directoryHelper.LockDirectory(FileSystemRights.Delete);
+                // Assert
+                Assert.DoesNotThrow(test);
             }
         }
 
@@ -228,31 +178,21 @@ namespace Application.Ringtoets.Storage.Test
         public void Perform_TargetFileExistsCannotDeleteFile_ThrowsCannotDeleteBackupFileException()
         {
             // Setup
-            var noAccessDirectory = Path.Combine(testWorkDir, "Access");
-            var filePath = Path.Combine(noAccessDirectory, "iDoExist.txt");
-            var temporaryFilePath = filePath + "~";
+            string filePath = Path.Combine(testWorkDir, nameof(Perform_TargetFileExistsCannotDeleteFile_ThrowsCannotDeleteBackupFileException));
+            string temporaryFilePath = filePath + "~";
 
-            Directory.CreateDirectory(noAccessDirectory);
-            using (File.Create(filePath)) {}
-
-            var helper = new BackedUpFileWriter(filePath);
-
-            FileStream fileStream = null;
-
-            try
+            using (new FileDisposeHelper(filePath))
+            using (var temporaryFileHelper = new FileDisposeHelper(temporaryFilePath))
             {
+                var helper = new BackedUpFileWriter(filePath);
+
                 // Call
-                TestDelegate test = () => helper.Perform(() => { fileStream = File.Open(temporaryFilePath, FileMode.Open); });
+                TestDelegate test = () => helper.Perform(() => { temporaryFileHelper.LockFiles(); });
 
                 // Assert
                 var expectedMessage = $"Kan het tijdelijke bestand ({temporaryFilePath}) niet opruimen. Het tijdelijke bestand dient handmatig verwijderd te worden.";
                 var message = Assert.Throws<CannotDeleteBackupFileException>(test).Message;
                 Assert.AreEqual(expectedMessage, message);
-            }
-            finally
-            {
-                fileStream?.Dispose();
-                Directory.Delete(noAccessDirectory, true);
             }
         }
 
@@ -260,23 +200,18 @@ namespace Application.Ringtoets.Storage.Test
         public void Perform_ActionThrowsExceptionTargetFileExistsCannotDeleteFile_ThrowsIOException()
         {
             // Setup
-            var noAccessDirectory = Path.Combine(testWorkDir, "Access");
-            var filePath = Path.Combine(noAccessDirectory, "iDoExist.txt");
-            var temporaryFilePath = filePath + "~";
+            string filePath = Path.Combine(testWorkDir, nameof(Perform_ActionThrowsExceptionTargetFileExistsCannotDeleteFile_ThrowsIOException));
+            string temporaryFilePath = filePath + "~";
 
-            Directory.CreateDirectory(noAccessDirectory);
-            using (File.Create(filePath)) {}
-
-            var helper = new BackedUpFileWriter(filePath);
-
-            FileStream fileStream = null;
-
-            try
+            using (new FileDisposeHelper(filePath))
+            using (var temporaryFileHelper = new FileDisposeHelper(temporaryFilePath))
             {
+                var helper = new BackedUpFileWriter(filePath);
+
                 // Call
                 TestDelegate test = () => helper.Perform(() =>
                 {
-                    fileStream = File.Open(temporaryFilePath, FileMode.Open);
+                    temporaryFileHelper.LockFiles();
                     throw new Exception();
                 });
 
@@ -284,11 +219,6 @@ namespace Application.Ringtoets.Storage.Test
                 var expectedMessage = $"Kan het originele bestand ({filePath}) niet herstellen. Het tijdelijke bestand dient handmatig hersteld te worden.";
                 var message = Assert.Throws<IOException>(test).Message;
                 Assert.AreEqual(expectedMessage, message);
-            }
-            finally
-            {
-                fileStream?.Dispose();
-                Directory.Delete(noAccessDirectory, true);
             }
         }
 
@@ -296,21 +226,18 @@ namespace Application.Ringtoets.Storage.Test
         public void Perform_ActionThrowsExceptionTargetFileExistsCannotMoveFile_ThrowsIOException()
         {
             // Setup
-            var noAccessDirectory = Path.Combine(testWorkDir, "NoAccess");
-            var filePath = Path.Combine(noAccessDirectory, "iDoExist.txt");
+            string noAccessDirectory = Path.Combine(testWorkDir, nameof(Perform_ActionThrowsExceptionTargetFileExistsCannotMoveFile_ThrowsIOException));
+            string filePath = Path.Combine(noAccessDirectory, "iDoExist.txt");
 
-            Directory.CreateDirectory(noAccessDirectory);
-            using (File.Create(filePath)) {}
-
-            var helper = new BackedUpFileWriter(filePath);
-
-            DirectoryPermissionsRevoker fileRightsHelper = null;
-            try
+            using (var directoryHelper = new DirectoryDisposeHelper(testWorkDir, nameof(Perform_ActionThrowsExceptionTargetFileExistsCannotMoveFile_ThrowsIOException)))
+            using (new FileDisposeHelper(filePath))
             {
+                var helper = new BackedUpFileWriter(filePath);
+
                 // Call
                 TestDelegate test = () => helper.Perform(() =>
                 {
-                    fileRightsHelper = new DirectoryPermissionsRevoker(noAccessDirectory, FileSystemRights.FullControl);
+                    directoryHelper.LockDirectory(FileSystemRights.FullControl);
                     throw new Exception();
                 });
 
@@ -319,11 +246,18 @@ namespace Application.Ringtoets.Storage.Test
                 var message = Assert.Throws<IOException>(test).Message;
                 Assert.AreEqual(expectedMessage, message);
             }
-            finally
-            {
-                fileRightsHelper?.Dispose();
-                Directory.Delete(noAccessDirectory, true);
-            }
+        }
+
+        [OneTimeSetUp]
+        public void SetUpFixture()
+        {
+            Directory.CreateDirectory(testWorkDir);
+        }
+
+        [OneTimeTearDown]
+        public void TearDownFixture()
+        {
+            Directory.Delete(testWorkDir, true);
         }
     }
 }

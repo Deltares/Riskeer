@@ -528,7 +528,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         public void Import_FileDeletedDuringRead_AbortImportAndLog()
         {
             // Setup
-            var copyTargetPath = TestHelper.GetScratchPadPath("Import_FileDeletedDuringRead_AbortImportAndLog.csv");
+            var copyTargetPath = TestHelper.GetScratchPadPath($"{nameof(Import_FileDeletedDuringRead_AbortImportAndLog)}.csv");
             string validFilePath = Path.Combine(ioTestDataPath, "TwoValidSurfaceLines.csv");
             File.Copy(validFilePath, copyTargetPath);
 

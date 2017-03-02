@@ -48,7 +48,7 @@ namespace Application.Ringtoets.Migration.Core.Test
         public void Constructor_ValidfilePath_ExpectedProperties()
         {
             // Setup
-            string filePath = "c:\\file.ext";
+            string filePath = TestHelper.GetTestDataPath(nameof(Constructor_ValidfilePath_ExpectedProperties));
 
             // Call
             var versionedFile = new RingtoetsVersionedFile(filePath);
@@ -61,8 +61,7 @@ namespace Application.Ringtoets.Migration.Core.Test
         public void GetVersion_FileDoesNotExist_ThrowsCriticalFileReadException()
         {
             // Setup
-            string file = Path.GetRandomFileName();
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration, file);
+            string filePath = TestHelper.GetTestDataPath(nameof(GetVersion_FileDoesNotExist_ThrowsCriticalFileReadException));
 
             var sourceFile = new RingtoetsVersionedFile(filePath);
 

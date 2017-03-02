@@ -68,19 +68,18 @@ namespace Ringtoets.StabilityStoneCover.IO.Test
         public void Export_CalculationsWithoutOutput_FileWithOnlyHeader()
         {
             // Setup
-            string directoryPath = TestHelper.GetScratchPadPath("Export_CalculationsWithoutOutput_FileWithOnlyHeader");
-            Directory.CreateDirectory(directoryPath);
-            string filePath = Path.Combine(directoryPath, "test.csv");
-
-            var calculationsWithoutOutput = new[]
+            string directoryPath = TestHelper.GetScratchPadPath(nameof(Export_CalculationsWithoutOutput_FileWithOnlyHeader));
+            using (new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), nameof(Export_CalculationsWithoutOutput_FileWithOnlyHeader)))
             {
-                new StabilityStoneCoverWaveConditionsCalculation()
-            };
+                string filePath = Path.Combine(directoryPath, "test.csv");
 
-            var exporter = new StabilityStoneCoverWaveConditionsExporter(calculationsWithoutOutput, filePath);
+                var calculationsWithoutOutput = new[]
+                {
+                    new StabilityStoneCoverWaveConditionsCalculation()
+                };
 
-            try
-            {
+                var exporter = new StabilityStoneCoverWaveConditionsExporter(calculationsWithoutOutput, filePath);
+
                 // Call
                 bool isExported = exporter.Export();
 
@@ -89,10 +88,6 @@ namespace Ringtoets.StabilityStoneCover.IO.Test
                 Assert.IsTrue(File.Exists(filePath));
                 string fileContent = File.ReadAllText(filePath);
                 Assert.AreEqual("Naam berekening, Naam HR locatie, X HR locatie (RD) [m], Y HR locatie (RD) [m], Naam voorlandprofiel, Dam gebruikt, Voorlandgeometrie gebruikt, Type bekleding, Waterstand [m+NAP], Golfhoogte (Hs) [m], Golfperiode (Tp) [s], Golfrichting t.o.v. dijknormaal [°], Golfrichting t.o.v. Noord [°]\r\n", fileContent);
-            }
-            finally
-            {
-                Directory.Delete(directoryPath, true);
             }
         }
 
@@ -100,22 +95,21 @@ namespace Ringtoets.StabilityStoneCover.IO.Test
         public void Export_CalculationsWithoutHydraulicBoundaryLocation_FileWithOnlyHeader()
         {
             // Setup
-            string directoryPath = TestHelper.GetScratchPadPath("Export_CalculationsWithoutHydraulicBoundaryLocation_FileWithOnlyHeader");
-            Directory.CreateDirectory(directoryPath);
-            string filePath = Path.Combine(directoryPath, "test.csv");
-
-            var calculations = new[]
+            string directoryPath = TestHelper.GetScratchPadPath(nameof(Export_CalculationsWithoutHydraulicBoundaryLocation_FileWithOnlyHeader));
+            using (new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), nameof(Export_CalculationsWithoutHydraulicBoundaryLocation_FileWithOnlyHeader)))
             {
-                new StabilityStoneCoverWaveConditionsCalculation
+                string filePath = Path.Combine(directoryPath, "test.csv");
+
+                var calculations = new[]
                 {
-                    Output = new StabilityStoneCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>(), Enumerable.Empty<WaveConditionsOutput>()),
-                }
-            };
+                    new StabilityStoneCoverWaveConditionsCalculation
+                    {
+                        Output = new StabilityStoneCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>(), Enumerable.Empty<WaveConditionsOutput>()),
+                    }
+                };
 
-            var exporter = new StabilityStoneCoverWaveConditionsExporter(calculations, filePath);
+                var exporter = new StabilityStoneCoverWaveConditionsExporter(calculations, filePath);
 
-            try
-            {
                 // Call
                 bool isExported = exporter.Export();
 
@@ -125,51 +119,47 @@ namespace Ringtoets.StabilityStoneCover.IO.Test
                 string fileContent = File.ReadAllText(filePath);
                 Assert.AreEqual("Naam berekening, Naam HR locatie, X HR locatie (RD) [m], Y HR locatie (RD) [m], Naam voorlandprofiel, Dam gebruikt, Voorlandgeometrie gebruikt, Type bekleding, Waterstand [m+NAP], Golfhoogte (Hs) [m], Golfperiode (Tp) [s], Golfrichting t.o.v. dijknormaal [°], Golfrichting t.o.v. Noord [°]\r\n", fileContent);
             }
-            finally
-            {
-                Directory.Delete(directoryPath, true);
-            }
         }
 
         [Test]
         public void Export_ValidData_ValidFile()
         {
             // Setup
-            string directoryPath = TestHelper.GetScratchPadPath("Export_ValidData_ValidFile");
-            Directory.CreateDirectory(directoryPath);
-            string filePath = Path.Combine(directoryPath, "test.csv");
-
-            var calculations = new[]
+            string subFolder = $"{nameof(StabilityStoneCoverWaveConditionsExporterTest)}.{nameof(Export_ValidData_ValidFile)}";
+            string directoryPath = TestHelper.GetScratchPadPath(subFolder);
+            using (new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), subFolder))
             {
-                new StabilityStoneCoverWaveConditionsCalculation
+                string filePath = Path.Combine(directoryPath, "test.csv");
+
+                var calculations = new[]
                 {
-                    Name = "aCalculation",
-                    InputParameters =
+                    new StabilityStoneCoverWaveConditionsCalculation
                     {
-                        HydraulicBoundaryLocation = new HydraulicBoundaryLocation(8, "aLocation", 44, 123.456)
+                        Name = "aCalculation",
+                        InputParameters =
                         {
-                            DesignWaterLevelOutput = new TestHydraulicBoundaryLocationOutput(28.36844)
+                            HydraulicBoundaryLocation = new HydraulicBoundaryLocation(8, "aLocation", 44, 123.456)
+                            {
+                                DesignWaterLevelOutput = new TestHydraulicBoundaryLocationOutput(28.36844)
+                            },
+                            LowerBoundaryRevetment = (RoundedDouble) 1.384,
+                            UpperBoundaryRevetment = (RoundedDouble) 11.54898963,
+                            StepSize = WaveConditionsInputStepSize.Half,
+                            LowerBoundaryWaterLevels = (RoundedDouble) 1.98699,
+                            UpperBoundaryWaterLevels = (RoundedDouble) 84.26548
                         },
-                        LowerBoundaryRevetment = (RoundedDouble) 1.384,
-                        UpperBoundaryRevetment = (RoundedDouble) 11.54898963,
-                        StepSize = WaveConditionsInputStepSize.Half,
-                        LowerBoundaryWaterLevels = (RoundedDouble) 1.98699,
-                        UpperBoundaryWaterLevels = (RoundedDouble) 84.26548
-                    },
-                    Output = new StabilityStoneCoverWaveConditionsOutput(new[]
-                    {
-                        new TestWaveConditionsOutput()
-                    }, new[]
-                    {
-                        new TestWaveConditionsOutput()
-                    })
-                }
-            };
+                        Output = new StabilityStoneCoverWaveConditionsOutput(new[]
+                        {
+                            new TestWaveConditionsOutput()
+                        }, new[]
+                        {
+                            new TestWaveConditionsOutput()
+                        })
+                    }
+                };
 
-            var exporter = new StabilityStoneCoverWaveConditionsExporter(calculations, filePath);
+                var exporter = new StabilityStoneCoverWaveConditionsExporter(calculations, filePath);
 
-            try
-            {
                 // Call
                 bool isExported = exporter.Export();
 
@@ -181,10 +171,6 @@ namespace Ringtoets.StabilityStoneCover.IO.Test
                                 "aCalculation, aLocation, 44.000, 123.456, , nee, nee, Steen (zuilen), 1.10, 2.20, 3.30, 4.40, 5.50\r\n" +
                                 "aCalculation, aLocation, 44.000, 123.456, , nee, nee, Steen (blokken), 1.10, 2.20, 3.30, 4.40, 5.50\r\n",
                                 fileContent);
-            }
-            finally
-            {
-                Directory.Delete(directoryPath, true);
             }
         }
     }

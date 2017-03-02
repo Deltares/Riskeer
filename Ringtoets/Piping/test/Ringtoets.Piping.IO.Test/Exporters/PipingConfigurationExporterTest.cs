@@ -76,7 +76,7 @@ namespace Ringtoets.Piping.IO.Test.Exporters
         public void Export_ValidData_ReturnTrueAndWritesFile()
         {
             // Setup
-            string filePath = TestHelper.GetScratchPadPath("test.xml");
+            string filePath = TestHelper.GetScratchPadPath($"{nameof(Export_ValidData_ReturnTrueAndWritesFile)}.xml");
 
             PipingCalculation calculation = PipingTestDataGenerator.GetPipingCalculation();
             calculation.InputParameters.EntryPointL = (RoundedDouble) 0.1;
@@ -158,30 +158,24 @@ namespace Ringtoets.Piping.IO.Test.Exporters
                 }
             };
 
-            string directoryPath = TestHelper.GetScratchPadPath("Export_InvalidDirectoryRights_LogErrorAndReturnFalse");
-            Directory.CreateDirectory(directoryPath);
-            string filePath = Path.Combine(directoryPath, "test.xml");
-
-            var exporter = new PipingConfigurationExporter(calculationGroup, filePath);
-
-            try
+            string directoryPath = TestHelper.GetScratchPadPath(nameof(Export_InvalidDirectoryRights_LogErrorAndReturnFalse));
+            using (var disposeHelper = new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), nameof(Export_InvalidDirectoryRights_LogErrorAndReturnFalse)))
             {
-                using (new DirectoryPermissionsRevoker(directoryPath, FileSystemRights.Write))
-                {
-                    // Call
-                    var isExported = true;
-                    Action call = () => isExported = exporter.Export();
+                string filePath = Path.Combine(directoryPath, "test.xml");
 
-                    // Assert
-                    string expectedMessage = $"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{filePath}'. "
-                                             + "Er is geen configuratie geëxporteerd.";
-                    TestHelper.AssertLogMessageIsGenerated(call, expectedMessage);
-                    Assert.IsFalse(isExported);
-                }
-            }
-            finally
-            {
-                Directory.Delete(directoryPath, true);
+                var exporter = new PipingConfigurationExporter(calculationGroup, filePath);
+
+                disposeHelper.LockDirectory(FileSystemRights.Write);
+
+                // Call
+                var isExported = true;
+                Action call = () => isExported = exporter.Export();
+
+                // Assert
+                string expectedMessage = $"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{filePath}'. "
+                                         + "Er is geen configuratie geëxporteerd.";
+                TestHelper.AssertLogMessageIsGenerated(call, expectedMessage);
+                Assert.IsFalse(isExported);
             }
         }
     }

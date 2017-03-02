@@ -40,7 +40,7 @@ namespace Ringtoets.DuneErosion.IO.Test
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var filePath = TestHelper.GetScratchPadPath(Path.Combine("DuneLocationsExporter", "test.bnd"));
+            var filePath = TestHelper.GetScratchPadPath(Path.Combine(nameof(DuneLocationsExporterTest), "test.bnd"));
 
             // Call
             var exporter = new DuneLocationsExporter(Enumerable.Empty<DuneLocation>(), filePath);
@@ -52,11 +52,8 @@ namespace Ringtoets.DuneErosion.IO.Test
         [Test]
         public void Constructor_LocationsNull_ThrowArgumentNullException()
         {
-            // Setup
-            var filePath = TestHelper.GetScratchPadPath(Path.Combine("DuneLocationsExporter", "test.bnd"));
-
             // Call
-            TestDelegate test = () => new DuneLocationsExporter(null, filePath);
+            TestDelegate test = () => new DuneLocationsExporter(null, "IAmValid.bnd");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -95,14 +92,13 @@ namespace Ringtoets.DuneErosion.IO.Test
                 locationCalculatedOutput
             };
 
-            string directoryPath = TestHelper.GetScratchPadPath("Export_ValidData_ReturnTrue");
-            Directory.CreateDirectory(directoryPath);
-            string filePath = Path.Combine(directoryPath, "test.bnd");
-
-            var exporter = new DuneLocationsExporter(duneLocations, filePath);
-
-            try
+            string directoryPath = TestHelper.GetScratchPadPath(nameof(Export_ValidData_ReturnTrueAndWritesFile));
+            using (new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), nameof(Export_ValidData_ReturnTrueAndWritesFile)))
             {
+                string filePath = Path.Combine(directoryPath, "test.bnd");
+
+                var exporter = new DuneLocationsExporter(duneLocations, filePath);
+
                 // Call
                 bool isExported = exporter.Export();
 
@@ -116,10 +112,6 @@ namespace Ringtoets.DuneErosion.IO.Test
                                 "10\t9770.1\t*\t*\t*\t*\t0.000196\r\n" +
                                 "11\t9771.3\t5.89\t8.53\t14.11\t*\t0.000134\r\n",
                                 fileContent);
-            }
-            finally
-            {
-                Directory.Delete(directoryPath, true);
             }
         }
 
@@ -139,30 +131,23 @@ namespace Ringtoets.DuneErosion.IO.Test
                 }
             };
 
-            string directoryPath = TestHelper.GetScratchPadPath("Export_InvalidDirectoryRights_LogErrorAndReturnFalse");
-            Directory.CreateDirectory(directoryPath);
-            string filePath = Path.Combine(directoryPath, "test.bnd");
-
-            var exporter = new DuneLocationsExporter(duneLocations, filePath);
-
-            try
+            string directoryPath = TestHelper.GetScratchPadPath(nameof(Export_InvalidDirectoryRights_LogErrorAndReturnFalse));
+            using (var disposeHelper = new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), nameof(Export_InvalidDirectoryRights_LogErrorAndReturnFalse)))
             {
-                using (new DirectoryPermissionsRevoker(directoryPath, FileSystemRights.Write))
-                {
-                    // Call
-                    bool isExported = true;
-                    Action call = () => isExported = exporter.Export();
+                string filePath = Path.Combine(directoryPath, "test.bnd");
+                var exporter = new DuneLocationsExporter(duneLocations, filePath);
 
-                    // Assert
-                    string expectedMessage = $"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{filePath}'. "
-                                             + "Er zijn geen hydraulische randvoorwaarden locaties geëxporteerd.";
-                    TestHelper.AssertLogMessageIsGenerated(call, expectedMessage);
-                    Assert.IsFalse(isExported);
-                }
-            }
-            finally
-            {
-                Directory.Delete(directoryPath, true);
+                disposeHelper.LockDirectory(FileSystemRights.Write);
+                bool isExported = true;
+
+                // Call
+                Action call = () => isExported = exporter.Export();
+
+                // Assert
+                string expectedMessage = $"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{filePath}'. "
+                                         + "Er zijn geen hydraulische randvoorwaarden locaties geëxporteerd.";
+                TestHelper.AssertLogMessageIsGenerated(call, expectedMessage);
+                Assert.IsFalse(isExported);
             }
         }
 

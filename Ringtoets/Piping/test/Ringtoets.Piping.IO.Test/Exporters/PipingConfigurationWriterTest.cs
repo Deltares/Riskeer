@@ -123,26 +123,19 @@ namespace Ringtoets.Piping.IO.Test.Exporters
         public void Write_InvalidDirectoryRights_ThrowCriticalFileWriteException()
         {
             // Setup
-            string directoryPath = TestHelper.GetScratchPadPath("Write_InvalidDirectoryRights_ThrowCriticalFileWriteException");
-            Directory.CreateDirectory(directoryPath);
-            string filePath = Path.Combine(directoryPath, "test.xml");
-
-            // Call
-            TestDelegate call = () => PipingConfigurationWriter.Write(new CalculationGroup(), filePath);
-
-            try
+            string directoryPath = TestHelper.GetScratchPadPath(nameof(Write_InvalidDirectoryRights_ThrowCriticalFileWriteException));
+            using (var disposeHelper = new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), nameof(Write_InvalidDirectoryRights_ThrowCriticalFileWriteException)))
             {
-                using (new DirectoryPermissionsRevoker(directoryPath, FileSystemRights.Write))
-                {
-                    // Assert
-                    var exception = Assert.Throws<CriticalFileWriteException>(call);
-                    Assert.AreEqual($"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{filePath}'.", exception.Message);
-                    Assert.IsInstanceOf<UnauthorizedAccessException>(exception.InnerException);
-                }
-            }
-            finally
-            {
-                Directory.Delete(directoryPath, true);
+                string filePath = Path.Combine(directoryPath, "test.xml");
+                disposeHelper.LockDirectory(FileSystemRights.Write);
+
+                // Call
+                TestDelegate call = () => PipingConfigurationWriter.Write(new CalculationGroup(), filePath);
+                
+                // Assert
+                var exception = Assert.Throws<CriticalFileWriteException>(call);
+                Assert.AreEqual($"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{filePath}'.", exception.Message);
+                Assert.IsInstanceOf<UnauthorizedAccessException>(exception.InnerException);
             }
         }
 

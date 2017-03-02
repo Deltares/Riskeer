@@ -105,19 +105,16 @@ namespace Application.Ringtoets.Storage.Test
         [Test]
         public void CreateDatabaseStructure_ValidExistingFile_ThrowsStorageException()
         {
-            string tempRingtoetsFile = TestHelper.GetScratchPadPath("tempProjectFile.rtd");
-            using (new FileDisposeHelper(tempRingtoetsFile))
+            string tempRingtoetsFile = TestHelper.GetScratchPadPath(nameof(CreateDatabaseStructure_ValidExistingFile_ThrowsStorageException));
+            using (var disposeHelper = new FileDisposeHelper(tempRingtoetsFile))
             {
+                disposeHelper.LockFiles();
+
                 // Call
                 TestDelegate call = () => StorageSqliteCreator.CreateDatabaseStructure(tempRingtoetsFile);
 
-                ArgumentException exception;
-                using (File.Create(tempRingtoetsFile)) // Locks file
-                {
-                    exception = Assert.Throws<ArgumentException>(call);
-                }
-
                 // Assert
+                var exception = Assert.Throws<ArgumentException>(call);
                 var expectedMessage = $@"File '{tempRingtoetsFile}' already exists.";
                 Assert.AreEqual(expectedMessage, exception.Message);
             }

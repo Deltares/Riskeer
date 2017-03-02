@@ -31,7 +31,7 @@ namespace Application.Ringtoets.Storage.Test
     [Explicit("Creates a new Ringtoets.rtd file in the root of the Application.Ringtoets.Storage")]
     public class RingtoetsDatabaseCreatorTest
     {
-        private static readonly string rootPath = TestHelper.GetScratchPadPath();
+        private static readonly string pathToStorageProject = Path.Combine(Path.GetDirectoryName(TestHelper.SolutionRoot), "Application", "Ringtoets", "src", "Application.Ringtoets.Storage");
 
         /// <summary>
         /// Creates a new Ringtoets.rtd file in the root of the <see cref="Storage"/>, 
@@ -41,7 +41,7 @@ namespace Application.Ringtoets.Storage.Test
         public void RingtoetsDatabaseCreator_Explicit_CreatesRingtoetsProjectDatabaseFile()
         {
             // Setup
-            var storageFile = Path.Combine(rootPath, "Ringtoets.rtd");
+            var storageFile = Path.Combine(pathToStorageProject, "Ringtoets.rtd");
             if (File.Exists(storageFile))
             {
                 TestDelegate precondition = () => File.Delete(storageFile);

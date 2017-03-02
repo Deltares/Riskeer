@@ -51,29 +51,21 @@ namespace Application.Ringtoets.Migration.Core.Test
         public void Constructor_FileNotWritable_ThrowsArgumentException()
         {
             // Setup
-            string filename = Path.GetRandomFileName();
-            string filePath = TestHelper.GetScratchPadPath(filename);
+            string filePath = TestHelper.GetScratchPadPath($"{nameof(RingtoetsDatabaseFileTest)}.{nameof(Constructor_FileNotWritable_ThrowsArgumentException)}");
 
-            using (new FileDisposeHelper(filePath))
+            using (var helper = new FileDisposeHelper(filePath))
             {
-                FileAttributes attributes = File.GetAttributes(filePath);
-                File.SetAttributes(filePath, attributes | FileAttributes.ReadOnly);
-                try
-                {
-                    // Call
-                    TestDelegate call = () =>
-                    {
-                        using (new RingtoetsDatabaseFile(filePath)) {}
-                    };
+                helper.LockFiles();
 
-                    // Assert
-                    string expectedMessage = $"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{filePath}'.";
-                    TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
-                }
-                finally
+                // Call
+                TestDelegate call = () =>
                 {
-                    File.SetAttributes(filePath, attributes);
-                }
+                    using (new RingtoetsDatabaseFile(filePath)) {}
+                };
+
+                // Assert
+                string expectedMessage = $"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{filePath}'.";
+                TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
             }
         }
 
@@ -85,7 +77,7 @@ namespace Application.Ringtoets.Migration.Core.Test
         {
             // Setup
             string filename = Path.GetRandomFileName();
-            string filePath = TestHelper.GetScratchPadPath(filename);
+            string filePath = TestHelper.GetScratchPadPath(nameof(ExecuteQuery_QueryIsNullOrWhiteSpace_ThrowsArgumentException) + filename);
 
             using (new FileDisposeHelper(filePath))
             using (var databaseFile = new RingtoetsDatabaseFile(filePath))
@@ -105,7 +97,7 @@ namespace Application.Ringtoets.Migration.Core.Test
         {
             // Setup
             string filename = Path.GetRandomFileName();
-            string filePath = TestHelper.GetScratchPadPath(filename);
+            string filePath = TestHelper.GetScratchPadPath(nameof(ExecuteQuery_InvalidQuery_ThrowsSQLiteException) + filename);
 
             using (new FileDisposeHelper(filePath))
             using (var databaseFile = new RingtoetsDatabaseFile(filePath))

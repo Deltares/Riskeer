@@ -141,24 +141,27 @@ namespace Application.Ringtoets.Migration.Core.Test
             string fromVersion = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
             string toVersion = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
 
+            string fileLocation = TestHelper.GetScratchPadPath(nameof(Upgrade_UpgradeFails_ThrowsCriticalMigrationException));
             var upgradeScript = new RingtoetsUpgradeScript(fromVersion, toVersion, "THIS WILL FAIL");
 
-            // Call
-            TestDelegate call = () => upgradeScript.Upgrade("c:\\file.ext", "c:\\file.ext");
+            using (new FileDisposeHelper(fileLocation))
+            {
+                // Call
+                TestDelegate call = () => upgradeScript.Upgrade(fileLocation, fileLocation);
 
-            // Assert
-            CriticalMigrationException exception = Assert.Throws<CriticalMigrationException>(call);
-            Assert.AreEqual($"Het migreren van het Ringtoets projectbestand van versie '{fromVersion}' naar '{fromVersion}' is mislukt.",
-                            exception.Message);
-            Assert.IsInstanceOf<SQLiteException>(exception.InnerException);
+                // Assert
+                CriticalMigrationException exception = Assert.Throws<CriticalMigrationException>(call);
+                Assert.AreEqual($"Het migreren van het Ringtoets projectbestand van versie '{fromVersion}' naar '{fromVersion}' is mislukt.",
+                                exception.Message);
+                Assert.IsInstanceOf<SQLiteException>(exception.InnerException);
+            }
         }
 
         [Test]
         public void Upgrade_ValidParameters_ExpectedProperties()
         {
             // Setup
-            string filename = Path.GetRandomFileName();
-            string filePath = TestHelper.GetScratchPadPath(filename);
+            string filePath = TestHelper.GetScratchPadPath(nameof(Upgrade_ValidParameters_ExpectedProperties));
             string fromVersion = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
             string toVersion = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
 

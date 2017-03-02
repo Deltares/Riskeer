@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.IO;
 using Core.Common.TestUtil;
 using Migration.Scripts.Data.TestUtil;
 using NUnit.Framework;
@@ -105,13 +104,14 @@ namespace Migration.Scripts.Data.Test
             var upgradeScript = new TestUpgradeScript("1", "2");
             var migrationScript = new FileMigrationScript(createScript, upgradeScript);
 
-            // Call
-            IVersionedFile upgradedFile = migrationScript.Upgrade(versionedFile);
+            using (new FileDisposeHelper(filePath))
+            {
+                // Call
+                IVersionedFile upgradedFile = migrationScript.Upgrade(versionedFile);
 
-            // Assert
-            Assert.IsNotNull(upgradedFile);
-            File.Delete(upgradedFile.Location);
-
+                // Assert
+                Assert.IsNotNull(upgradedFile);
+            }
             mockRepository.VerifyAll();
         }
     }

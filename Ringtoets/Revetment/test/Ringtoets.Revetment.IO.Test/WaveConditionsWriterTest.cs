@@ -168,12 +168,11 @@ namespace Ringtoets.Revetment.IO.Test
                 }, CreateWaveConditionsOutputForExport(3.33333, 1.11111, 4.44444, 2.2, 6.66666), CoverType.StoneCoverColumns)
             };
 
-            string directoryPath = TestHelper.GetScratchPadPath("WriteWaveConditions_ValidData_ValidFile");
-            Directory.CreateDirectory(directoryPath);
-            string filePath = Path.Combine(directoryPath, "test.csv");
-
-            try
+            string directoryPath = TestHelper.GetScratchPadPath(nameof(WriteWaveConditions_ValidData_ValidFile));
+            using (new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), nameof(WriteWaveConditions_ValidData_ValidFile)))
             {
+                string filePath = Path.Combine(directoryPath, "test.csv");
+
                 // Call
                 WaveConditionsWriter.WriteWaveConditions(exportableWaveConditions, filePath);
 
@@ -184,10 +183,6 @@ namespace Ringtoets.Revetment.IO.Test
                                 "blocksName, , 0.000, 0.000, , ja, nee, Steen (blokken), 1.11, 2.22, 3.33, 4.40, 5.56\r\n" +
                                 "columnsName, aLocation, 44.000, 123.456, , nee, nee, Steen (zuilen), 3.33, 1.11, 4.44, 2.20, 6.67\r\n",
                                 fileContent);
-            }
-            finally
-            {
-                Directory.Delete(directoryPath, true);
             }
         }
 

@@ -48,7 +48,7 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
         public void CreateCorruptDatabaseFile_ValidArguments_CreatedDatabaseFile()
         {
             // Setup
-            string validPath = TestHelper.GetScratchPadPath("tempFile.rtd");
+            string validPath = TestHelper.GetScratchPadPath(nameof(CreateCorruptDatabaseFile_ValidArguments_CreatedDatabaseFile));
 
             using (new FileDisposeHelper(validPath))
             {
@@ -122,7 +122,7 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
         public void CreateCompleteDatabaseFileEmpty_ValidArguments_CreatedDatabaseFile()
         {
             // Setup
-            string validPath = TestHelper.GetScratchPadPath("tempFile.rtd");
+            string validPath = TestHelper.GetScratchPadPath(nameof(CreateCompleteDatabaseFileEmpty_ValidArguments_CreatedDatabaseFile));
 
             using (new FileDisposeHelper(validPath))
             {
@@ -172,7 +172,7 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
         public void CreateDatabaseFile_ValidPathInvalidScript_ThrowsSQLiteException()
         {
             // Setup
-            string validPath = TestHelper.GetScratchPadPath("tempFile.rtd");
+            string validPath = TestHelper.GetScratchPadPath(nameof(CreateDatabaseFile_ValidPathInvalidScript_ThrowsSQLiteException));
             const string invalidScript = "SELECT '' FROM *;";
 
             using (new FileDisposeHelper(validPath))
@@ -189,7 +189,7 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
         public void CreateDatabaseFile_ValidPathValidScript_CreatesValidFile()
         {
             // Setup
-            string validPath = TestHelper.GetScratchPadPath("tempFile.rtd");
+            string validPath = TestHelper.GetScratchPadPath(nameof(CreateDatabaseFile_ValidPathValidScript_CreatesValidFile));
             const string validScript = "select * from sqlite_master;";
 
             using (new FileDisposeHelper(validPath))
@@ -207,7 +207,7 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
         public void CreateDatabaseFile_FileAlreadyExists_OverwriteFile()
         {
             // Setup
-            string validPath = TestHelper.GetScratchPadPath("tempFile.rtd");
+            string validPath = TestHelper.GetScratchPadPath(nameof(CreateDatabaseFile_FileAlreadyExists_OverwriteFile));
             const string validScript = "select * from sqlite_master;";
 
             using (new FileDisposeHelper(validPath))
@@ -247,7 +247,7 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
         public void CreateValidRingtoetsDatabase_ValidArguments_SavesProjectToFile()
         {
             // Setup
-            string validPath = TestHelper.GetScratchPadPath("tempFile.rtd");
+            string validPath = TestHelper.GetScratchPadPath(nameof(CreateValidRingtoetsDatabase_ValidArguments_SavesProjectToFile));
             var project = new RingtoetsProject();
 
             FileDisposeHelper fileDisposeHelper = new FileDisposeHelper(validPath);
