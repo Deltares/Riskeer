@@ -28,16 +28,15 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System;
+
 namespace Application.Ringtoets.Storage.DbContext
 {
-    using System;
-    using System.Collections.Generic;
-    
     public partial class VersionEntity
     {
         public long VersionId { get; set; }
         public string Version { get; set; }
-        public System.DateTime Timestamp { get; set; }
+        public DateTime Timestamp { get; set; }
         public byte[] FingerPrint { get; set; }
     }
 }
