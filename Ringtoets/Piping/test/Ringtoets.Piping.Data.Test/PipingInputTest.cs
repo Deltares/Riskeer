@@ -400,6 +400,34 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
+        public void GivenSurfaceLineSet_WhenSurfaceLineNull_ThenEntryAndExitPointsNaN()
+        {
+            // Given
+            PipingInput input = new PipingInput(new GeneralPipingInput());
+
+            RingtoetsPipingSurfaceLine surfaceLine = new RingtoetsPipingSurfaceLine();
+            surfaceLine.SetGeometry(new[]
+            {
+                new Point3D(0, 0, 0),
+                new Point3D(1, 0, 2),
+                new Point3D(2, 0, 3),
+                new Point3D(3, 0, 0),
+                new Point3D(4, 0, 2),
+                new Point3D(5, 0, 3)
+            });
+            input.SurfaceLine = surfaceLine;
+            input.ExitPointL = (RoundedDouble) 5;
+            input.EntryPointL = (RoundedDouble) 4;
+
+            // When
+            input.SurfaceLine = null;
+
+            // Then
+            Assert.IsNaN(input.EntryPointL);
+            Assert.IsNaN(input.ExitPointL);
+        }
+
+        [Test]
         public void PhreaticLevelExit_SetNewValue_UpdateMeanAndStandardDeviation()
         {
             // Setup

@@ -233,6 +233,7 @@ namespace Ringtoets.Piping.Data
         {
             if (SurfaceLine == null)
             {
+                EntryPointL = RoundedDouble.NaN;
                 ExitPointL = RoundedDouble.NaN;
             }
             else

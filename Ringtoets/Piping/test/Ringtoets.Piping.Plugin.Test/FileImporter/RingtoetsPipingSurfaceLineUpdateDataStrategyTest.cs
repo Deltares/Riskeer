@@ -128,6 +128,103 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         }
 
         [Test]
+        public void UpdateSurfaceLinesWithImportedData_OnlyGeometryChanged_UpdatesGeometryOnly()
+        {
+            // Setup
+            RingtoetsPipingSurfaceLine surfaceLine = CreateValidSurfaceLineForCalculations();
+
+            RingtoetsPipingSurfaceLine surfaceLineToUpdateFrom = CreateValidSurfaceLineForCalculations();
+            var expectedGeometry = new List<Point3D>
+            {
+                new Point3D(0, 1, 2),
+                new Point3D(3, 4, 5),
+                new Point3D(6, 7, 8)
+            };
+            expectedGeometry.AddRange(surfaceLine.Points);
+            surfaceLineToUpdateFrom.SetGeometry(expectedGeometry);
+
+            var targetCollection = new RingtoetsPipingSurfaceLineCollection();
+            targetCollection.AddRange(new[]
+            {
+                surfaceLine
+            }, sourceFilePath);
+            var strategy = new RingtoetsPipingSurfaceLineUpdateDataStrategy(new PipingFailureMechanism());
+
+            // Call
+            strategy.UpdateSurfaceLinesWithImportedData(targetCollection,
+                                                        new[]
+                                                        {
+                                                            surfaceLineToUpdateFrom
+                                                        },
+                                                        sourceFilePath);
+
+            // Assert
+            Assert.AreEqual(surfaceLineToUpdateFrom.Name, surfaceLine.Name);
+            CollectionAssert.AreEqual(surfaceLineToUpdateFrom.Points, surfaceLine.Points);
+            AssertCharacteristicPoints(surfaceLineToUpdateFrom, surfaceLine);
+        }
+
+        [Test]
+        public void UpdateSurfaceLinesWithImportedData_OnlyCharacteristicPointsChanged_UpdatesCharacteristicPointsOnly()
+        {
+            // Setup
+            RingtoetsPipingSurfaceLine surfaceLine = CreateValidSurfaceLineForCalculations();
+            var surfaceLineToUpdateFrom = new RingtoetsPipingSurfaceLine
+            {
+                Name = surfaceLine.Name
+            };
+            surfaceLineToUpdateFrom.SetGeometry(surfaceLine.Points);
+
+            var targetCollection = new RingtoetsPipingSurfaceLineCollection();
+            targetCollection.AddRange(new[]
+            {
+                surfaceLine
+            }, sourceFilePath);
+            var strategy = new RingtoetsPipingSurfaceLineUpdateDataStrategy(new PipingFailureMechanism());
+
+            // Call
+            strategy.UpdateSurfaceLinesWithImportedData(targetCollection,
+                                                        new[]
+                                                        {
+                                                            surfaceLineToUpdateFrom
+                                                        },
+                                                        sourceFilePath);
+
+            // Assert
+            Assert.AreEqual(surfaceLineToUpdateFrom.Name, surfaceLine.Name);
+            CollectionAssert.AreEqual(surfaceLineToUpdateFrom.Points, surfaceLine.Points);
+            AssertCharacteristicPoints(surfaceLineToUpdateFrom, surfaceLine);
+        }
+
+        [Test]
+        public void UpdateSurfaceLinesWithImportedData_GeometryAndCharacteristicPointsChanged_UpdatesGeometryAndCharacteristicPoints()
+        {
+            // Setup
+            RingtoetsPipingSurfaceLine surfaceLine = CreateValidSurfaceLineForCalculations();
+            RingtoetsPipingSurfaceLine surfaceLineToUpdateFrom = DeepCloneAndModifyPoints(surfaceLine);
+
+            var targetCollection = new RingtoetsPipingSurfaceLineCollection();
+            targetCollection.AddRange(new[]
+            {
+                surfaceLine
+            }, sourceFilePath);
+            var strategy = new RingtoetsPipingSurfaceLineUpdateDataStrategy(new PipingFailureMechanism());
+
+            // Call
+            strategy.UpdateSurfaceLinesWithImportedData(targetCollection,
+                                                        new[]
+                                                        {
+                                                            surfaceLineToUpdateFrom
+                                                        },
+                                                        sourceFilePath);
+
+            // Assert
+            Assert.AreEqual(surfaceLineToUpdateFrom.Name, surfaceLine.Name);
+            CollectionAssert.AreEqual(surfaceLineToUpdateFrom.Points, surfaceLine.Points);
+            AssertCharacteristicPoints(surfaceLineToUpdateFrom, surfaceLine);
+        }
+
+        [Test]
         public void UpdateSurfaceLinesWithImportedData_WithoutCurrentSurfaceLinesAndReadLinesHaveDuplicateNames_ThrowsUpdateException()
         {
             // Setup
@@ -307,14 +404,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                 targetSurfaceLine
             }, sourceFilePath);
 
-            Point3D[] expectedGeometry =
-            {
-                new Point3D(0, 1, 2),
-                new Point3D(3, 4, 5),
-                new Point3D(6, 7, 8)
-            };
-            RingtoetsPipingSurfaceLine readSurfaceLine = DeepCloneSurfaceLine(targetSurfaceLine);
-            readSurfaceLine.SetGeometry(expectedGeometry);
+            RingtoetsPipingSurfaceLine readSurfaceLine = DeepCloneAndModifyPoints(targetSurfaceLine);
             var readSurfacelines = new[]
             {
                 readSurfaceLine
@@ -330,7 +420,8 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             // Assert
             Assert.AreEqual(1, targetCollection.Count);
             Assert.AreSame(targetSurfaceLine, targetCollection[0]);
-            CollectionAssert.AreEqual(expectedGeometry, targetSurfaceLine.Points);
+            Assert.AreEqual(readSurfaceLine, targetSurfaceLine);
+
             CollectionAssert.AreEqual(new[]
             {
                 targetSurfaceLine
@@ -374,6 +465,8 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             // Assert
             Assert.AreEqual(1, surfaceLineCollection.Count);
             Assert.AreSame(readSurfaceLine, surfaceLineCollection[0]);
+            Assert.AreEqual(readSurfaceLine, surfaceLineCollection[0]);
+
             CollectionAssert.AreEqual(new[]
             {
                 surfaceLineCollection
@@ -406,7 +499,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                 surfaceLineTwo
             }, sourceFilePath);
 
-            RingtoetsPipingSurfaceLine readSurfaceLineOne = DeepCloneSurfaceLine(surfaceLineOne);
+            RingtoetsPipingSurfaceLine readSurfaceLineOne = DeepCloneAndModifyPoints(surfaceLineOne);
             var readSurfaceLineTwo = new RingtoetsPipingSurfaceLine
             {
                 Name = addedSurfaceLineName
@@ -431,11 +524,19 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                 readSurfaceLineTwo
             };
             CollectionAssert.AreEqual(expectedSurfaceLineCollection, surfaceLineCollection);
-            Assert.AreSame(surfaceLineOne, surfaceLineCollection[0]);
-            Assert.AreSame(readSurfaceLineTwo, surfaceLineCollection[1]);
-            CollectionAssert.AreEqual(new[]
+
+            RingtoetsPipingSurfaceLine updatedSurfaceLine = surfaceLineCollection[0];
+            Assert.AreSame(surfaceLineOne, updatedSurfaceLine);
+            Assert.AreEqual(readSurfaceLineOne, updatedSurfaceLine);
+
+            RingtoetsPipingSurfaceLine addedSurfaceLine = surfaceLineCollection[1];
+            Assert.AreSame(readSurfaceLineTwo, addedSurfaceLine);
+            Assert.AreEqual(readSurfaceLineTwo, addedSurfaceLine);
+
+            CollectionAssert.AreEquivalent(new IObservable[]
             {
-                surfaceLineCollection
+                readSurfaceLineOne,
+                surfaceLineCollection,
             }, affectedObjects);
         }
 
@@ -537,13 +638,8 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             failureMechanism.CalculationsGroup.Children.Add(affectedCalculation);
             failureMechanism.CalculationsGroup.Children.Add(unAffectedCalculation);
 
-            RingtoetsPipingSurfaceLine importedAffectedSurfaceLine = DeepCloneSurfaceLine(affectedSurfaceLine);
-            importedAffectedSurfaceLine.SetGeometry(new[]
-            {
-                new Point3D(0, 0, 0),
-                new Point3D(10, 0, 0)
-            });
-            RingtoetsPipingSurfaceLine importedUnaffectedSurfaceLine = DeepCloneSurfaceLine(unaffectedSurfaceLine);
+            RingtoetsPipingSurfaceLine importedAffectedSurfaceLine = DeepCloneAndModifyPoints(affectedSurfaceLine);
+            RingtoetsPipingSurfaceLine importedUnaffectedSurfaceLine = DeepCloneName(unaffectedSurfaceLine);
             importedUnaffectedSurfaceLine.SetGeometry(unaffectedGeometry);
 
             var strategy = new RingtoetsPipingSurfaceLineUpdateDataStrategy(failureMechanism);
@@ -560,12 +656,12 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Assert.IsTrue(unAffectedCalculation.HasOutput);
             PipingInput unaffectedInput = unAffectedCalculation.InputParameters;
             Assert.AreSame(unaffectedSurfaceLine, unaffectedInput.SurfaceLine);
-            CollectionAssert.AreEqual(unaffectedGeometry, unaffectedSurfaceLine.Points);
+            Assert.AreEqual(unaffectedSurfaceLine, unaffectedInput.SurfaceLine);
 
             Assert.IsFalse(affectedCalculation.HasOutput);
             PipingInput affectedInput = affectedCalculation.InputParameters;
             Assert.AreSame(affectedSurfaceLine, affectedInput.SurfaceLine);
-            CollectionAssert.AreEqual(importedAffectedSurfaceLine.Points, affectedSurfaceLine.Points);
+            Assert.AreEqual(affectedSurfaceLine, affectedInput.SurfaceLine);
 
             CollectionAssert.AreEquivalent(new IObservable[]
             {
@@ -624,7 +720,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             failureMechanism.StochasticSoilModels.AddRange(soilModels, "path");
             failureMechanism.CalculationsGroup.Children.Add(calculation);
 
-            RingtoetsPipingSurfaceLine importedSurfaceLine = DeepCloneSurfaceLine(surfaceLine);
+            RingtoetsPipingSurfaceLine importedSurfaceLine = DeepCloneName(surfaceLine);
             importedSurfaceLine.SetGeometry(new[]
             {
                 new Point3D(0, 0, 0),
@@ -714,7 +810,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             }, "path");
             failureMechanism.StochasticSoilModels.AddRange(soilModels, "path");
 
-            RingtoetsPipingSurfaceLine importedSurfaceLine = DeepCloneSurfaceLine(surfaceLine);
+            RingtoetsPipingSurfaceLine importedSurfaceLine = DeepCloneName(surfaceLine);
             importedSurfaceLine.SetGeometry(new[]
             {
                 new Point3D(0, 0, 0),
@@ -818,7 +914,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             }, "path");
             failureMechanism.StochasticSoilModels.AddRange(soilModels, "path");
 
-            RingtoetsPipingSurfaceLine importedSurfaceLine = DeepCloneSurfaceLine(affectedSurfaceLine);
+            RingtoetsPipingSurfaceLine importedSurfaceLine = DeepCloneName(affectedSurfaceLine);
             importedSurfaceLine.SetGeometry(new[]
             {
                 new Point3D(0, 0, 0),
@@ -883,12 +979,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                 affectedSurfaceLine
             }, "path");
 
-            var importedSurfaceLine = DeepCloneSurfaceLine(affectedSurfaceLine);
-            importedSurfaceLine.SetGeometry(new[]
-            {
-                new Point3D(0, 0, 0),
-                new Point3D(10, 0, 0)
-            });
+            RingtoetsPipingSurfaceLine importedSurfaceLine = DeepCloneAndModifyPoints(affectedSurfaceLine);
 
             var strategy = new RingtoetsPipingSurfaceLineUpdateDataStrategy(failureMechanism);
 
@@ -935,7 +1026,6 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                 Output = new TestPipingOutput(),
                 SemiProbabilisticOutput = new TestPipingSemiProbabilisticOutput()
             };
-            
 
             var collection = new RingtoetsPipingSurfaceLineCollection();
             collection.AddRange(new[]
@@ -946,7 +1036,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var failureMechanism = new PipingFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(affectedCalculation);
 
-            RingtoetsPipingSurfaceLine importedAffectedSurfaceLine = DeepCloneSurfaceLine(affectedSurfaceLine);
+            RingtoetsPipingSurfaceLine importedAffectedSurfaceLine = DeepCloneName(affectedSurfaceLine);
             importedAffectedSurfaceLine.SetGeometry(new[]
             {
                 new Point3D(0, 0, 0),
@@ -1007,7 +1097,6 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                 SemiProbabilisticOutput = new TestPipingSemiProbabilisticOutput()
             };
 
-
             var collection = new RingtoetsPipingSurfaceLineCollection();
             collection.AddRange(new[]
             {
@@ -1017,7 +1106,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var failureMechanism = new PipingFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(affectedCalculation);
 
-            RingtoetsPipingSurfaceLine importedAffectedSurfaceLine = DeepCloneSurfaceLine(affectedSurfaceLine);
+            RingtoetsPipingSurfaceLine importedAffectedSurfaceLine = DeepCloneName(affectedSurfaceLine);
             importedAffectedSurfaceLine.SetGeometry(new[]
             {
                 new Point3D(0, 0, 1),
@@ -1055,23 +1144,86 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             {
                 Name = "Name A"
             };
-            surfaceLine.SetGeometry(new[]
+            var geometry = new[]
             {
-                new Point3D(1, 2, 3),
-                new Point3D(4, 5, 6)
-            });
+                new Point3D(0, 0, 0),
+                new Point3D(1, 0, 2),
+                new Point3D(2, 0, 3),
+                new Point3D(3, 0, 0),
+                new Point3D(4, 0, 2),
+                new Point3D(5, 0, 3)
+            };
+            surfaceLine.SetGeometry(geometry);
+            surfaceLine.SetBottomDitchDikeSideAt(geometry[0]);
+            surfaceLine.SetBottomDitchPolderSideAt(geometry[1]);
+            surfaceLine.SetDikeToeAtPolderAt(geometry[2]);
+            surfaceLine.SetDikeToeAtRiverAt(geometry[3]);
+            surfaceLine.SetDitchDikeSideAt(geometry[4]);
+            surfaceLine.SetDitchPolderSideAt(geometry[5]);
+
             return surfaceLine;
         }
 
-        private static RingtoetsPipingSurfaceLine DeepCloneSurfaceLine(RingtoetsPipingSurfaceLine surfaceLine)
+        /// <summary>
+        /// Makes a deepclone of <paramref name="surfaceLine"/> 
+        /// and only copies the name <see cref="RingtoetsPipingSurfaceLine.Name"/>
+        /// property.
+        /// </summary>
+        /// <param name="surfaceLine">The <see cref="RingtoetsPipingSurfaceLine"/> 
+        /// which needs to be deeplconed.</param>
+        /// <returns>A deepclone of <paramref name="surfaceLine"/> with
+        /// only the name property copied.</returns>
+        private static RingtoetsPipingSurfaceLine DeepCloneName(RingtoetsPipingSurfaceLine surfaceLine)
+        {
+            return new RingtoetsPipingSurfaceLine
+            {
+                Name = surfaceLine.Name
+            };
+        }
+
+        /// <summary>
+        /// Makes a deepclone of the <paramref name="surfaceLine"/> and sets a 
+        /// new geometry and characteristic points.
+        /// </summary>
+        /// <param name="surfaceLine">The <see cref="RingtoetsPipingSurfaceLine"/> 
+        /// which needs to be deepcloned and modified.</param>
+        /// <returns>A deepclone of <paramref name="surfaceLine"/> with modified 
+        /// geometric and characteristic points</returns>
+        private static RingtoetsPipingSurfaceLine DeepCloneAndModifyPoints(RingtoetsPipingSurfaceLine surfaceLine)
         {
             var copiedLine = new RingtoetsPipingSurfaceLine
             {
                 Name = surfaceLine.Name
             };
-            copiedLine.SetGeometry(surfaceLine.Points);
+
+            var newGeometry = new[]
+            {
+                new Point3D(6, 0, 10),
+                new Point3D(7, 0, 11),
+                new Point3D(8, 0, 12),
+                new Point3D(9, 0, 13),
+                new Point3D(10, 0, 14),
+                new Point3D(11, 0, 15)
+            };
+            copiedLine.SetGeometry(newGeometry);
+            copiedLine.SetBottomDitchDikeSideAt(newGeometry[0]);
+            copiedLine.SetBottomDitchPolderSideAt(newGeometry[1]);
+            copiedLine.SetDikeToeAtPolderAt(newGeometry[2]);
+            copiedLine.SetDikeToeAtRiverAt(newGeometry[3]);
+            copiedLine.SetDitchDikeSideAt(newGeometry[4]);
+            copiedLine.SetDitchPolderSideAt(newGeometry[5]);
 
             return copiedLine;
+        }
+
+        private static void AssertCharacteristicPoints(RingtoetsPipingSurfaceLine expectedSurfaceLine, RingtoetsPipingSurfaceLine actualSurfaceLine)
+        {
+            Assert.AreEqual(expectedSurfaceLine.BottomDitchDikeSide, actualSurfaceLine.BottomDitchDikeSide);
+            Assert.AreEqual(expectedSurfaceLine.BottomDitchPolderSide, actualSurfaceLine.BottomDitchPolderSide);
+            Assert.AreEqual(expectedSurfaceLine.DikeToeAtPolder, actualSurfaceLine.DikeToeAtPolder);
+            Assert.AreEqual(expectedSurfaceLine.DikeToeAtRiver, actualSurfaceLine.DikeToeAtRiver);
+            Assert.AreEqual(expectedSurfaceLine.DitchPolderSide, actualSurfaceLine.DitchPolderSide);
+            Assert.AreEqual(expectedSurfaceLine.DitchDikeSide, actualSurfaceLine.DitchDikeSide);
         }
     }
 }
