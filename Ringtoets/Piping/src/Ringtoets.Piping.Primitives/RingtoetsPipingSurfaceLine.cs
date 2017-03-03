@@ -353,14 +353,14 @@ namespace Ringtoets.Piping.Primitives
         }
 
         /// <summary>
-        /// Updates the <see cref="RingtoetsPipingSurfaceLine"/> with the properties of 
-        /// <paramref name="fromSurfaceLine"/>.
+        /// Copies the property values of the <paramref name="fromSurfaceLine"/> to 
+        /// the <see cref="RingtoetsPipingSurfaceLine"/>.
         /// </summary>
         /// <param name="fromSurfaceLine">The <see cref="RingtoetsPipingSurfaceLine"/>
         /// to get the property values from.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="fromSurfaceLine"/>
         /// is <c>null</c>.</exception>
-        public void Update(RingtoetsPipingSurfaceLine fromSurfaceLine)
+        public void CopyProperties(RingtoetsPipingSurfaceLine fromSurfaceLine)
         {
             if (fromSurfaceLine == null)
             {
@@ -369,6 +369,8 @@ namespace Ringtoets.Piping.Primitives
 
             Name = fromSurfaceLine.Name;
             SetGeometry(fromSurfaceLine.Points);
+            ClearCharacteristicPoints();
+            SetCharacteristicPoints(fromSurfaceLine);
         }
 
         public override bool Equals(object obj)
@@ -397,14 +399,76 @@ namespace Ringtoets.Piping.Primitives
                 {
                     hashCode = (hashCode * 397) ^ point.GetHashCode();
                 }
+
+                hashCode = (hashCode * 397) ^ (DikeToeAtPolder?.GetHashCode() ?? 0);
+                hashCode = (hashCode * 397) ^ (DikeToeAtRiver?.GetHashCode() ?? 0);
+                hashCode = (hashCode * 397) ^ (DitchDikeSide?.GetHashCode() ?? 0);
+                hashCode = (hashCode * 397) ^ (DitchPolderSide?.GetHashCode() ?? 0);
+                hashCode = (hashCode * 397) ^ (BottomDitchDikeSide?.GetHashCode() ?? 0);
+                hashCode = (hashCode * 397) ^ (BottomDitchPolderSide?.GetHashCode() ?? 0);
+
                 return hashCode;
             }
+        }
+
+        public override string ToString()
+        {
+            return Name;
+        }
+
+        private void SetCharacteristicPoints(RingtoetsPipingSurfaceLine fromSurfaceLine)
+        {
+            if (fromSurfaceLine.BottomDitchDikeSide != null)
+            {
+                SetBottomDitchDikeSideAt(fromSurfaceLine.BottomDitchDikeSide);
+            }
+            if (fromSurfaceLine.BottomDitchPolderSide != null)
+            {
+                SetBottomDitchPolderSideAt(fromSurfaceLine.BottomDitchPolderSide);
+            }
+            if (fromSurfaceLine.DikeToeAtPolder != null)
+            {
+                SetDikeToeAtPolderAt(fromSurfaceLine.DikeToeAtPolder);
+            }
+            if (fromSurfaceLine.DikeToeAtRiver != null)
+            {
+                SetDikeToeAtRiverAt(fromSurfaceLine.DikeToeAtRiver);
+            }
+            if (fromSurfaceLine.DitchDikeSide != null)
+            {
+                SetDitchDikeSideAt(fromSurfaceLine.DitchDikeSide);
+            }
+            if (fromSurfaceLine.DitchPolderSide != null)
+            {
+                SetDitchPolderSideAt(fromSurfaceLine.DitchPolderSide);
+            }
+        }
+
+        private void ClearCharacteristicPoints()
+        {
+            BottomDitchDikeSide = null;
+            BottomDitchPolderSide = null;
+            DikeToeAtPolder = null;
+            DikeToeAtRiver = null;
+            DitchDikeSide = null;
+            DitchPolderSide = null;
         }
 
         private bool Equals(RingtoetsPipingSurfaceLine other)
         {
             return string.Equals(Name, other.Name)
-                   && EqualPoints(other.Points);
+                   && EqualPoints(other.Points)
+                   && EqualCharacteristicPoints(other);
+        }
+
+        private bool EqualCharacteristicPoints(RingtoetsPipingSurfaceLine other)
+        {
+            return Equals(DikeToeAtPolder, other.DikeToeAtPolder)
+                   && Equals(DikeToeAtRiver, other.DikeToeAtRiver)
+                   && Equals(DitchDikeSide, other.DitchDikeSide)
+                   && Equals(DitchPolderSide, other.DitchPolderSide)
+                   && Equals(BottomDitchDikeSide, other.BottomDitchDikeSide)
+                   && Equals(BottomDitchPolderSide, other.BottomDitchPolderSide);
         }
 
         private bool EqualPoints(Point3D[] otherPoints)
@@ -423,11 +487,6 @@ namespace Ringtoets.Piping.Primitives
                 }
             }
             return true;
-        }
-
-        public override string ToString()
-        {
-            return Name;
         }
 
         /// <summary>

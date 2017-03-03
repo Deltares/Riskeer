@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Data;
@@ -727,13 +728,13 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void Update_WithNullModel_ThrowsArgumentNullException()
+        public void CopyProperties_WithSurfaceLineNull_ThrowsArgumentNullException()
         {
             // Setup
             var surfaceLine = new RingtoetsPipingSurfaceLine();
 
             // Call
-            TestDelegate call = () => surfaceLine.Update(null);
+            TestDelegate call = () => surfaceLine.CopyProperties(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -741,31 +742,64 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void Update_ModelWithUpdatedProperties_PropertiesUpdated()
+        public void CopyProperties_LineWithUpdatedGeometricPoints_PropertiesUpdated()
         {
             // Setup
-            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            RingtoetsPipingSurfaceLine surfaceLine = CreateSurfaceLineWithCharacteristicPoints();
 
-            const string expectedName = "Other name";
-            Point3D[] expectedGeometry =
+            RingtoetsPipingSurfaceLine surfaceLineToUpdateFrom = CreateSurfaceLineWithCharacteristicPoints();
+            var expectedGeometry = new List<Point3D>
             {
                 new Point3D(0, 1, 2),
                 new Point3D(3, 4, 5),
                 new Point3D(6, 7, 8)
             };
-
-            var surfaceLineToUpdateFrom = new RingtoetsPipingSurfaceLine
-            {
-                Name = expectedName
-            };
+            expectedGeometry.AddRange(surfaceLine.Points);
             surfaceLineToUpdateFrom.SetGeometry(expectedGeometry);
 
             // Call
-            surfaceLine.Update(surfaceLineToUpdateFrom);
+            surfaceLine.CopyProperties(surfaceLineToUpdateFrom);
 
             // Assert
-            Assert.AreEqual(expectedName, surfaceLine.Name);
+            Assert.AreEqual(surfaceLineToUpdateFrom.Name, surfaceLine.Name);
             CollectionAssert.AreEqual(expectedGeometry, surfaceLine.Points);
+            AssertCharacteristicPoints(surfaceLineToUpdateFrom, surfaceLine);
+        }
+
+        [Test]
+        public void CopyProperties_LineUpdatedWithRemovedCharacteristicPoints_PropertiesUpdated()
+        {
+            // Setup
+            RingtoetsPipingSurfaceLine surfaceLine = CreateSurfaceLineWithCharacteristicPoints();
+            var surfaceLineToUpdateFrom = new RingtoetsPipingSurfaceLine
+            {
+                Name = surfaceLine.Name
+            };
+            surfaceLineToUpdateFrom.SetGeometry(surfaceLine.Points);
+
+            // Call
+            surfaceLine.CopyProperties(surfaceLineToUpdateFrom);
+
+            // Assert
+            Assert.AreEqual(surfaceLineToUpdateFrom.Name, surfaceLine.Name);
+            CollectionAssert.AreEqual(surfaceLineToUpdateFrom.Points, surfaceLine.Points);
+            AssertCharacteristicPoints(surfaceLineToUpdateFrom, surfaceLine);
+        }
+
+        [Test]
+        public void CopyProperties_LineWithUpdatedGeometryAndCharacteristicPoints_PropertiesUpdated()
+        {
+            // Setup
+            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            RingtoetsPipingSurfaceLine surfaceLineToUpdateFrom = CreateSurfaceLineWithCharacteristicPoints();
+
+            // Call
+            surfaceLine.CopyProperties(surfaceLineToUpdateFrom);
+
+            // Assert
+            Assert.AreEqual(surfaceLineToUpdateFrom.Name, surfaceLine.Name);
+            CollectionAssert.AreEqual(surfaceLineToUpdateFrom.Points, surfaceLine.Points);
+            AssertCharacteristicPoints(surfaceLineToUpdateFrom, surfaceLine);
         }
 
         [Test]
@@ -837,15 +871,11 @@ namespace Ringtoets.Piping.Data.Test
         public void Equals_DifferentNames_ReturnsFalse()
         {
             // Setup
-            var surfaceLineOne = new RingtoetsPipingSurfaceLine
-            {
-                Name = "Name A"
-            };
+            RingtoetsPipingSurfaceLine surfaceLineOne = CreateSurfaceLineWithCharacteristicPoints();
+            surfaceLineOne.Name = "Name A";
 
-            var surfaceLineTwo = new RingtoetsPipingSurfaceLine
-            {
-                Name = "Name B"
-            };
+            RingtoetsPipingSurfaceLine surfaceLineTwo = CreateSurfaceLineWithCharacteristicPoints();
+            surfaceLineTwo.Name = "Name B";
 
             // Call
             bool isLineOneEqualToLineTwo = surfaceLineOne.Equals(surfaceLineTwo);
@@ -888,26 +918,119 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void Equals_NamesAndGeometriesEqual_ReturnsTrue()
+        public void Equals_DifferentBottomDitchDikeSide_ReturnsFalse()
         {
             // Setup
-            var surfaceLineOne = new RingtoetsPipingSurfaceLine
-            {
-                Name = "Name A"
-            };
-            surfaceLineOne.SetGeometry(new[]
-            {
-                new Point3D(1, 2, 3)
-            });
+            RingtoetsPipingSurfaceLine surfaceLineOne = CreateSurfaceLineWithCharacteristicPoints();
+            RingtoetsPipingSurfaceLine surfaceLineTwo = CreateSurfaceLineWithCharacteristicPoints();
+            Point3D[] points = surfaceLineTwo.Points.ToArray();
+            surfaceLineTwo.SetBottomDitchDikeSideAt(points[5]);
 
-            var surfaceLineTwo = new RingtoetsPipingSurfaceLine
-            {
-                Name = "Name A"
-            };
-            surfaceLineTwo.SetGeometry(new[]
-            {
-                new Point3D(1, 2, 3)
-            });
+            // Call
+            bool isLineOneEqualToLineTwo = surfaceLineOne.Equals(surfaceLineTwo);
+            bool isLineTwoEqualToLineOne = surfaceLineTwo.Equals(surfaceLineOne);
+
+            // Assert
+            Assert.IsFalse(isLineOneEqualToLineTwo);
+            Assert.IsFalse(isLineTwoEqualToLineOne);
+        }
+
+        [Test]
+        public void Equals_DifferentBottomDitchPolderSide_ReturnsFalse()
+        {
+            // Setup
+            RingtoetsPipingSurfaceLine surfaceLineOne = CreateSurfaceLineWithCharacteristicPoints();
+            RingtoetsPipingSurfaceLine surfaceLineTwo = CreateSurfaceLineWithCharacteristicPoints();
+            Point3D[] points = surfaceLineTwo.Points.ToArray();
+            surfaceLineTwo.SetBottomDitchPolderSideAt(points[5]);
+
+            // Call
+            bool isLineOneEqualToLineTwo = surfaceLineOne.Equals(surfaceLineTwo);
+            bool isLineTwoEqualToLineOne = surfaceLineTwo.Equals(surfaceLineOne);
+
+            // Assert
+            Assert.IsFalse(isLineOneEqualToLineTwo);
+            Assert.IsFalse(isLineTwoEqualToLineOne);
+        }
+
+        [Test]
+        public void Equals_DifferentDikeToeAtPolder_ReturnsFalse()
+        {
+            // Setup
+            RingtoetsPipingSurfaceLine surfaceLineOne = CreateSurfaceLineWithCharacteristicPoints();
+            RingtoetsPipingSurfaceLine surfaceLineTwo = CreateSurfaceLineWithCharacteristicPoints();
+            Point3D[] points = surfaceLineTwo.Points.ToArray();
+            surfaceLineTwo.SetDikeToeAtPolderAt(points[5]);
+
+            // Call
+            bool isLineOneEqualToLineTwo = surfaceLineOne.Equals(surfaceLineTwo);
+            bool isLineTwoEqualToLineOne = surfaceLineTwo.Equals(surfaceLineOne);
+
+            // Assert
+            Assert.IsFalse(isLineOneEqualToLineTwo);
+            Assert.IsFalse(isLineTwoEqualToLineOne);
+        }
+
+        [Test]
+        public void Equals_DifferentDikeToeAtRiver_ReturnsFalse()
+        {
+            // Setup
+            RingtoetsPipingSurfaceLine surfaceLineOne = CreateSurfaceLineWithCharacteristicPoints();
+            RingtoetsPipingSurfaceLine surfaceLineTwo = CreateSurfaceLineWithCharacteristicPoints();
+            Point3D[] points = surfaceLineTwo.Points.ToArray();
+            surfaceLineTwo.SetDikeToeAtRiverAt(points[5]);
+
+            // Call
+            bool isLineOneEqualToLineTwo = surfaceLineOne.Equals(surfaceLineTwo);
+            bool isLineTwoEqualToLineOne = surfaceLineTwo.Equals(surfaceLineOne);
+
+            // Assert
+            Assert.IsFalse(isLineOneEqualToLineTwo);
+            Assert.IsFalse(isLineTwoEqualToLineOne);
+        }
+
+        [Test]
+        public void Equals_DifferentDitchDikeSide_ReturnsFalse()
+        {
+            // Setup
+            RingtoetsPipingSurfaceLine surfaceLineOne = CreateSurfaceLineWithCharacteristicPoints();
+            RingtoetsPipingSurfaceLine surfaceLineTwo = CreateSurfaceLineWithCharacteristicPoints();
+            Point3D[] points = surfaceLineTwo.Points.ToArray();
+            surfaceLineTwo.SetDitchDikeSideAt(points[1]);
+
+            // Call
+            bool isLineOneEqualToLineTwo = surfaceLineOne.Equals(surfaceLineTwo);
+            bool isLineTwoEqualToLineOne = surfaceLineTwo.Equals(surfaceLineOne);
+
+            // Assert
+            Assert.IsFalse(isLineOneEqualToLineTwo);
+            Assert.IsFalse(isLineTwoEqualToLineOne);
+        }
+
+        [Test]
+        public void Equals_DifferentDitchPolderSide_ReturnsFalse()
+        {
+            // Setup
+            RingtoetsPipingSurfaceLine surfaceLineOne = CreateSurfaceLineWithCharacteristicPoints();
+            RingtoetsPipingSurfaceLine surfaceLineTwo = CreateSurfaceLineWithCharacteristicPoints();
+            Point3D[] points = surfaceLineTwo.Points.ToArray();
+            surfaceLineTwo.SetDitchPolderSideAt(points[1]);
+
+            // Call
+            bool isLineOneEqualToLineTwo = surfaceLineOne.Equals(surfaceLineTwo);
+            bool isLineTwoEqualToLineOne = surfaceLineTwo.Equals(surfaceLineOne);
+
+            // Assert
+            Assert.IsFalse(isLineOneEqualToLineTwo);
+            Assert.IsFalse(isLineTwoEqualToLineOne);
+        }
+
+        [Test]
+        public void Equals_NamesGeometriesAndCharacteristicPointsEqual_ReturnsTrue()
+        {
+            // Setup
+            RingtoetsPipingSurfaceLine surfaceLineOne = CreateSurfaceLineWithCharacteristicPoints();
+            RingtoetsPipingSurfaceLine surfaceLineTwo = CreateSurfaceLineWithCharacteristicPoints();
 
             // Call
             bool isLineOneEqualToLineTwo = surfaceLineOne.Equals(surfaceLineTwo);
@@ -922,32 +1045,9 @@ namespace Ringtoets.Piping.Data.Test
         public void Equals_TransitivePropertyWithSameNamesAndGeometry_ReturnsTrue()
         {
             // Setup
-            var surfaceLineOne = new RingtoetsPipingSurfaceLine
-            {
-                Name = "Name A"
-            };
-            surfaceLineOne.SetGeometry(new[]
-            {
-                new Point3D(1, 2, 3)
-            });
-
-            var surfaceLineTwo = new RingtoetsPipingSurfaceLine
-            {
-                Name = "Name A"
-            };
-            surfaceLineTwo.SetGeometry(new[]
-            {
-                new Point3D(1, 2, 3)
-            });
-
-            var surfaceLineThree = new RingtoetsPipingSurfaceLine
-            {
-                Name = "Name A"
-            };
-            surfaceLineThree.SetGeometry(new[]
-            {
-                new Point3D(1, 2, 3)
-            });
+            RingtoetsPipingSurfaceLine surfaceLineOne = CreateSurfaceLineWithCharacteristicPoints();
+            RingtoetsPipingSurfaceLine surfaceLineTwo = CreateSurfaceLineWithCharacteristicPoints();
+            RingtoetsPipingSurfaceLine surfaceLineThree = CreateSurfaceLineWithCharacteristicPoints();
 
             // Call
             bool isLineOneEqualToLineTwo = surfaceLineOne.Equals(surfaceLineTwo);
@@ -964,23 +1064,8 @@ namespace Ringtoets.Piping.Data.Test
         public void GetHashCode_EqualSurfaceLines_ReturnSameHashCode()
         {
             // Setup
-            var surfaceLineOne = new RingtoetsPipingSurfaceLine
-            {
-                Name = "Name A"
-            };
-            surfaceLineOne.SetGeometry(new[]
-            {
-                new Point3D(1, 2, 3)
-            });
-
-            var surfaceLineTwo = new RingtoetsPipingSurfaceLine
-            {
-                Name = "Name A"
-            };
-            surfaceLineTwo.SetGeometry(new[]
-            {
-                new Point3D(1, 2, 3)
-            });
+            var surfaceLineOne = new RingtoetsPipingSurfaceLine();
+            var surfaceLineTwo = new RingtoetsPipingSurfaceLine();
 
             // Call
             int hashCodeOne = surfaceLineOne.GetHashCode();
@@ -988,6 +1073,42 @@ namespace Ringtoets.Piping.Data.Test
 
             // Assert
             Assert.AreEqual(hashCodeOne, hashCodeTwo);
+        }
+
+        private static RingtoetsPipingSurfaceLine CreateSurfaceLineWithCharacteristicPoints()
+        {
+            var surfaceLine = new RingtoetsPipingSurfaceLine
+            {
+                Name = "Name A"
+            };
+            var geometry = new[]
+            {
+                new Point3D(0, 0, 0),
+                new Point3D(1, 0, 2),
+                new Point3D(2, 0, 3),
+                new Point3D(3, 0, 0),
+                new Point3D(4, 0, 2),
+                new Point3D(5, 0, 3)
+            };
+            surfaceLine.SetGeometry(geometry);
+            surfaceLine.SetBottomDitchDikeSideAt(geometry[0]);
+            surfaceLine.SetBottomDitchPolderSideAt(geometry[1]);
+            surfaceLine.SetDikeToeAtPolderAt(geometry[2]);
+            surfaceLine.SetDikeToeAtRiverAt(geometry[3]);
+            surfaceLine.SetDitchDikeSideAt(geometry[4]);
+            surfaceLine.SetDitchPolderSideAt(geometry[5]);
+
+            return surfaceLine;
+        }
+
+        private static void AssertCharacteristicPoints(RingtoetsPipingSurfaceLine expectedSurfaceLine, RingtoetsPipingSurfaceLine actualSurfaceLine)
+        {
+            Assert.AreEqual(expectedSurfaceLine.BottomDitchDikeSide, actualSurfaceLine.BottomDitchDikeSide);
+            Assert.AreEqual(expectedSurfaceLine.BottomDitchPolderSide, actualSurfaceLine.BottomDitchPolderSide);
+            Assert.AreEqual(expectedSurfaceLine.DikeToeAtPolder, actualSurfaceLine.DikeToeAtPolder);
+            Assert.AreEqual(expectedSurfaceLine.DikeToeAtRiver, actualSurfaceLine.DikeToeAtRiver);
+            Assert.AreEqual(expectedSurfaceLine.DitchPolderSide, actualSurfaceLine.DitchPolderSide);
+            Assert.AreEqual(expectedSurfaceLine.DitchDikeSide, actualSurfaceLine.DitchDikeSide);
         }
 
         private static void CreateTestGeometry(Point3D testPoint, RingtoetsPipingSurfaceLine surfaceLine)

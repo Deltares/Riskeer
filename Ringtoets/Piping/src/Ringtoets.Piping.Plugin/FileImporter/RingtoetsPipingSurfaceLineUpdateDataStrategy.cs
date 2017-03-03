@@ -98,7 +98,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
 
             if (!surfaceLineToUpdate.Equals(matchingSurfaceLine))
             {
-                surfaceLineToUpdate.Update(matchingSurfaceLine);
+                surfaceLineToUpdate.CopyProperties(matchingSurfaceLine);
 
                 affectedObjects.AddRange(UpdateSurfaceLineDependentData(surfaceLineToUpdate));
                 affectedObjects.AddRange(UpdateStochasticSoilModel(surfaceLineToUpdate));
