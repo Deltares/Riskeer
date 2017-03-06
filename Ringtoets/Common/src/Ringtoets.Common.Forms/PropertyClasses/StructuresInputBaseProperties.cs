@@ -456,6 +456,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             }
         }
 
+        [DynamicReadOnly]
         [DynamicPropertyOrder]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Schematization))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_FailureProbabilityStructureWithErosion_DisplayName))]

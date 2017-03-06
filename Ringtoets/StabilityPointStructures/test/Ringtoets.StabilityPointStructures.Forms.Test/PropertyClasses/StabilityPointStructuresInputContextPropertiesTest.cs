@@ -173,6 +173,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             {
                 InputParameters =
                 {
+                    Structure = new TestStabilityPointStructure(),
                     InflowModelType = StabilityPointStructureInflowModelType.LowSill,
                     LoadSchematizationType = LoadSchematizationType.Linear
                 }
@@ -350,6 +351,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             {
                 InputParameters =
                 {
+                    Structure = new TestStabilityPointStructure(),
                     InflowModelType = StabilityPointStructureInflowModelType.LowSill,
                     LoadSchematizationType = LoadSchematizationType.Quadratic
                 }
@@ -527,6 +529,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             {
                 InputParameters =
                 {
+                    Structure = new TestStabilityPointStructure(),
                     InflowModelType = StabilityPointStructureInflowModelType.FloodedCulvert,
                     LoadSchematizationType = LoadSchematizationType.Linear
                 }
@@ -714,6 +717,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             {
                 InputParameters =
                 {
+                    Structure = new TestStabilityPointStructure(),
                     InflowModelType = StabilityPointStructureInflowModelType.FloodedCulvert,
                     LoadSchematizationType = LoadSchematizationType.Quadratic
                 }
@@ -886,6 +890,69 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             Assert.AreEqual("Stormduur [uur]", dynamicProperties[quadraticFloodedCulvertStormDurationPropertyIndex].DisplayName);
 
             mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_WithoutStructure_CorrectReadOnlyForStructureDependentProperties()
+        {
+            // Setup
+            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
+            mockRepository.ReplayAll();
+
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+            var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
+
+            var inputContext = new StabilityPointStructuresInputContext(calculation.InputParameters,
+                                                                 calculation,
+                                                                 failureMechanism,
+                                                                 assessmentSectionStub);
+
+            // Call
+            var properties = new StabilityPointStructuresInputContextProperties(inputContext, handler);
+
+            // Assert
+            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
+
+
+            PropertyDescriptor structureNormalOrientation = dynamicProperties[10];
+            Assert.IsTrue(structureNormalOrientation.IsReadOnly);
+
+            PropertyDescriptor inflowModelType = dynamicProperties[11];
+            Assert.IsTrue(inflowModelType.IsReadOnly);
+
+            PropertyDescriptor loadSchematizationType = dynamicProperties[12];
+            Assert.IsTrue(loadSchematizationType.IsReadOnly);
+
+            PropertyDescriptor levellingCount = dynamicProperties[18];
+            Assert.IsTrue(levellingCount.IsReadOnly);
+
+            PropertyDescriptor evaluationLevel = dynamicProperties[25];
+            Assert.IsTrue(evaluationLevel.IsReadOnly);
+
+            PropertyDescriptor verticalDistance = dynamicProperties[26];
+            Assert.IsTrue(verticalDistance.IsReadOnly);
+
+            PropertyDescriptor failureProbabilityRepairClosure = dynamicProperties[27];
+            Assert.IsTrue(failureProbabilityRepairClosure.IsReadOnly);
+
+            PropertyDescriptor probabilityCollisionSecondaryStructure = dynamicProperties[31];
+            Assert.IsTrue(probabilityCollisionSecondaryStructure.IsReadOnly);
+
+            AssertPropertiesInState(properties.LevelCrestStructure, true);
+            AssertPropertiesInState(properties.ThresholdHeightOpenWeir, true);
+            AssertPropertiesInState(properties.AreaFlowApertures, true);
+            AssertPropertiesInState(properties.ConstructiveStrengthLinearLoadModel, true);
+            AssertPropertiesInState(properties.ConstructiveStrengthQuadraticLoadModel, true);
+            AssertPropertiesInState(properties.StabilityLinearLoadModel, true);
+            AssertPropertiesInState(properties.StabilityQuadraticLoadModel, true);
+            AssertPropertiesInState(properties.FailureCollisionEnergy, true);
+            AssertPropertiesInState(properties.ShipMass, true);
+            AssertPropertiesInState(properties.ShipVelocity, true);
+            AssertPropertiesInState(properties.BankWidth, true);
+            AssertPropertiesInState(properties.InsideWaterLevel, true);
+            AssertPropertiesInState(properties.InsideWaterLevelFailureConstruction, true);
+            AssertPropertiesInState(properties.FlowVelocityStructureClosable, true);
         }
 
         [Test]
@@ -1563,6 +1630,15 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             Assert.IsFalse(calculation.HasOutput);
 
             mockRepository.VerifyAll();
+        }
+
+        private static void AssertPropertiesInState(object properties, bool expectedReadOnly)
+        {
+            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
+            Assert.AreEqual(3, dynamicProperties.Count);
+
+            Assert.AreEqual(expectedReadOnly, dynamicProperties[1].IsReadOnly);
+            Assert.AreEqual(expectedReadOnly, dynamicProperties[2].IsReadOnly);
         }
 
         #region LowSill + Linear Model property Indices

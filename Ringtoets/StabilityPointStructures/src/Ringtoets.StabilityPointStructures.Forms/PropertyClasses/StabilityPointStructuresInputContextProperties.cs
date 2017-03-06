@@ -210,7 +210,9 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
             get
             {
                 return new NormalDistributionProperties(
-                    DistributionPropertiesReadOnly.None,
+                    HasStructure()
+                        ? DistributionPropertiesReadOnly.None
+                        : DistributionPropertiesReadOnly.All,
                     data.WrappedData.InsideWaterLevelFailureConstruction,
                     PropertyChangeHandler);
             }
@@ -226,7 +228,9 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
             get
             {
                 return new NormalDistributionProperties(
-                    DistributionPropertiesReadOnly.None,
+                    HasStructure()
+                        ? DistributionPropertiesReadOnly.None
+                        : DistributionPropertiesReadOnly.All,
                     data.WrappedData.InsideWaterLevel,
                     PropertyChangeHandler);
             }
@@ -256,7 +260,9 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
             get
             {
                 return new NormalDistributionProperties(
-                    DistributionPropertiesReadOnly.StandardDeviation,
+                    HasStructure()
+                        ? DistributionPropertiesReadOnly.StandardDeviation
+                        : DistributionPropertiesReadOnly.All,
                     data.WrappedData.DrainCoefficient,
                     PropertyChangeHandler);
             }
@@ -291,6 +297,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
             }
         }
 
+        [DynamicReadOnly]
         [PropertyOrder(inflowModelTypePropertyIndex)]
         [TypeConverter(typeof(EnumTypeConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization))]
@@ -308,6 +315,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
             }
         }
 
+        [DynamicReadOnly]
         [PropertyOrder(loadSchematizationTypePropertyIndex)]
         [TypeConverter(typeof(EnumTypeConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization))]
@@ -335,7 +343,9 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
             get
             {
                 return new NormalDistributionProperties(
-                    DistributionPropertiesReadOnly.None,
+                    HasStructure()
+                        ? DistributionPropertiesReadOnly.None
+                        : DistributionPropertiesReadOnly.All,
                     data.WrappedData.LevelCrestStructure,
                     PropertyChangeHandler);
             }
@@ -351,7 +361,9 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
             get
             {
                 return new NormalDistributionProperties(
-                    DistributionPropertiesReadOnly.None,
+                    HasStructure()
+                        ? DistributionPropertiesReadOnly.None
+                        : DistributionPropertiesReadOnly.All,
                     data.WrappedData.ThresholdHeightOpenWeir,
                     PropertyChangeHandler);
             }
@@ -359,15 +371,17 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
 
         [PropertyOrder(flowVelocityStructureClosablePropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
-        [ResourcesDisplayName(typeof(Resources), "Structure_FlowVelocityStructureClosable_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "Structure_FlowVelocityStructureClosable_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_FlowVelocityStructureClosable_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_FlowVelocityStructureClosable_Description))]
         public VariationCoefficientNormalDistributionProperties FlowVelocityStructureClosable
         {
             get
             {
                 return new VariationCoefficientNormalDistributionProperties(
-                    VariationCoefficientDistributionPropertiesReadOnly.CoefficientOfVariation,
+                    HasStructure()
+                        ? VariationCoefficientDistributionPropertiesReadOnly.CoefficientOfVariation
+                        : VariationCoefficientDistributionPropertiesReadOnly.All,
                     data.WrappedData.FlowVelocityStructureClosable,
                     PropertyChangeHandler);
             }
@@ -384,7 +398,9 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
             get
             {
                 return new LogNormalDistributionProperties(
-                    DistributionPropertiesReadOnly.None,
+                    HasStructure()
+                        ? DistributionPropertiesReadOnly.None
+                        : DistributionPropertiesReadOnly.All,
                     data.WrappedData.AreaFlowApertures,
                     PropertyChangeHandler);
             }
@@ -401,7 +417,9 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
             get
             {
                 return new VariationCoefficientLogNormalDistributionProperties(
-                    VariationCoefficientDistributionPropertiesReadOnly.None,
+                    HasStructure()
+                        ? VariationCoefficientDistributionPropertiesReadOnly.None
+                        : VariationCoefficientDistributionPropertiesReadOnly.All,
                     data.WrappedData.ConstructiveStrengthLinearLoadModel,
                     PropertyChangeHandler);
             }
@@ -418,7 +436,9 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
             get
             {
                 return new VariationCoefficientLogNormalDistributionProperties(
-                    VariationCoefficientDistributionPropertiesReadOnly.None,
+                    HasStructure()
+                        ? VariationCoefficientDistributionPropertiesReadOnly.None
+                        : VariationCoefficientDistributionPropertiesReadOnly.All,
                     data.WrappedData.ConstructiveStrengthQuadraticLoadModel,
                     PropertyChangeHandler);
             }
@@ -435,7 +455,9 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
             get
             {
                 return new VariationCoefficientLogNormalDistributionProperties(
-                    VariationCoefficientDistributionPropertiesReadOnly.None,
+                    HasStructure()
+                        ? VariationCoefficientDistributionPropertiesReadOnly.None
+                        : VariationCoefficientDistributionPropertiesReadOnly.All,
                     data.WrappedData.StabilityLinearLoadModel,
                     PropertyChangeHandler);
             }
@@ -452,12 +474,15 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
             get
             {
                 return new VariationCoefficientLogNormalDistributionProperties(
-                    VariationCoefficientDistributionPropertiesReadOnly.None,
+                    HasStructure()
+                        ? VariationCoefficientDistributionPropertiesReadOnly.None
+                        : VariationCoefficientDistributionPropertiesReadOnly.All,
                     data.WrappedData.StabilityQuadraticLoadModel,
                     PropertyChangeHandler);
             }
         }
 
+        [DynamicReadOnly]
         [PropertyOrder(failureProbabilityRepairClosurePropertyIndex)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_FailureProbabilityRepairClosure_DisplayName))]
@@ -487,7 +512,9 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
             get
             {
                 return new VariationCoefficientLogNormalDistributionProperties(
-                    VariationCoefficientDistributionPropertiesReadOnly.None,
+                    HasStructure()
+                        ? VariationCoefficientDistributionPropertiesReadOnly.None
+                        : VariationCoefficientDistributionPropertiesReadOnly.All,
                     data.WrappedData.FailureCollisionEnergy,
                     PropertyChangeHandler);
             }
@@ -503,7 +530,9 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
             get
             {
                 return new VariationCoefficientNormalDistributionProperties(
-                    VariationCoefficientDistributionPropertiesReadOnly.None,
+                    HasStructure()
+                        ? VariationCoefficientDistributionPropertiesReadOnly.None
+                        : VariationCoefficientDistributionPropertiesReadOnly.All,
                     data.WrappedData.ShipMass,
                     PropertyChangeHandler);
             }
@@ -519,12 +548,15 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
             get
             {
                 return new VariationCoefficientNormalDistributionProperties(
-                    VariationCoefficientDistributionPropertiesReadOnly.None,
+                    HasStructure()
+                        ? VariationCoefficientDistributionPropertiesReadOnly.None
+                        : VariationCoefficientDistributionPropertiesReadOnly.All,
                     data.WrappedData.ShipVelocity,
                     PropertyChangeHandler);
             }
         }
 
+        [DynamicReadOnly]
         [PropertyOrder(levellingCountPropertyIndex)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_LevellingCount_DisplayName))]
@@ -541,6 +573,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
             }
         }
 
+        [DynamicReadOnly]
         [PropertyOrder(probabilityCollisionSecondaryStructurePropertyIndex)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_ProbabilityCollisionSecondaryStructure_DisplayName))]
@@ -570,12 +603,15 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
             get
             {
                 return new NormalDistributionProperties(
-                    DistributionPropertiesReadOnly.None,
+                    HasStructure()
+                        ? DistributionPropertiesReadOnly.None
+                        : DistributionPropertiesReadOnly.All,
                     data.WrappedData.BankWidth,
                     PropertyChangeHandler);
             }
         }
 
+        [DynamicReadOnly]
         [PropertyOrder(evaluationLevelPropertyIndex)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_EvaluationLevel_DisplayName))]
@@ -592,6 +628,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
             }
         }
 
+        [DynamicReadOnly]
         [PropertyOrder(verticalDistancePropertyIndex)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_VerticalDistance_DisplayName))]
@@ -609,5 +646,38 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
         }
 
         #endregion
+
+        public override bool IsReadOnly(string property)
+        {
+            if (property == nameof(InflowModelType))
+            {
+                return !HasStructure();
+            }
+            if (property == nameof(LoadSchematizationType))
+            {
+                return !HasStructure();
+            }
+            if (property == nameof(LevellingCount))
+            {
+                return !HasStructure();
+            }
+            if (property == nameof(EvaluationLevel))
+            {
+                return !HasStructure();
+            }
+            if (property == nameof(VerticalDistance))
+            {
+                return !HasStructure();
+            }
+            if (property == nameof(FailureProbabilityRepairClosure))
+            {
+                return !HasStructure();
+            }
+            if (property == nameof(ProbabilityCollisionSecondaryStructure))
+            {
+                return !HasStructure();
+            }
+            return base.IsReadOnly(property);
+        }
     }
 }

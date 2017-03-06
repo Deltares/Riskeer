@@ -217,7 +217,13 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             var properties = new HeightStructuresInputContextProperties(inputContext, handler);
 
             // Assert
-            AssertPropertiesInState(properties.LevelCrestStructure, !hasStructure);
+            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
+            bool expectedReadOnly = !hasStructure;
+
+            PropertyDescriptor failureProbabilityStructureWithErosionProperty = dynamicProperties[failureProbabilityStructureWithErosionPropertyIndex];
+            Assert.AreEqual(expectedReadOnly, failureProbabilityStructureWithErosionProperty.IsReadOnly);
+
+            AssertPropertiesInState(properties.LevelCrestStructure, expectedReadOnly);
 
             mockRepository.VerifyAll();
         }

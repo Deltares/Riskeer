@@ -1172,33 +1172,6 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
 
         #region Property indices
 
-//        #region No structure indices
-//
-//        private const int verticalWallHydraulicBoundaryLocationPropertyIndex = 0;
-//        private const int verticalWallStormDurationPropertyIndex = 1;
-//        private const int verticalWallStructurePropertyIndex = 2;
-//        private const int verticalWallStructureLocationPropertyIndex = 3;
-//        private const int verticalWallStructureNormalOrientationPropertyIndex = 4;
-//        private const int verticalWallInflowModelTypePropertyIndex = 5;
-//        private const int verticalWallWidthFlowAperturesPropertyIndex = 6;
-//        private const int verticalWallIdenticalAperturesPropertyIndex = 7;
-//        private const int verticalWallFlowWidthAtBottomProtectionPropertyIndex = 8;
-//        private const int verticalWallStorageStructureAreaPropertyIndex = 9;
-//        private const int verticalWallAllowedLevelIncreaseStoragePropertyIndex = 10;
-//        private const int verticalWallLevelCrestStructureNotClosingPropertyIndex = 11;
-//        private const int verticalWallCriticalOvertoppingDischargePropertyIndex = 12;
-//        private const int verticalWallProbabilityOrFrequencyOpenStructureBeforeFloodingPropertyIndex = 13;
-//        private const int verticalWallFailureProbabilityOpenStructurePropertyIndex = 14;
-//        private const int verticalWallFailureProbabilityReparationPropertyIndex = 15;
-//        private const int verticalWallFailureProbabilityStructureWithErosionPropertyIndex = 16;
-//        private const int verticalWallForeshoreProfilePropertyIndex = 17;
-//        private const int verticalWallUseBreakWaterPropertyIndex = 18;
-//        private const int verticalWallUseForeshorePropertyIndex = 19;
-//        private const int verticalWallModelFactorSuperCriticalFlowPropertyIndex = 20;
-//        private const int verticalWallFactorStormDurationOpenStructurePropertyIndex = 21;
-//
-//        #endregion
-
         #region VerticalWall structures indices
 
         private const int verticalWallHydraulicBoundaryLocationPropertyIndex = 0;

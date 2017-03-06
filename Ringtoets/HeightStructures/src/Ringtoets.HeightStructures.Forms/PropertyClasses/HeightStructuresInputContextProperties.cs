@@ -109,6 +109,15 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
 
         #endregion
 
+        public override bool IsReadOnly(string property)
+        {
+            if (property == nameof(FailureProbabilityStructureWithErosion))
+            {
+                return !HasStructure();
+            }
+            return base.IsReadOnly(property);
+        }
+
         public override IEnumerable<ForeshoreProfile> GetAvailableForeshoreProfiles()
         {
             return data.FailureMechanism.ForeshoreProfiles;
