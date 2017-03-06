@@ -184,12 +184,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             const string hydraulicDataCategory = "Hydraulische gegevens";
             const string modelSettingsCategory = "Modelinstellingen";
 
-            var dynamicPropertyBag = new DynamicPropertyBag(properties);
-            PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties(
-                new Attribute[]
-                {
-                    new BrowsableAttribute(true)
-                });
+            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
             Assert.AreEqual(15, dynamicProperties.Count);
 
             PropertyDescriptor structureProperty = dynamicProperties[constructionProperties.StructurePropertyIndex];
@@ -205,7 +200,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             Assert.AreEqual("De coördinaten van de locatie van het kunstwerk in het Rijksdriehoeksstelsel.", structureLocationProperty.Description);
 
             PropertyDescriptor structureNormalOrientationProperty = dynamicProperties[constructionProperties.StructureNormalOrientationPropertyIndex];
-            Assert.IsFalse(structureNormalOrientationProperty.IsReadOnly);
+            Assert.IsTrue(structureNormalOrientationProperty.IsReadOnly);
             Assert.AreEqual(schematizationCategory, structureNormalOrientationProperty.Category);
             Assert.AreEqual("Oriëntatie [°]", structureNormalOrientationProperty.DisplayName);
             Assert.AreEqual("Oriëntatie van de normaal van het kunstwerk ten opzichte van het noorden.", structureNormalOrientationProperty.Description);
@@ -285,6 +280,52 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             Assert.AreEqual("Stormduur.", stormDurationProperty.Description);
 
             mockRepository.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Constructor_WithOrWithoutStructure_CorrectReadOnlyForStructureDependentProperties(bool hasStructure)
+        {
+            // Setup
+            mockRepository.ReplayAll();
+
+            StructuresInputBaseProperties<
+                    SimpleStructure,
+                    SimpleStructureInput,
+                    StructuresCalculation<SimpleStructureInput>,
+                    IFailureMechanism>
+                .ConstructionProperties constructionProperties = GetRandomConstructionProperties();
+            var calculation = new StructuresCalculation<SimpleStructureInput>();
+            var inputContext = new SimpleInputContext(calculation.InputParameters,
+                                                      calculation,
+                                                      failureMechanism,
+                                                      assessmentSection);
+
+            if (hasStructure)
+            {
+                calculation.InputParameters.Structure = new SimpleStructure();
+            }
+
+            // Call
+            var properties = new SimpleStructuresInputProperties(
+                inputContext,
+                constructionProperties,
+                handler);
+
+            // Assert
+            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
+
+            bool expectedReadOnly = !hasStructure;
+
+            PropertyDescriptor structureNormalOrientationProperty = dynamicProperties[constructionProperties.StructureNormalOrientationPropertyIndex];
+            Assert.AreEqual(expectedReadOnly, structureNormalOrientationProperty.IsReadOnly);
+
+            AssertPropertiesInState(properties.FlowWidthAtBottomProtection, expectedReadOnly);
+            AssertPropertiesInState(properties.WidthFlowApertures, expectedReadOnly);
+            AssertPropertiesInState(properties.StorageStructureArea, expectedReadOnly);
+            AssertPropertiesInState(properties.AllowedLevelIncreaseStorage, expectedReadOnly);
+            AssertPropertiesInState(properties.CriticalOvertoppingDischarge, expectedReadOnly);
         }
 
         [Test]
@@ -1139,6 +1180,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             var calculation = new StructuresCalculation<SimpleStructureInput>();
             SimpleStructureInput input = calculation.InputParameters;
             input.ForeshoreProfile = new TestForeshoreProfile();
+            input.Structure = new SimpleStructure();
 
             var customHandler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(new[]
             {
@@ -1158,6 +1200,15 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             Assert.IsFalse(calculation.HasOutput);
 
             mockRepository.VerifyAll();
+        }
+
+        private static void AssertPropertiesInState(object properties, bool expectedReadOnly)
+        {
+            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
+            Assert.AreEqual(3, dynamicProperties.Count);
+
+            Assert.AreEqual(expectedReadOnly, dynamicProperties[1].IsReadOnly);
+            Assert.AreEqual(expectedReadOnly, dynamicProperties[2].IsReadOnly);
         }
     }
 }

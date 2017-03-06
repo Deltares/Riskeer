@@ -178,7 +178,9 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
             get
             {
                 return new NormalDistributionProperties(
-                    DistributionPropertiesReadOnly.None,
+                    HasStructure()
+                        ? DistributionPropertiesReadOnly.None
+                        : DistributionPropertiesReadOnly.All,
                     data.WrappedData.InsideWaterLevel,
                     PropertyChangeHandler);
             }
@@ -284,7 +286,9 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
             get
             {
                 return new NormalDistributionProperties(
-                    DistributionPropertiesReadOnly.None,
+                    HasStructure()
+                        ? DistributionPropertiesReadOnly.None
+                        : DistributionPropertiesReadOnly.All,
                     data.WrappedData.ThresholdHeightOpenWeir,
                     PropertyChangeHandler);
             }
@@ -301,7 +305,9 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
             get
             {
                 return new LogNormalDistributionProperties(
-                    DistributionPropertiesReadOnly.None,
+                    HasStructure()
+                        ? DistributionPropertiesReadOnly.None
+                        : DistributionPropertiesReadOnly.All,
                     data.WrappedData.AreaFlowApertures,
                     PropertyChangeHandler);
             }
@@ -372,7 +378,9 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
             get
             {
                 return new NormalDistributionProperties(
-                    DistributionPropertiesReadOnly.None,
+                    HasStructure()
+                        ? DistributionPropertiesReadOnly.None
+                        : DistributionPropertiesReadOnly.All,
                     data.WrappedData.LevelCrestStructureNotClosing,
                     PropertyChangeHandler);
             }

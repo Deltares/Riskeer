@@ -1543,6 +1543,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
             StabilityPointStructuresInput input = calculation.InputParameters;
             input.ForeshoreProfile = new TestForeshoreProfile();
+            input.Structure = new TestStabilityPointStructure();
 
             var customHandler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(new[]
             {

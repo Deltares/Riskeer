@@ -349,6 +349,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             }
         }
 
+        [DynamicReadOnly]
         [DynamicPropertyOrder]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Schematization))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_StructureNormalOrientation_DisplayName))]
@@ -375,7 +376,9 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             get
             {
                 return new LogNormalDistributionProperties(
-                    DistributionPropertiesReadOnly.None,
+                    HasStructure()
+                        ? DistributionPropertiesReadOnly.None
+                        : DistributionPropertiesReadOnly.All,
                     data.WrappedData.FlowWidthAtBottomProtection,
                     PropertyChangeHandler);
             }
@@ -391,7 +394,9 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             get
             {
                 return new NormalDistributionProperties(
-                    DistributionPropertiesReadOnly.None,
+                    HasStructure()
+                        ? DistributionPropertiesReadOnly.None
+                        : DistributionPropertiesReadOnly.All,
                     data.WrappedData.WidthFlowApertures,
                     PropertyChangeHandler);
             }
@@ -407,7 +412,9 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             get
             {
                 return new VariationCoefficientLogNormalDistributionProperties(
-                    VariationCoefficientDistributionPropertiesReadOnly.None,
+                    HasStructure()
+                        ? VariationCoefficientDistributionPropertiesReadOnly.None
+                        : VariationCoefficientDistributionPropertiesReadOnly.All,
                     data.WrappedData.StorageStructureArea,
                     PropertyChangeHandler);
             }
@@ -423,7 +430,9 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             get
             {
                 return new LogNormalDistributionProperties(
-                    DistributionPropertiesReadOnly.None,
+                    HasStructure()
+                        ? DistributionPropertiesReadOnly.None
+                        : DistributionPropertiesReadOnly.All,
                     data.WrappedData.AllowedLevelIncreaseStorage,
                     PropertyChangeHandler);
             }
@@ -439,7 +448,9 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             get
             {
                 return new VariationCoefficientLogNormalDistributionProperties(
-                    VariationCoefficientDistributionPropertiesReadOnly.None,
+                    HasStructure()
+                        ? VariationCoefficientDistributionPropertiesReadOnly.None
+                        : VariationCoefficientDistributionPropertiesReadOnly.All,
                     data.WrappedData.CriticalOvertoppingDischarge,
                     PropertyChangeHandler);
             }
@@ -550,5 +561,21 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         }
 
         #endregion
+
+        protected bool HasStructure()
+        {
+            return data.WrappedData.Structure != null;
+        }
+
+        [DynamicReadOnlyValidationMethod]
+        public bool IsReadOnly(string property)
+        {
+            if (property == nameof(StructureNormalOrientation))
+            {
+                return !HasStructure();
+            }
+
+            return false;
+        }
     }
 }

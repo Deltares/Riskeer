@@ -182,11 +182,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             const string schematizationCategory = "Schematisatie";
             const string modelSettingsCategory = "Modelinstellingen";
 
-            var dynamicPropertyBag = new DynamicPropertyBag(properties);
-            PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties(new Attribute[]
-            {
-                new BrowsableAttribute(true)
-            });
+            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
             Assert.AreEqual(22, dynamicProperties.Count);
 
             PropertyDescriptor inflowModelTypeProperty = dynamicProperties[verticalWallInflowModelTypePropertyIndex];
@@ -280,11 +276,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             const string hydraulicDataCategory = "Hydraulische gegevens";
             const string modelSettingsCategory = "Modelinstellingen";
 
-            var dynamicPropertyBag = new DynamicPropertyBag(properties);
-            PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties(new Attribute[]
-            {
-                new BrowsableAttribute(true)
-            });
+            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
             Assert.AreEqual(21, dynamicProperties.Count);
 
             PropertyDescriptor insideWaterLevelProperty = dynamicProperties[floodedCulvertInsideWaterLevelPropertyIndex];
@@ -387,11 +379,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             const string hydraulicDataCategory = "Hydraulische gegevens";
             const string modelSettingsCategory = "Modelinstellingen";
 
-            var dynamicPropertyBag = new DynamicPropertyBag(properties);
-            PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties(new Attribute[]
-            {
-                new BrowsableAttribute(true)
-            });
+            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
             Assert.AreEqual(22, dynamicProperties.Count);
 
             PropertyDescriptor insideWaterLevelProperty = dynamicProperties[lowSillInsideWaterLevelPropertyIndex];
@@ -400,13 +388,13 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             Assert.AreEqual("Binnenwaterstand [m+NAP]", insideWaterLevelProperty.DisplayName);
             Assert.AreEqual("Binnenwaterstand.", insideWaterLevelProperty.Description);
 
-            PropertyDescriptor inflowModelTypeProperty = dynamicProperties[lowSillInflowModelTypePropertyIndex];
+            PropertyDescriptor inflowModelTypeProperty = dynamicProperties[5];
             Assert.IsInstanceOf<EnumConverter>(inflowModelTypeProperty.Converter);
             Assert.AreEqual(schematizationCategory, inflowModelTypeProperty.Category);
             Assert.AreEqual("Instroommodel", inflowModelTypeProperty.DisplayName);
             Assert.AreEqual("Instroommodel van het kunstwerk.", inflowModelTypeProperty.Description);
 
-            PropertyDescriptor identicalAperturesProperty = dynamicProperties[lowSillIdenticalAperturesPropertyIndex];
+            PropertyDescriptor identicalAperturesProperty = dynamicProperties[7];
             Assert.IsFalse(identicalAperturesProperty.IsReadOnly);
             Assert.AreEqual(schematizationCategory, identicalAperturesProperty.Category);
             Assert.AreEqual("Aantal identieke doorstroomopeningen [-]", identicalAperturesProperty.DisplayName);
@@ -418,19 +406,19 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             Assert.AreEqual("Drempelhoogte [m+NAP]", thresholdHeightOpenWeirProperty.DisplayName);
             Assert.AreEqual("Drempelhoogte niet gesloten kering of hoogte van de onderkant van de wand/drempel.", thresholdHeightOpenWeirProperty.Description);
 
-            PropertyDescriptor probabilityOrFrequencyOpenStructureBeforeFloodingProperty = dynamicProperties[lowSillProbabilityOrFrequencyOpenStructureBeforeFloodingPropertyIndex];
+            PropertyDescriptor probabilityOrFrequencyOpenStructureBeforeFloodingProperty = dynamicProperties[13];
             Assert.IsFalse(probabilityOrFrequencyOpenStructureBeforeFloodingProperty.IsReadOnly);
             Assert.AreEqual(schematizationCategory, probabilityOrFrequencyOpenStructureBeforeFloodingProperty.Category);
             Assert.AreEqual("Kans op open staan bij naderend hoogwater [1/jaar]", probabilityOrFrequencyOpenStructureBeforeFloodingProperty.DisplayName);
             Assert.AreEqual("Kans op open staan bij naderend hoogwater.", probabilityOrFrequencyOpenStructureBeforeFloodingProperty.Description);
 
-            PropertyDescriptor failureProbabilityOpenStructureProperty = dynamicProperties[lowSillFailureProbabilityOpenStructurePropertyIndex];
+            PropertyDescriptor failureProbabilityOpenStructureProperty = dynamicProperties[14];
             Assert.IsFalse(failureProbabilityOpenStructureProperty.IsReadOnly);
             Assert.AreEqual(schematizationCategory, failureProbabilityOpenStructureProperty.Category);
             Assert.AreEqual("Kans mislukken sluiting [1/jaar]", failureProbabilityOpenStructureProperty.DisplayName);
             Assert.AreEqual("Kans op mislukken sluiting van geopend kunstwerk.", failureProbabilityOpenStructureProperty.Description);
 
-            PropertyDescriptor failureProbabilityReparationProperty = dynamicProperties[lowSillFailureProbabilityReparationPropertyIndex];
+            PropertyDescriptor failureProbabilityReparationProperty = dynamicProperties[15];
             Assert.IsFalse(failureProbabilityReparationProperty.IsReadOnly);
             Assert.AreEqual(schematizationCategory, failureProbabilityReparationProperty.Category);
             Assert.AreEqual("Faalkans herstel van gefaalde situatie [1/jaar]", failureProbabilityReparationProperty.DisplayName);
@@ -459,6 +447,49 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             Assert.AreEqual("Stormduur [uur]", dynamicProperties[lowSillStormDurationPropertyIndex].DisplayName);
 
             mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_WithoutStructure_CorrectReadOnlyForStructureDependentProperties()
+        {
+            // Setup
+            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
+            mockRepository.ReplayAll();
+
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+            var calculation = new StructuresCalculation<ClosingStructuresInput>();
+
+            var inputContext = new ClosingStructuresInputContext(calculation.InputParameters,
+                                                                 calculation,
+                                                                 failureMechanism,
+                                                                 assessmentSectionStub);
+
+            // Call
+            var properties = new ClosingStructuresInputContextProperties(inputContext, handler);
+
+            // Assert
+            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
+
+            PropertyDescriptor inflowModelType = dynamicProperties[5];
+            Assert.IsTrue(inflowModelType.IsReadOnly);
+
+            PropertyDescriptor identicalApertures = dynamicProperties[8];
+            Assert.IsTrue(identicalApertures.IsReadOnly);
+
+            PropertyDescriptor probabilityOrFrequencyOpenStructureBeforeFlooding = dynamicProperties[15];
+            Assert.IsTrue(probabilityOrFrequencyOpenStructureBeforeFlooding.IsReadOnly);
+
+            PropertyDescriptor failureProbabilityOpenStructure = dynamicProperties[16];
+            Assert.IsTrue(failureProbabilityOpenStructure.IsReadOnly);
+
+            PropertyDescriptor failureProbabilityReparation = dynamicProperties[17];
+            Assert.IsTrue(failureProbabilityReparation.IsReadOnly);
+
+            AssertPropertiesInState(properties.ThresholdHeightOpenWeir, true);
+            AssertPropertiesInState(properties.AreaFlowApertures, true);
+            AssertPropertiesInState(properties.LevelCrestStructureNotClosing, true);
+            AssertPropertiesInState(properties.InsideWaterLevel, true);
         }
 
         [Test]
@@ -1108,6 +1139,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             var calculation = new StructuresCalculation<ClosingStructuresInput>();
             ClosingStructuresInput input = calculation.InputParameters;
             input.ForeshoreProfile = new TestForeshoreProfile();
+            input.Structure = new TestClosingStructure();
 
             var customHandler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(new[]
                 {
@@ -1129,7 +1161,43 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             mockRepository.VerifyAll();
         }
 
+        private static void AssertPropertiesInState(object properties, bool expectedReadOnly)
+        {
+            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
+            Assert.AreEqual(3, dynamicProperties.Count);
+
+            Assert.AreEqual(expectedReadOnly, dynamicProperties[1].IsReadOnly);
+            Assert.AreEqual(expectedReadOnly, dynamicProperties[2].IsReadOnly);
+        }
+
         #region Property indices
+
+//        #region No structure indices
+//
+//        private const int verticalWallHydraulicBoundaryLocationPropertyIndex = 0;
+//        private const int verticalWallStormDurationPropertyIndex = 1;
+//        private const int verticalWallStructurePropertyIndex = 2;
+//        private const int verticalWallStructureLocationPropertyIndex = 3;
+//        private const int verticalWallStructureNormalOrientationPropertyIndex = 4;
+//        private const int verticalWallInflowModelTypePropertyIndex = 5;
+//        private const int verticalWallWidthFlowAperturesPropertyIndex = 6;
+//        private const int verticalWallIdenticalAperturesPropertyIndex = 7;
+//        private const int verticalWallFlowWidthAtBottomProtectionPropertyIndex = 8;
+//        private const int verticalWallStorageStructureAreaPropertyIndex = 9;
+//        private const int verticalWallAllowedLevelIncreaseStoragePropertyIndex = 10;
+//        private const int verticalWallLevelCrestStructureNotClosingPropertyIndex = 11;
+//        private const int verticalWallCriticalOvertoppingDischargePropertyIndex = 12;
+//        private const int verticalWallProbabilityOrFrequencyOpenStructureBeforeFloodingPropertyIndex = 13;
+//        private const int verticalWallFailureProbabilityOpenStructurePropertyIndex = 14;
+//        private const int verticalWallFailureProbabilityReparationPropertyIndex = 15;
+//        private const int verticalWallFailureProbabilityStructureWithErosionPropertyIndex = 16;
+//        private const int verticalWallForeshoreProfilePropertyIndex = 17;
+//        private const int verticalWallUseBreakWaterPropertyIndex = 18;
+//        private const int verticalWallUseForeshorePropertyIndex = 19;
+//        private const int verticalWallModelFactorSuperCriticalFlowPropertyIndex = 20;
+//        private const int verticalWallFactorStormDurationOpenStructurePropertyIndex = 21;
+//
+//        #endregion
 
         #region VerticalWall structures indices
 
@@ -1165,17 +1233,12 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         private const int lowSillInsideWaterLevelPropertyIndex = 2;
         private const int lowSillStructurePropertyIndex = 3;
         private const int lowSillStructureLocationPropertyIndex = 4;
-        private const int lowSillInflowModelTypePropertyIndex = 5;
         private const int lowSillWidthFlowAperturesPropertyIndex = 6;
-        private const int lowSillIdenticalAperturesPropertyIndex = 7;
         private const int lowSillFlowWidthAtBottomProtectionPropertyIndex = 8;
         private const int lowSillStorageStructureAreaPropertyIndex = 9;
         private const int lowSillAllowedLevelIncreaseStoragePropertyIndex = 10;
         private const int lowSillThresholdHeightOpenWeirPropertyIndex = 11;
         private const int lowSillCriticalOvertoppingDischargePropertyIndex = 12;
-        private const int lowSillProbabilityOrFrequencyOpenStructureBeforeFloodingPropertyIndex = 13;
-        private const int lowSillFailureProbabilityOpenStructurePropertyIndex = 14;
-        private const int lowSillFailureProbabilityReparationPropertyIndex = 15;
         private const int lowSillFailureProbabilityStructureWithErosionPropertyIndex = 16;
         private const int lowSillForeshoreProfilePropertyIndex = 17;
         private const int lowSillUseBreakWaterPropertyIndex = 18;
